@@ -21,8 +21,6 @@ public:
     vConfig *query(int id);
     int save();
     void getConfigFromDialog(Ui::ConfEdit *ui);
-    void getConfigFromCustom(QString path);
-
 private:
 
 };

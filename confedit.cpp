@@ -42,7 +42,7 @@ vConfig *vConfig::query(int id)
         this->uuid = myQuery.value(4).toString();
         this->alterid = myQuery.value(5).toString();
         this->security = myQuery.value(6).toString();
-        this->isCustom = myQuery.value(6).toInt();
+        this->isCustom = myQuery.value(7).toInt();
         return this;
     }
 }
@@ -59,7 +59,7 @@ int vConfig::save()
         qDebug() << "Failed to open database while saving.";
     } else {
         QSqlQuery myQuery(database);
-        myQuery.prepare("insert into confs (host, port, alias, uuid, alterid, security, isCustom) values(:host, :port, :alias, :uuid, :alterid, :security, :isCustom)");
+        myQuery.prepare("insert into confs (host, port, alias, uuid, alterid, security, isCustom, selected) values(:host, :port, :alias, :uuid, :alterid, :security, :isCustom, :selected)");
         myQuery.bindValue(":host", this->host);
         myQuery.bindValue(":port", this->port);
         myQuery.bindValue(":alias", this->alias);
@@ -67,6 +67,7 @@ int vConfig::save()
         myQuery.bindValue(":alterid", this->alterid);
         myQuery.bindValue(":security", this->security);
         myQuery.bindValue(":isCustom", this->isCustom);
+        myQuery.bindValue(":selected", 0);
         myQuery.exec();
         myQuery.exec("select last_insert_rowid();");
         myQuery.first();
@@ -82,15 +83,6 @@ void vConfig::getConfigFromDialog(Ui::ConfEdit *ui)
     this->alterid = ui->alterLineEdit->text();
     this->security = ui->securityCombo->currentText();
     this->isCustom = 0;
-}
-void vConfig::getConfigFromCustom(QString path)
-{
-    QFile file(path);
-    if(!file.open(QFile::ReadOnly | QFile::Text)) {
-        qDebug() << "Could not open the file for reading";
-        return;
-    }
-    return;
 }
 void ConfEdit::on_ConfEdit_accepted()
 {

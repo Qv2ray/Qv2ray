@@ -22,6 +22,8 @@ private slots:
     void on_actionEdit_triggered();
     void on_actionExisting_config_triggered();
     void updateConfTable();
+    void geneConf();
+    void showMenu(QPoint pos);
 
 private:
     Ui::MainWindow *ui;

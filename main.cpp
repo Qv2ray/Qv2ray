@@ -30,7 +30,7 @@ void init()
         QSqlQuery query(database);
         bool bsuccess =
             query.exec("create table confs(id INTEGER primary key AUTOINCREMENT, host char(50), port char(5), "
-                       "alias char(80), uuid char(36), alterid char(5), security char(12), isCustom int)");
+                       "alias char(80), uuid char(36), alterid char(5), security char(12), isCustom int, selected int);");
         if(!bsuccess) {
             qDebug() << "Failed to create table.";
         }
