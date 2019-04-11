@@ -8,12 +8,14 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
+#include <QMessageBox>
 
 importConf::importConf(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::importConf)
 {
     ui->setupUi(this);
+    connect(this, SIGNAL(updateConfTable()), parentWidget(), SLOT(updateConfTable()));
 }
 
 importConf::~importConf()
@@ -47,8 +49,16 @@ void importConf::savefromFile(QString path, QString alias)
     newConf.uuid = users.value("id").toString();
     newConf.alterid = QString::number(users.value("alterId").toInt());
     newConf.security = users.value("security").toString();
+    if (newConf.security.isNull()) {
+        newConf.security = "auto";
+    }
     newConf.isCustom = 1;
-    newConf.save();
+    int id = newConf.save();
+    emit updateConfTable();
+    QString newFile = "conf/" + QString::number(id) + ".conf";
+    if(!QFile::copy(path, newFile)) {
+        QMessageBox::critical(0, "Copy error", "Failed to copy custom config file.", QMessageBox::Ok | QMessageBox::Default);
+    }
 }
 
 void importConf::on_buttonBox_accepted()

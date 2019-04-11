@@ -13,6 +13,7 @@ ConfEdit::ConfEdit(QWidget *parent) :
     ui(new Ui::ConfEdit)
 {
     ui->setupUi(this);
+    connect(this, SIGNAL(updateConfTable()), parentWidget(), SLOT(updateConfTable()));
 }
 
 ConfEdit::~ConfEdit()
@@ -45,7 +46,7 @@ vConfig *vConfig::query(int id)
         return this;
     }
 }
-void *vConfig::save()
+int vConfig::save()
 {
     QSqlDatabase database;
     if (QSqlDatabase::contains("qt_sql_default_connection")) {
@@ -67,7 +68,9 @@ void *vConfig::save()
         myQuery.bindValue(":security", this->security);
         myQuery.bindValue(":isCustom", this->isCustom);
         myQuery.exec();
-        return this;
+        myQuery.exec("select last_insert_rowid();");
+        myQuery.first();
+        return myQuery.value(0).toInt();
     }
 }
 void vConfig::getConfigFromDialog(Ui::ConfEdit *ui)
@@ -84,7 +87,7 @@ void vConfig::getConfigFromCustom(QString path)
 {
     QFile file(path);
     if(!file.open(QFile::ReadOnly | QFile::Text)) {
-        qDebug() << " Could not open the file for reading";
+        qDebug() << "Could not open the file for reading";
         return;
     }
     return;
@@ -94,4 +97,5 @@ void ConfEdit::on_ConfEdit_accepted()
     vConfig newConf;
     newConf.getConfigFromDialog(this->ui);
     newConf.save();
+    emit updateConfTable();
 }

@@ -17,9 +17,12 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+
 private slots:
     void on_actionEdit_triggered();
     void on_actionExisting_config_triggered();
+    void updateConfTable();
+
 private:
     Ui::MainWindow *ui;
 };

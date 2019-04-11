@@ -20,6 +20,8 @@ public:
 private slots:
     void on_pushButton_clicked();
     void on_buttonBox_accepted();
+signals:
+    void updateConfTable();
 
 private:
     Ui::importConf *ui;

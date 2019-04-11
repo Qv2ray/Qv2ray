@@ -19,7 +19,7 @@ public:
     QString security;
     int isCustom;
     vConfig *query(int id);
-    void *save();
+    int save();
     void getConfigFromDialog(Ui::ConfEdit *ui);
     void getConfigFromCustom(QString path);
 
@@ -40,6 +40,8 @@ public:
 private slots:
 
     void on_ConfEdit_accepted();
+signals:
+    void updateConfTable();
 
 private:
     Ui::ConfEdit *ui;
