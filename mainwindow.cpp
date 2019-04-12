@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "confedit.h"
 #include "importconf.h"
+#include <vinteract.h>
 #include <QHeaderView>
 #include <QStandardItemModel>
 #include <QSqlDatabase>
@@ -19,11 +20,13 @@ MainWindow::MainWindow(QWidget *parent) :
     updateConfTable();
     ui->configTable->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(ui->configTable, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(showMenu(QPoint)));
+    this->v2Inst = new v2Instance();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete this->v2Inst;
 }
 
 void MainWindow::on_actionEdit_triggered()
@@ -41,10 +44,13 @@ void MainWindow::showMenu(QPoint pos)
 {
     QMenu *popMenu = new QMenu(ui->configTable);
     QAction *select = new QAction("Select", ui->configTable);
+    QAction *del = new QAction("Delete", ui->configTable);
     popMenu->addAction(select);
+    popMenu->addAction(del);
     popMenu->move(cursor().pos());
     popMenu->show();
     connect(select, SIGNAL(triggered()), this, SLOT(geneConf()));
+    connect(del, SIGNAL(triggered()), this, SLOT(delConf()));
 }
 void MainWindow::geneConf()
 {
@@ -76,6 +82,28 @@ void MainWindow::geneConf()
         QFile::copy(src, "config.json");
     } else {//Config generator
     }
+}
+void MainWindow::delConf()
+{
+    int row = ui->configTable->selectionModel()->currentIndex().row();
+    int idIntable = ui->configTable->model()->data(ui->configTable->model()->index(row, 4)).toInt();
+    QSqlDatabase database;
+    if (QSqlDatabase::contains("qt_sql_default_connection")) {
+        database = QSqlDatabase::database("qt_sql_default_connection");
+    } else {
+        database = QSqlDatabase::addDatabase("QSQLITE");
+        database.setDatabaseName(confDatabase);
+    }
+    if (!database.open()) {
+        qDebug() << "Failed to open database while deleting row.";
+    } else {
+        QSqlQuery myQuery(database);
+        QString queryString = "delete from confs where id = " + QString::number(idIntable);
+        myQuery.exec(queryString);
+    }
+    QString rmFile = "conf/" + QString::number(idIntable) + ".conf";
+    QFile::remove(rmFile);
+    emit updateConfTable();
 }
 void MainWindow::updateConfTable()
 {
@@ -117,4 +145,37 @@ void MainWindow::updateConfTable()
             myQuery.next();
         }
     }
+}
+
+void MainWindow::updateLog()
+{
+    ui->logText->insertPlainText(this->v2Inst->v2Process->readAllStandardOutput());
+}
+
+void MainWindow::on_startButton_clicked()
+{
+    this->v2Inst->start(this);
+}
+
+void MainWindow::on_stopButton_clicked()
+{
+    this->v2Inst->stop();
+    ui->logText->clear();
+}
+
+void MainWindow::on_restartButton_clicked()
+{
+    this->v2Inst->stop();
+    ui->logText->clear();
+    this->v2Inst->start(this);
+}
+
+void MainWindow::on_clbutton_clicked()
+{
+    ui->logText->clear();
+}
+
+void MainWindow::on_rtButton_clicked()
+{
+    emit updateConfTable();
 }

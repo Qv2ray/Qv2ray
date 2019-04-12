@@ -2,6 +2,8 @@
 #include <QProcess>
 #include <QDebug>
 #include <QMessageBox>
+#include <QProcess>
+#include "mainwindow.h"
 
 bool validationCheck(QString path)
 {
@@ -18,4 +20,25 @@ bool validationCheck(QString path)
         }
     }
     return true;
+}
+v2Instance::v2Instance()
+{
+    this->v2Process = new QProcess();
+}
+v2Instance::~v2Instance()
+{
+    this->v2Process->close();
+    delete this;
+}
+
+void v2Instance::start(MainWindow *parent)
+{
+    this->v2Process->start("v2ray", QStringList() << "-config" << "config.json", QIODevice::ReadWrite | QIODevice::Text);
+    this->v2Process->waitForStarted();
+    QObject::connect(v2Process, SIGNAL(readyReadStandardOutput()), parent, SLOT(updateLog()));
+}
+
+void v2Instance::stop()
+{
+    this->v2Process->close();
 }
