@@ -15,6 +15,7 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = nullptr);
+    void geneConf(int idIntable);
     ~MainWindow();
 
 
@@ -22,18 +23,15 @@ private slots:
     void on_actionEdit_triggered();
     void on_actionExisting_config_triggered();
     void updateConfTable();
-    void geneConf();
     void delConf();
     void showMenu(QPoint pos);
     void updateLog();
     void on_startButton_clicked();
     void on_stopButton_clicked();
     void on_restartButton_clicked();
-
+    void on_select_triggered();
     void on_clbutton_clicked();
-
     void on_rtButton_clicked();
-
 private:
     Ui::MainWindow *ui;
     v2Instance *v2Inst;

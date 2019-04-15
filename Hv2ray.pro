@@ -29,13 +29,15 @@ SOURCES += \
         mainwindow.cpp \
     confedit.cpp \
     importconf.cpp \
-    vinteract.cpp
+    vinteract.cpp \
+    db.cpp
 
 HEADERS += \
         mainwindow.h \
     confedit.h \
     importconf.h \
-    vinteract.h
+    vinteract.h \
+    db.h
 
 FORMS += \
         mainwindow.ui \

@@ -7,6 +7,7 @@
 #include <QDebug>
 #include <QSqlError>
 #include <QFile>
+#include "db.h"
 
 ConfEdit::ConfEdit(QWidget *parent) :
     QDialog(parent),
@@ -22,29 +23,18 @@ ConfEdit::~ConfEdit()
 }
 vConfig *vConfig::query(int id)
 {
-    QSqlDatabase database;
-    if (QSqlDatabase::contains("qt_sql_default_connection")) {
-        database = QSqlDatabase::database("qt_sql_default_connection");
-    } else {
-        database = QSqlDatabase::addDatabase("QSQLITE");
-        database.setDatabaseName(confDatabase);
-    }
-    if (!database.open()) {
-        qDebug() << "Failed to open database while querying.";
-    } else {
-        QSqlQuery myQuery(database);
-        QString selectQuery = "select * from confs where id = " + QString::number(id) + ";";
-        myQuery.exec(selectQuery);
-        myQuery.first();
-        this->host = myQuery.value(1).toString();
-        this->port = myQuery.value(2).toString();
-        this->alias = myQuery.value(3).toString();
-        this->uuid = myQuery.value(4).toString();
-        this->alterid = myQuery.value(5).toString();
-        this->security = myQuery.value(6).toString();
-        this->isCustom = myQuery.value(7).toInt();
-        return this;
-    }
+    QString selectQuery = "select * from confs where id = " + QString::number(id) + ";";
+    db myDb = db();
+    myDb.query(selectQuery);
+    myDb.myQuery.first();
+    this->host = myDb.myQuery.value(1).toString();
+    this->port = myDb.myQuery.value(2).toString();
+    this->alias = myDb.myQuery.value(3).toString();
+    this->uuid = myDb.myQuery.value(4).toString();
+    this->alterid = myDb.myQuery.value(5).toString();
+    this->security = myDb.myQuery.value(6).toString();
+    this->isCustom = myDb.myQuery.value(7).toInt();
+    return this;
 }
 int vConfig::save()
 {
