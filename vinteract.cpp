@@ -33,6 +33,9 @@ v2Instance::~v2Instance()
 
 void v2Instance::start(MainWindow *parent)
 {
+    QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
+    env.insert("V2RAY_LOCATION_ASSET", "./");
+    this->v2Process->setProcessEnvironment(env);
     this->v2Process->start("v2ray", QStringList() << "-config" << "config.json", QIODevice::ReadWrite | QIODevice::Text);
     this->v2Process->waitForStarted();
     QObject::connect(v2Process, SIGNAL(readyReadStandardOutput()), parent, SLOT(updateLog()));

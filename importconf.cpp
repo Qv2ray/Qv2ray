@@ -9,6 +9,7 @@
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QMessageBox>
+#include "utils.h"
 
 importConf::importConf(QWidget *parent) :
     QDialog(parent),
@@ -33,6 +34,7 @@ void importConf::savefromFile(QString path, QString alias)
 {
     vConfig newConf;
     newConf.alias = alias;
+    utils util;
     QFile loadFile(path);
     if(!loadFile.open(QIODevice::ReadOnly)) {
         qDebug() << "could't open projects json";
@@ -42,16 +44,32 @@ void importConf::savefromFile(QString path, QString alias)
     loadFile.close();
     QJsonDocument v2conf(QJsonDocument::fromJson(allData));
     QJsonObject rootobj = v2conf.object();
-    QJsonObject vnext = rootobj.value("outbound").toObject().value("settings").toObject().value("vnext").toArray().begin()->toObject();
+    QJsonObject outbound;
+    if(rootobj.value("outbound").isNull()) {
+        outbound = rootobj.value("outbound").toObject();
+    } else {
+        outbound = rootobj.value("outbounds").toArray().first().toObject();
+    }
+    QJsonObject vnext = util.parseJson(outbound.value("settings").toObject(), "vnext");
+    QJsonObject user = util.parseJson(vnext, "users");
     newConf.host = vnext.value("address").toString();
     newConf.port = QString::number(vnext.value("port").toInt());
-    QJsonObject users = vnext.value("users").toArray().begin()->toObject();
-    newConf.uuid = users.value("id").toString();
-    newConf.alterid = QString::number(users.value("alterId").toInt());
-    newConf.security = users.value("security").toString();
+    newConf.alterid = QString::number(user.value("alterId").toInt());
+    newConf.uuid = user.value("id").toString();
+    newConf.security = user.value("security").toString();
     if (newConf.security.isNull()) {
         newConf.security = "auto";
     }
+//    QJsonObject vnext = rootobj.value("outbound").toObject().value("settings").toObject().value("vnext").toArray().begin()->toObject();
+//    QJsonObject users = vnext.value("users").toArray().begin()->toObject();
+//    newConf.host = vnext.value("address").toString();
+//    newConf.port = QString::number(vnext.value("port").toInt());
+//    newConf.uuid = users.value("id").toString();
+//    newConf.alterid = QString::number(users.value("alterId").toInt());
+//    newConf.security = users.value("security").toString();
+//    if (newConf.security.isNull()) {
+//        newConf.security = "auto";
+//    }
     newConf.isCustom = 1;
     int id = newConf.save();
     emit updateConfTable();

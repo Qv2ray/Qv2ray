@@ -31,18 +31,15 @@ class ConfEdit : public QDialog
 
 public:
     explicit ConfEdit(QWidget *parent = nullptr);
-
-
     ~ConfEdit();
-
-private slots:
-
-    void on_ConfEdit_accepted();
 signals:
     void updateConfTable();
+private slots:
+    void on_ConfEdit_accepted();
 
 private:
     Ui::ConfEdit *ui;
+
 };
 
 

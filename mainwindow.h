@@ -3,6 +3,8 @@
 #define confDir "conf/"
 #define confDatabase "conf/conf.db"
 #include <QMainWindow>
+#include "confedit.h"
+
 class v2Instance;
 namespace Ui
 {
@@ -15,7 +17,7 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = nullptr);
-    void geneConf(int idIntable);
+    ConfEdit *e;
     ~MainWindow();
 
 
@@ -29,9 +31,12 @@ private slots:
     void on_startButton_clicked();
     void on_stopButton_clicked();
     void on_restartButton_clicked();
-    void on_select_triggered();
+    void select_triggered();
     void on_clbutton_clicked();
     void on_rtButton_clicked();
+    void geneConf(int idIntable);
+    void on_actionVmess_triggered();
+
 private:
     Ui::MainWindow *ui;
     v2Instance *v2Inst;

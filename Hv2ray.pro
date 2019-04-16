@@ -30,21 +30,28 @@ SOURCES += \
     confedit.cpp \
     importconf.cpp \
     vinteract.cpp \
-    db.cpp
+    db.cpp \
+    vmess.cpp \
+    utils.cpp
 
 HEADERS += \
         mainwindow.h \
     confedit.h \
     importconf.h \
     vinteract.h \
-    db.h
+    db.h \
+    vmess.h \
+    utils.h
 
 FORMS += \
         mainwindow.ui \
     confedit.ui \
-    importconf.ui
+    importconf.ui \
+    vmess.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+INCLUDEPATH += /usr/include/python3.7m/
+LIBS += -lpython3.7m

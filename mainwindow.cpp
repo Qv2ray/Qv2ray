@@ -10,6 +10,8 @@
 #include <QAction>
 #include <QFile>
 #include "db.h"
+#include "vmess.h"
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -30,7 +32,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_actionEdit_triggered()
 {
-    ConfEdit *e = new ConfEdit(this);
+    this->e = new ConfEdit(this);
     e->show();
 }
 
@@ -48,33 +50,16 @@ void MainWindow::showMenu(QPoint pos)
     popMenu->addAction(del);
     popMenu->move(cursor().pos());
     popMenu->show();
-    connect(select, SIGNAL(triggered()), this, SLOT(on_select_triggered()));
+    connect(select, SIGNAL(triggered()), this, SLOT(select_triggered()));
     connect(del, SIGNAL(triggered()), this, SLOT(delConf()));
 }
-void MainWindow::on_select_triggered()
+void MainWindow::select_triggered()
 {
     int row = ui->configTable->selectionModel()->currentIndex().row();
     int idIntable = ui->configTable->model()->data(ui->configTable->model()->index(row, 4)).toInt();
-    geneConf(idIntable);
+    this->geneConf(idIntable);
 }
-void MainWindow::geneConf(int idIntable)
-{
-    vConfig tmpConf;
-    db myDb;
-    myDb.query("update confs set selected = 0");
-    QString queryString = "update confs set selected = 1 where id = " + QString::number(idIntable);
-    myDb.query(queryString);
-    emit updateConfTable();
-    tmpConf.query(idIntable);
-    if (tmpConf.isCustom == 1) {
-        QString src = "conf/" + QString::number(idIntable) + ".conf";
-        if (QFile::exists("config.json")) {
-            QFile::remove("config.json");
-        }
-        QFile::copy(src, "config.json");
-    } else { //Config generator
-    }
-}
+
 void MainWindow::delConf()
 {
     int row = ui->configTable->selectionModel()->currentIndex().row();
@@ -110,7 +95,6 @@ void MainWindow::updateConfTable()
         model->setItem(i, 1, new QStandardItem(myDb.myQuery.value(1).toString()));
         model->setItem(i, 2, new QStandardItem(myDb.myQuery.value(2).toString()));
         model->setItem(i, 4, new QStandardItem(myDb.myQuery.value(0).toString()));
-        qDebug() << "hi";
         if (myDb.myQuery.value(8).toInt() == 1) {
             model->setItem(i, 3, new QStandardItem("√"));
         }
@@ -119,7 +103,24 @@ void MainWindow::updateConfTable()
         }
     }
 }
-
+void MainWindow::geneConf(int idIntable)
+{
+    vConfig tmpConf;
+    db myDb;
+    myDb.query("update confs set selected = 0");
+    QString queryString = "update confs set selected = 1 where id = " + QString::number(idIntable);
+    myDb.query(queryString);
+    emit updateConfTable();
+    tmpConf.query(idIntable);
+    if (tmpConf.isCustom == 1) {
+        QString src = "conf/" + QString::number(idIntable) + ".conf";
+        if (QFile::exists("config.json")) {
+            QFile::remove("config.json");
+        }
+        QFile::copy(src, "config.json");
+    } else { //Config generator
+    }
+}
 void MainWindow::updateLog()
 {
     ui->logText->insertPlainText(this->v2Inst->v2Process->readAllStandardOutput());
@@ -151,4 +152,10 @@ void MainWindow::on_clbutton_clicked()
 void MainWindow::on_rtButton_clicked()
 {
     emit updateConfTable();
+}
+
+void MainWindow::on_actionVmess_triggered()
+{
+    vmess *inVmess = new vmess(this);
+    inVmess->show();
 }
