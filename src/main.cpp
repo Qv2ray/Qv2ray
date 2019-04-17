@@ -7,22 +7,23 @@
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlError>
+#include <QFileInfo>
 
 
 void init()
 {
-    if(!QDir(confDir).exists()) {
-        QDir().mkdir(confDir);
+    if(!QDir("conf").exists()) {
+        QDir().mkdir("conf");
         qDebug() << "Conf directory created.";
     }
-    QFileInfo confDb(QDir::currentPath() + confDatabase);
-    if (!confDb.exists()) {
+    QFileInfo confdb("conf/conf.db");
+    if (!confdb.exists()) {
         QSqlDatabase database;
         if (QSqlDatabase::contains("qt_sql_default_connection")) {
             database = QSqlDatabase::database("qt_sql_default_connection");
         } else {
             database = QSqlDatabase::addDatabase("QSQLITE");
-            database.setDatabaseName(confDatabase);
+            database.setDatabaseName("conf/conf.db");
             if(!database.open()) {
                 qDebug() << "Failed to open database while creating.";
             }
@@ -39,8 +40,8 @@ void init()
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    init();
     MainWindow w;
     w.show();
-    init();
     return a.exec();
 }

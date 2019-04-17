@@ -4,6 +4,7 @@
 #define confDatabase "conf/conf.db"
 #include <QMainWindow>
 #include "confedit.h"
+#include <QSystemTrayIcon>
 
 class v2Instance;
 namespace Ui
@@ -18,6 +19,8 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ConfEdit *e;
+    v2Instance *v2Inst;
+    QSystemTrayIcon *hTray;
     ~MainWindow();
 
 
@@ -36,10 +39,13 @@ private slots:
     void on_rtButton_clicked();
     void geneConf(int idIntable);
     void on_actionVmess_triggered();
+    void on_activatedTray(QSystemTrayIcon::ActivationReason reason);
 
 private:
     Ui::MainWindow *ui;
-    v2Instance *v2Inst;
+    void closeEvent(QCloseEvent *);
+    void createTrayAction();
+
 };
 
 #endif // MAINWINDOW_H

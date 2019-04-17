@@ -11,7 +11,7 @@
 #include <QFile>
 #include "db.h"
 #include "vmess.h"
-
+#include <QCloseEvent>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -22,6 +22,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->configTable->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(ui->configTable, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(showMenu(QPoint)));
     this->v2Inst = new v2Instance();
+    hTray = new QSystemTrayIcon();
+    hTray->setToolTip("Hv2ray system tray");
+    hTray->setIcon(QIcon("Himeki.ico"));
+    hTray->show();
+    createTrayAction();
 }
 
 MainWindow::~MainWindow()
@@ -159,3 +164,30 @@ void MainWindow::on_actionVmess_triggered()
     vmess *inVmess = new vmess(this);
     inVmess->show();
 }
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    this->hide();
+    event->ignore();
+}
+
+void MainWindow::createTrayAction()
+{
+    QAction actionShow(this);
+    QAction actionQuit(this);
+    QAction actionStart(this);
+    QAction actionRestart(this);
+    QObject::connect(hTray, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(on_activatedTray(QSystemTrayIcon::ActivationReason)));
+}
+void MainWindow::on_activatedTray(QSystemTrayIcon::ActivationReason reason)
+{
+    switch (reason) {
+        case QSystemTrayIcon::Trigger:
+            this->show();
+            break;
+        case QSystemTrayIcon::DoubleClick:
+            this->show();
+            break;
+    }
+}
+
