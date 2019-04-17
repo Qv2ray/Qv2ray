@@ -23,9 +23,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->configTable, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(showMenu(QPoint)));
     this->v2Inst = new v2Instance();
     hTray = new QSystemTrayIcon();
-    hTray->setToolTip("Hv2ray system tray");
+    hTray->setToolTip("Hv2ray");
     hTray->setIcon(QIcon("Himeki.ico"));
-    hTray->show();
+    connect(hTray, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(on_activatedTray(QSystemTrayIcon::ActivationReason)));
     createTrayAction();
 }
 
@@ -133,6 +133,7 @@ void MainWindow::updateLog()
 
 void MainWindow::on_startButton_clicked()
 {
+    ui->logText->clear();
     this->v2Inst->start(this);
 }
 
@@ -173,21 +174,56 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
 void MainWindow::createTrayAction()
 {
-    QAction actionShow(this);
-    QAction actionQuit(this);
-    QAction actionStart(this);
-    QAction actionRestart(this);
-    QObject::connect(hTray, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(on_activatedTray(QSystemTrayIcon::ActivationReason)));
+    QAction *actionShow = new QAction(this);
+    QAction *actionQuit = new QAction(this);
+    QAction *actionStart = new QAction(this);
+    QAction *actionRestart = new QAction(this);
+    QAction *actionStop = new QAction(this);
+    actionShow->setText("Show main widget");
+    actionQuit->setText("Quit");
+    actionStart->setText("Start v2ray");
+    actionRestart->setText("Restart v2ray");
+    actionStop->setText("Stop v2ray");
+    trayMenu->addAction(actionShow);
+    trayMenu->addAction(actionStart);
+    trayMenu->addAction(actionStop);
+    trayMenu->addAction(actionRestart);
+    trayMenu->addAction(actionQuit);
+    connect(actionShow, SIGNAL(triggered()), this, SLOT(showMainWindow()));
+    connect(actionStop, SIGNAL(triggered()), this, SLOT(on_stopButton_clicked()));
+    connect(actionQuit, SIGNAL(triggered()), this, SLOT(quit()));
+    connect(actionRestart, SIGNAL(triggered()), this, SLOT(on_restartButton_clicked()));
+    connect(actionStart, SIGNAL(triggered()), this, SLOT(on_startButton_clicked()));
+    hTray->setContextMenu(trayMenu);
+    hTray->show();
 }
 void MainWindow::on_activatedTray(QSystemTrayIcon::ActivationReason reason)
 {
     switch (reason) {
         case QSystemTrayIcon::Trigger:
-            this->show();
+            if(this->isHidden()) {
+                this->show();
+            }
             break;
         case QSystemTrayIcon::DoubleClick:
-            this->show();
+            if(this->isHidden()) {
+                this->show();
+            }
+            break;
+        case QSystemTrayIcon::MiddleClick:
+            break;
+        case QSystemTrayIcon::Unknown:
             break;
     }
 }
+void MainWindow::showMainWindow()
+{
+    if(this->isHidden()) {
+        this->show();
+    }
+}
 
+void MainWindow::quit()
+{
+    QCoreApplication::quit();
+}

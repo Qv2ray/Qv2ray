@@ -42,6 +42,9 @@ v2Instance::~v2Instance()
 
 void v2Instance::start(MainWindow *parent)
 {
+    if(this->v2Process->state() == QProcess::Running) {
+        this->v2Process->close();
+    }
     if (QFileInfo("v2ray").exists() && QFileInfo("geoip.dat").exists() && QFileInfo("geosite.dat").exists() ) {
         QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
         env.insert("V2RAY_LOCATION_ASSET", QDir::currentPath());

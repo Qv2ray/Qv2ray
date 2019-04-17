@@ -5,6 +5,7 @@
 #include <QMainWindow>
 #include "confedit.h"
 #include <QSystemTrayIcon>
+#include <QMenu>
 
 class v2Instance;
 namespace Ui
@@ -21,6 +22,7 @@ public:
     ConfEdit *e;
     v2Instance *v2Inst;
     QSystemTrayIcon *hTray;
+    QMenu *trayMenu = new QMenu(this);
     ~MainWindow();
 
 
@@ -40,6 +42,8 @@ private slots:
     void geneConf(int idIntable);
     void on_actionVmess_triggered();
     void on_activatedTray(QSystemTrayIcon::ActivationReason reason);
+    void showMainWindow();
+    void quit();
 
 private:
     Ui::MainWindow *ui;
