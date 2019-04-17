@@ -8,7 +8,7 @@
 
 bool validationCheck(QString path)
 {
-    if (QFileInfo("v2ray").exists() && QFileInfo("geoip.dat").exists() && QFileInfo("geosite.dat").exists() ) {
+    if (QFileInfo("v2ray").exists() && QFileInfo("geoip.dat").exists() && QFileInfo("geosite.dat").exists() && QFileInfo("v2ctl").exists()) {
         QString output = "";
         QProcess process;
         QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
@@ -45,7 +45,7 @@ void v2Instance::start(MainWindow *parent)
     if(this->v2Process->state() == QProcess::Running) {
         this->v2Process->close();
     }
-    if (QFileInfo("v2ray").exists() && QFileInfo("geoip.dat").exists() && QFileInfo("geosite.dat").exists() ) {
+    if (QFileInfo("v2ray").exists() && QFileInfo("geoip.dat").exists() && QFileInfo("geosite.dat").exists() && QFileInfo("v2ctl").exists()) {
         QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
         env.insert("V2RAY_LOCATION_ASSET", QDir::currentPath());
         this->v2Process->setProcessEnvironment(env);
