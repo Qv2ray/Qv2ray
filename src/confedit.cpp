@@ -3,7 +3,7 @@
 #include <iostream>
 #include <QSqlDatabase>
 #include <QSqlQuery>
-#include <mainwindow.h>
+#include "mainwindow.h"
 #include <QDebug>
 #include <QSqlError>
 #include <QFile>

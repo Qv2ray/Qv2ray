@@ -6,7 +6,8 @@
 #pragma pop_macro("slots")
 #include <QDebug>
 #include "importconf.h"
-#include<QFile>
+#include <QFile>
+#include "vinteract.h"
 
 vmess::vmess(QWidget *parent) :
     QDialog(parent),
@@ -39,6 +40,8 @@ void vmess::on_buttonBox_accepted()
     PyObject_CallObject(pFunc, arg);
     Py_Finalize();
     importConf *im = new importConf(this->parentWidget());
-    im->savefromFile("tmp.config.json", alias);
+    if (validationCheck(QCoreApplication::applicationDirPath() + "/tmp.config.json")) {
+        im->savefromFile("tmp.config.json", alias);
+    }
     QFile::remove("tmp.config.json");
 }

@@ -15,7 +15,7 @@ void init()
         QDir().mkdir(confDir);
         qDebug() << "Conf directory created.";
     }
-    QFileInfo confDb(confDatabase);
+    QFileInfo confDb(QDir::currentPath() + confDatabase);
     if (!confDb.exists()) {
         QSqlDatabase database;
         if (QSqlDatabase::contains("qt_sql_default_connection")) {

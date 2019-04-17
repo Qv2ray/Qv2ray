@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+
+#Imported and modified from "https://github.com/boypt/vmess2json.git", thanks to the author boypt.
 import os
 import sys
 import json

@@ -2,7 +2,7 @@
 #include "ui_mainwindow.h"
 #include "confedit.h"
 #include "importconf.h"
-#include <vinteract.h>
+#include "vinteract.h"
 #include <QHeaderView>
 #include <QStandardItemModel>
 #include <QDebug>
