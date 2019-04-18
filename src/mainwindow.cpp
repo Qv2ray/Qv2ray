@@ -17,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    this->setWindowIcon(QIcon("Himeki.ico"));
     ui->setupUi(this);
     updateConfTable();
     ui->configTable->setContextMenuPolicy(Qt::CustomContextMenu);

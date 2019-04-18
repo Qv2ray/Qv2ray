@@ -34,7 +34,8 @@ SOURCES += \
     vinteract.cpp \
     db.cpp \
     vmess.cpp \
-    utils.cpp
+    utils.cpp \
+    src/runguard.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -43,7 +44,8 @@ HEADERS += \
     vinteract.h \
     db.h \
     vmess.h \
-    utils.h
+    utils.h \
+    src/runguard.h
 
 FORMS += \
         mainwindow.ui \
