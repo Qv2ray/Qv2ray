@@ -23,6 +23,7 @@ public:
     v2Instance *v2Inst;
     QSystemTrayIcon *hTray;
     QMenu *trayMenu = new QMenu(this);
+    QMenu *popMenu = new QMenu(this);
     ~MainWindow();
 
 
@@ -44,6 +45,8 @@ private slots:
     void on_activatedTray(QSystemTrayIcon::ActivationReason reason);
     void showMainWindow();
     void quit();
+    void on_actionExit_triggered();
+    void renameRow();
 
 private:
     Ui::MainWindow *ui;

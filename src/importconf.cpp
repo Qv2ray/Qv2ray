@@ -46,9 +46,9 @@ void importConf::savefromFile(QString path, QString alias)
     QJsonObject rootobj = v2conf.object();
     QJsonObject outbound;
     if(rootobj.value("outbound").isNull()) {
-        outbound = rootobj.value("outbound").toObject();
-    } else {
         outbound = rootobj.value("outbounds").toArray().first().toObject();
+    } else {
+        outbound = rootobj.value("outbound").toObject();
     }
     QJsonObject vnext = util.parseJson(outbound.value("settings").toObject(), "vnext");
     QJsonObject user = util.parseJson(vnext, "users");
@@ -60,16 +60,6 @@ void importConf::savefromFile(QString path, QString alias)
     if (newConf.security.isNull()) {
         newConf.security = "auto";
     }
-//    QJsonObject vnext = rootobj.value("outbound").toObject().value("settings").toObject().value("vnext").toArray().begin()->toObject();
-//    QJsonObject users = vnext.value("users").toArray().begin()->toObject();
-//    newConf.host = vnext.value("address").toString();
-//    newConf.port = QString::number(vnext.value("port").toInt());
-//    newConf.uuid = users.value("id").toString();
-//    newConf.alterid = QString::number(users.value("alterId").toInt());
-//    newConf.security = users.value("security").toString();
-//    if (newConf.security.isNull()) {
-//        newConf.security = "auto";
-//    }
     newConf.isCustom = 1;
     int id = newConf.save();
     emit updateConfTable();

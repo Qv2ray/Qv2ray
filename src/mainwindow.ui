@@ -121,13 +121,13 @@
        <string>From</string>
       </property>
       <addaction name="actionVmess"/>
-      <addaction name="actionClipboard"/>
       <addaction name="actionExisting_config"/>
      </widget>
      <addaction name="actionEdit"/>
      <addaction name="menuFrom"/>
     </widget>
     <addaction name="menuNew"/>
+    <addaction name="actionExit"/>
    </widget>
    <addaction name="menuFile"/>
   </widget>
@@ -150,14 +150,14 @@
     <string>Vmess</string>
    </property>
   </action>
-  <action name="actionClipboard">
-   <property name="text">
-    <string>Clipboard</string>
-   </property>
-  </action>
   <action name="actionExisting_config">
    <property name="text">
     <string>Existing config</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
    </property>
   </action>
  </widget>

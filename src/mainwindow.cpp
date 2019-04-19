@@ -12,6 +12,8 @@
 #include "db.h"
 #include "vmess.h"
 #include <QCloseEvent>
+#include <QFileInfo>
+#include <QInputDialog>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -28,6 +30,18 @@ MainWindow::MainWindow(QWidget *parent) :
     hTray->setIcon(QIcon("Himeki.ico"));
     connect(hTray, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(on_activatedTray(QSystemTrayIcon::ActivationReason)));
     createTrayAction();
+    if(QFileInfo("config.json").exists()) {
+        v2Inst->start(this);
+    }
+    QAction *select = new QAction("Select", ui->configTable);
+    QAction *del = new QAction("Delete", ui->configTable);
+    QAction *rename = new QAction("Rename", ui->configTable);
+    popMenu->addAction(select);
+    popMenu->addAction(del);
+    popMenu->addAction(rename);
+    connect(select, SIGNAL(triggered()), this, SLOT(select_triggered()));
+    connect(del, SIGNAL(triggered()), this, SLOT(delConf()));
+    connect(rename, SIGNAL(triggered()), this, SLOT(renameRow()));
 }
 
 MainWindow::~MainWindow()
@@ -49,15 +63,10 @@ void MainWindow::on_actionExisting_config_triggered()
 }
 void MainWindow::showMenu(QPoint pos)
 {
-    QMenu *popMenu = new QMenu(ui->configTable);
-    QAction *select = new QAction("Select", ui->configTable);
-    QAction *del = new QAction("Delete", ui->configTable);
-    popMenu->addAction(select);
-    popMenu->addAction(del);
-    popMenu->move(cursor().pos());
-    popMenu->show();
-    connect(select, SIGNAL(triggered()), this, SLOT(select_triggered()));
-    connect(del, SIGNAL(triggered()), this, SLOT(delConf()));
+    if(ui->configTable->indexAt(pos).column() != -1) {
+        popMenu->move(cursor().pos());
+        popMenu->show();
+    }
 }
 void MainWindow::select_triggered()
 {
@@ -227,4 +236,20 @@ void MainWindow::showMainWindow()
 void MainWindow::quit()
 {
     QCoreApplication::quit();
+}
+
+void MainWindow::on_actionExit_triggered()
+{
+    QCoreApplication::quit();
+}
+
+void MainWindow::renameRow()
+{
+    QString text = QInputDialog::getText(this, "Rename config", "New name:", QLineEdit::Normal);
+    int row = ui->configTable->currentIndex().row();
+    int idIntable = ui->configTable->model()->data(ui->configTable->model()->index(row, 4)).toInt();
+    db mydb;
+    QString updateString = "update confs set alias = '" + text + "' where id = " + QString::number(idIntable);
+    mydb.query(updateString);
+    emit updateConfTable();
 }
