@@ -1,13 +1,15 @@
 # Hv2ray
-An linux GUI tool for v2ray based on QT.
+An linux GUI tool for v2ray based on Qt.
 
 ## Dependencies
-QT
+- Qt >= 4
+- python3 (Required if you need `vmess2json.py`)
 
 ## Compile
 ```
-cd Hv2ray
-qmake
+git clone https://github.com/aliyuchang33/Hv2ray && cd Hv2ray
+mkdir build && cd ./build
+qmake ../
 make
 ```
 
