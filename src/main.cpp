@@ -41,6 +41,7 @@ void init()
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    QDir::setCurrent(QFileInfo(QCoreApplication::applicationFilePath()).path());
     RunGuard guard("Hv2ray");
     if(!guard.tryToRun()) {
         QMessageBox::critical(0, "Already running", "Another instance of Hv2ray is already running!", QMessageBox::Ok | QMessageBox::Default);
