@@ -42,6 +42,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(select, SIGNAL(triggered()), this, SLOT(select_triggered()));
     connect(del, SIGNAL(triggered()), this, SLOT(delConf()));
     connect(rename, SIGNAL(triggered()), this, SLOT(renameRow()));
+    connect(ui->logText, SIGNAL(textChanged()), this, SLOT(scrollToBottom()));
+    bar = ui->logText->verticalScrollBar();
 }
 
 MainWindow::~MainWindow()
@@ -252,4 +254,8 @@ void MainWindow::renameRow()
     QString updateString = "update confs set alias = '" + text + "' where id = " + QString::number(idIntable);
     mydb.query(updateString);
     emit updateConfTable();
+}
+void MainWindow::scrollToBottom()
+{
+    bar->setValue(bar->maximum());
 }

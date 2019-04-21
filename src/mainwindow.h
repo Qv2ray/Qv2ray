@@ -6,6 +6,7 @@
 #include "confedit.h"
 #include <QSystemTrayIcon>
 #include <QMenu>
+#include <QScrollBar>
 
 class v2Instance;
 namespace Ui
@@ -24,6 +25,7 @@ public:
     QSystemTrayIcon *hTray;
     QMenu *trayMenu = new QMenu(this);
     QMenu *popMenu = new QMenu(this);
+    QScrollBar *bar;
     ~MainWindow();
 
 
@@ -47,6 +49,7 @@ private slots:
     void quit();
     void on_actionExit_triggered();
     void renameRow();
+    void scrollToBottom();
 
 private:
     Ui::MainWindow *ui;
