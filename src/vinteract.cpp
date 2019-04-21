@@ -37,7 +37,6 @@ v2Instance::v2Instance()
 v2Instance::~v2Instance()
 {
     this->v2Process->close();
-    delete this;
 }
 
 void v2Instance::start(MainWindow *parent)
