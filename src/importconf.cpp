@@ -45,7 +45,7 @@ void importConf::savefromFile(QString path, QString alias)
     QJsonDocument v2conf(QJsonDocument::fromJson(allData));
     QJsonObject rootobj = v2conf.object();
     QJsonObject outbound;
-    if(rootobj.value("outbound").isNull()) {
+    if(rootobj.contains("outbounds")) {
         outbound = rootobj.value("outbounds").toArray().first().toObject();
     } else {
         outbound = rootobj.value("outbound").toObject();
