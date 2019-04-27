@@ -40,6 +40,7 @@ void init()
 }
 int main(int argc, char *argv[])
 {
+    QCoreApplication::setSetuidAllowed(true);
     QApplication a(argc, argv);
     QDir::setCurrent(QFileInfo(QCoreApplication::applicationFilePath()).path());
     RunGuard guard("Hv2ray");
