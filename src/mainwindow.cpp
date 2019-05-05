@@ -75,6 +75,9 @@ void MainWindow::select_triggered()
     int row = ui->configTable->selectionModel()->currentIndex().row();
     int idIntable = ui->configTable->model()->data(ui->configTable->model()->index(row, 4)).toInt();
     this->geneConf(idIntable);
+    if(this->v2Inst->v2Process->state() == QProcess::Running) {
+        this->on_restartButton_clicked();
+    }
 }
 
 void MainWindow::delConf()
