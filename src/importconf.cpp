@@ -34,10 +34,9 @@ void importConf::savefromFile(QString path, QString alias)
 {
     vConfig newConf;
     newConf.alias = alias;
-    utils util;
     QFile loadFile(path);
     if(!loadFile.open(QIODevice::ReadOnly)) {
-        qDebug() << "could't open projects json";
+        qDebug() << "could't open config json";
         return;
     }
     QByteArray allData = loadFile.readAll();
@@ -50,8 +49,8 @@ void importConf::savefromFile(QString path, QString alias)
     } else {
         outbound = rootobj.value("outbound").toObject();
     }
-    QJsonObject vnext = util.parseJson(outbound.value("settings").toObject(), "vnext");
-    QJsonObject user = util.parseJson(vnext, "users");
+    QJsonObject vnext = parseJson(outbound.value("settings").toObject(), "vnext");
+    QJsonObject user = parseJson(vnext, "users");
     newConf.host = vnext.value("address").toString();
     newConf.port = QString::number(vnext.value("port").toInt());
     newConf.alterid = QString::number(user.value("alterId").toInt());

@@ -31,6 +31,7 @@ SOURCES += \
         mainwindow.cpp \
     confedit.cpp \
     importconf.cpp \
+    src/hvconf.cpp \
     vinteract.cpp \
     db.cpp \
     vmess.cpp \
@@ -41,6 +42,7 @@ HEADERS += \
         mainwindow.h \
     confedit.h \
     importconf.h \
+    src/hvconf.h \
     vinteract.h \
     db.h \
     vmess.h \
@@ -51,6 +53,7 @@ FORMS += \
         mainwindow.ui \
     confedit.ui \
     importconf.ui \
+    src/hvconf.ui \
     vmess.ui
 
 # Default rules for deployment.

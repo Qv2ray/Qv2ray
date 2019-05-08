@@ -20,7 +20,6 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = nullptr);
-    ConfEdit *e;
     v2Instance *v2Inst;
     QSystemTrayIcon *hTray;
     QMenu *trayMenu = new QMenu(this);
@@ -50,6 +49,7 @@ private slots:
     void on_actionExit_triggered();
     void renameRow();
     void scrollToBottom();
+    void on_actionPreferences_triggered();
 
 private:
     Ui::MainWindow *ui;

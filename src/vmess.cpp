@@ -8,6 +8,7 @@
 #include "importconf.h"
 #include <QFile>
 #include "vinteract.h"
+#include <QMessageBox>
 
 vmess::vmess(QWidget *parent) :
     QDialog(parent),
@@ -39,9 +40,13 @@ void vmess::on_buttonBox_accepted()
     PyTuple_SetItem(arg, 0, arg1);
     PyObject_CallObject(pFunc, arg);
     Py_Finalize();
-    importConf *im = new importConf(this->parentWidget());
-    if (validationCheck(QCoreApplication::applicationDirPath() + "/tmp.config.json")) {
-        im->savefromFile("tmp.config.json", alias);
+    if(QFile::exists(QCoreApplication::applicationDirPath() + "/tmp.config.json")) {
+        importConf *im = new importConf(this->parentWidget());
+        if (validationCheck(QCoreApplication::applicationDirPath() + "/tmp.config.json")) {
+            im->savefromFile("tmp.config.json", alias);
+        }
+        QFile::remove("tmp.config.json");
+    } else {
+        QMessageBox::critical(0, "Error occured", "Config generation failed.", QMessageBox::Ok | QMessageBox::Default, 0);
     }
-    QFile::remove("tmp.config.json");
 }

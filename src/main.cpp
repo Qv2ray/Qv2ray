@@ -9,6 +9,10 @@
 #include <QSqlError>
 #include <QFileInfo>
 #include <QMessageBox>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonArray>
+#include <QJsonValue>
 #include "runguard.h"
 
 void init()
@@ -36,6 +40,33 @@ void init()
         if(!bsuccess) {
             qDebug() << "Failed to create table.";
         }
+    }
+    QFileInfo hvConfInfo("conf/Hv2ray.config.json");
+    if(!hvConfInfo.exists()) {
+        QFile confFile("conf/Hv2ray.config.json");
+        if(!confFile.open(QIODevice::ReadWrite)) {
+            qDebug() << "Can not open Hv2ray.conf.json for read and write.";
+        }
+        QJsonDocument initConf;
+        QJsonObject rootObj;
+        QJsonArray inbounds;
+        QJsonObject socks;
+        QJsonObject settings;
+        socks.insert("tag", "socks-in");
+        socks.insert("port", 1080);
+        socks.insert("listen", "127.0.0.1");
+        socks.insert("protocal", "socks");
+        settings.insert("auth", "noauth");
+        settings.insert("udp", true);
+        settings.insert("ip", "127.0.0.1");
+        socks.insert("settings", QJsonValue(settings));
+        inbounds.append(socks);
+        rootObj.insert("inbounds", QJsonValue(inbounds));
+        rootObj.insert("v2suidEnabled", false);
+        initConf.setObject(rootObj);
+        QByteArray byteArray = initConf.toJson(QJsonDocument::Indented);
+        confFile.write(byteArray);
+        confFile.close();
     }
 }
 int main(int argc, char *argv[])

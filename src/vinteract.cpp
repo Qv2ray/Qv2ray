@@ -48,7 +48,7 @@ void v2Instance::start(MainWindow *parent)
         QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
         env.insert("V2RAY_LOCATION_ASSET", QDir::currentPath());
         this->v2Process->setProcessEnvironment(env);
-        this->v2Process->start("sudo", QStringList() << "./v2ray" << "-config" << "config.json", QIODevice::ReadWrite | QIODevice::Text);
+        this->v2Process->start("./v2ray", QStringList() << "-config" << "config.json", QIODevice::ReadWrite | QIODevice::Text);
         this->v2Process->waitForStarted();
         QObject::connect(v2Process, SIGNAL(readyReadStandardOutput()), parent, SLOT(updateLog()));
     } else {
@@ -58,12 +58,5 @@ void v2Instance::start(MainWindow *parent)
 
 void v2Instance::stop()
 {
-    QProcess kill;
-    kill.start("pgrep", QStringList() << "-uroot" << "v2ray");
-    kill.waitForFinished();
-    int pid = kill.readAllStandardOutput().toInt();
-    if(pid != 0) {
-        QProcess::execute("sudo", QStringList() << "kill" << QString::number(pid));                     // I have no clue what's going on here. Qt doesn't provide a method to terminate a process started with sudo. Anyone make it more graceful?
-    }
     this->v2Process->close();
 }

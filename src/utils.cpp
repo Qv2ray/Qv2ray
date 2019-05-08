@@ -2,11 +2,7 @@
 #include <QJsonArray>
 #include <QJsonObject>
 
-utils::utils()
-{
-}
-
-QJsonObject utils::parseJson(QJsonObject obj, QString value)
+QJsonObject parseJson(QJsonObject obj, QString value)
 {
     QJsonObject returnObj;
     if(obj.value(value).isNull()) {

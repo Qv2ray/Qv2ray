@@ -14,6 +14,7 @@
 #include <QCloseEvent>
 #include <QFileInfo>
 #include <QInputDialog>
+#include "hvconf.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -54,13 +55,15 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_actionEdit_triggered()
 {
-    this->e = new ConfEdit(this);
+    ConfEdit *e = new ConfEdit(this);
+    e->setAttribute(Qt::WA_DeleteOnClose);
     e->show();
 }
 
 void MainWindow::on_actionExisting_config_triggered()
 {
     importConf *f = new importConf(this);
+    f->setAttribute(Qt::WA_DeleteOnClose);
     f->show();
 }
 void MainWindow::showMenu(QPoint pos)
@@ -261,4 +264,11 @@ void MainWindow::renameRow()
 void MainWindow::scrollToBottom()
 {
     bar->setValue(bar->maximum());
+}
+
+void MainWindow::on_actionPreferences_triggered()
+{
+    hvConf *v = new hvConf();
+    v->setAttribute(Qt::WA_DeleteOnClose);
+    v->show();
 }
