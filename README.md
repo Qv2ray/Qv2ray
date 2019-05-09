@@ -3,7 +3,7 @@ An linux GUI tool for v2ray based on Qt.
 
 ## Dependencies
 - Qt >= 4
-- python3 (Required if you need `vmess2json.py`)
+- python3 (Required if you need `./utils/vmess2json.py`)
 
 ## Compile
 ```
