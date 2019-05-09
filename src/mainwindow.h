@@ -25,6 +25,7 @@ public:
     QMenu *trayMenu = new QMenu(this);
     QMenu *popMenu = new QMenu(this);
     QScrollBar *bar;
+    void on_restartButton_clicked();
     ~MainWindow();
 
 
@@ -37,7 +38,6 @@ private slots:
     void updateLog();
     void on_startButton_clicked();
     void on_stopButton_clicked();
-    void on_restartButton_clicked();
     void select_triggered();
     void on_clbutton_clicked();
     void on_rtButton_clicked();

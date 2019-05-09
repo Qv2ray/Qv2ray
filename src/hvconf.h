@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QJsonObject>
+#include "mainwindow.h"
 
 namespace Ui
 {
@@ -14,9 +15,10 @@ class hvConf : public QDialog
     Q_OBJECT
 
 public:
-    explicit hvConf(QWidget *parent = nullptr);
+    explicit hvConf(MainWindow *parent = nullptr);
     ~hvConf();
     QJsonObject rootObj;
+    MainWindow *parentMW;
 
 private slots:
     void on_buttonBox_accepted();

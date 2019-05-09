@@ -1,4 +1,5 @@
 #include "hvconf.h"
+#include "mainwindow.h"
 #include "ui_hvconf.h"
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -12,7 +13,7 @@
 #include "QProcess"
 #include <unistd.h>
 
-hvConf::hvConf(QWidget *parent) :
+hvConf::hvConf(MainWindow *parent) :
     QDialog(parent),
     ui(new Ui::hvConf)
 {
@@ -37,6 +38,7 @@ hvConf::hvConf(QWidget *parent) :
     }
     ui->httpPortLE->setValidator(new QIntValidator());
     ui->socksPortLE->setValidator(new QIntValidator());
+    parentMW = parent;
 }
 
 hvConf::~hvConf()
@@ -97,6 +99,7 @@ void hvConf::on_buttonBox_accepted()
             }
             confFile.write(byteArray);
             confFile.close();
+            parentMW->on_restartButton_clicked();
         } else {
             alterMessage("Config error", "Two port numbers cannot be the same!");
         }
