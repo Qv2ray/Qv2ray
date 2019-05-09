@@ -8,12 +8,12 @@
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QFileInfo>
-#include <QMessageBox>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QJsonValue>
 #include "runguard.h"
+#include "utils.h"
 
 void init()
 {
@@ -55,7 +55,7 @@ void init()
         socks.insert("tag", "socks-in");
         socks.insert("port", 1080);
         socks.insert("listen", "127.0.0.1");
-        socks.insert("protocal", "socks");
+        socks.insert("protocol", "socks");
         settings.insert("auth", "noauth");
         settings.insert("udp", true);
         settings.insert("ip", "127.0.0.1");
@@ -75,7 +75,7 @@ int main(int argc, char *argv[])
     QDir::setCurrent(QFileInfo(QCoreApplication::applicationFilePath()).path());
     RunGuard guard("Hv2ray");
     if(!guard.tryToRun()) {
-        QMessageBox::critical(0, "Already running", "Another instance of Hv2ray is already running!", QMessageBox::Ok | QMessageBox::Default);
+        alterMessage("Already running", "Another instance of Hv2ray is already running!");
         return 0;
     }
     init();

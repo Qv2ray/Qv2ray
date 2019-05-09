@@ -8,7 +8,7 @@
 #include "importconf.h"
 #include <QFile>
 #include "vinteract.h"
-#include <QMessageBox>
+#include "utils.h"
 
 vmess::vmess(QWidget *parent) :
     QDialog(parent),
@@ -47,6 +47,6 @@ void vmess::on_buttonBox_accepted()
         }
         QFile::remove("tmp.config.json");
     } else {
-        QMessageBox::critical(0, "Error occured", "Config generation failed.", QMessageBox::Ok | QMessageBox::Default, 0);
+        alterMessage("Error occured", "Config generation failed.");
     }
 }

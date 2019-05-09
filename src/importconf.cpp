@@ -8,7 +8,6 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
-#include <QMessageBox>
 #include "utils.h"
 
 importConf::importConf(QWidget *parent) :
@@ -49,8 +48,8 @@ void importConf::savefromFile(QString path, QString alias)
     } else {
         outbound = rootobj.value("outbound").toObject();
     }
-    QJsonObject vnext = parseJson(outbound.value("settings").toObject(), "vnext");
-    QJsonObject user = parseJson(vnext, "users");
+    QJsonObject vnext = switchJsonArrayObject(outbound.value("settings").toObject(), "vnext");
+    QJsonObject user = switchJsonArrayObject(vnext, "users");
     newConf.host = vnext.value("address").toString();
     newConf.port = QString::number(vnext.value("port").toInt());
     newConf.alterid = QString::number(user.value("alterId").toInt());
@@ -64,7 +63,7 @@ void importConf::savefromFile(QString path, QString alias)
     emit updateConfTable();
     QString newFile = "conf/" + QString::number(id) + ".conf";
     if(!QFile::copy(path, newFile)) {
-        QMessageBox::critical(0, "Copy error", "Failed to copy custom config file.", QMessageBox::Ok | QMessageBox::Default);
+        alterMessage("Copy error", "Failed to copy custom config file.");
     }
 }
 

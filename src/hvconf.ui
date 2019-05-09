@@ -29,7 +29,7 @@
     <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
    </property>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>20</x>
@@ -75,7 +75,14 @@
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="httpPortLE"/>
+             <widget class="QLineEdit" name="httpPortLE">
+              <property name="dragEnabled">
+               <bool>false</bool>
+              </property>
+              <property name="clearButtonEnabled">
+               <bool>false</bool>
+              </property>
+             </widget>
             </item>
             <item>
              <spacer name="horizontalSpacer_2">
@@ -93,7 +100,7 @@
            </layout>
           </item>
           <item row="1" column="2">
-           <widget class="QCheckBox" name="checkBox_2">
+           <widget class="QCheckBox" name="socksCB">
             <property name="text">
              <string>Enabled</string>
             </property>
@@ -141,7 +148,7 @@
            </layout>
           </item>
           <item row="1" column="0">
-           <widget class="QCheckBox" name="checkBox">
+           <widget class="QCheckBox" name="httpCB">
             <property name="layoutDirection">
              <enum>Qt::LeftToRight</enum>
             </property>

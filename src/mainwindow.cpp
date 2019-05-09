@@ -268,7 +268,7 @@ void MainWindow::scrollToBottom()
 
 void MainWindow::on_actionPreferences_triggered()
 {
-    hvConf *v = new hvConf();
+    hvConf *v = new hvConf(this);
     v->setAttribute(Qt::WA_DeleteOnClose);
     v->show();
 }

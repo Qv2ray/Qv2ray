@@ -5,7 +5,7 @@
 #include <QSharedMemory>
 #include <QSystemSemaphore>
 
-//from https://stackoverflow.com/a/28172162
+// From https://stackoverflow.com/a/28172162
 class RunGuard
 {
 

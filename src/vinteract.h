@@ -11,6 +11,7 @@ public:
     explicit v2Instance();
     void start(MainWindow *parent);
     void stop();
+    void restart();
     QProcess *v2Process;
     ~v2Instance();
 private:

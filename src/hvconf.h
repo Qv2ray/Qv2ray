@@ -16,11 +16,12 @@ class hvConf : public QDialog
 public:
     explicit hvConf(QWidget *parent = nullptr);
     ~hvConf();
-    QJsonObject getInbound();
-    QJsonObject *rootObj;
+    QJsonObject rootObj;
 
 private slots:
     void on_buttonBox_accepted();
+    void on_httpCB_stateChanged(int arg1);
+    void on_socksCB_stateChanged(int arg1);
 
 private:
     Ui::hvConf *ui;

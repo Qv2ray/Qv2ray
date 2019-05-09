@@ -8,6 +8,7 @@
 #include <QSqlError>
 #include <QFile>
 #include "db.h"
+#include <QIntValidator>
 
 ConfEdit::ConfEdit(QWidget *parent) :
     QDialog(parent),
@@ -15,6 +16,8 @@ ConfEdit::ConfEdit(QWidget *parent) :
 {
     ui->setupUi(this);
     connect(this, SIGNAL(updateConfTable()), parentWidget(), SLOT(updateConfTable()));
+    ui->portLineEdit->setValidator(new QIntValidator());
+    ui->alterLineEdit->setValidator(new QIntValidator());
 }
 
 ConfEdit::~ConfEdit()
