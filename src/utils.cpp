@@ -74,6 +74,8 @@ void overrideInbounds(QString path)
     QJsonObject rootObj = v2conf.object();
     QJsonArray modifiedIn = getInbounds();
     rootObj.remove("inbounds");
+    rootObj.remove("inbound");
+    rootObj.remove("inboundDetour");
     rootObj.insert("inbounds", QJsonValue(modifiedIn));
     v2conf.setObject(rootObj);
     conf = v2conf.toJson(QJsonDocument::Indented);
