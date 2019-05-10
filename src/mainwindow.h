@@ -25,9 +25,10 @@ public:
     QMenu *trayMenu = new QMenu(this);
     QMenu *popMenu = new QMenu(this);
     QScrollBar *bar;
-    void on_restartButton_clicked();
     ~MainWindow();
-
+    
+public slots:
+    void on_restartButton_clicked();
 
 private slots:
     void on_actionEdit_triggered();
