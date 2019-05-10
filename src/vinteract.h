@@ -9,7 +9,7 @@ class v2Instance
 {
 public:
     explicit v2Instance();
-    void start(MainWindow *parent);
+    bool start(MainWindow *parent);
     void stop();
     void restart();
     QProcess *v2Process;

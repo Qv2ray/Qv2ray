@@ -1,4 +1,3 @@
-#include "utils.h"
 #include <QJsonArray>
 #include <QJsonObject>
 #include <QJsonDocument>
@@ -6,15 +5,14 @@
 #include <QFileInfo>
 #include <QMessageBox>
 
+#include "utils.h"
 
 QJsonObject switchJsonArrayObject(QJsonObject obj, QString value)
 {
     QJsonObject returnObj;
-    if(obj.value(value).isNull()) {
-        returnObj = obj.value(value).toObject();
-    } else {
-        returnObj = obj.value(value).toArray().first().toObject();
-    }
+    returnObj = obj.value(value).isNull()
+            ? obj.value(value).toObject()
+            : obj.value(value).toArray().first().toObject();
     return returnObj;
 }
 
@@ -30,11 +28,11 @@ QJsonObject findValueFromJsonArray(QJsonArray arr, QString key, QString val)
 
 QJsonObject loadRootObjFromConf()
 {
-    QFile loadFile("conf/Hv2ray.config.json");
-    loadFile.open(QIODevice::ReadOnly);
-    QByteArray allData = loadFile.readAll();
-    loadFile.close();
-    QJsonDocument v2conf(QJsonDocument::fromJson(allData));
+    QFile globalConfigFile("conf/Hv2ray.config.json");
+    globalConfigFile.open(QIODevice::ReadOnly);
+    QByteArray conf = globalConfigFile.readAll();
+    globalConfigFile.close();
+    QJsonDocument v2conf(QJsonDocument::fromJson(conf));
     QJsonObject rootObj = v2conf.object();
     return rootObj;
 }
@@ -63,5 +61,5 @@ bool testCoreFiles()
 
 void alterMessage(QString title, QString text)
 {
-    QMessageBox::critical(0, title, text, QMessageBox::Ok | QMessageBox::Default, 0);
+    QMessageBox::critical(nullptr, title, text, QMessageBox::Ok | QMessageBox::Default, 0);
 }
