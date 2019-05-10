@@ -16,6 +16,7 @@
 #include "confedit.h"
 #include "importconf.h"
 #include "vinteract.h"
+#include "utils.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -138,6 +139,7 @@ void MainWindow::geneConf(int idIntable)
     tmpConf.query(idIntable);
     if (tmpConf.isCustom == 1) {
         QString src = "conf/" + QString::number(idIntable) + ".conf";
+        overrideInbounds(src);
         if (QFile::exists("config.json")) {
             QFile::remove("config.json");
         }
@@ -155,7 +157,6 @@ void MainWindow::on_startButton_clicked()
 {
     ui->logText->clear();
     bool startFlag = this->v2Inst->start(this);
-
     trayMenu->actions()[2]->setEnabled(!startFlag);
     trayMenu->actions()[3]->setEnabled(startFlag);
     trayMenu->actions()[4]->setEnabled(startFlag);
@@ -165,7 +166,6 @@ void MainWindow::on_stopButton_clicked()
 {
     this->v2Inst->stop();
     ui->logText->clear();
-
     trayMenu->actions()[2]->setEnabled(true);
     trayMenu->actions()[3]->setEnabled(false);
     trayMenu->actions()[4]->setEnabled(false);
@@ -206,17 +206,14 @@ void MainWindow::createTrayAction()
     QAction *actionStart = new QAction(this);
     QAction *actionRestart = new QAction(this);
     QAction *actionStop = new QAction(this);
-
     actionShow->setText("Hide");
     actionQuit->setText("Quit Hv2ray");
     actionStart->setText("Start v2ray");
     actionStop->setText("Stop v2ray");
     actionRestart->setText("Restart v2ray");
-
     actionStart->setEnabled(true);
     actionStop->setEnabled(false);
     actionRestart->setEnabled(false);
-
     trayMenu->addAction(actionShow);
     trayMenu->addSeparator();
     trayMenu->addAction(actionStart);
@@ -224,13 +221,11 @@ void MainWindow::createTrayAction()
     trayMenu->addAction(actionRestart);
     trayMenu->addSeparator();
     trayMenu->addAction(actionQuit);
-
     connect(actionShow, SIGNAL(triggered()), this, SLOT(toggleMainWindowVisibility()));
     connect(actionStart, SIGNAL(triggered()), this, SLOT(on_startButton_clicked()));
     connect(actionStop, SIGNAL(triggered()), this, SLOT(on_stopButton_clicked()));
     connect(actionRestart, SIGNAL(triggered()), this, SLOT(on_restartButton_clicked()));
     connect(actionQuit, SIGNAL(triggered()), this, SLOT(quit()));
-
     hTray->setContextMenu(trayMenu);
     hTray->show();
 }
@@ -250,7 +245,7 @@ void MainWindow::on_activatedTray(QSystemTrayIcon::ActivationReason reason)
         case QSystemTrayIcon::MiddleClick:
             // TODO: Check if an alert message box is present.
             // If so, do nothing but please wait for the message box to be closed.
-            if(this->v2Inst->v2Process->state() == QProcess::ProcessState::Running){
+            if(this->v2Inst->v2Process->state() == QProcess::ProcessState::Running) {
                 on_stopButton_clicked();
             } else {
                 on_startButton_clicked();
