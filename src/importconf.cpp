@@ -36,7 +36,7 @@ void importConf::savefromFile(QString path, QString alias)
     newConf.alias = alias;
     QFile configFile(path);
     if(!configFile.open(QIODevice::ReadOnly)) {
-        qDebug() << "Could't open config json";
+        qDebug() << "Couldn't open config json";
         return;
     }
     QByteArray allData = configFile.readAll();
@@ -61,6 +61,11 @@ void importConf::savefromFile(QString path, QString alias)
     }
     newConf.isCustom = 1;
     int id = newConf.save();
+    if(id < 0)
+    {
+        alterMessage("Database Error", "Failed to open database while saving");
+        return;
+    }
     emit updateConfTable();
     QString newFile = "conf/" + QString::number(id) + ".conf";
     if(!QFile::copy(path, newFile)) {

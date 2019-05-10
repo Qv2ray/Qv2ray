@@ -8,9 +8,15 @@ A Linux GUI tool for v2ray based on Qt.
 ## Compile
 ```bash
 git clone https://github.com/aliyuchang33/Hv2ray && cd Hv2ray
-mkdir build && cd ./build
-qmake ../
+qmake ./
 make
+# A lot of file will be generated in the current directory.
+```
+
+## Run
+
+```bash
+./Hv2ray
 ```
 
 ## Run
