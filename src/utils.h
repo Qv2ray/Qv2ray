@@ -9,5 +9,6 @@ QJsonArray getInbounds();
 bool testCoreFiles();
 void alterMessage(QString title, QString text);
 void overrideInbounds(QString path);
+int getIndexInArrayByValue(QJsonArray array, QString key, QString val);
 
 #endif // UTILS_H

@@ -53,6 +53,15 @@ void hvConf::on_buttonBox_accepted()
         if(ui->httpPortLE->text().toInt() != ui->socksPortLE->text().toInt()) {
             QJsonArray inbounds;
             QJsonDocument modifiedDoc;
+            inbounds = rootObj.value("inbounds").toArray();
+            int socksId = getIndexInArrayByValue(inbounds, "tag", "socks-in");
+            if(socksId != -1) {
+                inbounds.removeAt(socksId);
+            }
+            int httpId = getIndexInArrayByValue(inbounds, "tag", "http-in");
+            if(httpId != -1) {
+                inbounds.removeAt(httpId);
+            }
             rootObj.remove("inbounds");
             rootObj.remove("v2suidEnabled");
             if(ui->socksCB->isChecked()) {
@@ -114,6 +123,7 @@ void hvConf::on_httpCB_stateChanged(int arg1)
         ui->httpPortLE->setDisabled(true);
     } else {
         ui->httpPortLE->setEnabled(true);
+        ui->httpPortLE->setText("6666");
     }
 }
 
@@ -123,5 +133,6 @@ void hvConf::on_socksCB_stateChanged(int arg1)
         ui->socksPortLE->setDisabled(true);
     } else {
         ui->socksPortLE->setEnabled(true);
+        ui->socksPortLE->setText("1080");
     }
 }

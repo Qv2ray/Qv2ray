@@ -83,3 +83,16 @@ void overrideInbounds(QString path)
     confFile.write(conf);
     confFile.close();
 }
+
+int getIndexInArrayByValue(QJsonArray array, QString key, QString val)
+{
+    QJsonArray::iterator it;
+    int index = 0;
+    for(it = array.begin(); it != array.end(); it ++) {
+        if(it->toObject().value(key) == val) {
+            return index;
+        }
+        index ++;
+    }
+    return -1;
+}
