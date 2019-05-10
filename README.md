@@ -10,7 +10,6 @@ A Linux GUI tool for v2ray based on Qt.
 git clone https://github.com/aliyuchang33/Hv2ray && cd Hv2ray
 qmake ./
 make
-# A lot of files will be generated in the current directory.
 ```
 
 ## Run
@@ -18,6 +17,19 @@ make
 ```bash
 ./Hv2ray
 ```
+
+## Donation
+推荐下机场Dler Cloud,提供的vmess链接是v2的,可以直接在客户端导入:
+
+推广链接:
+
+[Dler Cloud](https://dlercloud.me/auth/register?affid=31130)
+
+用这个链接注册我能获得10%充值金额的佣金, 用不用随意.
+
+非推广链接:
+
+[Dler CLoud](https://dlercloud.me/)
 
 ## License
 
