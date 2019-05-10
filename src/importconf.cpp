@@ -1,14 +1,15 @@
-#include "importconf.h"
-#include "ui_importconf.h"
 #include <QFileDialog>
-#include "confedit.h"
-#include "vinteract.h"
 #include <QDebug>
 #include <QFile>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
+
+#include "confedit.h"
+#include "vinteract.h"
 #include "utils.h"
+#include "importconf.h"
+#include "ui_importconf.h"
 
 importConf::importConf(QWidget *parent) :
     QDialog(parent),
@@ -33,13 +34,13 @@ void importConf::savefromFile(QString path, QString alias)
 {
     vConfig newConf;
     newConf.alias = alias;
-    QFile loadFile(path);
-    if(!loadFile.open(QIODevice::ReadOnly)) {
-        qDebug() << "could't open config json";
+    QFile configFile(path);
+    if(!configFile.open(QIODevice::ReadOnly)) {
+        qDebug() << "Couldn't open config json";
         return;
     }
-    QByteArray allData = loadFile.readAll();
-    loadFile.close();
+    QByteArray allData = configFile.readAll();
+    configFile.close();
     QJsonDocument v2conf(QJsonDocument::fromJson(allData));
     QJsonObject rootobj = v2conf.object();
     QJsonObject outbound;
@@ -60,6 +61,11 @@ void importConf::savefromFile(QString path, QString alias)
     }
     newConf.isCustom = 1;
     int id = newConf.save();
+    if(id < 0)
+    {
+        alterMessage("Database Error", "Failed to open database while saving");
+        return;
+    }
     emit updateConfTable();
     QString newFile = "conf/" + QString::number(id) + ".conf";
     if(!QFile::copy(path, newFile)) {

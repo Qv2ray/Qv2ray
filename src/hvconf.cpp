@@ -1,6 +1,3 @@
-#include "hvconf.h"
-#include "mainwindow.h"
-#include "ui_hvconf.h"
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QFile>
@@ -9,9 +6,13 @@
 #include <QJsonValue>
 #include <QIntValidator>
 #include <QFileInfo>
-#include "utils.h"
-#include "QProcess"
+#include <QProcess>
 #include <unistd.h>
+
+#include "utils.h"
+#include "hvconf.h"
+#include "mainwindow.h"
+#include "ui_hvconf.h"
 
 hvConf::hvConf(MainWindow *parent) :
     QDialog(parent),
@@ -101,7 +102,7 @@ void hvConf::on_buttonBox_accepted()
             confFile.close();
             parentMW->on_restartButton_clicked();
         } else {
-            alterMessage("Config error", "Two port numbers cannot be the same!");
+            alterMessage("Config error", "Port numbers cannot be the same!");
         }
     }
 }

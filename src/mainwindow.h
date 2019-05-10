@@ -44,7 +44,7 @@ private slots:
     void geneConf(int idIntable);
     void on_actionVmess_triggered();
     void on_activatedTray(QSystemTrayIcon::ActivationReason reason);
-    void showMainWindow();
+    void toggleMainWindowVisibility();
     void quit();
     void on_actionExit_triggered();
     void renameRow();

@@ -1,14 +1,15 @@
 #include "vmess.h"
-#include "ui_vmess.h"
 #pragma push_macro("slots")
 #undef slots
 #include "Python.h"
 #pragma pop_macro("slots")
 #include <QDebug>
-#include "importconf.h"
 #include <QFile>
+
 #include "vinteract.h"
 #include "utils.h"
+#include "importconf.h"
+#include "ui_vmess.h"
 
 vmess::vmess(QWidget *parent) :
     QDialog(parent),
@@ -28,9 +29,9 @@ void vmess::on_buttonBox_accepted()
     QString alias = ui->aliasLineEdit->text();
     Py_Initialize();
     if ( !Py_IsInitialized() ) {
-        qDebug() << "Python not initialized";
+        qDebug() << "Python is not initialized";
     }
-    QString param = "--inbound socks:1080 " + vmess + " -o tmp.config.json";
+    QString param = "--inbound socks:1080 " + vmess + " -o config.json.tmp";
     PyRun_SimpleString("import sys");
     PyRun_SimpleString("sys.path.append('./')");
     setenv("PYTHONPATH", "./utils", 1);
@@ -41,13 +42,13 @@ void vmess::on_buttonBox_accepted()
     PyTuple_SetItem(arg, 0, arg1);
     PyObject_CallObject(pFunc, arg);
     Py_Finalize();
-    if(QFile::exists(QCoreApplication::applicationDirPath() + "/tmp.config.json")) {
+    if(QFile::exists(QCoreApplication::applicationDirPath() + "/config.json.tmp")) {
         importConf *im = new importConf(this->parentWidget());
-        if (validationCheck(QCoreApplication::applicationDirPath() + "/tmp.config.json")) {
-            im->savefromFile("tmp.config.json", alias);
+        if (validationCheck(QCoreApplication::applicationDirPath() + "/config.json.tmp")) {
+            im->savefromFile("config.json.tmp", alias);
         }
-        QFile::remove("tmp.config.json");
+        QFile::remove("config.json.tmp");
     } else {
-        alterMessage("Error occured", "Config generation failed.");
+        alterMessage("Error occured", "Failed to generate config file.");
     }
 }
