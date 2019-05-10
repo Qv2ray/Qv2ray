@@ -45,6 +45,7 @@ void vmess::on_buttonBox_accepted()
     if(QFile::exists(QCoreApplication::applicationDirPath() + "/config.json.tmp")) {
         importConf *im = new importConf(this->parentWidget());
         if (validationCheck(QCoreApplication::applicationDirPath() + "/config.json.tmp")) {
+            overrideInbounds(QCoreApplication::applicationDirPath() + "/config.json.tmp");
             im->savefromFile("config.json.tmp", alias);
         }
         QFile::remove("config.json.tmp");

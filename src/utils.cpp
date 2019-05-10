@@ -11,8 +11,8 @@ QJsonObject switchJsonArrayObject(QJsonObject obj, QString value)
 {
     QJsonObject returnObj;
     returnObj = obj.value(value).isNull()
-            ? obj.value(value).toObject()
-            : obj.value(value).toArray().first().toObject();
+                ? obj.value(value).toObject()
+                : obj.value(value).toArray().first().toObject();
     return returnObj;
 }
 
@@ -62,4 +62,22 @@ bool testCoreFiles()
 void alterMessage(QString title, QString text)
 {
     QMessageBox::critical(nullptr, title, text, QMessageBox::Ok | QMessageBox::Default, 0);
+}
+
+void overrideInbounds(QString path)
+{
+    QFile confFile(path);
+    confFile.open(QIODevice::ReadOnly);
+    QByteArray conf = confFile.readAll();
+    confFile.close();
+    QJsonDocument v2conf(QJsonDocument::fromJson(conf));
+    QJsonObject rootObj = v2conf.object();
+    QJsonArray modifiedIn = getInbounds();
+    rootObj.remove("inbounds");
+    rootObj.insert("inbounds", QJsonValue(modifiedIn));
+    v2conf.setObject(rootObj);
+    conf = v2conf.toJson(QJsonDocument::Indented);
+    confFile.open(QIODevice::WriteOnly | QIODevice::Truncate);
+    confFile.write(conf);
+    confFile.close();
 }

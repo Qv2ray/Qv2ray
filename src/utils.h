@@ -8,5 +8,6 @@ QJsonObject loadRootObjFromConf();
 QJsonArray getInbounds();
 bool testCoreFiles();
 void alterMessage(QString title, QString text);
+void overrideInbounds(QString path);
 
 #endif // UTILS_H
