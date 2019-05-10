@@ -33,8 +33,7 @@ void vmess::on_buttonBox_accepted()
     }
     QString param = "--inbound socks:1080 " + vmess + " -o config.json.tmp";
     PyRun_SimpleString("import sys");
-    PyRun_SimpleString("sys.path.append('./')");
-    setenv("PYTHONPATH", "./utils", 1);
+    PyRun_SimpleString("sys.path.append('./utils')");
     PyObject *pModule = PyImport_ImportModule("vmess2json");
     PyObject *pFunc = PyObject_GetAttrString(pModule, "main");
     PyObject *arg = PyTuple_New(1);
