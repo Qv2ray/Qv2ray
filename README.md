@@ -10,7 +10,7 @@ A Linux GUI tool for v2ray based on Qt.
 git clone https://github.com/aliyuchang33/Hv2ray && cd Hv2ray
 qmake ./
 make
-# A lot of file will be generated in the current directory.
+# A lot of files will be generated in the current directory.
 ```
 
 ## Run
