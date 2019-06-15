@@ -61,4 +61,6 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 INCLUDEPATH += /usr/include/python3.7m/
+INCLUDEPATH += /usr/include/python3.6m/
+INCLUDEPATH += /usr/include/python3.5m/
 LIBS += -lpython3.7m
