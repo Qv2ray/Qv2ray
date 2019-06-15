@@ -11,6 +11,6 @@ extraction:
       build_command:
         - cd src
         - mkdir build && cd build
-        - qmake ../
+        - qmake ../../
         - make
         
