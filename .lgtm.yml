@@ -1,0 +1,16 @@
+extraction:
+  cpp:
+    prepare:
+      packages:
+        - pkg-config
+        - libpython3.7-minimal
+        - qt5-default
+        - qt5-qmake 
+        - qtdeclarative5-dev
+    index:
+      build_command:
+        - cd src
+        - mkdir build && cd build
+        - qmake ../
+        - make
+        
