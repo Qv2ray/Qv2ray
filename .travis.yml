@@ -1,0 +1,20 @@
+language: cpp
+dist: trusty
+compiler: g++
+sudo: required
+
+before_install:
+  - sudo apt-get update
+
+install:
+  - sudo apt-get install qtchooser qt5-default
+  - sudo apt-get install qt5-qmake 
+  - sudo apt-get install qtdeclarative5-dev
+
+
+script:
+  - cd ./src/
+  - mkdir build
+  - cd ./build
+  - QT_SELECT=5 QTDIR=/usr/share/qt5 qmake ../
+  - make
