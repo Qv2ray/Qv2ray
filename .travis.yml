@@ -1,5 +1,5 @@
 language: cpp
-dist: trusty
+dist: xenial
 compiler: g++
 sudo: required
 
