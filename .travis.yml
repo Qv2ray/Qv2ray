@@ -12,8 +12,7 @@ install:
   - sudo apt-get install qtdeclarative5-dev
 
 script:
-  - cd ./src/
   - mkdir build
   - cd ./build
-  - QT_SELECT=5 QTDIR=/usr/share/qt5 qmake ../../
+  - QT_SELECT=5 QTDIR=/usr/share/qt5 qmake ../
   - make
