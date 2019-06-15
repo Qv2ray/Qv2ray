@@ -9,7 +9,7 @@ before_install:
 install:
   - sudo apt-get install qtchooser qt5-default
   - sudo apt-get install qt5-qmake 
-  - sudo apt-get install qtdeclarative5-dev
+  - sudo apt-get install qtdeclarative5-dev python3-dev
 
 script:
   - mkdir build
