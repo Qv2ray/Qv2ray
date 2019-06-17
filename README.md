@@ -1,9 +1,13 @@
 # Hv2ray
 A Linux GUI tool for v2ray based on Qt.
+A CROSS-PLATFORM GUI for v2ray based on Qt.
+
+# Special Thanks
+@aliyuchang33 - Original Author, who initially created this project and gives idea of using Qt to implement.
 
 ## Dependencies
-- Qt >= 4
-- python3
+- Qt >= 5
+- python3.5 | 3.6 | 3.7
 
 ## Compile
 ```bash
