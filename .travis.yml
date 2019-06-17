@@ -4,7 +4,7 @@ compiler: g++
 sudo: required
 
 before_install:
-  - sudo add-apt-repository ppa:deadsnakes/ppa
+  - sudo add-apt-repository -y ppa:deadsnakes/ppa
   - sudo apt-get update
 
 install:
