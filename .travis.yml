@@ -12,7 +12,6 @@ install:
   - sudo apt-get install qtdeclarative5-dev python3-dev
 
 script:
-  - mkdir build
-  - cd ./build
+  - mkdir build && cd ./build
   - QT_SELECT=5 QTDIR=/usr/share/qt5 qmake ../
   - make
