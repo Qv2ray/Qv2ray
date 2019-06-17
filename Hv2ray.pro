@@ -71,7 +71,7 @@ unix: exists( "/usr/lib/libpython3.7m.so" ) {
         INCLUDEPATH += /usr/include/python3.7m/
         LIBS += -lpython3.7m
         WITH_PYTHON = yes
-    }    
+    }
 }
 
 unix: exists( "/usr/lib/libpython3.6m.so" ) {
@@ -80,7 +80,7 @@ unix: exists( "/usr/lib/libpython3.6m.so" ) {
         INCLUDEPATH += /usr/include/python3.6m/
         LIBS += -lpython3.6m
         WITH_PYTHON = yes
-    }    
+    }
 }
 
 unix: exists( "/usr/lib/libpython3.5m.so" ) {
@@ -89,6 +89,9 @@ unix: exists( "/usr/lib/libpython3.5m.so" ) {
         INCLUDEPATH += /usr/include/python3.5m/
         LIBS += -lpython3.5m
         WITH_PYTHON = yes
-    }    
+    }
 }
 
+unix: equals(WITH_PYTHON, "no") {
+    error("No python libs found, did you install python3 dev package?")
+}
