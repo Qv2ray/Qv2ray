@@ -10,6 +10,7 @@ install:
   - sudo apt-get install qtchooser qt5-default
   - sudo apt-get install qt5-qmake 
   - sudo apt-get install qtdeclarative5-dev python3-dev python-dev libpython3-dev
+  - sudo sudo ln -s /usr/lib/x86_64-linux-gnu/libpython3.5m.so /usr/lib/
 
 script:
   - mkdir build && cd ./build
