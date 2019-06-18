@@ -52,6 +52,8 @@ private slots:
     void scrollToBottom();
     void on_actionPreferences_triggered();
 
+    void on_pushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     void closeEvent(QCloseEvent *);

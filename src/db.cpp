@@ -4,7 +4,7 @@
 #include "mainwindow.h"
 #include <QDebug>
 
-db::db()
+SQLiteDB::SQLiteDB()
 {
     QSqlDatabase database;
     if (QSqlDatabase::contains("qt_sql_default_connection")) {
@@ -20,7 +20,7 @@ db::db()
     }
 }
 
-void db::query(QString queryString)
+void SQLiteDB::DoQuery(QString queryString)
 {
     this->myQuery.prepare(queryString);
     this->myQuery.exec();
