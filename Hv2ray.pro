@@ -29,36 +29,69 @@ VPATH += ./src
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    confedit.cpp \
-    importconf.cpp \
-    src/hvconf.cpp \
-    vinteract.cpp \
-    db.cpp \
-    vmess.cpp \
-    utils.cpp \
-    src/runguard.cpp
+        confedit.cpp \
+        importconf.cpp \
+        hvconf.cpp \
+        vinteract.cpp \
+        db.cpp \
+        vmess.cpp \
+        utils.cpp \
+        runguard.cpp
 
 HEADERS += \
         mainwindow.h \
-    confedit.h \
-    importconf.h \
-    src/hvconf.h \
-    vinteract.h \
-    db.h \
-    vmess.h \
-    utils.h \
-    src/runguard.h
+        confedit.h \
+        importconf.h \
+        hvconf.h \
+        vinteract.h \
+        db.h \
+        vmess.h \
+        utils.h \
+        runguard.h
 
 FORMS += \
         mainwindow.ui \
-    confedit.ui \
-    importconf.ui \
-    src/hvconf.ui \
-    vmess.ui
+        confedit.ui \
+        importconf.ui \
+        hvconf.ui \
+        vmess.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
-INCLUDEPATH += /usr/include/python3.7m/
-LIBS += -lpython3.7m
+
+RC_ICONS = Himeki.ico
+
+WITH_PYTHON = no
+
+unix: exists( "/usr/lib/libpython3.7m.so" ) {
+    equals(WITH_PYTHON, "no") {
+        message("Will build with python lib version 3.7.")
+        INCLUDEPATH += /usr/include/python3.7m/
+        LIBS += -lpython3.7m
+        WITH_PYTHON = yes
+    }
+}
+
+unix: exists( "/usr/lib/libpython3.6m.so" ) {
+    equals(WITH_PYTHON, "no") {
+        message("Will build with python lib version 3.6.")
+        INCLUDEPATH += /usr/include/python3.6m/
+        LIBS += -lpython3.6m
+        WITH_PYTHON = yes
+    }
+}
+
+unix: exists( "/usr/lib/libpython3.5m.so" ) {
+    equals(WITH_PYTHON, "no") {
+        message("Will build with python lib version 3.5.")
+        INCLUDEPATH += /usr/include/python3.5m/
+        LIBS += -lpython3.5m
+        WITH_PYTHON = yes
+    }
+}
+
+unix: equals(WITH_PYTHON, "no") {
+    error("No python libs found, did you install python3 dev package?")
+}
