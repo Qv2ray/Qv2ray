@@ -8,10 +8,10 @@ extraction:
         - qt5-qmake 
         - python3-dev
         - python-dev
-        - libpython3-dev
         - qtdeclarative5-dev
     index:
       build_command:
+        - ln -s /usr/lib/x86_64-linux-gnu/libpython3.7m.so /usr/lib/
         - cd src
         - mkdir build && cd build
         - qmake ../../
