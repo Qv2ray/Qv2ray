@@ -31,10 +31,10 @@ SOURCES += \
         mainwindow.cpp \
         confedit.cpp \
         importconf.cpp \
-        hvconf.cpp \
+        inbound_settings.cpp \
         vinteract.cpp \
         db.cpp \
-        vmess.cpp \
+        import_vmess.cpp \
         utils.cpp \
         runguard.cpp
 
@@ -42,10 +42,10 @@ HEADERS += \
         mainwindow.h \
         confedit.h \
         importconf.h \
-        hvconf.h \
+        inbound_settings.h \
         vinteract.h \
         db.h \
-        vmess.h \
+        import_vmess.h \
         utils.h \
         runguard.h
 
@@ -53,8 +53,8 @@ FORMS += \
         mainwindow.ui \
         confedit.ui \
         importconf.ui \
-        hvconf.ui \
-        vmess.ui
+        inbound_settings.ui \
+        import_vmess.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
