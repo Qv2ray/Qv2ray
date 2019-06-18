@@ -3,12 +3,15 @@ A Linux GUI tool for v2ray based on Qt.
 
 TODO: A CROSS-PLATFORM GUI for v2ray based on Qt.
 
+[![Language grade: C/C++](https://img.shields.io/lgtm/grade/cpp/g/lhy0403/Hv2ray.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/lhy0403/Hv2ray/context:cpp)
+
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/lhy0403/Hv2ray.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/lhy0403/Hv2ray/alerts/)
+
+[![Build Status](https://travis-ci.com/lhy0403/Hv2ray.svg?branch=master)](https://travis-ci.com/lhy0403/Hv2ray)
+
+
 # Special Thanks
 [@aliyuchang33](https://github.com/aliyuchang33) - Original Author, who initially created this project and gives idea of using Qt to implement.
-
-## Build Status
-
-Travis: [![Build Status](https://travis-ci.com/lhy0403/Hv2ray.svg?branch=master)](https://travis-ci.com/lhy0403/Hv2ray)
 
 ## Dependencies
 - Qt >= 5
