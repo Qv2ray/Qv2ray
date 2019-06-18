@@ -65,7 +65,7 @@ RC_ICONS = Himeki.ico
 
 WITH_PYTHON = no
 
-unix: exists( "/usr/lib/libpython3.7m.so" ) {
+unix: exists( "/usr/include/python3.7m/Python.h" ) {
     equals(WITH_PYTHON, "no") {
         message("Will build with python lib version 3.7.")
         INCLUDEPATH += /usr/include/python3.7m/
@@ -74,7 +74,7 @@ unix: exists( "/usr/lib/libpython3.7m.so" ) {
     }
 }
 
-unix: exists( "/usr/lib/libpython3.6m.so" ) {
+unix: exists( "/usr/include/python3.6m/Python.h" ) {
     equals(WITH_PYTHON, "no") {
         message("Will build with python lib version 3.6.")
         INCLUDEPATH += /usr/include/python3.6m/
@@ -83,7 +83,7 @@ unix: exists( "/usr/lib/libpython3.6m.so" ) {
     }
 }
 
-unix: exists( "/usr/lib/libpython3.5m.so" ) {
+unix: exists( "/usr/include/python3.5m/Python.h" ) {
     equals(WITH_PYTHON, "no") {
         message("Will build with python lib version 3.5.")
         INCLUDEPATH += /usr/include/python3.5m/
