@@ -11,7 +11,6 @@ extraction:
         - qtdeclarative5-dev
     index:
       build_command:
-        - sudo ln -s /usr/lib/x86_64-linux-gnu/libpython3.7m.so /usr/lib/
         - cd src
         - mkdir build && cd build
         - qmake ../../
