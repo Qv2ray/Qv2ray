@@ -31,10 +31,10 @@ SOURCES += \
         mainwindow.cpp \
         confedit.cpp \
         importconf.cpp \
-        inbound_settings.cpp \
+        hvconf.cpp \
         vinteract.cpp \
         db.cpp \
-        import_vmess.cpp \
+        vmess.cpp \
         utils.cpp \
         runguard.cpp
 
@@ -42,10 +42,10 @@ HEADERS += \
         mainwindow.h \
         confedit.h \
         importconf.h \
-        inbound_settings.h \
+        hvconf.h \
         vinteract.h \
         db.h \
-        import_vmess.h \
+        vmess.h \
         utils.h \
         runguard.h
 
@@ -53,8 +53,8 @@ FORMS += \
         mainwindow.ui \
         confedit.ui \
         importconf.ui \
-        inbound_settings.ui \
-        import_vmess.ui
+        hvconf.ui \
+        vmess.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -65,7 +65,7 @@ RC_ICONS = Himeki.ico
 
 WITH_PYTHON = no
 
-unix: exists( "/usr/lib/libpython3.7m.so" ) {
+unix: exists( "/usr/include/python3.7m/Python.h" ) {
     equals(WITH_PYTHON, "no") {
         message("Will build with python lib version 3.7.")
         INCLUDEPATH += /usr/include/python3.7m/
@@ -74,7 +74,7 @@ unix: exists( "/usr/lib/libpython3.7m.so" ) {
     }
 }
 
-unix: exists( "/usr/lib/libpython3.6m.so" ) {
+unix: exists( "/usr/include/python3.6m/Python.h" ) {
     equals(WITH_PYTHON, "no") {
         message("Will build with python lib version 3.6.")
         INCLUDEPATH += /usr/include/python3.6m/
@@ -83,7 +83,7 @@ unix: exists( "/usr/lib/libpython3.6m.so" ) {
     }
 }
 
-unix: exists( "/usr/lib/libpython3.5m.so" ) {
+unix: exists( "/usr/include/python3.5m/Python.h" ) {
     equals(WITH_PYTHON, "no") {
         message("Will build with python lib version 3.5.")
         INCLUDEPATH += /usr/include/python3.5m/
