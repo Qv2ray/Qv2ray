@@ -27,8 +27,8 @@ ConfEdit::~ConfEdit()
 vConfig *vConfig::query(int id)
 {
     QString selectQuery = "select * from confs where id = " + QString::number(id) + ";";
-    db myDb = db();
-    myDb.query(selectQuery);
+    SQLiteDB myDb = SQLiteDB();
+    myDb.DoQuery(selectQuery);
     myDb.myQuery.first();
     this->host = myDb.myQuery.value(1).toString();
     this->port = myDb.myQuery.value(2).toString();

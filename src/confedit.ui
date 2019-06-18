@@ -6,151 +6,228 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>962</width>
-    <height>571</height>
+    <width>982</width>
+    <height>652</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>ConfEdit</string>
   </property>
-  <widget class="QWidget" name="layoutWidget">
+  <widget class="QWidget" name="gridLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>36</y>
-     <width>881</width>
-     <height>501</height>
+     <x>20</x>
+     <y>30</y>
+     <width>951</width>
+     <height>611</height>
     </rect>
    </property>
-   <layout class="QGridLayout" name="gridLayout_2">
-    <item row="0" column="0" rowspan="2">
-     <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="0">
-       <widget class="QLabel" name="ipLabel">
-        <property name="text">
-         <string>IP Address :</string>
+   <layout class="QGridLayout" name="gridLayout_2" columnstretch="2,1">
+    <item row="1" column="0">
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <layout class="QGridLayout" name="gridLayout">
+        <property name="bottomMargin">
+         <number>0</number>
         </property>
-       </widget>
-      </item>
-      <item row="4" column="0">
-       <widget class="QLabel" name="alterLabel">
-        <property name="text">
-         <string>AlterID:</string>
+        <property name="spacing">
+         <number>0</number>
         </property>
-       </widget>
-      </item>
-      <item row="3" column="0">
-       <widget class="QLabel" name="idLabel">
-        <property name="text">
-         <string>UUID:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="1">
-       <widget class="QLineEdit" name="alterLineEdit">
-        <property name="maxLength">
-         <number>5</number>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="portLabel">
-        <property name="text">
-         <string>Port:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QLineEdit" name="portLineEdit">
-        <property name="maxLength">
-         <number>5</number>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1">
-       <widget class="QLineEdit" name="idLineEdit">
-        <property name="text">
-         <string/>
-        </property>
-        <property name="maxLength">
-         <number>36</number>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QLineEdit" name="aliasLineEdit">
-        <property name="text">
-         <string/>
-        </property>
-        <property name="maxLength">
-         <number>80</number>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QLineEdit" name="ipLineEdit">
-        <property name="maxLength">
-         <number>15</number>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="0">
-       <widget class="QLabel" name="securityLabel">
-        <property name="text">
-         <string>Security:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="aliasLabel">
-        <property name="text">
-         <string>Alias:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="1">
-       <widget class="QComboBox" name="securityCombo">
-        <item>
-         <property name="text">
-          <string>auto</string>
-         </property>
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="ipLineEdit">
+          <property name="maxLength">
+           <number>15</number>
+          </property>
+         </widget>
         </item>
-        <item>
-         <property name="text">
-          <string>aes-128-gcm</string>
-         </property>
+        <item row="6" column="0">
+         <widget class="QLabel" name="transportLabel">
+          <property name="text">
+           <string>Transport</string>
+          </property>
+         </widget>
         </item>
-        <item>
-         <property name="text">
-          <string>chacha20-poly1305</string>
-         </property>
+        <item row="6" column="1">
+         <widget class="QComboBox" name="tranportCombo">
+          <item>
+           <property name="text">
+            <string>TCP (tcp)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>HTTP (http)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>WebSocket (ws)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>mKCP (kcp)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Domain Socket (domainsocket)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Quick UDP Internet Connection (quic)</string>
+           </property>
+          </item>
+         </widget>
         </item>
-        <item>
-         <property name="text">
-          <string>none</string>
-         </property>
+        <item row="4" column="0">
+         <widget class="QLabel" name="alterLabel">
+          <property name="text">
+           <string>AlterID:</string>
+          </property>
+         </widget>
         </item>
-       </widget>
+        <item row="5" column="0">
+         <widget class="QLabel" name="securityLabel">
+          <property name="text">
+           <string>Security:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="ipLabel">
+          <property name="text">
+           <string>IP Address :</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLineEdit" name="aliasLineEdit">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="maxLength">
+           <number>80</number>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="aliasLabel">
+          <property name="text">
+           <string>Alias:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="idLabel">
+          <property name="text">
+           <string>UUID:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1">
+         <widget class="QComboBox" name="securityCombo">
+          <item>
+           <property name="text">
+            <string>auto</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>aes-128-gcm</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>chacha20-poly1305</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>none</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="portLabel">
+          <property name="text">
+           <string>Port:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QLineEdit" name="idLineEdit">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="maxLength">
+           <number>36</number>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QLineEdit" name="alterLineEdit">
+          <property name="maxLength">
+           <number>5</number>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLineEdit" name="portLineEdit">
+          <property name="maxLength">
+           <number>5</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
-      <item row="6" column="1">
-       <spacer name="verticalSpacer">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
+      <item>
+       <widget class="QGroupBox" name="groupBox">
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
         </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
+        <property name="title">
+         <string>Transport Settings</string>
         </property>
-       </spacer>
+        <widget class="QWidget" name="verticalLayoutWidget_2">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>30</y>
+           <width>601</width>
+           <height>241</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <widget class="QTabWidget" name="tabWidget">
+            <property name="currentIndex">
+             <number>0</number>
+            </property>
+            <widget class="QWidget" name="tab">
+             <attribute name="title">
+              <string>TCP Settings</string>
+             </attribute>
+            </widget>
+            <widget class="QWidget" name="tab_2">
+             <attribute name="title">
+              <string>Tab 2</string>
+             </attribute>
+            </widget>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
       </item>
      </layout>
     </item>
-    <item row="0" column="1">
+    <item row="1" column="1">
      <widget class="QTextBrowser" name="textBrowser"/>
     </item>
-    <item row="1" column="1">
+    <item row="2" column="1">
      <widget class="QDialogButtonBox" name="buttonBox">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>

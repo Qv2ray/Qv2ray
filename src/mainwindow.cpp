@@ -9,8 +9,8 @@
 #include <QInputDialog>
 
 #include "db.h"
-#include "vmess.h"
-#include "hvconf.h"
+#include "import_vmess.h"
+#include "inbound_settings.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "confedit.h"
@@ -90,16 +90,16 @@ void MainWindow::delConf()
     int row = ui->configTable->selectionModel()->currentIndex().row();
     int idIntable = ui->configTable->model()->data(ui->configTable->model()->index(row, 4)).toInt();
     QString queryString = "delete from confs where id = " + QString::number(idIntable);
-    db myDb;
-    myDb.query(queryString);
+    SQLiteDB myDb;
+    myDb.DoQuery(queryString);
     QString rmFile = "conf/" + QString::number(idIntable) + ".conf";
     QFile::remove(rmFile);
     emit updateConfTable();
 }
 void MainWindow::updateConfTable()
 {
-    db myDb;
-    myDb.query("select COUNT(*) from confs;");
+    SQLiteDB myDb;
+    myDb.DoQuery("select COUNT(*) from confs;");
     myDb.myQuery.first();
     int rows = myDb.myQuery.value(0).toInt();
     QStandardItemModel* model = new QStandardItemModel(rows, 5);
@@ -113,7 +113,7 @@ void MainWindow::updateConfTable()
     ui->configTable->setColumnHidden(4, true);
     ui->configTable->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->configTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    myDb.query("select * from confs");
+    myDb.DoQuery("select * from confs");
     myDb.myQuery.first();
     for (int i = 0; i < rows; ++i) {
         model->setItem(i, 0, new QStandardItem(myDb.myQuery.value(3).toString()));
@@ -131,10 +131,10 @@ void MainWindow::updateConfTable()
 void MainWindow::geneConf(int idIntable)
 {
     vConfig tmpConf;
-    db myDb;
-    myDb.query("update confs set selected = 0");
+    SQLiteDB myDb;
+    myDb.DoQuery("update confs set selected = 0");
     QString queryString = "update confs set selected = 1 where id = " + QString::number(idIntable);
-    myDb.query(queryString);
+    myDb.DoQuery(queryString);
     emit updateConfTable();
     tmpConf.query(idIntable);
     if (tmpConf.isCustom == 1) {
@@ -189,7 +189,7 @@ void MainWindow::on_rtButton_clicked()
 
 void MainWindow::on_actionVmess_triggered()
 {
-    vmess *inVmess = new vmess(this);
+    import_vmess *inVmess = new import_vmess(this);
     inVmess->show();
 }
 
@@ -284,9 +284,9 @@ void MainWindow::renameRow()
     QString text = QInputDialog::getText(this, "Rename config", "New name:", QLineEdit::Normal);
     int row = ui->configTable->currentIndex().row();
     int idIntable = ui->configTable->model()->data(ui->configTable->model()->index(row, 4)).toInt();
-    db mydb;
+    SQLiteDB mydb;
     QString updateString = "update confs set alias = '" + text + "' where id = " + QString::number(idIntable);
-    mydb.query(updateString);
+    mydb.DoQuery(updateString);
     emit updateConfTable();
 }
 
@@ -297,7 +297,13 @@ void MainWindow::scrollToBottom()
 
 void MainWindow::on_actionPreferences_triggered()
 {
-    hvConf *v = new hvConf(this);
+    inbound_settings_window *v = new inbound_settings_window(this);
     v->setAttribute(Qt::WA_DeleteOnClose);
     v->show();
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    auto confedit = new ConfEdit();
+    confedit->show();
 }

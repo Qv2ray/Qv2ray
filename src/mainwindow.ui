@@ -95,6 +95,13 @@
       <item row="3" column="0">
        <widget class="QTextBrowser" name="logText"/>
       </item>
+      <item row="3" column="1">
+       <widget class="QPushButton" name="pushButton">
+        <property name="text">
+         <string>PushButton</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </item>
    </layout>

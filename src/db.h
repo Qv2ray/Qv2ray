@@ -2,12 +2,12 @@
 #define DB_H
 #include <QSqlQuery>
 
-class db
+class SQLiteDB
 {
 public:
-    db();
+    SQLiteDB();
     QSqlQuery myQuery;
-    void query(QString queryString);
+    void DoQuery(QString queryString);
 
 };
 
