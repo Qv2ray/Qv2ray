@@ -9,11 +9,11 @@
 #include "vinteract.h"
 #include "utils.h"
 #include "importconf.h"
-#include "ui_vmess.h"
+#include "ui_import_vmess.h"
 
 import_vmess::import_vmess(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::vmess)
+    ui(new Ui::import_vmess)
 {
     ui->setupUi(this);
 }

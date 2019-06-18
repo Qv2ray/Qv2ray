@@ -5,7 +5,7 @@
 
 namespace Ui
 {
-    class vmess;
+    class import_vmess;
 }
 
 class import_vmess : public QDialog
@@ -20,7 +20,7 @@ private slots:
     void on_buttonBox_accepted();
 
 private:
-    Ui::vmess *ui;
+    Ui::import_vmess *ui;
 };
 
 #endif // VMESS_H
