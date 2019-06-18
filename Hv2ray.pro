@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui sql
+QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -33,7 +33,6 @@ SOURCES += \
         importconf.cpp \
         inbound_settings.cpp \
         vinteract.cpp \
-        db.cpp \
         import_vmess.cpp \
         utils.cpp \
         runguard.cpp
@@ -44,7 +43,6 @@ HEADERS += \
         importconf.h \
         inbound_settings.h \
         vinteract.h \
-        db.h \
         import_vmess.h \
         utils.h \
         runguard.h

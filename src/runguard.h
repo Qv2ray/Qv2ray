@@ -14,7 +14,7 @@ public:
     ~RunGuard();
 
     bool isAnotherRunning();
-    bool tryToRun();
+    bool isSingleInstance();
     void release();
 
 private:
