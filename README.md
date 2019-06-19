@@ -1,4 +1,4 @@
-# Hv2ray
+# Hv2ray [![HitCount](http://hits.dwyl.io/lhy0403/Hv2ray.svg)](http://hits.dwyl.io/lhy0403/Hv2ray)
 A Linux GUI tool for v2ray based on Qt.
 
 TODO: A CROSS-PLATFORM GUI for v2ray based on Qt.
