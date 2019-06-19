@@ -7,8 +7,14 @@ TODO: A CROSS-PLATFORM GUI for v2ray based on Qt.
 
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/lhy0403/Hv2ray.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/lhy0403/Hv2ray/alerts/)
 
+Linux Build:
 [![Build Status](https://travis-ci.com/lhy0403/Hv2ray.svg?branch=master)](https://travis-ci.com/lhy0403/Hv2ray)
 
+Windows Build:
+[![Build status](https://ci.appveyor.com/api/projects/status/ml51d2s41pqmfgme?svg=true)](https://ci.appveyor.com/project/lhy0403/hv2ray)
+
+Mac OS Build: 
+\[WIP]
 
 # Special Thanks
 [@aliyuchang33](https://github.com/aliyuchang33) - Original Author, who initially created this project and gives idea of using Qt to implement.
