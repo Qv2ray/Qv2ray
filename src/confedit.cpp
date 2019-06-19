@@ -4,7 +4,6 @@
 #include "mainwindow.h"
 #include <QDebug>
 #include <QFile>
-#include "db.h"
 #include <QIntValidator>
 
 ConfEdit::ConfEdit(QWidget *parent) :
