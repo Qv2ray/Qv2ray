@@ -8,7 +8,6 @@
 #include <QFileInfo>
 #include <QInputDialog>
 
-#include "db.h"
 #include "import_vmess.h"
 #include "inbound_settings.h"
 #include "mainwindow.h"
