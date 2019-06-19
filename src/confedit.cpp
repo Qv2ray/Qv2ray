@@ -19,7 +19,6 @@ ConfEdit::~ConfEdit()
 {
     delete ui;
 }
-
 int vConfig::save()
 {
     return -1;

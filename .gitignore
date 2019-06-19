@@ -10,5 +10,5 @@ v2ctl
 v2ray
 v2ray.sig
 v2ctl.sig
-
+./.vscode
 build/
