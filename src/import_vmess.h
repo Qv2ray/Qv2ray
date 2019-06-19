@@ -5,22 +5,22 @@
 
 namespace Ui
 {
-    class vmess;
+    class import_vmess;
 }
 
-class vmess : public QDialog
+class import_vmess : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit vmess(QWidget *parent = nullptr);
-    ~vmess();
+    explicit import_vmess(QWidget *parent = nullptr);
+    ~import_vmess();
 
 private slots:
     void on_buttonBox_accepted();
 
 private:
-    Ui::vmess *ui;
+    Ui::import_vmess *ui;
 };
 
 #endif // VMESS_H

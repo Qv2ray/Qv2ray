@@ -42,7 +42,7 @@ private slots:
     void select_triggered();
     void on_clbutton_clicked();
     void on_rtButton_clicked();
-    void geneConf(int idIntable);
+    void generateConfig(int idIntable);
     void on_actionVmess_triggered();
     void on_activatedTray(QSystemTrayIcon::ActivationReason reason);
     void toggleMainWindowVisibility();
@@ -51,6 +51,8 @@ private slots:
     void renameRow();
     void scrollToBottom();
     void on_actionPreferences_triggered();
+
+    void on_pushButton_clicked();
 
 private:
     Ui::MainWindow *ui;

@@ -10,13 +10,13 @@
 #include <unistd.h>
 
 #include "utils.h"
-#include "hvconf.h"
+#include "inbound_settings.h"
 #include "mainwindow.h"
-#include "ui_hvconf.h"
+#include "ui_inbound_settings.h"
 
-hvConf::hvConf(MainWindow *parent) :
+inbound_settings_window::inbound_settings_window(MainWindow *parent) :
     QDialog(parent),
-    ui(new Ui::hvConf)
+    ui(new Ui::inbound_settings_window)
 {
     ui->setupUi(this);
     rootObj = loadRootObjFromConf();
@@ -42,12 +42,12 @@ hvConf::hvConf(MainWindow *parent) :
     parentMW = parent;
 }
 
-hvConf::~hvConf()
+inbound_settings_window::~inbound_settings_window()
 {
     delete ui;
 }
 
-void hvConf::on_buttonBox_accepted()
+void inbound_settings_window::on_buttonBox_accepted()
 {
     if(testCoreFiles()) {
         if(ui->httpPortLE->text().toInt() != ui->socksPortLE->text().toInt()) {
@@ -122,7 +122,7 @@ void hvConf::on_buttonBox_accepted()
 }
 
 
-void hvConf::on_httpCB_stateChanged(int arg1)
+void inbound_settings_window::on_httpCB_stateChanged(int arg1)
 {
     if(arg1 != Qt::Checked) {
         ui->httpPortLE->setDisabled(true);
@@ -132,7 +132,7 @@ void hvConf::on_httpCB_stateChanged(int arg1)
     }
 }
 
-void hvConf::on_socksCB_stateChanged(int arg1)
+void inbound_settings_window::on_socksCB_stateChanged(int arg1)
 {
     if(arg1 != Qt::Checked) {
         ui->socksPortLE->setDisabled(true);

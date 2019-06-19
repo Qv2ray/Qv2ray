@@ -7,16 +7,16 @@
 
 namespace Ui
 {
-    class hvConf;
+    class inbound_settings_window;
 }
 
-class hvConf : public QDialog
+class inbound_settings_window : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit hvConf(MainWindow *parent = nullptr);
-    ~hvConf();
+    explicit inbound_settings_window(MainWindow *parent = nullptr);
+    ~inbound_settings_window();
     QJsonObject rootObj;
     MainWindow *parentMW;
 
@@ -26,7 +26,7 @@ private slots:
     void on_socksCB_stateChanged(int arg1);
 
 private:
-    Ui::hvConf *ui;
+    Ui::inbound_settings_window *ui;
 };
 
 #endif // HVCONF_H

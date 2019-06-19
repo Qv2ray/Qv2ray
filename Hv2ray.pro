@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui sql
+QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -31,10 +31,9 @@ SOURCES += \
         mainwindow.cpp \
         confedit.cpp \
         importconf.cpp \
-        hvconf.cpp \
+        inbound_settings.cpp \
         vinteract.cpp \
-        db.cpp \
-        vmess.cpp \
+        import_vmess.cpp \
         utils.cpp \
         runguard.cpp
 
@@ -42,10 +41,9 @@ HEADERS += \
         mainwindow.h \
         confedit.h \
         importconf.h \
-        hvconf.h \
+        inbound_settings.h \
         vinteract.h \
-        db.h \
-        vmess.h \
+        import_vmess.h \
         utils.h \
         runguard.h
 
@@ -53,8 +51,8 @@ FORMS += \
         mainwindow.ui \
         confedit.ui \
         importconf.ui \
-        hvconf.ui \
-        vmess.ui
+        inbound_settings.ui \
+        import_vmess.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -65,7 +63,7 @@ RC_ICONS = Himeki.ico
 
 WITH_PYTHON = no
 
-unix: exists( "/usr/lib/libpython3.7m.so" ) {
+unix: exists( "/usr/include/python3.7m/Python.h" ) {
     equals(WITH_PYTHON, "no") {
         message("Will build with python lib version 3.7.")
         INCLUDEPATH += /usr/include/python3.7m/
@@ -74,7 +72,7 @@ unix: exists( "/usr/lib/libpython3.7m.so" ) {
     }
 }
 
-unix: exists( "/usr/lib/libpython3.6m.so" ) {
+unix: exists( "/usr/include/python3.6m/Python.h" ) {
     equals(WITH_PYTHON, "no") {
         message("Will build with python lib version 3.6.")
         INCLUDEPATH += /usr/include/python3.6m/
@@ -83,7 +81,7 @@ unix: exists( "/usr/lib/libpython3.6m.so" ) {
     }
 }
 
-unix: exists( "/usr/lib/libpython3.5m.so" ) {
+unix: exists( "/usr/include/python3.5m/Python.h" ) {
     equals(WITH_PYTHON, "no") {
         message("Will build with python lib version 3.5.")
         INCLUDEPATH += /usr/include/python3.5m/

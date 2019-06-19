@@ -1,4 +1,4 @@
-#include "vmess.h"
+#include "import_vmess.h"
 #pragma push_macro("slots")
 #undef slots
 #include "Python.h"
@@ -9,21 +9,21 @@
 #include "vinteract.h"
 #include "utils.h"
 #include "importconf.h"
-#include "ui_vmess.h"
+#include "ui_import_vmess.h"
 
-vmess::vmess(QWidget *parent) :
+import_vmess::import_vmess(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::vmess)
+    ui(new Ui::import_vmess)
 {
     ui->setupUi(this);
 }
 
-vmess::~vmess()
+import_vmess::~import_vmess()
 {
     delete ui;
 }
 
-void vmess::on_buttonBox_accepted()
+void import_vmess::on_buttonBox_accepted()
 {
     QString vmess = ui->vmessTextEdit->toPlainText();
     QString alias = ui->aliasLineEdit->text();

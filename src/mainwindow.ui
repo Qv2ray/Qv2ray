@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1060</width>
-    <height>643</height>
+    <width>867</width>
+    <height>519</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,11 +20,11 @@
      <verstretch>0</verstretch>
     </sizepolicy>
    </property>
-   <layout class="QGridLayout" name="gridLayout_2">
-    <item row="0" column="0">
-     <layout class="QGridLayout" name="gridLayout" rowstretch="0,2,0,0" columnstretch="2,1">
-      <item row="0" column="0" colspan="2">
-       <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1,1,1,1,4">
+   <layout class="QHBoxLayout" name="horizontalLayout_4">
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout" stretch="1,9,0">
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1,1,1,0,0,1,4">
         <item>
          <widget class="QPushButton" name="startButton">
           <property name="text">
@@ -44,6 +44,9 @@
           <property name="text">
            <string>Restart</string>
           </property>
+          <property name="flat">
+           <bool>false</bool>
+          </property>
          </widget>
         </item>
         <item>
@@ -54,14 +57,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="rtButton">
-          <property name="text">
-           <string>Refresh Table</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer name="horizontalSpacer">
+         <spacer name="horizontalSpacer_2">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
@@ -73,26 +69,116 @@
           </property>
          </spacer>
         </item>
+        <item>
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>Log Level</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="comboBox_2">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>138</width>
+            <height>0</height>
+           </size>
+          </property>
+          <item>
+           <property name="text">
+            <string>debug</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>info</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>warning</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>error</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>none</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Expanding</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
        </layout>
       </item>
-      <item row="1" column="0">
-       <widget class="QTableView" name="configTable">
-        <property name="showGrid">
-         <bool>true</bool>
-        </property>
-       </widget>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,1">
+        <item>
+         <widget class="QListWidget" name="listWidget"/>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="groupBox">
+          <property name="title">
+           <string>Config Detail</string>
+          </property>
+          <widget class="QPushButton" name="pushButton">
+           <property name="geometry">
+            <rect>
+             <x>30</x>
+             <y>60</y>
+             <width>85</width>
+             <height>33</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>PushButton</string>
+           </property>
+          </widget>
+          <widget class="QToolButton" name="toolButton">
+           <property name="geometry">
+            <rect>
+             <x>180</x>
+             <y>60</y>
+             <width>111</width>
+             <height>33</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Restart To</string>
+           </property>
+           <property name="popupMode">
+            <enum>QToolButton::DelayedPopup</enum>
+           </property>
+          </widget>
+         </widget>
+        </item>
+       </layout>
       </item>
-      <item row="1" column="1">
-       <widget class="QGraphicsView" name="QR"/>
-      </item>
-      <item row="2" column="0" colspan="2">
-       <widget class="Line" name="line">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0">
+      <item>
        <widget class="QTextBrowser" name="logText"/>
       </item>
      </layout>
@@ -104,7 +190,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1060</width>
+     <width>867</width>
      <height>29</height>
     </rect>
    </property>
@@ -128,9 +214,16 @@
     </widget>
     <addaction name="menuNew"/>
     <addaction name="actionPreferences"/>
+    <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
+   <widget class="QMenu" name="menuAbout">
+    <property name="title">
+     <string>About</string>
+    </property>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuAbout"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionEdit">
