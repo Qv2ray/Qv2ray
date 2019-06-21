@@ -52,7 +52,7 @@ bool RunGuard::isAnotherRunning()
     return isRunning;
 }
 
-bool RunGuard::tryToRun()
+bool RunGuard::isSingleInstance()
 {
     if ( isAnotherRunning() ) { // Extra check
         return false;

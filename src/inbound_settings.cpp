@@ -91,6 +91,8 @@ void inbound_settings_window::on_buttonBox_accepted()
                 inbounds.append(http);
             }
             rootObj.insert("inbounds", QJsonValue(inbounds));
+#ifndef _WIN32
+            // Set UID and GID in *nix
             QFileInfo ray("v2ray");
             if(ui->rootCheckbox->isChecked() && ray.ownerId() != 0) {
                 QProcess::execute("pkexec", QStringList() << "bash" << "-c" << "chown root:root " + QCoreApplication::applicationDirPath() + "/v2ray" + ";chmod +s " + QCoreApplication::applicationDirPath() + "/v2ray");
@@ -101,6 +103,9 @@ void inbound_settings_window::on_buttonBox_accepted()
             }
             ray.refresh();
             rootObj.insert("v2suidEnabled", ray.ownerId() == 0);
+#else
+            // No such uid gid thing on windows....
+#endif
             modifiedDoc.setObject(rootObj);
             QByteArray byteArray = modifiedDoc.toJson(QJsonDocument::Indented);
             QFile confFile("conf/Hv2ray.config.json");
