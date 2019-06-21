@@ -1,10 +1,10 @@
 # Hv2ray [![HitCount](http://hits.dwyl.io/lhy0403/Hv2ray.svg)](http://hits.dwyl.io/lhy0403/Hv2ray)
 
-TODO: 使用 Qt 的跨平台 v2ray 客户端，目前仍处于早期开发，部分功能尚未齐全。
+TODO: 使用 Qt 的跨平台 v2ray 客户端，目前仍处于早期开发，多数功能尚未齐全。
 
-[![Language grade: C/C++](https://img.shields.io/lgtm/grade/cpp/g/lhy0403/Hv2ray.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/lhy0403/Hv2ray/context:cpp)
+**当前开发分支[ui-implementation](https://github.com/lhy0403/Hv2ray/tree/ui-implementation) - 用于实现基本 UI**
 
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/lhy0403/Hv2ray.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/lhy0403/Hv2ray/alerts/)
+[![Language grade: C/C++](https://img.shields.io/lgtm/grade/cpp/g/lhy0403/Hv2ray.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/lhy0403/Hv2ray/context:cpp) [![Total alerts](https://img.shields.io/lgtm/alerts/g/lhy0403/Hv2ray.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/lhy0403/Hv2ray/alerts/)
 
 Linux 编译状态:
 [![Build Status](https://travis-ci.com/lhy0403/Hv2ray.svg?branch=master)](https://travis-ci.com/lhy0403/Hv2ray)
