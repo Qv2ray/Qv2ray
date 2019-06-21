@@ -24,14 +24,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 CONFIG += c++11
 
-VPATH += ./src
+VPATH += ./src \
+         ./translations
 
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-        confedit.cpp \
+        ConnectionEditWindow.cpp \
         importconf.cpp \
-        inbound_settings.cpp \
+        PrefrencesWindow.cpp \
         vinteract.cpp \
         import_vmess.cpp \
         utils.cpp \
@@ -39,9 +40,9 @@ SOURCES += \
 
 HEADERS += \
         mainwindow.h \
-        confedit.h \
+        ConnectionEditWindow.h \
         importconf.h \
-        inbound_settings.h \
+        PrefrencesWindow.h \
         vinteract.h \
         import_vmess.h \
         utils.h \
@@ -49,10 +50,13 @@ HEADERS += \
 
 FORMS += \
         mainwindow.ui \
-        confedit.ui \
+        ConnectionEditWindow.ui \
         importconf.ui \
-        inbound_settings.ui \
+        PrefrencesWindow.ui \
         import_vmess.ui
+
+TRANSLATIONS += ./translations/zh-CN.ts \
+                ./translations/en-US.ts
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

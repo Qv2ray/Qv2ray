@@ -3,7 +3,7 @@
 #define confDir "conf/"
 #define confDatabase "conf/conf.db"
 #include <QMainWindow>
-#include "confedit.h"
+#include "ConnectionEditWindow.h"
 #include <QSystemTrayIcon>
 #include <QMenu>
 #include <QScrollBar>

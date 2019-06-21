@@ -9,10 +9,10 @@
 #include <QInputDialog>
 
 #include "import_vmess.h"
-#include "inbound_settings.h"
+#include "PrefrencesWindow.h"
 #include "mainwindow.h"
 #include <ui_mainwindow.h>
-#include "confedit.h"
+#include "ConnectionEditWindow.h"
 #include "importconf.h"
 #include "vinteract.h"
 #include "utils.h"
@@ -35,6 +35,7 @@ MainWindow::MainWindow(QWidget *parent) :
     if(QFileInfo("config.json").exists()) {
         v2Inst->start(this);
     }
+
 //    QAction *select = new QAction("Select", ui->configTable);
 //    QAction *del = new QAction("Delete", ui->configTable);
 //    QAction *rename = new QAction("Rename", ui->configTable);
@@ -56,7 +57,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_actionEdit_triggered()
 {
-    ConfEdit *e = new ConfEdit(this);
+    ConnectionEditWindow *e = new ConnectionEditWindow(this);
     e->setAttribute(Qt::WA_DeleteOnClose);
     e->show();
 }
@@ -256,13 +257,13 @@ void MainWindow::scrollToBottom()
 
 void MainWindow::on_actionPreferences_triggered()
 {
-    inbound_settings_window *v = new inbound_settings_window(this);
+    PrefrencesWindow *v = new PrefrencesWindow(this);
     v->setAttribute(Qt::WA_DeleteOnClose);
     v->show();
 }
 
 void MainWindow::on_pushButton_clicked()
 {
-    auto confedit = new ConfEdit();
+    auto confedit = new ConnectionEditWindow();
     confedit->show();
 }
