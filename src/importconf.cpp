@@ -5,7 +5,7 @@
 #include <QJsonObject>
 #include <QJsonArray>
 
-#include "confedit.h"
+#include "ConnectionEditWindow.h"
 #include "vinteract.h"
 #include "utils.h"
 #include "importconf.h"

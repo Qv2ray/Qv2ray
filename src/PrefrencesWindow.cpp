@@ -10,20 +10,20 @@
 #include <unistd.h>
 
 #include "utils.h"
-#include "inbound_settings.h"
+#include "PrefrencesWindow.h"
 #include "mainwindow.h"
-#include "ui_inbound_settings.h"
+#include "ui_PrefrencesWindow.h"
 
-inbound_settings_window::inbound_settings_window(MainWindow *parent) :
+PrefrencesWindow::PrefrencesWindow(MainWindow *parent) :
     QDialog(parent),
-    ui(new Ui::inbound_settings_window)
+    ui(new Ui::PrefrencesWindow)
 {
     ui->setupUi(this);
     rootObj = loadRootObjFromConf();
     QJsonObject http = findValueFromJsonArray(rootObj.value("inbounds").toArray(), "tag", "http-in");
     QJsonObject socks = findValueFromJsonArray(rootObj.value("inbounds").toArray(), "tag", "socks-in");
     if(rootObj.value("v2suidEnabled").toBool()) {
-        ui->rootCheckbox->setCheckState(Qt::Checked);
+        ui->checkBox->setCheckState(Qt::Checked);
     }
     if(!http.isEmpty()) {
         ui->httpPortLE->setText(QString::number(http.value("port").toInt()));
@@ -42,12 +42,12 @@ inbound_settings_window::inbound_settings_window(MainWindow *parent) :
     parentMW = parent;
 }
 
-inbound_settings_window::~inbound_settings_window()
+PrefrencesWindow::~PrefrencesWindow()
 {
     delete ui;
 }
 
-void inbound_settings_window::on_buttonBox_accepted()
+void PrefrencesWindow::on_buttonBox_accepted()
 {
     if(testCoreFiles()) {
         if(ui->httpPortLE->text().toInt() != ui->socksPortLE->text().toInt()) {
@@ -94,9 +94,9 @@ void inbound_settings_window::on_buttonBox_accepted()
 #ifndef _WIN32
             // Set UID and GID in *nix
             QFileInfo ray("v2ray");
-            if(ui->rootCheckbox->isChecked() && ray.ownerId() != 0) {
+            if(ui->checkBox->isChecked() && ray.ownerId() != 0) {
                 QProcess::execute("pkexec", QStringList() << "bash" << "-c" << "chown root:root " + QCoreApplication::applicationDirPath() + "/v2ray" + ";chmod +s " + QCoreApplication::applicationDirPath() + "/v2ray");
-            } else if (!ui->rootCheckbox->isChecked() && ray.ownerId() == 0) {
+            } else if (!ui->checkBox->isChecked() && ray.ownerId() == 0) {
                 uid_t uid = getuid();
                 gid_t gid = getgid();
                 QProcess::execute("pkexec", QStringList() << "chown" << QString::number(uid) + ":" + QString::number(gid) << QCoreApplication::applicationDirPath() + "/v2ray");
@@ -122,7 +122,7 @@ void inbound_settings_window::on_buttonBox_accepted()
 }
 
 
-void inbound_settings_window::on_httpCB_stateChanged(int arg1)
+void PrefrencesWindow::on_httpCB_stateChanged(int arg1)
 {
     if(arg1 != Qt::Checked) {
         ui->httpPortLE->setDisabled(true);
@@ -132,7 +132,7 @@ void inbound_settings_window::on_httpCB_stateChanged(int arg1)
     }
 }
 
-void inbound_settings_window::on_socksCB_stateChanged(int arg1)
+void PrefrencesWindow::on_socksCB_stateChanged(int arg1)
 {
     if(arg1 != Qt::Checked) {
         ui->socksPortLE->setDisabled(true);

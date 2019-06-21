@@ -5,7 +5,7 @@
 
 namespace Ui
 {
-    class ConfEdit;
+    class ConnectionEditWindow;
 }
 
 class vConfig
@@ -19,20 +19,20 @@ public:
     QString security;
     int isCustom;
     int save();
-    void getConfigFromDialog(Ui::ConfEdit *ui);
+    void getConfigFromDialog(Ui::ConnectionEditWindow *ui);
 private:
 
 };
 
-class ConfEdit : public QDialog
+class ConnectionEditWindow : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit ConfEdit(QWidget *parent = nullptr);
-    ~ConfEdit();
+    explicit ConnectionEditWindow(QWidget *parent = nullptr);
+    ~ConnectionEditWindow();
 private:
-    Ui::ConfEdit *ui;
+    Ui::ConnectionEditWindow *ui;
 
 };
 
