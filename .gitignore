@@ -12,3 +12,5 @@ v2ray.sig
 v2ctl.sig
 ./.vscode
 build/
+python37/
+tools/python-3.7.3.exe

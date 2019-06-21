@@ -93,3 +93,6 @@ unix: exists( "/usr/include/python3.5m/Python.h" ) {
 unix: equals(WITH_PYTHON, "no") {
     error("No python libs found, did you install python3 dev package?")
 }
+
+win32: LIBS += -L$$PWD/python37/libs/ -lpython37_mingw
+win32: INCLUDEPATH += $$PWD/python37/include

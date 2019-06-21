@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>840</width>
+    <width>854</width>
     <height>629</height>
    </rect>
   </property>
@@ -222,7 +222,7 @@
              </size>
             </property>
             <property name="currentIndex">
-             <number>5</number>
+             <number>3</number>
             </property>
             <property name="usesScrollButtons">
              <bool>true</bool>
