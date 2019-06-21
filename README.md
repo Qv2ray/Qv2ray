@@ -10,7 +10,7 @@ Linux 编译状态:
 [![Build Status](https://travis-ci.com/lhy0403/Hv2ray.svg?branch=master)](https://travis-ci.com/lhy0403/Hv2ray)
 
 Windows 编译状态:
-[![Build status](https://ci.appveyor.com/api/projects/status/ml51d2s41pqmfgme?svg=true)](https://ci.appveyor.com/project/lhy0403/hv2ray)
+[![Build status](https://ci.appveyor.com/api/projects/status/ml51d2s41pqmfgme/branch/master?svg=true)](https://ci.appveyor.com/project/lhy0403/hv2ray/branch/master)
 
 Mac OS 构建: 
 \[WIP]
