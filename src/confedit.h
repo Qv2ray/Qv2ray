@@ -18,7 +18,6 @@ public:
     QString alterid;
     QString security;
     int isCustom;
-    vConfig *query(int id);
     int save();
     void getConfigFromDialog(Ui::ConfEdit *ui);
 private:
@@ -32,11 +31,6 @@ class ConfEdit : public QDialog
 public:
     explicit ConfEdit(QWidget *parent = nullptr);
     ~ConfEdit();
-signals:
-    void updateConfTable();
-private slots:
-    void on_ConfEdit_accepted();
-
 private:
     Ui::ConfEdit *ui;
 
