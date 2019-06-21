@@ -23,8 +23,8 @@ Mac OS 构建:
 - Qt >= 5
 - Python3.5 | 3.6 | 3.7
 ### Windows 
-- Qt = 5
 - Python 3.7
+- Qt Creator (MinGW & Qt5)
 
 ## 编译
 ### Linux
