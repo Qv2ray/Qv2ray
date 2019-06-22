@@ -11,7 +11,7 @@
 
 #include "utils.h"
 #include "PrefrencesWindow.h"
-#include "mainwindow.h"
+#include "MainWindow.h"
 #include "ui_PrefrencesWindow.h"
 
 PrefrencesWindow::PrefrencesWindow(MainWindow *parent) :
@@ -49,16 +49,16 @@ PrefrencesWindow::~PrefrencesWindow()
 
 void PrefrencesWindow::on_buttonBox_accepted()
 {
-    if(testCoreFiles()) {
+    if(checkVCoreExes()) {
         if(ui->httpPortLE->text().toInt() != ui->socksPortLE->text().toInt()) {
             QJsonArray inbounds;
             QJsonDocument modifiedDoc;
             inbounds = rootObj.value("inbounds").toArray();
-            int socksId = getIndexInArrayByValue(inbounds, "tag", "socks-in");
+            int socksId = getIndexByValue(inbounds, "tag", "socks-in");
             if(socksId != -1) {
                 inbounds.removeAt(socksId);
             }
-            int httpId = getIndexInArrayByValue(inbounds, "tag", "http-in");
+            int httpId = getIndexByValue(inbounds, "tag", "http-in");
             if(httpId != -1) {
                 inbounds.removeAt(httpId);
             }
@@ -93,16 +93,16 @@ void PrefrencesWindow::on_buttonBox_accepted()
             rootObj.insert("inbounds", QJsonValue(inbounds));
 #ifndef _WIN32
             // Set UID and GID in *nix
-            QFileInfo ray("v2ray");
-            if(ui->checkBox->isChecked() && ray.ownerId() != 0) {
+            QFileInfo v2rayCoreExeFile("v2ray");
+            if(ui->checkBox->isChecked() && v2rayCoreExeFile.ownerId() != 0) {
                 QProcess::execute("pkexec", QStringList() << "bash" << "-c" << "chown root:root " + QCoreApplication::applicationDirPath() + "/v2ray" + ";chmod +s " + QCoreApplication::applicationDirPath() + "/v2ray");
-            } else if (!ui->checkBox->isChecked() && ray.ownerId() == 0) {
+            } else if (!ui->checkBox->isChecked() && v2rayCoreExeFile.ownerId() == 0) {
                 uid_t uid = getuid();
                 gid_t gid = getgid();
                 QProcess::execute("pkexec", QStringList() << "chown" << QString::number(uid) + ":" + QString::number(gid) << QCoreApplication::applicationDirPath() + "/v2ray");
             }
-            ray.refresh();
-            rootObj.insert("v2suidEnabled", ray.ownerId() == 0);
+            v2rayCoreExeFile.refresh();
+            rootObj.insert("v2suidEnabled", v2rayCoreExeFile.ownerId() == 0);
 #else
             // No such uid gid thing on windows....
 #endif
@@ -114,17 +114,16 @@ void PrefrencesWindow::on_buttonBox_accepted()
             }
             confFile.write(byteArray);
             confFile.close();
-            parentMW->on_restartButton_clicked();
         } else {
-            alterMessage("Config error", "Port numbers cannot be the same!");
+            showWarnMessageBox(this, tr("Config error"), tr("Port numbers cannot be the same!"));
         }
     }
 }
 
 
-void PrefrencesWindow::on_httpCB_stateChanged(int arg1)
+void PrefrencesWindow::on_httpCB_stateChanged(int checked)
 {
-    if(arg1 != Qt::Checked) {
+    if(checked != Qt::Checked) {
         ui->httpPortLE->setDisabled(true);
     } else {
         ui->httpPortLE->setEnabled(true);
@@ -132,9 +131,9 @@ void PrefrencesWindow::on_httpCB_stateChanged(int arg1)
     }
 }
 
-void PrefrencesWindow::on_socksCB_stateChanged(int arg1)
+void PrefrencesWindow::on_socksCB_stateChanged(int checked)
 {
-    if(arg1 != Qt::Checked) {
+    if(checked != Qt::Checked) {
         ui->socksPortLE->setDisabled(true);
     } else {
         ui->socksPortLE->setEnabled(true);

@@ -48,6 +48,6 @@ void import_vmess::on_buttonBox_accepted()
         }
         QFile::remove("config.json.tmp");
     } else {
-        alterMessage("Error occured", "Failed to generate config file.");
+        showWarnMessageBox(this, "Error occured", "Failed to generate config file.");
     }
 }

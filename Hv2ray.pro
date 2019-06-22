@@ -29,7 +29,7 @@ VPATH += ./src \
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp \
+        MainWindow.cpp \
         ConnectionEditWindow.cpp \
         importconf.cpp \
         PrefrencesWindow.cpp \
@@ -39,7 +39,7 @@ SOURCES += \
         runguard.cpp
 
 HEADERS += \
-        mainwindow.h \
+        MainWindow.h \
         ConnectionEditWindow.h \
         importconf.h \
         PrefrencesWindow.h \
@@ -49,14 +49,13 @@ HEADERS += \
         runguard.h
 
 FORMS += \
-        mainwindow.ui \
+        MainWindow.ui \
         ConnectionEditWindow.ui \
         importconf.ui \
         PrefrencesWindow.ui \
         import_vmess.ui
 
-TRANSLATIONS += ./translations/zh-CN.ts \
-                ./translations/en-US.ts
+TRANSLATIONS += ./translations/zh-CN.ts
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

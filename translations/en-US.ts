@@ -4,11 +4,6 @@
 <context>
     <name>ConnectionEditWindow</name>
     <message>
-        <location filename="../src/ConnectionEditWindow.ui" line="20"/>
-        <source>ConfEdit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/ConnectionEditWindow.ui" line="28"/>
         <location filename="../src/ConnectionEditWindow.ui" line="423"/>
         <source>Host</source>
@@ -58,7 +53,10 @@
     </message>
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="127"/>
+        <location filename="../src/ConnectionEditWindow.ui" line="223"/>
+        <location filename="../src/ConnectionEditWindow.ui" line="646"/>
         <location filename="../src/ConnectionEditWindow.ui" line="730"/>
+        <location filename="../src/ConnectionEditWindow.ui" line="797"/>
         <source>none</source>
         <translation type="unfinished"></translation>
     </message>
@@ -108,8 +106,8 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ConnectionEditWindow.ui" line="223"/>
-        <source>none (NoneHeaderObject)</source>
+        <location filename="../src/ConnectionEditWindow.ui" line="20"/>
+        <source>Connection Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -256,12 +254,6 @@
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="626"/>
         <source>header (Header Object)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ConnectionEditWindow.ui" line="646"/>
-        <location filename="../src/ConnectionEditWindow.ui" line="797"/>
-        <source>none (None)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

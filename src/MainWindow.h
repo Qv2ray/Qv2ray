@@ -26,11 +26,9 @@ public:
     QMenu *popMenu = new QMenu(this);
     QScrollBar *bar;
     ~MainWindow();
-    
-public slots:
-    void on_restartButton_clicked();
 
 private slots:
+    void on_restartButton_clicked();
     void on_actionEdit_triggered();
     void on_actionExisting_config_triggered();
     void updateConfTable();

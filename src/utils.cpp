@@ -9,8 +9,7 @@
 
 QJsonObject switchJsonArrayObject(QJsonObject obj, QString value)
 {
-    QJsonObject returnObj;
-    returnObj = obj.value(value).isNull()
+    QJsonObject returnObj = obj.value(value).isNull()
                 ? obj.value(value).toObject()
                 : obj.value(value).toArray().first().toObject();
     return returnObj;
@@ -28,7 +27,7 @@ QJsonObject findValueFromJsonArray(QJsonArray arr, QString key, QString val)
 
 QJsonObject loadRootObjFromConf()
 {
-    QFile globalConfigFile("conf/Hv2ray.config.json");
+    QFile globalConfigFile("Hv2ray.conf");
     globalConfigFile.open(QIODevice::ReadOnly);
     QByteArray conf = globalConfigFile.readAll();
     globalConfigFile.close();
@@ -49,19 +48,19 @@ bool getRootEnabled()
     return loadRootObjFromConf().value("v2suidEnabled").toBool();
 }
 
-bool testCoreFiles()
+bool checkVCoreExes()
 {
     if (QFileInfo("v2ray").exists() && QFileInfo("geoip.dat").exists() && QFileInfo("geosite.dat").exists() && QFileInfo("v2ctl").exists()) {
         return true;
     } else {
-        alterMessage("v2ray core not found", "V2ray core files not found. Please download the latest version of v2ray and extract it into the current folder.");
+        showWarnMessageBox(nullptr, "v2ray core not found", "V2ray core files not found. Please download the latest version of v2ray and extract it into the current folder.");
         return false;
     }
 }
 
-void alterMessage(QString title, QString text)
+void showWarnMessageBox(QWidget* parent, QString title, QString text)
 {
-    QMessageBox::critical(nullptr, title, text, QMessageBox::Ok | QMessageBox::Default, 0);
+    QMessageBox::warning(parent, title, text, QMessageBox::Ok | QMessageBox::Default, 0);
 }
 
 void overrideInbounds(QString path)
@@ -84,7 +83,7 @@ void overrideInbounds(QString path)
     confFile.close();
 }
 
-int getIndexInArrayByValue(QJsonArray array, QString key, QString val)
+int getIndexByValue(QJsonArray array, QString key, QString val)
 {
     QJsonArray::iterator it;
     int index = 0;
