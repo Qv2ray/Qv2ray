@@ -1,21 +1,21 @@
-#include "confedit.h"
-#include "ui_confedit.h"
+#include "ConnectionEditWindow.h"
+#include "ui_ConnectionEditWindow.h"
 #include <iostream>
-#include "mainwindow.h"
+#include "MainWindow.h"
 #include <QDebug>
 #include <QFile>
 #include <QIntValidator>
 
-ConfEdit::ConfEdit(QWidget *parent) :
+ConnectionEditWindow::ConnectionEditWindow(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::ConfEdit)
+    ui(new Ui::ConnectionEditWindow)
 {
     ui->setupUi(this);
     ui->portLineEdit->setValidator(new QIntValidator());
     ui->alterLineEdit->setValidator(new QIntValidator());
 }
 
-ConfEdit::~ConfEdit()
+ConnectionEditWindow::~ConnectionEditWindow()
 {
     delete ui;
 }
@@ -24,7 +24,7 @@ int vConfig::save()
     return -1;
 }
 
-void vConfig::getConfigFromDialog(Ui::ConfEdit *ui)
+void vConfig::getConfigFromDialog(Ui::ConnectionEditWindow *ui)
 {
     this->host = ui->ipLineEdit->text();
     this->port = ui->portLineEdit->text();

@@ -3,20 +3,20 @@
 
 #include <QDialog>
 #include <QJsonObject>
-#include "mainwindow.h"
+#include "MainWindow.h"
 
 namespace Ui
 {
-    class inbound_settings_window;
+    class PrefrencesWindow;
 }
 
-class inbound_settings_window : public QDialog
+class PrefrencesWindow : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit inbound_settings_window(MainWindow *parent = nullptr);
-    ~inbound_settings_window();
+    explicit PrefrencesWindow(MainWindow *parent = nullptr);
+    ~PrefrencesWindow();
     QJsonObject rootObj;
     MainWindow *parentMW;
 
@@ -26,7 +26,7 @@ private slots:
     void on_socksCB_stateChanged(int arg1);
 
 private:
-    Ui::inbound_settings_window *ui;
+    Ui::PrefrencesWindow *ui;
 };
 
 #endif // HVCONF_H
