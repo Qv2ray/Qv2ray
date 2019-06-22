@@ -35,7 +35,7 @@ bool validationCheck(QString path)
 
 v2Instance::v2Instance()
 {
-    this->v2Process = new QProcess();
+    this->vProcess = new QProcess();
 }
 
 v2Instance::~v2Instance()
@@ -43,18 +43,18 @@ v2Instance::~v2Instance()
     this->stop();
 }
 
-bool v2Instance::start(MainWindow *parent)
+bool v2Instance::start(QWidget *parent)
 {
-    if(this->v2Process->state() == QProcess::Running) {
+    if(this->vProcess->state() == QProcess::Running) {
         this->stop();
     }
     if (checkVCoreExes()) {
         QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
         env.insert("V2RAY_LOCATION_ASSET", QDir::currentPath());
-        this->v2Process->setProcessEnvironment(env);
-        this->v2Process->start("./v2ray", QStringList() << "-config" << "config.json", QIODevice::ReadWrite | QIODevice::Text);
-        this->v2Process->waitForStarted();
-        QObject::connect(v2Process, SIGNAL(readyReadStandardOutput()), parent, SLOT(updateLog()));
+        this->vProcess->setProcessEnvironment(env);
+        this->vProcess->start("./v2ray", QStringList() << "-config" << "config.json", QIODevice::ReadWrite | QIODevice::Text);
+        this->vProcess->waitForStarted();
+        QObject::connect(vProcess, SIGNAL(readyReadStandardOutput()), parent, SLOT(updateLog()));
         return true;
     }
     else return false;
@@ -62,5 +62,5 @@ bool v2Instance::start(MainWindow *parent)
 
 void v2Instance::stop()
 {
-    this->v2Process->close();
+    this->vProcess->close();
 }

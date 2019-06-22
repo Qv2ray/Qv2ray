@@ -31,29 +31,26 @@ SOURCES += \
         main.cpp \
         MainWindow.cpp \
         ConnectionEditWindow.cpp \
-        importconf.cpp \
+        ImportConfig.cpp \
         PrefrencesWindow.cpp \
         vinteract.cpp \
-        import_vmess.cpp \
         utils.cpp \
         runguard.cpp
 
 HEADERS += \
         MainWindow.h \
         ConnectionEditWindow.h \
-        importconf.h \
+        ImportConfig.h \
         PrefrencesWindow.h \
         vinteract.h \
-        import_vmess.h \
         utils.h \
         runguard.h
 
 FORMS += \
         MainWindow.ui \
         ConnectionEditWindow.ui \
-        importconf.ui \
-        PrefrencesWindow.ui \
-        import_vmess.ui
+        ImportConfig.ui \
+        PrefrencesWindow.ui
 
 TRANSLATIONS += ./translations/zh-CN.ts
 

@@ -255,17 +255,10 @@
     </property>
     <widget class="QMenu" name="menuNew">
      <property name="title">
-      <string>New</string>
+      <string>New Connection</string>
      </property>
-     <widget class="QMenu" name="menuFrom">
-      <property name="title">
-       <string>From</string>
-      </property>
-      <addaction name="actionVmess"/>
-      <addaction name="actionExisting_config"/>
-     </widget>
+     <addaction name="actionExisting_config"/>
      <addaction name="actionEdit"/>
-     <addaction name="menuFrom"/>
     </widget>
     <addaction name="menuNew"/>
     <addaction name="actionPreferences"/>
@@ -283,17 +276,12 @@
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionEdit">
    <property name="text">
-    <string>Edit</string>
-   </property>
-  </action>
-  <action name="actionVmess">
-   <property name="text">
-    <string>Vmess</string>
+    <string>Manual</string>
    </property>
   </action>
   <action name="actionExisting_config">
    <property name="text">
-    <string>Existing config</string>
+    <string>Import</string>
    </property>
   </action>
   <action name="actionExit">

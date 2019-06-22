@@ -5,17 +5,17 @@
 
 namespace Ui
 {
-    class importConf;
+    class ImportConfig;
 }
 
-class importConf : public QDialog
+class ImportConfig : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit importConf(QWidget *parent = nullptr);
+    explicit ImportConfig(QWidget *parent = nullptr);
     void savefromFile(QString path, QString alias);
-    ~importConf();
+    ~ImportConfig();
 
 private slots:
     void on_pushButton_clicked();
@@ -24,7 +24,7 @@ signals:
     void updateConfTable();
 
 private:
-    Ui::importConf *ui;
+    Ui::ImportConfig *ui;
 };
 
 #endif // IMPORTCONF_H
