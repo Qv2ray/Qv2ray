@@ -16,7 +16,8 @@ Mac OS 构建:
 \[WIP]
 
 # 鸣谢
-[@aliyuchang33](https://github.com/aliyuchang33) - 项目原作者/发起人，感谢他使用 Qt 作为基础框架。
+[@aliyuchang33](https://github.com/aliyuchang33) - 项目原作者/发起人，感谢他使用 Qt 作为基础框架。 
+ - 可惜原项目不更新了qwq
 
 ## 项目依赖包
 ### Linux
