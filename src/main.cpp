@@ -7,11 +7,14 @@
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QJsonValue>
+#include <QTranslator>
 
 #include "runguard.h"
 #include "utils.h"
-#include "mainwindow.h"
-#include "confedit.h"
+#include "MainWindow.h"
+#include "ConnectionEditWindow.h"
+
+using namespace std;
 
 void firstRunCheck()
 {
@@ -60,9 +63,17 @@ void firstRunCheck()
 int main(int argc, char *argv[])
 {
     QApplication _qApp(argc, argv);
+
+    QTranslator translator;
+    if (translator.load(QString("zh-CN.qm"), QString("translations")))
+    {
+        cout << "Loaded Chinese translations" << endl;
+    }
+    _qApp.installTranslator(&translator);
+
     RunGuard guard("Hv2ray");
      if(!guard.isSingleInstance()) {
-         alterMessage("Hv2Ray", "Another instance of Hv2ray is already running!");
+         showWarnMessageBox(nullptr, "Hv2Ray", "Another instance of Hv2ray is already running!");
          return -1;
      }
 
@@ -70,6 +81,7 @@ int main(int argc, char *argv[])
 
     firstRunCheck();
     MainWindow w;
+
     w.show();
     return _qApp.exec();
 }

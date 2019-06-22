@@ -8,12 +8,11 @@
 #include <QFileInfo>
 #include <QInputDialog>
 
-#include "import_vmess.h"
-#include "inbound_settings.h"
-#include "mainwindow.h"
-#include <ui_mainwindow.h>
-#include "confedit.h"
-#include "importconf.h"
+#include "PrefrencesWindow.h"
+#include "MainWindow.h"
+#include <ui_MainWindow.h>
+#include "ConnectionEditWindow.h"
+#include "ImportConfig.h"
 #include "vinteract.h"
 #include "utils.h"
 
@@ -23,18 +22,19 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     this->setWindowIcon(QIcon("Himeki.ico"));
     ui->setupUi(this);
-    updateConfTable();
+    UpdateConfigTable();
 //    ui->configTable->setContextMenuPolicy(Qt::CustomContextMenu);
 //    connect(ui->configTable, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(showMenu(QPoint)));
-    this->v2Inst = new v2Instance();
+    this->v2instance = new v2Instance();
     hTray = new QSystemTrayIcon();
     hTray->setToolTip("Hv2ray");
     hTray->setIcon(QIcon("Himeki.ico"));
     connect(hTray, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(on_activatedTray(QSystemTrayIcon::ActivationReason)));
     createTrayAction();
     if(QFileInfo("config.json").exists()) {
-        v2Inst->start(this);
+        v2instance->start(this);
     }
+
 //    QAction *select = new QAction("Select", ui->configTable);
 //    QAction *del = new QAction("Delete", ui->configTable);
 //    QAction *rename = new QAction("Rename", ui->configTable);
@@ -51,22 +51,23 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
-    delete this->v2Inst;
+    delete this->v2instance;
 }
 
 void MainWindow::on_actionEdit_triggered()
 {
-    ConfEdit *e = new ConfEdit(this);
+    ConnectionEditWindow *e = new ConnectionEditWindow(this);
     e->setAttribute(Qt::WA_DeleteOnClose);
     e->show();
 }
 
 void MainWindow::on_actionExisting_config_triggered()
 {
-    importConf *f = new importConf(this);
+    ImportConfig *f = new ImportConfig(this);
     f->setAttribute(Qt::WA_DeleteOnClose);
     f->show();
 }
+
 void MainWindow::showMenu(QPoint pos)
 {
 //    if(ui->configTable->indexAt(pos).column() != -1) {
@@ -84,18 +85,18 @@ void MainWindow::select_triggered()
 //    }
 }
 
-void MainWindow::delConf()
+void MainWindow::DeleteConfig()
 {
 
 }
-void MainWindow::updateConfTable()
+void MainWindow::UpdateConfigTable()
 {
 
 }
-void MainWindow::generateConfig(int idIntable)
+void MainWindow::GenerateConfig(int idIntable)
 {
     vConfig tmpConf;
-    emit updateConfTable();
+    emit UpdateConfigTable();
     if (tmpConf.isCustom == 1) {
         QString src = "conf/" + QString::number(idIntable) + ".conf";
         overrideInbounds(src);
@@ -107,15 +108,15 @@ void MainWindow::generateConfig(int idIntable)
         // TODO: Config generator
     }
 }
-void MainWindow::updateLog()
+void MainWindow::UpdateLog()
 {
-    ui->logText->insertPlainText(this->v2Inst->v2Process->readAllStandardOutput());
+    ui->logText->insertPlainText(this->v2instance->vProcess->readAllStandardOutput());
 }
 
 void MainWindow::on_startButton_clicked()
 {
     ui->logText->clear();
-    bool startFlag = this->v2Inst->start(this);
+    bool startFlag = this->v2instance->start(this);
     trayMenu->actions()[2]->setEnabled(!startFlag);
     trayMenu->actions()[3]->setEnabled(startFlag);
     trayMenu->actions()[4]->setEnabled(startFlag);
@@ -123,7 +124,7 @@ void MainWindow::on_startButton_clicked()
 
 void MainWindow::on_stopButton_clicked()
 {
-    this->v2Inst->stop();
+    this->v2instance->stop();
     ui->logText->clear();
     trayMenu->actions()[2]->setEnabled(true);
     trayMenu->actions()[3]->setEnabled(false);
@@ -143,13 +144,7 @@ void MainWindow::on_clbutton_clicked()
 
 void MainWindow::on_rtButton_clicked()
 {
-    emit updateConfTable();
-}
-
-void MainWindow::on_actionVmess_triggered()
-{
-    import_vmess *inVmess = new import_vmess(this);
-    inVmess->show();
+    emit UpdateConfigTable();
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
@@ -204,7 +199,7 @@ void MainWindow::on_activatedTray(QSystemTrayIcon::ActivationReason reason)
         case QSystemTrayIcon::MiddleClick:
             // TODO: Check if an alert message box is present.
             // If so, do nothing but please wait for the message box to be closed.
-            if(this->v2Inst->v2Process->state() == QProcess::ProcessState::Running) {
+            if(this->v2instance->vProcess->state() == QProcess::ProcessState::Running) {
                 on_stopButton_clicked();
             } else {
                 on_startButton_clicked();
@@ -256,13 +251,13 @@ void MainWindow::scrollToBottom()
 
 void MainWindow::on_actionPreferences_triggered()
 {
-    inbound_settings_window *v = new inbound_settings_window(this);
+    PrefrencesWindow *v = new PrefrencesWindow(this);
     v->setAttribute(Qt::WA_DeleteOnClose);
     v->show();
 }
 
 void MainWindow::on_pushButton_clicked()
 {
-    auto confedit = new ConfEdit();
+    auto confedit = new ConnectionEditWindow();
     confedit->show();
 }
