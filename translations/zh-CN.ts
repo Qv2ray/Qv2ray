@@ -4,130 +4,132 @@
 <context>
     <name>ConnectionEditWindow</name>
     <message>
-        <location filename="../src/ConnectionEditWindow.ui" line="20"/>
-        <source>ConfEdit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/ConnectionEditWindow.ui" line="28"/>
         <location filename="../src/ConnectionEditWindow.ui" line="423"/>
         <source>Host</source>
-        <translation type="unfinished">主机名</translation>
+        <translation>主机名</translation>
     </message>
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="42"/>
         <source>Port</source>
-        <translation type="unfinished">端口</translation>
+        <translation>端口</translation>
     </message>
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="56"/>
         <source>Name</source>
-        <translation type="unfinished">备注</translation>
+        <translation>备注</translation>
     </message>
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="73"/>
         <source>UUID</source>
-        <translation type="unfinished">UUID</translation>
+        <translation>UUID</translation>
     </message>
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="90"/>
         <source>Alter ID</source>
-        <translation type="unfinished">Alter ID</translation>
+        <translation>Alter ID</translation>
     </message>
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="104"/>
         <source>Security</source>
-        <translation type="unfinished">安全设置</translation>
+        <translation>安全设置</translation>
     </message>
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="112"/>
         <source>auto</source>
-        <translation type="unfinished"></translation>
+        <translation>自动</translation>
     </message>
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="117"/>
         <location filename="../src/ConnectionEditWindow.ui" line="735"/>
         <source>aes-128-gcm</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="122"/>
         <location filename="../src/ConnectionEditWindow.ui" line="740"/>
         <source>chacha20-poly1305</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="127"/>
+        <location filename="../src/ConnectionEditWindow.ui" line="223"/>
+        <location filename="../src/ConnectionEditWindow.ui" line="646"/>
         <location filename="../src/ConnectionEditWindow.ui" line="730"/>
+        <location filename="../src/ConnectionEditWindow.ui" line="797"/>
         <source>none</source>
-        <translation type="unfinished"></translation>
+        <translation>不使用</translation>
     </message>
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="135"/>
         <source>Transport</source>
-        <translation type="unfinished">传输设置</translation>
+        <translation>传输设置</translation>
     </message>
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="143"/>
         <source>tcp (TCP)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="148"/>
         <source>http (HTTP)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="153"/>
         <source>ws (WebSocket)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="158"/>
         <source>kcp (mKCP)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="163"/>
         <source>domainsocket (Domain Socket)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="168"/>
         <source>quic (Quick UDP Internet Connection)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="181"/>
         <source>Transport Settings (StreamSettingsObject)</source>
-        <translation type="unfinished"></translation>
+        <translation>传输设置</translation>
     </message>
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="212"/>
         <source>TCP</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="../src/ConnectionEditWindow.ui" line="223"/>
         <source>none (NoneHeaderObject)</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">无</translation>
+    </message>
+    <message>
+        <location filename="../src/ConnectionEditWindow.ui" line="20"/>
+        <source>Connection Settings</source>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="228"/>
         <source>http (HttpHeaderobject)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="236"/>
         <location filename="../src/ConnectionEditWindow.ui" line="632"/>
         <location filename="../src/ConnectionEditWindow.ui" line="783"/>
         <source>type</source>
-        <translation type="unfinished">类型</translation>
+        <translation>伪装类型</translation>
     </message>
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="249"/>
         <source>Request (HTTPRequestObject)</source>
-        <translation type="unfinished"></translation>
+        <translation>请求包 (HTTPRequestObject)</translation>
     </message>
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="259"/>
@@ -152,7 +154,7 @@
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="288"/>
         <source>Response (HTTPResponseObject)</source>
-        <translation type="unfinished"></translation>
+        <translation>响应包 (HTTPResponseObject)</translation>
     </message>
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="298"/>
@@ -172,7 +174,7 @@
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="322"/>
         <source>HTTP</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="331"/>
@@ -183,14 +185,14 @@
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="339"/>
         <source>host</source>
-        <translation type="unfinished">域名</translation>
+        <translation>域名</translation>
     </message>
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="346"/>
         <location filename="../src/ConnectionEditWindow.ui" line="373"/>
         <location filename="../src/ConnectionEditWindow.ui" line="691"/>
         <source>path</source>
-        <translation type="unfinished">路径</translation>
+        <translation>路径</translation>
     </message>
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="353"/>
@@ -201,12 +203,12 @@
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="363"/>
         <source>WebSocket</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="389"/>
         <source>headers (Key Value Pair)</source>
-        <translation type="unfinished">HTTP 头</translation>
+        <translation>HTTP 头</translation>
     </message>
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="454"/>
@@ -216,108 +218,106 @@
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="462"/>
         <source>MTU</source>
-        <translation type="unfinished"></translation>
+        <translation>最大传输单元</translation>
     </message>
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="488"/>
         <source>TTI (ms)</source>
-        <translation type="unfinished"></translation>
+        <translation>传输时间间隔</translation>
     </message>
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="514"/>
         <source>UplinkCapacity (MB/s)</source>
-        <translation type="unfinished"></translation>
+        <translation>上行链路容量 (MB/s)</translation>
     </message>
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="537"/>
         <source>Congestion</source>
-        <translation type="unfinished"></translation>
+        <translation>拥塞控制</translation>
     </message>
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="544"/>
         <source>Enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>启用</translation>
     </message>
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="555"/>
         <source>downlinkCapacity (MB/s)</source>
-        <translation type="unfinished"></translation>
+        <translation>下行链路容量 (MB/s)</translation>
     </message>
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="578"/>
         <source>readBufferSize (MB)</source>
-        <translation type="unfinished"></translation>
+        <translation>读取缓冲区 (MB)</translation>
     </message>
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="601"/>
         <source>writeBufferSize (MB)</source>
-        <translation type="unfinished"></translation>
+        <translation>写入缓冲区 (MB)</translation>
     </message>
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="626"/>
         <source>header (Header Object)</source>
-        <translation type="unfinished"></translation>
+        <translation>数据包头部伪装</translation>
     </message>
     <message>
-        <location filename="../src/ConnectionEditWindow.ui" line="646"/>
-        <location filename="../src/ConnectionEditWindow.ui" line="797"/>
         <source>none (None)</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">不使用</translation>
     </message>
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="651"/>
         <location filename="../src/ConnectionEditWindow.ui" line="802"/>
         <source>srtp (SRTP, FaceTime)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="656"/>
         <location filename="../src/ConnectionEditWindow.ui" line="807"/>
         <source>utp (BitTorrent)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="661"/>
         <location filename="../src/ConnectionEditWindow.ui" line="812"/>
         <source>wechat-video (WeChat Video Message)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="666"/>
         <location filename="../src/ConnectionEditWindow.ui" line="817"/>
         <source>dtls (DTLS 1.2)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="671"/>
         <location filename="../src/ConnectionEditWindow.ui" line="822"/>
         <source>wireguard (WireGuard fake packets)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="683"/>
         <source>DomainSocket</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="698"/>
         <source>/path/to/ds/file</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="708"/>
         <source>QUIC</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="716"/>
         <source>security</source>
-        <translation type="unfinished"></translation>
+        <translation>加密方式</translation>
     </message>
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="748"/>
         <source>key</source>
-        <translation type="unfinished"></translation>
+        <translation>密钥</translation>
     </message>
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="755"/>
@@ -327,250 +327,292 @@
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="762"/>
         <source>header</source>
-        <translation type="unfinished"></translation>
+        <translation>头部伪装</translation>
     </message>
     <message>
         <location filename="../src/ConnectionEditWindow.ui" line="775"/>
         <source>header (HeaderObject)</source>
-        <translation type="unfinished"></translation>
+        <translation>头部伪装 (HeaderObject)</translation>
     </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../src/mainwindow.ui" line="26"/>
+        <location filename="../src/MainWindow.ui" line="26"/>
         <source>Hv2ray</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="46"/>
+        <location filename="../src/MainWindow.ui" line="46"/>
         <source>Start</source>
-        <translation type="unfinished"></translation>
+        <translation>启动</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="53"/>
+        <location filename="../src/MainWindow.ui" line="53"/>
         <source>Stop</source>
-        <translation type="unfinished"></translation>
+        <translation>停止</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="60"/>
+        <location filename="../src/MainWindow.ui" line="60"/>
         <source>Restart</source>
-        <translation type="unfinished"></translation>
+        <translation>重新启动</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="70"/>
+        <location filename="../src/MainWindow.ui" line="70"/>
         <source>Clear Log</source>
-        <translation type="unfinished"></translation>
+        <translation>清除日志</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="145"/>
+        <location filename="../src/MainWindow.ui" line="145"/>
         <source>Config Detail</source>
-        <translation type="unfinished"></translation>
+        <translation>详细配置</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="97"/>
+        <location filename="../src/MainWindow.ui" line="97"/>
         <source>Host list</source>
-        <translation type="unfinished"></translation>
+        <translation>服务器列表</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="134"/>
+        <location filename="../src/MainWindow.ui" line="134"/>
         <source>Config 1 (www.hostname.com:port)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="154"/>
+        <location filename="../src/MainWindow.ui" line="154"/>
         <source>Host</source>
-        <translation type="unfinished"></translation>
+        <translation>主机名</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="161"/>
+        <location filename="../src/MainWindow.ui" line="161"/>
         <source>www.hostname.com</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="168"/>
+        <location filename="../src/MainWindow.ui" line="168"/>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation>端口</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="175"/>
+        <location filename="../src/MainWindow.ui" line="175"/>
         <source>12345</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="182"/>
+        <location filename="../src/MainWindow.ui" line="182"/>
         <source>UUID</source>
-        <translation type="unfinished"></translation>
+        <translation>UUID</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="189"/>
+        <location filename="../src/MainWindow.ui" line="189"/>
         <source>TextLabel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="196"/>
+        <location filename="../src/MainWindow.ui" line="196"/>
         <source>Transport</source>
-        <translation type="unfinished"></translation>
+        <translation>传输设置</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="203"/>
+        <location filename="../src/MainWindow.ui" line="203"/>
         <source>mKCP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="216"/>
+        <location filename="../src/MainWindow.ui" line="216"/>
         <source>Connection Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>连接设置</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="223"/>
+        <location filename="../src/MainWindow.ui" line="223"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>设置</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="254"/>
+        <location filename="../src/MainWindow.ui" line="254"/>
         <source>File</source>
-        <translation type="unfinished"></translation>
+        <translation>文件</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="258"/>
+        <location filename="../src/MainWindow.ui" line="258"/>
         <source>New</source>
-        <translation type="unfinished"></translation>
+        <translation>新建</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="262"/>
+        <location filename="../src/MainWindow.ui" line="262"/>
         <source>From</source>
-        <translation type="unfinished"></translation>
+        <translation>导入</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="277"/>
+        <location filename="../src/MainWindow.ui" line="277"/>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>关于</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="286"/>
+        <location filename="../src/MainWindow.ui" line="286"/>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>编辑</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="291"/>
+        <location filename="../src/MainWindow.ui" line="291"/>
         <source>Vmess</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="296"/>
+        <location filename="../src/MainWindow.ui" line="296"/>
         <source>Existing config</source>
-        <translation type="unfinished"></translation>
+        <translation>现有配置</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="301"/>
+        <location filename="../src/MainWindow.ui" line="301"/>
         <source>Exit</source>
-        <translation type="unfinished"></translation>
+        <translation>退出</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.ui" line="306"/>
+        <location filename="../src/MainWindow.ui" line="306"/>
         <source>Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>首选项</translation>
     </message>
 </context>
 <context>
     <name>PrefrencesWindow</name>
     <message>
-        <location filename="../src/PrefrencesWindow.ui" line="14"/>
-        <source>Prefrences</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/PrefrencesWindow.ui" line="20"/>
-        <source>General</source>
-        <translation type="unfinished"></translation>
+        <source>Prefrences</source>
+        <translation>首选项</translation>
     </message>
     <message>
         <location filename="../src/PrefrencesWindow.ui" line="26"/>
+        <source>General</source>
+        <translation>基本</translation>
+    </message>
+    <message>
+        <location filename="../src/PrefrencesWindow.ui" line="34"/>
         <source>Language</source>
-        <translation type="unfinished"></translation>
+        <translation>语言</translation>
     </message>
     <message>
-        <location filename="../src/PrefrencesWindow.ui" line="40"/>
+        <location filename="../src/PrefrencesWindow.ui" line="48"/>
         <source>zh-CN</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/PrefrencesWindow.ui" line="45"/>
-        <source>en-US</source>
-        <translation type="unfinished"></translation>
+        <translation>中文</translation>
     </message>
     <message>
         <location filename="../src/PrefrencesWindow.ui" line="53"/>
+        <source>en-US</source>
+        <translation>英语</translation>
+    </message>
+    <message>
+        <location filename="../src/PrefrencesWindow.ui" line="61"/>
         <source>Run v2ray with root</source>
-        <translation type="unfinished"></translation>
+        <translation>使用 root 启动 v2ray</translation>
     </message>
     <message>
-        <location filename="../src/PrefrencesWindow.ui" line="60"/>
-        <location filename="../src/PrefrencesWindow.ui" line="133"/>
-        <location filename="../src/PrefrencesWindow.ui" line="183"/>
+        <location filename="../src/PrefrencesWindow.ui" line="68"/>
+        <location filename="../src/PrefrencesWindow.ui" line="131"/>
+        <location filename="../src/PrefrencesWindow.ui" line="138"/>
+        <location filename="../src/PrefrencesWindow.ui" line="186"/>
+        <location filename="../src/PrefrencesWindow.ui" line="234"/>
+        <location filename="../src/PrefrencesWindow.ui" line="270"/>
+        <location filename="../src/PrefrencesWindow.ui" line="298"/>
         <source>Enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>启用</translation>
     </message>
     <message>
-        <location filename="../src/PrefrencesWindow.ui" line="67"/>
+        <location filename="../src/PrefrencesWindow.ui" line="75"/>
         <source>Log Level</source>
-        <translation type="unfinished"></translation>
+        <translation>日志等级</translation>
     </message>
     <message>
-        <location filename="../src/PrefrencesWindow.ui" line="87"/>
+        <location filename="../src/PrefrencesWindow.ui" line="95"/>
         <source>debug</source>
-        <translation type="unfinished"></translation>
+        <translation>调试</translation>
     </message>
     <message>
-        <location filename="../src/PrefrencesWindow.ui" line="92"/>
+        <location filename="../src/PrefrencesWindow.ui" line="100"/>
         <source>info</source>
-        <translation type="unfinished"></translation>
+        <translation>信息</translation>
     </message>
     <message>
-        <location filename="../src/PrefrencesWindow.ui" line="97"/>
+        <location filename="../src/PrefrencesWindow.ui" line="105"/>
         <source>warning</source>
-        <translation type="unfinished"></translation>
+        <translation>警告</translation>
     </message>
     <message>
-        <location filename="../src/PrefrencesWindow.ui" line="102"/>
+        <location filename="../src/PrefrencesWindow.ui" line="110"/>
         <source>error</source>
-        <translation type="unfinished"></translation>
+        <translation>错误</translation>
     </message>
     <message>
-        <location filename="../src/PrefrencesWindow.ui" line="107"/>
+        <location filename="../src/PrefrencesWindow.ui" line="115"/>
         <source>none</source>
+        <translation>不使用</translation>
+    </message>
+    <message>
+        <location filename="../src/PrefrencesWindow.ui" line="125"/>
+        <source>Mux Cool</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/PrefrencesWindow.ui" line="118"/>
+        <location filename="../src/PrefrencesWindow.ui" line="145"/>
+        <source>Concurrency</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PrefrencesWindow.ui" line="171"/>
         <source>Inbound Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>入站设置</translation>
     </message>
     <message>
-        <location filename="../src/PrefrencesWindow.ui" line="124"/>
+        <location filename="../src/PrefrencesWindow.ui" line="177"/>
         <source>HTTP</source>
-        <translation type="unfinished"></translation>
+        <translation>HTTP</translation>
     </message>
     <message>
-        <location filename="../src/PrefrencesWindow.ui" line="140"/>
-        <location filename="../src/PrefrencesWindow.ui" line="169"/>
+        <location filename="../src/PrefrencesWindow.ui" line="193"/>
+        <location filename="../src/PrefrencesWindow.ui" line="256"/>
         <source>Port</source>
-        <translation type="unfinished"></translation>
+        <translation>端口</translation>
     </message>
     <message>
-        <location filename="../src/PrefrencesWindow.ui" line="147"/>
+        <location filename="../src/PrefrencesWindow.ui" line="200"/>
         <source>8080</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/PrefrencesWindow.ui" line="213"/>
+        <location filename="../src/PrefrencesWindow.ui" line="284"/>
+        <source>Username</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/PrefrencesWindow.ui" line="163"/>
+        <location filename="../src/PrefrencesWindow.ui" line="220"/>
+        <location filename="../src/PrefrencesWindow.ui" line="277"/>
+        <source>Auth</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PrefrencesWindow.ui" line="227"/>
+        <location filename="../src/PrefrencesWindow.ui" line="291"/>
+        <source>Password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/PrefrencesWindow.ui" line="250"/>
         <source>SOCKS</source>
+        <translation>SOCKS</translation>
+    </message>
+    <message>
+        <location filename="../src/PrefrencesWindow.ui" line="263"/>
+        <source>9001</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/PrefrencesWindow.cpp" line="118"/>
+        <source>Config error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/PrefrencesWindow.ui" line="176"/>
-        <source>9001</source>
+        <location filename="../src/PrefrencesWindow.cpp" line="118"/>
+        <source>Port numbers cannot be the same!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

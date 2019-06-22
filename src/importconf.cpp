@@ -63,13 +63,13 @@ void importConf::savefromFile(QString path, QString alias)
     int id = newConf.save();
     if(id < 0)
     {
-        alterMessage("Database Error", "Failed to open database while saving");
+        showWarnMessageBox(this, "Database Error", "Failed to open database while saving");
         return;
     }
     emit updateConfTable();
     QString newFile = "conf/" + QString::number(id) + ".conf";
     if(!QFile::copy(path, newFile)) {
-        alterMessage("Copy error", "Failed to copy custom config file.");
+        showWarnMessageBox(this, "Copy error", "Failed to copy custom config file.");
     }
 }
 

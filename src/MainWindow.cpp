@@ -10,8 +10,8 @@
 
 #include "import_vmess.h"
 #include "PrefrencesWindow.h"
-#include "mainwindow.h"
-#include <ui_mainwindow.h>
+#include "MainWindow.h"
+#include <ui_MainWindow.h>
 #include "ConnectionEditWindow.h"
 #include "importconf.h"
 #include "vinteract.h"

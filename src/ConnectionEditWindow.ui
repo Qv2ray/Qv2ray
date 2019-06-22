@@ -17,7 +17,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>ConfEdit</string>
+   <string>Connection Settings</string>
   </property>
   <layout class="QGridLayout" name="gridLayout" columnstretch="0,3">
    <item row="0" column="0">
@@ -202,7 +202,7 @@
          </size>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>5</number>
         </property>
         <property name="usesScrollButtons">
          <bool>true</bool>
@@ -220,7 +220,7 @@
                <widget class="QComboBox" name="comboBox">
                 <item>
                  <property name="text">
-                  <string>none (NoneHeaderObject)</string>
+                  <string>none</string>
                  </property>
                 </item>
                 <item>
@@ -643,7 +643,7 @@
                </property>
                <item>
                 <property name="text">
-                 <string>none (None)</string>
+                 <string>none</string>
                 </property>
                </item>
                <item>
@@ -794,7 +794,7 @@
                    </property>
                    <item>
                     <property name="text">
-                     <string>none (None)</string>
+                     <string>none</string>
                     </property>
                    </item>
                    <item>

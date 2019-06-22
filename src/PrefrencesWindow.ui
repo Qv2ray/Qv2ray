@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>650</width>
-    <height>218</height>
+    <width>663</width>
+    <height>325</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>663</width>
+    <height>325</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Prefrences</string>
@@ -19,94 +25,141 @@
      <property name="title">
       <string>General</string>
      </property>
-     <layout class="QFormLayout" name="formLayout_3">
-      <item row="0" column="0">
-       <widget class="QLabel" name="label_6">
-        <property name="text">
-         <string>Language</string>
-        </property>
-       </widget>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <layout class="QFormLayout" name="formLayout_3">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_6">
+          <property name="text">
+           <string>Language</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QComboBox" name="comboBox">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <item>
+           <property name="text">
+            <string>zh-CN</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>en-US</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_7">
+          <property name="text">
+           <string>Run v2ray with root</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QCheckBox" name="checkBox">
+          <property name="text">
+           <string>Enabled</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>Log Level</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QComboBox" name="comboBox_2">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>138</width>
+            <height>0</height>
+           </size>
+          </property>
+          <item>
+           <property name="text">
+            <string>debug</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>info</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>warning</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>error</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>none</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+       </layout>
       </item>
-      <item row="0" column="1">
-       <widget class="QComboBox" name="comboBox">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
+      <item>
+       <widget class="QGroupBox" name="groupBox_5">
+        <property name="title">
+         <string>Mux Cool</string>
         </property>
-        <item>
-         <property name="text">
-          <string>zh-CN</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>en-US</string>
-         </property>
-        </item>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="label_7">
-        <property name="text">
-         <string>Run v2ray with root</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QCheckBox" name="checkBox">
-        <property name="text">
-         <string>Enabled</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="label">
-        <property name="text">
-         <string>Log Level</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QComboBox" name="comboBox_2">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>138</width>
-          <height>0</height>
-         </size>
-        </property>
-        <item>
-         <property name="text">
-          <string>debug</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>info</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>warning</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>error</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>none</string>
-         </property>
-        </item>
+        <layout class="QFormLayout" name="formLayout">
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_5">
+           <property name="text">
+            <string>Enabled</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QCheckBox" name="checkBox_2">
+           <property name="text">
+            <string>Enabled</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_8">
+           <property name="text">
+            <string>Concurrency</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QSpinBox" name="spinBox">
+           <property name="minimum">
+            <number>1</number>
+           </property>
+           <property name="maximum">
+            <number>1024</number>
+           </property>
+           <property name="value">
+            <number>8</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </item>
      </layout>
@@ -117,7 +170,7 @@
      <property name="title">
       <string>Inbound Settings</string>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout">
+     <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1">
       <item>
        <widget class="QGroupBox" name="groupBox_3">
         <property name="title">
@@ -154,6 +207,40 @@
            </property>
           </widget>
          </item>
+         <item row="3" column="0">
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>Username</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="label_9">
+           <property name="text">
+            <string>Auth</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="0">
+          <widget class="QLabel" name="label_13">
+           <property name="text">
+            <string>Password</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QCheckBox" name="checkBox_3">
+           <property name="text">
+            <string>Enabled</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1">
+          <widget class="QLineEdit" name="lineEdit"/>
+         </item>
+         <item row="4" column="1">
+          <widget class="QLineEdit" name="lineEdit_2"/>
+         </item>
         </layout>
        </widget>
       </item>
@@ -183,6 +270,40 @@
             <string>Enabled</string>
            </property>
           </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="label_10">
+           <property name="text">
+            <string>Auth</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QLabel" name="label_11">
+           <property name="text">
+            <string>Username</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="0">
+          <widget class="QLabel" name="label_12">
+           <property name="text">
+            <string>Password</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QCheckBox" name="checkBox_4">
+           <property name="text">
+            <string>Enabled</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1">
+          <widget class="QLineEdit" name="lineEdit_3"/>
+         </item>
+         <item row="4" column="1">
+          <widget class="QLineEdit" name="lineEdit_4"/>
          </item>
         </layout>
        </widget>

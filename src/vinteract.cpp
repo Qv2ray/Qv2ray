@@ -4,12 +4,12 @@
 #include <QDir>
 
 #include "utils.h"
-#include "mainwindow.h"
+#include "MainWindow.h"
 #include "vinteract.h"
 
 bool validationCheck(QString path)
 {
-    if(testCoreFiles()) {
+    if(checkVCoreExes()) {
         QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
         env.insert("V2RAY_LOCATION_ASSET", QDir::currentPath());
 
@@ -25,7 +25,7 @@ bool validationCheck(QString path)
         QString output = QString(process.readAllStandardOutput());
 
         if (!output.contains("Configuration OK")) {
-            alterMessage("Error in configuration", output.mid(output.indexOf("anti-censorship.") + 17));
+            showWarnMessageBox(nullptr, "Error in configuration", output.mid(output.indexOf("anti-censorship.") + 17));
             return false;
         }
         else return true;
@@ -48,7 +48,7 @@ bool v2Instance::start(MainWindow *parent)
     if(this->v2Process->state() == QProcess::Running) {
         this->stop();
     }
-    if (testCoreFiles()) {
+    if (checkVCoreExes()) {
         QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
         env.insert("V2RAY_LOCATION_ASSET", QDir::currentPath());
         this->v2Process->setProcessEnvironment(env);

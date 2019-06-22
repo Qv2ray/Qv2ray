@@ -2,7 +2,7 @@
 #define VINTERACT_H
 #include <QString>
 #include <QProcess>
-#include "mainwindow.h"
+#include "MainWindow.h"
 
 bool validationCheck(QString path);
 class v2Instance
