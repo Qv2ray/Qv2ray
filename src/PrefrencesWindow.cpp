@@ -93,9 +93,9 @@ void PrefrencesWindow::on_buttonBox_accepted()
 #ifndef _WIN32
             // Set UID and GID in *nix
             QFileInfo v2rayCoreExeFile("v2ray");
-            if(ui->checkBox->isChecked() && v2rayCoreExeFile.ownerId() != 0) {
+            if(ui->runAsRootCheckBox->isChecked() && v2rayCoreExeFile.ownerId() != 0) {
                 QProcess::execute("pkexec", QStringList() << "bash" << "-c" << "chown root:root " + QCoreApplication::applicationDirPath() + "/v2ray" + ";chmod +s " + QCoreApplication::applicationDirPath() + "/v2ray");
-            } else if (!ui->checkBox->isChecked() && v2rayCoreExeFile.ownerId() == 0) {
+            } else if (!ui->runAsRootCheckBox->isChecked() && v2rayCoreExeFile.ownerId() == 0) {
                 uid_t uid = getuid();
                 gid_t gid = getgid();
                 QProcess::execute("pkexec", QStringList() << "chown" << QString::number(uid) + ":" + QString::number(gid) << QCoreApplication::applicationDirPath() + "/v2ray");
