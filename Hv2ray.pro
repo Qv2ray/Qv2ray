@@ -24,8 +24,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 CONFIG += c++11
 
-VPATH += ./src \
-         ./translations
+VPATH += ./src
 
 SOURCES += \
         main.cpp \
@@ -52,14 +51,20 @@ FORMS += \
         ImportConfig.ui \
         PrefrencesWindow.ui
 
-TRANSLATIONS += ./translations/zh-CN.ts
+RESOURCES += \
+    resources.qrc
+
+
+TRANSLATIONS += \
+        ./translations/zh-CN.ts \
+        ./translations/en-US.ts
+
+RC_ICONS += ./icons/Hv2ray.ico
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
-
-RC_ICONS = Himeki.ico
 
 WITH_PYTHON = no
 

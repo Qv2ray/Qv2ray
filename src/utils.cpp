@@ -53,7 +53,7 @@ bool checkVCoreExes()
     if (QFileInfo("v2ray").exists() && QFileInfo("geoip.dat").exists() && QFileInfo("geosite.dat").exists() && QFileInfo("v2ctl").exists()) {
         return true;
     } else {
-        showWarnMessageBox(nullptr, "v2ray core not found", "V2ray core files not found. Please download the latest version of v2ray and extract it into the current folder.");
+        showWarnMessageBox(nullptr, QObject::tr("CoreNotFound"), QObject::tr("CoreFileNotFoundExplaination"));
         return false;
     }
 }

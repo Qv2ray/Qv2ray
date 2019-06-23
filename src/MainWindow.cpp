@@ -8,29 +8,61 @@
 #include <QFileInfo>
 #include <QInputDialog>
 
+#include "ui_MainWindow.h"
 #include "PrefrencesWindow.h"
 #include "MainWindow.h"
-#include <ui_MainWindow.h>
 #include "ConnectionEditWindow.h"
 #include "ImportConfig.h"
 #include "vinteract.h"
 #include "utils.h"
 
+void MainWindow::CreateTrayIcon()
+{
+    hTray = new QSystemTrayIcon();
+    hTray->setToolTip(tr("Hv2ray"));
+    hTray->setIcon(this->windowIcon());
+    connect(hTray, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(on_activatedTray(QSystemTrayIcon::ActivationReason)));
+
+    QAction *actionShow = new QAction(this);
+    QAction *actionQuit = new QAction(this);
+    QAction *actionStart = new QAction(this);
+    QAction *actionRestart = new QAction(this);
+    QAction *actionStop = new QAction(this);
+    actionShow->setText(tr("#Hide"));
+    actionQuit->setText(tr("#Quit"));
+    actionStart->setText(tr("#Start"));
+    actionStop->setText(tr("#Stop"));
+    actionRestart->setText(tr("#Restart"));
+    actionStart->setEnabled(true);
+    actionStop->setEnabled(false);
+    actionRestart->setEnabled(false);
+    trayMenu->addAction(actionShow);
+    trayMenu->addSeparator();
+    trayMenu->addAction(actionStart);
+    trayMenu->addAction(actionStop);
+    trayMenu->addAction(actionRestart);
+    trayMenu->addSeparator();
+    trayMenu->addAction(actionQuit);
+    connect(actionShow, SIGNAL(triggered()), this, SLOT(toggleMainWindowVisibility()));
+    connect(actionStart, SIGNAL(triggered()), this, SLOT(on_startButton_clicked()));
+    connect(actionStop, SIGNAL(triggered()), this, SLOT(on_stopButton_clicked()));
+    connect(actionRestart, SIGNAL(triggered()), this, SLOT(on_restartButton_clicked()));
+    connect(actionQuit, SIGNAL(triggered()), this, SLOT(quit()));
+    hTray->setContextMenu(trayMenu);
+    hTray->show();
+}
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-    this->setWindowIcon(QIcon("Himeki.ico"));
+    this->setWindowIcon(QIcon(":/icons/Hv2ray.ico"));
     ui->setupUi(this);
     UpdateConfigTable();
 //    ui->configTable->setContextMenuPolicy(Qt::CustomContextMenu);
 //    connect(ui->configTable, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(showMenu(QPoint)));
     this->v2instance = new v2Instance();
-    hTray = new QSystemTrayIcon();
-    hTray->setToolTip("Hv2ray");
-    hTray->setIcon(QIcon("Himeki.ico"));
-    connect(hTray, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(on_activatedTray(QSystemTrayIcon::ActivationReason)));
-    createTrayAction();
+    CreateTrayIcon();
     if(QFileInfo("config.json").exists()) {
         v2instance->start(this);
     }
@@ -50,8 +82,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
-    delete ui;
+    hTray->hide();
+    delete this->hTray;
     delete this->v2instance;
+    delete ui;
 }
 
 void MainWindow::on_actionEdit_triggered()
@@ -95,7 +129,7 @@ void MainWindow::UpdateConfigTable()
 }
 void MainWindow::GenerateConfig(int idIntable)
 {
-    vConfig tmpConf;
+    Hv2Config tmpConf;
     emit UpdateConfigTable();
     if (tmpConf.isCustom == 1) {
         QString src = "conf/" + QString::number(idIntable) + ".conf";
@@ -153,37 +187,6 @@ void MainWindow::closeEvent(QCloseEvent *event)
     event->ignore();
 }
 
-void MainWindow::createTrayAction()
-{
-    QAction *actionShow = new QAction(this);
-    QAction *actionQuit = new QAction(this);
-    QAction *actionStart = new QAction(this);
-    QAction *actionRestart = new QAction(this);
-    QAction *actionStop = new QAction(this);
-    actionShow->setText("Hide");
-    actionQuit->setText("Quit Hv2ray");
-    actionStart->setText("Start v2ray");
-    actionStop->setText("Stop v2ray");
-    actionRestart->setText("Restart v2ray");
-    actionStart->setEnabled(true);
-    actionStop->setEnabled(false);
-    actionRestart->setEnabled(false);
-    trayMenu->addAction(actionShow);
-    trayMenu->addSeparator();
-    trayMenu->addAction(actionStart);
-    trayMenu->addAction(actionStop);
-    trayMenu->addAction(actionRestart);
-    trayMenu->addSeparator();
-    trayMenu->addAction(actionQuit);
-    connect(actionShow, SIGNAL(triggered()), this, SLOT(toggleMainWindowVisibility()));
-    connect(actionStart, SIGNAL(triggered()), this, SLOT(on_startButton_clicked()));
-    connect(actionStop, SIGNAL(triggered()), this, SLOT(on_stopButton_clicked()));
-    connect(actionRestart, SIGNAL(triggered()), this, SLOT(on_restartButton_clicked()));
-    connect(actionQuit, SIGNAL(triggered()), this, SLOT(quit()));
-    hTray->setContextMenu(trayMenu);
-    hTray->show();
-}
-
 void MainWindow::on_activatedTray(QSystemTrayIcon::ActivationReason reason)
 {
     switch (reason) {
@@ -216,10 +219,10 @@ void MainWindow::toggleMainWindowVisibility()
 {
     if(this->isHidden()) {
         this->show();
-        trayMenu->actions()[0]->setText("Hide");
+        trayMenu->actions()[0]->setText(tr("#Hide"));
     } else {
         this->hide();
-        trayMenu->actions()[0]->setText("Show");
+        trayMenu->actions()[0]->setText(tr("#Show"));
     }
 }
 

@@ -17,7 +17,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>Connection Settings</string>
+   <string>#ConnectionSettings</string>
   </property>
   <layout class="QGridLayout" name="gridLayout" columnstretch="0,3">
    <item row="0" column="0">
@@ -25,7 +25,7 @@
      <item row="0" column="0">
       <widget class="QLabel" name="ipLabel">
        <property name="text">
-        <string>Host</string>
+        <string>#Host</string>
        </property>
       </widget>
      </item>
@@ -39,7 +39,7 @@
      <item row="1" column="0">
       <widget class="QLabel" name="portLabel">
        <property name="text">
-        <string>Port</string>
+        <string>#Port</string>
        </property>
       </widget>
      </item>
@@ -53,7 +53,7 @@
      <item row="2" column="0">
       <widget class="QLabel" name="aliasLabel">
        <property name="text">
-        <string>Name</string>
+        <string>#Name</string>
        </property>
       </widget>
      </item>
@@ -70,7 +70,7 @@
      <item row="3" column="0">
       <widget class="QLabel" name="idLabel">
        <property name="text">
-        <string>UUID</string>
+        <string>#UUID</string>
        </property>
       </widget>
      </item>
@@ -87,7 +87,7 @@
      <item row="4" column="0">
       <widget class="QLabel" name="alterLabel">
        <property name="text">
-        <string>Alter ID</string>
+        <string>#AlterID</string>
        </property>
       </widget>
      </item>
@@ -101,7 +101,7 @@
      <item row="5" column="0">
       <widget class="QLabel" name="securityLabel">
        <property name="text">
-        <string>Security</string>
+        <string>#Security</string>
        </property>
       </widget>
      </item>
@@ -132,7 +132,7 @@
      <item row="6" column="0">
       <widget class="QLabel" name="transportLabel">
        <property name="text">
-        <string>Transport</string>
+        <string>#Transport</string>
        </property>
       </widget>
      </item>
@@ -172,13 +172,26 @@
      </item>
     </layout>
    </item>
+   <item row="1" column="0">
+    <widget class="QTextBrowser" name="textBrowser"/>
+   </item>
+   <item row="2" column="1">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
    <item row="0" column="1" rowspan="2">
     <widget class="QGroupBox" name="groupBox">
      <property name="layoutDirection">
       <enum>Qt::LeftToRight</enum>
      </property>
      <property name="title">
-      <string>Transport Settings (StreamSettingsObject)</string>
+      <string>#TransportSettings</string>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
@@ -202,7 +215,7 @@
          </size>
         </property>
         <property name="currentIndex">
-         <number>5</number>
+         <number>0</number>
         </property>
         <property name="usesScrollButtons">
          <bool>true</bool>
@@ -225,7 +238,7 @@
                 </item>
                 <item>
                  <property name="text">
-                  <string>http (HttpHeaderobject)</string>
+                  <string>http</string>
                  </property>
                 </item>
                </widget>
@@ -233,7 +246,7 @@
               <item row="0" column="0">
                <widget class="QLabel" name="label">
                 <property name="text">
-                 <string>type</string>
+                 <string>#Type</string>
                 </property>
                </widget>
               </item>
@@ -246,7 +259,7 @@
                 <item>
                  <widget class="QLabel" name="label_2">
                   <property name="text">
-                   <string>Request (HTTPRequestObject)</string>
+                   <string>#Request</string>
                   </property>
                  </widget>
                 </item>
@@ -256,25 +269,17 @@
                    <enum>QPlainTextEdit::NoWrap</enum>
                   </property>
                   <property name="plainText">
-                   <string>{
-  &quot;version&quot;: &quot;1.1&quot;,
-  &quot;method&quot;: &quot;GET&quot;,
-  &quot;path&quot;: [&quot;/&quot;],
-  &quot;headers&quot;: {
-    &quot;Host&quot;: [&quot;www.baidu.com&quot;, &quot;www.bing.com&quot;],
-    &quot;User-Agent&quot;: [
-      &quot;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36&quot;,
-      &quot;Mozilla/5.0 (iPhone; CPU iPhone OS 10_0_2 like Mac OS X) AppleWebKit/601.1 (KHTML, like Gecko) CriOS/53.0.2785.109 Mobile/14A456 Safari/601.1.46&quot;
-    ],
-    &quot;Accept-Encoding&quot;: [&quot;gzip, deflate&quot;],
-    &quot;Connection&quot;: [&quot;keep-alive&quot;],
-    &quot;Pragma&quot;: &quot;no-cache&quot;
-  }
-}
-</string>
+                   <string/>
                   </property>
                   <property name="backgroundVisible">
                    <bool>false</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="pushButton">
+                  <property name="text">
+                   <string>#InsertDefaultContent</string>
                   </property>
                  </widget>
                 </item>
@@ -285,7 +290,7 @@
                 <item>
                  <widget class="QLabel" name="label_3">
                   <property name="text">
-                   <string>Response (HTTPResponseObject)</string>
+                   <string>#Response</string>
                   </property>
                  </widget>
                 </item>
@@ -295,17 +300,14 @@
                    <enum>QPlainTextEdit::NoWrap</enum>
                   </property>
                   <property name="plainText">
-                   <string>{
-  &quot;version&quot;: &quot;1.1&quot;,
-  &quot;status&quot;: &quot;200&quot;,
-  &quot;reason&quot;: &quot;OK&quot;,
-  &quot;headers&quot;: {
-    &quot;Content-Type&quot;: [&quot;application/octet-stream&quot;, &quot;video/mpeg&quot;],
-    &quot;Transfer-Encoding&quot;: [&quot;chunked&quot;],
-    &quot;Connection&quot;: [&quot;keep-alive&quot;],
-    &quot;Pragma&quot;: &quot;no-cache&quot;
-  }
-}</string>
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="pushButton_2">
+                  <property name="text">
+                   <string>#InsertDefaultContent</string>
                   </property>
                  </widget>
                 </item>
@@ -325,32 +327,26 @@
           <item row="0" column="0">
            <layout class="QGridLayout" name="gridLayout_5" columnstretch="1,1">
             <item row="1" column="0">
-             <widget class="QListWidget" name="listWidget">
-              <item>
-               <property name="text">
-                <string>v2ray.com</string>
-               </property>
-              </item>
-             </widget>
+             <widget class="QListWidget" name="listWidget"/>
             </item>
             <item row="0" column="0">
              <widget class="QLabel" name="label_4">
               <property name="text">
-               <string>host</string>
+               <string>#Host</string>
               </property>
              </widget>
             </item>
             <item row="0" column="1">
              <widget class="QLabel" name="label_5">
               <property name="text">
-               <string>path</string>
+               <string>#Path</string>
               </property>
              </widget>
             </item>
             <item row="1" column="1">
              <widget class="QPlainTextEdit" name="plainTextEdit_3">
               <property name="plainText">
-               <string>/</string>
+               <string/>
               </property>
              </widget>
             </item>
@@ -370,14 +366,14 @@
               <item row="1" column="0">
                <widget class="QLabel" name="label_6">
                 <property name="text">
-                 <string>path</string>
+                 <string>#Path</string>
                 </property>
                </widget>
               </item>
               <item row="1" column="1">
                <widget class="QLineEdit" name="lineEdit">
                 <property name="text">
-                 <string>/</string>
+                 <string/>
                 </property>
                </widget>
               </item>
@@ -386,7 +382,7 @@
             <item>
              <widget class="QLabel" name="label_7">
               <property name="text">
-               <string>headers (Key Value Pair)</string>
+               <string>#Headers</string>
               </property>
              </widget>
             </item>
@@ -418,11 +414,6 @@
                 <property name="currentRow">
                  <number>-1</number>
                 </property>
-                <item>
-                 <property name="text">
-                  <string>Host</string>
-                 </property>
-                </item>
                </widget>
               </item>
               <item>
@@ -436,11 +427,6 @@
                 <property name="editTriggers">
                  <set>QAbstractItemView::DoubleClicked|QAbstractItemView::EditKeyPressed|QAbstractItemView::SelectedClicked</set>
                 </property>
-                <item>
-                 <property name="text">
-                  <string>v2ray.com</string>
-                 </property>
-                </item>
                </widget>
               </item>
              </layout>
@@ -459,7 +445,7 @@
             <item row="0" column="0">
              <widget class="QLabel" name="label_8">
               <property name="text">
-               <string>MTU</string>
+               <string>#MTU</string>
               </property>
              </widget>
             </item>
@@ -485,7 +471,7 @@
             <item row="1" column="0">
              <widget class="QLabel" name="label_10">
               <property name="text">
-               <string>TTI (ms)</string>
+               <string>#TTI (ms)</string>
               </property>
              </widget>
             </item>
@@ -511,7 +497,7 @@
             <item row="2" column="0">
              <widget class="QLabel" name="label_12">
               <property name="text">
-               <string>UplinkCapacity (MB/s)</string>
+               <string>#UplinkCapacity (MB/s)</string>
               </property>
              </widget>
             </item>
@@ -534,14 +520,14 @@
             <item row="3" column="0">
              <widget class="QLabel" name="label_15">
               <property name="text">
-               <string>Congestion</string>
+               <string>#Congestion</string>
               </property>
              </widget>
             </item>
             <item row="3" column="1">
              <widget class="QCheckBox" name="checkBox">
               <property name="text">
-               <string>Enabled</string>
+               <string>#Enabled</string>
               </property>
              </widget>
             </item>
@@ -552,7 +538,7 @@
             <item row="0" column="0">
              <widget class="QLabel" name="label_9">
               <property name="text">
-               <string>downlinkCapacity (MB/s)</string>
+               <string>#DownlinkCapacity (MB/s)</string>
               </property>
              </widget>
             </item>
@@ -575,7 +561,7 @@
             <item row="1" column="0">
              <widget class="QLabel" name="label_11">
               <property name="text">
-               <string>readBufferSize (MB)</string>
+               <string>#ReadBufferSize (MB)</string>
               </property>
              </widget>
             </item>
@@ -598,7 +584,7 @@
             <item row="2" column="0">
              <widget class="QLabel" name="label_13">
               <property name="text">
-               <string>writeBufferSize (MB)</string>
+               <string>#WriteBufferSize (MB)</string>
               </property>
              </widget>
             </item>
@@ -623,13 +609,13 @@
           <item row="1" column="0" colspan="2">
            <widget class="QGroupBox" name="groupBox_2">
             <property name="title">
-             <string>header (Header Object)</string>
+             <string>#Header</string>
             </property>
             <layout class="QFormLayout" name="formLayout">
              <item row="0" column="0">
               <widget class="QLabel" name="label_16">
                <property name="text">
-                <string>type</string>
+                <string>#Type</string>
                </property>
               </widget>
              </item>
@@ -688,14 +674,14 @@
             <item row="0" column="0">
              <widget class="QLabel" name="label_17">
               <property name="text">
-               <string>path</string>
+               <string>#Path</string>
               </property>
              </widget>
             </item>
             <item row="0" column="1">
              <widget class="QLineEdit" name="lineEdit_2">
               <property name="text">
-               <string>/path/to/ds/file</string>
+               <string/>
               </property>
              </widget>
             </item>
@@ -713,7 +699,7 @@
             <item row="0" column="0">
              <widget class="QLabel" name="label_18">
               <property name="text">
-               <string>security</string>
+               <string>#Security</string>
               </property>
              </widget>
             </item>
@@ -745,21 +731,21 @@
             <item row="1" column="0">
              <widget class="QLabel" name="label_19">
               <property name="text">
-               <string>key</string>
+               <string>#Key</string>
               </property>
              </widget>
             </item>
             <item row="1" column="1">
              <widget class="QLineEdit" name="lineEdit_3">
               <property name="text">
-               <string>xxxxx</string>
+               <string/>
               </property>
              </widget>
             </item>
             <item row="2" column="0">
              <widget class="QLabel" name="label_20">
               <property name="text">
-               <string>header</string>
+               <string>#Headers</string>
               </property>
              </widget>
             </item>
@@ -772,7 +758,7 @@
                </sizepolicy>
               </property>
               <property name="title">
-               <string>header (HeaderObject)</string>
+               <string>#Header</string>
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_11">
                <item>
@@ -780,7 +766,7 @@
                  <item row="0" column="0">
                   <widget class="QLabel" name="label_21">
                    <property name="text">
-                    <string>type</string>
+                    <string>#Type</string>
                    </property>
                   </widget>
                  </item>
@@ -838,21 +824,41 @@
      </layout>
     </widget>
    </item>
-   <item row="1" column="0">
-    <widget class="QTextBrowser" name="textBrowser"/>
-   </item>
-   <item row="2" column="1">
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-     </property>
-    </widget>
-   </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>ipLineEdit</tabstop>
+  <tabstop>portLineEdit</tabstop>
+  <tabstop>aliasLineEdit</tabstop>
+  <tabstop>idLineEdit</tabstop>
+  <tabstop>alterLineEdit</tabstop>
+  <tabstop>securityCombo</tabstop>
+  <tabstop>tranportCombo</tabstop>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>comboBox</tabstop>
+  <tabstop>plainTextEdit</tabstop>
+  <tabstop>pushButton</tabstop>
+  <tabstop>plainTextEdit_2</tabstop>
+  <tabstop>pushButton_2</tabstop>
+  <tabstop>listWidget</tabstop>
+  <tabstop>plainTextEdit_3</tabstop>
+  <tabstop>lineEdit</tabstop>
+  <tabstop>listWidget_3</tabstop>
+  <tabstop>listWidget_2</tabstop>
+  <tabstop>spinBox</tabstop>
+  <tabstop>spinBox_3</tabstop>
+  <tabstop>spinBox_5</tabstop>
+  <tabstop>checkBox</tabstop>
+  <tabstop>spinBox_2</tabstop>
+  <tabstop>spinBox_4</tabstop>
+  <tabstop>spinBox_6</tabstop>
+  <tabstop>comboBox_2</tabstop>
+  <tabstop>lineEdit_2</tabstop>
+  <tabstop>comboBox_3</tabstop>
+  <tabstop>lineEdit_3</tabstop>
+  <tabstop>comboBox_4</tabstop>
+  <tabstop>textBrowser</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

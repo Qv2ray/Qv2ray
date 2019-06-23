@@ -43,21 +43,21 @@
         <item>
          <widget class="QPushButton" name="startButton">
           <property name="text">
-           <string>Start</string>
+           <string>#Start</string>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QPushButton" name="stopButton">
           <property name="text">
-           <string>Stop</string>
+           <string>#Stop</string>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QPushButton" name="restartButton">
           <property name="text">
-           <string>Restart</string>
+           <string>#Restart</string>
           </property>
           <property name="flat">
            <bool>false</bool>
@@ -67,7 +67,7 @@
         <item>
          <widget class="QPushButton" name="clearlogButton">
           <property name="text">
-           <string>Clear Log</string>
+           <string>#ClearLog</string>
           </property>
          </widget>
         </item>
@@ -94,7 +94,7 @@
         <item>
          <widget class="QGroupBox" name="groupBox_2">
           <property name="title">
-           <string>Host list</string>
+           <string>#HostList</string>
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout_2">
            <item>
@@ -129,11 +129,6 @@
              <property name="viewMode">
               <enum>QListView::ListMode</enum>
              </property>
-             <item>
-              <property name="text">
-               <string>Config 1 (www.hostname.com:port)</string>
-              </property>
-             </item>
             </widget>
            </item>
           </layout>
@@ -142,7 +137,7 @@
         <item>
          <widget class="QGroupBox" name="groupBox">
           <property name="title">
-           <string>Config Detail</string>
+           <string>#ConfigDetail</string>
           </property>
           <layout class="QFormLayout" name="formLayout">
            <property name="fieldGrowthPolicy">
@@ -151,56 +146,56 @@
            <item row="0" column="0">
             <widget class="QLabel" name="label">
              <property name="text">
-              <string>Host</string>
+              <string>#Host</string>
              </property>
             </widget>
            </item>
            <item row="0" column="1">
             <widget class="QLabel" name="label_2">
              <property name="text">
-              <string>www.hostname.com</string>
+              <string/>
              </property>
             </widget>
            </item>
            <item row="1" column="0">
             <widget class="QLabel" name="label_3">
              <property name="text">
-              <string>Port</string>
+              <string>#Port</string>
              </property>
             </widget>
            </item>
            <item row="1" column="1">
             <widget class="QLabel" name="label_4">
              <property name="text">
-              <string>12345</string>
+              <string/>
              </property>
             </widget>
            </item>
            <item row="2" column="0">
             <widget class="QLabel" name="label_9">
              <property name="text">
-              <string>UUID</string>
+              <string>#UUID</string>
              </property>
             </widget>
            </item>
            <item row="2" column="1">
             <widget class="QLabel" name="label_7">
              <property name="text">
-              <string>TextLabel</string>
+              <string/>
              </property>
             </widget>
            </item>
            <item row="3" column="0">
             <widget class="QLabel" name="label_5">
              <property name="text">
-              <string>Transport</string>
+              <string>#Transport</string>
              </property>
             </widget>
            </item>
            <item row="3" column="1">
             <widget class="QLabel" name="label_6">
              <property name="text">
-              <string>mKCP</string>
+              <string/>
              </property>
             </widget>
            </item>
@@ -213,14 +208,14 @@
               </sizepolicy>
              </property>
              <property name="text">
-              <string>Connection Settings</string>
+              <string>#ConnectionSettings</string>
              </property>
             </widget>
            </item>
            <item row="4" column="0">
             <widget class="QLabel" name="label_11">
              <property name="text">
-              <string>Settings</string>
+              <string>#ConnectionSettings</string>
              </property>
             </widget>
            </item>
@@ -246,16 +241,16 @@
      <x>0</x>
      <y>0</y>
      <width>568</width>
-     <height>29</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
-     <string>File</string>
+     <string>#File</string>
     </property>
     <widget class="QMenu" name="menuNew">
      <property name="title">
-      <string>New Connection</string>
+      <string>#NewConnection</string>
      </property>
      <addaction name="actionExisting_config"/>
      <addaction name="actionEdit"/>
@@ -265,37 +260,40 @@
     <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
-   <widget class="QMenu" name="menuAbout">
-    <property name="title">
-     <string>About</string>
-    </property>
-   </widget>
    <addaction name="menuFile"/>
-   <addaction name="menuAbout"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionEdit">
    <property name="text">
-    <string>Manual</string>
+    <string>#ManuallyInput</string>
    </property>
   </action>
   <action name="actionExisting_config">
    <property name="text">
-    <string>Import</string>
+    <string>#ImportConnection</string>
    </property>
   </action>
   <action name="actionExit">
    <property name="text">
-    <string>Exit</string>
+    <string>#Exit</string>
    </property>
   </action>
   <action name="actionPreferences">
    <property name="text">
-    <string>Preferences</string>
+    <string>#Preferences</string>
    </property>
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <tabstops>
+  <tabstop>startButton</tabstop>
+  <tabstop>stopButton</tabstop>
+  <tabstop>restartButton</tabstop>
+  <tabstop>clearlogButton</tabstop>
+  <tabstop>listWidget</tabstop>
+  <tabstop>pushButton</tabstop>
+  <tabstop>logText</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
