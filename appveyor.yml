@@ -13,7 +13,7 @@ install:
 build_script:
   - mkdir python37 && xcopy C:\Python37 python37 /E /H /Q
   - tools\FixPythonWithMinGW.bat
-  - cd src
+  - lrelease.exe Hv2ray.pro
   - mkdir build && cd build
-  - qmake ..\..\Hv2ray.pro
+  - qmake ..\Hv2ray.pro
   - mingw32-make
