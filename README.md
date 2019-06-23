@@ -2,7 +2,9 @@
 
 TODO: 使用 Qt 的跨平台 v2ray 客户端，目前仍处于早期开发，多数功能尚未齐全。
 
-**当前开发分支[ui-implementation](https://github.com/lhy0403/Hv2ray/tree/ui-implementation) - 用于实现基本 UI**
+## News
+~~**当前开发分支[ui-implementation](https://github.com/lhy0403/Hv2ray/tree/ui-implementation) - 用于实现基本 UI**~~
+Update 2019-06-23: 基本UI完成，切换到[dev](https://github.com/lhy0403/Hv2ray/tree/dev)分支进行代码实现
 
 [![Language grade: C/C++](https://img.shields.io/lgtm/grade/cpp/g/lhy0403/Hv2ray.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/lhy0403/Hv2ray/context:cpp) [![Total alerts](https://img.shields.io/lgtm/alerts/g/lhy0403/Hv2ray.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/lhy0403/Hv2ray/alerts/)
 
