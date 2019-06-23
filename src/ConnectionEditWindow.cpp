@@ -19,12 +19,12 @@ ConnectionEditWindow::~ConnectionEditWindow()
 {
     delete ui;
 }
-int vConfig::save()
+int Hv2Config::save()
 {
     return -1;
 }
 
-void vConfig::getConfigFromDialog(Ui::ConnectionEditWindow *ui)
+void Hv2Config::getConfigFromDialog(Ui::ConnectionEditWindow *ui)
 {
     this->host = ui->ipLineEdit->text();
     this->port = ui->portLineEdit->text();

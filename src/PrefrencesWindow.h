@@ -3,7 +3,6 @@
 
 #include <QDialog>
 #include <QJsonObject>
-#include "MainWindow.h"
 
 namespace Ui
 {
@@ -15,15 +14,19 @@ class PrefrencesWindow : public QDialog
     Q_OBJECT
 
 public:
-    explicit PrefrencesWindow(MainWindow *parent = nullptr);
+    explicit PrefrencesWindow(QWidget *parent = nullptr);
     ~PrefrencesWindow();
     QJsonObject rootObj;
-    MainWindow *parentMW;
+    QWidget *parentMW;
 
 private slots:
     void on_buttonBox_accepted();
     void on_httpCB_stateChanged(int arg1);
     void on_socksCB_stateChanged(int arg1);
+
+    void on_httpAuthCB_stateChanged(int arg1);
+
+    void on_runAsRootCheckBox_stateChanged(int arg1);
 
 private:
     Ui::PrefrencesWindow *ui;

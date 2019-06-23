@@ -8,7 +8,7 @@ namespace Ui
     class ConnectionEditWindow;
 }
 
-class vConfig
+class Hv2Config
 {
 public:
     QString host;
