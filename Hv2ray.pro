@@ -114,10 +114,10 @@ macx {
 }
 
 macx {
-    PYTHON_ROOT=/usr/local/Cellar/python/3.6.5/Frameworks/Python.framework/Versions
+    PYTHON_ROOT=/usr/local/Cellar/python/3.6.5_1/Frameworks/Python.framework/Versions
     exists( "$$PYTHON_ROOT/3.6/include/python3.6m/Python.h" ) {
         equals(WITH_PYTHON, "no") {
-            message("Will build with python lib version 3.6.5.")
+            message("Will build with python lib version 3.6.5_1.")
             INCLUDEPATH += $$PYTHON_ROOT/3.6/include/python3.6m/
             LIBS += -L$$PYTHON_ROOT/3.6/lib/python3.6/config-3.6m-darwin/ -lpython3.6m
             WITH_PYTHON = yes
