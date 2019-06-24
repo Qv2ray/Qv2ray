@@ -15,7 +15,7 @@ before_install:
 install:
   - if [ "$BADGE" = "linux" ]; then    sudo apt-get install qtchooser qt5-default qt5-qmake qtdeclarative5-dev python3-dev python-dev libpython3-dev qttools5-dev-tools; fi
   - if [ "$BADGE" = "osx" ];   then    brew install cppcheck https://raw.githubusercontent.com/Homebrew/homebrew-core/master/Formula/qt.rb; fi
-  - if [ "$BADGE" = "osx" ];   then    brew brew upgrade python; fi
+  - if [ "$BADGE" = "osx" ];   then    brew upgrade python; fi
   - if [ "$BADGE" = "osx" ];   then    brew link --force qt; fi  
   
 before_script:
