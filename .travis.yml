@@ -19,7 +19,6 @@ install:
   
 before_script:
   - if [ "$BADGE" = "osx" ];   then    export PATH="/usr/local/opt/qt/bin:$PATH"; fi
-  - if [ "$BADGE" = "osx" ];   then    export QMAKESPEC=macx-clang; export QMAKESPEC=macx-g++; fi
   
 script:
   - lrelease ./Hv2ray.pro
