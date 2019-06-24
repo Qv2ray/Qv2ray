@@ -11,7 +11,7 @@ TODO: 使用 Qt 的跨平台 v2ray 客户端，目前仍处于早期开发，多
 
 ## 最近更新内容
 
-- 详见 [ChangeLog.md](ChangeLog.md)
+- 详见 [ChangeLog.md](CHANGELOG.md)
 
 
 
