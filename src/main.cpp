@@ -65,7 +65,7 @@ int main(int argc, char *argv[])
     QApplication _qApp(argc, argv);
 
     QTranslator translator;
-    if (translator.load(QString("zh-CN.qm"), QString("translations")))
+    if (translator.load(QString(":/translations/zh-CN.qm"), QString("translations")))
     {
         cout << "Loaded Chinese translations" << endl;
     }
@@ -73,7 +73,7 @@ int main(int argc, char *argv[])
 
     RunGuard guard("Hv2ray");
      if(!guard.isSingleInstance()) {
-         showWarnMessageBox(nullptr, "Hv2Ray", "Another instance of Hv2ray is already running!");
+         showWarnMessageBox(nullptr, QObject::tr("Hv2Ray"), QObject::tr("AnotherInstanceRunning"));
          return -1;
      }
 

@@ -8,13 +8,12 @@
 #include <QFileInfo>
 #include <QProcess>
 #include <unistd.h>
+#include <ui_PrefrencesWindow.h>
 
 #include "utils.h"
 #include "PrefrencesWindow.h"
-#include "MainWindow.h"
-#include "ui_PrefrencesWindow.h"
 
-PrefrencesWindow::PrefrencesWindow(MainWindow *parent) :
+PrefrencesWindow::PrefrencesWindow(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::PrefrencesWindow)
 {
@@ -23,16 +22,16 @@ PrefrencesWindow::PrefrencesWindow(MainWindow *parent) :
     QJsonObject http = findValueFromJsonArray(rootObj.value("inbounds").toArray(), "tag", "http-in");
     QJsonObject socks = findValueFromJsonArray(rootObj.value("inbounds").toArray(), "tag", "socks-in");
     if(rootObj.value("v2suidEnabled").toBool()) {
-        ui->checkBox->setCheckState(Qt::Checked);
+        ui->runAsRootCheckBox->setCheckState(Qt::Checked);
     }
     if(!http.isEmpty()) {
-        ui->httpPortLE->setText(QString::number(http.value("port").toInt()));
+        ui->httpPortLE->setText(http.value("port").toString());
         ui->httpCB->setCheckState(Qt::Checked);
     } else {
         ui->httpPortLE->setDisabled(true);
     }
     if(!socks.isEmpty()) {
-        ui->socksPortLE->setText(QString::number(socks.value("port").toInt()));
+        ui->socksPortLE->setText(socks.value("port").toString());
         ui->socksCB->setCheckState(Qt::Checked);
     } else {
         ui->socksPortLE->setDisabled(true);
@@ -94,9 +93,9 @@ void PrefrencesWindow::on_buttonBox_accepted()
 #ifndef _WIN32
             // Set UID and GID in *nix
             QFileInfo v2rayCoreExeFile("v2ray");
-            if(ui->checkBox->isChecked() && v2rayCoreExeFile.ownerId() != 0) {
+            if(ui->runAsRootCheckBox->isChecked() && v2rayCoreExeFile.ownerId() != 0) {
                 QProcess::execute("pkexec", QStringList() << "bash" << "-c" << "chown root:root " + QCoreApplication::applicationDirPath() + "/v2ray" + ";chmod +s " + QCoreApplication::applicationDirPath() + "/v2ray");
-            } else if (!ui->checkBox->isChecked() && v2rayCoreExeFile.ownerId() == 0) {
+            } else if (!ui->runAsRootCheckBox->isChecked() && v2rayCoreExeFile.ownerId() == 0) {
                 uid_t uid = getuid();
                 gid_t gid = getgid();
                 QProcess::execute("pkexec", QStringList() << "chown" << QString::number(uid) + ":" + QString::number(gid) << QCoreApplication::applicationDirPath() + "/v2ray");
@@ -110,12 +109,13 @@ void PrefrencesWindow::on_buttonBox_accepted()
             QByteArray byteArray = modifiedDoc.toJson(QJsonDocument::Indented);
             QFile confFile("conf/Hv2ray.config.json");
             if(!confFile.open(QIODevice::WriteOnly)) {
+                showWarnMessageBox(this, tr("#Prefrences"), tr("#CannotOpenConfigFile"));
                 qDebug() << "Cannot open Hv2ray.config.json for modifying";
             }
             confFile.write(byteArray);
             confFile.close();
         } else {
-            showWarnMessageBox(this, tr("Config error"), tr("Port numbers cannot be the same!"));
+            showWarnMessageBox(this, tr("Prefrences"), tr("PortNumbersCannotBeSame"));
         }
     }
 }
@@ -139,4 +139,20 @@ void PrefrencesWindow::on_socksCB_stateChanged(int checked)
         ui->socksPortLE->setEnabled(true);
         ui->socksPortLE->setText("1080");
     }
+}
+
+void PrefrencesWindow::on_httpAuthCB_stateChanged(int checked)
+{
+    if(checked)
+    {
+
+    }
+}
+
+void PrefrencesWindow::on_runAsRootCheckBox_stateChanged(int arg1)
+{
+    Q_UNUSED(arg1);
+#ifdef _WIN32
+    showWarnMessageBox(this, tr("Prefrences"), tr("RunAsRootNotOnWindows"));
+#endif
 }

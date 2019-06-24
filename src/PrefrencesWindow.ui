@@ -23,7 +23,7 @@
    <item row="0" column="0">
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
-      <string>General</string>
+      <string>#General</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
@@ -31,12 +31,12 @@
         <item row="0" column="0">
          <widget class="QLabel" name="label_6">
           <property name="text">
-           <string>Language</string>
+           <string>#Language</string>
           </property>
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QComboBox" name="comboBox">
+         <widget class="QComboBox" name="languageComboBox">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -58,26 +58,26 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_7">
           <property name="text">
-           <string>Run v2ray with root</string>
+           <string>#RunAsRoot</string>
           </property>
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QCheckBox" name="checkBox">
+         <widget class="QCheckBox" name="runAsRootCheckBox">
           <property name="text">
-           <string>Enabled</string>
+           <string>#Enabled</string>
           </property>
          </widget>
         </item>
         <item row="2" column="0">
          <widget class="QLabel" name="label">
           <property name="text">
-           <string>Log Level</string>
+           <string>#LogLevel</string>
           </property>
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="QComboBox" name="comboBox_2">
+         <widget class="QComboBox" name="logLevelCheckBox">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -122,32 +122,32 @@
       <item>
        <widget class="QGroupBox" name="groupBox_5">
         <property name="title">
-         <string>Mux Cool</string>
+         <string>#MuxCool</string>
         </property>
         <layout class="QFormLayout" name="formLayout">
          <item row="0" column="0">
           <widget class="QLabel" name="label_5">
            <property name="text">
-            <string>Enabled</string>
+            <string>#Enabled</string>
            </property>
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QCheckBox" name="checkBox_2">
+          <widget class="QCheckBox" name="muxEnabledCB">
            <property name="text">
-            <string>Enabled</string>
+            <string>#Enabled</string>
            </property>
           </widget>
          </item>
          <item row="1" column="0">
           <widget class="QLabel" name="label_8">
            <property name="text">
-            <string>Concurrency</string>
+            <string>#Concurrency</string>
            </property>
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QSpinBox" name="spinBox">
+          <widget class="QSpinBox" name="muxConcurrencyTxt">
            <property name="minimum">
             <number>1</number>
            </property>
@@ -168,7 +168,7 @@
    <item row="0" column="1">
     <widget class="QGroupBox" name="groupBox_2">
      <property name="title">
-      <string>Inbound Settings</string>
+      <string>#InboundSettings</string>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1">
       <item>
@@ -183,14 +183,14 @@
             <enum>Qt::LeftToRight</enum>
            </property>
            <property name="text">
-            <string>Enabled</string>
+            <string>#Enabled</string>
            </property>
           </widget>
          </item>
          <item row="1" column="0">
           <widget class="QLabel" name="label_3">
            <property name="text">
-            <string>Port</string>
+            <string>#Port</string>
            </property>
           </widget>
          </item>
@@ -210,36 +210,36 @@
          <item row="3" column="0">
           <widget class="QLabel" name="label_2">
            <property name="text">
-            <string>Username</string>
+            <string>#Username</string>
            </property>
           </widget>
          </item>
          <item row="2" column="0">
           <widget class="QLabel" name="label_9">
            <property name="text">
-            <string>Auth</string>
+            <string>#Auth</string>
            </property>
           </widget>
          </item>
          <item row="4" column="0">
           <widget class="QLabel" name="label_13">
            <property name="text">
-            <string>Password</string>
+            <string>#Password</string>
            </property>
           </widget>
          </item>
          <item row="2" column="1">
-          <widget class="QCheckBox" name="checkBox_3">
+          <widget class="QCheckBox" name="httpAuthCB">
            <property name="text">
-            <string>Enabled</string>
+            <string>#Enabled</string>
            </property>
           </widget>
          </item>
          <item row="3" column="1">
-          <widget class="QLineEdit" name="lineEdit"/>
+          <widget class="QLineEdit" name="httpAuthUsernameTxt"/>
          </item>
          <item row="4" column="1">
-          <widget class="QLineEdit" name="lineEdit_2"/>
+          <widget class="QLineEdit" name="httpAuthPasswordTxt"/>
          </item>
         </layout>
        </widget>
@@ -253,7 +253,7 @@
          <item row="1" column="0">
           <widget class="QLabel" name="label_4">
            <property name="text">
-            <string>Port</string>
+            <string>#Port</string>
            </property>
           </widget>
          </item>
@@ -267,43 +267,43 @@
          <item row="0" column="1">
           <widget class="QCheckBox" name="socksCB">
            <property name="text">
-            <string>Enabled</string>
+            <string>#Enabled</string>
            </property>
           </widget>
          </item>
          <item row="2" column="0">
           <widget class="QLabel" name="label_10">
            <property name="text">
-            <string>Auth</string>
+            <string>#Auth</string>
            </property>
           </widget>
          </item>
          <item row="3" column="0">
           <widget class="QLabel" name="label_11">
            <property name="text">
-            <string>Username</string>
+            <string>#Username</string>
            </property>
           </widget>
          </item>
          <item row="4" column="0">
           <widget class="QLabel" name="label_12">
            <property name="text">
-            <string>Password</string>
+            <string>#Password</string>
            </property>
           </widget>
          </item>
          <item row="2" column="1">
-          <widget class="QCheckBox" name="checkBox_4">
+          <widget class="QCheckBox" name="socksAuthCB">
            <property name="text">
-            <string>Enabled</string>
+            <string>#Enabled</string>
            </property>
           </widget>
          </item>
          <item row="3" column="1">
-          <widget class="QLineEdit" name="lineEdit_3"/>
+          <widget class="QLineEdit" name="socksAuthUsernameTxt"/>
          </item>
          <item row="4" column="1">
-          <widget class="QLineEdit" name="lineEdit_4"/>
+          <widget class="QLineEdit" name="socksAuthPasswordTxt"/>
          </item>
         </layout>
        </widget>
@@ -323,6 +323,23 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>languageComboBox</tabstop>
+  <tabstop>runAsRootCheckBox</tabstop>
+  <tabstop>logLevelCheckBox</tabstop>
+  <tabstop>muxEnabledCB</tabstop>
+  <tabstop>muxConcurrencyTxt</tabstop>
+  <tabstop>httpCB</tabstop>
+  <tabstop>httpPortLE</tabstop>
+  <tabstop>httpAuthCB</tabstop>
+  <tabstop>httpAuthUsernameTxt</tabstop>
+  <tabstop>httpAuthPasswordTxt</tabstop>
+  <tabstop>socksCB</tabstop>
+  <tabstop>socksPortLE</tabstop>
+  <tabstop>socksAuthCB</tabstop>
+  <tabstop>socksAuthUsernameTxt</tabstop>
+  <tabstop>socksAuthPasswordTxt</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

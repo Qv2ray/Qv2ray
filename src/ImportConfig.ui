@@ -25,7 +25,7 @@
      <item>
       <widget class="QLabel" name="label">
        <property name="text">
-        <string>Import From</string>
+        <string>#ImportFrom</string>
        </property>
       </widget>
      </item>
@@ -48,13 +48,13 @@
    <item row="1" column="0">
     <widget class="QGroupBox" name="fromFileGroupBox">
      <property name="title">
-      <string>From File</string>
+      <string>#FromFile</string>
      </property>
      <layout class="QFormLayout" name="formLayout">
       <item row="0" column="0">
        <widget class="QLabel" name="fileLabel">
         <property name="text">
-         <string>Path</string>
+         <string>#Path</string>
         </property>
        </widget>
       </item>
@@ -70,7 +70,7 @@
         <item>
          <widget class="QPushButton" name="selectFileBtn">
           <property name="text">
-           <string>Select File</string>
+           <string>#SelectFile</string>
           </property>
          </widget>
         </item>
@@ -79,7 +79,7 @@
       <item row="1" column="0">
        <widget class="QLabel" name="aliasLabel">
         <property name="text">
-         <string>Name</string>
+         <string>#Name</string>
         </property>
        </widget>
       </item>
@@ -89,7 +89,7 @@
       <item row="2" column="0">
        <widget class="QLabel" name="label_2">
         <property name="text">
-         <string>Inbound</string>
+         <string>#Inbound</string>
         </property>
        </widget>
       </item>
@@ -98,7 +98,7 @@
         <item>
          <widget class="QRadioButton" name="useCurrentSettingRidBtn">
           <property name="text">
-           <string>Use Current</string>
+           <string>#UseCurrent</string>
           </property>
           <property name="checked">
            <bool>true</bool>
@@ -108,7 +108,7 @@
         <item>
          <widget class="QRadioButton" name="useImportedRidBtn">
           <property name="text">
-           <string>Use Imported</string>
+           <string>#UseImported</string>
           </property>
          </widget>
         </item>
@@ -120,13 +120,13 @@
    <item row="1" column="1">
     <widget class="QGroupBox" name="fromVMessGroupBox">
      <property name="title">
-      <string>From VMess Connection String</string>
+      <string>#From VMess Connection String</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
        <widget class="QLabel" name="label_3">
         <property name="text">
-         <string>VMess Connection String</string>
+         <string>#VMess Connection String</string>
         </property>
        </widget>
       </item>
@@ -148,6 +148,15 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>importSourceCombo</tabstop>
+  <tabstop>fileLineTxt</tabstop>
+  <tabstop>selectFileBtn</tabstop>
+  <tabstop>nameTxt</tabstop>
+  <tabstop>useCurrentSettingRidBtn</tabstop>
+  <tabstop>useImportedRidBtn</tabstop>
+  <tabstop>vmessConnectionStringTxt</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>
