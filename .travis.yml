@@ -1,16 +1,25 @@
 language: cpp
-dist: xenial
-compiler: g++
-sudo: required
+
+matrix:
+    include:
+        - os: linux
+          dist: xenial
+          sudo: required
+          env: BADGE=linux
+        - os: osx
+          env: BADGE=osx
 
 before_install:
-  - sudo apt-get update
+  - if [ "$BADGE" = "linux" ]; then    sudo apt-get update; fi
 
 install:
-  - sudo apt-get install qtchooser qt5-default
-  - sudo apt-get install qt5-qmake 
-  - sudo apt-get install qtdeclarative5-dev python3-dev python-dev libpython3-dev qttools5-dev-tools
-
+  - if [ "$BADGE" = "linux" ]; then    sudo apt-get install qtchooser qt5-default qt5-qmake qtdeclarative5-dev python3-dev python-dev libpython3-dev qttools5-dev-tools; fi
+  - if [ "$BADGE" = "osx" ];   then    brew install cppcheck https://raw.githubusercontent.com/Homebrew/homebrew-core/master/Formula/qt.rb; fi
+  - if [ "$BADGE" = "osx" ];   then    brew link --force qt; fi  
+  
+before_script:
+  - if [ "$BADGE" = "osx" ];   then    export PATH="/usr/local/opt/qt/bin:$PATH"; fi
+  
 script:
   - lrelease ./Hv2ray.pro
   - mkdir build && cd ./build
