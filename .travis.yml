@@ -21,6 +21,7 @@ before_script:
   - if [ "$BADGE" = "osx" ];   then    export PATH="/usr/local/opt/qt/bin:$PATH"; fi
   
 script:
+  - sudo find / | grep "libpython3"
   - lrelease ./Hv2ray.pro
   - mkdir build && cd ./build
   - QT_SELECT=5 QTDIR=/usr/share/qt5 qmake ../
