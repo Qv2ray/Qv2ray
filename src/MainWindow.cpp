@@ -28,6 +28,7 @@ void MainWindow::CreateTrayIcon()
     QAction *actionStart = new QAction(this);
     QAction *actionRestart = new QAction(this);
     QAction *actionStop = new QAction(this);
+
     actionShow->setText(tr("#Hide"));
     actionQuit->setText(tr("#Quit"));
     actionStart->setText(tr("#Start"));
@@ -36,6 +37,7 @@ void MainWindow::CreateTrayIcon()
     actionStart->setEnabled(true);
     actionStop->setEnabled(false);
     actionRestart->setEnabled(false);
+
     trayMenu->addAction(actionShow);
     trayMenu->addSeparator();
     trayMenu->addAction(actionStart);
@@ -43,6 +45,7 @@ void MainWindow::CreateTrayIcon()
     trayMenu->addAction(actionRestart);
     trayMenu->addSeparator();
     trayMenu->addAction(actionQuit);
+
     connect(actionShow, SIGNAL(triggered()), this, SLOT(toggleMainWindowVisibility()));
     connect(actionStart, SIGNAL(triggered()), this, SLOT(on_startButton_clicked()));
     connect(actionStop, SIGNAL(triggered()), this, SLOT(on_stopButton_clicked()));
@@ -192,12 +195,16 @@ void MainWindow::on_activatedTray(QSystemTrayIcon::ActivationReason reason)
     switch (reason) {
         case QSystemTrayIcon::Trigger:
             // Toggle Show/Hide
+#ifndef __APPLE__
+            // Every single click will trigger the Show/Hide toggling.
+            // So, as a hobby on common MacOS Apps, we 'don't toggle visibility on click'.
             toggleMainWindowVisibility();
+#endif
             break;
         case QSystemTrayIcon::DoubleClick:
-            //if(this->isHidden()) {
-            //    this->show();
-            //}
+            if(this->isHidden()) {
+                this->show();
+            }
             break;
         case QSystemTrayIcon::MiddleClick:
             // TODO: Check if an alert message box is present.
