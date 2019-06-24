@@ -1,16 +1,28 @@
+os:
+  - linux
+    - dist: xenial
+    - sudo: required
+    - env: BADGE=linux
+  - osx
+    - env: BADGE=osx
+
 language: cpp
-dist: xenial
 compiler: g++
-sudo: required
 
 before_install:
-  - sudo apt-get update
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then    sudo apt-get update;                                                                                                                                fi
+  - if [ "$TRAVIS_OS_NAME" = osx ];     then    brew install python3 cppcheck https://raw.githubusercontent.com/Homebrew/homebrew-core/bc03ca8ad8f74be348801c99b78905926d91abc1/Formula/qt.rb';     fi
+  - if [ "$TRAVIS_OS_NAME" = osx ];     then    brew link --force qt';                                                                                                                              fi
+
 
 install:
-  - sudo apt-get install qtchooser qt5-default
-  - sudo apt-get install qt5-qmake 
-  - sudo apt-get install qtdeclarative5-dev python3-dev python-dev libpython3-dev qttools5-dev-tools
-
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then    sudo apt-get install qtchooser qt5-default qt5-qmake qtdeclarative5-dev python3-dev python-dev libpython3-dev qttools5-dev-tools; fi
+  - if [ "#TRAVIS_OS_NAME" = "osx" ];   then    true; fi
+  
+before_script:
+  - if [[ "$TRAVIS_OS_NAME" != osx   || "$CXX" != clang++ ]]; then export QMAKESPEC=macx-clang; fi
+  - if [[ "$TRAVIS_OS_NAME" != osx   || "$CXX" != g++     ]]; then export QMAKESPEC=macx-g++;   fi
+  
 script:
   - lrelease ./Hv2ray.pro
   - mkdir build && cd ./build
