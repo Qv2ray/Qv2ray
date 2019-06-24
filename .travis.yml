@@ -7,7 +7,7 @@ compiler: g++
 
 before_install:
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then    sudo apt-get update;                                                                                                                                fi
-  - if [ "$TRAVIS_OS_NAME" = osx ];     then    brew install python3 cppcheck https://raw.githubusercontent.com/Homebrew/homebrew-core/bc03ca8ad8f74be348801c99b78905926d91abc1/Formula/qt.rb';     fi
+  - if [ "$TRAVIS_OS_NAME" = osx ];     then    brew install python3 cppcheck https://raw.githubusercontent.com/Homebrew/homebrew-core/bc03ca8ad8f74be348801c99b78905926d91abc1/Formula/qt.rb;      fi
   - if [ "$TRAVIS_OS_NAME" = osx ];     then    brew link --force qt';                                                                                                                              fi
 
 
