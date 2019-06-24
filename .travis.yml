@@ -1,21 +1,23 @@
-os:
-  - linux
-  - osx
-
-language: cpp
-compiler: g++
+matrix:
+    include:
+        - os: linux
+          dist: xenial
+          compiler: g++
+          sudo: required
+          env: OS=linux
+        - os: osx
+          env: OS=osx
 
 before_install:
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then    sudo apt-get update; fi
-
+  - if [ "$OS" = "linux" ]; then    sudo apt-get update; fi
 
 install:
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then    sudo apt-get install qtchooser qt5-default qt5-qmake qtdeclarative5-dev python3-dev python-dev libpython3-dev qttools5-dev-tools; fi
-  - if [ "$TRAVIS_OS_NAME" = osx ];     then    brew -v install python3 cppcheck https://raw.githubusercontent.com/Homebrew/homebrew-core/master/Formula/qt.rb; fi
-  - if [ "$TRAVIS_OS_NAME" = osx ];     then    brew -v link --force qt; fi
+  - if [ "$OS" = "linux" ]; then    sudo apt-get install qtchooser qt5-default qt5-qmake qtdeclarative5-dev python3-dev python-dev libpython3-dev qttools5-dev-tools; fi
+  - if [ "$OS" = "osx" ];   then    brew -v install python3 cppcheck https://raw.githubusercontent.com/Homebrew/homebrew-core/master/Formula/qt.rb; fi
+  - if [ "$OS" = "osx" ];   then    brew -v link --force qt; fi
   
 before_script:
-  - if [ "$TRAVIS_OS_NAME" = "osx" ];   then    export QMAKESPEC=macx-clang; export QMAKESPEC=macx-g++; fi
+  - if [ "$OS" = "osx" ];   then    export QMAKESPEC=macx-clang; export QMAKESPEC=macx-g++; fi
   
 script:
   - lrelease ./Hv2ray.pro
