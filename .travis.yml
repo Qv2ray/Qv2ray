@@ -14,8 +14,10 @@ before_install:
 
 install:
   - if [ "$OS" = "linux" ]; then    sudo apt-get install qtchooser qt5-default qt5-qmake qtdeclarative5-dev python3-dev python-dev libpython3-dev qttools5-dev-tools; fi
-  - if [ "$OS" = "osx" ];   then    brew install -v python3 cppcheck https://raw.githubusercontent.com/Homebrew/homebrew-core/master/Formula/qt.rb; fi
-  - if [ "$OS" = "osx" ];   then    brew link -v --force qt; fi
+  - if [ "$OS" = "osx" ];   then    brew install cppcheck https://raw.githubusercontent.com/Homebrew/homebrew-core/master/Formula/qt.rb; fi
+  - if [ "$OS" = "osx" ];   then    brew brew upgrade python; fi
+  - if [ "$OS" = "osx" ];   then    brew link --force qt; fi  
+  - if [ "$OS" = "osx" ];   then    export PATH="/usr/local/opt/qt/bin:$PATH"; fi
   
 before_script:
   - if [ "$OS" = "osx" ];   then    export QMAKESPEC=macx-clang; export QMAKESPEC=macx-g++; fi
