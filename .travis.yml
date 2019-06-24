@@ -1,10 +1,6 @@
 os:
   - linux
-    - dist: xenial
-    - sudo: required
-    - env: BADGE=linux
   - osx
-    - env: BADGE=osx
 
 language: cpp
 compiler: g++
