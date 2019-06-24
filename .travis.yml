@@ -7,8 +7,8 @@ compiler: g++
 
 before_install:
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then    sudo apt-get update; fi
-  - if [ "$TRAVIS_OS_NAME" = osx ];     then    brew install python3 cppcheck https://raw.githubusercontent.com/Homebrew/homebrew-core/master/Formula/qt.rb; fi
-  - if [ "$TRAVIS_OS_NAME" = osx ];     then    brew link --force qt; fi
+  - if [ "$TRAVIS_OS_NAME" = osx ];     then    brew -v install python3 cppcheck https://raw.githubusercontent.com/Homebrew/homebrew-core/master/Formula/qt.rb; fi
+  - if [ "$TRAVIS_OS_NAME" = osx ];     then    brew -v link --force qt; fi
 
 
 install:
@@ -16,8 +16,8 @@ install:
   - if [ "#TRAVIS_OS_NAME" = "osx" ];   then    true; fi
   
 before_script:
-  - if [[ "$TRAVIS_OS_NAME" != osx   || "$CXX" != clang++ ]]; then export QMAKESPEC=macx-clang; fi
-  - if [[ "$TRAVIS_OS_NAME" != osx   || "$CXX" != g++     ]]; then export QMAKESPEC=macx-g++;   fi
+  - if [[ "$TRAVIS_OS_NAME" = osx   || "$CXX" != clang++ ]]; then export QMAKESPEC=macx-clang; fi
+  - if [[ "$TRAVIS_OS_NAME" = osx   || "$CXX" != g++     ]]; then export QMAKESPEC=macx-g++;   fi
   
 script:
   - lrelease ./Hv2ray.pro
