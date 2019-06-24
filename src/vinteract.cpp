@@ -25,7 +25,7 @@ bool validationCheck(QString path)
         QString output = QString(process.readAllStandardOutput());
 
         if (!output.contains("Configuration OK")) {
-            showWarnMessageBox(nullptr, "Error in configuration", output.mid(output.indexOf("anti-censorship.") + 17));
+            showWarnMessageBox(nullptr, QObject::tr("ConfigurationError"), output.mid(output.indexOf("anti-censorship.") + 17));
             return false;
         }
         else return true;

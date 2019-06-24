@@ -31,17 +31,18 @@ ImportConfig::~ImportConfig()
 
 void ImportConfig::on_pushButton_clicked()
 {
-    QString dir = QFileDialog::getOpenFileName(this, tr("Open Config File"), "~/");
+    QString dir = QFileDialog::getOpenFileName(this, tr("OpenConfigFile"), "~/");
     ui->fileLineTxt->setText(dir);
 }
 
 void ImportConfig::savefromFile(QString path, QString alias)
 {
-    vConfig newConf;
-    newConf.alias = alias;
+    Hv2Config newConfig;
+    newConfig.alias = alias;
     QFile configFile(path);
     if(!configFile.open(QIODevice::ReadOnly)) {
-        qDebug() << "Couldn't open config json";
+        showWarnMessageBox(this, tr("ImportConfig"), tr("CannotOpenFile"));
+        qDebug() << "ImportConfig::CannotOpenFile";
         return;
     }
     QByteArray allData = configFile.readAll();
@@ -56,25 +57,27 @@ void ImportConfig::savefromFile(QString path, QString alias)
     }
     QJsonObject vnext = switchJsonArrayObject(outbound.value("settings").toObject(), "vnext");
     QJsonObject user = switchJsonArrayObject(vnext, "users");
-    newConf.host = vnext.value("address").toString();
-    newConf.port = QString::number(vnext.value("port").toInt());
-    newConf.alterid = QString::number(user.value("alterId").toInt());
-    newConf.uuid = user.value("id").toString();
-    newConf.security = user.value("security").toString();
-    if (newConf.security.isNull()) {
-        newConf.security = "auto";
+    newConfig.host = vnext.value("address").toString();
+    newConfig.port = QString::number(vnext.value("port").toInt());
+    newConfig.alterid = QString::number(user.value("alterId").toInt());
+    newConfig.uuid = user.value("id").toString();
+    newConfig.security = user.value("security").toString();
+    if (newConfig.security.isNull()) {
+        newConfig.security = "auto";
     }
-    newConf.isCustom = 1;
-    int id = newConf.save();
+    newConfig.isCustom = 1;
+    int id = newConfig.save();
     if(id < 0)
     {
-        showWarnMessageBox(this, "Database Error", "Failed to open database while saving");
+        showWarnMessageBox(this, tr("ImportConfig"), tr("SaveFailed"));
+        qDebug() << "ImportConfig::SaveFailed";
         return;
     }
     emit updateConfTable();
     QString newFile = "conf/" + QString::number(id) + ".conf";
     if(!QFile::copy(path, newFile)) {
-        showWarnMessageBox(this, "Copy error", "Failed to copy custom config file.");
+        showWarnMessageBox(this, tr("ImportConfig"), tr("CannotCopyCustomConfig"));
+        qDebug() << "ImportConfig::CannotCopyCustomConfig";
     }
 }
 
@@ -93,9 +96,7 @@ void ImportConfig::on_buttonBox_accepted()
     {
         QString vmess = ui->vmessConnectionStringTxt->toPlainText();
         Py_Initialize();
-        if ( !Py_IsInitialized() ) {
-            qDebug() << "Python is not initialized";
-        }
+        assert(Py_IsInitialized());
         QString param = "--inbound socks:1080 " + vmess + " -o config.json.tmp";
         PyRun_SimpleString("import sys");
         PyRun_SimpleString("sys.path.append('./utils')");
@@ -113,7 +114,8 @@ void ImportConfig::on_buttonBox_accepted()
             }
             QFile::remove("config.json.tmp");
         } else {
-            showWarnMessageBox(this, "Error occured", "Failed to generate config file.");
+            showWarnMessageBox(this, tr("ImportConfig"), tr("CannotGenerateConfig"));
+            qDebug() << "ImportConfig::CannotGenerateConfig";
         }
     }
 

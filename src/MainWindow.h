@@ -57,6 +57,7 @@ private:
     void closeEvent(QCloseEvent *);
     void createTrayAction();
 
+    void CreateTrayIcon();
 };
 
 #endif // MAINWINDOW_H
