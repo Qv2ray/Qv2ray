@@ -5,22 +5,22 @@ matrix:
         - os: linux
           dist: xenial
           sudo: required
-          env: OS=linux
+          env: BADGE=linux
         - os: osx
-          env: OS=osx
+          env: BADGE=osx
 
 before_install:
-  - if [ "$OS" = "linux" ]; then    sudo apt-get update; fi
+  - if [ "$BADGE" = "linux" ]; then    sudo apt-get update; fi
 
 install:
-  - if [ "$OS" = "linux" ]; then    sudo apt-get install qtchooser qt5-default qt5-qmake qtdeclarative5-dev python3-dev python-dev libpython3-dev qttools5-dev-tools; fi
-  - if [ "$OS" = "osx" ];   then    brew install cppcheck https://raw.githubusercontent.com/Homebrew/homebrew-core/master/Formula/qt.rb; fi
-  - if [ "$OS" = "osx" ];   then    brew brew upgrade python; fi
-  - if [ "$OS" = "osx" ];   then    brew link --force qt; fi  
-  - if [ "$OS" = "osx" ];   then    export PATH="/usr/local/opt/qt/bin:$PATH"; fi
+  - if [ "$BADGE" = "linux" ]; then    sudo apt-get install qtchooser qt5-default qt5-qmake qtdeclarative5-dev python3-dev python-dev libpython3-dev qttools5-dev-tools; fi
+  - if [ "$BADGE" = "osx" ];   then    brew install cppcheck https://raw.githubusercontent.com/Homebrew/homebrew-core/master/Formula/qt.rb; fi
+  - if [ "$BADGE" = "osx" ];   then    brew brew upgrade python; fi
+  - if [ "$BADGE" = "osx" ];   then    brew link --force qt; fi  
   
 before_script:
-  - if [ "$OS" = "osx" ];   then    export QMAKESPEC=macx-clang; export QMAKESPEC=macx-g++; fi
+  - if [ "$BADGE" = "osx" ];   then    export PATH="/usr/local/opt/qt/bin:$PATH"; fi
+  - if [ "$BADGE" = "osx" ];   then    export QMAKESPEC=macx-clang; export QMAKESPEC=macx-g++; fi
   
 script:
   - lrelease ./Hv2ray.pro
