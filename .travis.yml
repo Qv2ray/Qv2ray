@@ -1,8 +1,9 @@
+language: cpp
+
 matrix:
     include:
         - os: linux
           dist: xenial
-          compiler: g++
           sudo: required
           env: OS=linux
         - os: osx
