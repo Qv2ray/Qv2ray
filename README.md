@@ -4,41 +4,44 @@ TODO: 使用 Qt 的跨平台 v2ray 客户端，目前仍处于早期开发，多
 
 [![Language grade: C/C++](https://img.shields.io/lgtm/grade/cpp/g/lhy0403/Hv2ray.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/lhy0403/Hv2ray/context:cpp) [![Total alerts](https://img.shields.io/lgtm/alerts/g/lhy0403/Hv2ray.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/lhy0403/Hv2ray/alerts/)
 
-| OS            | 构建状态 - [master](https://github.com/lhy0403/Hv2ray/tree/master) 分支 | 构建状态 - [dev](https://github.com/lhy0403/Hv2ray/tree/dev) 分支 | 构建状态 - [translations](https://github.com/lhy0403/Hv2ray/tree/translations) 分支 |
-| ------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| Linux & MacOS | [![Build Status](https://travis-ci.com/lhy0403/Hv2ray.svg?branch=master)](https://travis-ci.com/lhy0403/Hv2ray) | [![Build Status](https://travis-ci.com/lhy0403/Hv2ray.svg?branch=dev)](https://travis-ci.com/lhy0403/Hv2ray) | [![Build Status](https://travis-ci.com/lhy0403/Hv2ray.svg?branch=translations)](https://travis-ci.com/lhy0403/Hv2ray) |
-| Windows       | [![Build status](https://ci.appveyor.com/api/projects/status/ml51d2s41pqmfgme/branch/master?svg=true)](https://ci.appveyor.com/project/lhy0403/hv2ray/branch/master) | [![Build status](https://ci.appveyor.com/api/projects/status/ml51d2s41pqmfgme/branch/dev?svg=true)](https://ci.appveyor.com/project/lhy0403/hv2ray/branch/dev) | [![Build status](https://ci.appveyor.com/api/projects/status/ml51d2s41pqmfgme/branch/translations?svg=true)](https://ci.appveyor.com/project/lhy0403/hv2ray/branch/translations) |
+| OS            | 主分支 [master](https://github.com/lhy0403/Hv2ray/tree/master) | 开发分支 [dev](https://github.com/lhy0403/Hv2ray/tree/dev)   |
+| ------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| Linux & MacOS | [![Build Status](https://travis-ci.com/lhy0403/Hv2ray.svg?branch=master)](https://travis-ci.com/lhy0403/Hv2ray) | [![Build Status](https://travis-ci.com/lhy0403/Hv2ray.svg?branch=dev)](https://travis-ci.com/lhy0403/Hv2ray) |
+| Windows       | [![Build status](https://ci.appveyor.com/api/projects/status/ml51d2s41pqmfgme/branch/master?svg=true)](https://ci.appveyor.com/project/lhy0403/hv2ray/branch/master) | [![Build status](https://ci.appveyor.com/api/projects/status/ml51d2s41pqmfgme/branch/dev?svg=true)](https://ci.appveyor.com/project/lhy0403/hv2ray/branch/dev) |
 
-## News
-~~**Update 2019-06-22**: 当前开发分支[ui-implementation](https://github.com/lhy0403/Hv2ray/tree/ui-implementation) - 用于实现基本 UI~~
+## 最近更新内容
 
-**Update 2019-06-23**: 基本 UI 完成，切换到 [dev](https://github.com/lhy0403/Hv2ray/tree/dev) 分支进行代码实现
+- 详见 [ChangeLog.md](ChangeLog.md)
 
-**Update 2019-06-23**: UI 结构已经固定，新建分支 [translations](https://github.com/lhy0403/Hv2ray/tree/translations) 进行翻译 UI
-
-**Update 2019-06-24**: 新建分支 [MacOS-Build](https://github.com/lhy0403/Hv2ray/tree/MacOS-Build) 开始测试 MacOS 构建，当前状态：![Build Status](https://travis-ci.com/lhy0403/Hv2ray.svg?branch=MacOS-Build)
-
----------
 
 
 # 鸣谢
+
 [@aliyuchang33](https://github.com/aliyuchang33) - 项目原作者/发起人，感谢他使用 Qt 作为基础框架。 
  - 可惜原项目不更新了qwq
 
+
+
 ## 项目依赖包
 ### Linux
-- Qt >= 5
-- Python3.5 | 3.6 | 3.7
+- Qt >= 5.12
+- Python (3.5 | 3.6 | 3.7)
 ### Windows 
 - Python 3.7
 - Qt Creator (MinGW & Qt5)
+
+## MacOS
+
+- Qt >= 5.12
+- Python (3.6 | 3.7) 使用 [`brew install python3`] 解决依赖问题
 
 ## 编译
 ### Linux
 ```bash
 git clone https://github.com/lhy0403/Hv2ray && cd Hv2ray
+lrelease ./Hv2ray.pro
 mkdir build && cd build
-qmake ./
+qmake ../
 make
 ```
 ### Windows
