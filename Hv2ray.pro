@@ -68,30 +68,48 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 WITH_PYTHON = no
 
-unix: exists( "/usr/include/python3.7m/Python.h" ) {
-    equals(WITH_PYTHON, "no") {
-        message("Will build with python lib version 3.7.")
-        INCLUDEPATH += /usr/include/python3.7m/
-        LIBS += -lpython3.7m
-        WITH_PYTHON = yes
+unix:!macx {
+    exists( "/usr/include/python3.7m/Python.h" ) {
+        equals(WITH_PYTHON, "no") {
+            message("Will build with python lib version 3.7.")
+            INCLUDEPATH += /usr/include/python3.7m/
+            LIBS += -lpython3.7m
+            WITH_PYTHON = yes
+        }
     }
 }
 
-unix: exists( "/usr/include/python3.6m/Python.h" ) {
-    equals(WITH_PYTHON, "no") {
-        message("Will build with python lib version 3.6.")
-        INCLUDEPATH += /usr/include/python3.6m/
-        LIBS += -lpython3.6m
-        WITH_PYTHON = yes
+unix:!macx {
+    exists( "/usr/include/python3.6m/Python.h" ) {
+        equals(WITH_PYTHON, "no") {
+            message("Will build with python lib version 3.6.")
+            INCLUDEPATH += /usr/include/python3.6m/
+            LIBS += -lpython3.6m
+            WITH_PYTHON = yes
+        }
     }
 }
 
-unix: exists( "/usr/include/python3.5m/Python.h" ) {
-    equals(WITH_PYTHON, "no") {
-        message("Will build with python lib version 3.5.")
-        INCLUDEPATH += /usr/include/python3.5m/
-        LIBS += -lpython3.5m
-        WITH_PYTHON = yes
+unix:!macx {
+    exists( "/usr/include/python3.5m/Python.h" ) {
+        equals(WITH_PYTHON, "no") {
+            message("Will build with python lib version 3.5.")
+            INCLUDEPATH += /usr/include/python3.5m/
+            LIBS += -lpython3.5m
+            WITH_PYTHON = yes
+        }
+    }
+}
+
+macx {
+    PYTHON_ROOT=/usr/local/Cellar/python/3.7.3/Frameworks/Python.framework/Versions
+    exists( "$$PYTHON_ROOT/3.7/include/python3.7m/Python.h" ) {
+        equals(WITH_PYTHON, "no") {
+            message("Will build with python lib version 3.7.3.")
+            INCLUDEPATH += $$PYTHON_ROOT/3.7/include/python3.7m/
+            LIBS += -L$$PYTHON_ROOT/3.7/lib/python3.7/config-3.7m-darwin/ -lpython3.7m
+            WITH_PYTHON = yes
+        }
     }
 }
 
