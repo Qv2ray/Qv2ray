@@ -27,29 +27,30 @@ CONFIG += c++11
 VPATH += ./src
 
 SOURCES += \
+        w_MainWindow.cpp \
+        w_ConnectionEditWindow.cpp \
+        w_ImportConfig.cpp \
+        w_PrefrencesWindow.cpp \
         main.cpp \
-        MainWindow.cpp \
-        ConnectionEditWindow.cpp \
-        ImportConfig.cpp \
-        PrefrencesWindow.cpp \
         vinteract.cpp \
         utils.cpp \
         runguard.cpp
 
 HEADERS += \
-        MainWindow.h \
-        ConnectionEditWindow.h \
-        ImportConfig.h \
-        PrefrencesWindow.h \
+        w_MainWindow.h \
+        w_ConnectionEditWindow.h \
+        w_ImportConfig.h \
+        w_PrefrencesWindow.h \
+        constants.h \
         vinteract.h \
         utils.h \
         runguard.h
 
 FORMS += \
-        MainWindow.ui \
-        ConnectionEditWindow.ui \
-        ImportConfig.ui \
-        PrefrencesWindow.ui
+        w_MainWindow.ui \
+        w_ConnectionEditWindow.ui \
+        w_ImportConfig.ui \
+        w_PrefrencesWindow.ui
 
 RESOURCES += \
     resources.qrc

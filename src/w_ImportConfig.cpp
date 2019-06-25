@@ -10,10 +10,10 @@
 #include "Python.h"
 #pragma pop_macro("slots")
 
-#include "ConnectionEditWindow.h"
+#include "w_ConnectionEditWindow.h"
 #include "vinteract.h"
 #include "utils.h"
-#include "ImportConfig.h"
+#include "w_ImportConfig.h"
 #include "ui_ImportConfig.h"
 
 ImportConfig::ImportConfig(QWidget *parent) :

@@ -9,10 +9,10 @@
 #include <QInputDialog>
 
 #include "ui_MainWindow.h"
-#include "PrefrencesWindow.h"
-#include "MainWindow.h"
-#include "ConnectionEditWindow.h"
-#include "ImportConfig.h"
+#include "w_PrefrencesWindow.h"
+#include "w_MainWindow.h"
+#include "w_ConnectionEditWindow.h"
+#include "w_ImportConfig.h"
 #include "vinteract.h"
 #include "utils.h"
 

@@ -3,6 +3,7 @@
 #include <iostream>
 #include <QDebug>
 #include <QFileInfo>
+#include <QStandardPaths>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
@@ -11,15 +12,19 @@
 
 #include "runguard.h"
 #include "utils.h"
-#include "MainWindow.h"
-#include "ConnectionEditWindow.h"
+#include "w_MainWindow.h"
+#include "w_ConnectionEditWindow.h"
+#include "constants.h"
 
 using namespace std;
+using namespace Hv2rayUtils;
 
 void firstRunCheck()
 {
-    if(!QDir("conf").exists()) {
-        QDir().mkdir("conf");
+    ConfigDir = QDir(QDir::homePath() + HV2RAY_CONFIG_DIR_NAME);
+
+    if(!ConfigDir.exists()) {
+        QDir(QDir::homePath()).mkdir(".hv2ray");
         qDebug() << "Config directory created.";
     }
 
@@ -65,17 +70,25 @@ int main(int argc, char *argv[])
     QApplication _qApp(argc, argv);
 
     QTranslator translator;
-    if (translator.load(QString(":/translations/zh-CN.qm"), QString("translations")))
+    if (translator.load(":/translations/zh-CN.qm", "translations"))
     {
         cout << "Loaded Chinese translations" << endl;
     }
+    else if (translator.load(":/translations/en-US.qm", "translations")){
+        cout << "Loaded English translations" << endl;
+    } else {
+        showWarnMessageBox(nullptr, "Failed to load translations",
+                           "Failed to load translations, user experience may be downgraded. \r\n \
+                            无法加载语言文件，用户体验可能会降级.");
+    }
+
     _qApp.installTranslator(&translator);
 
-    RunGuard guard("Hv2ray");
-     if(!guard.isSingleInstance()) {
-         showWarnMessageBox(nullptr, QObject::tr("Hv2Ray"), QObject::tr("AnotherInstanceRunning"));
-         return -1;
-     }
+    RunGuard guard("Hv2ray-Instance-Identifier");
+    if(!guard.isSingleInstance()) {
+        showWarnMessageBox(nullptr, QObject::tr("Hv2Ray"), QObject::tr("AnotherInstanceRunning"));
+        return -1;
+    }
 
     QDir::setCurrent(QFileInfo(QCoreApplication::applicationFilePath()).path());
 

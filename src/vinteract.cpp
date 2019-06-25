@@ -4,7 +4,7 @@
 #include <QDir>
 
 #include "utils.h"
-#include "MainWindow.h"
+#include "w_MainWindow.h"
 #include "vinteract.h"
 
 bool validationCheck(QString path)

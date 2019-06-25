@@ -11,7 +11,7 @@
 #include <ui_PrefrencesWindow.h>
 
 #include "utils.h"
-#include "PrefrencesWindow.h"
+#include "w_PrefrencesWindow.h"
 
 PrefrencesWindow::PrefrencesWindow(QWidget *parent) :
     QDialog(parent),

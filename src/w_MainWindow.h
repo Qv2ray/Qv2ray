@@ -1,9 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-#define confDir "conf/"
-#define confDatabase "conf/conf.db"
 #include <QMainWindow>
-#include "ConnectionEditWindow.h"
+#include "w_ConnectionEditWindow.h"
 #include <QSystemTrayIcon>
 #include <QMenu>
 #include <QScrollBar>
@@ -56,7 +54,6 @@ private:
     Ui::MainWindow *ui;
     void closeEvent(QCloseEvent *);
     void createTrayAction();
-
     void CreateTrayIcon();
 };
 
