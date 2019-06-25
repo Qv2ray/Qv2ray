@@ -1,7 +1,7 @@
-#include "ConnectionEditWindow.h"
+#include "w_ConnectionEditWindow.h"
 #include "ui_ConnectionEditWindow.h"
 #include <iostream>
-#include "MainWindow.h"
+#include "w_MainWindow.h"
 #include <QDebug>
 #include <QFile>
 #include <QIntValidator>
