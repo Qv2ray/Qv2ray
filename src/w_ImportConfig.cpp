@@ -14,7 +14,8 @@
 #include "vinteract.h"
 #include "utils.h"
 #include "w_ImportConfig.h"
-#include "ui_ImportConfig.h"
+#include "ui_w_ImportConfig.h"
+
 
 ImportConfig::ImportConfig(QWidget *parent) :
     QDialog(parent),
@@ -87,7 +88,7 @@ void ImportConfig::on_buttonBox_accepted()
     if(ui->importSourceCombo->currentIndex() == 0) // From File...
     {
         QString path = ui->fileLineTxt->text();
-        bool isValid = validationCheck(path);
+        bool isValid = v2Instance::checkConfigFile(path);
         if(isValid) {
             savefromFile(path, alias);
         }
@@ -109,7 +110,7 @@ void ImportConfig::on_buttonBox_accepted()
         Py_Finalize();
         if(QFile::exists(QCoreApplication::applicationDirPath() + "/config.json.tmp")) {
             ImportConfig *im = new ImportConfig(this->parentWidget());
-            if (validationCheck(QCoreApplication::applicationDirPath() + "/config.json.tmp")) {
+            if (v2Instance::checkConfigFile(QCoreApplication::applicationDirPath() + "/config.json.tmp")) {
                 im->savefromFile("config.json.tmp", alias);
             }
             QFile::remove("config.json.tmp");

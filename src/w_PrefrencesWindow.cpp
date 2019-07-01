@@ -8,9 +8,10 @@
 #include <QFileInfo>
 #include <QProcess>
 #include <unistd.h>
-#include <ui_PrefrencesWindow.h>
+#include <ui_w_PrefrencesWindow.h>
 
 #include "utils.h"
+#include "vinteract.h"
 #include "w_PrefrencesWindow.h"
 
 PrefrencesWindow::PrefrencesWindow(QWidget *parent) :
@@ -48,7 +49,7 @@ PrefrencesWindow::~PrefrencesWindow()
 
 void PrefrencesWindow::on_buttonBox_accepted()
 {
-    if(checkVCoreExes()) {
+    if(v2Instance::checkVCoreExes()) {
         if(ui->httpPortLE->text().toInt() != ui->socksPortLE->text().toInt()) {
             QJsonArray inbounds;
             QJsonDocument modifiedDoc;

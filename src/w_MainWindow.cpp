@@ -8,7 +8,7 @@
 #include <QFileInfo>
 #include <QInputDialog>
 
-#include "ui_MainWindow.h"
+#include "ui_w_MainWindow.h"
 #include "w_PrefrencesWindow.h"
 #include "w_MainWindow.h"
 #include "w_ConnectionEditWindow.h"
@@ -64,10 +64,10 @@ MainWindow::MainWindow(QWidget *parent) :
     UpdateConfigTable();
 //    ui->configTable->setContextMenuPolicy(Qt::CustomContextMenu);
 //    connect(ui->configTable, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(showMenu(QPoint)));
-    this->v2instance = new v2Instance();
+    this->vinstance = new v2Instance(this);
     CreateTrayIcon();
     if(QFileInfo("config.json").exists()) {
-        v2instance->start(this);
+        vinstance->start();
     }
 
 //    QAction *select = new QAction("Select", ui->configTable);
@@ -87,7 +87,7 @@ MainWindow::~MainWindow()
 {
     hTray->hide();
     delete this->hTray;
-    delete this->v2instance;
+    delete this->vinstance;
     delete ui;
 }
 
@@ -107,6 +107,7 @@ void MainWindow::on_actionExisting_config_triggered()
 
 void MainWindow::showMenu(QPoint pos)
 {
+    Q_UNUSED(pos)
 //    if(ui->configTable->indexAt(pos).column() != -1) {
 //        popMenu->move(cursor().pos());
 //        popMenu->show();
@@ -147,13 +148,13 @@ void MainWindow::GenerateConfig(int idIntable)
 }
 void MainWindow::UpdateLog()
 {
-    ui->logText->insertPlainText(this->v2instance->vProcess->readAllStandardOutput());
+    ui->logText->insertPlainText(this->vinstance->vProcess->readAllStandardOutput());
 }
 
 void MainWindow::on_startButton_clicked()
 {
     ui->logText->clear();
-    bool startFlag = this->v2instance->start(this);
+    bool startFlag = this->vinstance->start();
     trayMenu->actions()[2]->setEnabled(!startFlag);
     trayMenu->actions()[3]->setEnabled(startFlag);
     trayMenu->actions()[4]->setEnabled(startFlag);
@@ -161,7 +162,7 @@ void MainWindow::on_startButton_clicked()
 
 void MainWindow::on_stopButton_clicked()
 {
-    this->v2instance->stop();
+    this->vinstance->stop();
     ui->logText->clear();
     trayMenu->actions()[2]->setEnabled(true);
     trayMenu->actions()[3]->setEnabled(false);
@@ -209,7 +210,7 @@ void MainWindow::on_activatedTray(QSystemTrayIcon::ActivationReason reason)
         case QSystemTrayIcon::MiddleClick:
             // TODO: Check if an alert message box is present.
             // If so, do nothing but please wait for the message box to be closed.
-            if(this->v2instance->vProcess->state() == QProcess::ProcessState::Running) {
+            if(this->vinstance->vProcess->state() == QProcess::ProcessState::Running) {
                 on_stopButton_clicked();
             } else {
                 on_startButton_clicked();

@@ -1,5 +1,5 @@
 #include "w_ConnectionEditWindow.h"
-#include "ui_ConnectionEditWindow.h"
+#include "ui_w_ConnectionEditWindow.h"
 #include <iostream>
 #include "w_MainWindow.h"
 #include <QDebug>

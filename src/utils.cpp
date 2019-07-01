@@ -48,15 +48,6 @@ bool getRootEnabled()
     return loadRootObjFromConf().value("v2suidEnabled").toBool();
 }
 
-bool checkVCoreExes()
-{
-    if (QFileInfo("v2ray").exists() && QFileInfo("geoip.dat").exists() && QFileInfo("geosite.dat").exists() && QFileInfo("v2ctl").exists()) {
-        return true;
-    } else {
-        showWarnMessageBox(nullptr, QObject::tr("CoreNotFound"), QObject::tr("CoreFileNotFoundExplaination"));
-        return false;
-    }
-}
 
 void showWarnMessageBox(QWidget* parent, QString title, QString text)
 {

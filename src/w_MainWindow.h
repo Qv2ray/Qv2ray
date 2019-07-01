@@ -19,7 +19,7 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = nullptr);
-    v2Instance *v2instance;
+    v2Instance *vinstance;
     QSystemTrayIcon *hTray;
     QMenu *trayMenu = new QMenu(this);
     QMenu *popMenu = new QMenu(this);

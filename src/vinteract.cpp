@@ -7,7 +7,7 @@
 #include "w_MainWindow.h"
 #include "vinteract.h"
 
-bool validationCheck(QString path)
+bool v2Instance::checkConfigFile(QString path)
 {
     if(checkVCoreExes()) {
         QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
@@ -33,17 +33,24 @@ bool validationCheck(QString path)
     else return false;
 }
 
-v2Instance::v2Instance()
+v2Instance::v2Instance(QWidget *parent)
 {
     this->vProcess = new QProcess();
+    QObject::connect(vProcess, SIGNAL(readyReadStandardOutput()), parent, SLOT(updateLog()));
 }
 
-v2Instance::~v2Instance()
+bool v2Instance::checkVCoreExes()
 {
-    this->stop();
+    if (QFileInfo("v2ray").exists() && QFileInfo("geoip.dat").exists() && QFileInfo("geosite.dat").exists() && QFileInfo("v2ctl").exists()) {
+        return true;
+    }
+    else {
+        showWarnMessageBox(nullptr, QObject::tr("CoreNotFound"), QObject::tr("CoreFileNotFoundExplaination"));
+        return false;
+    }
 }
 
-bool v2Instance::start(QWidget *parent)
+bool v2Instance::start()
 {
     if(this->vProcess->state() == QProcess::Running) {
         this->stop();
@@ -54,7 +61,7 @@ bool v2Instance::start(QWidget *parent)
         this->vProcess->setProcessEnvironment(env);
         this->vProcess->start("./v2ray", QStringList() << "-config" << "config.json", QIODevice::ReadWrite | QIODevice::Text);
         this->vProcess->waitForStarted();
-        QObject::connect(vProcess, SIGNAL(readyReadStandardOutput()), parent, SLOT(updateLog()));
+        processStatus = STARTED;
         return true;
     }
     else return false;
@@ -63,4 +70,10 @@ bool v2Instance::start(QWidget *parent)
 void v2Instance::stop()
 {
     this->vProcess->close();
+    processStatus = STOPPED;
+}
+
+v2Instance::~v2Instance()
+{
+    this->stop();
 }
