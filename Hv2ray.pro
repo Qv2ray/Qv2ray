@@ -24,36 +24,34 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 CONFIG += c++11
 
-VPATH += ./src
-
 SOURCES += \
-        w_MainWindow.cpp \
-        w_ConnectionEditWindow.cpp \
-        w_ImportConfig.cpp \
-        w_PrefrencesWindow.cpp \
-        main.cpp \
-        vinteract.cpp \
-        utils.cpp \
-        runguard.cpp
+        ./src/w_MainWindow.cpp \
+        ./src/w_ConnectionEditWindow.cpp \
+        ./src/w_ImportConfig.cpp \
+        ./src/w_PrefrencesWindow.cpp \
+        ./src/main.cpp \
+        ./src/vinteract.cpp \
+        ./src/utils.cpp \
+        ./src/runguard.cpp
 
 HEADERS += \
-        w_MainWindow.h \
-        w_ConnectionEditWindow.h \
-        w_ImportConfig.h \
-        w_PrefrencesWindow.h \
-        constants.h \
-        vinteract.h \
-        utils.h \
-        runguard.h
+        ./src/w_MainWindow.h \
+        ./src/w_ConnectionEditWindow.h \
+        ./src/w_ImportConfig.h \
+        ./src/w_PrefrencesWindow.h \
+        ./src/constants.h \
+        ./src/vinteract.h \
+        ./src/utils.h \
+        ./src/runguard.h
 
 FORMS += \
-        w_MainWindow.ui \
-        w_ConnectionEditWindow.ui \
-        w_ImportConfig.ui \
-        w_PrefrencesWindow.ui
+        ./src/w_MainWindow.ui \
+        ./src/w_ConnectionEditWindow.ui \
+        ./src/w_ImportConfig.ui \
+        ./src/w_PrefrencesWindow.ui
 
 RESOURCES += \
-    resources.qrc
+        ./resources.qrc
 
 
 TRANSLATIONS += \
@@ -68,66 +66,57 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 WITH_PYTHON = no
+PYTHONVER = null
 
 unix:!macx {
-    exists( "/usr/include/python3.7m/Python.h" ) {
-        equals(WITH_PYTHON, "no") {
-            message("Will build with python lib version 3.7.")
-            INCLUDEPATH += /usr/include/python3.7m/
-            LIBS += -lpython3.7m
-            WITH_PYTHON = yes
-        }
-    }
-}
-
-unix:!macx {
-    exists( "/usr/include/python3.6m/Python.h" ) {
-        equals(WITH_PYTHON, "no") {
-            message("Will build with python lib version 3.6.")
-            INCLUDEPATH += /usr/include/python3.6m/
-            LIBS += -lpython3.6m
-            WITH_PYTHON = yes
-        }
-    }
-}
-
-unix:!macx {
+    # Python Headers check.
     exists( "/usr/include/python3.5m/Python.h" ) {
-        equals(WITH_PYTHON, "no") {
-            message("Will build with python lib version 3.5.")
-            INCLUDEPATH += /usr/include/python3.5m/
-            LIBS += -lpython3.5m
-            WITH_PYTHON = yes
-        }
+        PYTHONVER = 3.5
+        WITH_PYTHON = yes
+    }
+    exists( "/usr/include/python3.6m/Python.h" ) {
+        PYTHONVER = 3.6
+        WITH_PYTHON = yes
+    }
+    exists( "/usr/include/python3.7m/Python.h" ) {
+        PYTHONVER = 3.7
+        WITH_PYTHON = yes
+    }
+
+    equals( WITH_PYTHON, "yes" ) {
+        INCLUDEPATH += /usr/include/python$${PYTHONVER}m/
+        LIBS += -lpython$${PYTHONVER}m
+        message("Will build with python lib version $$PYTHONVER")
     }
 }
 
 macx {
-    PYTHON_ROOT=/usr/local/Cellar/python/3.7.3/Frameworks/Python.framework/Versions
-    exists( "$$PYTHON_ROOT/3.7/include/python3.7m/Python.h" ) {
-        equals(WITH_PYTHON, "no") {
-            message("Will build with python lib version 3.7.3.")
-            INCLUDEPATH += $$PYTHON_ROOT/3.7/include/python3.7m/
-            LIBS += -L$$PYTHON_ROOT/3.7/lib/python3.7/config-3.7m-darwin/ -lpython3.7m
-            WITH_PYTHON = yes
-        }
+    PYTHON_ROOT=/usr/local/Cellar/python
+    exists( "$${PYTHON_ROOT}/3.6.5_1/" ) {
+        PYTHONVER = 3.6
+        PYLDPATH=$${PYTHON_ROOT}/3.6.5_1/Frameworks/Python.framework/Versions/$${PYTHONVER}
+        WITH_PYTHON = yes
+    }
+
+    exists( "$$PYTHON_ROOT/3.7.3/" ) {
+        PYTHONVER = 3.7
+        PYLDPATH=$${PYTHON_ROOT}/3.7.3/Frameworks/Python.framework/Versions/$${PYTHONVER}
+        WITH_PYTHON = yes
+    }
+
+    INCLUDEPATH += $${PYLDPATH}/include/python$${PYTHONVER}m/
+    LIBS += -L$${PYLDPATH}/lib/python$${PYTHONVER}/config-$${PYTHONVER}m-darwin/ -lpython$${PYTHONVER}m
+    message("Will build with python lib version $$PYTHONVER")
+}
+
+win32 {
+    exists( "$$PWD/python37/libs/libpython37_mingw.a" ) {
+        LIBS += -L$$PWD/python37/libs/ -lpython37_mingw
+        INCLUDEPATH += $$PWD/python37/include
+        WITH_PYTHON = yes
     }
 }
 
-macx {
-    PYTHON_ROOT=/usr/local/Cellar/python/3.6.5_1/Frameworks/Python.framework/Versions
-    exists( "$$PYTHON_ROOT/3.6/include/python3.6m/Python.h" ) {
-        equals(WITH_PYTHON, "no") {
-            message("Will build with python lib version 3.6.5_1.")
-            INCLUDEPATH += $$PYTHON_ROOT/3.6/include/python3.6m/
-            LIBS += -L$$PYTHON_ROOT/3.6/lib/python3.6/config-3.6m-darwin/ -lpython3.6m
-            WITH_PYTHON = yes
-        }
-    }
+equals(WITH_PYTHON, "no") {
+    error("No Python3 libs found, did you install dev packages such as python3-dev ?")
 }
-unix: equals(WITH_PYTHON, "no") {
-    error("No python libs found, did you install python3 dev package?")
-}
-
-win32: LIBS += -L$$PWD/python37/libs/ -lpython37_mingw
-win32: INCLUDEPATH += $$PWD/python37/include
