@@ -1,8 +1,10 @@
 # News
 ## 最新
-**2019-07-01**: 休息了几天，主要是去关注别的项目了。现在开始重构 v2ray 交互部分。
+**2019-07-02**: 等待上游依赖完成更新 [JSON 序列化 std::list](https://github.com/xyz347/x2struct/issues/11#issuecomment-507671091)
 
 ## 历史
+**2019-07-01**: 休息了几天，主要是去关注别的项目了。现在开始重构 v2ray 交互部分。
+
 **2019-06-24**: Mac OS 测试构建完成，合并到开发分支 [dev](https://github.com/lhy0403/Hv2ray/tree/dev)
 
 **2019-06-24**: 新建分支 MacOS-Build 开始测试 MacOS 构建，当前状态：![Build Status](https://travis-ci.com/lhy0403/Hv2ray.svg?branch=MacOS-Build)
