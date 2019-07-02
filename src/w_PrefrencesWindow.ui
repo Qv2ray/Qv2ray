@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>PrefrencesWindow</class>
- <widget class="QDialog" name="PrefrencesWindow">
+ <class>Hv2ray::Ui::PrefrencesWindow</class>
+ <widget class="QDialog" name="Hv2ray::Ui::PrefrencesWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -345,7 +345,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>PrefrencesWindow</receiver>
+   <receiver>Hv2ray::Ui::PrefrencesWindow</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -361,7 +361,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>PrefrencesWindow</receiver>
+   <receiver>Hv2ray::Ui::PrefrencesWindow</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

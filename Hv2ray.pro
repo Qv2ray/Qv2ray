@@ -22,43 +22,48 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-CONFIG += c++11
+CONFIG += c++17
+QMAKE_CXXFLAGS += -std=c++17
 
 SOURCES += \
-        ./src/w_MainWindow.cpp \
-        ./src/w_ConnectionEditWindow.cpp \
-        ./src/w_ImportConfig.cpp \
-        ./src/w_PrefrencesWindow.cpp \
-        ./src/main.cpp \
-        ./src/vinteract.cpp \
-        ./src/utils.cpp \
-        ./src/runguard.cpp
+        src/Hutils.cpp \
+        src/w_MainWindow.cpp \
+        src/w_ConnectionEditWindow.cpp \
+        src/w_ImportConfig.cpp \
+        src/w_PrefrencesWindow.cpp \
+        src/main.cpp \
+        src/vinteract.cpp \
+        src/runguard.cpp
 
 HEADERS += \
-        ./src/w_MainWindow.h \
-        ./src/w_ConnectionEditWindow.h \
-        ./src/w_ImportConfig.h \
-        ./src/w_PrefrencesWindow.h \
-        ./src/constants.h \
-        ./src/vinteract.h \
-        ./src/utils.h \
-        ./src/runguard.h
+        src/HUtils.h \
+        src/Hv2ConfigObject.h \
+        src/w_MainWindow.h \
+        src/w_ConnectionEditWindow.h \
+        src/w_ImportConfig.h \
+        src/w_PrefrencesWindow.h \
+        src/vinteract.h \
+        src/runguard.h
 
 FORMS += \
-        ./src/w_MainWindow.ui \
-        ./src/w_ConnectionEditWindow.ui \
-        ./src/w_ImportConfig.ui \
-        ./src/w_PrefrencesWindow.ui
+        src/w_MainWindow.ui \
+        src/w_ConnectionEditWindow.ui \
+        src/w_ImportConfig.ui \
+        src/w_PrefrencesWindow.ui
 
 RESOURCES += \
-        ./resources.qrc
+        resources.qrc
 
 
 TRANSLATIONS += \
-        ./translations/zh-CN.ts \
-        ./translations/en-US.ts
+        translations/zh-CN.ts \
+        translations/en-US.ts
 
 RC_ICONS += ./icons/Hv2ray.ico
+
+INCLUDEPATH += 3rdparty/\
+        3rdparty/jsoncons/include
+
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
