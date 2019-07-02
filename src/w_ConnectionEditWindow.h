@@ -2,39 +2,20 @@
 #define CONFEDIT_H
 
 #include <QDialog>
+#include "ui_w_ConnectionEditWindow.h"
 
-namespace Ui
+namespace Hv2ray::Ui
 {
-    class ConnectionEditWindow;
+    class ConnectionEditWindow : public QDialog
+    {
+            Q_OBJECT
+
+        public:
+            explicit ConnectionEditWindow(QWidget *parent = nullptr);
+            ~ConnectionEditWindow();
+
+        private:
+            Ui_ConnectionEditWindow *ui;
+    };
 }
-
-class Hv2Config
-{
-public:
-    QString host;
-    QString port;
-    QString alias;
-    QString uuid;
-    QString alterid;
-    QString security;
-    int isCustom;
-    int save();
-    void getConfigFromDialog(Ui::ConnectionEditWindow *ui);
-private:
-
-};
-
-class ConnectionEditWindow : public QDialog
-{
-    Q_OBJECT
-
-public:
-    explicit ConnectionEditWindow(QWidget *parent = nullptr);
-    ~ConnectionEditWindow();
-private:
-    Ui::ConnectionEditWindow *ui;
-
-};
-
-
 #endif // CONFEDIT_H

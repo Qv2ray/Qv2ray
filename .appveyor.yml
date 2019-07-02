@@ -2,6 +2,7 @@ install:
   - set QTDIR=C:\Qt\5.10\mingw53_32
   - choco install -y InnoSetup
   - set PATH=%QTDIR%\bin;C:\Qt\Tools\mingw730_32\bin;%PATH%;"C:\Program Files (x86)\Inno Setup 5"
+  - git submodule update --init
   
 build_script:
   - mkdir python37 && xcopy C:\Python37 python37 /E /H /Q

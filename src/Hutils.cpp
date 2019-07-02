@@ -1,31 +1,27 @@
-#include <QJsonArray>
-#include <QJsonObject>
-#include <QJsonDocument>
-#include <QFile>
-#include <QFileInfo>
-#include <QMessageBox>
+#include "HUtils.h"
 
-#include "utils.h"
+using namespace Hv2ray;
 
-QJsonObject switchJsonArrayObject(QJsonObject obj, QString value)
+QJsonObject Utils::switchJsonArrayObject(QJsonObject obj, QString value)
 {
     QJsonObject returnObj = obj.value(value).isNull()
-                ? obj.value(value).toObject()
-                : obj.value(value).toArray().first().toObject();
+                            ? obj.value(value).toObject()
+                            : obj.value(value).toArray().first().toObject();
     return returnObj;
 }
 
-QJsonObject findValueFromJsonArray(QJsonArray arr, QString key, QString val)
+QJsonObject Utils::findValueFromJsonArray(QJsonArray arr, QString key, QString val)
 {
     for (const auto obj : arr) {
         if (obj.toObject().value(key).toString() == val) {
             return obj.toObject();
         }
     }
+
     return QJsonObject();
 }
 
-QJsonObject loadRootObjFromConf()
+QJsonObject Utils::loadRootObjFromConf()
 {
     QFile globalConfigFile("Hv2ray.conf");
     globalConfigFile.open(QIODevice::ReadOnly);
@@ -36,25 +32,19 @@ QJsonObject loadRootObjFromConf()
     return rootObj;
 }
 
-QJsonArray getInbounds()
+QJsonArray Utils::getInbounds()
 {
     QJsonArray inbounds;
     inbounds = loadRootObjFromConf().value("inbounds").toArray();
     return inbounds;
 }
 
-bool getRootEnabled()
-{
-    return loadRootObjFromConf().value("v2suidEnabled").toBool();
-}
-
-
-void showWarnMessageBox(QWidget* parent, QString title, QString text)
+void Utils::showWarnMessageBox(QWidget *parent, QString title, QString text)
 {
     QMessageBox::warning(parent, title, text, QMessageBox::Ok | QMessageBox::Default, 0);
 }
 
-void overrideInbounds(QString path)
+void Utils::overrideInbounds(QString path)
 {
     QFile confFile(path);
     confFile.open(QIODevice::ReadOnly);
@@ -74,15 +64,29 @@ void overrideInbounds(QString path)
     confFile.close();
 }
 
-int getIndexByValue(QJsonArray array, QString key, QString val)
+int Utils::getIndexByValue(QJsonArray array, QString key, QString val)
 {
     QJsonArray::iterator it;
     int index = 0;
-    for(it = array.begin(); it != array.end(); it ++) {
-        if(it->toObject().value(key) == val) {
+
+    for (it = array.begin(); it != array.end(); it++) {
+        if (it->toObject().value(key) == val) {
             return index;
         }
-        index ++;
+
+        index++;
     }
+
     return -1;
+}
+
+/// Get file list in a Dir
+QStringList Utils::getAllFilesList(QDir *dir)
+{
+    return dir->entryList(QStringList() << "*" << "*.*", QDir::Hidden | QDir::Files);
+}
+
+bool Utils::hasFile(QDir *dir, QString fileName)
+{
+    return getAllFilesList(dir).indexOf(fileName) >= 0;
 }
