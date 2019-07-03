@@ -2,8 +2,8 @@
 #include <QDir>
 #include <QProcess>
 
-#include "HUtils.h"
-#include "vinteract.h"
+#include "HUtils.hpp"
+#include "vinteract.hpp"
 #include "w_MainWindow.h"
 
 namespace Hv2ray

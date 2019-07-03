@@ -7,8 +7,8 @@
 #include <QSystemTrayIcon>
 
 #include "ui_w_MainWindow.h"
-#include "vinteract.h"
-#include "Hv2ConfigObject.h"
+#include "vinteract.hpp"
+#include "V2ConfigObjects.hpp"
 
 namespace Hv2ray
 {
