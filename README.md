@@ -37,6 +37,8 @@ TODO: 使用 Qt 的跨平台 v2ray 客户端，目前仍处于早期开发，多
 - Python (3.6 | 3.7) 使用 [`brew install python3`] 解决依赖问题
 
 ## 编译
+ - 如果想测试当前的开发分支，请使用 `git checkout dev` 切换到开发分支
+   - <span style="color: red">!! 该分支可能不稳定 或 甚至无法正常工作 !!</span>
 ### Linux
 ```bash
 git clone https://github.com/lhy0403/Hv2ray && cd Hv2ray
