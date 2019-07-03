@@ -3,7 +3,7 @@
 
 #include <QDialog>
 #include <ui_w_PrefrencesWindow.h>
-#include <QJsonObject>
+#include "HConfigObjects.hpp"
 
 namespace Hv2ray
 {
@@ -16,7 +16,6 @@ namespace Hv2ray
             public:
                 explicit PrefrencesWindow(QWidget *parent = nullptr);
                 ~PrefrencesWindow();
-                QJsonObject rootObj;
                 QWidget *parentMW;
 
             private slots:
@@ -29,6 +28,7 @@ namespace Hv2ray
                 void on_runAsRootCheckBox_stateChanged(int arg1);
 
             private:
+                Hv2ray::HConfigModels::Hv2Config CurrentConfig;
                 Ui_PrefrencesWindow *ui;
         };
     }

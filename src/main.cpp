@@ -1,27 +1,22 @@
-#include <QApplication>
 #include <QDebug>
-#include <QDir>
 #include <QFileInfo>
-#include <QJsonArray>
-#include <QJsonDocument>
 #include <QStandardPaths>
 #include <QTranslator>
 #include <iostream>
-#include <jsoncons/json.hpp>
 
-#include "runguard.h"
-#include "HUtils.h"
-#include "Hv2ConfigObject.h"
-#include "w_ConnectionEditWindow.h"
+#include "HUtils.hpp"
+#include "HConfigObjects.hpp"
+#include "runguard.hpp"
 #include "w_MainWindow.h"
 
 using namespace std;
 using namespace Hv2ray;
+using namespace Hv2ray::Utils;
 using namespace Hv2ray::HConfigModels;
 
-bool firstRunCheck()
+bool initializeHv()
 {
-    /// Hv2ray Config Path.
+    /// Hv2ray Config Path and ends with "/"
     QString configPath = "";
 #if defined(__WIN32) || defined(__APPLE__)
     // For Windows and MacOS, there's no such 'installation' of a software
@@ -48,28 +43,22 @@ bool firstRunCheck()
         }
     }
 
+    QFile configFile(configPath + "hv2ray.conf");
+
     if (!Utils::hasFile(&ConfigDir, ".initialised")) {
         // This is first run!
         // These below genenrated very basic global config.
         HInbondSetting inHttp = HInbondSetting(true, "127.0.0.1", 8080);
         HInbondSetting inSocks = HInbondSetting(true, "127.0.0.1", 1080);
-        GlobalConfig = Hv2Config("zh-CN", false, "info", inHttp, inSocks);
-        QString jsonConfig = Utils::StructToJSON(GlobalConfig);
-        QFile configFile(configPath + "/hv2ray.conf");
-
-        if (!configFile.open(QIODevice::WriteOnly)) {
-            qDebug() << "Failed to create main config file.";
-            return false;
-        }
-
-        QTextStream stream(&configFile);
-        stream << jsonConfig;
-        stream.flush();
-        configFile.close();
+        Hv2Config conf = Hv2Config("zh-CN", "info", inHttp, inSocks);
+        SetGlobalConfig(conf);
+        SaveConfig(&configFile);
         // Create Placeholder for initialise indicator.
-        QFile initPlaceHolder(configPath + "/.initialised");
+        QFile initPlaceHolder(configPath + ".initialised");
         initPlaceHolder.open(QFile::WriteOnly);
         initPlaceHolder.close();
+    } else {
+        LoadConfig(&configFile);
     }
 
     return true;
@@ -78,21 +67,6 @@ bool firstRunCheck()
 int main(int argc, char *argv[])
 {
     QApplication _qApp(argc, argv);
-    QTranslator translator;
-
-    //
-    if (translator.load(":/translations/zh-CN.qm", "translations")) {
-        cout << "Loaded zh-CN translations" << endl;
-    } else if (translator.load(":/translations/en-US.qm", "translations")) {
-        cout << "Loaded en-US translations" << endl;
-    } else {
-        Utils::showWarnMessageBox(
-            nullptr, "Failed to load translations 无法加载语言文件",
-            "Failed to load translations, user experience may be downgraded. \r\n"
-            "无法加载语言文件，用户体验可能会降级.");
-    }
-
-    _qApp.installTranslator(&translator);
     RunGuard guard("Hv2ray-Instance-Identifier");
 
     if (!guard.isSingleInstance()) {
@@ -100,11 +74,23 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    // GlobalConfig = StructFromJSON("");
     // Set file startup path as Path
     // WARNING: This may be changed in the future.
     QDir::setCurrent(QFileInfo(QCoreApplication::applicationFilePath()).path());
-    firstRunCheck();
+    // Hv2ray Initialize
+    initializeHv();
+
+    if (_qApp.installTranslator(getTranslator(GetGlobalConfig().language))) {
+        cout << "Loaded translations " << GetGlobalConfig().language << endl;
+    } else if (_qApp.installTranslator(getTranslator("en-US"))) {
+        cout << "Loaded default translations" << endl;
+    } else {
+        showWarnMessageBox(
+            nullptr, "Failed to load translations 无法加载语言文件",
+            "Failed to load translations, user experience may be downgraded. \r\n"
+            "无法加载语言文件，用户体验可能会降级.");
+    }
+
     // Show MainWindow
     Ui::MainWindow w;
     w.show();

@@ -8,8 +8,8 @@
 #include <QMenu>
 #include <QStandardItemModel>
 
-#include "HUtils.h"
-#include "vinteract.h"
+#include "HUtils.hpp"
+#include "vinteract.hpp"
 #include "w_ConnectionEditWindow.h"
 #include "w_ImportConfig.h"
 #include "w_MainWindow.h"

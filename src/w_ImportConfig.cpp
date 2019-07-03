@@ -10,8 +10,8 @@
 #include "Python.h"
 #pragma pop_macro("slots")
 
-#include "HUtils.h"
-#include "vinteract.h"
+#include "HUtils.hpp"
+#include "vinteract.hpp"
 #include "w_ConnectionEditWindow.h"
 #include "w_ImportConfig.h"
 

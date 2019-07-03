@@ -25,7 +25,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
-        src/Hutils.cpp \
+        src/HUtils.cpp \
         src/w_MainWindow.cpp \
         src/w_ConnectionEditWindow.cpp \
         src/w_ImportConfig.cpp \
@@ -35,14 +35,15 @@ SOURCES += \
         src/runguard.cpp
 
 HEADERS += \
-        src/HUtils.h \
-        src/Hv2ConfigObject.h \
+        src/HConfigObjects.hpp \
+        src/HUtils.hpp \
+        src/V2ConfigObjects.hpp \
+        src/runguard.hpp \
+        src/vinteract.hpp \
         src/w_MainWindow.h \
         src/w_ConnectionEditWindow.h \
         src/w_ImportConfig.h \
-        src/w_PrefrencesWindow.h \
-        src/vinteract.h \
-        src/runguard.h
+        src/w_PrefrencesWindow.h
 
 FORMS += \
         src/w_MainWindow.ui \
