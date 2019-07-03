@@ -518,17 +518,17 @@
         <translation type="unfinished">VMess Connection String</translation>
     </message>
     <message>
-        <location filename="../src/w_ImportConfig.cpp" line="36"/>
+        <location filename="../src/w_ImportConfig.cpp" line="38"/>
         <source>OpenConfigFile</source>
         <translation type="unfinished">Open Config File</translation>
     </message>
     <message>
-        <location filename="../src/w_ImportConfig.cpp" line="123"/>
+        <location filename="../src/w_ImportConfig.cpp" line="125"/>
         <source>ImportConfig</source>
         <translation type="unfinished">Import Config</translation>
     </message>
     <message>
-        <location filename="../src/w_ImportConfig.cpp" line="123"/>
+        <location filename="../src/w_ImportConfig.cpp" line="125"/>
         <source>CannotGenerateConfig</source>
         <translation type="unfinished">Failed to generate config file</translation>
     </message>
@@ -537,25 +537,25 @@
     <name>Hv2ray::Ui::MainWindow</name>
     <message>
         <location filename="../src/w_MainWindow.ui" line="26"/>
-        <location filename="../src/w_MainWindow.cpp" line="23"/>
+        <location filename="../src/w_MainWindow.cpp" line="25"/>
         <source>Hv2ray</source>
         <translation type="unfinished">Hv2ray</translation>
     </message>
     <message>
         <location filename="../src/w_MainWindow.ui" line="46"/>
-        <location filename="../src/w_MainWindow.cpp" line="33"/>
+        <location filename="../src/w_MainWindow.cpp" line="35"/>
         <source>#Start</source>
         <translation type="unfinished">Start</translation>
     </message>
     <message>
         <location filename="../src/w_MainWindow.ui" line="53"/>
-        <location filename="../src/w_MainWindow.cpp" line="34"/>
+        <location filename="../src/w_MainWindow.cpp" line="36"/>
         <source>#Stop</source>
         <translation type="unfinished">Stop</translation>
     </message>
     <message>
         <location filename="../src/w_MainWindow.ui" line="60"/>
-        <location filename="../src/w_MainWindow.cpp" line="35"/>
+        <location filename="../src/w_MainWindow.cpp" line="37"/>
         <source>#Restart</source>
         <translation type="unfinished">Restart</translation>
     </message>
@@ -631,18 +631,18 @@
         <translation type="unfinished">Preferences</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="31"/>
-        <location filename="../src/w_MainWindow.cpp" line="234"/>
+        <location filename="../src/w_MainWindow.cpp" line="33"/>
+        <location filename="../src/w_MainWindow.cpp" line="236"/>
         <source>#Hide</source>
         <translation type="unfinished">Hide</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="32"/>
+        <location filename="../src/w_MainWindow.cpp" line="34"/>
         <source>#Quit</source>
         <translation type="unfinished">Quit</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="237"/>
+        <location filename="../src/w_MainWindow.cpp" line="239"/>
         <source>#Show</source>
         <translation type="unfinished">Show</translation>
     </message>
@@ -651,8 +651,8 @@
     <name>Hv2ray::Ui::PrefrencesWindow</name>
     <message>
         <location filename="../src/w_PrefrencesWindow.ui" line="20"/>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="140"/>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="175"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="142"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="177"/>
         <source>Prefrences</source>
         <translation type="unfinished">Preferences</translation>
     </message>
@@ -782,22 +782,22 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="133"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="135"/>
         <source>#Prefrences</source>
         <translation type="unfinished">Preferences</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="133"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="135"/>
         <source>#CannotOpenConfigFile</source>
         <translation type="unfinished">Cannot open config file</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="140"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="142"/>
         <source>PortNumbersCannotBeSame</source>
         <translation type="unfinished">Port numbers cannot be the same</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="175"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="177"/>
         <source>RunAsRootNotOnWindows</source>
         <translation type="unfinished">Run as root is not avaliable on Windows Platform</translation>
     </message>
@@ -1070,12 +1070,12 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/main.cpp" line="101"/>
+        <location filename="../src/main.cpp" line="99"/>
         <source>Hv2Ray</source>
         <translation>Hv2ray</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="101"/>
+        <location filename="../src/main.cpp" line="99"/>
         <source>AnotherInstanceRunning</source>
         <translation>Another instance is already running</translation>
     </message>

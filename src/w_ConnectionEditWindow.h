@@ -4,18 +4,21 @@
 #include <QDialog>
 #include "ui_w_ConnectionEditWindow.h"
 
-namespace Hv2ray::Ui
+namespace Hv2ray
 {
-    class ConnectionEditWindow : public QDialog
+    namespace Ui
     {
-            Q_OBJECT
+        class ConnectionEditWindow : public QDialog
+        {
+                Q_OBJECT
 
-        public:
-            explicit ConnectionEditWindow(QWidget *parent = nullptr);
-            ~ConnectionEditWindow();
+            public:
+                explicit ConnectionEditWindow(QWidget *parent = nullptr);
+                ~ConnectionEditWindow();
 
-        private:
-            Ui_ConnectionEditWindow *ui;
-    };
+            private:
+                Ui_ConnectionEditWindow *ui;
+        };
+    }
 }
 #endif // CONFEDIT_H

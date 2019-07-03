@@ -518,17 +518,17 @@
         <translation type="unfinished">VMess 连接字符串</translation>
     </message>
     <message>
-        <location filename="../src/w_ImportConfig.cpp" line="36"/>
+        <location filename="../src/w_ImportConfig.cpp" line="38"/>
         <source>OpenConfigFile</source>
         <translation type="unfinished">打开配置文件</translation>
     </message>
     <message>
-        <location filename="../src/w_ImportConfig.cpp" line="123"/>
+        <location filename="../src/w_ImportConfig.cpp" line="125"/>
         <source>ImportConfig</source>
         <translation type="unfinished">导入配置</translation>
     </message>
     <message>
-        <location filename="../src/w_ImportConfig.cpp" line="123"/>
+        <location filename="../src/w_ImportConfig.cpp" line="125"/>
         <source>CannotGenerateConfig</source>
         <translation type="unfinished">无法生成配置文件</translation>
     </message>
@@ -537,25 +537,25 @@
     <name>Hv2ray::Ui::MainWindow</name>
     <message>
         <location filename="../src/w_MainWindow.ui" line="26"/>
-        <location filename="../src/w_MainWindow.cpp" line="23"/>
+        <location filename="../src/w_MainWindow.cpp" line="25"/>
         <source>Hv2ray</source>
         <translation type="unfinished">Hv2ray</translation>
     </message>
     <message>
         <location filename="../src/w_MainWindow.ui" line="46"/>
-        <location filename="../src/w_MainWindow.cpp" line="33"/>
+        <location filename="../src/w_MainWindow.cpp" line="35"/>
         <source>#Start</source>
         <translation type="unfinished">启动</translation>
     </message>
     <message>
         <location filename="../src/w_MainWindow.ui" line="53"/>
-        <location filename="../src/w_MainWindow.cpp" line="34"/>
+        <location filename="../src/w_MainWindow.cpp" line="36"/>
         <source>#Stop</source>
         <translation type="unfinished">停止</translation>
     </message>
     <message>
         <location filename="../src/w_MainWindow.ui" line="60"/>
-        <location filename="../src/w_MainWindow.cpp" line="35"/>
+        <location filename="../src/w_MainWindow.cpp" line="37"/>
         <source>#Restart</source>
         <translation type="unfinished">重新启动</translation>
     </message>
@@ -631,18 +631,18 @@
         <translation type="unfinished">首选项</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="31"/>
-        <location filename="../src/w_MainWindow.cpp" line="234"/>
+        <location filename="../src/w_MainWindow.cpp" line="33"/>
+        <location filename="../src/w_MainWindow.cpp" line="236"/>
         <source>#Hide</source>
         <translation type="unfinished">隐藏</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="32"/>
+        <location filename="../src/w_MainWindow.cpp" line="34"/>
         <source>#Quit</source>
         <translation type="unfinished">退出</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="237"/>
+        <location filename="../src/w_MainWindow.cpp" line="239"/>
         <source>#Show</source>
         <translation type="unfinished">显示</translation>
     </message>
@@ -651,8 +651,8 @@
     <name>Hv2ray::Ui::PrefrencesWindow</name>
     <message>
         <location filename="../src/w_PrefrencesWindow.ui" line="20"/>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="140"/>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="175"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="142"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="177"/>
         <source>Prefrences</source>
         <translation type="unfinished">首选项</translation>
     </message>
@@ -782,22 +782,22 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="133"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="135"/>
         <source>#Prefrences</source>
         <translation type="unfinished">首选项</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="133"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="135"/>
         <source>#CannotOpenConfigFile</source>
         <translation type="unfinished">无法打开配置文件</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="140"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="142"/>
         <source>PortNumbersCannotBeSame</source>
         <translation type="unfinished">端口号不能相同</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="175"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="177"/>
         <source>RunAsRootNotOnWindows</source>
         <translation type="unfinished">Windows 平台不支持这个选项</translation>
     </message>
@@ -1070,12 +1070,12 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/main.cpp" line="101"/>
+        <location filename="../src/main.cpp" line="99"/>
         <source>Hv2Ray</source>
         <translation>Hv2ray</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="101"/>
+        <location filename="../src/main.cpp" line="99"/>
         <source>AnotherInstanceRunning</source>
         <translation>另一个实例正在运行</translation>
     </message>
