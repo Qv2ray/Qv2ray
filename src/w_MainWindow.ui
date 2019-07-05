@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
+ <class>Hv2ray::Ui::MainWindow</class>
+ <widget class="QMainWindow" name="Hv2ray::Ui::MainWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -143,6 +143,9 @@
            <property name="fieldGrowthPolicy">
             <enum>QFormLayout::ExpandingFieldsGrow</enum>
            </property>
+           <property name="verticalSpacing">
+            <number>10</number>
+           </property>
            <item row="0" column="0">
             <widget class="QLabel" name="label">
              <property name="text">
@@ -199,6 +202,13 @@
              </property>
             </widget>
            </item>
+           <item row="4" column="0">
+            <widget class="QLabel" name="label_11">
+             <property name="text">
+              <string>#ConnectionSettings</string>
+             </property>
+            </widget>
+           </item>
            <item row="4" column="1">
             <widget class="QPushButton" name="pushButton">
              <property name="sizePolicy">
@@ -207,13 +217,6 @@
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
-             <property name="text">
-              <string>#ConnectionSettings</string>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="0">
-            <widget class="QLabel" name="label_11">
              <property name="text">
               <string>#ConnectionSettings</string>
              </property>
@@ -241,7 +244,7 @@
      <x>0</x>
      <y>0</y>
      <width>568</width>
-     <height>21</height>
+     <height>29</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -291,7 +294,6 @@
   <tabstop>restartButton</tabstop>
   <tabstop>clearlogButton</tabstop>
   <tabstop>listWidget</tabstop>
-  <tabstop>pushButton</tabstop>
   <tabstop>logText</tabstop>
  </tabstops>
  <resources/>
