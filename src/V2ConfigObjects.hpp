@@ -17,6 +17,20 @@ namespace Qv2ray
 {
     namespace V2ConfigModels
     {
+        struct VMessProtocolConfigObject {
+            string v;
+            string ps;
+            string add;
+            string port;
+            string id;
+            string aid;
+            string net;
+            string type;
+            string host;
+            string path;
+            string tls;
+            XTOSTRUCT(O(v, ps, add, port, id, aid, net, type, host, path, tls))
+        };
         // Two struct defining TYPE parameter to be passed into inbound configs and outbound configs.
         struct XOutBoundsType {
         };

@@ -6,16 +6,21 @@
 
 namespace Ui
 {
-    class ConnectionEditWindow : public QDialog
-    {
-            Q_OBJECT
-
-        public:
-            explicit ConnectionEditWindow(QWidget *parent = nullptr);
-            ~ConnectionEditWindow();
-
-        private:
-            Ui_WConnectionEdit *ui;
-    };
+    class ConnectionEditWindow;
 }
+
+class ConnectionEditWindow : public QDialog
+{
+        Q_OBJECT
+
+    public:
+        explicit ConnectionEditWindow(QWidget *parent = nullptr);
+        ~ConnectionEditWindow();
+
+    private slots:
+        void on_buttonBox_accepted();
+
+    private:
+        Ui::ConnectionEditWindow *ui;
+};
 #endif // CONFEDIT_H

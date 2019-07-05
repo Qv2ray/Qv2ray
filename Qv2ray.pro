@@ -59,7 +59,8 @@ TRANSLATIONS += \
 
 RC_ICONS += ./icons/Qv2ray.ico
 
-INCLUDEPATH += 3rdparty/\
+INCLUDEPATH += \
+        3rdparty/\
         3rdparty/jsoncons/include
 
 
@@ -67,59 +68,3 @@ INCLUDEPATH += 3rdparty/\
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
-
-WITH_PYTHON = no
-PYTHONVER = null
-
-unix:!macx {
-    # Python Headers check.
-    exists( "/usr/include/python3.5m/Python.h" ) {
-        PYTHONVER = 3.5
-        WITH_PYTHON = yes
-    }
-    exists( "/usr/include/python3.6m/Python.h" ) {
-        PYTHONVER = 3.6
-        WITH_PYTHON = yes
-    }
-    exists( "/usr/include/python3.7m/Python.h" ) {
-        PYTHONVER = 3.7
-        WITH_PYTHON = yes
-    }
-
-    equals( WITH_PYTHON, "yes" ) {
-        INCLUDEPATH += /usr/include/python$${PYTHONVER}m/
-        LIBS += -lpython$${PYTHONVER}m
-        message("Will build with python lib version $$PYTHONVER")
-    }
-}
-
-macx {
-    PYTHON_ROOT=/usr/local/Cellar/python
-    exists( "$${PYTHON_ROOT}/3.6.5_1/" ) {
-        PYTHONVER = 3.6
-        PYLDPATH=$${PYTHON_ROOT}/3.6.5_1/Frameworks/Python.framework/Versions/$${PYTHONVER}
-        WITH_PYTHON = yes
-    }
-
-    exists( "$$PYTHON_ROOT/3.7.3/" ) {
-        PYTHONVER = 3.7
-        PYLDPATH=$${PYTHON_ROOT}/3.7.3/Frameworks/Python.framework/Versions/$${PYTHONVER}
-        WITH_PYTHON = yes
-    }
-
-    INCLUDEPATH += $${PYLDPATH}/include/python$${PYTHONVER}m/
-    LIBS += -L$${PYLDPATH}/lib/python$${PYTHONVER}/config-$${PYTHONVER}m-darwin/ -lpython$${PYTHONVER}m
-    message("Will build with python lib version $$PYTHONVER")
-}
-
-win32 {
-    exists( "$$PWD/python37/libs/libpython37_mingw.a" ) {
-        LIBS += -L$$PWD/python37/libs/ -lpython37_mingw
-        INCLUDEPATH += $$PWD/python37/include
-        WITH_PYTHON = yes
-    }
-}
-
-equals(WITH_PYTHON, "no") {
-    error("No Python3 libs found, did you install dev packages such as python3-dev ?")
-}
