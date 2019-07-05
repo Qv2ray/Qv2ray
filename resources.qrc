@@ -1,7 +1,7 @@
 <RCC>
     <qresource prefix="/">
-        <file>icons/Hv2ray.ico</file>
         <file>translations/zh-CN.qm</file>
         <file>translations/en-US.qm</file>
+        <file>icons/Qv2ray.ico</file>
     </qresource>
 </RCC>

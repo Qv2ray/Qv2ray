@@ -1,7 +1,7 @@
 #include <QCryptographicHash>
 
 #include "runguard.hpp"
-namespace Hv2ray
+namespace Qv2ray
 {
 
     //from https://stackoverflow.com/a/28172162

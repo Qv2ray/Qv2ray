@@ -10,24 +10,24 @@
 #include "w_MainWindow.h"
 
 using namespace std;
-using namespace Hv2ray;
-using namespace Hv2ray::Utils;
-using namespace Hv2ray::HConfigModels;
+using namespace Qv2ray;
+using namespace Qv2ray::Utils;
+using namespace Qv2ray::QvConfigModels;
 
 bool initializeHv()
 {
-    /// Hv2ray Config Path and ends with "/"
+    /// Qv2ray Config Path and ends with "/"
     QString configPath = "";
 #if defined(__WIN32) || defined(__APPLE__)
     // For Windows and MacOS, there's no such 'installation' of a software
     // package, So as what ShadowSocks and v2rayX does, save config files next to
     // the executable.
-    configPath = HV2RAY_CONFIG_DIR_NAME;
+    configPath = QV2RAY_CONFIG_DIR_NAME;
 #else
     // However, for linux, this software can be and/or will be provided as a
     // package and install to whatever /usr/bin or /usr/local/bin or even /opt/
     // Thus we save config files in the user's home directory.
-    configPath = QDir::homePath() + HV2RAY_CONFIG_DIR_NAME;
+    configPath = QDir::homePath() + QV2RAY_CONFIG_DIR_NAME;
 #endif
     ConfigDir = QDir(configPath);
 
@@ -35,7 +35,7 @@ bool initializeHv()
         auto result = QDir().mkdir(configPath);
 
         if (result) {
-            qDebug() << "Created hv2ray config file path at: " + configPath;
+            qDebug() << "Created Qv2ray config file path at: " + configPath;
         } else {
             // We cannot continue as it failed to create a dir.
             qDebug() << "Failed to create config file folder under " + configPath;
@@ -43,14 +43,14 @@ bool initializeHv()
         }
     }
 
-    QFile configFile(configPath + "hv2ray.conf");
+    QFile configFile(configPath + "Qv2ray.conf");
 
     if (!Utils::hasFile(&ConfigDir, ".initialised")) {
         // This is first run!
         // These below genenrated very basic global config.
-        HInbondSetting inHttp = HInbondSetting(true, "127.0.0.1", 8080);
-        HInbondSetting inSocks = HInbondSetting(true, "127.0.0.1", 1080);
-        Hv2Config conf = Hv2Config("zh-CN", "info", inHttp, inSocks);
+        QvInbondSetting inHttp = QvInbondSetting(true, "127.0.0.1", 8080);
+        QvInbondSetting inSocks = QvInbondSetting(true, "127.0.0.1", 1080);
+        Qv2Config conf = Qv2Config("zh-CN", "info", inHttp, inSocks);
         SetGlobalConfig(conf);
         SaveConfig(&configFile);
         // Create Placeholder for initialise indicator.
@@ -67,17 +67,17 @@ bool initializeHv()
 int main(int argc, char *argv[])
 {
     QApplication _qApp(argc, argv);
-    RunGuard guard("Hv2ray-Instance-Identifier");
+    RunGuard guard("Qv2ray-Instance-Identifier");
 
     if (!guard.isSingleInstance()) {
-        Utils::showWarnMessageBox(nullptr, QObject::tr("Hv2Ray"), QObject::tr("AnotherInstanceRunning"));
+        Utils::showWarnMessageBox(nullptr, QObject::tr("Qv2ray"), QObject::tr("AnotherInstanceRunning"));
         return -1;
     }
 
     // Set file startup path as Path
     // WARNING: This may be changed in the future.
     QDir::setCurrent(QFileInfo(QCoreApplication::applicationFilePath()).path());
-    // Hv2ray Initialize
+    // Qv2ray Initialize
     initializeHv();
 
     if (_qApp.installTranslator(getTranslator(GetGlobalConfig().language))) {
@@ -92,7 +92,7 @@ int main(int argc, char *argv[])
     }
 
     // Show MainWindow
-    Ui::MainWindow w;
+    Ui_Impl::MainWindow w;
     w.show();
     return _qApp.exec();
 }

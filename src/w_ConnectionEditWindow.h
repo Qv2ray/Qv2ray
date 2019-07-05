@@ -4,9 +4,9 @@
 #include <QDialog>
 #include "ui_w_ConnectionEditWindow.h"
 
-namespace Hv2ray
+namespace Qv2ray
 {
-    namespace Ui
+    namespace Ui_Impl
     {
         class ConnectionEditWindow : public QDialog
         {

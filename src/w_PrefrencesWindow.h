@@ -5,9 +5,9 @@
 #include <ui_w_PrefrencesWindow.h>
 #include "HConfigObjects.hpp"
 
-namespace Hv2ray
+namespace Qv2ray
 {
-    namespace Ui
+    namespace Ui_Impl
     {
         class PrefrencesWindow : public QDialog
         {
@@ -28,7 +28,7 @@ namespace Hv2ray
                 void on_runAsRootCheckBox_stateChanged(int arg1);
 
             private:
-                Hv2ray::HConfigModels::Hv2Config CurrentConfig;
+                Qv2ray::QvConfigModels::Qv2Config CurrentConfig;
                 Ui_PrefrencesWindow *ui;
         };
     }

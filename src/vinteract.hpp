@@ -3,7 +3,7 @@
 #include <QProcess>
 #include <QString>
 
-namespace Hv2ray
+namespace Qv2ray
 {
     enum V2RAY_INSTANCE_STARTUP_STATUS {
         STOPPED,

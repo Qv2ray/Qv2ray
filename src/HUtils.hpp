@@ -14,14 +14,14 @@
 
 #include "HConfigObjects.hpp"
 
-namespace Hv2ray
+namespace Qv2ray
 {
     namespace Utils
     {
         void showWarnMessageBox(QWidget *parent, QString title, QString text);
         QTranslator *getTranslator(string lang);
-        void SetGlobalConfig(HConfigModels::Hv2Config conf);
-        HConfigModels::Hv2Config GetGlobalConfig();
+        void SetGlobalConfig(QvConfigModels::Qv2Config conf);
+        QvConfigModels::Qv2Config GetGlobalConfig();
         void SaveConfig(QFile *configFile);
         void LoadConfig(QFile *configFile);
         /// Get file list in a Dir

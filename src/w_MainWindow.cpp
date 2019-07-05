@@ -15,14 +15,14 @@
 #include "w_MainWindow.h"
 #include "w_PrefrencesWindow.h"
 
-namespace Hv2ray
+namespace Qv2ray
 {
-    namespace Ui
+    namespace Ui_Impl
     {
         void MainWindow::CreateTrayIcon()
         {
             hTray = new QSystemTrayIcon();
-            hTray->setToolTip(tr("Hv2ray"));
+            hTray->setToolTip(tr("Qv2ray"));
             hTray->setIcon(this->windowIcon());
             connect(hTray, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(on_activatedTray(QSystemTrayIcon::ActivationReason)));
             QAction *actionShow = new QAction(this);
@@ -58,7 +58,7 @@ namespace Hv2ray
             : QMainWindow(parent)
             , ui(new Ui_MainWindow)
         {
-            this->setWindowIcon(QIcon(":/icons/Hv2ray.ico"));
+            this->setWindowIcon(QIcon(":/icons/Qv2ray.ico"));
             ui->setupUi(this);
             UpdateConfigTable();
             //    ui->configTable->setContextMenuPolicy(Qt::CustomContextMenu);
