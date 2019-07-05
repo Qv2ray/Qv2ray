@@ -92,7 +92,7 @@ int main(int argc, char *argv[])
     }
 
     // Show MainWindow
-    Ui::MainWindow w;
+    MainWindow w;
     w.show();
     return _qApp.exec();
 }

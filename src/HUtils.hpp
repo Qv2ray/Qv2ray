@@ -27,16 +27,13 @@ namespace Qv2ray
         /// Get file list in a Dir
         QStringList getAllFilesList(QDir *dir);
         bool hasFile(QDir *dir, QString fileName);
-
+        QString base64_encode(QString string);
+        QString base64_decode(QString string);
         template <typename TYPE>
         QString StructToJSON(const TYPE &t)
         {
             string s;
-#if USE_TODO_FEATURES
-            encode_json<TYPE>(t, s, indenting::indent);
-#else
             s = X::tojson(t, "", 4, ' ');
-#endif
             cout << s << endl;
             return QString::fromStdString(s);
         }
@@ -45,11 +42,7 @@ namespace Qv2ray
         TYPE StructFromJSON(const string &str)
         {
             TYPE v;
-#if USE_TODO_FEATURES
-            v = decode_json<TYPE>(str);
-#else
             X::loadjson(str, v, false);
-#endif
             return v;
         }
     }

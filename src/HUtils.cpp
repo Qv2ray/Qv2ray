@@ -26,6 +26,19 @@ namespace Qv2ray
             configFile->close();
         }
 
+        QString base64_encode(QString string)
+        {
+            QByteArray ba;
+            ba.append(string);
+            return ba.toBase64();
+        }
+
+        QString base64_decode(QString string)
+        {
+            QByteArray ba;
+            ba.append(string);
+            return QString(QByteArray::fromBase64(ba));
+        }
         void LoadConfig(QFile *configFile)
         {
             using namespace Qv2ray::QvConfigModels;
