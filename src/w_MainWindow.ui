@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Hv2ray::Ui::MainWindow</class>
- <widget class="QMainWindow" name="Hv2ray::Ui::MainWindow">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -23,7 +23,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Hv2ray</string>
+   <string>Qv2ray</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <property name="sizePolicy">

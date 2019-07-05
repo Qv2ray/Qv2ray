@@ -4,13 +4,8 @@
 // TODO Features
 #define USE_TODO_FEATURES false
 
-#if USE_TODO_FEATURES
-#include <jsoncons/json.hpp>
-using namespace jsoncons;
-#else
 #include <x2struct/x2struct.hpp>
 using namespace x2struct;
-#endif
 
 #ifndef V2CONFIG_H
 #define V2CONFIG_H
@@ -18,7 +13,7 @@ using namespace x2struct;
 using namespace std;
 /*------------------------------------------------------------------------------------------------------------*/
 
-namespace Hv2ray
+namespace Qv2ray
 {
     namespace V2ConfigModels
     {
@@ -33,18 +28,14 @@ namespace Hv2ray
             string error;
             string loglevel;
             LogObject(): access(), error(), loglevel() {}
-#if USE_TODO_FEATURES == false
             XTOSTRUCT(O(access, error, loglevel))
-#endif
         };
 
         struct ApiObject {
             string tag;
             list<string> services;
             ApiObject() : tag(), services() {}
-#if USE_TODO_FEATURES == false
             XTOSTRUCT(O(tag, services))
-#endif
         };
         namespace DNSObjects
         {
@@ -53,9 +44,7 @@ namespace Hv2ray
                 int port;
                 list<string> domains;
                 ServerObject(): address(), port(), domains() {}
-#if USE_TODO_FEATURES == false
                 XTOSTRUCT(O(address, port, domains))
-#endif
             };
         }
         struct DnsObject {
@@ -67,9 +56,7 @@ namespace Hv2ray
             list<string> servers;
 #endif
             DnsObject(): hosts(), servers() {}
-#if USE_TODO_FEATURES == false
             XTOSTRUCT(O(hosts, servers))
-#endif
         };
         namespace ROUTINGObjects
         {
@@ -85,17 +72,13 @@ namespace Hv2ray
                 string protocol;
                 string attrs;
                 RuleObject() : type(), domain(), ip(), port(), network(), source(), user(), inboundTag(), protocol(), attrs() {}
-#if USE_TODO_FEATURES == false
                 XTOSTRUCT(O(type, domain, ip, port, network, source, user, inboundTag, protocol, attrs))
-#endif
             };
             struct BalancerObject {
                 string tag ;
                 list<string> selector;
                 BalancerObject() : tag(), selector() {}
-#if USE_TODO_FEATURES == false
                 XTOSTRUCT(O(tag, selector))
-#endif
             };
         }
 
@@ -104,9 +87,7 @@ namespace Hv2ray
             list<ROUTINGObjects::RuleObject> rules;
             list<ROUTINGObjects::BalancerObject> balancers;
             RoutingObject() : domainStrategy(), rules(), balancers() {}
-#if USE_TODO_FEATURES == false
             XTOSTRUCT(O(domainStrategy, rules, balancers))
-#endif
         };
         namespace POLICYObjects
         {
@@ -114,9 +95,7 @@ namespace Hv2ray
                 bool statsInboundUplink;
                 bool statsInboundDownlink;
                 SystemPolicyObject() : statsInboundUplink(), statsInboundDownlink() {}
-#if USE_TODO_FEATURES == false
                 XTOSTRUCT(O(statsInboundUplink, statsInboundDownlink))
-#endif
             };
 
             struct LevelPolicyObject {
@@ -128,18 +107,14 @@ namespace Hv2ray
                 bool statsUserDownlink;
                 int bufferSize;
                 LevelPolicyObject(): handshake(), connIdle(), uplinkOnly(), downlinkOnly(), statsUserUplink(), statsUserDownlink(), bufferSize() {}
-#if USE_TODO_FEATURES == false
                 XTOSTRUCT(O(handshake, connIdle, uplinkOnly, downlinkOnly, statsUserUplink, statsUserDownlink, bufferSize))
-#endif
             };
         }
         struct PolicyObject {
             map<int, POLICYObjects::LevelPolicyObject> level;
             list<POLICYObjects::SystemPolicyObject> system;
             PolicyObject(): level(), system() {}
-#if USE_TODO_FEATURES == false
             XTOSTRUCT(O(level, system))
-#endif
         };
         namespace TRANSFERObjects
         {
@@ -152,9 +127,7 @@ namespace Hv2ray
                     list<string> path;
                     map<string, list<string>> headers;
                     HTTPRequestObject(): version(), method(), path(), headers() {}
-#if USE_TODO_FEATURES == false
                     XTOSTRUCT(O(version, method, path, headers))
-#endif
                 };
 
                 struct HTTPResponseObject {
@@ -163,18 +136,14 @@ namespace Hv2ray
                     string reason;
                     map<string, list<string>> headers;
                     HTTPResponseObject(): version(), status(), reason(), headers() {}
-#if USE_TODO_FEATURES == false
                     XTOSTRUCT(O(version, status, reason, headers))
-#endif
                 };
                 struct TCPHeader_M_Object {
                     string type;
                     HTTPRequestObject request;
                     HTTPResponseObject response;
                     TCPHeader_M_Object(): type(), request(), response() {}
-#if USE_TODO_FEATURES == false
                     XTOSTRUCT(O(type, request, response))
-#endif
                 };
                 struct HeaderObject {
                     string type;
@@ -189,9 +158,7 @@ namespace Hv2ray
             struct TCPObject {
                 TRANSFERObjectsInternal:: TCPHeader_M_Object header;
                 TCPObject(): header() {}
-#if USE_TODO_FEATURES == false
                 XTOSTRUCT(O(header))
-#endif
             };
 
 
@@ -205,9 +172,7 @@ namespace Hv2ray
                 int writeBufferSize;
                 TRANSFERObjectsInternal::  HeaderObject header;
                 KCPObject(): mtu(), tti(), uplinkCapacity(), downlinkCapacity(), congestion(), readBufferSize(), writeBufferSize(), header() {}
-#if USE_TODO_FEATURES == false
                 XTOSTRUCT(O(mtu, tti, uplinkCapacity, downlinkCapacity, congestion, readBufferSize, writeBufferSize, header))
-#endif
             };
 
 
@@ -215,26 +180,20 @@ namespace Hv2ray
                 string path;
                 map<string, string> headers;
                 WebSocketObject(): path(), headers() {}
-#if USE_TODO_FEATURES == false
                 XTOSTRUCT(O(path, headers))
-#endif
             };
 
             struct HttpObject {
                 list<string> host;
                 string path;
                 HttpObject() : host(), path() {}
-#if USE_TODO_FEATURES == false
                 XTOSTRUCT(O(host, path))
-#endif
             };
 
             struct DomainSocketObject {
                 string path;
                 DomainSocketObject(): path() {}
-#if USE_TODO_FEATURES == false
                 XTOSTRUCT(O(path))
-#endif
             };
 
             struct QuicObject {
@@ -242,9 +201,7 @@ namespace Hv2ray
                 string key;
                 TRANSFERObjectsInternal::HeaderObject header;
                 QuicObject(): security(), key(), header() {}
-#if USE_TODO_FEATURES == false
                 XTOSTRUCT(O(security, key, header))
-#endif
             };
 
 
@@ -257,9 +214,7 @@ namespace Hv2ray
             TRANSFERObjects::DomainSocketObject dsSettings;
             TRANSFERObjects::QuicObject quicSettings;
             TransportObject(): tcpSettings(), kcpSettings(), wsSettings(), httpSettings(), dsSettings(), quicSettings() {}
-#if USE_TODO_FEATURES == false
             XTOSTRUCT(O(tcpSettings, kcpSettings, wsSettings, httpSettings, dsSettings, quicSettings))
-#endif
         };
         namespace INBOUNDObjects
         {
@@ -268,9 +223,7 @@ namespace Hv2ray
                 bool enabled;
                 string destOverride;
                 SniffingObject(): enabled(), destOverride() {}
-#if USE_TODO_FEATURES == false
                 XTOSTRUCT(O(enabled, destOverride))
-#endif
             };
 
             struct AllocateObject {
@@ -278,9 +231,7 @@ namespace Hv2ray
                 int refresh;
                 int concurrency;
                 AllocateObject(): strategy(), refresh(), concurrency() {}
-#if USE_TODO_FEATURES == false
                 XTOSTRUCT(O(strategy, refresh, concurrency))
-#endif
             };
         }
         namespace STREAMSETTINGSObjects
@@ -290,9 +241,7 @@ namespace Hv2ray
                 bool tcpFastOpen;
                 string tproxy;
                 SockoptObject(): mark(), tcpFastOpen(), tproxy() {}
-#if USE_TODO_FEATURES == false
                 XTOSTRUCT(O(mark, tcpFastOpen, tproxy))
-#endif
             };
 
             struct CertificateObject {
@@ -302,9 +251,7 @@ namespace Hv2ray
                 list<string> certificate;
                 list<string> key;
                 CertificateObject(): usage(), certificateFile(), keyFile(), certificate(), key() {}
-#if USE_TODO_FEATURES == false
                 XTOSTRUCT(O(usage, certificateFile, keyFile, certificate, key))
-#endif
             };
 
             struct TLSObject {
@@ -314,9 +261,7 @@ namespace Hv2ray
                 list<CertificateObject> certificates;
                 bool disableSystemRoot;
                 TLSObject(): serverName(), allowInsecure(), certificates(), disableSystemRoot() {}
-#if USE_TODO_FEATURES == false
                 XTOSTRUCT(O(serverName, allowInsecure, alpn, certificates, disableSystemRoot))
-#endif
             };
         }
 
@@ -332,9 +277,7 @@ namespace Hv2ray
             TRANSFERObjects::DomainSocketObject dsSettings;
             TRANSFERObjects::QuicObject quicSettings;
             StreamSettingsObject(): network(), security(), sockopt(),  tlsSettings(), tcpSettings(), kcpSettings(), wsSettings(), httpSettings(), dsSettings(), quicSettings() {}
-#if USE_TODO_FEATURES == false
             XTOSTRUCT(O(network, security, sockopt, tcpSettings, tlsSettings, kcpSettings, wsSettings, httpSettings, dsSettings, quicSettings))
-#endif
         };
 
         template<typename XINBOUNDSETTINGOBJECT>
@@ -349,9 +292,7 @@ namespace Hv2ray
             INBOUNDObjects::SniffingObject sniffing;
             INBOUNDObjects::AllocateObject allocate;
             InboundObject(): port(), listen(), protocol(), settings(), streamSettings(), tag(), sniffing(), allocate() {}
-#if USE_TODO_FEATURES == false
             XTOSTRUCT(O(port, listen, protocol, settings, streamSettings, tag, sniffing, allocate))
-#endif
         };
         namespace OUTBOUNDObjects
         {
@@ -359,18 +300,14 @@ namespace Hv2ray
             struct ProxySettingsObject {
                 string tag;
                 ProxySettingsObject(): tag() {}
-#if USE_TODO_FEATURES == false
                 XTOSTRUCT(O(tag))
-#endif
             };
 
             struct MuxObject {
                 bool enabled;
                 int concurrency;
                 MuxObject(): enabled(), concurrency() {}
-#if USE_TODO_FEATURES == false
                 XTOSTRUCT(O(enabled, concurrency))
-#endif
             };
         }
         template <typename XOUTBOUNDSETTINGOBJECT>
@@ -384,17 +321,13 @@ namespace Hv2ray
             OUTBOUNDObjects::ProxySettingsObject proxySettings;
             OUTBOUNDObjects::MuxObject mux;
             OutboundObject(): sendThrough(), protocol(), settings(), tag(), streamSettings(), proxySettings(), mux() {}
-#if USE_TODO_FEATURES == false
             XTOSTRUCT(O(sendThrough, protocol, settings, tag, streamSettings, proxySettings, mux))
-#endif
         };
 
         struct StatsObject {
             bool _; // Placeholder...
             StatsObject(): _() {}
-#if USE_TODO_FEATURES == false
             XTOSTRUCT(O(_))
-#endif
         };
         namespace REVERSEObjects
         {
@@ -403,18 +336,14 @@ namespace Hv2ray
                 string tag;
                 string domain;
                 BridgeObject() : tag(), domain() {}
-#if USE_TODO_FEATURES == false
                 XTOSTRUCT(O(tag, domain))
-#endif
             };
 
             struct PortalObject {
                 string tag;
                 string domain;
                 PortalObject() : tag(), domain() {}
-#if USE_TODO_FEATURES == false
                 XTOSTRUCT(O(tag, domain))
-#endif
             };
 
         }
@@ -422,9 +351,7 @@ namespace Hv2ray
             list<REVERSEObjects::BridgeObject> bridges;
             list<REVERSEObjects::PortalObject> portals;
             ReverseObject() : bridges(), portals() {}
-#if USE_TODO_FEATURES == false
             XTOSTRUCT(O(bridges, portals))
-#endif
         };
 #if USE_TODO_FEATURES
         template<typename XIN1, typename XIN2, typename XIN3, typename XIN4, typename XIN5, typename XOUT1, typename XOUT2, typename XOUT3, typename XOUT4, typename XOUT5>
@@ -449,14 +376,12 @@ namespace Hv2ray
             ReverseObject reverse;
             PolicyObject policy;
             RootObject(): log(), api(), dns(), routing(), inbounds(), outbounds(), transport(), stats(), reverse(), policy() {}
-#if USE_TODO_FEATURES == false
             XTOSTRUCT(O(log, api, dns, routing, inbounds, outbounds, transport, stats, reverse, policy))
-#endif
         };
     }
 }
 
-namespace Hv2ray
+namespace Qv2ray
 {
     namespace V2ConfigModels
     {
@@ -572,61 +497,8 @@ namespace Hv2ray
     }
 }
 
-#if USE_TODO_FEATURES
-using namespace Hv2ray;
-JSONCONS_MEMBER_TRAITS_DECL(V2ConfigModels::LogObject, access, error, loglevel)
-JSONCONS_MEMBER_TRAITS_DECL(V2ConfigModels::ApiObject, tag, services)
-
-JSONCONS_MEMBER_TRAITS_DECL(V2ConfigModels::DNSObjects::ServerObject, address, port, domains)
-JSONCONS_MEMBER_TRAITS_DECL(V2ConfigModels::DnsObject, hosts, servers)
-
-JSONCONS_MEMBER_TRAITS_DECL(V2ConfigModels::ROUTINGObjects::RuleObject, type, domain, ip, port, network, source, user, inboundTag, protocol, attrs)
-JSONCONS_MEMBER_TRAITS_DECL(V2ConfigModels::ROUTINGObjects::BalancerObject, tag, selector)
-JSONCONS_MEMBER_TRAITS_DECL(V2ConfigModels::RoutingObject, domainStrategy, rules, balancers)
-
-JSONCONS_MEMBER_TRAITS_DECL(V2ConfigModels::POLICYObjects::SystemPolicyObject, statsInboundUplink, statsInboundDownlink)
-JSONCONS_MEMBER_TRAITS_DECL(V2ConfigModels::POLICYObjects::LevelPolicyObject, handshake, connIdle, uplinkOnly, downlinkOnly, statsUserUplink, statsUserDownlink, bufferSize)
-JSONCONS_MEMBER_TRAITS_DECL(V2ConfigModels::PolicyObject, level, system)
-
-JSONCONS_MEMBER_TRAITS_DECL(V2ConfigModels::TRANSFERObjects::TRANSFERObjectsInternal::HTTPRequestObject, version, method, path, headers)
-JSONCONS_MEMBER_TRAITS_DECL(V2ConfigModels::TRANSFERObjects::TRANSFERObjectsInternal::HTTPResponseObject, version, status, reason, headers)
-JSONCONS_MEMBER_TRAITS_DECL(V2ConfigModels::TRANSFERObjects::TRANSFERObjectsInternal::TCPHeader_M_Object, type, request, response)
-JSONCONS_MEMBER_TRAITS_DECL(V2ConfigModels::TRANSFERObjects::TRANSFERObjectsInternal::HeaderObject, type)
-
-JSONCONS_MEMBER_TRAITS_DECL(V2ConfigModels::TRANSFERObjects::TCPObject, header)
-JSONCONS_MEMBER_TRAITS_DECL(V2ConfigModels::TRANSFERObjects::KCPObject, mtu, tti, uplinkCapacity, downlinkCapacity, congestion, readBufferSize, writeBufferSize, header)
-JSONCONS_MEMBER_TRAITS_DECL(V2ConfigModels::TRANSFERObjects::WebSocketObject, path, headers)
-JSONCONS_MEMBER_TRAITS_DECL(V2ConfigModels::TRANSFERObjects::HttpObject, host, path)
-JSONCONS_MEMBER_TRAITS_DECL(V2ConfigModels::TRANSFERObjects::DomainSocketObject, path)
-JSONCONS_MEMBER_TRAITS_DECL(V2ConfigModels::TRANSFERObjects::QuicObject, security, key, header)
-JSONCONS_MEMBER_TRAITS_DECL(V2ConfigModels::TransportObject, tcpSettings, kcpSettings, wsSettings, httpSettings, dsSettings, quicSettings)
-
-JSONCONS_MEMBER_TRAITS_DECL(V2ConfigModels::INBOUNDObjects::SniffingObject, enabled, destOverride)
-JSONCONS_MEMBER_TRAITS_DECL(V2ConfigModels::INBOUNDObjects::AllocateObject, strategy, refresh, concurrency)
-
-JSONCONS_MEMBER_TRAITS_DECL(V2ConfigModels::OUTBOUNDObjects::ProxySettingsObject, tag)
-JSONCONS_MEMBER_TRAITS_DECL(V2ConfigModels::OUTBOUNDObjects::MuxObject, enabled, concurrency)
-
-JSONCONS_MEMBER_TRAITS_DECL(V2ConfigModels::REVERSEObjects::BridgeObject, tag, domain)
-JSONCONS_MEMBER_TRAITS_DECL(V2ConfigModels::REVERSEObjects::PortalObject, tag, domain)
-JSONCONS_MEMBER_TRAITS_DECL(V2ConfigModels::ReverseObject, bridges, portals)
-
-JSONCONS_MEMBER_TRAITS_DECL(V2ConfigModels::StatsObject, _)
-
-JSONCONS_MEMBER_TRAITS_DECL(V2ConfigModels::StreamSettingsObject, tcpSettings, kcpSettings, wsSettings, httpSettings, dsSettings, quicSettings, tlsSettings, sockopt, network, security)
-JSONCONS_MEMBER_TRAITS_DECL(V2ConfigModels::STREAMSETTINGSObjects::TLSObject, serverName, allowInsecure, alpn, certificates, disableSystemRoot)
-JSONCONS_MEMBER_TRAITS_DECL(V2ConfigModels::STREAMSETTINGSObjects::CertificateObject, usage, certificateFile, keyFile, certificate, key)
-JSONCONS_MEMBER_TRAITS_DECL(V2ConfigModels::STREAMSETTINGSObjects::SockoptObject, mark, tcpFastOpen, tproxy)
-
-// These 3 are used as templates.
-JSONCONS_MEMBER_TRAITS_DECL(V2ConfigModels::RootObject, log, api, dns, routing, inbounds, outbounds, transport, stats, reverse, policy)
-JSONCONS_MEMBER_TRAITS_DECL(V2ConfigModels::InboundObject, port, listen, protocol, settings, streamSettings, tag, sniffing, allocate)
-JSONCONS_MEMBER_TRAITS_DECL(V2ConfigModels::OutboundObject, sendThrough, protocol, settings, tag, streamSettings, proxySettings, mux)
-
-#endif
-
 /// Code above has passed these tests.
-//using namespace  Hv2ray::V2ConfigModels;
+//using namespace  Qv2ray::V2ConfigModels;
 //RootObject<Protocols::HTTP, Protocols::VMess> x;
 //InboundObject<Protocols::HTTP> inH;
 //x.inbounds.insert(x.inbounds.end(), inH);

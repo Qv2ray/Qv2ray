@@ -10,9 +10,9 @@
 #include "vinteract.hpp"
 #include "V2ConfigObjects.hpp"
 
-namespace Hv2ray
+namespace Qv2ray
 {
-    namespace Ui
+    namespace Ui_Impl
     {
         class MainWindow : public QMainWindow
         {

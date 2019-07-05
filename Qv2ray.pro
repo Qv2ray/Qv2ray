@@ -8,7 +8,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = Hv2ray
+TARGET = Qv2ray
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
@@ -59,7 +59,7 @@ TRANSLATIONS += \
         translations/zh-CN.ts \
         translations/en-US.ts
 
-RC_ICONS += ./icons/Hv2ray.ico
+RC_ICONS += ./icons/Qv2ray.ico
 
 INCLUDEPATH += 3rdparty/\
         3rdparty/jsoncons/include

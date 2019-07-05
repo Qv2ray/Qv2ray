@@ -5,9 +5,9 @@
 #include <QIntValidator>
 #include <iostream>
 
-namespace Hv2ray
+namespace Qv2ray
 {
-    namespace Ui
+    namespace Ui_Impl
     {
         ConnectionEditWindow::ConnectionEditWindow(QWidget *parent)
             : QDialog(parent)

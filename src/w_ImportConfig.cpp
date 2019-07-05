@@ -15,10 +15,10 @@
 #include "w_ConnectionEditWindow.h"
 #include "w_ImportConfig.h"
 
-using namespace Hv2ray;
-namespace Hv2ray
+using namespace Qv2ray;
+namespace Qv2ray
 {
-    namespace Ui
+    namespace Ui_Impl
     {
         ImportConfig::ImportConfig(QWidget *parent)
             : QDialog(parent)

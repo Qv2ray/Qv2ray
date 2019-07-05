@@ -5,7 +5,7 @@
 #include <QSharedMemory>
 #include <QSystemSemaphore>
 
-namespace Hv2ray
+namespace Qv2ray
 {
     // From https://stackoverflow.com/a/28172162
     class RunGuard

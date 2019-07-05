@@ -6,7 +6,7 @@
 #include "vinteract.hpp"
 #include "w_MainWindow.h"
 
-namespace Hv2ray
+namespace Qv2ray
 {
     bool v2Instance::checkConfigFile(const QString path)
     {

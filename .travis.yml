@@ -22,7 +22,7 @@ before_script:
   
 script:
   - git submodule update --init
-  - lrelease ./Hv2ray.pro
+  - lrelease ./Qv2ray.pro
   - mkdir build && cd ./build
   - QT_SELECT=5 QTDIR=/usr/share/qt5 qmake ../
   - make

@@ -16,12 +16,12 @@
 #include <unistd.h>
 #endif
 
-using namespace Hv2ray;
+using namespace Qv2ray;
 using namespace Utils;
 
-namespace Hv2ray
+namespace Qv2ray
 {
-    namespace Ui
+    namespace Ui_Impl
     {
         PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent), CurrentConfig(), ui(new Ui_PrefrencesWindow)
         {

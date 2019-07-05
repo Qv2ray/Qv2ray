@@ -1,17 +1,17 @@
 #include "HUtils.hpp"
 #include <QTextStream>
 
-namespace Hv2ray
+namespace Qv2ray
 {
     namespace Utils
     {
-        static HConfigModels::Hv2Config GlobalConfig;
-        void SetGlobalConfig(HConfigModels::Hv2Config conf)
+        static QvConfigModels::Qv2Config GlobalConfig;
+        void SetGlobalConfig(QvConfigModels::Qv2Config conf)
         {
             GlobalConfig = conf;
         }
 
-        HConfigModels::Hv2Config GetGlobalConfig()
+        QvConfigModels::Qv2Config GetGlobalConfig()
         {
             return GlobalConfig;
         }
@@ -28,11 +28,11 @@ namespace Hv2ray
 
         void LoadConfig(QFile *configFile)
         {
-            using namespace Hv2ray::HConfigModels;
+            using namespace Qv2ray::QvConfigModels;
             configFile->open(QFile::ReadOnly);
             QTextStream stream(configFile);
             auto str = stream.readAll();
-            auto config  = StructFromJSON<Hv2Config>(str.toStdString());
+            auto config  = StructFromJSON<Qv2Config>(str.toStdString());
             SetGlobalConfig(config);
             configFile->close();
         }
