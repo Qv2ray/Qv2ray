@@ -3,7 +3,7 @@
 
 #include <QDialog>
 #include <ui_w_PrefrencesWindow.h>
-#include "QvConfigObjects.hpp"
+#include "QvGUIConfigObjects.h"
 
 namespace Ui
 {
@@ -28,6 +28,8 @@ class PrefrencesWindow : public QDialog
         void on_httpAuthCB_stateChanged(int arg1);
 
         void on_runAsRootCheckBox_stateChanged(int arg1);
+
+        void on_socksAuthCB_stateChanged(int arg1);
 
     private:
         Qv2ray::QvConfigModels::Qv2Config CurrentConfig;

@@ -1,13 +1,11 @@
-#include <QDebug>
-#include <QDir>
-#include <QProcess>
-
-#include "vinteract.hpp"
-#include "QvUtils.hpp"
+#include <QObject>
+#include <QWidget>
+#include "QvCoreInteractions.h"
+#include "QvUtils.h"
 
 namespace Qv2ray
 {
-    bool v2Instance::checkConfigFile(const QString path)
+    bool Qv2Instance::checkConfigFile(const QString path)
     {
         if (checkCoreExe()) {
             QProcess process;
@@ -23,7 +21,7 @@ namespace Qv2ray
             QString output = QString(process.readAllStandardOutput());
 
             if (!output.contains("Configuration OK")) {
-                Utils::showWarnMessageBox(nullptr, QObject::tr("ConfigurationError"), output.mid(output.indexOf("anti-censorship.") + 17));
+                Utils::QvMessageBox(nullptr, QObject::tr("ConfigurationError"), output.mid(output.indexOf("anti-censorship.") + 17));
                 return false;
             } else
                 return true;
@@ -31,7 +29,7 @@ namespace Qv2ray
             return false;
     }
 
-    v2Instance::v2Instance(QWidget *parent): _config(Utils::GetGlobalConfig())
+    Qv2Instance::Qv2Instance(QWidget *parent): _config(Utils::GetGlobalConfig())
     {
         QProcess *proc = new QProcess();
         vProcess = proc;
@@ -39,17 +37,17 @@ namespace Qv2ray
         Status = STOPPED;
     }
 
-    bool v2Instance::checkCoreExe()
+    bool Qv2Instance::checkCoreExe()
     {
         auto path = QString::fromStdString(Utils::GetGlobalConfig().v2Path);
 
         if (!QFile::exists(path)) {
-            Utils::showWarnMessageBox(nullptr, QObject::tr("CoreNotFound"), QObject::tr("CoreFileNotFoundExplainationAt:") + path);
+            Utils::QvMessageBox(nullptr, QObject::tr("CoreNotFound"), QObject::tr("CoreFileNotFoundExplainationAt:") + path);
             return false;
         } else return true;
     }
 
-    bool v2Instance::start()
+    bool Qv2Instance::start()
     {
         if (Status != STOPPED) {
             return false;
@@ -73,18 +71,18 @@ namespace Qv2ray
         }
     }
 
-    void v2Instance::stop()
+    void Qv2Instance::stop()
     {
         vProcess->close();
         Status = STOPPED;
     }
 
-    QString v2Instance::readOutput()
+    QString Qv2Instance::readOutput()
     {
         return vProcess->readAll();
     }
 
-    v2Instance::~v2Instance()
+    Qv2Instance::~Qv2Instance()
     {
         stop();
         delete vProcess;

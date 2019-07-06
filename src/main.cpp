@@ -2,9 +2,9 @@
 #include <QStandardPaths>
 #include <QTranslator>
 
-#include "QvUtils.hpp"
-#include "QvConfigObjects.hpp"
-#include "runguard.hpp"
+#include "QvUtils.h"
+#include "QvGUIConfigObjects.h"
+#include "QvRunguard.h"
 #include "w_MainWindow.h"
 
 using namespace Qv2ray;
@@ -29,9 +29,10 @@ bool initializeQv()
     configPath = QDir::homePath() + "/.qv2ray/";
     exeDefaultPath = "/bin/v2ray";
 #endif
-    ConfigDir = QDir(configPath);
+    SetConfigDirPath(configPath);
+    auto ConfigDir = new QDir(configPath);
 
-    if (!ConfigDir.exists()) {
+    if (!ConfigDir->exists()) {
         auto result = QDir().mkdir(QV2RAY_CONFIG_PATH);
 
         if (result) {
@@ -53,7 +54,7 @@ bool initializeQv()
         }
     }
 
-    if (!Utils::getFileExistance(&ConfigDir, ".initialised")) {
+    if (!Utils::CheckFile(ConfigDir, ".initialised")) {
         // This is first run!
         //
         // These below genenrated very basic global config.
@@ -63,8 +64,7 @@ bool initializeQv()
         //
         // Save initial config.
         SetGlobalConfig(conf);
-        QFile configFile(QV2RAY_MAIN_CONFIG_FILE_PATH);
-        SaveGlobalConfig(&configFile);
+        SaveGlobalConfig();
         //
         // Create Placeholder for initialise indicator.
         QFile initPlaceHolder(QV2RAY_FIRSTRUN_IDENTIFIER);
@@ -73,7 +73,7 @@ bool initializeQv()
         //
         LOG("Created initial default config file.")
     } else {
-        LoadConfig(QV2RAY_MAIN_CONFIG_FILE_PATH);
+        LoadGlobalConfig();
         LOG("Loaded config file.")
     }
 
@@ -86,7 +86,7 @@ int main(int argc, char *argv[])
     RunGuard guard("Qv2ray-Instance-Identifier");
 
     if (!guard.isSingleInstance()) {
-        Utils::showWarnMessageBox(nullptr, QObject::tr("Qv2ray"), QObject::tr("AnotherInstanceRunning"));
+        Utils::QvMessageBox(nullptr, QObject::tr("Qv2ray"), QObject::tr("AnotherInstanceRunning"));
         return -1;
     }
 
@@ -94,12 +94,12 @@ int main(int argc, char *argv[])
     initializeQv();
     //
 
-    if (_qApp.installTranslator(getTranslator(GetGlobalConfig().language))) {
+    if (_qApp.installTranslator(getTranslator(QString::fromStdString(GetGlobalConfig().language)))) {
         LOG("Loaded translations " + GetGlobalConfig().language)
     } else if (_qApp.installTranslator(getTranslator("en-US"))) {
         LOG("Loaded default translations")
     } else {
-        showWarnMessageBox(
+        QvMessageBox(
             nullptr, "Failed to load translations 无法加载语言文件",
             "Failed to load translations, user experience may be downgraded. \r\n"
             "无法加载语言文件，用户体验可能会降级.");

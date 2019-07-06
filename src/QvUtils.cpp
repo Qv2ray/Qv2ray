@@ -1,11 +1,13 @@
-#include "QvUtils.hpp"
+#include "QvUtils.h"
 #include <QTextStream>
+#include <QMessageBox>
 
 namespace Qv2ray
 {
     namespace Utils
     {
         static Qv2Config GlobalConfig;
+        static QString ConfigDirPath;
         void SetGlobalConfig(Qv2Config conf)
         {
             GlobalConfig = conf;
@@ -16,32 +18,54 @@ namespace Qv2ray
             return GlobalConfig;
         }
 
-        void SaveGlobalConfig(QFile *config)
+        QString GetConfigDirPath()
         {
-            config->open(QFile::WriteOnly);
-            QString jsonConfig = StructToJSON(GetGlobalConfig());
-            QTextStream stream(config);
-            stream << jsonConfig << endl;
-            stream.flush();
-            config->close();
+            return ConfigDirPath;
         }
 
-        QString base64_encode(QString string)
+        void SetConfigDirPath(QString path)
+        {
+            ConfigDirPath = path;
+        }
+
+        void SaveGlobalConfig()
+        {
+            QFile config(QV2RAY_MAIN_CONFIG_FILE_PATH);
+            SaveJSONToFile(GetGlobalConfig(), &config);
+        }
+
+        template <typename T>
+        void SaveJSONToFile(T t, QFile *targetFile)
+        {
+            SaveStringToFile(StructToJSON(t), targetFile);
+        }
+
+        void SaveStringToFile(QString text, QFile *targetFile)
+        {
+            targetFile->open(QFile::WriteOnly);
+            QTextStream stream(targetFile);
+            stream << text << endl;
+            stream.flush();
+            targetFile->close();
+        }
+
+        QString Base64Encode(QString string)
         {
             QByteArray ba;
             ba.append(string);
             return ba.toBase64();
         }
 
-        QString base64_decode(QString string)
+        QString Base64Decode(QString string)
         {
             QByteArray ba;
             ba.append(string);
             return QString(QByteArray::fromBase64(ba));
         }
-        void LoadConfig(QString filePath)
+
+        void LoadGlobalConfig()
         {
-            QFile file(filePath);
+            QFile file(QV2RAY_MAIN_CONFIG_FILE_PATH);
             file.open(QFile::ReadOnly);
             QTextStream stream(&file);
             auto str = stream.readAll();
@@ -50,22 +74,22 @@ namespace Qv2ray
             file.close();
         }
 
-        QStringList getAllFilesList(QDir *dir)
+        QStringList GetFileList(QDir *dir)
         {
             return dir->entryList(QStringList() << "*" << "*.*", QDir::Hidden | QDir::Files);
         }
-        bool getFileExistance(QDir *dir, QString fileName)
+        bool CheckFile(QDir *dir, QString fileName)
         {
-            return getAllFilesList(dir).indexOf(fileName) >= 0;
+            return GetFileList(dir).indexOf(fileName) >= 0;
         }
-        void showWarnMessageBox(QWidget *parent, QString title, QString text)
+        void QvMessageBox(QWidget *parent, QString title, QString text)
         {
             QMessageBox::warning(parent, title, text, QMessageBox::Ok | QMessageBox::Default, 0);
         }
-        QTranslator *getTranslator(string lang)
+        QTranslator *getTranslator(QString lang)
         {
             QTranslator *translator = new QTranslator();
-            translator->load(QString::fromStdString(lang + ".qm"), ":/translations");
+            translator->load(lang + ".qm", ":/translations");
             return translator;
         }
     }

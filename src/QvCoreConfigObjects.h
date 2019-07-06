@@ -17,20 +17,16 @@ namespace Qv2ray
 {
     namespace V2ConfigModels
     {
-#if USE_TODO_FEATURES
-        struct nullStruct {
-            string _;
-            XTOSTRUCT(O(_))
-        };
-#endif
         struct VMessProtocolConfigObject {
             string v, ps, add, port, id, aid, net, type, host, path, tls;
             XTOSTRUCT(O(v, ps, add, port, id, aid, net, type, host, path, tls))
         };
-        // Two struct defining TYPE parameter to be passed into inbound configs and outbound configs.
-        struct XOutBoundsType {
-        };
-        struct XInBoundsType {
+
+        /// Used in config generation
+        struct AccountObject {
+            string user;
+            string pass;
+            XTOSTRUCT(O(user, pass))
         };
 
         struct LogObject {
@@ -47,49 +43,8 @@ namespace Qv2ray
             ApiObject() : tag(), services() {}
             XTOSTRUCT(O(tag, services))
         };
-        struct DNSServerObject {
-            string address;
-            int port;
-            list<string> domains;
-            DNSServerObject(): address(), port(), domains() {}
-            XTOSTRUCT(O(address, port, domains))
-        };
-        struct DnsObject {
-            map<string, string> hosts;
-#if USE_TODO_FEATURES
-            nullStruct servers;
-            //tuple<string, string, list<DNSObjects::ServerObject>> servers;
-#else
-            // Currently does not support ServerObject as tuple is.... quite complicated...
-            list<string> servers;
-#endif
-            DnsObject(): hosts(), servers() {}
-            XTOSTRUCT(O(hosts, servers))
-        };
-        namespace ROUTINGObjects
-        {
-            struct RuleObject {
-                string type = "field";
-                list<string> domain;
-                list<string> ip;
-                string port;
-                string network;
-                list<string> source;
-                list<string> user;
-                string inboundTag;
-                string protocol;
-                string attrs;
-                RuleObject() : type(), domain(), ip(), port(), network(), source(), user(), inboundTag(), protocol(), attrs() {}
-                XTOSTRUCT(O(type, domain, ip, port, network, source, user, inboundTag, protocol, attrs))
-            };
-        }
 
-        struct RoutingObject {
-            string domainStrategy;
-            list<ROUTINGObjects::RuleObject> rules;
-            RoutingObject() : domainStrategy(), rules() {}
-            XTOSTRUCT(O(domainStrategy, rules))
-        };
+
         namespace POLICYObjects
         {
             struct SystemPolicyObject {
@@ -117,6 +72,7 @@ namespace Qv2ray
             PolicyObject(): level(), system() {}
             XTOSTRUCT(O(level, system))
         };
+
         namespace TRANSFERObjects
         {
             namespace TRANSFERObjectsInternal
@@ -201,9 +157,8 @@ namespace Qv2ray
                 QuicObject(): security(), key(), header() {}
                 XTOSTRUCT(O(security, key, header))
             };
-
-
         }
+
         struct TransportObject {
             TRANSFERObjects::TCPObject tcpSettings;
             TRANSFERObjects::KCPObject kcpSettings;
@@ -270,38 +225,11 @@ namespace Qv2ray
             XTOSTRUCT(O(network, security, sockopt, tcpSettings, tlsSettings, kcpSettings, wsSettings, httpSettings, dsSettings, quicSettings))
         };
 
-        // THIS WILL BE CONVERTED TO JSON!
-        template<typename XINBOUNDSETTINGOBJECT>
-        struct InboundObject {
-            static_assert(std::is_base_of<XInBoundsType, XINBOUNDSETTINGOBJECT>::value, "XINBOUNDSETTINGOBJECT must extend XInBoundsType");
-            int port;
-            string listen;
-            string protocol;
-            XINBOUNDSETTINGOBJECT settings;
-            StreamSettingsObject streamSettings;
-            string tag;
-            INBOUNDObjects::SniffingObject sniffing;
-            InboundObject(): port(), listen(), protocol(), settings(), streamSettings(), tag(), sniffing() {}
-            XTOSTRUCT(O(port, listen, protocol, settings, streamSettings, tag, sniffing))
-        };
         struct MuxObject {
             bool enabled;
             int concurrency;
             MuxObject(): enabled(), concurrency() {}
             XTOSTRUCT(O(enabled, concurrency))
-        };
-        // THIS WILL BE CONVERTED TO JSON!
-        template <typename XOUTBOUNDSETTINGOBJECT>
-        struct OutboundObject {
-            static_assert(std::is_base_of<XOutBoundsType, XOUTBOUNDSETTINGOBJECT>::value, "XOUTBOUNDSETTINGOBJECT must extend XOutBoundsType");
-            string sendThrough;
-            string protocol;
-            XOUTBOUNDSETTINGOBJECT settings;
-            string tag;
-            StreamSettingsObject streamSettings;
-            MuxObject mux;
-            OutboundObject(): sendThrough(), protocol(), settings(), tag(), streamSettings(), mux() {}
-            XTOSTRUCT(O(sendThrough, protocol, settings, tag, streamSettings, mux))
         };
 
 
@@ -313,122 +241,65 @@ namespace Qv2ray
         };
 
 
-#if USE_TODO_FEATURES
-#else
-        template <typename XInBound_T, typename XOutBound_T>
-#endif
         struct RootObject {
             LogObject log;
             ApiObject api;
-            DnsObject dns;
-            RoutingObject routing;
-#if USE_TODO_FEATURES
-            // THIS WILL BE CONVERTED TO JSON!
-            // Place holder for in/out bounds
-            nullStruct inbounds;
-            nullStruct outbounds;
-#else
-            list<InboundObject<XInBound_T>> inbounds;
-            list<OutboundObject<XOutBound_T>> outbounds;
-            TransportObject transport;
-#endif
             StatsObject stats;
             PolicyObject policy;
-#if USE_TODO_FEATURES
-            RootObject(): log(), api(), dns(), routing(), inbounds(), outbounds(), stats(), policy() {}
-            XTOSTRUCT(O(log, api, dns, routing, inbounds, outbounds, stats, policy))
-#else
-            RootObject(): log(), api(), dns(), routing(), inbounds(), outbounds(), transport(), stats(), policy() {}
-            XTOSTRUCT(O(log, api, dns, routing, inbounds, outbounds, transport, stats, policy))
-#endif
+            RootObject(): log(), api(), stats(), policy() {}
+            XTOSTRUCT(O(log, api, stats, policy))
         };
-    }
-}
-
-namespace Qv2ray
-{
-    namespace V2ConfigModels
-    {
+        //
+        //
+        //
         /// Some protocols from: https://v2ray.com/chapter_02/02_protocols.html
         namespace Protocols
         {
-            /// BlackHole Protocol, OutBound
-            struct BlackHole : XOutBoundsType {
-                struct ResponseObject {
-                    string type;
-                };
-                ResponseObject response;
-            };
+            struct XOutBoundsType {};
+            struct XInBoundsType {};
 
             /// DNS, OutBound
-            struct DNS: XOutBoundsType {
+            struct DNSOut: XOutBoundsType {
                 string network;
                 string address;
                 int port;
+                XTOSTRUCT(O(network, address, port))
             };
 
-            /// Dokodemo-door, InBound
-            struct Dokodemo_door : XInBoundsType {
-                string address;
-                int port;
-                string network;
-                int timeout;
-                bool followRedirect;
-                int userLevel;
-            };
-
-            /// Freedom, OutBound
-            struct Freedom: XOutBoundsType {
-                string domainStrategy;
-                string redirect;
-                int userLevel;
-            };
-
-            struct AccountObject {
-                string user;
-                string pass;
-                XTOSTRUCT(O(user, pass))
-            };
-
-            /// HTTP, InBound
-            struct HTTP: XInBoundsType {
-                int timeout;
-                list<AccountObject> accounts;
-                bool allowTransparent;
-                int userLevel;
-                XTOSTRUCT(O(timeout, accounts, allowTransparent, userLevel))
-            };
 
             /// MTProto, InBound || OutBound
-            struct MTProto: XInBoundsType, XOutBoundsType {
+            struct MTProtoIn: XInBoundsType, XOutBoundsType {
                 struct UserObject {
                     string email;
                     int level;
                     string secret;
+                    XTOSTRUCT(O(email, level, secret))
                 };
                 list<UserObject> users;
+                XTOSTRUCT(O(users))
             };
 
-            // We don't add shadowsocks, (As it's quite complex and I'm quite lazy...)
-
-            /// Socks, InBound, OutBound
-            struct Socks: XInBoundsType, XOutBoundsType {
-                struct UserObject {
-                };
+            /// Socks, OutBound
+            struct SocksOut: XOutBoundsType {
                 struct ServerObject {
+                    struct UserObject {
+                        string user;
+                        string pass;
+                        int level;
+                        XTOSTRUCT(O(user, pass, level))
+                    };
+
                     string address;
                     int port;
                     list<UserObject> users;
+
+                    XTOSTRUCT(O(address, port, users))
                 };
                 list<ServerObject> servers;
-                string auth;
-                list<AccountObject> accounts;
-                bool udp;
-                string ip;
-                int userLevel;
+                XTOSTRUCT(O(servers))
             };
 
-            struct VMess: XInBoundsType, XOutBoundsType {
+            struct VMessOut: XOutBoundsType {
                 struct ServerObject {
                     struct UserObject {
                         string id;
@@ -444,22 +315,15 @@ namespace Qv2ray
                     XTOSTRUCT(O(address, port, users))
                 };
                 list<ServerObject> vnext;
-                // INBound;
-                struct ClientObject {
-                    string id;
-                    int level;
-                    int alterId;
-                    string email;
-                    XTOSTRUCT(O(id, level, alterId, email))
-                };
-                list<ClientObject> clients;
-                // detour and default will not be implemented as it's complicated...
-                bool disableInsecureEncryption;
-                XTOSTRUCT(O(vnext, clients, disableInsecureEncryption))
+                XTOSTRUCT(O(vnext))
             };
+
         }
     }
 }
+
+using namespace Qv2ray::V2ConfigModels;
+using namespace Qv2ray::V2ConfigModels::Protocols;
 
 /// Code above has passed these tests.
 //using namespace  Qv2ray::V2ConfigModels;

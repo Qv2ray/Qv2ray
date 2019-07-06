@@ -8,17 +8,17 @@
 #include <QMenu>
 #include <QStandardItemModel>
 
-#include "QvUtils.hpp"
+#include "QvUtils.h"
 
 #include "w_MainWindow.h"
 
-#include "vinteract.hpp"
+#include "QvCoreInteractions.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
       ui(new Ui::MainWindow),
       hTray(new QSystemTrayIcon(this)),
-      vinstance(new v2Instance(this)),
+      vinstance(new Qv2Instance(this)),
       connectionEditWindow(new ConnectionEditWindow(this)),
       importConfigWindow(new ImportConfigWindow(this)),
       prefrenceWindow(new PrefrencesWindow(this))
@@ -62,6 +62,7 @@ MainWindow::MainWindow(QWidget *parent)
 }
 void MainWindow::reload_config()
 {
+    SaveGlobalConfig();
 }
 MainWindow::~MainWindow()
 {

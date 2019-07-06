@@ -3,7 +3,6 @@
 
 #include <QDialog>
 #include "ui_w_ImportConfig.h"
-#include "QvUtils.hpp"
 
 namespace Ui
 {
@@ -24,14 +23,9 @@ class ImportConfigWindow : public QDialog
         void on_pushButton_clicked();
         void on_buttonBox_accepted();
         void on_verifyVMessBtn_clicked();
-
         void on_verifyFileBtn_clicked();
 
-    signals:
-        void updateConfTable();
-
     private:
-        RootObject SavedConfig;
         Ui::ImportConfigWindow *ui;
 };
 

@@ -7,8 +7,8 @@
 #include <QSystemTrayIcon>
 
 #include "ui_w_MainWindow.h"
-#include "V2ConfigObjects.hpp"
-#include "vinteract.hpp"
+#include "QvCoreConfigObjects.h"
+#include "QvCoreInteractions.h"
 #include "w_ConnectionEditWindow.h"
 #include "w_ImportConfig.h"
 #include "w_PrefrencesWindow.h"
@@ -23,6 +23,7 @@ class MainWindow : public QMainWindow
     public:
         explicit MainWindow(QWidget *parent = nullptr);
         ~MainWindow();
+    public slots:
         void reload_config();
     private slots:
         void on_restartButton_clicked();
@@ -46,7 +47,7 @@ class MainWindow : public QMainWindow
         Ui::MainWindow *ui;
         QSystemTrayIcon *hTray;
         QMenu *trayMenu = new QMenu(this);
-        v2Instance *vinstance;
+        Qv2Instance *vinstance;
         ConnectionEditWindow *connectionEditWindow;
         ImportConfigWindow *importConfigWindow;
         PrefrencesWindow *prefrenceWindow;
