@@ -1,64 +1,79 @@
-#include <QDebug>
 #include <QFileInfo>
 #include <QStandardPaths>
 #include <QTranslator>
-#include <iostream>
 
-#include "HUtils.hpp"
-#include "HConfigObjects.hpp"
+#include "QvUtils.hpp"
+#include "QvConfigObjects.hpp"
 #include "runguard.hpp"
 #include "w_MainWindow.h"
 
-using namespace std;
 using namespace Qv2ray;
 using namespace Qv2ray::Utils;
 using namespace Qv2ray::QvConfigModels;
 
-bool initializeHv()
+bool initializeQv()
 {
     /// Qv2ray Config Path and ends with "/"
     QString configPath = "";
+    QString exeDefaultPath = "";
 #if defined(__WIN32) || defined(__APPLE__)
     // For Windows and MacOS, there's no such 'installation' of a software
     // package, So as what ShadowSocks and v2rayX does, save config files next to
     // the executable.
-    configPath = QV2RAY_CONFIG_DIR_NAME;
+    configPath = "./qv2ray.conf.d";
+    exeDefaultPath = "./v2ray";
 #else
     // However, for linux, this software can be and/or will be provided as a
     // package and install to whatever /usr/bin or /usr/local/bin or even /opt/
     // Thus we save config files in the user's home directory.
-    configPath = QDir::homePath() + QV2RAY_CONFIG_DIR_NAME;
+    configPath = QDir::homePath() + "/.qv2ray/";
+    exeDefaultPath = "/bin/v2ray";
 #endif
     ConfigDir = QDir(configPath);
 
     if (!ConfigDir.exists()) {
-        auto result = QDir().mkdir(configPath);
+        auto result = QDir().mkdir(QV2RAY_CONFIG_PATH);
 
         if (result) {
-            qDebug() << "Created Qv2ray config file path at: " + configPath;
+            LOG("Created Qv2ray config dir at: " + QV2RAY_CONFIG_PATH.toStdString())
         } else {
-            // We cannot continue as it failed to create a dir.
-            qDebug() << "Failed to create config file folder under " + configPath;
+            LOG("Failed to create config dir at: " + QV2RAY_CONFIG_PATH.toStdString())
             return false;
         }
     }
 
-    QFile configFile(configPath + "Qv2ray.conf");
+    if (!QDir(QV2RAY_GENERATED_CONFIG_DIRPATH).exists()) {
+        auto result2 = QDir().mkdir(QV2RAY_GENERATED_CONFIG_DIRPATH);
 
-    if (!Utils::hasFile(&ConfigDir, ".initialised")) {
+        if (result2) {
+            LOG("Created config generation dir at: " + QV2RAY_GENERATED_CONFIG_DIRPATH.toStdString())
+        } else {
+            LOG("Failed to create config generation dir at: " + QV2RAY_GENERATED_CONFIG_DIRPATH.toStdString())
+            return false;
+        }
+    }
+
+    if (!Utils::getFileExistance(&ConfigDir, ".initialised")) {
         // This is first run!
+        //
         // These below genenrated very basic global config.
         QvInbondSetting inHttp = QvInbondSetting(true, "127.0.0.1", 8080);
         QvInbondSetting inSocks = QvInbondSetting(true, "127.0.0.1", 1080);
-        Qv2Config conf = Qv2Config("zh-CN", "info", inHttp, inSocks);
+        Qv2Config conf = Qv2Config("zh-CN", exeDefaultPath.toStdString(), "info", inHttp, inSocks);
+        //
+        // Save initial config.
         SetGlobalConfig(conf);
-        SaveConfig(&configFile);
+        SaveGlobalConfig();
+        //
         // Create Placeholder for initialise indicator.
-        QFile initPlaceHolder(configPath + ".initialised");
+        QFile initPlaceHolder(QV2RAY_FIRSTRUN_IDENTIFIER);
         initPlaceHolder.open(QFile::WriteOnly);
         initPlaceHolder.close();
+        //
+        LOG("Created initial default config file.")
     } else {
-        LoadConfig(&configFile);
+        LoadConfig(QV2RAY_MAIN_CONFIG_FILE_PATH);
+        LOG("Loaded config file.")
     }
 
     return true;
@@ -74,16 +89,14 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    // Set file startup path as Path
-    // WARNING: This may be changed in the future.
-    QDir::setCurrent(QFileInfo(QCoreApplication::applicationFilePath()).path());
     // Qv2ray Initialize
-    initializeHv();
+    initializeQv();
+    //
 
     if (_qApp.installTranslator(getTranslator(GetGlobalConfig().language))) {
-        cout << "Loaded translations " << GetGlobalConfig().language << endl;
+        LOG("Loaded translations " + GetGlobalConfig().language)
     } else if (_qApp.installTranslator(getTranslator("en-US"))) {
-        cout << "Loaded default translations" << endl;
+        LOG("Loaded default translations")
     } else {
         showWarnMessageBox(
             nullptr, "Failed to load translations 无法加载语言文件",

@@ -8,7 +8,7 @@
 #include <QJsonValue>
 #include <QProcess>
 
-#include "HUtils.hpp"
+#include "QvUtils.hpp"
 #include "vinteract.hpp"
 #include "w_PrefrencesWindow.h"
 
@@ -53,31 +53,29 @@ PrefrencesWindow::~PrefrencesWindow()
 
 void PrefrencesWindow::on_buttonBox_accepted()
 {
-    if (Qv2ray::v2Instance::checkVCoreExes()) {
-        if (ui->httpPortLE->text().toInt() != ui->socksPortLE->text().toInt()) {
+    if (ui->httpPortLE->text().toInt() != ui->socksPortLE->text().toInt()) {
 #ifndef _WIN32
-            // Set UID and GID in *nix
-            // The file is actually not here
-            QFileInfo v2rayCoreExeFile("v2ray");
+        // Set UID and GID in *nix
+        // The file is actually not here
+        QFileInfo v2rayCoreExeFile("v2ray");
 
-            if (ui->runAsRootCheckBox->isChecked() && v2rayCoreExeFile.ownerId() != 0) {
-                QProcess::execute("pkexec", QStringList() << "bash"
-                                  << "-c"
-                                  << "chown root:root " + QCoreApplication::applicationDirPath() + "/v2ray" + ";chmod +s " + QCoreApplication::applicationDirPath() + "/v2ray");
-            } else if (!ui->runAsRootCheckBox->isChecked() && v2rayCoreExeFile.ownerId() == 0) {
-                uid_t uid = getuid();
-                gid_t gid = getgid();
-                QProcess::execute("pkexec", QStringList() << "chown" << QString::number(uid) + ":" + QString::number(gid) << QCoreApplication::applicationDirPath() + "/v2ray");
-            }
-
-            v2rayCoreExeFile.refresh();
-            //rootObj.insert("v2suidEnabled", v2rayCoreExeFile.ownerId() == 0);
-#else
-            // No such uid gid thing on windows....
-#endif
-        } else {
-            showWarnMessageBox(this, tr("Prefrences"), tr("PortNumbersCannotBeSame"));
+        if (ui->runAsRootCheckBox->isChecked() && v2rayCoreExeFile.ownerId() != 0) {
+            QProcess::execute("pkexec", QStringList() << "bash"
+                              << "-c"
+                              << "chown root:root " + QCoreApplication::applicationDirPath() + "/v2ray" + ";chmod +s " + QCoreApplication::applicationDirPath() + "/v2ray");
+        } else if (!ui->runAsRootCheckBox->isChecked() && v2rayCoreExeFile.ownerId() == 0) {
+            uid_t uid = getuid();
+            gid_t gid = getgid();
+            QProcess::execute("pkexec", QStringList() << "chown" << QString::number(uid) + ":" + QString::number(gid) << QCoreApplication::applicationDirPath() + "/v2ray");
         }
+
+        v2rayCoreExeFile.refresh();
+        //rootObj.insert("v2suidEnabled", v2rayCoreExeFile.ownerId() == 0);
+#else
+        // No such uid gid thing on windows....
+#endif
+    } else {
+        showWarnMessageBox(this, tr("Prefrences"), tr("PortNumbersCannotBeSame"));
     }
 }
 

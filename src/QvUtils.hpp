@@ -12,7 +12,7 @@
 
 #include <iostream>
 
-#include "HConfigObjects.hpp"
+#include "QvConfigObjects.hpp"
 
 namespace Qv2ray
 {
@@ -20,13 +20,13 @@ namespace Qv2ray
     {
         void showWarnMessageBox(QWidget *parent, QString title, QString text);
         QTranslator *getTranslator(string lang);
-        void SetGlobalConfig(QvConfigModels::Qv2Config conf);
-        QvConfigModels::Qv2Config GetGlobalConfig();
-        void SaveConfig(QFile *configFile);
-        void LoadConfig(QFile *configFile);
+        void SetGlobalConfig(Qv2Config conf);
+        Qv2Config GetGlobalConfig();
+        void SaveGlobalConfig();
+        void LoadConfig(QString filePath);
         /// Get file list in a Dir
         QStringList getAllFilesList(QDir *dir);
-        bool hasFile(QDir *dir, QString fileName);
+        bool getFileExistance(QDir *dir, QString fileName);
         QString base64_encode(QString string);
         QString base64_decode(QString string);
         template <typename TYPE>
@@ -47,4 +47,6 @@ namespace Qv2ray
         }
     }
 }
+
+using namespace Qv2ray::Utils;
 #endif // UTILS_H
