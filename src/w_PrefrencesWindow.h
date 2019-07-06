@@ -3,7 +3,7 @@
 
 #include <QDialog>
 #include <ui_w_PrefrencesWindow.h>
-#include "HConfigObjects.hpp"
+#include "QvConfigObjects.hpp"
 
 namespace Ui
 {
@@ -18,7 +18,8 @@ class PrefrencesWindow : public QDialog
         explicit PrefrencesWindow(QWidget *parent = nullptr);
         ~PrefrencesWindow();
         QWidget *parentMW;
-
+    signals:
+        void s_reload_config();
     private slots:
         void on_buttonBox_accepted();
         void on_httpCB_stateChanged(int arg1);

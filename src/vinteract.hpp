@@ -2,6 +2,7 @@
 #define VINTERACT_H
 #include <QProcess>
 #include <QString>
+#include "QvConfigObjects.hpp"
 
 namespace Qv2ray
 {
@@ -14,19 +15,20 @@ namespace Qv2ray
     class v2Instance
     {
         public:
-            explicit v2Instance(QWidget *parent);
+            explicit v2Instance(QWidget *parent = nullptr);
 
             bool start();
             void stop();
-            void restart();
 
-            static bool checkVCoreExes();
+            QString readOutput();
+            V2RAY_INSTANCE_STARTUP_STATUS Status;
             static bool checkConfigFile(QString path);
-            ~v2Instance();
-            QProcess *vProcess;
+            static bool checkCoreExe();
 
+            ~v2Instance();
         private:
-            V2RAY_INSTANCE_STARTUP_STATUS processStatus;
+            QvConfigModels::Qv2Config _config;
+            QProcess *vProcess;
     };
 }
 

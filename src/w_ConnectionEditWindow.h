@@ -16,7 +16,8 @@ class ConnectionEditWindow : public QDialog
     public:
         explicit ConnectionEditWindow(QWidget *parent = nullptr);
         ~ConnectionEditWindow();
-
+    signals:
+        void s_reload_config();
     private slots:
         void on_buttonBox_accepted();
 

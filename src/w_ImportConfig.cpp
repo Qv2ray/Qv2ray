@@ -5,15 +5,13 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 
-#include "HUtils.hpp"
 #include "vinteract.hpp"
 #include "w_ConnectionEditWindow.h"
 #include "w_ImportConfig.h"
 
 
-using namespace Qv2ray;
 
-ImportConfig::ImportConfig(QWidget *parent)
+ImportConfigWindow::ImportConfigWindow(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::ImportConfigWindow)
 {
@@ -21,89 +19,57 @@ ImportConfig::ImportConfig(QWidget *parent)
     connect(this, SIGNAL(updateConfTable()), parentWidget(), SLOT(updateConfTable()));
 }
 
-ImportConfig::~ImportConfig()
+ImportConfigWindow::~ImportConfigWindow()
 {
     delete ui;
 }
 
-void ImportConfig::on_pushButton_clicked()
+void ImportConfigWindow::on_pushButton_clicked()
 {
     QString dir = QFileDialog::getOpenFileName(this, tr("OpenConfigFile"), "~/");
     ui->fileLineTxt->setText(dir);
 }
 
-void ImportConfig::savefromFile(QString path, QString alias)
+void ImportConfigWindow::savefromFile(QString path, QString alias)
 {
     Q_UNUSED(path)
     Q_UNUSED(alias)
-    //Hv2Config newConfig;
-    //newConfig.alias = alias;
-    //QFile configFile(path);
-    //if(!configFile.open(QIODevice::ReadOnly)) {
-    //    showWarnMessageBox(this, tr("ImportConfig"), tr("CannotOpenFile"));
-    //    qDebug() << "ImportConfig::CannotOpenFile";
-    //    return;
-    //}
-    //QByteArray allData = configFile.readAll();
-    //configFile.close();
-    //QJsonDocument v2conf(QJsonDocument::fromJson(allData));
-    //QJsonObject rootobj = v2conf.object();
-    //QJsonObject outbound;
-    //if(rootobj.contains("outbounds")) {
-    //    outbound = rootobj.value("outbounds").toArray().first().toObject();
-    //} else {
-    //    outbound = rootobj.value("outbound").toObject();
-    //}
-    //QJsonObject vnext = switchJsonArrayObject(outbound.value("settings").toObject(), "vnext");
-    //QJsonObject user = switchJsonArrayObject(vnext, "users");
-    //newConfig.host = vnext.value("address").toString();
-    //newConfig.port = QString::number(vnext.value("port").toInt());
-    //newConfig.alterid = QString::number(user.value("alterId").toInt());
-    //newConfig.uuid = user.value("id").toString();
-    //newConfig.security = user.value("security").toString();
-    //if (newConfig.security.isNull()) {
-    //    newConfig.security = "auto";
-    //}
-    //newConfig.isCustom = 1;
-    //int id = newConfig.save();
-    //if(id < 0)
-    //{
-    //    showWarnMessageBox(this, tr("ImportConfig"), tr("SaveFailed"));
-    //    qDebug() << "ImportConfig::SaveFailed";
-    //    return;
-    //}
-    //emit updateConfTable();
-    //QString newFile = "conf/" + QString::number(id) + ".conf";
-    //if(!QFile::copy(path, newFile)) {
-    //    showWarnMessageBox(this, tr("ImportConfig"), tr("CannotCopyCustomConfig"));
-    //    qDebug() << "ImportConfig::CannotCopyCustomConfig";
-    //}
+    QFile configFile(path);
+
+    if (!configFile.open(QIODevice::ReadOnly)) {
+        showWarnMessageBox(this, tr("ImportConfig"), tr("CannotOpenFile"));
+        qDebug() << "ImportConfig::CannotOpenFile";
+        return;
+    }
+
+    QByteArray allData = configFile.readAll();
+    configFile.close();
+    QJsonDocument v2conf(QJsonDocument::fromJson(allData));
+    QJsonObject rootobj = v2conf.object();
+    QJsonObject outbound;
+
+    if (rootobj.contains("outbounds")) {
+        outbound = rootobj.value("outbounds").toArray().first().toObject();
+    } else {
+        outbound = rootobj.value("outbound").toObject();
+    }
+
+    if (!QFile::copy(path, "newFile")) {
+        showWarnMessageBox(this, tr("ImportConfig"), tr("CannotCopyCustomConfig"));
+        qDebug() << "ImportConfig::CannotCopyCustomConfig";
+    }
 }
 
-void ImportConfig::on_buttonBox_accepted()
+void ImportConfigWindow::on_buttonBox_accepted()
 {
     QString alias = ui->nameTxt->text();
 
     if (ui->importSourceCombo->currentIndex() == 0) { // From File...
         QString path = ui->fileLineTxt->text();
-        bool isValid = v2Instance::checkConfigFile(path);
-
-        if (!isValid) {
-            // Invalid file alert.
-            return;
-        }
-
+        on_verifyFileBtn_clicked();
         savefromFile(path, alias);
     } else {
-        QString vmess = ui->vmessConnectionStringTxt->toPlainText();
-
-        if (!vmess.toLower().startsWith("vmess://")) {
-            Utils::showWarnMessageBox(this, tr("#VMessDecodeError"), tr("#NotValidVMessProtocolString"));
-        }
-
-        QStringRef vmessJsonB64(&vmess, 8, vmess.length() - 8);
-        auto vmessString = Utils::base64_decode(vmessJsonB64.toString());
-        auto vmessConf = Utils::StructFromJSON<V2ConfigModels::VMessProtocolConfigObject>(vmessString.toStdString());
+        on_verifyVMessBtn_clicked();
         // TODO: SAVE CONFIG!!!!
         //
         //if (QFile::exists(ConfigDir.path() + "/config.json.tmp")) {
@@ -124,5 +90,34 @@ void ImportConfig::on_buttonBox_accepted()
         // TODO: Use Current Settings...
     } else {
         // TODO: Override Inbound....
+    }
+}
+
+void ImportConfigWindow::on_verifyVMessBtn_clicked()
+{
+    QString vmess = ui->vmessConnectionStringTxt->toPlainText();
+
+    if (!vmess.toLower().startsWith("vmess://")) {
+        showWarnMessageBox(this, tr("#VMessDecodeError"), tr("#NotValidVMessProtocolString"));
+        return;
+    }
+
+    try {
+        QStringRef vmessJsonB64(&vmess, 8, vmess.length() - 8);
+        auto vmessString = Utils::base64_decode(vmessJsonB64.toString());
+        auto vmessConf = Utils::StructFromJSON<VMessProtocolConfigObject>(vmessString.toStdString());
+        showWarnMessageBox(this, tr("#VMessCheckPassed"), tr("#AbleToImportConfig"));
+    } catch (exception *e) {
+        showWarnMessageBox(this, tr("#VMessDecodeError"), e->what());
+        return;
+    }
+}
+
+void ImportConfigWindow::on_verifyFileBtn_clicked()
+{
+    if (!v2Instance::checkConfigFile(ui->fileLineTxt->text())) {
+        showWarnMessageBox(this, tr("#InvalidConfigFile"), tr("ConfigFileCheckFailed"));
+    } else {
+        showWarnMessageBox(this, tr("#VConfigFileCheckPassed"), tr("#AbleToImportConfig"));
     }
 }

@@ -2,20 +2,16 @@
 #include <QDir>
 #include <QProcess>
 
-#include "HUtils.hpp"
 #include "vinteract.hpp"
-#include "w_MainWindow.h"
+#include "QvUtils.hpp"
 
 namespace Qv2ray
 {
     bool v2Instance::checkConfigFile(const QString path)
     {
-        if (checkVCoreExes()) {
-            QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
-            env.insert("V2RAY_LOCATION_ASSET", QDir::currentPath());
+        if (checkCoreExe()) {
             QProcess process;
-            process.setProcessEnvironment(env);
-            process.start("v2ray", QStringList() << "-test"
+            process.start(QString::fromStdString(Utils::GetGlobalConfig().v2Path), QStringList() << "-test"
                           << "-config" << path,
                           QIODevice::ReadWrite | QIODevice::Text);
 
@@ -35,53 +31,62 @@ namespace Qv2ray
             return false;
     }
 
-    v2Instance::v2Instance(QWidget *parent)
+    v2Instance::v2Instance(QWidget *parent): _config(Utils::GetGlobalConfig())
     {
         QProcess *proc = new QProcess();
-        this->vProcess = proc;
-        QObject::connect(vProcess, SIGNAL(readyReadStandardOutput()), parent, SLOT(updateLog()));
-        processStatus = STOPPED;
+        vProcess = proc;
+        QObject::connect(vProcess, SIGNAL(readyReadStandardOutput()), parent, SLOT(parent->updateLog()));
+        Status = STOPPED;
     }
 
-    bool v2Instance::checkVCoreExes()
+    bool v2Instance::checkCoreExe()
     {
-        if (QFileInfo("v2ray").exists() && QFileInfo("geoip.dat").exists() && QFileInfo("geosite.dat").exists() && QFileInfo("v2ctl").exists()) {
-            return true;
-        } else {
-            Utils::showWarnMessageBox(nullptr, QObject::tr("CoreNotFound"), QObject::tr("CoreFileNotFoundExplaination"));
+        auto path = QString::fromStdString(Utils::GetGlobalConfig().v2Path);
+
+        if (!QFile::exists(path)) {
+            Utils::showWarnMessageBox(nullptr, QObject::tr("CoreNotFound"), QObject::tr("CoreFileNotFoundExplainationAt:") + path);
             return false;
-        }
+        } else return true;
     }
 
     bool v2Instance::start()
     {
-        if (this->vProcess->state() == QProcess::Running) {
-            this->stop();
+        if (Status != STOPPED) {
+            return false;
         }
 
-        if (checkVCoreExes()) {
-            QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
-            env.insert("V2RAY_LOCATION_ASSET", QDir::currentPath());
-            this->vProcess->setProcessEnvironment(env);
-            this->vProcess->start("./v2ray", QStringList() << "-config"
-                                  << "config.json",
-                                  QIODevice::ReadWrite | QIODevice::Text);
-            this->vProcess->waitForStarted();
-            processStatus = STARTED;
+        Status = STARTING;
+
+        if (checkCoreExe()) {
+            if (checkConfigFile(QV2RAY_GENERATED_CONFIG_DIRPATH + "config.json")) {
+            }
+
+            vProcess->start(QString::fromStdString(_config.v2Path), QStringList() << "-config"
+                            << QV2RAY_GENERATED_CONFIG_DIRPATH + "config.json",
+                            QIODevice::ReadWrite | QIODevice::Text);
+            vProcess->waitForStarted();
+            Status = STARTED;
             return true;
-        } else
+        } else {
+            Status = STOPPED;
             return false;
+        }
     }
 
     void v2Instance::stop()
     {
-        this->vProcess->close();
-        processStatus = STOPPED;
+        vProcess->close();
+        Status = STOPPED;
+    }
+
+    QString v2Instance::readOutput()
+    {
+        return vProcess->readAll();
     }
 
     v2Instance::~v2Instance()
     {
-        this->stop();
+        stop();
+        delete vProcess;
     }
-
 }

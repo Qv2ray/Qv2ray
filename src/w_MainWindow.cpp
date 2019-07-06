@@ -8,80 +8,67 @@
 #include <QMenu>
 #include <QStandardItemModel>
 
-#include "HUtils.hpp"
-#include "vinteract.hpp"
-#include "w_ConnectionEditWindow.h"
-#include "w_ImportConfig.h"
-#include "w_MainWindow.h"
-#include "w_PrefrencesWindow.h"
+#include "QvUtils.hpp"
 
-void MainWindow::CreateTrayIcon()
+#include "w_MainWindow.h"
+
+#include "vinteract.hpp"
+
+MainWindow::MainWindow(QWidget *parent)
+    : QMainWindow(parent),
+      ui(new Ui::MainWindow),
+      hTray(new QSystemTrayIcon(this)),
+      vinstance(new v2Instance(this)),
+      connectionEditWindow(new ConnectionEditWindow(this)),
+      importConfigWindow(new ImportConfigWindow(this)),
+      prefrenceWindow(new PrefrencesWindow(this))
 {
-    hTray = new QSystemTrayIcon();
-    hTray->setToolTip(tr("Qv2ray"));
+    ui->setupUi(this);
+    this->setWindowIcon(QIcon(":/icons/Qv2ray.ico"));
     hTray->setIcon(this->windowIcon());
-    connect(hTray, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(on_activatedTray(QSystemTrayIcon::ActivationReason)));
-    QAction *actionShow = new QAction(this);
-    QAction *actionQuit = new QAction(this);
-    QAction *actionStart = new QAction(this);
-    QAction *actionRestart = new QAction(this);
-    QAction *actionStop = new QAction(this);
-    actionShow->setText(tr("#Hide"));
-    actionQuit->setText(tr("#Quit"));
-    actionStart->setText(tr("#Start"));
-    actionStop->setText(tr("#Stop"));
-    actionRestart->setText(tr("#Restart"));
+    bar = ui->logText->verticalScrollBar();
+    //
+    importConfigWindow->setModal(true);
+    connectionEditWindow->setModal(true);
+    prefrenceWindow->setModal(true);
+    //
+    QAction *actionShowHide = new QAction(this->windowIcon(), tr("#Hide"), this);
+    QAction *actionQuit = new QAction(tr("#Quit"), this);
+    QAction *actionStart = new QAction(tr("#Start"), this);
+    QAction *actionRestart = new QAction(tr("#Stop"), this);
+    QAction *actionStop = new QAction(tr("#Restart"), this);
     actionStart->setEnabled(true);
     actionStop->setEnabled(false);
     actionRestart->setEnabled(false);
-    trayMenu->addAction(actionShow);
+    trayMenu->addAction(actionShowHide);
     trayMenu->addSeparator();
     trayMenu->addAction(actionStart);
     trayMenu->addAction(actionStop);
     trayMenu->addAction(actionRestart);
     trayMenu->addSeparator();
     trayMenu->addAction(actionQuit);
-    connect(actionShow, SIGNAL(triggered()), this, SLOT(toggleMainWindowVisibility()));
-    connect(actionStart, SIGNAL(triggered()), this, SLOT(on_startButton_clicked()));
-    connect(actionStop, SIGNAL(triggered()), this, SLOT(on_stopButton_clicked()));
-    connect(actionRestart, SIGNAL(triggered()), this, SLOT(on_restartButton_clicked()));
-    connect(actionQuit, SIGNAL(triggered()), this, SLOT(quit()));
+    connect(actionShowHide, &QAction::triggered, this, &MainWindow::toggleMainWindowVisibility);
+    connect(actionStart, &QAction::triggered, this, &MainWindow::on_startButton_clicked);
+    connect(actionStop, &QAction::triggered, this, &MainWindow::on_stopButton_clicked);
+    connect(actionRestart, &QAction::triggered, this, &MainWindow::on_restartButton_clicked);
+    connect(actionQuit, &QAction::triggered, this, &MainWindow::quit);
+    connect(connectionEditWindow, &ConnectionEditWindow::s_reload_config, this, &MainWindow::reload_config);
+    connect(importConfigWindow, &ImportConfigWindow::s_reload_config, this, &MainWindow::reload_config);
+    connect(prefrenceWindow, &PrefrencesWindow::s_reload_config, this, &MainWindow::reload_config);
+    connect(hTray, &QSystemTrayIcon::activated, this, &MainWindow::on_activatedTray);
+    connect(ui->logText, &QTextBrowser::textChanged, this, &MainWindow::scrollToBottom);
     hTray->setContextMenu(trayMenu);
     hTray->show();
 }
-
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+void MainWindow::reload_config()
 {
-    this->setWindowIcon(QIcon(":/icons/Qv2ray.ico"));
-    ui->setupUi(this);
-    UpdateConfigTable();
-    //    ui->configTable->setContextMenuPolicy(Qt::CustomContextMenu);
-    //    connect(ui->configTable, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(showMenu(QPoint)));
-    this->vinstance = new Qv2ray::v2Instance(this);
-    CreateTrayIcon();
-
-    if (QFileInfo("config.json").exists()) {
-        vinstance->start();
-    }
-
-    //    QAction *select = new QAction("Select", ui->configTable);
-    //    QAction *del = new QAction("Delete", ui->configTable);
-    //    QAction *rename = new QAction("Rename", ui->configTable);
-    //    popMenu->addAction(select);
-    //    popMenu->addAction(del);
-    //    popMenu->addAction(rename);
-    //    connect(select, SIGNAL(triggered()), this, SLOT(select_triggered()));
-    //    connect(del, SIGNAL(triggered()), this, SLOT(delConf()));
-    //    connect(rename, SIGNAL(triggered()), this, SLOT(renameRow()));
-    //    connect(ui->logText, SIGNAL(textChanged()), this, SLOT(scrollToBottom()));
-    //    bar = ui->logText->verticalScrollBar();
 }
-
 MainWindow::~MainWindow()
 {
     hTray->hide();
+    delete this->connectionEditWindow;
+    delete this->importConfigWindow;
+    delete this->prefrenceWindow;
     delete this->hTray;
     delete this->vinstance;
     delete ui;
@@ -89,16 +76,12 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_actionEdit_triggered()
 {
-    ConnectionEditWindow *e = new ConnectionEditWindow(this);
-    e->setAttribute(Qt::WA_DeleteOnClose);
-    e->show();
+    connectionEditWindow->show();
 }
 
 void MainWindow::on_actionExisting_config_triggered()
 {
-    ImportConfig *f = new ImportConfig(this);
-    f->setAttribute(Qt::WA_DeleteOnClose);
-    f->show();
+    importConfigWindow->show();
 }
 
 void MainWindow::showMenu(QPoint pos)
@@ -109,41 +92,9 @@ void MainWindow::showMenu(QPoint pos)
     //        popMenu->show();
     //    }
 }
-void MainWindow::select_triggered()
-{
-    //    int row = ui->configTable->selectionModel()->currentIndex().row();
-    //    int idIntable = ui->configTable->model()->data(ui->configTable->model()->index(row, 4)).toInt();
-    //    this->geneConf(idIntable);
-    //    if(this->v2Inst->v2Process->state() == QProcess::Running) {
-    //        this->on_restartButton_clicked();
-    //    }
-}
-
-void MainWindow::DeleteConfig()
-{
-}
-void MainWindow::UpdateConfigTable()
-{
-}
-void MainWindow::GenerateConfig(int idIntable)
-{
-    Q_UNUSED(idIntable)
-    //Hv2Config tmpConf;
-    //emit UpdateConfigTable();
-    //if (tmpConf.isCustom == 1) {
-    //    QString src = "conf/" + QString::number(idIntable) + ".conf";
-    //    overrideInbounds(src);
-    //    if (QFile::exists("config.json")) {
-    //        QFile::remove("config.json");
-    //    }
-    //    QFile::copy(src, "config.json");
-    //} else {
-    //    // TODO: Config generator
-    //}
-}
 void MainWindow::UpdateLog()
 {
-    ui->logText->insertPlainText(this->vinstance->vProcess->readAllStandardOutput());
+    ui->logText->insertPlainText(vinstance->readOutput());
 }
 
 void MainWindow::on_startButton_clicked()
@@ -175,11 +126,6 @@ void MainWindow::on_clbutton_clicked()
     ui->logText->clear();
 }
 
-void MainWindow::on_rtButton_clicked()
-{
-    emit UpdateConfigTable();
-}
-
 void MainWindow::closeEvent(QCloseEvent *event)
 {
     this->hide();
@@ -209,18 +155,17 @@ void MainWindow::on_activatedTray(QSystemTrayIcon::ActivationReason reason)
 
             // TODO: Check if an alert message box is present.
             // If so, do nothing but please wait for the message box to be closed.
-            if (this->vinstance->vProcess->state() == QProcess::ProcessState::Running) {
-                on_stopButton_clicked();
-            } else {
+            if (this->vinstance->Status == Qv2ray::STOPPED) {
                 on_startButton_clicked();
+                LOG("Start!")
+            } else {
+                on_stopButton_clicked();
+                LOG("Stop!")
             }
 
             break;
 
-        case QSystemTrayIcon::Unknown:
-            break;
-
-        case QSystemTrayIcon::Context:
+        default:
             break;
     }
 }
@@ -238,23 +183,12 @@ void MainWindow::toggleMainWindowVisibility()
 
 void MainWindow::quit()
 {
-    QCoreApplication::quit();
+    QApplication::quit();
 }
 
 void MainWindow::on_actionExit_triggered()
 {
     quit();
-}
-
-void MainWindow::renameRow()
-{
-    //    QString text = QInputDialog::getText(this, "Rename config", "New name:", QLineEdit::Normal);
-    //    int row = ui->configTable->currentIndex().row();
-    //    int idIntable = ui->configTable->model()->data(ui->configTable->model()->index(row, 4)).toInt();
-    //    SQLiteDB mydb;
-    //    QString updateString = "update confs set alias = '" + text + "' where id = " + QString::number(idIntable);
-    //    mydb.DoQuery(updateString);
-    //    emit updateConfTable();
 }
 
 void MainWindow::scrollToBottom()
@@ -264,13 +198,10 @@ void MainWindow::scrollToBottom()
 
 void MainWindow::on_actionPreferences_triggered()
 {
-    PrefrencesWindow *v = new PrefrencesWindow(this);
-    v->setAttribute(Qt::WA_DeleteOnClose);
-    v->show();
+    prefrenceWindow->show();
 }
 
 void MainWindow::on_pushButton_clicked()
 {
-    auto confedit = new ConnectionEditWindow();
-    confedit->show();
+    connectionEditWindow->show();
 }

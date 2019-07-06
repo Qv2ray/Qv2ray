@@ -23,7 +23,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
-        src/HUtils.cpp \
+        src/QvUtils.cpp \
         src/w_MainWindow.cpp \
         src/w_ConnectionEditWindow.cpp \
         src/w_ImportConfig.cpp \
@@ -33,8 +33,9 @@ SOURCES += \
         src/runguard.cpp
 
 HEADERS += \
-        src/HConfigObjects.hpp \
-        src/HUtils.hpp \
+        ignored_cpp_structs.hpp \
+        src/QvConfigObjects.hpp \
+        src/QvUtils.hpp \
         src/V2ConfigObjects.hpp \
         src/runguard.hpp \
         src/vinteract.hpp \
@@ -68,3 +69,5 @@ INCLUDEPATH += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES +=

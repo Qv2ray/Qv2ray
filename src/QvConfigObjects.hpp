@@ -4,11 +4,16 @@
 #include <map>
 
 #include "V2ConfigObjects.hpp"
-#include "vinteract.hpp"
 
 // Macros
-#define QV2RAY_CONFIG_DIR_NAME "/.qv2ray/"
-using namespace std;
+#define QV2RAY 1
+#define QV2RAY_CONFIG_PATH (ConfigDir.path() + "/")
+#define QV2RAY_MAIN_CONFIG_FILE_PATH (QV2RAY_CONFIG_PATH + "Qv2ray.conf")
+#define QV2RAY_GENERATED_CONFIG_DIRPATH (QV2RAY_CONFIG_PATH + "genrerated/")
+#define QV2RAY_FIRSTRUN_IDENTIFIER (QV2RAY_CONFIG_PATH + ".initialised")
+
+#define LOG(arg) cout << arg << endl;
+
 namespace Qv2ray
 {
     namespace QvConfigModels
@@ -42,19 +47,21 @@ namespace Qv2ray
             string language;
             bool runAsRoot;
             string logLevel;
+            string v2Path;
             QvInbondSetting httpSetting;
             QvInbondSetting socksSetting;
             list<QvConfigList> configs;
             Qv2Config(): language(), runAsRoot(), logLevel(), httpSetting(), socksSetting(), configs() { }
-            Qv2Config(string lang, string log, QvInbondSetting httpIn, QvInbondSetting socksIN): Qv2Config()
+            Qv2Config(string lang, string exePath, string log, QvInbondSetting httpIn, QvInbondSetting socksIN): Qv2Config()
             {
+                v2Path = exePath;
                 language = lang;
                 logLevel = log;
                 httpSetting = httpIn;
                 socksSetting = socksIN;
                 runAsRoot = false;
             }
-            XTOSTRUCT(O(language, runAsRoot, logLevel, httpSetting, socksSetting, configs))
+            XTOSTRUCT(O(language, v2Path, runAsRoot, logLevel, httpSetting, socksSetting, configs))
         };
     }
 
@@ -62,4 +69,12 @@ namespace Qv2ray
     /// place at first in main.cpp
     static QDir ConfigDir;
 }
+
+// I want to use all namespaces
+
+using namespace std;
+using namespace Qv2ray;
+using namespace Qv2ray::V2ConfigModels;
+using namespace Qv2ray::QvConfigModels;
+
 #endif // HCONFIGOBJECTS_HPP

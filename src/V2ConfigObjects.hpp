@@ -2,7 +2,7 @@
 #include <string>
 
 // TODO Features
-#define USE_TODO_FEATURES false
+#define USE_TODO_FEATURES true
 
 #include <x2struct/x2struct.hpp>
 using namespace x2struct;
@@ -17,18 +17,14 @@ namespace Qv2ray
 {
     namespace V2ConfigModels
     {
+#if USE_TODO_FEATURES
+        struct nullStruct {
+            string _;
+            XTOSTRUCT(O(_))
+        };
+#endif
         struct VMessProtocolConfigObject {
-            string v;
-            string ps;
-            string add;
-            string port;
-            string id;
-            string aid;
-            string net;
-            string type;
-            string host;
-            string path;
-            string tls;
+            string v, ps, add, port, id, aid, net, type, host, path, tls;
             XTOSTRUCT(O(v, ps, add, port, id, aid, net, type, host, path, tls))
         };
         // Two struct defining TYPE parameter to be passed into inbound configs and outbound configs.
@@ -51,20 +47,18 @@ namespace Qv2ray
             ApiObject() : tag(), services() {}
             XTOSTRUCT(O(tag, services))
         };
-        namespace DNSObjects
-        {
-            struct ServerObject {
-                string address;
-                int port;
-                list<string> domains;
-                ServerObject(): address(), port(), domains() {}
-                XTOSTRUCT(O(address, port, domains))
-            };
-        }
+        struct DNSServerObject {
+            string address;
+            int port;
+            list<string> domains;
+            DNSServerObject(): address(), port(), domains() {}
+            XTOSTRUCT(O(address, port, domains))
+        };
         struct DnsObject {
             map<string, string> hosts;
 #if USE_TODO_FEATURES
-            tuple<string, string, list<DNSObjects::ServerObject>> servers;
+            nullStruct servers;
+            //tuple<string, string, list<DNSObjects::ServerObject>> servers;
 #else
             // Currently does not support ServerObject as tuple is.... quite complicated...
             list<string> servers;
@@ -88,20 +82,13 @@ namespace Qv2ray
                 RuleObject() : type(), domain(), ip(), port(), network(), source(), user(), inboundTag(), protocol(), attrs() {}
                 XTOSTRUCT(O(type, domain, ip, port, network, source, user, inboundTag, protocol, attrs))
             };
-            struct BalancerObject {
-                string tag ;
-                list<string> selector;
-                BalancerObject() : tag(), selector() {}
-                XTOSTRUCT(O(tag, selector))
-            };
         }
 
         struct RoutingObject {
             string domainStrategy;
             list<ROUTINGObjects::RuleObject> rules;
-            list<ROUTINGObjects::BalancerObject> balancers;
-            RoutingObject() : domainStrategy(), rules(), balancers() {}
-            XTOSTRUCT(O(domainStrategy, rules, balancers))
+            RoutingObject() : domainStrategy(), rules() {}
+            XTOSTRUCT(O(domainStrategy, rules))
         };
         namespace POLICYObjects
         {
@@ -125,7 +112,7 @@ namespace Qv2ray
             };
         }
         struct PolicyObject {
-            map<int, POLICYObjects::LevelPolicyObject> level;
+            map<string, POLICYObjects::LevelPolicyObject> level;
             list<POLICYObjects::SystemPolicyObject> system;
             PolicyObject(): level(), system() {}
             XTOSTRUCT(O(level, system))
@@ -134,7 +121,6 @@ namespace Qv2ray
         {
             namespace TRANSFERObjectsInternal
             {
-
                 struct HTTPRequestObject {
                     string version;
                     string method;
@@ -162,9 +148,7 @@ namespace Qv2ray
                 struct HeaderObject {
                     string type;
                     HeaderObject(): type() {}
-#if USE_TODO_FEATURES == false
                     XTOSTRUCT(O(type))
-#endif
                 };
             }
 
@@ -232,7 +216,6 @@ namespace Qv2ray
         };
         namespace INBOUNDObjects
         {
-
             struct SniffingObject {
                 bool enabled;
                 string destOverride;
@@ -240,13 +223,6 @@ namespace Qv2ray
                 XTOSTRUCT(O(enabled, destOverride))
             };
 
-            struct AllocateObject {
-                string strategy;
-                int refresh;
-                int concurrency;
-                AllocateObject(): strategy(), refresh(), concurrency() {}
-                XTOSTRUCT(O(strategy, refresh, concurrency))
-            };
         }
         namespace STREAMSETTINGSObjects
         {
@@ -294,6 +270,7 @@ namespace Qv2ray
             XTOSTRUCT(O(network, security, sockopt, tcpSettings, tlsSettings, kcpSettings, wsSettings, httpSettings, dsSettings, quicSettings))
         };
 
+        // THIS WILL BE CONVERTED TO JSON!
         template<typename XINBOUNDSETTINGOBJECT>
         struct InboundObject {
             static_assert(std::is_base_of<XInBoundsType, XINBOUNDSETTINGOBJECT>::value, "XINBOUNDSETTINGOBJECT must extend XInBoundsType");
@@ -304,26 +281,16 @@ namespace Qv2ray
             StreamSettingsObject streamSettings;
             string tag;
             INBOUNDObjects::SniffingObject sniffing;
-            INBOUNDObjects::AllocateObject allocate;
-            InboundObject(): port(), listen(), protocol(), settings(), streamSettings(), tag(), sniffing(), allocate() {}
-            XTOSTRUCT(O(port, listen, protocol, settings, streamSettings, tag, sniffing, allocate))
+            InboundObject(): port(), listen(), protocol(), settings(), streamSettings(), tag(), sniffing() {}
+            XTOSTRUCT(O(port, listen, protocol, settings, streamSettings, tag, sniffing))
         };
-        namespace OUTBOUNDObjects
-        {
-
-            struct ProxySettingsObject {
-                string tag;
-                ProxySettingsObject(): tag() {}
-                XTOSTRUCT(O(tag))
-            };
-
-            struct MuxObject {
-                bool enabled;
-                int concurrency;
-                MuxObject(): enabled(), concurrency() {}
-                XTOSTRUCT(O(enabled, concurrency))
-            };
-        }
+        struct MuxObject {
+            bool enabled;
+            int concurrency;
+            MuxObject(): enabled(), concurrency() {}
+            XTOSTRUCT(O(enabled, concurrency))
+        };
+        // THIS WILL BE CONVERTED TO JSON!
         template <typename XOUTBOUNDSETTINGOBJECT>
         struct OutboundObject {
             static_assert(std::is_base_of<XOutBoundsType, XOUTBOUNDSETTINGOBJECT>::value, "XOUTBOUNDSETTINGOBJECT must extend XOutBoundsType");
@@ -332,43 +299,21 @@ namespace Qv2ray
             XOUTBOUNDSETTINGOBJECT settings;
             string tag;
             StreamSettingsObject streamSettings;
-            OUTBOUNDObjects::ProxySettingsObject proxySettings;
-            OUTBOUNDObjects::MuxObject mux;
-            OutboundObject(): sendThrough(), protocol(), settings(), tag(), streamSettings(), proxySettings(), mux() {}
-            XTOSTRUCT(O(sendThrough, protocol, settings, tag, streamSettings, proxySettings, mux))
+            MuxObject mux;
+            OutboundObject(): sendThrough(), protocol(), settings(), tag(), streamSettings(), mux() {}
+            XTOSTRUCT(O(sendThrough, protocol, settings, tag, streamSettings, mux))
         };
 
+
+        // THIS WILL BE CONVERTED TO JSON!
         struct StatsObject {
             bool _; // Placeholder...
             StatsObject(): _() {}
             XTOSTRUCT(O(_))
         };
-        namespace REVERSEObjects
-        {
 
-            struct BridgeObject {
-                string tag;
-                string domain;
-                BridgeObject() : tag(), domain() {}
-                XTOSTRUCT(O(tag, domain))
-            };
 
-            struct PortalObject {
-                string tag;
-                string domain;
-                PortalObject() : tag(), domain() {}
-                XTOSTRUCT(O(tag, domain))
-            };
-
-        }
-        struct ReverseObject {
-            list<REVERSEObjects::BridgeObject> bridges;
-            list<REVERSEObjects::PortalObject> portals;
-            ReverseObject() : bridges(), portals() {}
-            XTOSTRUCT(O(bridges, portals))
-        };
 #if USE_TODO_FEATURES
-        template<typename XIN1, typename XIN2, typename XIN3, typename XIN4, typename XIN5, typename XOUT1, typename XOUT2, typename XOUT3, typename XOUT4, typename XOUT5>
 #else
         template <typename XInBound_T, typename XOutBound_T>
 #endif
@@ -378,19 +323,24 @@ namespace Qv2ray
             DnsObject dns;
             RoutingObject routing;
 #if USE_TODO_FEATURES
-            // Default support 5 inBounds and 5 outBounds
-            tuple<InboundObject<XIN1>, InboundObject<XIN2>, InboundObject<XIN3>, InboundObject<XIN4>, InboundObject<XIN5>> inbounds;
-            tuple<OutboundObject<XIN1>, OutboundObject<XIN2>, OutboundObject<XIN3>, OutboundObject<XIN4>, OutboundObject<XIN5>> outbounds;
+            // THIS WILL BE CONVERTED TO JSON!
+            // Place holder for in/out bounds
+            nullStruct inbounds;
+            nullStruct outbounds;
 #else
             list<InboundObject<XInBound_T>> inbounds;
             list<OutboundObject<XOutBound_T>> outbounds;
-#endif
             TransportObject transport;
+#endif
             StatsObject stats;
-            ReverseObject reverse;
             PolicyObject policy;
-            RootObject(): log(), api(), dns(), routing(), inbounds(), outbounds(), transport(), stats(), reverse(), policy() {}
-            XTOSTRUCT(O(log, api, dns, routing, inbounds, outbounds, transport, stats, reverse, policy))
+#if USE_TODO_FEATURES
+            RootObject(): log(), api(), dns(), routing(), inbounds(), outbounds(), stats(), policy() {}
+            XTOSTRUCT(O(log, api, dns, routing, inbounds, outbounds, stats, policy))
+#else
+            RootObject(): log(), api(), dns(), routing(), inbounds(), outbounds(), transport(), stats(), policy() {}
+            XTOSTRUCT(O(log, api, dns, routing, inbounds, outbounds, transport, stats, policy))
+#endif
         };
     }
 }
