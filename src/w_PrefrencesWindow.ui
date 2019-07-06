@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>663</width>
-    <height>325</height>
+    <width>741</width>
+    <height>356</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -116,6 +116,16 @@
            </property>
           </item>
          </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="label_14">
+          <property name="text">
+           <string>#VCoreExePath</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QLineEdit" name="vCoreExePathTxt"/>
         </item>
        </layout>
       </item>

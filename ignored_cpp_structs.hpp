@@ -51,4 +51,18 @@ struct BalancerObject {
     XTOSTRUCT(O(tag, selector))
 };
 
+
+struct VMessIn { // INBound;
+    struct ClientObject {
+        string id;
+        int level;
+        int alterId;
+        string email;
+        XTOSTRUCT(O(id, level, alterId, email))
+    };
+    list<ClientObject> clients;
+    // detour and default will not be implemented as it's complicated...
+    bool disableInsecureEncryption;
+    XTOSTRUCT(O(clients, disableInsecureEncryption))
+};
 #endif

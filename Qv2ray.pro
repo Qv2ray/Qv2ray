@@ -23,22 +23,27 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+        src/QvCoreConfigOperations_Convertion.cpp \
+        src/QvCoreConfigOperations_Generation.cpp \
+        src/QvCoreConfigOperations_Verification.cpp \
+        src/QvCoreInteractions.cpp \
+        src/QvRunguard.cpp \
         src/QvUtils.cpp \
         src/w_MainWindow.cpp \
         src/w_ConnectionEditWindow.cpp \
         src/w_ImportConfig.cpp \
         src/w_PrefrencesWindow.cpp \
-        src/main.cpp \
-        src/vinteract.cpp \
-        src/runguard.cpp
+        src/main.cpp
 
 HEADERS += \
         ignored_cpp_structs.hpp \
-        src/QvConfigObjects.hpp \
-        src/QvUtils.hpp \
-        src/V2ConfigObjects.hpp \
-        src/runguard.hpp \
-        src/vinteract.hpp \
+        src/QJsonObjectInsertMacros.h \
+        src/QvCoreConfigObjects.h \
+        src/QvCoreConfigOperations.h \
+        src/QvCoreInteractions.h \
+        src/QvGUIConfigObjects.h \
+        src/QvRunguard.h \
+        src/QvUtils.h \
         src/w_MainWindow.h \
         src/w_ConnectionEditWindow.h \
         src/w_ImportConfig.h \

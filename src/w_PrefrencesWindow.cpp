@@ -1,22 +1,10 @@
-#include <QDebug>
-#include <QFile>
-#include <QFileInfo>
-#include <QIntValidator>
-#include <QJsonArray>
-#include <QJsonDocument>
-#include <QJsonObject>
-#include <QJsonValue>
-#include <QProcess>
-
-#include "QvUtils.hpp"
-#include "vinteract.hpp"
+#include "QvUtils.h"
+#include "QvCoreInteractions.h"
 #include "w_PrefrencesWindow.h"
 
 #ifndef _WIN32
 #include <unistd.h>
 #endif
-
-using namespace Qv2ray::Utils;
 
 PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     CurrentConfig(),
@@ -40,6 +28,8 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     ui->socksAuthCB->setChecked(CurrentConfig.socksSetting.useAuthentication);
     ui->socksAuthUsernameTxt->setText(QString::fromStdString(CurrentConfig.socksSetting.authUsername));
     ui->socksAuthPasswordTxt->setText(QString::fromStdString(CurrentConfig.socksSetting.authPassword));
+    //
+    ui->vCoreExePathTxt->setText(QString::fromStdString(CurrentConfig.v2Path));
     //
     ui->httpPortLE->setValidator(new QIntValidator());
     ui->socksPortLE->setValidator(new QIntValidator());
@@ -75,7 +65,7 @@ void PrefrencesWindow::on_buttonBox_accepted()
         // No such uid gid thing on windows....
 #endif
     } else {
-        showWarnMessageBox(this, tr("Prefrences"), tr("PortNumbersCannotBeSame"));
+        QvMessageBox(this, tr("Prefrences"), tr("PortNumbersCannotBeSame"));
     }
 }
 
@@ -99,8 +89,9 @@ void PrefrencesWindow::on_socksCB_stateChanged(int checked)
 
 void PrefrencesWindow::on_httpAuthCB_stateChanged(int checked)
 {
-    if (checked) {
-    }
+    Q_UNUSED(checked)
+    ui->httpAuthUsernameTxt->setEnabled(ui->httpCB->checkState() == Qt::Checked);
+    ui->httpAuthPasswordTxt->setEnabled(ui->httpCB->checkState() == Qt::Checked);
 }
 
 void PrefrencesWindow::on_runAsRootCheckBox_stateChanged(int arg1)
@@ -109,4 +100,11 @@ void PrefrencesWindow::on_runAsRootCheckBox_stateChanged(int arg1)
 #ifdef _WIN32
     showWarnMessageBox(this, tr("Prefrences"), tr("RunAsRootNotOnWindows"));
 #endif
+}
+
+void PrefrencesWindow::on_socksAuthCB_stateChanged(int checked)
+{
+    Q_UNUSED(checked)
+    ui->socksAuthUsernameTxt->setEnabled(ui->socksCB->checkState() == Qt::Checked);
+    ui->socksAuthPasswordTxt->setEnabled(ui->socksCB->checkState() == Qt::Checked);
 }

@@ -5,7 +5,9 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 
-#include "vinteract.hpp"
+#include "QvUtils.h"
+#include "QvCoreInteractions.h"
+#include "QvCoreConfigOperations.h"
 #include "w_ConnectionEditWindow.h"
 #include "w_ImportConfig.h"
 
@@ -16,7 +18,6 @@ ImportConfigWindow::ImportConfigWindow(QWidget *parent)
     , ui(new Ui::ImportConfigWindow)
 {
     ui->setupUi(this);
-    connect(this, SIGNAL(updateConfTable()), parentWidget(), SLOT(updateConfTable()));
 }
 
 ImportConfigWindow::~ImportConfigWindow()
@@ -37,7 +38,7 @@ void ImportConfigWindow::savefromFile(QString path, QString alias)
     QFile configFile(path);
 
     if (!configFile.open(QIODevice::ReadOnly)) {
-        showWarnMessageBox(this, tr("ImportConfig"), tr("CannotOpenFile"));
+        QvMessageBox(this, tr("ImportConfig"), tr("CannotOpenFile"));
         qDebug() << "ImportConfig::CannotOpenFile";
         return;
     }
@@ -55,7 +56,7 @@ void ImportConfigWindow::savefromFile(QString path, QString alias)
     }
 
     if (!QFile::copy(path, "newFile")) {
-        showWarnMessageBox(this, tr("ImportConfig"), tr("CannotCopyCustomConfig"));
+        QvMessageBox(this, tr("ImportConfig"), tr("CannotCopyCustomConfig"));
         qDebug() << "ImportConfig::CannotCopyCustomConfig";
     }
 }
@@ -65,59 +66,43 @@ void ImportConfigWindow::on_buttonBox_accepted()
     QString alias = ui->nameTxt->text();
 
     if (ui->importSourceCombo->currentIndex() == 0) { // From File...
-        QString path = ui->fileLineTxt->text();
+        bool overrideInBound = ui->useCurrentSettingRidBtn->isChecked();
         on_verifyFileBtn_clicked();
+        QString path = ui->fileLineTxt->text();
         savefromFile(path, alias);
+        // !!! TODO
     } else {
         on_verifyVMessBtn_clicked();
-        // TODO: SAVE CONFIG!!!!
-        //
-        //if (QFile::exists(ConfigDir.path() + "/config.json.tmp")) {
-        //    ImportConfig *im = new ImportConfig(this->parentWidget());
-        //
-        //    if (v2Instance::checkConfigFile(QCoreApplication::applicationDirPath() + "/config.json.tmp")) {
-        //        im->savefromFile("config.json.tmp", alias);
-        //    }
-        //
-        //    QFile::remove("config.json.tmp");
-        //} else {
-        //    Utils::showWarnMessageBox(this, tr("ImportConfig"), tr("CannotGenerateConfig"));
-        //    qDebug() << "ImportConfig::CannotGenerateConfig";
-        //}
-    }
-
-    if (ui->useCurrentSettingRidBtn->isChecked()) {
-        // TODO: Use Current Settings...
-    } else {
-        // TODO: Override Inbound....
+        auto config = ConvertOutboundFromVMessString(ui->vmessConnectionStringTxt->toPlainText());
+        alias = alias != "" ? alias : config["QV2RAY_ALIAS"].toString();
+        config.remove("QV2RAY_ALIAS");
+        Qv2Config conf = GetGlobalConfig();
+        conf.configs.push_back(alias.toStdString());
+        SetGlobalConfig(conf);
+        SaveConnectionConfig(config, &alias);
+        emit s_reload_config();
     }
 }
 
 void ImportConfigWindow::on_verifyVMessBtn_clicked()
 {
     QString vmess = ui->vmessConnectionStringTxt->toPlainText();
+    int result = VerifyVMessProtocolString(vmess);
 
-    if (!vmess.toLower().startsWith("vmess://")) {
-        showWarnMessageBox(this, tr("#VMessDecodeError"), tr("#NotValidVMessProtocolString"));
-        return;
-    }
-
-    try {
-        QStringRef vmessJsonB64(&vmess, 8, vmess.length() - 8);
-        auto vmessString = Utils::base64_decode(vmessJsonB64.toString());
-        auto vmessConf = Utils::StructFromJSON<VMessProtocolConfigObject>(vmessString.toStdString());
-        showWarnMessageBox(this, tr("#VMessCheckPassed"), tr("#AbleToImportConfig"));
-    } catch (exception *e) {
-        showWarnMessageBox(this, tr("#VMessDecodeError"), e->what());
-        return;
+    if (result == 0) {
+        QvMessageBox(this, tr("#VMessCheck"), tr("#AbleToImportConfig"));
+    } else if (result == -1) {
+        QvMessageBox(this, tr("#VMessCheck"), tr("#NotValidVMessProtocolString"));
+    } else {
+        QvMessageBox(this, tr("#VMessCheck"), tr("#INTERNAL_ERROR"));
     }
 }
 
 void ImportConfigWindow::on_verifyFileBtn_clicked()
 {
-    if (!v2Instance::checkConfigFile(ui->fileLineTxt->text())) {
-        showWarnMessageBox(this, tr("#InvalidConfigFile"), tr("ConfigFileCheckFailed"));
+    if (!Qv2Instance::checkConfigFile(ui->fileLineTxt->text())) {
+        QvMessageBox(this, tr("#InvalidConfigFile"), tr("ConfigFileCheckFailed"));
     } else {
-        showWarnMessageBox(this, tr("#VConfigFileCheckPassed"), tr("#AbleToImportConfig"));
+        QvMessageBox(this, tr("#VConfigFileCheckPassed"), tr("#AbleToImportConfig"));
     }
 }
