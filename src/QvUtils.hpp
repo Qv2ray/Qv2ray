@@ -22,7 +22,7 @@ namespace Qv2ray
         QTranslator *getTranslator(string lang);
         void SetGlobalConfig(Qv2Config conf);
         Qv2Config GetGlobalConfig();
-        void SaveGlobalConfig();
+        void SaveGlobalConfig(QFile *config);
         void LoadConfig(QString filePath);
         /// Get file list in a Dir
         QStringList getAllFilesList(QDir *dir);

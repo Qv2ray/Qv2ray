@@ -7,7 +7,7 @@
 
 // Macros
 #define QV2RAY 1
-#define QV2RAY_CONFIG_PATH (ConfigDir.path() + "/")
+#define QV2RAY_CONFIG_PATH (Qv2ray::ConfigDir.path() + "/")
 #define QV2RAY_MAIN_CONFIG_FILE_PATH (QV2RAY_CONFIG_PATH + "Qv2ray.conf")
 #define QV2RAY_GENERATED_CONFIG_DIRPATH (QV2RAY_CONFIG_PATH + "genrerated/")
 #define QV2RAY_FIRSTRUN_IDENTIFIER (QV2RAY_CONFIG_PATH + ".initialised")

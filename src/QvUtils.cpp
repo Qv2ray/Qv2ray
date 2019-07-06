@@ -16,15 +16,14 @@ namespace Qv2ray
             return GlobalConfig;
         }
 
-        void SaveGlobalConfig()
+        void SaveGlobalConfig(QFile *config)
         {
-            QFile conf(QV2RAY_CONFIG_PATH + "Qv2ray.conf");
-            conf.open(QFile::WriteOnly);
+            config->open(QFile::WriteOnly);
             QString jsonConfig = StructToJSON(GetGlobalConfig());
-            QTextStream stream(&conf);
+            QTextStream stream(config);
             stream << jsonConfig << endl;
             stream.flush();
-            conf.close();
+            config->close();
         }
 
         QString base64_encode(QString string)

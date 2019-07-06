@@ -63,7 +63,8 @@ bool initializeQv()
         //
         // Save initial config.
         SetGlobalConfig(conf);
-        SaveGlobalConfig();
+        QFile configFile(QV2RAY_MAIN_CONFIG_FILE_PATH);
+        SaveGlobalConfig(&configFile);
         //
         // Create Placeholder for initialise indicator.
         QFile initPlaceHolder(QV2RAY_FIRSTRUN_IDENTIFIER);
