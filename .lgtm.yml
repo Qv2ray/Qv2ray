@@ -10,8 +10,8 @@ extraction:
     index:
       build_command:
         - git submodule update --init
-        - lrelease ./Qv2ray.pro
+        - QT_SELECT=5 QTDIR=/usr/share/qt5 lrelease ./Qv2ray.pro
         - mkdir build && cd ./build
-        - qmake ../
+        - QT_SELECT=5 QTDIR=/usr/share/qt5 qmake ../
         - make
         
