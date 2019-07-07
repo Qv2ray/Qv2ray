@@ -29,14 +29,6 @@ namespace Qv2ray
             XTOSTRUCT(O(user, pass))
         };
 
-        struct LogObject {
-            string access;
-            string error;
-            string loglevel;
-            LogObject(): access(), error(), loglevel() {}
-            XTOSTRUCT(O(access, error, loglevel))
-        };
-
         struct ApiObject {
             string tag;
             list<string> services;
@@ -73,13 +65,13 @@ namespace Qv2ray
             XTOSTRUCT(O(level, system))
         };
 
-        namespace TRANSFERObjects
+        namespace _TransferSettingObjects
         {
             namespace TRANSFERObjectsInternal
             {
                 struct HTTPRequestObject {
-                    string version;
-                    string method;
+                    string version = "1.1";
+                    string method = "GET";
                     list<string> path;
                     map<string, list<string>> headers;
                     HTTPRequestObject(): version(), method(), path(), headers() {}
@@ -87,9 +79,9 @@ namespace Qv2ray
                 };
 
                 struct HTTPResponseObject {
-                    string version;
-                    string status;
-                    string reason;
+                    string version = "1.1";
+                    string status = "200";
+                    string reason = "OK";
                     map<string, list<string>> headers;
                     HTTPResponseObject(): version(), status(), reason(), headers() {}
                     XTOSTRUCT(O(version, status, reason, headers))
@@ -110,22 +102,22 @@ namespace Qv2ray
 
 
             struct TCPObject {
-                TRANSFERObjectsInternal:: TCPHeader_M_Object header;
+                TRANSFERObjectsInternal::TCPHeader_M_Object header;
                 TCPObject(): header() {}
                 XTOSTRUCT(O(header))
             };
 
 
             struct KCPObject {
-                int mtu;
-                int tti;
-                int uplinkCapacity;
-                int downlinkCapacity;
-                bool congestion;
-                int readBufferSize;
-                int writeBufferSize;
-                TRANSFERObjectsInternal::  HeaderObject header;
-                KCPObject(): mtu(), tti(), uplinkCapacity(), downlinkCapacity(), congestion(), readBufferSize(), writeBufferSize(), header() {}
+                int mtu = 1350;
+                int tti = 20;
+                int uplinkCapacity = 5;
+                int downlinkCapacity = 20;
+                bool congestion = false;
+                int readBufferSize = 1;
+                int writeBufferSize = 1;
+                TRANSFERObjectsInternal::HeaderObject header;
+                KCPObject(): header() {}
                 XTOSTRUCT(O(mtu, tti, uplinkCapacity, downlinkCapacity, congestion, readBufferSize, writeBufferSize, header))
             };
 
@@ -158,28 +150,18 @@ namespace Qv2ray
                 XTOSTRUCT(O(security, key, header))
             };
         }
-
-        struct TransportObject {
-            TRANSFERObjects::TCPObject tcpSettings;
-            TRANSFERObjects::KCPObject kcpSettings;
-            TRANSFERObjects::WebSocketObject wsSettings;
-            TRANSFERObjects::HttpObject httpSettings;
-            TRANSFERObjects::DomainSocketObject dsSettings;
-            TRANSFERObjects::QuicObject quicSettings;
-            TransportObject(): tcpSettings(), kcpSettings(), wsSettings(), httpSettings(), dsSettings(), quicSettings() {}
-            XTOSTRUCT(O(tcpSettings, kcpSettings, wsSettings, httpSettings, dsSettings, quicSettings))
-        };
+        //
         namespace INBOUNDObjects
         {
             struct SniffingObject {
                 bool enabled;
-                string destOverride;
+                list<string> destOverride;
                 SniffingObject(): enabled(), destOverride() {}
                 XTOSTRUCT(O(enabled, destOverride))
             };
-
         }
-        namespace STREAMSETTINGSObjects
+
+        namespace _StreamSettingObjects
         {
             struct SockoptObject {
                 int mark;
@@ -213,14 +195,14 @@ namespace Qv2ray
         struct StreamSettingsObject  {
             string network;
             string security;
-            STREAMSETTINGSObjects::SockoptObject sockopt;
-            STREAMSETTINGSObjects::TLSObject tlsSettings;
-            TRANSFERObjects::TCPObject tcpSettings;
-            TRANSFERObjects::KCPObject kcpSettings;
-            TRANSFERObjects::WebSocketObject wsSettings;
-            TRANSFERObjects::HttpObject httpSettings;
-            TRANSFERObjects::DomainSocketObject dsSettings;
-            TRANSFERObjects::QuicObject quicSettings;
+            _StreamSettingObjects::SockoptObject sockopt;
+            _StreamSettingObjects::TLSObject tlsSettings;
+            _TransferSettingObjects::TCPObject tcpSettings;
+            _TransferSettingObjects::KCPObject kcpSettings;
+            _TransferSettingObjects::WebSocketObject wsSettings;
+            _TransferSettingObjects::HttpObject httpSettings;
+            _TransferSettingObjects::DomainSocketObject dsSettings;
+            _TransferSettingObjects::QuicObject quicSettings;
             StreamSettingsObject(): network(), security(), sockopt(),  tlsSettings(), tcpSettings(), kcpSettings(), wsSettings(), httpSettings(), dsSettings(), quicSettings() {}
             XTOSTRUCT(O(network, security, sockopt, tcpSettings, tlsSettings, kcpSettings, wsSettings, httpSettings, dsSettings, quicSettings))
         };
@@ -233,21 +215,11 @@ namespace Qv2ray
         };
 
 
-        // THIS WILL BE CONVERTED TO JSON!
-        struct StatsObject {
-            bool _; // Placeholder...
-            StatsObject(): _() {}
-            XTOSTRUCT(O(_))
-        };
-
-
         struct RootObject {
-            LogObject log;
             ApiObject api;
-            StatsObject stats;
             PolicyObject policy;
-            RootObject(): log(), api(), stats(), policy() {}
-            XTOSTRUCT(O(log, api, stats, policy))
+            RootObject(): api(), policy() {}
+            XTOSTRUCT(O(api, policy))
         };
         //
         //
@@ -325,14 +297,4 @@ namespace Qv2ray
 using namespace Qv2ray::V2ConfigModels;
 using namespace Qv2ray::V2ConfigModels::Protocols;
 
-/// Code above has passed these tests.
-//using namespace  Qv2ray::V2ConfigModels;
-//RootObject<Protocols::HTTP, Protocols::VMess> x;
-//InboundObject<Protocols::HTTP> inH;
-//x.inbounds.insert(x.inbounds.end(), inH);
-//OutboundObject<Protocols::VMess> inV;
-//x.outbounds.insert(x.outbounds.end(), inV);
-//QString jsonConfig = Utils::StructToJSON(x);
-//cout << jsonConfig.toStdString() << endl;
-///
 #endif

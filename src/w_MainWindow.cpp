@@ -8,12 +8,7 @@
 #include <QMenu>
 #include <QStandardItemModel>
 
-#include "QvUtils.h"
-
 #include "w_MainWindow.h"
-
-#include "QvCoreInteractions.h"
-
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
       ui(new Ui::MainWindow),
@@ -57,12 +52,26 @@ MainWindow::MainWindow(QWidget *parent)
     connect(prefrenceWindow, &PrefrencesWindow::s_reload_config, this, &MainWindow::reload_config);
     connect(hTray, &QSystemTrayIcon::activated, this, &MainWindow::on_activatedTray);
     connect(ui->logText, &QTextBrowser::textChanged, this, &MainWindow::scrollToBottom);
+    //connect(vinstance, &Qv2Instance::readOutput, this, &MainWindow::UpdateLog);
     hTray->setContextMenu(trayMenu);
     hTray->show();
+    LoadConnections();
+}
+void MainWindow::LoadConnections()
+{
+    connections = LoadAllConnectionList(GetGlobalConfig().configs);
+    ui->connectionListWidget->clear();
+
+    for (int i = 0; i < connections.count(); i++) {
+        ui->connectionListWidget->addItem(connections.keys()[i]);
+    }
 }
 void MainWindow::reload_config()
 {
     SaveGlobalConfig();
+    on_stopButton_clicked();
+    LoadConnections();
+    on_startButton_clicked();
 }
 MainWindow::~MainWindow()
 {
@@ -95,12 +104,14 @@ void MainWindow::showMenu(QPoint pos)
 }
 void MainWindow::UpdateLog()
 {
-    ui->logText->insertPlainText(vinstance->readOutput());
+    ui->logText->insertPlainText(vinstance->ReadProcessOutput());
 }
 
 void MainWindow::on_startButton_clicked()
 {
     ui->logText->clear();
+    auto full_conf = GenerateRuntimeConfig(connections.value(CurrentConnection));
+    StartPreparation(full_conf);
     bool startFlag = this->vinstance->Start();
     trayMenu->actions()[2]->setEnabled(!startFlag);
     trayMenu->actions()[3]->setEnabled(startFlag);
@@ -205,4 +216,22 @@ void MainWindow::on_actionPreferences_triggered()
 void MainWindow::on_pushButton_clicked()
 {
     connectionEditWindow->show();
+}
+
+void MainWindow::on_connectionListWidget_currentRowChanged(int currentRow)
+{
+    if (vinstance->Status != STARTED) {
+        CurrentConnection = connections.keys()[currentRow];
+    }
+
+    auto current = (connections.values()[currentRow])["outbounds"].toArray().first().toObject();
+    //
+    auto vmess = ConvertOutBoundJSONToStruct(current["settings"].toObject());
+    auto Server = QList<VMessOut::ServerObject>::fromStdList(vmess.vnext).first();
+    ui->_hostLabel->setText(QString::fromStdString(Server.address));
+    ui->_portLabel->setText(QString::fromStdString(to_string(Server.port)));
+    auto user = QList<VMessOut::ServerObject::UserObject>::fromStdList(Server.users).first();
+    ui->_uuidLabel->setText(QString::fromStdString(user.id));
+    //
+    ui->_transportLabel->setText(current["streamSettings"].toObject()["network"].toString());
 }

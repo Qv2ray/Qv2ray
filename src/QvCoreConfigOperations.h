@@ -29,19 +29,23 @@ namespace Qv2ray
         //
         // InBoundsProtocols
         QJsonObject GenerateDokodemoIN(QString address, int port, QString  network, int timeout, bool followRedirect, int userLevel);
-        QJsonObject GenerateHTTPIN(int timeout, QList<AccountObject> accounts, bool allowTransparent, bool userLevel);
-        QJsonObject GenerateSocksIN(QString auth, QList<AccountObject> _accounts, bool udp, QString ip, int userLevel);
+        QJsonObject GenerateHTTPIN(QList<AccountObject> accounts, int timeout = 300, bool allowTransparent = true, bool userLevel = 0);
+        QJsonObject GenerateSocksIN(QString auth, QList<AccountObject> _accounts, bool udp = false, QString ip = "127.0.0.1", int userLevel = 0);
         //
         // Misc
         template<typename T>
         QJsonObject GetRootObject(T t)
         {
-            auto json = StructToJSON(t);
+            auto json = StructToJSONString(t);
             QJsonDocument doc = QJsonDocument::fromJson(QByteArray::fromStdString(json.toStdString()));
             return doc.object();
         }
         template QJsonObject GetRootObject<StreamSettingsObject>(StreamSettingsObject t);
         template QJsonObject GetRootObject<VMessOut>(VMessOut t);
+        //
+        // Generate FINAL Configs
+        QJsonObject GenerateRuntimeConfig(QJsonObject root);
+
         //
         // -------------------------- BEGIN CONFIG VALIDATIONS ---------------------------------------------
         int VerifyVMessProtocolString(QString vmess);
@@ -52,6 +56,12 @@ namespace Qv2ray
         // VMess Protocol
         QJsonObject ConvertConfigFromVMessString(QString vmess);
         QJsonObject ConvertConfigFromFile(QString sourceFilePath, bool overrideInbounds);
+        // Load Configs
+        QMap<QString, QJsonObject> LoadAllConnectionList(list<string> connections);
+        // Get VMessOUT Object
+        VMessOut ConvertOutBoundJSONToStruct(QJsonObject vmessJson);
+        // Startup Prepares
+        int StartPreparation(QJsonObject fullConfig);
 
     }
 }

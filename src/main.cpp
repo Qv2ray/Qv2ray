@@ -61,9 +61,8 @@ bool initializeQv()
         // This is first run!
         //
         // These below genenrated very basic global config.
-        QvInbondSetting inHttp = QvInbondSetting(true, "127.0.0.1", 8080);
-        QvInbondSetting inSocks = QvInbondSetting(true, "127.0.0.1", 1080);
-        Qv2Config conf = Qv2Config("zh-CN", exeDefaultPath.toStdString(), v2AssetsPath.toStdString(), 2, inHttp, inSocks);
+        QvBasicInboundSetting inboundSetting = QvBasicInboundSetting("127.0.0.1", 1080, 8000);
+        Qv2Config_v1 conf = Qv2Config_v1("zh-CN", exeDefaultPath.toStdString(), v2AssetsPath.toStdString(), 2, inboundSetting);
         //
         // Save initial config.
         SetGlobalConfig(conf);

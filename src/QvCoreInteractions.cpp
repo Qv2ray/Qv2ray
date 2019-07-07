@@ -1,7 +1,9 @@
 #include <QObject>
 #include <QWidget>
 #include "QvCoreInteractions.h"
-#include "QvUtils.h"
+#include "QvCoreConfigOperations.h"
+
+#include "w_MainWindow.h"
 
 namespace Qv2ray
 {
@@ -32,14 +34,17 @@ namespace Qv2ray
             return false;
     }
 
-    Qv2Instance::Qv2Instance(QWidget *parent): _config(Utils::GetGlobalConfig())
+    Qv2Instance::Qv2Instance(QWidget *parent)
     {
         QProcess *proc = new QProcess();
         vProcess = proc;
-        QObject::connect(vProcess, SIGNAL(readyReadStandardOutput()), parent, SLOT(parent->updateLog()));
+        QObject::connect(vProcess, &QProcess::readyReadStandardOutput, static_cast<MainWindow *>(parent), &MainWindow::UpdateLog);
         Status = STOPPED;
     }
-
+    QString Qv2Instance::ReadProcessOutput()
+    {
+        return vProcess->readAllStandardOutput();
+    }
     bool Qv2Instance::ValidateV2rayCoreExe()
     {
         auto path = QString::fromStdString(Utils::GetGlobalConfig().v2CorePath);
@@ -59,12 +64,12 @@ namespace Qv2ray
         Status = STARTING;
 
         if (ValidateV2rayCoreExe()) {
-            if (VerifyVConfigFile(QV2RAY_GENERATED_CONFIG_DIRPATH + "config.json")) {
+            if (VerifyVConfigFile(QV2RAY_GENERATED_CONFIG_FILE_PATH)) {
                 QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
                 env.insert("V2RAY_LOCATION_ASSET", QString::fromStdString(GetGlobalConfig().v2AssetsPath));
                 vProcess->setProcessEnvironment(env);
-                vProcess->start(QString::fromStdString(_config.v2CorePath), QStringList() << "-config"
-                                << QV2RAY_GENERATED_CONFIG_DIRPATH + "config.json",
+                vProcess->start(QString::fromStdString(GetGlobalConfig().v2CorePath), QStringList() << "-config"
+                                << QV2RAY_GENERATED_CONFIG_FILE_PATH,
                                 QIODevice::ReadWrite | QIODevice::Text);
                 vProcess->waitForStarted();
                 Status = STARTED;
@@ -83,11 +88,6 @@ namespace Qv2ray
     {
         vProcess->close();
         Status = STOPPED;
-    }
-
-    QString Qv2Instance::readOutput()
-    {
-        return vProcess->readAll();
     }
 
     Qv2Instance::~Qv2Instance()

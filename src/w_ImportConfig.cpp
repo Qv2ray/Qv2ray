@@ -43,7 +43,7 @@ void ImportConfigWindow::on_buttonBox_clicked(QAbstractButton *button)
     QJsonObject config;
 
     if (ui->importSourceCombo->currentIndex() == 0) { // From File...
-        bool overrideInBound = ui->keepInboundCheckBox->isChecked();
+        bool overrideInBound = !ui->keepImportedInboundCheckBox->isChecked();
 
         if (!Qv2Instance::VerifyVConfigFile(ui->fileLineTxt->text())) {
             QvMessageBox(this, tr("#InvalidConfigFile"), tr("ConfigFileCheckFailed"));
@@ -51,6 +51,7 @@ void ImportConfigWindow::on_buttonBox_clicked(QAbstractButton *button)
         }
 
         QString path = ui->fileLineTxt->text();
+        alias = alias != "" ? alias : QFileInfo(path).fileName();
         config = ConvertConfigFromFile(path, overrideInBound);
     } else {
         QString vmess = ui->vmessConnectionStringTxt->toPlainText();
@@ -73,7 +74,7 @@ void ImportConfigWindow::on_buttonBox_clicked(QAbstractButton *button)
         config.remove("QV2RAY_ALIAS");
     }
 
-    Qv2Config conf = GetGlobalConfig();
+    Qv2Config_v1 conf = GetGlobalConfig();
     conf.configs.push_back(alias.toStdString());
     SetGlobalConfig(conf);
     SaveConnectionConfig(config, &alias);

@@ -6,14 +6,14 @@ namespace Qv2ray
 {
     namespace Utils
     {
-        static Qv2Config GlobalConfig;
+        static Qv2Config_v1 GlobalConfig;
         static QString ConfigDirPath;
-        void SetGlobalConfig(Qv2Config conf)
+        void SetGlobalConfig(Qv2Config_v1 conf)
         {
             GlobalConfig = conf;
         }
 
-        Qv2Config GetGlobalConfig()
+        Qv2Config_v1 GetGlobalConfig()
         {
             return GlobalConfig;
         }
@@ -31,22 +31,45 @@ namespace Qv2ray
         void SaveGlobalConfig()
         {
             QFile config(QV2RAY_MAIN_CONFIG_FILE_PATH);
-            SaveJSONToFile(GetGlobalConfig(), &config);
+            QString str = StructToJSONString(GetGlobalConfig());
+            StringToFile(str, &config);
         }
 
-        template <typename T>
-        void SaveJSONToFile(T t, QFile *targetFile)
-        {
-            SaveStringToFile(StructToJSON(t), targetFile);
-        }
-
-        void SaveStringToFile(QString text, QFile *targetFile)
+        void StringToFile(QString text, QFile *targetFile)
         {
             targetFile->open(QFile::WriteOnly);
             QTextStream stream(targetFile);
             stream << text << endl;
             stream.flush();
             targetFile->close();
+        }
+
+        QJsonObject JSONFromFile(QFile *sourceFile)
+        {
+            QString json = StringFromFile(sourceFile);
+            return JSONFromString(json);
+        }
+
+        QString JSONToString(QJsonObject json)
+        {
+            QJsonDocument doc;
+            doc.setObject(json);
+            return doc.toJson();
+        }
+
+        QJsonObject JSONFromString(QString string)
+        {
+            QJsonDocument doc = QJsonDocument::fromJson(string.toUtf8());
+            return doc.object();
+        }
+
+        QString StringFromFile(QFile *sourceFile)
+        {
+            sourceFile->open(QFile::ReadOnly);
+            QTextStream stream(sourceFile);
+            QString str = stream.readAll();
+            sourceFile->close();
+            return str;
         }
 
         QString Base64Encode(QString string)
@@ -69,7 +92,7 @@ namespace Qv2ray
             file.open(QFile::ReadOnly);
             QTextStream stream(&file);
             auto str = stream.readAll();
-            auto config  = StructFromJSON<Qv2Config>(str.toStdString());
+            auto config  = StructFromJSONString<Qv2Config_v1>(str.toStdString());
             SetGlobalConfig(config);
             file.close();
         }

@@ -32,7 +32,7 @@ class PrefrencesWindow : public QDialog
         void on_socksAuthCB_stateChanged(int arg1);
 
     private:
-        Qv2ray::QvConfigModels::Qv2Config CurrentConfig;
+        Qv2ray::QvConfigModels::Qv2Config_v1 CurrentConfig;
         Ui::PrefrencesWindow *ui;
 };
 #endif // HVCONF_H

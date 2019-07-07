@@ -12,18 +12,17 @@ namespace Qv2ray
                 return -1;
             }
 
-            QJsonDocument doc;
-            doc.setObject(obj);
-            SaveStringToFile(doc.toJson(), &config);
+            StringToFile(JSONToString(obj), &config);
             return 0;
         }
 
-        // This generates an "OutBoundObject"
+        // This generates global config containing only one outbound....
         QJsonObject ConvertConfigFromVMessString(QString str)
         {
             DROOT
+            QJsonArray outbounds;
             QStringRef vmessJsonB64(&str, 8, str.length() - 8);
-            auto vmessConf = StructFromJSON<VMessProtocolConfigObject>(Base64Decode(vmessJsonB64.toString()).toStdString());
+            auto vmessConf = StructFromJSONString<VMessProtocolConfigObject>(Base64Decode(vmessJsonB64.toString()).toStdString());
             VMessOut vConf;
             VMessOut::ServerObject serv;
             serv.port = stoi(vmessConf.port);
@@ -63,13 +62,17 @@ namespace Qv2ray
             // Network type
             streaming.network = vmessConf.net;
             //
-            // Root
-            root.insert("sendThrough", "0.0.0.0");
-            root.insert("protocol", "vmess");
-            root.insert("settings", GetRootObject(vConf));
-            root.insert("tag", OUTBOUND_TAG_PROXY);
-            root.insert("streamSettings", GetRootObject(streaming));
-            root.insert("QV2RAY_ALIAS", QString::fromStdString(vmessConf.ps));
+            // Root Outbound
+            QJsonObject outboundEntry;
+            outboundEntry.insert("sendThrough", "0.0.0.0");
+            outboundEntry.insert("protocol", "vmess");
+            outboundEntry.insert("settings", GetRootObject(vConf));
+            outboundEntry.insert("tag", OUTBOUND_TAG_PROXY);
+            outboundEntry.insert("streamSettings", GetRootObject(streaming));
+            outboundEntry.insert("QV2RAY_ALIAS", QString::fromStdString(vmessConf.ps));
+            //
+            outbounds.append(outboundEntry);
+            root.insert("outbounds", outbounds);
             RROOT
         }
 
@@ -93,36 +96,46 @@ namespace Qv2ray
             JSON_ROOT_TRY_REMOVE("stats")
             JSON_ROOT_TRY_REMOVE("policy")
             JSON_ROOT_TRY_REMOVE("dns")
+            JSON_ROOT_TRY_REMOVE("routing")
+            QJsonArray outbounds;
+
             //
+            // Currently, we only support VMess. So remove all other types of outbounds.
+            for (int i = root["outbounds"].toArray().count(); i >= 0 ; i--) {
+                if (root["outbounds"].toArray()[i].toObject()["protocol"].toString() == "vmess") {
+                    outbounds.append(root["outbounds"].toArray()[i]);
+                }
+            }
+
+            JSON_ROOT_TRY_REMOVE("outbounds")
+            root.insert("outbounds", outbounds);
             return root;
         }
-        /*
-         * {
-            QFile configFile(path);
 
-            if (!configFile.open(QIODevice::ReadOnly)) {
-                QvMessageBox(this, tr("ImportConfig"), tr("CannotOpenFile"));
-                qDebug() << "ImportConfig::CannotOpenFile";
-                return -1;
+        QMap<QString, QJsonObject> LoadAllConnectionList(list<string> connections)
+        {
+            QMap<QString, QJsonObject> list;
+
+            foreach (auto conn, connections) {
+                QString jsonString = StringFromFile(new QFile(QV2RAY_CONFIG_PATH + QString::fromStdString(conn) + QV2RAY_CONNECTION_FILE_EXTENSION));
+                QJsonObject connectionObject = JSONFromString(jsonString);
+                list.insert(QString::fromStdString(conn), connectionObject);
             }
 
-            QByteArray allData = configFile.readAll();
-            configFile.close();
-            QJsonDocument v2conf(QJsonDocument::fromJson(allData));
-            QJsonObject rootobj = v2conf.object();
-            QJsonObject outbound;
-
-            if (rootobj.contains("outbounds")) {
-                outbound = rootobj.value("outbounds").toArray().first().toObject();
-            } else {
-                outbound = rootobj.value("outbound").toObject();
-            }
-
-            if (!QFile::copy(path, "newFile")) {
-                QvMessageBox(this, tr("ImportConfig"), tr("CannotCopyCustomConfig"));
-                qDebug() << "ImportConfig::CannotCopyCustomConfig";
-            }
+            return list;
         }
-        */
+
+        VMessOut ConvertOutBoundJSONToStruct(QJsonObject vmessJson)
+        {
+            auto str = JSONToString(vmessJson);
+            return StructFromJSONString<VMessOut>(str.toStdString());
+        }
+
+        int StartPreparation(QJsonObject fullConfig)
+        {
+            QString json = JSONToString(fullConfig);
+            StringToFile(json, new QFile(QV2RAY_GENERATED_CONFIG_FILE_PATH));
+            return 0;
+        }
     }
 }

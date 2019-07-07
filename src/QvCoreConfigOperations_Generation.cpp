@@ -89,7 +89,7 @@ namespace Qv2ray
             RROOT
         }
 
-        QJsonObject GenerateHTTPIN(int timeout, QList<AccountObject> _accounts, bool allowTransparent, bool userLevel)
+        QJsonObject GenerateHTTPIN(QList<AccountObject> _accounts, int timeout, bool allowTransparent, bool userLevel)
         {
             DROOT
             QJsonArray accounts;
@@ -114,6 +114,112 @@ namespace Qv2ray
             JADD(auth, accounts, udp, ip, userLevel)
             RROOT
         }
+
+        QJsonObject GenerateOutboundEntry(QString protocol, QJsonObject settings, QJsonObject streamSettings, QJsonObject mux, QString sendThrough = "0.0.0.0", QString tag = "")
+        {
+            DROOT
+            JADD(sendThrough, protocol, settings, tag, streamSettings, mux)
+            RROOT
+        }
+
         // -------------------------- END CONFIG GENERATIONS ------------------------------------------------------------------------------
+        // BEGIN RUNTIME CONFIG GENERATION
+
+        QJsonObject GenerateRuntimeConfig(QJsonObject root)
+        {
+            auto gConf = GetGlobalConfig();
+            QJsonObject logObject;
+            //logObject.insert("access", QV2RAY_CONFIG_PATH + QV2RAY_VCORE_LOG_DIRNAME + QV2RAY_VCORE_ACCESS_LOG_FILENAME);
+            //logObject.insert("error", QV2RAY_CONFIG_PATH + QV2RAY_VCORE_LOG_DIRNAME + QV2RAY_VCORE_ERROR_LOG_FILENAME);
+            QString logLevel_s;
+
+            switch (gConf.logLevel) {
+                case 0:
+                    logLevel_s  = "none";
+                    break;
+
+                case 1:
+                    logLevel_s  = "debug";
+                    break;
+
+                case 2:
+                    logLevel_s  = "info";
+                    break;
+
+                case 3:
+                    logLevel_s  = "warning";
+                    break;
+
+                case 4:
+                    logLevel_s  = "error";
+                    break;
+            }
+
+            logObject.insert("loglevel", logLevel_s);
+            root.insert("log", logObject);
+            //
+            QStringList dnsList;
+
+            foreach (auto str, gConf.dnsList) {
+                dnsList.append(QString::fromStdString(str));
+            }
+
+            auto dnsObject = GenerateDNS(gConf.withLocalDNS, dnsList);
+            root.insert("dns", dnsObject);
+            //
+            auto routeObject = GenerateRoutes(gConf.proxyDefault, gConf.proxyCN);
+            root.insert("routing", routeObject);
+            //
+            //
+            root.insert("stats", QJsonObject());
+
+            //
+            if (!root.contains("inbounds") || root["inbounds"].toArray().count() == 0) {
+                QJsonArray inboundsObjectList;
+                //
+                // This is configured as a global option...
+                auto conf = GetGlobalConfig();
+
+                // HTTP InBound
+                if (conf.inBoundSettings.http_port != 0) {
+                    QJsonObject httpInBoundObject;
+                    httpInBoundObject.insert("listen", QString::fromStdString(conf.inBoundSettings.listenip));
+                    httpInBoundObject.insert("port", conf.inBoundSettings.http_port);
+                    httpInBoundObject.insert("protocol", "http");
+                    httpInBoundObject.insert("tag", "http_IN");
+
+                    if (conf.inBoundSettings.http_useAuth) {
+                        auto httpInSettings =  GenerateHTTPIN(QList<AccountObject>() << conf.inBoundSettings.httpAccount);
+                        httpInBoundObject.insert("settings", httpInSettings);
+                    }
+
+                    inboundsObjectList.append(httpInBoundObject);
+                }
+
+                // SOCKS InBound
+                if (conf.inBoundSettings.socks_port != 0) {
+                    QJsonObject socksInBoundObject;
+                    socksInBoundObject.insert("listen", QString::fromStdString(conf.inBoundSettings.listenip));
+                    socksInBoundObject.insert("port", conf.inBoundSettings.socks_port);
+                    socksInBoundObject.insert("protocol", "socks");
+                    socksInBoundObject.insert("tag", "socks_IN");
+                    auto socksInSettings =  GenerateSocksIN(conf.inBoundSettings.socks_useAuth ? "password" : "noauth", QList<AccountObject>() << conf.inBoundSettings.socksAccount);
+                    socksInBoundObject.insert("settings", socksInSettings);
+                    inboundsObjectList.append(socksInBoundObject);
+                }
+
+                JSON_ROOT_TRY_REMOVE("inbounds")
+                root.insert("inbounds", inboundsObjectList);
+            }
+
+            QJsonArray outbounds = root["outbounds"].toArray();
+            // For DIRECT
+            outbounds.append(GenerateOutboundEntry("freedom", GenerateFreedomOUT("AsIs", ":0", 0), QJsonObject(), QJsonObject()));
+            QJsonObject first = outbounds.first().toObject();
+            first.insert("mux", GetRootObject(gConf.mux));
+            outbounds[0] = first;
+            root["outbounds"] = outbounds;
+            return root;
+        }
     }
 }

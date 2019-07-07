@@ -19,15 +19,13 @@ namespace Qv2ray
 
             bool Start();
             void Stop();
-
-            QString readOutput();
             V2RAY_INSTANCE_STARTUP_STATUS Status;
             static bool VerifyVConfigFile(QString path);
             static bool ValidateV2rayCoreExe();
+            QString ReadProcessOutput();
 
             ~Qv2Instance();
         private:
-            Qv2Config _config;
             QProcess *vProcess;
     };
 }
