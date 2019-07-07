@@ -19,29 +19,30 @@ namespace Qv2ray
         void SetConfigDirPath(QString path);
         QString GetConfigDirPath();
 
-        void SetGlobalConfig(Qv2Config conf);
-        Qv2Config GetGlobalConfig();
+        void SetGlobalConfig(Qv2Config_v1 conf);
+        Qv2Config_v1 GetGlobalConfig();
 
         void SaveGlobalConfig();
         void LoadGlobalConfig();
 
         void QvMessageBox(QWidget *parent, QString title, QString text);
         //
-        void SaveStringToFile(QString text, QFile *target);
+        void StringToFile(QString text, QFile *target);
+        QString StringFromFile(QFile *sourceFile);
         //
-        template <typename T>
-        void SaveJSONToFile(T t, QFile *targetFile);
+        QJsonObject JSONFromString(QString string);
+        QString JSONToString(QJsonObject json);
         //
         //
         template <typename TYPE>
-        QString StructToJSON(const TYPE &t)
+        QString StructToJSONString(const TYPE t)
         {
             return QString::fromStdString(X::tojson(t, "", 4, ' '));
         }
         //
         //
         template <typename TYPE>
-        TYPE StructFromJSON(const string &str)
+        TYPE StructFromJSONString(const string &str)
         {
             TYPE v;
             X::loadjson(str, v, false);

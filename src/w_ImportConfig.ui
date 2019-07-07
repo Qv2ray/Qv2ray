@@ -121,7 +121,7 @@
              </widget>
             </item>
             <item row="1" column="1">
-             <widget class="QCheckBox" name="keepInboundCheckBox">
+             <widget class="QCheckBox" name="keepImportedInboundCheckBox">
               <property name="text">
                <string>#KeepImportedInbounds</string>
               </property>

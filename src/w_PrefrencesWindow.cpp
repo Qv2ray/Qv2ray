@@ -12,27 +12,41 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
 {
     ui->setupUi(this);
     CurrentConfig = GetGlobalConfig();
+    //
     ui->languageComboBox->setCurrentText(QString::fromStdString(CurrentConfig.language));
     ui->runAsRootCheckBox->setChecked(CurrentConfig.runAsRoot);
     ui->logLevelComboBox->setCurrentIndex(CurrentConfig.logLevel);
     //
-    ui->httpCB->setChecked(CurrentConfig.httpSetting.enabled);
-    ui->httpPortLE->setText(QString::fromStdString(to_string(CurrentConfig.httpSetting.port)));
-    ui->httpAuthCB->setChecked(CurrentConfig.httpSetting.useAuthentication);
-    ui->httpAuthUsernameTxt->setText(QString::fromStdString(CurrentConfig.httpSetting.authUsername));
-    ui->httpAuthPasswordTxt->setText(QString::fromStdString(CurrentConfig.httpSetting.authPassword));
+    //
+    ui->httpCB->setChecked(CurrentConfig.inBoundSettings.http_port != 0);
+    ui->httpPortLE->setText(QString::fromStdString(to_string(CurrentConfig.inBoundSettings.http_port)));
+    ui->httpAuthCB->setChecked(CurrentConfig.inBoundSettings.http_useAuth);
+    //
+    ui->httpAuthUsernameTxt->setEnabled(CurrentConfig.inBoundSettings.http_useAuth);
+    ui->httpAuthPasswordTxt->setEnabled(CurrentConfig.inBoundSettings.http_useAuth);
+    ui->httpAuthUsernameTxt->setText(QString::fromStdString(CurrentConfig.inBoundSettings.httpAccount.user));
+    ui->httpAuthPasswordTxt->setText(QString::fromStdString(CurrentConfig.inBoundSettings.httpAccount.pass));
     ui->httpPortLE->setValidator(new QIntValidator());
     //
-    ui->socksCB->setChecked(CurrentConfig.socksSetting.enabled);
-    ui->socksPortLE->setText(QString::fromStdString(to_string(CurrentConfig.socksSetting.port)));
-    ui->socksAuthCB->setChecked(CurrentConfig.socksSetting.useAuthentication);
-    ui->socksAuthUsernameTxt->setText(QString::fromStdString(CurrentConfig.socksSetting.authUsername));
-    ui->socksAuthPasswordTxt->setText(QString::fromStdString(CurrentConfig.socksSetting.authPassword));
+    //
+    ui->socksCB->setChecked(CurrentConfig.inBoundSettings.socks_port != 0);
+    ui->socksPortLE->setText(QString::fromStdString(to_string(CurrentConfig.inBoundSettings.socks_port)));
+    ui->socksAuthCB->setChecked(CurrentConfig.inBoundSettings.socks_useAuth);
+    //
+    ui->socksAuthUsernameTxt->setEnabled(CurrentConfig.inBoundSettings.socks_useAuth);
+    ui->socksAuthPasswordTxt->setEnabled(CurrentConfig.inBoundSettings.socks_useAuth);
+    ui->socksAuthUsernameTxt->setText(QString::fromStdString(CurrentConfig.inBoundSettings.socksAccount.user));
+    ui->socksAuthPasswordTxt->setText(QString::fromStdString(CurrentConfig.inBoundSettings.socksAccount.pass));
+    ui->socksPortLE->setValidator(new QIntValidator());
+    //
     //
     ui->vCoreExePathTxt->setText(QString::fromStdString(CurrentConfig.v2CorePath));
+    ui->vCoreAssetsPathTxt->setText(QString::fromStdString(CurrentConfig.v2AssetsPath));
     //
-    ui->httpPortLE->setValidator(new QIntValidator());
-    ui->socksPortLE->setValidator(new QIntValidator());
+    //
+    ui->muxEnabledCB->setChecked(CurrentConfig.mux.enabled);
+    ui->muxConcurrencyTxt->setValue(CurrentConfig.mux.concurrency);
+    //
     parentMW = parent;
 }
 
@@ -89,9 +103,8 @@ void PrefrencesWindow::on_socksCB_stateChanged(int checked)
 
 void PrefrencesWindow::on_httpAuthCB_stateChanged(int checked)
 {
-    Q_UNUSED(checked)
-    ui->httpAuthUsernameTxt->setEnabled(ui->httpCB->checkState() == Qt::Checked);
-    ui->httpAuthPasswordTxt->setEnabled(ui->httpCB->checkState() == Qt::Checked);
+    ui->httpAuthUsernameTxt->setEnabled(checked == Qt::Checked);
+    ui->httpAuthPasswordTxt->setEnabled(checked == Qt::Checked);
 }
 
 void PrefrencesWindow::on_runAsRootCheckBox_stateChanged(int arg1)
@@ -104,7 +117,6 @@ void PrefrencesWindow::on_runAsRootCheckBox_stateChanged(int arg1)
 
 void PrefrencesWindow::on_socksAuthCB_stateChanged(int checked)
 {
-    Q_UNUSED(checked)
-    ui->socksAuthUsernameTxt->setEnabled(ui->socksCB->checkState() == Qt::Checked);
-    ui->socksAuthPasswordTxt->setEnabled(ui->socksCB->checkState() == Qt::Checked);
+    ui->socksAuthUsernameTxt->setEnabled(checked == Qt::Checked);
+    ui->socksAuthPasswordTxt->setEnabled(checked == Qt::Checked);
 }
