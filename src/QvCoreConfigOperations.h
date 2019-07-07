@@ -10,6 +10,8 @@
 #define DROOT QJsonObject root;
 #define RROOT return root;
 
+#define JSON_ROOT_TRY_REMOVE(obj) if (root.contains(obj)) { root.remove(obj); }
+
 namespace Qv2ray
 {
     namespace ConfigOperations
@@ -32,15 +34,24 @@ namespace Qv2ray
         //
         // Misc
         template<typename T>
-        QJsonObject GetRootObject(T out);
+        QJsonObject GetRootObject(T t)
+        {
+            auto json = StructToJSON(t);
+            QJsonDocument doc = QJsonDocument::fromJson(QByteArray::fromStdString(json.toStdString()));
+            return doc.object();
+        }
+        template QJsonObject GetRootObject<StreamSettingsObject>(StreamSettingsObject t);
+        template QJsonObject GetRootObject<VMessOut>(VMessOut t);
         //
         // -------------------------- BEGIN CONFIG VALIDATIONS ---------------------------------------------
         int VerifyVMessProtocolString(QString vmess);
+        //
         // -------------------------- BEGIN CONFIG CONVERSIONS ---------------------------------------------
         // Save Connection Config
         int SaveConnectionConfig(QJsonObject obj, const QString *alias);
         // VMess Protocol
-        QJsonObject ConvertOutboundFromVMessString(QString vmess);
+        QJsonObject ConvertConfigFromVMessString(QString vmess);
+        QJsonObject ConvertConfigFromFile(QString sourceFilePath, bool overrideInbounds);
 
     }
 }

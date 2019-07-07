@@ -16,17 +16,20 @@ bool initializeQv()
     /// Qv2ray Config Path and ends with "/"
     QString configPath = "";
     QString exeDefaultPath = "";
+    QString v2AssetsPath = "";
 #if defined(__WIN32) || defined(__APPLE__)
     // For Windows and MacOS, there's no such 'installation' of a software
     // package, So as what ShadowSocks and v2rayX does, save config files next to
     // the executable.
-    configPath = "./qv2ray.conf.d";
-    exeDefaultPath = "./v2ray";
+    configPath = "./qv2ray.d";
+    exeDefaultPath = "./qv2ray.d/v2ray";
+    v2AssetsPath = "./qv2ray.d";
 #else
     // However, for linux, this software can be and/or will be provided as a
     // package and install to whatever /usr/bin or /usr/local/bin or even /opt/
     // Thus we save config files in the user's home directory.
-    configPath = QDir::homePath() + "/.qv2ray/";
+    configPath = QDir::homePath() + "/.qv2ray";
+    v2AssetsPath = "/etc/v2ray";
     exeDefaultPath = "/bin/v2ray";
 #endif
     SetConfigDirPath(configPath);
@@ -60,7 +63,7 @@ bool initializeQv()
         // These below genenrated very basic global config.
         QvInbondSetting inHttp = QvInbondSetting(true, "127.0.0.1", 8080);
         QvInbondSetting inSocks = QvInbondSetting(true, "127.0.0.1", 1080);
-        Qv2Config conf = Qv2Config("zh-CN", exeDefaultPath.toStdString(), "info", inHttp, inSocks);
+        Qv2Config conf = Qv2Config("zh-CN", exeDefaultPath.toStdString(), v2AssetsPath.toStdString(), 2, inHttp, inSocks);
         //
         // Save initial config.
         SetGlobalConfig(conf);

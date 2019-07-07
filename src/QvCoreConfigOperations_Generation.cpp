@@ -62,14 +62,6 @@ namespace Qv2ray
             RROOT
         }
 
-        template<typename T>
-        QJsonObject GetRootObject(T out)
-        {
-            auto json = StructToJSON(out);
-            QJsonDocument doc = QJsonDocument::fromJson(QByteArray::fromStdString(json.toStdString()));
-            return doc.object();
-        }
-
         QJsonObject GenerateShadowSocksServerOUT(QString email, QString address, int port, QString method, QString password, bool ota, int level)
         {
             DROOT
@@ -122,62 +114,6 @@ namespace Qv2ray
             JADD(auth, accounts, udp, ip, userLevel)
             RROOT
         }
-
-        // This generates an "OutBoundObject"
-        QJsonObject ConvertOutboundFromVMessString(QString str)
-        {
-            DROOT
-            QStringRef vmessJsonB64(&str, 8, str.length() - 8);
-            auto vmessConf = StructFromJSON<VMessProtocolConfigObject>(Base64Decode(vmessJsonB64.toString()).toStdString());
-            VMessOut vConf;
-            VMessOut::ServerObject serv;
-            serv.port = stoi(vmessConf.port);
-            serv.address = vmessConf.add;
-            // User
-            VMessOut::ServerObject::UserObject user;
-            user.id = vmessConf.id;
-            user.alterId = stoi(vmessConf.aid);
-            // Server
-            serv.users.push_back(user);
-            // VMess root config
-            vConf.vnext.push_back(serv);
-            //
-            // Stream Settings
-            StreamSettingsObject streaming;
-
-            // Fill hosts for HTTP
-            foreach (auto host, QString::fromStdString(vmessConf.host).split(',')) {
-                streaming.httpSettings.host.push_back(host.toStdString());
-            }
-
-            // hosts for ws, h2 and security for QUIC
-            streaming.wsSettings.headers.insert(make_pair("Host", vmessConf.host));
-            streaming.quicSettings.security = vmessConf.host;
-            //
-            // Fake type for tcp, kcp and QUIC
-            streaming.tcpSettings.header.type = vmessConf.type;
-            streaming.kcpSettings.header.type = vmessConf.type;
-            streaming.quicSettings.header.type = vmessConf.type;
-            //
-            // Path for ws, h2, Quic
-            streaming.wsSettings.path = vmessConf.path;
-            streaming.httpSettings.path = vmessConf.path;
-            streaming.quicSettings.key = vmessConf.path;
-            streaming.security = vmessConf.tls;
-            //
-            // Network type
-            streaming.network = vmessConf.net;
-            //
-            // Root
-            root.insert("sendThrough", "0.0.0.0");
-            root.insert("protocol", "vmess");
-            root.insert("settings", GetRootObject(vConf));
-            root.insert("tag", OUTBOUND_TAG_PROXY);
-            root.insert("streamSettings", GetRootObject(streaming));
-            root.insert("QV2RAY_ALIAS", QString::fromStdString(vmessConf.ps));
-            RROOT
-        }
-
         // -------------------------- END CONFIG GENERATIONS ------------------------------------------------------------------------------
     }
 }

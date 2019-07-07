@@ -78,14 +78,17 @@ namespace Qv2ray
         {
             return dir->entryList(QStringList() << "*" << "*.*", QDir::Hidden | QDir::Files);
         }
+
         bool CheckFile(QDir *dir, QString fileName)
         {
             return GetFileList(dir).indexOf(fileName) >= 0;
         }
+
         void QvMessageBox(QWidget *parent, QString title, QString text)
         {
             QMessageBox::warning(parent, title, text, QMessageBox::Ok | QMessageBox::Default, 0);
         }
+
         QTranslator *getTranslator(QString lang)
         {
             QTranslator *translator = new QTranslator();

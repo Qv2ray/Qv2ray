@@ -17,13 +17,13 @@ namespace Qv2ray
         public:
             explicit Qv2Instance(QWidget *parent = nullptr);
 
-            bool start();
-            void stop();
+            bool Start();
+            void Stop();
 
             QString readOutput();
             V2RAY_INSTANCE_STARTUP_STATUS Status;
-            static bool checkConfigFile(QString path);
-            static bool checkCoreExe();
+            static bool VerifyVConfigFile(QString path);
+            static bool ValidateV2rayCoreExe();
 
             ~Qv2Instance();
         private:

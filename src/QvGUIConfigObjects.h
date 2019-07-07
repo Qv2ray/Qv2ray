@@ -41,22 +41,24 @@ namespace Qv2ray
         struct Qv2Config {
             string language;
             bool runAsRoot;
-            string logLevel;
-            string v2Path;
+            int logLevel;
+            string v2CorePath;
+            string v2AssetsPath;
             QvInbondSetting httpSetting;
             QvInbondSetting socksSetting;
             list<string> configs;
-            Qv2Config(): language(), runAsRoot(), logLevel(), httpSetting(), socksSetting(), configs() { }
-            Qv2Config(string lang, string exePath, string log, QvInbondSetting httpIn, QvInbondSetting socksIN): Qv2Config()
+            Qv2Config(): httpSetting(), socksSetting(), configs() { }
+            Qv2Config(string lang, string exePath, string assetsPath, int log, QvInbondSetting httpIn, QvInbondSetting socksIN): Qv2Config()
             {
-                v2Path = exePath;
                 language = lang;
+                v2CorePath = exePath;
+                v2AssetsPath = assetsPath;
                 logLevel = log;
                 httpSetting = httpIn;
                 socksSetting = socksIN;
                 runAsRoot = false;
             }
-            XTOSTRUCT(O(language, v2Path, runAsRoot, logLevel, httpSetting, socksSetting, configs))
+            XTOSTRUCT(O(language, v2CorePath, v2AssetsPath, runAsRoot, logLevel, httpSetting, socksSetting, configs))
         };
     }
 }

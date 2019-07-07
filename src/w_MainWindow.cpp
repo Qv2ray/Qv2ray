@@ -101,7 +101,7 @@ void MainWindow::UpdateLog()
 void MainWindow::on_startButton_clicked()
 {
     ui->logText->clear();
-    bool startFlag = this->vinstance->start();
+    bool startFlag = this->vinstance->Start();
     trayMenu->actions()[2]->setEnabled(!startFlag);
     trayMenu->actions()[3]->setEnabled(startFlag);
     trayMenu->actions()[4]->setEnabled(startFlag);
@@ -109,7 +109,7 @@ void MainWindow::on_startButton_clicked()
 
 void MainWindow::on_stopButton_clicked()
 {
-    this->vinstance->stop();
+    this->vinstance->Stop();
     ui->logText->clear();
     trayMenu->actions()[2]->setEnabled(true);
     trayMenu->actions()[3]->setEnabled(false);

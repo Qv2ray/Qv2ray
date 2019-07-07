@@ -77,7 +77,7 @@
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="QComboBox" name="logLevelCheckBox">
+         <widget class="QComboBox" name="logLevelComboBox">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -336,7 +336,7 @@
  <tabstops>
   <tabstop>languageComboBox</tabstop>
   <tabstop>runAsRootCheckBox</tabstop>
-  <tabstop>logLevelCheckBox</tabstop>
+  <tabstop>logLevelComboBox</tabstop>
   <tabstop>muxEnabledCB</tabstop>
   <tabstop>muxConcurrencyTxt</tabstop>
   <tabstop>httpCB</tabstop>
