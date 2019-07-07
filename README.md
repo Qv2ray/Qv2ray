@@ -12,19 +12,12 @@ TODO: 使用 Qt 的跨平台 v2ray 客户端，目前仍处于早期开发，多
 
 ## 最近更新内容
 
-- 详见 [ChangeLog.md](CHANGELOG.md)
-
-
-
-# 鸣谢
-
-[@aliyuchang33](https://github.com/aliyuchang33) - 项目原作者/发起人，感谢他使用 Qt 作为基础框架。 
-
- - 可惜原项目不更新了qwq
+- 详见 [ChangeLog.md](CHANGELOG.md) 或 [Release](https://github.com/lhy0403/Qv2ray/releases) 或 开发分支 [dev](https://github.com/lhy0403/Qv2ray/tree/dev)
 
 
 
 ## 项目依赖包
+
 ### Linux
 - Qt >= 5.12
 - Python (3.5 | 3.6 | 3.7)
