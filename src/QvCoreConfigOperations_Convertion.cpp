@@ -77,7 +77,7 @@ namespace Qv2ray
         {
             auto globalConf = GetGlobalConfig();
             QFile configFile(sourceFilePath);
-            configFile.open(QIODevice::ReadOnly | QIODevice::ExistingOnly);
+            configFile.open(QIODevice::ReadOnly);
             QByteArray allData = configFile.readAll();
             configFile.close();
             QJsonDocument v2conf = QJsonDocument::fromJson(allData);
