@@ -38,6 +38,7 @@ void ImportConfigWindow::on_selectFileBtn_clicked()
 
 void ImportConfigWindow::on_buttonBox_clicked(QAbstractButton *button)
 {
+    Q_UNUSED(button)
     QString alias = ui->nameTxt->text();
     QJsonObject config;
 
