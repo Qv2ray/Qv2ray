@@ -14,7 +14,7 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     CurrentConfig = GetGlobalConfig();
     ui->languageComboBox->setCurrentText(QString::fromStdString(CurrentConfig.language));
     ui->runAsRootCheckBox->setChecked(CurrentConfig.runAsRoot);
-    ui->logLevelCheckBox->setCurrentText(QString::fromStdString(CurrentConfig.logLevel));
+    ui->logLevelComboBox->setCurrentIndex(CurrentConfig.logLevel);
     //
     ui->httpCB->setChecked(CurrentConfig.httpSetting.enabled);
     ui->httpPortLE->setText(QString::fromStdString(to_string(CurrentConfig.httpSetting.port)));
@@ -29,7 +29,7 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     ui->socksAuthUsernameTxt->setText(QString::fromStdString(CurrentConfig.socksSetting.authUsername));
     ui->socksAuthPasswordTxt->setText(QString::fromStdString(CurrentConfig.socksSetting.authPassword));
     //
-    ui->vCoreExePathTxt->setText(QString::fromStdString(CurrentConfig.v2Path));
+    ui->vCoreExePathTxt->setText(QString::fromStdString(CurrentConfig.v2CorePath));
     //
     ui->httpPortLE->setValidator(new QIntValidator());
     ui->socksPortLE->setValidator(new QIntValidator());
@@ -98,7 +98,7 @@ void PrefrencesWindow::on_runAsRootCheckBox_stateChanged(int arg1)
 {
     Q_UNUSED(arg1)
 #ifdef _WIN32
-    showWarnMessageBox(this, tr("Prefrences"), tr("RunAsRootNotOnWindows"));
+    QvMessageBox(this, tr("Prefrences"), tr("RunAsRootNotOnWindows"));
 #endif
 }
 

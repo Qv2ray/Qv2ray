@@ -5,11 +5,14 @@
 
 namespace Qv2ray
 {
-    bool Qv2Instance::checkConfigFile(const QString path)
+    bool Qv2Instance::VerifyVConfigFile(const QString path)
     {
-        if (checkCoreExe()) {
+        if (ValidateV2rayCoreExe()) {
+            QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
+            env.insert("V2RAY_LOCATION_ASSET", QString::fromStdString(GetGlobalConfig().v2AssetsPath));
             QProcess process;
-            process.start(QString::fromStdString(Utils::GetGlobalConfig().v2Path), QStringList() << "-test"
+            process.setProcessEnvironment(env);
+            process.start(QString::fromStdString(Utils::GetGlobalConfig().v2CorePath), QStringList() << "-test"
                           << "-config" << path,
                           QIODevice::ReadWrite | QIODevice::Text);
 
@@ -37,9 +40,9 @@ namespace Qv2ray
         Status = STOPPED;
     }
 
-    bool Qv2Instance::checkCoreExe()
+    bool Qv2Instance::ValidateV2rayCoreExe()
     {
-        auto path = QString::fromStdString(Utils::GetGlobalConfig().v2Path);
+        auto path = QString::fromStdString(Utils::GetGlobalConfig().v2CorePath);
 
         if (!QFile::exists(path)) {
             Utils::QvMessageBox(nullptr, QObject::tr("CoreNotFound"), QObject::tr("CoreFileNotFoundExplainationAt:") + path);
@@ -47,7 +50,7 @@ namespace Qv2ray
         } else return true;
     }
 
-    bool Qv2Instance::start()
+    bool Qv2Instance::Start()
     {
         if (Status != STOPPED) {
             return false;
@@ -55,23 +58,28 @@ namespace Qv2ray
 
         Status = STARTING;
 
-        if (checkCoreExe()) {
-            if (checkConfigFile(QV2RAY_GENERATED_CONFIG_DIRPATH + "config.json")) {
+        if (ValidateV2rayCoreExe()) {
+            if (VerifyVConfigFile(QV2RAY_GENERATED_CONFIG_DIRPATH + "config.json")) {
+                QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
+                env.insert("V2RAY_LOCATION_ASSET", QString::fromStdString(GetGlobalConfig().v2AssetsPath));
+                vProcess->setProcessEnvironment(env);
+                vProcess->start(QString::fromStdString(_config.v2CorePath), QStringList() << "-config"
+                                << QV2RAY_GENERATED_CONFIG_DIRPATH + "config.json",
+                                QIODevice::ReadWrite | QIODevice::Text);
+                vProcess->waitForStarted();
+                Status = STARTED;
+                return true;
+            } else {
+                Status = STOPPED;
+                return false;
             }
-
-            vProcess->start(QString::fromStdString(_config.v2Path), QStringList() << "-config"
-                            << QV2RAY_GENERATED_CONFIG_DIRPATH + "config.json",
-                            QIODevice::ReadWrite | QIODevice::Text);
-            vProcess->waitForStarted();
-            Status = STARTED;
-            return true;
         } else {
             Status = STOPPED;
             return false;
         }
     }
 
-    void Qv2Instance::stop()
+    void Qv2Instance::Stop()
     {
         vProcess->close();
         Status = STOPPED;
@@ -84,7 +92,7 @@ namespace Qv2ray
 
     Qv2Instance::~Qv2Instance()
     {
-        stop();
+        Stop();
         delete vProcess;
     }
 }

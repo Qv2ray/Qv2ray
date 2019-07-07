@@ -262,133 +262,89 @@
 <context>
     <name>ImportConfigWindow</name>
     <message>
-        <location filename="../src/w_ImportConfig.ui" line="20"/>
+        <location filename="../src/w_ImportConfig.ui" line="26"/>
         <source>Import file</source>
         <translation>导入文件</translation>
     </message>
     <message>
-        <location filename="../src/w_ImportConfig.ui" line="28"/>
+        <location filename="../src/w_ImportConfig.ui" line="50"/>
         <source>#ImportFrom</source>
         <translation>导入源</translation>
     </message>
     <message>
-        <location filename="../src/w_ImportConfig.ui" line="36"/>
-        <source>Existing File</source>
-        <translation>现有文件</translation>
-    </message>
-    <message>
-        <location filename="../src/w_ImportConfig.ui" line="41"/>
-        <source>VMess Connection String</source>
-        <translation>VMess 连接字符串</translation>
-    </message>
-    <message>
-        <location filename="../src/w_ImportConfig.ui" line="67"/>
-        <location filename="../src/w_ImportConfig.ui" line="160"/>
-        <source>Verify</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/w_ImportConfig.ui" line="87"/>
-        <source>#FromFile</source>
-        <translation>从文件</translation>
-    </message>
-    <message>
-        <location filename="../src/w_ImportConfig.ui" line="95"/>
+        <location filename="../src/w_ImportConfig.ui" line="94"/>
         <source>#Path</source>
         <translation>路径</translation>
     </message>
     <message>
-        <location filename="../src/w_ImportConfig.ui" line="111"/>
+        <location filename="../src/w_ImportConfig.ui" line="110"/>
         <source>#SelectFile</source>
         <translation>选择文件</translation>
     </message>
     <message>
-        <location filename="../src/w_ImportConfig.ui" line="120"/>
+        <location filename="../src/w_ImportConfig.ui" line="40"/>
         <source>#Name</source>
         <translation>名称</translation>
     </message>
     <message>
-        <location filename="../src/w_ImportConfig.ui" line="130"/>
+        <location filename="../src/w_ImportConfig.ui" line="64"/>
+        <source>#ExistingFile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_ImportConfig.ui" line="69"/>
+        <source>#VMessConnectionString</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_ImportConfig.ui" line="79"/>
+        <source>#Import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_ImportConfig.ui" line="119"/>
         <source>#Inbound</source>
         <translation>入站设置</translation>
     </message>
     <message>
+        <location filename="../src/w_ImportConfig.ui" line="126"/>
+        <source>#KeepImportedInbounds</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/w_ImportConfig.ui" line="139"/>
-        <source>#UseCurrent</source>
-        <translation>使用现有设置</translation>
-    </message>
-    <message>
-        <location filename="../src/w_ImportConfig.ui" line="149"/>
-        <source>#UseImported</source>
-        <translation>使用导入的设置</translation>
-    </message>
-    <message>
-        <location filename="../src/w_ImportConfig.ui" line="51"/>
-        <source>#From VMess Connection String</source>
-        <translation>从 VMess 连接字符串</translation>
-    </message>
-    <message>
-        <location filename="../src/w_ImportConfig.ui" line="57"/>
         <source>#VMess Connection String</source>
         <translation>VMess 连接字符串</translation>
     </message>
     <message>
-        <location filename="../src/w_ImportConfig.cpp" line="30"/>
+        <location filename="../src/w_ImportConfig.cpp" line="35"/>
         <source>OpenConfigFile</source>
         <translation type="unfinished">打开配置文件</translation>
     </message>
     <message>
-        <location filename="../src/w_ImportConfig.cpp" line="41"/>
-        <location filename="../src/w_ImportConfig.cpp" line="59"/>
-        <source>ImportConfig</source>
-        <translation type="unfinished">导入配置</translation>
-    </message>
-    <message>
-        <location filename="../src/w_ImportConfig.cpp" line="41"/>
-        <source>CannotOpenFile</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/w_ImportConfig.cpp" line="59"/>
-        <source>CannotCopyCustomConfig</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/w_ImportConfig.cpp" line="95"/>
+        <location filename="../src/w_ImportConfig.cpp" line="61"/>
         <source>#NotValidVMessProtocolString</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_ImportConfig.cpp" line="93"/>
-        <location filename="../src/w_ImportConfig.cpp" line="106"/>
-        <source>#AbleToImportConfig</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/w_ImportConfig.cpp" line="93"/>
-        <location filename="../src/w_ImportConfig.cpp" line="95"/>
-        <location filename="../src/w_ImportConfig.cpp" line="97"/>
+        <location filename="../src/w_ImportConfig.cpp" line="61"/>
+        <location filename="../src/w_ImportConfig.cpp" line="65"/>
         <source>#VMessCheck</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_ImportConfig.cpp" line="97"/>
+        <location filename="../src/w_ImportConfig.cpp" line="65"/>
         <source>#INTERNAL_ERROR</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_ImportConfig.cpp" line="104"/>
+        <location filename="../src/w_ImportConfig.cpp" line="48"/>
         <source>#InvalidConfigFile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_ImportConfig.cpp" line="104"/>
+        <location filename="../src/w_ImportConfig.cpp" line="48"/>
         <source>ConfigFileCheckFailed</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/w_ImportConfig.cpp" line="106"/>
-        <source>#VConfigFileCheckPassed</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -666,27 +622,27 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/main.cpp" line="89"/>
+        <location filename="../src/main.cpp" line="92"/>
         <source>AnotherInstanceRunning</source>
         <translation>另一个实例正在运行</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="89"/>
+        <location filename="../src/main.cpp" line="92"/>
         <source>Qv2ray</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/QvCoreInteractions.cpp" line="45"/>
+        <location filename="../src/QvCoreInteractions.cpp" line="48"/>
         <source>CoreNotFound</source>
         <translation>核心文件未找到</translation>
     </message>
     <message>
-        <location filename="../src/QvCoreInteractions.cpp" line="45"/>
+        <location filename="../src/QvCoreInteractions.cpp" line="48"/>
         <source>CoreFileNotFoundExplainationAt:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/QvCoreInteractions.cpp" line="24"/>
+        <location filename="../src/QvCoreInteractions.cpp" line="27"/>
         <source>ConfigurationError</source>
         <translation>配置出错</translation>
     </message>
