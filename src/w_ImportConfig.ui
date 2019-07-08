@@ -1,168 +1,177 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ImportConfig</class>
- <widget class="QDialog" name="ImportConfig">
+ <class>ImportConfigWindow</class>
+ <widget class="QDialog" name="ImportConfigWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>650</width>
-    <height>350</height>
+    <width>370</width>
+    <height>420</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>650</width>
-    <height>350</height>
+    <width>370</width>
+    <height>420</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>370</width>
+    <height>420</height>
    </size>
   </property>
   <property name="windowTitle">
    <string>Import file</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0" colspan="2">
-    <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,6">
-     <item>
+  <property name="sizeGripEnabled">
+   <bool>false</bool>
+  </property>
+  <property name="modal">
+   <bool>true</bool>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_5">
+   <item>
+    <layout class="QFormLayout" name="formLayout_2">
+     <item row="0" column="0">
+      <widget class="QLabel" name="aliasLabel">
+       <property name="text">
+        <string>#Name</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="nameTxt"/>
+     </item>
+     <item row="1" column="0">
       <widget class="QLabel" name="label">
        <property name="text">
         <string>#ImportFrom</string>
        </property>
       </widget>
      </item>
-     <item>
+     <item row="1" column="1">
       <widget class="QComboBox" name="importSourceCombo">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <item>
         <property name="text">
-         <string>Existing File</string>
+         <string>#ExistingFile</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>VMess Connection String</string>
+         <string>#VMessConnectionString</string>
         </property>
        </item>
       </widget>
      </item>
     </layout>
    </item>
-   <item row="1" column="0">
-    <widget class="QGroupBox" name="fromFileGroupBox">
+   <item>
+    <widget class="QGroupBox" name="groupBox">
      <property name="title">
-      <string>#FromFile</string>
+      <string>#Import</string>
      </property>
-     <layout class="QFormLayout" name="formLayout">
-      <item row="0" column="0">
-       <widget class="QLabel" name="fileLabel">
-        <property name="text">
-         <string>#Path</string>
+     <layout class="QVBoxLayout" name="verticalLayout_4">
+      <item>
+       <widget class="QStackedWidget" name="stackedWidget">
+        <property name="currentIndex">
+         <number>0</number>
         </property>
+        <widget class="QWidget" name="page">
+         <layout class="QVBoxLayout" name="verticalLayout_3">
+          <item>
+           <layout class="QFormLayout" name="formLayout">
+            <item row="0" column="0">
+             <widget class="QLabel" name="fileLabel">
+              <property name="text">
+               <string>#Path</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <layout class="QHBoxLayout" name="horizontalLayout_2">
+              <item>
+               <widget class="QLineEdit" name="fileLineTxt">
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="selectFileBtn">
+                <property name="text">
+                 <string>#SelectFile</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_2">
+              <property name="text">
+               <string>#Inbound</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QCheckBox" name="keepImportedInboundCheckBox">
+              <property name="text">
+               <string>#KeepImportedInbounds</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="page_2">
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <widget class="QLabel" name="label_3">
+            <property name="text">
+             <string>#VMess Connection String</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QTextEdit" name="vmessConnectionStringTxt"/>
+          </item>
+         </layout>
+        </widget>
        </widget>
-      </item>
-      <item row="0" column="1">
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
-        <item>
-         <widget class="QLineEdit" name="fileLineTxt">
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="selectFileBtn">
-          <property name="text">
-           <string>#SelectFile</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="aliasLabel">
-        <property name="text">
-         <string>#Name</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QLineEdit" name="nameTxt"/>
-      </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="label_2">
-        <property name="text">
-         <string>#Inbound</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <layout class="QVBoxLayout" name="verticalLayout">
-        <item>
-         <widget class="QRadioButton" name="useCurrentSettingRidBtn">
-          <property name="text">
-           <string>#UseCurrent</string>
-          </property>
-          <property name="checked">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QRadioButton" name="useImportedRidBtn">
-          <property name="text">
-           <string>#UseImported</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
       </item>
      </layout>
     </widget>
    </item>
-   <item row="1" column="1">
-    <widget class="QGroupBox" name="fromVMessGroupBox">
-     <property name="title">
-      <string>#From VMess Connection String</string>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_2">
-      <item>
-       <widget class="QLabel" name="label_3">
-        <property name="text">
-         <string>#VMess Connection String</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QTextEdit" name="vmessConnectionStringTxt"/>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="2" column="1">
+   <item>
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
      <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+      <set>QDialogButtonBox::Discard|QDialogButtonBox::Save</set>
      </property>
     </widget>
    </item>
   </layout>
  </widget>
  <tabstops>
-  <tabstop>importSourceCombo</tabstop>
   <tabstop>fileLineTxt</tabstop>
   <tabstop>selectFileBtn</tabstop>
-  <tabstop>nameTxt</tabstop>
-  <tabstop>useCurrentSettingRidBtn</tabstop>
-  <tabstop>useImportedRidBtn</tabstop>
-  <tabstop>vmessConnectionStringTxt</tabstop>
  </tabstops>
  <resources/>
  <connections>
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>ImportConfig</receiver>
+   <receiver>ImportConfigWindow</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -178,7 +187,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>ImportConfig</receiver>
+   <receiver>ImportConfigWindow</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

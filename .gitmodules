@@ -1,6 +1,3 @@
-[submodule "3rdparty/jsoncons"]
-	path = 3rdparty/jsoncons
-	url = https://github.com/danielaparker/jsoncons
 [submodule "3rdparty/x2struct"]
 	path = 3rdparty/x2struct
 	url = https://github.com/xyz347/x2struct

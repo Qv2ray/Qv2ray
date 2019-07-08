@@ -3,16 +3,15 @@ extraction:
     prepare:
       packages:
         - pkg-config
-        - libpython3.7-minimal
         - qt5-default
-        - qt5-qmake 
-        - python3-dev
-        - python-dev
+        - qt5-qmake
         - qtdeclarative5-dev
+        - qttools5-dev-tools
     index:
       build_command:
-        - cd src
-        - mkdir build && cd build
-        - qmake ../../
+        - git submodule update --init
+        - lrelease ./Qv2ray.pro
+        - mkdir build && cd ./build
+        - qmake ../
         - make
         
