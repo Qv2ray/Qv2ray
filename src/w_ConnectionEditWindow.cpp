@@ -15,21 +15,19 @@ ConnectionEditWindow::ConnectionEditWindow(QWidget *parent)
     ui->alterLineEdit->setValidator(new QIntValidator());
 }
 
+ConnectionEditWindow::ConnectionEditWindow(QJsonObject editRootObject, QWidget *parent)
+    : ConnectionEditWindow(parent)
+{
+    editRootJson = editRootObject;
+    // TEST
+    vmess = ConvertOutBoundJSONToStruct(editRootJson);
+}
+
+
 ConnectionEditWindow::~ConnectionEditWindow()
 {
     delete ui;
 }
-
-//void ConnectionEditWindow::getConfigFromDialog(Ui::ConnectionEditWindow *ui)
-//{
-//this->host = ui->ipLineEdit->text();
-//this->port = ui->portLineEdit->text();
-//this->alias = ui->aliasLineEdit->text();
-//this->uuid = ui->idLineEdit->text();
-//this->alterid = ui->alterLineEdit->text();
-//this->security = ui->securityCombo->currentText();
-//this->isCustom = 0;
-//}
 
 void ConnectionEditWindow::on_buttonBox_accepted()
 {

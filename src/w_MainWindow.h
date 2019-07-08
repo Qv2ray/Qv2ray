@@ -1,6 +1,5 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-#include "w_ConnectionEditWindow.h"
 #include <QMainWindow>
 #include <QMenu>
 #include <QScrollBar>
@@ -10,9 +9,6 @@
 #include "ui_w_MainWindow.h"
 #include "QvCoreInteractions.h"
 #include "QvCoreConfigOperations.h"
-#include "w_ConnectionEditWindow.h"
-#include "w_ImportConfig.h"
-#include "w_PrefrencesWindow.h"
 namespace Ui
 {
     class MainWindow;
@@ -29,36 +25,39 @@ class MainWindow : public QMainWindow
         void UpdateLog();
     private slots:
         void on_restartButton_clicked();
-        void on_actionEdit_triggered();
-        void on_actionExisting_config_triggered();
-        void showMenu(QPoint pos);
         void on_startButton_clicked();
         void on_stopButton_clicked();
         void on_clbutton_clicked();
         void on_activatedTray(QSystemTrayIcon::ActivationReason reason);
-        void toggleMainWindowVisibility();
+        void ToggleVisibility();
         void quit();
         void on_actionExit_triggered();
-        void scrollToBottom();
-        void on_actionPreferences_triggered();
+        void QTextScrollToBottom();
 
-        void on_pushButton_clicked();
+        void on_connectionListWidget_itemClicked(QListWidgetItem *item);
 
-        void on_connectionListWidget_currentRowChanged(int currentRow);
+        void on_importConfigBtn_clicked();
+
+        void on_addConfigBtn_clicked();
+
+        void on_delConfigBtn_clicked();
+
+        void on_prefrencesBtn_clicked();
+
+        void on_connectionListWidget_doubleClicked(const QModelIndex &index);
+
+        void on_editConnectionSettingsBtn_clicked();
 
     private:
+        void ShowAndSetConnection(int index, bool SetConnection, bool Apply);
         void LoadConnections();
-        QString CurrentConnection;
+        QString CurrentConnectionName;
         Ui::MainWindow *ui;
         QSystemTrayIcon *hTray;
         QMenu *trayMenu = new QMenu(this);
         Qv2Instance *vinstance;
         //
-        ConnectionEditWindow *connectionEditWindow;
-        ImportConfigWindow *importConfigWindow;
-        PrefrencesWindow *prefrenceWindow;
         void closeEvent(QCloseEvent *);
-        QScrollBar *bar;
         QMap<QString, QJsonObject> connections;
 };
 

@@ -8,24 +8,20 @@
 #include <QMenu>
 #include <QStandardItemModel>
 
+#include "w_PrefrencesWindow.h"
+#include "w_ImportConfig.h"
+#include "w_ConnectionEditWindow.h"
 #include "w_MainWindow.h"
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
       ui(new Ui::MainWindow),
       hTray(new QSystemTrayIcon(this)),
-      vinstance(new Qv2Instance(this)),
-      connectionEditWindow(new ConnectionEditWindow(this)),
-      importConfigWindow(new ImportConfigWindow(this)),
-      prefrenceWindow(new PrefrencesWindow(this))
+      vinstance(new Qv2Instance(this))
 {
     ui->setupUi(this);
     this->setWindowIcon(QIcon(":/icons/Qv2ray.ico"));
     hTray->setIcon(this->windowIcon());
-    bar = ui->logText->verticalScrollBar();
-    //
-    importConfigWindow->setModal(true);
-    connectionEditWindow->setModal(true);
-    prefrenceWindow->setModal(true);
     //
     QAction *actionShowHide = new QAction(this->windowIcon(), tr("#Hide"), this);
     QAction *actionQuit = new QAction(tr("#Quit"), this);
@@ -42,21 +38,18 @@ MainWindow::MainWindow(QWidget *parent)
     trayMenu->addAction(actionRestart);
     trayMenu->addSeparator();
     trayMenu->addAction(actionQuit);
-    connect(actionShowHide, &QAction::triggered, this, &MainWindow::toggleMainWindowVisibility);
+    connect(actionShowHide, &QAction::triggered, this, &MainWindow::ToggleVisibility);
     connect(actionStart, &QAction::triggered, this, &MainWindow::on_startButton_clicked);
     connect(actionStop, &QAction::triggered, this, &MainWindow::on_stopButton_clicked);
     connect(actionRestart, &QAction::triggered, this, &MainWindow::on_restartButton_clicked);
     connect(actionQuit, &QAction::triggered, this, &MainWindow::quit);
-    connect(connectionEditWindow, &ConnectionEditWindow::s_reload_config, this, &MainWindow::reload_config);
-    connect(importConfigWindow, &ImportConfigWindow::s_reload_config, this, &MainWindow::reload_config);
-    connect(prefrenceWindow, &PrefrencesWindow::s_reload_config, this, &MainWindow::reload_config);
     connect(hTray, &QSystemTrayIcon::activated, this, &MainWindow::on_activatedTray);
-    connect(ui->logText, &QTextBrowser::textChanged, this, &MainWindow::scrollToBottom);
-    //connect(vinstance, &Qv2Instance::readOutput, this, &MainWindow::UpdateLog);
+    connect(ui->logText, &QTextBrowser::textChanged, this, &MainWindow::QTextScrollToBottom);
     hTray->setContextMenu(trayMenu);
     hTray->show();
     LoadConnections();
 }
+
 void MainWindow::LoadConnections()
 {
     connections = LoadAllConnectionList(GetGlobalConfig().configs);
@@ -68,40 +61,23 @@ void MainWindow::LoadConnections()
 }
 void MainWindow::reload_config()
 {
+    bool isRunning = vinstance->Status == STARTED;
     SaveGlobalConfig();
-    on_stopButton_clicked();
+
+    if (isRunning) on_stopButton_clicked();
+
     LoadConnections();
-    on_startButton_clicked();
+
+    if (isRunning) on_startButton_clicked();
 }
 MainWindow::~MainWindow()
 {
     hTray->hide();
-    delete this->connectionEditWindow;
-    delete this->importConfigWindow;
-    delete this->prefrenceWindow;
     delete this->hTray;
     delete this->vinstance;
     delete ui;
 }
 
-void MainWindow::on_actionEdit_triggered()
-{
-    connectionEditWindow->show();
-}
-
-void MainWindow::on_actionExisting_config_triggered()
-{
-    importConfigWindow->show();
-}
-
-void MainWindow::showMenu(QPoint pos)
-{
-    Q_UNUSED(pos)
-    //    if(ui->configTable->indexAt(pos).column() != -1) {
-    //        popMenu->move(cursor().pos());
-    //        popMenu->show();
-    //    }
-}
 void MainWindow::UpdateLog()
 {
     ui->logText->insertPlainText(vinstance->ReadProcessOutput());
@@ -109,10 +85,12 @@ void MainWindow::UpdateLog()
 
 void MainWindow::on_startButton_clicked()
 {
+    LOG(("Now start a connection: " + CurrentConnectionName).toStdString())
     ui->logText->clear();
-    auto full_conf = GenerateRuntimeConfig(connections.value(CurrentConnection));
+    auto full_conf = GenerateRuntimeConfig(connections.value(CurrentConnectionName));
     StartPreparation(full_conf);
     bool startFlag = this->vinstance->Start();
+    ui->statusLabel->setText(tr("#Started") + ": " + CurrentConnectionName);
     trayMenu->actions()[2]->setEnabled(!startFlag);
     trayMenu->actions()[3]->setEnabled(startFlag);
     trayMenu->actions()[4]->setEnabled(startFlag);
@@ -120,7 +98,9 @@ void MainWindow::on_startButton_clicked()
 
 void MainWindow::on_stopButton_clicked()
 {
+    LOG("Stop connection!")
     this->vinstance->Stop();
+    ui->statusLabel->setText(tr("#Stopped"));
     ui->logText->clear();
     trayMenu->actions()[2]->setEnabled(true);
     trayMenu->actions()[3]->setEnabled(false);
@@ -152,7 +132,7 @@ void MainWindow::on_activatedTray(QSystemTrayIcon::ActivationReason reason)
 #ifndef __APPLE__
             // Every single click will trigger the Show/Hide toggling.
             // So, as a hobby on common MacOS Apps, we 'don't toggle visibility on click'.
-            toggleMainWindowVisibility();
+            ToggleVisibility();
 #endif
             break;
 
@@ -164,15 +144,10 @@ void MainWindow::on_activatedTray(QSystemTrayIcon::ActivationReason reason)
             break;
 
         case QSystemTrayIcon::MiddleClick:
-
-            // TODO: Check if an alert message box is present.
-            // If so, do nothing but please wait for the message box to be closed.
             if (this->vinstance->Status == Qv2ray::STOPPED) {
                 on_startButton_clicked();
-                LOG("Start!")
             } else {
                 on_stopButton_clicked();
-                LOG("Stop!")
             }
 
             break;
@@ -182,7 +157,7 @@ void MainWindow::on_activatedTray(QSystemTrayIcon::ActivationReason reason)
     }
 }
 
-void MainWindow::toggleMainWindowVisibility()
+void MainWindow::ToggleVisibility()
 {
     if (this->isHidden()) {
         this->show();
@@ -195,6 +170,7 @@ void MainWindow::toggleMainWindowVisibility()
 
 void MainWindow::quit()
 {
+    on_stopButton_clicked();
     QApplication::quit();
 }
 
@@ -203,35 +179,82 @@ void MainWindow::on_actionExit_triggered()
     quit();
 }
 
-void MainWindow::scrollToBottom()
+void MainWindow::QTextScrollToBottom()
 {
+    auto bar = ui->logText->verticalScrollBar();
     bar->setValue(bar->maximum());
 }
 
-void MainWindow::on_actionPreferences_triggered()
+void MainWindow::ShowAndSetConnection(int index, bool SetConnection, bool ApplyConnection)
 {
-    prefrenceWindow->show();
-}
+    if (index < 0) return;
 
-void MainWindow::on_pushButton_clicked()
-{
-    connectionEditWindow->show();
-}
-
-void MainWindow::on_connectionListWidget_currentRowChanged(int currentRow)
-{
-    if (vinstance->Status != STARTED) {
-        CurrentConnection = connections.keys()[currentRow];
-    }
-
-    auto current = (connections.values()[currentRow])["outbounds"].toArray().first().toObject();
+    // --------- BRGIN Show Connection
+    auto obj = (connections.values()[index])["outbounds"].toArray().first().toObject();
     //
-    auto vmess = ConvertOutBoundJSONToStruct(current["settings"].toObject());
+    auto vmess = ConvertOutBoundJSONToStruct(obj["settings"].toObject());
     auto Server = QList<VMessOut::ServerObject>::fromStdList(vmess.vnext).first();
     ui->_hostLabel->setText(QString::fromStdString(Server.address));
     ui->_portLabel->setText(QString::fromStdString(to_string(Server.port)));
     auto user = QList<VMessOut::ServerObject::UserObject>::fromStdList(Server.users).first();
     ui->_uuidLabel->setText(QString::fromStdString(user.id));
     //
-    ui->_transportLabel->setText(current["streamSettings"].toObject()["network"].toString());
+    ui->_transportLabel->setText(obj["streamSettings"].toObject()["network"].toString());
+
+    // --------- END Show Connection
+    //
+    // Set Connection
+    if (SetConnection) {
+        CurrentConnectionName = connections.keys()[index];
+    }
+
+    // Restart Connection
+    if (ApplyConnection) {
+        on_restartButton_clicked();
+    }
+}
+
+void MainWindow::on_connectionListWidget_itemClicked(QListWidgetItem *item)
+{
+    Q_UNUSED(item)
+    int currentRow = ui->connectionListWidget->currentRow();
+    ShowAndSetConnection(currentRow, vinstance->Status != STARTED, false);
+}
+
+void MainWindow::on_importConfigBtn_clicked()
+{
+    ImportConfigWindow *w = new ImportConfigWindow(this);
+    connect(w, &ImportConfigWindow::s_reload_config, this, &MainWindow::reload_config);
+    w->show();
+}
+
+void MainWindow::on_addConfigBtn_clicked()
+{
+    ConnectionEditWindow *w = new ConnectionEditWindow(this);
+    connect(w, &ConnectionEditWindow::s_reload_config, this, &MainWindow::reload_config);
+    w->show();
+}
+
+void MainWindow::on_delConfigBtn_clicked()
+{
+}
+
+void MainWindow::on_prefrencesBtn_clicked()
+{
+    PrefrencesWindow *w = new PrefrencesWindow(this);
+    connect(w, &PrefrencesWindow::s_reload_config, this, &MainWindow::reload_config);
+    w->ReloadCurrentConfig();
+    w->show();
+}
+
+void MainWindow::on_connectionListWidget_doubleClicked(const QModelIndex &index)
+{
+    ShowAndSetConnection(index.row(), true, true);
+}
+
+void MainWindow::on_editConnectionSettingsBtn_clicked()
+{
+    ConnectionEditWindow *w = new ConnectionEditWindow(connections.value(CurrentConnectionName), this);
+    connect(w, &ConnectionEditWindow::s_reload_config, this, &MainWindow::reload_config);
+    w->show();
 }
