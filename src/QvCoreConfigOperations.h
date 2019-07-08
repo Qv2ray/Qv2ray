@@ -29,7 +29,7 @@ namespace Qv2ray
         //
         // InBoundsProtocols
         QJsonObject GenerateDokodemoIN(QString address, int port, QString  network, int timeout, bool followRedirect, int userLevel);
-        QJsonObject GenerateHTTPIN(QList<AccountObject> accounts, int timeout = 300, bool allowTransparent = true, bool userLevel = 0);
+        QJsonObject GenerateHTTPIN(QList<AccountObject> accounts, int timeout = 300, bool allowTransparent = true, int userLevel = 0);
         QJsonObject GenerateSocksIN(QString auth, QList<AccountObject> _accounts, bool udp = false, QString ip = "127.0.0.1", int userLevel = 0);
         //
         // Misc
@@ -45,6 +45,7 @@ namespace Qv2ray
         //
         // Generate FINAL Configs
         QJsonObject GenerateRuntimeConfig(QJsonObject root);
+        QJsonObject GenerateOutboundEntry(QString protocol, QJsonObject settings, QJsonObject streamSettings, QJsonObject mux, QString sendThrough = "0.0.0.0", QString tag = "");
 
         //
         // -------------------------- BEGIN CONFIG VALIDATIONS ---------------------------------------------

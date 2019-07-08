@@ -42,10 +42,10 @@ namespace Qv2ray
         //
         //
         template <typename TYPE>
-        TYPE StructFromJSONString(const string &str)
+        TYPE StructFromJSONString(const QString &str)
         {
             TYPE v;
-            X::loadjson(str, v, false);
+            X::loadjson(str.toStdString(), v, false);
             return v;
         }
     }

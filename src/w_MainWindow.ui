@@ -25,6 +25,12 @@
     <height>457</height>
    </size>
   </property>
+  <property name="maximumSize">
+   <size>
+    <width>866</width>
+    <height>990</height>
+   </size>
+  </property>
   <property name="windowTitle">
    <string>Qv2ray</string>
   </property>
@@ -37,7 +43,7 @@
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1,1,1,0">
+     <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1,1,1,0,0,0,0">
       <property name="spacing">
        <number>5</number>
       </property>
@@ -73,6 +79,13 @@
        </widget>
       </item>
       <item>
+       <widget class="QPushButton" name="prefrencesBtn">
+        <property name="text">
+         <string>#Preferences</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <spacer name="horizontalSpacer">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -88,10 +101,24 @@
         </property>
        </spacer>
       </item>
+      <item>
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>#Status</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="statusLabel">
+        <property name="text">
+         <string>#Stopped</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,0">
+     <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,1">
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
@@ -134,6 +161,31 @@
            <enum>QListView::ListMode</enum>
           </property>
          </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="QPushButton" name="importConfigBtn">
+            <property name="text">
+             <string>#ImportConfig</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="addConfigBtn">
+            <property name="text">
+             <string>#AddConfig</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="delConfigBtn">
+            <property name="text">
+             <string>#RemoveConfig</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
        </layout>
       </item>
@@ -252,39 +304,6 @@
      </layout>
     </item>
    </layout>
-  </widget>
-  <widget class="QMenuBar" name="menuBar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>568</width>
-     <height>29</height>
-    </rect>
-   </property>
-   <widget class="QMenu" name="menuFile">
-    <property name="title">
-     <string>#File</string>
-    </property>
-    <addaction name="actionExisting_config"/>
-    <addaction name="actionEdit"/>
-    <addaction name="actionPreferences"/>
-    <addaction name="separator"/>
-    <addaction name="actionExit"/>
-   </widget>
-   <widget class="QMenu" name="menu_Connection">
-    <property name="tearOffEnabled">
-     <bool>false</bool>
-    </property>
-    <property name="title">
-     <string>#Connection</string>
-    </property>
-    <addaction name="action_Start"/>
-    <addaction name="action_Stop"/>
-    <addaction name="action_Restart"/>
-   </widget>
-   <addaction name="menuFile"/>
-   <addaction name="menu_Connection"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionEdit">

@@ -17,7 +17,7 @@ class PrefrencesWindow : public QDialog
     public:
         explicit PrefrencesWindow(QWidget *parent = nullptr);
         ~PrefrencesWindow();
-        QWidget *parentMW;
+        void ReloadCurrentConfig();
     signals:
         void s_reload_config();
     private slots:
@@ -30,6 +30,38 @@ class PrefrencesWindow : public QDialog
         void on_runAsRootCheckBox_stateChanged(int arg1);
 
         void on_socksAuthCB_stateChanged(int arg1);
+
+        void on_languageComboBox_currentTextChanged(const QString &arg1);
+
+        void on_logLevelComboBox_currentIndexChanged(int index);
+
+        void on_vCoreExePathTxt_textEdited(const QString &arg1);
+
+        void on_vCoreAssetsPathTxt_textEdited(const QString &arg1);
+
+        void on_muxEnabledCB_stateChanged(int arg1);
+
+        void on_muxConcurrencyTxt_valueChanged(int arg1);
+
+        void on_listenIPTxt_textEdited(const QString &arg1);
+
+        void on_socksPortLE_textEdited(const QString &arg1);
+
+        void on_httpPortLE_textEdited(const QString &arg1);
+
+        void on_httpAuthUsernameTxt_textEdited(const QString &arg1);
+
+        void on_httpAuthPasswordTxt_textEdited(const QString &arg1);
+
+        void on_socksAuthUsernameTxt_textEdited(const QString &arg1);
+
+        void on_socksAuthPasswordTxt_textEdited(const QString &arg1);
+
+        void on_proxyCNCb_stateChanged(int arg1);
+
+        void on_proxyDefaultCb_stateChanged(int arg1);
+
+        void on_localDNSCb_stateChanged(int arg1);
 
     private:
         Qv2ray::QvConfigModels::Qv2Config_v1 CurrentConfig;
