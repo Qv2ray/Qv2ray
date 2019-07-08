@@ -52,7 +52,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 void MainWindow::LoadConnections()
 {
-    connections = LoadAllConnectionList(GetGlobalConfig().configs);
+    connections = GetConnections(GetGlobalConfig().configs);
     ui->connectionListWidget->clear();
 
     for (int i = 0; i < connections.count(); i++) {
@@ -85,6 +85,11 @@ void MainWindow::UpdateLog()
 
 void MainWindow::on_startButton_clicked()
 {
+    if (CurrentConnectionName == "") {
+        QvMessageBox(this, tr("#NoConfigSelected"), tr("#PleaseSelectAConfig"));
+        return;
+    }
+
     LOG(("Now start a connection: " + CurrentConnectionName).toStdString())
     ui->logText->clear();
     auto full_conf = GenerateRuntimeConfig(connections.value(CurrentConnectionName));
@@ -192,7 +197,7 @@ void MainWindow::ShowAndSetConnection(int index, bool SetConnection, bool ApplyC
     // --------- BRGIN Show Connection
     auto obj = (connections.values()[index])["outbounds"].toArray().first().toObject();
     //
-    auto vmess = ConvertOutBoundJSONToStruct(obj["settings"].toObject());
+    auto vmess = StructFromJSONString<VMessOut>(JSONToString(obj["settings"].toObject()));
     auto Server = QList<VMessOut::ServerObject>::fromStdList(vmess.vnext).first();
     ui->_hostLabel->setText(QString::fromStdString(Server.address));
     ui->_portLabel->setText(QString::fromStdString(to_string(Server.port)));
@@ -237,6 +242,20 @@ void MainWindow::on_addConfigBtn_clicked()
 
 void MainWindow::on_delConfigBtn_clicked()
 {
+    auto conf = GetGlobalConfig();
+    QList<string> list = QList<string>::fromStdList(conf.configs);
+    auto currentSelected = ui->connectionListWidget->currentItem()->text();
+
+    if (currentSelected == CurrentConnectionName) {
+        on_stopButton_clicked();
+        CurrentConnectionName  = "";
+    }
+
+    list.removeOne(currentSelected.toStdString());
+    conf.configs = list.toStdList();
+    SetGlobalConfig(conf);
+    SaveGlobalConfig();
+    reload_config();
 }
 
 void MainWindow::on_prefrencesBtn_clicked()
@@ -254,7 +273,10 @@ void MainWindow::on_connectionListWidget_doubleClicked(const QModelIndex &index)
 
 void MainWindow::on_editConnectionSettingsBtn_clicked()
 {
-    ConnectionEditWindow *w = new ConnectionEditWindow(connections.value(CurrentConnectionName), this);
-    connect(w, &ConnectionEditWindow::s_reload_config, this, &MainWindow::reload_config);
-    w->show();
+    // Check if we have a connection selected...
+    if (CurrentConnectionName != "") {
+        ConnectionEditWindow *w = new ConnectionEditWindow(connections.value(CurrentConnectionName), CurrentConnectionName, this);
+        connect(w, &ConnectionEditWindow::s_reload_config, this, &MainWindow::reload_config);
+        w->show();
+    }
 }

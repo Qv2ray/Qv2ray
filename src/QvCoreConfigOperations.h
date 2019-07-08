@@ -58,9 +58,7 @@ namespace Qv2ray
         QJsonObject ConvertConfigFromVMessString(QString vmess);
         QJsonObject ConvertConfigFromFile(QString sourceFilePath, bool overrideInbounds);
         // Load Configs
-        QMap<QString, QJsonObject> LoadAllConnectionList(list<string> connections);
-        // Get VMessOUT Object
-        VMessOut ConvertOutBoundJSONToStruct(QJsonObject vmessJson);
+        QMap<QString, QJsonObject> GetConnections(list<string> connections);
         // Startup Prepares
         int StartPreparation(QJsonObject fullConfig);
 

@@ -17,16 +17,68 @@ class ConnectionEditWindow : public QDialog
 
     public:
         explicit ConnectionEditWindow(QWidget *parent = nullptr);
-        explicit ConnectionEditWindow(QJsonObject editRootObject, QWidget *parent = nullptr);
+        explicit ConnectionEditWindow(QJsonObject editRootObject, QString alias, QWidget *parent = nullptr);
         ~ConnectionEditWindow();
     signals:
         void s_reload_config();
     private slots:
         void on_buttonBox_accepted();
 
+        void on_ipLineEdit_textEdited(const QString &arg1);
+
+        void on_portLineEdit_textEdited(const QString &arg1);
+
+        void on_idLineEdit_textEdited(const QString &arg1);
+
+        void on_alterLineEdit_textEdited(const QString &arg1);
+
+        void on_securityCombo_currentIndexChanged(const QString &arg1);
+
+        void on_tranportCombo_currentIndexChanged(const QString &arg1);
+
+        void on_comboBox_currentIndexChanged(const QString &arg1);
+
+        void on_httpPathTxt_textEdited(const QString &arg1);
+
+        void on_httpHostTxt_textChanged();
+
+        void on_lineEdit_textEdited(const QString &arg1);
+
+        void on_wsHeadersTxt_textChanged();
+
+        void on_spinBox_valueChanged(int arg1);
+
+        void on_tcpRequestDefBtn_clicked();
+
+        void on_tcpRespDefBtn_clicked();
+
+        void on_tcpRequestTxt_textChanged();
+
+        void on_tcpRespTxt_textChanged();
+
+        void on_genJsonBtn_clicked();
+
+        void on_tlsCB_stateChanged(int arg1);
+
+        void on_soMarkSpinBox_valueChanged(int arg1);
+
+        void on_tcpFastOpenCB_stateChanged(int arg1);
+
+        void on_tProxyCB_currentIndexChanged(const QString &arg1);
+
+        void on_quicSecurityCB_currentTextChanged(const QString &arg1);
+
+        void on_quicKeyTxt_textEdited(const QString &arg1);
+
+        void on_quicHeaderTypeCB_currentIndexChanged(const QString &arg1);
+
     private:
-        QJsonObject editRootJson;
-        VMessOut vmess;
+        QString _alias;
+        void LoadGUIContents();
+        QJsonObject GenerateConnectionJson();
+        QJsonObject original;
+        StreamSettingsObject stream;
+        VMessOut::ServerObject vmess;
         Ui::ConnectionEditWindow *ui;
 };
 #endif // CONFEDIT_H
