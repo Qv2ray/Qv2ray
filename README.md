@@ -1,12 +1,11 @@
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a034dd186c36408c92ffb04449fb6996)](https://app.codacy.com/app/lhy0403/Qv2ray?utm_source=github.com&utm_medium=referral&utm_content=lhy0403/Qv2ray&utm_campaign=Badge_Grade_Dashboard)
-# Qv2ray [![HitCount](http://hits.dwyl.io/lhy0403/Qv2ray.svg)](http://hits.dwyl.io/lhy0403/Qv2ray)
+# Qv2ray 
 
 TODO: 使用 Qt 的跨平台 v2ray 客户端，目前仍处于早期开发，多数功能尚未齐全。
 
-[![Language grade: C/C++](https://img.shields.io/lgtm/grade/cpp/g/lhy0403/Qv2ray.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/lhy0403/Qv2ray/context:cpp) [![Total alerts](https://img.shields.io/lgtm/alerts/g/lhy0403/Qv2ray.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/lhy0403/Qv2ray/alerts/)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a034dd186c36408c92ffb04449fb6996)](https://app.codacy.com/app/lhy0403/Qv2ray?utm_source=github.com&utm_medium=referral&utm_content=lhy0403/Qv2ray&utm_campaign=Badge_Grade_Dashboard)[![HitCount](http://hits.dwyl.io/lhy0403/Qv2ray.svg)](http://hits.dwyl.io/lhy0403/Qv2ray)[![Language grade: C/C++](https://img.shields.io/lgtm/grade/cpp/g/lhy0403/Qv2ray.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/lhy0403/Qv2ray/context:cpp) [![Total alerts](https://img.shields.io/lgtm/alerts/g/lhy0403/Qv2ray.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/lhy0403/Qv2ray/alerts/)
 
-| OS            | 主分支 [master](https://github.com/lhy0403/Qv2ray/tree/master) | 开发分支 [dev](https://github.com/lhy0403/Qv2ray/tree/dev)   |
-| ------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| OS            | 主分支 [master](https://github.com/lhy0403/Qv2ray/tree/master) | 开发分支 [dev](https://github.com/lhy0403/Qv2ray/tree/dev)     |
+| ------------- | ------------------------------------------------------------- | ------------------------------------------------------------ |
 | Linux & MacOS | [![Build Status](https://travis-ci.com/lhy0403/Qv2ray.svg?branch=master)](https://travis-ci.com/lhy0403/Qv2ray) |  [![Build Status](https://travis-ci.com/lhy0403/Qv2ray.svg?branch=dev)](https://travis-ci.com/lhy0403/Qv2ray)                                                            |
 | Windows       | [![Build status](https://ci.appveyor.com/api/projects/status/i1l524ws0hiitpm4/branch/master?svg=true)](https://ci.appveyor.com/project/lhy0403/qv2ray/branch/master) | [![Build status](https://ci.appveyor.com/api/projects/status/i1l524ws0hiitpm4/branch/dev?svg=true)](https://ci.appveyor.com/project/lhy0403/qv2ray/branch/dev) |
 
@@ -14,21 +13,14 @@ TODO: 使用 Qt 的跨平台 v2ray 客户端，目前仍处于早期开发，多
 
 - 详见 [ChangeLog.md](CHANGELOG.md) 或 [Release](https://github.com/lhy0403/Qv2ray/releases) 或 开发分支 [dev](https://github.com/lhy0403/Qv2ray/tree/dev)
 
-
-
 ## 项目依赖包
 
-### Linux
+### Linux & MacOS
 - Qt >= 5.12
-- Python (3.5 | 3.6 | 3.7)
-### Windows 
-- Python 3.7
-- Qt Creator (MinGW & Qt5)
+- gcc >=8 (需要 c++11 支持)
 
-## MacOS
-
-- Qt >= 5.12
-- Python (3.6 | 3.7) 使用 [`brew install python3`] 解决依赖问题
+### Windows
+- Qt5, with MinGW
 
 ## 编译
  - 如果想测试当前的开发分支，请使用 `git checkout dev` 切换到开发分支
@@ -41,8 +33,8 @@ mkdir build && cd build
 qmake ../
 make
 ```
-### Windows
-`目前没有稳定的构建方案，请参考 AppVeyor.yml 需要 python3.7 和 Qt Creator`
+### Windows & MacOS
+- 建议使用 Qt Creator
 
 ## License
 
