@@ -19,7 +19,10 @@
   <property name="windowTitle">
    <string>#ConnectionSettings</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout" columnstretch="0,3">
+  <property name="modal">
+   <bool>true</bool>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_6" columnstretch="3,7">
    <item row="0" column="0">
     <layout class="QFormLayout" name="formLayout_5">
      <item row="0" column="0">
@@ -172,20 +175,7 @@
      </item>
     </layout>
    </item>
-   <item row="1" column="0">
-    <widget class="QTextBrowser" name="textBrowser"/>
-   </item>
-   <item row="2" column="1">
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="1" rowspan="2">
+   <item row="0" column="1" rowspan="3">
     <widget class="QGroupBox" name="groupBox">
      <property name="layoutDirection">
       <enum>Qt::LeftToRight</enum>
@@ -215,7 +205,7 @@
          </size>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>1</number>
         </property>
         <property name="usesScrollButtons">
          <bool>true</bool>
@@ -224,98 +214,82 @@
          <attribute name="title">
           <string>TCP</string>
          </attribute>
-         <layout class="QGridLayout" name="gridLayout_3">
-          <item row="0" column="0">
-           <layout class="QVBoxLayout" name="verticalLayout_2">
-            <item>
-             <layout class="QGridLayout" name="gridLayout_4" columnstretch="1,5">
-              <item row="0" column="1">
-               <widget class="QComboBox" name="comboBox">
-                <item>
-                 <property name="text">
-                  <string>none</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>http</string>
-                 </property>
-                </item>
-               </widget>
+         <layout class="QGridLayout" name="gridLayout">
+          <item row="0" column="0" colspan="2">
+           <layout class="QGridLayout" name="gridLayout_4" columnstretch="1,5">
+            <item row="0" column="1">
+             <widget class="QComboBox" name="comboBox">
+              <item>
+               <property name="text">
+                <string>none</string>
+               </property>
               </item>
-              <item row="0" column="0">
-               <widget class="QLabel" name="label">
-                <property name="text">
-                 <string>#Type</string>
-                </property>
-               </widget>
+              <item>
+               <property name="text">
+                <string>http</string>
+               </property>
               </item>
-             </layout>
+             </widget>
             </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,1">
-              <item>
-               <layout class="QVBoxLayout" name="verticalLayout_3">
-                <item>
-                 <widget class="QLabel" name="label_2">
-                  <property name="text">
-                   <string>#Request</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPlainTextEdit" name="plainTextEdit">
-                  <property name="lineWrapMode">
-                   <enum>QPlainTextEdit::NoWrap</enum>
-                  </property>
-                  <property name="plainText">
-                   <string/>
-                  </property>
-                  <property name="backgroundVisible">
-                   <bool>false</bool>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="pushButton">
-                  <property name="text">
-                   <string>#InsertDefaultContent</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-              <item>
-               <layout class="QVBoxLayout" name="verticalLayout_4">
-                <item>
-                 <widget class="QLabel" name="label_3">
-                  <property name="text">
-                   <string>#Response</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPlainTextEdit" name="plainTextEdit_2">
-                  <property name="lineWrapMode">
-                   <enum>QPlainTextEdit::NoWrap</enum>
-                  </property>
-                  <property name="plainText">
-                   <string/>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="pushButton_2">
-                  <property name="text">
-                   <string>#InsertDefaultContent</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-             </layout>
+            <item row="0" column="0">
+             <widget class="QLabel" name="label">
+              <property name="text">
+               <string>#Type</string>
+              </property>
+             </widget>
             </item>
            </layout>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string>#Request</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLabel" name="label_3">
+            <property name="text">
+             <string>#Response</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QPlainTextEdit" name="plainTextEdit">
+            <property name="lineWrapMode">
+             <enum>QPlainTextEdit::NoWrap</enum>
+            </property>
+            <property name="plainText">
+             <string/>
+            </property>
+            <property name="backgroundVisible">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QPlainTextEdit" name="plainTextEdit_2">
+            <property name="lineWrapMode">
+             <enum>QPlainTextEdit::NoWrap</enum>
+            </property>
+            <property name="plainText">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QPushButton" name="pushButton">
+            <property name="text">
+             <string>#InsertDefaultContent</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QPushButton" name="pushButton_2">
+            <property name="text">
+             <string>#InsertDefaultContent</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>
@@ -323,34 +297,30 @@
          <attribute name="title">
           <string>HTTP</string>
          </attribute>
-         <layout class="QGridLayout" name="gridLayout_15">
+         <layout class="QGridLayout" name="gridLayout_3">
           <item row="0" column="0">
-           <layout class="QGridLayout" name="gridLayout_5" columnstretch="1,1">
-            <item row="1" column="0">
-             <widget class="QListWidget" name="listWidget"/>
-            </item>
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_4">
-              <property name="text">
-               <string>#Host</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QLabel" name="label_5">
-              <property name="text">
-               <string>#Path</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QPlainTextEdit" name="plainTextEdit_3">
-              <property name="plainText">
-               <string/>
-              </property>
-             </widget>
-            </item>
-           </layout>
+           <widget class="QLabel" name="label_4">
+            <property name="text">
+             <string>#Host</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLabel" name="label_5">
+            <property name="text">
+             <string>#Path</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QListWidget" name="listWidget"/>
+          </item>
+          <item row="1" column="1">
+           <widget class="QPlainTextEdit" name="plainTextEdit_3">
+            <property name="plainText">
+             <string/>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>
@@ -358,80 +328,72 @@
          <attribute name="title">
           <string>WebSocket</string>
          </attribute>
-         <layout class="QGridLayout" name="gridLayout_13">
-          <item row="0" column="0">
-           <layout class="QVBoxLayout" name="verticalLayout_5">
+         <layout class="QGridLayout" name="gridLayout_5">
+          <item row="0" column="0" colspan="2">
+           <layout class="QHBoxLayout" name="horizontalLayout_3">
             <item>
-             <layout class="QGridLayout" name="gridLayout_16" columnstretch="1,5">
-              <item row="1" column="0">
-               <widget class="QLabel" name="label_6">
-                <property name="text">
-                 <string>#Path</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="1">
-               <widget class="QLineEdit" name="lineEdit">
-                <property name="text">
-                 <string/>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_7">
+             <widget class="QLabel" name="label_6">
               <property name="text">
-               <string>#Headers</string>
+               <string>#Path</string>
               </property>
              </widget>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,1">
-              <item>
-               <widget class="QListWidget" name="listWidget_3">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Ignored" vsizetype="Expanding">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="editTriggers">
-                 <set>QAbstractItemView::DoubleClicked|QAbstractItemView::EditKeyPressed|QAbstractItemView::SelectedClicked</set>
-                </property>
-                <property name="verticalScrollMode">
-                 <enum>QAbstractItemView::ScrollPerPixel</enum>
-                </property>
-                <property name="horizontalScrollMode">
-                 <enum>QAbstractItemView::ScrollPerPixel</enum>
-                </property>
-                <property name="viewMode">
-                 <enum>QListView::ListMode</enum>
-                </property>
-                <property name="selectionRectVisible">
-                 <bool>true</bool>
-                </property>
-                <property name="currentRow">
-                 <number>-1</number>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QListWidget" name="listWidget_2">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Ignored" vsizetype="Expanding">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="editTriggers">
-                 <set>QAbstractItemView::DoubleClicked|QAbstractItemView::EditKeyPressed|QAbstractItemView::SelectedClicked</set>
-                </property>
-               </widget>
-              </item>
-             </layout>
+             <widget class="QLineEdit" name="lineEdit">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
             </item>
            </layout>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_7">
+            <property name="text">
+             <string>#Headers</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QListWidget" name="listWidget_3">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Ignored" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="editTriggers">
+             <set>QAbstractItemView::DoubleClicked|QAbstractItemView::EditKeyPressed|QAbstractItemView::SelectedClicked</set>
+            </property>
+            <property name="verticalScrollMode">
+             <enum>QAbstractItemView::ScrollPerPixel</enum>
+            </property>
+            <property name="horizontalScrollMode">
+             <enum>QAbstractItemView::ScrollPerPixel</enum>
+            </property>
+            <property name="viewMode">
+             <enum>QListView::ListMode</enum>
+            </property>
+            <property name="selectionRectVisible">
+             <bool>true</bool>
+            </property>
+            <property name="currentRow">
+             <number>-1</number>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QListWidget" name="listWidget_2">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Ignored" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="editTriggers">
+             <set>QAbstractItemView::DoubleClicked|QAbstractItemView::EditKeyPressed|QAbstractItemView::SelectedClicked</set>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>
@@ -693,135 +655,162 @@
          <attribute name="title">
           <string>QUIC</string>
          </attribute>
-         <layout class="QGridLayout" name="gridLayout_10">
+         <layout class="QFormLayout" name="formLayout_3">
           <item row="0" column="0">
-           <layout class="QFormLayout" name="formLayout_3">
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_18">
-              <property name="text">
-               <string>#Security</string>
-              </property>
-             </widget>
+           <widget class="QLabel" name="label_18">
+            <property name="text">
+             <string>#Security</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QComboBox" name="comboBox_3">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <item>
+             <property name="text">
+              <string>none</string>
+             </property>
             </item>
-            <item row="0" column="1">
-             <widget class="QComboBox" name="comboBox_3">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <item>
-               <property name="text">
-                <string>none</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>aes-128-gcm</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>chacha20-poly1305</string>
-               </property>
-              </item>
-             </widget>
+            <item>
+             <property name="text">
+              <string>aes-128-gcm</string>
+             </property>
             </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="label_19">
-              <property name="text">
-               <string>#Key</string>
-              </property>
-             </widget>
+            <item>
+             <property name="text">
+              <string>chacha20-poly1305</string>
+             </property>
             </item>
-            <item row="1" column="1">
-             <widget class="QLineEdit" name="lineEdit_3">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="label_20">
-              <property name="text">
-               <string>#Headers</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="1">
-             <widget class="QGroupBox" name="groupBox_3">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                <horstretch>0</horstretch>
-                <verstretch>1</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="title">
-               <string>#Header</string>
-              </property>
-              <layout class="QVBoxLayout" name="verticalLayout_11">
-               <item>
-                <layout class="QFormLayout" name="formLayout_4">
-                 <item row="0" column="0">
-                  <widget class="QLabel" name="label_21">
-                   <property name="text">
-                    <string>#Type</string>
-                   </property>
-                  </widget>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_19">
+            <property name="text">
+             <string>#Key</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="lineEdit_3">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_20">
+            <property name="text">
+             <string>#Headers</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QGroupBox" name="groupBox_3">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>1</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="title">
+             <string>#Header</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_11">
+             <item>
+              <layout class="QFormLayout" name="formLayout_4">
+               <item row="0" column="0">
+                <widget class="QLabel" name="label_21">
+                 <property name="text">
+                  <string>#Type</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QComboBox" name="comboBox_4">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <item>
+                  <property name="text">
+                   <string>none</string>
+                  </property>
                  </item>
-                 <item row="0" column="1">
-                  <widget class="QComboBox" name="comboBox_4">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <item>
-                    <property name="text">
-                     <string>none</string>
-                    </property>
-                   </item>
-                   <item>
-                    <property name="text">
-                     <string>srtp (SRTP, FaceTime)</string>
-                    </property>
-                   </item>
-                   <item>
-                    <property name="text">
-                     <string>utp (BitTorrent)</string>
-                    </property>
-                   </item>
-                   <item>
-                    <property name="text">
-                     <string>wechat-video (WeChat Video Message)</string>
-                    </property>
-                   </item>
-                   <item>
-                    <property name="text">
-                     <string>dtls (DTLS 1.2)</string>
-                    </property>
-                   </item>
-                   <item>
-                    <property name="text">
-                     <string>wireguard (WireGuard fake packets)</string>
-                    </property>
-                   </item>
-                  </widget>
+                 <item>
+                  <property name="text">
+                   <string>srtp (SRTP, FaceTime)</string>
+                  </property>
                  </item>
-                </layout>
+                 <item>
+                  <property name="text">
+                   <string>utp (BitTorrent)</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>wechat-video (WeChat Video Message)</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>dtls (DTLS 1.2)</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>wireguard (WireGuard fake packets)</string>
+                  </property>
+                 </item>
+                </widget>
                </item>
               </layout>
-             </widget>
-            </item>
-           </layout>
+             </item>
+            </layout>
+           </widget>
           </item>
          </layout>
         </widget>
        </widget>
       </item>
      </layout>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <layout class="QFormLayout" name="formLayout_6">
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_14">
+       <property name="text">
+        <string>#Status</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLabel" name="label_22">
+       <property name="text">
+        <string>OK</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="2" column="0">
+    <widget class="QTextBrowser" name="textBrowser"/>
+   </item>
+   <item row="3" column="1">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
     </widget>
    </item>
   </layout>
@@ -834,7 +823,6 @@
   <tabstop>alterLineEdit</tabstop>
   <tabstop>securityCombo</tabstop>
   <tabstop>tranportCombo</tabstop>
-  <tabstop>tabWidget</tabstop>
   <tabstop>comboBox</tabstop>
   <tabstop>plainTextEdit</tabstop>
   <tabstop>pushButton</tabstop>
@@ -842,7 +830,6 @@
   <tabstop>pushButton_2</tabstop>
   <tabstop>listWidget</tabstop>
   <tabstop>plainTextEdit_3</tabstop>
-  <tabstop>lineEdit</tabstop>
   <tabstop>listWidget_3</tabstop>
   <tabstop>listWidget_2</tabstop>
   <tabstop>spinBox</tabstop>
