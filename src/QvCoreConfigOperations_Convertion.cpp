@@ -7,11 +7,6 @@ namespace Qv2ray
         int SaveConnectionConfig(QJsonObject obj, const QString *alias)
         {
             QFile config(QV2RAY_CONFIG_PATH + *alias + QV2RAY_CONNECTION_FILE_EXTENSION);
-
-            if (config.exists()) {
-                return -1;
-            }
-
             StringToFile(JSONToString(obj), &config);
             return 0;
         }
@@ -105,23 +100,17 @@ namespace Qv2ray
             return root;
         }
 
-        QMap<QString, QJsonObject> LoadAllConnectionList(list<string> connections)
+        QMap<QString, QJsonObject> GetConnections(list<string> connectionNames)
         {
             QMap<QString, QJsonObject> list;
 
-            foreach (auto conn, connections) {
+            foreach (auto conn, connectionNames) {
                 QString jsonString = StringFromFile(new QFile(QV2RAY_CONFIG_PATH + QString::fromStdString(conn) + QV2RAY_CONNECTION_FILE_EXTENSION));
                 QJsonObject connectionObject = JSONFromString(jsonString);
                 list.insert(QString::fromStdString(conn), connectionObject);
             }
 
             return list;
-        }
-
-        VMessOut ConvertOutBoundJSONToStruct(QJsonObject vmessJson)
-        {
-            auto str = JSONToString(vmessJson);
-            return StructFromJSONString<VMessOut>(str);
         }
 
         int StartPreparation(QJsonObject fullConfig)

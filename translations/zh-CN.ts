@@ -9,252 +9,198 @@
         <translation>连接设置</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="28"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="335"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="31"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="336"/>
         <source>#Host</source>
         <translation>域名</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="42"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="41"/>
         <source>#Port</source>
         <translation>端口</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="56"/>
-        <source>#Name</source>
-        <translation>名称</translation>
-    </message>
-    <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="73"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="55"/>
         <source>#UUID</source>
         <translation>UUID</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="90"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="72"/>
         <source>#AlterID</source>
         <translation>Alter ID</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="104"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="702"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="86"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="649"/>
         <source>#Security</source>
         <translation>安全设置</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="112"/>
-        <source>auto</source>
-        <translation>自动</translation>
-    </message>
-    <message>
         <location filename="../src/w_ConnectionEditWindow.ui" line="117"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="721"/>
-        <source>aes-128-gcm</source>
-        <translation>aes-128-gcm</translation>
-    </message>
-    <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="122"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="726"/>
-        <source>chacha20-poly1305</source>
-        <translation>chacha20-poly1305</translation>
-    </message>
-    <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="127"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="236"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="632"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="716"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="783"/>
-        <source>none</source>
-        <translation>不使用</translation>
-    </message>
-    <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="135"/>
         <source>#Transport</source>
         <translation>传输设置</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="143"/>
-        <source>tcp (TCP)</source>
-        <translation>tcp (TCP)</translation>
-    </message>
-    <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="148"/>
-        <source>http (HTTP)</source>
-        <translation>http (HTTP)</translation>
-    </message>
-    <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="153"/>
-        <source>ws (WebSocket)</source>
-        <translation>ws (WebSocket)</translation>
-    </message>
-    <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="158"/>
-        <source>kcp (mKCP)</source>
-        <translation>kcp (mKCP)</translation>
-    </message>
-    <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="163"/>
-        <source>domainsocket (Domain Socket)</source>
-        <translation>domainsocket (Domain Socket)</translation>
-    </message>
-    <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="168"/>
-        <source>quic (Quick UDP Internet Connection)</source>
-        <translation>quic (Quick UDP Internet Connection)</translation>
-    </message>
-    <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="194"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="206"/>
         <source>#TransportSettings</source>
         <translation>传输设置</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="225"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="237"/>
         <source>TCP</source>
         <translation>TCP</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="241"/>
-        <source>http</source>
-        <translation>HTTP</translation>
-    </message>
-    <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="249"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="618"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="769"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="259"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="567"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="716"/>
         <source>#Type</source>
         <translation>类型</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="262"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="268"/>
         <source>#Request</source>
         <translation>请求</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="282"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="310"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="305"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="312"/>
         <source>#InsertDefaultContent</source>
         <translation>默认值</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="293"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="275"/>
         <source>#Response</source>
         <translation>相应</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="324"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="158"/>
+        <source>#UseTLS</source>
+        <translation>使用 TLS</translation>
+    </message>
+    <message>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="183"/>
+        <source>#GenerateJSON</source>
+        <translation>生成 JSON</translation>
+    </message>
+    <message>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="320"/>
         <source>HTTP</source>
         <translation>HTTP</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="342"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="369"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="677"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="326"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="355"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="626"/>
         <source>#Path</source>
         <translation>路径</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="359"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="347"/>
         <source>WebSocket</source>
         <translation>WebSocket</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="385"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="748"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="371"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="695"/>
         <source>#Headers</source>
         <translation>头伪装</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="440"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="378"/>
+        <source>#key|value format</source>
+        <translation>格式：键|值</translation>
+    </message>
+    <message>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="389"/>
         <source>mKCP</source>
         <translation>mKCP</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="448"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="397"/>
         <source>#MTU</source>
         <translation>最大传输单元</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="474"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="423"/>
         <source>#TTI (ms)</source>
         <translation>传输时间间隔</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="500"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="449"/>
         <source>#UplinkCapacity (MB/s)</source>
         <translation>上行链路容量 (MB/s)</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="523"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="472"/>
         <source>#Congestion</source>
         <translation>拥塞控制</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="530"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="769"/>
+        <source>SockOpt</source>
+        <translation>SockOpt</translation>
+    </message>
+    <message>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="775"/>
+        <source>#Mark</source>
+        <translation>Mark</translation>
+    </message>
+    <message>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="785"/>
+        <source>#TCPFastOpen</source>
+        <translation>TCP Fast Open</translation>
+    </message>
+    <message>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="799"/>
+        <source>#TProxy</source>
+        <translation>透明代理模式</translation>
+    </message>
+    <message>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="165"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="479"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="792"/>
         <source>#Enabled</source>
         <translation>启用</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="541"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="174"/>
+        <source>#JsonPreview</source>
+        <translation>生成JSON预览</translation>
+    </message>
+    <message>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="490"/>
         <source>#DownlinkCapacity (MB/s)</source>
         <translation>下行链路容量 (MB/s)</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="564"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="513"/>
         <source>#ReadBufferSize (MB)</source>
         <translation>读取缓冲区大小 (MB)</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="587"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="536"/>
         <source>#WriteBufferSize (MB)</source>
         <translation>写入缓冲区大小 (MB)</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="612"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="761"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="561"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="708"/>
         <source>#Header</source>
         <translation>头伪装</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="637"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="788"/>
-        <source>srtp (SRTP, FaceTime)</source>
-        <translation>srtp (SRTP, FaceTime)</translation>
-    </message>
-    <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="642"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="793"/>
-        <source>utp (BitTorrent)</source>
-        <translation>utp (BitTorrent)</translation>
-    </message>
-    <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="647"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="798"/>
-        <source>wechat-video (WeChat Video Message)</source>
-        <translation>wechat-video (WeChat Video Message)</translation>
-    </message>
-    <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="652"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="803"/>
-        <source>dtls (DTLS 1.2)</source>
-        <translation>dtls (DTLS 1.2)</translation>
-    </message>
-    <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="657"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="808"/>
-        <source>wireguard (WireGuard fake packets)</source>
-        <translation>wireguard (WireGuard fake packets)</translation>
-    </message>
-    <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="669"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="618"/>
         <source>DomainSocket</source>
         <translation>DomainSocket</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="694"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="643"/>
         <source>QUIC</source>
         <translation>QUIC</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="734"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="681"/>
         <source>#Key</source>
         <translation>密钥</translation>
     </message>
@@ -388,7 +334,7 @@
     </message>
     <message>
         <location filename="../src/w_MainWindow.ui" line="114"/>
-        <location filename="../src/w_MainWindow.cpp" line="103"/>
+        <location filename="../src/w_MainWindow.cpp" line="108"/>
         <source>#Stopped</source>
         <translation>已停止</translation>
     </message>
@@ -471,7 +417,7 @@
     </message>
     <message>
         <location filename="../src/w_MainWindow.cpp" line="26"/>
-        <location filename="../src/w_MainWindow.cpp" line="164"/>
+        <location filename="../src/w_MainWindow.cpp" line="169"/>
         <source>#Hide</source>
         <translation>隐藏</translation>
     </message>
@@ -481,12 +427,22 @@
         <translation>退出</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="93"/>
+        <location filename="../src/w_MainWindow.cpp" line="89"/>
+        <source>#NoConfigSelected</source>
+        <translation>没有选择配置文件</translation>
+    </message>
+    <message>
+        <location filename="../src/w_MainWindow.cpp" line="89"/>
+        <source>#PleaseSelectAConfig</source>
+        <translation>请从列表中选择配置</translation>
+    </message>
+    <message>
+        <location filename="../src/w_MainWindow.cpp" line="98"/>
         <source>#Started</source>
         <translation>已启动</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="167"/>
+        <location filename="../src/w_MainWindow.cpp" line="172"/>
         <source>#Show</source>
         <translation>显示</translation>
     </message>

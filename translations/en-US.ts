@@ -9,252 +9,198 @@
         <translation>Connection Settings</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="28"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="335"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="31"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="336"/>
         <source>#Host</source>
         <translation>Host</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="42"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="41"/>
         <source>#Port</source>
         <translation>Port</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="56"/>
-        <source>#Name</source>
-        <translation>Name</translation>
-    </message>
-    <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="73"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="55"/>
         <source>#UUID</source>
         <translation>UUID</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="90"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="72"/>
         <source>#AlterID</source>
         <translation>Alter ID</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="104"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="702"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="86"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="649"/>
         <source>#Security</source>
         <translation>Security Settings</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="112"/>
-        <source>auto</source>
-        <translation>Auto</translation>
-    </message>
-    <message>
         <location filename="../src/w_ConnectionEditWindow.ui" line="117"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="721"/>
-        <source>aes-128-gcm</source>
-        <translation>aes-128-gcm</translation>
-    </message>
-    <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="122"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="726"/>
-        <source>chacha20-poly1305</source>
-        <translation>chacha20-poly1305</translation>
-    </message>
-    <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="127"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="236"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="632"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="716"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="783"/>
-        <source>none</source>
-        <translation>Do not use</translation>
-    </message>
-    <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="135"/>
         <source>#Transport</source>
         <translation>Transport Settings</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="143"/>
-        <source>tcp (TCP)</source>
-        <translation>tcp (TCP)</translation>
-    </message>
-    <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="148"/>
-        <source>http (HTTP)</source>
-        <translation>http (HTTP)</translation>
-    </message>
-    <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="153"/>
-        <source>ws (WebSocket)</source>
-        <translation>ws (WebSocket)</translation>
-    </message>
-    <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="158"/>
-        <source>kcp (mKCP)</source>
-        <translation>kcp (mKCP)</translation>
-    </message>
-    <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="163"/>
-        <source>domainsocket (Domain Socket)</source>
-        <translation>domainsocket (Domain Socket)</translation>
-    </message>
-    <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="168"/>
-        <source>quic (Quick UDP Internet Connection)</source>
-        <translation>quic (Quick UDP Internet Connection)</translation>
-    </message>
-    <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="194"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="206"/>
         <source>#TransportSettings</source>
         <translation>Transport Settings</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="225"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="237"/>
         <source>TCP</source>
         <translation>TCP</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="241"/>
-        <source>http</source>
-        <translation>HTTP</translation>
-    </message>
-    <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="249"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="618"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="769"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="259"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="567"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="716"/>
         <source>#Type</source>
         <translation>Type</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="262"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="268"/>
         <source>#Request</source>
         <translation>Request</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="282"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="310"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="305"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="312"/>
         <source>#InsertDefaultContent</source>
         <translation>Insert Default Content</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="293"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="275"/>
         <source>#Response</source>
         <translation>Response</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="324"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="158"/>
+        <source>#UseTLS</source>
+        <translation>Use TLS</translation>
+    </message>
+    <message>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="183"/>
+        <source>#GenerateJSON</source>
+        <translation>Generate JSON</translation>
+    </message>
+    <message>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="320"/>
         <source>HTTP</source>
         <translation>HTTP</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="342"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="369"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="677"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="326"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="355"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="626"/>
         <source>#Path</source>
         <translation>Path</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="359"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="347"/>
         <source>WebSocket</source>
         <translation>WebSocket</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="385"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="748"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="371"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="695"/>
         <source>#Headers</source>
         <translation>Headers</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="440"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="378"/>
+        <source>#key|value format</source>
+        <translation>Format: KEY|VALUE</translation>
+    </message>
+    <message>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="389"/>
         <source>mKCP</source>
         <translation>mKCP</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="448"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="397"/>
         <source>#MTU</source>
         <translation>MTU</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="474"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="423"/>
         <source>#TTI (ms)</source>
         <translation>TTI (ms)</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="500"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="449"/>
         <source>#UplinkCapacity (MB/s)</source>
         <translation>Uplink Capacity (MB/s)</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="523"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="472"/>
         <source>#Congestion</source>
         <translation>Congestion Control</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="530"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="769"/>
+        <source>SockOpt</source>
+        <translation>SockOpt</translation>
+    </message>
+    <message>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="775"/>
+        <source>#Mark</source>
+        <translation>Mark</translation>
+    </message>
+    <message>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="785"/>
+        <source>#TCPFastOpen</source>
+        <translation>TCP Fast Open</translation>
+    </message>
+    <message>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="799"/>
+        <source>#TProxy</source>
+        <translation>Transparent Proxy Mode</translation>
+    </message>
+    <message>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="165"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="479"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="792"/>
         <source>#Enabled</source>
         <translation>Enabled</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="541"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="174"/>
+        <source>#JsonPreview</source>
+        <translation>Preview Generated JSON</translation>
+    </message>
+    <message>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="490"/>
         <source>#DownlinkCapacity (MB/s)</source>
         <translation>Downlink Capacity (MB/s)</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="564"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="513"/>
         <source>#ReadBufferSize (MB)</source>
         <translation>Read Buffer Size (MB)</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="587"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="536"/>
         <source>#WriteBufferSize (MB)</source>
         <translation>Write Buffer Size (MB)</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="612"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="761"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="561"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="708"/>
         <source>#Header</source>
         <translation>Headers</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="637"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="788"/>
-        <source>srtp (SRTP, FaceTime)</source>
-        <translation>srtp (SRTP, FaceTime)</translation>
-    </message>
-    <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="642"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="793"/>
-        <source>utp (BitTorrent)</source>
-        <translation>utp (BitTorrent)</translation>
-    </message>
-    <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="647"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="798"/>
-        <source>wechat-video (WeChat Video Message)</source>
-        <translation>wechat-video (WeChat Video Message)</translation>
-    </message>
-    <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="652"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="803"/>
-        <source>dtls (DTLS 1.2)</source>
-        <translation>dtls (DTLS 1.2)</translation>
-    </message>
-    <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="657"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="808"/>
-        <source>wireguard (WireGuard fake packets)</source>
-        <translation>wireguard (WireGuard fake packets)</translation>
-    </message>
-    <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="669"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="618"/>
         <source>DomainSocket</source>
         <translation>DomainSocket</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="694"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="643"/>
         <source>QUIC</source>
         <translation>QUIC</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="734"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="681"/>
         <source>#Key</source>
         <translation>Key</translation>
     </message>
@@ -388,7 +334,7 @@
     </message>
     <message>
         <location filename="../src/w_MainWindow.ui" line="114"/>
-        <location filename="../src/w_MainWindow.cpp" line="103"/>
+        <location filename="../src/w_MainWindow.cpp" line="108"/>
         <source>#Stopped</source>
         <translation>Stopped</translation>
     </message>
@@ -446,8 +392,7 @@
     <message>
         <location filename="../src/w_MainWindow.ui" line="293"/>
         <source>#Log</source>
-        <translatorcomment>Log</translatorcomment>
-        <translation></translation>
+        <translation>Log</translation>
     </message>
     <message>
         <location filename="../src/w_MainWindow.ui" line="311"/>
@@ -472,7 +417,7 @@
     </message>
     <message>
         <location filename="../src/w_MainWindow.cpp" line="26"/>
-        <location filename="../src/w_MainWindow.cpp" line="164"/>
+        <location filename="../src/w_MainWindow.cpp" line="169"/>
         <source>#Hide</source>
         <translation>Hide</translation>
     </message>
@@ -482,12 +427,22 @@
         <translation>Quit</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="93"/>
+        <location filename="../src/w_MainWindow.cpp" line="89"/>
+        <source>#NoConfigSelected</source>
+        <translation>No Config Selected</translation>
+    </message>
+    <message>
+        <location filename="../src/w_MainWindow.cpp" line="89"/>
+        <source>#PleaseSelectAConfig</source>
+        <translation>Please select a config from the list</translation>
+    </message>
+    <message>
+        <location filename="../src/w_MainWindow.cpp" line="98"/>
         <source>#Started</source>
         <translation>Started</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="167"/>
+        <location filename="../src/w_MainWindow.cpp" line="172"/>
         <source>#Show</source>
         <translation>Show</translation>
     </message>
