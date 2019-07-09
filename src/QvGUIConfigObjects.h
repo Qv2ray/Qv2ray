@@ -11,7 +11,6 @@
 #define QV2RAY_MAIN_CONFIG_FILE_PATH (QV2RAY_CONFIG_PATH + "Qv2ray.conf")
 #define QV2RAY_GENERATED_CONFIG_DIRPATH (QV2RAY_CONFIG_PATH + "genrerated/")
 #define QV2RAY_GENERATED_CONFIG_FILE_PATH (QV2RAY_GENERATED_CONFIG_DIRPATH + "config.gen.json")
-#define QV2RAY_FIRSTRUN_IDENTIFIER (QV2RAY_CONFIG_PATH + ".initialised")
 
 #define QV2RAY_VCORE_LOG_DIRNAME "logs/"
 #define QV2RAY_VCORE_ACCESS_LOG_FILENAME "access.log"
@@ -21,6 +20,17 @@ using namespace std;
 #define LOG(arg) cout << arg << endl;
 
 #define QV2RAY_CONNECTION_FILE_EXTENSION ".qv2ray.json"
+
+// GUI TOOLS
+#define RED(obj)   \
+    auto p = ui->obj->palette(); \
+    p.setColor(QPalette::Text, Qt::red); \
+    ui->obj->setPalette(p);
+
+#define WHITE(obj)   \
+    auto p = ui->obj->palette(); \
+    p.setColor(QPalette::Text, Qt::black); \
+    ui->obj->setPalette(p);
 
 namespace Qv2ray
 {
