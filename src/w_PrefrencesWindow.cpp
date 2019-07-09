@@ -134,6 +134,7 @@ void PrefrencesWindow::on_runAsRootCheckBox_stateChanged(int arg1)
     }
 
 #else
+    Q_UNUSED(arg1)
     // No such uid gid thing on Windows and MacOS is in TODO ....
     QvMessageBox(this, tr("Prefrences"), tr("RunAsRootNotOnWindows"));
 #endif
