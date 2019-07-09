@@ -57,7 +57,7 @@ bool initializeQv()
         }
     }
 
-    if (!Utils::CheckFile(ConfigDir, ".initialised")) {
+    if (!QFile(QV2RAY_MAIN_CONFIG_FILE_PATH).exists()) {
         // This is first run!
         //
         // These below genenrated very basic global config.
@@ -67,11 +67,6 @@ bool initializeQv()
         // Save initial config.
         SetGlobalConfig(conf);
         SaveGlobalConfig();
-        //
-        // Create Placeholder for initialise indicator.
-        QFile initPlaceHolder(QV2RAY_FIRSTRUN_IDENTIFIER);
-        initPlaceHolder.open(QFile::WriteOnly);
-        initPlaceHolder.close();
         //
         LOG("Created initial default config file.")
     } else {
