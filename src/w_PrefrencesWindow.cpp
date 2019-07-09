@@ -1,6 +1,7 @@
 #include "QvUtils.h"
 #include "QvCoreInteractions.h"
 #include "w_PrefrencesWindow.h"
+#include <QFileDialog>
 
 #ifndef _WIN32
 #include <unistd.h>
@@ -11,11 +12,6 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     ui(new Ui::PrefrencesWindow)
 {
     ui->setupUi(this);
-    ReloadCurrentConfig();
-}
-
-void PrefrencesWindow::ReloadCurrentConfig()
-{
     CurrentConfig = GetGlobalConfig();
     //
     ui->languageComboBox->setCurrentText(QString::fromStdString(CurrentConfig.language));
@@ -56,11 +52,13 @@ void PrefrencesWindow::ReloadCurrentConfig()
     ui->proxyDefaultCb->setChecked(CurrentConfig.proxyDefault);
     ui->localDNSCb->setChecked(CurrentConfig.withLocalDNS);
     //
-    ui->DNSListListBox->clear();
+    ui->DNSListTxt->clear();
 
     foreach (auto dnsStr, CurrentConfig.dnsList) {
-        ui->DNSListListBox->addItem(QString::fromStdString(dnsStr));
+        ui->DNSListTxt->appendPlainText(QString::fromStdString(dnsStr) + "\r\n");
     }
+
+    finishedLoading = true;
 }
 
 PrefrencesWindow::~PrefrencesWindow()
@@ -226,4 +224,43 @@ void PrefrencesWindow::on_proxyDefaultCb_stateChanged(int arg1)
 void PrefrencesWindow::on_localDNSCb_stateChanged(int arg1)
 {
     CurrentConfig.withLocalDNS = arg1 == Qt::Checked;
+}
+
+void PrefrencesWindow::on_selectVCoreBtn_clicked()
+{
+    QString dir = QFileDialog::getOpenFileName(this, tr("#OpenVCoreFile"), QDir::homePath());
+    ui->vCoreExePathTxt->setText(dir);
+    on_vCoreExePathTxt_textEdited(dir);
+}
+
+void PrefrencesWindow::on_selectVAssetBtn_clicked()
+{
+    QString dir = QFileDialog::getExistingDirectory(this, tr("OpenVAssetsDir"), QDir::homePath());
+    ui->vCoreAssetsPathTxt->setText(dir);
+    on_vCoreAssetsPathTxt_textChanged(dir);
+}
+
+void PrefrencesWindow::on_DNSListTxt_textChanged()
+{
+    if (finishedLoading) {
+        try {
+            QStringList hosts = ui->DNSListTxt->toPlainText().replace("\r", "").split("\n");
+            CurrentConfig.dnsList.clear();
+
+            foreach (auto host, hosts) {
+                if (host != "" && host != "\r") {
+                    // Not empty, so we save.
+                    CurrentConfig.dnsList.push_back(host.toStdString());
+                }
+            }
+
+            WHITE(DNSListTxt)
+        } catch (...) {
+            RED(DNSListTxt)
+        }
+    }
+}
+void PrefrencesWindow::on_vCoreAssetsPathTxt_textChanged(const QString &arg1)
+{
+    CurrentConfig.v2AssetsPath = arg1.toStdString();
 }

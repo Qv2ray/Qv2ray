@@ -17,7 +17,6 @@ class PrefrencesWindow : public QDialog
     public:
         explicit PrefrencesWindow(QWidget *parent = nullptr);
         ~PrefrencesWindow();
-        void ReloadCurrentConfig();
     signals:
         void s_reload_config();
     private slots:
@@ -63,7 +62,16 @@ class PrefrencesWindow : public QDialog
 
         void on_localDNSCb_stateChanged(int arg1);
 
+        void on_selectVCoreBtn_clicked();
+
+        void on_selectVAssetBtn_clicked();
+
+        void on_DNSListTxt_textChanged();
+
+        void on_vCoreAssetsPathTxt_textChanged(const QString &arg1);
+
     private:
+        bool finishedLoading = false;
         Qv2ray::QvConfigModels::Qv2Config_v1 CurrentConfig;
         Ui::PrefrencesWindow *ui;
 };

@@ -105,6 +105,7 @@ void MainWindow::on_stopButton_clicked()
 {
     LOG("Stop connection!")
     this->vinstance->Stop();
+    QFile(QV2RAY_GENERATED_CONFIG_FILE_PATH).remove();
     ui->statusLabel->setText(tr("#Stopped"));
     ui->logText->clear();
     trayMenu->actions()[2]->setEnabled(true);
@@ -126,6 +127,7 @@ void MainWindow::on_clbutton_clicked()
 void MainWindow::closeEvent(QCloseEvent *event)
 {
     this->hide();
+    trayMenu->actions()[0]->setText(tr("#Show"));
     event->ignore();
 }
 
@@ -139,13 +141,6 @@ void MainWindow::on_activatedTray(QSystemTrayIcon::ActivationReason reason)
             // So, as a hobby on common MacOS Apps, we 'don't toggle visibility on click'.
             ToggleVisibility();
 #endif
-            break;
-
-        case QSystemTrayIcon::DoubleClick:
-            if (this->isHidden()) {
-                this->show();
-            }
-
             break;
 
         case QSystemTrayIcon::MiddleClick:
@@ -244,14 +239,16 @@ void MainWindow::on_delConfigBtn_clicked()
 {
     auto conf = GetGlobalConfig();
     QList<string> list = QList<string>::fromStdList(conf.configs);
-    auto currentSelected = ui->connectionListWidget->currentItem()->text();
+    auto currentSelected = ui->connectionListWidget->currentIndex().row();
 
-    if (currentSelected == CurrentConnectionName) {
+    if (currentSelected < 0) return;
+
+    if (ui->connectionListWidget->item(currentSelected)->text() == CurrentConnectionName) {
         on_stopButton_clicked();
         CurrentConnectionName  = "";
     }
 
-    list.removeOne(currentSelected.toStdString());
+    list.removeOne(ui->connectionListWidget->item(currentSelected)->text().toStdString());
     conf.configs = list.toStdList();
     SetGlobalConfig(conf);
     SaveGlobalConfig();
@@ -262,7 +259,6 @@ void MainWindow::on_prefrencesBtn_clicked()
 {
     PrefrencesWindow *w = new PrefrencesWindow(this);
     connect(w, &PrefrencesWindow::s_reload_config, this, &MainWindow::reload_config);
-    w->ReloadCurrentConfig();
     w->show();
 }
 

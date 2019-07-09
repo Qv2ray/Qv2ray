@@ -4,17 +4,6 @@
 #include <QFile>
 #include <QIntValidator>
 #include <iostream>
-
-#define RED(obj)   \
-    auto p = ui->obj->palette(); \
-    p.setColor(QPalette::Text, Qt::red); \
-    ui->obj->setPalette(p);
-
-#define WHITE(obj)   \
-    auto p = ui->obj->palette(); \
-    p.setColor(QPalette::Text, Qt::black); \
-    ui->obj->setPalette(p);
-
 ConnectionEditWindow::ConnectionEditWindow(QWidget *parent)
     : QDialog(parent),
       _alias(),
@@ -25,6 +14,8 @@ ConnectionEditWindow::ConnectionEditWindow(QWidget *parent)
     ui->setupUi(this);
     ui->portLineEdit->setValidator(new QIntValidator());
     ui->alterLineEdit->setValidator(new QIntValidator());
+    //
+    LoadGUIContents();
 }
 
 ConnectionEditWindow::ConnectionEditWindow(QJsonObject editRootObject, QString alias, QWidget *parent)
@@ -126,6 +117,17 @@ void ConnectionEditWindow::on_buttonBox_accepted()
 void ConnectionEditWindow::on_ipLineEdit_textEdited(const QString &arg1)
 {
     vmess.address = arg1.toStdString();
+    //
+    // No thanks.
+    //if (ui->httpHostTxt->toPlainText() == "") {
+    //    ui->httpHostTxt->setPlainText(arg1);
+    //    on_httpHostTxt_textChanged();
+    //}
+    //
+    //if (ui->wsHeadersTxt->toPlainText() == "") {
+    //    ui->wsHeadersTxt->setPlainText("Host|" + arg1);
+    //    on_wsHeadersTxt_textChanged();
+    //}
 }
 
 void ConnectionEditWindow::on_portLineEdit_textEdited(const QString &arg1)
@@ -137,30 +139,28 @@ void ConnectionEditWindow::on_portLineEdit_textEdited(const QString &arg1)
 
 void ConnectionEditWindow::on_idLineEdit_textEdited(const QString &arg1)
 {
-    LOG("BUGFUL!")
+    if (vmess.users.size() == 0) vmess.users.push_back(VMessOut::ServerObject::UserObject());
+
     vmess.users.front().id = arg1.toStdString();
 }
 
 void ConnectionEditWindow::on_alterLineEdit_textEdited(const QString &arg1)
 {
-    LOG("BUGFUL!")
-    vmess.users.front().id = arg1.toStdString();
+    if (vmess.users.size() == 0) vmess.users.push_back(VMessOut::ServerObject::UserObject());
+
+    vmess.users.front().alterId = stoi(arg1.toStdString());
 }
 
 void ConnectionEditWindow::on_securityCombo_currentIndexChanged(const QString &arg1)
 {
-    LOG("BUGFUL!")
+    if (vmess.users.size() == 0) vmess.users.push_back(VMessOut::ServerObject::UserObject());
+
     vmess.users.front().security = arg1.toStdString();
 }
 
 void ConnectionEditWindow::on_tranportCombo_currentIndexChanged(const QString &arg1)
 {
     stream.network = arg1.toStdString();
-}
-
-void ConnectionEditWindow::on_comboBox_currentIndexChanged(const QString &arg1)
-{
-    stream.tcpSettings.header.type = arg1.toStdString();
 }
 
 void ConnectionEditWindow::on_httpPathTxt_textEdited(const QString &arg1)
@@ -184,11 +184,6 @@ void ConnectionEditWindow::on_httpHostTxt_textChanged()
     }
 }
 
-void ConnectionEditWindow::on_lineEdit_textEdited(const QString &arg1)
-{
-    stream.wsSettings.path = arg1.toStdString();
-}
-
 void ConnectionEditWindow::on_wsHeadersTxt_textChanged()
 {
     try {
@@ -209,28 +204,24 @@ void ConnectionEditWindow::on_wsHeadersTxt_textChanged()
     }
 }
 
-void ConnectionEditWindow::on_spinBox_valueChanged(int arg1)
-{
-    stream.kcpSettings.mtu = arg1;
-}
 
 void ConnectionEditWindow::on_tcpRequestDefBtn_clicked()
 {
     ui->tcpRequestTxt->clear();
-    ui->tcpRequestTxt->insertPlainText("{ \"version\" : \"TODO....\"");
+    ui->tcpRequestTxt->insertPlainText("{\"version\":\"1.1\",\"method\":\"GET\",\"path\":[\"/\"],\"headers\":{\"Host\":[\"www.baidu.com\",\"www.bing.com\"],\"User-Agent\":[\"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36\",\"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0_2 like Mac OS X) AppleWebKit/601.1 (KHTML, like Gecko) CriOS/53.0.2785.109 Mobile/14A456 Safari/601.1.46\"],\"Accept-Encoding\":[\"gzip, deflate\"],\"Connection\":[\"keep-alive\"],\"Pragma\":\"no-cache\"}}");
 }
 
 void ConnectionEditWindow::on_tcpRespDefBtn_clicked()
 {
     ui->tcpRespTxt->clear();
-    ui->tcpRespTxt->insertPlainText("{ \"version\" : \"TODO....\"");
+    ui->tcpRespTxt->insertPlainText("{\"version\":\"1.1\",\"status\":\"200\",\"reason\":\"OK\",\"headers\":{\"Content-Type\":[\"application/octet-stream\",\"video/mpeg\"],\"Transfer-Encoding\":[\"chunked\"],\"Connection\":[\"keep-alive\"],\"Pragma\":\"no-cache\"}}");
 }
 
 void ConnectionEditWindow::on_tcpRequestTxt_textChanged()
 {
     try {
-        auto httpReqObject = StructFromJSONString<_TransferSettingObjects::TRANSFERObjectsInternal::HTTPRequestObject>(ui->tcpRequestTxt->toPlainText());
-        stream.tcpSettings.header.request = httpReqObject;
+        auto tcpReqObject = StructFromJSONString<_TransferSettingObjects::TRANSFERObjectsInternal::HTTPRequestObject>(ui->tcpRequestTxt->toPlainText());
+        stream.tcpSettings.header.request = tcpReqObject;
         WHITE(tcpRequestTxt)
     } catch (...) {
         RED(tcpRequestTxt)
@@ -240,8 +231,8 @@ void ConnectionEditWindow::on_tcpRequestTxt_textChanged()
 void ConnectionEditWindow::on_tcpRespTxt_textChanged()
 {
     try {
-        auto httpRspObject = StructFromJSONString<_TransferSettingObjects::TRANSFERObjectsInternal::HTTPResponseObject>(ui->tcpRespTxt->toPlainText());
-        stream.tcpSettings.header.response = httpRspObject;
+        auto tcpRspObject = StructFromJSONString<_TransferSettingObjects::TRANSFERObjectsInternal::HTTPResponseObject>(ui->tcpRespTxt->toPlainText());
+        stream.tcpSettings.header.response = tcpRspObject;
         WHITE(tcpRespTxt)
     } catch (...) {
         RED(tcpRespTxt)
@@ -289,7 +280,7 @@ void ConnectionEditWindow::on_tProxyCB_currentIndexChanged(const QString &arg1)
 
 void ConnectionEditWindow::on_quicSecurityCB_currentTextChanged(const QString &arg1)
 {
-    stream.quicSettings.header.type = arg1.toStdString();
+    stream.quicSettings.security = arg1.toStdString();
 }
 
 void ConnectionEditWindow::on_quicKeyTxt_textEdited(const QString &arg1)
@@ -300,4 +291,77 @@ void ConnectionEditWindow::on_quicKeyTxt_textEdited(const QString &arg1)
 void ConnectionEditWindow::on_quicHeaderTypeCB_currentIndexChanged(const QString &arg1)
 {
     stream.quicSettings.header.type = arg1.toStdString();
+}
+
+void ConnectionEditWindow::on_tcpRequestPrettifyBtn_clicked()
+{
+    try {
+        auto tcpReqObject = StructFromJSONString<_TransferSettingObjects::TRANSFERObjectsInternal::HTTPRequestObject>(ui->tcpRequestTxt->toPlainText());
+        auto tcpReqObjectStr = StructToJSONString(tcpReqObject);
+        ui->tcpRequestTxt->setPlainText(tcpReqObjectStr);
+    } catch (...) {
+        QvMessageBox(this, tr("#JsonPrettify"), tr("#JsonContainsError"));
+    }
+}
+
+void ConnectionEditWindow::on_tcpRespPrettifyBtn_clicked()
+{
+    try {
+        auto tcpRspObject = StructFromJSONString<_TransferSettingObjects::TRANSFERObjectsInternal::HTTPResponseObject>(ui->tcpRespTxt->toPlainText());
+        auto tcpRspObjectStr = StructToJSONString(tcpRspObject);
+        ui->tcpRespTxt->setPlainText(tcpRspObjectStr);
+    } catch (...) {
+        QvMessageBox(this, tr("#JsonPrettify"), tr("#JsonContainsError"));
+    }
+}
+
+void ConnectionEditWindow::on_tcpHeaderTypeCB_currentIndexChanged(const QString &arg1)
+{
+    stream.tcpSettings.header.type = arg1.toStdString();
+}
+
+void ConnectionEditWindow::on_wsPathTxt_textEdited(const QString &arg1)
+{
+    stream.wsSettings.path = arg1.toStdString();
+}
+
+
+void ConnectionEditWindow::on_kcpMTU_valueChanged(int arg1)
+{
+    stream.kcpSettings.mtu = arg1;
+}
+
+void ConnectionEditWindow::on_kcpTTI_valueChanged(int arg1)
+{
+    stream.kcpSettings.tti  = arg1;
+}
+
+void ConnectionEditWindow::on_kcpUploadCapacSB_valueChanged(int arg1)
+{
+    stream.kcpSettings.uplinkCapacity = arg1;
+}
+
+void ConnectionEditWindow::on_kcpCongestionCB_stateChanged(int arg1)
+{
+    stream.kcpSettings.congestion = arg1 == Qt::Checked;
+}
+
+void ConnectionEditWindow::on_kcpDownCapacitySB_valueChanged(int arg1)
+{
+    stream.kcpSettings.downlinkCapacity = arg1;
+}
+
+void ConnectionEditWindow::on_kcpReadBufferSB_valueChanged(int arg1)
+{
+    stream.kcpSettings.readBufferSize = arg1;
+}
+
+void ConnectionEditWindow::on_kcpWriteBufferSB_valueChanged(int arg1)
+{
+    stream.kcpSettings.writeBufferSize = arg1;
+}
+
+void ConnectionEditWindow::on_kcpHeaderType_currentTextChanged(const QString &arg1)
+{
+    stream.kcpSettings.header.type = arg1.toStdString();
 }
