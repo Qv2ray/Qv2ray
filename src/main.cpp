@@ -17,13 +17,21 @@ bool initializeQv()
     QString configPath = "";
     QString exeDefaultPath = "";
     QString v2AssetsPath = "";
-#if defined(__WIN32) || defined(__APPLE__)
-    // For Windows and MacOS, there's no such 'installation' of a software
+#if defined(__WIN32)
+    // For Windows, there's no such 'installation' of a software
     // package, So as what ShadowSocks and v2rayX does, save config files next to
     // the executable.
     configPath = "./qv2ray.d";
     exeDefaultPath = "./qv2ray.d/v2ray";
     v2AssetsPath = "./qv2ray.d";
+#elif defined (__APPLE__)
+    // In APPLE's world, the application is contained in a .app folder
+    LOG(QDir::currentPath().toStdString())
+    QDir bin(QCoreApplication::applicationDirPath());
+    bin.cdUp();
+    configPath = bin.absolutePath() + "/Resources";
+    exeDefaultPath = configPath + "/v2ray";
+    v2AssetsPath = configPath;
 #else
     // However, for linux, this software can be and/or will be provided as a
     // package and install to whatever /usr/bin or /usr/local/bin or even /opt/
