@@ -65,6 +65,8 @@ TRANSLATIONS += \
 
 RC_ICONS += ./icons/Qv2ray.ico
 
+ICON = ./icons/Qv2ray.icns
+
 INCLUDEPATH += \
         3rdparty/\
         3rdparty/jsoncons/include
