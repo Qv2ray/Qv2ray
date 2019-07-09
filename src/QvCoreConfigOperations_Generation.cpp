@@ -89,7 +89,7 @@ namespace Qv2ray
             RROOT
         }
 
-        QJsonObject GenerateHTTPIN(QList<AccountObject> _accounts, int timeout, bool allowTransparent, bool userLevel)
+        QJsonObject GenerateHTTPIN(QList<AccountObject> _accounts, int timeout, bool allowTransparent, int userLevel)
         {
             DROOT
             QJsonArray accounts;
@@ -115,7 +115,7 @@ namespace Qv2ray
             RROOT
         }
 
-        QJsonObject GenerateOutboundEntry(QString protocol, QJsonObject settings, QJsonObject streamSettings, QJsonObject mux, QString sendThrough = "0.0.0.0", QString tag = "")
+        QJsonObject GenerateOutboundEntry(QString protocol, QJsonObject settings, QJsonObject streamSettings, QJsonObject mux, QString sendThrough, QString tag)
         {
             DROOT
             JADD(sendThrough, protocol, settings, tag, streamSettings, mux)
@@ -214,7 +214,7 @@ namespace Qv2ray
 
             QJsonArray outbounds = root["outbounds"].toArray();
             // For DIRECT
-            outbounds.append(GenerateOutboundEntry("freedom", GenerateFreedomOUT("AsIs", ":0", 0), QJsonObject(), QJsonObject()));
+            outbounds.append(GenerateOutboundEntry("freedom", GenerateFreedomOUT("AsIs", ":0", 0), QJsonObject(), QJsonObject(), "0.0.0.0", OUTBOUND_TAG_DIRECT));
             QJsonObject first = outbounds.first().toObject();
             first.insert("mux", GetRootObject(gConf.mux));
             outbounds[0] = first;

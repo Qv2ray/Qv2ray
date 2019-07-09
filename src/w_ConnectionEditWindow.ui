@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>988</width>
-    <height>530</height>
+    <width>1012</width>
+    <height>574</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -19,7 +19,10 @@
   <property name="windowTitle">
    <string>#ConnectionSettings</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout" columnstretch="0,3">
+  <property name="modal">
+   <bool>true</bool>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_6" columnstretch="3,7">
    <item row="0" column="0">
     <layout class="QFormLayout" name="formLayout_5">
      <item row="0" column="0">
@@ -30,11 +33,7 @@
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QLineEdit" name="ipLineEdit">
-       <property name="maxLength">
-        <number>15</number>
-       </property>
-      </widget>
+      <widget class="QLineEdit" name="ipLineEdit"/>
      </item>
      <item row="1" column="0">
       <widget class="QLabel" name="portLabel">
@@ -51,30 +50,13 @@
       </widget>
      </item>
      <item row="2" column="0">
-      <widget class="QLabel" name="aliasLabel">
-       <property name="text">
-        <string>#Name</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QLineEdit" name="aliasLineEdit">
-       <property name="text">
-        <string/>
-       </property>
-       <property name="maxLength">
-        <number>80</number>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="0">
       <widget class="QLabel" name="idLabel">
        <property name="text">
         <string>#UUID</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="1">
+     <item row="2" column="1">
       <widget class="QLineEdit" name="idLineEdit">
        <property name="text">
         <string/>
@@ -84,98 +66,128 @@
        </property>
       </widget>
      </item>
-     <item row="4" column="0">
+     <item row="3" column="0">
       <widget class="QLabel" name="alterLabel">
        <property name="text">
         <string>#AlterID</string>
        </property>
       </widget>
      </item>
-     <item row="4" column="1">
+     <item row="3" column="1">
       <widget class="QLineEdit" name="alterLineEdit">
        <property name="maxLength">
         <number>5</number>
        </property>
       </widget>
      </item>
-     <item row="5" column="0">
+     <item row="4" column="0">
       <widget class="QLabel" name="securityLabel">
        <property name="text">
         <string>#Security</string>
        </property>
       </widget>
      </item>
-     <item row="5" column="1">
+     <item row="4" column="1">
       <widget class="QComboBox" name="securityCombo">
        <item>
         <property name="text">
-         <string>auto</string>
+         <string notr="true">auto</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>aes-128-gcm</string>
+         <string notr="true">aes-128-gcm</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>chacha20-poly1305</string>
+         <string notr="true">chacha20-poly1305</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>none</string>
+         <string notr="true">none</string>
         </property>
        </item>
       </widget>
      </item>
-     <item row="6" column="0">
+     <item row="5" column="0">
       <widget class="QLabel" name="transportLabel">
        <property name="text">
         <string>#Transport</string>
        </property>
       </widget>
      </item>
-     <item row="6" column="1">
+     <item row="5" column="1">
       <widget class="QComboBox" name="tranportCombo">
        <item>
         <property name="text">
-         <string>tcp (TCP)</string>
+         <string notr="true">tcp</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>http (HTTP)</string>
+         <string notr="true">http</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>ws (WebSocket)</string>
+         <string notr="true">ws</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>kcp (mKCP)</string>
+         <string notr="true">kcp</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>domainsocket (Domain Socket)</string>
+         <string notr="true">domainsocket</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>quic (Quick UDP Internet Connection)</string>
+         <string notr="true">quic</string>
         </property>
        </item>
       </widget>
      </item>
+     <item row="6" column="0">
+      <widget class="QLabel" name="label_13">
+       <property name="text">
+        <string>#UseTLS</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="1">
+      <widget class="QCheckBox" name="tlsCB">
+       <property name="text">
+        <string>#Enabled</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
-   <item row="1" column="0">
-    <widget class="QTextBrowser" name="textBrowser"/>
+   <item row="2" column="0">
+    <widget class="QGroupBox" name="groupBox_4">
+     <property name="title">
+      <string>#JsonPreview</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QTextBrowser" name="finalJson"/>
+      </item>
+      <item>
+       <widget class="QPushButton" name="genJsonBtn">
+        <property name="text">
+         <string>#GenerateJSON</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
    </item>
-   <item row="2" column="1">
+   <item row="3" column="1">
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -185,7 +197,7 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="1" rowspan="2">
+   <item row="0" column="1" rowspan="3">
     <widget class="QGroupBox" name="groupBox">
      <property name="layoutDirection">
       <enum>Qt::LeftToRight</enum>
@@ -224,98 +236,96 @@
          <attribute name="title">
           <string>TCP</string>
          </attribute>
-         <layout class="QGridLayout" name="gridLayout_3">
-          <item row="0" column="0">
-           <layout class="QVBoxLayout" name="verticalLayout_2">
-            <item>
-             <layout class="QGridLayout" name="gridLayout_4" columnstretch="1,5">
-              <item row="0" column="1">
-               <widget class="QComboBox" name="comboBox">
-                <item>
-                 <property name="text">
-                  <string>none</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>http</string>
-                 </property>
-                </item>
-               </widget>
+         <layout class="QGridLayout" name="gridLayout">
+          <item row="0" column="0" colspan="4">
+           <layout class="QGridLayout" name="gridLayout_4" columnstretch="1,5">
+            <item row="0" column="1">
+             <widget class="QComboBox" name="tcpHeaderTypeCB">
+              <item>
+               <property name="text">
+                <string notr="true">none</string>
+               </property>
               </item>
-              <item row="0" column="0">
-               <widget class="QLabel" name="label">
-                <property name="text">
-                 <string>#Type</string>
-                </property>
-               </widget>
+              <item>
+               <property name="text">
+                <string notr="true">http</string>
+               </property>
               </item>
-             </layout>
+             </widget>
             </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,1">
-              <item>
-               <layout class="QVBoxLayout" name="verticalLayout_3">
-                <item>
-                 <widget class="QLabel" name="label_2">
-                  <property name="text">
-                   <string>#Request</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPlainTextEdit" name="plainTextEdit">
-                  <property name="lineWrapMode">
-                   <enum>QPlainTextEdit::NoWrap</enum>
-                  </property>
-                  <property name="plainText">
-                   <string/>
-                  </property>
-                  <property name="backgroundVisible">
-                   <bool>false</bool>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="pushButton">
-                  <property name="text">
-                   <string>#InsertDefaultContent</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-              <item>
-               <layout class="QVBoxLayout" name="verticalLayout_4">
-                <item>
-                 <widget class="QLabel" name="label_3">
-                  <property name="text">
-                   <string>#Response</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPlainTextEdit" name="plainTextEdit_2">
-                  <property name="lineWrapMode">
-                   <enum>QPlainTextEdit::NoWrap</enum>
-                  </property>
-                  <property name="plainText">
-                   <string/>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="pushButton_2">
-                  <property name="text">
-                   <string>#InsertDefaultContent</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-             </layout>
+            <item row="0" column="0">
+             <widget class="QLabel" name="label">
+              <property name="text">
+               <string>#Type</string>
+              </property>
+             </widget>
             </item>
            </layout>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string>#Request</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <widget class="QLabel" name="label_3">
+            <property name="text">
+             <string>#Response</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0" colspan="2">
+           <widget class="QPlainTextEdit" name="tcpRequestTxt">
+            <property name="lineWrapMode">
+             <enum>QPlainTextEdit::NoWrap</enum>
+            </property>
+            <property name="plainText">
+             <string/>
+            </property>
+            <property name="backgroundVisible">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="2" colspan="2">
+           <widget class="QPlainTextEdit" name="tcpRespTxt">
+            <property name="lineWrapMode">
+             <enum>QPlainTextEdit::NoWrap</enum>
+            </property>
+            <property name="plainText">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QPushButton" name="tcpRequestDefBtn">
+            <property name="text">
+             <string>#InsertDefaultContent</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QPushButton" name="tcpRequestPrettifyBtn">
+            <property name="text">
+             <string>#Prettify</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="2">
+           <widget class="QPushButton" name="tcpRespDefBtn">
+            <property name="text">
+             <string>#InsertDefaultContent</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="3">
+           <widget class="QPushButton" name="tcpRespPrettifyBtn">
+            <property name="text">
+             <string>#Prettify</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>
@@ -323,34 +333,26 @@
          <attribute name="title">
           <string>HTTP</string>
          </attribute>
-         <layout class="QGridLayout" name="gridLayout_15">
+         <layout class="QGridLayout" name="gridLayout_3">
           <item row="0" column="0">
-           <layout class="QGridLayout" name="gridLayout_5" columnstretch="1,1">
-            <item row="1" column="0">
-             <widget class="QListWidget" name="listWidget"/>
-            </item>
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_4">
-              <property name="text">
-               <string>#Host</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QLabel" name="label_5">
-              <property name="text">
-               <string>#Path</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QPlainTextEdit" name="plainTextEdit_3">
-              <property name="plainText">
-               <string/>
-              </property>
-             </widget>
-            </item>
-           </layout>
+           <widget class="QLabel" name="label_5">
+            <property name="text">
+             <string>#Path</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLineEdit" name="httpPathTxt"/>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_4">
+            <property name="text">
+             <string>#Host</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QPlainTextEdit" name="httpHostTxt"/>
           </item>
          </layout>
         </widget>
@@ -358,80 +360,41 @@
          <attribute name="title">
           <string>WebSocket</string>
          </attribute>
-         <layout class="QGridLayout" name="gridLayout_13">
+         <layout class="QGridLayout" name="gridLayout_5">
           <item row="0" column="0">
-           <layout class="QVBoxLayout" name="verticalLayout_5">
+           <layout class="QHBoxLayout" name="horizontalLayout_3">
             <item>
-             <layout class="QGridLayout" name="gridLayout_16" columnstretch="1,5">
-              <item row="1" column="0">
-               <widget class="QLabel" name="label_6">
-                <property name="text">
-                 <string>#Path</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="1">
-               <widget class="QLineEdit" name="lineEdit">
-                <property name="text">
-                 <string/>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_7">
+             <widget class="QLabel" name="label_6">
               <property name="text">
-               <string>#Headers</string>
+               <string>#Path</string>
               </property>
              </widget>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,1">
-              <item>
-               <widget class="QListWidget" name="listWidget_3">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Ignored" vsizetype="Expanding">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="editTriggers">
-                 <set>QAbstractItemView::DoubleClicked|QAbstractItemView::EditKeyPressed|QAbstractItemView::SelectedClicked</set>
-                </property>
-                <property name="verticalScrollMode">
-                 <enum>QAbstractItemView::ScrollPerPixel</enum>
-                </property>
-                <property name="horizontalScrollMode">
-                 <enum>QAbstractItemView::ScrollPerPixel</enum>
-                </property>
-                <property name="viewMode">
-                 <enum>QListView::ListMode</enum>
-                </property>
-                <property name="selectionRectVisible">
-                 <bool>true</bool>
-                </property>
-                <property name="currentRow">
-                 <number>-1</number>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QListWidget" name="listWidget_2">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Ignored" vsizetype="Expanding">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="editTriggers">
-                 <set>QAbstractItemView::DoubleClicked|QAbstractItemView::EditKeyPressed|QAbstractItemView::SelectedClicked</set>
-                </property>
-               </widget>
-              </item>
-             </layout>
+             <widget class="QLineEdit" name="wsPathTxt">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
             </item>
            </layout>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_7">
+            <property name="text">
+             <string>#Headers</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_23">
+            <property name="text">
+             <string>#key|value format</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QPlainTextEdit" name="wsHeadersTxt"/>
           </item>
          </layout>
         </widget>
@@ -450,7 +413,7 @@
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QSpinBox" name="spinBox">
+             <widget class="QSpinBox" name="kcpMTU">
               <property name="sizePolicy">
                <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -476,7 +439,7 @@
              </widget>
             </item>
             <item row="1" column="1">
-             <widget class="QSpinBox" name="spinBox_3">
+             <widget class="QSpinBox" name="kcpTTI">
               <property name="sizePolicy">
                <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -502,7 +465,7 @@
              </widget>
             </item>
             <item row="2" column="1">
-             <widget class="QSpinBox" name="spinBox_5">
+             <widget class="QSpinBox" name="kcpUploadCapacSB">
               <property name="sizePolicy">
                <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -525,7 +488,7 @@
              </widget>
             </item>
             <item row="3" column="1">
-             <widget class="QCheckBox" name="checkBox">
+             <widget class="QCheckBox" name="kcpCongestionCB">
               <property name="text">
                <string>#Enabled</string>
               </property>
@@ -543,7 +506,7 @@
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QSpinBox" name="spinBox_2">
+             <widget class="QSpinBox" name="kcpDownCapacitySB">
               <property name="sizePolicy">
                <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -566,7 +529,7 @@
              </widget>
             </item>
             <item row="1" column="1">
-             <widget class="QSpinBox" name="spinBox_4">
+             <widget class="QSpinBox" name="kcpReadBufferSB">
               <property name="sizePolicy">
                <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -582,14 +545,14 @@
              </widget>
             </item>
             <item row="2" column="0">
-             <widget class="QLabel" name="label_13">
+             <widget class="QLabel" name="labelx">
               <property name="text">
                <string>#WriteBufferSize (MB)</string>
               </property>
              </widget>
             </item>
             <item row="2" column="1">
-             <widget class="QSpinBox" name="spinBox_6">
+             <widget class="QSpinBox" name="kcpWriteBufferSB">
               <property name="sizePolicy">
                <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
                 <horstretch>0</horstretch>
@@ -620,7 +583,7 @@
               </widget>
              </item>
              <item row="0" column="1">
-              <widget class="QComboBox" name="comboBox_2">
+              <widget class="QComboBox" name="kcpHeaderType">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                  <horstretch>0</horstretch>
@@ -629,32 +592,32 @@
                </property>
                <item>
                 <property name="text">
-                 <string>none</string>
+                 <string notr="true">none</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>srtp (SRTP, FaceTime)</string>
+                 <string notr="true">srtp</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>utp (BitTorrent)</string>
+                 <string notr="true">utp</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>wechat-video (WeChat Video Message)</string>
+                 <string notr="true">wechat-video</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>dtls (DTLS 1.2)</string>
+                 <string notr="true">dtls</string>
                 </property>
                </item>
                <item>
                 <property name="text">
-                 <string>wireguard (WireGuard fake packets)</string>
+                 <string notr="true">wireguard</string>
                 </property>
                </item>
               </widget>
@@ -679,7 +642,7 @@
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QLineEdit" name="lineEdit_2">
+             <widget class="QLineEdit" name="dsPathTxt">
               <property name="text">
                <string/>
               </property>
@@ -693,129 +656,182 @@
          <attribute name="title">
           <string>QUIC</string>
          </attribute>
-         <layout class="QGridLayout" name="gridLayout_10">
+         <layout class="QFormLayout" name="formLayout_3">
           <item row="0" column="0">
-           <layout class="QFormLayout" name="formLayout_3">
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_18">
-              <property name="text">
-               <string>#Security</string>
-              </property>
-             </widget>
+           <widget class="QLabel" name="label_18">
+            <property name="text">
+             <string>#Security</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QComboBox" name="quicSecurityCB">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <item>
+             <property name="text">
+              <string notr="true">none</string>
+             </property>
             </item>
-            <item row="0" column="1">
-             <widget class="QComboBox" name="comboBox_3">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <item>
-               <property name="text">
-                <string>none</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>aes-128-gcm</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>chacha20-poly1305</string>
-               </property>
-              </item>
-             </widget>
+            <item>
+             <property name="text">
+              <string notr="true">aes-128-gcm</string>
+             </property>
             </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="label_19">
-              <property name="text">
-               <string>#Key</string>
-              </property>
-             </widget>
+            <item>
+             <property name="text">
+              <string notr="true">chacha20-poly1305</string>
+             </property>
             </item>
-            <item row="1" column="1">
-             <widget class="QLineEdit" name="lineEdit_3">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="label_20">
-              <property name="text">
-               <string>#Headers</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="1">
-             <widget class="QGroupBox" name="groupBox_3">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                <horstretch>0</horstretch>
-                <verstretch>1</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="title">
-               <string>#Header</string>
-              </property>
-              <layout class="QVBoxLayout" name="verticalLayout_11">
-               <item>
-                <layout class="QFormLayout" name="formLayout_4">
-                 <item row="0" column="0">
-                  <widget class="QLabel" name="label_21">
-                   <property name="text">
-                    <string>#Type</string>
-                   </property>
-                  </widget>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_19">
+            <property name="text">
+             <string>#Key</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="quicKeyTxt">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_20">
+            <property name="text">
+             <string>#Headers</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QGroupBox" name="groupBox_3">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>1</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="title">
+             <string>#Header</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_11">
+             <item>
+              <layout class="QFormLayout" name="formLayout_4">
+               <item row="0" column="0">
+                <widget class="QLabel" name="label_21">
+                 <property name="text">
+                  <string>#Type</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QComboBox" name="quicHeaderTypeCB">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <item>
+                  <property name="text">
+                   <string notr="true">none</string>
+                  </property>
                  </item>
-                 <item row="0" column="1">
-                  <widget class="QComboBox" name="comboBox_4">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <item>
-                    <property name="text">
-                     <string>none</string>
-                    </property>
-                   </item>
-                   <item>
-                    <property name="text">
-                     <string>srtp (SRTP, FaceTime)</string>
-                    </property>
-                   </item>
-                   <item>
-                    <property name="text">
-                     <string>utp (BitTorrent)</string>
-                    </property>
-                   </item>
-                   <item>
-                    <property name="text">
-                     <string>wechat-video (WeChat Video Message)</string>
-                    </property>
-                   </item>
-                   <item>
-                    <property name="text">
-                     <string>dtls (DTLS 1.2)</string>
-                    </property>
-                   </item>
-                   <item>
-                    <property name="text">
-                     <string>wireguard (WireGuard fake packets)</string>
-                    </property>
-                   </item>
-                  </widget>
+                 <item>
+                  <property name="text">
+                   <string notr="true">srtp</string>
+                  </property>
                  </item>
-                </layout>
+                 <item>
+                  <property name="text">
+                   <string notr="true">utp</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string notr="true">wechat-video</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string notr="true">dtls</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string notr="true">wireguard</string>
+                  </property>
+                 </item>
+                </widget>
                </item>
               </layout>
-             </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="tab">
+         <attribute name="title">
+          <string>SockOpt</string>
+         </attribute>
+         <layout class="QFormLayout" name="formLayout_6">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_14">
+            <property name="text">
+             <string>#Mark</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QSpinBox" name="soMarkSpinBox"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_22">
+            <property name="text">
+             <string>#TCPFastOpen</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QCheckBox" name="tcpFastOpenCB">
+            <property name="text">
+             <string>#Enabled</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_24">
+            <property name="text">
+             <string>#TProxy</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QComboBox" name="tProxyCB">
+            <item>
+             <property name="text">
+              <string notr="true">redirect</string>
+             </property>
             </item>
-           </layout>
+            <item>
+             <property name="text">
+              <string notr="true">tproxy</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string notr="true">off</string>
+             </property>
+            </item>
+           </widget>
           </item>
          </layout>
         </widget>
@@ -829,35 +845,28 @@
  <tabstops>
   <tabstop>ipLineEdit</tabstop>
   <tabstop>portLineEdit</tabstop>
-  <tabstop>aliasLineEdit</tabstop>
   <tabstop>idLineEdit</tabstop>
   <tabstop>alterLineEdit</tabstop>
   <tabstop>securityCombo</tabstop>
   <tabstop>tranportCombo</tabstop>
-  <tabstop>tabWidget</tabstop>
-  <tabstop>comboBox</tabstop>
-  <tabstop>plainTextEdit</tabstop>
-  <tabstop>pushButton</tabstop>
-  <tabstop>plainTextEdit_2</tabstop>
-  <tabstop>pushButton_2</tabstop>
-  <tabstop>listWidget</tabstop>
-  <tabstop>plainTextEdit_3</tabstop>
-  <tabstop>lineEdit</tabstop>
-  <tabstop>listWidget_3</tabstop>
-  <tabstop>listWidget_2</tabstop>
-  <tabstop>spinBox</tabstop>
-  <tabstop>spinBox_3</tabstop>
-  <tabstop>spinBox_5</tabstop>
-  <tabstop>checkBox</tabstop>
-  <tabstop>spinBox_2</tabstop>
-  <tabstop>spinBox_4</tabstop>
-  <tabstop>spinBox_6</tabstop>
-  <tabstop>comboBox_2</tabstop>
-  <tabstop>lineEdit_2</tabstop>
-  <tabstop>comboBox_3</tabstop>
-  <tabstop>lineEdit_3</tabstop>
-  <tabstop>comboBox_4</tabstop>
-  <tabstop>textBrowser</tabstop>
+  <tabstop>tcpHeaderTypeCB</tabstop>
+  <tabstop>tcpRequestTxt</tabstop>
+  <tabstop>tcpRequestDefBtn</tabstop>
+  <tabstop>tcpRespTxt</tabstop>
+  <tabstop>tcpRespDefBtn</tabstop>
+  <tabstop>kcpMTU</tabstop>
+  <tabstop>kcpTTI</tabstop>
+  <tabstop>kcpUploadCapacSB</tabstop>
+  <tabstop>kcpCongestionCB</tabstop>
+  <tabstop>kcpDownCapacitySB</tabstop>
+  <tabstop>kcpReadBufferSB</tabstop>
+  <tabstop>kcpWriteBufferSB</tabstop>
+  <tabstop>kcpHeaderType</tabstop>
+  <tabstop>dsPathTxt</tabstop>
+  <tabstop>quicSecurityCB</tabstop>
+  <tabstop>quicKeyTxt</tabstop>
+  <tabstop>quicHeaderTypeCB</tabstop>
+  <tabstop>finalJson</tabstop>
  </tabstops>
  <resources/>
  <connections>
@@ -868,8 +877,8 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>248</x>
-     <y>254</y>
+     <x>586</x>
+     <y>523</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -884,8 +893,8 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>316</x>
-     <y>260</y>
+     <x>654</x>
+     <y>523</y>
     </hint>
     <hint type="destinationlabel">
      <x>286</x>

@@ -30,7 +30,7 @@ namespace Qv2ray
         };
 
         struct ApiObject {
-            string tag;
+            string tag = "api";
             list<string> services;
             ApiObject() : tag(), services() {}
             XTOSTRUCT(O(tag, services))
@@ -70,32 +70,32 @@ namespace Qv2ray
             namespace TRANSFERObjectsInternal
             {
                 struct HTTPRequestObject {
-                    string version = "1.1";
-                    string method = "GET";
+                    string version ;
+                    string method ;
                     list<string> path;
                     map<string, list<string>> headers;
-                    HTTPRequestObject(): version(), method(), path(), headers() {}
+                    HTTPRequestObject(): version("1.1"), method("GET"), path(), headers() {}
                     XTOSTRUCT(O(version, method, path, headers))
                 };
 
                 struct HTTPResponseObject {
-                    string version = "1.1";
-                    string status = "200";
-                    string reason = "OK";
+                    string version;
+                    string status ;
+                    string reason ;
                     map<string, list<string>> headers;
-                    HTTPResponseObject(): version(), status(), reason(), headers() {}
+                    HTTPResponseObject(): version("1.1"), status("200"), reason("OK"), headers() {}
                     XTOSTRUCT(O(version, status, reason, headers))
                 };
                 struct TCPHeader_M_Object {
                     string type;
                     HTTPRequestObject request;
                     HTTPResponseObject response;
-                    TCPHeader_M_Object(): type(), request(), response() {}
+                    TCPHeader_M_Object(): type("none"), request(), response() {}
                     XTOSTRUCT(O(type, request, response))
                 };
                 struct HeaderObject {
                     string type;
-                    HeaderObject(): type() {}
+                    HeaderObject(): type("none") {}
                     XTOSTRUCT(O(type))
                 };
             }
@@ -125,20 +125,20 @@ namespace Qv2ray
             struct WebSocketObject {
                 string path;
                 map<string, string> headers;
-                WebSocketObject(): path(), headers() {}
+                WebSocketObject(): path("/"), headers() {}
                 XTOSTRUCT(O(path, headers))
             };
 
             struct HttpObject {
                 list<string> host;
                 string path;
-                HttpObject() : host(), path() {}
+                HttpObject() : host(), path("/") {}
                 XTOSTRUCT(O(host, path))
             };
 
             struct DomainSocketObject {
                 string path;
-                DomainSocketObject(): path() {}
+                DomainSocketObject(): path("/") {}
                 XTOSTRUCT(O(path))
             };
 
@@ -146,7 +146,7 @@ namespace Qv2ray
                 string security;
                 string key;
                 TRANSFERObjectsInternal::HeaderObject header;
-                QuicObject(): security(), key(), header() {}
+                QuicObject(): security(""), key(""), header() {}
                 XTOSTRUCT(O(security, key, header))
             };
         }
@@ -154,7 +154,7 @@ namespace Qv2ray
         namespace INBOUNDObjects
         {
             struct SniffingObject {
-                bool enabled;
+                bool enabled = false;
                 list<string> destOverride;
                 SniffingObject(): enabled(), destOverride() {}
                 XTOSTRUCT(O(enabled, destOverride))
@@ -167,7 +167,7 @@ namespace Qv2ray
                 int mark;
                 bool tcpFastOpen;
                 string tproxy;
-                SockoptObject(): mark(), tcpFastOpen(), tproxy() {}
+                SockoptObject(): mark(0), tcpFastOpen(), tproxy("off") {}
                 XTOSTRUCT(O(mark, tcpFastOpen, tproxy))
             };
 
@@ -203,7 +203,7 @@ namespace Qv2ray
             _TransferSettingObjects::HttpObject httpSettings;
             _TransferSettingObjects::DomainSocketObject dsSettings;
             _TransferSettingObjects::QuicObject quicSettings;
-            StreamSettingsObject(): network(), security(), sockopt(),  tlsSettings(), tcpSettings(), kcpSettings(), wsSettings(), httpSettings(), dsSettings(), quicSettings() {}
+            StreamSettingsObject(): network("tcp"), security(), sockopt(),  tlsSettings(), tcpSettings(), kcpSettings(), wsSettings(), httpSettings(), dsSettings(), quicSettings() {}
             XTOSTRUCT(O(network, security, sockopt, tcpSettings, tlsSettings, kcpSettings, wsSettings, httpSettings, dsSettings, quicSettings))
         };
 
@@ -214,15 +214,12 @@ namespace Qv2ray
             XTOSTRUCT(O(enabled, concurrency))
         };
 
-
         struct RootObject {
             ApiObject api;
             PolicyObject policy;
             RootObject(): api(), policy() {}
             XTOSTRUCT(O(api, policy))
         };
-        //
-        //
         //
         /// Some protocols from: https://v2ray.com/chapter_02/02_protocols.html
         namespace Protocols
@@ -278,6 +275,7 @@ namespace Qv2ray
                         int alterId;
                         string security;
                         int level;
+                        UserObject() : id(), alterId(64), security("auto"), level(0) {}
                         XTOSTRUCT(O(id, alterId, security, level))
                     };
                     // OUTBound;

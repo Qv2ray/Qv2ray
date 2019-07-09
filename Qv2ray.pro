@@ -65,6 +65,8 @@ TRANSLATIONS += \
 
 RC_ICONS += ./icons/Qv2ray.ico
 
+ICON = ./icons/Qv2ray.icns
+
 INCLUDEPATH += \
         3rdparty/\
         3rdparty/jsoncons/include
@@ -74,5 +76,3 @@ INCLUDEPATH += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
-
-DISTFILES +=

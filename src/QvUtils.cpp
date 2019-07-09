@@ -92,7 +92,7 @@ namespace Qv2ray
             file.open(QFile::ReadOnly);
             QTextStream stream(&file);
             auto str = stream.readAll();
-            auto config  = StructFromJSONString<Qv2Config_v1>(str.toStdString());
+            auto config  = StructFromJSONString<Qv2Config_v1>(str);
             SetGlobalConfig(config);
             file.close();
         }

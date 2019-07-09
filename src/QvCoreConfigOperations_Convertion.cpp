@@ -7,11 +7,6 @@ namespace Qv2ray
         int SaveConnectionConfig(QJsonObject obj, const QString *alias)
         {
             QFile config(QV2RAY_CONFIG_PATH + *alias + QV2RAY_CONNECTION_FILE_EXTENSION);
-
-            if (config.exists()) {
-                return -1;
-            }
-
             StringToFile(JSONToString(obj), &config);
             return 0;
         }
@@ -20,20 +15,22 @@ namespace Qv2ray
         QJsonObject ConvertConfigFromVMessString(QString str)
         {
             DROOT
-            QJsonArray outbounds;
             QStringRef vmessJsonB64(&str, 8, str.length() - 8);
-            auto vmessConf = StructFromJSONString<VMessProtocolConfigObject>(Base64Decode(vmessJsonB64.toString()).toStdString());
-            VMessOut vConf;
-            VMessOut::ServerObject serv;
-            serv.port = stoi(vmessConf.port);
-            serv.address = vmessConf.add;
+            auto vmessConf = StructFromJSONString<VMessProtocolConfigObject>(Base64Decode(vmessJsonB64.toString()));
+            //
             // User
             VMessOut::ServerObject::UserObject user;
             user.id = vmessConf.id;
             user.alterId = stoi(vmessConf.aid);
+            //
             // Server
+            VMessOut::ServerObject serv;
+            serv.port = stoi(vmessConf.port);
+            serv.address = vmessConf.add;
             serv.users.push_back(user);
+            //
             // VMess root config
+            VMessOut vConf;
             vConf.vnext.push_back(serv);
             //
             // Stream Settings
@@ -62,29 +59,18 @@ namespace Qv2ray
             // Network type
             streaming.network = vmessConf.net;
             //
-            // Root Outbound
-            QJsonObject outboundEntry;
-            outboundEntry.insert("sendThrough", "0.0.0.0");
-            outboundEntry.insert("protocol", "vmess");
-            outboundEntry.insert("settings", GetRootObject(vConf));
-            outboundEntry.insert("tag", OUTBOUND_TAG_PROXY);
-            outboundEntry.insert("streamSettings", GetRootObject(streaming));
-            outboundEntry.insert("QV2RAY_ALIAS", QString::fromStdString(vmessConf.ps));
+            auto outbound = GenerateOutboundEntry("vmess", GetRootObject(vConf), GetRootObject(streaming), GetRootObject(GetGlobalConfig().mux), "0.0.0.0", OUTBOUND_TAG_PROXY);
             //
-            outbounds.append(outboundEntry);
+            QJsonArray outbounds;
+            outbounds.append(outbound);
             root.insert("outbounds", outbounds);
+            root.insert("QV2RAY_ALIAS", QString::fromStdString(vmessConf.ps));
             RROOT
         }
 
         QJsonObject ConvertConfigFromFile(QString sourceFilePath, bool overrideInbounds)
         {
-            auto globalConf = GetGlobalConfig();
-            QFile configFile(sourceFilePath);
-            configFile.open(QIODevice::ReadOnly);
-            QByteArray allData = configFile.readAll();
-            configFile.close();
-            QJsonDocument v2conf = QJsonDocument::fromJson(allData);
-            QJsonObject root = v2conf.object();
+            auto root = JSONFromString(StringFromFile(new QFile(sourceFilePath)));
 
             if (overrideInbounds) {
                 JSON_ROOT_TRY_REMOVE("inbounds")
@@ -103,7 +89,9 @@ namespace Qv2ray
             // Currently, we only support VMess. So remove all other types of outbounds.
             for (int i = root["outbounds"].toArray().count(); i >= 0 ; i--) {
                 if (root["outbounds"].toArray()[i].toObject()["protocol"].toString() == "vmess") {
-                    outbounds.append(root["outbounds"].toArray()[i]);
+                    auto conn = root["outbounds"].toArray()[i].toObject();
+                    conn.insert("tag", OUTBOUND_TAG_PROXY);
+                    outbounds.append(conn);
                 }
             }
 
@@ -112,23 +100,17 @@ namespace Qv2ray
             return root;
         }
 
-        QMap<QString, QJsonObject> LoadAllConnectionList(list<string> connections)
+        QMap<QString, QJsonObject> GetConnections(list<string> connectionNames)
         {
             QMap<QString, QJsonObject> list;
 
-            foreach (auto conn, connections) {
+            foreach (auto conn, connectionNames) {
                 QString jsonString = StringFromFile(new QFile(QV2RAY_CONFIG_PATH + QString::fromStdString(conn) + QV2RAY_CONNECTION_FILE_EXTENSION));
                 QJsonObject connectionObject = JSONFromString(jsonString);
                 list.insert(QString::fromStdString(conn), connectionObject);
             }
 
             return list;
-        }
-
-        VMessOut ConvertOutBoundJSONToStruct(QJsonObject vmessJson)
-        {
-            auto str = JSONToString(vmessJson);
-            return StructFromJSONString<VMessOut>(str.toStdString());
         }
 
         int StartPreparation(QJsonObject fullConfig)
