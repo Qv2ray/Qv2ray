@@ -48,6 +48,8 @@ class MainWindow : public QMainWindow
 
         void on_editConnectionSettingsBtn_clicked();
 
+        void on_clearlogButton_clicked();
+
     private:
         void ShowAndSetConnection(int index, bool SetConnection, bool Apply);
         void LoadConnections();
