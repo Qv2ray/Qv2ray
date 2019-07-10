@@ -50,6 +50,9 @@
       </item>
       <item>
        <widget class="QPushButton" name="stopButton">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="text">
          <string>#Stop</string>
         </property>
@@ -57,6 +60,9 @@
       </item>
       <item>
        <widget class="QPushButton" name="restartButton">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="text">
          <string>#Restart</string>
         </property>

@@ -26,8 +26,8 @@ MainWindow::MainWindow(QWidget *parent)
     QAction *actionShowHide = new QAction(this->windowIcon(), tr("#Hide"), this);
     QAction *actionQuit = new QAction(tr("#Quit"), this);
     QAction *actionStart = new QAction(tr("#Start"), this);
-    QAction *actionRestart = new QAction(tr("#Stop"), this);
-    QAction *actionStop = new QAction(tr("#Restart"), this);
+    QAction *actionRestart = new QAction(tr("#Restart"), this);
+    QAction *actionStop = new QAction(tr("#Stop"), this);
     actionStart->setEnabled(true);
     actionStop->setEnabled(false);
     actionRestart->setEnabled(false);
@@ -95,10 +95,18 @@ void MainWindow::on_startButton_clicked()
     auto full_conf = GenerateRuntimeConfig(connections.value(CurrentConnectionName));
     StartPreparation(full_conf);
     bool startFlag = this->vinstance->Start();
-    ui->statusLabel->setText(tr("#Started") + ": " + CurrentConnectionName);
+
+    if (startFlag) {
+        ui->statusLabel->setText(tr("#Started") + ": " + CurrentConnectionName);
+    }
+
     trayMenu->actions()[2]->setEnabled(!startFlag);
     trayMenu->actions()[3]->setEnabled(startFlag);
     trayMenu->actions()[4]->setEnabled(startFlag);
+    //
+    ui->startButton->setEnabled(!startFlag);
+    ui->stopButton->setEnabled(startFlag);
+    ui->restartButton->setEnabled(startFlag);
 }
 
 void MainWindow::on_stopButton_clicked()
@@ -111,6 +119,10 @@ void MainWindow::on_stopButton_clicked()
     trayMenu->actions()[2]->setEnabled(true);
     trayMenu->actions()[3]->setEnabled(false);
     trayMenu->actions()[4]->setEnabled(false);
+    //
+    ui->startButton->setEnabled(true);
+    ui->stopButton->setEnabled(false);
+    ui->restartButton->setEnabled(false);
 }
 
 void MainWindow::on_restartButton_clicked()
@@ -243,7 +255,9 @@ void MainWindow::on_delConfigBtn_clicked()
 
     if (currentSelected < 0) return;
 
-    if (ui->connectionListWidget->item(currentSelected)->text() == CurrentConnectionName) {
+    bool isRemovingRunning = ui->connectionListWidget->item(currentSelected)->text() == CurrentConnectionName;
+
+    if (isRemovingRunning) {
         on_stopButton_clicked();
         CurrentConnectionName  = "";
     }
@@ -252,7 +266,10 @@ void MainWindow::on_delConfigBtn_clicked()
     conf.configs = list.toStdList();
     SetGlobalConfig(conf);
     SaveGlobalConfig();
-    reload_config();
+
+    if (isRemovingRunning) {
+        reload_config();
+    }
 }
 
 void MainWindow::on_prefrencesBtn_clicked()
@@ -275,4 +292,9 @@ void MainWindow::on_editConnectionSettingsBtn_clicked()
         connect(w, &ConnectionEditWindow::s_reload_config, this, &MainWindow::reload_config);
         w->show();
     }
+}
+
+void MainWindow::on_clearlogButton_clicked()
+{
+    ui->logText->clear();
 }

@@ -275,13 +275,14 @@ namespace Qv2ray
                         int alterId;
                         string security;
                         int level;
-                        UserObject() : id(), alterId(64), security("auto"), level(0) {}
+                        UserObject() : id(""), alterId(64), security("auto"), level(0) {}
                         XTOSTRUCT(O(id, alterId, security, level))
                     };
                     // OUTBound;
                     string address;
                     int port;
                     list<UserObject> users;
+                    ServerObject(): address(""), port(0), users() {}
                     XTOSTRUCT(O(address, port, users))
                 };
                 list<ServerObject> vnext;
