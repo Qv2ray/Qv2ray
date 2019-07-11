@@ -24,19 +24,17 @@ bool initializeQv()
     configPath = "./qv2ray.d";
     exeDefaultPath = "./qv2ray.d/v2ray";
     v2AssetsPath = "./qv2ray.d";
-#elif defined (__APPLE__)
-    // In APPLE's world, the application is contained in a .app folder
-    LOG(QDir::currentPath().toStdString())
-    QDir bin(QCoreApplication::applicationDirPath());
-    bin.cdUp();
-    configPath = bin.absolutePath() + "/Resources";
-    exeDefaultPath = configPath + "/v2ray";
-    v2AssetsPath = configPath;
-#else
-    // However, for linux, this software can be and/or will be provided as a
-    // package and install to whatever /usr/bin or /usr/local/bin or even /opt/
-    // Thus we save config files in the user's home directory.
+#else // NOT WINDOWS (*nix)
+    // Global config dir.
     configPath = QDir::homePath() + "/.qv2ray";
+    exeDefaultPath = configPath + "/vcore/v2ray";
+    v2AssetsPath = configPath + "/vcore";
+#endif
+#ifdef __linux__
+    // Special case for GNU/Linux
+    // Unused these values
+    Q_UNUSED(v2AssetsPath)
+    Q_UNUSED(exeDefaultPath)
     v2AssetsPath = "/etc/v2ray";
     exeDefaultPath = "/bin/v2ray";
 #endif
