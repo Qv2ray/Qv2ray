@@ -48,6 +48,10 @@ MainWindow::MainWindow(QWidget *parent)
     hTray->setContextMenu(trayMenu);
     hTray->show();
     LoadConnections();
+    //
+    if(!vinstance->ValidateV2rayCoreExe()){
+        on_prefrencesBtn_clicked();
+    }
 }
 
 void MainWindow::LoadConnections()
