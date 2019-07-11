@@ -28,9 +28,11 @@ Travis per machine badge provided by: https://github.com/exogen/badge-matrix ( @
 
 ### 最新
 
-**2019-07-09**: 发布第一个公开测试版本 [v0.9.9b](https://github.com/lhy0403/Qv2ray/releases/tag/v0.9.9b)
+**2019-07-11**: 发布第一个 RC
 
 ### 历史
+
+**2019-07-09**: 发布第一个公开测试版本 [v0.9.9b](https://github.com/lhy0403/Qv2ray/releases/tag/v0.9.9b)
 
 **2019-07-08**: dev 分支的 [`v0.9.2a`](https://github.com/lhy0403/Qv2ray/releases/tag/v0.9.2a) 版本现在可以使用 GUI 修改配置，并做到动态重载配置（包括入站设置，日志，Mux选项）此版本完成了所有翻译工作，添加了双击配置列表即可启动对应配置的功能
 
