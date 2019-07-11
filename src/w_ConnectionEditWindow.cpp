@@ -16,6 +16,9 @@ ConnectionEditWindow::ConnectionEditWindow(QWidget *parent)
     ui->alterLineEdit->setValidator(new QIntValidator());
     //
     LoadGUIContents();
+    vmess = VMessOut::ServerObject();
+    vmess.users.push_back(VMessOut::ServerObject::UserObject());
+    stream = StreamSettingsObject();
 }
 
 ConnectionEditWindow::ConnectionEditWindow(QJsonObject editRootObject, QString alias, QWidget *parent)
@@ -91,7 +94,7 @@ void ConnectionEditWindow::LoadGUIContents()
 void ConnectionEditWindow::on_buttonBox_accepted()
 {
     bool new_config = _alias == "";
-    auto alias = new_config ? ui->ipLineEdit->text() : _alias;
+    auto alias = new_config ? (ui->ipLineEdit->text() + "_" + ui->portLineEdit->text()) : _alias;
     //
     auto outbound = GenerateConnectionJson();
     QJsonArray outbounds;
