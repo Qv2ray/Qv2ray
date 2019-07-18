@@ -18,11 +18,22 @@ Travis per machine badge provided by: https://github.com/exogen/badge-matrix ( @
 
 ## 1. 依赖
 
-- Qt >= 5.12
-- gcc >=8 (Linux 需要 c++11 支持) 或 MinGW (Windows) 或 clang (MacOS)
-- QtCreator (推荐)
+- 运行依赖：
+
+  - ArchLinux
+
+    - 在 `v2ray` 包的基础上 额外需要 `v2ray-domain-list-community` 和 `v2ray-geoip` 进行分流代理
+
+      Issue: https://github.com/lhy0403/Qv2ray/issues/23#issuecomment-511384858 
+
+- 编译依赖
+
+  - Qt >= 5.12
+  - gcc >=8 (Linux 需要 c++11 支持) 或 MinGW (Windows) 或 clang (MacOS)
+  - QtCreator (推荐)
 
 ## 2. 编译方法
+
  - 详见 [BUILD.md](BUILD.md)
 
 ## 3. 最近更新内容

@@ -1,8 +1,14 @@
 # Version 1.0 CHANGELOG
 
-**2019-07-11**: 发布第一个 RC
+**CURRENT VERSION: ** *[v1.0.1](https://github.com/lhy0403/Qv2ray/releases/tag/v1.0.1)*
 
-**2019-07-09**: 发布第一个公开测试版本 [v0.9.9b](https://github.com/lhy0403/Qv2ray/releases/tag/v0.9.9b)
+-------
+
+**2019-07-14**: *v1.0.1* 修复一个拼写错误，该错误源自 [`0e9b90f`](https://github.com/lhy0403/Qv2ray/commit/0e9b90fb116b790156314a21a6ef1abc8d60fa63#diff-c3f4a6d32c4ab34067ba5fa647341c6aR12) 提交
+
+**2019-07-11**: *v1.0.0* 发布第一个 RC 修改 MacOS 默认文件位置
+
+**2019-07-09**: *v0.9.9b* 发布第一个公开测试版本 [v0.9.9b](https://github.com/lhy0403/Qv2ray/releases/tag/v0.9.9b)
 
 **2019-07-08**: dev 分支的 [`v0.9.2a`](https://github.com/lhy0403/Qv2ray/releases/tag/v0.9.2a) 版本现在可以使用 GUI 修改配置，并做到动态重载配置（包括入站设置，日志，Mux选项）此版本完成了所有翻译工作，添加了双击配置列表即可启动对应配置的功能
 
