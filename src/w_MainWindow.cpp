@@ -48,19 +48,30 @@ MainWindow::MainWindow(QWidget *parent)
     hTray->setContextMenu(trayMenu);
     hTray->show();
     LoadConnections();
+
     //
-    if(!vinstance->ValidateV2rayCoreExe()){
+    if (!vinstance->ValidateV2rayCoreExe()) {
         on_prefrencesBtn_clicked();
     }
 }
 
 void MainWindow::LoadConnections()
 {
-    connections = GetConnections(GetGlobalConfig().configs);
+    auto conf = GetGlobalConfig();
+    connections = GetConnections(conf.configs);
     ui->connectionListWidget->clear();
 
     for (int i = 0; i < connections.count(); i++) {
         ui->connectionListWidget->addItem(connections.keys()[i]);
+    }
+
+    if (conf.autoStartConfig != "" && QList<string>::fromStdList(conf.configs).contains(conf.autoStartConfig)) {
+        CurrentConnectionName = QString::fromStdString(conf.autoStartConfig);
+        auto item = ui->connectionListWidget->findItems(QString::fromStdString(conf.autoStartConfig), Qt::MatchExactly).front();
+        item->setSelected(true);
+        ui->connectionListWidget->setCurrentItem(item);
+        on_connectionListWidget_itemClicked(item);
+        on_startButton_clicked();
     }
 }
 void MainWindow::reload_config()
