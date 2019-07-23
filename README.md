@@ -40,6 +40,7 @@ Travis per machine badge provided by: https://github.com/exogen/badge-matrix ( @
 
 ### a. 最新
 
+**2019-07-23**: v1.1 版本添加了自动启动功能
 **2019-07-11**: 准备 dev 分支开始 v2.0 版本
 
 ### b. 历史
