@@ -211,14 +211,14 @@
         <translation>密钥</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.cpp" line="303"/>
-        <location filename="../src/w_ConnectionEditWindow.cpp" line="314"/>
+        <location filename="../src/w_ConnectionEditWindow.cpp" line="306"/>
+        <location filename="../src/w_ConnectionEditWindow.cpp" line="317"/>
         <source>#JsonPrettify</source>
         <translation>美化 JSON</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.cpp" line="303"/>
-        <location filename="../src/w_ConnectionEditWindow.cpp" line="314"/>
+        <location filename="../src/w_ConnectionEditWindow.cpp" line="306"/>
+        <location filename="../src/w_ConnectionEditWindow.cpp" line="317"/>
         <source>#JsonContainsError</source>
         <translation>JSON 格式错误</translation>
     </message>
@@ -316,126 +316,127 @@
     <name>MainWindow</name>
     <message>
         <location filename="../src/w_MainWindow.ui" line="29"/>
+        <location filename="../src/w_MainWindow.cpp" line="123"/>
         <source>Qv2ray</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/w_MainWindow.ui" line="47"/>
-        <location filename="../src/w_MainWindow.ui" line="309"/>
+        <location filename="../src/w_MainWindow.ui" line="315"/>
         <location filename="../src/w_MainWindow.cpp" line="28"/>
         <source>#Start</source>
         <translation>启动</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.ui" line="54"/>
-        <location filename="../src/w_MainWindow.ui" line="314"/>
-        <location filename="../src/w_MainWindow.cpp" line="29"/>
+        <location filename="../src/w_MainWindow.ui" line="57"/>
+        <location filename="../src/w_MainWindow.ui" line="320"/>
+        <location filename="../src/w_MainWindow.cpp" line="30"/>
         <source>#Stop</source>
         <translation>停止</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.ui" line="61"/>
-        <location filename="../src/w_MainWindow.ui" line="319"/>
-        <location filename="../src/w_MainWindow.cpp" line="30"/>
+        <location filename="../src/w_MainWindow.ui" line="67"/>
+        <location filename="../src/w_MainWindow.ui" line="325"/>
+        <location filename="../src/w_MainWindow.cpp" line="29"/>
         <source>#Restart</source>
         <translation>重新启动</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.ui" line="71"/>
+        <location filename="../src/w_MainWindow.ui" line="77"/>
         <source>#ClearLog</source>
         <translation>清除日志</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.ui" line="101"/>
+        <location filename="../src/w_MainWindow.ui" line="107"/>
         <source>#Status</source>
         <translation>状态</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.ui" line="108"/>
-        <location filename="../src/w_MainWindow.cpp" line="109"/>
+        <location filename="../src/w_MainWindow.ui" line="114"/>
+        <location filename="../src/w_MainWindow.cpp" line="141"/>
         <source>#Stopped</source>
         <translation>已停止</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.ui" line="117"/>
+        <location filename="../src/w_MainWindow.ui" line="123"/>
         <source>#HostList</source>
         <translation>服务器列表</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.ui" line="252"/>
+        <location filename="../src/w_MainWindow.ui" line="258"/>
         <source>#ImportConfig</source>
         <translation>导入配置</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.ui" line="259"/>
+        <location filename="../src/w_MainWindow.ui" line="265"/>
         <source>#AddConfig</source>
         <translation>添加配置</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.ui" line="266"/>
+        <location filename="../src/w_MainWindow.ui" line="272"/>
         <source>#RemoveConfig</source>
         <translation>移除配置</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.ui" line="124"/>
+        <location filename="../src/w_MainWindow.ui" line="130"/>
         <source>#ConfigDetail</source>
         <translation>配置详细信息</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.ui" line="136"/>
+        <location filename="../src/w_MainWindow.ui" line="142"/>
         <source>#Host</source>
         <translation>域名</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.ui" line="150"/>
+        <location filename="../src/w_MainWindow.ui" line="156"/>
         <source>#Port</source>
         <translation>端口</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.ui" line="164"/>
+        <location filename="../src/w_MainWindow.ui" line="170"/>
         <source>#UUID</source>
         <translation>UUID</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.ui" line="178"/>
+        <location filename="../src/w_MainWindow.ui" line="184"/>
         <source>#Transport</source>
         <translation>传输设置</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.ui" line="192"/>
-        <location filename="../src/w_MainWindow.ui" line="205"/>
+        <location filename="../src/w_MainWindow.ui" line="198"/>
+        <location filename="../src/w_MainWindow.ui" line="211"/>
         <source>#ConnectionSettings</source>
         <translation>连接设置</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.ui" line="273"/>
+        <location filename="../src/w_MainWindow.ui" line="279"/>
         <source>#Log</source>
         <translation>日志</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.ui" line="289"/>
+        <location filename="../src/w_MainWindow.ui" line="295"/>
         <source>#ManuallyCreateConnection</source>
         <translation>手动添加配置</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.ui" line="294"/>
+        <location filename="../src/w_MainWindow.ui" line="300"/>
         <source>#ImportConnection</source>
         <translation>导入配置文件</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.ui" line="299"/>
+        <location filename="../src/w_MainWindow.ui" line="305"/>
         <source>#Exit</source>
         <translation>退出</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.ui" line="78"/>
-        <location filename="../src/w_MainWindow.ui" line="304"/>
+        <location filename="../src/w_MainWindow.ui" line="84"/>
+        <location filename="../src/w_MainWindow.ui" line="310"/>
         <source>#Preferences</source>
         <translation>首选项</translation>
     </message>
     <message>
         <location filename="../src/w_MainWindow.cpp" line="26"/>
-        <location filename="../src/w_MainWindow.cpp" line="164"/>
+        <location filename="../src/w_MainWindow.cpp" line="206"/>
         <source>#Hide</source>
         <translation>隐藏</translation>
     </message>
@@ -445,23 +446,29 @@
         <translation>退出</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="89"/>
+        <location filename="../src/w_MainWindow.cpp" line="112"/>
         <source>#NoConfigSelected</source>
         <translation>没有选择配置文件</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="89"/>
+        <location filename="../src/w_MainWindow.cpp" line="112"/>
         <source>#PleaseSelectAConfig</source>
         <translation>请从列表中选择配置</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="98"/>
+        <location filename="../src/w_MainWindow.cpp" line="123"/>
+        <source>#ConnectedToServer </source>
+        <translation>已连接到服务器 </translation>
+    </message>
+    <message>
+        <location filename="../src/w_MainWindow.cpp" line="124"/>
         <source>#Started</source>
         <translation>已启动</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="130"/>
-        <location filename="../src/w_MainWindow.cpp" line="167"/>
+        <location filename="../src/w_MainWindow.cpp" line="68"/>
+        <location filename="../src/w_MainWindow.cpp" line="166"/>
+        <location filename="../src/w_MainWindow.cpp" line="209"/>
         <source>#Show</source>
         <translation>显示</translation>
     </message>
@@ -470,100 +477,150 @@
     <name>PrefrencesWindow</name>
     <message>
         <location filename="../src/w_PrefrencesWindow.ui" line="20"/>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="72"/>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="138"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="94"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="161"/>
         <source>Prefrences</source>
         <translation>首选项</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="30"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="33"/>
         <source>#General</source>
         <translation>一般</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="36"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="39"/>
         <source>#Language</source>
         <translation>语言</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="50"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="53"/>
         <source>zh-CN</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="55"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="58"/>
         <source>en-US</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="63"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="66"/>
         <source>#RunAsRoot</source>
         <translation>使用 root 启动</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="70"/>
-        <location filename="../src/w_PrefrencesWindow.ui" line="174"/>
-        <location filename="../src/w_PrefrencesWindow.ui" line="181"/>
-        <location filename="../src/w_PrefrencesWindow.ui" line="251"/>
-        <location filename="../src/w_PrefrencesWindow.ui" line="258"/>
-        <location filename="../src/w_PrefrencesWindow.ui" line="324"/>
-        <location filename="../src/w_PrefrencesWindow.ui" line="338"/>
-        <location filename="../src/w_PrefrencesWindow.ui" line="386"/>
-        <location filename="../src/w_PrefrencesWindow.ui" line="407"/>
-        <location filename="../src/w_PrefrencesWindow.ui" line="414"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="73"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="193"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="200"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="270"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="277"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="343"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="357"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="405"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="426"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="433"/>
         <source>#Enabled</source>
         <translation>启用</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="77"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="80"/>
         <source>#LogLevel</source>
         <translation>日志等级</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="102"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="105"/>
         <source>debug</source>
         <translation>调试</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="107"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="110"/>
         <source>info</source>
         <translation>信息</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="112"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="115"/>
         <source>warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="117"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="120"/>
         <source>error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="137"/>
-        <location filename="../src/w_PrefrencesWindow.ui" line="158"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="140"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="161"/>
         <source>#Select</source>
         <translation>选择</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="379"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="170"/>
+        <source>#AutoStartEntry</source>
+        <translation>自动连接到</translation>
+    </message>
+    <message>
+        <location filename="../src/w_PrefrencesWindow.ui" line="398"/>
         <source>#ProxyGlobal</source>
         <translation>默认走代理</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="393"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="412"/>
         <source>#ProxyCN</source>
         <translation>中国大陆使用代理</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="400"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="419"/>
         <source>#WithLocalDNS</source>
         <translation>使用本地 DNS</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="426"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="445"/>
         <source>#DNSList</source>
         <translation>DNS 列表</translation>
+    </message>
+    <message>
+        <location filename="../src/w_PrefrencesWindow.ui" line="459"/>
+        <source>#About</source>
+        <translation>关于</translation>
+    </message>
+    <message>
+        <location filename="../src/w_PrefrencesWindow.ui" line="504"/>
+        <source>Qv2ray</source>
+        <translation>Qv2ray</translation>
+    </message>
+    <message>
+        <location filename="../src/w_PrefrencesWindow.ui" line="526"/>
+        <source>#Version:</source>
+        <translation>版本号:</translation>
+    </message>
+    <message>
+        <location filename="../src/w_PrefrencesWindow.ui" line="538"/>
+        <source>#QvVersion</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/w_PrefrencesWindow.ui" line="562"/>
+        <source>#OfficialRepo:</source>
+        <translation>官方代码仓库：</translation>
+    </message>
+    <message>
+        <location filename="../src/w_PrefrencesWindow.ui" line="613"/>
+        <source>#License:</source>
+        <translation>开源协议:</translation>
+    </message>
+    <message>
+        <location filename="../src/w_PrefrencesWindow.ui" line="631"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://www.gnu.org/licenses/gpl-3.0.txt&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#2980b9;&quot;&gt;GPLv3 (https://www.gnu.org/licenses/gpl-3.0.txt)&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/w_PrefrencesWindow.ui" line="668"/>
+        <source>#AboutQt</source>
+        <translation>关于 Qt</translation>
+    </message>
+    <message>
+        <location filename="../src/w_PrefrencesWindow.ui" line="580"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/lhy0403/Qv2ray&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#2980b9;&quot;&gt;https://github.com/lhy0403/Qv2ray&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation></translation>
     </message>
     <message>
         <source>Add</source>
@@ -578,96 +635,96 @@
         <translation type="vanished">清空</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="97"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="100"/>
         <source>none</source>
         <translation>不使用</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="125"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="128"/>
         <source>#VCoreExePath</source>
         <translation>v2ray 内核程序位置</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="146"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="149"/>
         <source>#VCoreAssetsPath</source>
         <translation>v2ray 资源文件夹</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="168"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="187"/>
         <source>#MuxSettings</source>
         <translation>Mux 设置</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="209"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="228"/>
         <source>#InBoundSettings</source>
         <translation>入站设置</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="217"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="236"/>
         <source>#ListenIP</source>
         <translation>监听 IP</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="295"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="314"/>
         <source>#HTTPInBoundSettings</source>
         <translation>HTTP 入站设置</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="231"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="250"/>
         <source>#SOCKSBoundSettings</source>
         <translation>SOCKS 入站设置</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="371"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="390"/>
         <source>#RouteSettings</source>
         <translation>路由配置</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="188"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="207"/>
         <source>#Concurrency</source>
         <translation>最大并发连接数</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="237"/>
-        <location filename="../src/w_PrefrencesWindow.ui" line="301"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="256"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="320"/>
         <source>#Port</source>
         <translation>端口</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="275"/>
-        <location filename="../src/w_PrefrencesWindow.ui" line="345"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="294"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="364"/>
         <source>#Username</source>
         <translation>用户名</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="265"/>
-        <location filename="../src/w_PrefrencesWindow.ui" line="331"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="284"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="350"/>
         <source>#Auth</source>
         <translation>鉴权</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="282"/>
-        <location filename="../src/w_PrefrencesWindow.ui" line="355"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="301"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="374"/>
         <source>#Password</source>
         <translation>密码</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="72"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="94"/>
         <source>PortNumbersCannotBeSame</source>
         <translation>端口号不能相同</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="138"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="161"/>
         <source>RunAsRootNotOnWindows</source>
         <translation>Windows 平台不支持这个选项</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="231"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="261"/>
         <source>#OpenVCoreFile</source>
         <translation>打开 v2ray 内核文件</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="238"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="268"/>
         <source>OpenVAssetsDir</source>
         <translation>打开 v2ray 资源文件夹</translation>
     </message>
@@ -675,12 +732,12 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/main.cpp" line="86"/>
+        <location filename="../src/main.cpp" line="92"/>
         <source>AnotherInstanceRunning</source>
         <translation>另一个实例正在运行</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="86"/>
+        <location filename="../src/main.cpp" line="92"/>
         <source>Qv2ray</source>
         <translation></translation>
     </message>
