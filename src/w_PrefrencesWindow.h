@@ -70,6 +70,8 @@ class PrefrencesWindow : public QDialog
 
         void on_vCoreAssetsPathTxt_textChanged(const QString &arg1);
 
+        void on_autoStartCombo_currentTextChanged(const QString &arg1);
+
     private:
         bool finishedLoading = false;
         Qv2ray::QvConfigModels::Qv2Config_v1 CurrentConfig;
