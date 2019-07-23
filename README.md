@@ -46,7 +46,7 @@ Travis per machine badge provided by: https://github.com/exogen/badge-matrix ( @
 
 ### b. 历史
 
-**v1.0 更新日志请见 [ChangeLog-v1](./ChangeLogs/CHANGELOG-v1.0.md) **
+**v1.0 更新日志请见 [ChangeLog-v1](./ChangeLogs/CHANGELOG-v1.0.md)**
 
 ### c. 更多内容
 
