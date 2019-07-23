@@ -116,6 +116,5 @@ int main(int argc, char *argv[])
 
     // Show MainWindow
     MainWindow w;
-    w.show();
     return _qApp.exec();
 }
