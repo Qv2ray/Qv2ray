@@ -12,6 +12,7 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     ui(new Ui::PrefrencesWindow)
 {
     ui->setupUi(this);
+    ui->qvVersion->setText(QV2RAY_VERSION_STRING);
     CurrentConfig = GetGlobalConfig();
     //
     ui->languageComboBox->setCurrentText(QString::fromStdString(CurrentConfig.language));
@@ -63,9 +64,18 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     ui->DNSListTxt->clear();
 
     foreach (auto dnsStr, CurrentConfig.dnsList) {
-        ui->DNSListTxt->appendPlainText(QString::fromStdString(dnsStr) + "\r\n");
+        auto str = QString::fromStdString(dnsStr).trimmed();
+
+        if (!str.isEmpty()) {
+            ui->DNSListTxt->appendPlainText(str);
+        }
     }
 
+    foreach (auto connection, CurrentConfig.configs) {
+        ui->autoStartCombo->addItem(QString::fromStdString(connection));
+    }
+
+    ui->autoStartCombo->setCurrentText(QString::fromStdString(CurrentConfig.autoStartConfig));
     finishedLoading = true;
 }
 
@@ -124,8 +134,7 @@ void PrefrencesWindow::on_httpAuthCB_stateChanged(int checked)
 void PrefrencesWindow::on_runAsRootCheckBox_stateChanged(int arg1)
 {
 #ifdef __linux
-    // Set UID and GID in *nix
-    // The file is actually not here
+    // Set UID and GID for linux
     QString vCorePath = QString::fromStdString(CurrentConfig.v2CorePath);
     QFileInfo v2rayCoreExeFile(vCorePath);
 
@@ -146,6 +155,7 @@ void PrefrencesWindow::on_runAsRootCheckBox_stateChanged(int arg1)
 
 #else
     Q_UNUSED(arg1)
+    ui->runAsRootCheckBox->setChecked(false);
     // No such uid gid thing on Windows and MacOS is in TODO ....
     QvMessageBox(this, tr("Prefrences"), tr("RunAsRootNotOnWindows"));
 #endif
@@ -161,6 +171,13 @@ void PrefrencesWindow::on_socksAuthCB_stateChanged(int checked)
 void PrefrencesWindow::on_languageComboBox_currentTextChanged(const QString &arg1)
 {
     CurrentConfig.language = arg1.toStdString();
+
+    if (QApplication::installTranslator(getTranslator(QString::fromStdString(arg1.toStdString())))) {
+        LOG("Loaded translations " + arg1.toStdString())
+        ui->retranslateUi(this);
+    } else {
+        //QvMessageBox(this, tr("#Prefrences"), tr("#SwitchTranslationError"));
+    }
 }
 
 void PrefrencesWindow::on_logLevelComboBox_currentIndexChanged(int index)
@@ -275,4 +292,14 @@ void PrefrencesWindow::on_DNSListTxt_textChanged()
 void PrefrencesWindow::on_vCoreAssetsPathTxt_textChanged(const QString &arg1)
 {
     CurrentConfig.v2AssetsPath = arg1.toStdString();
+}
+
+void PrefrencesWindow::on_autoStartCombo_currentTextChanged(const QString &arg1)
+{
+    CurrentConfig.autoStartConfig = arg1.toStdString();
+}
+
+void PrefrencesWindow::on_aboutQt_clicked()
+{
+    QApplication::aboutQt();
 }

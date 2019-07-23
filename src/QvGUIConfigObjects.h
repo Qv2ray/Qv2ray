@@ -7,6 +7,7 @@
 
 // Macros
 #define QV2RAY 1
+#define QV2RAY_VERSION_STRING "v1.1.0"
 #define QV2RAY_CONFIG_PATH (Qv2ray::Utils::GetConfigDirPath() + "/")
 #define QV2RAY_MAIN_CONFIG_FILE_PATH (QV2RAY_CONFIG_PATH + "Qv2ray.conf")
 #define QV2RAY_GENERATED_CONFIG_DIRPATH (QV2RAY_CONFIG_PATH + "generated/")
@@ -31,6 +32,13 @@ using namespace std;
     auto p = ui->obj->palette(); \
     p.setColor(QPalette::Text, Qt::black); \
     ui->obj->setPalette(p);
+
+#ifdef __WIN32
+#define NEWLINE "\r\n"
+#else
+#define NEWLINE "\r"
+#endif
+
 
 namespace Qv2ray
 {
@@ -60,13 +68,14 @@ namespace Qv2ray
         };
 
         struct Qv2Config_v1 {
-            string v = "1";
+            string v = "1.1";
             bool runAsRoot;
             int logLevel;
             //
             string language;
             string v2CorePath;
             string v2AssetsPath;
+            string autoStartConfig;
             //
             bool proxyDefault;
             bool proxyCN;
@@ -79,6 +88,7 @@ namespace Qv2ray
             Qv2Config_v1(): runAsRoot(false), logLevel(), proxyDefault(), proxyCN(), withLocalDNS(), inBoundSettings(), configs(), mux() { }
             Qv2Config_v1(string lang, string exePath, string assetsPath, int log, QvBasicInboundSetting _inBoundSettings): Qv2Config_v1()
             {
+                autoStartConfig = "";
                 language = lang;
                 v2CorePath = exePath;
                 v2AssetsPath = assetsPath;
@@ -93,7 +103,7 @@ namespace Qv2ray
                 proxyDefault = true;
                 withLocalDNS = true;
             }
-            XTOSTRUCT(O(v, runAsRoot, logLevel, language, v2CorePath, v2AssetsPath, proxyDefault, proxyCN, withLocalDNS, dnsList, inBoundSettings, mux, configs))
+            XTOSTRUCT(O(v, runAsRoot, logLevel, language, autoStartConfig, v2CorePath, v2AssetsPath, proxyDefault, proxyCN, withLocalDNS, dnsList, inBoundSettings, mux, configs))
         };
     }
 }
@@ -105,4 +115,4 @@ using namespace Qv2ray;
 using namespace Qv2ray::V2ConfigModels;
 using namespace Qv2ray::QvConfigModels;
 
-#endif // HCONFIGOBJECTS_H
+#endif // QCONFIGOBJECTS_H
