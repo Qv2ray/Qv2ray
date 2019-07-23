@@ -53,6 +53,22 @@ MainWindow::MainWindow(QWidget *parent)
     if (!vinstance->ValidateV2rayCoreExe()) {
         on_prefrencesBtn_clicked();
     }
+
+    auto conf = GetGlobalConfig();
+
+    if (conf.autoStartConfig != "" && QList<string>::fromStdList(conf.configs).contains(conf.autoStartConfig)) {
+        CurrentConnectionName = QString::fromStdString(conf.autoStartConfig);
+        auto item = ui->connectionListWidget->findItems(QString::fromStdString(conf.autoStartConfig), Qt::MatchExactly).front();
+        item->setSelected(true);
+        ui->connectionListWidget->setCurrentItem(item);
+        on_connectionListWidget_itemClicked(item);
+        on_startButton_clicked();
+        ToggleVisibility();
+        this->hide();
+        trayMenu->actions()[0]->setText(tr("#Show"));
+    } else {
+        this->show();
+    }
 }
 
 void MainWindow::LoadConnections()
@@ -64,18 +80,10 @@ void MainWindow::LoadConnections()
     for (int i = 0; i < connections.count(); i++) {
         ui->connectionListWidget->addItem(connections.keys()[i]);
     }
-
-    if (conf.autoStartConfig != "" && QList<string>::fromStdList(conf.configs).contains(conf.autoStartConfig)) {
-        CurrentConnectionName = QString::fromStdString(conf.autoStartConfig);
-        auto item = ui->connectionListWidget->findItems(QString::fromStdString(conf.autoStartConfig), Qt::MatchExactly).front();
-        item->setSelected(true);
-        ui->connectionListWidget->setCurrentItem(item);
-        on_connectionListWidget_itemClicked(item);
-        on_startButton_clicked();
-    }
 }
 void MainWindow::reload_config()
 {
+    ui->retranslateUi(this);
     bool isRunning = vinstance->Status == STARTED;
     SaveGlobalConfig();
 
@@ -112,6 +120,7 @@ void MainWindow::on_startButton_clicked()
     bool startFlag = this->vinstance->Start();
 
     if (startFlag) {
+        this->hTray->showMessage(tr("Qv2ray"), tr("#ConnectedToServer ") + CurrentConnectionName, hTray->icon());
         ui->statusLabel->setText(tr("#Started") + ": " + CurrentConnectionName);
     }
 
@@ -177,6 +186,12 @@ void MainWindow::on_activatedTray(QSystemTrayIcon::ActivationReason reason)
                 on_stopButton_clicked();
             }
 
+            break;
+
+        case QSystemTrayIcon::DoubleClick:
+#ifdef __APPLE__
+            ToggleVisibility();
+#endif
             break;
 
         default:

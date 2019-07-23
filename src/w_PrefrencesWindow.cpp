@@ -12,6 +12,7 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     ui(new Ui::PrefrencesWindow)
 {
     ui->setupUi(this);
+    ui->qvVersion->setText(QV2RAY_VERSION_STRING);
     CurrentConfig = GetGlobalConfig();
     //
     ui->languageComboBox->setCurrentText(QString::fromStdString(CurrentConfig.language));
@@ -170,6 +171,13 @@ void PrefrencesWindow::on_socksAuthCB_stateChanged(int checked)
 void PrefrencesWindow::on_languageComboBox_currentTextChanged(const QString &arg1)
 {
     CurrentConfig.language = arg1.toStdString();
+
+    if (QApplication::installTranslator(getTranslator(QString::fromStdString(arg1.toStdString())))) {
+        LOG("Loaded translations " + arg1.toStdString())
+        ui->retranslateUi(this);
+    } else {
+        //QvMessageBox(this, tr("#Prefrences"), tr("#SwitchTranslationError"));
+    }
 }
 
 void PrefrencesWindow::on_logLevelComboBox_currentIndexChanged(int index)
@@ -289,4 +297,9 @@ void PrefrencesWindow::on_vCoreAssetsPathTxt_textChanged(const QString &arg1)
 void PrefrencesWindow::on_autoStartCombo_currentTextChanged(const QString &arg1)
 {
     CurrentConfig.autoStartConfig = arg1.toStdString();
+}
+
+void PrefrencesWindow::on_aboutQt_clicked()
+{
+    QApplication::aboutQt();
 }

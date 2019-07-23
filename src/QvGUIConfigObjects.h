@@ -7,6 +7,7 @@
 
 // Macros
 #define QV2RAY 1
+#define QV2RAY_VERSION_STRING "v1.1.0"
 #define QV2RAY_CONFIG_PATH (Qv2ray::Utils::GetConfigDirPath() + "/")
 #define QV2RAY_MAIN_CONFIG_FILE_PATH (QV2RAY_CONFIG_PATH + "Qv2ray.conf")
 #define QV2RAY_GENERATED_CONFIG_DIRPATH (QV2RAY_CONFIG_PATH + "generated/")
