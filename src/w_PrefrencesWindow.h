@@ -72,6 +72,8 @@ class PrefrencesWindow : public QDialog
 
         void on_autoStartCombo_currentTextChanged(const QString &arg1);
 
+        void on_aboutQt_clicked();
+
     private:
         bool finishedLoading = false;
         Qv2ray::QvConfigModels::Qv2Config_v1 CurrentConfig;
