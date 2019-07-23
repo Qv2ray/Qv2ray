@@ -266,7 +266,7 @@ void PrefrencesWindow::on_DNSListTxt_textChanged()
                 }
             }
 
-            WHITE(DNSListTxt)
+            BLACK(DNSListTxt)
         } catch (...) {
             RED(DNSListTxt)
         }

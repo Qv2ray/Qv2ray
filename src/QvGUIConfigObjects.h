@@ -5,8 +5,12 @@
 #include <iostream>
 #include "QvCoreConfigObjects.h"
 
-// Macros
-#define QV2RAY 1
+//
+using namespace std;
+#define LOG(arg) cout << arg << endl;
+
+// Global Qv2ray Macros
+#define QV2RAY_VERSION 1
 #define QV2RAY_CONFIG_PATH (Qv2ray::Utils::GetConfigDirPath() + "/")
 #define QV2RAY_MAIN_CONFIG_FILE_PATH (QV2RAY_CONFIG_PATH + "Qv2ray.conf")
 #define QV2RAY_GENERATED_CONFIG_DIRPATH (QV2RAY_CONFIG_PATH + "genrerated/")
@@ -15,9 +19,6 @@
 #define QV2RAY_VCORE_LOG_DIRNAME "logs/"
 #define QV2RAY_VCORE_ACCESS_LOG_FILENAME "access.log"
 #define QV2RAY_VCORE_ERROR_LOG_FILENAME "error.log"
-//
-using namespace std;
-#define LOG(arg) cout << arg << endl;
 
 #define QV2RAY_CONNECTION_FILE_EXTENSION ".qv2ray.json"
 
@@ -27,7 +28,7 @@ using namespace std;
     p.setColor(QPalette::Text, Qt::red); \
     ui->obj->setPalette(p);
 
-#define WHITE(obj)   \
+#define BLACK(obj)   \
     auto p = ui->obj->palette(); \
     p.setColor(QPalette::Text, Qt::black); \
     ui->obj->setPalette(p);
@@ -75,8 +76,9 @@ namespace Qv2ray
 
             QvBasicInboundSetting inBoundSettings;
             list<string> configs;
+            map<string, string> subscribes;
             MuxObject mux;
-            Qv2Config_v1(): runAsRoot(false), logLevel(), proxyDefault(), proxyCN(), withLocalDNS(), inBoundSettings(), configs(), mux() { }
+            Qv2Config_v1(): runAsRoot(false), logLevel(), proxyDefault(), proxyCN(), withLocalDNS(), inBoundSettings(), configs(), subscribes(), mux() { }
             Qv2Config_v1(string lang, string exePath, string assetsPath, int log, QvBasicInboundSetting _inBoundSettings): Qv2Config_v1()
             {
                 language = lang;
@@ -93,7 +95,7 @@ namespace Qv2ray
                 proxyDefault = true;
                 withLocalDNS = true;
             }
-            XTOSTRUCT(O(v, runAsRoot, logLevel, language, v2CorePath, v2AssetsPath, proxyDefault, proxyCN, withLocalDNS, dnsList, inBoundSettings, mux, configs))
+            XTOSTRUCT(O(v, runAsRoot, logLevel, language, v2CorePath, v2AssetsPath, proxyDefault, proxyCN, withLocalDNS, dnsList, inBoundSettings, mux, configs, subscribes))
         };
     }
 }

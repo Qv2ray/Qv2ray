@@ -85,11 +85,17 @@ bool initializeQv()
 
 int main(int argc, char *argv[])
 {
+    LOG("Hv2ray Copyright (C) 2019 aliyuchang33 \r\n"
+        "Qv2ray Copyright (C) 2019 Leroy.H.Y \r\n"
+        "This program comes with ABSOLUTELY NO WARRANTY.\r\n"
+        "This is free software, and you are welcome to redistribute it\r\n"
+        "under certain conditions.\r\n")
     QApplication _qApp(argc, argv);
     RunGuard guard("Qv2ray-Instance-Identifier");
+    _qApp.aboutQt();
 
     if (!guard.isSingleInstance()) {
-        Utils::QvMessageBox(nullptr, QObject::tr("Qv2ray"), QObject::tr("AnotherInstanceRunning"));
+        Utils::QvMessageBox(nullptr, QObject::tr("Qv2ray"), QObject::tr("#AnotherInstanceRunning"));
         return -1;
     }
 

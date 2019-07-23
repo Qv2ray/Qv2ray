@@ -13,6 +13,12 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
+  <property name="sizeGripEnabled">
+   <bool>true</bool>
+  </property>
+  <property name="modal">
+   <bool>true</bool>
+  </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
     <widget class="QTableWidget" name="subsribeTable">
