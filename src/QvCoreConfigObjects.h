@@ -1,9 +1,6 @@
 #include <list>
 #include <string>
 
-// TODO Features
-#define USE_TODO_FEATURES true
-
 #include <x2struct/x2struct.hpp>
 using namespace x2struct;
 
@@ -37,72 +34,67 @@ namespace Qv2ray
         };
 
 
-        namespace POLICYObjects
-        {
-            struct SystemPolicyObject {
-                bool statsInboundUplink;
-                bool statsInboundDownlink;
-                SystemPolicyObject() : statsInboundUplink(), statsInboundDownlink() {}
-                XTOSTRUCT(O(statsInboundUplink, statsInboundDownlink))
-            };
+        struct SystemPolicyObject {
+            bool statsInboundUplink;
+            bool statsInboundDownlink;
+            SystemPolicyObject() : statsInboundUplink(), statsInboundDownlink() {}
+            XTOSTRUCT(O(statsInboundUplink, statsInboundDownlink))
+        };
 
-            struct LevelPolicyObject {
-                int handshake;
-                int connIdle;
-                int uplinkOnly;
-                int downlinkOnly;
-                bool statsUserUplink;
-                bool statsUserDownlink;
-                int bufferSize;
-                LevelPolicyObject(): handshake(), connIdle(), uplinkOnly(), downlinkOnly(), statsUserUplink(), statsUserDownlink(), bufferSize() {}
-                XTOSTRUCT(O(handshake, connIdle, uplinkOnly, downlinkOnly, statsUserUplink, statsUserDownlink, bufferSize))
-            };
-        }
+        struct LevelPolicyObject {
+            int handshake;
+            int connIdle;
+            int uplinkOnly;
+            int downlinkOnly;
+            bool statsUserUplink;
+            bool statsUserDownlink;
+            int bufferSize;
+            LevelPolicyObject(): handshake(), connIdle(), uplinkOnly(), downlinkOnly(), statsUserUplink(), statsUserDownlink(), bufferSize() {}
+            XTOSTRUCT(O(handshake, connIdle, uplinkOnly, downlinkOnly, statsUserUplink, statsUserDownlink, bufferSize))
+        };
+
         struct PolicyObject {
-            map<string, POLICYObjects::LevelPolicyObject> level;
-            list<POLICYObjects::SystemPolicyObject> system;
+            map<string, LevelPolicyObject> level;
+            list<SystemPolicyObject> system;
             PolicyObject(): level(), system() {}
             XTOSTRUCT(O(level, system))
         };
 
-        namespace _TransferSettingObjects
+        namespace TransferSettingObjects
         {
-            namespace TRANSFERObjectsInternal
-            {
-                struct HTTPRequestObject {
-                    string version ;
-                    string method ;
-                    list<string> path;
-                    map<string, list<string>> headers;
-                    HTTPRequestObject(): version("1.1"), method("GET"), path(), headers() {}
-                    XTOSTRUCT(O(version, method, path, headers))
-                };
+            struct HTTPRequestObject {
+                string version ;
+                string method ;
+                list<string> path;
+                map<string, list<string>> headers;
+                HTTPRequestObject(): version("1.1"), method("GET"), path(), headers() {}
+                XTOSTRUCT(O(version, method, path, headers))
+            };
 
-                struct HTTPResponseObject {
-                    string version;
-                    string status ;
-                    string reason ;
-                    map<string, list<string>> headers;
-                    HTTPResponseObject(): version("1.1"), status("200"), reason("OK"), headers() {}
-                    XTOSTRUCT(O(version, status, reason, headers))
-                };
-                struct TCPHeader_M_Object {
-                    string type;
-                    HTTPRequestObject request;
-                    HTTPResponseObject response;
-                    TCPHeader_M_Object(): type("none"), request(), response() {}
-                    XTOSTRUCT(O(type, request, response))
-                };
-                struct HeaderObject {
-                    string type;
-                    HeaderObject(): type("none") {}
-                    XTOSTRUCT(O(type))
-                };
-            }
+            struct HTTPResponseObject {
+                string version;
+                string status ;
+                string reason ;
+                map<string, list<string>> headers;
+                HTTPResponseObject(): version("1.1"), status("200"), reason("OK"), headers() {}
+                XTOSTRUCT(O(version, status, reason, headers))
+            };
+            struct TCPHeader_M_Object {
+                string type;
+                HTTPRequestObject request;
+                HTTPResponseObject response;
+                TCPHeader_M_Object(): type("none"), request(), response() {}
+                XTOSTRUCT(O(type, request, response))
+            };
+            struct HeaderObject {
+                string type;
+                HeaderObject(): type("none") {}
+                XTOSTRUCT(O(type))
+            };
 
 
             struct TCPObject {
-                TRANSFERObjectsInternal::TCPHeader_M_Object header;
+                TCPHeader_M_Object header;
                 TCPObject(): header() {}
                 XTOSTRUCT(O(header))
             };
@@ -116,11 +108,10 @@ namespace Qv2ray
                 bool congestion = false;
                 int readBufferSize = 1;
                 int writeBufferSize = 1;
-                TRANSFERObjectsInternal::HeaderObject header;
+                HeaderObject header;
                 KCPObject(): header() {}
                 XTOSTRUCT(O(mtu, tti, uplinkCapacity, downlinkCapacity, congestion, readBufferSize, writeBufferSize, header))
             };
-
 
             struct WebSocketObject {
                 string path;
@@ -145,29 +136,16 @@ namespace Qv2ray
             struct QuicObject {
                 string security;
                 string key;
-                TRANSFERObjectsInternal::HeaderObject header;
+                HeaderObject header;
                 QuicObject(): security(""), key(""), header() {}
                 XTOSTRUCT(O(security, key, header))
             };
-        }
-        //
-        namespace INBOUNDObjects
-        {
-            struct SniffingObject {
-                bool enabled = false;
-                list<string> destOverride;
-                SniffingObject(): enabled(), destOverride() {}
-                XTOSTRUCT(O(enabled, destOverride))
-            };
-        }
 
-        namespace _StreamSettingObjects
-        {
             struct SockoptObject {
                 int mark;
                 bool tcpFastOpen;
                 string tproxy;
-                SockoptObject(): mark(0), tcpFastOpen(), tproxy("off") {}
+                SockoptObject(): mark(0), tcpFastOpen(false), tproxy("off") {}
                 XTOSTRUCT(O(mark, tcpFastOpen, tproxy))
             };
 
@@ -191,18 +169,26 @@ namespace Qv2ray
                 XTOSTRUCT(O(serverName, allowInsecure, alpn, certificates, disableSystemRoot))
             };
         }
+        //
+        struct SniffingObject {
+            bool enabled = false;
+            list<string> destOverride;
+            SniffingObject(): enabled(), destOverride() {}
+            XTOSTRUCT(O(enabled, destOverride))
+        };
+
 
         struct StreamSettingsObject  {
             string network;
             string security;
-            _StreamSettingObjects::SockoptObject sockopt;
-            _StreamSettingObjects::TLSObject tlsSettings;
-            _TransferSettingObjects::TCPObject tcpSettings;
-            _TransferSettingObjects::KCPObject kcpSettings;
-            _TransferSettingObjects::WebSocketObject wsSettings;
-            _TransferSettingObjects::HttpObject httpSettings;
-            _TransferSettingObjects::DomainSocketObject dsSettings;
-            _TransferSettingObjects::QuicObject quicSettings;
+            TransferSettingObjects::SockoptObject sockopt;
+            TransferSettingObjects::TLSObject tlsSettings;
+            TransferSettingObjects::TCPObject tcpSettings;
+            TransferSettingObjects::KCPObject kcpSettings;
+            TransferSettingObjects::WebSocketObject wsSettings;
+            TransferSettingObjects::HttpObject httpSettings;
+            TransferSettingObjects::DomainSocketObject dsSettings;
+            TransferSettingObjects::QuicObject quicSettings;
             StreamSettingsObject(): network("tcp"), security(), sockopt(),  tlsSettings(), tcpSettings(), kcpSettings(), wsSettings(), httpSettings(), dsSettings(), quicSettings() {}
             XTOSTRUCT(O(network, security, sockopt, tcpSettings, tlsSettings, kcpSettings, wsSettings, httpSettings, dsSettings, quicSettings))
         };
@@ -214,13 +200,6 @@ namespace Qv2ray
             XTOSTRUCT(O(enabled, concurrency))
         };
 
-        struct RootObject {
-            ApiObject api;
-            PolicyObject policy;
-            RootObject(): api(), policy() {}
-            XTOSTRUCT(O(api, policy))
-        };
-        //
         /// Some protocols from: https://v2ray.com/chapter_02/02_protocols.html
         namespace Protocols
         {
