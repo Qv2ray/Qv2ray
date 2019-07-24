@@ -69,11 +69,6 @@
          <string>#VMessConnectionString</string>
         </property>
        </item>
-       <item>
-        <property name="text">
-         <string>#Subscription</string>
-        </property>
-       </item>
       </widget>
      </item>
     </layout>
@@ -87,7 +82,7 @@
       <item>
        <widget class="QStackedWidget" name="stackedWidget">
         <property name="currentIndex">
-         <number>2</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="filePage">
          <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -188,7 +183,7 @@
       <enum>Qt::Horizontal</enum>
      </property>
      <property name="standardButtons">
-      <set>QDialogButtonBox::Discard|QDialogButtonBox::Save</set>
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
      </property>
     </widget>
    </item>

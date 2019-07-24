@@ -114,7 +114,7 @@ void ConnectionEditWindow::on_buttonBox_accepted()
     }
 
     SetGlobalConfig(globalConf);
-    emit s_reload_config();
+    emit s_reload_config(!new_config);
 }
 
 void ConnectionEditWindow::on_ipLineEdit_textEdited(const QString &arg1)
@@ -367,4 +367,9 @@ void ConnectionEditWindow::on_kcpWriteBufferSB_valueChanged(int arg1)
 void ConnectionEditWindow::on_kcpHeaderType_currentTextChanged(const QString &arg1)
 {
     stream.kcpSettings.header.type = arg1.toStdString();
+}
+
+void ConnectionEditWindow::on_tranportCombo_currentIndexChanged(int index)
+{
+    ui->tabWidget->setCurrentIndex(index);
 }

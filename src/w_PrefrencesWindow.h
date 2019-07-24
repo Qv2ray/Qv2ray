@@ -18,7 +18,7 @@ class PrefrencesWindow : public QDialog
         explicit PrefrencesWindow(QWidget *parent = nullptr);
         ~PrefrencesWindow();
     signals:
-        void s_reload_config();
+        void s_reload_config(bool need_restart);
     private slots:
         void on_buttonBox_accepted();
         void on_httpCB_stateChanged(int arg1);
@@ -68,15 +68,16 @@ class PrefrencesWindow : public QDialog
 
         void on_DNSListTxt_textChanged();
 
-        void on_vCoreAssetsPathTxt_textChanged(const QString &arg1);
-
         void on_autoStartCombo_currentTextChanged(const QString &arg1);
 
         void on_aboutQt_clicked();
 
+        void on_cancelIgnoreVersionBtn_clicked();
+
     private:
+        bool IsConnectionPropertyChanged = false;
         bool finishedLoading = false;
-        Qv2ray::QvConfigModels::Qv2Config_v1 CurrentConfig;
+        Qv2ray::QvConfigModels::Qv2Config CurrentConfig;
         Ui::PrefrencesWindow *ui;
 };
 #endif // HVCONF_H

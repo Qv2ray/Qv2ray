@@ -7,6 +7,8 @@
 #include <unistd.h>
 #endif
 
+#define NEEDRESTART if(finishedLoading) IsConnectionPropertyChanged = true;
+
 PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     CurrentConfig(),
     ui(new Ui::PrefrencesWindow)
@@ -76,6 +78,7 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     }
 
     ui->autoStartCombo->setCurrentText(QString::fromStdString(CurrentConfig.autoStartConfig));
+    ui->cancelIgnoreVersionBtn->setEnabled(CurrentConfig.ignoredVersion != "");
     finishedLoading = true;
 }
 
@@ -95,11 +98,12 @@ void PrefrencesWindow::on_buttonBox_accepted()
     }
 
     SetGlobalConfig(CurrentConfig);
-    emit s_reload_config();
+    emit s_reload_config(IsConnectionPropertyChanged);
 }
 
 void PrefrencesWindow::on_httpCB_stateChanged(int checked)
 {
+    NEEDRESTART
     ui->httpPortLE->setEnabled(checked == Qt::Checked);
     ui->httpAuthCB->setEnabled(checked == Qt::Checked);
     ui->httpAuthUsernameTxt->setEnabled(checked == Qt::Checked && ui->httpAuthCB->isChecked());
@@ -113,6 +117,7 @@ void PrefrencesWindow::on_httpCB_stateChanged(int checked)
 
 void PrefrencesWindow::on_socksCB_stateChanged(int checked)
 {
+    NEEDRESTART
     ui->socksPortLE->setEnabled(checked == Qt::Checked);
     ui->socksAuthCB->setEnabled(checked == Qt::Checked);
     ui->socksAuthUsernameTxt->setEnabled(checked == Qt::Checked && ui->socksAuthCB->isChecked());
@@ -126,6 +131,7 @@ void PrefrencesWindow::on_socksCB_stateChanged(int checked)
 
 void PrefrencesWindow::on_httpAuthCB_stateChanged(int checked)
 {
+    NEEDRESTART
     ui->httpAuthUsernameTxt->setEnabled(checked == Qt::Checked);
     ui->httpAuthPasswordTxt->setEnabled(checked == Qt::Checked);
     CurrentConfig.inBoundSettings.http_useAuth = checked == Qt::Checked;
@@ -144,6 +150,7 @@ void PrefrencesWindow::on_runAsRootCheckBox_stateChanged(int arg1)
                           << "chown root:root " + vCorePath + " && "
                           << "chmod +s " + vCorePath);
         CurrentConfig.runAsRoot = true;
+        NEEDRESTART
     } else if (arg1 != Qt::Checked && v2rayCoreExeFile.ownerId() == 0) {
         uid_t uid = getuid();
         gid_t gid = getgid();
@@ -151,6 +158,7 @@ void PrefrencesWindow::on_runAsRootCheckBox_stateChanged(int arg1)
                           << "chown" << QString::number(uid) + ":" + QString::number(gid)
                           << vCorePath);
         CurrentConfig.runAsRoot = false;
+        NEEDRESTART
     }
 
 #else
@@ -163,6 +171,7 @@ void PrefrencesWindow::on_runAsRootCheckBox_stateChanged(int arg1)
 
 void PrefrencesWindow::on_socksAuthCB_stateChanged(int checked)
 {
+    NEEDRESTART
     ui->socksAuthUsernameTxt->setEnabled(checked == Qt::Checked);
     ui->socksAuthPasswordTxt->setEnabled(checked == Qt::Checked);
     CurrentConfig.inBoundSettings.socks_useAuth = checked == Qt::Checked;
@@ -182,91 +191,111 @@ void PrefrencesWindow::on_languageComboBox_currentTextChanged(const QString &arg
 
 void PrefrencesWindow::on_logLevelComboBox_currentIndexChanged(int index)
 {
+    NEEDRESTART
     CurrentConfig.logLevel = index;
 }
 
 void PrefrencesWindow::on_vCoreExePathTxt_textEdited(const QString &arg1)
 {
+    NEEDRESTART
     CurrentConfig.v2CorePath = arg1.toStdString();
 }
 
 void PrefrencesWindow::on_vCoreAssetsPathTxt_textEdited(const QString &arg1)
 {
+    NEEDRESTART
     CurrentConfig.v2AssetsPath = arg1.toStdString();
 }
 
 void PrefrencesWindow::on_muxEnabledCB_stateChanged(int arg1)
 {
+    NEEDRESTART
     CurrentConfig.mux.enabled = arg1 == Qt::Checked;
 }
 
 void PrefrencesWindow::on_muxConcurrencyTxt_valueChanged(int arg1)
 {
+    NEEDRESTART
     CurrentConfig.mux.concurrency = arg1;
 }
 
 void PrefrencesWindow::on_listenIPTxt_textEdited(const QString &arg1)
 {
+    NEEDRESTART
     CurrentConfig.inBoundSettings.listenip = arg1.toStdString();
 }
 
 void PrefrencesWindow::on_socksPortLE_textEdited(const QString &arg1)
 {
+    NEEDRESTART
     CurrentConfig.inBoundSettings.socks_port = stoi(arg1.toStdString());
 }
 
 void PrefrencesWindow::on_httpPortLE_textEdited(const QString &arg1)
 {
+    NEEDRESTART
     CurrentConfig.inBoundSettings.http_port = stoi(arg1.toStdString());
 }
 
 void PrefrencesWindow::on_httpAuthUsernameTxt_textEdited(const QString &arg1)
 {
+    NEEDRESTART
     CurrentConfig.inBoundSettings.httpAccount.user = arg1.toStdString();
 }
 
 void PrefrencesWindow::on_httpAuthPasswordTxt_textEdited(const QString &arg1)
 {
+    NEEDRESTART
     CurrentConfig.inBoundSettings.httpAccount.pass = arg1.toStdString();
 }
 
 void PrefrencesWindow::on_socksAuthUsernameTxt_textEdited(const QString &arg1)
 {
+    NEEDRESTART
     CurrentConfig.inBoundSettings.socksAccount.user = arg1.toStdString();
 }
 
 void PrefrencesWindow::on_socksAuthPasswordTxt_textEdited(const QString &arg1)
 {
+    NEEDRESTART
     CurrentConfig.inBoundSettings.socksAccount.pass = arg1.toStdString();
 }
 
 void PrefrencesWindow::on_proxyCNCb_stateChanged(int arg1)
 {
+    NEEDRESTART
     CurrentConfig.proxyCN = arg1 == Qt::Checked;
 }
 
 void PrefrencesWindow::on_proxyDefaultCb_stateChanged(int arg1)
 {
+    NEEDRESTART
     CurrentConfig.proxyDefault = arg1 == Qt::Checked;
 }
 
 void PrefrencesWindow::on_localDNSCb_stateChanged(int arg1)
 {
+    NEEDRESTART
     CurrentConfig.withLocalDNS = arg1 == Qt::Checked;
 }
 
 void PrefrencesWindow::on_selectVCoreBtn_clicked()
 {
-    QString dir = QFileDialog::getOpenFileName(this, tr("#OpenVCoreFile"), QDir::homePath());
-    ui->vCoreExePathTxt->setText(dir);
-    on_vCoreExePathTxt_textEdited(dir);
+    NEEDRESTART
+    QString path = QFileDialog::getOpenFileName(this, tr("#OpenVCoreFile"), QDir::homePath());
+    ui->vCoreExePathTxt->setText(path);
+    on_vCoreExePathTxt_textEdited(path);
+    auto dir = QFileInfo(path).dir().path();
+    ui->vCoreAssetsPathTxt->setText(dir);
+    on_vCoreAssetsPathTxt_textEdited(dir);
 }
 
 void PrefrencesWindow::on_selectVAssetBtn_clicked()
 {
+    NEEDRESTART
     QString dir = QFileDialog::getExistingDirectory(this, tr("OpenVAssetsDir"), QDir::homePath());
     ui->vCoreAssetsPathTxt->setText(dir);
-    on_vCoreAssetsPathTxt_textChanged(dir);
+    on_vCoreAssetsPathTxt_textEdited(dir);
 }
 
 void PrefrencesWindow::on_DNSListTxt_textChanged()
@@ -280,6 +309,7 @@ void PrefrencesWindow::on_DNSListTxt_textChanged()
                 if (host != "" && host != "\r") {
                     // Not empty, so we save.
                     CurrentConfig.dnsList.push_back(host.toStdString());
+                    NEEDRESTART
                 }
             }
 
@@ -288,10 +318,6 @@ void PrefrencesWindow::on_DNSListTxt_textChanged()
             RED(DNSListTxt)
         }
     }
-}
-void PrefrencesWindow::on_vCoreAssetsPathTxt_textChanged(const QString &arg1)
-{
-    CurrentConfig.v2AssetsPath = arg1.toStdString();
 }
 
 void PrefrencesWindow::on_autoStartCombo_currentTextChanged(const QString &arg1)
@@ -302,4 +328,10 @@ void PrefrencesWindow::on_autoStartCombo_currentTextChanged(const QString &arg1)
 void PrefrencesWindow::on_aboutQt_clicked()
 {
     QApplication::aboutQt();
+}
+
+void PrefrencesWindow::on_cancelIgnoreVersionBtn_clicked()
+{
+    CurrentConfig.ignoredVersion.clear();
+    ui->cancelIgnoreVersionBtn->setEnabled(false);
 }
