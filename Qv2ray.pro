@@ -76,6 +76,7 @@ INCLUDEPATH += \
         3rdparty/\
         3rdparty/jsoncons/include
 
+win32: QMAKE_CXXFLAGS += "-Wno-missing-field-initializers"
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
