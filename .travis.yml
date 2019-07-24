@@ -10,10 +10,11 @@ matrix:
           env: BADGE=osx
 
 before_install:
+  - if [ "$BADGE" = "linux" ]; then    sudo add-apt-repository -y ppa:beineri/opt-qt-5.11.1-xenial; fi
   - if [ "$BADGE" = "linux" ]; then    sudo apt-get update; fi
 
 install:
-  - if [ "$BADGE" = "linux" ]; then    sudo apt-get install qtchooser qt5-default qt5-qmake qtdeclarative5-dev qttools5-dev-tools; fi
+  - if [ "$BADGE" = "linux" ]; then    sudo apt-get install qtchooser libgl-dev qt511-meta-minimal; fi
   - if [ "$BADGE" = "osx" ];   then    brew install cppcheck https://raw.githubusercontent.com/Homebrew/homebrew-core/master/Formula/qt.rb; fi
   - if [ "$BADGE" = "osx" ];   then    brew link --force qt; fi  
   
@@ -24,5 +25,7 @@ script:
   - git submodule update --init
   - lrelease ./Qv2ray.pro
   - mkdir build && cd ./build
-  - QT_SELECT=5 QTDIR=/usr/share/qt5 qmake ../
+  - if [ "$BADGE" = "linux" ]; then    qtchooser -install qt511 /opt/qt511/bin/qmake; fi
+  - if [ "$BADGE" = "linux" ]; then    qmake -qt=qt511 ../; fi
+  - if [ "$BADGE" = "osx" ];   then    qmake ../; fi
   - make
