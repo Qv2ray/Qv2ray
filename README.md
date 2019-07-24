@@ -40,6 +40,8 @@ Travis per machine badge provided by: https://github.com/exogen/badge-matrix ( @
 
 ### a. 最新
 
+**2019-07-25**: 发布功能更新 [v1.2.0](https://github.com/lhy0403/Qv2ray/releases/tag/v1.2.0)
+
 **2019-07-24**: Windows 版本修复了难看的字体
 
 **2019-07-24**:
