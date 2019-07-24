@@ -40,6 +40,8 @@ Travis per machine badge provided by: https://github.com/exogen/badge-matrix ( @
 
 ### a. 最新
 
+**2019-07-24**: Windows 版本修复了难看的字体
+
 **2019-07-24**:
 
 1. 增加使用 Github Release API 的自动检测更新机制
