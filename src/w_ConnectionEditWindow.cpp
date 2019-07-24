@@ -114,7 +114,7 @@ void ConnectionEditWindow::on_buttonBox_accepted()
     }
 
     SetGlobalConfig(globalConf);
-    emit s_reload_config();
+    emit s_reload_config(!new_config);
 }
 
 void ConnectionEditWindow::on_ipLineEdit_textEdited(const QString &arg1)
@@ -181,7 +181,7 @@ void ConnectionEditWindow::on_httpHostTxt_textChanged()
             stream.httpSettings.host.push_back(host.toStdString());
         }
 
-        WHITE(httpHostTxt)
+        BLACK(httpHostTxt)
     } catch (...) {
         RED(httpHostTxt)
     }
@@ -201,7 +201,7 @@ void ConnectionEditWindow::on_wsHeadersTxt_textChanged()
             stream.wsSettings.headers.insert(make_pair(content[0].toStdString(), content[1].toStdString()));
         }
 
-        WHITE(wsHeadersTxt)
+        BLACK(wsHeadersTxt)
     } catch (...) {
         RED(wsHeadersTxt)
     }
@@ -223,9 +223,9 @@ void ConnectionEditWindow::on_tcpRespDefBtn_clicked()
 void ConnectionEditWindow::on_tcpRequestTxt_textChanged()
 {
     try {
-        auto tcpReqObject = StructFromJSONString<_TransferSettingObjects::TRANSFERObjectsInternal::HTTPRequestObject>(ui->tcpRequestTxt->toPlainText());
+        auto tcpReqObject = StructFromJSONString<TransferSettingObjects::HTTPRequestObject>(ui->tcpRequestTxt->toPlainText());
         stream.tcpSettings.header.request = tcpReqObject;
-        WHITE(tcpRequestTxt)
+        BLACK(tcpRequestTxt)
     } catch (...) {
         RED(tcpRequestTxt)
     }
@@ -234,9 +234,9 @@ void ConnectionEditWindow::on_tcpRequestTxt_textChanged()
 void ConnectionEditWindow::on_tcpRespTxt_textChanged()
 {
     try {
-        auto tcpRspObject = StructFromJSONString<_TransferSettingObjects::TRANSFERObjectsInternal::HTTPResponseObject>(ui->tcpRespTxt->toPlainText());
+        auto tcpRspObject = StructFromJSONString<TransferSettingObjects::HTTPResponseObject>(ui->tcpRespTxt->toPlainText());
         stream.tcpSettings.header.response = tcpRspObject;
-        WHITE(tcpRespTxt)
+        BLACK(tcpRespTxt)
     } catch (...) {
         RED(tcpRespTxt)
     }
@@ -299,7 +299,7 @@ void ConnectionEditWindow::on_quicHeaderTypeCB_currentIndexChanged(const QString
 void ConnectionEditWindow::on_tcpRequestPrettifyBtn_clicked()
 {
     try {
-        auto tcpReqObject = StructFromJSONString<_TransferSettingObjects::TRANSFERObjectsInternal::HTTPRequestObject>(ui->tcpRequestTxt->toPlainText());
+        auto tcpReqObject = StructFromJSONString<TransferSettingObjects::HTTPRequestObject>(ui->tcpRequestTxt->toPlainText());
         auto tcpReqObjectStr = StructToJSONString(tcpReqObject);
         ui->tcpRequestTxt->setPlainText(tcpReqObjectStr);
     } catch (...) {
@@ -310,7 +310,7 @@ void ConnectionEditWindow::on_tcpRequestPrettifyBtn_clicked()
 void ConnectionEditWindow::on_tcpRespPrettifyBtn_clicked()
 {
     try {
-        auto tcpRspObject = StructFromJSONString<_TransferSettingObjects::TRANSFERObjectsInternal::HTTPResponseObject>(ui->tcpRespTxt->toPlainText());
+        auto tcpRspObject = StructFromJSONString<TransferSettingObjects::HTTPResponseObject>(ui->tcpRespTxt->toPlainText());
         auto tcpRspObjectStr = StructToJSONString(tcpRspObject);
         ui->tcpRespTxt->setPlainText(tcpRspObjectStr);
     } catch (...) {
@@ -367,4 +367,9 @@ void ConnectionEditWindow::on_kcpWriteBufferSB_valueChanged(int arg1)
 void ConnectionEditWindow::on_kcpHeaderType_currentTextChanged(const QString &arg1)
 {
     stream.kcpSettings.header.type = arg1.toStdString();
+}
+
+void ConnectionEditWindow::on_tranportCombo_currentIndexChanged(int index)
+{
+    ui->tabWidget->setCurrentIndex(index);
 }

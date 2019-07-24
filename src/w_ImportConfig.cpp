@@ -18,6 +18,7 @@ ImportConfigWindow::ImportConfigWindow(QWidget *parent)
     , ui(new Ui::ImportConfigWindow)
 {
     ui->setupUi(this);
+    ui->nameTxt->setText(QUuid::createUuid().toString());
 }
 
 ImportConfigWindow::~ImportConfigWindow()
@@ -36,9 +37,8 @@ void ImportConfigWindow::on_selectFileBtn_clicked()
     ui->fileLineTxt->setText(dir);
 }
 
-void ImportConfigWindow::on_buttonBox_clicked(QAbstractButton *button)
+void ImportConfigWindow::on_buttonBox_accepted()
 {
-    Q_UNUSED(button)
     QString alias = ui->nameTxt->text();
     QJsonObject config;
 
@@ -74,9 +74,10 @@ void ImportConfigWindow::on_buttonBox_clicked(QAbstractButton *button)
         config.remove("QV2RAY_ALIAS");
     }
 
-    Qv2Config_v1 conf = GetGlobalConfig();
+    Qv2Config conf = GetGlobalConfig();
     conf.configs.push_back(alias.toStdString());
     SetGlobalConfig(conf);
-    SaveConnectionConfig(config, &alias);
-    emit s_reload_config();
+    auto needReload = SaveConnectionConfig(config, &alias);
+    LOG("WARNING: POSSIBLE LOSS OF DATA")
+    emit s_reload_config(needReload);
 }

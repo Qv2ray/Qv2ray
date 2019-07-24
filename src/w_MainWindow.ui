@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>644</width>
-    <height>522</height>
+    <width>645</width>
+    <height>530</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -21,8 +21,8 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>568</width>
-    <height>457</height>
+    <width>645</width>
+    <height>530</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -284,6 +284,12 @@
      <widget class="QTextBrowser" name="logText">
       <property name="verticalScrollBarPolicy">
        <enum>Qt::ScrollBarAlwaysOn</enum>
+      </property>
+      <property name="lineWrapMode">
+       <enum>QTextEdit::NoWrap</enum>
+      </property>
+      <property name="openLinks">
+       <bool>false</bool>
       </property>
      </widget>
     </item>

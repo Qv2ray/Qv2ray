@@ -5,20 +5,18 @@
 #include <iostream>
 #include "QvCoreConfigObjects.h"
 
-// Macros
-#define QV2RAY 1
-#define QV2RAY_VERSION_STRING "v1.1.0"
+using namespace std;
+#define LOG(arg) cout << arg << endl;
+
+#define QV2RAY_VERSION 1
+#define QV2RAY_VERSION_STRING "v1.2.0"
 #define QV2RAY_CONFIG_PATH (Qv2ray::Utils::GetConfigDirPath() + "/")
-#define QV2RAY_MAIN_CONFIG_FILE_PATH (QV2RAY_CONFIG_PATH + "Qv2ray.conf")
-#define QV2RAY_GENERATED_CONFIG_DIRPATH (QV2RAY_CONFIG_PATH + "generated/")
-#define QV2RAY_GENERATED_CONFIG_FILE_PATH (QV2RAY_GENERATED_CONFIG_DIRPATH + "config.gen.json")
+#define QV2RAY_GUI_CONFIG_PATH (QV2RAY_CONFIG_PATH + "Qv2ray.conf")
+#define QV2RAY_GENERATED_CONFIG_FILE_PATH (QV2RAY_CONFIG_PATH + "generated/config.gen.json")
 
 #define QV2RAY_VCORE_LOG_DIRNAME "logs/"
 #define QV2RAY_VCORE_ACCESS_LOG_FILENAME "access.log"
 #define QV2RAY_VCORE_ERROR_LOG_FILENAME "error.log"
-//
-using namespace std;
-#define LOG(arg) cout << arg << endl;
 
 #define QV2RAY_CONNECTION_FILE_EXTENSION ".qv2ray.json"
 
@@ -28,7 +26,7 @@ using namespace std;
     p.setColor(QPalette::Text, Qt::red); \
     ui->obj->setPalette(p);
 
-#define WHITE(obj)   \
+#define BLACK(obj)   \
     auto p = ui->obj->palette(); \
     p.setColor(QPalette::Text, Qt::black); \
     ui->obj->setPalette(p);
@@ -67,7 +65,7 @@ namespace Qv2ray
             XTOSTRUCT(O(listenip, socks_port, socks_useAuth, socksAccount, http_port, http_useAuth, httpAccount))
         };
 
-        struct Qv2Config_v1 {
+        struct Qv2Config {
             string v = "1.1";
             bool runAsRoot;
             int logLevel;
@@ -77,17 +75,21 @@ namespace Qv2ray
             string v2AssetsPath;
             string autoStartConfig;
             //
+            string ignoredVersion;
+            //
             bool proxyDefault;
             bool proxyCN;
             bool withLocalDNS;
             list<string> dnsList;
-
+            //
             QvBasicInboundSetting inBoundSettings;
             list<string> configs;
+            map<string, string> subscribes;
             MuxObject mux;
-            Qv2Config_v1(): runAsRoot(false), logLevel(), proxyDefault(), proxyCN(), withLocalDNS(), inBoundSettings(), configs(), mux() { }
-            Qv2Config_v1(string lang, string exePath, string assetsPath, int log, QvBasicInboundSetting _inBoundSettings): Qv2Config_v1()
+            Qv2Config(): runAsRoot(false), logLevel(), proxyDefault(), proxyCN(), withLocalDNS(), inBoundSettings(), configs(), subscribes(), mux() { }
+            Qv2Config(string lang, string exePath, string assetsPath, int log, QvBasicInboundSetting _inBoundSettings): Qv2Config()
             {
+                ignoredVersion = "";
                 autoStartConfig = "";
                 language = lang;
                 v2CorePath = exePath;
@@ -103,7 +105,7 @@ namespace Qv2ray
                 proxyDefault = true;
                 withLocalDNS = true;
             }
-            XTOSTRUCT(O(v, runAsRoot, logLevel, language, autoStartConfig, v2CorePath, v2AssetsPath, proxyDefault, proxyCN, withLocalDNS, dnsList, inBoundSettings, mux, configs))
+            XTOSTRUCT(O(v, runAsRoot, logLevel, language, autoStartConfig, ignoredVersion, v2CorePath, v2AssetsPath, proxyDefault, proxyCN, withLocalDNS, dnsList, inBoundSettings, mux, configs, subscribes))
         };
     }
 }

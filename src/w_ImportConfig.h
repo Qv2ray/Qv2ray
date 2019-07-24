@@ -17,13 +17,13 @@ class ImportConfigWindow : public QDialog
         explicit ImportConfigWindow(QWidget *parent = nullptr);
         ~ImportConfigWindow();
     signals:
-        void s_reload_config();
+        void s_reload_config(bool need_restart);
     private slots:
         void on_importSourceCombo_currentIndexChanged(int index);
 
         void on_selectFileBtn_clicked();
 
-        void on_buttonBox_clicked(QAbstractButton *button);
+        void on_buttonBox_accepted();
 
     private:
         Ui::ImportConfigWindow *ui;

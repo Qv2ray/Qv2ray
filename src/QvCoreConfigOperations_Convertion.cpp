@@ -4,11 +4,10 @@ namespace Qv2ray
     namespace ConfigOperations
     {
         // -------------------------- BEGIN CONFIG CONVERSIONS ----------------------------------------------------------------------------
-        int SaveConnectionConfig(QJsonObject obj, const QString *alias)
+        bool SaveConnectionConfig(QJsonObject obj, const QString *alias)
         {
             QFile config(QV2RAY_CONFIG_PATH + *alias + QV2RAY_CONNECTION_FILE_EXTENSION);
-            StringToFile(JSONToString(obj), &config);
-            return 0;
+            return StringToFile(JSONToString(obj), &config);
         }
 
         // This generates global config containing only one outbound....

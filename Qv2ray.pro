@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui widgets
+QT += core gui widgets network
 
 TARGET = Qv2ray
 TEMPLATE = app
@@ -27,13 +27,15 @@ SOURCES += \
         src/QvCoreConfigOperations_Generation.cpp \
         src/QvCoreConfigOperations_Verification.cpp \
         src/QvCoreInteractions.cpp \
+        src/QvHTTPRequestHelper.cpp \
         src/QvRunguard.cpp \
         src/QvUtils.cpp \
         src/w_MainWindow.cpp \
         src/w_ConnectionEditWindow.cpp \
         src/w_ImportConfig.cpp \
         src/w_PrefrencesWindow.cpp \
-        src/main.cpp
+        src/main.cpp \
+        src/w_SubscribeEditor.cpp
 
 HEADERS += \
         ignored_cpp_structs.hpp \
@@ -42,18 +44,21 @@ HEADERS += \
         src/QvCoreConfigOperations.h \
         src/QvCoreInteractions.h \
         src/QvGUIConfigObjects.h \
+        src/QvHTTPRequestHelper.h \
         src/QvRunguard.h \
         src/QvUtils.h \
         src/w_MainWindow.h \
         src/w_ConnectionEditWindow.h \
         src/w_ImportConfig.h \
-        src/w_PrefrencesWindow.h
+        src/w_PrefrencesWindow.h \
+        src/w_SubscribeEditor.h
 
 FORMS += \
         src/w_MainWindow.ui \
         src/w_ConnectionEditWindow.ui \
         src/w_ImportConfig.ui \
-        src/w_PrefrencesWindow.ui
+        src/w_PrefrencesWindow.ui \
+        src/w_SubscribeEditor.ui
 
 RESOURCES += \
         resources.qrc
@@ -71,6 +76,7 @@ INCLUDEPATH += \
         3rdparty/\
         3rdparty/jsoncons/include
 
+win32: QMAKE_CXXFLAGS += "-Wno-missing-field-initializers"
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

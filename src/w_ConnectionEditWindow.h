@@ -20,7 +20,7 @@ class ConnectionEditWindow : public QDialog
         explicit ConnectionEditWindow(QJsonObject editRootObject, QString alias, QWidget *parent = nullptr);
         ~ConnectionEditWindow();
     signals:
-        void s_reload_config();
+        void s_reload_config(bool need_restart);
     private slots:
         void on_buttonBox_accepted();
 
@@ -89,6 +89,8 @@ class ConnectionEditWindow : public QDialog
         void on_kcpWriteBufferSB_valueChanged(int arg1);
 
         void on_kcpHeaderType_currentTextChanged(const QString &arg1);
+
+        void on_tranportCombo_currentIndexChanged(int index);
 
     private:
         QString _alias;

@@ -7,6 +7,9 @@
 #include <QInputDialog>
 #include <QMenu>
 #include <QStandardItemModel>
+#include <QDesktopServices>
+#include <QUrl>
+#include <QVersionNumber>
 
 #include "w_PrefrencesWindow.h"
 #include "w_ImportConfig.h"
@@ -15,6 +18,7 @@
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
+      HTTPRequestHelper(this),
       ui(new Ui::MainWindow),
       hTray(new QSystemTrayIcon(this)),
       vinstance(new Qv2Instance(this))
@@ -48,6 +52,8 @@ MainWindow::MainWindow(QWidget *parent)
     hTray->setContextMenu(trayMenu);
     hTray->show();
     LoadConnections();
+    QObject::connect(&HTTPRequestHelper, &QvHttpRequestHelper::httpRequestFinished, this, &MainWindow::VersionUpdate);
+    HTTPRequestHelper.get("https://api.github.com/repos/lhy0403/Qv2ray/releases/latest");
 
     //
     if (!vinstance->ValidateV2rayCoreExe()) {
@@ -71,6 +77,42 @@ MainWindow::MainWindow(QWidget *parent)
     }
 }
 
+void MainWindow::VersionUpdate(QByteArray &data)
+{
+    auto conf = GetGlobalConfig();
+    QString jsonString(data);
+    QJsonObject root = JSONFromString(jsonString);
+    //
+    QVersionNumber newversion = QVersionNumber::fromString(root["tag_name"].toString("").remove(0, 1));
+    QVersionNumber current = QVersionNumber::fromString(QString::fromStdString(QV2RAY_VERSION_STRING).remove(0, 1));
+    QVersionNumber ignored = QVersionNumber::fromString(QString::fromStdString(conf.ignoredVersion));
+    LOG("Received update info, Latest: " + newversion.toString().toStdString() + " Current: " + current.toString().toStdString() + " Ignored: " + ignored.toString().toStdString())
+
+    // If the version is newer than us.
+    // And new version is newer than the ignored version.
+    if (newversion > current && newversion > ignored) {
+        LOG("New version detected.")
+        auto link = root["html_url"].toString("");
+        auto result = QvMessageBoxAsk(this, tr("#NewReleaseVersionFound"),
+                                      tr("#NewReleaseVersionFound") + ": " + root["tag_name"].toString("") +
+                                      "\r\n" +
+                                      root["name"].toString("") +
+                                      "\r\n------------\r\n" +
+                                      root["body"].toString("") +
+                                      "\r\n------------\r\n" +
+                                      tr("#ReleaseDownloadLink") + ": " + link, QMessageBox::Ignore);
+
+        if (result == QMessageBox::Yes) {
+            QDesktopServices::openUrl(QUrl::fromUserInput(link));
+        } else if (result == QMessageBox::Ignore) {
+            conf.ignoredVersion = newversion.toString().toStdString();
+            SetGlobalConfig(conf);
+            save_reload_globalconfig(false);
+        }
+    }
+}
+
+
 void MainWindow::LoadConnections()
 {
     auto conf = GetGlobalConfig();
@@ -81,17 +123,18 @@ void MainWindow::LoadConnections()
         ui->connectionListWidget->addItem(connections.keys()[i]);
     }
 }
-void MainWindow::reload_config()
+
+void MainWindow::save_reload_globalconfig(bool need_restart)
 {
     ui->retranslateUi(this);
     bool isRunning = vinstance->Status == STARTED;
     SaveGlobalConfig();
 
-    if (isRunning) on_stopButton_clicked();
+    if (isRunning && need_restart) on_stopButton_clicked();
 
     LoadConnections();
 
-    if (isRunning) on_startButton_clicked();
+    if (isRunning && need_restart) on_startButton_clicked();
 }
 MainWindow::~MainWindow()
 {
@@ -103,7 +146,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::UpdateLog()
 {
-    ui->logText->insertPlainText(vinstance->ReadProcessOutput());
+    ui->logText->append(vinstance->ReadProcessOutput().trimmed());
 }
 
 void MainWindow::on_startButton_clicked()
@@ -153,11 +196,6 @@ void MainWindow::on_restartButton_clicked()
 {
     on_stopButton_clicked();
     on_startButton_clicked();
-}
-
-void MainWindow::on_clbutton_clicked()
-{
-    ui->logText->clear();
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
@@ -224,7 +262,8 @@ void MainWindow::on_actionExit_triggered()
 void MainWindow::QTextScrollToBottom()
 {
     auto bar = ui->logText->verticalScrollBar();
-    bar->setValue(bar->maximum());
+
+    if (bar->value() >= bar->maximum() - 10) bar->setValue(bar->maximum());
 }
 
 void MainWindow::ShowAndSetConnection(int index, bool SetConnection, bool ApplyConnection)
@@ -266,14 +305,14 @@ void MainWindow::on_connectionListWidget_itemClicked(QListWidgetItem *item)
 void MainWindow::on_importConfigBtn_clicked()
 {
     ImportConfigWindow *w = new ImportConfigWindow(this);
-    connect(w, &ImportConfigWindow::s_reload_config, this, &MainWindow::reload_config);
+    connect(w, &ImportConfigWindow::s_reload_config, this, &MainWindow::save_reload_globalconfig);
     w->show();
 }
 
 void MainWindow::on_addConfigBtn_clicked()
 {
     ConnectionEditWindow *w = new ConnectionEditWindow(this);
-    connect(w, &ConnectionEditWindow::s_reload_config, this, &MainWindow::reload_config);
+    connect(w, &ConnectionEditWindow::s_reload_config, this, &MainWindow::save_reload_globalconfig);
     w->show();
 }
 
@@ -285,27 +324,22 @@ void MainWindow::on_delConfigBtn_clicked()
 
     if (currentSelected < 0) return;
 
-    bool isRemovingRunning = ui->connectionListWidget->item(currentSelected)->text() == CurrentConnectionName;
+    bool isRemovingItemRunning = ui->connectionListWidget->item(currentSelected)->text() == CurrentConnectionName;
 
-    if (isRemovingRunning) {
-        on_stopButton_clicked();
+    if (isRemovingItemRunning) {
         CurrentConnectionName  = "";
     }
 
     list.removeOne(ui->connectionListWidget->item(currentSelected)->text().toStdString());
     conf.configs = list.toStdList();
     SetGlobalConfig(conf);
-    SaveGlobalConfig();
-
-    if (isRemovingRunning) {
-        reload_config();
-    }
+    save_reload_globalconfig(isRemovingItemRunning);
 }
 
 void MainWindow::on_prefrencesBtn_clicked()
 {
     PrefrencesWindow *w = new PrefrencesWindow(this);
-    connect(w, &PrefrencesWindow::s_reload_config, this, &MainWindow::reload_config);
+    connect(w, &PrefrencesWindow::s_reload_config, this, &MainWindow::save_reload_globalconfig);
     w->show();
 }
 
@@ -319,7 +353,7 @@ void MainWindow::on_editConnectionSettingsBtn_clicked()
     // Check if we have a connection selected...
     if (CurrentConnectionName != "") {
         ConnectionEditWindow *w = new ConnectionEditWindow(connections.value(CurrentConnectionName), CurrentConnectionName, this);
-        connect(w, &ConnectionEditWindow::s_reload_config, this, &MainWindow::reload_config);
+        connect(w, &ConnectionEditWindow::s_reload_config, this, &MainWindow::save_reload_globalconfig);
         w->show();
     }
 }

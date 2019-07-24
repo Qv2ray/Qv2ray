@@ -1,19 +1,18 @@
 #include "QvUtils.h"
 #include <QTextStream>
-#include <QMessageBox>
 
 namespace Qv2ray
 {
     namespace Utils
     {
-        static Qv2Config_v1 GlobalConfig;
+        static Qv2Config GlobalConfig;
         static QString ConfigDirPath;
-        void SetGlobalConfig(Qv2Config_v1 conf)
+        void SetGlobalConfig(Qv2Config conf)
         {
             GlobalConfig = conf;
         }
 
-        Qv2Config_v1 GetGlobalConfig()
+        Qv2Config GetGlobalConfig()
         {
             return GlobalConfig;
         }
@@ -30,18 +29,20 @@ namespace Qv2ray
 
         void SaveGlobalConfig()
         {
-            QFile config(QV2RAY_MAIN_CONFIG_FILE_PATH);
+            QFile config(QV2RAY_GUI_CONFIG_PATH);
             QString str = StructToJSONString(GetGlobalConfig());
             StringToFile(str, &config);
         }
 
-        void StringToFile(QString text, QFile *targetFile)
+        bool StringToFile(QString text, QFile *targetFile)
         {
+            bool override = targetFile->exists();
             targetFile->open(QFile::WriteOnly);
             QTextStream stream(targetFile);
             stream << text << endl;
             stream.flush();
             targetFile->close();
+            return override;
         }
 
         QJsonObject JSONFromFile(QFile *sourceFile)
@@ -88,11 +89,11 @@ namespace Qv2ray
 
         void LoadGlobalConfig()
         {
-            QFile file(QV2RAY_MAIN_CONFIG_FILE_PATH);
+            QFile file(QV2RAY_GUI_CONFIG_PATH);
             file.open(QFile::ReadOnly);
             QTextStream stream(&file);
             auto str = stream.readAll();
-            auto config  = StructFromJSONString<Qv2Config_v1>(str);
+            auto config  = StructFromJSONString<Qv2Config>(str);
             SetGlobalConfig(config);
             file.close();
         }
@@ -111,6 +112,12 @@ namespace Qv2ray
         {
             QMessageBox::warning(parent, title, text, QMessageBox::Ok | QMessageBox::Default, 0);
         }
+
+        int QvMessageBoxAsk(QWidget *parent, QString title, QString text, QMessageBox::StandardButton extraButtons)
+        {
+            return QMessageBox::information(parent, title, text, QMessageBox::Yes | QMessageBox::No | extraButtons);
+        }
+
 
         QTranslator *getTranslator(QString lang)
         {
