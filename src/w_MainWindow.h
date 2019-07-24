@@ -6,9 +6,11 @@
 #include <QSystemTrayIcon>
 
 #include "QvUtils.h"
-#include "ui_w_MainWindow.h"
 #include "QvCoreInteractions.h"
 #include "QvCoreConfigOperations.h"
+#include "QvHTTPRequestHelper.h"
+
+#include "ui_w_MainWindow.h"
 namespace Ui
 {
     class MainWindow;
@@ -21,13 +23,13 @@ class MainWindow : public QMainWindow
         explicit MainWindow(QWidget *parent = nullptr);
         ~MainWindow();
     public slots:
-        void reload_config();
+        void save_reload_globalconfig(bool need_restart);
         void UpdateLog();
+        void VersionUpdate(QByteArray &data);
     private slots:
         void on_restartButton_clicked();
         void on_startButton_clicked();
         void on_stopButton_clicked();
-        void on_clbutton_clicked();
         void on_activatedTray(QSystemTrayIcon::ActivationReason reason);
         void ToggleVisibility();
         void quit();
@@ -51,6 +53,7 @@ class MainWindow : public QMainWindow
         void on_clearlogButton_clicked();
 
     private:
+        QvHttpRequestHelper HTTPRequestHelper;
         void ShowAndSetConnection(int index, bool SetConnection, bool Apply);
         void LoadConnections();
         QString CurrentConnectionName;

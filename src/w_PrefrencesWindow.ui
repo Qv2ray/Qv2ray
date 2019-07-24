@@ -122,6 +122,22 @@
          </item>
         </widget>
        </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_19">
+         <property name="text">
+          <string>#AutoStartEntry</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QComboBox" name="autoStartCombo">
+         <item>
+          <property name="text">
+           <string/>
+          </property>
+         </item>
+        </widget>
+       </item>
        <item row="4" column="0">
         <widget class="QLabel" name="label_14">
          <property name="text">
@@ -163,22 +179,6 @@
           </widget>
          </item>
         </layout>
-       </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="label_19">
-         <property name="text">
-          <string>#AutoStartEntry</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="QComboBox" name="autoStartCombo">
-         <item>
-          <property name="text">
-           <string/>
-          </property>
-         </item>
-        </widget>
        </item>
       </layout>
      </widget>
@@ -227,7 +227,7 @@
       <attribute name="title">
        <string>#InBoundSettings</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout">
+      <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,1">
        <item>
         <layout class="QFormLayout" name="formLayout_4">
          <item row="0" column="0">
@@ -250,6 +250,13 @@
             <string>#SOCKSBoundSettings</string>
            </property>
            <layout class="QFormLayout" name="formLayout_2">
+            <item row="0" column="1">
+             <widget class="QCheckBox" name="socksCB">
+              <property name="text">
+               <string>#Enabled</string>
+              </property>
+             </widget>
+            </item>
             <item row="1" column="0">
              <widget class="QLabel" name="label_4">
               <property name="text">
@@ -264,10 +271,10 @@
               </property>
              </widget>
             </item>
-            <item row="0" column="1">
-             <widget class="QCheckBox" name="socksCB">
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_10">
               <property name="text">
-               <string>#Enabled</string>
+               <string>#Auth</string>
               </property>
              </widget>
             </item>
@@ -278,22 +285,15 @@
               </property>
              </widget>
             </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="label_10">
-              <property name="text">
-               <string>#Auth</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="1">
-             <widget class="QLineEdit" name="socksAuthUsernameTxt"/>
-            </item>
             <item row="3" column="0">
              <widget class="QLabel" name="label_11">
               <property name="text">
                <string>#Username</string>
               </property>
              </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QLineEdit" name="socksAuthUsernameTxt"/>
             </item>
             <item row="4" column="0">
              <widget class="QLabel" name="label_12">
@@ -314,6 +314,16 @@
             <string>#HTTPInBoundSettings</string>
            </property>
            <layout class="QFormLayout" name="formLayout_7">
+            <item row="0" column="1">
+             <widget class="QCheckBox" name="httpCB">
+              <property name="layoutDirection">
+               <enum>Qt::LeftToRight</enum>
+              </property>
+              <property name="text">
+               <string>#Enabled</string>
+              </property>
+             </widget>
+            </item>
             <item row="1" column="0">
              <widget class="QLabel" name="label_3">
               <property name="text">
@@ -331,16 +341,6 @@
               </property>
               <property name="clearButtonEnabled">
                <bool>false</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QCheckBox" name="httpCB">
-              <property name="layoutDirection">
-               <enum>Qt::LeftToRight</enum>
-              </property>
-              <property name="text">
-               <string>#Enabled</string>
               </property>
              </widget>
             </item>
@@ -382,6 +382,19 @@
           </widget>
          </item>
         </layout>
+       </item>
+       <item>
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
        </item>
       </layout>
      </widget>
@@ -508,7 +521,7 @@
             </property>
            </widget>
           </item>
-          <item row="3" column="0">
+          <item row="1" column="0">
            <layout class="QHBoxLayout" name="horizontalLayout_6">
             <item>
              <spacer name="horizontalSpacer">
@@ -544,7 +557,7 @@
             </item>
            </layout>
           </item>
-          <item row="4" column="0">
+          <item row="2" column="0">
            <layout class="QHBoxLayout" name="horizontalLayout_8">
             <item>
              <spacer name="horizontalSpacer_3">
@@ -595,10 +608,10 @@
             </item>
            </layout>
           </item>
-          <item row="5" column="0">
+          <item row="3" column="0">
            <layout class="QHBoxLayout" name="horizontalLayout_9">
             <item>
-             <spacer name="horizontalSpacer_4">
+             <spacer name="horizontalSpacer_5">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
@@ -646,8 +659,8 @@
             </item>
            </layout>
           </item>
-          <item row="6" column="0">
-           <spacer name="verticalSpacer">
+          <item row="7" column="0">
+           <spacer name="verticalSpacer1">
             <property name="orientation">
              <enum>Qt::Vertical</enum>
             </property>
@@ -659,7 +672,7 @@
             </property>
            </spacer>
           </item>
-          <item row="6" column="1">
+          <item row="7" column="1">
            <widget class="QPushButton" name="aboutQt">
             <property name="minimumSize">
              <size>
@@ -671,6 +684,50 @@
              <string>#AboutQt</string>
             </property>
            </widget>
+          </item>
+          <item row="5" column="0">
+           <spacer name="verticalSpacer1_2">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="6" column="0">
+           <layout class="QHBoxLayout" name="horizontalLayout_10">
+            <item>
+             <spacer name="horizontalSpacer_4">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_23">
+              <property name="text">
+               <string>#IgnoreNextVersion</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="cancelIgnoreVersionBtn">
+              <property name="text">
+               <string>#CancelIngore</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
          </layout>
         </widget>

@@ -84,7 +84,7 @@
         <property name="currentIndex">
          <number>0</number>
         </property>
-        <widget class="QWidget" name="page">
+        <widget class="QWidget" name="filePage">
          <layout class="QVBoxLayout" name="verticalLayout_3">
           <item>
            <layout class="QFormLayout" name="formLayout">
@@ -131,17 +131,44 @@
           </item>
          </layout>
         </widget>
-        <widget class="QWidget" name="page_2">
-         <layout class="QVBoxLayout" name="verticalLayout_2">
+        <widget class="QWidget" name="vmessPage">
+         <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,1">
           <item>
            <widget class="QLabel" name="label_3">
             <property name="text">
-             <string>#VMess Connection String</string>
+             <string>#VMessConnectionString</string>
             </property>
            </widget>
           </item>
           <item>
            <widget class="QTextEdit" name="vmessConnectionStringTxt"/>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="page">
+         <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,1">
+          <item>
+           <widget class="QLabel" name="label_4">
+            <property name="text">
+             <string>#SubscriptionLink</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="subscriptionLinkTxt"/>
+          </item>
+          <item>
+           <spacer name="verticalSpacer">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
           </item>
          </layout>
         </widget>
@@ -156,7 +183,7 @@
       <enum>Qt::Horizontal</enum>
      </property>
      <property name="standardButtons">
-      <set>QDialogButtonBox::Discard|QDialogButtonBox::Save</set>
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
      </property>
     </widget>
    </item>
