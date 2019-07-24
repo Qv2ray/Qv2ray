@@ -22,9 +22,9 @@ bool initializeQv()
     // For Windows, there's no such 'installation' of a software
     // package, So as what ShadowSocks and v2rayX does, save config files next to
     // the executable.
-    configPath = "./qv2ray.d";
-    exeDefaultPath = "./qv2ray.d/vcore/v2ray.exe";
-    v2AssetsPath = "./qv2ray.d/vcore";
+    configPath = QDir::homePath() + "/.qv2ray";
+    exeDefaultPath = configPath + "/vcore/v2ray.exe";
+    v2AssetsPath = configPath + "/vcore";
 #else // NOT WINDOWS (*nix)
     // Global config dir.
     configPath = QDir::homePath() + "/.qv2ray";
@@ -111,7 +111,13 @@ int main(int argc, char *argv[])
     // Qv2ray Initialize
     initializeQv();
     //
-
+#ifdef _WIN32
+    // Set special font in Windows
+    QFont font;
+    font.setPointSize(9);
+    font.setFamily("微软雅黑");
+    _qApp.setFont(font);
+#endif
     if (_qApp.installTranslator(getTranslator(QString::fromStdString(GetGlobalConfig().language)))) {
         LOG("Loaded translations " + GetGlobalConfig().language)
     } else if (_qApp.installTranslator(getTranslator("en-US"))) {
