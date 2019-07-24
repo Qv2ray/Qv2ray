@@ -2,6 +2,8 @@
 #define UTILS_H
 
 #include "QvGUIConfigObjects.h"
+#include <QMessageBox>
+#include <QUuid>
 
 namespace Qv2ray
 {
@@ -19,15 +21,16 @@ namespace Qv2ray
         void SetConfigDirPath(QString path);
         QString GetConfigDirPath();
 
-        void SetGlobalConfig(Qv2Config_v1 conf);
-        Qv2Config_v1 GetGlobalConfig();
+        void SetGlobalConfig(Qv2Config conf);
+        Qv2Config GetGlobalConfig();
 
         void SaveGlobalConfig();
         void LoadGlobalConfig();
 
         void QvMessageBox(QWidget *parent, QString title, QString text);
+        int QvMessageBoxAsk(QWidget *parent, QString title, QString text, QMessageBox::StandardButton extraButtons = QMessageBox::NoButton);
         //
-        void StringToFile(QString text, QFile *target);
+        bool StringToFile(QString text, QFile *target);
         QString StringFromFile(QFile *sourceFile);
         //
         QJsonObject JSONFromString(QString string);
