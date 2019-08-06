@@ -2,6 +2,8 @@
 
 使用 Qt 的跨平台 v2ray 客户端.
 
+## Website and HOW-TO questions: https://lhy0403.github.io/Qv2ray
+
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/a034dd186c36408c92ffb04449fb6996)](https://app.codacy.com/app/lhy0403/Qv2ray?utm_source=github.com&utm_medium=referral&utm_content=lhy0403/Qv2ray&utm_campaign=Badge_Grade_Dashboard) [![HitCount](http://hits.dwyl.io/lhy0403/Qv2ray.svg)](http://hits.dwyl.io/lhy0403/Qv2ray) 
 
 Travis per machine badge provided by: [badge-matrix](https://github.com/exogen/badge-matrix)
