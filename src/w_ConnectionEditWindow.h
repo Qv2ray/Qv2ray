@@ -21,6 +21,8 @@ class ConnectionEditWindow : public QDialog
         ~ConnectionEditWindow();
     signals:
         void s_reload_config(bool need_restart);
+    private:
+        void on_genJsonBtn_clicked();
     private slots:
         void on_buttonBox_accepted();
 
@@ -49,8 +51,6 @@ class ConnectionEditWindow : public QDialog
         void on_tcpRequestTxt_textChanged();
 
         void on_tcpRespTxt_textChanged();
-
-        void on_genJsonBtn_clicked();
 
         void on_tlsCB_stateChanged(int arg1);
 
@@ -92,9 +92,14 @@ class ConnectionEditWindow : public QDialog
 
         void on_tranportCombo_currentIndexChanged(int index);
 
+        void on_dsPathTxt_textEdited(const QString &arg1);
+
+        void on_finalJson_textChanged();
+
     private:
+        int rootJsonCursorPos;
         QString _alias;
-        void LoadGUIContents();
+        void ReLoad_GUI_JSON_ModelContent();
         QJsonObject GenerateConnectionJson();
         QJsonObject original;
         StreamSettingsObject stream;

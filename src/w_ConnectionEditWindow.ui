@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1012</width>
-    <height>574</height>
+    <height>584</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -175,12 +175,9 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <widget class="QTextBrowser" name="finalJson"/>
-      </item>
-      <item>
-       <widget class="QPushButton" name="genJsonBtn">
-        <property name="text">
-         <string>#GenerateJSON</string>
+       <widget class="QTextBrowser" name="finalJson">
+        <property name="readOnly">
+         <bool>false</bool>
         </property>
        </widget>
       </item>
@@ -227,7 +224,7 @@
          </size>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>1</number>
         </property>
         <property name="usesScrollButtons">
          <bool>true</bool>
