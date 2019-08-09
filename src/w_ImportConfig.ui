@@ -69,6 +69,11 @@
          <string>#VMessConnectionString</string>
         </property>
        </item>
+       <item>
+        <property name="text">
+         <string>#Subcription</string>
+        </property>
+       </item>
       </widget>
      </item>
     </layout>
