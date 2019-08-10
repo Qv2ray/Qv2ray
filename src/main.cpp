@@ -118,6 +118,7 @@ int main(int argc, char *argv[])
     font.setFamily("微软雅黑");
     _qApp.setFont(font);
 #endif
+
     if (_qApp.installTranslator(getTranslator(QString::fromStdString(GetGlobalConfig().language)))) {
         LOG("Loaded translations " + GetGlobalConfig().language)
     } else if (_qApp.installTranslator(getTranslator("en-US"))) {

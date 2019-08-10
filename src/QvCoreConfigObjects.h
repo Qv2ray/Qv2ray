@@ -247,31 +247,42 @@ namespace Qv2ray
                 XTOSTRUCT(O(servers))
             };
 
-            struct VMessOut: XOutBoundsType {
-                struct ServerObject {
-                    struct UserObject {
-                        string id;
-                        int alterId;
-                        string security;
-                        int level;
-                        UserObject() : id(""), alterId(64), security("auto"), level(0) {}
-                        XTOSTRUCT(O(id, alterId, security, level))
-                    };
-                    // OUTBound;
-                    string address;
-                    int port;
-                    list<UserObject> users;
-                    ServerObject(): address(""), port(0), users() {}
-                    XTOSTRUCT(O(address, port, users))
+            struct VMessServerObject {
+                struct UserObject {
+                    string id;
+                    int alterId;
+                    string security;
+                    int level;
+                    UserObject() : id(""), alterId(64), security("auto"), level(0) {}
+                    XTOSTRUCT(O(id, alterId, security, level))
                 };
-                list<ServerObject> vnext;
-                XTOSTRUCT(O(vnext))
+                // OUTBound;
+                string address;
+                int port;
+                list<UserObject> users;
+                VMessServerObject(): address(""), port(0), users() {}
+                XTOSTRUCT(O(address, port, users))
             };
 
+            struct ShadowSocksOut: XOutBoundsType {
+                struct ServerObject {
+                    string email;
+                    string address;
+                    int port;
+                    string method;
+                    string password;
+                    bool ota;
+                    int level;
+                    ServerObject(): email(""), address("0.0.0.0"), port(0), method("aes-256-cfb"), password(""), ota(false), level(0)
+                    {}
+                    XTOSTRUCT(O(email, address, port, method, password, ota, level))
+                };
+                ServerObject servers;
+                XTOSTRUCT(O(servers))
+            };
         }
     }
 }
-
 using namespace Qv2ray::V2ConfigModels;
 using namespace Qv2ray::V2ConfigModels::Protocols;
 
