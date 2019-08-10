@@ -96,14 +96,20 @@ class ConnectionEditWindow : public QDialog
 
         void on_finalJson_textChanged();
 
+        void on_outBoundTypeCombo_currentIndexChanged(int index);
+
     private:
         int rootJsonCursorPos;
         QString _alias;
         void ReLoad_GUI_JSON_ModelContent();
         QJsonObject GenerateConnectionJson();
         QJsonObject original;
-        StreamSettingsObject stream;
-        VMessOut::ServerObject vmess;
         Ui::ConnectionEditWindow *ui;
+        //
+        // Connection Configs
+
+        StreamSettingsObject stream;
+        VMessServerObject vmess;
+        //
 };
 #endif // CONFEDIT_H

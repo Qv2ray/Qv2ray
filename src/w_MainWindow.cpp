@@ -273,11 +273,10 @@ void MainWindow::ShowAndSetConnection(int index, bool SetConnection, bool ApplyC
     // --------- BRGIN Show Connection
     auto obj = (connections.values()[index])["outbounds"].toArray().first().toObject();
     //
-    auto vmess = StructFromJSONString<VMessOut>(JSONToString(obj["settings"].toObject()));
-    auto Server = QList<VMessOut::ServerObject>::fromStdList(vmess.vnext).first();
+    auto Server = StructFromJSONString<VMessServerObject>(JSONToString(obj["settings"].toObject()["vnext"].toArray().first().toObject()));
     ui->_hostLabel->setText(QString::fromStdString(Server.address));
     ui->_portLabel->setText(QString::fromStdString(to_string(Server.port)));
-    auto user = QList<VMessOut::ServerObject::UserObject>::fromStdList(Server.users).first();
+    auto user = QList<VMessServerObject::UserObject>::fromStdList(Server.users).first();
     ui->_uuidLabel->setText(QString::fromStdString(user.id));
     //
     ui->_transportLabel->setText(obj["streamSettings"].toObject()["network"].toString());
