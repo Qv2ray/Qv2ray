@@ -264,21 +264,17 @@ namespace Qv2ray
                 XTOSTRUCT(O(address, port, users))
             };
 
-            struct ShadowSocksOut: XOutBoundsType {
-                struct ServerObject {
-                    string email;
-                    string address;
-                    int port;
-                    string method;
-                    string password;
-                    bool ota;
-                    int level;
-                    ServerObject(): email(""), address("0.0.0.0"), port(0), method("aes-256-cfb"), password(""), ota(false), level(0)
-                    {}
-                    XTOSTRUCT(O(email, address, port, method, password, ota, level))
-                };
-                ServerObject servers;
-                XTOSTRUCT(O(servers))
+            struct ShadowSocksServerObject {
+                string email;
+                string address;
+                int port;
+                string method;
+                string password;
+                bool ota;
+                int level;
+                ShadowSocksServerObject(): email(""), address("0.0.0.0"), port(0), method("aes-256-cfb"), password(""), ota(false), level(0)
+                {}
+                XTOSTRUCT(O(email, address, port, method, password, ota, level))
             };
         }
     }

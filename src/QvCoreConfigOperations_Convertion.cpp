@@ -87,9 +87,12 @@ namespace Qv2ray
             QJsonArray outbounds;
 
             //
-            // Currently, we only support VMess. So remove all other types of outbounds.
+            // Currently, we only support VMess (And ShadowSocks now). So remove all other types of outbounds.
             for (int i = root["outbounds"].toArray().count(); i >= 0 ; i--) {
-                if (root["outbounds"].toArray()[i].toObject()["protocol"].toString() == "vmess") {
+                auto isVMess = root["outbounds"].toArray()[i].toObject()["protocol"].toString() == "vmess";
+                auto isSS = root["outbounds"].toArray()[i].toObject()["protocol"].toString() == "shadowsocks";
+
+                if (isVMess || isSS) {
                     auto conn = root["outbounds"].toArray()[i].toObject();
                     conn.insert("tag", OUTBOUND_TAG_PROXY);
                     outbounds.append(conn);

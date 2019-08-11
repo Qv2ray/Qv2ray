@@ -98,6 +98,16 @@ class ConnectionEditWindow : public QDialog
 
         void on_outBoundTypeCombo_currentIndexChanged(int index);
 
+        void on_ss_emailTxt_textEdited(const QString &arg1);
+
+        void on_ss_passwordTxt_textEdited(const QString &arg1);
+
+        void on_ss_encryptionMethod_currentIndexChanged(const QString &arg1);
+
+        void on_ss_levelSpin_valueChanged(int arg1);
+
+        void on_ss_otaCheckBox_stateChanged(int arg1);
+
     private:
         int rootJsonCursorPos;
         QString _alias;
@@ -107,9 +117,10 @@ class ConnectionEditWindow : public QDialog
         Ui::ConnectionEditWindow *ui;
         //
         // Connection Configs
-
+        QString OutboundType;
         StreamSettingsObject stream;
         VMessServerObject vmess;
+        ShadowSocksServerObject shadowsocks;
         //
 };
 #endif // CONFEDIT_H
