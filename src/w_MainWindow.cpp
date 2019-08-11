@@ -11,6 +11,10 @@
 #include <QUrl>
 #include <QVersionNumber>
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
 #include "w_PrefrencesWindow.h"
 #include "w_ImportConfig.h"
 #include "w_ConnectionEditWindow.h"
@@ -241,6 +245,10 @@ void MainWindow::ToggleVisibility()
 {
     if (this->isHidden()) {
         this->show();
+#ifdef _WIN32
+        SetWindowPos(HWND(this->winId()), HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW);
+        SetWindowPos(HWND(this->winId()), HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW);
+#endif
         trayMenu->actions()[0]->setText(tr("#Hide"));
     } else {
         this->hide();
@@ -271,16 +279,32 @@ void MainWindow::ShowAndSetConnection(int index, bool SetConnection, bool ApplyC
     if (index < 0) return;
 
     // --------- BRGIN Show Connection
-    auto obj = (connections.values()[index])["outbounds"].toArray().first().toObject();
+    auto outBoundRoot = (connections.values()[index])["outbounds"].toArray().first().toObject();
     //
-    auto vmess = StructFromJSONString<VMessOut>(JSONToString(obj["settings"].toObject()));
-    auto Server = QList<VMessOut::ServerObject>::fromStdList(vmess.vnext).first();
-    ui->_hostLabel->setText(QString::fromStdString(Server.address));
-    ui->_portLabel->setText(QString::fromStdString(to_string(Server.port)));
-    auto user = QList<VMessOut::ServerObject::UserObject>::fromStdList(Server.users).first();
-    ui->_uuidLabel->setText(QString::fromStdString(user.id));
-    //
-    ui->_transportLabel->setText(obj["streamSettings"].toObject()["network"].toString());
+    auto outboundType = outBoundRoot["protocol"].toString();
+    ui->_OutBoundTypeLabel->setText(outboundType);
+
+    if (outboundType == "vmess") {
+        auto Server = StructFromJSONString<VMessServerObject>(JSONToString(outBoundRoot["settings"].toObject()["vnext"].toArray().first().toObject()));
+        ui->_hostLabel->setText(QString::fromStdString(Server.address));
+        ui->_portLabel->setText(QString::fromStdString(to_string(Server.port)));
+        auto user = QList<VMessServerObject::UserObject>::fromStdList(Server.users).first();
+        auto _configString = tr("#UUID") + ": " + QString::fromStdString(user.id)
+                             + "\r\n"
+                             + tr("#AlterID") + ": " + QString::fromStdString(to_string(user.alterId))
+                             + "\r\n"
+                             + tr("#Transport") + ": " + outBoundRoot["streamSettings"].toObject()["network"].toString();
+        ui->detailInfoTxt->setPlainText(_configString);
+    } else if (outboundType == "shadowsocks") {
+        auto x = JSONToString(outBoundRoot["settings"].toObject()["servers"].toArray().first().toObject());
+        auto Server = StructFromJSONString<ShadowSocksServerObject>(x);
+        ui->_hostLabel->setText(QString::fromStdString(Server.address));
+        ui->_portLabel->setText(QString::fromStdString(to_string(Server.port)));
+        auto _configString = tr("#Email") + ": " + QString::fromStdString(Server.email)
+                             + "\r\n"
+                             + tr("#Encryption") + ": " + QString::fromStdString(Server.method);
+        ui->detailInfoTxt->setPlainText(_configString);
+    }
 
     // --------- END Show Connection
     //
@@ -351,11 +375,16 @@ void MainWindow::on_connectionListWidget_doubleClicked(const QModelIndex &index)
 void MainWindow::on_editConnectionSettingsBtn_clicked()
 {
     // Check if we have a connection selected...
-    if (CurrentConnectionName != "") {
-        ConnectionEditWindow *w = new ConnectionEditWindow(connections.value(CurrentConnectionName), CurrentConnectionName, this);
-        connect(w, &ConnectionEditWindow::s_reload_config, this, &MainWindow::save_reload_globalconfig);
-        w->show();
+    auto index = ui->connectionListWidget->currentIndex().row();
+
+    if (index < 0) {
+        QvMessageBox(this, tr("#NoConfigSelected"), tr("#PleaseSelectAConfig"));
+        return;
     }
+
+    ConnectionEditWindow *w = new ConnectionEditWindow(connections.values()[index], connections.keys()[index], this);
+    connect(w, &ConnectionEditWindow::s_reload_config, this, &MainWindow::save_reload_globalconfig);
+    w->show();
 }
 
 void MainWindow::on_clearlogButton_clicked()

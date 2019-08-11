@@ -21,6 +21,8 @@ class ConnectionEditWindow : public QDialog
         ~ConnectionEditWindow();
     signals:
         void s_reload_config(bool need_restart);
+    private:
+        void on_genJsonBtn_clicked();
     private slots:
         void on_buttonBox_accepted();
 
@@ -49,8 +51,6 @@ class ConnectionEditWindow : public QDialog
         void on_tcpRequestTxt_textChanged();
 
         void on_tcpRespTxt_textChanged();
-
-        void on_genJsonBtn_clicked();
 
         void on_tlsCB_stateChanged(int arg1);
 
@@ -92,13 +92,35 @@ class ConnectionEditWindow : public QDialog
 
         void on_tranportCombo_currentIndexChanged(int index);
 
+        void on_dsPathTxt_textEdited(const QString &arg1);
+
+        void on_finalJson_textChanged();
+
+        void on_outBoundTypeCombo_currentIndexChanged(int index);
+
+        void on_ss_emailTxt_textEdited(const QString &arg1);
+
+        void on_ss_passwordTxt_textEdited(const QString &arg1);
+
+        void on_ss_encryptionMethod_currentIndexChanged(const QString &arg1);
+
+        void on_ss_levelSpin_valueChanged(int arg1);
+
+        void on_ss_otaCheckBox_stateChanged(int arg1);
+
     private:
+        int rootJsonCursorPos;
         QString _alias;
-        void LoadGUIContents();
+        void ReLoad_GUI_JSON_ModelContent();
         QJsonObject GenerateConnectionJson();
         QJsonObject original;
-        StreamSettingsObject stream;
-        VMessOut::ServerObject vmess;
         Ui::ConnectionEditWindow *ui;
+        //
+        // Connection Configs
+        QString OutboundType;
+        StreamSettingsObject stream;
+        VMessServerObject vmess;
+        ShadowSocksServerObject shadowsocks;
+        //
 };
 #endif // CONFEDIT_H

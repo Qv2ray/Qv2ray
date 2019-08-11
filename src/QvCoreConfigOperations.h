@@ -41,7 +41,7 @@ namespace Qv2ray
             return doc.object();
         }
         template QJsonObject GetRootObject<StreamSettingsObject>(StreamSettingsObject t);
-        template QJsonObject GetRootObject<VMessOut>(VMessOut t);
+        template QJsonObject GetRootObject<VMessServerObject>(VMessServerObject t);
         //
         // Generate FINAL Configs
         QJsonObject GenerateRuntimeConfig(QJsonObject root);

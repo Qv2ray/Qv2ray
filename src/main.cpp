@@ -97,17 +97,6 @@ int main(int argc, char *argv[])
         "under certain conditions.\r\n")
     QApplication _qApp(argc, argv);
     //
-#ifdef QT_NO_DEBUG
-    RunGuard guard("Qv2ray-Instance-Identifier");
-
-    if (!guard.isSingleInstance()) {
-        Utils::QvMessageBox(nullptr, QObject::tr("Qv2ray"), QObject::tr("#AnotherInstanceRunning"));
-        return -1;
-    }
-
-#else
-    LOG("Warning: this is a debug build.")
-#endif
     // Qv2ray Initialize
     initializeQv();
     //
@@ -118,6 +107,7 @@ int main(int argc, char *argv[])
     font.setFamily("微软雅黑");
     _qApp.setFont(font);
 #endif
+
     if (_qApp.installTranslator(getTranslator(QString::fromStdString(GetGlobalConfig().language)))) {
         LOG("Loaded translations " + GetGlobalConfig().language)
     } else if (_qApp.installTranslator(getTranslator("en-US"))) {
@@ -129,6 +119,18 @@ int main(int argc, char *argv[])
             "无法加载语言文件，用户体验可能会降级.");
     }
 
+#ifndef QT_NO_DEBUG
+    QvMessageBox(nullptr, "Warning", "This is a debug build.");
+    LOG("DEBUG BUILD!")
+#else
+    RunGuard guard("Qv2ray-Instance-Identifier");
+
+    if (!guard.isSingleInstance()) {
+        Utils::QvMessageBox(nullptr, QObject::tr("Qv2ray"), QObject::tr("#AnotherInstanceRunning"));
+        return -1;
+    }
+
+#endif
     // Show MainWindow
     MainWindow w;
     return _qApp.exec();
