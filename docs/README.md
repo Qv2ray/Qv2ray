@@ -28,7 +28,7 @@
 
 | OS       | Windows                 | Linux                      | MacOS                       |
 | -------- | ----------------------- | -------------------------- | --------------------------- |
-| 文件路径 | `C:\你的用户名\.qv2ray` | `/home/你的用户名/.qv2ray` | `/Users/你的用户名/.qv2ray` |
+| 文件路径 | `C:\Users\你的用户名\.qv2ray` | `/home/你的用户名/.qv2ray` | `/Users/你的用户名/.qv2ray` |
 
 4. 点击首选项 或 Preference，设置 v2ray core 路径 和 v2ray assets 文件夹路径 
    - 部分 Linux 发行版分别使用 `/bin/v2ray` 和 `/etc/v2ray` 作为 core 和 assets 路径
