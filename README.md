@@ -1,10 +1,11 @@
-# Qv2ray 
+# Qv2ray [![Codacy Badge](https://api.codacy.com/project/badge/Grade/a034dd186c36408c92ffb04449fb6996)](https://app.codacy.com/app/lhy0403/Qv2ray?utm_source=github.com&utm_medium=referral&utm_content=lhy0403/Qv2ray&utm_campaign=Badge_Grade_Dashboard) [![HitCount](http://hits.dwyl.io/lhy0403/Qv2ray.svg)](http://hits.dwyl.io/lhy0403/Qv2ray) 
 
 使用 Qt 的跨平台 v2ray 客户端.
 
-## Website and HOW-TO questions: https://lhy0403.github.io/Qv2ray
+## 项目主页地址和使用方法
+- https://lhy0403.github.io/Qv2ray
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a034dd186c36408c92ffb04449fb6996)](https://app.codacy.com/app/lhy0403/Qv2ray?utm_source=github.com&utm_medium=referral&utm_content=lhy0403/Qv2ray&utm_campaign=Badge_Grade_Dashboard) [![HitCount](http://hits.dwyl.io/lhy0403/Qv2ray.svg)](http://hits.dwyl.io/lhy0403/Qv2ray) 
+-------------------------
 
 Travis per machine badge provided by: [badge-matrix](https://github.com/exogen/badge-matrix)
 
@@ -16,7 +17,7 @@ Travis per machine badge provided by: [badge-matrix](https://github.com/exogen/b
 
 ----------------
 
-## 编译依赖
+## 编译
 
   - Qt >= 5.12
   - gcc >=8 (Linux 需要 c++11 支持) 或 MinGW (Windows) 或 clang (MacOS)
@@ -28,8 +29,8 @@ Travis per machine badge provided by: [badge-matrix](https://github.com/exogen/b
 
 ### Linux & MacOS
 
-- 对于 MacOS，需要额外使用 HomeBrew 或 Qt 官方安装器安装 Qt 库，并正确设定 $PATH 环境变量
-- 对于 Linux，根据不同发行版安装对应的 Qt 开发包 
+- 对于 MacOS，需要额外使用 HomeBrew 安装 Qt 并正确设定 $PATH 环境变量，或者使用 Qt 官方包 (包含 QtCreator)
+- 对于 Linux，请根据不同发行版安装对应的 Qt 开发包 
 
 ```bash
 git clone https://github.com/lhy0403/Qv2ray && cd Qv2ray
