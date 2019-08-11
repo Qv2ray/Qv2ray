@@ -11,6 +11,10 @@
 #include <QUrl>
 #include <QVersionNumber>
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
 #include "w_PrefrencesWindow.h"
 #include "w_ImportConfig.h"
 #include "w_ConnectionEditWindow.h"
@@ -241,6 +245,10 @@ void MainWindow::ToggleVisibility()
 {
     if (this->isHidden()) {
         this->show();
+#ifdef _WIN32
+        SetWindowPos(HWND(this->winId()), HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW);
+        SetWindowPos(HWND(this->winId()), HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW);
+#endif
         trayMenu->actions()[0]->setText(tr("#Hide"));
     } else {
         this->hide();
