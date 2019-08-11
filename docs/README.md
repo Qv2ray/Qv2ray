@@ -6,7 +6,7 @@
 
 ## 操作之前
 
-- 请查看最新的 ReleaseNote （当前版本为 [v1.2.0](./ReleaseNote/ReleaseNote-v1.2.md)）
+- 请查看最新的 ReleaseNote （当前版本为 [v1.3.0](./ReleaseNote/ReleaseNote-v1.3.md)）
 
 
 

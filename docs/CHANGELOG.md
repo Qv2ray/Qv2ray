@@ -6,11 +6,19 @@
 
 ## 开发分支
 
-**2019-08-10**: 正在添加 ShadowSocks 配置 UI，未完成 (See [531c26](https://github.com/lhy0403/Qv2ray/commit/531c2625f021a097fd53aba8e5fe0fd0b84ad836) and [#19](https://github.com/lhy0403/Qv2ray/issues/19))
-
-**2019-08-05**: 正在添加 VMess 订阅支持，未完成
+**2019-08-05**: 正在添加 VMess 订阅支持，未完成，计划在 v2.0 实现
 
 **2019-07-11**: 准备 dev 分支开始 v2.0 版本
+
+-------
+
+## Version [v1.3.0](https://github.com/lhy0403/Qv2ray/releases/tag/v1.3.0)
+
+**2019-08-11**: 发布功能更新 [v1.3.0](https://github.com/lhy0403/Qv2ray/releases/tag/v1.3.0)
+
+**2019-08-11**: 添加对于 ShadowSocks 的支持
+
+**2019-08-10**: 正在添加 ShadowSocks 配置 UI，未完成 (See [531c26](https://github.com/lhy0403/Qv2ray/commit/531c2625f021a097fd53aba8e5fe0fd0b84ad836) and [#19](https://github.com/lhy0403/Qv2ray/issues/19))
 
 ---------------
 
