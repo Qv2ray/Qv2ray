@@ -69,6 +69,11 @@
          <string>#VMessConnectionString</string>
         </property>
        </item>
+       <item>
+        <property name="text">
+         <string>#Subcription</string>
+        </property>
+       </item>
       </widget>
      </item>
     </layout>
@@ -155,7 +160,14 @@
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="subscriptionLinkTxt"/>
+           <widget class="QLineEdit" name="subscriptionLinkTxt">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="text">
+             <string>TO DO IN VERSION 2</string>
+            </property>
+           </widget>
           </item>
           <item>
            <spacer name="verticalSpacer">

@@ -18,19 +18,21 @@ namespace Qv2ray
             auto vmessConf = StructFromJSONString<VMessProtocolConfigObject>(Base64Decode(vmessJsonB64.toString()));
             //
             // User
-            VMessOut::ServerObject::UserObject user;
+            VMessServerObject::UserObject user;
             user.id = vmessConf.id;
             user.alterId = stoi(vmessConf.aid);
             //
             // Server
-            VMessOut::ServerObject serv;
+            VMessServerObject serv;
             serv.port = stoi(vmessConf.port);
             serv.address = vmessConf.add;
             serv.users.push_back(user);
             //
             // VMess root config
-            VMessOut vConf;
-            vConf.vnext.push_back(serv);
+            QJsonObject vConf;
+            QJsonArray vnextArray;
+            vnextArray.append(JSONFromString(StructToJSONString(serv)));
+            vConf["vnext"] = vnextArray;
             //
             // Stream Settings
             StreamSettingsObject streaming;
@@ -58,7 +60,7 @@ namespace Qv2ray
             // Network type
             streaming.network = vmessConf.net;
             //
-            auto outbound = GenerateOutboundEntry("vmess", GetRootObject(vConf), GetRootObject(streaming), GetRootObject(GetGlobalConfig().mux), "0.0.0.0", OUTBOUND_TAG_PROXY);
+            auto outbound = GenerateOutboundEntry("vmess", vConf, GetRootObject(streaming), GetRootObject(GetGlobalConfig().mux), "0.0.0.0", OUTBOUND_TAG_PROXY);
             //
             QJsonArray outbounds;
             outbounds.append(outbound);
@@ -85,9 +87,12 @@ namespace Qv2ray
             QJsonArray outbounds;
 
             //
-            // Currently, we only support VMess. So remove all other types of outbounds.
+            // Currently, we only support VMess (And ShadowSocks now). So remove all other types of outbounds.
             for (int i = root["outbounds"].toArray().count(); i >= 0 ; i--) {
-                if (root["outbounds"].toArray()[i].toObject()["protocol"].toString() == "vmess") {
+                auto isVMess = root["outbounds"].toArray()[i].toObject()["protocol"].toString() == "vmess";
+                auto isSS = root["outbounds"].toArray()[i].toObject()["protocol"].toString() == "shadowsocks";
+
+                if (isVMess || isSS) {
                     auto conn = root["outbounds"].toArray()[i].toObject();
                     conn.insert("tag", OUTBOUND_TAG_PROXY);
                     outbounds.append(conn);
