@@ -9,7 +9,7 @@ using namespace std;
 #define LOG(arg) cout << arg << endl;
 
 #define QV2RAY_VERSION 1
-#define QV2RAY_VERSION_STRING "v1.2.0"
+#define QV2RAY_VERSION_STRING "v1.3.0"
 #define QV2RAY_CONFIG_PATH (Qv2ray::Utils::GetConfigDirPath() + "/")
 #define QV2RAY_GUI_CONFIG_PATH (QV2RAY_CONFIG_PATH + "Qv2ray.conf")
 #define QV2RAY_GENERATED_CONFIG_FILE_PATH (QV2RAY_CONFIG_PATH + "generated/config.gen.json")
