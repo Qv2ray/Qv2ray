@@ -42,7 +42,8 @@ void ImportConfigWindow::on_buttonBox_accepted()
     QString alias = ui->nameTxt->text();
     QJsonObject config;
 
-    if (ui->importSourceCombo->currentIndex() == 0) { // From File...
+    if (ui->importSourceCombo->currentIndex() == 0) {
+        // From File...
         bool overrideInBound = !ui->keepImportedInboundCheckBox->isChecked();
 
         if (!Qv2Instance::VerifyVConfigFile(ui->fileLineTxt->text())) {

@@ -3,7 +3,7 @@
 #include "w_PrefrencesWindow.h"
 #include <QFileDialog>
 
-#ifndef _WIN32
+#ifdef __linux
 #include <unistd.h>
 #endif
 
@@ -18,8 +18,8 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     CurrentConfig = GetGlobalConfig();
     //
     ui->languageComboBox->setCurrentText(QString::fromStdString(CurrentConfig.language));
-    ui->runAsRootCheckBox->setChecked(CurrentConfig.runAsRoot);
     ui->logLevelComboBox->setCurrentIndex(CurrentConfig.logLevel);
+    ui->runAsRootCheckBox->setChecked(CurrentConfig.runAsRoot);
     //
     //
     ui->listenIPTxt->setText(QString::fromStdString(CurrentConfig.inBoundSettings.listenip));
