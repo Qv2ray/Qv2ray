@@ -16,7 +16,7 @@
 
   - 在 `v2ray` 包的基础上 额外需要 `v2ray-domain-list-community` 和 `v2ray-geoip` 进行分流代理
 
-    Issue: https://github.com/lhy0403/Qv2ray/issues/23#issuecomment-511384858
+    Issue: [#23-511384858](https://github.com/lhy0403/Qv2ray/issues/23#issuecomment-511384858)
 
 
 
