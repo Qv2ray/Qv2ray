@@ -40,12 +40,13 @@ SOURCES += \
 HEADERS += \
         ignored_cpp_structs.hpp \
         src/QJsonObjectInsertMacros.h \
+        src/Qv2rayBase.h \
         src/QvCoreConfigObjects.h \
         src/QvCoreConfigOperations.h \
         src/QvCoreInteractions.h \
-        src/QvGUIConfigObjects.h \
         src/QvHTTPRequestHelper.h \
         src/QvRunguard.h \
+        src/QvTinyLog.h \
         src/QvUtils.h \
         src/w_MainWindow.h \
         src/w_ConnectionEditWindow.h \

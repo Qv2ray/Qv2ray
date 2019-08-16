@@ -18,7 +18,7 @@ namespace Qv2ray
                 auto vmessConf = StructFromJSONString<VMessProtocolConfigObject>(vmessString);
                 return 0;
             } catch (exception *e) {
-                LOG(QObject::tr("#VMessDecodeError").toStdString() << e->what())
+                LOG(MODULE_CONNECTION, QObject::tr("#VMessDecodeError").toStdString() << e->what())
                 return -2;
             }
         }

@@ -117,6 +117,11 @@ namespace Qv2ray
             return list;
         }
 
+        bool RenameConnection(QString originalName, QString newName)
+        {
+            return QFile(QV2RAY_CONFIG_PATH + originalName + QV2RAY_CONNECTION_FILE_EXTENSION).rename(QV2RAY_CONFIG_PATH + newName + QV2RAY_CONNECTION_FILE_EXTENSION);
+        }
+
         int StartPreparation(QJsonObject fullConfig)
         {
             QString json = JSONToString(fullConfig);

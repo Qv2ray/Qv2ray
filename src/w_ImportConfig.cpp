@@ -79,6 +79,6 @@ void ImportConfigWindow::on_buttonBox_accepted()
     conf.configs.push_back(alias.toStdString());
     SetGlobalConfig(conf);
     auto needReload = SaveConnectionConfig(config, &alias);
-    LOG("WARNING: POSSIBLE LOSS OF DATA")
+    LOG(MODULE_CONNECTION_VMESS, "WARNING: POSSIBLE LOSS OF DATA")
     emit s_reload_config(needReload);
 }

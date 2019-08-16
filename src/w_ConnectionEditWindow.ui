@@ -6,24 +6,24 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>960</width>
-    <height>750</height>
+    <width>911</width>
+    <height>770</height>
    </rect>
   </property>
   <property name="sizePolicy">
-   <sizepolicy hsizetype="Fixed" vsizetype="MinimumExpanding">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
   </property>
   <property name="minimumSize">
    <size>
-    <width>960</width>
-    <height>750</height>
+    <width>0</width>
+    <height>0</height>
    </size>
   </property>
   <property name="windowTitle">
-   <string>#ConnectionSettings</string>
+   <string>#EditConnectionSettings</string>
   </property>
   <property name="modal">
    <bool>true</bool>
@@ -80,28 +80,14 @@
          <string notr="true">ShadowSocks</string>
         </property>
        </item>
+       <item>
+        <property name="text">
+         <string>Socks</string>
+        </property>
+       </item>
       </widget>
      </item>
     </layout>
-   </item>
-   <item row="0" column="1" rowspan="2">
-    <widget class="QGroupBox" name="groupBox_4">
-     <property name="title">
-      <string>#JsonPreview</string>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
-       <widget class="QTextBrowser" name="finalJson">
-        <property name="lineWrapMode">
-         <enum>QTextEdit::NoWrap</enum>
-        </property>
-        <property name="readOnly">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
    </item>
    <item row="1" column="0">
     <widget class="QGroupBox" name="outboundSettingWrapper">
@@ -111,6 +97,12 @@
      <layout class="QGridLayout" name="gridLayout">
       <item row="1" column="0">
        <widget class="QStackedWidget" name="outboundTypeStackView">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="currentIndex">
          <number>0</number>
         </property>
@@ -255,7 +247,7 @@
                 <number>0</number>
                </property>
                <widget class="QWidget" name="tcpStackPage">
-                <layout class="QGridLayout" name="gridLayout_7">
+                <layout class="QGridLayout" name="gridLayout_5">
                  <item row="0" column="0" colspan="4">
                   <layout class="QGridLayout" name="gridLayout_4" columnstretch="1,5">
                    <item row="0" column="1">
@@ -288,10 +280,24 @@
                    </property>
                   </widget>
                  </item>
+                 <item row="1" column="1">
+                  <widget class="QPushButton" name="tcpRequestPrettifyBtn">
+                   <property name="text">
+                    <string>#Prettify</string>
+                   </property>
+                  </widget>
+                 </item>
                  <item row="1" column="2">
                   <widget class="QLabel" name="label_3">
                    <property name="text">
                     <string>#Response</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="3">
+                  <widget class="QPushButton" name="tcpRespPrettifyBtn">
+                   <property name="text">
+                    <string>#Prettify</string>
                    </property>
                   </widget>
                  </item>
@@ -318,31 +324,17 @@
                    </property>
                   </widget>
                  </item>
-                 <item row="3" column="0">
+                 <item row="3" column="0" colspan="2">
                   <widget class="QPushButton" name="tcpRequestDefBtn">
                    <property name="text">
                     <string>#InsertDefaultContent</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="3" column="1">
-                  <widget class="QPushButton" name="tcpRequestPrettifyBtn">
-                   <property name="text">
-                    <string>#Prettify</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="3" column="2">
+                 <item row="3" column="2" colspan="2">
                   <widget class="QPushButton" name="tcpRespDefBtn">
                    <property name="text">
                     <string>#InsertDefaultContent</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="3" column="3">
-                  <widget class="QPushButton" name="tcpRespPrettifyBtn">
-                   <property name="text">
-                    <string>#Prettify</string>
                    </property>
                   </widget>
                  </item>
@@ -577,63 +569,54 @@
                      </property>
                     </widget>
                    </item>
-                  </layout>
-                 </item>
-                 <item row="1" column="0" colspan="2">
-                  <widget class="QGroupBox" name="groupBox_2">
-                   <property name="title">
-                    <string>#Header</string>
-                   </property>
-                   <layout class="QFormLayout" name="formLayout">
-                    <item row="0" column="0">
-                     <widget class="QLabel" name="label_16">
+                   <item row="3" column="0">
+                    <widget class="QLabel" name="label_16">
+                     <property name="text">
+                      <string>#Type</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="1">
+                    <widget class="QComboBox" name="kcpHeaderType">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <item>
                       <property name="text">
-                       <string>#Type</string>
+                       <string notr="true">none</string>
                       </property>
-                     </widget>
-                    </item>
-                    <item row="0" column="1">
-                     <widget class="QComboBox" name="kcpHeaderType">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string notr="true">srtp</string>
                       </property>
-                      <item>
-                       <property name="text">
-                        <string notr="true">none</string>
-                       </property>
-                      </item>
-                      <item>
-                       <property name="text">
-                        <string notr="true">srtp</string>
-                       </property>
-                      </item>
-                      <item>
-                       <property name="text">
-                        <string notr="true">utp</string>
-                       </property>
-                      </item>
-                      <item>
-                       <property name="text">
-                        <string notr="true">wechat-video</string>
-                       </property>
-                      </item>
-                      <item>
-                       <property name="text">
-                        <string notr="true">dtls</string>
-                       </property>
-                      </item>
-                      <item>
-                       <property name="text">
-                        <string notr="true">wireguard</string>
-                       </property>
-                      </item>
-                     </widget>
-                    </item>
-                   </layout>
-                  </widget>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string notr="true">utp</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string notr="true">wechat-video</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string notr="true">dtls</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string notr="true">wireguard</string>
+                      </property>
+                     </item>
+                    </widget>
+                   </item>
+                  </layout>
                  </item>
                 </layout>
                </widget>
@@ -693,91 +676,65 @@
                    </item>
                   </widget>
                  </item>
-                 <item row="1" column="0">
+                 <item row="2" column="0">
                   <widget class="QLabel" name="label_19">
                    <property name="text">
                     <string>#Key</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="1" column="1">
+                 <item row="2" column="1">
                   <widget class="QLineEdit" name="quicKeyTxt">
                    <property name="text">
                     <string/>
                    </property>
                   </widget>
                  </item>
-                 <item row="2" column="0">
+                 <item row="3" column="0">
                   <widget class="QLabel" name="label_20">
                    <property name="text">
                     <string>#Headers</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="2" column="1">
-                  <widget class="QGroupBox" name="groupBox_3">
+                 <item row="3" column="1">
+                  <widget class="QComboBox" name="quicHeaderTypeCB">
                    <property name="sizePolicy">
-                    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                      <horstretch>0</horstretch>
-                     <verstretch>1</verstretch>
+                     <verstretch>0</verstretch>
                     </sizepolicy>
                    </property>
-                   <property name="title">
-                    <string>#Header</string>
-                   </property>
-                   <layout class="QVBoxLayout" name="verticalLayout_11">
-                    <item>
-                     <layout class="QFormLayout" name="formLayout_4">
-                      <item row="0" column="0">
-                       <widget class="QLabel" name="label_21">
-                        <property name="text">
-                         <string>#Type</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="0" column="1">
-                       <widget class="QComboBox" name="quicHeaderTypeCB">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <item>
-                         <property name="text">
-                          <string notr="true">none</string>
-                         </property>
-                        </item>
-                        <item>
-                         <property name="text">
-                          <string notr="true">srtp</string>
-                         </property>
-                        </item>
-                        <item>
-                         <property name="text">
-                          <string notr="true">utp</string>
-                         </property>
-                        </item>
-                        <item>
-                         <property name="text">
-                          <string notr="true">wechat-video</string>
-                         </property>
-                        </item>
-                        <item>
-                         <property name="text">
-                          <string notr="true">dtls</string>
-                         </property>
-                        </item>
-                        <item>
-                         <property name="text">
-                          <string notr="true">wireguard</string>
-                         </property>
-                        </item>
-                       </widget>
-                      </item>
-                     </layout>
-                    </item>
-                   </layout>
+                   <item>
+                    <property name="text">
+                     <string notr="true">none</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string notr="true">srtp</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string notr="true">utp</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string notr="true">wechat-video</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string notr="true">dtls</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string notr="true">wireguard</string>
+                    </property>
+                   </item>
                   </widget>
                  </item>
                 </layout>
@@ -943,12 +900,61 @@
           </item>
          </layout>
         </widget>
+        <widget class="QWidget" name="page_3">
+         <layout class="QFormLayout" name="formLayout">
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="socks_UserNameTxt"/>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_31">
+            <property name="text">
+             <string>#Password</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLineEdit" name="socks_PasswordTxt"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_21">
+            <property name="text">
+             <string>#Username</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
        </widget>
       </item>
      </layout>
     </widget>
    </item>
-   <item row="2" column="1">
+   <item row="0" column="1" rowspan="2">
+    <widget class="QGroupBox" name="groupBox_4">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="title">
+      <string>#JsonPreview</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QTextBrowser" name="finalJson">
+        <property name="lineWrapMode">
+         <enum>QTextEdit::NoWrap</enum>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="2" column="0" colspan="2">
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>

@@ -2,7 +2,7 @@
 #define VINTERACT_H
 #include <QProcess>
 #include <QString>
-#include "QvGUIConfigObjects.h"
+#include "Qv2rayBase.h"
 
 namespace Qv2ray
 {

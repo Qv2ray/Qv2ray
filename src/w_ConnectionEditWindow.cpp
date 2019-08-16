@@ -19,7 +19,9 @@ ConnectionEditWindow::ConnectionEditWindow(QWidget *parent)
     ui->setupUi(this);
     ui->portLineEdit->setValidator(new QIntValidator());
     ui->alterLineEdit->setValidator(new QIntValidator());
-    shadowsocks = ShadowSocksServerObject();
+    shadowsocks = ShadowSocksServer();
+    socks = SocksServerObject();
+    socks.users.push_back(SocksServerObject::UserObject());
     vmess = VMessServerObject();
     vmess.users.push_back(VMessServerObject::UserObject());
     stream = StreamSettingsObject();
@@ -40,10 +42,20 @@ ConnectionEditWindow::ConnectionEditWindow(QJsonObject editRootObject, QString a
         stream = StructFromJSONString<StreamSettingsObject>(JSONToString(outBoundRoot["streamSettings"].toObject()));
         shadowsocks.port = vmess.port;
         shadowsocks.address = vmess.address;
+        socks.address = vmess.address;
+        socks.port = vmess.port;
     } else if (OutboundType == "shadowsocks") {
-        shadowsocks = StructFromJSONString<ShadowSocksServerObject>(JSONToString(outBoundRoot["settings"].toObject()["servers"].toArray().first().toObject()));
+        shadowsocks = StructFromJSONString<ShadowSocksServer>(JSONToString(outBoundRoot["settings"].toObject()["servers"].toArray().first().toObject()));
         vmess.address = shadowsocks.address;
         vmess.port = shadowsocks.port;
+        socks.address = shadowsocks.address;
+        socks.port = shadowsocks.port;
+    } else if (OutboundType == "socks") {
+        socks = StructFromJSONString<SocksServerObject>(JSONToString(outBoundRoot["settings"].toObject()["servers"].toArray().first().toObject()));
+        vmess.address = socks.address;
+        vmess.port = socks.port;
+        shadowsocks.address = socks.address;
+        shadowsocks.port = socks.port;
     }
 
     ReLoad_GUI_JSON_ModelContent();
@@ -60,64 +72,70 @@ void ConnectionEditWindow::ReLoad_GUI_JSON_ModelContent()
 {
     if (OutboundType == "vmess") {
         ui->outBoundTypeCombo->setCurrentIndex(0);
-        ui->ipLineEdit->setText(QString::fromStdString(vmess.address));
+        ui->ipLineEdit->setText(QSTRING(vmess.address));
         ui->portLineEdit->setText(QString::number(vmess.port));
-        ui->idLineEdit->setText(QString::fromStdString(vmess.users.front().id));
+        ui->idLineEdit->setText(QSTRING(vmess.users.front().id));
         ui->alterLineEdit->setText(QString::number(vmess.users.front().alterId));
-        ui->securityCombo->setCurrentText(QString::fromStdString(vmess.users.front().security));
-        ui->tranportCombo->setCurrentText(QString::fromStdString(stream.network));
+        ui->securityCombo->setCurrentText(QSTRING(vmess.users.front().security));
+        ui->tranportCombo->setCurrentText(QSTRING(stream.network));
         ui->tlsCB->setChecked(stream.security == "tls");
         // TCP
-        ui->tcpHeaderTypeCB->setCurrentText(QString::fromStdString(stream.tcpSettings.header.type));
+        ui->tcpHeaderTypeCB->setCurrentText(QSTRING(stream.tcpSettings.header.type));
         ui->tcpRequestTxt->setPlainText(StructToJSONString(stream.tcpSettings.header.request));
         ui->tcpRespTxt->setPlainText(StructToJSONString(stream.tcpSettings.header.response));
         // HTTP
         QString allHosts;
 
         foreach (auto host, stream.httpSettings.host) {
-            allHosts = allHosts + QString::fromStdString(host) + "\r\n";
+            allHosts = allHosts + QSTRING(host) + "\r\n";
         }
 
         ui->httpHostTxt->setPlainText(allHosts);
-        ui->httpPathTxt->setText(QString::fromStdString(stream.httpSettings.path));
+        ui->httpPathTxt->setText(QSTRING(stream.httpSettings.path));
         // WS
-        ui->wsPathTxt->setText(QString::fromStdString(stream.wsSettings.path));
+        ui->wsPathTxt->setText(QSTRING(stream.wsSettings.path));
         QString wsHeaders;
 
         foreach (auto _, stream.wsSettings.headers) {
-            wsHeaders = wsHeaders + QString::fromStdString(_.first + "|" + _.second) + "\r\n";
+            wsHeaders = wsHeaders + QSTRING(_.first + "|" + _.second) + "\r\n";
         }
 
         ui->wsHeadersTxt->setPlainText(wsHeaders);
         // mKCP
         ui->kcpMTU->setValue(stream.kcpSettings.mtu);
         ui->kcpTTI->setValue(stream.kcpSettings.tti);
-        ui->kcpHeaderType->setCurrentText(QString::fromStdString(stream.kcpSettings.header.type));
+        ui->kcpHeaderType->setCurrentText(QSTRING(stream.kcpSettings.header.type));
         ui->kcpCongestionCB->setChecked(stream.kcpSettings.congestion);
         ui->kcpReadBufferSB->setValue(stream.kcpSettings.readBufferSize);
         ui->kcpUploadCapacSB->setValue(stream.kcpSettings.uplinkCapacity);
         ui->kcpDownCapacitySB->setValue(stream.kcpSettings.downlinkCapacity);
         ui->kcpWriteBufferSB->setValue(stream.kcpSettings.writeBufferSize);
         // DS
-        ui->dsPathTxt->setText(QString::fromStdString(stream.dsSettings.path));
+        ui->dsPathTxt->setText(QSTRING(stream.dsSettings.path));
         // QUIC
-        ui->quicKeyTxt->setText(QString::fromStdString(stream.quicSettings.key));
-        ui->quicSecurityCB->setCurrentText(QString::fromStdString(stream.quicSettings.security));
-        ui->quicHeaderTypeCB->setCurrentText(QString::fromStdString(stream.quicSettings.header.type));
+        ui->quicKeyTxt->setText(QSTRING(stream.quicSettings.key));
+        ui->quicSecurityCB->setCurrentText(QSTRING(stream.quicSettings.security));
+        ui->quicHeaderTypeCB->setCurrentText(QSTRING(stream.quicSettings.header.type));
         // SOCKOPT
-        ui->tProxyCB->setCurrentText(QString::fromStdString(stream.sockopt.tproxy));
+        ui->tProxyCB->setCurrentText(QSTRING(stream.sockopt.tproxy));
         ui->tcpFastOpenCB->setChecked(stream.sockopt.tcpFastOpen);
         ui->soMarkSpinBox->setValue(stream.sockopt.mark);
     } else if (OutboundType == "shadowsocks") {
         ui->outBoundTypeCombo->setCurrentIndex(1);
         // ShadowSocks Configs
-        ui->ipLineEdit->setText(QString::fromStdString(shadowsocks.address));
+        ui->ipLineEdit->setText(QSTRING(shadowsocks.address));
         ui->portLineEdit->setText(QString::number(shadowsocks.port));
-        ui->ss_emailTxt->setText(QString::fromStdString(shadowsocks.email));
+        ui->ss_emailTxt->setText(QSTRING(shadowsocks.email));
         ui->ss_levelSpin->setValue(shadowsocks.level);
         ui->ss_otaCheckBox->setChecked(shadowsocks.ota);
-        ui->ss_passwordTxt->setText(QString::fromStdString(shadowsocks.password));
-        ui->ss_encryptionMethod->setCurrentText(QString::fromStdString(shadowsocks.method));
+        ui->ss_passwordTxt->setText(QSTRING(shadowsocks.password));
+        ui->ss_encryptionMethod->setCurrentText(QSTRING(shadowsocks.method));
+    } else if (OutboundType == "socks") {
+        ui->outBoundTypeCombo->setCurrentIndex(2);
+        ui->ipLineEdit->setText(QSTRING(socks.address));
+        ui->portLineEdit->setText(QString::number(socks.port));
+        ui->socks_PasswordTxt->setText(QSTRING(socks.users.front().pass));
+        ui->socks_UserNameTxt->setText(QSTRING(socks.users.front().user));
     }
 }
 
@@ -152,6 +170,7 @@ void ConnectionEditWindow::on_ipLineEdit_textEdited(const QString &arg1)
 {
     vmess.address = arg1.toStdString();
     shadowsocks.address = arg1.toStdString();
+    socks.address = arg1.toStdString();
     GEN_JSON
     //
     // No thanks.
@@ -171,6 +190,7 @@ void ConnectionEditWindow::on_portLineEdit_textEdited(const QString &arg1)
     if (arg1 != "") {
         vmess.port = stoi(arg1.toStdString());
         shadowsocks.port = stoi(arg1.toStdString());
+        socks.port = stoi(arg1.toStdString());
         GEN_JSON
     }
 }
@@ -317,6 +337,11 @@ QJsonObject ConnectionEditWindow::GenerateConnectionJson()
         streaming = QJsonObject();
         QJsonArray servers;
         servers.append(GetRootObject(shadowsocks));
+        settings["servers"] = servers;
+    } else if (OutboundType == "socks") {
+        streaming = QJsonObject();
+        QJsonArray servers;
+        servers.append(GetRootObject(socks));
         settings["servers"] = servers;
     }
 
@@ -489,5 +514,17 @@ void ConnectionEditWindow::on_ss_levelSpin_valueChanged(int arg1)
 void ConnectionEditWindow::on_ss_otaCheckBox_stateChanged(int arg1)
 {
     shadowsocks.ota = arg1 == Qt::Checked;
+    GEN_JSON
+}
+
+void ConnectionEditWindow::on_socks_UserNameTxt_textEdited(const QString &arg1)
+{
+    socks.users.front().user = arg1.toStdString();
+    GEN_JSON
+}
+
+void ConnectionEditWindow::on_socks_PasswordTxt_textEdited(const QString &arg1)
+{
+    socks.users.front().pass = arg1.toStdString();
     GEN_JSON
 }

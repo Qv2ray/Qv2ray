@@ -3,5 +3,9 @@
         <file>translations/zh-CN.qm</file>
         <file>translations/en-US.qm</file>
         <file>icons/Qv2ray.ico</file>
+        <file>icons/add_connection_btn.png</file>
+        <file>icons/import_connection_btn.png</file>
+        <file>icons/remove_connection_btn.png</file>
+        <file>icons/edit_connection_btn.png</file>
     </qresource>
 </RCC>
