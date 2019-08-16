@@ -182,7 +182,7 @@ void PrefrencesWindow::on_languageComboBox_currentTextChanged(const QString &arg
     CurrentConfig.language = arg1.toStdString();
 
     if (QApplication::installTranslator(getTranslator(QString::fromStdString(arg1.toStdString())))) {
-        LOG("Loaded translations " + arg1.toStdString())
+        LOG(MODULE_UI, "Loaded translations " + arg1.toStdString())
         ui->retranslateUi(this);
     } else {
         //QvMessageBox(this, tr("#Prefrences"), tr("#SwitchTranslationError"));

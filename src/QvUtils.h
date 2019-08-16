@@ -1,7 +1,7 @@
 #ifndef UTILS_H
 #define UTILS_H
 
-#include "QvGUIConfigObjects.h"
+#include "Qv2rayBase.h"
 #include <QMessageBox>
 #include <QUuid>
 
@@ -11,7 +11,7 @@ namespace Qv2ray
     {
         QTranslator *getTranslator(QString lang);
 
-        QStringList GetFileList(QDir *dir);
+        QStringList getFileList(QDir *dir);
 
         QString Base64Encode(QString string);
         QString Base64Decode(QString string);

@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>700</width>
-    <height>550</height>
+    <width>680</width>
+    <height>553</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -18,12 +18,6 @@
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
-  </property>
-  <property name="minimumSize">
-   <size>
-    <width>700</width>
-    <height>550</height>
-   </size>
   </property>
   <property name="windowTitle">
    <string>Qv2ray</string>
@@ -41,16 +35,16 @@
      <height>530</height>
     </size>
    </property>
-   <layout class="QGridLayout" name="gridLayout" columnstretch="4,6" rowminimumheight="0,0,0,0,0,8">
+   <layout class="QGridLayout" name="gridLayout" columnstretch="2,3">
     <item row="0" column="0" colspan="2">
-     <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1,1,1,0,0,0">
+     <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1,1,0,0,0">
       <property name="spacing">
        <number>5</number>
       </property>
       <item>
        <widget class="QPushButton" name="startButton">
         <property name="text">
-         <string>#Start</string>
+         <string>#Connect</string>
         </property>
        </widget>
       </item>
@@ -60,20 +54,7 @@
          <bool>false</bool>
         </property>
         <property name="text">
-         <string>#Stop</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="restartButton">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="text">
-         <string>#Restart</string>
-        </property>
-        <property name="flat">
-         <bool>false</bool>
+         <string>#Disconnect</string>
         </property>
        </widget>
       </item>
@@ -101,8 +82,8 @@
         </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>999999</width>
-          <height>20</height>
+          <width>999999999</width>
+          <height>0</height>
          </size>
         </property>
        </spacer>
@@ -123,97 +104,26 @@
       </property>
      </widget>
     </item>
-    <item row="2" column="0">
-     <widget class="QListWidget" name="connectionListWidget">
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Sunken</enum>
-      </property>
-      <property name="lineWidth">
-       <number>1</number>
-      </property>
-      <property name="midLineWidth">
-       <number>0</number>
-      </property>
-      <property name="verticalScrollBarPolicy">
-       <enum>Qt::ScrollBarAsNeeded</enum>
-      </property>
-      <property name="horizontalScrollBarPolicy">
-       <enum>Qt::ScrollBarAsNeeded</enum>
-      </property>
-      <property name="defaultDropAction">
-       <enum>Qt::CopyAction</enum>
-      </property>
-      <property name="verticalScrollMode">
-       <enum>QAbstractItemView::ScrollPerPixel</enum>
-      </property>
-      <property name="horizontalScrollMode">
-       <enum>QAbstractItemView::ScrollPerPixel</enum>
-      </property>
-      <property name="viewMode">
-       <enum>QListView::ListMode</enum>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="0">
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
-      <item>
-       <widget class="QPushButton" name="importConfigBtn">
-        <property name="text">
-         <string>#ImportConfig</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="addConfigBtn">
-        <property name="text">
-         <string>#AddConfig</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="delConfigBtn">
-        <property name="text">
-         <string>#RemoveConfig</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item row="5" column="0" colspan="2">
-     <widget class="QTextBrowser" name="logText">
-      <property name="verticalScrollBarPolicy">
-       <enum>Qt::ScrollBarAlwaysOn</enum>
-      </property>
-      <property name="lineWrapMode">
-       <enum>QTextEdit::NoWrap</enum>
-      </property>
-      <property name="openLinks">
-       <bool>false</bool>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="0">
-     <widget class="QLabel" name="label_10">
-      <property name="text">
-       <string>#Log</string>
-      </property>
-     </widget>
-    </item>
     <item row="1" column="1" rowspan="3">
      <widget class="QGroupBox" name="groupBox">
       <property name="title">
-       <string>#ConfigDetail</string>
+       <string>#CurrentConfigDetail</string>
       </property>
       <layout class="QFormLayout" name="formLayout">
-       <property name="fieldGrowthPolicy">
-        <enum>QFormLayout::ExpandingFieldsGrow</enum>
-       </property>
-       <property name="verticalSpacing">
-        <number>10</number>
-       </property>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>#OutBoundType</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLabel" name="_OutBoundTypeLabel">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
        <item row="1" column="0">
         <widget class="QLabel" name="label">
          <property name="text">
@@ -242,20 +152,6 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_2">
-         <property name="text">
-          <string>#OutBoundType</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QLabel" name="_OutBoundTypeLabel">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
        <item row="3" column="0">
         <widget class="QLabel" name="label_4">
          <property name="text">
@@ -265,47 +161,176 @@
        </item>
        <item row="3" column="1">
         <widget class="QTextBrowser" name="detailInfoTxt">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>0</height>
-          </size>
-         </property>
          <property name="lineWrapMode">
           <enum>QTextEdit::NoWrap</enum>
          </property>
         </widget>
        </item>
-       <item row="4" column="0">
-        <widget class="QLabel" name="label_11">
-         <property name="text">
-          <string>#EditConnection</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="1">
-        <widget class="QPushButton" name="editConnectionSettingsBtn">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="text">
-          <string>#ConnectionSettings</string>
-         </property>
-         <property name="flat">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
       </layout>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QListWidget" name="connectionListWidget">
+      <property name="contextMenuPolicy">
+       <enum>Qt::CustomContextMenu</enum>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Sunken</enum>
+      </property>
+      <property name="lineWidth">
+       <number>1</number>
+      </property>
+      <property name="midLineWidth">
+       <number>0</number>
+      </property>
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarAsNeeded</enum>
+      </property>
+      <property name="horizontalScrollBarPolicy">
+       <enum>Qt::ScrollBarAsNeeded</enum>
+      </property>
+      <property name="editTriggers">
+       <set>QAbstractItemView::NoEditTriggers</set>
+      </property>
+      <property name="defaultDropAction">
+       <enum>Qt::CopyAction</enum>
+      </property>
+      <property name="verticalScrollMode">
+       <enum>QAbstractItemView::ScrollPerPixel</enum>
+      </property>
+      <property name="horizontalScrollMode">
+       <enum>QAbstractItemView::ScrollPerPixel</enum>
+      </property>
+      <property name="viewMode">
+       <enum>QListView::ListMode</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QToolButton" name="addConfigButton">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string>#AddConnection</string>
+        </property>
+        <property name="text">
+         <string>A</string>
+        </property>
+        <property name="icon">
+         <iconset resource="../resources.qrc">
+          <normaloff>:/icons/add_connection_btn.png</normaloff>:/icons/add_connection_btn.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="importConfigButton">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string>#ImportConnection</string>
+        </property>
+        <property name="text">
+         <string>I</string>
+        </property>
+        <property name="icon">
+         <iconset resource="../resources.qrc">
+          <normaloff>:/icons/import_connection_btn.png</normaloff>:/icons/import_connection_btn.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="removeConfigButton">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string>#RemoveConnection</string>
+        </property>
+        <property name="text">
+         <string>R</string>
+        </property>
+        <property name="icon">
+         <iconset resource="../resources.qrc">
+          <normaloff>:/icons/remove_connection_btn.png</normaloff>:/icons/remove_connection_btn.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="editConfigButton">
+        <property name="toolTip">
+         <string>#EditConnection</string>
+        </property>
+        <property name="text">
+         <string>...</string>
+        </property>
+        <property name="icon">
+         <iconset resource="../resources.qrc">
+          <normaloff>:/icons/edit_connection_btn.png</normaloff>:/icons/edit_connection_btn.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </item>
+    <item row="4" column="0">
+     <widget class="QLabel" name="label_10">
+      <property name="text">
+       <string>#Log</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="0" colspan="2">
+     <widget class="QTextBrowser" name="logText">
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOn</enum>
+      </property>
+      <property name="lineWrapMode">
+       <enum>QTextEdit::NoWrap</enum>
+      </property>
+      <property name="openLinks">
+       <bool>false</bool>
+      </property>
      </widget>
     </item>
    </layout>
@@ -351,9 +376,10 @@
  <tabstops>
   <tabstop>startButton</tabstop>
   <tabstop>stopButton</tabstop>
-  <tabstop>restartButton</tabstop>
   <tabstop>clearlogButton</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="../resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

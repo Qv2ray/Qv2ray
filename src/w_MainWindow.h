@@ -25,8 +25,8 @@ class MainWindow : public QMainWindow
     public slots:
         void save_reload_globalconfig(bool need_restart);
         void UpdateLog();
-        void VersionUpdate(QByteArray &data);
     private slots:
+        void VersionUpdate(QByteArray &data);
         void on_restartButton_clicked();
         void on_startButton_clicked();
         void on_stopButton_clicked();
@@ -38,32 +38,45 @@ class MainWindow : public QMainWindow
 
         void on_connectionListWidget_itemClicked(QListWidgetItem *item);
 
-        void on_importConfigBtn_clicked();
-
-        void on_addConfigBtn_clicked();
-
-        void on_delConfigBtn_clicked();
-
         void on_prefrencesBtn_clicked();
 
         void on_connectionListWidget_doubleClicked(const QModelIndex &index);
 
-        void on_editConnectionSettingsBtn_clicked();
-
         void on_clearlogButton_clicked();
 
+        void on_connectionListWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
+
+        void on_connectionListWidget_customContextMenuRequested(const QPoint &pos);
+
+        void on_action_RenameConnection_triggered();
+        void on_action_StartThis_triggered();
+
+        void on_connectionListWidget_itemChanged(QListWidgetItem *item);
+
+        void on_removeConfigButton_clicked();
+
+        void on_importConfigButton_clicked();
+
+        void on_addConfigButton_clicked();
+
+        void on_editConfigButton_clicked();
+
     private:
-        QvHttpRequestHelper HTTPRequestHelper;
-        void ShowAndSetConnection(int index, bool SetConnection, bool Apply);
-        void LoadConnections();
-        QString CurrentConnectionName;
         Ui::MainWindow *ui;
+        QvHttpRequestHelper HTTPRequestHelper;
         QSystemTrayIcon *hTray;
         QMenu *trayMenu = new QMenu(this);
         Qv2Instance *vinstance;
-        //
-        void closeEvent(QCloseEvent *);
+        QMenu listMenu;
         QMap<QString, QJsonObject> connections;
+        QString CurrentConnectionName;
+        //
+        QString originalName;
+        bool isRenamingInProgress;
+        //
+        void ShowAndSetConnection(int index, bool SetConnection, bool Apply);
+        void LoadConnections();
+        void closeEvent(QCloseEvent *);
 };
 
 #endif // MAINWINDOW_H

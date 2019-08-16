@@ -54,6 +54,7 @@ namespace Qv2ray
         // -------------------------- BEGIN CONFIG CONVERSIONS ---------------------------------------------
         // Save Connection Config
         bool SaveConnectionConfig(QJsonObject obj, const QString *alias);
+        bool RenameConnection(QString originalName, QString newName);
         // VMess Protocol
         QJsonObject ConvertConfigFromVMessString(QString vmess);
         QJsonObject ConvertConfigFromFile(QString sourceFilePath, bool overrideInbounds);
