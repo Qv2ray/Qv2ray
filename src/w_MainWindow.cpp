@@ -86,7 +86,7 @@ MainWindow::MainWindow(QWidget *parent)
         ui->connectionListWidget->setCurrentItem(item);
         on_connectionListWidget_itemClicked(item);
         on_startButton_clicked();
-        ToggleVisibility();
+        //ToggleVisibility();
         this->hide();
         trayMenu->actions()[0]->setText(tr("#Show"));
     } else {
@@ -272,6 +272,7 @@ void MainWindow::ToggleVisibility()
     if (this->isHidden()) {
         this->show();
 #ifdef _WIN32
+        setWindowState(Qt::WindowNoState);
         SetWindowPos(HWND(this->winId()), HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW);
         SetWindowPos(HWND(this->winId()), HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW);
 #endif
