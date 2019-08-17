@@ -11,7 +11,7 @@ using namespace Qv2ray;
 using namespace Qv2ray::Utils;
 using namespace Qv2ray::QvConfigModels;
 
-bool initializeQv()
+bool initQv()
 {
     /// Qv2ray Config Path and ends with "/"
     QString configPath = QDir::homePath() + "/.qv2ray";
@@ -19,12 +19,10 @@ bool initializeQv()
     QString v2AssetsPath = configPath + "/vcore";
     //
 #if defined(__WIN32)
-    // For Windows, there's no such 'installation' of a software
-    // package, So as what ShadowSocks and v2rayX does, save config files next to
-    // the executable.
     exeDefaultPath = exeDefaultPath + ".exe";
 #elif defined(__linux__)
     // Special case for GNU/Linux
+    //
     // Unused these values
     Q_UNUSED(v2AssetsPath)
     Q_UNUSED(exeDefaultPath)
@@ -99,7 +97,7 @@ int main(int argc, char *argv[])
     QApplication _qApp(argc, argv);
     //
     // Qv2ray Initialize
-    initializeQv();
+    initQv();
     //
 #ifdef _WIN32
     // Set special font in Windows
@@ -127,6 +125,7 @@ int main(int argc, char *argv[])
                   );
 
     if (!guard.isSingleInstance()) {
+        LOG(MODULE_INIT, "Another Instance running, QUIT.")
         Utils::QvMessageBox(nullptr, "Qv2ray", QObject::tr("#AnotherInstanceRunning"));
         return -1;
     }
