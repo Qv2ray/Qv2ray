@@ -364,7 +364,7 @@
     </message>
     <message>
         <location filename="../src/w_MainWindow.ui" line="276"/>
-        <location filename="../src/w_MainWindow.cpp" line="449"/>
+        <location filename="../src/w_MainWindow.cpp" line="450"/>
         <source>#RemoveConnection</source>
         <translation>Remove a connection</translation>
     </message>
@@ -449,17 +449,17 @@
         <translation>Disconnected</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="318"/>
+        <location filename="../src/w_MainWindow.cpp" line="319"/>
         <source>#UUID</source>
         <translation>UUID</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="320"/>
+        <location filename="../src/w_MainWindow.cpp" line="321"/>
         <source>#AlterID</source>
         <translation>Alter ID</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="322"/>
+        <location filename="../src/w_MainWindow.cpp" line="323"/>
         <source>#Transport</source>
         <translation>Transport Settings</translation>
     </message>
@@ -492,7 +492,7 @@
     </message>
     <message>
         <location filename="../src/w_MainWindow.cpp" line="37"/>
-        <location filename="../src/w_MainWindow.cpp" line="278"/>
+        <location filename="../src/w_MainWindow.cpp" line="279"/>
         <source>#Hide</source>
         <translation>Hide</translation>
     </message>
@@ -524,13 +524,13 @@
     </message>
     <message>
         <location filename="../src/w_MainWindow.cpp" line="183"/>
-        <location filename="../src/w_MainWindow.cpp" line="489"/>
+        <location filename="../src/w_MainWindow.cpp" line="490"/>
         <source>#NoConfigSelected</source>
         <translation>No Config Selected</translation>
     </message>
     <message>
         <location filename="../src/w_MainWindow.cpp" line="183"/>
-        <location filename="../src/w_MainWindow.cpp" line="489"/>
+        <location filename="../src/w_MainWindow.cpp" line="490"/>
         <source>#PleaseSelectAConfig</source>
         <translation>Please select a config from the list</translation>
     </message>
@@ -541,45 +541,45 @@
         <translation>Connected to server</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="413"/>
-        <location filename="../src/w_MainWindow.cpp" line="422"/>
+        <location filename="../src/w_MainWindow.cpp" line="414"/>
+        <location filename="../src/w_MainWindow.cpp" line="423"/>
         <source>#RenameConnection</source>
         <translation>Rename a connection</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="413"/>
+        <location filename="../src/w_MainWindow.cpp" line="414"/>
         <source>#CannotUseEmptyName</source>
         <translation>You cannot use an empty connection name</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="422"/>
+        <location filename="../src/w_MainWindow.cpp" line="423"/>
         <source>#DuplicatedConnectionName</source>
         <translation>Connection name is duplicated</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="449"/>
+        <location filename="../src/w_MainWindow.cpp" line="450"/>
         <source>#RemoveConnectionConfirm</source>
         <translation>Are you sure want to remove this connection</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="329"/>
+        <location filename="../src/w_MainWindow.cpp" line="330"/>
         <source>#Email</source>
         <translation>Email</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="331"/>
+        <location filename="../src/w_MainWindow.cpp" line="332"/>
         <source>#Encryption</source>
         <translation>Encryption</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="338"/>
+        <location filename="../src/w_MainWindow.cpp" line="339"/>
         <source>#Username</source>
         <translation>Username</translation>
     </message>
     <message>
         <location filename="../src/w_MainWindow.cpp" line="91"/>
         <location filename="../src/w_MainWindow.cpp" line="234"/>
-        <location filename="../src/w_MainWindow.cpp" line="281"/>
+        <location filename="../src/w_MainWindow.cpp" line="282"/>
         <source>#Show</source>
         <translation>Show</translation>
     </message>

@@ -364,7 +364,7 @@
     </message>
     <message>
         <location filename="../src/w_MainWindow.ui" line="276"/>
-        <location filename="../src/w_MainWindow.cpp" line="449"/>
+        <location filename="../src/w_MainWindow.cpp" line="450"/>
         <source>#RemoveConnection</source>
         <translation>删除连接</translation>
     </message>
@@ -449,17 +449,17 @@
         <translation>已断开连接</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="318"/>
+        <location filename="../src/w_MainWindow.cpp" line="319"/>
         <source>#UUID</source>
         <translation>UUID</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="320"/>
+        <location filename="../src/w_MainWindow.cpp" line="321"/>
         <source>#AlterID</source>
         <translation>Alter ID</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="322"/>
+        <location filename="../src/w_MainWindow.cpp" line="323"/>
         <source>#Transport</source>
         <translation>传输设置</translation>
     </message>
@@ -492,7 +492,7 @@
     </message>
     <message>
         <location filename="../src/w_MainWindow.cpp" line="37"/>
-        <location filename="../src/w_MainWindow.cpp" line="278"/>
+        <location filename="../src/w_MainWindow.cpp" line="279"/>
         <source>#Hide</source>
         <translation>隐藏</translation>
     </message>
@@ -524,13 +524,13 @@
     </message>
     <message>
         <location filename="../src/w_MainWindow.cpp" line="183"/>
-        <location filename="../src/w_MainWindow.cpp" line="489"/>
+        <location filename="../src/w_MainWindow.cpp" line="490"/>
         <source>#NoConfigSelected</source>
         <translation>没有选择配置文件</translation>
     </message>
     <message>
         <location filename="../src/w_MainWindow.cpp" line="183"/>
-        <location filename="../src/w_MainWindow.cpp" line="489"/>
+        <location filename="../src/w_MainWindow.cpp" line="490"/>
         <source>#PleaseSelectAConfig</source>
         <translation>请从列表中选择配置</translation>
     </message>
@@ -541,45 +541,45 @@
         <translation>已连接到服务器</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="413"/>
-        <location filename="../src/w_MainWindow.cpp" line="422"/>
+        <location filename="../src/w_MainWindow.cpp" line="414"/>
+        <location filename="../src/w_MainWindow.cpp" line="423"/>
         <source>#RenameConnection</source>
         <translation>重命名连接</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="413"/>
+        <location filename="../src/w_MainWindow.cpp" line="414"/>
         <source>#CannotUseEmptyName</source>
         <translation>不能使用空连接名</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="422"/>
+        <location filename="../src/w_MainWindow.cpp" line="423"/>
         <source>#DuplicatedConnectionName</source>
         <translation>连接重名</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="449"/>
+        <location filename="../src/w_MainWindow.cpp" line="450"/>
         <source>#RemoveConnectionConfirm</source>
         <translation>确定要删除连接吗</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="329"/>
+        <location filename="../src/w_MainWindow.cpp" line="330"/>
         <source>#Email</source>
         <translation>邮箱</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="331"/>
+        <location filename="../src/w_MainWindow.cpp" line="332"/>
         <source>#Encryption</source>
         <translation>加密方法</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="338"/>
+        <location filename="../src/w_MainWindow.cpp" line="339"/>
         <source>#Username</source>
         <translation>用户名</translation>
     </message>
     <message>
         <location filename="../src/w_MainWindow.cpp" line="91"/>
         <location filename="../src/w_MainWindow.cpp" line="234"/>
-        <location filename="../src/w_MainWindow.cpp" line="281"/>
+        <location filename="../src/w_MainWindow.cpp" line="282"/>
         <source>#Show</source>
         <translation>显示</translation>
     </message>
