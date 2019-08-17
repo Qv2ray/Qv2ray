@@ -4,10 +4,6 @@
 <context>
     <name>ConnectionEditWindow</name>
     <message>
-        <source>#ConnectionSettings</source>
-        <translation type="vanished">Connection Settings</translation>
-    </message>
-    <message>
         <location filename="../src/w_ConnectionEditWindow.ui" line="37"/>
         <location filename="../src/w_ConnectionEditWindow.ui" line="358"/>
         <source>#Host</source>
@@ -86,10 +82,6 @@
         <translation>One Time Auth (Outdated)</translation>
     </message>
     <message>
-        <source>TCP</source>
-        <translation type="vanished">TCP</translation>
-    </message>
-    <message>
         <location filename="../src/w_ConnectionEditWindow.ui" line="270"/>
         <location filename="../src/w_ConnectionEditWindow.ui" line="575"/>
         <source>#Type</source>
@@ -117,18 +109,10 @@
         <translation>Use TLS</translation>
     </message>
     <message>
-        <source>#GenerateJSON</source>
-        <translation type="vanished">Generate JSON</translation>
-    </message>
-    <message>
         <location filename="../src/w_ConnectionEditWindow.ui" line="286"/>
         <location filename="../src/w_ConnectionEditWindow.ui" line="300"/>
         <source>#Prettify</source>
         <translation>Prettify JSON</translation>
-    </message>
-    <message>
-        <source>HTTP</source>
-        <translation type="vanished">HTTP</translation>
     </message>
     <message>
         <location filename="../src/w_ConnectionEditWindow.ui" line="348"/>
@@ -136,10 +120,6 @@
         <location filename="../src/w_ConnectionEditWindow.ui" line="630"/>
         <source>#Path</source>
         <translation>Path</translation>
-    </message>
-    <message>
-        <source>WebSocket</source>
-        <translation type="vanished">WebSocket</translation>
     </message>
     <message>
         <location filename="../src/w_ConnectionEditWindow.ui" line="390"/>
@@ -151,10 +131,6 @@
         <location filename="../src/w_ConnectionEditWindow.ui" line="397"/>
         <source>#key|value format</source>
         <translation>Format: KEY|VALUE</translation>
-    </message>
-    <message>
-        <source>mKCP</source>
-        <translation type="vanished">mKCP</translation>
     </message>
     <message>
         <location filename="../src/w_ConnectionEditWindow.ui" line="413"/>
@@ -175,10 +151,6 @@
         <location filename="../src/w_ConnectionEditWindow.ui" line="488"/>
         <source>#Congestion</source>
         <translation>Congestion Control</translation>
-    </message>
-    <message>
-        <source>SockOpt</source>
-        <translation type="vanished">SockOpt</translation>
     </message>
     <message>
         <location filename="../src/w_ConnectionEditWindow.ui" line="747"/>
@@ -232,18 +204,6 @@
         <location filename="../src/w_ConnectionEditWindow.ui" line="552"/>
         <source>#WriteBufferSize (MB)</source>
         <translation>Write Buffer Size (MB)</translation>
-    </message>
-    <message>
-        <source>#Header</source>
-        <translation type="vanished">Headers</translation>
-    </message>
-    <message>
-        <source>DomainSocket</source>
-        <translation type="vanished">DomainSocket</translation>
-    </message>
-    <message>
-        <source>QUIC</source>
-        <translation type="vanished">QUIC</translation>
     </message>
     <message>
         <location filename="../src/w_ConnectionEditWindow.ui" line="682"/>
@@ -330,10 +290,6 @@
         <location filename="../src/w_ImportConfig.ui" line="168"/>
         <source>TO DO IN VERSION 2</source>
         <translation></translation>
-    </message>
-    <message>
-        <source>#VMess Connection String</source>
-        <translation type="vanished">VMess Connection String</translation>
     </message>
     <message>
         <location filename="../src/w_ImportConfig.cpp" line="36"/>
@@ -443,10 +399,6 @@
         <translation>Clear Log</translation>
     </message>
     <message>
-        <source>#Status</source>
-        <translation type="vanished">Status</translation>
-    </message>
-    <message>
         <location filename="../src/w_MainWindow.ui" line="94"/>
         <source>#Stopped</source>
         <translation>Stopped</translation>
@@ -470,22 +422,6 @@
         <location filename="../src/w_MainWindow.ui" line="116"/>
         <source>#OutBoundType</source>
         <translation>Outbound Type</translation>
-    </message>
-    <message>
-        <source>#ImportConfig</source>
-        <translation type="vanished">Import Config</translation>
-    </message>
-    <message>
-        <source>#AddConfig</source>
-        <translation type="vanished">Add Config</translation>
-    </message>
-    <message>
-        <source>#RemoveConfig</source>
-        <translation type="vanished">Remove Config</translation>
-    </message>
-    <message>
-        <source>#ConfigDetail</source>
-        <translation type="vanished">Detailed Config Info</translation>
     </message>
     <message>
         <location filename="../src/w_MainWindow.ui" line="130"/>
@@ -526,10 +462,6 @@
         <location filename="../src/w_MainWindow.cpp" line="322"/>
         <source>#Transport</source>
         <translation>Transport Settings</translation>
-    </message>
-    <message>
-        <source>#ConnectionSettings</source>
-        <translation type="vanished">Connection Settings</translation>
     </message>
     <message>
         <location filename="../src/w_MainWindow.ui" line="319"/>
@@ -628,14 +560,6 @@
         <location filename="../src/w_MainWindow.cpp" line="449"/>
         <source>#RemoveConnectionConfirm</source>
         <translation>Are you sure want to remove this connection</translation>
-    </message>
-    <message>
-        <source>#ConnectedToServer </source>
-        <translation type="vanished">Connected to server </translation>
-    </message>
-    <message>
-        <source>#Started</source>
-        <translation type="vanished">Started</translation>
     </message>
     <message>
         <location filename="../src/w_MainWindow.cpp" line="329"/>
@@ -820,18 +744,6 @@
         <translation></translation>
     </message>
     <message>
-        <source>Add</source>
-        <translation type="vanished">Add</translation>
-    </message>
-    <message>
-        <source>Remove</source>
-        <translation type="vanished">Remove</translation>
-    </message>
-    <message>
-        <source>Clear</source>
-        <translation type="vanished">Clear</translation>
-    </message>
-    <message>
         <location filename="../src/w_PrefrencesWindow.ui" line="100"/>
         <source>none</source>
         <translation>Do not use</translation>
@@ -929,11 +841,7 @@
 <context>
     <name>QObject</name>
     <message>
-        <source>AnotherInstanceRunning</source>
-        <translation type="vanished">Another instance is already running</translation>
-    </message>
-    <message>
-        <location filename="../src/main.cpp" line="130"/>
+        <location filename="../src/main.cpp" line="132"/>
         <source>#AnotherInstanceRunning</source>
         <translation>Another instance is already running</translation>
     </message>
