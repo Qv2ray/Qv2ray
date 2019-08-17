@@ -106,6 +106,9 @@ int main(int argc, char *argv[])
     font.setFamily("微软雅黑");
     _qApp.setFont(font);
 #endif
+#ifdef __APPLE__
+    _qApp.setStyle("fusion");
+#endif
 
     if (_qApp.installTranslator(getTranslator(QString::fromStdString(GetGlobalConfig().language)))) {
         LOG(MODULE_UI, "Loaded translations " + GetGlobalConfig().language)
