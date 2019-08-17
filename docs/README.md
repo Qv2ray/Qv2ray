@@ -1,49 +1,44 @@
-# Qv2ray
+# Qv2ray 用户手册
 
-使用 Qt 的跨平台 v2ray 图形客户端 - 用户手册
-
-
+欢迎使用基于 Qt 的跨平台 v2ray 图形客户端
 
 ## 操作之前
 
-- 请查看最新的 ReleaseNote （当前版本为 [v1.3.0](./ReleaseNote/ReleaseNote-v1.3.md)）
+请查看最新版本的发行说明：
 
+- 当前最新版本为 [v1.3.2](./ReleaseNote/ReleaseNote-v1.3.2.md)
+- 历史版本：
+  -  [v1.3.0](./ReleaseNote/ReleaseNote-v1.3.md)
+  -  [v1.2.0](./ReleaseNote/ReleaseNote-v1.2.md)
 
+--------
 
-## 运行依赖
-
-- ArchLinux
-
-  - 在 `v2ray` 包的基础上 额外需要 `v2ray-domain-list-community` 和 `v2ray-geoip` 进行分流代理
-
-    Issue: [#23-511384858](https://github.com/lhy0403/Qv2ray/issues/23#issuecomment-511384858)
-
-
-
-## 下载和配置
+## 首次使用
 
 1. 根据对应系统下载程序包
+
 2. 双击打开 Qv2ray 程序
-3. 程序运行后，根据操作系统不同，在以下目录中分别生成程序配置文件 `Qv2ray.conf` 和 `generated` 文件夹
 
-| OS       | Windows                 | Linux                      | MacOS                       |
-| -------- | ----------------------- | -------------------------- | --------------------------- |
-| 文件路径 | `C:\Users\你的用户名\.qv2ray` | `/home/你的用户名/.qv2ray` | `/Users/你的用户名/.qv2ray` |
+   *程序运行后，会在用户目录中分别生成程序配置文件（见附录1）*
 
-4. 点击首选项 或 Preference，设置 v2ray core 路径 和 v2ray assets 文件夹路径 
-   - 部分 Linux 发行版分别使用 `/bin/v2ray` 和 `/etc/v2ray` 作为 core 和 assets 路径
-   - Windows 和 MacOS 需要从官方 [releases](https://github.com/v2ray/v2ray-core/releases/latest) 下载并解压缩
-     - 此种情况 core 路径和 assets 路径（通常）指向同一文件夹 
+4. 第一次运行，Qv2ray 将会提示找不到核心文件，在这时：
+   
+   - 如果你使用的是 Linux 系统，并且你的发行版包含 `v2ray` 包：
+     - 请安装 `v2ray` 程序包，**注意，`ArchLinux` 用户需要在 `v2ray` 包的基础上 额外需要 `v2ray-domain-list-community` 和 `v2ray-geoip` 进行分流代理** 详见（Issue: [#23-511384858](https://github.com/lhy0403/Qv2ray/issues/23#issuecomment-511384858)）
+     - Linux 版 Qv2ray 默认使用 `/bin/v2ray` 和 `/etc/v2ray` 作为 core 和 assets 路径，如果与你的位置不一样，请到首选项中修改
+     - 安装完成后重新启动 Qv2ray
+   
+   - 如果你的发行版**不**包含 v2ray 程序包，或者你是用的是 **Windows** 或 **MacOS**：
+     - 你需要从官方 [releases](https://github.com/v2ray/v2ray-core/releases/latest) 下载核心文件，并解压缩到一个单独的文件夹 
+       - **推荐使用配置文件夹中的 `vcore` 子文件夹**
+     - 打开首选项，设置 vcore 路径和 assets 路径到解压后的文件夹
+       - **此种情况下，首选项中的 core 路径和 assets 路径（通常）指向同一文件夹**
+   
+5. 点击OK保存配置，并开始添加连接，你可以选择导入现有链接或者手动输入链接设置
 
-5. 点击OK保存配置，并开始添加连接
+6. 使用托盘图标中键，窗口按钮或右键菜单均可启动当前连接
 
-6. 使用托盘图标中键，窗口按钮或右键菜单均可启动 v2ray
-
-
-
-## 更多设置详解
-
-### 自动连接
+## 自动连接
 
 - 该功能自 [v1.2.0](./ReleaseNote/ReleaseNote-v1.2.md) 版本添加
 
@@ -55,3 +50,12 @@
 
 3. 如在启动时自动连接了某个配置文件时，主窗口将不会显示，请从托盘图标处访问 Qv2ray
 
+
+
+# 附录
+
+## 1. Qv2ray 在不同操作系统中生成的配置文件夹位置
+
+- Windows: `C:\Users\用户名\.qv2ray`
+- MacOS: `/Users/用户名/.qv2ray`
+- Linux: `/home/用户名/.qv2ray`
