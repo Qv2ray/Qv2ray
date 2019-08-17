@@ -4,13 +4,8 @@
 <context>
     <name>ConnectionEditWindow</name>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="26"/>
-        <source>#ConnectionSettings</source>
-        <translation>Connection Settings</translation>
-    </message>
-    <message>
         <location filename="../src/w_ConnectionEditWindow.ui" line="37"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="366"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="358"/>
         <source>#Host</source>
         <translation>Host</translation>
     </message>
@@ -25,228 +20,205 @@
         <translation>Outbound Type</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="109"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="85"/>
+        <source>Socks</source>
+        <translation>Socks</translation>
+    </message>
+    <message>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="95"/>
         <source>#OutBoundSettings</source>
         <translation>OutBound Settings</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="138"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="130"/>
         <source>#UUID</source>
         <translation>UUID</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="155"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="147"/>
         <source>#AlterID</source>
         <translation>Alter ID</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="169"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="667"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="161"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="650"/>
         <source>#Security</source>
         <translation>Security Settings</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="200"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="192"/>
         <source>#Transport</source>
         <translation>Transport Settings</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="243"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="235"/>
         <source>#TransportSettings</source>
         <translation>Transport Settings</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="851"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="808"/>
         <source>#Email</source>
         <translation>Email</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="858"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="815"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="911"/>
         <source>#Password</source>
         <translation>Password</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="865"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="822"/>
         <source>#EncryptionMethod</source>
         <translation>Encryption Method</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="917"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="874"/>
         <source>#Level</source>
         <translation>User Level</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="927"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="884"/>
         <source>#OTA</source>
         <translation>One Time Auth (Outdated)</translation>
     </message>
     <message>
-        <source>TCP</source>
-        <translation type="vanished">TCP</translation>
-    </message>
-    <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="278"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="591"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="734"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="270"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="575"/>
         <source>#Type</source>
         <translation>Type</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="287"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="279"/>
         <source>#Request</source>
         <translation>Request</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="324"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="338"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="330"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="337"/>
         <source>#InsertDefaultContent</source>
         <translation>Insert Default Content</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="294"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="293"/>
         <source>#Response</source>
         <translation>Response</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="124"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="116"/>
         <source>#UseTLS</source>
         <translation>Use TLS</translation>
     </message>
     <message>
-        <source>#GenerateJSON</source>
-        <translation type="vanished">Generate JSON</translation>
-    </message>
-    <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="331"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="345"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="286"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="300"/>
         <source>#Prettify</source>
         <translation>Prettify JSON</translation>
     </message>
     <message>
-        <source>HTTP</source>
-        <translation type="vanished">HTTP</translation>
-    </message>
-    <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="356"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="382"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="647"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="348"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="374"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="630"/>
         <source>#Path</source>
         <translation>Path</translation>
     </message>
     <message>
-        <source>WebSocket</source>
-        <translation type="vanished">WebSocket</translation>
-    </message>
-    <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="398"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="713"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="390"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="696"/>
         <source>#Headers</source>
         <translation>Headers</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="405"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="397"/>
         <source>#key|value format</source>
         <translation>Format: KEY|VALUE</translation>
     </message>
     <message>
-        <source>mKCP</source>
-        <translation type="vanished">mKCP</translation>
-    </message>
-    <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="421"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="413"/>
         <source>#MTU</source>
         <translation>MTU</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="447"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="439"/>
         <source>#TTI (ms)</source>
         <translation>TTI (ms)</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="473"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="465"/>
         <source>#UplinkCapacity (MB/s)</source>
         <translation>Uplink Capacity (MB/s)</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="496"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="488"/>
         <source>#Congestion</source>
         <translation>Congestion Control</translation>
     </message>
     <message>
-        <source>SockOpt</source>
-        <translation type="vanished">SockOpt</translation>
-    </message>
-    <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="790"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="747"/>
         <source>#Mark</source>
         <translation>Mark</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="800"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="757"/>
         <source>#TCPFastOpen</source>
         <translation>TCP Fast Open</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="814"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="771"/>
         <source>#TProxy</source>
         <translation>Transparent Proxy Mode</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="131"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="503"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="807"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="934"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="123"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="495"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="764"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="891"/>
         <source>#Enabled</source>
         <translation>Enabled</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="90"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="26"/>
+        <source>#EditConnectionSettings</source>
+        <translation>Edit Connection Settings</translation>
+    </message>
+    <message>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="921"/>
+        <source>#Username</source>
+        <translation>Username</translation>
+    </message>
+    <message>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="941"/>
         <source>#JsonPreview</source>
         <translation>Preview Generated JSON</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="514"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="506"/>
         <source>#DownlinkCapacity (MB/s)</source>
         <translation>Downlink Capacity (MB/s)</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="537"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="529"/>
         <source>#ReadBufferSize (MB)</source>
         <translation>Read Buffer Size (MB)</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="560"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="552"/>
         <source>#WriteBufferSize (MB)</source>
         <translation>Write Buffer Size (MB)</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="585"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="726"/>
-        <source>#Header</source>
-        <translation>Headers</translation>
-    </message>
-    <message>
-        <source>DomainSocket</source>
-        <translation type="vanished">DomainSocket</translation>
-    </message>
-    <message>
-        <source>QUIC</source>
-        <translation type="vanished">QUIC</translation>
-    </message>
-    <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="699"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="682"/>
         <source>#Key</source>
         <translation>Key</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.cpp" line="370"/>
-        <location filename="../src/w_ConnectionEditWindow.cpp" line="381"/>
+        <location filename="../src/w_ConnectionEditWindow.cpp" line="395"/>
+        <location filename="../src/w_ConnectionEditWindow.cpp" line="406"/>
         <source>#JsonPrettify</source>
         <translation>Prettify JSON</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.cpp" line="370"/>
-        <location filename="../src/w_ConnectionEditWindow.cpp" line="381"/>
+        <location filename="../src/w_ConnectionEditWindow.cpp" line="395"/>
+        <location filename="../src/w_ConnectionEditWindow.cpp" line="406"/>
         <source>#JsonContainsError</source>
         <translation>JSON is in a bad syntax</translation>
     </message>
@@ -320,10 +292,6 @@
         <translation></translation>
     </message>
     <message>
-        <source>#VMess Connection String</source>
-        <translation type="vanished">VMess Connection String</translation>
-    </message>
-    <message>
         <location filename="../src/w_ImportConfig.cpp" line="36"/>
         <source>OpenConfigFile</source>
         <translation>Open Config File</translation>
@@ -358,201 +326,260 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../src/w_MainWindow.ui" line="29"/>
-        <location filename="../src/w_MainWindow.cpp" line="166"/>
+        <location filename="../src/w_MainWindow.ui" line="23"/>
         <source>Qv2ray</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.ui" line="53"/>
-        <location filename="../src/w_MainWindow.ui" line="320"/>
-        <location filename="../src/w_MainWindow.cpp" line="32"/>
+        <location filename="../src/w_MainWindow.ui" line="47"/>
+        <location filename="../src/w_MainWindow.cpp" line="39"/>
+        <source>#Connect</source>
+        <translation>Connect</translation>
+    </message>
+    <message>
+        <location filename="../src/w_MainWindow.ui" line="57"/>
+        <location filename="../src/w_MainWindow.cpp" line="41"/>
+        <source>#Disconnect</source>
+        <translation>Disconnect</translation>
+    </message>
+    <message>
+        <location filename="../src/w_MainWindow.ui" line="110"/>
+        <source>#CurrentConfigDetail</source>
+        <translation>Current Connection Details</translation>
+    </message>
+    <message>
+        <location filename="../src/w_MainWindow.ui" line="236"/>
+        <source>#AddConnection</source>
+        <translation>Add a connection</translation>
+    </message>
+    <message>
+        <location filename="../src/w_MainWindow.ui" line="239"/>
+        <source>A</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/w_MainWindow.ui" line="259"/>
+        <source>I</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/w_MainWindow.ui" line="276"/>
+        <location filename="../src/w_MainWindow.cpp" line="450"/>
+        <source>#RemoveConnection</source>
+        <translation>Remove a connection</translation>
+    </message>
+    <message>
+        <location filename="../src/w_MainWindow.ui" line="279"/>
+        <source>R</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/w_MainWindow.ui" line="293"/>
+        <source>...</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/w_MainWindow.ui" line="361"/>
         <source>#Start</source>
         <translation>Start</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.ui" line="63"/>
-        <location filename="../src/w_MainWindow.ui" line="325"/>
-        <location filename="../src/w_MainWindow.cpp" line="34"/>
+        <location filename="../src/w_MainWindow.ui" line="366"/>
         <source>#Stop</source>
         <translation>Stop</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.ui" line="73"/>
-        <location filename="../src/w_MainWindow.ui" line="330"/>
-        <location filename="../src/w_MainWindow.cpp" line="33"/>
+        <location filename="../src/w_MainWindow.ui" line="371"/>
         <source>#Restart</source>
         <translation>Restart</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.ui" line="83"/>
+        <location filename="../src/w_MainWindow.ui" line="64"/>
         <source>#ClearLog</source>
         <translation>Clear Log</translation>
     </message>
     <message>
-        <source>#Status</source>
-        <translation type="vanished">Status</translation>
-    </message>
-    <message>
-        <location filename="../src/w_MainWindow.ui" line="113"/>
-        <location filename="../src/w_MainWindow.cpp" line="184"/>
+        <location filename="../src/w_MainWindow.ui" line="94"/>
         <source>#Stopped</source>
         <translation>Stopped</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.ui" line="122"/>
+        <location filename="../src/w_MainWindow.ui" line="103"/>
         <source>#HostList</source>
         <translation>Host List</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.ui" line="169"/>
+        <location filename="../src/w_MainWindow.ui" line="158"/>
         <source>#DetailInfo</source>
         <translation>Detail Connection Info</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.ui" line="179"/>
+        <location filename="../src/w_MainWindow.ui" line="290"/>
         <source>#EditConnection</source>
         <translation>Edit Connection</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.ui" line="202"/>
+        <location filename="../src/w_MainWindow.ui" line="116"/>
         <source>#OutBoundType</source>
         <translation>Outbound Type</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.ui" line="255"/>
-        <source>#ImportConfig</source>
-        <translation>Import Config</translation>
-    </message>
-    <message>
-        <location filename="../src/w_MainWindow.ui" line="262"/>
-        <source>#AddConfig</source>
-        <translation>Add Config</translation>
-    </message>
-    <message>
-        <location filename="../src/w_MainWindow.ui" line="269"/>
-        <source>#RemoveConfig</source>
-        <translation>Remove Config</translation>
-    </message>
-    <message>
-        <location filename="../src/w_MainWindow.ui" line="129"/>
-        <source>#ConfigDetail</source>
-        <translation>Detailed Config Info</translation>
-    </message>
-    <message>
-        <location filename="../src/w_MainWindow.ui" line="141"/>
+        <location filename="../src/w_MainWindow.ui" line="130"/>
         <source>#Host</source>
         <translation>Host</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.ui" line="155"/>
+        <location filename="../src/w_MainWindow.ui" line="144"/>
         <source>#Port</source>
         <translation>Port</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="284"/>
+        <location filename="../src/w_MainWindow.cpp" line="43"/>
+        <source>#Rename</source>
+        <translation>Rename</translation>
+    </message>
+    <message>
+        <location filename="../src/w_MainWindow.cpp" line="196"/>
+        <source>#Connected</source>
+        <translation>Connected</translation>
+    </message>
+    <message>
+        <location filename="../src/w_MainWindow.cpp" line="214"/>
+        <source>#Disconnected</source>
+        <translation>Disconnected</translation>
+    </message>
+    <message>
+        <location filename="../src/w_MainWindow.cpp" line="319"/>
         <source>#UUID</source>
         <translation>UUID</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="286"/>
+        <location filename="../src/w_MainWindow.cpp" line="321"/>
         <source>#AlterID</source>
         <translation>Alter ID</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="288"/>
+        <location filename="../src/w_MainWindow.cpp" line="323"/>
         <source>#Transport</source>
         <translation>Transport Settings</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.ui" line="192"/>
-        <source>#ConnectionSettings</source>
-        <translation>Connection Settings</translation>
-    </message>
-    <message>
-        <location filename="../src/w_MainWindow.ui" line="278"/>
+        <location filename="../src/w_MainWindow.ui" line="319"/>
         <source>#Log</source>
         <translation>Log</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.ui" line="300"/>
+        <location filename="../src/w_MainWindow.ui" line="341"/>
         <source>#ManuallyCreateConnection</source>
         <translation>Manually Create Connection</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.ui" line="305"/>
+        <location filename="../src/w_MainWindow.ui" line="256"/>
+        <location filename="../src/w_MainWindow.ui" line="346"/>
         <source>#ImportConnection</source>
         <translation>Import Config File</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.ui" line="310"/>
+        <location filename="../src/w_MainWindow.ui" line="351"/>
         <source>#Exit</source>
         <translation>Exit</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.ui" line="90"/>
-        <location filename="../src/w_MainWindow.ui" line="315"/>
+        <location filename="../src/w_MainWindow.ui" line="71"/>
+        <location filename="../src/w_MainWindow.ui" line="356"/>
         <source>#Preferences</source>
         <translation>Preferences</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="30"/>
-        <location filename="../src/w_MainWindow.cpp" line="244"/>
+        <location filename="../src/w_MainWindow.cpp" line="37"/>
+        <location filename="../src/w_MainWindow.cpp" line="279"/>
         <source>#Hide</source>
         <translation>Hide</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="31"/>
+        <location filename="../src/w_MainWindow.cpp" line="38"/>
         <source>#Quit</source>
         <translation>Quit</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="96"/>
-        <location filename="../src/w_MainWindow.cpp" line="97"/>
+        <location filename="../src/w_MainWindow.cpp" line="40"/>
+        <source>#Reconnect</source>
+        <translation>Reconnect</translation>
+    </message>
+    <message>
+        <location filename="../src/w_MainWindow.cpp" line="44"/>
+        <source>#ConnectSelected</source>
+        <translation>Connect selected item</translation>
+    </message>
+    <message>
+        <location filename="../src/w_MainWindow.cpp" line="119"/>
+        <location filename="../src/w_MainWindow.cpp" line="120"/>
         <source>#NewReleaseVersionFound</source>
         <translation>Found a newer version</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="103"/>
+        <location filename="../src/w_MainWindow.cpp" line="126"/>
         <source>#ReleaseDownloadLink</source>
         <translation>New version download link</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="155"/>
-        <location filename="../src/w_MainWindow.cpp" line="373"/>
+        <location filename="../src/w_MainWindow.cpp" line="183"/>
+        <location filename="../src/w_MainWindow.cpp" line="490"/>
         <source>#NoConfigSelected</source>
         <translation>No Config Selected</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="155"/>
-        <location filename="../src/w_MainWindow.cpp" line="373"/>
+        <location filename="../src/w_MainWindow.cpp" line="183"/>
+        <location filename="../src/w_MainWindow.cpp" line="490"/>
         <source>#PleaseSelectAConfig</source>
         <translation>Please select a config from the list</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="166"/>
-        <source>#ConnectedToServer </source>
-        <translation>Connected to server </translation>
+        <location filename="../src/w_MainWindow.cpp" line="194"/>
+        <location filename="../src/w_MainWindow.cpp" line="195"/>
+        <source>#ConnectedToServer</source>
+        <translation>Connected to server</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="167"/>
-        <source>#Started</source>
-        <translation>Started</translation>
+        <location filename="../src/w_MainWindow.cpp" line="414"/>
+        <location filename="../src/w_MainWindow.cpp" line="423"/>
+        <source>#RenameConnection</source>
+        <translation>Rename a connection</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="295"/>
+        <location filename="../src/w_MainWindow.cpp" line="414"/>
+        <source>#CannotUseEmptyName</source>
+        <translation>You cannot use an empty connection name</translation>
+    </message>
+    <message>
+        <location filename="../src/w_MainWindow.cpp" line="423"/>
+        <source>#DuplicatedConnectionName</source>
+        <translation>Connection name is duplicated</translation>
+    </message>
+    <message>
+        <location filename="../src/w_MainWindow.cpp" line="450"/>
+        <source>#RemoveConnectionConfirm</source>
+        <translation>Are you sure want to remove this connection</translation>
+    </message>
+    <message>
+        <location filename="../src/w_MainWindow.cpp" line="330"/>
         <source>#Email</source>
         <translation>Email</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="297"/>
+        <location filename="../src/w_MainWindow.cpp" line="332"/>
         <source>#Encryption</source>
         <translation>Encryption</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="74"/>
-        <location filename="../src/w_MainWindow.cpp" line="204"/>
-        <location filename="../src/w_MainWindow.cpp" line="247"/>
+        <location filename="../src/w_MainWindow.cpp" line="339"/>
+        <source>#Username</source>
+        <translation>Username</translation>
+    </message>
+    <message>
+        <location filename="../src/w_MainWindow.cpp" line="91"/>
+        <location filename="../src/w_MainWindow.cpp" line="234"/>
+        <location filename="../src/w_MainWindow.cpp" line="282"/>
         <source>#Show</source>
         <translation>Show</translation>
     </message>
@@ -717,18 +744,6 @@
         <translation></translation>
     </message>
     <message>
-        <source>Add</source>
-        <translation type="vanished">Add</translation>
-    </message>
-    <message>
-        <source>Remove</source>
-        <translation type="vanished">Remove</translation>
-    </message>
-    <message>
-        <source>Clear</source>
-        <translation type="vanished">Clear</translation>
-    </message>
-    <message>
         <location filename="../src/w_PrefrencesWindow.ui" line="100"/>
         <source>none</source>
         <translation>Do not use</translation>
@@ -826,16 +841,7 @@
 <context>
     <name>QObject</name>
     <message>
-        <source>AnotherInstanceRunning</source>
-        <translation type="vanished">Another instance is already running</translation>
-    </message>
-    <message>
-        <location filename="../src/main.cpp" line="104"/>
-        <source>Qv2ray</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/main.cpp" line="104"/>
+        <location filename="../src/main.cpp" line="132"/>
         <source>#AnotherInstanceRunning</source>
         <translation>Another instance is already running</translation>
     </message>

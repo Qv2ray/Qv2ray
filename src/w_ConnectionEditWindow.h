@@ -108,6 +108,10 @@ class ConnectionEditWindow : public QDialog
 
         void on_ss_otaCheckBox_stateChanged(int arg1);
 
+        void on_socks_UserNameTxt_textEdited(const QString &arg1);
+
+        void on_socks_PasswordTxt_textEdited(const QString &arg1);
+
     private:
         int rootJsonCursorPos;
         QString _alias;
@@ -120,7 +124,8 @@ class ConnectionEditWindow : public QDialog
         QString OutboundType;
         StreamSettingsObject stream;
         VMessServerObject vmess;
-        ShadowSocksServerObject shadowsocks;
+        ShadowSocksServer shadowsocks;
+        SocksServerObject socks;
         //
 };
 #endif // CONFEDIT_H
