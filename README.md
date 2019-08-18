@@ -33,7 +33,7 @@ Travis per machine badge provided by: [badge-matrix](https://github.com/exogen/b
 - 对于 Linux，请根据不同发行版安装对应的 Qt 开发包 
 
 ```bash
-git clone https://github.com/lhy0403/Qv2ray && cd Qv2ray
+git clone --recursive https://github.com/lhy0403/Qv2ray && cd Qv2ray
 
 # 按需要签出开发分支
 # git checkout dev
@@ -55,7 +55,7 @@ REM SET PATH=%PATH%;D:\Qt\5.12.3\mingw73_32\bin\;D:\Qt\Tools\mingw730_32\bin\
 
 SET PATH=%PATH%;Qt安装目录\Qt版本号\编译器类型\bin;Qt安装目录\Tools\编译器类型\bin
 
-git clone https://github.com/lhy0403/Qv2ray && cd Qv2ray
+git clone --recursive https://github.com/lhy0403/Qv2ray && cd Qv2ray
 REM 按需要签出开发分支
 REM git checkout dev
 
