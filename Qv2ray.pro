@@ -14,8 +14,8 @@ CONFIG += c++11 openssl-linked lrelease
 win32: QMAKE_TARGET_DESCRIPTION = "Qv2ray, a cross-platform v2ray GUI client."
 win32: QMAKE_TARGET_PRODUCT = "Qv2ray"
 
-VERSION = 1.3.4
-DEFINES += "QVVERSION=\"\\\"$${VERSION}\\\"\""
+VERSION = 1.3
+DEFINES += "QV_MAJOR_VERSION=\"\\\"$${VERSION}\\\"\""
 
 SOURCES += \
         src/QvConfigUpgrade.cpp \

@@ -90,7 +90,7 @@
     <message>
         <location filename="../src/w_ConnectionEditWindow.ui" line="279"/>
         <source>#Request</source>
-        <translation>请求</translation>
+        <translation>请求头</translation>
     </message>
     <message>
         <location filename="../src/w_ConnectionEditWindow.ui" line="330"/>
@@ -101,7 +101,7 @@
     <message>
         <location filename="../src/w_ConnectionEditWindow.ui" line="293"/>
         <source>#Response</source>
-        <translation>相应</translation>
+        <translation>响应头</translation>
     </message>
     <message>
         <location filename="../src/w_ConnectionEditWindow.ui" line="116"/>
@@ -411,7 +411,7 @@
     <message>
         <location filename="../src/w_MainWindow.ui" line="158"/>
         <source>#DetailInfo</source>
-        <translation>配置详细信息</translation>
+        <translation>详细信息</translation>
     </message>
     <message>
         <location filename="../src/w_MainWindow.ui" line="290"/>
@@ -841,7 +841,17 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/main.cpp" line="132"/>
+        <location filename="../src/main.cpp" line="145"/>
+        <source>DependencyMissing</source>
+        <translation>依赖项缺失</translation>
+    </message>
+    <message>
+        <location filename="../src/main.cpp" line="145"/>
+        <source>osslDependMissing,PleaseReDownload</source>
+        <translation>OpenSSL 部分文件缺失，Qv2ray 将不能正常工作，请重新下载程序，或联系支持</translation>
+    </message>
+    <message>
+        <location filename="../src/main.cpp" line="153"/>
         <source>#AnotherInstanceRunning</source>
         <translation>另一个实例正在运行</translation>
     </message>
