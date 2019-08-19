@@ -304,9 +304,9 @@ void MainWindow::QTextScrollToBottom()
 void MainWindow::ShowAndSetConnection(int index, bool SetConnection, bool ApplyConnection)
 {
     if (index < 0) return;
-
+    auto guiConnectionName = ui->connectionListWidget->item(index)->text();
     // --------- BRGIN Show Connection
-    auto outBoundRoot = (connections.values()[index])["outbounds"].toArray().first().toObject();
+    auto outBoundRoot = (connections[guiConnectionName])["outbounds"].toArray().first().toObject();
     //
     auto outboundType = outBoundRoot["protocol"].toString();
     ui->_OutBoundTypeLabel->setText(outboundType);
@@ -344,7 +344,7 @@ void MainWindow::ShowAndSetConnection(int index, bool SetConnection, bool ApplyC
     //
     // Set Connection
     if (SetConnection) {
-        CurrentConnectionName = connections.keys()[index];
+        CurrentConnectionName = guiConnectionName;
     }
 
     // Restart Connection

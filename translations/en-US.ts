@@ -841,7 +841,17 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/main.cpp" line="132"/>
+        <location filename="../src/main.cpp" line="145"/>
+        <source>DependencyMissing</source>
+        <translation>Dependency Missing</translation>
+    </message>
+    <message>
+        <location filename="../src/main.cpp" line="145"/>
+        <source>osslDependMissing,PleaseReDownload</source>
+        <translation>OpenSSL DLL is missing from the directory where Qv2ray.exe is located in, Please ReDownload the application, or contact support</translation>
+    </message>
+    <message>
+        <location filename="../src/main.cpp" line="153"/>
         <source>#AnotherInstanceRunning</source>
         <translation>Another instance is already running</translation>
     </message>
