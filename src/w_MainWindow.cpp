@@ -210,7 +210,7 @@ void MainWindow::on_stopButton_clicked()
         LOG(MODULE_VCORE, "Disconnected: " + CurrentConnectionName.toStdString())
         this->vinstance->Stop();
         hTray->setToolTip(TRAY_TOOLTIP_PREFIX);
-        QFile(QV2RAY_GENERATED_CONFIG_FILE_PATH).remove();
+        QFile(QV2RAY_GENERATED_FILE_PATH).remove();
         ui->statusLabel->setText(tr("#Disconnected"));
         ui->logText->clear();
         trayMenu->actions()[2]->setEnabled(true);

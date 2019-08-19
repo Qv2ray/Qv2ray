@@ -6,7 +6,7 @@ namespace Qv2ray
         // -------------------------- BEGIN CONFIG CONVERSIONS ----------------------------------------------------------------------------
         bool SaveConnectionConfig(QJsonObject obj, const QString *alias)
         {
-            QFile config(QV2RAY_CONFIG_PATH + *alias + QV2RAY_CONNECTION_FILE_EXTENSION);
+            QFile config(QV2RAY_CONFIG_DIR_PATH + *alias + QV2RAY_CONNECTION_FILE_EXTENSION);
             return StringToFile(JSONToString(obj), &config);
         }
 
@@ -109,7 +109,7 @@ namespace Qv2ray
             QMap<QString, QJsonObject> list;
 
             foreach (auto conn, connectionNames) {
-                QString jsonString = StringFromFile(new QFile(QV2RAY_CONFIG_PATH + QString::fromStdString(conn) + QV2RAY_CONNECTION_FILE_EXTENSION));
+                QString jsonString = StringFromFile(new QFile(QV2RAY_CONFIG_DIR_PATH + QString::fromStdString(conn) + QV2RAY_CONNECTION_FILE_EXTENSION));
                 QJsonObject connectionObject = JSONFromString(jsonString);
                 list.insert(QString::fromStdString(conn), connectionObject);
             }
@@ -119,13 +119,13 @@ namespace Qv2ray
 
         bool RenameConnection(QString originalName, QString newName)
         {
-            return QFile(QV2RAY_CONFIG_PATH + originalName + QV2RAY_CONNECTION_FILE_EXTENSION).rename(QV2RAY_CONFIG_PATH + newName + QV2RAY_CONNECTION_FILE_EXTENSION);
+            return QFile(QV2RAY_CONFIG_DIR_PATH + originalName + QV2RAY_CONNECTION_FILE_EXTENSION).rename(QV2RAY_CONFIG_DIR_PATH + newName + QV2RAY_CONNECTION_FILE_EXTENSION);
         }
 
         int StartPreparation(QJsonObject fullConfig)
         {
             QString json = JSONToString(fullConfig);
-            StringToFile(json, new QFile(QV2RAY_GENERATED_CONFIG_FILE_PATH));
+            StringToFile(json, new QFile(QV2RAY_GENERATED_FILE_PATH));
             return 0;
         }
     }

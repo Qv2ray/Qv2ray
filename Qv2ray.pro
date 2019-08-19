@@ -8,21 +8,17 @@ QT += core gui widgets network
 
 TARGET = Qv2ray
 TEMPLATE = app
-
-# The following define makes your compiler emit warnings if you use
-# any feature of Qt which has been marked as deprecated (the exact warnings
-# depend on your compiler). Please consult the documentation of the
-# deprecated API in order to know how to port your code away from it.
 DEFINES += QT_DEPRECATED_WARNINGS
+CONFIG += c++11 openssl-linked lrelease
 
-# You can also make your code fail to compile if you use deprecated APIs.
-# In order to do so, uncomment the following line.
-# You can also select to disable deprecated APIs only up to a certain version of Qt.
-#DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
+win32: QMAKE_TARGET_DESCRIPTION = "Qv2ray, a cross-platform v2ray GUI client."
+win32: QMAKE_TARGET_PRODUCT = "Qv2ray"
 
-CONFIG += c++11
+VERSION = 1.3.3
+DEFINES += "QVVERSION=\"\\\"$${VERSION}\\\"\""
 
 SOURCES += \
+        src/QvConfigUpgrade.cpp \
         src/QvCoreConfigOperations_Convertion.cpp \
         src/QvCoreConfigOperations_Generation.cpp \
         src/QvCoreConfigOperations_Verification.cpp \
@@ -38,7 +34,6 @@ SOURCES += \
         src/w_SubscribeEditor.cpp
 
 HEADERS += \
-        ignored_cpp_structs.hpp \
         src/QJsonObjectInsertMacros.h \
         src/Qv2rayBase.h \
         src/QvCoreConfigObjects.h \
@@ -70,16 +65,14 @@ TRANSLATIONS += \
         translations/en-US.ts
 
 RC_ICONS += ./icons/Qv2ray.ico
-
 ICON = ./icons/Qv2ray.icns
 
 INCLUDEPATH += \
-        3rdparty/\
+        3rdparty/ \
         3rdparty/jsoncons/include
 
 win32: QMAKE_CXXFLAGS += "-Wno-missing-field-initializers"
 
-# Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
+unix: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target

@@ -64,12 +64,12 @@ namespace Qv2ray
         Status = STARTING;
 
         if (ValidateV2rayCoreExe()) {
-            if (VerifyVConfigFile(QV2RAY_GENERATED_CONFIG_FILE_PATH)) {
+            if (VerifyVConfigFile(QV2RAY_GENERATED_FILE_PATH)) {
                 QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
                 env.insert("V2RAY_LOCATION_ASSET", QString::fromStdString(GetGlobalConfig().v2AssetsPath));
                 vProcess->setProcessEnvironment(env);
                 vProcess->start(QString::fromStdString(GetGlobalConfig().v2CorePath), QStringList() << "-config"
-                                << QV2RAY_GENERATED_CONFIG_FILE_PATH,
+                                << QV2RAY_GENERATED_FILE_PATH,
                                 QIODevice::ReadWrite | QIODevice::Text);
                 vProcess->waitForStarted();
                 Status = STARTED;
