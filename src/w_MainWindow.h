@@ -27,7 +27,6 @@ class MainWindow : public QMainWindow
         void UpdateLog();
     private slots:
         void VersionUpdate(QByteArray &data);
-        void on_restartButton_clicked();
         void on_startButton_clicked();
         void on_stopButton_clicked();
         void on_activatedTray(QSystemTrayIcon::ActivationReason reason);
@@ -48,9 +47,6 @@ class MainWindow : public QMainWindow
 
         void on_connectionListWidget_customContextMenuRequested(const QPoint &pos);
 
-        void on_action_RenameConnection_triggered();
-        void on_action_StartThis_triggered();
-
         void on_connectionListWidget_itemChanged(QListWidgetItem *item);
 
         void on_removeConfigButton_clicked();
@@ -62,6 +58,9 @@ class MainWindow : public QMainWindow
         void on_editConfigButton_clicked();
 
     private:
+        void on_action_StartThis_triggered();
+        void on_action_RenameConnection_triggered();
+        void on_restartButton_clicked();
         Ui::MainWindow *ui;
         QvHttpRequestHelper HTTPRequestHelper;
         QSystemTrayIcon *hTray;
