@@ -70,11 +70,16 @@ bool initQv()
         //
         LOG(MODULE_INIT, "Created initial config file.")
     } else {
+        // Some config file upgrades.
         auto conf = JSONFromString(StringFromFile(&configFile));
-        if(conf["config_version"].toString() != QV2RAY_CONFIG_VERSION) {
-            UpgradeConfig(stoi(conf["config_version"].toString().toStdString()), stoi(QV2RAY_CONFIG_VERSION), conf);
+        auto confVersion = conf["config_version"].toVariant().toString();
+        auto newVersion = QSTRING(to_string(QV2RAY_CONFIG_VERSION));
+        if(QString::compare(confVersion, newVersion) != 0) {
+            conf = UpgradeConfig(stoi(conf["config_version"].toString().toStdString()), QV2RAY_CONFIG_VERSION, conf);
         }
-        LoadGlobalConfig();
+        auto confObject = StructFromJSONString<Qv2rayConfig>(JSONToString(conf));
+        SetGlobalConfig(confObject);
+        SaveGlobalConfig();
         LOG(MODULE_INIT, "Loaded config file.")
     }
 
@@ -91,7 +96,9 @@ int main(int argc, char *argv[])
         "Hv2ray/Qv2ray (partial) Copyright 2019 (C) SoneWinstone\r\n"
         "Qv2ray Copyright (C) 2019 Leroy.H.Y\r\n"
         "\r\n"
-        "Qv2ray " QV2RAY_VERSION_STRING " running on " + QSysInfo::prettyProductName().toStdString() + QSysInfo::currentCpuArchitecture().toStdString())
+        "Qv2ray " QV2RAY_VERSION_STRING " running on " + QSysInfo::prettyProductName().toStdString() + " " + QSysInfo::currentCpuArchitecture().toStdString() +
+        "\r\n")
+    //
 #ifdef QT_DEBUG
     LOG("DEBUG", "============================== This is a debug build, many features are not stable enough. ==============================")
 #endif
@@ -129,11 +136,6 @@ int main(int argc, char *argv[])
 #endif
                   );
 
-    if (!guard.isSingleInstance()) {
-        LOG(MODULE_INIT, "Another Instance running, Quit.")
-        QvMessageBox(nullptr, "Qv2ray", QObject::tr("#AnotherInstanceRunning"));
-        return -1;
-    }
 #ifdef __WIN32
     auto osslReqVersion = QSslSocket::sslLibraryBuildVersionString().toStdString();
     auto osslCurVersion = QSslSocket::sslLibraryVersionString().toStdString();
@@ -145,6 +147,12 @@ int main(int argc, char *argv[])
         return -2;
     }
 #endif
+
+    if (!guard.isSingleInstance()) {
+        LOG(MODULE_INIT, "Another Instance running, Quit.")
+        QvMessageBox(nullptr, "Qv2ray", QObject::tr("#AnotherInstanceRunning"));
+        return -1;
+    }
     // Show MainWindow
     MainWindow w;
     return _qApp.exec();
