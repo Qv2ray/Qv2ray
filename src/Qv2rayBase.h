@@ -5,17 +5,19 @@
 #include "QvTinyLog.h"
 #include "QvCoreConfigObjects.h"
 
-#define QV2RAY_CONFIG_VERSION "2"
 #define QV2RAY_VERSION_STRING "v" QVVERSION
+
+#define QV2RAY_CONFIG_VERSION 2
 #define QV2RAY_CONFIG_DIR_PATH (Qv2ray::Utils::GetConfigDirPath() + "/")
 #define QV2RAY_CONFIG_FILE_PATH (QV2RAY_CONFIG_DIR_PATH + "Qv2ray.conf")
+
+#define QV2RAY_CONNECTION_FILE_EXTENSION ".qv2ray.json"
 #define QV2RAY_GENERATED_FILE_PATH (QV2RAY_CONFIG_DIR_PATH + "generated/config.gen.json")
 
 #define QV2RAY_VCORE_LOG_DIRNAME "logs/"
 #define QV2RAY_VCORE_ACCESS_LOG_FILENAME "access.log"
 #define QV2RAY_VCORE_ERROR_LOG_FILENAME "error.log"
 
-#define QV2RAY_CONNECTION_FILE_EXTENSION ".qv2ray.json"
 
 // GUI TOOLS
 #define RED(obj) \
@@ -40,6 +42,7 @@ namespace Qv2ray
 {
     namespace QvConfigModels
     {
+        enum QvConfigType { CONFIGTYPE_CONFIG, CONFIGTYPE_SUBSCRIPTION };
         struct Qv2rayBasicInboundsConfig {
             string listenip;
             // SOCKS
@@ -60,7 +63,7 @@ namespace Qv2ray
         };
 
         struct Qv2rayConfig {
-            string config_version;
+            int config_version;
             bool runAsRoot;
             int logLevel;
             //
@@ -77,7 +80,11 @@ namespace Qv2ray
             list<string> dnsList;
             //
             Qv2rayBasicInboundsConfig inBoundSettings;
+#ifdef newFeature
+            map<string, QvConfigType> configs;
+#else
             list<string> configs;
+#endif
             map<string, string> subscribes;
             MuxObject mux;
             Qv2rayConfig(): config_version(QV2RAY_CONFIG_VERSION), runAsRoot(false), logLevel(), proxyDefault(), proxyCN(), withLocalDNS(), inBoundSettings(), configs(), subscribes(), mux() { }

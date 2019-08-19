@@ -1,15 +1,25 @@
+//
+// This file handles some important migration
+// from old to newer versions of Qv2ray.
+//
+
 #include "Qv2rayBase.h"
 
-#define XConfLog(oldVersion, newVersion) LOG(MODULE_CONFIG, "Migrating config from version " \
-                                                + to_string(oldVersion) + " to " + to_string(newVersion))
+#define UPGRADELOG(item, old, _new) LOG(MODULE_CONFIG, "Upgrading " item " from old value " + old + " to " + _new);
+#define XConfLog(oldVersion, newVersion) LOG(MODULE_CONFIG, "Migrating config from version " + oldVersion + " to " + newVersion);
 
 namespace Qv2ray {
     namespace QvConfigModels {
         // Secret member
         QJsonObject UpgradeConfig_Inc(int fromVersion, QJsonObject root) {
-            XConfLog(fromVersion, fromVersion + 1);
+            XConfLog(to_string(fromVersion), to_string(fromVersion + 1));
             switch (fromVersion) {
             case 1:
+                // From 1 to 2, we changed the config_version from 'string' to 'int'
+                auto old_config_version = root["config_version"].toString();
+                root.remove("config_version");
+                root["config_version"] = 2;
+                UPGRADELOG("config_version", old_config_version.toStdString(), "2")
                 break;
             }
             return root;
