@@ -25,6 +25,7 @@ ConnectionEditWindow::ConnectionEditWindow(QWidget *parent)
     vmess = VMessServerObject();
     vmess.users.push_back(VMessServerObject::UserObject());
     stream = StreamSettingsObject();
+    OutboundType = "vmess";
     ReLoad_GUI_JSON_ModelContent();
     GEN_JSON
 }
