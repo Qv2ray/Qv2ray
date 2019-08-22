@@ -66,6 +66,7 @@ namespace Qv2ray
             outbounds.append(outbound);
             root.insert("outbounds", outbounds);
             root.insert("QV2RAY_ALIAS", QString::fromStdString(vmessConf.ps));
+            root.insert(QV2RAY_CONFIG_TYPE_JSON_KEY, QV2RAY_CONFIG_TYPE_CONNECTIONSTRING);
             RROOT
         }
 
@@ -81,6 +82,7 @@ namespace Qv2ray
             JSON_ROOT_TRY_REMOVE("api")
             JSON_ROOT_TRY_REMOVE("stats")
             JSON_ROOT_TRY_REMOVE("dns")
+            root.insert(QV2RAY_CONFIG_TYPE_JSON_KEY, QV2RAY_CONFIG_TYPE_FILE);
             return root;
         }
 
