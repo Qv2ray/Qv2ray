@@ -174,42 +174,40 @@ namespace Qv2ray
             root.insert("stats", QJsonObject());
 
             //
-            if (!root.contains("inbounds") || root["inbounds"].toArray().count() == 0) {
-                QJsonArray inboundsObjectList;
-                //
-                // This is configured as a global option...
-                auto conf = GetGlobalConfig();
+            if (!root.contains("inbounds")) {
+                root.insert("inbounds", QJsonArray());
+            }
 
-                // HTTP InBound
-                if (conf.inBoundSettings.http_port != 0) {
-                    QJsonObject httpInBoundObject;
-                    httpInBoundObject.insert("listen", QString::fromStdString(conf.inBoundSettings.listenip));
-                    httpInBoundObject.insert("port", conf.inBoundSettings.http_port);
-                    httpInBoundObject.insert("protocol", "http");
-                    httpInBoundObject.insert("tag", "http_IN");
+            //
+            // This is configured as a global option...
+            auto conf = GetGlobalConfig();
 
-                    if (conf.inBoundSettings.http_useAuth) {
-                        auto httpInSettings =  GenerateHTTPIN(QList<AccountObject>() << conf.inBoundSettings.httpAccount);
-                        httpInBoundObject.insert("settings", httpInSettings);
-                    }
+            // HTTP InBound
+            if (conf.inBoundSettings.http_port != 0) {
+                QJsonObject httpInBoundObject;
+                httpInBoundObject.insert("listen", QString::fromStdString(conf.inBoundSettings.listenip));
+                httpInBoundObject.insert("port", conf.inBoundSettings.http_port);
+                httpInBoundObject.insert("protocol", "http");
+                httpInBoundObject.insert("tag", "http_IN");
 
-                    inboundsObjectList.append(httpInBoundObject);
+                if (conf.inBoundSettings.http_useAuth) {
+                    auto httpInSettings =  GenerateHTTPIN(QList<AccountObject>() << conf.inBoundSettings.httpAccount);
+                    httpInBoundObject.insert("settings", httpInSettings);
                 }
 
-                // SOCKS InBound
-                if (conf.inBoundSettings.socks_port != 0) {
-                    QJsonObject socksInBoundObject;
-                    socksInBoundObject.insert("listen", QString::fromStdString(conf.inBoundSettings.listenip));
-                    socksInBoundObject.insert("port", conf.inBoundSettings.socks_port);
-                    socksInBoundObject.insert("protocol", "socks");
-                    socksInBoundObject.insert("tag", "socks_IN");
-                    auto socksInSettings =  GenerateSocksIN(conf.inBoundSettings.socks_useAuth ? "password" : "noauth", QList<AccountObject>() << conf.inBoundSettings.socksAccount);
-                    socksInBoundObject.insert("settings", socksInSettings);
-                    inboundsObjectList.append(socksInBoundObject);
-                }
+                root["inbounds"].toArray().append(httpInBoundObject);
+            }
 
-                JSON_ROOT_TRY_REMOVE("inbounds")
-                root.insert("inbounds", inboundsObjectList);
+            // SOCKS InBound
+            if (conf.inBoundSettings.socks_port != 0) {
+                QJsonObject socksInBoundObject;
+                socksInBoundObject.insert("listen", QString::fromStdString(conf.inBoundSettings.listenip));
+                socksInBoundObject.insert("port", conf.inBoundSettings.socks_port);
+                socksInBoundObject.insert("protocol", "socks");
+                socksInBoundObject.insert("tag", "socks_IN");
+                auto socksInSettings =  GenerateSocksIN(conf.inBoundSettings.socks_useAuth ? "password" : "noauth", QList<AccountObject>() << conf.inBoundSettings.socksAccount);
+                socksInBoundObject.insert("settings", socksInSettings);
+                root["inbounds"].toArray().append(socksInBoundObject);
             }
 
             QJsonArray outbounds = root["outbounds"].toArray();

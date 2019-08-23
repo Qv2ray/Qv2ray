@@ -117,7 +117,7 @@ class ConnectionEditWindow : public QDialog
         QString _alias;
         void ReLoad_GUI_JSON_ModelContent();
         QJsonObject GenerateConnectionJson();
-        QJsonObject original;
+        QJsonObject originalRoot;
         Ui::ConnectionEditWindow *ui;
         //
         // Connection Configs
