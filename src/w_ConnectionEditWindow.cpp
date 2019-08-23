@@ -25,6 +25,7 @@ ConnectionEditWindow::ConnectionEditWindow(QWidget *parent)
     vmess = VMessServerObject();
     vmess.users.push_back(VMessServerObject::UserObject());
     stream = StreamSettingsObject();
+    OutboundType = "vmess";
     ReLoad_GUI_JSON_ModelContent();
     GEN_JSON
 }
@@ -142,8 +143,8 @@ void ConnectionEditWindow::ReLoad_GUI_JSON_ModelContent()
 
 void ConnectionEditWindow::on_buttonBox_accepted()
 {
-    bool new_config = _alias == "";
-    auto alias = new_config ? (ui->ipLineEdit->text() + "_" + ui->portLineEdit->text()) : _alias;
+    bool is_new_config = _alias == "";
+    auto alias = is_new_config ? (ui->ipLineEdit->text() + "_" + ui->portLineEdit->text()) : _alias;
     //
     auto outbound = GenerateConnectionJson();
     QJsonArray outbounds;
@@ -155,16 +156,17 @@ void ConnectionEditWindow::on_buttonBox_accepted()
     }
 
     originalRoot.insert("outbounds", outbounds);
+    originalRoot.insert(QV2RAY_CONFIG_TYPE_JSON_KEY, QV2RAY_CONFIG_TYPE_MANUAL);
     SaveConnectionConfig(originalRoot, &alias);
     auto globalConf = GetGlobalConfig();
 
-    if (new_config) {
+    if (is_new_config) {
         // New config...
         globalConf.configs.push_back(alias.toStdString());
     }
 
     SetGlobalConfig(globalConf);
-    emit s_reload_config(!new_config);
+    emit s_reload_config(!is_new_config);
 }
 
 void ConnectionEditWindow::on_ipLineEdit_textEdited(const QString &arg1)

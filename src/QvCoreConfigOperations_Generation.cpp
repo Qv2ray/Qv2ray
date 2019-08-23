@@ -166,9 +166,16 @@ namespace Qv2ray
 
             auto dnsObject = GenerateDNS(gConf.withLocalDNS, dnsList);
             root.insert("dns", dnsObject);
+
             //
-            auto routeObject = GenerateRoutes(gConf.proxyDefault, gConf.proxyCN);
-            root.insert("routing", routeObject);
+            // This is for imported config files as there are routing entries already.
+            // We don't add extra routings.
+            // We don't use QV2RAY_CONFIG_TYPE_FILE checking scheme because not all connections have this part.
+            if (!root.contains("routing")) {
+                auto routeObject = GenerateRoutes(gConf.proxyDefault, gConf.proxyCN);
+                root.insert("routing", routeObject);
+            }
+
             //
             //
             root.insert("stats", QJsonObject());
@@ -178,20 +185,16 @@ namespace Qv2ray
                 root.insert("inbounds", QJsonArray());
             }
 
-            //
-            // This is configured as a global option...
-            auto conf = GetGlobalConfig();
-
             // HTTP InBound
-            if (conf.inBoundSettings.http_port != 0) {
+            if (gConf.inBoundSettings.http_port != 0) {
                 QJsonObject httpInBoundObject;
-                httpInBoundObject.insert("listen", QString::fromStdString(conf.inBoundSettings.listenip));
-                httpInBoundObject.insert("port", conf.inBoundSettings.http_port);
+                httpInBoundObject.insert("listen", QString::fromStdString(gConf.inBoundSettings.listenip));
+                httpInBoundObject.insert("port", gConf.inBoundSettings.http_port);
                 httpInBoundObject.insert("protocol", "http");
                 httpInBoundObject.insert("tag", "http_IN");
 
-                if (conf.inBoundSettings.http_useAuth) {
-                    auto httpInSettings =  GenerateHTTPIN(QList<AccountObject>() << conf.inBoundSettings.httpAccount);
+                if (gConf.inBoundSettings.http_useAuth) {
+                    auto httpInSettings =  GenerateHTTPIN(QList<AccountObject>() << gConf.inBoundSettings.httpAccount);
                     httpInBoundObject.insert("settings", httpInSettings);
                 }
 
@@ -199,24 +202,32 @@ namespace Qv2ray
             }
 
             // SOCKS InBound
-            if (conf.inBoundSettings.socks_port != 0) {
+            if (gConf.inBoundSettings.socks_port != 0) {
                 QJsonObject socksInBoundObject;
-                socksInBoundObject.insert("listen", QString::fromStdString(conf.inBoundSettings.listenip));
-                socksInBoundObject.insert("port", conf.inBoundSettings.socks_port);
+                socksInBoundObject.insert("listen", QString::fromStdString(gConf.inBoundSettings.listenip));
+                socksInBoundObject.insert("port", gConf.inBoundSettings.socks_port);
                 socksInBoundObject.insert("protocol", "socks");
                 socksInBoundObject.insert("tag", "socks_IN");
-                auto socksInSettings =  GenerateSocksIN(conf.inBoundSettings.socks_useAuth ? "password" : "noauth", QList<AccountObject>() << conf.inBoundSettings.socksAccount);
+                auto socksInSettings =  GenerateSocksIN(gConf.inBoundSettings.socks_useAuth ? "password" : "noauth", QList<AccountObject>() << gConf.inBoundSettings.socksAccount);
                 socksInBoundObject.insert("settings", socksInSettings);
                 root["inbounds"].toArray().append(socksInBoundObject);
             }
 
-            QJsonArray outbounds = root["outbounds"].toArray();
-            // For DIRECT
-            outbounds.append(GenerateOutboundEntry("freedom", GenerateFreedomOUT("AsIs", ":0", 0), QJsonObject(), QJsonObject(), "0.0.0.0", OUTBOUND_TAG_DIRECT));
-            QJsonObject first = outbounds.first().toObject();
-            first.insert("mux", GetRootObject(gConf.mux));
-            outbounds[0] = first;
-            root["outbounds"] = outbounds;
+            // TODO: MultiOutbound Settings
+            if (root.contains(QV2RAY_CONFIG_TYPE_JSON_KEY) && root[QV2RAY_CONFIG_TYPE_JSON_KEY] == QV2RAY_CONFIG_TYPE_FILE) {
+                LOG(MODULE_CONFIG, "Found an imported config file, skipping adding 'freedom' outbound.")
+                // Do nothing because it's an imported connection.
+            } else {
+                QJsonArray outbounds = root["outbounds"].toArray();
+                // It's not imported so we add new stuff.
+                // For DIRECT
+                outbounds.append(GenerateOutboundEntry("freedom", GenerateFreedomOUT("AsIs", ":0", 0), QJsonObject(), QJsonObject(), "0.0.0.0", OUTBOUND_TAG_DIRECT));
+                QJsonObject first = outbounds.first().toObject();
+                first.insert("mux", GetRootObject(gConf.mux));
+                outbounds[0] = first;
+                root["outbounds"] = outbounds;
+            }
+
             return root;
         }
     }
