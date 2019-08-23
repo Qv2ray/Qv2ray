@@ -33,8 +33,8 @@ ConnectionEditWindow::ConnectionEditWindow(QJsonObject editRootObject, QString a
     : ConnectionEditWindow(parent)
 {
     _alias = alias;
-    original = editRootObject;
-    auto outBoundRoot = original["outbounds"].toArray().first().toObject();
+    originalRoot = editRootObject;
+    auto outBoundRoot = originalRoot["outbounds"].toArray().first().toObject();
     OutboundType = outBoundRoot["protocol"].toString();
 
     if (OutboundType == "vmess") {
@@ -149,12 +149,13 @@ void ConnectionEditWindow::on_buttonBox_accepted()
     QJsonArray outbounds;
     outbounds.append(outbound);
 
-    if (original.contains("outbounds")) {
-        original.remove("outbounds");
+    // We want to replace because it's connection edit window.
+    if (originalRoot.contains("outbounds")) {
+        originalRoot.remove("outbounds");
     }
 
-    original.insert("outbounds", outbounds);
-    SaveConnectionConfig(original, &alias);
+    originalRoot.insert("outbounds", outbounds);
+    SaveConnectionConfig(originalRoot, &alias);
     auto globalConf = GetGlobalConfig();
 
     if (new_config) {
