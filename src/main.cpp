@@ -56,7 +56,9 @@ bool initQv()
             return false;
         }
     }
+
     QFile configFile(QV2RAY_CONFIG_FILE_PATH);
+
     if (!configFile.exists()) {
         // This is first run!
         //
@@ -71,13 +73,15 @@ bool initQv()
         LOG(MODULE_INIT, "Created initial config file.")
     } else {
         // Some config file upgrades.
-        auto conf = JSONFromString(StringFromFile(&configFile));
+        auto conf = JsonFromString(StringFromFile(&configFile));
         auto confVersion = conf["config_version"].toVariant().toString();
         auto newVersion = QSTRING(to_string(QV2RAY_CONFIG_VERSION));
-        if(QString::compare(confVersion, newVersion) != 0) {
+
+        if (QString::compare(confVersion, newVersion) != 0) {
             conf = UpgradeConfig(stoi(conf["config_version"].toString().toStdString()), QV2RAY_CONFIG_VERSION, conf);
         }
-        auto confObject = StructFromJSONString<Qv2rayConfig>(JSONToString(conf));
+
+        auto confObject = StructFromJsonString<Qv2rayConfig>(JsonToString(conf));
         SetGlobalConfig(confObject);
         SaveGlobalConfig();
         LOG(MODULE_INIT, "Loaded config file.")
@@ -135,17 +139,18 @@ int main(int argc, char *argv[])
                    "DEBUG_VERSION"
 #endif
                   );
-
-#ifdef __WIN32
+#ifndef __APPLE__
     auto osslReqVersion = QSslSocket::sslLibraryBuildVersionString().toStdString();
     auto osslCurVersion = QSslSocket::sslLibraryVersionString().toStdString();
-    if (osslCurVersion != osslReqVersion){
+    LOG(MODULE_NETWORK, "Current OpenSSL version: " + osslCurVersion)
+
+    if (osslCurVersion != osslReqVersion) {
         LOG(MODULE_NETWORK, "Required OpenSSL version: " + osslReqVersion)
-        LOG(MODULE_NETWORK, "Current OpenSSL version: " + osslCurVersion)
         QvMessageBox(nullptr, QObject::tr("DependencyMissing"), QObject::tr("osslDependMissing,PleaseReDownload"));
         LOG(MODULE_NETWORK, "OpenSSL library MISSING, Quitting.")
         return -2;
     }
+
 #endif
 
     if (!guard.isSingleInstance()) {
@@ -153,6 +158,7 @@ int main(int argc, char *argv[])
         QvMessageBox(nullptr, "Qv2ray", QObject::tr("#AnotherInstanceRunning"));
         return -1;
     }
+
     // Show MainWindow
     MainWindow w;
     return _qApp.exec();

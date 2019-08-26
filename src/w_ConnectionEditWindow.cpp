@@ -6,8 +6,6 @@
 #include "w_ConnectionEditWindow.h"
 #include "w_MainWindow.h"
 
-#define GEN_JSON ConnectionEditWindow::on_genJsonBtn_clicked();
-
 ConnectionEditWindow::ConnectionEditWindow(QWidget *parent)
     : QDialog(parent),
       _alias(),
@@ -27,7 +25,6 @@ ConnectionEditWindow::ConnectionEditWindow(QWidget *parent)
     stream = StreamSettingsObject();
     OutboundType = "vmess";
     ReLoad_GUI_JSON_ModelContent();
-    GEN_JSON
 }
 
 ConnectionEditWindow::ConnectionEditWindow(QJsonObject editRootObject, QString alias, QWidget *parent)
@@ -39,20 +36,20 @@ ConnectionEditWindow::ConnectionEditWindow(QJsonObject editRootObject, QString a
     OutboundType = outBoundRoot["protocol"].toString();
 
     if (OutboundType == "vmess") {
-        vmess = StructFromJSONString<VMessServerObject>(JSONToString(outBoundRoot["settings"].toObject()["vnext"].toArray().first().toObject()));
-        stream = StructFromJSONString<StreamSettingsObject>(JSONToString(outBoundRoot["streamSettings"].toObject()));
+        vmess = StructFromJsonString<VMessServerObject>(JsonToString(outBoundRoot["settings"].toObject()["vnext"].toArray().first().toObject()));
+        stream = StructFromJsonString<StreamSettingsObject>(JsonToString(outBoundRoot["streamSettings"].toObject()));
         shadowsocks.port = vmess.port;
         shadowsocks.address = vmess.address;
         socks.address = vmess.address;
         socks.port = vmess.port;
     } else if (OutboundType == "shadowsocks") {
-        shadowsocks = StructFromJSONString<ShadowSocksServer>(JSONToString(outBoundRoot["settings"].toObject()["servers"].toArray().first().toObject()));
+        shadowsocks = StructFromJsonString<ShadowSocksServer>(JsonToString(outBoundRoot["settings"].toObject()["servers"].toArray().first().toObject()));
         vmess.address = shadowsocks.address;
         vmess.port = shadowsocks.port;
         socks.address = shadowsocks.address;
         socks.port = shadowsocks.port;
     } else if (OutboundType == "socks") {
-        socks = StructFromJSONString<SocksServerObject>(JSONToString(outBoundRoot["settings"].toObject()["servers"].toArray().first().toObject()));
+        socks = StructFromJsonString<SocksServerObject>(JsonToString(outBoundRoot["settings"].toObject()["servers"].toArray().first().toObject()));
         vmess.address = socks.address;
         vmess.port = socks.port;
         shadowsocks.address = socks.address;
@@ -60,7 +57,6 @@ ConnectionEditWindow::ConnectionEditWindow(QJsonObject editRootObject, QString a
     }
 
     ReLoad_GUI_JSON_ModelContent();
-    GEN_JSON
 }
 
 
@@ -82,8 +78,8 @@ void ConnectionEditWindow::ReLoad_GUI_JSON_ModelContent()
         ui->tlsCB->setChecked(stream.security == "tls");
         // TCP
         ui->tcpHeaderTypeCB->setCurrentText(QSTRING(stream.tcpSettings.header.type));
-        ui->tcpRequestTxt->setPlainText(StructToJSONString(stream.tcpSettings.header.request));
-        ui->tcpRespTxt->setPlainText(StructToJSONString(stream.tcpSettings.header.response));
+        ui->tcpRequestTxt->setPlainText(StructToJsonString(stream.tcpSettings.header.request));
+        ui->tcpRespTxt->setPlainText(StructToJsonString(stream.tcpSettings.header.response));
         // HTTP
         QString allHosts;
 
@@ -174,7 +170,6 @@ void ConnectionEditWindow::on_ipLineEdit_textEdited(const QString &arg1)
     vmess.address = arg1.toStdString();
     shadowsocks.address = arg1.toStdString();
     socks.address = arg1.toStdString();
-    GEN_JSON
     //
     // No thanks.
     //if (ui->httpHostTxt->toPlainText() == "") {
@@ -194,7 +189,6 @@ void ConnectionEditWindow::on_portLineEdit_textEdited(const QString &arg1)
         vmess.port = stoi(arg1.toStdString());
         shadowsocks.port = stoi(arg1.toStdString());
         socks.port = stoi(arg1.toStdString());
-        GEN_JSON
     }
 }
 
@@ -203,7 +197,6 @@ void ConnectionEditWindow::on_idLineEdit_textEdited(const QString &arg1)
     if (vmess.users.size() == 0) vmess.users.push_back(VMessServerObject::UserObject());
 
     vmess.users.front().id = arg1.toStdString();
-    GEN_JSON
 }
 
 void ConnectionEditWindow::on_alterLineEdit_textEdited(const QString &arg1)
@@ -211,7 +204,6 @@ void ConnectionEditWindow::on_alterLineEdit_textEdited(const QString &arg1)
     if (vmess.users.size() == 0) vmess.users.push_back(VMessServerObject::UserObject());
 
     vmess.users.front().alterId = stoi(arg1.toStdString());
-    GEN_JSON
 }
 
 void ConnectionEditWindow::on_securityCombo_currentIndexChanged(const QString &arg1)
@@ -219,19 +211,16 @@ void ConnectionEditWindow::on_securityCombo_currentIndexChanged(const QString &a
     if (vmess.users.size() == 0) vmess.users.push_back(VMessServerObject::UserObject());
 
     vmess.users.front().security = arg1.toStdString();
-    GEN_JSON
 }
 
 void ConnectionEditWindow::on_tranportCombo_currentIndexChanged(const QString &arg1)
 {
     stream.network = arg1.toStdString();
-    GEN_JSON
 }
 
 void ConnectionEditWindow::on_httpPathTxt_textEdited(const QString &arg1)
 {
     stream.httpSettings.path = arg1.toStdString();
-    GEN_JSON
 }
 
 void ConnectionEditWindow::on_httpHostTxt_textChanged()
@@ -245,7 +234,6 @@ void ConnectionEditWindow::on_httpHostTxt_textChanged()
                 stream.httpSettings.host.push_back(host.trimmed().toStdString());
         }
 
-        GEN_JSON
         BLACK(httpHostTxt)
     } catch (...) {
         RED(httpHostTxt)
@@ -266,7 +254,6 @@ void ConnectionEditWindow::on_wsHeadersTxt_textChanged()
             stream.wsSettings.headers.insert(make_pair(content[0].toStdString(), content[1].toStdString()));
         }
 
-        GEN_JSON
         BLACK(wsHeadersTxt)
     } catch (...) {
         RED(wsHeadersTxt)
@@ -285,22 +272,19 @@ void ConnectionEditWindow::on_tcpRequestDefBtn_clicked()
                                        "AppleWebKit/601.1 (KHTML, like Gecko) CriOS/53.0.2785.109 Mobile/14A456 "
                                        "Safari/601.1.46\"],\"Accept-Encoding\":[\"gzip, deflate\"],"
                                        "\"Connection\":[\"keep-alive\"],\"Pragma\":\"no-cache\"}}");
-    GEN_JSON
 }
 
 void ConnectionEditWindow::on_tcpRespDefBtn_clicked()
 {
     ui->tcpRespTxt->clear();
     ui->tcpRespTxt->insertPlainText("{\"version\":\"1.1\",\"status\":\"200\",\"reason\":\"OK\",\"headers\":{\"Content-Type\":[\"application/octet-stream\",\"video/mpeg\"],\"Transfer-Encoding\":[\"chunked\"],\"Connection\":[\"keep-alive\"],\"Pragma\":\"no-cache\"}}");
-    GEN_JSON
 }
 
 void ConnectionEditWindow::on_tcpRequestTxt_textChanged()
 {
     try {
-        auto tcpReqObject = StructFromJSONString<TransferSettingObjects::HTTPRequestObject>(ui->tcpRequestTxt->toPlainText());
+        auto tcpReqObject = StructFromJsonString<TSObjects::HTTPRequestObject>(ui->tcpRequestTxt->toPlainText());
         stream.tcpSettings.header.request = tcpReqObject;
-        GEN_JSON
         BLACK(tcpRequestTxt)
     } catch (...) {
         RED(tcpRequestTxt)
@@ -310,9 +294,8 @@ void ConnectionEditWindow::on_tcpRequestTxt_textChanged()
 void ConnectionEditWindow::on_tcpRespTxt_textChanged()
 {
     try {
-        auto tcpRspObject = StructFromJSONString<TransferSettingObjects::HTTPResponseObject>(ui->tcpRespTxt->toPlainText());
+        auto tcpRspObject = StructFromJsonString<TSObjects::HTTPResponseObject>(ui->tcpRespTxt->toPlainText());
         stream.tcpSettings.header.response = tcpRspObject;
-        GEN_JSON
         BLACK(tcpRespTxt)
     } catch (...) {
         RED(tcpRespTxt)
@@ -322,15 +305,14 @@ void ConnectionEditWindow::on_tcpRespTxt_textChanged()
 void ConnectionEditWindow::on_genJsonBtn_clicked()
 {
     auto json = GenerateConnectionJson();
-    ui->finalJson->setText(JSONToString(json));
 }
 
 QJsonObject ConnectionEditWindow::GenerateConnectionJson()
 {
     // VMess is only a ServerObject, and we need an array { "vnext": [] }
     QJsonObject settings;
-    auto mux = JSONFromString(StructToJSONString(GetGlobalConfig().mux));
-    auto streaming = JSONFromString(StructToJSONString(stream));
+    auto mux = JsonFromString(StructToJsonString(GetGlobalConfig().mux));
+    auto streaming = JsonFromString(StructToJsonString(stream));
 
     if (OutboundType == "vmess") {
         QJsonArray vnext;
@@ -355,45 +337,37 @@ QJsonObject ConnectionEditWindow::GenerateConnectionJson()
 void ConnectionEditWindow::on_tlsCB_stateChanged(int arg1)
 {
     stream.security = arg1 == Qt::Checked ? "tls" : "none";
-    GEN_JSON
 }
 void ConnectionEditWindow::on_soMarkSpinBox_valueChanged(int arg1)
 {
     stream.sockopt.mark = arg1;
-    GEN_JSON
 }
 void ConnectionEditWindow::on_tcpFastOpenCB_stateChanged(int arg1)
 {
     stream.sockopt.tcpFastOpen = arg1 == Qt::Checked;
-    GEN_JSON
 }
 void ConnectionEditWindow::on_tProxyCB_currentIndexChanged(const QString &arg1)
 {
     stream.sockopt.tproxy = arg1.toStdString();
-    GEN_JSON
 }
 void ConnectionEditWindow::on_quicSecurityCB_currentTextChanged(const QString &arg1)
 {
     stream.quicSettings.security = arg1.toStdString();
-    GEN_JSON
 }
 void ConnectionEditWindow::on_quicKeyTxt_textEdited(const QString &arg1)
 {
     stream.quicSettings.key = arg1.toStdString();
-    GEN_JSON
 }
 void ConnectionEditWindow::on_quicHeaderTypeCB_currentIndexChanged(const QString &arg1)
 {
     stream.quicSettings.header.type = arg1.toStdString();
-    GEN_JSON
 }
 void ConnectionEditWindow::on_tcpRequestPrettifyBtn_clicked()
 {
     try {
-        auto tcpReqObject = StructFromJSONString<TransferSettingObjects::HTTPRequestObject>(ui->tcpRequestTxt->toPlainText());
-        auto tcpReqObjectStr = StructToJSONString(tcpReqObject);
+        auto tcpReqObject = StructFromJsonString<TSObjects::HTTPRequestObject>(ui->tcpRequestTxt->toPlainText());
+        auto tcpReqObjectStr = StructToJsonString(tcpReqObject);
         ui->tcpRequestTxt->setPlainText(tcpReqObjectStr);
-        GEN_JSON
     } catch (...) {
         QvMessageBox(this, tr("#JsonPrettify"), tr("#JsonContainsError"));
     }
@@ -401,10 +375,9 @@ void ConnectionEditWindow::on_tcpRequestPrettifyBtn_clicked()
 void ConnectionEditWindow::on_tcpRespPrettifyBtn_clicked()
 {
     try {
-        auto tcpRspObject = StructFromJSONString<TransferSettingObjects::HTTPResponseObject>(ui->tcpRespTxt->toPlainText());
-        auto tcpRspObjectStr = StructToJSONString(tcpRspObject);
+        auto tcpRspObject = StructFromJsonString<TSObjects::HTTPResponseObject>(ui->tcpRespTxt->toPlainText());
+        auto tcpRspObjectStr = StructToJsonString(tcpRspObject);
         ui->tcpRespTxt->setPlainText(tcpRspObjectStr);
-        GEN_JSON
     } catch (...) {
         QvMessageBox(this, tr("#JsonPrettify"), tr("#JsonContainsError"));
     }
@@ -412,62 +385,50 @@ void ConnectionEditWindow::on_tcpRespPrettifyBtn_clicked()
 void ConnectionEditWindow::on_tcpHeaderTypeCB_currentIndexChanged(const QString &arg1)
 {
     stream.tcpSettings.header.type = arg1.toStdString();
-    GEN_JSON
 }
 void ConnectionEditWindow::on_wsPathTxt_textEdited(const QString &arg1)
 {
     stream.wsSettings.path = arg1.toStdString();
-    GEN_JSON
 }
 void ConnectionEditWindow::on_kcpMTU_valueChanged(int arg1)
 {
     stream.kcpSettings.mtu = arg1;
-    GEN_JSON
 }
 void ConnectionEditWindow::on_kcpTTI_valueChanged(int arg1)
 {
     stream.kcpSettings.tti  = arg1;
-    GEN_JSON
 }
 void ConnectionEditWindow::on_kcpUploadCapacSB_valueChanged(int arg1)
 {
     stream.kcpSettings.uplinkCapacity = arg1;
-    GEN_JSON
 }
 void ConnectionEditWindow::on_kcpCongestionCB_stateChanged(int arg1)
 {
     stream.kcpSettings.congestion = arg1 == Qt::Checked;
-    GEN_JSON
 }
 void ConnectionEditWindow::on_kcpDownCapacitySB_valueChanged(int arg1)
 {
     stream.kcpSettings.downlinkCapacity = arg1;
-    GEN_JSON
 }
 void ConnectionEditWindow::on_kcpReadBufferSB_valueChanged(int arg1)
 {
     stream.kcpSettings.readBufferSize = arg1;
-    GEN_JSON
 }
 void ConnectionEditWindow::on_kcpWriteBufferSB_valueChanged(int arg1)
 {
     stream.kcpSettings.writeBufferSize = arg1;
-    GEN_JSON
 }
 void ConnectionEditWindow::on_kcpHeaderType_currentTextChanged(const QString &arg1)
 {
     stream.kcpSettings.header.type = arg1.toStdString();
-    GEN_JSON
 }
 void ConnectionEditWindow::on_tranportCombo_currentIndexChanged(int index)
 {
     ui->v2rayStackView->setCurrentIndex(index);
-    GEN_JSON
 }
 void ConnectionEditWindow::on_dsPathTxt_textEdited(const QString &arg1)
 {
     stream.dsSettings.path = arg1.toStdString();
-    GEN_JSON
 }
 void ConnectionEditWindow::on_finalJson_textChanged()
 {
@@ -487,47 +448,39 @@ void ConnectionEditWindow::on_outBoundTypeCombo_currentIndexChanged(int index)
 {
     ui->outboundTypeStackView->setCurrentIndex(index);
     OutboundType = ui->outBoundTypeCombo->currentText().toLower();
-    GEN_JSON
 }
 
 void ConnectionEditWindow::on_ss_emailTxt_textEdited(const QString &arg1)
 {
     shadowsocks.email = arg1.toStdString();
-    GEN_JSON
 }
 
 void ConnectionEditWindow::on_ss_passwordTxt_textEdited(const QString &arg1)
 {
     shadowsocks.password = arg1.toStdString();
-    GEN_JSON
 }
 
 void ConnectionEditWindow::on_ss_encryptionMethod_currentIndexChanged(const QString &arg1)
 {
     shadowsocks.method = arg1.toStdString();
-    GEN_JSON
 }
 
 void ConnectionEditWindow::on_ss_levelSpin_valueChanged(int arg1)
 {
     shadowsocks.level = arg1;
-    GEN_JSON
 }
 
 void ConnectionEditWindow::on_ss_otaCheckBox_stateChanged(int arg1)
 {
     shadowsocks.ota = arg1 == Qt::Checked;
-    GEN_JSON
 }
 
 void ConnectionEditWindow::on_socks_UserNameTxt_textEdited(const QString &arg1)
 {
     socks.users.front().user = arg1.toStdString();
-    GEN_JSON
 }
 
 void ConnectionEditWindow::on_socks_PasswordTxt_textEdited(const QString &arg1)
 {
     socks.users.front().pass = arg1.toStdString();
-    GEN_JSON
 }

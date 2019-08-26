@@ -66,7 +66,42 @@ namespace Qv2ray
         };
         //
         //
-        namespace TransferSettingObjects
+        struct RuleObject {
+            string type;
+            list<string> domain;
+            list<string> ip;
+            string port;
+            string network;
+            list<string> source;
+            list<string> user;
+            list<string> inboundTag;
+            string protocol;
+            string attrs;
+            string outboundTag;
+            string balancerTag;
+            RuleObject() : type("field"), domain(), ip(), port(), network(), source(), user(), inboundTag(), protocol(), attrs(), outboundTag(), balancerTag() {}
+            XTOSTRUCT(O(type, domain, ip, port, network, source, user, inboundTag, protocol, attrs, outboundTag, balancerTag))
+        };
+        //
+        //
+        struct BalancerObject {
+            string tag ;
+            list<string> selector;
+            BalancerObject() : tag(), selector() {}
+            XTOSTRUCT(O(tag, selector))
+        };
+        //
+        //
+        struct RoutingObject {
+            string domainStrategy;
+            list<RuleObject> rules;
+            list<BalancerObject> balancers;
+            RoutingObject() : domainStrategy(), rules(), balancers() {}
+            XTOSTRUCT(O(domainStrategy, rules, balancers))
+        };
+        //
+        //
+        namespace TSObjects
         {
             struct HTTPRequestObject {
                 string version;
@@ -200,14 +235,14 @@ namespace Qv2ray
         struct StreamSettingsObject  {
             string network;
             string security;
-            TransferSettingObjects::SockoptObject sockopt;
-            TransferSettingObjects::TLSObject tlsSettings;
-            TransferSettingObjects::TCPObject tcpSettings;
-            TransferSettingObjects::KCPObject kcpSettings;
-            TransferSettingObjects::WebSocketObject wsSettings;
-            TransferSettingObjects::HttpObject httpSettings;
-            TransferSettingObjects::DomainSocketObject dsSettings;
-            TransferSettingObjects::QuicObject quicSettings;
+            TSObjects::SockoptObject sockopt;
+            TSObjects::TLSObject tlsSettings;
+            TSObjects::TCPObject tcpSettings;
+            TSObjects::KCPObject kcpSettings;
+            TSObjects::WebSocketObject wsSettings;
+            TSObjects::HttpObject httpSettings;
+            TSObjects::DomainSocketObject dsSettings;
+            TSObjects::QuicObject quicSettings;
             StreamSettingsObject(): network("tcp"), security(), sockopt(),  tlsSettings(), tcpSettings(), kcpSettings(), wsSettings(), httpSettings(), dsSettings(), quicSettings() {}
             XTOSTRUCT(O(network, security, sockopt, tcpSettings, tlsSettings, kcpSettings, wsSettings, httpSettings, dsSettings, quicSettings))
         };
