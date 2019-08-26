@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>911</width>
-    <height>614</height>
+    <width>920</width>
+    <height>570</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -18,8 +18,8 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>0</width>
-    <height>0</height>
+    <width>920</width>
+    <height>570</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -28,8 +28,8 @@
   <property name="modal">
    <bool>true</bool>
   </property>
-  <layout class="QGridLayout" name="gridLayout_3">
-   <item row="0" column="0">
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
     <layout class="QFormLayout" name="formLayout_5">
      <item row="0" column="0">
       <widget class="QLabel" name="ipLabel">
@@ -89,7 +89,7 @@
      </item>
     </layout>
    </item>
-   <item row="1" column="0">
+   <item>
     <widget class="QGroupBox" name="outboundSettingWrapper">
      <property name="title">
       <string>#OutBoundSettings</string>
@@ -107,23 +107,9 @@
          <number>0</number>
         </property>
         <widget class="QWidget" name="page_2">
-         <layout class="QVBoxLayout" name="verticalLayout_2">
+         <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="4,6">
           <item>
-           <layout class="QFormLayout" name="formLayout_9">
-            <item row="3" column="0">
-             <widget class="QLabel" name="label_13">
-              <property name="text">
-               <string>#UseTLS</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="1">
-             <widget class="QCheckBox" name="tlsCB">
-              <property name="text">
-               <string>#Enabled</string>
-              </property>
-             </widget>
-            </item>
+           <layout class="QFormLayout" name="formLayout_4">
             <item row="0" column="0">
              <widget class="QLabel" name="idLabel">
               <property name="text">
@@ -164,6 +150,12 @@
             </item>
             <item row="2" column="1">
              <widget class="QComboBox" name="securityCombo">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
               <item>
                <property name="text">
                 <string notr="true">auto</string>
@@ -184,6 +176,20 @@
                 <string notr="true">none</string>
                </property>
               </item>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QLabel" name="label_13">
+              <property name="text">
+               <string>#UseTLS</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QCheckBox" name="tlsCB">
+              <property name="text">
+               <string>#Enabled</string>
+              </property>
              </widget>
             </item>
             <item row="4" column="0">
@@ -230,7 +236,7 @@
            </layout>
           </item>
           <item>
-           <widget class="QGroupBox" name="groupBox">
+           <widget class="QGroupBox" name="transportGroupbox">
             <property name="title">
              <string>#TransportSettings</string>
             </property>
@@ -247,32 +253,7 @@
                 <number>0</number>
                </property>
                <widget class="QWidget" name="tcpStackPage">
-                <layout class="QGridLayout" name="gridLayout_5">
-                 <item row="0" column="0" colspan="4">
-                  <layout class="QGridLayout" name="gridLayout_4" columnstretch="1,5">
-                   <item row="0" column="1">
-                    <widget class="QComboBox" name="tcpHeaderTypeCB">
-                     <item>
-                      <property name="text">
-                       <string notr="true">none</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string notr="true">http</string>
-                      </property>
-                     </item>
-                    </widget>
-                   </item>
-                   <item row="0" column="0">
-                    <widget class="QLabel" name="label">
-                     <property name="text">
-                      <string>#Type</string>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </item>
+                <layout class="QGridLayout" name="gridLayout_3" rowstretch="0,0,1,0">
                  <item row="1" column="0">
                   <widget class="QLabel" name="label_2">
                    <property name="text">
@@ -303,6 +284,12 @@
                  </item>
                  <item row="2" column="0" colspan="2">
                   <widget class="QPlainTextEdit" name="tcpRequestTxt">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
                    <property name="lineWrapMode">
                     <enum>QPlainTextEdit::NoWrap</enum>
                    </property>
@@ -316,6 +303,12 @@
                  </item>
                  <item row="2" column="2" colspan="2">
                   <widget class="QPlainTextEdit" name="tcpRespTxt">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
                    <property name="lineWrapMode">
                     <enum>QPlainTextEdit::NoWrap</enum>
                    </property>
@@ -337,6 +330,31 @@
                     <string>#InsertDefaultContent</string>
                    </property>
                   </widget>
+                 </item>
+                 <item row="0" column="0" colspan="4">
+                  <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,1">
+                   <item>
+                    <widget class="QLabel" name="label">
+                     <property name="text">
+                      <string>#Type</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QComboBox" name="tcpHeaderTypeCB">
+                     <item>
+                      <property name="text">
+                       <string notr="true">none</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string notr="true">http</string>
+                      </property>
+                     </item>
+                    </widget>
+                   </item>
+                  </layout>
                  </item>
                 </layout>
                </widget>
@@ -404,219 +422,211 @@
                 </layout>
                </widget>
                <widget class="QWidget" name="mKCPStackPage">
-                <layout class="QGridLayout" name="gridLayout_10">
+                <layout class="QFormLayout" name="formLayout_7">
                  <item row="0" column="0">
-                  <layout class="QFormLayout" name="formLayout_7">
-                   <item row="0" column="0">
-                    <widget class="QLabel" name="label_8">
-                     <property name="text">
-                      <string>#MTU</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="0" column="1">
-                    <widget class="QSpinBox" name="kcpMTU">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="minimum">
-                      <number>576</number>
-                     </property>
-                     <property name="maximum">
-                      <number>1460</number>
-                     </property>
-                     <property name="value">
-                      <number>1350</number>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="0">
-                    <widget class="QLabel" name="label_10">
-                     <property name="text">
-                      <string>#TTI (ms)</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="1">
-                    <widget class="QSpinBox" name="kcpTTI">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="minimum">
-                      <number>10</number>
-                     </property>
-                     <property name="maximum">
-                      <number>100</number>
-                     </property>
-                     <property name="value">
-                      <number>50</number>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="2" column="0">
-                    <widget class="QLabel" name="label_12">
-                     <property name="text">
-                      <string>#UplinkCapacity (MB/s)</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="2" column="1">
-                    <widget class="QSpinBox" name="kcpUploadCapacSB">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="maximum">
-                      <number>4096</number>
-                     </property>
-                     <property name="value">
-                      <number>5</number>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="3" column="0">
-                    <widget class="QLabel" name="label_15">
-                     <property name="text">
-                      <string>#Congestion</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="3" column="1">
-                    <widget class="QCheckBox" name="kcpCongestionCB">
-                     <property name="text">
-                      <string>#Enabled</string>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
+                  <widget class="QLabel" name="label_8">
+                   <property name="text">
+                    <string>#MTU</string>
+                   </property>
+                  </widget>
                  </item>
                  <item row="0" column="1">
-                  <layout class="QFormLayout" name="formLayout_8">
-                   <item row="0" column="0">
-                    <widget class="QLabel" name="label_9">
-                     <property name="text">
-                      <string>#DownlinkCapacity (MB/s)</string>
-                     </property>
-                    </widget>
+                  <widget class="QSpinBox" name="kcpMTU">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="minimum">
+                    <number>576</number>
+                   </property>
+                   <property name="maximum">
+                    <number>1460</number>
+                   </property>
+                   <property name="value">
+                    <number>1350</number>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="0">
+                  <widget class="QLabel" name="label_10">
+                   <property name="text">
+                    <string>#TTI (ms)</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="1">
+                  <widget class="QSpinBox" name="kcpTTI">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="minimum">
+                    <number>10</number>
+                   </property>
+                   <property name="maximum">
+                    <number>100</number>
+                   </property>
+                   <property name="value">
+                    <number>50</number>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="0">
+                  <widget class="QLabel" name="label_12">
+                   <property name="text">
+                    <string>#UplinkCapacity (MB/s)</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="1">
+                  <widget class="QSpinBox" name="kcpUploadCapacSB">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="maximum">
+                    <number>4096</number>
+                   </property>
+                   <property name="value">
+                    <number>5</number>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="3" column="0">
+                  <widget class="QLabel" name="label_15">
+                   <property name="text">
+                    <string>#Congestion</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="3" column="1">
+                  <widget class="QCheckBox" name="kcpCongestionCB">
+                   <property name="text">
+                    <string>#Enabled</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="4" column="0">
+                  <widget class="QLabel" name="label_9">
+                   <property name="text">
+                    <string>#DownlinkCapacity (MB/s)</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="4" column="1">
+                  <widget class="QSpinBox" name="kcpDownCapacitySB">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="maximum">
+                    <number>4096</number>
+                   </property>
+                   <property name="value">
+                    <number>20</number>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="5" column="0">
+                  <widget class="QLabel" name="label_11">
+                   <property name="text">
+                    <string>#ReadBufferSize (MB)</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="5" column="1">
+                  <widget class="QSpinBox" name="kcpReadBufferSB">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="maximum">
+                    <number>1024</number>
+                   </property>
+                   <property name="value">
+                    <number>2</number>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="6" column="0">
+                  <widget class="QLabel" name="labelx">
+                   <property name="text">
+                    <string>#WriteBufferSize (MB)</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="6" column="1">
+                  <widget class="QSpinBox" name="kcpWriteBufferSB">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="maximum">
+                    <number>1024</number>
+                   </property>
+                   <property name="value">
+                    <number>2</number>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="7" column="0">
+                  <widget class="QLabel" name="label_16">
+                   <property name="text">
+                    <string>#Type</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="7" column="1">
+                  <widget class="QComboBox" name="kcpHeaderType">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <item>
+                    <property name="text">
+                     <string notr="true">none</string>
+                    </property>
                    </item>
-                   <item row="0" column="1">
-                    <widget class="QSpinBox" name="kcpDownCapacitySB">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="maximum">
-                      <number>4096</number>
-                     </property>
-                     <property name="value">
-                      <number>20</number>
-                     </property>
-                    </widget>
+                   <item>
+                    <property name="text">
+                     <string notr="true">srtp</string>
+                    </property>
                    </item>
-                   <item row="1" column="0">
-                    <widget class="QLabel" name="label_11">
-                     <property name="text">
-                      <string>#ReadBufferSize (MB)</string>
-                     </property>
-                    </widget>
+                   <item>
+                    <property name="text">
+                     <string notr="true">utp</string>
+                    </property>
                    </item>
-                   <item row="1" column="1">
-                    <widget class="QSpinBox" name="kcpReadBufferSB">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="maximum">
-                      <number>1024</number>
-                     </property>
-                     <property name="value">
-                      <number>2</number>
-                     </property>
-                    </widget>
+                   <item>
+                    <property name="text">
+                     <string notr="true">wechat-video</string>
+                    </property>
                    </item>
-                   <item row="2" column="0">
-                    <widget class="QLabel" name="labelx">
-                     <property name="text">
-                      <string>#WriteBufferSize (MB)</string>
-                     </property>
-                    </widget>
+                   <item>
+                    <property name="text">
+                     <string notr="true">dtls</string>
+                    </property>
                    </item>
-                   <item row="2" column="1">
-                    <widget class="QSpinBox" name="kcpWriteBufferSB">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="maximum">
-                      <number>1024</number>
-                     </property>
-                     <property name="value">
-                      <number>2</number>
-                     </property>
-                    </widget>
+                   <item>
+                    <property name="text">
+                     <string notr="true">wireguard</string>
+                    </property>
                    </item>
-                   <item row="3" column="0">
-                    <widget class="QLabel" name="label_16">
-                     <property name="text">
-                      <string>#Type</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="3" column="1">
-                    <widget class="QComboBox" name="kcpHeaderType">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <item>
-                      <property name="text">
-                       <string notr="true">none</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string notr="true">srtp</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string notr="true">utp</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string notr="true">wechat-video</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string notr="true">dtls</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string notr="true">wireguard</string>
-                      </property>
-                     </item>
-                    </widget>
-                   </item>
-                  </layout>
+                  </widget>
                  </item>
                 </layout>
                </widget>
@@ -929,32 +939,7 @@
      </layout>
     </widget>
    </item>
-   <item row="0" column="1" rowspan="2">
-    <widget class="QGroupBox" name="groupBox_4">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="title">
-      <string>#JsonPreview</string>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
-       <widget class="QTextBrowser" name="finalJson">
-        <property name="lineWrapMode">
-         <enum>QTextEdit::NoWrap</enum>
-        </property>
-        <property name="readOnly">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="2" column="0" colspan="2">
+   <item>
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -979,8 +964,8 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>586</x>
-     <y>523</y>
+     <x>592</x>
+     <y>655</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -995,8 +980,8 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>654</x>
-     <y>523</y>
+     <x>660</x>
+     <y>655</y>
     </hint>
     <hint type="destinationlabel">
      <x>286</x>

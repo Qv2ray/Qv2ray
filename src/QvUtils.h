@@ -33,19 +33,22 @@ namespace Qv2ray
         bool StringToFile(QString text, QFile *target);
         QString StringFromFile(QFile *sourceFile);
         //
-        QJsonObject JSONFromString(QString string);
-        QString JSONToString(QJsonObject json);
+        QJsonObject JsonFromString(QString string);
+        QString JsonToString(QJsonObject json);
+        //
+        QString Stringify(list<string> list, QString saperator = ";");
+        QString Stringify(QList<QString> list, QString saperator = ";");
         //
         //
         template <typename TYPE>
-        QString StructToJSONString(const TYPE t)
+        QString StructToJsonString(const TYPE t)
         {
             return QString::fromStdString(X::tojson(t, "", 4, ' '));
         }
         //
         //
         template <typename TYPE>
-        TYPE StructFromJSONString(const QString &str)
+        TYPE StructFromJsonString(const QString &str)
         {
             TYPE v;
             X::loadjson(str.toStdString(), v, false);

@@ -24,10 +24,13 @@
       </widget>
      </item>
      <item>
-      <widget class="QTableWidget" name="tableWidget">
+      <widget class="QTableWidget" name="routesTable">
+       <property name="editTriggers">
+        <set>QAbstractItemView::NoEditTriggers</set>
+       </property>
        <column>
         <property name="text">
-         <string>#Type</string>
+         <string>#InBounds</string>
         </property>
        </column>
        <column>
@@ -136,11 +139,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QListWidget" name="listWidget">
-       <property name="selectionMode">
-        <enum>QAbstractItemView::MultiSelection</enum>
-       </property>
-      </widget>
+      <widget class="QListWidget" name="inboundsList"/>
      </item>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -191,7 +190,7 @@
         <item row="0" column="1">
          <widget class="QLabel" name="inboundTagLabel">
           <property name="text">
-           <string>TextLabel</string>
+           <string/>
           </property>
          </widget>
         </item>
@@ -205,7 +204,35 @@
         <item row="1" column="1">
          <widget class="QLabel" name="inboundTypeLabel">
           <property name="text">
-           <string>TextLabel</string>
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_12">
+          <property name="text">
+           <string>#Address</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="label_13">
+          <property name="text">
+           <string>#Port</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLabel" name="inboundAddressLabel">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QLabel" name="inboundPortLabel">
+          <property name="text">
+           <string/>
           </property>
          </widget>
         </item>
@@ -215,7 +242,7 @@
     </layout>
    </item>
    <item row="0" column="2">
-    <layout class="QVBoxLayout" name="outboundLayout" stretch="0,1,0,1">
+    <layout class="QVBoxLayout" name="outboundLayout" stretch="0,0,0,0">
      <item>
       <widget class="QLabel" name="label_2">
        <property name="text">
@@ -269,14 +296,14 @@
         <string>#OutboundDetail</string>
        </property>
        <layout class="QFormLayout" name="formLayout">
-        <item row="1" column="0">
+        <item row="2" column="0">
          <widget class="QLabel" name="label">
           <property name="text">
            <string>#Tag</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="1">
+        <item row="2" column="1">
          <widget class="QLabel" name="outboundTagLabel">
           <property name="text">
            <string/>
@@ -320,45 +347,45 @@
           </item>
          </layout>
         </item>
-        <item row="2" column="0">
+        <item row="3" column="0">
          <widget class="QLabel" name="label_7">
           <property name="text">
            <string>#Type</string>
           </property>
          </widget>
         </item>
-        <item row="3" column="0">
+        <item row="4" column="0">
          <widget class="QLabel" name="label_3">
           <property name="text">
            <string>#Address</string>
           </property>
          </widget>
         </item>
-        <item row="4" column="0">
+        <item row="5" column="0">
          <widget class="QLabel" name="label_5">
           <property name="text">
            <string>#Port</string>
           </property>
          </widget>
         </item>
-        <item row="2" column="1">
+        <item row="3" column="1">
          <widget class="QLabel" name="outboundTypeLabel">
           <property name="text">
-           <string>xx</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
-         <widget class="QLabel" name="outboundAddressLabel">
-          <property name="text">
-           <string>xx</string>
+           <string/>
           </property>
          </widget>
         </item>
         <item row="4" column="1">
+         <widget class="QLabel" name="outboundAddressLabel">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1">
          <widget class="QLabel" name="outboundPortLabel">
           <property name="text">
-           <string>xx</string>
+           <string/>
           </property>
          </widget>
         </item>
