@@ -11,7 +11,7 @@ namespace Qv2ray
         }
 
         // This generates global config containing only one outbound....
-        QJsonObject ConvertConfigFromVMessString(QString str)
+        QJsonObject ConvertConfigFromVMessString(QString str, QString source)
         {
             DROOT
             QStringRef vmessJsonB64(&str, 8, str.length() - 8);
@@ -66,7 +66,7 @@ namespace Qv2ray
             outbounds.append(outbound);
             root.insert("outbounds", outbounds);
             root.insert("QV2RAY_ALIAS", QString::fromStdString(vmessConf.ps));
-            root.insert(QV2RAY_CONFIG_TYPE_JSON_KEY, QV2RAY_CONFIG_TYPE_CONNECTIONSTRING);
+            root.insert(QV2RAY_CONFIG_TYPE_JSON_KEY, source);
             RROOT
         }
 
