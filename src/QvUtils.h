@@ -21,8 +21,8 @@ namespace Qv2ray
         void SetConfigDirPath(QString path);
         QString GetConfigDirPath();
 
-        void SetGlobalConfig(Qv2Config conf);
-        Qv2Config GetGlobalConfig();
+        void SetGlobalConfig(Qv2rayConfig conf);
+        Qv2rayConfig GetGlobalConfig();
 
         void SaveGlobalConfig();
         void LoadGlobalConfig();

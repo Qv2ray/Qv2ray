@@ -77,7 +77,7 @@ class PrefrencesWindow : public QDialog
     private:
         bool IsConnectionPropertyChanged = false;
         bool finishedLoading = false;
-        Qv2ray::QvConfigModels::Qv2Config CurrentConfig;
+        Qv2ray::QvConfigModels::Qv2rayConfig CurrentConfig;
         Ui::PrefrencesWindow *ui;
 };
 #endif // HVCONF_H

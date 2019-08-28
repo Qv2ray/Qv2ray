@@ -5,14 +5,14 @@ namespace Qv2ray
 {
     namespace Utils
     {
-        static Qv2Config GlobalConfig;
+        static Qv2rayConfig GlobalConfig;
         static QString ConfigDirPath;
-        void SetGlobalConfig(Qv2Config conf)
+        void SetGlobalConfig(Qv2rayConfig conf)
         {
             GlobalConfig = conf;
         }
 
-        Qv2Config GetGlobalConfig()
+        Qv2rayConfig GetGlobalConfig()
         {
             return GlobalConfig;
         }
@@ -29,7 +29,7 @@ namespace Qv2ray
 
         void SaveGlobalConfig()
         {
-            QFile config(QV2RAY_GUI_CONFIG_PATH);
+            QFile config(QV2RAY_CONFIG_FILE_PATH);
             QString str = StructToJSONString(GetGlobalConfig());
             StringToFile(str, &config);
         }
@@ -89,11 +89,11 @@ namespace Qv2ray
 
         void LoadGlobalConfig()
         {
-            QFile file(QV2RAY_GUI_CONFIG_PATH);
+            QFile file(QV2RAY_CONFIG_FILE_PATH);
             file.open(QFile::ReadOnly);
             QTextStream stream(&file);
             auto str = stream.readAll();
-            auto config  = StructFromJSONString<Qv2Config>(str);
+            auto config  = StructFromJSONString<Qv2rayConfig>(str);
             SetGlobalConfig(config);
             file.close();
         }
