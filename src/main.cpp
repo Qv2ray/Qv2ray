@@ -34,17 +34,17 @@ bool initQv()
     auto ConfigDir = new QDir(configPath);
 
     if (!ConfigDir->exists()) {
-        auto result = QDir().mkdir(QV2RAY_CONFIG_PATH);
+        auto result = QDir().mkdir(QV2RAY_CONFIG_DIR_PATH);
 
         if (result) {
-            LOG(MODULE_INIT, "Created Qv2ray config dir at: " + QV2RAY_CONFIG_PATH.toStdString())
+            LOG(MODULE_INIT, "Created Qv2ray config dir at: " + QV2RAY_CONFIG_DIR_PATH.toStdString())
         } else {
-            LOG(MODULE_INIT, "Failed to create config dir at: " + QV2RAY_CONFIG_PATH.toStdString())
+            LOG(MODULE_INIT, "Failed to create config dir at: " + QV2RAY_CONFIG_DIR_PATH.toStdString())
             return false;
         }
     }
 
-    auto genPath = QV2RAY_CONFIG_PATH + "generated/";
+    auto genPath = QV2RAY_CONFIG_DIR_PATH + "generated/";
 
     if (!QDir(genPath).exists()) {
         auto result2 = QDir().mkdir(genPath);
@@ -56,21 +56,30 @@ bool initQv()
             return false;
         }
     }
-
-    if (!QFile(QV2RAY_GUI_CONFIG_PATH).exists()) {
+    QFile configFile(QV2RAY_CONFIG_FILE_PATH);
+    if (!configFile.exists()) {
         // This is first run!
         //
         // These below genenrated very basic global config.
-        QvBasicInboundSetting inboundSetting = QvBasicInboundSetting("127.0.0.1", 1080, 8000);
-        Qv2Config conf = Qv2Config("zh-CN", exeDefaultPath.toStdString(), v2AssetsPath.toStdString(), 2, inboundSetting);
+        Qv2rayBasicInboundsConfig inboundSetting = Qv2rayBasicInboundsConfig("127.0.0.1", 1080, 8000);
+        Qv2rayConfig conf = Qv2rayConfig("zh-CN", exeDefaultPath.toStdString(), v2AssetsPath.toStdString(), 2, inboundSetting);
         //
         // Save initial config.
         SetGlobalConfig(conf);
         SaveGlobalConfig();
         //
-        LOG(MODULE_INIT, "Created initial default config file.")
+        LOG(MODULE_INIT, "Created initial config file.")
     } else {
-        LoadGlobalConfig();
+        // Some config file upgrades.
+        auto conf = JSONFromString(StringFromFile(&configFile));
+        auto confVersion = conf["config_version"].toVariant().toString();
+        auto newVersion = QSTRING(to_string(QV2RAY_CONFIG_VERSION));
+        if(QString::compare(confVersion, newVersion) != 0) {
+            conf = UpgradeConfig(stoi(conf["config_version"].toString().toStdString()), QV2RAY_CONFIG_VERSION, conf);
+        }
+        auto confObject = StructFromJSONString<Qv2rayConfig>(JSONToString(conf));
+        SetGlobalConfig(confObject);
+        SaveGlobalConfig();
         LOG(MODULE_INIT, "Loaded config file.")
     }
 
@@ -87,12 +96,12 @@ int main(int argc, char *argv[])
         "Hv2ray/Qv2ray (partial) Copyright 2019 (C) SoneWinstone\r\n"
         "Qv2ray Copyright (C) 2019 Leroy.H.Y\r\n"
         "\r\n"
-        "Qv2ray Version: " QV2RAY_VERSION_STRING
-        "\r\n"
-        "OS: " + QSysInfo::prettyProductName().toStdString() +
-        "\r\n"
-        "Arch: " + QSysInfo::currentCpuArchitecture().toStdString())
-    LOG("DEBUG", "============================== This is a debug build ==============================")
+        "Qv2ray " QV2RAY_VERSION_STRING " running on " + QSysInfo::prettyProductName().toStdString() + " " + QSysInfo::currentCpuArchitecture().toStdString() +
+        "\r\n")
+    //
+#ifdef QT_DEBUG
+    LOG("DEBUG", "============================== This is a debug build, many features are not stable enough. ==============================")
+#endif
     //
     QApplication _qApp(argc, argv);
     //
@@ -127,12 +136,23 @@ int main(int argc, char *argv[])
 #endif
                   );
 
+#ifdef __WIN32
+    auto osslReqVersion = QSslSocket::sslLibraryBuildVersionString().toStdString();
+    auto osslCurVersion = QSslSocket::sslLibraryVersionString().toStdString();
+    if (osslCurVersion != osslReqVersion){
+        LOG(MODULE_NETWORK, "Required OpenSSL version: " + osslReqVersion)
+        LOG(MODULE_NETWORK, "Current OpenSSL version: " + osslCurVersion)
+        QvMessageBox(nullptr, QObject::tr("DependencyMissing"), QObject::tr("osslDependMissing,PleaseReDownload"));
+        LOG(MODULE_NETWORK, "OpenSSL library MISSING, Quitting.")
+        return -2;
+    }
+#endif
+
     if (!guard.isSingleInstance()) {
-        LOG(MODULE_INIT, "Another Instance running, QUIT.")
-        Utils::QvMessageBox(nullptr, "Qv2ray", QObject::tr("#AnotherInstanceRunning"));
+        LOG(MODULE_INIT, "Another Instance running, Quit.")
+        QvMessageBox(nullptr, "Qv2ray", QObject::tr("#AnotherInstanceRunning"));
         return -1;
     }
-
     // Show MainWindow
     MainWindow w;
     return _qApp.exec();

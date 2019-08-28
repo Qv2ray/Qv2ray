@@ -75,7 +75,7 @@ void ImportConfigWindow::on_buttonBox_accepted()
         config.remove("QV2RAY_ALIAS");
     }
 
-    Qv2Config conf = GetGlobalConfig();
+    Qv2rayConfig conf = GetGlobalConfig();
     conf.configs.push_back(alias.toStdString());
     SetGlobalConfig(conf);
     auto needReload = SaveConnectionConfig(config, &alias);

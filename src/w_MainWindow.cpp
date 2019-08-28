@@ -210,7 +210,7 @@ void MainWindow::on_stopButton_clicked()
         LOG(MODULE_VCORE, "Disconnected: " + CurrentConnectionName.toStdString())
         this->vinstance->Stop();
         hTray->setToolTip(TRAY_TOOLTIP_PREFIX);
-        QFile(QV2RAY_GENERATED_CONFIG_FILE_PATH).remove();
+        QFile(QV2RAY_GENERATED_FILE_PATH).remove();
         ui->statusLabel->setText(tr("#Disconnected"));
         ui->logText->clear();
         trayMenu->actions()[2]->setEnabled(true);
@@ -304,9 +304,9 @@ void MainWindow::QTextScrollToBottom()
 void MainWindow::ShowAndSetConnection(int index, bool SetConnection, bool ApplyConnection)
 {
     if (index < 0) return;
-
+    auto guiConnectionName = ui->connectionListWidget->item(index)->text();
     // --------- BRGIN Show Connection
-    auto outBoundRoot = (connections.values()[index])["outbounds"].toArray().first().toObject();
+    auto outBoundRoot = (connections[guiConnectionName])["outbounds"].toArray().first().toObject();
     //
     auto outboundType = outBoundRoot["protocol"].toString();
     ui->_OutBoundTypeLabel->setText(outboundType);
@@ -344,7 +344,7 @@ void MainWindow::ShowAndSetConnection(int index, bool SetConnection, bool ApplyC
     //
     // Set Connection
     if (SetConnection) {
-        CurrentConnectionName = connections.keys()[index];
+        CurrentConnectionName = guiConnectionName;
     }
 
     // Restart Connection
