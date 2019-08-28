@@ -50,6 +50,7 @@ namespace Qv2ray
         //
         // -------------------------- BEGIN CONFIG VALIDATIONS ---------------------------------------------
         int VerifyVMessProtocolString(QString vmess);
+        QString getVmessFromBase64OrPlain(QByteArray arr);
         //
         // -------------------------- BEGIN CONFIG CONVERSIONS ---------------------------------------------
         // Save Connection Config
