@@ -17,5 +17,6 @@ using namespace std;
 #define MODULE_UI "UI"
 #define MODULE_NETWORK "NETWORK"
 #define MODULE_FILE "FILE"
+#define MODULE_SUBSCRIPTION "SUBSCRIPTION"
 
 #endif // QVTINYLOG_H

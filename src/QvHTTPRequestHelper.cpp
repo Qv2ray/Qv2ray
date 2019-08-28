@@ -2,7 +2,7 @@
 #include <QByteArray>
 namespace Qv2ray
 {
-    QvHttpRequestHelper::QvHttpRequestHelper(QObject *parent) : QObject(parent), reply(), request()
+    QvHttpRequestHelper::QvHttpRequestHelper()
     {
     }
 
