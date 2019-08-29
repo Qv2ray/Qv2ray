@@ -1,1 +1,8 @@
- 
+[Desktop Entry]
+Encoding=UTF-8
+Type=Application
+Categories=Network;Qt;
+Icon=Qv2ray
+Exec=/opt/Qv2ray/Qv2ray %u
+Name=Qv2ray
+Comment=Qt cross platform v2ray GUI client
