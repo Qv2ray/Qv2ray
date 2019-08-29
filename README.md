@@ -17,6 +17,15 @@ Travis per machine badge provided by: [badge-matrix](https://github.com/exogen/b
 
 ----------------
 
+# 开发分支测试
+  - 如果想测试当前的开发分支，请使用 `git checkout dev` 切换到开发分支
+  - <span style="color: red">!! 该分支可能不稳定 或 甚至无法正常工作 !!</span>
+
+## Jenkins (Linux)
+[jenkins.himeki.net](https://jenkins.himeki.net/job/Qv2ray/) 编译服务器提供开发分支 `dev` 的二进制编译版本
+ - 开发分支仅供测试使用
+ - 提供者 [@aliyuchang33](https://github.com/aliyuchang33)
+
 # 编译
  - 依赖项：`Qt >= 5.12` `gcc >=8` 或 `MinGW` (Windows) 或 `clang` (MacOS)
  - 建议使用 QtCreator
@@ -55,16 +64,6 @@ mkdir build && cd build
 qmake ../
 mingw32-make.exe
 ```
-
-# 开发分支测试
-  - 如果想测试当前的开发分支，请使用 `git checkout dev` 切换到开发分支
-  - <span style="color: red">!! 该分支可能不稳定 或 甚至无法正常工作 !!</span>
-
-## Jenkins (Linux)
-[jenkins.himeki.net](https://jenkins.himeki.net/job/Qv2ray/) 编译服务器提供开发分支 `dev` 的二进制编译版本
- - 开发分支仅供测试使用
- - 提供者 [@aliyuchang33](https://github.com/aliyuchang33)
-
 
 # License
 
