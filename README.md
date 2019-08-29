@@ -44,7 +44,7 @@ qmake ../
 make
 ```
 
-[Jenkins](https://jenkins.himeki.net/job/Qv2ray/)编译服务器提供 `dev` 分支的二进制可执行程序下载，提供者 @aliyuchang33
+[Jenkins](https://jenkins.himeki.net/job/Qv2ray/)编译服务器提供 `dev` 分支的二进制可执行程序下载，提供者 [@aliyuchang33](https://github.com/aliyuchang33)
 
 下载后请添加可执行权限
 
