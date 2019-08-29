@@ -44,11 +44,9 @@ qmake ../
 make
 ```
 
-可以从我(Hork)的[Jenkins](https://jenkins.himeki.net/job/Qv2ray/)持续集成服务器下载编译好的Linux x86_64版本的二进制文件进行测试
+[Jenkins](https://jenkins.himeki.net/job/Qv2ray/)编译服务器提供 `dev` 分支的二进制可执行程序下载，提供者 @aliyuchang33
 
-编译分支为 `master` 分支
-
-记得添加可执行权限
+下载后请添加可执行权限
 
 ```
 chmod +x ./Qv2ray
