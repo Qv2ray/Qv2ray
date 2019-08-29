@@ -98,10 +98,10 @@
   <widget class="QListWidget" name="subscribeList">
    <property name="geometry">
     <rect>
-     <x>530</x>
-     <y>101</y>
-     <width>181</width>
-     <height>121</height>
+     <x>430</x>
+     <y>10</y>
+     <width>281</width>
+     <height>211</height>
     </rect>
    </property>
   </widget>
