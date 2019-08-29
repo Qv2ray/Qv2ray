@@ -45,7 +45,9 @@ make
 ```
 
 可以从我(Hork)的[Jenkins](https://jenkins.himeki.net/job/Qv2ray/)持续集成服务器下载编译好的Linux x86_64版本的二进制文件进行测试
+
 编译分支为 `master` 分支
+
 记得添加可执行权限
 
 ```
