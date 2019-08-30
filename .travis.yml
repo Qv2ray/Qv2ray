@@ -23,7 +23,6 @@ before_script:
   
 script:
   - git submodule update --init
-  - lrelease ./Qv2ray.pro
   - mkdir build && cd ./build
   - if [ "$BADGE" = "linux" ]; then    qtchooser -install qt511 /opt/qt511/bin/qmake; fi
   - if [ "$BADGE" = "linux" ]; then    qmake -qt=qt511 ../; fi
