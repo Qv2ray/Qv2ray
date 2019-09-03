@@ -59,6 +59,7 @@ void ImportConfigWindow::on_buttonBox_accepted()
         int result = VerifyVMessProtocolString(vmess);
 
         if (result == 0) {
+            // This result code passes the validation check.
             //QvMessageBox(this, tr("#VMessCheck"), tr("#AbleToImportConfig"));
         } else if (result == -1) {
             QvMessageBox(this, tr("#VMessCheck"), tr("#NotValidVMessProtocolString"));

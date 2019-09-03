@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>700</width>
+    <width>709</width>
     <height>370</height>
    </rect>
   </property>
@@ -25,6 +25,9 @@
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
     <widget class="QTabWidget" name="tabWidget">
+     <property name="tabShape">
+      <enum>QTabWidget::Rounded</enum>
+     </property>
      <property name="currentIndex">
       <number>0</number>
      </property>
@@ -724,6 +727,13 @@
              <widget class="QPushButton" name="cancelIgnoreVersionBtn">
               <property name="text">
                <string>#CancelIngore</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="ignoredNextVersion">
+              <property name="text">
+               <string/>
               </property>
              </widget>
             </item>

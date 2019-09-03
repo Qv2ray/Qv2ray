@@ -198,12 +198,12 @@
     <message>
         <location filename="../src/w_ConnectionEditWindow.ui" line="529"/>
         <source>#ReadBufferSize (MB)</source>
-        <translation>读取缓冲区大小 (MB)</translation>
+        <translation>读取缓冲区 (MB)</translation>
     </message>
     <message>
         <location filename="../src/w_ConnectionEditWindow.ui" line="552"/>
         <source>#WriteBufferSize (MB)</source>
-        <translation>写入缓冲区大小 (MB)</translation>
+        <translation>写入缓冲区 (MB)</translation>
     </message>
     <message>
         <location filename="../src/w_ConnectionEditWindow.ui" line="682"/>
@@ -214,13 +214,13 @@
         <location filename="../src/w_ConnectionEditWindow.cpp" line="395"/>
         <location filename="../src/w_ConnectionEditWindow.cpp" line="406"/>
         <source>#JsonPrettify</source>
-        <translation>美化 JSON</translation>
+        <translation>格式化 JSON</translation>
     </message>
     <message>
         <location filename="../src/w_ConnectionEditWindow.cpp" line="395"/>
         <location filename="../src/w_ConnectionEditWindow.cpp" line="406"/>
         <source>#JsonContainsError</source>
-        <translation>JSON 格式错误</translation>
+        <translation>JSON 包含语法错误</translation>
     </message>
 </context>
 <context>
