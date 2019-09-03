@@ -17,43 +17,43 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     ui->qvVersion->setText(QV2RAY_VERSION_STRING);
     CurrentConfig = GetGlobalConfig();
     //
-    ui->languageComboBox->setCurrentText(QString::fromStdString(CurrentConfig.language));
+    ui->languageComboBox->setCurrentText(QSTRING(CurrentConfig.language));
     ui->logLevelComboBox->setCurrentIndex(CurrentConfig.logLevel);
     ui->runAsRootCheckBox->setChecked(CurrentConfig.runAsRoot);
     //
     //
-    ui->listenIPTxt->setText(QString::fromStdString(CurrentConfig.inBoundSettings.listenip));
+    ui->listenIPTxt->setText(QSTRING(CurrentConfig.inBoundSettings.listenip));
     //
     bool have_http = CurrentConfig.inBoundSettings.http_port != 0;
     ui->httpCB->setChecked(have_http);
-    ui->httpPortLE->setText(QString::fromStdString(to_string(CurrentConfig.inBoundSettings.http_port)));
+    ui->httpPortLE->setText(QSTRING(to_string(CurrentConfig.inBoundSettings.http_port)));
     ui->httpAuthCB->setChecked(CurrentConfig.inBoundSettings.http_useAuth);
     //
     ui->httpAuthCB->setEnabled(have_http);
     ui->httpAuthCB->setChecked(CurrentConfig.inBoundSettings.http_useAuth);
     ui->httpAuthUsernameTxt->setEnabled(have_http && CurrentConfig.inBoundSettings.http_useAuth);
     ui->httpAuthPasswordTxt->setEnabled(have_http && CurrentConfig.inBoundSettings.http_useAuth);
-    ui->httpAuthUsernameTxt->setText(QString::fromStdString(CurrentConfig.inBoundSettings.httpAccount.user));
-    ui->httpAuthPasswordTxt->setText(QString::fromStdString(CurrentConfig.inBoundSettings.httpAccount.pass));
+    ui->httpAuthUsernameTxt->setText(QSTRING(CurrentConfig.inBoundSettings.httpAccount.user));
+    ui->httpAuthPasswordTxt->setText(QSTRING(CurrentConfig.inBoundSettings.httpAccount.pass));
     ui->httpPortLE->setValidator(new QIntValidator());
     //
     //
     bool have_socks = CurrentConfig.inBoundSettings.socks_port != 0;
     ui->socksCB->setChecked(have_socks);
-    ui->socksPortLE->setText(QString::fromStdString(to_string(CurrentConfig.inBoundSettings.socks_port)));
+    ui->socksPortLE->setText(QSTRING(to_string(CurrentConfig.inBoundSettings.socks_port)));
     ui->socksAuthCB->setChecked(CurrentConfig.inBoundSettings.socks_useAuth);
     //
     ui->socksAuthCB->setEnabled(have_socks);
     ui->socksAuthCB->setChecked(CurrentConfig.inBoundSettings.socks_useAuth);
     ui->socksAuthUsernameTxt->setEnabled(have_socks && CurrentConfig.inBoundSettings.socks_useAuth);
     ui->socksAuthPasswordTxt->setEnabled(have_socks && CurrentConfig.inBoundSettings.socks_useAuth);
-    ui->socksAuthUsernameTxt->setText(QString::fromStdString(CurrentConfig.inBoundSettings.socksAccount.user));
-    ui->socksAuthPasswordTxt->setText(QString::fromStdString(CurrentConfig.inBoundSettings.socksAccount.pass));
+    ui->socksAuthUsernameTxt->setText(QSTRING(CurrentConfig.inBoundSettings.socksAccount.user));
+    ui->socksAuthPasswordTxt->setText(QSTRING(CurrentConfig.inBoundSettings.socksAccount.pass));
     ui->socksPortLE->setValidator(new QIntValidator());
     //
     //
-    ui->vCoreExePathTxt->setText(QString::fromStdString(CurrentConfig.v2CorePath));
-    ui->vCoreAssetsPathTxt->setText(QString::fromStdString(CurrentConfig.v2AssetsPath));
+    ui->vCoreExePathTxt->setText(QSTRING(CurrentConfig.v2CorePath));
+    ui->vCoreAssetsPathTxt->setText(QSTRING(CurrentConfig.v2AssetsPath));
     //
     //
     ui->muxEnabledCB->setChecked(CurrentConfig.mux.enabled);
@@ -74,11 +74,12 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     }
 
     foreach (auto connection, CurrentConfig.configs) {
-        ui->autoStartCombo->addItem(QString::fromStdString(connection));
+        ui->autoStartCombo->addItem(QSTRING(connection));
     }
 
-    ui->autoStartCombo->setCurrentText(QString::fromStdString(CurrentConfig.autoStartConfig));
+    ui->autoStartCombo->setCurrentText(QSTRING(CurrentConfig.autoStartConfig));
     ui->cancelIgnoreVersionBtn->setEnabled(CurrentConfig.ignoredVersion != "");
+    ui->ignoredNextVersion->setText(QSTRING(CurrentConfig.ignoredVersion));
     finishedLoading = true;
 }
 
