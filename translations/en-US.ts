@@ -211,14 +211,14 @@
         <translation>Key</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.cpp" line="395"/>
-        <location filename="../src/w_ConnectionEditWindow.cpp" line="406"/>
+        <location filename="../src/w_ConnectionEditWindow.cpp" line="398"/>
+        <location filename="../src/w_ConnectionEditWindow.cpp" line="409"/>
         <source>#JsonPrettify</source>
         <translation>Prettify JSON</translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.cpp" line="395"/>
-        <location filename="../src/w_ConnectionEditWindow.cpp" line="406"/>
+        <location filename="../src/w_ConnectionEditWindow.cpp" line="398"/>
+        <location filename="../src/w_ConnectionEditWindow.cpp" line="409"/>
         <source>#JsonContainsError</source>
         <translation>JSON is in a bad syntax</translation>
     </message>
@@ -297,18 +297,18 @@
         <translation>Open Config File</translation>
     </message>
     <message>
-        <location filename="../src/w_ImportConfig.cpp" line="64"/>
+        <location filename="../src/w_ImportConfig.cpp" line="65"/>
         <source>#NotValidVMessProtocolString</source>
         <translation>VMess connection string is invalid</translation>
     </message>
     <message>
-        <location filename="../src/w_ImportConfig.cpp" line="64"/>
-        <location filename="../src/w_ImportConfig.cpp" line="68"/>
+        <location filename="../src/w_ImportConfig.cpp" line="65"/>
+        <location filename="../src/w_ImportConfig.cpp" line="69"/>
         <source>#VMessCheck</source>
         <translation>VMess connection string check</translation>
     </message>
     <message>
-        <location filename="../src/w_ImportConfig.cpp" line="68"/>
+        <location filename="../src/w_ImportConfig.cpp" line="69"/>
         <source>#INTERNAL_ERROR</source>
         <translation>Internal Error</translation>
     </message>
@@ -444,7 +444,7 @@
         <translation>Connected</translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="214"/>
+        <location filename="../src/w_MainWindow.cpp" line="213"/>
         <source>#Disconnected</source>
         <translation>Disconnected</translation>
     </message>
@@ -492,7 +492,7 @@
     </message>
     <message>
         <location filename="../src/w_MainWindow.cpp" line="37"/>
-        <location filename="../src/w_MainWindow.cpp" line="279"/>
+        <location filename="../src/w_MainWindow.cpp" line="278"/>
         <source>#Hide</source>
         <translation>Hide</translation>
     </message>
@@ -578,8 +578,8 @@
     </message>
     <message>
         <location filename="../src/w_MainWindow.cpp" line="91"/>
-        <location filename="../src/w_MainWindow.cpp" line="234"/>
-        <location filename="../src/w_MainWindow.cpp" line="282"/>
+        <location filename="../src/w_MainWindow.cpp" line="233"/>
+        <location filename="../src/w_MainWindow.cpp" line="281"/>
         <source>#Show</source>
         <translation>Show</translation>
     </message>
@@ -588,83 +588,83 @@
     <name>PrefrencesWindow</name>
     <message>
         <location filename="../src/w_PrefrencesWindow.ui" line="20"/>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="96"/>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="168"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="97"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="169"/>
         <source>Prefrences</source>
         <translation>Preferences</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="33"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="36"/>
         <source>#General</source>
         <translation>General</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="39"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="42"/>
         <source>#Language</source>
         <translation>Language</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="53"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="56"/>
         <source>zh-CN</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="58"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="61"/>
         <source>en-US</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="66"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="69"/>
         <source>#RunAsRoot</source>
         <translation>Run v2ray as root</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="73"/>
-        <location filename="../src/w_PrefrencesWindow.ui" line="193"/>
-        <location filename="../src/w_PrefrencesWindow.ui" line="200"/>
-        <location filename="../src/w_PrefrencesWindow.ui" line="256"/>
-        <location filename="../src/w_PrefrencesWindow.ui" line="284"/>
-        <location filename="../src/w_PrefrencesWindow.ui" line="323"/>
-        <location filename="../src/w_PrefrencesWindow.ui" line="357"/>
-        <location filename="../src/w_PrefrencesWindow.ui" line="418"/>
-        <location filename="../src/w_PrefrencesWindow.ui" line="439"/>
-        <location filename="../src/w_PrefrencesWindow.ui" line="446"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="76"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="196"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="203"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="259"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="287"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="326"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="360"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="421"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="442"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="449"/>
         <source>#Enabled</source>
         <translation>Enabled</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="80"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="83"/>
         <source>#LogLevel</source>
         <translation>Log Level</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="105"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="108"/>
         <source>debug</source>
         <translation>Debug</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="110"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="113"/>
         <source>info</source>
         <translation>Info</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="115"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="118"/>
         <source>warning</source>
         <translation>Warning</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="120"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="123"/>
         <source>error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="156"/>
-        <location filename="../src/w_PrefrencesWindow.ui" line="177"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="159"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="180"/>
         <source>#Select</source>
         <translation>Select</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="128"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="131"/>
         <source>#AutoStartEntry</source>
         <translation>Auto Connect To</translation>
     </message>
@@ -679,44 +679,39 @@
         <translation>Cancel Ignore</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="411"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="414"/>
         <source>#ProxyGlobal</source>
         <translation>Use Proxy as Default</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="425"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="428"/>
         <source>#ProxyCN</source>
         <translation>Use Proxy for China Mainland</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="432"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="435"/>
         <source>#WithLocalDNS</source>
         <translation>Use localhost DNS</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="458"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="461"/>
         <source>#DNSList</source>
         <translation>DNS Address List</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="472"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="475"/>
         <source>#About</source>
         <translation>About</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="520"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="523"/>
         <source>Qv2ray</source>
         <translation>Qv2ray</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="542"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="545"/>
         <source>#Version:</source>
         <translation>Version:</translation>
-    </message>
-    <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="554"/>
-        <source>#QvVersion</source>
-        <translation></translation>
     </message>
     <message>
         <location filename="../src/w_PrefrencesWindow.ui" line="578"/>
@@ -744,96 +739,96 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="100"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="103"/>
         <source>none</source>
         <translation>Do not use</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="144"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="147"/>
         <source>#VCoreExePath</source>
         <translation>V2ray Kernal Path</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="165"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="168"/>
         <source>#VCoreAssetsPath</source>
         <translation>V2ray Assets Path</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="187"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="190"/>
         <source>#MuxSettings</source>
         <translation>Mux Settings</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="228"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="231"/>
         <source>#InBoundSettings</source>
         <translation>Inbound Settings</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="236"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="239"/>
         <source>#ListenIP</source>
         <translation>Listen IP</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="314"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="317"/>
         <source>#HTTPInBoundSettings</source>
         <translation>HTTP Inbound Settings</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="250"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="253"/>
         <source>#SOCKSBoundSettings</source>
         <translation>SOCKS Inbound Settings</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="403"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="406"/>
         <source>#RouteSettings</source>
         <translation>Route Settings</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="207"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="210"/>
         <source>#Concurrency</source>
         <translation>Maximum Connections</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="263"/>
-        <location filename="../src/w_PrefrencesWindow.ui" line="330"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="266"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="333"/>
         <source>#Port</source>
         <translation>Port</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="291"/>
-        <location filename="../src/w_PrefrencesWindow.ui" line="364"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="294"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="367"/>
         <source>#Username</source>
         <translation>Username</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="277"/>
-        <location filename="../src/w_PrefrencesWindow.ui" line="350"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="280"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="353"/>
         <source>#Auth</source>
         <translation>Authentication</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="301"/>
-        <location filename="../src/w_PrefrencesWindow.ui" line="374"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="304"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="377"/>
         <source>#Password</source>
         <translation>Password</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="96"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="97"/>
         <source>PortNumbersCannotBeSame</source>
         <translation>Port numbers cannot be the same</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="168"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="169"/>
         <source>RunAsRootNotOnWindows</source>
         <translation>Run as root is not avaliable on Windows Platform</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="285"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="286"/>
         <source>#OpenVCoreFile</source>
         <translation>Open v2rat-core file</translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="296"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="297"/>
         <source>OpenVAssetsDir</source>
         <translation>Open v2ray assets folder</translation>
     </message>
@@ -841,17 +836,17 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/main.cpp" line="145"/>
+        <location filename="../src/main.cpp" line="149"/>
         <source>DependencyMissing</source>
         <translation>Dependency Missing</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="145"/>
+        <location filename="../src/main.cpp" line="149"/>
         <source>osslDependMissing,PleaseReDownload</source>
         <translation>OpenSSL DLL is missing from the directory where Qv2ray.exe is located in, Please ReDownload the application, or contact support</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="153"/>
+        <location filename="../src/main.cpp" line="158"/>
         <source>#AnotherInstanceRunning</source>
         <translation>Another instance is already running</translation>
     </message>
@@ -877,6 +872,49 @@
     </message>
 </context>
 <context>
+    <name>RouteEditor</name>
+    <message>
+        <location filename="../src/w_RouteEditor.ui" line="14"/>
+        <source>Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_RouteEditor.ui" line="55"/>
+        <source>#Outbounds</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_RouteEditor.ui" line="69"/>
+        <source>#OutboundDetail</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_RouteEditor.ui" line="75"/>
+        <source>#Tag</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_RouteEditor.ui" line="89"/>
+        <source>#Type</source>
+        <translation type="unfinished">Type</translation>
+    </message>
+    <message>
+        <location filename="../src/w_RouteEditor.ui" line="103"/>
+        <source>#Address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_RouteEditor.ui" line="117"/>
+        <source>#Port</source>
+        <translation type="unfinished">Port</translation>
+    </message>
+    <message>
+        <location filename="../src/w_RouteEditor.ui" line="146"/>
+        <source>#EditCurrentOutbound</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>w_SubscribeEditor</name>
     <message>
         <location filename="../src/w_SubscribeEditor.ui" line="14"/>
@@ -884,48 +922,58 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_SubscribeEditor.ui" line="75"/>
+        <location filename="../src/w_SubscribeEditor.ui" line="92"/>
+        <source>#Port</source>
+        <translation type="unfinished">Port</translation>
+    </message>
+    <message>
+        <location filename="../src/w_SubscribeEditor.ui" line="122"/>
         <source>#SubsGroupName</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_SubscribeEditor.ui" line="80"/>
+        <location filename="../src/w_SubscribeEditor.ui" line="127"/>
         <source>#SubsGroupURL</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_SubscribeEditor.ui" line="100"/>
-        <source>#ConfigList</source>
+        <location filename="../src/w_SubscribeEditor.ui" line="150"/>
+        <source>#AddConnection</source>
+        <translation type="unfinished">Add a connection</translation>
+    </message>
+    <message>
+        <location filename="../src/w_SubscribeEditor.ui" line="153"/>
+        <source>A</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_SubscribeEditor.ui" line="112"/>
+        <location filename="../src/w_SubscribeEditor.ui" line="170"/>
+        <source>#RemoveConnection</source>
+        <translation type="unfinished">Remove a connection</translation>
+    </message>
+    <message>
+        <location filename="../src/w_SubscribeEditor.ui" line="173"/>
+        <source>R</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_SubscribeEditor.ui" line="48"/>
         <source>#ConfigDetail</source>
         <translation type="unfinished">Detailed Config Info</translation>
     </message>
     <message>
-        <location filename="../src/w_SubscribeEditor.ui" line="118"/>
+        <location filename="../src/w_SubscribeEditor.ui" line="54"/>
         <source>#Type</source>
         <translation type="unfinished">Type</translation>
     </message>
     <message>
-        <location filename="../src/w_SubscribeEditor.ui" line="132"/>
+        <location filename="../src/w_SubscribeEditor.ui" line="68"/>
         <source>#Server</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_SubscribeEditor.ui" line="146"/>
+        <location filename="../src/w_SubscribeEditor.ui" line="82"/>
         <source>#Config</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/w_SubscribeEditor.ui" line="36"/>
-        <source>+</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/w_SubscribeEditor.ui" line="49"/>
-        <source>-</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

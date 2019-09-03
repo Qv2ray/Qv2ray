@@ -5,7 +5,7 @@
 #include "QvTinyLog.h"
 #include "QvCoreConfigObjects.h"
 
-#define QV2RAY_VERSION_STRING "v" QV_MAJOR_VERSION ".4.2"
+#define QV2RAY_VERSION_STRING "v" QV_MAJOR_VERSION ".5"
 
 #define QV2RAY_CONFIG_VERSION 2
 #define QV2RAY_CONFIG_DIR_PATH (Qv2ray::Utils::GetConfigDirPath() + "/")
@@ -62,7 +62,8 @@ namespace Qv2ray
             bool http_useAuth;
             AccountObject httpAccount;
             Qv2rayBasicInboundsConfig(): listenip(), socks_port(), socks_useAuth(), socksAccount(), http_port(), http_useAuth(), httpAccount() {}
-            Qv2rayBasicInboundsConfig(string listen, int socksPort, int httpPort):  Qv2rayBasicInboundsConfig() {
+            Qv2rayBasicInboundsConfig(string listen, int socksPort, int httpPort):  Qv2rayBasicInboundsConfig()
+            {
                 socks_port = socksPort;
                 http_port = httpPort;
                 listenip = listen;
@@ -96,7 +97,8 @@ namespace Qv2ray
             map<string, string> subscribes;
             MuxObject mux;
             Qv2rayConfig(): config_version(QV2RAY_CONFIG_VERSION), runAsRoot(false), logLevel(), proxyDefault(), proxyCN(), withLocalDNS(), inBoundSettings(), configs(), subscribes(), mux() { }
-            Qv2rayConfig(string lang, string exePath, string assetsPath, int log, Qv2rayBasicInboundsConfig _inBoundSettings): Qv2rayConfig() {
+            Qv2rayConfig(string lang, string exePath, string assetsPath, int log, Qv2rayBasicInboundsConfig _inBoundSettings): Qv2rayConfig()
+            {
                 // These settings below are defaults.
                 ignoredVersion = "";
                 autoStartConfig = "";

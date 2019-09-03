@@ -207,7 +207,6 @@ void MainWindow::on_startButton_clicked()
 void MainWindow::on_stopButton_clicked()
 {
     if (vinstance->Status != STOPPED) {
-        LOG(MODULE_VCORE, "Disconnected: " + CurrentConnectionName.toStdString())
         this->vinstance->Stop();
         hTray->setToolTip(TRAY_TOOLTIP_PREFIX);
         QFile(QV2RAY_GENERATED_FILE_PATH).remove();
@@ -304,6 +303,7 @@ void MainWindow::QTextScrollToBottom()
 void MainWindow::ShowAndSetConnection(int index, bool SetConnection, bool ApplyConnection)
 {
     if (index < 0) return;
+
     auto guiConnectionName = ui->connectionListWidget->item(index)->text();
     // --------- BRGIN Show Connection
     auto outBoundRoot = (connections[guiConnectionName])["outbounds"].toArray().first().toObject();
