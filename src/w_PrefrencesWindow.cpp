@@ -181,13 +181,16 @@ void PrefrencesWindow::on_socksAuthCB_stateChanged(int checked)
 void PrefrencesWindow::on_languageComboBox_currentTextChanged(const QString &arg1)
 {
     CurrentConfig.language = arg1.toStdString();
-
-    if (QApplication::installTranslator(getTranslator(QString::fromStdString(arg1.toStdString())))) {
-        LOG(MODULE_UI, "Loaded translations " + arg1.toStdString())
-        ui->retranslateUi(this);
-    } else {
-        //QvMessageBox(this, tr("#Prefrences"), tr("#SwitchTranslationError"));
-    }
+    //
+    // A strange bug prevents us to change the UI language `live`ly
+    //    https://github.com/lhy0403/Qv2ray/issues/34
+    //
+    //if (QApplication::installTranslator(getTranslator(QString::fromStdString(arg1.toStdString())))) {
+    //    LOG(MODULE_UI, "Loaded translations " + arg1.toStdString())
+    //    ui->retranslateUi(this);
+    //} else {
+    //    //QvMessageBox(this, tr("#Prefrences"), tr("#SwitchTranslationError"));
+    //}
 }
 
 void PrefrencesWindow::on_logLevelComboBox_currentIndexChanged(int index)
