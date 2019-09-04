@@ -1,15 +1,3 @@
-~# Version 1.3.5 包含以下功能性更新和修复~
-
-~下载链接 [v1.3.2](https://github.com/lhy0403/Qv2ray/releases/tag/v1.3.5)~
-
-~## 此版本修复了以下共 1 个已知问题~
-
-~- 手动添加连接配置后，主界面列表顺序与内部顺序不符，会导致错误的连接被选择。~
-
-~## 注意~
-
-~**<u>更新到此版本以后，配置文件格式将被自动升级，届时旧版本 Qv2ray 将无法使用</u>**~
-
 # Qv2ray 1.3.5 错误更新回滚方法
 ## ROLLBACK METHOD IF YOU HAVE UPDATED TO THE v1.3.4 VERSION
 
