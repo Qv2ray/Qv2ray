@@ -53,7 +53,7 @@ make
 
 ```batch
 REM 首先把 %QTROOT%/bin 和 MinGW/bin 文件夹添加到 PATH 环境变量
-REM SET PATH=%PATH%;D:\Qt\5.12.3\mingw73_32\bin\;D:\Qt\Tools\mingw730_32\bin\
+REM SET PATH=%PATH%;C:\Qt\5.13.1\mingw73_32\bin\;C:\Qt\Tools\mingw730_32\bin\
 
 SET PATH=%PATH%;Qt安装目录\Qt版本号\编译器类型\bin;Qt安装目录\Tools\编译器类型\bin
 
