@@ -100,7 +100,8 @@ int main(int argc, char *argv[])
         "Hv2ray/Qv2ray (partial) Copyright 2019 (C) SoneWinstone\r\n"
         "Qv2ray Copyright (C) 2019 Leroy.H.Y\r\n"
         "\r\n"
-        "Qv2ray " QV2RAY_VERSION_STRING " running on " + QSysInfo::prettyProductName().toStdString() + " " + QSysInfo::currentCpuArchitecture().toStdString() +
+        "Qv2ray " QV2RAY_VERSION_STRING " running on " +
+        QSysInfo::prettyProductName().toStdString() + " " + QSysInfo::currentCpuArchitecture().toStdString() +
         "\r\n")
     //
 #ifdef QT_DEBUG

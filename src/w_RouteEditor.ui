@@ -15,7 +15,7 @@
   </property>
   <layout class="QGridLayout" name="gridLayout" columnstretch="1,2,1">
    <item row="0" column="1">
-    <layout class="QVBoxLayout" name="routesLayout">
+    <layout class="QVBoxLayout" name="routesLayout" stretch="0,1,0,1">
      <item>
       <widget class="QLabel" name="label_4">
        <property name="text">
@@ -242,7 +242,7 @@
     </layout>
    </item>
    <item row="0" column="2">
-    <layout class="QVBoxLayout" name="outboundLayout" stretch="0,0,0,0">
+    <layout class="QVBoxLayout" name="outboundLayout" stretch="0,1,0,1">
      <item>
       <widget class="QLabel" name="label_2">
        <property name="text">

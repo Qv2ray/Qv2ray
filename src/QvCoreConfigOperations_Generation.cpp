@@ -179,11 +179,8 @@ namespace Qv2ray
             //
             //
             root.insert("stats", QJsonObject());
-
             //
-            if (!root.contains("inbounds")) {
-                root.insert("inbounds", QJsonArray());
-            }
+            QJsonArray inboundsList;
 
             // HTTP InBound
             if (gConf.inBoundSettings.http_port != 0) {
@@ -198,7 +195,7 @@ namespace Qv2ray
                     httpInBoundObject.insert("settings", httpInSettings);
                 }
 
-                root["inbounds"].toArray().append(httpInBoundObject);
+                inboundsList.append(httpInBoundObject);
             }
 
             // SOCKS InBound
@@ -208,9 +205,13 @@ namespace Qv2ray
                 socksInBoundObject.insert("port", gConf.inBoundSettings.socks_port);
                 socksInBoundObject.insert("protocol", "socks");
                 socksInBoundObject.insert("tag", "socks_IN");
-                auto socksInSettings =  GenerateSocksIN(gConf.inBoundSettings.socks_useAuth ? "password" : "noauth", QList<AccountObject>() << gConf.inBoundSettings.socksAccount);
+                auto socksInSettings = GenerateSocksIN(gConf.inBoundSettings.socks_useAuth ? "password" : "noauth", QList<AccountObject>() << gConf.inBoundSettings.socksAccount);
                 socksInBoundObject.insert("settings", socksInSettings);
-                root["inbounds"].toArray().append(socksInBoundObject);
+                inboundsList.append(socksInBoundObject);
+            }
+
+            if (!root.contains("inbounds") || root["inbounds"].toArray().count() == 0) {
+                root.insert("inbounds", inboundsList);
             }
 
             // TODO: MultiOutbound Settings
