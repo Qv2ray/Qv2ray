@@ -842,17 +842,17 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/main.cpp" line="168"/>
+        <location filename="../src/main.cpp" line="154"/>
         <source>DependencyMissing</source>
         <translation>依赖项缺失</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="168"/>
+        <location filename="../src/main.cpp" line="154"/>
         <source>osslDependMissing,PleaseReDownload</source>
         <translation>OpenSSL 部分文件缺失，Qv2ray 将不能正常工作，请重新下载程序，或联系支持</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="178"/>
+        <location filename="../src/main.cpp" line="163"/>
         <source>#AnotherInstanceRunning</source>
         <translation>另一个实例正在运行</translation>
     </message>
