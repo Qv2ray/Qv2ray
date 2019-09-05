@@ -81,11 +81,7 @@ bool initQv()
             conf = UpgradeConfig(stoi(conf["config_version"].toString().toStdString()), QV2RAY_CONFIG_VERSION, conf);
         }
 
-<<<<<<< HEAD
         auto confObject = StructFromJsonString<Qv2rayConfig>(JsonToString(conf));
-=======
-        auto confObject = StructFromJSONString<Qv2rayConfig>(JSONToString(conf));
->>>>>>> dev
         SetGlobalConfig(confObject);
         SaveGlobalConfig();
         LOG(MODULE_INIT, "Loaded config file.")
