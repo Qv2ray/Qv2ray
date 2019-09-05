@@ -98,13 +98,26 @@ void RouteEditor::on_inboundsList_currentRowChanged(int currentRow)
 
 void RouteEditor::on_routesTable_cellClicked(int row, int column)
 {
+    for (int i = 0; i < ui->inboundsList->count(); ++i) {
+        ui->inboundsList->item(i)->setCheckState(Qt::Unchecked);
+    }
+
     Q_UNUSED(column)
     auto outboundTag = ui->routesTable->item(row, 2)->text();
     ui->outboundsList->setCurrentItem(ui->outboundsList->findItems(outboundTag, Qt::MatchExactly).first());
     //
     auto inboundTagList = ui->routesTable->item(row, 0)->text();
-    bool isAnyInbounds = inboundTagList == "any";
+    bool isAnyInbounds = inboundTagList == "Any";
 
     if (isAnyInbounds) {
+        for (int i = 0; i < ui->inboundsList->count(); ++i) {
+            ui->inboundsList->item(i)->setCheckState(Qt::Checked);
+        }
+    } else {
+        auto rulesList = QList<RuleObject>::fromStdList(routes.rules);
+
+        foreach (auto inboundTag, rulesList[row].inboundTag) {
+            ui->inboundsList->findItems(QSTRING(inboundTag), Qt::MatchExactly).first()->setCheckState(Qt::Checked);
+        }
     }
 }

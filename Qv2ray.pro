@@ -62,7 +62,6 @@ FORMS += \
 RESOURCES += \
         resources.qrc
 
-
 TRANSLATIONS += \
         translations/zh-CN.ts \
         translations/en-US.ts
@@ -71,8 +70,7 @@ RC_ICONS += ./icons/Qv2ray.ico
 ICON = ./icons/Qv2ray.icns
 
 INCLUDEPATH += \
-        3rdparty/ \
-        3rdparty/jsoncons/include
+        3rdparty/
 
 win32: QMAKE_CXXFLAGS += "-Wno-missing-field-initializers"
 

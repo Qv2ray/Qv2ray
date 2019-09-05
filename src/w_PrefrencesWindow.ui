@@ -553,9 +553,6 @@
                 <pointsize>10</pointsize>
                </font>
               </property>
-              <property name="text">
-               <string>#QvVersion</string>
-              </property>
              </widget>
             </item>
            </layout>

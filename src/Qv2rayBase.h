@@ -25,16 +25,14 @@
 #define QV2RAY_CONFIG_TYPE_SUBSCRIPTION "Subscription"
 #define QV2RAY_CONFIG_TYPE_JSON_KEY "_qv2ray.configSource"
 
-
-
 // GUI TOOLS
-#define RED(obj) \
-    auto _temp = ui->obj->palette(); \
+#define RED(obj)                             \
+    auto _temp = ui->obj->palette();         \
     _temp.setColor(QPalette::Text, Qt::red); \
     ui->obj->setPalette(_temp);
 
-#define BLACK(obj) \
-    auto _temp = ui->obj->palette(); \
+#define BLACK(obj)                             \
+    auto _temp = ui->obj->palette();           \
     _temp.setColor(QPalette::Text, Qt::black); \
     ui->obj->setPalette(_temp);
 
@@ -50,7 +48,10 @@ namespace Qv2ray
 {
     namespace QvConfigModels
     {
-        enum QvConfigType { CONFIGTYPE_CONFIG, CONFIGTYPE_SUBSCRIPTION };
+        enum QvConfigType {
+            CONFIGTYPE_CONFIG,
+            CONFIGTYPE_SUBSCRIPTION
+        };
         struct Qv2rayBasicInboundsConfig {
             string listenip;
             // SOCKS
@@ -62,7 +63,7 @@ namespace Qv2ray
             bool http_useAuth;
             AccountObject httpAccount;
             Qv2rayBasicInboundsConfig(): listenip(), socks_port(), socks_useAuth(), socksAccount(), http_port(), http_useAuth(), httpAccount() {}
-            Qv2rayBasicInboundsConfig(string listen, int socksPort, int httpPort):  Qv2rayBasicInboundsConfig()
+            Qv2rayBasicInboundsConfig(string listen, int socksPort, int httpPort): Qv2rayBasicInboundsConfig()
             {
                 socks_port = socksPort;
                 http_port = httpPort;

@@ -243,7 +243,7 @@ void ConnectionEditWindow::on_httpHostTxt_textChanged()
 void ConnectionEditWindow::on_wsHeadersTxt_textChanged()
 {
     try {
-        QStringList headers = ui->wsHeadersTxt->toPlainText().replace("\n", "").split("\r");
+        QStringList headers = ui->wsHeadersTxt->toPlainText().replace("\r", "").split("\n");
         stream.wsSettings.headers.clear();
 
         foreach (auto header, headers) {

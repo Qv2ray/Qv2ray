@@ -153,7 +153,11 @@ void MainWindow::LoadConnections()
 void MainWindow::save_reload_globalconfig(bool need_restart)
 {
     auto statusText = ui->statusLabel->text();
-    ui->retranslateUi(this);
+    //
+    // A strange bug prevents us to change the UI language `live`ly
+    //    https://github.com/lhy0403/Qv2ray/issues/34
+    //
+    //ui->retranslateUi(this);
     ui->statusLabel->setText(statusText);
     bool isRunning = vinstance->Status == STARTED;
     SaveGlobalConfig();
@@ -208,7 +212,6 @@ void MainWindow::on_startButton_clicked()
 void MainWindow::on_stopButton_clicked()
 {
     if (vinstance->Status != STOPPED) {
-        LOG(MODULE_VCORE, "Disconnected: " + CurrentConnectionName.toStdString())
         this->vinstance->Stop();
         hTray->setToolTip(TRAY_TOOLTIP_PREFIX);
         QFile(QV2RAY_GENERATED_FILE_PATH).remove();
