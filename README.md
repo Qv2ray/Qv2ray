@@ -2,6 +2,8 @@
 
 使用 Qt 框架的跨平台 v2ray 客户端. 支持 Windows, Linux, MacOS
 
+支持连接编辑，支持导入配置和 VMess
+
 # 项目主页，下载链接和使用方法
  - 见 Github Page: https://lhy0403.github.io/Qv2ray
 
