@@ -13,8 +13,12 @@ using namespace Qv2ray::QvConfigModels;
 
 bool initQv()
 {
-    /// Qv2ray Config Path and ends with "/"
+#ifdef QT_DEBUG
+    QString configPath = QDir::homePath() + "/.qv2ray_debug";
+#else
     QString configPath = QDir::homePath() + "/.qv2ray";
+#endif
+    /// Qv2ray Config Path and ends with "/"
     QString exeDefaultPath = configPath + "/vcore/v2ray";
     QString v2AssetsPath = configPath + "/vcore";
     //
@@ -122,16 +126,16 @@ int main(int argc, char *argv[])
 #ifdef __APPLE__
     _qApp.setStyle("fusion");
 #endif
+    auto lang = GetGlobalConfig().language;
 
-    if (_qApp.installTranslator(getTranslator(QString::fromStdString(GetGlobalConfig().language)))) {
-        LOG(MODULE_UI, "Loaded translations " + GetGlobalConfig().language)
-    } else if (_qApp.installTranslator(getTranslator("en-US"))) {
-        LOG(MODULE_UI, "Loaded default translations")
-    } else {
-        QvMessageBox(
-            nullptr, "Failed to load translations 无法加载语言文件",
-            "Failed to load translations, user experience may be downgraded. \r\n"
-            "无法加载语言文件，用户体验可能会降级.");
+    if (lang != "en-US") {
+        if (_qApp.installTranslator(getTranslator(QSTRING(lang)))) {
+            LOG(MODULE_UI, "Loaded translations " + lang)
+        } else {
+            QvMessageBox(
+                nullptr, "Failed to load selected language.",
+                "You may want to select another language in the Prefrences Window.\r\n");
+        }
     }
 
     RunGuard guard("Qv2ray-Instance-Identifier"
