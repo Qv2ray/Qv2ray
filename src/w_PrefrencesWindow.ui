@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>700</width>
+    <width>709</width>
     <height>370</height>
    </rect>
   </property>
@@ -25,18 +25,21 @@
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
     <widget class="QTabWidget" name="tabWidget">
+     <property name="tabShape">
+      <enum>QTabWidget::Rounded</enum>
+     </property>
      <property name="currentIndex">
       <number>0</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
-       <string>#General</string>
+       <string>General</string>
       </attribute>
       <layout class="QFormLayout" name="formLayout_5">
        <item row="0" column="0">
         <widget class="QLabel" name="label_6">
          <property name="text">
-          <string>#Language</string>
+          <string>Language</string>
          </property>
         </widget>
        </item>
@@ -63,7 +66,7 @@
        <item row="1" column="0">
         <widget class="QLabel" name="label_7">
          <property name="text">
-          <string>#RunAsRoot</string>
+          <string>Run As Root</string>
          </property>
         </widget>
        </item>
@@ -77,7 +80,7 @@
        <item row="2" column="0">
         <widget class="QLabel" name="label">
          <property name="text">
-          <string>#LogLevel</string>
+          <string>Log Level</string>
          </property>
         </widget>
        </item>
@@ -125,7 +128,7 @@
        <item row="3" column="0">
         <widget class="QLabel" name="label_19">
          <property name="text">
-          <string>#AutoStartEntry</string>
+          <string>Automatically Connect To</string>
          </property>
         </widget>
        </item>
@@ -141,7 +144,7 @@
        <item row="4" column="0">
         <widget class="QLabel" name="label_14">
          <property name="text">
-          <string>#VCoreExePath</string>
+          <string>v2ray Core Path</string>
          </property>
         </widget>
        </item>
@@ -162,7 +165,7 @@
        <item row="5" column="0">
         <widget class="QLabel" name="label_15">
          <property name="text">
-          <string>#VCoreAssetsPath</string>
+          <string>v2ray Assets Path</string>
          </property>
         </widget>
        </item>
@@ -184,27 +187,27 @@
      </widget>
      <widget class="QWidget" name="tab_2">
       <attribute name="title">
-       <string>#MuxSettings</string>
+       <string>Mux Settings</string>
       </attribute>
       <layout class="QFormLayout" name="formLayout_3">
        <item row="0" column="0">
         <widget class="QLabel" name="label_5">
          <property name="text">
-          <string>#Enabled</string>
+          <string>Enabled</string>
          </property>
         </widget>
        </item>
        <item row="0" column="1">
         <widget class="QCheckBox" name="muxEnabledCB">
          <property name="text">
-          <string>#Enabled</string>
+          <string>Enabled</string>
          </property>
         </widget>
        </item>
        <item row="1" column="0">
         <widget class="QLabel" name="label_8">
          <property name="text">
-          <string>#Concurrency</string>
+          <string>Concurrency</string>
          </property>
         </widget>
        </item>
@@ -225,7 +228,7 @@
      </widget>
      <widget class="QWidget" name="tab_3">
       <attribute name="title">
-       <string>#InBoundSettings</string>
+       <string>InBound Settings</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,1">
        <item>
@@ -233,7 +236,7 @@
          <item row="0" column="0">
           <widget class="QLabel" name="label_22">
            <property name="text">
-            <string>#ListenIP</string>
+            <string>Listen IP</string>
            </property>
           </widget>
          </item>
@@ -247,20 +250,20 @@
          <item>
           <widget class="QGroupBox" name="groupBox_2">
            <property name="title">
-            <string>#SOCKSBoundSettings</string>
+            <string>SOCKS InBound Settings</string>
            </property>
            <layout class="QFormLayout" name="formLayout_2">
             <item row="0" column="1">
              <widget class="QCheckBox" name="socksCB">
               <property name="text">
-               <string>#Enabled</string>
+               <string>Enabled</string>
               </property>
              </widget>
             </item>
             <item row="1" column="0">
              <widget class="QLabel" name="label_4">
               <property name="text">
-               <string>#Port</string>
+               <string>Port</string>
               </property>
              </widget>
             </item>
@@ -274,21 +277,21 @@
             <item row="2" column="0">
              <widget class="QLabel" name="label_10">
               <property name="text">
-               <string>#Auth</string>
+               <string>Authentication</string>
               </property>
              </widget>
             </item>
             <item row="2" column="1">
              <widget class="QCheckBox" name="socksAuthCB">
               <property name="text">
-               <string>#Enabled</string>
+               <string>Enabled</string>
               </property>
              </widget>
             </item>
             <item row="3" column="0">
              <widget class="QLabel" name="label_11">
               <property name="text">
-               <string>#Username</string>
+               <string>Username</string>
               </property>
              </widget>
             </item>
@@ -298,7 +301,7 @@
             <item row="4" column="0">
              <widget class="QLabel" name="label_12">
               <property name="text">
-               <string>#Password</string>
+               <string>Password</string>
               </property>
              </widget>
             </item>
@@ -311,7 +314,7 @@
          <item>
           <widget class="QGroupBox" name="groupBox">
            <property name="title">
-            <string>#HTTPInBoundSettings</string>
+            <string>HTTP InBound Settings</string>
            </property>
            <layout class="QFormLayout" name="formLayout_7">
             <item row="0" column="1">
@@ -320,14 +323,14 @@
                <enum>Qt::LeftToRight</enum>
               </property>
               <property name="text">
-               <string>#Enabled</string>
+               <string>Enabled</string>
               </property>
              </widget>
             </item>
             <item row="1" column="0">
              <widget class="QLabel" name="label_3">
               <property name="text">
-               <string>#Port</string>
+               <string>Port</string>
               </property>
              </widget>
             </item>
@@ -347,21 +350,21 @@
             <item row="2" column="0">
              <widget class="QLabel" name="label_9">
               <property name="text">
-               <string>#Auth</string>
+               <string>Authentication</string>
               </property>
              </widget>
             </item>
             <item row="2" column="1">
              <widget class="QCheckBox" name="httpAuthCB">
               <property name="text">
-               <string>#Enabled</string>
+               <string>Enabled</string>
               </property>
              </widget>
             </item>
             <item row="3" column="0">
              <widget class="QLabel" name="label_2">
               <property name="text">
-               <string>#Username</string>
+               <string>Username</string>
               </property>
              </widget>
             </item>
@@ -371,7 +374,7 @@
             <item row="4" column="0">
              <widget class="QLabel" name="label_13">
               <property name="text">
-               <string>#Password</string>
+               <string>Password</string>
               </property>
              </widget>
             </item>
@@ -400,7 +403,7 @@
      </widget>
      <widget class="QWidget" name="tab_4">
       <attribute name="title">
-       <string>#RouteSettings</string>
+       <string>Route Settings</string>
       </attribute>
       <layout class="QHBoxLayout" name="horizontalLayout_3">
        <item>
@@ -408,42 +411,42 @@
          <item row="0" column="0">
           <widget class="QLabel" name="label_16">
            <property name="text">
-            <string>#ProxyGlobal</string>
+            <string>Enable Proxy</string>
            </property>
           </widget>
          </item>
          <item row="0" column="1">
           <widget class="QCheckBox" name="proxyDefaultCb">
            <property name="text">
-            <string>#Enabled</string>
+            <string>Enabled</string>
            </property>
           </widget>
          </item>
          <item row="1" column="0">
           <widget class="QLabel" name="label_17">
            <property name="text">
-            <string>#ProxyCN</string>
+            <string>Chinese Addresses</string>
            </property>
           </widget>
          </item>
          <item row="2" column="0">
           <widget class="QLabel" name="label_18">
            <property name="text">
-            <string>#WithLocalDNS</string>
+            <string>Use Local DNS</string>
            </property>
           </widget>
          </item>
          <item row="1" column="1">
           <widget class="QCheckBox" name="proxyCNCb">
            <property name="text">
-            <string>#Enabled</string>
+            <string>Enabled</string>
            </property>
           </widget>
          </item>
          <item row="2" column="1">
           <widget class="QCheckBox" name="localDNSCb">
            <property name="text">
-            <string>#Enabled</string>
+            <string>Enabled</string>
            </property>
           </widget>
          </item>
@@ -455,7 +458,7 @@
           <item>
            <widget class="QLabel" name="label_21">
             <property name="text">
-             <string>#DNSList</string>
+             <string>DNS List</string>
             </property>
            </widget>
           </item>
@@ -469,7 +472,7 @@
      </widget>
      <widget class="QWidget" name="tab_5">
       <attribute name="title">
-       <string>#About</string>
+       <string>About</string>
       </attribute>
       <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0">
        <item>
@@ -539,7 +542,7 @@
             <item>
              <widget class="QLabel" name="label_24">
               <property name="text">
-               <string>#Version:</string>
+               <string>Version:</string>
               </property>
              </widget>
             </item>
@@ -549,9 +552,6 @@
                <font>
                 <pointsize>10</pointsize>
                </font>
-              </property>
-              <property name="text">
-               <string>#QvVersion</string>
               </property>
              </widget>
             </item>
@@ -575,7 +575,7 @@
             <item>
              <widget class="QLabel" name="label_27">
               <property name="text">
-               <string>#OfficialRepo:</string>
+               <string>Official Repo:</string>
               </property>
              </widget>
             </item>
@@ -626,7 +626,7 @@
             <item>
              <widget class="QLabel" name="label_29">
               <property name="text">
-               <string>#License:</string>
+               <string>License:</string>
               </property>
              </widget>
             </item>
@@ -681,7 +681,7 @@
              </size>
             </property>
             <property name="text">
-             <string>#AboutQt</string>
+             <string>About Qt</string>
             </property>
            </widget>
           </item>
@@ -716,14 +716,21 @@
             <item>
              <widget class="QLabel" name="label_23">
               <property name="text">
-               <string>#IgnoreNextVersion</string>
+               <string>Ingore Next Version</string>
               </property>
              </widget>
             </item>
             <item>
              <widget class="QPushButton" name="cancelIgnoreVersionBtn">
               <property name="text">
-               <string>#CancelIngore</string>
+               <string>Cancel</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="ignoredNextVersion">
+              <property name="text">
+               <string/>
               </property>
              </widget>
             </item>

@@ -11,7 +11,7 @@ namespace Qv2ray
         }
 
         // This generates global config containing only one outbound....
-        QJsonObject ConvertConfigFromVMessString(QString str)
+        QJsonObject ConvertConfigFromVMessString(QString str, QString source)
         {
             DROOT
             QStringRef vmessJsonB64(&str, 8, str.length() - 8);
@@ -66,6 +66,7 @@ namespace Qv2ray
             outbounds.append(outbound);
             root.insert("outbounds", outbounds);
             root.insert("QV2RAY_ALIAS", QString::fromStdString(vmessConf.ps));
+            root.insert(QV2RAY_CONFIG_TYPE_JSON_KEY, source);
             RROOT
         }
 
@@ -77,30 +78,11 @@ namespace Qv2ray
                 JSON_ROOT_TRY_REMOVE("inbounds")
             }
 
-            //
             JSON_ROOT_TRY_REMOVE("log")
             JSON_ROOT_TRY_REMOVE("api")
             JSON_ROOT_TRY_REMOVE("stats")
-            JSON_ROOT_TRY_REMOVE("policy")
             JSON_ROOT_TRY_REMOVE("dns")
-            JSON_ROOT_TRY_REMOVE("routing")
-            QJsonArray outbounds;
-
-            //
-            // Currently, we only support VMess (And ShadowSocks now). So remove all other types of outbounds.
-            for (int i = root["outbounds"].toArray().count(); i >= 0 ; i--) {
-                auto isVMess = root["outbounds"].toArray()[i].toObject()["protocol"].toString() == "vmess";
-                auto isSS = root["outbounds"].toArray()[i].toObject()["protocol"].toString() == "shadowsocks";
-
-                if (isVMess || isSS) {
-                    auto conn = root["outbounds"].toArray()[i].toObject();
-                    conn.insert("tag", OUTBOUND_TAG_PROXY);
-                    outbounds.append(conn);
-                }
-            }
-
-            JSON_ROOT_TRY_REMOVE("outbounds")
-            root.insert("outbounds", outbounds);
+            root.insert(QV2RAY_CONFIG_TYPE_JSON_KEY, QV2RAY_CONFIG_TYPE_FILE);
             return root;
         }
 

@@ -31,6 +31,7 @@ SOURCES += \
         src/w_ImportConfig.cpp \
         src/w_PrefrencesWindow.cpp \
         src/main.cpp \
+        src/w_RouteEditor.cpp \
         src/w_SubscribeEditor.cpp
 
 HEADERS += \
@@ -47,6 +48,7 @@ HEADERS += \
         src/w_ConnectionEditWindow.h \
         src/w_ImportConfig.h \
         src/w_PrefrencesWindow.h \
+        src/w_RouteEditor.h \
         src/w_SubscribeEditor.h
 
 FORMS += \
@@ -54,6 +56,7 @@ FORMS += \
         src/w_ConnectionEditWindow.ui \
         src/w_ImportConfig.ui \
         src/w_PrefrencesWindow.ui \
+        src/w_RouteEditor.ui \
         src/w_SubscribeEditor.ui
 
 RESOURCES += \
@@ -61,8 +64,7 @@ RESOURCES += \
 
 
 TRANSLATIONS += \
-        translations/zh-CN.ts \
-        translations/en-US.ts
+        translations/zh-CN.ts
 
 RC_ICONS += ./icons/Qv2ray.ico
 ICON = ./icons/Qv2ray.icns

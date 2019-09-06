@@ -5,7 +5,7 @@
 #include "QvTinyLog.h"
 #include "QvCoreConfigObjects.h"
 
-#define QV2RAY_VERSION_STRING "v" QV_MAJOR_VERSION ".4.2"
+#define QV2RAY_VERSION_STRING "v" QV_MAJOR_VERSION ".5.2"
 
 #define QV2RAY_CONFIG_VERSION 2
 #define QV2RAY_CONFIG_DIR_PATH (Qv2ray::Utils::GetConfigDirPath() + "/")
@@ -17,6 +17,14 @@
 #define QV2RAY_VCORE_LOG_DIRNAME "logs/"
 #define QV2RAY_VCORE_ACCESS_LOG_FILENAME "access.log"
 #define QV2RAY_VCORE_ERROR_LOG_FILENAME "error.log"
+
+// These is for early-2.0 version, final 2.0 will move these content into global config.
+#define QV2RAY_CONFIG_TYPE_FILE "File"
+#define QV2RAY_CONFIG_TYPE_MANUAL "Manual"
+#define QV2RAY_CONFIG_TYPE_CONNECTIONSTRING "ConnectionString"
+#define QV2RAY_CONFIG_TYPE_SUBSCRIPTION "Subscription"
+#define QV2RAY_CONFIG_TYPE_JSON_KEY "_qv2ray.configSource"
+
 
 
 // GUI TOOLS
@@ -54,7 +62,8 @@ namespace Qv2ray
             bool http_useAuth;
             AccountObject httpAccount;
             Qv2rayBasicInboundsConfig(): listenip(), socks_port(), socks_useAuth(), socksAccount(), http_port(), http_useAuth(), httpAccount() {}
-            Qv2rayBasicInboundsConfig(string listen, int socksPort, int httpPort):  Qv2rayBasicInboundsConfig() {
+            Qv2rayBasicInboundsConfig(string listen, int socksPort, int httpPort):  Qv2rayBasicInboundsConfig()
+            {
                 socks_port = socksPort;
                 http_port = httpPort;
                 listenip = listen;
@@ -88,7 +97,8 @@ namespace Qv2ray
             map<string, string> subscribes;
             MuxObject mux;
             Qv2rayConfig(): config_version(QV2RAY_CONFIG_VERSION), runAsRoot(false), logLevel(), proxyDefault(), proxyCN(), withLocalDNS(), inBoundSettings(), configs(), subscribes(), mux() { }
-            Qv2rayConfig(string lang, string exePath, string assetsPath, int log, Qv2rayBasicInboundsConfig _inBoundSettings): Qv2rayConfig() {
+            Qv2rayConfig(string lang, string exePath, string assetsPath, int log, Qv2rayBasicInboundsConfig _inBoundSettings): Qv2rayConfig()
+            {
                 // These settings below are defaults.
                 ignoredVersion = "";
                 autoStartConfig = "";

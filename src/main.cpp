@@ -13,8 +13,12 @@ using namespace Qv2ray::QvConfigModels;
 
 bool initQv()
 {
-    /// Qv2ray Config Path and ends with "/"
+#ifdef QT_DEBUG
+    QString configPath = QDir::homePath() + "/.qv2ray_debug";
+#else
     QString configPath = QDir::homePath() + "/.qv2ray";
+#endif
+    /// Qv2ray Config Path and ends with "/"
     QString exeDefaultPath = configPath + "/vcore/v2ray";
     QString v2AssetsPath = configPath + "/vcore";
     //
@@ -56,7 +60,9 @@ bool initQv()
             return false;
         }
     }
+
     QFile configFile(QV2RAY_CONFIG_FILE_PATH);
+
     if (!configFile.exists()) {
         // This is first run!
         //
@@ -74,9 +80,11 @@ bool initQv()
         auto conf = JSONFromString(StringFromFile(&configFile));
         auto confVersion = conf["config_version"].toVariant().toString();
         auto newVersion = QSTRING(to_string(QV2RAY_CONFIG_VERSION));
-        if(QString::compare(confVersion, newVersion) != 0) {
+
+        if (QString::compare(confVersion, newVersion) != 0) {
             conf = UpgradeConfig(stoi(conf["config_version"].toString().toStdString()), QV2RAY_CONFIG_VERSION, conf);
         }
+
         auto confObject = StructFromJSONString<Qv2rayConfig>(JSONToString(conf));
         SetGlobalConfig(confObject);
         SaveGlobalConfig();
@@ -118,16 +126,16 @@ int main(int argc, char *argv[])
 #ifdef __APPLE__
     _qApp.setStyle("fusion");
 #endif
+    auto lang = GetGlobalConfig().language;
 
-    if (_qApp.installTranslator(getTranslator(QString::fromStdString(GetGlobalConfig().language)))) {
-        LOG(MODULE_UI, "Loaded translations " + GetGlobalConfig().language)
-    } else if (_qApp.installTranslator(getTranslator("en-US"))) {
-        LOG(MODULE_UI, "Loaded default translations")
-    } else {
-        QvMessageBox(
-            nullptr, "Failed to load translations 无法加载语言文件",
-            "Failed to load translations, user experience may be downgraded. \r\n"
-            "无法加载语言文件，用户体验可能会降级.");
+    if (lang != "en-US") {
+        if (_qApp.installTranslator(getTranslator(QSTRING(lang)))) {
+            LOG(MODULE_UI, "Loaded translations " + lang)
+        } else {
+            QvMessageBox(
+                nullptr, "Failed to load selected language.",
+                "You may want to select another language in the Prefrences Window.\r\n");
+        }
     }
 
     RunGuard guard("Qv2ray-Instance-Identifier"
@@ -135,17 +143,18 @@ int main(int argc, char *argv[])
                    "DEBUG_VERSION"
 #endif
                   );
-
-#ifdef __WIN32
+#ifndef __APPLE__
     auto osslReqVersion = QSslSocket::sslLibraryBuildVersionString().toStdString();
     auto osslCurVersion = QSslSocket::sslLibraryVersionString().toStdString();
-    if (osslCurVersion != osslReqVersion){
+    LOG(MODULE_NETWORK, "Current OpenSSL version: " + osslCurVersion)
+
+    if (osslCurVersion != osslReqVersion) {
         LOG(MODULE_NETWORK, "Required OpenSSL version: " + osslReqVersion)
-        LOG(MODULE_NETWORK, "Current OpenSSL version: " + osslCurVersion)
         QvMessageBox(nullptr, QObject::tr("DependencyMissing"), QObject::tr("osslDependMissing,PleaseReDownload"));
         LOG(MODULE_NETWORK, "OpenSSL library MISSING, Quitting.")
         return -2;
     }
+
 #endif
 
     if (!guard.isSingleInstance()) {
@@ -153,6 +162,7 @@ int main(int argc, char *argv[])
         QvMessageBox(nullptr, "Qv2ray", QObject::tr("#AnotherInstanceRunning"));
         return -1;
     }
+
     // Show MainWindow
     MainWindow w;
     return _qApp.exec();
