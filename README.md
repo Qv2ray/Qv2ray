@@ -6,6 +6,7 @@
 
 # 项目主页，下载链接和使用方法
  - 见 Github Page: https://lhy0403.github.io/Qv2ray
+ - 最新 [Release](https://github.com/lhy0403/Qv2ray/releases/latest) 
 
 -------------------------
 
