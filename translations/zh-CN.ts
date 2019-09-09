@@ -315,12 +315,12 @@
     <message>
       <location filename="../src/w_ImportConfig.cpp" line="65"/>
       <source>#NotValidVMessProtocolString</source>
-      <translation type="unfinished">#NotValidVMessProtocolString</translation>
+      <translation>VMess 连接字符串不合法</translation>
     </message>
     <message>
       <location filename="../src/w_ImportConfig.cpp" line="69"/>
       <source>#INTERNAL_ERROR</source>
-      <translation type="unfinished">#INTERNAL_ERROR</translation>
+      <translation>内部错误</translation>
     </message>
   </context>
   <context>
@@ -328,42 +328,42 @@
     <message>
       <location filename="../src/w_MainWindow.ui" line="23"/>
       <source>Qv2ray</source>
-      <translation type="unfinished">Qv2ray</translation>
+      <translation>Qv2ray</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.ui" line="47"/>
       <source>Connect</source>
-      <translation type="unfinished">Connect</translation>
+      <translation>连接</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.ui" line="57"/>
       <source>Disconnect</source>
-      <translation type="unfinished">Disconnect</translation>
+      <translation>断开连接</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.ui" line="64"/>
       <source>Clear Log</source>
-      <translation type="unfinished">Clear Log</translation>
+      <translation>清除日志</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.ui" line="71"/>
       <source>Prefrences</source>
-      <translation type="unfinished">Prefrences</translation>
+      <translation>首选项</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.ui" line="94"/>
       <source>Stopped</source>
-      <translation type="unfinished">Stopped</translation>
+      <translation>已停止</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.ui" line="103"/>
       <source>Host List</source>
-      <translation type="unfinished">Host List</translation>
+      <translation>主机列表</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.ui" line="110"/>
       <source>Config Details</source>
-      <translation type="unfinished">Config Details</translation>
+      <translation>配置详细信息</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.ui" line="116"/>
@@ -383,171 +383,171 @@
     <message>
       <location filename="../src/w_MainWindow.ui" line="158"/>
       <source>Detail</source>
-      <translation type="unfinished">Detail</translation>
+      <translation>详细信息</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.ui" line="236"/>
       <source>#AddConnection</source>
-      <translation type="unfinished">#AddConnection</translation>
+      <translation>添加连接</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.ui" line="239"/>
       <source>A</source>
-      <translation type="unfinished">A</translation>
+      <translation>A</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.ui" line="256"/>
       <location filename="../src/w_MainWindow.ui" line="346"/>
       <source>#ImportConnection</source>
-      <translation type="unfinished">#ImportConnection</translation>
+      <translation>导入连接</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.ui" line="259"/>
       <source>I</source>
-      <translation type="unfinished">I</translation>
+      <translation>I</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.ui" line="276"/>
       <location filename="../src/w_MainWindow.cpp" line="454"/>
       <source>#RemoveConnection</source>
-      <translation type="unfinished">#RemoveConnection</translation>
+      <translation>删除连接</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.ui" line="279"/>
       <source>R</source>
-      <translation type="unfinished">R</translation>
+      <translation>R</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.ui" line="290"/>
       <source>#EditConnection</source>
-      <translation type="unfinished">#EditConnection</translation>
+      <translation>编辑连接</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.ui" line="293"/>
       <source>...</source>
-      <translation type="unfinished">...</translation>
+      <translation>...</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.ui" line="319"/>
       <source>Log</source>
-      <translation type="unfinished">Log</translation>
+      <translation>日志</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.ui" line="341"/>
       <source>#ManuallyCreateConnection</source>
-      <translation type="unfinished">#ManuallyCreateConnection</translation>
+      <translation>手动添加连接配置</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.ui" line="351"/>
       <source>#Exit</source>
-      <translation type="unfinished">#Exit</translation>
+      <translation>退出</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.ui" line="356"/>
       <source>#Preferences</source>
-      <translation type="unfinished">#Preferences</translation>
+      <translation>首选项</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.ui" line="361"/>
       <source>#Start</source>
-      <translation type="unfinished">#Start</translation>
+      <translation>开始</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.ui" line="366"/>
       <source>#Stop</source>
-      <translation type="unfinished">#Stop</translation>
+      <translation>停止</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.ui" line="371"/>
       <source>#Restart</source>
-      <translation type="unfinished">#Restart</translation>
+      <translation>重启</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="37"/>
       <location filename="../src/w_MainWindow.cpp" line="282"/>
       <source>#Hide</source>
-      <translation type="unfinished">#Hide</translation>
+      <translation>隐藏</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="38"/>
       <source>#Quit</source>
-      <translation type="unfinished">#Quit</translation>
+      <translation>退出</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="39"/>
       <source>#Connect</source>
-      <translation type="unfinished">#Connect</translation>
+      <translation>连接</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="40"/>
       <source>#Reconnect</source>
-      <translation type="unfinished">#Reconnect</translation>
+      <translation>重新连接</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="41"/>
       <source>#Disconnect</source>
-      <translation type="unfinished">#Disconnect</translation>
+      <translation>断开连接</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="43"/>
       <source>#Rename</source>
-      <translation type="unfinished">#Rename</translation>
+      <translation>重命名</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="44"/>
       <source>#ConnectSelected</source>
-      <translation type="unfinished">#ConnectSelected</translation>
+      <translation>连接选择的配置</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="91"/>
       <location filename="../src/w_MainWindow.cpp" line="237"/>
       <location filename="../src/w_MainWindow.cpp" line="285"/>
       <source>#Show</source>
-      <translation type="unfinished">#Show</translation>
+      <translation>显示</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="119"/>
       <location filename="../src/w_MainWindow.cpp" line="120"/>
       <source>#NewReleaseVersionFound</source>
-      <translation type="unfinished">#NewReleaseVersionFound</translation>
+      <translation>找到新版本</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="126"/>
       <source>#ReleaseDownloadLink</source>
-      <translation type="unfinished">#ReleaseDownloadLink</translation>
+      <translation>新版本下载链接</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="187"/>
       <location filename="../src/w_MainWindow.cpp" line="494"/>
       <source>#NoConfigSelected</source>
-      <translation type="unfinished">#NoConfigSelected</translation>
+      <translation>未选择配置</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="187"/>
       <location filename="../src/w_MainWindow.cpp" line="494"/>
       <source>#PleaseSelectAConfig</source>
-      <translation type="unfinished">#PleaseSelectAConfig</translation>
+      <translation>请选择一个配置文件</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="198"/>
       <location filename="../src/w_MainWindow.cpp" line="199"/>
       <source>#ConnectedToServer</source>
-      <translation type="unfinished">#ConnectedToServer</translation>
+      <translation>连接到服务器</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="200"/>
       <source>#Connected</source>
-      <translation type="unfinished">#Connected</translation>
+      <translation>已连接</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="217"/>
       <source>#Disconnected</source>
-      <translation type="unfinished">#Disconnected</translation>
+      <translation>已断开</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="323"/>
       <source>#UUID</source>
-      <translation type="unfinished">#UUID</translation>
+      <translation>UUID</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="325"/>
@@ -771,32 +771,32 @@
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="435"/>
       <source>Use Local DNS</source>
-      <translation type="unfinished">Use Local DNS</translation>
+      <translation>使用本地DNS</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="461"/>
       <source>DNS List</source>
-      <translation type="unfinished">DNS List</translation>
+      <translation>DNS 列表</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="475"/>
       <source>About</source>
-      <translation type="unfinished">About</translation>
+      <translation>关于</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="523"/>
       <source>Qv2ray</source>
-      <translation type="unfinished">Qv2ray</translation>
+      <translation>Qv2ray</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="545"/>
       <source>Version:</source>
-      <translation type="unfinished">Version:</translation>
+      <translation>版本：</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="578"/>
       <source>Official Repo:</source>
-      <translation type="unfinished">Official Repo:</translation>
+      <translation>官方Repo：</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="596"/>
@@ -806,7 +806,7 @@
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="629"/>
       <source>License:</source>
-      <translation type="unfinished">License:</translation>
+      <translation>许可证：</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="647"/>
@@ -816,37 +816,37 @@
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="684"/>
       <source>About Qt</source>
-      <translation type="unfinished">About Qt</translation>
+      <translation>关于 Qt</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="719"/>
       <source>Ingore Next Version</source>
-      <translation type="unfinished">Ingore Next Version</translation>
+      <translation>忽略下个版本</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="726"/>
       <source>Cancel</source>
-      <translation type="unfinished">Cancel</translation>
+      <translation>取消</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.cpp" line="97"/>
       <source>PortNumbersCannotBeSame</source>
-      <translation type="unfinished">PortNumbersCannotBeSame</translation>
+      <translation>端口号不能相同</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.cpp" line="169"/>
       <source>RunAsRootNotOnWindows</source>
-      <translation type="unfinished">RunAsRootNotOnWindows</translation>
+      <translation>在 Windows 上此功能无效</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.cpp" line="289"/>
       <source>#OpenVCoreFile</source>
-      <translation type="unfinished">#OpenVCoreFile</translation>
+      <translation>打开 v2ray core 文件</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.cpp" line="300"/>
       <source>OpenVAssetsDir</source>
-      <translation type="unfinished">OpenVAssetsDir</translation>
+      <translation>打开 v2ray Assets 文件夹</translation>
     </message>
   </context>
   <context>
@@ -854,37 +854,37 @@
     <message>
       <location filename="../src/QvCoreConfigOperations_Verification.cpp" line="21"/>
       <source>#VMessDecodeError</source>
-      <translation type="unfinished">#VMessDecodeError</translation>
+      <translation>VMess 解码失败</translation>
     </message>
     <message>
       <location filename="../src/QvCoreInteractions.cpp" line="29"/>
       <source>ConfigurationError</source>
-      <translation type="unfinished">ConfigurationError</translation>
+      <translation>配置错误</translation>
     </message>
     <message>
       <location filename="../src/QvCoreInteractions.cpp" line="53"/>
       <source>CoreNotFound</source>
-      <translation type="unfinished">CoreNotFound</translation>
+      <translation>V2ray core 未找到</translation>
     </message>
     <message>
       <location filename="../src/QvCoreInteractions.cpp" line="53"/>
       <source>CoreFileNotFoundExplainationAt:</source>
-      <translation type="unfinished">CoreFileNotFoundExplainationAt:</translation>
+      <translation>V2ray 核心文件未能在以下位置找到：</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="153"/>
       <source>DependencyMissing</source>
-      <translation type="unfinished">DependencyMissing</translation>
+      <translation>依赖项缺失</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="153"/>
       <source>osslDependMissing,PleaseReDownload</source>
-      <translation type="unfinished">osslDependMissing,PleaseReDownload</translation>
+      <translation>openssl 依赖项缺失，请重新下载</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="162"/>
       <source>#AnotherInstanceRunning</source>
-      <translation type="unfinished">#AnotherInstanceRunning</translation>
+      <translation>另一个实例正在运行</translation>
     </message>
   </context>
   <context>
@@ -892,12 +892,12 @@
     <message>
       <location filename="../src/w_RouteEditor.ui" line="14"/>
       <source>Dialog</source>
-      <translation type="unfinished">Dialog</translation>
+      <translation>对话框</translation>
     </message>
     <message>
       <location filename="../src/w_RouteEditor.ui" line="55"/>
       <source>#Outbounds</source>
-      <translation type="unfinished">#Outbounds</translation>
+      <translation>出站</translation>
     </message>
     <message>
       <location filename="../src/w_RouteEditor.ui" line="69"/>
@@ -975,22 +975,22 @@
     <message>
       <location filename="../src/w_SubscribeEditor.ui" line="150"/>
       <source>#AddConnection</source>
-      <translation type="unfinished">#AddConnection</translation>
+      <translation>添加连接</translation>
     </message>
     <message>
       <location filename="../src/w_SubscribeEditor.ui" line="153"/>
       <source>A</source>
-      <translation type="unfinished">A</translation>
+      <translation>A</translation>
     </message>
     <message>
       <location filename="../src/w_SubscribeEditor.ui" line="170"/>
       <source>#RemoveConnection</source>
-      <translation type="unfinished">#RemoveConnection</translation>
+      <translation>删除连接</translation>
     </message>
     <message>
       <location filename="../src/w_SubscribeEditor.ui" line="173"/>
       <source>R</source>
-      <translation type="unfinished">R</translation>
+      <translation>R</translation>
     </message>
   </context>
 </TS>
