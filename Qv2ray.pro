@@ -64,7 +64,7 @@ RESOURCES += \
 
 
 TRANSLATIONS += \
-        translations/zh-CN.ts
+        translations/source.ts
 
 RC_ICONS += ./icons/Qv2ray.ico
 ICON = ./icons/Qv2ray.icns
