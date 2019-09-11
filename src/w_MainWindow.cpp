@@ -35,14 +35,14 @@ MainWindow::MainWindow(QWidget *parent)
     hTray->setIcon(this->windowIcon());
     hTray->setToolTip(TRAY_TOOLTIP_PREFIX);
     //
-    QAction *action_Tray_ShowHide = new QAction(this->windowIcon(), tr("#Hide"), this);
-    QAction *action_Tray_Quit = new QAction(tr("#Quit"), this);
-    QAction *action_Tray_Start = new QAction(tr("#Connect"), this);
-    QAction *action_Tray_Restart = new QAction(tr("#Reconnect"), this);
-    QAction *action_Tray_Stop = new QAction(tr("#Disconnect"), this);
+    QAction *action_Tray_ShowHide = new QAction(this->windowIcon(), tr("Hide"), this);
+    QAction *action_Tray_Quit = new QAction(tr("Quit"), this);
+    QAction *action_Tray_Start = new QAction(tr("Connect"), this);
+    QAction *action_Tray_Restart = new QAction(tr("Reconnect"), this);
+    QAction *action_Tray_Stop = new QAction(tr("Disconnect"), this);
     //
-    QAction *action_RCM_RenameConnection = new QAction(tr("#Rename"), this);
-    QAction *action_RCM_StartThis = new QAction(tr("#ConnectSelected"), this);
+    QAction *action_RCM_RenameConnection = new QAction(tr("Rename"), this);
+    QAction *action_RCM_StartThis = new QAction(tr("ConnectSelected"), this);
     action_Tray_Start->setEnabled(true);
     action_Tray_Stop->setEnabled(false);
     action_Tray_Restart->setEnabled(false);
@@ -89,7 +89,7 @@ MainWindow::MainWindow(QWidget *parent)
         on_startButton_clicked();
         //ToggleVisibility();
         this->hide();
-        trayMenu->actions()[0]->setText(tr("#Show"));
+        trayMenu->actions()[0]->setText(tr("Show"));
     } else {
         this->show();
     }
@@ -117,14 +117,14 @@ void MainWindow::VersionUpdate(QByteArray &data)
     if (newversion > current && newversion > ignored) {
         LOG(MODULE_UPDATE, "New version detected.")
         auto link = root["html_url"].toString("");
-        auto result = QvMessageBoxAsk(this, tr("#NewReleaseVersionFound"),
-                                      tr("#NewReleaseVersionFound") + ": " + root["tag_name"].toString("") +
+        auto result = QvMessageBoxAsk(this, tr("NewReleaseVersionFound"),
+                                      tr("NewReleaseVersionFound") + ": " + root["tag_name"].toString("") +
                                       "\r\n" +
                                       root["name"].toString("") +
                                       "\r\n------------\r\n" +
                                       root["body"].toString("") +
                                       "\r\n------------\r\n" +
-                                      tr("#ReleaseDownloadLink") + ": " + link, QMessageBox::Ignore);
+                                      tr("ReleaseDownloadLink") + ": " + link, QMessageBox::Ignore);
 
         if (result == QMessageBox::Yes) {
             QDesktopServices::openUrl(QUrl::fromUserInput(link));
@@ -185,7 +185,7 @@ void MainWindow::UpdateLog()
 void MainWindow::on_startButton_clicked()
 {
     if (CurrentConnectionName == "") {
-        QvMessageBox(this, tr("#NoConfigSelected"), tr("#PleaseSelectAConfig"));
+        QvMessageBox(this, tr("NoConfigSelected"), tr("PleaseSelectAConfig"));
         return;
     }
 
@@ -196,9 +196,9 @@ void MainWindow::on_startButton_clicked()
     bool startFlag = this->vinstance->Start();
 
     if (startFlag) {
-        this->hTray->showMessage("Qv2ray", tr("#ConnectedToServer") + " " + CurrentConnectionName, hTray->icon());
-        hTray->setToolTip(TRAY_TOOLTIP_PREFIX + tr("#ConnectedToServer") + ": " + CurrentConnectionName);
-        ui->statusLabel->setText(tr("#Connected") + ": " + CurrentConnectionName);
+        this->hTray->showMessage("Qv2ray", tr("ConnectedToServer") + " " + CurrentConnectionName, hTray->icon());
+        hTray->setToolTip(TRAY_TOOLTIP_PREFIX + tr("ConnectedToServer") + ": " + CurrentConnectionName);
+        ui->statusLabel->setText(tr("Connected") + ": " + CurrentConnectionName);
     }
 
     trayMenu->actions()[2]->setEnabled(!startFlag);
@@ -215,7 +215,7 @@ void MainWindow::on_stopButton_clicked()
         this->vinstance->Stop();
         hTray->setToolTip(TRAY_TOOLTIP_PREFIX);
         QFile(QV2RAY_GENERATED_FILE_PATH).remove();
-        ui->statusLabel->setText(tr("#Disconnected"));
+        ui->statusLabel->setText(tr("Disconnected"));
         ui->logText->clear();
         trayMenu->actions()[2]->setEnabled(true);
         trayMenu->actions()[3]->setEnabled(false);
@@ -235,7 +235,7 @@ void MainWindow::on_restartButton_clicked()
 void MainWindow::closeEvent(QCloseEvent *event)
 {
     this->hide();
-    trayMenu->actions()[0]->setText(tr("#Show"));
+    trayMenu->actions()[0]->setText(tr("Show"));
     event->ignore();
 }
 
@@ -280,10 +280,10 @@ void MainWindow::ToggleVisibility()
         SetWindowPos(HWND(this->winId()), HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW);
         SetWindowPos(HWND(this->winId()), HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW);
 #endif
-        trayMenu->actions()[0]->setText(tr("#Hide"));
+        trayMenu->actions()[0]->setText(tr("Hide"));
     } else {
         this->hide();
-        trayMenu->actions()[0]->setText(tr("#Show"));
+        trayMenu->actions()[0]->setText(tr("Show"));
     }
 }
 
@@ -317,31 +317,31 @@ void MainWindow::ShowAndSetConnection(int index, bool SetConnection, bool ApplyC
     ui->_OutBoundTypeLabel->setText(outboundType);
 
     if (outboundType == "vmess") {
-        auto x = StructFromJsonString<VMessServerObject>(JsonToString(outBoundRoot["settings"].toObject()["vnext"].toArray().first().toObject()));
-        ui->_hostLabel->setText(QSTRING(x.address));
-        ui->_portLabel->setText(QSTRING(to_string(x.port)));
-        auto user = QList<VMessServerObject::UserObject>::fromStdList(x.users).first();
-        auto _configString = tr("#UUID") + ": " + QSTRING(user.id)
+        auto Server = StructFromJsonString<VMessServerObject>(JsonToString(outBoundRoot["settings"].toObject()["vnext"].toArray().first().toObject()));
+        ui->_hostLabel->setText(QSTRING(Server.address));
+        ui->_portLabel->setText(QSTRING(to_string(Server.port)));
+        auto user = QList<VMessServerObject::UserObject>::fromStdList(Server.users).first();
+        auto _configString = tr("UUID") + ": " + QSTRING(user.id)
                              + "\r\n"
-                             + tr("#AlterID") + ": " + QSTRING(to_string(user.alterId))
+                             + tr("AlterID") + ": " + QSTRING(to_string(user.alterId))
                              + "\r\n"
-                             + tr("#Transport") + ": " + outBoundRoot["streamSettings"].toObject()["network"].toString();
+                             + tr("Transport") + ": " + outBoundRoot["streamSettings"].toObject()["network"].toString();
         ui->detailInfoTxt->setPlainText(_configString);
     } else if (outboundType == "shadowsocks") {
         auto x = JsonToString(outBoundRoot["settings"].toObject()["servers"].toArray().first().toObject());
         auto Server = StructFromJsonString<ShadowSocksServer>(x);
         ui->_hostLabel->setText(QSTRING(Server.address));
         ui->_portLabel->setText(QSTRING(to_string(Server.port)));
-        auto _configString = tr("#Email") + ": " + QSTRING(Server.email)
+        auto _configString = tr("Email") + ": " + QSTRING(Server.email)
                              + "\r\n"
-                             + tr("#Encryption") + ": " + QSTRING(Server.method);
+                             + tr("Encryption") + ": " + QSTRING(Server.method);
         ui->detailInfoTxt->setPlainText(_configString);
     } else if (outboundType == "socks") {
         auto x = JsonToString(outBoundRoot["settings"].toObject()["servers"].toArray().first().toObject());
         auto Server = StructFromJsonString<SocksServerObject>(x);
         ui->_hostLabel->setText(QSTRING(Server.address));
         ui->_portLabel->setText(QSTRING(to_string(Server.port)));
-        auto _configString = tr("#Username") + ": " + QSTRING(Server.users.front().user);
+        auto _configString = tr("Username") + ": " + QSTRING(Server.users.front().user);
         ui->detailInfoTxt->setPlainText(_configString);
     }
 
@@ -416,7 +416,7 @@ void MainWindow::on_connectionListWidget_itemChanged(QListWidgetItem *item)
         auto configList = QList<string>::fromStdList(config.configs);
 
         if (newName.trimmed().isEmpty()) {
-            QvMessageBox(this, tr("#RenameConnection"), tr("#CannotUseEmptyName"));
+            QvMessageBox(this, tr("RenameConnection"), tr("CannotUseEmptyName"));
             return;
         }
 
@@ -425,7 +425,7 @@ void MainWindow::on_connectionListWidget_itemChanged(QListWidgetItem *item)
 
         if (originalName != newName) {
             if (configList.contains(newName.toStdString())) {
-                QvMessageBox(this, tr("#RenameConnection"), tr("#DuplicatedConnectionName"));
+                QvMessageBox(this, tr("RenameConnection"), tr("DuplicatedConnectionName"));
                 return;
             }
 
@@ -452,7 +452,7 @@ void MainWindow::on_connectionListWidget_itemChanged(QListWidgetItem *item)
 
 void MainWindow::on_removeConfigButton_clicked()
 {
-    if (QvMessageBoxAsk(this, tr("#RemoveConnection"), tr("#RemoveConnectionConfirm")) == QMessageBox::Yes) {
+    if (QvMessageBoxAsk(this, tr("RemoveConnection"), tr("RemoveConnectionConfirm")) == QMessageBox::Yes) {
         auto conf = GetGlobalConfig();
         QList<string> list = QList<string>::fromStdList(conf.configs);
         auto currentSelected = ui->connectionListWidget->currentIndex().row();
@@ -492,7 +492,7 @@ void MainWindow::on_editConfigButton_clicked()
     auto index = ui->connectionListWidget->currentIndex().row();
 
     if (index < 0) {
-        QvMessageBox(this, tr("#NoConfigSelected"), tr("#PleaseSelectAConfig"));
+        QvMessageBox(this, tr("NoConfigSelected"), tr("PleaseSelectAConfig"));
         return;
     }
 

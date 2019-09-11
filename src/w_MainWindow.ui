@@ -44,7 +44,7 @@
       <item>
        <widget class="QPushButton" name="startButton">
         <property name="text">
-         <string>#Connect</string>
+         <string>Connect</string>
         </property>
        </widget>
       </item>
@@ -54,21 +54,21 @@
          <bool>false</bool>
         </property>
         <property name="text">
-         <string>#Disconnect</string>
+         <string>Disconnect</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="clearlogButton">
         <property name="text">
-         <string>#ClearLog</string>
+         <string>Clear Log</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="prefrencesBtn">
         <property name="text">
-         <string>#Preferences</string>
+         <string>Prefrences</string>
         </property>
        </widget>
       </item>
@@ -91,7 +91,7 @@
       <item>
        <widget class="QLabel" name="statusLabel">
         <property name="text">
-         <string>#Stopped</string>
+         <string>Stopped</string>
         </property>
        </widget>
       </item>
@@ -100,20 +100,20 @@
     <item row="1" column="0">
      <widget class="QLabel" name="label_8">
       <property name="text">
-       <string>#HostList</string>
+       <string>Host List</string>
       </property>
      </widget>
     </item>
     <item row="1" column="1" rowspan="3">
      <widget class="QGroupBox" name="groupBox">
       <property name="title">
-       <string>#CurrentConfigDetail</string>
+       <string>Config Details</string>
       </property>
       <layout class="QFormLayout" name="formLayout">
        <item row="0" column="0">
         <widget class="QLabel" name="label_2">
          <property name="text">
-          <string>#OutBoundType</string>
+          <string>Type</string>
          </property>
         </widget>
        </item>
@@ -127,7 +127,7 @@
        <item row="1" column="0">
         <widget class="QLabel" name="label">
          <property name="text">
-          <string>#Host</string>
+          <string>Host</string>
          </property>
         </widget>
        </item>
@@ -141,7 +141,7 @@
        <item row="2" column="0">
         <widget class="QLabel" name="label_3">
          <property name="text">
-          <string>#Port</string>
+          <string>Port</string>
          </property>
         </widget>
        </item>
@@ -155,7 +155,7 @@
        <item row="3" column="0">
         <widget class="QLabel" name="label_4">
          <property name="text">
-          <string>#DetailInfo</string>
+          <string>Detail</string>
          </property>
         </widget>
        </item>
@@ -323,7 +323,7 @@
     <item row="4" column="0">
      <widget class="QLabel" name="label_10">
       <property name="text">
-       <string>#Log</string>
+       <string>Log</string>
       </property>
      </widget>
     </item>
