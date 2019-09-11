@@ -1,5 +1,7 @@
 #include "w_RouteEditor.h"
+#include "QvCoreConfigOperations.h"
 #include "ui_w_RouteEditor.h"
+#include "w_ConnectionEditWindow.h"
 
 RouteEditor::RouteEditor(QJsonObject connection, const QString alias, QWidget *parent) :
     QDialog(parent),
@@ -15,25 +17,22 @@ RouteEditor::RouteEditor(QJsonObject connection, const QString alias, QWidget *p
 
     foreach (auto out, outbounds) {
         bool hasTag = out.toObject().contains("tag");
-
-        if (hasTag) {
-            ui->outboundsList->addItem(out.toObject()["tag"].toString());
-        } else {
-            ui->outboundsList->addItem(out.toObject()["protocol"].toString());
-        }
+        //
+        auto protocol = out.toObject()["protocol"].toString();
+        auto tag = hasTag ? out.toObject()["tag"].toString() : tr("NoTag");
+        //
+        ui->outboundsList->addItem(tag + " (" + protocol + ")");
     }
 
     foreach (auto in, inbounds) {
         bool hasTag = in.toObject().contains("tag");
-        auto inItem = new QListWidgetItem();
+        //
+        auto tag = hasTag ?  in.toObject()["tag"].toString() : tr("NoTag");
+        auto protocol = in.toObject()["protocol"].toString();
+        auto port = in.toObject()["port"].toVariant().toString();
+        //
+        auto inItem = new QListWidgetItem(tag + " (" + protocol + ": " + port  + ")");
         inItem->setCheckState(Qt::Unchecked);
-
-        if (hasTag) {
-            inItem->setText(in.toObject()["tag"].toString());
-        } else {
-            inItem->setText(in.toObject()["protocol"].toString());
-        }
-
         ui->inboundsList->addItem(inItem);
     }
 
@@ -65,25 +64,32 @@ void RouteEditor::on_outboundsList_currentRowChanged(int currentRow)
 {
     LOG(MODULE_UI, "Outbound selected: " + to_string(currentRow))
     auto outBoundRoot = outbounds[currentRow].toObject();
-    ui->outboundTagLabel->setText(outBoundRoot.contains("tag") ? outBoundRoot["tag"].toString() : tr("#NoTag"));
+    //
     auto outboundType = outBoundRoot["protocol"].toString();
+    ui->outboundTagLabel->setText(outBoundRoot.contains("tag") ? outBoundRoot["tag"].toString() : tr("NoTag"));
+    //
     ui->outboundTypeLabel->setText(outboundType);
+    string serverAddress = "N/A";
+    string serverPort = "N/A";
 
     if (outboundType == "vmess") {
         auto x = StructFromJsonString<VMessServerObject>(JsonToString(outBoundRoot["settings"].toObject()["vnext"].toArray().first().toObject()));
-        ui->outboundAddressLabel->setText(QSTRING(x.address));
-        ui->outboundPortLabel->setText(QSTRING(to_string(x.port)));
+        serverAddress = x.address;
+        serverPort = to_string(x.port);
     } else if (outboundType == "shadowsocks") {
         auto x = JsonToString(outBoundRoot["settings"].toObject()["servers"].toArray().first().toObject());
         auto Server = StructFromJsonString<ShadowSocksServer>(x);
-        ui->outboundAddressLabel->setText(QSTRING(Server.address));
-        ui->outboundPortLabel->setText(QSTRING(to_string(Server.port)));
+        serverAddress = Server.address;
+        serverPort = to_string(Server.port);
     } else if (outboundType == "socks") {
         auto x = JsonToString(outBoundRoot["settings"].toObject()["servers"].toArray().first().toObject());
         auto Server = StructFromJsonString<SocksServerObject>(x);
-        ui->outboundAddressLabel->setText(QSTRING(Server.address));
-        ui->outboundPortLabel->setText(QSTRING(to_string(Server.port)));
+        serverAddress = Server.address;
+        serverPort = to_string(Server.port);
     }
+
+    ui->outboundAddressLabel->setText(QSTRING(serverAddress));
+    ui->outboundPortLabel->setText(QSTRING(serverPort));
 }
 
 void RouteEditor::on_inboundsList_currentRowChanged(int currentRow)
@@ -104,7 +110,8 @@ void RouteEditor::on_routesTable_cellClicked(int row, int column)
 
     Q_UNUSED(column)
     auto outboundTag = ui->routesTable->item(row, 2)->text();
-    ui->outboundsList->setCurrentItem(ui->outboundsList->findItems(outboundTag, Qt::MatchExactly).first());
+    int index = FindIndexByTag(outbounds, &outboundTag);
+    ui->outboundsList->setCurrentRow(index);
     //
     auto inboundTagList = ui->routesTable->item(row, 0)->text();
     bool isAnyInbounds = inboundTagList == "Any";
@@ -117,7 +124,19 @@ void RouteEditor::on_routesTable_cellClicked(int row, int column)
         auto rulesList = QList<RuleObject>::fromStdList(routes.rules);
 
         foreach (auto inboundTag, rulesList[row].inboundTag) {
-            ui->inboundsList->findItems(QSTRING(inboundTag), Qt::MatchExactly).first()->setCheckState(Qt::Checked);
+            auto inTag = QSTRING(inboundTag);
+            int index = FindIndexByTag(inbounds, &inTag);
+            ui->inboundsList->item(index)->setCheckState(Qt::Checked);
         }
     }
+}
+
+void RouteEditor::on_editOutboundBtn_clicked()
+{
+    auto currentOutbound = outbounds[ui->outboundsList->currentRow()].toObject();
+    ConnectionEditWindow *w = new ConnectionEditWindow(currentOutbound, nullptr, this);
+    w->exec();
+    auto result = w->Result;
+    LOG(MODULE_UI, "NOT FINISHED YET")
+    delete w;
 }

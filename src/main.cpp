@@ -81,14 +81,19 @@ bool initQv()
         auto confVersion = conf["config_version"].toVariant().toString();
         auto newVersion = QSTRING(to_string(QV2RAY_CONFIG_VERSION));
 
-        if (QString::compare(confVersion, newVersion) != 0) {
-            conf = UpgradeConfig(stoi(conf["config_version"].toString().toStdString()), QV2RAY_CONFIG_VERSION, conf);
+        if (confVersion != newVersion) {
+            conf = UpgradeConfig(stoi(conf["config_version"].toVariant().toString().toStdString()), QV2RAY_CONFIG_VERSION, conf);
         }
 
-        auto confObject = StructFromJsonString<Qv2rayConfig>(JsonToString(conf));
-        SetGlobalConfig(confObject);
-        SaveGlobalConfig();
-        LOG(MODULE_INIT, "Loaded config file.")
+        try {
+            auto confObject = StructFromJsonString<Qv2rayConfig>(JsonToString(conf));
+            SetGlobalConfig(confObject);
+            SaveGlobalConfig();
+            LOG(MODULE_INIT, "Loaded config file.")
+        } catch (...) {
+            LOG(MODULE_INIT, "FAILED TO LOAD config file. This is an error and should be reported, Qv2ray will now exit.")
+            return false;
+        }
     }
 
     return true;
@@ -113,9 +118,12 @@ int main(int argc, char *argv[])
 #endif
     //
     QApplication _qApp(argc, argv);
+
     //
     // Qv2ray Initialize
-    initQv();
+    if (!initQv())
+        return -1;
+
     //
 #ifdef _WIN32
     // Set special font in Windows

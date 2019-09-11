@@ -29,7 +29,7 @@
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>3</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -425,7 +425,7 @@
          <item row="1" column="0">
           <widget class="QLabel" name="label_17">
            <property name="text">
-            <string>Chinese Addresses</string>
+            <string>Bypass Chinese Mainland</string>
            </property>
           </widget>
          </item>
@@ -437,7 +437,7 @@
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QCheckBox" name="proxyCNCb">
+          <widget class="QCheckBox" name="bypassCNCb">
            <property name="text">
             <string>Enabled</string>
            </property>

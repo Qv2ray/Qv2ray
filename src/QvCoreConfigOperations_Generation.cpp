@@ -172,7 +172,7 @@ namespace Qv2ray
             // We don't add extra routings.
             // We don't use QV2RAY_CONFIG_TYPE_FILE checking scheme because not all connections have this part.
             if (!root.contains("routing")) {
-                auto routeObject = GenerateRoutes(gConf.proxyDefault, gConf.proxyCN);
+                auto routeObject = GenerateRoutes(gConf.proxyDefault, gConf.bypassCN);
                 root.insert("routing", routeObject);
             }
 

@@ -29,6 +29,8 @@ class RouteEditor : public QDialog
 
         void on_routesTable_cellClicked(int row, int column);
 
+        void on_editOutboundBtn_clicked();
+
     private:
         QJsonArray inbounds;
         QJsonArray outbounds;

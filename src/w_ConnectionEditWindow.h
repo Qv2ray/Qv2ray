@@ -17,7 +17,9 @@ class ConnectionEditWindow : public QDialog
 
     public:
         explicit ConnectionEditWindow(QWidget *parent = nullptr);
-        explicit ConnectionEditWindow(QJsonObject editRootObject, QString alias, QWidget *parent = nullptr);
+        explicit ConnectionEditWindow(QJsonObject editRootObject, QString *alias, QWidget *parent = nullptr);
+        QJsonObject Result;
+        QString Alias;
         ~ConnectionEditWindow();
     signals:
         void s_reload_config(bool need_restart);
@@ -114,10 +116,8 @@ class ConnectionEditWindow : public QDialog
 
     private:
         int rootJsonCursorPos;
-        QString _alias;
         void ReLoad_GUI_JSON_ModelContent();
         QJsonObject GenerateConnectionJson();
-        QJsonObject originalRoot;
         Ui::ConnectionEditWindow *ui;
         //
         // Connection Configs

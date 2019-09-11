@@ -13,13 +13,13 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout" columnstretch="1,2,1">
+  <layout class="QGridLayout" name="gridLayout" columnstretch="0,1,0">
    <item row="0" column="1">
     <layout class="QVBoxLayout" name="routesLayout" stretch="0,1,0,1">
      <item>
       <widget class="QLabel" name="label_4">
        <property name="text">
-        <string>#Routes</string>
+        <string>Routes List</string>
        </property>
       </widget>
      </item>
@@ -28,19 +28,25 @@
        <property name="editTriggers">
         <set>QAbstractItemView::NoEditTriggers</set>
        </property>
+       <property name="selectionMode">
+        <enum>QAbstractItemView::SingleSelection</enum>
+       </property>
+       <property name="selectionBehavior">
+        <enum>QAbstractItemView::SelectRows</enum>
+       </property>
        <column>
         <property name="text">
-         <string>#InBounds</string>
+         <string>InBounds</string>
         </property>
        </column>
        <column>
         <property name="text">
-         <string>#DomainOrIP</string>
+         <string>DomainOrIP</string>
         </property>
        </column>
        <column>
         <property name="text">
-         <string>#Outbound</string>
+         <string>Outbound</string>
         </property>
        </column>
       </widget>
@@ -85,7 +91,7 @@
        <item>
         <widget class="QPushButton" name="pushButton_5">
          <property name="text">
-          <string>#ChangeIO</string>
+          <string>Change IO</string>
          </property>
         </widget>
        </item>
@@ -107,20 +113,20 @@
      <item>
       <widget class="QGroupBox" name="groupBox">
        <property name="title">
-        <string>#RouteDetail</string>
+        <string>Route Information</string>
        </property>
        <layout class="QFormLayout" name="formLayout_3">
         <item row="0" column="0">
          <widget class="QLabel" name="label_10">
           <property name="text">
-           <string>#DomainList</string>
+           <string>Domains</string>
           </property>
          </widget>
         </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label_11">
           <property name="text">
-           <string>#IPList</string>
+           <string>IPs</string>
           </property>
          </widget>
         </item>
@@ -134,7 +140,7 @@
      <item>
       <widget class="QLabel" name="label_6">
        <property name="text">
-        <string>#Inbounds</string>
+        <string>Inbound List</string>
        </property>
       </widget>
      </item>
@@ -168,7 +174,7 @@
        <item>
         <widget class="QPushButton" name="pushButton_3">
          <property name="text">
-          <string>#FromGlobalConfig</string>
+          <string>Add Default</string>
          </property>
         </widget>
        </item>
@@ -177,13 +183,13 @@
      <item>
       <widget class="QGroupBox" name="outboundDetailGroup_2">
        <property name="title">
-        <string>#InboundDetail</string>
+        <string>Inbound Information</string>
        </property>
        <layout class="QFormLayout" name="formLayout_2">
         <item row="0" column="0">
          <widget class="QLabel" name="label_8">
           <property name="text">
-           <string>#Tag</string>
+           <string>Tag</string>
           </property>
          </widget>
         </item>
@@ -197,7 +203,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_9">
           <property name="text">
-           <string>#Type</string>
+           <string>Type</string>
           </property>
          </widget>
         </item>
@@ -211,14 +217,14 @@
         <item row="2" column="0">
          <widget class="QLabel" name="label_12">
           <property name="text">
-           <string>#Address</string>
+           <string>Address</string>
           </property>
          </widget>
         </item>
         <item row="3" column="0">
          <widget class="QLabel" name="label_13">
           <property name="text">
-           <string>#Port</string>
+           <string>Port</string>
           </property>
          </widget>
         </item>
@@ -246,7 +252,7 @@
      <item>
       <widget class="QLabel" name="label_2">
        <property name="text">
-        <string>#Outbounds</string>
+        <string>Outbound List</string>
        </property>
       </widget>
      </item>
@@ -284,7 +290,7 @@
        <item>
         <widget class="QPushButton" name="pushButton_4">
          <property name="text">
-          <string>#AddDirect</string>
+          <string>Insert &quot;Direct&quot;</string>
          </property>
         </widget>
        </item>
@@ -293,13 +299,13 @@
      <item>
       <widget class="QGroupBox" name="outboundDetailGroup">
        <property name="title">
-        <string>#OutboundDetail</string>
+        <string>Outbound Information</string>
        </property>
        <layout class="QFormLayout" name="formLayout">
         <item row="2" column="0">
          <widget class="QLabel" name="label">
           <property name="text">
-           <string>#Tag</string>
+           <string>Tag</string>
           </property>
          </widget>
         </item>
@@ -326,9 +332,9 @@
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton">
+           <widget class="QPushButton" name="editOutboundBtn">
             <property name="text">
-             <string>#EditCurrentOutbound</string>
+             <string>Edit</string>
             </property>
            </widget>
           </item>
@@ -350,21 +356,21 @@
         <item row="3" column="0">
          <widget class="QLabel" name="label_7">
           <property name="text">
-           <string>#Type</string>
+           <string>Type</string>
           </property>
          </widget>
         </item>
         <item row="4" column="0">
          <widget class="QLabel" name="label_3">
           <property name="text">
-           <string>#Address</string>
+           <string>Address</string>
           </property>
          </widget>
         </item>
         <item row="5" column="0">
          <widget class="QLabel" name="label_5">
           <property name="text">
-           <string>#Port</string>
+           <string>Port</string>
           </property>
          </widget>
         </item>
@@ -407,7 +413,7 @@
    <item row="2" column="0" colspan="2">
     <widget class="QLabel" name="statusLabel">
      <property name="text">
-      <string>#Status</string>
+      <string>Status</string>
      </property>
     </widget>
    </item>

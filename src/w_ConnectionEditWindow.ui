@@ -23,7 +23,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>#EditConnectionSettings</string>
+   <string>EditConnectionSettings</string>
   </property>
   <property name="modal">
    <bool>true</bool>
@@ -32,40 +32,82 @@
    <item>
     <layout class="QFormLayout" name="formLayout_5">
      <item row="0" column="0">
-      <widget class="QLabel" name="ipLabel">
+      <widget class="QLabel" name="portLabel_3">
        <property name="text">
-        <string>#Host</string>
+        <string>Identifier</string>
        </property>
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QLineEdit" name="ipLineEdit"/>
+      <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="1,4,1,4">
+       <item>
+        <widget class="QLabel" name="ipLabel_2">
+         <property name="text">
+          <string>Alias</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit"/>
+       </item>
+       <item>
+        <widget class="QLabel" name="ipLabel_3">
+         <property name="text">
+          <string>Tag</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit_2"/>
+       </item>
+      </layout>
      </item>
      <item row="1" column="0">
-      <widget class="QLabel" name="portLabel">
+      <widget class="QLabel" name="label_32">
        <property name="text">
-        <string>#Port</string>
+        <string>Server</string>
        </property>
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QLineEdit" name="portLineEdit">
-       <property name="maxLength">
-        <number>5</number>
-       </property>
-      </widget>
+      <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,4,1,4">
+       <item>
+        <widget class="QLabel" name="ipLabel">
+         <property name="text">
+          <string>Host</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="ipLineEdit"/>
+       </item>
+       <item>
+        <widget class="QLabel" name="portLabel">
+         <property name="text">
+          <string>Port</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="portLineEdit">
+         <property name="maxLength">
+          <number>5</number>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
      <item row="2" column="0">
       <widget class="QLabel" name="label_25">
        <property name="text">
-        <string>#Outbound</string>
+        <string>Type</string>
        </property>
       </widget>
      </item>
      <item row="2" column="1">
       <widget class="QComboBox" name="outBoundTypeCombo">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
@@ -92,7 +134,7 @@
    <item>
     <widget class="QGroupBox" name="outboundSettingWrapper">
      <property name="title">
-      <string>#OutBoundSettings</string>
+      <string>OutBoundSettings</string>
      </property>
      <layout class="QGridLayout" name="gridLayout">
       <item row="1" column="0">
@@ -113,7 +155,7 @@
             <item row="0" column="0">
              <widget class="QLabel" name="idLabel">
               <property name="text">
-               <string>#UUID</string>
+               <string>UUID</string>
               </property>
              </widget>
             </item>
@@ -130,7 +172,7 @@
             <item row="1" column="0">
              <widget class="QLabel" name="alterLabel">
               <property name="text">
-               <string>#AlterID</string>
+               <string>Alter ID</string>
               </property>
              </widget>
             </item>
@@ -144,7 +186,7 @@
             <item row="2" column="0">
              <widget class="QLabel" name="securityLabel">
               <property name="text">
-               <string>#Security</string>
+               <string>Security</string>
               </property>
              </widget>
             </item>
@@ -181,21 +223,21 @@
             <item row="3" column="0">
              <widget class="QLabel" name="label_13">
               <property name="text">
-               <string>#UseTLS</string>
+               <string>Use TLS</string>
               </property>
              </widget>
             </item>
             <item row="3" column="1">
              <widget class="QCheckBox" name="tlsCB">
               <property name="text">
-               <string>#Enabled</string>
+               <string>Enabled</string>
               </property>
              </widget>
             </item>
             <item row="4" column="0">
              <widget class="QLabel" name="transportLabel">
               <property name="text">
-               <string>#Transport</string>
+               <string>Transport</string>
               </property>
              </widget>
             </item>
@@ -238,7 +280,7 @@
           <item>
            <widget class="QGroupBox" name="transportGroupbox">
             <property name="title">
-             <string>#TransportSettings</string>
+             <string>TransportSettings</string>
             </property>
             <layout class="QGridLayout" name="gridLayout_2">
              <item row="0" column="0">
@@ -257,28 +299,28 @@
                  <item row="1" column="0">
                   <widget class="QLabel" name="label_2">
                    <property name="text">
-                    <string>#Request</string>
+                    <string>Request</string>
                    </property>
                   </widget>
                  </item>
                  <item row="1" column="1">
                   <widget class="QPushButton" name="tcpRequestPrettifyBtn">
                    <property name="text">
-                    <string>#Prettify</string>
+                    <string>Prettify</string>
                    </property>
                   </widget>
                  </item>
                  <item row="1" column="2">
                   <widget class="QLabel" name="label_3">
                    <property name="text">
-                    <string>#Response</string>
+                    <string>Response</string>
                    </property>
                   </widget>
                  </item>
                  <item row="1" column="3">
                   <widget class="QPushButton" name="tcpRespPrettifyBtn">
                    <property name="text">
-                    <string>#Prettify</string>
+                    <string>Prettify</string>
                    </property>
                   </widget>
                  </item>
@@ -320,14 +362,14 @@
                  <item row="3" column="0" colspan="2">
                   <widget class="QPushButton" name="tcpRequestDefBtn">
                    <property name="text">
-                    <string>#InsertDefaultContent</string>
+                    <string>Default Value</string>
                    </property>
                   </widget>
                  </item>
                  <item row="3" column="2" colspan="2">
                   <widget class="QPushButton" name="tcpRespDefBtn">
                    <property name="text">
-                    <string>#InsertDefaultContent</string>
+                    <string>Default Value</string>
                    </property>
                   </widget>
                  </item>
@@ -336,7 +378,7 @@
                    <item>
                     <widget class="QLabel" name="label">
                      <property name="text">
-                      <string>#Type</string>
+                      <string>Type</string>
                      </property>
                     </widget>
                    </item>
@@ -363,7 +405,7 @@
                  <item row="0" column="0">
                   <widget class="QLabel" name="label_5">
                    <property name="text">
-                    <string>#Path</string>
+                    <string>Path</string>
                    </property>
                   </widget>
                  </item>
@@ -373,7 +415,7 @@
                  <item row="2" column="0">
                   <widget class="QLabel" name="label_4">
                    <property name="text">
-                    <string>#Host</string>
+                    <string>Host</string>
                    </property>
                   </widget>
                  </item>
@@ -389,7 +431,7 @@
                    <item>
                     <widget class="QLabel" name="label_7">
                      <property name="text">
-                      <string>#Path</string>
+                      <string>Path</string>
                      </property>
                     </widget>
                    </item>
@@ -405,14 +447,14 @@
                  <item row="1" column="0">
                   <widget class="QLabel" name="label_26">
                    <property name="text">
-                    <string>#Headers</string>
+                    <string>Headers</string>
                    </property>
                   </widget>
                  </item>
                  <item row="2" column="0">
                   <widget class="QLabel" name="label_23">
                    <property name="text">
-                    <string>#key|value format</string>
+                    <string>Format: Key|Value</string>
                    </property>
                   </widget>
                  </item>
@@ -426,7 +468,7 @@
                  <item row="0" column="0">
                   <widget class="QLabel" name="label_8">
                    <property name="text">
-                    <string>#MTU</string>
+                    <string>MTU</string>
                    </property>
                   </widget>
                  </item>
@@ -452,7 +494,7 @@
                  <item row="1" column="0">
                   <widget class="QLabel" name="label_10">
                    <property name="text">
-                    <string>#TTI (ms)</string>
+                    <string>TTI (ms)</string>
                    </property>
                   </widget>
                  </item>
@@ -478,7 +520,7 @@
                  <item row="2" column="0">
                   <widget class="QLabel" name="label_12">
                    <property name="text">
-                    <string>#UplinkCapacity (MB/s)</string>
+                    <string>Uplink Capacity (MB/s)</string>
                    </property>
                   </widget>
                  </item>
@@ -501,21 +543,21 @@
                  <item row="3" column="0">
                   <widget class="QLabel" name="label_15">
                    <property name="text">
-                    <string>#Congestion</string>
+                    <string>Congestion</string>
                    </property>
                   </widget>
                  </item>
                  <item row="3" column="1">
                   <widget class="QCheckBox" name="kcpCongestionCB">
                    <property name="text">
-                    <string>#Enabled</string>
+                    <string>Enabled</string>
                    </property>
                   </widget>
                  </item>
                  <item row="4" column="0">
                   <widget class="QLabel" name="label_9">
                    <property name="text">
-                    <string>#DownlinkCapacity (MB/s)</string>
+                    <string>Downlink Capacity (MB/s)</string>
                    </property>
                   </widget>
                  </item>
@@ -538,7 +580,7 @@
                  <item row="5" column="0">
                   <widget class="QLabel" name="label_11">
                    <property name="text">
-                    <string>#ReadBufferSize (MB)</string>
+                    <string>Read Buffer Size (MB)</string>
                    </property>
                   </widget>
                  </item>
@@ -561,7 +603,7 @@
                  <item row="6" column="0">
                   <widget class="QLabel" name="labelx">
                    <property name="text">
-                    <string>#WriteBufferSize (MB)</string>
+                    <string>Write Buffer Size (MB)</string>
                    </property>
                   </widget>
                  </item>
@@ -584,7 +626,7 @@
                  <item row="7" column="0">
                   <widget class="QLabel" name="label_16">
                    <property name="text">
-                    <string>#Type</string>
+                    <string>Type</string>
                    </property>
                   </widget>
                  </item>
@@ -637,7 +679,7 @@
                    <item row="0" column="0">
                     <widget class="QLabel" name="label_17">
                      <property name="text">
-                      <string>#Path</string>
+                      <string>Path</string>
                      </property>
                     </widget>
                    </item>
@@ -657,7 +699,7 @@
                  <item row="0" column="0">
                   <widget class="QLabel" name="label_18">
                    <property name="text">
-                    <string>#Security</string>
+                    <string>Security</string>
                    </property>
                   </widget>
                  </item>
@@ -689,7 +731,7 @@
                  <item row="2" column="0">
                   <widget class="QLabel" name="label_19">
                    <property name="text">
-                    <string>#Key</string>
+                    <string>Key</string>
                    </property>
                   </widget>
                  </item>
@@ -703,7 +745,7 @@
                  <item row="3" column="0">
                   <widget class="QLabel" name="label_20">
                    <property name="text">
-                    <string>#Headers</string>
+                    <string>Headers</string>
                    </property>
                   </widget>
                  </item>
@@ -754,7 +796,7 @@
                  <item row="0" column="0">
                   <widget class="QLabel" name="label_28">
                    <property name="text">
-                    <string>#Mark</string>
+                    <string>Mark</string>
                    </property>
                   </widget>
                  </item>
@@ -764,21 +806,21 @@
                  <item row="1" column="0">
                   <widget class="QLabel" name="label_29">
                    <property name="text">
-                    <string>#TCPFastOpen</string>
+                    <string>TCP Fast Open</string>
                    </property>
                   </widget>
                  </item>
                  <item row="1" column="1">
                   <widget class="QCheckBox" name="tcpFastOpenCB">
                    <property name="text">
-                    <string>#Enabled</string>
+                    <string>Enabled</string>
                    </property>
                   </widget>
                  </item>
                  <item row="2" column="0">
                   <widget class="QLabel" name="label_27">
                    <property name="text">
-                    <string>#TProxy</string>
+                    <string>TProxy</string>
                    </property>
                   </widget>
                  </item>
@@ -815,21 +857,21 @@
           <item row="0" column="0">
            <widget class="QLabel" name="label_6">
             <property name="text">
-             <string>#Email</string>
+             <string>Email</string>
             </property>
            </widget>
           </item>
           <item row="1" column="0">
            <widget class="QLabel" name="label_22">
             <property name="text">
-             <string>#Password</string>
+             <string>Password</string>
             </property>
            </widget>
           </item>
           <item row="2" column="0">
            <widget class="QLabel" name="label_14">
             <property name="text">
-             <string>#EncryptionMethod</string>
+             <string>Encryption Method</string>
             </property>
            </widget>
           </item>
@@ -881,7 +923,7 @@
           <item row="3" column="0">
            <widget class="QLabel" name="label_24">
             <property name="text">
-             <string>#Level</string>
+             <string>Level</string>
             </property>
            </widget>
           </item>
@@ -891,14 +933,14 @@
           <item row="4" column="0">
            <widget class="QLabel" name="label_30">
             <property name="text">
-             <string>#OTA</string>
+             <string>OTA</string>
             </property>
            </widget>
           </item>
           <item row="4" column="1">
            <widget class="QCheckBox" name="ss_otaCheckBox">
             <property name="text">
-             <string>#Enabled</string>
+             <string>Enabled</string>
             </property>
            </widget>
           </item>
@@ -918,7 +960,7 @@
           <item row="2" column="0">
            <widget class="QLabel" name="label_31">
             <property name="text">
-             <string>#Password</string>
+             <string>Password</string>
             </property>
            </widget>
           </item>
@@ -928,7 +970,7 @@
           <item row="1" column="0">
            <widget class="QLabel" name="label_21">
             <property name="text">
-             <string>#Username</string>
+             <string>Username</string>
             </property>
            </widget>
           </item>
@@ -951,10 +993,6 @@
    </item>
   </layout>
  </widget>
- <tabstops>
-  <tabstop>ipLineEdit</tabstop>
-  <tabstop>portLineEdit</tabstop>
- </tabstops>
  <resources/>
  <connections>
   <connection>

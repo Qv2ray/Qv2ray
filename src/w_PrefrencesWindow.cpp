@@ -59,7 +59,7 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     ui->muxEnabledCB->setChecked(CurrentConfig.mux.enabled);
     ui->muxConcurrencyTxt->setValue(CurrentConfig.mux.concurrency);
     //
-    ui->proxyCNCb->setChecked(CurrentConfig.proxyCN);
+    ui->bypassCNCb->setChecked(CurrentConfig.bypassCN);
     ui->proxyDefaultCb->setChecked(CurrentConfig.proxyDefault);
     ui->localDNSCb->setChecked(CurrentConfig.withLocalDNS);
     //
@@ -265,12 +265,6 @@ void PrefrencesWindow::on_socksAuthPasswordTxt_textEdited(const QString &arg1)
     CurrentConfig.inBoundSettings.socksAccount.pass = arg1.toStdString();
 }
 
-void PrefrencesWindow::on_proxyCNCb_stateChanged(int arg1)
-{
-    NEEDRESTART
-    CurrentConfig.proxyCN = arg1 == Qt::Checked;
-}
-
 void PrefrencesWindow::on_proxyDefaultCb_stateChanged(int arg1)
 {
     NEEDRESTART
@@ -338,4 +332,10 @@ void PrefrencesWindow::on_cancelIgnoreVersionBtn_clicked()
 {
     CurrentConfig.ignoredVersion.clear();
     ui->cancelIgnoreVersionBtn->setEnabled(false);
+}
+
+void PrefrencesWindow::on_bypassCNCb_stateChanged(int arg1)
+{
+    NEEDRESTART
+    CurrentConfig.bypassCN = arg1 == Qt::Checked;
 }
