@@ -8,7 +8,7 @@
 
 ConnectionEditWindow::ConnectionEditWindow(QWidget *parent)
     : QDialog(parent),
-      _alias(),
+      Alias(),
       ui(new Ui::ConnectionEditWindow),
       stream(),
       vmess(),
@@ -27,29 +27,27 @@ ConnectionEditWindow::ConnectionEditWindow(QWidget *parent)
     ReLoad_GUI_JSON_ModelContent();
 }
 
-ConnectionEditWindow::ConnectionEditWindow(QJsonObject editRootObject, QString alias, QWidget *parent)
+ConnectionEditWindow::ConnectionEditWindow(QJsonObject outboundEntry, QString *alias, QWidget *parent)
     : ConnectionEditWindow(parent)
 {
-    _alias = alias;
-    originalRoot = editRootObject;
-    auto outBoundRoot = originalRoot["outbounds"].toArray().first().toObject();
-    OutboundType = outBoundRoot["protocol"].toString();
+    Alias = alias == nullptr ? "" : *alias;
+    OutboundType = outboundEntry["protocol"].toString();
 
     if (OutboundType == "vmess") {
-        vmess = StructFromJsonString<VMessServerObject>(JsonToString(outBoundRoot["settings"].toObject()["vnext"].toArray().first().toObject()));
-        stream = StructFromJsonString<StreamSettingsObject>(JsonToString(outBoundRoot["streamSettings"].toObject()));
+        vmess = StructFromJsonString<VMessServerObject>(JsonToString(outboundEntry["settings"].toObject()["vnext"].toArray().first().toObject()));
+        stream = StructFromJsonString<StreamSettingsObject>(JsonToString(outboundEntry["streamSettings"].toObject()));
         shadowsocks.port = vmess.port;
         shadowsocks.address = vmess.address;
         socks.address = vmess.address;
         socks.port = vmess.port;
     } else if (OutboundType == "shadowsocks") {
-        shadowsocks = StructFromJsonString<ShadowSocksServer>(JsonToString(outBoundRoot["settings"].toObject()["servers"].toArray().first().toObject()));
+        shadowsocks = StructFromJsonString<ShadowSocksServer>(JsonToString(outboundEntry["settings"].toObject()["servers"].toArray().first().toObject()));
         vmess.address = shadowsocks.address;
         vmess.port = shadowsocks.port;
         socks.address = shadowsocks.address;
         socks.port = shadowsocks.port;
     } else if (OutboundType == "socks") {
-        socks = StructFromJsonString<SocksServerObject>(JsonToString(outBoundRoot["settings"].toObject()["servers"].toArray().first().toObject()));
+        socks = StructFromJsonString<SocksServerObject>(JsonToString(outboundEntry["settings"].toObject()["servers"].toArray().first().toObject()));
         vmess.address = socks.address;
         vmess.port = socks.port;
         shadowsocks.address = socks.address;
@@ -139,30 +137,30 @@ void ConnectionEditWindow::ReLoad_GUI_JSON_ModelContent()
 
 void ConnectionEditWindow::on_buttonBox_accepted()
 {
-    bool is_new_config = _alias == "";
-    auto alias = is_new_config ? (ui->ipLineEdit->text() + "_" + ui->portLineEdit->text()) : _alias;
+    // TODO : NAMING THE CONNECTION
+    auto alias =  Alias == "" ? (ui->ipLineEdit->text() + "_" + ui->portLineEdit->text()) : Alias;
     //
-    auto outbound = GenerateConnectionJson();
-    QJsonArray outbounds;
-    outbounds.append(outbound);
-
-    // We want to replace because it's connection edit window.
-    if (originalRoot.contains("outbounds")) {
-        originalRoot.remove("outbounds");
-    }
-
-    originalRoot.insert("outbounds", outbounds);
-    originalRoot.insert(QV2RAY_CONFIG_TYPE_JSON_KEY, QV2RAY_CONFIG_TYPE_MANUAL);
-    SaveConnectionConfig(originalRoot, &alias);
-    auto globalConf = GetGlobalConfig();
-
-    if (is_new_config) {
-        // New config...
-        globalConf.configs.push_back(alias.toStdString());
-    }
-
-    SetGlobalConfig(globalConf);
-    emit s_reload_config(!is_new_config);
+    Result = GenerateConnectionJson();
+    //QJsonArray outbounds;
+    //outbounds.append(outbound);
+    //
+    /// We want to replace because it's connection edit window.
+    //if (originalRoot.contains("outbounds")) {
+    //    originalRoot.remove("outbounds");
+    //}
+    //
+    //originalRoot.insert("outbounds", outbounds);
+    //originalRoot.insert(QV2RAY_CONFIG_TYPE_JSON_KEY, QV2RAY_CONFIG_TYPE_MANUAL);
+    //SaveConnectionConfig(originalRoot, &alias);
+    //auto globalConf = GetGlobalConfig();
+    //
+    //if (is_new_config) {
+    //    // New config...
+    //    globalConf.configs.push_back(alias.toStdString());
+    //}
+    //
+    //SetGlobalConfig(globalConf);
+    //emit s_reload_config(!is_new_config);
 }
 
 void ConnectionEditWindow::on_ipLineEdit_textEdited(const QString &arg1)

@@ -484,8 +484,12 @@ void MainWindow::on_addConfigButton_clicked()
     ConnectionEditWindow *w = new ConnectionEditWindow(this);
     connect(w, &ConnectionEditWindow::s_reload_config, this, &MainWindow::save_reload_globalconfig);
     w->exec();
+    LOG(MODULE_UI, "WARNING:")
+    LOG(MODULE_UI, "THIS FEATURE IS NOT IMPLEMENTED YET!")
+    auto outboundEntry = w->Result;
+    auto alias = w->Alias;
+    delete w;
 }
-
 void MainWindow::on_editConfigButton_clicked()
 {
     // Check if we have a connection selected...
@@ -496,11 +500,16 @@ void MainWindow::on_editConfigButton_clicked()
         return;
     }
 
-    ConnectionEditWindow *w = new ConnectionEditWindow(connections[ui->connectionListWidget->currentItem()->text()], ui->connectionListWidget->currentItem()->text(), this);
-    connect(w, &ConnectionEditWindow::s_reload_config, this, &MainWindow::save_reload_globalconfig);
+    auto alias = ui->connectionListWidget->currentItem()->text();
+    auto outBoundRoot = connections[ui->connectionListWidget->currentItem()->text()]["outbounds"].toArray().first().toObject();
+    ConnectionEditWindow *w = new ConnectionEditWindow(outBoundRoot, &alias, this);
+    //connect(w, &ConnectionEditWindow::s_reload_config, this, &MainWindow::save_reload_globalconfig);
     w->exec();
+    auto outboundEntry = w->Result;
+    LOG(MODULE_UI, "WARNING:")
+    LOG(MODULE_UI, "THIS FEATURE IS NOT IMPLEMENTED YET!")
+    delete w;
 }
-
 void MainWindow::on_editConfigAdvButton_clicked()
 {
     // Check if we have a connection selected...
@@ -511,6 +520,7 @@ void MainWindow::on_editConfigAdvButton_clicked()
         return;
     }
 
-    RouteEditor *w = new RouteEditor(connections[ui->connectionListWidget->currentItem()->text()], ui->connectionListWidget->currentItem()->text(), this);
+    auto alias = ui->connectionListWidget->currentItem()->text();
+    RouteEditor *w = new RouteEditor(connections[ui->connectionListWidget->currentItem()->text()], alias, this);
     w->exec();
 }

@@ -56,8 +56,6 @@ class PrefrencesWindow : public QDialog
 
         void on_socksAuthPasswordTxt_textEdited(const QString &arg1);
 
-        void on_proxyCNCb_stateChanged(int arg1);
-
         void on_proxyDefaultCb_stateChanged(int arg1);
 
         void on_localDNSCb_stateChanged(int arg1);
@@ -73,6 +71,8 @@ class PrefrencesWindow : public QDialog
         void on_aboutQt_clicked();
 
         void on_cancelIgnoreVersionBtn_clicked();
+
+        void on_bypassCNCb_stateChanged(int arg1);
 
     private:
         bool IsConnectionPropertyChanged = false;

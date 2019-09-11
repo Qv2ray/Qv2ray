@@ -62,6 +62,7 @@ namespace Qv2ray
         QMap<QString, QJsonObject> GetConnections(list<string> connections);
         // Startup Prepares
         int StartPreparation(QJsonObject fullConfig);
+        int FindIndexByTag(QJsonArray list, QString *tag);
 
     }
 }

@@ -7,7 +7,7 @@
 
 #define QV2RAY_VERSION_STRING "v" QV_MAJOR_VERSION ".0.0"
 
-#define QV2RAY_CONFIG_VERSION 2
+#define QV2RAY_CONFIG_VERSION 3
 #define QV2RAY_CONFIG_DIR_PATH (Qv2ray::Utils::GetConfigDirPath() + "/")
 #define QV2RAY_CONFIG_FILE_PATH (QV2RAY_CONFIG_DIR_PATH + "Qv2ray.conf")
 
@@ -85,7 +85,7 @@ namespace Qv2ray
             string ignoredVersion;
             //
             bool proxyDefault;
-            bool proxyCN;
+            bool bypassCN;
             bool withLocalDNS;
             list<string> dnsList;
             //
@@ -97,7 +97,7 @@ namespace Qv2ray
 #endif
             map<string, string> subscribes;
             MuxObject mux;
-            Qv2rayConfig(): config_version(QV2RAY_CONFIG_VERSION), runAsRoot(false), logLevel(), proxyDefault(), proxyCN(), withLocalDNS(), inBoundSettings(), configs(), subscribes(), mux() { }
+            Qv2rayConfig(): config_version(QV2RAY_CONFIG_VERSION), runAsRoot(false), logLevel(), proxyDefault(), bypassCN(), withLocalDNS(), inBoundSettings(), configs(), subscribes(), mux() { }
             Qv2rayConfig(string lang, string exePath, string assetsPath, int log, Qv2rayBasicInboundsConfig _inBoundSettings): Qv2rayConfig()
             {
                 // These settings below are defaults.
@@ -113,11 +113,11 @@ namespace Qv2ray
                 dnsList.push_back("8.8.8.8");
                 dnsList.push_back("1.1.1.1");
                 dnsList.push_back("4.4.4.4");
-                proxyCN = false;
+                bypassCN = true;
                 proxyDefault = true;
                 withLocalDNS = true;
             }
-            XTOSTRUCT(O(config_version, runAsRoot, logLevel, language, autoStartConfig, ignoredVersion, v2CorePath, v2AssetsPath, proxyDefault, proxyCN, withLocalDNS, dnsList, inBoundSettings, mux, configs, subscribes))
+            XTOSTRUCT(O(config_version, runAsRoot, logLevel, language, autoStartConfig, ignoredVersion, v2CorePath, v2AssetsPath, proxyDefault, bypassCN, withLocalDNS, dnsList, inBoundSettings, mux, configs, subscribes))
         };
 
         QJsonObject UpgradeConfig(int fromVersion, int toVersion, QJsonObject root);
