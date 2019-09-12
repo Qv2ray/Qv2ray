@@ -22,7 +22,6 @@
 ## 1.0.x
 
 - [v1.0.1](./ReleaseNote/1.0/v1.0.1.0.md) 修复 RC 版本中的拼写错误
-
 - [v1.0.0](./ReleaseNote/1.0/v1.0.0.0.md) Qv2ray v1 发布候选版本 RC1
 
 ## 0.9.x
