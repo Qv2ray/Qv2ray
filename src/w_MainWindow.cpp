@@ -192,11 +192,7 @@ void MainWindow::on_startButton_clicked()
 
     if (startFlag) {
         // See https://github.com/OtterBrowser/otter-browser/commit/1e75919de4704e893b4b70a27452d496f9631e70
-#if QT_VERSION >= 0x050900
-        this->hTray->showMessage("Qv2ray", tr("#ConnectedToServer") + " " + CurrentConnectionName, hTray->icon());
-#else
         this->hTray->showMessage("Qv2ray", tr("#ConnectedToServer") + " " + CurrentConnectionName);
-#endif
         hTray->setToolTip(TRAY_TOOLTIP_PREFIX + tr("#ConnectedToServer") + ": " + CurrentConnectionName);
         ui->statusLabel->setText(tr("#Connected") + ": " + CurrentConnectionName);
     }
