@@ -125,18 +125,32 @@ void RouteEditor::on_routesTable_cellClicked(int row, int column)
 
         foreach (auto inboundTag, rulesList[row].inboundTag) {
             auto inTag = QSTRING(inboundTag);
-            int index = FindIndexByTag(inbounds, &inTag);
-            ui->inboundsList->item(index)->setCheckState(Qt::Checked);
+            int _index = FindIndexByTag(inbounds, &inTag);
+            ui->inboundsList->item(_index)->setCheckState(Qt::Checked);
         }
     }
 }
 
 void RouteEditor::on_editOutboundBtn_clicked()
 {
-    auto currentOutbound = outbounds[ui->outboundsList->currentRow()].toObject();
+    int row = ui->outboundsList->currentRow();
+    auto currentOutbound = outbounds[row].toObject();
+    auto protocol =  currentOutbound["protocol"].toString();
+
+    if (protocol != "vmess" && protocol != "shadowsocks" && protocol != "socks") {
+        QvMessageBox(this, tr("Cannot Edit"), tr("Currently, this type of outbound is not supported by the editor."));
+        return;
+    }
+
     ConnectionEditWindow *w = new ConnectionEditWindow(currentOutbound, nullptr, this);
-    w->exec();
-    auto result = w->Result;
-    LOG(MODULE_UI, "NOT FINISHED YET")
+    auto result = w->OpenEditor();
     delete w;
+    //
+    outbounds[row] = result;
+    on_outboundsList_currentRowChanged(row);
+}
+
+void RouteEditor::on_insertDirectBtn_clicked()
+{
+    auto freedom = GenerateFreedomOUT("as-is", "", 0);
 }

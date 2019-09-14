@@ -8,6 +8,7 @@
 
 ConnectionEditWindow::ConnectionEditWindow(QWidget *parent)
     : QDialog(parent),
+      Tag(OUTBOUND_TAG_PROXY),
       Alias(),
       ui(new Ui::ConnectionEditWindow),
       stream(),
@@ -24,6 +25,7 @@ ConnectionEditWindow::ConnectionEditWindow(QWidget *parent)
     vmess.users.push_back(VMessServerObject::UserObject());
     stream = StreamSettingsObject();
     OutboundType = "vmess";
+    Tag = OUTBOUND_TAG_PROXY;
     ReLoad_GUI_JSON_ModelContent();
 }
 
@@ -31,6 +33,7 @@ ConnectionEditWindow::ConnectionEditWindow(QJsonObject outboundEntry, QString *a
     : ConnectionEditWindow(parent)
 {
     Alias = alias == nullptr ? "" : *alias;
+    Tag = outboundEntry.contains("tag") ? outboundEntry["tag"].toString() : OUTBOUND_TAG_PROXY;
     OutboundType = outboundEntry["protocol"].toString();
 
     if (OutboundType == "vmess") {
@@ -61,6 +64,12 @@ ConnectionEditWindow::ConnectionEditWindow(QJsonObject outboundEntry, QString *a
 ConnectionEditWindow::~ConnectionEditWindow()
 {
     delete ui;
+}
+
+QJsonObject ConnectionEditWindow::OpenEditor()
+{
+    this->exec();
+    return Result;
 }
 
 void ConnectionEditWindow::ReLoad_GUI_JSON_ModelContent()
@@ -129,6 +138,9 @@ void ConnectionEditWindow::ReLoad_GUI_JSON_ModelContent()
         ui->outBoundTypeCombo->setCurrentIndex(2);
         ui->ipLineEdit->setText(QSTRING(socks.address));
         ui->portLineEdit->setText(QString::number(socks.port));
+
+        if (socks.users.empty()) socks.users.push_back(SocksServerObject::UserObject());
+
         ui->socks_PasswordTxt->setText(QSTRING(socks.users.front().pass));
         ui->socks_UserNameTxt->setText(QSTRING(socks.users.front().user));
     }
@@ -192,21 +204,21 @@ void ConnectionEditWindow::on_portLineEdit_textEdited(const QString &arg1)
 
 void ConnectionEditWindow::on_idLineEdit_textEdited(const QString &arg1)
 {
-    if (vmess.users.size() == 0) vmess.users.push_back(VMessServerObject::UserObject());
+    if (vmess.users.empty()) vmess.users.push_back(VMessServerObject::UserObject());
 
     vmess.users.front().id = arg1.toStdString();
 }
 
 void ConnectionEditWindow::on_alterLineEdit_textEdited(const QString &arg1)
 {
-    if (vmess.users.size() == 0) vmess.users.push_back(VMessServerObject::UserObject());
+    if (vmess.users.empty()) vmess.users.push_back(VMessServerObject::UserObject());
 
     vmess.users.front().alterId = stoi(arg1.toStdString());
 }
 
 void ConnectionEditWindow::on_securityCombo_currentIndexChanged(const QString &arg1)
 {
-    if (vmess.users.size() == 0) vmess.users.push_back(VMessServerObject::UserObject());
+    if (vmess.users.empty()) vmess.users.push_back(VMessServerObject::UserObject());
 
     vmess.users.front().security = arg1.toStdString();
 }
@@ -328,7 +340,7 @@ QJsonObject ConnectionEditWindow::GenerateConnectionJson()
         settings["servers"] = servers;
     }
 
-    auto root = GenerateOutboundEntry(OutboundType, settings, streaming, mux, "0.0.0.0", OUTBOUND_TAG_PROXY);
+    auto root = GenerateOutboundEntry(OutboundType, settings, streaming, mux, "0.0.0.0", Tag);
     return root;
 }
 
