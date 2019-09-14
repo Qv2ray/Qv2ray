@@ -1,7 +1,9 @@
+# Some files 
 .DS_Store
 *.pro.user
 *.qm
+./.vscode
+
 build/
 src/build/
-./.vscode
-tools/python-3.7.3.exe
+OpenBuildService/
