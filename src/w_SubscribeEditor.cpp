@@ -3,7 +3,7 @@
 #include "QvHTTPRequestHelper.h"
 #include "QvUtils.h"
 #include "QvCoreConfigOperations.h"
-#include "QvCoreConfigOperations.h"
+
 
 SubscribeEditor::SubscribeEditor(QWidget *parent) :
     QDialog(parent),
@@ -17,8 +17,6 @@ SubscribeEditor::SubscribeEditor(QWidget *parent) :
         ui->subsribeTable->setItem(ui->subsribeTable->rowCount() - 1, 0, new QTableWidgetItem(QString::fromStdString(value.first)));
         ui->subsribeTable->setItem(ui->subsribeTable->rowCount() - 1, 1, new QTableWidgetItem(QString::fromStdString(value.second)));
     }
-
-    connect(&helper, &QvHttpRequestHelper::httpRequestFinished, this, &SubscribeEditor::httpReqCallBack);
 }
 
 SubscribeEditor::~SubscribeEditor()
@@ -50,21 +48,42 @@ void SubscribeEditor::on_addSubsButton_clicked()
 
 void SubscribeEditor::on_updateButton_clicked()
 {
+    if (isUpdateInProgress) {
+        QvMessageBox(this, tr("#UpdateInProcess"), tr("#TryLater"));
+        return;
+    }
+
+    isUpdateInProgress = true;
     int index = ui->subsribeTable->currentRow();
-    string name = ui->subsribeTable->item(index, 0)->text().toStdString();
-    string url = ui->subsribeTable->item(index, 1)->text().toStdString();
-    helper.get(QSTRING(name));
+    auto name = ui->subsribeTable->item(index, 0)->text();
+    auto url = ui->subsribeTable->item(index, 1)->text();
+    auto data = helper.syncget(url);
+    ProcessSubscriptionEntry(data, name);
 }
 
-void SubscribeEditor::httpReqCallBack(QByteArray result)
+void SubscribeEditor::ProcessSubscriptionEntry(QByteArray result, QString subsciptionName)
 {
-    auto content = getVmessFromBase64OrPlain(result).replace("\r", "");
+    auto content = GetVmessFromBase64OrPlain(result).replace("\r", "");
 
-    if (!content.isNull()) {
+    if (!content.isEmpty()) {
         auto vmessList = content.split("\n");
 
         for (auto vmess : vmessList) {
-            ConvertConfigFromVMessString(vmess, QV2RAY_CONFIG_TYPE_SUBSCRIPTION);
+            auto config = ConvertConfigFromVMessString(vmess, QV2RAY_CONFIG_TYPE_SUBSCRIPTION);
+
+            if (subscriptions.contains(subsciptionName)) {
+            }
         }
+
+        isUpdateInProgress = false;
     }
 }
+
+void SubscribeEditor::on_updateAllButton_clicked()
+{
+    for (auto rowIndex = 0; ui->subscribeList->count(); rowIndex++) {
+        auto url = ui->subsribeTable->item(rowIndex, 1)->text();
+        helper.get(url);
+    }
+}
+

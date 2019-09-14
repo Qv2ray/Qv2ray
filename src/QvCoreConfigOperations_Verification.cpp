@@ -24,13 +24,10 @@ namespace Qv2ray
             }
         }
 
-        QString getVmessFromBase64OrPlain(QByteArray arr)
+        QString GetVmessFromBase64OrPlain(QByteArray arr)
         {
-            auto result = QString::fromUtf8(arr);
-
-            if (result.contains("vmess"))
-                return result;
-            else return Base64Decode(result);
+            auto result = QString::fromUtf8(arr).trimmed();
+            return result.startsWith("vmess://") ? result : Base64Decode(result);
         }
     }
 }
