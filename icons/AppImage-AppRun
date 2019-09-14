@@ -1,0 +1,26 @@
+#!/bin/bash
+set -e
+
+if [ ! -z "$DEBUG" ] ; then
+  env
+  set -x
+fi
+
+THIS="$0"
+# http://stackoverflow.com/questions/3190818/
+args=("$@")
+NUMBER_OF_ARGS="$#"
+
+if [ -z $APPDIR ] ; then
+  # Find the AppDir. It is the directory that contains AppRun.
+  # This assumes that this script resides inside the AppDir or a subdirectory.
+  # If this script is run inside an AppImage, then the AppImage runtime likely has already set $APPDIR
+  path="$(dirname "$(readlink -f "${THIS}")")"
+  while [[ "$path" != "" && ! -e "$path/$1" ]]; do
+    path=${path%/*}
+  done
+  APPDIR="$path"
+fi
+
+echo Application is located at: $APPDIR
+exec $APPDIR/opt/Qv2ray/bin/Qv2ray
