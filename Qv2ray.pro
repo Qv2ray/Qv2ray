@@ -69,7 +69,7 @@ for(var, $$list($$files("*.ts", true))) {
     LOCALE_FILENAME = $$basename(var)
     !equals(LOCALE_FILENAME, "source.ts") {
         message(Found: $$LOCALE_FILENAME)
-        LOCALES += \\\" $${replace(LOCALE_FILENAME, ".ts", "")}\\\"
+        LOCALES += " $${replace(LOCALE_FILENAME, ".ts", "")}"
         TRANSLATION_COUNT = $$num_add($$TRANSLATION_COUNT, 1)
 
         # ONLY USED IN LRELEASE CONTEXT
@@ -81,7 +81,7 @@ for(var, $$list($$files("*.ts", true))) {
 
 message("Found" $$TRANSLATION_COUNT "language files.")
 
-DEFINES += "QV_INSERT_LOCALES=\"$${LOCALES}\""
+DEFINES += "QV_INSERT_LOCALES=\"\\\"$${LOCALES}\\\"\""
 
 !equals(QV2RAY_LRELEASE, true) {
     TRANSLATIONS += \
