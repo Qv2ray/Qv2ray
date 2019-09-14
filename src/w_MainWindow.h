@@ -57,6 +57,8 @@ class MainWindow : public QMainWindow
 
         void on_editConfigButton_clicked();
 
+        void on_pushButton_clicked();
+
     private:
         void on_action_StartThis_triggered();
         void on_action_RenameConnection_triggered();
