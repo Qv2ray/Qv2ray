@@ -18,7 +18,7 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     ui->setupUi(this);
     // We add locales
     ui->languageComboBox->clear();
-    QStringList locales { "en-US" QV_INSERT_LOCALES };
+    QStringList locales { QSTRING("en-US " QV_INSERT_LOCALES).split(" ", QString::SkipEmptyParts) };
     ui->languageComboBox->addItems(locales);
     //
     ui->qvVersion->setText(QV2RAY_VERSION_STRING);
