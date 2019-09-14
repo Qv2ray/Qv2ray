@@ -29,6 +29,18 @@ namespace Qv2ray
         request.setRawHeader(key, value);
     }
 
+    QByteArray QvHttpRequestHelper::syncget(const QString &url)
+    {
+        this->setUrl(url);
+        reply = accessManager.get(request);
+        reply->waitForReadyRead(5000);
+
+        if (!reply->isReadable())
+            return QByteArray();
+        else
+            return reply->readAll();
+    }
+
     void QvHttpRequestHelper::get(const QString &url)
     {
         this->setUrl(url);

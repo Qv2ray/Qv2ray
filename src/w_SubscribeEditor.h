@@ -24,14 +24,19 @@ class SubscribeEditor : public QDialog
         void on_addSubsButton_clicked();
 
         void on_updateButton_clicked();
-        void httpReqCallBack(QByteArray result);
+
+        void on_updateAllButton_clicked();
 
     signals:
         void s_update_config();
 
     private:
+        void ProcessSubscriptionEntry(QByteArray result, QString subsciptionName);
+
+        bool isUpdateInProgress = false;
         Ui::w_SubscribeEditor *ui;
         QvHttpRequestHelper helper;
+        QMap<QString, QList<QJsonObject>> subscriptions;
 };
 
 #endif // W_SUBSCRIBEEDITOR_H
