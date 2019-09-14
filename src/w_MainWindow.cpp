@@ -195,7 +195,7 @@ void MainWindow::on_startButton_clicked()
     bool startFlag = this->vinstance->Start();
 
     if (startFlag) {
-        this->hTray->showMessage("Qv2ray", tr("ConnectedToServer") + " " + CurrentConnectionName, hTray->icon());
+        this->hTray->showMessage("Qv2ray", tr("ConnectedToServer") + " " + CurrentConnectionName);
         hTray->setToolTip(TRAY_TOOLTIP_PREFIX + tr("ConnectedToServer") + ": " + CurrentConnectionName);
         ui->statusLabel->setText(tr("Connected") + ": " + CurrentConnectionName);
     }
