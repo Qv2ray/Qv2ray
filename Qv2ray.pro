@@ -14,8 +14,8 @@ CONFIG += c++11 openssl-linked lrelease
 win32: QMAKE_TARGET_DESCRIPTION = "Qv2ray, a cross-platform v2ray GUI client."
 win32: QMAKE_TARGET_PRODUCT = "Qv2ray"
 
-VERSION = 1.3
-DEFINES += "QV_MAJOR_VERSION=\"\\\"$${VERSION}\\\"\""
+VERSION = 1.3.5.3
+DEFINES += QV_MAJOR_VERSION=\"\\\"$${VERSION}\\\"\"
 
 SOURCES += \
         src/QvConfigUpgrade.cpp \
@@ -62,9 +62,34 @@ FORMS += \
 RESOURCES += \
         resources.qrc
 
+message("Detecting Translation files.....")
+TRANSLATION_COUNT = 0
 
-TRANSLATIONS += \
-        translations/source.ts
+for(var, $$list($$files("*.ts", true))) {
+    LOCALE_FILENAME = $$basename(var)
+    !equals(LOCALE_FILENAME, "source.ts") {
+        message(Found: $$LOCALE_FILENAME)
+        LOCALES += , \\\"$${replace(LOCALE_FILENAME, ".ts", "")}\\\"
+        TRANSLATION_COUNT = $$num_add($$TRANSLATION_COUNT, 1)
+
+        # ONLY USED IN LRELEASE CONTEXT
+        equals(QV2RAY_LRELEASE, true) {
+            TRANSLATIONS += translations/$$LOCALE_FILENAME
+        }
+    }
+}
+
+message("Found" $$TRANSLATION_COUNT "language files.")
+
+DEFINES += "QV_INSERT_LOCALES=\"$${LOCALES}\""
+
+!equals(QV2RAY_LRELEASE, true) {
+    TRANSLATIONS += \
+            translations/source.ts
+    message("Using default ts file.")
+}
+
+message("Translations:" $$TRANSLATIONS)
 
 RC_ICONS += ./icons/Qv2ray.ico
 ICON = ./icons/Qv2ray.icns

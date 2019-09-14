@@ -15,7 +15,7 @@ namespace Qv2ray
         // Secret member
         QJsonObject UpgradeConfig_Inc(int fromVersion, QJsonObject root)
         {
-            XConfLog(to_string(fromVersion), to_string(fromVersion + 1));
+            XConfLog(to_string(fromVersion), to_string(fromVersion + 1))
 
             switch (fromVersion) {
                 case 1:

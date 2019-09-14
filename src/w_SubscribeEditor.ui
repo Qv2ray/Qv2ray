@@ -115,12 +115,12 @@
      </attribute>
      <column>
       <property name="text">
-       <string>#SubsGroupName</string>
+       <string>Name</string>
       </property>
      </column>
      <column>
       <property name="text">
-       <string>#SubsGroupURL</string>
+       <string>URL</string>
       </property>
      </column>
     </widget>
@@ -128,7 +128,7 @@
    <item row="0" column="2">
     <widget class="QGroupBox" name="groupBox_2">
      <property name="title">
-      <string>GroupBox</string>
+      <string>Config List</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
@@ -137,20 +137,20 @@
       <item>
        <widget class="QPushButton" name="updateButton">
         <property name="text">
-         <string>#Update Subscription</string>
+         <string>Update Subscription</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QGroupBox" name="groupBox">
         <property name="title">
-         <string>#ConfigDetail</string>
+         <string>Config Detail</string>
         </property>
         <layout class="QFormLayout" name="formLayout">
          <item row="0" column="0">
           <widget class="QLabel" name="label">
            <property name="text">
-            <string>#Type</string>
+            <string>Type</string>
            </property>
           </widget>
          </item>
@@ -164,7 +164,7 @@
          <item row="1" column="0">
           <widget class="QLabel" name="label_3">
            <property name="text">
-            <string>#Server</string>
+            <string>Server</string>
            </property>
           </widget>
          </item>
@@ -178,7 +178,7 @@
          <item row="3" column="0">
           <widget class="QLabel" name="label_5">
            <property name="text">
-            <string>#Config</string>
+            <string>Config</string>
            </property>
           </widget>
          </item>
@@ -188,7 +188,7 @@
          <item row="2" column="0">
           <widget class="QLabel" name="label_2">
            <property name="text">
-            <string>#Port</string>
+            <string>Port</string>
            </property>
           </widget>
          </item>

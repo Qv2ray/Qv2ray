@@ -3,6 +3,8 @@
 #include "w_PrefrencesWindow.h"
 #include <QFileDialog>
 
+#include <iostream>
+
 #ifdef __linux
 #include <unistd.h>
 #endif
@@ -14,6 +16,11 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     ui(new Ui::PrefrencesWindow)
 {
     ui->setupUi(this);
+    // We add locales
+    ui->languageComboBox->clear();
+    QStringList locales { "en-US" QV_INSERT_LOCALES };
+    ui->languageComboBox->addItems(locales);
+    //
     ui->qvVersion->setText(QV2RAY_VERSION_STRING);
     CurrentConfig = GetGlobalConfig();
     //
