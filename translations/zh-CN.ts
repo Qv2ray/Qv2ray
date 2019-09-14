@@ -902,32 +902,32 @@
     <message>
       <location filename="../src/w_RouteEditor.ui" line="69"/>
       <source>#OutboundDetail</source>
-      <translation type="unfinished">#OutboundDetail</translation>
+      <translation>出站详细信息</translation>
     </message>
     <message>
       <location filename="../src/w_RouteEditor.ui" line="75"/>
       <source>#Tag</source>
-      <translation type="unfinished">#Tag</translation>
+      <translation>标签</translation>
     </message>
     <message>
       <location filename="../src/w_RouteEditor.ui" line="89"/>
       <source>#Type</source>
-      <translation type="unfinished">#Type</translation>
+      <translation>类型</translation>
     </message>
     <message>
       <location filename="../src/w_RouteEditor.ui" line="103"/>
       <source>#Address</source>
-      <translation type="unfinished">#Address</translation>
+      <translation>地址</translation>
     </message>
     <message>
       <location filename="../src/w_RouteEditor.ui" line="117"/>
       <source>#Port</source>
-      <translation type="unfinished">#Port</translation>
+      <translation>端口</translation>
     </message>
     <message>
       <location filename="../src/w_RouteEditor.ui" line="146"/>
       <source>#EditCurrentOutbound</source>
-      <translation type="unfinished">#EditCurrentOutbound</translation>
+      <translation>编辑当前出站设置</translation>
     </message>
   </context>
   <context>
@@ -935,42 +935,42 @@
     <message>
       <location filename="../src/w_SubscribeEditor.ui" line="14"/>
       <source>SubscribeEditor</source>
-      <translation type="unfinished">SubscribeEditor</translation>
+      <translation>订阅编辑器</translation>
     </message>
     <message>
       <location filename="../src/w_SubscribeEditor.ui" line="48"/>
       <source>#ConfigDetail</source>
-      <translation type="unfinished">#ConfigDetail</translation>
+      <translation>配置详细信息</translation>
     </message>
     <message>
       <location filename="../src/w_SubscribeEditor.ui" line="54"/>
       <source>#Type</source>
-      <translation type="unfinished">#Type</translation>
+      <translation>类型</translation>
     </message>
     <message>
       <location filename="../src/w_SubscribeEditor.ui" line="68"/>
       <source>#Server</source>
-      <translation type="unfinished">#Server</translation>
+      <translation>服务器</translation>
     </message>
     <message>
       <location filename="../src/w_SubscribeEditor.ui" line="82"/>
       <source>#Config</source>
-      <translation type="unfinished">#Config</translation>
+      <translation>配置</translation>
     </message>
     <message>
       <location filename="../src/w_SubscribeEditor.ui" line="92"/>
       <source>#Port</source>
-      <translation type="unfinished">#Port</translation>
+      <translation>端口</translation>
     </message>
     <message>
       <location filename="../src/w_SubscribeEditor.ui" line="122"/>
       <source>#SubsGroupName</source>
-      <translation type="unfinished">#SubsGroupName</translation>
+      <translation>订阅组名称</translation>
     </message>
     <message>
       <location filename="../src/w_SubscribeEditor.ui" line="127"/>
       <source>#SubsGroupURL</source>
-      <translation type="unfinished">#SubsGroupURL</translation>
+      <translation>订阅组 Url</translation>
     </message>
     <message>
       <location filename="../src/w_SubscribeEditor.ui" line="150"/>
