@@ -7,5 +7,5 @@ install:
 build_script:
   - lrelease.exe Qv2ray.pro
   - mkdir build && cd build
-  - qmake ..\Qv2ray.pro
+  - qmake ..\Qv2ray.pro "QV2RAY_LRELEASE=true"
   - mingw32-make
