@@ -25,7 +25,6 @@ script:
   - git submodule update --init
   - lrelease ./Qv2ray.pro
   - mkdir build && cd ./build
-  - if [ "$BADGE" = "linux" ]; then    qtchooser -install qt511 /opt/qt511/bin/qmake; fi
-  - if [ "$BADGE" = "linux" ]; then    qmake "QV2RAY_LRELEASE=true" -qt=qt511 ../; fi
+  - if [ "$BADGE" = "linux" ]; then    /opt/qt511/bin/qmake ../ "QV2RAY_LRELEASE=true"; fi
   - if [ "$BADGE" = "osx" ];   then    qmake "QV2RAY_LRELEASE=true" ../; fi
   - make
