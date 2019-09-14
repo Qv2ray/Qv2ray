@@ -20,13 +20,14 @@
 #include "w_ConnectionEditWindow.h"
 #include "w_MainWindow.h"
 #include "w_RouteEditor.h"
+#include "w_SubscribeEditor.h"
 
 #define TRAY_TOOLTIP_PREFIX "Qv2ray " QV2RAY_VERSION_STRING "\r\n"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
       ui(new Ui::MainWindow),
-      HTTPRequestHelper(this),
+      HTTPRequestHelper(),
       hTray(new QSystemTrayIcon(this)),
       vinstance(new Qv2Instance(this))
 {
@@ -196,7 +197,7 @@ void MainWindow::on_startButton_clicked()
     bool startFlag = this->vinstance->Start();
 
     if (startFlag) {
-        this->hTray->showMessage("Qv2ray", tr("ConnectedToServer") + " " + CurrentConnectionName, hTray->icon());
+        this->hTray->showMessage("Qv2ray", tr("ConnectedToServer") + " " + CurrentConnectionName);
         hTray->setToolTip(TRAY_TOOLTIP_PREFIX + tr("ConnectedToServer") + ": " + CurrentConnectionName);
         ui->statusLabel->setText(tr("Connected") + ": " + CurrentConnectionName);
     }
@@ -523,4 +524,10 @@ void MainWindow::on_editConfigAdvButton_clicked()
     auto alias = ui->connectionListWidget->currentItem()->text();
     RouteEditor *w = new RouteEditor(connections[ui->connectionListWidget->currentItem()->text()], alias, this);
     w->exec();
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    SubscribeEditor *w = new SubscribeEditor(this);
+    w->show();
 }
