@@ -19,13 +19,14 @@
 #include "w_ImportConfig.h"
 #include "w_ConnectionEditWindow.h"
 #include "w_MainWindow.h"
+#include "w_SubscribeEditor.h"
 
 #define TRAY_TOOLTIP_PREFIX "Qv2ray " QV2RAY_VERSION_STRING "\r\n"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
       ui(new Ui::MainWindow),
-      HTTPRequestHelper(this),
+      HTTPRequestHelper(),
       hTray(new QSystemTrayIcon(this)),
       vinstance(new Qv2Instance(this))
 {
@@ -497,5 +498,11 @@ void MainWindow::on_editConfigButton_clicked()
 
     ConnectionEditWindow *w = new ConnectionEditWindow(connections.values()[index], connections.keys()[index], this);
     connect(w, &ConnectionEditWindow::s_reload_config, this, &MainWindow::save_reload_globalconfig);
+    w->show();
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    SubscribeEditor *w = new SubscribeEditor(this);
     w->show();
 }
