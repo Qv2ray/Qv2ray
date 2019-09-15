@@ -119,10 +119,10 @@ namespace Qv2ray
         }
 
 
-        QTranslator *getTranslator(QString lang)
+        QTranslator *getTranslator(const QString *lang)
         {
             QTranslator *translator = new QTranslator();
-            translator->load(lang + ".qm", ":/translations");
+            translator->load(*lang + ".qm", ":/translations/");
             return translator;
         }
     }

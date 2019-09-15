@@ -596,8 +596,8 @@
     <name>PrefrencesWindow</name>
     <message>
         <location filename="../src/w_PrefrencesWindow.ui" line="20"/>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="104"/>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="176"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="103"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="175"/>
         <source>Prefrences</source>
         <translation type="unfinished"></translation>
     </message>
@@ -821,22 +821,22 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="104"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="103"/>
         <source>PortNumbersCannotBeSame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="176"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="175"/>
         <source>RunAsRootNotOnWindows</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="296"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="295"/>
         <source>#OpenVCoreFile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="307"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="306"/>
         <source>OpenVAssetsDir</source>
         <translation type="unfinished"></translation>
     </message>
@@ -864,17 +864,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="153"/>
+        <location filename="../src/main.cpp" line="155"/>
         <source>DependencyMissing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="153"/>
+        <location filename="../src/main.cpp" line="155"/>
         <source>osslDependMissing,PleaseReDownload</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="162"/>
+        <location filename="../src/main.cpp" line="164"/>
         <source>#AnotherInstanceRunning</source>
         <translation type="unfinished"></translation>
     </message>
