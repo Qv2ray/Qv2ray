@@ -1,7 +1,6 @@
 [Desktop Entry]
-Encoding=UTF-8
 Type=Application
-Keywords=Internet;VPN;Proxy;v2ray;Qt
+Keywords=Internet;VPN;Proxy;v2ray;Qt;
 Categories=Network;Qt;
 Icon=Qv2ray
 Exec=/opt/Qv2ray/Qv2ray
