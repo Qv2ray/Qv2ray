@@ -129,7 +129,9 @@ int main(int argc, char *argv[])
     auto lang = GetGlobalConfig().language;
 
     if (lang != "en-US") {
-        if (_qApp.installTranslator(getTranslator(QSTRING(lang)))) {
+        auto qStringLang = QSTRING(lang);
+
+        if (_qApp.installTranslator(getTranslator(&qStringLang))) {
             LOG(MODULE_UI, "Loaded translations " + lang)
         } else {
             QvMessageBox(
