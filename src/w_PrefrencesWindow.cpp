@@ -18,7 +18,12 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     ui->setupUi(this);
     // We add locales
     ui->languageComboBox->clear();
-    ui->languageComboBox->addItems(QSTRING(QV_INSERT_LOCALES).split(" ", QString::SkipEmptyParts));
+    QDirIterator it(":/translations");
+
+    while (it.hasNext()) {
+        ui->languageComboBox->addItem(it.next().split("/").last().split(".").first());
+    }
+
     //
     ui->qvVersion->setText(QV2RAY_VERSION_STRING);
     CurrentConfig = GetGlobalConfig();

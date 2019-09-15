@@ -70,8 +70,7 @@ message("Detecting Translation files.....")
 
 for(var, $$list($$files("*.ts", true))) {
     LOCALE_FILENAME = $$basename(var)
-        message(Found: $$LOCALE_FILENAME)
-        LOCALES += " $${replace(LOCALE_FILENAME, ".ts", "")}"
+    message(Found: $$LOCALE_FILENAME)
 
     !equals(LOCALE_FILENAME, "en-US.ts") {
         # ONLY USED IN LRELEASE CONTEXT - en-US is not EXTRA...
@@ -79,7 +78,6 @@ for(var, $$list($$files("*.ts", true))) {
     }
 }
 
-DEFINES += "QV_INSERT_LOCALES=\"\\\"$${LOCALES}\\\"\""
 
 TRANSLATIONS += \
         translations/en-US.ts
