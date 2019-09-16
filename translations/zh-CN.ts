@@ -99,7 +99,7 @@
       <location filename="../src/w_ConnectionEditWindow.ui" line="330"/>
       <location filename="../src/w_ConnectionEditWindow.ui" line="337"/>
       <source>Default</source>
-      <translation>默认</translation>
+      <translation>默认值</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="348"/>
@@ -112,7 +112,7 @@
       <location filename="../src/w_ConnectionEditWindow.ui" line="390"/>
       <location filename="../src/w_ConnectionEditWindow.ui" line="696"/>
       <source>Headers</source>
-      <translation>头部</translation>
+      <translation>请求头</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="397"/>
@@ -167,7 +167,7 @@
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="757"/>
       <source>TCP Fast Open</source>
-      <translation>TCP 快连接</translation>
+      <translation>TCP 快速打开</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="771"/>
@@ -840,7 +840,7 @@
     <message>
       <location filename="../src/w_PrefrencesWindow.cpp" line="180"/>
       <source>RunAsRootNotOnWindows</source>
-      <translation>在 Windows 上此功能无效</translation>
+      <translation>此选项在 Windows 上无效</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.cpp" line="300"/>
@@ -858,7 +858,7 @@
     <message>
       <location filename="../src/QvCoreConfigOperations_Verification.cpp" line="22"/>
       <source>#VMessDecodeError</source>
-      <translation>VMess 解码失败</translation>
+      <translation>VMess 解析失败</translation>
     </message>
     <message>
       <location filename="../src/QvCoreInteractions.cpp" line="29"/>
@@ -868,7 +868,7 @@
     <message>
       <location filename="../src/QvCoreInteractions.cpp" line="53"/>
       <source>CoreNotFound</source>
-      <translation>V2ray core 未找到</translation>
+      <translation>V2ray 内核文件未找到</translation>
     </message>
     <message>
       <location filename="../src/QvCoreInteractions.cpp" line="53"/>
@@ -888,17 +888,17 @@
     <message>
       <location filename="../src/main.cpp" line="168"/>
       <source>This could be caused by a missing of `openssl` package in your system. Or an AppImage issue.</source>
-      <translation>这可能是由于系统中缺少 `openssl` 包造成的。或者 AppImage 问题。</translation>
+      <translation>这可能是由于系统中缺少 `openssl` 包造成的，或者是 AppImage 问题。</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="169"/>
       <source>If you are using AppImage, please report a bug.</source>
-      <translation>如果您正在使用 AppImage，请报告一个错误。</translation>
+      <translation>如果您正在使用 AppImage，请反馈一个 Bug</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="177"/>
       <source>Another instance of Qv2ray is already running.</source>
-      <translation>Qv2ray的另一个实例已经运行。</translation>
+      <translation>Qv2ray 的另一个实例已经运行。</translation>
     </message>
   </context>
   <context>
