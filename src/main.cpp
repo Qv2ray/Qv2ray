@@ -126,16 +126,30 @@ int main(int argc, char *argv[])
 #ifdef __APPLE__
     _qApp.setStyle("fusion");
 #endif
-    auto lang = GetGlobalConfig().language;
+    // ----------------------------------------------------------- BEGIN FIND TRANSLATIONS
+    LOG(MODULE_UI, "Obtaining UI Translation list...")
+    QDirIterator it(":/translations");
 
-    if (lang != "en-US") {
-        if (_qApp.installTranslator(getTranslator(QSTRING(lang)))) {
-            LOG(MODULE_UI, "Loaded translations " + lang)
-        } else {
-            QvMessageBox(
-                nullptr, "Failed to load selected language.",
-                "You may want to select another language in the Prefrences Window.\r\n");
-        }
+    if (!it.hasNext()) {
+        LOG(MODULE_UI, "FAILED to find any translations, please check your build script.")
+        QvMessageBox(nullptr, "Cannot load languages", "Default English is used.");
+    }
+
+    while (it.hasNext()) {
+        LOG(MODULE_UI, "Translations: " + it.next().toStdString())
+    }
+
+    // ----------------------------------------------------------- END FIND TRANSLATIONS
+    //
+    auto lang = GetGlobalConfig().language;
+    auto qStringLang = QSTRING(lang);
+
+    if (_qApp.installTranslator(getTranslator(&qStringLang))) {
+        LOG(MODULE_UI, "Loaded translations " + lang)
+    } else {
+        QvMessageBox(
+            nullptr, "Failed to load selected language.",
+            "You may want to select another language in the Prefrences Window.\r\n");
     }
 
     RunGuard guard("Qv2ray-Instance-Identifier"

@@ -30,21 +30,8 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="95"/>
-        <source>#OutBoundSettings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/w_ConnectionEditWindow.ui" line="116"/>
         <source>Use TLS</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="123"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="495"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="764"/>
-        <location filename="../src/w_ConnectionEditWindow.ui" line="891"/>
-        <source>#Enabled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -69,8 +56,21 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="95"/>
+        <source>Outbound Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="123"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="495"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="764"/>
+        <location filename="../src/w_ConnectionEditWindow.ui" line="891"/>
+        <source>Enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/w_ConnectionEditWindow.ui" line="235"/>
-        <source>#TransportSettings</source>
+        <source>Transport Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -332,11 +332,13 @@
     </message>
     <message>
         <location filename="../src/w_MainWindow.ui" line="47"/>
+        <location filename="../src/w_MainWindow.cpp" line="40"/>
         <source>Connect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/w_MainWindow.ui" line="57"/>
+        <location filename="../src/w_MainWindow.cpp" line="42"/>
         <source>Disconnect</source>
         <translation type="unfinished"></translation>
     </message>
@@ -408,7 +410,6 @@
     </message>
     <message>
         <location filename="../src/w_MainWindow.ui" line="276"/>
-        <location filename="../src/w_MainWindow.cpp" line="454"/>
         <source>#RemoveConnection</source>
         <translation type="unfinished"></translation>
     </message>
@@ -463,136 +464,131 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="37"/>
-        <location filename="../src/w_MainWindow.cpp" line="282"/>
-        <source>#Hide</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/w_MainWindow.cpp" line="38"/>
-        <source>#Quit</source>
+        <location filename="../src/w_MainWindow.cpp" line="283"/>
+        <source>Hide</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/w_MainWindow.cpp" line="39"/>
-        <source>#Connect</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/w_MainWindow.cpp" line="40"/>
-        <source>#Reconnect</source>
+        <source>Quit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/w_MainWindow.cpp" line="41"/>
-        <source>#Disconnect</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/w_MainWindow.cpp" line="43"/>
-        <source>#Rename</source>
+        <source>Reconnect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/w_MainWindow.cpp" line="44"/>
-        <source>#ConnectSelected</source>
+        <source>Rename</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="91"/>
-        <location filename="../src/w_MainWindow.cpp" line="237"/>
-        <location filename="../src/w_MainWindow.cpp" line="285"/>
-        <source>#Show</source>
+        <location filename="../src/w_MainWindow.cpp" line="45"/>
+        <source>ConnectSelected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="119"/>
+        <location filename="../src/w_MainWindow.cpp" line="92"/>
+        <location filename="../src/w_MainWindow.cpp" line="238"/>
+        <location filename="../src/w_MainWindow.cpp" line="286"/>
+        <source>Show</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/w_MainWindow.cpp" line="120"/>
-        <source>#NewReleaseVersionFound</source>
+        <location filename="../src/w_MainWindow.cpp" line="121"/>
+        <source>NewReleaseVersionFound</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="126"/>
-        <source>#ReleaseDownloadLink</source>
+        <location filename="../src/w_MainWindow.cpp" line="127"/>
+        <source>ReleaseDownloadLink</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="187"/>
-        <location filename="../src/w_MainWindow.cpp" line="494"/>
-        <source>#NoConfigSelected</source>
+        <location filename="../src/w_MainWindow.cpp" line="188"/>
+        <location filename="../src/w_MainWindow.cpp" line="495"/>
+        <source>NoConfigSelected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="187"/>
-        <location filename="../src/w_MainWindow.cpp" line="494"/>
-        <source>#PleaseSelectAConfig</source>
+        <location filename="../src/w_MainWindow.cpp" line="188"/>
+        <location filename="../src/w_MainWindow.cpp" line="495"/>
+        <source>PleaseSelectAConfig</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="198"/>
         <location filename="../src/w_MainWindow.cpp" line="199"/>
-        <source>#ConnectedToServer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/w_MainWindow.cpp" line="200"/>
-        <source>#Connected</source>
+        <source>ConnectedToServer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="217"/>
-        <source>#Disconnected</source>
+        <location filename="../src/w_MainWindow.cpp" line="201"/>
+        <source>Connected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="323"/>
-        <source>#UUID</source>
+        <location filename="../src/w_MainWindow.cpp" line="218"/>
+        <source>Disconnected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="325"/>
-        <source>#AlterID</source>
+        <location filename="../src/w_MainWindow.cpp" line="324"/>
+        <source>UUID</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="327"/>
-        <source>#Transport</source>
+        <location filename="../src/w_MainWindow.cpp" line="326"/>
+        <source>AlterID</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="334"/>
-        <source>#Email</source>
+        <location filename="../src/w_MainWindow.cpp" line="328"/>
+        <source>Transport</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="336"/>
-        <source>#Encryption</source>
+        <location filename="../src/w_MainWindow.cpp" line="335"/>
+        <source>Email</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="343"/>
-        <source>#Username</source>
+        <location filename="../src/w_MainWindow.cpp" line="337"/>
+        <source>Encryption</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="418"/>
-        <location filename="../src/w_MainWindow.cpp" line="427"/>
-        <source>#RenameConnection</source>
+        <location filename="../src/w_MainWindow.cpp" line="344"/>
+        <source>Username</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="418"/>
-        <source>#CannotUseEmptyName</source>
+        <location filename="../src/w_MainWindow.cpp" line="419"/>
+        <location filename="../src/w_MainWindow.cpp" line="428"/>
+        <source>RenameConnection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="427"/>
-        <source>#DuplicatedConnectionName</source>
+        <location filename="../src/w_MainWindow.cpp" line="419"/>
+        <source>CannotUseEmptyName</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="454"/>
-        <source>#RemoveConnectionConfirm</source>
+        <location filename="../src/w_MainWindow.cpp" line="428"/>
+        <source>DuplicatedConnectionName</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_MainWindow.cpp" line="455"/>
+        <source>RemoveConnection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_MainWindow.cpp" line="455"/>
+        <source>RemoveConnectionConfirm</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -600,8 +596,8 @@
     <name>PrefrencesWindow</name>
     <message>
         <location filename="../src/w_PrefrencesWindow.ui" line="20"/>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="97"/>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="169"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="103"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="175"/>
         <source>Prefrences</source>
         <translation type="unfinished"></translation>
     </message>
@@ -628,11 +624,6 @@
     <message>
         <location filename="../src/w_PrefrencesWindow.ui" line="69"/>
         <source>Run As Root</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="76"/>
-        <source>#Enabled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -692,6 +683,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/w_PrefrencesWindow.ui" line="76"/>
         <location filename="../src/w_PrefrencesWindow.ui" line="196"/>
         <location filename="../src/w_PrefrencesWindow.ui" line="203"/>
         <location filename="../src/w_PrefrencesWindow.ui" line="259"/>
@@ -829,22 +821,22 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="97"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="103"/>
         <source>PortNumbersCannotBeSame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="169"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="175"/>
         <source>RunAsRootNotOnWindows</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="289"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="295"/>
         <source>#OpenVCoreFile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="300"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="306"/>
         <source>OpenVAssetsDir</source>
         <translation type="unfinished"></translation>
     </message>
@@ -852,7 +844,7 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/QvCoreConfigOperations_Verification.cpp" line="21"/>
+        <location filename="../src/QvCoreConfigOperations_Verification.cpp" line="22"/>
         <source>#VMessDecodeError</source>
         <translation type="unfinished"></translation>
     </message>
@@ -872,17 +864,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="153"/>
+        <location filename="../src/main.cpp" line="155"/>
         <source>DependencyMissing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="153"/>
+        <location filename="../src/main.cpp" line="155"/>
         <source>osslDependMissing,PleaseReDownload</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="162"/>
+        <location filename="../src/main.cpp" line="164"/>
         <source>#AnotherInstanceRunning</source>
         <translation type="unfinished"></translation>
     </message>
@@ -931,6 +923,19 @@
     </message>
 </context>
 <context>
+    <name>SubscribeEditor</name>
+    <message>
+        <location filename="../src/w_SubscribeEditor.cpp" line="52"/>
+        <source>#UpdateInProcess</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_SubscribeEditor.cpp" line="52"/>
+        <source>#TryLater</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>w_SubscribeEditor</name>
     <message>
         <location filename="../src/w_SubscribeEditor.ui" line="14"/>
@@ -938,58 +943,73 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_SubscribeEditor.ui" line="48"/>
-        <source>#ConfigDetail</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/w_SubscribeEditor.ui" line="54"/>
-        <source>#Type</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/w_SubscribeEditor.ui" line="68"/>
-        <source>#Server</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/w_SubscribeEditor.ui" line="82"/>
-        <source>#Config</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/w_SubscribeEditor.ui" line="92"/>
-        <source>#Port</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/w_SubscribeEditor.ui" line="122"/>
-        <source>#SubsGroupName</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/w_SubscribeEditor.ui" line="127"/>
-        <source>#SubsGroupURL</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/w_SubscribeEditor.ui" line="150"/>
+        <location filename="../src/w_SubscribeEditor.ui" line="34"/>
         <source>#AddConnection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_SubscribeEditor.ui" line="153"/>
+        <location filename="../src/w_SubscribeEditor.ui" line="37"/>
         <source>A</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_SubscribeEditor.ui" line="170"/>
+        <location filename="../src/w_SubscribeEditor.ui" line="54"/>
         <source>#RemoveConnection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_SubscribeEditor.ui" line="173"/>
+        <location filename="../src/w_SubscribeEditor.ui" line="57"/>
         <source>R</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_SubscribeEditor.ui" line="68"/>
+        <source>...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_SubscribeEditor.ui" line="118"/>
+        <source>Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_SubscribeEditor.ui" line="123"/>
+        <source>URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_SubscribeEditor.ui" line="131"/>
+        <source>Config List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_SubscribeEditor.ui" line="140"/>
+        <source>Update Subscription</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_SubscribeEditor.ui" line="147"/>
+        <source>Config Detail</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_SubscribeEditor.ui" line="153"/>
+        <source>Type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_SubscribeEditor.ui" line="167"/>
+        <source>Server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_SubscribeEditor.ui" line="181"/>
+        <source>Config</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_SubscribeEditor.ui" line="191"/>
+        <source>Port</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

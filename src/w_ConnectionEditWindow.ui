@@ -92,7 +92,7 @@
    <item row="1" column="0">
     <widget class="QGroupBox" name="outboundSettingWrapper">
      <property name="title">
-      <string>#OutBoundSettings</string>
+      <string>Outbound Settings</string>
      </property>
      <layout class="QGridLayout" name="gridLayout">
       <item row="1" column="0">
@@ -104,7 +104,7 @@
          </sizepolicy>
         </property>
         <property name="currentIndex">
-         <number>2</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="page_2">
          <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -120,7 +120,7 @@
             <item row="3" column="1">
              <widget class="QCheckBox" name="tlsCB">
               <property name="text">
-               <string>#Enabled</string>
+               <string>Enabled</string>
               </property>
              </widget>
             </item>
@@ -232,7 +232,7 @@
           <item>
            <widget class="QGroupBox" name="groupBox">
             <property name="title">
-             <string>#TransportSettings</string>
+             <string>Transport Settings</string>
             </property>
             <layout class="QGridLayout" name="gridLayout_2">
              <item row="0" column="0">
@@ -492,7 +492,7 @@
                    <item row="3" column="1">
                     <widget class="QCheckBox" name="kcpCongestionCB">
                      <property name="text">
-                      <string>#Enabled</string>
+                      <string>Enabled</string>
                      </property>
                     </widget>
                    </item>
@@ -761,7 +761,7 @@
                  <item row="1" column="1">
                   <widget class="QCheckBox" name="tcpFastOpenCB">
                    <property name="text">
-                    <string>#Enabled</string>
+                    <string>Enabled</string>
                    </property>
                   </widget>
                  </item>
@@ -888,7 +888,7 @@
           <item row="4" column="1">
            <widget class="QCheckBox" name="ss_otaCheckBox">
             <property name="text">
-             <string>#Enabled</string>
+             <string>Enabled</string>
             </property>
            </widget>
           </item>
