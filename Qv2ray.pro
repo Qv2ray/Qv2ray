@@ -99,10 +99,10 @@ qnx: target.path = /tmp/$${TARGET}/bin
 unix: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-desktop.file += ./icons/Qv2ray.desktop
+desktop.files += ./icons/Qv2ray.desktop
 desktop.path = /opt/$${TARGET}/share/applications/
-icon.file += ./icons/Qv2ray.png
-icon.path = /opt/$${TARGET}/share/icons/hicolor/256*256/
+icon.files += ./icons/Qv2ray.png
+icon.path = /opt/$${TARGET}/share/icons/hicolor/256x256/apps/
 
 INSTALLS += desktop
 INSTALLS += icon
