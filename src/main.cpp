@@ -139,7 +139,7 @@ int main(int argc, char *argv[])
     auto lang = GetGlobalConfig().language;
     auto qStringLang = QSTRING(lang);
 
-    if (_qApp.installTranslator(getTranslator(&qStringLang))) {
+    if (_qApp.installTranslator(getTranslator(&qStringLang)) || qStringLang == "en-US") {
         LOG(MODULE_UI, "Loaded Translator " + lang)
     } else {
         // Do not translate these.....
@@ -155,7 +155,7 @@ int main(int argc, char *argv[])
                    "DEBUG_VERSION"
 #endif
                   );
-#ifndef __APPLE__
+
     auto osslReqVersion = QSslSocket::sslLibraryBuildVersionString().toStdString();
     auto osslCurVersion = QSslSocket::sslLibraryVersionString().toStdString();
     LOG(MODULE_NETWORK, "Current OpenSSL version: " + osslCurVersion)
@@ -169,8 +169,6 @@ int main(int argc, char *argv[])
                      QObject::tr("If you are using AppImage, please report a bug."));
         return -2;
     }
-
-#endif
 
     if (!guard.isSingleInstance()) {
         LOG(MODULE_INIT, "Another Instance running, Quit.")
