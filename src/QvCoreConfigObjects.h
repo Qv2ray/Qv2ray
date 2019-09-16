@@ -208,7 +208,7 @@ namespace Qv2ray
             TransferSettingObjects::HttpObject httpSettings;
             TransferSettingObjects::DomainSocketObject dsSettings;
             TransferSettingObjects::QuicObject quicSettings;
-            StreamSettingsObject(): network("tcp"), security(), sockopt(),  tlsSettings(), tcpSettings(), kcpSettings(), wsSettings(), httpSettings(), dsSettings(), quicSettings() {}
+            StreamSettingsObject(): network("tcp"), security("none"), sockopt(),  tlsSettings(), tcpSettings(), kcpSettings(), wsSettings(), httpSettings(), dsSettings(), quicSettings() {}
             XTOSTRUCT(O(network, security, sockopt, tcpSettings, tlsSettings, kcpSettings, wsSettings, httpSettings, dsSettings, quicSettings))
         };
         //

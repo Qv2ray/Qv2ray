@@ -1,4 +1,5 @@
 #include "QvCoreConfigOperations.h"
+#include "QvUtils.h"
 
 namespace Qv2ray
 {
@@ -21,6 +22,12 @@ namespace Qv2ray
                 LOG(MODULE_CONNECTION, QObject::tr("#VMessDecodeError").toStdString() << e->what())
                 return -2;
             }
+        }
+
+        QString GetVmessFromBase64OrPlain(QByteArray arr)
+        {
+            auto result = QString::fromUtf8(arr).trimmed();
+            return result.startsWith("vmess://") ? result : Base64Decode(result);
         }
     }
 }

@@ -32,11 +32,12 @@ namespace Qv2ray
     {
             Q_OBJECT
         public:
-            explicit QvHttpRequestHelper(QObject *parent);
+            explicit QvHttpRequestHelper();
             ~QvHttpRequestHelper();
             bool setUrl(const QString &url);
             void setHeader(const QByteArray &key, const QByteArray &value);
             // get
+            QByteArray syncget(const QString &url);
             void get(const QString &url);
             // insert
             void post(const QString &url, const QByteArray &data);

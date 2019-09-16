@@ -3,6 +3,8 @@
 #include "w_PrefrencesWindow.h"
 #include <QFileDialog>
 
+#include <iostream>
+
 #ifdef __linux
 #include <unistd.h>
 #endif
@@ -14,6 +16,15 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     ui(new Ui::PrefrencesWindow)
 {
     ui->setupUi(this);
+    // We add locales
+    ui->languageComboBox->clear();
+    QDirIterator it(":/translations");
+
+    while (it.hasNext()) {
+        ui->languageComboBox->addItem(it.next().split("/").last().split(".").first());
+    }
+
+    //
     ui->qvVersion->setText(QV2RAY_VERSION_STRING);
     CurrentConfig = GetGlobalConfig();
     //
@@ -181,13 +192,16 @@ void PrefrencesWindow::on_socksAuthCB_stateChanged(int checked)
 void PrefrencesWindow::on_languageComboBox_currentTextChanged(const QString &arg1)
 {
     CurrentConfig.language = arg1.toStdString();
-
-    if (QApplication::installTranslator(getTranslator(QString::fromStdString(arg1.toStdString())))) {
-        LOG(MODULE_UI, "Loaded translations " + arg1.toStdString())
-        ui->retranslateUi(this);
-    } else {
-        //QvMessageBox(this, tr("#Prefrences"), tr("#SwitchTranslationError"));
-    }
+    //
+    // A strange bug prevents us to change the UI language `live`ly
+    //    https://github.com/lhy0403/Qv2ray/issues/34
+    //
+    //if (QApplication::installTranslator(getTranslator(&arg1))) {
+    //    LOG(MODULE_UI, "Loaded translations " + arg1.toStdString())
+    //    ui->retranslateUi(this);
+    //} else {
+    //    QvMessageBox(this, tr("#Prefrences"), tr("#SwitchTranslationError"));
+    //}
 }
 
 void PrefrencesWindow::on_logLevelComboBox_currentIndexChanged(int index)
