@@ -8,7 +8,7 @@
  - 项目网站: https://lhy0403.github.io/Qv2ray
  - 最新 [Release](https://github.com/lhy0403/Qv2ray/releases/latest) 
  - AppImage 编译平台: [OpenBuildService-Qv2ray](https://build.opensuse.org/package/show/home:Leroy_HY/Qv2ray)
- - Crowdin 翻译平台: [Crowdin](https://crowdin.com/project/qv2ray)
+ - Crowdin 翻译平台: [Crowdin](https://crowdin.com/project/qv2ray) [开始翻译](https://crwd.in/qv2ray)
  - ArchLinux - AUR: [qv2ray](https://aur.archlinux.org/packages/qv2ray/) 由 @aliyuchang33 维护
  
 -------------------------
