@@ -12,12 +12,12 @@
       <location filename="../src/w_ConnectionEditWindow.ui" line="37"/>
       <location filename="../src/w_ConnectionEditWindow.ui" line="358"/>
       <source>Host</source>
-      <translation type="unfinished">Host</translation>
+      <translation>호스트</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="47"/>
       <source>Port</source>
-      <translation type="unfinished">Port</translation>
+      <translation>포트</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="61"/>
@@ -27,17 +27,17 @@
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="85"/>
       <source>Socks</source>
-      <translation type="unfinished">Socks</translation>
+      <translation>Socks</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="116"/>
       <source>Use TLS</source>
-      <translation type="unfinished">Use TLS</translation>
+      <translation>TLS 사용</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="130"/>
       <source>UUID</source>
-      <translation type="unfinished">UUID</translation>
+      <translation>UUID</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="147"/>
@@ -48,12 +48,12 @@
       <location filename="../src/w_ConnectionEditWindow.ui" line="161"/>
       <location filename="../src/w_ConnectionEditWindow.ui" line="650"/>
       <source>Security</source>
-      <translation type="unfinished">Security</translation>
+      <translation>보안</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="192"/>
       <source>Transport Method</source>
-      <translation type="unfinished">Transport Method</translation>
+      <translation>수송 수단</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="95"/>
