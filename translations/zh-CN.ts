@@ -37,12 +37,12 @@
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="130"/>
       <source>UUID</source>
-      <translation type="unfinished">UUID</translation>
+      <translation>UUID</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="147"/>
       <source>Alter ID</source>
-      <translation type="unfinished">Alter ID</translation>
+      <translation>Alter ID</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="161"/>
@@ -58,7 +58,7 @@
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="95"/>
       <source>Outbound Settings</source>
-      <translation type="unfinished">Outbound Settings</translation>
+      <translation>出站设置</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="123"/>
@@ -71,7 +71,7 @@
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="235"/>
       <source>Transport Settings</source>
-      <translation type="unfinished">Transport Settings</translation>
+      <translation>传输设置</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="270"/>
@@ -122,12 +122,12 @@
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="413"/>
       <source>MTU</source>
-      <translation type="unfinished">MTU</translation>
+      <translation>MTU</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="439"/>
       <source>TTI (ms)</source>
-      <translation type="unfinished">TTI (ms)</translation>
+      <translation>TTI (ms)</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="465"/>
@@ -172,7 +172,7 @@
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="771"/>
       <source>tProxy</source>
-      <translation type="unfinished">tProxy</translation>
+      <translation>tProxy</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="808"/>
@@ -198,7 +198,7 @@
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="884"/>
       <source>OTA</source>
-      <translation type="unfinished">OTA</translation>
+      <translation>OTA</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="921"/>
@@ -328,7 +328,7 @@
     <message>
       <location filename="../src/w_MainWindow.ui" line="23"/>
       <source>Qv2ray</source>
-      <translation type="unfinished">Qv2ray</translation>
+      <translation>Qv2ray</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.ui" line="47"/>
@@ -395,7 +395,7 @@
     <message>
       <location filename="../src/w_MainWindow.ui" line="239"/>
       <source>A</source>
-      <translation type="unfinished">A</translation>
+      <translation>A</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.ui" line="256"/>
@@ -406,27 +406,27 @@
     <message>
       <location filename="../src/w_MainWindow.ui" line="259"/>
       <source>I</source>
-      <translation type="unfinished">I</translation>
+      <translation>I</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.ui" line="276"/>
+      <location filename="../src/w_MainWindow.ui" line="290"/>
       <source>#RemoveConnection</source>
       <translation>删除连接</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.ui" line="279"/>
+      <location filename="../src/w_MainWindow.ui" line="293"/>
       <source>R</source>
-      <translation type="unfinished">R</translation>
+      <translation>R</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.ui" line="290"/>
+      <location filename="../src/w_MainWindow.ui" line="270"/>
       <source>#EditConnection</source>
       <translation>编辑连接</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.ui" line="293"/>
+      <location filename="../src/w_MainWindow.ui" line="273"/>
       <source>...</source>
-      <translation type="unfinished">...</translation>
+      <translation>...</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.ui" line="319"/>
@@ -467,93 +467,105 @@
       <location filename="../src/w_MainWindow.cpp" line="38"/>
       <location filename="../src/w_MainWindow.cpp" line="283"/>
       <source>Hide</source>
-      <translation type="unfinished">Hide</translation>
+      <translation>隐藏</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="39"/>
       <source>Quit</source>
-      <translation type="unfinished">Quit</translation>
+      <translation>退出</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="41"/>
       <source>Reconnect</source>
-      <translation type="unfinished">Reconnect</translation>
+      <translation>重新连接</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="44"/>
       <source>Rename</source>
-      <translation type="unfinished">Rename</translation>
-    </message>
-    <message>
-      <location filename="../src/w_MainWindow.cpp" line="45"/>
-      <source>ConnectSelected</source>
-      <translation type="unfinished">ConnectSelected</translation>
+      <translation>重命名</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="92"/>
       <location filename="../src/w_MainWindow.cpp" line="238"/>
       <location filename="../src/w_MainWindow.cpp" line="286"/>
       <source>Show</source>
-      <translation type="unfinished">Show</translation>
+      <translation>显示</translation>
+    </message>
+    <message>
+      <location filename="../src/w_MainWindow.cpp" line="495"/>
+      <source>NoConfigSelected</source>
+      <translation>没有选择配置</translation>
+    </message>
+    <message>
+      <location filename="../src/w_MainWindow.cpp" line="495"/>
+      <source>PleaseSelectAConfig</source>
+      <translation>请选择一个配置文件</translation>
+    </message>
+    <message>
+      <location filename="../src/w_MainWindow.cpp" line="45"/>
+      <source>Connect to this</source>
+      <translation>连接到此服务器</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="120"/>
+      <source>Update</source>
+      <translation>更新</translation>
+    </message>
+    <message>
       <location filename="../src/w_MainWindow.cpp" line="121"/>
-      <source>NewReleaseVersionFound</source>
-      <translation type="unfinished">NewReleaseVersionFound</translation>
+      <source>Found a new version: </source>
+      <translation>找到新的版本： </translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="127"/>
-      <source>ReleaseDownloadLink</source>
-      <translation type="unfinished">ReleaseDownloadLink</translation>
+      <source>Download Link: </source>
+      <translation>下载链接： </translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="188"/>
-      <location filename="../src/w_MainWindow.cpp" line="495"/>
-      <source>NoConfigSelected</source>
-      <translation type="unfinished">NoConfigSelected</translation>
+      <source>No connection selected!</source>
+      <translation>没有选择连接！</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="188"/>
-      <location filename="../src/w_MainWindow.cpp" line="495"/>
-      <source>PleaseSelectAConfig</source>
-      <translation type="unfinished">PleaseSelectAConfig</translation>
+      <source>Please select a config from the list.</source>
+      <translation>请从列表中选择一个配置。</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="199"/>
       <location filename="../src/w_MainWindow.cpp" line="200"/>
-      <source>ConnectedToServer</source>
-      <translation type="unfinished">ConnectedToServer</translation>
+      <source>Connected To Server: </source>
+      <translation>已连接到服务器： </translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="201"/>
       <source>Connected</source>
-      <translation type="unfinished">Connected</translation>
+      <translation>已连接</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="218"/>
       <source>Disconnected</source>
-      <translation type="unfinished">Disconnected</translation>
+      <translation>已断开</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="324"/>
       <source>UUID</source>
-      <translation type="unfinished">UUID</translation>
+      <translation>UUID</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="326"/>
       <source>AlterID</source>
-      <translation type="unfinished">AlterID</translation>
+      <translation>Alter Id</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="328"/>
       <source>Transport</source>
-      <translation type="unfinished">Transport</translation>
+      <translation>传输</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="335"/>
       <source>Email</source>
-      <translation type="unfinished">Email</translation>
+      <translation>邮箱</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="337"/>
@@ -568,28 +580,28 @@
     <message>
       <location filename="../src/w_MainWindow.cpp" line="419"/>
       <location filename="../src/w_MainWindow.cpp" line="428"/>
-      <source>RenameConnection</source>
-      <translation type="unfinished">RenameConnection</translation>
+      <source>Rename A Connection</source>
+      <translation>重命名连接</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="419"/>
-      <source>CannotUseEmptyName</source>
-      <translation type="unfinished">CannotUseEmptyName</translation>
+      <source>A name cannot be empty</source>
+      <translation>名称不能为空</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="428"/>
-      <source>DuplicatedConnectionName</source>
-      <translation type="unfinished">DuplicatedConnectionName</translation>
+      <source>The name has been used already, Please choose another.</source>
+      <translation>名称已被使用，请选择另一个。</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="455"/>
-      <source>RemoveConnection</source>
-      <translation type="unfinished">RemoveConnection</translation>
+      <source>Removing A Connection</source>
+      <translation>删除连接</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="455"/>
-      <source>RemoveConnectionConfirm</source>
-      <translation type="unfinished">RemoveConnectionConfirm</translation>
+      <source>Are you sure to remove this connection?</source>
+      <translation>您确定要删除此连接吗？</translation>
     </message>
   </context>
   <context>
@@ -614,12 +626,12 @@
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="56"/>
       <source>zh-CN</source>
-      <translation type="unfinished">zh-CN</translation>
+      <translation>zh-CN</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="61"/>
       <source>en-US</source>
-      <translation type="unfinished">en-US</translation>
+      <translation>en-US</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="69"/>
@@ -778,7 +790,7 @@
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="523"/>
       <source>Qv2ray</source>
-      <translation type="unfinished">Qv2ray</translation>
+      <translation>Qv2ray</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="545"/>
@@ -864,19 +876,29 @@
       <translation>V2ray 核心文件未能在以下位置找到：</translation>
     </message>
     <message>
-      <location filename="../src/main.cpp" line="167"/>
+      <location filename="../src/main.cpp" line="166"/>
       <source>DependencyMissing</source>
       <translation>依赖项缺失</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="167"/>
-      <source>osslDependMissing,PleaseReDownload</source>
-      <translation>openssl 依赖项缺失，请重新下载</translation>
+      <source>Cannot find openssl libs</source>
+      <translation>找不到 OpenSSL 库</translation>
     </message>
     <message>
-      <location filename="../src/main.cpp" line="176"/>
-      <source>#AnotherInstanceRunning</source>
-      <translation>另一个实例正在运行</translation>
+      <location filename="../src/main.cpp" line="168"/>
+      <source>This could be caused by a missing of `openssl` package in your system. Or an AppImage issue.</source>
+      <translation>这可能是由于系统中缺少 `openssl` 包造成的。或者 AppImage 问题。</translation>
+    </message>
+    <message>
+      <location filename="../src/main.cpp" line="169"/>
+      <source>If you are using AppImage, please report a bug.</source>
+      <translation>如果您正在使用 AppImage，请报告一个错误。</translation>
+    </message>
+    <message>
+      <location filename="../src/main.cpp" line="177"/>
+      <source>Another instance of Qv2ray is already running.</source>
+      <translation>Qv2ray的另一个实例已经运行。</translation>
     </message>
   </context>
   <context>
@@ -927,12 +949,12 @@
     <message>
       <location filename="../src/w_SubscribeEditor.cpp" line="52"/>
       <source>#UpdateInProcess</source>
-      <translation type="unfinished">#UpdateInProcess</translation>
+      <translation>正在更新</translation>
     </message>
     <message>
       <location filename="../src/w_SubscribeEditor.cpp" line="52"/>
       <source>#TryLater</source>
-      <translation type="unfinished">#TryLater</translation>
+      <translation>请稍候尝试</translation>
     </message>
   </context>
   <context>
@@ -950,7 +972,7 @@
     <message>
       <location filename="../src/w_SubscribeEditor.ui" line="37"/>
       <source>A</source>
-      <translation type="unfinished">A</translation>
+      <translation>A</translation>
     </message>
     <message>
       <location filename="../src/w_SubscribeEditor.ui" line="54"/>
@@ -960,12 +982,12 @@
     <message>
       <location filename="../src/w_SubscribeEditor.ui" line="57"/>
       <source>R</source>
-      <translation type="unfinished">R</translation>
+      <translation>R</translation>
     </message>
     <message>
       <location filename="../src/w_SubscribeEditor.ui" line="68"/>
       <source>...</source>
-      <translation type="unfinished">...</translation>
+      <translation>...</translation>
     </message>
     <message>
       <location filename="../src/w_SubscribeEditor.ui" line="118"/>
@@ -975,22 +997,22 @@
     <message>
       <location filename="../src/w_SubscribeEditor.ui" line="123"/>
       <source>URL</source>
-      <translation type="unfinished">URL</translation>
+      <translation>URL</translation>
     </message>
     <message>
       <location filename="../src/w_SubscribeEditor.ui" line="131"/>
       <source>Config List</source>
-      <translation type="unfinished">Config List</translation>
+      <translation>配置列表</translation>
     </message>
     <message>
       <location filename="../src/w_SubscribeEditor.ui" line="140"/>
       <source>Update Subscription</source>
-      <translation type="unfinished">Update Subscription</translation>
+      <translation>更新订阅</translation>
     </message>
     <message>
       <location filename="../src/w_SubscribeEditor.ui" line="147"/>
       <source>Config Detail</source>
-      <translation type="unfinished">Config Detail</translation>
+      <translation>配置详细信息</translation>
     </message>
     <message>
       <location filename="../src/w_SubscribeEditor.ui" line="153"/>
@@ -1000,12 +1022,12 @@
     <message>
       <location filename="../src/w_SubscribeEditor.ui" line="167"/>
       <source>Server</source>
-      <translation type="unfinished">Server</translation>
+      <translation>服务器</translation>
     </message>
     <message>
       <location filename="../src/w_SubscribeEditor.ui" line="181"/>
       <source>Config</source>
-      <translation type="unfinished">Config</translation>
+      <translation>配置</translation>
     </message>
     <message>
       <location filename="../src/w_SubscribeEditor.ui" line="191"/>
