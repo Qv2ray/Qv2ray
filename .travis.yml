@@ -27,4 +27,4 @@ script:
   - qmake ../
   - if [ "$BADGE" = "linux" ]; then    make compiler_lrelease_make_all; fi
   - if [ "$BADGE" = "linux" ]; then    ls -lah --color=always --recursive; fi
-  - make    
+  - make -j8   
