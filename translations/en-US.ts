@@ -409,22 +409,22 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.ui" line="276"/>
+        <location filename="../src/w_MainWindow.ui" line="290"/>
         <source>#RemoveConnection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.ui" line="279"/>
+        <location filename="../src/w_MainWindow.ui" line="293"/>
         <source>R</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.ui" line="290"/>
+        <location filename="../src/w_MainWindow.ui" line="270"/>
         <source>#EditConnection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.ui" line="293"/>
+        <location filename="../src/w_MainWindow.ui" line="273"/>
         <source>...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -485,11 +485,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="45"/>
-        <source>ConnectSelected</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/w_MainWindow.cpp" line="92"/>
         <location filename="../src/w_MainWindow.cpp" line="238"/>
         <location filename="../src/w_MainWindow.cpp" line="286"/>
@@ -497,32 +492,49 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="120"/>
-        <location filename="../src/w_MainWindow.cpp" line="121"/>
-        <source>NewReleaseVersionFound</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/w_MainWindow.cpp" line="127"/>
-        <source>ReleaseDownloadLink</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/w_MainWindow.cpp" line="188"/>
         <location filename="../src/w_MainWindow.cpp" line="495"/>
         <source>NoConfigSelected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="188"/>
         <location filename="../src/w_MainWindow.cpp" line="495"/>
         <source>PleaseSelectAConfig</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/w_MainWindow.cpp" line="45"/>
+        <source>Connect to this</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_MainWindow.cpp" line="120"/>
+        <source>Update</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_MainWindow.cpp" line="121"/>
+        <source>Found a new version: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_MainWindow.cpp" line="127"/>
+        <source>Download Link: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_MainWindow.cpp" line="188"/>
+        <source>No connection selected!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_MainWindow.cpp" line="188"/>
+        <source>Please select a config from the list.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/w_MainWindow.cpp" line="199"/>
         <location filename="../src/w_MainWindow.cpp" line="200"/>
-        <source>ConnectedToServer</source>
+        <source>Connected To Server: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -568,27 +580,27 @@
     <message>
         <location filename="../src/w_MainWindow.cpp" line="419"/>
         <location filename="../src/w_MainWindow.cpp" line="428"/>
-        <source>RenameConnection</source>
+        <source>Rename A Connection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/w_MainWindow.cpp" line="419"/>
-        <source>CannotUseEmptyName</source>
+        <source>A name cannot be empty</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/w_MainWindow.cpp" line="428"/>
-        <source>DuplicatedConnectionName</source>
+        <source>The name has been used already, Please choose another.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/w_MainWindow.cpp" line="455"/>
-        <source>RemoveConnection</source>
+        <source>Removing A Connection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/w_MainWindow.cpp" line="455"/>
-        <source>RemoveConnectionConfirm</source>
+        <source>Are you sure to remove this connection?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -864,18 +876,28 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="167"/>
+        <location filename="../src/main.cpp" line="166"/>
         <source>DependencyMissing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/main.cpp" line="167"/>
-        <source>osslDependMissing,PleaseReDownload</source>
+        <source>Cannot find openssl libs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="176"/>
-        <source>#AnotherInstanceRunning</source>
+        <location filename="../src/main.cpp" line="168"/>
+        <source>This could be caused by a missing of `openssl` package in your system. Or an AppImage issue.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/main.cpp" line="169"/>
+        <source>If you are using AppImage, please report a bug.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/main.cpp" line="177"/>
+        <source>Another instance of Qv2ray is already running.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
