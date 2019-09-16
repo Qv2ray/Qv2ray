@@ -1,8 +1,0 @@
-[Desktop Entry]
-Type=Application
-Keywords=Internet;VPN;Proxy;v2ray;Qt;
-Categories=Network;Qt;
-Icon=Qv2ray
-Exec=AppRun
-Name=Qv2ray
-Comment=Cross-platform v2ray GUI Client in Qt.
