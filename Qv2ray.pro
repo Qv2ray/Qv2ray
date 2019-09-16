@@ -9,7 +9,7 @@ QT += core gui widgets network
 TARGET = Qv2ray
 TEMPLATE = app
 DEFINES += QT_DEPRECATED_WARNINGS
-CONFIG += c++11 openssl-linked lrelease embed_translations
+CONFIG += c++11 openssl openssl-linked lrelease embed_translations
 
 win32: QMAKE_TARGET_DESCRIPTION = "Qv2ray, a cross-platform v2ray GUI client."
 win32: QMAKE_TARGET_PRODUCT = "Qv2ray"
@@ -98,3 +98,11 @@ win32: QMAKE_CXXFLAGS += "-Wno-missing-field-initializers"
 qnx: target.path = /tmp/$${TARGET}/bin
 unix: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+desktop.files += ./icons/Qv2ray.desktop
+desktop.path = /opt/$${TARGET}/share/applications/
+icon.files += ./icons/Qv2ray.png
+icon.path = /opt/$${TARGET}/share/icons/hicolor/256x256/apps/
+
+INSTALLS += desktop
+INSTALLS += icon
