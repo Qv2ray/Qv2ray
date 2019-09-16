@@ -14,11 +14,10 @@ before_install:
 
 install:
   - if [ "$BADGE" = "linux" ]; then    sudo apt-get install qtchooser libgl-dev qt5-default qttools5-dev-tools; fi
-  - if [ "$BADGE" = "osx" ];   then    brew install cppcheck https://raw.githubusercontent.com/Homebrew/homebrew-core/master/Formula/qt.rb; fi
-  - if [ "$BADGE" = "osx" ];   then    brew link --force qt; fi  
+  - if [ "$BADGE" = "osx" ];   then    brew install qt5 --verbose; fi
   
 before_script:
-  - if [ "$BADGE" = "osx" ];   then    export PATH="/usr/local/opt/qt/bin:$PATH"; fi
+  - if [ "$BADGE" = "osx" ];   then    export PATH="/usr/local/Cellar/qt/5.13.1/bin:$PATH"; fi
   - if [ "$BADGE" = "linux" ]; then    sudo cp ./libs/lrelease.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/; fi
   
 script:
