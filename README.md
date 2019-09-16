@@ -5,9 +5,12 @@
 支持连接编辑，支持导入配置和 VMess
 
 # 项目主页，下载链接和使用方法
- - 见 Github Page: https://lhy0403.github.io/Qv2ray
+ - 项目网站: https://lhy0403.github.io/Qv2ray
  - 最新 [Release](https://github.com/lhy0403/Qv2ray/releases/latest) 
-
+ - AppImage 编译平台: [OpenBuildService-Qv2ray](https://build.opensuse.org/package/show/home:Leroy_HY/Qv2ray)
+ - Crowdin 翻译平台: [Crowdin](https://crowdin.com/project/qv2ray) [开始翻译](https://crwd.in/qv2ray)
+ - ArchLinux - AUR: [qv2ray](https://aur.archlinux.org/packages/qv2ray/) 由 @aliyuchang33 维护
+ 
 -------------------------
 
 Travis per machine badge provided by: [badge-matrix](https://github.com/exogen/badge-matrix)
