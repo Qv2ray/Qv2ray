@@ -1,3 +1,0 @@
-files:
-  - source: /translations/en-US.ts
-    translation: /translations/%locale%.ts
