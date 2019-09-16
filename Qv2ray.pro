@@ -9,7 +9,7 @@ QT += core gui widgets network
 TARGET = Qv2ray
 TEMPLATE = app
 DEFINES += QT_DEPRECATED_WARNINGS
-CONFIG += c++11 openssl-linked lrelease embed_translations
+CONFIG += c++11 openssl openssl-linked lrelease embed_translations
 
 win32: QMAKE_TARGET_DESCRIPTION = "Qv2ray, a cross-platform v2ray GUI client."
 win32: QMAKE_TARGET_PRODUCT = "Qv2ray"
