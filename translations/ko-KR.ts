@@ -409,22 +409,22 @@
       <translation type="unfinished">I</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.ui" line="276"/>
+      <location filename="../src/w_MainWindow.ui" line="290"/>
       <source>#RemoveConnection</source>
       <translation type="unfinished">#RemoveConnection</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.ui" line="279"/>
+      <location filename="../src/w_MainWindow.ui" line="293"/>
       <source>R</source>
       <translation type="unfinished">R</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.ui" line="290"/>
+      <location filename="../src/w_MainWindow.ui" line="270"/>
       <source>#EditConnection</source>
       <translation type="unfinished">#EditConnection</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.ui" line="293"/>
+      <location filename="../src/w_MainWindow.ui" line="273"/>
       <source>...</source>
       <translation type="unfinished">...</translation>
     </message>
@@ -485,11 +485,6 @@
       <translation type="unfinished">Rename</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="45"/>
-      <source>ConnectSelected</source>
-      <translation type="unfinished">ConnectSelected</translation>
-    </message>
-    <message>
       <location filename="../src/w_MainWindow.cpp" line="92"/>
       <location filename="../src/w_MainWindow.cpp" line="238"/>
       <location filename="../src/w_MainWindow.cpp" line="286"/>
@@ -497,33 +492,50 @@
       <translation type="unfinished">Show</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="120"/>
-      <location filename="../src/w_MainWindow.cpp" line="121"/>
-      <source>NewReleaseVersionFound</source>
-      <translation type="unfinished">NewReleaseVersionFound</translation>
-    </message>
-    <message>
-      <location filename="../src/w_MainWindow.cpp" line="127"/>
-      <source>ReleaseDownloadLink</source>
-      <translation type="unfinished">ReleaseDownloadLink</translation>
-    </message>
-    <message>
-      <location filename="../src/w_MainWindow.cpp" line="188"/>
       <location filename="../src/w_MainWindow.cpp" line="495"/>
       <source>NoConfigSelected</source>
       <translation type="unfinished">NoConfigSelected</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="188"/>
       <location filename="../src/w_MainWindow.cpp" line="495"/>
       <source>PleaseSelectAConfig</source>
       <translation type="unfinished">PleaseSelectAConfig</translation>
     </message>
     <message>
+      <location filename="../src/w_MainWindow.cpp" line="45"/>
+      <source>Connect to this</source>
+      <translation type="unfinished">Connect to this</translation>
+    </message>
+    <message>
+      <location filename="../src/w_MainWindow.cpp" line="120"/>
+      <source>Update</source>
+      <translation type="unfinished">Update</translation>
+    </message>
+    <message>
+      <location filename="../src/w_MainWindow.cpp" line="121"/>
+      <source>Found a new version: </source>
+      <translation type="unfinished">Found a new version: </translation>
+    </message>
+    <message>
+      <location filename="../src/w_MainWindow.cpp" line="127"/>
+      <source>Download Link: </source>
+      <translation type="unfinished">Download Link: </translation>
+    </message>
+    <message>
+      <location filename="../src/w_MainWindow.cpp" line="188"/>
+      <source>No connection selected!</source>
+      <translation type="unfinished">No connection selected!</translation>
+    </message>
+    <message>
+      <location filename="../src/w_MainWindow.cpp" line="188"/>
+      <source>Please select a config from the list.</source>
+      <translation type="unfinished">Please select a config from the list.</translation>
+    </message>
+    <message>
       <location filename="../src/w_MainWindow.cpp" line="199"/>
       <location filename="../src/w_MainWindow.cpp" line="200"/>
-      <source>ConnectedToServer</source>
-      <translation type="unfinished">ConnectedToServer</translation>
+      <source>Connected To Server: </source>
+      <translation type="unfinished">Connected To Server: </translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="201"/>
@@ -568,28 +580,28 @@
     <message>
       <location filename="../src/w_MainWindow.cpp" line="419"/>
       <location filename="../src/w_MainWindow.cpp" line="428"/>
-      <source>RenameConnection</source>
-      <translation type="unfinished">RenameConnection</translation>
+      <source>Rename A Connection</source>
+      <translation type="unfinished">Rename A Connection</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="419"/>
-      <source>CannotUseEmptyName</source>
-      <translation type="unfinished">CannotUseEmptyName</translation>
+      <source>A name cannot be empty</source>
+      <translation type="unfinished">A name cannot be empty</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="428"/>
-      <source>DuplicatedConnectionName</source>
-      <translation type="unfinished">DuplicatedConnectionName</translation>
+      <source>The name has been used already, Please choose another.</source>
+      <translation type="unfinished">The name has been used already, Please choose another.</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="455"/>
-      <source>RemoveConnection</source>
-      <translation type="unfinished">RemoveConnection</translation>
+      <source>Removing A Connection</source>
+      <translation type="unfinished">Removing A Connection</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="455"/>
-      <source>RemoveConnectionConfirm</source>
-      <translation type="unfinished">RemoveConnectionConfirm</translation>
+      <source>Are you sure to remove this connection?</source>
+      <translation type="unfinished">Are you sure to remove this connection?</translation>
     </message>
   </context>
   <context>
@@ -864,19 +876,29 @@
       <translation type="unfinished">CoreFileNotFoundExplainationAt:</translation>
     </message>
     <message>
-      <location filename="../src/main.cpp" line="167"/>
+      <location filename="../src/main.cpp" line="166"/>
       <source>DependencyMissing</source>
       <translation type="unfinished">DependencyMissing</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="167"/>
-      <source>osslDependMissing,PleaseReDownload</source>
-      <translation type="unfinished">osslDependMissing,PleaseReDownload</translation>
+      <source>Cannot find openssl libs</source>
+      <translation type="unfinished">Cannot find openssl libs</translation>
     </message>
     <message>
-      <location filename="../src/main.cpp" line="176"/>
-      <source>#AnotherInstanceRunning</source>
-      <translation type="unfinished">#AnotherInstanceRunning</translation>
+      <location filename="../src/main.cpp" line="168"/>
+      <source>This could be caused by a missing of `openssl` package in your system. Or an AppImage issue.</source>
+      <translation type="unfinished">This could be caused by a missing of `openssl` package in your system. Or an AppImage issue.</translation>
+    </message>
+    <message>
+      <location filename="../src/main.cpp" line="169"/>
+      <source>If you are using AppImage, please report a bug.</source>
+      <translation type="unfinished">If you are using AppImage, please report a bug.</translation>
+    </message>
+    <message>
+      <location filename="../src/main.cpp" line="177"/>
+      <source>Another instance of Qv2ray is already running.</source>
+      <translation type="unfinished">Another instance of Qv2ray is already running.</translation>
     </message>
   </context>
   <context>
