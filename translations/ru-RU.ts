@@ -732,25 +732,25 @@
       <location filename="../src/w_PrefrencesWindow.ui" line="266"/>
       <location filename="../src/w_PrefrencesWindow.ui" line="333"/>
       <source>Port</source>
-      <translation type="unfinished">Port</translation>
+      <translation>Порт</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="280"/>
       <location filename="../src/w_PrefrencesWindow.ui" line="353"/>
       <source>Authentication</source>
-      <translation type="unfinished">Authentication</translation>
+      <translation>Аутентификация</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="294"/>
       <location filename="../src/w_PrefrencesWindow.ui" line="367"/>
       <source>Username</source>
-      <translation type="unfinished">Username</translation>
+      <translation>Имя пользователя</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="304"/>
       <location filename="../src/w_PrefrencesWindow.ui" line="377"/>
       <source>Password</source>
-      <translation type="unfinished">Password</translation>
+      <translation>Пароль</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="317"/>
@@ -765,42 +765,42 @@
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="414"/>
       <source>Enable Proxy</source>
-      <translation type="unfinished">Enable Proxy</translation>
+      <translation>Включить прокси</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="428"/>
       <source>Chinese Addresses</source>
-      <translation type="unfinished">Chinese Addresses</translation>
+      <translation>Китайские адреса</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="435"/>
       <source>Use Local DNS</source>
-      <translation type="unfinished">Use Local DNS</translation>
+      <translation>Использовать локальный DNS</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="461"/>
       <source>DNS List</source>
-      <translation type="unfinished">DNS List</translation>
+      <translation>Список DNS</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="475"/>
       <source>About</source>
-      <translation type="unfinished">About</translation>
+      <translation>О программе</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="523"/>
       <source>Qv2ray</source>
-      <translation type="unfinished">Qv2ray</translation>
+      <translation>Qv2ray</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="545"/>
       <source>Version:</source>
-      <translation type="unfinished">Version:</translation>
+      <translation>Версия:</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="578"/>
       <source>Official Repo:</source>
-      <translation type="unfinished">Official Repo:</translation>
+      <translation>Официальный репозиторий:</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="596"/>
@@ -810,7 +810,7 @@
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="629"/>
       <source>License:</source>
-      <translation type="unfinished">License:</translation>
+      <translation>Лицензия:</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="647"/>
@@ -820,7 +820,7 @@
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="684"/>
       <source>About Qt</source>
-      <translation type="unfinished">About Qt</translation>
+      <translation>Об инструментарии Qt</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="719"/>
@@ -830,7 +830,7 @@
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="726"/>
       <source>Cancel</source>
-      <translation type="unfinished">Cancel</translation>
+      <translation>Отменить</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.cpp" line="108"/>
