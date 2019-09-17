@@ -6,59 +6,59 @@
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="26"/>
       <source>#EditConnectionSettings</source>
-      <translation type="unfinished">#EditConnectionSettings</translation>
+      <translation>#РедактироватьНастройкиПодключения</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="37"/>
       <location filename="../src/w_ConnectionEditWindow.ui" line="358"/>
       <source>Host</source>
-      <translation type="unfinished">Host</translation>
+      <translation>Сервер</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="47"/>
       <source>Port</source>
-      <translation type="unfinished">Port</translation>
+      <translation>Порт</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="61"/>
       <source>Outbound Type</source>
-      <translation type="unfinished">Outbound Type</translation>
+      <translation>Тип сервера</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="85"/>
       <source>Socks</source>
-      <translation type="unfinished">Socks</translation>
+      <translation>Socks</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="116"/>
       <source>Use TLS</source>
-      <translation type="unfinished">Use TLS</translation>
+      <translation>Использовать TLS</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="130"/>
       <source>UUID</source>
-      <translation type="unfinished">UUID</translation>
+      <translation>UUID</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="147"/>
       <source>Alter ID</source>
-      <translation type="unfinished">Alter ID</translation>
+      <translation>ID Alter</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="161"/>
       <location filename="../src/w_ConnectionEditWindow.ui" line="650"/>
       <source>Security</source>
-      <translation type="unfinished">Security</translation>
+      <translation>Защита</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="192"/>
       <source>Transport Method</source>
-      <translation type="unfinished">Transport Method</translation>
+      <translation>Метод отправки</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="95"/>
       <source>Outbound Settings</source>
-      <translation type="unfinished">Outbound Settings</translation>
+      <translation>Настройки соединения</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="123"/>
@@ -66,68 +66,68 @@
       <location filename="../src/w_ConnectionEditWindow.ui" line="764"/>
       <location filename="../src/w_ConnectionEditWindow.ui" line="891"/>
       <source>Enabled</source>
-      <translation type="unfinished">Enabled</translation>
+      <translation>Включено</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="235"/>
       <source>Transport Settings</source>
-      <translation type="unfinished">Transport Settings</translation>
+      <translation>Transport Settings</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="270"/>
       <location filename="../src/w_ConnectionEditWindow.ui" line="575"/>
       <source>Type</source>
-      <translation type="unfinished">Type</translation>
+      <translation>Тип</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="279"/>
       <source>Request</source>
-      <translation type="unfinished">Request</translation>
+      <translation>Запрос</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="286"/>
       <location filename="../src/w_ConnectionEditWindow.ui" line="300"/>
       <source>Prettify</source>
-      <translation type="unfinished">Prettify</translation>
+      <translation>Форматировать</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="293"/>
       <source>Response</source>
-      <translation type="unfinished">Response</translation>
+      <translation>Ответ</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="330"/>
       <location filename="../src/w_ConnectionEditWindow.ui" line="337"/>
       <source>Default</source>
-      <translation type="unfinished">Default</translation>
+      <translation>По умолчанию</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="348"/>
       <location filename="../src/w_ConnectionEditWindow.ui" line="374"/>
       <location filename="../src/w_ConnectionEditWindow.ui" line="630"/>
       <source>Path</source>
-      <translation type="unfinished">Path</translation>
+      <translation>Путь</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="390"/>
       <location filename="../src/w_ConnectionEditWindow.ui" line="696"/>
       <source>Headers</source>
-      <translation type="unfinished">Headers</translation>
+      <translation>Заголовок</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="397"/>
       <source>Format: key|value</source>
-      <translation type="unfinished">Format: key|value</translation>
+      <translation>Формат: key|value</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="413"/>
       <source>MTU</source>
-      <translation type="unfinished">MTU</translation>
+      <translation>MTU</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="439"/>
       <source>TTI (ms)</source>
-      <translation type="unfinished">TTI (ms)</translation>
+      <translation>TTI (мс)</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="465"/>
