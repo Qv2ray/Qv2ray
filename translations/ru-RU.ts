@@ -274,17 +274,17 @@
     <message>
       <location filename="../src/w_ImportConfig.ui" line="124"/>
       <source>Inbound</source>
-      <translation type="unfinished">Inbound</translation>
+      <translation>Входящее</translation>
     </message>
     <message>
       <location filename="../src/w_ImportConfig.ui" line="131"/>
       <source>Keep imported inbound settings</source>
-      <translation type="unfinished">Keep imported inbound settings</translation>
+      <translation>Сохранить импортированные параметры</translation>
     </message>
     <message>
       <location filename="../src/w_ImportConfig.ui" line="144"/>
       <source>VMess Connection String</source>
-      <translation type="unfinished">VMess Connection String</translation>
+      <translation>Строка подключения VMess</translation>
     </message>
     <message>
       <location filename="../src/w_ImportConfig.ui" line="168"/>
@@ -294,7 +294,7 @@
     <message>
       <location filename="../src/w_ImportConfig.cpp" line="36"/>
       <source>OpenConfigFile</source>
-      <translation type="unfinished">OpenConfigFile</translation>
+      <translation>ОткрытьФайлКонфигурации</translation>
     </message>
     <message>
       <location filename="../src/w_ImportConfig.cpp" line="50"/>
@@ -636,7 +636,7 @@
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="69"/>
       <source>Run As Root</source>
-      <translation type="unfinished">Run As Root</translation>
+      <translation>Запустить под root</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="83"/>
