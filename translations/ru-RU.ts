@@ -631,7 +631,7 @@
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="61"/>
       <source>en-US</source>
-      <translation type="unfinished">en-US</translation>
+      <translation>en-US</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="69"/>
@@ -641,58 +641,58 @@
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="83"/>
       <source>Log Level</source>
-      <translation type="unfinished">Log Level</translation>
+      <translation>Детализация журнала</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="103"/>
       <source>none</source>
-      <translation type="unfinished">none</translation>
+      <translation>Отсутствует</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="108"/>
       <source>debug</source>
-      <translation type="unfinished">debug</translation>
+      <translation>отладка</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="113"/>
       <source>info</source>
-      <translation type="unfinished">info</translation>
+      <translation>Информация</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="118"/>
       <source>warning</source>
-      <translation type="unfinished">warning</translation>
+      <translation>внимание</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="123"/>
       <source>error</source>
-      <translation type="unfinished">error</translation>
+      <translation>ошибка</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="131"/>
       <source>Automatically Connect To</source>
-      <translation type="unfinished">Automatically Connect To</translation>
+      <translation>Автоматически подключаться к</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="147"/>
       <source>v2ray Core Path</source>
-      <translation type="unfinished">v2ray Core Path</translation>
+      <translation>путь к ядру v2ray</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="159"/>
       <location filename="../src/w_PrefrencesWindow.ui" line="180"/>
       <source>#Select</source>
-      <translation type="unfinished">#Select</translation>
+      <translation>#Выбрать</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="168"/>
       <source>v2ray Assets Path</source>
-      <translation type="unfinished">v2ray Assets Path</translation>
+      <translation>путь к директории v2ray</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="190"/>
       <source>Mux Settings</source>
-      <translation type="unfinished">Mux Settings</translation>
+      <translation>Настройки Mux</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="76"/>
@@ -706,7 +706,7 @@
       <location filename="../src/w_PrefrencesWindow.ui" line="442"/>
       <location filename="../src/w_PrefrencesWindow.ui" line="449"/>
       <source>Enabled</source>
-      <translation type="unfinished">Enabled</translation>
+      <translation>Включено</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="210"/>
@@ -716,12 +716,12 @@
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="231"/>
       <source>InBound Settings</source>
-      <translation type="unfinished">InBound Settings</translation>
+      <translation>Настройки соединения</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="239"/>
       <source>Listen IP</source>
-      <translation type="unfinished">Listen IP</translation>
+      <translation>Слушать IP</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="253"/>
@@ -997,42 +997,42 @@
     <message>
       <location filename="../src/w_SubscribeEditor.ui" line="123"/>
       <source>URL</source>
-      <translation type="unfinished">URL</translation>
+      <translation>URL</translation>
     </message>
     <message>
       <location filename="../src/w_SubscribeEditor.ui" line="131"/>
       <source>Config List</source>
-      <translation type="unfinished">Config List</translation>
+      <translation>Список конфигурации</translation>
     </message>
     <message>
       <location filename="../src/w_SubscribeEditor.ui" line="140"/>
       <source>Update Subscription</source>
-      <translation type="unfinished">Update Subscription</translation>
+      <translation>Обновить подписку</translation>
     </message>
     <message>
       <location filename="../src/w_SubscribeEditor.ui" line="147"/>
       <source>Config Detail</source>
-      <translation type="unfinished">Config Detail</translation>
+      <translation>Детали конфигурации</translation>
     </message>
     <message>
       <location filename="../src/w_SubscribeEditor.ui" line="153"/>
       <source>Type</source>
-      <translation type="unfinished">Type</translation>
+      <translation>Тип</translation>
     </message>
     <message>
       <location filename="../src/w_SubscribeEditor.ui" line="167"/>
       <source>Server</source>
-      <translation type="unfinished">Server</translation>
+      <translation>Сервер</translation>
     </message>
     <message>
       <location filename="../src/w_SubscribeEditor.ui" line="181"/>
       <source>Config</source>
-      <translation type="unfinished">Config</translation>
+      <translation>Настройки</translation>
     </message>
     <message>
       <location filename="../src/w_SubscribeEditor.ui" line="191"/>
       <source>Port</source>
-      <translation type="unfinished">Port</translation>
+      <translation>Порт</translation>
     </message>
   </context>
 </TS>
