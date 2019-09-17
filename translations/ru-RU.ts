@@ -132,95 +132,95 @@
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="465"/>
       <source>Uplink (MB/s)</source>
-      <translation type="unfinished">Uplink (MB/s)</translation>
+      <translation>Отдача (Мб/с)</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="488"/>
       <source>Congestion Control</source>
-      <translation type="unfinished">Congestion Control</translation>
+      <translation>Управление загрузкой</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="506"/>
       <source>Downlink (MB/s)</source>
-      <translation type="unfinished">Downlink (MB/s)</translation>
+      <translation>Загрузка (Мб/с)</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="529"/>
       <source>Read Buffer (MB)</source>
-      <translation type="unfinished">Read Buffer (MB)</translation>
+      <translation>Чтение буфера (МБ)</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="552"/>
       <source>Write Buffer (MB)</source>
-      <translation type="unfinished">Write Buffer (MB)</translation>
+      <translation>Запись буфера (МБ)</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="682"/>
       <source>Key</source>
-      <translation type="unfinished">Key</translation>
+      <translation>Ключ</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="747"/>
       <source>Mark</source>
-      <translation type="unfinished">Mark</translation>
+      <translation>Отметка</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="757"/>
       <source>TCP Fast Open</source>
-      <translation type="unfinished">TCP Fast Open</translation>
+      <translation>TCP Fast Open</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="771"/>
       <source>tProxy</source>
-      <translation type="unfinished">tProxy</translation>
+      <translation>tProxy</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="808"/>
       <source>EMail</source>
-      <translation type="unfinished">EMail</translation>
+      <translation>Email</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="815"/>
       <location filename="../src/w_ConnectionEditWindow.ui" line="911"/>
       <source>Password</source>
-      <translation type="unfinished">Password</translation>
+      <translation>Пароль</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="822"/>
       <source>Encryption</source>
-      <translation type="unfinished">Encryption</translation>
+      <translation>Шифрование</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="874"/>
       <source>User Level</source>
-      <translation type="unfinished">User Level</translation>
+      <translation>Тип пользователя</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="884"/>
       <source>OTA</source>
-      <translation type="unfinished">OTA</translation>
+      <translation>OTA</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="921"/>
       <source>Username</source>
-      <translation type="unfinished">Username</translation>
+      <translation>Имя пользователя</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="941"/>
       <source>Json Preview</source>
-      <translation type="unfinished">Json Preview</translation>
+      <translation>Просмотр Json</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.cpp" line="398"/>
       <location filename="../src/w_ConnectionEditWindow.cpp" line="409"/>
       <source>#JsonPrettify</source>
-      <translation type="unfinished">#JsonPrettify</translation>
+      <translation>#JsonPrettify</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.cpp" line="398"/>
       <location filename="../src/w_ConnectionEditWindow.cpp" line="409"/>
       <source>#JsonContainsError</source>
-      <translation type="unfinished">#JsonContainsError</translation>
+      <translation>#JsonContainsError</translation>
     </message>
   </context>
   <context>
@@ -228,48 +228,48 @@
     <message>
       <location filename="../src/w_ImportConfig.ui" line="26"/>
       <source>Import file</source>
-      <translation type="unfinished">Import file</translation>
+      <translation>Импорт файла</translation>
     </message>
     <message>
       <location filename="../src/w_ImportConfig.ui" line="40"/>
       <source>Name</source>
-      <translation type="unfinished">Name</translation>
+      <translation>Имя</translation>
     </message>
     <message>
       <location filename="../src/w_ImportConfig.ui" line="50"/>
       <source>Import Source</source>
-      <translation type="unfinished">Import Source</translation>
+      <translation>Источник импорта</translation>
     </message>
     <message>
       <location filename="../src/w_ImportConfig.ui" line="64"/>
       <source>File</source>
-      <translation type="unfinished">File</translation>
+      <translation>Файл</translation>
     </message>
     <message>
       <location filename="../src/w_ImportConfig.ui" line="69"/>
       <source>VMess String</source>
-      <translation type="unfinished">VMess String</translation>
+      <translation>Строка VMess</translation>
     </message>
     <message>
       <location filename="../src/w_ImportConfig.ui" line="74"/>
       <location filename="../src/w_ImportConfig.ui" line="158"/>
       <source>Subscription Link</source>
-      <translation type="unfinished">Subscription Link</translation>
+      <translation>Подписка</translation>
     </message>
     <message>
       <location filename="../src/w_ImportConfig.ui" line="84"/>
       <source>#Import</source>
-      <translation type="unfinished">#Import</translation>
+      <translation>Импорт</translation>
     </message>
     <message>
       <location filename="../src/w_ImportConfig.ui" line="99"/>
       <source>Path</source>
-      <translation type="unfinished">Path</translation>
+      <translation>Путь</translation>
     </message>
     <message>
       <location filename="../src/w_ImportConfig.ui" line="115"/>
       <source>Select</source>
-      <translation type="unfinished">Select</translation>
+      <translation>Выбрать</translation>
     </message>
     <message>
       <location filename="../src/w_ImportConfig.ui" line="124"/>
@@ -540,68 +540,68 @@
     <message>
       <location filename="../src/w_MainWindow.cpp" line="201"/>
       <source>Connected</source>
-      <translation type="unfinished">Connected</translation>
+      <translation>Подключен</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="218"/>
       <source>Disconnected</source>
-      <translation type="unfinished">Disconnected</translation>
+      <translation>Отключен</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="324"/>
       <source>UUID</source>
-      <translation type="unfinished">UUID</translation>
+      <translation>UUID</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="326"/>
       <source>AlterID</source>
-      <translation type="unfinished">AlterID</translation>
+      <translation>AlterID</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="328"/>
       <source>Transport</source>
-      <translation type="unfinished">Transport</translation>
+      <translation>Протокол</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="335"/>
       <source>Email</source>
-      <translation type="unfinished">Email</translation>
+      <translation>Email</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="337"/>
       <source>Encryption</source>
-      <translation type="unfinished">Encryption</translation>
+      <translation>Шифрование</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="344"/>
       <source>Username</source>
-      <translation type="unfinished">Username</translation>
+      <translation>Имя пользователя</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="419"/>
       <location filename="../src/w_MainWindow.cpp" line="428"/>
       <source>Rename A Connection</source>
-      <translation type="unfinished">Rename A Connection</translation>
+      <translation>Переименовать подключение</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="419"/>
       <source>A name cannot be empty</source>
-      <translation type="unfinished">A name cannot be empty</translation>
+      <translation>Имя не может быть пустым</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="428"/>
       <source>The name has been used already, Please choose another.</source>
-      <translation type="unfinished">The name has been used already, Please choose another.</translation>
+      <translation>Имя уже используется, пожалуйста, выберите другое.</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="455"/>
       <source>Removing A Connection</source>
-      <translation type="unfinished">Removing A Connection</translation>
+      <translation>Удалить из списка</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="455"/>
       <source>Are you sure to remove this connection?</source>
-      <translation type="unfinished">Are you sure to remove this connection?</translation>
+      <translation>Вы уверены, что хотите удалить это подключение?</translation>
     </message>
   </context>
   <context>
@@ -611,7 +611,7 @@
       <location filename="../src/w_PrefrencesWindow.cpp" line="108"/>
       <location filename="../src/w_PrefrencesWindow.cpp" line="180"/>
       <source>Prefrences</source>
-      <translation type="unfinished">Prefrences</translation>
+      <translation>Настройки</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="36"/>
