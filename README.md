@@ -7,9 +7,15 @@
 # 项目主页，下载链接和使用方法
  - 项目网站: https://lhy0403.github.io/Qv2ray
  - 最新 [Release](https://github.com/lhy0403/Qv2ray/releases/latest) 
- - AppImage 编译平台: [OpenBuildService-Qv2ray](https://build.opensuse.org/package/show/home:Leroy_HY/Qv2ray)
+ - AppImage 编译平台:  [主分支/Release 版本](https://jenkins.himeki.net/job/Qv2ray-AppImage-master/)
  - Crowdin 翻译平台: [Crowdin](https://crowdin.com/project/qv2ray) [开始翻译](https://crwd.in/qv2ray)
  - ArchLinux - AUR: [qv2ray](https://aur.archlinux.org/packages/qv2ray/) 由 @aliyuchang33 维护
+
+## Jenkins (Linux)
+Himeki.net 的 Jenkins 编译服务器提供开发分支 `dev` 的 Linux AppImage 版本
+ - 访问链接: [https://jenkins.himeki.net/job/Qv2ray-AppImage-dev/](https://jenkins.himeki.net/job/Qv2ray-AppImage-dev/)
+ - 开发分支仅供测试使用
+ - 提供者 [@aliyuchang33](https://github.com/aliyuchang33)
  
 -------------------------
 
@@ -22,15 +28,6 @@ Travis per machine badge provided by: [badge-matrix](https://github.com/exogen/b
 | [Windows](https://ci.appveyor.com/project/lhy0403/qv2ray) | [![Build status](https://ci.appveyor.com/api/projects/status/i1l524ws0hiitpm4/branch/master?svg=true)](https://ci.appveyor.com/project/lhy0403/qv2ray/branch/master) | [![Build status](https://ci.appveyor.com/api/projects/status/i1l524ws0hiitpm4/branch/dev?svg=true)](https://ci.appveyor.com/project/lhy0403/qv2ray/branch/dev) | [![Build status](https://ci.appveyor.com/api/projects/status/i1l524ws0hiitpm4/branch/version-v1?svg=true)](https://ci.appveyor.com/project/lhy0403/qv2ray/branch/version-v1) |
 
 ----------------
-
-# 开发分支测试
-  - 如果想测试当前的开发分支，请使用 `git checkout dev` 切换到开发分支
-  - <span style="color: red">!! 该分支可能不稳定 或 甚至无法正常工作 !!</span>
-
-## Jenkins (Linux)
-[jenkins.himeki.net](https://jenkins.himeki.net/job/Qv2ray/) 编译服务器提供开发分支 `dev` 的二进制编译版本
- - 开发分支仅供测试使用
- - 提供者 [@aliyuchang33](https://github.com/aliyuchang33)
 
 # 编译
  - 依赖项：`Qt >= 5.12` `gcc >=8` 或 `MinGW` (Windows) 或 `clang` (MacOS)
