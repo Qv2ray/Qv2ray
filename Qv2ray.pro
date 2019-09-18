@@ -9,13 +9,13 @@ QT += core gui widgets network
 TARGET = Qv2ray
 TEMPLATE = app
 DEFINES += QT_DEPRECATED_WARNINGS
-CONFIG += c++11 openssl-linked lrelease
+CONFIG += c++11 openssl openssl-linked lrelease embed_translations
 
 win32: QMAKE_TARGET_DESCRIPTION = "Qv2ray, a cross-platform v2ray GUI client."
 win32: QMAKE_TARGET_PRODUCT = "Qv2ray"
 
 VERSION = 2.0
-DEFINES += "QV_MAJOR_VERSION=\"\\\"$${VERSION}\\\"\""
+DEFINES += QV_MAJOR_VERSION=\"\\\"$${VERSION}\\\"\"
 
 SOURCES += \
         src/QvConfigUpgrade.cpp \
@@ -62,8 +62,29 @@ FORMS += \
 RESOURCES += \
         resources.qrc
 
+# ------------------------------------------ Begin to detect language files.
+
+QM_FILES_RESOURCE_PREFIX = "translations"
+
+message("Detecting Translation files.....")
+
+for(var, $$list($$files("*.ts", true))) {
+    LOCALE_FILENAME = $$basename(var)
+    message(Found: $$LOCALE_FILENAME)
+
+    !equals(LOCALE_FILENAME, "en-US.ts") {
+        # ONLY USED IN LRELEASE CONTEXT - en-US is not EXTRA...
+        EXTRA_TRANSLATIONS += translations/$$LOCALE_FILENAME
+    }
+}
+
+
 TRANSLATIONS += \
-        translations/source.ts
+        translations/en-US.ts
+
+message("Translations:" $$TRANSLATIONS)
+message("EXTRA Translations:" $$EXTRA_TRANSLATIONS)
+
 
 RC_ICONS += ./icons/Qv2ray.ico
 ICON = ./icons/Qv2ray.icns
@@ -76,3 +97,11 @@ win32: QMAKE_CXXFLAGS += "-Wno-missing-field-initializers"
 qnx: target.path = /tmp/$${TARGET}/bin
 unix: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+desktop.files += ./icons/Qv2ray.desktop
+desktop.path = /opt/$${TARGET}/share/applications/
+icon.files += ./icons/Qv2ray.png
+icon.path = /opt/$${TARGET}/share/icons/hicolor/256x256/apps/
+
+INSTALLS += desktop
+INSTALLS += icon

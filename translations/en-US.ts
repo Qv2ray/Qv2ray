@@ -409,17 +409,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.ui" line="279"/>
+        <location filename="../src/w_MainWindow.ui" line="293"/>
         <source>R</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.ui" line="290"/>
+        <location filename="../src/w_MainWindow.ui" line="270"/>
         <source>#EditConnection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.ui" line="293"/>
+        <location filename="../src/w_MainWindow.ui" line="273"/>
         <source>...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -606,8 +606,8 @@
     <name>PrefrencesWindow</name>
     <message>
         <location filename="../src/w_PrefrencesWindow.ui" line="20"/>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="97"/>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="169"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="108"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="180"/>
         <source>Prefrences</source>
         <translation type="unfinished"></translation>
     </message>
@@ -634,11 +634,6 @@
     <message>
         <location filename="../src/w_PrefrencesWindow.ui" line="69"/>
         <source>Run As Root</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="76"/>
-        <source>#Enabled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -698,6 +693,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/w_PrefrencesWindow.ui" line="76"/>
         <location filename="../src/w_PrefrencesWindow.ui" line="196"/>
         <location filename="../src/w_PrefrencesWindow.ui" line="203"/>
         <location filename="../src/w_PrefrencesWindow.ui" line="259"/>
@@ -835,22 +831,22 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="97"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="108"/>
         <source>PortNumbersCannotBeSame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="169"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="180"/>
         <source>RunAsRootNotOnWindows</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="289"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="300"/>
         <source>#OpenVCoreFile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="300"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="311"/>
         <source>OpenVAssetsDir</source>
         <translation type="unfinished"></translation>
     </message>
@@ -858,7 +854,7 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/QvCoreConfigOperations_Verification.cpp" line="21"/>
+        <location filename="../src/QvCoreConfigOperations_Verification.cpp" line="22"/>
         <source>#VMessDecodeError</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1022,6 +1018,19 @@
     </message>
 </context>
 <context>
+    <name>SubscribeEditor</name>
+    <message>
+        <location filename="../src/w_SubscribeEditor.cpp" line="52"/>
+        <source>#UpdateInProcess</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_SubscribeEditor.cpp" line="52"/>
+        <source>#TryLater</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>w_SubscribeEditor</name>
     <message>
         <location filename="../src/w_SubscribeEditor.ui" line="14"/>
@@ -1029,58 +1038,73 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_SubscribeEditor.ui" line="48"/>
-        <source>#ConfigDetail</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/w_SubscribeEditor.ui" line="54"/>
-        <source>#Type</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/w_SubscribeEditor.ui" line="68"/>
-        <source>#Server</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/w_SubscribeEditor.ui" line="82"/>
-        <source>#Config</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/w_SubscribeEditor.ui" line="92"/>
-        <source>#Port</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/w_SubscribeEditor.ui" line="122"/>
-        <source>#SubsGroupName</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/w_SubscribeEditor.ui" line="127"/>
-        <source>#SubsGroupURL</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/w_SubscribeEditor.ui" line="150"/>
+        <location filename="../src/w_SubscribeEditor.ui" line="34"/>
         <source>#AddConnection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_SubscribeEditor.ui" line="153"/>
+        <location filename="../src/w_SubscribeEditor.ui" line="37"/>
         <source>A</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_SubscribeEditor.ui" line="170"/>
+        <location filename="../src/w_SubscribeEditor.ui" line="54"/>
         <source>#RemoveConnection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_SubscribeEditor.ui" line="173"/>
+        <location filename="../src/w_SubscribeEditor.ui" line="57"/>
         <source>R</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_SubscribeEditor.ui" line="68"/>
+        <source>...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_SubscribeEditor.ui" line="118"/>
+        <source>Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_SubscribeEditor.ui" line="123"/>
+        <source>URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_SubscribeEditor.ui" line="131"/>
+        <source>Config List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_SubscribeEditor.ui" line="140"/>
+        <source>Update Subscription</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_SubscribeEditor.ui" line="147"/>
+        <source>Config Detail</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_SubscribeEditor.ui" line="153"/>
+        <source>Type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_SubscribeEditor.ui" line="167"/>
+        <source>Server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_SubscribeEditor.ui" line="181"/>
+        <source>Config</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_SubscribeEditor.ui" line="191"/>
+        <source>Port</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
