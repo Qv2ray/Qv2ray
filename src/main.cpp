@@ -82,7 +82,7 @@ bool initQv()
         auto newVersion = QSTRING(to_string(QV2RAY_CONFIG_VERSION));
 
         if (QString::compare(confVersion, newVersion) != 0) {
-            conf = UpgradeConfig(stoi(conf["config_version"].toString().toStdString()), QV2RAY_CONFIG_VERSION, conf);
+            conf = UpgradeConfig(stoi(confVersion.toStdString()), QV2RAY_CONFIG_VERSION, conf);
         }
 
         auto confObject = StructFromJSONString<Qv2rayConfig>(JSONToString(conf));
@@ -155,7 +155,6 @@ int main(int argc, char *argv[])
                    "DEBUG_VERSION"
 #endif
                   );
-
     auto osslReqVersion = QSslSocket::sslLibraryBuildVersionString().toStdString();
     auto osslCurVersion = QSslSocket::sslLibraryVersionString().toStdString();
     LOG(MODULE_NETWORK, "Current OpenSSL version: " + osslCurVersion)
