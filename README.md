@@ -68,6 +68,10 @@ qmake ../
 mingw32-make.exe
 ```
 
+# 部分 Linux 系统的 UI 丑的解决办法
+
+ - 命令行参数添加 `--style fusion` 即可使用 fusion 界面主题
+
 # License
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
