@@ -6,7 +6,7 @@ namespace Qv2ray
     {
         static const QStringList vLogLevels = {"none", "debug", "info", "warning", "error"};
         // -------------------------- BEGIN CONFIG GENERATIONS ----------------------------------------------------------------------------
-        QJsonObject GenerateRoutes(bool globalProxy, bool cnProxy)
+        QJsonObject GenerateRoutes(bool globalProxy, bool bypassCN)
         {
             DROOT
             root.insert("domainStrategy", "IPIfNonMatch");
@@ -18,8 +18,8 @@ namespace Qv2ray
             rulesList.append(GenerateSingleRouteRule(QStringList({"geoip:private"}), false, OUTBOUND_TAG_DIRECT));
             //
             // Check if CN needs proxy, or direct.
-            rulesList.append(GenerateSingleRouteRule(QStringList({"geoip:cn"}), false, cnProxy ? OUTBOUND_TAG_PROXY : OUTBOUND_TAG_DIRECT));
-            rulesList.append(GenerateSingleRouteRule(QStringList({"geosite:cn"}), true, cnProxy ? OUTBOUND_TAG_PROXY :  OUTBOUND_TAG_DIRECT));
+            rulesList.append(GenerateSingleRouteRule(QStringList({"geoip:cn"}), false, bypassCN ? OUTBOUND_TAG_DIRECT : OUTBOUND_TAG_PROXY));
+            rulesList.append(GenerateSingleRouteRule(QStringList({"geosite:cn"}), true, bypassCN ? OUTBOUND_TAG_DIRECT :  OUTBOUND_TAG_PROXY));
             //
             // Check global proxy, or direct.
             rulesList.append(GenerateSingleRouteRule(QStringList({"regexp:.*"}), true, globalProxy ? OUTBOUND_TAG_PROXY :  OUTBOUND_TAG_DIRECT));
@@ -198,7 +198,7 @@ namespace Qv2ray
                 }
 
                 LOG(MODULE_CONNECTION, "Current connection has NO ROUTING section, we insert default values.")
-                auto routeObject = GenerateRoutes(gConf.proxyDefault, gConf.proxyCN);
+                auto routeObject = GenerateRoutes(gConf.proxyDefault, gConf.bypassCN);
                 root.insert("routing", routeObject);
                 QJsonArray outbounds = root["outbounds"].toArray();
                 outbounds.append(GenerateOutboundEntry("freedom", GenerateFreedomOUT("AsIs", ":0", 0), QJsonObject(), QJsonObject(), "0.0.0.0", OUTBOUND_TAG_DIRECT));

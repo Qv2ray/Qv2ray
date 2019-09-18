@@ -19,6 +19,7 @@
 #include "w_ImportConfig.h"
 #include "w_ConnectionEditWindow.h"
 #include "w_MainWindow.h"
+#include "w_RouteEditor.h"
 #include "w_SubscribeEditor.h"
 
 #define TRAY_TOOLTIP_PREFIX "Qv2ray " QV2RAY_VERSION_STRING "\r\n"
@@ -105,7 +106,7 @@ void MainWindow::VersionUpdate(QByteArray &data)
 {
     auto conf = GetGlobalConfig();
     QString jsonString(data);
-    QJsonObject root = JSONFromString(jsonString);
+    QJsonObject root = JsonFromString(jsonString);
     //
     QVersionNumber newversion = QVersionNumber::fromString(root["tag_name"].toString("").remove(0, 1));
     QVersionNumber current = QVersionNumber::fromString(QSTRING(QV2RAY_VERSION_STRING).remove(0, 1));
@@ -317,7 +318,7 @@ void MainWindow::ShowAndSetConnection(int index, bool SetConnection, bool ApplyC
     ui->_OutBoundTypeLabel->setText(outboundType);
 
     if (outboundType == "vmess") {
-        auto Server = StructFromJSONString<VMessServerObject>(JSONToString(outBoundRoot["settings"].toObject()["vnext"].toArray().first().toObject()));
+        auto Server = StructFromJsonString<VMessServerObject>(JsonToString(outBoundRoot["settings"].toObject()["vnext"].toArray().first().toObject()));
         ui->_hostLabel->setText(QSTRING(Server.address));
         ui->_portLabel->setText(QSTRING(to_string(Server.port)));
         auto user = QList<VMessServerObject::UserObject>::fromStdList(Server.users).first();
@@ -328,8 +329,8 @@ void MainWindow::ShowAndSetConnection(int index, bool SetConnection, bool ApplyC
                              + tr("Transport") + ": " + outBoundRoot["streamSettings"].toObject()["network"].toString();
         ui->detailInfoTxt->setPlainText(_configString);
     } else if (outboundType == "shadowsocks") {
-        auto x = JSONToString(outBoundRoot["settings"].toObject()["servers"].toArray().first().toObject());
-        auto Server = StructFromJSONString<ShadowSocksServer>(x);
+        auto x = JsonToString(outBoundRoot["settings"].toObject()["servers"].toArray().first().toObject());
+        auto Server = StructFromJsonString<ShadowSocksServer>(x);
         ui->_hostLabel->setText(QSTRING(Server.address));
         ui->_portLabel->setText(QSTRING(to_string(Server.port)));
         auto _configString = tr("Email") + ": " + QSTRING(Server.email)
@@ -337,8 +338,8 @@ void MainWindow::ShowAndSetConnection(int index, bool SetConnection, bool ApplyC
                              + tr("Encryption") + ": " + QSTRING(Server.method);
         ui->detailInfoTxt->setPlainText(_configString);
     } else if (outboundType == "socks") {
-        auto x = JSONToString(outBoundRoot["settings"].toObject()["servers"].toArray().first().toObject());
-        auto Server = StructFromJSONString<SocksServerObject>(x);
+        auto x = JsonToString(outBoundRoot["settings"].toObject()["servers"].toArray().first().toObject());
+        auto Server = StructFromJsonString<SocksServerObject>(x);
         ui->_hostLabel->setText(QSTRING(Server.address));
         ui->_portLabel->setText(QSTRING(to_string(Server.port)));
         auto _configString = tr("Username") + ": " + QSTRING(Server.users.front().user);
@@ -476,16 +477,20 @@ void MainWindow::on_importConfigButton_clicked()
 {
     ImportConfigWindow *w = new ImportConfigWindow(this);
     connect(w, &ImportConfigWindow::s_reload_config, this, &MainWindow::save_reload_globalconfig);
-    w->show();
+    w->exec();
 }
 
 void MainWindow::on_addConfigButton_clicked()
 {
     ConnectionEditWindow *w = new ConnectionEditWindow(this);
     connect(w, &ConnectionEditWindow::s_reload_config, this, &MainWindow::save_reload_globalconfig);
-    w->show();
+    w->exec();
+    LOG(MODULE_UI, "WARNING:")
+    LOG(MODULE_UI, "THIS FEATURE IS NOT IMPLEMENTED YET!")
+    auto outboundEntry = w->Result;
+    auto alias = w->Alias;
+    delete w;
 }
-
 void MainWindow::on_editConfigButton_clicked()
 {
     // Check if we have a connection selected...
@@ -497,10 +502,28 @@ void MainWindow::on_editConfigButton_clicked()
     }
 
     auto alias = ui->connectionListWidget->currentItem()->text();
-    auto outBoundRoot = connections[alias];
-    ConnectionEditWindow *w = new ConnectionEditWindow(outBoundRoot, alias, this);
-    connect(w, &ConnectionEditWindow::s_reload_config, this, &MainWindow::save_reload_globalconfig);
-    w->show();
+    auto outBoundRoot = connections[alias]["outbounds"].toArray().first().toObject();
+    ConnectionEditWindow *w = new ConnectionEditWindow(outBoundRoot, &alias, this);
+    //connect(w, &ConnectionEditWindow::s_reload_config, this, &MainWindow::save_reload_globalconfig);
+    w->exec();
+    auto outboundEntry = w->Result;
+    LOG(MODULE_UI, "WARNING:")
+    LOG(MODULE_UI, "THIS FEATURE IS NOT IMPLEMENTED YET!")
+    delete w;
+}
+void MainWindow::on_editConfigAdvButton_clicked()
+{
+    // Check if we have a connection selected...
+    auto index = ui->connectionListWidget->currentIndex().row();
+
+    if (index < 0) {
+        QvMessageBox(this, tr("#NoConfigSelected"), tr("#PleaseSelectAConfig"));
+        return;
+    }
+
+    auto alias = ui->connectionListWidget->currentItem()->text();
+    RouteEditor *w = new RouteEditor(connections[alias], alias, this);
+    w->exec();
 }
 
 void MainWindow::on_pushButton_clicked()

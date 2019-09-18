@@ -57,6 +57,8 @@ class MainWindow : public QMainWindow
 
         void on_editConfigButton_clicked();
 
+        void on_editConfigAdvButton_clicked();
+        
         void on_pushButton_clicked();
 
     private:

@@ -7,7 +7,7 @@ namespace Qv2ray
         bool SaveConnectionConfig(QJsonObject obj, const QString *alias)
         {
             QFile config(QV2RAY_CONFIG_DIR_PATH + *alias + QV2RAY_CONNECTION_FILE_EXTENSION);
-            return StringToFile(JSONToString(obj), &config);
+            return StringToFile(JsonToString(obj), &config);
         }
 
         // This generates global config containing only one outbound....
@@ -15,7 +15,7 @@ namespace Qv2ray
         {
             DROOT
             QStringRef vmessJsonB64(&str, 8, str.length() - 8);
-            auto vmessConf = StructFromJSONString<VMessProtocolConfigObject>(Base64Decode(vmessJsonB64.toString()));
+            auto vmessConf = StructFromJsonString<VMessProtocolConfigObject>(Base64Decode(vmessJsonB64.toString()));
             //
             // User
             VMessServerObject::UserObject user;
@@ -31,7 +31,7 @@ namespace Qv2ray
             // VMess root config
             QJsonObject vConf;
             QJsonArray vnextArray;
-            vnextArray.append(JSONFromString(StructToJSONString(serv)));
+            vnextArray.append(JsonFromString(StructToJsonString(serv)));
             vConf["vnext"] = vnextArray;
             //
             // Stream Settings
@@ -72,7 +72,7 @@ namespace Qv2ray
 
         QJsonObject ConvertConfigFromFile(QString sourceFilePath, bool overrideInbounds)
         {
-            auto root = JSONFromString(StringFromFile(new QFile(sourceFilePath)));
+            auto root = JsonFromString(StringFromFile(new QFile(sourceFilePath)));
 
             if (overrideInbounds) {
                 JSON_ROOT_TRY_REMOVE("inbounds")
@@ -92,7 +92,7 @@ namespace Qv2ray
 
             foreach (auto conn, connectionNames) {
                 QString jsonString = StringFromFile(new QFile(QV2RAY_CONFIG_DIR_PATH + QString::fromStdString(conn) + QV2RAY_CONNECTION_FILE_EXTENSION));
-                QJsonObject connectionObject = JSONFromString(jsonString);
+                QJsonObject connectionObject = JsonFromString(jsonString);
                 list.insert(QString::fromStdString(conn), connectionObject);
             }
 
@@ -106,9 +106,21 @@ namespace Qv2ray
 
         int StartPreparation(QJsonObject fullConfig)
         {
-            QString json = JSONToString(fullConfig);
+            QString json = JsonToString(fullConfig);
             StringToFile(json, new QFile(QV2RAY_GENERATED_FILE_PATH));
             return 0;
+        }
+
+        int FindIndexByTag(QJsonArray list, QString *tag)
+        {
+            for (int i = 0; i < list.count(); i++) {
+                auto value = list[i].toObject();
+
+                if (value.contains("tag") && value["tag"].toString() == *tag)
+                    return i;
+            }
+
+            return -1;
         }
     }
 }

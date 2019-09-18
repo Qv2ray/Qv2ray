@@ -30,8 +30,38 @@ namespace Qv2ray
         void SaveGlobalConfig()
         {
             QFile config(QV2RAY_CONFIG_FILE_PATH);
-            QString str = StructToJSONString(GetGlobalConfig());
+            QString str = StructToJsonString(GetGlobalConfig());
             StringToFile(str, &config);
+        }
+
+        QString Stringify(list<string> list, QString saperator)
+        {
+            QString out;
+
+            foreach (string item, list) {
+                out.append(QSTRING(item));
+                out.append(saperator);
+            }
+
+            if (out.length() >= 1)
+                out = out.remove(out.length() - 1, 1);
+
+            return out;
+        }
+
+        QString Stringify(QList<QString> list, QString saperator)
+        {
+            QString out;
+
+            foreach (QString item, list) {
+                out.append(saperator);
+                out.append(item);
+            }
+
+            if (out.length() >= 1)
+                out = out.remove(out.length() - 1, 1);
+
+            return out;
         }
 
         bool StringToFile(QString text, QFile *targetFile)
@@ -48,17 +78,17 @@ namespace Qv2ray
         QJsonObject JSONFromFile(QFile *sourceFile)
         {
             QString json = StringFromFile(sourceFile);
-            return JSONFromString(json);
+            return JsonFromString(json);
         }
 
-        QString JSONToString(QJsonObject json)
+        QString JsonToString(QJsonObject json)
         {
             QJsonDocument doc;
             doc.setObject(json);
             return doc.toJson();
         }
 
-        QJsonObject JSONFromString(QString string)
+        QJsonObject JsonFromString(QString string)
         {
             QJsonDocument doc = QJsonDocument::fromJson(string.toUtf8());
             return doc.object();
@@ -93,7 +123,7 @@ namespace Qv2ray
             file.open(QFile::ReadOnly);
             QTextStream stream(&file);
             auto str = stream.readAll();
-            auto config  = StructFromJSONString<Qv2rayConfig>(str);
+            auto config  = StructFromJsonString<Qv2rayConfig>(str);
             SetGlobalConfig(config);
             file.close();
         }
