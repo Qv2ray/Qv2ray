@@ -25,6 +25,7 @@ SOURCES += \
         src/QvCoreConfigOperations_Verification.cpp \
         src/QvCoreInteractions.cpp \
         src/QvUtils.cpp \
+        src/utils/QPingModel.cpp \
         src/utils/QvHTTPRequestHelper.cpp \
         src/utils/QvRunguard.cpp \
         src/ui/w_RouteEditor.cpp \
@@ -47,6 +48,7 @@ HEADERS += \
         src/QvCoreInteractions.h \
         src/QvUtils.h \
         src/utils/QJsonObjectInsertMacros.h \
+        src/utils/QPingModel.h \
         src/utils/QvHTTPRequestHelper.h \
         src/utils/QvRunguard.h \
         src/utils/QvTinyLog.h \

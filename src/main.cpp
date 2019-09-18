@@ -1,6 +1,8 @@
 #include <QFileInfo>
 #include <QStandardPaths>
 #include <QTranslator>
+#include <QStyle>
+#include <QStyleFactory>
 
 #include "QvUtils.h"
 #include "Qv2rayBase.h"
@@ -82,7 +84,7 @@ bool initQv()
         auto newVersion = QSTRING(to_string(QV2RAY_CONFIG_VERSION));
 
         if (confVersion != newVersion) {
-            conf = UpgradeConfig(stoi(conf["config_version"].toVariant().toString().toStdString()), QV2RAY_CONFIG_VERSION, conf);
+            conf = UpgradeConfig(stoi(confVersion.toStdString()), QV2RAY_CONFIG_VERSION, conf);
         }
 
         try {
@@ -147,6 +149,9 @@ int main(int argc, char *argv[])
 #ifdef __APPLE__
     _qApp.setStyle("fusion");
 #endif
+    LOG(MODULE_UI, "Current Qv2ray Window Style: " + _qApp.style()->objectName().toStdString())
+    auto list = QStyleFactory::keys();
+    LOG(MODULE_UI, Stringify(list).toStdString())
     auto lang = GetGlobalConfig().language;
     auto qStringLang = QSTRING(lang);
 
@@ -166,7 +171,6 @@ int main(int argc, char *argv[])
                    "DEBUG_VERSION"
 #endif
                   );
-
     auto osslReqVersion = QSslSocket::sslLibraryBuildVersionString().toStdString();
     auto osslCurVersion = QSslSocket::sslLibraryVersionString().toStdString();
     LOG(MODULE_NETWORK, "Current OpenSSL version: " + osslCurVersion)
