@@ -36,7 +36,7 @@ namespace Qv2ray
         template<typename T>
         QJsonObject GetRootObject(T t)
         {
-            auto json = StructToJSONString(t);
+            auto json = StructToJsonString(t);
             QJsonDocument doc = QJsonDocument::fromJson(QByteArray::fromStdString(json.toStdString()));
             return doc.object();
         }
@@ -63,6 +63,7 @@ namespace Qv2ray
         QMap<QString, QJsonObject> GetConnections(list<string> connections);
         // Startup Prepares
         int StartPreparation(QJsonObject fullConfig);
+        int FindIndexByTag(QJsonArray list, QString *tag);
 
     }
 }

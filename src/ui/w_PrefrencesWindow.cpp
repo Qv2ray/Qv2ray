@@ -30,7 +30,7 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     //
     ui->languageComboBox->setCurrentText(QSTRING(CurrentConfig.language));
     ui->logLevelComboBox->setCurrentIndex(CurrentConfig.logLevel);
-    ui->tProxyCheckBox->setChecked(CurrentConfig.runAsRoot);
+    ui->tProxyCheckBox->setChecked(CurrentConfig.tProxySupport);
     //
     //
     ui->listenIPTxt->setText(QSTRING(CurrentConfig.inBoundSettings.listenip));
@@ -70,7 +70,7 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     ui->muxEnabledCB->setChecked(CurrentConfig.mux.enabled);
     ui->muxConcurrencyTxt->setValue(CurrentConfig.mux.concurrency);
     //
-    ui->proxyCNCb->setChecked(CurrentConfig.proxyCN);
+    ui->bypassCNCb->setChecked(CurrentConfig.bypassCN);
     ui->proxyDefaultCb->setChecked(CurrentConfig.proxyDefault);
     ui->localDNSCb->setChecked(CurrentConfig.withLocalDNS);
     //
@@ -244,12 +244,6 @@ void PrefrencesWindow::on_socksAuthPasswordTxt_textEdited(const QString &arg1)
     CurrentConfig.inBoundSettings.socksAccount.pass = arg1.toStdString();
 }
 
-void PrefrencesWindow::on_proxyCNCb_stateChanged(int arg1)
-{
-    NEEDRESTART
-    CurrentConfig.proxyCN = arg1 == Qt::Checked;
-}
-
 void PrefrencesWindow::on_proxyDefaultCb_stateChanged(int arg1)
 {
     NEEDRESTART
@@ -270,7 +264,7 @@ void PrefrencesWindow::on_selectVCoreBtn_clicked()
     on_vCoreExePathTxt_textEdited(path);
 
     // If we enabled tProxy feature... then not to change this automatically
-    if (CurrentConfig.runAsRoot) {
+    if (CurrentConfig.tProxySupport) {
         LOG(MODULE_CONFIG, "Not to automatically update v2ray assets path, because tProxy feature is enabled.")
     } else {
         auto dir = QFileInfo(path).dir().path();
@@ -342,14 +336,14 @@ void PrefrencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
                           << "-c"
                           << "chown root:root " + vCorePath + " && "
                           << "chmod +s " + vCorePath);
-        CurrentConfig.runAsRoot = true;
+        CurrentConfig.tProxySupport = true;
     } else if (arg1 != Qt::Checked && v2rayCoreExeFile.ownerId() == 0) {
         uid_t uid = getuid();
         gid_t gid = getgid();
         QProcess::execute("pkexec", QStringList()
                           << "chown" << QString::number(uid) + ":" + QString::number(gid)
                           << vCorePath);
-        CurrentConfig.runAsRoot = false;
+        CurrentConfig.tProxySupport = false;
     }
 
     NEEDRESTART
@@ -359,4 +353,9 @@ void PrefrencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
     // No such uid gid thing on Windows and MacOS is in TODO ....
     QvMessageBox(this, tr("tProxy"), tr("tProxy is not supported on MacOS and Windows"));
 #endif
+}
+void PrefrencesWindow::on_bypassCNCb_stateChanged(int arg1)
+{
+    NEEDRESTART
+    CurrentConfig.bypassCN = arg1 == Qt::Checked;
 }

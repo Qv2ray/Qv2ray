@@ -1,6 +1,8 @@
 #include <QFileInfo>
 #include <QStandardPaths>
 #include <QTranslator>
+#include <QStyle>
+#include <QStyleFactory>
 
 #include "QvUtils.h"
 #include "Qv2rayBase.h"
@@ -77,18 +79,23 @@ bool initQv()
         LOG(MODULE_INIT, "Created initial config file.")
     } else {
         // Some config file upgrades.
-        auto conf = JSONFromString(StringFromFile(&configFile));
+        auto conf = JsonFromString(StringFromFile(&configFile));
         auto confVersion = conf["config_version"].toVariant().toString();
         auto newVersion = QSTRING(to_string(QV2RAY_CONFIG_VERSION));
 
-        if (QString::compare(confVersion, newVersion) != 0) {
+        if (confVersion != newVersion) {
             conf = UpgradeConfig(stoi(confVersion.toStdString()), QV2RAY_CONFIG_VERSION, conf);
         }
 
-        auto confObject = StructFromJSONString<Qv2rayConfig>(JSONToString(conf));
-        SetGlobalConfig(confObject);
-        SaveGlobalConfig();
-        LOG(MODULE_INIT, "Loaded config file.")
+        try {
+            auto confObject = StructFromJsonString<Qv2rayConfig>(JsonToString(conf));
+            SetGlobalConfig(confObject);
+            SaveGlobalConfig();
+            LOG(MODULE_INIT, "Loaded config file.")
+        } catch (...) {
+            LOG(MODULE_INIT, "FAILED TO LOAD config file. This is an error and should be reported, Qv2ray will now exit.")
+            return false;
+        }
     }
 
     return true;
@@ -105,7 +112,8 @@ int main(int argc, char *argv[])
         "Hv2ray/Qv2ray HTTP Request Helper (partial) Copyright 2019 (C) SOneWinstone (@SoneWinstone)\r\n"
         "Qv2ray ArtWork Done By ArielAxionL (@axionl)\r\n"
         "\r\n"
-        "Qv2ray " QV2RAY_VERSION_STRING " running on " + QSysInfo::prettyProductName().toStdString() + " " + QSysInfo::currentCpuArchitecture().toStdString() +
+        "Qv2ray " QV2RAY_VERSION_STRING " running on " +
+        QSysInfo::prettyProductName().toStdString() + " " + QSysInfo::currentCpuArchitecture().toStdString() +
         "\r\n")
     //
 #ifdef QT_DEBUG
@@ -124,8 +132,13 @@ int main(int argc, char *argv[])
 
     //
     QApplication _qApp(argc, argv);
+
+    //
     // Qv2ray Initialize
-    initQv();
+    if (!initQv())
+        return -1;
+
+    //
 #ifdef _WIN32
     // Set special font in Windows
     QFont font;
@@ -136,6 +149,9 @@ int main(int argc, char *argv[])
 #ifdef __APPLE__
     _qApp.setStyle("fusion");
 #endif
+    LOG(MODULE_UI, "Current Qv2ray Window Style: " + _qApp.style()->objectName().toStdString())
+    auto list = QStyleFactory::keys();
+    LOG(MODULE_UI, Stringify(list).toStdString())
     auto lang = GetGlobalConfig().language;
     auto qStringLang = QSTRING(lang);
 
