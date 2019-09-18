@@ -30,7 +30,7 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     //
     ui->languageComboBox->setCurrentText(QSTRING(CurrentConfig.language));
     ui->logLevelComboBox->setCurrentIndex(CurrentConfig.logLevel);
-    ui->runAsRootCheckBox->setChecked(CurrentConfig.runAsRoot);
+    ui->tProxyCheckBox->setChecked(CurrentConfig.runAsRoot);
     //
     //
     ui->listenIPTxt->setText(QSTRING(CurrentConfig.inBoundSettings.listenip));
@@ -105,7 +105,7 @@ void PrefrencesWindow::on_buttonBox_accepted()
     int hp = ui->httpPortLE->text().toInt() ;
 
     if (!(sp == 0 || hp == 0) && sp == hp) {
-        QvMessageBox(this, tr("Prefrences"), tr("PortNumbersCannotBeSame"));
+        QvMessageBox(this, tr("Prefrences"), tr("Port numbers cannot be the same"));
         return;
     }
 
@@ -149,38 +149,6 @@ void PrefrencesWindow::on_httpAuthCB_stateChanged(int checked)
     CurrentConfig.inBoundSettings.http_useAuth = checked == Qt::Checked;
 }
 
-void PrefrencesWindow::on_runAsRootCheckBox_stateChanged(int arg1)
-{
-#ifdef __linux
-    // Set UID and GID for linux
-    QString vCorePath = QString::fromStdString(CurrentConfig.v2CorePath);
-    QFileInfo v2rayCoreExeFile(vCorePath);
-
-    if (arg1 == Qt::Checked && v2rayCoreExeFile.ownerId() != 0) {
-        QProcess::execute("pkexec", QStringList() << "bash"
-                          << "-c"
-                          << "chown root:root " + vCorePath + " && "
-                          << "chmod +s " + vCorePath);
-        CurrentConfig.runAsRoot = true;
-        NEEDRESTART
-    } else if (arg1 != Qt::Checked && v2rayCoreExeFile.ownerId() == 0) {
-        uid_t uid = getuid();
-        gid_t gid = getgid();
-        QProcess::execute("pkexec", QStringList()
-                          << "chown" << QString::number(uid) + ":" + QString::number(gid)
-                          << vCorePath);
-        CurrentConfig.runAsRoot = false;
-        NEEDRESTART
-    }
-
-#else
-    Q_UNUSED(arg1)
-    ui->runAsRootCheckBox->setChecked(false);
-    // No such uid gid thing on Windows and MacOS is in TODO ....
-    QvMessageBox(this, tr("Prefrences"), tr("RunAsRootNotOnWindows"));
-#endif
-}
-
 void PrefrencesWindow::on_socksAuthCB_stateChanged(int checked)
 {
     NEEDRESTART
@@ -193,7 +161,7 @@ void PrefrencesWindow::on_languageComboBox_currentTextChanged(const QString &arg
 {
     CurrentConfig.language = arg1.toStdString();
     //
-    // A strange bug prevents us to change the UI language `live`ly
+    // A strange bug prevents us to change the UI language online
     //    https://github.com/lhy0403/Qv2ray/issues/34
     //
     //if (QApplication::installTranslator(getTranslator(&arg1))) {
@@ -297,18 +265,24 @@ void PrefrencesWindow::on_localDNSCb_stateChanged(int arg1)
 void PrefrencesWindow::on_selectVCoreBtn_clicked()
 {
     NEEDRESTART
-    QString path = QFileDialog::getOpenFileName(this, tr("#OpenVCoreFile"), QDir::homePath());
+    QString path = QFileDialog::getOpenFileName(this, tr("Open v2ray core file"), QDir::currentPath());
     ui->vCoreExePathTxt->setText(path);
     on_vCoreExePathTxt_textEdited(path);
-    auto dir = QFileInfo(path).dir().path();
-    ui->vCoreAssetsPathTxt->setText(dir);
-    on_vCoreAssetsPathTxt_textEdited(dir);
+
+    // If we enabled tProxy feature... then not to change this automatically
+    if (CurrentConfig.runAsRoot) {
+        LOG(MODULE_CONFIG, "Not to automatically update v2ray assets path, because tProxy feature is enabled.")
+    } else {
+        auto dir = QFileInfo(path).dir().path();
+        ui->vCoreAssetsPathTxt->setText(dir);
+        on_vCoreAssetsPathTxt_textEdited(dir);
+    }
 }
 
 void PrefrencesWindow::on_selectVAssetBtn_clicked()
 {
     NEEDRESTART
-    QString dir = QFileDialog::getExistingDirectory(this, tr("OpenVAssetsDir"), QDir::homePath());
+    QString dir = QFileDialog::getExistingDirectory(this, tr("Open v2ray assets folder"), QDir::currentPath());
     ui->vCoreAssetsPathTxt->setText(dir);
     on_vCoreAssetsPathTxt_textEdited(dir);
 }
@@ -349,4 +323,40 @@ void PrefrencesWindow::on_cancelIgnoreVersionBtn_clicked()
 {
     CurrentConfig.ignoredVersion.clear();
     ui->cancelIgnoreVersionBtn->setEnabled(false);
+}
+
+void PrefrencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
+{
+#ifdef __linux
+    LOG(MODULE_UI, "WARN: This feature is on development.")
+    // Set UID and GID for linux
+    // Steps:
+    // --> 1. Copy v2ray core files to the #CONFIG_DIR#/vcore/ dir.
+    // --> 2. Change GlobalConfig.v2CorePath.
+    // --> 3. Call `pkexec setcap SOMECAP` on the v2ray core.
+    QString vCorePath = QString::fromStdString(CurrentConfig.v2CorePath);
+    QFileInfo v2rayCoreExeFile(vCorePath);
+
+    if (arg1 == Qt::Checked && v2rayCoreExeFile.ownerId() != 0) {
+        QProcess::execute("pkexec", QStringList() << "bash"
+                          << "-c"
+                          << "chown root:root " + vCorePath + " && "
+                          << "chmod +s " + vCorePath);
+        CurrentConfig.runAsRoot = true;
+    } else if (arg1 != Qt::Checked && v2rayCoreExeFile.ownerId() == 0) {
+        uid_t uid = getuid();
+        gid_t gid = getgid();
+        QProcess::execute("pkexec", QStringList()
+                          << "chown" << QString::number(uid) + ":" + QString::number(gid)
+                          << vCorePath);
+        CurrentConfig.runAsRoot = false;
+    }
+
+    NEEDRESTART
+#else
+    Q_UNUSED(arg1)
+    ui->tProxyCheckBox->setChecked(false);
+    // No such uid gid thing on Windows and MacOS is in TODO ....
+    QvMessageBox(this, tr("tProxy"), tr("tProxy is not supported on MacOS and Windows"));
+#endif
 }
