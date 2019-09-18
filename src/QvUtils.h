@@ -9,7 +9,7 @@ namespace Qv2ray
 {
     namespace Utils
     {
-        QTranslator *getTranslator(QString lang);
+        QTranslator *getTranslator(const QString *lang);
 
         QStringList getFileList(QDir *dir);
 

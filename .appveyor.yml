@@ -1,11 +1,9 @@
 install:
-  - set QTDIR=C:\Qt\5.10\mingw53_32
-  - choco install -y InnoSetup
-  - set PATH=%QTDIR%\bin;C:\Qt\Tools\mingw730_32\bin;%PATH%;"C:\Program Files (x86)\Inno Setup 5"
+  - set QTDIR=C:\Qt\5.13.0\mingw73_32
+  - set PATH=%QTDIR%\bin;C:\Qt\Tools\mingw730_32\bin;%PATH%
   - git submodule update --init
   
 build_script:
-  - lrelease.exe Qv2ray.pro
   - mkdir build && cd build
   - qmake ..\Qv2ray.pro
   - mingw32-make

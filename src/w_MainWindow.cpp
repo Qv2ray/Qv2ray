@@ -43,7 +43,7 @@ MainWindow::MainWindow(QWidget *parent)
     QAction *action_Tray_Stop = new QAction(tr("Disconnect"), this);
     //
     QAction *action_RCM_RenameConnection = new QAction(tr("Rename"), this);
-    QAction *action_RCM_StartThis = new QAction(tr("ConnectSelected"), this);
+    QAction *action_RCM_StartThis = new QAction(tr("Connect to this"), this);
     action_Tray_Start->setEnabled(true);
     action_Tray_Stop->setEnabled(false);
     action_Tray_Restart->setEnabled(false);
@@ -118,14 +118,14 @@ void MainWindow::VersionUpdate(QByteArray &data)
     if (newversion > current && newversion > ignored) {
         LOG(MODULE_UPDATE, "New version detected.")
         auto link = root["html_url"].toString("");
-        auto result = QvMessageBoxAsk(this, tr("NewReleaseVersionFound"),
-                                      tr("NewReleaseVersionFound") + ": " + root["tag_name"].toString("") +
+        auto result = QvMessageBoxAsk(this, tr("Update"),
+                                      tr("Found a new version: ") + root["tag_name"].toString("") +
                                       "\r\n" +
                                       root["name"].toString("") +
                                       "\r\n------------\r\n" +
                                       root["body"].toString("") +
                                       "\r\n------------\r\n" +
-                                      tr("ReleaseDownloadLink") + ": " + link, QMessageBox::Ignore);
+                                      tr("Download Link: ") + link, QMessageBox::Ignore);
 
         if (result == QMessageBox::Yes) {
             QDesktopServices::openUrl(QUrl::fromUserInput(link));
@@ -186,7 +186,7 @@ void MainWindow::UpdateLog()
 void MainWindow::on_startButton_clicked()
 {
     if (CurrentConnectionName == "") {
-        QvMessageBox(this, tr("NoConfigSelected"), tr("PleaseSelectAConfig"));
+        QvMessageBox(this, tr("No connection selected!"), tr("Please select a config from the list."));
         return;
     }
 
@@ -197,8 +197,8 @@ void MainWindow::on_startButton_clicked()
     bool startFlag = this->vinstance->Start();
 
     if (startFlag) {
-        this->hTray->showMessage("Qv2ray", tr("ConnectedToServer") + " " + CurrentConnectionName);
-        hTray->setToolTip(TRAY_TOOLTIP_PREFIX + tr("ConnectedToServer") + ": " + CurrentConnectionName);
+        this->hTray->showMessage("Qv2ray", tr("Connected To Server: ") + " " + CurrentConnectionName);
+        hTray->setToolTip(TRAY_TOOLTIP_PREFIX + tr("Connected To Server: ") + ": " + CurrentConnectionName);
         ui->statusLabel->setText(tr("Connected") + ": " + CurrentConnectionName);
     }
 
@@ -417,7 +417,7 @@ void MainWindow::on_connectionListWidget_itemChanged(QListWidgetItem *item)
         auto configList = QList<string>::fromStdList(config.configs);
 
         if (newName.trimmed().isEmpty()) {
-            QvMessageBox(this, tr("RenameConnection"), tr("CannotUseEmptyName"));
+            QvMessageBox(this, tr("Rename A Connection"), tr("A name cannot be empty"));
             return;
         }
 
@@ -426,7 +426,7 @@ void MainWindow::on_connectionListWidget_itemChanged(QListWidgetItem *item)
 
         if (originalName != newName) {
             if (configList.contains(newName.toStdString())) {
-                QvMessageBox(this, tr("RenameConnection"), tr("DuplicatedConnectionName"));
+                QvMessageBox(this, tr("Rename A Connection"), tr("The name has been used already, Please choose another."));
                 return;
             }
 
@@ -453,7 +453,7 @@ void MainWindow::on_connectionListWidget_itemChanged(QListWidgetItem *item)
 
 void MainWindow::on_removeConfigButton_clicked()
 {
-    if (QvMessageBoxAsk(this, tr("RemoveConnection"), tr("RemoveConnectionConfirm")) == QMessageBox::Yes) {
+    if (QvMessageBoxAsk(this, tr("Removing A Connection"), tr("Are you sure to remove this connection?")) == QMessageBox::Yes) {
         auto conf = GetGlobalConfig();
         QList<string> list = QList<string>::fromStdList(conf.configs);
         auto currentSelected = ui->connectionListWidget->currentIndex().row();
@@ -502,7 +502,7 @@ void MainWindow::on_editConfigButton_clicked()
     }
 
     auto alias = ui->connectionListWidget->currentItem()->text();
-    auto outBoundRoot = connections[ui->connectionListWidget->currentItem()->text()]["outbounds"].toArray().first().toObject();
+    auto outBoundRoot = connections[alias]["outbounds"].toArray().first().toObject();
     ConnectionEditWindow *w = new ConnectionEditWindow(outBoundRoot, &alias, this);
     //connect(w, &ConnectionEditWindow::s_reload_config, this, &MainWindow::save_reload_globalconfig);
     w->exec();
@@ -522,7 +522,7 @@ void MainWindow::on_editConfigAdvButton_clicked()
     }
 
     auto alias = ui->connectionListWidget->currentItem()->text();
-    RouteEditor *w = new RouteEditor(connections[ui->connectionListWidget->currentItem()->text()], alias, this);
+    RouteEditor *w = new RouteEditor(connections[alias], alias, this);
     w->exec();
 }
 

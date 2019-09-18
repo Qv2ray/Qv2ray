@@ -134,7 +134,7 @@
    <item>
     <widget class="QGroupBox" name="outboundSettingWrapper">
      <property name="title">
-      <string>OutBoundSettings</string>
+      <string>Outbound Settings</string>
      </property>
      <layout class="QGridLayout" name="gridLayout">
       <item row="1" column="0">
@@ -280,7 +280,7 @@
           <item>
            <widget class="QGroupBox" name="transportGroupbox">
             <property name="title">
-             <string>TransportSettings</string>
+             <string>Transport Settings</string>
             </property>
             <layout class="QGridLayout" name="gridLayout_2">
              <item row="0" column="0">
