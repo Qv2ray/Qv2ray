@@ -37,7 +37,7 @@
    </property>
    <layout class="QGridLayout" name="gridLayout" columnstretch="2,3">
     <item row="0" column="0" colspan="2">
-     <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1,1,0,0,0">
+     <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1,0,1,0,0,0">
       <property name="spacing">
        <number>5</number>
       </property>
@@ -55,6 +55,13 @@
         </property>
         <property name="text">
          <string>Disconnect</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="restartButton">
+        <property name="text">
+         <string>Reconnect</string>
         </property>
        </widget>
       </item>

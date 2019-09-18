@@ -19,14 +19,15 @@ class PrefrencesWindow : public QDialog
         ~PrefrencesWindow();
     signals:
         void s_reload_config(bool need_restart);
+
     private slots:
         void on_buttonBox_accepted();
+
         void on_httpCB_stateChanged(int arg1);
+
         void on_socksCB_stateChanged(int arg1);
 
         void on_httpAuthCB_stateChanged(int arg1);
-
-        void on_runAsRootCheckBox_stateChanged(int arg1);
 
         void on_socksAuthCB_stateChanged(int arg1);
 
@@ -73,6 +74,8 @@ class PrefrencesWindow : public QDialog
         void on_aboutQt_clicked();
 
         void on_cancelIgnoreVersionBtn_clicked();
+
+        void on_tProxyCheckBox_stateChanged(int arg1);
 
     private:
         bool IsConnectionPropertyChanged = false;
