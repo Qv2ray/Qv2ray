@@ -5,7 +5,7 @@
 #include "QvTinyLog.h"
 #include "QvCoreConfigObjects.h"
 
-#define QV2RAY_VERSION_STRING "v" QV_MAJOR_VERSION ".5.3"
+#define QV2RAY_VERSION_STRING "v" QV_MAJOR_VERSION
 
 #define QV2RAY_CONFIG_VERSION 2
 #define QV2RAY_CONFIG_DIR_PATH (Qv2ray::Utils::GetConfigDirPath() + "/")

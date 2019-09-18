@@ -13,8 +13,12 @@ using namespace Qv2ray::QvConfigModels;
 
 bool initQv()
 {
-    /// Qv2ray Config Path and ends with "/"
+#ifdef QT_DEBUG
+    QString configPath = QDir::homePath() + "/.qv2ray_debug";
+#else
     QString configPath = QDir::homePath() + "/.qv2ray";
+#endif
+    /// Qv2ray Config Path and ends with "/"
     QString exeDefaultPath = configPath + "/vcore/v2ray";
     QString v2AssetsPath = configPath + "/vcore";
     //
@@ -96,9 +100,10 @@ int main(int argc, char *argv[])
         "This is free software, and you are welcome to redistribute it\r\n"
         "under certain conditions.\r\n"
         "\r\n"
-        "Hv2ray Copyright (C) 2019 aliyuchang33\r\n"
-        "Hv2ray/Qv2ray (partial) Copyright 2019 (C) SoneWinstone\r\n"
-        "Qv2ray Copyright (C) 2019 Leroy.H.Y\r\n"
+        "Qv2ray Current Developer Copyright (C) 2019 Leroy.H.Y (@lhy0403)\r\n"
+        "Hv2ray Initial Idea and Designs Copyright (C) 2019 Hork (@aliyuchang33)\r\n"
+        "Hv2ray/Qv2ray HTTP Request Helper (partial) Copyright 2019 (C) SOneWinstone (@SoneWinstone)\r\n"
+        "Qv2ray ArtWork Done By ArielAxionL (@axionl)\r\n"
         "\r\n"
         "Qv2ray " QV2RAY_VERSION_STRING " running on " + QSysInfo::prettyProductName().toStdString() + " " + QSysInfo::currentCpuArchitecture().toStdString() +
         "\r\n")
@@ -106,12 +111,21 @@ int main(int argc, char *argv[])
 #ifdef QT_DEBUG
     LOG("DEBUG", "============================== This is a debug build, many features are not stable enough. ==============================")
 #endif
+    QDirIterator it(":/translations");
+
+    if (!it.hasNext()) {
+        LOG(MODULE_UI, "FAILED to find any translations, THIS IS A BUILD ERROR.")
+        QvMessageBox(nullptr, "Cannot load languages", "Qv2ray will run, but you are not able to select languages.");
+    }
+
+    while (it.hasNext()) {
+        LOG(MODULE_UI, "Found Translator: " + it.next().toStdString())
+    }
+
     //
     QApplication _qApp(argc, argv);
-    //
     // Qv2ray Initialize
     initQv();
-    //
 #ifdef _WIN32
     // Set special font in Windows
     QFont font;
@@ -122,16 +136,18 @@ int main(int argc, char *argv[])
 #ifdef __APPLE__
     _qApp.setStyle("fusion");
 #endif
+    auto lang = GetGlobalConfig().language;
+    auto qStringLang = QSTRING(lang);
 
-    if (_qApp.installTranslator(getTranslator(QString::fromStdString(GetGlobalConfig().language)))) {
-        LOG(MODULE_UI, "Loaded translations " + GetGlobalConfig().language)
-    } else if (_qApp.installTranslator(getTranslator("en-US"))) {
-        LOG(MODULE_UI, "Loaded default translations")
+    if (_qApp.installTranslator(getTranslator(&qStringLang)) || qStringLang == "en-US") {
+        LOG(MODULE_UI, "Loaded Translator " + lang)
     } else {
+        // Do not translate these.....
         QvMessageBox(
-            nullptr, "Failed to load translations 无法加载语言文件",
-            "Failed to load translations, user experience may be downgraded. \r\n"
-            "无法加载语言文件，用户体验可能会降级.");
+            nullptr, "Translation Failed",
+            "We cannot load translation for " + qStringLang + ", English is now used.\r\n\r\n "
+            "Please go to Prefrence Window to change or Report a Bug at: \r\n"
+            "https://github.com/lhy0403/Qv2ray/issues/new");
     }
 
     RunGuard guard("Qv2ray-Instance-Identifier"
@@ -139,23 +155,24 @@ int main(int argc, char *argv[])
                    "DEBUG_VERSION"
 #endif
                   );
-#ifndef __APPLE__
+
     auto osslReqVersion = QSslSocket::sslLibraryBuildVersionString().toStdString();
     auto osslCurVersion = QSslSocket::sslLibraryVersionString().toStdString();
     LOG(MODULE_NETWORK, "Current OpenSSL version: " + osslCurVersion)
 
     if (!QSslSocket::supportsSsl()) {
         LOG(MODULE_NETWORK, "Required OpenSSL version: " + osslReqVersion)
-        QvMessageBox(nullptr, QObject::tr("DependencyMissing"), QObject::tr("osslDependMissing,PleaseReDownload"));
         LOG(MODULE_NETWORK, "OpenSSL library MISSING, Quitting.")
+        QvMessageBox(nullptr, QObject::tr("DependencyMissing"),
+                     QObject::tr("Cannot find openssl libs") + "\r\n" +
+                     QObject::tr("This could be caused by a missing of `openssl` package in your system. Or an AppImage issue.") + "\r\n" +
+                     QObject::tr("If you are using AppImage, please report a bug."));
         return -2;
     }
 
-#endif
-
     if (!guard.isSingleInstance()) {
         LOG(MODULE_INIT, "Another Instance running, Quit.")
-        QvMessageBox(nullptr, "Qv2ray", QObject::tr("#AnotherInstanceRunning"));
+        QvMessageBox(nullptr, "Qv2ray", QObject::tr("Another instance of Qv2ray is already running."));
         return -1;
     }
 

@@ -3,29 +3,27 @@ language: cpp
 matrix:
     include:
         - os: linux
-          dist: xenial
+          dist: bionic
           sudo: required
           env: BADGE=linux
         - os: osx
           env: BADGE=osx
 
 before_install:
-  - if [ "$BADGE" = "linux" ]; then    sudo add-apt-repository -y ppa:beineri/opt-qt-5.11.1-xenial; fi
   - if [ "$BADGE" = "linux" ]; then    sudo apt-get update; fi
 
 install:
-  - if [ "$BADGE" = "linux" ]; then    sudo apt-get install qtchooser libgl-dev qt511-meta-minimal; fi
-  - if [ "$BADGE" = "osx" ];   then    brew install cppcheck https://raw.githubusercontent.com/Homebrew/homebrew-core/master/Formula/qt.rb; fi
-  - if [ "$BADGE" = "osx" ];   then    brew link --force qt; fi  
+  - if [ "$BADGE" = "linux" ]; then    sudo apt-get install qtchooser libgl-dev qt5-default qttools5-dev-tools; fi
+  - if [ "$BADGE" = "osx" ];   then    brew install qt5 --verbose; fi
   
 before_script:
-  - if [ "$BADGE" = "osx" ];   then    export PATH="/usr/local/opt/qt/bin:$PATH"; fi
+  - if [ "$BADGE" = "osx" ];   then    export PATH="/usr/local/Cellar/qt/5.13.1/bin:$PATH"; fi
+  - if [ "$BADGE" = "linux" ]; then    sudo cp ./libs/lrelease.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/; fi
   
 script:
   - git submodule update --init
-  - lrelease ./Qv2ray.pro
-  - mkdir build && cd ./build
-  - if [ "$BADGE" = "linux" ]; then    qtchooser -install qt511 /opt/qt511/bin/qmake; fi
-  - if [ "$BADGE" = "linux" ]; then    qmake -qt=qt511 ../; fi
-  - if [ "$BADGE" = "osx" ];   then    qmake ../; fi
-  - make
+  - mkdir build && cd ./build 
+  - qmake ../
+  - if [ "$BADGE" = "linux" ]; then    make compiler_lrelease_make_all; fi
+  - if [ "$BADGE" = "linux" ]; then    ls -lah --color=always --recursive; fi
+  - make -j8   
