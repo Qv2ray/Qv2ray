@@ -7,7 +7,8 @@ namespace Qv2ray
         bool SaveConnectionConfig(QJsonObject obj, const QString *alias)
         {
             QFile config(QV2RAY_CONFIG_DIR_PATH + *alias + QV2RAY_CONNECTION_FILE_EXTENSION);
-            return StringToFile(JSONToString(obj), &config);
+            auto str = JSONToString(obj);
+            return StringToFile(&str, &config);
         }
 
         // This generates global config containing only one outbound....
@@ -107,7 +108,7 @@ namespace Qv2ray
         int StartPreparation(QJsonObject fullConfig)
         {
             QString json = JSONToString(fullConfig);
-            StringToFile(json, new QFile(QV2RAY_GENERATED_FILE_PATH));
+            StringToFile(&json, new QFile(QV2RAY_GENERATED_FILE_PATH));
             return 0;
         }
     }

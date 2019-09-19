@@ -18,7 +18,7 @@ namespace Qv2ray
 
         bool CheckFile(QDir *dir, QString fileName);
 
-        void SetConfigDirPath(QString path);
+        void SetConfigDirPath(const QString *path);
         QString GetConfigDirPath();
 
         void SetGlobalConfig(Qv2rayConfig conf);
@@ -30,7 +30,7 @@ namespace Qv2ray
         void QvMessageBox(QWidget *parent, QString title, QString text);
         int QvMessageBoxAsk(QWidget *parent, QString title, QString text, QMessageBox::StandardButton extraButtons = QMessageBox::NoButton);
         //
-        bool StringToFile(QString text, QFile *target);
+        bool StringToFile(const QString *text, QFile *target);
         QString StringFromFile(QFile *sourceFile);
         //
         QJsonObject JSONFromString(QString string);

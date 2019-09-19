@@ -7,68 +7,36 @@
 #include "QvRunguard.h"
 #include "w_MainWindow.h"
 
-using namespace Qv2ray;
-using namespace Qv2ray::Utils;
-using namespace Qv2ray::QvConfigModels;
-
 bool initQv()
 {
-#ifdef QT_DEBUG
-    QString configPath = QDir::homePath() + "/.qv2ray_debug";
-#else
-    QString configPath = QDir::homePath() + "/.qv2ray";
-#endif
-    /// Qv2ray Config Path and ends with "/"
-    QString exeDefaultPath = configPath + "/vcore/v2ray";
-    QString v2AssetsPath = configPath + "/vcore";
-    //
-#if defined(__WIN32)
-    exeDefaultPath = exeDefaultPath + ".exe";
-#elif defined(__linux__)
-    // Special case for GNU/Linux
-    //
-    // Unused these values
-    Q_UNUSED(v2AssetsPath)
-    Q_UNUSED(exeDefaultPath)
-    v2AssetsPath = "/etc/v2ray";
-    exeDefaultPath = "/bin/v2ray";
-#endif
-    //
-    SetConfigDirPath(configPath);
-    auto ConfigDir = new QDir(configPath);
-
-    if (!ConfigDir->exists()) {
-        auto result = QDir().mkdir(QV2RAY_CONFIG_DIR_PATH);
-
-        if (result) {
-            LOG(MODULE_INIT, "Created Qv2ray config dir at: " + QV2RAY_CONFIG_DIR_PATH.toStdString())
-        } else {
-            LOG(MODULE_INIT, "Failed to create config dir at: " + QV2RAY_CONFIG_DIR_PATH.toStdString())
-            return false;
-        }
+    if (!QDir(QV2RAY_CONFIG_DIR_PATH).exists()) {
+        QDir().mkdir(QV2RAY_CONFIG_DIR_PATH);
+        LOG(MODULE_INIT, "Created Qv2ray config dir at: " + QV2RAY_CONFIG_DIR_PATH.toStdString())
     }
 
-    auto genPath = QV2RAY_CONFIG_DIR_PATH + "generated/";
-
-    if (!QDir(genPath).exists()) {
-        auto result2 = QDir().mkdir(genPath);
-
-        if (result2) {
-            LOG(MODULE_INIT, "Created config generation dir at: " + genPath.toStdString())
-        } else {
-            LOG(MODULE_INIT, "Failed to create config generation dir at: " + genPath.toStdString())
-            return false;
-        }
+    if (!QDir(QV2RAY_CONFIG_DIR_PATH + "generated/").exists()) {
+        QDir().mkdir(QV2RAY_CONFIG_DIR_PATH + "generated/");
+        LOG(MODULE_INIT, "Created config generation dir.")
     }
 
-    QFile configFile(QV2RAY_CONFIG_FILE_PATH);
+    if (!QDir(QV2RAY_V2RAY_CORE_DIR_PATH).exists()) {
+        QDir().mkdir(QV2RAY_V2RAY_CORE_DIR_PATH);
+        LOG(MODULE_INIT, "Created dir for v2ray core and assets.")
+        QFile _readmeFile(QV2RAY_V2RAY_CORE_DIR_PATH + "Put your v2ray.exe here.txt");
+        _readmeFile.open(QIODevice::WriteOnly);
+        _readmeFile.write("Please put your v2ray.exe and assets here!");
+        _readmeFile.close();
+        LOG(MODULE_INIT, "Done generating readme.")
+    }
 
-    if (!configFile.exists()) {
-        // This is first run!
+    QFile qvConfigFile(QV2RAY_CONFIG_FILE_PATH);
+
+    if (!qvConfigFile.exists()) {
+        // This is first run, even the config file does not exist...
         //
         // These below genenrated very basic global config.
         Qv2rayBasicInboundsConfig inboundSetting = Qv2rayBasicInboundsConfig("127.0.0.1", 1080, 8000);
-        Qv2rayConfig conf = Qv2rayConfig("zh-CN", exeDefaultPath.toStdString(), v2AssetsPath.toStdString(), 2, inboundSetting);
+        Qv2rayConfig conf = Qv2rayConfig("zh-CN", QV2RAY_V2RAY_CORE_DIR_PATH.toStdString(), 4, inboundSetting);
         //
         // Save initial config.
         SetGlobalConfig(conf);
@@ -77,11 +45,18 @@ bool initQv()
         LOG(MODULE_INIT, "Created initial config file.")
     } else {
         // Some config file upgrades.
-        auto conf = JSONFromString(StringFromFile(&configFile));
+        auto conf = JSONFromString(StringFromFile(&qvConfigFile));
         auto confVersion = conf["config_version"].toVariant().toString();
         auto newVersion = QSTRING(to_string(QV2RAY_CONFIG_VERSION));
 
-        if (QString::compare(confVersion, newVersion) != 0) {
+        // Config version is larger than the current version...
+        if (stoi(confVersion.toStdString()) > QV2RAY_CONFIG_VERSION) {
+            QvMessageBox(nullptr, QObject::tr("Qv2ray Cannot Continue"), QObject::tr("You are running a lower version of Qv2ray compared to the current config file.") +
+                         "\r\n" +
+                         QObject::tr("Please report if you think this is an error.") + "\r\n" +
+                         QObject::tr("Qv2ray will now exit."));
+            return false;
+        } else if (QString::compare(confVersion, newVersion) != 0) {
             conf = UpgradeConfig(stoi(confVersion.toStdString()), QV2RAY_CONFIG_VERSION, conf);
         }
 
@@ -110,7 +85,11 @@ int main(int argc, char *argv[])
     //
 #ifdef QT_DEBUG
     LOG("DEBUG", "============================== This is a debug build, many features are not stable enough. ==============================")
+    QString configPath = QDir::homePath() + "/.qv2ray_debug";
+#else
+    QString configPath = QDir::homePath() + "/.qv2ray";
 #endif
+    SetConfigDirPath(&configPath);
     QDirIterator it(":/translations");
 
     if (!it.hasNext()) {
