@@ -59,7 +59,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="restartButton">
+       <widget class="QPushButton" name="reconnectButton">
         <property name="text">
          <string>Reconnect</string>
         </property>

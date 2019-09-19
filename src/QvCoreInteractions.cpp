@@ -1,56 +1,58 @@
 #include <QObject>
 #include <QWidget>
+#include <QDesktopServices>
 #include "QvCoreInteractions.h"
 #include "QvCoreConfigOperations.h"
 
+#include "QvTinyLog.h"
 #include "w_MainWindow.h"
 
 namespace Qv2ray
 {
-    bool Qv2Instance::VerifyVConfigFile(const QString path)
+    bool Qv2Instance::VerifyVConfigFile(const QString *path)
     {
         if (ValidateV2rayCoreExe()) {
             QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
             env.insert("V2RAY_LOCATION_ASSET", QString::fromStdString(GetGlobalConfig().v2AssetsPath));
             QProcess process;
             process.setProcessEnvironment(env);
-            process.start(QString::fromStdString(Utils::GetGlobalConfig().v2CorePath), QStringList() << "-test"
-                          << "-config" << path,
-                          QIODevice::ReadWrite | QIODevice::Text);
+            process.start(QV2RAY_V2RAY_CORE_PATH, QStringList() << "-test" << "-config" << *path, QIODevice::ReadWrite | QIODevice::Text);
 
             if (!process.waitForFinished()) {
-                qDebug() << "v2ray core failed with exit code " << process.exitCode();
+                LOG(MODULE_VCORE, "v2ray core failed with exitcode: " << process.exitCode())
                 return false;
             }
 
             QString output = QString(process.readAllStandardOutput());
 
-            if (!output.contains("Configuration OK")) {
-                Utils::QvMessageBox(nullptr, QObject::tr("ConfigurationError"), output.mid(output.indexOf("anti-censorship.") + 17));
+            if (process.exitCode() != 0) {
+                Utils::QvMessageBox(nullptr, QObject::tr("Configuration Error"), output.mid(output.indexOf("anti-censorship.") + 17));
                 return false;
-            } else
-                return true;
-        } else
-            return false;
+            }
+
+            return true;
+        }
+
+        return false;
     }
 
     Qv2Instance::Qv2Instance(QWidget *parent)
     {
-        QProcess *proc = new QProcess();
+        auto proc = new QProcess();
         vProcess = proc;
         QObject::connect(vProcess, &QProcess::readyReadStandardOutput, static_cast<MainWindow *>(parent), &MainWindow::UpdateLog);
         Status = STOPPED;
     }
+
     QString Qv2Instance::ReadProcessOutput()
     {
         return vProcess->readAllStandardOutput();
     }
+
     bool Qv2Instance::ValidateV2rayCoreExe()
     {
-        auto path = QString::fromStdString(Utils::GetGlobalConfig().v2CorePath);
-
-        if (!QFile::exists(path)) {
-            Utils::QvMessageBox(nullptr, QObject::tr("CoreNotFound"), QObject::tr("CoreFileNotFoundExplainationAt:") + path);
+        if (!QFile::exists(QV2RAY_V2RAY_CORE_PATH)) {
+            Utils::QvMessageBox(nullptr, QObject::tr("Cannot start v2ray"), QObject::tr("v2ray core file cannot be found at:") + QV2RAY_V2RAY_CORE_PATH);
             return false;
         } else return true;
     }
@@ -64,13 +66,13 @@ namespace Qv2ray
         Status = STARTING;
 
         if (ValidateV2rayCoreExe()) {
-            if (VerifyVConfigFile(QV2RAY_GENERATED_FILE_PATH)) {
+            auto filePath = QV2RAY_GENERATED_FILE_PATH;
+
+            if (VerifyVConfigFile(&filePath)) {
                 QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
                 env.insert("V2RAY_LOCATION_ASSET", QString::fromStdString(GetGlobalConfig().v2AssetsPath));
                 vProcess->setProcessEnvironment(env);
-                vProcess->start(QString::fromStdString(GetGlobalConfig().v2CorePath), QStringList() << "-config"
-                                << QV2RAY_GENERATED_FILE_PATH,
-                                QIODevice::ReadWrite | QIODevice::Text);
+                vProcess->start(QV2RAY_V2RAY_CORE_PATH, QStringList() << "-config" << filePath, QIODevice::ReadWrite | QIODevice::Text);
                 vProcess->waitForStarted();
                 Status = STARTED;
                 return true;

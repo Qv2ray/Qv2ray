@@ -7,9 +7,21 @@
 
 #define QV2RAY_VERSION_STRING "v" QV_MAJOR_VERSION
 
-#define QV2RAY_CONFIG_VERSION 2
+#define QV2RAY_CONFIG_VERSION 3
+// Base folder.
 #define QV2RAY_CONFIG_DIR_PATH (Qv2ray::Utils::GetConfigDirPath() + "/")
 #define QV2RAY_CONFIG_FILE_PATH (QV2RAY_CONFIG_DIR_PATH + "Qv2ray.conf")
+
+// We need v2ray.exe/v2ray executables here!
+#define QV2RAY_V2RAY_CORE_DIR_PATH (QV2RAY_CONFIG_DIR_PATH + "vcore/")
+
+#ifdef __WIN32
+// Win32 has .exe
+#define QV2RAY_V2RAY_CORE_PATH (QV2RAY_V2RAY_CORE_DIR_PATH + "v2ray.exe")
+#else
+// MacOS and Linux....
+#define QV2RAY_V2RAY_CORE_PATH (QV2RAY_V2RAY_CORE_DIR_PATH + "v2ray")
+#endif
 
 #define QV2RAY_CONNECTION_FILE_EXTENSION ".qv2ray.json"
 #define QV2RAY_GENERATED_FILE_PATH (QV2RAY_CONFIG_DIR_PATH + "generated/config.gen.json")
@@ -24,8 +36,6 @@
 #define QV2RAY_CONFIG_TYPE_CONNECTIONSTRING "ConnectionString"
 #define QV2RAY_CONFIG_TYPE_SUBSCRIPTION "Subscription"
 #define QV2RAY_CONFIG_TYPE_JSON_KEY "_qv2ray.configSource"
-
-
 
 // GUI TOOLS
 #define RED(obj) \
@@ -77,7 +87,6 @@ namespace Qv2ray
             int logLevel;
             //
             string language;
-            string v2CorePath;
             string v2AssetsPath;
             string autoStartConfig;
             //
@@ -97,13 +106,12 @@ namespace Qv2ray
             map<string, string> subscribes;
             MuxObject mux;
             Qv2rayConfig(): config_version(QV2RAY_CONFIG_VERSION), runAsRoot(false), logLevel(), proxyDefault(), proxyCN(), withLocalDNS(), inBoundSettings(), configs(), subscribes(), mux() { }
-            Qv2rayConfig(string lang, string exePath, string assetsPath, int log, Qv2rayBasicInboundsConfig _inBoundSettings): Qv2rayConfig()
+            Qv2rayConfig(string lang, string assetsPath, int log, Qv2rayBasicInboundsConfig _inBoundSettings): Qv2rayConfig()
             {
                 // These settings below are defaults.
                 ignoredVersion = "";
                 autoStartConfig = "";
                 language = lang;
-                v2CorePath = exePath;
                 v2AssetsPath = assetsPath;
                 logLevel = log;
                 inBoundSettings = _inBoundSettings;
@@ -116,7 +124,7 @@ namespace Qv2ray
                 proxyDefault = true;
                 withLocalDNS = true;
             }
-            XTOSTRUCT(O(config_version, runAsRoot, logLevel, language, autoStartConfig, ignoredVersion, v2CorePath, v2AssetsPath, proxyDefault, proxyCN, withLocalDNS, dnsList, inBoundSettings, mux, configs, subscribes))
+            XTOSTRUCT(O(config_version, runAsRoot, logLevel, language, autoStartConfig, ignoredVersion, v2AssetsPath, proxyDefault, proxyCN, withLocalDNS, dnsList, inBoundSettings, mux, configs, subscribes))
         };
 
         QJsonObject UpgradeConfig(int fromVersion, int toVersion, QJsonObject root);

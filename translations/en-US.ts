@@ -297,28 +297,28 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_ImportConfig.cpp" line="50"/>
+        <location filename="../src/w_ImportConfig.cpp" line="51"/>
         <source>Import config file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_ImportConfig.cpp" line="50"/>
+        <location filename="../src/w_ImportConfig.cpp" line="51"/>
         <source>Failed to check the validity of the config file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_ImportConfig.cpp" line="68"/>
-        <location filename="../src/w_ImportConfig.cpp" line="73"/>
+        <location filename="../src/w_ImportConfig.cpp" line="69"/>
+        <location filename="../src/w_ImportConfig.cpp" line="74"/>
         <source>VMess String Check</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_ImportConfig.cpp" line="68"/>
+        <location filename="../src/w_ImportConfig.cpp" line="69"/>
         <source>VMess string is not valid</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_ImportConfig.cpp" line="73"/>
+        <location filename="../src/w_ImportConfig.cpp" line="74"/>
         <source>Some internal error occured</source>
         <translation type="unfinished"></translation>
     </message>
@@ -486,19 +486,35 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="92"/>
+        <location filename="../src/w_MainWindow.cpp" line="91"/>
         <location filename="../src/w_MainWindow.cpp" line="238"/>
         <location filename="../src/w_MainWindow.cpp" line="286"/>
         <source>Show</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="495"/>
+        <location filename="../src/w_MainWindow.cpp" line="427"/>
+        <location filename="../src/w_MainWindow.cpp" line="436"/>
+        <source>Rename a Connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_MainWindow.cpp" line="427"/>
+        <source>The name cannot be empty</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_MainWindow.cpp" line="463"/>
+        <source>Removing this Connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_MainWindow.cpp" line="501"/>
         <source>NoConfigSelected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="495"/>
+        <location filename="../src/w_MainWindow.cpp" line="501"/>
         <source>PleaseSelectAConfig</source>
         <translation type="unfinished"></translation>
     </message>
@@ -549,58 +565,42 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="324"/>
+        <location filename="../src/w_MainWindow.cpp" line="321"/>
         <source>UUID</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="326"/>
+        <location filename="../src/w_MainWindow.cpp" line="323"/>
         <source>AlterID</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="328"/>
+        <location filename="../src/w_MainWindow.cpp" line="325"/>
         <source>Transport</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="335"/>
+        <location filename="../src/w_MainWindow.cpp" line="332"/>
         <source>Email</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="337"/>
+        <location filename="../src/w_MainWindow.cpp" line="334"/>
         <source>Encryption</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="344"/>
+        <location filename="../src/w_MainWindow.cpp" line="341"/>
         <source>Username</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="419"/>
-        <location filename="../src/w_MainWindow.cpp" line="428"/>
-        <source>Rename A Connection</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/w_MainWindow.cpp" line="419"/>
-        <source>A name cannot be empty</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/w_MainWindow.cpp" line="428"/>
+        <location filename="../src/w_MainWindow.cpp" line="436"/>
         <source>The name has been used already, Please choose another.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="455"/>
-        <source>Removing A Connection</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/w_MainWindow.cpp" line="455"/>
+        <location filename="../src/w_MainWindow.cpp" line="463"/>
         <source>Are you sure to remove this connection?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -609,7 +609,7 @@
     <name>PrefrencesWindow</name>
     <message>
         <location filename="../src/w_PrefrencesWindow.ui" line="20"/>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="108"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="103"/>
         <source>Prefrences</source>
         <translation type="unfinished"></translation>
     </message>
@@ -669,37 +669,31 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="147"/>
-        <source>v2ray Core Path</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/w_PrefrencesWindow.ui" line="159"/>
-        <location filename="../src/w_PrefrencesWindow.ui" line="180"/>
         <source>#Select</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="168"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="147"/>
         <source>v2ray Assets Path</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="190"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="169"/>
         <source>Mux Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/w_PrefrencesWindow.ui" line="140"/>
-        <location filename="../src/w_PrefrencesWindow.ui" line="196"/>
-        <location filename="../src/w_PrefrencesWindow.ui" line="203"/>
-        <location filename="../src/w_PrefrencesWindow.ui" line="259"/>
-        <location filename="../src/w_PrefrencesWindow.ui" line="287"/>
-        <location filename="../src/w_PrefrencesWindow.ui" line="326"/>
-        <location filename="../src/w_PrefrencesWindow.ui" line="360"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="175"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="182"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="238"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="266"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="305"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="339"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="400"/>
         <location filename="../src/w_PrefrencesWindow.ui" line="421"/>
-        <location filename="../src/w_PrefrencesWindow.ui" line="442"/>
-        <location filename="../src/w_PrefrencesWindow.ui" line="449"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="428"/>
         <source>Enabled</source>
         <translation type="unfinished"></translation>
     </message>
@@ -709,151 +703,156 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="210"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="189"/>
         <source>Concurrency</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="231"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="210"/>
         <source>InBound Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="239"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="218"/>
         <source>Listen IP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="253"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="232"/>
         <source>SOCKS InBound Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="266"/>
-        <location filename="../src/w_PrefrencesWindow.ui" line="333"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="245"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="312"/>
         <source>Port</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="280"/>
-        <location filename="../src/w_PrefrencesWindow.ui" line="353"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="259"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="332"/>
         <source>Authentication</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="294"/>
-        <location filename="../src/w_PrefrencesWindow.ui" line="367"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="273"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="346"/>
         <source>Username</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="304"/>
-        <location filename="../src/w_PrefrencesWindow.ui" line="377"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="283"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="356"/>
         <source>Password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="317"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="296"/>
         <source>HTTP InBound Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="406"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="385"/>
         <source>Route Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="414"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="393"/>
         <source>Enable Proxy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="428"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="407"/>
         <source>Chinese Addresses</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="435"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="414"/>
         <source>Use Local DNS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="461"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="440"/>
         <source>DNS List</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="475"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="454"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="523"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="502"/>
         <source>Qv2ray</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="545"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="524"/>
         <source>Version:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="578"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="557"/>
         <source>Official Repo:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="596"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="575"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/lhy0403/Qv2ray&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#2980b9;&quot;&gt;https://github.com/lhy0403/Qv2ray&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="629"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="608"/>
         <source>License:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="647"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="626"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://www.gnu.org/licenses/gpl-3.0.txt&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#2980b9;&quot;&gt;GPLv3 (https://www.gnu.org/licenses/gpl-3.0.txt)&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="684"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="663"/>
         <source>About Qt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="719"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="698"/>
         <source>Ingore Next Version</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.ui" line="726"/>
+        <location filename="../src/w_PrefrencesWindow.ui" line="705"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="108"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="103"/>
         <source>Port numbers cannot be the same</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="268"/>
-        <source>Open v2ray core file</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="285"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="257"/>
         <source>Open v2ray assets folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="360"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="312"/>
+        <source>Enable tProxy Support</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="312"/>
+        <source>This will add 3 capabilities on the v2ray executable.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="329"/>
         <source>tProxy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="360"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="329"/>
         <source>tProxy is not supported on MacOS and Windows</source>
         <translation type="unfinished"></translation>
     </message>
@@ -866,43 +865,63 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/QvCoreInteractions.cpp" line="29"/>
-        <source>ConfigurationError</source>
+        <location filename="../src/main.cpp" line="54"/>
+        <source>Qv2ray Cannot Continue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/QvCoreInteractions.cpp" line="53"/>
-        <source>CoreNotFound</source>
+        <location filename="../src/main.cpp" line="54"/>
+        <source>You are running a lower version of Qv2ray compared to the current config file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/QvCoreInteractions.cpp" line="53"/>
-        <source>CoreFileNotFoundExplainationAt:</source>
+        <location filename="../src/main.cpp" line="56"/>
+        <source>Please report if you think this is an error.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="165"/>
+        <location filename="../src/main.cpp" line="57"/>
+        <source>Qv2ray will now exit.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/main.cpp" line="144"/>
         <source>DependencyMissing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="166"/>
+        <location filename="../src/main.cpp" line="145"/>
         <source>Cannot find openssl libs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="167"/>
+        <location filename="../src/main.cpp" line="146"/>
         <source>This could be caused by a missing of `openssl` package in your system. Or an AppImage issue.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="168"/>
+        <location filename="../src/main.cpp" line="147"/>
         <source>If you are using AppImage, please report a bug.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="174"/>
+        <location filename="../src/main.cpp" line="153"/>
         <source>Another instance of Qv2ray is already running.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/QvCoreInteractions.cpp" line="29"/>
+        <source>Configuration Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/QvCoreInteractions.cpp" line="55"/>
+        <source>Cannot start v2ray</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/QvCoreInteractions.cpp" line="55"/>
+        <source>v2ray core file cannot be found at:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
