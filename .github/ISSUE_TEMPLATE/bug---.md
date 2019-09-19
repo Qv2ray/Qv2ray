@@ -2,7 +2,7 @@
 name: Bug 反馈
 about: 用来反馈bug
 title: ''
-labels: ''
+labels: Bugs, help wanted
 assignees: ''
 
 ---
