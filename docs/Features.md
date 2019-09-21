@@ -18,7 +18,7 @@ Qv2ray 是一款跨平台，真正支持 Linux 桌面环境的 v2ray 客户端
 ## 3. 自动连接
 
 - 在启动时不显示主窗口，直接连接到设置的服务器
-- 该功能自 [v1.2.0](./ReleaseNote/1.2/ReleaseNote-v1.2.md) 版本添加
+- 该功能自 [v1.2.0](./ReleaseNotes/1.2/ReleaseNote-v1.2.md) 版本添加
 
 ### 如要将某个连接设为自动连接，请打开首选项
 
@@ -41,3 +41,8 @@ Qv2ray 是一款跨平台，真正支持 Linux 桌面环境的 v2ray 客户端
 ## 6. 实时显示 v2ray 的输出
 
 - 查看 bug 更方便
+
+## 7. 自动 tProxy 支持 （Linux）
+
+- 一键对 v2ray 主程序启用透明代理功能 (`setcap`)
+
