@@ -25,7 +25,11 @@
 
 见 [更新历史记录](./History.md)
 
-## 4. 共同翻译 Qv2ray
+## 4. 常见问题 FAQ
+
+见 [FAQ.md](./FAQ.md)
+
+## 5. 共同翻译 Qv2ray
 
 翻译平台使用 Crowdin，[https://crowdin.com/project/qv2ray](https://crowdin.com/project/qv2ray)
 
