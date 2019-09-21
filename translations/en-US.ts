@@ -211,14 +211,14 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.cpp" line="398"/>
-        <location filename="../src/w_ConnectionEditWindow.cpp" line="409"/>
+        <location filename="../src/w_ConnectionEditWindow.cpp" line="397"/>
+        <location filename="../src/w_ConnectionEditWindow.cpp" line="408"/>
         <source>#JsonPrettify</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_ConnectionEditWindow.cpp" line="398"/>
-        <location filename="../src/w_ConnectionEditWindow.cpp" line="409"/>
+        <location filename="../src/w_ConnectionEditWindow.cpp" line="397"/>
+        <location filename="../src/w_ConnectionEditWindow.cpp" line="408"/>
         <source>#JsonContainsError</source>
         <translation type="unfinished"></translation>
     </message>
@@ -465,7 +465,7 @@
     </message>
     <message>
         <location filename="../src/w_MainWindow.cpp" line="38"/>
-        <location filename="../src/w_MainWindow.cpp" line="283"/>
+        <location filename="../src/w_MainWindow.cpp" line="289"/>
         <source>Hide</source>
         <translation type="unfinished"></translation>
     </message>
@@ -487,34 +487,34 @@
     </message>
     <message>
         <location filename="../src/w_MainWindow.cpp" line="91"/>
-        <location filename="../src/w_MainWindow.cpp" line="238"/>
-        <location filename="../src/w_MainWindow.cpp" line="286"/>
+        <location filename="../src/w_MainWindow.cpp" line="244"/>
+        <location filename="../src/w_MainWindow.cpp" line="292"/>
         <source>Show</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="427"/>
-        <location filename="../src/w_MainWindow.cpp" line="436"/>
+        <location filename="../src/w_MainWindow.cpp" line="433"/>
+        <location filename="../src/w_MainWindow.cpp" line="442"/>
         <source>Rename a Connection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="427"/>
+        <location filename="../src/w_MainWindow.cpp" line="433"/>
         <source>The name cannot be empty</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="463"/>
+        <location filename="../src/w_MainWindow.cpp" line="469"/>
         <source>Removing this Connection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="501"/>
+        <location filename="../src/w_MainWindow.cpp" line="507"/>
         <source>NoConfigSelected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="501"/>
+        <location filename="../src/w_MainWindow.cpp" line="507"/>
         <source>PleaseSelectAConfig</source>
         <translation type="unfinished"></translation>
     </message>
@@ -524,83 +524,83 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="120"/>
+        <location filename="../src/w_MainWindow.cpp" line="126"/>
         <source>Update</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="121"/>
+        <location filename="../src/w_MainWindow.cpp" line="127"/>
         <source>Found a new version: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="127"/>
+        <location filename="../src/w_MainWindow.cpp" line="133"/>
         <source>Download Link: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="188"/>
+        <location filename="../src/w_MainWindow.cpp" line="194"/>
         <source>No connection selected!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="188"/>
+        <location filename="../src/w_MainWindow.cpp" line="194"/>
         <source>Please select a config from the list.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="199"/>
-        <location filename="../src/w_MainWindow.cpp" line="200"/>
+        <location filename="../src/w_MainWindow.cpp" line="205"/>
+        <location filename="../src/w_MainWindow.cpp" line="206"/>
         <source>Connected To Server: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="201"/>
+        <location filename="../src/w_MainWindow.cpp" line="207"/>
         <source>Connected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="218"/>
+        <location filename="../src/w_MainWindow.cpp" line="224"/>
         <source>Disconnected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="321"/>
+        <location filename="../src/w_MainWindow.cpp" line="327"/>
         <source>UUID</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="323"/>
+        <location filename="../src/w_MainWindow.cpp" line="329"/>
         <source>AlterID</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="325"/>
+        <location filename="../src/w_MainWindow.cpp" line="331"/>
         <source>Transport</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="332"/>
+        <location filename="../src/w_MainWindow.cpp" line="338"/>
         <source>Email</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="334"/>
+        <location filename="../src/w_MainWindow.cpp" line="340"/>
         <source>Encryption</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="341"/>
+        <location filename="../src/w_MainWindow.cpp" line="347"/>
         <source>Username</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="436"/>
+        <location filename="../src/w_MainWindow.cpp" line="442"/>
         <source>The name has been used already, Please choose another.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="463"/>
+        <location filename="../src/w_MainWindow.cpp" line="469"/>
         <source>Are you sure to remove this connection?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -610,6 +610,9 @@
     <message>
         <location filename="../src/w_PrefrencesWindow.ui" line="20"/>
         <location filename="../src/w_PrefrencesWindow.cpp" line="103"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="326"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="336"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="348"/>
         <source>Prefrences</source>
         <translation type="unfinished"></translation>
     </message>
@@ -837,33 +840,34 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="312"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="315"/>
         <source>Enable tProxy Support</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="312"/>
-        <source>This will add 3 capabilities on the v2ray executable.</source>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="315"/>
+        <source>This will append capabilities to the v2ray executable.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="329"/>
-        <source>tProxy</source>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="316"/>
+        <source>If anything goes wrong after enabling this, please refer to issue #57 or the link below:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_PrefrencesWindow.cpp" line="329"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="326"/>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="336"/>
+        <source>Failed to setcap onto v2ray executable. You may need to run `setcap` manually.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_PrefrencesWindow.cpp" line="348"/>
         <source>tProxy is not supported on MacOS and Windows</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>QObject</name>
-    <message>
-        <location filename="../src/QvCoreConfigOperations_Verification.cpp" line="22"/>
-        <source>#VMessDecodeError</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <location filename="../src/main.cpp" line="54"/>
         <source>Qv2ray Cannot Continue</source>

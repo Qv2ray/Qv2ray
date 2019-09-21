@@ -30,10 +30,10 @@ ConnectionEditWindow::ConnectionEditWindow(QWidget *parent)
     GEN_JSON
 }
 
-ConnectionEditWindow::ConnectionEditWindow(QJsonObject editRootObject, QString alias, QWidget *parent)
+ConnectionEditWindow::ConnectionEditWindow(QJsonObject editRootObject, const QString *alias, QWidget *parent)
     : ConnectionEditWindow(parent)
 {
-    _alias = alias;
+    _alias = *alias;
     originalRoot = editRootObject;
     auto outBoundRoot = originalRoot["outbounds"].toArray().first().toObject();
     OutboundType = outBoundRoot["protocol"].toString();
@@ -156,7 +156,6 @@ void ConnectionEditWindow::on_buttonBox_accepted()
     }
 
     originalRoot.insert("outbounds", outbounds);
-    originalRoot.insert(QV2RAY_CONFIG_TYPE_JSON_KEY, QV2RAY_CONFIG_TYPE_MANUAL);
     SaveConnectionConfig(originalRoot, &alias);
     auto globalConf = GetGlobalConfig();
 

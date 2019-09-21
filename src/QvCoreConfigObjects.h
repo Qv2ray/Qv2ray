@@ -16,10 +16,6 @@ namespace Qv2ray
 {
     namespace V2ConfigModels
     {
-        struct VMessProtocolConfigObject {
-            string v, ps, add, port, id, aid, net, type, host, path, tls;
-            XTOSTRUCT(O(v, ps, add, port, id, aid, net, type, host, path, tls))
-        };
         //
         // Used in config generation
         struct AccountObject {
