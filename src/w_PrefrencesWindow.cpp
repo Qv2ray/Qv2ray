@@ -301,31 +301,50 @@ void PrefrencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
 {
 #ifdef __linux
 
-    // Set UID and GID for linux
-    // Steps:
-    // --> 1. Copy v2ray core files to the #CONFIG_DIR#/vcore/ dir.
-    // --> 2. Change GlobalConfig.v2CorePath.
-    // --> 3. Call `pkexec setcap CAP_NET_ADMIN,CAP_NET_RAW,CAP_NET_BIND_SERVICE=eip` on the v2ray core.
+    if (finishedLoading) {
+        //LOG(MODULE_UI, "Running getcap....")
+        //QProcess::execute("getcap " + QV2RAY_V2RAY_CORE_PATH);
 
-    if (arg1 == Qt::Checked) {
-        // We enable it!
-        if (QvMessageBoxAsk(this, tr("Enable tProxy Support"), tr("This will add 3 capabilities on the v2ray executable.")) != QMessageBox::Yes) {
-            ui->tProxyCheckBox->setChecked(false);
-            LOG(MODULE_UI, "Canceled enabling tProxy feature.")
+        // Set UID and GID for linux
+        // Steps:
+        // --> 1. Copy v2ray core files to the #CONFIG_DIR#/vcore/ dir.
+        // --> 2. Change GlobalConfig.v2CorePath.
+        // --> 3. Call `pkexec setcap CAP_NET_ADMIN,CAP_NET_RAW,CAP_NET_BIND_SERVICE=eip` on the v2ray core.
+        if (arg1 == Qt::Checked) {
+            // We enable it!
+            if (QvMessageBoxAsk(this, tr("Enable tProxy Support"), tr("This will append capabilities to the v2ray executable.")  + "\r\n"
+                                + tr("If anything goes wrong after enabling this, please refer to issue #57 or the link below:") + "\r\n" +
+                                " https://github.com/lhy0403/Qv2ray/blob/master/docs/FAQ.md ") != QMessageBox::Yes) {
+                ui->tProxyCheckBox->setChecked(false);
+                LOG(MODULE_UI, "Canceled enabling tProxy feature.")
+            }
+
+            int ret = QProcess::execute("pkexec setcap CAP_NET_ADMIN,CAP_NET_RAW,CAP_NET_BIND_SERVICE=eip " + QV2RAY_V2RAY_CORE_PATH);
+
+            if (ret != 0) {
+                LOG(MODULE_UI, "WARN: setcap exits with code: " + to_string(ret))
+                QvMessageBox(this, tr("Prefrences"), tr("Failed to setcap onto v2ray executable. You may need to run `setcap` manually."));
+            }
+
+            CurrentConfig.runAsRoot = true;
+            NEEDRESTART
+        } else {
+            int ret = QProcess::execute("pkexec setcap -r " + QV2RAY_V2RAY_CORE_PATH);
+
+            if (ret != 0) {
+                LOG(MODULE_UI, "WARN: setcap exits with code: " + to_string(ret))
+                QvMessageBox(this, tr("Prefrences"), tr("Failed to setcap onto v2ray executable. You may need to run `setcap` manually."));
+            }
+
+            CurrentConfig.runAsRoot = false;
+            NEEDRESTART
         }
-
-        QProcess::execute("");
-        CurrentConfig.runAsRoot = true;
-    } else {
-        QProcess::execute("");
-        CurrentConfig.runAsRoot = false;
     }
 
-    NEEDRESTART
 #else
     Q_UNUSED(arg1)
     ui->tProxyCheckBox->setChecked(false);
-    // No such uid gid thing on Windows and MacOS is in TODO ....
-    QvMessageBox(this, tr("tProxy"), tr("tProxy is not supported on MacOS and Windows"));
+    // No such uid gid thing on Windows and MacOS
+    QvMessageBox(this, tr("Prefrences"), tr("tProxy is not supported on MacOS and Windows"));
 #endif
 }

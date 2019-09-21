@@ -91,6 +91,12 @@ MainWindow::MainWindow(QWidget *parent)
             trayMenu->actions()[0]->setText(tr("Show"));
         } else {
             this->show();
+
+            if (ui->connectionListWidget->count() != 0) {
+                // The first one is default.
+                ui->connectionListWidget->setCurrentRow(0);
+                ShowAndSetConnection(ui->connectionListWidget->item(0)->text(), true, false);
+            }
         }
     }
 }
@@ -504,7 +510,7 @@ void MainWindow::on_editConfigButton_clicked()
 
     auto alias = ui->connectionListWidget->currentItem()->text();
     auto outBoundRoot = connections[alias];
-    ConnectionEditWindow *w = new ConnectionEditWindow(outBoundRoot, alias, this);
+    ConnectionEditWindow *w = new ConnectionEditWindow(outBoundRoot, &alias, this);
     connect(w, &ConnectionEditWindow::s_reload_config, this, &MainWindow::save_reload_globalconfig);
     w->show();
 }

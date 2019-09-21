@@ -30,13 +30,6 @@
 #define QV2RAY_VCORE_ACCESS_LOG_FILENAME "access.log"
 #define QV2RAY_VCORE_ERROR_LOG_FILENAME "error.log"
 
-// These is for early-2.0 version, final 2.0 will move these content into global config.
-#define QV2RAY_CONFIG_TYPE_FILE "File"
-#define QV2RAY_CONFIG_TYPE_MANUAL "Manual"
-#define QV2RAY_CONFIG_TYPE_CONNECTIONSTRING "ConnectionString"
-#define QV2RAY_CONFIG_TYPE_SUBSCRIPTION "Subscription"
-#define QV2RAY_CONFIG_TYPE_JSON_KEY "_qv2ray.configSource"
-
 // GUI TOOLS
 #define RED(obj) \
     auto _temp = ui->obj->palette(); \
