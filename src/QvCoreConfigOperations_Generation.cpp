@@ -4,6 +4,7 @@ namespace Qv2ray
 {
     namespace ConfigOperations
     {
+        static const QStringList vLogLevels = {"none", "debug", "info", "warning", "error"};
         // -------------------------- BEGIN CONFIG GENERATIONS ----------------------------------------------------------------------------
         QJsonObject GenerateRoutes(bool globalProxy, bool cnProxy)
         {
@@ -129,33 +130,11 @@ namespace Qv2ray
         {
             auto gConf = GetGlobalConfig();
             QJsonObject logObject;
+            //
             //logObject.insert("access", QV2RAY_CONFIG_PATH + QV2RAY_VCORE_LOG_DIRNAME + QV2RAY_VCORE_ACCESS_LOG_FILENAME);
             //logObject.insert("error", QV2RAY_CONFIG_PATH + QV2RAY_VCORE_LOG_DIRNAME + QV2RAY_VCORE_ERROR_LOG_FILENAME);
-            QString logLevel_s;
-
-            switch (gConf.logLevel) {
-                case 0:
-                    logLevel_s  = "none";
-                    break;
-
-                case 1:
-                    logLevel_s  = "debug";
-                    break;
-
-                case 2:
-                    logLevel_s  = "info";
-                    break;
-
-                case 3:
-                    logLevel_s  = "warning";
-                    break;
-
-                case 4:
-                    logLevel_s  = "error";
-                    break;
-            }
-
-            logObject.insert("loglevel", logLevel_s);
+            //
+            logObject.insert("loglevel", vLogLevels[gConf.logLevel]);
             root.insert("log", logObject);
             //
             QStringList dnsList;
@@ -166,16 +145,6 @@ namespace Qv2ray
 
             auto dnsObject = GenerateDNS(gConf.withLocalDNS, dnsList);
             root.insert("dns", dnsObject);
-
-            //
-            // This is for imported config files as there are routing entries already.
-            // We don't add extra routings.
-            // We don't use QV2RAY_CONFIG_TYPE_FILE checking scheme because not all connections have this part.
-            if (!root.contains("routing")) {
-                auto routeObject = GenerateRoutes(gConf.proxyDefault, gConf.proxyCN);
-                root.insert("routing", routeObject);
-            }
-
             //
             //
             root.insert("stats", QJsonObject());
@@ -210,23 +179,43 @@ namespace Qv2ray
                 inboundsList.append(socksInBoundObject);
             }
 
-            if (!root.contains("inbounds") || root["inbounds"].toArray().count() == 0) {
+            if (!root.contains("inbounds") || root["inbounds"].toArray().empty()) {
                 root.insert("inbounds", inboundsList);
             }
 
-            // TODO: MultiOutbound Settings
-            if (root.contains(QV2RAY_CONFIG_TYPE_JSON_KEY) && root[QV2RAY_CONFIG_TYPE_JSON_KEY] == QV2RAY_CONFIG_TYPE_FILE) {
-                LOG(MODULE_CONFIG, "Found an imported config file, skipping adding 'freedom' outbound.")
-                // Do nothing because it's an imported connection.
-            } else {
+            // Note: The part below always makes the whole functionality in trouble......
+            // BE EXTREME CAREFUL when changing these code below...
+            //
+
+            // For SOME configs, there is no "route" entries, so, we add some...
+
+            // We don't use QV2RAY_CONFIG_TYPE_FILE to check because not all IMPORTED connections have routings.
+            if (!root.contains("routing")) {
+                if (root["outbounds"].toArray().count() != 1) {
+                    // There are no ROUTING but 2 or more outbounds.... This is rare, but possible.
+                    LOG(MODULE_CONNECTION, "WARN: This message usually indicates the config file has some logic errors:")
+                    LOG(MODULE_CONNECTION, "WARN: --> The config file has NO routing section, however more than 1 outbounds are detected.")
+                }
+
+                LOG(MODULE_CONNECTION, "Current connection has NO ROUTING section, we insert default values.")
+                auto routeObject = GenerateRoutes(gConf.proxyDefault, gConf.proxyCN);
+                root.insert("routing", routeObject);
                 QJsonArray outbounds = root["outbounds"].toArray();
-                // It's not imported so we add new stuff.
-                // For DIRECT
                 outbounds.append(GenerateOutboundEntry("freedom", GenerateFreedomOUT("AsIs", ":0", 0), QJsonObject(), QJsonObject(), "0.0.0.0", OUTBOUND_TAG_DIRECT));
-                QJsonObject first = outbounds.first().toObject();
-                first.insert("mux", GetRootObject(gConf.mux));
-                outbounds[0] = first;
+                // TODO
+                //
+                // We don't want to add MUX into the first one in the list.....
+                // However, this can be added to the Connection Edit Window...
+                //QJsonObject first = outbounds.first().toObject();
+                //first.insert("mux", GetRootObject(gConf.mux));
+                //outbounds[0] = first;
+                //
                 root["outbounds"] = outbounds;
+            } else {
+                // For some config files that has routing entries already.
+                // We don't add extra routings.
+                // this part has been left blanking
+                LOG(MODULE_CONNECTION, "Skip adding 'freedom' entry.")
             }
 
             return root;

@@ -22,24 +22,24 @@ namespace Qv2ray
             return ConfigDirPath;
         }
 
-        void SetConfigDirPath(QString path)
+        void SetConfigDirPath(const QString *path)
         {
-            ConfigDirPath = path;
+            ConfigDirPath = *path;
         }
 
         void SaveGlobalConfig()
         {
             QFile config(QV2RAY_CONFIG_FILE_PATH);
             QString str = StructToJSONString(GetGlobalConfig());
-            StringToFile(str, &config);
+            StringToFile(&str, &config);
         }
 
-        bool StringToFile(QString text, QFile *targetFile)
+        bool StringToFile(const QString *text, QFile *targetFile)
         {
             bool override = targetFile->exists();
             targetFile->open(QFile::WriteOnly);
             QTextStream stream(targetFile);
-            stream << text << endl;
+            stream << *text << endl;
             stream.flush();
             targetFile->close();
             return override;

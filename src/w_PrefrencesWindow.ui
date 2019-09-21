@@ -64,27 +64,13 @@
         </widget>
        </item>
        <item row="1" column="0">
-        <widget class="QLabel" name="label_7">
-         <property name="text">
-          <string>Run As Root</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QCheckBox" name="runAsRootCheckBox">
-         <property name="text">
-          <string>Enabled</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
         <widget class="QLabel" name="label">
          <property name="text">
           <string>Log Level</string>
          </property>
         </widget>
        </item>
-       <item row="2" column="1">
+       <item row="1" column="1">
         <widget class="QComboBox" name="logLevelComboBox">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
@@ -125,14 +111,14 @@
          </item>
         </widget>
        </item>
-       <item row="3" column="0">
+       <item row="2" column="0">
         <widget class="QLabel" name="label_19">
          <property name="text">
           <string>Automatically Connect To</string>
          </property>
         </widget>
        </item>
-       <item row="3" column="1">
+       <item row="2" column="1">
         <widget class="QComboBox" name="autoStartCombo">
          <item>
           <property name="text">
@@ -141,35 +127,28 @@
          </item>
         </widget>
        </item>
-       <item row="4" column="0">
-        <widget class="QLabel" name="label_14">
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_7">
          <property name="text">
-          <string>v2ray Core Path</string>
+          <string>Transparent Proxy Support</string>
          </property>
         </widget>
        </item>
-       <item row="4" column="1">
-        <layout class="QHBoxLayout" name="horizontalLayout_4">
-         <item>
-          <widget class="QLineEdit" name="vCoreExePathTxt"/>
-         </item>
-         <item>
-          <widget class="QPushButton" name="selectVCoreBtn">
-           <property name="text">
-            <string>#Select</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
+       <item row="3" column="1">
+        <widget class="QCheckBox" name="tProxyCheckBox">
+         <property name="text">
+          <string>Enabled</string>
+         </property>
+        </widget>
        </item>
-       <item row="5" column="0">
+       <item row="4" column="0">
         <widget class="QLabel" name="label_15">
          <property name="text">
           <string>v2ray Assets Path</string>
          </property>
         </widget>
        </item>
-       <item row="5" column="1">
+       <item row="4" column="1">
         <layout class="QHBoxLayout" name="horizontalLayout_5">
          <item>
           <widget class="QLineEdit" name="vCoreAssetsPathTxt"/>

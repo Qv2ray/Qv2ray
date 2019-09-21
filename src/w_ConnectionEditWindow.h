@@ -17,7 +17,7 @@ class ConnectionEditWindow : public QDialog
 
     public:
         explicit ConnectionEditWindow(QWidget *parent = nullptr);
-        explicit ConnectionEditWindow(QJsonObject editRootObject, QString alias, QWidget *parent = nullptr);
+        explicit ConnectionEditWindow(QJsonObject editRootObject, const QString *alias, QWidget *parent = nullptr);
         ~ConnectionEditWindow();
     signals:
         void s_reload_config(bool need_restart);
