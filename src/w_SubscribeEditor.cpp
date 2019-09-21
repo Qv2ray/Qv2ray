@@ -69,7 +69,7 @@ void SubscribeEditor::ProcessSubscriptionEntry(QByteArray result, QString subsci
         auto vmessList = content.split("\n");
 
         for (auto vmess : vmessList) {
-            auto config = ConvertConfigFromVMessString(vmess, QV2RAY_CONFIG_TYPE_SUBSCRIPTION);
+            auto config = ConvertConfigFromVMessString(vmess);
 
             if (subscriptions.contains(subsciptionName)) {
             }

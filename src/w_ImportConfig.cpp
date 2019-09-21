@@ -33,7 +33,7 @@ void ImportConfigWindow::on_importSourceCombo_currentIndexChanged(int index)
 
 void ImportConfigWindow::on_selectFileBtn_clicked()
 {
-    QString dir = QFileDialog::getOpenFileName(this, tr("OpenConfigFile"), "~/");
+    QString dir = QFileDialog::getOpenFileName(this, tr("Select file to import"), QDir::currentPath());
     ui->fileLineTxt->setText(dir);
 }
 
@@ -45,9 +45,10 @@ void ImportConfigWindow::on_buttonBox_accepted()
     if (ui->importSourceCombo->currentIndex() == 0) {
         // From File...
         bool overrideInBound = !ui->keepImportedInboundCheckBox->isChecked();
+        auto fileName = ui->fileLineTxt->text();
 
-        if (!Qv2Instance::VerifyVConfigFile(ui->fileLineTxt->text())) {
-            QvMessageBox(this, tr("#InvalidConfigFile"), tr("ConfigFileCheckFailed"));
+        if (!Qv2Instance::VerifyVConfigFile(&fileName)) {
+            QvMessageBox(this, tr("Import config file"), tr("Failed to check the validity of the config file."));
             return;
         }
 
@@ -58,28 +59,33 @@ void ImportConfigWindow::on_buttonBox_accepted()
         QString vmess = ui->vmessConnectionStringTxt->toPlainText();
         int result = VerifyVMessProtocolString(vmess);
 
-        if (result == 0) {
-            // This result code passes the validation check.
-            //QvMessageBox(this, tr("#VMessCheck"), tr("#AbleToImportConfig"));
-        } else if (result == -1) {
-            QvMessageBox(this, tr("#VMessCheck"), tr("#NotValidVMessProtocolString"));
-            done(0);
-            return;
-        } else {
-            QvMessageBox(this, tr("#VMessCheck"), tr("#INTERNAL_ERROR"));
-            return;
+        switch (result) {
+            case 0:
+                // This result code passes the validation check.
+                //QvMessageBox(this, tr("#VMessCheck"), tr("#AbleToImportConfig"));
+                break;
+
+            case -1:
+                QvMessageBox(this, tr("VMess String Check"), tr("VMess string is not valid"));
+                done(0);
+                return;
+
+            default:
+                QvMessageBox(this, tr("VMess String Check"), tr("Some internal error occured"));
+                return;
         }
 
         config = ConvertConfigFromVMessString(ui->vmessConnectionStringTxt->toPlainText());
         //
-        alias = alias != "" ? alias : config["QV2RAY_ALIAS"].toString();
+        alias = alias.isEmpty() ? alias : config["QV2RAY_ALIAS"].toString();
         config.remove("QV2RAY_ALIAS");
     }
 
     Qv2rayConfig conf = GetGlobalConfig();
+    //
     conf.configs.push_back(alias.toStdString());
+    //
     SetGlobalConfig(conf);
     auto needReload = SaveConnectionConfig(config, &alias);
-    LOG(MODULE_CONNECTION_VMESS, "WARNING: POSSIBLE LOSS OF DATA")
     emit s_reload_config(needReload);
 }

@@ -15,10 +15,10 @@
 #include <windows.h>
 #endif
 
-#include "w_PrefrencesWindow.h"
-#include "w_ImportConfig.h"
 #include "w_ConnectionEditWindow.h"
+#include "w_ImportConfig.h"
 #include "w_MainWindow.h"
+#include "w_PrefrencesWindow.h"
 #include "w_SubscribeEditor.h"
 
 #define TRAY_TOOLTIP_PREFIX "Qv2ray " QV2RAY_VERSION_STRING "\r\n"
@@ -75,23 +75,29 @@ MainWindow::MainWindow(QWidget *parent)
 
     //
     if (!vinstance->ValidateV2rayCoreExe()) {
-        on_prefrencesBtn_clicked();
-    }
-
-    auto conf = GetGlobalConfig();
-
-    if (conf.autoStartConfig != "" && QList<string>::fromStdList(conf.configs).contains(conf.autoStartConfig)) {
-        CurrentConnectionName = QSTRING(conf.autoStartConfig);
-        auto item = ui->connectionListWidget->findItems(QSTRING(conf.autoStartConfig), Qt::MatchExactly).front();
-        item->setSelected(true);
-        ui->connectionListWidget->setCurrentItem(item);
-        on_connectionListWidget_itemClicked(item);
-        on_startButton_clicked();
-        //ToggleVisibility();
-        this->hide();
-        trayMenu->actions()[0]->setText(tr("Show"));
+        QDesktopServices::openUrl(QUrl::fromLocalFile(QV2RAY_V2RAY_CORE_DIR_PATH));
     } else {
-        this->show();
+        auto conf = GetGlobalConfig();
+
+        if (conf.autoStartConfig != "" && QList<string>::fromStdList(conf.configs).contains(conf.autoStartConfig)) {
+            CurrentConnectionName = QSTRING(conf.autoStartConfig);
+            auto item = ui->connectionListWidget->findItems(QSTRING(conf.autoStartConfig), Qt::MatchExactly).front();
+            item->setSelected(true);
+            ui->connectionListWidget->setCurrentItem(item);
+            on_connectionListWidget_itemClicked(item);
+            on_startButton_clicked();
+            //ToggleVisibility();
+            this->hide();
+            trayMenu->actions()[0]->setText(tr("Show"));
+        } else {
+            this->show();
+
+            if (ui->connectionListWidget->count() != 0) {
+                // The first one is default.
+                ui->connectionListWidget->setCurrentRow(0);
+                ShowAndSetConnection(ui->connectionListWidget->item(0)->text(), true, false);
+            }
+        }
     }
 }
 
@@ -196,8 +202,8 @@ void MainWindow::on_startButton_clicked()
     bool startFlag = this->vinstance->Start();
 
     if (startFlag) {
-        this->hTray->showMessage("Qv2ray", tr("Connected To Server: ") + " " + CurrentConnectionName);
-        hTray->setToolTip(TRAY_TOOLTIP_PREFIX + tr("Connected To Server: ") + ": " + CurrentConnectionName);
+        this->hTray->showMessage("Qv2ray", tr("Connected To Server: ") + CurrentConnectionName);
+        hTray->setToolTip(TRAY_TOOLTIP_PREFIX + tr("Connected To Server: ") + CurrentConnectionName);
         ui->statusLabel->setText(tr("Connected") + ": " + CurrentConnectionName);
     }
 
@@ -305,11 +311,8 @@ void MainWindow::QTextScrollToBottom()
     if (bar->value() >= bar->maximum() - 10) bar->setValue(bar->maximum());
 }
 
-void MainWindow::ShowAndSetConnection(int index, bool SetConnection, bool ApplyConnection)
+void MainWindow::ShowAndSetConnection(QString guiConnectionName, bool SetConnection, bool ApplyConnection)
 {
-    if (index < 0) return;
-
-    auto guiConnectionName = ui->connectionListWidget->item(index)->text();
     // --------- BRGIN Show Connection
     auto outBoundRoot = (connections[guiConnectionName])["outbounds"].toArray().first().toObject();
     //
@@ -362,7 +365,12 @@ void MainWindow::on_connectionListWidget_itemClicked(QListWidgetItem *item)
 {
     Q_UNUSED(item)
     int currentRow = ui->connectionListWidget->currentRow();
-    ShowAndSetConnection(currentRow, !isRenamingInProgress && (vinstance->Status != STARTED), false);
+
+    if (currentRow < 0) return;
+
+    QString currentText = ui->connectionListWidget->currentItem()->text();
+    bool canSetConnection = !isRenamingInProgress && vinstance->Status != STARTED            ;
+    ShowAndSetConnection(currentText, canSetConnection, false);
 }
 
 void MainWindow::on_prefrencesBtn_clicked()
@@ -374,7 +382,13 @@ void MainWindow::on_prefrencesBtn_clicked()
 
 void MainWindow::on_connectionListWidget_doubleClicked(const QModelIndex &index)
 {
-    ShowAndSetConnection(index.row(), true, true);
+    Q_UNUSED(index)
+    int currentRow = ui->connectionListWidget->currentRow();
+
+    if (currentRow < 0) return;
+
+    QString currentText = ui->connectionListWidget->currentItem()->text();
+    ShowAndSetConnection(currentText, true, true);
 }
 
 void MainWindow::on_clearlogButton_clicked()
@@ -385,7 +399,7 @@ void MainWindow::on_clearlogButton_clicked()
 void MainWindow::on_connectionListWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
 {
     Q_UNUSED(previous)
-    isRenamingInProgress = true;
+    isRenamingInProgress = false;
     on_connectionListWidget_itemClicked(current);
 }
 
@@ -401,14 +415,14 @@ void MainWindow::on_action_RenameConnection_triggered()
     item->setFlags(item->flags() | Qt::ItemIsEditable);
     ui->connectionListWidget->editItem(item);
     originalName = item->text();
-    isRenamingInProgress = false;
+    isRenamingInProgress = true;
 }
 
 void MainWindow::on_connectionListWidget_itemChanged(QListWidgetItem *item)
 {
     LOG(MODULE_UI, "A connection ListViewItem is changed.")
 
-    if (!isRenamingInProgress) {
+    if (isRenamingInProgress) {
         // In this case it's after we entered the name.
         LOG(MODULE_CONNECTION, "RENAME: " + originalName.toStdString() + " -> " + item->text().toStdString())
         auto newName = item->text();
@@ -416,16 +430,16 @@ void MainWindow::on_connectionListWidget_itemChanged(QListWidgetItem *item)
         auto configList = QList<string>::fromStdList(config.configs);
 
         if (newName.trimmed().isEmpty()) {
-            QvMessageBox(this, tr("Rename A Connection"), tr("A name cannot be empty"));
+            QvMessageBox(this, tr("Rename a Connection"), tr("The name cannot be empty"));
             return;
         }
 
-        // If I really did some changes.
         LOG("RENAME", "ORIGINAL: " + originalName.toStdString() + ", NEW: " + newName.toStdString())
 
+        // If I really did some changes.
         if (originalName != newName) {
             if (configList.contains(newName.toStdString())) {
-                QvMessageBox(this, tr("Rename A Connection"), tr("The name has been used already, Please choose another."));
+                QvMessageBox(this, tr("Rename a Connection"), tr("The name has been used already, Please choose another."));
                 return;
             }
 
@@ -452,7 +466,7 @@ void MainWindow::on_connectionListWidget_itemChanged(QListWidgetItem *item)
 
 void MainWindow::on_removeConfigButton_clicked()
 {
-    if (QvMessageBoxAsk(this, tr("Removing A Connection"), tr("Are you sure to remove this connection?")) == QMessageBox::Yes) {
+    if (QvMessageBoxAsk(this, tr("Removing this Connection"), tr("Are you sure to remove this connection?")) == QMessageBox::Yes) {
         auto conf = GetGlobalConfig();
         QList<string> list = QList<string>::fromStdList(conf.configs);
         auto currentSelected = ui->connectionListWidget->currentIndex().row();
@@ -489,16 +503,14 @@ void MainWindow::on_addConfigButton_clicked()
 void MainWindow::on_editConfigButton_clicked()
 {
     // Check if we have a connection selected...
-    auto index = ui->connectionListWidget->currentIndex().row();
-
-    if (index < 0) {
+    if (ui->connectionListWidget->currentIndex().row() < 0) {
         QvMessageBox(this, tr("NoConfigSelected"), tr("PleaseSelectAConfig"));
         return;
     }
 
     auto alias = ui->connectionListWidget->currentItem()->text();
     auto outBoundRoot = connections[alias];
-    ConnectionEditWindow *w = new ConnectionEditWindow(outBoundRoot, alias, this);
+    ConnectionEditWindow *w = new ConnectionEditWindow(outBoundRoot, &alias, this);
     connect(w, &ConnectionEditWindow::s_reload_config, this, &MainWindow::save_reload_globalconfig);
     w->show();
 }
@@ -507,4 +519,9 @@ void MainWindow::on_pushButton_clicked()
 {
     SubscribeEditor *w = new SubscribeEditor(this);
     w->show();
+}
+
+void MainWindow::on_reconnectButton_clicked()
+{
+    on_restartButton_clicked();
 }
