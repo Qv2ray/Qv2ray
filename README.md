@@ -4,6 +4,8 @@
 
 支持连接编辑，支持导入配置和 VMess
 
+Special thanks to: [Hv2ray](https://github.com/aliyuchang33/Hv2ray) by aliyuchang33
+
 # 项目主页，下载链接和使用方法
  - 项目网站: https://lhy0403.github.io/Qv2ray
  - 最新 [Release](https://github.com/lhy0403/Qv2ray/releases/latest) 
@@ -14,7 +16,7 @@
 ## Jenkins (Linux)
 Himeki.net 的 Jenkins 编译服务器提供开发分支 `dev` 的 Linux AppImage 版本
  - 访问链接: [https://jenkins.himeki.net/job/Qv2ray-AppImage-dev/](https://jenkins.himeki.net/job/Qv2ray-AppImage-dev/)
- - 开发分支仅供测试使用
+ - 开发分支仅供测试
  - 提供者 [@aliyuchang33](https://github.com/aliyuchang33)
  
 -------------------------
