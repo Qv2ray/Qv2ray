@@ -66,7 +66,7 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     ui->muxConcurrencyTxt->setValue(CurrentConfig.mux.concurrency);
     //
     ui->proxyCNCb->setChecked(CurrentConfig.proxyCN);
-    ui->proxyDefaultCb->setChecked(CurrentConfig.proxyDefault);
+    ui->proxyDefaultCb->setChecked(CurrentConfig.enableProxy);
     ui->localDNSCb->setChecked(CurrentConfig.withLocalDNS);
     //
     ui->DNSListTxt->clear();
@@ -242,7 +242,7 @@ void PrefrencesWindow::on_proxyCNCb_stateChanged(int arg1)
 void PrefrencesWindow::on_proxyDefaultCb_stateChanged(int arg1)
 {
     NEEDRESTART
-    CurrentConfig.proxyDefault = arg1 == Qt::Checked;
+    CurrentConfig.enableProxy = arg1 == Qt::Checked;
 }
 
 void PrefrencesWindow::on_localDNSCb_stateChanged(int arg1)
