@@ -1036,7 +1036,7 @@
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="293"/>
       <source>Add &quot;Direct&quot;</source>
-      <translation type="unfinished">Add &quot;Direct&quot;</translation>
+      <translation>Add &quot;Direct&quot;</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="302"/>
