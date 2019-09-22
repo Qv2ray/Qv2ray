@@ -17,7 +17,7 @@ namespace Qv2ray
     namespace ConfigOperations
     {
         // -------------------------- BEGIN CONFIG GENERATIONS ---------------------------------------------
-        QJsonObject GenerateRoutes(bool globalProxy, bool cnProxy);
+        QJsonObject GenerateRoutes(bool enableProxy, bool cnProxy);
         QJsonObject GenerateSingleRouteRule(QStringList list, bool isDomain, QString outboundTag, QString type = "field");
         QJsonObject GenerateDNS(bool withLocalhost, QStringList dnsServers);
         //

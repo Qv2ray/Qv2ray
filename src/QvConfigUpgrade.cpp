@@ -28,6 +28,7 @@ namespace Qv2ray
                 }
 
                 case 2 : {
+                    // We copied those files.
                     auto vCoreFilePath = root["v2CorePath"].toString();
                     auto vCoreDestPath = QV2RAY_V2RAY_CORE_PATH;
                     // We also need v2ctl
@@ -39,6 +40,16 @@ namespace Qv2ray
                     UPGRADELOG("v2CorePath", vCoreFilePath.toStdString(), vCoreDestPath.toStdString())
                     UPGRADELOG("v2CtlFilePath", v2CtlFilePath.toStdString(), v2CtlDestPath.toStdString())
                     break;
+                }
+
+                case 3 : {
+                    // We changed a key name in the config file.
+                    //proxyDefault
+                    auto oldProxyDefault = root["proxyDefault"].toBool();
+                    root.remove("proxyDefault");
+                    root["enableProxy"] = oldProxyDefault;
+                    //enableProxy
+                    UPGRADELOG("key: proxyDefault->enableProxy", to_string(oldProxyDefault), to_string(oldProxyDefault))
                 }
             }
 
