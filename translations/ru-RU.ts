@@ -496,17 +496,17 @@
       <location filename="../src/w_MainWindow.cpp" line="433"/>
       <location filename="../src/w_MainWindow.cpp" line="442"/>
       <source>Rename a Connection</source>
-      <translation type="unfinished">Rename a Connection</translation>
+      <translation>Переименовать подключение</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="433"/>
       <source>The name cannot be empty</source>
-      <translation type="unfinished">The name cannot be empty</translation>
+      <translation>Имя не может быть пустым</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="469"/>
       <source>Removing this Connection</source>
-      <translation type="unfinished">Removing this Connection</translation>
+      <translation>Удалить из списка</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="507"/>
@@ -842,23 +842,23 @@
     <message>
       <location filename="../src/w_PrefrencesWindow.cpp" line="315"/>
       <source>Enable tProxy Support</source>
-      <translation type="unfinished">Enable tProxy Support</translation>
+      <translation>Включить tProxy поддержку</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.cpp" line="315"/>
       <source>This will append capabilities to the v2ray executable.</source>
-      <translation type="unfinished">This will append capabilities to the v2ray executable.</translation>
+      <translation>Это добавит возможности к исполняемому файлу v2ray.</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.cpp" line="316"/>
       <source>If anything goes wrong after enabling this, please refer to issue #57 or the link below:</source>
-      <translation type="unfinished">If anything goes wrong after enabling this, please refer to issue #57 or the link below:</translation>
+      <translation>Если что-либо пошло не так после включения, пожалуйста, обратитесь к проблеме #57 или к ссылке ниже:</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.cpp" line="326"/>
       <location filename="../src/w_PrefrencesWindow.cpp" line="336"/>
       <source>Failed to setcap onto v2ray executable. You may need to run `setcap` manually.</source>
-      <translation type="unfinished">Failed to setcap onto v2ray executable. You may need to run `setcap` manually.</translation>
+      <translation>Не удалось установить параметр на v2ray исполняемый файл. Возможно, вам нужно запустить `setcap` вручную.</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.cpp" line="348"/>
@@ -871,22 +871,22 @@
     <message>
       <location filename="../src/main.cpp" line="54"/>
       <source>Qv2ray Cannot Continue</source>
-      <translation type="unfinished">Qv2ray Cannot Continue</translation>
+      <translation>Qv2ray не может продолжить</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="54"/>
       <source>You are running a lower version of Qv2ray compared to the current config file.</source>
-      <translation type="unfinished">You are running a lower version of Qv2ray compared to the current config file.</translation>
+      <translation>Вы используете более низкую версию Qv2ray по сравнению с текущим конфигурационным файлом.</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="56"/>
       <source>Please report if you think this is an error.</source>
-      <translation type="unfinished">Please report if you think this is an error.</translation>
+      <translation>Пожалуйста, сообщите, если вы считаете, что это ошибка.</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="57"/>
       <source>Qv2ray will now exit.</source>
-      <translation type="unfinished">Qv2ray will now exit.</translation>
+      <translation>Qv2ray теперь выйдет.</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="144"/>
@@ -916,17 +916,17 @@
     <message>
       <location filename="../src/QvCoreInteractions.cpp" line="29"/>
       <source>Configuration Error</source>
-      <translation type="unfinished">Configuration Error</translation>
+      <translation>Ошибка конфигурации</translation>
     </message>
     <message>
       <location filename="../src/QvCoreInteractions.cpp" line="55"/>
       <source>Cannot start v2ray</source>
-      <translation type="unfinished">Cannot start v2ray</translation>
+      <translation>Невозможно запустить v2ray</translation>
     </message>
     <message>
       <location filename="../src/QvCoreInteractions.cpp" line="55"/>
       <source>v2ray core file cannot be found at:</source>
-      <translation type="unfinished">v2ray core file cannot be found at:</translation>
+      <translation>v2ray core файл не найден в:</translation>
     </message>
   </context>
   <context>
@@ -939,12 +939,12 @@
     <message>
       <location filename="../src/w_RouteEditor.ui" line="55"/>
       <source>#Outbounds</source>
-      <translation type="unfinished">#Outbounds</translation>
+      <translation>Исходящее соединение</translation>
     </message>
     <message>
       <location filename="../src/w_RouteEditor.ui" line="69"/>
       <source>#OutboundDetail</source>
-      <translation type="unfinished">#OutboundDetail</translation>
+      <translation>#Детали границы</translation>
     </message>
     <message>
       <location filename="../src/w_RouteEditor.ui" line="75"/>
