@@ -172,7 +172,7 @@
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="771"/>
       <source>tProxy</source>
-      <translation>tProxy</translation>
+      <translation type="unfinished">tProxy</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="808"/>
@@ -211,14 +211,14 @@
       <translation>Просмотр Json</translation>
     </message>
     <message>
-      <location filename="../src/w_ConnectionEditWindow.cpp" line="398"/>
-      <location filename="../src/w_ConnectionEditWindow.cpp" line="409"/>
+      <location filename="../src/w_ConnectionEditWindow.cpp" line="397"/>
+      <location filename="../src/w_ConnectionEditWindow.cpp" line="408"/>
       <source>#JsonPrettify</source>
       <translation>#JsonPrettify</translation>
     </message>
     <message>
-      <location filename="../src/w_ConnectionEditWindow.cpp" line="398"/>
-      <location filename="../src/w_ConnectionEditWindow.cpp" line="409"/>
+      <location filename="../src/w_ConnectionEditWindow.cpp" line="397"/>
+      <location filename="../src/w_ConnectionEditWindow.cpp" line="408"/>
       <source>#JsonContainsError</source>
       <translation>#JsonContainsError</translation>
     </message>
@@ -293,34 +293,34 @@
     </message>
     <message>
       <location filename="../src/w_ImportConfig.cpp" line="36"/>
-      <source>OpenConfigFile</source>
-      <translation>ОткрытьФайлКонфигурации</translation>
+      <source>Select file to import</source>
+      <translation type="unfinished">Select file to import</translation>
     </message>
     <message>
-      <location filename="../src/w_ImportConfig.cpp" line="50"/>
-      <source>#InvalidConfigFile</source>
-      <translation type="unfinished">#InvalidConfigFile</translation>
+      <location filename="../src/w_ImportConfig.cpp" line="51"/>
+      <source>Import config file</source>
+      <translation type="unfinished">Import config file</translation>
     </message>
     <message>
-      <location filename="../src/w_ImportConfig.cpp" line="50"/>
-      <source>ConfigFileCheckFailed</source>
-      <translation type="unfinished">ConfigFileCheckFailed</translation>
-    </message>
-    <message>
-      <location filename="../src/w_ImportConfig.cpp" line="65"/>
-      <location filename="../src/w_ImportConfig.cpp" line="69"/>
-      <source>#VMessCheck</source>
-      <translation type="unfinished">#VMessCheck</translation>
-    </message>
-    <message>
-      <location filename="../src/w_ImportConfig.cpp" line="65"/>
-      <source>#NotValidVMessProtocolString</source>
-      <translation type="unfinished">#NotValidVMessProtocolString</translation>
+      <location filename="../src/w_ImportConfig.cpp" line="51"/>
+      <source>Failed to check the validity of the config file.</source>
+      <translation type="unfinished">Failed to check the validity of the config file.</translation>
     </message>
     <message>
       <location filename="../src/w_ImportConfig.cpp" line="69"/>
-      <source>#INTERNAL_ERROR</source>
-      <translation type="unfinished">#INTERNAL_ERROR</translation>
+      <location filename="../src/w_ImportConfig.cpp" line="74"/>
+      <source>VMess String Check</source>
+      <translation type="unfinished">VMess String Check</translation>
+    </message>
+    <message>
+      <location filename="../src/w_ImportConfig.cpp" line="69"/>
+      <source>VMess string is not valid</source>
+      <translation type="unfinished">VMess string is not valid</translation>
+    </message>
+    <message>
+      <location filename="../src/w_ImportConfig.cpp" line="74"/>
+      <source>Some internal error occured</source>
+      <translation type="unfinished">Some internal error occured</translation>
     </message>
   </context>
   <context>
@@ -343,129 +343,129 @@
       <translation>Отключен</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.ui" line="64"/>
+      <location filename="../src/w_MainWindow.ui" line="71"/>
       <source>Clear Log</source>
       <translation>Очистить логи</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.ui" line="71"/>
+      <location filename="../src/w_MainWindow.ui" line="78"/>
       <source>Prefrences</source>
       <translation>Настройки</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.ui" line="94"/>
+      <location filename="../src/w_MainWindow.ui" line="101"/>
       <source>Stopped</source>
       <translation>Остановлен</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.ui" line="103"/>
+      <location filename="../src/w_MainWindow.ui" line="110"/>
       <source>Host List</source>
       <translation>Список Узлов</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.ui" line="110"/>
+      <location filename="../src/w_MainWindow.ui" line="117"/>
       <source>Config Details</source>
       <translation>Детали конфигурации</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.ui" line="116"/>
+      <location filename="../src/w_MainWindow.ui" line="123"/>
       <source>Type</source>
       <translation>Тип</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.ui" line="130"/>
+      <location filename="../src/w_MainWindow.ui" line="137"/>
       <source>Host</source>
       <translation>Хост</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.ui" line="144"/>
+      <location filename="../src/w_MainWindow.ui" line="151"/>
       <source>Port</source>
       <translation>Порт</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.ui" line="158"/>
+      <location filename="../src/w_MainWindow.ui" line="165"/>
       <source>Detail</source>
       <translation>Сведения</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.ui" line="236"/>
+      <location filename="../src/w_MainWindow.ui" line="243"/>
       <source>#AddConnection</source>
       <translation type="unfinished">#AddConnection</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.ui" line="239"/>
+      <location filename="../src/w_MainWindow.ui" line="246"/>
       <source>A</source>
       <translation>А</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.ui" line="256"/>
-      <location filename="../src/w_MainWindow.ui" line="346"/>
+      <location filename="../src/w_MainWindow.ui" line="263"/>
+      <location filename="../src/w_MainWindow.ui" line="353"/>
       <source>#ImportConnection</source>
       <translation type="unfinished">#ImportConnection</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.ui" line="259"/>
+      <location filename="../src/w_MainWindow.ui" line="266"/>
       <source>I</source>
       <translation>I</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.ui" line="290"/>
+      <location filename="../src/w_MainWindow.ui" line="297"/>
       <source>#RemoveConnection</source>
       <translation type="unfinished">#RemoveConnection</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.ui" line="293"/>
+      <location filename="../src/w_MainWindow.ui" line="300"/>
       <source>R</source>
       <translation>R</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.ui" line="270"/>
+      <location filename="../src/w_MainWindow.ui" line="277"/>
       <source>#EditConnection</source>
       <translation type="unfinished">#EditConnection</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.ui" line="273"/>
+      <location filename="../src/w_MainWindow.ui" line="280"/>
       <source>...</source>
       <translation>...</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.ui" line="319"/>
+      <location filename="../src/w_MainWindow.ui" line="326"/>
       <source>Log</source>
       <translation>Лог</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.ui" line="341"/>
+      <location filename="../src/w_MainWindow.ui" line="348"/>
       <source>#ManuallyCreateConnection</source>
       <translation type="unfinished">#ManuallyCreateConnection</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.ui" line="351"/>
+      <location filename="../src/w_MainWindow.ui" line="358"/>
       <source>#Exit</source>
       <translation>#Выход</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.ui" line="356"/>
+      <location filename="../src/w_MainWindow.ui" line="363"/>
       <source>#Preferences</source>
       <translation>#Параметры</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.ui" line="361"/>
+      <location filename="../src/w_MainWindow.ui" line="368"/>
       <source>#Start</source>
       <translation>#Запустить</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.ui" line="366"/>
+      <location filename="../src/w_MainWindow.ui" line="373"/>
       <source>#Stop</source>
       <translation>#Стоп</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.ui" line="371"/>
+      <location filename="../src/w_MainWindow.ui" line="378"/>
       <source>#Restart</source>
       <translation>#Перезапуск</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="38"/>
-      <location filename="../src/w_MainWindow.cpp" line="283"/>
+      <location filename="../src/w_MainWindow.cpp" line="289"/>
       <source>Hide</source>
       <translation>Скрыть</translation>
     </message>
@@ -475,6 +475,7 @@
       <translation>Выход</translation>
     </message>
     <message>
+      <location filename="../src/w_MainWindow.ui" line="64"/>
       <location filename="../src/w_MainWindow.cpp" line="41"/>
       <source>Reconnect</source>
       <translation>Переподключить</translation>
@@ -485,19 +486,35 @@
       <translation>Переименование</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="92"/>
-      <location filename="../src/w_MainWindow.cpp" line="238"/>
-      <location filename="../src/w_MainWindow.cpp" line="286"/>
+      <location filename="../src/w_MainWindow.cpp" line="91"/>
+      <location filename="../src/w_MainWindow.cpp" line="244"/>
+      <location filename="../src/w_MainWindow.cpp" line="292"/>
       <source>Show</source>
       <translation>Показать</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="495"/>
+      <location filename="../src/w_MainWindow.cpp" line="433"/>
+      <location filename="../src/w_MainWindow.cpp" line="442"/>
+      <source>Rename a Connection</source>
+      <translation type="unfinished">Rename a Connection</translation>
+    </message>
+    <message>
+      <location filename="../src/w_MainWindow.cpp" line="433"/>
+      <source>The name cannot be empty</source>
+      <translation type="unfinished">The name cannot be empty</translation>
+    </message>
+    <message>
+      <location filename="../src/w_MainWindow.cpp" line="469"/>
+      <source>Removing this Connection</source>
+      <translation type="unfinished">Removing this Connection</translation>
+    </message>
+    <message>
+      <location filename="../src/w_MainWindow.cpp" line="507"/>
       <source>NoConfigSelected</source>
       <translation type="unfinished">NoConfigSelected</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="495"/>
+      <location filename="../src/w_MainWindow.cpp" line="507"/>
       <source>PleaseSelectAConfig</source>
       <translation type="unfinished">PleaseSelectAConfig</translation>
     </message>
@@ -507,99 +524,83 @@
       <translation>Подключиться к этому</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="120"/>
+      <location filename="../src/w_MainWindow.cpp" line="126"/>
       <source>Update</source>
       <translation>Обновить</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="121"/>
+      <location filename="../src/w_MainWindow.cpp" line="127"/>
       <source>Found a new version: </source>
       <translation>Найдена новая версия: </translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="127"/>
+      <location filename="../src/w_MainWindow.cpp" line="133"/>
       <source>Download Link: </source>
       <translation>Ссылка для скачивания:</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="188"/>
+      <location filename="../src/w_MainWindow.cpp" line="194"/>
       <source>No connection selected!</source>
       <translation>Не выбрано соединение!</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="188"/>
+      <location filename="../src/w_MainWindow.cpp" line="194"/>
       <source>Please select a config from the list.</source>
       <translation>Пожалуйста, выберите конфигурацию из списка</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="199"/>
-      <location filename="../src/w_MainWindow.cpp" line="200"/>
+      <location filename="../src/w_MainWindow.cpp" line="205"/>
+      <location filename="../src/w_MainWindow.cpp" line="206"/>
       <source>Connected To Server: </source>
       <translation>Соединяется с Сервером:</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="201"/>
+      <location filename="../src/w_MainWindow.cpp" line="207"/>
       <source>Connected</source>
       <translation>Подключен</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="218"/>
+      <location filename="../src/w_MainWindow.cpp" line="224"/>
       <source>Disconnected</source>
       <translation>Отключен</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="324"/>
+      <location filename="../src/w_MainWindow.cpp" line="327"/>
       <source>UUID</source>
       <translation>UUID</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="326"/>
+      <location filename="../src/w_MainWindow.cpp" line="329"/>
       <source>AlterID</source>
       <translation>AlterID</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="328"/>
+      <location filename="../src/w_MainWindow.cpp" line="331"/>
       <source>Transport</source>
       <translation>Протокол</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="335"/>
+      <location filename="../src/w_MainWindow.cpp" line="338"/>
       <source>Email</source>
       <translation>Email</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="337"/>
+      <location filename="../src/w_MainWindow.cpp" line="340"/>
       <source>Encryption</source>
       <translation>Шифрование</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="344"/>
+      <location filename="../src/w_MainWindow.cpp" line="347"/>
       <source>Username</source>
       <translation>Имя пользователя</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="419"/>
-      <location filename="../src/w_MainWindow.cpp" line="428"/>
-      <source>Rename A Connection</source>
-      <translation>Переименовать подключение</translation>
-    </message>
-    <message>
-      <location filename="../src/w_MainWindow.cpp" line="419"/>
-      <source>A name cannot be empty</source>
-      <translation>Имя не может быть пустым</translation>
-    </message>
-    <message>
-      <location filename="../src/w_MainWindow.cpp" line="428"/>
+      <location filename="../src/w_MainWindow.cpp" line="442"/>
       <source>The name has been used already, Please choose another.</source>
       <translation>Имя уже используется, пожалуйста, выберите другое.</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="455"/>
-      <source>Removing A Connection</source>
-      <translation>Удалить из списка</translation>
-    </message>
-    <message>
-      <location filename="../src/w_MainWindow.cpp" line="455"/>
+      <location filename="../src/w_MainWindow.cpp" line="469"/>
       <source>Are you sure to remove this connection?</source>
       <translation>Вы уверены, что хотите удалить это подключение?</translation>
     </message>
@@ -608,8 +609,10 @@
     <name>PrefrencesWindow</name>
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="20"/>
-      <location filename="../src/w_PrefrencesWindow.cpp" line="108"/>
-      <location filename="../src/w_PrefrencesWindow.cpp" line="180"/>
+      <location filename="../src/w_PrefrencesWindow.cpp" line="103"/>
+      <location filename="../src/w_PrefrencesWindow.cpp" line="326"/>
+      <location filename="../src/w_PrefrencesWindow.cpp" line="336"/>
+      <location filename="../src/w_PrefrencesWindow.cpp" line="348"/>
       <source>Prefrences</source>
       <translation>Настройки</translation>
     </message>
@@ -635,270 +638,295 @@
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="69"/>
-      <source>Run As Root</source>
-      <translation>Запустить под root</translation>
-    </message>
-    <message>
-      <location filename="../src/w_PrefrencesWindow.ui" line="83"/>
       <source>Log Level</source>
       <translation>Детализация журнала</translation>
     </message>
     <message>
-      <location filename="../src/w_PrefrencesWindow.ui" line="103"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="89"/>
       <source>none</source>
       <translation>Отсутствует</translation>
     </message>
     <message>
-      <location filename="../src/w_PrefrencesWindow.ui" line="108"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="94"/>
       <source>debug</source>
       <translation>отладка</translation>
     </message>
     <message>
-      <location filename="../src/w_PrefrencesWindow.ui" line="113"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="99"/>
       <source>info</source>
       <translation>Информация</translation>
     </message>
     <message>
-      <location filename="../src/w_PrefrencesWindow.ui" line="118"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="104"/>
       <source>warning</source>
       <translation>внимание</translation>
     </message>
     <message>
-      <location filename="../src/w_PrefrencesWindow.ui" line="123"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="109"/>
       <source>error</source>
       <translation>ошибка</translation>
     </message>
     <message>
-      <location filename="../src/w_PrefrencesWindow.ui" line="131"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="117"/>
       <source>Automatically Connect To</source>
       <translation>Автоматически подключаться к</translation>
     </message>
     <message>
-      <location filename="../src/w_PrefrencesWindow.ui" line="147"/>
-      <source>v2ray Core Path</source>
-      <translation>путь к ядру v2ray</translation>
-    </message>
-    <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="159"/>
-      <location filename="../src/w_PrefrencesWindow.ui" line="180"/>
       <source>#Select</source>
       <translation>#Выбрать</translation>
     </message>
     <message>
-      <location filename="../src/w_PrefrencesWindow.ui" line="168"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="147"/>
       <source>v2ray Assets Path</source>
       <translation>путь к директории v2ray</translation>
     </message>
     <message>
-      <location filename="../src/w_PrefrencesWindow.ui" line="190"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="169"/>
       <source>Mux Settings</source>
       <translation>Настройки Mux</translation>
     </message>
     <message>
-      <location filename="../src/w_PrefrencesWindow.ui" line="76"/>
-      <location filename="../src/w_PrefrencesWindow.ui" line="196"/>
-      <location filename="../src/w_PrefrencesWindow.ui" line="203"/>
-      <location filename="../src/w_PrefrencesWindow.ui" line="259"/>
-      <location filename="../src/w_PrefrencesWindow.ui" line="287"/>
-      <location filename="../src/w_PrefrencesWindow.ui" line="326"/>
-      <location filename="../src/w_PrefrencesWindow.ui" line="360"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="140"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="175"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="182"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="238"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="266"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="305"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="339"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="400"/>
       <location filename="../src/w_PrefrencesWindow.ui" line="421"/>
-      <location filename="../src/w_PrefrencesWindow.ui" line="442"/>
-      <location filename="../src/w_PrefrencesWindow.ui" line="449"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="428"/>
       <source>Enabled</source>
       <translation>Включено</translation>
     </message>
     <message>
-      <location filename="../src/w_PrefrencesWindow.ui" line="210"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="133"/>
+      <source>Transparent Proxy Support</source>
+      <translation type="unfinished">Transparent Proxy Support</translation>
+    </message>
+    <message>
+      <location filename="../src/w_PrefrencesWindow.ui" line="189"/>
       <source>Concurrency</source>
       <translation>Согласие</translation>
     </message>
     <message>
-      <location filename="../src/w_PrefrencesWindow.ui" line="231"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="210"/>
       <source>InBound Settings</source>
       <translation>Настройки соединения</translation>
     </message>
     <message>
-      <location filename="../src/w_PrefrencesWindow.ui" line="239"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="218"/>
       <source>Listen IP</source>
       <translation>Слушать IP</translation>
     </message>
     <message>
-      <location filename="../src/w_PrefrencesWindow.ui" line="253"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="232"/>
       <source>SOCKS InBound Settings</source>
       <translation>Настройки SOCKS InBound</translation>
     </message>
     <message>
-      <location filename="../src/w_PrefrencesWindow.ui" line="266"/>
-      <location filename="../src/w_PrefrencesWindow.ui" line="333"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="245"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="312"/>
       <source>Port</source>
       <translation>Порт</translation>
     </message>
     <message>
-      <location filename="../src/w_PrefrencesWindow.ui" line="280"/>
-      <location filename="../src/w_PrefrencesWindow.ui" line="353"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="259"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="332"/>
       <source>Authentication</source>
       <translation>Аутентификация</translation>
     </message>
     <message>
-      <location filename="../src/w_PrefrencesWindow.ui" line="294"/>
-      <location filename="../src/w_PrefrencesWindow.ui" line="367"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="273"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="346"/>
       <source>Username</source>
       <translation>Имя пользователя</translation>
     </message>
     <message>
-      <location filename="../src/w_PrefrencesWindow.ui" line="304"/>
-      <location filename="../src/w_PrefrencesWindow.ui" line="377"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="283"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="356"/>
       <source>Password</source>
       <translation>Пароль</translation>
     </message>
     <message>
-      <location filename="../src/w_PrefrencesWindow.ui" line="317"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="296"/>
       <source>HTTP InBound Settings</source>
       <translation>Параметры HTTP InBound</translation>
     </message>
     <message>
-      <location filename="../src/w_PrefrencesWindow.ui" line="406"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="385"/>
       <source>Route Settings</source>
       <translation>Настройки маршрута</translation>
     </message>
     <message>
-      <location filename="../src/w_PrefrencesWindow.ui" line="414"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="393"/>
       <source>Enable Proxy</source>
       <translation>Включить прокси</translation>
     </message>
     <message>
-      <location filename="../src/w_PrefrencesWindow.ui" line="428"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="407"/>
       <source>Chinese Addresses</source>
       <translation>Китайские адреса</translation>
     </message>
     <message>
-      <location filename="../src/w_PrefrencesWindow.ui" line="435"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="414"/>
       <source>Use Local DNS</source>
       <translation>Использовать локальный DNS</translation>
     </message>
     <message>
-      <location filename="../src/w_PrefrencesWindow.ui" line="461"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="440"/>
       <source>DNS List</source>
       <translation>Список DNS</translation>
     </message>
     <message>
-      <location filename="../src/w_PrefrencesWindow.ui" line="475"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="454"/>
       <source>About</source>
       <translation>О программе</translation>
     </message>
     <message>
-      <location filename="../src/w_PrefrencesWindow.ui" line="523"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="502"/>
       <source>Qv2ray</source>
       <translation>Qv2ray</translation>
     </message>
     <message>
-      <location filename="../src/w_PrefrencesWindow.ui" line="545"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="524"/>
       <source>Version:</source>
       <translation>Версия:</translation>
     </message>
     <message>
-      <location filename="../src/w_PrefrencesWindow.ui" line="578"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="557"/>
       <source>Official Repo:</source>
       <translation>Официальный репозиторий:</translation>
     </message>
     <message>
-      <location filename="../src/w_PrefrencesWindow.ui" line="596"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="575"/>
       <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/lhy0403/Qv2ray&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#2980b9;&quot;&gt;https://github.com/lhy0403/Qv2ray&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
       <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/lhy0403/Qv2ray&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#2980b9;&quot;&gt;https://github.com/lhy0403/Qv2ray&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-      <location filename="../src/w_PrefrencesWindow.ui" line="629"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="608"/>
       <source>License:</source>
       <translation>Лицензия:</translation>
     </message>
     <message>
-      <location filename="../src/w_PrefrencesWindow.ui" line="647"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="626"/>
       <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://www.gnu.org/licenses/gpl-3.0.txt&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#2980b9;&quot;&gt;GPLv3 (https://www.gnu.org/licenses/gpl-3.0.txt)&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
       <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://www.gnu.org/licenses/gpl-3.0.txt&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#2980b9;&quot;&gt;GPLv3 (https://www.gnu.org/licenses/gpl-3.0.txt)&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-      <location filename="../src/w_PrefrencesWindow.ui" line="684"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="663"/>
       <source>About Qt</source>
       <translation>Об инструментарии Qt</translation>
     </message>
     <message>
-      <location filename="../src/w_PrefrencesWindow.ui" line="719"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="698"/>
       <source>Ingore Next Version</source>
       <translation>Игнорировать следующую версию</translation>
     </message>
     <message>
-      <location filename="../src/w_PrefrencesWindow.ui" line="726"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="705"/>
       <source>Cancel</source>
       <translation>Отменить</translation>
     </message>
     <message>
-      <location filename="../src/w_PrefrencesWindow.cpp" line="108"/>
-      <source>PortNumbersCannotBeSame</source>
-      <translation type="unfinished">PortNumbersCannotBeSame</translation>
+      <location filename="../src/w_PrefrencesWindow.cpp" line="103"/>
+      <source>Port numbers cannot be the same</source>
+      <translation type="unfinished">Port numbers cannot be the same</translation>
     </message>
     <message>
-      <location filename="../src/w_PrefrencesWindow.cpp" line="180"/>
-      <source>RunAsRootNotOnWindows</source>
-      <translation type="unfinished">RunAsRootNotOnWindows</translation>
+      <location filename="../src/w_PrefrencesWindow.cpp" line="257"/>
+      <source>Open v2ray assets folder</source>
+      <translation type="unfinished">Open v2ray assets folder</translation>
     </message>
     <message>
-      <location filename="../src/w_PrefrencesWindow.cpp" line="300"/>
-      <source>#OpenVCoreFile</source>
-      <translation type="unfinished">#OpenVCoreFile</translation>
+      <location filename="../src/w_PrefrencesWindow.cpp" line="315"/>
+      <source>Enable tProxy Support</source>
+      <translation type="unfinished">Enable tProxy Support</translation>
     </message>
     <message>
-      <location filename="../src/w_PrefrencesWindow.cpp" line="311"/>
-      <source>OpenVAssetsDir</source>
-      <translation type="unfinished">OpenVAssetsDir</translation>
+      <location filename="../src/w_PrefrencesWindow.cpp" line="315"/>
+      <source>This will append capabilities to the v2ray executable.</source>
+      <translation type="unfinished">This will append capabilities to the v2ray executable.</translation>
+    </message>
+    <message>
+      <location filename="../src/w_PrefrencesWindow.cpp" line="316"/>
+      <source>If anything goes wrong after enabling this, please refer to issue #57 or the link below:</source>
+      <translation type="unfinished">If anything goes wrong after enabling this, please refer to issue #57 or the link below:</translation>
+    </message>
+    <message>
+      <location filename="../src/w_PrefrencesWindow.cpp" line="326"/>
+      <location filename="../src/w_PrefrencesWindow.cpp" line="336"/>
+      <source>Failed to setcap onto v2ray executable. You may need to run `setcap` manually.</source>
+      <translation type="unfinished">Failed to setcap onto v2ray executable. You may need to run `setcap` manually.</translation>
+    </message>
+    <message>
+      <location filename="../src/w_PrefrencesWindow.cpp" line="348"/>
+      <source>tProxy is not supported on MacOS and Windows</source>
+      <translation type="unfinished">tProxy is not supported on MacOS and Windows</translation>
     </message>
   </context>
   <context>
     <name>QObject</name>
     <message>
-      <location filename="../src/QvCoreConfigOperations_Verification.cpp" line="22"/>
-      <source>#VMessDecodeError</source>
-      <translation type="unfinished">#VMessDecodeError</translation>
+      <location filename="../src/main.cpp" line="54"/>
+      <source>Qv2ray Cannot Continue</source>
+      <translation type="unfinished">Qv2ray Cannot Continue</translation>
     </message>
     <message>
-      <location filename="../src/QvCoreInteractions.cpp" line="29"/>
-      <source>ConfigurationError</source>
-      <translation>Ошибка конфигурации</translation>
+      <location filename="../src/main.cpp" line="54"/>
+      <source>You are running a lower version of Qv2ray compared to the current config file.</source>
+      <translation type="unfinished">You are running a lower version of Qv2ray compared to the current config file.</translation>
     </message>
     <message>
-      <location filename="../src/QvCoreInteractions.cpp" line="53"/>
-      <source>CoreNotFound</source>
-      <translation type="unfinished">CoreNotFound</translation>
+      <location filename="../src/main.cpp" line="56"/>
+      <source>Please report if you think this is an error.</source>
+      <translation type="unfinished">Please report if you think this is an error.</translation>
     </message>
     <message>
-      <location filename="../src/QvCoreInteractions.cpp" line="53"/>
-      <source>CoreFileNotFoundExplainationAt:</source>
-      <translation type="unfinished">CoreFileNotFoundExplainationAt:</translation>
+      <location filename="../src/main.cpp" line="57"/>
+      <source>Qv2ray will now exit.</source>
+      <translation type="unfinished">Qv2ray will now exit.</translation>
     </message>
     <message>
-      <location filename="../src/main.cpp" line="166"/>
+      <location filename="../src/main.cpp" line="144"/>
       <source>DependencyMissing</source>
       <translation type="unfinished">DependencyMissing</translation>
     </message>
     <message>
-      <location filename="../src/main.cpp" line="167"/>
+      <location filename="../src/main.cpp" line="145"/>
       <source>Cannot find openssl libs</source>
       <translation>Не удается найти openssl libs</translation>
     </message>
     <message>
-      <location filename="../src/main.cpp" line="168"/>
+      <location filename="../src/main.cpp" line="146"/>
       <source>This could be caused by a missing of `openssl` package in your system. Or an AppImage issue.</source>
       <translation>Это может быть вызвано отсутствием пакета `openssl` в вашей системе. Или проблемой AppImage.</translation>
     </message>
     <message>
-      <location filename="../src/main.cpp" line="169"/>
+      <location filename="../src/main.cpp" line="147"/>
       <source>If you are using AppImage, please report a bug.</source>
       <translation>Если вы используете AppImage, пожалуйста, сообщите об ошибке.</translation>
     </message>
     <message>
-      <location filename="../src/main.cpp" line="177"/>
+      <location filename="../src/main.cpp" line="153"/>
       <source>Another instance of Qv2ray is already running.</source>
       <translation>Другой экземпляр Qv2ray уже запущен.</translation>
+    </message>
+    <message>
+      <location filename="../src/QvCoreInteractions.cpp" line="29"/>
+      <source>Configuration Error</source>
+      <translation type="unfinished">Configuration Error</translation>
+    </message>
+    <message>
+      <location filename="../src/QvCoreInteractions.cpp" line="55"/>
+      <source>Cannot start v2ray</source>
+      <translation type="unfinished">Cannot start v2ray</translation>
+    </message>
+    <message>
+      <location filename="../src/QvCoreInteractions.cpp" line="55"/>
+      <source>v2ray core file cannot be found at:</source>
+      <translation type="unfinished">v2ray core file cannot be found at:</translation>
     </message>
   </context>
   <context>
