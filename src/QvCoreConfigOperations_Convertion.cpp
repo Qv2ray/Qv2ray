@@ -51,24 +51,28 @@ namespace Qv2ray
             // Stream Settings
             StreamSettingsObject streaming;
 
-            // Fill hosts for HTTP
-            foreach (auto _host, QString::fromStdString(host).split(',')) {
-                streaming.httpSettings.host.push_back(_host.toStdString());
+            if (net == "tcp") {
+                streaming.tcpSettings.header.type = type;
+            } else if (net == "http") {
+                // Fill hosts for HTTP
+                foreach (auto _host, QString::fromStdString(host).split(',')) {
+                    streaming.httpSettings.host.push_back(_host.toStdString());
+                }
+
+                streaming.httpSettings.path = path;
+            } else if (net == "ws") {
+                streaming.wsSettings.headers.insert(make_pair("Host", host));
+                streaming.wsSettings.path = path;
+            } else if (net == "kcp") {
+                streaming.kcpSettings.header.type = type;
+            } else if (net == "domainsocket") {
+                streaming.dsSettings.path = path;
+            } else if (net == "quic") {
+                streaming.quicSettings.security = host;
+                streaming.quicSettings.header.type = type;
+                streaming.quicSettings.key = path;
             }
 
-            // hosts for ws, h2 and security for QUIC
-            streaming.wsSettings.headers.insert(make_pair("Host", host));
-            streaming.quicSettings.security = host;
-            //
-            // Fake type for tcp, kcp and QUIC
-            streaming.tcpSettings.header.type = type;
-            streaming.kcpSettings.header.type = type;
-            streaming.quicSettings.header.type = type;
-            //
-            // Path for ws, h2, Quic
-            streaming.wsSettings.path = path;
-            streaming.httpSettings.path = path;
-            streaming.quicSettings.key = path;
             streaming.security = tls;
             //
             // Network type
