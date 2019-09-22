@@ -172,7 +172,7 @@
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="771"/>
       <source>tProxy</source>
-      <translation type="unfinished">tProxy</translation>
+      <translation>透明代理</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="808"/>
@@ -496,17 +496,17 @@
       <location filename="../src/w_MainWindow.cpp" line="433"/>
       <location filename="../src/w_MainWindow.cpp" line="442"/>
       <source>Rename a Connection</source>
-      <translation type="unfinished">Rename a Connection</translation>
+      <translation>重命名连接</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="433"/>
       <source>The name cannot be empty</source>
-      <translation type="unfinished">The name cannot be empty</translation>
+      <translation>名称不能为空</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="469"/>
       <source>Removing this Connection</source>
-      <translation type="unfinished">Removing this Connection</translation>
+      <translation>删除连接</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="507"/>
@@ -842,23 +842,23 @@
     <message>
       <location filename="../src/w_PrefrencesWindow.cpp" line="315"/>
       <source>Enable tProxy Support</source>
-      <translation type="unfinished">Enable tProxy Support</translation>
+      <translation>启用 tProxy 支持</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.cpp" line="315"/>
       <source>This will append capabilities to the v2ray executable.</source>
-      <translation type="unfinished">This will append capabilities to the v2ray executable.</translation>
+      <translation>这将在 v2ray 可执行程序上添加 Capability</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.cpp" line="316"/>
       <source>If anything goes wrong after enabling this, please refer to issue #57 or the link below:</source>
-      <translation type="unfinished">If anything goes wrong after enabling this, please refer to issue #57 or the link below:</translation>
+      <translation>如果在启用之后出现任何错误，请参阅 issue #57 或 以下链接：</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.cpp" line="326"/>
       <location filename="../src/w_PrefrencesWindow.cpp" line="336"/>
       <source>Failed to setcap onto v2ray executable. You may need to run `setcap` manually.</source>
-      <translation type="unfinished">Failed to setcap onto v2ray executable. You may need to run `setcap` manually.</translation>
+      <translation>无法执行 setcap，你可能需要手动进行操作</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.cpp" line="348"/>
@@ -871,22 +871,22 @@
     <message>
       <location filename="../src/main.cpp" line="54"/>
       <source>Qv2ray Cannot Continue</source>
-      <translation type="unfinished">Qv2ray Cannot Continue</translation>
+      <translation>Qv2ray 无法继续</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="54"/>
       <source>You are running a lower version of Qv2ray compared to the current config file.</source>
-      <translation type="unfinished">You are running a lower version of Qv2ray compared to the current config file.</translation>
+      <translation>你正在运行一个比配置文件版本低的 Qv2ray</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="56"/>
       <source>Please report if you think this is an error.</source>
-      <translation type="unfinished">Please report if you think this is an error.</translation>
+      <translation>如果你认为这是一个 bug，请反馈 Issues</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="57"/>
       <source>Qv2ray will now exit.</source>
-      <translation type="unfinished">Qv2ray will now exit.</translation>
+      <translation>Qv2ray 现在将会退出</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="144"/>
@@ -916,17 +916,17 @@
     <message>
       <location filename="../src/QvCoreInteractions.cpp" line="29"/>
       <source>Configuration Error</source>
-      <translation type="unfinished">Configuration Error</translation>
+      <translation>配置错误</translation>
     </message>
     <message>
       <location filename="../src/QvCoreInteractions.cpp" line="55"/>
       <source>Cannot start v2ray</source>
-      <translation type="unfinished">Cannot start v2ray</translation>
+      <translation>无法启动 v2ray</translation>
     </message>
     <message>
       <location filename="../src/QvCoreInteractions.cpp" line="55"/>
       <source>v2ray core file cannot be found at:</source>
-      <translation type="unfinished">v2ray core file cannot be found at:</translation>
+      <translation>v2ray 核心文件未能在这里找到：</translation>
     </message>
   </context>
   <context>
