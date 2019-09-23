@@ -53,7 +53,7 @@ Himeki.net 的 Jenkins 编译服务器提供 `master` `dev` 和 `version-v1` 分
 ### Linux & MacOS
 
 - 对于 MacOS，需要额外使用 HomeBrew 安装 Qt 并正确设定 $PATH 环境变量，或者使用 Qt 官方包 (包含 QtCreator)
-- 对于 Linux，请根据不同发行版安装对应的 Qt 开发包 
+- 对于 Linux，请根据不同发行版安装对应的 Qt 开发包 (对于 Arch Linux 用户也可从 [qv2ray-dev-git](https://aur.archlinux.org/packages/qv2ray-dev-git) 拉取 `dev` 分支并构建)
 
 ```bash
 git clone --recursive https://github.com/lhy0403/Qv2ray && cd Qv2ray
@@ -93,7 +93,7 @@ mingw32-make.exe
  Leroy.H.Y (@lhy0403)            ---> Qv2ray Current Maintainer
  Hork (@aliyuchang33)	         ---> Hv2ray Initial Idea and Designs   
  SOneWinstone (@SoneWinstone)    ---> Hv2ray/Qv2ray HTTP Request Helper
- ArielAxionL (@axionl)		     ---> Qv2ray ArtWork
+ ArielAxionL (@axionl)		 ---> Qv2ray ArtWork
  TheBadGateway (@thebadgateway)  ---> Russian Translation
 ```
 
