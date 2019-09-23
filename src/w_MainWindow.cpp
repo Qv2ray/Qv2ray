@@ -504,12 +504,23 @@ void MainWindow::on_editConfigButton_clicked()
 {
     // Check if we have a connection selected...
     if (ui->connectionListWidget->currentIndex().row() < 0) {
-        QvMessageBox(this, tr("NoConfigSelected"), tr("PleaseSelectAConfig"));
+        QvMessageBox(this, tr("No Config Selected"), tr("Please Select a Config"));
         return;
     }
 
     auto alias = ui->connectionListWidget->currentItem()->text();
     auto outBoundRoot = connections[alias];
+
+    if (outBoundRoot["outbounds"].toArray().count() > 1) {
+        // Complicated version, currently not support editing.
+        if (QvMessageBoxAsk(this, tr("Not Supported"), tr("Qv2ray currently does not support editing complex configs.") + "\r\n" +
+                            tr("Do you want to edit the config file manually?")) ==  QMessageBox::StandardButton::Yes) {
+            QDesktopServices::openUrl(QUrl::fromLocalFile(QV2RAY_CONFIG_DIR_PATH + alias + QV2RAY_CONNECTION_FILE_EXTENSION));
+        }
+
+        return;
+    }
+
     ConnectionEditWindow *w = new ConnectionEditWindow(outBoundRoot, &alias, this);
     connect(w, &ConnectionEditWindow::s_reload_config, this, &MainWindow::save_reload_globalconfig);
     w->show();
