@@ -6,23 +6,28 @@ namespace Qv2ray
     {
         static const QStringList vLogLevels = {"none", "debug", "info", "warning", "error"};
         // -------------------------- BEGIN CONFIG GENERATIONS ----------------------------------------------------------------------------
-        QJsonObject GenerateRoutes(bool globalProxy, bool cnProxy)
+        QJsonObject GenerateRoutes(bool enableProxy, bool cnProxy)
         {
             DROOT
             root.insert("domainStrategy", "IPIfNonMatch");
             //
             // For Rules list
             QJsonArray rulesList;
-            //
+
+            if (!enableProxy) {
+                // This is added to disable all proxies, as a alternative influence of #64
+                rulesList.append(GenerateSingleRouteRule(QStringList() << "regexp:.*", true, OUTBOUND_TAG_DIRECT));
+            }
+
             // Private IPs should always NOT TO PROXY!
-            rulesList.append(GenerateSingleRouteRule(QStringList({"geoip:private"}), false, OUTBOUND_TAG_DIRECT));
+            rulesList.append(GenerateSingleRouteRule(QStringList() << "geoip:private", false, OUTBOUND_TAG_DIRECT));
             //
             // Check if CN needs proxy, or direct.
-            rulesList.append(GenerateSingleRouteRule(QStringList({"geoip:cn"}), false, cnProxy ? OUTBOUND_TAG_PROXY : OUTBOUND_TAG_DIRECT));
-            rulesList.append(GenerateSingleRouteRule(QStringList({"geosite:cn"}), true, cnProxy ? OUTBOUND_TAG_PROXY :  OUTBOUND_TAG_DIRECT));
+            rulesList.append(GenerateSingleRouteRule(QStringList() << "geoip:cn", false, cnProxy ? OUTBOUND_TAG_PROXY : OUTBOUND_TAG_DIRECT));
+            rulesList.append(GenerateSingleRouteRule(QStringList() << "geosite:cn", true, cnProxy ? OUTBOUND_TAG_PROXY :  OUTBOUND_TAG_DIRECT));
             //
-            // Check global proxy, or direct.
-            rulesList.append(GenerateSingleRouteRule(QStringList({"regexp:.*"}), true, globalProxy ? OUTBOUND_TAG_PROXY :  OUTBOUND_TAG_DIRECT));
+            // As a bug fix of #64, this default rule has been disabled.
+            //rulesList.append(GenerateSingleRouteRule(QStringList({"regexp:.*"}), true, globalProxy ? OUTBOUND_TAG_PROXY :  OUTBOUND_TAG_DIRECT));
             root.insert("rules", rulesList);
             RROOT
         }
@@ -76,6 +81,8 @@ namespace Qv2ray
             QJsonArray servers(QJsonArray::fromStringList(dnsServers));
 
             if (withLocalhost) {
+                // https://github.com/lhy0403/Qv2ray/issues/64
+                // The fix patch didn't touch this line below.
                 servers.append("localhost");
             }
 
@@ -185,11 +192,9 @@ namespace Qv2ray
 
             // Note: The part below always makes the whole functionality in trouble......
             // BE EXTREME CAREFUL when changing these code below...
-            //
 
             // For SOME configs, there is no "route" entries, so, we add some...
 
-            // We don't use QV2RAY_CONFIG_TYPE_FILE to check because not all IMPORTED connections have routings.
             if (!root.contains("routing")) {
                 if (root["outbounds"].toArray().count() != 1) {
                     // There are no ROUTING but 2 or more outbounds.... This is rare, but possible.
@@ -198,7 +203,7 @@ namespace Qv2ray
                 }
 
                 LOG(MODULE_CONNECTION, "Current connection has NO ROUTING section, we insert default values.")
-                auto routeObject = GenerateRoutes(gConf.proxyDefault, gConf.proxyCN);
+                auto routeObject = GenerateRoutes(gConf.enableProxy, gConf.proxyCN);
                 root.insert("routing", routeObject);
                 QJsonArray outbounds = root["outbounds"].toArray();
                 outbounds.append(GenerateOutboundEntry("freedom", GenerateFreedomOUT("AsIs", ":0", 0), QJsonObject(), QJsonObject(), "0.0.0.0", OUTBOUND_TAG_DIRECT));
