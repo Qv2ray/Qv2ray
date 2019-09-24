@@ -1,3 +1,7 @@
+***注意：Qv2ray 仅能用于 Qt/c++/linux/CI/自动化 等相关技术的学习和在法律允许范围内的使用，任何个人或集体不得使用 Qv2ray 进行任何违反相关法律法规的操作。***
+
+*任何尝试下载或下载 Qv2ray 任意分支或发行版即代表您同意本项目作者不承担任何由于您违反以上准则所带来的任何法律责任。*
+
 # Qv2ray
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/a034dd186c36408c92ffb04449fb6996)](https://app.codacy.com/app/lhy0403/Qv2ray?utm_source=github.com&utm_medium=referral&utm_content=lhy0403/Qv2ray&utm_campaign=Badge_Grade_Dashboard) [![HitCount](http://hits.dwyl.io/lhy0403/Qv2ray.svg)](http://hits.dwyl.io/lhy0403/Qv2ray) 
@@ -130,9 +134,3 @@ Qv2ray is licensed under [![License: GPL v3](https://img.shields.io/badge/Licens
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ```
-
-
-
-***注意：Qv2ray 仅能用于 Qt/c++/linux/CI/自动化 等相关技术的学习和在法律允许范围内的使用，任何个人或集体不得使用 Qv2ray 进行任何违反相关法律法规的操作。***
-
-*启动 Qv2ray 即代表您同意本项目作者不承担任何由于您违反以上准则所带来的任何法律责任。*
