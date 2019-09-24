@@ -6,7 +6,7 @@
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="26"/>
       <source>EditConnectionSettings</source>
-      <translation type="unfinished">EditConnectionSettings</translation>
+      <translation>编辑连接设置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="37"/>
