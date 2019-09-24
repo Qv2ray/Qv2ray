@@ -59,7 +59,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="restartButton">
+       <widget class="QPushButton" name="reconnectButton">
         <property name="text">
          <string>Reconnect</string>
         </property>
@@ -246,7 +246,7 @@
          <string>A</string>
         </property>
         <property name="icon">
-         <iconset resource="../resources.qrc">
+         <iconset resource="../../resources.qrc">
           <normaloff>:/icons/add_connection_btn.png</normaloff>:/icons/add_connection_btn.png</iconset>
         </property>
        </widget>
@@ -266,7 +266,7 @@
          <string>I</string>
         </property>
         <property name="icon">
-         <iconset resource="../resources.qrc">
+         <iconset resource="../../resources.qrc">
           <normaloff>:/icons/import_connection_btn.png</normaloff>:/icons/import_connection_btn.png</iconset>
         </property>
        </widget>
@@ -280,7 +280,7 @@
          <string>...</string>
         </property>
         <property name="icon">
-         <iconset resource="../resources.qrc">
+         <iconset resource="../../resources.qrc">
           <normaloff>:/icons/edit_connection_btn.png</normaloff>:/icons/edit_connection_btn.png</iconset>
         </property>
        </widget>
@@ -300,7 +300,7 @@
          <string>R</string>
         </property>
         <property name="icon">
-         <iconset resource="../resources.qrc">
+         <iconset resource="../../resources.qrc">
           <normaloff>:/icons/remove_connection_btn.png</normaloff>:/icons/remove_connection_btn.png</iconset>
         </property>
        </widget>
@@ -393,7 +393,7 @@
   <tabstop>clearlogButton</tabstop>
  </tabstops>
  <resources>
-  <include location="../resources.qrc"/>
+  <include location="../../resources.qrc"/>
  </resources>
  <connections/>
 </ui>

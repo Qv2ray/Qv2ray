@@ -35,8 +35,6 @@ class PrefrencesWindow : public QDialog
 
         void on_logLevelComboBox_currentIndexChanged(int index);
 
-        void on_vCoreExePathTxt_textEdited(const QString &arg1);
-
         void on_vCoreAssetsPathTxt_textEdited(const QString &arg1);
 
         void on_muxEnabledCB_stateChanged(int arg1);
@@ -60,8 +58,6 @@ class PrefrencesWindow : public QDialog
         void on_proxyDefaultCb_stateChanged(int arg1);
 
         void on_localDNSCb_stateChanged(int arg1);
-
-        void on_selectVCoreBtn_clicked();
 
         void on_selectVAssetBtn_clicked();
 

@@ -20,7 +20,7 @@ namespace Qv2ray
             bool Start();
             void Stop();
             V2RAY_INSTANCE_STARTUP_STATUS Status;
-            static bool VerifyVConfigFile(QString path);
+            static bool VerifyVConfigFile(const QString *path);
             static bool ValidateV2rayCoreExe();
             QString ReadProcessOutput();
 

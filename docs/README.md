@@ -2,7 +2,7 @@
 
 - 基于 Qt 的跨平台 v2ray 图形客户端
 
-- #### 当前最新版本： [v1.3.6.1](./ReleaseNote/1.3/v1.3.6.1.md)
+- #### 当前最新版本： [v1.3.7.1](./ReleaseNotes/1.3/v1.3.7.1.md)
 
 --------
 
@@ -25,7 +25,11 @@
 
 见 [更新历史记录](./History.md)
 
-## 4. 共同翻译 Qv2ray
+## 4. 常见问题 FAQ
+
+见 [FAQ.md](./FAQ.md)
+
+## 5. 共同翻译 Qv2ray
 
 翻译平台使用 Crowdin，[https://crowdin.com/project/qv2ray](https://crowdin.com/project/qv2ray)
 

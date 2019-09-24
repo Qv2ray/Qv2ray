@@ -58,8 +58,8 @@ class MainWindow : public QMainWindow
         void on_editConfigButton_clicked();
 
         void on_editConfigAdvButton_clicked();
-        
-        void on_pushButton_clicked();
+
+        void on_reconnectButton_clicked();
 
     private:
         void on_action_StartThis_triggered();
@@ -77,7 +77,7 @@ class MainWindow : public QMainWindow
         QString originalName;
         bool isRenamingInProgress;
         //
-        void ShowAndSetConnection(int index, bool SetConnection, bool Apply);
+        void ShowAndSetConnection(QString currentText, bool SetConnection, bool Apply);
         void LoadConnections();
         void closeEvent(QCloseEvent *);
 };

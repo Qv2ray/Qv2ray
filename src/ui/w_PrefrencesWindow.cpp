@@ -5,10 +5,6 @@
 
 #include <iostream>
 
-#ifdef __linux
-#include <unistd.h>
-#endif
-
 #define NEEDRESTART if(finishedLoading) IsConnectionPropertyChanged = true;
 
 PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
@@ -63,15 +59,16 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     ui->socksPortLE->setValidator(new QIntValidator());
     //
     //
-    ui->vCoreExePathTxt->setText(QSTRING(CurrentConfig.v2CorePath));
     ui->vCoreAssetsPathTxt->setText(QSTRING(CurrentConfig.v2AssetsPath));
     //
     //
     ui->muxEnabledCB->setChecked(CurrentConfig.mux.enabled);
     ui->muxConcurrencyTxt->setValue(CurrentConfig.mux.concurrency);
     //
+    //
     ui->bypassCNCb->setChecked(CurrentConfig.bypassCN);
-    ui->proxyDefaultCb->setChecked(CurrentConfig.proxyDefault);
+    ui->proxyDefaultCb->setChecked(CurrentConfig.enableProxy);
+    //
     ui->localDNSCb->setChecked(CurrentConfig.withLocalDNS);
     //
     ui->DNSListTxt->clear();
@@ -109,7 +106,7 @@ void PrefrencesWindow::on_buttonBox_accepted()
         return;
     }
 
-    SetGlobalConfig(CurrentConfig);
+    SetGlobalConfig(&CurrentConfig);
     emit s_reload_config(IsConnectionPropertyChanged);
 }
 
@@ -178,12 +175,6 @@ void PrefrencesWindow::on_logLevelComboBox_currentIndexChanged(int index)
     CurrentConfig.logLevel = index;
 }
 
-void PrefrencesWindow::on_vCoreExePathTxt_textEdited(const QString &arg1)
-{
-    NEEDRESTART
-    CurrentConfig.v2CorePath = arg1.toStdString();
-}
-
 void PrefrencesWindow::on_vCoreAssetsPathTxt_textEdited(const QString &arg1)
 {
     NEEDRESTART
@@ -247,30 +238,13 @@ void PrefrencesWindow::on_socksAuthPasswordTxt_textEdited(const QString &arg1)
 void PrefrencesWindow::on_proxyDefaultCb_stateChanged(int arg1)
 {
     NEEDRESTART
-    CurrentConfig.proxyDefault = arg1 == Qt::Checked;
+    CurrentConfig.enableProxy = arg1 == Qt::Checked;
 }
 
 void PrefrencesWindow::on_localDNSCb_stateChanged(int arg1)
 {
     NEEDRESTART
     CurrentConfig.withLocalDNS = arg1 == Qt::Checked;
-}
-
-void PrefrencesWindow::on_selectVCoreBtn_clicked()
-{
-    NEEDRESTART
-    QString path = QFileDialog::getOpenFileName(this, tr("Open v2ray core file"), QDir::currentPath());
-    ui->vCoreExePathTxt->setText(path);
-    on_vCoreExePathTxt_textEdited(path);
-
-    // If we enabled tProxy feature... then not to change this automatically
-    if (CurrentConfig.tProxySupport) {
-        LOG(MODULE_CONFIG, "Not to automatically update v2ray assets path, because tProxy feature is enabled.")
-    } else {
-        auto dir = QFileInfo(path).dir().path();
-        ui->vCoreAssetsPathTxt->setText(dir);
-        on_vCoreAssetsPathTxt_textEdited(dir);
-    }
 }
 
 void PrefrencesWindow::on_selectVAssetBtn_clicked()
@@ -322,36 +296,52 @@ void PrefrencesWindow::on_cancelIgnoreVersionBtn_clicked()
 void PrefrencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
 {
 #ifdef __linux
-    LOG(MODULE_UI, "WARN: This feature is on development.")
-    // Set UID and GID for linux
-    // Steps:
-    // --> 1. Copy v2ray core files to the #CONFIG_DIR#/vcore/ dir.
-    // --> 2. Change GlobalConfig.v2CorePath.
-    // --> 3. Call `pkexec setcap SOMECAP` on the v2ray core.
-    QString vCorePath = QString::fromStdString(CurrentConfig.v2CorePath);
-    QFileInfo v2rayCoreExeFile(vCorePath);
 
-    if (arg1 == Qt::Checked && v2rayCoreExeFile.ownerId() != 0) {
-        QProcess::execute("pkexec", QStringList() << "bash"
-                          << "-c"
-                          << "chown root:root " + vCorePath + " && "
-                          << "chmod +s " + vCorePath);
-        CurrentConfig.tProxySupport = true;
-    } else if (arg1 != Qt::Checked && v2rayCoreExeFile.ownerId() == 0) {
-        uid_t uid = getuid();
-        gid_t gid = getgid();
-        QProcess::execute("pkexec", QStringList()
-                          << "chown" << QString::number(uid) + ":" + QString::number(gid)
-                          << vCorePath);
-        CurrentConfig.tProxySupport = false;
+    if (finishedLoading) {
+        //LOG(MODULE_UI, "Running getcap....")
+        //QProcess::execute("getcap " + QV2RAY_V2RAY_CORE_PATH);
+
+        // Set UID and GID for linux
+        // Steps:
+        // --> 1. Copy v2ray core files to the #CONFIG_DIR#/vcore/ dir.
+        // --> 2. Change GlobalConfig.v2CorePath.
+        // --> 3. Call `pkexec setcap CAP_NET_ADMIN,CAP_NET_RAW,CAP_NET_BIND_SERVICE=eip` on the v2ray core.
+        if (arg1 == Qt::Checked) {
+            // We enable it!
+            if (QvMessageBoxAsk(this, tr("Enable tProxy Support"), tr("This will append capabilities to the v2ray executable.")  + "\r\n"
+                                + tr("If anything goes wrong after enabling this, please refer to issue #57 or the link below:") + "\r\n" +
+                                " https://github.com/lhy0403/Qv2ray/blob/master/docs/FAQ.md ") != QMessageBox::Yes) {
+                ui->tProxyCheckBox->setChecked(false);
+                LOG(MODULE_UI, "Canceled enabling tProxy feature.")
+            }
+
+            int ret = QProcess::execute("pkexec setcap CAP_NET_ADMIN,CAP_NET_RAW,CAP_NET_BIND_SERVICE=eip " + QV2RAY_V2RAY_CORE_PATH);
+
+            if (ret != 0) {
+                LOG(MODULE_UI, "WARN: setcap exits with code: " + to_string(ret))
+                QvMessageBox(this, tr("Prefrences"), tr("Failed to setcap onto v2ray executable. You may need to run `setcap` manually."));
+            }
+
+            CurrentConfig.tProxySupport = true;
+            NEEDRESTART
+        } else {
+            int ret = QProcess::execute("pkexec setcap -r " + QV2RAY_V2RAY_CORE_PATH);
+
+            if (ret != 0) {
+                LOG(MODULE_UI, "WARN: setcap exits with code: " + to_string(ret))
+                QvMessageBox(this, tr("Prefrences"), tr("Failed to setcap onto v2ray executable. You may need to run `setcap` manually."));
+            }
+
+            CurrentConfig.tProxySupport = false;
+            NEEDRESTART
+        }
     }
 
-    NEEDRESTART
 #else
     Q_UNUSED(arg1)
     ui->tProxyCheckBox->setChecked(false);
-    // No such uid gid thing on Windows and MacOS is in TODO ....
-    QvMessageBox(this, tr("tProxy"), tr("tProxy is not supported on MacOS and Windows"));
+    // No such uid gid thing on Windows and MacOS
+    QvMessageBox(this, tr("Prefrences"), tr("tProxy is not supported on MacOS and Windows"));
 #endif
 }
 void PrefrencesWindow::on_bypassCNCb_stateChanged(int arg1)

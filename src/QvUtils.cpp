@@ -7,9 +7,9 @@ namespace Qv2ray
     {
         static Qv2rayConfig GlobalConfig;
         static QString ConfigDirPath;
-        void SetGlobalConfig(Qv2rayConfig conf)
+        void SetGlobalConfig(const Qv2rayConfig *conf)
         {
-            GlobalConfig = conf;
+            GlobalConfig = *conf;
         }
 
         Qv2rayConfig GetGlobalConfig()
@@ -22,16 +22,16 @@ namespace Qv2ray
             return ConfigDirPath;
         }
 
-        void SetConfigDirPath(QString path)
+        void SetConfigDirPath(const QString *path)
         {
-            ConfigDirPath = path;
+            ConfigDirPath = *path;
         }
 
         void SaveGlobalConfig()
         {
             QFile config(QV2RAY_CONFIG_FILE_PATH);
             QString str = StructToJsonString(GetGlobalConfig());
-            StringToFile(str, &config);
+            StringToFile(&str, &config);
         }
 
         QString Stringify(list<string> list, QString saperator)
@@ -64,12 +64,12 @@ namespace Qv2ray
             return out;
         }
 
-        bool StringToFile(QString text, QFile *targetFile)
+        bool StringToFile(const QString *text, QFile *targetFile)
         {
             bool override = targetFile->exists();
             targetFile->open(QFile::WriteOnly);
             QTextStream stream(targetFile);
-            stream << text << endl;
+            stream << *text << endl;
             stream.flush();
             targetFile->close();
             return override;
@@ -124,7 +124,7 @@ namespace Qv2ray
             QTextStream stream(&file);
             auto str = stream.readAll();
             auto config  = StructFromJsonString<Qv2rayConfig>(str);
-            SetGlobalConfig(config);
+            SetGlobalConfig(&config);
             file.close();
         }
 

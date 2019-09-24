@@ -17,7 +17,7 @@ namespace Qv2ray
     namespace ConfigOperations
     {
         // -------------------------- BEGIN CONFIG GENERATIONS ---------------------------------------------
-        QJsonObject GenerateRoutes(bool globalProxy, bool cnProxy);
+        QJsonObject GenerateRoutes(bool enableProxy, bool cnProxy);
         QJsonObject GenerateSingleRouteRule(QStringList list, bool isDomain, QString outboundTag, QString type = "field");
         QJsonObject GenerateDNS(bool withLocalhost, QStringList dnsServers);
         //
@@ -57,7 +57,7 @@ namespace Qv2ray
         bool SaveConnectionConfig(QJsonObject obj, const QString *alias);
         bool RenameConnection(QString originalName, QString newName);
         // VMess Protocol
-        QJsonObject ConvertConfigFromVMessString(QString vmess, QString source = QV2RAY_CONFIG_TYPE_CONNECTIONSTRING);
+        QJsonObject ConvertConfigFromVMessString(QString vmess);
         QJsonObject ConvertConfigFromFile(QString sourceFilePath, bool overrideInbounds);
         // Load Configs
         QMap<QString, QJsonObject> GetConnections(list<string> connections);
