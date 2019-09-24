@@ -79,6 +79,7 @@ int main(int argc, char *argv[])
         "Hv2ray Initial Idea and Designs Copyright (C) 2019 Hork (@aliyuchang33)\r\n"
         "Hv2ray/Qv2ray HTTP Request Helper (partial) Copyright 2019 (C) SOneWinstone (@SoneWinstone)\r\n"
         "Qv2ray ArtWork Done By ArielAxionL (@axionl)\r\n"
+        "Qv2ray Russian Translations By TheBadGateway (@thebadgateway)\r\n"
         "\r\n"
         "Qv2ray " QV2RAY_VERSION_STRING " running on " + QSysInfo::prettyProductName().toStdString() + " " + QSysInfo::currentCpuArchitecture().toStdString() +
         "\r\n")
