@@ -17,11 +17,11 @@ class ConnectionEditWindow : public QDialog
 
     public:
         explicit ConnectionEditWindow(QWidget *parent = nullptr);
-        explicit ConnectionEditWindow(QJsonObject editRootObject, QString *alias, QWidget *parent = nullptr);
         QJsonObject Result;
         QString Tag;
         QString Alias;
         QJsonObject OpenEditor();
+        explicit ConnectionEditWindow(QJsonObject outboundEntry, QString *alias, QWidget *parent = nullptr);
         ~ConnectionEditWindow();
     signals:
         void s_reload_config(bool need_restart);

@@ -37,7 +37,7 @@ void SubscribeEditor::on_buttonBox_accepted()
 
     auto conf = GetGlobalConfig();
     conf.subscribes = subscribes;
-    SetGlobalConfig(conf);
+    SetGlobalConfig(&conf);
     emit s_update_config();
 }
 
@@ -69,7 +69,7 @@ void SubscribeEditor::ProcessSubscriptionEntry(QByteArray result, QString subsci
         auto vmessList = content.split("\n");
 
         for (auto vmess : vmessList) {
-            auto config = ConvertConfigFromVMessString(vmess, QV2RAY_CONFIG_TYPE_SUBSCRIPTION);
+            auto config = ConvertConfigFromVMessString(vmess);
 
             if (subscriptions.contains(subsciptionName)) {
             }

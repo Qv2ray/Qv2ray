@@ -8,8 +8,20 @@
 #define QV2RAY_VERSION_STRING "v" QV_MAJOR_VERSION
 
 #define QV2RAY_CONFIG_VERSION 4
+// Base folder.
 #define QV2RAY_CONFIG_DIR_PATH (Qv2ray::Utils::GetConfigDirPath() + "/")
 #define QV2RAY_CONFIG_FILE_PATH (QV2RAY_CONFIG_DIR_PATH + "Qv2ray.conf")
+
+// We need v2ray.exe/v2ray executables here!
+#define QV2RAY_V2RAY_CORE_DIR_PATH (QV2RAY_CONFIG_DIR_PATH + "vcore/")
+
+#ifdef __WIN32
+// Win32 has .exe
+#define QV2RAY_V2RAY_CORE_PATH (QV2RAY_V2RAY_CORE_DIR_PATH + "v2ray.exe")
+#else
+// MacOS and Linux....
+#define QV2RAY_V2RAY_CORE_PATH (QV2RAY_V2RAY_CORE_DIR_PATH + "v2ray")
+#endif
 
 #define QV2RAY_CONNECTION_FILE_EXTENSION ".qv2ray.json"
 #define QV2RAY_GENERATED_FILE_PATH (QV2RAY_CONFIG_DIR_PATH + "generated/config.gen.json")
@@ -17,13 +29,6 @@
 #define QV2RAY_VCORE_LOG_DIRNAME "logs/"
 #define QV2RAY_VCORE_ACCESS_LOG_FILENAME "access.log"
 #define QV2RAY_VCORE_ERROR_LOG_FILENAME "error.log"
-
-// These is for early-2.0 version, final 2.0 will move these content into global config.
-#define QV2RAY_CONFIG_TYPE_FILE "File"
-#define QV2RAY_CONFIG_TYPE_MANUAL "Manual"
-#define QV2RAY_CONFIG_TYPE_CONNECTIONSTRING "ConnectionString"
-#define QV2RAY_CONFIG_TYPE_SUBSCRIPTION "Subscription"
-#define QV2RAY_CONFIG_TYPE_JSON_KEY "_qv2ray.configSource"
 
 // GUI TOOLS
 #define RED(obj)                             \
@@ -78,14 +83,13 @@ namespace Qv2ray
             int logLevel;
             //
             string language;
-            string v2CorePath;
             string v2AssetsPath;
             string autoStartConfig;
             //
             string ignoredVersion;
             //
-            bool proxyDefault;
             bool bypassCN;
+            bool enableProxy;
             bool withLocalDNS;
             list<string> dnsList;
             //
@@ -97,14 +101,13 @@ namespace Qv2ray
 #endif
             map<string, string> subscribes;
             MuxObject mux;
-            Qv2rayConfig(): config_version(QV2RAY_CONFIG_VERSION), tProxySupport(false), logLevel(), proxyDefault(), bypassCN(), withLocalDNS(), inBoundSettings(), configs(), subscribes(), mux() { }
-            Qv2rayConfig(string lang, string exePath, string assetsPath, int log, Qv2rayBasicInboundsConfig _inBoundSettings): Qv2rayConfig()
+            Qv2rayConfig(): config_version(QV2RAY_CONFIG_VERSION), tProxySupport(false), logLevel(), bypassCN(), enableProxy(), withLocalDNS(), inBoundSettings(), configs(), subscribes(), mux() { }
+            Qv2rayConfig(string lang, string assetsPath, int log, Qv2rayBasicInboundsConfig _inBoundSettings): Qv2rayConfig()
             {
                 // These settings below are defaults.
                 ignoredVersion = "";
                 autoStartConfig = "";
                 language = lang;
-                v2CorePath = exePath;
                 v2AssetsPath = assetsPath;
                 logLevel = log;
                 inBoundSettings = _inBoundSettings;
@@ -114,12 +117,13 @@ namespace Qv2ray
                 dnsList.push_back("1.1.1.1");
                 dnsList.push_back("4.4.4.4");
                 bypassCN = true;
-                proxyDefault = true;
+                enableProxy = true;
                 withLocalDNS = true;
             }
-            XTOSTRUCT(O(config_version, tProxySupport, logLevel, language, autoStartConfig, ignoredVersion, v2CorePath, v2AssetsPath, proxyDefault, bypassCN, withLocalDNS, dnsList, inBoundSettings, mux, configs, subscribes))
+            XTOSTRUCT(O(config_version, tProxySupport, logLevel, language, autoStartConfig, ignoredVersion, v2AssetsPath, enableProxy, bypassCN, withLocalDNS, dnsList, inBoundSettings, mux, configs, subscribes))
         };
 
+        // Extra header for QvConfigUpgrade.cpp
         QJsonObject UpgradeConfig(int fromVersion, int toVersion, QJsonObject root);
     }
 }

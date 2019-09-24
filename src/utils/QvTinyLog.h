@@ -19,4 +19,8 @@ using namespace std;
 #define MODULE_FILE "FILE"
 #define MODULE_SUBSCRIPTION "SUBSCRIPTION"
 
+#define WARN "WARN"
+#define INFO "INFO"
+#define ERROR "ERROR"
+
 #endif // QVTINYLOG_H

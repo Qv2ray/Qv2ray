@@ -7,25 +7,39 @@ namespace Qv2ray
         bool SaveConnectionConfig(QJsonObject obj, const QString *alias)
         {
             QFile config(QV2RAY_CONFIG_DIR_PATH + *alias + QV2RAY_CONNECTION_FILE_EXTENSION);
-            return StringToFile(JsonToString(obj), &config);
+            auto str = JsonToString(obj);
+            return StringToFile(&str, &config);
         }
 
         // This generates global config containing only one outbound....
-        QJsonObject ConvertConfigFromVMessString(QString str, QString source)
+        QJsonObject ConvertConfigFromVMessString(QString str)
         {
             DROOT
             QStringRef vmessJsonB64(&str, 8, str.length() - 8);
-            auto vmessConf = StructFromJsonString<VMessProtocolConfigObject>(Base64Decode(vmessJsonB64.toString()));
+            auto vmessConf = JsonFromString(Base64Decode(vmessJsonB64.toString()));
+            string ps, add, id, net, type, host, path, tls;
+            int port, aid;
+            ps = vmessConf["ps"].toVariant().toString().toStdString();
+            add = vmessConf["add"].toVariant().toString().toStdString();
+            id = vmessConf["id"].toVariant().toString().toStdString();
+            net = vmessConf["net"].toVariant().toString().toStdString();
+            type = vmessConf["type"].toVariant().toString().toStdString();
+            host = vmessConf["host"].toVariant().toString().toStdString();
+            path = vmessConf["path"].toVariant().toString().toStdString();
+            tls = vmessConf["tls"].toVariant().toString().toStdString();
+            //
+            port = vmessConf["port"].toVariant().toInt();
+            aid = vmessConf["aid"].toVariant().toInt();
             //
             // User
             VMessServerObject::UserObject user;
-            user.id = vmessConf.id;
-            user.alterId = stoi(vmessConf.aid);
+            user.id = id;
+            user.alterId = aid;
             //
             // Server
             VMessServerObject serv;
-            serv.port = stoi(vmessConf.port);
-            serv.address = vmessConf.add;
+            serv.port = port;
+            serv.address = add;
             serv.users.push_back(user);
             //
             // VMess root config
@@ -37,36 +51,39 @@ namespace Qv2ray
             // Stream Settings
             StreamSettingsObject streaming;
 
-            // Fill hosts for HTTP
-            foreach (auto host, QString::fromStdString(vmessConf.host).split(',')) {
-                streaming.httpSettings.host.push_back(host.toStdString());
+            if (net == "tcp") {
+                streaming.tcpSettings.header.type = type;
+            } else if (net == "http") {
+                // Fill hosts for HTTP
+                foreach (auto _host, QString::fromStdString(host).split(',')) {
+                    streaming.httpSettings.host.push_back(_host.toStdString());
+                }
+
+                streaming.httpSettings.path = path;
+            } else if (net == "ws") {
+                streaming.wsSettings.headers.insert(make_pair("Host", host));
+                streaming.wsSettings.path = path;
+            } else if (net == "kcp") {
+                streaming.kcpSettings.header.type = type;
+            } else if (net == "domainsocket") {
+                streaming.dsSettings.path = path;
+            } else if (net == "quic") {
+                streaming.quicSettings.security = host;
+                streaming.quicSettings.header.type = type;
+                streaming.quicSettings.key = path;
             }
 
-            // hosts for ws, h2 and security for QUIC
-            streaming.wsSettings.headers.insert(make_pair("Host", vmessConf.host));
-            streaming.quicSettings.security = vmessConf.host;
-            //
-            // Fake type for tcp, kcp and QUIC
-            streaming.tcpSettings.header.type = vmessConf.type;
-            streaming.kcpSettings.header.type = vmessConf.type;
-            streaming.quicSettings.header.type = vmessConf.type;
-            //
-            // Path for ws, h2, Quic
-            streaming.wsSettings.path = vmessConf.path;
-            streaming.httpSettings.path = vmessConf.path;
-            streaming.quicSettings.key = vmessConf.path;
-            streaming.security = vmessConf.tls;
+            streaming.security = tls;
             //
             // Network type
-            streaming.network = vmessConf.net;
+            streaming.network = net;
             //
             auto outbound = GenerateOutboundEntry("vmess", vConf, GetRootObject(streaming), GetRootObject(GetGlobalConfig().mux), "0.0.0.0", OUTBOUND_TAG_PROXY);
             //
             QJsonArray outbounds;
             outbounds.append(outbound);
             root.insert("outbounds", outbounds);
-            root.insert("QV2RAY_ALIAS", QString::fromStdString(vmessConf.ps));
-            root.insert(QV2RAY_CONFIG_TYPE_JSON_KEY, source);
+            root.insert("QV2RAY_ALIAS", QString::fromStdString(ps));
             RROOT
         }
 
@@ -82,7 +99,6 @@ namespace Qv2ray
             JSON_ROOT_TRY_REMOVE("api")
             JSON_ROOT_TRY_REMOVE("stats")
             JSON_ROOT_TRY_REMOVE("dns")
-            root.insert(QV2RAY_CONFIG_TYPE_JSON_KEY, QV2RAY_CONFIG_TYPE_FILE);
             return root;
         }
 
@@ -107,7 +123,7 @@ namespace Qv2ray
         int StartPreparation(QJsonObject fullConfig)
         {
             QString json = JsonToString(fullConfig);
-            StringToFile(json, new QFile(QV2RAY_GENERATED_FILE_PATH));
+            StringToFile(&json, new QFile(QV2RAY_GENERATED_FILE_PATH));
             return 0;
         }
 

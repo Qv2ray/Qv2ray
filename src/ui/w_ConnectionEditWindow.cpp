@@ -150,7 +150,7 @@ void ConnectionEditWindow::ReLoad_GUI_JSON_ModelContent()
 void ConnectionEditWindow::on_buttonBox_accepted()
 {
     // TODO : NAMING THE CONNECTION
-    auto alias =  Alias == "" ? (ui->ipLineEdit->text() + "_" + ui->portLineEdit->text()) : Alias;
+    auto alias = Alias == "" ? (ui->ipLineEdit->text() + "_" + ui->portLineEdit->text()) : Alias;
     //
     Result = GenerateConnectionJson();
     //QJsonArray outbounds;
