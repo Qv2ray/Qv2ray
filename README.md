@@ -4,36 +4,34 @@
 
 使用 Qt 框架的跨平台 v2ray 客户端. 支持 Windows, Linux, MacOS
 
-支持连接编辑，支持导入配置和 VMess
+支持连接编辑，支持导入任意配置和 `vmess://`  分享链接
 
 Special thanks to: [Hv2ray](https://github.com/aliyuchang33/Hv2ray) by [@aliyuchang33](https://github.com/aliyuchang33)
 
- - **项目网站: https://lhy0403.github.io/Qv2ray**
- - **最新 [Release](https://github.com/lhy0403/Qv2ray/releases/latest)** 
- - **AppImage 编译平台:  [主分支/Release 版本](https://jenkins.himeki.net/job/Qv2ray-AppImage-master/)**
- - **Crowdin 翻译平台 (Public Translation Platform): [开始翻译](https://crwd.in/qv2ray)**
- - **ArchLinux - AUR: [qv2ray](https://aur.archlinux.org/packages/qv2ray/) 由 [@aliyuchang33](https://github.com/aliyuchang33) 维护**
+## 相关链接：
 
+ - **功能介绍: https://lhy0403.github.io/Qv2ray**
+ - 最新 **[Release 发布版](https://github.com/lhy0403/Qv2ray/releases/latest)**
+ - Crowdin 翻译平台, Translations are welcome at here: **[Public Translation Platform](https://crwd.in/qv2ray)**
+ - ArchLinux - AUR: **[qv2ray](https://aur.archlinux.org/packages/qv2ray/)**
+    - **[qv2ray-dev-git](https://aur.archlinux.org/packages/qv2ray-dev-git)**: `dev` 分支的开发版本，由 **[@axionl](https://github.com/axionl)** 维护
 
-
-## Jenkins AppImage (Linux)
-
-Himeki.net 的 Jenkins 编译服务器提供 `master` `dev` 和 `version-v1` 分支的 Linux AppImage 版本
-
-- 访问链接: [https://jenkins.himeki.net/](https://jenkins.himeki.net/)
-- 提供者 [@aliyuchang33](https://github.com/aliyuchang33)
+### 首次使用请查看 ➡ [用户手册](https://lhy0403.github.io/Qv2ray)
 
 
 
 ## Qv2ray 项目状态
 
-### Linux AppImage
+### Jenkins CI 
 
-| Master                                                       | Development                                                  | Versioning - v1                                              | Pull Requests                                                |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| [![Build Status](https://jenkins.himeki.net/job/Qv2ray-AppImage-master/badge/icon)](https://jenkins.himeki.net/job/Qv2ray-AppImage-master/) | [![Build Status](https://jenkins.himeki.net/job/Qv2ray-AppImage-dev/badge/icon)](https://jenkins.himeki.net/job/Qv2ray-AppImage-dev/) | [![Build Status](https://jenkins.himeki.net/job/Qv2ray-AppImage-version-v1/badge/icon)](https://jenkins.himeki.net/job/Qv2ray-AppImage-version-v1/) | [![Build Status](https://jenkins.himeki.net/job/Qv2ray-AppImage-PR/badge/icon)](https://jenkins.himeki.net/job/Qv2ray-AppImage-PR/) |
+- 访问链接: [https://jenkins.lhy0403.top/](https://jenkins.lhy0403.top/)
 
-### 跨平台 CI
+|                | Master                                                       | Development                                                  | Versioning-V1                                                | Pull Requests                                                |
+| -------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| Linux AppImage | [![Build Status](https://jenkins.lhy0403.top/job/Qv2ray-AppImage-Release/badge/icon)](https://jenkins.lhy0403.top/job/Qv2ray-AppImage-Release/) | [![Build Status](https://jenkins.lhy0403.top/job/Qv2ray-AppImage-Dev/badge/icon)](https://jenkins.lhy0403.top/job/Qv2ray-AppImage-Dev/) | [![Build Status](https://jenkins.lhy0403.top/job/Qv2ray-AppImage-Version1/badge/icon)](https://jenkins.lhy0403.top/job/Qv2ray-AppImage-Version1/) | [![Build Status](https://jenkins.lhy0403.top/job/Qv2ray-AppImage-PullRequest/badge/icon)](https://jenkins.lhy0403.top/job/Qv2ray-AppImage-PullRequest/) |
+| Windows        | [![Build Status](https://jenkins.lhy0403.top/job/Qv2ray-Win32-Release/badge/icon)](https://jenkins.lhy0403.top/job/Qv2ray-Win32-Release/) | [![Build Status](https://jenkins.lhy0403.top/job/Qv2ray-Win32-Dev/badge/icon)](https://jenkins.lhy0403.top/job/Qv2ray-Win32-Dev/) | [![Build Status](https://jenkins.lhy0403.top/job/Qv2ray-Win32-Version1/badge/icon)](https://jenkins.lhy0403.top/job/Qv2ray-Win32-Version1/) | [![Build Status](https://jenkins.lhy0403.top/job/Qv2ray-Win32-PullRequest/badge/icon)](https://jenkins.lhy0403.top/job/Qv2ray-Win32-PullRequest/) |
+
+### Travis & Appveyor
 
 *Travis per machine badge provided by: [badge-matrix](https://github.com/exogen/badge-matrix)*
 
@@ -44,16 +42,24 @@ Himeki.net 的 Jenkins 编译服务器提供 `master` `dev` 和 `version-v1` 分
 | [Windows](https://ci.appveyor.com/project/lhy0403/qv2ray) | [![Build status](https://ci.appveyor.com/api/projects/status/i1l524ws0hiitpm4/branch/master?svg=true)](https://ci.appveyor.com/project/lhy0403/qv2ray/branch/master) | [![Build status](https://ci.appveyor.com/api/projects/status/i1l524ws0hiitpm4/branch/dev?svg=true)](https://ci.appveyor.com/project/lhy0403/qv2ray/branch/dev) | [![Build status](https://ci.appveyor.com/api/projects/status/i1l524ws0hiitpm4/branch/version-v1?svg=true)](https://ci.appveyor.com/project/lhy0403/qv2ray/branch/version-v1) |
 
 
+
 ## 编译
 
+### 依赖环境
 
- - 依赖项：`Qt >= 5.12` `gcc >=8` 或 `MinGW` (Windows) 或 `clang` (MacOS)
- - 建议使用 QtCreator
+
+ - 框架依赖：`Qt >= 5.12` （5.9 可以编译成功但是不建议使用） 
+ - 编译依赖：`gcc >= 8` 或 `MinGW` (Windows) 或 `clang` (MacOS)
+
+    - 建议使用 QtCreator，以获得最佳编译环境
 
 ### Linux & MacOS
 
-- 对于 MacOS，需要额外使用 HomeBrew 安装 Qt 并正确设定 $PATH 环境变量，或者使用 Qt 官方包 (包含 QtCreator)
-- 对于 Linux，请根据不同发行版安装对应的 Qt 开发包 (对于 Arch Linux 用户也可从 [qv2ray-dev-git](https://aur.archlinux.org/packages/qv2ray-dev-git) 拉取 `dev` 分支并构建)
+- 对于 MacOS，需要额外使用 HomeBrew 安装 Qt 并正确设定 $PATH 环境变量
+  - 或者使用 Qt 官方包和 XCode
+- 对于 Linux，请根据不同发行版安装对应的 Qt 开发包 
+  - Arch Linux 用户也可从 **[qv2ray-dev-git](https://aur.archlinux.org/packages/qv2ray-dev-git)** 拉取 `dev` 分支并构建
+- 手动构建方法：
 
 ```bash
 git clone --recursive https://github.com/lhy0403/Qv2ray && cd Qv2ray
@@ -61,7 +67,6 @@ git clone --recursive https://github.com/lhy0403/Qv2ray && cd Qv2ray
 # 按需要签出开发分支
 # git checkout dev
 
-lrelease ./Qv2ray.pro
 mkdir build && cd build
 qmake ../
 make
@@ -89,13 +94,13 @@ mingw32-make.exe
 
 ## Contributors
 
-```
- Leroy.H.Y (@lhy0403)            ---> Qv2ray Current Maintainer
- Hork (@aliyuchang33)	         ---> Hv2ray Initial Idea and Designs   
- SOneWinstone (@SoneWinstone)    ---> Hv2ray/Qv2ray HTTP Request Helper
- ArielAxionL (@axionl)		 ---> Qv2ray ArtWork
- TheBadGateway (@thebadgateway)  ---> Russian Translation
-```
+| Name (@GithubAccount)                                        | Contributions                   |
+| ------------------------------------------------------------ | ------------------------------- |
+| Leroy.H.Y [@lhy0403](https://github.com/lhy0403)             | Qv2ray Current Maintainer       |
+| Hork [@aliyuchang33](https://github.com/aliyuchang33)        | Hv2ray Initial Idea and Designs |
+| SOneWinstone [@SoneWinstone](https://github.com/SoneWinstone) | HTTP Request Helper             |
+| ArielAxionL [@axionl](https://github.com/axionl)             | Qv2ray Art Work                 |
+| TheBadGateway [@thebadgateway](https://github.com/thebadgateway) | Russian Translation             |
 
 
 
@@ -110,7 +115,7 @@ Qv2ray is licensed under [![License: GPL v3](https://img.shields.io/badge/Licens
     Copyright (C) 2019 Leroy.H.Y (@lhy0403)         ---> Qv2ray Current Maintainer
     Copyright (C) 2019 Hork (@aliyuchang33)	        ---> Hv2ray Initial Idea and Designs   
     Copyright (C) 2019 SOneWinstone (@SoneWinstone) ---> Hv2ray/Qv2ray HTTP Request Helper
-	Copyright (C) 2019 ArielAxionL (@axionl)		---> Qv2ray ArtWork
+    Copyright (C) 2019 ArielAxionL (@axionl)		---> Qv2ray ArtWork
     
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -126,6 +131,8 @@ Qv2ray is licensed under [![License: GPL v3](https://img.shields.io/badge/Licens
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ```
 
-注意：Qv2ray 仅能用于 Qt/c++/linux/CI/自动化 等相关技术的学习和在法律允许范围内的使用，任何个人或集体不得使用 Qv2ray 进行任何违反相关法律法规的操作。
 
-启动 Qv2ray 即代表您同意本项目作者不承担任何由于您违反以上准则所带来的任何法律责任。
+
+***注意：Qv2ray 仅能用于 Qt/c++/linux/CI/自动化 等相关技术的学习和在法律允许范围内的使用，任何个人或集体不得使用 Qv2ray 进行任何违反相关法律法规的操作。***
+
+*启动 Qv2ray 即代表您同意本项目作者不承担任何由于您违反以上准则所带来的任何法律责任。*
