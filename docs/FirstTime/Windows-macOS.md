@@ -14,5 +14,5 @@
 ## *1. Qv2ray 在不同操作系统中生成的配置文件夹位置*
 
 - *Windows: `C:\Users\用户名\.qv2ray`*
-- *MacOS: `/Users/用户名/.qv2ray`*
+- *macOS: `/Users/用户名/.qv2ray`*
 - *Linux: `/home/用户名/.qv2ray`*

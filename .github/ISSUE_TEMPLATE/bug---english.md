@@ -23,7 +23,7 @@ If appropriate, please attach some screenshots.
 
 **System Information**
 
- - OS Type: (Windows, Linux or MacOS)
+ - OS Type: (Windows, Linux or macOS)
  - Built from the source or download from the release?
  - Version string in the Preferences Window
 

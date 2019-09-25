@@ -10,6 +10,7 @@
 #include <QDesktopServices>
 #include <QUrl>
 #include <QVersionNumber>
+#include <QKeyEvent>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -38,25 +39,25 @@ MainWindow::MainWindow(QWidget *parent)
     QAction *action_Tray_ShowHide = new QAction(this->windowIcon(), tr("Hide"), this);
     QAction *action_Tray_Quit = new QAction(tr("Quit"), this);
     QAction *action_Tray_Start = new QAction(tr("Connect"), this);
-    QAction *action_Tray_Restart = new QAction(tr("Reconnect"), this);
+    QAction *action_Tray_Reconnect = new QAction(tr("Reconnect"), this);
     QAction *action_Tray_Stop = new QAction(tr("Disconnect"), this);
     //
     QAction *action_RCM_RenameConnection = new QAction(tr("Rename"), this);
     QAction *action_RCM_StartThis = new QAction(tr("Connect to this"), this);
     action_Tray_Start->setEnabled(true);
     action_Tray_Stop->setEnabled(false);
-    action_Tray_Restart->setEnabled(false);
+    action_Tray_Reconnect->setEnabled(false);
     trayMenu->addAction(action_Tray_ShowHide);
     trayMenu->addSeparator();
     trayMenu->addAction(action_Tray_Start);
     trayMenu->addAction(action_Tray_Stop);
-    trayMenu->addAction(action_Tray_Restart);
+    trayMenu->addAction(action_Tray_Reconnect);
     trayMenu->addSeparator();
     trayMenu->addAction(action_Tray_Quit);
     connect(action_Tray_ShowHide, &QAction::triggered, this, &MainWindow::ToggleVisibility);
     connect(action_Tray_Start, &QAction::triggered, this, &MainWindow::on_startButton_clicked);
     connect(action_Tray_Stop, &QAction::triggered, this, &MainWindow::on_stopButton_clicked);
-    connect(action_Tray_Restart, &QAction::triggered, this, &MainWindow::on_restartButton_clicked);
+    connect(action_Tray_Reconnect, &QAction::triggered, this, &MainWindow::on_reconnectButton_clicked);
     connect(action_Tray_Quit, &QAction::triggered, this, &MainWindow::quit);
     connect(hTray, &QSystemTrayIcon::activated, this, &MainWindow::on_activatedTray);
     connect(ui->logText, &QTextBrowser::textChanged, this, &MainWindow::QTextScrollToBottom);
@@ -101,10 +102,17 @@ MainWindow::MainWindow(QWidget *parent)
     }
 }
 
+
+
 void MainWindow::on_action_StartThis_triggered()
 {
+    if (ui->connectionListWidget->selectedItems().empty()) {
+        QvMessageBox(this, tr("No connection selected!"), tr("Please select a config from the list."));
+        return;
+    }
+
     CurrentConnectionName = ui->connectionListWidget->currentItem()->text();
-    on_restartButton_clicked();
+    on_reconnectButton_clicked();
 }
 
 void MainWindow::VersionUpdate(QByteArray &data)
@@ -154,6 +162,8 @@ void MainWindow::LoadConnections()
     }
 
     ui->connectionListWidget->sortItems();
+    ui->removeConfigButton->setEnabled(false);
+    ui->editConfigButton->setEnabled(false);
 }
 
 void MainWindow::save_reload_globalconfig(bool need_restart)
@@ -204,7 +214,7 @@ void MainWindow::on_startButton_clicked()
     if (startFlag) {
         this->hTray->showMessage("Qv2ray", tr("Connected To Server: ") + CurrentConnectionName);
         hTray->setToolTip(TRAY_TOOLTIP_PREFIX + tr("Connected To Server: ") + CurrentConnectionName);
-        ui->statusLabel->setText(tr("Connected") + ": " + CurrentConnectionName);
+        ui->statusLabel->setText(tr("Connected: ") + CurrentConnectionName);
     }
 
     trayMenu->actions()[2]->setEnabled(!startFlag);
@@ -232,12 +242,6 @@ void MainWindow::on_stopButton_clicked()
     }
 }
 
-void MainWindow::on_restartButton_clicked()
-{
-    on_stopButton_clicked();
-    on_startButton_clicked();
-}
-
 void MainWindow::closeEvent(QCloseEvent *event)
 {
     this->hide();
@@ -252,16 +256,16 @@ void MainWindow::on_activatedTray(QSystemTrayIcon::ActivationReason reason)
             // Toggle Show/Hide
 #ifndef __APPLE__
             // Every single click will trigger the Show/Hide toggling.
-            // So, as a hobby on common MacOS Apps, we 'don't toggle visibility on click'.
+            // So, as what common macOS Apps do, we don't toggle visibility here.
             ToggleVisibility();
 #endif
             break;
 
         case QSystemTrayIcon::MiddleClick:
-            if (this->vinstance->Status == Qv2ray::STOPPED) {
-                on_startButton_clicked();
-            } else {
+            if (this->vinstance->Status == Qv2ray::STARTED) {
                 on_stopButton_clicked();
+            } else {
+                on_startButton_clicked();
             }
 
             break;
@@ -318,6 +322,8 @@ void MainWindow::ShowAndSetConnection(QString guiConnectionName, bool SetConnect
     //
     auto outboundType = outBoundRoot["protocol"].toString();
     ui->_OutBoundTypeLabel->setText(outboundType);
+    ui->removeConfigButton->setEnabled(true);
+    ui->editConfigButton->setEnabled(true);
 
     if (outboundType == "vmess") {
         auto Server = StructFromJSONString<VMessServerObject>(JSONToString(outBoundRoot["settings"].toObject()["vnext"].toArray().first().toObject()));
@@ -357,7 +363,7 @@ void MainWindow::ShowAndSetConnection(QString guiConnectionName, bool SetConnect
 
     // Restart Connection
     if (ApplyConnection) {
-        on_restartButton_clicked();
+        on_reconnectButton_clicked();
     }
 }
 
@@ -369,7 +375,7 @@ void MainWindow::on_connectionListWidget_itemClicked(QListWidgetItem *item)
     if (currentRow < 0) return;
 
     QString currentText = ui->connectionListWidget->currentItem()->text();
-    bool canSetConnection = !isRenamingInProgress && vinstance->Status != STARTED            ;
+    bool canSetConnection = !isRenamingInProgress && vinstance->Status != STARTED;
     ShowAndSetConnection(currentText, canSetConnection, false);
 }
 
@@ -516,14 +522,17 @@ void MainWindow::on_editConfigButton_clicked()
         if (QvMessageBoxAsk(this, tr("Not Supported"), tr("Qv2ray currently does not support editing complex configs.") + "\r\n" +
                             tr("Do you want to edit the config file manually?")) ==  QMessageBox::StandardButton::Yes) {
             QDesktopServices::openUrl(QUrl::fromLocalFile(QV2RAY_CONFIG_DIR_PATH + alias + QV2RAY_CONNECTION_FILE_EXTENSION));
+            QvMessageBox(this, tr("Edit Connection Manually."), tr("Qv2ray will reload the config once you click OK."));
+            LoadConnections();
+            on_reconnectButton_clicked();
         }
 
         return;
+    } else {
+        ConnectionEditWindow *w = new ConnectionEditWindow(outBoundRoot, &alias, this);
+        connect(w, &ConnectionEditWindow::s_reload_config, this, &MainWindow::save_reload_globalconfig);
+        w->show();
     }
-
-    ConnectionEditWindow *w = new ConnectionEditWindow(outBoundRoot, &alias, this);
-    connect(w, &ConnectionEditWindow::s_reload_config, this, &MainWindow::save_reload_globalconfig);
-    w->show();
 }
 
 void MainWindow::on_pushButton_clicked()
@@ -534,5 +543,6 @@ void MainWindow::on_pushButton_clicked()
 
 void MainWindow::on_reconnectButton_clicked()
 {
-    on_restartButton_clicked();
+    on_stopButton_clicked();
+    on_startButton_clicked();
 }

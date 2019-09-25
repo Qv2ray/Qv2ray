@@ -509,16 +509,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/w_MainWindow.cpp" line="507"/>
-        <source>NoConfigSelected</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/w_MainWindow.cpp" line="507"/>
-        <source>PleaseSelectAConfig</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/w_MainWindow.cpp" line="45"/>
         <source>Connect to this</source>
         <translation type="unfinished"></translation>
@@ -602,6 +592,41 @@
     <message>
         <location filename="../src/w_MainWindow.cpp" line="469"/>
         <source>Are you sure to remove this connection?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_MainWindow.cpp" line="507"/>
+        <source>No Config Selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_MainWindow.cpp" line="507"/>
+        <source>Please Select a Config</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_MainWindow.cpp" line="516"/>
+        <source>Not Supported</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_MainWindow.cpp" line="516"/>
+        <source>Qv2ray currently does not support editing complex configs.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_MainWindow.cpp" line="517"/>
+        <source>Do you want to edit the config file manually?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_MainWindow.cpp" line="519"/>
+        <source>Edit Connection Manually.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/w_MainWindow.cpp" line="519"/>
+        <source>Qv2ray will reload the config once you click OK.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -862,7 +887,7 @@
     </message>
     <message>
         <location filename="../src/w_PrefrencesWindow.cpp" line="348"/>
-        <source>tProxy is not supported on MacOS and Windows</source>
+        <source>tProxy is not supported on macOS and Windows</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -889,27 +914,27 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="144"/>
+        <location filename="../src/main.cpp" line="145"/>
         <source>DependencyMissing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="145"/>
+        <location filename="../src/main.cpp" line="146"/>
         <source>Cannot find openssl libs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="146"/>
+        <location filename="../src/main.cpp" line="147"/>
         <source>This could be caused by a missing of `openssl` package in your system. Or an AppImage issue.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="147"/>
+        <location filename="../src/main.cpp" line="148"/>
         <source>If you are using AppImage, please report a bug.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="153"/>
+        <location filename="../src/main.cpp" line="154"/>
         <source>Another instance of Qv2ray is already running.</source>
         <translation type="unfinished"></translation>
     </message>
