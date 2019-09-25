@@ -294,33 +294,33 @@
     <message>
       <location filename="../src/w_ImportConfig.cpp" line="36"/>
       <source>Select file to import</source>
-      <translation type="unfinished">Select file to import</translation>
+      <translation>选择要导入的文件</translation>
     </message>
     <message>
       <location filename="../src/w_ImportConfig.cpp" line="51"/>
       <source>Import config file</source>
-      <translation type="unfinished">Import config file</translation>
+      <translation>导入配置文件</translation>
     </message>
     <message>
       <location filename="../src/w_ImportConfig.cpp" line="51"/>
       <source>Failed to check the validity of the config file.</source>
-      <translation type="unfinished">Failed to check the validity of the config file.</translation>
+      <translation>检查配置文件有效性时失败。</translation>
     </message>
     <message>
       <location filename="../src/w_ImportConfig.cpp" line="69"/>
       <location filename="../src/w_ImportConfig.cpp" line="74"/>
       <source>VMess String Check</source>
-      <translation type="unfinished">VMess String Check</translation>
+      <translation>VMess 字符串检查</translation>
     </message>
     <message>
       <location filename="../src/w_ImportConfig.cpp" line="69"/>
       <source>VMess string is not valid</source>
-      <translation type="unfinished">VMess string is not valid</translation>
+      <translation>VMess 字符串无效</translation>
     </message>
     <message>
       <location filename="../src/w_ImportConfig.cpp" line="74"/>
       <source>Some internal error occured</source>
-      <translation type="unfinished">Some internal error occured</translation>
+      <translation>发生了某些内部错误</translation>
     </message>
   </context>
   <context>
@@ -509,16 +509,6 @@
       <translation>删除连接</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="507"/>
-      <source>NoConfigSelected</source>
-      <translation>没有选择配置</translation>
-    </message>
-    <message>
-      <location filename="../src/w_MainWindow.cpp" line="507"/>
-      <source>PleaseSelectAConfig</source>
-      <translation>请选择一个配置文件</translation>
-    </message>
-    <message>
       <location filename="../src/w_MainWindow.cpp" line="45"/>
       <source>Connect to this</source>
       <translation>连接到此服务器</translation>
@@ -603,6 +593,41 @@
       <location filename="../src/w_MainWindow.cpp" line="469"/>
       <source>Are you sure to remove this connection?</source>
       <translation>您确定要删除此连接吗？</translation>
+    </message>
+    <message>
+      <location filename="../src/w_MainWindow.cpp" line="507"/>
+      <source>No Config Selected</source>
+      <translation>未选择配置</translation>
+    </message>
+    <message>
+      <location filename="../src/w_MainWindow.cpp" line="507"/>
+      <source>Please Select a Config</source>
+      <translation>请选择一个配置</translation>
+    </message>
+    <message>
+      <location filename="../src/w_MainWindow.cpp" line="516"/>
+      <source>Not Supported</source>
+      <translation type="unfinished">Not Supported</translation>
+    </message>
+    <message>
+      <location filename="../src/w_MainWindow.cpp" line="516"/>
+      <source>Qv2ray currently does not support editing complex configs.</source>
+      <translation type="unfinished">Qv2ray currently does not support editing complex configs.</translation>
+    </message>
+    <message>
+      <location filename="../src/w_MainWindow.cpp" line="517"/>
+      <source>Do you want to edit the config file manually?</source>
+      <translation type="unfinished">Do you want to edit the config file manually?</translation>
+    </message>
+    <message>
+      <location filename="../src/w_MainWindow.cpp" line="519"/>
+      <source>Edit Connection Manually.</source>
+      <translation type="unfinished">Edit Connection Manually.</translation>
+    </message>
+    <message>
+      <location filename="../src/w_MainWindow.cpp" line="519"/>
+      <source>Qv2ray will reload the config once you click OK.</source>
+      <translation type="unfinished">Qv2ray will reload the config once you click OK.</translation>
     </message>
   </context>
   <context>
@@ -703,7 +728,7 @@
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="133"/>
       <source>Transparent Proxy Support</source>
-      <translation type="unfinished">Transparent Proxy Support</translation>
+      <translation>透明代理支持</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="189"/>
@@ -832,12 +857,12 @@
     <message>
       <location filename="../src/w_PrefrencesWindow.cpp" line="103"/>
       <source>Port numbers cannot be the same</source>
-      <translation type="unfinished">Port numbers cannot be the same</translation>
+      <translation>端口号不能相同</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.cpp" line="257"/>
       <source>Open v2ray assets folder</source>
-      <translation type="unfinished">Open v2ray assets folder</translation>
+      <translation>打开 v2ray 资源文件夹</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.cpp" line="315"/>
@@ -862,8 +887,8 @@
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.cpp" line="348"/>
-      <source>tProxy is not supported on MacOS and Windows</source>
-      <translation type="unfinished">tProxy is not supported on MacOS and Windows</translation>
+      <source>tProxy is not supported on macOS and Windows</source>
+      <translation type="unfinished">tProxy is not supported on macOS and Windows</translation>
     </message>
   </context>
   <context>
@@ -889,27 +914,27 @@
       <translation>Qv2ray 现在将会退出</translation>
     </message>
     <message>
-      <location filename="../src/main.cpp" line="144"/>
+      <location filename="../src/main.cpp" line="145"/>
       <source>DependencyMissing</source>
       <translation>依赖项缺失</translation>
     </message>
     <message>
-      <location filename="../src/main.cpp" line="145"/>
+      <location filename="../src/main.cpp" line="146"/>
       <source>Cannot find openssl libs</source>
       <translation>找不到 OpenSSL 库</translation>
     </message>
     <message>
-      <location filename="../src/main.cpp" line="146"/>
+      <location filename="../src/main.cpp" line="147"/>
       <source>This could be caused by a missing of `openssl` package in your system. Or an AppImage issue.</source>
       <translation>这可能是由于系统中缺少 `openssl` 包造成的，或者是 AppImage 问题。</translation>
     </message>
     <message>
-      <location filename="../src/main.cpp" line="147"/>
+      <location filename="../src/main.cpp" line="148"/>
       <source>If you are using AppImage, please report a bug.</source>
       <translation>如果您正在使用 AppImage，请反馈一个 Bug</translation>
     </message>
     <message>
-      <location filename="../src/main.cpp" line="153"/>
+      <location filename="../src/main.cpp" line="154"/>
       <source>Another instance of Qv2ray is already running.</source>
       <translation>Qv2ray 的另一个实例已经运行。</translation>
     </message>
