@@ -188,12 +188,12 @@
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="823"/>
       <source>TProxy</source>
-      <translation type="unfinished">TProxy</translation>
+      <translation>TProxy</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="860"/>
       <source>Email</source>
-      <translation type="unfinished">Email</translation>
+      <translation>Email</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="867"/>
@@ -209,7 +209,7 @@
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="926"/>
       <source>Level</source>
-      <translation type="unfinished">Level</translation>
+      <translation>级别</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="936"/>
@@ -305,33 +305,33 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="36"/>
       <source>Select file to import</source>
-      <translation type="unfinished">Select file to import</translation>
+      <translation>选择要导入的文件</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="51"/>
       <source>Import config file</source>
-      <translation type="unfinished">Import config file</translation>
+      <translation>导入配置文件</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="51"/>
       <source>Failed to check the validity of the config file.</source>
-      <translation type="unfinished">Failed to check the validity of the config file.</translation>
+      <translation>检查配置文件有效性时失败。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="69"/>
       <location filename="../src/ui/w_ImportConfig.cpp" line="74"/>
       <source>VMess String Check</source>
-      <translation type="unfinished">VMess String Check</translation>
+      <translation>VMess 字符串检查</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="69"/>
       <source>VMess string is not valid</source>
-      <translation type="unfinished">VMess string is not valid</translation>
+      <translation>VMess 字符串无效</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="74"/>
       <source>Some internal error occured</source>
-      <translation type="unfinished">Some internal error occured</translation>
+      <translation>发生了某些内部错误</translation>
     </message>
   </context>
   <context>
@@ -448,7 +448,7 @@
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="311"/>
       <source>#</source>
-      <translation type="unfinished">#</translation>
+      <translation>#</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="333"/>
@@ -603,22 +603,22 @@
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="512"/>
       <source>No Config Selected</source>
-      <translation type="unfinished">No Config Selected</translation>
+      <translation>未选择配置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="512"/>
       <source>Please Select a Config</source>
-      <translation type="unfinished">Please Select a Config</translation>
+      <translation>请选择一个配置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="550"/>
       <source>No config selected</source>
-      <translation type="unfinished">No config selected</translation>
+      <translation>未选择配置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="550"/>
       <source>Please select a config.</source>
-      <translation type="unfinished">Please select a config.</translation>
+      <translation>请选择一个配置。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="443"/>
@@ -700,7 +700,7 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="133"/>
       <source>Transparent Proxy Support</source>
-      <translation type="unfinished">Transparent Proxy Support</translation>
+      <translation>透明代理支持</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="140"/>
@@ -793,7 +793,7 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="407"/>
       <source>Bypass Chinese Mainland</source>
-      <translation type="unfinished">Bypass Chinese Mainland</translation>
+      <translation>绕过中国大陆</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="414"/>
@@ -858,7 +858,7 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="105"/>
       <source>Port numbers cannot be the same</source>
-      <translation type="unfinished">Port numbers cannot be the same</translation>
+      <translation>端口号不能相同</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="311"/>
@@ -884,12 +884,12 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="253"/>
       <source>Open v2ray assets folder</source>
-      <translation type="unfinished">Open v2ray assets folder</translation>
+      <translation>打开 v2ray 资源文件夹</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="344"/>
       <source>tProxy is not supported on MacOS and Windows</source>
-      <translation type="unfinished">tProxy is not supported on MacOS and Windows</translation>
+      <translation>在 macOS 和 Windows 上不支持 tProxy</translation>
     </message>
   </context>
   <context>
@@ -965,22 +965,22 @@
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="22"/>
       <source>Routes List</source>
-      <translation type="unfinished">Routes List</translation>
+      <translation>路由列表</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="39"/>
       <source>InBounds</source>
-      <translation type="unfinished">InBounds</translation>
+      <translation>入站</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="44"/>
       <source>DomainOrIP</source>
-      <translation type="unfinished">DomainOrIP</translation>
+      <translation>域名或 IP</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="49"/>
       <source>Outbound</source>
-      <translation type="unfinished">Outbound</translation>
+      <translation>出站</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="72"/>
@@ -990,71 +990,71 @@
       <location filename="../src/ui/w_RouteEditor.ui" line="271"/>
       <location filename="../src/ui/w_RouteEditor.ui" line="282"/>
       <source>...</source>
-      <translation type="unfinished">...</translation>
+      <translation>...</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="94"/>
       <source>Change IO</source>
-      <translation type="unfinished">Change IO</translation>
+      <translation>更改 IO</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="116"/>
       <source>Route Information</source>
-      <translation type="unfinished">Route Information</translation>
+      <translation>路由信息</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="122"/>
       <source>Domains</source>
-      <translation type="unfinished">Domains</translation>
+      <translation>域名</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="129"/>
       <source>IPs</source>
-      <translation type="unfinished">IPs</translation>
+      <translation>IP</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="143"/>
       <source>Inbound List</source>
-      <translation type="unfinished">Inbound List</translation>
+      <translation>传入列表</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="177"/>
       <source>Add Default</source>
-      <translation type="unfinished">Add Default</translation>
+      <translation>添加默认</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="186"/>
       <source>Inbound Information</source>
-      <translation type="unfinished">Inbound Information</translation>
+      <translation>传入代理信息</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="192"/>
       <location filename="../src/ui/w_RouteEditor.ui" line="345"/>
       <source>Tag</source>
-      <translation type="unfinished">Tag</translation>
+      <translation>标签</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="206"/>
       <location filename="../src/ui/w_RouteEditor.ui" line="359"/>
       <source>Type</source>
-      <translation type="unfinished">Type</translation>
+      <translation>类型</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="220"/>
       <location filename="../src/ui/w_RouteEditor.ui" line="373"/>
       <source>Address</source>
-      <translation type="unfinished">Address</translation>
+      <translation>地址</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="227"/>
       <location filename="../src/ui/w_RouteEditor.ui" line="387"/>
       <source>Port</source>
-      <translation type="unfinished">Port</translation>
+      <translation>端口</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="255"/>
       <source>Outbound List</source>
-      <translation>传出列表</translation>
+      <translation>传出代理列表</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="293"/>
@@ -1069,34 +1069,34 @@
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="323"/>
       <source>Edit</source>
-      <translation type="unfinished">Edit</translation>
+      <translation>编辑</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="416"/>
       <source>Status</source>
-      <translation type="unfinished">Status</translation>
+      <translation>状态</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.cpp" line="22"/>
       <location filename="../src/ui/w_RouteEditor.cpp" line="30"/>
       <location filename="../src/ui/w_RouteEditor.cpp" line="69"/>
       <source>NoTag</source>
-      <translation type="unfinished">NoTag</translation>
+      <translation>无标签</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.cpp" line="99"/>
       <source>#NoTag</source>
-      <translation type="unfinished">#NoTag</translation>
+      <translation>#无标签</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.cpp" line="141"/>
       <source>Cannot Edit</source>
-      <translation type="unfinished">Cannot Edit</translation>
+      <translation>无法编辑</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.cpp" line="141"/>
       <source>Currently, this type of outbound is not supported by the editor.</source>
-      <translation type="unfinished">Currently, this type of outbound is not supported by the editor.</translation>
+      <translation>目前不支持此类型的出站</translation>
     </message>
   </context>
   <context>
