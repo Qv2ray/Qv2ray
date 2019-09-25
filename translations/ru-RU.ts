@@ -289,38 +289,38 @@
     <message>
       <location filename="../src/w_ImportConfig.ui" line="168"/>
       <source>TO DO IN VERSION 2</source>
-      <translation type="unfinished">TO DO IN VERSION 2</translation>
+      <translation>TO DO IN VERSION 2</translation>
     </message>
     <message>
       <location filename="../src/w_ImportConfig.cpp" line="36"/>
       <source>Select file to import</source>
-      <translation type="unfinished">Select file to import</translation>
+      <translation>Выберите файл для Импорта</translation>
     </message>
     <message>
       <location filename="../src/w_ImportConfig.cpp" line="51"/>
       <source>Import config file</source>
-      <translation type="unfinished">Import config file</translation>
+      <translation>Выберите файл конфигурации</translation>
     </message>
     <message>
       <location filename="../src/w_ImportConfig.cpp" line="51"/>
       <source>Failed to check the validity of the config file.</source>
-      <translation type="unfinished">Failed to check the validity of the config file.</translation>
+      <translation>Не удалось проверить правильность файла конфигурации.</translation>
     </message>
     <message>
       <location filename="../src/w_ImportConfig.cpp" line="69"/>
       <location filename="../src/w_ImportConfig.cpp" line="74"/>
       <source>VMess String Check</source>
-      <translation type="unfinished">VMess String Check</translation>
+      <translation>Проверка строки VMess</translation>
     </message>
     <message>
       <location filename="../src/w_ImportConfig.cpp" line="69"/>
       <source>VMess string is not valid</source>
-      <translation type="unfinished">VMess string is not valid</translation>
+      <translation>Ошибка строки VMess</translation>
     </message>
     <message>
       <location filename="../src/w_ImportConfig.cpp" line="74"/>
       <source>Some internal error occured</source>
-      <translation type="unfinished">Some internal error occured</translation>
+      <translation>Произошла внутренняя ошибка</translation>
     </message>
   </context>
   <context>
@@ -390,7 +390,7 @@
     <message>
       <location filename="../src/w_MainWindow.ui" line="243"/>
       <source>#AddConnection</source>
-      <translation type="unfinished">#AddConnection</translation>
+      <translation>#AddConnection</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.ui" line="246"/>
@@ -401,7 +401,7 @@
       <location filename="../src/w_MainWindow.ui" line="263"/>
       <location filename="../src/w_MainWindow.ui" line="353"/>
       <source>#ImportConnection</source>
-      <translation type="unfinished">#ImportConnection</translation>
+      <translation>#ImportConnection</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.ui" line="266"/>
@@ -411,7 +411,7 @@
     <message>
       <location filename="../src/w_MainWindow.ui" line="297"/>
       <source>#RemoveConnection</source>
-      <translation type="unfinished">#RemoveConnection</translation>
+      <translation>#RemoveConnection</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.ui" line="300"/>
@@ -421,7 +421,7 @@
     <message>
       <location filename="../src/w_MainWindow.ui" line="277"/>
       <source>#EditConnection</source>
-      <translation type="unfinished">#EditConnection</translation>
+      <translation>#EditConnection</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.ui" line="280"/>
@@ -436,7 +436,7 @@
     <message>
       <location filename="../src/w_MainWindow.ui" line="348"/>
       <source>#ManuallyCreateConnection</source>
-      <translation type="unfinished">#ManuallyCreateConnection</translation>
+      <translation>#ManuallyCreateConnection</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.ui" line="358"/>
@@ -507,16 +507,6 @@
       <location filename="../src/w_MainWindow.cpp" line="469"/>
       <source>Removing this Connection</source>
       <translation>Удалить из списка</translation>
-    </message>
-    <message>
-      <location filename="../src/w_MainWindow.cpp" line="507"/>
-      <source>NoConfigSelected</source>
-      <translation type="unfinished">NoConfigSelected</translation>
-    </message>
-    <message>
-      <location filename="../src/w_MainWindow.cpp" line="507"/>
-      <source>PleaseSelectAConfig</source>
-      <translation type="unfinished">PleaseSelectAConfig</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="45"/>
@@ -603,6 +593,41 @@
       <location filename="../src/w_MainWindow.cpp" line="469"/>
       <source>Are you sure to remove this connection?</source>
       <translation>Вы уверены, что хотите удалить это подключение?</translation>
+    </message>
+    <message>
+      <location filename="../src/w_MainWindow.cpp" line="507"/>
+      <source>No Config Selected</source>
+      <translation>Не выбрана конфигурация</translation>
+    </message>
+    <message>
+      <location filename="../src/w_MainWindow.cpp" line="507"/>
+      <source>Please Select a Config</source>
+      <translation>Пожалуйста, выберите конфигурацию</translation>
+    </message>
+    <message>
+      <location filename="../src/w_MainWindow.cpp" line="516"/>
+      <source>Not Supported</source>
+      <translation type="unfinished">Not Supported</translation>
+    </message>
+    <message>
+      <location filename="../src/w_MainWindow.cpp" line="516"/>
+      <source>Qv2ray currently does not support editing complex configs.</source>
+      <translation type="unfinished">Qv2ray currently does not support editing complex configs.</translation>
+    </message>
+    <message>
+      <location filename="../src/w_MainWindow.cpp" line="517"/>
+      <source>Do you want to edit the config file manually?</source>
+      <translation type="unfinished">Do you want to edit the config file manually?</translation>
+    </message>
+    <message>
+      <location filename="../src/w_MainWindow.cpp" line="519"/>
+      <source>Edit Connection Manually.</source>
+      <translation type="unfinished">Edit Connection Manually.</translation>
+    </message>
+    <message>
+      <location filename="../src/w_MainWindow.cpp" line="519"/>
+      <source>Qv2ray will reload the config once you click OK.</source>
+      <translation type="unfinished">Qv2ray will reload the config once you click OK.</translation>
     </message>
   </context>
   <context>
@@ -703,7 +728,7 @@
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="133"/>
       <source>Transparent Proxy Support</source>
-      <translation type="unfinished">Transparent Proxy Support</translation>
+      <translation>Прозрачная поддержка прокси</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="189"/>
@@ -832,12 +857,12 @@
     <message>
       <location filename="../src/w_PrefrencesWindow.cpp" line="103"/>
       <source>Port numbers cannot be the same</source>
-      <translation type="unfinished">Port numbers cannot be the same</translation>
+      <translation>Номера портов не могут совпадать</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.cpp" line="257"/>
       <source>Open v2ray assets folder</source>
-      <translation type="unfinished">Open v2ray assets folder</translation>
+      <translation>Открыть папку с v2ray</translation>
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.cpp" line="315"/>
@@ -862,8 +887,8 @@
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.cpp" line="348"/>
-      <source>tProxy is not supported on MacOS and Windows</source>
-      <translation type="unfinished">tProxy is not supported on MacOS and Windows</translation>
+      <source>tProxy is not supported on macOS and Windows</source>
+      <translation type="unfinished">tProxy is not supported on macOS and Windows</translation>
     </message>
   </context>
   <context>
@@ -889,27 +914,27 @@
       <translation>Qv2ray теперь выйдет.</translation>
     </message>
     <message>
-      <location filename="../src/main.cpp" line="144"/>
+      <location filename="../src/main.cpp" line="145"/>
       <source>DependencyMissing</source>
-      <translation type="unfinished">DependencyMissing</translation>
+      <translation>DependencyMissing</translation>
     </message>
     <message>
-      <location filename="../src/main.cpp" line="145"/>
+      <location filename="../src/main.cpp" line="146"/>
       <source>Cannot find openssl libs</source>
       <translation>Не удается найти openssl libs</translation>
     </message>
     <message>
-      <location filename="../src/main.cpp" line="146"/>
+      <location filename="../src/main.cpp" line="147"/>
       <source>This could be caused by a missing of `openssl` package in your system. Or an AppImage issue.</source>
       <translation>Это может быть вызвано отсутствием пакета `openssl` в вашей системе. Или проблемой AppImage.</translation>
     </message>
     <message>
-      <location filename="../src/main.cpp" line="147"/>
+      <location filename="../src/main.cpp" line="148"/>
       <source>If you are using AppImage, please report a bug.</source>
       <translation>Если вы используете AppImage, пожалуйста, сообщите об ошибке.</translation>
     </message>
     <message>
-      <location filename="../src/main.cpp" line="153"/>
+      <location filename="../src/main.cpp" line="154"/>
       <source>Another instance of Qv2ray is already running.</source>
       <translation>Другой экземпляр Qv2ray уже запущен.</translation>
     </message>
