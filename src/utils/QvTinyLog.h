@@ -2,6 +2,7 @@
 #define QVTINYLOG_H
 
 #include <iostream>
+#include <QtDebug>
 using namespace std;
 /*
  * Tiny log module.
@@ -18,7 +19,11 @@ using namespace std;
 #define MODULE_NETWORK "NETWORK"
 #define MODULE_FILE "FILE"
 #define MODULE_SUBSCRIPTION "SUBSCRIPTION"
-
+//
+#ifdef QT_DEBUG
+#define MODULE_DEBUG_INFO "__DEBUG__"
+#endif
+//
 #define WARN "WARN"
 #define INFO "INFO"
 #define ERROR "ERROR"

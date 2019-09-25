@@ -19,7 +19,7 @@ class RouteEditor : public QDialog
     public:
         explicit RouteEditor(QJsonObject connection, const QString alias, QWidget *parent = nullptr);
         ~RouteEditor();
-
+        QJsonObject OpenEditor();
     private slots:
         void on_buttonBox_accepted();
 
