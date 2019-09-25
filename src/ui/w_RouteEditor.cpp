@@ -51,6 +51,12 @@ RouteEditor::RouteEditor(QJsonObject connection, const QString alias, QWidget *p
     }
 }
 
+QJsonObject RouteEditor::OpenEditor()
+{
+    this->exec();
+    return root;
+}
+
 RouteEditor::~RouteEditor()
 {
     delete ui;

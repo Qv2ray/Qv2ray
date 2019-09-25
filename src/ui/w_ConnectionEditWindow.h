@@ -98,8 +98,6 @@ class ConnectionEditWindow : public QDialog
 
         void on_dsPathTxt_textEdited(const QString &arg1);
 
-        void on_finalJson_textChanged();
-
         void on_outBoundTypeCombo_currentIndexChanged(int index);
 
         void on_ss_emailTxt_textEdited(const QString &arg1);

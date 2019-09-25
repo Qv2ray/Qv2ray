@@ -511,6 +511,7 @@ void MainWindow::on_addConfigButton_clicked()
     auto alias = w->Alias;
     delete w;
 }
+
 void MainWindow::on_editConfigButton_clicked()
 {
     // Check if we have a connection selected...
@@ -520,38 +521,24 @@ void MainWindow::on_editConfigButton_clicked()
     }
 
     auto alias = ui->connectionListWidget->currentItem()->text();
-    auto outBoundRoot = connections[alias]["outbounds"].toArray().first().toObject();
-    ConnectionEditWindow *w = new ConnectionEditWindow(outBoundRoot, &alias, this);
-    //connect(w, &ConnectionEditWindow::s_reload_config, this, &MainWindow::save_reload_globalconfig);
-    w->exec();
-    auto outboundEntry = w->Result;
-    LOG(MODULE_UI, "WARNING:")
-    LOG(MODULE_UI, "THIS FEATURE IS NOT IMPLEMENTED YET!")
-    delete w;
-    /*
-         auto outBoundRoot = connections[alias];
+    auto outBoundRoot = connections[alias];
+    QJsonObject root;
 
     if (outBoundRoot["outbounds"].toArray().count() > 1) {
-        /// Complicated version, currently not support editing.
-        if (QvMessageBoxAsk(this, tr("Not Supported"), tr("Qv2ray currently does not support editing complex configs.") + "\r\n" +
-                            tr("Do you want to edit the config file manually?")) ==  QMessageBox::StandardButton::Yes) {
-            QDesktopServices::openUrl(QUrl::fromLocalFile(QV2RAY_CONFIG_DIR_PATH + alias + QV2RAY_CONNECTION_FILE_EXTENSION));
-            QvMessageBox(this, tr("Edit Connection Manually."), tr("Qv2ray will reload the config once you click OK."));
-            LoadConnections();
-            on_reconnectButton_clicked();
-        }
-
-        return;
+        LOG(MODULE_UI, "INFO: Opening route editor.")
+        RouteEditor *routeWindow = new RouteEditor(outBoundRoot, alias, this);
+        root = routeWindow->OpenEditor();
     } else {
-        ConnectionEditWindow *w = new ConnectionEditWindow(outBoundRoot, &alias, this);
-        connect(w, &ConnectionEditWindow::s_reload_config, this, &MainWindow::save_reload_globalconfig);
-        w->show();
+        LOG(MODULE_UI, "INFO: Opening connection edit window.")
+        ConnectionEditWindow *w = new ConnectionEditWindow(connections[alias]["outbounds"].toArray().first().toObject(), &alias, this);
+        auto outboundEntry = w->OpenEditor();
+        QJsonArray outboundsList;
+        outboundsList.push_back(outboundEntry);
+        root.insert("outbounds", outboundsList);
     }
 
-    ConnectionEditWindow *w = new ConnectionEditWindow(outBoundRoot, &alias, this);
-    connect(w, &ConnectionEditWindow::s_reload_config, this, &MainWindow::save_reload_globalconfig);
-    w->show();
-     */
+    connections[alias] = root;
+    SaveConnectionConfig(root, &alias);
 }
 
 void MainWindow::on_editConfigAdvButton_clicked()

@@ -440,20 +440,6 @@ void ConnectionEditWindow::on_dsPathTxt_textEdited(const QString &arg1)
 {
     stream.dsSettings.path = arg1.toStdString();
 }
-void ConnectionEditWindow::on_finalJson_textChanged()
-{
-    //try {
-    //    auto jsonRoot = JSONFromString(ui->finalJson->toPlainText());
-    //    vmess = StructFromJSONString<VMessServerObject>(JSONToString(jsonRoot["settings"].toObject()));
-    //    stream = StructFromJSONString<StreamSettingsObject>(JSONToString(jsonRoot["streamSettings"].toObject()));
-    //    BLACK(finalJson)
-    //    rootJsonCursorPos = ui->finalJson->textCursor().position();
-    //    ReLoad_GUI_JSON_ModelContent();
-    //    ui->finalJson->textCursor().setPosition(rootJsonCursorPos);
-    //} catch (...) {
-    //    RED(finalJson)
-    //}
-}
 void ConnectionEditWindow::on_outBoundTypeCombo_currentIndexChanged(int index)
 {
     ui->outboundTypeStackView->setCurrentIndex(index);
