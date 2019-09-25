@@ -340,8 +340,8 @@ void PrefrencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
 #else
     Q_UNUSED(arg1)
     ui->tProxyCheckBox->setChecked(false);
-    // No such uid gid thing on Windows and MacOS
-    QvMessageBox(this, tr("Prefrences"), tr("tProxy is not supported on MacOS and Windows"));
+    // No such uid gid thing on Windows and macOS
+    QvMessageBox(this, tr("Prefrences"), tr("tProxy is not supported on macOS and Windows"));
 #endif
 }
 void PrefrencesWindow::on_bypassCNCb_stateChanged(int arg1)
