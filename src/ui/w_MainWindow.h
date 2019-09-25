@@ -64,7 +64,6 @@ class MainWindow : public QMainWindow
     private:
         void on_action_StartThis_triggered();
         void on_action_RenameConnection_triggered();
-        void on_restartButton_clicked();
         Ui::MainWindow *ui;
         QvHttpRequestHelper HTTPRequestHelper;
         QSystemTrayIcon *hTray;

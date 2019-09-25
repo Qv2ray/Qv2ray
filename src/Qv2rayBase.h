@@ -19,7 +19,7 @@
 // Win32 has .exe
 #define QV2RAY_V2RAY_CORE_PATH (QV2RAY_V2RAY_CORE_DIR_PATH + "v2ray.exe")
 #else
-// MacOS and Linux....
+// macOS and Linux....
 #define QV2RAY_V2RAY_CORE_PATH (QV2RAY_V2RAY_CORE_DIR_PATH + "v2ray")
 #endif
 
