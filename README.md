@@ -4,6 +4,8 @@
 
 # Qv2ray
 
+![GitHub Releases](https://img.shields.io/github/downloads/lhy0403/Qv2ray/latest/total)
+
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/a034dd186c36408c92ffb04449fb6996)](https://app.codacy.com/app/lhy0403/Qv2ray?utm_source=github.com&utm_medium=referral&utm_content=lhy0403/Qv2ray&utm_campaign=Badge_Grade_Dashboard) [![HitCount](http://hits.dwyl.io/lhy0403/Qv2ray.svg)](http://hits.dwyl.io/lhy0403/Qv2ray) 
 
 使用 Qt 框架的跨平台 v2ray 客户端. 支持 Windows, Linux, MacOS
