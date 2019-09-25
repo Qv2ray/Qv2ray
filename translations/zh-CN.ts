@@ -11,22 +11,22 @@
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="37"/>
       <source>Identifier</source>
-      <translation type="unfinished">Identifier</translation>
+      <translation>标识符</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="46"/>
       <source>Alias</source>
-      <translation type="unfinished">Alias</translation>
+      <translation>别名</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="56"/>
       <source>Tag</source>
-      <translation type="unfinished">Tag</translation>
+      <translation>标签</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="68"/>
       <source>Server</source>
-      <translation type="unfinished">Server</translation>
+      <translation>服务器</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="77"/>
@@ -88,7 +88,7 @@
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="240"/>
       <source>Transport</source>
-      <translation type="unfinished">Transport</translation>
+      <translation>传输</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="283"/>
@@ -115,7 +115,7 @@
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="365"/>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="372"/>
       <source>Default Value</source>
-      <translation type="unfinished">Default Value</translation>
+      <translation>默认值</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="408"/>
@@ -133,7 +133,7 @@
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="457"/>
       <source>Format: Key|Value</source>
-      <translation type="unfinished">Format: Key|Value</translation>
+      <translation>格式: 键|值</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="471"/>
@@ -148,27 +148,27 @@
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="523"/>
       <source>Uplink Capacity (MB/s)</source>
-      <translation type="unfinished">Uplink Capacity (MB/s)</translation>
+      <translation>上行容量 (MB/s)</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="546"/>
       <source>Congestion</source>
-      <translation type="unfinished">Congestion</translation>
+      <translation>拥塞</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="560"/>
       <source>Downlink Capacity (MB/s)</source>
-      <translation type="unfinished">Downlink Capacity (MB/s)</translation>
+      <translation>下行容量 (MB/s)</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="583"/>
       <source>Read Buffer Size (MB)</source>
-      <translation type="unfinished">Read Buffer Size (MB)</translation>
+      <translation>读取缓冲区大小 (MB)</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="606"/>
       <source>Write Buffer Size (MB)</source>
-      <translation type="unfinished">Write Buffer Size (MB)</translation>
+      <translation>写入缓冲区大小 (MB)</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="734"/>
@@ -204,7 +204,7 @@
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="874"/>
       <source>Encryption Method</source>
-      <translation type="unfinished">Encryption Method</translation>
+      <translation>加密方法</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="926"/>
@@ -1054,7 +1054,7 @@
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="255"/>
       <source>Outbound List</source>
-      <translation type="unfinished">Outbound List</translation>
+      <translation>传出列表</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="293"/>
@@ -1064,7 +1064,7 @@
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="302"/>
       <source>Outbound Information</source>
-      <translation type="unfinished">Outbound Information</translation>
+      <translation>传出代理信息</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="323"/>
