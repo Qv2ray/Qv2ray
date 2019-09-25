@@ -18,7 +18,7 @@
 
 2. [其他 Linux 且发行版包含 v2ray 包](./FirstTime/General-Linux.md)
    
-3. [Windows / MacOS / 不包含 v2ray 程序包的 Linux 发行版 ](./FirstTime/Windows-MacOS.md)
+3. [Windows / macOS / 不包含 v2ray 程序包的 Linux 发行版 ](./FirstTime/Windows-macOS.md)
 
 
 ## 3. 更新历史
