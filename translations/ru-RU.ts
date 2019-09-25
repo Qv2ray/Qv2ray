@@ -26,7 +26,7 @@
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="68"/>
       <source>Server</source>
-      <translation type="unfinished">Server</translation>
+      <translation>Сервер</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="77"/>
@@ -88,7 +88,7 @@
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="240"/>
       <source>Transport</source>
-      <translation type="unfinished">Transport</translation>
+      <translation>Протокол</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="283"/>
@@ -115,7 +115,7 @@
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="365"/>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="372"/>
       <source>Default Value</source>
-      <translation type="unfinished">Default Value</translation>
+      <translation>Значение по Умолчанию</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="408"/>
@@ -1020,7 +1020,7 @@
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="177"/>
       <source>Add Default</source>
-      <translation type="unfinished">Add Default</translation>
+      <translation>Добавить по умолчанию</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="186"/>
@@ -1031,25 +1031,25 @@
       <location filename="../src/ui/w_RouteEditor.ui" line="192"/>
       <location filename="../src/ui/w_RouteEditor.ui" line="345"/>
       <source>Tag</source>
-      <translation type="unfinished">Tag</translation>
+      <translation>Тэг</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="206"/>
       <location filename="../src/ui/w_RouteEditor.ui" line="359"/>
       <source>Type</source>
-      <translation type="unfinished">Type</translation>
+      <translation>Тип</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="220"/>
       <location filename="../src/ui/w_RouteEditor.ui" line="373"/>
       <source>Address</source>
-      <translation type="unfinished">Address</translation>
+      <translation>Адрес</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="227"/>
       <location filename="../src/ui/w_RouteEditor.ui" line="387"/>
       <source>Port</source>
-      <translation type="unfinished">Port</translation>
+      <translation>Порт</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="255"/>
@@ -1069,12 +1069,12 @@
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="323"/>
       <source>Edit</source>
-      <translation type="unfinished">Edit</translation>
+      <translation>Изменить</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="416"/>
       <source>Status</source>
-      <translation type="unfinished">Status</translation>
+      <translation>Статус</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.cpp" line="22"/>
@@ -1091,12 +1091,12 @@
     <message>
       <location filename="../src/ui/w_RouteEditor.cpp" line="141"/>
       <source>Cannot Edit</source>
-      <translation type="unfinished">Cannot Edit</translation>
+      <translation>Не удается изменить</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.cpp" line="141"/>
       <source>Currently, this type of outbound is not supported by the editor.</source>
-      <translation type="unfinished">Currently, this type of outbound is not supported by the editor.</translation>
+      <translation>В настоящее время этот тип outbound не поддерживается в этой версии программы.</translation>
     </message>
   </context>
   <context>
