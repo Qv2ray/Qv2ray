@@ -35,6 +35,7 @@ namespace Qv2ray
         //
         QJsonObject JsonFromString(QString string);
         QString JsonToString(QJsonObject json);
+        QString VerifyJsonString(const QString *source);
         //
         QString Stringify(list<string> list, QString saperator = ";");
         QString Stringify(QList<QString> list, QString saperator = ";");

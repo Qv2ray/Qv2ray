@@ -88,6 +88,19 @@ namespace Qv2ray
             return doc.toJson();
         }
 
+        QString VerifyJsonString(const QString *source)
+        {
+            QJsonParseError error;
+            QJsonDocument doc = QJsonDocument::fromJson(source->toUtf8(), &error);
+
+            if (error.error == QJsonParseError::NoError) {
+                return "";
+            } else {
+                LOG(MODULE_CORE, "WARNING: Json parse returns: " + error.errorString().toStdString())
+                return error.errorString();
+            }
+        }
+
         QJsonObject JsonFromString(QString string)
         {
             QJsonDocument doc = QJsonDocument::fromJson(string.toUtf8());
