@@ -13,6 +13,6 @@
 
 ## *1. Qv2ray 在不同操作系统中查找 v2ray 内核的路径*
 
-- *Windows: `C:\Users\用户名\.qv2ray\vcore*`
+- *Windows: `C:\Users\用户名\.qv2ray\vcore`*
 - *macOS: `/Users/用户名/.qv2ray/vcore`*
 - *Linux: `/home/用户名/.qv2ray/vcore`*
