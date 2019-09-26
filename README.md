@@ -6,7 +6,7 @@
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/a034dd186c36408c92ffb04449fb6996)](https://app.codacy.com/app/lhy0403/Qv2ray?utm_source=github.com&utm_medium=referral&utm_content=lhy0403/Qv2ray&utm_campaign=Badge_Grade_Dashboard) [![HitCount](http://hits.dwyl.io/lhy0403/Qv2ray.svg)](http://hits.dwyl.io/lhy0403/Qv2ray) ![GitHub Releases](https://img.shields.io/github/downloads/lhy0403/Qv2ray/latest/total?style=flat-square)
 
-使用 Qt 框架的跨平台 v2ray 客户端. 支持 Windows, Linux, MacOS
+使用 Qt 框架的跨平台 v2ray 客户端. 支持 Windows, Linux, macOS
 
 支持连接编辑，支持导入任意配置和 `vmess://`  分享链接
 
@@ -42,7 +42,7 @@ Special thanks to: [Hv2ray](https://github.com/aliyuchang33/Hv2ray) by [@aliyuch
 | OS                                                        | 主分支 [master](https://github.com/lhy0403/Qv2ray/tree/master) | 开发分支 [dev](https://github.com/lhy0403/Qv2ray/tree/dev)   | 版本分支 [version-v1](https://github.com/lhy0403/Qv2ray/tree/version-v1) |
 | --------------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | [Linux](https://travis-ci.com/lhy0403/Qv2ray)             | ![Build Status Linux in master](http://badges.herokuapp.com/travis.com/lhy0403/Qv2ray?style=flat-square&env=BADGE=linux&label=Linux-master&branch=master) | ![Build Status Linux in dev](http://badges.herokuapp.com/travis.com/lhy0403/Qv2ray?style=flat-square&env=BADGE=linux&label=Linux-dev&branch=dev) | ![Build Status Linux in v1.0.0](http://badges.herokuapp.com/travis.com/lhy0403/Qv2ray?style=flat-square&env=BADGE=linux&label=Linux-v1&branch=version-v1) |
-| [MacOS](https://travis-ci.com/lhy0403/Qv2ray)             | ![Build Status MacOS in master](http://badges.herokuapp.com/travis.com/lhy0403/Qv2ray?style=flat-square&env=BADGE=osx&label=MacOS-master&branch=master) | ![Build Status Linux in dev](http://badges.herokuapp.com/travis.com/lhy0403/Qv2ray?style=flat-square&env=BADGE=osx&label=MacOS-dev&branch=dev) | ![Build Status Linux in dev](http://badges.herokuapp.com/travis.com/lhy0403/Qv2ray?style=flat-square&env=BADGE=osx&label=MacOS-v1&branch=version-v1) |
+| [macOS](https://travis-ci.com/lhy0403/Qv2ray)             | ![Build Status macOS in master](http://badges.herokuapp.com/travis.com/lhy0403/Qv2ray?style=flat-square&env=BADGE=osx&label=macOS-master&branch=master) | ![Build Status macOS in dev](http://badges.herokuapp.com/travis.com/lhy0403/Qv2ray?style=flat-square&env=BADGE=osx&label=macOS-dev&branch=dev) | ![Build Status macOS in dev](http://badges.herokuapp.com/travis.com/lhy0403/Qv2ray?style=flat-square&env=BADGE=osx&label=macOS-v1&branch=version-v1) |
 | [Windows](https://ci.appveyor.com/project/lhy0403/qv2ray) | [![Build status](https://ci.appveyor.com/api/projects/status/i1l524ws0hiitpm4/branch/master?svg=true)](https://ci.appveyor.com/project/lhy0403/qv2ray/branch/master) | [![Build status](https://ci.appveyor.com/api/projects/status/i1l524ws0hiitpm4/branch/dev?svg=true)](https://ci.appveyor.com/project/lhy0403/qv2ray/branch/dev) | [![Build status](https://ci.appveyor.com/api/projects/status/i1l524ws0hiitpm4/branch/version-v1?svg=true)](https://ci.appveyor.com/project/lhy0403/qv2ray/branch/version-v1) |
 
 
@@ -53,13 +53,13 @@ Special thanks to: [Hv2ray](https://github.com/aliyuchang33/Hv2ray) by [@aliyuch
 
 
  - 框架依赖：`Qt >= 5.12` （5.9 可以编译成功但是不建议使用） 
- - 编译依赖：`gcc >= 8` 或 `MinGW` (Windows) 或 `clang` (MacOS)
+ - 编译依赖：`gcc >= 8` 或 `MinGW` (Windows) 或 `clang` (macOS)
 
     - 建议使用 QtCreator，以获得最佳编译环境
 
-### Linux & MacOS
+### Linux & macOS
 
-- 对于 MacOS，需要额外使用 HomeBrew 安装 Qt 并正确设定 $PATH 环境变量
+- 对于 macOS，需要额外使用 HomeBrew 安装 Qt 并正确设定 $PATH 环境变量
   - 或者使用 Qt 官方包和 XCode
 - 对于 Linux，请根据不同发行版安装对应的 Qt 开发包 
   - Arch Linux 用户也可从 **[qv2ray-dev-git](https://aur.archlinux.org/packages/qv2ray-dev-git)** 拉取 `dev` 分支并构建
