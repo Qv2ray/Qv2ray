@@ -193,7 +193,7 @@
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="860"/>
       <source>Email</source>
-      <translation>Email</translation>
+      <translation>邮箱</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="867"/>
