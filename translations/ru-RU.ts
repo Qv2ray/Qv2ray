@@ -30,7 +30,7 @@
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="77"/>
-      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="418"/>
+      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="424"/>
       <source>Host</source>
       <translation>Сервер</translation>
     </message>
@@ -41,8 +41,8 @@
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="103"/>
-      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="381"/>
-      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="629"/>
+      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="304"/>
+      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="635"/>
       <source>Type</source>
       <translation>Тип</translation>
     </message>
@@ -68,7 +68,7 @@
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="189"/>
-      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="702"/>
+      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="708"/>
       <source>Security</source>
       <translation>Защита</translation>
     </message>
@@ -79,9 +79,9 @@
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="233"/>
-      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="553"/>
-      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="816"/>
-      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="943"/>
+      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="559"/>
+      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="822"/>
+      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="949"/>
       <source>Enabled</source>
       <translation>Включено</translation>
     </message>
@@ -96,143 +96,131 @@
       <translation>Transport Settings</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="302"/>
+      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="327"/>
       <source>Request</source>
       <translation>Запрос</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="309"/>
-      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="323"/>
-      <source>Prettify</source>
-      <translation>Форматировать</translation>
-    </message>
-    <message>
-      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="316"/>
+      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="334"/>
       <source>Response</source>
       <translation>Ответ</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="365"/>
-      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="372"/>
+      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="382"/>
+      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="396"/>
+      <source>Edit in Json Editor</source>
+      <translation type="unfinished">Edit in Json Editor</translation>
+    </message>
+    <message>
+      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="389"/>
+      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="403"/>
       <source>Default Value</source>
       <translation>Значение по Умолчанию</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="408"/>
-      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="434"/>
-      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="682"/>
+      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="414"/>
+      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="440"/>
+      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="688"/>
       <source>Path</source>
       <translation>Путь</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="450"/>
-      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="748"/>
+      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="456"/>
+      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="754"/>
       <source>Headers</source>
       <translation>Заголовок</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="457"/>
+      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="463"/>
       <source>Format: Key|Value</source>
       <translation>Format: Key|Value
 </translation>
     </message>
     <message>
-      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="471"/>
+      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="477"/>
       <source>MTU</source>
       <translation>MTU</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="497"/>
+      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="503"/>
       <source>TTI (ms)</source>
       <translation>TTI (мс)</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="523"/>
+      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="529"/>
       <source>Uplink Capacity (MB/s)</source>
       <translation>Uplink Capacity (MB/s)</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="546"/>
+      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="552"/>
       <source>Congestion</source>
       <translation>Перегружен</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="560"/>
+      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="566"/>
       <source>Downlink Capacity (MB/s)</source>
       <translation>Downlink Capacity (MB/s)</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="583"/>
+      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="589"/>
       <source>Read Buffer Size (MB)</source>
       <translation>Читать размер буфера (МБ)</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="606"/>
+      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="612"/>
       <source>Write Buffer Size (MB)</source>
       <translation>Размер буфера записи (МБ)</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="734"/>
+      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="740"/>
       <source>Key</source>
       <translation>Ключ</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="799"/>
+      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="805"/>
       <source>Mark</source>
       <translation>Отметка</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="809"/>
+      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="815"/>
       <source>TCP Fast Open</source>
       <translation>TCP Fast Open</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="823"/>
+      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="829"/>
       <source>TProxy</source>
       <translation>TProxy</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="860"/>
+      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="866"/>
       <source>Email</source>
       <translation>Email</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="867"/>
-      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="963"/>
+      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="873"/>
+      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="969"/>
       <source>Password</source>
       <translation>Пароль</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="874"/>
+      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="880"/>
       <source>Encryption Method</source>
       <translation>Метод шифрования</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="926"/>
+      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="932"/>
       <source>Level</source>
       <translation>Уровень</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="936"/>
+      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="942"/>
       <source>OTA</source>
       <translation>OTA</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="973"/>
+      <location filename="../src/ui/w_ConnectionEditWindow.ui" line="979"/>
       <source>Username</source>
       <translation>Имя пользователя</translation>
-    </message>
-    <message>
-      <location filename="../src/ui/w_ConnectionEditWindow.cpp" line="382"/>
-      <location filename="../src/ui/w_ConnectionEditWindow.cpp" line="392"/>
-      <source>#JsonPrettify</source>
-      <translation>#JsonPrettify</translation>
-    </message>
-    <message>
-      <location filename="../src/ui/w_ConnectionEditWindow.cpp" line="382"/>
-      <location filename="../src/ui/w_ConnectionEditWindow.cpp" line="392"/>
-      <source>#JsonContainsError</source>
-      <translation>#JsonContainsError</translation>
     </message>
   </context>
   <context>
@@ -336,6 +324,56 @@
     </message>
   </context>
   <context>
+    <name>JsonEditor</name>
+    <message>
+      <location filename="../src/ui/w_JsonEditor.ui" line="14"/>
+      <source>Dialog</source>
+      <translation>Диалог</translation>
+    </message>
+    <message>
+      <location filename="../src/ui/w_JsonEditor.ui" line="29"/>
+      <source>Json Structure Preview</source>
+      <translation type="unfinished">Json Structure Preview</translation>
+    </message>
+    <message>
+      <location filename="../src/ui/w_JsonEditor.ui" line="36"/>
+      <source>Json Editor</source>
+      <translation type="unfinished">Json Editor</translation>
+    </message>
+    <message>
+      <location filename="../src/ui/w_JsonEditor.ui" line="43"/>
+      <source>OK</source>
+      <translation type="unfinished">OK</translation>
+    </message>
+    <message>
+      <location filename="../src/ui/w_JsonEditor.ui" line="60"/>
+      <source>Format Json</source>
+      <translation type="unfinished">Format Json</translation>
+    </message>
+    <message>
+      <location filename="../src/ui/w_JsonEditor.cpp" line="20"/>
+      <location filename="../src/ui/w_JsonEditor.cpp" line="34"/>
+      <location filename="../src/ui/w_JsonEditor.cpp" line="75"/>
+      <source>Json Contains Syntax Errors</source>
+      <translation type="unfinished">Json Contains Syntax Errors</translation>
+    </message>
+    <message>
+      <location filename="../src/ui/w_JsonEditor.cpp" line="20"/>
+      <source>Original Json may contain syntax errors. Json tree is disabled.</source>
+      <translation type="unfinished">Original Json may contain syntax errors. Json tree is disabled.</translation>
+    </message>
+    <message>
+      <location filename="../src/ui/w_JsonEditor.cpp" line="34"/>
+      <source>You must correct these errors before continue.</source>
+      <translation type="unfinished">You must correct these errors before continue.</translation>
+    </message>
+    <message>
+      <location filename="../src/ui/w_JsonEditor.cpp" line="75"/>
+      <source>Please fix it and retry later.</source>
+      <translation type="unfinished">Please fix it and retry later.</translation>
+    </message>
+  </context>
+  <context>
     <name>MainWindow</name>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="23"/>
@@ -344,19 +382,19 @@
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="47"/>
-      <location filename="../src/ui/w_MainWindow.cpp" line="41"/>
+      <location filename="../src/ui/w_MainWindow.cpp" line="43"/>
       <source>Connect</source>
       <translation>Подключение</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="57"/>
-      <location filename="../src/ui/w_MainWindow.cpp" line="43"/>
+      <location filename="../src/ui/w_MainWindow.cpp" line="45"/>
       <source>Disconnect</source>
       <translation>Отключен</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="64"/>
-      <location filename="../src/ui/w_MainWindow.cpp" line="42"/>
+      <location filename="../src/ui/w_MainWindow.cpp" line="44"/>
       <source>Reconnect</source>
       <translation>Переподключить</translation>
     </message>
@@ -417,7 +455,7 @@
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="263"/>
-      <location filename="../src/ui/w_MainWindow.ui" line="360"/>
+      <location filename="../src/ui/w_MainWindow.ui" line="353"/>
       <source>#ImportConnection</source>
       <translation>#ImportConnection</translation>
     </message>
@@ -447,187 +485,181 @@
       <translation>R</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_MainWindow.ui" line="311"/>
-      <source>#</source>
-      <translation>#</translation>
-    </message>
-    <message>
-      <location filename="../src/ui/w_MainWindow.ui" line="333"/>
+      <location filename="../src/ui/w_MainWindow.ui" line="326"/>
       <source>Log</source>
       <translation>Лог</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_MainWindow.ui" line="355"/>
+      <location filename="../src/ui/w_MainWindow.ui" line="348"/>
       <source>#ManuallyCreateConnection</source>
       <translation>#ManuallyCreateConnection</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_MainWindow.ui" line="365"/>
+      <location filename="../src/ui/w_MainWindow.ui" line="358"/>
       <source>#Exit</source>
       <translation>#Выход</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_MainWindow.ui" line="370"/>
+      <location filename="../src/ui/w_MainWindow.ui" line="363"/>
       <source>#Preferences</source>
       <translation>#Параметры</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_MainWindow.ui" line="375"/>
+      <location filename="../src/ui/w_MainWindow.ui" line="368"/>
       <source>#Start</source>
       <translation>#Запустить</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_MainWindow.ui" line="380"/>
+      <location filename="../src/ui/w_MainWindow.ui" line="373"/>
       <source>#Stop</source>
       <translation>#Стоп</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_MainWindow.ui" line="385"/>
+      <location filename="../src/ui/w_MainWindow.ui" line="378"/>
       <source>#Restart</source>
       <translation>#Перезапуск</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_MainWindow.cpp" line="39"/>
-      <location filename="../src/ui/w_MainWindow.cpp" line="290"/>
+      <location filename="../src/ui/w_MainWindow.cpp" line="41"/>
+      <location filename="../src/ui/w_MainWindow.cpp" line="299"/>
       <source>Hide</source>
       <translation>Скрыть</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_MainWindow.cpp" line="40"/>
+      <location filename="../src/ui/w_MainWindow.cpp" line="42"/>
       <source>Quit</source>
       <translation>Выход</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_MainWindow.cpp" line="45"/>
+      <location filename="../src/ui/w_MainWindow.cpp" line="47"/>
       <source>Rename</source>
       <translation>Переименование</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_MainWindow.cpp" line="46"/>
+      <location filename="../src/ui/w_MainWindow.cpp" line="48"/>
       <source>Connect to this</source>
       <translation>Подключиться к этому</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_MainWindow.cpp" line="92"/>
-      <location filename="../src/ui/w_MainWindow.cpp" line="245"/>
-      <location filename="../src/ui/w_MainWindow.cpp" line="293"/>
+      <location filename="../src/ui/w_MainWindow.cpp" line="49"/>
+      <source>Edit as Json</source>
+      <translation type="unfinished">Edit as Json</translation>
+    </message>
+    <message>
+      <location filename="../src/ui/w_MainWindow.cpp" line="98"/>
+      <location filename="../src/ui/w_MainWindow.cpp" line="254"/>
+      <location filename="../src/ui/w_MainWindow.cpp" line="302"/>
       <source>Show</source>
       <translation>Показать</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_MainWindow.cpp" line="127"/>
+      <location filename="../src/ui/w_MainWindow.cpp" line="140"/>
       <source>Update</source>
       <translation>Обновить</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_MainWindow.cpp" line="128"/>
+      <location filename="../src/ui/w_MainWindow.cpp" line="141"/>
       <source>Found a new version: </source>
       <translation>Найдена новая версия: </translation>
     </message>
     <message>
-      <location filename="../src/ui/w_MainWindow.cpp" line="134"/>
+      <location filename="../src/ui/w_MainWindow.cpp" line="147"/>
       <source>Download Link: </source>
       <translation>Ссылка для скачивания:</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_MainWindow.cpp" line="195"/>
+      <location filename="../src/ui/w_MainWindow.cpp" line="116"/>
+      <location filename="../src/ui/w_MainWindow.cpp" line="210"/>
       <source>No connection selected!</source>
       <translation>Не выбрано соединение!</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_MainWindow.cpp" line="195"/>
+      <location filename="../src/ui/w_MainWindow.cpp" line="116"/>
+      <location filename="../src/ui/w_MainWindow.cpp" line="210"/>
       <source>Please select a config from the list.</source>
       <translation>Пожалуйста, выберите конфигурацию из списка</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_MainWindow.cpp" line="206"/>
-      <location filename="../src/ui/w_MainWindow.cpp" line="207"/>
+      <location filename="../src/ui/w_MainWindow.cpp" line="221"/>
+      <location filename="../src/ui/w_MainWindow.cpp" line="222"/>
       <source>Connected To Server: </source>
       <translation>Соединяется с Сервером:</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_MainWindow.cpp" line="208"/>
-      <source>Connected</source>
-      <translation>Подключен</translation>
+      <location filename="../src/ui/w_MainWindow.cpp" line="223"/>
+      <source>Connected: </source>
+      <translation type="unfinished">Connected: </translation>
     </message>
     <message>
-      <location filename="../src/ui/w_MainWindow.cpp" line="225"/>
+      <location filename="../src/ui/w_MainWindow.cpp" line="240"/>
       <source>Disconnected</source>
       <translation>Отключен</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_MainWindow.cpp" line="328"/>
+      <location filename="../src/ui/w_MainWindow.cpp" line="342"/>
       <source>UUID</source>
       <translation>UUID</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_MainWindow.cpp" line="330"/>
+      <location filename="../src/ui/w_MainWindow.cpp" line="344"/>
       <source>AlterID</source>
       <translation>AlterID</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_MainWindow.cpp" line="332"/>
+      <location filename="../src/ui/w_MainWindow.cpp" line="346"/>
       <source>Transport</source>
       <translation>Протокол</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_MainWindow.cpp" line="339"/>
+      <location filename="../src/ui/w_MainWindow.cpp" line="353"/>
       <source>Email</source>
       <translation>Email</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_MainWindow.cpp" line="341"/>
+      <location filename="../src/ui/w_MainWindow.cpp" line="355"/>
       <source>Encryption</source>
       <translation>Шифрование</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_MainWindow.cpp" line="348"/>
+      <location filename="../src/ui/w_MainWindow.cpp" line="362"/>
       <source>Username</source>
       <translation>Имя пользователя</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_MainWindow.cpp" line="434"/>
-      <location filename="../src/ui/w_MainWindow.cpp" line="443"/>
+      <location filename="../src/ui/w_MainWindow.cpp" line="448"/>
+      <location filename="../src/ui/w_MainWindow.cpp" line="457"/>
       <source>Rename a Connection</source>
       <translation>Переименовать подключение</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_MainWindow.cpp" line="434"/>
+      <location filename="../src/ui/w_MainWindow.cpp" line="448"/>
       <source>The name cannot be empty</source>
       <translation>Имя не может быть пустым</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_MainWindow.cpp" line="470"/>
+      <location filename="../src/ui/w_MainWindow.cpp" line="484"/>
       <source>Removing this Connection</source>
       <translation>Удалить из списка</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_MainWindow.cpp" line="512"/>
+      <location filename="../src/ui/w_MainWindow.cpp" line="539"/>
+      <location filename="../src/ui/w_MainWindow.cpp" line="575"/>
       <source>No Config Selected</source>
       <translation>Не выбрана конфигурация</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_MainWindow.cpp" line="512"/>
+      <location filename="../src/ui/w_MainWindow.cpp" line="539"/>
+      <location filename="../src/ui/w_MainWindow.cpp" line="575"/>
       <source>Please Select a Config</source>
       <translation>Пожалуйста, выберите конфигурацию</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_MainWindow.cpp" line="550"/>
-      <source>No config selected</source>
-      <translation>Не выбрана конфигурация</translation>
-    </message>
-    <message>
-      <location filename="../src/ui/w_MainWindow.cpp" line="550"/>
-      <source>Please select a config.</source>
-      <translation>Пожалуйста, выберите конфигурацию.</translation>
-    </message>
-    <message>
-      <location filename="../src/ui/w_MainWindow.cpp" line="443"/>
+      <location filename="../src/ui/w_MainWindow.cpp" line="457"/>
       <source>The name has been used already, Please choose another.</source>
       <translation>Имя уже используется, пожалуйста, выберите другое.</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_MainWindow.cpp" line="470"/>
+      <location filename="../src/ui/w_MainWindow.cpp" line="484"/>
       <source>Are you sure to remove this connection?</source>
       <translation>Вы уверены, что хотите удалить это подключение?</translation>
     </message>
@@ -883,14 +915,14 @@
       <translation>Не удалось установить параметр на v2ray исполняемый файл. Возможно, вам нужно запустить `setcap` вручную.</translation>
     </message>
     <message>
+      <location filename="../src/ui/w_PrefrencesWindow.cpp" line="344"/>
+      <source>tProxy is not supported on macOS and Windows</source>
+      <translation type="unfinished">tProxy is not supported on macOS and Windows</translation>
+    </message>
+    <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="253"/>
       <source>Open v2ray assets folder</source>
       <translation>Открыть папку с v2ray</translation>
-    </message>
-    <message>
-      <location filename="../src/ui/w_PrefrencesWindow.cpp" line="344"/>
-      <source>tProxy is not supported on MacOS and Windows</source>
-      <translation>tProxy не поддерживается на MacOS и Windows</translation>
     </message>
   </context>
   <context>
@@ -1080,22 +1112,22 @@
     <message>
       <location filename="../src/ui/w_RouteEditor.cpp" line="22"/>
       <location filename="../src/ui/w_RouteEditor.cpp" line="30"/>
-      <location filename="../src/ui/w_RouteEditor.cpp" line="69"/>
+      <location filename="../src/ui/w_RouteEditor.cpp" line="75"/>
       <source>NoTag</source>
       <translation>NoTag</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RouteEditor.cpp" line="99"/>
+      <location filename="../src/ui/w_RouteEditor.cpp" line="105"/>
       <source>#NoTag</source>
       <translation>#NoTag</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RouteEditor.cpp" line="141"/>
+      <location filename="../src/ui/w_RouteEditor.cpp" line="147"/>
       <source>Cannot Edit</source>
       <translation>Не удается изменить</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RouteEditor.cpp" line="141"/>
+      <location filename="../src/ui/w_RouteEditor.cpp" line="147"/>
       <source>Currently, this type of outbound is not supported by the editor.</source>
       <translation>В настоящее время этот тип outbound не поддерживается в этой версии программы.</translation>
     </message>
