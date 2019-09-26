@@ -14,7 +14,7 @@ CONFIG += c++11 openssl openssl-linked lrelease embed_translations
 win32: QMAKE_TARGET_DESCRIPTION = "Qv2ray, a cross-platform v2ray GUI client."
 win32: QMAKE_TARGET_PRODUCT = "Qv2ray"
 
-VERSION = 2.0
+VERSION = 1.999.999.999
 DEFINES += QV_MAJOR_VERSION=\"\\\"$${VERSION}\\\"\"
 
 SOURCES += \
@@ -28,6 +28,8 @@ SOURCES += \
         src/utils/QPingModel.cpp \
         src/utils/QvHTTPRequestHelper.cpp \
         src/utils/QvRunguard.cpp \
+        src/utils/QJsonModel.cpp \
+        src/ui/w_JsonEditor.cpp \
         src/ui/w_RouteEditor.cpp \
         src/ui/w_SubscribeEditor.cpp \
         src/ui/w_MainWindow.cpp \
@@ -52,6 +54,8 @@ HEADERS += \
         src/utils/QvHTTPRequestHelper.h \
         src/utils/QvRunguard.h \
         src/utils/QvTinyLog.h \
+        src/utils/QJsonModel.h \
+        src/ui/w_JsonEditor.h \
         src/ui/w_ConnectionEditWindow.h \
         src/ui/w_ImportConfig.h \
         src/ui/w_MainWindow.h \
@@ -62,6 +66,7 @@ HEADERS += \
 FORMS += \
         src/ui/w_ConnectionEditWindow.ui \
         src/ui/w_ImportConfig.ui \
+        src/ui/w_JsonEditor.ui \
         src/ui/w_MainWindow.ui \
         src/ui/w_PrefrencesWindow.ui \
         src/ui/w_RouteEditor.ui \
@@ -90,7 +95,7 @@ for(var, $$list($$files("*.ts", true))) {
 TRANSLATIONS += \
         translations/en-US.ts
 
-message("Translations:" $$TRANSLATIONS)
+message("CORE  Translations:" $$TRANSLATIONS)
 message("EXTRA Translations:" $$EXTRA_TRANSLATIONS)
 
 

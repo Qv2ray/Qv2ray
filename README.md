@@ -114,6 +114,8 @@ Qv2ray is licensed under [![License: GPL v3](https://img.shields.io/badge/Licens
 
 [X2Struct](https://github.com/xyz347/x2struct) is licensed ![License: GPL v3](https://img.shields.io/badge/License-MIT-blue.svg)
 
+[QJsonModel](https://github.com/dridk/QJsonModel) is licensed under![License: GPL v3](https://img.shields.io/badge/License-MIT-blue.svg) (Copyright (c) 2011 SCHUTZ Sacha)
+
 ```
     Qv2ray, A Qt frontend for v2ray. Written in c++
     Copyright (C) 2019 Leroy.H.Y (@lhy0403)         ---> Qv2ray Current Maintainer

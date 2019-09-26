@@ -17,7 +17,6 @@ class ConnectionEditWindow : public QDialog
 
     public:
         explicit ConnectionEditWindow(QWidget *parent = nullptr);
-        QJsonObject Result;
         QString Tag;
         QString Alias;
         QJsonObject OpenEditor();
@@ -52,10 +51,6 @@ class ConnectionEditWindow : public QDialog
 
         void on_tcpRespDefBtn_clicked();
 
-        void on_tcpRequestTxt_textChanged();
-
-        void on_tcpRespTxt_textChanged();
-
         void on_tlsCB_stateChanged(int arg1);
 
         void on_soMarkSpinBox_valueChanged(int arg1);
@@ -69,10 +64,6 @@ class ConnectionEditWindow : public QDialog
         void on_quicKeyTxt_textEdited(const QString &arg1);
 
         void on_quicHeaderTypeCB_currentIndexChanged(const QString &arg1);
-
-        void on_tcpRequestPrettifyBtn_clicked();
-
-        void on_tcpRespPrettifyBtn_clicked();
 
         void on_tcpHeaderTypeCB_currentIndexChanged(const QString &arg1);
 
@@ -114,9 +105,15 @@ class ConnectionEditWindow : public QDialog
 
         void on_socks_PasswordTxt_textEdited(const QString &arg1);
 
+        void on_tcpRequestEditBtn_clicked();
+
+        void on_tcpResponseEditBtn_clicked();
+
     private:
         int rootJsonCursorPos;
         void ReLoad_GUI_JSON_ModelContent();
+        QJsonObject Original;
+        QJsonObject Result;
         QJsonObject GenerateConnectionJson();
         Ui::ConnectionEditWindow *ui;
         //

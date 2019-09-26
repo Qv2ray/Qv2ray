@@ -5,6 +5,7 @@
 
 #include "w_ConnectionEditWindow.h"
 #include "w_MainWindow.h"
+#include "w_JsonEditor.h"
 
 ConnectionEditWindow::ConnectionEditWindow(QWidget *parent)
     : QDialog(parent),
@@ -27,11 +28,13 @@ ConnectionEditWindow::ConnectionEditWindow(QWidget *parent)
     OutboundType = "vmess";
     Tag = OUTBOUND_TAG_PROXY;
     ReLoad_GUI_JSON_ModelContent();
+    Result = GenerateConnectionJson();
 }
 
 ConnectionEditWindow::ConnectionEditWindow(QJsonObject outboundEntry, QString *alias, QWidget *parent)
     : ConnectionEditWindow(parent)
 {
+    Original = outboundEntry;
     Alias = alias == nullptr ? "" : *alias;
     Tag = outboundEntry.contains("tag") ? outboundEntry["tag"].toString() : OUTBOUND_TAG_PROXY;
     OutboundType = outboundEntry["protocol"].toString();
@@ -58,6 +61,7 @@ ConnectionEditWindow::ConnectionEditWindow(QJsonObject outboundEntry, QString *a
     }
 
     ReLoad_GUI_JSON_ModelContent();
+    Result = GenerateConnectionJson();
 }
 
 
@@ -68,8 +72,8 @@ ConnectionEditWindow::~ConnectionEditWindow()
 
 QJsonObject ConnectionEditWindow::OpenEditor()
 {
-    this->exec();
-    return Result;
+    int resultCode = this->exec();
+    return resultCode == QDialog::Accepted ? Result : Original;
 }
 
 void ConnectionEditWindow::ReLoad_GUI_JSON_ModelContent()
@@ -290,28 +294,6 @@ void ConnectionEditWindow::on_tcpRespDefBtn_clicked()
     ui->tcpRespTxt->insertPlainText("{\"version\":\"1.1\",\"status\":\"200\",\"reason\":\"OK\",\"headers\":{\"Content-Type\":[\"application/octet-stream\",\"video/mpeg\"],\"Transfer-Encoding\":[\"chunked\"],\"Connection\":[\"keep-alive\"],\"Pragma\":\"no-cache\"}}");
 }
 
-void ConnectionEditWindow::on_tcpRequestTxt_textChanged()
-{
-    try {
-        auto tcpReqObject = StructFromJsonString<TSObjects::HTTPRequestObject>(ui->tcpRequestTxt->toPlainText());
-        stream.tcpSettings.header.request = tcpReqObject;
-        BLACK(tcpRequestTxt)
-    } catch (...) {
-        RED(tcpRequestTxt)
-    }
-}
-
-void ConnectionEditWindow::on_tcpRespTxt_textChanged()
-{
-    try {
-        auto tcpRspObject = StructFromJsonString<TSObjects::HTTPResponseObject>(ui->tcpRespTxt->toPlainText());
-        stream.tcpSettings.header.response = tcpRspObject;
-        BLACK(tcpRespTxt)
-    } catch (...) {
-        RED(tcpRespTxt)
-    }
-}
-
 void ConnectionEditWindow::on_genJsonBtn_clicked()
 {
     auto json = GenerateConnectionJson();
@@ -371,26 +353,6 @@ void ConnectionEditWindow::on_quicKeyTxt_textEdited(const QString &arg1)
 void ConnectionEditWindow::on_quicHeaderTypeCB_currentIndexChanged(const QString &arg1)
 {
     stream.quicSettings.header.type = arg1.toStdString();
-}
-void ConnectionEditWindow::on_tcpRequestPrettifyBtn_clicked()
-{
-    try {
-        auto tcpReqObject = StructFromJsonString<TSObjects::HTTPRequestObject>(ui->tcpRequestTxt->toPlainText());
-        auto tcpReqObjectStr = StructToJsonString(tcpReqObject);
-        ui->tcpRequestTxt->setPlainText(tcpReqObjectStr);
-    } catch (...) {
-        QvMessageBox(this, tr("#JsonPrettify"), tr("#JsonContainsError"));
-    }
-}
-void ConnectionEditWindow::on_tcpRespPrettifyBtn_clicked()
-{
-    try {
-        auto tcpRspObject = StructFromJsonString<TSObjects::HTTPResponseObject>(ui->tcpRespTxt->toPlainText());
-        auto tcpRspObjectStr = StructToJsonString(tcpRspObject);
-        ui->tcpRespTxt->setPlainText(tcpRspObjectStr);
-    } catch (...) {
-        QvMessageBox(this, tr("#JsonPrettify"), tr("#JsonContainsError"));
-    }
 }
 void ConnectionEditWindow::on_tcpHeaderTypeCB_currentIndexChanged(const QString &arg1)
 {
@@ -479,4 +441,24 @@ void ConnectionEditWindow::on_socks_UserNameTxt_textEdited(const QString &arg1)
 void ConnectionEditWindow::on_socks_PasswordTxt_textEdited(const QString &arg1)
 {
     socks.users.front().pass = arg1.toStdString();
+}
+
+void ConnectionEditWindow::on_tcpRequestEditBtn_clicked()
+{
+    JsonEditor *w = new JsonEditor(JsonFromString(ui->tcpRequestTxt->toPlainText()), this);
+    auto rString = JsonToString(w->OpenEditor());
+    ui->tcpRequestTxt->setPlainText(rString);
+    auto tcpReqObject = StructFromJsonString<TSObjects::HTTPRequestObject>(rString);
+    stream.tcpSettings.header.request = tcpReqObject;
+    delete w;
+}
+
+void ConnectionEditWindow::on_tcpResponseEditBtn_clicked()
+{
+    JsonEditor *w = new JsonEditor(JsonFromString(ui->tcpRespTxt->toPlainText()), this);
+    auto rString = JsonToString(w->OpenEditor());
+    ui->tcpRespTxt->setPlainText(rString);
+    auto tcpRspObject = StructFromJsonString<TSObjects::HTTPResponseObject>(rString);
+    stream.tcpSettings.header.response = tcpRspObject;
+    delete w;
 }
