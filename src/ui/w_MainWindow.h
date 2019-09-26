@@ -57,12 +57,11 @@ class MainWindow : public QMainWindow
 
         void on_editConfigButton_clicked();
 
-        void on_editConfigAdvButton_clicked();
-
         void on_reconnectButton_clicked();
 
     private:
         void on_action_StartThis_triggered();
+        void on_action_RCM_EditJson_triggered();
         void on_action_RenameConnection_triggered();
         Ui::MainWindow *ui;
         QvHttpRequestHelper HTTPRequestHelper;
