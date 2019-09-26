@@ -22,6 +22,7 @@
 #include "w_RouteEditor.h"
 #include "w_PrefrencesWindow.h"
 #include "w_SubscribeEditor.h"
+#include "w_JsonEditor.h"
 
 #define TRAY_TOOLTIP_PREFIX "Qv2ray " QV2RAY_VERSION_STRING "\r\n"
 
@@ -45,6 +46,8 @@ MainWindow::MainWindow(QWidget *parent)
     //
     QAction *action_RCM_RenameConnection = new QAction(tr("Rename"), this);
     QAction *action_RCM_StartThis = new QAction(tr("Connect to this"), this);
+    QAction *action_RCM_EditJson = new QAction(tr("Edit as Json"), this);
+    //
     action_Tray_Start->setEnabled(true);
     action_Tray_Stop->setEnabled(false);
     action_Tray_Reconnect->setEnabled(false);
@@ -64,12 +67,14 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->logText, &QTextBrowser::textChanged, this, &MainWindow::QTextScrollToBottom);
     connect(action_RCM_RenameConnection, &QAction::triggered, this, &MainWindow::on_action_RenameConnection_triggered);
     connect(action_RCM_StartThis, &QAction::triggered, this, &MainWindow::on_action_StartThis_triggered);
+    connect(action_RCM_EditJson, &QAction::triggered, this, &MainWindow::on_action_RCM_EditJson_triggered);
     //
     hTray->setContextMenu(trayMenu);
     hTray->show();
     //
-    listMenu.addAction(action_RCM_StartThis);
     listMenu.addAction(action_RCM_RenameConnection);
+    listMenu.addAction(action_RCM_StartThis);
+    listMenu.addAction(action_RCM_EditJson);
     //
     LoadConnections();
     QObject::connect(&HTTPRequestHelper, &QvHttpRequestHelper::httpRequestFinished, this, &MainWindow::VersionUpdate);
@@ -318,6 +323,9 @@ void MainWindow::QTextScrollToBottom()
 
 void MainWindow::ShowAndSetConnection(QString guiConnectionName, bool SetConnection, bool ApplyConnection)
 {
+    // Check empty again...
+    if (guiConnectionName.isEmpty()) return;
+
     // --------- BRGIN Show Connection
     auto outBoundRoot = (connections[guiConnectionName])["outbounds"].toArray().first().toObject();
     //
@@ -490,6 +498,7 @@ void MainWindow::on_removeConfigButton_clicked()
         conf.configs = list.toStdList();
         SetGlobalConfig(&conf);
         save_reload_globalconfig(isRemovingItemRunning);
+        ShowAndSetConnection(CurrentConnectionName, false, false);
     }
 }
 
@@ -498,18 +507,29 @@ void MainWindow::on_importConfigButton_clicked()
     ImportConfigWindow *w = new ImportConfigWindow(this);
     connect(w, &ImportConfigWindow::s_reload_config, this, &MainWindow::save_reload_globalconfig);
     w->exec();
+    ShowAndSetConnection(CurrentConnectionName, false, false);
 }
 
 void MainWindow::on_addConfigButton_clicked()
 {
     ConnectionEditWindow *w = new ConnectionEditWindow(this);
     connect(w, &ConnectionEditWindow::s_reload_config, this, &MainWindow::save_reload_globalconfig);
-    w->exec();
-    LOG(MODULE_UI, "WARNING:")
-    LOG(MODULE_UI, "THIS FEATURE IS NOT IMPLEMENTED YET!")
-    auto outboundEntry = w->Result;
+    auto outboundEntry = w->OpenEditor();
+    QJsonArray outboundsList;
+    outboundsList.push_back(outboundEntry);
+    QJsonObject root;
+    root.insert("outbounds", outboundsList);
     auto alias = w->Alias;
     delete w;
+    auto conf = GetGlobalConfig();
+    auto connectionList = conf.configs;
+    connectionList.push_back(alias.toStdString());
+    conf.configs = connectionList;
+    SetGlobalConfig(&conf);
+    SaveGlobalConfig();
+    save_reload_globalconfig(false);
+    SaveConnectionConfig(root, &alias);
+    ShowAndSetConnection(CurrentConnectionName, false, false);
 }
 
 void MainWindow::on_editConfigButton_clicked()
@@ -529,8 +549,8 @@ void MainWindow::on_editConfigButton_clicked()
         RouteEditor *routeWindow = new RouteEditor(outBoundRoot, alias, this);
         root = routeWindow->OpenEditor();
     } else {
-        LOG(MODULE_UI, "INFO: Opening connection edit window.")
-        ConnectionEditWindow *w = new ConnectionEditWindow(connections[alias]["outbounds"].toArray().first().toObject(), &alias, this);
+        LOG(MODULE_UI, "INFO: Opening single connection edit window.")
+        ConnectionEditWindow *w = new ConnectionEditWindow(outBoundRoot["outbounds"].toArray().first().toObject(), &alias, this);
         auto outboundEntry = w->OpenEditor();
         QJsonArray outboundsList;
         outboundsList.push_back(outboundEntry);
@@ -539,21 +559,7 @@ void MainWindow::on_editConfigButton_clicked()
 
     connections[alias] = root;
     SaveConnectionConfig(root, &alias);
-}
-
-void MainWindow::on_editConfigAdvButton_clicked()
-{
-    // Check if we have a connection selected...
-    auto index = ui->connectionListWidget->currentIndex().row();
-
-    if (index < 0) {
-        QvMessageBox(this, tr("No config selected"), tr("Please select a config."));
-        return;
-    }
-
-    auto alias = ui->connectionListWidget->currentItem()->text();
-    RouteEditor *w = new RouteEditor(connections[alias], alias, this);
-    w->exec();
+    ShowAndSetConnection(CurrentConnectionName, false, false);
 }
 
 void MainWindow::on_reconnectButton_clicked()
@@ -561,3 +567,21 @@ void MainWindow::on_reconnectButton_clicked()
     on_stopButton_clicked();
     on_startButton_clicked();
 }
+
+void MainWindow::on_action_RCM_EditJson_triggered()
+{
+    // Check if we have a connection selected...
+    if (ui->connectionListWidget->currentIndex().row() < 0) {
+        QvMessageBox(this, tr("No Config Selected"), tr("Please Select a Config"));
+        return;
+    }
+
+    auto alias = ui->connectionListWidget->currentItem()->text();
+    JsonEditor *w = new JsonEditor(connections[alias], this);
+    auto root = w->OpenEditor();
+    delete w;
+    connections[alias] = root;
+    SaveConnectionConfig(root, &alias);
+    ShowAndSetConnection(CurrentConnectionName, false, false);
+}
+
