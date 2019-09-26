@@ -6,27 +6,27 @@
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="26"/>
       <source>EditConnectionSettings</source>
-      <translation type="unfinished">EditConnectionSettings</translation>
+      <translation>EditConnectionSettings</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="37"/>
       <source>Identifier</source>
-      <translation type="unfinished">Identifier</translation>
+      <translation>Идентификатор</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="46"/>
       <source>Alias</source>
-      <translation type="unfinished">Alias</translation>
+      <translation>Алиас</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="56"/>
       <source>Tag</source>
-      <translation type="unfinished">Tag</translation>
+      <translation>Тег</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="68"/>
       <source>Server</source>
-      <translation type="unfinished">Server</translation>
+      <translation>Сервер</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="77"/>
@@ -88,7 +88,7 @@
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="240"/>
       <source>Transport</source>
-      <translation type="unfinished">Transport</translation>
+      <translation>Протокол</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="283"/>
@@ -115,7 +115,7 @@
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="365"/>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="372"/>
       <source>Default Value</source>
-      <translation type="unfinished">Default Value</translation>
+      <translation>Значение по Умолчанию</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="408"/>
@@ -133,7 +133,8 @@
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="457"/>
       <source>Format: Key|Value</source>
-      <translation type="unfinished">Format: Key|Value</translation>
+      <translation>Format: Key|Value
+</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="471"/>
@@ -148,27 +149,27 @@
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="523"/>
       <source>Uplink Capacity (MB/s)</source>
-      <translation type="unfinished">Uplink Capacity (MB/s)</translation>
+      <translation>Uplink Capacity (MB/s)</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="546"/>
       <source>Congestion</source>
-      <translation type="unfinished">Congestion</translation>
+      <translation>Перегружен</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="560"/>
       <source>Downlink Capacity (MB/s)</source>
-      <translation type="unfinished">Downlink Capacity (MB/s)</translation>
+      <translation>Downlink Capacity (MB/s)</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="583"/>
       <source>Read Buffer Size (MB)</source>
-      <translation type="unfinished">Read Buffer Size (MB)</translation>
+      <translation>Читать размер буфера (МБ)</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="606"/>
       <source>Write Buffer Size (MB)</source>
-      <translation type="unfinished">Write Buffer Size (MB)</translation>
+      <translation>Размер буфера записи (МБ)</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="734"/>
@@ -188,12 +189,12 @@
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="823"/>
       <source>TProxy</source>
-      <translation type="unfinished">TProxy</translation>
+      <translation>TProxy</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="860"/>
       <source>Email</source>
-      <translation type="unfinished">Email</translation>
+      <translation>Email</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="867"/>
@@ -204,12 +205,12 @@
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="874"/>
       <source>Encryption Method</source>
-      <translation type="unfinished">Encryption Method</translation>
+      <translation>Метод шифрования</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="926"/>
       <source>Level</source>
-      <translation type="unfinished">Level</translation>
+      <translation>Уровень</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="936"/>
@@ -300,38 +301,38 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="168"/>
       <source>TO DO IN VERSION 2</source>
-      <translation type="unfinished">TO DO IN VERSION 2</translation>
+      <translation>TO DO IN VERSION 2</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="36"/>
       <source>Select file to import</source>
-      <translation type="unfinished">Select file to import</translation>
+      <translation>Выберите файл для Импорта</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="51"/>
       <source>Import config file</source>
-      <translation type="unfinished">Import config file</translation>
+      <translation>Выберите файл конфигурации</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="51"/>
       <source>Failed to check the validity of the config file.</source>
-      <translation type="unfinished">Failed to check the validity of the config file.</translation>
+      <translation>Не удалось проверить правильность файла конфигурации.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="69"/>
       <location filename="../src/ui/w_ImportConfig.cpp" line="74"/>
       <source>VMess String Check</source>
-      <translation type="unfinished">VMess String Check</translation>
+      <translation>Проверка строки VMess</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="69"/>
       <source>VMess string is not valid</source>
-      <translation type="unfinished">VMess string is not valid</translation>
+      <translation>Ошибка строки VMess</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="74"/>
       <source>Some internal error occured</source>
-      <translation type="unfinished">Some internal error occured</translation>
+      <translation>Произошла внутренняя ошибка</translation>
     </message>
   </context>
   <context>
@@ -407,7 +408,7 @@
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="243"/>
       <source>#AddConnection</source>
-      <translation type="unfinished">#AddConnection</translation>
+      <translation>#AddConnection</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="246"/>
@@ -418,7 +419,7 @@
       <location filename="../src/ui/w_MainWindow.ui" line="263"/>
       <location filename="../src/ui/w_MainWindow.ui" line="360"/>
       <source>#ImportConnection</source>
-      <translation type="unfinished">#ImportConnection</translation>
+      <translation>#ImportConnection</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="266"/>
@@ -428,7 +429,7 @@
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="277"/>
       <source>#EditConnection</source>
-      <translation type="unfinished">#EditConnection</translation>
+      <translation>#EditConnection</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="280"/>
@@ -438,7 +439,7 @@
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="297"/>
       <source>#RemoveConnection</source>
-      <translation type="unfinished">#RemoveConnection</translation>
+      <translation>#RemoveConnection</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="300"/>
@@ -448,7 +449,7 @@
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="311"/>
       <source>#</source>
-      <translation type="unfinished">#</translation>
+      <translation>#</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="333"/>
@@ -458,7 +459,7 @@
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="355"/>
       <source>#ManuallyCreateConnection</source>
-      <translation type="unfinished">#ManuallyCreateConnection</translation>
+      <translation>#ManuallyCreateConnection</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="365"/>
@@ -603,22 +604,22 @@
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="512"/>
       <source>No Config Selected</source>
-      <translation type="unfinished">No Config Selected</translation>
+      <translation>Не выбрана конфигурация</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="512"/>
       <source>Please Select a Config</source>
-      <translation type="unfinished">Please Select a Config</translation>
+      <translation>Пожалуйста, выберите конфигурацию</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="550"/>
       <source>No config selected</source>
-      <translation type="unfinished">No config selected</translation>
+      <translation>Не выбрана конфигурация</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="550"/>
       <source>Please select a config.</source>
-      <translation type="unfinished">Please select a config.</translation>
+      <translation>Пожалуйста, выберите конфигурацию.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="443"/>
@@ -700,7 +701,7 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="133"/>
       <source>Transparent Proxy Support</source>
-      <translation type="unfinished">Transparent Proxy Support</translation>
+      <translation>Прозрачная поддержка прокси</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="140"/>
@@ -793,7 +794,7 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="407"/>
       <source>Bypass Chinese Mainland</source>
-      <translation type="unfinished">Bypass Chinese Mainland</translation>
+      <translation>Обход китайского континента</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="414"/>
@@ -858,7 +859,7 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="105"/>
       <source>Port numbers cannot be the same</source>
-      <translation type="unfinished">Port numbers cannot be the same</translation>
+      <translation>Номера портов не могут совпадать</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="311"/>
@@ -884,12 +885,12 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="253"/>
       <source>Open v2ray assets folder</source>
-      <translation type="unfinished">Open v2ray assets folder</translation>
+      <translation>Открыть папку с v2ray</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="344"/>
       <source>tProxy is not supported on MacOS and Windows</source>
-      <translation type="unfinished">tProxy is not supported on MacOS and Windows</translation>
+      <translation>tProxy не поддерживается на MacOS и Windows</translation>
     </message>
   </context>
   <context>
@@ -917,7 +918,7 @@
     <message>
       <location filename="../src/main.cpp" line="157"/>
       <source>DependencyMissing</source>
-      <translation type="unfinished">DependencyMissing</translation>
+      <translation>DependencyMissing</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="158"/>
@@ -965,22 +966,22 @@
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="22"/>
       <source>Routes List</source>
-      <translation type="unfinished">Routes List</translation>
+      <translation>Список маршрутов</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="39"/>
       <source>InBounds</source>
-      <translation type="unfinished">InBounds</translation>
+      <translation>InBounds</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="44"/>
       <source>DomainOrIP</source>
-      <translation type="unfinished">DomainOrIP</translation>
+      <translation>DomainOrIP</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="49"/>
       <source>Outbound</source>
-      <translation type="unfinished">Outbound</translation>
+      <translation>Outbound</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="72"/>
@@ -990,71 +991,71 @@
       <location filename="../src/ui/w_RouteEditor.ui" line="271"/>
       <location filename="../src/ui/w_RouteEditor.ui" line="282"/>
       <source>...</source>
-      <translation type="unfinished">...</translation>
+      <translation>...</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="94"/>
       <source>Change IO</source>
-      <translation type="unfinished">Change IO</translation>
+      <translation>Change IO</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="116"/>
       <source>Route Information</source>
-      <translation type="unfinished">Route Information</translation>
+      <translation>Информация о маршрутах</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="122"/>
       <source>Domains</source>
-      <translation type="unfinished">Domains</translation>
+      <translation>Домены</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="129"/>
       <source>IPs</source>
-      <translation type="unfinished">IPs</translation>
+      <translation>IPs</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="143"/>
       <source>Inbound List</source>
-      <translation type="unfinished">Inbound List</translation>
+      <translation>Inbound List</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="177"/>
       <source>Add Default</source>
-      <translation type="unfinished">Add Default</translation>
+      <translation>Добавить по умолчанию</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="186"/>
       <source>Inbound Information</source>
-      <translation type="unfinished">Inbound Information</translation>
+      <translation>Inbound Information</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="192"/>
       <location filename="../src/ui/w_RouteEditor.ui" line="345"/>
       <source>Tag</source>
-      <translation type="unfinished">Tag</translation>
+      <translation>Тэг</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="206"/>
       <location filename="../src/ui/w_RouteEditor.ui" line="359"/>
       <source>Type</source>
-      <translation type="unfinished">Type</translation>
+      <translation>Тип</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="220"/>
       <location filename="../src/ui/w_RouteEditor.ui" line="373"/>
       <source>Address</source>
-      <translation type="unfinished">Address</translation>
+      <translation>Адрес</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="227"/>
       <location filename="../src/ui/w_RouteEditor.ui" line="387"/>
       <source>Port</source>
-      <translation type="unfinished">Port</translation>
+      <translation>Порт</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="255"/>
       <source>Outbound List</source>
-      <translation type="unfinished">Outbound List</translation>
+      <translation>Outbound List</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="293"/>
@@ -1064,39 +1065,39 @@
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="302"/>
       <source>Outbound Information</source>
-      <translation type="unfinished">Outbound Information</translation>
+      <translation>Outbound Information</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="323"/>
       <source>Edit</source>
-      <translation type="unfinished">Edit</translation>
+      <translation>Изменить</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.ui" line="416"/>
       <source>Status</source>
-      <translation type="unfinished">Status</translation>
+      <translation>Статус</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.cpp" line="22"/>
       <location filename="../src/ui/w_RouteEditor.cpp" line="30"/>
       <location filename="../src/ui/w_RouteEditor.cpp" line="69"/>
       <source>NoTag</source>
-      <translation type="unfinished">NoTag</translation>
+      <translation>NoTag</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.cpp" line="99"/>
       <source>#NoTag</source>
-      <translation type="unfinished">#NoTag</translation>
+      <translation>#NoTag</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.cpp" line="141"/>
       <source>Cannot Edit</source>
-      <translation type="unfinished">Cannot Edit</translation>
+      <translation>Не удается изменить</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RouteEditor.cpp" line="141"/>
       <source>Currently, this type of outbound is not supported by the editor.</source>
-      <translation type="unfinished">Currently, this type of outbound is not supported by the editor.</translation>
+      <translation>В настоящее время этот тип outbound не поддерживается в этой версии программы.</translation>
     </message>
   </context>
   <context>
