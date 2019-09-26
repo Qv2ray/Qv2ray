@@ -41,6 +41,8 @@ void ImportConfigWindow::on_buttonBox_accepted()
 {
     QString alias = ui->nameTxt->text();
     QJsonObject config;
+    auto conf = GetGlobalConfig();
+    auto needReload = false;
 
     if (ui->importSourceCombo->currentIndex() == 0) {
         // From File...
@@ -55,37 +57,45 @@ void ImportConfigWindow::on_buttonBox_accepted()
         QString path = ui->fileLineTxt->text();
         alias = alias != "" ? alias : QFileInfo(path).fileName();
         config = ConvertConfigFromFile(path, overrideInBound);
+        //
+        conf.configs.push_back(alias.toStdString());
+        //
+        SetGlobalConfig(&conf);
+        needReload = SaveConnectionConfig(config, &alias);
     } else {
         QString vmess = ui->vmessConnectionStringTxt->toPlainText();
-        int result = VerifyVMessProtocolString(vmess);
-
-        switch (result) {
-            case 0:
-                // This result code passes the validation check.
-                //QvMessageBox(this, tr("#VMessCheck"), tr("#AbleToImportConfig"));
-                break;
-
-            case -1:
-                QvMessageBox(this, tr("VMess String Check"), tr("VMess string is not valid"));
-                done(0);
-                return;
-
-            default:
-                QvMessageBox(this, tr("VMess String Check"), tr("Some internal error occured"));
-                return;
-        }
-
-        config = ConvertConfigFromVMessString(ui->vmessConnectionStringTxt->toPlainText());
         //
-        alias = alias.isEmpty() ? alias : config["QV2RAY_ALIAS"].toString();
-        config.remove("QV2RAY_ALIAS");
+        // We saperate the string into lines.
+        QStringList vmessList = vmess.split(NEWLINE, QString::SplitBehavior::SkipEmptyParts);
+        XLOG(MODULE_CONNECTION_IMPORT, INFO, to_string(vmessList.count()) + " vmess connection found.")
+
+        foreach (auto vmessString, vmessList) {
+            int result = VerifyVMessProtocolString(vmess);
+
+            switch (result) {
+                case 0:
+                    // This result code passes the validation check.
+                    config = ConvertConfigFromVMessString(ui->vmessConnectionStringTxt->toPlainText());
+                    //
+                    alias = alias.isEmpty() ? alias : config["QV2RAY_ALIAS"].toString();
+                    config.remove("QV2RAY_ALIAS");
+                    //
+                    conf.configs.push_back(alias.toStdString());
+                    needReload = needReload || SaveConnectionConfig(config, &alias);
+                    break;
+
+                case -1:
+                    QvMessageBox(this, tr("VMess String Check"), tr("VMess string is not valid."));
+                    done(0);
+                    return;
+
+                default:
+                    QvMessageBox(this, tr("VMess String Check"), tr("Some internal error occured."));
+                    return;
+            }
+        }
     }
 
-    Qv2rayConfig conf = GetGlobalConfig();
-    //
-    conf.configs.push_back(alias.toStdString());
-    //
     SetGlobalConfig(&conf);
-    auto needReload = SaveConnectionConfig(config, &alias);
     emit s_reload_config(needReload);
 }

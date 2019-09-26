@@ -59,6 +59,14 @@ class MainWindow : public QMainWindow
 
         void on_reconnectButton_clicked();
 
+        void on_editJsonBtn_clicked();
+
+        void on_pingTestBtn_clicked();
+
+        void on_shareQRButton_clicked();
+
+        void on_shareVMessButton_clicked();
+
     private:
         void on_action_StartThis_triggered();
         void on_action_RCM_EditJson_triggered();

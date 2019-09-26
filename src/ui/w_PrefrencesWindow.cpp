@@ -62,8 +62,10 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     ui->vCoreAssetsPathTxt->setText(QSTRING(CurrentConfig.v2AssetsPath));
     //
     //
+#if false
     ui->muxEnabledCB->setChecked(CurrentConfig.mux.enabled);
     ui->muxConcurrencyTxt->setValue(CurrentConfig.mux.concurrency);
+#endif
     //
     //
     ui->bypassCNCb->setChecked(CurrentConfig.bypassCN);
