@@ -607,27 +607,27 @@
     <message>
       <location filename="../src/w_MainWindow.cpp" line="516"/>
       <source>Not Supported</source>
-      <translation type="unfinished">Not Supported</translation>
+      <translation>不支持</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="516"/>
       <source>Qv2ray currently does not support editing complex configs.</source>
-      <translation type="unfinished">Qv2ray currently does not support editing complex configs.</translation>
+      <translation>Qv2ray 目前不支持编辑复杂配置。</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="517"/>
       <source>Do you want to edit the config file manually?</source>
-      <translation type="unfinished">Do you want to edit the config file manually?</translation>
+      <translation>您想手动编辑配置文件吗？</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="519"/>
       <source>Edit Connection Manually.</source>
-      <translation type="unfinished">Edit Connection Manually.</translation>
+      <translation>手动编辑连接。</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="519"/>
       <source>Qv2ray will reload the config once you click OK.</source>
-      <translation type="unfinished">Qv2ray will reload the config once you click OK.</translation>
+      <translation>Qv2ray 将在您点击确定后重新加载配置。</translation>
     </message>
   </context>
   <context>
@@ -888,7 +888,7 @@
     <message>
       <location filename="../src/w_PrefrencesWindow.cpp" line="348"/>
       <source>tProxy is not supported on macOS and Windows</source>
-      <translation type="unfinished">tProxy is not supported on macOS and Windows</translation>
+      <translation>在 macOS 和 Windows 上不支持 tProxy</translation>
     </message>
   </context>
   <context>
