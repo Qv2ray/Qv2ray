@@ -8,6 +8,7 @@ using namespace std;
  * Tiny log module.
  */
 #define LOG(module, msg) cout << "[" << module << "]: " << msg << endl;
+#define XLOG(module, level, msg) LOG(module, level << msg)
 
 #define MODULE_INIT "INIT"
 #define MODULE_UPDATE "UPDATE"
@@ -20,6 +21,7 @@ using namespace std;
 #define MODULE_NETWORK "NETWORK"
 #define MODULE_FILE "FILE"
 #define MODULE_SUBSCRIPTION "SUBSCRIPTION"
+#define MODULE_CONNECTION_IMPORT "CONNETION-IMPORT"
 //
 #ifdef QT_DEBUG
 #define MODULE_DEBUG_INFO "__DEBUG__"

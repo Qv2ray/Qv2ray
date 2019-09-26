@@ -47,6 +47,8 @@ MainWindow::MainWindow(QWidget *parent)
     QAction *action_RCM_RenameConnection = new QAction(tr("Rename"), this);
     QAction *action_RCM_StartThis = new QAction(tr("Connect to this"), this);
     QAction *action_RCM_EditJson = new QAction(tr("Edit as Json"), this);
+    QAction *action_RCM_ShareLink = new QAction(tr("Share as vmess://"), this);
+    QAction *action_RCM_ShareQR = new QAction(tr("Share as QRCore"), this);
     //
     action_Tray_Start->setEnabled(true);
     action_Tray_Stop->setEnabled(false);
@@ -68,6 +70,10 @@ MainWindow::MainWindow(QWidget *parent)
     connect(action_RCM_RenameConnection, &QAction::triggered, this, &MainWindow::on_action_RenameConnection_triggered);
     connect(action_RCM_StartThis, &QAction::triggered, this, &MainWindow::on_action_StartThis_triggered);
     connect(action_RCM_EditJson, &QAction::triggered, this, &MainWindow::on_action_RCM_EditJson_triggered);
+    // TODO: UNCOMMENT THIS....
+    LOG(MODULE_UI, "SHARE OPTION TODO...")
+    //connect(action_RCM_ShareLink, &QAction::triggered, this, &MainWindow::on_action_RCM_ShareLink_triggered);
+    //connect(action_RCM_ShareQR, &QAction::triggered, this, &MainWindow::on_action_RCM_ShareQR_triggered);
     //
     hTray->setContextMenu(trayMenu);
     hTray->show();
@@ -75,6 +81,8 @@ MainWindow::MainWindow(QWidget *parent)
     listMenu.addAction(action_RCM_RenameConnection);
     listMenu.addAction(action_RCM_StartThis);
     listMenu.addAction(action_RCM_EditJson);
+    listMenu.addAction(action_RCM_ShareLink);
+    listMenu.addAction(action_RCM_ShareQR);
     //
     LoadConnections();
     QObject::connect(&HTTPRequestHelper, &QvHttpRequestHelper::httpRequestFinished, this, &MainWindow::VersionUpdate);
@@ -585,3 +593,22 @@ void MainWindow::on_action_RCM_EditJson_triggered()
     ShowAndSetConnection(CurrentConnectionName, false, false);
 }
 
+void MainWindow::on_editJsonBtn_clicked()
+{
+    on_action_RCM_EditJson_triggered();
+}
+
+void MainWindow::on_pingTestBtn_clicked()
+{
+    // Ping
+}
+
+void MainWindow::on_shareQRButton_clicked()
+{
+    // Share QR
+}
+
+void MainWindow::on_shareVMessButton_clicked()
+{
+    // Share vmess://
+}

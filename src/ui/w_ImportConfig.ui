@@ -74,6 +74,11 @@
          <string>Subscription Link</string>
         </property>
        </item>
+       <item>
+        <property name="text">
+         <string>Scan Image</string>
+        </property>
+       </item>
       </widget>
      </item>
     </layout>
@@ -87,52 +92,48 @@
       <item>
        <widget class="QStackedWidget" name="stackedWidget">
         <property name="currentIndex">
-         <number>0</number>
+         <number>3</number>
         </property>
         <widget class="QWidget" name="filePage">
-         <layout class="QVBoxLayout" name="verticalLayout_3">
-          <item>
-           <layout class="QFormLayout" name="formLayout">
-            <item row="0" column="0">
-             <widget class="QLabel" name="fileLabel">
+         <layout class="QFormLayout" name="formLayout">
+          <item row="0" column="0">
+           <widget class="QLabel" name="fileLabel">
+            <property name="text">
+             <string>Path</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <layout class="QHBoxLayout" name="horizontalLayout_2">
+            <item>
+             <widget class="QLineEdit" name="fileLineTxt">
               <property name="text">
-               <string>Path</string>
+               <string/>
               </property>
              </widget>
             </item>
-            <item row="0" column="1">
-             <layout class="QHBoxLayout" name="horizontalLayout_2">
-              <item>
-               <widget class="QLineEdit" name="fileLineTxt">
-                <property name="text">
-                 <string/>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="selectFileBtn">
-                <property name="text">
-                 <string>Select</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="label_2">
+            <item>
+             <widget class="QPushButton" name="selectFileBtn">
               <property name="text">
-               <string>Inbound</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QCheckBox" name="keepImportedInboundCheckBox">
-              <property name="text">
-               <string>Keep imported inbound settings</string>
+               <string>Select</string>
               </property>
              </widget>
             </item>
            </layout>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string>Inbound</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QCheckBox" name="keepImportedInboundCheckBox">
+            <property name="text">
+             <string>Keep imported inbound settings</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>
@@ -146,7 +147,11 @@
            </widget>
           </item>
           <item>
-           <widget class="QTextEdit" name="vmessConnectionStringTxt"/>
+           <widget class="QTextEdit" name="vmessConnectionStringTxt">
+            <property name="lineWrapMode">
+             <enum>QTextEdit::NoWrap</enum>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>
@@ -181,6 +186,35 @@
              </size>
             </property>
            </spacer>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="page_2">
+         <layout class="QFormLayout" name="formLayout_3">
+          <item row="0" column="1">
+           <layout class="QHBoxLayout" name="horizontalLayout">
+            <item>
+             <widget class="QLineEdit" name="lineEdit">
+              <property name="text">
+               <string>---TODO---</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton">
+              <property name="text">
+               <string>Select</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_5">
+            <property name="text">
+             <string>Select File:</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>

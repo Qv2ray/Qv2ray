@@ -35,7 +35,7 @@
      <height>530</height>
     </size>
    </property>
-   <layout class="QGridLayout" name="gridLayout" columnstretch="2,3">
+   <layout class="QGridLayout" name="gridLayout" columnstretch="4,5">
     <item row="0" column="0" colspan="2">
      <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1,0,1,0,0,0">
       <property name="spacing">
@@ -173,6 +173,78 @@
          </property>
         </widget>
        </item>
+       <item row="4" column="0" colspan="2">
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <spacer name="horizontalSpacer_5">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QToolButton" name="editConfigButton">
+           <property name="toolTip">
+            <string>#EditConnection</string>
+           </property>
+           <property name="text">
+            <string>...</string>
+           </property>
+           <property name="icon">
+            <iconset resource="../../resources.qrc">
+             <normaloff>:/icons/edit_connection_btn.png</normaloff>:/icons/edit_connection_btn.png</iconset>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QToolButton" name="pingTestBtn">
+           <property name="text">
+            <string>Ping</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QToolButton" name="shareQRButton">
+           <property name="text">
+            <string>QR</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QToolButton" name="shareVMessButton">
+           <property name="text">
+            <string>://</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QToolButton" name="editJsonBtn">
+           <property name="text">
+            <string>Json</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_4">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
       </layout>
      </widget>
     </item>
@@ -268,20 +340,6 @@
         <property name="icon">
          <iconset resource="../../resources.qrc">
           <normaloff>:/icons/import_connection_btn.png</normaloff>:/icons/import_connection_btn.png</iconset>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QToolButton" name="editConfigButton">
-        <property name="toolTip">
-         <string>#EditConnection</string>
-        </property>
-        <property name="text">
-         <string>...</string>
-        </property>
-        <property name="icon">
-         <iconset resource="../../resources.qrc">
-          <normaloff>:/icons/edit_connection_btn.png</normaloff>:/icons/edit_connection_btn.png</iconset>
         </property>
        </widget>
       </item>
