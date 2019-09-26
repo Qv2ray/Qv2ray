@@ -109,7 +109,7 @@
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="382"/>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="396"/>
       <source>Edit in Json Editor</source>
-      <translation type="unfinished">Edit in Json Editor</translation>
+      <translation>在 Json 编辑器中编辑</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="389"/>
@@ -332,44 +332,44 @@
     <message>
       <location filename="../src/ui/w_JsonEditor.ui" line="29"/>
       <source>Json Structure Preview</source>
-      <translation type="unfinished">Json Structure Preview</translation>
+      <translation>Json 结构预览</translation>
     </message>
     <message>
       <location filename="../src/ui/w_JsonEditor.ui" line="36"/>
       <source>Json Editor</source>
-      <translation type="unfinished">Json Editor</translation>
+      <translation>Json 编辑器</translation>
     </message>
     <message>
       <location filename="../src/ui/w_JsonEditor.ui" line="43"/>
       <source>OK</source>
-      <translation type="unfinished">OK</translation>
+      <translation>确定</translation>
     </message>
     <message>
       <location filename="../src/ui/w_JsonEditor.ui" line="60"/>
       <source>Format Json</source>
-      <translation type="unfinished">Format Json</translation>
+      <translation>格式化Json</translation>
     </message>
     <message>
       <location filename="../src/ui/w_JsonEditor.cpp" line="20"/>
       <location filename="../src/ui/w_JsonEditor.cpp" line="34"/>
       <location filename="../src/ui/w_JsonEditor.cpp" line="75"/>
       <source>Json Contains Syntax Errors</source>
-      <translation type="unfinished">Json Contains Syntax Errors</translation>
+      <translation>Json包含语法错误</translation>
     </message>
     <message>
       <location filename="../src/ui/w_JsonEditor.cpp" line="20"/>
       <source>Original Json may contain syntax errors. Json tree is disabled.</source>
-      <translation type="unfinished">Original Json may contain syntax errors. Json tree is disabled.</translation>
+      <translation>原Json可能包含语法错误。Json 树被禁用。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_JsonEditor.cpp" line="34"/>
       <source>You must correct these errors before continue.</source>
-      <translation type="unfinished">You must correct these errors before continue.</translation>
+      <translation>您必须纠正这些错误才能继续。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_JsonEditor.cpp" line="75"/>
       <source>Please fix it and retry later.</source>
-      <translation type="unfinished">Please fix it and retry later.</translation>
+      <translation>请修复它，请稍后重试。</translation>
     </message>
   </context>
   <context>
@@ -542,7 +542,7 @@
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="49"/>
       <source>Edit as Json</source>
-      <translation type="unfinished">Edit as Json</translation>
+      <translation>作为纯 Json 编辑</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="98"/>
@@ -587,7 +587,7 @@
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="223"/>
       <source>Connected: </source>
-      <translation type="unfinished">Connected: </translation>
+      <translation>已连接: </translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="240"/>
@@ -916,7 +916,7 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="344"/>
       <source>tProxy is not supported on macOS and Windows</source>
-      <translation type="unfinished">tProxy is not supported on macOS and Windows</translation>
+      <translation>在 macOS 和 Windows 上不支持 tProxy</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="253"/>
