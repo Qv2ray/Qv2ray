@@ -13,7 +13,7 @@ before_install:
   - if [ "$BADGE" = "linux" ]; then    sudo apt-get update; fi
 
 install:
-  - if [ "$BADGE" = "linux" ]; then    sudo apt-get install qtchooser libgl-dev qt5-default qttools5-dev-tools; fi
+  - if [ "$BADGE" = "linux" ]; then    sudo apt-get install qtchooser libgl-dev qt5-default qttools5-dev-tools libgrpc++-dev ; fi
   - if [ "$BADGE" = "osx" ];   then    brew install qt5 --verbose; fi
   
 before_script:

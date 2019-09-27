@@ -3,31 +3,55 @@
 #include <QProcess>
 #include <QString>
 #include "Qv2rayBase.h"
+#include <grpcpp/grpcpp.h>
+#include "QvUtils.h"
+#include "gRPC/command.pb.h"
+#include "gRPC/command.grpc.pb.h"
+
+using grpc::Channel;
+using grpc::ClientContext;
+using grpc::Status;
+using namespace std;
+using namespace v2ray::core::app::stats::command;
 
 namespace Qv2ray
 {
-    enum V2RAY_INSTANCE_STARTUP_STATUS {
-        STOPPED,
-        STARTING,
-        STARTED
-    };
-
-    class Qv2Instance
+    namespace QvInteration
     {
-        public:
-            explicit Qv2Instance(QWidget *parent = nullptr);
+        enum V2RAY_INSTANCE_STARTUP_STATUS {
+            STOPPED,
+            STARTING,
+            STARTED
+        };
 
-            bool Start();
-            void Stop();
-            V2RAY_INSTANCE_STARTUP_STATUS Status;
-            static bool VerifyVConfigFile(const QString *path);
-            static bool ValidateV2rayCoreExe();
-            QString ReadProcessOutput();
+        class Qv2Instance
+        {
+            public:
+                explicit Qv2Instance(QWidget *parent = nullptr);
+                void SetPort(int port);
+                long getTagTotalDownlink(QString tag);
+                long getTagTotalUplink(QString tag);
+                long getTagLastDownlink(QString tag);
+                long getTagLastUplink(QString tag);
+                bool StartVCore();
+                void StopVCore();
+                V2RAY_INSTANCE_STARTUP_STATUS VCoreStatus;
+                static bool ValidateConfig(const QString *path);
+                static bool ValidateKernal();
+                QString ReadProcessOutput();
 
-            ~Qv2Instance();
-        private:
-            QProcess *vProcess;
-    };
+                ~Qv2Instance();
+            private:
+                long CallStatsAPIByName(QString name);
+                QProcess *vProcess;
+                std::shared_ptr<::grpc::Channel> Channel;
+                std::unique_ptr<StatsService::Stub> Stub;
+                QMap<QString, long> lastData;
+                int port;
+        };
+    }
 }
+
+using namespace Qv2ray::QvInteration;
 
 #endif // VINTERACT_H

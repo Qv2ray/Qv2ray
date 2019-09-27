@@ -7,9 +7,12 @@ namespace Qv2ray
     {
         static Qv2rayConfig GlobalConfig;
         static QString ConfigDirPath;
-        void SetGlobalConfig(const Qv2rayConfig *conf)
+        void SetGlobalConfig(Qv2rayConfig conf)
         {
-            GlobalConfig = *conf;
+            GlobalConfig = conf;
+            QFile config(QV2RAY_CONFIG_FILE_PATH);
+            QString str = StructToJsonString(GetGlobalConfig());
+            StringToFile(&str, &config);
         }
 
         Qv2rayConfig GetGlobalConfig()
@@ -25,13 +28,6 @@ namespace Qv2ray
         void SetConfigDirPath(const QString *path)
         {
             ConfigDirPath = *path;
-        }
-
-        void SaveGlobalConfig()
-        {
-            QFile config(QV2RAY_CONFIG_FILE_PATH);
-            QString str = StructToJsonString(GetGlobalConfig());
-            StringToFile(&str, &config);
         }
 
         QString Stringify(list<string> list, QString saperator)
@@ -137,7 +133,7 @@ namespace Qv2ray
             QTextStream stream(&file);
             auto str = stream.readAll();
             auto config  = StructFromJsonString<Qv2rayConfig>(str);
-            SetGlobalConfig(&config);
+            SetGlobalConfig(config);
             file.close();
         }
 
@@ -159,6 +155,19 @@ namespace Qv2ray
         int QvMessageBoxAsk(QWidget *parent, QString title, QString text, QMessageBox::StandardButton extraButtons)
         {
             return QMessageBox::information(parent, title, text, QMessageBox::Yes | QMessageBox::No | extraButtons);
+        }
+
+        QString FormatBytes(long long bytes, char *str)
+        {
+            const char *sizes[5] = { "B", "KB", "MB", "GB", "TB" };
+            int i;
+            double dblByte = bytes;
+
+            for (i = 0; i < 5 && bytes >= 1024; i++, bytes /= 1024)
+                dblByte = bytes / 1024.0;
+
+            sprintf(str, "%.2f", dblByte);
+            return strcat(strcat(str, " "), sizes[i]);
         }
 
 

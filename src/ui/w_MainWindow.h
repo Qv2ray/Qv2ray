@@ -23,9 +23,10 @@ class MainWindow : public QMainWindow
         explicit MainWindow(QWidget *parent = nullptr);
         ~MainWindow();
     public slots:
-        void save_reload_globalconfig(bool need_restart);
         void UpdateLog();
+        void OnConfigListChanged(bool need_restart);
     private slots:
+        void on_speedTimer_Ticked();
         void VersionUpdate(QByteArray &data);
         void on_startButton_clicked();
         void on_stopButton_clicked();
@@ -82,6 +83,9 @@ class MainWindow : public QMainWindow
         //
         QString originalName;
         bool isRenamingInProgress;
+        //
+        QTimer speedTimer;
+        QJsonObject CurrentFullConfig;
         //
         void ShowAndSetConnection(QString currentText, bool SetConnection, bool Apply);
         void LoadConnections();

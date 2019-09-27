@@ -29,6 +29,8 @@ SOURCES += \
         src/utils/QvHTTPRequestHelper.cpp \
         src/utils/QvRunguard.cpp \
         src/utils/QJsonModel.cpp \
+        src/utils/gRPC/command.pb.cpp \
+        src/utils/gRPC/command.grpc.pb.cpp \
         src/ui/w_JsonEditor.cpp \
         src/ui/w_RouteEditor.cpp \
         src/ui/w_SubscribeEditor.cpp \
@@ -55,6 +57,8 @@ HEADERS += \
         src/utils/QvRunguard.h \
         src/utils/QvTinyLog.h \
         src/utils/QJsonModel.h \
+        src/utils/gRPC/command.pb.h \
+        src/utils/gRPC/command.grpc.pb.h \
         src/ui/w_JsonEditor.h \
         src/ui/w_ConnectionEditWindow.h \
         src/ui/w_ImportConfig.h \
@@ -103,6 +107,9 @@ RC_ICONS += ./icons/Qv2ray.ico
 ICON = ./icons/Qv2ray.icns
 
 win32: QMAKE_CXXFLAGS += "-Wno-missing-field-initializers"
+
+# For gRPC in most Linux env.
+unix: LIBS += -lgrpc++ -lprotobuf
 
 qnx: target.path = /tmp/$${TARGET}/bin
 unix: target.path = /opt/$${TARGET}/bin
