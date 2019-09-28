@@ -3,7 +3,7 @@
 #include <QProcess>
 #include <QString>
 #include "Qv2rayBase.h"
-#include <grpcpp/grpcpp.h>
+#include <grpc++/grpc++.h>
 #include "QvUtils.h"
 #include "gRPC/command.pb.h"
 #include "gRPC/command.grpc.pb.h"

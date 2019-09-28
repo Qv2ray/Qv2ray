@@ -4,6 +4,9 @@
 *.qm
 ./.vscode
 
+*.pb.cc
+*.pb.h
+
 build/
 src/build/
 OpenBuildService/
