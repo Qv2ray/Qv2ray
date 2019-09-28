@@ -29,8 +29,8 @@ SOURCES += \
         src/utils/QvHTTPRequestHelper.cpp \
         src/utils/QvRunguard.cpp \
         src/utils/QJsonModel.cpp \
-        src/utils/gRPC/command.pb.cpp \
-        src/utils/gRPC/command.grpc.pb.cpp \
+        src/utils/gRPC/command.pb.cc \
+        src/utils/gRPC/command.grpc.pb.cc \
         src/ui/w_JsonEditor.cpp \
         src/ui/w_RouteEditor.cpp \
         src/ui/w_SubscribeEditor.cpp \
