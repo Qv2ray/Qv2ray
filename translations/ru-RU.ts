@@ -109,7 +109,7 @@
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="382"/>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="396"/>
       <source>Edit in Json Editor</source>
-      <translation type="unfinished">Edit in Json Editor</translation>
+      <translation>Редактировать в редакторе Json</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="389"/>
@@ -333,44 +333,44 @@
     <message>
       <location filename="../src/ui/w_JsonEditor.ui" line="29"/>
       <source>Json Structure Preview</source>
-      <translation type="unfinished">Json Structure Preview</translation>
+      <translation>Просмотр структуры Json</translation>
     </message>
     <message>
       <location filename="../src/ui/w_JsonEditor.ui" line="36"/>
       <source>Json Editor</source>
-      <translation type="unfinished">Json Editor</translation>
+      <translation>Редактор Json</translation>
     </message>
     <message>
       <location filename="../src/ui/w_JsonEditor.ui" line="43"/>
       <source>OK</source>
-      <translation type="unfinished">OK</translation>
+      <translation>OK</translation>
     </message>
     <message>
       <location filename="../src/ui/w_JsonEditor.ui" line="60"/>
       <source>Format Json</source>
-      <translation type="unfinished">Format Json</translation>
+      <translation>Формат Json</translation>
     </message>
     <message>
       <location filename="../src/ui/w_JsonEditor.cpp" line="20"/>
       <location filename="../src/ui/w_JsonEditor.cpp" line="34"/>
       <location filename="../src/ui/w_JsonEditor.cpp" line="75"/>
       <source>Json Contains Syntax Errors</source>
-      <translation type="unfinished">Json Contains Syntax Errors</translation>
+      <translation>Json содержит ошибки синтаксиса</translation>
     </message>
     <message>
       <location filename="../src/ui/w_JsonEditor.cpp" line="20"/>
       <source>Original Json may contain syntax errors. Json tree is disabled.</source>
-      <translation type="unfinished">Original Json may contain syntax errors. Json tree is disabled.</translation>
+      <translation>Оригинальный Json может содержать ошибки синтаксиса. Структура Json отключена.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_JsonEditor.cpp" line="34"/>
       <source>You must correct these errors before continue.</source>
-      <translation type="unfinished">You must correct these errors before continue.</translation>
+      <translation>Вы должны исправить эти ошибки перед продолжением.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_JsonEditor.cpp" line="75"/>
       <source>Please fix it and retry later.</source>
-      <translation type="unfinished">Please fix it and retry later.</translation>
+      <translation>Пожалуйста, исправьте его и повторите попытку позже.</translation>
     </message>
   </context>
   <context>
@@ -543,7 +543,7 @@
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="49"/>
       <source>Edit as Json</source>
-      <translation type="unfinished">Edit as Json</translation>
+      <translation>Изменить как Json</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="98"/>
@@ -588,7 +588,7 @@
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="223"/>
       <source>Connected: </source>
-      <translation type="unfinished">Connected: </translation>
+      <translation>Подключен: </translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="240"/>
