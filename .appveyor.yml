@@ -1,7 +1,7 @@
 install:
+  - git submodule update --init
   - set QTDIR=C:\Qt\5.13.0\mingw73_64
   - set PATH=%QTDIR%\bin;C:\Qt\Tools\mingw730_64\bin;C:\Windows\;C:\Windows\System32
-  - git submodule update --init
   
 build_script:
   - tools\grpc_gen.bat
