@@ -10,4 +10,3 @@ echo Generating gRPC file.
 %~dp0\..\libs\gRPC-win32\bin\protoc.exe v2ray_api_commands.proto --grpc_out=%~dp0..\libs\gen --plugin=protoc-gen-grpc="%~dp0..\libs\gRPC-win32\bin\grpc_cpp_plugin.exe" 
 echo Generating proto file.
 %~dp0\..\libs\gRPC-win32\bin\protoc.exe v2ray_api_commands.proto --cpp_out=%~dp0..\libs\gen
-cd ..
