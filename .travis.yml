@@ -19,12 +19,12 @@ install:
 before_script:
   - if [ "$BADGE" = "osx" ];   then    export PATH="/usr/local/Cellar/qt/5.13.1/bin:$PATH"; fi
   - if [ "$BADGE" = "linux" ]; then    sudo cp ./tools/lrelease.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/; fi
-  - if [ "$BADGE" = "linux" ]; then    chmod +x ./tools/grpc_gen.sh && ./tools/grpc_gen.sh; fi
+  - if [ "$BADGE" = "linux" ]; then    chmod +x ./tools/grpc_gen.sh; fi
   
 script:
   - git submodule update --init
+  - if [ "$BADGE" = "linux" ]; then    ./tools/grpc_gen.sh; fi
   - mkdir build && cd ./build 
   - qmake ../
   - if [ "$BADGE" = "linux" ]; then    make compiler_lrelease_make_all; fi
-  - if [ "$BADGE" = "linux" ]; then    ls -lah --color=always --recursive; fi
   - make -j8   
