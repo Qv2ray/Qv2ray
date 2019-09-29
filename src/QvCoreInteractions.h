@@ -5,8 +5,8 @@
 #include "Qv2rayBase.h"
 #include <grpc++/grpc++.h>
 #include "QvUtils.h"
-#include "gRPC/command.pb.h"
-#include "gRPC/command.grpc.pb.h"
+#include "v2ray_api_commands.pb.h"
+#include "v2ray_api_commands.grpc.pb.h"
 
 using grpc::Channel;
 using grpc::ClientContext;
@@ -28,7 +28,7 @@ namespace Qv2ray
         {
             public:
                 explicit Qv2Instance(QWidget *parent = nullptr);
-                void SetPort(int port);
+                void SetAPIPort(int port);
                 long getTagTotalDownlink(QString tag);
                 long getTagTotalUplink(QString tag);
                 long getTagLastDownlink(QString tag);

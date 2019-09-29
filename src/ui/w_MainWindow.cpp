@@ -13,7 +13,7 @@
 #include <QKeyEvent>
 
 #ifdef _WIN32
-#include <windows.h>
+#include <Windows.h>
 #endif
 
 #include "w_ConnectionEditWindow.h"
@@ -233,7 +233,7 @@ void MainWindow::on_startButton_clicked()
         ui->statusLabel->setText(tr("Connected: ") + CurrentConnectionName);
 
         if (GetGlobalConfig().enableStats) {
-            vinstance->SetPort(GetGlobalConfig().statsPort);
+            vinstance->SetAPIPort(GetGlobalConfig().statsPort);
             speedTimer.start(1000);
         }
     }

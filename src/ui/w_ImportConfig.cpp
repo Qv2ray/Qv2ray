@@ -67,7 +67,7 @@ void ImportConfigWindow::on_buttonBox_accepted()
         //
         // We saperate the string into lines.
         QStringList vmessList = vmess.split(NEWLINE, QString::SplitBehavior::SkipEmptyParts);
-        XLOG(MODULE_CONNECTION_IMPORT, INFO, to_string(vmessList.count()) + " vmess connection found.")
+        XLOG(MODULE_CONNECTION_IMPORT, LOG_INFO, to_string(vmessList.count()) + " vmess connection found.")
 
         foreach (auto vmessString, vmessList) {
             int result = VerifyVMessProtocolString(vmess);

@@ -44,7 +44,7 @@ namespace Qv2ray
         VCoreStatus = STOPPED;
     }
 
-    void Qv2Instance::SetPort(int port)
+    void Qv2Instance::SetAPIPort(int port)
     {
         // Config API
         this->port = port;

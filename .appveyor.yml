@@ -4,6 +4,8 @@ install:
   - git submodule update --init
   
 build_script:
+  - tools\grpc_gen.bat
   - mkdir build && cd build
   - qmake ..\Qv2ray.pro
   - mingw32-make
+  
