@@ -19,6 +19,7 @@ Special thanks to: [Hv2ray](https://github.com/aliyuchang33/Hv2ray) by [@aliyuch
  - Crowdin 翻译平台, Translations are welcome at here: **[Public Translation Platform](https://crwd.in/qv2ray)**
  - ArchLinux - AUR: **[qv2ray](https://aur.archlinux.org/packages/qv2ray/)**
     - **[qv2ray-dev-git](https://aur.archlinux.org/packages/qv2ray-dev-git)**: `dev` 分支的开发版本，由 **[@axionl](https://github.com/axionl)** 维护
+    - **注意：dev 分支包含不稳定的功能更新和（更）不稳定的bug修复，不建议将 dev 分支作为日常使用**
 
 ### 首次使用请查看 ➡ [用户手册](https://lhy0403.github.io/Qv2ray)
 
@@ -68,9 +69,6 @@ Special thanks to: [Hv2ray](https://github.com/aliyuchang33/Hv2ray) by [@aliyuch
 ```bash
 git clone --recursive https://github.com/lhy0403/Qv2ray && cd Qv2ray
 
-# 按需要签出开发分支
-# git checkout dev
-
 mkdir build && cd build
 qmake ../
 make
@@ -87,7 +85,6 @@ REM SET PATH=%PATH%;C:\Qt\5.13.0\mingw73_32\bin\;C:\Qt\Tools\mingw730_32\bin\
 SET PATH=%PATH%;Qt安装目录\Qt版本号\编译器类型\bin;Qt安装目录\Tools\编译器类型\bin
 
 git clone --recursive https://github.com/lhy0403/Qv2ray && cd Qv2ray
-REM git checkout dev （可选项，用于测试 dev 分支）
 
 mkdir build && cd build
 qmake ../
