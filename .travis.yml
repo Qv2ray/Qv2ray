@@ -19,7 +19,7 @@ install:
 before_script:
   - if [ "$BADGE" = "osx" ];   then    export PATH="/usr/local/Cellar/qt/5.13.1/bin:$PATH"; fi
   - if [ "$BADGE" = "linux" ]; then    sudo cp ./tools/lrelease.prf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/; fi
-  - if [ "$BADGE" = "linux" ]; then    ./tools/grpc_gen.sh; fi
+  - if [ "$BADGE" = "linux" ]; then    chmod +x ./tools/grpc_gen.sh && ./tools/grpc_gen.sh; fi
   
 script:
   - git submodule update --init
