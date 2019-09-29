@@ -7,4 +7,4 @@ build_script:
   - tools\grpc_gen.bat
   - mkdir build && cd build
   - qmake ..\Qv2ray.pro
-  - mingw32-make
+  - mingw32-make -j4
