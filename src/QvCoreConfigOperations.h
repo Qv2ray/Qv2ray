@@ -6,6 +6,8 @@
 
 #define OUTBOUND_TAG_DIRECT "outBound_DIRECT"
 #define OUTBOUND_TAG_PROXY "outBound_PROXY"
+#define API_TAG_DEFAULT "_QV2RAY_API_"
+#define API_TAG_INBOUND "_QV2RAY_API_INBOUND_"
 
 #define DROOT QJsonObject root;
 #define RROOT return root;
@@ -20,6 +22,7 @@ namespace Qv2ray
         QJsonObject GenerateRoutes(bool enableProxy, bool cnProxy);
         QJsonObject GenerateSingleRouteRule(QStringList list, bool isDomain, QString outboundTag, QString type = "field");
         QJsonObject GenerateDNS(bool withLocalhost, QStringList dnsServers);
+        QJsonObject GenerateAPIEntry(QString tag, bool withHandler = true, bool withLogger = true, bool withStats = true);
         //
         // OutBoundProtocols
         QJsonObject GenerateFreedomOUT(QString domainStrategy, QString redirect, int userLevel);
@@ -46,7 +49,7 @@ namespace Qv2ray
         // Generate FINAL Configs
         QJsonObject GenerateRuntimeConfig(QJsonObject root);
         QJsonObject GenerateOutboundEntry(QString protocol, QJsonObject settings, QJsonObject streamSettings, QJsonObject mux, QString sendThrough = "0.0.0.0", QString tag = "");
-
+        QJsonObject GenerateInboundEntry(QString listen, int port, QString protocol, QJsonObject settings, QString tag, QJsonObject sniffing = QJsonObject(), QJsonObject allocate = QJsonObject());
         //
         // -------------------------- BEGIN CONFIG VALIDATIONS ---------------------------------------------
         int VerifyVMessProtocolString(QString vmess);

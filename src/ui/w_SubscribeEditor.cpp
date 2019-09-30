@@ -37,7 +37,7 @@ void SubscribeEditor::on_buttonBox_accepted()
 
     auto conf = GetGlobalConfig();
     conf.subscribes = subscribes;
-    SetGlobalConfig(&conf);
+    SetGlobalConfig(conf);
     emit s_update_config();
 }
 

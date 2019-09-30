@@ -21,10 +21,9 @@ namespace Qv2ray
         void SetConfigDirPath(const QString *path);
         QString GetConfigDirPath();
 
-        void SetGlobalConfig(const Qv2rayConfig *conf);
+        void SetGlobalConfig(Qv2rayConfig conf);
         Qv2rayConfig GetGlobalConfig();
 
-        void SaveGlobalConfig();
         void LoadGlobalConfig();
 
         void QvMessageBox(QWidget *parent, QString title, QString text);
@@ -55,6 +54,7 @@ namespace Qv2ray
             X::loadjson(str.toStdString(), v, false);
             return v;
         }
+        QString FormatBytes(long long bytes, char *str);
     }
 }
 

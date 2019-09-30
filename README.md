@@ -98,13 +98,13 @@ mingw32-make.exe
 
 ## Contributors
 
-| Name (@GithubAccount)                                        | Contributions                   |
-| ------------------------------------------------------------ | ------------------------------- |
-| Leroy.H.Y [@lhy0403](https://github.com/lhy0403)             | Qv2ray Current Maintainer       |
-| Hork [@aliyuchang33](https://github.com/aliyuchang33)        | Hv2ray Initial Idea and Designs |
-| SOneWinstone [@SoneWinstone](https://github.com/SoneWinstone) | HTTP Request Helper             |
-| ArielAxionL [@axionl](https://github.com/axionl)             | Qv2ray Art Work                 |
-| TheBadGateway [@thebadgateway](https://github.com/thebadgateway) | Russian Translation             |
+| Name (@GithubAccount)                                        | Contributions                                         |
+| ------------------------------------------------------------ | ----------------------------------------------------- |
+| Leroy.H.Y [@lhy0403](https://github.com/lhy0403)             | Qv2ray Current Maintainer                             |
+| Hork [@aliyuchang33](https://github.com/aliyuchang33)        | Hv2ray Initial Idea and Designs, gRPC implementations |
+| SOneWinstone [@SoneWinstone](https://github.com/SoneWinstone) | HTTP Request Helper                                   |
+| ArielAxionL [@axionl](https://github.com/axionl)             | Qv2ray Art Work                                       |
+| TheBadGateway [@thebadgateway](https://github.com/thebadgateway) | Russian Translation                                   |
 
 
 
@@ -118,8 +118,8 @@ Qv2ray is licensed under [![License: GPL v3](https://img.shields.io/badge/Licens
 
 ```
     Qv2ray, A Qt frontend for v2ray. Written in c++
-    Copyright (C) 2019 Leroy.H.Y (@lhy0403)         ---> Qv2ray Current Maintainer
-    Copyright (C) 2019 Hork (@aliyuchang33)	        ---> Hv2ray Initial Idea and Designs   
+    Copyright (C) 2019 Leroy.H.Y (@lhy0403)         ---> Current Maintainer
+    Copyright (C) 2019 Hork (@aliyuchang33)	        ---> Hv2ray Initial Idea and Designs, Current Maintainer   
     Copyright (C) 2019 SOneWinstone (@SoneWinstone) ---> Hv2ray/Qv2ray HTTP Request Helper
     Copyright (C) 2019 ArielAxionL (@axionl)		---> Qv2ray ArtWork
     

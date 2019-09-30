@@ -49,7 +49,7 @@ void ImportConfigWindow::on_buttonBox_accepted()
         bool overrideInBound = !ui->keepImportedInboundCheckBox->isChecked();
         auto fileName = ui->fileLineTxt->text();
 
-        if (!Qv2Instance::VerifyVConfigFile(&fileName)) {
+        if (!Qv2Instance::ValidateConfig(&fileName)) {
             QvMessageBox(this, tr("Import config file"), tr("Failed to check the validity of the config file."));
             return;
         }
@@ -60,14 +60,14 @@ void ImportConfigWindow::on_buttonBox_accepted()
         //
         conf.configs.push_back(alias.toStdString());
         //
-        SetGlobalConfig(&conf);
+        SetGlobalConfig(conf);
         needReload = SaveConnectionConfig(config, &alias);
     } else {
         QString vmess = ui->vmessConnectionStringTxt->toPlainText();
         //
         // We saperate the string into lines.
         QStringList vmessList = vmess.split(NEWLINE, QString::SplitBehavior::SkipEmptyParts);
-        XLOG(MODULE_CONNECTION_IMPORT, INFO, to_string(vmessList.count()) + " vmess connection found.")
+        XLOG(MODULE_CONNECTION_IMPORT, LOG_INFO, to_string(vmessList.count()) + " vmess connection found.")
 
         foreach (auto vmessString, vmessList) {
             int result = VerifyVMessProtocolString(vmess);
@@ -96,6 +96,6 @@ void ImportConfigWindow::on_buttonBox_accepted()
         }
     }
 
-    SetGlobalConfig(&conf);
+    SetGlobalConfig(conf);
     emit s_reload_config(needReload);
 }

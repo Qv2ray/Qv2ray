@@ -13,7 +13,7 @@
 #include <QKeyEvent>
 
 #ifdef _WIN32
-#include <windows.h>
+#include <Windows.h>
 #endif
 
 #include "w_ConnectionEditWindow.h"
@@ -24,15 +24,17 @@
 #include "w_SubscribeEditor.h"
 #include "w_JsonEditor.h"
 
-#define TRAY_TOOLTIP_PREFIX "Qv2ray " QV2RAY_VERSION_STRING "\r\n"
+#define TRAY_TOOLTIP_PREFIX "Qv2ray " QV2RAY_VERSION_STRING
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
       ui(new Ui::MainWindow),
       HTTPRequestHelper(),
       hTray(new QSystemTrayIcon(this)),
-      vinstance(new Qv2Instance(this))
+      vinstance(),
+      speedTimer(this)
 {
+    vinstance = new Qv2Instance(this);
     ui->setupUi(this);
     this->setWindowIcon(QIcon(":/icons/Qv2ray.ico"));
     hTray->setIcon(this->windowIcon());
@@ -70,6 +72,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(action_RCM_RenameConnection, &QAction::triggered, this, &MainWindow::on_action_RenameConnection_triggered);
     connect(action_RCM_StartThis, &QAction::triggered, this, &MainWindow::on_action_StartThis_triggered);
     connect(action_RCM_EditJson, &QAction::triggered, this, &MainWindow::on_action_RCM_EditJson_triggered);
+    connect(&speedTimer, &QTimer::timeout, this, &MainWindow::on_speedTimer_Ticked);
     // TODO: UNCOMMENT THIS....
     LOG(MODULE_UI, "SHARE OPTION TODO...")
     //connect(action_RCM_ShareLink, &QAction::triggered, this, &MainWindow::on_action_RCM_ShareLink_triggered);
@@ -89,7 +92,7 @@ MainWindow::MainWindow(QWidget *parent)
     HTTPRequestHelper.get("https://api.github.com/repos/lhy0403/Qv2ray/releases/latest");
 
     //
-    if (!vinstance->ValidateV2rayCoreExe()) {
+    if (!vinstance->ValidateKernal()) {
         QDesktopServices::openUrl(QUrl::fromLocalFile(QV2RAY_V2RAY_CORE_DIR_PATH));
     } else {
         auto conf = GetGlobalConfig();
@@ -158,8 +161,8 @@ void MainWindow::VersionUpdate(QByteArray &data)
             QDesktopServices::openUrl(QUrl::fromUserInput(link));
         } else if (result == QMessageBox::Ignore) {
             conf.ignoredVersion = newversion.toString().toStdString();
-            SetGlobalConfig(&conf);
-            save_reload_globalconfig(false);
+            SetGlobalConfig(conf);
+            OnConfigListChanged(false);
         }
     }
 }
@@ -180,7 +183,7 @@ void MainWindow::LoadConnections()
     ui->editConfigButton->setEnabled(false);
 }
 
-void MainWindow::save_reload_globalconfig(bool need_restart)
+void MainWindow::OnConfigListChanged(bool need_restart)
 {
     auto statusText = ui->statusLabel->text();
     //
@@ -189,8 +192,7 @@ void MainWindow::save_reload_globalconfig(bool need_restart)
     //
     //ui->retranslateUi(this);
     ui->statusLabel->setText(statusText);
-    bool isRunning = vinstance->Status == STARTED;
-    SaveGlobalConfig();
+    bool isRunning = vinstance->VCoreStatus == STARTED;
 
     if (isRunning && need_restart) on_stopButton_clicked();
 
@@ -221,14 +223,19 @@ void MainWindow::on_startButton_clicked()
 
     LOG(MODULE_VCORE, ("Connecting to: " + CurrentConnectionName).toStdString())
     ui->logText->clear();
-    auto full_conf = GenerateRuntimeConfig(connections.value(CurrentConnectionName));
-    StartPreparation(full_conf);
-    bool startFlag = this->vinstance->Start();
+    CurrentFullConfig = GenerateRuntimeConfig(connections[CurrentConnectionName]);
+    StartPreparation(CurrentFullConfig);
+    bool startFlag = this->vinstance->StartVCore();
 
     if (startFlag) {
         this->hTray->showMessage("Qv2ray", tr("Connected To Server: ") + CurrentConnectionName);
-        hTray->setToolTip(TRAY_TOOLTIP_PREFIX + tr("Connected To Server: ") + CurrentConnectionName);
+        hTray->setToolTip(TRAY_TOOLTIP_PREFIX "\r\n" + tr("Connected To Server: ") + CurrentConnectionName);
         ui->statusLabel->setText(tr("Connected: ") + CurrentConnectionName);
+
+        if (GetGlobalConfig().enableStats) {
+            vinstance->SetAPIPort(GetGlobalConfig().statsPort);
+            speedTimer.start(1000);
+        }
     }
 
     trayMenu->actions()[2]->setEnabled(!startFlag);
@@ -241,8 +248,9 @@ void MainWindow::on_startButton_clicked()
 
 void MainWindow::on_stopButton_clicked()
 {
-    if (vinstance->Status != STOPPED) {
-        this->vinstance->Stop();
+    if (vinstance->VCoreStatus != STOPPED) {
+        this->vinstance->StopVCore();
+        speedTimer.stop();
         hTray->setToolTip(TRAY_TOOLTIP_PREFIX);
         QFile(QV2RAY_GENERATED_FILE_PATH).remove();
         ui->statusLabel->setText(tr("Disconnected"));
@@ -253,6 +261,11 @@ void MainWindow::on_stopButton_clicked()
         //
         ui->startButton->setEnabled(true);
         ui->stopButton->setEnabled(false);
+        //
+        ui->speedUpLabel->setText("");
+        ui->speedDownLabel->setText("");
+        ui->totalDataUpLabel->setText("");
+        ui->totalDataDownLabel->setText("");
     }
 }
 
@@ -276,7 +289,7 @@ void MainWindow::on_activatedTray(QSystemTrayIcon::ActivationReason reason)
             break;
 
         case QSystemTrayIcon::MiddleClick:
-            if (this->vinstance->Status == Qv2ray::STARTED) {
+            if (this->vinstance->VCoreStatus == STARTED) {
                 on_stopButton_clicked();
             } else {
                 on_startButton_clicked();
@@ -392,14 +405,14 @@ void MainWindow::on_connectionListWidget_itemClicked(QListWidgetItem *item)
     if (currentRow < 0) return;
 
     QString currentText = ui->connectionListWidget->currentItem()->text();
-    bool canSetConnection = !isRenamingInProgress && vinstance->Status != STARTED;
+    bool canSetConnection = !isRenamingInProgress && vinstance->VCoreStatus != STARTED;
     ShowAndSetConnection(currentText, canSetConnection, false);
 }
 
 void MainWindow::on_prefrencesBtn_clicked()
 {
     PrefrencesWindow *w = new PrefrencesWindow(this);
-    connect(w, &PrefrencesWindow::s_reload_config, this, &MainWindow::save_reload_globalconfig);
+    connect(w, &PrefrencesWindow::s_reload_config, this, &MainWindow::OnConfigListChanged);
     w->show();
 }
 
@@ -475,12 +488,12 @@ void MainWindow::on_connectionListWidget_itemChanged(QListWidgetItem *item)
             //
             RenameConnection(originalName, newName);
             //
-            SetGlobalConfig(&config);
+            SetGlobalConfig(config);
             bool running = CurrentConnectionName == originalName;
 
             if (running) CurrentConnectionName = newName;
 
-            save_reload_globalconfig(running);
+            OnConfigListChanged(running);
             auto newItem = ui->connectionListWidget->findItems(newName, Qt::MatchExactly).front();
             ui->connectionListWidget->setCurrentItem(newItem);
         }
@@ -504,8 +517,8 @@ void MainWindow::on_removeConfigButton_clicked()
 
         list.removeOne(ui->connectionListWidget->item(currentSelected)->text().toStdString());
         conf.configs = list.toStdList();
-        SetGlobalConfig(&conf);
-        save_reload_globalconfig(isRemovingItemRunning);
+        SetGlobalConfig(conf);
+        OnConfigListChanged(isRemovingItemRunning);
         ShowAndSetConnection(CurrentConnectionName, false, false);
     }
 }
@@ -513,7 +526,7 @@ void MainWindow::on_removeConfigButton_clicked()
 void MainWindow::on_importConfigButton_clicked()
 {
     ImportConfigWindow *w = new ImportConfigWindow(this);
-    connect(w, &ImportConfigWindow::s_reload_config, this, &MainWindow::save_reload_globalconfig);
+    connect(w, &ImportConfigWindow::s_reload_config, this, &MainWindow::OnConfigListChanged);
     w->exec();
     ShowAndSetConnection(CurrentConnectionName, false, false);
 }
@@ -521,7 +534,7 @@ void MainWindow::on_importConfigButton_clicked()
 void MainWindow::on_addConfigButton_clicked()
 {
     ConnectionEditWindow *w = new ConnectionEditWindow(this);
-    connect(w, &ConnectionEditWindow::s_reload_config, this, &MainWindow::save_reload_globalconfig);
+    connect(w, &ConnectionEditWindow::s_reload_config, this, &MainWindow::OnConfigListChanged);
     auto outboundEntry = w->OpenEditor();
     QJsonArray outboundsList;
     outboundsList.push_back(outboundEntry);
@@ -533,9 +546,8 @@ void MainWindow::on_addConfigButton_clicked()
     auto connectionList = conf.configs;
     connectionList.push_back(alias.toStdString());
     conf.configs = connectionList;
-    SetGlobalConfig(&conf);
-    SaveGlobalConfig();
-    save_reload_globalconfig(false);
+    SetGlobalConfig(conf);
+    OnConfigListChanged(false);
     SaveConnectionConfig(root, &alias);
     ShowAndSetConnection(CurrentConnectionName, false, false);
 }
@@ -567,6 +579,7 @@ void MainWindow::on_editConfigButton_clicked()
 
     connections[alias] = root;
     SaveConnectionConfig(root, &alias);
+    OnConfigListChanged(alias == CurrentConnectionName);
     ShowAndSetConnection(CurrentConnectionName, false, false);
 }
 
@@ -612,3 +625,32 @@ void MainWindow::on_shareVMessButton_clicked()
 {
     // Share vmess://
 }
+
+void MainWindow::on_speedTimer_Ticked()
+{
+    auto inbounds = CurrentFullConfig["inbounds"].toArray();
+    long totalSpeedUp = 0, totalSpeedDown = 0, totalDataUp = 0, totalDataDown = 0;
+
+    foreach (auto inbound, inbounds) {
+        auto tag = inbound.toObject()["tag"].toString();
+        totalSpeedUp += vinstance->getTagLastUplink(tag);
+        totalSpeedDown += vinstance->getTagLastDownlink(tag);
+        totalDataUp += vinstance->getTagTotalUplink(tag);
+        totalDataDown += vinstance->getTagTotalDownlink(tag);
+    }
+
+    char s[32] = "";
+    auto speedUp = FormatBytes(totalSpeedUp, s);
+    auto speedDown = FormatBytes(totalSpeedDown, s);
+    auto dataUp = FormatBytes(totalDataUp, s);
+    auto dataDown = FormatBytes(totalDataDown, s);
+    //
+    ui->speedUpLabel->setText("Upload: " + speedUp + "/s");
+    ui->speedDownLabel->setText("Download: " + speedDown + "/s");
+    ui->totalDataUpLabel->setText("Total Up: " + dataUp);
+    ui->totalDataDownLabel->setText("Total Down: " + dataDown);
+    //
+    hTray->setToolTip(TRAY_TOOLTIP_PREFIX "\r\n" + tr("Connected To Server: ") + CurrentConnectionName + "\r\n"
+                      "Up: " + speedUp + "/s Down: " + speedDown + "/s");
+}
+

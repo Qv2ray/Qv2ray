@@ -35,13 +35,17 @@ SOURCES += \
         src/ui/w_MainWindow.cpp \
         src/ui/w_ConnectionEditWindow.cpp \
         src/ui/w_ImportConfig.cpp \
-        src/ui/w_PrefrencesWindow.cpp
+        src/ui/w_PrefrencesWindow.cpp \
+        libs/gen/v2ray_api_commands.pb.cc \
+        libs/gen/v2ray_api_commands.grpc.pb.cc
 
 INCLUDEPATH += \
+        /usr/local/include/ \
         3rdparty/ \
         src/ \
         src/ui/ \
-        src/utils/
+        src/utils/ \
+        libs/gen/
 
 HEADERS += \
         src/Qv2rayBase.h \
@@ -61,7 +65,9 @@ HEADERS += \
         src/ui/w_MainWindow.h \
         src/ui/w_PrefrencesWindow.h \
         src/ui/w_RouteEditor.h \
-        src/ui/w_SubscribeEditor.h
+        src/ui/w_SubscribeEditor.h \
+        libs/gen/v2ray_api_commands.pb.h \
+        libs/gen/v2ray_api_commands.grpc.pb.h
 
 FORMS += \
         src/ui/w_ConnectionEditWindow.ui \
@@ -79,11 +85,8 @@ RESOURCES += \
 
 QM_FILES_RESOURCE_PREFIX = "translations"
 
-message("Detecting Translation files.....")
-
 for(var, $$list($$files("*.ts", true))) {
     LOCALE_FILENAME = $$basename(var)
-    message(Found: $$LOCALE_FILENAME)
 
     !equals(LOCALE_FILENAME, "en-US.ts") {
         # ONLY USED IN LRELEASE CONTEXT - en-US is not EXTRA...
@@ -98,12 +101,27 @@ TRANSLATIONS += \
 message("CORE  Translations:" $$TRANSLATIONS)
 message("EXTRA Translations:" $$EXTRA_TRANSLATIONS)
 
-
 RC_ICONS += ./icons/Qv2ray.ico
 ICON = ./icons/Qv2ray.icns
 
-win32: QMAKE_CXXFLAGS += "-Wno-missing-field-initializers"
+message(Files will be generated to: $$OUT_PWD)
 
+# For gRPC and protobuf in linux and macOS
+unix: LIBS += -lgrpc++ -lprotobuf
+unix: LIBS += -L/usr/local/lib
+
+QMAKE_CXXFLAGS += "-Wno-missing-field-initializers" "-Wno-unused-parameter"
+win32 {
+    # A hack for protobuf header.
+    DEFINES += _WIN32_WINNT=0x600
+    LIBS += -L$$PWD/libs/gRPC-win32/lib/ -llibgrpc++.dll -llibprotobuf.dll
+    INCLUDEPATH += $$PWD/libs/gRPC-win32/include
+    DEPENDPATH  += $$PWD/libs/gRPC-win32/include
+    # Some files issue.
+    QMAKE_PRE_LINK += forfiles /s /p $${replace(PWD, /, \\)}\libs\ /m "*.dll" /c \"cmd.exe /c copy @file $${replace(OUT_PWD, /, \\)}\\debug\ & copy @file $${replace(OUT_PWD, /, \\)}\\release\\\"
+    PRE_TARGETDEPS += $$PWD/libs/gRPC-win32/lib/libgrpc++.dll.a $$PWD/libs/gRPC-win32/lib/libprotobuf.dll.a
+}
+# Installations
 qnx: target.path = /tmp/$${TARGET}/bin
 unix: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target

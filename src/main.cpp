@@ -41,8 +41,7 @@ bool initQv()
         Qv2rayConfig conf = Qv2rayConfig("zh-CN", QV2RAY_V2RAY_CORE_DIR_PATH.toStdString(), 4, inboundSetting);
         //
         // Save initial config.
-        SetGlobalConfig(&conf);
-        SaveGlobalConfig();
+        SetGlobalConfig(conf);
         //
         LOG(MODULE_INIT, "Created initial config file.")
     } else {
@@ -63,8 +62,7 @@ bool initQv()
         }
 
         auto confObject = StructFromJsonString<Qv2rayConfig>(JsonToString(conf));
-        SetGlobalConfig(&confObject);
-        SaveGlobalConfig();
+        SetGlobalConfig(confObject);
         LOG(MODULE_INIT, "Loaded config file.")
         return true;
     }
@@ -79,7 +77,7 @@ int main(int argc, char *argv[])
         "under certain conditions.\r\n"
         "\r\n"
         "Qv2ray Current Developer Copyright (C) 2019 Leroy.H.Y (@lhy0403)\r\n"
-        "Hv2ray Initial Idea and Designs Copyright (C) 2019 Hork (@aliyuchang33)\r\n"
+        "Hv2ray Initial Designs & gRPC implementation Copyright (C) 2019 Hork (@aliyuchang33)\r\n"
         "Hv2ray/Qv2ray HTTP Request Helper (partial) Copyright 2019 (C) SOneWinstone (@SoneWinstone)\r\n"
         "Qv2ray ArtWork Done By ArielAxionL (@axionl)\r\n"
         "Qv2ray Russian Translations By TheBadGateway (@thebadgateway)\r\n"

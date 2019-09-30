@@ -73,6 +73,10 @@ class PrefrencesWindow : public QDialog
 
         void on_bypassCNCb_stateChanged(int arg1);
 
+        void on_statsCheckbox_stateChanged(int arg1);
+
+        void on_statsPortBox_valueChanged(int arg1);
+
     private:
         bool IsConnectionPropertyChanged = false;
         bool finishedLoading = false;
