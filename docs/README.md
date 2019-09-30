@@ -12,13 +12,21 @@
 
 ## 2. 首次使用，安装与配置
 
-请根据您的操作系统/发行版，选择对应的使用方法
+使用 Qv2ray 需要一下几个步骤：
 
-1. [ArchLinux 及 Arch 衍生版 ](./FirstTime/Arch.md)
+1. 在 [Release](https://github.com/lhy0403/Qv2ray/releases/latest) 下载 Qv2ray (ArchLinux 用户可以使用 `qv2ray` 的 [AUR](https://aur.archlinux.org/packages/qv2ray/))
+2. 在 `v2ray` 官方下载 [v2ray 内核](https://github.com/v2ray/v2ray-core/releases/latest) 
+3. 打开 Qv2ray, 首次运行会提示无法找到 v2ray 内核
+   - 点击确定，将刚刚下载的 v2ray内核 解压到自动打开的文件夹内
+   - 该文件夹包含一个 `Put your v2ray.exe here.txt` 以供识别
+4. 解压完成后，关闭弹出的文件夹，即可开始导入或新建连接配置
 
-2. [其他 Linux 且发行版包含 v2ray 包](./FirstTime/General-Linux.md)
-   
-3. [Windows / macOS / 不包含 v2ray 程序包的 Linux 发行版 ](./FirstTime/Windows-macOS.md)
+```
+注： Qv2ray 在不同系统中查找 v2ray 内核的文件路径 （即找不到内核时自动弹出的文件夹路径）
+- Windows: C:\Users\用户名\.qv2ray\vcore
+- macOS: /Users/用户名/.qv2ray/vcore
+- Linux: /home/用户名/.qv2ray/vcore
+```
 
 
 ## 3. 更新历史
@@ -29,10 +37,14 @@
 
 见 [FAQ.md](./FAQ.md)
 
-## 5. 共同翻译 Qv2ray
+## 5. 作出贡献
 
-翻译平台使用 Crowdin，[https://crowdin.com/project/qv2ray](https://crowdin.com/project/qv2ray)
+1. 帮助翻译 Qv2ray 到多个语言
+   - 翻译平台使用 Crowdin [https://crowdin.com/project/qv2ray](https://crowdin.com/project/qv2ray)
+2. 提出新功能建议
+   - 使用 Github Issues
 
-# 开源协议 Open Source License
+## 6. License
 
-GPLv3
+[GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html)
+
