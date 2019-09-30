@@ -12,7 +12,7 @@
 
 ## 2. 首次使用，安装与配置
 
-使用 Qv2ray 需要一下几个步骤：
+使用 Qv2ray 需要以下几个步骤：
 
 1. 在 [Release](https://github.com/lhy0403/Qv2ray/releases/latest) 下载 Qv2ray (ArchLinux 用户可以使用 `qv2ray` 的 [AUR](https://aur.archlinux.org/packages/qv2ray/))
 2. 在 `v2ray` 官方下载 [v2ray 内核](https://github.com/v2ray/v2ray-core/releases/latest) 
@@ -25,7 +25,7 @@
 注： Qv2ray 在不同系统中查找 v2ray 内核的文件路径 （即找不到内核时自动弹出的文件夹路径）
 - Windows: C:\Users\用户名\.qv2ray\vcore
 - macOS: /Users/用户名/.qv2ray/vcore
-- Linux: /home/用户名/.qv2ray/vcore
+- Linux: ~/.qv2ray/vcore
 ```
 
 
