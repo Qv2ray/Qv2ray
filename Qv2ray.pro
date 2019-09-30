@@ -40,6 +40,7 @@ SOURCES += \
         libs/gen/v2ray_api_commands.grpc.pb.cc
 
 INCLUDEPATH += \
+        /usr/local/include/ \
         3rdparty/ \
         src/ \
         src/ui/ \
@@ -105,13 +106,14 @@ ICON = ./icons/Qv2ray.icns
 
 message(Files will be generated to: $$OUT_PWD)
 
-# For gRPC in most Linux env.
+# For gRPC and protobuf in linux and macOS
 unix: LIBS += -lgrpc++ -lprotobuf
+unix: LIBS += -L/usr/local/lib
 
+QMAKE_CXXFLAGS += "-Wno-missing-field-initializers" "-Wno-unused-parameter"
 win32 {
     # A hack for protobuf header.
     DEFINES += _WIN32_WINNT=0x600
-    QMAKE_CXXFLAGS += "-Wno-missing-field-initializers" "-Wno-unused-parameter"
     LIBS += -L$$PWD/libs/gRPC-win32/lib/ -llibgrpc++.dll -llibprotobuf.dll
     INCLUDEPATH += $$PWD/libs/gRPC-win32/include
     DEPENDPATH  += $$PWD/libs/gRPC-win32/include
