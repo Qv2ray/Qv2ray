@@ -24,7 +24,7 @@ before_script:
 script:
   - git submodule update --init
   - if [ "$BADGE" = "linux" ]; then    ./tools/grpc_gen.sh; fi
-  - if [ "$BADGE" = "osx"   ]; then    ./tools/macOS_deps.sh; fi
+  - if [ "$BADGE" = "osx"   ]; then    ./tools/deps_macOS.sh; fi
   - mkdir build && cd ./build 
   - qmake ../
   - if [ "$BADGE" = "linux" ]; then    make compiler_lrelease_make_all; fi
