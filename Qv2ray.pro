@@ -11,9 +11,6 @@ TEMPLATE = app
 DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11 openssl openssl-linked lrelease embed_translations
 
-win32: QMAKE_TARGET_DESCRIPTION = "Qv2ray, a cross-platform v2ray GUI client."
-win32: QMAKE_TARGET_PRODUCT = "Qv2ray"
-
 VERSION = 1.999.999.999
 DEFINES += QV_MAJOR_VERSION=\"\\\"$${VERSION}\\\"\"
 
@@ -81,55 +78,101 @@ FORMS += \
 RESOURCES += \
         resources.qrc
 
+# Fine......
+message(" ")
+message("|------------------------------------------------|")
+message("| Qv2ray, Cross Platform v2ray GUI client        |")
+message("| Licenced under GPLv3                           |")
+message("|                                                |")
+message("| You may only use this program to the extent    |")
+message("| permitted by local law.                        |")
+message("|                                                |")
+message("| See: https://www.gnu.org/licenses/gpl-3.0.html |")
+message("|------------------------------------------------|")
+message(" ")
+
+
+RC_ICONS += ./icons/Qv2ray.ico
+ICON = ./icons/Qv2ray.icns
+
+# ------------------------------------------ Begin checking gRPC and protobuf headers.
+!exists(libs/gen/v2ray_api_commands.grpc.pb.h) || !exists(libs/gen/v2ray_api_commands.grpc.pb.cc) || !exists(libs/gen/v2ray_api_commands.pb.h) || !exists(libs/gen/v2ray_api_commands.pb.cc) {
+    message(" ")
+    message("-----------------------------------------------")
+    message("Cannot continue: ")
+    message(" ---> Qv2ray is not properly configured yet: ")
+    message("      gRPC and protobuf headers for v2ray API is missing.")
+    message(" ---> Please run gen_grpc.sh gen_grpc.bat or deps_macOS.sh located in tools/")
+    message(" ---> Or consider reading https://github.com/lhy0403/Qv2ray/blob/master/BUILDING.md")
+    message("-----------------------------------------------")
+    message(" ")
+    warning("IF YOU THINK IT'S A MISTAKE, PLEASE OPEN AN ISSUE")
+    error("! NOW THE BUILD WILL ABORT !")
+    message(" ")
+}
+
 # ------------------------------------------ Begin to detect language files.
-
+message(" - Looking for language support.")
 QM_FILES_RESOURCE_PREFIX = "translations"
-
 for(var, $$list($$files("*.ts", true))) {
     LOCALE_FILENAME = $$basename(var)
-
+    message(" ---> Found:" $$LOCALE_FILENAME)
     !equals(LOCALE_FILENAME, "en-US.ts") {
         # ONLY USED IN LRELEASE CONTEXT - en-US is not EXTRA...
         EXTRA_TRANSLATIONS += translations/$$LOCALE_FILENAME
     }
 }
-
-
-TRANSLATIONS += \
-        translations/en-US.ts
-
-message("CORE  Translations:" $$TRANSLATIONS)
-message("EXTRA Translations:" $$EXTRA_TRANSLATIONS)
-
-RC_ICONS += ./icons/Qv2ray.ico
-ICON = ./icons/Qv2ray.icns
-
-message(Files will be generated to: $$OUT_PWD)
-
-# For gRPC and protobuf in linux and macOS
-unix: LIBS += -lgrpc++ -lprotobuf
-unix: LIBS += -L/usr/local/lib
+message(" - Qv2ray will build with" $${replace(EXTRA_TRANSLATIONS, "translations/", "")})
+TRANSLATIONS += translations/en-US.ts
 
 QMAKE_CXXFLAGS += "-Wno-missing-field-initializers" "-Wno-unused-parameter"
 win32 {
+    message(" - Configuring for win32 environment")
+    message(" ---> Setting up target descriptions")
+    QMAKE_TARGET_DESCRIPTION = "Qv2ray, a cross-platform v2ray GUI client."
+    QMAKE_TARGET_PRODUCT = "Qv2ray"
+
     # A hack for protobuf header.
+    message(" ---> Applying a hack for protobuf header")
     DEFINES += _WIN32_WINNT=0x600
+
+    message(" ---> Linking against gRPC and protobuf library.")
     LIBS += -L$$PWD/libs/gRPC-win32/lib/ -llibgrpc++.dll -llibprotobuf.dll
+
     INCLUDEPATH += $$PWD/libs/gRPC-win32/include
     DEPENDPATH  += $$PWD/libs/gRPC-win32/include
     # Some files issue.
-    QMAKE_PRE_LINK += forfiles /s /p $${replace(PWD, /, \\)}\libs\ /m "*.dll" /c \"cmd.exe /c copy @file $${replace(OUT_PWD, /, \\)}\\debug\ & copy @file $${replace(OUT_PWD, /, \\)}\\release\\\"
+
+    CONFIG(release, debug|release) {
+        message(" ---> Appending scripts for copying gRPC and protobuf dll to RELEASE directory.")
+        QMAKE_PRE_LINK += forfiles /s /p $${replace(PWD, /, \\)}\libs\ /m "*.dll" /c \"cmd.exe /c copy @file $${replace(OUT_PWD, /, \\)}\\release\\\"
+    }
+
+    CONFIG(debug, debug|release) {
+        message(" ---> Appending scripts for copying gRPC and protobuf dll to DEBUG directory.")
+        QMAKE_PRE_LINK += forfiles /s /p $${replace(PWD, /, \\)}\libs\ /m "*.dll" /c \"cmd.exe /c copy @file $${replace(OUT_PWD, /, \\)}\\debug\\\"
+    }
     PRE_TARGETDEPS += $$PWD/libs/gRPC-win32/lib/libgrpc++.dll.a $$PWD/libs/gRPC-win32/lib/libprotobuf.dll.a
 }
-# Installations
-qnx: target.path = /tmp/$${TARGET}/bin
-unix: target.path = /opt/$${TARGET}/bin
-!isEmpty(target.path): INSTALLS += target
 
-desktop.files += ./icons/Qv2ray.desktop
-desktop.path = /opt/$${TARGET}/share/applications/
-icon.files += ./icons/Qv2ray.png
-icon.path = /opt/$${TARGET}/share/icons/hicolor/256x256/apps/
+unix {
+    # For Linux and macOS
+    message(" - Configuring for unix (macOS and linux) environment")
+    # For gRPC and protobuf in linux and macOS
+    message(" ---> Linking against gRPC and protobuf library.")
+    LIBS += -L/usr/local/lib -lgrpc++ -lprotobuf
 
-INSTALLS += desktop
-INSTALLS += icon
+    message(" ---> Generating desktop dependency.")
+    desktop.files += ./icons/Qv2ray.desktop
+    desktop.path = /opt/$${TARGET}/share/applications/
+
+    message(" ---> Generating icons dependency.")
+    icon.files += ./icons/Qv2ray.png
+    icon.path = /opt/$${TARGET}/share/icons/hicolor/256x256/apps/
+
+    target.path = /opt/$${TARGET}/bin
+    INSTALLS += target desktop icon
+}
+
+message(" - Done configuring Qv2ray project. Build output will be at:" $$OUT_PWD)
+message(" - Type `make` or `mingw32-make` to start building Qv2ray")
