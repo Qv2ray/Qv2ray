@@ -9,9 +9,9 @@
 
 namespace Qv2ray
 {
-    bool Qv2Instance::VerifyVConfigFile(const QString *path)
+    bool Qv2Instance::ValidateConfig(const QString *path)
     {
-        if (ValidateV2rayCoreExe()) {
+        if (ValidateKernal()) {
             QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
             env.insert("V2RAY_LOCATION_ASSET", QString::fromStdString(GetGlobalConfig().v2AssetsPath));
             QProcess process;
@@ -41,7 +41,16 @@ namespace Qv2ray
         auto proc = new QProcess();
         vProcess = proc;
         QObject::connect(vProcess, &QProcess::readyReadStandardOutput, static_cast<MainWindow *>(parent), &MainWindow::UpdateLog);
-        Status = STOPPED;
+        VCoreStatus = STOPPED;
+    }
+
+    void Qv2Instance::SetAPIPort(int port)
+    {
+        // Config API
+        this->port = port;
+        Channel = grpc::CreateChannel("127.0.0.1:" + to_string(port), grpc::InsecureChannelCredentials());
+        StatsService service;
+        Stub = service.NewStub(Channel);
     }
 
     QString Qv2Instance::ReadProcessOutput()
@@ -49,7 +58,7 @@ namespace Qv2ray
         return vProcess->readAllStandardOutput();
     }
 
-    bool Qv2Instance::ValidateV2rayCoreExe()
+    bool Qv2Instance::ValidateKernal()
     {
         if (!QFile::exists(QV2RAY_V2RAY_CORE_PATH)) {
             Utils::QvMessageBox(nullptr, QObject::tr("Cannot start v2ray"), QObject::tr("v2ray core file cannot be found at:") + QV2RAY_V2RAY_CORE_PATH);
@@ -57,44 +66,86 @@ namespace Qv2ray
         } else return true;
     }
 
-    bool Qv2Instance::Start()
+    bool Qv2Instance::StartVCore()
     {
-        if (Status != STOPPED) {
+        if (VCoreStatus != STOPPED) {
             return false;
         }
 
-        Status = STARTING;
+        VCoreStatus = STARTING;
 
-        if (ValidateV2rayCoreExe()) {
+        if (ValidateKernal()) {
             auto filePath = QV2RAY_GENERATED_FILE_PATH;
 
-            if (VerifyVConfigFile(&filePath)) {
+            if (ValidateConfig(&filePath)) {
                 QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
                 env.insert("V2RAY_LOCATION_ASSET", QString::fromStdString(GetGlobalConfig().v2AssetsPath));
                 vProcess->setProcessEnvironment(env);
                 vProcess->start(QV2RAY_V2RAY_CORE_PATH, QStringList() << "-config" << filePath, QIODevice::ReadWrite | QIODevice::Text);
                 vProcess->waitForStarted();
-                Status = STARTED;
+                VCoreStatus = STARTED;
                 return true;
             } else {
-                Status = STOPPED;
+                VCoreStatus = STOPPED;
                 return false;
             }
         } else {
-            Status = STOPPED;
+            VCoreStatus = STOPPED;
             return false;
         }
     }
 
-    void Qv2Instance::Stop()
+    void Qv2Instance::StopVCore()
     {
         vProcess->close();
-        Status = STOPPED;
+        VCoreStatus = STOPPED;
     }
 
     Qv2Instance::~Qv2Instance()
     {
-        Stop();
+        StopVCore();
         delete vProcess;
+    }
+
+    long Qv2Instance::CallStatsAPIByName(QString name)
+    {
+        GetStatsRequest request;
+        request.set_name(name.toStdString());
+        request.set_reset(false);
+        GetStatsResponse response;
+        ClientContext context;
+        Status status = Stub->GetStats(&context, request, &response);
+
+        if (!status.ok()) {
+            LOG(MODULE_VCORE, "API call returns: " + to_string(status.error_code()))
+        }
+
+        return response.stat().value();
+    }
+
+    long Qv2Instance::getTagLastUplink(QString tag)
+    {
+        auto val = CallStatsAPIByName("inbound>>>" + tag + ">>>traffic>>>uplink");
+        auto data = val - lastData[tag + "_up"];
+        lastData[tag + "_up"] = val;
+        return data;
+    }
+
+    long Qv2Instance::getTagLastDownlink(QString tag)
+    {
+        auto val = CallStatsAPIByName("inbound>>>" + tag + ">>>traffic>>>downlink");
+        auto data = val - lastData[tag + "_down"];
+        lastData[tag + "_down"] = val;
+        return data;
+    }
+
+    long Qv2Instance::getTagTotalUplink(QString tag)
+    {
+        return lastData[tag + "_up"];
+    }
+
+    long Qv2Instance::getTagTotalDownlink(QString tag)
+    {
+        return lastData[tag + "_down"];
     }
 }

@@ -7,7 +7,7 @@
 
 #define QV2RAY_VERSION_STRING "v" QV_MAJOR_VERSION
 
-#define QV2RAY_CONFIG_VERSION 4
+#define QV2RAY_CONFIG_VERSION 7
 // Base folder.
 #define QV2RAY_CONFIG_DIR_PATH (Qv2ray::Utils::GetConfigDirPath() + "/")
 #define QV2RAY_CONFIG_FILE_PATH (QV2RAY_CONFIG_DIR_PATH + "Qv2ray.conf")
@@ -91,6 +91,11 @@ namespace Qv2ray
             bool bypassCN;
             bool enableProxy;
             bool withLocalDNS;
+            MuxObject mux;
+            //
+            bool enableStats;
+            int statsPort;
+            //
             list<string> dnsList;
             //
             Qv2rayBasicInboundsConfig inBoundSettings;
@@ -100,8 +105,27 @@ namespace Qv2ray
             list<string> configs;
 #endif
             map<string, string> subscribes;
-            MuxObject mux;
-            Qv2rayConfig(): config_version(QV2RAY_CONFIG_VERSION), tProxySupport(false), logLevel(), bypassCN(), enableProxy(), withLocalDNS(), inBoundSettings(), configs(), subscribes(), mux() { }
+            Qv2rayConfig():
+                config_version(QV2RAY_CONFIG_VERSION),
+                tProxySupport(false),
+                logLevel(),
+                language(),
+                v2AssetsPath(),
+                autoStartConfig(),
+                ignoredVersion(),
+                bypassCN(),
+                enableProxy(),
+                withLocalDNS(),
+                mux(),
+                enableStats(),
+                statsPort(15934),
+                dnsList(),
+                inBoundSettings(),
+                configs(),
+                subscribes()
+            {
+                // PLACEHOLDER
+            }
             Qv2rayConfig(string lang, string assetsPath, int log, Qv2rayBasicInboundsConfig _inBoundSettings): Qv2rayConfig()
             {
                 // These settings below are defaults.
@@ -109,8 +133,8 @@ namespace Qv2ray
                 autoStartConfig = "";
                 language = lang;
                 v2AssetsPath = assetsPath;
-                logLevel = log;
                 inBoundSettings = _inBoundSettings;
+                logLevel = log;
                 tProxySupport = false;
                 mux.enabled = false;
                 dnsList.push_back("8.8.8.8");
@@ -119,8 +143,26 @@ namespace Qv2ray
                 bypassCN = true;
                 enableProxy = true;
                 withLocalDNS = true;
+                enableStats = true;
+                statsPort = 15934;
             }
-            XTOSTRUCT(O(config_version, tProxySupport, logLevel, language, autoStartConfig, ignoredVersion, v2AssetsPath, enableProxy, bypassCN, withLocalDNS, dnsList, inBoundSettings, mux, configs, subscribes))
+            XTOSTRUCT(O(config_version,
+                        enableStats,
+                        statsPort,
+                        tProxySupport,
+                        logLevel,
+                        language,
+                        autoStartConfig,
+                        ignoredVersion,
+                        v2AssetsPath,
+                        enableProxy,
+                        bypassCN,
+                        withLocalDNS,
+                        dnsList,
+                        inBoundSettings,
+                        mux,
+                        configs,
+                        subscribes))
         };
 
         // Extra header for QvConfigUpgrade.cpp

@@ -60,6 +60,8 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     //
     //
     ui->vCoreAssetsPathTxt->setText(QSTRING(CurrentConfig.v2AssetsPath));
+    ui->statsCheckbox->setChecked(CurrentConfig.enableStats);
+    ui->statsPortBox->setValue(CurrentConfig.statsPort);
     //
     //
 #if false
@@ -108,7 +110,7 @@ void PrefrencesWindow::on_buttonBox_accepted()
         return;
     }
 
-    SetGlobalConfig(&CurrentConfig);
+    SetGlobalConfig(CurrentConfig);
     emit s_reload_config(IsConnectionPropertyChanged);
 }
 
@@ -350,4 +352,16 @@ void PrefrencesWindow::on_bypassCNCb_stateChanged(int arg1)
 {
     NEEDRESTART
     CurrentConfig.bypassCN = arg1 == Qt::Checked;
+}
+
+void PrefrencesWindow::on_statsCheckbox_stateChanged(int arg1)
+{
+    NEEDRESTART
+    CurrentConfig.enableStats = arg1 == Qt::Checked;
+}
+
+void PrefrencesWindow::on_statsPortBox_valueChanged(int arg1)
+{
+    NEEDRESTART
+    CurrentConfig.statsPort = arg1;
 }

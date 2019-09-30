@@ -27,8 +27,8 @@ using namespace std;
 #define MODULE_DEBUG_INFO "__DEBUG__"
 #endif
 //
-#define WARN "WARN"
-#define INFO "INFO"
-#define ERROR "ERROR"
+#define LOG_WARN "WARN"
+#define LOG_INFO "INFO"
+#define LOG_ERROR "ERROR"
 
 #endif // QVTINYLOG_H

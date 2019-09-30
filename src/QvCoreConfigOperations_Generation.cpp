@@ -130,6 +130,34 @@ namespace Qv2ray
             RROOT
         }
 
+        QJsonObject GenerateInboundEntry(QString listen, int port, QString protocol, QJsonObject settings, QString tag, QJsonObject sniffing, QJsonObject allocate)
+        {
+            DROOT
+            LOG(MODULE_CONNECTION, "allocation is not used here.")
+            Q_UNUSED(allocate)
+            JADD(listen, port, protocol, settings, tag, sniffing)
+            RROOT
+        }
+
+        QJsonObject GenerateAPIEntry(QString tag, bool withHandler, bool withLogger, bool withStats)
+        {
+            DROOT
+            QJsonArray services;
+
+            if (withHandler)
+                services << "HandlerService";
+
+            if (withLogger)
+                services << "LoggerService";
+
+            if (withStats)
+                services << "StatsService";
+
+            JADD(services, tag)
+            //
+            RROOT
+        }
+
         // -------------------------- END CONFIG GENERATIONS ------------------------------------------------------------------------------
         // BEGIN RUNTIME CONFIG GENERATION
 
@@ -154,7 +182,6 @@ namespace Qv2ray
             root.insert("dns", dnsObject);
             //
             //
-            root.insert("stats", QJsonObject());
             //
             QJsonArray inboundsList;
 
@@ -221,6 +248,52 @@ namespace Qv2ray
                 // We don't add extra routings.
                 // this part has been left blanking
                 LOG(MODULE_CONNECTION, "Skip adding 'freedom' entry.")
+            }
+
+            // Let's process some api features.
+            if (gConf.enableStats) {
+                {
+                    // Stats
+                    root.insert("stats", QJsonObject());
+                }
+                {
+                    // Routes
+                    QJsonObject routing = root["routing"].toObject();
+                    QJsonArray routingRules = routing["rules"].toArray();
+                    QJsonObject APIRouteRoot;
+                    APIRouteRoot["type"] = "field";
+                    APIRouteRoot["outboundTag"] = API_TAG_DEFAULT;
+                    QJsonArray inboundTag;
+                    inboundTag.append(API_TAG_INBOUND);
+                    APIRouteRoot["inboundTag"] = inboundTag;
+                    // Add this to root.
+                    routingRules.push_front(APIRouteRoot);
+                    routing["rules"] = routingRules;
+                    root["routing"] = routing;
+                }
+                {
+                    // Policy
+                    QJsonObject policyRoot = root.contains("policy") ? root["policy"].toObject() : QJsonObject();
+                    QJsonObject systemPolicy = policyRoot.contains("system") ? policyRoot["system"].toObject() : QJsonObject();
+                    systemPolicy["statsInboundUplink"] = true;
+                    systemPolicy["statsInboundDownlink"] = true;
+                    policyRoot["system"] = systemPolicy;
+                    // Add this to root.
+                    root["policy"] = policyRoot;
+                }
+                {
+                    // Inbounds
+                    QJsonArray inbounds = root["inbounds"].toArray();
+                    QJsonObject fakeDocodemoDoor;
+                    fakeDocodemoDoor["address"] = "127.0.0.1";
+                    QJsonObject apiInboundsRoot = GenerateInboundEntry("127.0.0.1", gConf.statsPort, "dokodemo-door", fakeDocodemoDoor, API_TAG_INBOUND);
+                    inbounds.push_front(apiInboundsRoot);
+                    root["inbounds"] = inbounds;
+                }
+                {
+                    // API
+                    root["api"] = GenerateAPIEntry(API_TAG_DEFAULT);
+                }
             }
 
             return root;
