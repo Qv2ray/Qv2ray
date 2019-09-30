@@ -4,7 +4,7 @@ install:
   - set PATH=%QTDIR%\bin;C:\Qt\Tools\mingw730_64\bin;C:\Windows\;C:\Windows\System32
   
 build_script:
-  - tools\grpc_gen.bat
+  - cmd.exe /c tools\grpc_gen.bat
   - mkdir build && cd build
   - qmake ..\Qv2ray.pro
   - mingw32-make -j4
