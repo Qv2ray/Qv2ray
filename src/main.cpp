@@ -104,8 +104,10 @@ int main(int argc, char *argv[])
 
     //
     QApplication _qApp(argc, argv);
+
     // Qv2ray Initialize
-    initQv();
+    if (!initQv()) return -1;
+
 #ifdef _WIN32
     // Set special font in Windows
     QFont font;
