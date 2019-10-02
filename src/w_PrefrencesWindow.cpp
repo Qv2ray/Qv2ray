@@ -33,7 +33,7 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     //
     bool have_http = CurrentConfig.inBoundSettings.http_port != 0;
     ui->httpCB->setChecked(have_http);
-    ui->httpPortLE->setText(QSTRING(to_string(CurrentConfig.inBoundSettings.http_port)));
+    ui->httpPortLE->setValue(CurrentConfig.inBoundSettings.http_port);
     ui->httpAuthCB->setChecked(CurrentConfig.inBoundSettings.http_useAuth);
     //
     ui->httpAuthCB->setEnabled(have_http);
@@ -42,12 +42,11 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     ui->httpAuthPasswordTxt->setEnabled(have_http && CurrentConfig.inBoundSettings.http_useAuth);
     ui->httpAuthUsernameTxt->setText(QSTRING(CurrentConfig.inBoundSettings.httpAccount.user));
     ui->httpAuthPasswordTxt->setText(QSTRING(CurrentConfig.inBoundSettings.httpAccount.pass));
-    ui->httpPortLE->setValidator(new QIntValidator());
     //
     //
     bool have_socks = CurrentConfig.inBoundSettings.socks_port != 0;
     ui->socksCB->setChecked(have_socks);
-    ui->socksPortLE->setText(QSTRING(to_string(CurrentConfig.inBoundSettings.socks_port)));
+    ui->socksPortLE->setValue(CurrentConfig.inBoundSettings.socks_port);
     ui->socksAuthCB->setChecked(CurrentConfig.inBoundSettings.socks_useAuth);
     //
     ui->socksAuthCB->setEnabled(have_socks);
@@ -56,7 +55,6 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     ui->socksAuthPasswordTxt->setEnabled(have_socks && CurrentConfig.inBoundSettings.socks_useAuth);
     ui->socksAuthUsernameTxt->setText(QSTRING(CurrentConfig.inBoundSettings.socksAccount.user));
     ui->socksAuthPasswordTxt->setText(QSTRING(CurrentConfig.inBoundSettings.socksAccount.pass));
-    ui->socksPortLE->setValidator(new QIntValidator());
     //
     //
     ui->vCoreAssetsPathTxt->setText(QSTRING(CurrentConfig.v2AssetsPath));
@@ -118,7 +116,7 @@ void PrefrencesWindow::on_httpCB_stateChanged(int checked)
     CurrentConfig.inBoundSettings.http_port = checked == Qt::Checked ? CurrentConfig.inBoundSettings.http_port : 0;
 
     if (checked != Qt::Checked) {
-        ui->httpPortLE->setText("0");
+        ui->httpPortLE->setValue(0);
     }
 }
 
@@ -132,7 +130,7 @@ void PrefrencesWindow::on_socksCB_stateChanged(int checked)
     CurrentConfig.inBoundSettings.socks_port = checked == Qt::Checked ? CurrentConfig.inBoundSettings.socks_port : 0;
 
     if (checked != Qt::Checked) {
-        ui->socksPortLE->setText("0");
+        ui->socksPortLE->setValue(0);
     }
 }
 
@@ -195,18 +193,6 @@ void PrefrencesWindow::on_listenIPTxt_textEdited(const QString &arg1)
 {
     NEEDRESTART
     CurrentConfig.inBoundSettings.listenip = arg1.toStdString();
-}
-
-void PrefrencesWindow::on_socksPortLE_textEdited(const QString &arg1)
-{
-    NEEDRESTART
-    CurrentConfig.inBoundSettings.socks_port = stoi(arg1.toStdString());
-}
-
-void PrefrencesWindow::on_httpPortLE_textEdited(const QString &arg1)
-{
-    NEEDRESTART
-    CurrentConfig.inBoundSettings.http_port = stoi(arg1.toStdString());
 }
 
 void PrefrencesWindow::on_httpAuthUsernameTxt_textEdited(const QString &arg1)
@@ -347,4 +333,16 @@ void PrefrencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
     // No such uid gid thing on Windows and macOS
     QvMessageBox(this, tr("Prefrences"), tr("tProxy is not supported on macOS and Windows"));
 #endif
+}
+
+void PrefrencesWindow::on_socksPortLE_valueChanged(int arg1)
+{
+    NEEDRESTART
+    CurrentConfig.inBoundSettings.socks_port = arg1;
+}
+
+void PrefrencesWindow::on_httpPortLE_valueChanged(int arg1)
+{
+    NEEDRESTART
+    CurrentConfig.inBoundSettings.http_port = arg1;
 }
