@@ -629,6 +629,29 @@
       <location filename="../src/ui/w_MainWindow.cpp" line="470"/>
       <source>Are you sure to remove this connection?</source>
       <translation>您确定要删除此连接吗？</translation>
+      <location filename="../src/w_MainWindow.cpp" line="516"/>
+      <source>Not Supported</source>
+      <translation>不支持</translation>
+    </message>
+    <message>
+      <location filename="../src/w_MainWindow.cpp" line="516"/>
+      <source>Qv2ray currently does not support editing complex configs.</source>
+      <translation>Qv2ray 目前不支持编辑复杂配置。</translation>
+    </message>
+    <message>
+      <location filename="../src/w_MainWindow.cpp" line="517"/>
+      <source>Do you want to edit the config file manually?</source>
+      <translation>您想手动编辑配置文件吗？</translation>
+    </message>
+    <message>
+      <location filename="../src/w_MainWindow.cpp" line="519"/>
+      <source>Edit Connection Manually.</source>
+      <translation>手动编辑连接。</translation>
+    </message>
+    <message>
+      <location filename="../src/w_MainWindow.cpp" line="519"/>
+      <source>Qv2ray will reload the config once you click OK.</source>
+      <translation>Qv2ray 将在您点击确定后重新加载配置。</translation>
     </message>
   </context>
   <context>
@@ -887,8 +910,8 @@
       <translation>打开 v2ray 资源文件夹</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PrefrencesWindow.cpp" line="344"/>
-      <source>tProxy is not supported on MacOS and Windows</source>
+      <location filename="../src/w_PrefrencesWindow.cpp" line="348"/>
+      <source>tProxy is not supported on macOS and Windows</source>
       <translation>在 macOS 和 Windows 上不支持 tProxy</translation>
     </message>
   </context>
