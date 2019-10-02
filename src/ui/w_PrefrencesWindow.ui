@@ -6,14 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>709</width>
-    <height>370</height>
+    <width>710</width>
+    <height>380</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>700</width>
-    <height>370</height>
+    <width>710</width>
+    <height>380</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -29,7 +29,7 @@
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -208,7 +208,7 @@
          <item row="0" column="0">
           <widget class="QLabel" name="label_22">
            <property name="text">
-            <string>Listen IP</string>
+            <string>Listening Address</string>
            </property>
           </widget>
          </item>
@@ -222,7 +222,7 @@
          <item>
           <widget class="QGroupBox" name="groupBox_2">
            <property name="title">
-            <string>SOCKS InBound Settings</string>
+            <string>SOCKS Inbound Settings</string>
            </property>
            <layout class="QFormLayout" name="formLayout_2">
             <item row="0" column="1">
@@ -240,9 +240,12 @@
              </widget>
             </item>
             <item row="1" column="1">
-             <widget class="QLineEdit" name="socksPortLE">
-              <property name="text">
-               <string/>
+             <widget class="QSpinBox" name="socksPortLE">
+              <property name="minimum">
+               <number>1</number>
+              </property>
+              <property name="maximum">
+               <number>65535</number>
               </property>
              </widget>
             </item>
@@ -286,7 +289,7 @@
          <item>
           <widget class="QGroupBox" name="groupBox">
            <property name="title">
-            <string>HTTP InBound Settings</string>
+            <string>HTTP Inbound Settings</string>
            </property>
            <layout class="QFormLayout" name="formLayout_7">
             <item row="0" column="1">
@@ -307,15 +310,12 @@
              </widget>
             </item>
             <item row="1" column="1">
-             <widget class="QLineEdit" name="httpPortLE">
-              <property name="text">
-               <string/>
+             <widget class="QSpinBox" name="httpPortLE">
+              <property name="minimum">
+               <number>1</number>
               </property>
-              <property name="dragEnabled">
-               <bool>false</bool>
-              </property>
-              <property name="clearButtonEnabled">
-               <bool>false</bool>
+              <property name="maximum">
+               <number>65535</number>
               </property>
              </widget>
             </item>

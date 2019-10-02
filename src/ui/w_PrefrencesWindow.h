@@ -43,9 +43,9 @@ class PrefrencesWindow : public QDialog
 
         void on_listenIPTxt_textEdited(const QString &arg1);
 
-        void on_socksPortLE_textEdited(const QString &arg1);
+        void on_socksPortLE_valueChanged(int arg1);
 
-        void on_httpPortLE_textEdited(const QString &arg1);
+        void on_httpPortLE_valueChanged(int arg1);
 
         void on_httpAuthUsernameTxt_textEdited(const QString &arg1);
 
