@@ -1,5 +1,5 @@
-#include "w_SubscribeEditor.h"
-#include "ui_w_SubscribeEditor.h"
+#include "w_SubscriptionEditor.h"
+#include "ui_w_SubscriptionEditor.h"
 #include "QvHTTPRequestHelper.h"
 #include "QvUtils.h"
 #include "QvCoreConfigOperations.h"

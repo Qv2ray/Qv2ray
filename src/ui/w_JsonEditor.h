@@ -15,7 +15,7 @@ class JsonEditor : public QDialog
         Q_OBJECT
 
     public:
-        explicit JsonEditor(QJsonObject document, QWidget *parent = nullptr);
+        explicit JsonEditor(QJsonObject rootObject, QWidget *parent = nullptr);
         ~JsonEditor();
         QJsonObject OpenEditor();
 

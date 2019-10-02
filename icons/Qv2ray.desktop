@@ -5,4 +5,4 @@ Categories=Network;Qt;
 Icon=Qv2ray
 Exec=/opt/Qv2ray/bin/Qv2ray
 Name=Qv2ray
-Comment=Cross-platform v2ray GUI Client in Qt.
+Comment=Cross platform v2ray Qt GUI Client.
