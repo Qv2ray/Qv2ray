@@ -172,7 +172,7 @@
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="771"/>
       <source>tProxy</source>
-      <translation type="unfinished">tProxy</translation>
+      <translation>tProxy</translation>
     </message>
     <message>
       <location filename="../src/w_ConnectionEditWindow.ui" line="808"/>
@@ -600,7 +600,7 @@
     <message>
       <location filename="../src/w_MainWindow.cpp" line="491"/>
       <source>Failed to delete connection file, please delete manually.</source>
-      <translation type="unfinished">Failed to delete connection file, please delete manually.</translation>
+      <translation>Не удалось удалить файл подключения, пожалуйста, удалите вручную.</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="517"/>
@@ -615,27 +615,27 @@
     <message>
       <location filename="../src/w_MainWindow.cpp" line="526"/>
       <source>Not Supported</source>
-      <translation type="unfinished">Not Supported</translation>
+      <translation>Не поддерживаются</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="526"/>
       <source>Qv2ray currently does not support editing complex configs.</source>
-      <translation type="unfinished">Qv2ray currently does not support editing complex configs.</translation>
+      <translation>Qv2ray в настоящее время не поддерживает редактирование сложных конфигураций.</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="527"/>
       <source>Do you want to edit the config file manually?</source>
-      <translation type="unfinished">Do you want to edit the config file manually?</translation>
+      <translation>Вы хотите вручную редактировать файл конфигурации?</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="529"/>
       <source>Edit Connection Manually.</source>
-      <translation type="unfinished">Edit Connection Manually.</translation>
+      <translation>Редактировать соединение вручную.</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="529"/>
       <source>Qv2ray will reload the config once you click OK.</source>
-      <translation type="unfinished">Qv2ray will reload the config once you click OK.</translation>
+      <translation>Qv2ray перезагрузит конфигурацию после нажатия OK.</translation>
     </message>
   </context>
   <context>
@@ -896,7 +896,7 @@
     <message>
       <location filename="../src/w_PrefrencesWindow.cpp" line="334"/>
       <source>tProxy is not supported on macOS and Windows</source>
-      <translation type="unfinished">tProxy is not supported on macOS and Windows</translation>
+      <translation>tProxy не поддерживается на MacOS и Windows</translation>
     </message>
   </context>
   <context>
