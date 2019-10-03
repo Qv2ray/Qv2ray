@@ -91,15 +91,15 @@ int main(int argc, char *argv[])
     QString configPath = QDir::homePath() + "/.qv2ray";
 #endif
     SetConfigDirPath(&configPath);
-    QDirIterator it(":/translations");
+    auto langs = getFileList(QDir(":/translations"));
 
-    if (!it.hasNext()) {
-        LOG(MODULE_UI, "FAILED to find any translations, THIS IS A BUILD ERROR.")
+    if (langs.empty()) {
+        LOG(MODULE_UI, "FAILED to find any translations. THIS IS A BUILD ERROR.")
         QvMessageBox(nullptr, "Cannot load languages", "Qv2ray will run, but you are not able to select languages.");
-    }
-
-    while (it.hasNext()) {
-        LOG(MODULE_UI, "Found Translator: " + it.next().toStdString())
+    } else {
+        for (auto lang : langs) {
+            LOG(MODULE_UI, "Found Translator: " + lang.toStdString())
+        }
     }
 
     //
@@ -141,13 +141,16 @@ int main(int argc, char *argv[])
     auto osslCurVersion = QSslSocket::sslLibraryVersionString().toStdString();
     LOG(MODULE_NETWORK, "Current OpenSSL version: " + osslCurVersion)
 
-    if (!QSslSocket::supportsSsl()) {
+    if (QSslSocket::supportsSsl()) {
         LOG(MODULE_NETWORK, "Required OpenSSL version: " + osslReqVersion)
         LOG(MODULE_NETWORK, "OpenSSL library MISSING, Quitting.")
         QvMessageBox(nullptr, QObject::tr("DependencyMissing"),
                      QObject::tr("Cannot find openssl libs") + "\r\n" +
                      QObject::tr("This could be caused by a missing of `openssl` package in your system. Or an AppImage issue.") + "\r\n" +
-                     QObject::tr("If you are using AppImage, please report a bug."));
+                     QObject::tr("If you are using AppImage, please report a bug.") + "\r\n\r\n" +
+                     QObject::tr("Technical Details") + "\r\n" +
+                     "OSsl.Rq.V=" + QSTRING(osslReqVersion) + "\r\n" +
+                     "OSsl.Cr.V=" + QSTRING(osslCurVersion));
         return -2;
     }
 
