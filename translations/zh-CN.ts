@@ -600,7 +600,7 @@
     <message>
       <location filename="../src/w_MainWindow.cpp" line="491"/>
       <source>Failed to delete connection file, please delete manually.</source>
-      <translation type="unfinished">Failed to delete connection file, please delete manually.</translation>
+      <translation>删除连接文件失败，请手动删除。</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.cpp" line="517"/>
