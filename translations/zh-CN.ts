@@ -332,13 +332,13 @@
     </message>
     <message>
       <location filename="../src/w_MainWindow.ui" line="47"/>
-      <location filename="../src/w_MainWindow.cpp" line="40"/>
+      <location filename="../src/w_MainWindow.cpp" line="41"/>
       <source>Connect</source>
       <translation>连接</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.ui" line="57"/>
-      <location filename="../src/w_MainWindow.cpp" line="42"/>
+      <location filename="../src/w_MainWindow.cpp" line="43"/>
       <source>Disconnect</source>
       <translation>断开连接</translation>
     </message>
@@ -464,168 +464,176 @@
       <translation>重启</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="38"/>
-      <location filename="../src/w_MainWindow.cpp" line="289"/>
+      <location filename="../src/w_MainWindow.cpp" line="39"/>
+      <location filename="../src/w_MainWindow.cpp" line="293"/>
       <source>Hide</source>
       <translation>隐藏</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="39"/>
+      <location filename="../src/w_MainWindow.cpp" line="40"/>
       <source>Quit</source>
       <translation>退出</translation>
     </message>
     <message>
       <location filename="../src/w_MainWindow.ui" line="64"/>
-      <location filename="../src/w_MainWindow.cpp" line="41"/>
+      <location filename="../src/w_MainWindow.cpp" line="42"/>
       <source>Reconnect</source>
       <translation>重新连接</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="44"/>
+      <location filename="../src/w_MainWindow.cpp" line="45"/>
       <source>Rename</source>
       <translation>重命名</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="91"/>
-      <location filename="../src/w_MainWindow.cpp" line="244"/>
-      <location filename="../src/w_MainWindow.cpp" line="292"/>
+      <location filename="../src/w_MainWindow.cpp" line="92"/>
+      <location filename="../src/w_MainWindow.cpp" line="248"/>
+      <location filename="../src/w_MainWindow.cpp" line="296"/>
       <source>Show</source>
       <translation>显示</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="433"/>
-      <location filename="../src/w_MainWindow.cpp" line="442"/>
+      <location filename="../src/w_MainWindow.cpp" line="217"/>
+      <source>Connected: </source>
+      <translation>已连接: </translation>
+    </message>
+    <message>
+      <location filename="../src/w_MainWindow.cpp" line="439"/>
+      <location filename="../src/w_MainWindow.cpp" line="448"/>
       <source>Rename a Connection</source>
       <translation>重命名连接</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="433"/>
+      <location filename="../src/w_MainWindow.cpp" line="439"/>
       <source>The name cannot be empty</source>
       <translation>名称不能为空</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="469"/>
+      <location filename="../src/w_MainWindow.cpp" line="477"/>
+      <location filename="../src/w_MainWindow.cpp" line="491"/>
       <source>Removing this Connection</source>
       <translation>删除连接</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="45"/>
+      <location filename="../src/w_MainWindow.cpp" line="46"/>
       <source>Connect to this</source>
       <translation>连接到此服务器</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="126"/>
+      <location filename="../src/w_MainWindow.cpp" line="134"/>
       <source>Update</source>
       <translation>更新</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="127"/>
+      <location filename="../src/w_MainWindow.cpp" line="135"/>
       <source>Found a new version: </source>
       <translation>找到新的版本： </translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="133"/>
+      <location filename="../src/w_MainWindow.cpp" line="141"/>
       <source>Download Link: </source>
       <translation>下载链接： </translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="194"/>
+      <location filename="../src/w_MainWindow.cpp" line="110"/>
+      <location filename="../src/w_MainWindow.cpp" line="204"/>
       <source>No connection selected!</source>
       <translation>没有选择连接！</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="194"/>
+      <location filename="../src/w_MainWindow.cpp" line="110"/>
+      <location filename="../src/w_MainWindow.cpp" line="204"/>
       <source>Please select a config from the list.</source>
       <translation>请从列表中选择一个配置。</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="205"/>
-      <location filename="../src/w_MainWindow.cpp" line="206"/>
+      <location filename="../src/w_MainWindow.cpp" line="215"/>
+      <location filename="../src/w_MainWindow.cpp" line="216"/>
       <source>Connected To Server: </source>
       <translation>已连接到服务器： </translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="207"/>
-      <source>Connected</source>
-      <translation>已连接</translation>
-    </message>
-    <message>
-      <location filename="../src/w_MainWindow.cpp" line="224"/>
+      <location filename="../src/w_MainWindow.cpp" line="234"/>
       <source>Disconnected</source>
       <translation>已断开</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="327"/>
+      <location filename="../src/w_MainWindow.cpp" line="333"/>
       <source>UUID</source>
       <translation>UUID</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="329"/>
+      <location filename="../src/w_MainWindow.cpp" line="335"/>
       <source>AlterID</source>
       <translation>Alter Id</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="331"/>
+      <location filename="../src/w_MainWindow.cpp" line="337"/>
       <source>Transport</source>
       <translation>传输</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="338"/>
+      <location filename="../src/w_MainWindow.cpp" line="344"/>
       <source>Email</source>
       <translation>邮箱</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="340"/>
+      <location filename="../src/w_MainWindow.cpp" line="346"/>
       <source>Encryption</source>
       <translation>加密方式</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="347"/>
+      <location filename="../src/w_MainWindow.cpp" line="353"/>
       <source>Username</source>
       <translation>用户名</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="442"/>
+      <location filename="../src/w_MainWindow.cpp" line="448"/>
       <source>The name has been used already, Please choose another.</source>
       <translation>名称已被使用，请选择另一个。</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="469"/>
+      <location filename="../src/w_MainWindow.cpp" line="477"/>
       <source>Are you sure to remove this connection?</source>
       <translation>您确定要删除此连接吗？</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="507"/>
+      <location filename="../src/w_MainWindow.cpp" line="491"/>
+      <source>Failed to delete connection file, please delete manually.</source>
+      <translation type="unfinished">Failed to delete connection file, please delete manually.</translation>
+    </message>
+    <message>
+      <location filename="../src/w_MainWindow.cpp" line="517"/>
       <source>No Config Selected</source>
       <translation>未选择配置</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="507"/>
+      <location filename="../src/w_MainWindow.cpp" line="517"/>
       <source>Please Select a Config</source>
       <translation>请选择一个配置</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="516"/>
+      <location filename="../src/w_MainWindow.cpp" line="526"/>
       <source>Not Supported</source>
       <translation>不支持</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="516"/>
+      <location filename="../src/w_MainWindow.cpp" line="526"/>
       <source>Qv2ray currently does not support editing complex configs.</source>
       <translation>Qv2ray 目前不支持编辑复杂配置。</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="517"/>
+      <location filename="../src/w_MainWindow.cpp" line="527"/>
       <source>Do you want to edit the config file manually?</source>
       <translation>您想手动编辑配置文件吗？</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="519"/>
+      <location filename="../src/w_MainWindow.cpp" line="529"/>
       <source>Edit Connection Manually.</source>
       <translation>手动编辑连接。</translation>
     </message>
     <message>
-      <location filename="../src/w_MainWindow.cpp" line="519"/>
+      <location filename="../src/w_MainWindow.cpp" line="529"/>
       <source>Qv2ray will reload the config once you click OK.</source>
       <translation>Qv2ray 将在您点击确定后重新加载配置。</translation>
     </message>
@@ -634,10 +642,10 @@
     <name>PrefrencesWindow</name>
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="20"/>
-      <location filename="../src/w_PrefrencesWindow.cpp" line="103"/>
-      <location filename="../src/w_PrefrencesWindow.cpp" line="326"/>
-      <location filename="../src/w_PrefrencesWindow.cpp" line="336"/>
-      <location filename="../src/w_PrefrencesWindow.cpp" line="348"/>
+      <location filename="../src/w_PrefrencesWindow.cpp" line="101"/>
+      <location filename="../src/w_PrefrencesWindow.cpp" line="312"/>
+      <location filename="../src/w_PrefrencesWindow.cpp" line="322"/>
+      <location filename="../src/w_PrefrencesWindow.cpp" line="334"/>
       <source>Prefrences</source>
       <translation>首选项</translation>
     </message>
@@ -716,8 +724,8 @@
       <location filename="../src/w_PrefrencesWindow.ui" line="175"/>
       <location filename="../src/w_PrefrencesWindow.ui" line="182"/>
       <location filename="../src/w_PrefrencesWindow.ui" line="238"/>
-      <location filename="../src/w_PrefrencesWindow.ui" line="266"/>
-      <location filename="../src/w_PrefrencesWindow.ui" line="305"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="269"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="308"/>
       <location filename="../src/w_PrefrencesWindow.ui" line="339"/>
       <location filename="../src/w_PrefrencesWindow.ui" line="400"/>
       <location filename="../src/w_PrefrencesWindow.ui" line="421"/>
@@ -752,30 +760,30 @@
     </message>
     <message>
       <location filename="../src/w_PrefrencesWindow.ui" line="245"/>
-      <location filename="../src/w_PrefrencesWindow.ui" line="312"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="315"/>
       <source>Port</source>
       <translation>端口</translation>
     </message>
     <message>
-      <location filename="../src/w_PrefrencesWindow.ui" line="259"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="262"/>
       <location filename="../src/w_PrefrencesWindow.ui" line="332"/>
       <source>Authentication</source>
       <translation>身份验证</translation>
     </message>
     <message>
-      <location filename="../src/w_PrefrencesWindow.ui" line="273"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="276"/>
       <location filename="../src/w_PrefrencesWindow.ui" line="346"/>
       <source>Username</source>
       <translation>用户名</translation>
     </message>
     <message>
-      <location filename="../src/w_PrefrencesWindow.ui" line="283"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="286"/>
       <location filename="../src/w_PrefrencesWindow.ui" line="356"/>
       <source>Password</source>
       <translation>密码</translation>
     </message>
     <message>
-      <location filename="../src/w_PrefrencesWindow.ui" line="296"/>
+      <location filename="../src/w_PrefrencesWindow.ui" line="299"/>
       <source>HTTP InBound Settings</source>
       <translation>HTTP 入站设置</translation>
     </message>
@@ -855,38 +863,38 @@
       <translation>取消</translation>
     </message>
     <message>
-      <location filename="../src/w_PrefrencesWindow.cpp" line="103"/>
+      <location filename="../src/w_PrefrencesWindow.cpp" line="101"/>
       <source>Port numbers cannot be the same</source>
       <translation>端口号不能相同</translation>
     </message>
     <message>
-      <location filename="../src/w_PrefrencesWindow.cpp" line="257"/>
+      <location filename="../src/w_PrefrencesWindow.cpp" line="243"/>
       <source>Open v2ray assets folder</source>
       <translation>打开 v2ray 资源文件夹</translation>
     </message>
     <message>
-      <location filename="../src/w_PrefrencesWindow.cpp" line="315"/>
+      <location filename="../src/w_PrefrencesWindow.cpp" line="301"/>
       <source>Enable tProxy Support</source>
       <translation>启用 tProxy 支持</translation>
     </message>
     <message>
-      <location filename="../src/w_PrefrencesWindow.cpp" line="315"/>
+      <location filename="../src/w_PrefrencesWindow.cpp" line="301"/>
       <source>This will append capabilities to the v2ray executable.</source>
       <translation>这将在 v2ray 可执行程序上添加 Capability</translation>
     </message>
     <message>
-      <location filename="../src/w_PrefrencesWindow.cpp" line="316"/>
+      <location filename="../src/w_PrefrencesWindow.cpp" line="302"/>
       <source>If anything goes wrong after enabling this, please refer to issue #57 or the link below:</source>
       <translation>如果在启用之后出现任何错误，请参阅 issue #57 或 以下链接：</translation>
     </message>
     <message>
-      <location filename="../src/w_PrefrencesWindow.cpp" line="326"/>
-      <location filename="../src/w_PrefrencesWindow.cpp" line="336"/>
+      <location filename="../src/w_PrefrencesWindow.cpp" line="312"/>
+      <location filename="../src/w_PrefrencesWindow.cpp" line="322"/>
       <source>Failed to setcap onto v2ray executable. You may need to run `setcap` manually.</source>
       <translation>无法执行 setcap，你可能需要手动进行操作</translation>
     </message>
     <message>
-      <location filename="../src/w_PrefrencesWindow.cpp" line="348"/>
+      <location filename="../src/w_PrefrencesWindow.cpp" line="334"/>
       <source>tProxy is not supported on macOS and Windows</source>
       <translation>在 macOS 和 Windows 上不支持 tProxy</translation>
     </message>
@@ -914,27 +922,27 @@
       <translation>Qv2ray 现在将会退出</translation>
     </message>
     <message>
-      <location filename="../src/main.cpp" line="145"/>
+      <location filename="../src/main.cpp" line="147"/>
       <source>DependencyMissing</source>
       <translation>依赖项缺失</translation>
     </message>
     <message>
-      <location filename="../src/main.cpp" line="146"/>
+      <location filename="../src/main.cpp" line="148"/>
       <source>Cannot find openssl libs</source>
       <translation>找不到 OpenSSL 库</translation>
     </message>
     <message>
-      <location filename="../src/main.cpp" line="147"/>
+      <location filename="../src/main.cpp" line="149"/>
       <source>This could be caused by a missing of `openssl` package in your system. Or an AppImage issue.</source>
       <translation>这可能是由于系统中缺少 `openssl` 包造成的，或者是 AppImage 问题。</translation>
     </message>
     <message>
-      <location filename="../src/main.cpp" line="148"/>
+      <location filename="../src/main.cpp" line="150"/>
       <source>If you are using AppImage, please report a bug.</source>
       <translation>如果您正在使用 AppImage，请反馈一个 Bug</translation>
     </message>
     <message>
-      <location filename="../src/main.cpp" line="154"/>
+      <location filename="../src/main.cpp" line="156"/>
       <source>Another instance of Qv2ray is already running.</source>
       <translation>Qv2ray 的另一个实例已经运行。</translation>
     </message>
