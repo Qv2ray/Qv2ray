@@ -896,7 +896,7 @@
     <message>
       <location filename="../src/w_PrefrencesWindow.cpp" line="334"/>
       <source>tProxy is not supported on macOS and Windows</source>
-      <translation>tProxy не поддерживается на MacOS и Windows</translation>
+      <translation>tProxy не поддерживается на macOS и Windows</translation>
     </message>
   </context>
   <context>
