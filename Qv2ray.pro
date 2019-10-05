@@ -9,9 +9,9 @@ QT += core gui widgets network
 TARGET = Qv2ray
 TEMPLATE = app
 DEFINES += QT_DEPRECATED_WARNINGS
-CONFIG += c++11 openssl openssl-linked lrelease embed_translations
+CONFIG += c++11 openssl-linked lrelease embed_translations
 
-VERSION = 1.99.99.2
+VERSION = 1.99.99.3
 DEFINES += QV_MAJOR_VERSION=\"\\\"$${VERSION}\\\"\"
 
 SOURCES += \
