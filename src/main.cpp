@@ -141,7 +141,7 @@ int main(int argc, char *argv[])
     auto osslCurVersion = QSslSocket::sslLibraryVersionString().toStdString();
     LOG(MODULE_NETWORK, "Current OpenSSL version: " + osslCurVersion)
 
-    if (QSslSocket::supportsSsl()) {
+    if (!QSslSocket::supportsSsl()) {
         LOG(MODULE_NETWORK, "Required OpenSSL version: " + osslReqVersion)
         LOG(MODULE_NETWORK, "OpenSSL library MISSING, Quitting.")
         QvMessageBox(nullptr, QObject::tr("DependencyMissing"),
