@@ -11,12 +11,12 @@ namespace Qv2ray
     {
         QTranslator *getTranslator(const QString *lang);
 
-        QStringList getFileList(QDir *dir);
+        QStringList getFileList(QDir dir);
 
         QString Base64Encode(QString string);
         QString Base64Decode(QString string);
 
-        bool CheckFile(QDir *dir, QString fileName);
+        bool CheckFile(QDir dir, QString fileName);
 
         void SetConfigDirPath(const QString *path);
         QString GetConfigDirPath();
