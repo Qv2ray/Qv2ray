@@ -148,6 +148,8 @@ int main(int argc, char *argv[])
                      QObject::tr("Cannot find openssl libs") + "\r\n" +
                      QObject::tr("This could be caused by a missing of `openssl` package in your system. Or an AppImage issue.") + "\r\n" +
                      QObject::tr("If you are using AppImage, please report a bug.") + "\r\n\r\n" +
+                     QObject::tr("Please refer to Github Issue #65 to check for solutions.") + "\r\n" +
+                     QObject::tr("Github Issue Link: ") + "https://github.com/lhy0403/Qv2ray/issues/65" + "\r\n\r\n" +
                      QObject::tr("Technical Details") + "\r\n" +
                      "OSsl.Rq.V=" + QSTRING(osslReqVersion) + "\r\n" +
                      "OSsl.Cr.V=" + QSTRING(osslCurVersion));
