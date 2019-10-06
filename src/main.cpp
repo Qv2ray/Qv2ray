@@ -71,6 +71,7 @@ bool initQv()
 
 int main(int argc, char *argv[])
 {
+    QApplication _qApp(argc, argv);
     LOG("LICENCE", "\r\nThis program comes with ABSOLUTELY NO WARRANTY.\r\n"
         "This is free software, and you are welcome to redistribute it\r\n"
         "under certain conditions.\r\n"
@@ -101,9 +102,6 @@ int main(int argc, char *argv[])
             LOG(MODULE_UI, "Found Translator: " + lang.toStdString())
         }
     }
-
-    //
-    QApplication _qApp(argc, argv);
 
     // Qv2ray Initialize
     if (!initQv()) return -1;
