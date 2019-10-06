@@ -16,12 +16,12 @@
 #include <Windows.h>
 #endif
 
-#include "w_ConnectionEditWindow.h"
+#include "w_OutboundEditor.h"
 #include "w_ImportConfig.h"
 #include "w_MainWindow.h"
-#include "w_RouteEditor.h"
+#include "w_RoutesEditor.h"
 #include "w_PrefrencesWindow.h"
-#include "w_SubscribeEditor.h"
+#include "w_SubscriptionEditor.h"
 #include "w_JsonEditor.h"
 
 #define TRAY_TOOLTIP_PREFIX "Qv2ray " QV2RAY_VERSION_STRING
@@ -533,8 +533,8 @@ void MainWindow::on_importConfigButton_clicked()
 
 void MainWindow::on_addConfigButton_clicked()
 {
-    ConnectionEditWindow *w = new ConnectionEditWindow(this);
-    connect(w, &ConnectionEditWindow::s_reload_config, this, &MainWindow::OnConfigListChanged);
+    OutboundEditor *w = new OutboundEditor(this);
+    connect(w, &OutboundEditor::s_reload_config, this, &MainWindow::OnConfigListChanged);
     auto outboundEntry = w->OpenEditor();
     QJsonArray outboundsList;
     outboundsList.push_back(outboundEntry);
@@ -570,7 +570,7 @@ void MainWindow::on_editConfigButton_clicked()
         root = routeWindow->OpenEditor();
     } else {
         LOG(MODULE_UI, "INFO: Opening single connection edit window.")
-        ConnectionEditWindow *w = new ConnectionEditWindow(outBoundRoot["outbounds"].toArray().first().toObject(), &alias, this);
+        OutboundEditor *w = new OutboundEditor(outBoundRoot["outbounds"].toArray().first().toObject(), &alias, this);
         auto outboundEntry = w->OpenEditor();
         QJsonArray outboundsList;
         outboundsList.push_back(outboundEntry);

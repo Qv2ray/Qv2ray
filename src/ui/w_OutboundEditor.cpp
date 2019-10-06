@@ -3,15 +3,15 @@
 #include <QIntValidator>
 #include <iostream>
 
-#include "w_ConnectionEditWindow.h"
+#include "w_OutboundEditor.h"
 #include "w_MainWindow.h"
 #include "w_JsonEditor.h"
 
-ConnectionEditWindow::ConnectionEditWindow(QWidget *parent)
+OutboundEditor::OutboundEditor(QWidget *parent)
     : QDialog(parent),
       Tag(OUTBOUND_TAG_PROXY),
       Alias(),
-      ui(new Ui::ConnectionEditWindow),
+      ui(new Ui::OutboundEditor),
       stream(),
       vmess(),
       shadowsocks()
@@ -31,8 +31,8 @@ ConnectionEditWindow::ConnectionEditWindow(QWidget *parent)
     Result = GenerateConnectionJson();
 }
 
-ConnectionEditWindow::ConnectionEditWindow(QJsonObject outboundEntry, QString *alias, QWidget *parent)
-    : ConnectionEditWindow(parent)
+OutboundEditor::OutboundEditor(QJsonObject outboundEntry, QString *alias, QWidget *parent)
+    : OutboundEditor(parent)
 {
     Original = outboundEntry;
     Alias = alias == nullptr ? "" : *alias;
@@ -65,18 +65,18 @@ ConnectionEditWindow::ConnectionEditWindow(QJsonObject outboundEntry, QString *a
 }
 
 
-ConnectionEditWindow::~ConnectionEditWindow()
+OutboundEditor::~OutboundEditor()
 {
     delete ui;
 }
 
-QJsonObject ConnectionEditWindow::OpenEditor()
+QJsonObject OutboundEditor::OpenEditor()
 {
     int resultCode = this->exec();
     return resultCode == QDialog::Accepted ? Result : Original;
 }
 
-void ConnectionEditWindow::ReLoad_GUI_JSON_ModelContent()
+void OutboundEditor::ReLoad_GUI_JSON_ModelContent()
 {
     if (OutboundType == "vmess") {
         ui->outBoundTypeCombo->setCurrentIndex(0);
@@ -151,7 +151,7 @@ void ConnectionEditWindow::ReLoad_GUI_JSON_ModelContent()
 }
 
 
-void ConnectionEditWindow::on_buttonBox_accepted()
+void OutboundEditor::on_buttonBox_accepted()
 {
     // TODO : NAMING THE CONNECTION
     auto alias = Alias == "" ? (ui->ipLineEdit->text() + "_" + ui->portLineEdit->text()) : Alias;
@@ -179,7 +179,7 @@ void ConnectionEditWindow::on_buttonBox_accepted()
     //emit s_reload_config(!is_new_config);
 }
 
-void ConnectionEditWindow::on_ipLineEdit_textEdited(const QString &arg1)
+void OutboundEditor::on_ipLineEdit_textEdited(const QString &arg1)
 {
     vmess.address = arg1.toStdString();
     shadowsocks.address = arg1.toStdString();
@@ -197,7 +197,7 @@ void ConnectionEditWindow::on_ipLineEdit_textEdited(const QString &arg1)
     //}
 }
 
-void ConnectionEditWindow::on_portLineEdit_textEdited(const QString &arg1)
+void OutboundEditor::on_portLineEdit_textEdited(const QString &arg1)
 {
     if (arg1 != "") {
         vmess.port = stoi(arg1.toStdString());
@@ -206,38 +206,38 @@ void ConnectionEditWindow::on_portLineEdit_textEdited(const QString &arg1)
     }
 }
 
-void ConnectionEditWindow::on_idLineEdit_textEdited(const QString &arg1)
+void OutboundEditor::on_idLineEdit_textEdited(const QString &arg1)
 {
     if (vmess.users.empty()) vmess.users.push_back(VMessServerObject::UserObject());
 
     vmess.users.front().id = arg1.toStdString();
 }
 
-void ConnectionEditWindow::on_alterLineEdit_textEdited(const QString &arg1)
+void OutboundEditor::on_alterLineEdit_textEdited(const QString &arg1)
 {
     if (vmess.users.empty()) vmess.users.push_back(VMessServerObject::UserObject());
 
     vmess.users.front().alterId = stoi(arg1.toStdString());
 }
 
-void ConnectionEditWindow::on_securityCombo_currentIndexChanged(const QString &arg1)
+void OutboundEditor::on_securityCombo_currentIndexChanged(const QString &arg1)
 {
     if (vmess.users.empty()) vmess.users.push_back(VMessServerObject::UserObject());
 
     vmess.users.front().security = arg1.toStdString();
 }
 
-void ConnectionEditWindow::on_tranportCombo_currentIndexChanged(const QString &arg1)
+void OutboundEditor::on_tranportCombo_currentIndexChanged(const QString &arg1)
 {
     stream.network = arg1.toStdString();
 }
 
-void ConnectionEditWindow::on_httpPathTxt_textEdited(const QString &arg1)
+void OutboundEditor::on_httpPathTxt_textEdited(const QString &arg1)
 {
     stream.httpSettings.path = arg1.toStdString();
 }
 
-void ConnectionEditWindow::on_httpHostTxt_textChanged()
+void OutboundEditor::on_httpHostTxt_textChanged()
 {
     try {
         QStringList hosts = ui->httpHostTxt->toPlainText().replace("\r", "").split("\n");
@@ -254,16 +254,18 @@ void ConnectionEditWindow::on_httpHostTxt_textChanged()
     }
 }
 
-void ConnectionEditWindow::on_wsHeadersTxt_textChanged()
+void OutboundEditor::on_wsHeadersTxt_textChanged()
 {
     try {
         QStringList headers = ui->wsHeadersTxt->toPlainText().replace("\r", "").split("\n");
         stream.wsSettings.headers.clear();
 
         foreach (auto header, headers) {
+            if (header.isEmpty()) continue;
+
             auto content = header.split("|");
 
-            if (content.length() < 2) throw "fast fail.";
+            if (content.length() < 2) throw "fast fail to set RED color";
 
             stream.wsSettings.headers.insert(make_pair(content[0].toStdString(), content[1].toStdString()));
         }
@@ -275,7 +277,7 @@ void ConnectionEditWindow::on_wsHeadersTxt_textChanged()
 }
 
 
-void ConnectionEditWindow::on_tcpRequestDefBtn_clicked()
+void OutboundEditor::on_tcpRequestDefBtn_clicked()
 {
     ui->tcpRequestTxt->clear();
     ui->tcpRequestTxt->insertPlainText("{\"version\":\"1.1\",\"method\":\"GET\",\"path\":[\"/\"],\"headers\":"
@@ -288,18 +290,18 @@ void ConnectionEditWindow::on_tcpRequestDefBtn_clicked()
                                        "\"Connection\":[\"keep-alive\"],\"Pragma\":\"no-cache\"}}");
 }
 
-void ConnectionEditWindow::on_tcpRespDefBtn_clicked()
+void OutboundEditor::on_tcpRespDefBtn_clicked()
 {
     ui->tcpRespTxt->clear();
     ui->tcpRespTxt->insertPlainText("{\"version\":\"1.1\",\"status\":\"200\",\"reason\":\"OK\",\"headers\":{\"Content-Type\":[\"application/octet-stream\",\"video/mpeg\"],\"Transfer-Encoding\":[\"chunked\"],\"Connection\":[\"keep-alive\"],\"Pragma\":\"no-cache\"}}");
 }
 
-void ConnectionEditWindow::on_genJsonBtn_clicked()
+void OutboundEditor::on_genJsonBtn_clicked()
 {
     auto json = GenerateConnectionJson();
 }
 
-QJsonObject ConnectionEditWindow::GenerateConnectionJson()
+QJsonObject OutboundEditor::GenerateConnectionJson()
 {
     // VMess is only a ServerObject, and we need an array { "vnext": [] }
     QJsonObject settings;
@@ -326,124 +328,124 @@ QJsonObject ConnectionEditWindow::GenerateConnectionJson()
     return root;
 }
 
-void ConnectionEditWindow::on_tlsCB_stateChanged(int arg1)
+void OutboundEditor::on_tlsCB_stateChanged(int arg1)
 {
     stream.security = arg1 == Qt::Checked ? "tls" : "none";
 }
-void ConnectionEditWindow::on_soMarkSpinBox_valueChanged(int arg1)
+void OutboundEditor::on_soMarkSpinBox_valueChanged(int arg1)
 {
     stream.sockopt.mark = arg1;
 }
-void ConnectionEditWindow::on_tcpFastOpenCB_stateChanged(int arg1)
+void OutboundEditor::on_tcpFastOpenCB_stateChanged(int arg1)
 {
     stream.sockopt.tcpFastOpen = arg1 == Qt::Checked;
 }
-void ConnectionEditWindow::on_tProxyCB_currentIndexChanged(const QString &arg1)
+void OutboundEditor::on_tProxyCB_currentIndexChanged(const QString &arg1)
 {
     stream.sockopt.tproxy = arg1.toStdString();
 }
-void ConnectionEditWindow::on_quicSecurityCB_currentTextChanged(const QString &arg1)
+void OutboundEditor::on_quicSecurityCB_currentTextChanged(const QString &arg1)
 {
     stream.quicSettings.security = arg1.toStdString();
 }
-void ConnectionEditWindow::on_quicKeyTxt_textEdited(const QString &arg1)
+void OutboundEditor::on_quicKeyTxt_textEdited(const QString &arg1)
 {
     stream.quicSettings.key = arg1.toStdString();
 }
-void ConnectionEditWindow::on_quicHeaderTypeCB_currentIndexChanged(const QString &arg1)
+void OutboundEditor::on_quicHeaderTypeCB_currentIndexChanged(const QString &arg1)
 {
     stream.quicSettings.header.type = arg1.toStdString();
 }
-void ConnectionEditWindow::on_tcpHeaderTypeCB_currentIndexChanged(const QString &arg1)
+void OutboundEditor::on_tcpHeaderTypeCB_currentIndexChanged(const QString &arg1)
 {
     stream.tcpSettings.header.type = arg1.toStdString();
 }
-void ConnectionEditWindow::on_wsPathTxt_textEdited(const QString &arg1)
+void OutboundEditor::on_wsPathTxt_textEdited(const QString &arg1)
 {
     stream.wsSettings.path = arg1.toStdString();
 }
-void ConnectionEditWindow::on_kcpMTU_valueChanged(int arg1)
+void OutboundEditor::on_kcpMTU_valueChanged(int arg1)
 {
     stream.kcpSettings.mtu = arg1;
 }
-void ConnectionEditWindow::on_kcpTTI_valueChanged(int arg1)
+void OutboundEditor::on_kcpTTI_valueChanged(int arg1)
 {
     stream.kcpSettings.tti  = arg1;
 }
-void ConnectionEditWindow::on_kcpUploadCapacSB_valueChanged(int arg1)
+void OutboundEditor::on_kcpUploadCapacSB_valueChanged(int arg1)
 {
     stream.kcpSettings.uplinkCapacity = arg1;
 }
-void ConnectionEditWindow::on_kcpCongestionCB_stateChanged(int arg1)
+void OutboundEditor::on_kcpCongestionCB_stateChanged(int arg1)
 {
     stream.kcpSettings.congestion = arg1 == Qt::Checked;
 }
-void ConnectionEditWindow::on_kcpDownCapacitySB_valueChanged(int arg1)
+void OutboundEditor::on_kcpDownCapacitySB_valueChanged(int arg1)
 {
     stream.kcpSettings.downlinkCapacity = arg1;
 }
-void ConnectionEditWindow::on_kcpReadBufferSB_valueChanged(int arg1)
+void OutboundEditor::on_kcpReadBufferSB_valueChanged(int arg1)
 {
     stream.kcpSettings.readBufferSize = arg1;
 }
-void ConnectionEditWindow::on_kcpWriteBufferSB_valueChanged(int arg1)
+void OutboundEditor::on_kcpWriteBufferSB_valueChanged(int arg1)
 {
     stream.kcpSettings.writeBufferSize = arg1;
 }
-void ConnectionEditWindow::on_kcpHeaderType_currentTextChanged(const QString &arg1)
+void OutboundEditor::on_kcpHeaderType_currentTextChanged(const QString &arg1)
 {
     stream.kcpSettings.header.type = arg1.toStdString();
 }
-void ConnectionEditWindow::on_tranportCombo_currentIndexChanged(int index)
+void OutboundEditor::on_tranportCombo_currentIndexChanged(int index)
 {
     ui->v2rayStackView->setCurrentIndex(index);
 }
-void ConnectionEditWindow::on_dsPathTxt_textEdited(const QString &arg1)
+void OutboundEditor::on_dsPathTxt_textEdited(const QString &arg1)
 {
     stream.dsSettings.path = arg1.toStdString();
 }
-void ConnectionEditWindow::on_outBoundTypeCombo_currentIndexChanged(int index)
+void OutboundEditor::on_outBoundTypeCombo_currentIndexChanged(int index)
 {
     ui->outboundTypeStackView->setCurrentIndex(index);
     OutboundType = ui->outBoundTypeCombo->currentText().toLower();
 }
 
-void ConnectionEditWindow::on_ss_emailTxt_textEdited(const QString &arg1)
+void OutboundEditor::on_ss_emailTxt_textEdited(const QString &arg1)
 {
     shadowsocks.email = arg1.toStdString();
 }
 
-void ConnectionEditWindow::on_ss_passwordTxt_textEdited(const QString &arg1)
+void OutboundEditor::on_ss_passwordTxt_textEdited(const QString &arg1)
 {
     shadowsocks.password = arg1.toStdString();
 }
 
-void ConnectionEditWindow::on_ss_encryptionMethod_currentIndexChanged(const QString &arg1)
+void OutboundEditor::on_ss_encryptionMethod_currentIndexChanged(const QString &arg1)
 {
     shadowsocks.method = arg1.toStdString();
 }
 
-void ConnectionEditWindow::on_ss_levelSpin_valueChanged(int arg1)
+void OutboundEditor::on_ss_levelSpin_valueChanged(int arg1)
 {
     shadowsocks.level = arg1;
 }
 
-void ConnectionEditWindow::on_ss_otaCheckBox_stateChanged(int arg1)
+void OutboundEditor::on_ss_otaCheckBox_stateChanged(int arg1)
 {
     shadowsocks.ota = arg1 == Qt::Checked;
 }
 
-void ConnectionEditWindow::on_socks_UserNameTxt_textEdited(const QString &arg1)
+void OutboundEditor::on_socks_UserNameTxt_textEdited(const QString &arg1)
 {
     socks.users.front().user = arg1.toStdString();
 }
 
-void ConnectionEditWindow::on_socks_PasswordTxt_textEdited(const QString &arg1)
+void OutboundEditor::on_socks_PasswordTxt_textEdited(const QString &arg1)
 {
     socks.users.front().pass = arg1.toStdString();
 }
 
-void ConnectionEditWindow::on_tcpRequestEditBtn_clicked()
+void OutboundEditor::on_tcpRequestEditBtn_clicked()
 {
     JsonEditor *w = new JsonEditor(JsonFromString(ui->tcpRequestTxt->toPlainText()), this);
     auto rString = JsonToString(w->OpenEditor());
@@ -453,7 +455,7 @@ void ConnectionEditWindow::on_tcpRequestEditBtn_clicked()
     delete w;
 }
 
-void ConnectionEditWindow::on_tcpResponseEditBtn_clicked()
+void OutboundEditor::on_tcpResponseEditBtn_clicked()
 {
     JsonEditor *w = new JsonEditor(JsonFromString(ui->tcpRespTxt->toPlainText()), this);
     auto rString = JsonToString(w->OpenEditor());
