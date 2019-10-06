@@ -502,23 +502,27 @@ void MainWindow::on_connectionListWidget_itemChanged(QListWidgetItem *item)
 
 void MainWindow::on_removeConfigButton_clicked()
 {
+    if (ui->connectionListWidget->currentIndex().row() < 0) return;
+
     if (QvMessageBoxAsk(this, tr("Removing this Connection"), tr("Are you sure to remove this connection?")) == QMessageBox::Yes) {
-        auto conf = GetGlobalConfig();
-        QList<string> list = QList<string>::fromStdList(conf.configs);
-        auto currentSelected = ui->connectionListWidget->currentIndex().row();
+        auto connectionName = ui->connectionListWidget->currentItem()->text();
 
-        if (currentSelected < 0) return;
-
-        bool isRemovingItemRunning = ui->connectionListWidget->item(currentSelected)->text() == CurrentConnectionName;
-
-        if (isRemovingItemRunning) {
-            CurrentConnectionName  = "";
+        if (connectionName == CurrentConnectionName) {
+            on_stopButton_clicked();
+            CurrentConnectionName = "";
         }
 
-        list.removeOne(ui->connectionListWidget->item(currentSelected)->text().toStdString());
+        auto conf = GetGlobalConfig();
+        QList<string> list = QList<string>::fromStdList(conf.configs);
+        list.removeOne(connectionName.toStdString());
         conf.configs = list.toStdList();
+
+        if (!RemoveConnection(&connectionName)) {
+            QvMessageBox(this, tr("Removing this Connection"), tr("Failed to delete connection file, please delete manually."));
+        }
+
         SetGlobalConfig(conf);
-        OnConfigListChanged(isRemovingItemRunning);
+        OnConfigListChanged(false);
         ShowAndSetConnection(CurrentConnectionName, false, false);
     }
 }

@@ -11,7 +11,7 @@ TEMPLATE = app
 DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11 openssl-linked lrelease embed_translations
 
-VERSION = 1.99.99.3
+VERSION = 1.99.99.4
 DEFINES += QV_MAJOR_VERSION=\"\\\"$${VERSION}\\\"\"
 
 SOURCES += \
