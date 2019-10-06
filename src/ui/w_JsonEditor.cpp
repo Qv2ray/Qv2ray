@@ -3,24 +3,24 @@
 
 #include "QvUtils.h"
 
-JsonEditor::JsonEditor(QJsonObject document, QWidget *parent) :
+JsonEditor::JsonEditor(QJsonObject rootObject, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::JsonEditor)
 {
     ui->setupUi(this);
-    original = document;
-    result = document;
-    QString jsonString  = JsonToString(document);
+    original = rootObject;
+    result = rootObject;
+    QString jsonString  = JsonToString(rootObject);
 
     if (VerifyJsonString(&jsonString).isEmpty()) {
         LOG(MODULE_UI, "Begin loading Json Model")
         ui->jsonTree->setModel(&model);
-        model.loadJson(QJsonDocument(document).toJson());
+        model.loadJson(QJsonDocument(rootObject).toJson());
     } else {
         QvMessageBox(this, tr("Json Contains Syntax Errors"), tr("Original Json may contain syntax errors. Json tree is disabled."));
     }
 
-    ui->jsonEditor->setText(JsonToString(document));
+    ui->jsonEditor->setText(JsonToString(rootObject));
     ui->jsonTree->expandAll();
     ui->jsonTree->resizeColumnToContents(0);
 }

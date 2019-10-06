@@ -1,7 +1,8 @@
-#include "w_RouteEditor.h"
+#include "w_RoutesEditor.h"
 #include "QvCoreConfigOperations.h"
-#include "ui_w_RouteEditor.h"
-#include "w_ConnectionEditWindow.h"
+#include "ui_w_RoutesEditor.h"
+#include "w_OutboundEditor.h"
+#include "w_JsonEditor.h"
 
 RouteEditor::RouteEditor(QJsonObject connection, const QString alias, QWidget *parent) :
     QDialog(parent),
@@ -139,19 +140,23 @@ void RouteEditor::on_routesTable_cellClicked(int row, int column)
 
 void RouteEditor::on_editOutboundBtn_clicked()
 {
+    QJsonObject result;
     int row = ui->outboundsList->currentRow();
     auto currentOutbound = outbounds[row].toObject();
     auto protocol =  currentOutbound["protocol"].toString();
 
     if (protocol != "vmess" && protocol != "shadowsocks" && protocol != "socks") {
         QvMessageBox(this, tr("Cannot Edit"), tr("Currently, this type of outbound is not supported by the editor."));
-        return;
+        QvMessageBox(this, tr("Cannot Edit"), tr("We will launch Json Editor instead."));
+        JsonEditor *w = new JsonEditor(currentOutbound, this);
+        result = w->OpenEditor();
+        delete w;
+    } else {
+        OutboundEditor *w = new OutboundEditor(currentOutbound, nullptr, this);
+        result = w->OpenEditor();
+        delete w;
     }
 
-    ConnectionEditWindow *w = new ConnectionEditWindow(currentOutbound, nullptr, this);
-    auto result = w->OpenEditor();
-    delete w;
-    //
     outbounds[row] = result;
     on_outboundsList_currentRowChanged(row);
 }
@@ -159,4 +164,8 @@ void RouteEditor::on_editOutboundBtn_clicked()
 void RouteEditor::on_insertDirectBtn_clicked()
 {
     auto freedom = GenerateFreedomOUT("as-is", "", 0);
+}
+
+void RouteEditor::on_editInboundBtn_clicked()
+{
 }

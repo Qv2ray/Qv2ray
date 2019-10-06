@@ -8,7 +8,7 @@
 #include "QvUtils.h"
 #include "QvCoreInteractions.h"
 #include "QvCoreConfigOperations.h"
-#include "w_ConnectionEditWindow.h"
+#include "w_OutboundEditor.h"
 #include "w_ImportConfig.h"
 
 

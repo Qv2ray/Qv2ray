@@ -4,24 +4,24 @@
 #include <QtCore>
 #include <QDialog>
 #include "QvCoreConfigObjects.h"
-#include "ui_w_ConnectionEditWindow.h"
+#include "ui_w_OutboundEditor.h"
 
 namespace Ui
 {
-    class ConnectionEditWindow;
+    class OutboundEditor;
 }
 
-class ConnectionEditWindow : public QDialog
+class OutboundEditor : public QDialog
 {
         Q_OBJECT
 
     public:
-        explicit ConnectionEditWindow(QWidget *parent = nullptr);
+        explicit OutboundEditor(QWidget *parent = nullptr);
         QString Tag;
         QString Alias;
         QJsonObject OpenEditor();
-        explicit ConnectionEditWindow(QJsonObject outboundEntry, QString *alias, QWidget *parent = nullptr);
-        ~ConnectionEditWindow();
+        explicit OutboundEditor(QJsonObject outboundEntry, QString *alias, QWidget *parent = nullptr);
+        ~OutboundEditor();
     signals:
         void s_reload_config(bool need_restart);
     private:
@@ -115,7 +115,7 @@ class ConnectionEditWindow : public QDialog
         QJsonObject Original;
         QJsonObject Result;
         QJsonObject GenerateConnectionJson();
-        Ui::ConnectionEditWindow *ui;
+        Ui::OutboundEditor *ui;
         //
         // Connection Configs
         QString OutboundType;

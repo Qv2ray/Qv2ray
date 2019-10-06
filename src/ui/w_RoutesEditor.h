@@ -33,6 +33,8 @@ class RouteEditor : public QDialog
 
         void on_insertDirectBtn_clicked();
 
+        void on_editInboundBtn_clicked();
+
     private:
         QJsonArray inbounds;
         QJsonArray outbounds;

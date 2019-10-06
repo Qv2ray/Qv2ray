@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ConnectionEditWindow</class>
- <widget class="QDialog" name="ConnectionEditWindow">
+ <class>OutboundEditor</class>
+ <widget class="QDialog" name="OutboundEditor">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -39,7 +39,11 @@
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QLineEdit" name="ipLineEdit"/>
+      <widget class="QLineEdit" name="ipLineEdit">
+       <property name="placeholderText">
+        <string>Hostname or IP Address</string>
+       </property>
+      </widget>
      </item>
      <item row="2" column="0">
       <widget class="QLabel" name="portLabel">
@@ -52,6 +56,9 @@
       <widget class="QLineEdit" name="portLineEdit">
        <property name="maxLength">
         <number>5</number>
+       </property>
+       <property name="placeholderText">
+        <string>Port</string>
        </property>
       </widget>
      </item>
@@ -192,6 +199,9 @@
               <property name="maxLength">
                <number>36</number>
               </property>
+              <property name="placeholderText">
+               <string notr="true">xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</string>
+              </property>
              </widget>
             </item>
             <item row="1" column="0">
@@ -205,6 +215,9 @@
              <widget class="QLineEdit" name="alterLineEdit">
               <property name="maxLength">
                <number>5</number>
+              </property>
+              <property name="placeholderText">
+               <string>64</string>
               </property>
              </widget>
             </item>
@@ -441,7 +454,11 @@
                   </widget>
                  </item>
                  <item row="1" column="0">
-                  <widget class="QLineEdit" name="httpPathTxt"/>
+                  <widget class="QLineEdit" name="httpPathTxt">
+                   <property name="placeholderText">
+                    <string notr="true">/</string>
+                   </property>
+                  </widget>
                  </item>
                  <item row="2" column="0">
                   <widget class="QLabel" name="label_4">
@@ -451,7 +468,11 @@
                   </widget>
                  </item>
                  <item row="3" column="0">
-                  <widget class="QPlainTextEdit" name="httpHostTxt"/>
+                  <widget class="QPlainTextEdit" name="httpHostTxt">
+                   <property name="placeholderText">
+                    <string notr="true">myhost.mydomain.com</string>
+                   </property>
+                  </widget>
                  </item>
                 </layout>
                </widget>
@@ -471,9 +492,19 @@
                      <property name="text">
                       <string/>
                      </property>
+                     <property name="placeholderText">
+                      <string>/wsPath</string>
+                     </property>
                     </widget>
                    </item>
                   </layout>
+                 </item>
+                 <item row="2" column="0">
+                  <widget class="QPlainTextEdit" name="wsHeadersTxt">
+                   <property name="placeholderText">
+                    <string notr="true">Key|Value</string>
+                   </property>
+                  </widget>
                  </item>
                  <item row="1" column="0">
                   <widget class="QLabel" name="label_26">
@@ -481,16 +512,6 @@
                     <string>Headers</string>
                    </property>
                   </widget>
-                 </item>
-                 <item row="2" column="0">
-                  <widget class="QLabel" name="label_23">
-                   <property name="text">
-                    <string>Format: Key|Value</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="3" column="0">
-                  <widget class="QPlainTextEdit" name="wsHeadersTxt"/>
                  </item>
                 </layout>
                </widget>
@@ -719,6 +740,9 @@
                      <property name="text">
                       <string/>
                      </property>
+                     <property name="placeholderText">
+                      <string notr="true">/dsPath</string>
+                     </property>
                     </widget>
                    </item>
                   </layout>
@@ -770,6 +794,9 @@
                   <widget class="QLineEdit" name="quicKeyTxt">
                    <property name="text">
                     <string/>
+                   </property>
+                   <property name="placeholderText">
+                    <string>keys</string>
                    </property>
                   </widget>
                  </item>
@@ -976,17 +1003,29 @@
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QLineEdit" name="ss_emailTxt"/>
+           <widget class="QLineEdit" name="ss_emailTxt">
+            <property name="placeholderText">
+             <string notr="true">my.name@domain.com</string>
+            </property>
+           </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QLineEdit" name="ss_passwordTxt"/>
+           <widget class="QLineEdit" name="ss_passwordTxt">
+            <property name="placeholderText">
+             <string notr="true">p@ssw0rd</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>
         <widget class="QWidget" name="page_3">
          <layout class="QFormLayout" name="formLayout">
           <item row="1" column="1">
-           <widget class="QLineEdit" name="socks_UserNameTxt"/>
+           <widget class="QLineEdit" name="socks_UserNameTxt">
+            <property name="placeholderText">
+             <string notr="true">Username</string>
+            </property>
+           </widget>
           </item>
           <item row="2" column="0">
            <widget class="QLabel" name="label_31">
@@ -996,7 +1035,11 @@
            </widget>
           </item>
           <item row="2" column="1">
-           <widget class="QLineEdit" name="socks_PasswordTxt"/>
+           <widget class="QLineEdit" name="socks_PasswordTxt">
+            <property name="placeholderText">
+             <string notr="true">p@ssw0rd</string>
+            </property>
+           </widget>
           </item>
           <item row="1" column="0">
            <widget class="QLabel" name="label_21">
@@ -1029,7 +1072,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>ConnectionEditWindow</receiver>
+   <receiver>OutboundEditor</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1045,7 +1088,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>ConnectionEditWindow</receiver>
+   <receiver>OutboundEditor</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
