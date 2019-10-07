@@ -11,6 +11,12 @@ namespace Qv2ray
             return StringToFile(&str, &config);
         }
 
+        bool RemoveConnection(const QString *alias)
+        {
+            QFile config(QV2RAY_CONFIG_DIR_PATH + *alias + QV2RAY_CONNECTION_FILE_EXTENSION);
+            return config.exists() && config.remove();
+        }
+
         // This generates global config containing only one outbound....
         QJsonObject ConvertConfigFromVMessString(QString str)
         {
