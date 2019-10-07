@@ -68,7 +68,7 @@ QM_FILES_RESOURCE_PREFIX = "translations"
 
 message("Detecting Translation files.....")
 
-for(var, $$list($$files("*.ts", true))) {
+for(var, $$list($$files("translations/*.ts", true))) {
     LOCALE_FILENAME = $$basename(var)
     message(Found: $$LOCALE_FILENAME)
 
