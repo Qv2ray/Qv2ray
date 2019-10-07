@@ -1,0 +1,25 @@
+{
+  "name": "install-qt-action",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Install qt action for github actions",
+  "main": "lib/main.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jurplel/install-qt-action.git"
+  },
+  "author": "jurplel",
+  "license": "MIT",
+  "dependencies": {
+    "@actions/core": "^1.0.0",
+    "@actions/exec": "^1.0.0",
+    "glob": "^7.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^12.0.4",
+    "typescript": "^3.5.1"
+  }
+}
