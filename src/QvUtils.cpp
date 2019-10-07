@@ -98,12 +98,12 @@ namespace Qv2ray
             file.close();
         }
 
-        QStringList getFileList(QDir *dir)
+        QStringList getFileList(QDir dir)
         {
-            return dir->entryList(QStringList() << "*" << "*.*", QDir::Hidden | QDir::Files);
+            return dir.entryList(QStringList() << "*" << "*.*", QDir::Hidden | QDir::Files);
         }
 
-        bool CheckFile(QDir *dir, QString fileName)
+        bool CheckFile(QDir dir, QString fileName)
         {
             return getFileList(dir).indexOf(fileName) >= 0;
         }
