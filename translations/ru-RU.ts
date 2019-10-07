@@ -155,22 +155,22 @@
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="577"/>
       <source>Congestion</source>
-      <translation type="unfinished">Congestion</translation>
+      <translation>Перерыв</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="591"/>
       <source>Downlink Capacity (MB/s)</source>
-      <translation type="unfinished">Downlink Capacity (MB/s)</translation>
+      <translation>Скорость нисходящей линии (МБ/с)</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="614"/>
       <source>Read Buffer Size (MB)</source>
-      <translation type="unfinished">Read Buffer Size (MB)</translation>
+      <translation>Размер буфера чтения (МБ)</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="637"/>
       <source>Write Buffer Size (MB)</source>
-      <translation type="unfinished">Write Buffer Size (MB)</translation>
+      <translation>Размер буфера записи (МБ)</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="765"/>
@@ -190,7 +190,7 @@
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="854"/>
       <source>TProxy</source>
-      <translation type="unfinished">TProxy</translation>
+      <translation>TProxy</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="891"/>
@@ -206,12 +206,12 @@
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="905"/>
       <source>Encryption Method</source>
-      <translation type="unfinished">Encryption Method</translation>
+      <translation>Метод шифрования</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="957"/>
       <source>Level</source>
-      <translation type="unfinished">Level</translation>
+      <translation>Уровень</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="967"/>
@@ -260,7 +260,7 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="79"/>
       <source>Scan Image</source>
-      <translation type="unfinished">Scan Image</translation>
+      <translation>Сканировать изображение</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="89"/>
@@ -301,12 +301,12 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="199"/>
       <source>---TODO---</source>
-      <translation type="unfinished">---TODO---</translation>
+      <translation>---TODO---</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="215"/>
       <source>Select File:</source>
-      <translation type="unfinished">Select File:</translation>
+      <translation>Выберите файл:</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="36"/>
@@ -332,12 +332,12 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="88"/>
       <source>VMess string is not valid.</source>
-      <translation type="unfinished">VMess string is not valid.</translation>
+      <translation>Ошибка строки VMess.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="93"/>
       <source>Some internal error occured.</source>
-      <translation type="unfinished">Some internal error occured.</translation>
+      <translation>Произошла внутренняя ошибка.</translation>
     </message>
   </context>
   <context>
@@ -463,22 +463,22 @@
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="208"/>
       <source>Ping</source>
-      <translation type="unfinished">Ping</translation>
+      <translation>Ping</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="215"/>
       <source>QR</source>
-      <translation type="unfinished">QR</translation>
+      <translation>QR</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="222"/>
       <source>://</source>
-      <translation type="unfinished">://</translation>
+      <translation>://</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="229"/>
       <source>Json</source>
-      <translation type="unfinished">Json</translation>
+      <translation>Json</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="315"/>
@@ -613,12 +613,12 @@
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="50"/>
       <source>Share as vmess://</source>
-      <translation type="unfinished">Share as vmess://</translation>
+      <translation>Поделиться vmess://</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="51"/>
       <source>Share as QRCore</source>
-      <translation type="unfinished">Share as QRCore</translation>
+      <translation>Поделиться QR кодом</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="124"/>
