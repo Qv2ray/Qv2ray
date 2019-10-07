@@ -6,17 +6,17 @@
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="26"/>
       <source>EditConnectionSettings</source>
-      <translation type="unfinished">EditConnectionSettings</translation>
+      <translation>EditConnectionSettings</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="95"/>
       <source>Alias</source>
-      <translation type="unfinished">Alias</translation>
+      <translation>Алиас</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="105"/>
       <source>Tag</source>
-      <translation type="unfinished">Tag</translation>
+      <translation>Тег</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="37"/>
@@ -111,13 +111,13 @@
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="407"/>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="421"/>
       <source>Edit in Json Editor</source>
-      <translation type="unfinished">Edit in Json Editor</translation>
+      <translation>Редактировать в редакторе Json</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="414"/>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="428"/>
       <source>Default Value</source>
-      <translation type="unfinished">Default Value</translation>
+      <translation>Значение по умолчанию</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="439"/>
@@ -135,7 +135,7 @@
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="488"/>
       <source>Format: Key|Value</source>
-      <translation type="unfinished">Format: Key|Value</translation>
+      <translation>Формат: Key|Value</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="502"/>
@@ -150,7 +150,7 @@
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="554"/>
       <source>Uplink Capacity (MB/s)</source>
-      <translation type="unfinished">Uplink Capacity (MB/s)</translation>
+      <translation>Скорость восходящей линии (МБ/с)</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ConnectionEditWindow.ui" line="577"/>
