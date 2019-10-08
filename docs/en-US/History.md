@@ -4,6 +4,7 @@ Latest Release [Github](https://github.com/lhy0403/Qv2ray/releases/latest)
 
 ## 1.3.x
 
+- [v1.3.8](./ReleaseNotes/1.3/v1.3.8.0.md) Some bug fixes
 - [v1.3.7.1](./ReleaseNotes/1.3/v1.3.7.1.md) Added tProxy support, fixed bugs when importing `vmess://`, this version contains 6 feature updates and 11 bug fixes.
 - [v1.3.7](./ReleaseNotes/1.3/v1.3.7.0.md) Not Released
 - [v1.3.6.1](./ReleaseNotes/1.3/v1.3.6.1.md) UI Icons update, translations update and a list order fix.
