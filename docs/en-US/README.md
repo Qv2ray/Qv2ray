@@ -2,7 +2,7 @@
 
 - A cross platform v2ray GUI written in QT
 
-- #### Current Latest Release Version: [v1.3.7.1](./ReleaseNotes/1.3/v1.3.7.1.md)
+- #### Current Latest Release Version: [v1.3.8](./ReleaseNotes/1.3/v1.3.8.0.md)
 
 --------
 
@@ -23,8 +23,8 @@ There are several steps:
 
 ```
 Notes: Directories that Qv2ray will search for v2ray-kernel
-- Windows: C:\Users\用户名\.qv2ray\vcore
-- macOS: /Users/用户名/.qv2ray/vcore
+- Windows: C:\Users\USERNAME\.qv2ray\vcore
+- macOS: /Users/USERNAME/.qv2ray/vcore
 - Linux: ~/.qv2ray/vcore
 ```
 
