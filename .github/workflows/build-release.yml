@@ -14,16 +14,15 @@ jobs:
       - name: Restore Git Submodules
         run: git submodule update --init
 # --------------------------------------------------------
-      - name: Installing aqtinstall and Qt
-        run: |
-          pip3 install aqtinstall
-          python -m aqt install 5.12.5 windows desktop win64_mingw73
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v1
+        with:
+          arch: win64_mingw73
 # --------------------------------------------------------
       - name: Build Qv2ray
         run: |
           mkdir build
           cd build
-          set PATH=..\Qt5.12.5\5.12.5\mingw73_64\bin;..\Qt5.12.5\Tools\mingw73_64\bin;%PATH%
           qmake ..
           mingw32-make -j4
       - name: Make release package
@@ -34,14 +33,13 @@ jobs:
           copy ..\release\Qv2ray.exe .\
           copy ..\..\libs\libcrypto-1_1.dll .\
           copy ..\..\libs\libssl-1_1.dll .\
-          set PATH=..\..\Qt5.12.5\5.12.5\mingw73_64\bin;..\..\Qt5.12.5\Tools\mingw73_64\bin;%PATH%
           windeployqt ./Qv2ray.exe
           cd ..
-          ..\tools\7z.exe a Qv2ray.zip .\package\*
+          ..\tools\7z.exe a Qv2ray.zip .\package
       - name: Upload Artifact
         uses: actions/upload-artifact@master
         with:
-          name: Qv2ray.windows.zip
+          name: Qv2ray.Win64.zip
           path: build/Qv2ray.zip
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release
@@ -63,19 +61,8 @@ jobs:
       - name: Restore Git Submodules
         run: git submodule update --init
 # --------------------------------------------------------
-      - name: Installing Node
-        uses: actions/setup-node@v1
-        with:
-          node-version: '10.x'
-
-      - name: "Preparing NPM"
-        run: | 
-          cd .github/install-qt/
-          npm ci
-          npm run build
-
       - name: Install Qt
-        uses: ./.github/install-qt/
+        uses: jurplel/install-qt-action@v1
 # --------------------------------------------------------
       - name: Build Qv2ray
         run: |
@@ -114,19 +101,8 @@ jobs:
       - name: Restore Git Submodules
         run: git submodule update --init
 # --------------------------------------------------------
-      - name: Installing Node
-        uses: actions/setup-node@v1
-        with:
-          node-version: '10.x'
-
-      - name: "Preparing NPM"
-        run: | 
-          cd .github/install-qt/
-          npm ci
-          npm run build
-
       - name: Install Qt
-        uses: ./.github/install-qt/
+        uses: jurplel/install-qt-action@v1
 # --------------------------------------------------------
       - name: Install libgl-dev and openssl libx11-dev libxkbcommon-x11-dev
         run: sudo apt install -y libgl-dev openssl libx11-dev libxkbcommon-x11-dev
