@@ -116,7 +116,7 @@ ICON = ./icons/Qv2ray.icns
 # ------------------------------------------ Begin to detect language files.
 message("Looking for language support.")
 QM_FILES_RESOURCE_PREFIX = "translations"
-for(var, $$list($$files("*.ts", true))) {
+for(var, $$list($$files("translations/*.ts", true))) {
     LOCALE_FILENAME = $$basename(var)
     message("  --> Found:" $$LOCALE_FILENAME)
     !equals(LOCALE_FILENAME, "en-US.ts") {

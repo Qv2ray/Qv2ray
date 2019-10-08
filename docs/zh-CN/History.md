@@ -4,6 +4,7 @@
 
 ## 1.3.x
 
+- [v1.3.8](./ReleaseNotes/1.3/v1.3.8.0.md) 部分 bug 修复
 - [v1.3.7.1](./ReleaseNotes/1.3/v1.3.7.1.md)增加 tProxy 支持，修复 vmess:// 导入等多个问题，此版本包含 6 个功能更新和 11 个 bug 修复
 - [v1.3.7](./ReleaseNotes/1.3/v1.3.7.0.md) 未发布
 - [v1.3.6.1](./ReleaseNotes/1.3/v1.3.6.1.md) UI 图标更新，翻译更新和一个列表顺序修复
