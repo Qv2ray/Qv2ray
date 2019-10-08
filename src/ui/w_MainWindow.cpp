@@ -262,10 +262,8 @@ void MainWindow::on_stopButton_clicked()
         ui->startButton->setEnabled(true);
         ui->stopButton->setEnabled(false);
         //
-        ui->speedUpLabel->setText("");
-        ui->speedDownLabel->setText("");
-        ui->totalDataUpLabel->setText("");
-        ui->totalDataDownLabel->setText("");
+        ui->netspeedLabel->setText("");
+        ui->dataamountLabel->setText("");
     }
 }
 
@@ -649,10 +647,8 @@ void MainWindow::on_speedTimer_Ticked()
     auto dataUp = FormatBytes(totalDataUp, s);
     auto dataDown = FormatBytes(totalDataDown, s);
     //
-    ui->speedUpLabel->setText("Upload: " + speedUp + "/s");
-    ui->speedDownLabel->setText("Download: " + speedDown + "/s");
-    ui->totalDataUpLabel->setText("Total Up: " + dataUp);
-    ui->totalDataDownLabel->setText("Total Down: " + dataDown);
+    ui->netspeedLabel->setText(speedUp + "/s\r\n" + speedDown + "/s");
+    ui->dataamountLabel->setText(dataUp + "\r\n" + dataDown);
     //
     hTray->setToolTip(TRAY_TOOLTIP_PREFIX "\r\n" + tr("Connected To Server: ") + CurrentConnectionName + "\r\n"
                       "Up: " + speedUp + "/s Down: " + speedDown + "/s");
