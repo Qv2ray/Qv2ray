@@ -33,7 +33,7 @@ jobs:
           copy ..\release\Qv2ray.exe .\
           copy ..\..\libs\libcrypto-1_1.dll .\
           copy ..\..\libs\libssl-1_1.dll .\
-          windeployqt ./Qv2ray.exe
+          windeployqt ./Qv2ray.exe --compiler-runtime
           cd ..
           ..\tools\7z.exe a Qv2ray.zip .\package
       - name: Upload Artifact
