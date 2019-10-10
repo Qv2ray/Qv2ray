@@ -3,6 +3,7 @@
 #include "ui_w_RoutesEditor.h"
 #include "w_OutboundEditor.h"
 #include "w_JsonEditor.h"
+#include "w_InboundEditor.h"
 
 RouteEditor::RouteEditor(QJsonObject connection, const QString alias, QWidget *parent) :
     QDialog(parent),
@@ -15,6 +16,7 @@ RouteEditor::RouteEditor(QJsonObject connection, const QString alias, QWidget *p
     routes = StructFromJsonString<RoutingObject>(JsonToString(root["routing"].toObject()));
     ui->setupUi(this);
     ui->outboundsList->clear();
+    ui->inboundsList->clear();
 
     foreach (auto out, outbounds) {
         bool hasTag = out.toObject().contains("tag");
@@ -28,7 +30,7 @@ RouteEditor::RouteEditor(QJsonObject connection, const QString alias, QWidget *p
     foreach (auto in, inbounds) {
         bool hasTag = in.toObject().contains("tag");
         //
-        auto tag = hasTag ?  in.toObject()["tag"].toString() : tr("NoTag");
+        auto tag = hasTag ? in.toObject()["tag"].toString() : tr("NoTag");
         auto protocol = in.toObject()["protocol"].toString();
         auto port = in.toObject()["port"].toVariant().toString();
         //
@@ -55,6 +57,9 @@ RouteEditor::RouteEditor(QJsonObject connection, const QString alias, QWidget *p
 QJsonObject RouteEditor::OpenEditor()
 {
     this->exec();
+    root["inbounds"] = inbounds;
+    root["outbounds"] = outbounds;
+    root["routing"] = GetRootObject(routes);
     return root;
 }
 
@@ -146,8 +151,8 @@ void RouteEditor::on_editOutboundBtn_clicked()
     auto protocol =  currentOutbound["protocol"].toString();
 
     if (protocol != "vmess" && protocol != "shadowsocks" && protocol != "socks") {
-        QvMessageBox(this, tr("Cannot Edit"), tr("Currently, this type of outbound is not supported by the editor."));
-        QvMessageBox(this, tr("Cannot Edit"), tr("We will launch Json Editor instead."));
+        QvMessageBox(this, tr("Cannot Edit"), tr("Currently, this type of outbound is not supported by the editor.") + "\r\n" +
+                     tr("We will launch Json Editor instead."));
         JsonEditor *w = new JsonEditor(currentOutbound, this);
         result = w->OpenEditor();
         delete w;
@@ -168,4 +173,23 @@ void RouteEditor::on_insertDirectBtn_clicked()
 
 void RouteEditor::on_editInboundBtn_clicked()
 {
+    QJsonObject result;
+    int row = ui->inboundsList->currentRow();
+    auto currentInbound = inbounds[row].toObject();
+    auto protocol =  currentInbound["protocol"].toString();
+
+    if (protocol != "http" && protocol != "mtproto" && protocol != "socks" && protocol != "dokodemo-door") {
+        QvMessageBox(this, tr("Cannot Edit"), tr("Currently, this type of outbound is not supported by the editor.") + "\r\n" +
+                     tr("We will launch Json Editor instead."));
+        JsonEditor *w = new JsonEditor(currentInbound, this);
+        result = w->OpenEditor();
+        delete w;
+    } else {
+        InboundEditor *w = new InboundEditor(currentInbound, this);
+        result = w->OpenEditor();
+        delete w;
+    }
+
+    inbounds[row] = result;
+    on_inboundsList_currentRowChanged(row);
 }

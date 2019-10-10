@@ -2,12 +2,15 @@
 <ui version="4.0">
  <class>InboundEditor</class>
  <widget class="QDialog" name="InboundEditor">
+  <property name="windowModality">
+   <enum>Qt::ApplicationModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>874</width>
-    <height>497</height>
+    <width>815</width>
+    <height>500</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,6 +26,9 @@
       <widget class="QLabel" name="label_4">
        <property name="text">
         <string>Tag</string>
+       </property>
+       <property name="buddy">
+        <cstring>inboundTagTxt</cstring>
        </property>
       </widget>
      </item>
@@ -41,7 +47,7 @@
       </widget>
      </item>
      <item row="1" column="1">
-      <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,0,1">
+      <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="2,0,1">
        <item>
         <widget class="QLineEdit" name="inboundHostTxt">
          <property name="placeholderText">
@@ -59,7 +65,7 @@
        <item>
         <widget class="QLineEdit" name="inboundPortTxt">
          <property name="placeholderText">
-          <string>Port: 1080|env:PORT|80-85</string>
+          <string>Port: 1080|80-85</string>
          </property>
         </widget>
        </item>
@@ -70,10 +76,13 @@
        <property name="text">
         <string>Protocol</string>
        </property>
+       <property name="buddy">
+        <cstring>inboundProtocolCombo</cstring>
+       </property>
       </widget>
      </item>
      <item row="2" column="1">
-      <widget class="QComboBox" name="inboundProtocolTxt">
+      <widget class="QComboBox" name="inboundProtocolCombo">
        <property name="sizePolicy">
         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -82,22 +91,22 @@
        </property>
        <item>
         <property name="text">
-         <string>HTTP</string>
+         <string notr="true">http</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>SOCKS</string>
+         <string notr="true">socks</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>Dokodemo</string>
+         <string notr="true">dokodemo-door</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>MTProto</string>
+         <string notr="true">mtproto</string>
         </property>
        </item>
       </widget>
@@ -115,6 +124,9 @@
         <property name="text">
          <string>Strategy</string>
         </property>
+        <property name="buddy">
+         <cstring>strategyCombo</cstring>
+        </property>
        </widget>
       </item>
       <item row="0" column="1">
@@ -127,12 +139,12 @@
         </property>
         <item>
          <property name="text">
-          <string>Always</string>
+          <string>always</string>
          </property>
         </item>
         <item>
          <property name="text">
-          <string>Random</string>
+          <string>random</string>
          </property>
         </item>
        </widget>
@@ -141,6 +153,9 @@
        <widget class="QLabel" name="label_7">
         <property name="text">
          <string>Refresh</string>
+        </property>
+        <property name="buddy">
+         <cstring>refreshNumberBox</cstring>
         </property>
        </widget>
       </item>
@@ -164,6 +179,9 @@
        <widget class="QLabel" name="label_8">
         <property name="text">
          <string>Concurrency</string>
+        </property>
+        <property name="buddy">
+         <cstring>concurrencyNumberBox</cstring>
         </property>
        </widget>
       </item>
@@ -194,9 +212,32 @@
      <layout class="QFormLayout" name="formLayout_2">
       <item row="1" column="0">
        <widget class="QLabel" name="label_5">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>32</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>80</width>
+          <height>16777215</height>
+         </size>
+        </property>
         <property name="text">
-         <string>Destination
-Override</string>
+         <string>Destination Override</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::RichText</enum>
+        </property>
+        <property name="scaledContents">
+         <bool>false</bool>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+        <property name="buddy">
+         <cstring>destOverrideList</cstring>
         </property>
        </widget>
       </item>
@@ -204,7 +245,7 @@ Override</string>
        <widget class="QListWidget" name="destOverrideList">
         <item>
          <property name="text">
-          <string notr="true">http</string>
+          <string notr="true">HTTP</string>
          </property>
          <property name="checkState">
           <enum>Unchecked</enum>
@@ -212,7 +253,7 @@ Override</string>
         </item>
         <item>
          <property name="text">
-          <string notr="true">tls</string>
+          <string notr="true">TLS</string>
          </property>
          <property name="checkState">
           <enum>Unchecked</enum>
@@ -232,6 +273,9 @@ Override</string>
         <property name="text">
          <string>Enabled</string>
         </property>
+        <property name="buddy">
+         <cstring>enableSniffingCB</cstring>
+        </property>
        </widget>
       </item>
      </layout>
@@ -250,7 +294,7 @@ Override</string>
    <item row="4" column="0">
     <widget class="QStackedWidget" name="stackedWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="HTTPPage">
       <layout class="QGridLayout" name="gridLayout_2">
@@ -267,6 +311,9 @@ Override</string>
               <property name="text">
                <string>Timeout</string>
               </property>
+              <property name="buddy">
+               <cstring>httpTimeoutSpinBox</cstring>
+              </property>
              </widget>
             </item>
             <item row="0" column="1">
@@ -276,6 +323,9 @@ Override</string>
              <widget class="QLabel" name="label_9">
               <property name="text">
                <string>Allow Transparent</string>
+              </property>
+              <property name="buddy">
+               <cstring>httpTransparentCB</cstring>
               </property>
              </widget>
             </item>
@@ -291,6 +341,9 @@ Override</string>
               <property name="text">
                <string>User Level</string>
               </property>
+              <property name="buddy">
+               <cstring>httpUserLevelSB</cstring>
+              </property>
              </widget>
             </item>
             <item row="2" column="1">
@@ -299,7 +352,7 @@ Override</string>
            </layout>
           </item>
           <item>
-           <layout class="QGridLayout" name="gridLayout_3">
+           <layout class="QGridLayout" name="gridLayout_3" rowstretch="0,1,1,0">
             <item row="1" column="3">
              <widget class="QToolButton" name="httpRemoveUserBtn">
               <property name="text">
@@ -336,6 +389,9 @@ Override</string>
              <widget class="QLabel" name="label_16">
               <property name="text">
                <string>Add</string>
+              </property>
+              <property name="buddy">
+               <cstring>httpAddUserTxt</cstring>
               </property>
              </widget>
             </item>
@@ -375,18 +431,21 @@ Override</string>
               <property name="text">
                <string>Auth</string>
               </property>
+              <property name="buddy">
+               <cstring>socksAuthCombo</cstring>
+              </property>
              </widget>
             </item>
             <item row="0" column="1">
              <widget class="QComboBox" name="socksAuthCombo">
               <item>
                <property name="text">
-                <string>No Auth</string>
+                <string notr="true">noauth</string>
                </property>
               </item>
               <item>
                <property name="text">
-                <string>Password</string>
+                <string notr="true">password</string>
                </property>
               </item>
              </widget>
@@ -396,6 +455,9 @@ Override</string>
               <property name="text">
                <string>Enable UDP</string>
               </property>
+              <property name="buddy">
+               <cstring>socksUDPCB</cstring>
+              </property>
              </widget>
             </item>
             <item row="2" column="0">
@@ -403,12 +465,18 @@ Override</string>
               <property name="text">
                <string>Local UDP IP</string>
               </property>
+              <property name="buddy">
+               <cstring>socksUDPIPAddrTxt</cstring>
+              </property>
              </widget>
             </item>
             <item row="3" column="0">
              <widget class="QLabel" name="label_21">
               <property name="text">
                <string>User Level</string>
+              </property>
+              <property name="buddy">
+               <cstring>socksUserLevelSB</cstring>
               </property>
              </widget>
             </item>
@@ -432,7 +500,7 @@ Override</string>
            </layout>
           </item>
           <item>
-           <layout class="QGridLayout" name="gridLayout_4">
+           <layout class="QGridLayout" name="gridLayout_4" rowstretch="0,1,1,0">
             <item row="1" column="3">
              <widget class="QToolButton" name="socksRemoveUserBtn">
               <property name="text">
@@ -470,6 +538,9 @@ Override</string>
               <property name="text">
                <string>Add</string>
               </property>
+              <property name="buddy">
+               <cstring>socksAddUserTxt</cstring>
+              </property>
              </widget>
             </item>
             <item row="3" column="1">
@@ -506,6 +577,9 @@ Override</string>
             <property name="text">
              <string>IP Address</string>
             </property>
+            <property name="buddy">
+             <cstring>dokoIPAddrTxt</cstring>
+            </property>
            </widget>
           </item>
           <item row="0" column="1">
@@ -519,6 +593,9 @@ Override</string>
            <widget class="QLabel" name="label_22">
             <property name="text">
              <string>Port</string>
+            </property>
+            <property name="buddy">
+             <cstring>dokoPortSB</cstring>
             </property>
            </widget>
           </item>
@@ -539,6 +616,9 @@ Override</string>
            <widget class="QLabel" name="label_23">
             <property name="text">
              <string>Network</string>
+            </property>
+            <property name="buddy">
+             <cstring>dokoTCPCB</cstring>
             </property>
            </widget>
           </item>
@@ -571,6 +651,9 @@ Override</string>
             <property name="text">
              <string>Timeout</string>
             </property>
+            <property name="buddy">
+             <cstring>dokoTimeoutSB</cstring>
+            </property>
            </widget>
           </item>
           <item row="5" column="0">
@@ -578,12 +661,18 @@ Override</string>
             <property name="text">
              <string>Follow Redirect</string>
             </property>
+            <property name="buddy">
+             <cstring>dokoFollowRedirectCB</cstring>
+            </property>
            </widget>
           </item>
           <item row="6" column="0">
            <widget class="QLabel" name="label_26">
             <property name="text">
              <string>User Level</string>
+            </property>
+            <property name="buddy">
+             <cstring>dokoUserLevelSB</cstring>
             </property>
            </widget>
           </item>
@@ -603,7 +692,7 @@ Override</string>
           <item row="5" column="1">
            <widget class="QCheckBox" name="dokoFollowRedirectCB">
             <property name="text">
-             <string>CheckBox</string>
+             <string>Enabled</string>
             </property>
            </widget>
           </item>
@@ -628,6 +717,9 @@ Override</string>
             <property name="text">
              <string>EMail Address</string>
             </property>
+            <property name="buddy">
+             <cstring>mtEMailTxt</cstring>
+            </property>
            </widget>
           </item>
           <item row="0" column="1">
@@ -641,6 +733,9 @@ Override</string>
            <widget class="QLabel" name="label_27">
             <property name="text">
              <string>Secret</string>
+            </property>
+            <property name="buddy">
+             <cstring>mtSecretTxt</cstring>
             </property>
            </widget>
           </item>
@@ -656,6 +751,9 @@ Override</string>
             <property name="text">
              <string>User Level</string>
             </property>
+            <property name="buddy">
+             <cstring>mtUserLevelSB</cstring>
+            </property>
            </widget>
           </item>
           <item row="2" column="1">
@@ -670,6 +768,44 @@ Override</string>
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>inboundTagTxt</tabstop>
+  <tabstop>inboundHostTxt</tabstop>
+  <tabstop>inboundPortTxt</tabstop>
+  <tabstop>inboundProtocolCombo</tabstop>
+  <tabstop>httpTimeoutSpinBox</tabstop>
+  <tabstop>httpTransparentCB</tabstop>
+  <tabstop>httpUserLevelSB</tabstop>
+  <tabstop>httpAccountListBox</tabstop>
+  <tabstop>httpRemoveUserBtn</tabstop>
+  <tabstop>httpAddUserTxt</tabstop>
+  <tabstop>httpAddPasswordTxt</tabstop>
+  <tabstop>httpAddUserBtn</tabstop>
+  <tabstop>socksAuthCombo</tabstop>
+  <tabstop>socksUDPCB</tabstop>
+  <tabstop>socksUDPIPAddrTxt</tabstop>
+  <tabstop>socksUserLevelSB</tabstop>
+  <tabstop>socksAccountListBox</tabstop>
+  <tabstop>socksRemoveUserBtn</tabstop>
+  <tabstop>socksAddUserTxt</tabstop>
+  <tabstop>socksAddPasswordTxt</tabstop>
+  <tabstop>socksAddUserBtn</tabstop>
+  <tabstop>dokoIPAddrTxt</tabstop>
+  <tabstop>dokoPortSB</tabstop>
+  <tabstop>dokoTCPCB</tabstop>
+  <tabstop>dokoUDPCB</tabstop>
+  <tabstop>dokoTimeoutSB</tabstop>
+  <tabstop>dokoFollowRedirectCB</tabstop>
+  <tabstop>dokoUserLevelSB</tabstop>
+  <tabstop>mtEMailTxt</tabstop>
+  <tabstop>mtSecretTxt</tabstop>
+  <tabstop>mtUserLevelSB</tabstop>
+  <tabstop>strategyCombo</tabstop>
+  <tabstop>refreshNumberBox</tabstop>
+  <tabstop>concurrencyNumberBox</tabstop>
+  <tabstop>enableSniffingCB</tabstop>
+  <tabstop>destOverrideList</tabstop>
+ </tabstops>
  <resources>
   <include location="../../resources.qrc"/>
  </resources>
@@ -681,8 +817,8 @@ Override</string>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>248</x>
-     <y>254</y>
+     <x>841</x>
+     <y>493</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -697,8 +833,8 @@ Override</string>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>316</x>
-     <y>260</y>
+     <x>841</x>
+     <y>493</y>
     </hint>
     <hint type="destinationlabel">
      <x>286</x>

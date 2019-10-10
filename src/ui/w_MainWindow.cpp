@@ -538,20 +538,25 @@ void MainWindow::on_addConfigButton_clicked()
     OutboundEditor *w = new OutboundEditor(this);
     connect(w, &OutboundEditor::s_reload_config, this, &MainWindow::OnConfigListChanged);
     auto outboundEntry = w->OpenEditor();
-    QJsonArray outboundsList;
-    outboundsList.push_back(outboundEntry);
-    QJsonObject root;
-    root.insert("outbounds", outboundsList);
+    bool isChanged = w->result() == QDialog::Accepted;
     auto alias = w->Alias;
     delete w;
-    auto conf = GetGlobalConfig();
-    auto connectionList = conf.configs;
-    connectionList.push_back(alias.toStdString());
-    conf.configs = connectionList;
-    SetGlobalConfig(conf);
-    OnConfigListChanged(false);
-    SaveConnectionConfig(root, &alias);
-    ShowAndSetConnection(CurrentConnectionName, false, false);
+
+    if (isChanged) {
+        QJsonArray outboundsList;
+        outboundsList.push_back(outboundEntry);
+        QJsonObject root;
+        root.insert("outbounds", outboundsList);
+        //
+        auto conf = GetGlobalConfig();
+        auto connectionList = conf.configs;
+        connectionList.push_back(alias.toStdString());
+        conf.configs = connectionList;
+        SetGlobalConfig(conf);
+        OnConfigListChanged(false);
+        SaveConnectionConfig(root, &alias);
+        ShowAndSetConnection(CurrentConnectionName, false, false);
+    }
 }
 
 void MainWindow::on_editConfigButton_clicked()
@@ -565,24 +570,29 @@ void MainWindow::on_editConfigButton_clicked()
     auto alias = ui->connectionListWidget->currentItem()->text();
     auto outBoundRoot = connections[alias];
     QJsonObject root;
+    bool isChanged = false;
 
     if (outBoundRoot["outbounds"].toArray().count() > 1) {
         LOG(MODULE_UI, "INFO: Opening route editor.")
         RouteEditor *routeWindow = new RouteEditor(outBoundRoot, alias, this);
         root = routeWindow->OpenEditor();
+        isChanged = routeWindow->result() == QDialog::Accepted;
     } else {
         LOG(MODULE_UI, "INFO: Opening single connection edit window.")
         OutboundEditor *w = new OutboundEditor(outBoundRoot["outbounds"].toArray().first().toObject(), &alias, this);
         auto outboundEntry = w->OpenEditor();
+        isChanged = w->result() == QDialog::Accepted;
         QJsonArray outboundsList;
         outboundsList.push_back(outboundEntry);
         root.insert("outbounds", outboundsList);
     }
 
-    connections[alias] = root;
-    SaveConnectionConfig(root, &alias);
-    OnConfigListChanged(alias == CurrentConnectionName);
-    ShowAndSetConnection(CurrentConnectionName, false, false);
+    if (isChanged) {
+        connections[alias] = root;
+        SaveConnectionConfig(root, &alias);
+        OnConfigListChanged(alias == CurrentConnectionName);
+        ShowAndSetConnection(CurrentConnectionName, false, false);
+    }
 }
 
 void MainWindow::on_reconnectButton_clicked()
@@ -602,14 +612,19 @@ void MainWindow::on_action_RCM_EditJson_triggered()
     auto alias = ui->connectionListWidget->currentItem()->text();
     JsonEditor *w = new JsonEditor(connections[alias], this);
     auto root = w->OpenEditor();
+    bool isChanged = w->result() == QDialog::Accepted;
     delete w;
-    connections[alias] = root;
-    SaveConnectionConfig(root, &alias);
-    ShowAndSetConnection(CurrentConnectionName, false, false);
+
+    if (isChanged) {
+        connections[alias] = root;
+        SaveConnectionConfig(root, &alias);
+        ShowAndSetConnection(CurrentConnectionName, false, false);
+    }
 }
 
 void MainWindow::on_editJsonBtn_clicked()
 {
+    // See above.
     on_action_RCM_EditJson_triggered();
 }
 
@@ -635,6 +650,12 @@ void MainWindow::on_speedTimer_Ticked()
 
     foreach (auto inbound, inbounds) {
         auto tag = inbound.toObject()["tag"].toString();
+
+        // TODO: A proper scheme...
+        if (tag == API_TAG_INBOUND) {
+            continue;
+        }
+
         totalSpeedUp += vinstance->getTagLastUplink(tag);
         totalSpeedDown += vinstance->getTagLastDownlink(tag);
         totalDataUp += vinstance->getTagTotalUplink(tag);
@@ -650,7 +671,6 @@ void MainWindow::on_speedTimer_Ticked()
     ui->netspeedLabel->setText(speedUp + "/s\r\n" + speedDown + "/s");
     ui->dataamountLabel->setText(dataUp + "\r\n" + dataDown);
     //
-    hTray->setToolTip(TRAY_TOOLTIP_PREFIX "\r\n" + tr("Connected To Server: ") + CurrentConnectionName + "\r\n"
-                      "Up: " + speedUp + "/s Down: " + speedDown + "/s");
+    hTray->setToolTip(TRAY_TOOLTIP_PREFIX "\r\n" + tr("Connected To Server: ") + CurrentConnectionName + "\r\nUp: " + speedUp + "/s Down: " + speedDown + "/s");
 }
 
