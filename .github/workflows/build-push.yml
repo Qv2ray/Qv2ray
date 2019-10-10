@@ -1,4 +1,4 @@
-name: Build Artifact for Release
+name: Build Cross-platform Qv2ray
 
 on: push
 
