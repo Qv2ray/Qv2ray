@@ -4,7 +4,7 @@ on: push
 
 jobs:
   Windows:
-    name: Release for Windows x64
+    name: Push build for win64
     runs-on: windows-2019
     steps:
       - name: Checkout Sources
@@ -43,7 +43,7 @@ jobs:
 # =========================================================================================
 
   macOS:
-    name: Release for macOS
+    name: Push build for macOS
     runs-on: macOS-10.14
     steps:
       - name: Checkout Sources
@@ -75,7 +75,7 @@ jobs:
 # ===================================================================================
           
   Linux:
-    name: Release for linux
+    name: Push build for Linux
     runs-on: ubuntu-16.04
     steps:
       - name: Checkout Sources
@@ -87,7 +87,9 @@ jobs:
         uses: jurplel/install-qt-action@v1
 # --------------------------------------------------------
       - name: Install libgl-dev and openssl libx11-dev libxkbcommon-x11-dev
-        run: sudo apt install -y libgl-dev openssl libx11-dev libxkbcommon-x11-dev
+        run: sudo apt install -y libgl-dev openssl libx11-dev libxkbcommon-x11-dev mlocate
+      - name: Update Locate DB
+        run: sudo updatedb
       - name: Build Qv2ray
         run: |
           mkdir build
@@ -100,8 +102,8 @@ jobs:
           make install INSTALL_ROOT=AppDir
           cd AppDir
           mkdir -p ./opt/Qv2ray/lib/
-          cp /lib/x86_64-linux-gnu/libssl.so.1.0.0 /lib/x86_64-linux-gnu/libcrypto.so.1.0.0 ./opt/Qv2ray/lib/
-          cp /lib/x86_64-linux-gnu/libssl.so.1.1 /lib/x86_64-linux-gnu/libcrypto.so.1.1 ./opt/Qv2ray/lib/
+          cp $(locate $(strings $(locate libQt5Network.so|grep /usr|head -n1)|grep libssl.so)|grep /usr|head -n1) ./opt/Qv2ray/lib/
+          cp $(locate $(strings $(locate libQt5Network.so|grep /usr|head -n1)|grep libcrypto.so)|grep /usr|head -n1)
       - name: Build AppImage using linuxdeployqt
         run: |
           cd build/AppDir
