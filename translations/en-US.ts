@@ -120,264 +120,272 @@
 <context>
     <name>InboundEditor</name>
     <message>
-        <location filename="../src/ui/w_InboundEditor.ui" line="14"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="17"/>
         <source>Inbound Editor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_InboundEditor.ui" line="25"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="28"/>
         <source>Tag</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_InboundEditor.ui" line="32"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="38"/>
         <source>Tag of this inbound entry</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_InboundEditor.ui" line="39"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="45"/>
         <source>Listening</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_InboundEditor.ui" line="48"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="54"/>
         <source>Hostname or IP Address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_InboundEditor.ui" line="55"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="61"/>
         <source>:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_InboundEditor.ui" line="62"/>
-        <source>Port: 1080|env:PORT|80-85</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_InboundEditor.ui" line="71"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="77"/>
         <source>Protocol</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_InboundEditor.ui" line="85"/>
-        <source>HTTP</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_InboundEditor.ui" line="90"/>
-        <source>SOCKS</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_InboundEditor.ui" line="95"/>
-        <source>Dokodemo</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_InboundEditor.ui" line="100"/>
-        <source>MTProto</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_InboundEditor.ui" line="110"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="119"/>
         <source>Allocation Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_InboundEditor.ui" line="116"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="125"/>
         <source>Strategy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_InboundEditor.ui" line="130"/>
-        <source>Always</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_InboundEditor.ui" line="135"/>
-        <source>Random</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_InboundEditor.ui" line="143"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="155"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_InboundEditor.ui" line="166"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="181"/>
         <source>Concurrency</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_InboundEditor.ui" line="192"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="210"/>
         <source>Sniffing Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_InboundEditor.ui" line="198"/>
-        <source>Destination
-Override</source>
+        <location filename="../src/ui/w_InboundEditor.ui" line="68"/>
+        <source>Port: 1080|80-85</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_InboundEditor.ui" line="226"/>
-        <location filename="../src/ui/w_InboundEditor.ui" line="233"/>
-        <location filename="../src/ui/w_InboundEditor.ui" line="285"/>
-        <location filename="../src/ui/w_InboundEditor.ui" line="418"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="142"/>
+        <source>always</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_InboundEditor.ui" line="147"/>
+        <source>random</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_InboundEditor.ui" line="228"/>
+        <source>Destination Override</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_InboundEditor.ui" line="267"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="274"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="335"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="486"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="695"/>
         <source>Enabled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_InboundEditor.ui" line="260"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="304"/>
         <source>HTTP Inbound Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_InboundEditor.ui" line="268"/>
-        <location filename="../src/ui/w_InboundEditor.ui" line="572"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="312"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="652"/>
         <source>Timeout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_InboundEditor.ui" line="278"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="325"/>
         <source>Allow Transparent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_InboundEditor.ui" line="292"/>
-        <location filename="../src/ui/w_InboundEditor.ui" line="411"/>
-        <location filename="../src/ui/w_InboundEditor.ui" line="586"/>
-        <location filename="../src/ui/w_InboundEditor.ui" line="657"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="342"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="476"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="672"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="752"/>
         <source>User Level</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_InboundEditor.ui" line="306"/>
-        <location filename="../src/ui/w_InboundEditor.ui" line="327"/>
-        <location filename="../src/ui/w_InboundEditor.ui" line="439"/>
-        <location filename="../src/ui/w_InboundEditor.ui" line="460"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="359"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="380"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="507"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="528"/>
         <source>...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_InboundEditor.ui" line="320"/>
-        <location filename="../src/ui/w_InboundEditor.ui" line="389"/>
-        <location filename="../src/ui/w_InboundEditor.ui" line="453"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="373"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="521"/>
         <source>Password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_InboundEditor.ui" line="338"/>
-        <location filename="../src/ui/w_InboundEditor.ui" line="471"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="391"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="539"/>
         <source>Add</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_InboundEditor.ui" line="345"/>
-        <location filename="../src/ui/w_InboundEditor.ui" line="478"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="401"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="549"/>
         <source>Username</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_InboundEditor.ui" line="352"/>
-        <location filename="../src/ui/w_InboundEditor.ui" line="485"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="408"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="556"/>
         <source>Accounts</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_InboundEditor.ui" line="368"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="424"/>
         <source>SOCKS Inbound Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_InboundEditor.ui" line="376"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="432"/>
         <source>Auth</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_InboundEditor.ui" line="384"/>
-        <source>No Auth</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_InboundEditor.ui" line="397"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="456"/>
         <source>Enable UDP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_InboundEditor.ui" line="404"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="466"/>
         <source>Local UDP IP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_InboundEditor.ui" line="425"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="493"/>
         <source>127.0.0.1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_InboundEditor.ui" line="501"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="572"/>
         <source>Dokodemo-Door Inbound Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_InboundEditor.ui" line="507"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="578"/>
         <source>IP Address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_InboundEditor.ui" line="514"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="588"/>
         <source>Not necessary when setting &quot;Follow Redirect&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_InboundEditor.ui" line="521"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="595"/>
         <source>Port</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_InboundEditor.ui" line="541"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="618"/>
         <source>Network</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_InboundEditor.ui" line="550"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="630"/>
         <source>TCP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_InboundEditor.ui" line="563"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="643"/>
         <source>UDP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_InboundEditor.ui" line="579"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="662"/>
         <source>Follow Redirect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_InboundEditor.ui" line="606"/>
-        <source>CheckBox</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_InboundEditor.ui" line="623"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="712"/>
         <source>MTProto Inbound Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_InboundEditor.ui" line="629"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="718"/>
         <source>EMail Address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_InboundEditor.ui" line="643"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="735"/>
         <source>Secret</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_InboundEditor.ui" line="650"/>
+        <location filename="../src/ui/w_InboundEditor.ui" line="745"/>
         <source>SECRET</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_InboundEditor.cpp" line="29"/>
+        <source>Inbound type not supported</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_InboundEditor.cpp" line="29"/>
+        <source>The inbound type is not supported by Qv2ray (yet). Please use JsonEditor to change the settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_InboundEditor.cpp" line="30"/>
+        <source>Inbound: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_InboundEditor.cpp" line="175"/>
+        <location filename="../src/ui/w_InboundEditor.cpp" line="280"/>
+        <source>Removing a user</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_InboundEditor.cpp" line="175"/>
+        <location filename="../src/ui/w_InboundEditor.cpp" line="280"/>
+        <source>You haven&apos;t selected a user yet,</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_InboundEditor.cpp" line="191"/>
+        <location filename="../src/ui/w_InboundEditor.cpp" line="296"/>
+        <source>Add a user</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_InboundEditor.cpp" line="191"/>
+        <location filename="../src/ui/w_InboundEditor.cpp" line="296"/>
+        <source>This user exists already.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -434,172 +442,204 @@ Override</source>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="23"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="29"/>
         <source>Qv2ray</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="184"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="127"/>
+        <source>Share</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.ui" line="136"/>
+        <source>QR Code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.ui" line="143"/>
+        <source>VMess</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.ui" line="179"/>
+        <source>Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.ui" line="217"/>
+        <source>Instant</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.ui" line="254"/>
+        <source>0.00 KB/s
+0.00 KB/s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.ui" line="291"/>
+        <source>Total</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.ui" line="328"/>
+        <source>0.00 KB
+0.00 KB</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.ui" line="513"/>
         <location filename="../src/ui/w_MainWindow.cpp" line="45"/>
         <source>Connect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="194"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="523"/>
         <location filename="../src/ui/w_MainWindow.cpp" line="47"/>
         <source>Disconnect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="201"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="530"/>
         <location filename="../src/ui/w_MainWindow.cpp" line="46"/>
         <source>Reconnect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="208"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="537"/>
         <source>Clear Log</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="215"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="544"/>
         <source>Prefrences</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="238"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="567"/>
         <source>Stopped</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="384"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="355"/>
         <source>Host List</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="247"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="72"/>
         <source>Config Details</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="253"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="78"/>
         <source>Type</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="267"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="92"/>
         <source>Host</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="281"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="106"/>
         <source>Port</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="295"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="120"/>
         <source>Detail</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="338"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="188"/>
         <source>Ping</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="345"/>
-        <source>QR</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="352"/>
-        <source>://</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="359"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="150"/>
         <source>Json</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="110"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="423"/>
         <source>#AddConnection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="113"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="426"/>
         <source>A</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="130"/>
-        <location filename="../src/ui/w_MainWindow.ui" line="442"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="443"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="582"/>
         <source>#ImportConnection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="133"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="446"/>
         <source>I</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="324"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="477"/>
         <source>#EditConnection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="327"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="480"/>
         <source>...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="150"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="463"/>
         <source>#RemoveConnection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="153"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="466"/>
         <source>R</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="42"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="50"/>
         <source>Log</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="437"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="577"/>
         <source>#ManuallyCreateConnection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="447"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="587"/>
         <source>#Exit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="452"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="592"/>
         <source>#Preferences</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="457"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="597"/>
         <source>#Start</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="462"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="602"/>
         <source>#Stop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="467"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="607"/>
         <source>#Restart</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.cpp" line="43"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="320"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="318"/>
         <source>Hide</source>
         <translation type="unfinished"></translation>
     </message>
@@ -625,8 +665,8 @@ Override</source>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.cpp" line="109"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="275"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="323"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="273"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="321"/>
         <source>Show</source>
         <translation type="unfinished"></translation>
     </message>
@@ -670,7 +710,7 @@ Override</source>
     <message>
         <location filename="../src/ui/w_MainWindow.cpp" line="231"/>
         <location filename="../src/ui/w_MainWindow.cpp" line="232"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="653"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="674"/>
         <source>Connected To Server: </source>
         <translation type="unfinished"></translation>
     </message>
@@ -685,65 +725,71 @@ Override</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="363"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="361"/>
         <source>UUID</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="365"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="363"/>
         <source>AlterID</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="367"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="365"/>
         <source>Transport</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="374"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="372"/>
         <source>Email</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="376"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="374"/>
         <source>Encryption</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="383"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="381"/>
         <source>Username</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="469"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="478"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="467"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="476"/>
         <source>Rename a Connection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="469"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="467"/>
         <source>The name cannot be empty</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.cpp" line="505"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="519"/>
         <source>Removing this Connection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="559"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="596"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="519"/>
+        <source>Failed to delete connection file, please delete manually.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.cpp" line="566"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="608"/>
         <source>No Config Selected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="559"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="596"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="566"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="608"/>
         <source>Please Select a Config</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="478"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="476"/>
         <source>The name has been used already, Please choose another.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1275,27 +1321,42 @@ Override</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="154"/>
+        <location filename="../src/main.cpp" line="150"/>
         <source>DependencyMissing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="155"/>
+        <location filename="../src/main.cpp" line="151"/>
         <source>Cannot find openssl libs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="156"/>
+        <location filename="../src/main.cpp" line="152"/>
         <source>This could be caused by a missing of `openssl` package in your system. Or an AppImage issue.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="157"/>
+        <location filename="../src/main.cpp" line="153"/>
         <source>If you are using AppImage, please report a bug.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="163"/>
+        <location filename="../src/main.cpp" line="154"/>
+        <source>Please refer to Github Issue #65 to check for solutions.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/main.cpp" line="155"/>
+        <source>Github Issue Link: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/main.cpp" line="156"/>
+        <source>Technical Details</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/main.cpp" line="164"/>
         <source>Another instance of Qv2ray is already running.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1318,150 +1379,157 @@ Override</source>
 <context>
     <name>RouteEditor</name>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="14"/>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="20"/>
         <source>Dialog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="22"/>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="340"/>
         <source>Routes List</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="39"/>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="357"/>
+        <source>Enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="362"/>
         <source>InBounds</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="44"/>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="367"/>
         <source>DomainOrIP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="49"/>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="372"/>
         <source>Outbound</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="72"/>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="83"/>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="155"/>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="166"/>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="308"/>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="319"/>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="50"/>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="61"/>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="203"/>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="214"/>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="395"/>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="406"/>
         <source>...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="94"/>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="417"/>
         <source>Change IO</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="116"/>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="439"/>
         <source>Route Information</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="122"/>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="445"/>
         <source>Domains</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="129"/>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="452"/>
         <source>IPs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="143"/>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="38"/>
         <source>Inbound List</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="177"/>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="72"/>
         <source>Add Default</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="186"/>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="81"/>
         <source>Inbound Information</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="192"/>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="382"/>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="87"/>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="277"/>
         <source>Tag</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="206"/>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="396"/>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="101"/>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="291"/>
         <source>Type</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="220"/>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="410"/>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="115"/>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="305"/>
         <source>Address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="227"/>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="424"/>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="122"/>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="319"/>
         <source>Port</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="292"/>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="187"/>
         <source>Outbound List</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="330"/>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="225"/>
         <source>Add &quot;Direct&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="339"/>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="234"/>
         <source>Outbound Information</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="263"/>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="360"/>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="158"/>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="255"/>
         <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="453"/>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="464"/>
         <source>Status</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="23"/>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="31"/>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="76"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="25"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="33"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="81"/>
         <source>NoTag</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="106"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="111"/>
         <source>#NoTag</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="149"/>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="150"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="154"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="182"/>
         <source>Cannot Edit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="149"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="154"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="182"/>
         <source>Currently, this type of outbound is not supported by the editor.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="150"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="155"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="183"/>
         <source>We will launch Json Editor instead.</source>
         <translation type="unfinished"></translation>
     </message>

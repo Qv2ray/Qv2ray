@@ -166,13 +166,13 @@ unix {
 
     message("  --> Generating desktop dependency.")
     desktop.files += ./icons/Qv2ray.desktop
-    desktop.path = /opt/$${TARGET}/share/applications/
+    desktop.path = /usr/share/applications/
 
     message("  --> Generating icons dependency.")
     icon.files += ./icons/Qv2ray.png
-    icon.path = /opt/$${TARGET}/share/icons/hicolor/256x256/apps/
+    icon.path = /usr/share/icons/hicolor/256x256/apps/
 
-    target.path = /opt/$${TARGET}/bin
+    target.path = /usr/local/bin
     INSTALLS += target desktop icon
 }
 

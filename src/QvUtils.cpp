@@ -88,6 +88,7 @@ namespace Qv2ray
         {
             QJsonParseError error;
             QJsonDocument doc = QJsonDocument::fromJson(source->toUtf8(), &error);
+            Q_UNUSED(doc)
 
             if (error.error == QJsonParseError::NoError) {
                 return "";
@@ -179,5 +180,3 @@ namespace Qv2ray
         }
     }
 }
-
-

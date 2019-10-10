@@ -9,7 +9,7 @@ JsonEditor::JsonEditor(QJsonObject rootObject, QWidget *parent) :
 {
     ui->setupUi(this);
     original = rootObject;
-    result = rootObject;
+    final = rootObject;
     QString jsonString  = JsonToString(rootObject);
 
     if (VerifyJsonString(&jsonString).isEmpty()) {
@@ -36,7 +36,7 @@ QJsonObject JsonEditor::OpenEditor()
         string = ui->jsonEditor->toPlainText();
     }
 
-    return resultCode == QDialog::Accepted ? result : original;
+    return resultCode == QDialog::Accepted ? final : original;
 }
 
 JsonEditor::~JsonEditor()
@@ -52,8 +52,8 @@ void JsonEditor::on_jsonEditor_textChanged()
 
     if (VerifyResult.isEmpty()) {
         BLACK(jsonEditor)
-        result = JsonFromString(string);
-        model.loadJson(QJsonDocument(result).toJson());
+        final = JsonFromString(string);
+        model.loadJson(QJsonDocument(final).toJson());
         ui->jsonTree->expandAll();
         ui->jsonTree->resizeColumnToContents(0);
     } else {

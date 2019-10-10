@@ -27,7 +27,7 @@ class JsonEditor : public QDialog
     private:
         QJsonModel model;
         QJsonObject original;
-        QJsonObject result;
+        QJsonObject final;
         Ui::JsonEditor *ui;
 };
 
