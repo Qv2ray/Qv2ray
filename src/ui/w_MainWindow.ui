@@ -145,13 +145,6 @@
           </widget>
          </item>
          <item>
-          <widget class="QToolButton" name="editJsonBtn">
-           <property name="text">
-            <string>Json</string>
-           </property>
-          </widget>
-         </item>
-         <item>
           <spacer name="horizontalSpacer_4">
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
@@ -182,6 +175,13 @@
        </item>
        <item row="4" column="1">
         <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <item>
+          <widget class="QToolButton" name="editJsonBtn">
+           <property name="text">
+            <string>Json</string>
+           </property>
+          </widget>
+         </item>
          <item>
           <widget class="QToolButton" name="pingTestBtn">
            <property name="text">
