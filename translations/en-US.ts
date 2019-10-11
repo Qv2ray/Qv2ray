@@ -462,7 +462,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="179"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="172"/>
         <source>Options</source>
         <translation type="unfinished"></translation>
     </message>
@@ -557,7 +557,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="150"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="181"/>
         <source>Json</source>
         <translation type="unfinished"></translation>
     </message>
