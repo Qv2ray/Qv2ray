@@ -5,7 +5,7 @@
 
 #include "QvUtils.h"
 
-#define UPDATELOG(msg) LOG(MODULE_CONFIG, "[" + to_string(fromVersion) + "-" + to_string(fromVersion + 1) + "] --> " msg)
+#define UPDATELOG(msg) LOG(MODULE_CONFIG, "  [" + to_string(fromVersion) + "-" + to_string(fromVersion + 1) + "] --> " msg)
 
 namespace Qv2ray
 {
@@ -78,6 +78,7 @@ namespace Qv2ray
                 case 6: {
                     root["enableStats"] = true;
                     UPDATELOG("Default statistics enabled.")
+                    break;
                 }
             }
 

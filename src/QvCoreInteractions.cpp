@@ -98,6 +98,7 @@ namespace Qv2ray
     void Qv2Instance::StopVCore()
     {
         vProcess->close();
+        lastData = QMap<QString, long>();
         VCoreStatus = STOPPED;
     }
 

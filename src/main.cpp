@@ -104,6 +104,7 @@ int main(int argc, char *argv[])
             LOG(MODULE_UI, "Found Translator: " + lang.toStdString())
         }
     }
+
     // Qv2ray Initialize
     if (!initQv())
         return -1;

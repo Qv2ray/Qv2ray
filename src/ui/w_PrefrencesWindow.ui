@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>710</width>
-    <height>380</height>
+    <height>417</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -213,7 +213,11 @@
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QLineEdit" name="listenIPTxt"/>
+          <widget class="QLineEdit" name="listenIPTxt">
+           <property name="placeholderText">
+            <string notr="true">0.0.0.0</string>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
@@ -271,7 +275,11 @@
              </widget>
             </item>
             <item row="3" column="1">
-             <widget class="QLineEdit" name="socksAuthUsernameTxt"/>
+             <widget class="QLineEdit" name="socksAuthUsernameTxt">
+              <property name="placeholderText">
+               <string notr="true">user</string>
+              </property>
+             </widget>
             </item>
             <item row="4" column="0">
              <widget class="QLabel" name="label_12">
@@ -281,7 +289,39 @@
              </widget>
             </item>
             <item row="4" column="1">
-             <widget class="QLineEdit" name="socksAuthPasswordTxt"/>
+             <widget class="QLineEdit" name="socksAuthPasswordTxt">
+              <property name="placeholderText">
+               <string notr="true">pass</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="0">
+             <widget class="QLabel" name="label_14">
+              <property name="text">
+               <string>SOCKS UDP</string>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="0">
+             <widget class="QLabel" name="label_25">
+              <property name="text">
+               <string>Local IP</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="1">
+             <widget class="QCheckBox" name="socksUDPCB">
+              <property name="text">
+               <string>Enabled</string>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="1">
+             <widget class="QLineEdit" name="socksUDPIP">
+              <property name="placeholderText">
+               <string notr="true">127.0.0.1</string>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>
@@ -341,7 +381,11 @@
              </widget>
             </item>
             <item row="3" column="1">
-             <widget class="QLineEdit" name="httpAuthUsernameTxt"/>
+             <widget class="QLineEdit" name="httpAuthUsernameTxt">
+              <property name="placeholderText">
+               <string notr="true">user</string>
+              </property>
+             </widget>
             </item>
             <item row="4" column="0">
              <widget class="QLabel" name="label_13">
@@ -351,7 +395,11 @@
              </widget>
             </item>
             <item row="4" column="1">
-             <widget class="QLineEdit" name="httpAuthPasswordTxt"/>
+             <widget class="QLineEdit" name="httpAuthPasswordTxt">
+              <property name="placeholderText">
+               <string notr="true">pass</string>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>
@@ -496,7 +544,7 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="0">
+          <item row="2" column="0">
            <layout class="QHBoxLayout" name="horizontalLayout_6">
             <item>
              <spacer name="horizontalSpacer">
@@ -529,7 +577,7 @@
             </item>
            </layout>
           </item>
-          <item row="2" column="0">
+          <item row="4" column="0">
            <layout class="QHBoxLayout" name="horizontalLayout_8">
             <item>
              <spacer name="horizontalSpacer_3">
@@ -580,7 +628,7 @@
             </item>
            </layout>
           </item>
-          <item row="3" column="0">
+          <item row="5" column="0">
            <layout class="QHBoxLayout" name="horizontalLayout_9">
             <item>
              <spacer name="horizontalSpacer_5">
@@ -631,7 +679,7 @@
             </item>
            </layout>
           </item>
-          <item row="7" column="0">
+          <item row="9" column="0">
            <spacer name="verticalSpacer1">
             <property name="orientation">
              <enum>Qt::Vertical</enum>
@@ -644,7 +692,7 @@
             </property>
            </spacer>
           </item>
-          <item row="7" column="1">
+          <item row="9" column="1">
            <widget class="QPushButton" name="aboutQt">
             <property name="minimumSize">
              <size>
@@ -657,7 +705,7 @@
             </property>
            </widget>
           </item>
-          <item row="5" column="0">
+          <item row="7" column="0">
            <spacer name="verticalSpacer1_2">
             <property name="orientation">
              <enum>Qt::Vertical</enum>
@@ -670,7 +718,7 @@
             </property>
            </spacer>
           </item>
-          <item row="6" column="0">
+          <item row="8" column="0">
            <layout class="QHBoxLayout" name="horizontalLayout_10">
             <item>
              <spacer name="horizontalSpacer_4">
@@ -703,6 +751,39 @@
              <widget class="QLabel" name="ignoredNextVersion">
               <property name="text">
                <string/>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="3" column="0">
+           <layout class="QHBoxLayout" name="horizontalLayout_7">
+            <item>
+             <spacer name="horizontalSpacer_2">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_26">
+              <property name="text">
+               <string>Built Time</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="qvBuildTime">
+              <property name="font">
+               <font>
+                <pointsize>10</pointsize>
+               </font>
               </property>
              </widget>
             </item>
