@@ -119,7 +119,12 @@ namespace Qv2ray
                 accounts.append(GetRootObject(acc));
             }
 
-            JADD(auth, accounts, udp, ip, userLevel)
+            if (udp) {
+                JADD(auth, accounts, udp, ip, userLevel)
+            } else {
+                JADD(auth, accounts, userLevel)
+            }
+
             RROOT
         }
 
@@ -208,7 +213,10 @@ namespace Qv2ray
                 socksInBoundObject.insert("port", gConf.inBoundSettings.socks_port);
                 socksInBoundObject.insert("protocol", "socks");
                 socksInBoundObject.insert("tag", "socks_IN");
-                auto socksInSettings = GenerateSocksIN(gConf.inBoundSettings.socks_useAuth ? "password" : "noauth", QList<AccountObject>() << gConf.inBoundSettings.socksAccount);
+                auto socksInSettings = GenerateSocksIN(gConf.inBoundSettings.socks_useAuth ? "password" : "noauth",
+                                                       QList<AccountObject>() << gConf.inBoundSettings.socksAccount,
+                                                       gConf.inBoundSettings.socksUDP,
+                                                       QSTRING(gConf.inBoundSettings.socksLocalIP));
                 socksInBoundObject.insert("settings", socksInSettings);
                 inboundsList.append(socksInBoundObject);
             }
@@ -237,7 +245,7 @@ namespace Qv2ray
                 // TODO
                 //
                 // We don't want to add MUX into the first one in the list.....
-                // However, this can be added to the Connection Edit Window...
+                // TODO: However, this can be added to the Connection Edit Window...
                 //QJsonObject first = outbounds.first().toObject();
                 //first.insert("mux", GetRootObject(gConf.mux));
                 //outbounds[0] = first;

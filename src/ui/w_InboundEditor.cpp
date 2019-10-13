@@ -159,20 +159,24 @@ void InboundEditor::on_httpRemoveUserBtn_clicked()
     PREPARE_RETURN
 
     if (ui->httpAccountListBox->currentRow() != -1) {
-        auto userpass = ui->httpAccountListBox->currentItem();
+        auto item = ui->httpAccountListBox->currentItem();
         auto list = httpSettings["accounts"].toArray();
 
         for (int i = 0 ; i < list.count(); i++) {
             auto user = list[i].toObject();
+            auto entry = user["user"].toString() + ":" + user["pass"].toString();
 
-            if (user["user"].toString() + ":" + user["pass"].toString() == userpass->text()) {
+            if (entry == item->text().trimmed()) {
                 list.removeAt(i);
-                ui->httpAccountListBox->removeItemWidget(userpass);
-                return;
+                httpSettings["accounts"] = list;
+                LOG(MODULE_UI, "Removed http inbound user " + entry.toStdString())
+                ui->httpAccountListBox->takeItem(ui->httpAccountListBox->currentRow());
             }
         }
+
+        //QvMessageBox(this, tr("Removing a user"), tr("No user has been removed. Why?"));
     } else {
-        QvMessageBox(this, tr("Removing a user"), tr("You haven't selected a user yet,"));
+        QvMessageBox(this, tr("Removing a user"), tr("You haven't selected a user yet."));
     }
 }
 
@@ -193,11 +197,66 @@ void InboundEditor::on_httpAddUserBtn_clicked()
         }
     }
 
+    ui->httpAddUserTxt->clear();
+    ui->httpAddPasswordTxt->clear();
     QJsonObject entry;
     entry["user"] = user;
     entry["pass"] = pass;
     list.append(entry);
+    ui->httpAccountListBox->addItem(user + ":" + pass);
     httpSettings["accounts"] = list;
+}
+
+void InboundEditor::on_socksRemoveUserBtn_clicked()
+{
+    PREPARE_RETURN
+
+    if (ui->socksAccountListBox->currentRow() != -1) {
+        auto item = ui->socksAccountListBox->currentItem();
+        auto list = socksSettings["accounts"].toArray();
+
+        for (int i = 0 ; i < list.count(); i++) {
+            auto user = list[i].toObject();
+            auto entry = user["user"].toString() + ":" + user["pass"].toString();
+
+            if (entry == item->text().trimmed()) {
+                list.removeAt(i);
+                socksSettings["accounts"] = list;
+                LOG(MODULE_UI, "Removed http inbound user " + entry.toStdString())
+                ui->socksAccountListBox->takeItem(ui->socksAccountListBox->currentRow());
+                return;
+            }
+        }
+    } else {
+        QvMessageBox(this, tr("Removing a user"), tr("You haven't selected a user yet."));
+    }
+}
+
+void InboundEditor::on_socksAddUserBtn_clicked()
+{
+    PREPARE_RETURN
+    auto user = ui->socksAddUserTxt->text();
+    auto pass = ui->socksAddPasswordTxt->text();
+    //
+    auto list = socksSettings["accounts"].toArray();
+
+    for (int i = 0 ; i < list.count(); i++) {
+        auto _user = list[i].toObject();
+
+        if (_user["user"].toString() == user) {
+            QvMessageBox(this, tr("Add a user"), tr("This user exists already."));
+            return;
+        }
+    }
+
+    ui->socksAddUserTxt->clear();
+    ui->socksAddPasswordTxt->clear();
+    QJsonObject entry;
+    entry["user"] = user;
+    entry["pass"] = pass;
+    list.append(entry);
+    ui->socksAccountListBox->addItem(user + ":" + pass);
+    socksSettings["accounts"] = list;
 }
 
 void InboundEditor::on_strategyCombo_currentIndexChanged(const QString &arg1)
@@ -257,52 +316,6 @@ void InboundEditor::on_socksUserLevelSB_valueChanged(int arg1)
 {
     PREPARE_RETURN
     socksSettings["userLevel"] = arg1;
-}
-
-void InboundEditor::on_socksRemoveUserBtn_clicked()
-{
-    PREPARE_RETURN
-
-    if (ui->socksAccountListBox->currentRow() != -1) {
-        auto userpass = ui->socksAccountListBox->currentItem();
-        auto list = socksSettings["accounts"].toArray();
-
-        for (int i = 0 ; i < list.count(); i++) {
-            auto user = list[i].toObject();
-
-            if (user["user"].toString() + ":" + user["pass"].toString() == userpass->text()) {
-                list.removeAt(i);
-                ui->socksAccountListBox->removeItemWidget(userpass);
-                return;
-            }
-        }
-    } else {
-        QvMessageBox(this, tr("Removing a user"), tr("You haven't selected a user yet,"));
-    }
-}
-
-void InboundEditor::on_socksAddUserBtn_clicked()
-{
-    PREPARE_RETURN
-    auto user = ui->socksAddUserTxt->text();
-    auto pass = ui->socksAddPasswordTxt->text();
-    //
-    auto list = socksSettings["accounts"].toArray();
-
-    for (int i = 0 ; i < list.count(); i++) {
-        auto _user = list[i].toObject();
-
-        if (_user["user"].toString() == user) {
-            QvMessageBox(this, tr("Add a user"), tr("This user exists already."));
-            return;
-        }
-    }
-
-    QJsonObject entry;
-    entry["user"] = user;
-    entry["pass"] = pass;
-    list.append(entry);
-    socksSettings["accounts"] = list;
 }
 
 void InboundEditor::on_dokoIPAddrTxt_textEdited(const QString &arg1)

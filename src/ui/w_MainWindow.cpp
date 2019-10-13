@@ -262,8 +262,8 @@ void MainWindow::on_stopButton_clicked()
         ui->startButton->setEnabled(true);
         ui->stopButton->setEnabled(false);
         //
-        ui->netspeedLabel->setText("");
-        ui->dataamountLabel->setText("");
+        ui->netspeedLabel->setText("0.00 B/s\r\n0.00 B/s");
+        ui->dataamountLabel->setText("0.00 B\r\n0.00 B");
     }
 }
 

@@ -55,6 +55,10 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     ui->socksAuthPasswordTxt->setEnabled(have_socks && CurrentConfig.inBoundSettings.socks_useAuth);
     ui->socksAuthUsernameTxt->setText(QSTRING(CurrentConfig.inBoundSettings.socksAccount.user));
     ui->socksAuthPasswordTxt->setText(QSTRING(CurrentConfig.inBoundSettings.socksAccount.pass));
+    // Socks UDP Options
+    ui->socksUDPCB->setChecked(CurrentConfig.inBoundSettings.socksUDP);
+    ui->socksUDPIP->setEnabled(CurrentConfig.inBoundSettings.socksUDP);
+    ui->socksUDPIP->setText(QSTRING(CurrentConfig.inBoundSettings.socksLocalIP));
     //
     //
     ui->vCoreAssetsPathTxt->setText(QSTRING(CurrentConfig.v2AssetsPath));
@@ -362,4 +366,17 @@ void PrefrencesWindow::on_httpPortLE_valueChanged(int arg1)
 {
     NEEDRESTART
     CurrentConfig.inBoundSettings.http_port = arg1;
+}
+
+void PrefrencesWindow::on_socksUDPCB_stateChanged(int arg1)
+{
+    NEEDRESTART
+    CurrentConfig.inBoundSettings.socksUDP = arg1 == Qt::Checked;
+    ui->socksUDPIP->setEnabled(arg1 == Qt::Checked);
+}
+
+void PrefrencesWindow::on_socksUDPIP_textEdited(const QString &arg1)
+{
+    NEEDRESTART
+    CurrentConfig.inBoundSettings.socksLocalIP = arg1.toStdString();
 }

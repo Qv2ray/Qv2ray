@@ -77,6 +77,10 @@ class PrefrencesWindow : public QDialog
 
         void on_statsPortBox_valueChanged(int arg1);
 
+        void on_socksUDPCB_stateChanged(int arg1);
+
+        void on_socksUDPIP_textEdited(const QString &arg1);
+
     private:
         bool IsConnectionPropertyChanged = false;
         bool finishedLoading = false;

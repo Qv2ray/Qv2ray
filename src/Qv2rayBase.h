@@ -62,6 +62,8 @@ namespace Qv2ray
             // SOCKS
             int socks_port;
             bool socks_useAuth;
+            bool socksUDP;
+            string socksLocalIP;
             AccountObject socksAccount;
             // HTTP
             int http_port;
@@ -73,8 +75,10 @@ namespace Qv2ray
                 socks_port = socksPort;
                 http_port = httpPort;
                 listenip = listen;
+                socksLocalIP = "0.0.0.0";
+                socksUDP = true;
             }
-            XTOSTRUCT(O(listenip, socks_port, socks_useAuth, socksAccount, http_port, http_useAuth, httpAccount))
+            XTOSTRUCT(O(listenip, socks_port, socks_useAuth, socksAccount, socksUDP, socksLocalIP, http_port, http_useAuth, httpAccount))
         };
 
         struct Qv2rayConfig {

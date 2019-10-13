@@ -251,8 +251,8 @@
            </font>
           </property>
           <property name="text">
-           <string>0.00 KB/s
-0.00 KB/s</string>
+           <string>0.00 B/s
+0.00 B/s</string>
           </property>
          </widget>
         </item>
@@ -325,8 +325,8 @@
            </font>
           </property>
           <property name="text">
-           <string>0.00 KB
-0.00 KB</string>
+           <string>0.00 B
+0.00 B</string>
           </property>
          </widget>
         </item>
