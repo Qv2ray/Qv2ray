@@ -24,9 +24,9 @@ bool initQv()
     if (!QDir(QV2RAY_V2RAY_CORE_DIR_PATH).exists()) {
         QDir().mkdir(QV2RAY_V2RAY_CORE_DIR_PATH);
         LOG(MODULE_INIT, "Created dir for v2ray core and assets.")
-        QFile _readmeFile(QV2RAY_V2RAY_CORE_DIR_PATH + "Put your v2ray.exe here.txt");
+        QFile _readmeFile(QV2RAY_V2RAY_CORE_DIR_PATH + "Put your v2ray core here.txt");
         _readmeFile.open(QIODevice::WriteOnly);
-        _readmeFile.write("Please put your v2ray.exe and assets here!");
+        _readmeFile.write("Please put your v2ray core and assets here!");
         _readmeFile.close();
         LOG(MODULE_INIT, "Done generating readme.")
     }
