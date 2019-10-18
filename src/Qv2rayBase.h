@@ -4,6 +4,7 @@
 #include <QtCore>
 #include "QvTinyLog.h"
 #include "QvCoreConfigObjects.h"
+#include "QvNetSpeedPlugin.h"
 
 #define QV2RAY_VERSION_STRING "v" QV_MAJOR_VERSION
 
@@ -109,6 +110,9 @@ namespace Qv2ray
             list<string> configs;
 #endif
             map<string, string> subscribes;
+
+            QvNetSpeedBarConfig speedBarConfig;
+
             Qv2rayConfig():
                 config_version(QV2RAY_CONFIG_VERSION),
                 tProxySupport(false),
@@ -126,10 +130,8 @@ namespace Qv2ray
                 dnsList(),
                 inBoundSettings(),
                 configs(),
-                subscribes()
-            {
-                // PLACEHOLDER
-            }
+                subscribes(),
+                speedBarConfig() { }
             Qv2rayConfig(string lang, string assetsPath, int log, Qv2rayBasicInboundsConfig _inBoundSettings): Qv2rayConfig()
             {
                 // These settings below are defaults.
@@ -166,7 +168,8 @@ namespace Qv2ray
                         inBoundSettings,
                         mux,
                         configs,
-                        subscribes))
+                        subscribes,
+                        speedBarConfig))
         };
 
         // Extra header for QvConfigUpgrade.cpp

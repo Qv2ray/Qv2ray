@@ -187,18 +187,6 @@ void PrefrencesWindow::on_vCoreAssetsPathTxt_textEdited(const QString &arg1)
     CurrentConfig.v2AssetsPath = arg1.toStdString();
 }
 
-void PrefrencesWindow::on_muxEnabledCB_stateChanged(int arg1)
-{
-    NEEDRESTART
-    CurrentConfig.mux.enabled = arg1 == Qt::Checked;
-}
-
-void PrefrencesWindow::on_muxConcurrencyTxt_valueChanged(int arg1)
-{
-    NEEDRESTART
-    CurrentConfig.mux.concurrency = arg1;
-}
-
 void PrefrencesWindow::on_listenIPTxt_textEdited(const QString &arg1)
 {
     NEEDRESTART
