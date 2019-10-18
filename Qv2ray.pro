@@ -27,6 +27,7 @@ SOURCES += \
         src/QvCoreConfigOperations_Verification.cpp \
         src/QvCoreInteractions.cpp \
         src/QvUtils.cpp \
+        src/ui/NetSpeedBar/QvNetSpeedBar.cpp \
         src/ui/w_InboundEditor.cpp \
         src/ui/w_OutboundEditor.cpp \
         src/ui/w_RoutesEditor.cpp \
@@ -63,6 +64,7 @@ HEADERS += \
         src/utils/QJsonObjectInsertMacros.h \
         src/utils/QPingModel.h \
         src/utils/QvHTTPRequestHelper.h \
+        src/utils/QvNetSpeedPlugin.h \
         src/utils/QvRunguard.h \
         src/utils/QvTinyLog.h \
         src/utils/QJsonModel.h \
@@ -138,6 +140,9 @@ win32 {
     message("  --> Setting up target descriptions")
     QMAKE_TARGET_DESCRIPTION = "Qv2ray, a cross-platform v2ray GUI client."
     QMAKE_TARGET_PRODUCT = "Qv2ray"
+
+    message("  --> Adding Taskbar Toolbox CPP files.")
+    SOURCES += src/ui/NetSpeedBar/QvNetSpeedBar_win.cpp
 
     # A hack for protobuf header.
     message("  --> Applying a hack for protobuf header")

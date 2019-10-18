@@ -37,10 +37,6 @@ class PrefrencesWindow : public QDialog
 
         void on_vCoreAssetsPathTxt_textEdited(const QString &arg1);
 
-        void on_muxEnabledCB_stateChanged(int arg1);
-
-        void on_muxConcurrencyTxt_valueChanged(int arg1);
-
         void on_listenIPTxt_textEdited(const QString &arg1);
 
         void on_socksPortLE_valueChanged(int arg1);

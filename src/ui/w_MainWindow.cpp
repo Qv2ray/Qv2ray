@@ -12,10 +12,6 @@
 #include <QVersionNumber>
 #include <QKeyEvent>
 
-#ifdef _WIN32
-#include <Windows.h>
-#endif
-
 #include "w_OutboundEditor.h"
 #include "w_ImportConfig.h"
 #include "w_MainWindow.h"
@@ -24,6 +20,8 @@
 #include "w_SubscriptionEditor.h"
 #include "w_JsonEditor.h"
 
+#include "QvNetSpeedPlugin.h"
+
 #define TRAY_TOOLTIP_PREFIX "Qv2ray " QV2RAY_VERSION_STRING
 
 MainWindow::MainWindow(QWidget *parent)
@@ -31,8 +29,7 @@ MainWindow::MainWindow(QWidget *parent)
       ui(new Ui::MainWindow),
       HTTPRequestHelper(),
       hTray(new QSystemTrayIcon(this)),
-      vinstance(),
-      speedTimer(this)
+      vinstance()
 {
     vinstance = new Qv2Instance(this);
     ui->setupUi(this);
@@ -72,11 +69,14 @@ MainWindow::MainWindow(QWidget *parent)
     connect(action_RCM_RenameConnection, &QAction::triggered, this, &MainWindow::on_action_RenameConnection_triggered);
     connect(action_RCM_StartThis, &QAction::triggered, this, &MainWindow::on_action_StartThis_triggered);
     connect(action_RCM_EditJson, &QAction::triggered, this, &MainWindow::on_action_RCM_EditJson_triggered);
-    connect(&speedTimer, &QTimer::timeout, this, &MainWindow::on_speedTimer_Ticked);
     // TODO: UNCOMMENT THIS....
     LOG(MODULE_UI, "SHARE OPTION TODO...")
     //connect(action_RCM_ShareLink, &QAction::triggered, this, &MainWindow::on_action_RCM_ShareLink_triggered);
     //connect(action_RCM_ShareQR, &QAction::triggered, this, &MainWindow::on_action_RCM_ShareQR_triggered);
+    //
+    connect(this, &MainWindow::Connect, this, &MainWindow::on_startButton_clicked);
+    connect(this, &MainWindow::DisConnect, this, &MainWindow::on_stopButton_clicked);
+    connect(this, &MainWindow::ReConnect, this, &MainWindow::on_reconnectButton_clicked);
     //
     hTray->setContextMenu(trayMenu);
     hTray->show();
@@ -116,10 +116,10 @@ MainWindow::MainWindow(QWidget *parent)
                 ShowAndSetConnection(ui->connectionListWidget->item(0)->text(), true, false);
             }
         }
+
+        Utils::NetSpeedPlugin::StartProcessingPlugins(this);
     }
 }
-
-
 
 void MainWindow::on_action_StartThis_triggered()
 {
@@ -234,7 +234,7 @@ void MainWindow::on_startButton_clicked()
 
         if (GetGlobalConfig().enableStats) {
             vinstance->SetAPIPort(GetGlobalConfig().statsPort);
-            speedTimer.start(1000);
+            speedTimerId = startTimer(1000);
         }
     }
 
@@ -250,11 +250,11 @@ void MainWindow::on_stopButton_clicked()
 {
     if (vinstance->VCoreStatus != STOPPED) {
         this->vinstance->StopVCore();
-        speedTimer.stop();
+        killTimer(speedTimerId);
         hTray->setToolTip(TRAY_TOOLTIP_PREFIX);
         QFile(QV2RAY_GENERATED_FILE_PATH).remove();
         ui->statusLabel->setText(tr("Disconnected"));
-        ui->logText->clear();
+        ui->logText->setText("");
         trayMenu->actions()[2]->setEnabled(true);
         trayMenu->actions()[3]->setEnabled(false);
         trayMenu->actions()[4]->setEnabled(false);
@@ -643,8 +643,9 @@ void MainWindow::on_shareVMessButton_clicked()
     // Share vmess://
 }
 
-void MainWindow::on_speedTimer_Ticked()
+void MainWindow::timerEvent(QTimerEvent *event)
 {
+    Q_UNUSED(event)
     auto inbounds = CurrentFullConfig["inbounds"].toArray();
     long totalSpeedUp = 0, totalSpeedDown = 0, totalDataUp = 0, totalDataDown = 0;
 
