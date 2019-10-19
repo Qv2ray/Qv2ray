@@ -2,6 +2,7 @@
 #include "QvCoreInteractions.h"
 #include "w_PrefrencesWindow.h"
 #include <QFileDialog>
+#include <QColorDialog>
 
 #include <iostream>
 
@@ -19,6 +20,10 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
 
     while (it.hasNext()) {
         ui->languageComboBox->addItem(it.next().split("/").last().split(".").first());
+    }
+
+    for (auto item : NetSpeedPluginMessages.values()) {
+        ui->nsBarContentCombo->addItem(item);
     }
 
     //
@@ -95,6 +100,20 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     ui->autoStartCombo->setCurrentText(QSTRING(CurrentConfig.autoStartConfig));
     ui->cancelIgnoreVersionBtn->setEnabled(CurrentConfig.ignoredVersion != "");
     ui->ignoredNextVersion->setText(QSTRING(CurrentConfig.ignoredVersion));
+    //
+    // TODO : Show nsBarPageList content.
+    //
+
+    for (size_t i = 0; i < CurrentConfig.speedBarConfig.Pages.size(); i++) {
+        ui->nsBarPagesList->addItem(tr("Page") + QString::number(i));
+    }
+
+    if (CurrentConfig.speedBarConfig.Pages.size() > 0) {
+        ui->nsBarPagesList->setCurrentRow(0);
+        on_nsBarPagesList_currentRowChanged(0);
+    }
+
+    CurrentBarPageId = 0;
     finishedLoading = true;
 }
 
@@ -370,122 +389,223 @@ void PrefrencesWindow::on_socksUDPIP_textEdited(const QString &arg1)
     CurrentConfig.inBoundSettings.socksLocalIP = arg1.toStdString();
 }
 
+// ------------------- NET SPEED PLUGIN OPERATIONS -----------------------------------------------------------------
+
+#define CurrentBarPage CurrentConfig.speedBarConfig.Pages[this->CurrentBarPageId]
+#define CurrentBarLine CurrentBarPage.Lines[this->CurrentBarLineId]
+#define SET_LINE_LIST_TEXT ui->nsBarLinesList->currentItem()->setText(GetBarLineDescription(CurrentBarLine));
+
 void PrefrencesWindow::on_nsBarPageAddBTN_clicked()
 {
     QvBarPage page;
     CurrentConfig.speedBarConfig.Pages.push_back(page);
-    CurrentBarPage = &page;
-    ShowLineParameters(*CurrentBarLine);
+    CurrentBarPageId = CurrentConfig.speedBarConfig.Pages.size() - 1 ;
+    // Add default line.
+    QvBarLine line;
+    CurrentBarPage.Lines.push_back(line);
+    CurrentBarLineId = 0;
+    ui->nsBarPagesList->addItem(QString::number(CurrentBarPageId));
+    ShowLineParameters(CurrentBarLine);
+    LOG(MODULE_UI, "Adding new page Id: " + to_string(CurrentBarPageId))
 }
 
 void PrefrencesWindow::on_nsBarPageDelBTN_clicked()
 {
-    for (size_t i = 0; i < CurrentConfig.speedBarConfig.Pages.size(); i++) {
-        if (CurrentBarPage == &CurrentConfig.speedBarConfig.Pages[i]) {
-            RemoveItem(CurrentConfig.speedBarConfig.Pages, i);
-        }
-    }
-
-    ui->nsBarPagesList->removeItemWidget(ui->nsBarPagesList->currentItem());
+    RemoveItem(CurrentConfig.speedBarConfig.Pages, static_cast<size_t>(ui->nsBarPagesList->currentRow()));
+    ui->nsBarPagesList->takeItem(ui->nsBarPagesList->currentRow());
 }
 
 void PrefrencesWindow::on_nsBarPageYOffset_valueChanged(int arg1)
 {
-    CurrentBarPage->OffsetYpx = arg1;
+    LOADINGCHECK
+    CurrentBarPage.OffsetYpx = arg1;
 }
 
 void PrefrencesWindow::on_nsBarLineAddBTN_clicked()
 {
     // WARNING Is it really just this simple?
     QvBarLine line;
-    CurrentBarPage->Lines.push_back(line);
-    CurrentBarLine = &line;
-    ShowLineParameters(*CurrentBarLine);
+    CurrentBarPage.Lines.push_back(line);
+    CurrentBarLineId = CurrentBarPage.Lines.size() - 1 ;
+    ui->nsBarLinesList->addItem(QString::number(CurrentBarLineId));
+    ShowLineParameters(CurrentBarLine);
+    LOG(MODULE_UI, "Adding new line Id: " + to_string(CurrentBarLineId))
+    // TODO Some UI Works such as enabling ui.
 }
 
 void PrefrencesWindow::on_nsBarLineDelBTN_clicked()
 {
-    for (size_t i = 0; i < CurrentBarPage->Lines.size(); i++) {
-        if (CurrentBarLine == &CurrentBarPage->Lines[i]) {
-            RemoveItem(CurrentBarPage->Lines, i);
-        }
-    }
-
-    ui->nsBarLinesList->removeItemWidget(ui->nsBarLinesList->currentItem());
+    RemoveItem(CurrentBarPage.Lines, static_cast<size_t>(ui->nsBarLinesList->currentRow()));
+    ui->nsBarLinesList->takeItem(ui->nsBarLinesList->currentRow());
+    CurrentBarLineId = 0;
+    // TODO Disabling some UI;
 }
 
 void PrefrencesWindow::on_nsBarPagesList_currentRowChanged(int currentRow)
 {
+    if (currentRow < 0) return;
+
     // Change page.
     // We reload the lines
     // Set all parameters item to the property of the first line.
-    CurrentBarPage = &CurrentConfig.speedBarConfig.Pages[ static_cast<unsigned long long>(currentRow)];
+    CurrentBarPageId = static_cast<size_t>(currentRow);
+    CurrentBarLineId = 0;
+    ui->nsBarPageYOffset->setValue(CurrentBarPage.OffsetYpx);
+    ui->nsBarLinesList->clear();
+
+    if (!CurrentBarPage.Lines.empty()) {
+        for (auto line : CurrentBarPage.Lines) {
+            auto description = GetBarLineDescription(line);
+            ui->nsBarLinesList->addItem(description);
+        }
+
+        ui->nsBarLinesList->setCurrentRow(0);
+        ShowLineParameters(CurrentBarLine);
+    }
 }
 
 void PrefrencesWindow::on_nsBarLinesList_currentRowChanged(int currentRow)
 {
-    CurrentBarLine = &CurrentBarPage->Lines[static_cast<unsigned long long>(currentRow)];
-    ShowLineParameters(*CurrentBarLine);
+    if (currentRow < 0) return;
+
+    CurrentBarLineId = static_cast<size_t>(currentRow);
+    ShowLineParameters(CurrentBarLine);
 }
 
 void PrefrencesWindow::on_fontComboBox_currentFontChanged(const QFont &f)
 {
-    CurrentBarLine->Family = f.family().toStdString();
+    LOADINGCHECK
+    CurrentBarLine.Family = f.family().toStdString();
+    SET_LINE_LIST_TEXT
 }
 
-void PrefrencesWindow::on_nsBarContentCombo_currentIndexChanged(int index)
+void PrefrencesWindow::on_nsBarFontBoldCB_stateChanged(int arg1)
 {
-    CurrentBarLine->ContentType = index;
+    LOADINGCHECK
+    CurrentBarLine.Bold = arg1 == Qt::Checked;
+    SET_LINE_LIST_TEXT
 }
 
-void PrefrencesWindow::on_nsBatFontBoldCB_stateChanged(int arg1)
+void PrefrencesWindow::on_nsBarFontItalicCB_stateChanged(int arg1)
 {
-    CurrentBarLine->Bold = arg1 == Qt::Checked;
-}
-
-void PrefrencesWindow::on_nsBatFontItalicCB_stateChanged(int arg1)
-{
-    CurrentBarLine->Italic = arg1 == Qt::Checked;
+    LOADINGCHECK
+    CurrentBarLine.Italic = arg1 == Qt::Checked;
+    SET_LINE_LIST_TEXT
 }
 
 void PrefrencesWindow::on_nsBarFontASB_valueChanged(int arg1)
 {
-    CurrentBarLine->ColorA = arg1;
+    LOADINGCHECK
+    CurrentBarLine.ColorA = arg1;
+    ShowLineParameters(CurrentBarLine);
+    SET_LINE_LIST_TEXT
 }
 
 void PrefrencesWindow::on_nsBarFontRSB_valueChanged(int arg1)
 {
-    CurrentBarLine->ColorR = arg1;
+    LOADINGCHECK
+    CurrentBarLine.ColorR = arg1;
+    ShowLineParameters(CurrentBarLine);
+    SET_LINE_LIST_TEXT
 }
 
 void PrefrencesWindow::on_nsBarFontGSB_valueChanged(int arg1)
 {
-    CurrentBarLine->ColorG = arg1;
+    LOADINGCHECK
+    CurrentBarLine.ColorG = arg1;
+    ShowLineParameters(CurrentBarLine);
+    SET_LINE_LIST_TEXT
 }
 
 void PrefrencesWindow::on_nsBarFontBSB_valueChanged(int arg1)
 {
-    CurrentBarLine->ColorB = arg1;
+    LOADINGCHECK
+    CurrentBarLine.ColorB = arg1;
+    ShowLineParameters(CurrentBarLine);
+    SET_LINE_LIST_TEXT
 }
 
 void PrefrencesWindow::on_nsBarFontSizeSB_valueChanged(double arg1)
 {
-    CurrentBarLine->Size = arg1;
+    LOADINGCHECK
+    CurrentBarLine.Size = arg1;
+    SET_LINE_LIST_TEXT
+}
+
+QString PrefrencesWindow::GetBarLineDescription(QvBarLine line)
+{
+    QString result = "Empty";
+    result = NetSpeedPluginMessages[line.ContentType];
+
+    // BUG Content type is null, then set empty;
+    if (line.ContentType == 0) {
+        result +=  "(" + QSTRING(line.Message) + ")";
+    }
+
+    result = result.append(line.Bold ?  ", " + tr("Bold") : "");
+    result = result.append(line.Italic ? ", " + tr("Italic") : "");
+    // TODO : Set more descriptions
+    return result;
 }
 
 void PrefrencesWindow::ShowLineParameters(QvBarLine &line)
 {
-    finishedLoading = true;
-    ui->fontComboBox->setCurrentFont(QFont(QSTRING(line.Family)));
+    finishedLoading = false;
+
+    if (!line.Family.empty()) {
+        ui->fontComboBox->setCurrentFont(QFont(QSTRING(line.Family)));
+    }
+
     // Colors
     ui->nsBarFontASB->setValue(line.ColorA);
     ui->nsBarFontBSB->setValue(line.ColorB);
     ui->nsBarFontGSB->setValue(line.ColorG);
     ui->nsBarFontRSB->setValue(line.ColorR);
     //
+    QColor color = QColor::fromRgb(line.ColorR, line.ColorG, line.ColorB, line.ColorA);
+    QString s("background: #"
+              + QString(color.red() < 16 ? "0" : "") + QString::number(color.red(), 16)
+              + QString(color.green() < 16 ? "0" : "") + QString::number(color.green(), 16)
+              + QString(color.blue() < 16 ? "0" : "") + QString::number(color.blue(), 16) + ";");
+    ui->chooseColorBtn->setStyleSheet(s);
     ui->nsBarFontSizeSB->setValue(line.Size);
     ui->nsBarFontBoldCB->setChecked(line.Bold);
     ui->nsBarFontItalicCB->setChecked(line.Italic);
-    ui->nsBarContentCombo->setCurrentIndex(line.ContentType);
-    finishedLoading = false;
+    ui->nsBarContentCombo->setCurrentText(NetSpeedPluginMessages[line.ContentType]);
+    ui->nsBarTagTxt->setText(QSTRING(line.Message));
+    finishedLoading = true;
+}
+
+void PrefrencesWindow::on_chooseColorBtn_clicked()
+{
+    LOADINGCHECK
+    QColorDialog d(QColor::fromRgb(CurrentBarLine.ColorR, CurrentBarLine.ColorG, CurrentBarLine.ColorB, CurrentBarLine.ColorA), this);
+    d.exec();
+
+    if (d.result() == QDialog::DialogCode::Accepted) {
+        d.selectedColor().getRgb(&CurrentBarLine.ColorR, &CurrentBarLine.ColorG, &CurrentBarLine.ColorB, &CurrentBarLine.ColorA);
+        ShowLineParameters(CurrentBarLine);
+        SET_LINE_LIST_TEXT
+    }
+}
+
+void PrefrencesWindow::on_nsBarTagTxt_textEdited(const QString &arg1)
+{
+    LOADINGCHECK
+    CurrentBarLine.Message = arg1.toStdString();
+    SET_LINE_LIST_TEXT
+}
+
+void PrefrencesWindow::on_nsBarContentCombo_currentIndexChanged(const QString &arg1)
+{
+    LOADINGCHECK
+    CurrentBarLine.ContentType = NetSpeedPluginMessages.key(arg1);
+    SET_LINE_LIST_TEXT
+}
+
+void PrefrencesWindow::on_applyNSBarSettingsBtn_clicked()
+{
+    auto conf = GetGlobalConfig();
+    conf.speedBarConfig = CurrentConfig.speedBarConfig;
+    SetGlobalConfig(conf);
 }

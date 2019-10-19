@@ -98,7 +98,8 @@ namespace Qv2ray
     void Qv2Instance::StopVCore()
     {
         vProcess->close();
-        lastData = QMap<QString, long>();
+        totalDataTransfered = QMap<QString, long>();
+        dataTransferSpeed = QMap<QString, long>();
         VCoreStatus = STOPPED;
     }
 
@@ -127,26 +128,28 @@ namespace Qv2ray
     long Qv2Instance::getTagLastUplink(QString tag)
     {
         auto val = CallStatsAPIByName("inbound>>>" + tag + ">>>traffic>>>uplink");
-        auto data = val - lastData[tag + "_up"];
-        lastData[tag + "_up"] = val;
+        auto data = val - totalDataTransfered[tag + "_up"];
+        totalDataTransfered[tag + "_up"] = val;
+        dataTransferSpeed[tag + "_up"] = data;
         return data;
     }
 
     long Qv2Instance::getTagLastDownlink(QString tag)
     {
         auto val = CallStatsAPIByName("inbound>>>" + tag + ">>>traffic>>>downlink");
-        auto data = val - lastData[tag + "_down"];
-        lastData[tag + "_down"] = val;
+        auto data = val - totalDataTransfered[tag + "_down"];
+        totalDataTransfered[tag + "_down"] = val;
+        dataTransferSpeed[tag + "_down"] = data;
         return data;
     }
 
     long Qv2Instance::getTagTotalUplink(QString tag)
     {
-        return lastData[tag + "_up"];
+        return totalDataTransfered[tag + "_up"];
     }
 
     long Qv2Instance::getTagTotalDownlink(QString tag)
     {
-        return lastData[tag + "_down"];
+        return totalDataTransfered[tag + "_down"];
     }
 }

@@ -158,8 +158,9 @@ namespace Qv2ray
             return QMessageBox::information(parent, title, text, QMessageBox::Yes | QMessageBox::No | extraButtons);
         }
 
-        QString FormatBytes(long long bytes, char *str)
+        QString FormatBytes(long long bytes)
         {
+            char str[64];
             const char *sizes[5] = { "B", "KB", "MB", "GB", "TB" };
             int i;
             double dblByte = bytes;

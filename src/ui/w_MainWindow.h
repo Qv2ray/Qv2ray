@@ -72,6 +72,13 @@ class MainWindow : public QMainWindow
         void on_shareVMessButton_clicked();
     public:
         QJsonObject CurrentFullConfig;
+        QString CurrentConnectionName = "";
+        Qv2Instance *vinstance;
+        QString totalDataUp;
+        QString totalDataDown;
+        QString totalSpeedUp;
+        QString totalSpeedDown;
+
     protected:
 
         void timerEvent(QTimerEvent *event);
@@ -83,10 +90,8 @@ class MainWindow : public QMainWindow
         QvHttpRequestHelper HTTPRequestHelper;
         QSystemTrayIcon *hTray;
         QMenu *trayMenu = new QMenu(this);
-        Qv2Instance *vinstance;
         QMenu listMenu;
         QMap<QString, QJsonObject> connections;
-        QString CurrentConnectionName = "";
         //
         QString originalName;
         bool isRenamingInProgress;
