@@ -54,6 +54,18 @@ namespace Qv2ray
             X::loadjson(str.toStdString(), v, false);
             return v;
         }
+        //
+
+
+        template <typename T>
+        void RemoveItem(std::vector<T> &vec, size_t pos)
+        {
+            auto it = vec.begin();
+            std::advance(it, pos);
+            vec.erase(it);
+        }
+
+
         QString FormatBytes(long long bytes, char *str);
     }
 }

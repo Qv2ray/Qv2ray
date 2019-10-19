@@ -544,7 +544,7 @@
               </widget>
              </item>
              <item row="1" column="1">
-              <widget class="QCheckBox" name="nsBatFontBoldCB">
+              <widget class="QCheckBox" name="nsBarFontBoldCB">
                <property name="text">
                 <string>Enabled</string>
                </property>
@@ -558,7 +558,7 @@
               </widget>
              </item>
              <item row="2" column="1">
-              <widget class="QCheckBox" name="nsBatFontItalicCB">
+              <widget class="QCheckBox" name="nsBarFontItalicCB">
                <property name="text">
                 <string>Enabled</string>
                </property>
@@ -723,9 +723,6 @@
             </property>
            </widget>
           </item>
-          <item row="4" column="1" rowspan="3" colspan="2">
-           <widget class="QListView" name="nsBarLinesList"/>
-          </item>
           <item row="2" column="3" rowspan="2">
            <spacer name="verticalSpacer_4">
             <property name="orientation">
@@ -761,9 +758,6 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="1" rowspan="3" colspan="2">
-           <widget class="QListView" name="nsBarPagesList"/>
-          </item>
           <item row="6" column="3">
            <spacer name="verticalSpacer_3">
             <property name="orientation">
@@ -776,6 +770,12 @@
              </size>
             </property>
            </spacer>
+          </item>
+          <item row="0" column="1" rowspan="3" colspan="2">
+           <widget class="QListWidget" name="nsBarPagesList"/>
+          </item>
+          <item row="4" column="1" rowspan="3" colspan="2">
+           <widget class="QListWidget" name="nsBarLinesList"/>
           </item>
          </layout>
         </widget>
