@@ -26,10 +26,10 @@
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
+      vinstance(),
       ui(new Ui::MainWindow),
       HTTPRequestHelper(),
-      hTray(new QSystemTrayIcon(this)),
-      vinstance()
+      hTray(new QSystemTrayIcon(this))
 {
     vinstance = new Qv2Instance(this);
     ui->setupUi(this);
@@ -230,7 +230,7 @@ void MainWindow::on_startButton_clicked()
     if (startFlag) {
         this->hTray->showMessage("Qv2ray", tr("Connected To Server: ") + CurrentConnectionName);
         hTray->setToolTip(TRAY_TOOLTIP_PREFIX "\r\n" + tr("Connected To Server: ") + CurrentConnectionName);
-        ui->statusLabel->setText(tr("Connected: ") + CurrentConnectionName);
+        ui->statusLabel->setText(tr("Connected") + ": " + CurrentConnectionName);
 
         if (GetGlobalConfig().enableStats) {
             vinstance->SetAPIPort(GetGlobalConfig().statsPort);
@@ -324,6 +324,7 @@ void MainWindow::ToggleVisibility()
 
 void MainWindow::quit()
 {
+    Utils::NetSpeedPlugin::StopProcessingPlugins();
     on_stopButton_clicked();
     QApplication::quit();
 }
@@ -647,7 +648,7 @@ void MainWindow::timerEvent(QTimerEvent *event)
 {
     Q_UNUSED(event)
     auto inbounds = CurrentFullConfig["inbounds"].toArray();
-    long totalSpeedUp = 0, totalSpeedDown = 0, totalDataUp = 0, totalDataDown = 0;
+    long _totalSpeedUp = 0, _totalSpeedDown = 0, _totalDataUp = 0, _totalDataDown = 0;
 
     foreach (auto inbound, inbounds) {
         auto tag = inbound.toObject()["tag"].toString();
@@ -657,21 +658,20 @@ void MainWindow::timerEvent(QTimerEvent *event)
             continue;
         }
 
-        totalSpeedUp += vinstance->getTagLastUplink(tag);
-        totalSpeedDown += vinstance->getTagLastDownlink(tag);
-        totalDataUp += vinstance->getTagTotalUplink(tag);
-        totalDataDown += vinstance->getTagTotalDownlink(tag);
+        _totalSpeedUp += vinstance->getTagLastUplink(tag);
+        _totalSpeedDown += vinstance->getTagLastDownlink(tag);
+        _totalDataUp += vinstance->getTagTotalUplink(tag);
+        _totalDataDown += vinstance->getTagTotalDownlink(tag);
     }
 
-    char s[32] = "";
-    auto speedUp = FormatBytes(totalSpeedUp, s);
-    auto speedDown = FormatBytes(totalSpeedDown, s);
-    auto dataUp = FormatBytes(totalDataUp, s);
-    auto dataDown = FormatBytes(totalDataDown, s);
+    totalSpeedUp = FormatBytes(_totalSpeedUp);
+    totalSpeedDown = FormatBytes(_totalSpeedDown);
+    totalDataUp = FormatBytes(_totalDataUp);
+    totalDataDown = FormatBytes(_totalDataDown);
     //
-    ui->netspeedLabel->setText(speedUp + "/s\r\n" + speedDown + "/s");
-    ui->dataamountLabel->setText(dataUp + "\r\n" + dataDown);
+    ui->netspeedLabel->setText(totalSpeedUp + "/s\r\n" + totalSpeedDown + "/s");
+    ui->dataamountLabel->setText(totalDataUp + "\r\n" + totalDataDown);
     //
-    hTray->setToolTip(TRAY_TOOLTIP_PREFIX "\r\n" + tr("Connected To Server: ") + CurrentConnectionName + "\r\nUp: " + speedUp + "/s Down: " + speedDown + "/s");
+    hTray->setToolTip(TRAY_TOOLTIP_PREFIX "\r\n" + tr("Connected To Server: ") + CurrentConnectionName + "\r\nUp: " + totalSpeedUp + "/s Down: " + totalSpeedDown + "/s");
 }
 

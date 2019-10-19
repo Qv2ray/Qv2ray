@@ -11,9 +11,18 @@ namespace Qv2ray
             namespace _win
             {
                 // Private Headers
-                constexpr int BUFSIZE = 1024;
+                constexpr int BUFSIZE = 10240;
                 DWORD WINAPI NamedPipeMasterThread(LPVOID lpvParam);
                 DWORD WINAPI InstanceThread(LPVOID);
+                static LPVOID ThreadHandle;
+                static bool isExiting = false;
+
+                //
+                void KillNamedPipeThread()
+                {
+                    isExiting = true;
+                    TerminateThread(ThreadHandle, 0);
+                }
                 //
                 void StartNamedPipeThread()
                 {
@@ -30,10 +39,10 @@ namespace Qv2ray
                     Q_UNUSED(lpvParam)
                     BOOL   fConnected = FALSE;
                     DWORD  dwThreadId = 0;
-                    HANDLE hPipe = INVALID_HANDLE_VALUE, hThread = nullptr;
+                    HANDLE hPipe = INVALID_HANDLE_VALUE;
                     auto lpszPipename = QString("\\\\.\\pipe\\qv2ray_desktop_netspeed_toolbar_pipe").toStdWString();
 
-                    while (true) {
+                    while (!isExiting) {
                         //printf("Pipe Server: Main thread awaiting client connection on %s\n", lpszPipename.c_str());
                         hPipe = CreateNamedPipe(lpszPipename.c_str(), PIPE_ACCESS_DUPLEX, PIPE_TYPE_MESSAGE | PIPE_READMODE_MESSAGE | PIPE_WAIT, PIPE_UNLIMITED_INSTANCES, BUFSIZE, BUFSIZE, 0, nullptr);
 
@@ -46,14 +55,16 @@ namespace Qv2ray
 
                         if (fConnected) {
                             LOG(MODULE_PLUGIN, "Client connected, creating a processing thread")
-                            hThread = CreateThread(nullptr, 0, InstanceThread, hPipe, 0, &dwThreadId);
+                            ThreadHandle = CreateThread(nullptr, 0, InstanceThread, hPipe, 0, &dwThreadId);
 
-                            if (hThread == nullptr) {
+                            if (ThreadHandle == nullptr) {
                                 LOG(MODULE_PLUGIN, "CreateThread failed, GLE=%d.\n" << GetLastError())
                                 return static_cast<DWORD>(-1);
-                            } else CloseHandle(hThread);
+                            } else CloseHandle(ThreadHandle);
                         } else CloseHandle(hPipe);
                     }
+
+                    return 0;
                 }
 
                 DWORD WINAPI InstanceThread(LPVOID lpvParam)
@@ -63,7 +74,7 @@ namespace Qv2ray
                     HANDLE hPipe = static_cast<HANDLE>(lpvParam);
                     TCHAR pchRequest[BUFSIZE] = { 0 };
 
-                    while (1) {
+                    while (!isExiting) {
                         fSuccess = ReadFile(hPipe, pchRequest, BUFSIZE * sizeof(TCHAR), &cbBytesRead, nullptr);
 
                         if (!fSuccess || cbBytesRead == 0) {
@@ -77,7 +88,7 @@ namespace Qv2ray
                         }
 
                         auto req = QString::fromStdWString(pchRequest);
-                        auto replyQString = GetAnswerToRequest(req);
+                        auto replyQString = isExiting ? "{}" : GetAnswerToRequest(req);
                         //
                         // REPLY as std::string
                         std::string pchReply = replyQString.toUtf8().constData();

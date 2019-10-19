@@ -66,7 +66,7 @@ namespace Qv2ray
         }
 
 
-        QString FormatBytes(long long bytes, char *str);
+        QString FormatBytes(long long bytes);
     }
 }
 

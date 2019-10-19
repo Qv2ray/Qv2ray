@@ -93,11 +93,9 @@ class PrefrencesWindow : public QDialog
 
         void on_fontComboBox_currentFontChanged(const QFont &f);
 
-        void on_nsBarContentCombo_currentIndexChanged(int index);
+        void on_nsBarFontBoldCB_stateChanged(int arg1);
 
-        void on_nsBatFontBoldCB_stateChanged(int arg1);
-
-        void on_nsBatFontItalicCB_stateChanged(int arg1);
+        void on_nsBarFontItalicCB_stateChanged(int arg1);
 
         void on_nsBarFontASB_valueChanged(int arg1);
 
@@ -109,12 +107,21 @@ class PrefrencesWindow : public QDialog
 
         void on_nsBarFontSizeSB_valueChanged(double arg1);
 
+        void on_chooseColorBtn_clicked();
+
+        void on_nsBarTagTxt_textEdited(const QString &arg1);
+
+        void on_nsBarContentCombo_currentIndexChanged(const QString &arg1);
+
+        void on_applyNSBarSettingsBtn_clicked();
+
     private:
         // Set ui parameters for a line;
         void ShowLineParameters(QvBarLine &line);
+        QString GetBarLineDescription(QvBarLine line);
         //
-        QvBarLine *CurrentBarLine;
-        QvBarPage *CurrentBarPage;
+        size_t CurrentBarLineId;
+        size_t CurrentBarPageId;
         //
         bool IsConnectionPropertyChanged = false;
         bool finishedLoading = false;

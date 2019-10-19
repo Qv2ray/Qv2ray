@@ -41,12 +41,13 @@ namespace Qv2ray
                 QString ReadProcessOutput();
 
                 ~Qv2Instance();
+                QMap<QString, long> totalDataTransfered;
+                QMap<QString, long> dataTransferSpeed;
             private:
                 long CallStatsAPIByName(QString name);
                 QProcess *vProcess;
                 std::shared_ptr<::grpc::Channel> Channel;
                 std::unique_ptr<StatsService::Stub> Stub;
-                QMap<QString, long> lastData;
                 int port;
         };
     }

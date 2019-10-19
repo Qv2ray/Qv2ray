@@ -242,7 +242,6 @@ namespace Qv2ray
                 root.insert("routing", routeObject);
                 QJsonArray outbounds = root["outbounds"].toArray();
                 outbounds.append(GenerateOutboundEntry("freedom", GenerateFreedomOUT("AsIs", ":0", 0), QJsonObject(), QJsonObject(), "0.0.0.0", OUTBOUND_TAG_DIRECT));
-                // TODO
                 //
                 // We don't want to add MUX into the first one in the list.....
                 // TODO: However, this can be added to the Connection Edit Window...
