@@ -108,9 +108,9 @@ void InboundEditor::LoadUIData()
     ui->dokoTCPCB->setChecked(dokoSettings["network"].toString().contains("tcp"));
     ui->dokoUDPCB->setChecked(dokoSettings["network"].toString().contains("udp"));
     // MTProto
-    ui->mtEMailTxt->setText(mtSettings["users"].toArray().first()["email"].toString());
-    ui->mtUserLevelSB->setValue(mtSettings["users"].toArray().first()["level"].toInt());
-    ui->mtSecretTxt->setText(mtSettings["users"].toArray().first()["secret"].toString());
+    ui->mtEMailTxt->setText(mtSettings["users"].toArray().first().toObject()["email"].toString());
+    ui->mtUserLevelSB->setValue(mtSettings["users"].toArray().first().toObject()["level"].toInt());
+    ui->mtSecretTxt->setText(mtSettings["users"].toArray().first().toObject()["secret"].toString());
     isLoading = false;
 }
 

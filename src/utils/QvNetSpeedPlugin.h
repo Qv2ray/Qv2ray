@@ -24,36 +24,36 @@ namespace Qv2ray
 #endif
 
             struct QvBarLine {
-                std::string  Family;
-                bool         Bold;
-                bool         Italic;
-                // This idiot should be DWORD
-                // --> Which is unsigned long
-                // ----> Which x2struct does not support.
-                long long    Color;
-                double       Size;
-                std::string        Message;
+                std::string     Family;
+                bool            Bold;
+                bool            Italic;
+                int             ColorA;
+                int             ColorR;
+                int             ColorG;
+                int             ColorB;
+                int             ContentType;
+                double          Size;
+                std::string     Message;
                 QvBarLine()
-                    : Family(u8"微软雅黑")
+                    : Family("微软雅黑")
                     , Bold(true)
                     , Italic(false)
-                    , Color(0x00FFFFFF)
+                    , ColorA(0), ColorR(0), ColorG(0), ColorB(0)
                     , Size(8.5),
                       Message() { }
-                XTOSTRUCT(O(Bold, Italic, Color, Size, Family, Message))
+                XTOSTRUCT(O(Bold, Italic, ColorA, ColorR, ColorG, ColorB, Size, Family, Message))
             };
 
             struct QvBarPage {
-                int                    OffsetYpx;
+                int OffsetYpx;
                 std::vector<QvBarLine> Lines;
-                QvBarPage() : OffsetYpx(0) { }
                 XTOSTRUCT(O(OffsetYpx, Lines))
+                QvBarPage() : OffsetYpx(0) { }
             };
 
             struct QvNetSpeedBarConfig {
                 std::vector<QvBarPage> Pages;
                 XTOSTRUCT(O(Pages))
-                QvNetSpeedBarConfig() { }
             };
 
             QString GetAnswerToRequest(QString pchRequest);

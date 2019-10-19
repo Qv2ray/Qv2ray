@@ -5,6 +5,7 @@
 
 #include <iostream>
 
+#define LOADINGCHECK if(!finishedLoading) return;
 #define NEEDRESTART if(finishedLoading) IsConnectionPropertyChanged = true;
 
 PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
@@ -367,4 +368,124 @@ void PrefrencesWindow::on_socksUDPIP_textEdited(const QString &arg1)
 {
     NEEDRESTART
     CurrentConfig.inBoundSettings.socksLocalIP = arg1.toStdString();
+}
+
+void PrefrencesWindow::on_nsBarPageAddBTN_clicked()
+{
+    QvBarPage page;
+    CurrentConfig.speedBarConfig.Pages.push_back(page);
+    CurrentBarPage = &page;
+    ShowLineParameters(*CurrentBarLine);
+}
+
+void PrefrencesWindow::on_nsBarPageDelBTN_clicked()
+{
+    for (size_t i = 0; i < CurrentConfig.speedBarConfig.Pages.size(); i++) {
+        if (CurrentBarPage == &CurrentConfig.speedBarConfig.Pages[i]) {
+            RemoveItem(CurrentConfig.speedBarConfig.Pages, i);
+        }
+    }
+
+    ui->nsBarPagesList->removeItemWidget(ui->nsBarPagesList->currentItem());
+}
+
+void PrefrencesWindow::on_nsBarPageYOffset_valueChanged(int arg1)
+{
+    CurrentBarPage->OffsetYpx = arg1;
+}
+
+void PrefrencesWindow::on_nsBarLineAddBTN_clicked()
+{
+    // WARNING Is it really just this simple?
+    QvBarLine line;
+    CurrentBarPage->Lines.push_back(line);
+    CurrentBarLine = &line;
+    ShowLineParameters(*CurrentBarLine);
+}
+
+void PrefrencesWindow::on_nsBarLineDelBTN_clicked()
+{
+    for (size_t i = 0; i < CurrentBarPage->Lines.size(); i++) {
+        if (CurrentBarLine == &CurrentBarPage->Lines[i]) {
+            RemoveItem(CurrentBarPage->Lines, i);
+        }
+    }
+
+    ui->nsBarLinesList->removeItemWidget(ui->nsBarLinesList->currentItem());
+}
+
+void PrefrencesWindow::on_nsBarPagesList_currentRowChanged(int currentRow)
+{
+    // Change page.
+    // We reload the lines
+    // Set all parameters item to the property of the first line.
+    CurrentBarPage = &CurrentConfig.speedBarConfig.Pages[ static_cast<unsigned long long>(currentRow)];
+}
+
+void PrefrencesWindow::on_nsBarLinesList_currentRowChanged(int currentRow)
+{
+    CurrentBarLine = &CurrentBarPage->Lines[static_cast<unsigned long long>(currentRow)];
+    ShowLineParameters(*CurrentBarLine);
+}
+
+void PrefrencesWindow::on_fontComboBox_currentFontChanged(const QFont &f)
+{
+    CurrentBarLine->Family = f.family().toStdString();
+}
+
+void PrefrencesWindow::on_nsBarContentCombo_currentIndexChanged(int index)
+{
+    CurrentBarLine->ContentType = index;
+}
+
+void PrefrencesWindow::on_nsBatFontBoldCB_stateChanged(int arg1)
+{
+    CurrentBarLine->Bold = arg1 == Qt::Checked;
+}
+
+void PrefrencesWindow::on_nsBatFontItalicCB_stateChanged(int arg1)
+{
+    CurrentBarLine->Italic = arg1 == Qt::Checked;
+}
+
+void PrefrencesWindow::on_nsBarFontASB_valueChanged(int arg1)
+{
+    CurrentBarLine->ColorA = arg1;
+}
+
+void PrefrencesWindow::on_nsBarFontRSB_valueChanged(int arg1)
+{
+    CurrentBarLine->ColorR = arg1;
+}
+
+void PrefrencesWindow::on_nsBarFontGSB_valueChanged(int arg1)
+{
+    CurrentBarLine->ColorG = arg1;
+}
+
+void PrefrencesWindow::on_nsBarFontBSB_valueChanged(int arg1)
+{
+    CurrentBarLine->ColorB = arg1;
+}
+
+void PrefrencesWindow::on_nsBarFontSizeSB_valueChanged(double arg1)
+{
+    CurrentBarLine->Size = arg1;
+}
+
+void PrefrencesWindow::ShowLineParameters(QvBarLine &line)
+{
+    finishedLoading = true;
+    ui->fontComboBox->setCurrentFont(QFont(QSTRING(line.Family)));
+    // Colors
+    ui->nsBarFontASB->setValue(line.ColorA);
+    ui->nsBarFontBSB->setValue(line.ColorB);
+    ui->nsBarFontGSB->setValue(line.ColorG);
+    ui->nsBarFontRSB->setValue(line.ColorR);
+    //
+    ui->nsBarFontSizeSB->setValue(line.Size);
+    ui->nsBarFontBoldCB->setChecked(line.Bold);
+    ui->nsBarFontItalicCB->setChecked(line.Italic);
+    ui->nsBarContentCombo->setCurrentIndex(line.ContentType);
+    finishedLoading = false;
 }
