@@ -1,4 +1,4 @@
-
+#ifdef _WIN32
 #include "QvNetSpeedPlugin.h"
 #include "QvUtils.h"
 namespace Qv2ray
@@ -7,7 +7,6 @@ namespace Qv2ray
     {
         namespace NetSpeedPlugin
         {
-#ifdef _WIN32
             namespace _win
             {
                 // Private Headers
@@ -109,7 +108,7 @@ namespace Qv2ray
                     return 1;
                 }
             }
-#endif
         }
     }
 }
+#endif

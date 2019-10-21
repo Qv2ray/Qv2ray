@@ -5,6 +5,7 @@
 #include "QvTinyLog.h"
 #include "QvCoreConfigObjects.h"
 #include "QvNetSpeedPlugin.h"
+#include "QObjectMessageProxy.h"
 
 #define QV2RAY_VERSION_STRING "v" QV_MAJOR_VERSION
 
@@ -17,10 +18,8 @@
 #define QV2RAY_V2RAY_CORE_DIR_PATH (QV2RAY_CONFIG_DIR_PATH + "vcore/")
 
 #ifdef __WIN32
-// Win32 has .exe
 #define QV2RAY_V2RAY_CORE_PATH (QV2RAY_V2RAY_CORE_DIR_PATH + "v2ray.exe")
 #else
-// macOS and Linux....
 #define QV2RAY_V2RAY_CORE_PATH (QV2RAY_V2RAY_CORE_DIR_PATH + "v2ray")
 #endif
 
@@ -32,9 +31,9 @@
 #define QV2RAY_VCORE_ERROR_LOG_FILENAME "error.log"
 
 // GUI TOOLS
-#define RED(obj)                             \
-    auto _temp = ui->obj->palette();         \
-    _temp.setColor(QPalette::Text, Qt::red); \
+#define RED(obj)                               \
+    auto _temp = ui->obj->palette();           \
+    _temp.setColor(QPalette::Text, Qt::red);   \
     ui->obj->setPalette(_temp);
 
 #define BLACK(obj)                             \
