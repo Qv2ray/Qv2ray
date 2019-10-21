@@ -15,7 +15,7 @@ namespace Qv2ray
     {
         namespace NetSpeedPlugin
         {
-            // NO NOT CHANGE THE ORDER ONCE THE
+            /// NO NOT CHANGE THE ORDER
             static const QMap<int, QString> NetSpeedPluginMessages {
                 {0, QObject::tr("Custom Text")},
                 // Current Status
@@ -42,6 +42,17 @@ namespace Qv2ray
             {
                 void StartNamedPipeThread();
                 void KillNamedPipeThread();
+            }
+#endif
+#ifdef __linux__
+            namespace _linux
+            {
+                // This function is called within a QThread
+                // Actually it should the entrypoint of a thread.
+                void DataMessageQThread();
+                void StartMessageQThread();
+                void StopMessageQThread();
+
             }
 #endif
 
@@ -78,7 +89,7 @@ namespace Qv2ray
                 XTOSTRUCT(O(Pages))
             };
 
-            QString GetAnswerToRequest(QString pchRequest);
+            QString GetAnswerToRequest(const QString &pchRequest);
 
         }
     } // namespace Utils

@@ -28,10 +28,12 @@ SOURCES += \
         src/QvCoreInteractions.cpp \
         src/QvUtils.cpp \
         src/ui/NetSpeedBar/QvNetSpeedBar.cpp \
+        src/ui/NetSpeedBar/QvNetSpeedBar_linux.cpp \
         src/ui/w_InboundEditor.cpp \
         src/ui/w_OutboundEditor.cpp \
         src/ui/w_RoutesEditor.cpp \
         src/ui/w_SubscriptionEditor.cpp \
+        src/utils/QObjectMessageProxy.cpp \
         src/utils/QPingModel.cpp \
         src/utils/QvHTTPRequestHelper.cpp \
         src/utils/QvRunguard.cpp \
@@ -62,6 +64,7 @@ HEADERS += \
         src/ui/w_RoutesEditor.h \
         src/ui/w_SubscriptionEditor.h \
         src/utils/QJsonObjectInsertMacros.h \
+        src/utils/QObjectMessageProxy.h \
         src/utils/QPingModel.h \
         src/utils/QvHTTPRequestHelper.h \
         src/utils/QvNetSpeedPlugin.h \
@@ -134,7 +137,7 @@ for(var, $$list($$files("translations/*.ts", true))) {
 message("Qv2ray will build with" $${replace(EXTRA_TRANSLATIONS, "translations/", "")})
 TRANSLATIONS += translations/en-US.ts
 
-QMAKE_CXXFLAGS += "-Wno-missing-field-initializers" "-Wno-unused-parameter"
+QMAKE_CXXFLAGS += "-Wno-missing-field-initializers" "-Wno-unused-parameter" "-Wno-unused-variable"
 win32 {
     message("Configuring for win32 environment")
     message("  --> Setting up target descriptions")

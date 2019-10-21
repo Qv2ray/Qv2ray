@@ -65,7 +65,6 @@ namespace Qv2ray
             vec.erase(it);
         }
 
-
         QString FormatBytes(long long bytes);
     }
 }

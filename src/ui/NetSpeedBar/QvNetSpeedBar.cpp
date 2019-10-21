@@ -1,3 +1,4 @@
+#include <QThread>
 #include "QvNetSpeedPlugin.h"
 #include "QvUtils.h"
 
@@ -10,32 +11,40 @@ namespace Qv2ray
         {
             static MainWindow *mainWindow;
             static Qv2rayConfig config;
-
             void StopProcessingPlugins()
             {
+#ifdef __linux__
+                _linux::StopMessageQThread();
+#endif
 #ifdef _WIN32
                 _win::KillNamedPipeThread();
 #endif
             }
 
+            /// Public Function - CALL ONLY ONCE -
+            /// To start processing plugins' command.
             void StartProcessingPlugins(QWidget *_mainWindow)
             {
                 mainWindow = static_cast<MainWindow *>(_mainWindow);
                 config = GetGlobalConfig();
+#ifdef __linux__
+                _linux::StartMessageQThread();
+#endif
 #ifdef _WIN32
                 _win::StartNamedPipeThread();
 #endif
             }
-            QString GetAnswerToRequest(QString pchRequest)
+            QString GetAnswerToRequest(const QString &pchRequest)
             {
+                auto req = pchRequest.trimmed();
                 config = GetGlobalConfig();
                 QString reply = "{}";
 
-                if (pchRequest == "START") {
+                if (req == "START") {
                     emit mainWindow->Connect();
-                } else if (pchRequest == "STOP") {
+                } else if (req == "STOP") {
                     emit mainWindow->DisConnect();
-                } else if (pchRequest == "RESTART") {
+                } else if (req == "RESTART") {
                     emit mainWindow->ReConnect();
                 }
 
