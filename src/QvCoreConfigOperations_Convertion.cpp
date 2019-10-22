@@ -25,14 +25,15 @@ namespace Qv2ray
             auto vmessConf = JsonFromString(Base64Decode(vmessJsonB64.toString()));
             string ps, add, id, net, type, host, path, tls;
             int port, aid;
-            ps = vmessConf["ps"].toVariant().toString().toStdString();
+            ps = vmessConf.contains("ps") ? vmessConf["ps"].toVariant().toString().toStdString()
+                                : (vmessConf["add"].toVariant().toString().toStdString() + ":" + vmessConf["port"].toVariant().toString().toStdString());
             add = vmessConf["add"].toVariant().toString().toStdString();
             id = vmessConf["id"].toVariant().toString().toStdString();
-            net = vmessConf["net"].toVariant().toString().toStdString();
-            type = vmessConf["type"].toVariant().toString().toStdString();
+            net = vmessConf.contains("net") ? vmessConf["net"].toVariant().toString().toStdString() : "tcp";
+            type = vmessConf.contains("type") ? vmessConf["type"].toVariant().toString().toStdString() : "none";
             host = vmessConf["host"].toVariant().toString().toStdString();
             path = vmessConf["path"].toVariant().toString().toStdString();
-            tls = vmessConf["tls"].toVariant().toString().toStdString();
+            tls = vmessConf.contains("tls") ? vmessConf["tls"].toVariant().toString().toStdString() : "";
             //
             port = vmessConf["port"].toVariant().toInt();
             aid = vmessConf["aid"].toVariant().toInt();
