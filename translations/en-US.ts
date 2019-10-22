@@ -113,7 +113,7 @@
     </message>
     <message>
         <location filename="../src/ui/w_ImportConfig.cpp" line="93"/>
-        <source>Some internal error occured.</source>
+        <source>VMess config is not valid.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

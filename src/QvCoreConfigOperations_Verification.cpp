@@ -25,21 +25,14 @@ namespace Qv2ray
                 flag = flag && C("port");
                 flag = flag && C("add");
                 // Stream Settings
-                auto net = vmessConf["net"].toString();
+                auto net = C("net") ? vmessConf["net"].toString() : "tcp";
 
-                if (net == "tcp")
-                    flag = flag && C("type");
-                else if (net == "http" || net == "ws")
+                if (net == "http" || net == "ws")
                     flag = flag && C("host") && C("path");
-                else if (net == "kcp")
-                    flag = flag && C("type");
                 else if (net == "domainsocket")
                     flag = flag && C("path");
                 else if (net == "quic")
                     flag = flag && C("host") && C("type") && C("path");
-
-                flag = flag && C("tls");
-                flag = flag && C("net");
 #undef C
                 return flag ? 0 : 1;
             } catch (exception *e) {

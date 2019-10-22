@@ -325,13 +325,13 @@
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="69"/>
-      <source>VMess string is not valid</source>
+      <source>VMess string is not valid.</source>
       <translation>VMess 字符串无效</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="74"/>
-      <source>Some internal error occured</source>
-      <translation>发生了某些内部错误</translation>
+      <source>VMess config is not valid.</source>
+      <translation>VMess 配置无效</translation>
     </message>
   </context>
   <context>
