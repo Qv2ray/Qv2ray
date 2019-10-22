@@ -92,7 +92,7 @@ MainWindow::MainWindow(QWidget *parent)
     HTTPRequestHelper.get("https://api.github.com/repos/lhy0403/Qv2ray/releases/latest");
 
     //
-    if (!vinstance->ValidateKernal()) {
+    if (!vinstance->ValidateKernel()) {
         QDesktopServices::openUrl(QUrl::fromLocalFile(QV2RAY_V2RAY_CORE_DIR_PATH));
     } else {
         auto conf = GetGlobalConfig();

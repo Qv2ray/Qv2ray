@@ -9,14 +9,40 @@
 
 namespace Qv2ray
 {
+
+    bool Qv2Instance::ValidateKernel()
+    {
+        QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
+        env.insert("V2RAY_LOCATION_ASSET", QString::fromStdString(GetGlobalConfig().v2AssetsPath));
+        env.insert("PATH", QV2RAY_V2RAY_CORE_DIR_PATH + ":" + env.value("PATH"));
+        QProcess process;
+        process.setProcessEnvironment(env);
+        process.start(QV2RAY_V2RAY_CORE_EXEC_NAME, QStringList() << "-version", QIODevice::ReadWrite | QIODevice::Text);
+        if (!process.waitForStarted()) {
+            Utils::QvMessageBox(nullptr, QObject::tr("Cannot start v2ray"), QObject::tr("v2ray core file cannot be found at:") + QV2RAY_V2RAY_CORE_PATH);
+            return false;
+        }
+        if (!process.waitForFinished()) {
+            LOG(MODULE_VCORE, "v2ray core failed with exitcode: " << process.exitCode())
+            Utils::QvMessageBox(nullptr, QObject::tr("Cannot start v2ray"), QObject::tr("Broken v2ray executable"));
+            return false;
+        }
+        if (process.exitCode() != 0) {
+            Utils::QvMessageBox(nullptr, QObject::tr("Cannot start v2ray"), QObject::tr("Broken v2ray executable"));
+            return false;
+        }
+        return true;
+    }
+
     bool Qv2Instance::ValidateConfig(const QString *path)
     {
-        if (ValidateKernal()) {
+        if (ValidateKernel()) {
             QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
             env.insert("V2RAY_LOCATION_ASSET", QString::fromStdString(GetGlobalConfig().v2AssetsPath));
+            env.insert("PATH", QV2RAY_V2RAY_CORE_DIR_PATH + ":" + env.value("PATH"));
             QProcess process;
             process.setProcessEnvironment(env);
-            process.start(QV2RAY_V2RAY_CORE_PATH, QStringList() << "-test" << "-config" << *path, QIODevice::ReadWrite | QIODevice::Text);
+            process.start(QV2RAY_V2RAY_CORE_EXEC_NAME, QStringList() << "-test" << "-config" << *path, QIODevice::ReadWrite | QIODevice::Text);
 
             if (!process.waitForFinished()) {
                 LOG(MODULE_VCORE, "v2ray core failed with exitcode: " << process.exitCode())
@@ -58,14 +84,6 @@ namespace Qv2ray
         return vProcess->readAllStandardOutput();
     }
 
-    bool Qv2Instance::ValidateKernal()
-    {
-        if (!QFile::exists(QV2RAY_V2RAY_CORE_PATH)) {
-            Utils::QvMessageBox(nullptr, QObject::tr("Cannot start v2ray"), QObject::tr("v2ray core file cannot be found at:") + QV2RAY_V2RAY_CORE_PATH);
-            return false;
-        } else return true;
-    }
-
     bool Qv2Instance::StartVCore()
     {
         if (VCoreStatus != STOPPED) {
@@ -74,7 +92,7 @@ namespace Qv2ray
 
         VCoreStatus = STARTING;
 
-        if (ValidateKernal()) {
+        if (ValidateKernel()) {
             auto filePath = QV2RAY_GENERATED_FILE_PATH;
 
             if (ValidateConfig(&filePath)) {

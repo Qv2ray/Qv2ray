@@ -38,7 +38,11 @@ bool initQv()
         //
         // These below genenrated very basic global config.
         Qv2rayBasicInboundsConfig inboundSetting = Qv2rayBasicInboundsConfig("127.0.0.1", 1080, 8000);
-        Qv2rayConfig conf = Qv2rayConfig("zh-CN", QV2RAY_V2RAY_CORE_DIR_PATH.toStdString(), 4, inboundSetting);
+        auto v2AssetsPath = QV2RAY_V2RAY_CORE_DIR_PATH.toStdString();
+#ifdef V2RAY_LOCATION_ASSET
+        v2AssetsPath = V2RAY_LOCATION_ASSET;
+#endif
+        Qv2rayConfig conf = Qv2rayConfig("zh-CN", v2AssetsPath, 4, inboundSetting);
         //
         // Save initial config.
         SetGlobalConfig(conf);

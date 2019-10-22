@@ -37,7 +37,7 @@ namespace Qv2ray
                 void StopVCore();
                 V2RAY_INSTANCE_STARTUP_STATUS VCoreStatus;
                 static bool ValidateConfig(const QString *path);
-                static bool ValidateKernal();
+                static bool ValidateKernel();
                 QString ReadProcessOutput();
 
                 ~Qv2Instance();
