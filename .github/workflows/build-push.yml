@@ -17,7 +17,10 @@ jobs:
         with:
           arch: win64_mingw73
 # --------------------------------------------------------
-      - name: Build Qv2ray
+      - name: Extract gRPC and protobuf
+        run: tools\grpc_gen.bat
+# --------------------------------------------------------
+      - name: Build Qv2ray gen_grpc.bat
         run: |
           mkdir build
           cd build
@@ -54,6 +57,9 @@ jobs:
       - name: Install Qt
         uses: jurplel/install-qt-action@v1
 # --------------------------------------------------------
+      - name: Extract gRPC and protobuf
+        run: tools/deps_macOS.sh
+# --------------------------------------------------------
       - name: Build Qv2ray
         run: |
           mkdir build
@@ -86,8 +92,12 @@ jobs:
       - name: Install Qt
         uses: jurplel/install-qt-action@v1
 # --------------------------------------------------------
-      - name: Install libgl-dev and openssl libx11-dev libxkbcommon-x11-dev
+      - name: Install libgl-dev and openssl libx11-dev libxkbcommon-x11-dev libgrpc++-dev libprotobuf-dev protobuf-compiler protobuf-c-compiler protobuf-compiler-grpc
         run: sudo apt install -y libgl-dev openssl libx11-dev libxkbcommon-x11-dev mlocate
+# --------------------------------------------------------
+      - name: Extract gRPC and protobuf
+        run: tools/grpc_gen.sh
+# --------------------------------------------------------
       - name: Update Locate DB
         run: sudo updatedb
       - name: Build Qv2ray
@@ -101,9 +111,9 @@ jobs:
           cd build
           make install INSTALL_ROOT=AppDir
           cd AppDir
-          mkdir -p ./opt/Qv2ray/lib/
-          cp $(locate $(strings $(locate libQt5Network.so|grep usr|head -n1)|grep libssl.so)|grep /lib/|head -n1) ./opt/Qv2ray/lib/
-          cp $(locate $(strings $(locate libQt5Network.so|grep usr|head -n1)|grep crypto.so)|grep /lib/|head -n1) ./opt/Qv2ray/lib/
+          mkdir -p ./usr/lib/
+          cp /lib/x86_64-linux-gnu/libssl.so.1.1 /lib/x86_64-linux-gnu/libcrypto.so.1.1 ./usr/lib/
+          cp /lib/x86_64-linux-gnu/libssl.so.1.0.0 /lib/x86_64-linux-gnu/libcrypto.so.1.0.0 ./usr/lib/
       - name: Build AppImage using linuxdeployqt
         run: |
           cd build/AppDir
@@ -111,7 +121,7 @@ jobs:
           mv ./linuxdeployqt-6-x86_64.AppImage ../
           chmod +x ../linuxdeployqt-6-x86_64.AppImage
           ../linuxdeployqt-6-x86_64.AppImage --appimage-extract 
-          ./squashfs-root/AppRun opt/Qv2ray/share/applications/Qv2ray.desktop -appimage -no-strip -always-overwrite
+          ./squashfs-root/AppRun usr/share/applications/Qv2ray.desktop -appimage -no-strip -always-overwrite
           mv ./Qv2ray*.AppImage ./Qv2ray.AppImage
       - name: Upload Artifact
         uses: actions/upload-artifact@master
