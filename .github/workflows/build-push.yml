@@ -1,12 +1,10 @@
-name: Build Artifact for Release
+name: Build Cross-platform Qv2ray
 
-on:
-  release:
-    types: [prereleased]
+on: push
 
 jobs:
   Windows:
-    name: Release for Windows x64
+    name: Push build for win64
     runs-on: windows-2019
     steps:
       - name: Checkout Sources
@@ -41,19 +39,11 @@ jobs:
         with:
           name: Qv2ray.Win64.zip
           path: build/Qv2ray.zip
-      - name: Upload binaries to release
-        uses: svenstaro/upload-release-action@v1-release
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: build/Qv2ray.zip
-          asset_name: Qv2ray-${{ github.ref }}-win64.zip
-          tag: ${{ github.ref }}
-          overwrite: true
 
 # =========================================================================================
 
   macOS:
-    name: Release for macOS
+    name: Push build for macOS
     runs-on: macOS-10.14
     steps:
       - name: Checkout Sources
@@ -82,18 +72,10 @@ jobs:
         with:
           name: Qv2ray.macOS.app.zip
           path: build/Qv2ray.app.tar.gz
-      - name: Upload binaries to release
-        uses: svenstaro/upload-release-action@v1-release
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: build/Qv2ray.app.tar.gz
-          asset_name: Qv2ray-${{ github.ref }}-macOS.tar.gz
-          tag: ${{ github.ref }}
-          overwrite: true
 # ===================================================================================
           
   Linux:
-    name: Release for linux
+    name: Push build for Linux
     runs-on: ubuntu-16.04
     steps:
       - name: Checkout Sources
@@ -105,7 +87,9 @@ jobs:
         uses: jurplel/install-qt-action@v1
 # --------------------------------------------------------
       - name: Install libgl-dev and openssl libx11-dev libxkbcommon-x11-dev
-        run: sudo apt install -y libgl-dev openssl libx11-dev libxkbcommon-x11-dev
+        run: sudo apt install -y libgl-dev openssl libx11-dev libxkbcommon-x11-dev mlocate
+      - name: Update Locate DB
+        run: sudo updatedb
       - name: Build Qv2ray
         run: |
           mkdir build
@@ -118,8 +102,8 @@ jobs:
           make install INSTALL_ROOT=AppDir
           cd AppDir
           mkdir -p ./opt/Qv2ray/lib/
-          cp /lib/x86_64-linux-gnu/libssl.so.1.0.0 /lib/x86_64-linux-gnu/libcrypto.so.1.0.0 ./opt/Qv2ray/lib/
-          cp /lib/x86_64-linux-gnu/libssl.so.1.1 /lib/x86_64-linux-gnu/libcrypto.so.1.1 ./opt/Qv2ray/lib/
+          cp $(locate $(strings $(locate libQt5Network.so|grep usr|head -n1)|grep libssl.so)|grep /lib/|head -n1) ./opt/Qv2ray/lib/
+          cp $(locate $(strings $(locate libQt5Network.so|grep usr|head -n1)|grep crypto.so)|grep /lib/|head -n1) ./opt/Qv2ray/lib/
       - name: Build AppImage using linuxdeployqt
         run: |
           cd build/AppDir
@@ -134,13 +118,4 @@ jobs:
         with:
           name: Qv2ray.linux.AppImage
           path: build/AppDir/Qv2ray.AppImage
-      - name: Upload binaries to release
-        uses: svenstaro/upload-release-action@v1-release
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: build/AppDir/Qv2ray.AppImage
-          asset_name: Qv2ray-${{ github.ref }}-linux.AppImage
-          tag: ${{ github.ref }}
-          overwrite: true
-
 
