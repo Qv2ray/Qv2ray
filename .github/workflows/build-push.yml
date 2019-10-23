@@ -20,7 +20,7 @@ jobs:
       - name: Extract gRPC and protobuf
         run: tools\grpc_gen.bat
 # --------------------------------------------------------
-      - name: Build Qv2ray gen_grpc.bat
+      - name: Build Qv2ray
         run: |
           mkdir build
           cd build
