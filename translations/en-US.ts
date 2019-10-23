@@ -447,199 +447,199 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="127"/>
-        <source>Share</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="136"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="311"/>
         <source>QR Code</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="143"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="318"/>
         <source>VMess</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="172"/>
-        <source>Options</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="217"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="454"/>
         <source>Instant</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="291"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="524"/>
         <source>Total</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="513"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="348"/>
         <location filename="../src/ui/w_MainWindow.cpp" line="42"/>
         <source>Connect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="523"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="358"/>
         <location filename="../src/ui/w_MainWindow.cpp" line="44"/>
         <source>Disconnect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="530"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="365"/>
         <location filename="../src/ui/w_MainWindow.cpp" line="43"/>
         <source>Reconnect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="537"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="372"/>
         <source>Clear Log</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="544"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="379"/>
         <source>Prefrences</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="567"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="402"/>
         <source>Stopped</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="355"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="48"/>
         <source>Host List</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="72"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="208"/>
         <source>Config Details</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="78"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="216"/>
         <source>Type</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="92"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="230"/>
         <source>Host</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="106"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="244"/>
         <source>Port</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="120"/>
-        <source>Detail</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="188"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="304"/>
         <source>Ping</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="181"/>
-        <source>Json</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="254"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="491"/>
         <source>0.00 B/s
 0.00 B/s</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="328"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="561"/>
         <source>0.00 B
 0.00 B</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="423"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="115"/>
         <source>#AddConnection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="426"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="118"/>
         <source>A</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="443"/>
-        <location filename="../src/ui/w_MainWindow.ui" line="582"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="135"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="590"/>
         <source>#ImportConnection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="446"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="138"/>
         <source>I</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="477"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="169"/>
         <source>#EditConnection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="480"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="172"/>
         <source>...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="463"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="155"/>
         <source>#RemoveConnection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="466"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="158"/>
         <source>R</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="50"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="183"/>
+        <source>{ }</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.ui" line="258"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="265"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="272"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="279"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="286"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="293"/>
+        <source>TextLabel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.ui" line="413"/>
         <source>Log</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="577"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="433"/>
+        <source>Speed Graph</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.ui" line="585"/>
         <source>#ManuallyCreateConnection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="587"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="595"/>
         <source>#Exit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="592"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="600"/>
         <source>#Preferences</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="597"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="605"/>
         <source>#Start</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="602"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="610"/>
         <source>#Stop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="607"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="615"/>
         <source>#Restart</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.cpp" line="40"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="318"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="320"/>
         <source>Hide</source>
         <translation type="unfinished"></translation>
     </message>
@@ -665,29 +665,29 @@
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.cpp" line="109"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="273"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="321"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="275"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="323"/>
         <source>Show</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="151"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="153"/>
         <source>Update</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="152"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="154"/>
         <source>Found a new version: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="158"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="160"/>
         <source>Download Link: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="127"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="220"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="129"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="222"/>
         <source>No connection selected!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -702,99 +702,69 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="127"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="220"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="129"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="222"/>
         <source>Please select a config from the list.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="231"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="232"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="675"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="233"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="234"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="665"/>
         <source>Connected To Server: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="256"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="258"/>
         <source>Disconnected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="362"/>
-        <source>UUID</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="364"/>
-        <source>AlterID</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="366"/>
-        <source>Transport</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="373"/>
-        <source>Email</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="375"/>
-        <source>Encryption</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="382"/>
-        <source>Username</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="468"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="477"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="458"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="467"/>
         <source>Rename a Connection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="468"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="458"/>
         <source>The name cannot be empty</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="506"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="520"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="496"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="510"/>
         <source>Removing this Connection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="520"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="510"/>
         <source>Failed to delete connection file, please delete manually.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="567"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="609"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="557"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="599"/>
         <source>No Config Selected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="567"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="609"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="557"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="599"/>
         <source>Please Select a Config</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="477"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="467"/>
         <source>The name has been used already, Please choose another.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="233"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="235"/>
         <source>Connected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="506"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="496"/>
         <source>Are you sure to remove this connection?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1292,16 +1262,16 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="679"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="692"/>
         <source>Items</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ui/w_PrefrencesWindow.ui" line="648"/>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="685"/>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="696"/>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="748"/>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="759"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="698"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="709"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="761"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="772"/>
         <source>...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1316,77 +1286,77 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="670"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="683"/>
         <source>Apply Network Speed Bar UI Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="707"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="720"/>
         <source>Page Y Offset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="714"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="727"/>
         <source>Pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="721"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="734"/>
         <source>Lines</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="793"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="806"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="841"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="854"/>
         <source>Qv2ray</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="863"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="876"/>
         <source>Version:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="896"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="909"/>
         <source>Official Repo:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="914"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="927"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/lhy0403/Qv2ray&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#2980b9;&quot;&gt;https://github.com/lhy0403/Qv2ray&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="947"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="960"/>
         <source>License:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="965"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="978"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://www.gnu.org/licenses/gpl-3.0.txt&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#2980b9;&quot;&gt;GPLv3 (https://www.gnu.org/licenses/gpl-3.0.txt)&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="1002"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="1015"/>
         <source>About Qt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="1037"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="1050"/>
         <source>Ingore Next Version</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="1044"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="1057"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="1075"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="1088"/>
         <source>Built Time</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1580,22 +1550,22 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/NetSpeedBar/QvNetSpeedBar.cpp" line="47"/>
+        <location filename="../src/ui/NetSpeedBar/QvNetSpeedBar.cpp" line="56"/>
         <source>Stats is not enabled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/NetSpeedBar/QvNetSpeedBar.cpp" line="84"/>
+        <location filename="../src/ui/NetSpeedBar/QvNetSpeedBar.cpp" line="93"/>
         <source>Connected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/NetSpeedBar/QvNetSpeedBar.cpp" line="89"/>
+        <location filename="../src/ui/NetSpeedBar/QvNetSpeedBar.cpp" line="98"/>
         <source>Disconnected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/NetSpeedBar/QvNetSpeedBar.cpp" line="94"/>
+        <location filename="../src/ui/NetSpeedBar/QvNetSpeedBar.cpp" line="103"/>
         <source>Connecting</source>
         <translation type="unfinished"></translation>
     </message>
