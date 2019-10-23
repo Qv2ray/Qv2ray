@@ -92,8 +92,8 @@ jobs:
       - name: Install Qt
         uses: jurplel/install-qt-action@v1
 # --------------------------------------------------------
-      - name: Install libgl-dev and openssl libx11-dev libxkbcommon-x11-dev libgrpc++-dev libprotobuf-dev protobuf-compiler protobuf-c-compiler protobuf-compiler-grpc
-        run: sudo apt install -y libgl-dev openssl libx11-dev libxkbcommon-x11-dev mlocate
+      - name: Install Packages 
+        run: sudo apt install -y libgl-dev and openssl libx11-dev libxkbcommon-x11-dev libgrpc++-dev libprotobuf-dev protobuf-compiler protobuf-c-compiler protobuf-compiler-grpc
 # --------------------------------------------------------
       - name: Extract gRPC and protobuf
         run: tools/grpc_gen.sh
