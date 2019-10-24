@@ -115,6 +115,10 @@ class PrefrencesWindow : public QDialog
 
         void on_applyNSBarSettingsBtn_clicked();
 
+        void on_selectVCoreBtn_clicked();
+
+        void on_vCorePathTxt_textEdited(const QString &arg1);
+
     private:
         // Set ui parameters for a line;
         void ShowLineParameters(QvBarLine &line);

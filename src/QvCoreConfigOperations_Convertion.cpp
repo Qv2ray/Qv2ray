@@ -6,14 +6,14 @@ namespace Qv2ray
         // -------------------------- BEGIN CONFIG CONVERSIONS ----------------------------------------------------------------------------
         bool SaveConnectionConfig(QJsonObject obj, const QString *alias)
         {
-            QFile config(QV2RAY_CONFIG_DIR_PATH + *alias + QV2RAY_CONNECTION_FILE_EXTENSION);
+            QFile config(QV2RAY_CONFIG_DIR + *alias + QV2RAY_CONFIG_FILE_EXTENSION);
             auto str = JsonToString(obj);
             return StringToFile(&str, &config);
         }
 
         bool RemoveConnection(const QString *alias)
         {
-            QFile config(QV2RAY_CONFIG_DIR_PATH + *alias + QV2RAY_CONNECTION_FILE_EXTENSION);
+            QFile config(QV2RAY_CONFIG_DIR + *alias + QV2RAY_CONFIG_FILE_EXTENSION);
             return config.exists() && config.remove();
         }
 
@@ -26,7 +26,7 @@ namespace Qv2ray
             string ps, add, id, net, type, host, path, tls;
             int port, aid;
             ps = vmessConf.contains("ps") ? vmessConf["ps"].toVariant().toString().toStdString()
-                                : (vmessConf["add"].toVariant().toString().toStdString() + ":" + vmessConf["port"].toVariant().toString().toStdString());
+                 : (vmessConf["add"].toVariant().toString().toStdString() + ":" + vmessConf["port"].toVariant().toString().toStdString());
             add = vmessConf["add"].toVariant().toString().toStdString();
             id = vmessConf["id"].toVariant().toString().toStdString();
             net = vmessConf.contains("net") ? vmessConf["net"].toVariant().toString().toStdString() : "tcp";
@@ -85,7 +85,8 @@ namespace Qv2ray
             // Network type
             streaming.network = net;
             //
-            auto outbound = GenerateOutboundEntry("vmess", vConf, GetRootObject(streaming), GetRootObject(GetGlobalConfig().mux), "0.0.0.0", OUTBOUND_TAG_PROXY);
+            // WARN Mux is missing here.
+            auto outbound = GenerateOutboundEntry("vmess", vConf, GetRootObject(streaming), QJsonObject() /*GetRootObject(GetGlobalConfig().mux) */, "0.0.0.0", OUTBOUND_TAG_PROXY);
             //
             QJsonArray outbounds;
             outbounds.append(outbound);
@@ -114,7 +115,7 @@ namespace Qv2ray
             QMap<QString, QJsonObject> list;
 
             foreach (auto conn, connectionNames) {
-                QString jsonString = StringFromFile(new QFile(QV2RAY_CONFIG_DIR_PATH + QString::fromStdString(conn) + QV2RAY_CONNECTION_FILE_EXTENSION));
+                QString jsonString = StringFromFile(new QFile(QV2RAY_CONFIG_DIR + QSTRING(conn) + QV2RAY_CONFIG_FILE_EXTENSION));
                 QJsonObject connectionObject = JsonFromString(jsonString);
                 list.insert(QString::fromStdString(conn), connectionObject);
             }
@@ -124,7 +125,7 @@ namespace Qv2ray
 
         bool RenameConnection(QString originalName, QString newName)
         {
-            return QFile(QV2RAY_CONFIG_DIR_PATH + originalName + QV2RAY_CONNECTION_FILE_EXTENSION).rename(QV2RAY_CONFIG_DIR_PATH + newName + QV2RAY_CONNECTION_FILE_EXTENSION);
+            return QFile(QV2RAY_CONFIG_DIR + originalName + QV2RAY_CONFIG_FILE_EXTENSION).rename(QV2RAY_CONFIG_DIR + newName + QV2RAY_CONFIG_FILE_EXTENSION);
         }
 
         int StartPreparation(QJsonObject fullConfig)

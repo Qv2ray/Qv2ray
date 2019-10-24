@@ -303,12 +303,13 @@ void OutboundEditor::on_genJsonBtn_clicked()
 
 QJsonObject OutboundEditor::GenerateConnectionJson()
 {
-    // VMess is only a ServerObject, and we need an array { "vnext": [] }
     QJsonObject settings;
-    auto mux = JsonFromString(StructToJsonString(GetGlobalConfig().mux));
+    // BUG !!!
+    auto mux = QJsonObject();// JsonFromString(StructToJsonString(GetGlobalConfig().mux));
     auto streaming = JsonFromString(StructToJsonString(stream));
 
     if (OutboundType == "vmess") {
+        // VMess is only a ServerObject, and we need an array { "vnext": [] }
         QJsonArray vnext;
         vnext.append(GetRootObject(vmess));
         settings.insert("vnext", vnext);

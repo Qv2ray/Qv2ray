@@ -3,6 +3,7 @@
 #include <QMainWindow>
 #include <QMenu>
 #include <QScrollBar>
+#include <QtCharts>
 #include <QSystemTrayIcon>
 
 #include "QvUtils.h"
@@ -83,10 +84,18 @@ class MainWindow : public QMainWindow
 
         void timerEvent(QTimerEvent *event);
     private:
+        Ui::MainWindow *ui;
+        //
+        QChartView *speedChartView;
+        QChart *speedChart;
+        QSplineSeries *uploadSerie;
+        QSplineSeries *downloadSerie;
+        QList<double> uploadList;
+        QList<double> downloadList;
+        //
         void on_action_StartThis_triggered();
         void on_action_RCM_EditJson_triggered();
         void on_action_RenameConnection_triggered();
-        Ui::MainWindow *ui;
         QvHttpRequestHelper HTTPRequestHelper;
         QSystemTrayIcon *hTray;
         QMenu *trayMenu = new QMenu(this);

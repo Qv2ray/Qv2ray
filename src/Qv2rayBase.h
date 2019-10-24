@@ -1,30 +1,35 @@
 #ifndef QV2RAYBASE_H
 #define QV2RAYBASE_H
-
 #include <QtCore>
 #include "QvTinyLog.h"
 #include "QvCoreConfigObjects.h"
 #include "QvNetSpeedPlugin.h"
 #include "QObjectMessageProxy.h"
 
-#define QV2RAY_VERSION_STRING "v" QV_MAJOR_VERSION
+#define QV2RAY_CONFIG_VERSION 8
 
-#define QV2RAY_CONFIG_VERSION 7
-// Base folder.
-#define QV2RAY_CONFIG_DIR_PATH (Qv2ray::Utils::GetConfigDirPath() + "/")
-#define QV2RAY_CONFIG_FILE_PATH (QV2RAY_CONFIG_DIR_PATH + "Qv2ray.conf")
-
-// We need v2ray.exe/v2ray executables here!
-#define QV2RAY_V2RAY_CORE_DIR_PATH (QV2RAY_CONFIG_DIR_PATH + "vcore/")
-
-#ifdef __WIN32
-#define QV2RAY_V2RAY_CORE_PATH (QV2RAY_V2RAY_CORE_DIR_PATH + "v2ray.exe")
+// Base folder suffix.
+#ifdef QT_DEBUG
+#define QV2RAY_CONFIG_DIR_SUFFIX "_debug/"
 #else
-#define QV2RAY_V2RAY_CORE_PATH (QV2RAY_V2RAY_CORE_DIR_PATH + "v2ray")
+#define QV2RAY_CONFIG_DIR_SUFFIX "/"
 #endif
 
-#define QV2RAY_CONNECTION_FILE_EXTENSION ".qv2ray.json"
-#define QV2RAY_GENERATED_FILE_PATH (QV2RAY_CONFIG_DIR_PATH + "generated/config.gen.json")
+// Get Configured Config Dir Path
+#define QV2RAY_CONFIG_DIR (Qv2ray::Utils::GetConfigDirPath() + "/")
+#define QV2RAY_CONFIG_FILE (QV2RAY_CONFIG_DIR + "Qv2ray.conf")
+
+#define QV2RAY_CONFIG_FILE_EXTENSION ".qv2ray.json"
+#define QV2RAY_GENERATED_DIR (QV2RAY_CONFIG_DIR + "generated/")
+#define QV2RAY_GENERATED_FILE_PATH (QV2RAY_GENERATED_DIR + "config.gen.json")
+
+#ifndef QV2RAY_DEFAULT_VCORE_PATH
+#ifdef _WIN32
+#define QV2RAY_DEFAULT_VCORE_PATH (QV2RAY_CONFIG_DIR + "vcore/v2ray.exe")
+#else
+#define QV2RAY_DEFAULT_VCORE_PATH (QV2RAY_CONFIG_DIR + "vcore/v2ray")
+#endif
+#endif
 
 #define QV2RAY_VCORE_LOG_DIRNAME "logs/"
 #define QV2RAY_VCORE_ACCESS_LOG_FILENAME "access.log"
@@ -57,7 +62,7 @@ namespace Qv2ray
             CONFIGTYPE_CONFIG,
             CONFIGTYPE_SUBSCRIPTION
         };
-        struct Qv2rayBasicInboundsConfig {
+        struct Qv2rayCoreInboundsConfig {
             string listenip;
             // SOCKS
             int socks_port;
@@ -69,8 +74,8 @@ namespace Qv2ray
             int http_port;
             bool http_useAuth;
             AccountObject httpAccount;
-            Qv2rayBasicInboundsConfig(): listenip(), socks_port(), socks_useAuth(), socksAccount(), http_port(), http_useAuth(), httpAccount() {}
-            Qv2rayBasicInboundsConfig(string listen, int socksPort, int httpPort): Qv2rayBasicInboundsConfig()
+            Qv2rayCoreInboundsConfig(): listenip(), socks_port(), socks_useAuth(), socksAccount(), http_port(), http_useAuth(), httpAccount() {}
+            Qv2rayCoreInboundsConfig(string listen, int socksPort, int httpPort): Qv2rayCoreInboundsConfig()
             {
                 socks_port = socksPort;
                 http_port = httpPort;
@@ -87,6 +92,7 @@ namespace Qv2ray
             int logLevel;
             //
             string language;
+            string v2CorePath;
             string v2AssetsPath;
             string autoStartConfig;
             //
@@ -95,14 +101,13 @@ namespace Qv2ray
             bool bypassCN;
             bool enableProxy;
             bool withLocalDNS;
-            MuxObject mux;
             //
             bool enableStats;
             int statsPort;
             //
             list<string> dnsList;
             //
-            Qv2rayBasicInboundsConfig inBoundSettings;
+            Qv2rayCoreInboundsConfig inBoundSettings;
 #ifdef newFeature
             map<string, QvConfigType> configs;
 #else
@@ -117,13 +122,13 @@ namespace Qv2ray
                 tProxySupport(false),
                 logLevel(),
                 language(),
+                v2CorePath(),
                 v2AssetsPath(),
                 autoStartConfig(),
                 ignoredVersion(),
                 bypassCN(),
                 enableProxy(),
                 withLocalDNS(),
-                mux(),
                 enableStats(),
                 statsPort(15934),
                 dnsList(),
@@ -131,7 +136,7 @@ namespace Qv2ray
                 configs(),
                 subscribes(),
                 speedBarConfig() { }
-            Qv2rayConfig(string lang, string assetsPath, int log, Qv2rayBasicInboundsConfig _inBoundSettings): Qv2rayConfig()
+            Qv2rayConfig(string lang, string assetsPath, int log, Qv2rayCoreInboundsConfig _inBoundSettings): Qv2rayConfig()
             {
                 // These settings below are defaults.
                 ignoredVersion = "";
@@ -141,10 +146,9 @@ namespace Qv2ray
                 inBoundSettings = _inBoundSettings;
                 logLevel = log;
                 tProxySupport = false;
-                mux.enabled = false;
                 dnsList.push_back("8.8.8.8");
+                dnsList.push_back("8.8.4.4");
                 dnsList.push_back("1.1.1.1");
-                dnsList.push_back("4.4.4.4");
                 bypassCN = true;
                 enableProxy = true;
                 withLocalDNS = true;
@@ -159,13 +163,13 @@ namespace Qv2ray
                         language,
                         autoStartConfig,
                         ignoredVersion,
+                        v2CorePath,
                         v2AssetsPath,
                         enableProxy,
                         bypassCN,
                         withLocalDNS,
                         dnsList,
                         inBoundSettings,
-                        mux,
                         configs,
                         subscribes,
                         speedBarConfig))

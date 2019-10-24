@@ -16,7 +16,7 @@ namespace Qv2ray
             env.insert("V2RAY_LOCATION_ASSET", QString::fromStdString(GetGlobalConfig().v2AssetsPath));
             QProcess process;
             process.setProcessEnvironment(env);
-            process.start(QV2RAY_V2RAY_CORE_PATH, QStringList() << "-test" << "-config" << *path, QIODevice::ReadWrite | QIODevice::Text);
+            process.start(QSTRING(GetGlobalConfig().v2CorePath), QStringList() << "-test" << "-config" << *path, QIODevice::ReadWrite | QIODevice::Text);
 
             if (!process.waitForFinished()) {
                 LOG(MODULE_VCORE, "v2ray core failed with exitcode: " << process.exitCode())
@@ -60,8 +60,12 @@ namespace Qv2ray
 
     bool Qv2Instance::ValidateKernal()
     {
-        if (!QFile::exists(QV2RAY_V2RAY_CORE_PATH)) {
-            Utils::QvMessageBox(nullptr, QObject::tr("Cannot start v2ray"), QObject::tr("v2ray core file cannot be found at:") + QV2RAY_V2RAY_CORE_PATH);
+        if (!QFile::exists(QSTRING(GetGlobalConfig().v2CorePath))) {
+            Utils::QvMessageBox(nullptr, QObject::tr("Cannot start v2ray"),
+                                QObject::tr("v2ray core file cannot be found at:") + NEWLINE +
+                                QSTRING(GetGlobalConfig().v2CorePath) + NEWLINE + NEWLINE  +
+                                QObject::tr("Please go to prefrence window to change the location.") + NEWLINE +
+                                QObject::tr("Or put v2ray core file in the location above."));
             return false;
         } else return true;
     }
@@ -79,9 +83,9 @@ namespace Qv2ray
 
             if (ValidateConfig(&filePath)) {
                 QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
-                env.insert("V2RAY_LOCATION_ASSET", QString::fromStdString(GetGlobalConfig().v2AssetsPath));
+                env.insert("V2RAY_LOCATION_ASSET", QSTRING(GetGlobalConfig().v2AssetsPath));
                 vProcess->setProcessEnvironment(env);
-                vProcess->start(QV2RAY_V2RAY_CORE_PATH, QStringList() << "-config" << filePath, QIODevice::ReadWrite | QIODevice::Text);
+                vProcess->start(QSTRING(GetGlobalConfig().v2CorePath), QStringList() << "-config" << filePath, QIODevice::ReadWrite | QIODevice::Text);
                 vProcess->waitForStarted();
                 VCoreStatus = STARTED;
                 return true;

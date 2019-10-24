@@ -167,6 +167,11 @@ namespace Qv2ray
                                 CL.Message = FormatBytes(data).toStdString();
                                 break;
                             }
+
+                            default: {
+                                CL.Message = "Not Supported?";
+                                break;
+                            }
                         }
                     }
                 }

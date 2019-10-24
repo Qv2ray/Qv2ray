@@ -10,7 +10,7 @@ namespace Qv2ray
         void SetGlobalConfig(Qv2rayConfig conf)
         {
             GlobalConfig = conf;
-            QFile config(QV2RAY_CONFIG_FILE_PATH);
+            QFile config(QV2RAY_CONFIG_FILE);
             QString str = StructToJsonString(GetGlobalConfig());
             StringToFile(&str, &config);
         }
@@ -34,7 +34,7 @@ namespace Qv2ray
         {
             QString out;
 
-            foreach (string item, list) {
+            for (auto item : list) {
                 out.append(QSTRING(item));
                 out.append(saperator);
             }
@@ -49,9 +49,9 @@ namespace Qv2ray
         {
             QString out;
 
-            foreach (QString item, list) {
-                out.append(saperator);
+            for (auto item : list) {
                 out.append(item);
+                out.append(saperator);
             }
 
             if (out.length() >= 1)
@@ -60,6 +60,13 @@ namespace Qv2ray
             return out;
         }
 
+        QString StringFromFile(QFile *source)
+        {
+            source->open(QIODevice::OpenModeFlag::ReadOnly);
+            auto str = source->readAll();
+            source->close();
+            return str;
+        }
         bool StringToFile(const QString *text, QFile *targetFile)
         {
             bool override = targetFile->exists();
@@ -104,15 +111,6 @@ namespace Qv2ray
             return doc.object();
         }
 
-        QString StringFromFile(QFile *sourceFile)
-        {
-            sourceFile->open(QFile::ReadOnly);
-            QTextStream stream(sourceFile);
-            QString str = stream.readAll();
-            sourceFile->close();
-            return str;
-        }
-
         QString Base64Encode(QString string)
         {
             QByteArray ba;
@@ -129,7 +127,7 @@ namespace Qv2ray
 
         void LoadGlobalConfig()
         {
-            QFile file(QV2RAY_CONFIG_FILE_PATH);
+            QFile file(QV2RAY_CONFIG_FILE);
             file.open(QFile::ReadOnly);
             QTextStream stream(&file);
             auto str = stream.readAll();
