@@ -12,27 +12,26 @@
 #include <QVersionNumber>
 #include <QKeyEvent>
 
-#ifdef _WIN32
-#include <Windows.h>
-#endif
-
-#include "w_ConnectionEditWindow.h"
+#include "w_OutboundEditor.h"
 #include "w_ImportConfig.h"
 #include "w_MainWindow.h"
-#include "w_RouteEditor.h"
+#include "w_RoutesEditor.h"
 #include "w_PrefrencesWindow.h"
-#include "w_SubscribeEditor.h"
+#include "w_SubscriptionEditor.h"
 #include "w_JsonEditor.h"
+
+#include "QvNetSpeedPlugin.h"
 
 #define TRAY_TOOLTIP_PREFIX "Qv2ray " QV2RAY_VERSION_STRING
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
-      ui(new Ui::MainWindow),
-      HTTPRequestHelper(),
-      hTray(new QSystemTrayIcon(this)),
       vinstance(),
-      speedTimer(this)
+      ui(new Ui::MainWindow),
+      uploadList(),
+      downloadList(),
+      HTTPRequestHelper(),
+      hTray(new QSystemTrayIcon(this))
 {
     vinstance = new Qv2Instance(this);
     ui->setupUi(this);
@@ -72,11 +71,14 @@ MainWindow::MainWindow(QWidget *parent)
     connect(action_RCM_RenameConnection, &QAction::triggered, this, &MainWindow::on_action_RenameConnection_triggered);
     connect(action_RCM_StartThis, &QAction::triggered, this, &MainWindow::on_action_StartThis_triggered);
     connect(action_RCM_EditJson, &QAction::triggered, this, &MainWindow::on_action_RCM_EditJson_triggered);
-    connect(&speedTimer, &QTimer::timeout, this, &MainWindow::on_speedTimer_Ticked);
     // TODO: UNCOMMENT THIS....
     LOG(MODULE_UI, "SHARE OPTION TODO...")
     //connect(action_RCM_ShareLink, &QAction::triggered, this, &MainWindow::on_action_RCM_ShareLink_triggered);
     //connect(action_RCM_ShareQR, &QAction::triggered, this, &MainWindow::on_action_RCM_ShareQR_triggered);
+    //
+    connect(this, &MainWindow::Connect, this, &MainWindow::on_startButton_clicked);
+    connect(this, &MainWindow::DisConnect, this, &MainWindow::on_stopButton_clicked);
+    connect(this, &MainWindow::ReConnect, this, &MainWindow::on_reconnectButton_clicked);
     //
     hTray->setContextMenu(trayMenu);
     hTray->show();
@@ -90,11 +92,41 @@ MainWindow::MainWindow(QWidget *parent)
     LoadConnections();
     QObject::connect(&HTTPRequestHelper, &QvHttpRequestHelper::httpRequestFinished, this, &MainWindow::VersionUpdate);
     HTTPRequestHelper.get("https://api.github.com/repos/lhy0403/Qv2ray/releases/latest");
-
+    bool hasAutoStart  = false;
     //
-    if (!vinstance->ValidateKernal()) {
-        QDesktopServices::openUrl(QUrl::fromLocalFile(QV2RAY_V2RAY_CORE_DIR_PATH));
-    } else {
+    uploadSerie = new QSplineSeries(this);
+    downloadSerie = new QSplineSeries(this);
+    uploadSerie->setName("Upload");
+    downloadSerie->setName("Download");
+
+    for (int i = 0; i < 30 ; i++) {
+        uploadList.append(0);
+        downloadList.append(0);
+        uploadSerie->append(i, 0);
+        downloadSerie->append(i, 0);
+    }
+
+    speedChart = new QChart();
+    speedChartView = new QChartView(speedChart, this);
+    speedChartView->setRenderHint(QPainter::RenderHint::HighQualityAntialiasing, true);
+    speedChart->setTitle("Qv2ray Speed Chart");
+    speedChart->legend()->hide();
+    speedChart->createDefaultAxes();
+    speedChart->addSeries(uploadSerie);
+    speedChart->addSeries(downloadSerie);
+    speedChart->createDefaultAxes();
+    speedChart->axes(Qt::Vertical).first()->setRange(0, 512);
+    static_cast<QValueAxis>(speedChart->axes(Qt::Horizontal).first()).setLabelFormat("dd.dd");
+    speedChart->axes(Qt::Horizontal).first()->setRange(0, 30);
+    speedChart->setContentsMargins(-20, -45, -20, -25);
+    auto layout = new QHBoxLayout(ui->speedChart);
+    layout->addWidget(speedChartView);
+    ui->speedChart->setLayout(layout);
+    ui->speedChart->layout()->addWidget(speedChartView);
+    //
+    //
+
+    if (vinstance->ValidateKernal()) {
         auto conf = GetGlobalConfig();
 
         if (conf.autoStartConfig != "" && QList<string>::fromStdList(conf.configs).contains(conf.autoStartConfig)) {
@@ -104,12 +136,9 @@ MainWindow::MainWindow(QWidget *parent)
             ui->connectionListWidget->setCurrentItem(item);
             on_connectionListWidget_itemClicked(item);
             on_startButton_clicked();
-            //ToggleVisibility();
-            this->hide();
+            hasAutoStart = true;
             trayMenu->actions()[0]->setText(tr("Show"));
         } else {
-            this->show();
-
             if (ui->connectionListWidget->count() != 0) {
                 // The first one is default.
                 ui->connectionListWidget->setCurrentRow(0);
@@ -117,9 +146,15 @@ MainWindow::MainWindow(QWidget *parent)
             }
         }
     }
+
+    if (hasAutoStart) {
+        this->hide();
+    } else {
+        this->show();
+    }
+
+    Utils::NetSpeedPlugin::StartProcessingPlugins(this);
 }
-
-
 
 void MainWindow::on_action_StartThis_triggered()
 {
@@ -216,45 +251,55 @@ void MainWindow::UpdateLog()
 
 void MainWindow::on_startButton_clicked()
 {
-    if (CurrentConnectionName == "") {
-        QvMessageBox(this, tr("No connection selected!"), tr("Please select a config from the list."));
-        return;
-    }
-
-    LOG(MODULE_VCORE, ("Connecting to: " + CurrentConnectionName).toStdString())
-    ui->logText->clear();
-    CurrentFullConfig = GenerateRuntimeConfig(connections[CurrentConnectionName]);
-    StartPreparation(CurrentFullConfig);
-    bool startFlag = this->vinstance->StartVCore();
-
-    if (startFlag) {
-        this->hTray->showMessage("Qv2ray", tr("Connected To Server: ") + CurrentConnectionName);
-        hTray->setToolTip(TRAY_TOOLTIP_PREFIX "\r\n" + tr("Connected To Server: ") + CurrentConnectionName);
-        ui->statusLabel->setText(tr("Connected: ") + CurrentConnectionName);
-
-        if (GetGlobalConfig().enableStats) {
-            vinstance->SetAPIPort(GetGlobalConfig().statsPort);
-            speedTimer.start(1000);
+    if (vinstance->VCoreStatus != STARTED) {
+        // Reset the graph
+        for (int i = 0; i < 30 ; i++) {
+            uploadList[i] = 0;
+            downloadList[i] = 0;
+            uploadSerie->replace(i, 0, 0);
+            downloadSerie->replace(i, 0, 0);
         }
-    }
 
-    trayMenu->actions()[2]->setEnabled(!startFlag);
-    trayMenu->actions()[3]->setEnabled(startFlag);
-    trayMenu->actions()[4]->setEnabled(startFlag);
-    //
-    ui->startButton->setEnabled(!startFlag);
-    ui->stopButton->setEnabled(startFlag);
+        if (CurrentConnectionName == "") {
+            QvMessageBox(this, tr("No connection selected!"), tr("Please select a config from the list."));
+            return;
+        }
+
+        LOG(MODULE_VCORE, ("Connecting to: " + CurrentConnectionName).toStdString())
+        ui->logText->clear();
+        CurrentFullConfig = GenerateRuntimeConfig(connections[CurrentConnectionName]);
+        StartPreparation(CurrentFullConfig);
+        bool startFlag = this->vinstance->StartVCore();
+
+        if (startFlag) {
+            this->hTray->showMessage("Qv2ray", tr("Connected To Server: ") + CurrentConnectionName);
+            hTray->setToolTip(TRAY_TOOLTIP_PREFIX "\r\n" + tr("Connected To Server: ") + CurrentConnectionName);
+            ui->statusLabel->setText(tr("Connected") + ": " + CurrentConnectionName);
+
+            if (GetGlobalConfig().enableStats) {
+                vinstance->SetAPIPort(GetGlobalConfig().statsPort);
+                speedTimerId = startTimer(1000);
+            }
+        }
+
+        trayMenu->actions()[2]->setEnabled(!startFlag);
+        trayMenu->actions()[3]->setEnabled(startFlag);
+        trayMenu->actions()[4]->setEnabled(startFlag);
+        //
+        ui->startButton->setEnabled(!startFlag);
+        ui->stopButton->setEnabled(startFlag);
+    }
 }
 
 void MainWindow::on_stopButton_clicked()
 {
     if (vinstance->VCoreStatus != STOPPED) {
         this->vinstance->StopVCore();
-        speedTimer.stop();
+        killTimer(speedTimerId);
         hTray->setToolTip(TRAY_TOOLTIP_PREFIX);
         QFile(QV2RAY_GENERATED_FILE_PATH).remove();
         ui->statusLabel->setText(tr("Disconnected"));
-        ui->logText->clear();
+        ui->logText->setText("");
         trayMenu->actions()[2]->setEnabled(true);
         trayMenu->actions()[3]->setEnabled(false);
         trayMenu->actions()[4]->setEnabled(false);
@@ -262,10 +307,8 @@ void MainWindow::on_stopButton_clicked()
         ui->startButton->setEnabled(true);
         ui->stopButton->setEnabled(false);
         //
-        ui->speedUpLabel->setText("");
-        ui->speedDownLabel->setText("");
-        ui->totalDataUpLabel->setText("");
-        ui->totalDataDownLabel->setText("");
+        ui->netspeedLabel->setText("0.00 B/s\r\n0.00 B/s");
+        ui->dataamountLabel->setText("0.00 B\r\n0.00 B");
     }
 }
 
@@ -326,6 +369,7 @@ void MainWindow::ToggleVisibility()
 
 void MainWindow::quit()
 {
+    Utils::NetSpeedPlugin::StopProcessingPlugins();
     on_stopButton_clicked();
     QApplication::quit();
 }
@@ -359,29 +403,16 @@ void MainWindow::ShowAndSetConnection(QString guiConnectionName, bool SetConnect
         auto Server = StructFromJsonString<VMessServerObject>(JsonToString(outBoundRoot["settings"].toObject()["vnext"].toArray().first().toObject()));
         ui->_hostLabel->setText(QSTRING(Server.address));
         ui->_portLabel->setText(QSTRING(to_string(Server.port)));
-        auto user = QList<VMessServerObject::UserObject>::fromStdList(Server.users).first();
-        auto _configString = tr("UUID") + ": " + QSTRING(user.id)
-                             + "\r\n"
-                             + tr("AlterID") + ": " + QSTRING(to_string(user.alterId))
-                             + "\r\n"
-                             + tr("Transport") + ": " + outBoundRoot["streamSettings"].toObject()["network"].toString();
-        ui->detailInfoTxt->setPlainText(_configString);
     } else if (outboundType == "shadowsocks") {
         auto x = JsonToString(outBoundRoot["settings"].toObject()["servers"].toArray().first().toObject());
         auto Server = StructFromJsonString<ShadowSocksServer>(x);
         ui->_hostLabel->setText(QSTRING(Server.address));
         ui->_portLabel->setText(QSTRING(to_string(Server.port)));
-        auto _configString = tr("Email") + ": " + QSTRING(Server.email)
-                             + "\r\n"
-                             + tr("Encryption") + ": " + QSTRING(Server.method);
-        ui->detailInfoTxt->setPlainText(_configString);
     } else if (outboundType == "socks") {
         auto x = JsonToString(outBoundRoot["settings"].toObject()["servers"].toArray().first().toObject());
         auto Server = StructFromJsonString<SocksServerObject>(x);
         ui->_hostLabel->setText(QSTRING(Server.address));
         ui->_portLabel->setText(QSTRING(to_string(Server.port)));
-        auto _configString = tr("Username") + ": " + QSTRING(Server.users.front().user);
-        ui->detailInfoTxt->setPlainText(_configString);
     }
 
     // --------- END Show Connection
@@ -502,23 +533,27 @@ void MainWindow::on_connectionListWidget_itemChanged(QListWidgetItem *item)
 
 void MainWindow::on_removeConfigButton_clicked()
 {
+    if (ui->connectionListWidget->currentIndex().row() < 0) return;
+
     if (QvMessageBoxAsk(this, tr("Removing this Connection"), tr("Are you sure to remove this connection?")) == QMessageBox::Yes) {
-        auto conf = GetGlobalConfig();
-        QList<string> list = QList<string>::fromStdList(conf.configs);
-        auto currentSelected = ui->connectionListWidget->currentIndex().row();
+        auto connectionName = ui->connectionListWidget->currentItem()->text();
 
-        if (currentSelected < 0) return;
-
-        bool isRemovingItemRunning = ui->connectionListWidget->item(currentSelected)->text() == CurrentConnectionName;
-
-        if (isRemovingItemRunning) {
-            CurrentConnectionName  = "";
+        if (connectionName == CurrentConnectionName) {
+            on_stopButton_clicked();
+            CurrentConnectionName = "";
         }
 
-        list.removeOne(ui->connectionListWidget->item(currentSelected)->text().toStdString());
+        auto conf = GetGlobalConfig();
+        QList<string> list = QList<string>::fromStdList(conf.configs);
+        list.removeOne(connectionName.toStdString());
         conf.configs = list.toStdList();
+
+        if (!RemoveConnection(&connectionName)) {
+            QvMessageBox(this, tr("Removing this Connection"), tr("Failed to delete connection file, please delete manually."));
+        }
+
         SetGlobalConfig(conf);
-        OnConfigListChanged(isRemovingItemRunning);
+        OnConfigListChanged(false);
         ShowAndSetConnection(CurrentConnectionName, false, false);
     }
 }
@@ -533,23 +568,28 @@ void MainWindow::on_importConfigButton_clicked()
 
 void MainWindow::on_addConfigButton_clicked()
 {
-    ConnectionEditWindow *w = new ConnectionEditWindow(this);
-    connect(w, &ConnectionEditWindow::s_reload_config, this, &MainWindow::OnConfigListChanged);
+    OutboundEditor *w = new OutboundEditor(this);
+    connect(w, &OutboundEditor::s_reload_config, this, &MainWindow::OnConfigListChanged);
     auto outboundEntry = w->OpenEditor();
-    QJsonArray outboundsList;
-    outboundsList.push_back(outboundEntry);
-    QJsonObject root;
-    root.insert("outbounds", outboundsList);
+    bool isChanged = w->result() == QDialog::Accepted;
     auto alias = w->Alias;
     delete w;
-    auto conf = GetGlobalConfig();
-    auto connectionList = conf.configs;
-    connectionList.push_back(alias.toStdString());
-    conf.configs = connectionList;
-    SetGlobalConfig(conf);
-    OnConfigListChanged(false);
-    SaveConnectionConfig(root, &alias);
-    ShowAndSetConnection(CurrentConnectionName, false, false);
+
+    if (isChanged) {
+        QJsonArray outboundsList;
+        outboundsList.push_back(outboundEntry);
+        QJsonObject root;
+        root.insert("outbounds", outboundsList);
+        //
+        auto conf = GetGlobalConfig();
+        auto connectionList = conf.configs;
+        connectionList.push_back(alias.toStdString());
+        conf.configs = connectionList;
+        SetGlobalConfig(conf);
+        OnConfigListChanged(false);
+        SaveConnectionConfig(root, &alias);
+        ShowAndSetConnection(CurrentConnectionName, false, false);
+    }
 }
 
 void MainWindow::on_editConfigButton_clicked()
@@ -563,24 +603,29 @@ void MainWindow::on_editConfigButton_clicked()
     auto alias = ui->connectionListWidget->currentItem()->text();
     auto outBoundRoot = connections[alias];
     QJsonObject root;
+    bool isChanged = false;
 
     if (outBoundRoot["outbounds"].toArray().count() > 1) {
         LOG(MODULE_UI, "INFO: Opening route editor.")
         RouteEditor *routeWindow = new RouteEditor(outBoundRoot, alias, this);
         root = routeWindow->OpenEditor();
+        isChanged = routeWindow->result() == QDialog::Accepted;
     } else {
         LOG(MODULE_UI, "INFO: Opening single connection edit window.")
-        ConnectionEditWindow *w = new ConnectionEditWindow(outBoundRoot["outbounds"].toArray().first().toObject(), &alias, this);
+        OutboundEditor *w = new OutboundEditor(outBoundRoot["outbounds"].toArray().first().toObject(), &alias, this);
         auto outboundEntry = w->OpenEditor();
+        isChanged = w->result() == QDialog::Accepted;
         QJsonArray outboundsList;
         outboundsList.push_back(outboundEntry);
         root.insert("outbounds", outboundsList);
     }
 
-    connections[alias] = root;
-    SaveConnectionConfig(root, &alias);
-    OnConfigListChanged(alias == CurrentConnectionName);
-    ShowAndSetConnection(CurrentConnectionName, false, false);
+    if (isChanged) {
+        connections[alias] = root;
+        SaveConnectionConfig(root, &alias);
+        OnConfigListChanged(alias == CurrentConnectionName);
+        ShowAndSetConnection(CurrentConnectionName, false, false);
+    }
 }
 
 void MainWindow::on_reconnectButton_clicked()
@@ -600,14 +645,19 @@ void MainWindow::on_action_RCM_EditJson_triggered()
     auto alias = ui->connectionListWidget->currentItem()->text();
     JsonEditor *w = new JsonEditor(connections[alias], this);
     auto root = w->OpenEditor();
+    bool isChanged = w->result() == QDialog::Accepted;
     delete w;
-    connections[alias] = root;
-    SaveConnectionConfig(root, &alias);
-    ShowAndSetConnection(CurrentConnectionName, false, false);
+
+    if (isChanged) {
+        connections[alias] = root;
+        SaveConnectionConfig(root, &alias);
+        ShowAndSetConnection(CurrentConnectionName, false, false);
+    }
 }
 
 void MainWindow::on_editJsonBtn_clicked()
 {
+    // See above.
     on_action_RCM_EditJson_triggered();
 }
 
@@ -626,31 +676,56 @@ void MainWindow::on_shareVMessButton_clicked()
     // Share vmess://
 }
 
-void MainWindow::on_speedTimer_Ticked()
+void MainWindow::timerEvent(QTimerEvent *event)
 {
+    Q_UNUSED(event)
     auto inbounds = CurrentFullConfig["inbounds"].toArray();
-    long totalSpeedUp = 0, totalSpeedDown = 0, totalDataUp = 0, totalDataDown = 0;
+    long _totalSpeedUp = 0, _totalSpeedDown = 0, _totalDataUp = 0, _totalDataDown = 0;
 
     foreach (auto inbound, inbounds) {
         auto tag = inbound.toObject()["tag"].toString();
-        totalSpeedUp += vinstance->getTagLastUplink(tag);
-        totalSpeedDown += vinstance->getTagLastDownlink(tag);
-        totalDataUp += vinstance->getTagTotalUplink(tag);
-        totalDataDown += vinstance->getTagTotalDownlink(tag);
+
+        // TODO: A proper scheme...
+        if (tag == API_TAG_INBOUND) {
+            continue;
+        }
+
+        _totalSpeedUp += vinstance->getTagLastUplink(tag);
+        _totalSpeedDown += vinstance->getTagLastDownlink(tag);
+        _totalDataUp += vinstance->getTagTotalUplink(tag);
+        _totalDataDown += vinstance->getTagTotalDownlink(tag);
     }
 
-    char s[32] = "";
-    auto speedUp = FormatBytes(totalSpeedUp, s);
-    auto speedDown = FormatBytes(totalSpeedDown, s);
-    auto dataUp = FormatBytes(totalDataUp, s);
-    auto dataDown = FormatBytes(totalDataDown, s);
+    double max = 0;
+    double historyMax = 0;
+    auto graphVUp  = _totalSpeedUp / 1024;
+    auto graphVDown  = _totalSpeedDown / 1024;
+
+    for (auto i = 0; i < 29; i++) {
+        historyMax = MAX(historyMax, MAX(uploadList[i + 1], downloadList[i + 1]));
+        uploadList[i] = uploadList[i + 1];
+        downloadList[i] = downloadList[i + 1];
+        uploadSerie->replace(i, i, uploadList[i + 1]);
+        downloadSerie->replace(i, i, downloadList[i + 1]);
+    }
+
+    uploadList[uploadList.count() - 1] = graphVUp;
+    downloadList[uploadList.count() - 1] = graphVDown;
+    uploadSerie->replace(29, 29, graphVUp);
+    downloadSerie->replace(29, 29, graphVDown);
     //
-    ui->speedUpLabel->setText("Upload: " + speedUp + "/s");
-    ui->speedDownLabel->setText("Download: " + speedDown + "/s");
-    ui->totalDataUpLabel->setText("Total Up: " + dataUp);
-    ui->totalDataDownLabel->setText("Total Down: " + dataDown);
+    max = MAX(MAX(graphVUp, graphVDown), historyMax);
+    speedChart->axes(Qt::Vertical).first()->setRange(0, max * 1.2);
     //
-    hTray->setToolTip(TRAY_TOOLTIP_PREFIX "\r\n" + tr("Connected To Server: ") + CurrentConnectionName + "\r\n"
-                      "Up: " + speedUp + "/s Down: " + speedDown + "/s");
+    //
+    totalSpeedUp = FormatBytes(_totalSpeedUp);
+    totalSpeedDown = FormatBytes(_totalSpeedDown);
+    totalDataUp = FormatBytes(_totalDataUp);
+    totalDataDown = FormatBytes(_totalDataDown);
+    //
+    ui->netspeedLabel->setText(totalSpeedUp + "/s\r\n" + totalSpeedDown + "/s");
+    ui->dataamountLabel->setText(totalDataUp + "\r\n" + totalDataDown);
+    //
+    hTray->setToolTip(TRAY_TOOLTIP_PREFIX "\r\n" + tr("Connected To Server: ") + CurrentConnectionName + "\r\nUp: " + totalSpeedUp + "/s Down: " + totalSpeedDown + "/s");
 }
 

@@ -1,0 +1,146 @@
+name: Build Artifact for Release
+
+on:
+  release:
+    types: [prereleased]
+
+jobs:
+  Windows:
+    name: Release for Windows x64
+    runs-on: windows-2019
+    steps:
+      - name: Checkout Sources
+        uses: actions/checkout@master
+      - name: Restore Git Submodules
+        run: git submodule update --init
+# --------------------------------------------------------
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v1
+        with:
+          arch: win64_mingw73
+# --------------------------------------------------------
+      - name: Build Qv2ray
+        run: |
+          mkdir build
+          cd build
+          qmake ..
+          mingw32-make -j4
+      - name: Make release package
+        run: |
+          cd build
+          mkdir package
+          cd package
+          copy ..\release\Qv2ray.exe .\
+          copy ..\..\libs\libcrypto-1_1.dll .\
+          copy ..\..\libs\libssl-1_1.dll .\
+          windeployqt ./Qv2ray.exe --compiler-runtime
+          cd ..
+          ..\tools\7z.exe a Qv2ray.zip .\package
+      - name: Upload Artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: Qv2ray.Win64.zip
+          path: build/Qv2ray.zip
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v1-release
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: build/Qv2ray.zip
+          asset_name: Qv2ray-${{ github.ref }}-win64.zip
+          tag: ${{ github.ref }}
+          overwrite: true
+
+# =========================================================================================
+
+  macOS:
+    name: Release for macOS
+    runs-on: macOS-10.14
+    steps:
+      - name: Checkout Sources
+        uses: actions/checkout@master
+      - name: Restore Git Submodules
+        run: git submodule update --init
+# --------------------------------------------------------
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v1
+# --------------------------------------------------------
+      - name: Build Qv2ray
+        run: |
+          mkdir build
+          cd build
+          qmake ..
+          make -j4
+      - name: Make Package 
+        run: |
+          cd build
+          cd Qv2ray.app
+          macdeployqt ./
+          cd ..
+          tar czf Qv2ray.app.tar.gz Qv2ray.app
+      - name: Upload Artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: Qv2ray.macOS.app.zip
+          path: build/Qv2ray.app.tar.gz
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v1-release
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: build/Qv2ray.app.tar.gz
+          asset_name: Qv2ray-${{ github.ref }}-macOS.tar.gz
+          tag: ${{ github.ref }}
+          overwrite: true
+# ===================================================================================
+          
+  Linux:
+    name: Release for linux
+    runs-on: ubuntu-16.04
+    steps:
+      - name: Checkout Sources
+        uses: actions/checkout@master
+      - name: Restore Git Submodules
+        run: git submodule update --init
+# --------------------------------------------------------
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v1
+# --------------------------------------------------------
+      - name: Install libgl-dev and openssl libx11-dev libxkbcommon-x11-dev
+        run: sudo apt install -y libgl-dev openssl libx11-dev libxkbcommon-x11-dev
+      - name: Build Qv2ray
+        run: |
+          mkdir build
+          cd build
+          qmake ..
+          make -j4
+      - name: Generate FS Structure for AppImage
+        run: | 
+          cd build
+          make install INSTALL_ROOT=AppDir
+          cd AppDir
+          mkdir -p ./opt/Qv2ray/lib/
+          cp /lib/x86_64-linux-gnu/libssl.so.1.0.0 /lib/x86_64-linux-gnu/libcrypto.so.1.0.0 ./opt/Qv2ray/lib/
+          cp /lib/x86_64-linux-gnu/libssl.so.1.1 /lib/x86_64-linux-gnu/libcrypto.so.1.1 ./opt/Qv2ray/lib/
+      - name: Build AppImage using linuxdeployqt
+        run: |
+          cd build/AppDir
+          wget https://github.com/probonopd/linuxdeployqt/releases/download/6/linuxdeployqt-6-x86_64.AppImage
+          mv ./linuxdeployqt-6-x86_64.AppImage ../
+          chmod +x ../linuxdeployqt-6-x86_64.AppImage
+          ../linuxdeployqt-6-x86_64.AppImage --appimage-extract 
+          ./squashfs-root/AppRun opt/Qv2ray/share/applications/Qv2ray.desktop -appimage -no-strip -always-overwrite
+          mv ./Qv2ray*.AppImage ./Qv2ray.AppImage
+      - name: Upload Artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: Qv2ray.linux.AppImage
+          path: build/AppDir/Qv2ray.AppImage
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v1-release
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: build/AppDir/Qv2ray.AppImage
+          asset_name: Qv2ray-${{ github.ref }}-linux.AppImage
+          tag: ${{ github.ref }}
+          overwrite: true
+
+
