@@ -1,3 +1,4 @@
+#ifdef __linux__
 #include "QvNetSpeedPlugin.h"
 #include "QvUtils.h"
 #include <QLocalSocket>
@@ -8,26 +9,12 @@ namespace Qv2ray
     {
         namespace NetSpeedPlugin
         {
-#ifdef __linux__
             namespace _linux
             {
                 static QThread *linuxWorkerThread;
                 static QLocalServer *server;
                 static QObjectMessageProxy *messageProxy;
                 static bool isExiting = false;
-
-                void StartMessageQThread()
-                {
-                    linuxWorkerThread = QThread::create(_linux::DataMessageQThread);
-                    linuxWorkerThread->start();
-                }
-
-                void StopMessageQThread()
-                {
-                    isExiting = true;
-                    linuxWorkerThread->wait();
-                    delete _linux::linuxWorkerThread;
-                }
 
                 void qobject_proxy()
                 {
@@ -38,7 +25,8 @@ namespace Qv2ray
 
                     try {
                         while (!isExiting && socket->isOpen() && socket->isValid() && socket->waitForReadyRead()) {
-                            // BUG CANNOT PROPERLY READ...
+                            // CANNOT PROPERLY READ...
+                            // Temp-ly fixed (but why and how?)
                             auto in = QString(socket->readAll());
 
                             if (!isExiting && !in.isEmpty()) {
@@ -58,21 +46,46 @@ namespace Qv2ray
                 {
                     server = new QLocalServer();
                     // BUG Sometimes failed to listen due to improper close of last session.
-                    server->listen("Qv2ray_NetSpeed_Widget_LocalSocket");
+                    bool listening = server->listen(QV2RAY_NETSPEED_PLUGIN_PIPE_NAME_LINUX);
+
+                    while (!isExiting && !listening) {
+                        QThread::msleep(500);
+                        listening = server->listen(QV2RAY_NETSPEED_PLUGIN_PIPE_NAME_LINUX);
+                    }
+
                     bool timeOut = false;
                     server->setSocketOptions(QLocalServer::WorldAccessOption);
                     messageProxy = new QObjectMessageProxy(&qobject_proxy);
                     QObject::connect(server, &QLocalServer::newConnection, messageProxy, &QObjectMessageProxy::processMessage);
 
                     while (!isExiting) {
-                        bool result = server->waitForNewConnection(100, &timeOut);
-                        auto str  = server->errorString();
+                        bool result = server->waitForNewConnection(200, &timeOut);
+                        LOG(MODULE_PLUGIN, "Plugin thread listening failed: " << server->errorString().toStdString())
+                        LOG(MODULE_PLUGIN, "waitForNewConnection: " << (result ? "true" : "false") << ", " << (timeOut ? "true" : "false"))
                     }
 
                     server->close();
                 }
+                void StartMessageQThread()
+                {
+                    linuxWorkerThread = QThread::create(_linux::DataMessageQThread);
+                    linuxWorkerThread->start();
+                }
+
+                void StopMessageQThread()
+                {
+                    isExiting = true;
+
+                    if (linuxWorkerThread->isRunning()) {
+                        LOG(MODULE_PLUGIN, "Waiting for linuxWorkerThread to stop.")
+                        linuxWorkerThread->wait();
+                    }
+
+                    delete _linux::linuxWorkerThread;
+                }
+
             }
-#endif
         }
     }
 }
+#endif

@@ -11,12 +11,9 @@ namespace Qv2ray
 {
     namespace QvConfigModels
     {
-        // Secret member
+        // Private member
         QJsonObject UpgradeConfig_Inc(int fromVersion, QJsonObject root)
         {
-            //
-
-            //
             switch (fromVersion) {
                 case 1: {
                     auto v1_oldConfigVersion = root["config_version"].toString();
@@ -30,7 +27,7 @@ namespace Qv2ray
                 case 2 : {
                     // We copied those files.
                     auto vCoreFilePath = root["v2CorePath"].toString();
-                    auto vCoreDestPath = QV2RAY_V2RAY_CORE_PATH;
+                    auto vCoreDestPath = QV2RAY_DEFAULT_VCORE_PATH;
                     // We also need v2ctl
                     auto v2CtlFilePath = QFileInfo(vCoreFilePath).dir().path() + "/v2ctl";
                     auto v2CtlDestPath = QFileInfo(vCoreDestPath).dir().path() + "/v2ctl";
@@ -75,9 +72,15 @@ namespace Qv2ray
                     break;
                 }
 
-                case 6: {
-                    root["enableStats"] = true;
-                    UPDATELOG("Default statistics enabled.")
+                case 7: {
+                    QString path;
+#ifdef _WIN32
+                    path = QV2RAY_DEFAULT_VCORE_PATH + ".exe";
+#else
+                    path = QV2RAY_DEFAULT_VCORE_PATH;
+#endif
+                    root["v2CorePath"] = path;
+                    UPDATELOG("Added ")
                     break;
                 }
             }

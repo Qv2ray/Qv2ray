@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT += core gui widgets network
+QT += core gui widgets network charts
 
 TARGET = Qv2ray
 TEMPLATE = app
@@ -16,9 +16,10 @@ _BUILD_NUMBER=$$cat(Build.Counter)
 _BUILD_NUMBER = $$num_add($$_BUILD_NUMBER, 1)
 write_file("Build.Counter", _BUILD_NUMBER)
 
-VERSION = 1.99.99.$$_BUILD_NUMBER
+VERSION = 1.99.0.$$_BUILD_NUMBER
 
-DEFINES += QV_MAJOR_VERSION=\"\\\"$${VERSION}\\\"\"
+DEFINES += QV2RAY_VERSION_STRING=\"\\\"v$${VERSION}\\\"\"
+
 SOURCES += \
         src/main.cpp \
         src/QvConfigUpgrade.cpp \
@@ -28,7 +29,6 @@ SOURCES += \
         src/QvCoreInteractions.cpp \
         src/QvUtils.cpp \
         src/ui/NetSpeedBar/QvNetSpeedBar.cpp \
-        src/ui/NetSpeedBar/QvNetSpeedBar_linux.cpp \
         src/ui/w_InboundEditor.cpp \
         src/ui/w_OutboundEditor.cpp \
         src/ui/w_RoutesEditor.cpp \
@@ -176,6 +176,9 @@ unix {
     # For gRPC and protobuf in linux and macOS
     message("  --> Linking against gRPC and protobuf library.")
     LIBS += -L/usr/local/lib -lgrpc++ -lprotobuf
+
+    message("  --> Adding Plasma Toolbox CPP files.")
+    SOURCES += src/ui/NetSpeedBar/QvNetSpeedBar_linux.cpp
 
     message("  --> Generating desktop dependency.")
     desktop.files += ./icons/Qv2ray.desktop

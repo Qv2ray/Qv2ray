@@ -39,7 +39,7 @@ namespace Qv2ray
                     BOOL   fConnected = FALSE;
                     DWORD  dwThreadId = 0;
                     HANDLE hPipe = INVALID_HANDLE_VALUE;
-                    auto lpszPipename = QString("\\\\.\\pipe\\qv2ray_desktop_netspeed_toolbar_pipe").toStdWString();
+                    auto lpszPipename = QString().toStdWString();
 
                     while (!isExiting) {
                         //printf("Pipe Server: Main thread awaiting client connection on %s\n", lpszPipename.c_str());

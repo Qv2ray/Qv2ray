@@ -29,8 +29,8 @@ namespace Qv2ray
         void QvMessageBox(QWidget *parent, QString title, QString text);
         int QvMessageBoxAsk(QWidget *parent, QString title, QString text, QMessageBox::StandardButton extraButtons = QMessageBox::NoButton);
         //
+        QString StringFromFile(QFile *source);
         bool StringToFile(const QString *text, QFile *target);
-        QString StringFromFile(QFile *sourceFile);
         //
         QJsonObject JsonFromString(QString string);
         QString JsonToString(QJsonObject json);

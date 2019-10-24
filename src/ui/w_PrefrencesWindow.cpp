@@ -67,15 +67,10 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     ui->socksUDPIP->setText(QSTRING(CurrentConfig.inBoundSettings.socksLocalIP));
     //
     //
+    ui->vCorePathTxt->setText(QSTRING(CurrentConfig.v2CorePath));
     ui->vCoreAssetsPathTxt->setText(QSTRING(CurrentConfig.v2AssetsPath));
     ui->statsCheckbox->setChecked(CurrentConfig.enableStats);
     ui->statsPortBox->setValue(CurrentConfig.statsPort);
-    //
-    //
-#if false
-    ui->muxEnabledCB->setChecked(CurrentConfig.mux.enabled);
-    ui->muxConcurrencyTxt->setValue(CurrentConfig.mux.concurrency);
-#endif
     //
     //
     ui->bypassCNCb->setChecked(CurrentConfig.bypassCN);
@@ -257,6 +252,19 @@ void PrefrencesWindow::on_selectVAssetBtn_clicked()
     on_vCoreAssetsPathTxt_textEdited(dir);
 }
 
+void PrefrencesWindow::on_selectVCoreBtn_clicked()
+{
+    QString core = QFileDialog::getOpenFileName(this, tr("Open v2ray core file"), QDir::currentPath());
+    ui->vCorePathTxt->setText(core);
+    on_vCorePathTxt_textEdited(core);
+}
+
+void PrefrencesWindow::on_vCorePathTxt_textEdited(const QString &arg1)
+{
+    NEEDRESTART
+    CurrentConfig.v2CorePath = arg1.toStdString();
+}
+
 void PrefrencesWindow::on_DNSListTxt_textChanged()
 {
     if (finishedLoading) {
@@ -317,7 +325,7 @@ void PrefrencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
                 LOG(MODULE_UI, "Canceled enabling tProxy feature.")
             }
 
-            int ret = QProcess::execute("pkexec setcap CAP_NET_ADMIN,CAP_NET_RAW,CAP_NET_BIND_SERVICE=eip " + QV2RAY_V2RAY_CORE_PATH);
+            int ret = QProcess::execute("pkexec setcap CAP_NET_ADMIN,CAP_NET_RAW,CAP_NET_BIND_SERVICE=eip " + QSTRING(CurrentConfig.v2CorePath));
 
             if (ret != 0) {
                 LOG(MODULE_UI, "WARN: setcap exits with code: " + to_string(ret))
@@ -327,7 +335,7 @@ void PrefrencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
             CurrentConfig.tProxySupport = true;
             NEEDRESTART
         } else {
-            int ret = QProcess::execute("pkexec setcap -r " + QV2RAY_V2RAY_CORE_PATH);
+            int ret = QProcess::execute("pkexec setcap -r " + QSTRING(CurrentConfig.v2CorePath));
 
             if (ret != 0) {
                 LOG(MODULE_UI, "WARN: setcap exits with code: " + to_string(ret))
