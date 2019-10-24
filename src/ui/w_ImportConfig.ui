@@ -92,7 +92,7 @@
       <item>
        <widget class="QStackedWidget" name="stackedWidget">
         <property name="currentIndex">
-         <number>3</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="filePage">
          <layout class="QFormLayout" name="formLayout">

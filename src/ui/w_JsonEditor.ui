@@ -19,28 +19,18 @@
   <property name="modal">
    <bool>true</bool>
   </property>
-  <layout class="QGridLayout" name="gridLayout" columnstretch="11,9">
-   <item row="1" column="0">
-    <widget class="QTextEdit" name="jsonEditor"/>
+  <layout class="QGridLayout" name="gridLayout" columnstretch="6,5">
+   <item row="3" column="0">
+    <widget class="QLabel" name="jsonValidateStatus">
+     <property name="text">
+      <string>OK</string>
+     </property>
+    </widget>
    </item>
    <item row="0" column="1">
     <widget class="QLabel" name="label_2">
      <property name="text">
       <string>Json Structure Preview</string>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="0">
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string>Json Editor</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="0">
-    <widget class="QLabel" name="jsonValidateStatus">
-     <property name="text">
-      <string>OK</string>
      </property>
     </widget>
    </item>
@@ -54,10 +44,20 @@
      </property>
     </widget>
    </item>
+   <item row="1" column="0">
+    <widget class="QTextEdit" name="jsonEditor"/>
+   </item>
    <item row="2" column="0">
     <widget class="QPushButton" name="formatJsonBtn">
      <property name="text">
       <string>Format Json</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Json Editor</string>
      </property>
     </widget>
    </item>

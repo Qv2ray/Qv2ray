@@ -37,15 +37,11 @@ class PrefrencesWindow : public QDialog
 
         void on_vCoreAssetsPathTxt_textEdited(const QString &arg1);
 
-        void on_muxEnabledCB_stateChanged(int arg1);
-
-        void on_muxConcurrencyTxt_valueChanged(int arg1);
-
         void on_listenIPTxt_textEdited(const QString &arg1);
 
-        void on_socksPortLE_textEdited(const QString &arg1);
+        void on_socksPortLE_valueChanged(int arg1);
 
-        void on_httpPortLE_textEdited(const QString &arg1);
+        void on_httpPortLE_valueChanged(int arg1);
 
         void on_httpAuthUsernameTxt_textEdited(const QString &arg1);
 
@@ -77,7 +73,60 @@ class PrefrencesWindow : public QDialog
 
         void on_statsPortBox_valueChanged(int arg1);
 
+        void on_socksUDPCB_stateChanged(int arg1);
+
+        void on_socksUDPIP_textEdited(const QString &arg1);
+
+        void on_nsBarPageAddBTN_clicked();
+
+        void on_nsBarPageDelBTN_clicked();
+
+        void on_nsBarPageYOffset_valueChanged(int arg1);
+
+        void on_nsBarLineAddBTN_clicked();
+
+        void on_nsBarLineDelBTN_clicked();
+
+        void on_nsBarPagesList_currentRowChanged(int currentRow);
+
+        void on_nsBarLinesList_currentRowChanged(int currentRow);
+
+        void on_fontComboBox_currentFontChanged(const QFont &f);
+
+        void on_nsBarFontBoldCB_stateChanged(int arg1);
+
+        void on_nsBarFontItalicCB_stateChanged(int arg1);
+
+        void on_nsBarFontASB_valueChanged(int arg1);
+
+        void on_nsBarFontRSB_valueChanged(int arg1);
+
+        void on_nsBarFontGSB_valueChanged(int arg1);
+
+        void on_nsBarFontBSB_valueChanged(int arg1);
+
+        void on_nsBarFontSizeSB_valueChanged(double arg1);
+
+        void on_chooseColorBtn_clicked();
+
+        void on_nsBarTagTxt_textEdited(const QString &arg1);
+
+        void on_nsBarContentCombo_currentIndexChanged(const QString &arg1);
+
+        void on_applyNSBarSettingsBtn_clicked();
+
+        void on_selectVCoreBtn_clicked();
+
+        void on_vCorePathTxt_textEdited(const QString &arg1);
+
     private:
+        // Set ui parameters for a line;
+        void ShowLineParameters(QvBarLine &line);
+        QString GetBarLineDescription(QvBarLine line);
+        //
+        size_t CurrentBarLineId;
+        size_t CurrentBarPageId;
+        //
         bool IsConnectionPropertyChanged = false;
         bool finishedLoading = false;
         Qv2ray::QvConfigModels::Qv2rayConfig CurrentConfig;

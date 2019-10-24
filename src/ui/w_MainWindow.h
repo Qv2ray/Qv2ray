@@ -3,6 +3,7 @@
 #include <QMainWindow>
 #include <QMenu>
 #include <QScrollBar>
+#include <QtCharts>
 #include <QSystemTrayIcon>
 
 #include "QvUtils.h"
@@ -11,6 +12,7 @@
 #include "QvHTTPRequestHelper.h"
 
 #include "ui_w_MainWindow.h"
+
 namespace Ui
 {
     class MainWindow;
@@ -22,14 +24,18 @@ class MainWindow : public QMainWindow
     public:
         explicit MainWindow(QWidget *parent = nullptr);
         ~MainWindow();
+    signals:
+        void Connect();
+        void DisConnect();
+        void ReConnect();
     public slots:
         void UpdateLog();
         void OnConfigListChanged(bool need_restart);
     private slots:
-        void on_speedTimer_Ticked();
-        void VersionUpdate(QByteArray &data);
         void on_startButton_clicked();
         void on_stopButton_clicked();
+        void on_reconnectButton_clicked();
+        void VersionUpdate(QByteArray &data);
         void on_activatedTray(QSystemTrayIcon::ActivationReason reason);
         void ToggleVisibility();
         void quit();
@@ -58,8 +64,6 @@ class MainWindow : public QMainWindow
 
         void on_editConfigButton_clicked();
 
-        void on_reconnectButton_clicked();
-
         void on_editJsonBtn_clicked();
 
         void on_pingTestBtn_clicked();
@@ -67,25 +71,41 @@ class MainWindow : public QMainWindow
         void on_shareQRButton_clicked();
 
         void on_shareVMessButton_clicked();
+    public:
+        QJsonObject CurrentFullConfig;
+        QString CurrentConnectionName = "";
+        Qv2Instance *vinstance;
+        QString totalDataUp;
+        QString totalDataDown;
+        QString totalSpeedUp;
+        QString totalSpeedDown;
 
+    protected:
+
+        void timerEvent(QTimerEvent *event);
     private:
+        Ui::MainWindow *ui;
+        //
+        QChartView *speedChartView;
+        QChart *speedChart;
+        QSplineSeries *uploadSerie;
+        QSplineSeries *downloadSerie;
+        QList<double> uploadList;
+        QList<double> downloadList;
+        //
         void on_action_StartThis_triggered();
         void on_action_RCM_EditJson_triggered();
         void on_action_RenameConnection_triggered();
-        Ui::MainWindow *ui;
         QvHttpRequestHelper HTTPRequestHelper;
         QSystemTrayIcon *hTray;
         QMenu *trayMenu = new QMenu(this);
-        Qv2Instance *vinstance;
         QMenu listMenu;
         QMap<QString, QJsonObject> connections;
-        QString CurrentConnectionName;
         //
         QString originalName;
         bool isRenamingInProgress;
         //
-        QTimer speedTimer;
-        QJsonObject CurrentFullConfig;
+        int speedTimerId;
         //
         void ShowAndSetConnection(QString currentText, bool SetConnection, bool Apply);
         void LoadConnections();

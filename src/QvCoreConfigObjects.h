@@ -1,11 +1,9 @@
+#ifndef V2CONFIG_H
+#define V2CONFIG_H
 #include <list>
 #include <string>
 
 #include <x2struct/x2struct.hpp>
-
-#ifndef V2CONFIG_H
-#define V2CONFIG_H
-
 using namespace x2struct;
 using namespace std;
 

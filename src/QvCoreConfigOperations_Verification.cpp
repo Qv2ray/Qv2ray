@@ -19,8 +19,20 @@ namespace Qv2ray
                 auto vmessConf = JsonFromString(vmessString);
                 // C is a quick hack...
 #define C(k) vmessConf.contains(k)
-                //string       v,        ps,        add,        port,        id,        aid,        net,        type,        host,        path,        tls;
-                bool flag = C("v") && C("ps") && C("add") && C("port") && C("id") && C("aid") && C("net") && C("type") && C("host") && C("path") && C("tls");
+                bool flag = true;
+                flag = flag && C("id");
+                flag = flag && C("aid");
+                flag = flag && C("port");
+                flag = flag && C("add");
+                // Stream Settings
+                auto net = C("net") ? vmessConf["net"].toString() : "tcp";
+
+                if (net == "http" || net == "ws")
+                    flag = flag && C("host") && C("path");
+                else if (net == "domainsocket")
+                    flag = flag && C("path");
+                else if (net == "quic")
+                    flag = flag && C("host") && C("type") && C("path");
 #undef C
                 return flag ? 0 : 1;
             } catch (exception *e) {

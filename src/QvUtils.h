@@ -11,12 +11,12 @@ namespace Qv2ray
     {
         QTranslator *getTranslator(const QString *lang);
 
-        QStringList getFileList(QDir *dir);
+        QStringList getFileList(QDir dir);
 
         QString Base64Encode(QString string);
         QString Base64Decode(QString string);
 
-        bool CheckFile(QDir *dir, QString fileName);
+        bool CheckFile(QDir dir, QString fileName);
 
         void SetConfigDirPath(const QString *path);
         QString GetConfigDirPath();
@@ -29,8 +29,8 @@ namespace Qv2ray
         void QvMessageBox(QWidget *parent, QString title, QString text);
         int QvMessageBoxAsk(QWidget *parent, QString title, QString text, QMessageBox::StandardButton extraButtons = QMessageBox::NoButton);
         //
+        QString StringFromFile(QFile *source);
         bool StringToFile(const QString *text, QFile *target);
-        QString StringFromFile(QFile *sourceFile);
         //
         QJsonObject JsonFromString(QString string);
         QString JsonToString(QJsonObject json);
@@ -54,7 +54,18 @@ namespace Qv2ray
             X::loadjson(str.toStdString(), v, false);
             return v;
         }
-        QString FormatBytes(long long bytes, char *str);
+        //
+
+
+        template <typename T>
+        void RemoveItem(std::vector<T> &vec, size_t pos)
+        {
+            auto it = vec.begin();
+            std::advance(it, pos);
+            vec.erase(it);
+        }
+
+        QString FormatBytes(long long bytes);
     }
 }
 

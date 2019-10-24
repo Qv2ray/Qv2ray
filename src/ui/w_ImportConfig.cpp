@@ -8,7 +8,7 @@
 #include "QvUtils.h"
 #include "QvCoreInteractions.h"
 #include "QvCoreConfigOperations.h"
-#include "w_ConnectionEditWindow.h"
+#include "w_OutboundEditor.h"
 #include "w_ImportConfig.h"
 
 
@@ -90,7 +90,7 @@ void ImportConfigWindow::on_buttonBox_accepted()
                     return;
 
                 default:
-                    QvMessageBox(this, tr("VMess String Check"), tr("Some internal error occured."));
+                    QvMessageBox(this, tr("VMess String Check"), tr("VMess config is not valid."));
                     return;
             }
         }

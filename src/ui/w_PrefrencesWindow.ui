@@ -6,14 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>709</width>
-    <height>370</height>
+    <width>780</width>
+    <height>500</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="minimumSize">
    <size>
-    <width>700</width>
-    <height>370</height>
+    <width>780</width>
+    <height>500</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -22,8 +28,8 @@
   <property name="modal">
    <bool>true</bool>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_2">
-   <item>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="tabShape">
       <enum>QTabWidget::Rounded</enum>
@@ -141,14 +147,14 @@
          </property>
         </widget>
        </item>
-       <item row="6" column="0">
+       <item row="7" column="0">
         <widget class="QLabel" name="label_15">
          <property name="text">
           <string>v2ray Assets Path</string>
          </property>
         </widget>
        </item>
-       <item row="6" column="1">
+       <item row="7" column="1">
         <layout class="QHBoxLayout" name="horizontalLayout_5">
          <item>
           <widget class="QLineEdit" name="vCoreAssetsPathTxt"/>
@@ -156,7 +162,7 @@
          <item>
           <widget class="QPushButton" name="selectVAssetBtn">
            <property name="text">
-            <string>#Select</string>
+            <string>Select</string>
            </property>
           </widget>
          </item>
@@ -196,24 +202,49 @@
          </property>
         </widget>
        </item>
+       <item row="6" column="0">
+        <widget class="QLabel" name="label_46">
+         <property name="text">
+          <string>v2ray Core Path</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="1">
+        <layout class="QHBoxLayout" name="horizontalLayout_12">
+         <item>
+          <widget class="QLineEdit" name="vCorePathTxt"/>
+         </item>
+         <item>
+          <widget class="QPushButton" name="selectVCoreBtn">
+           <property name="text">
+            <string>Select</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
       </layout>
      </widget>
      <widget class="QWidget" name="tab_3">
       <attribute name="title">
        <string>InBound Settings</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,1">
+      <layout class="QVBoxLayout" name="verticalLayout" stretch="0,1">
        <item>
         <layout class="QFormLayout" name="formLayout_4">
          <item row="0" column="0">
           <widget class="QLabel" name="label_22">
            <property name="text">
-            <string>Listen IP</string>
+            <string>Listening Address</string>
            </property>
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QLineEdit" name="listenIPTxt"/>
+          <widget class="QLineEdit" name="listenIPTxt">
+           <property name="placeholderText">
+            <string notr="true">0.0.0.0</string>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
@@ -222,7 +253,7 @@
          <item>
           <widget class="QGroupBox" name="groupBox_2">
            <property name="title">
-            <string>SOCKS InBound Settings</string>
+            <string>SOCKS Inbound Settings</string>
            </property>
            <layout class="QFormLayout" name="formLayout_2">
             <item row="0" column="1">
@@ -240,9 +271,12 @@
              </widget>
             </item>
             <item row="1" column="1">
-             <widget class="QLineEdit" name="socksPortLE">
-              <property name="text">
-               <string/>
+             <widget class="QSpinBox" name="socksPortLE">
+              <property name="minimum">
+               <number>1</number>
+              </property>
+              <property name="maximum">
+               <number>65535</number>
               </property>
              </widget>
             </item>
@@ -268,7 +302,11 @@
              </widget>
             </item>
             <item row="3" column="1">
-             <widget class="QLineEdit" name="socksAuthUsernameTxt"/>
+             <widget class="QLineEdit" name="socksAuthUsernameTxt">
+              <property name="placeholderText">
+               <string notr="true">user</string>
+              </property>
+             </widget>
             </item>
             <item row="4" column="0">
              <widget class="QLabel" name="label_12">
@@ -278,7 +316,39 @@
              </widget>
             </item>
             <item row="4" column="1">
-             <widget class="QLineEdit" name="socksAuthPasswordTxt"/>
+             <widget class="QLineEdit" name="socksAuthPasswordTxt">
+              <property name="placeholderText">
+               <string notr="true">pass</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="0">
+             <widget class="QLabel" name="label_14">
+              <property name="text">
+               <string>SOCKS UDP</string>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="0">
+             <widget class="QLabel" name="label_25">
+              <property name="text">
+               <string>Local IP</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="1">
+             <widget class="QCheckBox" name="socksUDPCB">
+              <property name="text">
+               <string>Enabled</string>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="1">
+             <widget class="QLineEdit" name="socksUDPIP">
+              <property name="placeholderText">
+               <string notr="true">127.0.0.1</string>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>
@@ -286,7 +356,7 @@
          <item>
           <widget class="QGroupBox" name="groupBox">
            <property name="title">
-            <string>HTTP InBound Settings</string>
+            <string>HTTP Inbound Settings</string>
            </property>
            <layout class="QFormLayout" name="formLayout_7">
             <item row="0" column="1">
@@ -307,15 +377,12 @@
              </widget>
             </item>
             <item row="1" column="1">
-             <widget class="QLineEdit" name="httpPortLE">
-              <property name="text">
-               <string/>
+             <widget class="QSpinBox" name="httpPortLE">
+              <property name="minimum">
+               <number>1</number>
               </property>
-              <property name="dragEnabled">
-               <bool>false</bool>
-              </property>
-              <property name="clearButtonEnabled">
-               <bool>false</bool>
+              <property name="maximum">
+               <number>65535</number>
               </property>
              </widget>
             </item>
@@ -341,7 +408,11 @@
              </widget>
             </item>
             <item row="3" column="1">
-             <widget class="QLineEdit" name="httpAuthUsernameTxt"/>
+             <widget class="QLineEdit" name="httpAuthUsernameTxt">
+              <property name="placeholderText">
+               <string notr="true">user</string>
+              </property>
+             </widget>
             </item>
             <item row="4" column="0">
              <widget class="QLabel" name="label_13">
@@ -351,25 +422,16 @@
              </widget>
             </item>
             <item row="4" column="1">
-             <widget class="QLineEdit" name="httpAuthPasswordTxt"/>
+             <widget class="QLineEdit" name="httpAuthPasswordTxt">
+              <property name="placeholderText">
+               <string notr="true">pass</string>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>
          </item>
         </layout>
-       </item>
-       <item>
-        <spacer name="verticalSpacer">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
        </item>
       </layout>
      </widget>
@@ -442,6 +504,310 @@
        </item>
       </layout>
      </widget>
+     <widget class="QWidget" name="tab_2">
+      <attribute name="title">
+       <string>NetSpeed Bar Settings</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_3" rowstretch="0,1,0" columnstretch="1,0">
+       <item row="0" column="0" colspan="2">
+        <widget class="QLabel" name="label_33">
+         <property name="text">
+          <string>You can config how the network speed toolbar looks like in this panel</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" rowspan="2">
+        <widget class="QGroupBox" name="groupBox_6">
+         <property name="title">
+          <string>Items</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_2" rowstretch="2,2,3,2,1,1,1" columnstretch="0,0,1,0">
+          <item row="1" column="3">
+           <widget class="QToolButton" name="nsBarPageDelBTN">
+            <property name="text">
+             <string>...</string>
+            </property>
+            <property name="icon">
+             <iconset resource="../../resources.qrc">
+              <normaloff>:/icons/remove_connection_btn.png</normaloff>:/icons/remove_connection_btn.png</iconset>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="3">
+           <widget class="QToolButton" name="nsBarPageAddBTN">
+            <property name="text">
+             <string>...</string>
+            </property>
+            <property name="icon">
+             <iconset resource="../../resources.qrc">
+              <normaloff>:/icons/add_connection_btn.png</normaloff>:/icons/add_connection_btn.png</iconset>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QLabel" name="label_39">
+            <property name="text">
+             <string>Page Y Offset</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_32">
+            <property name="text">
+             <string>Pages</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0">
+           <widget class="QLabel" name="label_45">
+            <property name="text">
+             <string>Lines</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="2">
+           <widget class="QSpinBox" name="nsBarPageYOffset">
+            <property name="maximum">
+             <number>1024</number>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="3" rowspan="2">
+           <spacer name="verticalSpacer_4">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>38</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="5" column="3">
+           <widget class="QToolButton" name="nsBarLineDelBTN">
+            <property name="text">
+             <string>...</string>
+            </property>
+            <property name="icon">
+             <iconset resource="../../resources.qrc">
+              <normaloff>:/icons/remove_connection_btn.png</normaloff>:/icons/remove_connection_btn.png</iconset>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="3">
+           <widget class="QToolButton" name="nsBarLineAddBTN">
+            <property name="text">
+             <string>...</string>
+            </property>
+            <property name="icon">
+             <iconset resource="../../resources.qrc">
+              <normaloff>:/icons/add_connection_btn.png</normaloff>:/icons/add_connection_btn.png</iconset>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="3">
+           <spacer name="verticalSpacer_3">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="0" column="1" rowspan="3" colspan="2">
+           <widget class="QListWidget" name="nsBarPagesList"/>
+          </item>
+          <item row="4" column="1" rowspan="3" colspan="2">
+           <widget class="QListWidget" name="nsBarLinesList"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <layout class="QVBoxLayout" name="verticalLayout_5">
+         <item>
+          <widget class="QGroupBox" name="groupBox_3">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="title">
+            <string>Text Style</string>
+           </property>
+           <layout class="QFormLayout" name="formLayout_3">
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_34">
+              <property name="text">
+               <string>Font</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QFontComboBox" name="fontComboBox"/>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_35">
+              <property name="text">
+               <string>Bold</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QCheckBox" name="nsBarFontBoldCB">
+              <property name="text">
+               <string>Enabled</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_36">
+              <property name="text">
+               <string>Italic</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QCheckBox" name="nsBarFontItalicCB">
+              <property name="text">
+               <string>Enabled</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QLabel" name="label_37">
+              <property name="text">
+               <string>Color</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <layout class="QHBoxLayout" name="horizontalLayout_11" stretch="0,1,0,1,0,1,0,1,0">
+              <item>
+               <widget class="QLabel" name="label_40">
+                <property name="text">
+                 <string>A:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QSpinBox" name="nsBarFontASB">
+                <property name="maximum">
+                 <number>255</number>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_43">
+                <property name="text">
+                 <string>R:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QSpinBox" name="nsBarFontRSB">
+                <property name="maximum">
+                 <number>255</number>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_42">
+                <property name="text">
+                 <string>G:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QSpinBox" name="nsBarFontGSB">
+                <property name="maximum">
+                 <number>255</number>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_41">
+                <property name="text">
+                 <string>B:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QSpinBox" name="nsBarFontBSB">
+                <property name="maximum">
+                 <number>255</number>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QToolButton" name="chooseColorBtn">
+                <property name="text">
+                 <string>...</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item row="4" column="0">
+             <widget class="QLabel" name="label_38">
+              <property name="text">
+               <string>Size</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="1">
+             <widget class="QDoubleSpinBox" name="nsBarFontSizeSB"/>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="groupBox_5">
+           <property name="title">
+            <string>Content</string>
+           </property>
+           <layout class="QFormLayout" name="formLayout_9">
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_44">
+              <property name="text">
+               <string>Content Type</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QComboBox" name="nsBarContentCombo"/>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_31">
+              <property name="text">
+               <string>Text/Tag</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLineEdit" name="nsBarTagTxt"/>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="2" column="1">
+        <widget class="QPushButton" name="applyNSBarSettingsBtn">
+         <property name="text">
+          <string>Apply Network Speed Bar UI Settings</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
      <widget class="QWidget" name="tab_5">
       <attribute name="title">
        <string>About</string>
@@ -496,7 +862,7 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="0">
+          <item row="2" column="0">
            <layout class="QHBoxLayout" name="horizontalLayout_6">
             <item>
              <spacer name="horizontalSpacer">
@@ -529,7 +895,7 @@
             </item>
            </layout>
           </item>
-          <item row="2" column="0">
+          <item row="4" column="0">
            <layout class="QHBoxLayout" name="horizontalLayout_8">
             <item>
              <spacer name="horizontalSpacer_3">
@@ -580,7 +946,7 @@
             </item>
            </layout>
           </item>
-          <item row="3" column="0">
+          <item row="5" column="0">
            <layout class="QHBoxLayout" name="horizontalLayout_9">
             <item>
              <spacer name="horizontalSpacer_5">
@@ -631,7 +997,7 @@
             </item>
            </layout>
           </item>
-          <item row="7" column="0">
+          <item row="9" column="0">
            <spacer name="verticalSpacer1">
             <property name="orientation">
              <enum>Qt::Vertical</enum>
@@ -644,7 +1010,7 @@
             </property>
            </spacer>
           </item>
-          <item row="7" column="1">
+          <item row="9" column="1">
            <widget class="QPushButton" name="aboutQt">
             <property name="minimumSize">
              <size>
@@ -657,7 +1023,7 @@
             </property>
            </widget>
           </item>
-          <item row="5" column="0">
+          <item row="7" column="0">
            <spacer name="verticalSpacer1_2">
             <property name="orientation">
              <enum>Qt::Vertical</enum>
@@ -670,7 +1036,7 @@
             </property>
            </spacer>
           </item>
-          <item row="6" column="0">
+          <item row="8" column="0">
            <layout class="QHBoxLayout" name="horizontalLayout_10">
             <item>
              <spacer name="horizontalSpacer_4">
@@ -708,6 +1074,39 @@
             </item>
            </layout>
           </item>
+          <item row="3" column="0">
+           <layout class="QHBoxLayout" name="horizontalLayout_7">
+            <item>
+             <spacer name="horizontalSpacer_2">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_26">
+              <property name="text">
+               <string>Built Time</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="qvBuildTime">
+              <property name="font">
+               <font>
+                <pointsize>10</pointsize>
+               </font>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
          </layout>
         </widget>
        </item>
@@ -715,7 +1114,7 @@
      </widget>
     </widget>
    </item>
-   <item>
+   <item row="1" column="0">
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -727,7 +1126,9 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../../resources.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>buttonBox</sender>

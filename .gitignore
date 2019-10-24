@@ -4,14 +4,8 @@
 *.qm
 ./.vscode
 
-*.pb.cc
-*.pb.h
 
 libs/gen/
 libs/gRPC-win32/
 
-libs/gRPC-macOS/
-
 build/
-src/build/
-OpenBuildService/

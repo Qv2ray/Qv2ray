@@ -1,0 +1,131 @@
+name: Build Cross-platform Qv2ray
+
+on: push
+
+jobs:
+  Windows:
+    name: Push build for win64
+    runs-on: windows-2019
+    steps:
+      - name: Checkout Sources
+        uses: actions/checkout@master
+      - name: Restore Git Submodules
+        run: git submodule update --init
+# --------------------------------------------------------
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v1
+        with:
+          arch: win64_mingw73
+# --------------------------------------------------------
+      - name: Extract gRPC and protobuf
+        run: tools\grpc_gen.bat
+# --------------------------------------------------------
+      - name: Build Qv2ray
+        run: |
+          mkdir build
+          cd build
+          qmake ..
+          mingw32-make -j4
+      - name: Make release package
+        run: |
+          cd build
+          mkdir package
+          cd package
+          copy ..\release\Qv2ray.exe .\
+          copy ..\..\libs\libcrypto-1_1.dll .\
+          copy ..\..\libs\libssl-1_1.dll .\
+          windeployqt ./Qv2ray.exe --compiler-runtime
+          cd ..
+          ..\tools\7z.exe a Qv2ray.zip .\package
+      - name: Upload Artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: Qv2ray.Win64.zip
+          path: build/Qv2ray.zip
+
+# =========================================================================================
+
+  macOS:
+    name: Push build for macOS
+    runs-on: macOS-10.14
+    steps:
+      - name: Checkout Sources
+        uses: actions/checkout@master
+      - name: Restore Git Submodules
+        run: git submodule update --init
+# --------------------------------------------------------
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v1
+# --------------------------------------------------------
+      - name: Extract gRPC and protobuf
+        run: tools/deps_macOS.sh
+# --------------------------------------------------------
+      - name: Build Qv2ray
+        run: |
+          mkdir build
+          cd build
+          qmake ..
+          make -j4
+      - name: Make Package 
+        run: |
+          cd build
+          cd Qv2ray.app
+          macdeployqt ./
+          cd ..
+          tar czf Qv2ray.app.tar.gz Qv2ray.app
+      - name: Upload Artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: Qv2ray.macOS.app.zip
+          path: build/Qv2ray.app.tar.gz
+# ===================================================================================
+          
+  Linux:
+    name: Push build for Linux
+    runs-on: ubuntu-16.04
+    steps:
+      - name: Checkout Sources
+        uses: actions/checkout@master
+      - name: Restore Git Submodules
+        run: git submodule update --init
+# --------------------------------------------------------
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v1
+# --------------------------------------------------------
+      - name: Install Packages 
+        run: sudo apt install -y libgl-dev and openssl libx11-dev libxkbcommon-x11-dev libgrpc++-dev libprotobuf-dev protobuf-compiler protobuf-c-compiler protobuf-compiler-grpc
+# --------------------------------------------------------
+      - name: Extract gRPC and protobuf
+        run: tools/grpc_gen.sh
+# --------------------------------------------------------
+      - name: Update Locate DB
+        run: sudo updatedb
+      - name: Build Qv2ray
+        run: |
+          mkdir build
+          cd build
+          qmake ..
+          make -j4
+      - name: Generate FS Structure for AppImage
+        run: | 
+          cd build
+          make install INSTALL_ROOT=AppDir
+          cd AppDir
+          mkdir -p ./usr/lib/
+          cp /lib/x86_64-linux-gnu/libssl.so.1.1 /lib/x86_64-linux-gnu/libcrypto.so.1.1 ./usr/lib/
+          cp /lib/x86_64-linux-gnu/libssl.so.1.0.0 /lib/x86_64-linux-gnu/libcrypto.so.1.0.0 ./usr/lib/
+      - name: Build AppImage using linuxdeployqt
+        run: |
+          cd build/AppDir
+          wget https://github.com/probonopd/linuxdeployqt/releases/download/6/linuxdeployqt-6-x86_64.AppImage
+          mv ./linuxdeployqt-6-x86_64.AppImage ../
+          chmod +x ../linuxdeployqt-6-x86_64.AppImage
+          ../linuxdeployqt-6-x86_64.AppImage --appimage-extract 
+          ./squashfs-root/AppRun usr/share/applications/Qv2ray.desktop -appimage -no-strip -always-overwrite
+          mv ./Qv2ray*.AppImage ./Qv2ray.AppImage
+      - name: Upload Artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: Qv2ray.linux.AppImage
+          path: build/AppDir/Qv2ray.AppImage
+
