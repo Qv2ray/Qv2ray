@@ -16,7 +16,7 @@ _BUILD_NUMBER=$$cat(Build.Counter)
 _BUILD_NUMBER = $$num_add($$_BUILD_NUMBER, 1)
 write_file("Build.Counter", _BUILD_NUMBER)
 
-VERSION = 1.99.0.$$_BUILD_NUMBER
+VERSION = 1.99.1.$$_BUILD_NUMBER
 
 DEFINES += QV2RAY_VERSION_STRING=\"\\\"v$${VERSION}\\\"\"
 
