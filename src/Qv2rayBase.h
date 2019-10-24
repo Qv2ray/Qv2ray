@@ -48,11 +48,7 @@
 
 #define QSTRING(std_string) QString::fromStdString(std_string)
 
-#ifdef __WIN32
 #define NEWLINE "\r\n"
-#else
-#define NEWLINE "\r"
-#endif
 
 namespace Qv2ray
 {
