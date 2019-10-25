@@ -501,7 +501,7 @@ void MainWindow::on_connectionListWidget_itemChanged(QListWidgetItem *item)
             return;
         }
 
-        LOG("RENAME", "ORIGINAL: " + originalName.toStdString() + ", NEW: " + newName.toStdString())
+        LOG(MODULE_FILE, "[RENAME] --> ORIGINAL: " + originalName.toStdString() + ", NEW: " + newName.toStdString())
 
         // If I really did some changes.
         if (originalName != newName) {
@@ -572,7 +572,7 @@ void MainWindow::on_addConfigButton_clicked()
     connect(w, &OutboundEditor::s_reload_config, this, &MainWindow::OnConfigListChanged);
     auto outboundEntry = w->OpenEditor();
     bool isChanged = w->result() == QDialog::Accepted;
-    auto alias = w->Alias;
+    QString alias = w->GetFriendlyName();
     delete w;
 
     if (isChanged) {
@@ -581,13 +581,15 @@ void MainWindow::on_addConfigButton_clicked()
         QJsonObject root;
         root.insert("outbounds", outboundsList);
         //
+        // WARN This one will change the connection name, because of some duplicates.
+        SaveConnectionConfig(root, &alias, false);
+        //
         auto conf = GetGlobalConfig();
         auto connectionList = conf.configs;
         connectionList.push_back(alias.toStdString());
         conf.configs = connectionList;
         SetGlobalConfig(conf);
         OnConfigListChanged(false);
-        SaveConnectionConfig(root, &alias);
         ShowAndSetConnection(CurrentConnectionName, false, false);
     }
 }
@@ -607,12 +609,12 @@ void MainWindow::on_editConfigButton_clicked()
 
     if (outBoundRoot["outbounds"].toArray().count() > 1) {
         LOG(MODULE_UI, "INFO: Opening route editor.")
-        RouteEditor *routeWindow = new RouteEditor(outBoundRoot, alias, this);
+        RouteEditor *routeWindow = new RouteEditor(outBoundRoot, this);
         root = routeWindow->OpenEditor();
         isChanged = routeWindow->result() == QDialog::Accepted;
     } else {
         LOG(MODULE_UI, "INFO: Opening single connection edit window.")
-        OutboundEditor *w = new OutboundEditor(outBoundRoot["outbounds"].toArray().first().toObject(), &alias, this);
+        OutboundEditor *w = new OutboundEditor(outBoundRoot["outbounds"].toArray().first().toObject(), this);
         auto outboundEntry = w->OpenEditor();
         isChanged = w->result() == QDialog::Accepted;
         QJsonArray outboundsList;
@@ -622,7 +624,7 @@ void MainWindow::on_editConfigButton_clicked()
 
     if (isChanged) {
         connections[alias] = root;
-        SaveConnectionConfig(root, &alias);
+        SaveConnectionConfig(root, &alias, true);
         OnConfigListChanged(alias == CurrentConnectionName);
         ShowAndSetConnection(CurrentConnectionName, false, false);
     }
@@ -650,7 +652,7 @@ void MainWindow::on_action_RCM_EditJson_triggered()
 
     if (isChanged) {
         connections[alias] = root;
-        SaveConnectionConfig(root, &alias);
+        SaveConnectionConfig(root, &alias, true);
         ShowAndSetConnection(CurrentConnectionName, false, false);
     }
 }

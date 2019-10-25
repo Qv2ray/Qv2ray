@@ -61,7 +61,7 @@ void ImportConfigWindow::on_buttonBox_accepted()
         conf.configs.push_back(alias.toStdString());
         //
         SetGlobalConfig(conf);
-        needReload = SaveConnectionConfig(config, &alias);
+        needReload = SaveConnectionConfig(config, &alias, false);
     } else {
         QString vmess = ui->vmessConnectionStringTxt->toPlainText();
         //
@@ -81,7 +81,9 @@ void ImportConfigWindow::on_buttonBox_accepted()
                     config.remove("QV2RAY_ALIAS");
                     //
                     conf.configs.push_back(alias.toStdString());
-                    needReload = needReload || SaveConnectionConfig(config, &alias);
+                    //
+                    // TODO canOverride FALSE or TRUE?
+                    needReload = needReload || SaveConnectionConfig(config, &alias, false);
                     break;
 
                 case -1:

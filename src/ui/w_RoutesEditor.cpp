@@ -5,10 +5,9 @@
 #include "w_JsonEditor.h"
 #include "w_InboundEditor.h"
 
-RouteEditor::RouteEditor(QJsonObject connection, const QString alias, QWidget *parent) :
+RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) :
     QDialog(parent),
     root(connection),
-    rootAlias(alias),
     ui(new Ui::RouteEditor)
 {
     inbounds = root["inbounds"].toArray();
@@ -157,7 +156,7 @@ void RouteEditor::on_editOutboundBtn_clicked()
         result = w->OpenEditor();
         delete w;
     } else {
-        OutboundEditor *w = new OutboundEditor(currentOutbound, nullptr, this);
+        OutboundEditor *w = new OutboundEditor(currentOutbound, this);
         result = w->OpenEditor();
         delete w;
     }

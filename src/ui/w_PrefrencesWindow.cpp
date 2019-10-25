@@ -96,16 +96,20 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     ui->cancelIgnoreVersionBtn->setEnabled(CurrentConfig.ignoredVersion != "");
     ui->ignoredNextVersion->setText(QSTRING(CurrentConfig.ignoredVersion));
     //
-    // TODO : Show nsBarPageList content.
-    //
 
     for (size_t i = 0; i < CurrentConfig.speedBarConfig.Pages.size(); i++) {
-        ui->nsBarPagesList->addItem(tr("Page") + QString::number(i));
+        ui->nsBarPagesList->addItem(tr("Page") + QString::number(i + 1) + ": " + QString::number(CurrentConfig.speedBarConfig.Pages[i].Lines.size()) + " " + tr("Item(s)"));
     }
 
     if (CurrentConfig.speedBarConfig.Pages.size() > 0) {
         ui->nsBarPagesList->setCurrentRow(0);
         on_nsBarPagesList_currentRowChanged(0);
+    } else {
+        ui->nsBarVerticalLayout->setEnabled(false);
+        ui->nsBarLinesList->setEnabled(false);
+        ui->nsBarLineDelBTN->setEnabled(false);
+        ui->nsBarLineAddBTN->setEnabled(false);
+        ui->nsBarPageYOffset->setEnabled(false);
     }
 
     CurrentBarPageId = 0;
@@ -308,9 +312,6 @@ void PrefrencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
 #ifdef __linux
 
     if (finishedLoading) {
-        //LOG(MODULE_UI, "Running getcap....")
-        //QProcess::execute("getcap " + QV2RAY_V2RAY_CORE_PATH);
-
         // Set UID and GID for linux
         // Steps:
         // --> 1. Copy v2ray core files to the #CONFIG_DIR#/vcore/ dir.
@@ -318,22 +319,53 @@ void PrefrencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
         // --> 3. Call `pkexec setcap CAP_NET_ADMIN,CAP_NET_RAW,CAP_NET_BIND_SERVICE=eip` on the v2ray core.
         if (arg1 == Qt::Checked) {
             // We enable it!
-            if (QvMessageBoxAsk(this, tr("Enable tProxy Support"), tr("This will append capabilities to the v2ray executable.")  + "\r\n"
-                                + tr("If anything goes wrong after enabling this, please refer to issue #57 or the link below:") + "\r\n" +
-                                " https://github.com/lhy0403/Qv2ray/blob/master/docs/FAQ.md ") != QMessageBox::Yes) {
+            if (QvMessageBoxAsk(this, tr("Enable tProxy Support"),
+                                tr("This will append capabilities to the v2ray executable.")  + NEWLINE + NEWLINE +
+                                tr("Qv2ray will copy your v2ray core to this path: ") + NEWLINE + QV2RAY_DEFAULT_VCORE_PATH + NEWLINE + NEWLINE +
+                                tr("If anything goes wrong after enabling this, please refer to issue #57 or the link below:") + NEWLINE +
+                                " https://lhy0403.github.io/Qv2ray/zh-CN/FAQ.html ") != QMessageBox::Yes) {
                 ui->tProxyCheckBox->setChecked(false);
                 LOG(MODULE_UI, "Canceled enabling tProxy feature.")
+            } else {
+                LOG(MODULE_VCORE, "ENABLING tProxy Support")
+                LOG(MODULE_FILE, " --> Origin v2ray core file is at: " + CurrentConfig.v2CorePath)
+                auto v2ctlPath = QFileInfo(QSTRING(CurrentConfig.v2CorePath)).path();
+                auto newPath = QFileInfo(QV2RAY_DEFAULT_VCORE_PATH).path();
+                //
+                LOG(MODULE_FILE, " --> Origin v2ray core file is at: " + v2ctlPath.toStdString() + "v2ctl")
+                LOG(MODULE_FILE, " --> New v2ray files will be placed in: " << newPath.toStdString())
+                //
+                LOG(MODULE_FILE, " --> Copying files....")
+                string vCoreresult = QFile(QSTRING(CurrentConfig.v2CorePath)).copy(QV2RAY_DEFAULT_VCORE_PATH) ? "OK" : "FAILED";
+                LOG(MODULE_FILE, " --> v2ray Core: " + vCoreresult)
+                //
+                string vCtlresult = QFile(v2ctlPath).copy(newPath + "v2ctl") ? "OK" : "FAILED";
+                LOG(MODULE_FILE, " --> v2ray Ctl: " + vCtlresult)
+                //
+
+                if (vCoreresult == "OK" && vCtlresult == "OK") {
+                    LOG(MODULE_VCORE, " --> Done copying files.")
+                    on_vCorePathTxt_textEdited(QV2RAY_DEFAULT_VCORE_PATH);
+                } else {
+                    LOG(MODULE_VCORE, "FAILED to copy v2ray files. Aborting.")
+                    QvMessageBox(this, tr("Enable tProxy Support"),
+                                 tr("Qv2ray cannot copy one or both v2ray files from: ") + NEWLINE + NEWLINE +
+                                 QSTRING(CurrentConfig.v2CorePath) + NEWLINE + v2ctlPath + NEWLINE + NEWLINE +
+                                 tr("to this path: ") + NEWLINE + newPath);
+                    return;
+                }
+
+                LOG(MODULE_UI, "Calling pkexec and setcap...")
+                int ret = QProcess::execute("pkexec setcap CAP_NET_ADMIN,CAP_NET_RAW,CAP_NET_BIND_SERVICE=eip " + QSTRING(CurrentConfig.v2CorePath));
+
+                if (ret != 0) {
+                    LOG(MODULE_UI, "WARN: setcap exits with code: " + to_string(ret))
+                    QvMessageBox(this, tr("Prefrences"), tr("Failed to setcap onto v2ray executable. You may need to run `setcap` manually."));
+                }
+
+                CurrentConfig.tProxySupport = true;
+                NEEDRESTART
             }
-
-            int ret = QProcess::execute("pkexec setcap CAP_NET_ADMIN,CAP_NET_RAW,CAP_NET_BIND_SERVICE=eip " + QSTRING(CurrentConfig.v2CorePath));
-
-            if (ret != 0) {
-                LOG(MODULE_UI, "WARN: setcap exits with code: " + to_string(ret))
-                QvMessageBox(this, tr("Prefrences"), tr("Failed to setcap onto v2ray executable. You may need to run `setcap` manually."));
-            }
-
-            CurrentConfig.tProxySupport = true;
-            NEEDRESTART
         } else {
             int ret = QProcess::execute("pkexec setcap -r " + QSTRING(CurrentConfig.v2CorePath));
 
@@ -415,12 +447,31 @@ void PrefrencesWindow::on_nsBarPageAddBTN_clicked()
     ui->nsBarPagesList->addItem(QString::number(CurrentBarPageId));
     ShowLineParameters(CurrentBarLine);
     LOG(MODULE_UI, "Adding new page Id: " + to_string(CurrentBarPageId))
+    ui->nsBarPageDelBTN->setEnabled(true);
+    ui->nsBarLineAddBTN->setEnabled(true);
+    ui->nsBarLineDelBTN->setEnabled(true);
+    ui->nsBarLinesList->setEnabled(true);
+    ui->nsBarPageYOffset->setEnabled(true);
+    on_nsBarPagesList_currentRowChanged(static_cast<int>(CurrentBarPageId));
+    ui->nsBarPagesList->setCurrentRow(static_cast<int>(CurrentBarPageId));
 }
 
 void PrefrencesWindow::on_nsBarPageDelBTN_clicked()
 {
-    RemoveItem(CurrentConfig.speedBarConfig.Pages, static_cast<size_t>(ui->nsBarPagesList->currentRow()));
-    ui->nsBarPagesList->takeItem(ui->nsBarPagesList->currentRow());
+    if (ui->nsBarPagesList->currentRow() >= 0) {
+        RemoveItem(CurrentConfig.speedBarConfig.Pages, static_cast<size_t>(ui->nsBarPagesList->currentRow()));
+        ui->nsBarPagesList->takeItem(ui->nsBarPagesList->currentRow());
+
+        if (ui->nsBarPagesList->count() <= 0) {
+            ui->nsBarPageDelBTN->setEnabled(false);
+            ui->nsBarLineAddBTN->setEnabled(false);
+            ui->nsBarLineDelBTN->setEnabled(false);
+            ui->nsBarLinesList->setEnabled(false);
+            ui->nsBarVerticalLayout->setEnabled(false);
+            ui->nsBarPageYOffset->setEnabled(false);
+            ui->nsBarLinesList->clear();
+        }
+    }
 }
 
 void PrefrencesWindow::on_nsBarPageYOffset_valueChanged(int arg1)
@@ -434,19 +485,29 @@ void PrefrencesWindow::on_nsBarLineAddBTN_clicked()
     // WARNING Is it really just this simple?
     QvBarLine line;
     CurrentBarPage.Lines.push_back(line);
-    CurrentBarLineId = CurrentBarPage.Lines.size() - 1 ;
+    CurrentBarLineId = CurrentBarPage.Lines.size() - 1;
     ui->nsBarLinesList->addItem(QString::number(CurrentBarLineId));
     ShowLineParameters(CurrentBarLine);
+    ui->nsBarLineDelBTN->setEnabled(true);
     LOG(MODULE_UI, "Adding new line Id: " + to_string(CurrentBarLineId))
+    ui->nsBarLinesList->setCurrentRow(static_cast<int>(CurrentBarPage.Lines.size() - 1));
     // TODO Some UI Works such as enabling ui.
 }
 
 void PrefrencesWindow::on_nsBarLineDelBTN_clicked()
 {
-    RemoveItem(CurrentBarPage.Lines, static_cast<size_t>(ui->nsBarLinesList->currentRow()));
-    ui->nsBarLinesList->takeItem(ui->nsBarLinesList->currentRow());
-    CurrentBarLineId = 0;
-    // TODO Disabling some UI;
+    if (ui->nsBarLinesList->currentRow() >= 0) {
+        RemoveItem(CurrentBarPage.Lines, static_cast<size_t>(ui->nsBarLinesList->currentRow()));
+        ui->nsBarLinesList->takeItem(ui->nsBarLinesList->currentRow());
+        CurrentBarLineId = 0;
+
+        if (ui->nsBarLinesList->count() <= 0) {
+            ui->nsBarVerticalLayout->setEnabled(false);
+            ui->nsBarLineDelBTN->setEnabled(false);
+        }
+
+        // TODO Disabling some UI;
+    }
 }
 
 void PrefrencesWindow::on_nsBarPagesList_currentRowChanged(int currentRow)
@@ -469,6 +530,8 @@ void PrefrencesWindow::on_nsBarPagesList_currentRowChanged(int currentRow)
 
         ui->nsBarLinesList->setCurrentRow(0);
         ShowLineParameters(CurrentBarLine);
+    } else {
+        ui->nsBarVerticalLayout->setEnabled(false);
     }
 }
 
@@ -547,7 +610,7 @@ QString PrefrencesWindow::GetBarLineDescription(QvBarLine line)
 
     // BUG Content type is null, then set empty;
     if (line.ContentType == 0) {
-        result +=  "(" + QSTRING(line.Message) + ")";
+        result +=  " (" + QSTRING(line.Message) + ")";
     }
 
     result = result.append(line.Bold ?  ", " + tr("Bold") : "");
@@ -582,6 +645,7 @@ void PrefrencesWindow::ShowLineParameters(QvBarLine &line)
     ui->nsBarContentCombo->setCurrentText(NetSpeedPluginMessages[line.ContentType]);
     ui->nsBarTagTxt->setText(QSTRING(line.Message));
     finishedLoading = true;
+    ui->nsBarVerticalLayout->setEnabled(true);
 }
 
 void PrefrencesWindow::on_chooseColorBtn_clicked()

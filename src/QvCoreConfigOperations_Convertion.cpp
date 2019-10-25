@@ -3,12 +3,32 @@ namespace Qv2ray
 {
     namespace ConfigOperations
     {
-        // -------------------------- BEGIN CONFIG CONVERSIONS ----------------------------------------------------------------------------
-        bool SaveConnectionConfig(QJsonObject obj, const QString *alias)
+        /// Save Connection to a place, with checking if there's existing file.
+        /// If so, append "_N" to the name.
+        bool SaveConnectionConfig(QJsonObject obj, QString *alias, bool canOverrideExisting)
         {
-            QFile config(QV2RAY_CONFIG_DIR + *alias + QV2RAY_CONFIG_FILE_EXTENSION);
             auto str = JsonToString(obj);
-            return StringToFile(&str, &config);
+            QFile *config = new QFile(QV2RAY_CONFIG_DIR + *alias + QV2RAY_CONFIG_FILE_EXTENSION);
+
+            // If there's already a file AND we CANNOT override existing file.
+            if (config->exists() && !canOverrideExisting) {
+                // I don't think there will be someone using the same name for
+                // a connection for more than 50 times...
+                for (int i = 1; i < 50; i++) {
+                    if (QFile(QV2RAY_CONFIG_DIR + *alias + "_" + QString::number(i) + QV2RAY_CONFIG_FILE_EXTENSION).exists()) {
+                        LOG(MODULE_CONFIG, "Config file with name: " << (*alias + QV2RAY_CONFIG_FILE_EXTENSION).toStdString() << " already exists")
+                        LOG(MODULE_CONFIG, "canOverride is off, we try another filename.")
+                        continue;
+                    } else {
+                        *alias = *alias + QString("_") + QString::number(i);
+                        config = new QFile(QV2RAY_CONFIG_DIR + *alias + QV2RAY_CONFIG_FILE_EXTENSION);
+                        break;
+                    }
+                }
+            }
+
+            LOG(MODULE_CONFIG, "Saving a config named: " + alias->toStdString())
+            return StringToFile(&str, config);
         }
 
         bool RemoveConnection(const QString *alias)
@@ -23,8 +43,10 @@ namespace Qv2ray
             DROOT
             QStringRef vmessJsonB64(&str, 8, str.length() - 8);
             auto vmessConf = JsonFromString(Base64Decode(vmessJsonB64.toString()));
+            //
             string ps, add, id, net, type, host, path, tls;
             int port, aid;
+            //
             ps = vmessConf.contains("ps") ? vmessConf["ps"].toVariant().toString().toStdString()
                  : (vmessConf["add"].toVariant().toString().toStdString() + ":" + vmessConf["port"].toVariant().toString().toStdString());
             add = vmessConf["add"].toVariant().toString().toStdString();
@@ -37,6 +59,9 @@ namespace Qv2ray
             //
             port = vmessConf["port"].toVariant().toInt();
             aid = vmessConf["aid"].toVariant().toInt();
+            //
+            // More strict check could be implemented, such as to check if the specified value is
+            // in the currect format.
             //
             // User
             VMessServerObject::UserObject user;
@@ -130,6 +155,7 @@ namespace Qv2ray
 
         int StartPreparation(QJsonObject fullConfig)
         {
+            // Writes the final configuration to the disk.
             QString json = JsonToString(fullConfig);
             StringToFile(&json, new QFile(QV2RAY_GENERATED_FILE_PATH));
             return 0;

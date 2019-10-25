@@ -4,6 +4,7 @@ namespace Qv2ray
 {
     namespace ConfigOperations
     {
+        // Important config generation algorithms.
         static const QStringList vLogLevels = {"none", "debug", "info", "warning", "error"};
         // -------------------------- BEGIN CONFIG GENERATIONS ----------------------------------------------------------------------------
         QJsonObject GenerateRoutes(bool enableProxy, bool proxyCN)

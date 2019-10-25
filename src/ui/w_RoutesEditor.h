@@ -17,7 +17,7 @@ class RouteEditor : public QDialog
         Q_OBJECT
 
     public:
-        explicit RouteEditor(QJsonObject connection, const QString alias, QWidget *parent = nullptr);
+        explicit RouteEditor(QJsonObject connection, QWidget *parent = nullptr);
         ~RouteEditor();
         QJsonObject OpenEditor();
     private slots:
@@ -40,7 +40,6 @@ class RouteEditor : public QDialog
         QJsonArray outbounds;
         RoutingObject routes;
         QJsonObject root;
-        QString rootAlias;
         Ui::RouteEditor *ui;
 };
 
