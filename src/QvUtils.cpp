@@ -28,6 +28,10 @@ namespace Qv2ray
         void SetConfigDirPath(const QString *path)
         {
             ConfigDirPath = *path;
+
+            if (path->endsWith("/")) {
+                ConfigDirPath += "/";
+            }
         }
 
         QString Stringify(list<string> list, QString saperator)
@@ -102,7 +106,7 @@ namespace Qv2ray
             if (error.error == QJsonParseError::NoError) {
                 return "";
             } else {
-                LOG(MODULE_CORE, "WARNING: Json parse returns: " + error.errorString().toStdString())
+                LOG(MODULE_UI, "WARNING: Json parse returns: " + error.errorString().toStdString())
                 return error.errorString();
             }
         }

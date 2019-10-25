@@ -9,8 +9,8 @@
 
 OutboundEditor::OutboundEditor(QWidget *parent)
     : QDialog(parent),
-      Tag(OUTBOUND_TAG_PROXY),
-      Alias(),
+      Tag(""),
+      Mux(),
       ui(new Ui::OutboundEditor),
       stream(),
       vmess(),
@@ -31,13 +31,14 @@ OutboundEditor::OutboundEditor(QWidget *parent)
     Result = GenerateConnectionJson();
 }
 
-OutboundEditor::OutboundEditor(QJsonObject outboundEntry, QString *alias, QWidget *parent)
+OutboundEditor::OutboundEditor(QJsonObject outboundEntry, QWidget *parent)
     : OutboundEditor(parent)
 {
     Original = outboundEntry;
-    Alias = alias == nullptr ? "" : *alias;
-    Tag = outboundEntry.contains("tag") ? outboundEntry["tag"].toString() : OUTBOUND_TAG_PROXY;
+    Tag = outboundEntry["tag"].toString();
+    ui->tagTxt->setText(Tag);
     OutboundType = outboundEntry["protocol"].toString();
+    Mux = outboundEntry["mux"].toObject();
 
     if (OutboundType == "vmess") {
         vmess = StructFromJsonString<VMessServerObject>(JsonToString(outboundEntry["settings"].toObject()["vnext"].toArray().first().toObject()));
@@ -76,6 +77,15 @@ QJsonObject OutboundEditor::OpenEditor()
     return resultCode == QDialog::Accepted ? Result : Original;
 }
 
+QString OutboundEditor::GetFriendlyName()
+{
+    auto host = ui->ipLineEdit->text().replace(":", "-").replace("/", "_").replace("\\", "_");
+    auto port = ui->portLineEdit->text().replace(":", "-").replace("/", "_").replace("\\", "_");
+    auto type = OutboundType;
+    QString name = Tag.isEmpty() ? host + "-[" + port + "]-" + type : Tag;
+    return name;
+}
+
 void OutboundEditor::ReLoad_GUI_JSON_ModelContent()
 {
     if (OutboundType == "vmess") {
@@ -104,7 +114,7 @@ void OutboundEditor::ReLoad_GUI_JSON_ModelContent()
         ui->wsPathTxt->setText(QSTRING(stream.wsSettings.path));
         QString wsHeaders;
 
-        foreach (auto _, stream.wsSettings.headers) {
+        for (auto _ : stream.wsSettings.headers) {
             wsHeaders = wsHeaders + QSTRING(_.first + "|" + _.second) + "\r\n";
         }
 
@@ -148,35 +158,15 @@ void OutboundEditor::ReLoad_GUI_JSON_ModelContent()
         ui->socks_PasswordTxt->setText(QSTRING(socks.users.front().pass));
         ui->socks_UserNameTxt->setText(QSTRING(socks.users.front().user));
     }
+
+    ui->muxEnabledCB->setChecked(Mux["enabled"].toBool());
+    ui->muxConcurrencyTxt->setValue(Mux["concurrency"].toInt());
 }
 
 
 void OutboundEditor::on_buttonBox_accepted()
 {
-    // TODO : NAMING THE CONNECTION
-    auto alias = Alias == "" ? (ui->ipLineEdit->text() + "_" + ui->portLineEdit->text()) : Alias;
-    //
     Result = GenerateConnectionJson();
-    //QJsonArray outbounds;
-    //outbounds.append(outbound);
-    //
-    /// We want to replace because it's connection edit window.
-    //if (originalRoot.contains("outbounds")) {
-    //    originalRoot.remove("outbounds");
-    //}
-    //
-    //originalRoot.insert("outbounds", outbounds);
-    //originalRoot.insert(QV2RAY_CONFIG_TYPE_JSON_KEY, QV2RAY_CONFIG_TYPE_MANUAL);
-    //SaveConnectionConfig(originalRoot, &alias);
-    //auto globalConf = GetGlobalConfig();
-    //
-    //if (is_new_config) {
-    //    // New config...
-    //    globalConf.configs.push_back(alias.toStdString());
-    //}
-    //
-    //SetGlobalConfig(globalConf);
-    //emit s_reload_config(!is_new_config);
 }
 
 void OutboundEditor::on_ipLineEdit_textEdited(const QString &arg1)
@@ -184,17 +174,6 @@ void OutboundEditor::on_ipLineEdit_textEdited(const QString &arg1)
     vmess.address = arg1.toStdString();
     shadowsocks.address = arg1.toStdString();
     socks.address = arg1.toStdString();
-    //
-    // No thanks.
-    //if (ui->httpHostTxt->toPlainText() == "") {
-    //    ui->httpHostTxt->setPlainText(arg1);
-    //    on_httpHostTxt_textChanged();
-    //}
-    //
-    //if (ui->wsHeadersTxt->toPlainText() == "") {
-    //    ui->wsHeadersTxt->setPlainText("Host|" + arg1);
-    //    on_wsHeadersTxt_textChanged();
-    //}
 }
 
 void OutboundEditor::on_portLineEdit_textEdited(const QString &arg1)
@@ -296,16 +275,9 @@ void OutboundEditor::on_tcpRespDefBtn_clicked()
     ui->tcpRespTxt->insertPlainText("{\"version\":\"1.1\",\"status\":\"200\",\"reason\":\"OK\",\"headers\":{\"Content-Type\":[\"application/octet-stream\",\"video/mpeg\"],\"Transfer-Encoding\":[\"chunked\"],\"Connection\":[\"keep-alive\"],\"Pragma\":\"no-cache\"}}");
 }
 
-void OutboundEditor::on_genJsonBtn_clicked()
-{
-    auto json = GenerateConnectionJson();
-}
-
 QJsonObject OutboundEditor::GenerateConnectionJson()
 {
     QJsonObject settings;
-    // BUG !!!
-    auto mux = QJsonObject();// JsonFromString(StructToJsonString(GetGlobalConfig().mux));
     auto streaming = JsonFromString(StructToJsonString(stream));
 
     if (OutboundType == "vmess") {
@@ -325,7 +297,7 @@ QJsonObject OutboundEditor::GenerateConnectionJson()
         settings["servers"] = servers;
     }
 
-    auto root = GenerateOutboundEntry(OutboundType, settings, streaming, mux, "0.0.0.0", Tag);
+    auto root = GenerateOutboundEntry(OutboundType, settings, streaming, Mux, "0.0.0.0", Tag);
     return root;
 }
 
@@ -464,4 +436,19 @@ void OutboundEditor::on_tcpResponseEditBtn_clicked()
     auto tcpRspObject = StructFromJsonString<TSObjects::HTTPResponseObject>(rString);
     stream.tcpSettings.header.response = tcpRspObject;
     delete w;
+}
+
+void OutboundEditor::on_tagTxt_textEdited(const QString &arg1)
+{
+    Tag = arg1;
+}
+
+void OutboundEditor::on_muxEnabledCB_stateChanged(int arg1)
+{
+    Mux["enabled"] = arg1 == Qt::Checked;
+}
+
+void OutboundEditor::on_muxConcurrencyTxt_valueChanged(int arg1)
+{
+    Mux["concurrency"] = arg1;
 }

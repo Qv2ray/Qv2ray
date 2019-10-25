@@ -31,6 +31,20 @@
   <layout class="QGridLayout" name="gridLayout_4" columnstretch="8,3">
    <item row="0" column="0">
     <layout class="QFormLayout" name="formLayout_5">
+     <item row="0" column="0">
+      <widget class="QLabel" name="ipLabel_3">
+       <property name="text">
+        <string>Tag</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="tagTxt">
+       <property name="placeholderText">
+        <string>Tag of this outbound setting</string>
+       </property>
+      </widget>
+     </item>
      <item row="1" column="0">
       <widget class="QLabel" name="ipLabel">
        <property name="text">
@@ -41,7 +55,7 @@
      <item row="1" column="1">
       <widget class="QLineEdit" name="ipLineEdit">
        <property name="placeholderText">
-        <string>Hostname or IP Address</string>
+        <string>Hostname or IP/IPv6 Address</string>
        </property>
       </widget>
      </item>
@@ -94,30 +108,6 @@
        </item>
       </widget>
      </item>
-     <item row="0" column="0" colspan="2">
-      <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="1,4,1,4">
-       <item>
-        <widget class="QLabel" name="ipLabel_2">
-         <property name="text">
-          <string>Alias</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="lineEdit"/>
-       </item>
-       <item>
-        <widget class="QLabel" name="ipLabel_3">
-         <property name="text">
-          <string>Tag</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="lineEdit_2"/>
-       </item>
-      </layout>
-     </item>
     </layout>
    </item>
    <item row="0" column="1">
@@ -129,7 +119,7 @@
       <item row="0" column="0">
        <widget class="QLabel" name="label_32">
         <property name="text">
-         <string>Enabled</string>
+         <string>Use Mux</string>
         </property>
        </widget>
       </item>
@@ -334,42 +324,10 @@
                </property>
                <widget class="QWidget" name="tcpStackPage">
                 <layout class="QGridLayout" name="gridLayout_3">
-                 <item row="0" column="0" colspan="6">
-                  <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,1">
-                   <item>
-                    <widget class="QLabel" name="label">
-                     <property name="text">
-                      <string>Type</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QComboBox" name="tcpHeaderTypeCB">
-                     <item>
-                      <property name="text">
-                       <string notr="true">none</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string notr="true">http</string>
-                      </property>
-                     </item>
-                    </widget>
-                   </item>
-                  </layout>
-                 </item>
-                 <item row="1" column="0">
-                  <widget class="QLabel" name="label_2">
+                 <item row="3" column="5">
+                  <widget class="QPushButton" name="tcpRespDefBtn">
                    <property name="text">
-                    <string>Request</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="3">
-                  <widget class="QLabel" name="label_3">
-                   <property name="text">
-                    <string>Response</string>
+                    <string>Default Value</string>
                    </property>
                   </widget>
                  </item>
@@ -395,6 +353,59 @@
                    </property>
                   </widget>
                  </item>
+                 <item row="1" column="0">
+                  <widget class="QLabel" name="label_2">
+                   <property name="text">
+                    <string>Request</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="3" column="3" colspan="2">
+                  <widget class="QPushButton" name="tcpResponseEditBtn">
+                   <property name="text">
+                    <string>Edit in Json Editor</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="0" colspan="6">
+                  <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,1">
+                   <item>
+                    <widget class="QLabel" name="label">
+                     <property name="text">
+                      <string>Type</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QComboBox" name="tcpHeaderTypeCB">
+                     <item>
+                      <property name="text">
+                       <string notr="true">none</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string notr="true">http</string>
+                      </property>
+                     </item>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item row="3" column="0" colspan="2">
+                  <widget class="QPushButton" name="tcpRequestEditBtn">
+                   <property name="text">
+                    <string>Edit in Json Editor</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="3">
+                  <widget class="QLabel" name="label_3">
+                   <property name="text">
+                    <string>Response</string>
+                   </property>
+                  </widget>
+                 </item>
                  <item row="2" column="3" colspan="3">
                   <widget class="QPlainTextEdit" name="tcpRespTxt">
                    <property name="sizePolicy">
@@ -414,29 +425,8 @@
                    </property>
                   </widget>
                  </item>
-                 <item row="3" column="0" colspan="2">
-                  <widget class="QPushButton" name="tcpRequestEditBtn">
-                   <property name="text">
-                    <string>Edit in Json Editor</string>
-                   </property>
-                  </widget>
-                 </item>
                  <item row="3" column="2">
                   <widget class="QPushButton" name="tcpRequestDefBtn">
-                   <property name="text">
-                    <string>Default Value</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="3" column="3" colspan="2">
-                  <widget class="QPushButton" name="tcpResponseEditBtn">
-                   <property name="text">
-                    <string>Edit in Json Editor</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="3" column="5">
-                  <widget class="QPushButton" name="tcpRespDefBtn">
                    <property name="text">
                     <string>Default Value</string>
                    </property>

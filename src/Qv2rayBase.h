@@ -16,7 +16,7 @@
 #endif
 
 // Get Configured Config Dir Path
-#define QV2RAY_CONFIG_DIR (Qv2ray::Utils::GetConfigDirPath() + "/")
+#define QV2RAY_CONFIG_DIR (Qv2ray::Utils::GetConfigDirPath())
 #define QV2RAY_CONFIG_FILE (QV2RAY_CONFIG_DIR + "Qv2ray.conf")
 
 #define QV2RAY_CONFIG_FILE_EXTENSION ".qv2ray.json"

@@ -14,18 +14,14 @@ namespace Ui
 class OutboundEditor : public QDialog
 {
         Q_OBJECT
-
     public:
         explicit OutboundEditor(QWidget *parent = nullptr);
-        QString Tag;
-        QString Alias;
-        QJsonObject OpenEditor();
-        explicit OutboundEditor(QJsonObject outboundEntry, QString *alias, QWidget *parent = nullptr);
+        explicit OutboundEditor(QJsonObject outboundEntry, QWidget *parent = nullptr);
         ~OutboundEditor();
+        QJsonObject OpenEditor();
+        QString GetFriendlyName();
     signals:
         void s_reload_config(bool need_restart);
-    private:
-        void on_genJsonBtn_clicked();
     private slots:
         void on_buttonBox_accepted();
 
@@ -109,12 +105,19 @@ class OutboundEditor : public QDialog
 
         void on_tcpResponseEditBtn_clicked();
 
+        void on_tagTxt_textEdited(const QString &arg1);
+
+        void on_muxEnabledCB_stateChanged(int arg1);
+
+        void on_muxConcurrencyTxt_valueChanged(int arg1);
+
     private:
-        int rootJsonCursorPos;
+        QString Tag;
         void ReLoad_GUI_JSON_ModelContent();
+        QJsonObject GenerateConnectionJson();
         QJsonObject Original;
         QJsonObject Result;
-        QJsonObject GenerateConnectionJson();
+        QJsonObject Mux;
         Ui::OutboundEditor *ui;
         //
         // Connection Configs
