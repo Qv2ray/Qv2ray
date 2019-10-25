@@ -29,14 +29,11 @@ jobs:
       - name: Make release package
         run: |
           cd build
-          mkdir package
-          cd package
-          copy ..\release\Qv2ray.exe .\
-          copy ..\..\libs\libcrypto-1_1.dll .\
-          copy ..\..\libs\libssl-1_1.dll .\
+          cd release
+          del *.cpp *.h *.o *.qrc *.qm
           windeployqt ./Qv2ray.exe --compiler-runtime
           cd ..
-          ..\tools\7z.exe a Qv2ray.zip .\package
+          ..\tools\7z.exe a Qv2ray.zip .\release
       - name: Upload Artifact
         uses: actions/upload-artifact@master
         with:

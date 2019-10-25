@@ -74,13 +74,9 @@ namespace Qv2ray
 
                 case 7: {
                     QString path;
-#ifdef _WIN32
-                    path = QV2RAY_DEFAULT_VCORE_PATH + ".exe";
-#else
                     path = QV2RAY_DEFAULT_VCORE_PATH;
-#endif
                     root["v2CorePath"] = path;
-                    UPDATELOG("Added ")
+                    UPDATELOG("Added v2CorePath to the config file.")
                     break;
                 }
             }
