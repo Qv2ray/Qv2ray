@@ -62,11 +62,13 @@ namespace Qv2ray
 
         QString StringFromFile(QFile *source)
         {
-            source->open(QIODevice::OpenModeFlag::ReadOnly);
-            auto str = source->readAll();
+            source->open(QFile::ReadOnly);
+            QTextStream stream(source);
+            QString str = stream.readAll();
             source->close();
             return str;
         }
+
         bool StringToFile(const QString *text, QFile *targetFile)
         {
             bool override = targetFile->exists();
