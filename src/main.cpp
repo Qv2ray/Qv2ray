@@ -44,7 +44,7 @@ bool verifyConfigAvaliability(QString path, bool checkExistingConfig)
             if (opened2) {
                 // Verify if the config can be loaded.
                 auto conf = StructFromJsonString<Qv2rayConfig>(configFile.readAll());
-                LOG(MODULE_CONFIG, "Path: " + path.toStdString() + " contains a config file version: " + to_string(conf.config_version))
+                LOG(MODULE_CONFIG, "Path: " + path.toStdString() + " contains a config file, in version " + to_string(conf.config_version))
                 configFile.close();
                 return true;
             } else {
@@ -52,7 +52,7 @@ bool verifyConfigAvaliability(QString path, bool checkExistingConfig)
                 return false;
             }
         }  catch (...) {
-            LOG(MODULE_CONFIG, "Exception raised when checking path: " + configFile.fileName().toStdString())
+            LOG(MODULE_CONFIG, "Exception raised when checking config: " + configFile.fileName().toStdString())
             return false;
         }
     } else return true;
@@ -101,7 +101,6 @@ bool initialiseQv2ray()
             // None of the path above can be used as a dir for storing config.
             LOG(MODULE_INIT, "FATAL")
             LOG(MODULE_INIT, " ---> CANNOT find a proper place to store Qv2ray config files.")
-            LOG(MODULE_INIT, " ---> Qv2ray will now EXIT")
             QString searchPath = Stringify(configFilePaths, NEWLINE);
             QvMessageBox(nullptr, QObject::tr("Cannot Start Qv2ray"),
                          QObject::tr("Cannot find a place to store config files.") + NEWLINE +
@@ -183,11 +182,11 @@ int main(int argc, char *argv[])
     auto langs = getFileList(QDir(":/translations"));
 
     if (langs.empty()) {
-        LOG(MODULE_UI, "FAILED to find any translations. THIS IS A BUILD ERROR.")
-        QvMessageBox(nullptr, "Cannot load languages", "Qv2ray will run, but you are not able to select languages.");
+        LOG(MODULE_INIT, "FAILED to find any translations. THIS IS A BUILD ERROR.")
+        QvMessageBox(nullptr, "Cannot load languages", "Qv2ray will run, but you cannot change the UI language.");
     } else {
         for (auto lang : langs) {
-            LOG(MODULE_UI, "Found Translator: " + lang.toStdString())
+            LOG(MODULE_INIT, "Found Translator: " + lang.toStdString())
         }
     }
 
@@ -213,7 +212,7 @@ int main(int argc, char *argv[])
     auto qStringLang = QSTRING(lang);
 
     if (_qApp.installTranslator(getTranslator(&qStringLang)) || qStringLang == "en-US") {
-        LOG(MODULE_UI, "Loaded Translator " + lang)
+        LOG(MODULE_INIT, "Loaded Translator " + lang)
     } else {
         // Do not translate these.....
         QvMessageBox(
