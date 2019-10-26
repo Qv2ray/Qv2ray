@@ -1,4 +1,4 @@
-name: Build Cross-platform Qv2ray
+name: Qv2ray Push Build
 
 on: push
 
@@ -7,26 +7,31 @@ jobs:
     name: Push build for win64
     runs-on: windows-2019
     steps:
-      - name: Checkout Sources
+      - name: Checking out Qv2ray sources
         uses: actions/checkout@master
-      - name: Restore Git Submodules
+      - name: Restoring submodules
         run: git submodule update --init
 # --------------------------------------------------------
-      - name: Install Qt
+      - name: Installing Qt
         uses: jurplel/install-qt-action@v1
         with:
           arch: win64_mingw73
 # --------------------------------------------------------
-      - name: Extract gRPC and protobuf
+      - name: Extracting gRPC and protobuf libs and headers
         run: tools\grpc_gen.bat
 # --------------------------------------------------------
-      - name: Build Qv2ray
+      - name: Building Qv2ray
+        shell: cmd
         run: |
           mkdir build
           cd build
           qmake ..
-          mingw32-make -j4
-      - name: Make release package
+          mingw32-make -j2
+      - name: Copying DLLs to build output folders
+        shell: cmd
+        run: .github\workflows\copy_DLLs.bat
+      - name: Make release zipball
+        shell: cmd
         run: |
           cd build
           cd release
@@ -34,7 +39,7 @@ jobs:
           windeployqt ./Qv2ray.exe --compiler-runtime
           cd ..
           ..\tools\7z.exe a Qv2ray.zip .\release
-      - name: Upload Artifact
+      - name: Uploading artifact
         uses: actions/upload-artifact@master
         with:
           name: Qv2ray.Win64.zip
@@ -46,31 +51,31 @@ jobs:
     name: Push build for macOS
     runs-on: macOS-10.14
     steps:
-      - name: Checkout Sources
+      - name: Checking out sources
         uses: actions/checkout@master
-      - name: Restore Git Submodules
+      - name: Restoring submodules
         run: git submodule update --init
 # --------------------------------------------------------
-      - name: Install Qt
+      - name: Installing Qt
         uses: jurplel/install-qt-action@v1
 # --------------------------------------------------------
-      - name: Extract gRPC and protobuf
+      - name: Extracting gRPC and protobuf libs and headers
         run: tools/deps_macOS.sh
 # --------------------------------------------------------
-      - name: Build Qv2ray
+      - name: Building Qv2ray
         run: |
           mkdir build
           cd build
           qmake ..
-          make -j4
-      - name: Make Package 
+          make -j2
+      - name: Making release tarball
         run: |
           cd build
           cd Qv2ray.app
           macdeployqt ./
           cd ..
           tar czf Qv2ray.app.tar.gz Qv2ray.app
-      - name: Upload Artifact
+      - name: Uploading Artifact
         uses: actions/upload-artifact@master
         with:
           name: Qv2ray.macOS.app.zip
@@ -81,46 +86,49 @@ jobs:
     name: Push build for Linux
     runs-on: ubuntu-16.04
     steps:
-      - name: Checkout Sources
+      - name: Checking out sources
         uses: actions/checkout@master
-      - name: Restore Git Submodules
+      - name: Restoring submodules
         run: git submodule update --init
 # --------------------------------------------------------
-      - name: Install Qt
+      - name: Installing Qt
         uses: jurplel/install-qt-action@v1
 # --------------------------------------------------------
       - name: Install Packages 
-        run: sudo apt install -y libgl-dev and openssl libx11-dev libxkbcommon-x11-dev libgrpc++-dev libprotobuf-dev protobuf-compiler protobuf-c-compiler protobuf-compiler-grpc
+        run: |
+          sudo add-apt-repository ppa:webispy/grpc
+          sudo add-apt-repository ppa:carsten-uppenbrink-net/openssl
+          sudo apt update
+          sudo apt install -y libgl-dev openssl libx11-dev libxkbcommon-x11-dev libgrpc++-dev libprotobuf-dev protobuf-compiler protobuf-c-compiler protobuf-compiler-grpc
 # --------------------------------------------------------
-      - name: Extract gRPC and protobuf
+      - name: Extracting gRPC and protobuf libs and headers
         run: tools/grpc_gen.sh
 # --------------------------------------------------------
-      - name: Update Locate DB
-        run: sudo updatedb
-      - name: Build Qv2ray
+      - name: Building Qv2ray
         run: |
           mkdir build
           cd build
           qmake ..
-          make -j4
-      - name: Generate FS Structure for AppImage
+          make -j2
+      - name: Generating filesystem structure for AppImage
         run: | 
           cd build
           make install INSTALL_ROOT=AppDir
           cd AppDir
           mkdir -p ./usr/lib/
-          cp /lib/x86_64-linux-gnu/libssl.so.1.1 /lib/x86_64-linux-gnu/libcrypto.so.1.1 ./usr/lib/
-          cp /lib/x86_64-linux-gnu/libssl.so.1.0.0 /lib/x86_64-linux-gnu/libcrypto.so.1.0.0 ./usr/lib/
-      - name: Build AppImage using linuxdeployqt
+          mkdir -p ./usr/bin/
+          mv ./usr/local/bin/Qv2ray ./usr/bin/Qv2ray 
+          cp /usr/lib/x86_64-linux-gnu/libssl.so.1.1 /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1 ./usr/lib/
+      - name: Building AppImage using linuxdeployqt
         run: |
-          cd build/AppDir
+          cd build
           wget https://github.com/probonopd/linuxdeployqt/releases/download/6/linuxdeployqt-6-x86_64.AppImage
-          mv ./linuxdeployqt-6-x86_64.AppImage ../
-          chmod +x ../linuxdeployqt-6-x86_64.AppImage
-          ../linuxdeployqt-6-x86_64.AppImage --appimage-extract 
-          ./squashfs-root/AppRun usr/share/applications/Qv2ray.desktop -appimage -no-strip -always-overwrite
+          chmod +x ./linuxdeployqt-6-x86_64.AppImage
+          ./linuxdeployqt-6-x86_64.AppImage --appimage-extract 
+          cd AppDir
+          ../squashfs-root/AppRun usr/share/applications/Qv2ray.desktop -appimage -no-strip -always-overwrite
           mv ./Qv2ray*.AppImage ./Qv2ray.AppImage
-      - name: Upload Artifact
+      - name: Uploading artifact
         uses: actions/upload-artifact@master
         with:
           name: Qv2ray.linux.AppImage

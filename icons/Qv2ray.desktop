@@ -3,6 +3,6 @@ Type=Application
 Keywords=Internet;VPN;Proxy;v2ray;Qt;
 Categories=Network;Qt;
 Icon=Qv2ray
-Exec=/usr/local/bin/Qv2ray
+Exec=Qv2ray
 Name=Qv2ray
 Comment=Cross platform v2ray Qt GUI Client.

@@ -45,7 +45,6 @@ SOURCES += \
         libs/gen/v2ray_api_commands.grpc.pb.cc
 
 INCLUDEPATH += \
-        /usr/local/include/ \
         3rdparty/ \
         src/ \
         src/ui/ \
@@ -118,7 +117,7 @@ ICON = ./icons/Qv2ray.icns
     message("-----------------------------------------------")
     message(" ")
     warning("IF YOU THINK IT'S A MISTAKE, PLEASE OPEN AN ISSUE")
-    error("! NOW THE BUILD WILL ABORT !")
+    error("! ABORTING THE BUILD !")
     message(" ")
 }
 
@@ -136,6 +135,7 @@ for(var, $$list($$files("translations/*.ts", true))) {
 message("Qv2ray will build with" $${replace(EXTRA_TRANSLATIONS, "translations/", "")})
 TRANSLATIONS += translations/en-US.ts
 
+message(" ")
 QMAKE_CXXFLAGS += "-Wno-missing-field-initializers" "-Wno-unused-parameter" "-Wno-unused-variable"
 win32 {
     message("Configuring for win32 environment")
@@ -155,26 +155,19 @@ win32 {
 
     INCLUDEPATH += $$PWD/libs/gRPC-win32/include
     DEPENDPATH  += $$PWD/libs/gRPC-win32/include
-    # Some files issue.
-
-    CONFIG(release, debug|release) {
-        message("  --> Appending scripts for copying gRPC and protobuf dll to RELEASE directory.")
-        QMAKE_PRE_LINK += forfiles /s /p $${replace(PWD, /, \\)}\libs\ /m "*.dll" /c \"cmd.exe /c copy @file $${replace(OUT_PWD, /, \\)}\\release\\\"
-    }
-
-    CONFIG(debug, debug|release) {
-        message("  --> Appending scripts for copying gRPC and protobuf dll to DEBUG directory.")
-        QMAKE_PRE_LINK += forfiles /s /p $${replace(PWD, /, \\)}\libs\ /m "*.dll" /c \"cmd.exe /c copy @file $${replace(OUT_PWD, /, \\)}\\debug\\\"
-    }
     PRE_TARGETDEPS += $$PWD/libs/gRPC-win32/lib/libgrpc++.dll.a $$PWD/libs/gRPC-win32/lib/libprotobuf.dll.a
 }
 
 unix {
     # For Linux and macOS
-    message("Configuring for unix (macOS and linux) environment")
+    message("Configuring for unix-like (macOS and linux) environment")
     # For gRPC and protobuf in linux and macOS
     message("  --> Linking against gRPC and protobuf library.")
     LIBS += -L/usr/local/lib -lgrpc++ -lprotobuf
+
+    # macOS homebrew include path
+    message("  --> Adding local include folder to search path")
+    INCLUDEPATH += /usr/local/include/
 
     message("  --> Adding Plasma Toolbox CPP files.")
     SOURCES += src/ui/NetSpeedBar/QvNetSpeedBar_linux.cpp
@@ -187,7 +180,7 @@ unix {
     icon.files += ./icons/Qv2ray.png
     icon.path = /usr/share/icons/hicolor/256x256/apps/
 
-    target.path = /usr/local/bin
+    target.path = /usr/local/bin/
     INSTALLS += target desktop icon
 }
 
