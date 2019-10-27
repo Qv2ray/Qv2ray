@@ -110,3 +110,6 @@ icon.path = /opt/$${TARGET}/share/icons/hicolor/256x256/apps/
 
 INSTALLS += desktop
 INSTALLS += icon
+
+DISTFILES += \
+    translations/zh-TW.ts
