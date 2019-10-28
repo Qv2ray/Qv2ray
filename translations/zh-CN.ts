@@ -37,7 +37,7 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="79"/>
       <source>Scan Image</source>
-      <translation type="unfinished">Scan Image</translation>
+      <translation>扫描图像</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="89"/>
@@ -78,12 +78,12 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="199"/>
       <source>---TODO---</source>
-      <translation type="unfinished">---TODO---</translation>
+      <translation>---TODO---</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="215"/>
       <source>Select File:</source>
-      <translation type="unfinished">Select File:</translation>
+      <translation>选择文件</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="36"/>
@@ -109,12 +109,12 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="90"/>
       <source>VMess string is not valid.</source>
-      <translation type="unfinished">VMess string is not valid.</translation>
+      <translation>VMess 字符串无效.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="95"/>
       <source>VMess config is not valid.</source>
-      <translation type="unfinished">VMess config is not valid.</translation>
+      <translation>VMess 字符串无效.</translation>
     </message>
   </context>
   <context>
@@ -122,67 +122,67 @@
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="17"/>
       <source>Inbound Editor</source>
-      <translation type="unfinished">Inbound Editor</translation>
+      <translation>入站编辑器</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="28"/>
       <source>Tag</source>
-      <translation type="unfinished">Tag</translation>
+      <translation>标签</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="38"/>
       <source>Tag of this inbound entry</source>
-      <translation type="unfinished">Tag of this inbound entry</translation>
+      <translation>入站项目标签</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="45"/>
       <source>Listening</source>
-      <translation type="unfinished">Listening</translation>
+      <translation>监听</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="54"/>
       <source>Hostname or IP Address</source>
-      <translation type="unfinished">Hostname or IP Address</translation>
+      <translation>主机名或 IP 地址</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="61"/>
       <source>:</source>
-      <translation type="unfinished">:</translation>
+      <translation>:</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="68"/>
       <source>Port: 1080|80-85</source>
-      <translation type="unfinished">Port: 1080|80-85</translation>
+      <translation>端口：1080|80-85</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="77"/>
       <source>Protocol</source>
-      <translation type="unfinished">Protocol</translation>
+      <translation>协议</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="119"/>
       <source>Allocation Settings</source>
-      <translation type="unfinished">Allocation Settings</translation>
+      <translation>分配设置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="125"/>
       <source>Strategy</source>
-      <translation type="unfinished">Strategy</translation>
+      <translation>策略</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="142"/>
       <source>always</source>
-      <translation type="unfinished">always</translation>
+      <translation>总是</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="147"/>
       <source>random</source>
-      <translation type="unfinished">random</translation>
+      <translation>随机</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="155"/>
       <source>Refresh</source>
-      <translation type="unfinished">Refresh</translation>
+      <translation>刷新</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="181"/>
@@ -192,12 +192,12 @@
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="210"/>
       <source>Sniffing Settings</source>
-      <translation type="unfinished">Sniffing Settings</translation>
+      <translation>嗅探设置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="228"/>
       <source>Destination Override</source>
-      <translation type="unfinished">Destination Override</translation>
+      <translation>目标覆盖</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="267"/>
@@ -211,18 +211,18 @@
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="304"/>
       <source>HTTP Inbound Settings</source>
-      <translation type="unfinished">HTTP Inbound Settings</translation>
+      <translation>HTTP 入站设置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="312"/>
       <location filename="../src/ui/w_InboundEditor.ui" line="652"/>
       <source>Timeout</source>
-      <translation type="unfinished">Timeout</translation>
+      <translation>超时</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="325"/>
       <source>Allow Transparent</source>
-      <translation type="unfinished">Allow Transparent</translation>
+      <translation>允许透明</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="342"/>
@@ -250,7 +250,7 @@
       <location filename="../src/ui/w_InboundEditor.ui" line="391"/>
       <location filename="../src/ui/w_InboundEditor.ui" line="539"/>
       <source>Add</source>
-      <translation type="unfinished">Add</translation>
+      <translation>添加</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="401"/>
@@ -262,47 +262,47 @@
       <location filename="../src/ui/w_InboundEditor.ui" line="408"/>
       <location filename="../src/ui/w_InboundEditor.ui" line="556"/>
       <source>Accounts</source>
-      <translation type="unfinished">Accounts</translation>
+      <translation>账户</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="424"/>
       <source>SOCKS Inbound Settings</source>
-      <translation type="unfinished">SOCKS Inbound Settings</translation>
+      <translation>Socks 入站设置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="432"/>
       <source>Auth</source>
-      <translation type="unfinished">Auth</translation>
+      <translation>验证</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="456"/>
       <source>Enable UDP</source>
-      <translation type="unfinished">Enable UDP</translation>
+      <translation>启用 UDP</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="466"/>
       <source>Local UDP IP</source>
-      <translation type="unfinished">Local UDP IP</translation>
+      <translation>本地 UDP IP</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="493"/>
       <source>127.0.0.1</source>
-      <translation type="unfinished">127.0.0.1</translation>
+      <translation>127.0.0.1</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="572"/>
       <source>Dokodemo-Door Inbound Settings</source>
-      <translation type="unfinished">Dokodemo-Door Inbound Settings</translation>
+      <translation>Dokodemo-Door Insent 设置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="578"/>
       <source>IP Address</source>
-      <translation type="unfinished">IP Address</translation>
+      <translation>IP地址</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="588"/>
       <source>Not necessary when setting &quot;Follow Redirect&quot;</source>
-      <translation type="unfinished">Not necessary when setting &quot;Follow Redirect&quot;</translation>
+      <translation>设置 &quot;后重定向&quot; 时不必</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="595"/>
@@ -312,81 +312,81 @@
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="618"/>
       <source>Network</source>
-      <translation type="unfinished">Network</translation>
+      <translation>网络</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="630"/>
       <source>TCP</source>
-      <translation type="unfinished">TCP</translation>
+      <translation>TCP</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="643"/>
       <source>UDP</source>
-      <translation type="unfinished">UDP</translation>
+      <translation>UDP</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="662"/>
       <source>Follow Redirect</source>
-      <translation type="unfinished">Follow Redirect</translation>
+      <translation>跟随重定向</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="712"/>
       <source>MTProto Inbound Settings</source>
-      <translation type="unfinished">MTProto Inbound Settings</translation>
+      <translation>MTProto 入站设置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="718"/>
       <source>EMail Address</source>
-      <translation type="unfinished">EMail Address</translation>
+      <translation>邮件地址</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="735"/>
       <source>Secret</source>
-      <translation type="unfinished">Secret</translation>
+      <translation>密钥</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="745"/>
       <source>SECRET</source>
-      <translation type="unfinished">SECRET</translation>
+      <translation>SECRET</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.cpp" line="29"/>
       <source>Inbound type not supported</source>
-      <translation type="unfinished">Inbound type not supported</translation>
+      <translation>不支持的入站类型</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.cpp" line="29"/>
       <source>The inbound type is not supported by Qv2ray (yet). Please use JsonEditor to change the settings</source>
-      <translation type="unfinished">The inbound type is not supported by Qv2ray (yet). Please use JsonEditor to change the settings</translation>
+      <translation>Qv2ray （目前）不支持这个入站类型。请使用 Json编辑器更改设置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.cpp" line="30"/>
       <source>Inbound: </source>
-      <translation type="unfinished">Inbound: </translation>
+      <translation>入站: </translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.cpp" line="179"/>
       <location filename="../src/ui/w_InboundEditor.cpp" line="231"/>
       <source>Removing a user</source>
-      <translation type="unfinished">Removing a user</translation>
+      <translation>移除用户</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.cpp" line="179"/>
       <location filename="../src/ui/w_InboundEditor.cpp" line="231"/>
       <source>You haven&apos;t selected a user yet.</source>
-      <translation type="unfinished">You haven&apos;t selected a user yet.</translation>
+      <translation>您还没有选择&apos;用户。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.cpp" line="195"/>
       <location filename="../src/ui/w_InboundEditor.cpp" line="247"/>
       <source>Add a user</source>
-      <translation type="unfinished">Add a user</translation>
+      <translation>添加用户</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.cpp" line="195"/>
       <location filename="../src/ui/w_InboundEditor.cpp" line="247"/>
       <source>This user exists already.</source>
-      <translation type="unfinished">This user exists already.</translation>
+      <translation>此用户已存在。</translation>
     </message>
   </context>
   <context>
@@ -487,7 +487,7 @@
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="254"/>
       <source>{ }</source>
-      <translation type="unfinished">{ }</translation>
+      <translation>{ }</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="278"/>
@@ -502,7 +502,7 @@
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="373"/>
       <source>Ping</source>
-      <translation type="unfinished">Ping</translation>
+      <translation>延迟</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="186"/>
@@ -548,38 +548,38 @@
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="300"/>
       <source>Address</source>
-      <translation type="unfinished">Address</translation>
+      <translation>地址</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="314"/>
       <source>Port Number</source>
-      <translation type="unfinished">Port Number</translation>
+      <translation>端口号</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="328"/>
       <source>Routes Count</source>
-      <translation type="unfinished">Routes Count</translation>
+      <translation>路由计数</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="335"/>
       <location filename="../src/ui/w_MainWindow.ui" line="349"/>
       <source>TextLabel</source>
-      <translation type="unfinished">TextLabel</translation>
+      <translation>文本标签</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="342"/>
       <source>Mux</source>
-      <translation type="unfinished">Mux</translation>
+      <translation>Mux</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="380"/>
       <source>QR Code</source>
-      <translation type="unfinished">QR Code</translation>
+      <translation>二维码</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="387"/>
       <source>VMess</source>
-      <translation type="unfinished">VMess</translation>
+      <translation>VMess</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="414"/>
@@ -589,30 +589,30 @@
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="439"/>
       <source>Speed Graph</source>
-      <translation type="unfinished">Speed Graph</translation>
+      <translation>速度图</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="463"/>
       <source>Speed</source>
-      <translation type="unfinished">Speed</translation>
+      <translation>速度</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="500"/>
       <source>0.00 B/s
 0.00 B/s</source>
-      <translation type="unfinished">0.00 B/s
+      <translation>0.00 B/s
 0.00 B/s</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="533"/>
       <source>Data</source>
-      <translation type="unfinished">Data</translation>
+      <translation>流量</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="570"/>
       <source>0.00 B
 0.00 B</source>
-      <translation type="unfinished">0.00 B
+      <translation>0.00 B
 0.00 B</translation>
     </message>
     <message>
@@ -702,12 +702,12 @@
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="51"/>
       <source>Share as vmess://</source>
-      <translation type="unfinished">Share as vmess://</translation>
+      <translation>分享为 vmess://</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="52"/>
       <source>Share as QRCore</source>
-      <translation type="unfinished">Share as QRCore</translation>
+      <translation>分享二维码</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="162"/>
@@ -769,7 +769,7 @@
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="277"/>
       <source>Connected</source>
-      <translation type="unfinished">Connected</translation>
+      <translation>已连接</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="538"/>
@@ -782,17 +782,17 @@
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="26"/>
       <source>EditConnectionSettings</source>
-      <translation type="unfinished">EditConnectionSettings</translation>
+      <translation>编辑连接设置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="37"/>
       <source>Tag</source>
-      <translation type="unfinished">Tag</translation>
+      <translation>标签</translation>
     </message>
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="44"/>
       <source>Tag of this outbound setting</source>
-      <translation type="unfinished">Tag of this outbound setting</translation>
+      <translation>此置顶设置标签</translation>
     </message>
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="51"/>
@@ -803,7 +803,7 @@
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="58"/>
       <source>Hostname or IP/IPv6 Address</source>
-      <translation type="unfinished">Hostname or IP/IPv6 Address</translation>
+      <translation>主机名或IP/IPv6地址</translation>
     </message>
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="65"/>
@@ -831,7 +831,7 @@
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="122"/>
       <source>Use Mux</source>
-      <translation type="unfinished">Use Mux</translation>
+      <translation>使用 Mux</translation>
     </message>
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="129"/>
@@ -865,7 +865,7 @@
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="210"/>
       <source>64</source>
-      <translation type="unfinished">64</translation>
+      <translation>64</translation>
     </message>
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="217"/>
@@ -892,7 +892,7 @@
       <location filename="../src/ui/w_OutboundEditor.ui" line="330"/>
       <location filename="../src/ui/w_OutboundEditor.ui" line="431"/>
       <source>Default Value</source>
-      <translation type="unfinished">Default Value</translation>
+      <translation>默认值</translation>
     </message>
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="359"/>
@@ -903,7 +903,7 @@
       <location filename="../src/ui/w_OutboundEditor.ui" line="366"/>
       <location filename="../src/ui/w_OutboundEditor.ui" line="398"/>
       <source>Edit in Json Editor</source>
-      <translation type="unfinished">Edit in Json Editor</translation>
+      <translation>在 Json 编辑器中编辑</translation>
     </message>
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="405"/>
@@ -920,7 +920,7 @@
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="486"/>
       <source>/wsPath</source>
-      <translation type="unfinished">/wsPath</translation>
+      <translation>/wsPath</translation>
     </message>
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="502"/>
@@ -941,27 +941,27 @@
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="565"/>
       <source>Uplink Capacity (MB/s)</source>
-      <translation type="unfinished">Uplink Capacity (MB/s)</translation>
+      <translation>上行容量 (MB/s)</translation>
     </message>
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="588"/>
       <source>Congestion</source>
-      <translation type="unfinished">Congestion</translation>
+      <translation>拥塞</translation>
     </message>
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="602"/>
       <source>Downlink Capacity (MB/s)</source>
-      <translation type="unfinished">Downlink Capacity (MB/s)</translation>
+      <translation>下行容量 (MB/s)</translation>
     </message>
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="625"/>
       <source>Read Buffer Size (MB)</source>
-      <translation type="unfinished">Read Buffer Size (MB)</translation>
+      <translation>读取缓冲区大小 (MB)</translation>
     </message>
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="648"/>
       <source>Write Buffer Size (MB)</source>
-      <translation type="unfinished">Write Buffer Size (MB)</translation>
+      <translation>写入缓冲区大小 (MB)</translation>
     </message>
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="779"/>
@@ -971,7 +971,7 @@
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="789"/>
       <source>keys</source>
-      <translation type="unfinished">keys</translation>
+      <translation>keys</translation>
     </message>
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="847"/>
@@ -986,7 +986,7 @@
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="871"/>
       <source>TProxy</source>
-      <translation type="unfinished">TProxy</translation>
+      <translation>TProxy</translation>
     </message>
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="908"/>
@@ -1002,12 +1002,12 @@
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="922"/>
       <source>Encryption Method</source>
-      <translation type="unfinished">Encryption Method</translation>
+      <translation>加密方法</translation>
     </message>
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="974"/>
       <source>Level</source>
-      <translation type="unfinished">Level</translation>
+      <translation>级别</translation>
     </message>
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="984"/>
@@ -1119,17 +1119,17 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="174"/>
       <source>Statistics</source>
-      <translation type="unfinished">Statistics</translation>
+      <translation>统计</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="188"/>
       <source>API Port</source>
-      <translation type="unfinished">API Port</translation>
+      <translation>API 端口</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="208"/>
       <source>v2ray Core Path</source>
-      <translation type="unfinished">v2ray Core Path</translation>
+      <translation>v2ray 核心路径</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="230"/>
@@ -1163,27 +1163,27 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="238"/>
       <source>Listening Address</source>
-      <translation type="unfinished">Listening Address</translation>
+      <translation>监听地址</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="256"/>
       <source>SOCKS Inbound Settings</source>
-      <translation type="unfinished">SOCKS Inbound Settings</translation>
+      <translation>Socks 入站设置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="328"/>
       <source>SOCKS UDP</source>
-      <translation type="unfinished">SOCKS UDP</translation>
+      <translation>SOCKS UDP</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="335"/>
       <source>Local IP</source>
-      <translation type="unfinished">Local IP</translation>
+      <translation>本地 IP</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="359"/>
       <source>HTTP Inbound Settings</source>
-      <translation type="unfinished">HTTP Inbound Settings</translation>
+      <translation>HTTP 入站设置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="440"/>
@@ -1213,12 +1213,12 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="509"/>
       <source>NetSpeed Bar Settings</source>
-      <translation type="unfinished">NetSpeed Bar Settings</translation>
+      <translation>NetBar 设置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="515"/>
       <source>Items</source>
-      <translation type="unfinished">Items</translation>
+      <translation>个</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="521"/>
@@ -1232,99 +1232,99 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="543"/>
       <source>Page Y Offset</source>
-      <translation type="unfinished">Page Y Offset</translation>
+      <translation>图像 Y 偏移</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="550"/>
       <source>Pages</source>
-      <translation type="unfinished">Pages</translation>
+      <translation>页面</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="557"/>
       <source>Lines</source>
-      <translation type="unfinished">Lines</translation>
+      <translation>线条</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="637"/>
       <source>Text Style</source>
-      <translation type="unfinished">Text Style</translation>
+      <translation>文字款式</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="643"/>
       <source>Font</source>
-      <translation type="unfinished">Font</translation>
+      <translation>字体</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="655"/>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="616"/>
       <source>Bold</source>
-      <translation type="unfinished">Bold</translation>
+      <translation>粗体</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="662"/>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="617"/>
       <source>Italic</source>
-      <translation type="unfinished">Italic</translation>
+      <translation>斜体</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="671"/>
       <source>Size</source>
-      <translation type="unfinished">Size</translation>
+      <translation>大小</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="681"/>
       <source>Color</source>
-      <translation type="unfinished">Color</translation>
+      <translation>颜色</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="690"/>
       <source>A:</source>
-      <translation type="unfinished">A:</translation>
+      <translation>A:</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="704"/>
       <source>R:</source>
-      <translation type="unfinished">R:</translation>
+      <translation>R:</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="718"/>
       <source>G:</source>
-      <translation type="unfinished">G:</translation>
+      <translation>G：</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="732"/>
       <source>B:</source>
-      <translation type="unfinished">B:</translation>
+      <translation>B:</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="755"/>
       <source>Style</source>
-      <translation type="unfinished">Style</translation>
+      <translation>样式</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="765"/>
       <source>Content</source>
-      <translation type="unfinished">Content</translation>
+      <translation>内容</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="771"/>
       <source>Content Type</source>
-      <translation type="unfinished">Content Type</translation>
+      <translation>内容类型</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="781"/>
       <source>Text/Tag</source>
-      <translation type="unfinished">Text/Tag</translation>
+      <translation>文本/标签</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="797"/>
       <source>You can config how the network speed toolbar looks like in this panel</source>
-      <translation type="unfinished">You can config how the network speed toolbar looks like in this panel</translation>
+      <translation>您可以在此面板中配置网络速度工具栏看起来如何</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="804"/>
       <source>Apply Network Speed Bar UI Settings</source>
-      <translation type="unfinished">Apply Network Speed Bar UI Settings</translation>
+      <translation>应用网络速度栏设置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="812"/>
@@ -1379,17 +1379,17 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="1094"/>
       <source>Built Time</source>
-      <translation type="unfinished">Built Time</translation>
+      <translation>建造时间</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="101"/>
       <source>Page</source>
-      <translation type="unfinished">Page</translation>
+      <translation>页面</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="101"/>
       <source>Item(s)</source>
-      <translation type="unfinished">Item(s)</translation>
+      <translation>项目</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="130"/>
@@ -1399,7 +1399,7 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="261"/>
       <source>Open v2ray core file</source>
-      <translation type="unfinished">Open v2ray core file</translation>
+      <translation>打开 v2ray 核心文件</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="322"/>
@@ -1415,7 +1415,7 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="324"/>
       <source>Qv2ray will copy your v2ray core to this path: </source>
-      <translation type="unfinished">Qv2ray will copy your v2ray core to this path: </translation>
+      <translation>Qv2ray 将复制您的 v2ray 核心至此路径： </translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="325"/>
@@ -1425,12 +1425,12 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="352"/>
       <source>Qv2ray cannot copy one or both v2ray files from: </source>
-      <translation type="unfinished">Qv2ray cannot copy one or both v2ray files from: </translation>
+      <translation>Qv2ray 无法复制一个或两个 v2ray 文件： </translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="354"/>
       <source>to this path: </source>
-      <translation type="unfinished">to this path: </translation>
+      <translation>走到这条路径： </translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="363"/>
@@ -1475,17 +1475,17 @@
     <message>
       <location filename="../src/main.cpp" line="105"/>
       <source>Cannot Start Qv2ray</source>
-      <translation type="unfinished">Cannot Start Qv2ray</translation>
+      <translation>无法启动 v2ray</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="106"/>
       <source>Cannot find a place to store config files.</source>
-      <translation type="unfinished">Cannot find a place to store config files.</translation>
+      <translation>找不到存储配置文件的地方。</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="107"/>
       <source>Qv2ray has searched these paths below:</source>
-      <translation type="unfinished">Qv2ray has searched these paths below:</translation>
+      <translation>Qv2ray 搜索了下面的这些路径：</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="237"/>
@@ -1510,17 +1510,17 @@
     <message>
       <location filename="../src/main.cpp" line="241"/>
       <source>Please refer to Github Issue #65 to check for solutions.</source>
-      <translation type="unfinished">Please refer to Github Issue #65 to check for solutions.</translation>
+      <translation>请查看解决方案的 Github 问题 #65。</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="242"/>
       <source>Github Issue Link: </source>
-      <translation type="unfinished">Github Issue Link: </translation>
+      <translation>Github 问题链接： </translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="243"/>
       <source>Technical Details</source>
-      <translation type="unfinished">Technical Details</translation>
+      <translation>技术细节</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="251"/>
@@ -1545,22 +1545,22 @@
     <message>
       <location filename="../src/QvCoreInteractions.cpp" line="67"/>
       <source>Please go to prefrence window to change the location.</source>
-      <translation type="unfinished">Please go to prefrence window to change the location.</translation>
+      <translation>请先到预留窗口来更改位置。</translation>
     </message>
     <message>
       <location filename="../src/QvCoreInteractions.cpp" line="68"/>
       <source>Or put v2ray core file in the location above.</source>
-      <translation type="unfinished">Or put v2ray core file in the location above.</translation>
+      <translation>或者在上面的位置上放入 v2ray 核心文件。</translation>
     </message>
     <message>
       <location filename="../src/ui/NetSpeedBar/QvNetSpeedBar.cpp" line="56"/>
       <source>Stats is not enabled</source>
-      <translation type="unfinished">Stats is not enabled</translation>
+      <translation>统计未启用</translation>
     </message>
     <message>
       <location filename="../src/ui/NetSpeedBar/QvNetSpeedBar.cpp" line="93"/>
       <source>Connected</source>
-      <translation type="unfinished">Connected</translation>
+      <translation>已连接</translation>
     </message>
     <message>
       <location filename="../src/ui/NetSpeedBar/QvNetSpeedBar.cpp" line="98"/>
@@ -1570,77 +1570,77 @@
     <message>
       <location filename="../src/ui/NetSpeedBar/QvNetSpeedBar.cpp" line="103"/>
       <source>Connecting</source>
-      <translation type="unfinished">Connecting</translation>
+      <translation>正在连接</translation>
     </message>
     <message>
       <location filename="../src/utils/QvNetSpeedPlugin.h" line="23"/>
       <source>Custom Text</source>
-      <translation type="unfinished">Custom Text</translation>
+      <translation>自定义文本</translation>
     </message>
     <message>
       <location filename="../src/utils/QvNetSpeedPlugin.h" line="25"/>
       <source>Current Time</source>
-      <translation type="unfinished">Current Time</translation>
+      <translation>当前时间</translation>
     </message>
     <message>
       <location filename="../src/utils/QvNetSpeedPlugin.h" line="26"/>
       <source>Current Date</source>
-      <translation type="unfinished">Current Date</translation>
+      <translation>当前日期</translation>
     </message>
     <message>
       <location filename="../src/utils/QvNetSpeedPlugin.h" line="27"/>
       <source>Current Qv2ray Version</source>
-      <translation type="unfinished">Current Qv2ray Version</translation>
+      <translation>当前 Qv2ray 版本</translation>
     </message>
     <message>
       <location filename="../src/utils/QvNetSpeedPlugin.h" line="28"/>
       <source>Current Connection Name</source>
-      <translation type="unfinished">Current Connection Name</translation>
+      <translation>当前连接名称</translation>
     </message>
     <message>
       <location filename="../src/utils/QvNetSpeedPlugin.h" line="29"/>
       <source>Current Connection Status</source>
-      <translation type="unfinished">Current Connection Status</translation>
+      <translation>服务器连接状态</translation>
     </message>
     <message>
       <location filename="../src/utils/QvNetSpeedPlugin.h" line="31"/>
       <source>Total Upload Speed</source>
-      <translation type="unfinished">Total Upload Speed</translation>
+      <translation>总上传速度</translation>
     </message>
     <message>
       <location filename="../src/utils/QvNetSpeedPlugin.h" line="32"/>
       <source>Total Download Speed</source>
-      <translation type="unfinished">Total Download Speed</translation>
+      <translation>最大下载速度</translation>
     </message>
     <message>
       <location filename="../src/utils/QvNetSpeedPlugin.h" line="33"/>
       <source>Upload Speed for Specific Tag</source>
-      <translation type="unfinished">Upload Speed for Specific Tag</translation>
+      <translation>上传特定标签的速度</translation>
     </message>
     <message>
       <location filename="../src/utils/QvNetSpeedPlugin.h" line="34"/>
       <source>Download Speed for Specific Tag</source>
-      <translation type="unfinished">Download Speed for Specific Tag</translation>
+      <translation>下载特定标签的速度</translation>
     </message>
     <message>
       <location filename="../src/utils/QvNetSpeedPlugin.h" line="36"/>
       <source>Total Uploaded Data</source>
-      <translation type="unfinished">Total Uploaded Data</translation>
+      <translation>总上传数据</translation>
     </message>
     <message>
       <location filename="../src/utils/QvNetSpeedPlugin.h" line="37"/>
       <source>Total Downloaded Data</source>
-      <translation type="unfinished">Total Downloaded Data</translation>
+      <translation>已下载数据总数</translation>
     </message>
     <message>
       <location filename="../src/utils/QvNetSpeedPlugin.h" line="38"/>
       <source>Uploaded Data for Specific Tag</source>
-      <translation type="unfinished">Uploaded Data for Specific Tag</translation>
+      <translation>上传特定标签的数据</translation>
     </message>
     <message>
       <location filename="../src/utils/QvNetSpeedPlugin.h" line="39"/>
       <source>Downloaded Data for Specific Tag</source>
-      <translation type="unfinished">Downloaded Data for Specific Tag</translation>
+      <translation>特定标签下载的数据</translation>
     </message>
   </context>
   <context>
@@ -1798,7 +1798,7 @@
       <location filename="../src/ui/w_RoutesEditor.cpp" line="154"/>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="182"/>
       <source>We will launch Json Editor instead.</source>
-      <translation type="unfinished">We will launch Json Editor instead.</translation>
+      <translation>我们将启动Json编辑器。</translation>
     </message>
   </context>
   <context>
