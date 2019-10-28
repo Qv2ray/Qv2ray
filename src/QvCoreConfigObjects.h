@@ -61,6 +61,9 @@ namespace Qv2ray
         //
         //
         struct RuleObject {
+            // Added due to @aliyuchang33
+            bool enabled;
+            //
             string type;
             list<string> domain;
             list<string> ip;
@@ -69,12 +72,12 @@ namespace Qv2ray
             list<string> source;
             list<string> user;
             list<string> inboundTag;
-            string protocol;
+            list<string> protocol;
             string attrs;
             string outboundTag;
             string balancerTag;
-            RuleObject() : type("field"), domain(), ip(), port(), network(), source(), user(), inboundTag(), protocol(), attrs(), outboundTag(), balancerTag() {}
-            XTOSTRUCT(O(type, domain, ip, port, network, source, user, inboundTag, protocol, attrs, outboundTag, balancerTag))
+            RuleObject() : enabled(true), type("field"), domain(), ip(), port(), network(), source(), user(), inboundTag(), protocol(), attrs(), outboundTag(), balancerTag() {}
+            XTOSTRUCT(O(enabled, type, domain, ip, port, network, source, user, inboundTag, protocol, attrs, outboundTag, balancerTag))
         };
         //
         //
@@ -83,15 +86,6 @@ namespace Qv2ray
             list<string> selector;
             BalancerObject() : tag(), selector() {}
             XTOSTRUCT(O(tag, selector))
-        };
-        //
-        //
-        struct RoutingObject {
-            string domainStrategy;
-            list<RuleObject> rules;
-            list<BalancerObject> balancers;
-            RoutingObject() : domainStrategy(), rules(), balancers() {}
-            XTOSTRUCT(O(domainStrategy, rules, balancers))
         };
         //
         //
@@ -310,7 +304,7 @@ namespace Qv2ray
             };
             //
             // ShadowSocks Server
-            struct ShadowSocksServer {
+            struct ShadowSocksServerObject {
                 string email;
                 string address;
                 string method;
@@ -318,7 +312,7 @@ namespace Qv2ray
                 bool ota;
                 int level;
                 int port;
-                ShadowSocksServer(): email("user@domain.com"), address("0.0.0.0"), method("aes-256-cfb"), password(""), ota(false), level(0), port(0) {}
+                ShadowSocksServerObject(): email("user@domain.com"), address("0.0.0.0"), method("aes-256-cfb"), password(""), ota(false), level(0), port(0) {}
                 XTOSTRUCT(O(email, address, port, method, password, ota, level))
             };
         }

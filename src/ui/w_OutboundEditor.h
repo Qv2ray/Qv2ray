@@ -124,7 +124,7 @@ class OutboundEditor : public QDialog
         QString OutboundType;
         StreamSettingsObject stream;
         VMessServerObject vmess;
-        ShadowSocksServer shadowsocks;
+        ShadowSocksServerObject shadowsocks;
         SocksServerObject socks;
         //
 };

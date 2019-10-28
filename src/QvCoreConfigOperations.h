@@ -48,7 +48,7 @@ namespace Qv2ray
         //
         // Generate FINAL Configs
         QJsonObject GenerateRuntimeConfig(QJsonObject root);
-        QJsonObject GenerateOutboundEntry(QString protocol, QJsonObject settings, QJsonObject streamSettings, QJsonObject mux, QString sendThrough = "0.0.0.0", QString tag = "");
+        QJsonObject GenerateOutboundEntry(QString protocol, QJsonObject settings, QJsonObject streamSettings, QJsonObject mux = QJsonObject(), QString sendThrough = "0.0.0.0", QString tag = "");
         QJsonObject GenerateInboundEntry(QString listen, int port, QString protocol, QJsonObject settings, QString tag, QJsonObject sniffing = QJsonObject(), QJsonObject allocate = QJsonObject());
         //
         // -------------------------- BEGIN CONFIG VALIDATIONS ---------------------------------------------

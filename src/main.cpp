@@ -13,7 +13,7 @@ bool verifyConfigAvaliability(QString path, bool checkExistingConfig)
 {
     if (!QDir(path).exists()) return false;
 
-    QFile testFile(path + ".qv2ray_file_write_test_file" + QString::number(QTime::currentTime().msec()));
+    QFile testFile(path + ".qv2ray_file_write_test_file" + QString::number(QTime::currentTime().msecsSinceStartOfDay()));
     bool opened = testFile.open(QFile::OpenModeFlag::ReadWrite);
 
     if (!opened) {
@@ -176,6 +176,7 @@ int main(int argc, char *argv[])
         (QSysInfo::prettyProductName() + " " + QSysInfo::currentCpuArchitecture()).toStdString() +
         NEWLINE)
     //
+    LOG(MODULE_INIT, "Qv2ray Start Time: "  + QString::number(QTime::currentTime().msecsSinceStartOfDay()).toStdString())
 #ifdef QT_DEBUG
     LOG("DEBUG", "============================== This is a debug build, many features are not stable enough. ==============================")
 #endif
