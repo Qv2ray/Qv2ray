@@ -405,7 +405,7 @@ void MainWindow::ShowAndSetConnection(QString guiConnectionName, bool SetConnect
         ui->_portLabel->setText(QSTRING(to_string(Server.port)));
     } else if (outboundType == "shadowsocks") {
         auto x = JsonToString(outBoundRoot["settings"].toObject()["servers"].toArray().first().toObject());
-        auto Server = StructFromJsonString<ShadowSocksServer>(x);
+        auto Server = StructFromJsonString<ShadowSocksServerObject>(x);
         ui->_hostLabel->setText(QSTRING(Server.address));
         ui->_portLabel->setText(QSTRING(to_string(Server.port)));
     } else if (outboundType == "socks") {

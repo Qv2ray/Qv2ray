@@ -35,10 +35,33 @@ class RouteEditor : public QDialog
 
         void on_editInboundBtn_clicked();
 
+        void on_routeProtocolHTTPCB_stateChanged(int arg1);
+
+        void on_routeProtocolTLSCB_stateChanged(int arg1);
+
+        void on_routeProtocolBTCB_stateChanged(int arg1);
+
+        void on_balabcerAddBtn_clicked();
+
+        void on_balancerDelBtn_clicked();
+
+        void on_hostList_textChanged();
+
+        void on_ipList_textChanged();
+
+        void on_routePortTxt_textEdited(const QString &arg1);
+
+        void on_routeUserTxt_textEdited(const QString &arg1);
+
     private:
+        void ShowRuleDetail(RuleObject rule);
+        int currentRuleIndex;
+        QString DomainStrategy;
+        QMap<QString, QStringList> Balancers;
+        QList<RuleObject> rules;
+        //
         QJsonArray inbounds;
         QJsonArray outbounds;
-        RoutingObject routes;
         QJsonObject root;
         Ui::RouteEditor *ui;
 };

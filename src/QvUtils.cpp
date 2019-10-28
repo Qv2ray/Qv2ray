@@ -97,6 +97,13 @@ namespace Qv2ray
             return doc.toJson();
         }
 
+        QString JsonToString(QJsonArray array)
+        {
+            QJsonDocument doc;
+            doc.setArray(array);
+            return doc.toJson();
+        }
+
         QString VerifyJsonString(const QString *source)
         {
             QJsonParseError error;

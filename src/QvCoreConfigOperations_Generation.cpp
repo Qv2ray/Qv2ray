@@ -160,7 +160,6 @@ namespace Qv2ray
                 services << "StatsService";
 
             JADD(services, tag)
-            //
             RROOT
         }
 
@@ -243,13 +242,6 @@ namespace Qv2ray
                 root.insert("routing", routeObject);
                 QJsonArray outbounds = root["outbounds"].toArray();
                 outbounds.append(GenerateOutboundEntry("freedom", GenerateFreedomOUT("AsIs", ":0", 0), QJsonObject(), QJsonObject(), "0.0.0.0", OUTBOUND_TAG_DIRECT));
-                //
-                // We don't want to add MUX into the first one in the list.....
-                // TODO: However, this can be added to the Connection Edit Window...
-                //QJsonObject first = outbounds.first().toObject();
-                //first.insert("mux", GetRootObject(gConf.mux));
-                //outbounds[0] = first;
-                //
                 root["outbounds"] = outbounds;
             } else {
                 // For some config files that has routing entries already.
@@ -260,12 +252,12 @@ namespace Qv2ray
 
             // Let's process some api features.
             if (gConf.enableStats) {
+                // Stats
                 {
-                    // Stats
                     root.insert("stats", QJsonObject());
                 }
+                // Routes
                 {
-                    // Routes
                     QJsonObject routing = root["routing"].toObject();
                     QJsonArray routingRules = routing["rules"].toArray();
                     QJsonObject APIRouteRoot;
@@ -279,8 +271,8 @@ namespace Qv2ray
                     routing["rules"] = routingRules;
                     root["routing"] = routing;
                 }
+                // Policy
                 {
-                    // Policy
                     QJsonObject policyRoot = root.contains("policy") ? root["policy"].toObject() : QJsonObject();
                     QJsonObject systemPolicy = policyRoot.contains("system") ? policyRoot["system"].toObject() : QJsonObject();
                     systemPolicy["statsInboundUplink"] = true;
@@ -289,8 +281,8 @@ namespace Qv2ray
                     // Add this to root.
                     root["policy"] = policyRoot;
                 }
+                // Inbounds
                 {
-                    // Inbounds
                     QJsonArray inbounds = root["inbounds"].toArray();
                     QJsonObject fakeDocodemoDoor;
                     fakeDocodemoDoor["address"] = "127.0.0.1";
@@ -298,8 +290,8 @@ namespace Qv2ray
                     inbounds.push_front(apiInboundsRoot);
                     root["inbounds"] = inbounds;
                 }
+                // API
                 {
-                    // API
                     root["api"] = GenerateAPIEntry(API_TAG_DEFAULT);
                 }
             }

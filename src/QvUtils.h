@@ -34,6 +34,8 @@ namespace Qv2ray
         //
         QJsonObject JsonFromString(QString string);
         QString JsonToString(QJsonObject json);
+        QString JsonToString(QJsonArray array);
+        //
         QString VerifyJsonString(const QString *source);
         //
         QString Stringify(list<string> list, QString saperator = ";");
@@ -54,8 +56,6 @@ namespace Qv2ray
             X::loadjson(str.toStdString(), v, false);
             return v;
         }
-        //
-
 
         template <typename T>
         void RemoveItem(std::vector<T> &vec, size_t pos)

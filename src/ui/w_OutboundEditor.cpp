@@ -19,7 +19,7 @@ OutboundEditor::OutboundEditor(QWidget *parent)
     ui->setupUi(this);
     ui->portLineEdit->setValidator(new QIntValidator());
     ui->alterLineEdit->setValidator(new QIntValidator());
-    shadowsocks = ShadowSocksServer();
+    shadowsocks = ShadowSocksServerObject();
     socks = SocksServerObject();
     socks.users.push_back(SocksServerObject::UserObject());
     vmess = VMessServerObject();
@@ -48,7 +48,7 @@ OutboundEditor::OutboundEditor(QJsonObject outboundEntry, QWidget *parent)
         socks.address = vmess.address;
         socks.port = vmess.port;
     } else if (OutboundType == "shadowsocks") {
-        shadowsocks = StructFromJsonString<ShadowSocksServer>(JsonToString(outboundEntry["settings"].toObject()["servers"].toArray().first().toObject()));
+        shadowsocks = StructFromJsonString<ShadowSocksServerObject>(JsonToString(outboundEntry["settings"].toObject()["servers"].toArray().first().toObject()));
         vmess.address = shadowsocks.address;
         vmess.port = shadowsocks.port;
         socks.address = shadowsocks.address;
@@ -112,12 +112,10 @@ void OutboundEditor::ReLoad_GUI_JSON_ModelContent()
         ui->httpPathTxt->setText(QSTRING(stream.httpSettings.path));
         // WS
         ui->wsPathTxt->setText(QSTRING(stream.wsSettings.path));
-        QString wsHeaders;
-
-        for (auto _ : stream.wsSettings.headers) {
-            wsHeaders = wsHeaders + QSTRING(_.first + "|" + _.second) + "\r\n";
-        }
-
+        QString wsHeaders = std::accumulate(stream.wsSettings.headers.begin(), stream.wsSettings.headers.end(), QString(), [](QString in1, const pair<string, string> &in2) {
+            in1 += QSTRING(in2.first + "|" + in2.second) + "\r\n";
+            return in1;
+        });
         ui->wsHeadersTxt->setPlainText(wsHeaders);
         // mKCP
         ui->kcpMTU->setValue(stream.kcpSettings.mtu);
