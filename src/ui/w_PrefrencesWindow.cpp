@@ -329,17 +329,30 @@ void PrefrencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
             } else {
                 LOG(MODULE_VCORE, "ENABLING tProxy Support")
                 LOG(MODULE_FILE, " --> Origin v2ray core file is at: " + CurrentConfig.v2CorePath)
-                auto v2ctlPath = QFileInfo(QSTRING(CurrentConfig.v2CorePath)).path();
+                auto v2ctlPath = QFileInfo(QSTRING(CurrentConfig.v2CorePath)).path() + "/v2ctl";
                 auto newPath = QFileInfo(QV2RAY_DEFAULT_VCORE_PATH).path();
                 //
-                LOG(MODULE_FILE, " --> Origin v2ray core file is at: " + v2ctlPath.toStdString() + "v2ctl")
+                LOG(MODULE_FILE, " --> Origin v2ray core file is at: " + v2ctlPath.toStdString() + "/v2ctl")
                 LOG(MODULE_FILE, " --> New v2ray files will be placed in: " << newPath.toStdString())
                 //
                 LOG(MODULE_FILE, " --> Copying files....")
+
+                if (QFile(QV2RAY_DEFAULT_VCORE_PATH).exists()) {
+                    LOG(MODULE_FILE, QV2RAY_DEFAULT_VCORE_PATH.toStdString() << ": File already exists.")
+                    LOG(MODULE_FILE, QV2RAY_DEFAULT_VCORE_PATH.toStdString() << ": Deleting file.")
+                    QFile(QV2RAY_DEFAULT_VCORE_PATH).remove();
+                }
+
+                if (QFile(newPath + "/v2ctl").exists()) {
+                    LOG(MODULE_FILE, newPath.toStdString() << "/v2ctl" << ": File already exists.")
+                    LOG(MODULE_FILE, newPath.toStdString() << "/v2ctl" << ": Deleting file.")
+                    QFile(newPath + "/v2ctl").remove();
+                }
+
                 string vCoreresult = QFile(QSTRING(CurrentConfig.v2CorePath)).copy(QV2RAY_DEFAULT_VCORE_PATH) ? "OK" : "FAILED";
                 LOG(MODULE_FILE, " --> v2ray Core: " + vCoreresult)
                 //
-                string vCtlresult = QFile(v2ctlPath).copy(newPath + "v2ctl") ? "OK" : "FAILED";
+                string vCtlresult = QFile(v2ctlPath).copy(newPath + "/v2ctl") ? "OK" : "FAILED";
                 LOG(MODULE_FILE, " --> v2ray Ctl: " + vCtlresult)
                 //
 

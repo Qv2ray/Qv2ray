@@ -22,7 +22,7 @@
   <property name="modal">
    <bool>true</bool>
   </property>
-  <layout class="QGridLayout" name="gridLayout_5" rowstretch="1,1,0" columnstretch="1,2">
+  <layout class="QGridLayout" name="gridLayout_5" rowstretch="1,1,0" columnstretch="4,7">
    <item row="1" column="0">
     <widget class="QGroupBox" name="groupBox_4">
      <property name="title">
