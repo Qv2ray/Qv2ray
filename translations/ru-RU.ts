@@ -350,41 +350,41 @@
       <translation type="unfinished">SECRET</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_InboundEditor.cpp" line="29"/>
+      <location filename="../src/ui/w_InboundEditor.cpp" line="30"/>
       <source>Inbound type not supported</source>
       <translation type="unfinished">Inbound type not supported</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_InboundEditor.cpp" line="29"/>
+      <location filename="../src/ui/w_InboundEditor.cpp" line="30"/>
       <source>The inbound type is not supported by Qv2ray (yet). Please use JsonEditor to change the settings</source>
       <translation type="unfinished">The inbound type is not supported by Qv2ray (yet). Please use JsonEditor to change the settings</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_InboundEditor.cpp" line="30"/>
+      <location filename="../src/ui/w_InboundEditor.cpp" line="31"/>
       <source>Inbound: </source>
       <translation type="unfinished">Inbound: </translation>
     </message>
     <message>
-      <location filename="../src/ui/w_InboundEditor.cpp" line="179"/>
-      <location filename="../src/ui/w_InboundEditor.cpp" line="231"/>
+      <location filename="../src/ui/w_InboundEditor.cpp" line="181"/>
+      <location filename="../src/ui/w_InboundEditor.cpp" line="233"/>
       <source>Removing a user</source>
       <translation type="unfinished">Removing a user</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_InboundEditor.cpp" line="179"/>
-      <location filename="../src/ui/w_InboundEditor.cpp" line="231"/>
+      <location filename="../src/ui/w_InboundEditor.cpp" line="181"/>
+      <location filename="../src/ui/w_InboundEditor.cpp" line="233"/>
       <source>You haven&apos;t selected a user yet.</source>
       <translation type="unfinished">You haven&apos;t selected a user yet.</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_InboundEditor.cpp" line="195"/>
-      <location filename="../src/ui/w_InboundEditor.cpp" line="247"/>
+      <location filename="../src/ui/w_InboundEditor.cpp" line="197"/>
+      <location filename="../src/ui/w_InboundEditor.cpp" line="249"/>
       <source>Add a user</source>
       <translation type="unfinished">Add a user</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_InboundEditor.cpp" line="195"/>
-      <location filename="../src/ui/w_InboundEditor.cpp" line="247"/>
+      <location filename="../src/ui/w_InboundEditor.cpp" line="197"/>
+      <location filename="../src/ui/w_InboundEditor.cpp" line="249"/>
       <source>This user exists already.</source>
       <translation type="unfinished">This user exists already.</translation>
     </message>
@@ -1025,9 +1025,9 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="26"/>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="130"/>
-      <location filename="../src/ui/w_PrefrencesWindow.cpp" line="363"/>
-      <location filename="../src/ui/w_PrefrencesWindow.cpp" line="374"/>
-      <location filename="../src/ui/w_PrefrencesWindow.cpp" line="386"/>
+      <location filename="../src/ui/w_PrefrencesWindow.cpp" line="376"/>
+      <location filename="../src/ui/w_PrefrencesWindow.cpp" line="387"/>
+      <location filename="../src/ui/w_PrefrencesWindow.cpp" line="399"/>
       <source>Prefrences</source>
       <translation>Настройки</translation>
     </message>
@@ -1256,13 +1256,13 @@
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="661"/>
-      <location filename="../src/ui/w_PrefrencesWindow.cpp" line="616"/>
+      <location filename="../src/ui/w_PrefrencesWindow.cpp" line="627"/>
       <source>Bold</source>
       <translation type="unfinished">Bold</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="668"/>
-      <location filename="../src/ui/w_PrefrencesWindow.cpp" line="617"/>
+      <location filename="../src/ui/w_PrefrencesWindow.cpp" line="628"/>
       <source>Italic</source>
       <translation type="unfinished">Italic</translation>
     </message>
@@ -1403,7 +1403,7 @@
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="322"/>
-      <location filename="../src/ui/w_PrefrencesWindow.cpp" line="351"/>
+      <location filename="../src/ui/w_PrefrencesWindow.cpp" line="364"/>
       <source>Enable tProxy Support</source>
       <translation>Включить tProxy поддержку</translation>
     </message>
@@ -1423,23 +1423,23 @@
       <translation>Если что-либо пошло не так после включения, пожалуйста, обратитесь к проблеме #57 или к ссылке ниже:</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PrefrencesWindow.cpp" line="352"/>
+      <location filename="../src/ui/w_PrefrencesWindow.cpp" line="365"/>
       <source>Qv2ray cannot copy one or both v2ray files from: </source>
       <translation type="unfinished">Qv2ray cannot copy one or both v2ray files from: </translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PrefrencesWindow.cpp" line="354"/>
+      <location filename="../src/ui/w_PrefrencesWindow.cpp" line="367"/>
       <source>to this path: </source>
       <translation type="unfinished">to this path: </translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PrefrencesWindow.cpp" line="363"/>
-      <location filename="../src/ui/w_PrefrencesWindow.cpp" line="374"/>
+      <location filename="../src/ui/w_PrefrencesWindow.cpp" line="376"/>
+      <location filename="../src/ui/w_PrefrencesWindow.cpp" line="387"/>
       <source>Failed to setcap onto v2ray executable. You may need to run `setcap` manually.</source>
       <translation>Не удалось установить параметр на v2ray исполняемый файл. Возможно, вам нужно запустить `setcap` вручную.</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PrefrencesWindow.cpp" line="386"/>
+      <location filename="../src/ui/w_PrefrencesWindow.cpp" line="399"/>
       <source>tProxy is not supported on macOS and Windows</source>
       <translation>tProxy не поддерживается на macOS и Windows</translation>
     </message>
@@ -1646,242 +1646,277 @@
   <context>
     <name>RouteEditor</name>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="45"/>
-      <location filename="../src/ui/w_RoutesEditor.cpp" line="60"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="212"/>
+      <location filename="../src/ui/w_RoutesEditor.cpp" line="76"/>
+      <location filename="../src/ui/w_RoutesEditor.cpp" line="450"/>
       <source>Enabled</source>
       <translation>Включено</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="50"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="217"/>
       <source>InBounds</source>
       <translation>InBounds</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="55"/>
-      <source>DomainOrIP</source>
-      <translation>DomainOrIP</translation>
-    </message>
-    <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="60"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="227"/>
       <source>Outbound</source>
       <translation>Outbound</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="74"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="346"/>
       <source>Protocol</source>
       <translation type="unfinished">Protocol</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="83"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="355"/>
       <source>HTTP</source>
       <translation type="unfinished">HTTP</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="90"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="362"/>
       <source>TLS</source>
       <translation type="unfinished">TLS</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="97"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="369"/>
       <source>BitTorrent</source>
       <translation type="unfinished">BitTorrent</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="113"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="385"/>
       <source>e.g. 80, 443, 8000-8080</source>
       <translation type="unfinished">e.g. 80, 443, 8000-8080</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="120"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="392"/>
+      <source>Balancers</source>
+      <translation type="unfinished">Balancers</translation>
+    </message>
+    <message>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="460"/>
       <source>Users</source>
       <translation type="unfinished">Users</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="130"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="314"/>
       <source>Network</source>
       <translation type="unfinished">Network</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="139"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="323"/>
       <source>TCP</source>
       <translation type="unfinished">TCP</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="146"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="330"/>
       <source>UDP</source>
       <translation type="unfinished">UDP</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="153"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="337"/>
       <source>Both</source>
       <translation type="unfinished">Both</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="180"/>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="191"/>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="266"/>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="290"/>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="343"/>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="354"/>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="558"/>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="569"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="37"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="48"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="250"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="261"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="408"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="432"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="498"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="509"/>
       <source>...</source>
       <translation>...</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="68"/>
-      <source>Route Information</source>
-      <translation>Информация о маршрутах</translation>
-    </message>
-    <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="322"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="490"/>
       <source>Inbound List</source>
       <translation>Inbound List</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="394"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="556"/>
       <source>Inbound Information</source>
       <translation>Inbound Information</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="400"/>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="484"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="117"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="592"/>
       <source>Tag</source>
       <translation>Тэг</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="414"/>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="498"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="124"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="564"/>
       <source>Type</source>
       <translation>Тип</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="428"/>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="512"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="141"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="585"/>
       <source>Address</source>
       <translation>Адрес</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="106"/>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="442"/>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="526"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="158"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="378"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="571"/>
       <source>Port</source>
       <translation>Порт</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="20"/>
-      <location filename="../src/ui/w_RoutesEditor.cpp" line="192"/>
+      <location filename="../src/ui/w_RoutesEditor.cpp" line="247"/>
       <source>Route Editor</source>
       <translation type="unfinished">Route Editor</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="29"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="70"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="531"/>
+      <source>D</source>
+      <translation type="unfinished">D</translation>
+    </message>
+    <message>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="196"/>
       <source>Routes</source>
       <translation type="unfinished">Routes</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="202"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="222"/>
+      <source>Domain/IP</source>
+      <translation type="unfinished">Domain/IP</translation>
+    </message>
+    <message>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="272"/>
       <source>Set Inbound/Outbound</source>
       <translation type="unfinished">Set Inbound/Outbound</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="224"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="300"/>
       <source>Route Details</source>
       <translation type="unfinished">Route Details</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="230"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="470"/>
       <source>Target Host List</source>
       <translation type="unfinished">Target Host List</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="240"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="453"/>
       <source>Target IP List</source>
       <translation type="unfinished">Target IP List</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="250"/>
-      <source>Balancer</source>
-      <translation type="unfinished">Balancer</translation>
-    </message>
-    <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="309"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="477"/>
       <source>Source IP List</source>
       <translation type="unfinished">Source IP List</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="365"/>
-      <source>Add Defaults</source>
-      <translation type="unfinished">Add Defaults</translation>
-    </message>
-    <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="465"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="29"/>
       <source>Outbound List</source>
       <translation>Outbound List</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="478"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="99"/>
       <source>Outbound Information</source>
       <translation>Outbound Information</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="372"/>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="580"/>
-      <source>Edit</source>
-      <translation>Изменить</translation>
-    </message>
-    <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="613"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="649"/>
       <source>Status</source>
       <translation>Статус</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.cpp" line="40"/>
-      <location filename="../src/ui/w_RoutesEditor.cpp" line="48"/>
-      <location filename="../src/ui/w_RoutesEditor.cpp" line="106"/>
-      <location filename="../src/ui/w_RoutesEditor.cpp" line="136"/>
+      <location filename="../src/ui/w_RoutesEditor.cpp" line="42"/>
+      <location filename="../src/ui/w_RoutesEditor.cpp" line="50"/>
+      <location filename="../src/ui/w_RoutesEditor.cpp" line="151"/>
+      <location filename="../src/ui/w_RoutesEditor.cpp" line="181"/>
       <source>No Tag</source>
       <translation type="unfinished">No Tag</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.cpp" line="63"/>
+      <location filename="../src/ui/w_RoutesEditor.cpp" line="80"/>
+      <location filename="../src/ui/w_RoutesEditor.cpp" line="453"/>
       <source>Any</source>
       <translation type="unfinished">Any</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.cpp" line="64"/>
+      <location filename="../src/ui/w_RoutesEditor.cpp" line="81"/>
+      <location filename="../src/ui/w_RoutesEditor.cpp" line="454"/>
       <source>Items</source>
       <translation type="unfinished">Items</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.cpp" line="192"/>
+      <location filename="../src/ui/w_RoutesEditor.cpp" line="247"/>
       <source>Cannot find an inbound by tag: </source>
       <translation type="unfinished">Cannot find an inbound by tag: </translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.cpp" line="192"/>
+      <location filename="../src/ui/w_RoutesEditor.cpp" line="247"/>
       <source>Index Out Of Range</source>
       <translation type="unfinished">Index Out Of Range</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.cpp" line="235"/>
-      <location filename="../src/ui/w_RoutesEditor.cpp" line="272"/>
+      <location filename="../src/ui/w_RoutesEditor.cpp" line="279"/>
+      <location filename="../src/ui/w_RoutesEditor.cpp" line="319"/>
       <source>Cannot Edit</source>
       <translation>Не удается изменить</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.cpp" line="236"/>
+      <location filename="../src/ui/w_RoutesEditor.cpp" line="280"/>
       <source>This outbound entry is not supported by the GUI editor.</source>
       <translation type="unfinished">This outbound entry is not supported by the GUI editor.</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.cpp" line="272"/>
+      <location filename="../src/ui/w_RoutesEditor.cpp" line="319"/>
       <source>Currently, this type of outbound is not supported by the editor.</source>
       <translation>В настоящее время этот тип outbound не поддерживается в этой версии программы.</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.cpp" line="237"/>
-      <location filename="../src/ui/w_RoutesEditor.cpp" line="273"/>
+      <location filename="../src/ui/w_RoutesEditor.cpp" line="472"/>
+      <location filename="../src/ui/w_RoutesEditor.cpp" line="498"/>
+      <location filename="../src/ui/w_RoutesEditor.cpp" line="505"/>
+      <source>Changing route inbound/outbound</source>
+      <translation type="unfinished">Changing route inbound/outbound</translation>
+    </message>
+    <message>
+      <location filename="../src/ui/w_RoutesEditor.cpp" line="473"/>
+      <source>You didn&apos;t select an outbound.</source>
+      <translation type="unfinished">You didn&apos;t select an outbound.</translation>
+    </message>
+    <message>
+      <location filename="../src/ui/w_RoutesEditor.cpp" line="474"/>
+      <source>Banlancer will be used.</source>
+      <translation type="unfinished">Banlancer will be used.</translation>
+    </message>
+    <message>
+      <location filename="../src/ui/w_RoutesEditor.cpp" line="498"/>
+      <source>One or more inbound config(s) have no tag configured, do you still want to continue?</source>
+      <translation type="unfinished">One or more inbound config(s) have no tag configured, do you still want to continue?</translation>
+    </message>
+    <message>
+      <location filename="../src/ui/w_RoutesEditor.cpp" line="506"/>
+      <source>Are you sure to change the inbound/outbound of currently selected route?</source>
+      <translation type="unfinished">Are you sure to change the inbound/outbound of currently selected route?</translation>
+    </message>
+    <message>
+      <location filename="../src/ui/w_RoutesEditor.cpp" line="507"/>
+      <source>Current inbound/outbound combinations:</source>
+      <translation type="unfinished">Current inbound/outbound combinations:</translation>
+    </message>
+    <message>
+      <location filename="../src/ui/w_RoutesEditor.cpp" line="507"/>
+      <source>Inbounds: </source>
+      <translation type="unfinished">Inbounds: </translation>
+    </message>
+    <message>
+      <location filename="../src/ui/w_RoutesEditor.cpp" line="508"/>
+      <source>Outbound: </source>
+      <translation type="unfinished">Outbound: </translation>
+    </message>
+    <message>
+      <location filename="../src/ui/w_RoutesEditor.cpp" line="281"/>
+      <location filename="../src/ui/w_RoutesEditor.cpp" line="320"/>
       <source>We will launch Json Editor instead.</source>
       <translation type="unfinished">We will launch Json Editor instead.</translation>
     </message>
