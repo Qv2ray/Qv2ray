@@ -11,6 +11,7 @@
 RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) :
     QDialog(parent),
     root(connection),
+    original(connection),
     ui(new Ui::RouteEditor)
 {
     ui->setupUi(this);
@@ -19,6 +20,7 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) :
     outbounds = root["outbounds"].toArray();
     DomainStrategy = root["routing"].toObject()["domainStrategy"].toString();
 
+    // Applying Balancers.
     for (auto _balancer :  root["routing"].toObject()["balancers"].toArray()) {
         auto __balancer = _balancer.toObject();
         Balancers[__balancer["tag"].toString()] = QList<QString>();
@@ -54,40 +56,83 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) :
         ui->inboundsList->addItem(inItem);
     }
 
-    for (auto route : rules) {
+    ui->routesTable->clearContents();
+
+    for (int i = 0; i < rules.size(); i++) {
+#define rule rules[i]
+        // Set up balancers.
+
+        if (QSTRING(rule.balancerTag).isEmpty()) {
+            // Default balancer tag.
+            auto bTag = GenerateRandomString();
+            rule.balancerTag = bTag.toStdString();
+            Balancers[bTag] = QStringList();
+        }
+
+        //
         ui->routesTable->insertRow(ui->routesTable->rowCount());
-        // There will be an additional check on the final configuration generation process.
+        //
+        // WARNING There should be an additional check on the final configuration generation process.
         auto enabledItem = new QTableWidgetItem(tr("Enabled"));
-        enabledItem->setCheckState(route.enabled ? Qt::Checked : Qt::Unchecked);
+        enabledItem->setCheckState(rule.QV2RAY_RULE_ENABLED ? Qt::Checked : Qt::Unchecked);
         ui->routesTable->setItem(ui->routesTable->rowCount() - 1, 0, enabledItem);
-        ui->routesTable->setItem(ui->routesTable->rowCount() - 1, 1, new QTableWidgetItem(route.inboundTag.size() > 0 ? Stringify(route.inboundTag) : tr("Any")));
-        ui->routesTable->setItem(ui->routesTable->rowCount() - 1, 2, new QTableWidgetItem(QString::number(route.domain.size() + route.ip.size()) + " " + tr("Items")));
-        ui->routesTable->setItem(ui->routesTable->rowCount() - 1, 3, new QTableWidgetItem(QSTRING(route.outboundTag)));
+        //
+        ui->routesTable->setItem(ui->routesTable->rowCount() - 1, 1, new QTableWidgetItem(rule.inboundTag.size() > 0 ? Stringify(rule.inboundTag) : tr("Any")));
+        ui->routesTable->setItem(ui->routesTable->rowCount() - 1, 2, new QTableWidgetItem(QString::number(rule.domain.size() + rule.ip.size()) + " " + tr("Items")));
+        ui->routesTable->setItem(ui->routesTable->rowCount() - 1, 3, new QTableWidgetItem(QSTRING(rule.outboundTag)));
+#undef rule
+    }
+
+    if (rules.size() > 0) {
+        ui->routesTable->setCurrentItem(ui->routesTable->item(0, 0));
+        currentRuleIndex = 0;
+        ShowRuleDetail(CurrentRule);
+    } else {
+        ui->delRouteBtn->setEnabled(false);
+
+        if (ui->inboundsList->count() > 0) ui->inboundsList->setCurrentRow(0);
+
+        if (ui->outboundsList->count() > 0) ui->outboundsList->setCurrentRow(0);
     }
 }
 
 QJsonObject RouteEditor::OpenEditor()
 {
-    this->exec();
-    QJsonArray balancers;
+    auto result = this->exec();
 
-    for (auto item : Balancers) {
-        QJsonObject balancerEntry;
-        balancerEntry["tag"] = Balancers.key(item);
-        balancerEntry["selector"] = QJsonArray::fromStringList(item);
-        balancers.append(balancerEntry);
+    if (result == QDialog::Accepted) {
+        QJsonArray balancers;
+
+        for (auto item : Balancers) {
+            QJsonObject balancerEntry;
+            auto key = Balancers.key(item);
+
+            if (!key.isEmpty()) {
+                balancerEntry["tag"] = key;
+                balancerEntry["selector"] = QJsonArray::fromStringList(item);
+                balancers.append(balancerEntry);
+            }
+        }
+
+        //
+        QJsonArray rulesArray;
+
+        for (auto _rule : rules) {
+            rulesArray.append(GetRootObject(_rule));
+        }
+
+        QJsonObject routing;
+        routing["domainStrategy"] = DomainStrategy;
+        routing["rules"] = rulesArray;
+        routing["balancers"] = balancers;
+        //
+        root["inbounds"] = inbounds;
+        root["outbounds"] = outbounds;
+        root["routing"] = routing;
+        return root;
+    } else {
+        return original;
     }
-
-    //
-    QJsonObject routing;
-    routing["domainStrategy"] = DomainStrategy;
-    routing["rules"] = GetRootObject(rules.toStdList());
-    routing["balancers"] = balancers;
-    //
-    root["inbounds"] = inbounds;
-    root["outbounds"] = outbounds;
-    root["routing"] = routing;
-    return root;
 }
 
 RouteEditor::~RouteEditor()
@@ -149,38 +194,48 @@ void RouteEditor::ShowRuleDetail(RuleObject rule)
     int index = FindIndexByTag(outbounds, &outboundTag);
     ui->outboundsList->setCurrentRow(index);
     //
-    auto protocols = QList<string>::fromStdList(CurrentRule.protocol);
+    auto network = QSTRING(rule.network).toLower();
+    ui->netUDPRB->setChecked(network.contains("udp"));
+    ui->netTCPRB->setChecked(network.contains("tcp"));
+    ui->netBothRB->setChecked(network.contains("tcp") && network.contains("udp"));
     //
     // Set protocol checkboxes.
-    ui->routeProtocolHTTPCB->setChecked(false);
-    ui->routeProtocolBTCB->setChecked(false);
-    ui->routeProtocolTLSCB->setChecked(false);
-
-    if (protocols.contains("http")) {
-        ui->routeProtocolHTTPCB->setChecked(true);
-    }
-
-    if (protocols.contains("tls")) {
-        ui->routeProtocolTLSCB->setChecked(true);
-    }
-
-    if (protocols.contains("bittorrent")) {
-        ui->routeProtocolBTCB->setChecked(true);
-    }
-
+    auto protocols = QList<string>::fromStdList(CurrentRule.protocol);
+    ui->routeProtocolHTTPCB->setChecked(protocols.contains("http"));
+    ui->routeProtocolTLSCB->setChecked(protocols.contains("tls"));
+    ui->routeProtocolBTCB->setChecked(protocols.contains("bittorrent"));
+    //
+    // Port
     ui->routePortTxt->setText(QSTRING(CurrentRule.port));
     //
-    QString users = std::accumulate(CurrentRule.user.begin(), CurrentRule.user.end(), QString(), [](QString result, const string & str) {
-        result.append(QSTRING(str) + NEWLINE);
-        return result;
-    });
+    // Users
+    QString users = Stringify(CurrentRule.user, NEWLINE);
     ui->routeUserTxt->setPlainText(users);
     //
+    // Incoming Sources
+    QString sources = Stringify(CurrentRule.source, NEWLINE);
+    ui->sourceIPList->setPlainText(sources);
+    //
+    // Domains
+    QString domains = Stringify(CurrentRule.domain, NEWLINE);
+    ui->hostList->setPlainText(domains);
+    //
+    // Outcoming IPs
+    QString ips = Stringify(CurrentRule.ip, NEWLINE);
+    ui->ipList->setPlainText(ips);
+    //
+    // Set Balancer
+    ui->balancerSelectionCombo->clear();
+    ui->balancerSelectionCombo->addItems(Balancers[QSTRING(CurrentRule.balancerTag)]);
+    ui->balancerList->clear();
+    ui->balancerList->addItems(Balancers[QSTRING(CurrentRule.balancerTag)]);
 
     if (rule.inboundTag.size() == 0) {
         for (int i = 0; i < ui->inboundsList->count(); i++) {
             ui->inboundsList->item(i)->setCheckState(Qt::Checked);
         }
+
+        ui->inboundsList->setCurrentRow(0);
     } else {
         for (auto inboundTag : rule.inboundTag) {
             auto inTag = QSTRING(inboundTag);
@@ -195,6 +250,7 @@ void RouteEditor::ShowRuleDetail(RuleObject rule)
                 }
 
                 ui->inboundsList->item(_index)->setCheckState(Qt::Checked);
+                ui->inboundsList->setCurrentRow(_index);
                 STATUS("OK")
             } else {
                 STATUS("Cannot find inbound by a tag, possible currupted files?")
@@ -203,18 +259,6 @@ void RouteEditor::ShowRuleDetail(RuleObject rule)
             }
         }
     }
-}
-
-void RouteEditor::on_routesTable_cellClicked(int row, int column)
-{
-    Q_UNUSED(column)
-
-    if (row < 0) {
-        return;
-    }
-
-    currentRuleIndex = row;
-    ShowRuleDetail(CurrentRule);
 }
 
 void RouteEditor::on_editOutboundBtn_clicked()
@@ -265,6 +309,9 @@ void RouteEditor::on_editInboundBtn_clicked()
 {
     QJsonObject result;
     int row = ui->inboundsList->currentRow();
+
+    if (row < 0) return;
+
     auto currentInbound = inbounds[row].toObject();
     auto protocol =  currentInbound["protocol"].toString();
 
@@ -328,27 +375,190 @@ void RouteEditor::on_routeProtocolBTCB_stateChanged(int arg1)
     CurrentRule.protocol = protocols.toStdList();
     STATUS("Protocol list changed.")
 }
-
 void RouteEditor::on_balabcerAddBtn_clicked()
 {
+    if (!ui->balancerSelectionCombo->currentText().isEmpty()) {
+        this->Balancers[QSTRING(CurrentRule.balancerTag)].append(ui->balancerSelectionCombo->currentText());
+    }
+
+    ui->balancerList->addItem(ui->balancerSelectionCombo->currentText());
+    ui->balancerSelectionCombo->setEditText("");
+    STATUS("OK")
 }
 
 void RouteEditor::on_balancerDelBtn_clicked()
 {
+    if (ui->balancerList->currentRow() < 0) {
+        return;
+    }
+
+    Balancers[QSTRING(CurrentRule.balancerTag)].removeAt(ui->balancerList->currentRow());
+    ui->balancerList->takeItem(ui->balancerList->currentRow());
+    STATUS("Removed a balancer entry.")
 }
 
 void RouteEditor::on_hostList_textChanged()
 {
+    CurrentRule.domain = SplitLinesStdString(ui->hostList->toPlainText()).toStdList();
 }
 
 void RouteEditor::on_ipList_textChanged()
 {
+    CurrentRule.ip = SplitLinesStdString(ui->ipList->toPlainText()).toStdList();
 }
 
 void RouteEditor::on_routePortTxt_textEdited(const QString &arg1)
 {
+    CurrentRule.port = arg1.toStdString();
 }
 
 void RouteEditor::on_routeUserTxt_textEdited(const QString &arg1)
 {
+    CurrentRule.user = SplitLinesStdString(arg1).toStdList();
+}
+
+void RouteEditor::on_routesTable_currentCellChanged(int currentRow, int currentColumn, int previousRow, int previousColumn)
+{
+    Q_UNUSED(currentColumn)
+    Q_UNUSED(previousColumn)
+    Q_UNUSED(previousRow)
+
+    if (currentRow < 0) {
+        return;
+    }
+
+    currentRuleIndex = currentRow;
+    ShowRuleDetail(CurrentRule);
+}
+
+void RouteEditor::on_addRouteBtn_clicked()
+{
+    // Add Route
+    RuleObject rule;
+    //
+
+    if (QSTRING(rule.balancerTag).isEmpty()) {
+        // Default balancer tag.
+        auto bTag = GenerateRandomString();
+        rule.balancerTag = bTag.toStdString();
+        Balancers[bTag] = QStringList();
+    }
+
+    //
+    ui->routesTable->insertRow(ui->routesTable->rowCount());
+    // WARNING There will be an additional check on the final configuration generation process.
+    auto enabledItem = new QTableWidgetItem(tr("Enabled"));
+    enabledItem->setCheckState(rule.QV2RAY_RULE_ENABLED ? Qt::Checked : Qt::Unchecked);
+    ui->routesTable->setItem(ui->routesTable->rowCount() - 1, 0, enabledItem);
+    ui->routesTable->setItem(ui->routesTable->rowCount() - 1, 1, new QTableWidgetItem(rule.inboundTag.size() > 0 ? Stringify(rule.inboundTag) : tr("Any")));
+    ui->routesTable->setItem(ui->routesTable->rowCount() - 1, 2, new QTableWidgetItem(QString::number(rule.domain.size() + rule.ip.size()) + " " + tr("Items")));
+    ui->routesTable->setItem(ui->routesTable->rowCount() - 1, 3, new QTableWidgetItem(QSTRING(rule.outboundTag)));
+    rules.append(rule);
+    currentRuleIndex = ui->routesTable->rowCount() - 1;
+    ui->routesTable->setCurrentCell(currentRuleIndex, 0);
+    ShowRuleDetail(CurrentRule);
+    ui->delRouteBtn->setEnabled(true);
+}
+
+void RouteEditor::on_changeIOBtn_clicked()
+{
+    QString outbound = "";
+
+    if (ui->outboundsList->currentRow() < 0) {
+        // Don't return as someone may use the outboundTag
+        //
+        //QvMessageBox(this, tr("Changing route inbound/outbound"), tr("Please select an outbound from the list."));
+        //return;
+        QvMessageBox(this, tr("Changing route inbound/outbound"),
+                     tr("You didn't select an outbound.") + NEWLINE +
+                     tr("Banlancer will be used."));
+    } else {
+        outbound = outbounds[ui->outboundsList->currentRow()].toObject()["tag"].toString();
+    }
+
+    QList<string> new_inbounds;
+    QList<string> new_inbounds_name;
+
+    for (int i = 0; i < ui->inboundsList->count(); i++) {
+        auto _item = ui->inboundsList->item(i);
+
+        if (_item->checkState() == Qt::Checked) {
+            // WARN there are possiblilties that someone may forget to set the tag.
+            new_inbounds.append(inbounds[i].toObject()["tag"].toString().toStdString());
+            new_inbounds_name.append(_item->text().toStdString());
+        }
+    }
+
+    if (new_inbounds.size() == 0) {
+        // TODO what to do?
+    }
+
+    if (new_inbounds.contains("")) {
+        // Empty tag.
+        auto result1 = QvMessageBoxAsk(this, tr("Changing route inbound/outbound"), tr("One or more inbound config(s) have no tag configured, do you still want to continue?"));
+
+        if (result1 != QMessageBox::Yes) {
+            return;
+        }
+    }
+
+    auto result = QvMessageBoxAsk(this, tr("Changing route inbound/outbound"),
+                                  tr("Are you sure to change the inbound/outbound of currently selected route?")  + NEWLINE +
+                                  tr("Current inbound/outbound combinations:") + NEWLINE + NEWLINE + tr("Inbounds: ") + NEWLINE +
+                                  Stringify(new_inbounds_name.toStdList(), NEWLINE) + NEWLINE + tr("Outbound: ") + outbound);
+
+    if (result != QMessageBox::Yes) {
+        STATUS("Canceled changing inbound/outbound combination.")
+        return;
+    }
+
+    CurrentRule.inboundTag = new_inbounds.toStdList();
+    CurrentRule.outboundTag = outbound.toStdString();
+    STATUS("OK")
+}
+
+void RouteEditor::on_routesTable_cellChanged(int row, int column)
+{
+    if (column != 0) {
+        // Impossible
+        return;
+    }
+
+    if (row < 0) {
+        return;
+    }
+
+    if (rules.size() <= row) {
+        LOG(MODULE_UI, "INFO: This message is possibly caused by adding a new route.")
+        LOG(MODULE_UI, "INFO: ... But may indicate to other bugs if you didn't do that.")
+        return;
+    }
+
+    rules[row].QV2RAY_RULE_ENABLED = ui->routesTable->item(row, column)->checkState() == Qt::Checked;
+    STATUS((rules[row].QV2RAY_RULE_ENABLED ? "Enabled a route" : "Disabled a route"))
+}
+
+void RouteEditor::on_netBothRB_clicked()
+{
+    CurrentRule.network = "tcp,udp";
+}
+
+void RouteEditor::on_netUDPRB_clicked()
+{
+    CurrentRule.network = "udp";
+}
+
+void RouteEditor::on_netTCPRB_clicked()
+{
+    CurrentRule.network = "tcp";
+}
+
+void RouteEditor::on_routeUserTxt_textChanged()
+{
+    CurrentRule.user = SplitLinesStdString(ui->routeUserTxt->toPlainText()).toStdList();
+}
+
+void RouteEditor::on_sourceIPList_textChanged()
+{
+    CurrentRule.source = SplitLinesStdString(ui->sourceIPList->toPlainText()).toStdList();
 }

@@ -15,6 +15,20 @@ namespace Qv2ray
             StringToFile(&str, &config);
         }
 
+        const QString GenerateRandomString(int len)
+        {
+            const QString possibleCharacters("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789");
+            QString randomString;
+
+            for (int i = 0; i < len; ++i) {
+                int index = qrand() % possibleCharacters.length();
+                QChar nextChar = possibleCharacters.at(index);
+                randomString.append(nextChar);
+            }
+
+            return randomString;
+        }
+
         Qv2rayConfig GetGlobalConfig()
         {
             return GlobalConfig;
@@ -138,6 +152,21 @@ namespace Qv2ray
             return QString(QByteArray::fromBase64(ba));
         }
 
+        QStringList SplitLines(const QString &_string)
+        {
+            return _string.split(QRegExp("[\r\n]"), QString::SkipEmptyParts);
+        }
+
+        QList<string> SplitLinesStdString(const QString &_string)
+        {
+            QList<string> list;
+
+            for (auto line : _string.split(QRegExp("[\r\n]"), QString::SkipEmptyParts)) {
+                list.append(line.toStdString());
+            }
+
+            return list;
+        }
         void LoadGlobalConfig()
         {
             QFile file(QV2RAY_CONFIG_FILE);

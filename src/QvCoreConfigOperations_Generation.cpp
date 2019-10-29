@@ -246,8 +246,24 @@ namespace Qv2ray
             } else {
                 // For some config files that has routing entries already.
                 // We don't add extra routings.
-                // this part has been left blanking
-                LOG(MODULE_CONNECTION, "Skip adding 'freedom' entry.")
+                //
+                // HOWEVER, we need to verify the QV2RAY_RULE_ENABLED entry.
+                QJsonObject routing = root["routing"].toObject();
+                QJsonArray rules;
+                LOG(MODULE_CONNECTION, "Processing an existing routing table.")
+
+                for (auto _a : routing["rules"].toArray()) {
+                    auto _b = _a.toObject();
+
+                    if (_b.contains("QV2RAY_RULE_ENABLED") && _b["QV2RAY_RULE_ENABLED"].toBool() == true) {
+                        rules.append(_b);
+                    } else {
+                        LOG(MODULE_CONFIG, "Discarded a rule as it's been set DISABLED")
+                    }
+                }
+
+                routing["rules"] = rules;
+                root["routing"] = routing;
             }
 
             // Let's process some api features.

@@ -43,6 +43,7 @@ namespace Qv2ray
             QJsonDocument doc = QJsonDocument::fromJson(QByteArray::fromStdString(json.toStdString()));
             return doc.object();
         }
+        template QJsonObject GetRootObject<RuleObject>(RuleObject t);
         template QJsonObject GetRootObject<StreamSettingsObject>(StreamSettingsObject t);
         template QJsonObject GetRootObject<VMessServerObject>(VMessServerObject t);
         //
