@@ -43,7 +43,7 @@ namespace Qv2ray
         {
             ConfigDirPath = *path;
 
-            if (path->endsWith("/")) {
+            if (!path->endsWith("/")) {
                 ConfigDirPath += "/";
             }
         }
