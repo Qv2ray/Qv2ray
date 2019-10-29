@@ -72,6 +72,12 @@ namespace Qv2ray
                     break;
                 }
 
+                case 6: {
+                    root["enableStats"] = true;
+                    UPDATELOG("Default statistics enabled.")
+                    break;
+                }
+
                 case 7: {
                     QString path;
                     path = QV2RAY_DEFAULT_VCORE_PATH;
