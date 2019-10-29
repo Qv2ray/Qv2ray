@@ -302,7 +302,7 @@
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="588"/>
       <source>Not necessary when setting &quot;Follow Redirect&quot;</source>
-      <translation>设置 &quot;后重定向&quot; 时不必</translation>
+      <translation>当设置了 重定向 时，此项非必须</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="595"/>
@@ -374,7 +374,7 @@
       <location filename="../src/ui/w_InboundEditor.cpp" line="181"/>
       <location filename="../src/ui/w_InboundEditor.cpp" line="233"/>
       <source>You haven&apos;t selected a user yet.</source>
-      <translation>您还没有选择&apos;用户。</translation>
+      <translation>您还没有选择用户。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.cpp" line="197"/>
@@ -1213,12 +1213,12 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="515"/>
       <source>NetSpeed Bar Settings</source>
-      <translation>NetBar 设置</translation>
+      <translation>工具栏设置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="521"/>
       <source>Items</source>
-      <translation>个</translation>
+      <translation>个项目</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="527"/>
@@ -1232,7 +1232,7 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="549"/>
       <source>Page Y Offset</source>
-      <translation>图像 Y 偏移</translation>
+      <translation>页面 Y 方向偏移</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="556"/>
@@ -1242,12 +1242,12 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="563"/>
       <source>Lines</source>
-      <translation>线条</translation>
+      <translation>行</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="643"/>
       <source>Text Style</source>
-      <translation>文字款式</translation>
+      <translation>文字样式</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="649"/>
@@ -1269,7 +1269,7 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="677"/>
       <source>Size</source>
-      <translation>大小</translation>
+      <translation>字号</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="687"/>
@@ -1430,7 +1430,7 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="367"/>
       <source>to this path: </source>
-      <translation>走到这条路径： </translation>
+      <translation>此路径： </translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="376"/>
@@ -1480,7 +1480,7 @@
     <message>
       <location filename="../src/main.cpp" line="106"/>
       <source>Cannot find a place to store config files.</source>
-      <translation>找不到存储配置文件的地方。</translation>
+      <translation>找不到存储配置文件的路径</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="107"/>
@@ -1545,12 +1545,12 @@
     <message>
       <location filename="../src/QvCoreInteractions.cpp" line="67"/>
       <source>Please go to prefrence window to change the location.</source>
-      <translation>请先到预留窗口来更改位置。</translation>
+      <translation>请先到首选项窗口来更改位置。</translation>
     </message>
     <message>
       <location filename="../src/QvCoreInteractions.cpp" line="68"/>
       <source>Or put v2ray core file in the location above.</source>
-      <translation>或者在上面的位置上放入 v2ray 核心文件。</translation>
+      <translation>或者在上面的位置放入 v2ray 核心文件。</translation>
     </message>
     <message>
       <location filename="../src/ui/NetSpeedBar/QvNetSpeedBar.cpp" line="56"/>
@@ -1610,17 +1610,17 @@
     <message>
       <location filename="../src/utils/QvNetSpeedPlugin.h" line="32"/>
       <source>Total Download Speed</source>
-      <translation>最大下载速度</translation>
+      <translation>总下载速度</translation>
     </message>
     <message>
       <location filename="../src/utils/QvNetSpeedPlugin.h" line="33"/>
       <source>Upload Speed for Specific Tag</source>
-      <translation>上传特定标签的速度</translation>
+      <translation>某个 tag 上传的速度</translation>
     </message>
     <message>
       <location filename="../src/utils/QvNetSpeedPlugin.h" line="34"/>
       <source>Download Speed for Specific Tag</source>
-      <translation>下载特定标签的速度</translation>
+      <translation>某个 tag 下载的速度</translation>
     </message>
     <message>
       <location filename="../src/utils/QvNetSpeedPlugin.h" line="36"/>
@@ -1690,7 +1690,7 @@
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="392"/>
       <source>Balancers</source>
-      <translation type="unfinished">Balancers</translation>
+      <translation>负载均衡器</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="460"/>
@@ -1774,7 +1774,7 @@
       <location filename="../src/ui/w_RoutesEditor.ui" line="70"/>
       <location filename="../src/ui/w_RoutesEditor.ui" line="531"/>
       <source>D</source>
-      <translation type="unfinished">D</translation>
+      <translation>D</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="196"/>
@@ -1784,7 +1784,7 @@
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="222"/>
       <source>Domain/IP</source>
-      <translation type="unfinished">Domain/IP</translation>
+      <translation>域/IP</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="272"/>
@@ -1877,42 +1877,42 @@
       <location filename="../src/ui/w_RoutesEditor.cpp" line="498"/>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="505"/>
       <source>Changing route inbound/outbound</source>
-      <translation type="unfinished">Changing route inbound/outbound</translation>
+      <translation>更改路线的进出方式</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="473"/>
       <source>You didn&apos;t select an outbound.</source>
-      <translation type="unfinished">You didn&apos;t select an outbound.</translation>
+      <translation>你没有选择入站/出站</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="474"/>
       <source>Banlancer will be used.</source>
-      <translation type="unfinished">Banlancer will be used.</translation>
+      <translation>将使用负载均衡器</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="498"/>
       <source>One or more inbound config(s) have no tag configured, do you still want to continue?</source>
-      <translation type="unfinished">One or more inbound config(s) have no tag configured, do you still want to continue?</translation>
+      <translation>一个或多个入站配置没有配置标签，是否继续？</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="506"/>
       <source>Are you sure to change the inbound/outbound of currently selected route?</source>
-      <translation type="unfinished">Are you sure to change the inbound/outbound of currently selected route?</translation>
+      <translation>您确定要更改当前选定路线的进出线？</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="507"/>
       <source>Current inbound/outbound combinations:</source>
-      <translation type="unfinished">Current inbound/outbound combinations:</translation>
+      <translation>当前进出组合：</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="507"/>
       <source>Inbounds: </source>
-      <translation type="unfinished">Inbounds: </translation>
+      <translation>入站: </translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="508"/>
       <source>Outbound: </source>
-      <translation type="unfinished">Outbound: </translation>
+      <translation>出站: </translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="281"/>
