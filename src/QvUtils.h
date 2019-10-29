@@ -15,8 +15,12 @@ namespace Qv2ray
 
         QString Base64Encode(QString string);
         QString Base64Decode(QString string);
+        QStringList SplitLines(const QString &str);
+        QList<string> SplitLinesStdString(const QString &_string);
 
         bool CheckFile(QDir dir, QString fileName);
+
+        const QString GenerateRandomString(int len = 12);
 
         void SetConfigDirPath(const QString *path);
         QString GetConfigDirPath();

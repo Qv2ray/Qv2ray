@@ -8,9 +8,10 @@ static bool isLoading = false;
 
 InboundEditor::InboundEditor(QJsonObject root, QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::InboundEditor)
+    ui(new Ui::InboundEditor),
+    original(root)
 {
-    original = root;
+    ui->setupUi(this);
     this->root = root;
     auto inboundType = root["protocol"].toString();
     allocate = root["allocate"].toObject();
@@ -30,7 +31,6 @@ InboundEditor::InboundEditor(QJsonObject root, QWidget *parent) :
                      tr("Inbound: ") + inboundType);
     }
 
-    ui->setupUi(this);
     LoadUIData();
 }
 
@@ -67,8 +67,10 @@ void InboundEditor::LoadUIData()
     ui->refreshNumberBox->setValue(allocate["refresh"].toInt());
     ui->concurrencyNumberBox->setValue(allocate["concurrency"].toInt());
     ui->enableSniffingCB->setChecked(sniffing["enabled"].toBool());
+    //
+    ui->destOverrideList->setEnabled(sniffing["enabled"].toBool());
 
-    foreach (auto item, sniffing["destOverride"].toArray()) {
+    for (auto item : sniffing["destOverride"].toArray()) {
         if (item.toString().toLower() == "http") ui->destOverrideList->item(0)->setCheckState(Qt::Checked);
 
         if (item.toString().toLower() == "tls") ui->destOverrideList->item(1)->setCheckState(Qt::Checked);
@@ -281,6 +283,7 @@ void InboundEditor::on_enableSniffingCB_stateChanged(int arg1)
 {
     PREPARE_RETURN
     sniffing["enabled"] = arg1 == Qt::Checked;
+    ui->destOverrideList->setEnabled(arg1 == Qt::Checked);
 }
 
 void InboundEditor::on_destOverrideList_itemChanged(QListWidgetItem *item)
@@ -292,7 +295,7 @@ void InboundEditor::on_destOverrideList_itemChanged(QListWidgetItem *item)
     for (int i = 0; i < ui->destOverrideList->count(); i++) {
         auto _item = ui->destOverrideList->item(i);
 
-        if (item->checkState() == Qt::Checked) {
+        if (_item->checkState() == Qt::Checked) {
             list.append(_item->text().toLower());
         }
     }

@@ -491,7 +491,6 @@ void PrefrencesWindow::on_nsBarLineAddBTN_clicked()
     ui->nsBarLineDelBTN->setEnabled(true);
     LOG(MODULE_UI, "Adding new line Id: " + to_string(CurrentBarLineId))
     ui->nsBarLinesList->setCurrentRow(static_cast<int>(CurrentBarPage.Lines.size() - 1));
-    // TODO Some UI Works such as enabling ui.
 }
 
 void PrefrencesWindow::on_nsBarLineDelBTN_clicked()
@@ -608,14 +607,12 @@ QString PrefrencesWindow::GetBarLineDescription(QvBarLine line)
     QString result = "Empty";
     result = NetSpeedPluginMessages[line.ContentType];
 
-    // BUG Content type is null, then set empty;
     if (line.ContentType == 0) {
         result +=  " (" + QSTRING(line.Message) + ")";
     }
 
     result = result.append(line.Bold ?  ", " + tr("Bold") : "");
     result = result.append(line.Italic ? ", " + tr("Italic") : "");
-    // TODO : Set more descriptions
     return result;
 }
 

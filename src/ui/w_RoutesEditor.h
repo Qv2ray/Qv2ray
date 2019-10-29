@@ -27,8 +27,6 @@ class RouteEditor : public QDialog
 
         void on_inboundsList_currentRowChanged(int currentRow);
 
-        void on_routesTable_cellClicked(int row, int column);
-
         void on_editOutboundBtn_clicked();
 
         void on_insertDirectBtn_clicked();
@@ -53,6 +51,24 @@ class RouteEditor : public QDialog
 
         void on_routeUserTxt_textEdited(const QString &arg1);
 
+        void on_routesTable_currentCellChanged(int currentRow, int currentColumn, int previousRow, int previousColumn);
+
+        void on_addRouteBtn_clicked();
+
+        void on_changeIOBtn_clicked();
+
+        void on_routesTable_cellChanged(int row, int column);
+
+        void on_netBothRB_clicked();
+
+        void on_netUDPRB_clicked();
+
+        void on_netTCPRB_clicked();
+
+        void on_routeUserTxt_textChanged();
+
+        void on_sourceIPList_textChanged();
+
     private:
         void ShowRuleDetail(RuleObject rule);
         int currentRuleIndex;
@@ -63,6 +79,7 @@ class RouteEditor : public QDialog
         QJsonArray inbounds;
         QJsonArray outbounds;
         QJsonObject root;
+        QJsonObject original;
         Ui::RouteEditor *ui;
 };
 

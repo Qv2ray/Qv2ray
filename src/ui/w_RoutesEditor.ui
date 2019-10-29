@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1010</width>
-    <height>610</height>
+    <height>625</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -22,14 +22,181 @@
   <property name="modal">
    <bool>true</bool>
   </property>
-  <layout class="QGridLayout" name="gridLayout_5" columnstretch="3,9">
+  <layout class="QGridLayout" name="gridLayout_5" rowstretch="1,1,0" columnstretch="1,2">
+   <item row="1" column="0">
+    <widget class="QGroupBox" name="groupBox_4">
+     <property name="title">
+      <string>Outbound List</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_4" rowstretch="1,0">
+      <item row="0" column="0" rowspan="2">
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QToolButton" name="addOutboundBtn">
+          <property name="text">
+           <string>...</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../../resources.qrc">
+            <normaloff>:/icons/add_connection_btn.png</normaloff>:/icons/add_connection_btn.png</iconset>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="delOutboundBtn">
+          <property name="text">
+           <string>...</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../../resources.qrc">
+            <normaloff>:/icons/remove_connection_btn.png</normaloff>:/icons/remove_connection_btn.png</iconset>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="editOutboundBtn">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset resource="../../resources.qrc">
+            <normaloff>:/icons/edit_connection_btn.png</normaloff>:/icons/edit_connection_btn.png</iconset>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="insertDirectBtn">
+          <property name="text">
+           <string>D</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+      <item row="0" column="1">
+       <widget class="QListWidget" name="outboundsList">
+        <property name="editTriggers">
+         <set>QAbstractItemView::NoEditTriggers</set>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QGroupBox" name="outboundDetailGroup">
+        <property name="title">
+         <string>Outbound Information</string>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_4">
+         <item>
+          <layout class="QGridLayout" name="gridLayout_7" columnstretch="0,1,0,1">
+           <item row="0" column="3">
+            <widget class="QLabel" name="outboundTagLabel">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QLabel" name="label">
+             <property name="text">
+              <string>Tag</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_7">
+             <property name="text">
+              <string>Type</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="outboundTypeLabel">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_3">
+             <property name="text">
+              <string>Address</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLabel" name="outboundAddressLabel">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="2">
+            <widget class="QLabel" name="label_5">
+             <property name="text">
+              <string>Port</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="3">
+            <widget class="QLabel" name="outboundPortLabel">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <spacer name="verticalSpacer_4">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
    <item row="0" column="1" rowspan="2">
     <widget class="QGroupBox" name="groupBox_3">
      <property name="title">
       <string>Routes</string>
      </property>
-     <layout class="QGridLayout" name="gridLayout_6" columnstretch="6,4">
-      <item row="0" column="0">
+     <layout class="QVBoxLayout" name="verticalLayout_3" stretch="4,0,2">
+      <item>
        <widget class="QTableWidget" name="routesTable">
         <property name="editTriggers">
          <set>QAbstractItemView::NoEditTriggers</set>
@@ -52,7 +219,7 @@
         </column>
         <column>
          <property name="text">
-          <string>DomainOrIP</string>
+          <string>Domain/IP</string>
          </property>
         </column>
         <column>
@@ -62,104 +229,7 @@
         </column>
        </widget>
       </item>
-      <item row="0" column="1" rowspan="2">
-       <widget class="QGroupBox" name="groupBox_5">
-        <property name="title">
-         <string>Route Information</string>
-        </property>
-        <layout class="QFormLayout" name="formLayout_3">
-         <item row="1" column="0">
-          <widget class="QLabel" name="label_16">
-           <property name="text">
-            <string>Protocol</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <layout class="QGridLayout" name="gridLayout">
-           <item row="0" column="0">
-            <widget class="QCheckBox" name="routeProtocolHTTPCB">
-             <property name="text">
-              <string>HTTP</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QCheckBox" name="routeProtocolTLSCB">
-             <property name="text">
-              <string>TLS</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="2">
-            <widget class="QCheckBox" name="routeProtocolBTCB">
-             <property name="text">
-              <string>BitTorrent</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item row="3" column="0">
-          <widget class="QLabel" name="label_14">
-           <property name="text">
-            <string>Port</string>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="1">
-          <widget class="QLineEdit" name="routePortTxt">
-           <property name="placeholderText">
-            <string>e.g. 80, 443, 8000-8080</string>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="0">
-          <widget class="QLabel" name="label_15">
-           <property name="text">
-            <string>Users</string>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="1">
-          <widget class="QPlainTextEdit" name="routeUserTxt"/>
-         </item>
-         <item row="0" column="0">
-          <widget class="QLabel" name="label_17">
-           <property name="text">
-            <string>Network</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <layout class="QHBoxLayout" name="horizontalLayout_4">
-           <item>
-            <widget class="QRadioButton" name="netTCPRB">
-             <property name="text">
-              <string>TCP</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QRadioButton" name="netUDPRB">
-             <property name="text">
-              <string>UDP</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QRadioButton" name="netBothRB">
-             <property name="text">
-              <string>Both</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item row="1" column="0">
+      <item>
        <layout class="QHBoxLayout" name="routesControlButtons">
         <item>
          <spacer name="horizontalSpacer_4">
@@ -218,92 +288,190 @@
         </item>
        </layout>
       </item>
-      <item row="2" column="0" colspan="2">
+      <item>
        <widget class="QGroupBox" name="groupBox_2">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>320</height>
+         </size>
+        </property>
         <property name="title">
          <string>Route Details</string>
         </property>
-        <layout class="QGridLayout" name="gridLayout_7">
-         <item row="0" column="1">
-          <widget class="QLabel" name="label_2">
-           <property name="text">
-            <string>Target Host List</string>
-           </property>
-          </widget>
-         </item>
+        <layout class="QGridLayout" name="gridLayout_6" columnstretch="1,1,1">
          <item row="1" column="2">
+          <widget class="QPlainTextEdit" name="sourceIPList"/>
+         </item>
+         <item row="3" column="2">
           <widget class="QPlainTextEdit" name="ipList"/>
          </item>
-         <item row="0" column="2">
+         <item row="0" column="0" rowspan="4">
+          <layout class="QFormLayout" name="formLayout">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_17">
+             <property name="text">
+              <string>Network</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <layout class="QHBoxLayout" name="horizontalLayout_4">
+             <item>
+              <widget class="QRadioButton" name="netTCPRB">
+               <property name="text">
+                <string>TCP</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QRadioButton" name="netUDPRB">
+               <property name="text">
+                <string>UDP</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QRadioButton" name="netBothRB">
+               <property name="text">
+                <string>Both</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_16">
+             <property name="text">
+              <string>Protocol</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <layout class="QGridLayout" name="gridLayout">
+             <item row="0" column="0">
+              <widget class="QCheckBox" name="routeProtocolHTTPCB">
+               <property name="text">
+                <string>HTTP</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QCheckBox" name="routeProtocolTLSCB">
+               <property name="text">
+                <string>TLS</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="2">
+              <widget class="QCheckBox" name="routeProtocolBTCB">
+               <property name="text">
+                <string>BitTorrent</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_14">
+             <property name="text">
+              <string>Port</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QLineEdit" name="routePortTxt">
+             <property name="placeholderText">
+              <string>e.g. 80, 443, 8000-8080</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="label_6">
+             <property name="text">
+              <string>Balancers</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <layout class="QGridLayout" name="gridLayout_2">
+             <item row="0" column="0">
+              <widget class="QComboBox" name="balancerSelectionCombo">
+               <property name="editable">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QToolButton" name="balancerDelBtn">
+               <property name="text">
+                <string>...</string>
+               </property>
+               <property name="icon">
+                <iconset resource="../../resources.qrc">
+                 <normaloff>:/icons/remove_connection_btn.png</normaloff>:/icons/remove_connection_btn.png</iconset>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <spacer name="verticalSpacer">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item row="0" column="1">
+              <widget class="QToolButton" name="balabcerAddBtn">
+               <property name="text">
+                <string>...</string>
+               </property>
+               <property name="icon">
+                <iconset resource="../../resources.qrc">
+                 <normaloff>:/icons/add_connection_btn.png</normaloff>:/icons/add_connection_btn.png</iconset>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0" rowspan="2">
+              <widget class="QListWidget" name="balancerList"/>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </item>
+         <item row="1" column="1">
+          <widget class="QPlainTextEdit" name="routeUserTxt"/>
+         </item>
+         <item row="2" column="2">
           <widget class="QLabel" name="label_4">
            <property name="text">
             <string>Target IP List</string>
            </property>
           </widget>
          </item>
-         <item row="1" column="1">
-          <widget class="QPlainTextEdit" name="hostList"/>
-         </item>
-         <item row="0" column="3">
-          <widget class="QLabel" name="label_6">
+         <item row="0" column="1">
+          <widget class="QLabel" name="label_15">
            <property name="text">
-            <string>Balancer</string>
+            <string>Users</string>
            </property>
           </widget>
          </item>
-         <item row="1" column="3">
-          <layout class="QGridLayout" name="gridLayout_2">
-           <item row="0" column="0">
-            <widget class="QComboBox" name="balancerSelectionCombo">
-             <property name="editable">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QToolButton" name="balancerDelBtn">
-             <property name="text">
-              <string>...</string>
-             </property>
-             <property name="icon">
-              <iconset resource="../../resources.qrc">
-               <normaloff>:/icons/remove_connection_btn.png</normaloff>:/icons/remove_connection_btn.png</iconset>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <spacer name="verticalSpacer">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="0" column="1">
-            <widget class="QToolButton" name="balabcerAddBtn">
-             <property name="text">
-              <string>...</string>
-             </property>
-             <property name="icon">
-              <iconset resource="../../resources.qrc">
-               <normaloff>:/icons/add_connection_btn.png</normaloff>:/icons/add_connection_btn.png</iconset>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0" rowspan="2">
-            <widget class="QListWidget" name="balancerList"/>
-           </item>
-          </layout>
+         <item row="3" column="1">
+          <widget class="QPlainTextEdit" name="hostList"/>
          </item>
-         <item row="1" column="0">
-          <widget class="QPlainTextEdit" name="sourceIPList"/>
+         <item row="2" column="1">
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>Target Host List</string>
+           </property>
+          </widget>
          </item>
-         <item row="0" column="0">
+         <item row="0" column="2">
           <widget class="QLabel" name="label_10">
            <property name="text">
             <string>Source IP List</string>
@@ -321,22 +489,9 @@
      <property name="title">
       <string>Inbound List</string>
      </property>
-     <layout class="QGridLayout" name="gridLayout_3" columnstretch="1,1">
-      <item row="1" column="0" colspan="2">
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
-        <item>
-         <spacer name="horizontalSpacer_2">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
+     <layout class="QGridLayout" name="gridLayout_3" rowstretch="1,0">
+      <item row="0" column="0" rowspan="2">
+       <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
          <widget class="QToolButton" name="addInboundBtn">
           <property name="text">
@@ -360,28 +515,32 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="addDefaultBtn">
+         <widget class="QToolButton" name="editInboundBtn">
           <property name="text">
-           <string>Add Defaults</string>
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset resource="../../resources.qrc">
+            <normaloff>:/icons/edit_connection_btn.png</normaloff>:/icons/edit_connection_btn.png</iconset>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="editInboundBtn">
+         <widget class="QToolButton" name="addDefaultBtn">
           <property name="text">
-           <string>Edit</string>
+           <string>D</string>
           </property>
          </widget>
         </item>
         <item>
-         <spacer name="horizontalSpacer">
+         <spacer name="verticalSpacer_3">
           <property name="orientation">
-           <enum>Qt::Horizontal</enum>
+           <enum>Qt::Vertical</enum>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>40</width>
-            <height>20</height>
+            <width>20</width>
+            <height>40</height>
            </size>
           </property>
          </spacer>
@@ -389,212 +548,89 @@
        </layout>
       </item>
       <item row="0" column="1">
+       <widget class="QListWidget" name="inboundsList"/>
+      </item>
+      <item row="1" column="1">
        <widget class="QGroupBox" name="outboundDetailGroup_2">
         <property name="title">
          <string>Inbound Information</string>
         </property>
-        <layout class="QFormLayout" name="formLayout_2">
-         <item row="0" column="0">
-          <widget class="QLabel" name="label_8">
-           <property name="text">
-            <string>Tag</string>
-           </property>
-          </widget>
+        <layout class="QVBoxLayout" name="verticalLayout_5">
+         <item>
+          <layout class="QGridLayout" name="gridLayout_8" columnstretch="0,1,0,1">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_9">
+             <property name="text">
+              <string>Type</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="2">
+            <widget class="QLabel" name="label_13">
+             <property name="text">
+              <string>Port</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="inboundTypeLabel">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_12">
+             <property name="text">
+              <string>Address</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QLabel" name="label_8">
+             <property name="text">
+              <string>Tag</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="3">
+            <widget class="QLabel" name="inboundTagLabel">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLabel" name="inboundAddressLabel">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="3">
+            <widget class="QLabel" name="inboundPortLabel">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </item>
-         <item row="0" column="1">
-          <widget class="QLabel" name="inboundTagLabel">
-           <property name="text">
-            <string/>
+         <item>
+          <spacer name="verticalSpacer_5">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
            </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QLabel" name="label_9">
-           <property name="text">
-            <string>Type</string>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>31</height>
+            </size>
            </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <widget class="QLabel" name="inboundTypeLabel">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="0">
-          <widget class="QLabel" name="label_12">
-           <property name="text">
-            <string>Address</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="1">
-          <widget class="QLabel" name="inboundAddressLabel">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="0">
-          <widget class="QLabel" name="label_13">
-           <property name="text">
-            <string>Port</string>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="1">
-          <widget class="QLabel" name="inboundPortLabel">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QListWidget" name="inboundsList"/>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="1" column="0">
-    <widget class="QGroupBox" name="groupBox_4">
-     <property name="title">
-      <string>Outbound List</string>
-     </property>
-     <layout class="QGridLayout" name="gridLayout_4" columnstretch="1,1">
-      <item row="0" column="0">
-       <widget class="QListWidget" name="outboundsList">
-        <property name="editTriggers">
-         <set>QAbstractItemView::NoEditTriggers</set>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QGroupBox" name="outboundDetailGroup">
-        <property name="title">
-         <string>Outbound Information</string>
-        </property>
-        <layout class="QFormLayout" name="formLayout">
-         <item row="0" column="0">
-          <widget class="QLabel" name="label">
-           <property name="text">
-            <string>Tag</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QLabel" name="outboundTagLabel">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QLabel" name="label_7">
-           <property name="text">
-            <string>Type</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <widget class="QLabel" name="outboundTypeLabel">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="0">
-          <widget class="QLabel" name="label_3">
-           <property name="text">
-            <string>Address</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="1">
-          <widget class="QLabel" name="outboundAddressLabel">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="0">
-          <widget class="QLabel" name="label_5">
-           <property name="text">
-            <string>Port</string>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="1">
-          <widget class="QLabel" name="outboundPortLabel">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
+          </spacer>
          </item>
         </layout>
        </widget>
-      </item>
-      <item row="1" column="0" colspan="2">
-       <layout class="QHBoxLayout" name="horizontalLayout_3">
-        <item>
-         <spacer name="horizontalSpacer_8">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="QToolButton" name="addOutboundBtn">
-          <property name="text">
-           <string>...</string>
-          </property>
-          <property name="icon">
-           <iconset resource="../../resources.qrc">
-            <normaloff>:/icons/add_connection_btn.png</normaloff>:/icons/add_connection_btn.png</iconset>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QToolButton" name="delOutboundBtn">
-          <property name="text">
-           <string>...</string>
-          </property>
-          <property name="icon">
-           <iconset resource="../../resources.qrc">
-            <normaloff>:/icons/remove_connection_btn.png</normaloff>:/icons/remove_connection_btn.png</iconset>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="editOutboundBtn">
-          <property name="text">
-           <string>Edit</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer name="horizontalSpacer_7">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-       </layout>
       </item>
      </layout>
     </widget>
