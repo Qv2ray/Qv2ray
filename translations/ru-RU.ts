@@ -1779,37 +1779,37 @@
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="196"/>
       <source>Routes</source>
-      <translation type="unfinished">Routes</translation>
+      <translation>Маршруты</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="222"/>
       <source>Domain/IP</source>
-      <translation type="unfinished">Domain/IP</translation>
+      <translation>Домен/IP</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="272"/>
       <source>Set Inbound/Outbound</source>
-      <translation type="unfinished">Set Inbound/Outbound</translation>
+      <translation>Тип: входящий / исходящий</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="300"/>
       <source>Route Details</source>
-      <translation type="unfinished">Route Details</translation>
+      <translation>Детали маршрута</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="470"/>
       <source>Target Host List</source>
-      <translation type="unfinished">Target Host List</translation>
+      <translation>Список адресов</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="453"/>
       <source>Target IP List</source>
-      <translation type="unfinished">Target IP List</translation>
+      <translation>Список адресов IP</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="477"/>
       <source>Source IP List</source>
-      <translation type="unfinished">Source IP List</translation>
+      <translation>Список IP источников</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="29"/>
@@ -1832,29 +1832,29 @@
       <location filename="../src/ui/w_RoutesEditor.cpp" line="151"/>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="181"/>
       <source>No Tag</source>
-      <translation type="unfinished">No Tag</translation>
+      <translation>Нет меток</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="80"/>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="453"/>
       <source>Any</source>
-      <translation type="unfinished">Any</translation>
+      <translation>Любой</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="81"/>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="454"/>
       <source>Items</source>
-      <translation type="unfinished">Items</translation>
+      <translation>Объекты</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="247"/>
       <source>Cannot find an inbound by tag: </source>
-      <translation type="unfinished">Cannot find an inbound by tag: </translation>
+      <translation>Не удается найти входящий по метке: </translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="247"/>
       <source>Index Out Of Range</source>
-      <translation type="unfinished">Index Out Of Range</translation>
+      <translation>Индекс вне диапазона</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="279"/>
@@ -1865,7 +1865,7 @@
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="280"/>
       <source>This outbound entry is not supported by the GUI editor.</source>
-      <translation type="unfinished">This outbound entry is not supported by the GUI editor.</translation>
+      <translation>Эта исходящая запись не поддерживается редактором GUI.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="319"/>
@@ -1877,48 +1877,48 @@
       <location filename="../src/ui/w_RoutesEditor.cpp" line="498"/>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="505"/>
       <source>Changing route inbound/outbound</source>
-      <translation type="unfinished">Changing route inbound/outbound</translation>
+      <translation>Изменение маршрута входящий/исходящий</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="473"/>
       <source>You didn&apos;t select an outbound.</source>
-      <translation type="unfinished">You didn&apos;t select an outbound.</translation>
+      <translation>Вы не выбрали входящий.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="474"/>
       <source>Banlancer will be used.</source>
-      <translation type="unfinished">Banlancer will be used.</translation>
+      <translation>Банлансер будет использоваться.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="498"/>
       <source>One or more inbound config(s) have no tag configured, do you still want to continue?</source>
-      <translation type="unfinished">One or more inbound config(s) have no tag configured, do you still want to continue?</translation>
+      <translation>Один или несколько входящих конфигураций(ов) не настроены, вы все еще хотите продолжить?</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="506"/>
       <source>Are you sure to change the inbound/outbound of currently selected route?</source>
-      <translation type="unfinished">Are you sure to change the inbound/outbound of currently selected route?</translation>
+      <translation>Вы уверены, что хотите изменить входящий/исходящий текущий маршрут?</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="507"/>
       <source>Current inbound/outbound combinations:</source>
-      <translation type="unfinished">Current inbound/outbound combinations:</translation>
+      <translation>Текущие входящие/исходящие комбинации:</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="507"/>
       <source>Inbounds: </source>
-      <translation type="unfinished">Inbounds: </translation>
+      <translation>Входящий: </translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="508"/>
       <source>Outbound: </source>
-      <translation type="unfinished">Outbound: </translation>
+      <translation>Исходящий: </translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="281"/>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="320"/>
       <source>We will launch Json Editor instead.</source>
-      <translation type="unfinished">We will launch Json Editor instead.</translation>
+      <translation>Запущен Json редактор.</translation>
     </message>
   </context>
   <context>
