@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/">
-        <file>icons/Qv2ray.ico</file>
+        <file>icons/qv2ray.ico</file>
         <file>icons/add_connection_btn.png</file>
         <file>icons/import_connection_btn.png</file>
         <file>icons/remove_connection_btn.png</file>

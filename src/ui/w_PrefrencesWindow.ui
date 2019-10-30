@@ -35,7 +35,7 @@
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>4</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -833,7 +833,7 @@
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-image: url(:/icons/Qv2ray.ico);background-repeat: no-repeat;</string>
+          <string notr="true">background-image: url(:/icons/qv2ray.ico);background-repeat: no-repeat;</string>
          </property>
          <property name="frameShape">
           <enum>QFrame::StyledPanel</enum>
@@ -845,17 +845,8 @@
        </item>
        <item>
         <widget class="QFrame" name="formFrame">
-         <layout class="QFormLayout" name="formLayout_6">
-          <property name="rowWrapPolicy">
-           <enum>QFormLayout::WrapAllRows</enum>
-          </property>
-          <property name="labelAlignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-          </property>
-          <property name="formAlignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-          </property>
-          <item row="0" column="0">
+         <layout class="QVBoxLayout" name="verticalLayout_4">
+          <item>
            <widget class="QLabel" name="label_20">
             <property name="font">
              <font>
@@ -867,21 +858,8 @@
             </property>
            </widget>
           </item>
-          <item row="2" column="0">
+          <item>
            <layout class="QHBoxLayout" name="horizontalLayout_6">
-            <item>
-             <spacer name="horizontalSpacer">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
             <item>
              <widget class="QLabel" name="label_24">
               <property name="text">
@@ -898,12 +876,8 @@
               </property>
              </widget>
             </item>
-           </layout>
-          </item>
-          <item row="4" column="0">
-           <layout class="QHBoxLayout" name="horizontalLayout_8">
             <item>
-             <spacer name="horizontalSpacer_3">
+             <spacer name="horizontalSpacer">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
@@ -915,6 +889,43 @@
               </property>
              </spacer>
             </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_7">
+            <item>
+             <widget class="QLabel" name="label_26">
+              <property name="text">
+               <string>Built Time</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="qvBuildTime">
+              <property name="font">
+               <font>
+                <pointsize>10</pointsize>
+               </font>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_2">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_8">
             <item>
              <widget class="QLabel" name="label_27">
               <property name="text">
@@ -949,12 +960,8 @@
               </property>
              </widget>
             </item>
-           </layout>
-          </item>
-          <item row="5" column="0">
-           <layout class="QHBoxLayout" name="horizontalLayout_9">
             <item>
-             <spacer name="horizontalSpacer_5">
+             <spacer name="horizontalSpacer_3">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
@@ -966,6 +973,10 @@
               </property>
              </spacer>
             </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_9">
             <item>
              <widget class="QLabel" name="label_29">
               <property name="text">
@@ -1000,35 +1011,22 @@
               </property>
              </widget>
             </item>
+            <item>
+             <spacer name="horizontalSpacer_5">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
            </layout>
           </item>
-          <item row="9" column="0">
-           <spacer name="verticalSpacer1">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item row="9" column="1">
-           <widget class="QPushButton" name="aboutQt">
-            <property name="minimumSize">
-             <size>
-              <width>206</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="text">
-             <string>About Qt</string>
-            </property>
-           </widget>
-          </item>
-          <item row="7" column="0">
+          <item>
            <spacer name="verticalSpacer1_2">
             <property name="orientation">
              <enum>Qt::Vertical</enum>
@@ -1041,21 +1039,8 @@
             </property>
            </spacer>
           </item>
-          <item row="8" column="0">
+          <item>
            <layout class="QHBoxLayout" name="horizontalLayout_10">
-            <item>
-             <spacer name="horizontalSpacer_4">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
             <item>
              <widget class="QLabel" name="label_23">
               <property name="text">
@@ -1077,12 +1062,8 @@
               </property>
              </widget>
             </item>
-           </layout>
-          </item>
-          <item row="3" column="0">
-           <layout class="QHBoxLayout" name="horizontalLayout_7">
             <item>
-             <spacer name="horizontalSpacer_2">
+             <spacer name="horizontalSpacer_4">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
@@ -1094,23 +1075,20 @@
               </property>
              </spacer>
             </item>
-            <item>
-             <widget class="QLabel" name="label_26">
-              <property name="text">
-               <string>Built Time</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="qvBuildTime">
-              <property name="font">
-               <font>
-                <pointsize>10</pointsize>
-               </font>
-              </property>
-             </widget>
-            </item>
            </layout>
+          </item>
+          <item>
+           <widget class="QPushButton" name="aboutQt">
+            <property name="minimumSize">
+             <size>
+              <width>206</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>About Qt</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>

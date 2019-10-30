@@ -11,7 +11,7 @@ namespace Qv2ray
     {
         QTranslator *getTranslator(const QString *lang);
 
-        QStringList getFileList(QDir dir);
+        QStringList GetFileList(QDir dir);
 
         QString Base64Encode(QString string);
         QString Base64Decode(QString string);

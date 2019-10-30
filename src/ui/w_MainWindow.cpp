@@ -35,7 +35,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     vinstance = new Qv2Instance(this);
     ui->setupUi(this);
-    this->setWindowIcon(QIcon(":/icons/Qv2ray.ico"));
+    this->setWindowIcon(QIcon(":/icons/qv2ray.ico"));
     hTray->setIcon(this->windowIcon());
     hTray->setToolTip(TRAY_TOOLTIP_PREFIX);
     //
@@ -487,7 +487,7 @@ void MainWindow::on_action_RenameConnection_triggered()
 
 void MainWindow::on_connectionListWidget_itemChanged(QListWidgetItem *item)
 {
-    LOG(MODULE_UI, "A connection ListViewItem is changed.")
+    DEBUG(MODULE_UI, "A connection ListViewItem is changed.")
 
     if (isRenamingInProgress) {
         // In this case it's after we entered the name.
@@ -501,7 +501,6 @@ void MainWindow::on_connectionListWidget_itemChanged(QListWidgetItem *item)
             return;
         }
 
-        LOG(MODULE_FILE, "[RENAME] --> ORIGINAL: " + originalName.toStdString() + ", NEW: " + newName.toStdString())
 
         // If I really did some changes.
         if (originalName != newName) {
