@@ -292,17 +292,17 @@
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="572"/>
       <source>Dokodemo-Door Inbound Settings</source>
-      <translation type="unfinished">Dokodemo-Door Inbound Settings</translation>
+      <translation>Настройки Inbound Dokodemo-Door</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="578"/>
       <source>IP Address</source>
-      <translation type="unfinished">IP Address</translation>
+      <translation>IP-Адрес</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="588"/>
       <source>Not necessary when setting &quot;Follow Redirect&quot;</source>
-      <translation type="unfinished">Not necessary when setting &quot;Follow Redirect&quot;</translation>
+      <translation>Не требуется при настройке &quot;Follow Redirect&quot;</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="595"/>
@@ -312,81 +312,81 @@
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="618"/>
       <source>Network</source>
-      <translation type="unfinished">Network</translation>
+      <translation>Сеть</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="630"/>
       <source>TCP</source>
-      <translation type="unfinished">TCP</translation>
+      <translation>TCP</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="643"/>
       <source>UDP</source>
-      <translation type="unfinished">UDP</translation>
+      <translation>UDP</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="662"/>
       <source>Follow Redirect</source>
-      <translation type="unfinished">Follow Redirect</translation>
+      <translation>Использовать переадресацию</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="712"/>
       <source>MTProto Inbound Settings</source>
-      <translation type="unfinished">MTProto Inbound Settings</translation>
+      <translation>Параметры HTTP InBound</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="718"/>
       <source>EMail Address</source>
-      <translation type="unfinished">EMail Address</translation>
+      <translation>Адрес email</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="735"/>
       <source>Secret</source>
-      <translation type="unfinished">Secret</translation>
+      <translation>Секрет</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="745"/>
       <source>SECRET</source>
-      <translation type="unfinished">SECRET</translation>
+      <translation>СЕКРЕТ</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.cpp" line="30"/>
       <source>Inbound type not supported</source>
-      <translation type="unfinished">Inbound type not supported</translation>
+      <translation>Тип файла не поддерживается</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.cpp" line="30"/>
       <source>The inbound type is not supported by Qv2ray (yet). Please use JsonEditor to change the settings</source>
-      <translation type="unfinished">The inbound type is not supported by Qv2ray (yet). Please use JsonEditor to change the settings</translation>
+      <translation>Входящий тип не поддерживается Qv2ray (еще). Пожалуйста, используйте JsonEditor для изменения настроек</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.cpp" line="31"/>
       <source>Inbound: </source>
-      <translation type="unfinished">Inbound: </translation>
+      <translation>Входящий: </translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.cpp" line="181"/>
       <location filename="../src/ui/w_InboundEditor.cpp" line="233"/>
       <source>Removing a user</source>
-      <translation type="unfinished">Removing a user</translation>
+      <translation>Удаление пользователя</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.cpp" line="181"/>
       <location filename="../src/ui/w_InboundEditor.cpp" line="233"/>
       <source>You haven&apos;t selected a user yet.</source>
-      <translation type="unfinished">You haven&apos;t selected a user yet.</translation>
+      <translation>Вы еще выбрали пользователя&apos;т.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.cpp" line="197"/>
       <location filename="../src/ui/w_InboundEditor.cpp" line="249"/>
       <source>Add a user</source>
-      <translation type="unfinished">Add a user</translation>
+      <translation>Добавить пользователя</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.cpp" line="197"/>
       <location filename="../src/ui/w_InboundEditor.cpp" line="249"/>
       <source>This user exists already.</source>
-      <translation type="unfinished">This user exists already.</translation>
+      <translation>Этот пользователь уже существует.</translation>
     </message>
   </context>
   <context>
@@ -487,7 +487,7 @@
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="254"/>
       <source>{ }</source>
-      <translation type="unfinished">{ }</translation>
+      <translation>{ }</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="278"/>
@@ -548,28 +548,28 @@
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="300"/>
       <source>Address</source>
-      <translation type="unfinished">Address</translation>
+      <translation>Адрес</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="314"/>
       <source>Port Number</source>
-      <translation type="unfinished">Port Number</translation>
+      <translation>Порт</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="328"/>
       <source>Routes Count</source>
-      <translation type="unfinished">Routes Count</translation>
+      <translation>Кол-во маршрутов</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="335"/>
       <location filename="../src/ui/w_MainWindow.ui" line="349"/>
       <source>TextLabel</source>
-      <translation type="unfinished">TextLabel</translation>
+      <translation>TextLabel</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="342"/>
       <source>Mux</source>
-      <translation type="unfinished">Mux</translation>
+      <translation>Mux</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="380"/>
