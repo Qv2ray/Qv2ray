@@ -10,6 +10,12 @@ using namespace std;
 #define LOG(module, msg) cout << "[" << module << "]: " << msg << endl;
 #define XLOG(module, level, msg) LOG(module, level << msg)
 
+#ifdef QT_DEBUG
+#define DEBUG(module, msg) LOG(module, msg)
+#else
+#define DEBUG(module, msg)
+#endif
+
 #define MODULE_INIT "INIT"
 #define MODULE_UPDATE "UPDATE"
 #define MODULE_VCORE "VCORE"
@@ -22,10 +28,6 @@ using namespace std;
 #define MODULE_CONNECTION_IMPORT "CONNETION-IMPORT"
 #define MODULE_CONNECTION_VMESS "CONNETION-VMESS"
 #define MODULE_PLUGIN "PLUGIN"
-//
-#ifdef QT_DEBUG
-#define MODULE_DEBUG_INFO "__DEBUG__"
-#endif
 //
 #define LOG_WARN "WARN"
 #define LOG_INFO "INFO"

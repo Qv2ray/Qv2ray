@@ -248,6 +248,7 @@ namespace Qv2ray
                 // We don't add extra routings.
                 //
                 // HOWEVER, we need to verify the QV2RAY_RULE_ENABLED entry.
+                // And what's more, process (by removing unused items) from a rule object.
                 QJsonObject routing = root["routing"].toObject();
                 QJsonArray rules;
                 LOG(MODULE_CONNECTION, "Processing an existing routing table.")
@@ -255,6 +256,19 @@ namespace Qv2ray
                 for (auto _a : routing["rules"].toArray()) {
                     auto _b = _a.toObject();
 
+                    if (_b.contains("QV2RAY_RULE_USE_BALANCER")) {
+                        if (_b["QV2RAY_RULE_USE_BALANCER"].toBool()) {
+                            // We use balancer
+                            _b.remove("outboundTag");
+                        } else {
+                            // We only use the normal outbound
+                            _b.remove("balancerTag");
+                        }
+                    } else {
+                        LOG(MODULE_CONFIG, "We found a rule without QV2RAY_RULE_USE_BALANCER, and we didn't process it.")
+                    }
+
+                    // If this entry has been disabled.
                     if (_b.contains("QV2RAY_RULE_ENABLED") && _b["QV2RAY_RULE_ENABLED"].toBool() == true) {
                         rules.append(_b);
                     } else {

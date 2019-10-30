@@ -21,7 +21,7 @@ namespace Qv2ray
             QString randomString;
 
             for (int i = 0; i < len; ++i) {
-                int index = qrand() % possibleCharacters.length();
+                int index = static_cast<int>(QRandomGenerator().generate() % static_cast<uint>(possibleCharacters.length()));
                 QChar nextChar = possibleCharacters.at(index);
                 randomString.append(nextChar);
             }
@@ -178,14 +178,14 @@ namespace Qv2ray
             file.close();
         }
 
-        QStringList getFileList(QDir dir)
+        QStringList GetFileList(QDir dir)
         {
             return dir.entryList(QStringList() << "*" << "*.*", QDir::Hidden | QDir::Files);
         }
 
         bool CheckFile(QDir dir, QString fileName)
         {
-            return getFileList(dir).indexOf(fileName) >= 0;
+            return GetFileList(dir).indexOf(fileName) >= 0;
         }
 
         void QvMessageBox(QWidget *parent, QString title, QString text)

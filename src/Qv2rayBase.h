@@ -51,17 +51,13 @@
 #define NEWLINE "\r\n"
 
 #ifndef MAX
-#define MAX(a, b)  (((a) > (b)) ? (a) : (b))
+#define MAX(a, b) (((a) > (b)) ? (a) : (b))
 #endif
 
 namespace Qv2ray
 {
     namespace QvConfigModels
     {
-        enum QvConfigType {
-            CONFIGTYPE_CONFIG,
-            CONFIGTYPE_SUBSCRIPTION
-        };
         struct Qv2rayCoreInboundsConfig {
             string listenip;
             // SOCKS

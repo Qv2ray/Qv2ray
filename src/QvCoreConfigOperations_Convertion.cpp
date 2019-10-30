@@ -87,7 +87,7 @@ namespace Qv2ray
                 streaming.tcpSettings.header.type = type;
             } else if (net == "http") {
                 // Fill hosts for HTTP
-                foreach (auto _host, QString::fromStdString(host).split(',')) {
+                for (auto _host : QString::fromStdString(host).split(',')) {
                     streaming.httpSettings.host.push_back(_host.toStdString());
                 }
 
@@ -111,7 +111,7 @@ namespace Qv2ray
             streaming.network = net;
             //
             // WARN Mux is missing here.
-            auto outbound = GenerateOutboundEntry("vmess", vConf, GetRootObject(streaming), QJsonObject() /*GetRootObject(GetGlobalConfig().mux) */, "0.0.0.0", OUTBOUND_TAG_PROXY);
+            auto outbound = GenerateOutboundEntry("vmess", vConf, GetRootObject(streaming), QJsonObject(), "0.0.0.0", OUTBOUND_TAG_PROXY);
             //
             QJsonArray outbounds;
             outbounds.append(outbound);
@@ -139,7 +139,7 @@ namespace Qv2ray
         {
             QMap<QString, QJsonObject> list;
 
-            foreach (auto conn, connectionNames) {
+            for (auto conn : connectionNames) {
                 QString jsonString = StringFromFile(new QFile(QV2RAY_CONFIG_DIR + QSTRING(conn) + QV2RAY_CONFIG_FILE_EXTENSION));
                 QJsonObject connectionObject = JsonFromString(jsonString);
                 list.insert(QString::fromStdString(conn), connectionObject);
@@ -150,7 +150,8 @@ namespace Qv2ray
 
         bool RenameConnection(QString originalName, QString newName)
         {
-            return QFile(QV2RAY_CONFIG_DIR + originalName + QV2RAY_CONFIG_FILE_EXTENSION).rename(QV2RAY_CONFIG_DIR + newName + QV2RAY_CONFIG_FILE_EXTENSION);
+            LOG(MODULE_FILE, "[RENAME] --> ORIGINAL: " + originalName.toStdString() + ", NEW: " + newName.toStdString())
+            return QFile::rename(QV2RAY_CONFIG_DIR + originalName + QV2RAY_CONFIG_FILE_EXTENSION, QV2RAY_CONFIG_DIR + newName + QV2RAY_CONFIG_FILE_EXTENSION);
         }
 
         int StartPreparation(QJsonObject fullConfig)

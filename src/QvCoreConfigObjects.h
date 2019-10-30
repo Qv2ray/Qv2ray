@@ -63,6 +63,7 @@ namespace Qv2ray
         struct RuleObject {
             // Added due to the request of @aliyuchang33
             bool QV2RAY_RULE_ENABLED;
+            bool QV2RAY_RULE_USE_BALANCER;
             //
             string type;
             list<string> domain;
@@ -76,8 +77,8 @@ namespace Qv2ray
             string attrs;
             string outboundTag;
             string balancerTag;
-            RuleObject() : QV2RAY_RULE_ENABLED(true), type("field"), domain(), ip(), port(""), network(""), source(), user(), inboundTag(), protocol(), attrs(), outboundTag(""), balancerTag("") {}
-            XTOSTRUCT(O(QV2RAY_RULE_ENABLED, type, domain, ip, port, network, source, user, inboundTag, protocol, attrs, outboundTag, balancerTag))
+            RuleObject() : QV2RAY_RULE_ENABLED(true), QV2RAY_RULE_USE_BALANCER(false), type("field"), domain(), ip(), port(""), network(""), source(), user(), inboundTag(), protocol(), attrs(), outboundTag(""), balancerTag("") {}
+            XTOSTRUCT(O(QV2RAY_RULE_ENABLED, QV2RAY_RULE_USE_BALANCER, type, domain, ip, port, network, source, user, inboundTag, protocol, attrs, outboundTag, balancerTag))
         };
         //
         //

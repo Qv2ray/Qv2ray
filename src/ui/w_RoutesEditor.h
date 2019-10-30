@@ -5,6 +5,7 @@
 #include <QDialog>
 #include <QJsonArray>
 #include <QJsonObject>
+#include <QListWidgetItem>
 #include "QvUtils.h"
 
 namespace Ui
@@ -68,6 +69,12 @@ class RouteEditor : public QDialog
         void on_routeUserTxt_textChanged();
 
         void on_sourceIPList_textChanged();
+
+        void on_enableBalancerCB_stateChanged(int arg1);
+
+        void on_routeOutboundSelector_currentIndexChanged(int index);
+
+        void on_inboundsList_itemChanged(QListWidgetItem *item);
 
     private:
         void ShowRuleDetail(RuleObject rule);

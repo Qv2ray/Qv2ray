@@ -14,6 +14,7 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) :
     original(connection),
     ui(new Ui::RouteEditor)
 {
+    // TODO Balancer will not be removed if an rule has been removed.
     ui->setupUi(this);
     //
     inbounds = root["inbounds"].toArray();
@@ -21,7 +22,7 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) :
     DomainStrategy = root["routing"].toObject()["domainStrategy"].toString();
 
     // Applying Balancers.
-    for (auto _balancer :  root["routing"].toObject()["balancers"].toArray()) {
+    for (auto _balancer : root["routing"].toObject()["balancers"].toArray()) {
         auto __balancer = _balancer.toObject();
         Balancers[__balancer["tag"].toString()] = QList<QString>();
 
@@ -108,9 +109,18 @@ QJsonObject RouteEditor::OpenEditor()
             auto key = Balancers.key(item);
 
             if (!key.isEmpty()) {
+                DEBUG(MODULE_UI, "Processing balancer: "  + key.toStdString())
+
+                if (item.size() == 0) {
+                    item.append("QV2RAY_EMPTY_SELECTORS");
+                    LOG(MODULE_CONFIG, "Adding a default selector list to a balancer with empty selectors.")
+                }
+
                 balancerEntry["tag"] = key;
                 balancerEntry["selector"] = QJsonArray::fromStringList(item);
                 balancers.append(balancerEntry);
+            } else {
+                LOG(MODULE_UI, "Balancer with an empty key detected! Ignored.")
             }
         }
 
@@ -186,6 +196,37 @@ void RouteEditor::on_inboundsList_currentRowChanged(int currentRow)
 
 void RouteEditor::ShowRuleDetail(RuleObject rule)
 {
+    // BUG added the wrong items, should be outbound list.
+    ui->balancerSelectionCombo->clear();
+    ui->routeOutboundSelector->clear();
+
+    for (auto out : outbounds) {
+        ui->routeOutboundSelector->addItem(out.toObject()["tag"].toString());
+        ui->balancerSelectionCombo->addItem(out.toObject()["tag"].toString());
+    }
+
+    //
+    // Balancers combo and balancer list.
+    ui->enableBalancerCB->setChecked(rule.QV2RAY_RULE_USE_BALANCER);
+
+    if (!QSTRING(rule.balancerTag).isEmpty()) {
+        ui->balancerList->clear();
+        ui->balancerList->addItems(Balancers[QSTRING(CurrentRule.balancerTag)]);
+    } else if (!QSTRING(rule.outboundTag).isEmpty()) {
+        // Find outbound index by tag.
+        auto tag = QSTRING(rule.outboundTag);
+        auto index = FindIndexByTag(outbounds, &tag);
+        ui->routeOutboundSelector->setCurrentIndex(index);
+        //
+        // Default balancer tag.
+        // Don't add anything, we just show the configuration.
+        //auto bTag = GenerateRandomString();
+        //rule.balancerTag = bTag.toStdString();
+        //Balancers[bTag] = QStringList();
+        //LOG(MODULE_UI, "Adding a balancer with tag: " + bTag.toStdString())
+    }
+
+    //
     for (int i = 0; i < ui->inboundsList->count(); ++i) {
         ui->inboundsList->item(i)->setCheckState(Qt::Unchecked);
     }
@@ -194,6 +235,7 @@ void RouteEditor::ShowRuleDetail(RuleObject rule)
     int index = FindIndexByTag(outbounds, &outboundTag);
     ui->outboundsList->setCurrentRow(index);
     //
+    // Networks
     auto network = QSTRING(rule.network).toLower();
     ui->netUDPRB->setChecked(network.contains("udp"));
     ui->netTCPRB->setChecked(network.contains("tcp"));
@@ -223,13 +265,9 @@ void RouteEditor::ShowRuleDetail(RuleObject rule)
     // Outcoming IPs
     QString ips = Stringify(CurrentRule.ip, NEWLINE);
     ui->ipList->setPlainText(ips);
-    //
-    // Set Balancer
-    ui->balancerSelectionCombo->clear();
-    ui->balancerSelectionCombo->addItems(Balancers[QSTRING(CurrentRule.balancerTag)]);
-    ui->balancerList->clear();
-    ui->balancerList->addItems(Balancers[QSTRING(CurrentRule.balancerTag)]);
 
+    //
+    // Inbound Tags
     if (rule.inboundTag.size() == 0) {
         for (int i = 0; i < ui->inboundsList->count(); i++) {
             ui->inboundsList->item(i)->setCheckState(Qt::Checked);
@@ -436,14 +474,12 @@ void RouteEditor::on_addRouteBtn_clicked()
     // Add Route
     RuleObject rule;
     //
-
-    if (QSTRING(rule.balancerTag).isEmpty()) {
-        // Default balancer tag.
-        auto bTag = GenerateRandomString();
-        rule.balancerTag = bTag.toStdString();
-        Balancers[bTag] = QStringList();
-    }
-
+    rule.QV2RAY_RULE_ENABLED = true;
+    rule.QV2RAY_RULE_USE_BALANCER = false;
+    // Default balancer tag.
+    auto bTag = GenerateRandomString();
+    rule.balancerTag = bTag.toStdString();
+    Balancers[bTag] = QStringList();
     //
     ui->routesTable->insertRow(ui->routesTable->rowCount());
     // WARNING There will be an additional check on the final configuration generation process.
@@ -561,4 +597,47 @@ void RouteEditor::on_routeUserTxt_textChanged()
 void RouteEditor::on_sourceIPList_textChanged()
 {
     CurrentRule.source = SplitLinesStdString(ui->sourceIPList->toPlainText()).toStdList();
+}
+
+void RouteEditor::on_enableBalancerCB_stateChanged(int arg1)
+{
+    CurrentRule.QV2RAY_RULE_USE_BALANCER = arg1 == Qt::Checked;
+    ui->stackedWidget->setCurrentIndex(arg1 == Qt::Checked ? 1 : 0);
+}
+
+
+void RouteEditor::on_routeOutboundSelector_currentIndexChanged(int index)
+{
+    CurrentRule.outboundTag = outbounds[index].toObject()["tag"].toString().toStdString();
+}
+
+void RouteEditor::on_inboundsList_itemChanged(QListWidgetItem *item)
+{
+    Q_UNUSED(item)
+    QList<string> new_inbounds;
+
+    for (int i = 0; i < ui->inboundsList->count(); i++) {
+        auto _item = ui->inboundsList->item(i);
+
+        if (_item->checkState() == Qt::Checked) {
+            // WARN there are possiblilties that someone may forget to set the tag.
+            new_inbounds.append(inbounds[i].toObject()["tag"].toString().toStdString());
+        }
+    }
+
+    if (new_inbounds.size() == 0) {
+        // TODO what to do?
+    }
+
+    if (new_inbounds.contains("")) {
+        // Empty tag.
+        auto result1 = QvMessageBoxAsk(this, tr("Changing route inbound/outbound"), tr("One or more inbound config(s) have no tag configured, do you still want to continue?"));
+
+        if (result1 != QMessageBox::Yes) {
+            return;
+        }
+    }
+
+    CurrentRule.inboundTag = new_inbounds.toStdList();
+    STATUS("OK")
 }

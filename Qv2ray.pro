@@ -6,7 +6,7 @@
 
 QT += core gui widgets network charts
 
-TARGET = Qv2ray
+TARGET = qv2ray
 TEMPLATE = app
 DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11 openssl-linked lrelease embed_translations
@@ -173,11 +173,11 @@ unix {
     SOURCES += src/ui/NetSpeedBar/QvNetSpeedBar_linux.cpp
 
     message("  --> Generating desktop dependency.")
-    desktop.files += ./icons/Qv2ray.desktop
+    desktop.files += ./icons/qv2ray.desktop
     desktop.path = /usr/share/applications/
 
     message("  --> Generating icons dependency.")
-    icon.files += ./icons/Qv2ray.png
+    icon.files += ./icons/qv2ray.png
     icon.path = /usr/share/icons/hicolor/256x256/apps/
 
     target.path = /usr/local/bin/
