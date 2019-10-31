@@ -145,7 +145,7 @@ jobs:
           ./linuxdeployqt-6-x86_64.AppImage --appimage-extract 
           cd AppDir
           ../squashfs-root/AppRun usr/share/applications/qv2ray.desktop -appimage -no-strip -always-overwrite
-          mv ./qv2ray*.AppImage ./Qv2ray.AppImage
+          mv ./Qv2ray*.AppImage ./Qv2ray.AppImage
       - name: Uploading artifact
         uses: actions/upload-artifact@master
         with:
