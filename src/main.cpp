@@ -151,7 +151,6 @@ int main(int argc, char *argv[])
         (QSysInfo::prettyProductName() + " " + QSysInfo::currentCpuArchitecture()).toStdString() +
         NEWLINE)
     //
-    Q_OS_UNIX
     LOG(MODULE_INIT, "Qv2ray Start Time: "  + QString::number(QTime::currentTime().msecsSinceStartOfDay()).toStdString())
     DEBUG("DEBUG", "============================== This is a debug build, many features are not stable enough. ==============================")
     //
