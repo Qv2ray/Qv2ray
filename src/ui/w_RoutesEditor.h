@@ -76,6 +76,8 @@ class RouteEditor : public QDialog
 
         void on_inboundsList_itemChanged(QListWidgetItem *item);
 
+        void on_delRouteBtn_clicked();
+
     private:
         void ShowRuleDetail(RuleObject rule);
         int currentRuleIndex;

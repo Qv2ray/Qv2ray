@@ -212,7 +212,9 @@ void RouteEditor::ShowRuleDetail(RuleObject rule)
     if (!QSTRING(rule.balancerTag).isEmpty()) {
         ui->balancerList->clear();
         ui->balancerList->addItems(Balancers[QSTRING(CurrentRule.balancerTag)]);
-    } else if (!QSTRING(rule.outboundTag).isEmpty()) {
+    }
+
+    if (!QSTRING(rule.outboundTag).isEmpty()) {
         // Find outbound index by tag.
         auto tag = QSTRING(rule.outboundTag);
         auto index = FindIndexByTag(outbounds, &tag);
@@ -461,7 +463,8 @@ void RouteEditor::on_routesTable_currentCellChanged(int currentRow, int currentC
     Q_UNUSED(previousColumn)
     Q_UNUSED(previousRow)
 
-    if (currentRow < 0) {
+    if (currentRow < 0 || currentRow >= rules.size()) {
+        DEBUG(MODULE_UI, "Out of range: " + to_string(currentRow))
         return;
     }
 
@@ -640,4 +643,22 @@ void RouteEditor::on_inboundsList_itemChanged(QListWidgetItem *item)
 
     CurrentRule.inboundTag = new_inbounds.toStdList();
     STATUS("OK")
+}
+
+void RouteEditor::on_delRouteBtn_clicked()
+{
+    if (ui->routesTable->currentRow() >= 0) {
+        auto index = ui->routesTable->currentRow();
+        auto rule = rules[index];
+        rules.removeAt(index);
+        Q_UNUSED(rule)
+        ui->routesTable->removeRow(index);
+
+        // Show current row.;
+        if (ui->routesTable->rowCount() > 0) {
+            currentRuleIndex = 0;
+            ui->routesTable->setCurrentCell(currentRuleIndex, 0);
+            ShowRuleDetail(CurrentRule);
+        }
+    }
 }
