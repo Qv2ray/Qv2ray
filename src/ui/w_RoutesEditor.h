@@ -78,6 +78,14 @@ class RouteEditor : public QDialog
 
         void on_delRouteBtn_clicked();
 
+        void on_addDefaultBtn_clicked();
+
+        void on_insertBlackBtn_clicked();
+
+        void on_delOutboundBtn_clicked();
+
+        void on_delInboundBtn_clicked();
+
     private:
         void ShowRuleDetail(RuleObject rule);
         int currentRuleIndex;

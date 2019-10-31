@@ -415,6 +415,7 @@ void RouteEditor::on_routeProtocolBTCB_stateChanged(int arg1)
     CurrentRule.protocol = protocols.toStdList();
     STATUS("Protocol list changed.")
 }
+
 void RouteEditor::on_balabcerAddBtn_clicked()
 {
     if (!ui->balancerSelectionCombo->currentText().isEmpty()) {
@@ -661,4 +662,59 @@ void RouteEditor::on_delRouteBtn_clicked()
             ShowRuleDetail(CurrentRule);
         }
     }
+}
+
+void RouteEditor::on_addDefaultBtn_clicked()
+{
+    // Add default connection from GlobalConfig
+    auto conf = GetGlobalConfig();
+    //
+    auto _in = conf.inBoundSettings;
+    //
+    auto _in_httpConf = GenerateHTTPIN(QList<AccountObject>() << _in.httpAccount);
+    auto _in_socksConf = GenerateSocksIN((_in.socks_useAuth ? "password" : "noauth"),
+                                         QList<AccountObject>() << _in.socksAccount,
+                                         _in.socksUDP, QSTRING(_in.socksLocalIP));
+    //
+    auto _in_HTTP = GenerateInboundEntry(QSTRING(_in.listenip), _in.http_port, "http", _in_httpConf, "HTTP_gConf");
+    auto _in_SOCKS = GenerateInboundEntry(QSTRING(_in.listenip), _in.socks_port, "socks", _in_socksConf, "SOCKS_gConf");
+    //
+    inbounds.append(_in_HTTP);
+    ui->inboundsList->addItem("HTTP Global Config");
+    ui->inboundsList->item(ui->inboundsList->count() - 1)->setCheckState(Qt::Unchecked);
+    //
+    inbounds.append(_in_SOCKS);
+    ui->inboundsList->addItem("SOCKS Global Config");
+    ui->inboundsList->item(ui->inboundsList->count() - 1)->setCheckState(Qt::Unchecked);
+}
+
+void RouteEditor::on_insertBlackBtn_clicked()
+{
+    auto blackHole = GenerateBlackHoleOUT(false);
+    auto tag = "blackhole_" + QString::number(QTime::currentTime().msecsSinceStartOfDay());
+    auto _blackHoleOutbound = GenerateOutboundEntry("blackhole", blackHole, QJsonObject(), QJsonObject(), "0.0.0.0", tag);
+    outbounds.append(_blackHoleOutbound);
+    ui->outboundsList->addItem(tag);
+}
+
+void RouteEditor::on_delOutboundBtn_clicked()
+{
+    if (ui->outboundsList->currentRow() < 0) {
+        return;
+    }
+
+    auto index = ui->outboundsList->currentRow();
+    outbounds.removeAt(index);
+    ui->outboundsList->takeItem(index);
+}
+
+void RouteEditor::on_delInboundBtn_clicked()
+{
+    if (ui->inboundsList->currentRow() < 0) {
+        return;
+    }
+
+    auto index = ui->inboundsList->currentRow();
+    inbounds.removeAt(index);
+    ui->inboundsList->takeItem(index);
 }

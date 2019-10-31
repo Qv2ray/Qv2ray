@@ -22,7 +22,7 @@
   <property name="modal">
    <bool>true</bool>
   </property>
-  <layout class="QGridLayout" name="gridLayout_5" rowstretch="1,1,0" columnstretch="4,7">
+  <layout class="QGridLayout" name="gridLayout_5" rowstretch="2,2,0" columnstretch="4,7">
    <item row="2" column="0" colspan="2">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
@@ -251,7 +251,14 @@
         <item>
          <widget class="QToolButton" name="insertDirectBtn">
           <property name="text">
-           <string>D</string>
+           <string>F</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="insertBlackBtn">
+          <property name="text">
+           <string>B</string>
           </property>
          </widget>
         </item>
