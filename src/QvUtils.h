@@ -1,4 +1,4 @@
-#ifndef UTILS_H
+﻿#ifndef UTILS_H
 #define UTILS_H
 
 #include "Qv2rayBase.h"
@@ -9,7 +9,7 @@ namespace Qv2ray
 {
     namespace Utils
     {
-        QTranslator *getTranslator(const QString *lang);
+        QTranslator *getTranslator(const QString &lang);
 
         QStringList GetFileList(QDir dir);
 

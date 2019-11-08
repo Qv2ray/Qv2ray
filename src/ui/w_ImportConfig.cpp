@@ -1,4 +1,4 @@
-#include <QDebug>
+﻿#include <QDebug>
 #include <QFile>
 #include <QFileDialog>
 #include <QJsonArray>
@@ -58,16 +58,17 @@ void ImportConfigWindow::on_buttonBox_accepted()
         alias = alias != "" ? alias : QFileInfo(path).fileName();
         config = ConvertConfigFromFile(path, overrideInBound);
         //
+        // We save first, "alias" may change to prevent override existing file.
+        needReload = SaveConnectionConfig(config, &alias, false);
         conf.configs.push_back(alias.toStdString());
         //
         SetGlobalConfig(conf);
-        needReload = SaveConnectionConfig(config, &alias, false);
     } else {
         QString vmess = ui->vmessConnectionStringTxt->toPlainText();
         //
         // We saperate the string into lines.
         QStringList vmessList = vmess.split(NEWLINE, QString::SplitBehavior::SkipEmptyParts);
-        XLOG(MODULE_CONNECTION_IMPORT, LOG_INFO, to_string(vmessList.count()) + " vmess connection found.")
+        LOG(MODULE_CONNECTION_IMPORT, to_string(vmessList.count()) + " vmess connection found.")
 
         foreach (auto vmessString, vmessList) {
             int result = VerifyVMessProtocolString(vmess);
@@ -80,10 +81,9 @@ void ImportConfigWindow::on_buttonBox_accepted()
                     alias = alias.isEmpty() ? alias : config["QV2RAY_ALIAS"].toString();
                     config.remove("QV2RAY_ALIAS");
                     //
-                    conf.configs.push_back(alias.toStdString());
-                    //
-                    // TODO canOverride FALSE or TRUE?
+                    // Save first.
                     needReload = needReload || SaveConnectionConfig(config, &alias, false);
+                    conf.configs.push_back(alias.toStdString());
                     break;
 
                 case -1:

@@ -1,10 +1,12 @@
+﻿#include <QFileDialog>
+#include <QColorDialog>
+#include <QStyleFactory>
+#include <QStyle>
+
 #include "QvUtils.h"
 #include "QvCoreInteractions.h"
 #include "w_PrefrencesWindow.h"
-#include <QFileDialog>
-#include <QColorDialog>
 
-#include <iostream>
 
 #define LOADINGCHECK if(!finishedLoading) return;
 #define NEEDRESTART if(finishedLoading) IsConnectionPropertyChanged = true;
@@ -22,15 +24,16 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
         ui->languageComboBox->addItem(it.next().split("/").last().split(".").first());
     }
 
-    for (auto item : NetSpeedPluginMessages.values()) {
-        ui->nsBarContentCombo->addItem(item);
-    }
-
+    //
+    ui->nsBarContentCombo->addItems(NetSpeedPluginMessages.values());
+    ui->themeCombo->addItems(QStyleFactory::keys());
     //
     ui->qvVersion->setText(QV2RAY_VERSION_STRING);
     CurrentConfig = GetGlobalConfig();
     //
-    ui->languageComboBox->setCurrentText(QSTRING(CurrentConfig.language));
+    ui->themeCombo->setCurrentText(QSTRING(CurrentConfig.UISettings.theme));
+    ui->darkChartThemeCB->setChecked(CurrentConfig.UISettings.useDarkChartStyle);
+    ui->languageComboBox->setCurrentText(QSTRING(CurrentConfig.UISettings.language));
     ui->logLevelComboBox->setCurrentIndex(CurrentConfig.logLevel);
     ui->tProxyCheckBox->setChecked(CurrentConfig.tProxySupport);
     //
@@ -181,7 +184,7 @@ void PrefrencesWindow::on_socksAuthCB_stateChanged(int checked)
 
 void PrefrencesWindow::on_languageComboBox_currentTextChanged(const QString &arg1)
 {
-    CurrentConfig.language = arg1.toStdString();
+    CurrentConfig.UISettings.language = arg1.toStdString();
     //
     // A strange bug prevents us to change the UI language online
     //    https://github.com/lhy0403/Qv2ray/issues/34
@@ -337,35 +340,42 @@ void PrefrencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
                 //
                 LOG(MODULE_FILE, " --> Copying files....")
 
-                if (QFile(QV2RAY_DEFAULT_VCORE_PATH).exists()) {
-                    LOG(MODULE_FILE, QV2RAY_DEFAULT_VCORE_PATH.toStdString() << ": File already exists.")
-                    LOG(MODULE_FILE, QV2RAY_DEFAULT_VCORE_PATH.toStdString() << ": Deleting file.")
-                    QFile(QV2RAY_DEFAULT_VCORE_PATH).remove();
-                }
+                if (QFileInfo(QSTRING(CurrentConfig.v2CorePath)).absoluteFilePath() !=  QFileInfo(QV2RAY_DEFAULT_VCORE_PATH).absoluteFilePath()) {
+                    // Only trying to remove file when they are not in the default dir.
+                    // (In other words...) Keep using the current files. <Because we don't know where else we can copy the file from...>
+                    if (QFile(QV2RAY_DEFAULT_VCORE_PATH).exists()) {
+                        LOG(MODULE_FILE, QV2RAY_DEFAULT_VCORE_PATH.toStdString() << ": File already exists.")
+                        LOG(MODULE_FILE, QV2RAY_DEFAULT_VCORE_PATH.toStdString() << ": Deleting file.")
+                        QFile(QV2RAY_DEFAULT_VCORE_PATH).remove();
+                    }
 
-                if (QFile(newPath + "/v2ctl").exists()) {
-                    LOG(MODULE_FILE, newPath.toStdString() << "/v2ctl" << ": File already exists.")
-                    LOG(MODULE_FILE, newPath.toStdString() << "/v2ctl" << ": Deleting file.")
-                    QFile(newPath + "/v2ctl").remove();
-                }
+                    if (QFile(newPath + "/v2ctl").exists()) {
+                        LOG(MODULE_FILE, newPath.toStdString() << "/v2ctl" << ": File already exists.")
+                        LOG(MODULE_FILE, newPath.toStdString() << "/v2ctl" << ": Deleting file.")
+                        QFile(newPath + "/v2ctl").remove();
+                    }
 
-                string vCoreresult = QFile(QSTRING(CurrentConfig.v2CorePath)).copy(QV2RAY_DEFAULT_VCORE_PATH) ? "OK" : "FAILED";
-                LOG(MODULE_FILE, " --> v2ray Core: " + vCoreresult)
-                //
-                string vCtlresult = QFile(v2ctlPath).copy(newPath + "/v2ctl") ? "OK" : "FAILED";
-                LOG(MODULE_FILE, " --> v2ray Ctl: " + vCtlresult)
-                //
+                    string vCoreresult = QFile(QSTRING(CurrentConfig.v2CorePath)).copy(QV2RAY_DEFAULT_VCORE_PATH) ? "OK" : "FAILED";
+                    LOG(MODULE_FILE, " --> v2ray Core: " + vCoreresult)
+                    //
+                    string vCtlresult = QFile(v2ctlPath).copy(newPath + "/v2ctl") ? "OK" : "FAILED";
+                    LOG(MODULE_FILE, " --> v2ray Ctl: " + vCtlresult)
+                    //
 
-                if (vCoreresult == "OK" && vCtlresult == "OK") {
-                    LOG(MODULE_VCORE, " --> Done copying files.")
-                    on_vCorePathTxt_textEdited(QV2RAY_DEFAULT_VCORE_PATH);
+                    if (vCoreresult == "OK" && vCtlresult == "OK") {
+                        LOG(MODULE_VCORE, " --> Done copying files.")
+                        on_vCorePathTxt_textEdited(QV2RAY_DEFAULT_VCORE_PATH);
+                    } else {
+                        LOG(MODULE_VCORE, "FAILED to copy v2ray files. Aborting.")
+                        QvMessageBox(this, tr("Enable tProxy Support"),
+                                     tr("Qv2ray cannot copy one or both v2ray files from: ") + NEWLINE + NEWLINE +
+                                     QSTRING(CurrentConfig.v2CorePath) + NEWLINE + v2ctlPath + NEWLINE + NEWLINE +
+                                     tr("to this path: ") + NEWLINE + newPath);
+                        return;
+                    }
                 } else {
-                    LOG(MODULE_VCORE, "FAILED to copy v2ray files. Aborting.")
-                    QvMessageBox(this, tr("Enable tProxy Support"),
-                                 tr("Qv2ray cannot copy one or both v2ray files from: ") + NEWLINE + NEWLINE +
-                                 QSTRING(CurrentConfig.v2CorePath) + NEWLINE + v2ctlPath + NEWLINE + NEWLINE +
-                                 tr("to this path: ") + NEWLINE + newPath);
-                    return;
+                    LOG(MODULE_VCORE, "Skipped removing files since the current v2ray core is in the default path.")
+                    LOG(MODULE_VCORE, " --> Actually because we don't know where else to obtain the files.")
                 }
 
                 LOG(MODULE_UI, "Calling pkexec and setcap...")
@@ -690,4 +700,16 @@ void PrefrencesWindow::on_applyNSBarSettingsBtn_clicked()
     auto conf = GetGlobalConfig();
     conf.speedBarConfig = CurrentConfig.speedBarConfig;
     SetGlobalConfig(conf);
+}
+
+void PrefrencesWindow::on_themeCombo_currentTextChanged(const QString &arg1)
+{
+    LOADINGCHECK
+    CurrentConfig.UISettings.theme = arg1.toStdString();
+}
+
+void PrefrencesWindow::on_darkChartThemeCB_stateChanged(int arg1)
+{
+    LOADINGCHECK
+    CurrentConfig.UISettings.useDarkChartStyle = arg1 == Qt::Checked;
 }

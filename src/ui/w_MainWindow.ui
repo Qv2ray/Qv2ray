@@ -183,7 +183,7 @@
            </sizepolicy>
           </property>
           <property name="toolTip">
-           <string>#AddConnection</string>
+           <string>Add new connection manually</string>
           </property>
           <property name="text">
            <string>A</string>
@@ -203,7 +203,7 @@
            </sizepolicy>
           </property>
           <property name="toolTip">
-           <string>#ImportConnection</string>
+           <string>Import connection</string>
           </property>
           <property name="text">
            <string>I</string>
@@ -211,6 +211,16 @@
           <property name="icon">
            <iconset resource="../../resources.qrc">
             <normaloff>:/icons/import_connection_btn.png</normaloff>:/icons/import_connection_btn.png</iconset>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="duplicateBtn">
+          <property name="toolTip">
+           <string>Duplicate connection</string>
+          </property>
+          <property name="text">
+           <string>D</string>
           </property>
          </widget>
         </item>
@@ -223,7 +233,7 @@
            </sizepolicy>
           </property>
           <property name="toolTip">
-           <string>#RemoveConnection</string>
+           <string>Delete a connection</string>
           </property>
           <property name="text">
            <string>R</string>
@@ -237,7 +247,7 @@
         <item>
          <widget class="QToolButton" name="editConfigButton">
           <property name="toolTip">
-           <string>#EditConnection</string>
+           <string>Edit connection</string>
           </property>
           <property name="text">
            <string>...</string>
@@ -250,6 +260,9 @@
         </item>
         <item>
          <widget class="QToolButton" name="editJsonBtn">
+          <property name="toolTip">
+           <string>Edit connection as JSON</string>
+          </property>
           <property name="text">
            <string>{ }</string>
           </property>

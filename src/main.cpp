@@ -1,4 +1,4 @@
-#include <QFileInfo>
+﻿#include <QFileInfo>
 #include <QStandardPaths>
 #include <QTranslator>
 #include <QStyle>
@@ -112,15 +112,15 @@ bool initialiseQv2ray()
             LOG(MODULE_INIT, "Set " + configPath.toStdString() + " as the config path.")
             SetConfigDirPath(&configPath);
             Qv2rayCoreInboundsConfig inboundSetting = Qv2rayCoreInboundsConfig("127.0.0.1", 1080, 8000);
-            Qv2rayConfig conf = Qv2rayConfig("en-US", QV2RAY_DEFAULT_VCORE_PATH.toStdString(), 4, inboundSetting);
+            Qv2rayConfig conf = Qv2rayConfig(QV2RAY_DEFAULT_VCORE_PATH.toStdString(), 4, inboundSetting);
             //
             // Save initial config.
             SetGlobalConfig(conf);
             LOG(MODULE_INIT, "Created initial config file.")
         }
     } else {
-        LOG(MODULE_INIT, "Set " + configPath.toStdString() + " as the config path.")
         SetConfigDirPath(&configPath);
+        LOG(MODULE_INIT, "Using " + QV2RAY_CONFIG_DIR.toStdString() + " as the config path.")
     }
 
     if (!QDir(QV2RAY_GENERATED_DIR).exists()) {
@@ -171,22 +171,11 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-#ifdef _WIN32
-    // Set special font in Windows
-    QFont font;
-    font.setPointSize(9);
-    font.setFamily("微软雅黑");
-    _qApp.setFont(font);
-#elif defined (__APPLE__)
-    _qApp.setStyle("fusion");
-#endif
 #ifdef QT_DEBUG
     RunGuard guard("Qv2ray-Instance-Identifier-DEBUG_VERSION");
 #else
     RunGuard guard("Qv2ray-Instance-Identifier");
 #endif
-    LOG(MODULE_UI, "Current Window Style: " + _qApp.style()->objectName().toStdString())
-    LOG(MODULE_UI, Stringify(QStyleFactory::keys()).toStdString())
 
     if (!guard.isSingleInstance()) {
         LOG(MODULE_INIT, "Another Instance running, Quit.")
@@ -194,18 +183,36 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    //
     auto conf = JsonFromString(StringFromFile(new QFile(QV2RAY_CONFIG_FILE)));
-    auto qStringLang = conf["language"].toString();
+    //
+    auto confVersion = conf["config_version"].toVariant().toString();
+    auto newVersion = QSTRING(to_string(QV2RAY_CONFIG_VERSION));
+    // Some config file upgrades.
+    Q_UNLIKELY(confVersion.toInt() > QV2RAY_CONFIG_VERSION);
 
-    if (qApp->installTranslator(getTranslator(&qStringLang)) || qStringLang == "en-US") {
-        LOG(MODULE_INIT, "Loaded Translator " + qStringLang.toStdString())
+    if (confVersion.toInt() > QV2RAY_CONFIG_VERSION) {
+        // Config version is larger than the current version...
+        // This is rare but it may happen....
+        QvMessageBox(nullptr, QObject::tr("Qv2ray Cannot Continue"),
+                     QObject::tr("You are running a lower version of Qv2ray compared to the current config file.") + NEWLINE +
+                     QObject::tr("Please report if you think this is an error.") + NEWLINE +
+                     QObject::tr("Qv2ray will now exit."));
+        return -3;
+    } else if (confVersion != newVersion) {
+        conf = UpgradeConfig(confVersion.toInt(), QV2RAY_CONFIG_VERSION, conf);
+    }
+
+    auto confObject = StructFromJsonString<Qv2rayConfig>(JsonToString(conf));
+    SetGlobalConfig(confObject);
+
+    if (qApp->installTranslator(getTranslator(QSTRING(confObject.UISettings.language))) || confObject.UISettings.language == "en-US") {
+        LOG(MODULE_INIT, "Loaded Translator " + confObject.UISettings.language)
     } else {
         // Do not translate these.....
         QvMessageBox(
             nullptr, "Translation Failed",
-            "Cannot load translation for " + qStringLang + ", English is now used.\r\n\r\n "
-            "Please go to Prefrence Window to change or Report a Bug at: \r\n"
+            "Cannot load translation for " + QSTRING(confObject.UISettings.language) + ", English is now used.\r\n\r\n"
+            "Please go to Prefrences Window to change or Report a Bug at: \r\n"
             "https://github.com/lhy0403/Qv2ray/issues/new");
     }
 
@@ -229,25 +236,19 @@ int main(int argc, char *argv[])
     }
 
     //
-    auto confVersion = conf["config_version"].toVariant().toString();
-    auto newVersion = QSTRING(to_string(QV2RAY_CONFIG_VERSION));
-    // Some config file upgrades.
-    Q_UNLIKELY(confVersion.toInt() > QV2RAY_CONFIG_VERSION);
+#ifdef _WIN32
+    // Set special font in Windows
+    QFont font;
+    font.setPointSize(9);
+    font.setFamily("微软雅黑");
+    _qApp.setFont(font);
+#endif
+    QStringList themes = QStyleFactory::keys();
 
-    if (confVersion.toInt() > QV2RAY_CONFIG_VERSION) {
-        // Config version is larger than the current version...
-        // This is rare but it may happen....
-        QvMessageBox(nullptr, QObject::tr("Qv2ray Cannot Continue"),
-                     QObject::tr("You are running a lower version of Qv2ray compared to the current config file.") + NEWLINE +
-                     QObject::tr("Please report if you think this is an error.") + NEWLINE +
-                     QObject::tr("Qv2ray will now exit."));
-        return -3;
-    } else if (confVersion != newVersion) {
-        conf = UpgradeConfig(confVersion.toInt(), QV2RAY_CONFIG_VERSION, conf);
+    if (themes.contains(QSTRING(confObject.UISettings.theme))) {
+        _qApp.setStyle(QSTRING(confObject.UISettings.theme));
+        LOG(MODULE_INIT " " MODULE_UI, "Setting Qv2ray UI themes.")
     }
-
-    auto confObject = StructFromJsonString<Qv2rayConfig>(JsonToString(conf));
-    SetGlobalConfig(confObject);
 
     try {
         // Show MainWindow

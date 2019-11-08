@@ -1,4 +1,4 @@
-#ifndef MAINWINDOW_H
+﻿#ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 #include <QMainWindow>
 #include <QMenu>
@@ -71,6 +71,8 @@ class MainWindow : public QMainWindow
         void on_shareQRButton_clicked();
 
         void on_shareVMessButton_clicked();
+        void on_duplicateBtn_clicked();
+
     public:
         QJsonObject CurrentFullConfig;
         QString CurrentConnectionName = "";

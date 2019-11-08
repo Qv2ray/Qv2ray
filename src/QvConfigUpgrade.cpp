@@ -1,4 +1,4 @@
-//
+﻿//
 // This file handles some important migration
 // from old to newer versions of Qv2ray.
 //
@@ -54,6 +54,8 @@ namespace Qv2ray
                     break;
                 }
 
+                // --------------------------------------------------------------------------------------
+                // Below is for version 2
                 case 4: {
                     // From 2 to 3, we changed the "proxyCN" to "bypassCN" as it's easier to understand....
                     auto v2_oldProxyCN = root["proxyCN"].toBool();
@@ -83,6 +85,15 @@ namespace Qv2ray
                     path = QV2RAY_DEFAULT_VCORE_PATH;
                     root["v2CorePath"] = path;
                     UPDATELOG("Added v2CorePath to the config file.")
+                    break;
+                }
+
+                case 8: {
+                    auto lang = root["language"].toString();
+                    QJsonObject uiSettings;
+                    uiSettings["language"] = lang;
+                    root["UISettings"] = uiSettings;
+                    UPDATELOG("Reconstructing config file.")
                     break;
                 }
             }

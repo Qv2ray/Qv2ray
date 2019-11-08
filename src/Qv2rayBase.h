@@ -1,4 +1,4 @@
-#ifndef QV2RAYBASE_H
+﻿#ifndef QV2RAYBASE_H
 #define QV2RAYBASE_H
 #include <QtCore>
 #include "QvTinyLog.h"
@@ -6,7 +6,7 @@
 #include "QvNetSpeedPlugin.h"
 #include "QObjectMessageProxy.h"
 
-#define QV2RAY_CONFIG_VERSION 8
+#define QV2RAY_CONFIG_VERSION 9
 
 // Base folder suffix.
 #ifdef QT_DEBUG
@@ -43,7 +43,7 @@
 
 #define BLACK(obj)                             \
     auto _temp = ui->obj->palette();           \
-    _temp.setColor(QPalette::Text, Qt::black); \
+    _temp.setColor(QPalette::Text, Qt::blue); \
     ui->obj->setPalette(_temp);
 
 #define QSTRING(std_string) QString::fromStdString(std_string)
@@ -82,12 +82,20 @@ namespace Qv2ray
             XTOSTRUCT(O(listenip, socks_port, socks_useAuth, socksAccount, socksUDP, socksLocalIP, http_port, http_useAuth, httpAccount))
         };
 
+        struct UIConfig {
+            string theme;
+            string language;
+            bool useDarkChartStyle;
+            XTOSTRUCT(O(theme, language, useDarkChartStyle))
+        };
+
         struct Qv2rayConfig {
             int config_version;
             bool tProxySupport;
             int logLevel;
             //
-            string language;
+            UIConfig UISettings;
+            //
             string v2CorePath;
             string v2AssetsPath;
             string autoStartConfig;
@@ -110,14 +118,14 @@ namespace Qv2ray
             list<string> configs;
 #endif
             map<string, string> subscribes;
-
             QvNetSpeedBarConfig speedBarConfig;
+            // TODO Change Structure. of SpeedBarConfig
 
             Qv2rayConfig():
                 config_version(QV2RAY_CONFIG_VERSION),
                 tProxySupport(false),
                 logLevel(),
-                language(),
+                UISettings(),
                 v2CorePath(),
                 v2AssetsPath(),
                 autoStartConfig(),
@@ -132,12 +140,11 @@ namespace Qv2ray
                 configs(),
                 subscribes(),
                 speedBarConfig() { }
-            Qv2rayConfig(string lang, string assetsPath, int log, Qv2rayCoreInboundsConfig _inBoundSettings): Qv2rayConfig()
+            Qv2rayConfig(const string &assetsPath, int log, const Qv2rayCoreInboundsConfig &_inBoundSettings): Qv2rayConfig()
             {
                 // These settings below are defaults.
                 ignoredVersion = "";
                 autoStartConfig = "";
-                language = lang;
                 v2AssetsPath = assetsPath;
                 inBoundSettings = _inBoundSettings;
                 logLevel = log;
@@ -156,7 +163,7 @@ namespace Qv2ray
                         statsPort,
                         tProxySupport,
                         logLevel,
-                        language,
+                        UISettings,
                         autoStartConfig,
                         ignoredVersion,
                         v2CorePath,

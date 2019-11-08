@@ -1,4 +1,4 @@
-#ifndef CONFIGGENERATION_H
+﻿#ifndef CONFIGGENERATION_H
 #define CONFIGGENERATION_H
 
 #include "QvUtils.h"
@@ -58,8 +58,9 @@ namespace Qv2ray
         //
         // -------------------------- BEGIN CONFIG CONVERSIONS ---------------------------------------------
         // Save Connection Config
+        void DeducePossibleFileName(const QString &baseDir, QString *fileName, const QString &extension);
         bool SaveConnectionConfig(QJsonObject obj, QString *alias, bool canOverrideExisting);
-        bool RemoveConnection(const QString *alias);
+        bool RemoveConnection(const QString &alias);
         bool RenameConnection(QString originalName, QString newName);
         // VMess Protocol
         QJsonObject ConvertConfigFromVMessString(QString vmess);

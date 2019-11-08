@@ -1,4 +1,4 @@
-#ifndef QVTINYLOG_H
+﻿#ifndef QVTINYLOG_H
 #define QVTINYLOG_H
 
 #include <iostream>
@@ -28,9 +28,5 @@ using namespace std;
 #define MODULE_CONNECTION_IMPORT "CONNETION-IMPORT"
 #define MODULE_CONNECTION_VMESS "CONNETION-VMESS"
 #define MODULE_PLUGIN "PLUGIN"
-//
-#define LOG_WARN "WARN"
-#define LOG_INFO "INFO"
-#define LOG_ERROR "ERROR"
 
 #endif // QVTINYLOG_H
