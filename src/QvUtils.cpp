@@ -1,4 +1,4 @@
-#include "QvUtils.h"
+﻿#include "QvUtils.h"
 #include <QTextStream>
 
 namespace Qv2ray
@@ -213,10 +213,10 @@ namespace Qv2ray
         }
 
 
-        QTranslator *getTranslator(const QString *lang)
+        QTranslator *getTranslator(const QString &lang)
         {
             QTranslator *translator = new QTranslator();
-            translator->load(*lang + ".qm", ":/translations/");
+            translator->load(lang + ".qm", ":/translations/");
             return translator;
         }
     }

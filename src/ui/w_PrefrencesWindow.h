@@ -1,4 +1,4 @@
-#ifndef HVCONF_H
+﻿#ifndef HVCONF_H
 #define HVCONF_H
 
 #include <QDialog>
@@ -118,6 +118,10 @@ class PrefrencesWindow : public QDialog
         void on_selectVCoreBtn_clicked();
 
         void on_vCorePathTxt_textEdited(const QString &arg1);
+
+        void on_themeCombo_currentTextChanged(const QString &arg1);
+
+        void on_darkChartThemeCB_stateChanged(int arg1);
 
     private:
         // Set ui parameters for a line;

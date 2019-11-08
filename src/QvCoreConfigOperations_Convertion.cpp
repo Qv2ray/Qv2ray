@@ -1,8 +1,31 @@
-#include "QvCoreConfigOperations.h"
+﻿#include "QvCoreConfigOperations.h"
 namespace Qv2ray
 {
     namespace ConfigOperations
     {
+
+        /// This only returns the file name without extensions.
+        void DeducePossibleFileName(const QString &baseDir, QString *fileName, const QString &extension)
+        {
+            int i = 1;
+
+            if (!QDir(baseDir).exists()) {
+                QDir(baseDir).mkpath(baseDir);
+                LOG(MODULE_FILE, "Making path: " + baseDir.toStdString())
+            }
+
+            while (true) {
+                if (!QFile(baseDir + "/" + fileName + "_" + QString::number(i) + extension).exists()) {
+                    *fileName = *fileName + "_" + QString::number(i);
+                    return;
+                } else {
+                    //LOG(MODULE_FILE, "File with name: " << (fileName + "_" + QString::number(i) + extension).toStdString() << " already exists")
+                }
+
+                i++;
+            }
+        }
+
         /// Save Connection to a place, with checking if there's existing file.
         /// If so, append "_N" to the name.
         bool SaveConnectionConfig(QJsonObject obj, QString *alias, bool canOverrideExisting)
@@ -12,29 +35,25 @@ namespace Qv2ray
 
             // If there's already a file AND we CANNOT override existing file.
             if (config->exists() && !canOverrideExisting) {
-                // I don't think there will be someone using the same name for
-                // a connection for more than 50 times...
-                for (int i = 1; i < 50; i++) {
-                    if (QFile(QV2RAY_CONFIG_DIR + *alias + "_" + QString::number(i) + QV2RAY_CONFIG_FILE_EXTENSION).exists()) {
-                        LOG(MODULE_CONFIG, "Config file with name: " << (*alias + QV2RAY_CONFIG_FILE_EXTENSION).toStdString() << " already exists")
-                        LOG(MODULE_CONFIG, "canOverride is off, we try another filename.")
-                        continue;
-                    } else {
-                        *alias = *alias + QString("_") + QString::number(i);
-                        config = new QFile(QV2RAY_CONFIG_DIR + *alias + QV2RAY_CONFIG_FILE_EXTENSION);
-                        break;
-                    }
-                }
+                // Alias is a pointer to a QString.
+                DeducePossibleFileName(QV2RAY_CONFIG_DIR, alias, QV2RAY_CONFIG_FILE_EXTENSION);
+                config = new QFile(QV2RAY_CONFIG_DIR + *alias + QV2RAY_CONFIG_FILE_EXTENSION);
             }
 
             LOG(MODULE_CONFIG, "Saving a config named: " + alias->toStdString())
             return StringToFile(&str, config);
         }
 
-        bool RemoveConnection(const QString *alias)
+        bool RemoveConnection(const QString &alias)
         {
-            QFile config(QV2RAY_CONFIG_DIR + *alias + QV2RAY_CONFIG_FILE_EXTENSION);
-            return config.exists() && config.remove();
+            QFile config(QV2RAY_CONFIG_DIR + alias + QV2RAY_CONFIG_FILE_EXTENSION);
+
+            if (!config.exists()) {
+                LOG(MODULE_FILE, "Trying to remove a non-existing file?")
+                return false;
+            } else {
+                return config.remove();
+            }
         }
 
         // This generates global config containing only one outbound....
