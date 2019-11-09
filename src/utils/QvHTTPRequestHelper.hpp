@@ -1,5 +1,4 @@
-/*
- *  Qv2ray
+﻿/*
     Copyright (C) 2019 SoneWinstone (jianwenzhen@qq.com)
     Copyright (C) 2019 Leroy.H.Y
 
@@ -24,7 +23,7 @@
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QNetworkAccessManager>
-#include "QvUtils.h"
+#include "QvUtils.hpp"
 
 namespace Qv2ray
 {
@@ -39,13 +38,13 @@ namespace Qv2ray
             // get
             QByteArray syncget(const QString &url);
             void get(const QString &url);
-            // insert
-            void post(const QString &url, const QByteArray &data);
-            // update
-            void put(const QString &url, const QByteArray &data);
-            // delete
-            void del(const QString &url);
-            void login(const QString &url, const QByteArray &data);
+            //// insert
+            //void post(const QString &url, const QByteArray &data);
+            //// update
+            //void put(const QString &url, const QByteArray &data);
+            //// delete
+            //void del(const QString &url);
+            //void login(const QString &url, const QByteArray &data);
         signals:
             void httpRequestFinished(QByteArray &data);
 

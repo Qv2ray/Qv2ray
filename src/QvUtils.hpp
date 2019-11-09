@@ -1,7 +1,7 @@
 ﻿#ifndef UTILS_H
 #define UTILS_H
 
-#include "Qv2rayBase.h"
+#include "Qv2rayBase.hpp"
 #include <QMessageBox>
 #include <QUuid>
 

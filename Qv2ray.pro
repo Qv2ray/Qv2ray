@@ -6,6 +6,8 @@
 
 QT += core gui widgets network charts
 
+include(3rdparty/qzxing_noTests/QZXing.pri)
+
 TARGET = qv2ray
 TEMPLATE = app
 DEFINES += QT_DEPRECATED_WARNINGS
@@ -52,29 +54,29 @@ INCLUDEPATH += \
         libs/gen/
 
 HEADERS += \
-        src/Qv2rayBase.h \
-        src/QvCoreConfigObjects.h \
-        src/QvCoreConfigOperations.h \
-        src/QvCoreInteractions.h \
-        src/QvUtils.h \
-        src/ui/w_InboundEditor.h \
-        src/ui/w_OutboundEditor.h \
-        src/ui/w_RoutesEditor.h \
-        src/ui/w_SubscriptionEditor.h \
+        src/Qv2rayBase.hpp \
+        src/QvCoreConfigObjects.hpp \
+        src/QvCoreConfigOperations.hpp \
+        src/QvCoreInteractions.hpp \
+        src/QvUtils.hpp \
+        src/ui/w_ImportConfig.hpp \
+        src/ui/w_InboundEditor.hpp \
+        src/ui/w_JsonEditor.hpp \
+        src/ui/w_MainWindow.hpp \
+        src/ui/w_OutboundEditor.hpp \
+        src/ui/w_PrefrencesWindow.hpp \
+        src/ui/w_RoutesEditor.hpp \
+        src/ui/w_SubscriptionEditor.hpp \
+        src/utils/QJsonModel.hpp \
         src/utils/QJsonObjectInsertMacros.h \
-        src/utils/QObjectMessageProxy.h \
-        src/utils/QPingModel.h \
-        src/utils/QvHTTPRequestHelper.h \
-        src/utils/QvNetSpeedPlugin.h \
-        src/utils/QvRunguard.h \
-        src/utils/QvTinyLog.h \
-        src/utils/QJsonModel.h \
-        src/ui/w_JsonEditor.h \
-        src/ui/w_ImportConfig.h \
-        src/ui/w_MainWindow.h \
-        src/ui/w_PrefrencesWindow.h \
+        src/utils/QObjectMessageProxy.hpp \
+        src/utils/QPingModel.hpp \
+        src/utils/QvHTTPRequestHelper.hpp \
+        src/utils/QvNetSpeedPlugin.hpp \
+        src/utils/QvRunguard.hpp \
         libs/gen/v2ray_api_commands.pb.h \
-        libs/gen/v2ray_api_commands.grpc.pb.h
+        libs/gen/v2ray_api_commands.grpc.pb.h \
+        src/utils/QvTinyLog.hpp
 
 FORMS += \
         src/ui/w_ImportConfig.ui \
@@ -137,6 +139,7 @@ TRANSLATIONS += translations/en-US.ts
 
 message(" ")
 QMAKE_CXXFLAGS += "-Wno-missing-field-initializers" "-Wno-unused-parameter" "-Wno-unused-variable"
+
 win32 {
     message("Configuring for win32 environment")
     message("  --> Setting up target descriptions")

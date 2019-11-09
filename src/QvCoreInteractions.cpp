@@ -1,11 +1,11 @@
 #include <QObject>
 #include <QWidget>
 #include <QDesktopServices>
-#include "QvCoreInteractions.h"
-#include "QvCoreConfigOperations.h"
+#include "QvCoreInteractions.hpp"
+#include "QvCoreConfigOperations.hpp"
 
-#include "QvTinyLog.h"
-#include "w_MainWindow.h"
+#include "QvTinyLog.hpp"
+#include "w_MainWindow.hpp"
 
 namespace Qv2ray
 {

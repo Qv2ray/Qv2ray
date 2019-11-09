@@ -3,7 +3,7 @@
 // from old to newer versions of Qv2ray.
 //
 
-#include "QvUtils.h"
+#include "QvUtils.hpp"
 
 #define UPDATELOG(msg) LOG(MODULE_CONFIG, "  [" + to_string(fromVersion) + "-" + to_string(fromVersion + 1) + "] --> " msg)
 

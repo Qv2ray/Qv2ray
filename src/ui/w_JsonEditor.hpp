@@ -1,9 +1,9 @@
-#ifndef W_JSONEDITOR_H
+﻿#ifndef W_JSONEDITOR_H
 #define W_JSONEDITOR_H
 
 #include <QDialog>
 #include <QtCore>
-#include "QJsonModel.h"
+#include "QJsonModel.hpp"
 
 namespace Ui
 {

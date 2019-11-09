@@ -1,6 +1,6 @@
 #include <QCryptographicHash>
 
-#include "QvRunguard.h"
+#include "QvRunguard.hpp"
 namespace Qv2ray
 {
 

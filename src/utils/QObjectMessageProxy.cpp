@@ -1,4 +1,4 @@
-#include "QObjectMessageProxy.h"
+#include "QObjectMessageProxy.hpp"
 namespace Qv2ray
 {
     namespace Utils

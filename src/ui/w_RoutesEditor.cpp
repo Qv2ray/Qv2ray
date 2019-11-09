@@ -1,9 +1,9 @@
-#include "w_RoutesEditor.h"
-#include "QvCoreConfigOperations.h"
+#include "w_RoutesEditor.hpp"
+#include "QvCoreConfigOperations.hpp"
 #include "ui_w_RoutesEditor.h"
-#include "w_OutboundEditor.h"
-#include "w_JsonEditor.h"
-#include "w_InboundEditor.h"
+#include "w_OutboundEditor.hpp"
+#include "w_JsonEditor.hpp"
+#include "w_InboundEditor.hpp"
 
 #define CurrentRule this->rules[this->currentRuleIndex]
 #define STATUS(msg) ui->statusLabel->setText(tr(msg));

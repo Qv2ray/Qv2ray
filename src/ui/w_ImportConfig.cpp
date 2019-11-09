@@ -5,13 +5,13 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 
-#include "QvUtils.h"
-#include "QvCoreInteractions.h"
-#include "QvCoreConfigOperations.h"
-#include "w_OutboundEditor.h"
-#include "w_ImportConfig.h"
+#include "QvUtils.hpp"
+#include "QvCoreInteractions.hpp"
+#include "QvCoreConfigOperations.hpp"
+#include "w_OutboundEditor.hpp"
+#include "w_ImportConfig.hpp"
 
-
+#include "QZXing"
 
 ImportConfigWindow::ImportConfigWindow(QWidget *parent)
     : QDialog(parent)

@@ -1,9 +1,9 @@
-#ifndef CONFEDIT_H
+﻿#ifndef CONFEDIT_H
 #define CONFEDIT_H
 
 #include <QtCore>
 #include <QDialog>
-#include "QvCoreConfigObjects.h"
+#include "QvCoreConfigObjects.hpp"
 #include "ui_w_OutboundEditor.h"
 
 namespace Ui

@@ -3,9 +3,9 @@
 #include <QIntValidator>
 #include <iostream>
 
-#include "w_OutboundEditor.h"
-#include "w_MainWindow.h"
-#include "w_JsonEditor.h"
+#include "w_OutboundEditor.hpp"
+#include "w_MainWindow.hpp"
+#include "w_JsonEditor.hpp"
 
 OutboundEditor::OutboundEditor(QWidget *parent)
     : QDialog(parent),

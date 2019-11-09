@@ -1,8 +1,8 @@
-#include "QvHTTPRequestHelper.h"
+﻿#include "QvHTTPRequestHelper.hpp"
 #include <QByteArray>
 namespace Qv2ray
 {
-    QvHttpRequestHelper::QvHttpRequestHelper()
+    QvHttpRequestHelper::QvHttpRequestHelper() : reply()
     {
     }
 
@@ -16,7 +16,7 @@ namespace Qv2ray
         QUrl qUrl = QUrl(url);
 
         if (!qUrl.isValid()) {
-            qDebug() << "URL is invalid!\n";
+            LOG(MODULE_NETWORK, "Provided URL is invalid")
             return false;
         }
 
@@ -33,12 +33,8 @@ namespace Qv2ray
     {
         this->setUrl(url);
         reply = accessManager.get(request);
-        reply->waitForReadyRead(5000);
-
-        if (!reply->isReadable())
-            return QByteArray();
-        else
-            return reply->readAll();
+        bool isReadyRead = reply->waitForReadyRead(10000);
+        return isReadyRead ? reply->readAll() : QByteArray();
     }
 
     void QvHttpRequestHelper::get(const QString &url)
@@ -50,41 +46,41 @@ namespace Qv2ray
         connect(reply, &QNetworkReply::readyRead, this, &QvHttpRequestHelper::onReadyRead);
     }
 
-    void QvHttpRequestHelper::post(const QString &url, const QByteArray &data)
-    {
-        this->setUrl(url);
-        request.setRawHeader("Content-Type", "application/json");
-        reply = accessManager.post(request, data);
-        connect(reply, &QNetworkReply::finished, this, &QvHttpRequestHelper::onRequestFinished);
-        connect(reply, &QNetworkReply::readyRead, this, &QvHttpRequestHelper::onReadyRead);
-    }
+    //void QvHttpRequestHelper::post(const QString &url, const QByteArray &data)
+    //{
+    //    this->setUrl(url);
+    //    request.setRawHeader("Content-Type", "application/json");
+    //    reply = accessManager.post(request, data);
+    //    connect(reply, &QNetworkReply::finished, this, &QvHttpRequestHelper::onRequestFinished);
+    //    connect(reply, &QNetworkReply::readyRead, this, &QvHttpRequestHelper::onReadyRead);
+    //}
 
-    void QvHttpRequestHelper::put(const QString &url, const QByteArray &data)
-    {
-        this->setUrl(url);
-        request.setRawHeader("Content-Type", "application/json");
-        reply = accessManager.put(request, data);
-        connect(reply, &QNetworkReply::finished, this, &QvHttpRequestHelper::onRequestFinished);
-        connect(reply, &QNetworkReply::readyRead, this, &QvHttpRequestHelper::onReadyRead);
-    }
+    //    void QvHttpRequestHelper::put(const QString &url, const QByteArray &data)
+    //    {
+    //        this->setUrl(url);
+    //        request.setRawHeader("Content-Type", "application/json");
+    //        reply = accessManager.put(request, data);
+    //        connect(reply, &QNetworkReply::finished, this, &QvHttpRequestHelper::onRequestFinished);
+    //        connect(reply, &QNetworkReply::readyRead, this, &QvHttpRequestHelper::onReadyRead);
+    //    }
 
-    void QvHttpRequestHelper::del(const QString &url)
-    {
-        this->setUrl(url);
-        request.setRawHeader("Content-Type", "application/json");
-        reply = accessManager.deleteResource(request);
-        connect(reply, &QNetworkReply::finished, this, &QvHttpRequestHelper::onRequestFinished);
-        connect(reply, &QNetworkReply::readyRead, this, &QvHttpRequestHelper::onReadyRead);
-    }
+    //    void QvHttpRequestHelper::del(const QString &url)
+    //    {
+    //        this->setUrl(url);
+    //        request.setRawHeader("Content-Type", "application/json");
+    //        reply = accessManager.deleteResource(request);
+    //        connect(reply, &QNetworkReply::finished, this, &QvHttpRequestHelper::onRequestFinished);
+    //        connect(reply, &QNetworkReply::readyRead, this, &QvHttpRequestHelper::onReadyRead);
+    //    }
 
-    void QvHttpRequestHelper::login(const QString &url, const QByteArray &data)
-    {
-        this->setUrl(url);
-        request.setRawHeader("Content-Type", "application/x-www-form-urlencoded");
-        reply = accessManager.post(request, data);
-        connect(reply, &QNetworkReply::finished, this, &QvHttpRequestHelper::onRequestFinished);
-        connect(reply, &QNetworkReply::readyRead, this, &QvHttpRequestHelper::onReadyRead);
-    }
+    //    void QvHttpRequestHelper::login(const QString &url, const QByteArray &data)
+    //    {
+    //        this->setUrl(url);
+    //        request.setRawHeader("Content-Type", "application/x-www-form-urlencoded");
+    //        reply = accessManager.post(request, data);
+    //        connect(reply, &QNetworkReply::finished, this, &QvHttpRequestHelper::onRequestFinished);
+    //        connect(reply, &QNetworkReply::readyRead, this, &QvHttpRequestHelper::onReadyRead);
+    //    }
 
     void QvHttpRequestHelper::onRequestFinished()
     {

@@ -6,10 +6,10 @@
 #include <QtCharts>
 #include <QSystemTrayIcon>
 
-#include "QvUtils.h"
-#include "QvCoreInteractions.h"
-#include "QvCoreConfigOperations.h"
-#include "QvHTTPRequestHelper.h"
+#include "QvUtils.hpp"
+#include "QvCoreInteractions.hpp"
+#include "QvCoreConfigOperations.hpp"
+#include "QvHTTPRequestHelper.hpp"
 
 #include "ui_w_MainWindow.h"
 

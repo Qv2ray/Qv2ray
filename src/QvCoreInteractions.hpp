@@ -1,10 +1,10 @@
-#ifndef VINTERACT_H
+﻿#ifndef VINTERACT_H
 #define VINTERACT_H
 #include <QProcess>
 #include <QString>
-#include "Qv2rayBase.h"
+#include "Qv2rayBase.hpp"
 #include <grpc++/grpc++.h>
-#include "QvUtils.h"
+#include "QvUtils.hpp"
 #include "v2ray_api_commands.pb.h"
 #include "v2ray_api_commands.grpc.pb.h"
 

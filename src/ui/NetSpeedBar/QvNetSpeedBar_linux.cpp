@@ -1,6 +1,6 @@
 #ifdef __linux__
-#include "QvNetSpeedPlugin.h"
-#include "QvUtils.h"
+#include "QvNetSpeedPlugin.hpp"
+#include "QvUtils.hpp"
 #include <QLocalSocket>
 #include <QLocalServer>
 namespace Qv2ray

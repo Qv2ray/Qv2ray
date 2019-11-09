@@ -1,10 +1,10 @@
 ﻿#ifndef QV2RAYBASE_H
 #define QV2RAYBASE_H
 #include <QtCore>
-#include "QvTinyLog.h"
-#include "QvCoreConfigObjects.h"
-#include "QvNetSpeedPlugin.h"
-#include "QObjectMessageProxy.h"
+#include "QvTinyLog.hpp"
+#include "QvCoreConfigObjects.hpp"
+#include "QvNetSpeedPlugin.hpp"
+#include "QObjectMessageProxy.hpp"
 
 #define QV2RAY_CONFIG_VERSION 9
 

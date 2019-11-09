@@ -1,8 +1,8 @@
-#include "w_SubscriptionEditor.h"
+#include "w_SubscriptionEditor.hpp"
 #include "ui_w_SubscriptionEditor.h"
-#include "QvHTTPRequestHelper.h"
-#include "QvUtils.h"
-#include "QvCoreConfigOperations.h"
+#include "QvHTTPRequestHelper.hpp"
+#include "QvUtils.hpp"
+#include "QvCoreConfigOperations.hpp"
 
 
 SubscribeEditor::SubscribeEditor(QWidget *parent) :
