@@ -12,15 +12,15 @@
 #include <QVersionNumber>
 #include <QKeyEvent>
 
-#include "w_OutboundEditor.h"
-#include "w_ImportConfig.h"
-#include "w_MainWindow.h"
-#include "w_RoutesEditor.h"
-#include "w_PrefrencesWindow.h"
-#include "w_SubscriptionEditor.h"
-#include "w_JsonEditor.h"
+#include "w_OutboundEditor.hpp"
+#include "w_ImportConfig.hpp"
+#include "w_MainWindow.hpp"
+#include "w_RoutesEditor.hpp"
+#include "w_PrefrencesWindow.hpp"
+#include "w_SubscriptionEditor.hpp"
+#include "w_JsonEditor.hpp"
 
-#include "QvNetSpeedPlugin.h"
+#include "QvNetSpeedPlugin.hpp"
 
 #define TRAY_TOOLTIP_PREFIX "Qv2ray " QV2RAY_VERSION_STRING
 
@@ -222,6 +222,8 @@ void MainWindow::LoadConnections()
         if (items.count() > 0) {
             ui->connectionListWidget->setCurrentItem(items.first());
         }
+
+        ShowAndSetConnection(CurrentConnectionName, false, false);
     }
 }
 void MainWindow::OnConfigListChanged(bool need_restart)
@@ -412,6 +414,8 @@ void MainWindow::ShowAndSetConnection(QString guiConnectionName, bool SetConnect
         ui->_portLabel->setText(QSTRING(to_string(Server.port)));
     }
 
+    ui->routeCountLabel->setText(QString::number((connections[guiConnectionName])["routing"].toArray().count()));
+
     // --------- END Show Connection
     //
     // Set Connection
@@ -545,10 +549,10 @@ void MainWindow::on_removeConfigButton_clicked()
 }
 void MainWindow::on_importConfigButton_clicked()
 {
+    // TODO
     ImportConfigWindow *w = new ImportConfigWindow(this);
-    connect(w, &ImportConfigWindow::s_reload_config, this, &MainWindow::OnConfigListChanged);
-    w->exec();
-    ShowAndSetConnection(CurrentConnectionName, false, false);
+    //w->OpenImporter();
+    OnConfigListChanged(false);
 }
 void MainWindow::on_addConfigButton_clicked()
 {

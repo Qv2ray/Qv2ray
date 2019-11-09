@@ -1,4 +1,4 @@
-﻿#include "QvUtils.h"
+﻿#include "QvUtils.hpp"
 #include <QTextStream>
 
 namespace Qv2ray

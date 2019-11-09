@@ -1,5 +1,5 @@
-#include "QvCoreConfigOperations.h"
-#include "QvUtils.h"
+#include "QvCoreConfigOperations.hpp"
+#include "QvUtils.hpp"
 
 namespace Qv2ray
 {

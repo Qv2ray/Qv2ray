@@ -16,6 +16,7 @@ class ImportConfigWindow : public QDialog
     public:
         explicit ImportConfigWindow(QWidget *parent = nullptr);
         ~ImportConfigWindow();
+        void OpenImporter();
     signals:
         void s_reload_config(bool need_restart);
     private slots:

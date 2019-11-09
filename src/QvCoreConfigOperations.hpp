@@ -1,7 +1,7 @@
 ﻿#ifndef CONFIGGENERATION_H
 #define CONFIGGENERATION_H
 
-#include "QvUtils.h"
+#include "QvUtils.hpp"
 #include "QJsonObjectInsertMacros.h"
 
 #define OUTBOUND_TAG_DIRECT "outBound_DIRECT"

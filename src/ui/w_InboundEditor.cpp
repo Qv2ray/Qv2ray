@@ -1,7 +1,7 @@
-#include "w_InboundEditor.h"
+#include "w_InboundEditor.hpp"
 #include "ui_w_InboundEditor.h"
-#include "QvUtils.h"
-#include "QvCoreConfigOperations.h"
+#include "QvUtils.hpp"
+#include "QvCoreConfigOperations.hpp"
 
 static bool isLoading = false;
 #define PREPARE_RETURN if(isLoading) return;

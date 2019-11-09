@@ -1,6 +1,6 @@
 #include <QString>
 #include <QDebug>
-#include "QPingModel.h"
+#include "QPingModel.hpp"
 
 namespace Qv2ray
 {

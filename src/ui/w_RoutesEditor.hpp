@@ -1,4 +1,4 @@
-#ifndef W_QVOUTBOUNDEDITOR_H
+﻿#ifndef W_QVOUTBOUNDEDITOR_H
 #define W_QVOUTBOUNDEDITOR_H
 
 #include <list>
@@ -6,7 +6,7 @@
 #include <QJsonArray>
 #include <QJsonObject>
 #include <QListWidgetItem>
-#include "QvUtils.h"
+#include "QvUtils.hpp"
 
 namespace Ui
 {

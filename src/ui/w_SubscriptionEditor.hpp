@@ -1,9 +1,9 @@
-#ifndef W_SUBSCRIBEEDITOR_H
+﻿#ifndef W_SUBSCRIBEEDITOR_H
 #define W_SUBSCRIBEEDITOR_H
 
 #include <QDialog>
-#include "QvUtils.h"
-#include "QvHTTPRequestHelper.h"
+#include "QvUtils.hpp"
+#include "QvHTTPRequestHelper.hpp"
 
 namespace Ui
 {

@@ -3,7 +3,7 @@
 
 #include <QDialog>
 #include <ui_w_PrefrencesWindow.h>
-#include "Qv2rayBase.h"
+#include "Qv2rayBase.hpp"
 
 namespace Ui
 {

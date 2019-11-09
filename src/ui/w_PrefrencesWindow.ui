@@ -45,7 +45,7 @@
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -314,58 +314,58 @@
              </widget>
             </item>
             <item row="3" column="0">
-             <widget class="QLabel" name="label_11">
-              <property name="text">
-               <string>Username</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="1">
-             <widget class="QLineEdit" name="socksAuthUsernameTxt">
-              <property name="placeholderText">
-               <string notr="true">user</string>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="0">
-             <widget class="QLabel" name="label_12">
-              <property name="text">
-               <string>Password</string>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="1">
-             <widget class="QLineEdit" name="socksAuthPasswordTxt">
-              <property name="placeholderText">
-               <string notr="true">pass</string>
-              </property>
-             </widget>
-            </item>
-            <item row="5" column="0">
              <widget class="QLabel" name="label_14">
               <property name="text">
                <string>SOCKS UDP</string>
               </property>
              </widget>
             </item>
-            <item row="6" column="0">
-             <widget class="QLabel" name="label_25">
-              <property name="text">
-               <string>Local IP</string>
-              </property>
-             </widget>
-            </item>
-            <item row="5" column="1">
+            <item row="3" column="1">
              <widget class="QCheckBox" name="socksUDPCB">
               <property name="text">
                <string>Enabled</string>
               </property>
              </widget>
             </item>
-            <item row="6" column="1">
+            <item row="4" column="0">
+             <widget class="QLabel" name="label_25">
+              <property name="text">
+               <string>Local IP</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="1">
              <widget class="QLineEdit" name="socksUDPIP">
               <property name="placeholderText">
                <string notr="true">127.0.0.1</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="0">
+             <widget class="QLabel" name="label_11">
+              <property name="text">
+               <string>Username</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="1">
+             <widget class="QLineEdit" name="socksAuthUsernameTxt">
+              <property name="placeholderText">
+               <string notr="true">user</string>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="0">
+             <widget class="QLabel" name="label_12">
+              <property name="text">
+               <string>Password</string>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="1">
+             <widget class="QLineEdit" name="socksAuthPasswordTxt">
+              <property name="placeholderText">
+               <string notr="true">pass</string>
               </property>
              </widget>
             </item>
@@ -658,7 +658,7 @@
              <item row="4" column="0">
               <widget class="QLabel" name="label_52">
                <property name="text">
-                <string>User Name</string>
+                <string>Username</string>
                </property>
               </widget>
              </item>

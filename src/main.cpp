@@ -4,10 +4,10 @@
 #include <QStyle>
 #include <QStyleFactory>
 
-#include "QvUtils.h"
-#include "Qv2rayBase.h"
-#include "QvRunguard.h"
-#include "w_MainWindow.h"
+#include "QvUtils.hpp"
+#include "Qv2rayBase.hpp"
+#include "QvRunguard.hpp"
+#include "w_MainWindow.hpp"
 
 bool verifyConfigAvaliability(QString path, bool checkExistingConfig)
 {
@@ -139,7 +139,9 @@ int main(int argc, char *argv[])
     LOG("LICENCE", NEWLINE "This program comes with ABSOLUTELY NO WARRANTY." NEWLINE
         "This is free software, and you are welcome to redistribute it" NEWLINE
         "under certain conditions." NEWLINE
-        NEWLINE
+        NEWLINE NEWLINE
+        "Libraries that are used in Qv2ray and their authors are listed below:" NEWLINE
+        "QJsonModel: Copyright (c) 2011 SCHUTZ Sacha" NEWLINE
         "Qv2ray Current Developer Copyright (C) 2019 Leroy.H.Y (@lhy0403)" NEWLINE
         "Hv2ray Initial Designs & gRPC implementation Copyright (C) 2019 Hork (@aliyuchang33)" NEWLINE
         "Hv2ray/Qv2ray HTTP Request Helper (partial) Copyright 2019 (C) SOneWinstone (@SoneWinstone)" NEWLINE

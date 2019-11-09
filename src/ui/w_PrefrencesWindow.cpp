@@ -3,9 +3,9 @@
 #include <QStyleFactory>
 #include <QStyle>
 
-#include "QvUtils.h"
-#include "QvCoreInteractions.h"
-#include "w_PrefrencesWindow.h"
+#include "QvUtils.hpp"
+#include "QvCoreInteractions.hpp"
+#include "w_PrefrencesWindow.hpp"
 
 
 #define LOADINGCHECK if(!finishedLoading) return;

@@ -1,4 +1,4 @@
-﻿#include "QvCoreConfigOperations.h"
+﻿#include "QvCoreConfigOperations.hpp"
 namespace Qv2ray
 {
     namespace ConfigOperations

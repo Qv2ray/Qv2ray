@@ -294,58 +294,58 @@
        <item>
         <layout class="QFormLayout" name="formLayout">
          <item row="0" column="0">
-          <widget class="QLabel" name="label_2">
+          <widget class="QLabel" name="label_4">
            <property name="text">
-            <string>Type</string>
+            <string>Config Type</string>
            </property>
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QLabel" name="_OutBoundTypeLabel">
+          <widget class="QLabel" name="routeCountLabel">
            <property name="text">
             <string/>
            </property>
           </widget>
          </item>
          <item row="1" column="0">
-          <widget class="QLabel" name="label">
+          <widget class="QLabel" name="label_2">
            <property name="text">
-            <string>Address</string>
+            <string>Protocol</string>
            </property>
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QLabel" name="_hostLabel">
+          <widget class="QLabel" name="_OutBoundTypeLabel">
            <property name="text">
             <string/>
            </property>
           </widget>
          </item>
          <item row="2" column="0">
-          <widget class="QLabel" name="label_3">
+          <widget class="QLabel" name="label">
            <property name="text">
-            <string>Port Number</string>
+            <string>Address</string>
            </property>
           </widget>
          </item>
          <item row="2" column="1">
-          <widget class="QLabel" name="_portLabel">
+          <widget class="QLabel" name="_hostLabel">
            <property name="text">
             <string/>
            </property>
           </widget>
          </item>
          <item row="3" column="0">
-          <widget class="QLabel" name="label_4">
+          <widget class="QLabel" name="label_3">
            <property name="text">
-            <string>Routes Count</string>
+            <string>Port Number</string>
            </property>
           </widget>
          </item>
          <item row="3" column="1">
-          <widget class="QLabel" name="label_7">
+          <widget class="QLabel" name="_portLabel">
            <property name="text">
-            <string>TextLabel</string>
+            <string/>
            </property>
           </widget>
          </item>
@@ -357,9 +357,9 @@
           </widget>
          </item>
          <item row="4" column="1">
-          <widget class="QLabel" name="label_9">
+          <widget class="QLabel" name="muxLabel">
            <property name="text">
-            <string>TextLabel</string>
+            <string/>
            </property>
           </widget>
          </item>
