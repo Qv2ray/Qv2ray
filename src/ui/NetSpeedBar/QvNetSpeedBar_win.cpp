@@ -1,6 +1,6 @@
 #ifdef _WIN32
-#include "QvNetSpeedPlugin.h"
-#include "QvUtils.h"
+#include "QvNetSpeedPlugin.hpp"
+#include "QvUtils.hpp"
 namespace Qv2ray
 {
     namespace Utils
