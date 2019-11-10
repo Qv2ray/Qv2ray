@@ -15,104 +15,104 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     CurrentConfig(),
     ui(new Ui::PrefrencesWindow)
 {
-    ui->setupUi(this);
+    setupUi(this);
     // We add locales
-    ui->languageComboBox->clear();
+    languageComboBox->clear();
     QDirIterator it(":/translations");
 
     while (it.hasNext()) {
-        ui->languageComboBox->addItem(it.next().split("/").last().split(".").first());
+        languageComboBox->addItem(it.next().split("/").last().split(".").first());
     }
 
     //
-    ui->nsBarContentCombo->addItems(NetSpeedPluginMessages.values());
-    ui->themeCombo->addItems(QStyleFactory::keys());
+    nsBarContentCombo->addItems(NetSpeedPluginMessages.values());
+    themeCombo->addItems(QStyleFactory::keys());
     //
-    ui->qvVersion->setText(QV2RAY_VERSION_STRING);
+    qvVersion->setText(QV2RAY_VERSION_STRING);
     CurrentConfig = GetGlobalConfig();
     //
-    ui->themeCombo->setCurrentText(QSTRING(CurrentConfig.UISettings.theme));
-    ui->darkChartThemeCB->setChecked(CurrentConfig.UISettings.useDarkChartStyle);
-    ui->languageComboBox->setCurrentText(QSTRING(CurrentConfig.UISettings.language));
-    ui->logLevelComboBox->setCurrentIndex(CurrentConfig.logLevel);
-    ui->tProxyCheckBox->setChecked(CurrentConfig.tProxySupport);
+    themeCombo->setCurrentText(QSTRING(CurrentConfig.UISettings.theme));
+    darkChartThemeCB->setChecked(CurrentConfig.UISettings.useDarkChartStyle);
+    languageComboBox->setCurrentText(QSTRING(CurrentConfig.UISettings.language));
+    logLevelComboBox->setCurrentIndex(CurrentConfig.logLevel);
+    tProxyCheckBox->setChecked(CurrentConfig.tProxySupport);
     //
     //
-    ui->listenIPTxt->setText(QSTRING(CurrentConfig.inBoundSettings.listenip));
+    listenIPTxt->setText(QSTRING(CurrentConfig.inBoundSettings.listenip));
     //
     bool have_http = CurrentConfig.inBoundSettings.http_port != 0;
-    ui->httpCB->setChecked(have_http);
-    ui->httpPortLE->setValue(CurrentConfig.inBoundSettings.http_port);
-    ui->httpAuthCB->setChecked(CurrentConfig.inBoundSettings.http_useAuth);
+    httpCB->setChecked(have_http);
+    httpPortLE->setValue(CurrentConfig.inBoundSettings.http_port);
+    httpAuthCB->setChecked(CurrentConfig.inBoundSettings.http_useAuth);
     //
-    ui->httpAuthCB->setEnabled(have_http);
-    ui->httpAuthCB->setChecked(CurrentConfig.inBoundSettings.http_useAuth);
-    ui->httpAuthUsernameTxt->setEnabled(have_http && CurrentConfig.inBoundSettings.http_useAuth);
-    ui->httpAuthPasswordTxt->setEnabled(have_http && CurrentConfig.inBoundSettings.http_useAuth);
-    ui->httpAuthUsernameTxt->setText(QSTRING(CurrentConfig.inBoundSettings.httpAccount.user));
-    ui->httpAuthPasswordTxt->setText(QSTRING(CurrentConfig.inBoundSettings.httpAccount.pass));
+    httpAuthCB->setEnabled(have_http);
+    httpAuthCB->setChecked(CurrentConfig.inBoundSettings.http_useAuth);
+    httpAuthUsernameTxt->setEnabled(have_http && CurrentConfig.inBoundSettings.http_useAuth);
+    httpAuthPasswordTxt->setEnabled(have_http && CurrentConfig.inBoundSettings.http_useAuth);
+    httpAuthUsernameTxt->setText(QSTRING(CurrentConfig.inBoundSettings.httpAccount.user));
+    httpAuthPasswordTxt->setText(QSTRING(CurrentConfig.inBoundSettings.httpAccount.pass));
     //
     //
     bool have_socks = CurrentConfig.inBoundSettings.socks_port != 0;
-    ui->socksCB->setChecked(have_socks);
-    ui->socksPortLE->setValue(CurrentConfig.inBoundSettings.socks_port);
-    ui->socksAuthCB->setChecked(CurrentConfig.inBoundSettings.socks_useAuth);
+    socksCB->setChecked(have_socks);
+    socksPortLE->setValue(CurrentConfig.inBoundSettings.socks_port);
+    socksAuthCB->setChecked(CurrentConfig.inBoundSettings.socks_useAuth);
     //
-    ui->socksAuthCB->setEnabled(have_socks);
-    ui->socksAuthCB->setChecked(CurrentConfig.inBoundSettings.socks_useAuth);
-    ui->socksAuthUsernameTxt->setEnabled(have_socks && CurrentConfig.inBoundSettings.socks_useAuth);
-    ui->socksAuthPasswordTxt->setEnabled(have_socks && CurrentConfig.inBoundSettings.socks_useAuth);
-    ui->socksAuthUsernameTxt->setText(QSTRING(CurrentConfig.inBoundSettings.socksAccount.user));
-    ui->socksAuthPasswordTxt->setText(QSTRING(CurrentConfig.inBoundSettings.socksAccount.pass));
+    socksAuthCB->setEnabled(have_socks);
+    socksAuthCB->setChecked(CurrentConfig.inBoundSettings.socks_useAuth);
+    socksAuthUsernameTxt->setEnabled(have_socks && CurrentConfig.inBoundSettings.socks_useAuth);
+    socksAuthPasswordTxt->setEnabled(have_socks && CurrentConfig.inBoundSettings.socks_useAuth);
+    socksAuthUsernameTxt->setText(QSTRING(CurrentConfig.inBoundSettings.socksAccount.user));
+    socksAuthPasswordTxt->setText(QSTRING(CurrentConfig.inBoundSettings.socksAccount.pass));
     // Socks UDP Options
-    ui->socksUDPCB->setChecked(CurrentConfig.inBoundSettings.socksUDP);
-    ui->socksUDPIP->setEnabled(CurrentConfig.inBoundSettings.socksUDP);
-    ui->socksUDPIP->setText(QSTRING(CurrentConfig.inBoundSettings.socksLocalIP));
+    socksUDPCB->setChecked(CurrentConfig.inBoundSettings.socksUDP);
+    socksUDPIP->setEnabled(CurrentConfig.inBoundSettings.socksUDP);
+    socksUDPIP->setText(QSTRING(CurrentConfig.inBoundSettings.socksLocalIP));
     //
     //
-    ui->vCorePathTxt->setText(QSTRING(CurrentConfig.v2CorePath));
-    ui->vCoreAssetsPathTxt->setText(QSTRING(CurrentConfig.v2AssetsPath));
-    ui->statsCheckbox->setChecked(CurrentConfig.enableStats);
-    ui->statsPortBox->setValue(CurrentConfig.statsPort);
+    vCorePathTxt->setText(QSTRING(CurrentConfig.v2CorePath));
+    vCoreAssetsPathTxt->setText(QSTRING(CurrentConfig.v2AssetsPath));
+    statsCheckbox->setChecked(CurrentConfig.enableStats);
+    statsPortBox->setValue(CurrentConfig.statsPort);
     //
     //
-    ui->bypassCNCb->setChecked(CurrentConfig.bypassCN);
-    ui->proxyDefaultCb->setChecked(CurrentConfig.enableProxy);
+    bypassCNCb->setChecked(CurrentConfig.bypassCN);
+    proxyDefaultCb->setChecked(CurrentConfig.enableProxy);
     //
-    ui->localDNSCb->setChecked(CurrentConfig.withLocalDNS);
+    localDNSCb->setChecked(CurrentConfig.withLocalDNS);
     //
-    ui->DNSListTxt->clear();
+    DNSListTxt->clear();
 
     foreach (auto dnsStr, CurrentConfig.dnsList) {
         auto str = QString::fromStdString(dnsStr).trimmed();
 
         if (!str.isEmpty()) {
-            ui->DNSListTxt->appendPlainText(str);
+            DNSListTxt->appendPlainText(str);
         }
     }
 
     foreach (auto connection, CurrentConfig.configs) {
-        ui->autoStartCombo->addItem(QSTRING(connection));
+        autoStartCombo->addItem(QSTRING(connection));
     }
 
-    ui->autoStartCombo->setCurrentText(QSTRING(CurrentConfig.autoStartConfig));
-    ui->cancelIgnoreVersionBtn->setEnabled(CurrentConfig.ignoredVersion != "");
-    ui->ignoredNextVersion->setText(QSTRING(CurrentConfig.ignoredVersion));
+    autoStartCombo->setCurrentText(QSTRING(CurrentConfig.autoStartConfig));
+    cancelIgnoreVersionBtn->setEnabled(CurrentConfig.ignoredVersion != "");
+    ignoredNextVersion->setText(QSTRING(CurrentConfig.ignoredVersion));
     //
 
     for (size_t i = 0; i < CurrentConfig.speedBarConfig.Pages.size(); i++) {
-        ui->nsBarPagesList->addItem(tr("Page") + QString::number(i + 1) + ": " + QString::number(CurrentConfig.speedBarConfig.Pages[i].Lines.size()) + " " + tr("Item(s)"));
+        nsBarPagesList->addItem(tr("Page") + QString::number(i + 1) + ": " + QString::number(CurrentConfig.speedBarConfig.Pages[i].Lines.size()) + " " + tr("Item(s)"));
     }
 
     if (CurrentConfig.speedBarConfig.Pages.size() > 0) {
-        ui->nsBarPagesList->setCurrentRow(0);
+        nsBarPagesList->setCurrentRow(0);
         on_nsBarPagesList_currentRowChanged(0);
     } else {
-        ui->nsBarVerticalLayout->setEnabled(false);
-        ui->nsBarLinesList->setEnabled(false);
-        ui->nsBarLineDelBTN->setEnabled(false);
-        ui->nsBarLineAddBTN->setEnabled(false);
-        ui->nsBarPageYOffset->setEnabled(false);
+        nsBarVerticalLayout->setEnabled(false);
+        nsBarLinesList->setEnabled(false);
+        nsBarLineDelBTN->setEnabled(false);
+        nsBarLineAddBTN->setEnabled(false);
+        nsBarPageYOffset->setEnabled(false);
     }
 
     CurrentBarPageId = 0;
@@ -126,8 +126,8 @@ PrefrencesWindow::~PrefrencesWindow()
 
 void PrefrencesWindow::on_buttonBox_accepted()
 {
-    int sp = ui->socksPortLE->text().toInt();
-    int hp = ui->httpPortLE->text().toInt() ;
+    int sp = socksPortLE->text().toInt();
+    int hp = httpPortLE->text().toInt() ;
 
     if (!(sp == 0 || hp == 0) && sp == hp) {
         QvMessageBox(this, tr("Prefrences"), tr("Port numbers cannot be the same"));
@@ -141,44 +141,44 @@ void PrefrencesWindow::on_buttonBox_accepted()
 void PrefrencesWindow::on_httpCB_stateChanged(int checked)
 {
     NEEDRESTART
-    ui->httpPortLE->setEnabled(checked == Qt::Checked);
-    ui->httpAuthCB->setEnabled(checked == Qt::Checked);
-    ui->httpAuthUsernameTxt->setEnabled(checked == Qt::Checked && ui->httpAuthCB->isChecked());
-    ui->httpAuthPasswordTxt->setEnabled(checked == Qt::Checked && ui->httpAuthCB->isChecked());
+    httpPortLE->setEnabled(checked == Qt::Checked);
+    httpAuthCB->setEnabled(checked == Qt::Checked);
+    httpAuthUsernameTxt->setEnabled(checked == Qt::Checked && httpAuthCB->isChecked());
+    httpAuthPasswordTxt->setEnabled(checked == Qt::Checked && httpAuthCB->isChecked());
     CurrentConfig.inBoundSettings.http_port = checked == Qt::Checked ? CurrentConfig.inBoundSettings.http_port : 0;
 
     if (checked != Qt::Checked) {
-        ui->httpPortLE->setValue(0);
+        httpPortLE->setValue(0);
     }
 }
 
 void PrefrencesWindow::on_socksCB_stateChanged(int checked)
 {
     NEEDRESTART
-    ui->socksPortLE->setEnabled(checked == Qt::Checked);
-    ui->socksAuthCB->setEnabled(checked == Qt::Checked);
-    ui->socksAuthUsernameTxt->setEnabled(checked == Qt::Checked && ui->socksAuthCB->isChecked());
-    ui->socksAuthPasswordTxt->setEnabled(checked == Qt::Checked && ui->socksAuthCB->isChecked());
+    socksPortLE->setEnabled(checked == Qt::Checked);
+    socksAuthCB->setEnabled(checked == Qt::Checked);
+    socksAuthUsernameTxt->setEnabled(checked == Qt::Checked && socksAuthCB->isChecked());
+    socksAuthPasswordTxt->setEnabled(checked == Qt::Checked && socksAuthCB->isChecked());
     CurrentConfig.inBoundSettings.socks_port = checked == Qt::Checked ? CurrentConfig.inBoundSettings.socks_port : 0;
 
     if (checked != Qt::Checked) {
-        ui->socksPortLE->setValue(0);
+        socksPortLE->setValue(0);
     }
 }
 
 void PrefrencesWindow::on_httpAuthCB_stateChanged(int checked)
 {
     NEEDRESTART
-    ui->httpAuthUsernameTxt->setEnabled(checked == Qt::Checked);
-    ui->httpAuthPasswordTxt->setEnabled(checked == Qt::Checked);
+    httpAuthUsernameTxt->setEnabled(checked == Qt::Checked);
+    httpAuthPasswordTxt->setEnabled(checked == Qt::Checked);
     CurrentConfig.inBoundSettings.http_useAuth = checked == Qt::Checked;
 }
 
 void PrefrencesWindow::on_socksAuthCB_stateChanged(int checked)
 {
     NEEDRESTART
-    ui->socksAuthUsernameTxt->setEnabled(checked == Qt::Checked);
-    ui->socksAuthPasswordTxt->setEnabled(checked == Qt::Checked);
+    socksAuthUsernameTxt->setEnabled(checked == Qt::Checked);
+    socksAuthPasswordTxt->setEnabled(checked == Qt::Checked);
     CurrentConfig.inBoundSettings.socks_useAuth = checked == Qt::Checked;
 }
 
@@ -191,7 +191,7 @@ void PrefrencesWindow::on_languageComboBox_currentTextChanged(const QString &arg
     //
     //if (QApplication::installTranslator(getTranslator(&arg1))) {
     //    LOG(MODULE_UI, "Loaded translations " + arg1.toStdString())
-    //    ui->retranslateUi(this);
+    //    retranslateUi(this);
     //} else {
     //    QvMessageBox(this, tr("#Prefrences"), tr("#SwitchTranslationError"));
     //}
@@ -255,14 +255,14 @@ void PrefrencesWindow::on_selectVAssetBtn_clicked()
 {
     NEEDRESTART
     QString dir = QFileDialog::getExistingDirectory(this, tr("Open v2ray assets folder"), QDir::currentPath());
-    ui->vCoreAssetsPathTxt->setText(dir);
+    vCoreAssetsPathTxt->setText(dir);
     on_vCoreAssetsPathTxt_textEdited(dir);
 }
 
 void PrefrencesWindow::on_selectVCoreBtn_clicked()
 {
     QString core = QFileDialog::getOpenFileName(this, tr("Open v2ray core file"), QDir::currentPath());
-    ui->vCorePathTxt->setText(core);
+    vCorePathTxt->setText(core);
     on_vCorePathTxt_textEdited(core);
 }
 
@@ -276,7 +276,7 @@ void PrefrencesWindow::on_DNSListTxt_textChanged()
 {
     if (finishedLoading) {
         try {
-            QStringList hosts = ui->DNSListTxt->toPlainText().replace("\r", "").split("\n");
+            QStringList hosts = DNSListTxt->toPlainText().replace("\r", "").split("\n");
             CurrentConfig.dnsList.clear();
 
             foreach (auto host, hosts) {
@@ -307,7 +307,7 @@ void PrefrencesWindow::on_aboutQt_clicked()
 void PrefrencesWindow::on_cancelIgnoreVersionBtn_clicked()
 {
     CurrentConfig.ignoredVersion.clear();
-    ui->cancelIgnoreVersionBtn->setEnabled(false);
+    cancelIgnoreVersionBtn->setEnabled(false);
 }
 
 void PrefrencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
@@ -327,7 +327,7 @@ void PrefrencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
                                 tr("Qv2ray will copy your v2ray core to this path: ") + NEWLINE + QV2RAY_DEFAULT_VCORE_PATH + NEWLINE + NEWLINE +
                                 tr("If anything goes wrong after enabling this, please refer to issue #57 or the link below:") + NEWLINE +
                                 " https://lhy0403.github.io/Qv2ray/zh-CN/FAQ.html ") != QMessageBox::Yes) {
-                ui->tProxyCheckBox->setChecked(false);
+                tProxyCheckBox->setChecked(false);
                 LOG(MODULE_UI, "Canceled enabling tProxy feature.")
             } else {
                 LOG(MODULE_VCORE, "ENABLING tProxy Support")
@@ -404,7 +404,7 @@ void PrefrencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
 
 #else
     Q_UNUSED(arg1)
-    ui->tProxyCheckBox->setChecked(false);
+    tProxyCheckBox->setChecked(false);
     // No such uid gid thing on Windows and macOS
     QvMessageBox(this, tr("Prefrences"), tr("tProxy is not supported on macOS and Windows"));
 #endif
@@ -443,7 +443,7 @@ void PrefrencesWindow::on_socksUDPCB_stateChanged(int arg1)
 {
     NEEDRESTART
     CurrentConfig.inBoundSettings.socksUDP = arg1 == Qt::Checked;
-    ui->socksUDPIP->setEnabled(arg1 == Qt::Checked);
+    socksUDPIP->setEnabled(arg1 == Qt::Checked);
 }
 
 void PrefrencesWindow::on_socksUDPIP_textEdited(const QString &arg1)
@@ -456,7 +456,7 @@ void PrefrencesWindow::on_socksUDPIP_textEdited(const QString &arg1)
 
 #define CurrentBarPage CurrentConfig.speedBarConfig.Pages[this->CurrentBarPageId]
 #define CurrentBarLine CurrentBarPage.Lines[this->CurrentBarLineId]
-#define SET_LINE_LIST_TEXT ui->nsBarLinesList->currentItem()->setText(GetBarLineDescription(CurrentBarLine));
+#define SET_LINE_LIST_TEXT nsBarLinesList->currentItem()->setText(GetBarLineDescription(CurrentBarLine));
 
 void PrefrencesWindow::on_nsBarPageAddBTN_clicked()
 {
@@ -467,32 +467,32 @@ void PrefrencesWindow::on_nsBarPageAddBTN_clicked()
     QvBarLine line;
     CurrentBarPage.Lines.push_back(line);
     CurrentBarLineId = 0;
-    ui->nsBarPagesList->addItem(QString::number(CurrentBarPageId));
+    nsBarPagesList->addItem(QString::number(CurrentBarPageId));
     ShowLineParameters(CurrentBarLine);
     LOG(MODULE_UI, "Adding new page Id: " + to_string(CurrentBarPageId))
-    ui->nsBarPageDelBTN->setEnabled(true);
-    ui->nsBarLineAddBTN->setEnabled(true);
-    ui->nsBarLineDelBTN->setEnabled(true);
-    ui->nsBarLinesList->setEnabled(true);
-    ui->nsBarPageYOffset->setEnabled(true);
+    nsBarPageDelBTN->setEnabled(true);
+    nsBarLineAddBTN->setEnabled(true);
+    nsBarLineDelBTN->setEnabled(true);
+    nsBarLinesList->setEnabled(true);
+    nsBarPageYOffset->setEnabled(true);
     on_nsBarPagesList_currentRowChanged(static_cast<int>(CurrentBarPageId));
-    ui->nsBarPagesList->setCurrentRow(static_cast<int>(CurrentBarPageId));
+    nsBarPagesList->setCurrentRow(static_cast<int>(CurrentBarPageId));
 }
 
 void PrefrencesWindow::on_nsBarPageDelBTN_clicked()
 {
-    if (ui->nsBarPagesList->currentRow() >= 0) {
-        RemoveItem(CurrentConfig.speedBarConfig.Pages, static_cast<size_t>(ui->nsBarPagesList->currentRow()));
-        ui->nsBarPagesList->takeItem(ui->nsBarPagesList->currentRow());
+    if (nsBarPagesList->currentRow() >= 0) {
+        RemoveItem(CurrentConfig.speedBarConfig.Pages, static_cast<size_t>(nsBarPagesList->currentRow()));
+        nsBarPagesList->takeItem(nsBarPagesList->currentRow());
 
-        if (ui->nsBarPagesList->count() <= 0) {
-            ui->nsBarPageDelBTN->setEnabled(false);
-            ui->nsBarLineAddBTN->setEnabled(false);
-            ui->nsBarLineDelBTN->setEnabled(false);
-            ui->nsBarLinesList->setEnabled(false);
-            ui->nsBarVerticalLayout->setEnabled(false);
-            ui->nsBarPageYOffset->setEnabled(false);
-            ui->nsBarLinesList->clear();
+        if (nsBarPagesList->count() <= 0) {
+            nsBarPageDelBTN->setEnabled(false);
+            nsBarLineAddBTN->setEnabled(false);
+            nsBarLineDelBTN->setEnabled(false);
+            nsBarLinesList->setEnabled(false);
+            nsBarVerticalLayout->setEnabled(false);
+            nsBarPageYOffset->setEnabled(false);
+            nsBarLinesList->clear();
         }
     }
 }
@@ -509,23 +509,23 @@ void PrefrencesWindow::on_nsBarLineAddBTN_clicked()
     QvBarLine line;
     CurrentBarPage.Lines.push_back(line);
     CurrentBarLineId = CurrentBarPage.Lines.size() - 1;
-    ui->nsBarLinesList->addItem(QString::number(CurrentBarLineId));
+    nsBarLinesList->addItem(QString::number(CurrentBarLineId));
     ShowLineParameters(CurrentBarLine);
-    ui->nsBarLineDelBTN->setEnabled(true);
+    nsBarLineDelBTN->setEnabled(true);
     LOG(MODULE_UI, "Adding new line Id: " + to_string(CurrentBarLineId))
-    ui->nsBarLinesList->setCurrentRow(static_cast<int>(CurrentBarPage.Lines.size() - 1));
+    nsBarLinesList->setCurrentRow(static_cast<int>(CurrentBarPage.Lines.size() - 1));
 }
 
 void PrefrencesWindow::on_nsBarLineDelBTN_clicked()
 {
-    if (ui->nsBarLinesList->currentRow() >= 0) {
-        RemoveItem(CurrentBarPage.Lines, static_cast<size_t>(ui->nsBarLinesList->currentRow()));
-        ui->nsBarLinesList->takeItem(ui->nsBarLinesList->currentRow());
+    if (nsBarLinesList->currentRow() >= 0) {
+        RemoveItem(CurrentBarPage.Lines, static_cast<size_t>(nsBarLinesList->currentRow()));
+        nsBarLinesList->takeItem(nsBarLinesList->currentRow());
         CurrentBarLineId = 0;
 
-        if (ui->nsBarLinesList->count() <= 0) {
-            ui->nsBarVerticalLayout->setEnabled(false);
-            ui->nsBarLineDelBTN->setEnabled(false);
+        if (nsBarLinesList->count() <= 0) {
+            nsBarVerticalLayout->setEnabled(false);
+            nsBarLineDelBTN->setEnabled(false);
         }
 
         // TODO Disabling some UI;
@@ -541,19 +541,19 @@ void PrefrencesWindow::on_nsBarPagesList_currentRowChanged(int currentRow)
     // Set all parameters item to the property of the first line.
     CurrentBarPageId = static_cast<size_t>(currentRow);
     CurrentBarLineId = 0;
-    ui->nsBarPageYOffset->setValue(CurrentBarPage.OffsetYpx);
-    ui->nsBarLinesList->clear();
+    nsBarPageYOffset->setValue(CurrentBarPage.OffsetYpx);
+    nsBarLinesList->clear();
 
     if (!CurrentBarPage.Lines.empty()) {
         for (auto line : CurrentBarPage.Lines) {
             auto description = GetBarLineDescription(line);
-            ui->nsBarLinesList->addItem(description);
+            nsBarLinesList->addItem(description);
         }
 
-        ui->nsBarLinesList->setCurrentRow(0);
+        nsBarLinesList->setCurrentRow(0);
         ShowLineParameters(CurrentBarLine);
     } else {
-        ui->nsBarVerticalLayout->setEnabled(false);
+        nsBarVerticalLayout->setEnabled(false);
     }
 }
 
@@ -644,28 +644,28 @@ void PrefrencesWindow::ShowLineParameters(QvBarLine &line)
     finishedLoading = false;
 
     if (!line.Family.empty()) {
-        ui->fontComboBox->setCurrentFont(QFont(QSTRING(line.Family)));
+        fontComboBox->setCurrentFont(QFont(QSTRING(line.Family)));
     }
 
     // Colors
-    ui->nsBarFontASB->setValue(line.ColorA);
-    ui->nsBarFontBSB->setValue(line.ColorB);
-    ui->nsBarFontGSB->setValue(line.ColorG);
-    ui->nsBarFontRSB->setValue(line.ColorR);
+    nsBarFontASB->setValue(line.ColorA);
+    nsBarFontBSB->setValue(line.ColorB);
+    nsBarFontGSB->setValue(line.ColorG);
+    nsBarFontRSB->setValue(line.ColorR);
     //
     QColor color = QColor::fromRgb(line.ColorR, line.ColorG, line.ColorB, line.ColorA);
     QString s("background: #"
               + QString(color.red() < 16 ? "0" : "") + QString::number(color.red(), 16)
               + QString(color.green() < 16 ? "0" : "") + QString::number(color.green(), 16)
               + QString(color.blue() < 16 ? "0" : "") + QString::number(color.blue(), 16) + ";");
-    ui->chooseColorBtn->setStyleSheet(s);
-    ui->nsBarFontSizeSB->setValue(line.Size);
-    ui->nsBarFontBoldCB->setChecked(line.Bold);
-    ui->nsBarFontItalicCB->setChecked(line.Italic);
-    ui->nsBarContentCombo->setCurrentText(NetSpeedPluginMessages[line.ContentType]);
-    ui->nsBarTagTxt->setText(QSTRING(line.Message));
+    chooseColorBtn->setStyleSheet(s);
+    nsBarFontSizeSB->setValue(line.Size);
+    nsBarFontBoldCB->setChecked(line.Bold);
+    nsBarFontItalicCB->setChecked(line.Italic);
+    nsBarContentCombo->setCurrentText(NetSpeedPluginMessages[line.ContentType]);
+    nsBarTagTxt->setText(QSTRING(line.Message));
     finishedLoading = true;
-    ui->nsBarVerticalLayout->setEnabled(true);
+    nsBarVerticalLayout->setEnabled(true);
 }
 
 void PrefrencesWindow::on_chooseColorBtn_clicked()

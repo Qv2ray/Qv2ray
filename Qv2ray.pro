@@ -6,11 +6,14 @@
 
 QT += core gui widgets network charts
 
-include(3rdparty/qzxing_noTests/QZXing.pri)
-
 TARGET = qv2ray
 TEMPLATE = app
-DEFINES += QT_DEPRECATED_WARNINGS
+
+# Don't merge those configs with below.
+CONFIG += enable_decoder_qr_code enable_encoder_qr_code
+include(3rdparty/qzxing_noTests/QZXing-components.pri)
+
+# Main config
 CONFIG += c++11 openssl-linked lrelease embed_translations
 
 # Now read build number file.
@@ -19,7 +22,7 @@ VERSION = 1.99.1.$$_BUILD_NUMBER
 _BUILD_NUMBER = $$num_add($$_BUILD_NUMBER, 1)
 write_file("Build.Counter", _BUILD_NUMBER)
 
-DEFINES += QV2RAY_VERSION_STRING=\"\\\"v$${VERSION}\\\"\"
+DEFINES += QT_DEPRECATED_WARNINGS QV2RAY_VERSION_STRING=\"\\\"v$${VERSION}\\\"\"
 
 SOURCES += \
         src/main.cpp \
@@ -30,13 +33,14 @@ SOURCES += \
         src/QvCoreInteractions.cpp \
         src/QvUtils.cpp \
         src/ui/NetSpeedBar/QvNetSpeedBar.cpp \
+        src/ui/w_ExportConfig.cpp \
         src/ui/w_InboundEditor.cpp \
         src/ui/w_OutboundEditor.cpp \
         src/ui/w_RoutesEditor.cpp \
         src/ui/w_SubscriptionEditor.cpp \
         src/utils/QObjectMessageProxy.cpp \
-        src/utils/QPingModel.cpp \
         src/utils/QvHTTPRequestHelper.cpp \
+        src/utils/QvPingModel.cpp \
         src/utils/QvRunguard.cpp \
         src/utils/QJsonModel.cpp \
         src/ui/w_JsonEditor.cpp \
@@ -59,6 +63,7 @@ HEADERS += \
         src/QvCoreConfigOperations.hpp \
         src/QvCoreInteractions.hpp \
         src/QvUtils.hpp \
+        src/ui/w_ExportConfig.hpp \
         src/ui/w_ImportConfig.hpp \
         src/ui/w_InboundEditor.hpp \
         src/ui/w_JsonEditor.hpp \
@@ -70,15 +75,16 @@ HEADERS += \
         src/utils/QJsonModel.hpp \
         src/utils/QJsonObjectInsertMacros.h \
         src/utils/QObjectMessageProxy.hpp \
-        src/utils/QPingModel.hpp \
         src/utils/QvHTTPRequestHelper.hpp \
         src/utils/QvNetSpeedPlugin.hpp \
+        src/utils/QvPingModel.hpp \
         src/utils/QvRunguard.hpp \
         libs/gen/v2ray_api_commands.pb.h \
         libs/gen/v2ray_api_commands.grpc.pb.h \
         src/utils/QvTinyLog.hpp
 
 FORMS += \
+        src/ui/w_ExportConfig.ui \
         src/ui/w_ImportConfig.ui \
         src/ui/w_InboundEditor.ui \
         src/ui/w_JsonEditor.ui \

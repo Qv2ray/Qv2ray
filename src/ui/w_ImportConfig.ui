@@ -55,22 +55,17 @@
        </property>
        <item>
         <property name="text">
-         <string>File</string>
+         <string>Existing File</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>VMess String</string>
+         <string>VMess and QRCode</string>
         </property>
        </item>
        <item>
         <property name="text">
          <string>Subscription Link</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Scan Image</string>
         </property>
        </item>
       </widget>
@@ -86,7 +81,7 @@
       <item>
        <widget class="QStackedWidget" name="stackedWidget">
         <property name="currentIndex">
-         <number>0</number>
+         <number>1</number>
         </property>
         <widget class="QWidget" name="filePage">
          <layout class="QFormLayout" name="formLayout">
@@ -146,63 +141,179 @@
          </layout>
         </widget>
         <widget class="QWidget" name="vmessPage">
-         <layout class="QVBoxLayout" name="verticalLayout_2">
-          <item>
-           <widget class="QLabel" name="label_3">
-            <property name="text">
-             <string>VMess Connection String</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,1">
-            <item>
-             <widget class="QTextEdit" name="vmessConnectionStringTxt">
-              <property name="placeholderText">
-               <string>Put your vmess:// here</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QGroupBox" name="groupBox_2">
-              <property name="title">
-               <string>VMess Check Status</string>
-              </property>
-              <layout class="QFormLayout" name="formLayout_4">
-               <item row="0" column="0">
-                <widget class="QLabel" name="label_6">
-                 <property name="text">
-                  <string>Processing</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="1">
-                <widget class="QLabel" name="label_9">
-                 <property name="text">
-                  <string>0/0</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="0">
-                <widget class="QLabel" name="label_7">
-                 <property name="text">
-                  <string>Line Failed</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="1">
-                <widget class="QLabel" name="label_8">
-                 <property name="text">
-                  <string>0</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </widget>
-            </item>
-           </layout>
-          </item>
-         </layout>
+         <widget class="QLabel" name="label_3">
+          <property name="geometry">
+           <rect>
+            <x>6</x>
+            <y>6</y>
+            <width>153</width>
+            <height>18</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>VMess Connection String</string>
+          </property>
+         </widget>
+         <widget class="QWidget" name="layoutWidget">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>30</y>
+            <width>227</width>
+            <height>36</height>
+           </rect>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout">
+           <item>
+            <widget class="QLineEdit" name="lineEdit">
+             <property name="text">
+              <string>---TODO---</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton">
+             <property name="text">
+              <string>Select</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QLabel" name="label_12">
+          <property name="geometry">
+           <rect>
+            <x>504</x>
+            <y>80</y>
+            <width>40</width>
+            <height>18</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Image</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="qRContentLabel">
+          <property name="geometry">
+           <rect>
+            <x>550</x>
+            <y>104</y>
+            <width>16</width>
+            <height>18</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>C</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_13">
+          <property name="geometry">
+           <rect>
+            <x>434</x>
+            <y>104</y>
+            <width>110</width>
+            <height>18</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Connection String</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="qrFromScreenBtn">
+          <property name="geometry">
+           <rect>
+            <x>550</x>
+            <y>40</y>
+            <width>84</width>
+            <height>34</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Go</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_11">
+          <property name="geometry">
+           <rect>
+            <x>437</x>
+            <y>40</y>
+            <width>107</width>
+            <height>18</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Scan from Screen</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="imageLabel">
+          <property name="geometry">
+           <rect>
+            <x>550</x>
+            <y>80</y>
+            <width>16</width>
+            <height>18</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>I</string>
+          </property>
+         </widget>
+         <widget class="QWidget" name="">
+          <property name="geometry">
+           <rect>
+            <x>60</x>
+            <y>80</y>
+            <width>404</width>
+            <height>194</height>
+           </rect>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,1">
+           <item>
+            <widget class="QTextEdit" name="vmessConnectionStringTxt">
+             <property name="placeholderText">
+              <string>Put your vmess:// here</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupBox_2">
+             <property name="title">
+              <string>VMess Check Status</string>
+             </property>
+             <layout class="QFormLayout" name="formLayout_4">
+              <item row="0" column="0">
+               <widget class="QLabel" name="label_6">
+                <property name="text">
+                 <string>Processing</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QLabel" name="label_9">
+                <property name="text">
+                 <string>0/0</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLabel" name="label_7">
+                <property name="text">
+                 <string>Line Failed</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QLabel" name="label_8">
+                <property name="text">
+                 <string>0</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
         </widget>
         <widget class="QWidget" name="page">
          <layout class="QVBoxLayout" name="verticalLayout">
@@ -233,49 +344,6 @@
              </widget>
             </item>
            </layout>
-          </item>
-         </layout>
-        </widget>
-        <widget class="QWidget" name="page_2">
-         <layout class="QFormLayout" name="formLayout_3">
-          <item row="0" column="1">
-           <layout class="QHBoxLayout" name="horizontalLayout">
-            <item>
-             <widget class="QLineEdit" name="lineEdit">
-              <property name="text">
-               <string>---TODO---</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="pushButton">
-              <property name="text">
-               <string>Select</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_5">
-            <property name="text">
-             <string>Select Image File</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_11">
-            <property name="text">
-             <string>Scan from Screen</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QPushButton" name="pushButton_2">
-            <property name="text">
-             <string>Go</string>
-            </property>
-           </widget>
           </item>
          </layout>
         </widget>

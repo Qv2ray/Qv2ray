@@ -1,16 +1,12 @@
-#ifndef W_INBOUNDEDITOR_H
+﻿#ifndef W_INBOUNDEDITOR_H
 #define W_INBOUNDEDITOR_H
 
 #include <QDialog>
 #include <QJsonObject>
 #include <QListWidgetItem>
+#include "ui_w_InboundEditor.h"
 
-namespace Ui
-{
-    class InboundEditor;
-}
-
-class InboundEditor : public QDialog
+class InboundEditor : public QDialog, private Ui::InboundEditor
 {
         Q_OBJECT
 
@@ -85,7 +81,6 @@ class InboundEditor : public QDialog
     private:
         QJsonObject GenerateNewRoot();
         void LoadUIData();
-        Ui::InboundEditor *ui;
         QJsonObject original;
         QJsonObject root;
         //

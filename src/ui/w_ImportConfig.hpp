@@ -1,15 +1,10 @@
-#ifndef IMPORTCONF_H
+﻿#ifndef IMPORTCONF_H
 #define IMPORTCONF_H
 
 #include <QDialog>
 #include "ui_w_ImportConfig.h"
 
-namespace Ui
-{
-    class ImportConfigWindow;
-}
-
-class ImportConfigWindow : public QDialog
+class ImportConfigWindow : public QDialog, private Ui::ImportConfigWindow
 {
         Q_OBJECT
 
@@ -26,9 +21,7 @@ class ImportConfigWindow : public QDialog
 
         void on_buttonBox_accepted();
 
-    private:
-        Ui::ImportConfigWindow *ui;
-
+        void on_qrFromScreenBtn_clicked();
 };
 
 #endif // IMPORTCONF_H

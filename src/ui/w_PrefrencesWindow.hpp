@@ -5,12 +5,7 @@
 #include <ui_w_PrefrencesWindow.h>
 #include "Qv2rayBase.hpp"
 
-namespace Ui
-{
-    class PrefrencesWindow;
-}
-
-class PrefrencesWindow : public QDialog
+class PrefrencesWindow : public QDialog, private Ui::PrefrencesWindow
 {
         Q_OBJECT
 

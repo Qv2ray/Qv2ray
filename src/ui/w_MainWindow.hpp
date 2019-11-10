@@ -13,12 +13,7 @@
 
 #include "ui_w_MainWindow.h"
 
-namespace Ui
-{
-    class MainWindow;
-}
-
-class MainWindow : public QMainWindow
+class MainWindow : public QMainWindow, Ui::MainWindow
 {
         Q_OBJECT
     public:
@@ -32,6 +27,7 @@ class MainWindow : public QMainWindow
         void UpdateLog();
         void OnConfigListChanged(bool need_restart);
     private slots:
+        void on_action_RCM_ShareQR_triggered();
         void on_startButton_clicked();
         void on_stopButton_clicked();
         void on_reconnectButton_clicked();
@@ -68,9 +64,8 @@ class MainWindow : public QMainWindow
 
         void on_pingTestBtn_clicked();
 
-        void on_shareQRButton_clicked();
+        void on_shareBtn_clicked();
 
-        void on_shareVMessButton_clicked();
         void on_duplicateBtn_clicked();
 
     public:
@@ -86,10 +81,8 @@ class MainWindow : public QMainWindow
 
         void timerEvent(QTimerEvent *event);
     private:
-        Ui::MainWindow *ui;
-        //
         QChartView *speedChartView;
-        QChart *speedChart;
+        QChart *speedChartObj;
         QSplineSeries *uploadSerie;
         QSplineSeries *downloadSerie;
         QList<double> uploadList;

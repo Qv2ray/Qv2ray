@@ -5,12 +5,8 @@
 #include "QvUtils.hpp"
 #include "QvHTTPRequestHelper.hpp"
 
-namespace Ui
-{
-    class w_SubscribeEditor;
-}
-
-class SubscribeEditor : public QDialog
+#include "ui_w_SubscriptionEditor.h"
+class SubscribeEditor : public QDialog, private Ui::w_SubscribeEditor
 {
         Q_OBJECT
 
@@ -34,7 +30,6 @@ class SubscribeEditor : public QDialog
         void ProcessSubscriptionEntry(QByteArray result, QString subsciptionName);
 
         bool isUpdateInProgress = false;
-        Ui::w_SubscribeEditor *ui;
         QvHttpRequestHelper helper;
         QMap<QString, QList<QJsonObject>> subscriptions;
 };

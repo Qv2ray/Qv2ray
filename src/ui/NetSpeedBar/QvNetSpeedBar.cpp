@@ -1,4 +1,4 @@
-#include <QThread>
+﻿#include <QThread>
 #include "QvNetSpeedPlugin.hpp"
 #include "QvUtils.hpp"
 
@@ -64,13 +64,13 @@ namespace Qv2ray
 
                             case 101: {
                                 // Current Time
-                                CL.Message = QTime().toString("hh:mm:ss").toStdString();
+                                CL.Message = QTime().currentTime().toString("hh:mm:ss").toStdString();
                                 break;
                             }
 
                             case 102: {
                                 // Current Date
-                                CL.Message = QDate().toString("yyyy-MM-dd").toStdString();
+                                CL.Message = QDate().currentDate().toString("yyyy-MM-dd").toStdString();
                                 break;
                             }
 

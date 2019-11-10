@@ -6,12 +6,7 @@
 #include "QvCoreConfigObjects.hpp"
 #include "ui_w_OutboundEditor.h"
 
-namespace Ui
-{
-    class OutboundEditor;
-}
-
-class OutboundEditor : public QDialog
+class OutboundEditor : public QDialog, private Ui::OutboundEditor
 {
         Q_OBJECT
     public:
@@ -30,8 +25,6 @@ class OutboundEditor : public QDialog
         void on_portLineEdit_textEdited(const QString &arg1);
 
         void on_idLineEdit_textEdited(const QString &arg1);
-
-        void on_alterLineEdit_textEdited(const QString &arg1);
 
         void on_securityCombo_currentIndexChanged(const QString &arg1);
 
@@ -111,6 +104,8 @@ class OutboundEditor : public QDialog
 
         void on_muxConcurrencyTxt_valueChanged(int arg1);
 
+        void on_alterLineEdit_valueChanged(int arg1);
+
     private:
         QString Tag;
         void ReLoad_GUI_JSON_ModelContent();
@@ -118,7 +113,6 @@ class OutboundEditor : public QDialog
         QJsonObject Original;
         QJsonObject Result;
         QJsonObject Mux;
-        Ui::OutboundEditor *ui;
         //
         // Connection Configs
         QString OutboundType;

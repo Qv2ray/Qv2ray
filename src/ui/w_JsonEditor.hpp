@@ -4,13 +4,9 @@
 #include <QDialog>
 #include <QtCore>
 #include "QJsonModel.hpp"
+#include "ui_w_JsonEditor.h"
 
-namespace Ui
-{
-    class JsonEditor;
-}
-
-class JsonEditor : public QDialog
+class JsonEditor : public QDialog, private Ui::JsonEditor
 {
         Q_OBJECT
 
@@ -28,7 +24,6 @@ class JsonEditor : public QDialog
         QJsonModel model;
         QJsonObject original;
         QJsonObject final;
-        Ui::JsonEditor *ui;
 };
 
 #endif // W_JSONEDITOR_H
