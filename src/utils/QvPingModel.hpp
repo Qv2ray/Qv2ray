@@ -1,4 +1,4 @@
-#ifndef PINGMODEL_H
+﻿#ifndef PINGMODEL_H
 #define PINGMODEL_H
 
 #include <QObject>
@@ -8,12 +8,12 @@ namespace Qv2ray
 {
     namespace Utils
     {
-        class PingModel : public QObject
+        class QvPingModel : public QObject
         {
                 Q_OBJECT
             public:
-                explicit PingModel(QObject *parent = nullptr);
-                ~PingModel();
+                explicit QvPingModel(QObject *parent = nullptr);
+                ~QvPingModel();
 
                 void start_command();
                 bool is_running();
@@ -29,4 +29,4 @@ namespace Qv2ray
         };
     }
 }
-#endif // PINGMODEL_H 
+#endif // PINGMODEL_H

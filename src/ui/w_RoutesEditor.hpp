@@ -8,12 +8,8 @@
 #include <QListWidgetItem>
 #include "QvUtils.hpp"
 
-namespace Ui
-{
-    class RouteEditor;
-}
-
-class RouteEditor : public QDialog
+#include "ui_w_RoutesEditor.h"
+class RouteEditor : public QDialog, private Ui::RouteEditor
 {
         Q_OBJECT
 
@@ -97,7 +93,6 @@ class RouteEditor : public QDialog
         QJsonArray outbounds;
         QJsonObject root;
         QJsonObject original;
-        Ui::RouteEditor *ui;
 };
 
 #endif // W_QVOUTBOUNDEDITOR_H

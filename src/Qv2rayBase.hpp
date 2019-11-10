@@ -18,6 +18,7 @@
 // Get Configured Config Dir Path
 #define QV2RAY_CONFIG_DIR (Qv2ray::Utils::GetConfigDirPath())
 #define QV2RAY_CONFIG_FILE (QV2RAY_CONFIG_DIR + "Qv2ray.conf")
+#define QV2RAY_QRCODE_DIR (QV2RAY_CONFIG_DIR + "qr_images/")
 
 #define QV2RAY_CONFIG_FILE_EXTENSION ".qv2ray.json"
 #define QV2RAY_GENERATED_DIR (QV2RAY_CONFIG_DIR + "generated/")
@@ -37,14 +38,14 @@
 
 // GUI TOOLS
 #define RED(obj)                               \
-    auto _temp = ui->obj->palette();           \
+    auto _temp = obj->palette();           \
     _temp.setColor(QPalette::Text, Qt::red);   \
-    ui->obj->setPalette(_temp);
+    obj->setPalette(_temp);
 
 #define BLACK(obj)                             \
-    auto _temp = ui->obj->palette();           \
+    auto _temp = obj->palette();           \
     _temp.setColor(QPalette::Text, Qt::blue); \
-    ui->obj->setPalette(_temp);
+    obj->setPalette(_temp);
 
 #define QSTRING(std_string) QString::fromStdString(std_string)
 

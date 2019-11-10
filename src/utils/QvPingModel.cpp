@@ -1,12 +1,12 @@
 #include <QString>
 #include <QDebug>
-#include "QPingModel.hpp"
+#include "QvPingModel.hpp"
 
 namespace Qv2ray
 {
     namespace Utils
     {
-        PingModel::PingModel(QObject *parent) :
+        QvPingModel::QvPingModel(QObject *parent) :
             QObject(parent),
             running(false)
         {
@@ -15,11 +15,11 @@ namespace Qv2ray
             connect(pingworker, SIGNAL(finished(int)), this, SLOT(readResult()));
         }
 
-        PingModel::~PingModel()
+        QvPingModel::~QvPingModel()
         {
         }
 
-        void PingModel::verifyStatus()
+        void QvPingModel::verifyStatus()
         {
             if (pingworker->isReadable()) {
                 qDebug() << "read on ...";
@@ -33,14 +33,14 @@ namespace Qv2ray
             }
         }
 
-        void PingModel::readResult()
+        void QvPingModel::readResult()
         {
             qDebug() << "Acabou!!!";
             running = false;
             qDebug() << "LENDO: " << pingworker->readLine();
         }
 
-        void PingModel::start_command()
+        void QvPingModel::start_command()
         {
             if (pingworker) {
                 QString command = "ping";
@@ -53,12 +53,12 @@ namespace Qv2ray
             }
         }
 
-        bool PingModel::is_running()
+        bool QvPingModel::is_running()
         {
             return running;
         }
 
-        bool PingModel::finished()
+        bool QvPingModel::finished()
         {
             return pingworker->atEnd();
         }

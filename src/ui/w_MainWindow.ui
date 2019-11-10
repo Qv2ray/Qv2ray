@@ -388,16 +388,9 @@
           </widget>
          </item>
          <item>
-          <widget class="QToolButton" name="shareQRButton">
+          <widget class="QToolButton" name="shareBtn">
            <property name="text">
-            <string>QR Code</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QToolButton" name="shareVMessButton">
-           <property name="text">
-            <string>VMess</string>
+            <string>Share</string>
            </property>
           </widget>
          </item>
