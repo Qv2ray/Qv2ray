@@ -1,6 +1,7 @@
 ﻿#ifndef QV2RAYBASE_H
 #define QV2RAYBASE_H
 #include <QtCore>
+#include <QMap>
 #include "QvTinyLog.hpp"
 #include "QvCoreConfigObjects.hpp"
 #include "QvNetSpeedPlugin.hpp"

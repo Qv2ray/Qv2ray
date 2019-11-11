@@ -400,7 +400,8 @@ void MainWindow::ShowAndSetConnection(QString guiConnectionName, bool SetConnect
     if (guiConnectionName.isEmpty()) return;
 
     // --------- BRGIN Show Connection
-    auto outBoundRoot = (connections[guiConnectionName])["outbounds"].toArray().first().toObject();
+    auto root = connections[guiConnectionName];
+    auto outBoundRoot = root["outbounds"].toArray().first().toObject();
     //
     auto outboundType = outBoundRoot["protocol"].toString();
     _OutBoundTypeLabel->setText(outboundType);
@@ -425,7 +426,7 @@ void MainWindow::ShowAndSetConnection(QString guiConnectionName, bool SetConnect
         _portLabel->setText(QSTRING(to_string(Server.port)));
     }
 
-    routeCountLabel->setText(QString::number((connections[guiConnectionName])["routing"].toArray().count()));
+    routeCountLabel->setText(QString::number(root["routing"].toObject()["rules"].toArray().count()));
 
     // --------- END Show Connection
     //
@@ -683,8 +684,25 @@ void MainWindow::on_pingTestBtn_clicked()
 void MainWindow::on_shareBtn_clicked()
 {
     // Share QR
-    ConfigExporter v("FUTURE VMESS:// GOES HERE!", this);
-    v.OpenExport();
+    if (connectionListWidget->currentRow() < 0) {
+        return;
+    }
+
+    auto alias = connectionListWidget->currentItem()->text();
+    auto root = connections[alias];
+    auto outBoundRoot = root["outbounds"].toArray().first().toObject();
+    //
+    auto outboundType = outBoundRoot["protocol"].toString();
+
+    if (outboundType == "vmess") {
+        auto vmessServer = StructFromJsonString<VMessServerObject>(JsonToString(outBoundRoot["settings"].toObject()["vnext"].toArray().first().toObject()));
+        auto transport = StructFromJsonString<StreamSettingsObject>(JsonToString(outBoundRoot["streamSettings"].toObject()));
+        auto vmess = ConvertConfigToVMessString(transport, vmessServer, alias);
+        ConfigExporter v(vmess, this);
+        v.OpenExport();
+    } else {
+        QvMessageBox(this, tr("Share Connection"), tr("There're no support of sharing configs other than vmess"));
+    }
 }
 
 void MainWindow::on_action_RCM_ShareQR_triggered()

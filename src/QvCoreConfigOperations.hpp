@@ -34,6 +34,7 @@ namespace Qv2ray
             // VMess URI Protocol
             QJsonObject ConvertConfigFromVMessString(QString vmess, QString *alias, QString *errMessage);
             QJsonObject ConvertConfigFromFile(QString sourceFilePath, bool overrideInbounds);
+            QString ConvertConfigToVMessString(const StreamSettingsObject &transfer, const VMessServerObject &serverConfig, const QString &alias);
         }
 
         //

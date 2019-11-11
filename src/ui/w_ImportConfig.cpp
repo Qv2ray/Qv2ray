@@ -12,6 +12,7 @@
 #include "QvCoreConfigOperations.hpp"
 
 #include "w_OutboundEditor.hpp"
+#include "w_JsonEditor.hpp"
 #include "w_ImportConfig.hpp"
 
 
@@ -19,7 +20,7 @@ ImportConfigWindow::ImportConfigWindow(QWidget *parent)
     : QDialog(parent)
 {
     setupUi(this);
-    nameTxt->setText(QDateTime::currentDateTime().toString("yyyy-MM-dd_hh-MM-ss") + "_.imported");
+    nameTxt->setText(QDateTime::currentDateTime().toString("yyyy-MM-dd_hh-mm-ss") + "_imported");
 }
 
 void ImportConfigWindow::on_importSourceCombo_currentIndexChanged(int index)
@@ -35,28 +36,29 @@ void ImportConfigWindow::on_selectFileBtn_clicked()
 
 void ImportConfigWindow::on_qrFromScreenBtn_clicked()
 {
-    LOG(MODULE_UI, "We currently only support the primary screen.")
     QThread::msleep(static_cast<ulong>(doubleSpinBox->value() * 1000));
-    QScreen *screen = qApp->primaryScreen();
+    bool hasVmessDetected = false;
 
-    if (const QWindow *window = windowHandle()) {
-        screen = window->screen();
+    for (auto screen : qApp->screens()) {
+        if (!screen) {
+            LOG(MODULE_UI, "Cannot even find a screen. RARE")
+            QvMessageBox(this, tr("Screenshot failed"), tr("Cannot find a valid screen, it's rare."));
+            return;
+        }
+
+        auto pix = screen->grabWindow(0);
+        auto str = QZXing().decodeImage(pix.toImage());
+
+        if (str.isEmpty()) {
+            continue;
+        } else {
+            vmessConnectionStringTxt->appendPlainText(str.trimmed() + NEWLINE);
+            hasVmessDetected = true;
+        }
     }
 
-    if (!screen) {
-        LOG(MODULE_UI, "Cannot even find a screen.")
-        QvMessageBox(this, tr("Screenshot failed"), tr("Cannot find a valid screen, it's rare."));
-        return;
-    }
-
-    auto pix = screen->grabWindow(0);
-    auto str = QZXing().decodeImage(pix.toImage());
-
-    if (str.isEmpty()) {
-        QvMessageBox(this, tr("QRCode scanning failed"), tr("Cannot find any QRCode from the primary screen."));
-        return;
-    } else {
-        vmessConnectionStringTxt->appendPlainText(str.trimmed() + NEWLINE);
+    if (!hasVmessDetected) {
+        QvMessageBox(this, tr("QRCode scanning failed"), tr("Cannot find any QRCode from any screens."));
     }
 }
 
@@ -154,6 +156,20 @@ void ImportConfigWindow::on_selectImageBtn_clicked()
 {
     QString dir = QFileDialog::getOpenFileName(this, tr("Select an image to import"));
     imageFileEdit->setText(dir);
+    //
+    QFile file(dir);
+    file.open(QFile::OpenModeFlag::ReadOnly);
+    auto buf = file.readAll();
+    file.close();
+    //
+    auto str = QZXing().decodeImage(QImage::fromData(buf));
+
+    if (str.isEmpty()) {
+        QvMessageBox(this, tr("QRCode scanning failed"), tr("Cannot find any QRCode from the image."));
+        return;
+    } else {
+        vmessConnectionStringTxt->appendPlainText(str.trimmed() + NEWLINE);
+    }
 }
 
 void ImportConfigWindow::on_errorsList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
@@ -179,4 +195,43 @@ void ImportConfigWindow::on_errorsList_currentItemChanged(QListWidgetItem *curre
     c.setPosition(startPos);
     c.setPosition(endPos, QTextCursor::KeepAnchor);
     vmessConnectionStringTxt->setTextCursor(c);
+}
+
+void ImportConfigWindow::on_editFileBtn_clicked()
+{
+    QFile file(fileLineTxt->text());
+
+    if (!file.exists()) {
+        QvMessageBox(this, tr("Edit file as JSON"), tr("Provided file not found: ")  +  fileLineTxt->text());
+        return;
+    }
+
+    auto jsonString = StringFromFile(&file);
+    auto jsonCheckingError = VerifyJsonString(&jsonString);
+
+    if (!jsonCheckingError.isEmpty()) {
+        LOG(MODULE_FILE, "Currupted JSON file detected")
+
+        if (QvMessageBoxAsk(this, tr("Edit file as JSON"), tr("The file you selected has json syntax error. Continue editing may make you lose data. Would you like to continue?") +
+                            NEWLINE + jsonCheckingError) != QMessageBox::Yes) {
+            return;
+        } else {
+            LOG(MODULE_FILE, "Continue editing curruped json file, data loss is expected.")
+        }
+    }
+
+    auto json  = JsonFromString(jsonString);
+    auto editor = new JsonEditor(json, this);
+    json = editor->OpenEditor();
+
+    if (editor->result() == QDialog::Accepted) {
+        auto str = JsonToString(json);
+        bool result = StringToFile(&str, &file);
+
+        if (!result) {
+            QvMessageBox(this, tr("Edit file as JSON"), tr("Failed to save file, please check if you have the required permissions"));
+        }
+    } else {
+        LOG(MODULE_FILE, "Canceled saving a file.")
+    }
 }

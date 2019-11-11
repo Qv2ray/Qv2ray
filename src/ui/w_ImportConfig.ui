@@ -81,7 +81,7 @@
       <item>
        <widget class="QStackedWidget" name="stackedWidget">
         <property name="currentIndex">
-         <number>1</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="filePage">
          <layout class="QFormLayout" name="formLayout">
@@ -132,7 +132,7 @@
            </widget>
           </item>
           <item row="2" column="1">
-           <widget class="QPushButton" name="pushButton_3">
+           <widget class="QPushButton" name="editFileBtn">
             <property name="text">
              <string>Open in JSON Editor</string>
             </property>
@@ -189,29 +189,6 @@
             <item row="1" column="1">
              <layout class="QHBoxLayout" name="horizontalLayout_6">
               <item>
-               <widget class="QLabel" name="label_6">
-                <property name="text">
-                 <string>Delay in secs</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QDoubleSpinBox" name="doubleSpinBox">
-                <property name="maximum">
-                 <double>5.000000000000000</double>
-                </property>
-                <property name="singleStep">
-                 <double>0.250000000000000</double>
-                </property>
-                <property name="stepType">
-                 <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
-                </property>
-                <property name="value">
-                 <double>1.000000000000000</double>
-                </property>
-               </widget>
-              </item>
-              <item>
                <widget class="QPushButton" name="qrFromScreenBtn">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -227,6 +204,36 @@
                 </property>
                 <property name="text">
                  <string>Go</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_6">
+                <property name="text">
+                 <string>After</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="doubleSpinBox">
+                <property name="maximum">
+                 <double>5.000000000000000</double>
+                </property>
+                <property name="singleStep">
+                 <double>0.500000000000000</double>
+                </property>
+                <property name="stepType">
+                 <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
+                </property>
+                <property name="value">
+                 <double>1.000000000000000</double>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_9">
+                <property name="text">
+                 <string>second(s).</string>
                 </property>
                </widget>
               </item>
