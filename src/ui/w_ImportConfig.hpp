@@ -10,8 +10,7 @@ class ImportConfigWindow : public QDialog, private Ui::ImportConfigWindow
 
     public:
         explicit ImportConfigWindow(QWidget *parent = nullptr);
-        ~ImportConfigWindow();
-        void OpenImporter();
+        ~ImportConfigWindow() { }
     signals:
         void s_reload_config(bool need_restart);
     private slots:
@@ -19,9 +18,13 @@ class ImportConfigWindow : public QDialog, private Ui::ImportConfigWindow
 
         void on_selectFileBtn_clicked();
 
-        void on_buttonBox_accepted();
-
         void on_qrFromScreenBtn_clicked();
+        void on_beginImportBtn_clicked();
+        void on_selectImageBtn_clicked();
+        void on_errorsList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
+
+    private:
+        QMap<QString, QString> vmessErrors;
 };
 
 #endif // IMPORTCONF_H

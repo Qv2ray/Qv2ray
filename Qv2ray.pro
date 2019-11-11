@@ -25,11 +25,11 @@ write_file("Build.Counter", _BUILD_NUMBER)
 DEFINES += QT_DEPRECATED_WARNINGS QV2RAY_VERSION_STRING=\"\\\"v$${VERSION}\\\"\"
 
 SOURCES += \
+        src/QvCoreConfigOperations.cpp \
         src/main.cpp \
         src/QvConfigUpgrade.cpp \
         src/QvCoreConfigOperations_Convertion.cpp \
         src/QvCoreConfigOperations_Generation.cpp \
-        src/QvCoreConfigOperations_Verification.cpp \
         src/QvCoreInteractions.cpp \
         src/QvUtils.cpp \
         src/ui/NetSpeedBar/QvNetSpeedBar.cpp \
@@ -136,7 +136,8 @@ for(var, $$list($$files("translations/*.ts", true))) {
     LOCALE_FILENAME = $$basename(var)
     message("  --> Found:" $$LOCALE_FILENAME)
     !equals(LOCALE_FILENAME, "en-US.ts") {
-        # ONLY USED IN LRELEASE CONTEXTen-US is not EXTRA...
+        # ONLY USED IN LRELEASE CONTEXT
+        # en-US is not EXTRA...
         EXTRA_TRANSLATIONS += translations/$$LOCALE_FILENAME
     }
 }
@@ -144,7 +145,7 @@ message("Qv2ray will build with" $${replace(EXTRA_TRANSLATIONS, "translations/",
 TRANSLATIONS += translations/en-US.ts
 
 message(" ")
-QMAKE_CXXFLAGS += "-Wno-missing-field-initializers" "-Wno-unused-parameter" "-Wno-unused-variable"
+QMAKE_CXXFLAGS += -Wno-missing-field-initializers -Wno-unused-parameter -Wno-unused-variable
 
 win32 {
     message("Configuring for win32 environment")

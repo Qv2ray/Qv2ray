@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Export Config</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout" stretch="10,0,3,0">
    <item>
@@ -34,9 +34,6 @@
      <property name="textInteractionFlags">
       <set>Qt::NoTextInteraction</set>
      </property>
-     <property name="buddy">
-      <cstring>Buddy</cstring>
-     </property>
     </widget>
    </item>
    <item>
@@ -47,7 +44,11 @@
     </widget>
    </item>
    <item>
-    <widget class="QPlainTextEdit" name="messageTxt"/>
+    <widget class="QPlainTextEdit" name="messageTxt">
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+    </widget>
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">

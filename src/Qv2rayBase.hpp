@@ -38,13 +38,13 @@
 
 // GUI TOOLS
 #define RED(obj)                               \
-    auto _temp = obj->palette();           \
+    auto _temp = obj->palette();               \
     _temp.setColor(QPalette::Text, Qt::red);   \
     obj->setPalette(_temp);
 
 #define BLACK(obj)                             \
-    auto _temp = obj->palette();           \
-    _temp.setColor(QPalette::Text, Qt::blue); \
+    auto _temp = obj->palette();               \
+    _temp.setColor(QPalette::Text, Qt::blue);  \
     obj->setPalette(_temp);
 
 #define QSTRING(std_string) QString::fromStdString(std_string)

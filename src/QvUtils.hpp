@@ -60,7 +60,20 @@ namespace Qv2ray
             X::loadjson(str.toStdString(), v, false);
             return v;
         }
-
+        //
+        // Misc
+        template<typename T>
+        QJsonObject GetRootObject(T t)
+        {
+            auto json = StructToJsonString(t);
+            QJsonDocument doc = QJsonDocument::fromJson(QByteArray::fromStdString(json.toStdString()));
+            return doc.object();
+        }
+        template QJsonObject GetRootObject<RuleObject>(RuleObject t);
+        template QJsonObject GetRootObject<StreamSettingsObject>(StreamSettingsObject t);
+        template QJsonObject GetRootObject<VMessServerObject>(VMessServerObject t);
+        //
+        //
         template <typename T>
         void RemoveItem(std::vector<T> &vec, size_t pos)
         {
@@ -70,6 +83,7 @@ namespace Qv2ray
         }
 
         QString FormatBytes(long long bytes);
+        void DeducePossibleFileName(const QString &baseDir, QString *fileName, const QString &extension);
     }
 }
 

@@ -572,7 +572,7 @@ void MainWindow::on_importConfigButton_clicked()
 {
     // TODO
     ImportConfigWindow *w = new ImportConfigWindow(this);
-    w->OpenImporter();
+    w->exec();
     OnConfigListChanged(false);
 }
 
