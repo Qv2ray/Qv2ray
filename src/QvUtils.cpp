@@ -104,18 +104,18 @@ namespace Qv2ray
             return JsonFromString(json);
         }
 
-        QString JsonToString(QJsonObject json)
+        QString JsonToString(QJsonObject json, QJsonDocument::JsonFormat format)
         {
             QJsonDocument doc;
             doc.setObject(json);
-            return doc.toJson();
+            return doc.toJson(format);
         }
 
-        QString JsonToString(QJsonArray array)
+        QString JsonToString(QJsonArray array, QJsonDocument::JsonFormat format)
         {
             QJsonDocument doc;
             doc.setArray(array);
-            return doc.toJson();
+            return doc.toJson(format);
         }
 
         QString VerifyJsonString(const QString *source)

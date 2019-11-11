@@ -37,8 +37,8 @@ namespace Qv2ray
         bool StringToFile(const QString *text, QFile *target);
         //
         QJsonObject JsonFromString(QString string);
-        QString JsonToString(QJsonObject json);
-        QString JsonToString(QJsonArray array);
+        QString JsonToString(QJsonObject json, QJsonDocument::JsonFormat format = QJsonDocument::JsonFormat::Indented);
+        QString JsonToString(QJsonArray array, QJsonDocument::JsonFormat format = QJsonDocument::JsonFormat::Indented);
         //
         QString VerifyJsonString(const QString *source);
         //

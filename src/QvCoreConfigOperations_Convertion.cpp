@@ -6,6 +6,45 @@ namespace Qv2ray
     {
         namespace Conversion
         {
+            // From https://github.com/2dust/v2rayN/wiki/%E5%88%86%E4%BA%AB%E9%93%BE%E6%8E%A5%E6%A0%BC%E5%BC%8F%E8%AF%B4%E6%98%8E(ver-2)
+            QString ConvertConfigToVMessString(const StreamSettingsObject &transfer, const VMessServerObject &serverConfig, const QString &alias)
+            {
+                QJsonObject vmessUriRoot;
+                // Constant
+                vmessUriRoot["v"] = 2;
+                vmessUriRoot["ps"] = alias;
+                vmessUriRoot["add"] = QSTRING(serverConfig.address);
+                vmessUriRoot["port"] = serverConfig.port;
+                vmessUriRoot["id"] = QSTRING(serverConfig.users.front().id);
+                vmessUriRoot["aid"] = serverConfig.users.front().alterId;
+                vmessUriRoot["net"] = QSTRING(transfer.network);
+                vmessUriRoot["tls"] = QSTRING(transfer.security);
+
+                if (transfer.network == "tcp") {
+                    vmessUriRoot["type"] = QSTRING(transfer.tcpSettings.header.type);
+                } else if (transfer.network == "kcp") {
+                    vmessUriRoot["type"] = QSTRING(transfer.kcpSettings.header.type);
+                } else if (transfer.network == "quic") {
+                    vmessUriRoot["type"] = QSTRING(transfer.quicSettings.header.type);
+                    vmessUriRoot["host"] = QSTRING(transfer.quicSettings.security);
+                    vmessUriRoot["path"] = QSTRING(transfer.quicSettings.key);
+                } else if (transfer.network == "ws") {
+                    auto x = QMap<string, string>(transfer.wsSettings.headers);
+                    auto host = x.contains("host");
+                    auto CapHost = x.contains("Host");
+                    auto realHost = host ? x["host"] : (CapHost ? x["Host"] : "");
+                    //
+                    vmessUriRoot["host"] = QSTRING(realHost);
+                    vmessUriRoot["path"] = QSTRING(transfer.wsSettings.path);
+                } else if (transfer.network == "h2" || transfer.network == "http") {
+                    vmessUriRoot["host"] = Stringify(transfer.httpSettings.host, ",");
+                    vmessUriRoot["path"] = QSTRING(transfer.httpSettings.path);
+                }
+
+                //
+                auto vmessPart = Base64Encode(JsonToString(vmessUriRoot, QJsonDocument::JsonFormat::Compact));
+                return "vmess://" + vmessPart;
+            }
             QString DecodeSubscriptionString(QByteArray arr)
             {
                 // Some subscription providers may use plain vmess:// saperated by lines
@@ -150,7 +189,7 @@ namespace Qv2ray
 
                 if (net == "tcp") {
                     streaming.tcpSettings.header.type = type;
-                } else if (net == "http") {
+                } else if (net == "http" || net == "h2") {
                     // Fill hosts for HTTP
                     for (auto _host : QString::fromStdString(host).split(',')) {
                         streaming.httpSettings.host.push_back(_host.toStdString());

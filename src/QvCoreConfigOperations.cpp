@@ -4,6 +4,7 @@ namespace Qv2ray
 {
     namespace ConfigOperations
     {
+
         QMap<QString, QJsonObject> GetConnections(list<string> connectionNames)
         {
             QMap<QString, QJsonObject> list;
@@ -16,7 +17,6 @@ namespace Qv2ray
 
             return list;
         }
-
         int StartPreparation(QJsonObject fullConfig)
         {
             // Writes the final configuration to the disk.
@@ -24,7 +24,6 @@ namespace Qv2ray
             StringToFile(&json, new QFile(QV2RAY_GENERATED_FILE_PATH));
             return 0;
         }
-
         int FindIndexByTag(QJsonArray list, QString *tag)
         {
             for (int i = 0; i < list.count(); i++) {

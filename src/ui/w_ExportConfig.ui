@@ -16,23 +16,20 @@
   <layout class="QVBoxLayout" name="verticalLayout" stretch="10,0,3,0">
    <item>
     <widget class="QLabel" name="imageLabel">
+     <property name="frameShape">
+      <enum>QFrame::Box</enum>
+     </property>
      <property name="text">
-      <string>Image</string>
+      <string/>
+     </property>
+     <property name="pixmap">
+      <pixmap resource="../../resources.qrc">:/icons/qv2ray.ico</pixmap>
+     </property>
+     <property name="scaledContents">
+      <bool>false</bool>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
-     </property>
-     <property name="wordWrap">
-      <bool>true</bool>
-     </property>
-     <property name="margin">
-      <number>0</number>
-     </property>
-     <property name="indent">
-      <number>-1</number>
-     </property>
-     <property name="textInteractionFlags">
-      <set>Qt::NoTextInteraction</set>
      </property>
     </widget>
    </item>
@@ -83,6 +80,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../../resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

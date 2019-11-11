@@ -18,7 +18,7 @@ ConfigExporter::ConfigExporter(const QString &data, QWidget *parent): ConfigExpo
 {
     QZXingEncoderConfig conf;
     conf.border = true;
-    conf.errorCorrectionLevel = QZXing::EncodeErrorCorrectionLevel_Q;
+    conf.imageSize = QSize(400, 400);
     auto img = qzxing.encodeData(data, conf);
     image = img.copy();
     message = data;
@@ -38,6 +38,10 @@ void ConfigExporter::changeEvent(QEvent *e)
     switch (e->type()) {
         case QEvent::LanguageChange:
             retranslateUi(this);
+            break;
+
+        case QEvent::Resize:
+            imageLabel->setPixmap(QPixmap::fromImage(image));
             break;
 
         default:

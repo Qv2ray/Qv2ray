@@ -23,6 +23,8 @@ class ImportConfigWindow : public QDialog, private Ui::ImportConfigWindow
         void on_selectImageBtn_clicked();
         void on_errorsList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
 
+        void on_editFileBtn_clicked();
+
     private:
         QMap<QString, QString> vmessErrors;
 };
