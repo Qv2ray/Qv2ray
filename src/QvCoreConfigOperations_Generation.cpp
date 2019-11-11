@@ -231,18 +231,21 @@ namespace Qv2ray
 
                 // Note: The part below always makes the whole functionality in trouble......
                 // BE EXTREME CAREFUL when changing these code below...
-
                 // See: https://github.com/lhy0403/Qv2ray/issues/129
                 // routeCountLabel in Mainwindow makes here failed to ENOUGH-ly check the routing tables
-                if (!root.contains("routing") || root["routing"].toArray().count() == 0) {
-                    // For SOME configs, there is no "route" entries, so, we add some...
+                bool cRouting = root.contains("routing");
+                bool cRule = cRouting && root["routing"].toObject().contains("rules");
+                bool cRules = cRule && root["routing"].toObject()["rules"].toArray().count() > 0;
+
+                if (!cRules) {
+                    LOG(MODULE_CONNECTION, "Current connection has NO ROUTING section, we insert default values.")
+
                     if (root["outbounds"].toArray().count() != 1) {
                         // There are no ROUTING but 2 or more outbounds.... This is rare, but possible.
                         LOG(MODULE_CONNECTION, "WARN: This message usually indicates the config file has some logic errors:")
                         LOG(MODULE_CONNECTION, "WARN: --> The config file has NO routing section, however more than 1 outbounds are detected.")
                     }
 
-                    LOG(MODULE_CONNECTION, "Current connection has NO ROUTING section, we insert default values.")
                     auto routeObject = GenerateRoutes(gConf.enableProxy, gConf.bypassCN);
                     root.insert("routing", routeObject);
                     QJsonArray outbounds = root["outbounds"].toArray();
