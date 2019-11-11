@@ -21,7 +21,7 @@ namespace Qv2ray
             QString randomString;
 
             for (int i = 0; i < len; ++i) {
-                int index = static_cast<int>(QRandomGenerator().generate() % static_cast<uint>(possibleCharacters.length()));
+                int index = static_cast<int>(QRandomGenerator::system()->generate() % static_cast<uint>(possibleCharacters.length()));
                 QChar nextChar = possibleCharacters.at(index);
                 randomString.append(nextChar);
             }
@@ -140,15 +140,13 @@ namespace Qv2ray
 
         QString Base64Encode(QString string)
         {
-            QByteArray ba;
-            ba.append(string);
+            QByteArray ba = string.toUtf8();
             return ba.toBase64();
         }
 
         QString Base64Decode(QString string)
         {
-            QByteArray ba;
-            ba.append(string);
+            QByteArray ba = string.toUtf8();
             return QString(QByteArray::fromBase64(ba));
         }
 
@@ -219,5 +217,28 @@ namespace Qv2ray
             translator->load(lang + ".qm", ":/translations/");
             return translator;
         }
+
+        /// This returns a file name without extensions.
+        void DeducePossibleFileName(const QString &baseDir, QString *fileName, const QString &extension)
+        {
+            int i = 1;
+
+            if (!QDir(baseDir).exists()) {
+                QDir(baseDir).mkpath(baseDir);
+                LOG(MODULE_FILE, "Making path: " + baseDir.toStdString())
+            }
+
+            while (true) {
+                if (!QFile(baseDir + "/" + fileName + "_" + QString::number(i) + extension).exists()) {
+                    *fileName = *fileName + "_" + QString::number(i);
+                    return;
+                } else {
+                    //LOG(MODULE_FILE, "File with name: " << (fileName + "_" + QString::number(i) + extension).toStdString() << " already exists")
+                }
+
+                i++;
+            }
+        }
+
     }
 }

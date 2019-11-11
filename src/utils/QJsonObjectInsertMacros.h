@@ -12,26 +12,26 @@
 #define FOR_EACH_1(what, x, ...) what(x)
 
 #define FOR_EACH_2(what, x, ...)\
-  what(x);\
-  EXPAND(FOR_EACH_1(what,  __VA_ARGS__))
+    what(x);\
+    EXPAND(FOR_EACH_1(what,  __VA_ARGS__))
 #define FOR_EACH_3(what, x, ...)\
-  what(x);\
-  EXPAND(FOR_EACH_2(what, __VA_ARGS__))
+    what(x);\
+    EXPAND(FOR_EACH_2(what, __VA_ARGS__))
 #define FOR_EACH_4(what, x, ...)\
-  what(x);\
-  EXPAND(FOR_EACH_3(what,  __VA_ARGS__))
+    what(x);\
+    EXPAND(FOR_EACH_3(what,  __VA_ARGS__))
 #define FOR_EACH_5(what, x, ...)\
-  what(x);\
-  EXPAND(FOR_EACH_4(what,  __VA_ARGS__))
+    what(x);\
+    EXPAND(FOR_EACH_4(what,  __VA_ARGS__))
 #define FOR_EACH_6(what, x, ...)\
-  what(x);\
-  EXPAND(FOR_EACH_5(what,  __VA_ARGS__))
+    what(x);\
+    EXPAND(FOR_EACH_5(what,  __VA_ARGS__))
 #define FOR_EACH_7(what, x, ...)\
-  what(x);\
-  EXPAND(FOR_EACH_6(what,  __VA_ARGS__))
+    what(x);\
+    EXPAND(FOR_EACH_6(what,  __VA_ARGS__))
 #define FOR_EACH_8(what, x, ...)\
-  what(x);\
-  EXPAND(FOR_EACH_7(what,  __VA_ARGS__))
+    what(x);\
+    EXPAND(FOR_EACH_7(what,  __VA_ARGS__))
 
 #define FOR_EACH_NARG(...) FOR_EACH_NARG_(__VA_ARGS__, FOR_EACH_RSEQ_N())
 #define FOR_EACH_NARG_(...) EXPAND(FOR_EACH_ARG_N(__VA_ARGS__))
@@ -45,5 +45,8 @@
 
 // Add key value pair into JSON named 'root'
 #define JADD(...) FOR_EACH(JADDEx, __VA_ARGS__)
+
+#define DROOT QJsonObject root;
+#define RROOT return root;
 
 #endif

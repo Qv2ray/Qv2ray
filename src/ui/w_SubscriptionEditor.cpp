@@ -60,13 +60,15 @@ void SubscribeEditor::on_updateButton_clicked()
 
 void SubscribeEditor::ProcessSubscriptionEntry(QByteArray result, QString subsciptionName)
 {
-    auto content = GetVmessFromBase64OrPlain(result).replace("\r", "");
+    auto content = DecodeSubscriptionString(result).trimmed();
 
     if (!content.isEmpty()) {
-        auto vmessList = content.split("\n");
+        auto vmessList = SplitLines(content);
 
         for (auto vmess : vmessList) {
-            auto config = ConvertConfigFromVMessString(vmess);
+            QString errMessage;
+            QString _alias;
+            auto config = ConvertConfigFromVMessString(vmess.trimmed(), &_alias, &errMessage);
 
             if (subscriptions.contains(subsciptionName)) {
             }
