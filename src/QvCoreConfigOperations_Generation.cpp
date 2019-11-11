@@ -232,9 +232,10 @@ namespace Qv2ray
                 // Note: The part below always makes the whole functionality in trouble......
                 // BE EXTREME CAREFUL when changing these code below...
 
-                // For SOME configs, there is no "route" entries, so, we add some...
-
-                if (!root.contains("routing")) {
+                // See: https://github.com/lhy0403/Qv2ray/issues/129
+                // routeCountLabel in Mainwindow makes here failed to ENOUGH-ly check the routing tables
+                if (!root.contains("routing") || root["routing"].toArray().count() == 0) {
+                    // For SOME configs, there is no "route" entries, so, we add some...
                     if (root["outbounds"].toArray().count() != 1) {
                         // There are no ROUTING but 2 or more outbounds.... This is rare, but possible.
                         LOG(MODULE_CONNECTION, "WARN: This message usually indicates the config file has some logic errors:")
