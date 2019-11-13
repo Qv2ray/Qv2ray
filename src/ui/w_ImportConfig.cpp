@@ -11,6 +11,7 @@
 #include "QvCoreInteractions.hpp"
 #include "QvCoreConfigOperations.hpp"
 
+#include "w_ScreenShot_Core.hpp"
 #include "w_OutboundEditor.hpp"
 #include "w_JsonEditor.hpp"
 #include "w_ImportConfig.hpp"
@@ -36,30 +37,36 @@ void ImportConfigWindow::on_selectFileBtn_clicked()
 
 void ImportConfigWindow::on_qrFromScreenBtn_clicked()
 {
+    // QRubberBand
     QThread::msleep(static_cast<ulong>(doubleSpinBox->value() * 1000));
     bool hasVmessDetected = false;
+    //for (auto screen : qApp->screens()) {
+    //    if (!screen) {
+    //        LOG(MODULE_UI, "Cannot even find a screen. RARE")
+    //        QvMessageBox(this, tr("Screenshot failed"), tr("Cannot find a valid screen, it's rare."));
+    //        return;
+    //    }
+    //auto pix = screen->grabWindow(0);
+    //
+    ScreenShotWindow w;
+    auto pix = w.DoScreenShot();
 
-    for (auto screen : qApp->screens()) {
-        if (!screen) {
-            LOG(MODULE_UI, "Cannot even find a screen. RARE")
-            QvMessageBox(this, tr("Screenshot failed"), tr("Cannot find a valid screen, it's rare."));
-            return;
-        }
-
-        auto pix = screen->grabWindow(0);
-        auto str = QZXing().decodeImage(pix.toImage());
+    if (w.result() == QDialog::Accepted) {
+        auto str = QZXing().decodeImage(pix);
 
         if (str.isEmpty()) {
-            continue;
+            LOG(MODULE_UI, "Cannot decode QR Code from an image, size: h=" + to_string(pix.width()) + ", v=" + to_string(pix.height()))
+            //      continue;
         } else {
             vmessConnectionStringTxt->appendPlainText(str.trimmed() + NEWLINE);
-            hasVmessDetected = true;
+            //hasVmessDetected = true;
         }
     }
 
-    if (!hasVmessDetected) {
-        QvMessageBox(this, tr("QRCode scanning failed"), tr("Cannot find any QRCode from any screens."));
-    }
+    //}
+    //if (!hasVmessDetected) {
+    //QvMessageBox(this, tr("QRCode scanning failed"), tr("Cannot find any QRCode from any screens."));
+    //}
 }
 
 void ImportConfigWindow::on_beginImportBtn_clicked()
@@ -106,6 +113,7 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
             LOG(MODULE_IMPORT, to_string(vmessList.count()) + " vmess connection found.")
 
             while (!vmessList.isEmpty()) {
+                aliasPrefix = nameTxt->text();
                 auto vmess = vmessList.takeFirst();
                 QString errMessage;
                 config = ConvertConfigFromVMessString(vmess, &aliasPrefix, &errMessage);
@@ -151,7 +159,6 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
     emit s_reload_config(false);
     close();
 }
-
 void ImportConfigWindow::on_selectImageBtn_clicked()
 {
     QString dir = QFileDialog::getOpenFileName(this, tr("Select an image to import"));
@@ -171,7 +178,6 @@ void ImportConfigWindow::on_selectImageBtn_clicked()
         vmessConnectionStringTxt->appendPlainText(str.trimmed() + NEWLINE);
     }
 }
-
 void ImportConfigWindow::on_errorsList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
 {
     Q_UNUSED(previous)
@@ -196,7 +202,6 @@ void ImportConfigWindow::on_errorsList_currentItemChanged(QListWidgetItem *curre
     c.setPosition(endPos, QTextCursor::KeepAnchor);
     vmessConnectionStringTxt->setTextCursor(c);
 }
-
 void ImportConfigWindow::on_editFileBtn_clicked()
 {
     QFile file(fileLineTxt->text());

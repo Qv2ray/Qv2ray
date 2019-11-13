@@ -47,6 +47,7 @@ SOURCES += \
         src/ui/w_MainWindow.cpp \
         src/ui/w_ImportConfig.cpp \
         src/ui/w_PrefrencesWindow.cpp \
+        src/ui/w_ScreenShot_Core.cpp \
         libs/gen/v2ray_api_commands.pb.cc \
         libs/gen/v2ray_api_commands.grpc.pb.cc
 
@@ -72,6 +73,7 @@ HEADERS += \
         src/ui/w_PrefrencesWindow.hpp \
         src/ui/w_RoutesEditor.hpp \
         src/ui/w_SubscriptionEditor.hpp \
+        src/ui/w_ScreenShot_Core.hpp \
         src/utils/QJsonModel.hpp \
         src/utils/QJsonObjectInsertMacros.h \
         src/utils/QObjectMessageProxy.hpp \
@@ -92,7 +94,8 @@ FORMS += \
         src/ui/w_OutboundEditor.ui \
         src/ui/w_PrefrencesWindow.ui \
         src/ui/w_RoutesEditor.ui \
-        src/ui/w_SubscriptionEditor.ui
+        src/ui/w_SubscriptionEditor.ui \
+        src/ui/w_ScreenShot_Core.ui
 
 RESOURCES += \
         resources.qrc
