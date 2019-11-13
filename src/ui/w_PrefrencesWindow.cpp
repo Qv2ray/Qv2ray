@@ -33,6 +33,10 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     //
     themeCombo->setCurrentText(QSTRING(CurrentConfig.UISettings.theme));
     darkChartThemeCB->setChecked(CurrentConfig.UISettings.useDarkTheme);
+#if QV2RAY_USE_BUILTIN_DARKTHEME
+    // If we use built in theme, it should always be fusion.
+    themeCombo->setEnabled(!CurrentConfig.UISettings.useDarkTheme);
+#endif
     languageComboBox->setCurrentText(QSTRING(CurrentConfig.UISettings.language));
     logLevelComboBox->setCurrentIndex(CurrentConfig.logLevel);
     tProxyCheckBox->setChecked(CurrentConfig.tProxySupport);
@@ -712,4 +716,13 @@ void PrefrencesWindow::on_darkChartThemeCB_stateChanged(int arg1)
 {
     LOADINGCHECK
     CurrentConfig.UISettings.useDarkTheme = arg1 == Qt::Checked;
+#if QV2RAY_USE_BUILTIN_DARKTHEME
+    themeCombo->setEnabled(arg1 != Qt::Checked);
+
+    if (arg1 == Qt::Checked) {
+        themeCombo->setCurrentIndex(QStyleFactory::keys().indexOf("Fusion"));
+        CurrentConfig.UISettings.theme = "Fusion";
+    }
+
+#endif
 }

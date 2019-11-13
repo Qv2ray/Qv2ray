@@ -244,17 +244,13 @@ int main(int argc, char *argv[])
     font.setFamily("微软雅黑");
     _qApp.setFont(font);
 #endif
-    QStringList themes = QStyleFactory::keys();
-
-    if (themes.contains(QSTRING(confObject.UISettings.theme))) {
-        _qApp.setStyle(QSTRING(confObject.UISettings.theme));
-        LOG(MODULE_INIT " " MODULE_UI, "Setting Qv2ray UI themes.")
-    }
-
 #if QV2RAY_USE_BUILTIN_DARKTHEME
+    LOG(MODULE_UI, "Using built-in theme.")
 
     if (confObject.UISettings.useDarkTheme) {
+        LOG(MODULE_UI, " --> Using built-in dark theme.")
         // From https://forum.qt.io/topic/101391/windows-10-dark-theme/4
+        _qApp.setStyle("Fusion");
         QPalette darkPalette;
         QColor darkColor = QColor(45, 45, 45);
         QColor disabledColor = QColor(127, 127, 127);
@@ -278,6 +274,14 @@ int main(int argc, char *argv[])
         darkPalette.setColor(QPalette::Disabled, QPalette::HighlightedText, disabledColor);
         qApp->setPalette(darkPalette);
         qApp->setStyleSheet("QToolTip { color: #ffffff; background-color: #2a82da; border: 1px solid white; }");
+    }
+
+#else
+    QStringList themes = QStyleFactory::keys();
+
+    if (themes.contains(QSTRING(confObject.UISettings.theme))) {
+        _qApp.setStyle(QSTRING(confObject.UISettings.theme));
+        LOG(MODULE_INIT " " MODULE_UI, "Setting Qv2ray UI themes.")
     }
 
 #endif
