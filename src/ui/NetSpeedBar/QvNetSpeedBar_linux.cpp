@@ -1,4 +1,5 @@
-#ifdef __linux__
+#include <QtCore>
+#ifdef Q_OS_LINUX
 #include "QvNetSpeedPlugin.hpp"
 #include "QvUtils.hpp"
 #include <QLocalSocket>

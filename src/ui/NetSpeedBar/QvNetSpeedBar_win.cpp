@@ -1,3 +1,4 @@
+#include <QtCore>
 #ifdef Q_OS_WIN
 #include "QvNetSpeedPlugin.hpp"
 #include "QvUtils.hpp"
