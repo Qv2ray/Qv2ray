@@ -84,9 +84,9 @@ bool initialiseQv2ray()
     // If there's no existing config.
     if (!hasExistingConfig) {
         // Create new config at these dirs.
-#ifdef _WIN32
+#ifdef Q_OS_WIN
         configPath = QDir::currentPath() + "/config" QV2RAY_CONFIG_DIR_SUFFIX;
-#elif defined (__linux__)
+#elif defined (Q_OS_LINUX)
         configPath = QDir::homePath() + "/.config/qv2ray" QV2RAY_CONFIG_DIR_SUFFIX;
 #elif defined (__APPLE__)
         configPath = QDir::homePath() + "/.qv2ray" QV2RAY_CONFIG_DIR_SUFFIX;
@@ -237,8 +237,7 @@ int main(int argc, char *argv[])
         return -2;
     }
 
-    //
-#ifdef _WIN32
+#ifdef Q_OS_WIN
     // Set special font in Windows
     QFont font;
     font.setPointSize(9);
@@ -251,6 +250,37 @@ int main(int argc, char *argv[])
         _qApp.setStyle(QSTRING(confObject.UISettings.theme));
         LOG(MODULE_INIT " " MODULE_UI, "Setting Qv2ray UI themes.")
     }
+
+#if QV2RAY_USE_BUILTIN_DARKTHEME
+
+    if (confObject.UISettings.useDarkTheme) {
+        // From https://forum.qt.io/topic/101391/windows-10-dark-theme/4
+        QPalette darkPalette;
+        QColor darkColor = QColor(45, 45, 45);
+        QColor disabledColor = QColor(127, 127, 127);
+        QColor defaultTextColor = QColor(210, 210, 210);
+        darkPalette.setColor(QPalette::Window, darkColor);
+        darkPalette.setColor(QPalette::WindowText, defaultTextColor);
+        darkPalette.setColor(QPalette::Disabled, QPalette::WindowText, disabledColor);
+        darkPalette.setColor(QPalette::Base, QColor(18, 18, 18));
+        darkPalette.setColor(QPalette::AlternateBase, darkColor);
+        darkPalette.setColor(QPalette::ToolTipBase, defaultTextColor);
+        darkPalette.setColor(QPalette::ToolTipText, defaultTextColor);
+        darkPalette.setColor(QPalette::Text, defaultTextColor);
+        darkPalette.setColor(QPalette::Disabled, QPalette::Text, disabledColor);
+        darkPalette.setColor(QPalette::Button, darkColor);
+        darkPalette.setColor(QPalette::ButtonText, defaultTextColor);
+        darkPalette.setColor(QPalette::Disabled, QPalette::ButtonText, disabledColor);
+        darkPalette.setColor(QPalette::BrightText, Qt::red);
+        darkPalette.setColor(QPalette::Link, QColor(42, 130, 218));
+        darkPalette.setColor(QPalette::Highlight, QColor(42, 130, 218));
+        darkPalette.setColor(QPalette::HighlightedText, Qt::black);
+        darkPalette.setColor(QPalette::Disabled, QPalette::HighlightedText, disabledColor);
+        qApp->setPalette(darkPalette);
+        qApp->setStyleSheet("QToolTip { color: #ffffff; background-color: #2a82da; border: 1px solid white; }");
+    }
+
+#endif
 
     try {
         // Show MainWindow

@@ -107,7 +107,7 @@ MainWindow::MainWindow(QWidget *parent)
     }
 
     speedChartObj = new QChart();
-    speedChartObj->setTheme(conf.UISettings.useDarkChartStyle ? QChart::ChartThemeDark : QChart::ChartThemeLight);
+    speedChartObj->setTheme(conf.UISettings.useDarkTheme ? QChart::ChartThemeDark : QChart::ChartThemeLight);
     speedChartObj->setTitle("Qv2ray Speed Chart");
     speedChartObj->legend()->hide();
     speedChartObj->createDefaultAxes();
@@ -363,7 +363,7 @@ void MainWindow::ToggleVisibility()
 {
     if (this->isHidden()) {
         this->show();
-#ifdef _WIN32
+#ifdef Q_OS_WIN
         setWindowState(Qt::WindowNoState);
         SetWindowPos(HWND(this->winId()), HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW);
         SetWindowPos(HWND(this->winId()), HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW);

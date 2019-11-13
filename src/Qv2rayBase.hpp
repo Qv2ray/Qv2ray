@@ -8,6 +8,7 @@
 #include "QObjectMessageProxy.hpp"
 
 #define QV2RAY_CONFIG_VERSION 9
+#define QV2RAY_USE_BUILTIN_DARKTHEME true
 
 // Base folder suffix.
 #ifdef QT_DEBUG
@@ -26,7 +27,7 @@
 #define QV2RAY_GENERATED_FILE_PATH (QV2RAY_GENERATED_DIR + "config.gen.json")
 
 #ifndef QV2RAY_DEFAULT_VCORE_PATH
-#ifdef _WIN32
+#ifdef Q_OS_WIN
 #define QV2RAY_DEFAULT_VCORE_PATH (QV2RAY_CONFIG_DIR + "vcore/v2ray.exe")
 #else
 #define QV2RAY_DEFAULT_VCORE_PATH (QV2RAY_CONFIG_DIR + "vcore/v2ray")
@@ -87,8 +88,8 @@ namespace Qv2ray
         struct UIConfig {
             string theme;
             string language;
-            bool useDarkChartStyle;
-            XTOSTRUCT(O(theme, language, useDarkChartStyle))
+            bool useDarkTheme;
+            XTOSTRUCT(O(theme, language, useDarkTheme))
         };
 
         struct Qv2rayConfig {

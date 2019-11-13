@@ -5,7 +5,7 @@
 #include <QtGui>
 //
 // For Windows
-#ifdef _WIN32
+#ifdef Q_OS_WIN
 #include <windows.h>
 #endif
 //
@@ -40,14 +40,14 @@ namespace Qv2ray
             };
             void StartProcessingPlugins(QWidget *mainWindow);
             void StopProcessingPlugins();
-#ifdef _WIN32
+#ifdef Q_OS_WIN
             namespace _win
             {
                 void StartNamedPipeThread();
                 void KillNamedPipeThread();
             }
 #endif
-#ifdef __linux__
+#ifdef Q_OS_LINUX
             namespace _linux
             {
                 // This function is called within a QThread
