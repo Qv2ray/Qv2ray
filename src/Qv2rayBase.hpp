@@ -44,6 +44,7 @@
     _temp.setColor(QPalette::Text, Qt::red);   \
     obj->setPalette(_temp);
 
+// TODO: Dark mode support.
 #define BLACK(obj)                             \
     auto _temp = obj->palette();               \
     _temp.setColor(QPalette::Text, Qt::blue);  \

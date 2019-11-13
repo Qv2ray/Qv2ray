@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ScreenShot</class>
+ <widget class="QDialog" name="ScreenShot">
+  <property name="windowModality">
+   <enum>Qt::ApplicationModal</enum>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>435</width>
+    <height>256</height>
+   </rect>
+  </property>
+  <property name="mouseTracking">
+   <bool>true</bool>
+  </property>
+  <property name="windowTitle">
+   <string>ScreenShot</string>
+  </property>
+  <property name="modal">
+   <bool>true</bool>
+  </property>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>10</y>
+     <width>58</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="startBtn">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>40</y>
+     <width>80</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Screen Shot</string>
+   </property>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>
