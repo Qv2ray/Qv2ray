@@ -13,10 +13,10 @@ namespace Qv2ray
             static Qv2rayConfig config;
             void StopProcessingPlugins()
             {
-#ifdef __linux__
+#ifdef Q_OS_LINUX
                 _linux::StopMessageQThread();
 #endif
-#ifdef _WIN32
+#ifdef Q_OS_WIN
                 _win::KillNamedPipeThread();
 #endif
             }
@@ -27,10 +27,10 @@ namespace Qv2ray
             {
                 mainWindow = static_cast<MainWindow *>(_mainWindow);
                 config = GetGlobalConfig();
-#ifdef __linux__
+#ifdef Q_OS_LINUX
                 _linux::StartMessageQThread();
 #endif
-#ifdef _WIN32
+#ifdef Q_OS_WIN
                 _win::StartNamedPipeThread();
 #endif
             }

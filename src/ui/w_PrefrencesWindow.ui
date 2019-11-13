@@ -72,7 +72,7 @@
        <item row="1" column="0">
         <widget class="QLabel" name="label_36">
          <property name="text">
-          <string>Dark Chart Theme</string>
+          <string>Use Dark Theme</string>
          </property>
         </widget>
        </item>

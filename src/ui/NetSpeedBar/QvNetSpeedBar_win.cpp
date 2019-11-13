@@ -1,4 +1,4 @@
-#ifdef _WIN32
+#ifdef Q_OS_WIN
 #include "QvNetSpeedPlugin.hpp"
 #include "QvUtils.hpp"
 namespace Qv2ray

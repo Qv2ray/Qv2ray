@@ -32,7 +32,7 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     CurrentConfig = GetGlobalConfig();
     //
     themeCombo->setCurrentText(QSTRING(CurrentConfig.UISettings.theme));
-    darkChartThemeCB->setChecked(CurrentConfig.UISettings.useDarkChartStyle);
+    darkChartThemeCB->setChecked(CurrentConfig.UISettings.useDarkTheme);
     languageComboBox->setCurrentText(QSTRING(CurrentConfig.UISettings.language));
     logLevelComboBox->setCurrentIndex(CurrentConfig.logLevel);
     tProxyCheckBox->setChecked(CurrentConfig.tProxySupport);
@@ -711,5 +711,5 @@ void PrefrencesWindow::on_themeCombo_currentTextChanged(const QString &arg1)
 void PrefrencesWindow::on_darkChartThemeCB_stateChanged(int arg1)
 {
     LOADINGCHECK
-    CurrentConfig.UISettings.useDarkChartStyle = arg1 == Qt::Checked;
+    CurrentConfig.UISettings.useDarkTheme = arg1 == Qt::Checked;
 }

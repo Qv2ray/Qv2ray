@@ -31,7 +31,7 @@ namespace Qv2ray
                     // We also need v2ctl
                     auto v2CtlFilePath = QFileInfo(vCoreFilePath).dir().path() + "/v2ctl";
                     auto v2CtlDestPath = QFileInfo(vCoreDestPath).dir().path() + "/v2ctl";
-#ifdef __WIN32
+#ifdef Q_OS_WIN
                     v2CtlFilePath = v2CtlFilePath.append(".exe");
                     v2CtlDestPath = v2CtlDestPath.append(".exe");
 #endif
