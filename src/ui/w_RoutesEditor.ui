@@ -71,7 +71,7 @@
           </property>
           <property name="icon">
            <iconset resource="../../resources.qrc">
-            <normaloff>:/icons/add_connection_btn.png</normaloff>:/icons/add_connection_btn.png</iconset>
+            <normaloff>:/icons/ui_components/add.svg</normaloff>:/icons/ui_components/add.svg</iconset>
           </property>
          </widget>
         </item>
@@ -82,7 +82,7 @@
           </property>
           <property name="icon">
            <iconset resource="../../resources.qrc">
-            <normaloff>:/icons/remove_connection_btn.png</normaloff>:/icons/remove_connection_btn.png</iconset>
+            <normaloff>:/icons/ui_components/delete.svg</normaloff>:/icons/ui_components/delete.svg</iconset>
           </property>
          </widget>
         </item>
@@ -93,7 +93,7 @@
           </property>
           <property name="icon">
            <iconset resource="../../resources.qrc">
-            <normaloff>:/icons/edit_connection_btn.png</normaloff>:/icons/edit_connection_btn.png</iconset>
+            <normaloff>:/icons/ui_components/edit.svg</normaloff>:/icons/ui_components/edit.svg</iconset>
           </property>
          </widget>
         </item>
@@ -222,7 +222,7 @@
           </property>
           <property name="icon">
            <iconset resource="../../resources.qrc">
-            <normaloff>:/icons/add_connection_btn.png</normaloff>:/icons/add_connection_btn.png</iconset>
+            <normaloff>:/icons/ui_components/add.svg</normaloff>:/icons/ui_components/add.svg</iconset>
           </property>
          </widget>
         </item>
@@ -233,7 +233,7 @@
           </property>
           <property name="icon">
            <iconset resource="../../resources.qrc">
-            <normaloff>:/icons/remove_connection_btn.png</normaloff>:/icons/remove_connection_btn.png</iconset>
+            <normaloff>:/icons/ui_components/delete.svg</normaloff>:/icons/ui_components/delete.svg</iconset>
           </property>
          </widget>
         </item>
@@ -244,7 +244,7 @@
           </property>
           <property name="icon">
            <iconset resource="../../resources.qrc">
-            <normaloff>:/icons/edit_connection_btn.png</normaloff>:/icons/edit_connection_btn.png</iconset>
+            <normaloff>:/icons/ui_components/edit.svg</normaloff>:/icons/ui_components/edit.svg</iconset>
           </property>
          </widget>
         </item>
@@ -441,7 +441,7 @@
            <string>...</string>
           </property>
           <property name="icon">
-           <iconset resource="../../resources.qrc">
+           <iconset>
             <normaloff>:/icons/add_connection_btn.png</normaloff>:/icons/add_connection_btn.png</iconset>
           </property>
          </widget>
@@ -452,7 +452,7 @@
            <string>...</string>
           </property>
           <property name="icon">
-           <iconset resource="../../resources.qrc">
+           <iconset>
             <normaloff>:/icons/remove_connection_btn.png</normaloff>:/icons/remove_connection_btn.png</iconset>
           </property>
          </widget>
@@ -669,7 +669,7 @@
                       <string>...</string>
                      </property>
                      <property name="icon">
-                      <iconset resource="../../resources.qrc">
+                      <iconset>
                        <normaloff>:/icons/remove_connection_btn.png</normaloff>:/icons/remove_connection_btn.png</iconset>
                      </property>
                     </widget>
@@ -693,7 +693,7 @@
                       <string>...</string>
                      </property>
                      <property name="icon">
-                      <iconset resource="../../resources.qrc">
+                      <iconset>
                        <normaloff>:/icons/add_connection_btn.png</normaloff>:/icons/add_connection_btn.png</iconset>
                      </property>
                     </widget>

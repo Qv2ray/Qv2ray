@@ -29,6 +29,7 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     themeCombo->addItems(QStyleFactory::keys());
     //
     qvVersion->setText(QV2RAY_VERSION_STRING);
+    qvBuildTime->setText(__DATE__ " " __TIME__);
     CurrentConfig = GetGlobalConfig();
     //
     themeCombo->setCurrentText(QSTRING(CurrentConfig.UISettings.theme));

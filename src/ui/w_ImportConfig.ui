@@ -278,14 +278,14 @@
             <item row="0" column="1">
              <widget class="QLabel" name="label_7">
               <property name="text">
-               <string>TextLabel</string>
+               <string>Error List</string>
               </property>
              </widget>
             </item>
             <item row="0" column="0">
              <widget class="QLabel" name="label_8">
               <property name="text">
-               <string>TextLabel</string>
+               <string>VMess</string>
               </property>
              </widget>
             </item>

@@ -37,11 +37,13 @@ MainWindow::MainWindow(QWidget *parent)
     auto conf = GetGlobalConfig();
     vinstance = new Qv2Instance(this);
     setupUi(this);
-    this->setWindowIcon(QIcon(":/icons/qv2ray.ico"));
-    hTray->setIcon(this->windowIcon());
+    LOG("", " PLASMA SHELL DOES NOT SOPPORT SVG.... ")
+    auto ico = QIcon(UI_COMPONENTS_RESOURCES_ROOT + "qv2ray_tray.svg");
+    this->setWindowIcon(ico);
+    hTray->setIcon(ico);
     hTray->setToolTip(TRAY_TOOLTIP_PREFIX);
     //
-    QAction *action_Tray_ShowHide = new QAction(this->windowIcon(), tr("Hide"), this);
+    QAction *action_Tray_ShowHide = new QAction(ico, tr("Hide"), this);
     QAction *action_Tray_Quit = new QAction(tr("Quit"), this);
     QAction *action_Tray_Start = new QAction(tr("Connect"), this);
     QAction *action_Tray_Reconnect = new QAction(tr("Reconnect"), this);
@@ -91,7 +93,7 @@ MainWindow::MainWindow(QWidget *parent)
     LoadConnections();
     QObject::connect(&HTTPRequestHelper, &QvHttpRequestHelper::httpRequestFinished, this, &MainWindow::VersionUpdate);
     HTTPRequestHelper.get("https://api.github.com/repos/lhy0403/Qv2ray/releases/latest");
-    bool hasAutoStart  = false;
+    bool hasAutoStart = false;
     //
     // For charts
     uploadSerie = new QSplineSeries(this);

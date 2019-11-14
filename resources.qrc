@@ -1,10 +1,18 @@
 <RCC>
     <qresource prefix="/">
+        <file>icons/qv2ray.icns</file>
         <file>icons/qv2ray.ico</file>
-        <file>icons/add_connection_btn.png</file>
-        <file>icons/import_connection_btn.png</file>
-        <file>icons/remove_connection_btn.png</file>
-        <file>icons/edit_connection_btn.png</file>
-        <file>icons/netspeed-arrows.svg</file>
+        <file>icons/qv2ray.png</file>
+        <file>icons/ui_components/add.svg</file>
+        <file>icons/ui_components/delete.svg</file>
+        <file>icons/ui_components/duplicate.svg</file>
+        <file>icons/ui_components/edit.svg</file>
+        <file>icons/ui_components/import.svg</file>
+        <file>icons/ui_components/json.svg</file>
+        <file>icons/ui_components/netspeed_arrow.svg</file>
+        <file>icons/ui_components/ping_gauge.svg</file>
+        <file>icons/ui_components/qv2ray_tray.svg</file>
+        <file>icons/ui_components/share.svg</file>
+        <file>icons/ui_components/dark/qv2ray_tray.svg</file>
     </qresource>
 </RCC>

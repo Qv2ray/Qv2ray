@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>549</width>
-    <height>493</height>
+    <width>532</width>
+    <height>666</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,7 +23,7 @@
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="../../resources.qrc">:/icons/qv2ray.ico</pixmap>
+      <pixmap resource="../../resources.qrc">:/icons/qv2ray.png</pixmap>
      </property>
      <property name="scaledContents">
       <bool>false</bool>

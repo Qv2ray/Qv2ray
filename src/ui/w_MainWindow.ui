@@ -190,7 +190,7 @@
           </property>
           <property name="icon">
            <iconset resource="../../resources.qrc">
-            <normaloff>:/icons/add_connection_btn.png</normaloff>:/icons/add_connection_btn.png</iconset>
+            <normaloff>:/icons/ui_components/add.svg</normaloff>:/icons/ui_components/add.svg</iconset>
           </property>
          </widget>
         </item>
@@ -210,7 +210,7 @@
           </property>
           <property name="icon">
            <iconset resource="../../resources.qrc">
-            <normaloff>:/icons/import_connection_btn.png</normaloff>:/icons/import_connection_btn.png</iconset>
+            <normaloff>:/icons/ui_components/import.svg</normaloff>:/icons/ui_components/import.svg</iconset>
           </property>
          </widget>
         </item>
@@ -221,6 +221,10 @@
           </property>
           <property name="text">
            <string>D</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../../resources.qrc">
+            <normaloff>:/icons/ui_components/duplicate.svg</normaloff>:/icons/ui_components/duplicate.svg</iconset>
           </property>
          </widget>
         </item>
@@ -240,7 +244,7 @@
           </property>
           <property name="icon">
            <iconset resource="../../resources.qrc">
-            <normaloff>:/icons/remove_connection_btn.png</normaloff>:/icons/remove_connection_btn.png</iconset>
+            <normaloff>:/icons/ui_components/delete.svg</normaloff>:/icons/ui_components/delete.svg</iconset>
           </property>
          </widget>
         </item>
@@ -254,7 +258,7 @@
           </property>
           <property name="icon">
            <iconset resource="../../resources.qrc">
-            <normaloff>:/icons/edit_connection_btn.png</normaloff>:/icons/edit_connection_btn.png</iconset>
+            <normaloff>:/icons/ui_components/edit.svg</normaloff>:/icons/ui_components/edit.svg</iconset>
           </property>
          </widget>
         </item>
@@ -265,6 +269,10 @@
           </property>
           <property name="text">
            <string>{ }</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../../resources.qrc">
+            <normaloff>:/icons/ui_components/json.svg</normaloff>:/icons/ui_components/json.svg</iconset>
           </property>
          </widget>
         </item>
@@ -385,12 +393,20 @@
            <property name="text">
             <string>Ping</string>
            </property>
+           <property name="icon">
+            <iconset resource="../../resources.qrc">
+             <normaloff>:/icons/ui_components/ping_gauge.svg</normaloff>:/icons/ui_components/ping_gauge.svg</iconset>
+           </property>
           </widget>
          </item>
          <item>
           <widget class="QToolButton" name="shareBtn">
            <property name="text">
             <string>Share</string>
+           </property>
+           <property name="icon">
+            <iconset resource="../../resources.qrc">
+             <normaloff>:/icons/ui_components/share.svg</normaloff>:/icons/ui_components/share.svg</iconset>
            </property>
           </widget>
          </item>
@@ -485,7 +501,7 @@
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">border-image: url(:/icons/netspeed-arrows.svg)  0 0 0 0 stretch stretch;background-repeat: no-repeat;</string>
+         <string notr="true">border-image: url(:icons/ui_components/netspeed_arrow.svg)  0 0 0 0 stretch stretch;background-repeat: no-repeat;</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -555,7 +571,7 @@
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">border-image: url(:/icons/netspeed-arrows.svg)  0 0 0 0 stretch stretch;background-repeat: no-repeat;</string>
+         <string notr="true">border-image: url(:icons/ui_components/netspeed_arrow.svg)  0 0 0 0 stretch stretch;background-repeat: no-repeat;</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>

@@ -39,6 +39,7 @@
 #define QV2RAY_VCORE_ERROR_LOG_FILENAME "error.log"
 
 // GUI TOOLS
+#define QV2RAY_IS_DARKTHEME GetGlobalConfig().UISettings.useDarkTheme
 #define RED(obj)                               \
     auto _temp = obj->palette();               \
     _temp.setColor(QPalette::Text, Qt::red);   \
@@ -47,11 +48,12 @@
 // TODO: Dark mode support.
 #define BLACK(obj)                             \
     auto _temp = obj->palette();               \
-    _temp.setColor(QPalette::Text, Qt::blue);  \
+    _temp.setColor(QPalette::Text, QV2RAY_IS_DARKTHEME ? Qt::white : Qt::black);  \
     obj->setPalette(_temp);
 
-#define QSTRING(std_string) QString::fromStdString(std_string)
+#define UI_COMPONENTS_RESOURCES_ROOT QSTRING(QV2RAY_IS_DARKTHEME ? ":/icons/ui_components/dark/" : ":/icons/ui_components/")
 
+#define QSTRING(std_string) QString::fromStdString(std_string)
 #define NEWLINE "\r\n"
 
 #ifndef MAX
