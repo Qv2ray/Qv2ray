@@ -5,8 +5,9 @@
 
 #include "QvUtils.hpp"
 #include "QvCoreInteractions.hpp"
-#include "w_PrefrencesWindow.hpp"
+#include "QvNetSpeedPlugin.hpp"
 
+#include "w_PrefrencesWindow.hpp"
 
 #define LOADINGCHECK if(!finishedLoading) return;
 #define NEEDRESTART if(finishedLoading) IsConnectionPropertyChanged = true;
@@ -37,6 +38,7 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
 #if QV2RAY_USE_BUILTIN_DARKTHEME
     // If we use built in theme, it should always be fusion.
     themeCombo->setEnabled(!CurrentConfig.UISettings.useDarkTheme);
+    darkThemeLabel->setText(tr("Use Dark Theme"));
 #endif
     languageComboBox->setCurrentText(QSTRING(CurrentConfig.UISettings.language));
     logLevelComboBox->setCurrentIndex(CurrentConfig.logLevel);

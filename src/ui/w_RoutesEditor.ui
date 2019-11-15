@@ -67,33 +67,21 @@
         <item>
          <widget class="QToolButton" name="addInboundBtn">
           <property name="text">
-           <string>...</string>
-          </property>
-          <property name="icon">
-           <iconset resource="../../resources.qrc">
-            <normaloff>:/icons/ui_components/add.svg</normaloff>:/icons/ui_components/add.svg</iconset>
+           <string>A</string>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QToolButton" name="delInboundBtn">
           <property name="text">
-           <string>...</string>
-          </property>
-          <property name="icon">
-           <iconset resource="../../resources.qrc">
-            <normaloff>:/icons/ui_components/delete.svg</normaloff>:/icons/ui_components/delete.svg</iconset>
+           <string>D</string>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QToolButton" name="editInboundBtn">
           <property name="text">
-           <string/>
-          </property>
-          <property name="icon">
-           <iconset resource="../../resources.qrc">
-            <normaloff>:/icons/ui_components/edit.svg</normaloff>:/icons/ui_components/edit.svg</iconset>
+           <string>E</string>
           </property>
          </widget>
         </item>
@@ -218,33 +206,21 @@
         <item>
          <widget class="QToolButton" name="addOutboundBtn">
           <property name="text">
-           <string>...</string>
-          </property>
-          <property name="icon">
-           <iconset resource="../../resources.qrc">
-            <normaloff>:/icons/ui_components/add.svg</normaloff>:/icons/ui_components/add.svg</iconset>
+           <string>A</string>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QToolButton" name="delOutboundBtn">
           <property name="text">
-           <string>...</string>
-          </property>
-          <property name="icon">
-           <iconset resource="../../resources.qrc">
-            <normaloff>:/icons/ui_components/delete.svg</normaloff>:/icons/ui_components/delete.svg</iconset>
+           <string>D</string>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QToolButton" name="editOutboundBtn">
           <property name="text">
-           <string/>
-          </property>
-          <property name="icon">
-           <iconset resource="../../resources.qrc">
-            <normaloff>:/icons/ui_components/edit.svg</normaloff>:/icons/ui_components/edit.svg</iconset>
+           <string>E</string>
           </property>
          </widget>
         </item>
@@ -726,9 +702,7 @@
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="../../resources.qrc"/>
- </resources>
+ <resources/>
  <connections>
   <connection>
    <sender>buttonBox</sender>

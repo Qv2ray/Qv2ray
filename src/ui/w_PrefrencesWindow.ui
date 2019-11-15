@@ -6,20 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>789</width>
-    <height>500</height>
+    <width>797</width>
+    <height>560</height>
    </rect>
-  </property>
-  <property name="sizePolicy">
-   <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
-    <horstretch>0</horstretch>
-    <verstretch>0</verstretch>
-   </sizepolicy>
   </property>
   <property name="minimumSize">
    <size>
     <width>780</width>
-    <height>500</height>
+    <height>560</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -70,9 +64,9 @@
         </widget>
        </item>
        <item row="1" column="0">
-        <widget class="QLabel" name="label_36">
+        <widget class="QLabel" name="darkThemeLabel">
          <property name="text">
-          <string>Use Dark Theme</string>
+          <string>Dark Theme Support</string>
          </property>
         </widget>
        </item>
@@ -757,23 +751,39 @@
          <layout class="QGridLayout" name="gridLayout_2" rowstretch="2,2,3,2,1,1,1" columnstretch="0,0,1,0">
           <item row="1" column="3">
            <widget class="QToolButton" name="nsBarPageDelBTN">
-            <property name="text">
-             <string>...</string>
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
             </property>
-            <property name="icon">
-             <iconset resource="../../resources.qrc">
-              <normaloff>:/icons/remove_connection_btn.png</normaloff>:/icons/remove_connection_btn.png</iconset>
+            <property name="minimumSize">
+             <size>
+              <width>26</width>
+              <height>26</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>-</string>
             </property>
            </widget>
           </item>
           <item row="0" column="3">
            <widget class="QToolButton" name="nsBarPageAddBTN">
-            <property name="text">
-             <string>...</string>
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
             </property>
-            <property name="icon">
-             <iconset resource="../../resources.qrc">
-              <normaloff>:/icons/add_connection_btn.png</normaloff>:/icons/add_connection_btn.png</iconset>
+            <property name="minimumSize">
+             <size>
+              <width>26</width>
+              <height>26</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>+</string>
             </property>
            </widget>
           </item>
@@ -820,23 +830,39 @@
           </item>
           <item row="5" column="3">
            <widget class="QToolButton" name="nsBarLineDelBTN">
-            <property name="text">
-             <string>...</string>
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
             </property>
-            <property name="icon">
-             <iconset resource="../../resources.qrc">
-              <normaloff>:/icons/remove_connection_btn.png</normaloff>:/icons/remove_connection_btn.png</iconset>
+            <property name="minimumSize">
+             <size>
+              <width>26</width>
+              <height>26</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>-</string>
             </property>
            </widget>
           </item>
           <item row="4" column="3">
            <widget class="QToolButton" name="nsBarLineAddBTN">
-            <property name="text">
-             <string>...</string>
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
             </property>
-            <property name="icon">
-             <iconset resource="../../resources.qrc">
-              <normaloff>:/icons/add_connection_btn.png</normaloff>:/icons/add_connection_btn.png</iconset>
+            <property name="minimumSize">
+             <size>
+              <width>26</width>
+              <height>26</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>+</string>
             </property>
            </widget>
           </item>
@@ -1051,31 +1077,42 @@
       <attribute name="title">
        <string>About</string>
       </attribute>
-      <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0">
+      <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <widget class="QFrame" name="img">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>256</width>
-           <height>256</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background-image: url(:/icons/qv2ray.ico);background-repeat: no-repeat;</string>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
-         </property>
-        </widget>
+        <layout class="QVBoxLayout" name="verticalLayout_5">
+         <item>
+          <widget class="QWidget" name="img" native="true">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>256</width>
+             <height>256</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">image: url(:/icons/qv2ray.ico);</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="verticalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
        </item>
        <item>
         <widget class="QFrame" name="formFrame">
@@ -1084,7 +1121,7 @@
            <widget class="QLabel" name="label_20">
             <property name="font">
              <font>
-              <pointsize>17</pointsize>
+              <pointsize>24</pointsize>
              </font>
             </property>
             <property name="text">
@@ -1096,6 +1133,11 @@
            <layout class="QHBoxLayout" name="horizontalLayout_6">
             <item>
              <widget class="QLabel" name="label_24">
+              <property name="font">
+               <font>
+                <pointsize>15</pointsize>
+               </font>
+              </property>
               <property name="text">
                <string>Version:</string>
               </property>
@@ -1105,7 +1147,7 @@
              <widget class="QLabel" name="qvVersion">
               <property name="font">
                <font>
-                <pointsize>10</pointsize>
+                <pointsize>15</pointsize>
                </font>
               </property>
              </widget>
@@ -1142,7 +1184,7 @@
                </font>
               </property>
               <property name="text">
-               <string>TIME</string>
+               <string/>
               </property>
              </widget>
             </item>
@@ -1213,6 +1255,19 @@
            </layout>
           </item>
           <item>
+           <spacer name="verticalSpacer_6">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
            <layout class="QHBoxLayout" name="horizontalLayout_9">
             <item>
              <widget class="QLabel" name="label_29">
@@ -1264,17 +1319,34 @@
            </layout>
           </item>
           <item>
-           <spacer name="verticalSpacer1_2">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
+           <widget class="QTextEdit" name="textEdit">
+            <property name="lineWrapMode">
+             <enum>QTextEdit::NoWrap</enum>
             </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
+            <property name="readOnly">
+             <bool>true</bool>
             </property>
-           </spacer>
+            <property name="html">
+             <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Noto Sans'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Noto Sans'; color:#d69545;&quot;&gt;This&lt;/span&gt;&lt;span style=&quot; font-family:'Noto Sans'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Noto Sans'; color:#d69545;&quot;&gt;program&lt;/span&gt;&lt;span style=&quot; font-family:'Noto Sans'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Noto Sans'; color:#d69545;&quot;&gt;comes&lt;/span&gt;&lt;span style=&quot; font-family:'Noto Sans'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Noto Sans'; color:#d69545;&quot;&gt;with&lt;/span&gt;&lt;span style=&quot; font-family:'Noto Sans'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Noto Sans'; color:#d69545;&quot;&gt;ABSOLUTELY&lt;/span&gt;&lt;span style=&quot; font-family:'Noto Sans'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Noto Sans'; color:#d69545;&quot;&gt;NO&lt;/span&gt;&lt;span style=&quot; font-family:'Noto Sans'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Noto Sans'; color:#d69545;&quot;&gt;WARRANTY.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;This&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;is&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;free&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;software,&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;and&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;you&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;are&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;welcome&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;to&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;redistribute&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;it under&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;certain&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;conditions.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Copyright&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;(C)&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;2019&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Leroy.H.Y&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;(@lhy0403):&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Qv2ray&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Current&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Developer&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Copyright&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;(C)&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;2019&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Hork&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;(@aliyuchang33):&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Hv2ray&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Initial&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Designs&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;gRPC&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;implementation&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Copyright&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;(C)&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;2019&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;SOneWinstone&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;(@SoneWinstone):&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Hv2ray/Qv2ray&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;HTTP&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Request&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Helper&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Qv2ray&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;ArtWork&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Done&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;By&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;ArielAxionL&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;(@axionl)&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;TheBadGateway&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;(@thebadgateway):&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Qv2ray&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Russian&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Translations&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Riko&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;(@rikakomoe):&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Qv2ray&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;patch&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;8a8c1a/PR115&amp;quot;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Hack';&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Libraries&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;that&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;have&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;been&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;used&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;in&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Qv2ray&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;are&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;listed&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;below&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;(Sorted&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;by&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;date&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;added):&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Copyright&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;(c)&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;2019&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;dridk&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;(@dridk):&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;X2Struct&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;(Apache)&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Copyright&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;(c)&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;2011&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;SCHUTZ&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Sacha&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;(@dridk):&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;QJsonModel&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;(MIT)&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Copyright&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;(c)&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;2019&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Nikolaos&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Ftylitakis&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;(@ftylitak):&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;QZXing&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;(Apache2)&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Copyright&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;(c)&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;2016&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Singein&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;(@Singein):&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;ScreenShot&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;(MIT)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
           </item>
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_10">
@@ -1336,9 +1408,7 @@
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="../../resources.qrc"/>
- </resources>
+ <resources/>
  <connections>
   <connection>
    <sender>buttonBox</sender>

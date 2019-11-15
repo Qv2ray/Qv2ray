@@ -1,14 +1,22 @@
 ﻿#ifndef QV2RAYBASE_H
 #define QV2RAYBASE_H
 #include <QtCore>
+#include <QtGui>
 #include <QMap>
+#include <vector>
 #include "QvTinyLog.hpp"
 #include "QvCoreConfigObjects.hpp"
-#include "QvNetSpeedPlugin.hpp"
 #include "QObjectMessageProxy.hpp"
 
 #define QV2RAY_CONFIG_VERSION 9
+
+// Linux DEs should handle the ui schemes themselves.
+// --> Or.. should we change this into a modifyable setting?
+#ifdef Q_OS_LINUX
+#define QV2RAY_USE_BUILTIN_DARKTHEME false
+#else
 #define QV2RAY_USE_BUILTIN_DARKTHEME true
+#endif
 
 // Base folder suffix.
 #ifdef QT_DEBUG
@@ -39,19 +47,19 @@
 #define QV2RAY_VCORE_ERROR_LOG_FILENAME "error.log"
 
 // GUI TOOLS
-#define QV2RAY_IS_DARKTHEME GetGlobalConfig().UISettings.useDarkTheme
+#define QV2RAY_IS_DARKTHEME (GetGlobalConfig().UISettings.useDarkTheme)
 #define RED(obj)                               \
     auto _temp = obj->palette();               \
     _temp.setColor(QPalette::Text, Qt::red);   \
     obj->setPalette(_temp);
 
-// TODO: Dark mode support.
 #define BLACK(obj)                             \
     auto _temp = obj->palette();               \
     _temp.setColor(QPalette::Text, QV2RAY_IS_DARKTHEME ? Qt::white : Qt::black);  \
     obj->setPalette(_temp);
 
-#define UI_COMPONENTS_RESOURCES_ROOT QSTRING(QV2RAY_IS_DARKTHEME ? ":/icons/ui_components/dark/" : ":/icons/ui_components/")
+#define QV2RAY_UI_RESOURCES_ROOT QSTRING(QV2RAY_IS_DARKTHEME ? ":/icons/ui_dark/" : ":/icons/ui_light/")
+#define QICON_R(file) QIcon(QV2RAY_UI_RESOURCES_ROOT + file)
 
 #define QSTRING(std_string) QString::fromStdString(std_string)
 #define NEWLINE "\r\n"
@@ -62,6 +70,44 @@
 
 namespace Qv2ray
 {
+    // Extra header for QvConfigUpgrade.cpp
+    QJsonObject UpgradeConfig(int fromVersion, int toVersion, QJsonObject root);
+
+
+    struct QvBarLine {
+        std::string     Family;
+        bool            Bold;
+        bool            Italic;
+        int             ColorA;
+        int             ColorR;
+        int             ColorG;
+        int             ColorB;
+        int             ContentType;
+        double          Size;
+        std::string     Message;
+        QvBarLine()
+            : Family("Consolas")
+            , Bold(true)
+            , Italic(false)
+            , ColorA(255), ColorR(255), ColorG(255), ColorB(255)
+            , ContentType(0)
+            , Size(9),
+              Message() { }
+        XTOSTRUCT(O(Bold, Italic, ColorA, ColorR, ColorG, ColorB, Size, Family, Message, ContentType))
+    };
+
+    struct QvBarPage {
+        int OffsetYpx;
+        vector<QvBarLine> Lines;
+        XTOSTRUCT(O(OffsetYpx, Lines))
+        QvBarPage() : OffsetYpx(5) { }
+    };
+
+    struct QvNetSpeedBarConfig {
+        std::vector<QvBarPage> Pages;
+        XTOSTRUCT(O(Pages))
+    };
+
     namespace QvConfigModels
     {
         struct Qv2rayCoreInboundsConfig {
@@ -184,8 +230,6 @@ namespace Qv2ray
                         speedBarConfig))
         };
 
-        // Extra header for QvConfigUpgrade.cpp
-        QJsonObject UpgradeConfig(int fromVersion, int toVersion, QJsonObject root);
     }
 }
 

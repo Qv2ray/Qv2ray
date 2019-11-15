@@ -188,9 +188,11 @@
           <property name="text">
            <string>A</string>
           </property>
-          <property name="icon">
-           <iconset resource="../../resources.qrc">
-            <normaloff>:/icons/ui_components/add.svg</normaloff>:/icons/ui_components/add.svg</iconset>
+          <property name="iconSize">
+           <size>
+            <width>22</width>
+            <height>22</height>
+           </size>
           </property>
          </widget>
         </item>
@@ -206,11 +208,13 @@
            <string>Import connection</string>
           </property>
           <property name="text">
-           <string>I</string>
+           <string>Imp</string>
           </property>
-          <property name="icon">
-           <iconset resource="../../resources.qrc">
-            <normaloff>:/icons/ui_components/import.svg</normaloff>:/icons/ui_components/import.svg</iconset>
+          <property name="iconSize">
+           <size>
+            <width>22</width>
+            <height>22</height>
+           </size>
           </property>
          </widget>
         </item>
@@ -220,11 +224,13 @@
            <string>Duplicate connection</string>
           </property>
           <property name="text">
-           <string>D</string>
+           <string>Dup</string>
           </property>
-          <property name="icon">
-           <iconset resource="../../resources.qrc">
-            <normaloff>:/icons/ui_components/duplicate.svg</normaloff>:/icons/ui_components/duplicate.svg</iconset>
+          <property name="iconSize">
+           <size>
+            <width>22</width>
+            <height>22</height>
+           </size>
           </property>
          </widget>
         </item>
@@ -240,11 +246,13 @@
            <string>Delete a connection</string>
           </property>
           <property name="text">
-           <string>R</string>
+           <string>D</string>
           </property>
-          <property name="icon">
-           <iconset resource="../../resources.qrc">
-            <normaloff>:/icons/ui_components/delete.svg</normaloff>:/icons/ui_components/delete.svg</iconset>
+          <property name="iconSize">
+           <size>
+            <width>22</width>
+            <height>22</height>
+           </size>
           </property>
          </widget>
         </item>
@@ -254,25 +262,13 @@
            <string>Edit connection</string>
           </property>
           <property name="text">
-           <string>...</string>
+           <string>E</string>
           </property>
-          <property name="icon">
-           <iconset resource="../../resources.qrc">
-            <normaloff>:/icons/ui_components/edit.svg</normaloff>:/icons/ui_components/edit.svg</iconset>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QToolButton" name="editJsonBtn">
-          <property name="toolTip">
-           <string>Edit connection as JSON</string>
-          </property>
-          <property name="text">
-           <string>{ }</string>
-          </property>
-          <property name="icon">
-           <iconset resource="../../resources.qrc">
-            <normaloff>:/icons/ui_components/json.svg</normaloff>:/icons/ui_components/json.svg</iconset>
+          <property name="iconSize">
+           <size>
+            <width>22</width>
+            <height>22</height>
+           </size>
           </property>
          </widget>
         </item>
@@ -389,24 +385,44 @@
           </spacer>
          </item>
          <item>
+          <widget class="QToolButton" name="editJsonBtn">
+           <property name="toolTip">
+            <string>Edit connection as JSON</string>
+           </property>
+           <property name="text">
+            <string>J</string>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>22</width>
+             <height>22</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QToolButton" name="pingTestBtn">
            <property name="text">
-            <string>Ping</string>
+            <string>P</string>
            </property>
-           <property name="icon">
-            <iconset resource="../../resources.qrc">
-             <normaloff>:/icons/ui_components/ping_gauge.svg</normaloff>:/icons/ui_components/ping_gauge.svg</iconset>
+           <property name="iconSize">
+            <size>
+             <width>22</width>
+             <height>22</height>
+            </size>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QToolButton" name="shareBtn">
            <property name="text">
-            <string>Share</string>
+            <string>S</string>
            </property>
-           <property name="icon">
-            <iconset resource="../../resources.qrc">
-             <normaloff>:/icons/ui_components/share.svg</normaloff>:/icons/ui_components/share.svg</iconset>
+           <property name="iconSize">
+            <size>
+             <width>22</width>
+             <height>22</height>
+            </size>
            </property>
           </widget>
          </item>
@@ -487,7 +503,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QFrame" name="updownImageBox">
+       <widget class="QWidget" name="updownImageBox" native="true">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
           <horstretch>32</horstretch>
@@ -499,15 +515,6 @@
           <width>25</width>
           <height>25</height>
          </size>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">border-image: url(:icons/ui_components/netspeed_arrow.svg)  0 0 0 0 stretch stretch;background-repeat: no-repeat;</string>
-        </property>
-        <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
         </property>
        </widget>
       </item>
@@ -557,7 +564,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QFrame" name="updownImageBox_2">
+       <widget class="QWidget" name="updownImageBox_2" native="true">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
           <horstretch>32</horstretch>
@@ -569,15 +576,6 @@
           <width>25</width>
           <height>25</height>
          </size>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">border-image: url(:icons/ui_components/netspeed_arrow.svg)  0 0 0 0 stretch stretch;background-repeat: no-repeat;</string>
-        </property>
-        <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
         </property>
        </widget>
       </item>
@@ -653,8 +651,6 @@
   <tabstop>stopButton</tabstop>
   <tabstop>clearlogButton</tabstop>
  </tabstops>
- <resources>
-  <include location="../../resources.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

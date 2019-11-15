@@ -37,13 +37,24 @@ MainWindow::MainWindow(QWidget *parent)
     auto conf = GetGlobalConfig();
     vinstance = new Qv2Instance(this);
     setupUi(this);
-    LOG("", " PLASMA SHELL DOES NOT SOPPORT SVG.... ")
-    auto ico = QIcon(UI_COMPONENTS_RESOURCES_ROOT + "qv2ray_tray.svg");
-    this->setWindowIcon(ico);
-    hTray->setIcon(ico);
+    //
+    this->setWindowIcon(QIcon(":/icons/qv2ray.png"));
+    hTray->setIcon(QICON_R("tray.png"));
+    addConfigButton->setIcon(QICON_R("add.png"));
+    importConfigButton->setIcon(QICON_R("import.png"));
+    duplicateBtn->setIcon(QICON_R("duplicate.png"));
+    removeConfigButton->setIcon(QICON_R("delete.png"));
+    editConfigButton->setIcon(QICON_R("edit.png"));
+    editJsonBtn->setIcon(QICON_R("json.png"));
+    //
+    pingTestBtn->setIcon(QICON_R("ping_gauge.png"));
+    shareBtn->setIcon(QICON_R("share.png"));
+    updownImageBox->setStyleSheet("image: url(" + QV2RAY_UI_RESOURCES_ROOT + "netspeed_arrow.png)");
+    updownImageBox_2->setStyleSheet("image: url(" + QV2RAY_UI_RESOURCES_ROOT + "netspeed_arrow.png)");
+    //
     hTray->setToolTip(TRAY_TOOLTIP_PREFIX);
     //
-    QAction *action_Tray_ShowHide = new QAction(ico, tr("Hide"), this);
+    QAction *action_Tray_ShowHide = new QAction(this->windowIcon(), tr("Hide"), this);
     QAction *action_Tray_Quit = new QAction(tr("Quit"), this);
     QAction *action_Tray_Start = new QAction(tr("Connect"), this);
     QAction *action_Tray_Reconnect = new QAction(tr("Reconnect"), this);
@@ -51,8 +62,8 @@ MainWindow::MainWindow(QWidget *parent)
     //
     QAction *action_RCM_RenameConnection = new QAction(tr("Rename"), this);
     QAction *action_RCM_StartThis = new QAction(tr("Connect to this"), this);
-    QAction *action_RCM_EditJson = new QAction(tr("Edit as Json"), this);
-    QAction *action_RCM_ShareQR = new QAction(tr("Share as QRCode/vmess Uri"), this);
+    QAction *action_RCM_EditJson = new QAction(QICON_R("json.png"), tr("Edit as Json"), this);
+    QAction *action_RCM_ShareQR = new QAction(QICON_R("share.png"), tr("Share as QRCode/VMess URL"), this);
     //
     action_Tray_Start->setEnabled(true);
     action_Tray_Stop->setEnabled(false);
