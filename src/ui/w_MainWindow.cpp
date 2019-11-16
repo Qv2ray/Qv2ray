@@ -40,7 +40,6 @@ MainWindow::MainWindow(QWidget *parent)
     //
     this->setWindowIcon(QIcon(":/icons/qv2ray.png"));
     hTray->setIcon(QICON_R("tray.png"));
-    addConfigButton->setIcon(QICON_R("add.png"));
     importConfigButton->setIcon(QICON_R("import.png"));
     duplicateBtn->setIcon(QICON_R("duplicate.png"));
     removeConfigButton->setIcon(QICON_R("delete.png"));
@@ -584,38 +583,9 @@ void MainWindow::on_removeConfigButton_clicked()
 
 void MainWindow::on_importConfigButton_clicked()
 {
-    // TODO
     ImportConfigWindow *w = new ImportConfigWindow(this);
     w->exec();
     OnConfigListChanged(false);
-}
-
-void MainWindow::on_addConfigButton_clicked()
-{
-    OutboundEditor *w = new OutboundEditor(this);
-    connect(w, &OutboundEditor::s_reload_config, this, &MainWindow::OnConfigListChanged);
-    auto outboundEntry = w->OpenEditor();
-    bool isChanged = w->result() == QDialog::Accepted;
-    QString alias = w->GetFriendlyName();
-    delete w;
-
-    if (isChanged) {
-        QJsonArray outboundsList;
-        outboundsList.push_back(outboundEntry);
-        QJsonObject root;
-        root.insert("outbounds", outboundsList);
-        //
-        // WARN This one will change the connection name, because of some duplicates.
-        SaveConnectionConfig(root, &alias, false);
-        //
-        auto conf = GetGlobalConfig();
-        auto connectionList = conf.configs;
-        connectionList.push_back(alias.toStdString());
-        conf.configs = connectionList;
-        SetGlobalConfig(conf);
-        OnConfigListChanged(false);
-        ShowAndSetConnection(CurrentConnectionName, false, false);
-    }
 }
 
 void MainWindow::on_editConfigButton_clicked()

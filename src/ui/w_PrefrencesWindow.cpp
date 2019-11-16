@@ -342,7 +342,7 @@ void PrefrencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
                 auto v2ctlPath = QFileInfo(QSTRING(CurrentConfig.v2CorePath)).path() + "/v2ctl";
                 auto newPath = QFileInfo(QV2RAY_DEFAULT_VCORE_PATH).path();
                 //
-                LOG(MODULE_FILE, " --> Origin v2ray core file is at: " + v2ctlPath.toStdString() + "/v2ctl")
+                LOG(MODULE_FILE, " --> Origin v2ctl file is at: " + v2ctlPath.toStdString())
                 LOG(MODULE_FILE, " --> New v2ray files will be placed in: " << newPath.toStdString())
                 //
                 LOG(MODULE_FILE, " --> Copying files....")
@@ -719,6 +719,7 @@ void PrefrencesWindow::on_darkChartThemeCB_stateChanged(int arg1)
 {
     LOADINGCHECK
     CurrentConfig.UISettings.useDarkTheme = arg1 == Qt::Checked;
+    QvMessageBox(this, tr("Dark Mode"), tr("Please restart Qv2ray to fully apply this feature."));
 #if QV2RAY_USE_BUILTIN_DARKTHEME
     themeCombo->setEnabled(arg1 != Qt::Checked);
 

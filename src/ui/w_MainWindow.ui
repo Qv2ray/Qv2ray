@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>680</width>
-    <height>585</height>
+    <width>740</width>
+    <height>590</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -21,8 +21,8 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>680</width>
-    <height>585</height>
+    <width>740</width>
+    <height>590</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -175,29 +175,7 @@
          </spacer>
         </item>
         <item>
-         <widget class="QToolButton" name="addConfigButton">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="toolTip">
-           <string>Add new connection manually</string>
-          </property>
-          <property name="text">
-           <string>A</string>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>22</width>
-            <height>22</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QToolButton" name="importConfigButton">
+         <widget class="QPushButton" name="importConfigButton">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -208,7 +186,7 @@
            <string>Import connection</string>
           </property>
           <property name="text">
-           <string>Imp</string>
+           <string>Add</string>
           </property>
           <property name="iconSize">
            <size>
@@ -219,12 +197,12 @@
          </widget>
         </item>
         <item>
-         <widget class="QToolButton" name="duplicateBtn">
+         <widget class="QPushButton" name="duplicateBtn">
           <property name="toolTip">
            <string>Duplicate connection</string>
           </property>
           <property name="text">
-           <string>Dup</string>
+           <string>Duplicate</string>
           </property>
           <property name="iconSize">
            <size>
@@ -235,7 +213,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QToolButton" name="removeConfigButton">
+         <widget class="QPushButton" name="removeConfigButton">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -246,7 +224,7 @@
            <string>Delete a connection</string>
           </property>
           <property name="text">
-           <string>D</string>
+           <string>Delete</string>
           </property>
           <property name="iconSize">
            <size>
@@ -257,12 +235,12 @@
          </widget>
         </item>
         <item>
-         <widget class="QToolButton" name="editConfigButton">
+         <widget class="QPushButton" name="editConfigButton">
           <property name="toolTip">
            <string>Edit connection</string>
           </property>
           <property name="text">
-           <string>E</string>
+           <string>Edit</string>
           </property>
           <property name="iconSize">
            <size>
@@ -294,7 +272,7 @@
       <property name="title">
        <string>Config Details</string>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,0">
+      <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,0,0">
        <item>
         <layout class="QFormLayout" name="formLayout">
          <item row="0" column="0">
@@ -370,6 +348,13 @@
         </layout>
        </item>
        <item>
+        <widget class="QLabel" name="label_7">
+         <property name="text">
+          <string>Actions</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <layout class="QHBoxLayout" name="horizontalLayout_4">
          <item>
           <spacer name="horizontalSpacer_4">
@@ -385,12 +370,12 @@
           </spacer>
          </item>
          <item>
-          <widget class="QToolButton" name="editJsonBtn">
+          <widget class="QPushButton" name="editJsonBtn">
            <property name="toolTip">
             <string>Edit connection as JSON</string>
            </property>
            <property name="text">
-            <string>J</string>
+            <string>Edit JSON</string>
            </property>
            <property name="iconSize">
             <size>
@@ -401,9 +386,9 @@
           </widget>
          </item>
          <item>
-          <widget class="QToolButton" name="pingTestBtn">
+          <widget class="QPushButton" name="pingTestBtn">
            <property name="text">
-            <string>P</string>
+            <string>Ping Test</string>
            </property>
            <property name="iconSize">
             <size>
@@ -414,9 +399,9 @@
           </widget>
          </item>
          <item>
-          <widget class="QToolButton" name="shareBtn">
+          <widget class="QPushButton" name="shareBtn">
            <property name="text">
-            <string>S</string>
+            <string>Share</string>
            </property>
            <property name="iconSize">
             <size>

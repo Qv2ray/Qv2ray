@@ -39,7 +39,7 @@ void ImportConfigWindow::on_qrFromScreenBtn_clicked()
 {
     // QRubberBand
     QThread::msleep(static_cast<ulong>(doubleSpinBox->value() * 1000));
-    bool hasVmessDetected = false;
+    //bool hasVmessDetected = false;
     //for (auto screen : qApp->screens()) {
     //    if (!screen) {
     //        LOG(MODULE_UI, "Cannot even find a screen. RARE")
@@ -54,8 +54,9 @@ void ImportConfigWindow::on_qrFromScreenBtn_clicked()
     if (w.result() == QDialog::Accepted) {
         auto str = QZXing().decodeImage(pix);
 
-        if (str.isEmpty()) {
+        if (str.trimmed().isEmpty()) {
             LOG(MODULE_UI, "Cannot decode QR Code from an image, size: h=" + to_string(pix.width()) + ", v=" + to_string(pix.height()))
+            QvMessageBox(this, tr("Capture QRCode"), tr("Cannot find a valid QRCode from this region."));
             //      continue;
         } else {
             vmessConnectionStringTxt->appendPlainText(str.trimmed() + NEWLINE);
@@ -238,5 +239,33 @@ void ImportConfigWindow::on_editFileBtn_clicked()
         }
     } else {
         LOG(MODULE_FILE, "Canceled saving a file.")
+    }
+}
+
+void ImportConfigWindow::on_connectionEditBtn_clicked()
+{
+    OutboundEditor *w = new OutboundEditor(this);
+    auto outboundEntry = w->OpenEditor();
+    bool isChanged = w->result() == QDialog::Accepted;
+    QString alias = w->GetFriendlyName();
+    delete w;
+
+    if (isChanged) {
+        QJsonArray outboundsList;
+        outboundsList.push_back(outboundEntry);
+        QJsonObject root;
+        root.insert("outbounds", outboundsList);
+        //
+        // WARN This one will change the connection name, because of some duplicates.
+        SaveConnectionConfig(root, &alias, false);
+        //
+        auto conf = GetGlobalConfig();
+        auto connectionList = conf.configs;
+        connectionList.push_back(alias.toStdString());
+        conf.configs = connectionList;
+        SetGlobalConfig(conf);
+        close();
+    } else {
+        return;
     }
 }

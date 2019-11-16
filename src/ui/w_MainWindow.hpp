@@ -56,8 +56,6 @@ class MainWindow : public QMainWindow, Ui::MainWindow
 
         void on_importConfigButton_clicked();
 
-        void on_addConfigButton_clicked();
-
         void on_editConfigButton_clicked();
 
         void on_editJsonBtn_clicked();
