@@ -138,7 +138,8 @@ namespace Qv2ray
             string theme;
             string language;
             bool useDarkTheme;
-            XTOSTRUCT(O(theme, language, useDarkTheme))
+            bool useDarkTrayIcon;
+            XTOSTRUCT(O(theme, language, useDarkTheme, useDarkTrayIcon))
         };
 
         struct Qv2rayConfig {

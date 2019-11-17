@@ -39,7 +39,7 @@ MainWindow::MainWindow(QWidget *parent)
     setupUi(this);
     //
     this->setWindowIcon(QIcon(":/icons/qv2ray.png"));
-    hTray->setIcon(QICON_R("tray.png"));
+    hTray->setIcon(QIcon(conf.UISettings.useDarkTrayIcon ? ":/icons/ui_dark/tray.png" : ":/icons/ui_light/tray.png"));
     importConfigButton->setIcon(QICON_R("import.png"));
     duplicateBtn->setIcon(QICON_R("duplicate.png"));
     removeConfigButton->setIcon(QICON_R("delete.png"));
@@ -688,7 +688,7 @@ void MainWindow::on_shareBtn_clicked()
     }
 }
 
-void MainWindow::on_action_RCM_ShareQR_triggered()
+void MainWindow::on_action_RCM_ShareQR_triggered(bool checked)
 {
     on_shareBtn_clicked();
 }

@@ -34,7 +34,8 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     CurrentConfig = GetGlobalConfig();
     //
     themeCombo->setCurrentText(QSTRING(CurrentConfig.UISettings.theme));
-    darkChartThemeCB->setChecked(CurrentConfig.UISettings.useDarkTheme);
+    darkThemeCB->setChecked(CurrentConfig.UISettings.useDarkTheme);
+    darkTrayCB->setChecked(CurrentConfig.UISettings.useDarkTrayIcon);
 #if QV2RAY_USE_BUILTIN_DARKTHEME
     // If we use built in theme, it should always be fusion.
     themeCombo->setEnabled(!CurrentConfig.UISettings.useDarkTheme);
@@ -715,7 +716,7 @@ void PrefrencesWindow::on_themeCombo_currentTextChanged(const QString &arg1)
     CurrentConfig.UISettings.theme = arg1.toStdString();
 }
 
-void PrefrencesWindow::on_darkChartThemeCB_stateChanged(int arg1)
+void PrefrencesWindow::on_darkThemeCB_stateChanged(int arg1)
 {
     LOADINGCHECK
     CurrentConfig.UISettings.useDarkTheme = arg1 == Qt::Checked;
@@ -729,4 +730,9 @@ void PrefrencesWindow::on_darkChartThemeCB_stateChanged(int arg1)
     }
 
 #endif
+}
+
+void PrefrencesWindow::on_darkTrayCB_stateChanged(int arg1)
+{
+    CurrentConfig.UISettings.useDarkTrayIcon = arg1 == Qt::Checked;
 }
