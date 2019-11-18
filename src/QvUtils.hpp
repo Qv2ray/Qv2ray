@@ -84,6 +84,9 @@ namespace Qv2ray
 
         QString FormatBytes(long long bytes);
         void DeducePossibleFileName(const QString &baseDir, QString *fileName, const QString &extension);
+        //
+        //
+        QString ConvertGFWToPAC(const QString &rawContent, const QString &customProxyString);
     }
 }
 

@@ -39,6 +39,7 @@ SOURCES += \
         src/ui/w_RoutesEditor.cpp \
         src/ui/w_SubscriptionEditor.cpp \
         src/utils/QObjectMessageProxy.cpp \
+        src/utils/QvGFWPACConverter.cpp \
         src/utils/QvHTTPRequestHelper.cpp \
         src/utils/QvPingModel.cpp \
         src/utils/QvRunguard.cpp \
@@ -148,9 +149,22 @@ for(var, $$list($$files("translations/*.ts", true))) {
 message("Qv2ray will build with" $${replace(EXTRA_TRANSLATIONS, "translations/", "")})
 TRANSLATIONS += translations/en-US.ts
 
+
 message(" ")
 QMAKE_CXXFLAGS += -Wno-missing-field-initializers -Wno-unused-parameter -Wno-unused-variable
 
+message("Adding QHttpServer Support")
+message("  --> Adding qhttpserver")
+HEADERS += $$PWD/3rdparty/qhttpserver/src/*.h
+SOURCES += $$PWD/3rdparty/qhttpserver/src/*.cpp
+INCLUDEPATH += 3rdparty/qhttpserver/src/
+
+message("  --> Adding http parser")
+HEADERS += 3rdparty/qhttpserver/http-parser/http_parser.h
+SOURCES += 3rdparty/qhttpserver/http-parser/http_parser.c
+INCLUDEPATH += 3rdparty/qhttpserver/http-parser
+
+message(" ")
 win32 {
     message("Configuring for win32 environment")
     message("  --> Setting up target descriptions")
