@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="32"
+   height="32"
+   viewBox="0 0 8.4666667 8.4666667"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.4 5da689c313, 2019-01-14"
+   sodipodi:docname="remove_connection_btn.svg"
+   inkscape:export-filename="/tmp/makepkg/qv2ray-dev-git/src/qv2ray-dev-git/icons/remove_connection_btn.png"
+   inkscape:export-xdpi="144.00002"
+   inkscape:export-ydpi="144.00002">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="5.6568543"
+     inkscape:cx="-7.7196395"
+     inkscape:cy="8.8646449"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:window-width="1874"
+     inkscape:window-height="1050"
+     inkscape:window-x="46"
+     inkscape:window-y="30"
+     inkscape:window-maximized="1"
+     inkscape:snap-object-midpoints="true"
+     inkscape:snap-center="true"
+     inkscape:snap-smooth-nodes="true"
+     inkscape:snap-intersection-paths="true"
+     inkscape:object-paths="true"
+     inkscape:snap-bbox="true"
+     fit-margin-top="20"
+     fit-margin-left="20"
+     fit-margin-bottom="20"
+     fit-margin-right="20"
+     guidecolor="#00dcff"
+     guideopacity="0.49803922"
+     guidehicolor="#1ce300"
+     guidehiopacity="0.49803922"
+     units="px"
+     inkscape:snap-nodes="true"
+     inkscape:snap-others="false"
+     inkscape:bbox-paths="true"
+     inkscape:bbox-nodes="true"
+     inkscape:snap-grids="true"
+     inkscape:snap-midpoints="true"
+     inkscape:snap-bbox-edge-midpoints="true"
+     inkscape:snap-bbox-midpoints="true">
+    <inkscape:grid
+       type="xygrid"
+       id="grid822"
+       color="#3f4842"
+       opacity="0.02745098"
+       empcolor="#3f1212"
+       empopacity="0.05098039"
+       spacingx="0"
+       spacingy="0" />
+    <sodipodi:guide
+       position="1.058,1.8520833"
+       orientation="1,0"
+       id="guide824"
+       inkscape:locked="false"
+       inkscape:label=""
+       inkscape:color="rgb(0,220,255)" />
+    <sodipodi:guide
+       position="0,7.408"
+       orientation="0,1"
+       id="guide826"
+       inkscape:locked="false"
+       inkscape:label=""
+       inkscape:color="rgb(0,220,255)" />
+    <sodipodi:guide
+       position="1.3229167,1.058"
+       orientation="0,1"
+       id="guide830"
+       inkscape:locked="false"
+       inkscape:label=""
+       inkscape:color="rgb(0,220,255)" />
+    <sodipodi:guide
+       position="7.408,7.4083334"
+       orientation="1,0"
+       id="guide869"
+       inkscape:locked="false"
+       inkscape:label=""
+       inkscape:color="rgb(0,220,255)" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-18.854164,-225.46826)">
+    <path
+       style="fill:#31363b;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1"
+       d="m 20.970831,228.64326 v 3.96875 h 4.233333 v -3.96875 h 0.264583 v 4.23333 h -4.7625 v -4.23333 z"
+       id="path835"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:#31363b;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 21.76458,229.17243 v 2.91041 h 0.264584 v -2.91041 z"
+       id="path837"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:#31363b;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 22.955205,229.17243 v 2.91041 h 0.264584 v -2.91041 z"
+       id="path837-3"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:#31363b;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 24.145831,229.17243 v 2.91041 h 0.264584 v -2.91041 z"
+       id="path837-3-6"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:#31363b;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 21.76458,226.52693 v 0.79341 h 0.264584 v -0.52916 h 2.116666 v 0.52916 h 0.264584 v -0.79375 z"
+       id="path871"
+       inkscape:connector-curvature="0" />
+    <path
+       style="opacity:1;fill:#31363b;fill-opacity:1;stroke:none;stroke-width:0.03779528;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 4 7 L 4 12 L 27.998047 12 L 27.998047 7 L 4 7 z M 5 8 L 27 8 L 27 11 L 5 11 L 5 8 z "
+       id="rect881"
+       transform="matrix(0.26458333,0,0,0.26458333,18.854164,225.46826)" />
+  </g>
+</svg>

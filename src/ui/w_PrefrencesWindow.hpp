@@ -116,7 +116,9 @@ class PrefrencesWindow : public QDialog, private Ui::PrefrencesWindow
 
         void on_themeCombo_currentTextChanged(const QString &arg1);
 
-        void on_darkChartThemeCB_stateChanged(int arg1);
+        void on_darkThemeCB_stateChanged(int arg1);
+
+        void on_darkTrayCB_stateChanged(int arg1);
 
     private:
         // Set ui parameters for a line;

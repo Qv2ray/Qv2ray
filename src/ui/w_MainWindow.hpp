@@ -27,7 +27,7 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         void UpdateLog();
         void OnConfigListChanged(bool need_restart);
     private slots:
-        void on_action_RCM_ShareQR_triggered();
+        void on_action_RCM_ShareQR_triggered(bool checked = false);
         void on_startButton_clicked();
         void on_stopButton_clicked();
         void on_reconnectButton_clicked();
@@ -55,8 +55,6 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         void on_removeConfigButton_clicked();
 
         void on_importConfigButton_clicked();
-
-        void on_addConfigButton_clicked();
 
         void on_editConfigButton_clicked();
 

@@ -32,20 +32,33 @@
     </rect>
    </property>
    <property name="text">
-    <string>TextLabel</string>
+    <string>Size</string>
    </property>
   </widget>
   <widget class="QPushButton" name="startBtn">
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>40</y>
+     <y>60</y>
      <width>80</width>
      <height>26</height>
     </rect>
    </property>
    <property name="text">
     <string>Screen Shot</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="fg">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>140</y>
+     <width>58</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>FG</string>
    </property>
   </widget>
  </widget>

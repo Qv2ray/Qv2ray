@@ -12,8 +12,13 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) :
     root(connection),
     original(connection)
 {
-    // TODO Balancer will not be removed if an rule has been removed.
     setupUi(this);
+    addInboundBtn->setIcon(QICON_R("add.png"));
+    addOutboundBtn->setIcon(QICON_R("add.png"));
+    editInboundBtn->setIcon(QICON_R("edit.png"));
+    editOutboundBtn->setIcon(QICON_R("edit.png"));
+    delInboundBtn->setIcon(QICON_R("delete.png"));
+    delOutboundBtn->setIcon(QICON_R("delete.png"));
     //
     inbounds = root["inbounds"].toArray();
     outbounds = root["outbounds"].toArray();

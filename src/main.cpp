@@ -2,6 +2,7 @@
 #include <QStandardPaths>
 #include <QTranslator>
 #include <QStyle>
+#include <QLocale>
 #include <QStyleFactory>
 
 #include "QvUtils.hpp"
@@ -136,32 +137,40 @@ int main(int argc, char *argv[])
 {
     // This line must be called before any other ones.
     QApplication _qApp(argc, argv);
+    //
+    // Install a default translater. From the OS/DE
+    auto _lang = QLocale::system().name().replace("_", "-");
+    bool _result_ = qApp->installTranslator(getTranslator(_lang));
+    LOG(MODULE_UI, "Installing a tranlator from OS: " + _lang.toStdString() + " -- " + (_result_ ? "OK" : "Failed"))
+    //
     LOG("LICENCE", NEWLINE "This program comes with ABSOLUTELY NO WARRANTY." NEWLINE
         "This is free software, and you are welcome to redistribute it" NEWLINE
-        "under certain conditions." NEWLINE
-        NEWLINE NEWLINE
-        "Libraries that are used in Qv2ray and their authors are listed below:" NEWLINE
-        "QJsonModel: Copyright (c) 2011 SCHUTZ Sacha" NEWLINE
-        "Qv2ray Current Developer Copyright (C) 2019 Leroy.H.Y (@lhy0403)" NEWLINE
-        "Hv2ray Initial Designs & gRPC implementation Copyright (C) 2019 Hork (@aliyuchang33)" NEWLINE
-        "Hv2ray/Qv2ray HTTP Request Helper (partial) Copyright 2019 (C) SOneWinstone (@SoneWinstone)" NEWLINE
+        "under certain conditions." NEWLINE NEWLINE
+        "Copyright (C) 2019 Leroy.H.Y (@lhy0403): Qv2ray Current Developer" NEWLINE
+        "Copyright (C) 2019 Hork (@aliyuchang33): Hv2ray Initial Designs & gRPC implementation " NEWLINE
+        "Copyright (C) 2019 SOneWinstone (@SoneWinstone): Hv2ray/Qv2ray HTTP Request Helper" NEWLINE
         "Qv2ray ArtWork Done By ArielAxionL (@axionl)" NEWLINE
-        "Qv2ray Russian Translations By TheBadGateway (@thebadgateway)" NEWLINE
-        "Qv2ray patch 8a8c1a By Riko (@rikakomoe)" NEWLINE
+        "TheBadGateway (@thebadgateway): Qv2ray Russian Translations" NEWLINE
+        "Riko (@rikakomoe): Qv2ray patch 8a8c1a/PR115"
+        NEWLINE NEWLINE
+        "Libraries that have been used in Qv2ray are listed below (Sorted by date added):" NEWLINE
+        "Copyright (c) 2019 dridk (@dridk): X2Struct (Apache)" NEWLINE
+        "Copyright (c) 2011 SCHUTZ Sacha (@dridk): QJsonModel (MIT)" NEWLINE
+        "Copyright (c) 2019 Nikolaos Ftylitakis (@ftylitak): QZXing (Apache2)" NEWLINE
+        "Copyright (c) 2016 Singein (@Singein): ScreenShot (MIT)" NEWLINE
         NEWLINE
         "Qv2ray " QV2RAY_VERSION_STRING " running on " +
-        (QSysInfo::prettyProductName() + " " + QSysInfo::currentCpuArchitecture()).toStdString() +
-        NEWLINE)
+        (QSysInfo::prettyProductName() + " " + QSysInfo::currentCpuArchitecture()).toStdString() + NEWLINE)
     //
     LOG(MODULE_INIT, "Qv2ray Start Time: "  + QString::number(QTime::currentTime().msecsSinceStartOfDay()).toStdString())
-    DEBUG("DEBUG", "============================== This is a debug build, many features are not stable enough. ==============================")
+    DEBUG("DEBUG", "WARNING: ============================== This is a debug build, many features are not stable enough. ==============================")
     //
     // Initialise the language list.
     auto langs = GetFileList(QDir(":/translations"));
 
     if (langs.empty()) {
         LOG(MODULE_INIT, "FAILED to find any translations. THIS IS A BUILD ERROR.")
-        QvMessageBox(nullptr, "Cannot load languages", "Qv2ray will continue running, but you cannot change the UI language.");
+        QvMessageBox(nullptr, QObject::tr("Cannot load languages"), QObject::tr("Qv2ray will continue running, but you cannot change the UI language."));
     } else {
         for (auto lang : langs) {
             LOG(MODULE_INIT, "Found Translator: " + lang.toStdString())
@@ -201,7 +210,7 @@ int main(int argc, char *argv[])
                      QObject::tr("Qv2ray will now exit."));
         return -3;
     } else if (confVersion != newVersion) {
-        conf = UpgradeConfig(confVersion.toInt(), QV2RAY_CONFIG_VERSION, conf);
+        conf = Qv2ray::UpgradeConfig(confVersion.toInt(), QV2RAY_CONFIG_VERSION, conf);
     }
 
     auto confObject = StructFromJsonString<Qv2rayConfig>(JsonToString(conf));
@@ -291,6 +300,7 @@ int main(int argc, char *argv[])
         MainWindow w;
         return _qApp.exec();
     }  catch (std::exception *ex) {
+        QvMessageBox(nullptr, "ERROR", QSTRING(ex->what()));
         LOG(MODULE_INIT, ex->what())
         return -9;
     }
