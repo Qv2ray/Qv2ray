@@ -160,7 +160,6 @@ SOURCES += $$PWD/3rdparty/qhttpserver/src/*.cpp
 INCLUDEPATH += 3rdparty/qhttpserver/src/
 
 message("  --> Adding http parser")
-DEFINES += QHTTPSERVER_EXPORT
 HEADERS += 3rdparty/qhttpserver/http-parser/http_parser.h
 SOURCES += 3rdparty/qhttpserver/http-parser/http_parser.c
 INCLUDEPATH += 3rdparty/qhttpserver/http-parser
@@ -168,6 +167,7 @@ INCLUDEPATH += 3rdparty/qhttpserver/http-parser
 message(" ")
 win32 {
     message("Configuring for win32 environment")
+    DEFINES += QHTTPSERVER_EXPORT
     message("  --> Setting up target descriptions")
     QMAKE_TARGET_DESCRIPTION = "Qv2ray, a cross-platform v2ray GUI client."
     QMAKE_TARGET_PRODUCT = "Qv2ray"
