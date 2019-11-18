@@ -263,6 +263,7 @@ int main(int argc, char *argv[])
         QPalette darkPalette;
         QColor darkColor = QColor(45, 45, 45);
         QColor disabledColor = QColor(127, 127, 127);
+        // See Qv2rayBase.hpp MACRO --> BLACK(obj)
         QColor defaultTextColor = QColor(210, 210, 210);
         darkPalette.setColor(QPalette::Window, darkColor);
         darkPalette.setColor(QPalette::WindowText, defaultTextColor);
