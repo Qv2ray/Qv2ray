@@ -160,6 +160,7 @@ SOURCES += $$PWD/3rdparty/qhttpserver/src/*.cpp
 INCLUDEPATH += 3rdparty/qhttpserver/src/
 
 message("  --> Adding http parser")
+DEFINES += QHTTPSERVER_EXPORT
 HEADERS += 3rdparty/qhttpserver/http-parser/http_parser.h
 SOURCES += 3rdparty/qhttpserver/http-parser/http_parser.c
 INCLUDEPATH += 3rdparty/qhttpserver/http-parser
