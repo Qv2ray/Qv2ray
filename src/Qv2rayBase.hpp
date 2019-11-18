@@ -54,9 +54,7 @@
     obj->setPalette(_temp);
 
 #define BLACK(obj)                             \
-    auto _temp = obj->palette();               \
-    _temp.setColor(QPalette::Text, QV2RAY_IS_DARKTHEME ? Qt::white : Qt::black);  \
-    obj->setPalette(_temp);
+    obj->setPalette(this->palette());
 
 #define QV2RAY_UI_RESOURCES_ROOT QSTRING(QV2RAY_IS_DARKTHEME ? ":/icons/ui_dark/" : ":/icons/ui_light/")
 #define QICON_R(file) QIcon(QV2RAY_UI_RESOURCES_ROOT + file)
@@ -72,7 +70,6 @@ namespace Qv2ray
 {
     // Extra header for QvConfigUpgrade.cpp
     QJsonObject UpgradeConfig(int fromVersion, int toVersion, QJsonObject root);
-
 
     struct QvBarLine {
         std::string     Family;

@@ -69,6 +69,6 @@ void JsonEditor::on_formatJsonBtn_clicked()
         jsonEditor->setPlainText(JsonToString(JsonFromString(string)));
     } else {
         RED(jsonEditor)
-        QvMessageBox(this, tr("Json Contains Syntax Errors"), tr("Please fix it and retry later."));
+        QvMessageBox(this, tr("Syntax Errors"), tr("Please fix the JSON errors before continue"));
     }
 }
