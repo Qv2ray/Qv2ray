@@ -4,3 +4,6 @@
 [submodule "3rdparty/qzxing_noTests"]
 	path = 3rdparty/qzxing_noTests
 	url = https://github.com/lhy0403/qzxing_noTests
+[submodule "3rdparty/qhttpserver"]
+	path = 3rdparty/qhttpserver
+	url = https://github.com/nikhilm/qhttpserver
