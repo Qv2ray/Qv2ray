@@ -25,8 +25,8 @@ write_file("Build.Counter", _BUILD_NUMBER)
 DEFINES += QT_DEPRECATED_WARNINGS QV2RAY_VERSION_STRING=\"\\\"v$${VERSION}\\\"\"
 
 SOURCES += \
-        src/QvCoreConfigOperations.cpp \
         src/main.cpp \
+        src/QvCoreConfigOperations.cpp \
         src/QvConfigUpgrade.cpp \
         src/QvCoreConfigOperations_Convertion.cpp \
         src/QvCoreConfigOperations_Generation.cpp \
@@ -57,7 +57,6 @@ INCLUDEPATH += \
         src/ui/ \
         src/utils/ \
         libs/gen/
-
 HEADERS += \
         src/Qv2rayBase.hpp \
         src/QvCoreConfigObjects.hpp \
@@ -74,6 +73,7 @@ HEADERS += \
         src/ui/w_RoutesEditor.hpp \
         src/ui/w_SubscriptionEditor.hpp \
         src/ui/w_ScreenShot_Core.hpp \
+        src/utils/QvTinyLog.hpp \
         src/utils/QJsonModel.hpp \
         src/utils/QJsonObjectInsertMacros.h \
         src/utils/QObjectMessageProxy.hpp \
@@ -82,8 +82,7 @@ HEADERS += \
         src/utils/QvPingModel.hpp \
         src/utils/QvRunguard.hpp \
         libs/gen/v2ray_api_commands.pb.h \
-        libs/gen/v2ray_api_commands.grpc.pb.h \
-        src/utils/QvTinyLog.hpp
+        libs/gen/v2ray_api_commands.grpc.pb.h
 
 FORMS += \
         src/ui/w_ExportConfig.ui \
@@ -94,8 +93,8 @@ FORMS += \
         src/ui/w_OutboundEditor.ui \
         src/ui/w_PrefrencesWindow.ui \
         src/ui/w_RoutesEditor.ui \
-        src/ui/w_SubscriptionEditor.ui \
-        src/ui/w_ScreenShot_Core.ui
+        src/ui/w_ScreenShot_Core.ui \
+        src/ui/w_SubscriptionEditor.ui
 
 RESOURCES += \
         resources.qrc
@@ -113,8 +112,10 @@ message("|                                                 |")
 message("| See: https://www.gnu.org/licenses/gpl-3.0.html  |")
 message("|-------------------------------------------------|")
 message(" ")
-RC_ICONS += ./icons/Qv2ray.ico
-ICON = ./icons/Qv2ray.icns
+
+
+RC_ICONS += ./icons/qv2ray.ico
+ICON = ./icons/qv2ray.icns
 
 # ------------------------------------------ Begin checking gRPC and protobuf headers.
 !exists(libs/gen/v2ray_api_commands.grpc.pb.h) || !exists(libs/gen/v2ray_api_commands.grpc.pb.cc) || !exists(libs/gen/v2ray_api_commands.pb.h) || !exists(libs/gen/v2ray_api_commands.pb.cc) {

@@ -5,8 +5,9 @@
 
 #include "QvUtils.hpp"
 #include "QvCoreInteractions.hpp"
-#include "w_PrefrencesWindow.hpp"
+#include "QvNetSpeedPlugin.hpp"
 
+#include "w_PrefrencesWindow.hpp"
 
 #define LOADINGCHECK if(!finishedLoading) return;
 #define NEEDRESTART if(finishedLoading) IsConnectionPropertyChanged = true;
@@ -29,13 +30,16 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     themeCombo->addItems(QStyleFactory::keys());
     //
     qvVersion->setText(QV2RAY_VERSION_STRING);
+    qvBuildTime->setText(__DATE__ " " __TIME__);
     CurrentConfig = GetGlobalConfig();
     //
     themeCombo->setCurrentText(QSTRING(CurrentConfig.UISettings.theme));
-    darkChartThemeCB->setChecked(CurrentConfig.UISettings.useDarkTheme);
+    darkThemeCB->setChecked(CurrentConfig.UISettings.useDarkTheme);
+    darkTrayCB->setChecked(CurrentConfig.UISettings.useDarkTrayIcon);
 #if QV2RAY_USE_BUILTIN_DARKTHEME
     // If we use built in theme, it should always be fusion.
     themeCombo->setEnabled(!CurrentConfig.UISettings.useDarkTheme);
+    darkThemeLabel->setText(tr("Use Dark Theme"));
 #endif
     languageComboBox->setCurrentText(QSTRING(CurrentConfig.UISettings.language));
     logLevelComboBox->setCurrentIndex(CurrentConfig.logLevel);
@@ -339,7 +343,7 @@ void PrefrencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
                 auto v2ctlPath = QFileInfo(QSTRING(CurrentConfig.v2CorePath)).path() + "/v2ctl";
                 auto newPath = QFileInfo(QV2RAY_DEFAULT_VCORE_PATH).path();
                 //
-                LOG(MODULE_FILE, " --> Origin v2ray core file is at: " + v2ctlPath.toStdString() + "/v2ctl")
+                LOG(MODULE_FILE, " --> Origin v2ctl file is at: " + v2ctlPath.toStdString())
                 LOG(MODULE_FILE, " --> New v2ray files will be placed in: " << newPath.toStdString())
                 //
                 LOG(MODULE_FILE, " --> Copying files....")
@@ -712,10 +716,11 @@ void PrefrencesWindow::on_themeCombo_currentTextChanged(const QString &arg1)
     CurrentConfig.UISettings.theme = arg1.toStdString();
 }
 
-void PrefrencesWindow::on_darkChartThemeCB_stateChanged(int arg1)
+void PrefrencesWindow::on_darkThemeCB_stateChanged(int arg1)
 {
     LOADINGCHECK
     CurrentConfig.UISettings.useDarkTheme = arg1 == Qt::Checked;
+    QvMessageBox(this, tr("Dark Mode"), tr("Please restart Qv2ray to fully apply this feature."));
 #if QV2RAY_USE_BUILTIN_DARKTHEME
     themeCombo->setEnabled(arg1 != Qt::Checked);
 
@@ -725,4 +730,9 @@ void PrefrencesWindow::on_darkChartThemeCB_stateChanged(int arg1)
     }
 
 #endif
+}
+
+void PrefrencesWindow::on_darkTrayCB_stateChanged(int arg1)
+{
+    CurrentConfig.UISettings.useDarkTrayIcon = arg1 == Qt::Checked;
 }

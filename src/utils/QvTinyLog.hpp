@@ -11,7 +11,7 @@ using namespace std;
 #define XLOG(module, level, msg) LOG(module, level << msg)
 
 #ifdef QT_DEBUG
-#define DEBUG(module, msg) LOG(module, msg)
+#define DEBUG(module, msg) LOG("[DEBUG] - " module, msg)
 #else
 #define DEBUG(module, msg)
 #endif

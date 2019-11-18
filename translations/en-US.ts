@@ -13,26 +13,21 @@
     <name>ExportConfigWindow</name>
     <message>
         <location filename="../src/ui/w_ExportConfig.ui" line="14"/>
-        <source>Dialog</source>
+        <source>Export Config</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ExportConfig.ui" line="20"/>
-        <source>Image</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_ExportConfig.ui" line="42"/>
+        <location filename="../src/ui/w_ExportConfig.ui" line="39"/>
         <source>Text Message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ExportConfig.ui" line="71"/>
+        <location filename="../src/ui/w_ExportConfig.ui" line="68"/>
         <source>Save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ExportConfig.ui" line="78"/>
+        <location filename="../src/ui/w_ExportConfig.ui" line="75"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
@@ -46,18 +41,12 @@
     </message>
     <message>
         <location filename="../src/ui/w_ImportConfig.ui" line="34"/>
-        <source>Name</source>
+        <source>Name/Prefix</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ui/w_ImportConfig.ui" line="44"/>
         <source>Import Source</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_ImportConfig.ui" line="68"/>
-        <location filename="../src/ui/w_ImportConfig.ui" line="277"/>
-        <source>Subscription Link</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -71,8 +60,14 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/ui/w_ImportConfig.ui" line="68"/>
+        <location filename="../src/ui/w_ImportConfig.ui" line="301"/>
+        <source>Subscription Link</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/ui/w_ImportConfig.ui" line="78"/>
-        <location filename="../src/ui/w_ImportConfig.ui" line="327"/>
+        <location filename="../src/ui/w_ImportConfig.ui" line="351"/>
         <source>Import</source>
         <translation type="unfinished"></translation>
     </message>
@@ -123,85 +118,117 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.ui" line="194"/>
-        <source>Delay in secs</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_ImportConfig.ui" line="261"/>
-        <source>Place your vmess:// here, one line for each.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_ImportConfig.ui" line="334"/>
-        <source>Cancel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_ImportConfig.ui" line="284"/>
-        <source>TO DO IN VERSION 2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_ImportConfig.ui" line="296"/>
-        <source>GroupBox</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_ImportConfig.ui" line="229"/>
+        <location filename="../src/ui/w_ImportConfig.ui" line="206"/>
         <source>Go</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="32"/>
+        <location filename="../src/ui/w_ImportConfig.ui" line="213"/>
+        <source>After</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_ImportConfig.ui" line="236"/>
+        <source>second(s).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_ImportConfig.ui" line="271"/>
+        <source>Place your vmess:// here, one line for each.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_ImportConfig.ui" line="281"/>
+        <source>Error List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_ImportConfig.ui" line="288"/>
+        <source>VMess</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_ImportConfig.ui" line="308"/>
+        <source>TO DO IN VERSION 2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_ImportConfig.ui" line="320"/>
+        <source>GroupBox</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_ImportConfig.ui" line="358"/>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="34"/>
         <source>Select file to import</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="47"/>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="55"/>
-        <source>QRCode Scanning Failed</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="47"/>
-        <source>Cannot find a screen, it&apos;s rare.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="55"/>
-        <source>Cannot find a qrcode from the primary screen.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="76"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="87"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="90"/>
         <source>Import config file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="76"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="87"/>
+        <source>Import from file failed, for more information, please check the log file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="90"/>
         <source>Failed to check the validity of the config file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="116"/>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="121"/>
-        <source>VMess String Check</source>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="97"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="130"/>
+        <source>Assertion Failed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="116"/>
-        <source>VMess string is not valid.</source>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="97"/>
+        <source>Assertion failed: ::SaveConnectionConfig should returns false.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="121"/>
-        <source>VMess config is not valid.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="142"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="164"/>
         <source>Select an image to import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="175"/>
+        <source>QRCode scanning failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="175"/>
+        <source>Cannot find any QRCode from the image.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="210"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="220"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="237"/>
+        <source>Edit file as JSON</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="210"/>
+        <source>Provided file not found: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="220"/>
+        <source>The file you selected has json syntax error. Continue editing may make you lose data. Would you like to continue?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="237"/>
+        <source>Failed to save file, please check if you have the required permissions</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -485,6 +512,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/ui/w_JsonEditor.ui" line="26"/>
+        <source>OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/ui/w_JsonEditor.ui" line="33"/>
         <source>Json Structure Preview</source>
         <translation type="unfinished"></translation>
@@ -497,11 +529,6 @@
     <message>
         <location filename="../src/ui/w_JsonEditor.ui" line="60"/>
         <source>Json Editor</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_JsonEditor.ui" line="26"/>
-        <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -536,19 +563,19 @@
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.ui" line="53"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="46"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="59"/>
         <source>Connect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.ui" line="63"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="48"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="61"/>
         <source>Disconnect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.ui" line="70"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="47"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="60"/>
         <source>Reconnect</source>
         <translation type="unfinished"></translation>
     </message>
@@ -578,291 +605,301 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="206"/>
-        <source>Import connection</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="220"/>
-        <source>Duplicate connection</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="223"/>
-        <source>D</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="236"/>
-        <source>Delete a connection</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="250"/>
-        <source>Edit connection</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="264"/>
-        <source>Edit connection as JSON</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="267"/>
-        <source>{ }</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="291"/>
-        <source>Config Details</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="386"/>
-        <source>Ping</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/ui/w_MainWindow.ui" line="189"/>
         <source>A</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="393"/>
-        <source>Share</source>
+        <location filename="../src/ui/w_MainWindow.ui" line="208"/>
+        <source>Import connection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="605"/>
-        <source>#ImportConnection</source>
+        <location filename="../src/ui/w_MainWindow.ui" line="211"/>
+        <source>Imp</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="209"/>
-        <source>I</source>
+        <location filename="../src/ui/w_MainWindow.ui" line="224"/>
+        <source>Duplicate connection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="253"/>
-        <source>...</source>
+        <location filename="../src/ui/w_MainWindow.ui" line="227"/>
+        <source>Dup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="239"/>
-        <source>R</source>
+        <location filename="../src/ui/w_MainWindow.ui" line="246"/>
+        <source>Delete a connection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="299"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="249"/>
+        <source>D</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.ui" line="262"/>
+        <source>Edit connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.ui" line="265"/>
+        <source>E</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.ui" line="295"/>
+        <source>Config Details</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.ui" line="303"/>
         <source>Config Type</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="313"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="317"/>
         <source>Protocol</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="327"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="331"/>
         <source>Address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="341"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="345"/>
         <source>Port Number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="355"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="359"/>
         <source>Mux</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="420"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="390"/>
+        <source>Edit connection as JSON</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.ui" line="393"/>
+        <source>J</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.ui" line="406"/>
+        <source>P</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.ui" line="419"/>
+        <source>S</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.ui" line="452"/>
         <source>Log</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="445"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="477"/>
         <source>Speed Graph</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="469"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="501"/>
         <source>Speed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="506"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="529"/>
         <source>0.00 B/s
 0.00 B/s</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="539"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="562"/>
         <source>Data</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="576"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="590"/>
         <source>0.00 B
 0.00 B</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="600"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="614"/>
         <source>#ManuallyCreateConnection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="610"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="619"/>
+        <source>#ImportConnection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.ui" line="624"/>
         <source>#Exit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="615"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="629"/>
         <source>#Preferences</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="620"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="634"/>
         <source>#Start</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="625"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="639"/>
         <source>#Stop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui" line="630"/>
+        <location filename="../src/ui/w_MainWindow.ui" line="644"/>
         <source>#Restart</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="44"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="371"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="57"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="384"/>
         <source>Hide</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="45"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="58"/>
         <source>Quit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="50"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="63"/>
         <source>Rename</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="51"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="64"/>
         <source>Connect to this</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="52"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="65"/>
         <source>Edit as Json</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="53"/>
-        <source>Share as QRCode/vmess Uri</source>
+        <location filename="../src/ui/w_MainWindow.cpp" line="66"/>
+        <source>Share as QRCode/VMess URL</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="137"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="326"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="374"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="150"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="339"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="387"/>
         <source>Show</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="183"/>
-        <source>Update</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="184"/>
-        <source>Found a new version: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="190"/>
-        <source>Download Link: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="159"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="272"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="172"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="285"/>
         <source>No connection selected!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="159"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="272"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="172"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="285"/>
         <source>Please select a config from the list.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="283"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="284"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="745"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="196"/>
+        <source>Update</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.cpp" line="197"/>
+        <source>Found a new version: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.cpp" line="203"/>
+        <source>Download Link: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.cpp" line="296"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="297"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="776"/>
         <source>Connected To Server: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="309"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="298"/>
+        <source>Connected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.cpp" line="322"/>
         <source>Disconnected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="512"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="519"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="526"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="533"/>
         <source>Rename a Connection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="512"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="526"/>
         <source>The name cannot be empty</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="548"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="533"/>
+        <source>The name has been used already, Please choose another.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/ui/w_MainWindow.cpp" line="562"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="576"/>
         <source>Removing this Connection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.cpp" line="562"/>
+        <source>Are you sure to remove this connection?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.cpp" line="576"/>
         <source>Failed to delete connection file, please delete manually.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="611"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="654"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="625"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="668"/>
         <source>No Config Selected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="611"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="654"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="625"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="668"/>
         <source>Please Select a Config</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="519"/>
-        <source>The name has been used already, Please choose another.</source>
+        <location filename="../src/ui/w_MainWindow.cpp" line="717"/>
+        <source>Share Connection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="285"/>
-        <source>Connected</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="548"/>
-        <source>Are you sure to remove this connection?</source>
+        <location filename="../src/ui/w_MainWindow.cpp" line="717"/>
+        <source>There&apos;re no support of sharing configs other than vmess</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1107,565 +1144,554 @@
 <context>
     <name>PrefrencesWindow</name>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="26"/>
-        <location filename="../src/ui/w_PrefrencesWindow.cpp" line="133"/>
-        <location filename="../src/ui/w_PrefrencesWindow.cpp" line="386"/>
-        <location filename="../src/ui/w_PrefrencesWindow.cpp" line="397"/>
-        <location filename="../src/ui/w_PrefrencesWindow.cpp" line="409"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="20"/>
+        <location filename="../src/ui/w_PrefrencesWindow.cpp" line="140"/>
+        <location filename="../src/ui/w_PrefrencesWindow.cpp" line="393"/>
+        <location filename="../src/ui/w_PrefrencesWindow.cpp" line="404"/>
+        <location filename="../src/ui/w_PrefrencesWindow.cpp" line="416"/>
         <source>Prefrences</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="52"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="46"/>
         <source>General</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="58"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="52"/>
         <source>UI Theme</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="75"/>
-        <source>Dark Chart Theme</source>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="69"/>
+        <source>Dark Theme Support</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="89"/>
-        <source>Language</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="109"/>
-        <source>zh-CN</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="114"/>
-        <source>en-US</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="122"/>
-        <source>Log Level</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="142"/>
-        <source>none</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="147"/>
-        <source>debug</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="152"/>
-        <source>info</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="157"/>
-        <source>warning</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="162"/>
-        <source>error</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="170"/>
-        <source>Automatically Connect To</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="192"/>
-        <source>Transparent Proxy Support</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="82"/>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="199"/>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="281"/>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="312"/>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="326"/>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="387"/>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="418"/>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="478"/>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="492"/>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="506"/>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="546"/>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="584"/>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="654"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="76"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="193"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="323"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="354"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="382"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="429"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="460"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="520"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="534"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="548"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="588"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="626"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="696"/>
         <source>Enabled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="227"/>
-        <source>v2ray Assets Path</source>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="83"/>
+        <source>Language</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="218"/>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="239"/>
-        <source>Select</source>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="103"/>
+        <source>zh-CN</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="459"/>
-        <source>Connection Settings</source>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="108"/>
+        <source>en-US</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="465"/>
-        <source>General Connection Settings</source>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="116"/>
+        <source>Log Level</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="499"/>
-        <source>Statistics</source>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="136"/>
+        <source>none</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="513"/>
-        <source>API Port</source>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="141"/>
+        <source>debug</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="206"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="146"/>
+        <source>info</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="151"/>
+        <source>warning</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="156"/>
+        <source>error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="164"/>
+        <source>Automatically Connect To</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="186"/>
+        <source>Transparent Proxy Support</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="200"/>
         <source>v2ray Core Path</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="288"/>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="394"/>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="627"/>
-        <source>Port</source>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="212"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="233"/>
+        <source>Select</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="305"/>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="411"/>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="647"/>
-        <source>Authentication</source>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="221"/>
+        <source>v2ray Assets Path</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="347"/>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="425"/>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="661"/>
-        <source>Username</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="361"/>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="439"/>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="671"/>
-        <source>Password</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="257"/>
-        <source>Listening Address</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="249"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="243"/>
         <source>Inbound Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="275"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="251"/>
+        <source>Listening Address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="269"/>
+        <source>Enable PAC</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="279"/>
+        <source>LISTEN_ADDR</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="299"/>
+        <source>/pac.txt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="306"/>
+        <source>Choose File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="317"/>
         <source>SOCKS Inbound Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="319"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="330"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="436"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="669"/>
+        <source>Port</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="347"/>
         <source>SOCKS UDP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="333"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="361"/>
         <source>Local IP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="378"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="375"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="453"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="689"/>
+        <source>Authentication</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="389"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="467"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="703"/>
+        <source>Username</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="403"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="481"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="713"/>
+        <source>Password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="420"/>
         <source>HTTP Inbound Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="471"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="501"/>
+        <source>Connection Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="507"/>
+        <source>General Connection Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="513"/>
         <source>Enable Proxy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="485"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="527"/>
         <source>Bypass Chinese Mainland</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="539"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="541"/>
+        <source>Statistics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="555"/>
+        <source>API Port</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="581"/>
         <source>Use Local DNS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="553"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="595"/>
         <source>DNS List</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="707"/>
-        <source>Items</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="713"/>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="724"/>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="776"/>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="787"/>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="938"/>
-        <source>...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="735"/>
-        <source>Page Y Offset</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="742"/>
-        <source>Pages</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="749"/>
-        <source>Lines</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="829"/>
-        <source>Text Style</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="835"/>
-        <source>Font</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="847"/>
-        <location filename="../src/ui/w_PrefrencesWindow.cpp" line="637"/>
-        <source>Bold</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="854"/>
-        <location filename="../src/ui/w_PrefrencesWindow.cpp" line="638"/>
-        <source>Italic</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="863"/>
-        <source>Size</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="873"/>
-        <source>Color</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="882"/>
-        <source>A:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="896"/>
-        <source>R:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="910"/>
-        <source>G:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="924"/>
-        <source>B:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="947"/>
-        <source>Style</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="957"/>
-        <source>Content</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="963"/>
-        <source>Content Type</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="973"/>
-        <source>Text/Tag</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="989"/>
-        <source>You can config how the network speed toolbar looks like in this panel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="996"/>
-        <source>Apply Network Speed Bar UI Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="1004"/>
-        <source>About</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="1043"/>
-        <source>Qv2ray</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="1052"/>
-        <source>Version:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="1097"/>
-        <source>TIME</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="1121"/>
-        <source>Official Repo:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="1139"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/lhy0403/Qv2ray&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#2980b9;&quot;&gt;https://github.com/lhy0403/Qv2ray&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="1172"/>
-        <source>License:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="1190"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://www.gnu.org/licenses/gpl-3.0.txt&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#2980b9;&quot;&gt;GPLv3 (https://www.gnu.org/licenses/gpl-3.0.txt)&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="1278"/>
-        <source>About Qt</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="1236"/>
-        <source>Ingore Next Version</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="569"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="611"/>
         <source>Forward Proxy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="577"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="619"/>
         <source>Status</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="596"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="638"/>
         <source>Type</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="604"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="646"/>
         <source>HTTP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="609"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="651"/>
         <source>Socks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="617"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="659"/>
         <source>Host Address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="701"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="743"/>
         <source>Network Toolbar Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="1243"/>
-        <source>Cancel</source>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="749"/>
+        <source>Items</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.ui" line="1085"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="767"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="846"/>
+        <source>-</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="786"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="865"/>
+        <source>+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="793"/>
+        <source>Page Y Offset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="800"/>
+        <source>Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="807"/>
+        <source>Lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="903"/>
+        <source>Text Style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="909"/>
+        <source>Font</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="921"/>
+        <location filename="../src/ui/w_PrefrencesWindow.cpp" line="644"/>
+        <source>Bold</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="928"/>
+        <location filename="../src/ui/w_PrefrencesWindow.cpp" line="645"/>
+        <source>Italic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="937"/>
+        <source>Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="947"/>
+        <source>Color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="956"/>
+        <source>A:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="970"/>
+        <source>R:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="984"/>
+        <source>G:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="998"/>
+        <source>B:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="1012"/>
+        <source>...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="1021"/>
+        <source>Style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="1031"/>
+        <source>Content</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="1037"/>
+        <source>Content Type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="1047"/>
+        <source>Text/Tag</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="1063"/>
+        <source>You can config how the network speed toolbar looks like in this panel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="1070"/>
+        <source>Apply Network Speed Bar UI Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="1078"/>
+        <source>About</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="1128"/>
+        <source>Qv2ray</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="1142"/>
+        <source>Version:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="1175"/>
         <source>Built Time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.cpp" line="104"/>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="1211"/>
+        <source>Official Repo:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="1229"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/lhy0403/Qv2ray&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#2980b9;&quot;&gt;https://github.com/lhy0403/Qv2ray&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="1275"/>
+        <source>License:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="1293"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://www.gnu.org/licenses/gpl-3.0.txt&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#2980b9;&quot;&gt;GPLv3 (https://www.gnu.org/licenses/gpl-3.0.txt)&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="1330"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Noto Sans&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Noto Sans&apos;; color:#d69545;&quot;&gt;This&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Noto Sans&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Noto Sans&apos;; color:#d69545;&quot;&gt;program&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Noto Sans&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Noto Sans&apos;; color:#d69545;&quot;&gt;comes&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Noto Sans&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Noto Sans&apos;; color:#d69545;&quot;&gt;with&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Noto Sans&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Noto Sans&apos;; color:#d69545;&quot;&gt;ABSOLUTELY&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Noto Sans&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Noto Sans&apos;; color:#d69545;&quot;&gt;NO&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Noto Sans&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Noto Sans&apos;; color:#d69545;&quot;&gt;WARRANTY.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;This&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;is&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;free&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;software,&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;and&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;you&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;are&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;welcome&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;to&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;redistribute&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;it under&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;certain&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;conditions.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;Copyright&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;(C)&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;2019&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;Leroy.H.Y&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;(@lhy0403):&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;Qv2ray&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;Current&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;Developer&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;Copyright&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;(C)&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;2019&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;Hork&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;(@aliyuchang33):&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;Hv2ray&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;Initial&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;Designs&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;gRPC&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;implementation&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;Copyright&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;(C)&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;2019&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;SOneWinstone&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;(@SoneWinstone):&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;Hv2ray/Qv2ray&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;HTTP&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;Request&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;Helper&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;Qv2ray&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;ArtWork&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;Done&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;By&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;ArielAxionL&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;(@axionl)&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;TheBadGateway&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;(@thebadgateway):&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;Qv2ray&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;Russian&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;Translations&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;Riko&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;(@rikakomoe):&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;Qv2ray&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;patch&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;8a8c1a/PR115&amp;quot;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Hack&apos;;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;Libraries&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;that&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;have&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;been&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;used&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;in&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;Qv2ray&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;are&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;listed&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;below&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;(Sorted&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;by&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;date&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;added):&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;Copyright&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;(c)&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;2019&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;dridk&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;(@dridk):&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;X2Struct&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;(Apache)&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;Copyright&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;(c)&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;2011&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;SCHUTZ&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;Sacha&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;(@dridk):&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;QJsonModel&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;(MIT)&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;Copyright&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;(c)&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;2019&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;Nikolaos&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;Ftylitakis&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;(@ftylitak):&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;QZXing&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;(Apache2)&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;Copyright&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;(c)&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;2016&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;Singein&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;(@Singein):&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;ScreenShot&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Hack&apos;; color:#d69545;&quot;&gt;(MIT)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="1356"/>
+        <source>Ingore Next Version</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="1363"/>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.ui" line="1398"/>
+        <source>About Qt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.cpp" line="41"/>
+        <source>Use Dark Theme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.cpp" line="111"/>
         <source>Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.cpp" line="104"/>
+        <location filename="../src/ui/w_PrefrencesWindow.cpp" line="111"/>
         <source>Item(s)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.cpp" line="133"/>
+        <location filename="../src/ui/w_PrefrencesWindow.cpp" line="140"/>
         <source>Port numbers cannot be the same</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ui/w_PrefrencesWindow.cpp" line="264"/>
+        <source>Open v2ray assets folder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PrefrencesWindow.cpp" line="271"/>
         <source>Open v2ray core file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.cpp" line="325"/>
-        <location filename="../src/ui/w_PrefrencesWindow.cpp" line="370"/>
+        <location filename="../src/ui/w_PrefrencesWindow.cpp" line="332"/>
+        <location filename="../src/ui/w_PrefrencesWindow.cpp" line="377"/>
         <source>Enable tProxy Support</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.cpp" line="326"/>
+        <location filename="../src/ui/w_PrefrencesWindow.cpp" line="333"/>
         <source>This will append capabilities to the v2ray executable.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.cpp" line="327"/>
+        <location filename="../src/ui/w_PrefrencesWindow.cpp" line="334"/>
         <source>Qv2ray will copy your v2ray core to this path: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.cpp" line="328"/>
+        <location filename="../src/ui/w_PrefrencesWindow.cpp" line="335"/>
         <source>If anything goes wrong after enabling this, please refer to issue #57 or the link below:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.cpp" line="371"/>
+        <location filename="../src/ui/w_PrefrencesWindow.cpp" line="378"/>
         <source>Qv2ray cannot copy one or both v2ray files from: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.cpp" line="373"/>
+        <location filename="../src/ui/w_PrefrencesWindow.cpp" line="380"/>
         <source>to this path: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.cpp" line="386"/>
-        <location filename="../src/ui/w_PrefrencesWindow.cpp" line="397"/>
+        <location filename="../src/ui/w_PrefrencesWindow.cpp" line="393"/>
+        <location filename="../src/ui/w_PrefrencesWindow.cpp" line="404"/>
         <source>Failed to setcap onto v2ray executable. You may need to run `setcap` manually.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PrefrencesWindow.cpp" line="409"/>
+        <location filename="../src/ui/w_PrefrencesWindow.cpp" line="416"/>
         <source>tProxy is not supported on macOS and Windows</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PrefrencesWindow.cpp" line="257"/>
-        <source>Open v2ray assets folder</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/main.cpp" line="198"/>
-        <source>Qv2ray Cannot Continue</source>
+        <location filename="../src/QvCoreConfigOperations_Convertion.cpp" line="93"/>
+        <source>VMess string should start with &apos;vmess://&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="199"/>
-        <source>You are running a lower version of Qv2ray compared to the current config file.</source>
+        <location filename="../src/QvCoreConfigOperations_Convertion.cpp" line="102"/>
+        <source>VMess string should be a valid base64 string</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="200"/>
-        <source>Please report if you think this is an error.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/main.cpp" line="109"/>
-        <location filename="../src/main.cpp" line="201"/>
-        <source>Qv2ray will now exit.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/main.cpp" line="105"/>
-        <source>Cannot Start Qv2ray</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/main.cpp" line="106"/>
-        <source>Cannot find a place to store config files.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/main.cpp" line="107"/>
-        <source>Qv2ray has searched these paths below:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/main.cpp" line="228"/>
-        <source>DependencyMissing</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/main.cpp" line="229"/>
-        <source>Cannot find openssl libs</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/main.cpp" line="230"/>
-        <source>This could be caused by a missing of `openssl` package in your system. Or an AppImage issue.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/main.cpp" line="231"/>
-        <source>If you are using AppImage, please report a bug.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/main.cpp" line="232"/>
-        <source>Please refer to Github Issue #65 to check for solutions.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/main.cpp" line="233"/>
-        <source>Github Issue Link: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/main.cpp" line="234"/>
-        <source>Technical Details</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/main.cpp" line="184"/>
-        <source>Another instance of Qv2ray is already running.</source>
+        <location filename="../src/QvCoreConfigOperations_Convertion.cpp" line="117"/>
+        <source>JSON should not be empty</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1694,6 +1720,92 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/main.cpp" line="106"/>
+        <source>Cannot Start Qv2ray</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/main.cpp" line="107"/>
+        <source>Cannot find a place to store config files.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/main.cpp" line="108"/>
+        <source>Qv2ray has searched these paths below:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/main.cpp" line="110"/>
+        <location filename="../src/main.cpp" line="210"/>
+        <source>Qv2ray will now exit.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/main.cpp" line="173"/>
+        <source>Cannot load languages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/main.cpp" line="173"/>
+        <source>Qv2ray will continue running, but you cannot change the UI language.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/main.cpp" line="193"/>
+        <source>Another instance of Qv2ray is already running.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/main.cpp" line="207"/>
+        <source>Qv2ray Cannot Continue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/main.cpp" line="208"/>
+        <source>You are running a lower version of Qv2ray compared to the current config file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/main.cpp" line="209"/>
+        <source>Please report if you think this is an error.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/main.cpp" line="237"/>
+        <source>DependencyMissing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/main.cpp" line="238"/>
+        <source>Cannot find openssl libs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/main.cpp" line="239"/>
+        <source>This could be caused by a missing of `openssl` package in your system. Or an AppImage issue.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/main.cpp" line="240"/>
+        <source>If you are using AppImage, please report a bug.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/main.cpp" line="241"/>
+        <source>Please refer to Github Issue #65 to check for solutions.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/main.cpp" line="242"/>
+        <source>Github Issue Link: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/main.cpp" line="243"/>
+        <source>Technical Details</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/ui/NetSpeedBar/QvNetSpeedBar.cpp" line="56"/>
         <source>Stats is not enabled</source>
         <translation type="unfinished"></translation>
@@ -1714,72 +1826,72 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/utils/QvNetSpeedPlugin.hpp" line="23"/>
+        <location filename="../src/utils/QvNetSpeedPlugin.hpp" line="22"/>
         <source>Custom Text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/utils/QvNetSpeedPlugin.hpp" line="25"/>
+        <location filename="../src/utils/QvNetSpeedPlugin.hpp" line="24"/>
         <source>Current Time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/utils/QvNetSpeedPlugin.hpp" line="26"/>
+        <location filename="../src/utils/QvNetSpeedPlugin.hpp" line="25"/>
         <source>Current Date</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/utils/QvNetSpeedPlugin.hpp" line="27"/>
+        <location filename="../src/utils/QvNetSpeedPlugin.hpp" line="26"/>
         <source>Current Qv2ray Version</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/utils/QvNetSpeedPlugin.hpp" line="28"/>
+        <location filename="../src/utils/QvNetSpeedPlugin.hpp" line="27"/>
         <source>Current Connection Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/utils/QvNetSpeedPlugin.hpp" line="29"/>
+        <location filename="../src/utils/QvNetSpeedPlugin.hpp" line="28"/>
         <source>Current Connection Status</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/utils/QvNetSpeedPlugin.hpp" line="31"/>
+        <location filename="../src/utils/QvNetSpeedPlugin.hpp" line="30"/>
         <source>Total Upload Speed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/utils/QvNetSpeedPlugin.hpp" line="32"/>
+        <location filename="../src/utils/QvNetSpeedPlugin.hpp" line="31"/>
         <source>Total Download Speed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/utils/QvNetSpeedPlugin.hpp" line="33"/>
+        <location filename="../src/utils/QvNetSpeedPlugin.hpp" line="32"/>
         <source>Upload Speed for Specific Tag</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/utils/QvNetSpeedPlugin.hpp" line="34"/>
+        <location filename="../src/utils/QvNetSpeedPlugin.hpp" line="33"/>
         <source>Download Speed for Specific Tag</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/utils/QvNetSpeedPlugin.hpp" line="36"/>
+        <location filename="../src/utils/QvNetSpeedPlugin.hpp" line="35"/>
         <source>Total Uploaded Data</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/utils/QvNetSpeedPlugin.hpp" line="37"/>
+        <location filename="../src/utils/QvNetSpeedPlugin.hpp" line="36"/>
         <source>Total Downloaded Data</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/utils/QvNetSpeedPlugin.hpp" line="38"/>
+        <location filename="../src/utils/QvNetSpeedPlugin.hpp" line="37"/>
         <source>Uploaded Data for Specific Tag</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/utils/QvNetSpeedPlugin.hpp" line="39"/>
+        <location filename="../src/utils/QvNetSpeedPlugin.hpp" line="38"/>
         <source>Downloaded Data for Specific Tag</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1787,193 +1899,9 @@
 <context>
     <name>RouteEditor</name>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="403"/>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="75"/>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="487"/>
-        <source>Enabled</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="408"/>
-        <source>InBounds</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="418"/>
-        <source>Outbound</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="500"/>
-        <source>Source IP Matching List</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="510"/>
-        <source>Target Domain List</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="554"/>
-        <source>Protocol</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="563"/>
-        <source>HTTP</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="570"/>
-        <source>TLS</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="577"/>
-        <source>BitTorrent</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="593"/>
-        <source>e.g. 80, 443, 8000-8080</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="600"/>
-        <source>Enable Balancers</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="607"/>
-        <source>Balancers</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="623"/>
-        <source>Outbound Tag</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="717"/>
-        <source>Users List</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="522"/>
-        <source>Network</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="531"/>
-        <source>TCP</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="538"/>
-        <source>UDP</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="545"/>
-        <source>Both</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="70"/>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="81"/>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="221"/>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="232"/>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="441"/>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="452"/>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="669"/>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="693"/>
-        <source>...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="62"/>
-        <source>Inbound List</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="128"/>
-        <source>Inbound Information</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="164"/>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="308"/>
-        <source>Tag</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="136"/>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="315"/>
-        <source>Type</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="157"/>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="332"/>
-        <source>Address</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="143"/>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="349"/>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="586"/>
-        <source>Port</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/ui/w_RoutesEditor.ui" line="20"/>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="284"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="289"/>
         <source>Route Editor</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="103"/>
-        <source>D</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="254"/>
-        <source>F</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="261"/>
-        <source>B</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="387"/>
-        <source>Routes</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="413"/>
-        <source>Domain/IP</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="484"/>
-        <source>Route Details</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="493"/>
-        <source>Target IP List</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="213"/>
-        <source>Outbound List</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_RoutesEditor.ui" line="290"/>
-        <source>Outbound Information</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1982,99 +1910,311 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="41"/>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="49"/>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="158"/>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="188"/>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="62"/>
+        <source>Inbound List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="70"/>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="209"/>
+        <source>A</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="77"/>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="91"/>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="216"/>
+        <source>D</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="84"/>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="223"/>
+        <source>E</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="116"/>
+        <source>Inbound Information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="124"/>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="291"/>
+        <source>Type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="131"/>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="325"/>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="562"/>
+        <source>Port</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="145"/>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="308"/>
+        <source>Address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="152"/>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="284"/>
+        <source>Tag</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="201"/>
+        <source>Outbound List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="230"/>
+        <source>F</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="237"/>
+        <source>B</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="266"/>
+        <source>Outbound Information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="363"/>
+        <source>Routes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="379"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="80"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="492"/>
+        <source>Enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="384"/>
+        <source>InBounds</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="389"/>
+        <source>Domain/IP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="394"/>
+        <source>Outbound</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="417"/>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="428"/>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="645"/>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="669"/>
+        <source>...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="460"/>
+        <source>Route Details</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="469"/>
+        <source>Target IP List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="476"/>
+        <source>Source IP Matching List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="486"/>
+        <source>Target Domain List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="498"/>
+        <source>Network</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="507"/>
+        <source>TCP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="514"/>
+        <source>UDP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="521"/>
+        <source>Both</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="530"/>
+        <source>Protocol</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="539"/>
+        <source>HTTP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="546"/>
+        <source>TLS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="553"/>
+        <source>BitTorrent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="569"/>
+        <source>e.g. 80, 443, 8000-8080</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="576"/>
+        <source>Enable Balancers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="583"/>
+        <source>Balancers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="599"/>
+        <source>Outbound Tag</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_RoutesEditor.ui" line="693"/>
+        <source>Users List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="46"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="54"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="163"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="193"/>
         <source>No Tag</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="79"/>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="490"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="84"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="495"/>
         <source>Any</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="80"/>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="491"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="85"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="496"/>
         <source>Items</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="284"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="289"/>
         <source>Cannot find an inbound by tag: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="284"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="289"/>
         <source>Index Out Of Range</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="316"/>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="356"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="321"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="361"/>
         <source>Cannot Edit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="317"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="322"/>
         <source>This outbound entry is not supported by the GUI editor.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="356"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="323"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="362"/>
+        <source>We will launch Json Editor instead.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="361"/>
         <source>Currently, this type of outbound is not supported by the editor.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="509"/>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="535"/>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="542"/>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="635"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="514"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="540"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="547"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="640"/>
         <source>Changing route inbound/outbound</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="510"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="515"/>
         <source>You didn&apos;t select an outbound.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="511"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="516"/>
         <source>Banlancer will be used.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="535"/>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="635"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="540"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="640"/>
         <source>One or more inbound config(s) have no tag configured, do you still want to continue?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="543"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="548"/>
         <source>Are you sure to change the inbound/outbound of currently selected route?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="544"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="549"/>
         <source>Current inbound/outbound combinations:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="544"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="549"/>
         <source>Inbounds: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="545"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="550"/>
         <source>Outbound: </source>
         <translation type="unfinished"></translation>
     </message>
+</context>
+<context>
+    <name>ScreenShot</name>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="318"/>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="357"/>
-        <source>We will launch Json Editor instead.</source>
+        <location filename="../src/ui/w_ScreenShot_Core.ui" line="20"/>
+        <source>ScreenShot</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_ScreenShot_Core.ui" line="35"/>
+        <source>TextLabel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_ScreenShot_Core.ui" line="48"/>
+        <source>Screen Shot</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

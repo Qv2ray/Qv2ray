@@ -25,6 +25,8 @@ class ImportConfigWindow : public QDialog, private Ui::ImportConfigWindow
 
         void on_editFileBtn_clicked();
 
+        void on_connectionEditBtn_clicked();
+
     private:
         QMap<QString, QString> vmessErrors;
 };

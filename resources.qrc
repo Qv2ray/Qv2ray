@@ -1,10 +1,27 @@
 <RCC>
     <qresource prefix="/">
+        <file>icons/qv2ray.icns</file>
+        <file>icons/qv2ray.png</file>
         <file>icons/qv2ray.ico</file>
-        <file>icons/add_connection_btn.png</file>
-        <file>icons/import_connection_btn.png</file>
-        <file>icons/remove_connection_btn.png</file>
-        <file>icons/edit_connection_btn.png</file>
-        <file>icons/netspeed-arrows.svg</file>
+        <file>icons/ui_dark/add.png</file>
+        <file>icons/ui_dark/delete.png</file>
+        <file>icons/ui_dark/duplicate.png</file>
+        <file>icons/ui_dark/edit.png</file>
+        <file>icons/ui_dark/import.png</file>
+        <file>icons/ui_dark/json.png</file>
+        <file>icons/ui_dark/netspeed_arrow.png</file>
+        <file>icons/ui_dark/ping_gauge.png</file>
+        <file>icons/ui_dark/share.png</file>
+        <file>icons/ui_light/add.png</file>
+        <file>icons/ui_light/delete.png</file>
+        <file>icons/ui_light/duplicate.png</file>
+        <file>icons/ui_light/edit.png</file>
+        <file>icons/ui_light/import.png</file>
+        <file>icons/ui_light/json.png</file>
+        <file>icons/ui_light/netspeed_arrow.png</file>
+        <file>icons/ui_light/ping_gauge.png</file>
+        <file>icons/ui_light/share.png</file>
+        <file>icons/ui_light/tray.png</file>
+        <file>icons/ui_dark/tray.png</file>
     </qresource>
 </RCC>

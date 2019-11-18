@@ -25,23 +25,21 @@ class ScreenShotWindow : public QDialog, private Ui::ScreenShot
         void mousePressEvent(QMouseEvent *e) override;
         void mouseReleaseEvent(QMouseEvent *e) override;
         void keyPressEvent(QKeyEvent *e) override;
-        void setBackground(int w, int h, float n);
 
 
     private slots:
         void on_startBtn_clicked();
 
     private:
+        QRubberBand *rubber;
+        // Desktop Image
+        QPixmap desktopImage;
+        QImage windowBg;
         QImage resultImage;
         //
-        QRubberBand *rubber;
-        //
-        QPoint origin;//鼠标起始位置
-        QPoint end;//鼠标结束位置
-        QImage bg;//存贮当前桌面截图
-
-        int width, height;
-        int pw, ph, px, py;
+        QPoint origin;
+        QPoint end;
+        int imgW, imgH, imgX, imgY;
 
         void pSize();
 };

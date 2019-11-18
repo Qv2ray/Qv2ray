@@ -68,6 +68,11 @@
          <string>Subscription Link</string>
         </property>
        </item>
+       <item>
+        <property name="text">
+         <string>Manually Input</string>
+        </property>
+       </item>
       </widget>
      </item>
     </layout>
@@ -154,7 +159,7 @@
             <item row="0" column="0">
              <widget class="QLabel" name="label_5">
               <property name="text">
-               <string>From QRCode</string>
+               <string>From QRCode File</string>
               </property>
              </widget>
             </item>
@@ -278,14 +283,14 @@
             <item row="0" column="1">
              <widget class="QLabel" name="label_7">
               <property name="text">
-               <string>TextLabel</string>
+               <string>Error List</string>
               </property>
              </widget>
             </item>
             <item row="0" column="0">
              <widget class="QLabel" name="label_8">
               <property name="text">
-               <string>TextLabel</string>
+               <string>VMess</string>
               </property>
              </widget>
             </item>
@@ -322,6 +327,31 @@
              </widget>
             </item>
            </layout>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="page_2">
+         <layout class="QFormLayout" name="formLayout_4">
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_12">
+            <property name="text">
+             <string>Connection Editor</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QPushButton" name="connectionEditBtn">
+            <property name="text">
+             <string>Open Connection Editor</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0" colspan="2">
+           <widget class="QLabel" name="label_13">
+            <property name="text">
+             <string>Maunally input connection details</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>

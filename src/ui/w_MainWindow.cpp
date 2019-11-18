@@ -37,8 +37,20 @@ MainWindow::MainWindow(QWidget *parent)
     auto conf = GetGlobalConfig();
     vinstance = new Qv2Instance(this);
     setupUi(this);
-    this->setWindowIcon(QIcon(":/icons/qv2ray.ico"));
-    hTray->setIcon(this->windowIcon());
+    //
+    this->setWindowIcon(QIcon(":/icons/qv2ray.png"));
+    hTray->setIcon(QIcon(conf.UISettings.useDarkTrayIcon ? ":/icons/ui_dark/tray.png" : ":/icons/ui_light/tray.png"));
+    importConfigButton->setIcon(QICON_R("import.png"));
+    duplicateBtn->setIcon(QICON_R("duplicate.png"));
+    removeConfigButton->setIcon(QICON_R("delete.png"));
+    editConfigButton->setIcon(QICON_R("edit.png"));
+    editJsonBtn->setIcon(QICON_R("json.png"));
+    //
+    pingTestBtn->setIcon(QICON_R("ping_gauge.png"));
+    shareBtn->setIcon(QICON_R("share.png"));
+    updownImageBox->setStyleSheet("image: url(" + QV2RAY_UI_RESOURCES_ROOT + "netspeed_arrow.png)");
+    updownImageBox_2->setStyleSheet("image: url(" + QV2RAY_UI_RESOURCES_ROOT + "netspeed_arrow.png)");
+    //
     hTray->setToolTip(TRAY_TOOLTIP_PREFIX);
     //
     QAction *action_Tray_ShowHide = new QAction(this->windowIcon(), tr("Hide"), this);
@@ -49,8 +61,8 @@ MainWindow::MainWindow(QWidget *parent)
     //
     QAction *action_RCM_RenameConnection = new QAction(tr("Rename"), this);
     QAction *action_RCM_StartThis = new QAction(tr("Connect to this"), this);
-    QAction *action_RCM_EditJson = new QAction(tr("Edit as Json"), this);
-    QAction *action_RCM_ShareQR = new QAction(tr("Share as QRCode/vmess Uri"), this);
+    QAction *action_RCM_EditJson = new QAction(QICON_R("json.png"), tr("Edit as Json"), this);
+    QAction *action_RCM_ShareQR = new QAction(QICON_R("share.png"), tr("Share as QRCode/VMess URL"), this);
     //
     action_Tray_Start->setEnabled(true);
     action_Tray_Stop->setEnabled(false);
@@ -91,7 +103,7 @@ MainWindow::MainWindow(QWidget *parent)
     LoadConnections();
     QObject::connect(&HTTPRequestHelper, &QvHttpRequestHelper::httpRequestFinished, this, &MainWindow::VersionUpdate);
     HTTPRequestHelper.get("https://api.github.com/repos/lhy0403/Qv2ray/releases/latest");
-    bool hasAutoStart  = false;
+    bool hasAutoStart = false;
     //
     // For charts
     uploadSerie = new QSplineSeries(this);
@@ -571,38 +583,9 @@ void MainWindow::on_removeConfigButton_clicked()
 
 void MainWindow::on_importConfigButton_clicked()
 {
-    // TODO
     ImportConfigWindow *w = new ImportConfigWindow(this);
     w->exec();
     OnConfigListChanged(false);
-}
-
-void MainWindow::on_addConfigButton_clicked()
-{
-    OutboundEditor *w = new OutboundEditor(this);
-    connect(w, &OutboundEditor::s_reload_config, this, &MainWindow::OnConfigListChanged);
-    auto outboundEntry = w->OpenEditor();
-    bool isChanged = w->result() == QDialog::Accepted;
-    QString alias = w->GetFriendlyName();
-    delete w;
-
-    if (isChanged) {
-        QJsonArray outboundsList;
-        outboundsList.push_back(outboundEntry);
-        QJsonObject root;
-        root.insert("outbounds", outboundsList);
-        //
-        // WARN This one will change the connection name, because of some duplicates.
-        SaveConnectionConfig(root, &alias, false);
-        //
-        auto conf = GetGlobalConfig();
-        auto connectionList = conf.configs;
-        connectionList.push_back(alias.toStdString());
-        conf.configs = connectionList;
-        SetGlobalConfig(conf);
-        OnConfigListChanged(false);
-        ShowAndSetConnection(CurrentConnectionName, false, false);
-    }
 }
 
 void MainWindow::on_editConfigButton_clicked()
@@ -705,7 +688,7 @@ void MainWindow::on_shareBtn_clicked()
     }
 }
 
-void MainWindow::on_action_RCM_ShareQR_triggered()
+void MainWindow::on_action_RCM_ShareQR_triggered(bool checked)
 {
     on_shareBtn_clicked();
 }
