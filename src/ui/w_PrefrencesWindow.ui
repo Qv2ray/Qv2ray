@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>797</width>
+    <width>780</width>
     <height>560</height>
    </rect>
   </property>
@@ -39,7 +39,7 @@
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -62,6 +62,101 @@
           </size>
          </property>
         </widget>
+       </item>
+       <item row="2" column="0">
+        <layout class="QVBoxLayout" name="verticalLayout_6">
+         <item>
+          <spacer name="verticalSpacer_7">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_55">
+           <property name="text">
+            <string>Theme Settings</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="verticalSpacer_5">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+       <item row="2" column="1">
+        <layout class="QGridLayout" name="gridLayout_6" columnstretch="0,0,0,1">
+         <item row="1" column="2">
+          <widget class="QCheckBox" name="darkTrayCB">
+           <property name="text">
+            <string>Enabled</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="3" rowspan="2">
+          <spacer name="horizontalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item row="0" column="2">
+          <widget class="QCheckBox" name="darkThemeCB">
+           <property name="text">
+            <string>Enabled</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLabel" name="darkThemeLabel">
+           <property name="text">
+            <string>Dark UI Icons</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QLabel" name="label_36">
+           <property name="text">
+            <string>Dark Tray Icon</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0" rowspan="2">
+          <widget class="Line" name="line">
+           <property name="frameShadow">
+            <enum>QFrame::Plain</enum>
+           </property>
+           <property name="lineWidth">
+            <number>2</number>
+           </property>
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
        <item row="4" column="0">
         <widget class="QLabel" name="label_6">
@@ -147,7 +242,7 @@
        <item row="6" column="0">
         <widget class="QLabel" name="label_19">
          <property name="text">
-          <string>Automatically Connect To</string>
+          <string>Auto Connect</string>
          </property>
         </widget>
        </item>
@@ -169,7 +264,7 @@
        <item row="7" column="0">
         <widget class="QLabel" name="label_7">
          <property name="text">
-          <string>Transparent Proxy Support</string>
+          <string>Transparent Proxy</string>
          </property>
         </widget>
        </item>
@@ -183,7 +278,7 @@
        <item row="8" column="0">
         <widget class="QLabel" name="label_46">
          <property name="text">
-          <string>v2ray Core Path</string>
+          <string>V2ray Core Path</string>
          </property>
         </widget>
        </item>
@@ -204,7 +299,7 @@
        <item row="9" column="0">
         <widget class="QLabel" name="label_15">
          <property name="text">
-          <string>v2ray Assets Path</string>
+          <string>V2ray Assets Path</string>
          </property>
         </widget>
        </item>
@@ -219,58 +314,6 @@
             <string>Select</string>
            </property>
           </widget>
-         </item>
-        </layout>
-       </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="label_55">
-         <property name="text">
-          <string>Theme Settings</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <layout class="QGridLayout" name="gridLayout_6" columnstretch="1,1,3">
-         <item row="1" column="1">
-          <widget class="QCheckBox" name="darkTrayCB">
-           <property name="text">
-            <string>Enabled</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="0">
-          <widget class="QLabel" name="darkThemeLabel">
-           <property name="text">
-            <string>Use Dark UI Icons</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QLabel" name="label_36">
-           <property name="text">
-            <string>Dark Tray Icon</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QCheckBox" name="darkThemeCB">
-           <property name="text">
-            <string>Enabled</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="2" rowspan="2">
-          <spacer name="horizontalSpacer_2">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
          </item>
         </layout>
        </item>
@@ -300,52 +343,133 @@
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_3">
-         <item>
-          <widget class="QCheckBox" name="enablePACCB">
-           <property name="text">
-            <string>Enable PAC</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="pacLineEdit"/>
-         </item>
-         <item>
-          <widget class="QLabel" name="pacAddressLabel">
-           <property name="text">
-            <string>LISTEN_ADDR</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QSpinBox" name="pacPortEdit">
-           <property name="minimum">
-            <number>1</number>
-           </property>
-           <property name="maximum">
-            <number>65535</number>
-           </property>
-           <property name="value">
-            <number>8088</number>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_56">
-           <property name="text">
-            <string>/pac.txt</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pacChooseFileBtn">
-           <property name="text">
-            <string>Choose File</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
+        <widget class="QGroupBox" name="">
+         <property name="title">
+          <string>PAC Settings</string>
+         </property>
+         <layout class="QFormLayout" name="formLayout_10">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_59">
+            <property name="text">
+             <string>Enable PAC</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QCheckBox" name="enablePACCB">
+            <property name="text">
+             <string>Enabled</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0" colspan="2">
+           <widget class="QFrame" name="pacSettingsLayout_2">
+            <layout class="QHBoxLayout" name="pacSettingsLayout">
+             <item>
+              <widget class="QLabel" name="label_57">
+               <property name="text">
+                <string>Access Path</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="pacAddressLabel">
+               <property name="text">
+                <string>http://0.0.0.0:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="pacPortEdit">
+               <property name="minimum">
+                <number>1</number>
+               </property>
+               <property name="maximum">
+                <number>65535</number>
+               </property>
+               <property name="value">
+                <number>8088</number>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_56">
+               <property name="text">
+                <string>/pac</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_3">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_58">
+               <property name="text">
+                <string>GFWList Import Source</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="comboBox_2">
+               <item>
+                <property name="text">
+                 <string>Github</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Mirror: Pagure</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Mirror: Repo.or.cz</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Mirror: Bitbucket</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Mirror: Gitlab</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Mirror: TuxFamily</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>GFWList File</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pacChooseFileBtn">
+               <property name="text">
+                <string>Go</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
        </item>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -630,7 +754,7 @@
           <item row="5" column="0">
            <widget class="QLabel" name="label_21">
             <property name="text">
-             <string>DNS List</string>
+             <string>Custom DNS List</string>
             </property>
            </widget>
           </item>
@@ -1253,19 +1377,6 @@
            </layout>
           </item>
           <item>
-           <spacer name="verticalSpacer_6">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
            <layout class="QHBoxLayout" name="horizontalLayout_9">
             <item>
              <widget class="QLabel" name="label_29">
@@ -1329,20 +1440,20 @@
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Noto Sans'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Noto Sans'; color:#d69545;&quot;&gt;This&lt;/span&gt;&lt;span style=&quot; font-family:'Noto Sans'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Noto Sans'; color:#d69545;&quot;&gt;program&lt;/span&gt;&lt;span style=&quot; font-family:'Noto Sans'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Noto Sans'; color:#d69545;&quot;&gt;comes&lt;/span&gt;&lt;span style=&quot; font-family:'Noto Sans'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Noto Sans'; color:#d69545;&quot;&gt;with&lt;/span&gt;&lt;span style=&quot; font-family:'Noto Sans'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Noto Sans'; color:#d69545;&quot;&gt;ABSOLUTELY&lt;/span&gt;&lt;span style=&quot; font-family:'Noto Sans'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Noto Sans'; color:#d69545;&quot;&gt;NO&lt;/span&gt;&lt;span style=&quot; font-family:'Noto Sans'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Noto Sans'; color:#d69545;&quot;&gt;WARRANTY.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;This&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;is&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;free&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;software,&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;and&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;you&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;are&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;welcome&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;to&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;redistribute&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;it under&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;certain&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;conditions.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Copyright&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;(C)&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;2019&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Leroy.H.Y&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;(@lhy0403):&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Qv2ray&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Current&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Developer&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Copyright&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;(C)&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;2019&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Hork&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;(@aliyuchang33):&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Hv2ray&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Initial&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Designs&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;gRPC&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;implementation&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Copyright&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;(C)&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;2019&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;SOneWinstone&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;(@SoneWinstone):&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Hv2ray/Qv2ray&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;HTTP&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Request&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Helper&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Qv2ray&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;ArtWork&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Done&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;By&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;ArielAxionL&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;(@axionl)&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;TheBadGateway&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;(@thebadgateway):&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Qv2ray&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Russian&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Translations&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Riko&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;(@rikakomoe):&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Qv2ray&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;patch&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;8a8c1a/PR115&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Hack';&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Libraries&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;that&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;have&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;been&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;used&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;in&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Qv2ray&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;are&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;listed&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;below&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;(Sorted&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;by&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;date&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;added):&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Copyright&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;(c)&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;2019&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;dridk&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;(@dridk):&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;X2Struct&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;(Apache)&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Copyright&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;(c)&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;2011&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;SCHUTZ&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Sacha&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;(@dridk):&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;QJsonModel&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;(MIT)&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Copyright&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;(c)&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;2019&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Nikolaos&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Ftylitakis&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;(@ftylitak):&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;QZXing&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;(Apache2)&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Copyright&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;(c)&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;2016&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;Singein&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;(@Singein):&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;ScreenShot&lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#bec0c2;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Hack'; color:#d69545;&quot;&gt;(MIT)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Noto Sans'; font-weight:600; color:#d68952;&quot;&gt;This program comes with ABSOLUTELY NO WARRANTY.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Noto Sans'; font-weight:600; color:#d68952;&quot;&gt;This is free software, and you are welcome to redistribute it under certain conditions.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Noto Sans'; color:#d68952;&quot;&gt;Copyright (C) 2019 Leroy.H.Y (@lhy0403): Qv2ray Current Developer&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Noto Sans'; color:#d68952;&quot;&gt;Copyright (C) 2019 Hork (@aliyuchang33): Hv2ray Initial Designs &amp;amp; gRPC implementation&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Noto Sans'; color:#d68952;&quot;&gt;Copyright (C) 2019 SOneWinstone (@SoneWinstone): Hv2ray/Qv2ray HTTP Request Helper&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Noto Sans'; color:#d68952;&quot;&gt;Qv2ray ArtWork Done By ArielAxionL (@axionl)&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Noto Sans'; color:#d68952;&quot;&gt;TheBadGateway (@thebadgateway): Qv2ray Russian Translations&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Noto Sans'; color:#d68952;&quot;&gt;Riko (@rikakomoe): Qv2ray patch 8a8c1a/PR115&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Noto Sans'; color:#d68952;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Noto Sans'; font-weight:600; color:#d68952;&quot;&gt;Libraries that have been used in Qv2ray are listed below (Sorted by date added):&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Noto Sans'; color:#d68952;&quot;&gt;Copyright (c) 2019 dridk (@dridk): X2Struct (Apache)&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Noto Sans'; color:#d68952;&quot;&gt;Copyright (c) 2011 SCHUTZ Sacha (@dridk): QJsonModel (MIT)&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Noto Sans'; color:#d68952;&quot;&gt;Copyright (c) 2019 Nikolaos Ftylitakis (@ftylitak): QZXing (Apache2)&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Noto Sans'; color:#d68952;&quot;&gt;Copyright (c) 2016 Singein (@Singein): ScreenShot (MIT)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
            </widget>
           </item>

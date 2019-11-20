@@ -112,7 +112,7 @@ bool initialiseQv2ray()
         } else {
             LOG(MODULE_INIT, "Set " + configPath.toStdString() + " as the config path.")
             SetConfigDirPath(&configPath);
-            Qv2rayCoreInboundsConfig inboundSetting = Qv2rayCoreInboundsConfig("127.0.0.1", 1080, 8000);
+            Qv2rayInboundsConfig inboundSetting = Qv2rayInboundsConfig("127.0.0.1", 1080, 8000);
             Qv2rayConfig conf = Qv2rayConfig(QV2RAY_DEFAULT_VCORE_PATH.toStdString(), 4, inboundSetting);
             //
             // Save initial config.
@@ -216,13 +216,13 @@ int main(int argc, char *argv[])
     auto confObject = StructFromJsonString<Qv2rayConfig>(JsonToString(conf));
     SetGlobalConfig(confObject);
 
-    if (qApp->installTranslator(getTranslator(QSTRING(confObject.UISettings.language))) || confObject.UISettings.language == "en-US") {
-        LOG(MODULE_INIT, "Loaded Translator " + confObject.UISettings.language)
+    if (qApp->installTranslator(getTranslator(QSTRING(confObject.uiConfig.language))) || confObject.uiConfig.language == "en-US") {
+        LOG(MODULE_INIT, "Loaded Translator " + confObject.uiConfig.language)
     } else {
         // Do not translate these.....
         QvMessageBox(
             nullptr, "Translation Failed",
-            "Cannot load translation for " + QSTRING(confObject.UISettings.language) + ", English is now used.\r\n\r\n"
+            "Cannot load translation for " + QSTRING(confObject.uiConfig.language) + ", English is now used.\r\n\r\n"
             "Please go to Prefrences Window to change or Report a Bug at: \r\n"
             "https://github.com/lhy0403/Qv2ray/issues/new");
     }
@@ -289,8 +289,8 @@ int main(int argc, char *argv[])
 #else
     QStringList themes = QStyleFactory::keys();
 
-    if (themes.contains(QSTRING(confObject.UISettings.theme))) {
-        _qApp.setStyle(QSTRING(confObject.UISettings.theme));
+    if (themes.contains(QSTRING(confObject.uiConfig.theme))) {
+        _qApp.setStyle(QSTRING(confObject.uiConfig.theme));
         LOG(MODULE_INIT " " MODULE_UI, "Setting Qv2ray UI themes.")
     }
 

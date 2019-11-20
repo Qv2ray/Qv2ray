@@ -48,7 +48,7 @@ namespace Qv2ray
                     emit mainWindow->ReConnect();
                 }
 
-                auto BarConfig = config.speedBarConfig;
+                auto BarConfig = config.toolBarConfig;
 
                 for (size_t i = 0; i < BarConfig.Pages.size(); i++) {
                     for (size_t j = 0; j < BarConfig.Pages[i].Lines.size(); j++) {

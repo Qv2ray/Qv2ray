@@ -39,7 +39,7 @@ MainWindow::MainWindow(QWidget *parent)
     setupUi(this);
     //
     this->setWindowIcon(QIcon(":/icons/qv2ray.png"));
-    hTray->setIcon(QIcon(conf.UISettings.useDarkTrayIcon ? ":/icons/ui_dark/tray.png" : ":/icons/ui_light/tray.png"));
+    hTray->setIcon(QIcon(conf.uiConfig.useDarkTrayIcon ? ":/icons/ui_dark/tray.png" : ":/icons/ui_light/tray.png"));
     importConfigButton->setIcon(QICON_R("import.png"));
     duplicateBtn->setIcon(QICON_R("duplicate.png"));
     removeConfigButton->setIcon(QICON_R("delete.png"));
@@ -119,7 +119,7 @@ MainWindow::MainWindow(QWidget *parent)
     }
 
     speedChartObj = new QChart();
-    speedChartObj->setTheme(conf.UISettings.useDarkTheme ? QChart::ChartThemeDark : QChart::ChartThemeLight);
+    speedChartObj->setTheme(conf.uiConfig.useDarkTheme ? QChart::ChartThemeDark : QChart::ChartThemeLight);
     speedChartObj->setTitle("Qv2ray Speed Chart");
     speedChartObj->legend()->hide();
     speedChartObj->createDefaultAxes();

@@ -14,7 +14,7 @@ CONFIG += enable_decoder_qr_code enable_encoder_qr_code
 include(3rdparty/qzxing_noTests/QZXing-components.pri)
 
 # Main config
-CONFIG += c++11 openssl-linked lrelease embed_translations
+CONFIG += qt c++11 openssl-linked lrelease embed_translations
 
 # Now read build number file.
 _BUILD_NUMBER=$$cat(Build.Counter)
@@ -149,7 +149,6 @@ for(var, $$list($$files("translations/*.ts", true))) {
 message("Qv2ray will build with" $${replace(EXTRA_TRANSLATIONS, "translations/", "")})
 TRANSLATIONS += translations/en-US.ts
 
-
 message(" ")
 QMAKE_CXXFLAGS += -Wno-missing-field-initializers -Wno-unused-parameter -Wno-unused-variable
 
@@ -162,7 +161,7 @@ INCLUDEPATH += 3rdparty/qhttpserver/src/
 message("  --> Adding http parser")
 HEADERS += 3rdparty/qhttpserver/http-parser/http_parser.h
 SOURCES += 3rdparty/qhttpserver/http-parser/http_parser.c
-INCLUDEPATH += 3rdparty/qhttpserver/http-parser
+INCLUDEPATH += 3rdparty/qhttpserver/http-parser/
 
 message(" ")
 win32 {

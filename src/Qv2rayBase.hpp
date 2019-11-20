@@ -47,7 +47,7 @@
 #define QV2RAY_VCORE_ERROR_LOG_FILENAME "error.log"
 
 // GUI TOOLS
-#define QV2RAY_IS_DARKTHEME (GetGlobalConfig().UISettings.useDarkTheme)
+#define QV2RAY_IS_DARKTHEME (GetGlobalConfig().uiConfig.useDarkTheme)
 #define RED(obj)                               \
     auto _temp = obj->palette();               \
     _temp.setColor(QPalette::Text, Qt::red);   \
@@ -100,15 +100,25 @@ namespace Qv2ray
         QvBarPage() : OffsetYpx(5) { }
     };
 
-    struct QvNetSpeedBarConfig {
+    struct Qv2rayToolBarConfig {
         std::vector<QvBarPage> Pages;
         XTOSTRUCT(O(Pages))
     };
 
     namespace QvConfigModels
     {
-        struct Qv2rayCoreInboundsConfig {
+        struct Qv2rayPACConfig {
+            bool enablePAC;
+            int port;
+            int sourceId;
+            string fileLocation;
+            Qv2rayPACConfig(): fileLocation() { }
+            XTOSTRUCT(O(enablePAC, port, sourceId, fileLocation))
+        };
+        struct Qv2rayInboundsConfig {
             string listenip;
+            // PAC Config
+            Qv2rayPACConfig pacConfig;
             // SOCKS
             int socks_port;
             bool socks_useAuth;
@@ -119,8 +129,8 @@ namespace Qv2ray
             int http_port;
             bool http_useAuth;
             AccountObject httpAccount;
-            Qv2rayCoreInboundsConfig(): listenip(), socks_port(), socks_useAuth(), socksAccount(), http_port(), http_useAuth(), httpAccount() {}
-            Qv2rayCoreInboundsConfig(string listen, int socksPort, int httpPort): Qv2rayCoreInboundsConfig()
+            Qv2rayInboundsConfig(): listenip(), socks_port(), socks_useAuth(), socksAccount(), http_port(), http_useAuth(), httpAccount() {}
+            Qv2rayInboundsConfig(string listen, int socksPort, int httpPort): Qv2rayInboundsConfig()
             {
                 socks_port = socksPort;
                 http_port = httpPort;
@@ -131,7 +141,7 @@ namespace Qv2ray
             XTOSTRUCT(O(listenip, socks_port, socks_useAuth, socksAccount, socksUDP, socksLocalIP, http_port, http_useAuth, httpAccount))
         };
 
-        struct UIConfig {
+        struct Qv2rayUIConfig {
             string theme;
             string language;
             bool useDarkTheme;
@@ -143,8 +153,6 @@ namespace Qv2ray
             int config_version;
             bool tProxySupport;
             int logLevel;
-            //
-            UIConfig UISettings;
             //
             string v2CorePath;
             string v2AssetsPath;
@@ -160,22 +168,18 @@ namespace Qv2ray
             int statsPort;
             //
             list<string> dnsList;
-            //
-            Qv2rayCoreInboundsConfig inBoundSettings;
-#ifdef newFeature
-            map<string, QvConfigType> configs;
-#else
+
             list<string> configs;
-#endif
             map<string, string> subscribes;
-            QvNetSpeedBarConfig speedBarConfig;
-            // TODO Change Structure. of SpeedBarConfig
+            //
+            Qv2rayUIConfig uiConfig;
+            Qv2rayInboundsConfig inBoundSettings;
+            Qv2rayToolBarConfig toolBarConfig;
 
             Qv2rayConfig():
                 config_version(QV2RAY_CONFIG_VERSION),
                 tProxySupport(false),
                 logLevel(),
-                UISettings(),
                 v2CorePath(),
                 v2AssetsPath(),
                 autoStartConfig(),
@@ -186,11 +190,12 @@ namespace Qv2ray
                 enableStats(),
                 statsPort(15934),
                 dnsList(),
-                inBoundSettings(),
                 configs(),
                 subscribes(),
-                speedBarConfig() { }
-            Qv2rayConfig(const string &assetsPath, int log, const Qv2rayCoreInboundsConfig &_inBoundSettings): Qv2rayConfig()
+                uiConfig(),
+                inBoundSettings(),
+                toolBarConfig() { }
+            Qv2rayConfig(const string &assetsPath, int log, const Qv2rayInboundsConfig &_inBoundSettings): Qv2rayConfig()
             {
                 // These settings below are defaults.
                 ignoredVersion = "";
@@ -213,7 +218,7 @@ namespace Qv2ray
                         statsPort,
                         tProxySupport,
                         logLevel,
-                        UISettings,
+                        uiConfig,
                         autoStartConfig,
                         ignoredVersion,
                         v2CorePath,
@@ -225,7 +230,7 @@ namespace Qv2ray
                         inBoundSettings,
                         configs,
                         subscribes,
-                        speedBarConfig))
+                        toolBarConfig))
         };
 
     }
