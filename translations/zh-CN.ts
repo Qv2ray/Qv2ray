@@ -1630,7 +1630,7 @@
     <message>
       <location filename="../src/utils/QvNetSpeedPlugin.h" line="37"/>
       <source>Total Downloaded Data</source>
-      <translation>已下载数据总数</translation>
+      <translation>总下载数据</translation>
     </message>
     <message>
       <location filename="../src/utils/QvNetSpeedPlugin.h" line="38"/>
@@ -1640,7 +1640,7 @@
     <message>
       <location filename="../src/utils/QvNetSpeedPlugin.h" line="39"/>
       <source>Downloaded Data for Specific Tag</source>
-      <translation>特定标签下载的数据</translation>
+      <translation>下载特定标签的数据</translation>
     </message>
   </context>
   <context>
