@@ -11,12 +11,13 @@ namespace Qv2ray
             running(false)
         {
             pingworker = new QProcess(this);
-            connect(pingworker, SIGNAL(started()), this, SLOT(verifyStatus()));
+            connect(pingworker, &QProcess::started, this, &QvPingModel::verifyStatus);
             connect(pingworker, SIGNAL(finished(int)), this, SLOT(readResult()));
         }
 
         QvPingModel::~QvPingModel()
         {
+            //
         }
 
         void QvPingModel::verifyStatus()

@@ -33,15 +33,15 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     qvBuildTime->setText(__DATE__ " " __TIME__);
     CurrentConfig = GetGlobalConfig();
     //
-    themeCombo->setCurrentText(QSTRING(CurrentConfig.UISettings.theme));
-    darkThemeCB->setChecked(CurrentConfig.UISettings.useDarkTheme);
-    darkTrayCB->setChecked(CurrentConfig.UISettings.useDarkTrayIcon);
+    themeCombo->setCurrentText(QSTRING(CurrentConfig.uiConfig.theme));
+    darkThemeCB->setChecked(CurrentConfig.uiConfig.useDarkTheme);
+    darkTrayCB->setChecked(CurrentConfig.uiConfig.useDarkTrayIcon);
 #if QV2RAY_USE_BUILTIN_DARKTHEME
     // If we use built in theme, it should always be fusion.
     themeCombo->setEnabled(!CurrentConfig.UISettings.useDarkTheme);
     darkThemeLabel->setText(tr("Use Dark Theme"));
 #endif
-    languageComboBox->setCurrentText(QSTRING(CurrentConfig.UISettings.language));
+    languageComboBox->setCurrentText(QSTRING(CurrentConfig.uiConfig.language));
     logLevelComboBox->setCurrentIndex(CurrentConfig.logLevel);
     tProxyCheckBox->setChecked(CurrentConfig.tProxySupport);
     //
@@ -108,11 +108,11 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     ignoredNextVersion->setText(QSTRING(CurrentConfig.ignoredVersion));
     //
 
-    for (size_t i = 0; i < CurrentConfig.speedBarConfig.Pages.size(); i++) {
-        nsBarPagesList->addItem(tr("Page") + QString::number(i + 1) + ": " + QString::number(CurrentConfig.speedBarConfig.Pages[i].Lines.size()) + " " + tr("Item(s)"));
+    for (size_t i = 0; i < CurrentConfig.toolBarConfig.Pages.size(); i++) {
+        nsBarPagesList->addItem(tr("Page") + QString::number(i + 1) + ": " + QString::number(CurrentConfig.toolBarConfig.Pages[i].Lines.size()) + " " + tr("Item(s)"));
     }
 
-    if (CurrentConfig.speedBarConfig.Pages.size() > 0) {
+    if (CurrentConfig.toolBarConfig.Pages.size() > 0) {
         nsBarPagesList->setCurrentRow(0);
         on_nsBarPagesList_currentRowChanged(0);
     } else {
@@ -192,7 +192,7 @@ void PrefrencesWindow::on_socksAuthCB_stateChanged(int checked)
 
 void PrefrencesWindow::on_languageComboBox_currentTextChanged(const QString &arg1)
 {
-    CurrentConfig.UISettings.language = arg1.toStdString();
+    CurrentConfig.uiConfig.language = arg1.toStdString();
     //
     // A strange bug prevents us to change the UI language online
     //    https://github.com/lhy0403/Qv2ray/issues/34
@@ -221,6 +221,7 @@ void PrefrencesWindow::on_listenIPTxt_textEdited(const QString &arg1)
 {
     NEEDRESTART
     CurrentConfig.inBoundSettings.listenip = arg1.toStdString();
+    pacAddressLabel->setText("http://" + arg1 + ":");
 }
 
 void PrefrencesWindow::on_httpAuthUsernameTxt_textEdited(const QString &arg1)
@@ -462,15 +463,15 @@ void PrefrencesWindow::on_socksUDPIP_textEdited(const QString &arg1)
 
 // ------------------- NET SPEED PLUGIN OPERATIONS -----------------------------------------------------------------
 
-#define CurrentBarPage CurrentConfig.speedBarConfig.Pages[this->CurrentBarPageId]
+#define CurrentBarPage CurrentConfig.toolBarConfig.Pages[this->CurrentBarPageId]
 #define CurrentBarLine CurrentBarPage.Lines[this->CurrentBarLineId]
 #define SET_LINE_LIST_TEXT nsBarLinesList->currentItem()->setText(GetBarLineDescription(CurrentBarLine));
 
 void PrefrencesWindow::on_nsBarPageAddBTN_clicked()
 {
     QvBarPage page;
-    CurrentConfig.speedBarConfig.Pages.push_back(page);
-    CurrentBarPageId = CurrentConfig.speedBarConfig.Pages.size() - 1 ;
+    CurrentConfig.toolBarConfig.Pages.push_back(page);
+    CurrentBarPageId = CurrentConfig.toolBarConfig.Pages.size() - 1 ;
     // Add default line.
     QvBarLine line;
     CurrentBarPage.Lines.push_back(line);
@@ -490,7 +491,7 @@ void PrefrencesWindow::on_nsBarPageAddBTN_clicked()
 void PrefrencesWindow::on_nsBarPageDelBTN_clicked()
 {
     if (nsBarPagesList->currentRow() >= 0) {
-        RemoveItem(CurrentConfig.speedBarConfig.Pages, static_cast<size_t>(nsBarPagesList->currentRow()));
+        RemoveItem(CurrentConfig.toolBarConfig.Pages, static_cast<size_t>(nsBarPagesList->currentRow()));
         nsBarPagesList->takeItem(nsBarPagesList->currentRow());
 
         if (nsBarPagesList->count() <= 0) {
@@ -706,20 +707,20 @@ void PrefrencesWindow::on_nsBarContentCombo_currentIndexChanged(const QString &a
 void PrefrencesWindow::on_applyNSBarSettingsBtn_clicked()
 {
     auto conf = GetGlobalConfig();
-    conf.speedBarConfig = CurrentConfig.speedBarConfig;
+    conf.toolBarConfig = CurrentConfig.toolBarConfig;
     SetGlobalConfig(conf);
 }
 
 void PrefrencesWindow::on_themeCombo_currentTextChanged(const QString &arg1)
 {
     LOADINGCHECK
-    CurrentConfig.UISettings.theme = arg1.toStdString();
+    CurrentConfig.uiConfig.theme = arg1.toStdString();
 }
 
 void PrefrencesWindow::on_darkThemeCB_stateChanged(int arg1)
 {
     LOADINGCHECK
-    CurrentConfig.UISettings.useDarkTheme = arg1 == Qt::Checked;
+    CurrentConfig.uiConfig.useDarkTheme = arg1 == Qt::Checked;
     QvMessageBox(this, tr("Dark Mode"), tr("Please restart Qv2ray to fully apply this feature."));
 #if QV2RAY_USE_BUILTIN_DARKTHEME
     themeCombo->setEnabled(arg1 != Qt::Checked);
@@ -734,5 +735,10 @@ void PrefrencesWindow::on_darkThemeCB_stateChanged(int arg1)
 
 void PrefrencesWindow::on_darkTrayCB_stateChanged(int arg1)
 {
-    CurrentConfig.UISettings.useDarkTrayIcon = arg1 == Qt::Checked;
+    CurrentConfig.uiConfig.useDarkTrayIcon = arg1 == Qt::Checked;
+}
+
+void PrefrencesWindow::on_enablePACCB_stateChanged(int arg1)
+{
+    pacSettingsLayout_2->setEnabled(arg1 == Qt::Checked);
 }

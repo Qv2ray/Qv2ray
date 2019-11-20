@@ -120,6 +120,8 @@ class PrefrencesWindow : public QDialog, private Ui::PrefrencesWindow
 
         void on_darkTrayCB_stateChanged(int arg1);
 
+        void on_enablePACCB_stateChanged(int arg1);
+
     private:
         // Set ui parameters for a line;
         void ShowLineParameters(QvBarLine &line);
