@@ -24,10 +24,10 @@ namespace Qv2ray
             STARTED
         };
 
-        class Qv2Instance
+        class ConnectionInstance
         {
             public:
-                explicit Qv2Instance(QWidget *parent = nullptr);
+                explicit ConnectionInstance(QWidget *parent = nullptr);
                 void SetAPIPort(int port);
                 long getTagTotalDownlink(QString tag);
                 long getTagTotalUplink(QString tag);
@@ -40,7 +40,7 @@ namespace Qv2ray
                 static bool ValidateKernal();
                 QString ReadProcessOutput();
 
-                ~Qv2Instance();
+                ~ConnectionInstance();
                 QMap<QString, long> totalDataTransfered;
                 QMap<QString, long> dataTransferSpeed;
             private:

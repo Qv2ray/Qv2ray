@@ -195,15 +195,15 @@ namespace Qv2ray
                 QJsonArray inboundsList;
 
                 // HTTP InBound
-                if (gConf.inBoundSettings.http_port != 0) {
+                if (gConf.inboundConfig.http_port != 0) {
                     QJsonObject httpInBoundObject;
-                    httpInBoundObject.insert("listen", QString::fromStdString(gConf.inBoundSettings.listenip));
-                    httpInBoundObject.insert("port", gConf.inBoundSettings.http_port);
+                    httpInBoundObject.insert("listen", QString::fromStdString(gConf.inboundConfig.listenip));
+                    httpInBoundObject.insert("port", gConf.inboundConfig.http_port);
                     httpInBoundObject.insert("protocol", "http");
                     httpInBoundObject.insert("tag", "http_IN");
 
-                    if (gConf.inBoundSettings.http_useAuth) {
-                        auto httpInSettings =  GenerateHTTPIN(QList<AccountObject>() << gConf.inBoundSettings.httpAccount);
+                    if (gConf.inboundConfig.http_useAuth) {
+                        auto httpInSettings =  GenerateHTTPIN(QList<AccountObject>() << gConf.inboundConfig.httpAccount);
                         httpInBoundObject.insert("settings", httpInSettings);
                     }
 
@@ -211,16 +211,16 @@ namespace Qv2ray
                 }
 
                 // SOCKS InBound
-                if (gConf.inBoundSettings.socks_port != 0) {
+                if (gConf.inboundConfig.socks_port != 0) {
                     QJsonObject socksInBoundObject;
-                    socksInBoundObject.insert("listen", QString::fromStdString(gConf.inBoundSettings.listenip));
-                    socksInBoundObject.insert("port", gConf.inBoundSettings.socks_port);
+                    socksInBoundObject.insert("listen", QString::fromStdString(gConf.inboundConfig.listenip));
+                    socksInBoundObject.insert("port", gConf.inboundConfig.socks_port);
                     socksInBoundObject.insert("protocol", "socks");
                     socksInBoundObject.insert("tag", "socks_IN");
-                    auto socksInSettings = GenerateSocksIN(gConf.inBoundSettings.socks_useAuth ? "password" : "noauth",
-                                                           QList<AccountObject>() << gConf.inBoundSettings.socksAccount,
-                                                           gConf.inBoundSettings.socksUDP,
-                                                           QSTRING(gConf.inBoundSettings.socksLocalIP));
+                    auto socksInSettings = GenerateSocksIN(gConf.inboundConfig.socks_useAuth ? "password" : "noauth",
+                                                           QList<AccountObject>() << gConf.inboundConfig.socksAccount,
+                                                           gConf.inboundConfig.socksUDP,
+                                                           QSTRING(gConf.inboundConfig.socksLocalIP));
                     socksInBoundObject.insert("settings", socksInSettings);
                     inboundsList.append(socksInBoundObject);
                 }

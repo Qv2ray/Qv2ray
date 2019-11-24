@@ -69,7 +69,7 @@ class MainWindow : public QMainWindow, Ui::MainWindow
     public:
         QJsonObject CurrentFullConfig;
         QString CurrentConnectionName = "";
-        Qv2Instance *vinstance;
+        ConnectionInstance *vinstance;
         QString totalDataUp;
         QString totalDataDown;
         QString totalSpeedUp;

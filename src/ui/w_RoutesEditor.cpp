@@ -488,14 +488,16 @@ void RouteEditor::on_addRouteBtn_clicked()
     Balancers[bTag] = QStringList();
     //
     routesTable->insertRow(routesTable->rowCount());
-    // WARNING There will be an additional check on the final configuration generation process.
+    // There will be an additional check on the final configuration generation process.
     auto enabledItem = new QTableWidgetItem(tr("Enabled"));
     enabledItem->setCheckState(rule.QV2RAY_RULE_ENABLED ? Qt::Checked : Qt::Unchecked);
+    //
     routesTable->setItem(routesTable->rowCount() - 1, 0, enabledItem);
     routesTable->setItem(routesTable->rowCount() - 1, 1, new QTableWidgetItem(rule.inboundTag.size() > 0 ? Stringify(rule.inboundTag) : tr("Any")));
     routesTable->setItem(routesTable->rowCount() - 1, 2, new QTableWidgetItem(QString::number(rule.domain.size() + rule.ip.size()) + " " + tr("Items")));
     routesTable->setItem(routesTable->rowCount() - 1, 3, new QTableWidgetItem(QSTRING(rule.outboundTag)));
     rules.append(rule);
+    //
     currentRuleIndex = routesTable->rowCount() - 1;
     routesTable->setCurrentCell(currentRuleIndex, 0);
     ShowRuleDetail(CurrentRule);
@@ -671,7 +673,7 @@ void RouteEditor::on_addDefaultBtn_clicked()
     // Add default connection from GlobalConfig
     auto conf = GetGlobalConfig();
     //
-    auto _in = conf.inBoundSettings;
+    auto _in = conf.inboundConfig;
     //
     auto _in_httpConf = GenerateHTTPIN(QList<AccountObject>() << _in.httpAccount);
     auto _in_socksConf = GenerateSocksIN((_in.socks_useAuth ? "password" : "noauth"),

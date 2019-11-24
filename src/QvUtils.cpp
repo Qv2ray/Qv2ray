@@ -21,8 +21,8 @@ namespace Qv2ray
             QString randomString;
 
             for (int i = 0; i < len; ++i) {
-                int index = static_cast<int>(QRandomGenerator::system()->generate() % static_cast<uint>(possibleCharacters.length()));
-                QChar nextChar = possibleCharacters.at(index);
+                int index = static_cast<int>(QRandomGenerator::system()->generate()) % possibleCharacters.length();
+                QChar nextChar = possibleCharacters[index];
                 randomString.append(nextChar);
             }
 
