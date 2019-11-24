@@ -35,7 +35,7 @@ MainWindow::MainWindow(QWidget *parent)
       hTray(new QSystemTrayIcon(this))
 {
     auto conf = GetGlobalConfig();
-    vinstance = new Qv2Instance(this);
+    vinstance = new ConnectionInstance(this);
     setupUi(this);
     //
     this->setWindowIcon(QIcon(":/icons/qv2ray.png"));
@@ -103,7 +103,6 @@ MainWindow::MainWindow(QWidget *parent)
     LoadConnections();
     QObject::connect(&HTTPRequestHelper, &QvHttpRequestHelper::httpRequestFinished, this, &MainWindow::VersionUpdate);
     HTTPRequestHelper.get("https://api.github.com/repos/lhy0403/Qv2ray/releases/latest");
-    bool hasAutoStart = false;
     //
     // For charts
     uploadSerie = new QSplineSeries(this);
@@ -135,29 +134,27 @@ MainWindow::MainWindow(QWidget *parent)
     auto layout = new QHBoxLayout(speedChart);
     layout->addWidget(speedChartView);
     speedChart->setLayout(layout);
-
     //
-    if (vinstance->ValidateKernal()) {
+    bool hasAutoStart = vinstance->ValidateKernal();
+
+    if (hasAutoStart) {
+        // At least kernal is ready.
         if (conf.autoStartConfig != "" && QList<string>::fromStdList(conf.configs).contains(conf.autoStartConfig)) {
+            // Has auto start.
             CurrentConnectionName = QSTRING(conf.autoStartConfig);
             auto item = connectionListWidget->findItems(QSTRING(conf.autoStartConfig), Qt::MatchExactly).front();
             item->setSelected(true);
             connectionListWidget->setCurrentItem(item);
             on_connectionListWidget_itemClicked(item);
-            on_startButton_clicked();
-            hasAutoStart = true;
             trayMenu->actions()[0]->setText(tr("Show"));
-        } else {
-            if (connectionListWidget->count() != 0) {
-                // The first one is default.
-                connectionListWidget->setCurrentRow(0);
-                ShowAndSetConnection(connectionListWidget->item(0)->text(), true, false);
-            }
+            this->hide();
+            on_startButton_clicked();
+        } else if (connectionListWidget->count() != 0) {
+            // The first one is default.
+            connectionListWidget->setCurrentRow(0);
+            ShowAndSetConnection(connectionListWidget->item(0)->text(), true, false);
+            this->show();
         }
-    }
-
-    if (hasAutoStart) {
-        this->hide();
     } else {
         this->show();
     }
@@ -175,7 +172,6 @@ void MainWindow::on_action_StartThis_triggered()
     CurrentConnectionName = connectionListWidget->currentItem()->text();
     on_reconnectButton_clicked();
 }
-
 void MainWindow::VersionUpdate(QByteArray &data)
 {
     auto conf = GetGlobalConfig();
@@ -210,7 +206,6 @@ void MainWindow::VersionUpdate(QByteArray &data)
         }
     }
 }
-
 void MainWindow::LoadConnections()
 {
     auto conf = GetGlobalConfig();
@@ -238,7 +233,6 @@ void MainWindow::LoadConnections()
         ShowAndSetConnection(CurrentConnectionName, false, false);
     }
 }
-
 void MainWindow::OnConfigListChanged(bool need_restart)
 {
     auto statusText = statusLabel->text();
@@ -256,19 +250,16 @@ void MainWindow::OnConfigListChanged(bool need_restart)
 
     if (isRunning && need_restart) on_startButton_clicked();
 }
-
 MainWindow::~MainWindow()
 {
     hTray->hide();
     delete this->hTray;
     delete this->vinstance;
 }
-
 void MainWindow::UpdateLog()
 {
     logText->append(vinstance->ReadProcessOutput().trimmed());
 }
-
 void MainWindow::on_startButton_clicked()
 {
     if (vinstance->VCoreStatus != STARTED) {
@@ -280,6 +271,7 @@ void MainWindow::on_startButton_clicked()
             downloadSerie->replace(i, 0, 0);
         }
 
+        // Check Selection
         if (CurrentConnectionName.isEmpty()) {
             QvMessageBox(this, tr("No connection selected!"), tr("Please select a config from the list."));
             return;
@@ -287,6 +279,7 @@ void MainWindow::on_startButton_clicked()
 
         LOG(MODULE_VCORE, ("Connecting to: " + CurrentConnectionName).toStdString())
         logText->clear();
+        //
         CurrentFullConfig = GenerateRuntimeConfig(connections[CurrentConnectionName]);
         StartPreparation(CurrentFullConfig);
         bool startFlag = this->vinstance->StartVCore();
@@ -300,6 +293,9 @@ void MainWindow::on_startButton_clicked()
                 vinstance->SetAPIPort(GetGlobalConfig().statsPort);
                 speedTimerId = startTimer(1000);
             }
+        } else {
+            // If failed, show mainwindow
+            this->show();
         }
 
         trayMenu->actions()[2]->setEnabled(!startFlag);
@@ -310,7 +306,6 @@ void MainWindow::on_startButton_clicked()
         stopButton->setEnabled(startFlag);
     }
 }
-
 void MainWindow::on_stopButton_clicked()
 {
     if (vinstance->VCoreStatus != STOPPED) {
@@ -331,14 +326,12 @@ void MainWindow::on_stopButton_clicked()
         dataamountLabel->setText("0.00 B\r\n0.00 B");
     }
 }
-
 void MainWindow::closeEvent(QCloseEvent *event)
 {
     this->hide();
     trayMenu->actions()[0]->setText(tr("Show"));
     event->ignore();
 }
-
 void MainWindow::on_activatedTray(QSystemTrayIcon::ActivationReason reason)
 {
     switch (reason) {
@@ -370,7 +363,6 @@ void MainWindow::on_activatedTray(QSystemTrayIcon::ActivationReason reason)
             break;
     }
 }
-
 void MainWindow::ToggleVisibility()
 {
     if (this->isHidden()) {
@@ -386,26 +378,22 @@ void MainWindow::ToggleVisibility()
         trayMenu->actions()[0]->setText(tr("Show"));
     }
 }
-
 void MainWindow::quit()
 {
     Utils::NetSpeedPlugin::StopProcessingPlugins();
     on_stopButton_clicked();
     QApplication::quit();
 }
-
 void MainWindow::on_actionExit_triggered()
 {
     quit();
 }
-
 void MainWindow::QTextScrollToBottom()
 {
     auto bar = logText->verticalScrollBar();
 
     if (bar->value() >= bar->maximum() - 10) bar->setValue(bar->maximum());
 }
-
 void MainWindow::ShowAndSetConnection(QString guiConnectionName, bool SetConnection, bool ApplyConnection)
 {
     // Check empty again...
@@ -452,7 +440,6 @@ void MainWindow::ShowAndSetConnection(QString guiConnectionName, bool SetConnect
         on_reconnectButton_clicked();
     }
 }
-
 void MainWindow::on_connectionListWidget_itemClicked(QListWidgetItem *item)
 {
     Q_UNUSED(item)
@@ -464,14 +451,12 @@ void MainWindow::on_connectionListWidget_itemClicked(QListWidgetItem *item)
     bool canSetConnection = !isRenamingInProgress && vinstance->VCoreStatus != STARTED;
     ShowAndSetConnection(currentText, canSetConnection, false);
 }
-
 void MainWindow::on_prefrencesBtn_clicked()
 {
     PrefrencesWindow *w = new PrefrencesWindow(this);
     connect(w, &PrefrencesWindow::s_reload_config, this, &MainWindow::OnConfigListChanged);
     w->show();
 }
-
 void MainWindow::on_connectionListWidget_doubleClicked(const QModelIndex &index)
 {
     Q_UNUSED(index)
@@ -482,25 +467,21 @@ void MainWindow::on_connectionListWidget_doubleClicked(const QModelIndex &index)
     QString currentText = connectionListWidget->currentItem()->text();
     ShowAndSetConnection(currentText, true, true);
 }
-
 void MainWindow::on_clearlogButton_clicked()
 {
     logText->clear();
 }
-
 void MainWindow::on_connectionListWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
 {
     Q_UNUSED(previous)
     isRenamingInProgress = false;
     on_connectionListWidget_itemClicked(current);
 }
-
 void MainWindow::on_connectionListWidget_customContextMenuRequested(const QPoint &pos)
 {
     Q_UNUSED(pos)
     listMenu.popup(QCursor::pos());
 }
-
 void MainWindow::on_action_RenameConnection_triggered()
 {
     auto item = connectionListWidget->currentItem();
@@ -509,7 +490,6 @@ void MainWindow::on_action_RenameConnection_triggered()
     originalName = item->text();
     isRenamingInProgress = true;
 }
-
 void MainWindow::on_connectionListWidget_itemChanged(QListWidgetItem *item)
 {
     DEBUG(MODULE_UI, "A connection ListViewItem is changed.")
@@ -553,7 +533,6 @@ void MainWindow::on_connectionListWidget_itemChanged(QListWidgetItem *item)
         }
     }
 }
-
 void MainWindow::on_removeConfigButton_clicked()
 {
     if (connectionListWidget->currentIndex().row() < 0) return;
@@ -580,14 +559,12 @@ void MainWindow::on_removeConfigButton_clicked()
         ShowAndSetConnection(CurrentConnectionName, false, false);
     }
 }
-
 void MainWindow::on_importConfigButton_clicked()
 {
     ImportConfigWindow *w = new ImportConfigWindow(this);
     w->exec();
     OnConfigListChanged(false);
 }
-
 void MainWindow::on_editConfigButton_clicked()
 {
     // Check if we have a connection selected...
@@ -624,13 +601,11 @@ void MainWindow::on_editConfigButton_clicked()
         ShowAndSetConnection(CurrentConnectionName, false, false);
     }
 }
-
 void MainWindow::on_reconnectButton_clicked()
 {
     on_stopButton_clicked();
     on_startButton_clicked();
 }
-
 void MainWindow::on_action_RCM_EditJson_triggered()
 {
     // Check if we have a connection selected...
@@ -652,18 +627,15 @@ void MainWindow::on_action_RCM_EditJson_triggered()
         ShowAndSetConnection(CurrentConnectionName, false, false);
     }
 }
-
 void MainWindow::on_editJsonBtn_clicked()
 {
     // See above.
     on_action_RCM_EditJson_triggered();
 }
-
 void MainWindow::on_pingTestBtn_clicked()
 {
     // Ping
 }
-
 void MainWindow::on_shareBtn_clicked()
 {
     // Share QR
@@ -687,12 +659,10 @@ void MainWindow::on_shareBtn_clicked()
         QvMessageBox(this, tr("Share Connection"), tr("There're no support of sharing configs other than vmess"));
     }
 }
-
 void MainWindow::on_action_RCM_ShareQR_triggered(bool checked)
 {
     on_shareBtn_clicked();
 }
-
 void MainWindow::timerEvent(QTimerEvent *event)
 {
     Q_UNUSED(event)

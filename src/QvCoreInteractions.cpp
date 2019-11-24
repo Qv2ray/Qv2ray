@@ -11,7 +11,7 @@ namespace Qv2ray
 {
     namespace QvInteration
     {
-        bool Qv2Instance::ValidateConfig(const QString *path)
+        bool ConnectionInstance::ValidateConfig(const QString *path)
         {
             if (ValidateKernal()) {
                 QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
@@ -38,7 +38,7 @@ namespace Qv2ray
             return false;
         }
 
-        Qv2Instance::Qv2Instance(QWidget *parent)
+        ConnectionInstance::ConnectionInstance(QWidget *parent)
         {
             auto proc = new QProcess();
             vProcess = proc;
@@ -46,7 +46,7 @@ namespace Qv2ray
             VCoreStatus = STOPPED;
         }
 
-        void Qv2Instance::SetAPIPort(int port)
+        void ConnectionInstance::SetAPIPort(int port)
         {
             // Config API
             this->port = port;
@@ -55,12 +55,12 @@ namespace Qv2ray
             Stub = service.NewStub(Channel);
         }
 
-        QString Qv2Instance::ReadProcessOutput()
+        QString ConnectionInstance::ReadProcessOutput()
         {
             return vProcess->readAllStandardOutput();
         }
 
-        bool Qv2Instance::ValidateKernal()
+        bool ConnectionInstance::ValidateKernal()
         {
             if (!QFile::exists(QSTRING(GetGlobalConfig().v2CorePath))) {
                 Utils::QvMessageBox(nullptr, QObject::tr("Cannot start v2ray"),
@@ -72,7 +72,7 @@ namespace Qv2ray
             } else return true;
         }
 
-        bool Qv2Instance::StartVCore()
+        bool ConnectionInstance::StartVCore()
         {
             if (VCoreStatus != STOPPED) {
                 return false;
@@ -101,7 +101,7 @@ namespace Qv2ray
             }
         }
 
-        void Qv2Instance::StopVCore()
+        void ConnectionInstance::StopVCore()
         {
             vProcess->close();
             totalDataTransfered = QMap<QString, long>();
@@ -109,13 +109,13 @@ namespace Qv2ray
             VCoreStatus = STOPPED;
         }
 
-        Qv2Instance::~Qv2Instance()
+        ConnectionInstance::~ConnectionInstance()
         {
             StopVCore();
             delete vProcess;
         }
 
-        long Qv2Instance::CallStatsAPIByName(QString name)
+        long ConnectionInstance::CallStatsAPIByName(QString name)
         {
             GetStatsRequest request;
             request.set_name(name.toStdString());
@@ -131,7 +131,7 @@ namespace Qv2ray
             return response.stat().value();
         }
 
-        long Qv2Instance::getTagLastUplink(QString tag)
+        long ConnectionInstance::getTagLastUplink(QString tag)
         {
             auto val = CallStatsAPIByName("inbound>>>" + tag + ">>>traffic>>>uplink");
             auto data = val - totalDataTransfered[tag + "_up"];
@@ -140,7 +140,7 @@ namespace Qv2ray
             return data;
         }
 
-        long Qv2Instance::getTagLastDownlink(QString tag)
+        long ConnectionInstance::getTagLastDownlink(QString tag)
         {
             auto val = CallStatsAPIByName("inbound>>>" + tag + ">>>traffic>>>downlink");
             auto data = val - totalDataTransfered[tag + "_down"];
@@ -149,12 +149,12 @@ namespace Qv2ray
             return data;
         }
 
-        long Qv2Instance::getTagTotalUplink(QString tag)
+        long ConnectionInstance::getTagTotalUplink(QString tag)
         {
             return totalDataTransfered[tag + "_up"];
         }
 
-        long Qv2Instance::getTagTotalDownlink(QString tag)
+        long ConnectionInstance::getTagTotalDownlink(QString tag)
         {
             return totalDataTransfered[tag + "_down"];
         }

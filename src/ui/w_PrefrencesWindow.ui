@@ -39,7 +39,7 @@
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -323,7 +323,7 @@
       <attribute name="title">
        <string>Inbound Settings</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,1">
+      <layout class="QVBoxLayout" name="verticalLayout" stretch="0,1">
        <item>
         <layout class="QFormLayout" name="formLayout_4">
          <item row="0" column="0">
@@ -340,152 +340,256 @@
            </property>
           </widget>
          </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_59">
+           <property name="text">
+            <string>Features</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <layout class="QHBoxLayout" name="horizontalLayout_3">
+           <item>
+            <widget class="QCheckBox" name="httpCB">
+             <property name="layoutDirection">
+              <enum>Qt::LeftToRight</enum>
+             </property>
+             <property name="text">
+              <string>HTTP</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="socksCB">
+             <property name="text">
+              <string>SOCKS</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_3">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_56">
+             <property name="text">
+              <string>PAC Support</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="enablePACCB">
+             <property name="text">
+              <string>Enabled</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
         </layout>
        </item>
        <item>
-        <widget class="QGroupBox" name="">
-         <property name="title">
-          <string>PAC Settings</string>
-         </property>
-         <layout class="QFormLayout" name="formLayout_10">
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_59">
-            <property name="text">
-             <string>Enable PAC</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QCheckBox" name="enablePACCB">
-            <property name="text">
-             <string>Enabled</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0" colspan="2">
-           <widget class="QFrame" name="pacSettingsLayout_2">
-            <layout class="QHBoxLayout" name="pacSettingsLayout">
-             <item>
-              <widget class="QLabel" name="label_57">
-               <property name="text">
-                <string>Access Path</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="pacAddressLabel">
-               <property name="text">
-                <string>http://0.0.0.0:</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QSpinBox" name="pacPortEdit">
-               <property name="minimum">
-                <number>1</number>
-               </property>
-               <property name="maximum">
-                <number>65535</number>
-               </property>
-               <property name="value">
-                <number>8088</number>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_56">
-               <property name="text">
-                <string>/pac</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <spacer name="horizontalSpacer_3">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_58">
-               <property name="text">
-                <string>GFWList Import Source</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QComboBox" name="comboBox_2">
-               <item>
-                <property name="text">
-                 <string>Github</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Mirror: Pagure</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Mirror: Repo.or.cz</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Mirror: Bitbucket</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Mirror: Gitlab</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Mirror: TuxFamily</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>GFWList File</string>
-                </property>
-               </item>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pacChooseFileBtn">
-               <property name="text">
-                <string>Go</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
-         <item>
-          <widget class="QGroupBox" name="groupBox_2">
+        <layout class="QGridLayout" name="gridLayout_7">
+         <item row="0" column="1">
+          <widget class="QGroupBox" name="httpGroupBox">
            <property name="title">
-            <string>SOCKS Inbound Settings</string>
+            <string>HTTP Settings</string>
            </property>
-           <layout class="QFormLayout" name="formLayout_2">
-            <item row="0" column="1">
-             <widget class="QCheckBox" name="socksCB">
+           <layout class="QFormLayout" name="formLayout_7">
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_3">
+              <property name="text">
+               <string>Port</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QSpinBox" name="httpPortLE">
+              <property name="minimum">
+               <number>1</number>
+              </property>
+              <property name="maximum">
+               <number>65535</number>
+              </property>
+              <property name="value">
+               <number>18001</number>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_9">
+              <property name="text">
+               <string>Authentication</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QCheckBox" name="httpAuthCB">
               <property name="text">
                <string>Enabled</string>
               </property>
              </widget>
             </item>
+            <item row="3" column="0">
+             <widget class="QLabel" name="label_2">
+              <property name="text">
+               <string>Username</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QLineEdit" name="httpAuthUsernameTxt">
+              <property name="placeholderText">
+               <string notr="true">user</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0">
+             <widget class="QLabel" name="label_13">
+              <property name="text">
+               <string>Password</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="1">
+             <widget class="QLineEdit" name="httpAuthPasswordTxt">
+              <property name="placeholderText">
+               <string notr="true">pass</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QGroupBox" name="pacGroupBox">
+           <property name="title">
+            <string>PAC Settings</string>
+           </property>
+           <layout class="QFormLayout" name="formLayout_11">
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_58">
+              <property name="text">
+               <string>GFWList Source</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <layout class="QHBoxLayout" name="horizontalLayout_2">
+              <item>
+               <widget class="QComboBox" name="gfwListCB">
+                <item>
+                 <property name="text">
+                  <string>Github</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Mirror: Pagure</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Mirror: Repo.or.cz</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Mirror: Bitbucket</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Mirror: Gitlab</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Mirror: TuxFamily</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>GFWList File</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item>
+               <widget class="QToolButton" name="pacGoBtn">
+                <property name="text">
+                 <string>Go</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_62">
+              <property name="text">
+               <string>Edit PAC</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QPushButton" name="pushButton">
+              <property name="text">
+               <string>Open PAC Folder</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_57">
+              <property name="text">
+               <string>Port</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QSpinBox" name="pacPortSB">
+              <property name="minimum">
+               <number>1</number>
+              </property>
+              <property name="maximum">
+               <number>65535</number>
+              </property>
+              <property name="value">
+               <number>8088</number>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QLabel" name="label_61">
+              <property name="text">
+               <string>Access URL</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QLineEdit" name="pacAccessPathTxt">
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item row="0" column="0" rowspan="2">
+          <widget class="QGroupBox" name="socksGroupBox">
+           <property name="title">
+            <string>SOCKS Settings</string>
+           </property>
+           <layout class="QFormLayout" name="formLayout_2">
             <item row="1" column="0">
              <widget class="QLabel" name="label_4">
               <property name="text">
@@ -501,12 +605,15 @@
               <property name="maximum">
                <number>65535</number>
               </property>
+              <property name="value">
+               <number>1081</number>
+              </property>
              </widget>
             </item>
             <item row="2" column="0">
              <widget class="QLabel" name="label_14">
               <property name="text">
-               <string>SOCKS UDP</string>
+               <string>UDP Support</string>
               </property>
              </widget>
             </item>
@@ -520,7 +627,7 @@
             <item row="3" column="0">
              <widget class="QLabel" name="label_25">
               <property name="text">
-               <string>Local IP</string>
+               <string>Local IP (For UDP)</string>
               </property>
              </widget>
             </item>
@@ -568,84 +675,6 @@
             </item>
             <item row="6" column="1">
              <widget class="QLineEdit" name="socksAuthPasswordTxt">
-              <property name="placeholderText">
-               <string notr="true">pass</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-         <item>
-          <widget class="QGroupBox" name="groupBox_7">
-           <property name="title">
-            <string>HTTP Inbound Settings</string>
-           </property>
-           <layout class="QFormLayout" name="formLayout_7">
-            <item row="0" column="1">
-             <widget class="QCheckBox" name="httpCB">
-              <property name="layoutDirection">
-               <enum>Qt::LeftToRight</enum>
-              </property>
-              <property name="text">
-               <string>Enabled</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="label_3">
-              <property name="text">
-               <string>Port</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QSpinBox" name="httpPortLE">
-              <property name="minimum">
-               <number>1</number>
-              </property>
-              <property name="maximum">
-               <number>65535</number>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="label_9">
-              <property name="text">
-               <string>Authentication</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="1">
-             <widget class="QCheckBox" name="httpAuthCB">
-              <property name="text">
-               <string>Enabled</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="0">
-             <widget class="QLabel" name="label_2">
-              <property name="text">
-               <string>Username</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="1">
-             <widget class="QLineEdit" name="httpAuthUsernameTxt">
-              <property name="placeholderText">
-               <string notr="true">user</string>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="0">
-             <widget class="QLabel" name="label_13">
-              <property name="text">
-               <string>Password</string>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="1">
-             <widget class="QLineEdit" name="httpAuthPasswordTxt">
               <property name="placeholderText">
                <string notr="true">pass</string>
               </property>

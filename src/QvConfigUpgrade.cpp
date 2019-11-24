@@ -90,8 +90,22 @@ namespace Qv2ray
                 auto lang = root["language"].toString();
                 QJsonObject uiSettings;
                 uiSettings["language"] = lang;
-                root["UISettings"] = uiSettings;
+                root["uiConfig"] = uiSettings;
                 UPDATELOG("Reconstructing config file.")
+                break;
+            }
+
+            case 9: {
+                root["uiConfig"] = root["UISettings"];
+                root.remove("UISettings");
+                UPDATELOG("Renamed UISettings to uiConfig.")
+                break;
+            }
+
+            case 10: {
+                root["inboundConfig"] = root["inBoundSettings"];
+                root.remove("inBoundSettings");
+                UPDATELOG("Renamed inBoundSettings to inboundConfig.")
                 break;
             }
         }

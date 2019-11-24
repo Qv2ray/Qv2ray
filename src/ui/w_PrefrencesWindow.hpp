@@ -122,6 +122,10 @@ class PrefrencesWindow : public QDialog, private Ui::PrefrencesWindow
 
         void on_enablePACCB_stateChanged(int arg1);
 
+        void on_pacGoBtn_clicked();
+
+        void on_pacPortSB_valueChanged(int arg1);
+
     private:
         // Set ui parameters for a line;
         void ShowLineParameters(QvBarLine &line);
@@ -132,7 +136,7 @@ class PrefrencesWindow : public QDialog, private Ui::PrefrencesWindow
         //
         bool IsConnectionPropertyChanged = false;
         bool finishedLoading = false;
-        Qv2ray::QvConfigModels::Qv2rayConfig CurrentConfig;
+        Qv2rayConfig CurrentConfig;
         Ui::PrefrencesWindow *ui;
 };
 #endif // HVCONF_H

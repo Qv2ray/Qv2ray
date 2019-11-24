@@ -8,7 +8,7 @@
 #include "QvCoreConfigObjects.hpp"
 #include "QObjectMessageProxy.hpp"
 
-#define QV2RAY_CONFIG_VERSION 9
+#define QV2RAY_CONFIG_VERSION 11
 
 // Linux DEs should handle the ui schemes themselves.
 // --> Or.. should we change this into a modifyable setting?
@@ -138,7 +138,7 @@ namespace Qv2ray
                 socksLocalIP = "0.0.0.0";
                 socksUDP = true;
             }
-            XTOSTRUCT(O(listenip, socks_port, socks_useAuth, socksAccount, socksUDP, socksLocalIP, http_port, http_useAuth, httpAccount))
+            XTOSTRUCT(O(pacConfig, listenip, socks_port, socks_useAuth, socksAccount, socksUDP, socksLocalIP, http_port, http_useAuth, httpAccount))
         };
 
         struct Qv2rayUIConfig {
@@ -173,7 +173,7 @@ namespace Qv2ray
             map<string, string> subscribes;
             //
             Qv2rayUIConfig uiConfig;
-            Qv2rayInboundsConfig inBoundSettings;
+            Qv2rayInboundsConfig inboundConfig;
             Qv2rayToolBarConfig toolBarConfig;
 
             Qv2rayConfig():
@@ -193,7 +193,7 @@ namespace Qv2ray
                 configs(),
                 subscribes(),
                 uiConfig(),
-                inBoundSettings(),
+                inboundConfig(),
                 toolBarConfig() { }
             Qv2rayConfig(const string &assetsPath, int log, const Qv2rayInboundsConfig &_inBoundSettings): Qv2rayConfig()
             {
@@ -201,7 +201,7 @@ namespace Qv2ray
                 ignoredVersion = "";
                 autoStartConfig = "";
                 v2AssetsPath = assetsPath;
-                inBoundSettings = _inBoundSettings;
+                inboundConfig = _inBoundSettings;
                 logLevel = log;
                 tProxySupport = false;
                 dnsList.push_back("8.8.8.8");
@@ -227,7 +227,7 @@ namespace Qv2ray
                         bypassCN,
                         withLocalDNS,
                         dnsList,
-                        inBoundSettings,
+                        inboundConfig,
                         configs,
                         subscribes,
                         toolBarConfig))

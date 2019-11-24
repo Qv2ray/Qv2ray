@@ -256,7 +256,7 @@ int main(int argc, char *argv[])
 #if QV2RAY_USE_BUILTIN_DARKTHEME
     LOG(MODULE_UI, "Using built-in theme.")
 
-    if (confObject.UISettings.useDarkTheme) {
+    if (confObject.uiConfig.useDarkTheme) {
         LOG(MODULE_UI, " --> Using built-in dark theme.")
         // From https://forum.qt.io/topic/101391/windows-10-dark-theme/4
         _qApp.setStyle("Fusion");

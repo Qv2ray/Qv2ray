@@ -58,6 +58,7 @@ INCLUDEPATH += \
         src/ui/ \
         src/utils/ \
         libs/gen/
+
 HEADERS += \
         src/Qv2rayBase.hpp \
         src/QvCoreConfigObjects.hpp \

@@ -46,36 +46,46 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     tProxyCheckBox->setChecked(CurrentConfig.tProxySupport);
     //
     //
-    listenIPTxt->setText(QSTRING(CurrentConfig.inBoundSettings.listenip));
+    listenIPTxt->setText(QSTRING(CurrentConfig.inboundConfig.listenip));
+    bool pacEnabled = CurrentConfig.inboundConfig.pacConfig.enablePAC;
+    enablePACCB->setChecked(pacEnabled);
     //
-    bool have_http = CurrentConfig.inBoundSettings.http_port != 0;
+    pacGroupBox->setEnabled(pacEnabled);
+
+    if (pacEnabled) {
+        pacPortSB->setValue(CurrentConfig.inboundConfig.pacConfig.port);
+        gfwListCB->setCurrentIndex(CurrentConfig.inboundConfig.pacConfig.sourceId);
+    }
+
+    //
+    bool have_http = CurrentConfig.inboundConfig.http_port != 0;
     httpCB->setChecked(have_http);
-    httpPortLE->setValue(CurrentConfig.inBoundSettings.http_port);
-    httpAuthCB->setChecked(CurrentConfig.inBoundSettings.http_useAuth);
+    httpGroupBox->setEnabled(have_http);
+    httpPortLE->setValue(CurrentConfig.inboundConfig.http_port);
+    httpAuthCB->setChecked(CurrentConfig.inboundConfig.http_useAuth);
     //
-    httpAuthCB->setEnabled(have_http);
-    httpAuthCB->setChecked(CurrentConfig.inBoundSettings.http_useAuth);
-    httpAuthUsernameTxt->setEnabled(have_http && CurrentConfig.inBoundSettings.http_useAuth);
-    httpAuthPasswordTxt->setEnabled(have_http && CurrentConfig.inBoundSettings.http_useAuth);
-    httpAuthUsernameTxt->setText(QSTRING(CurrentConfig.inBoundSettings.httpAccount.user));
-    httpAuthPasswordTxt->setText(QSTRING(CurrentConfig.inBoundSettings.httpAccount.pass));
+    httpAuthCB->setChecked(CurrentConfig.inboundConfig.http_useAuth);
+    httpAuthUsernameTxt->setEnabled(have_http && CurrentConfig.inboundConfig.http_useAuth);
+    httpAuthPasswordTxt->setEnabled(have_http && CurrentConfig.inboundConfig.http_useAuth);
+    httpAuthUsernameTxt->setText(QSTRING(CurrentConfig.inboundConfig.httpAccount.user));
+    httpAuthPasswordTxt->setText(QSTRING(CurrentConfig.inboundConfig.httpAccount.pass));
     //
     //
-    bool have_socks = CurrentConfig.inBoundSettings.socks_port != 0;
+    bool have_socks = CurrentConfig.inboundConfig.socks_port != 0;
     socksCB->setChecked(have_socks);
-    socksPortLE->setValue(CurrentConfig.inBoundSettings.socks_port);
-    socksAuthCB->setChecked(CurrentConfig.inBoundSettings.socks_useAuth);
+    socksGroupBox->setEnabled(have_socks);
+    socksPortLE->setValue(CurrentConfig.inboundConfig.socks_port);
+    socksAuthCB->setChecked(CurrentConfig.inboundConfig.socks_useAuth);
     //
-    socksAuthCB->setEnabled(have_socks);
-    socksAuthCB->setChecked(CurrentConfig.inBoundSettings.socks_useAuth);
-    socksAuthUsernameTxt->setEnabled(have_socks && CurrentConfig.inBoundSettings.socks_useAuth);
-    socksAuthPasswordTxt->setEnabled(have_socks && CurrentConfig.inBoundSettings.socks_useAuth);
-    socksAuthUsernameTxt->setText(QSTRING(CurrentConfig.inBoundSettings.socksAccount.user));
-    socksAuthPasswordTxt->setText(QSTRING(CurrentConfig.inBoundSettings.socksAccount.pass));
+    socksAuthCB->setChecked(CurrentConfig.inboundConfig.socks_useAuth);
+    socksAuthUsernameTxt->setEnabled(have_socks && CurrentConfig.inboundConfig.socks_useAuth);
+    socksAuthPasswordTxt->setEnabled(have_socks && CurrentConfig.inboundConfig.socks_useAuth);
+    socksAuthUsernameTxt->setText(QSTRING(CurrentConfig.inboundConfig.socksAccount.user));
+    socksAuthPasswordTxt->setText(QSTRING(CurrentConfig.inboundConfig.socksAccount.pass));
     // Socks UDP Options
-    socksUDPCB->setChecked(CurrentConfig.inBoundSettings.socksUDP);
-    socksUDPIP->setEnabled(CurrentConfig.inBoundSettings.socksUDP);
-    socksUDPIP->setText(QSTRING(CurrentConfig.inBoundSettings.socksLocalIP));
+    socksUDPCB->setChecked(CurrentConfig.inboundConfig.socksUDP);
+    socksUDPIP->setEnabled(CurrentConfig.inboundConfig.socksUDP);
+    socksUDPIP->setText(QSTRING(CurrentConfig.inboundConfig.socksLocalIP));
     //
     //
     vCorePathTxt->setText(QSTRING(CurrentConfig.v2CorePath));
@@ -149,13 +159,13 @@ void PrefrencesWindow::on_buttonBox_accepted()
 void PrefrencesWindow::on_httpCB_stateChanged(int checked)
 {
     NEEDRESTART
-    httpPortLE->setEnabled(checked == Qt::Checked);
-    httpAuthCB->setEnabled(checked == Qt::Checked);
-    httpAuthUsernameTxt->setEnabled(checked == Qt::Checked && httpAuthCB->isChecked());
-    httpAuthPasswordTxt->setEnabled(checked == Qt::Checked && httpAuthCB->isChecked());
-    CurrentConfig.inBoundSettings.http_port = checked == Qt::Checked ? CurrentConfig.inBoundSettings.http_port : 0;
+    bool enabled = checked == Qt::Checked;
+    httpGroupBox->setEnabled(enabled);
+    httpAuthUsernameTxt->setEnabled(enabled && httpAuthCB->isChecked());
+    httpAuthPasswordTxt->setEnabled(enabled && httpAuthCB->isChecked());
+    CurrentConfig.inboundConfig.http_port = enabled ? CurrentConfig.inboundConfig.http_port : 0;
 
-    if (checked != Qt::Checked) {
+    if (!enabled) {
         httpPortLE->setValue(0);
     }
 }
@@ -163,13 +173,11 @@ void PrefrencesWindow::on_httpCB_stateChanged(int checked)
 void PrefrencesWindow::on_socksCB_stateChanged(int checked)
 {
     NEEDRESTART
-    socksPortLE->setEnabled(checked == Qt::Checked);
-    socksAuthCB->setEnabled(checked == Qt::Checked);
-    socksAuthUsernameTxt->setEnabled(checked == Qt::Checked && socksAuthCB->isChecked());
-    socksAuthPasswordTxt->setEnabled(checked == Qt::Checked && socksAuthCB->isChecked());
-    CurrentConfig.inBoundSettings.socks_port = checked == Qt::Checked ? CurrentConfig.inBoundSettings.socks_port : 0;
+    bool enabled = checked == Qt::Checked;
+    socksGroupBox->setEnabled(enabled);
+    CurrentConfig.inboundConfig.socks_port = enabled ? CurrentConfig.inboundConfig.socks_port : 0;
 
-    if (checked != Qt::Checked) {
+    if (!enabled) {
         socksPortLE->setValue(0);
     }
 }
@@ -177,32 +185,39 @@ void PrefrencesWindow::on_socksCB_stateChanged(int checked)
 void PrefrencesWindow::on_httpAuthCB_stateChanged(int checked)
 {
     NEEDRESTART
-    httpAuthUsernameTxt->setEnabled(checked == Qt::Checked);
-    httpAuthPasswordTxt->setEnabled(checked == Qt::Checked);
-    CurrentConfig.inBoundSettings.http_useAuth = checked == Qt::Checked;
+    bool enabled = checked == Qt::Checked;
+    httpAuthUsernameTxt->setEnabled(enabled);
+    httpAuthPasswordTxt->setEnabled(enabled);
+    CurrentConfig.inboundConfig.http_useAuth = enabled;
 }
 
 void PrefrencesWindow::on_socksAuthCB_stateChanged(int checked)
 {
     NEEDRESTART
-    socksAuthUsernameTxt->setEnabled(checked == Qt::Checked);
-    socksAuthPasswordTxt->setEnabled(checked == Qt::Checked);
-    CurrentConfig.inBoundSettings.socks_useAuth = checked == Qt::Checked;
+    bool enabled = checked == Qt::Checked;
+    socksAuthUsernameTxt->setEnabled(enabled);
+    socksAuthPasswordTxt->setEnabled(enabled);
+    CurrentConfig.inboundConfig.socks_useAuth = enabled;
 }
 
 void PrefrencesWindow::on_languageComboBox_currentTextChanged(const QString &arg1)
 {
-    CurrentConfig.uiConfig.language = arg1.toStdString();
+    LOADINGCHECK
     //
     // A strange bug prevents us to change the UI language online
     //    https://github.com/lhy0403/Qv2ray/issues/34
     //
-    //if (QApplication::installTranslator(getTranslator(&arg1))) {
+    CurrentConfig.uiConfig.language = arg1.toStdString();
+    //
+    //
+    //if (QApplication::installTranslator(getTranslator(arg1))) {
     //    LOG(MODULE_UI, "Loaded translations " + arg1.toStdString())
     //    retranslateUi(this);
     //} else {
     //    QvMessageBox(this, tr("#Prefrences"), tr("#SwitchTranslationError"));
     //}
+    //
+    //emit retranslateUi(this);
 }
 
 void PrefrencesWindow::on_logLevelComboBox_currentIndexChanged(int index)
@@ -220,32 +235,32 @@ void PrefrencesWindow::on_vCoreAssetsPathTxt_textEdited(const QString &arg1)
 void PrefrencesWindow::on_listenIPTxt_textEdited(const QString &arg1)
 {
     NEEDRESTART
-    CurrentConfig.inBoundSettings.listenip = arg1.toStdString();
-    pacAddressLabel->setText("http://" + arg1 + ":");
+    CurrentConfig.inboundConfig.listenip = arg1.toStdString();
+    pacAccessPathTxt->setText("http://" + arg1 + ":" + QString::number(pacPortSB->value()) + "/pac.txt");
 }
 
 void PrefrencesWindow::on_httpAuthUsernameTxt_textEdited(const QString &arg1)
 {
     NEEDRESTART
-    CurrentConfig.inBoundSettings.httpAccount.user = arg1.toStdString();
+    CurrentConfig.inboundConfig.httpAccount.user = arg1.toStdString();
 }
 
 void PrefrencesWindow::on_httpAuthPasswordTxt_textEdited(const QString &arg1)
 {
     NEEDRESTART
-    CurrentConfig.inBoundSettings.httpAccount.pass = arg1.toStdString();
+    CurrentConfig.inboundConfig.httpAccount.pass = arg1.toStdString();
 }
 
 void PrefrencesWindow::on_socksAuthUsernameTxt_textEdited(const QString &arg1)
 {
     NEEDRESTART
-    CurrentConfig.inBoundSettings.socksAccount.user = arg1.toStdString();
+    CurrentConfig.inboundConfig.socksAccount.user = arg1.toStdString();
 }
 
 void PrefrencesWindow::on_socksAuthPasswordTxt_textEdited(const QString &arg1)
 {
     NEEDRESTART
-    CurrentConfig.inBoundSettings.socksAccount.pass = arg1.toStdString();
+    CurrentConfig.inboundConfig.socksAccount.pass = arg1.toStdString();
 }
 
 void PrefrencesWindow::on_proxyDefaultCb_stateChanged(int arg1)
@@ -439,26 +454,26 @@ void PrefrencesWindow::on_statsPortBox_valueChanged(int arg1)
 void PrefrencesWindow::on_socksPortLE_valueChanged(int arg1)
 {
     NEEDRESTART
-    CurrentConfig.inBoundSettings.socks_port = arg1;
+    CurrentConfig.inboundConfig.socks_port = arg1;
 }
 
 void PrefrencesWindow::on_httpPortLE_valueChanged(int arg1)
 {
     NEEDRESTART
-    CurrentConfig.inBoundSettings.http_port = arg1;
+    CurrentConfig.inboundConfig.http_port = arg1;
 }
 
 void PrefrencesWindow::on_socksUDPCB_stateChanged(int arg1)
 {
     NEEDRESTART
-    CurrentConfig.inBoundSettings.socksUDP = arg1 == Qt::Checked;
+    CurrentConfig.inboundConfig.socksUDP = arg1 == Qt::Checked;
     socksUDPIP->setEnabled(arg1 == Qt::Checked);
 }
 
 void PrefrencesWindow::on_socksUDPIP_textEdited(const QString &arg1)
 {
     NEEDRESTART
-    CurrentConfig.inBoundSettings.socksLocalIP = arg1.toStdString();
+    CurrentConfig.inboundConfig.socksLocalIP = arg1.toStdString();
 }
 
 // ------------------- NET SPEED PLUGIN OPERATIONS -----------------------------------------------------------------
@@ -634,45 +649,45 @@ void PrefrencesWindow::on_nsBarFontSizeSB_valueChanged(double arg1)
     SET_LINE_LIST_TEXT
 }
 
-QString PrefrencesWindow::GetBarLineDescription(QvBarLine line)
+QString PrefrencesWindow::GetBarLineDescription(QvBarLine barLine)
 {
     QString result = "Empty";
-    result = NetSpeedPluginMessages[line.ContentType];
+    result = NetSpeedPluginMessages[barLine.ContentType];
 
-    if (line.ContentType == 0) {
-        result +=  " (" + QSTRING(line.Message) + ")";
+    if (barLine.ContentType == 0) {
+        result +=  " (" + QSTRING(barLine.Message) + ")";
     }
 
-    result = result.append(line.Bold ?  ", " + tr("Bold") : "");
-    result = result.append(line.Italic ? ", " + tr("Italic") : "");
+    result = result.append(barLine.Bold ?  ", " + tr("Bold") : "");
+    result = result.append(barLine.Italic ? ", " + tr("Italic") : "");
     return result;
 }
 
-void PrefrencesWindow::ShowLineParameters(QvBarLine &line)
+void PrefrencesWindow::ShowLineParameters(QvBarLine &barLine)
 {
     finishedLoading = false;
 
-    if (!line.Family.empty()) {
-        fontComboBox->setCurrentFont(QFont(QSTRING(line.Family)));
+    if (!barLine.Family.empty()) {
+        fontComboBox->setCurrentFont(QFont(QSTRING(barLine.Family)));
     }
 
     // Colors
-    nsBarFontASB->setValue(line.ColorA);
-    nsBarFontBSB->setValue(line.ColorB);
-    nsBarFontGSB->setValue(line.ColorG);
-    nsBarFontRSB->setValue(line.ColorR);
+    nsBarFontASB->setValue(barLine.ColorA);
+    nsBarFontBSB->setValue(barLine.ColorB);
+    nsBarFontGSB->setValue(barLine.ColorG);
+    nsBarFontRSB->setValue(barLine.ColorR);
     //
-    QColor color = QColor::fromRgb(line.ColorR, line.ColorG, line.ColorB, line.ColorA);
+    QColor color = QColor::fromRgb(barLine.ColorR, barLine.ColorG, barLine.ColorB, barLine.ColorA);
     QString s("background: #"
               + QString(color.red() < 16 ? "0" : "") + QString::number(color.red(), 16)
               + QString(color.green() < 16 ? "0" : "") + QString::number(color.green(), 16)
               + QString(color.blue() < 16 ? "0" : "") + QString::number(color.blue(), 16) + ";");
     chooseColorBtn->setStyleSheet(s);
-    nsBarFontSizeSB->setValue(line.Size);
-    nsBarFontBoldCB->setChecked(line.Bold);
-    nsBarFontItalicCB->setChecked(line.Italic);
-    nsBarContentCombo->setCurrentText(NetSpeedPluginMessages[line.ContentType]);
-    nsBarTagTxt->setText(QSTRING(line.Message));
+    nsBarFontSizeSB->setValue(barLine.Size);
+    nsBarFontBoldCB->setChecked(barLine.Bold);
+    nsBarFontItalicCB->setChecked(barLine.Italic);
+    nsBarContentCombo->setCurrentText(NetSpeedPluginMessages[barLine.ContentType]);
+    nsBarTagTxt->setText(QSTRING(barLine.Message));
     finishedLoading = true;
     nsBarVerticalLayout->setEnabled(true);
 }
@@ -740,5 +755,18 @@ void PrefrencesWindow::on_darkTrayCB_stateChanged(int arg1)
 
 void PrefrencesWindow::on_enablePACCB_stateChanged(int arg1)
 {
-    pacSettingsLayout_2->setEnabled(arg1 == Qt::Checked);
+    bool enabled = arg1 == Qt::Checked;
+    CurrentConfig.inboundConfig.pacConfig.enablePAC = enabled;
+    pacGroupBox->setEnabled(enabled);
+}
+
+void PrefrencesWindow::on_pacGoBtn_clicked()
+{
+    //
+}
+
+void PrefrencesWindow::on_pacPortSB_valueChanged(int arg1)
+{
+    CurrentConfig.inboundConfig.pacConfig.port = arg1;
+    pacAccessPathTxt->setText("http://" + listenIPTxt->text() + ":" + QString::number(arg1) + "/pac.txt");
 }
