@@ -38,7 +38,7 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     darkTrayCB->setChecked(CurrentConfig.uiConfig.useDarkTrayIcon);
 #if QV2RAY_USE_BUILTIN_DARKTHEME
     // If we use built in theme, it should always be fusion.
-    themeCombo->setEnabled(!CurrentConfig.UISettings.useDarkTheme);
+    themeCombo->setEnabled(!CurrentConfig.uiConfig.useDarkTheme);
     darkThemeLabel->setText(tr("Use Dark Theme"));
 #endif
     languageComboBox->setCurrentText(QSTRING(CurrentConfig.uiConfig.language));
@@ -742,7 +742,7 @@ void PrefrencesWindow::on_darkThemeCB_stateChanged(int arg1)
 
     if (arg1 == Qt::Checked) {
         themeCombo->setCurrentIndex(QStyleFactory::keys().indexOf("Fusion"));
-        CurrentConfig.UISettings.theme = "Fusion";
+        CurrentConfig.uiConfig.theme = "Fusion";
     }
 
 #endif
