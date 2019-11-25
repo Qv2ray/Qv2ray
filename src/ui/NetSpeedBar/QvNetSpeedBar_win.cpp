@@ -4,7 +4,7 @@
 #include "QvUtils.hpp"
 namespace Qv2ray
 {
-    namespace Utils
+    namespace Components
     {
         namespace NetSpeedPlugin
         {

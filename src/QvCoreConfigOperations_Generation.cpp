@@ -183,13 +183,12 @@ namespace Qv2ray
                 //
                 QStringList dnsList;
 
-                foreach (auto str, gConf.dnsList) {
+                foreach (auto str, gConf.connectionConfig.dnsList) {
                     dnsList.append(QString::fromStdString(str));
                 }
 
-                auto dnsObject = GenerateDNS(gConf.withLocalDNS, dnsList);
+                auto dnsObject = GenerateDNS(gConf.connectionConfig.withLocalDNS, dnsList);
                 root.insert("dns", dnsObject);
-                //
                 //
                 //
                 QJsonArray inboundsList;
@@ -233,27 +232,11 @@ namespace Qv2ray
                 // BE EXTREME CAREFUL when changing these code below...
                 // See: https://github.com/lhy0403/Qv2ray/issues/129
                 // routeCountLabel in Mainwindow makes here failed to ENOUGH-ly check the routing tables
-                bool cRouting = root.contains("routing");
-                bool cRule = cRouting && root["routing"].toObject().contains("rules");
-                bool cRules = cRule && root["routing"].toObject()["rules"].toArray().count() > 0;
+                bool isComplex = CheckIsComplexConfig(root);
 
-                if (!cRules) {
-                    LOG(MODULE_CONNECTION, "Current connection has NO ROUTING section, we insert default values.")
-
-                    if (root["outbounds"].toArray().count() != 1) {
-                        // There are no ROUTING but 2 or more outbounds.... This is rare, but possible.
-                        LOG(MODULE_CONNECTION, "WARN: This message usually indicates the config file has some logic errors:")
-                        LOG(MODULE_CONNECTION, "WARN: --> The config file has NO routing section, however more than 1 outbounds are detected.")
-                    }
-
-                    auto routeObject = GenerateRoutes(gConf.enableProxy, gConf.bypassCN);
-                    root.insert("routing", routeObject);
-                    QJsonArray outbounds = root["outbounds"].toArray();
-                    outbounds.append(GenerateOutboundEntry("freedom", GenerateFreedomOUT("AsIs", ":0", 0), QJsonObject(), QJsonObject(), "0.0.0.0", OUTBOUND_TAG_DIRECT));
-                    root["outbounds"] = outbounds;
-                } else {
-                    // For some config files that has routing entries already.
-                    // We don't add extra routings.
+                //
+                if (isComplex) {  // For some config files that has routing entries already.
+                    // We DO NOT add extra routings.
                     //
                     // HOWEVER, we need to verify the QV2RAY_RULE_ENABLED entry.
                     // And what's more, process (by removing unused items) from a rule object.
@@ -286,52 +269,68 @@ namespace Qv2ray
 
                     routing["rules"] = rules;
                     root["routing"] = routing;
+                } else {
+                    //
+                    LOG(MODULE_CONNECTION, "Current connection has NO ROUTING section, we insert default values.")
+
+                    if (root["outbounds"].toArray().count() != 1) {
+                        // There are no ROUTING but 2 or more outbounds.... This is rare, but possible.
+                        LOG(MODULE_CONNECTION, "WARN: This message usually indicates the config file has logic errors:")
+                        LOG(MODULE_CONNECTION, "WARN: --> The config file has NO routing section, however more than 1 outbounds are detected.")
+                    }
+
+                    auto routeObject = GenerateRoutes(gConf.connectionConfig.enableProxy, gConf.connectionConfig.bypassCN);
+                    root.insert("routing", routeObject);
+                    QJsonArray outbounds = root["outbounds"].toArray();
+                    outbounds.append(GenerateOutboundEntry("freedom", GenerateFreedomOUT("AsIs", ":0", 0), QJsonObject(), QJsonObject(), "0.0.0.0", OUTBOUND_TAG_DIRECT));
+                    root["outbounds"] = outbounds;
                 }
 
                 // Let's process some api features.
-                if (gConf.enableStats) {
+                if (gConf.connectionConfig.enableStats) {
+                    //
                     // Stats
-                    {
-                        root.insert("stats", QJsonObject());
-                    }
+                    //
+                    root.insert("stats", QJsonObject());
+                    //
                     // Routes
-                    {
-                        QJsonObject routing = root["routing"].toObject();
-                        QJsonArray routingRules = routing["rules"].toArray();
-                        QJsonObject APIRouteRoot;
-                        APIRouteRoot["type"] = "field";
-                        APIRouteRoot["outboundTag"] = API_TAG_DEFAULT;
-                        QJsonArray inboundTag;
-                        inboundTag.append(API_TAG_INBOUND);
-                        APIRouteRoot["inboundTag"] = inboundTag;
-                        // Add this to root.
-                        routingRules.push_front(APIRouteRoot);
-                        routing["rules"] = routingRules;
-                        root["routing"] = routing;
-                    }
+                    //
+                    QJsonObject routing = root["routing"].toObject();
+                    QJsonArray routingRules = routing["rules"].toArray();
+                    QJsonObject APIRouteRoot;
+                    APIRouteRoot["type"] = "field";
+                    APIRouteRoot["outboundTag"] = QV2RAY_API_TAG_DEFAULT;
+                    QJsonArray inboundTag;
+                    inboundTag.append(QV2RAY_API_TAG_INBOUND);
+                    APIRouteRoot["inboundTag"] = inboundTag;
+                    // Add this to root.
+                    routingRules.push_front(APIRouteRoot);
+                    routing["rules"] = routingRules;
+                    root["routing"] = routing;
+                    //
                     // Policy
-                    {
-                        QJsonObject policyRoot = root.contains("policy") ? root["policy"].toObject() : QJsonObject();
-                        QJsonObject systemPolicy = policyRoot.contains("system") ? policyRoot["system"].toObject() : QJsonObject();
-                        systemPolicy["statsInboundUplink"] = true;
-                        systemPolicy["statsInboundDownlink"] = true;
-                        policyRoot["system"] = systemPolicy;
-                        // Add this to root.
-                        root["policy"] = policyRoot;
-                    }
+                    //
+                    QJsonObject policyRoot = root.contains("policy") ? root["policy"].toObject() : QJsonObject();
+                    QJsonObject systemPolicy = policyRoot.contains("system") ? policyRoot["system"].toObject() : QJsonObject();
+                    systemPolicy["statsInboundUplink"] = true;
+                    systemPolicy["statsInboundDownlink"] = true;
+                    policyRoot["system"] = systemPolicy;
+                    // Add this to root.
+                    root["policy"] = policyRoot;
+                    //
                     // Inbounds
-                    {
-                        QJsonArray inbounds = root["inbounds"].toArray();
-                        QJsonObject fakeDocodemoDoor;
-                        fakeDocodemoDoor["address"] = "127.0.0.1";
-                        QJsonObject apiInboundsRoot = GenerateInboundEntry("127.0.0.1", gConf.statsPort, "dokodemo-door", fakeDocodemoDoor, API_TAG_INBOUND);
-                        inbounds.push_front(apiInboundsRoot);
-                        root["inbounds"] = inbounds;
-                    }
+                    //
+                    QJsonArray inbounds = root["inbounds"].toArray();
+                    QJsonObject fakeDocodemoDoor;
+                    fakeDocodemoDoor["address"] = "127.0.0.1";
+                    QJsonObject apiInboundsRoot = GenerateInboundEntry("127.0.0.1", gConf.connectionConfig.statsPort, "dokodemo-door", fakeDocodemoDoor, QV2RAY_API_TAG_INBOUND);
+                    inbounds.push_front(apiInboundsRoot);
+                    root["inbounds"] = inbounds;
+                    //
                     // API
-                    {
-                        root["api"] = GenerateAPIEntry(API_TAG_DEFAULT);
-                    }
+                    //
+                    root["api"] = GenerateAPIEntry(QV2RAY_API_TAG_DEFAULT);
+                    //
                 }
 
                 return root;

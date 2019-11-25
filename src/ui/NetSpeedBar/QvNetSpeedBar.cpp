@@ -5,7 +5,7 @@
 #include "w_MainWindow.hpp"
 namespace Qv2ray
 {
-    namespace Utils
+    namespace Components
     {
         namespace NetSpeedPlugin
         {
@@ -53,7 +53,7 @@ namespace Qv2ray
                 for (size_t i = 0; i < BarConfig.Pages.size(); i++) {
                     for (size_t j = 0; j < BarConfig.Pages[i].Lines.size(); j++) {
 #define CL BarConfig.Pages[i].Lines[j]
-#define STATS_ENABLE_CHECK if(!config.enableStats) { CL.Message = QObject::tr("Stats is not enabled").toStdString(); break;}
+#define STATS_ENABLE_CHECK if(!config.connectionConfig.enableStats) { CL.Message = QObject::tr("Stats is not enabled").toStdString(); break;}
 
                         switch (CL.ContentType) {
                             case 0: {

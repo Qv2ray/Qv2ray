@@ -23,6 +23,8 @@
 
 #include "QvPingModel.hpp"
 #include "QvNetSpeedPlugin.hpp"
+#include "QvPACHandler.hpp"
+#include "QvSystemProxyConfigurator.hpp"
 
 #define TRAY_TOOLTIP_PREFIX "Qv2ray " QV2RAY_VERSION_STRING
 
@@ -37,6 +39,8 @@ MainWindow::MainWindow(QWidget *parent)
     auto conf = GetGlobalConfig();
     vinstance = new ConnectionInstance(this);
     setupUi(this);
+    //
+    pacServer = new PACHandler();
     //
     this->setWindowIcon(QIcon(":/icons/qv2ray.png"));
     hTray->setIcon(QIcon(conf.uiConfig.useDarkTrayIcon ? ":/icons/ui_dark/tray.png" : ":/icons/ui_light/tray.png"));
@@ -95,10 +99,11 @@ MainWindow::MainWindow(QWidget *parent)
     hTray->setContextMenu(trayMenu);
     hTray->show();
     //
-    listMenu.addAction(action_RCM_RenameConnection);
-    listMenu.addAction(action_RCM_StartThis);
-    listMenu.addAction(action_RCM_EditJson);
-    listMenu.addAction(action_RCM_ShareQR);
+    listMenu = new QMenu(this);
+    listMenu->addAction(action_RCM_RenameConnection);
+    listMenu->addAction(action_RCM_StartThis);
+    listMenu->addAction(action_RCM_EditJson);
+    listMenu->addAction(action_RCM_ShareQR);
     //
     LoadConnections();
     QObject::connect(&HTTPRequestHelper, &QvHttpRequestHelper::httpRequestFinished, this, &MainWindow::VersionUpdate);
@@ -128,7 +133,7 @@ MainWindow::MainWindow(QWidget *parent)
     speedChartObj->axes(Qt::Vertical).first()->setRange(0, 512);
     static_cast<QValueAxis>(speedChartObj->axes(Qt::Horizontal).first()).setLabelFormat("dd.dd");
     speedChartObj->axes(Qt::Horizontal).first()->setRange(0, 30);
-    speedChartObj->setContentsMargins(-20, -45, -20, -25);
+    speedChartObj->setContentsMargins(-20, -50, -20, -25);
     speedChartView = new QChartView(speedChartObj, this);
     speedChartView->setRenderHint(QPainter::RenderHint::HighQualityAntialiasing, true);
     auto layout = new QHBoxLayout(speedChart);
@@ -159,7 +164,7 @@ MainWindow::MainWindow(QWidget *parent)
         this->show();
     }
 
-    Utils::NetSpeedPlugin::StartProcessingPlugins(this);
+    StartProcessingPlugins(this);
 }
 
 void MainWindow::on_action_StartThis_triggered()
@@ -280,7 +285,9 @@ void MainWindow::on_startButton_clicked()
         LOG(MODULE_VCORE, ("Connecting to: " + CurrentConnectionName).toStdString())
         logText->clear();
         //
-        CurrentFullConfig = GenerateRuntimeConfig(connections[CurrentConnectionName]);
+        auto connectionRoot = connections[CurrentConnectionName];
+        //
+        CurrentFullConfig = GenerateRuntimeConfig(connectionRoot);
         StartPreparation(CurrentFullConfig);
         bool startFlag = this->vinstance->StartVCore();
 
@@ -288,10 +295,61 @@ void MainWindow::on_startButton_clicked()
             this->hTray->showMessage("Qv2ray", tr("Connected To Server: ") + CurrentConnectionName);
             hTray->setToolTip(TRAY_TOOLTIP_PREFIX "\r\n" + tr("Connected To Server: ") + CurrentConnectionName);
             statusLabel->setText(tr("Connected") + ": " + CurrentConnectionName);
+            //
+            auto conf = GetGlobalConfig();
 
-            if (GetGlobalConfig().enableStats) {
-                vinstance->SetAPIPort(GetGlobalConfig().statsPort);
+            if (conf.connectionConfig.enableStats) {
+                vinstance->SetAPIPort(conf.connectionConfig.statsPort);
                 speedTimerId = startTimer(1000);
+            }
+
+            //
+            // Set system proxy if necessary
+            bool isComplex = CheckIsComplexConfig(connectionRoot);
+
+            if (conf.inboundConfig.setSystemProxy && !isComplex) {
+                // Is simple config and we will try to set system proxy.
+                LOG(MODULE_UI, "Preparing to set system proxy")
+                bool usePAC = conf.inboundConfig.pacConfig.usePAC;
+                bool pacUseSocks = conf.inboundConfig.pacConfig.useSocksProxy;
+                bool httpEnabled = conf.inboundConfig.http_port != 0;
+                bool socksEnabled = conf.inboundConfig.socks_port != 0;
+                //
+                QString proxyAddress;
+                bool canSetSystemProxy = true;
+
+                if (usePAC) {
+                    if ((httpEnabled && !pacUseSocks) || (socksEnabled && pacUseSocks)) {
+                        // If we use PAC and socks/http are properly configured for PAC
+                        LOG(MODULE_PROXY, "Using PAC and corresponding SOCKS or HTTP")
+                        proxyAddress = "http://" + QSTRING(conf.inboundConfig.listenip) + ":" + QString::number(conf.inboundConfig.pacConfig.port) +  "/pac";
+                    } else {
+                        // Not properly configured
+                        LOG(MODULE_PROXY, "Failed to process pac due to following reasons:")
+                        LOG(MODULE_PROXY, " --> PAC is configured to use socks but socks is not enabled.")
+                        LOG(MODULE_PROXY, " --> PAC is configuted to use http but http is not enabled.")
+                        QvMessageBox(this, tr("PAC Processing Failed"), tr("HTTP or SOCKS inbound is not properly configured for PAC") +
+                                     NEWLINE + tr("Qv2ray will continue, but will not set system proxy."));
+                        canSetSystemProxy = false;
+                    }
+                } else {
+                    // Not using PAC
+                    if (httpEnabled) {
+                        // Not use PAC, System proxy should use HTTP
+                        LOG(MODULE_PROXY, "Using system proxy with HTTP")
+                        proxyAddress = "localhost";
+                    } else {
+                        LOG(MODULE_PROXY, "HTTP is not enabled, cannot set system proxy.")
+                        QvMessageBox(this, tr("Cannot set system proxy"), tr("HTTP inbound is not enabled"));
+                        canSetSystemProxy = false;
+                    }
+                }
+
+                if (canSetSystemProxy) {
+                    LOG(MODULE_UI, "Setting system proxy for simple config")
+                    // --------------------We only use HTTP here->>|=========|
+                    SetSystemProxy(proxyAddress, conf.inboundConfig.http_port, usePAC);
+                }
             }
         } else {
             // If failed, show mainwindow
@@ -309,6 +367,7 @@ void MainWindow::on_startButton_clicked()
 void MainWindow::on_stopButton_clicked()
 {
     if (vinstance->VCoreStatus != STOPPED) {
+        // Is running or starting
         this->vinstance->StopVCore();
         killTimer(speedTimerId);
         hTray->setToolTip(TRAY_TOOLTIP_PREFIX);
@@ -324,6 +383,10 @@ void MainWindow::on_stopButton_clicked()
         //
         netspeedLabel->setText("0.00 B/s\r\n0.00 B/s");
         dataamountLabel->setText("0.00 B\r\n0.00 B");
+        //
+        pacServer->StopServer();
+        ClearSystemProxy();
+        LOG(MODULE_UI, "Stopped successfully.")
     }
 }
 void MainWindow::closeEvent(QCloseEvent *event)
@@ -370,6 +433,7 @@ void MainWindow::ToggleVisibility()
 #ifdef Q_OS_WIN
         setWindowState(Qt::WindowNoState);
         SetWindowPos(HWND(this->winId()), HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW);
+        QThread::msleep(20);
         SetWindowPos(HWND(this->winId()), HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW);
 #endif
         trayMenu->actions()[0]->setText(tr("Hide"));
@@ -380,7 +444,7 @@ void MainWindow::ToggleVisibility()
 }
 void MainWindow::quit()
 {
-    Utils::NetSpeedPlugin::StopProcessingPlugins();
+    StopProcessingPlugins();
     on_stopButton_clicked();
     QApplication::quit();
 }
@@ -480,7 +544,7 @@ void MainWindow::on_connectionListWidget_currentItemChanged(QListWidgetItem *cur
 void MainWindow::on_connectionListWidget_customContextMenuRequested(const QPoint &pos)
 {
     Q_UNUSED(pos)
-    listMenu.popup(QCursor::pos());
+    listMenu->popup(QCursor::pos());
 }
 void MainWindow::on_action_RenameConnection_triggered()
 {
@@ -661,6 +725,7 @@ void MainWindow::on_shareBtn_clicked()
 }
 void MainWindow::on_action_RCM_ShareQR_triggered(bool checked)
 {
+    Q_UNUSED(checked)
     on_shareBtn_clicked();
 }
 void MainWindow::timerEvent(QTimerEvent *event)
@@ -673,7 +738,7 @@ void MainWindow::timerEvent(QTimerEvent *event)
         auto tag = inbound.toObject()["tag"].toString();
 
         // TODO: A proper scheme...
-        if (tag == API_TAG_INBOUND) {
+        if (tag == QV2RAY_API_TAG_INBOUND) {
             continue;
         }
 

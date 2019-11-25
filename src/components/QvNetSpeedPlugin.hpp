@@ -13,7 +13,7 @@
 //
 namespace Qv2ray
 {
-    namespace Utils
+    namespace Components
     {
         namespace NetSpeedPlugin
         {
@@ -67,5 +67,5 @@ namespace Qv2ray
 
 //
 //
-using namespace Qv2ray::Utils::NetSpeedPlugin;
+using namespace Qv2ray::Components::NetSpeedPlugin;
 #endif // QVNETSPEEDBARJSON_H

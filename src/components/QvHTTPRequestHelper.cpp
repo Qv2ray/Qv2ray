@@ -1,5 +1,7 @@
 ﻿#include "QvHTTPRequestHelper.hpp"
 #include <QByteArray>
+#include <QNetworkProxy>
+
 namespace Qv2ray
 {
     QvHttpRequestHelper::QvHttpRequestHelper() : reply()
@@ -33,8 +35,16 @@ namespace Qv2ray
     {
         this->setUrl(url);
         reply = accessManager.get(request);
-        bool isReadyRead = reply->waitForReadyRead(10000);
-        return isReadyRead ? reply->readAll() : QByteArray();
+        connect(reply, &QNetworkReply::finished, this, &QvHttpRequestHelper::onRequestFinished);
+        //
+        QEventLoop loop;
+        connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+        loop.exec();
+        QEventLoop loop2;
+        connect(reply, &QNetworkReply::readyRead, &loop2, &QEventLoop::quit);
+        loop2.exec();
+        // Data or timeout?
+        return reply->readAll();
     }
 
     void QvHttpRequestHelper::get(const QString &url)

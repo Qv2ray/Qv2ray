@@ -25,36 +25,40 @@ write_file("Build.Counter", _BUILD_NUMBER)
 DEFINES += QT_DEPRECATED_WARNINGS QV2RAY_VERSION_STRING=\"\\\"v$${VERSION}\\\"\"
 
 SOURCES += \
+        src/components/QvComponentsHandler.cpp \
+        src/components/QvPACHandler.cpp \
+        src/components/QvSystemProxyConfigurator.cpp \
         src/main.cpp \
+        src/components/QvCoreInteractions.cpp \
+        src/components/QvGFWPACConverter.cpp \
+        src/components/QvHTTPRequestHelper.cpp \
         src/QvCoreConfigOperations.cpp \
         src/QvConfigUpgrade.cpp \
         src/QvCoreConfigOperations_Convertion.cpp \
         src/QvCoreConfigOperations_Generation.cpp \
-        src/QvCoreInteractions.cpp \
         src/QvUtils.cpp \
-        src/ui/NetSpeedBar/QvNetSpeedBar.cpp \
+        src/utils/QObjectMessageProxy.cpp \
+        src/utils/QvPingModel.cpp \
+        src/utils/QvRunguard.cpp \
+        src/utils/QJsonModel.cpp \
         src/ui/w_ExportConfig.cpp \
         src/ui/w_InboundEditor.cpp \
         src/ui/w_OutboundEditor.cpp \
         src/ui/w_RoutesEditor.cpp \
         src/ui/w_SubscriptionEditor.cpp \
-        src/utils/QObjectMessageProxy.cpp \
-        src/utils/QvGFWPACConverter.cpp \
-        src/utils/QvHTTPRequestHelper.cpp \
-        src/utils/QvPingModel.cpp \
-        src/utils/QvRunguard.cpp \
-        src/utils/QJsonModel.cpp \
         src/ui/w_JsonEditor.cpp \
         src/ui/w_MainWindow.cpp \
         src/ui/w_ImportConfig.cpp \
         src/ui/w_PrefrencesWindow.cpp \
         src/ui/w_ScreenShot_Core.cpp \
+        src/ui/NetSpeedBar/QvNetSpeedBar.cpp \
         libs/gen/v2ray_api_commands.pb.cc \
         libs/gen/v2ray_api_commands.grpc.pb.cc
 
 INCLUDEPATH += \
         3rdparty/ \
         src/ \
+        src/components \
         src/ui/ \
         src/utils/ \
         libs/gen/
@@ -63,8 +67,13 @@ HEADERS += \
         src/Qv2rayBase.hpp \
         src/QvCoreConfigObjects.hpp \
         src/QvCoreConfigOperations.hpp \
-        src/QvCoreInteractions.hpp \
         src/QvUtils.hpp \
+        src/components/QvComponentsHandler.hpp \
+        src/components/QvCoreInteractions.hpp \
+        src/components/QvHTTPRequestHelper.hpp \
+        src/components/QvNetSpeedPlugin.hpp \
+        src/components/QvPACHandler.hpp \
+        src/components/QvSystemProxyConfigurator.hpp \
         src/ui/w_ExportConfig.hpp \
         src/ui/w_ImportConfig.hpp \
         src/ui/w_InboundEditor.hpp \
@@ -79,8 +88,6 @@ HEADERS += \
         src/utils/QJsonModel.hpp \
         src/utils/QJsonObjectInsertMacros.h \
         src/utils/QObjectMessageProxy.hpp \
-        src/utils/QvHTTPRequestHelper.hpp \
-        src/utils/QvNetSpeedPlugin.hpp \
         src/utils/QvPingModel.hpp \
         src/utils/QvRunguard.hpp \
         libs/gen/v2ray_api_commands.pb.h \
@@ -181,6 +188,9 @@ win32 {
 
     message("  --> Linking against gRPC and protobuf library.")
     LIBS += -L$$PWD/libs/gRPC-win32/lib/ -llibgrpc++.dll -llibprotobuf.dll
+
+    message("  --> Linking against winHTTP.")
+    LIBS += -lwinhttp -lwininet
 
     INCLUDEPATH += $$PWD/libs/gRPC-win32/include
     DEPENDPATH  += $$PWD/libs/gRPC-win32/include

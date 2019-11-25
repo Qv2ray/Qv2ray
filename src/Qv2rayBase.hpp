@@ -1,4 +1,4 @@
-﻿#ifndef QV2RAYBASE_H
+#ifndef QV2RAYBASE_H
 #define QV2RAYBASE_H
 #include <QtCore>
 #include <QtGui>
@@ -8,7 +8,7 @@
 #include "QvCoreConfigObjects.hpp"
 #include "QObjectMessageProxy.hpp"
 
-#define QV2RAY_CONFIG_VERSION 11
+#define QV2RAY_CONFIG_VERSION 12
 
 // Linux DEs should handle the ui schemes themselves.
 // --> Or.. should we change this into a modifyable setting?
@@ -29,6 +29,11 @@
 #define QV2RAY_CONFIG_DIR (Qv2ray::Utils::GetConfigDirPath())
 #define QV2RAY_CONFIG_FILE (QV2RAY_CONFIG_DIR + "Qv2ray.conf")
 #define QV2RAY_QRCODE_DIR (QV2RAY_CONFIG_DIR + "qr_images/")
+
+// Get GFWList and PAC file path.
+#define QV2RAY_RULES_DIR (QV2RAY_CONFIG_DIR + "rules/")
+#define QV2RAY_RULES_GFWLIST_PATH (QV2RAY_RULES_DIR + "gfwList.txt")
+#define QV2RAY_RULES_PAC_PATH (QV2RAY_RULES_DIR + "pac.txt")
 
 #define QV2RAY_CONFIG_FILE_EXTENSION ".qv2ray.json"
 #define QV2RAY_GENERATED_DIR (QV2RAY_CONFIG_DIR + "generated/")
@@ -108,15 +113,17 @@ namespace Qv2ray
     namespace QvConfigModels
     {
         struct Qv2rayPACConfig {
-            bool enablePAC;
+            bool usePAC;
             int port;
             int sourceId;
+            bool useSocksProxy;
             string fileLocation;
             Qv2rayPACConfig(): fileLocation() { }
-            XTOSTRUCT(O(enablePAC, port, sourceId, fileLocation))
+            XTOSTRUCT(O(usePAC, port, sourceId, useSocksProxy, fileLocation))
         };
         struct Qv2rayInboundsConfig {
             string listenip;
+            bool setSystemProxy;
             // PAC Config
             Qv2rayPACConfig pacConfig;
             // SOCKS
@@ -129,7 +136,7 @@ namespace Qv2ray
             int http_port;
             bool http_useAuth;
             AccountObject httpAccount;
-            Qv2rayInboundsConfig(): listenip(), socks_port(), socks_useAuth(), socksAccount(), http_port(), http_useAuth(), httpAccount() {}
+            Qv2rayInboundsConfig(): listenip(), setSystemProxy(), pacConfig(), socks_port(), socks_useAuth(), socksAccount(), http_port(), http_useAuth(), httpAccount() {}
             Qv2rayInboundsConfig(string listen, int socksPort, int httpPort): Qv2rayInboundsConfig()
             {
                 socks_port = socksPort;
@@ -137,6 +144,7 @@ namespace Qv2ray
                 listenip = listen;
                 socksLocalIP = "0.0.0.0";
                 socksUDP = true;
+                setSystemProxy = true;
             }
             XTOSTRUCT(O(pacConfig, listenip, socks_port, socks_useAuth, socksAccount, socksUDP, socksLocalIP, http_port, http_useAuth, httpAccount))
         };
@@ -149,6 +157,24 @@ namespace Qv2ray
             XTOSTRUCT(O(theme, language, useDarkTheme, useDarkTrayIcon))
         };
 
+        struct Qv2rayConnectionConfig {
+
+            bool bypassCN;
+            bool enableProxy;
+            bool withLocalDNS;
+            list<string> dnsList;
+            bool enableStats;
+            int statsPort;
+            Qv2rayConnectionConfig() : dnsList()
+            {
+                bypassCN = true;
+                enableProxy = true;
+                withLocalDNS = true;
+            }
+
+            XTOSTRUCT(O(bypassCN, enableProxy, withLocalDNS, dnsList, enableStats, statsPort))
+
+        };
         struct Qv2rayConfig {
             int config_version;
             bool tProxySupport;
@@ -160,20 +186,13 @@ namespace Qv2ray
             //
             string ignoredVersion;
             //
-            bool bypassCN;
-            bool enableProxy;
-            bool withLocalDNS;
             //
-            bool enableStats;
-            int statsPort;
-            //
-            list<string> dnsList;
-
             list<string> configs;
             map<string, string> subscribes;
             //
             Qv2rayUIConfig uiConfig;
             Qv2rayInboundsConfig inboundConfig;
+            Qv2rayConnectionConfig connectionConfig;
             Qv2rayToolBarConfig toolBarConfig;
 
             Qv2rayConfig():
@@ -184,17 +203,13 @@ namespace Qv2ray
                 v2AssetsPath(),
                 autoStartConfig(),
                 ignoredVersion(),
-                bypassCN(),
-                enableProxy(),
-                withLocalDNS(),
-                enableStats(),
-                statsPort(15934),
-                dnsList(),
                 configs(),
                 subscribes(),
                 uiConfig(),
                 inboundConfig(),
+                connectionConfig(),
                 toolBarConfig() { }
+            //
             Qv2rayConfig(const string &assetsPath, int log, const Qv2rayInboundsConfig &_inBoundSettings): Qv2rayConfig()
             {
                 // These settings below are defaults.
@@ -204,33 +219,16 @@ namespace Qv2ray
                 inboundConfig = _inBoundSettings;
                 logLevel = log;
                 tProxySupport = false;
-                dnsList.push_back("8.8.8.8");
-                dnsList.push_back("8.8.4.4");
-                dnsList.push_back("1.1.1.1");
-                bypassCN = true;
-                enableProxy = true;
-                withLocalDNS = true;
-                enableStats = true;
-                statsPort = 15934;
             }
             XTOSTRUCT(O(config_version,
-                        enableStats,
-                        statsPort,
+                        ignoredVersion,
                         tProxySupport,
                         logLevel,
-                        uiConfig,
                         autoStartConfig,
-                        ignoredVersion,
-                        v2CorePath,
-                        v2AssetsPath,
-                        enableProxy,
-                        bypassCN,
-                        withLocalDNS,
-                        dnsList,
-                        inboundConfig,
+                        v2CorePath, v2AssetsPath,
                         configs,
-                        subscribes,
-                        toolBarConfig))
+                        uiConfig,
+                        subscribes, inboundConfig, connectionConfig, toolBarConfig))
         };
 
     }

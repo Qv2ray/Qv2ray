@@ -108,6 +108,19 @@ namespace Qv2ray
                 UPDATELOG("Renamed inBoundSettings to inboundConfig.")
                 break;
             }
+
+            case 11: {
+                //connectionConfig
+                QJsonObject o;
+                o["dnsList"] = root["dnsList"];
+                o["withLocalDNS"] = root["withLocalDNS"];
+                o["enableProxy"] = root["enableProxy"];
+                o["bypassCN"] = root["bypassCN"];
+                o["enableStats"] = root["enableStats"];
+                o["statsPort"] = root["statsPort"];
+                root["connectionConfig"] = o;
+                UPDATELOG("Renamed some connection configs to connectionConfig.")
+            }
         }
 
         root["config_version"] = root["config_version"].toInt() + 1;
