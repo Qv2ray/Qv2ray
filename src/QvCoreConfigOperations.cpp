@@ -17,6 +17,15 @@ namespace Qv2ray
 
             return list;
         }
+
+        bool CheckIsComplexConfig(QJsonObject root)
+        {
+            bool cRouting = root.contains("routing");
+            bool cRule = cRouting && root["routing"].toObject().contains("rules");
+            bool cRules = cRule && root["routing"].toObject()["rules"].toArray().count() > 0;
+            return cRules;
+        }
+
         int StartPreparation(QJsonObject fullConfig)
         {
             // Writes the final configuration to the disk.

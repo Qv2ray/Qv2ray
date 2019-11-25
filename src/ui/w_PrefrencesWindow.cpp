@@ -8,6 +8,7 @@
 #include "QvNetSpeedPlugin.hpp"
 
 #include "w_PrefrencesWindow.hpp"
+#include "QvHTTPRequestHelper.hpp"
 
 #define LOADINGCHECK if(!finishedLoading) return;
 #define NEEDRESTART if(finishedLoading) IsConnectionPropertyChanged = true;
@@ -47,8 +48,9 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     //
     //
     listenIPTxt->setText(QSTRING(CurrentConfig.inboundConfig.listenip));
-    bool pacEnabled = CurrentConfig.inboundConfig.pacConfig.enablePAC;
+    bool pacEnabled = CurrentConfig.inboundConfig.pacConfig.usePAC;
     enablePACCB->setChecked(pacEnabled);
+    setSysProxyCB->setChecked(CurrentConfig.inboundConfig.setSystemProxy);
     //
     pacGroupBox->setEnabled(pacEnabled);
 
@@ -90,18 +92,18 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     //
     vCorePathTxt->setText(QSTRING(CurrentConfig.v2CorePath));
     vCoreAssetsPathTxt->setText(QSTRING(CurrentConfig.v2AssetsPath));
-    statsCheckbox->setChecked(CurrentConfig.enableStats);
-    statsPortBox->setValue(CurrentConfig.statsPort);
+    statsCheckbox->setChecked(CurrentConfig.connectionConfig.enableStats);
+    statsPortBox->setValue(CurrentConfig.connectionConfig.statsPort);
     //
     //
-    bypassCNCb->setChecked(CurrentConfig.bypassCN);
-    proxyDefaultCb->setChecked(CurrentConfig.enableProxy);
+    bypassCNCb->setChecked(CurrentConfig.connectionConfig.bypassCN);
+    proxyDefaultCb->setChecked(CurrentConfig.connectionConfig.enableProxy);
     //
-    localDNSCb->setChecked(CurrentConfig.withLocalDNS);
+    localDNSCb->setChecked(CurrentConfig.connectionConfig.withLocalDNS);
     //
     DNSListTxt->clear();
 
-    foreach (auto dnsStr, CurrentConfig.dnsList) {
+    foreach (auto dnsStr, CurrentConfig.connectionConfig.dnsList) {
         auto str = QString::fromStdString(dnsStr).trimmed();
 
         if (!str.isEmpty()) {
@@ -236,7 +238,7 @@ void PrefrencesWindow::on_listenIPTxt_textEdited(const QString &arg1)
 {
     NEEDRESTART
     CurrentConfig.inboundConfig.listenip = arg1.toStdString();
-    pacAccessPathTxt->setText("http://" + arg1 + ":" + QString::number(pacPortSB->value()) + "/pac.txt");
+    //pacAccessPathTxt->setText("http://" + arg1 + ":" + QString::number(pacPortSB->value()) + "/pac.txt");
 }
 
 void PrefrencesWindow::on_httpAuthUsernameTxt_textEdited(const QString &arg1)
@@ -266,13 +268,13 @@ void PrefrencesWindow::on_socksAuthPasswordTxt_textEdited(const QString &arg1)
 void PrefrencesWindow::on_proxyDefaultCb_stateChanged(int arg1)
 {
     NEEDRESTART
-    CurrentConfig.enableProxy = arg1 == Qt::Checked;
+    CurrentConfig.connectionConfig.enableProxy = arg1 == Qt::Checked;
 }
 
 void PrefrencesWindow::on_localDNSCb_stateChanged(int arg1)
 {
     NEEDRESTART
-    CurrentConfig.withLocalDNS = arg1 == Qt::Checked;
+    CurrentConfig.connectionConfig.withLocalDNS = arg1 == Qt::Checked;
 }
 
 void PrefrencesWindow::on_selectVAssetBtn_clicked()
@@ -301,12 +303,12 @@ void PrefrencesWindow::on_DNSListTxt_textChanged()
     if (finishedLoading) {
         try {
             QStringList hosts = DNSListTxt->toPlainText().replace("\r", "").split("\n");
-            CurrentConfig.dnsList.clear();
+            CurrentConfig.connectionConfig.dnsList.clear();
 
             foreach (auto host, hosts) {
                 if (host != "" && host != "\r") {
                     // Not empty, so we save.
-                    CurrentConfig.dnsList.push_back(host.toStdString());
+                    CurrentConfig.connectionConfig.dnsList.push_back(host.toStdString());
                     NEEDRESTART
                 }
             }
@@ -436,19 +438,19 @@ void PrefrencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
 void PrefrencesWindow::on_bypassCNCb_stateChanged(int arg1)
 {
     NEEDRESTART
-    CurrentConfig.bypassCN = arg1 == Qt::Checked;
+    CurrentConfig.connectionConfig.bypassCN = arg1 == Qt::Checked;
 }
 
 void PrefrencesWindow::on_statsCheckbox_stateChanged(int arg1)
 {
     NEEDRESTART
-    CurrentConfig.enableStats = arg1 == Qt::Checked;
+    CurrentConfig.connectionConfig.enableStats = arg1 == Qt::Checked;
 }
 
 void PrefrencesWindow::on_statsPortBox_valueChanged(int arg1)
 {
     NEEDRESTART
-    CurrentConfig.statsPort = arg1;
+    CurrentConfig.connectionConfig.statsPort = arg1;
 }
 
 void PrefrencesWindow::on_socksPortLE_valueChanged(int arg1)
@@ -756,17 +758,72 @@ void PrefrencesWindow::on_darkTrayCB_stateChanged(int arg1)
 void PrefrencesWindow::on_enablePACCB_stateChanged(int arg1)
 {
     bool enabled = arg1 == Qt::Checked;
-    CurrentConfig.inboundConfig.pacConfig.enablePAC = enabled;
+    CurrentConfig.inboundConfig.pacConfig.usePAC = enabled;
     pacGroupBox->setEnabled(enabled);
 }
 
 void PrefrencesWindow::on_pacGoBtn_clicked()
 {
+    QString gfwLocation;
+    QString fileContent;
+    auto request = new QvHttpRequestHelper();
+
+    switch (gfwListCB->currentIndex()) {
+        case 0:
+            gfwLocation = "https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt";
+            fileContent = request->syncget(gfwLocation);
+            break;
+
+        case 1:
+            gfwLocation = "https://pagure.io/gfwlist/raw/master/f/gfwlist.txt";
+            fileContent = request->syncget(gfwLocation);
+            break;
+
+        case 2:
+            gfwLocation = "http://repo.or.cz/gfwlist.git/blob_plain/HEAD:/gfwlist.txt";
+            fileContent = request->syncget(gfwLocation);
+            break;
+
+        case 3:
+            gfwLocation = "https://bitbucket.org/gfwlist/gfwlist/raw/HEAD/gfwlist.txt";
+            fileContent = request->syncget(gfwLocation);
+            break;
+
+        case 4:
+            gfwLocation = "https://gitlab.com/gfwlist/gfwlist/raw/master/gfwlist.txt";
+            fileContent = request->syncget(gfwLocation);
+            break;
+
+        case 5:
+            gfwLocation = "https://git.tuxfamily.org/gfwlist/gfwlist.git/plain/gfwlist.txt";
+            fileContent = request->syncget(gfwLocation);
+            break;
+
+        case 6:
+            QFileDialog d;
+            d.exec();
+            auto file = d.getOpenFileUrl(this, tr("Select GFWList in base64")).toString();
+            //
+            fileContent = StringFromFile(new QFile(file));
+            break;
+    }
+
     //
+    if (!QDir(QV2RAY_RULES_DIR).exists()) {
+        QDir(QV2RAY_RULES_DIR).mkpath(QV2RAY_RULES_DIR);
+    }
+
+    QFile privateGFWListFile(QV2RAY_RULES_GFWLIST_PATH);
+    StringToFile(&fileContent, &privateGFWListFile);
 }
 
 void PrefrencesWindow::on_pacPortSB_valueChanged(int arg1)
 {
     CurrentConfig.inboundConfig.pacConfig.port = arg1;
-    pacAccessPathTxt->setText("http://" + listenIPTxt->text() + ":" + QString::number(arg1) + "/pac.txt");
+    //pacAccessPathTxt->setText("http://" + listenIPTxt->text() + ":" + QString::number(arg1) + "/pac.txt");
+}
+
+void PrefrencesWindow::on_setSysProxyCB_stateChanged(int arg1)
+{
+    CurrentConfig.inboundConfig.setSystemProxy = arg1 == Qt::Checked;
 }

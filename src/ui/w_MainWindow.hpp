@@ -10,6 +10,7 @@
 #include "QvCoreInteractions.hpp"
 #include "QvCoreConfigOperations.hpp"
 #include "QvHTTPRequestHelper.hpp"
+#include "QvPACHandler.hpp"
 
 #include "ui_w_MainWindow.h"
 
@@ -79,6 +80,7 @@ class MainWindow : public QMainWindow, Ui::MainWindow
 
         void timerEvent(QTimerEvent *event);
     private:
+        // Charts
         QChartView *speedChartView;
         QChart *speedChartObj;
         QSplineSeries *uploadSerie;
@@ -89,10 +91,12 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         void on_action_StartThis_triggered();
         void on_action_RCM_EditJson_triggered();
         void on_action_RenameConnection_triggered();
+        //
         QvHttpRequestHelper HTTPRequestHelper;
         QSystemTrayIcon *hTray;
+        //
         QMenu *trayMenu = new QMenu(this);
-        QMenu listMenu;
+        QMenu *listMenu;
         QMap<QString, QJsonObject> connections;
         //
         QString originalName;
@@ -103,6 +107,8 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         void ShowAndSetConnection(QString currentText, bool SetConnection, bool Apply);
         void LoadConnections();
         void closeEvent(QCloseEvent *);
+        //
+        PACHandler *pacServer;
 };
 
 #endif // MAINWINDOW_H

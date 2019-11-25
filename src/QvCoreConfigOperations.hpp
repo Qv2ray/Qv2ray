@@ -6,8 +6,8 @@
 
 #define OUTBOUND_TAG_DIRECT "outBound_DIRECT"
 #define OUTBOUND_TAG_PROXY "outBound_PROXY"
-#define API_TAG_DEFAULT "_QV2RAY_API_"
-#define API_TAG_INBOUND "_QV2RAY_API_INBOUND_"
+#define QV2RAY_API_TAG_DEFAULT "_QV2RAY_API_"
+#define QV2RAY_API_TAG_INBOUND "_QV2RAY_API_INBOUND_"
 
 #define JSON_ROOT_TRY_REMOVE(obj) if (root.contains(obj)) { root.remove(obj); }
 
@@ -17,12 +17,13 @@ namespace Qv2ray
     namespace ConfigOperations
     {
         QMap<QString, QJsonObject> GetConnections(list<string> connections);
+        bool CheckIsComplexConfig(QJsonObject root);
         int StartPreparation(QJsonObject fullConfig);
         int FindIndexByTag(QJsonArray list, QString *tag);
 
         //
         // -------------------------- BEGIN CONFIG CONVERSIONS --------------------------
-        namespace Conversion
+        namespace Convertion
         {
             //int VerifyVMessProtocolString(QString vmess);
             QString DecodeSubscriptionString(QByteArray arr);
@@ -66,7 +67,7 @@ namespace Qv2ray
 }
 
 using namespace Qv2ray::ConfigOperations;
-using namespace Qv2ray::ConfigOperations::Conversion;
+using namespace Qv2ray::ConfigOperations::Convertion;
 using namespace Qv2ray::ConfigOperations::Generation;
 
 #endif // CONFIGGENERATION_H

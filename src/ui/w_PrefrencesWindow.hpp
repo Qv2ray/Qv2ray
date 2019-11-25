@@ -126,6 +126,8 @@ class PrefrencesWindow : public QDialog, private Ui::PrefrencesWindow
 
         void on_pacPortSB_valueChanged(int arg1);
 
+        void on_setSysProxyCB_stateChanged(int arg1);
+
     private:
         // Set ui parameters for a line;
         void ShowLineParameters(QvBarLine &line);
