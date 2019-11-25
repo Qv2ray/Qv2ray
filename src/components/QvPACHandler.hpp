@@ -13,7 +13,6 @@ namespace Qv2ray
             public:
                 explicit PACHandler();
                 ~PACHandler();
-                void SetLocalEndpoint(QString address, ushort port);
                 void SetProxyString(QString proxyString);
                 void StartListen();
                 void StopServer();
@@ -24,9 +23,8 @@ namespace Qv2ray
                 void onNewRequest(QHttpRequest *request, QHttpResponse *response);
 
             private:
+                bool isStarted;
                 QHttpServer *pacServer;
-                QString address;
-                ushort port;
                 QString pacContent;
                 QString proxyString;
         };

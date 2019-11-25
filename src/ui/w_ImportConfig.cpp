@@ -21,7 +21,7 @@ ImportConfigWindow::ImportConfigWindow(QWidget *parent)
     : QDialog(parent)
 {
     setupUi(this);
-    nameTxt->setText(QDateTime::currentDateTime().toString("yyyy-MM-dd_hh-mm-ss") + "_imported");
+    nameTxt->setText(QDateTime::currentDateTime().toString("MM-dd_hh-mm") + "_" + tr("Imported") + "_");
 }
 
 void ImportConfigWindow::on_importSourceCombo_currentIndexChanged(int index)
@@ -268,4 +268,9 @@ void ImportConfigWindow::on_connectionEditBtn_clicked()
     } else {
         return;
     }
+}
+
+void ImportConfigWindow::on_cancelImportBtn_clicked()
+{
+    reject();
 }
