@@ -303,6 +303,43 @@ void MainWindow::on_startButton_clicked()
                 speedTimerId = startTimer(1000);
             }
 
+            bool usePAC = conf.inboundConfig.pacConfig.usePAC;
+            bool pacUseSocks = conf.inboundConfig.pacConfig.useSocksProxy;
+            bool httpEnabled = conf.inboundConfig.http_port != 0;
+            bool socksEnabled = conf.inboundConfig.socks_port != 0;
+
+            // TODO: Set PAC proxy string
+
+            if (usePAC) {
+                bool canStartPAC = true;
+                QString pacProxyString;  // Something like this --> SOCKS5 127.0.0.1:1080; SOCKS 127.0.0.1:1080; DIRECT; http://proxy:8080
+
+                if (pacUseSocks) {
+                    if (socksEnabled) {
+                        pacProxyString = "SOCKS5 " + QSTRING(conf.inboundConfig.pacConfig.proxyIP) + ":" + QString::number(conf.inboundConfig.socks_port);
+                    } else {
+                        LOG(MODULE_UI, "PAC is using SOCKS, but it is not enabled")
+                        QvMessageBox(this, tr("Configuring PAC"), tr("Could not start PAC server as it is configured to use SOCKS, but it is not enabled"));
+                        canStartPAC = false;
+                    }
+                } else {
+                    if (httpEnabled) {
+                        pacProxyString = "http://" + QSTRING(conf.inboundConfig.pacConfig.proxyIP) + ":" + QString::number(conf.inboundConfig.http_port);
+                    } else {
+                        LOG(MODULE_UI, "PAC is using HTTP, but it is not enabled")
+                        QvMessageBox(this, tr("Configuring PAC"), tr("Could not start PAC server as it is configured to use HTTP, but it is not enabled"));
+                        canStartPAC = false;
+                    }
+                }
+
+                if (canStartPAC) {
+                    pacServer->SetProxyString(pacProxyString);
+                    pacServer->StartListen();
+                } else {
+                    LOG(MODULE_PROXY, "Not starting PAC due to previous error.")
+                }
+            }
+
             //
             // Set system proxy if necessary
             bool isComplex = CheckIsComplexConfig(connectionRoot);
@@ -310,10 +347,6 @@ void MainWindow::on_startButton_clicked()
             if (conf.inboundConfig.setSystemProxy && !isComplex) {
                 // Is simple config and we will try to set system proxy.
                 LOG(MODULE_UI, "Preparing to set system proxy")
-                bool usePAC = conf.inboundConfig.pacConfig.usePAC;
-                bool pacUseSocks = conf.inboundConfig.pacConfig.useSocksProxy;
-                bool httpEnabled = conf.inboundConfig.http_port != 0;
-                bool socksEnabled = conf.inboundConfig.socks_port != 0;
                 //
                 QString proxyAddress;
                 bool canSetSystemProxy = true;
@@ -364,6 +397,7 @@ void MainWindow::on_startButton_clicked()
         stopButton->setEnabled(startFlag);
     }
 }
+
 void MainWindow::on_stopButton_clicked()
 {
     if (vinstance->VCoreStatus != STOPPED) {
@@ -384,6 +418,7 @@ void MainWindow::on_stopButton_clicked()
         netspeedLabel->setText("0.00 B/s\r\n0.00 B/s");
         dataamountLabel->setText("0.00 B\r\n0.00 B");
         //
+        // Who cares the check... (inboundConfig.pacConfig.usePAC)
         pacServer->StopServer();
         ClearSystemProxy();
         LOG(MODULE_UI, "Stopped successfully.")

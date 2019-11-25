@@ -115,11 +115,12 @@ namespace Qv2ray
         struct Qv2rayPACConfig {
             bool usePAC;
             int port;
+            string proxyIP;
             int sourceId;
             bool useSocksProxy;
             string fileLocation;
             Qv2rayPACConfig(): fileLocation() { }
-            XTOSTRUCT(O(usePAC, port, sourceId, useSocksProxy, fileLocation))
+            XTOSTRUCT(O(usePAC, port, proxyIP, sourceId, useSocksProxy, fileLocation))
         };
         struct Qv2rayInboundsConfig {
             string listenip;
@@ -146,7 +147,7 @@ namespace Qv2ray
                 socksUDP = true;
                 setSystemProxy = true;
             }
-            XTOSTRUCT(O(pacConfig, listenip, socks_port, socks_useAuth, socksAccount, socksUDP, socksLocalIP, http_port, http_useAuth, httpAccount))
+            XTOSTRUCT(O(setSystemProxy, pacConfig, listenip, socks_port, socks_useAuth, socksAccount, socksUDP, socksLocalIP, http_port, http_useAuth, httpAccount))
         };
 
         struct Qv2rayUIConfig {

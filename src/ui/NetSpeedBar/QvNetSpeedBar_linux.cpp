@@ -6,7 +6,7 @@
 #include <QLocalServer>
 namespace Qv2ray
 {
-    namespace Utils
+    namespace Components
     {
         namespace NetSpeedPlugin
         {

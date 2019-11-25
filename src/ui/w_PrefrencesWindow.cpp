@@ -238,7 +238,7 @@ void PrefrencesWindow::on_listenIPTxt_textEdited(const QString &arg1)
 {
     NEEDRESTART
     CurrentConfig.inboundConfig.listenip = arg1.toStdString();
-    //pacAccessPathTxt->setText("http://" + arg1 + ":" + QString::number(pacPortSB->value()) + "/pac.txt");
+    //pacAccessPathTxt->setText("http://" + arg1 + ":" + QString::number(pacPortSB->value()) + "/pac");
 }
 
 void PrefrencesWindow::on_httpAuthUsernameTxt_textEdited(const QString &arg1)
@@ -430,9 +430,10 @@ void PrefrencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
 
 #else
     Q_UNUSED(arg1)
-    tProxyCheckBox->setChecked(false);
-    // No such uid gid thing on Windows and macOS
+    // No such tProxy thing on Windows and macOS
     QvMessageBox(this, tr("Prefrences"), tr("tProxy is not supported on macOS and Windows"));
+    CurrentConfig.tProxySupport = false;
+    tProxyCheckBox->setChecked(false);
 #endif
 }
 void PrefrencesWindow::on_bypassCNCb_stateChanged(int arg1)
@@ -771,32 +772,32 @@ void PrefrencesWindow::on_pacGoBtn_clicked()
     switch (gfwListCB->currentIndex()) {
         case 0:
             gfwLocation = "https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt";
-            fileContent = request->syncget(gfwLocation);
+            fileContent = QString::fromUtf8(request->syncget(gfwLocation));
             break;
 
         case 1:
             gfwLocation = "https://pagure.io/gfwlist/raw/master/f/gfwlist.txt";
-            fileContent = request->syncget(gfwLocation);
+            fileContent = QString::fromUtf8(request->syncget(gfwLocation));
             break;
 
         case 2:
             gfwLocation = "http://repo.or.cz/gfwlist.git/blob_plain/HEAD:/gfwlist.txt";
-            fileContent = request->syncget(gfwLocation);
+            fileContent = QString::fromUtf8(request->syncget(gfwLocation));
             break;
 
         case 3:
             gfwLocation = "https://bitbucket.org/gfwlist/gfwlist/raw/HEAD/gfwlist.txt";
-            fileContent = request->syncget(gfwLocation);
+            fileContent = QString::fromUtf8(request->syncget(gfwLocation));
             break;
 
         case 4:
             gfwLocation = "https://gitlab.com/gfwlist/gfwlist/raw/master/gfwlist.txt";
-            fileContent = request->syncget(gfwLocation);
+            fileContent = QString::fromUtf8(request->syncget(gfwLocation));
             break;
 
         case 5:
             gfwLocation = "https://git.tuxfamily.org/gfwlist/gfwlist.git/plain/gfwlist.txt";
-            fileContent = request->syncget(gfwLocation);
+            fileContent = QString::fromUtf8(request->syncget(gfwLocation));
             break;
 
         case 6:
@@ -820,7 +821,7 @@ void PrefrencesWindow::on_pacGoBtn_clicked()
 void PrefrencesWindow::on_pacPortSB_valueChanged(int arg1)
 {
     CurrentConfig.inboundConfig.pacConfig.port = arg1;
-    //pacAccessPathTxt->setText("http://" + listenIPTxt->text() + ":" + QString::number(arg1) + "/pac.txt");
+    //pacAccessPathTxt->setText("http://" + listenIPTxt->text() + ":" + QString::number(arg1) + "/pac");
 }
 
 void PrefrencesWindow::on_setSysProxyCB_stateChanged(int arg1)

@@ -34,17 +34,17 @@ namespace Qv2ray
     QByteArray QvHttpRequestHelper::syncget(const QString &url)
     {
         this->setUrl(url);
+        LOG(MODULE_NETWORK, "Using system proxy settings");
+        accessManager.setProxy(QNetworkProxyFactory::systemProxyForQuery().first());
         reply = accessManager.get(request);
         connect(reply, &QNetworkReply::finished, this, &QvHttpRequestHelper::onRequestFinished);
         //
         QEventLoop loop;
         connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
         loop.exec();
-        QEventLoop loop2;
-        connect(reply, &QNetworkReply::readyRead, &loop2, &QEventLoop::quit);
-        loop2.exec();
         // Data or timeout?
-        return reply->readAll();
+        auto data = reply->readAll();
+        return data;
     }
 
     void QvHttpRequestHelper::get(const QString &url)
