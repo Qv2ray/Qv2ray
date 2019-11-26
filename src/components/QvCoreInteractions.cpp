@@ -7,18 +7,26 @@
 #include "QvTinyLog.hpp"
 #include "w_MainWindow.hpp"
 
+using namespace v2ray::core::app::stats::command;
+using grpc::Channel;
+using grpc::ClientContext;
+using grpc::Status;
+
+// Check 20 times before telling user that API has failed.
+#define QV2RAY_API_CALL_FAILEDCHECK_THRESHOLD 10
+
 namespace Qv2ray
 {
-    namespace QvInteration
+    namespace QvCoreInteration
     {
-        bool ConnectionInstance::ValidateConfig(const QString *path)
+        bool ConnectionInstance::ValidateConfig(const QString &path)
         {
             if (ValidateKernal()) {
                 QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
                 env.insert("V2RAY_LOCATION_ASSET", QString::fromStdString(GetGlobalConfig().v2AssetsPath));
                 QProcess process;
                 process.setProcessEnvironment(env);
-                process.start(QSTRING(GetGlobalConfig().v2CorePath), QStringList() << "-test" << "-config" << *path, QIODevice::ReadWrite | QIODevice::Text);
+                process.start(QSTRING(GetGlobalConfig().v2CorePath), QStringList() << "-test" << "-config" << path, QIODevice::ReadWrite | QIODevice::Text);
 
                 if (!process.waitForFinished()) {
                     LOG(MODULE_VCORE, "v2ray core failed with exitcode: " << process.exitCode())
@@ -28,7 +36,7 @@ namespace Qv2ray
                 QString output = QString(process.readAllStandardOutput());
 
                 if (process.exitCode() != 0) {
-                    Utils::QvMessageBox(nullptr, QObject::tr("Configuration Error"), output.mid(output.indexOf("anti-censorship.") + 17));
+                    Utils::QvMessageBox(nullptr, tr("Configuration Error"), output.mid(output.indexOf("anti-censorship.") + 17));
                     return false;
                 }
 
@@ -38,12 +46,12 @@ namespace Qv2ray
             return false;
         }
 
-        ConnectionInstance::ConnectionInstance(QWidget *parent)
+        ConnectionInstance::ConnectionInstance(QWidget *parent) : apiFailedCounter(0), port(0)
         {
             auto proc = new QProcess();
             vProcess = proc;
-            QObject::connect(vProcess, &QProcess::readyReadStandardOutput, static_cast<MainWindow *>(parent), &MainWindow::UpdateLog);
-            VCoreStatus = STOPPED;
+            connect(vProcess, &QProcess::readyReadStandardOutput, static_cast<MainWindow *>(parent), &MainWindow::UpdateLog);
+            ConnectionStatus = STOPPED;
         }
 
         void ConnectionInstance::SetAPIPort(int port)
@@ -63,60 +71,78 @@ namespace Qv2ray
         bool ConnectionInstance::ValidateKernal()
         {
             if (!QFile::exists(QSTRING(GetGlobalConfig().v2CorePath))) {
-                Utils::QvMessageBox(nullptr, QObject::tr("Cannot start v2ray"),
-                                    QObject::tr("v2ray core file cannot be found at:") + NEWLINE +
+                Utils::QvMessageBox(nullptr, tr("Cannot start v2ray"),
+                                    tr("v2ray core file cannot be found at:") + NEWLINE +
                                     QSTRING(GetGlobalConfig().v2CorePath) + NEWLINE + NEWLINE  +
-                                    QObject::tr("Please go to prefrence window to change the location.") + NEWLINE +
-                                    QObject::tr("Or put v2ray core file in the location above."));
+                                    tr("Please go to prefrence window to change the location.") + NEWLINE +
+                                    tr("Or put v2ray core file in the location above."));
                 return false;
             } else return true;
         }
 
-        bool ConnectionInstance::StartVCore()
+        bool ConnectionInstance::StartV2rayCore()
         {
-            if (VCoreStatus != STOPPED) {
+            if (ConnectionStatus != STOPPED) {
+                LOG(MODULE_VCORE, "Status is invalid, expect STOPPED when calling StartV2rayCore")
                 return false;
             }
 
-            VCoreStatus = STARTING;
+            ConnectionStatus = STARTING;
 
             if (ValidateKernal()) {
                 auto filePath = QV2RAY_GENERATED_FILE_PATH;
 
-                if (ValidateConfig(&filePath)) {
+                if (ValidateConfig(filePath)) {
                     QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
                     env.insert("V2RAY_LOCATION_ASSET", QSTRING(GetGlobalConfig().v2AssetsPath));
                     vProcess->setProcessEnvironment(env);
                     vProcess->start(QSTRING(GetGlobalConfig().v2CorePath), QStringList() << "-config" << filePath, QIODevice::ReadWrite | QIODevice::Text);
                     vProcess->waitForStarted();
-                    VCoreStatus = STARTED;
+                    ConnectionStatus = STARTED;
                     return true;
                 } else {
-                    VCoreStatus = STOPPED;
+                    ConnectionStatus = STOPPED;
                     return false;
                 }
             } else {
-                VCoreStatus = STOPPED;
+                ConnectionStatus = STOPPED;
                 return false;
             }
         }
 
-        void ConnectionInstance::StopVCore()
+        void ConnectionInstance::StopV2rayCore()
         {
             vProcess->close();
-            totalDataTransfered = QMap<QString, long>();
-            dataTransferSpeed = QMap<QString, long>();
-            VCoreStatus = STOPPED;
+            apiFailedCounter = 0;
+            totalDataTransfered.clear();
+            dataTransferSpeed.clear();
+            ConnectionStatus = STOPPED;
         }
 
         ConnectionInstance::~ConnectionInstance()
         {
-            StopVCore();
+            StopV2rayCore();
             delete vProcess;
         }
 
         long ConnectionInstance::CallStatsAPIByName(QString name)
         {
+            if (ConnectionStatus != STARTED) {
+                LOG(MODULE_VCORE, "Invalid connection status when calling API")
+                return 0;
+            }
+
+            if (apiFailedCounter == QV2RAY_API_CALL_FAILEDCHECK_THRESHOLD) {
+                LOG(MODULE_VCORE, "API call failure threshold reached, cancelling further API aclls.")
+                QvMessageBox(nullptr, tr("API Call Failed"), tr("Failed to get statistics data, please check if v2ray is running properly"));
+                totalDataTransfered.clear();
+                dataTransferSpeed.clear();
+                apiFailedCounter++;
+                return 0;
+            } else if (apiFailedCounter > QV2RAY_API_CALL_FAILEDCHECK_THRESHOLD) {
+                return 0;
+            }
+
             GetStatsRequest request;
             request.set_name(name.toStdString());
             request.set_reset(false);
@@ -125,13 +151,14 @@ namespace Qv2ray
             Status status = Stub->GetStats(&context, request, &response);
 
             if (!status.ok()) {
-                LOG(MODULE_VCORE, "API call returns: " + to_string(status.error_code()))
+                LOG(MODULE_VCORE, "API call returns: " << status.error_code() << " (" << status.error_message() << ")")
+                apiFailedCounter++;
             }
 
             return response.stat().value();
         }
 
-        long ConnectionInstance::getTagLastUplink(QString tag)
+        long ConnectionInstance::getTagLastUplink(const QString &tag)
         {
             auto val = CallStatsAPIByName("inbound>>>" + tag + ">>>traffic>>>uplink");
             auto data = val - totalDataTransfered[tag + "_up"];
@@ -140,7 +167,7 @@ namespace Qv2ray
             return data;
         }
 
-        long ConnectionInstance::getTagLastDownlink(QString tag)
+        long ConnectionInstance::getTagLastDownlink(const QString &tag)
         {
             auto val = CallStatsAPIByName("inbound>>>" + tag + ">>>traffic>>>downlink");
             auto data = val - totalDataTransfered[tag + "_down"];
@@ -149,12 +176,12 @@ namespace Qv2ray
             return data;
         }
 
-        long ConnectionInstance::getTagTotalUplink(QString tag)
+        long ConnectionInstance::getTagTotalUplink(const QString &tag)
         {
             return totalDataTransfered[tag + "_up"];
         }
 
-        long ConnectionInstance::getTagTotalDownlink(QString tag)
+        long ConnectionInstance::getTagTotalDownlink(const QString &tag)
         {
             return totalDataTransfered[tag + "_down"];
         }

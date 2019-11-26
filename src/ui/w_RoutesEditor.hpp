@@ -52,8 +52,6 @@ class RouteEditor : public QDialog, private Ui::RouteEditor
 
         void on_addRouteBtn_clicked();
 
-        void on_changeIOBtn_clicked();
-
         void on_routesTable_cellChanged(int row, int column);
 
         void on_netBothRB_clicked();

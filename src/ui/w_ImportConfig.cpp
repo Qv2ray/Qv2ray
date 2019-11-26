@@ -87,7 +87,7 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
             if (config.isEmpty()) {
                 QvMessageBox(this, tr("Import config file"), tr("Import from file failed, for more information, please check the log file."));
                 return;
-            } else if (!ConnectionInstance::ValidateConfig(&path)) {
+            } else if (!ConnectionInstance::ValidateConfig(path)) {
                 QvMessageBox(this, tr("Import config file"), tr("Failed to check the validity of the config file."));
                 return;
             } else {

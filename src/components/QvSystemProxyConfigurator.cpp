@@ -132,7 +132,7 @@ namespace Qv2ray
         }
 #endif
 
-        bool SetSystemProxy(QString address, int port, bool usePAC)
+        bool SetSystemProxy(const QString &address, int port, bool usePAC)
         {
 #ifdef Q_OS_WIN
             QString __a;
@@ -155,9 +155,27 @@ namespace Qv2ray
 
             __QueryProxyOptions();
             return true;
+#elif defined(Q_OS_LINUX)
+            bool result = true;
+
+            if (usePAC) {
+                result = result && QProcess::execute("gsettings set org.gnome.system.proxy mode 'auto'") == QProcess::NormalExit;
+                result = result && QProcess::execute("gsettings set org.gnome.system.proxy autoconfig-url '" + address + "'") == QProcess::NormalExit;
+            } else {
+                result = result && QProcess::execute("gsettings set org.gnome.system.proxy mode 'manual'") == QProcess::NormalExit;
+                result = result && QProcess::execute("gsettings set org.gnome.system.proxy.http host '" + address + "'") == QProcess::NormalExit;
+                result = result && QProcess::execute("gsettings set org.gnome.system.proxy.http port " + QString::number(port)) == QProcess::NormalExit;
+            }
+
+            if (!result) {
+                LOG(MODULE_PROXY, "Something wrong happens when setting system proxy -> Gnome ONLY.")
+                LOG(MODULE_PROXY, "If you are using KDE Plasma and receiving this message, just simply ignore this.")
+            }
+
+            return result;
 #else
-            Q_UNUSED(address)
             Q_UNUSED(port)
+            Q_UNUSED(address)
             Q_UNUSED(usePAC)
             return false;
 #endif
@@ -195,7 +213,10 @@ namespace Qv2ray
             InternetSetOption(nullptr, INTERNET_OPTION_SETTINGS_CHANGED, nullptr, 0);
             InternetSetOption(nullptr, INTERNET_OPTION_REFRESH, nullptr, 0);
             return bReturn;
+#elif defined(Q_OS_LINUX)
+            return QProcess::execute("gsettings set org.gnome.system.proxy mode 'none'") == QProcess::ExitStatus::NormalExit;
 #else
+            return false;
 #endif
         }
     }

@@ -8,7 +8,7 @@ namespace Qv2ray
     namespace Components
     {
         bool ClearSystemProxy();
-        bool SetSystemProxy(QString address, int port, bool usePAC);
+        bool SetSystemProxy(const QString &address, int port, bool usePAC);
     }
 }
 

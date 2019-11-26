@@ -88,7 +88,7 @@ namespace Qv2ray
 
                             case 105: {
                                 // Current Connection Status
-                                switch (mainWindow->vinstance->VCoreStatus) {
+                                switch (mainWindow->vinstance->ConnectionStatus) {
                                     case STARTED: {
                                         CL.Message = QObject::tr("Connected").toStdString();
                                         break;

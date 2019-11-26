@@ -128,6 +128,12 @@ class PrefrencesWindow : public QDialog, private Ui::PrefrencesWindow
 
         void on_setSysProxyCB_stateChanged(int arg1);
 
+        void on_pacProxyCB_currentIndexChanged(int index);
+
+        void on_pushButton_clicked();
+
+        void on_pacProxyTxt_textEdited(const QString &arg1);
+
     private:
         // Set ui parameters for a line;
         void ShowLineParameters(QvBarLine &line);
