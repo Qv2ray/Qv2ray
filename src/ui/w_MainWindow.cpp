@@ -228,7 +228,7 @@ void MainWindow::LoadConnections()
     duplicateBtn->setEnabled(false);
 
     // We set the current item back...
-    if (vinstance->VCoreStatus == STARTED && !CurrentConnectionName.isEmpty()) {
+    if (vinstance->ConnectionStatus == STARTED && !CurrentConnectionName.isEmpty()) {
         auto items = connectionListWidget->findItems(CurrentConnectionName, Qt::MatchFlag::MatchExactly);
 
         if (items.count() > 0) {
@@ -247,7 +247,7 @@ void MainWindow::OnConfigListChanged(bool need_restart)
     //
     //retranslateUi(this);
     statusLabel->setText(statusText);
-    bool isRunning = vinstance->VCoreStatus == STARTED;
+    bool isRunning = vinstance->ConnectionStatus == STARTED;
 
     if (isRunning && need_restart) on_stopButton_clicked();
 
@@ -267,7 +267,7 @@ void MainWindow::UpdateLog()
 }
 void MainWindow::on_startButton_clicked()
 {
-    if (vinstance->VCoreStatus != STARTED) {
+    if (vinstance->ConnectionStatus != STARTED) {
         // Reset the graph
         for (int i = 0; i < 30 ; i++) {
             uploadList[i] = 0;
@@ -289,7 +289,7 @@ void MainWindow::on_startButton_clicked()
         //
         CurrentFullConfig = GenerateRuntimeConfig(connectionRoot);
         StartPreparation(CurrentFullConfig);
-        bool startFlag = this->vinstance->StartVCore();
+        bool startFlag = this->vinstance->StartV2rayCore();
 
         if (startFlag) {
             this->hTray->showMessage("Qv2ray", tr("Connected To Server: ") + CurrentConnectionName);
@@ -305,8 +305,8 @@ void MainWindow::on_startButton_clicked()
 
             bool usePAC = conf.inboundConfig.pacConfig.usePAC;
             bool pacUseSocks = conf.inboundConfig.pacConfig.useSocksProxy;
-            bool httpEnabled = conf.inboundConfig.http_port != 0;
-            bool socksEnabled = conf.inboundConfig.socks_port != 0;
+            bool httpEnabled = conf.inboundConfig.useHTTP;
+            bool socksEnabled = conf.inboundConfig.useSocks;
 
             // TODO: Set PAC proxy string
 
@@ -354,7 +354,7 @@ void MainWindow::on_startButton_clicked()
                 if (usePAC) {
                     if ((httpEnabled && !pacUseSocks) || (socksEnabled && pacUseSocks)) {
                         // If we use PAC and socks/http are properly configured for PAC
-                        LOG(MODULE_PROXY, "Using PAC and corresponding SOCKS or HTTP")
+                        LOG(MODULE_PROXY, "System proxy uses PAC")
                         proxyAddress = "http://" + QSTRING(conf.inboundConfig.listenip) + ":" + QString::number(conf.inboundConfig.pacConfig.port) +  "/pac";
                     } else {
                         // Not properly configured
@@ -400,9 +400,9 @@ void MainWindow::on_startButton_clicked()
 
 void MainWindow::on_stopButton_clicked()
 {
-    if (vinstance->VCoreStatus != STOPPED) {
+    if (vinstance->ConnectionStatus != STOPPED) {
         // Is running or starting
-        this->vinstance->StopVCore();
+        this->vinstance->StopV2rayCore();
         killTimer(speedTimerId);
         hTray->setToolTip(TRAY_TOOLTIP_PREFIX);
         QFile(QV2RAY_GENERATED_FILE_PATH).remove();
@@ -443,7 +443,7 @@ void MainWindow::on_activatedTray(QSystemTrayIcon::ActivationReason reason)
             break;
 
         case QSystemTrayIcon::MiddleClick:
-            if (this->vinstance->VCoreStatus == STARTED) {
+            if (this->vinstance->ConnectionStatus == STARTED) {
                 on_stopButton_clicked();
             } else {
                 on_startButton_clicked();
@@ -547,7 +547,7 @@ void MainWindow::on_connectionListWidget_itemClicked(QListWidgetItem *item)
     if (currentRow < 0) return;
 
     QString currentText = connectionListWidget->currentItem()->text();
-    bool canSetConnection = !isRenamingInProgress && vinstance->VCoreStatus != STARTED;
+    bool canSetConnection = !isRenamingInProgress && vinstance->ConnectionStatus != STARTED;
     ShowAndSetConnection(currentText, canSetConnection, false);
 }
 void MainWindow::on_prefrencesBtn_clicked()

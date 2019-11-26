@@ -4,8 +4,10 @@
 #include "w_JsonEditor.hpp"
 #include "w_InboundEditor.hpp"
 
+static bool isLoading = false;
 #define CurrentRule this->rules[this->currentRuleIndex]
 #define STATUS(msg) statusLabel->setText(tr(msg));
+#define LOADINGCHECK if(isLoading) return;
 
 RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) :
     QDialog(parent),
@@ -13,12 +15,17 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) :
     original(connection)
 {
     setupUi(this);
+    isLoading = true;
     addInboundBtn->setIcon(QICON_R("add.png"));
     addOutboundBtn->setIcon(QICON_R("add.png"));
     editInboundBtn->setIcon(QICON_R("edit.png"));
     editOutboundBtn->setIcon(QICON_R("edit.png"));
     delInboundBtn->setIcon(QICON_R("delete.png"));
     delOutboundBtn->setIcon(QICON_R("delete.png"));
+    addRouteBtn->setIcon(QICON_R("add.png"));
+    delRouteBtn->setIcon(QICON_R("delete.png"));
+    balabcerAddBtn->setIcon(QICON_R("add.png"));
+    balancerDelBtn->setIcon(QICON_R("delete.png"));
     //
     inbounds = root["inbounds"].toArray();
     outbounds = root["outbounds"].toArray();
@@ -86,6 +93,8 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) :
         routesTable->setItem(routesTable->rowCount() - 1, 3, new QTableWidgetItem(QSTRING(rule.outboundTag)));
 #undef rule
     }
+
+    isLoading = false;
 
     if (rules.size() > 0) {
         routesTable->setCurrentItem(routesTable->item(0, 0));
@@ -158,6 +167,7 @@ void RouteEditor::on_buttonBox_accepted()
 
 void RouteEditor::on_outboundsList_currentRowChanged(int currentRow)
 {
+    LOADINGCHECK
     auto outBoundRoot = outbounds[currentRow].toObject();
     auto outboundType = outBoundRoot["protocol"].toString();
     outboundTagLabel->setText(outBoundRoot.contains("tag") ? outBoundRoot["tag"].toString() : tr("No Tag"));
@@ -188,6 +198,7 @@ void RouteEditor::on_outboundsList_currentRowChanged(int currentRow)
 
 void RouteEditor::on_inboundsList_currentRowChanged(int currentRow)
 {
+    LOADINGCHECK
     auto inBoundRoot = inbounds[currentRow].toObject();
     //
     inboundTagLabel->setText(inBoundRoot.contains("tag") ? inBoundRoot["tag"].toString() : tr("No Tag"));
@@ -198,10 +209,11 @@ void RouteEditor::on_inboundsList_currentRowChanged(int currentRow)
 
 void RouteEditor::ShowRuleDetail(RuleObject rule)
 {
-    // BUG added the wrong items, should be outbound list.
+    LOADINGCHECK
     balancerSelectionCombo->clear();
     routeOutboundSelector->clear();
 
+    // BUG added the wrong items, should be outbound list.
     for (auto out : outbounds) {
         routeOutboundSelector->addItem(out.toObject()["tag"].toString());
         balancerSelectionCombo->addItem(out.toObject()["tag"].toString());
@@ -231,10 +243,16 @@ void RouteEditor::ShowRuleDetail(RuleObject rule)
     }
 
     //
+    // Process inbound list
+    isLoading = true;
+
     for (int i = 0; i < inboundsList->count(); ++i) {
         inboundsList->item(i)->setCheckState(Qt::Unchecked);
     }
 
+    isLoading = false;
+    on_inboundsList_itemChanged(nullptr);
+    //
     auto outboundTag = QSTRING(rule.outboundTag);
     int index = FindIndexByTag(outbounds, &outboundTag);
     outboundsList->setCurrentRow(index);
@@ -273,31 +291,39 @@ void RouteEditor::ShowRuleDetail(RuleObject rule)
     //
     // Inbound Tags
     if (rule.inboundTag.size() == 0) {
+        isLoading = true;
+
         for (int i = 0; i < inboundsList->count(); i++) {
             inboundsList->item(i)->setCheckState(Qt::Checked);
         }
 
         inboundsList->setCurrentRow(0);
+        isLoading = false;
+        on_inboundsList_itemChanged(inboundsList->item(0));
     } else {
         for (auto inboundTag : rule.inboundTag) {
             auto inTag = QSTRING(inboundTag);
-            int _index = FindIndexByTag(inbounds, &inTag);
 
-            // FIXED if an inbound is missing (index out of range)
-            if (_index >= 0) {
-                if (inboundsList->count() <= _index) {
-                    QvMessageBox(this, tr("Route Editor"), tr("Cannot find an inbound by tag: ") + tr("Index Out Of Range"));
-                    LOG(MODULE_UI, "FATAL: An inbound could not be found.")
+            if (!inTag.isEmpty()) {
+                // forget about the "" issue.
+                int _index = FindIndexByTag(inbounds, &inTag);
+
+                // FIXED if an inbound is missing (index out of range)
+                if (_index >= 0) {
+                    if (inboundsList->count() <= _index) {
+                        QvMessageBox(this, tr("Route Editor"), tr("Cannot find an inbound by tag: ") + tr("Index Out Of Range"));
+                        LOG(MODULE_UI, "FATAL: An inbound could not be found.")
+                        return;
+                    }
+
+                    inboundsList->item(_index)->setCheckState(Qt::Checked);
+                    inboundsList->setCurrentRow(_index);
+                    STATUS("OK")
+                } else {
+                    STATUS("Cannot find inbound by a tag, possible currupted files?")
+                    LOG(MODULE_UI, "An inbound could not be determined by tag.")
                     return;
                 }
-
-                inboundsList->item(_index)->setCheckState(Qt::Checked);
-                inboundsList->setCurrentRow(_index);
-                STATUS("OK")
-            } else {
-                STATUS("Cannot find inbound by a tag, possible currupted files?")
-                LOG(MODULE_UI, "An inbound could not be determined by tag.")
-                return;
             }
         }
     }
@@ -378,6 +404,7 @@ void RouteEditor::on_editInboundBtn_clicked()
 
 void RouteEditor::on_routeProtocolHTTPCB_stateChanged(int arg1)
 {
+    LOADINGCHECK
     QList<string> protocols;
 
     if (arg1 == Qt::Checked) protocols << "http";
@@ -392,6 +419,7 @@ void RouteEditor::on_routeProtocolHTTPCB_stateChanged(int arg1)
 
 void RouteEditor::on_routeProtocolTLSCB_stateChanged(int arg1)
 {
+    LOADINGCHECK
     QList<string> protocols;
 
     if (arg1 == Qt::Checked) protocols << "tls";
@@ -406,6 +434,7 @@ void RouteEditor::on_routeProtocolTLSCB_stateChanged(int arg1)
 
 void RouteEditor::on_routeProtocolBTCB_stateChanged(int arg1)
 {
+    LOADINGCHECK
     QList<string> protocols;
 
     if (arg1 == Qt::Checked) protocols << "bittorrent";
@@ -420,17 +449,27 @@ void RouteEditor::on_routeProtocolBTCB_stateChanged(int arg1)
 
 void RouteEditor::on_balabcerAddBtn_clicked()
 {
+    LOADINGCHECK
+
     if (!balancerSelectionCombo->currentText().isEmpty()) {
         this->Balancers[QSTRING(CurrentRule.balancerTag)].append(balancerSelectionCombo->currentText());
     }
 
-    balancerList->addItem(balancerSelectionCombo->currentText());
-    balancerSelectionCombo->setEditText("");
-    STATUS("OK")
+    auto balancerTx = balancerSelectionCombo->currentText();
+
+    if (!balancerTx.isEmpty()) {
+        balancerList->addItem(balancerTx);
+        balancerSelectionCombo->setEditText("");
+        STATUS("OK")
+    } else {
+        STATUS("Balacer is empty, not processing.")
+    }
 }
 
 void RouteEditor::on_balancerDelBtn_clicked()
 {
+    LOADINGCHECK
+
     if (balancerList->currentRow() < 0) {
         return;
     }
@@ -442,26 +481,31 @@ void RouteEditor::on_balancerDelBtn_clicked()
 
 void RouteEditor::on_hostList_textChanged()
 {
+    LOADINGCHECK
     CurrentRule.domain = SplitLinesStdString(hostList->toPlainText()).toStdList();
 }
 
 void RouteEditor::on_ipList_textChanged()
 {
+    LOADINGCHECK
     CurrentRule.ip = SplitLinesStdString(ipList->toPlainText()).toStdList();
 }
 
 void RouteEditor::on_routePortTxt_textEdited(const QString &arg1)
 {
+    LOADINGCHECK
     CurrentRule.port = arg1.toStdString();
 }
 
 void RouteEditor::on_routeUserTxt_textEdited(const QString &arg1)
 {
+    LOADINGCHECK
     CurrentRule.user = SplitLinesStdString(arg1).toStdList();
 }
 
 void RouteEditor::on_routesTable_currentCellChanged(int currentRow, int currentColumn, int previousRow, int previousColumn)
 {
+    LOADINGCHECK
     Q_UNUSED(currentColumn)
     Q_UNUSED(previousColumn)
     Q_UNUSED(previousRow)
@@ -477,6 +521,7 @@ void RouteEditor::on_routesTable_currentCellChanged(int currentRow, int currentC
 
 void RouteEditor::on_addRouteBtn_clicked()
 {
+    LOADINGCHECK
     // Add Route
     RuleObject rule;
     //
@@ -504,65 +549,10 @@ void RouteEditor::on_addRouteBtn_clicked()
     delRouteBtn->setEnabled(true);
 }
 
-void RouteEditor::on_changeIOBtn_clicked()
-{
-    QString outbound = "";
-
-    if (outboundsList->currentRow() < 0) {
-        // Don't return as someone may use the outboundTag
-        //
-        //QvMessageBox(this, tr("Changing route inbound/outbound"), tr("Please select an outbound from the list."));
-        //return;
-        QvMessageBox(this, tr("Changing route inbound/outbound"),
-                     tr("You didn't select an outbound.") + NEWLINE +
-                     tr("Banlancer will be used."));
-    } else {
-        outbound = outbounds[outboundsList->currentRow()].toObject()["tag"].toString();
-    }
-
-    QList<string> new_inbounds;
-    QList<string> new_inbounds_name;
-
-    for (int i = 0; i < inboundsList->count(); i++) {
-        auto _item = inboundsList->item(i);
-
-        if (_item->checkState() == Qt::Checked) {
-            // WARN there are possiblilties that someone may forget to set the tag.
-            new_inbounds.append(inbounds[i].toObject()["tag"].toString().toStdString());
-            new_inbounds_name.append(_item->text().toStdString());
-        }
-    }
-
-    if (new_inbounds.size() == 0) {
-        // TODO what to do?
-    }
-
-    if (new_inbounds.contains("")) {
-        // Empty tag.
-        auto result1 = QvMessageBoxAsk(this, tr("Changing route inbound/outbound"), tr("One or more inbound config(s) have no tag configured, do you still want to continue?"));
-
-        if (result1 != QMessageBox::Yes) {
-            return;
-        }
-    }
-
-    auto result = QvMessageBoxAsk(this, tr("Changing route inbound/outbound"),
-                                  tr("Are you sure to change the inbound/outbound of currently selected route?")  + NEWLINE +
-                                  tr("Current inbound/outbound combinations:") + NEWLINE + NEWLINE + tr("Inbounds: ") + NEWLINE +
-                                  Stringify(new_inbounds_name.toStdList(), NEWLINE) + NEWLINE + tr("Outbound: ") + outbound);
-
-    if (result != QMessageBox::Yes) {
-        STATUS("Canceled changing inbound/outbound combination.")
-        return;
-    }
-
-    CurrentRule.inboundTag = new_inbounds.toStdList();
-    CurrentRule.outboundTag = outbound.toStdString();
-    STATUS("OK")
-}
-
 void RouteEditor::on_routesTable_cellChanged(int row, int column)
 {
+    LOADINGCHECK
+
     if (column != 0) {
         // Impossible
         return;
@@ -584,31 +574,37 @@ void RouteEditor::on_routesTable_cellChanged(int row, int column)
 
 void RouteEditor::on_netBothRB_clicked()
 {
+    LOADINGCHECK
     CurrentRule.network = "tcp,udp";
 }
 
 void RouteEditor::on_netUDPRB_clicked()
 {
+    LOADINGCHECK
     CurrentRule.network = "udp";
 }
 
 void RouteEditor::on_netTCPRB_clicked()
 {
+    LOADINGCHECK
     CurrentRule.network = "tcp";
 }
 
 void RouteEditor::on_routeUserTxt_textChanged()
 {
+    LOADINGCHECK
     CurrentRule.user = SplitLinesStdString(routeUserTxt->toPlainText()).toStdList();
 }
 
 void RouteEditor::on_sourceIPList_textChanged()
 {
+    LOADINGCHECK
     CurrentRule.source = SplitLinesStdString(sourceIPList->toPlainText()).toStdList();
 }
 
 void RouteEditor::on_enableBalancerCB_stateChanged(int arg1)
 {
+    LOADINGCHECK
     CurrentRule.QV2RAY_RULE_USE_BALANCER = arg1 == Qt::Checked;
     stackedWidget->setCurrentIndex(arg1 == Qt::Checked ? 1 : 0);
 }
@@ -616,11 +612,13 @@ void RouteEditor::on_enableBalancerCB_stateChanged(int arg1)
 
 void RouteEditor::on_routeOutboundSelector_currentIndexChanged(int index)
 {
+    LOADINGCHECK
     CurrentRule.outboundTag = outbounds[index].toObject()["tag"].toString().toStdString();
 }
 
 void RouteEditor::on_inboundsList_itemChanged(QListWidgetItem *item)
 {
+    LOADINGCHECK
     Q_UNUSED(item)
     QList<string> new_inbounds;
 
@@ -635,11 +633,13 @@ void RouteEditor::on_inboundsList_itemChanged(QListWidgetItem *item)
 
     if (new_inbounds.size() == 0) {
         // TODO what to do?
+        LOG(MODULE_UI, "WARN: Inbound size = 0")
     }
 
     if (new_inbounds.contains("")) {
         // Empty tag.
-        auto result1 = QvMessageBoxAsk(this, tr("Changing route inbound/outbound"), tr("One or more inbound config(s) have no tag configured, do you still want to continue?"));
+        auto result1 = QvMessageBoxAsk(this, tr("Changing route inbound/outbound"), tr("One or more inbound config(s) have no tag configured, which will be ignored, do you still want to continue?"));
+        new_inbounds.removeAll("");
 
         if (result1 != QMessageBox::Yes) {
             return;
@@ -652,6 +652,8 @@ void RouteEditor::on_inboundsList_itemChanged(QListWidgetItem *item)
 
 void RouteEditor::on_delRouteBtn_clicked()
 {
+    LOADINGCHECK
+
     if (routesTable->currentRow() >= 0) {
         auto index = routesTable->currentRow();
         auto rule = rules[index];
@@ -670,6 +672,7 @@ void RouteEditor::on_delRouteBtn_clicked()
 
 void RouteEditor::on_addDefaultBtn_clicked()
 {
+    LOADINGCHECK
     // Add default connection from GlobalConfig
     auto conf = GetGlobalConfig();
     //
@@ -694,6 +697,7 @@ void RouteEditor::on_addDefaultBtn_clicked()
 
 void RouteEditor::on_insertBlackBtn_clicked()
 {
+    LOADINGCHECK
     auto blackHole = GenerateBlackHoleOUT(false);
     auto tag = "blackhole_" + QString::number(QTime::currentTime().msecsSinceStartOfDay());
     auto _blackHoleOutbound = GenerateOutboundEntry("blackhole", blackHole, QJsonObject(), QJsonObject(), "0.0.0.0", tag);
@@ -703,6 +707,8 @@ void RouteEditor::on_insertBlackBtn_clicked()
 
 void RouteEditor::on_delOutboundBtn_clicked()
 {
+    LOADINGCHECK
+
     if (outboundsList->currentRow() < 0) {
         return;
     }
@@ -714,6 +720,8 @@ void RouteEditor::on_delOutboundBtn_clicked()
 
 void RouteEditor::on_delInboundBtn_clicked()
 {
+    LOADINGCHECK
+
     if (inboundsList->currentRow() < 0) {
         return;
     }

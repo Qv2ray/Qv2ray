@@ -140,9 +140,12 @@ int main(int argc, char *argv[])
     //
     // Install a default translater. From the OS/DE
     auto _lang = QLocale::system().name().replace("_", "-");
-    bool _result_ = qApp->installTranslator(getTranslator(_lang));
-    LOG(MODULE_UI, "Installing a tranlator from OS: " + _lang.toStdString() + " -- " + (_result_ ? "OK" : "Failed"))
-    //
+
+    if (_lang != "en-US") {
+        bool _result_ = qApp->installTranslator(getTranslator(_lang));
+        LOG(MODULE_UI, "Installing a tranlator from OS: " + _lang.toStdString() + " -- " + (_result_ ? "OK" : "Failed"))
+    }
+
     LOG("LICENCE", NEWLINE "This program comes with ABSOLUTELY NO WARRANTY." NEWLINE
         "This is free software, and you are welcome to redistribute it" NEWLINE
         "under certain conditions." NEWLINE NEWLINE
@@ -300,9 +303,9 @@ int main(int argc, char *argv[])
         // Show MainWindow
         MainWindow w;
         return _qApp.exec();
-    }  catch (std::exception *ex) {
-        QvMessageBox(nullptr, "ERROR", QSTRING(ex->what()));
-        LOG(MODULE_INIT, ex->what())
+    }  catch (...) {
+        QvMessageBox(nullptr, "ERROR", "There's something wrong happened and Qv2ray will quit now.");
+        LOG(MODULE_INIT, "EXCEPTION THROWN: " __FILE__)
         return -9;
     }
 }

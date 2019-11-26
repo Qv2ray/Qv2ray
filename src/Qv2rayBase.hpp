@@ -77,7 +77,7 @@ namespace Qv2ray
     QJsonObject UpgradeConfig(int fromVersion, int toVersion, QJsonObject root);
 
     struct QvBarLine {
-        std::string     Family;
+        string     Family;
         bool            Bold;
         bool            Italic;
         int             ColorA;
@@ -86,7 +86,7 @@ namespace Qv2ray
         int             ColorB;
         int             ContentType;
         double          Size;
-        std::string     Message;
+        string     Message;
         QvBarLine()
             : Family("Consolas")
             , Bold(true)
@@ -101,12 +101,12 @@ namespace Qv2ray
     struct QvBarPage {
         int OffsetYpx;
         vector<QvBarLine> Lines;
-        XTOSTRUCT(O(OffsetYpx, Lines))
         QvBarPage() : OffsetYpx(5) { }
+        XTOSTRUCT(O(OffsetYpx, Lines))
     };
 
     struct Qv2rayToolBarConfig {
-        std::vector<QvBarPage> Pages;
+        vector<QvBarPage> Pages;
         XTOSTRUCT(O(Pages))
     };
 
@@ -116,29 +116,32 @@ namespace Qv2ray
             bool usePAC;
             int port;
             string proxyIP;
-            int sourceId;
             bool useSocksProxy;
-            string fileLocation;
-            Qv2rayPACConfig(): fileLocation() { }
-            XTOSTRUCT(O(usePAC, port, proxyIP, sourceId, useSocksProxy, fileLocation))
+            Qv2rayPACConfig() : usePAC(false), port(8989), useSocksProxy(false) { }
+            XTOSTRUCT(O(usePAC, port, proxyIP, useSocksProxy))
         };
         struct Qv2rayInboundsConfig {
             string listenip;
             bool setSystemProxy;
-            // PAC Config
             Qv2rayPACConfig pacConfig;
             // SOCKS
+
+            bool useSocks;
             int socks_port;
             bool socks_useAuth;
             bool socksUDP;
             string socksLocalIP;
             AccountObject socksAccount;
             // HTTP
+            bool useHTTP;
             int http_port;
             bool http_useAuth;
             AccountObject httpAccount;
-            Qv2rayInboundsConfig(): listenip(), setSystemProxy(), pacConfig(), socks_port(), socks_useAuth(), socksAccount(), http_port(), http_useAuth(), httpAccount() {}
-            Qv2rayInboundsConfig(string listen, int socksPort, int httpPort): Qv2rayInboundsConfig()
+            Qv2rayInboundsConfig():
+                listenip(), setSystemProxy(), pacConfig(),
+                useSocks(), socks_port(), socks_useAuth(), socksUDP(true), socksAccount(),
+                useHTTP(), http_port(), http_useAuth(), httpAccount() {}
+            Qv2rayInboundsConfig(const string &listen, int socksPort, int httpPort): Qv2rayInboundsConfig()
             {
                 socks_port = socksPort;
                 http_port = httpPort;
@@ -147,7 +150,7 @@ namespace Qv2ray
                 socksUDP = true;
                 setSystemProxy = true;
             }
-            XTOSTRUCT(O(setSystemProxy, pacConfig, listenip, socks_port, socks_useAuth, socksAccount, socksUDP, socksLocalIP, http_port, http_useAuth, httpAccount))
+            XTOSTRUCT(O(setSystemProxy, pacConfig, listenip, useSocks, useHTTP, socks_port, socks_useAuth, socksAccount, socksUDP, socksLocalIP, http_port, http_useAuth, httpAccount))
         };
 
         struct Qv2rayUIConfig {
@@ -155,27 +158,21 @@ namespace Qv2ray
             string language;
             bool useDarkTheme;
             bool useDarkTrayIcon;
+            Qv2rayUIConfig() : theme(""), language("en-US"), useDarkTheme(false), useDarkTrayIcon(true) { }
             XTOSTRUCT(O(theme, language, useDarkTheme, useDarkTrayIcon))
         };
 
         struct Qv2rayConnectionConfig {
-
             bool bypassCN;
             bool enableProxy;
             bool withLocalDNS;
             list<string> dnsList;
             bool enableStats;
             int statsPort;
-            Qv2rayConnectionConfig() : dnsList()
-            {
-                bypassCN = true;
-                enableProxy = true;
-                withLocalDNS = true;
-            }
-
+            Qv2rayConnectionConfig() : bypassCN(true), enableProxy(true), withLocalDNS(true), dnsList(), enableStats(true), statsPort(15490) { }
             XTOSTRUCT(O(bypassCN, enableProxy, withLocalDNS, dnsList, enableStats, statsPort))
-
         };
+
         struct Qv2rayConfig {
             int config_version;
             bool tProxySupport;
@@ -184,9 +181,7 @@ namespace Qv2ray
             string v2CorePath;
             string v2AssetsPath;
             string autoStartConfig;
-            //
             string ignoredVersion;
-            //
             //
             list<string> configs;
             map<string, string> subscribes;
@@ -214,8 +209,6 @@ namespace Qv2ray
             Qv2rayConfig(const string &assetsPath, int log, const Qv2rayInboundsConfig &_inBoundSettings): Qv2rayConfig()
             {
                 // These settings below are defaults.
-                ignoredVersion = "";
-                autoStartConfig = "";
                 v2AssetsPath = assetsPath;
                 inboundConfig = _inBoundSettings;
                 logLevel = log;

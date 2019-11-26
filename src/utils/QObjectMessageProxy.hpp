@@ -1,6 +1,6 @@
 #ifndef QVQOBJECTPROXY_H
 #define QVQOBJECTPROXY_H
-#include <QtCore>
+#include <QObject>
 namespace Qv2ray
 {
     namespace Utils

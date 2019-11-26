@@ -13,7 +13,7 @@ namespace Qv2ray
             public:
                 explicit PACHandler();
                 ~PACHandler();
-                void SetProxyString(QString proxyString);
+                void SetProxyString(const QString &proxyString);
                 void StartListen();
                 void StopServer();
 

@@ -16,12 +16,13 @@ namespace Qv2ray
             pacServer->close();
             delete pacServer;
         }
-        void PACHandler::SetProxyString(QString proxyString)
+        void PACHandler::SetProxyString(const QString &proxyString)
         {
             this->proxyString = proxyString;
         }
         void PACHandler::StartListen()
         {
+            LOG(MODULE_PROXY, "Starting PAC listener")
             pacServer = new QHttpServer();
             connect(pacServer, &QHttpServer::newRequest, this, &PACHandler::onNewRequest);
             //
@@ -42,6 +43,7 @@ namespace Qv2ray
                 QvMessageBox(nullptr, tr("PAC Handler"), tr("Failed to listen PAC request on this port, please verify the permissions"));
             }
         }
+
         void PACHandler::StopServer()
         {
             if (isStarted) {
@@ -50,6 +52,7 @@ namespace Qv2ray
                 isStarted = false;
             }
         }
+
         void PACHandler::onNewRequest(QHttpRequest *req, QHttpResponse *rsp)
         {
             rsp->setHeader("Server", "Qv2ray/" QV2RAY_VERSION_STRING " PAC_Handler");
