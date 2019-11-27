@@ -217,9 +217,13 @@ int main(int argc, char *argv[])
     }
 
     auto confObject = StructFromJsonString<Qv2rayConfig>(JsonToString(conf));
-    SetGlobalConfig(confObject);
     qApp->removeTranslator(getTranslator(_lang));
     LOG(MODULE_INIT, "Removing system translations")
+
+    if (confObject.uiConfig.language.empty()) {
+        LOG(MODULE_UI, "Setting default UI language to en-US")
+        confObject.uiConfig.language = "en-US";
+    }
 
     if (qApp->installTranslator(getTranslator(QSTRING(confObject.uiConfig.language)))) {
         LOG(MODULE_INIT, "Loaded Translator " + confObject.uiConfig.language)
@@ -232,6 +236,7 @@ int main(int argc, char *argv[])
             "https://github.com/lhy0403/Qv2ray/issues/new");
     }
 
+    SetGlobalConfig(confObject);
     auto osslReqVersion = QSslSocket::sslLibraryBuildVersionString().toStdString();
     auto osslCurVersion = QSslSocket::sslLibraryVersionString().toStdString();
     LOG(MODULE_NETWORK, "Current OpenSSL version: " + osslCurVersion)
