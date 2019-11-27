@@ -90,6 +90,7 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         //
         void on_action_StartThis_triggered();
         void on_action_RCM_EditJson_triggered();
+        void on_action_RCM_ConvToComplex_triggered();
         void on_action_RenameConnection_triggered();
         //
         QvHttpRequestHelper HTTPRequestHelper;

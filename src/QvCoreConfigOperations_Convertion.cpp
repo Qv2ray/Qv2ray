@@ -1,4 +1,4 @@
-﻿#include "QvCoreConfigOperations.hpp"
+#include "QvCoreConfigOperations.hpp"
 
 namespace Qv2ray
 {
@@ -224,7 +224,7 @@ namespace Qv2ray
                 RROOT
             }
 
-            QJsonObject ConvertConfigFromFile(QString sourceFilePath, bool overrideInbounds)
+            QJsonObject ConvertConfigFromFile(QString sourceFilePath, bool keepInbounds)
             {
                 QFile source(sourceFilePath);
 
@@ -233,9 +233,9 @@ namespace Qv2ray
                     return QJsonObject();
                 }
 
-                auto root = JsonFromString(StringFromFile(new QFile(sourceFilePath)));
+                auto root = JsonFromString(StringFromFile(&source));
 
-                if (overrideInbounds) {
+                if (!keepInbounds) {
                     JSON_ROOT_TRY_REMOVE("inbounds")
                 }
 

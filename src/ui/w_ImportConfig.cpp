@@ -24,6 +24,15 @@ ImportConfigWindow::ImportConfigWindow(QWidget *parent)
     nameTxt->setText(QDateTime::currentDateTime().toString("MM-dd_hh-mm") + "_" + tr("Imported") + "_");
 }
 
+QMap<QString, QJsonObject> ImportConfigWindow::OpenImport(bool outboundsOnly)
+{
+    // if Outbound Only, set keepImported to false and disable the checkbox
+    // keepImportedInboundCheckBox->setChecked(!outboundsOnly);
+    keepImportedInboundCheckBox->setEnabled(!outboundsOnly);
+    this->exec();
+    return this->result() == QDialog::Accepted ? connections : QMap<QString, QJsonObject>();
+}
+
 void ImportConfigWindow::on_importSourceCombo_currentIndexChanged(int index)
 {
     stackedWidget->setCurrentIndex(index);
@@ -37,17 +46,7 @@ void ImportConfigWindow::on_selectFileBtn_clicked()
 
 void ImportConfigWindow::on_qrFromScreenBtn_clicked()
 {
-    // QRubberBand
     QThread::msleep(static_cast<ulong>(doubleSpinBox->value() * 1000));
-    //bool hasVmessDetected = false;
-    //for (auto screen : qApp->screens()) {
-    //    if (!screen) {
-    //        LOG(MODULE_UI, "Cannot even find a screen. RARE")
-    //        QvMessageBox(this, tr("Screenshot failed"), tr("Cannot find a valid screen, it's rare."));
-    //        return;
-    //    }
-    //auto pix = screen->grabWindow(0);
-    //
     ScreenShotWindow w;
     auto pix = w.DoScreenShot();
 
@@ -57,32 +56,25 @@ void ImportConfigWindow::on_qrFromScreenBtn_clicked()
         if (str.trimmed().isEmpty()) {
             LOG(MODULE_UI, "Cannot decode QR Code from an image, size: h=" + to_string(pix.width()) + ", v=" + to_string(pix.height()))
             QvMessageBox(this, tr("Capture QRCode"), tr("Cannot find a valid QRCode from this region."));
-            //      continue;
         } else {
             vmessConnectionStringTxt->appendPlainText(str.trimmed() + NEWLINE);
-            //hasVmessDetected = true;
         }
     }
-
-    //}
-    //if (!hasVmessDetected) {
-    //QvMessageBox(this, tr("QRCode scanning failed"), tr("Cannot find any QRCode from any screens."));
-    //}
 }
 
 void ImportConfigWindow::on_beginImportBtn_clicked()
 {
     QString aliasPrefix = nameTxt->text();
     QJsonObject config;
-    auto conf = GetGlobalConfig();
+    //auto conf = GetGlobalConfig();
 
     switch (importSourceCombo->currentIndex()) {
         case 0: {
             // From File...
-            bool overrideInBound = !keepImportedInboundCheckBox->isChecked();
+            bool keepInBound = keepImportedInboundCheckBox->isChecked();
             QString path = fileLineTxt->text();
             aliasPrefix = aliasPrefix.isEmpty() ? aliasPrefix : QFileInfo(path).fileName();
-            config = ConvertConfigFromFile(path, overrideInBound);
+            config = ConvertConfigFromFile(path, keepInBound);
 
             if (config.isEmpty()) {
                 QvMessageBox(this, tr("Import config file"), tr("Import from file failed, for more information, please check the log file."));
@@ -91,14 +83,7 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
                 QvMessageBox(this, tr("Import config file"), tr("Failed to check the validity of the config file."));
                 return;
             } else {
-                // We save first, "alias" may change to prevent override existing file.
-                bool alwaysFalse = SaveConnectionConfig(config, &aliasPrefix, false);
-
-                if (alwaysFalse) {
-                    QvMessageBox(this, tr("Assertion Failed"), tr("Assertion failed: ::SaveConnectionConfig should returns false."));
-                }
-
-                conf.configs.push_back(aliasPrefix.toStdString());
+                connections[aliasPrefix] = config;
                 break;
             }
         }
@@ -125,13 +110,7 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
                     vmessErrors[vmess] = QString::number(vmessErrors.count() + 1) + ": " + errMessage;
                     continue;
                 } else {
-                    bool alwaysFalse = SaveConnectionConfig(config, &aliasPrefix, false);
-
-                    if (alwaysFalse) {
-                        QvMessageBox(this, tr("Assertion Failed"), "Assertion failed: ::SaveConnectionConfig should returns false.");
-                    }
-
-                    conf.configs.push_back(aliasPrefix.toStdString());
+                    connections[aliasPrefix] = config;
                 }
             }
 
@@ -141,24 +120,19 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
                     vmessConnectionStringTxt->appendPlainText(vmessErrors.key(item));
                     errorsList->addItem(item);
                 }
-
-                // Don't quit;
-                return;
             }
 
             break;
         }
 
         case 2: {
+            QvMessageBox(this, tr("TODO"), tr("TODO"));
             // Subscription link.
             break;
         }
     }
 
-    SetGlobalConfig(conf);
-    // Never restart current connection after import.
-    emit s_reload_config(false);
-    close();
+    accept();
 }
 void ImportConfigWindow::on_selectImageBtn_clicked()
 {
@@ -197,7 +171,7 @@ void ImportConfigWindow::on_errorsList_currentItemChanged(QListWidgetItem *curre
         return;
     }
 
-    //
+    // Select vmess string that is invalid.
     QTextCursor c = vmessConnectionStringTxt->textCursor();
     c.setPosition(startPos);
     c.setPosition(endPos, QTextCursor::KeepAnchor);
@@ -218,8 +192,7 @@ void ImportConfigWindow::on_editFileBtn_clicked()
     if (!jsonCheckingError.isEmpty()) {
         LOG(MODULE_FILE, "Currupted JSON file detected")
 
-        if (QvMessageBoxAsk(this, tr("Edit file as JSON"), tr("The file you selected has json syntax error. Continue editing may make you lose data. Would you like to continue?") +
-                            NEWLINE + jsonCheckingError) != QMessageBox::Yes) {
+        if (QvMessageBoxAsk(this, tr("Edit file as JSON"), tr("The file you selected has json syntax error. Continue editing may make you lose data. Would you like to continue?") + NEWLINE + jsonCheckingError) != QMessageBox::Yes) {
             return;
         } else {
             LOG(MODULE_FILE, "Continue editing curruped json file, data loss is expected.")
@@ -257,13 +230,15 @@ void ImportConfigWindow::on_connectionEditBtn_clicked()
         root.insert("outbounds", outboundsList);
         //
         // WARN This one will change the connection name, because of some duplicates.
-        SaveConnectionConfig(root, &alias, false);
+        connections[alias] = root;
+        //SaveConnectionConfig(root, &alias, false);
         //
-        auto conf = GetGlobalConfig();
-        auto connectionList = conf.configs;
-        connectionList.push_back(alias.toStdString());
-        conf.configs = connectionList;
-        SetGlobalConfig(conf);
+        // WARN Add connection here
+        //auto conf = GetGlobalConfig();
+        //auto connectionList = conf.configs;
+        //connectionList.push_back(alias.toStdString());
+        //conf.configs = connectionList;
+        //SetGlobalConfig(conf);
         close();
     } else {
         return;

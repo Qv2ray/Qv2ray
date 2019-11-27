@@ -6,6 +6,7 @@
 #include "w_OutboundEditor.hpp"
 #include "w_MainWindow.hpp"
 #include "w_JsonEditor.hpp"
+#include "w_RoutesEditor.hpp"
 
 OutboundEditor::OutboundEditor(QWidget *parent)
     : QDialog(parent),

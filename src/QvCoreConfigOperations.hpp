@@ -34,7 +34,7 @@ namespace Qv2ray
             bool RenameConnection(QString originalName, QString newName);
             // VMess URI Protocol
             QJsonObject ConvertConfigFromVMessString(QString vmess, QString *alias, QString *errMessage);
-            QJsonObject ConvertConfigFromFile(QString sourceFilePath, bool overrideInbounds);
+            QJsonObject ConvertConfigFromFile(QString sourceFilePath, bool keepInbounds);
             QString ConvertConfigToVMessString(const StreamSettingsObject &transfer, const VMessServerObject &serverConfig, const QString &alias);
         }
 
