@@ -50,7 +50,7 @@
    <item row="2" column="0">
     <widget class="QPushButton" name="formatJsonBtn">
      <property name="text">
-      <string>Format Json</string>
+      <string>Format JSON</string>
      </property>
     </widget>
    </item>

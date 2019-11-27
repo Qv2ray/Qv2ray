@@ -1,9 +1,10 @@
-#ifdef _WIN32
-#include "QvNetSpeedPlugin.h"
-#include "QvUtils.h"
+#include <QtCore>
+#ifdef Q_OS_WIN
+#include "QvNetSpeedPlugin.hpp"
+#include "QvUtils.hpp"
 namespace Qv2ray
 {
-    namespace Utils
+    namespace Components
     {
         namespace NetSpeedPlugin
         {

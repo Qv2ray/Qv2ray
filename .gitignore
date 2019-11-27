@@ -4,6 +4,7 @@
 *.qm
 ./.vscode
 
+SourceTrail/
 
 libs/gen/
 libs/gRPC-win32/

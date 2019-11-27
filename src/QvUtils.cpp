@@ -1,4 +1,4 @@
-#include "QvUtils.h"
+﻿#include "QvUtils.hpp"
 #include <QTextStream>
 
 namespace Qv2ray
@@ -21,8 +21,9 @@ namespace Qv2ray
             QString randomString;
 
             for (int i = 0; i < len; ++i) {
-                int index = qrand() % possibleCharacters.length();
-                QChar nextChar = possibleCharacters.at(index);
+                uint rand = QRandomGenerator::system()->generate();
+                uint max = static_cast<uint>(possibleCharacters.length());
+                QChar nextChar = possibleCharacters[rand % max];
                 randomString.append(nextChar);
             }
 
@@ -104,18 +105,18 @@ namespace Qv2ray
             return JsonFromString(json);
         }
 
-        QString JsonToString(QJsonObject json)
+        QString JsonToString(QJsonObject json, QJsonDocument::JsonFormat format)
         {
             QJsonDocument doc;
             doc.setObject(json);
-            return doc.toJson();
+            return doc.toJson(format);
         }
 
-        QString JsonToString(QJsonArray array)
+        QString JsonToString(QJsonArray array, QJsonDocument::JsonFormat format)
         {
             QJsonDocument doc;
             doc.setArray(array);
-            return doc.toJson();
+            return doc.toJson(format);
         }
 
         QString VerifyJsonString(const QString *source)
@@ -140,15 +141,13 @@ namespace Qv2ray
 
         QString Base64Encode(QString string)
         {
-            QByteArray ba;
-            ba.append(string);
+            QByteArray ba = string.toUtf8();
             return ba.toBase64();
         }
 
         QString Base64Decode(QString string)
         {
-            QByteArray ba;
-            ba.append(string);
+            QByteArray ba = string.toUtf8();
             return QString(QByteArray::fromBase64(ba));
         }
 
@@ -178,14 +177,14 @@ namespace Qv2ray
             file.close();
         }
 
-        QStringList getFileList(QDir dir)
+        QStringList GetFileList(QDir dir)
         {
             return dir.entryList(QStringList() << "*" << "*.*", QDir::Hidden | QDir::Files);
         }
 
         bool CheckFile(QDir dir, QString fileName)
         {
-            return getFileList(dir).indexOf(fileName) >= 0;
+            return GetFileList(dir).indexOf(fileName) >= 0;
         }
 
         void QvMessageBox(QWidget *parent, QString title, QString text)
@@ -213,11 +212,34 @@ namespace Qv2ray
         }
 
 
-        QTranslator *getTranslator(const QString *lang)
+        QTranslator *getTranslator(const QString &lang)
         {
             QTranslator *translator = new QTranslator();
-            translator->load(*lang + ".qm", ":/translations/");
+            translator->load(lang + ".qm", ":/translations/");
             return translator;
         }
+
+        /// This returns a file name without extensions.
+        void DeducePossibleFileName(const QString &baseDir, QString *fileName, const QString &extension)
+        {
+            int i = 1;
+
+            if (!QDir(baseDir).exists()) {
+                QDir(baseDir).mkpath(baseDir);
+                LOG(MODULE_FILE, "Making path: " + baseDir.toStdString())
+            }
+
+            while (true) {
+                if (!QFile(baseDir + "/" + fileName + "_" + QString::number(i) + extension).exists()) {
+                    *fileName = *fileName + "_" + QString::number(i);
+                    return;
+                } else {
+                    //LOG(MODULE_FILE, "File with name: " << (fileName + "_" + QString::number(i) + extension).toStdString() << " already exists")
+                }
+
+                i++;
+            }
+        }
+
     }
 }

@@ -1,11 +1,12 @@
-#ifdef __linux__
-#include "QvNetSpeedPlugin.h"
-#include "QvUtils.h"
+#include <QtCore>
+#ifdef Q_OS_LINUX
+#include "QvNetSpeedPlugin.hpp"
+#include "QvUtils.hpp"
 #include <QLocalSocket>
 #include <QLocalServer>
 namespace Qv2ray
 {
-    namespace Utils
+    namespace Components
     {
         namespace NetSpeedPlugin
         {

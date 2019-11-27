@@ -1,13 +1,14 @@
-#include <QFileInfo>
+﻿#include <QFileInfo>
 #include <QStandardPaths>
 #include <QTranslator>
 #include <QStyle>
+#include <QLocale>
 #include <QStyleFactory>
 
-#include "QvUtils.h"
-#include "Qv2rayBase.h"
-#include "QvRunguard.h"
-#include "w_MainWindow.h"
+#include "QvUtils.hpp"
+#include "Qv2rayBase.hpp"
+#include "QvRunguard.hpp"
+#include "w_MainWindow.hpp"
 
 bool verifyConfigAvaliability(QString path, bool checkExistingConfig)
 {
@@ -21,7 +22,7 @@ bool verifyConfigAvaliability(QString path, bool checkExistingConfig)
         LOG(MODULE_INIT, "---> Cannot create a new file or openwrite a file.")
         return false;
     } else {
-        testFile.write("test me");
+        testFile.write("qv2ray test file, feel free to remove.");
         testFile.close();
         bool removed = testFile.remove();
 
@@ -38,7 +39,7 @@ bool verifyConfigAvaliability(QString path, bool checkExistingConfig)
         // No such config file.
         if (!configFile.exists()) return false;
 
-        bool opened2 = configFile.open(QIODevice::OpenModeFlag::ReadWrite);
+        bool opened2 = configFile.open(QIODevice::ReadWrite);
 
         try {
             if (opened2) {
@@ -73,23 +74,23 @@ bool initialiseQv2ray()
         bool avail = verifyConfigAvaliability(path, true);
 
         if (avail) {
-            //LOG(MODULE_INIT, "Path: " + path.toStdString() + " is valid.")
+            DEBUG(MODULE_INIT, "Path: " << path.toStdString() << " is valid.")
             configPath = path;
             hasExistingConfig = true;
         } else {
-            //LOG(MODULE_INIT, "Path: " + path.toStdString() + " does not contain a valid config file.")
+            DEBUG(MODULE_INIT, "Path: " << path.toStdString() << " does not contain a valid config file.")
         }
     }
 
     // If there's no existing config.
     if (!hasExistingConfig) {
         // Create new config at these dirs.
-#ifdef _WIN32
+#ifdef Q_OS_WIN
         configPath = QDir::currentPath() + "/config" QV2RAY_CONFIG_DIR_SUFFIX;
-#elif defined (__linux__)
-        configPath = QDir::homePath() +  "/.config/qv2ray" QV2RAY_CONFIG_DIR_SUFFIX;
+#elif defined (Q_OS_LINUX)
+        configPath = QDir::homePath() + "/.config/qv2ray" QV2RAY_CONFIG_DIR_SUFFIX;
 #elif defined (__APPLE__)
-        configPath = QDir::homePath() +  "/.qv2ray" QV2RAY_CONFIG_DIR_SUFFIX;
+        configPath = QDir::homePath() + "/.qv2ray" QV2RAY_CONFIG_DIR_SUFFIX;
 #else
         LOG(MODULE_INIT, "CANNOT CONTINUE because Qv2ray cannot determine the OS type.")
         static_assert(false, "Qv2ray Cannot understand the enviornment");
@@ -105,54 +106,29 @@ bool initialiseQv2ray()
             QvMessageBox(nullptr, QObject::tr("Cannot Start Qv2ray"),
                          QObject::tr("Cannot find a place to store config files.") + NEWLINE +
                          QObject::tr("Qv2ray has searched these paths below:") +
-                         NEWLINE + NEWLINE +
-                         searchPath +
-                         NEWLINE + NEWLINE +
+                         NEWLINE + NEWLINE + searchPath + NEWLINE +
                          QObject::tr("Qv2ray will now exit."));
             return false;
         } else {
             LOG(MODULE_INIT, "Set " + configPath.toStdString() + " as the config path.")
             SetConfigDirPath(&configPath);
-            QFile qvConfigFile(configPath + "/Qv2ray.conf");
-            // Generate new default config.
-            Qv2rayCoreInboundsConfig inboundSetting = Qv2rayCoreInboundsConfig("127.0.0.1", 1080, 8000);
-            Qv2rayConfig conf = Qv2rayConfig("en-US", QV2RAY_DEFAULT_VCORE_PATH.toStdString(), 4, inboundSetting);
+            Qv2rayInboundsConfig inboundSetting = Qv2rayInboundsConfig("127.0.0.1", 1080, 8000);
+            Qv2rayConfig conf = Qv2rayConfig(QV2RAY_DEFAULT_VCORE_PATH.toStdString(), 4, inboundSetting);
             //
             // Save initial config.
             SetGlobalConfig(conf);
-            //
             LOG(MODULE_INIT, "Created initial config file.")
         }
     } else {
-        LOG(MODULE_INIT, "Set " + configPath.toStdString() + " as the config path.")
         SetConfigDirPath(&configPath);
+        LOG(MODULE_INIT, "Using " + QV2RAY_CONFIG_DIR.toStdString() + " as the config path.")
     }
 
-    if (!QDir(QV2RAY_CONFIG_DIR + "generated/").exists()) {
-        QDir().mkdir(QV2RAY_CONFIG_DIR + "generated/");
-        LOG(MODULE_INIT, "Created config generation dir under: " + QV2RAY_CONFIG_DIR.toStdString())
+    if (!QDir(QV2RAY_GENERATED_DIR).exists()) {
+        QDir().mkdir(QV2RAY_GENERATED_DIR);
+        LOG(MODULE_INIT, "Created config generation dir at: " + QV2RAY_GENERATED_DIR.toStdString())
     }
 
-    auto conf = JsonFromString(StringFromFile(new QFile(QV2RAY_CONFIG_FILE)));
-    //
-    auto confVersion = conf["config_version"].toVariant().toString();
-    auto newVersion = QSTRING(to_string(QV2RAY_CONFIG_VERSION));
-
-    // Some config file upgrades.
-    if (confVersion.toInt() > QV2RAY_CONFIG_VERSION) {
-        // Config version is larger than the current version...
-        // This is rare but it may happen....
-        QvMessageBox(nullptr, QObject::tr("Qv2ray Cannot Continue"),
-                     QObject::tr("You are running a lower version of Qv2ray compared to the current config file.") + NEWLINE +
-                     QObject::tr("Please report if you think this is an error.") + NEWLINE +
-                     QObject::tr("Qv2ray will now exit."));
-        return false;
-    } else if (confVersion != newVersion) {
-        conf = UpgradeConfig(confVersion.toInt(), QV2RAY_CONFIG_VERSION, conf);
-    }
-
-    auto confObject = StructFromJsonString<Qv2rayConfig>(JsonToString(conf));
-    SetGlobalConfig(confObject);
     return true;
 }
 
@@ -161,30 +137,43 @@ int main(int argc, char *argv[])
 {
     // This line must be called before any other ones.
     QApplication _qApp(argc, argv);
+    //
+    // Install a default translater. From the OS/DE
+    auto _lang = QLocale::system().name().replace("_", "-");
+
+    if (_lang != "en-US") {
+        bool _result_ = qApp->installTranslator(getTranslator(_lang));
+        LOG(MODULE_UI, "Installing a tranlator from OS: " + _lang.toStdString() + " -- " + (_result_ ? "OK" : "Failed"))
+    }
+
     LOG("LICENCE", NEWLINE "This program comes with ABSOLUTELY NO WARRANTY." NEWLINE
         "This is free software, and you are welcome to redistribute it" NEWLINE
-        "under certain conditions." NEWLINE
-        NEWLINE
-        "Qv2ray Current Developer Copyright (C) 2019 Leroy.H.Y (@lhy0403)" NEWLINE
-        "Hv2ray Initial Designs & gRPC implementation Copyright (C) 2019 Hork (@aliyuchang33)" NEWLINE
-        "Hv2ray/Qv2ray HTTP Request Helper (partial) Copyright 2019 (C) SOneWinstone (@SoneWinstone)" NEWLINE
+        "under certain conditions." NEWLINE NEWLINE
+        "Copyright (C) 2019 Leroy.H.Y (@lhy0403): Qv2ray Current Developer" NEWLINE
+        "Copyright (C) 2019 Hork (@aliyuchang33): Hv2ray Initial Designs & gRPC implementation " NEWLINE
+        "Copyright (C) 2019 SOneWinstone (@SoneWinstone): Hv2ray/Qv2ray HTTP Request Helper" NEWLINE
         "Qv2ray ArtWork Done By ArielAxionL (@axionl)" NEWLINE
-        "Qv2ray Russian Translations By TheBadGateway (@thebadgateway)" NEWLINE
-        "Qv2ray patch 8a8c1a By Riko (@rikakomoe)" NEWLINE
+        "TheBadGateway (@thebadgateway): Qv2ray Russian Translations" NEWLINE
+        "Riko (@rikakomoe): Qv2ray patch 8a8c1a/PR115"
+        NEWLINE NEWLINE
+        "Libraries that have been used in Qv2ray are listed below (Sorted by date added):" NEWLINE
+        "Copyright (c) 2019 dridk (@dridk): X2Struct (Apache)" NEWLINE
+        "Copyright (c) 2011 SCHUTZ Sacha (@dridk): QJsonModel (MIT)" NEWLINE
+        "Copyright (c) 2019 Nikolaos Ftylitakis (@ftylitak): QZXing (Apache2)" NEWLINE
+        "Copyright (c) 2016 Singein (@Singein): ScreenShot (MIT)" NEWLINE
         NEWLINE
         "Qv2ray " QV2RAY_VERSION_STRING " running on " +
-        (QSysInfo::prettyProductName() + " " + QSysInfo::currentCpuArchitecture()).toStdString() +
-        NEWLINE)
+        (QSysInfo::prettyProductName() + " " + QSysInfo::currentCpuArchitecture()).toStdString() + NEWLINE)
     //
     LOG(MODULE_INIT, "Qv2ray Start Time: "  + QString::number(QTime::currentTime().msecsSinceStartOfDay()).toStdString())
-#ifdef QT_DEBUG
-    LOG("DEBUG", "============================== This is a debug build, many features are not stable enough. ==============================")
-#endif
-    auto langs = getFileList(QDir(":/translations"));
+    DEBUG("DEBUG", "WARNING: ============================== This is a debug build, many features are not stable enough. ==============================")
+    //
+    // Initialise the language list.
+    auto langs = GetFileList(QDir(":/translations"));
 
     if (langs.empty()) {
         LOG(MODULE_INIT, "FAILED to find any translations. THIS IS A BUILD ERROR.")
-        QvMessageBox(nullptr, "Cannot load languages", "Qv2ray will run, but you cannot change the UI language.");
+        QvMessageBox(nullptr, QObject::tr("Cannot load languages"), QObject::tr("Qv2ray will continue running, but you cannot change the UI language."));
     } else {
         for (auto lang : langs) {
             LOG(MODULE_INIT, "Found Translator: " + lang.toStdString())
@@ -196,38 +185,51 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-#ifdef _WIN32
-    // Set special font in Windows
-    QFont font;
-    font.setPointSize(9);
-    font.setFamily("微软雅黑");
-    _qApp.setFont(font);
+#ifdef QT_DEBUG
+    RunGuard guard("Qv2ray-Instance-Identifier-DEBUG_VERSION");
+#else
+    RunGuard guard("Qv2ray-Instance-Identifier");
 #endif
-#ifdef __APPLE__
-    _qApp.setStyle("fusion");
-#endif
-    LOG(MODULE_UI, "Current Window Style: " + _qApp.style()->objectName().toStdString())
-    auto list = QStyleFactory::keys();
-    LOG(MODULE_UI, Stringify(list).toStdString())
-    auto lang = GetGlobalConfig().language;
-    auto qStringLang = QSTRING(lang);
 
-    if (_qApp.installTranslator(getTranslator(&qStringLang)) || qStringLang == "en-US") {
-        LOG(MODULE_INIT, "Loaded Translator " + lang)
+    if (!guard.isSingleInstance()) {
+        LOG(MODULE_INIT, "Another Instance running, Quit.")
+        QvMessageBox(nullptr, "Qv2ray", QObject::tr("Another instance of Qv2ray is already running."));
+        return -1;
+    }
+
+    auto conf = JsonFromString(StringFromFile(new QFile(QV2RAY_CONFIG_FILE)));
+    //
+    auto confVersion = conf["config_version"].toVariant().toString();
+    auto newVersion = QSTRING(to_string(QV2RAY_CONFIG_VERSION));
+    // Some config file upgrades.
+    Q_UNLIKELY(confVersion.toInt() > QV2RAY_CONFIG_VERSION);
+
+    if (confVersion.toInt() > QV2RAY_CONFIG_VERSION) {
+        // Config version is larger than the current version...
+        // This is rare but it may happen....
+        QvMessageBox(nullptr, QObject::tr("Qv2ray Cannot Continue"),
+                     QObject::tr("You are running a lower version of Qv2ray compared to the current config file.") + NEWLINE +
+                     QObject::tr("Please report if you think this is an error.") + NEWLINE +
+                     QObject::tr("Qv2ray will now exit."));
+        return -3;
+    } else if (confVersion != newVersion) {
+        conf = Qv2ray::UpgradeConfig(confVersion.toInt(), QV2RAY_CONFIG_VERSION, conf);
+    }
+
+    auto confObject = StructFromJsonString<Qv2rayConfig>(JsonToString(conf));
+    SetGlobalConfig(confObject);
+
+    if (qApp->installTranslator(getTranslator(QSTRING(confObject.uiConfig.language))) || confObject.uiConfig.language == "en-US") {
+        LOG(MODULE_INIT, "Loaded Translator " + confObject.uiConfig.language)
     } else {
         // Do not translate these.....
         QvMessageBox(
             nullptr, "Translation Failed",
-            "We cannot load translation for " + qStringLang + ", English is now used.\r\n\r\n "
-            "Please go to Prefrence Window to change or Report a Bug at: \r\n"
+            "Cannot load translation for " + QSTRING(confObject.uiConfig.language) + ", English is now used.\r\n\r\n"
+            "Please go to Prefrences Window to change or Report a Bug at: \r\n"
             "https://github.com/lhy0403/Qv2ray/issues/new");
     }
 
-    RunGuard guard("Qv2ray-Instance-Identifier"
-#ifdef QT_DEBUG
-                   "DEBUG_VERSION"
-#endif
-                  );
     auto osslReqVersion = QSslSocket::sslLibraryBuildVersionString().toStdString();
     auto osslCurVersion = QSslSocket::sslLibraryVersionString().toStdString();
     LOG(MODULE_NETWORK, "Current OpenSSL version: " + osslCurVersion)
@@ -247,13 +249,63 @@ int main(int argc, char *argv[])
         return -2;
     }
 
-    if (!guard.isSingleInstance()) {
-        LOG(MODULE_INIT, "Another Instance running, Quit.")
-        QvMessageBox(nullptr, "Qv2ray", QObject::tr("Another instance of Qv2ray is already running."));
-        return -1;
+#ifdef Q_OS_WIN
+    // Set special font in Windows
+    QFont font;
+    font.setPointSize(9);
+    font.setFamily("微软雅黑");
+    _qApp.setFont(font);
+#endif
+#if QV2RAY_USE_BUILTIN_DARKTHEME
+    LOG(MODULE_UI, "Using built-in theme.")
+
+    if (confObject.uiConfig.useDarkTheme) {
+        LOG(MODULE_UI, " --> Using built-in dark theme.")
+        // From https://forum.qt.io/topic/101391/windows-10-dark-theme/4
+        _qApp.setStyle("Fusion");
+        QPalette darkPalette;
+        QColor darkColor = QColor(45, 45, 45);
+        QColor disabledColor = QColor(127, 127, 127);
+        // See Qv2rayBase.hpp MACRO --> BLACK(obj)
+        QColor defaultTextColor = QColor(210, 210, 210);
+        darkPalette.setColor(QPalette::Window, darkColor);
+        darkPalette.setColor(QPalette::WindowText, defaultTextColor);
+        darkPalette.setColor(QPalette::Disabled, QPalette::WindowText, disabledColor);
+        darkPalette.setColor(QPalette::Base, QColor(18, 18, 18));
+        darkPalette.setColor(QPalette::AlternateBase, darkColor);
+        darkPalette.setColor(QPalette::ToolTipBase, defaultTextColor);
+        darkPalette.setColor(QPalette::ToolTipText, defaultTextColor);
+        darkPalette.setColor(QPalette::Text, defaultTextColor);
+        darkPalette.setColor(QPalette::Disabled, QPalette::Text, disabledColor);
+        darkPalette.setColor(QPalette::Button, darkColor);
+        darkPalette.setColor(QPalette::ButtonText, defaultTextColor);
+        darkPalette.setColor(QPalette::Disabled, QPalette::ButtonText, disabledColor);
+        darkPalette.setColor(QPalette::BrightText, Qt::red);
+        darkPalette.setColor(QPalette::Link, QColor(42, 130, 218));
+        darkPalette.setColor(QPalette::Highlight, QColor(42, 130, 218));
+        darkPalette.setColor(QPalette::HighlightedText, Qt::black);
+        darkPalette.setColor(QPalette::Disabled, QPalette::HighlightedText, disabledColor);
+        qApp->setPalette(darkPalette);
+        qApp->setStyleSheet("QToolTip { color: #ffffff; background-color: #2a82da; border: 1px solid white; }");
     }
 
-    // Show MainWindow
-    MainWindow w;
-    return _qApp.exec();
+#else
+    QStringList themes = QStyleFactory::keys();
+
+    if (themes.contains(QSTRING(confObject.uiConfig.theme))) {
+        _qApp.setStyle(QSTRING(confObject.uiConfig.theme));
+        LOG(MODULE_INIT " " MODULE_UI, "Setting Qv2ray UI themes.")
+    }
+
+#endif
+
+    try {
+        // Show MainWindow
+        MainWindow w;
+        return _qApp.exec();
+    }  catch (...) {
+        QvMessageBox(nullptr, "ERROR", "There's something wrong happened and Qv2ray will quit now.");
+        LOG(MODULE_INIT, "EXCEPTION THROWN: " __FILE__)
+        return -9;
+    }
 }

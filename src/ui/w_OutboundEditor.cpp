@@ -1,24 +1,22 @@
-#include <QDebug>
+﻿#include <QDebug>
 #include <QFile>
 #include <QIntValidator>
 #include <iostream>
 
-#include "w_OutboundEditor.h"
-#include "w_MainWindow.h"
-#include "w_JsonEditor.h"
+#include "w_OutboundEditor.hpp"
+#include "w_MainWindow.hpp"
+#include "w_JsonEditor.hpp"
+#include "w_RoutesEditor.hpp"
 
 OutboundEditor::OutboundEditor(QWidget *parent)
     : QDialog(parent),
       Tag(""),
       Mux(),
-      ui(new Ui::OutboundEditor),
       stream(),
       vmess(),
       shadowsocks()
 {
-    ui->setupUi(this);
-    ui->portLineEdit->setValidator(new QIntValidator());
-    ui->alterLineEdit->setValidator(new QIntValidator());
+    setupUi(this);
     shadowsocks = ShadowSocksServerObject();
     socks = SocksServerObject();
     socks.users.push_back(SocksServerObject::UserObject());
@@ -36,7 +34,7 @@ OutboundEditor::OutboundEditor(QJsonObject outboundEntry, QWidget *parent)
 {
     Original = outboundEntry;
     Tag = outboundEntry["tag"].toString();
-    ui->tagTxt->setText(Tag);
+    tagTxt->setText(Tag);
     OutboundType = outboundEntry["protocol"].toString();
     Mux = outboundEntry["mux"].toObject();
 
@@ -68,7 +66,6 @@ OutboundEditor::OutboundEditor(QJsonObject outboundEntry, QWidget *parent)
 
 OutboundEditor::~OutboundEditor()
 {
-    delete ui;
 }
 
 QJsonObject OutboundEditor::OpenEditor()
@@ -79,8 +76,8 @@ QJsonObject OutboundEditor::OpenEditor()
 
 QString OutboundEditor::GetFriendlyName()
 {
-    auto host = ui->ipLineEdit->text().replace(":", "-").replace("/", "_").replace("\\", "_");
-    auto port = ui->portLineEdit->text().replace(":", "-").replace("/", "_").replace("\\", "_");
+    auto host = ipLineEdit->text().replace(":", "-").replace("/", "_").replace("\\", "_");
+    auto port = portLineEdit->text().replace(":", "-").replace("/", "_").replace("\\", "_");
     auto type = OutboundType;
     QString name = Tag.isEmpty() ? host + "-[" + port + "]-" + type : Tag;
     return name;
@@ -89,18 +86,18 @@ QString OutboundEditor::GetFriendlyName()
 void OutboundEditor::ReLoad_GUI_JSON_ModelContent()
 {
     if (OutboundType == "vmess") {
-        ui->outBoundTypeCombo->setCurrentIndex(0);
-        ui->ipLineEdit->setText(QSTRING(vmess.address));
-        ui->portLineEdit->setText(QString::number(vmess.port));
-        ui->idLineEdit->setText(QSTRING(vmess.users.front().id));
-        ui->alterLineEdit->setText(QString::number(vmess.users.front().alterId));
-        ui->securityCombo->setCurrentText(QSTRING(vmess.users.front().security));
-        ui->tranportCombo->setCurrentText(QSTRING(stream.network));
-        ui->tlsCB->setChecked(stream.security == "tls");
+        outBoundTypeCombo->setCurrentIndex(0);
+        ipLineEdit->setText(QSTRING(vmess.address));
+        portLineEdit->setText(QString::number(vmess.port));
+        idLineEdit->setText(QSTRING(vmess.users.front().id));
+        alterLineEdit->setValue(vmess.users.front().alterId);
+        securityCombo->setCurrentText(QSTRING(vmess.users.front().security));
+        tranportCombo->setCurrentText(QSTRING(stream.network));
+        tlsCB->setChecked(stream.security == "tls");
         // TCP
-        ui->tcpHeaderTypeCB->setCurrentText(QSTRING(stream.tcpSettings.header.type));
-        ui->tcpRequestTxt->setPlainText(StructToJsonString(stream.tcpSettings.header.request));
-        ui->tcpRespTxt->setPlainText(StructToJsonString(stream.tcpSettings.header.response));
+        tcpHeaderTypeCB->setCurrentText(QSTRING(stream.tcpSettings.header.type));
+        tcpRequestTxt->setPlainText(StructToJsonString(stream.tcpSettings.header.request));
+        tcpRespTxt->setPlainText(StructToJsonString(stream.tcpSettings.header.response));
         // HTTP
         QString allHosts;
 
@@ -108,57 +105,57 @@ void OutboundEditor::ReLoad_GUI_JSON_ModelContent()
             allHosts = allHosts + QSTRING(host) + "\r\n";
         }
 
-        ui->httpHostTxt->setPlainText(allHosts);
-        ui->httpPathTxt->setText(QSTRING(stream.httpSettings.path));
+        httpHostTxt->setPlainText(allHosts);
+        httpPathTxt->setText(QSTRING(stream.httpSettings.path));
         // WS
-        ui->wsPathTxt->setText(QSTRING(stream.wsSettings.path));
+        wsPathTxt->setText(QSTRING(stream.wsSettings.path));
         QString wsHeaders = std::accumulate(stream.wsSettings.headers.begin(), stream.wsSettings.headers.end(), QString(), [](QString in1, const pair<string, string> &in2) {
             in1 += QSTRING(in2.first + "|" + in2.second) + "\r\n";
             return in1;
         });
-        ui->wsHeadersTxt->setPlainText(wsHeaders);
+        wsHeadersTxt->setPlainText(wsHeaders);
         // mKCP
-        ui->kcpMTU->setValue(stream.kcpSettings.mtu);
-        ui->kcpTTI->setValue(stream.kcpSettings.tti);
-        ui->kcpHeaderType->setCurrentText(QSTRING(stream.kcpSettings.header.type));
-        ui->kcpCongestionCB->setChecked(stream.kcpSettings.congestion);
-        ui->kcpReadBufferSB->setValue(stream.kcpSettings.readBufferSize);
-        ui->kcpUploadCapacSB->setValue(stream.kcpSettings.uplinkCapacity);
-        ui->kcpDownCapacitySB->setValue(stream.kcpSettings.downlinkCapacity);
-        ui->kcpWriteBufferSB->setValue(stream.kcpSettings.writeBufferSize);
+        kcpMTU->setValue(stream.kcpSettings.mtu);
+        kcpTTI->setValue(stream.kcpSettings.tti);
+        kcpHeaderType->setCurrentText(QSTRING(stream.kcpSettings.header.type));
+        kcpCongestionCB->setChecked(stream.kcpSettings.congestion);
+        kcpReadBufferSB->setValue(stream.kcpSettings.readBufferSize);
+        kcpUploadCapacSB->setValue(stream.kcpSettings.uplinkCapacity);
+        kcpDownCapacitySB->setValue(stream.kcpSettings.downlinkCapacity);
+        kcpWriteBufferSB->setValue(stream.kcpSettings.writeBufferSize);
         // DS
-        ui->dsPathTxt->setText(QSTRING(stream.dsSettings.path));
+        dsPathTxt->setText(QSTRING(stream.dsSettings.path));
         // QUIC
-        ui->quicKeyTxt->setText(QSTRING(stream.quicSettings.key));
-        ui->quicSecurityCB->setCurrentText(QSTRING(stream.quicSettings.security));
-        ui->quicHeaderTypeCB->setCurrentText(QSTRING(stream.quicSettings.header.type));
+        quicKeyTxt->setText(QSTRING(stream.quicSettings.key));
+        quicSecurityCB->setCurrentText(QSTRING(stream.quicSettings.security));
+        quicHeaderTypeCB->setCurrentText(QSTRING(stream.quicSettings.header.type));
         // SOCKOPT
-        ui->tProxyCB->setCurrentText(QSTRING(stream.sockopt.tproxy));
-        ui->tcpFastOpenCB->setChecked(stream.sockopt.tcpFastOpen);
-        ui->soMarkSpinBox->setValue(stream.sockopt.mark);
+        tProxyCB->setCurrentText(QSTRING(stream.sockopt.tproxy));
+        tcpFastOpenCB->setChecked(stream.sockopt.tcpFastOpen);
+        soMarkSpinBox->setValue(stream.sockopt.mark);
     } else if (OutboundType == "shadowsocks") {
-        ui->outBoundTypeCombo->setCurrentIndex(1);
+        outBoundTypeCombo->setCurrentIndex(1);
         // ShadowSocks Configs
-        ui->ipLineEdit->setText(QSTRING(shadowsocks.address));
-        ui->portLineEdit->setText(QString::number(shadowsocks.port));
-        ui->ss_emailTxt->setText(QSTRING(shadowsocks.email));
-        ui->ss_levelSpin->setValue(shadowsocks.level);
-        ui->ss_otaCheckBox->setChecked(shadowsocks.ota);
-        ui->ss_passwordTxt->setText(QSTRING(shadowsocks.password));
-        ui->ss_encryptionMethod->setCurrentText(QSTRING(shadowsocks.method));
+        ipLineEdit->setText(QSTRING(shadowsocks.address));
+        portLineEdit->setText(QString::number(shadowsocks.port));
+        ss_emailTxt->setText(QSTRING(shadowsocks.email));
+        ss_levelSpin->setValue(shadowsocks.level);
+        ss_otaCheckBox->setChecked(shadowsocks.ota);
+        ss_passwordTxt->setText(QSTRING(shadowsocks.password));
+        ss_encryptionMethod->setCurrentText(QSTRING(shadowsocks.method));
     } else if (OutboundType == "socks") {
-        ui->outBoundTypeCombo->setCurrentIndex(2);
-        ui->ipLineEdit->setText(QSTRING(socks.address));
-        ui->portLineEdit->setText(QString::number(socks.port));
+        outBoundTypeCombo->setCurrentIndex(2);
+        ipLineEdit->setText(QSTRING(socks.address));
+        portLineEdit->setText(QString::number(socks.port));
 
         if (socks.users.empty()) socks.users.push_back(SocksServerObject::UserObject());
 
-        ui->socks_PasswordTxt->setText(QSTRING(socks.users.front().pass));
-        ui->socks_UserNameTxt->setText(QSTRING(socks.users.front().user));
+        socks_PasswordTxt->setText(QSTRING(socks.users.front().pass));
+        socks_UserNameTxt->setText(QSTRING(socks.users.front().user));
     }
 
-    ui->muxEnabledCB->setChecked(Mux["enabled"].toBool());
-    ui->muxConcurrencyTxt->setValue(Mux["concurrency"].toInt());
+    muxEnabledCB->setChecked(Mux["enabled"].toBool());
+    muxConcurrencyTxt->setValue(Mux["concurrency"].toInt());
 }
 
 
@@ -190,13 +187,6 @@ void OutboundEditor::on_idLineEdit_textEdited(const QString &arg1)
     vmess.users.front().id = arg1.toStdString();
 }
 
-void OutboundEditor::on_alterLineEdit_textEdited(const QString &arg1)
-{
-    if (vmess.users.empty()) vmess.users.push_back(VMessServerObject::UserObject());
-
-    vmess.users.front().alterId = stoi(arg1.toStdString());
-}
-
 void OutboundEditor::on_securityCombo_currentIndexChanged(const QString &arg1)
 {
     if (vmess.users.empty()) vmess.users.push_back(VMessServerObject::UserObject());
@@ -217,7 +207,7 @@ void OutboundEditor::on_httpPathTxt_textEdited(const QString &arg1)
 void OutboundEditor::on_httpHostTxt_textChanged()
 {
     try {
-        QStringList hosts = ui->httpHostTxt->toPlainText().replace("\r", "").split("\n");
+        QStringList hosts = httpHostTxt->toPlainText().replace("\r", "").split("\n");
         stream.httpSettings.host.clear();
 
         foreach (auto host, hosts) {
@@ -234,7 +224,7 @@ void OutboundEditor::on_httpHostTxt_textChanged()
 void OutboundEditor::on_wsHeadersTxt_textChanged()
 {
     try {
-        QStringList headers = ui->wsHeadersTxt->toPlainText().replace("\r", "").split("\n");
+        QStringList headers = wsHeadersTxt->toPlainText().replace("\r", "").split("\n");
         stream.wsSettings.headers.clear();
 
         foreach (auto header, headers) {
@@ -256,21 +246,21 @@ void OutboundEditor::on_wsHeadersTxt_textChanged()
 
 void OutboundEditor::on_tcpRequestDefBtn_clicked()
 {
-    ui->tcpRequestTxt->clear();
-    ui->tcpRequestTxt->insertPlainText("{\"version\":\"1.1\",\"method\":\"GET\",\"path\":[\"/\"],\"headers\":"
-                                       "{\"Host\":[\"www.baidu.com\",\"www.bing.com\"],\"User-Agent\":"
-                                       "[\"Mozilla/5.0 (Windows NT 10.0; WOW64) "
-                                       "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36\","
-                                       "\"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0_2 like Mac OS X) "
-                                       "AppleWebKit/601.1 (KHTML, like Gecko) CriOS/53.0.2785.109 Mobile/14A456 "
-                                       "Safari/601.1.46\"],\"Accept-Encoding\":[\"gzip, deflate\"],"
-                                       "\"Connection\":[\"keep-alive\"],\"Pragma\":\"no-cache\"}}");
+    tcpRequestTxt->clear();
+    tcpRequestTxt->insertPlainText("{\"version\":\"1.1\",\"method\":\"GET\",\"path\":[\"/\"],\"headers\":"
+                                   "{\"Host\":[\"www.baidu.com\",\"www.bing.com\"],\"User-Agent\":"
+                                   "[\"Mozilla/5.0 (Windows NT 10.0; WOW64) "
+                                   "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36\","
+                                   "\"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0_2 like Mac OS X) "
+                                   "AppleWebKit/601.1 (KHTML, like Gecko) CriOS/53.0.2785.109 Mobile/14A456 "
+                                   "Safari/601.1.46\"],\"Accept-Encoding\":[\"gzip, deflate\"],"
+                                   "\"Connection\":[\"keep-alive\"],\"Pragma\":\"no-cache\"}}");
 }
 
 void OutboundEditor::on_tcpRespDefBtn_clicked()
 {
-    ui->tcpRespTxt->clear();
-    ui->tcpRespTxt->insertPlainText("{\"version\":\"1.1\",\"status\":\"200\",\"reason\":\"OK\",\"headers\":{\"Content-Type\":[\"application/octet-stream\",\"video/mpeg\"],\"Transfer-Encoding\":[\"chunked\"],\"Connection\":[\"keep-alive\"],\"Pragma\":\"no-cache\"}}");
+    tcpRespTxt->clear();
+    tcpRespTxt->insertPlainText("{\"version\":\"1.1\",\"status\":\"200\",\"reason\":\"OK\",\"headers\":{\"Content-Type\":[\"application/octet-stream\",\"video/mpeg\"],\"Transfer-Encoding\":[\"chunked\"],\"Connection\":[\"keep-alive\"],\"Pragma\":\"no-cache\"}}");
 }
 
 QJsonObject OutboundEditor::GenerateConnectionJson()
@@ -369,7 +359,7 @@ void OutboundEditor::on_kcpHeaderType_currentTextChanged(const QString &arg1)
 }
 void OutboundEditor::on_tranportCombo_currentIndexChanged(int index)
 {
-    ui->v2rayStackView->setCurrentIndex(index);
+    v2rayStackView->setCurrentIndex(index);
 }
 void OutboundEditor::on_dsPathTxt_textEdited(const QString &arg1)
 {
@@ -377,8 +367,8 @@ void OutboundEditor::on_dsPathTxt_textEdited(const QString &arg1)
 }
 void OutboundEditor::on_outBoundTypeCombo_currentIndexChanged(int index)
 {
-    ui->outboundTypeStackView->setCurrentIndex(index);
-    OutboundType = ui->outBoundTypeCombo->currentText().toLower();
+    outboundTypeStackView->setCurrentIndex(index);
+    OutboundType = outBoundTypeCombo->currentText().toLower();
 }
 
 void OutboundEditor::on_ss_emailTxt_textEdited(const QString &arg1)
@@ -418,9 +408,9 @@ void OutboundEditor::on_socks_PasswordTxt_textEdited(const QString &arg1)
 
 void OutboundEditor::on_tcpRequestEditBtn_clicked()
 {
-    JsonEditor *w = new JsonEditor(JsonFromString(ui->tcpRequestTxt->toPlainText()), this);
+    JsonEditor *w = new JsonEditor(JsonFromString(tcpRequestTxt->toPlainText()), this);
     auto rString = JsonToString(w->OpenEditor());
-    ui->tcpRequestTxt->setPlainText(rString);
+    tcpRequestTxt->setPlainText(rString);
     auto tcpReqObject = StructFromJsonString<TSObjects::HTTPRequestObject>(rString);
     stream.tcpSettings.header.request = tcpReqObject;
     delete w;
@@ -428,9 +418,9 @@ void OutboundEditor::on_tcpRequestEditBtn_clicked()
 
 void OutboundEditor::on_tcpResponseEditBtn_clicked()
 {
-    JsonEditor *w = new JsonEditor(JsonFromString(ui->tcpRespTxt->toPlainText()), this);
+    JsonEditor *w = new JsonEditor(JsonFromString(tcpRespTxt->toPlainText()), this);
     auto rString = JsonToString(w->OpenEditor());
-    ui->tcpRespTxt->setPlainText(rString);
+    tcpRespTxt->setPlainText(rString);
     auto tcpRspObject = StructFromJsonString<TSObjects::HTTPResponseObject>(rString);
     stream.tcpSettings.header.response = tcpRspObject;
     delete w;
@@ -449,4 +439,11 @@ void OutboundEditor::on_muxEnabledCB_stateChanged(int arg1)
 void OutboundEditor::on_muxConcurrencyTxt_valueChanged(int arg1)
 {
     Mux["concurrency"] = arg1;
+}
+
+void OutboundEditor::on_alterLineEdit_valueChanged(int arg1)
+{
+    if (vmess.users.empty()) vmess.users.push_back(VMessServerObject::UserObject());
+
+    vmess.users.front().alterId = arg1;
 }

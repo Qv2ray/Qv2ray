@@ -36,7 +36,7 @@ jobs:
           cd build
           cd release
           del *.cpp *.h *.o *.qrc *.qm
-          windeployqt ./Qv2ray.exe --compiler-runtime
+          windeployqt ./qv2ray.exe --compiler-runtime
           cd ..
           ..\tools\7z.exe a Qv2ray.zip .\release
       - name: Uploading artifact
@@ -71,10 +71,10 @@ jobs:
       - name: Making release tarball
         run: |
           cd build
-          cd Qv2ray.app
+          cd qv2ray.app
           macdeployqt ./
           cd ..
-          tar czf Qv2ray.app.tar.gz Qv2ray.app
+          tar czf Qv2ray.app.tar.gz qv2ray.app
       - name: Uploading Artifact
         uses: actions/upload-artifact@master
         with:
@@ -117,7 +117,7 @@ jobs:
           cd AppDir
           mkdir -p ./usr/lib/
           mkdir -p ./usr/bin/
-          mv ./usr/local/bin/Qv2ray ./usr/bin/Qv2ray 
+          mv ./usr/local/bin/qv2ray ./usr/bin/qv2ray 
           cp /usr/lib/x86_64-linux-gnu/libssl.so.1.1 /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1 ./usr/lib/
       - name: Building AppImage using linuxdeployqt
         run: |
@@ -126,7 +126,7 @@ jobs:
           chmod +x ./linuxdeployqt-6-x86_64.AppImage
           ./linuxdeployqt-6-x86_64.AppImage --appimage-extract 
           cd AppDir
-          ../squashfs-root/AppRun usr/share/applications/Qv2ray.desktop -appimage -no-strip -always-overwrite
+          ../squashfs-root/AppRun usr/share/applications/qv2ray.desktop -appimage -no-strip -always-overwrite
           mv ./Qv2ray*.AppImage ./Qv2ray.AppImage
       - name: Uploading artifact
         uses: actions/upload-artifact@master

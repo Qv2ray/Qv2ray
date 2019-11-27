@@ -1,37 +1,34 @@
-#include "w_SubscriptionEditor.h"
-#include "ui_w_SubscriptionEditor.h"
-#include "QvHTTPRequestHelper.h"
-#include "QvUtils.h"
-#include "QvCoreConfigOperations.h"
+﻿#include "w_SubscriptionEditor.hpp"
+#include "QvHTTPRequestHelper.hpp"
+#include "QvUtils.hpp"
+#include "QvCoreConfigOperations.hpp"
 
 
 SubscribeEditor::SubscribeEditor(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::w_SubscribeEditor)
+    QDialog(parent)
 {
-    ui->setupUi(this);
+    setupUi(this);
     auto conf = GetGlobalConfig();
 
     foreach (auto value, conf.subscribes) {
-        ui->subsribeTable->insertRow(ui->subsribeTable->rowCount());
-        ui->subsribeTable->setItem(ui->subsribeTable->rowCount() - 1, 0, new QTableWidgetItem(QString::fromStdString(value.first)));
-        ui->subsribeTable->setItem(ui->subsribeTable->rowCount() - 1, 1, new QTableWidgetItem(QString::fromStdString(value.second)));
+        subsribeTable->insertRow(subsribeTable->rowCount());
+        subsribeTable->setItem(subsribeTable->rowCount() - 1, 0, new QTableWidgetItem(QString::fromStdString(value.first)));
+        subsribeTable->setItem(subsribeTable->rowCount() - 1, 1, new QTableWidgetItem(QString::fromStdString(value.second)));
     }
 }
 
 SubscribeEditor::~SubscribeEditor()
 {
-    delete ui;
 }
 
 void SubscribeEditor::on_buttonBox_accepted()
 {
     map<string, string> subscribes;
 
-    for (int i = 0; i < ui->subsribeTable->rowCount(); i++) {
+    for (int i = 0; i < subsribeTable->rowCount(); i++) {
         pair<string, string> kvp;
-        kvp.first = ui->subsribeTable->item(i, 0)->text().toStdString();
-        kvp.second = ui->subsribeTable->item(i, 1)->text().toStdString();
+        kvp.first = subsribeTable->item(i, 0)->text().toStdString();
+        kvp.second = subsribeTable->item(i, 1)->text().toStdString();
         subscribes.insert(kvp);
     }
 
@@ -43,7 +40,7 @@ void SubscribeEditor::on_buttonBox_accepted()
 
 void SubscribeEditor::on_addSubsButton_clicked()
 {
-    ui->subsribeTable->insertRow(ui->subsribeTable->rowCount());
+    subsribeTable->insertRow(subsribeTable->rowCount());
 }
 
 void SubscribeEditor::on_updateButton_clicked()
@@ -54,22 +51,24 @@ void SubscribeEditor::on_updateButton_clicked()
     }
 
     isUpdateInProgress = true;
-    int index = ui->subsribeTable->currentRow();
-    auto name = ui->subsribeTable->item(index, 0)->text();
-    auto url = ui->subsribeTable->item(index, 1)->text();
+    int index = subsribeTable->currentRow();
+    auto name = subsribeTable->item(index, 0)->text();
+    auto url = subsribeTable->item(index, 1)->text();
     auto data = helper.syncget(url);
     ProcessSubscriptionEntry(data, name);
 }
 
 void SubscribeEditor::ProcessSubscriptionEntry(QByteArray result, QString subsciptionName)
 {
-    auto content = GetVmessFromBase64OrPlain(result).replace("\r", "");
+    auto content = DecodeSubscriptionString(result).trimmed();
 
     if (!content.isEmpty()) {
-        auto vmessList = content.split("\n");
+        auto vmessList = SplitLines(content);
 
         for (auto vmess : vmessList) {
-            auto config = ConvertConfigFromVMessString(vmess);
+            QString errMessage;
+            QString _alias;
+            auto config = ConvertConfigFromVMessString(vmess.trimmed(), &_alias, &errMessage);
 
             if (subscriptions.contains(subsciptionName)) {
             }
@@ -81,8 +80,8 @@ void SubscribeEditor::ProcessSubscriptionEntry(QByteArray result, QString subsci
 
 void SubscribeEditor::on_updateAllButton_clicked()
 {
-    for (auto rowIndex = 0; ui->subscribeList->count(); rowIndex++) {
-        auto url = ui->subsribeTable->item(rowIndex, 1)->text();
+    for (auto rowIndex = 0; subscribeList->count(); rowIndex++) {
+        auto url = subsribeTable->item(rowIndex, 1)->text();
         helper.get(url);
     }
 }
