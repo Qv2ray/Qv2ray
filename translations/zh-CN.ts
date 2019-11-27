@@ -6,7 +6,7 @@
     <message>
       <location filename="../src/ui/w_ExportConfig.cpp" line="15"/>
       <source>Empty</source>
-      <translation type="unfinished">Empty</translation>
+      <translation>空</translation>
     </message>
   </context>
   <context>
@@ -14,22 +14,22 @@
     <message>
       <location filename="../src/ui/w_ExportConfig.ui" line="14"/>
       <source>Export Config</source>
-      <translation type="unfinished">Export Config</translation>
+      <translation>导出配置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ExportConfig.ui" line="39"/>
       <source>Text Message</source>
-      <translation type="unfinished">Text Message</translation>
+      <translation>文本消息</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ExportConfig.ui" line="68"/>
       <source>Save</source>
-      <translation type="unfinished">Save</translation>
+      <translation>保存</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ExportConfig.ui" line="75"/>
       <source>OK</source>
-      <translation type="unfinished">OK</translation>
+      <translation>确定</translation>
     </message>
   </context>
   <context>
@@ -42,7 +42,7 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="34"/>
       <source>Name/Prefix</source>
-      <translation type="unfinished">Name/Prefix</translation>
+      <translation>名称/前缀</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="44"/>
@@ -52,12 +52,12 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="58"/>
       <source>Existing File</source>
-      <translation type="unfinished">Existing File</translation>
+      <translation>现有的文件：</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="63"/>
       <source>VMess and QRCode</source>
-      <translation type="unfinished">VMess and QRCode</translation>
+      <translation>VMess和QRCode</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="68"/>
@@ -68,13 +68,13 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="73"/>
       <source>Manually Input</source>
-      <translation type="unfinished">Manually Input</translation>
+      <translation>手动输入</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="83"/>
       <location filename="../src/ui/w_ImportConfig.ui" line="381"/>
       <source>Import</source>
-      <translation type="unfinished">Import</translation>
+      <translation>导入</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="96"/>
@@ -100,12 +100,12 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="135"/>
       <source>Edit Config</source>
-      <translation type="unfinished">Edit Config</translation>
+      <translation>编辑配置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="142"/>
       <source>Open in JSON Editor</source>
-      <translation type="unfinished">Open in JSON Editor</translation>
+      <translation>在 JSON 编辑器中打开</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="153"/>
@@ -115,42 +115,42 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="162"/>
       <source>From QRCode File</source>
-      <translation type="unfinished">From QRCode File</translation>
+      <translation>从 QRCode 文件</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="190"/>
       <source>From Screenshot</source>
-      <translation type="unfinished">From Screenshot</translation>
+      <translation>从屏幕截图</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="211"/>
       <source>Go</source>
-      <translation type="unfinished">Go</translation>
+      <translation>开始</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="218"/>
       <source>After</source>
-      <translation type="unfinished">After</translation>
+      <translation>之后</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="241"/>
       <source>second(s).</source>
-      <translation type="unfinished">second(s).</translation>
+      <translation>秒</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="276"/>
       <source>Place your vmess:// here, one line for each.</source>
-      <translation type="unfinished">Place your vmess:// here, one line for each.</translation>
+      <translation>将你的 vmess:// 放在这里，每行一个。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="286"/>
       <source>Error List</source>
-      <translation type="unfinished">Error List</translation>
+      <translation>错误列表：</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="293"/>
       <source>VMess</source>
-      <translation type="unfinished">VMess</translation>
+      <translation>VMess</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="313"/>
@@ -160,32 +160,32 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="325"/>
       <source>GroupBox</source>
-      <translation type="unfinished">GroupBox</translation>
+      <translation>GroupBox</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="338"/>
       <source>Connection Editor</source>
-      <translation type="unfinished">Connection Editor</translation>
+      <translation>连接编辑器</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="345"/>
       <source>Open Connection Editor</source>
-      <translation type="unfinished">Open Connection Editor</translation>
+      <translation>打开连接编辑器</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="352"/>
       <source>Maunally input connection details</source>
-      <translation type="unfinished">Maunally input connection details</translation>
+      <translation>手动输入连接信息</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="388"/>
       <source>Cancel</source>
-      <translation type="unfinished">Cancel</translation>
+      <translation>取消</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="24"/>
       <source>Imported</source>
-      <translation type="unfinished">Imported</translation>
+      <translation>已导入</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="43"/>
@@ -195,12 +195,12 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="58"/>
       <source>Capture QRCode</source>
-      <translation type="unfinished">Capture QRCode</translation>
+      <translation>抓取QRCode</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="58"/>
       <source>Cannot find a valid QRCode from this region.</source>
-      <translation type="unfinished">Cannot find a valid QRCode from this region.</translation>
+      <translation>无法从这个区域找到有效的 QRCode。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="80"/>
@@ -211,7 +211,7 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="80"/>
       <source>Import from file failed, for more information, please check the log file.</source>
-      <translation type="unfinished">Import from file failed, for more information, please check the log file.</translation>
+      <translation>从文件导入失败，获取更多信息，请检查日志文件。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="83"/>
@@ -221,44 +221,44 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="129"/>
       <source>TODO</source>
-      <translation type="unfinished">TODO</translation>
+      <translation>TODO</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="139"/>
       <source>Select an image to import</source>
-      <translation type="unfinished">Select an image to import</translation>
+      <translation>选择要导入的图像</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="150"/>
       <source>QRCode scanning failed</source>
-      <translation type="unfinished">QRCode scanning failed</translation>
+      <translation>QRCode 扫描失败</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="150"/>
       <source>Cannot find any QRCode from the image.</source>
-      <translation type="unfinished">Cannot find any QRCode from the image.</translation>
+      <translation>无法从图像中找到任何QRCode。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="185"/>
       <location filename="../src/ui/w_ImportConfig.cpp" line="195"/>
       <location filename="../src/ui/w_ImportConfig.cpp" line="211"/>
       <source>Edit file as JSON</source>
-      <translation type="unfinished">Edit file as JSON</translation>
+      <translation>以 JSON 格式编辑文件</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="185"/>
       <source>Provided file not found: </source>
-      <translation type="unfinished">Provided file not found: </translation>
+      <translation>找不到提供的文件： </translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="195"/>
       <source>The file you selected has json syntax error. Continue editing may make you lose data. Would you like to continue?</source>
-      <translation type="unfinished">The file you selected has json syntax error. Continue editing may make you lose data. Would you like to continue?</translation>
+      <translation>您选择的文件有 json 语法错误。继续编辑可能会使您丢失数据。您想要继续吗？</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="211"/>
       <source>Failed to save file, please check if you have the required permissions</source>
-      <translation type="unfinished">Failed to save file, please check if you have the required permissions</translation>
+      <translation>保存文件失败，请检查您是否拥有所需的权限</translation>
     </message>
   </context>
   <context>
@@ -553,7 +553,7 @@
     <message>
       <location filename="../src/ui/w_JsonEditor.ui" line="53"/>
       <source>Format JSON</source>
-      <translation type="unfinished">Format JSON</translation>
+      <translation>格式化 JSON</translation>
     </message>
     <message>
       <location filename="../src/ui/w_JsonEditor.ui" line="60"/>
@@ -579,12 +579,12 @@
     <message>
       <location filename="../src/ui/w_JsonEditor.cpp" line="72"/>
       <source>Syntax Errors</source>
-      <translation type="unfinished">Syntax Errors</translation>
+      <translation>语法错误</translation>
     </message>
     <message>
       <location filename="../src/ui/w_JsonEditor.cpp" line="72"/>
       <source>Please fix the JSON errors before continue</source>
-      <translation type="unfinished">Please fix the JSON errors before continue</translation>
+      <translation>请先修复JSON错误，然后继续</translation>
     </message>
   </context>
   <context>
@@ -635,17 +635,17 @@
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="186"/>
       <source>Import connection</source>
-      <translation type="unfinished">Import connection</translation>
+      <translation>导入连接</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="202"/>
       <source>Duplicate connection</source>
-      <translation type="unfinished">Duplicate connection</translation>
+      <translation>复制连接</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="224"/>
       <source>Delete a connection</source>
-      <translation type="unfinished">Delete a connection</translation>
+      <translation>删除连接</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="240"/>
