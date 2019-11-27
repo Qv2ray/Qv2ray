@@ -10,11 +10,11 @@ TARGET = qv2ray
 TEMPLATE = app
 
 # Don't merge those configs with below.
-CONFIG += enable_decoder_qr_code enable_encoder_qr_code
+CONFIG += enable_decoder_qr_code enable_encoder_qr_code qt c++11 openssl-linked 
 include(3rdparty/qzxing_noTests/QZXing-components.pri)
 
 # Main config
-CONFIG += qt c++11 openssl-linked lrelease embed_translations
+CONFIG += lrelease embed_translations
 
 # Now read build number file.
 _BUILD_NUMBER=$$cat(Build.Counter)
