@@ -18,7 +18,7 @@ CONFIG += qt c++11 openssl-linked lrelease embed_translations
 
 # Now read build number file.
 _BUILD_NUMBER=$$cat(Build.Counter)
-VERSION = 1.99.1.$$_BUILD_NUMBER
+VERSION = 1.99.2.$$_BUILD_NUMBER
 _BUILD_NUMBER = $$num_add($$_BUILD_NUMBER, 1)
 write_file("Build.Counter", _BUILD_NUMBER)
 
