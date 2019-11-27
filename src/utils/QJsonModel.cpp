@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-#include "QJsonModel.h"
+#include "QJsonModel.hpp"
 #include <QFile>
 #include <QDebug>
 #include <QFont>

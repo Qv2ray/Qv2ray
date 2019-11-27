@@ -1,17 +1,15 @@
-#include "w_InboundEditor.h"
-#include "ui_w_InboundEditor.h"
-#include "QvUtils.h"
-#include "QvCoreConfigOperations.h"
+﻿#include "w_InboundEditor.hpp"
+#include "QvUtils.hpp"
+#include "QvCoreConfigOperations.hpp"
 
 static bool isLoading = false;
 #define PREPARE_RETURN if(isLoading) return;
 
 InboundEditor::InboundEditor(QJsonObject root, QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::InboundEditor),
     original(root)
 {
-    ui->setupUi(this);
+    setupUi(this);
     this->root = root;
     auto inboundType = root["protocol"].toString();
     allocate = root["allocate"].toObject();
@@ -26,9 +24,13 @@ InboundEditor::InboundEditor(QJsonObject root, QWidget *parent) :
     } else if (inboundType == "mtproto") {
         mtSettings = root["settings"].toObject();
     } else {
-        LOG(MODULE_UI, "Unsupported inbound type: " + inboundType.toStdString() + ", decisions should be made if to open JSONEDITOR")
-        QvMessageBox(this, tr("Inbound type not supported"), tr("The inbound type is not supported by Qv2ray (yet). Please use JsonEditor to change the settings") + "\r\n" +
-                     tr("Inbound: ") + inboundType);
+        if (!root["protocol"].toString().isEmpty()) {
+            LOG(MODULE_UI, "Unsupported inbound type: " + inboundType.toStdString())
+            QvMessageBox(this, tr("Inbound type not supported"), tr("The inbound type is not supported by Qv2ray (yet). Please use JsonEditor to change the settings") + "\r\n" +
+                         tr("Inbound: ") + inboundType);
+        } else {
+            LOG(MODULE_UI, "Creating new inbound config")
+        }
     }
 
     LoadUIData();
@@ -63,62 +65,64 @@ QJsonObject InboundEditor::GenerateNewRoot()
 void InboundEditor::LoadUIData()
 {
     isLoading = true;
-    ui->strategyCombo->setCurrentText(allocate["strategy"].toString());
-    ui->refreshNumberBox->setValue(allocate["refresh"].toInt());
-    ui->concurrencyNumberBox->setValue(allocate["concurrency"].toInt());
-    ui->enableSniffingCB->setChecked(sniffing["enabled"].toBool());
+    auto x = allocate["strategy"].toString();
+    allocate["strategy"] = x.isEmpty() ? "always" : x;
+    strategyCombo->setCurrentText(x);
     //
-    ui->destOverrideList->setEnabled(sniffing["enabled"].toBool());
+    refreshNumberBox->setValue(allocate["refresh"].toInt());
+    concurrencyNumberBox->setValue(allocate["concurrency"].toInt());
+    enableSniffingCB->setChecked(sniffing["enabled"].toBool());
+    //
+    destOverrideList->setEnabled(sniffing["enabled"].toBool());
 
     for (auto item : sniffing["destOverride"].toArray()) {
-        if (item.toString().toLower() == "http") ui->destOverrideList->item(0)->setCheckState(Qt::Checked);
+        if (item.toString().toLower() == "http") destOverrideList->item(0)->setCheckState(Qt::Checked);
 
-        if (item.toString().toLower() == "tls") ui->destOverrideList->item(1)->setCheckState(Qt::Checked);
+        if (item.toString().toLower() == "tls") destOverrideList->item(1)->setCheckState(Qt::Checked);
     }
 
     //
-    ui->inboundTagTxt->setText(root["tag"].toString());
-    ui->inboundHostTxt->setText(root["listen"].toString());
-    ui->inboundPortTxt->setText(root["port"].toVariant().toString());
-    ui->inboundProtocolCombo->setCurrentText(root["protocol"].toString());
+    inboundTagTxt->setText(root["tag"].toString());
+    inboundHostTxt->setText(root["listen"].toString());
+    inboundPortTxt->setText(root["port"].toVariant().toString());
+    inboundProtocolCombo->setCurrentText(root["protocol"].toString());
     // HTTP
-    ui->httpTimeoutSpinBox->setValue(httpSettings["timeout"].toInt());
-    ui->httpTransparentCB->setChecked(httpSettings["allowTransparent"].toBool());
-    ui->httpUserLevelSB->setValue(httpSettings["userLevel"].toInt());
-    ui->httpAccountListBox->clear();
+    httpTimeoutSpinBox->setValue(httpSettings["timeout"].toInt());
+    httpTransparentCB->setChecked(httpSettings["allowTransparent"].toBool());
+    httpUserLevelSB->setValue(httpSettings["userLevel"].toInt());
+    httpAccountListBox->clear();
 
     for (auto user : httpSettings["accounts"].toArray()) {
-        ui->httpAccountListBox->addItem(user.toObject()["user"].toString() +  ":" + user.toObject()["pass"].toString());
+        httpAccountListBox->addItem(user.toObject()["user"].toString() +  ":" + user.toObject()["pass"].toString());
     }
 
     // SOCKS
-    ui->socksAuthCombo->setCurrentText(socksSettings["auth"].toString());
-    ui->socksUDPCB->setChecked(socksSettings["udp"].toBool());
-    ui->socksUDPIPAddrTxt->setText(socksSettings["ip"].toString());
-    ui->socksUserLevelSB->setValue(socksSettings["userLevel"].toInt());
+    socksAuthCombo->setCurrentText(socksSettings["auth"].toString());
+    socksUDPCB->setChecked(socksSettings["udp"].toBool());
+    socksUDPIPAddrTxt->setText(socksSettings["ip"].toString());
+    socksUserLevelSB->setValue(socksSettings["userLevel"].toInt());
 
     for (auto user : socksSettings["accounts"].toArray()) {
-        ui->socksAccountListBox->addItem(user.toObject()["user"].toString() +  ":" + user.toObject()["pass"].toString());
+        socksAccountListBox->addItem(user.toObject()["user"].toString() +  ":" + user.toObject()["pass"].toString());
     }
 
     // Dokodemo-Door
-    ui->dokoFollowRedirectCB->setChecked(dokoSettings["followRedirect"].toBool());
-    ui->dokoIPAddrTxt->setText(dokoSettings["address"].toString());
-    ui->dokoPortSB->setValue(dokoSettings["port"].toInt());
-    ui->dokoTimeoutSB->setValue(dokoSettings["timeout"].toInt());
-    ui->dokoUserLevelSB->setValue(dokoSettings["userLevel"].toInt());
-    ui->dokoTCPCB->setChecked(dokoSettings["network"].toString().contains("tcp"));
-    ui->dokoUDPCB->setChecked(dokoSettings["network"].toString().contains("udp"));
+    dokoFollowRedirectCB->setChecked(dokoSettings["followRedirect"].toBool());
+    dokoIPAddrTxt->setText(dokoSettings["address"].toString());
+    dokoPortSB->setValue(dokoSettings["port"].toInt());
+    dokoTimeoutSB->setValue(dokoSettings["timeout"].toInt());
+    dokoUserLevelSB->setValue(dokoSettings["userLevel"].toInt());
+    dokoTCPCB->setChecked(dokoSettings["network"].toString().contains("tcp"));
+    dokoUDPCB->setChecked(dokoSettings["network"].toString().contains("udp"));
     // MTProto
-    ui->mtEMailTxt->setText(mtSettings["users"].toArray().first().toObject()["email"].toString());
-    ui->mtUserLevelSB->setValue(mtSettings["users"].toArray().first().toObject()["level"].toInt());
-    ui->mtSecretTxt->setText(mtSettings["users"].toArray().first().toObject()["secret"].toString());
+    mtEMailTxt->setText(mtSettings["users"].toArray().first().toObject()["email"].toString());
+    mtUserLevelSB->setValue(mtSettings["users"].toArray().first().toObject()["level"].toInt());
+    mtSecretTxt->setText(mtSettings["users"].toArray().first().toObject()["secret"].toString());
     isLoading = false;
 }
 
 InboundEditor::~InboundEditor()
 {
-    delete ui;
 }
 
 void InboundEditor::on_inboundProtocolCombo_currentIndexChanged(const QString &arg1)
@@ -129,7 +133,7 @@ void InboundEditor::on_inboundProtocolCombo_currentIndexChanged(const QString &a
 
 void InboundEditor::on_inboundProtocolCombo_currentIndexChanged(int index)
 {
-    ui->stackedWidget->setCurrentIndex(index);
+    stackedWidget->setCurrentIndex(index);
 }
 
 void InboundEditor::on_inboundTagTxt_textEdited(const QString &arg1)
@@ -160,8 +164,8 @@ void InboundEditor::on_httpRemoveUserBtn_clicked()
 {
     PREPARE_RETURN
 
-    if (ui->httpAccountListBox->currentRow() != -1) {
-        auto item = ui->httpAccountListBox->currentItem();
+    if (httpAccountListBox->currentRow() != -1) {
+        auto item = httpAccountListBox->currentItem();
         auto list = httpSettings["accounts"].toArray();
 
         for (int i = 0 ; i < list.count(); i++) {
@@ -172,7 +176,7 @@ void InboundEditor::on_httpRemoveUserBtn_clicked()
                 list.removeAt(i);
                 httpSettings["accounts"] = list;
                 LOG(MODULE_UI, "Removed http inbound user " + entry.toStdString())
-                ui->httpAccountListBox->takeItem(ui->httpAccountListBox->currentRow());
+                httpAccountListBox->takeItem(httpAccountListBox->currentRow());
             }
         }
 
@@ -185,8 +189,8 @@ void InboundEditor::on_httpRemoveUserBtn_clicked()
 void InboundEditor::on_httpAddUserBtn_clicked()
 {
     PREPARE_RETURN
-    auto user = ui->httpAddUserTxt->text();
-    auto pass = ui->httpAddPasswordTxt->text();
+    auto user = httpAddUserTxt->text();
+    auto pass = httpAddPasswordTxt->text();
     //
     auto list = httpSettings["accounts"].toArray();
 
@@ -199,13 +203,13 @@ void InboundEditor::on_httpAddUserBtn_clicked()
         }
     }
 
-    ui->httpAddUserTxt->clear();
-    ui->httpAddPasswordTxt->clear();
+    httpAddUserTxt->clear();
+    httpAddPasswordTxt->clear();
     QJsonObject entry;
     entry["user"] = user;
     entry["pass"] = pass;
     list.append(entry);
-    ui->httpAccountListBox->addItem(user + ":" + pass);
+    httpAccountListBox->addItem(user + ":" + pass);
     httpSettings["accounts"] = list;
 }
 
@@ -213,8 +217,8 @@ void InboundEditor::on_socksRemoveUserBtn_clicked()
 {
     PREPARE_RETURN
 
-    if (ui->socksAccountListBox->currentRow() != -1) {
-        auto item = ui->socksAccountListBox->currentItem();
+    if (socksAccountListBox->currentRow() != -1) {
+        auto item = socksAccountListBox->currentItem();
         auto list = socksSettings["accounts"].toArray();
 
         for (int i = 0 ; i < list.count(); i++) {
@@ -225,7 +229,7 @@ void InboundEditor::on_socksRemoveUserBtn_clicked()
                 list.removeAt(i);
                 socksSettings["accounts"] = list;
                 LOG(MODULE_UI, "Removed http inbound user " + entry.toStdString())
-                ui->socksAccountListBox->takeItem(ui->socksAccountListBox->currentRow());
+                socksAccountListBox->takeItem(socksAccountListBox->currentRow());
                 return;
             }
         }
@@ -237,8 +241,8 @@ void InboundEditor::on_socksRemoveUserBtn_clicked()
 void InboundEditor::on_socksAddUserBtn_clicked()
 {
     PREPARE_RETURN
-    auto user = ui->socksAddUserTxt->text();
-    auto pass = ui->socksAddPasswordTxt->text();
+    auto user = socksAddUserTxt->text();
+    auto pass = socksAddPasswordTxt->text();
     //
     auto list = socksSettings["accounts"].toArray();
 
@@ -251,13 +255,13 @@ void InboundEditor::on_socksAddUserBtn_clicked()
         }
     }
 
-    ui->socksAddUserTxt->clear();
-    ui->socksAddPasswordTxt->clear();
+    socksAddUserTxt->clear();
+    socksAddPasswordTxt->clear();
     QJsonObject entry;
     entry["user"] = user;
     entry["pass"] = pass;
     list.append(entry);
-    ui->socksAccountListBox->addItem(user + ":" + pass);
+    socksAccountListBox->addItem(user + ":" + pass);
     socksSettings["accounts"] = list;
 }
 
@@ -283,7 +287,7 @@ void InboundEditor::on_enableSniffingCB_stateChanged(int arg1)
 {
     PREPARE_RETURN
     sniffing["enabled"] = arg1 == Qt::Checked;
-    ui->destOverrideList->setEnabled(arg1 == Qt::Checked);
+    destOverrideList->setEnabled(arg1 == Qt::Checked);
 }
 
 void InboundEditor::on_destOverrideList_itemChanged(QListWidgetItem *item)
@@ -292,8 +296,8 @@ void InboundEditor::on_destOverrideList_itemChanged(QListWidgetItem *item)
     Q_UNUSED(item)
     QJsonArray list;
 
-    for (int i = 0; i < ui->destOverrideList->count(); i++) {
-        auto _item = ui->destOverrideList->item(i);
+    for (int i = 0; i < destOverrideList->count(); i++) {
+        auto _item = destOverrideList->item(i);
 
         if (_item->checkState() == Qt::Checked) {
             list.append(_item->text().toLower());
@@ -337,8 +341,8 @@ void InboundEditor::on_dokoTCPCB_stateChanged(int arg1)
 {
     PREPARE_RETURN
     Q_UNUSED(arg1)
-    bool hasTCP = ui->dokoTCPCB->checkState() == Qt::Checked;
-    bool hasUDP = ui->dokoUDPCB->checkState() == Qt::Checked;
+    bool hasTCP = dokoTCPCB->checkState() == Qt::Checked;
+    bool hasUDP = dokoUDPCB->checkState() == Qt::Checked;
     QString str = "";
     str += hasTCP ? "tcp" : "";
     str += (hasTCP && hasUDP) ? "," : "";
@@ -350,8 +354,8 @@ void InboundEditor::on_dokoUDPCB_stateChanged(int arg1)
 {
     PREPARE_RETURN
     Q_UNUSED(arg1)
-    bool hasTCP = ui->dokoTCPCB->checkState() == Qt::Checked;
-    bool hasUDP = ui->dokoUDPCB->checkState() == Qt::Checked;
+    bool hasTCP = dokoTCPCB->checkState() == Qt::Checked;
+    bool hasUDP = dokoUDPCB->checkState() == Qt::Checked;
     QString str = "";
     str += hasTCP ? "tcp" : "";
     str += (hasTCP && hasUDP) ? "," : "";

@@ -1,4 +1,4 @@
-#include <QAction>
+﻿#include <QAction>
 #include <QCloseEvent>
 #include <QDebug>
 #include <QFile>
@@ -12,31 +12,49 @@
 #include <QVersionNumber>
 #include <QKeyEvent>
 
-#include "w_OutboundEditor.h"
-#include "w_ImportConfig.h"
-#include "w_MainWindow.h"
-#include "w_RoutesEditor.h"
-#include "w_PrefrencesWindow.h"
-#include "w_SubscriptionEditor.h"
-#include "w_JsonEditor.h"
+#include "w_OutboundEditor.hpp"
+#include "w_ImportConfig.hpp"
+#include "w_MainWindow.hpp"
+#include "w_RoutesEditor.hpp"
+#include "w_PrefrencesWindow.hpp"
+#include "w_SubscriptionEditor.hpp"
+#include "w_JsonEditor.hpp"
+#include "w_ExportConfig.hpp"
 
-#include "QvNetSpeedPlugin.h"
+#include "QvPingModel.hpp"
+#include "QvNetSpeedPlugin.hpp"
+#include "QvPACHandler.hpp"
+#include "QvSystemProxyConfigurator.hpp"
 
 #define TRAY_TOOLTIP_PREFIX "Qv2ray " QV2RAY_VERSION_STRING
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
       vinstance(),
-      ui(new Ui::MainWindow),
       uploadList(),
       downloadList(),
       HTTPRequestHelper(),
       hTray(new QSystemTrayIcon(this))
 {
-    vinstance = new Qv2Instance(this);
-    ui->setupUi(this);
-    this->setWindowIcon(QIcon(":/icons/Qv2ray.ico"));
-    hTray->setIcon(this->windowIcon());
+    auto conf = GetGlobalConfig();
+    vinstance = new ConnectionInstance(this);
+    setupUi(this);
+    //
+    pacServer = new PACHandler();
+    //
+    this->setWindowIcon(QIcon(":/icons/qv2ray.png"));
+    hTray->setIcon(QIcon(conf.uiConfig.useDarkTrayIcon ? ":/icons/ui_dark/tray.png" : ":/icons/ui_light/tray.png"));
+    importConfigButton->setIcon(QICON_R("import.png"));
+    duplicateBtn->setIcon(QICON_R("duplicate.png"));
+    removeConfigButton->setIcon(QICON_R("delete.png"));
+    editConfigButton->setIcon(QICON_R("edit.png"));
+    editJsonBtn->setIcon(QICON_R("json.png"));
+    //
+    pingTestBtn->setIcon(QICON_R("ping_gauge.png"));
+    shareBtn->setIcon(QICON_R("share.png"));
+    updownImageBox->setStyleSheet("image: url(" + QV2RAY_UI_RESOURCES_ROOT + "netspeed_arrow.png)");
+    updownImageBox_2->setStyleSheet("image: url(" + QV2RAY_UI_RESOURCES_ROOT + "netspeed_arrow.png)");
+    //
     hTray->setToolTip(TRAY_TOOLTIP_PREFIX);
     //
     QAction *action_Tray_ShowHide = new QAction(this->windowIcon(), tr("Hide"), this);
@@ -47,9 +65,9 @@ MainWindow::MainWindow(QWidget *parent)
     //
     QAction *action_RCM_RenameConnection = new QAction(tr("Rename"), this);
     QAction *action_RCM_StartThis = new QAction(tr("Connect to this"), this);
-    QAction *action_RCM_EditJson = new QAction(tr("Edit as Json"), this);
-    QAction *action_RCM_ShareLink = new QAction(tr("Share as vmess://"), this);
-    QAction *action_RCM_ShareQR = new QAction(tr("Share as QRCore"), this);
+    QAction *action_RCM_ConvToComplex = new QAction(tr("Edit as Complex Config"), this);
+    QAction *action_RCM_EditJson = new QAction(QICON_R("json.png"), tr("Edit as Json"), this);
+    QAction *action_RCM_ShareQR = new QAction(QICON_R("share.png"), tr("Share as QRCode/VMess URL"), this);
     //
     action_Tray_Start->setEnabled(true);
     action_Tray_Stop->setEnabled(false);
@@ -67,14 +85,14 @@ MainWindow::MainWindow(QWidget *parent)
     connect(action_Tray_Reconnect, &QAction::triggered, this, &MainWindow::on_reconnectButton_clicked);
     connect(action_Tray_Quit, &QAction::triggered, this, &MainWindow::quit);
     connect(hTray, &QSystemTrayIcon::activated, this, &MainWindow::on_activatedTray);
-    connect(ui->logText, &QTextBrowser::textChanged, this, &MainWindow::QTextScrollToBottom);
+    connect(logText, &QTextBrowser::textChanged, this, &MainWindow::QTextScrollToBottom);
     connect(action_RCM_RenameConnection, &QAction::triggered, this, &MainWindow::on_action_RenameConnection_triggered);
     connect(action_RCM_StartThis, &QAction::triggered, this, &MainWindow::on_action_StartThis_triggered);
     connect(action_RCM_EditJson, &QAction::triggered, this, &MainWindow::on_action_RCM_EditJson_triggered);
-    // TODO: UNCOMMENT THIS....
-    LOG(MODULE_UI, "SHARE OPTION TODO...")
-    //connect(action_RCM_ShareLink, &QAction::triggered, this, &MainWindow::on_action_RCM_ShareLink_triggered);
-    //connect(action_RCM_ShareQR, &QAction::triggered, this, &MainWindow::on_action_RCM_ShareQR_triggered);
+    connect(action_RCM_ConvToComplex, &QAction::triggered, this, &MainWindow::on_action_RCM_ConvToComplex_triggered);
+    //
+    // Share optionss
+    connect(action_RCM_ShareQR, &QAction::triggered, this, &MainWindow::on_action_RCM_ShareQR_triggered);
     //
     connect(this, &MainWindow::Connect, this, &MainWindow::on_startButton_clicked);
     connect(this, &MainWindow::DisConnect, this, &MainWindow::on_stopButton_clicked);
@@ -83,17 +101,18 @@ MainWindow::MainWindow(QWidget *parent)
     hTray->setContextMenu(trayMenu);
     hTray->show();
     //
-    listMenu.addAction(action_RCM_RenameConnection);
-    listMenu.addAction(action_RCM_StartThis);
-    listMenu.addAction(action_RCM_EditJson);
-    listMenu.addAction(action_RCM_ShareLink);
-    listMenu.addAction(action_RCM_ShareQR);
+    listMenu = new QMenu(this);
+    listMenu->addAction(action_RCM_RenameConnection);
+    listMenu->addAction(action_RCM_StartThis);
+    listMenu->addAction(action_RCM_ConvToComplex);
+    listMenu->addAction(action_RCM_EditJson);
+    listMenu->addAction(action_RCM_ShareQR);
     //
     LoadConnections();
     QObject::connect(&HTTPRequestHelper, &QvHttpRequestHelper::httpRequestFinished, this, &MainWindow::VersionUpdate);
     HTTPRequestHelper.get("https://api.github.com/repos/lhy0403/Qv2ray/releases/latest");
-    bool hasAutoStart  = false;
     //
+    // For charts
     uploadSerie = new QSplineSeries(this);
     downloadSerie = new QSplineSeries(this);
     uploadSerie->setName("Upload");
@@ -106,67 +125,61 @@ MainWindow::MainWindow(QWidget *parent)
         downloadSerie->append(i, 0);
     }
 
-    speedChart = new QChart();
-    speedChartView = new QChartView(speedChart, this);
+    speedChartObj = new QChart();
+    speedChartObj->setTheme(conf.uiConfig.useDarkTheme ? QChart::ChartThemeDark : QChart::ChartThemeLight);
+    speedChartObj->setTitle("Qv2ray Speed Chart");
+    speedChartObj->legend()->hide();
+    speedChartObj->createDefaultAxes();
+    speedChartObj->addSeries(uploadSerie);
+    speedChartObj->addSeries(downloadSerie);
+    speedChartObj->createDefaultAxes();
+    speedChartObj->axes(Qt::Vertical).first()->setRange(0, 512);
+    static_cast<QValueAxis>(speedChartObj->axes(Qt::Horizontal).first()).setLabelFormat("dd.dd");
+    speedChartObj->axes(Qt::Horizontal).first()->setRange(0, 30);
+    speedChartObj->setContentsMargins(-20, -50, -20, -25);
+    speedChartView = new QChartView(speedChartObj, this);
     speedChartView->setRenderHint(QPainter::RenderHint::HighQualityAntialiasing, true);
-    speedChart->setTitle("Qv2ray Speed Chart");
-    speedChart->legend()->hide();
-    speedChart->createDefaultAxes();
-    speedChart->addSeries(uploadSerie);
-    speedChart->addSeries(downloadSerie);
-    speedChart->createDefaultAxes();
-    speedChart->axes(Qt::Vertical).first()->setRange(0, 512);
-    static_cast<QValueAxis>(speedChart->axes(Qt::Horizontal).first()).setLabelFormat("dd.dd");
-    speedChart->axes(Qt::Horizontal).first()->setRange(0, 30);
-    speedChart->setContentsMargins(-20, -45, -20, -25);
-    auto layout = new QHBoxLayout(ui->speedChart);
+    auto layout = new QHBoxLayout(speedChart);
     layout->addWidget(speedChartView);
-    ui->speedChart->setLayout(layout);
-    ui->speedChart->layout()->addWidget(speedChartView);
+    speedChart->setLayout(layout);
     //
-    //
-
-    if (vinstance->ValidateKernal()) {
-        auto conf = GetGlobalConfig();
-
-        if (conf.autoStartConfig != "" && QList<string>::fromStdList(conf.configs).contains(conf.autoStartConfig)) {
-            CurrentConnectionName = QSTRING(conf.autoStartConfig);
-            auto item = ui->connectionListWidget->findItems(QSTRING(conf.autoStartConfig), Qt::MatchExactly).front();
-            item->setSelected(true);
-            ui->connectionListWidget->setCurrentItem(item);
-            on_connectionListWidget_itemClicked(item);
-            on_startButton_clicked();
-            hasAutoStart = true;
-            trayMenu->actions()[0]->setText(tr("Show"));
-        } else {
-            if (ui->connectionListWidget->count() != 0) {
-                // The first one is default.
-                ui->connectionListWidget->setCurrentRow(0);
-                ShowAndSetConnection(ui->connectionListWidget->item(0)->text(), true, false);
-            }
-        }
-    }
+    bool hasAutoStart = vinstance->ValidateKernal();
 
     if (hasAutoStart) {
-        this->hide();
+        // At least kernal is ready.
+        if (conf.autoStartConfig != "" && QList<string>::fromStdList(conf.configs).contains(conf.autoStartConfig)) {
+            // Has auto start.
+            CurrentConnectionName = QSTRING(conf.autoStartConfig);
+            auto item = connectionListWidget->findItems(QSTRING(conf.autoStartConfig), Qt::MatchExactly).front();
+            item->setSelected(true);
+            connectionListWidget->setCurrentItem(item);
+            on_connectionListWidget_itemClicked(item);
+            trayMenu->actions()[0]->setText(tr("Show"));
+            this->hide();
+            on_startButton_clicked();
+        } else if (connectionListWidget->count() != 0) {
+            // The first one is default.
+            connectionListWidget->setCurrentRow(0);
+            ShowAndSetConnection(connectionListWidget->item(0)->text(), true, false);
+            this->show();
+        }
     } else {
         this->show();
     }
 
-    Utils::NetSpeedPlugin::StartProcessingPlugins(this);
+    StartProcessingPlugins(this);
 }
 
 void MainWindow::on_action_StartThis_triggered()
 {
-    if (ui->connectionListWidget->selectedItems().empty()) {
+    if (connectionListWidget->selectedItems().empty()) {
         QvMessageBox(this, tr("No connection selected!"), tr("Please select a config from the list."));
         return;
     }
 
-    CurrentConnectionName = ui->connectionListWidget->currentItem()->text();
+    CurrentConnectionName = connectionListWidget->currentItem()->text();
     on_reconnectButton_clicked();
 }
-
 void MainWindow::VersionUpdate(QByteArray &data)
 {
     auto conf = GetGlobalConfig();
@@ -201,33 +214,43 @@ void MainWindow::VersionUpdate(QByteArray &data)
         }
     }
 }
-
-
 void MainWindow::LoadConnections()
 {
     auto conf = GetGlobalConfig();
     connections = GetConnections(conf.configs);
-    ui->connectionListWidget->clear();
+    connectionListWidget->clear();
 
     for (int i = 0; i < connections.count(); i++) {
-        ui->connectionListWidget->addItem(connections.keys()[i]);
+        connectionListWidget->addItem(connections.keys()[i]);
     }
 
-    ui->connectionListWidget->sortItems();
-    ui->removeConfigButton->setEnabled(false);
-    ui->editConfigButton->setEnabled(false);
-}
+    connectionListWidget->sortItems();
+    removeConfigButton->setEnabled(false);
+    editConfigButton->setEnabled(false);
+    editJsonBtn->setEnabled(false);
+    duplicateBtn->setEnabled(false);
 
+    // We set the current item back...
+    if (vinstance->ConnectionStatus == STARTED && !CurrentConnectionName.isEmpty()) {
+        auto items = connectionListWidget->findItems(CurrentConnectionName, Qt::MatchFlag::MatchExactly);
+
+        if (items.count() > 0) {
+            connectionListWidget->setCurrentItem(items.first());
+        }
+
+        ShowAndSetConnection(CurrentConnectionName, false, false);
+    }
+}
 void MainWindow::OnConfigListChanged(bool need_restart)
 {
-    auto statusText = ui->statusLabel->text();
+    auto statusText = statusLabel->text();
     //
     // A strange bug prevents us to change the UI language `live`ly
     //    https://github.com/lhy0403/Qv2ray/issues/34
     //
-    //ui->retranslateUi(this);
-    ui->statusLabel->setText(statusText);
-    bool isRunning = vinstance->VCoreStatus == STARTED;
+    //retranslateUi(this);
+    statusLabel->setText(statusText);
+    bool isRunning = vinstance->ConnectionStatus == STARTED;
 
     if (isRunning && need_restart) on_stopButton_clicked();
 
@@ -235,23 +258,19 @@ void MainWindow::OnConfigListChanged(bool need_restart)
 
     if (isRunning && need_restart) on_startButton_clicked();
 }
-
 MainWindow::~MainWindow()
 {
     hTray->hide();
     delete this->hTray;
     delete this->vinstance;
-    delete ui;
 }
-
 void MainWindow::UpdateLog()
 {
-    ui->logText->append(vinstance->ReadProcessOutput().trimmed());
+    logText->append(vinstance->ReadProcessOutput().trimmed());
 }
-
 void MainWindow::on_startButton_clicked()
 {
-    if (vinstance->VCoreStatus != STARTED) {
+    if (vinstance->ConnectionStatus != STARTED) {
         // Reset the graph
         for (int i = 0; i < 30 ; i++) {
             uploadList[i] = 0;
@@ -260,65 +279,158 @@ void MainWindow::on_startButton_clicked()
             downloadSerie->replace(i, 0, 0);
         }
 
-        if (CurrentConnectionName == "") {
+        // Check Selection
+        if (CurrentConnectionName.isEmpty()) {
             QvMessageBox(this, tr("No connection selected!"), tr("Please select a config from the list."));
             return;
         }
 
         LOG(MODULE_VCORE, ("Connecting to: " + CurrentConnectionName).toStdString())
-        ui->logText->clear();
-        CurrentFullConfig = GenerateRuntimeConfig(connections[CurrentConnectionName]);
+        logText->clear();
+        //
+        auto connectionRoot = connections[CurrentConnectionName];
+        //
+        CurrentFullConfig = GenerateRuntimeConfig(connectionRoot);
         StartPreparation(CurrentFullConfig);
-        bool startFlag = this->vinstance->StartVCore();
+        bool startFlag = this->vinstance->StartV2rayCore();
 
         if (startFlag) {
             this->hTray->showMessage("Qv2ray", tr("Connected To Server: ") + CurrentConnectionName);
             hTray->setToolTip(TRAY_TOOLTIP_PREFIX "\r\n" + tr("Connected To Server: ") + CurrentConnectionName);
-            ui->statusLabel->setText(tr("Connected") + ": " + CurrentConnectionName);
+            statusLabel->setText(tr("Connected") + ": " + CurrentConnectionName);
+            //
+            auto conf = GetGlobalConfig();
 
-            if (GetGlobalConfig().enableStats) {
-                vinstance->SetAPIPort(GetGlobalConfig().statsPort);
+            if (conf.connectionConfig.enableStats) {
+                vinstance->SetAPIPort(conf.connectionConfig.statsPort);
                 speedTimerId = startTimer(1000);
             }
+
+            bool usePAC = conf.inboundConfig.pacConfig.usePAC;
+            bool pacUseSocks = conf.inboundConfig.pacConfig.useSocksProxy;
+            bool httpEnabled = conf.inboundConfig.useHTTP;
+            bool socksEnabled = conf.inboundConfig.useSocks;
+
+            if (usePAC) {
+                bool canStartPAC = true;
+                QString pacProxyString;  // Something like this --> SOCKS5 127.0.0.1:1080; SOCKS 127.0.0.1:1080; DIRECT; http://proxy:8080
+
+                if (pacUseSocks) {
+                    if (socksEnabled) {
+                        pacProxyString = "SOCKS5 " + QSTRING(conf.inboundConfig.pacConfig.proxyIP) + ":" + QString::number(conf.inboundConfig.socks_port);
+                    } else {
+                        LOG(MODULE_UI, "PAC is using SOCKS, but it is not enabled")
+                        QvMessageBox(this, tr("Configuring PAC"), tr("Could not start PAC server as it is configured to use SOCKS, but it is not enabled"));
+                        canStartPAC = false;
+                    }
+                } else {
+                    if (httpEnabled) {
+                        pacProxyString = "http://" + QSTRING(conf.inboundConfig.pacConfig.proxyIP) + ":" + QString::number(conf.inboundConfig.http_port);
+                    } else {
+                        LOG(MODULE_UI, "PAC is using HTTP, but it is not enabled")
+                        QvMessageBox(this, tr("Configuring PAC"), tr("Could not start PAC server as it is configured to use HTTP, but it is not enabled"));
+                        canStartPAC = false;
+                    }
+                }
+
+                if (canStartPAC) {
+                    pacServer->SetProxyString(pacProxyString);
+                    pacServer->StartListen();
+                } else {
+                    LOG(MODULE_PROXY, "Not starting PAC due to previous error.")
+                }
+            }
+
+            //
+            // Set system proxy if necessary
+            bool isComplex = CheckIsComplexConfig(connectionRoot);
+
+            if (conf.inboundConfig.setSystemProxy && !isComplex) {
+                // Is simple config and we will try to set system proxy.
+                LOG(MODULE_UI, "Preparing to set system proxy")
+                //
+                QString proxyAddress;
+                bool canSetSystemProxy = true;
+
+                if (usePAC) {
+                    if ((httpEnabled && !pacUseSocks) || (socksEnabled && pacUseSocks)) {
+                        // If we use PAC and socks/http are properly configured for PAC
+                        LOG(MODULE_PROXY, "System proxy uses PAC")
+                        proxyAddress = "http://" + QSTRING(conf.inboundConfig.listenip) + ":" + QString::number(conf.inboundConfig.pacConfig.port) +  "/pac";
+                    } else {
+                        // Not properly configured
+                        LOG(MODULE_PROXY, "Failed to process pac due to following reasons:")
+                        LOG(MODULE_PROXY, " --> PAC is configured to use socks but socks is not enabled.")
+                        LOG(MODULE_PROXY, " --> PAC is configuted to use http but http is not enabled.")
+                        QvMessageBox(this, tr("PAC Processing Failed"), tr("HTTP or SOCKS inbound is not properly configured for PAC") +
+                                     NEWLINE + tr("Qv2ray will continue, but will not set system proxy."));
+                        canSetSystemProxy = false;
+                    }
+                } else {
+                    // Not using PAC
+                    if (httpEnabled) {
+                        // Not use PAC, System proxy should use HTTP
+                        LOG(MODULE_PROXY, "Using system proxy with HTTP")
+                        proxyAddress = "localhost";
+                    } else {
+                        LOG(MODULE_PROXY, "HTTP is not enabled, cannot set system proxy.")
+                        QvMessageBox(this, tr("Cannot set system proxy"), tr("HTTP inbound is not enabled"));
+                        canSetSystemProxy = false;
+                    }
+                }
+
+                if (canSetSystemProxy) {
+                    LOG(MODULE_UI, "Setting system proxy for simple config")
+                    // --------------------We only use HTTP here->>|=========|
+                    SetSystemProxy(proxyAddress, conf.inboundConfig.http_port, usePAC);
+                }
+            }
+        } else {
+            // If failed, show mainwindow
+            this->show();
         }
 
         trayMenu->actions()[2]->setEnabled(!startFlag);
         trayMenu->actions()[3]->setEnabled(startFlag);
         trayMenu->actions()[4]->setEnabled(startFlag);
         //
-        ui->startButton->setEnabled(!startFlag);
-        ui->stopButton->setEnabled(startFlag);
+        startButton->setEnabled(!startFlag);
+        stopButton->setEnabled(startFlag);
     }
 }
 
 void MainWindow::on_stopButton_clicked()
 {
-    if (vinstance->VCoreStatus != STOPPED) {
-        this->vinstance->StopVCore();
+    if (vinstance->ConnectionStatus != STOPPED) {
+        // Is running or starting
+        this->vinstance->StopV2rayCore();
         killTimer(speedTimerId);
         hTray->setToolTip(TRAY_TOOLTIP_PREFIX);
         QFile(QV2RAY_GENERATED_FILE_PATH).remove();
-        ui->statusLabel->setText(tr("Disconnected"));
-        ui->logText->setText("");
+        statusLabel->setText(tr("Disconnected"));
+        logText->setText("");
         trayMenu->actions()[2]->setEnabled(true);
         trayMenu->actions()[3]->setEnabled(false);
         trayMenu->actions()[4]->setEnabled(false);
         //
-        ui->startButton->setEnabled(true);
-        ui->stopButton->setEnabled(false);
+        startButton->setEnabled(true);
+        stopButton->setEnabled(false);
         //
-        ui->netspeedLabel->setText("0.00 B/s\r\n0.00 B/s");
-        ui->dataamountLabel->setText("0.00 B\r\n0.00 B");
+        netspeedLabel->setText("0.00 B/s\r\n0.00 B/s");
+        dataamountLabel->setText("0.00 B\r\n0.00 B");
+        //
+        // Who cares the check... (inboundConfig.pacConfig.usePAC)
+        pacServer->StopServer();
+        ClearSystemProxy();
+        LOG(MODULE_UI, "Stopped successfully.")
     }
 }
-
 void MainWindow::closeEvent(QCloseEvent *event)
 {
     this->hide();
     trayMenu->actions()[0]->setText(tr("Show"));
     event->ignore();
 }
-
 void MainWindow::on_activatedTray(QSystemTrayIcon::ActivationReason reason)
 {
     switch (reason) {
@@ -332,7 +444,7 @@ void MainWindow::on_activatedTray(QSystemTrayIcon::ActivationReason reason)
             break;
 
         case QSystemTrayIcon::MiddleClick:
-            if (this->vinstance->VCoreStatus == STARTED) {
+            if (this->vinstance->ConnectionStatus == STARTED) {
                 on_stopButton_clicked();
             } else {
                 on_startButton_clicked();
@@ -350,14 +462,14 @@ void MainWindow::on_activatedTray(QSystemTrayIcon::ActivationReason reason)
             break;
     }
 }
-
 void MainWindow::ToggleVisibility()
 {
     if (this->isHidden()) {
         this->show();
-#ifdef _WIN32
+#ifdef Q_OS_WIN
         setWindowState(Qt::WindowNoState);
         SetWindowPos(HWND(this->winId()), HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW);
+        QThread::msleep(20);
         SetWindowPos(HWND(this->winId()), HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW);
 #endif
         trayMenu->actions()[0]->setText(tr("Hide"));
@@ -366,53 +478,63 @@ void MainWindow::ToggleVisibility()
         trayMenu->actions()[0]->setText(tr("Show"));
     }
 }
-
 void MainWindow::quit()
 {
-    Utils::NetSpeedPlugin::StopProcessingPlugins();
+    StopProcessingPlugins();
     on_stopButton_clicked();
     QApplication::quit();
 }
-
 void MainWindow::on_actionExit_triggered()
 {
     quit();
 }
-
 void MainWindow::QTextScrollToBottom()
 {
-    auto bar = ui->logText->verticalScrollBar();
+    auto bar = logText->verticalScrollBar();
 
     if (bar->value() >= bar->maximum() - 10) bar->setValue(bar->maximum());
 }
-
 void MainWindow::ShowAndSetConnection(QString guiConnectionName, bool SetConnection, bool ApplyConnection)
 {
     // Check empty again...
     if (guiConnectionName.isEmpty()) return;
 
-    // --------- BRGIN Show Connection
-    auto outBoundRoot = (connections[guiConnectionName])["outbounds"].toArray().first().toObject();
     //
-    auto outboundType = outBoundRoot["protocol"].toString();
-    ui->_OutBoundTypeLabel->setText(outboundType);
-    ui->removeConfigButton->setEnabled(true);
-    ui->editConfigButton->setEnabled(true);
+    removeConfigButton->setEnabled(true);
+    editConfigButton->setEnabled(true);
+    editJsonBtn->setEnabled(true);
+    duplicateBtn->setEnabled(true);
+    //
+    // --------- BRGIN Show Connection
+    auto root = connections[guiConnectionName];
+    //
+    auto isComplexConfig = root["routing"].toObject()["rules"].toArray().count() > 0;
+    routeCountLabel->setText(isComplexConfig > 0 ? tr("Complex") : tr("Simple"));
 
-    if (outboundType == "vmess") {
-        auto Server = StructFromJsonString<VMessServerObject>(JsonToString(outBoundRoot["settings"].toObject()["vnext"].toArray().first().toObject()));
-        ui->_hostLabel->setText(QSTRING(Server.address));
-        ui->_portLabel->setText(QSTRING(to_string(Server.port)));
-    } else if (outboundType == "shadowsocks") {
-        auto x = JsonToString(outBoundRoot["settings"].toObject()["servers"].toArray().first().toObject());
-        auto Server = StructFromJsonString<ShadowSocksServerObject>(x);
-        ui->_hostLabel->setText(QSTRING(Server.address));
-        ui->_portLabel->setText(QSTRING(to_string(Server.port)));
-    } else if (outboundType == "socks") {
-        auto x = JsonToString(outBoundRoot["settings"].toObject()["servers"].toArray().first().toObject());
-        auto Server = StructFromJsonString<SocksServerObject>(x);
-        ui->_hostLabel->setText(QSTRING(Server.address));
-        ui->_portLabel->setText(QSTRING(to_string(Server.port)));
+    if (isComplexConfig) {
+        _OutBoundTypeLabel->setText(tr("N/A"));
+        _hostLabel->setText(tr("N/A"));
+        _portLabel->setText(tr("N/A"));
+    } else {
+        auto outBoundRoot = root["outbounds"].toArray().first().toObject();
+        auto outboundType = outBoundRoot["protocol"].toString();
+        _OutBoundTypeLabel->setText(outboundType);
+
+        if (outboundType == "vmess") {
+            auto Server = StructFromJsonString<VMessServerObject>(JsonToString(outBoundRoot["settings"].toObject()["vnext"].toArray().first().toObject()));
+            _hostLabel->setText(QSTRING(Server.address));
+            _portLabel->setText(QSTRING(to_string(Server.port)));
+        } else if (outboundType == "shadowsocks") {
+            auto x = JsonToString(outBoundRoot["settings"].toObject()["servers"].toArray().first().toObject());
+            auto Server = StructFromJsonString<ShadowSocksServerObject>(x);
+            _hostLabel->setText(QSTRING(Server.address));
+            _portLabel->setText(QSTRING(to_string(Server.port)));
+        } else if (outboundType == "socks") {
+            auto x = JsonToString(outBoundRoot["settings"].toObject()["servers"].toArray().first().toObject());
+            auto Server = StructFromJsonString<SocksServerObject>(x);
+            _hostLabel->setText(QSTRING(Server.address));
+            _portLabel->setText(QSTRING(to_string(Server.port)));
+        }
     }
 
     // --------- END Show Connection
@@ -427,67 +549,59 @@ void MainWindow::ShowAndSetConnection(QString guiConnectionName, bool SetConnect
         on_reconnectButton_clicked();
     }
 }
-
 void MainWindow::on_connectionListWidget_itemClicked(QListWidgetItem *item)
 {
     Q_UNUSED(item)
-    int currentRow = ui->connectionListWidget->currentRow();
+    int currentRow = connectionListWidget->currentRow();
 
     if (currentRow < 0) return;
 
-    QString currentText = ui->connectionListWidget->currentItem()->text();
-    bool canSetConnection = !isRenamingInProgress && vinstance->VCoreStatus != STARTED;
+    QString currentText = connectionListWidget->currentItem()->text();
+    bool canSetConnection = !isRenamingInProgress && vinstance->ConnectionStatus != STARTED;
     ShowAndSetConnection(currentText, canSetConnection, false);
 }
-
 void MainWindow::on_prefrencesBtn_clicked()
 {
     PrefrencesWindow *w = new PrefrencesWindow(this);
     connect(w, &PrefrencesWindow::s_reload_config, this, &MainWindow::OnConfigListChanged);
     w->show();
 }
-
 void MainWindow::on_connectionListWidget_doubleClicked(const QModelIndex &index)
 {
     Q_UNUSED(index)
-    int currentRow = ui->connectionListWidget->currentRow();
+    int currentRow = connectionListWidget->currentRow();
 
     if (currentRow < 0) return;
 
-    QString currentText = ui->connectionListWidget->currentItem()->text();
+    QString currentText = connectionListWidget->currentItem()->text();
     ShowAndSetConnection(currentText, true, true);
 }
-
 void MainWindow::on_clearlogButton_clicked()
 {
-    ui->logText->clear();
+    logText->clear();
 }
-
 void MainWindow::on_connectionListWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
 {
     Q_UNUSED(previous)
     isRenamingInProgress = false;
     on_connectionListWidget_itemClicked(current);
 }
-
 void MainWindow::on_connectionListWidget_customContextMenuRequested(const QPoint &pos)
 {
     Q_UNUSED(pos)
-    listMenu.popup(QCursor::pos());
+    listMenu->popup(QCursor::pos());
 }
-
 void MainWindow::on_action_RenameConnection_triggered()
 {
-    auto item = ui->connectionListWidget->currentItem();
+    auto item = connectionListWidget->currentItem();
     item->setFlags(item->flags() | Qt::ItemIsEditable);
-    ui->connectionListWidget->editItem(item);
+    connectionListWidget->editItem(item);
     originalName = item->text();
     isRenamingInProgress = true;
 }
-
 void MainWindow::on_connectionListWidget_itemChanged(QListWidgetItem *item)
 {
-    LOG(MODULE_UI, "A connection ListViewItem is changed.")
+    DEBUG(MODULE_UI, "A connection ListViewItem is changed.")
 
     if (isRenamingInProgress) {
         // In this case it's after we entered the name.
@@ -500,8 +614,6 @@ void MainWindow::on_connectionListWidget_itemChanged(QListWidgetItem *item)
             QvMessageBox(this, tr("Rename a Connection"), tr("The name cannot be empty"));
             return;
         }
-
-        LOG(MODULE_FILE, "[RENAME] --> ORIGINAL: " + originalName.toStdString() + ", NEW: " + newName.toStdString())
 
         // If I really did some changes.
         if (originalName != newName) {
@@ -525,18 +637,17 @@ void MainWindow::on_connectionListWidget_itemChanged(QListWidgetItem *item)
             if (running) CurrentConnectionName = newName;
 
             OnConfigListChanged(running);
-            auto newItem = ui->connectionListWidget->findItems(newName, Qt::MatchExactly).front();
-            ui->connectionListWidget->setCurrentItem(newItem);
+            auto newItem = connectionListWidget->findItems(newName, Qt::MatchExactly).front();
+            connectionListWidget->setCurrentItem(newItem);
         }
     }
 }
-
 void MainWindow::on_removeConfigButton_clicked()
 {
-    if (ui->connectionListWidget->currentIndex().row() < 0) return;
+    if (connectionListWidget->currentIndex().row() < 0) return;
 
     if (QvMessageBoxAsk(this, tr("Removing this Connection"), tr("Are you sure to remove this connection?")) == QMessageBox::Yes) {
-        auto connectionName = ui->connectionListWidget->currentItem()->text();
+        auto connectionName = connectionListWidget->currentItem()->text();
 
         if (connectionName == CurrentConnectionName) {
             on_stopButton_clicked();
@@ -548,7 +659,7 @@ void MainWindow::on_removeConfigButton_clicked()
         list.removeOne(connectionName.toStdString());
         conf.configs = list.toStdList();
 
-        if (!RemoveConnection(&connectionName)) {
+        if (!RemoveConnection(connectionName)) {
             QvMessageBox(this, tr("Removing this Connection"), tr("Failed to delete connection file, please delete manually."));
         }
 
@@ -557,57 +668,40 @@ void MainWindow::on_removeConfigButton_clicked()
         ShowAndSetConnection(CurrentConnectionName, false, false);
     }
 }
-
 void MainWindow::on_importConfigButton_clicked()
 {
+    // BETA
     ImportConfigWindow *w = new ImportConfigWindow(this);
-    connect(w, &ImportConfigWindow::s_reload_config, this, &MainWindow::OnConfigListChanged);
-    w->exec();
-    ShowAndSetConnection(CurrentConnectionName, false, false);
-}
+    auto configs = w->OpenImport();
+    auto gConf = GetGlobalConfig();
 
-void MainWindow::on_addConfigButton_clicked()
-{
-    OutboundEditor *w = new OutboundEditor(this);
-    connect(w, &OutboundEditor::s_reload_config, this, &MainWindow::OnConfigListChanged);
-    auto outboundEntry = w->OpenEditor();
-    bool isChanged = w->result() == QDialog::Accepted;
-    QString alias = w->GetFriendlyName();
-    delete w;
+    for (auto conf : configs) {
+        auto name = configs.key(conf, "");
 
-    if (isChanged) {
-        QJsonArray outboundsList;
-        outboundsList.push_back(outboundEntry);
-        QJsonObject root;
-        root.insert("outbounds", outboundsList);
-        //
-        // WARN This one will change the connection name, because of some duplicates.
-        SaveConnectionConfig(root, &alias, false);
-        //
-        auto conf = GetGlobalConfig();
-        auto connectionList = conf.configs;
-        connectionList.push_back(alias.toStdString());
-        conf.configs = connectionList;
-        SetGlobalConfig(conf);
-        OnConfigListChanged(false);
-        ShowAndSetConnection(CurrentConnectionName, false, false);
+        if (name.isEmpty())
+            continue;
+
+        SaveConnectionConfig(conf, &name, false);
+        gConf.configs.push_back(name.toStdString());
     }
-}
 
+    SetGlobalConfig(gConf);
+    OnConfigListChanged(false);
+}
 void MainWindow::on_editConfigButton_clicked()
 {
     // Check if we have a connection selected...
-    if (ui->connectionListWidget->currentIndex().row() < 0) {
+    if (connectionListWidget->currentIndex().row() < 0) {
         QvMessageBox(this, tr("No Config Selected"), tr("Please Select a Config"));
         return;
     }
 
-    auto alias = ui->connectionListWidget->currentItem()->text();
+    auto alias = connectionListWidget->currentItem()->text();
     auto outBoundRoot = connections[alias];
     QJsonObject root;
     bool isChanged = false;
 
-    if (outBoundRoot["outbounds"].toArray().count() > 1) {
+    if (CheckIsComplexConfig(outBoundRoot)) {
         LOG(MODULE_UI, "INFO: Opening route editor.")
         RouteEditor *routeWindow = new RouteEditor(outBoundRoot, this);
         root = routeWindow->OpenEditor();
@@ -624,27 +718,54 @@ void MainWindow::on_editConfigButton_clicked()
 
     if (isChanged) {
         connections[alias] = root;
+        // true indicates the alias will NOT change
         SaveConnectionConfig(root, &alias, true);
         OnConfigListChanged(alias == CurrentConnectionName);
         ShowAndSetConnection(CurrentConnectionName, false, false);
     }
 }
-
 void MainWindow::on_reconnectButton_clicked()
 {
     on_stopButton_clicked();
     on_startButton_clicked();
 }
 
-void MainWindow::on_action_RCM_EditJson_triggered()
+void MainWindow::on_action_RCM_ConvToComplex_triggered()
 {
     // Check if we have a connection selected...
-    if (ui->connectionListWidget->currentIndex().row() < 0) {
+    if (connectionListWidget->currentIndex().row() < 0) {
         QvMessageBox(this, tr("No Config Selected"), tr("Please Select a Config"));
         return;
     }
 
-    auto alias = ui->connectionListWidget->currentItem()->text();
+    auto alias = connectionListWidget->currentItem()->text();
+    auto outBoundRoot = connections[alias];
+    QJsonObject root;
+    bool isChanged = false;
+    //
+    LOG(MODULE_UI, "INFO: Opening route editor.")
+    RouteEditor *routeWindow = new RouteEditor(outBoundRoot, this);
+    root = routeWindow->OpenEditor();
+    isChanged = routeWindow->result() == QDialog::Accepted;
+
+    if (isChanged) {
+        connections[alias] = root;
+        // true indicates the alias will NOT change
+        SaveConnectionConfig(root, &alias, true);
+        OnConfigListChanged(alias == CurrentConnectionName);
+        ShowAndSetConnection(CurrentConnectionName, false, false);
+    }
+}
+
+void MainWindow::on_action_RCM_EditJson_triggered()
+{
+    // Check if we have a connection selected...
+    if (connectionListWidget->currentIndex().row() < 0) {
+        QvMessageBox(this, tr("No Config Selected"), tr("Please Select a Config"));
+        return;
+    }
+
+    auto alias = connectionListWidget->currentItem()->text();
     JsonEditor *w = new JsonEditor(connections[alias], this);
     auto root = w->OpenEditor();
     bool isChanged = w->result() == QDialog::Accepted;
@@ -652,32 +773,47 @@ void MainWindow::on_action_RCM_EditJson_triggered()
 
     if (isChanged) {
         connections[alias] = root;
+        // Alias here will not change.
         SaveConnectionConfig(root, &alias, true);
         ShowAndSetConnection(CurrentConnectionName, false, false);
     }
 }
-
 void MainWindow::on_editJsonBtn_clicked()
 {
     // See above.
     on_action_RCM_EditJson_triggered();
 }
-
 void MainWindow::on_pingTestBtn_clicked()
 {
     // Ping
 }
-
-void MainWindow::on_shareQRButton_clicked()
+void MainWindow::on_shareBtn_clicked()
 {
     // Share QR
-}
+    if (connectionListWidget->currentRow() < 0) {
+        return;
+    }
 
-void MainWindow::on_shareVMessButton_clicked()
+    auto alias = connectionListWidget->currentItem()->text();
+    auto root = connections[alias];
+    auto outBoundRoot = root["outbounds"].toArray().first().toObject();
+    auto outboundType = outBoundRoot["protocol"].toString();
+
+    if (CheckIsComplexConfig(root) && outboundType == "vmess") {
+        auto vmessServer = StructFromJsonString<VMessServerObject>(JsonToString(outBoundRoot["settings"].toObject()["vnext"].toArray().first().toObject()));
+        auto transport = StructFromJsonString<StreamSettingsObject>(JsonToString(outBoundRoot["streamSettings"].toObject()));
+        auto vmess = ConvertConfigToVMessString(transport, vmessServer, alias);
+        ConfigExporter v(vmess, this);
+        v.OpenExport();
+    } else {
+        QvMessageBox(this, tr("Share Connection"), tr("There're no support of sharing configs other than vmess"));
+    }
+}
+void MainWindow::on_action_RCM_ShareQR_triggered(bool checked)
 {
-    // Share vmess://
+    Q_UNUSED(checked)
+    on_shareBtn_clicked();
 }
-
 void MainWindow::timerEvent(QTimerEvent *event)
 {
     Q_UNUSED(event)
@@ -688,7 +824,7 @@ void MainWindow::timerEvent(QTimerEvent *event)
         auto tag = inbound.toObject()["tag"].toString();
 
         // TODO: A proper scheme...
-        if (tag == API_TAG_INBOUND) {
+        if (tag == QV2RAY_API_TAG_INBOUND) {
             continue;
         }
 
@@ -717,7 +853,7 @@ void MainWindow::timerEvent(QTimerEvent *event)
     downloadSerie->replace(29, 29, graphVDown);
     //
     max = MAX(MAX(graphVUp, graphVDown), historyMax);
-    speedChart->axes(Qt::Vertical).first()->setRange(0, max * 1.2);
+    speedChartObj->axes(Qt::Vertical).first()->setRange(0, max * 1.2);
     //
     //
     totalSpeedUp = FormatBytes(_totalSpeedUp);
@@ -725,9 +861,23 @@ void MainWindow::timerEvent(QTimerEvent *event)
     totalDataUp = FormatBytes(_totalDataUp);
     totalDataDown = FormatBytes(_totalDataDown);
     //
-    ui->netspeedLabel->setText(totalSpeedUp + "/s\r\n" + totalSpeedDown + "/s");
-    ui->dataamountLabel->setText(totalDataUp + "\r\n" + totalDataDown);
+    netspeedLabel->setText(totalSpeedUp + "/s\r\n" + totalSpeedDown + "/s");
+    dataamountLabel->setText(totalDataUp + "\r\n" + totalDataDown);
     //
     hTray->setToolTip(TRAY_TOOLTIP_PREFIX "\r\n" + tr("Connected To Server: ") + CurrentConnectionName + "\r\nUp: " + totalSpeedUp + "/s Down: " + totalSpeedDown + "/s");
 }
+void MainWindow::on_duplicateBtn_clicked()
+{
+    if (connectionListWidget->currentRow() < 0) {
+        return;
+    }
 
+    auto alias = connectionListWidget->currentItem()->text();
+    auto conf = ConvertConfigFromFile(QV2RAY_CONFIG_DIR + alias + QV2RAY_CONFIG_FILE_EXTENSION, false);
+    // Alias may change.
+    SaveConnectionConfig(conf, &alias, false);
+    auto config = GetGlobalConfig();
+    config.configs.push_back(alias.toStdString());
+    SetGlobalConfig(config);
+    this->OnConfigListChanged(false);
+}

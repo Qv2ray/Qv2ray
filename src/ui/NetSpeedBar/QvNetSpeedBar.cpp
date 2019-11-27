@@ -1,11 +1,11 @@
-#include <QThread>
-#include "QvNetSpeedPlugin.h"
-#include "QvUtils.h"
+﻿#include <QThread>
+#include "QvNetSpeedPlugin.hpp"
+#include "QvUtils.hpp"
 
-#include "w_MainWindow.h"
+#include "w_MainWindow.hpp"
 namespace Qv2ray
 {
-    namespace Utils
+    namespace Components
     {
         namespace NetSpeedPlugin
         {
@@ -13,10 +13,10 @@ namespace Qv2ray
             static Qv2rayConfig config;
             void StopProcessingPlugins()
             {
-#ifdef __linux__
+#ifdef Q_OS_LINUX
                 _linux::StopMessageQThread();
 #endif
-#ifdef _WIN32
+#ifdef Q_OS_WIN
                 _win::KillNamedPipeThread();
 #endif
             }
@@ -27,10 +27,10 @@ namespace Qv2ray
             {
                 mainWindow = static_cast<MainWindow *>(_mainWindow);
                 config = GetGlobalConfig();
-#ifdef __linux__
+#ifdef Q_OS_LINUX
                 _linux::StartMessageQThread();
 #endif
-#ifdef _WIN32
+#ifdef Q_OS_WIN
                 _win::StartNamedPipeThread();
 #endif
             }
@@ -48,12 +48,12 @@ namespace Qv2ray
                     emit mainWindow->ReConnect();
                 }
 
-                auto BarConfig = config.speedBarConfig;
+                auto BarConfig = config.toolBarConfig;
 
                 for (size_t i = 0; i < BarConfig.Pages.size(); i++) {
                     for (size_t j = 0; j < BarConfig.Pages[i].Lines.size(); j++) {
 #define CL BarConfig.Pages[i].Lines[j]
-#define STATS_ENABLE_CHECK if(!config.enableStats) { CL.Message = QObject::tr("Stats is not enabled").toStdString(); break;}
+#define STATS_ENABLE_CHECK if(!config.connectionConfig.enableStats) { CL.Message = QObject::tr("Stats is not enabled").toStdString(); break;}
 
                         switch (CL.ContentType) {
                             case 0: {
@@ -64,13 +64,13 @@ namespace Qv2ray
 
                             case 101: {
                                 // Current Time
-                                CL.Message = QTime().toString("hh:mm:ss").toStdString();
+                                CL.Message = QTime().currentTime().toString("hh:mm:ss").toStdString();
                                 break;
                             }
 
                             case 102: {
                                 // Current Date
-                                CL.Message = QDate().toString("yyyy-MM-dd").toStdString();
+                                CL.Message = QDate().currentDate().toString("yyyy-MM-dd").toStdString();
                                 break;
                             }
 
@@ -88,7 +88,7 @@ namespace Qv2ray
 
                             case 105: {
                                 // Current Connection Status
-                                switch (mainWindow->vinstance->VCoreStatus) {
+                                switch (mainWindow->vinstance->ConnectionStatus) {
                                     case STARTED: {
                                         CL.Message = QObject::tr("Connected").toStdString();
                                         break;
