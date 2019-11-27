@@ -71,13 +71,30 @@
 #define MAX(a, b) (((a) > (b)) ? (a) : (b))
 #endif
 
+#define SAFE_TYPEDEF(Base, name) \
+    class name : public Base { \
+        public: \
+            template <class... Args> \
+            explicit name (Args... args) : Base(args...) {} \
+            const Base& raw() const { return *this; } \
+    };
+
 namespace Qv2ray
 {
+    // To prevent anonying QJsonObject misuse
+    SAFE_TYPEDEF(QJsonObject, INBOUND)
+    SAFE_TYPEDEF(QJsonObject, OUTBOUND)
+    SAFE_TYPEDEF(QJsonObject, ROOT)
+    SAFE_TYPEDEF(QJsonArray, OUTBOUNDS)
+    SAFE_TYPEDEF(QJsonArray, INBOUNDS)
+    SAFE_TYPEDEF(QJsonArray, ROUTING)
+    SAFE_TYPEDEF(QJsonObject, ROUTERULE)
+    //
     // Extra header for QvConfigUpgrade.cpp
     QJsonObject UpgradeConfig(int fromVersion, int toVersion, QJsonObject root);
 
     struct QvBarLine {
-        string     Family;
+        string          Family;
         bool            Bold;
         bool            Italic;
         int             ColorA;
@@ -86,7 +103,7 @@ namespace Qv2ray
         int             ColorB;
         int             ContentType;
         double          Size;
-        string     Message;
+        string          Message;
         QvBarLine()
             : Family("Consolas")
             , Bold(true)
