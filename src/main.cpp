@@ -197,7 +197,7 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    auto conf = JsonFromString(StringFromFile(new QFile(QV2RAY_CONFIG_FILE)));
+    auto conf = CONFIGROOT(JsonFromString(StringFromFile(new QFile(QV2RAY_CONFIG_FILE))));
     //
     auto confVersion = conf["config_version"].toVariant().toString();
     auto newVersion = QSTRING(to_string(QV2RAY_CONFIG_VERSION));

@@ -68,7 +68,7 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         void on_duplicateBtn_clicked();
 
     public:
-        QJsonObject CurrentFullConfig;
+        CONFIGROOT CurrentFullConfig;
         QString CurrentConnectionName = "";
         ConnectionInstance *vinstance;
         QString totalDataUp;
@@ -98,7 +98,7 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         //
         QMenu *trayMenu = new QMenu(this);
         QMenu *listMenu;
-        QMap<QString, QJsonObject> connections;
+        QMap<QString, CONFIGROOT> connections;
         //
         QString originalName;
         bool isRenamingInProgress;

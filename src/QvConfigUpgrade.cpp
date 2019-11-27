@@ -10,7 +10,7 @@
 namespace Qv2ray
 {
     // Private member
-    QJsonObject UpgradeConfig_Inc(int fromVersion, QJsonObject root)
+    CONFIGROOT UpgradeConfig_Inc(int fromVersion, CONFIGROOT root)
     {
         switch (fromVersion) {
             case 1: {
@@ -128,7 +128,7 @@ namespace Qv2ray
     }
 
     // Exported function
-    QJsonObject UpgradeConfig(int fromVersion, int toVersion, QJsonObject root)
+    CONFIGROOT UpgradeConfig(int fromVersion, int toVersion, CONFIGROOT root)
     {
         LOG(MODULE_CONFIG, "Migrating config from version " + to_string(fromVersion) + " to " + to_string(toVersion))
 

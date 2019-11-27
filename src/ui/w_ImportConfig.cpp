@@ -24,13 +24,13 @@ ImportConfigWindow::ImportConfigWindow(QWidget *parent)
     nameTxt->setText(QDateTime::currentDateTime().toString("MM-dd_hh-mm") + "_" + tr("Imported") + "_");
 }
 
-QMap<QString, QJsonObject> ImportConfigWindow::OpenImport(bool outboundsOnly)
+QMap<QString, CONFIGROOT> ImportConfigWindow::OpenImport(bool outboundsOnly)
 {
     // if Outbound Only, set keepImported to false and disable the checkbox
     // keepImportedInboundCheckBox->setChecked(!outboundsOnly);
     keepImportedInboundCheckBox->setEnabled(!outboundsOnly);
     this->exec();
-    return this->result() == QDialog::Accepted ? connections : QMap<QString, QJsonObject>();
+    return this->result() == QDialog::Accepted ? connections : QMap<QString, CONFIGROOT>();
 }
 
 void ImportConfigWindow::on_importSourceCombo_currentIndexChanged(int index)
@@ -65,7 +65,7 @@ void ImportConfigWindow::on_qrFromScreenBtn_clicked()
 void ImportConfigWindow::on_beginImportBtn_clicked()
 {
     QString aliasPrefix = nameTxt->text();
-    QJsonObject config;
+    CONFIGROOT config;
     //auto conf = GetGlobalConfig();
 
     switch (importSourceCombo->currentIndex()) {
@@ -224,9 +224,9 @@ void ImportConfigWindow::on_connectionEditBtn_clicked()
     delete w;
 
     if (isChanged) {
-        QJsonArray outboundsList;
+        OUTBOUNDS outboundsList;
         outboundsList.push_back(outboundEntry);
-        QJsonObject root;
+        CONFIGROOT root;
         root.insert("outbounds", outboundsList);
         //
         // WARN This one will change the connection name, because of some duplicates.
