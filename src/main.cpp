@@ -218,8 +218,10 @@ int main(int argc, char *argv[])
 
     auto confObject = StructFromJsonString<Qv2rayConfig>(JsonToString(conf));
     SetGlobalConfig(confObject);
+    qApp->removeTranslator(getTranslator(_lang));
+    LOG(MODULE_INIT, "Removing system translations")
 
-    if (qApp->installTranslator(getTranslator(QSTRING(confObject.uiConfig.language))) || confObject.uiConfig.language == "en-US") {
+    if (qApp->installTranslator(getTranslator(QSTRING(confObject.uiConfig.language)))) {
         LOG(MODULE_INIT, "Loaded Translator " + confObject.uiConfig.language)
     } else {
         // Do not translate these.....
