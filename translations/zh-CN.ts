@@ -650,7 +650,7 @@
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="240"/>
       <source>Edit connection</source>
-      <translation type="unfinished">Edit connection</translation>
+      <translation>编辑连接</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="273"/>
@@ -660,12 +660,12 @@
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="281"/>
       <source>Config Type</source>
-      <translation type="unfinished">Config Type</translation>
+      <translation>配置类型</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="295"/>
       <source>Protocol</source>
-      <translation type="unfinished">Protocol</translation>
+      <translation>协议</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="309"/>
@@ -680,22 +680,22 @@
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="339"/>
       <source>Operations</source>
-      <translation type="unfinished">Operations</translation>
+      <translation>操作</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="361"/>
       <source>Edit connection as JSON</source>
-      <translation type="unfinished">Edit connection as JSON</translation>
+      <translation>将连接编辑为 JSON</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="189"/>
       <source>Add</source>
-      <translation type="unfinished">Add</translation>
+      <translation>添加</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="205"/>
       <source>Duplicate</source>
-      <translation type="unfinished">Duplicate</translation>
+      <translation>重复</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="227"/>
@@ -1524,57 +1524,57 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="568"/>
       <source>Mirror: TuxFamily</source>
-      <translation type="unfinished">Mirror: TuxFamily</translation>
+      <translation>镜像: TuxFamily</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="573"/>
       <source>GFWList File</source>
-      <translation type="unfinished">GFWList File</translation>
+      <translation>GFWList 文件</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="581"/>
       <source>Go</source>
-      <translation type="unfinished">Go</translation>
+      <translation>开始</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="590"/>
       <source>Edit PAC</source>
-      <translation type="unfinished">Edit PAC</translation>
+      <translation>编辑 PAC</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="597"/>
       <source>Open PAC Folder</source>
-      <translation type="unfinished">Open PAC Folder</translation>
+      <translation>打开 PAC 文件夹</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="607"/>
       <source>SOCKS Settings</source>
-      <translation type="unfinished">SOCKS Settings</translation>
+      <translation>SOCKS 设置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="633"/>
       <source>UDP Support</source>
-      <translation type="unfinished">UDP Support</translation>
+      <translation>UDP 支持</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="647"/>
       <source>Local IP (For UDP)</source>
-      <translation type="unfinished">Local IP (For UDP)</translation>
+      <translation>本地IP (适用UDP)</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="859"/>
       <source>Socks</source>
-      <translation type="unfinished">Socks</translation>
+      <translation>Socks</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="867"/>
       <source>Host Address</source>
-      <translation type="unfinished">Host Address</translation>
+      <translation>主机地址：</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="951"/>
       <source>Network Toolbar Settings</source>
-      <translation type="unfinished">Network Toolbar Settings</translation>
+      <translation>网络工具栏设置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="957"/>
@@ -1585,13 +1585,13 @@
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="975"/>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="1054"/>
       <source>-</source>
-      <translation type="unfinished">-</translation>
+      <translation>-</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="994"/>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="1073"/>
       <source>+</source>
-      <translation type="unfinished">+</translation>
+      <translation>+</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="1001"/>
@@ -1718,12 +1718,12 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="1397"/>
       <source>Official Repo</source>
-      <translation type="unfinished">Official Repo</translation>
+      <translation>官方Repo：</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="1511"/>
       <source>Ignore Next Version</source>
-      <translation type="unfinished">Ignore Next Version</translation>
+      <translation>忽略下个版本</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="1410"/>
@@ -1733,7 +1733,7 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="803"/>
       <source>Custom DNS List</source>
-      <translation type="unfinished">Custom DNS List</translation>
+      <translation>自定义 DNS 列表</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="1430"/>
@@ -1797,7 +1797,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="44"/>
       <source>Use Dark Theme</source>
-      <translation type="unfinished">Use Dark Theme</translation>
+      <translation>使用暗色主题</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="122"/>
@@ -1869,17 +1869,17 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="730"/>
       <source>Dark Mode</source>
-      <translation type="unfinished">Dark Mode</translation>
+      <translation>深色模式</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="730"/>
       <source>Please restart Qv2ray to fully apply this feature.</source>
-      <translation type="unfinished">Please restart Qv2ray to fully apply this feature.</translation>
+      <translation>请重启 Qv2ray 以充分应用此功能。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="794"/>
       <source>Select GFWList in base64</source>
-      <translation type="unfinished">Select GFWList in base64</translation>
+      <translation>选择 base64 格式的 GFWList</translation>
     </message>
   </context>
   <context>
@@ -1887,17 +1887,17 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/QvCoreConfigOperations_Convertion.cpp" line="93"/>
       <source>VMess string should start with &apos;vmess://&apos;</source>
-      <translation type="unfinished">VMess string should start with &apos;vmess://&apos;</translation>
+      <translation>VMess字符串应以 vmess:// 开头</translation>
     </message>
     <message>
       <location filename="../src/QvCoreConfigOperations_Convertion.cpp" line="102"/>
       <source>VMess string should be a valid base64 string</source>
-      <translation type="unfinished">VMess string should be a valid base64 string</translation>
+      <translation>VMess字符串应该是一个有效的 base64 字符串</translation>
     </message>
     <message>
       <location filename="../src/QvCoreConfigOperations_Convertion.cpp" line="117"/>
       <source>JSON should not be empty</source>
-      <translation type="unfinished">JSON should not be empty</translation>
+      <translation>端口号不能为空</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="106"/>
@@ -1923,12 +1923,12 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/main.cpp" line="176"/>
       <source>Cannot load languages</source>
-      <translation type="unfinished">Cannot load languages</translation>
+      <translation>无法加载语言</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="176"/>
       <source>Qv2ray will continue running, but you cannot change the UI language.</source>
-      <translation type="unfinished">Qv2ray will continue running, but you cannot change the UI language.</translation>
+      <translation>Qv2ray 将继续运行，但您不能更改界面语言。</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="196"/>
@@ -2081,12 +2081,12 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/components/QvPACHandler.cpp" line="43"/>
       <source>PAC Handler</source>
-      <translation type="unfinished">PAC Handler</translation>
+      <translation>PAC 调度器</translation>
     </message>
     <message>
       <location filename="../src/components/QvPACHandler.cpp" line="43"/>
       <source>Failed to listen PAC request on this port, please verify the permissions</source>
-      <translation type="unfinished">Failed to listen PAC request on this port, please verify the permissions</translation>
+      <translation>监听PAC请求失败，请验证权限</translation>
     </message>
   </context>
   <context>
