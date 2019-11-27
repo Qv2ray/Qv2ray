@@ -799,7 +799,7 @@ void MainWindow::on_shareBtn_clicked()
     auto outBoundRoot = root["outbounds"].toArray().first().toObject();
     auto outboundType = outBoundRoot["protocol"].toString();
 
-    if (CheckIsComplexConfig(root) && outboundType == "vmess") {
+    if (!CheckIsComplexConfig(root) && outboundType == "vmess") {
         auto vmessServer = StructFromJsonString<VMessServerObject>(JsonToString(outBoundRoot["settings"].toObject()["vnext"].toArray().first().toObject()));
         auto transport = StructFromJsonString<StreamSettingsObject>(JsonToString(outBoundRoot["streamSettings"].toObject()));
         auto vmess = ConvertConfigToVMessString(transport, vmessServer, alias);
