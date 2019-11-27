@@ -65,6 +65,7 @@ MainWindow::MainWindow(QWidget *parent)
     //
     QAction *action_RCM_RenameConnection = new QAction(tr("Rename"), this);
     QAction *action_RCM_StartThis = new QAction(tr("Connect to this"), this);
+    QAction *action_RCM_ConvToComplex = new QAction(tr("Edit as Complex Config"), this);
     QAction *action_RCM_EditJson = new QAction(QICON_R("json.png"), tr("Edit as Json"), this);
     QAction *action_RCM_ShareQR = new QAction(QICON_R("share.png"), tr("Share as QRCode/VMess URL"), this);
     //
@@ -88,6 +89,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(action_RCM_RenameConnection, &QAction::triggered, this, &MainWindow::on_action_RenameConnection_triggered);
     connect(action_RCM_StartThis, &QAction::triggered, this, &MainWindow::on_action_StartThis_triggered);
     connect(action_RCM_EditJson, &QAction::triggered, this, &MainWindow::on_action_RCM_EditJson_triggered);
+    connect(action_RCM_ConvToComplex, &QAction::triggered, this, &MainWindow::on_action_RCM_ConvToComplex_triggered);
     //
     // Share optionss
     connect(action_RCM_ShareQR, &QAction::triggered, this, &MainWindow::on_action_RCM_ShareQR_triggered);
@@ -102,6 +104,7 @@ MainWindow::MainWindow(QWidget *parent)
     listMenu = new QMenu(this);
     listMenu->addAction(action_RCM_RenameConnection);
     listMenu->addAction(action_RCM_StartThis);
+    listMenu->addAction(action_RCM_ConvToComplex);
     listMenu->addAction(action_RCM_EditJson);
     listMenu->addAction(action_RCM_ShareQR);
     //
@@ -308,8 +311,6 @@ void MainWindow::on_startButton_clicked()
             bool httpEnabled = conf.inboundConfig.useHTTP;
             bool socksEnabled = conf.inboundConfig.useSocks;
 
-            // TODO: Set PAC proxy string
-
             if (usePAC) {
                 bool canStartPAC = true;
                 QString pacProxyString;  // Something like this --> SOCKS5 127.0.0.1:1080; SOCKS 127.0.0.1:1080; DIRECT; http://proxy:8080
@@ -498,34 +499,43 @@ void MainWindow::ShowAndSetConnection(QString guiConnectionName, bool SetConnect
     // Check empty again...
     if (guiConnectionName.isEmpty()) return;
 
-    // --------- BRGIN Show Connection
-    auto root = connections[guiConnectionName];
-    auto outBoundRoot = root["outbounds"].toArray().first().toObject();
     //
-    auto outboundType = outBoundRoot["protocol"].toString();
-    _OutBoundTypeLabel->setText(outboundType);
     removeConfigButton->setEnabled(true);
     editConfigButton->setEnabled(true);
     editJsonBtn->setEnabled(true);
     duplicateBtn->setEnabled(true);
+    //
+    // --------- BRGIN Show Connection
+    auto root = connections[guiConnectionName];
+    //
+    auto isComplexConfig = root["routing"].toObject()["rules"].toArray().count() > 0;
+    routeCountLabel->setText(isComplexConfig > 0 ? tr("Complex") : tr("Simple"));
 
-    if (outboundType == "vmess") {
-        auto Server = StructFromJsonString<VMessServerObject>(JsonToString(outBoundRoot["settings"].toObject()["vnext"].toArray().first().toObject()));
-        _hostLabel->setText(QSTRING(Server.address));
-        _portLabel->setText(QSTRING(to_string(Server.port)));
-    } else if (outboundType == "shadowsocks") {
-        auto x = JsonToString(outBoundRoot["settings"].toObject()["servers"].toArray().first().toObject());
-        auto Server = StructFromJsonString<ShadowSocksServerObject>(x);
-        _hostLabel->setText(QSTRING(Server.address));
-        _portLabel->setText(QSTRING(to_string(Server.port)));
-    } else if (outboundType == "socks") {
-        auto x = JsonToString(outBoundRoot["settings"].toObject()["servers"].toArray().first().toObject());
-        auto Server = StructFromJsonString<SocksServerObject>(x);
-        _hostLabel->setText(QSTRING(Server.address));
-        _portLabel->setText(QSTRING(to_string(Server.port)));
+    if (isComplexConfig) {
+        _OutBoundTypeLabel->setText(tr("N/A"));
+        _hostLabel->setText(tr("N/A"));
+        _portLabel->setText(tr("N/A"));
+    } else {
+        auto outBoundRoot = root["outbounds"].toArray().first().toObject();
+        auto outboundType = outBoundRoot["protocol"].toString();
+        _OutBoundTypeLabel->setText(outboundType);
+
+        if (outboundType == "vmess") {
+            auto Server = StructFromJsonString<VMessServerObject>(JsonToString(outBoundRoot["settings"].toObject()["vnext"].toArray().first().toObject()));
+            _hostLabel->setText(QSTRING(Server.address));
+            _portLabel->setText(QSTRING(to_string(Server.port)));
+        } else if (outboundType == "shadowsocks") {
+            auto x = JsonToString(outBoundRoot["settings"].toObject()["servers"].toArray().first().toObject());
+            auto Server = StructFromJsonString<ShadowSocksServerObject>(x);
+            _hostLabel->setText(QSTRING(Server.address));
+            _portLabel->setText(QSTRING(to_string(Server.port)));
+        } else if (outboundType == "socks") {
+            auto x = JsonToString(outBoundRoot["settings"].toObject()["servers"].toArray().first().toObject());
+            auto Server = StructFromJsonString<SocksServerObject>(x);
+            _hostLabel->setText(QSTRING(Server.address));
+            _portLabel->setText(QSTRING(to_string(Server.port)));
+        }
     }
-
-    routeCountLabel->setText(QString::number(root["routing"].toObject()["rules"].toArray().count()));
 
     // --------- END Show Connection
     //
@@ -660,8 +670,22 @@ void MainWindow::on_removeConfigButton_clicked()
 }
 void MainWindow::on_importConfigButton_clicked()
 {
+    // BETA
     ImportConfigWindow *w = new ImportConfigWindow(this);
-    w->exec();
+    auto configs = w->OpenImport();
+    auto gConf = GetGlobalConfig();
+
+    for (auto conf : configs) {
+        auto name = configs.key(conf, "");
+
+        if (name.isEmpty())
+            continue;
+
+        SaveConnectionConfig(conf, &name, false);
+        gConf.configs.push_back(name.toStdString());
+    }
+
+    SetGlobalConfig(gConf);
     OnConfigListChanged(false);
 }
 void MainWindow::on_editConfigButton_clicked()
@@ -677,7 +701,7 @@ void MainWindow::on_editConfigButton_clicked()
     QJsonObject root;
     bool isChanged = false;
 
-    if (outBoundRoot["outbounds"].toArray().count() > 1) {
+    if (CheckIsComplexConfig(outBoundRoot)) {
         LOG(MODULE_UI, "INFO: Opening route editor.")
         RouteEditor *routeWindow = new RouteEditor(outBoundRoot, this);
         root = routeWindow->OpenEditor();
@@ -705,6 +729,34 @@ void MainWindow::on_reconnectButton_clicked()
     on_stopButton_clicked();
     on_startButton_clicked();
 }
+
+void MainWindow::on_action_RCM_ConvToComplex_triggered()
+{
+    // Check if we have a connection selected...
+    if (connectionListWidget->currentIndex().row() < 0) {
+        QvMessageBox(this, tr("No Config Selected"), tr("Please Select a Config"));
+        return;
+    }
+
+    auto alias = connectionListWidget->currentItem()->text();
+    auto outBoundRoot = connections[alias];
+    QJsonObject root;
+    bool isChanged = false;
+    //
+    LOG(MODULE_UI, "INFO: Opening route editor.")
+    RouteEditor *routeWindow = new RouteEditor(outBoundRoot, this);
+    root = routeWindow->OpenEditor();
+    isChanged = routeWindow->result() == QDialog::Accepted;
+
+    if (isChanged) {
+        connections[alias] = root;
+        // true indicates the alias will NOT change
+        SaveConnectionConfig(root, &alias, true);
+        OnConfigListChanged(alias == CurrentConnectionName);
+        ShowAndSetConnection(CurrentConnectionName, false, false);
+    }
+}
+
 void MainWindow::on_action_RCM_EditJson_triggered()
 {
     // Check if we have a connection selected...
@@ -745,10 +797,9 @@ void MainWindow::on_shareBtn_clicked()
     auto alias = connectionListWidget->currentItem()->text();
     auto root = connections[alias];
     auto outBoundRoot = root["outbounds"].toArray().first().toObject();
-    //
     auto outboundType = outBoundRoot["protocol"].toString();
 
-    if (outboundType == "vmess") {
+    if (CheckIsComplexConfig(root) && outboundType == "vmess") {
         auto vmessServer = StructFromJsonString<VMessServerObject>(JsonToString(outBoundRoot["settings"].toObject()["vnext"].toArray().first().toObject()));
         auto transport = StructFromJsonString<StreamSettingsObject>(JsonToString(outBoundRoot["streamSettings"].toObject()));
         auto vmess = ConvertConfigToVMessString(transport, vmessServer, alias);

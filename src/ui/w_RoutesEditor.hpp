@@ -1,4 +1,4 @@
-﻿#ifndef W_QVOUTBOUNDEDITOR_H
+#ifndef W_QVOUTBOUNDEDITOR_H
 #define W_QVOUTBOUNDEDITOR_H
 
 #include <list>
@@ -80,12 +80,16 @@ class RouteEditor : public QDialog, private Ui::RouteEditor
 
         void on_delInboundBtn_clicked();
 
+        void on_addInboundBtn_clicked();
+
+        void on_addOutboundBtn_clicked();
+
     private:
         void ShowRuleDetail(RuleObject rule);
         int currentRuleIndex;
-        QString DomainStrategy;
         QMap<QString, QStringList> Balancers;
         QList<RuleObject> rules;
+        QString DomainStrategy;
         //
         QJsonArray inbounds;
         QJsonArray outbounds;

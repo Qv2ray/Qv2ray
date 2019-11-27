@@ -24,9 +24,13 @@ InboundEditor::InboundEditor(QJsonObject root, QWidget *parent) :
     } else if (inboundType == "mtproto") {
         mtSettings = root["settings"].toObject();
     } else {
-        LOG(MODULE_UI, "Unsupported inbound type: " + inboundType.toStdString() + ", decisions should be made if to open JSONEDITOR")
-        QvMessageBox(this, tr("Inbound type not supported"), tr("The inbound type is not supported by Qv2ray (yet). Please use JsonEditor to change the settings") + "\r\n" +
-                     tr("Inbound: ") + inboundType);
+        if (!root["protocol"].toString().isEmpty()) {
+            LOG(MODULE_UI, "Unsupported inbound type: " + inboundType.toStdString())
+            QvMessageBox(this, tr("Inbound type not supported"), tr("The inbound type is not supported by Qv2ray (yet). Please use JsonEditor to change the settings") + "\r\n" +
+                         tr("Inbound: ") + inboundType);
+        } else {
+            LOG(MODULE_UI, "Creating new inbound config")
+        }
     }
 
     LoadUIData();
@@ -61,7 +65,10 @@ QJsonObject InboundEditor::GenerateNewRoot()
 void InboundEditor::LoadUIData()
 {
     isLoading = true;
-    strategyCombo->setCurrentText(allocate["strategy"].toString());
+    auto x = allocate["strategy"].toString();
+    allocate["strategy"] = x.isEmpty() ? "always" : x;
+    strategyCombo->setCurrentText(x);
+    //
     refreshNumberBox->setValue(allocate["refresh"].toInt());
     concurrencyNumberBox->setValue(allocate["concurrency"].toInt());
     enableSniffingCB->setChecked(sniffing["enabled"].toBool());

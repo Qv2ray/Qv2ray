@@ -2,6 +2,8 @@
 #define IMPORTCONF_H
 
 #include <QDialog>
+#include <QString>
+#include <QJsonObject>
 #include "ui_w_ImportConfig.h"
 
 class ImportConfigWindow : public QDialog, private Ui::ImportConfigWindow
@@ -11,8 +13,7 @@ class ImportConfigWindow : public QDialog, private Ui::ImportConfigWindow
     public:
         explicit ImportConfigWindow(QWidget *parent = nullptr);
         ~ImportConfigWindow() { }
-    signals:
-        void s_reload_config(bool need_restart);
+        QMap<QString, QJsonObject> OpenImport(bool outboundsOnly = false);
     private slots:
         void on_importSourceCombo_currentIndexChanged(int index);
 
@@ -30,6 +31,7 @@ class ImportConfigWindow : public QDialog, private Ui::ImportConfigWindow
         void on_cancelImportBtn_clicked();
 
     private:
+        QMap<QString, QJsonObject> connections;
         QMap<QString, QString> vmessErrors;
 };
 

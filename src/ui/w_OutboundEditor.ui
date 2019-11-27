@@ -28,7 +28,7 @@
   <property name="modal">
    <bool>true</bool>
   </property>
-  <layout class="QGridLayout" name="gridLayout_4" columnstretch="8,3">
+  <layout class="QGridLayout" name="gridLayout_4">
    <item row="0" column="0">
     <layout class="QFormLayout" name="formLayout_5">
      <item row="0" column="0">
@@ -327,7 +327,7 @@
                  <item row="3" column="5">
                   <widget class="QPushButton" name="tcpRespDefBtn">
                    <property name="text">
-                    <string>Default Value</string>
+                    <string>Default</string>
                    </property>
                   </widget>
                  </item>
@@ -428,7 +428,7 @@
                  <item row="3" column="2">
                   <widget class="QPushButton" name="tcpRequestDefBtn">
                    <property name="text">
-                    <string>Default Value</string>
+                    <string>Default</string>
                    </property>
                   </widget>
                  </item>
@@ -1045,15 +1045,19 @@
      </layout>
     </widget>
    </item>
-   <item row="2" column="1">
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-     </property>
-    </widget>
+   <item row="2" column="0" colspan="2">
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <widget class="QDialogButtonBox" name="buttonBox">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="standardButtons">
+        <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
   </layout>
  </widget>

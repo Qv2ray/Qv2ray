@@ -1,12 +1,12 @@
-﻿#include "w_RoutesEditor.hpp"
+#include "w_RoutesEditor.hpp"
 #include "QvCoreConfigOperations.hpp"
 #include "w_OutboundEditor.hpp"
 #include "w_JsonEditor.hpp"
 #include "w_InboundEditor.hpp"
+#include "w_ImportConfig.hpp"
 
 static bool isLoading = false;
 #define CurrentRule this->rules[this->currentRuleIndex]
-#define STATUS(msg) statusLabel->setText(tr(msg));
 #define LOADINGCHECK if(isLoading) return;
 
 RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) :
@@ -318,9 +318,9 @@ void RouteEditor::ShowRuleDetail(RuleObject rule)
 
                     inboundsList->item(_index)->setCheckState(Qt::Checked);
                     inboundsList->setCurrentRow(_index);
-                    STATUS("OK")
+                    statusLabel->setText(tr("OK"));
                 } else {
-                    STATUS("Cannot find inbound by a tag, possible currupted files?")
+                    statusLabel->setText(tr("Cannot find inbound by a tag, possible currupted files?"));
                     LOG(MODULE_UI, "An inbound could not be determined by tag.")
                     return;
                 }
@@ -335,7 +335,7 @@ void RouteEditor::on_editOutboundBtn_clicked()
     int row = outboundsList->currentRow();
 
     if (row < 0) {
-        STATUS("No row selected.")
+        statusLabel->setText(tr("No row selected."));
         LOG(MODULE_UI, "No outbound row selected.")
         return;
     }
@@ -348,19 +348,19 @@ void RouteEditor::on_editOutboundBtn_clicked()
                      tr("This outbound entry is not supported by the GUI editor.") + "\r\n" +
                      tr("We will launch Json Editor instead."));
         JsonEditor *w = new JsonEditor(currentOutbound, this);
-        STATUS("Opening JSON editor")
+        statusLabel->setText(tr("Opening JSON editor"));
         result = w->OpenEditor();
         delete w;
     } else {
         OutboundEditor *w = new OutboundEditor(currentOutbound, this);
-        STATUS("Opening default outbound editor.")
+        statusLabel->setText(tr("Opening default outbound editor."));
         result = w->OpenEditor();
         delete w;
     }
 
     outbounds[row] = result;
     on_outboundsList_currentRowChanged(row);
-    STATUS("OK")
+    statusLabel->setText(tr("OK"));
 }
 
 void RouteEditor::on_insertDirectBtn_clicked()
@@ -370,7 +370,7 @@ void RouteEditor::on_insertDirectBtn_clicked()
     auto out = GenerateOutboundEntry("freedom", freedom, QJsonObject(), QJsonObject(), "0.0.0.0", tag);
     this->outbounds.append(out);
     outboundsList->addItem(tag);
-    STATUS("Added DIRECT outbound")
+    statusLabel->setText(tr("Added DIRECT outbound"));
 }
 
 void RouteEditor::on_editInboundBtn_clicked()
@@ -386,20 +386,20 @@ void RouteEditor::on_editInboundBtn_clicked()
     if (protocol != "http" && protocol != "mtproto" && protocol != "socks" && protocol != "dokodemo-door") {
         QvMessageBox(this, tr("Cannot Edit"), tr("Currently, this type of outbound is not supported by the editor.") + "\r\n" +
                      tr("We will launch Json Editor instead."));
-        STATUS("Opening JSON editor")
+        statusLabel->setText(tr("Opening JSON editor"));
         JsonEditor *w = new JsonEditor(currentInbound, this);
         result = w->OpenEditor();
         delete w;
     } else {
         InboundEditor *w = new InboundEditor(currentInbound, this);
-        STATUS("Opening default inbound editor")
+        statusLabel->setText(tr("Opening default inbound editor"));
         result = w->OpenEditor();
         delete w;
     }
 
     inbounds[row] = result;
     on_inboundsList_currentRowChanged(row);
-    STATUS("OK")
+    statusLabel->setText(tr("OK"));
 }
 
 void RouteEditor::on_routeProtocolHTTPCB_stateChanged(int arg1)
@@ -414,7 +414,7 @@ void RouteEditor::on_routeProtocolHTTPCB_stateChanged(int arg1)
     if (routeProtocolBTCB->isChecked()) protocols << "bittorrent";
 
     CurrentRule.protocol = protocols.toStdList();
-    STATUS("Protocol list changed.")
+    statusLabel->setText(tr("Protocol list changed."));
 }
 
 void RouteEditor::on_routeProtocolTLSCB_stateChanged(int arg1)
@@ -429,7 +429,7 @@ void RouteEditor::on_routeProtocolTLSCB_stateChanged(int arg1)
     if (routeProtocolBTCB->isChecked()) protocols << "bittorrent";
 
     CurrentRule.protocol = protocols.toStdList();
-    STATUS("Protocol list changed.")
+    statusLabel->setText(tr("Protocol list changed."));
 }
 
 void RouteEditor::on_routeProtocolBTCB_stateChanged(int arg1)
@@ -444,7 +444,7 @@ void RouteEditor::on_routeProtocolBTCB_stateChanged(int arg1)
     if (routeProtocolTLSCB->isChecked()) protocols << "tls";
 
     CurrentRule.protocol = protocols.toStdList();
-    STATUS("Protocol list changed.")
+    statusLabel->setText(tr("Protocol list changed."));
 }
 
 void RouteEditor::on_balabcerAddBtn_clicked()
@@ -460,9 +460,9 @@ void RouteEditor::on_balabcerAddBtn_clicked()
     if (!balancerTx.isEmpty()) {
         balancerList->addItem(balancerTx);
         balancerSelectionCombo->setEditText("");
-        STATUS("OK")
+        statusLabel->setText(tr("OK"));
     } else {
-        STATUS("Balacer is empty, not processing.")
+        statusLabel->setText(tr("Balacer is empty, not processing."));
     }
 }
 
@@ -476,7 +476,7 @@ void RouteEditor::on_balancerDelBtn_clicked()
 
     Balancers[QSTRING(CurrentRule.balancerTag)].removeAt(balancerList->currentRow());
     balancerList->takeItem(balancerList->currentRow());
-    STATUS("Removed a balancer entry.")
+    statusLabel->setText(tr("Removed a balancer entry."));
 }
 
 void RouteEditor::on_hostList_textChanged()
@@ -569,7 +569,7 @@ void RouteEditor::on_routesTable_cellChanged(int row, int column)
     }
 
     rules[row].QV2RAY_RULE_ENABLED = routesTable->item(row, column)->checkState() == Qt::Checked;
-    STATUS((rules[row].QV2RAY_RULE_ENABLED ? "Enabled a route" : "Disabled a route"))
+    statusLabel->setText(tr((rules[row].QV2RAY_RULE_ENABLED ? "Enabled a route" : "Disabled a route")));
 }
 
 void RouteEditor::on_netBothRB_clicked()
@@ -647,7 +647,7 @@ void RouteEditor::on_inboundsList_itemChanged(QListWidgetItem *item)
     }
 
     CurrentRule.inboundTag = new_inbounds.toStdList();
-    STATUS("OK")
+    statusLabel->setText(tr("OK"));
 }
 
 void RouteEditor::on_delRouteBtn_clicked()
@@ -729,4 +729,36 @@ void RouteEditor::on_delInboundBtn_clicked()
     auto index = inboundsList->currentRow();
     inbounds.removeAt(index);
     inboundsList->takeItem(index);
+}
+
+void RouteEditor::on_addInboundBtn_clicked()
+{
+    LOADINGCHECK
+    InboundEditor w(QJsonObject(), this);
+    auto _result = w.OpenEditor();
+    inbounds.append(_result);
+    inboundsList->addItem(tr("New Inbound"));
+}
+
+void RouteEditor::on_addOutboundBtn_clicked()
+{
+    LOADINGCHECK
+    ImportConfigWindow *w = new ImportConfigWindow(this);
+    // True here for not keep the inbounds.
+    auto configs = w->OpenImport(true);
+
+    for (auto conf : configs) {
+        auto name = configs.key(conf, "");
+
+        if (name.isEmpty())
+            continue;
+
+        // conf is rootObject, needs to unwrap it.
+        auto confList = conf["outbounds"].toArray();
+
+        for (int i = 0; i < confList.count(); i++) {
+            outbounds.append(confList[i]);
+            outboundsList->addItem(name + "_" + QString::number(i));
+        }
+    }
 }
