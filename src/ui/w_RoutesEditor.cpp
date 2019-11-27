@@ -27,8 +27,8 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) :
     balabcerAddBtn->setIcon(QICON_R("add.png"));
     balancerDelBtn->setIcon(QICON_R("delete.png"));
     //
-    inbounds = root["inbounds"].toArray();
-    outbounds = root["outbounds"].toArray();
+    inbounds = INBOUNDS(root["inbounds"].toArray());
+    outbounds = OUTBOUNDS(root["outbounds"].toArray());
     DomainStrategy = root["routing"].toObject()["domainStrategy"].toString();
 
     // Applying Balancers.
@@ -109,7 +109,7 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) :
     }
 }
 
-QJsonObject RouteEditor::OpenEditor()
+CONFIGROOT RouteEditor::OpenEditor()
 {
     auto result = this->exec();
 
@@ -340,7 +340,7 @@ void RouteEditor::on_editOutboundBtn_clicked()
         return;
     }
 
-    auto currentOutbound = outbounds[row].toObject();
+    auto currentOutbound = OUTBOUND(outbounds[row].toObject());
     auto protocol =  currentOutbound["protocol"].toString();
 
     if (protocol != "vmess" && protocol != "shadowsocks" && protocol != "socks") {

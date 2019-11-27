@@ -16,7 +16,7 @@ class RouteEditor : public QDialog, private Ui::RouteEditor
     public:
         explicit RouteEditor(QJsonObject connection, QWidget *parent = nullptr);
         ~RouteEditor();
-        QJsonObject OpenEditor();
+        CONFIGROOT OpenEditor();
     private slots:
         void on_buttonBox_accepted();
 
@@ -91,10 +91,10 @@ class RouteEditor : public QDialog, private Ui::RouteEditor
         QList<RuleObject> rules;
         QString DomainStrategy;
         //
-        QJsonArray inbounds;
-        QJsonArray outbounds;
-        QJsonObject root;
-        QJsonObject original;
+        INBOUNDS inbounds;
+        OUTBOUNDS outbounds;
+        CONFIGROOT root;
+        CONFIGROOT original;
 };
 
 #endif // W_QVOUTBOUNDEDITOR_H

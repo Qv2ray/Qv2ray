@@ -55,7 +55,7 @@ namespace Qv2ray
             //
             /// Save Connection to a place, with checking if there's existing file.
             /// If so, append "_N" to the name.
-            bool SaveConnectionConfig(QJsonObject obj, QString *alias, bool canOverrideExisting)
+            bool SaveConnectionConfig(CONFIGROOT obj, QString *alias, bool canOverrideExisting)
             {
                 auto str = JsonToString(obj);
                 QFile *config = new QFile(QV2RAY_CONFIG_DIR + *alias + QV2RAY_CONFIG_FILE_EXTENSION);
@@ -84,14 +84,14 @@ namespace Qv2ray
             }
 
             // This generates global config containing only one outbound....
-            QJsonObject ConvertConfigFromVMessString(QString vmess, QString *alias, QString *errMessage)
+            CONFIGROOT ConvertConfigFromVMessString(QString vmess, QString *alias, QString *errMessage)
             {
                 // Reset errMessage
                 *errMessage = "";
 
                 if (!vmess.toLower().startsWith("vmess://")) {
                     *errMessage = QObject::tr("VMess string should start with 'vmess://'");
-                    return QJsonObject();
+                    return CONFIGROOT();
                 }
 
                 try {
@@ -100,7 +100,7 @@ namespace Qv2ray
 
                     if (b64Str.isEmpty()) {
                         *errMessage = QObject::tr("VMess string should be a valid base64 string");
-                        return QJsonObject();
+                        return CONFIGROOT();
                     }
 
                     auto vmessString = Base64Decode(b64Str);
@@ -108,14 +108,14 @@ namespace Qv2ray
 
                     if (!jsonErr.isEmpty()) {
                         *errMessage = jsonErr;
-                        return QJsonObject();
+                        return CONFIGROOT();
                     }
 
                     auto vmessConf = JsonFromString(vmessString);
 
                     if (vmessConf.isEmpty()) {
                         *errMessage = QObject::tr("JSON should not be empty");
-                        return QJsonObject();
+                        return CONFIGROOT();
                     }
 
                     // C is a quick hack...
@@ -140,11 +140,11 @@ namespace Qv2ray
                 } catch (exception *e) {
                     LOG(MODULE_CONNECTION_VMESS, "Failed to decode vmess string: " << e->what())
                     *errMessage = QSTRING(e->what());
-                    return QJsonObject();
+                    return CONFIGROOT();
                 }
 
                 // --------------------------------------------------------------------------------------
-                DROOT
+                CONFIGROOT root;
                 QStringRef vmessJsonB64(&vmess, 8, vmess.length() - 8);
                 auto vmessConf = JsonFromString(Base64Decode(vmessJsonB64.toString()));
                 //
@@ -179,7 +179,7 @@ namespace Qv2ray
                 serv.users.push_back(user);
                 //
                 // VMess root config
-                QJsonObject vConf;
+                OUTBOUNDSETTING vConf;
                 QJsonArray vnextArray;
                 vnextArray.append(JsonFromString(StructToJsonString(serv)));
                 vConf["vnext"] = vnextArray;
@@ -224,16 +224,16 @@ namespace Qv2ray
                 RROOT
             }
 
-            QJsonObject ConvertConfigFromFile(QString sourceFilePath, bool keepInbounds)
+            CONFIGROOT ConvertConfigFromFile(QString sourceFilePath, bool keepInbounds)
             {
                 QFile source(sourceFilePath);
 
                 if (!source.exists()) {
                     LOG(MODULE_FILE, "Trying to import from an non-existing file.")
-                    return QJsonObject();
+                    return CONFIGROOT();
                 }
 
-                auto root = JsonFromString(StringFromFile(&source));
+                auto root = CONFIGROOT(JsonFromString(StringFromFile(&source)));
 
                 if (!keepInbounds) {
                     JSON_ROOT_TRY_REMOVE("inbounds")
@@ -246,14 +246,14 @@ namespace Qv2ray
                 return root;
             }
 
-            QMap<QString, QJsonObject> GetConnections(list<string> connectionNames)
+            QMap<QString, CONFIGROOT> GetConnections(list<string> connectionNames)
             {
-                QMap<QString, QJsonObject> list;
+                QMap<QString, CONFIGROOT> list;
 
                 for (auto conn : connectionNames) {
                     QString jsonString = StringFromFile(new QFile(QV2RAY_CONFIG_DIR + QSTRING(conn) + QV2RAY_CONFIG_FILE_EXTENSION));
                     QJsonObject connectionObject = JsonFromString(jsonString);
-                    list.insert(QString::fromStdString(conn), connectionObject);
+                    list.insert(QString::fromStdString(conn), CONFIGROOT(connectionObject));
                 }
 
                 return list;
@@ -265,7 +265,7 @@ namespace Qv2ray
                 return QFile::rename(QV2RAY_CONFIG_DIR + originalName + QV2RAY_CONFIG_FILE_EXTENSION, QV2RAY_CONFIG_DIR + newName + QV2RAY_CONFIG_FILE_EXTENSION);
             }
 
-            int StartPreparation(QJsonObject fullConfig)
+            int StartPreparation(CONFIGROOT fullConfig)
             {
                 // Writes the final configuration to the disk.
                 QString json = JsonToString(fullConfig);

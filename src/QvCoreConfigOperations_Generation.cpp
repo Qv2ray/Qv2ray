@@ -9,13 +9,13 @@ namespace Qv2ray
             // Important config generation algorithms.
             static const QStringList vLogLevels = {"none", "debug", "info", "warning", "error"};
             // -------------------------- BEGIN CONFIG GENERATIONS ----------------------------------------------------------------------------
-            QJsonObject GenerateRoutes(bool enableProxy, bool proxyCN)
+            ROUTING GenerateRoutes(bool enableProxy, bool proxyCN)
             {
-                DROOT
+                ROUTING root;
                 root.insert("domainStrategy", "IPIfNonMatch");
                 //
                 // For Rules list
-                QJsonArray rulesList;
+                ROUTERULELIST rulesList;
 
                 if (!enableProxy) {
                     // This is added to disable all proxies, as a alternative influence of #64
@@ -35,32 +35,32 @@ namespace Qv2ray
                 RROOT
             }
 
-            QJsonObject GenerateSingleRouteRule(QStringList list, bool isDomain, QString outboundTag, QString type)
+            ROUTERULE GenerateSingleRouteRule(QStringList list, bool isDomain, QString outboundTag, QString type)
             {
-                DROOT
+                ROUTERULE root;
                 root.insert(isDomain ? "domain" : "ip", QJsonArray::fromStringList(list));
                 JADD(outboundTag, type)
                 RROOT
             }
 
-            QJsonObject GenerateFreedomOUT(QString domainStrategy, QString redirect, int userLevel)
+            OUTBOUNDSETTING GenerateFreedomOUT(QString domainStrategy, QString redirect, int userLevel)
             {
-                DROOT
+                OUTBOUNDSETTING root;
                 JADD(domainStrategy, redirect, userLevel)
                 RROOT
             }
-            QJsonObject GenerateBlackHoleOUT(bool useHTTP)
+            OUTBOUNDSETTING GenerateBlackHoleOUT(bool useHTTP)
             {
-                DROOT
+                OUTBOUNDSETTING root;
                 QJsonObject resp;
                 resp.insert("type", useHTTP ? "http" : "none");
                 root.insert("response", resp);
                 RROOT
             }
 
-            QJsonObject GenerateShadowSocksOUT(QList<QJsonObject> servers)
+            OUTBOUNDSETTING GenerateShadowSocksOUT(QList<QJsonObject> servers)
             {
-                DROOT
+                OUTBOUNDSETTING root;
                 QJsonArray x;
 
                 foreach (auto server, servers) {
@@ -71,16 +71,16 @@ namespace Qv2ray
                 RROOT
             }
 
-            QJsonObject GenerateShadowSocksServerOUT(QString email, QString address, int port, QString method, QString password, bool ota, int level)
+            OUTBOUNDSETTING GenerateShadowSocksServerOUT(QString email, QString address, int port, QString method, QString password, bool ota, int level)
             {
-                DROOT
+                OUTBOUNDSETTING root;
                 JADD(email, address, port, method, password, level, ota)
                 RROOT
             }
 
             QJsonObject GenerateDNS(bool withLocalhost, QStringList dnsServers)
             {
-                DROOT
+                QJsonObject root;
                 QJsonArray servers(QJsonArray::fromStringList(dnsServers));
 
                 if (withLocalhost) {
@@ -95,16 +95,16 @@ namespace Qv2ray
                 RROOT
             }
 
-            QJsonObject GenerateDokodemoIN(QString address, int port, QString  network, int timeout, bool followRedirect, int userLevel)
+            INBOUNDSETTING GenerateDokodemoIN(QString address, int port, QString  network, int timeout, bool followRedirect, int userLevel)
             {
-                DROOT
+                INBOUNDSETTING root;
                 JADD(address, port, network, timeout, followRedirect, userLevel)
                 RROOT
             }
 
-            QJsonObject GenerateHTTPIN(QList<AccountObject> _accounts, int timeout, bool allowTransparent, int userLevel)
+            INBOUNDSETTING GenerateHTTPIN(QList<AccountObject> _accounts, int timeout, bool allowTransparent, int userLevel)
             {
-                DROOT
+                INBOUNDSETTING root;
                 QJsonArray accounts;
 
                 foreach (auto account, _accounts) {
@@ -115,9 +115,9 @@ namespace Qv2ray
                 RROOT
             }
 
-            QJsonObject GenerateSocksIN(QString auth, QList<AccountObject> _accounts, bool udp, QString ip, int userLevel)
+            INBOUNDSETTING GenerateSocksIN(QString auth, QList<AccountObject> _accounts, bool udp, QString ip, int userLevel)
             {
-                DROOT
+                INBOUNDSETTING root;
                 QJsonArray accounts;
 
                 foreach (auto acc, _accounts) {
@@ -133,16 +133,16 @@ namespace Qv2ray
                 RROOT
             }
 
-            QJsonObject GenerateOutboundEntry(QString protocol, QJsonObject settings, QJsonObject streamSettings, QJsonObject mux, QString sendThrough, QString tag)
+            OUTBOUND GenerateOutboundEntry(QString protocol, OUTBOUNDSETTING settings, QJsonObject streamSettings, QJsonObject mux, QString sendThrough, QString tag)
             {
-                DROOT
+                OUTBOUND root;
                 JADD(sendThrough, protocol, settings, tag, streamSettings, mux)
                 RROOT
             }
 
-            QJsonObject GenerateInboundEntry(QString listen, int port, QString protocol, QJsonObject settings, QString tag, QJsonObject sniffing, QJsonObject allocate)
+            INBOUND GenerateInboundEntry(QString listen, int port, QString protocol, INBOUNDSETTING settings, QString tag, QJsonObject sniffing, QJsonObject allocate)
             {
-                DROOT
+                INBOUND root;
                 LOG(MODULE_CONNECTION, "allocation is not used here.")
                 Q_UNUSED(allocate)
                 JADD(listen, port, protocol, settings, tag, sniffing)
@@ -151,7 +151,7 @@ namespace Qv2ray
 
             QJsonObject GenerateAPIEntry(QString tag, bool withHandler, bool withLogger, bool withStats)
             {
-                DROOT
+                QJsonObject root;
                 QJsonArray services;
 
                 if (withHandler)
@@ -170,7 +170,7 @@ namespace Qv2ray
             // -------------------------- END CONFIG GENERATIONS ------------------------------------------------------------------------------
             // BEGIN RUNTIME CONFIG GENERATION
 
-            QJsonObject GenerateRuntimeConfig(QJsonObject root)
+            CONFIGROOT GenerateRuntimeConfig(CONFIGROOT root)
             {
                 auto gConf = GetGlobalConfig();
                 QJsonObject logObject;
@@ -191,11 +191,11 @@ namespace Qv2ray
                 root.insert("dns", dnsObject);
                 //
                 //
-                QJsonArray inboundsList;
+                INBOUNDS inboundsList;
 
                 // HTTP InBound
                 if (gConf.inboundConfig.http_port != 0) {
-                    QJsonObject httpInBoundObject;
+                    INBOUND httpInBoundObject;
                     httpInBoundObject.insert("listen", QString::fromStdString(gConf.inboundConfig.listenip));
                     httpInBoundObject.insert("port", gConf.inboundConfig.http_port);
                     httpInBoundObject.insert("protocol", "http");
@@ -211,7 +211,7 @@ namespace Qv2ray
 
                 // SOCKS InBound
                 if (gConf.inboundConfig.socks_port != 0) {
-                    QJsonObject socksInBoundObject;
+                    INBOUND socksInBoundObject;
                     socksInBoundObject.insert("listen", QString::fromStdString(gConf.inboundConfig.listenip));
                     socksInBoundObject.insert("port", gConf.inboundConfig.socks_port);
                     socksInBoundObject.insert("protocol", "socks");
@@ -240,8 +240,8 @@ namespace Qv2ray
                     //
                     // HOWEVER, we need to verify the QV2RAY_RULE_ENABLED entry.
                     // And what's more, process (by removing unused items) from a rule object.
-                    QJsonObject routing = root["routing"].toObject();
-                    QJsonArray rules;
+                    ROUTING routing = ROUTING(root["routing"].toObject());
+                    ROUTERULELIST rules;
                     LOG(MODULE_CONNECTION, "Processing an existing routing table.")
 
                     for (auto _a : routing["rules"].toArray()) {
@@ -281,7 +281,7 @@ namespace Qv2ray
 
                     auto routeObject = GenerateRoutes(gConf.connectionConfig.enableProxy, gConf.connectionConfig.bypassCN);
                     root.insert("routing", routeObject);
-                    QJsonArray outbounds = root["outbounds"].toArray();
+                    OUTBOUNDS outbounds = OUTBOUNDS(root["outbounds"].toArray());
                     outbounds.append(GenerateOutboundEntry("freedom", GenerateFreedomOUT("AsIs", ":0", 0), QJsonObject(), QJsonObject(), "0.0.0.0", OUTBOUND_TAG_DIRECT));
                     root["outbounds"] = outbounds;
                 }
@@ -320,8 +320,8 @@ namespace Qv2ray
                     //
                     // Inbounds
                     //
-                    QJsonArray inbounds = root["inbounds"].toArray();
-                    QJsonObject fakeDocodemoDoor;
+                    INBOUNDS inbounds = INBOUNDS(root["inbounds"].toArray());
+                    INBOUNDSETTING fakeDocodemoDoor;
                     fakeDocodemoDoor["address"] = "127.0.0.1";
                     QJsonObject apiInboundsRoot = GenerateInboundEntry("127.0.0.1", gConf.connectionConfig.statsPort, "dokodemo-door", fakeDocodemoDoor, QV2RAY_API_TAG_INBOUND);
                     inbounds.push_front(apiInboundsRoot);

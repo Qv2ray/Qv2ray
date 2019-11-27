@@ -698,7 +698,7 @@ void MainWindow::on_editConfigButton_clicked()
 
     auto alias = connectionListWidget->currentItem()->text();
     auto outBoundRoot = connections[alias];
-    QJsonObject root;
+    CONFIGROOT root;
     bool isChanged = false;
 
     if (CheckIsComplexConfig(outBoundRoot)) {
@@ -708,7 +708,7 @@ void MainWindow::on_editConfigButton_clicked()
         isChanged = routeWindow->result() == QDialog::Accepted;
     } else {
         LOG(MODULE_UI, "INFO: Opening single connection edit window.")
-        OutboundEditor *w = new OutboundEditor(outBoundRoot["outbounds"].toArray().first().toObject(), this);
+        OutboundEditor *w = new OutboundEditor(OUTBOUND(outBoundRoot["outbounds"].toArray().first().toObject()), this);
         auto outboundEntry = w->OpenEditor();
         isChanged = w->result() == QDialog::Accepted;
         QJsonArray outboundsList;
@@ -740,7 +740,7 @@ void MainWindow::on_action_RCM_ConvToComplex_triggered()
 
     auto alias = connectionListWidget->currentItem()->text();
     auto outBoundRoot = connections[alias];
-    QJsonObject root;
+    CONFIGROOT root;
     bool isChanged = false;
     //
     LOG(MODULE_UI, "INFO: Opening route editor.")
@@ -767,7 +767,7 @@ void MainWindow::on_action_RCM_EditJson_triggered()
 
     auto alias = connectionListWidget->currentItem()->text();
     JsonEditor *w = new JsonEditor(connections[alias], this);
-    auto root = w->OpenEditor();
+    auto root = CONFIGROOT(w->OpenEditor());
     bool isChanged = w->result() == QDialog::Accepted;
     delete w;
 

@@ -11,9 +11,9 @@ class OutboundEditor : public QDialog, private Ui::OutboundEditor
         Q_OBJECT
     public:
         explicit OutboundEditor(QWidget *parent = nullptr);
-        explicit OutboundEditor(QJsonObject outboundEntry, QWidget *parent = nullptr);
+        explicit OutboundEditor(OUTBOUND outboundEntry, QWidget *parent = nullptr);
         ~OutboundEditor();
-        QJsonObject OpenEditor();
+        OUTBOUND OpenEditor();
         QString GetFriendlyName();
     signals:
         void s_reload_config(bool need_restart);
@@ -109,9 +109,9 @@ class OutboundEditor : public QDialog, private Ui::OutboundEditor
     private:
         QString Tag;
         void ReLoad_GUI_JSON_ModelContent();
-        QJsonObject GenerateConnectionJson();
-        QJsonObject Original;
-        QJsonObject Result;
+        OUTBOUND GenerateConnectionJson();
+        OUTBOUND Original;
+        OUTBOUND Result;
         QJsonObject Mux;
         //
         // Connection Configs

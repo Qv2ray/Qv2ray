@@ -29,7 +29,7 @@ OutboundEditor::OutboundEditor(QWidget *parent)
     Result = GenerateConnectionJson();
 }
 
-OutboundEditor::OutboundEditor(QJsonObject outboundEntry, QWidget *parent)
+OutboundEditor::OutboundEditor(OUTBOUND outboundEntry, QWidget *parent)
     : OutboundEditor(parent)
 {
     Original = outboundEntry;
@@ -68,7 +68,7 @@ OutboundEditor::~OutboundEditor()
 {
 }
 
-QJsonObject OutboundEditor::OpenEditor()
+OUTBOUND OutboundEditor::OpenEditor()
 {
     int resultCode = this->exec();
     return resultCode == QDialog::Accepted ? Result : Original;
@@ -263,9 +263,9 @@ void OutboundEditor::on_tcpRespDefBtn_clicked()
     tcpRespTxt->insertPlainText("{\"version\":\"1.1\",\"status\":\"200\",\"reason\":\"OK\",\"headers\":{\"Content-Type\":[\"application/octet-stream\",\"video/mpeg\"],\"Transfer-Encoding\":[\"chunked\"],\"Connection\":[\"keep-alive\"],\"Pragma\":\"no-cache\"}}");
 }
 
-QJsonObject OutboundEditor::GenerateConnectionJson()
+OUTBOUND OutboundEditor::GenerateConnectionJson()
 {
-    QJsonObject settings;
+    OUTBOUNDSETTING settings;
     auto streaming = JsonFromString(StructToJsonString(stream));
 
     if (OutboundType == "vmess") {
