@@ -41,7 +41,7 @@ MainWindow::MainWindow(QWidget *parent)
     vinstance = new ConnectionInstance(this);
     setupUi(this);
     //
-    highlighter = new Highlighter(logText->document());
+    highlighter = new Highlighter(conf.uiConfig.useDarkTheme, logText->document());
     pacServer = new PACHandler();
     //
     this->setWindowIcon(QIcon(":/icons/qv2ray.png"));

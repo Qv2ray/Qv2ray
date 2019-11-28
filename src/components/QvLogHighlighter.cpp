@@ -7,12 +7,11 @@ namespace Qv2ray
 {
     namespace Components
     {
-
-        Highlighter::Highlighter(QTextDocument *parent)
+        Highlighter::Highlighter(bool darkMode, QTextDocument *parent)
             : QSyntaxHighlighter(parent)
         {
             HighlightingRule rule;
-            keywordFormat.setForeground(Qt::darkMagenta);
+            keywordFormat.setForeground(darkMode ? Qt::darkMagenta : Qt::magenta);
             keywordFormat.setFontWeight(QFont::Bold);
             const QString keywordPatterns[] = {
                 "tcp", "udp"
@@ -24,14 +23,25 @@ namespace Qv2ray
                 highlightingRules.append(rule);
             }
 
+            if (darkMode) {
+                ipHostFormat.setForeground(Qt::yellow);
+                warningFormat.setForeground(QColor(230, 180, 0));
+            } else {
+                ipHostFormat.setForeground(Qt::black);
+                ipHostFormat.setFontWeight(QFont::Bold);
+                warningFormat.setForeground(Qt::white);
+                warningFormat.setBackground(QColor(255, 128, 30));
+            }
+
+            //
             dateFormat.setFontWeight(QFont::Bold);
-            dateFormat.setForeground(Qt::cyan);
+            dateFormat.setForeground(darkMode ? Qt::cyan : Qt::darkCyan);
             rule.pattern = QRegularExpression("\\d\\d\\d\\d/\\d\\d/\\d\\d");
             rule.format = dateFormat;
             highlightingRules.append(rule);
             //
             timeFormat.setFontWeight(QFont::Bold);
-            timeFormat.setForeground(Qt::cyan);
+            timeFormat.setForeground(darkMode ? Qt::cyan : Qt::darkCyan);
             rule.pattern = QRegularExpression("\\d\\d:\\d\\d:\\d\\d");
             rule.format = timeFormat;
             highlightingRules.append(rule);
@@ -41,33 +51,27 @@ namespace Qv2ray
             rule.format = debugFormat;
             highlightingRules.append(rule);
             //
-            infoFormat.setForeground(Qt::darkCyan);
+            infoFormat.setForeground(darkMode ? Qt::lightGray :  Qt::darkCyan);
             rule.pattern = QRegularExpression("\\[[Ii]nfo\\]" TO_EOL);
             rule.format = infoFormat;
             highlightingRules.append(rule);
             //
             //
             {
-                // IP IPv6 Host
-                ipPortFormat.setFontWeight(QFont::Bold);
-                ipPortFormat.setForeground(Qt::green);
+                // IP IPv6 Host;
                 rule.pattern = QRegularExpression("(\\d{1,2}|1\\d\\d|2[0-4]\\d|25[0-5])\\.(\\d{1,2}|1\\d\\d|2[0-4]\\d|25[0-5])\\.(\\d{1,2}|1\\d\\d|2[0-4]\\d|25[0-5])\\.(\\d{1,2}|1\\d\\d|2[0-4]\\d|25[0-5])\\:" PORT_R);
                 rule.pattern.setPatternOptions(QRegularExpression::PatternOption::ExtendedPatternSyntaxOption);
-                rule.format = ipPortFormat;
+                rule.format = ipHostFormat;
                 highlightingRules.append(rule);
                 //
-                ip6PortFormat.setFontWeight(QFont::Bold);
-                ip6PortFormat.setForeground(Qt::green);
                 rule.pattern = QRegularExpression("\\[\\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}))|:)))(%.+)?\\s*\\]:" PORT_R);
                 rule.pattern.setPatternOptions(QRegularExpression::PatternOption::ExtendedPatternSyntaxOption);
-                rule.format = ip6PortFormat;
+                rule.format = ipHostFormat;
                 highlightingRules.append(rule);
                 //
-                hostFormat.setFontWeight(QFont::Bold);
-                hostFormat.setForeground(Qt::yellow);
                 rule.pattern = QRegularExpression("([a-zA-Z0-9]([a-zA-Z0-9\\-]{0,61}[a-zA-Z0-9])?\\.)+[a-zA-Z]{2,6}(/|):" PORT_R);
                 rule.pattern.setPatternOptions(QRegularExpression::PatternOption::ExtendedPatternSyntaxOption);
-                rule.format = hostFormat;
+                rule.format = ipHostFormat;
                 highlightingRules.append(rule);
             }
             //
@@ -78,25 +82,26 @@ namespace Qv2ray
             highlightingRules.append(rule);
             //
             rejectedFormat.setFontWeight(QFont::Bold);
-            rejectedFormat.setForeground(Qt::red);
+            rejectedFormat.setBackground(Qt::red);
+            rejectedFormat.setForeground(Qt::white);
             rule.pattern = QRegularExpression("\\srejected\\s" TO_EOL);
             rule.format = rejectedFormat;
             highlightingRules.append(rule);
             //
             x.setFontWeight(QFont::Bold);
-            x.setForeground(Qt::darkGreen);
+            x.setForeground(darkMode ? Qt::darkGreen : Qt::darkYellow);
             rule.pattern = QRegularExpression(" v2ray.com(/(\\w*))*: ");
             rule.format = x;
             highlightingRules.append(rule);
             //
             warningFormat.setFontWeight(QFont::Bold);
-            warningFormat.setForeground(QColor::fromRgb(230, 180, 0));
             rule.pattern = QRegularExpression("\\[[Ww]arning\\]" TO_EOL);
             rule.format = warningFormat;
             highlightingRules.append(rule);
             //
             failedFormat.setFontWeight(QFont::Bold);
-            failedFormat.setForeground(Qt::red);
+            failedFormat.setBackground(Qt::red);
+            failedFormat.setForeground(Qt::white);
             rule.pattern = QRegularExpression("failed");
             rule.format = failedFormat;
             highlightingRules.append(rule);
