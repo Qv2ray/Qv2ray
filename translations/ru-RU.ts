@@ -57,7 +57,7 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="63"/>
       <source>VMess and QRCode</source>
-      <translation type="unfinished">VMess and QRCode</translation>
+      <translation>VMess и QRCode</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="68"/>
@@ -68,13 +68,13 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="73"/>
       <source>Manually Input</source>
-      <translation type="unfinished">Manually Input</translation>
+      <translation>Ввести вручную</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="83"/>
       <location filename="../src/ui/w_ImportConfig.ui" line="381"/>
       <source>Import</source>
-      <translation type="unfinished">Import</translation>
+      <translation>Импорт</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="96"/>
@@ -100,12 +100,12 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="135"/>
       <source>Edit Config</source>
-      <translation type="unfinished">Edit Config</translation>
+      <translation>Изменить настройки</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="142"/>
       <source>Open in JSON Editor</source>
-      <translation type="unfinished">Open in JSON Editor</translation>
+      <translation>Открыть в JSON редакторе</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="153"/>
@@ -115,42 +115,42 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="162"/>
       <source>From QRCode File</source>
-      <translation type="unfinished">From QRCode File</translation>
+      <translation>QRCode из файла</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="190"/>
       <source>From Screenshot</source>
-      <translation type="unfinished">From Screenshot</translation>
+      <translation>Из скриншота</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="211"/>
       <source>Go</source>
-      <translation type="unfinished">Go</translation>
+      <translation>Далее</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="218"/>
       <source>After</source>
-      <translation type="unfinished">After</translation>
+      <translation>После</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="241"/>
       <source>second(s).</source>
-      <translation type="unfinished">second(s).</translation>
+      <translation>секунда(ы).</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="276"/>
       <source>Place your vmess:// here, one line for each.</source>
-      <translation type="unfinished">Place your vmess:// here, one line for each.</translation>
+      <translation>Разместите ваш vmess:// здесь одна строка для каждой.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="286"/>
       <source>Error List</source>
-      <translation type="unfinished">Error List</translation>
+      <translation>Список ошибок</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="293"/>
       <source>VMess</source>
-      <translation type="unfinished">VMess</translation>
+      <translation>VMess</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="313"/>
