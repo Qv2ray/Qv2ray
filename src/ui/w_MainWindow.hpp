@@ -11,15 +11,17 @@
 #include "QvCoreConfigOperations.hpp"
 #include "QvHTTPRequestHelper.hpp"
 #include "QvPACHandler.hpp"
+#include "QvLogHighlighter.hpp"
 
 #include "ui_w_MainWindow.h"
+
 
 class MainWindow : public QMainWindow, Ui::MainWindow
 {
         Q_OBJECT
     public:
         explicit MainWindow(QWidget *parent = nullptr);
-        ~MainWindow();
+        ~MainWindow() override;
     signals:
         void Connect();
         void DisConnect();
@@ -78,7 +80,9 @@ class MainWindow : public QMainWindow, Ui::MainWindow
 
     protected:
 
-        void timerEvent(QTimerEvent *event);
+        void keyPressEvent(QKeyEvent *e) override;
+        void timerEvent(QTimerEvent *event) override;
+        void closeEvent(QCloseEvent *) override;
     private:
         // Charts
         QChartView *speedChartView;
@@ -107,9 +111,9 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         //
         void ShowAndSetConnection(QString currentText, bool SetConnection, bool Apply);
         void LoadConnections();
-        void closeEvent(QCloseEvent *);
         //
         PACHandler *pacServer;
+        Highlighter *highlighter;
 };
 
 #endif // MAINWINDOW_H

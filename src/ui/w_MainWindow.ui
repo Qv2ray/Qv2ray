@@ -431,7 +431,8 @@
        <widget class="QTextBrowser" name="logText">
         <property name="font">
          <font>
-          <pointsize>9</pointsize>
+          <pointsize>8</pointsize>
+          <italic>false</italic>
          </font>
         </property>
         <property name="verticalScrollBarPolicy">
@@ -439,6 +440,13 @@
         </property>
         <property name="lineWrapMode">
          <enum>QTextEdit::NoWrap</enum>
+        </property>
+        <property name="html">
+         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Noto Sans'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Noto Sans';&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="openLinks">
          <bool>false</bool>
@@ -631,7 +639,18 @@
  <tabstops>
   <tabstop>startButton</tabstop>
   <tabstop>stopButton</tabstop>
+  <tabstop>reconnectButton</tabstop>
   <tabstop>clearlogButton</tabstop>
+  <tabstop>prefrencesBtn</tabstop>
+  <tabstop>connectionListWidget</tabstop>
+  <tabstop>importConfigButton</tabstop>
+  <tabstop>duplicateBtn</tabstop>
+  <tabstop>removeConfigButton</tabstop>
+  <tabstop>editConfigButton</tabstop>
+  <tabstop>editJsonBtn</tabstop>
+  <tabstop>pingTestBtn</tabstop>
+  <tabstop>shareBtn</tabstop>
+  <tabstop>logText</tabstop>
  </tabstops>
  <resources/>
  <connections/>

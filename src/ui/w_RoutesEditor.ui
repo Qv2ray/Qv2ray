@@ -738,6 +738,39 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>addInboundBtn</tabstop>
+  <tabstop>delInboundBtn</tabstop>
+  <tabstop>editInboundBtn</tabstop>
+  <tabstop>addDefaultBtn</tabstop>
+  <tabstop>inboundsList</tabstop>
+  <tabstop>addOutboundBtn</tabstop>
+  <tabstop>delOutboundBtn</tabstop>
+  <tabstop>editOutboundBtn</tabstop>
+  <tabstop>insertDirectBtn</tabstop>
+  <tabstop>insertBlackBtn</tabstop>
+  <tabstop>outboundsList</tabstop>
+  <tabstop>routesTable</tabstop>
+  <tabstop>addRouteBtn</tabstop>
+  <tabstop>delRouteBtn</tabstop>
+  <tabstop>netTCPRB</tabstop>
+  <tabstop>netUDPRB</tabstop>
+  <tabstop>netBothRB</tabstop>
+  <tabstop>routeProtocolHTTPCB</tabstop>
+  <tabstop>routeProtocolTLSCB</tabstop>
+  <tabstop>routeProtocolBTCB</tabstop>
+  <tabstop>routePortTxt</tabstop>
+  <tabstop>enableBalancerCB</tabstop>
+  <tabstop>routeOutboundSelector</tabstop>
+  <tabstop>routeUserTxt</tabstop>
+  <tabstop>sourceIPList</tabstop>
+  <tabstop>hostList</tabstop>
+  <tabstop>ipList</tabstop>
+  <tabstop>balancerSelectionCombo</tabstop>
+  <tabstop>balancerList</tabstop>
+  <tabstop>balancerDelBtn</tabstop>
+  <tabstop>balabcerAddBtn</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

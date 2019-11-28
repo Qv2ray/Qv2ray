@@ -394,8 +394,23 @@
   </layout>
  </widget>
  <tabstops>
+  <tabstop>nameTxt</tabstop>
+  <tabstop>importSourceCombo</tabstop>
   <tabstop>fileLineTxt</tabstop>
+  <tabstop>keepImportedInboundCheckBox</tabstop>
+  <tabstop>editFileBtn</tabstop>
   <tabstop>selectFileBtn</tabstop>
+  <tabstop>imageFileEdit</tabstop>
+  <tabstop>selectImageBtn</tabstop>
+  <tabstop>qrFromScreenBtn</tabstop>
+  <tabstop>doubleSpinBox</tabstop>
+  <tabstop>vmessConnectionStringTxt</tabstop>
+  <tabstop>errorsList</tabstop>
+  <tabstop>subscriptionLinkTxt</tabstop>
+  <tabstop>tableWidget</tabstop>
+  <tabstop>connectionEditBtn</tabstop>
+  <tabstop>cancelImportBtn</tabstop>
+  <tabstop>beginImportBtn</tabstop>
  </tabstops>
  <resources/>
  <connections/>

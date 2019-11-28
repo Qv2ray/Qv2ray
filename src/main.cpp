@@ -161,6 +161,7 @@ int main(int argc, char *argv[])
         "Copyright (c) 2011 SCHUTZ Sacha (@dridk): QJsonModel (MIT)" NEWLINE
         "Copyright (c) 2019 Nikolaos Ftylitakis (@ftylitak): QZXing (Apache2)" NEWLINE
         "Copyright (c) 2016 Singein (@Singein): ScreenShot (MIT)" NEWLINE
+        "Copyright (c) 2016 Nikhil Marathe (@nikhilm): QHttpServer (MIT)" NEWLINE
         NEWLINE
         "Qv2ray " QV2RAY_VERSION_STRING " running on " +
         (QSysInfo::prettyProductName() + " " + QSysInfo::currentCpuArchitecture()).toStdString() + NEWLINE)

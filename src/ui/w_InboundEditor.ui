@@ -359,7 +359,7 @@
                <string>...</string>
               </property>
               <property name="icon">
-               <iconset resource="../../resources.qrc">
+               <iconset>
                 <normaloff>:/icons/remove_connection_btn.png</normaloff>:/icons/remove_connection_btn.png</iconset>
               </property>
              </widget>
@@ -380,7 +380,7 @@
                <string>...</string>
               </property>
               <property name="icon">
-               <iconset resource="../../resources.qrc">
+               <iconset>
                 <normaloff>:/icons/add_connection_btn.png</normaloff>:/icons/add_connection_btn.png</iconset>
               </property>
              </widget>
@@ -507,7 +507,7 @@
                <string>...</string>
               </property>
               <property name="icon">
-               <iconset resource="../../resources.qrc">
+               <iconset>
                 <normaloff>:/icons/remove_connection_btn.png</normaloff>:/icons/remove_connection_btn.png</iconset>
               </property>
              </widget>
@@ -528,7 +528,7 @@
                <string>...</string>
               </property>
               <property name="icon">
-               <iconset resource="../../resources.qrc">
+               <iconset>
                 <normaloff>:/icons/add_connection_btn.png</normaloff>:/icons/add_connection_btn.png</iconset>
               </property>
              </widget>
@@ -806,9 +806,7 @@
   <tabstop>enableSniffingCB</tabstop>
   <tabstop>destOverrideList</tabstop>
  </tabstops>
- <resources>
-  <include location="../../resources.qrc"/>
- </resources>
+ <resources/>
  <connections>
   <connection>
    <sender>buttonBox</sender>
