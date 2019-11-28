@@ -6,7 +6,7 @@
     <message>
       <location filename="../src/ui/w_ExportConfig.cpp" line="15"/>
       <source>Empty</source>
-      <translation type="unfinished">Empty</translation>
+      <translation>Пустой</translation>
     </message>
   </context>
   <context>
@@ -14,22 +14,22 @@
     <message>
       <location filename="../src/ui/w_ExportConfig.ui" line="14"/>
       <source>Export Config</source>
-      <translation type="unfinished">Export Config</translation>
+      <translation>Экспорт конфигурации</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ExportConfig.ui" line="39"/>
       <source>Text Message</source>
-      <translation type="unfinished">Text Message</translation>
+      <translation>Текстовое сообщение</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ExportConfig.ui" line="68"/>
       <source>Save</source>
-      <translation type="unfinished">Save</translation>
+      <translation>Сохранить</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ExportConfig.ui" line="75"/>
       <source>OK</source>
-      <translation type="unfinished">OK</translation>
+      <translation>OK</translation>
     </message>
   </context>
   <context>
@@ -42,7 +42,7 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="34"/>
       <source>Name/Prefix</source>
-      <translation type="unfinished">Name/Prefix</translation>
+      <translation>Имя/Префикс</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="44"/>
@@ -52,7 +52,7 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="58"/>
       <source>Existing File</source>
-      <translation type="unfinished">Existing File</translation>
+      <translation>Существующий файл</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="63"/>
