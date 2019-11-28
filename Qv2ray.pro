@@ -10,7 +10,7 @@ TARGET = qv2ray
 TEMPLATE = app
 
 # Don't merge those configs with below.
-CONFIG += enable_decoder_qr_code enable_encoder_qr_code qt c++11 openssl-linked 
+CONFIG += enable_decoder_qr_code enable_encoder_qr_code qt c++11 openssl-linked
 include(3rdparty/qzxing_noTests/QZXing-components.pri)
 
 # Main config
@@ -32,6 +32,7 @@ SOURCES += \
         src/components/QvCoreInteractions.cpp \
         src/components/QvGFWPACConverter.cpp \
         src/components/QvHTTPRequestHelper.cpp \
+        src/components/QvLogHighlighter.cpp \
         src/QvCoreConfigOperations.cpp \
         src/QvConfigUpgrade.cpp \
         src/QvCoreConfigOperations_Convertion.cpp \
@@ -71,6 +72,7 @@ HEADERS += \
         src/components/QvComponentsHandler.hpp \
         src/components/QvCoreInteractions.hpp \
         src/components/QvHTTPRequestHelper.hpp \
+        src/components/QvLogHighlighter.hpp \
         src/components/QvNetSpeedPlugin.hpp \
         src/components/QvPACHandler.hpp \
         src/components/QvSystemProxyConfigurator.hpp \

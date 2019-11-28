@@ -1,4 +1,4 @@
-﻿#include <QAction>
+#include <QAction>
 #include <QCloseEvent>
 #include <QDebug>
 #include <QFile>
@@ -34,12 +34,14 @@ MainWindow::MainWindow(QWidget *parent)
       uploadList(),
       downloadList(),
       HTTPRequestHelper(),
-      hTray(new QSystemTrayIcon(this))
+      hTray(new QSystemTrayIcon(this)),
+      highlighter()
 {
     auto conf = GetGlobalConfig();
     vinstance = new ConnectionInstance(this);
     setupUi(this);
     //
+    highlighter = new Highlighter(logText->document());
     pacServer = new PACHandler();
     //
     this->setWindowIcon(QIcon(":/icons/qv2ray.png"));
@@ -72,6 +74,7 @@ MainWindow::MainWindow(QWidget *parent)
     action_Tray_Start->setEnabled(true);
     action_Tray_Stop->setEnabled(false);
     action_Tray_Reconnect->setEnabled(false);
+    //
     trayMenu->addAction(action_Tray_ShowHide);
     trayMenu->addSeparator();
     trayMenu->addAction(action_Tray_Start);
@@ -79,6 +82,7 @@ MainWindow::MainWindow(QWidget *parent)
     trayMenu->addAction(action_Tray_Reconnect);
     trayMenu->addSeparator();
     trayMenu->addAction(action_Tray_Quit);
+    //
     connect(action_Tray_ShowHide, &QAction::triggered, this, &MainWindow::ToggleVisibility);
     connect(action_Tray_Start, &QAction::triggered, this, &MainWindow::on_startButton_clicked);
     connect(action_Tray_Stop, &QAction::triggered, this, &MainWindow::on_stopButton_clicked);
@@ -91,7 +95,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(action_RCM_EditJson, &QAction::triggered, this, &MainWindow::on_action_RCM_EditJson_triggered);
     connect(action_RCM_ConvToComplex, &QAction::triggered, this, &MainWindow::on_action_RCM_ConvToComplex_triggered);
     //
-    // Share optionss
+    // Share options
     connect(action_RCM_ShareQR, &QAction::triggered, this, &MainWindow::on_action_RCM_ShareQR_triggered);
     //
     connect(this, &MainWindow::Connect, this, &MainWindow::on_startButton_clicked);
@@ -109,7 +113,7 @@ MainWindow::MainWindow(QWidget *parent)
     listMenu->addAction(action_RCM_ShareQR);
     //
     LoadConnections();
-    QObject::connect(&HTTPRequestHelper, &QvHttpRequestHelper::httpRequestFinished, this, &MainWindow::VersionUpdate);
+    connect(&HTTPRequestHelper, &QvHttpRequestHelper::httpRequestFinished, this, &MainWindow::VersionUpdate);
     HTTPRequestHelper.get("https://api.github.com/repos/lhy0403/Qv2ray/releases/latest");
     //
     // For charts
@@ -134,11 +138,13 @@ MainWindow::MainWindow(QWidget *parent)
     speedChartObj->addSeries(downloadSerie);
     speedChartObj->createDefaultAxes();
     speedChartObj->axes(Qt::Vertical).first()->setRange(0, 512);
-    static_cast<QValueAxis>(speedChartObj->axes(Qt::Horizontal).first()).setLabelFormat("dd.dd");
+    //
+    static_cast<QValueAxis>(speedChartObj->axes(Qt::Horizontal).first()).setLabelFormat("dd");
     speedChartObj->axes(Qt::Horizontal).first()->setRange(0, 30);
     speedChartObj->setContentsMargins(-20, -50, -20, -25);
     speedChartView = new QChartView(speedChartObj, this);
     speedChartView->setRenderHint(QPainter::RenderHint::HighQualityAntialiasing, true);
+    //
     auto layout = new QHBoxLayout(speedChart);
     layout->addWidget(speedChartView);
     speedChart->setLayout(layout);
@@ -147,7 +153,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     if (hasAutoStart) {
         // At least kernal is ready.
-        if (conf.autoStartConfig != "" && QList<string>::fromStdList(conf.configs).contains(conf.autoStartConfig)) {
+        if (!conf.autoStartConfig.empty() && QList<string>::fromStdList(conf.configs).contains(conf.autoStartConfig)) {
             // Has auto start.
             CurrentConnectionName = QSTRING(conf.autoStartConfig);
             auto item = connectionListWidget->findItems(QSTRING(conf.autoStartConfig), Qt::MatchExactly).front();
@@ -169,6 +175,22 @@ MainWindow::MainWindow(QWidget *parent)
 
     StartProcessingPlugins(this);
 }
+
+
+void MainWindow::keyPressEvent(QKeyEvent *e)
+{
+    if (e->key() == Qt::Key_Enter || e->key() == Qt::Key_Return) {
+        if (focusWidget() == connectionListWidget) {
+            auto index = connectionListWidget->currentRow();
+
+            if (index < 0) return;
+
+            auto connectionName = connectionListWidget->currentItem()->text();
+            ShowAndSetConnection(connectionName, true, true);
+        }
+    }
+}
+
 
 void MainWindow::on_action_StartThis_triggered()
 {
@@ -206,6 +228,7 @@ void MainWindow::VersionUpdate(QByteArray &data)
                                       tr("Download Link: ") + link, QMessageBox::Ignore);
 
         if (result == QMessageBox::Yes) {
+            CLOG(result)
             QDesktopServices::openUrl(QUrl::fromUserInput(link));
         } else if (result == QMessageBox::Ignore) {
             conf.ignoredVersion = newversion.toString().toStdString();
@@ -816,6 +839,9 @@ void MainWindow::on_action_RCM_ShareQR_triggered(bool checked)
 }
 void MainWindow::timerEvent(QTimerEvent *event)
 {
+    // Calling base class
+    QMainWindow::timerEvent(event);
+    //
     Q_UNUSED(event)
     auto inbounds = CurrentFullConfig["inbounds"].toArray();
     long _totalSpeedUp = 0, _totalSpeedDown = 0, _totalDataUp = 0, _totalDataDown = 0;
