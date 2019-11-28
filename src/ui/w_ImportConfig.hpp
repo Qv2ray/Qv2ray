@@ -16,7 +16,6 @@ class ImportConfigWindow : public QDialog, private Ui::ImportConfigWindow
         ~ImportConfigWindow() { }
         QMap<QString, CONFIGROOT> OpenImport(bool outboundsOnly = false);
     private slots:
-        void on_importSourceCombo_currentIndexChanged(int index);
 
         void on_selectFileBtn_clicked();
 

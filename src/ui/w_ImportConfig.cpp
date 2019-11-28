@@ -33,11 +33,6 @@ QMap<QString, CONFIGROOT> ImportConfigWindow::OpenImport(bool outboundsOnly)
     return this->result() == QDialog::Accepted ? connections : QMap<QString, CONFIGROOT>();
 }
 
-void ImportConfigWindow::on_importSourceCombo_currentIndexChanged(int index)
-{
-    stackedWidget->setCurrentIndex(index);
-}
-
 void ImportConfigWindow::on_selectFileBtn_clicked()
 {
     QString dir = QFileDialog::getOpenFileName(this, tr("Select file to import"));
@@ -68,7 +63,7 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
     CONFIGROOT config;
     //auto conf = GetGlobalConfig();
 
-    switch (importSourceCombo->currentIndex()) {
+    switch (tabWidget->currentIndex()) {
         case 0: {
             // From File...
             bool keepInBound = keepImportedInboundCheckBox->isChecked();
@@ -96,7 +91,7 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
             vmessConnectionStringTxt->clear();
             errorsList->clear();
             //
-            LOG(MODULE_IMPORT, to_string(vmessList.count()) + " vmess connection found.")
+            LOG(MODULE_IMPORT, to_string(vmessList.count()) + " string found.")
 
             while (!vmessList.isEmpty()) {
                 aliasPrefix = nameTxt->text();
@@ -120,6 +115,10 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
                     vmessConnectionStringTxt->appendPlainText(vmessErrors.key(item));
                     errorsList->addItem(item);
                 }
+
+                vmessConnectionStringTxt->setLineWidth(errorsList->lineWidth());
+                errorsList->sortItems();
+                return;
             }
 
             break;
