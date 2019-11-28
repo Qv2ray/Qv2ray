@@ -125,8 +125,8 @@ namespace Qv2ray
             string listenip;
             bool setSystemProxy;
             Qv2rayPACConfig pacConfig;
-            // SOCKS
 
+            // SOCKS
             bool useSocks;
             int socks_port;
             bool socks_useAuth;
@@ -139,18 +139,10 @@ namespace Qv2ray
             bool http_useAuth;
             AccountObject httpAccount;
             Qv2rayInboundsConfig():
-                listenip(), setSystemProxy(), pacConfig(),
-                useSocks(), socks_port(), socks_useAuth(), socksUDP(true), socksAccount(),
-                useHTTP(), http_port(), http_useAuth(), httpAccount() {}
-            Qv2rayInboundsConfig(const string &listen, int socksPort, int httpPort): Qv2rayInboundsConfig()
-            {
-                socks_port = socksPort;
-                http_port = httpPort;
-                listenip = listen;
-                socksLocalIP = "0.0.0.0";
-                socksUDP = true;
-                setSystemProxy = true;
-            }
+                listenip("127.0.0.1"), setSystemProxy(false), pacConfig(),
+                useSocks(true), socks_port(1088), socks_useAuth(false), socksUDP(true), socksAccount(),
+                useHTTP(true), http_port(8888), http_useAuth(false), httpAccount() {}
+
             XTOSTRUCT(O(setSystemProxy, pacConfig, listenip, useSocks, useHTTP, socks_port, socks_useAuth, socksAccount, socksUDP, socksLocalIP, http_port, http_useAuth, httpAccount))
         };
 
@@ -206,15 +198,7 @@ namespace Qv2ray
                 inboundConfig(),
                 connectionConfig(),
                 toolBarConfig() { }
-            //
-            Qv2rayConfig(const string &assetsPath, int log, const Qv2rayInboundsConfig &_inBoundSettings): Qv2rayConfig()
-            {
-                // These settings below are defaults.
-                v2AssetsPath = assetsPath;
-                inboundConfig = _inBoundSettings;
-                logLevel = log;
-                tProxySupport = false;
-            }
+
             XTOSTRUCT(O(config_version,
                         ignoredVersion,
                         tProxySupport,

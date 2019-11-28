@@ -741,11 +741,14 @@ void PrefrencesWindow::on_darkThemeCB_stateChanged(int arg1)
 
 void PrefrencesWindow::on_darkTrayCB_stateChanged(int arg1)
 {
+    LOADINGCHECK
     CurrentConfig.uiConfig.useDarkTrayIcon = arg1 == Qt::Checked;
 }
 
 void PrefrencesWindow::on_enablePACCB_stateChanged(int arg1)
 {
+    LOADINGCHECK
+    NEEDRESTART
     bool enabled = arg1 == Qt::Checked;
     CurrentConfig.inboundConfig.pacConfig.usePAC = enabled;
     pacGroupBox->setEnabled(enabled);
@@ -753,6 +756,7 @@ void PrefrencesWindow::on_enablePACCB_stateChanged(int arg1)
 
 void PrefrencesWindow::on_pacGoBtn_clicked()
 {
+    LOADINGCHECK
     QString gfwLocation;
     QString fileContent;
     auto request = new QvHttpRequestHelper();
@@ -808,26 +812,37 @@ void PrefrencesWindow::on_pacGoBtn_clicked()
 
 void PrefrencesWindow::on_pacPortSB_valueChanged(int arg1)
 {
+    LOADINGCHECK
+    NEEDRESTART
     CurrentConfig.inboundConfig.pacConfig.port = arg1;
     //pacAccessPathTxt->setText("http://" + listenIPTxt->text() + ":" + QString::number(arg1) + "/pac");
 }
 
 void PrefrencesWindow::on_setSysProxyCB_stateChanged(int arg1)
 {
+    LOADINGCHECK
+    NEEDRESTART
     CurrentConfig.inboundConfig.setSystemProxy = arg1 == Qt::Checked;
 }
 
 void PrefrencesWindow::on_pacProxyCB_currentIndexChanged(int index)
 {
-    CurrentConfig.inboundConfig.pacConfig.useSocksProxy = index == 0;
+    LOADINGCHECK
+    NEEDRESTART
+    // 0 -> http
+    // 1 -> socks
+    CurrentConfig.inboundConfig.pacConfig.useSocksProxy = index == 1;
 }
 
 void PrefrencesWindow::on_pushButton_clicked()
 {
+    LOADINGCHECK
     QDesktopServices::openUrl(QUrl::fromUserInput(QV2RAY_RULES_DIR));
 }
 
 void PrefrencesWindow::on_pacProxyTxt_textEdited(const QString &arg1)
 {
+    LOADINGCHECK
+    NEEDRESTART
     CurrentConfig.inboundConfig.pacConfig.proxyIP = arg1.toStdString();
 }
