@@ -229,19 +229,10 @@ void ImportConfigWindow::on_connectionEditBtn_clicked()
         CONFIGROOT root;
         root.insert("outbounds", outboundsList);
         //
-        // WARN This one will change the connection name, because of some duplicates.
         connections[alias] = root;
-        //SaveConnectionConfig(root, &alias, false);
-        //
-        // WARN Add connection here
-        //auto conf = GetGlobalConfig();
-        //auto connectionList = conf.configs;
-        //connectionList.push_back(alias.toStdString());
-        //conf.configs = connectionList;
-        //SetGlobalConfig(conf);
-        close();
+        accept();
     } else {
-        return;
+        reject();
     }
 }
 
