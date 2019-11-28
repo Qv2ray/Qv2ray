@@ -112,8 +112,8 @@ bool initialiseQv2ray()
         } else {
             LOG(MODULE_INIT, "Set " + configPath.toStdString() + " as the config path.")
             SetConfigDirPath(&configPath);
-            Qv2rayInboundsConfig inboundSetting = Qv2rayInboundsConfig("127.0.0.1", 1080, 8000);
-            Qv2rayConfig conf = Qv2rayConfig(QV2RAY_DEFAULT_VCORE_PATH.toStdString(), 4, inboundSetting);
+            Qv2rayConfig conf;
+            conf.v2AssetsPath = QV2RAY_DEFAULT_VCORE_PATH.toStdString();
             //
             // Save initial config.
             SetGlobalConfig(conf);
