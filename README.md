@@ -88,3 +88,7 @@ Submodule [X2Struct](https://github.com/xyz347/x2struct) 使用 ![License: GPL v
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ```
+
+### 寻求帮助
+
+- Telegram https://t.me/qv2ray
