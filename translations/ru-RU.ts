@@ -1103,7 +1103,7 @@
       <location filename="../src/ui/w_OutboundEditor.ui" line="330"/>
       <location filename="../src/ui/w_OutboundEditor.ui" line="431"/>
       <source>Default</source>
-      <translation type="unfinished">Default</translation>
+      <translation>По умолчанию</translation>
     </message>
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="359"/>
@@ -1250,7 +1250,7 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="52"/>
       <source>UI Theme</source>
-      <translation type="unfinished">UI Theme</translation>
+      <translation>Тема интерфейса</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="108"/>
@@ -1271,7 +1271,7 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="135"/>
       <source>Dark UI Icons</source>
-      <translation type="unfinished">Dark UI Icons</translation>
+      <translation>Темные иконки интерфейса</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="164"/>
@@ -1327,37 +1327,37 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="84"/>
       <source>Theme Settings</source>
-      <translation type="unfinished">Theme Settings</translation>
+      <translation>Настройки Темы</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="142"/>
       <source>Dark Tray Icon</source>
-      <translation type="unfinished">Dark Tray Icon</translation>
+      <translation>Темная иконка в трее</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="245"/>
       <source>Auto Connect</source>
-      <translation type="unfinished">Auto Connect</translation>
+      <translation>Автоподключение</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="267"/>
       <source>Transparent Proxy</source>
-      <translation type="unfinished">Transparent Proxy</translation>
+      <translation>Прозрачный прокси</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="281"/>
       <source>V2ray Core Path</source>
-      <translation type="unfinished">V2ray Core Path</translation>
+      <translation>Путь ядра V2ray</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="302"/>
       <source>V2ray Assets Path</source>
-      <translation type="unfinished">V2ray Assets Path</translation>
+      <translation>V2ray Assets путь</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="324"/>
       <source>Inbound Settings</source>
-      <translation type="unfinished">Inbound Settings</translation>
+      <translation>Настройки соединения</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="332"/>
@@ -1367,7 +1367,7 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="392"/>
       <source>Set System Proxy</source>
-      <translation type="unfinished">Set System Proxy</translation>
+      <translation>Установить системным прокси</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="411"/>
@@ -1401,27 +1401,27 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="502"/>
       <source>PAC Proxy IP</source>
-      <translation type="unfinished">PAC Proxy IP</translation>
+      <translation>PAC прокси IP</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="512"/>
       <source>Use Proxy</source>
-      <translation type="unfinished">Use Proxy</translation>
+      <translation>Использовать прокси</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="533"/>
       <source>Import GFWList</source>
-      <translation type="unfinished">Import GFWList</translation>
+      <translation>Импорт GFWList</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="709"/>
       <source>Connection Settings</source>
-      <translation type="unfinished">Connection Settings</translation>
+      <translation>Настройки соединения</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="715"/>
       <source>General Connection Settings</source>
-      <translation type="unfinished">General Connection Settings</translation>
+      <translation>Общие настройки соединения</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="721"/>
@@ -1451,55 +1451,55 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="819"/>
       <source>Forward Proxy</source>
-      <translation type="unfinished">Forward Proxy</translation>
+      <translation>Ретрансляция прокси</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="827"/>
       <source>Status</source>
-      <translation type="unfinished">Status</translation>
+      <translation>Статус</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="846"/>
       <source>Type</source>
-      <translation type="unfinished">Type</translation>
+      <translation>Тип</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="358"/>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="520"/>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="854"/>
       <source>HTTP</source>
-      <translation type="unfinished">HTTP</translation>
+      <translation>HTTP</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="346"/>
       <source>Features</source>
-      <translation type="unfinished">Features</translation>
+      <translation>Особенности</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="365"/>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="525"/>
       <source>SOCKS</source>
-      <translation type="unfinished">SOCKS</translation>
+      <translation>SOCKS</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="385"/>
       <source>PAC Support</source>
-      <translation type="unfinished">PAC Support</translation>
+      <translation>Поддержка PAC</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="405"/>
       <source>HTTP Settings</source>
-      <translation type="unfinished">HTTP Settings</translation>
+      <translation>Настройки HTTP</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="476"/>
       <source>PAC Settings</source>
-      <translation type="unfinished">PAC Settings</translation>
+      <translation>Настройки PAC</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="543"/>
       <source>Github</source>
-      <translation type="unfinished">Github</translation>
+      <translation>GitHub</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="548"/>
@@ -1529,52 +1529,52 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="573"/>
       <source>GFWList File</source>
-      <translation type="unfinished">GFWList File</translation>
+      <translation>GFWList файл</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="581"/>
       <source>Go</source>
-      <translation type="unfinished">Go</translation>
+      <translation>Далее</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="590"/>
       <source>Edit PAC</source>
-      <translation type="unfinished">Edit PAC</translation>
+      <translation>Изменить PAC</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="597"/>
       <source>Open PAC Folder</source>
-      <translation type="unfinished">Open PAC Folder</translation>
+      <translation>Открыть папку PAC</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="607"/>
       <source>SOCKS Settings</source>
-      <translation type="unfinished">SOCKS Settings</translation>
+      <translation>Настройки SOCKS</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="633"/>
       <source>UDP Support</source>
-      <translation type="unfinished">UDP Support</translation>
+      <translation>Поддержка UDP</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="647"/>
       <source>Local IP (For UDP)</source>
-      <translation type="unfinished">Local IP (For UDP)</translation>
+      <translation>Локальный IP (для UDP)</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="859"/>
       <source>Socks</source>
-      <translation type="unfinished">Socks</translation>
+      <translation>Socks</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="867"/>
       <source>Host Address</source>
-      <translation type="unfinished">Host Address</translation>
+      <translation>Адрес хоста</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="951"/>
       <source>Network Toolbar Settings</source>
-      <translation type="unfinished">Network Toolbar Settings</translation>
+      <translation>Настройки панели инструментов сети</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="957"/>
@@ -1585,13 +1585,13 @@
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="975"/>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="1054"/>
       <source>-</source>
-      <translation type="unfinished">-</translation>
+      <translation>-</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="994"/>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="1073"/>
       <source>+</source>
-      <translation type="unfinished">+</translation>
+      <translation>+</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="1001"/>
@@ -1718,12 +1718,12 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="1397"/>
       <source>Official Repo</source>
-      <translation type="unfinished">Official Repo</translation>
+      <translation>Официальный репозиторий</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="1511"/>
       <source>Ignore Next Version</source>
-      <translation type="unfinished">Ignore Next Version</translation>
+      <translation>Игнорировать следующую версию</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="1410"/>
@@ -1733,7 +1733,7 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="803"/>
       <source>Custom DNS List</source>
-      <translation type="unfinished">Custom DNS List</translation>
+      <translation>Пользовательский список DNS</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="1430"/>
@@ -1765,7 +1765,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Noto Sans&apos;; color:#d68952;&quot;&gt;Copyright (c) 2011 SCHUTZ Sacha (@dridk): QJsonModel (MIT)&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Noto Sans&apos;; color:#d68952;&quot;&gt;Copyright (c) 2019 Nikolaos Ftylitakis (@ftylitak): QZXing (Apache2)&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Noto Sans&apos;; color:#d68952;&quot;&gt;Copyright (c) 2016 Singein (@Singein): ScreenShot (MIT)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-      <translation type="unfinished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+      <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Noto Sans&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
@@ -1797,7 +1797,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="44"/>
       <source>Use Dark Theme</source>
-      <translation type="unfinished">Use Dark Theme</translation>
+      <translation>Использовать темную тему</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="122"/>
@@ -1869,12 +1869,12 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="730"/>
       <source>Dark Mode</source>
-      <translation type="unfinished">Dark Mode</translation>
+      <translation>Тёмный режим</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="730"/>
       <source>Please restart Qv2ray to fully apply this feature.</source>
-      <translation type="unfinished">Please restart Qv2ray to fully apply this feature.</translation>
+      <translation>Пожалуйста, перезапустите Qv2ray, чтобы применить эту функцию.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="794"/>
@@ -2539,7 +2539,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_ScreenShot_Core.ui" line="48"/>
       <source>Screen Shot</source>
-      <translation type="unfinished">Screen Shot</translation>
+      <translation>Снимок экрана</translation>
     </message>
   </context>
   <context>
