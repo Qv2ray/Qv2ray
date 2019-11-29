@@ -269,15 +269,21 @@ void PrefrencesWindow::on_selectVAssetBtn_clicked()
 {
     NEEDRESTART
     QString dir = QFileDialog::getExistingDirectory(this, tr("Open v2ray assets folder"), QDir::currentPath());
-    vCoreAssetsPathTxt->setText(dir);
-    on_vCoreAssetsPathTxt_textEdited(dir);
+
+    if (!dir.isEmpty()) {
+        vCoreAssetsPathTxt->setText(dir);
+        on_vCoreAssetsPathTxt_textEdited(dir);
+    }
 }
 
 void PrefrencesWindow::on_selectVCoreBtn_clicked()
 {
     QString core = QFileDialog::getOpenFileName(this, tr("Open v2ray core file"), QDir::currentPath());
-    vCorePathTxt->setText(core);
-    on_vCorePathTxt_textEdited(core);
+
+    if (!core.isEmpty()) {
+        vCorePathTxt->setText(core);
+        on_vCorePathTxt_textEdited(core);
+    }
 }
 
 void PrefrencesWindow::on_vCorePathTxt_textEdited(const QString &arg1)
