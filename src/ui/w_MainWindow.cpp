@@ -849,12 +849,8 @@ void MainWindow::timerEvent(QTimerEvent *event)
     foreach (auto inbound, inbounds) {
         auto tag = inbound.toObject()["tag"].toString();
 
-        if (tag.isEmpty()) continue;
-
-        // TODO: A proper scheme...
-        if (tag == QV2RAY_API_TAG_INBOUND) {
-            continue;
-        }
+        // We don't want these two.
+        if (tag.isEmpty() || tag == QV2RAY_API_TAG_INBOUND) continue;
 
         _totalSpeedUp += vinstance->getTagLastUplink(tag);
         _totalSpeedDown += vinstance->getTagLastDownlink(tag);
