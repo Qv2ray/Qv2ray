@@ -160,32 +160,32 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="325"/>
       <source>GroupBox</source>
-      <translation type="unfinished">GroupBox</translation>
+      <translation>GroupBox</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="338"/>
       <source>Connection Editor</source>
-      <translation type="unfinished">Connection Editor</translation>
+      <translation>Редактор подключений</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="345"/>
       <source>Open Connection Editor</source>
-      <translation type="unfinished">Open Connection Editor</translation>
+      <translation>Открыть редактор подключений</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="352"/>
       <source>Maunally input connection details</source>
-      <translation type="unfinished">Maunally input connection details</translation>
+      <translation>Информация о подключении</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="388"/>
       <source>Cancel</source>
-      <translation type="unfinished">Cancel</translation>
+      <translation>Отмена</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="24"/>
       <source>Imported</source>
-      <translation type="unfinished">Imported</translation>
+      <translation>Импортировано</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="43"/>
@@ -195,12 +195,12 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="58"/>
       <source>Capture QRCode</source>
-      <translation type="unfinished">Capture QRCode</translation>
+      <translation>Захват QRCode</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="58"/>
       <source>Cannot find a valid QRCode from this region.</source>
-      <translation type="unfinished">Cannot find a valid QRCode from this region.</translation>
+      <translation>Не удается найти QRCode из этой области.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="80"/>
@@ -211,7 +211,7 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="80"/>
       <source>Import from file failed, for more information, please check the log file.</source>
-      <translation type="unfinished">Import from file failed, for more information, please check the log file.</translation>
+      <translation>Импорт из файла не удался, для получения дополнительной информации, пожалуйста, проверьте файл журнала.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="83"/>
@@ -221,44 +221,44 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="129"/>
       <source>TODO</source>
-      <translation type="unfinished">TODO</translation>
+      <translation>TODO</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="139"/>
       <source>Select an image to import</source>
-      <translation type="unfinished">Select an image to import</translation>
+      <translation>Выберите изображение для импорта</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="150"/>
       <source>QRCode scanning failed</source>
-      <translation type="unfinished">QRCode scanning failed</translation>
+      <translation>Ошибка сканирования QRCode</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="150"/>
       <source>Cannot find any QRCode from the image.</source>
-      <translation type="unfinished">Cannot find any QRCode from the image.</translation>
+      <translation>Не удается найти QRCode в изображении.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="185"/>
       <location filename="../src/ui/w_ImportConfig.cpp" line="195"/>
       <location filename="../src/ui/w_ImportConfig.cpp" line="211"/>
       <source>Edit file as JSON</source>
-      <translation type="unfinished">Edit file as JSON</translation>
+      <translation>Изменить JSON файл</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="185"/>
       <source>Provided file not found: </source>
-      <translation type="unfinished">Provided file not found: </translation>
+      <translation>Предоставленный файл не найден: </translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="195"/>
       <source>The file you selected has json syntax error. Continue editing may make you lose data. Would you like to continue?</source>
-      <translation type="unfinished">The file you selected has json syntax error. Continue editing may make you lose data. Would you like to continue?</translation>
+      <translation>Выбранный вами файл содержит синтаксическую ошибку json. Изменение может привести к потере данных. Вы хотите продолжить?</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="211"/>
       <source>Failed to save file, please check if you have the required permissions</source>
-      <translation type="unfinished">Failed to save file, please check if you have the required permissions</translation>
+      <translation>Не удалось сохранить файл, пожалуйста, проверьте, есть ли у вас необходимые разрешения</translation>
     </message>
   </context>
   <context>
@@ -553,7 +553,7 @@
     <message>
       <location filename="../src/ui/w_JsonEditor.ui" line="53"/>
       <source>Format JSON</source>
-      <translation type="unfinished">Format JSON</translation>
+      <translation>Формат Json</translation>
     </message>
     <message>
       <location filename="../src/ui/w_JsonEditor.ui" line="60"/>
@@ -579,12 +579,12 @@
     <message>
       <location filename="../src/ui/w_JsonEditor.cpp" line="72"/>
       <source>Syntax Errors</source>
-      <translation type="unfinished">Syntax Errors</translation>
+      <translation>Синтаксические ошибки</translation>
     </message>
     <message>
       <location filename="../src/ui/w_JsonEditor.cpp" line="72"/>
       <source>Please fix the JSON errors before continue</source>
-      <translation type="unfinished">Please fix the JSON errors before continue</translation>
+      <translation>Пожалуйста, исправьте JSON ошибки перед продолжением</translation>
     </message>
   </context>
   <context>
@@ -635,22 +635,22 @@
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="186"/>
       <source>Import connection</source>
-      <translation type="unfinished">Import connection</translation>
+      <translation>Импорт соединения</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="202"/>
       <source>Duplicate connection</source>
-      <translation type="unfinished">Duplicate connection</translation>
+      <translation>Дублировать подключение</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="224"/>
       <source>Delete a connection</source>
-      <translation type="unfinished">Delete a connection</translation>
+      <translation>Удалить подключение</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="240"/>
       <source>Edit connection</source>
-      <translation type="unfinished">Edit connection</translation>
+      <translation>Изменить подключение</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="273"/>
@@ -660,12 +660,12 @@
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="281"/>
       <source>Config Type</source>
-      <translation type="unfinished">Config Type</translation>
+      <translation>Тип конфигурации</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="295"/>
       <source>Protocol</source>
-      <translation type="unfinished">Protocol</translation>
+      <translation>Протокол</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="309"/>
@@ -680,47 +680,47 @@
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="339"/>
       <source>Operations</source>
-      <translation type="unfinished">Operations</translation>
+      <translation>Операции</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="361"/>
       <source>Edit connection as JSON</source>
-      <translation type="unfinished">Edit connection as JSON</translation>
+      <translation>Изменить соединение как JSON</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="189"/>
       <source>Add</source>
-      <translation type="unfinished">Add</translation>
+      <translation>Добавить</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="205"/>
       <source>Duplicate</source>
-      <translation type="unfinished">Duplicate</translation>
+      <translation>Дублировать</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="227"/>
       <source>Delete</source>
-      <translation type="unfinished">Delete</translation>
+      <translation>Удалить</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="243"/>
       <source>Edit</source>
-      <translation type="unfinished">Edit</translation>
+      <translation>Изменить</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="364"/>
       <source>Edit JSON</source>
-      <translation type="unfinished">Edit JSON</translation>
+      <translation>Изменить JSON</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="380"/>
       <source>Ping Test</source>
-      <translation type="unfinished">Ping Test</translation>
+      <translation>Ping Тест</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="393"/>
       <source>Share</source>
-      <translation type="unfinished">Share</translation>
+      <translation>Поделиться</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="426"/>
@@ -815,7 +815,7 @@
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="68"/>
       <source>Edit as Complex Config</source>
-      <translation type="unfinished">Edit as Complex Config</translation>
+      <translation>Изменить как Complex Config</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="69"/>
@@ -825,7 +825,7 @@
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="70"/>
       <source>Share as QRCode/VMess URL</source>
-      <translation type="unfinished">Share as QRCode/VMess URL</translation>
+      <translation>Поделиться QRCode/VMess URL</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="157"/>
@@ -877,32 +877,32 @@
       <location filename="../src/ui/w_MainWindow.cpp" line="323"/>
       <location filename="../src/ui/w_MainWindow.cpp" line="331"/>
       <source>Configuring PAC</source>
-      <translation type="unfinished">Configuring PAC</translation>
+      <translation>Настройка PAC</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="323"/>
       <source>Could not start PAC server as it is configured to use SOCKS, but it is not enabled</source>
-      <translation type="unfinished">Could not start PAC server as it is configured to use SOCKS, but it is not enabled</translation>
+      <translation>Не удалось запустить PAC сервер, так как он настроен на использование SOCKS, но он не включен</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="331"/>
       <source>Could not start PAC server as it is configured to use HTTP, but it is not enabled</source>
-      <translation type="unfinished">Could not start PAC server as it is configured to use HTTP, but it is not enabled</translation>
+      <translation>Не удалось запустить PAC сервер, так как он настроен на использование HTTP, но он не включен</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="365"/>
       <source>PAC Processing Failed</source>
-      <translation type="unfinished">PAC Processing Failed</translation>
+      <translation>Ошибка обработки PAC</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="365"/>
       <source>HTTP or SOCKS inbound is not properly configured for PAC</source>
-      <translation type="unfinished">HTTP or SOCKS inbound is not properly configured for PAC</translation>
+      <translation>Входящие HTTP или SOCKS не настроены должным образом для PAC</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="366"/>
       <source>Qv2ray will continue, but will not set system proxy.</source>
-      <translation type="unfinished">Qv2ray will continue, but will not set system proxy.</translation>
+      <translation>Qv2ray будет работать, но не сможет изменить системный прокси.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="377"/>
