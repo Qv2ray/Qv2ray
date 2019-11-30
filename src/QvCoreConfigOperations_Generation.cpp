@@ -4,7 +4,7 @@ namespace Qv2ray
 {
     namespace ConfigOperations
     {
-        namespace Generation
+        inline namespace Generation
         {
             // Important config generation algorithms.
             static const QStringList vLogLevels = {"none", "debug", "info", "warning", "error"};

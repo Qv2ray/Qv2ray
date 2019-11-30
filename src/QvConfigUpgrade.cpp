@@ -120,6 +120,17 @@ namespace Qv2ray
                 o["statsPort"] = root["statsPort"];
                 root["connectionConfig"] = o;
                 UPDATELOG("Renamed some connection configs to connectionConfig.")
+                break;
+            }
+
+            case 12: {
+                auto inbound = root["inboundConfig"].toObject();
+                auto pacConfig = inbound["pacConfig"].toObject();
+                pacConfig["enablePAC"] = pacConfig["usePAC"].toBool();
+                inbound["pacConfig"] = pacConfig;
+                root["inboundConfig"] = inbound;
+                UPDATELOG("Renamed usePAC to enablePAC.")
+                break;
             }
         }
 

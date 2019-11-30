@@ -16,14 +16,15 @@ namespace Qv2ray
     // -------------------------- BEGIN GENERAL FUNCTIONS ----------------------------------------------
     namespace ConfigOperations
     {
-        QMap<QString, CONFIGROOT> GetConnections(list<string> connections);
+        QMap<QString, CONFIGROOT> GetRegularConnections(list<string> connections);
+        QMap<QString, QMap<QString, CONFIGROOT>> GetSubscriptionConnections(list<string> subscriptions);
         bool CheckIsComplexConfig(CONFIGROOT root);
         int StartPreparation(CONFIGROOT fullConfig);
         int FindIndexByTag(INOUTLIST list, QString *tag);
 
         //
         // -------------------------- BEGIN CONFIG CONVERSIONS --------------------------
-        namespace Convertion
+        inline namespace Convertion
         {
             //int VerifyVMessProtocolString(QString vmess);
             QString DecodeSubscriptionString(QByteArray arr);
@@ -31,6 +32,7 @@ namespace Qv2ray
             // Save Connection Config
             bool SaveConnectionConfig(CONFIGROOT obj, QString *alias, bool canOverrideExisting);
             bool RemoveConnection(const QString &alias);
+            bool RemoveSubscriptionConnection(const QString &subsName, const QString &name);
             bool RenameConnection(QString originalName, QString newName);
             // VMess URI Protocol
             CONFIGROOT ConvertConfigFromVMessString(QString vmess, QString *alias, QString *errMessage);
@@ -40,7 +42,7 @@ namespace Qv2ray
 
         //
         // -------------------------- BEGIN CONFIG GENERATIONS ---------------------------------------------
-        namespace Generation
+        inline namespace Generation
         {
             ROUTING GenerateRoutes(bool enableProxy, bool cnProxy);
             ROUTERULE GenerateSingleRouteRule(QStringList list, bool isDomain, QString outboundTag, QString type = "field");
@@ -67,7 +69,5 @@ namespace Qv2ray
 }
 
 using namespace Qv2ray::ConfigOperations;
-using namespace Qv2ray::ConfigOperations::Convertion;
-using namespace Qv2ray::ConfigOperations::Generation;
 
 #endif // CONFIGGENERATION_H

@@ -113,7 +113,9 @@ bool initialiseQv2ray()
             LOG(MODULE_INIT, "Set " + configPath.toStdString() + " as the config path.")
             SetConfigDirPath(&configPath);
             Qv2rayConfig conf;
-            conf.v2AssetsPath = QV2RAY_DEFAULT_VCORE_PATH.toStdString();
+            conf.v2AssetsPath = QV2RAY_DEFAULT_VASSETS_PATH.toStdString();
+            conf.v2CorePath = QV2RAY_DEFAULT_VCORE_PATH.toStdString();
+            conf.logLevel = 2;
             //
             // Save initial config.
             SetGlobalConfig(conf);

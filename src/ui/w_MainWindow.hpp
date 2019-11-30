@@ -15,6 +15,12 @@
 
 #include "ui_w_MainWindow.h"
 
+struct ConnectionObject {
+    bool isRegularConnection;
+    QString subscriptionName;
+    QString connectionName;
+    CONFIGROOT config;
+};
 
 class MainWindow : public QMainWindow, Ui::MainWindow
 {
@@ -102,7 +108,7 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         //
         QMenu *trayMenu = new QMenu(this);
         QMenu *listMenu;
-        QMap<QString, CONFIGROOT> connections;
+        QMap<QString, ConnectionObject> connections;
         //
         QString originalName;
         bool isRenamingInProgress;
