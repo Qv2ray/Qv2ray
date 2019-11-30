@@ -49,7 +49,7 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     //
     //
     listenIPTxt->setText(QSTRING(CurrentConfig.inboundConfig.listenip));
-    bool pacEnabled = CurrentConfig.inboundConfig.pacConfig.usePAC;
+    bool pacEnabled = CurrentConfig.inboundConfig.pacConfig.enablePAC;
     enablePACCB->setChecked(pacEnabled);
     setSysProxyCB->setChecked(CurrentConfig.inboundConfig.setSystemProxy);
     //
@@ -756,7 +756,7 @@ void PrefrencesWindow::on_enablePACCB_stateChanged(int arg1)
     LOADINGCHECK
     NEEDRESTART
     bool enabled = arg1 == Qt::Checked;
-    CurrentConfig.inboundConfig.pacConfig.usePAC = enabled;
+    CurrentConfig.inboundConfig.pacConfig.enablePAC = enabled;
     pacGroupBox->setEnabled(enabled);
 }
 

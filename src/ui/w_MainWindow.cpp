@@ -27,15 +27,24 @@
 #include "QvSystemProxyConfigurator.hpp"
 
 #define TRAY_TOOLTIP_PREFIX "Qv2ray " QV2RAY_VERSION_STRING
+#define SUBSCRIPTION_CONFIG_MODIFY_ASK(varName)                                                                                              \
+    if (!connections[varName].isRegularConnection) {                                                                                          \
+        if (QvMessageBoxAsk(this, tr("Editing a subscription config"), tr("You are trying to edit a config loaded from subscription.") +     \
+                            NEWLINE + tr("All changes will be overwritten when the subscriptions are updated next time.") +                  \
+                            NEWLINE + tr("Are you still going to do so?")) != QMessageBox::Yes) {                                            \
+            return;                                                                                                                          \
+        }                                                                                                                                    \
+    }                                                                                                                                        \
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent),
-      vinstance(),
-      uploadList(),
-      downloadList(),
-      HTTPRequestHelper(),
-      hTray(new QSystemTrayIcon(this)),
-      highlighter()
+    :
+    QMainWindow(parent),
+    vinstance(),
+    uploadList(),
+    downloadList(),
+    HTTPRequestHelper(),
+    hTray(new QSystemTrayIcon(this)),
+    highlighter()
 {
     auto conf = GetGlobalConfig();
     vinstance = new ConnectionInstance(this);
@@ -240,14 +249,35 @@ void MainWindow::VersionUpdate(QByteArray &data)
 void MainWindow::LoadConnections()
 {
     auto conf = GetGlobalConfig();
-    connections = GetConnections(conf.configs);
-    connectionListWidget->clear();
+    connections.clear();
+    auto _regularConnections = GetRegularConnections(conf.configs);
 
-    for (int i = 0; i < connections.count(); i++) {
-        connectionListWidget->addItem(connections.keys()[i]);
+    for (auto i = 0; i < _regularConnections.count(); i++) {
+        ConnectionObject _o;
+        _o.isRegularConnection = true;
+        _o.subscriptionName = "";
+        _o.connectionName = _regularConnections.keys()[i];
+        _o.config = _regularConnections.values()[i];
+        connections[_o.connectionName] = _o;
     }
 
+    auto _subsConnections = GetSubscriptionConnections(QMap<string, string>(conf.subscribes).keys().toStdList());
+
+    for (auto i = 0; i < _subsConnections.count(); i++) {
+        for (auto j = 0; j < _subsConnections.values()[i].count(); j++) {
+            ConnectionObject _o;
+            _o.isRegularConnection = false;
+            _o.subscriptionName = _subsConnections.keys()[i];
+            _o.connectionName = _subsConnections.values()[i].keys()[j];
+            _o.config = _subsConnections.values()[i].values()[j];
+            connections[_o.connectionName + " (" + tr("Subscription:") + " " + _o.subscriptionName + ")"] = _o;
+        }
+    }
+
+    connectionListWidget->clear();
+    connectionListWidget->addItems(connections.keys());
     connectionListWidget->sortItems();
+    //
     removeConfigButton->setEnabled(false);
     editConfigButton->setEnabled(false);
     editJsonBtn->setEnabled(false);
@@ -311,7 +341,7 @@ void MainWindow::on_startButton_clicked()
         LOG(MODULE_VCORE, ("Connecting to: " + CurrentConnectionName).toStdString())
         logText->clear();
         //
-        auto connectionRoot = connections[CurrentConnectionName];
+        auto connectionRoot = connections[CurrentConnectionName].config;
         //
         CurrentFullConfig = GenerateRuntimeConfig(connectionRoot);
         StartPreparation(CurrentFullConfig);
@@ -329,7 +359,7 @@ void MainWindow::on_startButton_clicked()
                 speedTimerId = startTimer(1000);
             }
 
-            bool usePAC = conf.inboundConfig.pacConfig.usePAC;
+            bool usePAC = conf.inboundConfig.pacConfig.enablePAC;
             bool pacUseSocks = conf.inboundConfig.pacConfig.useSocksProxy;
             bool httpEnabled = conf.inboundConfig.useHTTP;
             bool socksEnabled = conf.inboundConfig.useSocks;
@@ -529,7 +559,7 @@ void MainWindow::ShowAndSetConnection(QString guiConnectionName, bool SetConnect
     duplicateBtn->setEnabled(true);
     //
     // --------- BRGIN Show Connection
-    auto root = connections[guiConnectionName];
+    auto root = connections[guiConnectionName].config;
     //
     auto isComplexConfig = root["routing"].toObject()["rules"].toArray().count() > 0;
     routeCountLabel->setText(isComplexConfig > 0 ? tr("Complex") : tr("Simple"));
@@ -617,6 +647,7 @@ void MainWindow::on_connectionListWidget_customContextMenuRequested(const QPoint
 void MainWindow::on_action_RenameConnection_triggered()
 {
     auto item = connectionListWidget->currentItem();
+    SUBSCRIPTION_CONFIG_MODIFY_ASK(item->text())
     item->setFlags(item->flags() | Qt::ItemIsEditable);
     connectionListWidget->editItem(item);
     originalName = item->text();
@@ -671,19 +702,26 @@ void MainWindow::on_removeConfigButton_clicked()
 
     if (QvMessageBoxAsk(this, tr("Removing this Connection"), tr("Are you sure to remove this connection?")) == QMessageBox::Yes) {
         auto connectionName = connectionListWidget->currentItem()->text();
+        SUBSCRIPTION_CONFIG_MODIFY_ASK(connectionName)
 
         if (connectionName == CurrentConnectionName) {
             on_stopButton_clicked();
             CurrentConnectionName = "";
         }
 
+        auto connData = connections[connectionName];
         auto conf = GetGlobalConfig();
-        QList<string> list = QList<string>::fromStdList(conf.configs);
-        list.removeOne(connectionName.toStdString());
-        conf.configs = list.toStdList();
 
-        if (!RemoveConnection(connectionName)) {
-            QvMessageBox(this, tr("Removing this Connection"), tr("Failed to delete connection file, please delete manually."));
+        if (connData.isRegularConnection) {
+            conf.configs.remove(connectionName.toStdString());
+
+            if (!RemoveConnection(connectionName)) {
+                QvMessageBox(this, tr("Removing this Connection"), tr("Failed to delete connection file, please delete manually."));
+            }
+        } else {
+            if (!RemoveSubscriptionConnection(connData.subscriptionName, connData.connectionName)) {
+                QvMessageBox(this, tr("Removing this Connection"), tr("Failed to delete connection file, please delete manually."));
+            }
         }
 
         SetGlobalConfig(conf);
@@ -720,7 +758,7 @@ void MainWindow::on_editConfigButton_clicked()
     }
 
     auto alias = connectionListWidget->currentItem()->text();
-    auto outBoundRoot = connections[alias];
+    auto outBoundRoot = connections[alias].config;
     CONFIGROOT root;
     bool isChanged = false;
 
@@ -740,7 +778,7 @@ void MainWindow::on_editConfigButton_clicked()
     }
 
     if (isChanged) {
-        connections[alias] = root;
+        connections[alias].config = root;
         // true indicates the alias will NOT change
         SaveConnectionConfig(root, &alias, true);
         OnConfigListChanged(alias == CurrentConnectionName);
@@ -762,7 +800,17 @@ void MainWindow::on_action_RCM_ConvToComplex_triggered()
     }
 
     auto alias = connectionListWidget->currentItem()->text();
-    auto outBoundRoot = connections[alias];
+
+    if (connections[alias].isRegularConnection) {
+        if (QvMessageBoxAsk(this, tr("Editing a subscription config"), tr("You are trying to edit a config loaded from subscription.") +
+                            NEWLINE + tr("All changes will be overwritten when the subscriptions are updated next time.") +
+                            NEWLINE + tr("Are you still going to do so?")) != QMessageBox::Yes) {
+            // Not changing, return
+            return;
+        }
+    }
+
+    auto outBoundRoot = connections[alias].config;
     CONFIGROOT root;
     bool isChanged = false;
     //
@@ -772,7 +820,7 @@ void MainWindow::on_action_RCM_ConvToComplex_triggered()
     isChanged = routeWindow->result() == QDialog::Accepted;
 
     if (isChanged) {
-        connections[alias] = root;
+        connections[alias].config = root;
         // true indicates the alias will NOT change
         SaveConnectionConfig(root, &alias, true);
         OnConfigListChanged(alias == CurrentConnectionName);
@@ -789,13 +837,14 @@ void MainWindow::on_action_RCM_EditJson_triggered()
     }
 
     auto alias = connectionListWidget->currentItem()->text();
-    JsonEditor *w = new JsonEditor(connections[alias], this);
+    SUBSCRIPTION_CONFIG_MODIFY_ASK(alias)
+    JsonEditor *w = new JsonEditor(connections[alias].config, this);
     auto root = CONFIGROOT(w->OpenEditor());
     bool isChanged = w->result() == QDialog::Accepted;
     delete w;
 
     if (isChanged) {
-        connections[alias] = root;
+        connections[alias].config = root;
         // Alias here will not change.
         SaveConnectionConfig(root, &alias, true);
         ShowAndSetConnection(CurrentConnectionName, false, false);
@@ -818,7 +867,7 @@ void MainWindow::on_shareBtn_clicked()
     }
 
     auto alias = connectionListWidget->currentItem()->text();
-    auto root = connections[alias];
+    auto root = connections[alias].config;
     auto outBoundRoot = root["outbounds"].toArray().first().toObject();
     auto outboundType = outBoundRoot["protocol"].toString();
 
@@ -897,7 +946,17 @@ void MainWindow::on_duplicateBtn_clicked()
     }
 
     auto alias = connectionListWidget->currentItem()->text();
-    auto conf = ConvertConfigFromFile(QV2RAY_CONFIG_DIR + alias + QV2RAY_CONFIG_FILE_EXTENSION, false);
+    SUBSCRIPTION_CONFIG_MODIFY_ASK(alias)
+    CONFIGROOT conf;
+    auto connData = connections[alias];
+
+    if (connData.isRegularConnection) {
+        conf = ConvertConfigFromFile(QV2RAY_CONFIG_DIR + alias + QV2RAY_CONFIG_FILE_EXTENSION, false);
+    } else {
+        conf = ConvertConfigFromFile(QV2RAY_SUBSCRIPTION_DIR + connData.subscriptionName + "/" + connData.connectionName  + QV2RAY_CONFIG_FILE_EXTENSION, false);
+        alias = connData.subscriptionName + "_" + connData.connectionName;
+    }
+
     // Alias may change.
     SaveConnectionConfig(conf, &alias, false);
     auto config = GetGlobalConfig();
