@@ -419,11 +419,24 @@
      </widget>
     </item>
     <item row="2" column="0" colspan="2">
-     <layout class="QGridLayout" name="gridLayout" columnstretch="5,2">
+     <layout class="QGridLayout" name="gridLayout" columnstretch="5,0">
       <item row="0" column="0">
-       <widget class="QLabel" name="label_11">
+       <widget class="QLabel" name="logLabel">
         <property name="text">
-         <string>Log</string>
+         <string>Log (click to switch log source)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QWidget" name="speedChart" native="true">
+        <property name="minimumSize">
+         <size>
+          <width>300</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
         </property>
        </widget>
       </item>
@@ -441,13 +454,6 @@
         <property name="lineWrapMode">
          <enum>QTextEdit::NoWrap</enum>
         </property>
-        <property name="html">
-         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Noto Sans'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Noto Sans';&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
         <property name="openLinks">
          <bool>false</bool>
         </property>
@@ -457,19 +463,6 @@ p, li { white-space: pre-wrap; }
        <widget class="QLabel" name="label_10">
         <property name="text">
          <string>Speed Graph</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QWidget" name="speedChart" native="true">
-        <property name="minimumSize">
-         <size>
-          <width>300</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="layoutDirection">
-         <enum>Qt::LeftToRight</enum>
         </property>
        </widget>
       </item>
@@ -650,7 +643,6 @@ p, li { white-space: pre-wrap; }
   <tabstop>editJsonBtn</tabstop>
   <tabstop>pingTestBtn</tabstop>
   <tabstop>shareBtn</tabstop>
-  <tabstop>logText</tabstop>
  </tabstops>
  <resources/>
  <connections/>

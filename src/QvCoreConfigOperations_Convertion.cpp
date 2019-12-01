@@ -229,11 +229,10 @@ namespace Qv2ray
                 // WARN Mux is missing here.
                 auto outbound = GenerateOutboundEntry("vmess", vConf, GetRootObject(streaming), QJsonObject(), "0.0.0.0", OUTBOUND_TAG_PROXY);
                 //
-                QJsonArray outbounds;
-                outbounds.append(outbound);
-                root["outbounds"] = outbounds;
-                *alias = *alias + "_" + QSTRING(ps);
-                RROOT
+                root["outbounds"] = QJsonArray() << outbound;
+                // If previous alias is empty, just the PS is needed, else, append a "_"
+                *alias = alias->isEmpty() ? QSTRING(ps) : *alias + "_" + QSTRING(ps);
+                return root;
             }
 
             CONFIGROOT ConvertConfigFromFile(QString sourceFilePath, bool keepInbounds)
@@ -258,43 +257,10 @@ namespace Qv2ray
                 return root;
             }
 
-            QMap<QString, CONFIGROOT> GetConnections(list<string> connectionNames)
-            {
-                QMap<QString, CONFIGROOT> list;
-
-                for (auto conn : connectionNames) {
-                    QString jsonString = StringFromFile(new QFile(QV2RAY_CONFIG_DIR + QSTRING(conn) + QV2RAY_CONFIG_FILE_EXTENSION));
-                    QJsonObject connectionObject = JsonFromString(jsonString);
-                    list.insert(QString::fromStdString(conn), CONFIGROOT(connectionObject));
-                }
-
-                return list;
-            }
-
             bool RenameConnection(QString originalName, QString newName)
             {
                 LOG(MODULE_FILE, "[RENAME] --> ORIGINAL: " + originalName.toStdString() + ", NEW: " + newName.toStdString())
                 return QFile::rename(QV2RAY_CONFIG_DIR + originalName + QV2RAY_CONFIG_FILE_EXTENSION, QV2RAY_CONFIG_DIR + newName + QV2RAY_CONFIG_FILE_EXTENSION);
-            }
-
-            int StartPreparation(CONFIGROOT fullConfig)
-            {
-                // Writes the final configuration to the disk.
-                QString json = JsonToString(fullConfig);
-                StringToFile(&json, new QFile(QV2RAY_GENERATED_FILE_PATH));
-                return 0;
-            }
-
-            int FindIndexByTag(QJsonArray list, QString *tag)
-            {
-                for (int i = 0; i < list.count(); i++) {
-                    auto value = list[i].toObject();
-
-                    if (value.contains("tag") && value["tag"].toString() == *tag)
-                        return i;
-                }
-
-                return -1;
             }
         }
     }

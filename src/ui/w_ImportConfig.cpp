@@ -21,7 +21,7 @@ ImportConfigWindow::ImportConfigWindow(QWidget *parent)
     : QDialog(parent)
 {
     setupUi(this);
-    nameTxt->setText(QDateTime::currentDateTime().toString("MM-dd_hh-mm") + "_" + tr("Imported") + "_");
+    nameTxt->setText(QDateTime::currentDateTime().toString("MMdd_hhmm"));
 }
 
 QMap<QString, CONFIGROOT> ImportConfigWindow::OpenImport(bool outboundsOnly)
@@ -60,7 +60,6 @@ void ImportConfigWindow::on_qrFromScreenBtn_clicked()
 void ImportConfigWindow::on_beginImportBtn_clicked()
 {
     QString aliasPrefix = nameTxt->text();
-    CONFIGROOT config;
     //auto conf = GetGlobalConfig();
 
     switch (tabWidget->currentIndex()) {
@@ -68,19 +67,16 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
             // From File...
             bool keepInBound = keepImportedInboundCheckBox->isChecked();
             QString path = fileLineTxt->text();
-            aliasPrefix = aliasPrefix.isEmpty() ? aliasPrefix : QFileInfo(path).fileName();
-            config = ConvertConfigFromFile(path, keepInBound);
 
-            if (config.isEmpty()) {
-                QvMessageBox(this, tr("Import config file"), tr("Import from file failed, for more information, please check the log file."));
-                return;
-            } else if (!ConnectionInstance::ValidateConfig(path)) {
+            if (!ConnectionInstance::ValidateConfig(path)) {
                 QvMessageBox(this, tr("Import config file"), tr("Failed to check the validity of the config file."));
                 return;
-            } else {
-                connections[aliasPrefix] = config;
-                break;
             }
+
+            aliasPrefix += "_" + QFileInfo(path).fileName();
+            CONFIGROOT config = ConvertConfigFromFile(path, keepInBound);
+            connections[aliasPrefix] = config;
+            break;
         }
 
         case 1: {
@@ -91,13 +87,13 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
             vmessConnectionStringTxt->clear();
             errorsList->clear();
             //
-            LOG(MODULE_IMPORT, to_string(vmessList.count()) + " string found.")
+            LOG(MODULE_IMPORT, to_string(vmessList.count()) + " string found in vmess box.")
 
             while (!vmessList.isEmpty()) {
                 aliasPrefix = nameTxt->text();
                 auto vmess = vmessList.takeFirst();
                 QString errMessage;
-                config = ConvertConfigFromVMessString(vmess, &aliasPrefix, &errMessage);
+                CONFIGROOT config = ConvertConfigFromVMessString(vmess, &aliasPrefix, &errMessage);
 
                 // If the config is empty or we have any err messages.
                 if (config.isEmpty() || !errMessage.isEmpty()) {
@@ -110,7 +106,6 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
             }
 
             if (!vmessErrors.isEmpty()) {
-                // TODO Show in UI
                 for (auto item : vmessErrors) {
                     vmessConnectionStringTxt->appendPlainText(vmessErrors.key(item));
                     errorsList->addItem(item);
