@@ -86,6 +86,7 @@ class MainWindow : public QMainWindow, Ui::MainWindow
 
     protected:
 
+        void mouseReleaseEvent(QMouseEvent *e) override;
         void keyPressEvent(QKeyEvent *e) override;
         void timerEvent(QTimerEvent *event) override;
         void closeEvent(QCloseEvent *) override;
@@ -120,6 +121,10 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         //
         PACHandler *pacServer;
         Highlighter *highlighter;
+        //
+        QTextEdit vcoreLog;
+        QTextEdit qvAppLog;
+        int logSourceId = 0;
 };
 
 #endif // MAINWINDOW_H

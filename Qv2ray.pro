@@ -225,5 +225,6 @@ unix {
     INSTALLS += target desktop icon
 }
 
+message(" ")
 message("Done configuring Qv2ray project. Build output will be at:" $$OUT_PWD)
 message("Type `make` or `mingw32-make` to start building Qv2ray")

@@ -50,7 +50,12 @@ MainWindow::MainWindow(QWidget *parent)
     vinstance = new ConnectionInstance(this);
     setupUi(this);
     //
-    highlighter = new Highlighter(conf.uiConfig.useDarkTheme, logText->document());
+    highlighter = new Highlighter(conf.uiConfig.useDarkTheme, vcoreLog.document());
+    logText->setDocument(vcoreLog.document());
+    logText->setFontPointSize(8);
+    vcoreLog.setFontPointSize(8);
+    qvAppLog.setFontPointSize(8);
+    //
     pacServer = new PACHandler();
     //
     this->setWindowIcon(QIcon(":/icons/qv2ray.png"));
@@ -140,7 +145,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     speedChartObj = new QChart();
     speedChartObj->setTheme(conf.uiConfig.useDarkTheme ? QChart::ChartThemeDark : QChart::ChartThemeLight);
-    speedChartObj->setTitle("Qv2ray Speed Chart");
+    speedChartObj->setTitle(""); // Fake hidden
     speedChartObj->legend()->hide();
     speedChartObj->createDefaultAxes();
     speedChartObj->addSeries(uploadSerie);
@@ -185,6 +190,14 @@ MainWindow::MainWindow(QWidget *parent)
     StartProcessingPlugins(this);
 }
 
+void MainWindow::mouseReleaseEvent(QMouseEvent *e)
+{
+    Q_UNUSED(e)
+
+    if (logLabel->underMouse()) {
+        logText->setDocument(logSourceId++ % 2 == 0 ? vcoreLog.document() : qvAppLog.document());
+    }
+}
 
 void MainWindow::keyPressEvent(QKeyEvent *e)
 {
@@ -319,7 +332,7 @@ MainWindow::~MainWindow()
 }
 void MainWindow::UpdateLog()
 {
-    logText->append(vinstance->ReadProcessOutput().trimmed());
+    vcoreLog.append(vinstance->ReadProcessOutput().trimmed());
 }
 void MainWindow::on_startButton_clicked()
 {
@@ -461,7 +474,7 @@ void MainWindow::on_stopButton_clicked()
         hTray->setToolTip(TRAY_TOOLTIP_PREFIX);
         QFile(QV2RAY_GENERATED_FILE_PATH).remove();
         statusLabel->setText(tr("Disconnected"));
-        logText->setText("");
+        logText->setPlainText("");
         trayMenu->actions()[2]->setEnabled(true);
         trayMenu->actions()[3]->setEnabled(false);
         trayMenu->actions()[4]->setEnabled(false);

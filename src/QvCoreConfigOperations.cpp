@@ -70,12 +70,13 @@ namespace Qv2ray
             StringToFile(&json, new QFile(QV2RAY_GENERATED_FILE_PATH));
             return 0;
         }
-        int FindIndexByTag(INOUTLIST list, QString *tag)
+
+        int FindIndexByTag(INOUTLIST list, const QString &tag)
         {
             for (int i = 0; i < list.count(); i++) {
                 auto value = list[i].toObject();
 
-                if (value.contains("tag") && value["tag"].toString() == *tag)
+                if (value.contains("tag") && value["tag"].toString() == tag)
                     return i;
             }
 

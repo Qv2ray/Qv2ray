@@ -230,8 +230,7 @@ void RouteEditor::ShowRuleDetail(RuleObject rule)
 
     if (!QSTRING(rule.outboundTag).isEmpty()) {
         // Find outbound index by tag.
-        auto tag = QSTRING(rule.outboundTag);
-        auto index = FindIndexByTag(outbounds, &tag);
+        auto index = FindIndexByTag(outbounds, QSTRING(rule.outboundTag));
         routeOutboundSelector->setCurrentIndex(index);
         //
         // Default balancer tag.
@@ -253,8 +252,7 @@ void RouteEditor::ShowRuleDetail(RuleObject rule)
     isLoading = false;
     on_inboundsList_itemChanged(nullptr);
     //
-    auto outboundTag = QSTRING(rule.outboundTag);
-    int index = FindIndexByTag(outbounds, &outboundTag);
+    int index = FindIndexByTag(outbounds, QSTRING(rule.outboundTag));
     outboundsList->setCurrentRow(index);
     //
     // Networks
@@ -306,7 +304,7 @@ void RouteEditor::ShowRuleDetail(RuleObject rule)
 
             if (!inTag.isEmpty()) {
                 // forget about the "" issue.
-                int _index = FindIndexByTag(inbounds, &inTag);
+                int _index = FindIndexByTag(inbounds, inTag);
 
                 // FIXED if an inbound is missing (index out of range)
                 if (_index >= 0) {
