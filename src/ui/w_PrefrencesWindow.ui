@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>PrefrencesWindow</class>
  <widget class="QDialog" name="PrefrencesWindow">
+  <property name="windowModality">
+   <enum>Qt::ApplicationModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
