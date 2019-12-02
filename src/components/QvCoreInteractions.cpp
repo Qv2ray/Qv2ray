@@ -30,7 +30,7 @@ namespace Qv2ray
                 process.start(QSTRING(conf.v2CorePath), QStringList() << "-test" << "-config" << path, QIODevice::ReadWrite | QIODevice::Text);
 
                 if (!process.waitForFinished(1000)) {
-                    LOG(MODULE_VCORE, "v2ray core failed with exitcode: " + process.exitCode())
+                    LOG(MODULE_VCORE, "v2ray core failed with exitcode: " + to_string(process.exitCode()))
                     QvMessageBox(nullptr, tr("Cannot start v2ray"), tr("v2ray core failed with errcode:") + QString::number(process.exitCode()));
                     return false;
                 }
@@ -139,7 +139,11 @@ namespace Qv2ray
         void ConnectionInstance::StopConnection()
         {
             vProcess->close();
-            killTimer(apiTimerId);
+
+            if (enableAPI) {
+                killTimer(apiTimerId);
+            }
+
             apiFailedCounter = 0;
             transferData.clear();
             transferSpeed.clear();
@@ -148,7 +152,10 @@ namespace Qv2ray
 
         ConnectionInstance::~ConnectionInstance()
         {
-            StopConnection();
+            if (ConnectionStatus != STOPPED) {
+                StopConnection();
+            }
+
             delete vProcess;
         }
 

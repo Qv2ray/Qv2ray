@@ -48,7 +48,7 @@ namespace Qv2ray
                 void timerEvent(QTimerEvent *event) override;
                 QStringList inboundTags;
                 bool enableAPI;
-                int apiTimerId;
+                int apiTimerId = -1;
                 int apiPort;
                 //
                 int apiFailedCounter;

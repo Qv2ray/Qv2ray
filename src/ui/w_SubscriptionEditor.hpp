@@ -26,9 +26,9 @@ class SubscribeEditor : public QDialog, private Ui::w_SubscribeEditor
         void on_applyChangesBtn_clicked();
 
     private:
+        void StartUpdateSubscription(const QString &subscriptionName);
         void SaveConfig();
         void LoadSubscriptionList(QMap<string, string>);
-        void ProcessSubscriptionEntry(QByteArray result, QString subsciptionName);
 
         bool isUpdateInProgress = false;
         QvHttpRequestHelper helper;

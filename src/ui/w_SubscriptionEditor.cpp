@@ -29,41 +29,42 @@ SubscribeEditor::~SubscribeEditor()
 
 void SubscribeEditor::on_addSubsButton_clicked()
 {
-    auto key = QString::number(QTime::currentTime().msecsSinceStartOfDay());
+    auto const key = QString::number(QTime::currentTime().msecsSinceStartOfDay());
     subscriptionList->addItem(key);
     subscriptions[key.toStdString()] = "http://example.com/myfile";
+    QDir().mkpath(QV2RAY_SUBSCRIPTION_DIR + key);
+    subscriptionList->setCurrentRow(subscriptions.count() - 1);
     SaveConfig();
 }
 
 void SubscribeEditor::on_updateButton_clicked()
 {
-    if (isUpdateInProgress) {
-        QvMessageBox(this, tr("Update subscription in progress"), tr("Please try update later"));
-        return;
-    }
-
-    isUpdateInProgress = true;
-    //int index ;
-    //auto name = ->item(index, 0)->text();
-    //auto url = subscriptionList->item(index, 1)->text();
-    //auto data = helper.syncget(url);
-    //ProcessSubscriptionEntry(data, name);
+    StartUpdateSubscription(currentSubName);
 }
 
-void SubscribeEditor::ProcessSubscriptionEntry(QByteArray result, QString subsciptionName)
+void SubscribeEditor::StartUpdateSubscription(const QString &subscriptionName)
 {
-    auto content = DecodeSubscriptionString(result).trimmed();
+    auto data = helper.syncget(QSTRING(subscriptions[subscriptionName.toStdString()]));
+    auto content = DecodeSubscriptionString(data).trimmed();
 
     if (!content.isEmpty()) {
         auto vmessList = SplitLines(content);
+        QDir(QV2RAY_SUBSCRIPTION_DIR + subscriptionName).removeRecursively();
+        QDir().mkpath(QV2RAY_SUBSCRIPTION_DIR + subscriptionName);
 
         for (auto vmess : vmessList) {
             QString errMessage;
             QString _alias;
             auto config = ConvertConfigFromVMessString(vmess.trimmed(), &_alias, &errMessage);
+            //
+            SaveSubscriptionConfig(config, subscriptionName, _alias);
+            connectionsList->addItem(_alias);
         }
 
         isUpdateInProgress = false;
+    } else {
+        LOG(MODULE_NETWORK, "We have received an empty string from the URL.")
+        QvMessageBox(this, tr("Updating subscriptions"), tr("Failed to process the result from the upstream, please check your Url"));
     }
 }
 
@@ -72,14 +73,24 @@ void SubscribeEditor::on_removeSubsButton_clicked()
     if (subscriptionList->currentRow() < 0)
         return;
 
-    subscriptions.remove(subscriptionList->currentItem()->text().toStdString());
+    auto name = subscriptionList->currentItem()->text();
     subscriptionList->takeItem(subscriptionList->currentRow());
+    subscriptions.remove(name.toStdString());
+
+    if (!name.isEmpty()) {
+        QDir(QV2RAY_SUBSCRIPTION_DIR + name).removeRecursively();
+    }
+
     SaveConfig();
 }
 
 void SubscribeEditor::on_subscriptionList_currentRowChanged(int currentRow)
 {
-    if (currentRow < 0 && subscriptionList->count() > 1) {
+    if (subscriptionList->count() == 0) {
+        return;
+    }
+
+    if (currentRow < 0 && subscriptionList->count() > 0) {
         subscriptionList->setCurrentRow(0);
     }
 
@@ -121,6 +132,7 @@ void SubscribeEditor::on_applyChangesBtn_clicked()
         subscriptions.remove(currentSubName.toStdString());
         LoadSubscriptionList(subscriptions);
         QvMessageBox(this, tr("Renaming a subscription"), tr("Successfully renamed a subscription"));
+        subNameTxt->setText(newName);
         currentSubName = newName;
     }
 
@@ -130,7 +142,7 @@ void SubscribeEditor::on_applyChangesBtn_clicked()
 
         if (QvMessageBoxAsk(this, tr("Setting new subscription address"), tr("You have changed the address of a subscription") + NEWLINE +
                             tr("Would you like to update this subscription?")) == QMessageBox::Yes) {
-            // TODO UPDATE
+            StartUpdateSubscription(currentSubName);
         }
     }
 

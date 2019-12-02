@@ -53,8 +53,8 @@ namespace Qv2ray
                 return result.startsWith("vmess://") ? result : Base64Decode(result);
             }
             //
-            /// Save Connection to a place, with checking if there's existing file.
-            /// If so, append "_N" to the name.
+            // Save Connection to a place, with checking if there's existing file.
+            // If so, append "_N" to the name.
             bool SaveConnectionConfig(CONFIGROOT obj, QString *alias, bool canOverrideExisting)
             {
                 auto str = JsonToString(obj);
@@ -68,6 +68,20 @@ namespace Qv2ray
                 }
 
                 LOG(MODULE_CONFIG, "Saving a config named: " + alias->toStdString())
+                return StringToFile(&str, config);
+            }
+
+            bool SaveSubscriptionConfig(CONFIGROOT obj, const QString &subscription, const QString &name)
+            {
+                auto str = JsonToString(obj);
+                QFile *config = new QFile(QV2RAY_SUBSCRIPTION_DIR + subscription + "/" + name + QV2RAY_CONFIG_FILE_EXTENSION);
+
+                // If there's already a file. THIS IS EXTREMELY RARE
+                if (config->exists()) {
+                    LOG(MODULE_FILE, "Trying to overrwrite an existing subscription config file. THIS IS RARE")
+                }
+
+                LOG(MODULE_CONFIG, "Saving a subscription named: " + name.toStdString())
                 return StringToFile(&str, config);
             }
 

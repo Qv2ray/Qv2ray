@@ -338,6 +338,7 @@ void MainWindow::OnConfigListChanged(bool need_restart)
 }
 MainWindow::~MainWindow()
 {
+    killTimer(logTimerId);
     hTray->hide();
     delete this->hTray;
     delete this->vinstance;
@@ -909,9 +910,8 @@ void MainWindow::on_shareBtn_clicked()
         QvMessageBox(this, tr("Share Connection"), tr("There're no support of sharing configs other than vmess"));
     }
 }
-void MainWindow::on_action_RCM_ShareQR_triggered(bool checked)
+void MainWindow::on_action_RCM_ShareQR_triggered()
 {
-    Q_UNUSED(checked)
     on_shareBtn_clicked();
 }
 void MainWindow::timerEvent(QTimerEvent *event)
