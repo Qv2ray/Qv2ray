@@ -33,7 +33,7 @@ namespace Qv2ray
             List.pOptions = Option;
 
             if (!InternetQueryOption(nullptr, INTERNET_OPTION_PER_CONNECTION_OPTION, &List, &nSize))
-                LOG(MODULE_PROXY, "InternetQueryOption failed: " << GetLastError());
+                LOG(MODULE_PROXY, "InternetQueryOption failed, GLE=" + to_string(GetLastError()));
 
             LOG(MODULE_PROXY, "System default proxy info:")
 
@@ -53,7 +53,7 @@ namespace Qv2ray
                 LOG(MODULE_PROXY, "PROXY_TYPE_PROXY");
 
             if (!InternetQueryOption(nullptr, INTERNET_OPTION_PER_CONNECTION_OPTION, &List, &nSize))
-                LOG(MODULE_PROXY, "InternetQueryOption failed: " << GetLastError());
+                LOG(MODULE_PROXY, "InternetQueryOption failed,GLE=" + to_string(GetLastError()));
 
             if (Option[4].Value.pszValue != nullptr)
                 LOG(MODULE_PROXY, Option[4].Value.pszValue);
