@@ -34,7 +34,7 @@ namespace Qv2ray
     QByteArray QvHttpRequestHelper::syncget(const QString &url)
     {
         this->setUrl(url);
-        LOG(MODULE_NETWORK, "Using system proxy settings");
+        LOG(MODULE_NETWORK, "Using system proxy settings")
         accessManager.setProxy(QNetworkProxyFactory::systemProxyForQuery().first());
         reply = accessManager.get(request);
         connect(reply, &QNetworkReply::finished, this, &QvHttpRequestHelper::onRequestFinished);

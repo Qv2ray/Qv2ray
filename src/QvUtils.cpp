@@ -5,9 +5,9 @@
 static QQueue<QString> __loggerBuffer;
 void _LOG(const std::string &module, const std::string &log)
 {
-    string logString = "[" + module + "]: " + log + NEWLINE;
-    cout << logString;
-    __loggerBuffer.enqueue(logString.c_str());
+    string logString = "[" + module + "]: " + log;
+    cout << logString << endl;
+    __loggerBuffer.enqueue((logString + NEWLINE).c_str());
 }
 
 const QString readLastLog()

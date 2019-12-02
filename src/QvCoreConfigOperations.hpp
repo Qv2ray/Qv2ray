@@ -17,6 +17,7 @@ namespace Qv2ray
     namespace ConfigOperations
     {
         QMap<QString, CONFIGROOT> GetRegularConnections(list<string> connections);
+        QMap<QString, CONFIGROOT> GetSubscriptionConnection(string subscription);
         QMap<QString, QMap<QString, CONFIGROOT>> GetSubscriptionConnections(list<string> subscriptions);
         bool CheckIsComplexConfig(CONFIGROOT root);
         int FindIndexByTag(INOUTLIST list, const QString &tag);
@@ -32,9 +33,11 @@ namespace Qv2ray
             bool SaveConnectionConfig(CONFIGROOT obj, QString *alias, bool canOverrideExisting);
             bool RemoveConnection(const QString &alias);
             bool RemoveSubscriptionConnection(const QString &subsName, const QString &name);
-            bool RenameConnection(QString originalName, QString newName);
+            bool RenameConnection(const QString &originalName, const QString &newName);
+            bool RenameSubscription(const QString &originalName, const QString &newName);
+
             // VMess URI Protocol
-            CONFIGROOT ConvertConfigFromVMessString(QString vmess, QString *alias, QString *errMessage);
+            CONFIGROOT ConvertConfigFromVMessString(const QString &vmess, QString *alias, QString *errMessage);
             CONFIGROOT ConvertConfigFromFile(QString sourceFilePath, bool keepInbounds);
             QString ConvertConfigToVMessString(const StreamSettingsObject &transfer, const VMessServerObject &serverConfig, const QString &alias);
         }

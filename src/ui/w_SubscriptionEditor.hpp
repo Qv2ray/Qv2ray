@@ -15,23 +15,25 @@ class SubscribeEditor : public QDialog, private Ui::w_SubscribeEditor
         ~SubscribeEditor();
 
     private slots:
-        void on_buttonBox_accepted();
-
         void on_addSubsButton_clicked();
 
         void on_updateButton_clicked();
 
-        void on_updateAllButton_clicked();
+        void on_removeSubsButton_clicked();
 
-    signals:
-        void s_update_config();
+        void on_subscriptionList_currentRowChanged(int currentRow);
+
+        void on_applyChangesBtn_clicked();
 
     private:
+        void SaveConfig();
+        void LoadSubscriptionList(QMap<string, string>);
         void ProcessSubscriptionEntry(QByteArray result, QString subsciptionName);
 
         bool isUpdateInProgress = false;
         QvHttpRequestHelper helper;
-        QMap<QString, QList<QJsonObject>> subscriptions;
+        QMap<string, string> subscriptions;
+        QString currentSubName;
 };
 
 #endif // W_SUBSCRIBEEDITOR_H
