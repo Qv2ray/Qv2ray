@@ -77,6 +77,8 @@ class MainWindow : public QMainWindow, Ui::MainWindow
 
         void on_masterLogBrowser_textChanged();
 
+        void on_subsButton_clicked();
+
     public:
         static MainWindow *mwInstance;
         CONFIGROOT CurrentFullConfig;

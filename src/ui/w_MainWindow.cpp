@@ -995,3 +995,11 @@ void MainWindow::on_masterLogBrowser_textChanged()
 {
     //setMasterLogHBar();
 }
+
+void MainWindow::on_subsButton_clicked()
+{
+    SubscribeEditor w;
+    w.exec();
+    OnConfigListChanged(false);
+}
+

@@ -96,7 +96,7 @@ namespace Qv2ray
             }
 
             // This generates global config containing only one outbound....
-            CONFIGROOT ConvertConfigFromVMessString(QString vmess, QString *alias, QString *errMessage)
+            CONFIGROOT ConvertConfigFromVMessString(const QString &vmess, QString *alias, QString *errMessage)
             {
                 // Reset errMessage
                 *errMessage = "";
@@ -257,10 +257,16 @@ namespace Qv2ray
                 return root;
             }
 
-            bool RenameConnection(QString originalName, QString newName)
+            bool RenameConnection(const QString &originalName, const QString &newName)
             {
-                LOG(MODULE_FILE, "[RENAME] --> ORIGINAL: " + originalName.toStdString() + ", NEW: " + newName.toStdString())
+                LOG(MODULE_CONFIG, "[RENAME] --> ORIGINAL: " + originalName.toStdString() + ", NEW: " + newName.toStdString())
                 return QFile::rename(QV2RAY_CONFIG_DIR + originalName + QV2RAY_CONFIG_FILE_EXTENSION, QV2RAY_CONFIG_DIR + newName + QV2RAY_CONFIG_FILE_EXTENSION);
+            }
+
+            bool RenameSubscription(const QString &originalName, const QString &newName)
+            {
+                LOG(MODULE_SUBSCRIPTION, "[RENAME] --> ORIGINAL: " + originalName.toStdString() + ", NEW: " + newName.toStdString())
+                return QDir().rename(QV2RAY_SUBSCRIPTION_DIR + originalName, QV2RAY_SUBSCRIPTION_DIR + newName);
             }
         }
     }
