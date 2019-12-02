@@ -19,6 +19,7 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     ui(new Ui::PrefrencesWindow)
 {
     setupUi(this);
+    setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
     // We add locales
     languageComboBox->clear();
     QDirIterator it(":/translations");
