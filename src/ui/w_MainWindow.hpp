@@ -78,6 +78,7 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         void on_masterLogBrowser_textChanged();
 
     public:
+        static MainWindow *mwInstance;
         CONFIGROOT CurrentFullConfig;
         QString CurrentConnectionName = "";
         ConnectionInstance *vinstance;
@@ -125,7 +126,5 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         QList<QTextBrowser *> logTextBrowsers;
         int currentLogBrowserId = 0;
 };
-
-static const MainWindow *mwInstance;
 
 #endif // MAINWINDOW_H

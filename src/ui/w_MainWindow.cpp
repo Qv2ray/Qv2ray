@@ -39,11 +39,13 @@
         }                                                                                                                                    \
     }                                                                                                                                        \
 
+MainWindow *MainWindow::mwInstance = nullptr;
+
 MainWindow::MainWindow(QWidget *parent):
     QMainWindow(parent), vinstance(), uploadList(), downloadList(), HTTPRequestHelper(),
     hTray(new QSystemTrayIcon(this)), vCoreLogHighlighter(), qvAppLogHighlighter()
 {
-    mwInstance = this;
+    MainWindow::mwInstance = this;
     auto conf = GetGlobalConfig();
     vinstance = new ConnectionInstance();
     connect(vinstance, &ConnectionInstance::onProcessOutputReadyRead, this, &MainWindow::UpdateVCoreLog);
