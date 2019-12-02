@@ -27,6 +27,9 @@
 #include "QvSystemProxyConfigurator.hpp"
 
 #define TRAY_TOOLTIP_PREFIX "Qv2ray " QV2RAY_VERSION_STRING
+#define vCoreLogBrowser this->logTextBrowsers[0]
+#define qvAppLogBrowser this->logTextBrowsers[1]
+#define currentLogBrowser this->logTextBrowsers[currentLogBrowserId]
 #define SUBSCRIPTION_CONFIG_MODIFY_ASK(varName)                                                                                              \
     if (!connections[varName].isRegularConnection) {                                                                                          \
         if (QvMessageBoxAsk(this, tr("Editing a subscription config"), tr("You are trying to edit a config loaded from subscription.") +     \
@@ -36,27 +39,36 @@
         }                                                                                                                                    \
     }                                                                                                                                        \
 
-MainWindow::MainWindow(QWidget *parent)
-    :
-    QMainWindow(parent),
-    vinstance(),
-    uploadList(),
-    downloadList(),
-    HTTPRequestHelper(),
-    hTray(new QSystemTrayIcon(this)),
-    highlighter()
+MainWindow::MainWindow(QWidget *parent):
+    QMainWindow(parent), vinstance(), uploadList(), downloadList(), HTTPRequestHelper(),
+    hTray(new QSystemTrayIcon(this)), vCoreLogHighlighter(), qvAppLogHighlighter()
 {
+    mwInstance = this;
     auto conf = GetGlobalConfig();
-    vinstance = new ConnectionInstance(this);
+    vinstance = new ConnectionInstance();
+    connect(vinstance, &ConnectionInstance::onProcessOutputReadyRead, this, &MainWindow::UpdateVCoreLog);
     setupUi(this);
     //
-    highlighter = new Highlighter(conf.uiConfig.useDarkTheme, vcoreLog.document());
-    logText->setDocument(vcoreLog.document());
-    logText->setFontPointSize(8);
-    vcoreLog.setFontPointSize(8);
-    qvAppLog.setFontPointSize(8);
+    // Two browsers
+    logTextBrowsers.append(new QTextBrowser());
+    logTextBrowsers.append(new QTextBrowser());
+    vCoreLogBrowser->setFontPointSize(8);
+    vCoreLogBrowser->setReadOnly(true);
+    vCoreLogBrowser->setLineWrapMode(QTextBrowser::LineWrapMode::NoWrap);
+    qvAppLogBrowser->setFontPointSize(8);
+    qvAppLogBrowser->setReadOnly(true);
+    qvAppLogBrowser->setLineWrapMode(QTextBrowser::LineWrapMode::NoWrap);
     //
+    vCoreLogHighlighter = new Highlighter(conf.uiConfig.useDarkTheme, vCoreLogBrowser->document());
+    qvAppLogHighlighter = new Highlighter(conf.uiConfig.useDarkTheme, qvAppLogBrowser->document());
     pacServer = new PACHandler();
+    currentLogBrowserId = 0;
+    masterLogBrowser->setDocument(currentLogBrowser->document());
+    masterLogBrowser->document()->setDocumentMargin(0);
+    masterLogBrowser->document()->adjustSize();
+    masterLogBrowser->setLineWrapMode(QTextBrowser::LineWrapMode::NoWrap);
+    //
+    logTimerId = startTimer(500);
     //
     this->setWindowIcon(QIcon(":/icons/qv2ray.png"));
     hTray->setIcon(QIcon(conf.uiConfig.useDarkTrayIcon ? ":/icons/ui_dark/tray.png" : ":/icons/ui_light/tray.png"));
@@ -103,7 +115,6 @@ MainWindow::MainWindow(QWidget *parent)
     connect(action_Tray_Reconnect, &QAction::triggered, this, &MainWindow::on_reconnectButton_clicked);
     connect(action_Tray_Quit, &QAction::triggered, this, &MainWindow::quit);
     connect(hTray, &QSystemTrayIcon::activated, this, &MainWindow::on_activatedTray);
-    connect(logText, &QTextBrowser::textChanged, this, &MainWindow::QTextScrollToBottom);
     connect(action_RCM_RenameConnection, &QAction::triggered, this, &MainWindow::on_action_RenameConnection_triggered);
     connect(action_RCM_StartThis, &QAction::triggered, this, &MainWindow::on_action_StartThis_triggered);
     connect(action_RCM_EditJson, &QAction::triggered, this, &MainWindow::on_action_RCM_EditJson_triggered);
@@ -162,32 +173,25 @@ MainWindow::MainWindow(QWidget *parent)
     auto layout = new QHBoxLayout(speedChart);
     layout->addWidget(speedChartView);
     speedChart->setLayout(layout);
-    //
-    bool hasAutoStart = vinstance->ValidateKernal();
 
-    if (hasAutoStart) {
-        // At least kernal is ready.
-        if (!conf.autoStartConfig.empty() && QList<string>::fromStdList(conf.configs).contains(conf.autoStartConfig)) {
-            // Has auto start.
-            CurrentConnectionName = QSTRING(conf.autoStartConfig);
-            auto item = connectionListWidget->findItems(QSTRING(conf.autoStartConfig), Qt::MatchExactly).front();
-            item->setSelected(true);
-            connectionListWidget->setCurrentItem(item);
-            on_connectionListWidget_itemClicked(item);
-            trayMenu->actions()[0]->setText(tr("Show"));
-            this->hide();
-            on_startButton_clicked();
-        } else if (connectionListWidget->count() != 0) {
-            // The first one is default.
-            connectionListWidget->setCurrentRow(0);
-            ShowAndSetConnection(connectionListWidget->item(0)->text(), true, false);
-            this->show();
-        }
-    } else {
+    if (!conf.autoStartConfig.empty() && contains(conf.configs, conf.autoStartConfig)) {
+        // Has auto start.
+        CurrentConnectionName = QSTRING(conf.autoStartConfig);
+        auto item = connectionListWidget->findItems(QSTRING(conf.autoStartConfig), Qt::MatchExactly).front();
+        item->setSelected(true);
+        connectionListWidget->setCurrentItem(item);
+        on_connectionListWidget_itemClicked(item);
+        trayMenu->actions()[0]->setText(tr("Show"));
+        this->hide();
+        on_startButton_clicked();
+    } else if (connectionListWidget->count() != 0) {
+        // The first one is default.
+        connectionListWidget->setCurrentRow(0);
+        ShowAndSetConnection(connectionListWidget->item(0)->text(), true, false);
         this->show();
     }
 
-    StartProcessingPlugins(this);
+    StartProcessingPlugins();
 }
 
 void MainWindow::mouseReleaseEvent(QMouseEvent *e)
@@ -195,7 +199,14 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *e)
     Q_UNUSED(e)
 
     if (logLabel->underMouse()) {
-        logText->setDocument(logSourceId++ % 2 == 0 ? vcoreLog.document() : qvAppLog.document());
+        //auto layout = masterLogBrowser->document()->setDocumentLayout()
+        currentLogBrowserId = (currentLogBrowserId + 1) % logTextBrowsers.count();
+        masterLogBrowser->setDocument(currentLogBrowser->document());
+        masterLogBrowser->document()->setDocumentMargin(4);
+        masterLogBrowser->document()->adjustSize();
+        masterLogBrowser->setLineWrapMode(QTextBrowser::LineWrapMode::NoWrap);
+        auto bar = masterLogBrowser->verticalScrollBar();
+        bar->setValue(bar->maximum());
     }
 }
 
@@ -250,7 +261,6 @@ void MainWindow::VersionUpdate(QByteArray &data)
                                       tr("Download Link: ") + link, QMessageBox::Ignore);
 
         if (result == QMessageBox::Yes) {
-            CLOG(result)
             QDesktopServices::openUrl(QUrl::fromUserInput(link));
         } else if (result == QMessageBox::Ignore) {
             conf.ignoredVersion = newversion.toString().toStdString();
@@ -330,9 +340,20 @@ MainWindow::~MainWindow()
     delete this->hTray;
     delete this->vinstance;
 }
-void MainWindow::UpdateLog()
+void MainWindow::UpdateVCoreLog(const QString &log)
 {
-    vcoreLog.append(vinstance->ReadProcessOutput().trimmed());
+    vCoreLogBrowser->append(log);
+    setMasterLogHBar();
+}
+void MainWindow::setMasterLogHBar()
+{
+    auto bar = masterLogBrowser->verticalScrollBar();
+    //LOG(bar->maximum(), bar->value())
+    auto max = bar->maximum();
+    auto val = bar->value();
+
+    if (val >= max * 0.8 || val >= max - 20)
+        bar->setValue(max);
 }
 void MainWindow::on_startButton_clicked()
 {
@@ -352,26 +373,23 @@ void MainWindow::on_startButton_clicked()
         }
 
         LOG(MODULE_VCORE, ("Connecting to: " + CurrentConnectionName).toStdString())
-        logText->clear();
+        vCoreLogBrowser->clear();
         //
         auto connectionRoot = connections[CurrentConnectionName].config;
         //
+        auto conf = GetGlobalConfig();
         CurrentFullConfig = GenerateRuntimeConfig(connectionRoot);
-        StartPreparation(CurrentFullConfig);
-        bool startFlag = this->vinstance->StartV2rayCore();
+        bool startFlag = this->vinstance->StartConnection(CurrentFullConfig, conf.connectionConfig.enableStats, conf.connectionConfig.statsPort);
 
         if (startFlag) {
+            if (conf.connectionConfig.enableStats) {
+                speedTimerId = startTimer(1000);
+            }
+
             this->hTray->showMessage("Qv2ray", tr("Connected To Server: ") + CurrentConnectionName);
             hTray->setToolTip(TRAY_TOOLTIP_PREFIX "\r\n" + tr("Connected To Server: ") + CurrentConnectionName);
             statusLabel->setText(tr("Connected") + ": " + CurrentConnectionName);
             //
-            auto conf = GetGlobalConfig();
-
-            if (conf.connectionConfig.enableStats) {
-                vinstance->SetAPIPort(conf.connectionConfig.statsPort);
-                speedTimerId = startTimer(1000);
-            }
-
             bool usePAC = conf.inboundConfig.pacConfig.enablePAC;
             bool pacUseSocks = conf.inboundConfig.pacConfig.useSocksProxy;
             bool httpEnabled = conf.inboundConfig.useHTTP;
@@ -469,12 +487,12 @@ void MainWindow::on_stopButton_clicked()
 {
     if (vinstance->ConnectionStatus != STOPPED) {
         // Is running or starting
-        this->vinstance->StopV2rayCore();
+        this->vinstance->StopConnection();
         killTimer(speedTimerId);
         hTray->setToolTip(TRAY_TOOLTIP_PREFIX);
         QFile(QV2RAY_GENERATED_FILE_PATH).remove();
         statusLabel->setText(tr("Disconnected"));
-        logText->setPlainText("");
+        vCoreLogBrowser->clear();
         trayMenu->actions()[2]->setEnabled(true);
         trayMenu->actions()[3]->setEnabled(false);
         trayMenu->actions()[4]->setEnabled(false);
@@ -553,12 +571,6 @@ void MainWindow::quit()
 void MainWindow::on_actionExit_triggered()
 {
     quit();
-}
-void MainWindow::QTextScrollToBottom()
-{
-    auto bar = logText->verticalScrollBar();
-
-    if (bar->value() >= bar->maximum() - 10) bar->setValue(bar->maximum());
 }
 void MainWindow::ShowAndSetConnection(QString guiConnectionName, bool SetConnection, bool ApplyConnection)
 {
@@ -644,7 +656,7 @@ void MainWindow::on_connectionListWidget_doubleClicked(const QModelIndex &index)
 }
 void MainWindow::on_clearlogButton_clicked()
 {
-    logText->clear();
+    vCoreLogBrowser->clear();
 }
 void MainWindow::on_connectionListWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
 {
@@ -675,7 +687,6 @@ void MainWindow::on_connectionListWidget_itemChanged(QListWidgetItem *item)
         LOG(MODULE_CONNECTION, "RENAME: " + originalName.toStdString() + " -> " + item->text().toStdString())
         auto newName = item->text();
         auto config = GetGlobalConfig();
-        auto configList = QList<string>::fromStdList(config.configs);
 
         if (newName.trimmed().isEmpty()) {
             QvMessageBox(this, tr("Rename a Connection"), tr("The name cannot be empty"));
@@ -683,6 +694,8 @@ void MainWindow::on_connectionListWidget_itemChanged(QListWidgetItem *item)
         }
 
         // If I really did some changes.
+        auto configList = QList<string>::fromStdList(config.configs);
+
         if (originalName != newName) {
             if (configList.contains(newName.toStdString())) {
                 QvMessageBox(this, tr("Rename a Connection"), tr("The name has been used already, Please choose another."));
@@ -903,54 +916,52 @@ void MainWindow::timerEvent(QTimerEvent *event)
 {
     // Calling base class
     QMainWindow::timerEvent(event);
-    //
-    Q_UNUSED(event)
-    auto inbounds = CurrentFullConfig["inbounds"].toArray();
-    long _totalSpeedUp = 0, _totalSpeedDown = 0, _totalDataUp = 0, _totalDataDown = 0;
 
-    foreach (auto inbound, inbounds) {
-        auto tag = inbound.toObject()["tag"].toString();
+    if (event->timerId() == speedTimerId) {
+        auto _totalSpeedUp = vinstance->getAllSpeedUp();
+        auto _totalSpeedDown = vinstance->getAllSpeedDown();
+        auto _totalDataUp = vinstance->getAllDataUp();
+        auto _totalDataDown = vinstance->getAllDataDown();
+        //
+        double max = 0;
+        double historyMax = 0;
+        auto graphVUp  = _totalSpeedUp / 1024;
+        auto graphVDown  = _totalSpeedDown / 1024;
 
-        // We don't want these two.
-        if (tag.isEmpty() || tag == QV2RAY_API_TAG_INBOUND) continue;
+        for (auto i = 0; i < 29; i++) {
+            historyMax = MAX(historyMax, MAX(uploadList[i + 1], downloadList[i + 1]));
+            uploadList[i] = uploadList[i + 1];
+            downloadList[i] = downloadList[i + 1];
+            uploadSerie->replace(i, i, uploadList[i + 1]);
+            downloadSerie->replace(i, i, downloadList[i + 1]);
+        }
 
-        _totalSpeedUp += vinstance->getTagLastUplink(tag);
-        _totalSpeedDown += vinstance->getTagLastDownlink(tag);
-        _totalDataUp += vinstance->getTagTotalUplink(tag);
-        _totalDataDown += vinstance->getTagTotalDownlink(tag);
+        uploadList[uploadList.count() - 1] = graphVUp;
+        downloadList[uploadList.count() - 1] = graphVDown;
+        uploadSerie->replace(29, 29, graphVUp);
+        downloadSerie->replace(29, 29, graphVDown);
+        //
+        max = MAX(MAX(graphVUp, graphVDown), historyMax);
+        speedChartObj->axes(Qt::Vertical).first()->setRange(0, max * 1.2);
+        //
+        //
+        auto totalSpeedUp = FormatBytes(_totalSpeedUp) + "/s";
+        auto totalSpeedDown = FormatBytes(_totalSpeedDown) + "/s";
+        auto totalDataUp = FormatBytes(_totalDataUp);
+        auto totalDataDown = FormatBytes(_totalDataDown);
+        //
+        netspeedLabel->setText(totalSpeedUp + NEWLINE + totalSpeedDown);
+        dataamountLabel->setText(totalDataUp + NEWLINE + totalDataDown);
+        //
+        hTray->setToolTip(TRAY_TOOLTIP_PREFIX NEWLINE + tr("Connected To Server: ") + CurrentConnectionName + NEWLINE
+                          "Up: " + totalSpeedUp + " Down: " + totalSpeedDown);
+    } else if (event->timerId() == logTimerId) {
+        QString lastLog = readLastLog();
+
+        if (!lastLog.isEmpty()) {
+            qvAppLogBrowser->append(lastLog);
+        }
     }
-
-    double max = 0;
-    double historyMax = 0;
-    auto graphVUp  = _totalSpeedUp / 1024;
-    auto graphVDown  = _totalSpeedDown / 1024;
-
-    for (auto i = 0; i < 29; i++) {
-        historyMax = MAX(historyMax, MAX(uploadList[i + 1], downloadList[i + 1]));
-        uploadList[i] = uploadList[i + 1];
-        downloadList[i] = downloadList[i + 1];
-        uploadSerie->replace(i, i, uploadList[i + 1]);
-        downloadSerie->replace(i, i, downloadList[i + 1]);
-    }
-
-    uploadList[uploadList.count() - 1] = graphVUp;
-    downloadList[uploadList.count() - 1] = graphVDown;
-    uploadSerie->replace(29, 29, graphVUp);
-    downloadSerie->replace(29, 29, graphVDown);
-    //
-    max = MAX(MAX(graphVUp, graphVDown), historyMax);
-    speedChartObj->axes(Qt::Vertical).first()->setRange(0, max * 1.2);
-    //
-    //
-    totalSpeedUp = FormatBytes(_totalSpeedUp);
-    totalSpeedDown = FormatBytes(_totalSpeedDown);
-    totalDataUp = FormatBytes(_totalDataUp);
-    totalDataDown = FormatBytes(_totalDataDown);
-    //
-    netspeedLabel->setText(totalSpeedUp + "/s\r\n" + totalSpeedDown + "/s");
-    dataamountLabel->setText(totalDataUp + "\r\n" + totalDataDown);
-    //
-    hTray->setToolTip(TRAY_TOOLTIP_PREFIX "\r\n" + tr("Connected To Server: ") + CurrentConnectionName + "\r\nUp: " + totalSpeedUp + "/s Down: " + totalSpeedDown + "/s");
 }
 void MainWindow::on_duplicateBtn_clicked()
 {
@@ -976,4 +987,9 @@ void MainWindow::on_duplicateBtn_clicked()
     config.configs.push_back(alias.toStdString());
     SetGlobalConfig(config);
     this->OnConfigListChanged(false);
+}
+
+void MainWindow::on_masterLogBrowser_textChanged()
+{
+    //setMasterLogHBar();
 }

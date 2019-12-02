@@ -37,7 +37,7 @@ namespace Qv2ray
                 { 303, QObject::tr("Uploaded Data for Specific Tag") },
                 { 304, QObject::tr("Downloaded Data for Specific Tag") }
             };
-            void StartProcessingPlugins(QWidget *mainWindow);
+            void StartProcessingPlugins();
             void StopProcessingPlugins();
 #ifdef Q_OS_WIN
             namespace _win

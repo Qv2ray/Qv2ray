@@ -106,6 +106,17 @@ namespace Qv2ray
             rule.format = failedFormat;
             highlightingRules.append(rule);
             //
+            qvAppLogFormat.setFontWeight(QFont::Bold);
+            qvAppLogFormat.setForeground(darkMode ? Qt::cyan : Qt::darkCyan);
+            rule.pattern = QRegularExpression("\\[[A-Z]*\\]:");
+            rule.format = qvAppLogFormat;
+            highlightingRules.append(rule);
+            //
+            qvAppDebugLogFormat.setFontWeight(QFont::Bold);
+            qvAppDebugLogFormat.setForeground(darkMode ? Qt::yellow : Qt::darkYellow);
+            rule.pattern = QRegularExpression("\\[\\[DEBUG\\] - [A-Z]*\\]:");
+            rule.format = qvAppDebugLogFormat;
+            highlightingRules.append(rule);
         }
 
         void Highlighter::highlightBlock(const QString &text)

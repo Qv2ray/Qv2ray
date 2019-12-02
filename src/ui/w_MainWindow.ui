@@ -41,7 +41,7 @@
      <height>530</height>
     </size>
    </property>
-   <layout class="QGridLayout" name="gridLayout_2" rowstretch="0,6,4,0" columnstretch="6,4">
+   <layout class="QGridLayout" name="gridLayout_4" rowstretch="0,5,4,0" columnstretch="6,5">
     <item row="0" column="0" colspan="2">
      <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1,0,1,0,0,0">
       <property name="spacing">
@@ -124,29 +124,11 @@
         <property name="contextMenuPolicy">
          <enum>Qt::CustomContextMenu</enum>
         </property>
-        <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Sunken</enum>
-        </property>
-        <property name="lineWidth">
-         <number>1</number>
-        </property>
-        <property name="midLineWidth">
-         <number>0</number>
-        </property>
-        <property name="verticalScrollBarPolicy">
-         <enum>Qt::ScrollBarAsNeeded</enum>
-        </property>
-        <property name="horizontalScrollBarPolicy">
-         <enum>Qt::ScrollBarAsNeeded</enum>
-        </property>
         <property name="editTriggers">
          <set>QAbstractItemView::NoEditTriggers</set>
         </property>
-        <property name="defaultDropAction">
-         <enum>Qt::CopyAction</enum>
+        <property name="selectionMode">
+         <enum>QAbstractItemView::ExtendedSelection</enum>
         </property>
         <property name="verticalScrollMode">
          <enum>QAbstractItemView::ScrollPerPixel</enum>
@@ -419,7 +401,7 @@
      </widget>
     </item>
     <item row="2" column="0" colspan="2">
-     <layout class="QGridLayout" name="gridLayout" columnstretch="5,0">
+     <layout class="QGridLayout" name="gridLayout_3" rowstretch="0,1" columnstretch="7,0">
       <item row="0" column="0">
        <widget class="QLabel" name="logLabel">
         <property name="text">
@@ -440,31 +422,15 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="0">
-       <widget class="QTextBrowser" name="logText">
-        <property name="font">
-         <font>
-          <pointsize>8</pointsize>
-          <italic>false</italic>
-         </font>
-        </property>
-        <property name="verticalScrollBarPolicy">
-         <enum>Qt::ScrollBarAlwaysOn</enum>
-        </property>
-        <property name="lineWrapMode">
-         <enum>QTextEdit::NoWrap</enum>
-        </property>
-        <property name="openLinks">
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
       <item row="0" column="1">
        <widget class="QLabel" name="label_10">
         <property name="text">
          <string>Speed Graph</string>
         </property>
        </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QTextBrowser" name="masterLogBrowser"/>
       </item>
      </layout>
     </item>

@@ -29,13 +29,14 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         explicit MainWindow(QWidget *parent = nullptr);
         ~MainWindow() override;
     signals:
-        void Connect();
-        void DisConnect();
-        void ReConnect();
+        void Connect() const;
+        void DisConnect() const;
+        void ReConnect() const;
     public slots:
-        void UpdateLog();
+        void UpdateVCoreLog(const QString &log);
         void OnConfigListChanged(bool need_restart);
     private slots:
+        void setMasterLogHBar();
         void on_action_RCM_ShareQR_triggered(bool checked = false);
         void on_startButton_clicked();
         void on_stopButton_clicked();
@@ -45,7 +46,6 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         void ToggleVisibility();
         void quit();
         void on_actionExit_triggered();
-        void QTextScrollToBottom();
 
         void on_connectionListWidget_itemClicked(QListWidgetItem *item);
 
@@ -75,14 +75,12 @@ class MainWindow : public QMainWindow, Ui::MainWindow
 
         void on_duplicateBtn_clicked();
 
+        void on_masterLogBrowser_textChanged();
+
     public:
         CONFIGROOT CurrentFullConfig;
         QString CurrentConnectionName = "";
         ConnectionInstance *vinstance;
-        QString totalDataUp;
-        QString totalDataDown;
-        QString totalSpeedUp;
-        QString totalSpeedDown;
 
     protected:
 
@@ -114,17 +112,20 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         QString originalName;
         bool isRenamingInProgress;
         //
+        int logTimerId;
         int speedTimerId;
         //
         void ShowAndSetConnection(QString currentText, bool SetConnection, bool Apply);
         void LoadConnections();
         //
         PACHandler *pacServer;
-        Highlighter *highlighter;
-        //
-        QTextEdit vcoreLog;
-        QTextEdit qvAppLog;
-        int logSourceId = 0;
+        Highlighter *vCoreLogHighlighter;
+        Highlighter *qvAppLogHighlighter;
+
+        QList<QTextBrowser *> logTextBrowsers;
+        int currentLogBrowserId = 0;
 };
+
+static const MainWindow *mwInstance;
 
 #endif // MAINWINDOW_H

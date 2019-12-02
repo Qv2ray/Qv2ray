@@ -22,32 +22,44 @@ namespace Qv2ray
         {
                 Q_OBJECT
             public:
-                explicit ConnectionInstance(QWidget *parent = nullptr);
-                void SetAPIPort(int port);
+                explicit ConnectionInstance();
+                ~ConnectionInstance() override;
                 //
-                long getTagTotalDownlink(const QString &tag);
-                long getTagTotalUplink(const QString &tag);
-                long getTagLastDownlink(const QString &tag);
-                long getTagLastUplink(const QString &tag);
+                // Speed
+                long getTagSpeedUp(const QString &tag);
+                long getTagSpeedDown(const QString &tag);
+                long getTagDataUp(const QString &tag);
+                long getTagDataDown(const QString &tag);
+                long getAllDataUp();
+                long getAllDataDown();
+                long getAllSpeedUp();
+                long getAllSpeedDown();
                 //
-                bool StartV2rayCore();
-                void StopV2rayCore();
+                bool StartConnection(CONFIGROOT root, bool useAPI, int apiPort);
+                void StopConnection();
                 QvInstanceStatus ConnectionStatus;
-                QString ReadProcessOutput();
                 //
                 static bool ValidateConfig(const QString &path);
-                static bool ValidateKernal();
 
-                ~ConnectionInstance();
-                QMap<QString, long> totalDataTransfered;
-                QMap<QString, long> dataTransferSpeed;
+            signals:
+                void onProcessOutputReadyRead(QString);
+
             private:
+                void timerEvent(QTimerEvent *event) override;
+                QStringList inboundTags;
+                bool enableAPI;
+                int apiTimerId;
+                int apiPort;
+                //
                 int apiFailedCounter;
                 long CallStatsAPIByName(QString name);
                 QProcess *vProcess;
+                //
+                QMap<QString, long> transferData;
+                QMap<QString, long> transferSpeed;
+                //
                 std::shared_ptr<::grpc::Channel> Channel;
                 std::unique_ptr<::v2ray::core::app::stats::command::StatsService::Stub> Stub;
-                int port;
         };
     }
 }

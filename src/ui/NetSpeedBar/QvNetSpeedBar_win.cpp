@@ -29,7 +29,7 @@ namespace Qv2ray
                     auto hThread = CreateThread(nullptr, 0, NamedPipeMasterThread, nullptr, 0, nullptr);
 
                     if (hThread == nullptr) {
-                        LOG(MODULE_PLUGIN, "CreateThread failed, GLE=" << GetLastError())
+                        LOG(MODULE_PLUGIN, "CreateThread failed, GLE=" + to_string(GetLastError()))
                         return;
                     } else CloseHandle(hThread);
                 }
@@ -47,7 +47,7 @@ namespace Qv2ray
                         hPipe = CreateNamedPipe(lpszPipename.c_str(), PIPE_ACCESS_DUPLEX, PIPE_TYPE_MESSAGE | PIPE_READMODE_MESSAGE | PIPE_WAIT, PIPE_UNLIMITED_INSTANCES, BUFSIZE, BUFSIZE, 0, nullptr);
 
                         if (hPipe == INVALID_HANDLE_VALUE) {
-                            LOG(MODULE_PLUGIN, "CreateNamedPipe failed, GLE=" << GetLastError())
+                            LOG(MODULE_PLUGIN, "CreateNamedPipe failed, GLE=" + to_string(GetLastError()))
                             return static_cast<DWORD>(-1);
                         }
 
@@ -58,7 +58,7 @@ namespace Qv2ray
                             ThreadHandle = CreateThread(nullptr, 0, InstanceThread, hPipe, 0, &dwThreadId);
 
                             if (ThreadHandle == nullptr) {
-                                LOG(MODULE_PLUGIN, "CreateThread failed, GLE=%d.\n" << GetLastError())
+                                LOG(MODULE_PLUGIN, "CreateThread failed, GLE=" + to_string(GetLastError()))
                                 return static_cast<DWORD>(-1);
                             } else CloseHandle(ThreadHandle);
                         } else CloseHandle(hPipe);
@@ -79,7 +79,7 @@ namespace Qv2ray
 
                         if (!fSuccess || cbBytesRead == 0) {
                             if (GetLastError() == ERROR_BROKEN_PIPE) {
-                                LOG(MODULE_PLUGIN, "InstanceThread: client disconnected.\n" + to_string(GetLastError()))
+                                LOG(MODULE_PLUGIN, "InstanceThread: client disconnected, GLE=" + to_string(GetLastError()))
                             } else {
                                 LOG(MODULE_PLUGIN, "InstanceThread ReadFile failed, GLE=" + to_string(GetLastError()))
                             }

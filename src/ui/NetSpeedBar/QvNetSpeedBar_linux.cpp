@@ -61,8 +61,8 @@ namespace Qv2ray
 
                     while (!isExiting) {
                         bool result = server->waitForNewConnection(200, &timeOut);
-                        LOG(MODULE_PLUGIN, "Plugin thread listening failed: " << server->errorString().toStdString())
-                        LOG(MODULE_PLUGIN, "waitForNewConnection: " << (result ? "true" : "false") << ", " << (timeOut ? "true" : "false"))
+                        LOG(MODULE_PLUGIN, "Plugin thread listening failed: " + server->errorString().toStdString())
+                        LOG(MODULE_PLUGIN, "waitForNewConnection: " + string(result ? "true" : "false") + ", " + string(timeOut ? "true" : "false"))
                     }
 
                     server->close();

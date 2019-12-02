@@ -1,5 +1,25 @@
 ﻿#include "QvUtils.hpp"
-#include <QTextStream>
+#include <QQueue>
+
+// Forwarded from QvTinyLog
+static QQueue<QString> __loggerBuffer;
+void _LOG(const std::string &module, const std::string &log)
+{
+    string logString = "[" + module + "]: " + log + NEWLINE;
+    cout << logString;
+    __loggerBuffer.enqueue(logString.c_str());
+}
+
+const QString readLastLog()
+{
+    QString result;
+
+    while (!__loggerBuffer.isEmpty()) {
+        result += __loggerBuffer.dequeue();
+    }
+
+    return result;
+}
 
 namespace Qv2ray
 {
@@ -241,5 +261,14 @@ namespace Qv2ray
             }
         }
 
+        void QFastAppendTextDocument(const QString &message, QTextDocument *doc)
+        {
+            QTextCursor cursor(doc);
+            cursor.movePosition(QTextCursor::End);
+            cursor.beginEditBlock();
+            cursor.insertBlock();
+            cursor.insertHtml(message);
+            cursor.endEditBlock();
+        }
     }
 }

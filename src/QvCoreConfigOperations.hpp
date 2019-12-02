@@ -19,7 +19,6 @@ namespace Qv2ray
         QMap<QString, CONFIGROOT> GetRegularConnections(list<string> connections);
         QMap<QString, QMap<QString, CONFIGROOT>> GetSubscriptionConnections(list<string> subscriptions);
         bool CheckIsComplexConfig(CONFIGROOT root);
-        int StartPreparation(CONFIGROOT fullConfig);
         int FindIndexByTag(INOUTLIST list, const QString &tag);
 
         //

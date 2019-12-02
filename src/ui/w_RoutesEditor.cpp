@@ -262,10 +262,9 @@ void RouteEditor::ShowRuleDetail(RuleObject rule)
     netBothRB->setChecked(network.contains("tcp") && network.contains("udp"));
     //
     // Set protocol checkboxes.
-    auto protocols = QList<string>::fromStdList(CurrentRule.protocol);
-    routeProtocolHTTPCB->setChecked(protocols.contains("http"));
-    routeProtocolTLSCB->setChecked(protocols.contains("tls"));
-    routeProtocolBTCB->setChecked(protocols.contains("bittorrent"));
+    routeProtocolHTTPCB->setChecked(contains(CurrentRule.protocol, string("http")));
+    routeProtocolTLSCB->setChecked(contains(CurrentRule.protocol, string("tls")));
+    routeProtocolBTCB->setChecked(contains(CurrentRule.protocol, string("bittorrent")));
     //
     // Port
     routePortTxt->setText(QSTRING(CurrentRule.port));
