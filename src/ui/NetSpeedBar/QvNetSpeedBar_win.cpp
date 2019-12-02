@@ -88,18 +88,22 @@ namespace Qv2ray
                         }
 
                         auto req = QString::fromStdWString(pchRequest);
-                        auto replyQString = isExiting ? "{}" : GetAnswerToRequest(req);
-                        //
-                        // REPLY as std::string
-                        std::string pchReply = replyQString.toUtf8().constData();
-                        cbReplyBytes = static_cast<DWORD>(pchReply.length() + 1) * sizeof(CHAR);
-                        //cbReplyBytes = static_cast<DWORD>(replyQString.length() + 1) * sizeof(TCHAR);
-                        //
-                        fSuccess = WriteFile(hPipe, pchReply.c_str(), cbReplyBytes, &cbWritten, nullptr);
+                        QString replyQString = "{}";
 
-                        if (!fSuccess || cbReplyBytes != cbWritten) {
-                            LOG(MODULE_PLUGIN, "InstanceThread WriteFile failed, GLE=" + to_string(GetLastError()))
-                            break;
+                        if (!isExiting) {
+                            replyQString = GetAnswerToRequest(req);
+                            //
+                            // REPLY as std::string
+                            std::string pchReply = replyQString.toUtf8().constData();
+                            cbReplyBytes = static_cast<DWORD>(pchReply.length() + 1) * sizeof(CHAR);
+                            //cbReplyBytes = static_cast<DWORD>(replyQString.length() + 1) * sizeof(TCHAR);
+                            //
+                            fSuccess = WriteFile(hPipe, pchReply.c_str(), cbReplyBytes, &cbWritten, nullptr);
+
+                            if (!fSuccess || cbReplyBytes != cbWritten) {
+                                LOG(MODULE_PLUGIN, "InstanceThread WriteFile failed, GLE=" + to_string(GetLastError()))
+                                break;
+                            }
                         }
                     }
 

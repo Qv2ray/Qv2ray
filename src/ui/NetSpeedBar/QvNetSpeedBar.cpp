@@ -34,18 +34,25 @@ namespace Qv2ray
             }
             QString GetAnswerToRequest(const QString &pchRequest)
             {
-                auto vinstance = mwInstance->vinstance;
+                auto instance = MainWindow::mwInstance;
+
+                if (instance == nullptr || instance->vinstance == nullptr) {
+                    LOG(MODULE_PLUGIN, "MainWindow != nullptr Assertion failed!")
+                    return "{}";
+                }
+
+                auto vinstance = instance->vinstance;
                 //
                 auto req = pchRequest.trimmed();
                 config = GetGlobalConfig();
                 QString reply = "{}";
 
                 if (req == "START") {
-                    emit mwInstance->Connect();
+                    emit instance->Connect();
                 } else if (req == "STOP") {
-                    emit mwInstance->DisConnect();
+                    emit instance->DisConnect();
                 } else if (req == "RESTART") {
-                    emit mwInstance->ReConnect();
+                    emit instance->ReConnect();
                 }
 
                 auto BarConfig = config.toolBarConfig;
@@ -82,13 +89,13 @@ namespace Qv2ray
 
                             case 104: {
                                 // Current Connection Name
-                                CL.Message = mwInstance->CurrentConnectionName.toStdString();
+                                CL.Message = instance->CurrentConnectionName.toStdString();
                                 break;
                             }
 
                             case 105: {
                                 // Current Connection Status
-                                switch (mwInstance->vinstance->ConnectionStatus) {
+                                switch (instance->vinstance->ConnectionStatus) {
                                     case STARTED: {
                                         CL.Message = QObject::tr("Connected").toStdString();
                                         break;
