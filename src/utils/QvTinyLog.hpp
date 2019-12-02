@@ -3,22 +3,23 @@
 
 #include <iostream>
 #include <QtDebug>
+#include <QBuffer>
 using namespace std;
 
 /*
  * Tiny log module.
  */
 
-#define LOG(module, msg) cout << "[" << module << "]: " << msg << endl;
+void _LOG(const std::string &module, const std::string &log);
+const QString readLastLog();
+
+#define LOG(module, msg) _LOG(module, msg);
 
 #ifdef QT_DEBUG
 #define DEBUG(module, msg) LOG("[DEBUG] - " module, msg)
 #else
 #define DEBUG(module, msg)
 #endif
-
-#define CLOG(value) DEBUG("[CONTENT-LOG]", #value << ":" << value)
-#define XLOG(module, level, msg) LOG(module, level << msg)
 
 #define MODULE_INIT              "INIT"
 #define MODULE_UPDATE            "UPDATE"

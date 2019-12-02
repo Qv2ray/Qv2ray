@@ -89,6 +89,9 @@ namespace Qv2ray
                 QTextCharFormat timeFormat;
                 QTextCharFormat ipHostFormat;
                 QTextCharFormat x;
+                //
+                QTextCharFormat qvAppLogFormat;
+                QTextCharFormat qvAppDebugLogFormat;
         };
     }
 }

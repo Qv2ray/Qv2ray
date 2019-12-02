@@ -10,7 +10,7 @@ namespace Qv2ray
             auto conf = CONFIGROOT(JsonFromString(jsonString));
 
             if (conf.count() == 0) {
-                LOG(MODULE_CONFIG, "WARN: Possible file corruption, failed to load file: " << connection.toStdString())
+                LOG(MODULE_CONFIG, "WARN: Possible file corruption, failed to load file: " + connection.toStdString())
             }
 
             return conf;
@@ -43,7 +43,7 @@ namespace Qv2ray
                         confName.chop(sizeof(QV2RAY_CONFIG_FILE_EXTENSION) - 1);
                         _config[confName] = _ReadConnection(QV2RAY_SUBSCRIPTION_DIR + QSTRING(singleSub) + "/" + _file);
                     } else {
-                        LOG(MODULE_SUBSCRIPTION, "Found a file in subscription folder but without proper suffix: " << _file.toStdString())
+                        LOG(MODULE_SUBSCRIPTION, "Found a file in subscription folder but without proper suffix: " + _file.toStdString())
                     }
                 }
 
@@ -62,13 +62,6 @@ namespace Qv2ray
             bool cRule = cRouting && root["routing"].toObject().contains("rules");
             bool cRules = cRule && root["routing"].toObject()["rules"].toArray().count() > 0;
             return cRules;
-        }
-        int StartPreparation(CONFIGROOT fullConfig)
-        {
-            // Writes the final configuration to the disk.
-            QString json = JsonToString(fullConfig);
-            StringToFile(&json, new QFile(QV2RAY_GENERATED_FILE_PATH));
-            return 0;
         }
 
         int FindIndexByTag(INOUTLIST list, const QString &tag)

@@ -74,11 +74,11 @@ bool initialiseQv2ray()
         bool avail = verifyConfigAvaliability(path, true);
 
         if (avail) {
-            DEBUG(MODULE_INIT, "Path: " << path.toStdString() << " is valid.")
+            DEBUG(MODULE_INIT, "Path: " + path.toStdString() + " is valid.")
             configPath = path;
             hasExistingConfig = true;
         } else {
-            DEBUG(MODULE_INIT, "Path: " << path.toStdString() << " does not contain a valid config file.")
+            DEBUG(MODULE_INIT, "Path: " + path.toStdString() + " does not contain a valid config file.")
         }
     }
 
@@ -304,7 +304,7 @@ int main(int argc, char *argv[])
 
     if (themes.contains(QSTRING(confObject.uiConfig.theme))) {
         _qApp.setStyle(QSTRING(confObject.uiConfig.theme));
-        LOG(MODULE_INIT " " MODULE_UI, "Setting Qv2ray UI themes.")
+        LOG(MODULE_INIT " " MODULE_UI, "Setting Qv2ray UI themes: " + confObject.uiConfig.theme)
     }
 
 #endif
@@ -312,7 +312,9 @@ int main(int argc, char *argv[])
     try {
         // Show MainWindow
         MainWindow w;
-        return _qApp.exec();
+        auto rcode = _qApp.exec();
+        LOG(MODULE_INIT, "Quitting normally")
+        return rcode;
     }  catch (...) {
         QvMessageBox(nullptr, "ERROR", "There's something wrong happened and Qv2ray will quit now.");
         LOG(MODULE_INIT, "EXCEPTION THROWN: " __FILE__)

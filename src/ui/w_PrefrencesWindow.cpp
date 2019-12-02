@@ -356,7 +356,7 @@ void PrefrencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
                 auto newPath = QFileInfo(QV2RAY_DEFAULT_VCORE_PATH).path();
                 //
                 LOG(MODULE_FILE, " --> Origin v2ctl file is at: " + v2ctlPath.toStdString())
-                LOG(MODULE_FILE, " --> New v2ray files will be placed in: " << newPath.toStdString())
+                LOG(MODULE_FILE, " --> New v2ray files will be placed in: " + newPath.toStdString())
                 //
                 LOG(MODULE_FILE, " --> Copying files....")
 
@@ -364,14 +364,14 @@ void PrefrencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
                     // Only trying to remove file when they are not in the default dir.
                     // (In other words...) Keep using the current files. <Because we don't know where else we can copy the file from...>
                     if (QFile(QV2RAY_DEFAULT_VCORE_PATH).exists()) {
-                        LOG(MODULE_FILE, QV2RAY_DEFAULT_VCORE_PATH.toStdString() << ": File already exists.")
-                        LOG(MODULE_FILE, QV2RAY_DEFAULT_VCORE_PATH.toStdString() << ": Deleting file.")
+                        LOG(MODULE_FILE, QV2RAY_DEFAULT_VCORE_PATH.toStdString() + ": File already exists.")
+                        LOG(MODULE_FILE, QV2RAY_DEFAULT_VCORE_PATH.toStdString() + ": Deleting file.")
                         QFile(QV2RAY_DEFAULT_VCORE_PATH).remove();
                     }
 
                     if (QFile(newPath + "/v2ctl").exists()) {
-                        LOG(MODULE_FILE, newPath.toStdString() << "/v2ctl" << ": File already exists.")
-                        LOG(MODULE_FILE, newPath.toStdString() << "/v2ctl" << ": Deleting file.")
+                        LOG(MODULE_FILE, newPath.toStdString() + "/v2ctl : File already exists.")
+                        LOG(MODULE_FILE, newPath.toStdString() + "/v2ctl : Deleting file.")
                         QFile(newPath + "/v2ctl").remove();
                     }
 

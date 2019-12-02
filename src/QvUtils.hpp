@@ -87,6 +87,7 @@ namespace Qv2ray
         //
         //
         QString ConvertGFWToPAC(const QString &rawContent, const QString &customProxyString);
+        void QFastAppendTextDocument(const QString &message, QTextDocument *doc);
     }
 }
 
