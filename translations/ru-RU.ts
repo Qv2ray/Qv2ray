@@ -6,7 +6,7 @@
     <message>
       <location filename="../src/ui/w_ExportConfig.cpp" line="15"/>
       <source>Empty</source>
-      <translation type="unfinished">Empty</translation>
+      <translation>Пустой</translation>
     </message>
   </context>
   <context>
@@ -14,22 +14,22 @@
     <message>
       <location filename="../src/ui/w_ExportConfig.ui" line="14"/>
       <source>Export Config</source>
-      <translation type="unfinished">Export Config</translation>
+      <translation>Экспорт конфигурации</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ExportConfig.ui" line="39"/>
       <source>Text Message</source>
-      <translation type="unfinished">Text Message</translation>
+      <translation>Текстовое сообщение</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ExportConfig.ui" line="68"/>
       <source>Save</source>
-      <translation type="unfinished">Save</translation>
+      <translation>Сохранить</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ExportConfig.ui" line="75"/>
       <source>OK</source>
-      <translation type="unfinished">OK</translation>
+      <translation>OK</translation>
     </message>
   </context>
   <context>
@@ -42,7 +42,7 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="34"/>
       <source>Name/Prefix</source>
-      <translation type="unfinished">Name/Prefix</translation>
+      <translation>Имя/Префикс</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="44"/>
@@ -52,12 +52,12 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="58"/>
       <source>Existing File</source>
-      <translation type="unfinished">Existing File</translation>
+      <translation>Существующий файл</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="63"/>
       <source>VMess and QRCode</source>
-      <translation type="unfinished">VMess and QRCode</translation>
+      <translation>VMess и QRCode</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="68"/>
@@ -68,13 +68,13 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="73"/>
       <source>Manually Input</source>
-      <translation type="unfinished">Manually Input</translation>
+      <translation>Ввести вручную</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="83"/>
       <location filename="../src/ui/w_ImportConfig.ui" line="381"/>
       <source>Import</source>
-      <translation type="unfinished">Import</translation>
+      <translation>Импорт</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="96"/>
@@ -100,12 +100,12 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="135"/>
       <source>Edit Config</source>
-      <translation type="unfinished">Edit Config</translation>
+      <translation>Изменить настройки</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="142"/>
       <source>Open in JSON Editor</source>
-      <translation type="unfinished">Open in JSON Editor</translation>
+      <translation>Открыть в JSON редакторе</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="153"/>
@@ -115,42 +115,42 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="162"/>
       <source>From QRCode File</source>
-      <translation type="unfinished">From QRCode File</translation>
+      <translation>QRCode из файла</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="190"/>
       <source>From Screenshot</source>
-      <translation type="unfinished">From Screenshot</translation>
+      <translation>Из скриншота</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="211"/>
       <source>Go</source>
-      <translation type="unfinished">Go</translation>
+      <translation>Далее</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="218"/>
       <source>After</source>
-      <translation type="unfinished">After</translation>
+      <translation>После</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="241"/>
       <source>second(s).</source>
-      <translation type="unfinished">second(s).</translation>
+      <translation>секунда(ы).</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="276"/>
       <source>Place your vmess:// here, one line for each.</source>
-      <translation type="unfinished">Place your vmess:// here, one line for each.</translation>
+      <translation>Разместите ваш vmess:// здесь одна строка для каждой.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="286"/>
       <source>Error List</source>
-      <translation type="unfinished">Error List</translation>
+      <translation>Список ошибок</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="293"/>
       <source>VMess</source>
-      <translation type="unfinished">VMess</translation>
+      <translation>VMess</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="313"/>
@@ -160,32 +160,32 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="325"/>
       <source>GroupBox</source>
-      <translation type="unfinished">GroupBox</translation>
+      <translation>GroupBox</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="338"/>
       <source>Connection Editor</source>
-      <translation type="unfinished">Connection Editor</translation>
+      <translation>Редактор подключений</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="345"/>
       <source>Open Connection Editor</source>
-      <translation type="unfinished">Open Connection Editor</translation>
+      <translation>Открыть редактор подключений</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="352"/>
       <source>Maunally input connection details</source>
-      <translation type="unfinished">Maunally input connection details</translation>
+      <translation>Информация о подключении</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="388"/>
       <source>Cancel</source>
-      <translation type="unfinished">Cancel</translation>
+      <translation>Отмена</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="24"/>
       <source>Imported</source>
-      <translation type="unfinished">Imported</translation>
+      <translation>Импортировано</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="43"/>
@@ -195,12 +195,12 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="58"/>
       <source>Capture QRCode</source>
-      <translation type="unfinished">Capture QRCode</translation>
+      <translation>Захват QRCode</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="58"/>
       <source>Cannot find a valid QRCode from this region.</source>
-      <translation type="unfinished">Cannot find a valid QRCode from this region.</translation>
+      <translation>Не удается найти QRCode из этой области.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="80"/>
@@ -211,7 +211,7 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="80"/>
       <source>Import from file failed, for more information, please check the log file.</source>
-      <translation type="unfinished">Import from file failed, for more information, please check the log file.</translation>
+      <translation>Импорт из файла не удался, для получения дополнительной информации, пожалуйста, проверьте файл журнала.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="83"/>
@@ -221,44 +221,44 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="129"/>
       <source>TODO</source>
-      <translation type="unfinished">TODO</translation>
+      <translation>TODO</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="139"/>
       <source>Select an image to import</source>
-      <translation type="unfinished">Select an image to import</translation>
+      <translation>Выберите изображение для импорта</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="150"/>
       <source>QRCode scanning failed</source>
-      <translation type="unfinished">QRCode scanning failed</translation>
+      <translation>Ошибка сканирования QRCode</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="150"/>
       <source>Cannot find any QRCode from the image.</source>
-      <translation type="unfinished">Cannot find any QRCode from the image.</translation>
+      <translation>Не удается найти QRCode в изображении.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="185"/>
       <location filename="../src/ui/w_ImportConfig.cpp" line="195"/>
       <location filename="../src/ui/w_ImportConfig.cpp" line="211"/>
       <source>Edit file as JSON</source>
-      <translation type="unfinished">Edit file as JSON</translation>
+      <translation>Изменить JSON файл</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="185"/>
       <source>Provided file not found: </source>
-      <translation type="unfinished">Provided file not found: </translation>
+      <translation>Предоставленный файл не найден: </translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="195"/>
       <source>The file you selected has json syntax error. Continue editing may make you lose data. Would you like to continue?</source>
-      <translation type="unfinished">The file you selected has json syntax error. Continue editing may make you lose data. Would you like to continue?</translation>
+      <translation>Выбранный вами файл содержит синтаксическую ошибку json. Изменение может привести к потере данных. Вы хотите продолжить?</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="211"/>
       <source>Failed to save file, please check if you have the required permissions</source>
-      <translation type="unfinished">Failed to save file, please check if you have the required permissions</translation>
+      <translation>Не удалось сохранить файл, пожалуйста, проверьте, есть ли у вас необходимые разрешения</translation>
     </message>
   </context>
   <context>
@@ -553,7 +553,7 @@
     <message>
       <location filename="../src/ui/w_JsonEditor.ui" line="53"/>
       <source>Format JSON</source>
-      <translation type="unfinished">Format JSON</translation>
+      <translation>Формат Json</translation>
     </message>
     <message>
       <location filename="../src/ui/w_JsonEditor.ui" line="60"/>
@@ -579,12 +579,12 @@
     <message>
       <location filename="../src/ui/w_JsonEditor.cpp" line="72"/>
       <source>Syntax Errors</source>
-      <translation type="unfinished">Syntax Errors</translation>
+      <translation>Синтаксические ошибки</translation>
     </message>
     <message>
       <location filename="../src/ui/w_JsonEditor.cpp" line="72"/>
       <source>Please fix the JSON errors before continue</source>
-      <translation type="unfinished">Please fix the JSON errors before continue</translation>
+      <translation>Пожалуйста, исправьте JSON ошибки перед продолжением</translation>
     </message>
   </context>
   <context>
@@ -635,22 +635,22 @@
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="186"/>
       <source>Import connection</source>
-      <translation type="unfinished">Import connection</translation>
+      <translation>Импорт соединения</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="202"/>
       <source>Duplicate connection</source>
-      <translation type="unfinished">Duplicate connection</translation>
+      <translation>Дублировать подключение</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="224"/>
       <source>Delete a connection</source>
-      <translation type="unfinished">Delete a connection</translation>
+      <translation>Удалить подключение</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="240"/>
       <source>Edit connection</source>
-      <translation type="unfinished">Edit connection</translation>
+      <translation>Изменить подключение</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="273"/>
@@ -660,12 +660,12 @@
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="281"/>
       <source>Config Type</source>
-      <translation type="unfinished">Config Type</translation>
+      <translation>Тип конфигурации</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="295"/>
       <source>Protocol</source>
-      <translation type="unfinished">Protocol</translation>
+      <translation>Протокол</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="309"/>
@@ -680,47 +680,47 @@
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="339"/>
       <source>Operations</source>
-      <translation type="unfinished">Operations</translation>
+      <translation>Операции</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="361"/>
       <source>Edit connection as JSON</source>
-      <translation type="unfinished">Edit connection as JSON</translation>
+      <translation>Изменить соединение как JSON</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="189"/>
       <source>Add</source>
-      <translation type="unfinished">Add</translation>
+      <translation>Добавить</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="205"/>
       <source>Duplicate</source>
-      <translation type="unfinished">Duplicate</translation>
+      <translation>Дублировать</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="227"/>
       <source>Delete</source>
-      <translation type="unfinished">Delete</translation>
+      <translation>Удалить</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="243"/>
       <source>Edit</source>
-      <translation type="unfinished">Edit</translation>
+      <translation>Изменить</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="364"/>
       <source>Edit JSON</source>
-      <translation type="unfinished">Edit JSON</translation>
+      <translation>Изменить JSON</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="380"/>
       <source>Ping Test</source>
-      <translation type="unfinished">Ping Test</translation>
+      <translation>Ping Тест</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="393"/>
       <source>Share</source>
-      <translation type="unfinished">Share</translation>
+      <translation>Поделиться</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="426"/>
@@ -815,7 +815,7 @@
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="68"/>
       <source>Edit as Complex Config</source>
-      <translation type="unfinished">Edit as Complex Config</translation>
+      <translation>Изменить как Complex Config</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="69"/>
@@ -825,7 +825,7 @@
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="70"/>
       <source>Share as QRCode/VMess URL</source>
-      <translation type="unfinished">Share as QRCode/VMess URL</translation>
+      <translation>Поделиться QRCode/VMess URL</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="157"/>
@@ -877,42 +877,42 @@
       <location filename="../src/ui/w_MainWindow.cpp" line="323"/>
       <location filename="../src/ui/w_MainWindow.cpp" line="331"/>
       <source>Configuring PAC</source>
-      <translation type="unfinished">Configuring PAC</translation>
+      <translation>Настройка PAC</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="323"/>
       <source>Could not start PAC server as it is configured to use SOCKS, but it is not enabled</source>
-      <translation type="unfinished">Could not start PAC server as it is configured to use SOCKS, but it is not enabled</translation>
+      <translation>Не удалось запустить PAC сервер, так как он настроен на использование SOCKS, но он не включен</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="331"/>
       <source>Could not start PAC server as it is configured to use HTTP, but it is not enabled</source>
-      <translation type="unfinished">Could not start PAC server as it is configured to use HTTP, but it is not enabled</translation>
+      <translation>Не удалось запустить PAC сервер, так как он настроен на использование HTTP, но он не включен</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="365"/>
       <source>PAC Processing Failed</source>
-      <translation type="unfinished">PAC Processing Failed</translation>
+      <translation>Ошибка обработки PAC</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="365"/>
       <source>HTTP or SOCKS inbound is not properly configured for PAC</source>
-      <translation type="unfinished">HTTP or SOCKS inbound is not properly configured for PAC</translation>
+      <translation>Входящие HTTP или SOCKS не настроены должным образом для PAC</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="366"/>
       <source>Qv2ray will continue, but will not set system proxy.</source>
-      <translation type="unfinished">Qv2ray will continue, but will not set system proxy.</translation>
+      <translation>Qv2ray будет работать, но не сможет изменить системный прокси.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="377"/>
       <source>Cannot set system proxy</source>
-      <translation type="unfinished">Cannot set system proxy</translation>
+      <translation>Не удается задать системный прокси</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="377"/>
       <source>HTTP inbound is not enabled</source>
-      <translation type="unfinished">HTTP inbound is not enabled</translation>
+      <translation>Входящие HTTP не включены</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="410"/>
@@ -922,19 +922,19 @@
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="512"/>
       <source>Complex</source>
-      <translation type="unfinished">Complex</translation>
+      <translation>Сложный</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="512"/>
       <source>Simple</source>
-      <translation type="unfinished">Simple</translation>
+      <translation>Простой</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="515"/>
       <location filename="../src/ui/w_MainWindow.cpp" line="516"/>
       <location filename="../src/ui/w_MainWindow.cpp" line="517"/>
       <source>N/A</source>
-      <translation type="unfinished">N/A</translation>
+      <translation>N/A</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="614"/>
@@ -985,12 +985,12 @@
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="809"/>
       <source>Share Connection</source>
-      <translation type="unfinished">Share Connection</translation>
+      <translation>Поделиться подключением</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="809"/>
       <source>There&apos;re no support of sharing configs other than vmess</source>
-      <translation type="unfinished">There&apos;re no support of sharing configs other than vmess</translation>
+      <translation>&apos;не поддерживает обмен конфигурациями, кроме vmess</translation>
     </message>
   </context>
   <context>
@@ -1103,7 +1103,7 @@
       <location filename="../src/ui/w_OutboundEditor.ui" line="330"/>
       <location filename="../src/ui/w_OutboundEditor.ui" line="431"/>
       <source>Default</source>
-      <translation type="unfinished">Default</translation>
+      <translation>По умолчанию</translation>
     </message>
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="359"/>
@@ -1250,7 +1250,7 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="52"/>
       <source>UI Theme</source>
-      <translation type="unfinished">UI Theme</translation>
+      <translation>Тема интерфейса</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="108"/>
@@ -1271,7 +1271,7 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="135"/>
       <source>Dark UI Icons</source>
-      <translation type="unfinished">Dark UI Icons</translation>
+      <translation>Темные иконки интерфейса</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="164"/>
@@ -1327,37 +1327,37 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="84"/>
       <source>Theme Settings</source>
-      <translation type="unfinished">Theme Settings</translation>
+      <translation>Настройки Темы</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="142"/>
       <source>Dark Tray Icon</source>
-      <translation type="unfinished">Dark Tray Icon</translation>
+      <translation>Темная иконка в трее</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="245"/>
       <source>Auto Connect</source>
-      <translation type="unfinished">Auto Connect</translation>
+      <translation>Автоподключение</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="267"/>
       <source>Transparent Proxy</source>
-      <translation type="unfinished">Transparent Proxy</translation>
+      <translation>Прозрачный прокси</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="281"/>
       <source>V2ray Core Path</source>
-      <translation type="unfinished">V2ray Core Path</translation>
+      <translation>Путь ядра V2ray</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="302"/>
       <source>V2ray Assets Path</source>
-      <translation type="unfinished">V2ray Assets Path</translation>
+      <translation>V2ray Assets путь</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="324"/>
       <source>Inbound Settings</source>
-      <translation type="unfinished">Inbound Settings</translation>
+      <translation>Настройки соединения</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="332"/>
@@ -1367,7 +1367,7 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="392"/>
       <source>Set System Proxy</source>
-      <translation type="unfinished">Set System Proxy</translation>
+      <translation>Установить системным прокси</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="411"/>
@@ -1401,27 +1401,27 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="502"/>
       <source>PAC Proxy IP</source>
-      <translation type="unfinished">PAC Proxy IP</translation>
+      <translation>PAC прокси IP</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="512"/>
       <source>Use Proxy</source>
-      <translation type="unfinished">Use Proxy</translation>
+      <translation>Использовать прокси</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="533"/>
       <source>Import GFWList</source>
-      <translation type="unfinished">Import GFWList</translation>
+      <translation>Импорт GFWList</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="709"/>
       <source>Connection Settings</source>
-      <translation type="unfinished">Connection Settings</translation>
+      <translation>Настройки соединения</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="715"/>
       <source>General Connection Settings</source>
-      <translation type="unfinished">General Connection Settings</translation>
+      <translation>Общие настройки соединения</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="721"/>
@@ -1451,55 +1451,55 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="819"/>
       <source>Forward Proxy</source>
-      <translation type="unfinished">Forward Proxy</translation>
+      <translation>Ретрансляция прокси</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="827"/>
       <source>Status</source>
-      <translation type="unfinished">Status</translation>
+      <translation>Статус</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="846"/>
       <source>Type</source>
-      <translation type="unfinished">Type</translation>
+      <translation>Тип</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="358"/>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="520"/>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="854"/>
       <source>HTTP</source>
-      <translation type="unfinished">HTTP</translation>
+      <translation>HTTP</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="346"/>
       <source>Features</source>
-      <translation type="unfinished">Features</translation>
+      <translation>Особенности</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="365"/>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="525"/>
       <source>SOCKS</source>
-      <translation type="unfinished">SOCKS</translation>
+      <translation>SOCKS</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="385"/>
       <source>PAC Support</source>
-      <translation type="unfinished">PAC Support</translation>
+      <translation>Поддержка PAC</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="405"/>
       <source>HTTP Settings</source>
-      <translation type="unfinished">HTTP Settings</translation>
+      <translation>Настройки HTTP</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="476"/>
       <source>PAC Settings</source>
-      <translation type="unfinished">PAC Settings</translation>
+      <translation>Настройки PAC</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="543"/>
       <source>Github</source>
-      <translation type="unfinished">Github</translation>
+      <translation>GitHub</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="548"/>
@@ -1529,52 +1529,52 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="573"/>
       <source>GFWList File</source>
-      <translation type="unfinished">GFWList File</translation>
+      <translation>GFWList файл</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="581"/>
       <source>Go</source>
-      <translation type="unfinished">Go</translation>
+      <translation>Далее</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="590"/>
       <source>Edit PAC</source>
-      <translation type="unfinished">Edit PAC</translation>
+      <translation>Изменить PAC</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="597"/>
       <source>Open PAC Folder</source>
-      <translation type="unfinished">Open PAC Folder</translation>
+      <translation>Открыть папку PAC</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="607"/>
       <source>SOCKS Settings</source>
-      <translation type="unfinished">SOCKS Settings</translation>
+      <translation>Настройки SOCKS</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="633"/>
       <source>UDP Support</source>
-      <translation type="unfinished">UDP Support</translation>
+      <translation>Поддержка UDP</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="647"/>
       <source>Local IP (For UDP)</source>
-      <translation type="unfinished">Local IP (For UDP)</translation>
+      <translation>Локальный IP (для UDP)</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="859"/>
       <source>Socks</source>
-      <translation type="unfinished">Socks</translation>
+      <translation>Socks</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="867"/>
       <source>Host Address</source>
-      <translation type="unfinished">Host Address</translation>
+      <translation>Адрес хоста</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="951"/>
       <source>Network Toolbar Settings</source>
-      <translation type="unfinished">Network Toolbar Settings</translation>
+      <translation>Настройки панели инструментов сети</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="957"/>
@@ -1585,13 +1585,13 @@
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="975"/>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="1054"/>
       <source>-</source>
-      <translation type="unfinished">-</translation>
+      <translation>-</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="994"/>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="1073"/>
       <source>+</source>
-      <translation type="unfinished">+</translation>
+      <translation>+</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="1001"/>
@@ -1718,12 +1718,12 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="1397"/>
       <source>Official Repo</source>
-      <translation type="unfinished">Official Repo</translation>
+      <translation>Официальный репозиторий</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="1511"/>
       <source>Ignore Next Version</source>
-      <translation type="unfinished">Ignore Next Version</translation>
+      <translation>Игнорировать следующую версию</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="1410"/>
@@ -1733,7 +1733,7 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="803"/>
       <source>Custom DNS List</source>
-      <translation type="unfinished">Custom DNS List</translation>
+      <translation>Пользовательский список DNS</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="1430"/>
@@ -1765,7 +1765,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Noto Sans&apos;; color:#d68952;&quot;&gt;Copyright (c) 2011 SCHUTZ Sacha (@dridk): QJsonModel (MIT)&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Noto Sans&apos;; color:#d68952;&quot;&gt;Copyright (c) 2019 Nikolaos Ftylitakis (@ftylitak): QZXing (Apache2)&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Noto Sans&apos;; color:#d68952;&quot;&gt;Copyright (c) 2016 Singein (@Singein): ScreenShot (MIT)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-      <translation type="unfinished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+      <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Noto Sans&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
@@ -1797,7 +1797,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="44"/>
       <source>Use Dark Theme</source>
-      <translation type="unfinished">Use Dark Theme</translation>
+      <translation>Использовать темную тему</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="122"/>
@@ -1869,17 +1869,17 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="730"/>
       <source>Dark Mode</source>
-      <translation type="unfinished">Dark Mode</translation>
+      <translation>Тёмный режим</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="730"/>
       <source>Please restart Qv2ray to fully apply this feature.</source>
-      <translation type="unfinished">Please restart Qv2ray to fully apply this feature.</translation>
+      <translation>Пожалуйста, перезапустите Qv2ray, чтобы применить эту функцию.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="794"/>
       <source>Select GFWList in base64</source>
-      <translation type="unfinished">Select GFWList in base64</translation>
+      <translation>Выберите GFWList в base64</translation>
     </message>
   </context>
   <context>
@@ -1887,17 +1887,17 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/QvCoreConfigOperations_Convertion.cpp" line="93"/>
       <source>VMess string should start with &apos;vmess://&apos;</source>
-      <translation type="unfinished">VMess string should start with &apos;vmess://&apos;</translation>
+      <translation>VMess строка должна начинаться с &apos;vmess://&apos;</translation>
     </message>
     <message>
       <location filename="../src/QvCoreConfigOperations_Convertion.cpp" line="102"/>
       <source>VMess string should be a valid base64 string</source>
-      <translation type="unfinished">VMess string should be a valid base64 string</translation>
+      <translation>VMess строка должна быть корректной строкой base64</translation>
     </message>
     <message>
       <location filename="../src/QvCoreConfigOperations_Convertion.cpp" line="117"/>
       <source>JSON should not be empty</source>
-      <translation type="unfinished">JSON should not be empty</translation>
+      <translation>JSON не должен быть пустым</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="106"/>
@@ -1923,12 +1923,12 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/main.cpp" line="176"/>
       <source>Cannot load languages</source>
-      <translation type="unfinished">Cannot load languages</translation>
+      <translation>Не удается загрузить языки</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="176"/>
       <source>Qv2ray will continue running, but you cannot change the UI language.</source>
-      <translation type="unfinished">Qv2ray will continue running, but you cannot change the UI language.</translation>
+      <translation>Qv2ray продолжит работу, но вы не сможете изменить язык интерфейса.</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="196"/>
@@ -2081,12 +2081,12 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/components/QvPACHandler.cpp" line="43"/>
       <source>PAC Handler</source>
-      <translation type="unfinished">PAC Handler</translation>
+      <translation>PAC Handler</translation>
     </message>
     <message>
       <location filename="../src/components/QvPACHandler.cpp" line="43"/>
       <source>Failed to listen PAC request on this port, please verify the permissions</source>
-      <translation type="unfinished">Failed to listen PAC request on this port, please verify the permissions</translation>
+      <translation>Не удалось прослушать запрос PAC на этом порте, пожалуйста, проверьте права доступа</translation>
     </message>
   </context>
   <context>
@@ -2094,37 +2094,37 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/components/QvCoreInteractions.cpp" line="39"/>
       <source>Configuration Error</source>
-      <translation type="unfinished">Configuration Error</translation>
+      <translation>Ошибка конфигурации</translation>
     </message>
     <message>
       <location filename="../src/components/QvCoreInteractions.cpp" line="74"/>
       <source>Cannot start v2ray</source>
-      <translation type="unfinished">Cannot start v2ray</translation>
+      <translation>Невозможно запустить v2ray</translation>
     </message>
     <message>
       <location filename="../src/components/QvCoreInteractions.cpp" line="75"/>
       <source>v2ray core file cannot be found at:</source>
-      <translation type="unfinished">v2ray core file cannot be found at:</translation>
+      <translation>v2ray core файл не найден в:</translation>
     </message>
     <message>
       <location filename="../src/components/QvCoreInteractions.cpp" line="77"/>
       <source>Please go to prefrence window to change the location.</source>
-      <translation type="unfinished">Please go to prefrence window to change the location.</translation>
+      <translation>Пожалуйста, перейдите в настройки, чтобы изменить местоположение.</translation>
     </message>
     <message>
       <location filename="../src/components/QvCoreInteractions.cpp" line="78"/>
       <source>Or put v2ray core file in the location above.</source>
-      <translation type="unfinished">Or put v2ray core file in the location above.</translation>
+      <translation>Или поместите файл v2ray core выше директорией.</translation>
     </message>
     <message>
       <location filename="../src/components/QvCoreInteractions.cpp" line="137"/>
       <source>API Call Failed</source>
-      <translation type="unfinished">API Call Failed</translation>
+      <translation>Ошибка вызова API</translation>
     </message>
     <message>
       <location filename="../src/components/QvCoreInteractions.cpp" line="137"/>
       <source>Failed to get statistics data, please check if v2ray is running properly</source>
-      <translation type="unfinished">Failed to get statistics data, please check if v2ray is running properly</translation>
+      <translation>Не удалось получить статистику, проверьте корректно ли работает v2ray</translation>
     </message>
   </context>
   <context>
@@ -2148,18 +2148,18 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="70"/>
       <source>Add new inbound</source>
-      <translation type="unfinished">Add new inbound</translation>
+      <translation>Добавить новый входящий</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="73"/>
       <location filename="../src/ui/w_RoutesEditor.ui" line="224"/>
       <source>A</source>
-      <translation type="unfinished">A</translation>
+      <translation>A</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="80"/>
       <source>Delete inbound</source>
-      <translation type="unfinished">Delete inbound</translation>
+      <translation>Удалить входящие</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="83"/>
@@ -2171,18 +2171,18 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="90"/>
       <source>Edit inbound</source>
-      <translation type="unfinished">Edit inbound</translation>
+      <translation>Редактировать входящие</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="93"/>
       <location filename="../src/ui/w_RoutesEditor.ui" line="244"/>
       <source>E</source>
-      <translation type="unfinished">E</translation>
+      <translation>E</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="100"/>
       <source>Add default inbound from global config</source>
-      <translation type="unfinished">Add default inbound from global config</translation>
+      <translation>Добавить входящие по умолчанию из глобальной конфигурации</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="128"/>
@@ -2222,17 +2222,17 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="221"/>
       <source>Add outbound</source>
-      <translation type="unfinished">Add outbound</translation>
+      <translation>Добавить исходящий</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="231"/>
       <source>Delete outbound</source>
-      <translation type="unfinished">Delete outbound</translation>
+      <translation>Удалить исходящий</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="241"/>
       <source>Edit outbound</source>
-      <translation type="unfinished">Edit outbound</translation>
+      <translation>Изменить исходящий</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="251"/>
@@ -2242,7 +2242,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="254"/>
       <source>F</source>
-      <translation type="unfinished">F</translation>
+      <translation>F</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="261"/>
@@ -2252,7 +2252,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="264"/>
       <source>B</source>
-      <translation type="unfinished">B</translation>
+      <translation>B</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="293"/>
@@ -2289,7 +2289,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="444"/>
       <source>Add new route</source>
-      <translation type="unfinished">Add new route</translation>
+      <translation>Добавить новый маршрут</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="447"/>
@@ -2302,7 +2302,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="458"/>
       <source>Remove route</source>
-      <translation type="unfinished">Remove route</translation>
+      <translation>Удалить маршрут</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="493"/>
@@ -2317,12 +2317,12 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="509"/>
       <source>Source IP Matching List</source>
-      <translation type="unfinished">Source IP Matching List</translation>
+      <translation>Список совпадений IP-адреса источника</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="519"/>
       <source>Target Domain List</source>
-      <translation type="unfinished">Target Domain List</translation>
+      <translation>Список адресов</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="531"/>
@@ -2372,7 +2372,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="609"/>
       <source>Enable Balancers</source>
-      <translation type="unfinished">Enable Balancers</translation>
+      <translation>Включить Балансеры</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="616"/>
@@ -2382,17 +2382,17 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="632"/>
       <source>Outbound Tag</source>
-      <translation type="unfinished">Outbound Tag</translation>
+      <translation>Исходящий тег</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="645"/>
       <source>Outbound Tag selector</source>
-      <translation type="unfinished">Outbound Tag selector</translation>
+      <translation>Селектор исходящего Тега</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="729"/>
       <source>Users List</source>
-      <translation type="unfinished">Users List</translation>
+      <translation>Список пользователей</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="53"/>
@@ -2431,17 +2431,17 @@ p, li { white-space: pre-wrap; }
       <location filename="../src/ui/w_RoutesEditor.cpp" line="463"/>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="650"/>
       <source>OK</source>
-      <translation type="unfinished">OK</translation>
+      <translation>OK</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="323"/>
       <source>Cannot find inbound by a tag, possible currupted files?</source>
-      <translation type="unfinished">Cannot find inbound by a tag, possible currupted files?</translation>
+      <translation>Не удается найти входящие по тегу, возможные испорченные файлы?</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="338"/>
       <source>No row selected.</source>
-      <translation type="unfinished">No row selected.</translation>
+      <translation>Строка не выбрана.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="347"/>
@@ -2464,17 +2464,17 @@ p, li { white-space: pre-wrap; }
       <location filename="../src/ui/w_RoutesEditor.cpp" line="351"/>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="389"/>
       <source>Opening JSON editor</source>
-      <translation type="unfinished">Opening JSON editor</translation>
+      <translation>Открыть в JSON редакторе</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="356"/>
       <source>Opening default outbound editor.</source>
-      <translation type="unfinished">Opening default outbound editor.</translation>
+      <translation>Открытие стандартного редактора исходящих соединений.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="373"/>
       <source>Added DIRECT outbound</source>
-      <translation type="unfinished">Added DIRECT outbound</translation>
+      <translation>Добавлен исходящий DIRECT</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="387"/>
@@ -2484,24 +2484,24 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="395"/>
       <source>Opening default inbound editor</source>
-      <translation type="unfinished">Opening default inbound editor</translation>
+      <translation>Открытие стандартного входящего редактора</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="417"/>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="432"/>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="447"/>
       <source>Protocol list changed.</source>
-      <translation type="unfinished">Protocol list changed.</translation>
+      <translation>Список протоколов изменен.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="465"/>
       <source>Balacer is empty, not processing.</source>
-      <translation type="unfinished">Balacer is empty, not processing.</translation>
+      <translation>Баласер пуст и не обрабатывается.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="479"/>
       <source>Removed a balancer entry.</source>
-      <translation type="unfinished">Removed a balancer entry.</translation>
+      <translation>Удалена запись балансировщика.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="641"/>
@@ -2511,12 +2511,12 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="641"/>
       <source>One or more inbound config(s) have no tag configured, which will be ignored, do you still want to continue?</source>
-      <translation type="unfinished">One or more inbound config(s) have no tag configured, which will be ignored, do you still want to continue?</translation>
+      <translation>Один или несколько входящих конфигураций(ов) не настроены тег, будет проигнорирован. Вы все еще хотите продолжить?</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="740"/>
       <source>New Inbound</source>
-      <translation type="unfinished">New Inbound</translation>
+      <translation>Новый входящий</translation>
     </message>
   </context>
   <context>
@@ -2524,12 +2524,12 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_ScreenShot_Core.ui" line="20"/>
       <source>ScreenShot</source>
-      <translation type="unfinished">ScreenShot</translation>
+      <translation>Скриншот</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ScreenShot_Core.ui" line="35"/>
       <source>Size</source>
-      <translation type="unfinished">Size</translation>
+      <translation>Размер</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ScreenShot_Core.ui" line="61"/>
@@ -2539,7 +2539,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_ScreenShot_Core.ui" line="48"/>
       <source>Screen Shot</source>
-      <translation type="unfinished">Screen Shot</translation>
+      <translation>Снимок экрана</translation>
     </message>
   </context>
   <context>
