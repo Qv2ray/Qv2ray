@@ -15,6 +15,8 @@
 #include "w_OutboundEditor.hpp"
 #include "w_JsonEditor.hpp"
 #include "w_ImportConfig.hpp"
+#include "w_SubscriptionEditor.hpp"
+#include "w_RoutesEditor.hpp"
 
 
 ImportConfigWindow::ImportConfigWindow(QWidget *parent)
@@ -181,7 +183,7 @@ void ImportConfigWindow::on_editFileBtn_clicked()
     }
 
     auto jsonString = StringFromFile(&file);
-    auto jsonCheckingError = VerifyJsonString(&jsonString);
+    auto jsonCheckingError = VerifyJsonString(jsonString);
 
     if (!jsonCheckingError.isEmpty()) {
         LOG(MODULE_FILE, "Currupted JSON file detected")
@@ -202,7 +204,7 @@ void ImportConfigWindow::on_editFileBtn_clicked()
         bool result = StringToFile(&str, &file);
 
         if (!result) {
-            QvMessageBox(this, tr("Edit file as JSON"), tr("Failed to save file, please check if you have the required permissions"));
+            QvMessageBox(this, tr("Edit file as JSON"), tr("Failed to save file, please check if you have proper permissions"));
         }
     } else {
         LOG(MODULE_FILE, "Canceled saving a file.")
@@ -226,11 +228,34 @@ void ImportConfigWindow::on_connectionEditBtn_clicked()
         connections[alias] = root;
         accept();
     } else {
-        reject();
+        return;
     }
 }
 
 void ImportConfigWindow::on_cancelImportBtn_clicked()
 {
     reject();
+}
+
+void ImportConfigWindow::on_subscriptionButton_clicked()
+{
+    hide();
+    SubscribeEditor w;
+    w.exec();
+    accept();
+}
+
+void ImportConfigWindow::on_routeEditBtn_clicked()
+{
+    RouteEditor w(QJsonObject(), this);
+    auto result = w.OpenEditor();
+    bool isChanged = w.result() == QDialog::Accepted;
+    QString alias = nameTxt->text();
+
+    if (isChanged) {
+        connections[alias] = result;
+        accept();
+    } else {
+        return;
+    }
 }

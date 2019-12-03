@@ -61,12 +61,12 @@ namespace Qv2ray
 {
     namespace Components
     {
-        class Highlighter : public QSyntaxHighlighter
+        class SyntaxHighlighter : public QSyntaxHighlighter
         {
                 Q_OBJECT
 
             public:
-                explicit Highlighter(bool darkMode, QTextDocument *parent = nullptr);
+                explicit SyntaxHighlighter(bool darkMode, QTextDocument *parent = nullptr);
 
             protected:
                 void highlightBlock(const QString &text) override;
@@ -88,7 +88,7 @@ namespace Qv2ray
                 QTextCharFormat debugFormat;
                 QTextCharFormat timeFormat;
                 QTextCharFormat ipHostFormat;
-                QTextCharFormat x;
+                QTextCharFormat v2rayComponentFormat;
                 //
                 QTextCharFormat qvAppLogFormat;
                 QTextCharFormat qvAppDebugLogFormat;

@@ -32,7 +32,6 @@ const QString readLastLog();
 #define MODULE_SUBSCRIPTION      "SUBSCRIPTION"
 #define MODULE_CONNECTION        "CONNECTION"
 #define MODULE_IMPORT            "IMPORT"
-#define MODULE_CONNECTION_VMESS  "CONNETION-VMESS"
 #define MODULE_PLUGIN            "PLUGIN"
 
 #endif // QVTINYLOG_H

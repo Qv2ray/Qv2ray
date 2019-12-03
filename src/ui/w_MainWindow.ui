@@ -2,9 +2,6 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
-  <property name="windowModality">
-   <enum>Qt::ApplicationModal</enum>
-  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -79,16 +76,16 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="prefrencesBtn">
+       <widget class="QPushButton" name="subsButton">
         <property name="text">
-         <string>Prefrences</string>
+         <string>Subscriptions</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="subsButton">
+       <widget class="QPushButton" name="prefrencesBtn">
         <property name="text">
-         <string>Subscription</string>
+         <string>Prefrences</string>
         </property>
        </widget>
       </item>

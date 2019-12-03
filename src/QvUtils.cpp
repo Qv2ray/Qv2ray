@@ -139,10 +139,10 @@ namespace Qv2ray
             return doc.toJson(format);
         }
 
-        QString VerifyJsonString(const QString *source)
+        QString VerifyJsonString(const QString &source)
         {
             QJsonParseError error;
-            QJsonDocument doc = QJsonDocument::fromJson(source->toUtf8(), &error);
+            QJsonDocument doc = QJsonDocument::fromJson(source.toUtf8(), &error);
             Q_UNUSED(doc)
 
             if (error.error == QJsonParseError::NoError) {
@@ -269,6 +269,18 @@ namespace Qv2ray
             cursor.insertBlock();
             cursor.insertHtml(message);
             cursor.endEditBlock();
+        }
+
+        QStringList ConvertQStringList(const list<string> &stdListString)
+        {
+            QStringList listQt;
+            listQt.reserve(stdListString.size());
+
+            for (const std::string &s : stdListString) {
+                listQt.append(QString::fromStdString(s));
+            }
+
+            return listQt;
         }
     }
 }

@@ -10,7 +10,7 @@ JsonEditor::JsonEditor(QJsonObject rootObject, QWidget *parent) :
     final = rootObject;
     QString jsonString  = JsonToString(rootObject);
 
-    if (VerifyJsonString(&jsonString).isEmpty()) {
+    if (VerifyJsonString(jsonString).isEmpty()) {
         LOG(MODULE_UI, "Begin loading Json Model")
         jsonTree->setModel(&model);
         model.loadJson(QJsonDocument(rootObject).toJson());
@@ -28,7 +28,7 @@ QJsonObject JsonEditor::OpenEditor()
     int resultCode = this->exec();
     auto string = jsonEditor->toPlainText();
 
-    while (resultCode == QDialog::Accepted && !VerifyJsonString(&string).isEmpty()) {
+    while (resultCode == QDialog::Accepted && !VerifyJsonString(string).isEmpty()) {
         QvMessageBox(this, tr("Json Contains Syntax Errors"), tr("You must correct these errors before continue."));
         resultCode = this->exec();
         string = jsonEditor->toPlainText();
@@ -44,7 +44,7 @@ JsonEditor::~JsonEditor()
 void JsonEditor::on_jsonEditor_textChanged()
 {
     auto string = jsonEditor->toPlainText();
-    auto VerifyResult = VerifyJsonString(&string);
+    auto VerifyResult = VerifyJsonString(string);
     jsonValidateStatus->setText(VerifyResult);
 
     if (VerifyResult.isEmpty()) {
@@ -61,7 +61,7 @@ void JsonEditor::on_jsonEditor_textChanged()
 void JsonEditor::on_formatJsonBtn_clicked()
 {
     auto string = jsonEditor->toPlainText();
-    auto VerifyResult = VerifyJsonString(&string);
+    auto VerifyResult = VerifyJsonString(string);
     jsonValidateStatus->setText(VerifyResult);
 
     if (VerifyResult.isEmpty()) {

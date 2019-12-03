@@ -7,6 +7,7 @@
 #include "QvUtils.hpp"
 #include "QvCoreInteractions.hpp"
 #include "QvNetSpeedPlugin.hpp"
+#include "QvCoreConfigOperations.hpp"
 
 #include "w_PrefrencesWindow.hpp"
 #include "QvHTTPRequestHelper.hpp"
@@ -110,14 +111,9 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
         }
     }
 
-    foreach (auto connection, CurrentConfig.configs) {
-        autoStartCombo->addItem(QSTRING(connection));
-    }
-
-    autoStartCombo->setCurrentText(QSTRING(CurrentConfig.autoStartConfig));
+    //
     cancelIgnoreVersionBtn->setEnabled(CurrentConfig.ignoredVersion != "");
     ignoredNextVersion->setText(QSTRING(CurrentConfig.ignoredVersion));
-    //
 
     for (size_t i = 0; i < CurrentConfig.toolBarConfig.Pages.size(); i++) {
         nsBarPagesList->addItem(tr("Page") + QString::number(i + 1) + ": " + QString::number(CurrentConfig.toolBarConfig.Pages[i].Lines.size()) + " " + tr("Item(s)"));
@@ -135,6 +131,24 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     }
 
     CurrentBarPageId = 0;
+    //
+    // Empty for global config.
+    autoStartConnCombo->addItem("");
+
+    for (auto item : CurrentConfig.subscribes) {
+        autoStartSubsCombo->addItem(QSTRING(item.first));
+    }
+
+    autoStartSubsCombo->setCurrentText(QSTRING(CurrentConfig.autoStartConfig.subscriptionName));
+
+    if (CurrentConfig.autoStartConfig.subscriptionName.empty()) {
+        autoStartConnCombo->addItems(ConvertQStringList(CurrentConfig.configs));
+    } else {
+        auto list = GetSubscriptionConnection(CurrentConfig.autoStartConfig.subscriptionName);
+        autoStartConnCombo->addItems(list.keys());
+    }
+
+    autoStartConnCombo->setCurrentText(QSTRING(CurrentConfig.autoStartConfig.connectionName));
     finishedLoading = true;
 }
 
@@ -313,11 +327,6 @@ void PrefrencesWindow::on_DNSListTxt_textChanged()
             RED(DNSListTxt)
         }
     }
-}
-
-void PrefrencesWindow::on_autoStartCombo_currentTextChanged(const QString &arg1)
-{
-    CurrentConfig.autoStartConfig = arg1.toStdString();
 }
 
 void PrefrencesWindow::on_aboutQt_clicked()
@@ -852,4 +861,24 @@ void PrefrencesWindow::on_pacProxyTxt_textEdited(const QString &arg1)
     LOADINGCHECK
     NEEDRESTART
     CurrentConfig.inboundConfig.pacConfig.proxyIP = arg1.toStdString();
+}
+
+void PrefrencesWindow::on_autoStartSubsCombo_currentIndexChanged(const QString &arg1)
+{
+    LOADINGCHECK
+    CurrentConfig.autoStartConfig.subscriptionName = arg1.toStdString();
+    autoStartConnCombo->clear();
+
+    if (arg1.isEmpty()) {
+        autoStartConnCombo->addItems(ConvertQStringList(CurrentConfig.configs));
+    } else {
+        auto list = GetSubscriptionConnection(arg1.toStdString());
+        autoStartConnCombo->addItems(list.keys());
+    }
+}
+
+void PrefrencesWindow::on_autoStartConnCombo_currentIndexChanged(const QString &arg1)
+{
+    LOADINGCHECK
+    CurrentConfig.autoStartConfig.connectionName = arg1.toStdString();
 }

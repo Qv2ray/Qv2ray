@@ -18,8 +18,13 @@ using namespace std;
 
 namespace Qv2ray
 {
-
     // To prevent anonying QJsonObject misuse
+
+    struct ConfigIdentifier {
+        string subscriptionName;
+        string connectionName;
+        XTOSTRUCT(O(subscriptionName, connectionName))
+    };
     SAFE_TYPEDEF(QJsonObject, INBOUNDSETTING)
     SAFE_TYPEDEF(QJsonObject, OUTBOUNDSETTING)
     SAFE_TYPEDEF(QJsonObject, INBOUND)

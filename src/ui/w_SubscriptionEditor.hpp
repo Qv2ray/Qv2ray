@@ -25,14 +25,16 @@ class SubscribeEditor : public QDialog, private Ui::w_SubscribeEditor
 
         void on_applyChangesBtn_clicked();
 
+        void on_buttonBox_accepted();
+
     private:
         void StartUpdateSubscription(const QString &subscriptionName);
         void SaveConfig();
-        void LoadSubscriptionList(QMap<string, string>);
+        void LoadSubscriptionList(QMap<QString, QString> list);
 
         bool isUpdateInProgress = false;
         QvHttpRequestHelper helper;
-        QMap<string, string> subscriptions;
+        QMap<QString, QString> subscriptions;
         QString currentSubName;
 };
 

@@ -86,11 +86,17 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         ConnectionInstance *vinstance;
 
     protected:
-
         void mouseReleaseEvent(QMouseEvent *e) override;
         void keyPressEvent(QKeyEvent *e) override;
         void timerEvent(QTimerEvent *event) override;
         void closeEvent(QCloseEvent *) override;
+
+    private slots:
+        void on_action_StartThis_triggered();
+        void on_action_RCM_EditJson_triggered();
+        void on_action_RCM_ConvToComplex_triggered();
+        void on_action_RenameConnection_triggered();
+
     private:
         // Charts
         QChartView *speedChartView;
@@ -100,16 +106,11 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         QList<double> uploadList;
         QList<double> downloadList;
         //
-        void on_action_StartThis_triggered();
-        void on_action_RCM_EditJson_triggered();
-        void on_action_RCM_ConvToComplex_triggered();
-        void on_action_RenameConnection_triggered();
-        //
-        QvHttpRequestHelper HTTPRequestHelper;
-        QSystemTrayIcon *hTray;
         //
         QMenu *trayMenu = new QMenu(this);
         QMenu *listMenu;
+
+        /// Key --> ListWidget.item.text
         QMap<QString, ConnectionObject> connections;
         //
         QString originalName;
@@ -121,9 +122,11 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         void ShowAndSetConnection(QString currentText, bool SetConnection, bool Apply);
         void LoadConnections();
         //
-        PACHandler *pacServer;
-        Highlighter *vCoreLogHighlighter;
-        Highlighter *qvAppLogHighlighter;
+        QvHttpRequestHelper HTTPRequestHelper;
+        QSystemTrayIcon *hTray;
+        PACServer *pacServer;
+        SyntaxHighlighter *vCoreLogHighlighter;
+        SyntaxHighlighter *qvAppLogHighlighter;
 
         QList<QTextBrowser *> logTextBrowsers;
         int currentLogBrowserId = 0;

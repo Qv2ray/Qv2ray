@@ -9,7 +9,7 @@
 #include "QvCoreConfigObjects.hpp"
 #include "QObjectMessageProxy.hpp"
 
-#define QV2RAY_CONFIG_VERSION 13
+#define QV2RAY_CONFIG_VERSION 14
 
 // Linux DEs should handle the ui schemes themselves.
 // --> Or.. should we change this into a modifyable setting?
@@ -115,6 +115,7 @@ namespace Qv2ray
         XTOSTRUCT(O(Bold, Italic, ColorA, ColorR, ColorG, ColorB, Size, Family, Message, ContentType))
     };
 
+
     struct QvBarPage {
         int OffsetYpx;
         vector<QvBarLine> Lines;
@@ -189,7 +190,7 @@ namespace Qv2ray
             //
             string v2CorePath;
             string v2AssetsPath;
-            string autoStartConfig;
+            ConfigIdentifier autoStartConfig;
             string ignoredVersion;
             //
             list<string> configs;

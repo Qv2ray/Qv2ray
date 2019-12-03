@@ -35,7 +35,8 @@ namespace Qv2ray
     {
         this->setUrl(url);
         LOG(MODULE_NETWORK, "Using system proxy settings")
-        //accessManager.setProxy(QNetworkProxyFactory::systemProxyForQuery().first());
+        auto proxy = QNetworkProxyFactory::systemProxyForQuery();
+        accessManager.setProxy(proxy.first());
         request.setAttribute(QNetworkRequest::RedirectPolicyAttribute, QNetworkRequest::NoLessSafeRedirectPolicy);
         reply = accessManager.get(request);
         connect(reply, &QNetworkReply::finished, this, &QvHttpRequestHelper::onRequestFinished);
