@@ -7,12 +7,12 @@ namespace Qv2ray
 {
     namespace Components
     {
-        class PACHandler : public QObject
+        class PACServer : public QObject
         {
                 Q_OBJECT
             public:
-                explicit PACHandler();
-                ~PACHandler();
+                explicit PACServer();
+                ~PACServer();
                 void SetProxyString(const QString &proxyString);
                 void StartListen();
                 void StopServer();

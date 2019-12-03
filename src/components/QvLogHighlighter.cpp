@@ -7,7 +7,7 @@ namespace Qv2ray
 {
     namespace Components
     {
-        Highlighter::Highlighter(bool darkMode, QTextDocument *parent)
+        SyntaxHighlighter::SyntaxHighlighter(bool darkMode, QTextDocument *parent)
             : QSyntaxHighlighter(parent)
         {
             HighlightingRule rule;
@@ -88,10 +88,10 @@ namespace Qv2ray
             rule.format = rejectedFormat;
             highlightingRules.append(rule);
             //
-            x.setFontWeight(QFont::Bold);
-            x.setForeground(darkMode ? Qt::darkGreen : Qt::darkYellow);
+            v2rayComponentFormat.setFontWeight(QFont::Bold);
+            v2rayComponentFormat.setForeground(darkMode ? Qt::darkGreen : Qt::darkYellow);
             rule.pattern = QRegularExpression(" v2ray.com(/(\\w*))*: ");
-            rule.format = x;
+            rule.format = v2rayComponentFormat;
             highlightingRules.append(rule);
             //
             warningFormat.setFontWeight(QFont::Bold);
@@ -119,7 +119,7 @@ namespace Qv2ray
             highlightingRules.append(rule);
         }
 
-        void Highlighter::highlightBlock(const QString &text)
+        void SyntaxHighlighter::highlightBlock(const QString &text)
         {
             for (const HighlightingRule &rule : qAsConst(highlightingRules)) {
                 QRegularExpressionMatchIterator matchIterator = rule.pattern.globalMatch(text);

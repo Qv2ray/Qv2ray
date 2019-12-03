@@ -30,6 +30,10 @@ class ImportConfigWindow : public QDialog, private Ui::ImportConfigWindow
 
         void on_cancelImportBtn_clicked();
 
+        void on_subscriptionButton_clicked();
+
+        void on_routeEditBtn_clicked();
+
     private:
         QMap<QString, CONFIGROOT> connections;
         QMap<QString, QString> vmessErrors;

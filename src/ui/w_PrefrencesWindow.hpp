@@ -54,8 +54,6 @@ class PrefrencesWindow : public QDialog, private Ui::PrefrencesWindow
 
         void on_DNSListTxt_textChanged();
 
-        void on_autoStartCombo_currentTextChanged(const QString &arg1);
-
         void on_aboutQt_clicked();
 
         void on_cancelIgnoreVersionBtn_clicked();
@@ -133,6 +131,10 @@ class PrefrencesWindow : public QDialog, private Ui::PrefrencesWindow
         void on_pushButton_clicked();
 
         void on_pacProxyTxt_textEdited(const QString &arg1);
+
+        void on_autoStartSubsCombo_currentIndexChanged(const QString &arg1);
+
+        void on_autoStartConnCombo_currentIndexChanged(const QString &arg1);
 
     private:
         // Set ui parameters for a line;

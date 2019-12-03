@@ -132,6 +132,13 @@ namespace Qv2ray
                 UPDATELOG("Renamed usePAC to enablePAC.")
                 break;
             }
+
+            case 13: {
+                ConfigIdentifier i;
+                i.connectionName = root["autoStartConfig"].toString().toStdString();
+                root["autoStartConfig"] = GetRootObject(i);
+                UPDATELOG("Added subscription to autoStartConfig.")
+            }
         }
 
         root["config_version"] = root["config_version"].toInt() + 1;

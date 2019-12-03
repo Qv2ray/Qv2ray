@@ -44,16 +44,27 @@ bool verifyConfigAvaliability(QString path, bool checkExistingConfig)
         try {
             if (opened2) {
                 // Verify if the config can be loaded.
-                auto conf = StructFromJsonString<Qv2rayConfig>(configFile.readAll());
-                LOG(MODULE_CONFIG, "Path: " + path.toStdString() + " contains a config file, in version " + to_string(conf.config_version))
-                configFile.close();
-                return true;
+                // Failed to parse if we changed the file structure...
+                //auto conf = StructFromJsonString<Qv2rayConfig>(configFile.readAll());
+                auto err = VerifyJsonString(StringFromFile(&configFile));
+
+                if (!err.isEmpty()) {
+                    LOG(MODULE_INIT, "Json parse returns: " + err.toStdString())
+                    return false;
+                } else {
+                    auto conf = JsonFromString(StringFromFile(&configFile));
+                    LOG(MODULE_CONFIG, "Path: " + path.toStdString() + " contains a config file, in version " + to_string(conf["config_version"].toInt()))
+                    configFile.close();
+                    return true;
+                }
             } else {
                 LOG(MODULE_CONFIG, "File: " + configFile.fileName().toStdString()  + " cannot be opened!")
                 return false;
             }
         }  catch (...) {
             LOG(MODULE_CONFIG, "Exception raised when checking config: " + configFile.fileName().toStdString())
+            //LOG(MODULE_INIT, e->what())
+            QvMessageBox(nullptr, QObject::tr("Warning"), QObject::tr("Qv2ray cannot load the config file from here:") + NEWLINE + configFile.fileName());
             return false;
         }
     } else return true;
@@ -112,6 +123,16 @@ bool initialiseQv2ray()
         } else {
             LOG(MODULE_INIT, "Set " + configPath.toStdString() + " as the config path.")
             SetConfigDirPath(&configPath);
+
+            if (QFile::exists(QV2RAY_CONFIG_FILE)) {
+                LOG(MODULE_INIT, "This should not occur: Qv2ray config exists but failed to load.")
+                QvMessageBox(nullptr, QObject::tr("Failed to initialise Qv2ray"),
+                             QObject::tr("Failed to determine the location of config file.") + NEWLINE +
+                             QObject::tr("Qv2ray will now exit.") + NEWLINE +
+                             QObject::tr("Please report if you think it's a bug."));
+                return false;
+            }
+
             Qv2rayConfig conf;
             conf.v2AssetsPath = QV2RAY_DEFAULT_VASSETS_PATH.toStdString();
             conf.v2CorePath = QV2RAY_DEFAULT_VCORE_PATH.toStdString();

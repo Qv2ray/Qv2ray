@@ -130,7 +130,7 @@ namespace Qv2ray
                     }
 
                     auto vmessString = Base64Decode(b64Str);
-                    auto jsonErr = VerifyJsonString(&vmessString);
+                    auto jsonErr = VerifyJsonString(vmessString);
 
                     if (!jsonErr.isEmpty()) {
                         *errMessage = jsonErr;
@@ -164,7 +164,7 @@ namespace Qv2ray
 #undef C
                     //return flag ? 0 : 1;
                 } catch (exception *e) {
-                    LOG(MODULE_CONNECTION_VMESS, "Failed to decode vmess string: " + string(e->what()))
+                    LOG(MODULE_IMPORT, "Failed to decode vmess string: " + string(e->what()))
                     *errMessage = QSTRING(e->what());
                     return CONFIGROOT();
                 }

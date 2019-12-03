@@ -31,13 +31,21 @@
 #define qvAppLogBrowser this->logTextBrowsers[1]
 #define currentLogBrowser this->logTextBrowsers[currentLogBrowserId]
 #define SUBSCRIPTION_CONFIG_MODIFY_ASK(varName)                                                                                              \
-    if (!connections[varName].isRegularConnection) {                                                                                          \
+    if (!connections[varName].isRegularConnection) {                                                                                         \
         if (QvMessageBoxAsk(this, tr("Editing a subscription config"), tr("You are trying to edit a config loaded from subscription.") +     \
                             NEWLINE + tr("All changes will be overwritten when the subscriptions are updated next time.") +                  \
                             NEWLINE + tr("Are you still going to do so?")) != QMessageBox::Yes) {                                            \
             return;                                                                                                                          \
         }                                                                                                                                    \
     }                                                                                                                                        \
+
+
+#define SUBSCRIPTION_CONFIG_MODIFY_DENY(varName)                                                                                             \
+    if (!connections[varName].isRegularConnection) {                                                                                         \
+        QvMessageBox(this, tr("Editing a subscription config"), tr("You should not modity this property of a config from a subscription"));  \
+        return;                                                                                                                              \
+    }                                                                                                                                        \
+
 
 MainWindow *MainWindow::mwInstance = nullptr;
 
@@ -61,9 +69,9 @@ MainWindow::MainWindow(QWidget *parent):
     qvAppLogBrowser->setReadOnly(true);
     qvAppLogBrowser->setLineWrapMode(QTextBrowser::LineWrapMode::NoWrap);
     //
-    vCoreLogHighlighter = new Highlighter(conf.uiConfig.useDarkTheme, vCoreLogBrowser->document());
-    qvAppLogHighlighter = new Highlighter(conf.uiConfig.useDarkTheme, qvAppLogBrowser->document());
-    pacServer = new PACHandler();
+    vCoreLogHighlighter = new SyntaxHighlighter(conf.uiConfig.useDarkTheme, vCoreLogBrowser->document());
+    qvAppLogHighlighter = new SyntaxHighlighter(conf.uiConfig.useDarkTheme, qvAppLogBrowser->document());
+    pacServer = new PACServer();
     currentLogBrowserId = 0;
     masterLogBrowser->setDocument(currentLogBrowser->document());
     masterLogBrowser->document()->setDocumentMargin(0);
@@ -176,17 +184,29 @@ MainWindow::MainWindow(QWidget *parent):
     layout->addWidget(speedChartView);
     speedChart->setLayout(layout);
 
-    if (!conf.autoStartConfig.empty() && contains(conf.configs, conf.autoStartConfig)) {
+    if (!conf.autoStartConfig.connectionName.empty()) {
         // Has auto start.
-        CurrentConnectionName = QSTRING(conf.autoStartConfig);
-        auto item = connectionListWidget->findItems(QSTRING(conf.autoStartConfig), Qt::MatchExactly).front();
-        item->setSelected(true);
-        connectionListWidget->setCurrentItem(item);
-        on_connectionListWidget_itemClicked(item);
-        trayMenu->actions()[0]->setText(tr("Show"));
-        this->hide();
-        on_startButton_clicked();
-    } else if (connectionListWidget->count() != 0) {
+        // Try to find auto start config.
+        auto name = conf.autoStartConfig.subscriptionName.empty()
+                    ? QSTRING(conf.autoStartConfig.connectionName)
+                    : QSTRING(conf.autoStartConfig.connectionName) + " (" + tr("Subscription:") + " " + QSTRING(conf.autoStartConfig.subscriptionName) + ")";
+        LOG(MODULE_UI, "Found auto start config: " + name.toStdString())
+
+        if (connections.contains(name)) {
+            CurrentConnectionName = name;
+            auto item = connectionListWidget->findItems(name, Qt::MatchExactly).front();
+            connectionListWidget->setCurrentItem(item);
+            on_connectionListWidget_itemClicked(item);
+            trayMenu->actions()[0]->setText(tr("Show"));
+            this->hide();
+            on_startButton_clicked();
+        } else {
+            QvMessageBox(this, tr("Autostarting a config"), tr("Could not find a specified config named: ") + NEWLINE +
+                         name + NEWLINE + NEWLINE +
+                         tr("Please reset the settings in Prefrence Window"));
+            this->show();
+        }
+    } else if (connectionListWidget->count() > 0) {
         // The first one is default.
         connectionListWidget->setCurrentRow(0);
         ShowAndSetConnection(connectionListWidget->item(0)->text(), true, false);
@@ -675,7 +695,7 @@ void MainWindow::on_connectionListWidget_customContextMenuRequested(const QPoint
 void MainWindow::on_action_RenameConnection_triggered()
 {
     auto item = connectionListWidget->currentItem();
-    SUBSCRIPTION_CONFIG_MODIFY_ASK(item->text())
+    SUBSCRIPTION_CONFIG_MODIFY_DENY(item->text())
     item->setFlags(item->flags() | Qt::ItemIsEditable);
     connectionListWidget->editItem(item);
     originalName = item->text();
@@ -686,6 +706,7 @@ void MainWindow::on_connectionListWidget_itemChanged(QListWidgetItem *item)
     DEBUG(MODULE_UI, "A connection ListViewItem is changed.")
 
     if (isRenamingInProgress) {
+        // Should not rename a config from subscription?
         // In this case it's after we entered the name.
         LOG(MODULE_CONNECTION, "RENAME: " + originalName.toStdString() + " -> " + item->text().toStdString())
         auto newName = item->text();
@@ -707,7 +728,9 @@ void MainWindow::on_connectionListWidget_itemChanged(QListWidgetItem *item)
 
             //
             // Change auto start config.
-            if (originalName.toStdString() == config.autoStartConfig) config.autoStartConfig = newName.toStdString();
+            if (originalName.toStdString() == config.autoStartConfig.connectionName && config.autoStartConfig.subscriptionName.empty()) {
+                config.autoStartConfig.connectionName = newName.toStdString();
+            }
 
             configList[configList.indexOf(originalName.toStdString())] = newName.toStdString();
             config.configs = configList.toStdList();
