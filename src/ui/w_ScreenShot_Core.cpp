@@ -13,13 +13,8 @@ ScreenShotWindow::ScreenShotWindow() : QDialog(), rubber(new QRubberBand(QRubber
     this->setStyle(QStyleFactory::create("Fusion"));
     //
     LOG(MODULE_IMPORT, "We currently only support the primary screen.")
-    QRect deskRect = qApp->screens().first()->geometry();
-    //
-    setMouseTracking(true);
-    resize(deskRect.size());
-    setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
-    //
     desktopImage = QGuiApplication::primaryScreen()->grabWindow(0);
+    //
     int w = desktopImage.width();
     int h = desktopImage.height();
     QImage bg_grey(w, h, QImage::Format_RGB32);
@@ -36,11 +31,15 @@ ScreenShotWindow::ScreenShotWindow() : QDialog(), rubber(new QRubberBand(QRubber
         }
     }
 
-    this->showFullScreen();
+    //bg_grey = bg_grey.scaled(this->size(), Qt::KeepAspectRatio, Qt::TransformationMode::SmoothTransformation);
     auto p = this->palette();
     p.setBrush(QPalette::Background, bg_grey);
     setPalette(p);
     //
+    setWindowState(Qt::WindowState::WindowFullScreen);
+    setMouseTracking(true);
+    setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
+    this->showFullScreen();
     label->setAttribute(Qt::WA_TranslucentBackground);
     startBtn->setAttribute(Qt::WA_TranslucentBackground);
     //
@@ -70,8 +69,8 @@ void ScreenShotWindow::pSize()
     imgX = origin.x() < end.x() ? origin.x() : end.x();
     imgY = origin.y() < end.y() ? origin.y() : end.y();
     DEBUG("Capture Mouse Position", to_string(imgW)  + " " + to_string(imgH)  + " " + to_string(imgX) + " " + to_string(imgY))
-    fg->setPixmap(desktopImage.copy(imgX, imgY, imgW, imgH));
     fg->setGeometry(imgX, imgY, imgW, imgH);
+    fg->setPixmap(desktopImage.copy(imgX, imgY, imgW, imgH).scaled(fg->size() * devicePixelRatio()));
     rubber->setGeometry(imgX, imgY, imgW, imgH);
 }
 
@@ -109,15 +108,15 @@ void ScreenShotWindow::mouseMoveEvent(QMouseEvent *e)
         QRect btnRect(startBtn->contentsRect());
 
         if (imgY > labelRect.height()) {
-            label->move(QPoint(imgX, imgY - labelRect.height()));
+            label->move(imgX, imgY - labelRect.height());
         } else {
-            label->move(QPoint(imgX, imgY));
+            label->move(imgX, imgY);
         }
 
         if (height() - imgY - imgH > btnRect.height()) {
-            startBtn->move(QPoint(imgX + imgW - btnRect.width(), imgY + imgH));
+            startBtn->move(imgX + imgW - btnRect.width(), imgY + imgH);
         } else {
-            startBtn->move(QPoint(imgX + imgW - btnRect.width(), imgY + imgH - btnRect.height()));
+            startBtn->move(imgX + imgW - btnRect.width(), imgY + imgH - btnRect.height());
         }
 
         label->show();
