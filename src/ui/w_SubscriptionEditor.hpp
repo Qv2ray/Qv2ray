@@ -23,8 +23,6 @@ class SubscribeEditor : public QDialog, private Ui::w_SubscribeEditor
 
         void on_subscriptionList_currentRowChanged(int currentRow);
 
-        void on_applyChangesBtn_clicked();
-
         void on_buttonBox_accepted();
 
     private:
