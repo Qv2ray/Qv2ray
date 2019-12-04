@@ -13,7 +13,8 @@ ScreenShotWindow::ScreenShotWindow() : QDialog(), rubber(new QRubberBand(QRubber
     this->setStyle(QStyleFactory::create("Fusion"));
     //
     LOG(MODULE_IMPORT, "We currently only support the primary screen.")
-    desktopImage = QGuiApplication::primaryScreen()->grabWindow(0);
+    auto pos = QCursor::pos();
+    desktopImage = QGuiApplication::screenAt(pos)->grabWindow(0);
     //
     int w = desktopImage.width();
     int h = desktopImage.height();
@@ -31,7 +32,7 @@ ScreenShotWindow::ScreenShotWindow() : QDialog(), rubber(new QRubberBand(QRubber
         }
     }
 
-    //bg_grey = bg_grey.scaled(this->size(), Qt::KeepAspectRatio, Qt::TransformationMode::SmoothTransformation);
+    bg_grey = bg_grey.scaled(bg_grey.size() / devicePixelRatio(), Qt::KeepAspectRatio, Qt::TransformationMode::SmoothTransformation);
     auto p = this->palette();
     p.setBrush(QPalette::Background, bg_grey);
     setPalette(p);
@@ -69,11 +70,20 @@ void ScreenShotWindow::pSize()
     imgX = origin.x() < end.x() ? origin.x() : end.x();
     imgY = origin.y() < end.y() ? origin.y() : end.y();
     DEBUG("Capture Mouse Position", to_string(imgW)  + " " + to_string(imgH)  + " " + to_string(imgX) + " " + to_string(imgY))
-    fg->setGeometry(imgX, imgY, imgW, imgH);
-    fg->setPixmap(desktopImage.copy(imgX, imgY, imgW, imgH).scaled(fg->size() * devicePixelRatio()));
     rubber->setGeometry(imgX, imgY, imgW, imgH);
+    fg->setGeometry(rubber->geometry());
+    auto copied = desktopImage.copy(fg->x() * devicePixelRatio(), fg->y() * devicePixelRatio(), fg->width() * devicePixelRatio(), fg->height() * devicePixelRatio());
+    fg->setPixmap(copied);
 }
 
+bool ScreenShotWindow::event(QEvent *e)
+{
+    if (e->type() ==  QEvent::Move) {
+        //
+    }
+
+    return QWidget::event(e);
+}
 
 void ScreenShotWindow::keyPressEvent(QKeyEvent *e)
 {
