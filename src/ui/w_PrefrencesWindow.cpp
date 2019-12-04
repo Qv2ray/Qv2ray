@@ -870,6 +870,7 @@ void PrefrencesWindow::on_autoStartSubsCombo_currentIndexChanged(const QString &
     autoStartConnCombo->clear();
 
     if (arg1.isEmpty()) {
+        autoStartConnCombo->addItem("");
         autoStartConnCombo->addItems(ConvertQStringList(CurrentConfig.configs));
     } else {
         auto list = GetSubscriptionConnection(arg1.toStdString());

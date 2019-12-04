@@ -124,7 +124,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QListWidget" name="connectionListWidget">
+       <widget class="QTreeWidget" name="connectionListWidget">
         <property name="contextMenuPolicy">
          <enum>Qt::CustomContextMenu</enum>
         </property>
@@ -137,12 +137,29 @@
         <property name="verticalScrollMode">
          <enum>QAbstractItemView::ScrollPerPixel</enum>
         </property>
-        <property name="horizontalScrollMode">
-         <enum>QAbstractItemView::ScrollPerPixel</enum>
+        <property name="uniformRowHeights">
+         <bool>true</bool>
         </property>
-        <property name="viewMode">
-         <enum>QListView::ListMode</enum>
+        <property name="sortingEnabled">
+         <bool>true</bool>
         </property>
+        <property name="animated">
+         <bool>true</bool>
+        </property>
+        <property name="allColumnsShowFocus">
+         <bool>true</bool>
+        </property>
+        <property name="headerHidden">
+         <bool>true</bool>
+        </property>
+        <property name="expandsOnDoubleClick">
+         <bool>true</bool>
+        </property>
+        <column>
+         <property name="text">
+          <string notr="true">1</string>
+         </property>
+        </column>
        </widget>
       </item>
       <item>
@@ -605,7 +622,6 @@
   <tabstop>reconnectButton</tabstop>
   <tabstop>clearlogButton</tabstop>
   <tabstop>prefrencesBtn</tabstop>
-  <tabstop>connectionListWidget</tabstop>
   <tabstop>importConfigButton</tabstop>
   <tabstop>duplicateBtn</tabstop>
   <tabstop>removeConfigButton</tabstop>

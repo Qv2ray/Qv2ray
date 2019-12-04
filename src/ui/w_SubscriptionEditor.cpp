@@ -47,7 +47,53 @@ void SubscribeEditor::on_addSubsButton_clicked()
 
 void SubscribeEditor::on_updateButton_clicked()
 {
-    StartUpdateSubscription(currentSubName);
+    auto newName = subNameTxt->text();
+    auto newAddress = subAddrTxt->text();
+
+    if (currentSubName != newName) {
+        // Rename needed.
+        LOG(MODULE_SUBSCRIPTION, "Renaming a subscription, from " + currentSubName.toStdString() + " to: " + newName.toStdString())
+
+        if (subscriptionList->findItems(newName, Qt::MatchExactly).count() > 0) {
+            QvMessageBox(this, tr("Renaming a subscription"), tr("New name of this subscription has been used already, please suggest a new name"));
+            return;
+        }
+
+        bool result = RenameSubscription(currentSubName, newName);
+
+        if (!result) {
+            QvMessageBox(this, tr("Renaming a subscription"), tr("Failed to rename a subscription, this is an unknown error."));
+            return;
+        }
+
+        subscriptions[newName] = subscriptions[currentSubName];
+        subscriptions.remove(currentSubName);
+        subNameTxt->setText(newName);
+        //
+        // Update auto-start config if possible
+        auto conf = GetGlobalConfig();
+        auto ASsetting = QSTRING(conf.autoStartConfig.subscriptionName);
+
+        if (ASsetting == currentSubName) {
+            conf.autoStartConfig.subscriptionName = newName.toStdString();
+        }
+
+        SetGlobalConfig(conf);
+        // This will set the name to the new name.
+        LoadSubscriptionList(subscriptions);
+        QvMessageBox(this, tr("Renaming a subscription"), tr("Successfully renamed a subscription"));
+    }
+
+    if (subscriptions[currentSubName] != newAddress) {
+        LOG(MODULE_SUBSCRIPTION, ("Setting new address, from " + subscriptions[currentSubName] + " to: " + newAddress).toStdString())
+        subscriptions[currentSubName] = newAddress;
+    }
+
+    SaveConfig();
+
+    if (QvMessageBoxAsk(this, tr("Update Subscription"), tr("Would you like to update this subscription?")) == QMessageBox::Yes) {
+        StartUpdateSubscription(currentSubName);
+    }
 }
 
 void SubscribeEditor::StartUpdateSubscription(const QString &subscriptionName)
@@ -122,58 +168,6 @@ void SubscribeEditor::on_subscriptionList_currentRowChanged(int currentRow)
     for (auto i = 0; i < _list.count(); i++) {
         connectionsList->addItem(_list.keys()[i]);
     }
-}
-
-void SubscribeEditor::on_applyChangesBtn_clicked()
-{
-    auto newName = subNameTxt->text();
-    auto newAddress = subAddrTxt->text();
-
-    if (currentSubName != newName) {
-        // Rename needed.
-        LOG(MODULE_SUBSCRIPTION, "Renaming a subscription, from " + currentSubName.toStdString() + " to: " + newName.toStdString())
-
-        if (subscriptionList->findItems(newName, Qt::MatchExactly).count() > 0) {
-            QvMessageBox(this, tr("Renaming a subscription"), tr("New name of this subscription has been used already, please suggest a new name"));
-            return;
-        }
-
-        bool result = RenameSubscription(currentSubName, newName);
-
-        if (!result) {
-            QvMessageBox(this, tr("Renaming a subscription"), tr("Failed to rename a subscription, this is an unknown error."));
-            return;
-        }
-
-        subscriptions[newName] = subscriptions[currentSubName];
-        subscriptions.remove(currentSubName);
-        subNameTxt->setText(newName);
-        //
-        // Update auto-start config if possible
-        auto conf = GetGlobalConfig();
-        auto ASsetting = QSTRING(conf.autoStartConfig.subscriptionName);
-
-        if (ASsetting == currentSubName) {
-            conf.autoStartConfig.subscriptionName = newName.toStdString();
-        }
-
-        SetGlobalConfig(conf);
-        // This will set the name to the new name.
-        LoadSubscriptionList(subscriptions);
-        QvMessageBox(this, tr("Renaming a subscription"), tr("Successfully renamed a subscription"));
-    }
-
-    if (subscriptions[currentSubName] != newAddress) {
-        LOG(MODULE_SUBSCRIPTION, ("Setting new address, from " + subscriptions[currentSubName] + " to: " + newAddress).toStdString())
-        subscriptions[currentSubName] = newAddress;
-
-        if (QvMessageBoxAsk(this, tr("Setting new subscription address"), tr("You have changed the address of a subscription") + NEWLINE +
-                            tr("Would you like to update this subscription?")) == QMessageBox::Yes) {
-            StartUpdateSubscription(currentSubName);
-        }
-    }
-
-    SaveConfig();
 }
 
 void SubscribeEditor::SaveConfig()

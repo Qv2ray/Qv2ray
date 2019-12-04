@@ -47,7 +47,7 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         void quit();
         void on_actionExit_triggered();
 
-        void on_connectionListWidget_itemClicked(QListWidgetItem *item);
+        void on_connectionListWidget_itemClicked(QTreeWidgetItem *item, int column);
 
         void on_prefrencesBtn_clicked();
 
@@ -55,11 +55,11 @@ class MainWindow : public QMainWindow, Ui::MainWindow
 
         void on_clearlogButton_clicked();
 
-        void on_connectionListWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
+        void on_connectionListWidget_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous);
 
         void on_connectionListWidget_customContextMenuRequested(const QPoint &pos);
 
-        void on_connectionListWidget_itemChanged(QListWidgetItem *item);
+        void on_connectionListWidget_itemChanged(QTreeWidgetItem *item, int column);
 
         void on_removeConfigButton_clicked();
 
@@ -95,7 +95,7 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         void on_action_StartThis_triggered();
         void on_action_RCM_EditJson_triggered();
         void on_action_RCM_ConvToComplex_triggered();
-        void on_action_RenameConnection_triggered();
+        void on_action_RCM_RenameConnection_triggered();
 
     private:
         // Charts
