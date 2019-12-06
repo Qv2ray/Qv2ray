@@ -593,19 +593,19 @@
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.ui" line="50"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="101"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="106"/>
         <source>Connect</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.ui" line="60"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="103"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="108"/>
         <source>Disconnect</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.ui" line="67"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="102"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="107"/>
         <source>Reconnect</source>
         <translation></translation>
     </message>
@@ -792,249 +792,264 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="99"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="592"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="104"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="602"/>
         <source>Hide</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="100"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="105"/>
         <source>Quit</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="105"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="110"/>
         <source>Rename</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="106"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="111"/>
         <source>Connect to this</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="107"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="112"/>
         <source>Edit as Complex Config</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="108"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="113"/>
         <source>Edit as Json</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="109"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="114"/>
         <source>Share as QRCode/VMess URL</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="193"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="319"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="328"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="198"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="333"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="342"/>
         <source>Subscription:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="203"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="548"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="595"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="208"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="558"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="605"/>
         <source>Show</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="207"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="212"/>
         <source>Autostarting a config</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="207"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="212"/>
         <source>Could not find a specified config named: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="209"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="214"/>
         <source>Please reset the settings in Prefrence Window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="256"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="404"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="270"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="414"/>
         <source>No connection selected!</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="256"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="404"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="270"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="414"/>
         <source>Please select a config from the list.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="279"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="293"/>
         <source>Update</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="280"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="294"/>
         <source>Found a new version: </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="286"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="300"/>
         <source>Download Link: </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="422"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="423"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="1001"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="432"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="433"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="1020"/>
         <source>Connected To Server: </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="424"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="434"/>
         <source>Connected</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="440"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="448"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="450"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="458"/>
         <source>Configuring PAC</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="440"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="450"/>
         <source>Could not start PAC server as it is configured to use SOCKS, but it is not enabled</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="448"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="458"/>
         <source>Could not start PAC server as it is configured to use HTTP, but it is not enabled</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="482"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="492"/>
         <source>PAC Processing Failed</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="482"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="492"/>
         <source>HTTP or SOCKS inbound is not properly configured for PAC</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="483"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="493"/>
         <source>Qv2ray will continue, but will not set system proxy.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="494"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="504"/>
         <source>Cannot set system proxy</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="494"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="504"/>
         <source>HTTP inbound is not enabled</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="527"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="537"/>
         <source>Disconnected</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="623"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="630"/>
         <source>Complex</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="623"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="630"/>
         <source>Simple</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="626"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="627"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="628"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="633"/>
+        <source>From subscription</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.cpp" line="637"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="638"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="639"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="660"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="661"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="1074"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="1075"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="1076"/>
         <source>N/A</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="724"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="733"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="743"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="752"/>
         <source>Rename a Connection</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="724"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="743"/>
         <source>The name cannot be empty</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="733"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="752"/>
         <source>The name has been used already, Please choose another.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="763"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="784"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="788"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="782"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="803"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="807"/>
         <source>Removing this Connection</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="763"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="782"/>
         <source>Are you sure to remove this connection?</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="784"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="788"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="803"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="807"/>
         <source>Failed to delete connection file, please delete manually.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="828"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="870"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="907"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="847"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="889"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="926"/>
         <source>No Config Selected</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="828"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="870"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="907"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="847"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="889"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="926"/>
         <source>Please Select a Config</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="877"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="896"/>
         <source>Editing a subscription config</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="877"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="896"/>
         <source>You are trying to edit a config loaded from subscription.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="878"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="897"/>
         <source>All changes will be overwritten when the subscriptions are updated next time.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="879"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="898"/>
         <source>Are you still going to do so?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="953"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="972"/>
         <source>Share Connection</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="953"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="972"/>
         <source>There&apos;re no support of sharing configs other than vmess</source>
         <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.cpp" line="1073"/>
+        <source>Subscription</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2140,28 +2155,28 @@ p, li { white-space: pre-wrap; }
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="35"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="45"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="39"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="49"/>
         <source>Editing a subscription config</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="35"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="39"/>
         <source>You are trying to edit a config loaded from subscription.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="36"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="40"/>
         <source>All changes will be overwritten when the subscriptions are updated next time.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="37"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="41"/>
         <source>Are you still going to do so?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="45"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="49"/>
         <source>You should not modity this property of a config from a subscription</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2696,19 +2711,19 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_SubscriptionEditor.ui" line="79"/>
-        <source>#AddConnection</source>
-        <translation></translation>
-    </message>
-    <message>
         <location filename="../src/ui/w_SubscriptionEditor.ui" line="82"/>
         <source>A</source>
         <translation></translation>
     </message>
     <message>
+        <location filename="../src/ui/w_SubscriptionEditor.ui" line="79"/>
+        <source>Add Subscription</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/ui/w_SubscriptionEditor.ui" line="95"/>
-        <source>#RemoveConnection</source>
-        <translation></translation>
+        <source>Remove Subscription</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ui/w_SubscriptionEditor.ui" line="98"/>
@@ -2716,27 +2731,27 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_SubscriptionEditor.ui" line="123"/>
+        <location filename="../src/ui/w_SubscriptionEditor.ui" line="126"/>
         <source>Subscription Details</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_SubscriptionEditor.ui" line="131"/>
+        <location filename="../src/ui/w_SubscriptionEditor.ui" line="134"/>
         <source>Subscription Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_SubscriptionEditor.ui" line="141"/>
+        <location filename="../src/ui/w_SubscriptionEditor.ui" line="144"/>
         <source>Subscription Address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_SubscriptionEditor.ui" line="153"/>
+        <location filename="../src/ui/w_SubscriptionEditor.ui" line="156"/>
         <source>Connection List</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_SubscriptionEditor.ui" line="172"/>
+        <location filename="../src/ui/w_SubscriptionEditor.ui" line="175"/>
         <source>Update Subscription Data</source>
         <translation type="unfinished"></translation>
     </message>
