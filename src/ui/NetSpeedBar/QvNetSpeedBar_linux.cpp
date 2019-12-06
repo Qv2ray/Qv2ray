@@ -60,9 +60,9 @@ namespace Qv2ray
                     QObject::connect(server, &QLocalServer::newConnection, messageProxy, &QObjectMessageProxy::processMessage);
 
                     while (!isExiting) {
-                        bool result = server->waitForNewConnection(200, &timeOut);
-                        LOG(MODULE_PLUGIN, "Plugin thread listening failed: " + server->errorString().toStdString())
-                        LOG(MODULE_PLUGIN, "waitForNewConnection: " + string(result ? "true" : "false") + ", " + string(timeOut ? "true" : "false"))
+                        bool result = server->waitForNewConnection(5000, &timeOut);
+                        DEBUG(MODULE_PLUGIN, "Plugin thread listening failed: " + server->errorString().toStdString())
+                        DEBUG(MODULE_PLUGIN, "waitForNewConnection: " + string(result ? "true" : "false") + ", " + string(timeOut ? "true" : "false"))
                     }
 
                     server->close();

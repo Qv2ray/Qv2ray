@@ -143,6 +143,16 @@ void SubscribeEditor::on_removeSubsButton_clicked()
         QDir(QV2RAY_SUBSCRIPTION_DIR + name).removeRecursively();
     }
 
+    // If removed a whole subscription...
+    auto conf = GetGlobalConfig();
+
+    if (conf.autoStartConfig.subscriptionName == name.toStdString()) {
+        conf.autoStartConfig.subscriptionName.clear();
+        conf.autoStartConfig.connectionName.clear();
+        SetGlobalConfig(conf);
+    }
+
+    groupBox_2->setEnabled(subscriptionList->count() > 0);
     SaveConfig();
 }
 
@@ -188,4 +198,9 @@ void SubscribeEditor::SaveConfig()
 void SubscribeEditor::on_buttonBox_accepted()
 {
     SaveConfig();
+}
+
+void SubscribeEditor::on_subscriptionList_itemSelectionChanged()
+{
+    groupBox_2->setEnabled(subscriptionList->selectedItems().count() > 0);
 }
