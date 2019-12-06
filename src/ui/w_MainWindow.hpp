@@ -15,8 +15,13 @@
 
 #include "ui_w_MainWindow.h"
 
+enum TREENODEOBJECT_TYPE {
+    CON_REGULAR = 1,
+    CON_SUBSCRIPTION = 2
+};
+//
 struct ConnectionObject {
-    bool isRegularConnection;
+    TREENODEOBJECT_TYPE configType;
     QString subscriptionName;
     QString connectionName;
     CONFIGROOT config;
@@ -97,7 +102,11 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         void on_action_RCM_ConvToComplex_triggered();
         void on_action_RCM_RenameConnection_triggered();
 
+        void on_connectionListWidget_itemSelectionChanged();
+
     private:
+        //
+        void SetEditWidgetEnable(bool enabled);
         // Charts
         QChartView *speedChartView;
         QChart *speedChartObj;

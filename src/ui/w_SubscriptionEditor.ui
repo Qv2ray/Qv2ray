@@ -76,7 +76,7 @@
            </sizepolicy>
           </property>
           <property name="toolTip">
-           <string>#AddConnection</string>
+           <string>Add Subscription</string>
           </property>
           <property name="text">
            <string>A</string>
@@ -92,7 +92,7 @@
            </sizepolicy>
           </property>
           <property name="toolTip">
-           <string>#RemoveConnection</string>
+           <string>Remove Subscription</string>
           </property>
           <property name="text">
            <string>D</string>
@@ -119,6 +119,9 @@
    </item>
    <item row="0" column="1">
     <widget class="QGroupBox" name="groupBox_2">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="title">
       <string>Subscription Details</string>
      </property>

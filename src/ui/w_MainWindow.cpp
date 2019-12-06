@@ -30,23 +30,28 @@
 #define vCoreLogBrowser this->logTextBrowsers[0]
 #define qvAppLogBrowser this->logTextBrowsers[1]
 #define currentLogBrowser this->logTextBrowsers[currentLogBrowserId]
-#define SUBSCRIPTION_CONFIG_MODIFY_ASK(varName)                                                                                              \
-    if (!connections[varName].isRegularConnection) {                                                                                         \
-        if (QvMessageBoxAsk(this, QObject::tr("Editing a subscription config"), QObject::tr("You are trying to edit a config loaded from subscription.") +     \
-                            NEWLINE + QObject::tr("All changes will be overwritten when the subscriptions are updated next time.") +                  \
-                            NEWLINE + QObject::tr("Are you still going to do so?")) != QMessageBox::Yes) {                                            \
-            return;                                                                                                                          \
-        }                                                                                                                                    \
-    }                                                                                                                                        \
+
+#define IsRegularConfig(var) (connections.contains(var) && connections[var].configType == CON_REGULAR)
+#define IsSubscription(var) (connections.contains(var) && connections[var].configType == CON_SUBSCRIPTION)
+
+#define SUBSCRIPTION_CONFIG_MODIFY_ASK(varName)                                                                                                                 \
+    if (!IsRegularConfig(varName)) {                                                                                                                            \
+        if (QvMessageBoxAsk(this, QObject::tr("Editing a subscription config"), QObject::tr("You are trying to edit a config loaded from subscription.") +      \
+                            NEWLINE + QObject::tr("All changes will be overwritten when the subscriptions are updated next time.") +                            \
+                            NEWLINE + QObject::tr("Are you still going to do so?")) != QMessageBox::Yes) {                                                      \
+            return;                                                                                                                                             \
+        }                                                                                                                                                       \
+    }                                                                                                                                                           \
 
 
-#define SUBSCRIPTION_CONFIG_MODIFY_DENY(varName)                                                                                             \
-    if (!connections[varName].isRegularConnection) {                                                                                         \
-        QvMessageBox(this, QObject::tr("Editing a subscription config"), QObject::tr("You should not modity this property of a config from a subscription"));  \
-        return;                                                                                                                              \
-    }                                                                                                                                        \
+#define SUBSCRIPTION_CONFIG_MODIFY_DENY(varName)                                                                                                                \
+    if (!IsRegularConfig(varName)) {                                                                                                                            \
+        QvMessageBox(this, QObject::tr("Editing a subscription config"), QObject::tr("You should not modity this property of a config from a subscription"));   \
+        return;                                                                                                                                                 \
+    }                                                                                                                                                           \
 
-#define SelectionIsInvalid connectionListWidget->selectedItems().empty() || connectionListWidget->selectedItems().first()->childCount() > 0
+#define NotConnectableItem(item) (item == nullptr || item->childCount() > 0 || !(IsRegularConfig(item->text(0)) || IsSubscription(item->text(0))))
+#define NotConnectable (connectionListWidget->selectedItems().empty() || NotConnectableItem(connectionListWidget->selectedItems().first()))
 
 MainWindow *MainWindow::mwInstance = nullptr;
 
@@ -219,6 +224,15 @@ MainWindow::MainWindow(QWidget *parent):
     StartProcessingPlugins();
 }
 
+void MainWindow::SetEditWidgetEnable(bool enabled)
+{
+    removeConfigButton->setEnabled(enabled);
+    editConfigButton->setEnabled(enabled);
+    duplicateBtn->setEnabled(enabled);
+    editJsonBtn->setEnabled(enabled);
+    shareBtn->setEnabled(enabled);
+}
+
 void MainWindow::mouseReleaseEvent(QMouseEvent *e)
 {
     Q_UNUSED(e)
@@ -241,7 +255,7 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
         if (focusWidget() == connectionListWidget) {
             auto index = connectionListWidget->selectedItems();
 
-            if (index.count() == 0) return;
+            if (index.count() == 0 || NotConnectableItem(index.first())) return;
 
             auto connectionName = index.first()->text(0);
             ShowAndSetConnection(connectionName, true, true);
@@ -252,7 +266,7 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
 
 void MainWindow::on_action_StartThis_triggered()
 {
-    if (SelectionIsInvalid) {
+    if (NotConnectable) {
         QvMessageBox(this, tr("No connection selected!"), tr("Please select a config from the list."));
         return;
     }
@@ -304,7 +318,7 @@ void MainWindow::LoadConnections()
 
     for (auto i = 0; i < _regularConnections.count(); i++) {
         ConnectionObject _o;
-        _o.isRegularConnection = true;
+        _o.configType = CON_REGULAR;
         _o.subscriptionName = "";
         _o.connectionName = _regularConnections.keys()[i];
         _o.config = _regularConnections.values()[i];
@@ -321,7 +335,7 @@ void MainWindow::LoadConnections()
 
         for (auto j = 0; j < _subsConnections.values()[i].count(); j++) {
             ConnectionObject _o;
-            _o.isRegularConnection = false;
+            _o.configType = CON_SUBSCRIPTION;
             _o.subscriptionName = subName;
             _o.connectionName = _subsConnections.values()[i].keys()[j];
             _o.config = _subsConnections.values()[i].values()[j];
@@ -332,11 +346,7 @@ void MainWindow::LoadConnections()
     }
 
     connectionListWidget->sortItems(0, Qt::SortOrder::AscendingOrder);
-    //
-    removeConfigButton->setEnabled(false);
-    editConfigButton->setEnabled(false);
-    editJsonBtn->setEnabled(false);
-    duplicateBtn->setEnabled(false);
+    SetEditWidgetEnable(false);
 
     // We set the current item back...
     if (vinstance->ConnectionStatus == STARTED && !CurrentConnectionName.isEmpty()) {
@@ -610,17 +620,18 @@ void MainWindow::ShowAndSetConnection(QString guiConnectionName, bool SetConnect
     // Check empty again...
     if (guiConnectionName.isEmpty()) return;
 
-    //
-    removeConfigButton->setEnabled(true);
-    editConfigButton->setEnabled(true);
-    editJsonBtn->setEnabled(true);
-    duplicateBtn->setEnabled(true);
+    SetEditWidgetEnable(true);
     //
     // --------- BRGIN Show Connection
-    auto root = connections[guiConnectionName].config;
+    auto conf = connections[guiConnectionName];
+    auto root = conf.config;
     //
-    auto isComplexConfig = root["routing"].toObject()["rules"].toArray().count() > 0;
-    routeCountLabel->setText(isComplexConfig > 0 ? tr("Complex") : tr("Simple"));
+    auto isComplexConfig = CheckIsComplexConfig(root);
+    routeCountLabel->setText(isComplexConfig ? tr("Complex") : tr("Simple"));
+
+    if (conf.configType == CON_SUBSCRIPTION) {
+        routeCountLabel->setText(routeCountLabel->text().append(" (" + tr("From subscription") + ":" + conf.subscriptionName + ")"));
+    }
 
     if (isComplexConfig) {
         _OutBoundTypeLabel->setText(tr("N/A"));
@@ -645,6 +656,9 @@ void MainWindow::ShowAndSetConnection(QString guiConnectionName, bool SetConnect
             auto Server = StructFromJsonString<SocksServerObject>(x);
             _hostLabel->setText(QSTRING(Server.address));
             _portLabel->setText(QSTRING(to_string(Server.port)));
+        } else {
+            _hostLabel->setText(tr("N/A"));
+            _portLabel->setText(tr("N/A"));
         }
     }
 
@@ -664,9 +678,9 @@ void MainWindow::on_connectionListWidget_itemClicked(QTreeWidgetItem *item, int 
 {
     Q_UNUSED(column)
 
-    if (item == nullptr || item->childCount() > 0) return;
+    if (NotConnectableItem(item)) return;
 
-    QString currentText = connectionListWidget->currentItem()->text(0);
+    QString currentText = item->text(0);
     bool canSetConnection = !isRenamingInProgress && vinstance->ConnectionStatus != STARTED;
     ShowAndSetConnection(currentText, canSetConnection, false);
 }
@@ -680,7 +694,7 @@ void MainWindow::on_connectionListWidget_doubleClicked(const QModelIndex &index)
 {
     Q_UNUSED(index)
 
-    if (SelectionIsInvalid) return;
+    if (NotConnectable) return;
 
     QString currentText = connectionListWidget->currentItem()->text(0);
     ShowAndSetConnection(currentText, true, true);
@@ -698,7 +712,12 @@ void MainWindow::on_connectionListWidget_currentItemChanged(QTreeWidgetItem *cur
 void MainWindow::on_connectionListWidget_customContextMenuRequested(const QPoint &pos)
 {
     Q_UNUSED(pos)
-    listMenu->popup(QCursor::pos());
+    auto _pos = QCursor::pos();
+    auto item = connectionListWidget->itemAt(connectionListWidget->mapFromGlobal(_pos));
+
+    if (!NotConnectableItem(item)) {
+        listMenu->popup(_pos);
+    }
 }
 void MainWindow::on_action_RCM_RenameConnection_triggered()
 {
@@ -758,7 +777,7 @@ void MainWindow::on_connectionListWidget_itemChanged(QTreeWidgetItem *item, int)
 }
 void MainWindow::on_removeConfigButton_clicked()
 {
-    if (SelectionIsInvalid) return;
+    if (NotConnectable) return;
 
     if (QvMessageBoxAsk(this, tr("Removing this Connection"), tr("Are you sure to remove this connection?")) == QMessageBox::Yes) {
         auto connectionName = connectionListWidget->currentItem()->text(0);
@@ -772,7 +791,7 @@ void MainWindow::on_removeConfigButton_clicked()
         auto connData = connections[connectionName];
         auto conf = GetGlobalConfig();
 
-        if (connData.isRegularConnection) {
+        if (connData.configType == CON_REGULAR) {
             if (!connData.subscriptionName.isEmpty()) {
                 LOG(MODULE_UI, "Unexpected subscription name in a single regular config.")
                 connData.subscriptionName.clear();
@@ -824,7 +843,7 @@ void MainWindow::on_importConfigButton_clicked()
 void MainWindow::on_editConfigButton_clicked()
 {
     // Check if we have a connection selected...
-    if (SelectionIsInvalid) {
+    if (NotConnectable) {
         QvMessageBox(this, tr("No Config Selected"), tr("Please Select a Config"));
         return;
     }
@@ -866,14 +885,14 @@ void MainWindow::on_reconnectButton_clicked()
 void MainWindow::on_action_RCM_ConvToComplex_triggered()
 {
     // Check if we have a connection selected...
-    if (SelectionIsInvalid) {
+    if (NotConnectable) {
         QvMessageBox(this, tr("No Config Selected"), tr("Please Select a Config"));
         return;
     }
 
     auto alias = connectionListWidget->currentItem()->text(0);
 
-    if (connections[alias].isRegularConnection) {
+    if (connections[alias].configType == CON_SUBSCRIPTION) {
         if (QvMessageBoxAsk(this, tr("Editing a subscription config"), tr("You are trying to edit a config loaded from subscription.") +
                             NEWLINE + tr("All changes will be overwritten when the subscriptions are updated next time.") +
                             NEWLINE + tr("Are you still going to do so?")) != QMessageBox::Yes) {
@@ -903,7 +922,7 @@ void MainWindow::on_action_RCM_ConvToComplex_triggered()
 void MainWindow::on_action_RCM_EditJson_triggered()
 {
     // Check if we have a connection selected...
-    if (SelectionIsInvalid) {
+    if (NotConnectable) {
         QvMessageBox(this, tr("No Config Selected"), tr("Please Select a Config"));
         return;
     }
@@ -934,7 +953,7 @@ void MainWindow::on_pingTestBtn_clicked()
 void MainWindow::on_shareBtn_clicked()
 {
     // Share QR
-    if (SelectionIsInvalid) {
+    if (NotConnectable) {
         return;
     }
 
@@ -1010,7 +1029,7 @@ void MainWindow::timerEvent(QTimerEvent *event)
 }
 void MainWindow::on_duplicateBtn_clicked()
 {
-    if (SelectionIsInvalid) {
+    if (NotConnectable) {
         return;
     }
 
@@ -1019,7 +1038,7 @@ void MainWindow::on_duplicateBtn_clicked()
     CONFIGROOT conf;
     auto connData = connections[alias];
 
-    if (connData.isRegularConnection) {
+    if (connData.configType == CON_REGULAR) {
         conf = ConvertConfigFromFile(QV2RAY_CONFIG_DIR + alias + QV2RAY_CONFIG_FILE_EXTENSION, false);
     } else {
         conf = ConvertConfigFromFile(QV2RAY_SUBSCRIPTION_DIR + connData.subscriptionName + "/" + connData.connectionName  + QV2RAY_CONFIG_FILE_EXTENSION, false);
@@ -1046,3 +1065,14 @@ void MainWindow::on_subsButton_clicked()
     OnConfigListChanged(false);
 }
 
+
+void MainWindow::on_connectionListWidget_itemSelectionChanged()
+{
+    if (NotConnectable) {
+        SetEditWidgetEnable(false);
+        routeCountLabel->setText(tr("Subscription"));
+        _OutBoundTypeLabel->setText(tr("N/A"));
+        _hostLabel->setText(tr("N/A"));
+        _portLabel->setText(tr("N/A"));
+    }
+}
