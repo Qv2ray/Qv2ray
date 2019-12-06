@@ -129,13 +129,15 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         int speedTimerId;
         //
         void ShowAndSetConnection(QString currentText, bool SetConnection, bool Apply);
-        void LoadConnections();
+        void ReloadConnections();
         //
         QvHttpRequestHelper HTTPRequestHelper;
         QSystemTrayIcon *hTray;
         PACServer *pacServer;
         SyntaxHighlighter *vCoreLogHighlighter;
         SyntaxHighlighter *qvAppLogHighlighter;
+
+        Qv2rayConfig currentConfig;
 
         QList<QTextBrowser *> logTextBrowsers;
         int currentLogBrowserId = 0;

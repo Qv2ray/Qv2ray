@@ -29,7 +29,7 @@ namespace Qv2ray
                 process.setProcessEnvironment(env);
                 process.start(QSTRING(conf.v2CorePath), QStringList() << "-test" << "-config" << path, QIODevice::ReadWrite | QIODevice::Text);
 
-                if (!process.waitForFinished(1000)) {
+                if (!process.waitForFinished(1000) && process.exitCode() != 0) {
                     LOG(MODULE_VCORE, "v2ray core failed with exitcode: " + to_string(process.exitCode()))
                     QvMessageBox(nullptr, tr("Cannot start v2ray"), tr("v2ray core failed with errcode:") + QString::number(process.exitCode()));
                     return false;
