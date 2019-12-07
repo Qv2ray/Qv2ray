@@ -16,7 +16,7 @@
    version="1.1"
    id="svg8"
    inkscape:version="0.92.4 5da689c313, 2019-01-14"
-   sodipodi:docname="Qv2ray_AppLogo-noBG.svg"
+   sodipodi:docname="Applogo_Circle.svg"
    inkscape:export-filename="/tmp/makepkg/qv2ray-dev-git/src/qv2ray-dev-git/icons/qv2ray.png"
    inkscape:export-xdpi="292.57144"
    inkscape:export-ydpi="292.57144">
@@ -192,16 +192,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="15.980121"
-     inkscape:cx="20.802729"
-     inkscape:cy="23.989658"
+     inkscape:zoom="7.9900605"
+     inkscape:cx="-1.1588302"
+     inkscape:cy="19.460017"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1920"
-     inkscape:window-height="1001"
+     inkscape:window-height="1050"
      inkscape:window-x="0"
-     inkscape:window-y="26"
+     inkscape:window-y="30"
      inkscape:window-maximized="1"
      inkscape:snap-object-midpoints="true"
      inkscape:snap-smooth-nodes="true"
@@ -314,6 +314,6 @@
          id="tspan875"
          x="6.0134816"
          y="291.99249"
-         style="fill:#ffffff;fill-opacity:1;stroke-width:0.04434972">V2ray</tspan></text>
+         style="fill:#ffffff;fill-opacity:1;stroke-width:0.04434972">v2ray</tspan></text>
   </g>
 </svg>
