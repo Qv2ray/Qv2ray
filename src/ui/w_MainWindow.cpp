@@ -741,16 +741,27 @@ void MainWindow::on_connectionListWidget_itemChanged(QTreeWidgetItem *item, int)
         LOG(MODULE_CONNECTION, "RENAME: " + originalName.toStdString() + " -> " + item->text(0).toStdString())
         auto newName = item->text(0);
 
-        if (newName.trimmed().isEmpty()) {
-            QvMessageBox(this, tr("Rename a Connection"), tr("The name cannot be empty"));
-            return;
-        }
-
         // If I really did some changes.
-
         if (originalName != newName) {
+            bool canGo = true;
+
+            if (newName.trimmed().isEmpty()) {
+                QvMessageBox(this, tr("Rename a Connection"), tr("The name cannot be empty"));
+                canGo = false;
+            }
+
             if (contains(currentConfig.configs, newName.toStdString())) {
                 QvMessageBox(this, tr("Rename a Connection"), tr("The name has been used already, Please choose another."));
+                canGo = false;
+            }
+
+            if (!IsValidFileName(newName + QV2RAY_CONFIG_FILE_EXTENSION)) {
+                QvMessageBox(this, tr("Rename a Connection"), tr("The name you suggested is not valid, please try another."));
+                canGo = false;
+            }
+
+            if (!canGo) {
+                item->setText(0, originalName);
                 return;
             }
 
