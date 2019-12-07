@@ -89,6 +89,11 @@ namespace Qv2ray
         QString ConvertGFWToPAC(const QString &rawContent, const QString &customProxyString);
         void QFastAppendTextDocument(const QString &message, QTextDocument *doc);
         QStringList ConvertQStringList(const list<string> &stdListString);
+        inline bool IsValidFileName(const QString &str)
+        {
+            // If no match, we are good.
+            return QRegExp("[\\\\/?%*:|\"><]").indexIn(str) == -1;
+        }
     }
 }
 

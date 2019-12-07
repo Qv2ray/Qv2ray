@@ -47,15 +47,26 @@ void SubscribeEditor::on_addSubsButton_clicked()
 
 void SubscribeEditor::on_updateButton_clicked()
 {
-    auto newName = subNameTxt->text();
-    auto newAddress = subAddrTxt->text();
+    auto newName = subNameTxt->text().trimmed();
+    auto newAddress = subAddrTxt->text().trimmed();
 
     if (currentSubName != newName) {
         // Rename needed.
         LOG(MODULE_SUBSCRIPTION, "Renaming a subscription, from " + currentSubName.toStdString() + " to: " + newName.toStdString())
+        bool canGo = true;
+
+        if (newName.isEmpty() || !IsValidFileName(newName)) {
+            QvMessageBox(this, tr("Renaming a subscription"), tr("The subscription name is invalid, please try another."));
+            canGo = false;
+        }
 
         if (subscriptionList->findItems(newName, Qt::MatchExactly).count() > 0) {
-            QvMessageBox(this, tr("Renaming a subscription"), tr("New name of this subscription has been used already, please suggest a new name"));
+            QvMessageBox(this, tr("Renaming a subscription"), tr("New name of this subscription has been used already, please suggest another one"));
+            canGo = false;
+        }
+
+        if (!canGo) {
+            subNameTxt->setText(currentSubName);
             return;
         }
 
@@ -91,7 +102,7 @@ void SubscribeEditor::on_updateButton_clicked()
 
     SaveConfig();
 
-    if (QvMessageBoxAsk(this, tr("Update Subscription"), tr("Would you like to update this subscription?")) == QMessageBox::Yes) {
+    if (QvMessageBoxAsk(this, tr("Update Subscription"), tr("Would you like to reload this subscription from the Url?")) == QMessageBox::Yes) {
         StartUpdateSubscription(currentSubName);
     }
 }
