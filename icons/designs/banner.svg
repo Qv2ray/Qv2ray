@@ -16,7 +16,7 @@
    version="1.1"
    id="svg8"
    inkscape:version="0.92.4 5da689c313, 2019-01-14"
-   sodipodi:docname="Qv2ray_Banner.svg"
+   sodipodi:docname="banner.svg"
    inkscape:export-filename="/home/axionl/Qv2ray_Banner.png"
    inkscape:export-xdpi="96"
    inkscape:export-ydpi="96">
@@ -260,16 +260,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="3.959798"
-     inkscape:cx="302.28651"
-     inkscape:cy="226.42951"
+     inkscape:zoom="1.4"
+     inkscape:cx="187.2825"
+     inkscape:cy="133.11493"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      units="px"
-     inkscape:window-width="1874"
+     inkscape:window-width="1920"
      inkscape:window-height="1050"
-     inkscape:window-x="46"
+     inkscape:window-x="0"
      inkscape:window-y="30"
      inkscape:window-maximized="1"
      inkscape:object-paths="true"
@@ -345,7 +345,7 @@
          id="tspan1202"
          x="30.43325"
          y="289.26395"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Noto Sans';-inkscape-font-specification:'Noto Sans';fill:#4d4d4d;fill-opacity:1;stroke-width:0.50737071">QV2ray</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Noto Sans';-inkscape-font-specification:'Noto Sans';fill:#4d4d4d;fill-opacity:1;stroke-width:0.50737071">Qv2ray</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:20.68452454px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#666666;fill-opacity:1;stroke:none;stroke-width:0.51711321"
@@ -465,7 +465,7 @@
            y="238.31897"
            x="84.891068"
            id="tspan875"
-           sodipodi:role="line">V2ray</tspan></text>
+           sodipodi:role="line">v2ray</tspan></text>
     </g>
   </g>
 </svg>
