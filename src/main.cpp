@@ -233,7 +233,8 @@ int main(int argc, char *argv[])
         // This is rare but it may happen....
         QvMessageBox(nullptr, QObject::tr("Qv2ray Cannot Continue"),
                      QObject::tr("You are running a lower version of Qv2ray compared to the current config file.") + NEWLINE +
-                     QObject::tr("Please report if you think this is an error.") + NEWLINE +
+                     QObject::tr("Please check if there's an issue explaining about it.") + NEWLINE +
+                     QObject::tr("Or submit a new issue if you think this is an error.") + NEWLINE + NEWLINE +
                      QObject::tr("Qv2ray will now exit."));
         return -3;
     } else if (confVersion != newVersion) {
