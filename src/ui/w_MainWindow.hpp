@@ -6,14 +6,15 @@
 #include <QtCharts>
 #include <QSystemTrayIcon>
 
+#include "ui_w_MainWindow.h"
+
 #include "QvUtils.hpp"
 #include "QvCoreInteractions.hpp"
 #include "QvCoreConfigOperations.hpp"
 #include "QvHTTPRequestHelper.hpp"
 #include "QvPACHandler.hpp"
 #include "QvLogHighlighter.hpp"
-
-#include "ui_w_MainWindow.h"
+#include "QvTCPing.hpp"
 
 enum TREENODEOBJECT_TYPE {
     CON_REGULAR = 1,
@@ -24,6 +25,7 @@ struct ConnectionObject {
     TREENODEOBJECT_TYPE configType;
     QString subscriptionName;
     QString connectionName;
+    double latency;
     CONFIGROOT config;
 };
 
@@ -38,6 +40,7 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         void DisConnect() const;
         void ReConnect() const;
     public slots:
+        void onPingFinished(QvTCPingData data);
         void UpdateVCoreLog(const QString &log);
         void OnConfigListChanged(bool need_restart);
     private slots:
@@ -80,8 +83,6 @@ class MainWindow : public QMainWindow, Ui::MainWindow
 
         void on_duplicateBtn_clicked();
 
-        void on_masterLogBrowser_textChanged();
-
         void on_subsButton_clicked();
 
     public:
@@ -101,7 +102,6 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         void on_action_RCM_EditJson_triggered();
         void on_action_RCM_ConvToComplex_triggered();
         void on_action_RCM_RenameConnection_triggered();
-
         void on_connectionListWidget_itemSelectionChanged();
 
     private:
@@ -127,16 +127,19 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         //
         int logTimerId;
         int speedTimerId;
+        int pingTimerId;
         //
         void ShowAndSetConnection(QString currentText, bool SetConnection, bool Apply);
         void ReloadConnections();
         //
-        QvHttpRequestHelper HTTPRequestHelper;
+        //
+        QvHttpRequestHelper *requestHelper;
         QSystemTrayIcon *hTray;
         PACServer *pacServer;
+        QvTCPingModel *tcpingModel;
         SyntaxHighlighter *vCoreLogHighlighter;
         SyntaxHighlighter *qvAppLogHighlighter;
-
+        //
         Qv2rayConfig currentConfig;
 
         QList<QTextBrowser *> logTextBrowsers;

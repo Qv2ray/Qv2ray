@@ -56,7 +56,7 @@
 MainWindow *MainWindow::mwInstance = nullptr;
 
 MainWindow::MainWindow(QWidget *parent):
-    QMainWindow(parent), vinstance(), uploadList(), downloadList(), HTTPRequestHelper(),
+    QMainWindow(parent), vinstance(), uploadList(), downloadList(),
     hTray(new QSystemTrayIcon(this)), vCoreLogHighlighter(), qvAppLogHighlighter()
 {
     MainWindow::mwInstance = this;
@@ -86,6 +86,10 @@ MainWindow::MainWindow(QWidget *parent):
     logTimerId = startTimer(500);
     //
     pacServer = new PACServer();
+    tcpingModel = new QvTCPingModel(5, this);
+    requestHelper = new QvHttpRequestHelper();
+    connect(tcpingModel, &QvTCPingModel::PingFinished, this, &MainWindow::onPingFinished);
+    //
     this->setWindowIcon(QIcon(":/icons/qv2ray.png"));
     hTray->setIcon(QIcon(currentConfig.uiConfig.useDarkTrayIcon ? ":/icons/ui_dark/tray.png" : ":/icons/ui_light/tray.png"));
     importConfigButton->setIcon(QICON_R("import.png"));
@@ -154,8 +158,6 @@ MainWindow::MainWindow(QWidget *parent):
     listMenu->addAction(action_RCM_ShareQR);
     //
     ReloadConnections();
-    connect(&HTTPRequestHelper, &QvHttpRequestHelper::httpRequestFinished, this, &MainWindow::VersionUpdate);
-    HTTPRequestHelper.get("https://api.github.com/repos/lhy0403/Qv2ray/releases/latest");
     //
     // For charts
     uploadSerie = new QSplineSeries(this);
@@ -221,6 +223,8 @@ MainWindow::MainWindow(QWidget *parent):
         this->show();
     }
 
+    connect(requestHelper, &QvHttpRequestHelper::httpRequestFinished, this, &MainWindow::VersionUpdate);
+    requestHelper->get("https://api.github.com/repos/lhy0403/Qv2ray/releases/latest");
     StartProcessingPlugins();
 }
 
@@ -229,6 +233,7 @@ void MainWindow::SetEditWidgetEnable(bool enabled)
     removeConfigButton->setEnabled(enabled);
     editConfigButton->setEnabled(enabled);
     duplicateBtn->setEnabled(enabled);
+    pingTestBtn->setEnabled(enabled);
     editJsonBtn->setEnabled(enabled);
     shareBtn->setEnabled(enabled);
 }
@@ -320,6 +325,7 @@ void MainWindow::ReloadConnections()
         _o.subscriptionName = "";
         _o.connectionName = _regularConnections.keys()[i];
         _o.config = _regularConnections.values()[i];
+        _o.latency = 0;
         connections[_o.connectionName] = _o;
         connectionListWidget->addTopLevelItem(new QTreeWidgetItem(QStringList() << _o.connectionName));
     }
@@ -337,6 +343,7 @@ void MainWindow::ReloadConnections()
             _o.subscriptionName = subName;
             _o.connectionName = _subsConnections.values()[i].keys()[j];
             _o.config = _subsConnections.values()[i].values()[j];
+            _o.latency = 0;
             auto connName = _o.connectionName + " (" + tr("Subscription:") + " " + _o.subscriptionName + ")";
             connections[connName] = _o;
             subTopLevel->addChild(new QTreeWidgetItem(QStringList() << connName));
@@ -418,10 +425,13 @@ void MainWindow::on_startButton_clicked()
         bool startFlag = this->vinstance->StartConnection(CurrentFullConfig, currentConfig.connectionConfig.enableStats, currentConfig.connectionConfig.statsPort);
 
         if (startFlag) {
+            on_pingTestBtn_clicked();
+
             if (currentConfig.connectionConfig.enableStats) {
                 speedTimerId = startTimer(1000);
             }
 
+            pingTimerId = startTimer(60000);
             this->hTray->showMessage("Qv2ray", tr("Connected To Server: ") + CurrentConnectionName, this->windowIcon());
             hTray->setToolTip(TRAY_TOOLTIP_PREFIX NEWLINE + tr("Connected To Server: ") + CurrentConnectionName);
             statusLabel->setText(tr("Connected") + ": " + CurrentConnectionName);
@@ -525,6 +535,7 @@ void MainWindow::on_stopButton_clicked()
         // Is running or starting
         this->vinstance->StopConnection();
         killTimer(speedTimerId);
+        killTimer(pingTimerId);
         hTray->setToolTip(TRAY_TOOLTIP_PREFIX);
         QFile(QV2RAY_GENERATED_FILE_PATH).remove();
         statusLabel->setText(tr("Disconnected"));
@@ -630,6 +641,12 @@ void MainWindow::ShowAndSetConnection(QString guiConnectionName, bool SetConnect
     //
     auto isComplexConfig = CheckIsComplexConfig(root);
     routeCountLabel->setText(isComplexConfig ? tr("Complex") : tr("Simple"));
+
+    if (conf.latency == 0.0) {
+        latencyLabel->setText(tr("No data yet"));
+    } else {
+        latencyLabel->setText(QString::number(conf.latency) + " " + tr("ms"));
+    }
 
     if (conf.configType == CON_SUBSCRIPTION) {
         routeCountLabel->setText(routeCountLabel->text().append(" (" + tr("From subscription") + ":" + conf.subscriptionName + ")"));
@@ -962,6 +979,13 @@ void MainWindow::on_editJsonBtn_clicked()
 void MainWindow::on_pingTestBtn_clicked()
 {
     // Ping
+    if (!IsSelectionConnectable) {
+        return;
+    }
+
+    // We get data from UI?
+    auto alias = connectionListWidget->currentItem()->text(0);
+    tcpingModel->StartPing(alias, _hostLabel->text(), stoi(_portLabel->text().isEmpty() ? "0" : _portLabel->text().toStdString()));
 }
 void MainWindow::on_shareBtn_clicked()
 {
@@ -1038,6 +1062,8 @@ void MainWindow::timerEvent(QTimerEvent *event)
         if (!lastLog.isEmpty()) {
             qvAppLogBrowser->append(lastLog);
         }
+    } else if (event->timerId() == pingTimerId) {
+        on_pingTestBtn_clicked();
     }
 }
 void MainWindow::on_duplicateBtn_clicked()
@@ -1065,11 +1091,6 @@ void MainWindow::on_duplicateBtn_clicked()
     this->OnConfigListChanged(false);
 }
 
-void MainWindow::on_masterLogBrowser_textChanged()
-{
-    //setMasterLogHBar();
-}
-
 void MainWindow::on_subsButton_clicked()
 {
     SubscribeEditor w;
@@ -1086,5 +1107,18 @@ void MainWindow::on_connectionListWidget_itemSelectionChanged()
         _OutBoundTypeLabel->setText(tr("N/A"));
         _hostLabel->setText(tr("N/A"));
         _portLabel->setText(tr("N/A"));
+    }
+}
+
+void MainWindow::onPingFinished(QvTCPingData data)
+{
+    if (!connections.contains(data.connectionName)) {
+        return;
+    }
+
+    connections[data.connectionName].latency = data.avg;
+
+    if (data.connectionName == CurrentConnectionName) {
+        ShowAndSetConnection(CurrentConnectionName, false, false);
     }
 }

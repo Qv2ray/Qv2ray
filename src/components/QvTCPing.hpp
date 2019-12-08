@@ -26,14 +26,13 @@ namespace Qv2ray
             double min = 999999999999999.0, max = 0.0, avg = 0.0;
         };
         //
-        //
 
-        class TCPingModel : public QObject
+        class QvTCPingModel : public QObject
         {
                 Q_OBJECT
 
             public:
-                explicit TCPingModel(int defaultCount = 5, QObject *parent = nullptr);
+                explicit QvTCPingModel(int defaultCount = 5, QObject *parent = nullptr);
                 void StartPing(const QString &connectionName, const QString &hostName, int port);
             signals:
                 void PingFinished(QvTCPingData data);

@@ -334,6 +334,20 @@
            </property>
           </widget>
          </item>
+         <item row="4" column="0">
+          <widget class="QLabel" name="label_8">
+           <property name="text">
+            <string>Latency</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="1">
+          <widget class="QLabel" name="latencyLabel">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
         </layout>
        </item>
        <item>
@@ -377,7 +391,7 @@
          <item>
           <widget class="QPushButton" name="pingTestBtn">
            <property name="enabled">
-            <bool>false</bool>
+            <bool>true</bool>
            </property>
            <property name="text">
             <string>Ping Test</string>
