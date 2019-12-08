@@ -7,7 +7,6 @@
 #include <algorithm>
 #include "QvTinyLog.hpp"
 #include "QvCoreConfigObjects.hpp"
-#include "QObjectMessageProxy.hpp"
 
 #define QV2RAY_CONFIG_VERSION 14
 

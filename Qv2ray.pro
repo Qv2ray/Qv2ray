@@ -28,6 +28,7 @@ SOURCES += \
         src/components/QvComponentsHandler.cpp \
         src/components/QvPACHandler.cpp \
         src/components/QvSystemProxyConfigurator.cpp \
+        src/components/QvTCPing.cpp \
         src/main.cpp \
         src/components/QvCoreInteractions.cpp \
         src/components/QvGFWPACConverter.cpp \
@@ -38,8 +39,6 @@ SOURCES += \
         src/QvCoreConfigOperations_Convertion.cpp \
         src/QvCoreConfigOperations_Generation.cpp \
         src/QvUtils.cpp \
-        src/utils/QObjectMessageProxy.cpp \
-        src/utils/QvPingModel.cpp \
         src/utils/QvRunguard.cpp \
         src/utils/QJsonModel.cpp \
         src/ui/w_ExportConfig.cpp \
@@ -76,6 +75,7 @@ HEADERS += \
         src/components/QvNetSpeedPlugin.hpp \
         src/components/QvPACHandler.hpp \
         src/components/QvSystemProxyConfigurator.hpp \
+        src/components/QvTCPing.hpp \
         src/ui/w_ExportConfig.hpp \
         src/ui/w_ImportConfig.hpp \
         src/ui/w_InboundEditor.hpp \
@@ -89,8 +89,6 @@ HEADERS += \
         src/utils/QvTinyLog.hpp \
         src/utils/QJsonModel.hpp \
         src/utils/QJsonObjectInsertMacros.h \
-        src/utils/QObjectMessageProxy.hpp \
-        src/utils/QvPingModel.hpp \
         src/utils/QvRunguard.hpp \
         libs/gen/v2ray_api_commands.pb.h \
         libs/gen/v2ray_api_commands.grpc.pb.h

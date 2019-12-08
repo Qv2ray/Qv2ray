@@ -14,8 +14,7 @@ namespace Qv2ray
             {
                 static QThread *linuxWorkerThread;
                 static QLocalServer *server;
-                static QObjectMessageProxy *messageProxy;
-                static bool isExiting = false;
+                static volatile bool isExiting = false;
 
                 void qobject_proxy()
                 {
@@ -56,8 +55,7 @@ namespace Qv2ray
 
                     bool timeOut = false;
                     server->setSocketOptions(QLocalServer::WorldAccessOption);
-                    messageProxy = new QObjectMessageProxy(&qobject_proxy);
-                    QObject::connect(server, &QLocalServer::newConnection, messageProxy, &QObjectMessageProxy::processMessage);
+                    QObject::connect(server, &QLocalServer::newConnection, &qobject_proxy);
 
                     while (!isExiting) {
                         bool result = server->waitForNewConnection(5000, &timeOut);
