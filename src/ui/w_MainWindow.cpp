@@ -21,7 +21,6 @@
 #include "w_JsonEditor.hpp"
 #include "w_ExportConfig.hpp"
 
-#include "QvPingModel.hpp"
 #include "QvNetSpeedPlugin.hpp"
 #include "QvPACHandler.hpp"
 #include "QvSystemProxyConfigurator.hpp"
