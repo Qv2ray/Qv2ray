@@ -5,33 +5,34 @@ namespace Qv2ray
 {
     namespace Components
     {
-        TCPingModel::TCPingModel(int defaultCount, QObject *parent) : QObject(parent)
+        QvTCPingModel::QvTCPingModel(int defaultCount, QObject *parent) : QObject(parent)
         {
             count = defaultCount;
         }
-        void TCPingModel::StartPing(const QString &connectionName, const QString &hostName, int port)
+        void QvTCPingModel::StartPing(const QString &connectionName, const QString &hostName, int port)
         {
             QvTCPingData data;
             data.hostName = hostName;
             data.port = port;
             data.connectionName = connectionName;
             auto watcher = new QFutureWatcher<QvTCPingData>(this);
-            watcher->setFuture(QtConcurrent::run(&TCPingModel::startTestLatency, data, count));
+            DEBUG(MODULE_NETWORK, "Start Ping: " + hostName.toStdString() + ":" + to_string(port))
+            watcher->setFuture(QtConcurrent::run(&QvTCPingModel::startTestLatency, data, count));
             pingWorkingThreads.enqueue(watcher);
             connect(watcher, &QFutureWatcher<void>::finished, this, [this, watcher]() {
                 this->pingWorkingThreads.removeOne(watcher);
                 auto result = watcher->result();
-                LOG(MODULE_NETWORK, "Ping finished: " + result.hostName.toStdString() + ":" + to_string(result.port) + " --> " + to_string(result.avg) + "ms")
+                DEBUG(MODULE_NETWORK, "Ping finished: " + result.hostName.toStdString() + ":" + to_string(result.port) + " --> " + to_string(result.avg) + "ms")
 
                 if (!result.errorMessage.isEmpty()) {
-                    LOG(MODULE_NETWORK, "--> " + result.errorMessage.toStdString())
+                    LOG(MODULE_NETWORK, "Ping --> " + result.errorMessage.toStdString())
                 }
 
                 emit this->PingFinished(result);
             });
         }
 
-        QvTCPingData TCPingModel::startTestLatency(QvTCPingData data, const int count)
+        QvTCPingData QvTCPingModel::startTestLatency(QvTCPingData data, const int count)
         {
             double successCount = 0, errorCount = 0;
             addrinfo *resolved;
@@ -75,7 +76,7 @@ namespace Qv2ray
                 }
 
                 currentCount++;
-                sleep(1);
+                QThread::msleep(500);
             }
 
             data.avg = data.avg / successCount;
@@ -83,7 +84,7 @@ namespace Qv2ray
             return data;
         }
 
-        int TCPingModel::resolveHost(const string &host, int port, addrinfo **res)
+        int QvTCPingModel::resolveHost(const string &host, int port, addrinfo **res)
         {
             addrinfo hints;
 #ifdef _WIN32
@@ -99,7 +100,7 @@ namespace Qv2ray
             return getaddrinfo(host.c_str(), to_string(port).c_str(), &hints, res);
         }
 
-        int TCPingModel::testLatency(struct addrinfo *addr, struct timeval *rtt)
+        int QvTCPingModel::testLatency(struct addrinfo *addr, struct timeval *rtt)
         {
             int fd;
             struct timeval start;
