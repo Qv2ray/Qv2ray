@@ -148,7 +148,11 @@ QM_FILES_RESOURCE_PREFIX = "translations"
 for(var, $$list($$files("translations/*.ts", true))) {
     LOCALE_FILENAME = $$basename(var)
     message("  --> Found:" $$LOCALE_FILENAME)
-    EXTRA_TRANSLATIONS += translations/$$LOCALE_FILENAME
+    !equals(LOCALE_FILENAME, "en-US.ts") {
+        # ONLY USED IN LRELEASE CONTEXT
+        # en-US is not EXTRA...
+        EXTRA_TRANSLATIONS += translations/$$LOCALE_FILENAME
+    }
 }
 message("Qv2ray will build with" $${replace(EXTRA_TRANSLATIONS, "translations/", "")})
 TRANSLATIONS += translations/en-US.ts
