@@ -132,10 +132,10 @@ namespace Qv2ray
         struct Qv2rayPACConfig {
             bool enablePAC;
             int port;
-            string proxyIP;
+            string localIP;
             bool useSocksProxy;
             Qv2rayPACConfig() : enablePAC(false), port(8989), useSocksProxy(false) { }
-            XTOSTRUCT(O(enablePAC, port, proxyIP, useSocksProxy))
+            XTOSTRUCT(O(enablePAC, port, localIP, useSocksProxy))
         };
         struct Qv2rayInboundsConfig {
             string listenip;

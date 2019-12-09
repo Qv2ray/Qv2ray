@@ -53,28 +53,24 @@ namespace Qv2ray
             }
 
             // --------------------------------------------------------------------------------------
-            // Below is for version 2
+            // Below is for Qv2ray version 2
             case 4: {
-                // From 2 to 3, we changed the "proxyCN" to "bypassCN" as it's easier to understand....
+                // We changed the "proxyCN" to "bypassCN" as it's easier to understand....
                 auto v2_oldProxyCN = root["proxyCN"].toBool();
                 //
-                auto v3_oldrunAsRoot = root["runAsRoot"].toBool();
                 // From 3 to 4, we changed 'runAsRoot' to 'tProxySupport'
-                root.remove("runAsRoot");
+                auto v3_oldrunAsRoot = root["runAsRoot"].toBool();
                 root.insert("tProxySupport", v3_oldrunAsRoot);
                 UPDATELOG("Upgrading runAsRoot to tProxySupport, the value is not changed: " + to_string(v3_oldrunAsRoot))
-                //
                 //
                 QString path;
                 path = QV2RAY_DEFAULT_VCORE_PATH;
                 root["v2CorePath"] = path;
                 UPDATELOG("Added v2CorePath to the config file.")
                 //
-                auto lang = root["language"].toString();
                 QJsonObject uiSettings;
-                uiSettings["language"] = lang;
+                uiSettings["language"] = root["language"].toString("en-US");
                 root["uiConfig"] = uiSettings;
-                UPDATELOG("Reconstructing config file.")
                 //
                 root["inboundConfig"] = root["inBoundSettings"];
                 root.remove("inBoundSettings");
@@ -92,17 +88,18 @@ namespace Qv2ray
                 root["connectionConfig"] = o;
                 UPDATELOG("Renamed some connection configs to connectionConfig.")
                 //
-                auto inbound = root["inboundConfig"].toObject();
-                auto pacConfig = inbound["pacConfig"].toObject();
-                pacConfig["enablePAC"] = pacConfig["usePAC"].toBool();
-                inbound["pacConfig"] = pacConfig;
-                root["inboundConfig"] = inbound;
-                UPDATELOG("Renamed usePAC to enablePAC.")
+                // Do we need renaming here?
+                // //auto inbound = root["inboundConfig"].toObject();
+                // //auto pacConfig = inbound["pacConfig"].toObject();
+                // //pacConfig["enablePAC"] = pacConfig["usePAC"].toBool();
+                // //inbound["pacConfig"] = pacConfig;
+                // //root["inboundConfig"] = inbound;
+                // //UPDATELOG("Renamed usePAC to enablePAC.")
                 //
                 ConfigIdentifier i;
                 i.connectionName = root["autoStartConfig"].toString().toStdString();
                 root["autoStartConfig"] = GetRootObject(i);
-                UPDATELOG("Added subscription to autoStartConfig.")
+                UPDATELOG("Added subscription feature to autoStartConfig.")
             }
         }
 
