@@ -275,7 +275,7 @@
       <property name="title">
        <string>Config Details</string>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,0,0">
+      <layout class="QVBoxLayout" name="verticalLayout" stretch="1,0,0">
        <item>
         <layout class="QFormLayout" name="formLayout">
          <item row="0" column="0">

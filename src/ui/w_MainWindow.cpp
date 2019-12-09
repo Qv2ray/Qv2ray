@@ -86,7 +86,7 @@ MainWindow::MainWindow(QWidget *parent):
     logTimerId = startTimer(500);
     //
     pacServer = new PACServer();
-    tcpingModel = new QvTCPingModel(5, this);
+    tcpingModel = new QvTCPingModel(3, this);
     requestHelper = new QvHttpRequestHelper();
     connect(tcpingModel, &QvTCPingModel::PingFinished, this, &MainWindow::onPingFinished);
     //
@@ -205,7 +205,7 @@ MainWindow::MainWindow(QWidget *parent):
         if (connections.contains(name) && !_list.empty()) {
             auto item = _list.front();
             connectionListWidget->setCurrentItem(item);
-            on_connectionListWidget_itemClicked(item, 0);
+            on_connectionListWidget_itemChanged(item, 0);
             connectionListWidget->scrollToItem(item);
             trayMenu->actions()[0]->setText(tr("Show"));
             this->hide();
@@ -432,9 +432,9 @@ void MainWindow::on_startButton_clicked()
             }
 
             pingTimerId = startTimer(60000);
-            this->hTray->showMessage("Qv2ray", tr("Connected To Server: ") + CurrentConnectionName, this->windowIcon());
-            hTray->setToolTip(TRAY_TOOLTIP_PREFIX NEWLINE + tr("Connected To Server: ") + CurrentConnectionName);
-            statusLabel->setText(tr("Connected") + ": " + CurrentConnectionName);
+            this->hTray->showMessage("Qv2ray", tr("Connected: ") + CurrentConnectionName, this->windowIcon());
+            hTray->setToolTip(TRAY_TOOLTIP_PREFIX NEWLINE + tr("Connected: ") + CurrentConnectionName);
+            statusLabel->setText(tr("Connected: ") + CurrentConnectionName);
             //
             bool usePAC = currentConfig.inboundConfig.pacConfig.enablePAC;
             bool pacUseSocks = currentConfig.inboundConfig.pacConfig.useSocksProxy;
@@ -444,10 +444,16 @@ void MainWindow::on_startButton_clicked()
             if (usePAC) {
                 bool canStartPAC = true;
                 QString pacProxyString;  // Something like this --> SOCKS5 127.0.0.1:1080; SOCKS 127.0.0.1:1080; DIRECT; http://proxy:8080
+                auto pacIP = QSTRING(currentConfig.inboundConfig.pacConfig.localIP);
+
+                if (pacIP.isEmpty()) {
+                    LOG(MODULE_PROXY, "PAC Local IP is empty, default to 127.0.0.1")
+                    pacIP = "127.0.0.1";
+                }
 
                 if (pacUseSocks) {
                     if (socksEnabled) {
-                        pacProxyString = "SOCKS5 " + QSTRING(currentConfig.inboundConfig.pacConfig.proxyIP) + ":" + QString::number(currentConfig.inboundConfig.socks_port);
+                        pacProxyString = "SOCKS5 " + pacIP + ":" + QString::number(currentConfig.inboundConfig.socks_port);
                     } else {
                         LOG(MODULE_UI, "PAC is using SOCKS, but it is not enabled")
                         QvMessageBox(this, tr("Configuring PAC"), tr("Could not start PAC server as it is configured to use SOCKS, but it is not enabled"));
@@ -455,7 +461,7 @@ void MainWindow::on_startButton_clicked()
                     }
                 } else {
                     if (httpEnabled) {
-                        pacProxyString = "PROXY http://" + QSTRING(currentConfig.inboundConfig.pacConfig.proxyIP) + ":" + QString::number(currentConfig.inboundConfig.http_port);
+                        pacProxyString = "PROXY http://" + pacIP + ":" + QString::number(currentConfig.inboundConfig.http_port);
                     } else {
                         LOG(MODULE_UI, "PAC is using HTTP, but it is not enabled")
                         QvMessageBox(this, tr("Configuring PAC"), tr("Could not start PAC server as it is configured to use HTTP, but it is not enabled"));
@@ -636,6 +642,7 @@ void MainWindow::ShowAndSetConnection(QString guiConnectionName, bool SetConnect
     SetEditWidgetEnable(true);
     //
     // --------- BRGIN Show Connection
+    currentGUIShownConnectionName = guiConnectionName;
     auto conf = connections[guiConnectionName];
     auto root = conf.config;
     //
@@ -643,7 +650,7 @@ void MainWindow::ShowAndSetConnection(QString guiConnectionName, bool SetConnect
     routeCountLabel->setText(isComplexConfig ? tr("Complex") : tr("Simple"));
 
     if (conf.latency == 0.0) {
-        latencyLabel->setText(tr("No data yet"));
+        latencyLabel->setText(tr("No data"));
     } else {
         latencyLabel->setText(QString::number(conf.latency) + " " + tr("ms"));
     }
@@ -652,33 +659,47 @@ void MainWindow::ShowAndSetConnection(QString guiConnectionName, bool SetConnect
         routeCountLabel->setText(routeCountLabel->text().append(" (" + tr("From subscription") + ":" + conf.subscriptionName + ")"));
     }
 
-    if (isComplexConfig) {
-        _OutBoundTypeLabel->setText(tr("N/A"));
-        _hostLabel->setText(tr("N/A"));
-        _portLabel->setText(tr("N/A"));
-    } else {
-        OUTBOUND outBoundRoot = OUTBOUND(root["outbounds"].toArray().first().toObject());
+    bool validOutboundFound = false;
+
+    for (auto item : root["outbounds"].toArray()) {
+        OUTBOUND outBoundRoot = OUTBOUND(item.toObject());
         auto outboundType = outBoundRoot["protocol"].toString();
-        _OutBoundTypeLabel->setText(outboundType);
 
         if (outboundType == "vmess") {
             auto Server = StructFromJsonString<VMessServerObject>(JsonToString(outBoundRoot["settings"].toObject()["vnext"].toArray().first().toObject()));
             _hostLabel->setText(QSTRING(Server.address));
             _portLabel->setText(QSTRING(to_string(Server.port)));
+            validOutboundFound = true;
         } else if (outboundType == "shadowsocks") {
             auto x = JsonToString(outBoundRoot["settings"].toObject()["servers"].toArray().first().toObject());
             auto Server = StructFromJsonString<ShadowSocksServerObject>(x);
             _hostLabel->setText(QSTRING(Server.address));
             _portLabel->setText(QSTRING(to_string(Server.port)));
+            validOutboundFound = true;
         } else if (outboundType == "socks") {
             auto x = JsonToString(outBoundRoot["settings"].toObject()["servers"].toArray().first().toObject());
             auto Server = StructFromJsonString<SocksServerObject>(x);
             _hostLabel->setText(QSTRING(Server.address));
             _portLabel->setText(QSTRING(to_string(Server.port)));
-        } else {
-            _hostLabel->setText(tr("N/A"));
-            _portLabel->setText(tr("N/A"));
+            validOutboundFound = true;
         }
+
+        if (validOutboundFound) {
+            _OutBoundTypeLabel->setText(outboundType);
+
+            if (isComplexConfig) {
+                _OutBoundTypeLabel->setText(_OutBoundTypeLabel->text() + " (" + tr("Guessed") + ")");
+            }
+
+            break;
+        }
+    }
+
+    if (!validOutboundFound) {
+        _hostLabel->setText(tr("N/A"));
+        _portLabel->setText(tr("N/A"));
+        latencyLabel->setText(tr("N/A"));
+        LOG(MODULE_UI, "Unknown outbound entry, possible very strange config file.")
     }
 
     // --------- END Show Connection
@@ -693,16 +714,6 @@ void MainWindow::ShowAndSetConnection(QString guiConnectionName, bool SetConnect
         on_reconnectButton_clicked();
     }
 }
-void MainWindow::on_connectionListWidget_itemClicked(QTreeWidgetItem *item, int column)
-{
-    Q_UNUSED(column)
-
-    if (!IsConnectableItem(item)) return;
-
-    QString currentText = item->text(0);
-    bool canSetConnection = !isRenamingInProgress && vinstance->ConnectionStatus != STARTED;
-    ShowAndSetConnection(currentText, canSetConnection, false);
-}
 void MainWindow::on_prefrencesBtn_clicked()
 {
     PrefrencesWindow *w = new PrefrencesWindow(this);
@@ -716,7 +727,8 @@ void MainWindow::on_connectionListWidget_doubleClicked(const QModelIndex &index)
     if (!IsSelectionConnectable) return;
 
     QString currentText = connectionListWidget->currentItem()->text(0);
-    ShowAndSetConnection(currentText, true, true);
+    ShowAndSetConnection(currentText, true, false);
+    on_reconnectButton_clicked();
 }
 void MainWindow::on_clearlogButton_clicked()
 {
@@ -726,7 +738,13 @@ void MainWindow::on_connectionListWidget_currentItemChanged(QTreeWidgetItem *cur
 {
     Q_UNUSED(previous)
     isRenamingInProgress = false;
-    on_connectionListWidget_itemClicked(current, 0);
+
+    if (!IsConnectableItem(current)) return;
+
+    QString currentText = current->text(0);
+    bool canSetConnection = !isRenamingInProgress && vinstance->ConnectionStatus != STARTED;
+    ShowAndSetConnection(currentText, canSetConnection, false);
+    //on_connectionListWidget_itemClicked(current, 0);
 }
 void MainWindow::on_connectionListWidget_customContextMenuRequested(const QPoint &pos)
 {
@@ -983,9 +1001,17 @@ void MainWindow::on_pingTestBtn_clicked()
         return;
     }
 
+    latencyLabel->setText(tr("Testing..."));
     // We get data from UI?
     auto alias = connectionListWidget->currentItem()->text(0);
-    tcpingModel->StartPing(alias, _hostLabel->text(), stoi(_portLabel->text().isEmpty() ? "0" : _portLabel->text().toStdString()));
+    int port = -1;
+
+    try {
+        port = stoi(_portLabel->text().isEmpty() ? "0" : _portLabel->text().toStdString());
+        tcpingModel->StartPing(alias, _hostLabel->text(), port);
+    }  catch (...) {
+        QvMessageBox(this, tr("Latency Test"), tr("Failed to test latency for this connection."));
+    }
 }
 void MainWindow::on_shareBtn_clicked()
 {
@@ -1054,7 +1080,7 @@ void MainWindow::timerEvent(QTimerEvent *event)
         netspeedLabel->setText(totalSpeedUp + NEWLINE + totalSpeedDown);
         dataamountLabel->setText(totalDataUp + NEWLINE + totalDataDown);
         //
-        hTray->setToolTip(TRAY_TOOLTIP_PREFIX NEWLINE + tr("Connected To Server: ") + CurrentConnectionName + NEWLINE
+        hTray->setToolTip(TRAY_TOOLTIP_PREFIX NEWLINE + tr("Connected: ") + CurrentConnectionName + NEWLINE
                           "Up: " + totalSpeedUp + " Down: " + totalSpeedDown);
     } else if (event->timerId() == logTimerId) {
         QString lastLog = readLastLog();
@@ -1118,7 +1144,7 @@ void MainWindow::onPingFinished(QvTCPingData data)
 
     connections[data.connectionName].latency = data.avg;
 
-    if (data.connectionName == CurrentConnectionName) {
-        ShowAndSetConnection(CurrentConnectionName, false, false);
+    if (data.connectionName == currentGUIShownConnectionName) {
+        ShowAndSetConnection(currentGUIShownConnectionName, false, false);
     }
 }

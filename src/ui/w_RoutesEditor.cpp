@@ -9,6 +9,12 @@ static bool isLoading = false;
 #define CurrentRule this->rules[this->currentRuleIndex]
 #define LOADINGCHECK if(isLoading) return;
 
+#define CHECKEMPTYRULES  if (this->rules.isEmpty()) { \
+        LOG(MODULE_UI, "No rules currently, we add one.") \
+        on_addRouteBtn_clicked(); \
+        on_routesTable_currentCellChanged(0, 0, 0, 0); \
+    }
+
 RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) :
     QDialog(parent),
     root(connection),
@@ -628,21 +634,25 @@ void RouteEditor::on_inboundsList_itemChanged(QListWidgetItem *item)
         }
     }
 
-    if (new_inbounds.size() == 0) {
+    if (new_inbounds.empty()) {
         // TODO what to do?
-        LOG(MODULE_UI, "WARN: Inbound size = 0")
+        LOG(MODULE_UI, "TODO: Inbound size = 0")
     }
 
     if (new_inbounds.contains("")) {
         // Empty tag.
-        auto result1 = QvMessageBoxAsk(this, tr("Changing route inbound/outbound"), tr("One or more inbound config(s) have no tag configured, which will be ignored, do you still want to continue?"));
-        new_inbounds.removeAll("");
+        auto result1 = QvMessageBoxAsk(this, tr("Changing route inbound/outbound"), tr("You didn't set tags for one or more Inbound/Outbound") +
+                                       tr("These entry will NOT be added to the route table") + NEWLINE +
+                                       tr("Do you still want to continue?"));
 
         if (result1 != QMessageBox::Yes) {
             return;
         }
+
+        new_inbounds.removeAll("");
     }
 
+    CHECKEMPTYRULES
     CurrentRule.inboundTag = new_inbounds.toStdList();
     statusLabel->setText(tr("OK"));
 }
@@ -663,6 +673,9 @@ void RouteEditor::on_delRouteBtn_clicked()
             currentRuleIndex = 0;
             routesTable->setCurrentCell(currentRuleIndex, 0);
             ShowRuleDetail(CurrentRule);
+        } else {
+            QvMessageBox(this, tr("Removing the last route entry"), tr("This connection will be marked as Simple Config if you save it without adding a route.") + NEWLINE +
+                         tr("All inbounds will be lost after you edit it in the Simple Outbound editor next time."));
         }
     }
 }
@@ -690,6 +703,7 @@ void RouteEditor::on_addDefaultBtn_clicked()
     inbounds.append(_in_SOCKS);
     inboundsList->addItem("SOCKS Global Config");
     inboundsList->item(inboundsList->count() - 1)->setCheckState(Qt::Unchecked);
+    CHECKEMPTYRULES
 }
 
 void RouteEditor::on_insertBlackBtn_clicked()
@@ -735,6 +749,7 @@ void RouteEditor::on_addInboundBtn_clicked()
     auto _result = w.OpenEditor();
     inbounds.append(_result);
     inboundsList->addItem(tr("New Inbound"));
+    CHECKEMPTYRULES
 }
 
 void RouteEditor::on_addOutboundBtn_clicked()
@@ -758,4 +773,6 @@ void RouteEditor::on_addOutboundBtn_clicked()
             outboundsList->addItem(name + "_" + QString::number(i));
         }
     }
+
+    CHECKEMPTYRULES
 }

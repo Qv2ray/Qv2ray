@@ -328,7 +328,11 @@
        <item row="7" column="1">
         <layout class="QHBoxLayout" name="horizontalLayout_12">
          <item>
-          <widget class="QLineEdit" name="vCorePathTxt"/>
+          <widget class="QLineEdit" name="vCorePathTxt">
+           <property name="placeholderText">
+            <string/>
+           </property>
+          </widget>
          </item>
          <item>
           <widget class="QPushButton" name="selectVCoreBtn">
@@ -582,12 +586,16 @@
             <item row="1" column="0">
              <widget class="QLabel" name="label_56">
               <property name="text">
-               <string>PAC Proxy IP</string>
+               <string>Local IP for PAC</string>
               </property>
              </widget>
             </item>
             <item row="1" column="1">
-             <widget class="QLineEdit" name="pacProxyTxt"/>
+             <widget class="QLineEdit" name="pacProxyTxt">
+              <property name="placeholderText">
+               <string>127.0.0.1</string>
+              </property>
+             </widget>
             </item>
             <item row="2" column="0">
              <widget class="QLabel" name="label_63">

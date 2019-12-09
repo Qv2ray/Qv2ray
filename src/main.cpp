@@ -329,17 +329,22 @@ int main(int argc, char *argv[])
         LOG(MODULE_INIT " " MODULE_UI, "Setting Qv2ray UI themes: " + confObject.uiConfig.theme)
     }
 
+    // Show MainWindow
+    MainWindow w;
 #endif
+#ifndef QT_DEBUG
 
     try {
-        // Show MainWindow
-        MainWindow w;
+#endif
         auto rcode = _qApp.exec();
         LOG(MODULE_INIT, "Quitting normally")
         return rcode;
+#ifndef QT_DEBUG
     }  catch (...) {
         QvMessageBox(nullptr, "ERROR", "There's something wrong happened and Qv2ray will quit now.");
         LOG(MODULE_INIT, "EXCEPTION THROWN: " __FILE__)
         return -9;
     }
+
+#endif
 }

@@ -58,7 +58,7 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     // PAC
     pacGroupBox->setEnabled(pacEnabled);
     pacPortSB->setValue(CurrentConfig.inboundConfig.pacConfig.port);
-    pacProxyTxt->setText(QSTRING(CurrentConfig.inboundConfig.pacConfig.proxyIP));
+    pacProxyTxt->setText(QSTRING(CurrentConfig.inboundConfig.pacConfig.localIP));
     pacProxyCB->setCurrentIndex(CurrentConfig.inboundConfig.pacConfig.useSocksProxy ? 1 : 0);
     //
     bool have_http = CurrentConfig.inboundConfig.useHTTP;
@@ -860,7 +860,7 @@ void PrefrencesWindow::on_pacProxyTxt_textEdited(const QString &arg1)
 {
     LOADINGCHECK
     NEEDRESTART
-    CurrentConfig.inboundConfig.pacConfig.proxyIP = arg1.toStdString();
+    CurrentConfig.inboundConfig.pacConfig.localIP = arg1.toStdString();
 }
 
 void PrefrencesWindow::on_autoStartSubsCombo_currentIndexChanged(const QString &arg1)

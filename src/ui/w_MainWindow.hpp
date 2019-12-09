@@ -55,8 +55,6 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         void quit();
         void on_actionExit_triggered();
 
-        void on_connectionListWidget_itemClicked(QTreeWidgetItem *item, int column);
-
         void on_prefrencesBtn_clicked();
 
         void on_connectionListWidget_doubleClicked(const QModelIndex &index);
@@ -144,6 +142,7 @@ class MainWindow : public QMainWindow, Ui::MainWindow
 
         QList<QTextBrowser *> logTextBrowsers;
         int currentLogBrowserId = 0;
+        QString currentGUIShownConnectionName;
 };
 
 #endif // MAINWINDOW_H
