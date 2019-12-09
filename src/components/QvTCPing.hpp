@@ -2,9 +2,7 @@
 
 #ifdef _WIN32
 #include <winsock2.h>
-#include <winsock.h>
 #include <ws2def.h>
-#include <windows.h>
 #include <ws2tcpip.h>
 #else
 #include <sys/socket.h>

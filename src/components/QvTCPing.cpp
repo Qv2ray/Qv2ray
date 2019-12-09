@@ -39,7 +39,11 @@ namespace Qv2ray
             int errcode;
 
             if ((errcode = resolveHost(data.hostName.toStdString(), data.port, &resolved)) != 0) {
+#if defined (__WIN32) && defined (UNICODE)
+                data.errorMessage = QString::fromStdWString(gai_strerror(errcode));
+#else
                 data.errorMessage = QSTRING(gai_strerror(errcode));
+#endif
                 return data;
             }
 

@@ -15,7 +15,7 @@ jobs:
         run: git submodule update --init
 # --------------------------------------------------------
       - name: Installing Qt
-        uses: jurplel/install-qt-action@v2
+        uses: lhy0403/install-qt-action@v2
         with:
           arch: win64_mingw73
           modules: qtcharts
@@ -68,7 +68,7 @@ jobs:
         run: git submodule update --init
 # --------------------------------------------------------
       - name: Installing Qt
-        uses: jurplel/install-qt-action@v2
+        uses: lhy0403/install-qt-action@v2
         with:
           modules: qtcharts
 # --------------------------------------------------------
@@ -113,7 +113,7 @@ jobs:
         run: git submodule update --init
 # --------------------------------------------------------
       - name: Installing Qt
-        uses: jurplel/install-qt-action@v2
+        uses: lhy0403/install-qt-action@v2
         with:
           modules: qtcharts
 # --------------------------------------------------------

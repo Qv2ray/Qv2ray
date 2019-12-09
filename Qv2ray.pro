@@ -189,8 +189,8 @@ win32 {
     message("  --> Linking against gRPC and protobuf library.")
     LIBS += -L$$PWD/libs/gRPC-win32/lib/ -llibgrpc++.dll -llibprotobuf.dll
 
-    message("  --> Linking against winHTTP.")
-    LIBS += -lwinhttp -lwininet
+    message("  --> Linking against winHTTP and winSock2.")
+    LIBS += -lwinhttp -lwininet -lws2_32
 
     INCLUDEPATH += $$PWD/libs/gRPC-win32/include
     DEPENDPATH  += $$PWD/libs/gRPC-win32/include

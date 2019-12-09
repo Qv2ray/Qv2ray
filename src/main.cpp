@@ -329,9 +329,9 @@ int main(int argc, char *argv[])
         LOG(MODULE_INIT " " MODULE_UI, "Setting Qv2ray UI themes: " + confObject.uiConfig.theme)
     }
 
+#endif
     // Show MainWindow
     MainWindow w;
-#endif
 #ifndef QT_DEBUG
 
     try {
