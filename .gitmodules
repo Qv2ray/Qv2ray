@@ -7,3 +7,6 @@
 [submodule "3rdparty/qhttpserver"]
 	path = 3rdparty/qhttpserver
 	url = https://github.com/nikhilm/qhttpserver
+[submodule "3rdparty/SingleApplication"]
+	path = 3rdparty/SingleApplication
+	url = https://github.com/itay-grudev/SingleApplication
