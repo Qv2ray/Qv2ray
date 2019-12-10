@@ -1,5 +1,8 @@
 ﻿#ifndef MAINWINDOW_H
 #define MAINWINDOW_H
+
+#include "QvTCPing.hpp"
+
 #include <QMainWindow>
 #include <QMenu>
 #include <QScrollBar>
@@ -14,8 +17,6 @@
 #include "QvHTTPRequestHelper.hpp"
 #include "QvPACHandler.hpp"
 #include "QvLogHighlighter.hpp"
-#include "QvTCPing.hpp"
-
 enum TREENODEOBJECT_TYPE {
     CON_REGULAR = 1,
     CON_SUBSCRIPTION = 2

@@ -187,14 +187,15 @@ win32 {
     DEFINES += _WIN32_WINNT=0x600
 
     message("  --> Linking against gRPC and protobuf library.")
-    LIBS += -L$$PWD/libs/gRPC-win32/lib/ -llibgrpc++.dll -llibprotobuf.dll
+    DEPENDPATH  += $$PWD/libs/gRPC-win32/include
+    INCLUDEPATH += $$PWD/libs/gRPC-win32/include
+    LIBS += -L$$PWD/libs/gRPC-win32/lib/ \
+            -llibprotobuf.dll \
+            -llibgrpc++.dll
 
     message("  --> Linking against winHTTP and winSock2.")
     LIBS += -lwinhttp -lwininet -lws2_32
 
-    INCLUDEPATH += $$PWD/libs/gRPC-win32/include
-    DEPENDPATH  += $$PWD/libs/gRPC-win32/include
-    PRE_TARGETDEPS += $$PWD/libs/gRPC-win32/lib/libgrpc++.dll.a $$PWD/libs/gRPC-win32/lib/libprotobuf.dll.a
 }
 
 unix {
@@ -202,7 +203,7 @@ unix {
     message("Configuring for unix-like (macOS and linux) environment")
     # For gRPC and protobuf in linux and macOS
     message("  --> Linking against gRPC and protobuf library.")
-    LIBS += -L/usr/local/lib -lgrpc++ -lprotobuf
+    LIBS += -L/usr/local/lib -lgrpc++ -lprotobuf -lgrpc -lgpr
 
     # macOS homebrew include path
     message("  --> Adding local include folder to search path")

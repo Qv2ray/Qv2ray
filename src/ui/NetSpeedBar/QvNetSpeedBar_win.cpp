@@ -2,6 +2,7 @@
 #ifdef Q_OS_WIN
 #include "QvNetSpeedPlugin.hpp"
 #include "QvUtils.hpp"
+#include <windows.h>
 namespace Qv2ray
 {
     namespace Components
