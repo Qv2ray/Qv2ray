@@ -98,7 +98,7 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="117"/>
       <source>VMess / QRCode</source>
-      <translation type="unfinished">VMess / QRCode</translation>
+      <translation>VMess / QRCode</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="123"/>
@@ -148,32 +148,32 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="273"/>
       <source>Subscriptions / Manually Input</source>
-      <translation type="unfinished">Subscriptions / Manually Input</translation>
+      <translation>Подписки / Ввод вручную</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="279"/>
       <source>Manually Input Connections</source>
-      <translation type="unfinished">Manually Input Connections</translation>
+      <translation>Входные соединения вручную</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="300"/>
       <source>Route Editor</source>
-      <translation type="unfinished">Route Editor</translation>
+      <translation>Редактор маршрутов</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="307"/>
       <source>Open Route Editor</source>
-      <translation type="unfinished">Open Route Editor</translation>
+      <translation>Открыть редактор маршрута</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="334"/>
       <source>Subscription Manager</source>
-      <translation type="unfinished">Subscription Manager</translation>
+      <translation>Управление подпиской</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="341"/>
       <source>Open Subscription Manager</source>
-      <translation type="unfinished">Open Subscription Manager</translation>
+      <translation>Открыть менеджер подписок</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="286"/>
@@ -255,7 +255,7 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="207"/>
       <source>Failed to save file, please check if you have proper permissions</source>
-      <translation type="unfinished">Failed to save file, please check if you have proper permissions</translation>
+      <translation>Не удалось сохранить файл, пожалуйста, проверьте, есть ли у вас необходимые разрешения</translation>
     </message>
   </context>
   <context>
@@ -473,7 +473,7 @@
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="705"/>
       <source>If you want to use tProxy, please go to Prefrence Window to enable this feature.</source>
-      <translation type="unfinished">If you want to use tProxy, please go to Prefrence Window to enable this feature.</translation>
+      <translation>Если вы хотите использовать tProxy, перейдите в Prefrence Window для включения этой функции.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="719"/>
@@ -622,7 +622,7 @@
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="81"/>
       <source>Subscriptions</source>
-      <translation type="unfinished">Subscriptions</translation>
+      <translation>Подписки</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="88"/>
@@ -687,7 +687,7 @@
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="340"/>
       <source>Latency</source>
-      <translation type="unfinished">Latency</translation>
+      <translation>Задержка</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="356"/>
@@ -702,7 +702,7 @@
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="443"/>
       <source>Log (click to switch log source)</source>
-      <translation type="unfinished">Log (click to switch log source)</translation>
+      <translation>Журнал (нажмите, чтобы переключить источник журнала)</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="192"/>
@@ -844,7 +844,7 @@
       <location filename="../src/ui/w_MainWindow.cpp" line="346"/>
       <location filename="../src/ui/w_MainWindow.cpp" line="356"/>
       <source>Subscription:</source>
-      <translation type="unfinished">Subscription:</translation>
+      <translation>Подписка:</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="210"/>
@@ -856,17 +856,17 @@
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="214"/>
       <source>Autostarting a config</source>
-      <translation type="unfinished">Autostarting a config</translation>
+      <translation>Автозапуск конфигурации</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="214"/>
       <source>Could not find a specified config named: </source>
-      <translation type="unfinished">Could not find a specified config named: </translation>
+      <translation>Не удалось найти указанное имя конфигурации: </translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="216"/>
       <source>Please reset the settings in Prefrence Window</source>
-      <translation type="unfinished">Please reset the settings in Prefrence Window</translation>
+      <translation>Пожалуйста, сбросьте настройки в окне Prefrence</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="274"/>
@@ -901,7 +901,7 @@
       <location filename="../src/ui/w_MainWindow.cpp" line="445"/>
       <location filename="../src/ui/w_MainWindow.cpp" line="1120"/>
       <source>Connected: </source>
-      <translation type="unfinished">Connected: </translation>
+      <translation>Подключен: </translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="467"/>
@@ -962,12 +962,12 @@
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="663"/>
       <source>No data</source>
-      <translation type="unfinished">No data</translation>
+      <translation>Нет данных</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="665"/>
       <source>ms</source>
-      <translation type="unfinished">ms</translation>
+      <translation>мс</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="669"/>
