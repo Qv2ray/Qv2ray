@@ -43,7 +43,7 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
 #if QV2RAY_USE_BUILTIN_DARKTHEME
     // If we use built in theme, it should always be fusion.
     themeCombo->setEnabled(!CurrentConfig.uiConfig.useDarkTheme);
-    darkThemeLabel->setText(tr("Use Dark Theme"));
+    darkThemeLabel->setText(tr("Use Darkmode Theme"));
 #endif
     languageComboBox->setCurrentText(QSTRING(CurrentConfig.uiConfig.language));
     logLevelComboBox->setCurrentIndex(CurrentConfig.logLevel);
