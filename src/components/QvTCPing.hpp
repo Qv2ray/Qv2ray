@@ -1,5 +1,5 @@
-#include "QvUtils.hpp"
-
+#ifndef QVTCPING_H
+#define QVTCPING_H
 #ifdef _WIN32
 #include <winsock2.h>
 #include <ws2def.h>
@@ -10,6 +10,8 @@
 #endif
 #include <sys/time.h>
 #include <unistd.h>
+#include "QvUtils.hpp"
+
 
 namespace Qv2ray
 {
@@ -46,4 +48,4 @@ namespace Qv2ray
 
 using namespace Qv2ray;
 using namespace Qv2ray::Components;
-
+#endif

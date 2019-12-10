@@ -1,8 +1,8 @@
 ﻿#include <QThread>
+#include "w_MainWindow.hpp"
+
 #include "QvNetSpeedPlugin.hpp"
 #include "QvUtils.hpp"
-
-#include "w_MainWindow.hpp"
 namespace Qv2ray
 {
     namespace Components
