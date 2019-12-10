@@ -972,12 +972,12 @@
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="669"/>
       <source>From subscription</source>
-      <translation type="unfinished">From subscription</translation>
+      <translation>От подписки</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="701"/>
       <source>Guessed</source>
-      <translation type="unfinished">Guessed</translation>
+      <translation>Guessed</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="709"/>
@@ -1010,17 +1010,17 @@
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="803"/>
       <source>The name you suggested is not valid, please try another.</source>
-      <translation type="unfinished">The name you suggested is not valid, please try another.</translation>
+      <translation>Предложенное вами имя неверно, пожалуйста, попробуйте другое.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="854"/>
       <source>Removing Connection(s)</source>
-      <translation type="unfinished">Removing Connection(s)</translation>
+      <translation>Удаление подключения(й)</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="854"/>
       <source>Are you sure to remove selected connection(s)?</source>
-      <translation type="unfinished">Are you sure to remove selected connection(s)?</translation>
+      <translation>Вы уверены, что хотите удалить выбранные подключение(и)?</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="885"/>
@@ -1037,12 +1037,12 @@
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="889"/>
       <source>Removing a subscription config</source>
-      <translation type="unfinished">Removing a subscription config</translation>
+      <translation>Удаление конфигурации подписки</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="889"/>
       <source>Do you want to remove the config loaded from a subscription?</source>
-      <translation type="unfinished">Do you want to remove the config loaded from a subscription?</translation>
+      <translation>Вы хотите удалить конфигурацию, загруженную из подписок?</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="934"/>
@@ -1061,17 +1061,17 @@
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="1041"/>
       <source>Testing...</source>
-      <translation type="unfinished">Testing...</translation>
+      <translation>Тестирование...</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="1050"/>
       <source>Latency Test</source>
-      <translation type="unfinished">Latency Test</translation>
+      <translation>Тест задержки</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="1050"/>
       <source>Failed to test latency for this connection.</source>
-      <translation type="unfinished">Failed to test latency for this connection.</translation>
+      <translation>Не удалось протестировать задержку для этого подключения.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="1072"/>
@@ -1086,7 +1086,7 @@
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="1169"/>
       <source>Subscription</source>
-      <translation type="unfinished">Subscription</translation>
+      <translation>Подписка</translation>
     </message>
   </context>
   <context>
@@ -1554,22 +1554,22 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="138"/>
       <source>Darkmode UI Icons</source>
-      <translation type="unfinished">Darkmode UI Icons</translation>
+      <translation>Темные иконки интерфейса</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="145"/>
       <source>Darkmode Tray Icon</source>
-      <translation type="unfinished">Darkmode Tray Icon</translation>
+      <translation>Светлая иконка в трее</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="281"/>
       <source>Config</source>
-      <translation type="unfinished">Config</translation>
+      <translation>Настройки</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="288"/>
       <source>Subscription</source>
-      <translation type="unfinished">Subscription</translation>
+      <translation>Подписка</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="433"/>
@@ -1600,12 +1600,12 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="589"/>
       <source>Local IP for PAC</source>
-      <translation type="unfinished">Local IP for PAC</translation>
+      <translation>Локальный IP для PAC</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="596"/>
       <source>127.0.0.1</source>
-      <translation type="unfinished">127.0.0.1</translation>
+      <translation>127.0.0.1</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="634"/>
@@ -1809,7 +1809,7 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="1386"/>
       <source>This feature for Windows is not stable yet.</source>
-      <translation type="unfinished">This feature for Windows is not stable yet.</translation>
+      <translation>Эта функция для Windows еще не стабильна.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="1394"/>
@@ -1857,7 +1857,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Noto Sans&apos;; color:#d68952;&quot;&gt;Copyright (c) 2019 Nikolaos Ftylitakis (@ftylitak): QZXing (Apache2)&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Noto Sans&apos;; color:#d68952;&quot;&gt;Copyright (c) 2016 Singein (@Singein): ScreenShot (MIT)&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Noto Sans&apos;; color:#d68952;&quot;&gt;Copyright (c) 2016 Nikhil Marathe (@nikhilm): QHttpServer (MIT)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-      <translation type="unfinished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+      <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Noto Sans&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
@@ -1915,7 +1915,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="46"/>
       <source>Use Darkmode Theme</source>
-      <translation type="unfinished">Use Darkmode Theme</translation>
+      <translation>Использовать темную тему</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="119"/>
@@ -2020,12 +2020,12 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/main.cpp" line="68"/>
       <source>Warning</source>
-      <translation type="unfinished">Warning</translation>
+      <translation>Внимание</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="68"/>
       <source>Qv2ray cannot load the config file from here:</source>
-      <translation type="unfinished">Qv2ray cannot load the config file from here:</translation>
+      <translation>Qv2ray не может загрузить файл конфигурации отсюда:</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="118"/>
@@ -2052,17 +2052,17 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/main.cpp" line="130"/>
       <source>Failed to initialise Qv2ray</source>
-      <translation type="unfinished">Failed to initialise Qv2ray</translation>
+      <translation>Не удалось инициализировать Qv2ray</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="131"/>
       <source>Failed to determine the location of config file.</source>
-      <translation type="unfinished">Failed to determine the location of config file.</translation>
+      <translation>Не удалось определить местоположение конфигурационного файла.</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="133"/>
       <source>Please report if you think it&apos;s a bug.</source>
-      <translation type="unfinished">Please report if you think it&apos;s a bug.</translation>
+      <translation>Пожалуйста, сообщите, если вы считаете об этом, если это ошибка. &apos;</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="208"/>
@@ -2087,12 +2087,12 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/main.cpp" line="232"/>
       <source>Please check if there&apos;s an issue explaining about it.</source>
-      <translation type="unfinished">Please check if there&apos;s an issue explaining about it.</translation>
+      <translation>Пожалуйста, проверьте, есть ли у&apos;проблема с объяснением этого.</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="233"/>
       <source>Or submit a new issue if you think this is an error.</source>
-      <translation type="unfinished">Or submit a new issue if you think this is an error.</translation>
+      <translation>Или отправьте новую проблему, если вы считаете, что это ошибка.</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="268"/>
@@ -2223,27 +2223,27 @@ p, li { white-space: pre-wrap; }
       <location filename="../src/ui/w_MainWindow.cpp" line="39"/>
       <location filename="../src/ui/w_MainWindow.cpp" line="49"/>
       <source>Editing a subscription config</source>
-      <translation type="unfinished">Editing a subscription config</translation>
+      <translation>Редактирование конфигурации подписки</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="39"/>
       <source>You are trying to edit a config loaded from subscription.</source>
-      <translation type="unfinished">You are trying to edit a config loaded from subscription.</translation>
+      <translation>Вы пытаетесь изменить конфигурацию, загруженную из подписок.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="40"/>
       <source>All changes will be overwritten when the subscriptions are updated next time.</source>
-      <translation type="unfinished">All changes will be overwritten when the subscriptions are updated next time.</translation>
+      <translation>Все изменения будут перезаписаны при следующем обновлении подписки.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="41"/>
       <source>Are you still going to do so?</source>
-      <translation type="unfinished">Are you still going to do so?</translation>
+      <translation>Вы все еще собираетесь сделать это?</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="49"/>
       <source>You should not modity this property of a config from a subscription</source>
-      <translation type="unfinished">You should not modity this property of a config from a subscription</translation>
+      <translation>Вы не должны модифицировать это свойство конфигурации из подписки</translation>
     </message>
   </context>
   <context>
@@ -2251,12 +2251,12 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/components/QvPACHandler.cpp" line="43"/>
       <source>PAC Handler</source>
-      <translation type="unfinished">PAC Handler</translation>
+      <translation>PAC Handler</translation>
     </message>
     <message>
       <location filename="../src/components/QvPACHandler.cpp" line="43"/>
       <source>Failed to listen PAC request on this port, please verify the permissions</source>
-      <translation type="unfinished">Failed to listen PAC request on this port, please verify the permissions</translation>
+      <translation>Не удалось прослушать запрос PAC на этом порте, пожалуйста, проверьте права доступа</translation>
     </message>
   </context>
   <context>
@@ -2275,7 +2275,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/components/QvCoreInteractions.cpp" line="34"/>
       <source>v2ray core failed with errcode:</source>
-      <translation type="unfinished">v2ray core failed with errcode:</translation>
+      <translation>Ошибка ядра v2ray:</translation>
     </message>
     <message>
       <location filename="../src/components/QvCoreInteractions.cpp" line="48"/>
@@ -2285,12 +2285,12 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/components/QvCoreInteractions.cpp" line="50"/>
       <source>Please go to Prefrence Window to change the location.</source>
-      <translation type="unfinished">Please go to Prefrence Window to change the location.</translation>
+      <translation>Пожалуйста, перейдите в настройки, чтобы изменить местоположение.</translation>
     </message>
     <message>
       <location filename="../src/components/QvCoreInteractions.cpp" line="51"/>
       <source>Or place your v2ray core file in the location above.</source>
-      <translation type="unfinished">Or place your v2ray core file in the location above.</translation>
+      <translation>Или поместите файл v2ray core выше директорией.</translation>
     </message>
     <message>
       <location filename="../src/components/QvCoreInteractions.cpp" line="171"/>
