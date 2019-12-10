@@ -3,10 +3,13 @@
 #include <QTranslator>
 #include <QStyle>
 #include <QLocale>
+#include <QObject>
 #include <QStyleFactory>
 
+#include <QApplication>
+#include <singleapplication.h>
+
 #include "w_MainWindow.hpp"
-#include "QvRunguard.hpp"
 
 bool verifyConfigAvaliability(QString path, bool checkExistingConfig)
 {
@@ -157,7 +160,13 @@ bool initialiseQv2ray()
 int main(int argc, char *argv[])
 {
     // This line must be called before any other ones.
-    QApplication _qApp(argc, argv);
+    // ----------------------------> For debug build...
+    SingleApplication _qApp(argc, argv);
+    // Early initialisation
+#ifdef QT_DEBUG
+    _qApp.setApplicationName(_qApp.applicationName() + " - DEBUG");
+#endif
+    //
     //
     // Install a default translater. From the OS/DE
     auto _lang = QLocale::system().name().replace("_", "-");
@@ -205,18 +214,6 @@ int main(int argc, char *argv[])
 
     // Qv2ray Initialize
     if (!initialiseQv2ray()) {
-        return -1;
-    }
-
-#ifdef QT_DEBUG
-    RunGuard guard("Qv2ray-Instance-Identifier-DEBUG_VERSION");
-#else
-    RunGuard guard("Qv2ray-Instance-Identifier");
-#endif
-
-    if (!guard.isSingleInstance()) {
-        LOG(MODULE_INIT, "Another Instance running, Quit.")
-        QvMessageBox(nullptr, "Qv2ray", QObject::tr("Another instance of Qv2ray is already running."));
         return -1;
     }
 
@@ -322,6 +319,7 @@ int main(int argc, char *argv[])
 
 #else
     QStringList themes = QStyleFactory::keys();
+    //_qApp.setDesktopFileName("qv2ray.desktop");
 
     if (themes.contains(QSTRING(confObject.uiConfig.theme))) {
         _qApp.setStyle(QSTRING(confObject.uiConfig.theme));
@@ -335,6 +333,11 @@ int main(int argc, char *argv[])
 
     try {
 #endif
+        QObject::connect(&_qApp, &SingleApplication::instanceStarted, [&w]() {
+            w.show();
+            w.raise();
+            w.activateWindow();
+        });
         auto rcode = _qApp.exec();
         LOG(MODULE_INIT, "Quitting normally")
         return rcode;

@@ -9,20 +9,21 @@ QT += core gui widgets network charts
 TARGET = qv2ray
 TEMPLATE = app
 
-# Don't merge those configs with below.
-CONFIG += enable_decoder_qr_code enable_encoder_qr_code qt c++11 openssl-linked
-include(3rdparty/qzxing_noTests/QZXing-components.pri)
-
-# Main config
-CONFIG += lrelease embed_translations
-
 # Now read build number file.
 _BUILD_NUMBER=$$cat(Build.Counter)
 VERSION = 1.99.2.$$_BUILD_NUMBER
 _BUILD_NUMBER = $$num_add($$_BUILD_NUMBER, 1)
 write_file("Build.Counter", _BUILD_NUMBER)
 
-DEFINES += QT_DEPRECATED_WARNINGS QV2RAY_VERSION_STRING=\"\\\"v$${VERSION}\\\"\"
+DEFINES += QT_DEPRECATED_WARNINGS QV2RAY_VERSION_STRING=\"\\\"v$${VERSION}\\\"\" QAPPLICATION_CLASS=QApplication
+
+# Don't merge those configs with below.
+CONFIG += enable_decoder_qr_code enable_encoder_qr_code qt c++11 openssl-linked
+include(3rdparty/qzxing_noTests/QZXing-components.pri)
+include(3rdparty/SingleApplication/singleapplication.pri)
+
+# Main config
+CONFIG += lrelease embed_translations
 
 SOURCES += \
         src/components/QvComponentsHandler.cpp \
@@ -39,7 +40,6 @@ SOURCES += \
         src/QvCoreConfigOperations_Convertion.cpp \
         src/QvCoreConfigOperations_Generation.cpp \
         src/QvUtils.cpp \
-        src/utils/QvRunguard.cpp \
         src/utils/QJsonModel.cpp \
         src/ui/w_ExportConfig.cpp \
         src/ui/w_InboundEditor.cpp \
@@ -89,7 +89,6 @@ HEADERS += \
         src/utils/QvTinyLog.hpp \
         src/utils/QJsonModel.hpp \
         src/utils/QJsonObjectInsertMacros.h \
-        src/utils/QvRunguard.hpp \
         libs/gen/v2ray_api_commands.pb.h \
         libs/gen/v2ray_api_commands.grpc.pb.h
 

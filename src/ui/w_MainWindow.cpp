@@ -306,7 +306,6 @@ void MainWindow::VersionUpdate(QByteArray &data)
         } else if (result == QMessageBox::Ignore) {
             currentConfig.ignoredVersion = newversion.toString().toStdString();
             SetGlobalConfig(currentConfig);
-            OnConfigListChanged(false);
         }
     }
 }
@@ -314,7 +313,16 @@ void MainWindow::ReloadConnections()
 {
     LOG(MODULE_UI, "Loading new GlobalConfig")
     currentConfig = GetGlobalConfig();
+    //
+    // Store the latency test value.
+    QMap<QString, double> latencyValueCache;
+
+    for (auto i = 0; i < connections.count(); i++) {
+        latencyValueCache[connections.keys()[i]] = connections.values()[i].latency;
+    }
+
     connections.clear();
+    SetEditWidgetEnable(false);
     //
     connectionListWidget->clear();
     auto _regularConnections = GetRegularConnections(currentConfig.configs);
@@ -325,7 +333,8 @@ void MainWindow::ReloadConnections()
         _o.subscriptionName = "";
         _o.connectionName = _regularConnections.keys()[i];
         _o.config = _regularConnections.values()[i];
-        _o.latency = 0;
+        // Restore latency from cache.
+        _o.latency = latencyValueCache.contains(_o.connectionName) ? latencyValueCache[_o.connectionName] : 0;
         connections[_o.connectionName] = _o;
         connectionListWidget->addTopLevelItem(new QTreeWidgetItem(QStringList() << _o.connectionName));
     }
@@ -343,17 +352,16 @@ void MainWindow::ReloadConnections()
             _o.subscriptionName = subName;
             _o.connectionName = _subsConnections.values()[i].keys()[j];
             _o.config = _subsConnections.values()[i].values()[j];
-            _o.latency = 0;
+            //
             auto connName = _o.connectionName + " (" + tr("Subscription:") + " " + _o.subscriptionName + ")";
+            _o.latency = latencyValueCache.contains(connName) ? latencyValueCache[connName] : 0;
             connections[connName] = _o;
             subTopLevel->addChild(new QTreeWidgetItem(QStringList() << connName));
         }
     }
 
-    SetEditWidgetEnable(false);
-
     //// We set the current item back...
-    if (!CurrentConnectionName.isEmpty()) {
+    if (!CurrentConnectionName.isEmpty() && connections.contains(CurrentConnectionName)) {
         auto items = connectionListWidget->findItems(CurrentConnectionName, Qt::MatchExactly | Qt::MatchRecursive);
 
         if (items.count() > 0 && IsConnectableItem(items.first())) {
@@ -516,7 +524,7 @@ void MainWindow::on_startButton_clicked()
                 }
 
                 if (canSetSystemProxy) {
-                    LOG(MODULE_UI, "Setting system proxy for simple config")
+                    LOG(MODULE_UI, "Setting system proxy for simple config, HTTP only")
                     // --------------------We only use HTTP here->>|=========|
                     SetSystemProxy(proxyAddress, currentConfig.inboundConfig.http_port, usePAC);
                 }
@@ -532,6 +540,8 @@ void MainWindow::on_startButton_clicked()
         //
         startButton->setEnabled(!startFlag);
         stopButton->setEnabled(startFlag);
+    } else {
+        LOG(MODULE_UI, "vCore already started.")
     }
 }
 
@@ -875,18 +885,20 @@ void MainWindow::on_importConfigButton_clicked()
     ImportConfigWindow *w = new ImportConfigWindow(this);
     auto configs = w->OpenImport();
 
-    for (auto conf : configs) {
-        auto name = configs.key(conf, "");
+    if (!configs.isEmpty()) {
+        for (auto conf : configs) {
+            auto name = configs.key(conf, "");
 
-        if (name.isEmpty())
-            continue;
+            if (name.isEmpty())
+                continue;
 
-        SaveConnectionConfig(conf, &name, false);
-        currentConfig.configs.push_back(name.toStdString());
+            SaveConnectionConfig(conf, &name, false);
+            currentConfig.configs.push_back(name.toStdString());
+        }
+
+        SetGlobalConfig(currentConfig);
+        OnConfigListChanged(false);
     }
-
-    SetGlobalConfig(currentConfig);
-    OnConfigListChanged(false);
 }
 void MainWindow::on_editConfigButton_clicked()
 {
@@ -897,6 +909,8 @@ void MainWindow::on_editConfigButton_clicked()
     }
 
     auto alias = connectionListWidget->selectedItems().first()->text(0);
+    SUBSCRIPTION_CONFIG_MODIFY_ASK(alias)
+    //
     auto outBoundRoot = connections[alias].config;
     CONFIGROOT root;
     bool isChanged = false;
@@ -917,11 +931,15 @@ void MainWindow::on_editConfigButton_clicked()
     }
 
     if (isChanged) {
-        connections[alias].config = root;
-        // true indicates the alias will NOT change
-        SaveConnectionConfig(root, &alias, true);
+        if (IsSubscription(alias)) {
+            SaveSubscriptionConfig(root, connections[alias].subscriptionName, connections[alias].connectionName);
+        } else {
+            connections[alias].config = root;
+            // true indicates the alias will NOT change
+            SaveConnectionConfig(root, &alias, true);
+        }
+
         OnConfigListChanged(alias == CurrentConnectionName);
-        ShowAndSetConnection(CurrentConnectionName, false, false);
     }
 }
 void MainWindow::on_reconnectButton_clicked()
@@ -939,16 +957,8 @@ void MainWindow::on_action_RCM_ConvToComplex_triggered()
     }
 
     auto alias = connectionListWidget->currentItem()->text(0);
-
-    if (connections[alias].configType == CON_SUBSCRIPTION) {
-        if (QvMessageBoxAsk(this, tr("Editing a subscription config"), tr("You are trying to edit a config loaded from subscription.") +
-                            NEWLINE + tr("All changes will be overwritten when the subscriptions are updated next time.") +
-                            NEWLINE + tr("Are you still going to do so?")) != QMessageBox::Yes) {
-            // Not changing, return
-            return;
-        }
-    }
-
+    SUBSCRIPTION_CONFIG_MODIFY_ASK(alias)
+    //
     auto outBoundRoot = connections[alias].config;
     CONFIGROOT root;
     bool isChanged = false;
@@ -1004,9 +1014,9 @@ void MainWindow::on_pingTestBtn_clicked()
     latencyLabel->setText(tr("Testing..."));
     // We get data from UI?
     auto alias = connectionListWidget->currentItem()->text(0);
-    int port = -1;
 
     try {
+        int port = -1;
         port = stoi(_portLabel->text().isEmpty() ? "0" : _portLabel->text().toStdString());
         tcpingModel->StartPing(alias, _hostLabel->text(), port);
     }  catch (...) {
@@ -1133,6 +1143,7 @@ void MainWindow::on_connectionListWidget_itemSelectionChanged()
         _OutBoundTypeLabel->setText(tr("N/A"));
         _hostLabel->setText(tr("N/A"));
         _portLabel->setText(tr("N/A"));
+        latencyLabel->setText(tr("N/A"));
     }
 }
 

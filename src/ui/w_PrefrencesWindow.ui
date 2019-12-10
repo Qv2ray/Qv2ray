@@ -135,14 +135,14 @@
          <item row="0" column="1">
           <widget class="QLabel" name="darkThemeLabel">
            <property name="text">
-            <string>Dark UI Icons</string>
+            <string>Darkmode UI Icons</string>
            </property>
           </widget>
          </item>
          <item row="1" column="1">
           <widget class="QLabel" name="label_36">
            <property name="text">
-            <string>Dark Tray Icon</string>
+            <string>Darkmode Tray Icon</string>
            </property>
           </widget>
          </item>
@@ -1042,7 +1042,14 @@
        <string>Network Toolbar Settings</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_3">
-       <item row="1" column="0" rowspan="3">
+       <item row="3" column="1">
+        <widget class="QPushButton" name="applyNSBarSettingsBtn">
+         <property name="text">
+          <string>Apply Network Speed Bar UI Settings</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0" rowspan="3">
         <widget class="QGroupBox" name="groupBox_6">
          <property name="title">
           <string>Items</string>
@@ -1187,7 +1194,14 @@
          </layout>
         </widget>
        </item>
-       <item row="1" column="1">
+       <item row="0" column="0" colspan="2">
+        <widget class="QLabel" name="label_33">
+         <property name="text">
+          <string>You can config how the network speed toolbar looks like in this panel</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
         <widget class="QFrame" name="nsBarVerticalLayout">
          <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>
@@ -1356,17 +1370,20 @@
          </layout>
         </widget>
        </item>
-       <item row="0" column="0" colspan="2">
-        <widget class="QLabel" name="label_33">
-         <property name="text">
-          <string>You can config how the network speed toolbar looks like in this panel</string>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_64">
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <italic>true</italic>
+           <bold>true</bold>
+          </font>
          </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QPushButton" name="applyNSBarSettingsBtn">
+         <property name="styleSheet">
+          <string notr="true">color: red</string>
+         </property>
          <property name="text">
-          <string>Apply Network Speed Bar UI Settings</string>
+          <string>This feature for Windows is not stable yet.</string>
          </property>
         </widget>
        </item>
