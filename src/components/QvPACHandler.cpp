@@ -6,25 +6,25 @@ namespace Qv2ray
 {
     namespace Components
     {
-        PACHandler::PACHandler() : QObject()
+        PACServer::PACServer() : QObject()
         {
             pacServer = new QHttpServer();
-            connect(pacServer, &QHttpServer::newRequest, this, &PACHandler::onNewRequest);
+            connect(pacServer, &QHttpServer::newRequest, this, &PACServer::onNewRequest);
         }
-        PACHandler::~PACHandler()
+        PACServer::~PACServer()
         {
             pacServer->close();
             delete pacServer;
         }
-        void PACHandler::SetProxyString(const QString &proxyString)
+        void PACServer::SetProxyString(const QString &proxyString)
         {
             this->proxyString = proxyString;
         }
-        void PACHandler::StartListen()
+        void PACServer::StartListen()
         {
             LOG(MODULE_PROXY, "Starting PAC listener")
             pacServer = new QHttpServer();
-            connect(pacServer, &QHttpServer::newRequest, this, &PACHandler::onNewRequest);
+            connect(pacServer, &QHttpServer::newRequest, this, &PACServer::onNewRequest);
             //
             auto conf = GetGlobalConfig();
             auto address = QSTRING(conf.inboundConfig.listenip);
@@ -44,7 +44,7 @@ namespace Qv2ray
             }
         }
 
-        void PACHandler::StopServer()
+        void PACServer::StopServer()
         {
             if (isStarted) {
                 pacServer->close();
@@ -53,7 +53,7 @@ namespace Qv2ray
             }
         }
 
-        void PACHandler::onNewRequest(QHttpRequest *req, QHttpResponse *rsp)
+        void PACServer::onNewRequest(QHttpRequest *req, QHttpResponse *rsp)
         {
             rsp->setHeader("Server", "Qv2ray/" QV2RAY_VERSION_STRING " PAC_Handler");
 

@@ -10,7 +10,7 @@
 namespace Qv2ray
 {
     // Private member
-    QJsonObject UpgradeConfig_Inc(int fromVersion, QJsonObject root)
+    CONFIGROOT UpgradeConfig_Inc(int fromVersion, CONFIGROOT root)
     {
         switch (fromVersion) {
             case 1: {
@@ -53,73 +53,53 @@ namespace Qv2ray
             }
 
             // --------------------------------------------------------------------------------------
-            // Below is for version 2
+            // Below is for Qv2ray version 2
             case 4: {
-                // From 2 to 3, we changed the "proxyCN" to "bypassCN" as it's easier to understand....
+                // We changed the "proxyCN" to "bypassCN" as it's easier to understand....
                 auto v2_oldProxyCN = root["proxyCN"].toBool();
-                root.remove("proxyCN");
-                root.insert("bypassCN", !v2_oldProxyCN);
-                UPDATELOG("Upgrading proxyCN to bypassCN and changed the value to " + to_string(!v2_oldProxyCN))
-                break;
-            }
-
-            case 5: {
-                auto v3_oldrunAsRoot = root["runAsRoot"].toBool();
+                //
                 // From 3 to 4, we changed 'runAsRoot' to 'tProxySupport'
-                root.remove("runAsRoot");
+                auto v3_oldrunAsRoot = root["runAsRoot"].toBool();
                 root.insert("tProxySupport", v3_oldrunAsRoot);
                 UPDATELOG("Upgrading runAsRoot to tProxySupport, the value is not changed: " + to_string(v3_oldrunAsRoot))
-                break;
-            }
-
-            case 6: {
-                root["enableStats"] = true;
-                UPDATELOG("Default statistics enabled.")
-                break;
-            }
-
-            case 7: {
+                //
                 QString path;
                 path = QV2RAY_DEFAULT_VCORE_PATH;
                 root["v2CorePath"] = path;
                 UPDATELOG("Added v2CorePath to the config file.")
-                break;
-            }
-
-            case 8: {
-                auto lang = root["language"].toString();
+                //
                 QJsonObject uiSettings;
-                uiSettings["language"] = lang;
+                uiSettings["language"] = root["language"].toString("en-US");
                 root["uiConfig"] = uiSettings;
-                UPDATELOG("Reconstructing config file.")
-                break;
-            }
-
-            case 9: {
-                root["uiConfig"] = root["UISettings"];
-                root.remove("UISettings");
-                UPDATELOG("Renamed UISettings to uiConfig.")
-                break;
-            }
-
-            case 10: {
+                //
                 root["inboundConfig"] = root["inBoundSettings"];
                 root.remove("inBoundSettings");
                 UPDATELOG("Renamed inBoundSettings to inboundConfig.")
-                break;
-            }
-
-            case 11: {
+                //
                 //connectionConfig
                 QJsonObject o;
                 o["dnsList"] = root["dnsList"];
                 o["withLocalDNS"] = root["withLocalDNS"];
                 o["enableProxy"] = root["enableProxy"];
-                o["bypassCN"] = root["bypassCN"];
-                o["enableStats"] = root["enableStats"];
-                o["statsPort"] = root["statsPort"];
+                o["bypassCN"] = !v2_oldProxyCN;
+                o["enableStats"] = true;
+                o["statsPort"] = 13459;
+                UPDATELOG("Default statistics enabled.")
                 root["connectionConfig"] = o;
                 UPDATELOG("Renamed some connection configs to connectionConfig.")
+                //
+                // Do we need renaming here?
+                // //auto inbound = root["inboundConfig"].toObject();
+                // //auto pacConfig = inbound["pacConfig"].toObject();
+                // //pacConfig["enablePAC"] = pacConfig["usePAC"].toBool();
+                // //inbound["pacConfig"] = pacConfig;
+                // //root["inboundConfig"] = inbound;
+                // //UPDATELOG("Renamed usePAC to enablePAC.")
+                //
+                ConfigIdentifier i;
+                i.connectionName = root["autoStartConfig"].toString().toStdString();
+                root["autoStartConfig"] = GetRootObject(i);
+                UPDATELOG("Added subscription feature to autoStartConfig.")
             }
         }
 
@@ -128,7 +108,7 @@ namespace Qv2ray
     }
 
     // Exported function
-    QJsonObject UpgradeConfig(int fromVersion, int toVersion, QJsonObject root)
+    CONFIGROOT UpgradeConfig(int fromVersion, int toVersion, CONFIGROOT root)
     {
         LOG(MODULE_CONFIG, "Migrating config from version " + to_string(fromVersion) + " to " + to_string(toVersion))
 

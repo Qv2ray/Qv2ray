@@ -15,27 +15,24 @@
 #include "w_OutboundEditor.hpp"
 #include "w_JsonEditor.hpp"
 #include "w_ImportConfig.hpp"
+#include "w_SubscriptionEditor.hpp"
+#include "w_RoutesEditor.hpp"
 
 
 ImportConfigWindow::ImportConfigWindow(QWidget *parent)
     : QDialog(parent)
 {
     setupUi(this);
-    nameTxt->setText(QDateTime::currentDateTime().toString("MM-dd_hh-mm") + "_" + tr("Imported") + "_");
+    nameTxt->setText(QDateTime::currentDateTime().toString("MMdd_hhmm"));
 }
 
-QMap<QString, QJsonObject> ImportConfigWindow::OpenImport(bool outboundsOnly)
+QMap<QString, CONFIGROOT> ImportConfigWindow::OpenImport(bool outboundsOnly)
 {
     // if Outbound Only, set keepImported to false and disable the checkbox
     // keepImportedInboundCheckBox->setChecked(!outboundsOnly);
     keepImportedInboundCheckBox->setEnabled(!outboundsOnly);
     this->exec();
-    return this->result() == QDialog::Accepted ? connections : QMap<QString, QJsonObject>();
-}
-
-void ImportConfigWindow::on_importSourceCombo_currentIndexChanged(int index)
-{
-    stackedWidget->setCurrentIndex(index);
+    return this->result() == QDialog::Accepted ? connections : QMap<QString, CONFIGROOT>();
 }
 
 void ImportConfigWindow::on_selectFileBtn_clicked()
@@ -65,27 +62,23 @@ void ImportConfigWindow::on_qrFromScreenBtn_clicked()
 void ImportConfigWindow::on_beginImportBtn_clicked()
 {
     QString aliasPrefix = nameTxt->text();
-    QJsonObject config;
     //auto conf = GetGlobalConfig();
 
-    switch (importSourceCombo->currentIndex()) {
+    switch (tabWidget->currentIndex()) {
         case 0: {
             // From File...
             bool keepInBound = keepImportedInboundCheckBox->isChecked();
             QString path = fileLineTxt->text();
-            aliasPrefix = aliasPrefix.isEmpty() ? aliasPrefix : QFileInfo(path).fileName();
-            config = ConvertConfigFromFile(path, keepInBound);
 
-            if (config.isEmpty()) {
-                QvMessageBox(this, tr("Import config file"), tr("Import from file failed, for more information, please check the log file."));
-                return;
-            } else if (!ConnectionInstance::ValidateConfig(path)) {
+            if (!ConnectionInstance::ValidateConfig(path)) {
                 QvMessageBox(this, tr("Import config file"), tr("Failed to check the validity of the config file."));
                 return;
-            } else {
-                connections[aliasPrefix] = config;
-                break;
             }
+
+            aliasPrefix += "_" + QFileInfo(path).fileName();
+            CONFIGROOT config = ConvertConfigFromFile(path, keepInBound);
+            connections[aliasPrefix] = config;
+            break;
         }
 
         case 1: {
@@ -96,13 +89,13 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
             vmessConnectionStringTxt->clear();
             errorsList->clear();
             //
-            LOG(MODULE_IMPORT, to_string(vmessList.count()) + " vmess connection found.")
+            LOG(MODULE_IMPORT, to_string(vmessList.count()) + " string found in vmess box.")
 
             while (!vmessList.isEmpty()) {
                 aliasPrefix = nameTxt->text();
                 auto vmess = vmessList.takeFirst();
                 QString errMessage;
-                config = ConvertConfigFromVMessString(vmess, &aliasPrefix, &errMessage);
+                CONFIGROOT config = ConvertConfigFromVMessString(vmess, &aliasPrefix, &errMessage);
 
                 // If the config is empty or we have any err messages.
                 if (config.isEmpty() || !errMessage.isEmpty()) {
@@ -115,11 +108,14 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
             }
 
             if (!vmessErrors.isEmpty()) {
-                // TODO Show in UI
                 for (auto item : vmessErrors) {
                     vmessConnectionStringTxt->appendPlainText(vmessErrors.key(item));
                     errorsList->addItem(item);
                 }
+
+                vmessConnectionStringTxt->setLineWidth(errorsList->lineWidth());
+                errorsList->sortItems();
+                return;
             }
 
             break;
@@ -187,7 +183,7 @@ void ImportConfigWindow::on_editFileBtn_clicked()
     }
 
     auto jsonString = StringFromFile(&file);
-    auto jsonCheckingError = VerifyJsonString(&jsonString);
+    auto jsonCheckingError = VerifyJsonString(jsonString);
 
     if (!jsonCheckingError.isEmpty()) {
         LOG(MODULE_FILE, "Currupted JSON file detected")
@@ -208,7 +204,7 @@ void ImportConfigWindow::on_editFileBtn_clicked()
         bool result = StringToFile(&str, &file);
 
         if (!result) {
-            QvMessageBox(this, tr("Edit file as JSON"), tr("Failed to save file, please check if you have the required permissions"));
+            QvMessageBox(this, tr("Edit file as JSON"), tr("Failed to save file, please check if you have proper permissions"));
         }
     } else {
         LOG(MODULE_FILE, "Canceled saving a file.")
@@ -224,22 +220,13 @@ void ImportConfigWindow::on_connectionEditBtn_clicked()
     delete w;
 
     if (isChanged) {
-        QJsonArray outboundsList;
+        OUTBOUNDS outboundsList;
         outboundsList.push_back(outboundEntry);
-        QJsonObject root;
+        CONFIGROOT root;
         root.insert("outbounds", outboundsList);
         //
-        // WARN This one will change the connection name, because of some duplicates.
         connections[alias] = root;
-        //SaveConnectionConfig(root, &alias, false);
-        //
-        // WARN Add connection here
-        //auto conf = GetGlobalConfig();
-        //auto connectionList = conf.configs;
-        //connectionList.push_back(alias.toStdString());
-        //conf.configs = connectionList;
-        //SetGlobalConfig(conf);
-        close();
+        accept();
     } else {
         return;
     }
@@ -248,4 +235,27 @@ void ImportConfigWindow::on_connectionEditBtn_clicked()
 void ImportConfigWindow::on_cancelImportBtn_clicked()
 {
     reject();
+}
+
+void ImportConfigWindow::on_subscriptionButton_clicked()
+{
+    hide();
+    SubscribeEditor w;
+    w.exec();
+    accept();
+}
+
+void ImportConfigWindow::on_routeEditBtn_clicked()
+{
+    RouteEditor w(QJsonObject(), this);
+    auto result = w.OpenEditor();
+    bool isChanged = w.result() == QDialog::Accepted;
+    QString alias = nameTxt->text();
+
+    if (isChanged) {
+        connections[alias] = result;
+        accept();
+    } else {
+        return;
+    }
 }

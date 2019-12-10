@@ -1,15 +1,14 @@
 ﻿#include <QThread>
+#include "w_MainWindow.hpp"
+
 #include "QvNetSpeedPlugin.hpp"
 #include "QvUtils.hpp"
-
-#include "w_MainWindow.hpp"
 namespace Qv2ray
 {
     namespace Components
     {
         namespace NetSpeedPlugin
         {
-            static MainWindow *mainWindow;
             static Qv2rayConfig config;
             void StopProcessingPlugins()
             {
@@ -23,9 +22,8 @@ namespace Qv2ray
 
             /// Public Function - CALL ONLY ONCE -
             /// To start processing plugins' command.
-            void StartProcessingPlugins(QWidget *_mainWindow)
+            void StartProcessingPlugins()
             {
-                mainWindow = static_cast<MainWindow *>(_mainWindow);
                 config = GetGlobalConfig();
 #ifdef Q_OS_LINUX
                 _linux::StartMessageQThread();
@@ -36,16 +34,25 @@ namespace Qv2ray
             }
             QString GetAnswerToRequest(const QString &pchRequest)
             {
+                auto instance = MainWindow::mwInstance;
+
+                if (instance == nullptr || instance->vinstance == nullptr) {
+                    LOG(MODULE_PLUGIN, "MainWindow != nullptr Assertion failed!")
+                    return "{}";
+                }
+
+                auto vinstance = instance->vinstance;
+                //
                 auto req = pchRequest.trimmed();
                 config = GetGlobalConfig();
                 QString reply = "{}";
 
                 if (req == "START") {
-                    emit mainWindow->Connect();
+                    emit instance->Connect();
                 } else if (req == "STOP") {
-                    emit mainWindow->DisConnect();
+                    emit instance->DisConnect();
                 } else if (req == "RESTART") {
-                    emit mainWindow->ReConnect();
+                    emit instance->ReConnect();
                 }
 
                 auto BarConfig = config.toolBarConfig;
@@ -82,13 +89,13 @@ namespace Qv2ray
 
                             case 104: {
                                 // Current Connection Name
-                                CL.Message = mainWindow->CurrentConnectionName.toStdString();
+                                CL.Message = instance->CurrentConnectionName.toStdString();
                                 break;
                             }
 
                             case 105: {
                                 // Current Connection Status
-                                switch (mainWindow->vinstance->ConnectionStatus) {
+                                switch (instance->vinstance->ConnectionStatus) {
                                     case STARTED: {
                                         CL.Message = QObject::tr("Connected").toStdString();
                                         break;
@@ -111,60 +118,56 @@ namespace Qv2ray
                             case 201: {
                                 // Total upload speed;
                                 STATS_ENABLE_CHECK
-                                CL.Message = (mainWindow->totalSpeedUp + "/s").toStdString();
+                                CL.Message = FormatBytes(vinstance->getAllSpeedUp()).toStdString() + "/s";
                                 break;
                             }
 
                             case 202: {
                                 // Total download speed;
                                 STATS_ENABLE_CHECK
-                                CL.Message = (mainWindow->totalSpeedDown + "/s").toStdString();
+                                CL.Message = (FormatBytes(vinstance->getAllSpeedDown()) + "/s").toStdString();
                                 break;
                             }
 
                             case 203: {
                                 // Upload speed for tag
                                 STATS_ENABLE_CHECK
-                                auto data = mainWindow->vinstance->dataTransferSpeed[QSTRING(CL.Message) + "_up"];
-                                CL.Message = FormatBytes(data).toStdString() + "/s";
+                                CL.Message = FormatBytes(vinstance->getTagSpeedUp(QSTRING(CL.Message))).toStdString() + "/s";
                                 break;
                             }
 
                             case 204: {
                                 STATS_ENABLE_CHECK
                                 // Download speed for tag
-                                auto data = mainWindow->vinstance->dataTransferSpeed[QSTRING(CL.Message) + "_down"];
-                                CL.Message = FormatBytes(data).toStdString() + "/s";
+                                CL.Message = FormatBytes(vinstance->getTagSpeedDown(QSTRING(CL.Message))).toStdString() + "/s";
                                 break;
                             }
 
                             case 301: {
                                 // Total Upload
                                 STATS_ENABLE_CHECK
-                                CL.Message = (mainWindow->totalDataUp).toStdString();
+                                CL.Message = FormatBytes(vinstance->getAllDataUp()).toStdString();
                                 break;
                             }
 
                             case 302: {
                                 // Total download
                                 STATS_ENABLE_CHECK
-                                CL.Message = (mainWindow->totalDataDown).toStdString();
+                                CL.Message = FormatBytes(vinstance->getAllDataDown()).toStdString();
                                 break;
                             }
 
                             case 303: {
                                 // Upload for tag
                                 STATS_ENABLE_CHECK
-                                auto data = mainWindow->vinstance->totalDataTransfered[QSTRING(CL.Message) + "_up"];
-                                CL.Message = FormatBytes(data).toStdString();
+                                CL.Message = FormatBytes(vinstance->getTagDataUp(QSTRING(CL.Message))).toStdString();
                                 break;
                             }
 
                             case 304: {
                                 // Download for tag
                                 STATS_ENABLE_CHECK
-                                auto data = mainWindow->vinstance->totalDataTransfered[QSTRING(CL.Message) + "_down"];
-                                CL.Message = FormatBytes(data).toStdString();
+                                CL.Message = FormatBytes(vinstance->getTagDataDown(QSTRING(CL.Message))).toStdString();
                                 break;
                             }
 

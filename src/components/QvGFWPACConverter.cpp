@@ -105,27 +105,31 @@ namespace Qv2ray
             }
 
             //End Message
-            outputContent += "\n\n};\n\n\n";
-            outputContent += "var proxy = \"";
-            outputContent += customProxyString.toStdString();
-            outputContent += "\";\n";
-            outputContent += "var direct = 'DIRECT;';\n";
-            outputContent += "var hasOwnProperty = Object.hasOwnProperty;\n\n";
-            outputContent += "function FindProxyForURL(url, host) {\n\n";
-            outputContent += "\tvar suffix;\n";
-            outputContent += "\tvar pos = host.lastIndexOf('.');\n";
-            outputContent += "\tpos = host.lastIndexOf('.', pos - 1);\n\n";
-            outputContent += "\twhile(1) {\n";
-            outputContent += "\t\tif (pos <= 0) {\n";
-            outputContent += "\t\t\tif (hasOwnProperty.call(domains, host)) ";
-            outputContent += "return proxy;\n";
-            outputContent += "\t\t\telse ";
-            outputContent += "return direct;\n";
-            outputContent += "\t\t}\n\n";
-            outputContent += "\tsuffix = host.substring(pos + 1);\n";
-            outputContent += "\tif (hasOwnProperty.call(domains, suffix))";
-            outputContent += "return proxy;\n";
-            outputContent += "\tpos = host.lastIndexOf('.', pos - 1);\n\t}\n}";
+            outputContent +=
+                NEWLINE "};"
+                NEWLINE ""
+                NEWLINE "   var proxy = \"" + customProxyString.toStdString() + ";\";" +
+                NEWLINE "   var direct = 'DIRECT;';"
+                NEWLINE "    function FindProxyForURL(url, host) {"
+                NEWLINE "        var suffix;"
+                NEWLINE "        var pos = host.lastIndexOf('.');"
+                NEWLINE "        pos = host.lastIndexOf('.', pos - 1);"
+                NEWLINE "        //"
+                NEWLINE "        while (1) {"
+                NEWLINE "            if (domains[host] != undefined) {"
+                NEWLINE "                return proxy;"
+                NEWLINE "            }"
+                NEWLINE "            else if (pos <= 0) {"
+                NEWLINE "                return domains['.' + host] != undefined ? proxy : direct;"
+                NEWLINE "            }"
+                NEWLINE "            suffix = host.substring(pos);"
+                NEWLINE "            if (domains[suffix] != undefined) {"
+                NEWLINE "                return proxy;"
+                NEWLINE "            }"
+                NEWLINE "            pos = host.lastIndexOf('.', pos - 1);"
+                NEWLINE "        }"
+                NEWLINE "    }";
+            //
             return QSTRING(outputContent);
         }
     }

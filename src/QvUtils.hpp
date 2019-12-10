@@ -40,7 +40,7 @@ namespace Qv2ray
         QString JsonToString(QJsonObject json, QJsonDocument::JsonFormat format = QJsonDocument::JsonFormat::Indented);
         QString JsonToString(QJsonArray array, QJsonDocument::JsonFormat format = QJsonDocument::JsonFormat::Indented);
         //
-        QString VerifyJsonString(const QString *source);
+        QString VerifyJsonString(const QString &source);
         //
         QString Stringify(list<string> list, QString saperator = ";");
         QString Stringify(QList<QString> list, QString saperator = ";");
@@ -63,15 +63,15 @@ namespace Qv2ray
         //
         // Misc
         template<typename T>
-        QJsonObject GetRootObject(T t)
+        QJsonObject GetRootObject(const T &t)
         {
             auto json = StructToJsonString(t);
             QJsonDocument doc = QJsonDocument::fromJson(QByteArray::fromStdString(json.toStdString()));
             return doc.object();
         }
-        template QJsonObject GetRootObject<RuleObject>(RuleObject t);
-        template QJsonObject GetRootObject<StreamSettingsObject>(StreamSettingsObject t);
-        template QJsonObject GetRootObject<VMessServerObject>(VMessServerObject t);
+        template QJsonObject GetRootObject<RuleObject>(const RuleObject &t);
+        template QJsonObject GetRootObject<StreamSettingsObject>(const StreamSettingsObject &t);
+        template QJsonObject GetRootObject<VMessServerObject>(const VMessServerObject &t);
         //
         //
         template <typename T>
@@ -87,6 +87,13 @@ namespace Qv2ray
         //
         //
         QString ConvertGFWToPAC(const QString &rawContent, const QString &customProxyString);
+        void QFastAppendTextDocument(const QString &message, QTextDocument *doc);
+        QStringList ConvertQStringList(const QList<string> &stdListString);
+        inline bool IsValidFileName(const QString &str)
+        {
+            // If no match, we are good.
+            return QRegExp(R"([\/\\\"?%*:|><]|(^\.{1,2}$))").indexIn(str) == -1;
+        }
     }
 }
 

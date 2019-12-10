@@ -3,11 +3,6 @@
 
 #include "Qv2rayBase.hpp"
 //
-// For Windows
-#ifdef Q_OS_WIN
-#include <windows.h>
-#endif
-//
 #define QV2RAY_NETSPEED_PLUGIN_PIPE_NAME_LINUX "Qv2ray_NetSpeed_Widget_LocalSocket"
 #define QV2RAY_NETSPEED_PLUGIN_PIPE_NAME_WIN "\\\\.\\pipe\\qv2ray_desktop_netspeed_toolbar_pipe"
 //
@@ -37,7 +32,7 @@ namespace Qv2ray
                 { 303, QObject::tr("Uploaded Data for Specific Tag") },
                 { 304, QObject::tr("Downloaded Data for Specific Tag") }
             };
-            void StartProcessingPlugins(QWidget *mainWindow);
+            void StartProcessingPlugins();
             void StopProcessingPlugins();
 #ifdef Q_OS_WIN
             namespace _win

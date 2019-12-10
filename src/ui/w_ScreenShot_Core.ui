@@ -63,6 +63,9 @@
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <tabstops>
+  <tabstop>startBtn</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

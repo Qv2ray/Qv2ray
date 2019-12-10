@@ -1,5 +1,25 @@
 ﻿#include "QvUtils.hpp"
-#include <QTextStream>
+#include <QQueue>
+
+// Forwarded from QvTinyLog
+static QQueue<QString> __loggerBuffer;
+void _LOG(const std::string &module, const std::string &log)
+{
+    string logString = "[" + module + "]: " + log;
+    cout << logString << endl;
+    __loggerBuffer.enqueue((logString + NEWLINE).c_str());
+}
+
+const QString readLastLog()
+{
+    QString result;
+
+    while (!__loggerBuffer.isEmpty()) {
+        result += __loggerBuffer.dequeue();
+    }
+
+    return result;
+}
 
 namespace Qv2ray
 {
@@ -119,10 +139,10 @@ namespace Qv2ray
             return doc.toJson(format);
         }
 
-        QString VerifyJsonString(const QString *source)
+        QString VerifyJsonString(const QString &source)
         {
             QJsonParseError error;
-            QJsonDocument doc = QJsonDocument::fromJson(source->toUtf8(), &error);
+            QJsonDocument doc = QJsonDocument::fromJson(source.toUtf8(), &error);
             Q_UNUSED(doc)
 
             if (error.error == QJsonParseError::NoError) {
@@ -241,5 +261,26 @@ namespace Qv2ray
             }
         }
 
+        void QFastAppendTextDocument(const QString &message, QTextDocument *doc)
+        {
+            QTextCursor cursor(doc);
+            cursor.movePosition(QTextCursor::End);
+            cursor.beginEditBlock();
+            cursor.insertBlock();
+            cursor.insertHtml(message);
+            cursor.endEditBlock();
+        }
+
+        QStringList ConvertQStringList(const QList<string> &stdListString)
+        {
+            QStringList listQt;
+            listQt.reserve(stdListString.size());
+
+            for (const std::string &s : stdListString) {
+                listQt.append(QString::fromStdString(s));
+            }
+
+            return listQt;
+        }
     }
 }

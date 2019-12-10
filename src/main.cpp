@@ -3,11 +3,12 @@
 #include <QTranslator>
 #include <QStyle>
 #include <QLocale>
+#include <QObject>
 #include <QStyleFactory>
 
-#include "QvUtils.hpp"
-#include "Qv2rayBase.hpp"
-#include "QvRunguard.hpp"
+#include <QApplication>
+#include <singleapplication.h>
+
 #include "w_MainWindow.hpp"
 
 bool verifyConfigAvaliability(QString path, bool checkExistingConfig)
@@ -44,16 +45,27 @@ bool verifyConfigAvaliability(QString path, bool checkExistingConfig)
         try {
             if (opened2) {
                 // Verify if the config can be loaded.
-                auto conf = StructFromJsonString<Qv2rayConfig>(configFile.readAll());
-                LOG(MODULE_CONFIG, "Path: " + path.toStdString() + " contains a config file, in version " + to_string(conf.config_version))
-                configFile.close();
-                return true;
+                // Failed to parse if we changed the file structure...
+                //auto conf = StructFromJsonString<Qv2rayConfig>(configFile.readAll());
+                auto err = VerifyJsonString(StringFromFile(&configFile));
+
+                if (!err.isEmpty()) {
+                    LOG(MODULE_INIT, "Json parse returns: " + err.toStdString())
+                    return false;
+                } else {
+                    auto conf = JsonFromString(StringFromFile(&configFile));
+                    LOG(MODULE_CONFIG, "Path: " + path.toStdString() + " contains a config file, in version " + to_string(conf["config_version"].toInt()))
+                    configFile.close();
+                    return true;
+                }
             } else {
                 LOG(MODULE_CONFIG, "File: " + configFile.fileName().toStdString()  + " cannot be opened!")
                 return false;
             }
         }  catch (...) {
             LOG(MODULE_CONFIG, "Exception raised when checking config: " + configFile.fileName().toStdString())
+            //LOG(MODULE_INIT, e->what())
+            QvMessageBox(nullptr, QObject::tr("Warning"), QObject::tr("Qv2ray cannot load the config file from here:") + NEWLINE + configFile.fileName());
             return false;
         }
     } else return true;
@@ -74,11 +86,11 @@ bool initialiseQv2ray()
         bool avail = verifyConfigAvaliability(path, true);
 
         if (avail) {
-            DEBUG(MODULE_INIT, "Path: " << path.toStdString() << " is valid.")
+            DEBUG(MODULE_INIT, "Path: " + path.toStdString() + " is valid.")
             configPath = path;
             hasExistingConfig = true;
         } else {
-            DEBUG(MODULE_INIT, "Path: " << path.toStdString() << " does not contain a valid config file.")
+            DEBUG(MODULE_INIT, "Path: " + path.toStdString() + " does not contain a valid config file.")
         }
     }
 
@@ -112,8 +124,20 @@ bool initialiseQv2ray()
         } else {
             LOG(MODULE_INIT, "Set " + configPath.toStdString() + " as the config path.")
             SetConfigDirPath(&configPath);
-            Qv2rayInboundsConfig inboundSetting = Qv2rayInboundsConfig("127.0.0.1", 1080, 8000);
-            Qv2rayConfig conf = Qv2rayConfig(QV2RAY_DEFAULT_VCORE_PATH.toStdString(), 4, inboundSetting);
+
+            if (QFile::exists(QV2RAY_CONFIG_FILE)) {
+                LOG(MODULE_INIT, "This should not occur: Qv2ray config exists but failed to load.")
+                QvMessageBox(nullptr, QObject::tr("Failed to initialise Qv2ray"),
+                             QObject::tr("Failed to determine the location of config file.") + NEWLINE +
+                             QObject::tr("Qv2ray will now exit.") + NEWLINE +
+                             QObject::tr("Please report if you think it's a bug."));
+                return false;
+            }
+
+            Qv2rayConfig conf;
+            conf.v2AssetsPath = QV2RAY_DEFAULT_VASSETS_PATH.toStdString();
+            conf.v2CorePath = QV2RAY_DEFAULT_VCORE_PATH.toStdString();
+            conf.logLevel = 2;
             //
             // Save initial config.
             SetGlobalConfig(conf);
@@ -136,13 +160,20 @@ bool initialiseQv2ray()
 int main(int argc, char *argv[])
 {
     // This line must be called before any other ones.
-    QApplication _qApp(argc, argv);
+    // ----------------------------> For debug build...
+    SingleApplication _qApp(argc, argv);
+    // Early initialisation
+#ifdef QT_DEBUG
+    _qApp.setApplicationName(_qApp.applicationName() + " - DEBUG");
+#endif
+    //
     //
     // Install a default translater. From the OS/DE
     auto _lang = QLocale::system().name().replace("_", "-");
+    auto _sysTranslator = getTranslator(_lang);
 
     if (_lang != "en-US") {
-        bool _result_ = qApp->installTranslator(getTranslator(_lang));
+        bool _result_ = qApp->installTranslator(_sysTranslator);
         LOG(MODULE_UI, "Installing a tranlator from OS: " + _lang.toStdString() + " -- " + (_result_ ? "OK" : "Failed"))
     }
 
@@ -161,6 +192,7 @@ int main(int argc, char *argv[])
         "Copyright (c) 2011 SCHUTZ Sacha (@dridk): QJsonModel (MIT)" NEWLINE
         "Copyright (c) 2019 Nikolaos Ftylitakis (@ftylitak): QZXing (Apache2)" NEWLINE
         "Copyright (c) 2016 Singein (@Singein): ScreenShot (MIT)" NEWLINE
+        "Copyright (c) 2016 Nikhil Marathe (@nikhilm): QHttpServer (MIT)" NEWLINE
         NEWLINE
         "Qv2ray " QV2RAY_VERSION_STRING " running on " +
         (QSysInfo::prettyProductName() + " " + QSysInfo::currentCpuArchitecture()).toStdString() + NEWLINE)
@@ -185,19 +217,7 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-#ifdef QT_DEBUG
-    RunGuard guard("Qv2ray-Instance-Identifier-DEBUG_VERSION");
-#else
-    RunGuard guard("Qv2ray-Instance-Identifier");
-#endif
-
-    if (!guard.isSingleInstance()) {
-        LOG(MODULE_INIT, "Another Instance running, Quit.")
-        QvMessageBox(nullptr, "Qv2ray", QObject::tr("Another instance of Qv2ray is already running."));
-        return -1;
-    }
-
-    auto conf = JsonFromString(StringFromFile(new QFile(QV2RAY_CONFIG_FILE)));
+    auto conf = CONFIGROOT(JsonFromString(StringFromFile(new QFile(QV2RAY_CONFIG_FILE))));
     //
     auto confVersion = conf["config_version"].toVariant().toString();
     auto newVersion = QSTRING(to_string(QV2RAY_CONFIG_VERSION));
@@ -209,7 +229,8 @@ int main(int argc, char *argv[])
         // This is rare but it may happen....
         QvMessageBox(nullptr, QObject::tr("Qv2ray Cannot Continue"),
                      QObject::tr("You are running a lower version of Qv2ray compared to the current config file.") + NEWLINE +
-                     QObject::tr("Please report if you think this is an error.") + NEWLINE +
+                     QObject::tr("Please check if there's an issue explaining about it.") + NEWLINE +
+                     QObject::tr("Or submit a new issue if you think this is an error.") + NEWLINE + NEWLINE +
                      QObject::tr("Qv2ray will now exit."));
         return -3;
     } else if (confVersion != newVersion) {
@@ -217,9 +238,15 @@ int main(int argc, char *argv[])
     }
 
     auto confObject = StructFromJsonString<Qv2rayConfig>(JsonToString(conf));
-    SetGlobalConfig(confObject);
+    qApp->removeTranslator(_sysTranslator);
+    LOG(MODULE_INIT, "Removing system translations")
 
-    if (qApp->installTranslator(getTranslator(QSTRING(confObject.uiConfig.language))) || confObject.uiConfig.language == "en-US") {
+    if (confObject.uiConfig.language.empty()) {
+        LOG(MODULE_UI, "Setting default UI language to en-US")
+        confObject.uiConfig.language = "en-US";
+    }
+
+    if (qApp->installTranslator(getTranslator(QSTRING(confObject.uiConfig.language)))) {
         LOG(MODULE_INIT, "Loaded Translator " + confObject.uiConfig.language)
     } else {
         // Do not translate these.....
@@ -230,6 +257,7 @@ int main(int argc, char *argv[])
             "https://github.com/lhy0403/Qv2ray/issues/new");
     }
 
+    SetGlobalConfig(confObject);
     auto osslReqVersion = QSslSocket::sslLibraryBuildVersionString().toStdString();
     auto osslCurVersion = QSslSocket::sslLibraryVersionString().toStdString();
     LOG(MODULE_NETWORK, "Current OpenSSL version: " + osslCurVersion)
@@ -291,21 +319,34 @@ int main(int argc, char *argv[])
 
 #else
     QStringList themes = QStyleFactory::keys();
+    //_qApp.setDesktopFileName("qv2ray.desktop");
 
     if (themes.contains(QSTRING(confObject.uiConfig.theme))) {
         _qApp.setStyle(QSTRING(confObject.uiConfig.theme));
-        LOG(MODULE_INIT " " MODULE_UI, "Setting Qv2ray UI themes.")
+        LOG(MODULE_INIT " " MODULE_UI, "Setting Qv2ray UI themes: " + confObject.uiConfig.theme)
     }
 
 #endif
+    // Show MainWindow
+    MainWindow w;
+#ifndef QT_DEBUG
 
     try {
-        // Show MainWindow
-        MainWindow w;
-        return _qApp.exec();
+#endif
+        QObject::connect(&_qApp, &SingleApplication::instanceStarted, [&w]() {
+            w.show();
+            w.raise();
+            w.activateWindow();
+        });
+        auto rcode = _qApp.exec();
+        LOG(MODULE_INIT, "Quitting normally")
+        return rcode;
+#ifndef QT_DEBUG
     }  catch (...) {
         QvMessageBox(nullptr, "ERROR", "There's something wrong happened and Qv2ray will quit now.");
         LOG(MODULE_INIT, "EXCEPTION THROWN: " __FILE__)
         return -9;
     }
+
+#endif
 }

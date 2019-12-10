@@ -2,13 +2,44 @@
 #define V2CONFIG_H
 #include <list>
 #include <string>
-
+#include <QJsonObject>
+#include <QJsonArray>
 #include <x2struct/x2struct.hpp>
 using namespace x2struct;
 using namespace std;
 
-/* ----------------------------------------- * ---------------------
- * --------------------- * ----------------------------------------- */
+#define SAFE_TYPEDEF(Base, name) \
+    class name : public Base { \
+        public: \
+            template <class... Args> \
+            explicit name (Args... args) : Base(args...) {} \
+            const Base& raw() const { return *this; } \
+    };
+
+namespace Qv2ray
+{
+    // To prevent anonying QJsonObject misuse
+
+    struct ConfigIdentifier {
+        string subscriptionName;
+        string connectionName;
+        XTOSTRUCT(O(subscriptionName, connectionName))
+    };
+    SAFE_TYPEDEF(QJsonObject, INBOUNDSETTING)
+    SAFE_TYPEDEF(QJsonObject, OUTBOUNDSETTING)
+    SAFE_TYPEDEF(QJsonObject, INBOUND)
+    SAFE_TYPEDEF(QJsonObject, OUTBOUND)
+    SAFE_TYPEDEF(QJsonObject, CONFIGROOT)
+    //
+    SAFE_TYPEDEF(QJsonArray, INOUTLIST)
+    SAFE_TYPEDEF(INOUTLIST, OUTBOUNDS)
+    SAFE_TYPEDEF(INOUTLIST, INBOUNDS)
+    SAFE_TYPEDEF(QJsonObject, ROUTING)
+    SAFE_TYPEDEF(QJsonObject, ROUTERULE)
+    SAFE_TYPEDEF(QJsonArray, ROUTERULELIST)
+}
+
+/* ----------------------------------------- */
 
 namespace Qv2ray
 {
@@ -320,6 +351,7 @@ namespace Qv2ray
     }
 }
 
+using namespace Qv2ray;
 using namespace Qv2ray::V2ConfigModels;
 using namespace Qv2ray::V2ConfigModels::Protocols;
 

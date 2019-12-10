@@ -7,6 +7,7 @@
 #include "QvUtils.hpp"
 #include "QvCoreInteractions.hpp"
 #include "QvNetSpeedPlugin.hpp"
+#include "QvCoreConfigOperations.hpp"
 
 #include "w_PrefrencesWindow.hpp"
 #include "QvHTTPRequestHelper.hpp"
@@ -19,6 +20,7 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     ui(new Ui::PrefrencesWindow)
 {
     setupUi(this);
+    setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
     // We add locales
     languageComboBox->clear();
     QDirIterator it(":/translations");
@@ -41,7 +43,7 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
 #if QV2RAY_USE_BUILTIN_DARKTHEME
     // If we use built in theme, it should always be fusion.
     themeCombo->setEnabled(!CurrentConfig.uiConfig.useDarkTheme);
-    darkThemeLabel->setText(tr("Use Dark Theme"));
+    darkThemeLabel->setText(tr("Use Darkmode Theme"));
 #endif
     languageComboBox->setCurrentText(QSTRING(CurrentConfig.uiConfig.language));
     logLevelComboBox->setCurrentIndex(CurrentConfig.logLevel);
@@ -49,14 +51,14 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     //
     //
     listenIPTxt->setText(QSTRING(CurrentConfig.inboundConfig.listenip));
-    bool pacEnabled = CurrentConfig.inboundConfig.pacConfig.usePAC;
+    bool pacEnabled = CurrentConfig.inboundConfig.pacConfig.enablePAC;
     enablePACCB->setChecked(pacEnabled);
     setSysProxyCB->setChecked(CurrentConfig.inboundConfig.setSystemProxy);
     //
     // PAC
     pacGroupBox->setEnabled(pacEnabled);
     pacPortSB->setValue(CurrentConfig.inboundConfig.pacConfig.port);
-    pacProxyTxt->setText(QSTRING(CurrentConfig.inboundConfig.pacConfig.proxyIP));
+    pacProxyTxt->setText(QSTRING(CurrentConfig.inboundConfig.pacConfig.localIP));
     pacProxyCB->setCurrentIndex(CurrentConfig.inboundConfig.pacConfig.useSocksProxy ? 1 : 0);
     //
     bool have_http = CurrentConfig.inboundConfig.useHTTP;
@@ -109,14 +111,9 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
         }
     }
 
-    foreach (auto connection, CurrentConfig.configs) {
-        autoStartCombo->addItem(QSTRING(connection));
-    }
-
-    autoStartCombo->setCurrentText(QSTRING(CurrentConfig.autoStartConfig));
+    //
     cancelIgnoreVersionBtn->setEnabled(CurrentConfig.ignoredVersion != "");
     ignoredNextVersion->setText(QSTRING(CurrentConfig.ignoredVersion));
-    //
 
     for (size_t i = 0; i < CurrentConfig.toolBarConfig.Pages.size(); i++) {
         nsBarPagesList->addItem(tr("Page") + QString::number(i + 1) + ": " + QString::number(CurrentConfig.toolBarConfig.Pages[i].Lines.size()) + " " + tr("Item(s)"));
@@ -134,6 +131,24 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     }
 
     CurrentBarPageId = 0;
+    //
+    // Empty for global config.
+    autoStartConnCombo->addItem("");
+
+    for (auto item : CurrentConfig.subscribes) {
+        autoStartSubsCombo->addItem(QSTRING(item.first));
+    }
+
+    autoStartSubsCombo->setCurrentText(QSTRING(CurrentConfig.autoStartConfig.subscriptionName));
+
+    if (CurrentConfig.autoStartConfig.subscriptionName.empty()) {
+        autoStartConnCombo->addItems(ConvertQStringList(QList<string>::fromStdList(CurrentConfig.configs)));
+    } else {
+        auto list = GetSubscriptionConnection(CurrentConfig.autoStartConfig.subscriptionName);
+        autoStartConnCombo->addItems(list.keys());
+    }
+
+    autoStartConnCombo->setCurrentText(QSTRING(CurrentConfig.autoStartConfig.connectionName));
     finishedLoading = true;
 }
 
@@ -269,15 +284,21 @@ void PrefrencesWindow::on_selectVAssetBtn_clicked()
 {
     NEEDRESTART
     QString dir = QFileDialog::getExistingDirectory(this, tr("Open v2ray assets folder"), QDir::currentPath());
-    vCoreAssetsPathTxt->setText(dir);
-    on_vCoreAssetsPathTxt_textEdited(dir);
+
+    if (!dir.isEmpty()) {
+        vCoreAssetsPathTxt->setText(dir);
+        on_vCoreAssetsPathTxt_textEdited(dir);
+    }
 }
 
 void PrefrencesWindow::on_selectVCoreBtn_clicked()
 {
     QString core = QFileDialog::getOpenFileName(this, tr("Open v2ray core file"), QDir::currentPath());
-    vCorePathTxt->setText(core);
-    on_vCorePathTxt_textEdited(core);
+
+    if (!core.isEmpty()) {
+        vCorePathTxt->setText(core);
+        on_vCorePathTxt_textEdited(core);
+    }
 }
 
 void PrefrencesWindow::on_vCorePathTxt_textEdited(const QString &arg1)
@@ -306,11 +327,6 @@ void PrefrencesWindow::on_DNSListTxt_textChanged()
             RED(DNSListTxt)
         }
     }
-}
-
-void PrefrencesWindow::on_autoStartCombo_currentTextChanged(const QString &arg1)
-{
-    CurrentConfig.autoStartConfig = arg1.toStdString();
 }
 
 void PrefrencesWindow::on_aboutQt_clicked()
@@ -350,7 +366,7 @@ void PrefrencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
                 auto newPath = QFileInfo(QV2RAY_DEFAULT_VCORE_PATH).path();
                 //
                 LOG(MODULE_FILE, " --> Origin v2ctl file is at: " + v2ctlPath.toStdString())
-                LOG(MODULE_FILE, " --> New v2ray files will be placed in: " << newPath.toStdString())
+                LOG(MODULE_FILE, " --> New v2ray files will be placed in: " + newPath.toStdString())
                 //
                 LOG(MODULE_FILE, " --> Copying files....")
 
@@ -358,14 +374,14 @@ void PrefrencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
                     // Only trying to remove file when they are not in the default dir.
                     // (In other words...) Keep using the current files. <Because we don't know where else we can copy the file from...>
                     if (QFile(QV2RAY_DEFAULT_VCORE_PATH).exists()) {
-                        LOG(MODULE_FILE, QV2RAY_DEFAULT_VCORE_PATH.toStdString() << ": File already exists.")
-                        LOG(MODULE_FILE, QV2RAY_DEFAULT_VCORE_PATH.toStdString() << ": Deleting file.")
+                        LOG(MODULE_FILE, QV2RAY_DEFAULT_VCORE_PATH.toStdString() + ": File already exists.")
+                        LOG(MODULE_FILE, QV2RAY_DEFAULT_VCORE_PATH.toStdString() + ": Deleting file.")
                         QFile(QV2RAY_DEFAULT_VCORE_PATH).remove();
                     }
 
                     if (QFile(newPath + "/v2ctl").exists()) {
-                        LOG(MODULE_FILE, newPath.toStdString() << "/v2ctl" << ": File already exists.")
-                        LOG(MODULE_FILE, newPath.toStdString() << "/v2ctl" << ": Deleting file.")
+                        LOG(MODULE_FILE, newPath.toStdString() + "/v2ctl : File already exists.")
+                        LOG(MODULE_FILE, newPath.toStdString() + "/v2ctl : Deleting file.")
                         QFile(newPath + "/v2ctl").remove();
                     }
 
@@ -741,18 +757,22 @@ void PrefrencesWindow::on_darkThemeCB_stateChanged(int arg1)
 
 void PrefrencesWindow::on_darkTrayCB_stateChanged(int arg1)
 {
+    LOADINGCHECK
     CurrentConfig.uiConfig.useDarkTrayIcon = arg1 == Qt::Checked;
 }
 
 void PrefrencesWindow::on_enablePACCB_stateChanged(int arg1)
 {
+    LOADINGCHECK
+    NEEDRESTART
     bool enabled = arg1 == Qt::Checked;
-    CurrentConfig.inboundConfig.pacConfig.usePAC = enabled;
+    CurrentConfig.inboundConfig.pacConfig.enablePAC = enabled;
     pacGroupBox->setEnabled(enabled);
 }
 
 void PrefrencesWindow::on_pacGoBtn_clicked()
 {
+    LOADINGCHECK
     QString gfwLocation;
     QString fileContent;
     auto request = new QvHttpRequestHelper();
@@ -808,26 +828,58 @@ void PrefrencesWindow::on_pacGoBtn_clicked()
 
 void PrefrencesWindow::on_pacPortSB_valueChanged(int arg1)
 {
+    LOADINGCHECK
+    NEEDRESTART
     CurrentConfig.inboundConfig.pacConfig.port = arg1;
     //pacAccessPathTxt->setText("http://" + listenIPTxt->text() + ":" + QString::number(arg1) + "/pac");
 }
 
 void PrefrencesWindow::on_setSysProxyCB_stateChanged(int arg1)
 {
+    LOADINGCHECK
+    NEEDRESTART
     CurrentConfig.inboundConfig.setSystemProxy = arg1 == Qt::Checked;
 }
 
 void PrefrencesWindow::on_pacProxyCB_currentIndexChanged(int index)
 {
-    CurrentConfig.inboundConfig.pacConfig.useSocksProxy = index == 0;
+    LOADINGCHECK
+    NEEDRESTART
+    // 0 -> http
+    // 1 -> socks
+    CurrentConfig.inboundConfig.pacConfig.useSocksProxy = index == 1;
 }
 
 void PrefrencesWindow::on_pushButton_clicked()
 {
+    LOADINGCHECK
     QDesktopServices::openUrl(QUrl::fromUserInput(QV2RAY_RULES_DIR));
 }
 
 void PrefrencesWindow::on_pacProxyTxt_textEdited(const QString &arg1)
 {
-    CurrentConfig.inboundConfig.pacConfig.proxyIP = arg1.toStdString();
+    LOADINGCHECK
+    NEEDRESTART
+    CurrentConfig.inboundConfig.pacConfig.localIP = arg1.toStdString();
+}
+
+void PrefrencesWindow::on_autoStartSubsCombo_currentIndexChanged(const QString &arg1)
+{
+    LOADINGCHECK
+    CurrentConfig.autoStartConfig.subscriptionName = arg1.toStdString();
+    autoStartConnCombo->clear();
+
+    if (arg1.isEmpty()) {
+        autoStartConnCombo->addItem("");
+        autoStartConnCombo->addItems(ConvertQStringList(QList<string>::fromStdList(CurrentConfig.configs)));
+    } else {
+        auto list = GetSubscriptionConnection(arg1.toStdString());
+        autoStartConnCombo->addItems(list.keys());
+    }
+}
+
+void PrefrencesWindow::on_autoStartConnCombo_currentIndexChanged(const QString &arg1)
+{
+    LOADINGCHECK
+    CurrentConfig.autoStartConfig.connectionName = arg1.toStdString();
 }

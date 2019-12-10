@@ -13,9 +13,10 @@ jobs:
         run: git submodule update --init
 # --------------------------------------------------------
       - name: Installing Qt
-        uses: jurplel/install-qt-action@v1
+        uses: jurplel/install-qt-action@v2
         with:
           arch: win64_mingw73
+          modules: qtcharts
 # --------------------------------------------------------
       - name: Extracting gRPC and protobuf libs and headers
         run: tools\grpc_gen.bat
@@ -57,7 +58,9 @@ jobs:
         run: git submodule update --init
 # --------------------------------------------------------
       - name: Installing Qt
-        uses: jurplel/install-qt-action@v1
+        uses: jurplel/install-qt-action@v2
+        with:
+          modules: qtcharts
 # --------------------------------------------------------
       - name: Extracting gRPC and protobuf libs and headers
         run: tools/deps_macOS.sh
@@ -92,7 +95,9 @@ jobs:
         run: git submodule update --init
 # --------------------------------------------------------
       - name: Installing Qt
-        uses: jurplel/install-qt-action@v1
+        uses: jurplel/install-qt-action@v2
+        with:
+          modules: qtcharts
 # --------------------------------------------------------
       - name: Install Packages 
         run: |
