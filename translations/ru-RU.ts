@@ -2062,7 +2062,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/main.cpp" line="133"/>
       <source>Please report if you think it&apos;s a bug.</source>
-      <translation>Пожалуйста, сообщите, если вы считаете об этом, если это ошибка. &apos;</translation>
+      <translation>Пожалуйста, сообщите, если вы считаете об этом, если это ошибка.</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="208"/>
@@ -2087,7 +2087,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/main.cpp" line="232"/>
       <source>Please check if there&apos;s an issue explaining about it.</source>
-      <translation>Пожалуйста, проверьте, есть ли у&apos;проблема с объяснением этого.</translation>
+      <translation>Пожалуйста, проверьте, есть ли проблема с объяснением этого.</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="233"/>
@@ -2687,32 +2687,32 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="644"/>
       <source>You didn&apos;t set tags for one or more Inbound/Outbound</source>
-      <translation type="unfinished">You didn&apos;t set tags for one or more Inbound/Outbound</translation>
+      <translation>Вы не установили теги для одного или нескольких входящих / исходящих</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="645"/>
       <source>These entry will NOT be added to the route table</source>
-      <translation type="unfinished">These entry will NOT be added to the route table</translation>
+      <translation>Эта запись НЕ будет добавлена в таблицу маршрута</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="646"/>
       <source>Do you still want to continue?</source>
-      <translation type="unfinished">Do you still want to continue?</translation>
+      <translation>Продолжить?</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="677"/>
       <source>Removing the last route entry</source>
-      <translation type="unfinished">Removing the last route entry</translation>
+      <translation>Удаление последнего элемента маршрута</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="677"/>
       <source>This connection will be marked as Simple Config if you save it without adding a route.</source>
-      <translation type="unfinished">This connection will be marked as Simple Config if you save it without adding a route.</translation>
+      <translation>Это соединение будет помечено как Простая конфигурация, если вы сохраните его без добавления маршрута.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="678"/>
       <source>All inbounds will be lost after you edit it in the Simple Outbound editor next time.</source>
-      <translation type="unfinished">All inbounds will be lost after you edit it in the Simple Outbound editor next time.</translation>
+      <translation>Все входящие настройки будут потеряны после того, как вы в следующий раз отредактируете их в простом исходящем редакторе.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="751"/>
@@ -2751,47 +2751,47 @@ p, li { white-space: pre-wrap; }
       <location filename="../src/ui/w_SubscriptionEditor.cpp" line="76"/>
       <location filename="../src/ui/w_SubscriptionEditor.cpp" line="95"/>
       <source>Renaming a subscription</source>
-      <translation type="unfinished">Renaming a subscription</translation>
+      <translation>Переименование подписки</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.cpp" line="59"/>
       <source>The subscription name is invalid, please try another.</source>
-      <translation type="unfinished">The subscription name is invalid, please try another.</translation>
+      <translation>Недопустимое имя подписки, пожалуйста, попробуйте другое.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.cpp" line="64"/>
       <source>New name of this subscription has been used already, please suggest another one</source>
-      <translation type="unfinished">New name of this subscription has been used already, please suggest another one</translation>
+      <translation>Новое имя этой подписки уже используется, пожалуйста, выберите другое имя</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.cpp" line="76"/>
       <source>Failed to rename a subscription, this is an unknown error.</source>
-      <translation type="unfinished">Failed to rename a subscription, this is an unknown error.</translation>
+      <translation>Не удалось переименовать подписку, это неизвестная ошибка.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.cpp" line="95"/>
       <source>Successfully renamed a subscription</source>
-      <translation type="unfinished">Successfully renamed a subscription</translation>
+      <translation>Подписка успешно переименована</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.cpp" line="105"/>
       <source>Update Subscription</source>
-      <translation type="unfinished">Update Subscription</translation>
+      <translation>Обновить подписку</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.cpp" line="105"/>
       <source>Would you like to reload this subscription from the Url?</source>
-      <translation type="unfinished">Would you like to reload this subscription from the Url?</translation>
+      <translation>Вы хотите перезагрузить эту подписку с Url?</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.cpp" line="138"/>
       <source>Updating subscriptions</source>
-      <translation type="unfinished">Updating subscriptions</translation>
+      <translation>Обновление подписок</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.cpp" line="138"/>
       <source>Failed to process the result from the upstream, please check your Url</source>
-      <translation type="unfinished">Failed to process the result from the upstream, please check your Url</translation>
+      <translation>Не удалось обработать результат из исходного потока, пожалуйста, проверьте ваш Url</translation>
     </message>
   </context>
   <context>
@@ -2804,7 +2804,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="42"/>
       <source>Subscription List</source>
-      <translation type="unfinished">Subscription List</translation>
+      <translation>Список подписок</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="82"/>
@@ -2814,42 +2814,42 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="79"/>
       <source>Add Subscription</source>
-      <translation type="unfinished">Add Subscription</translation>
+      <translation>Добавить подписку</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="95"/>
       <source>Remove Subscription</source>
-      <translation type="unfinished">Remove Subscription</translation>
+      <translation>Удалить подписку</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="98"/>
       <source>D</source>
-      <translation type="unfinished">D</translation>
+      <translation>D</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="126"/>
       <source>Subscription Details</source>
-      <translation type="unfinished">Subscription Details</translation>
+      <translation>Детали подписки</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="134"/>
       <source>Subscription Name</source>
-      <translation type="unfinished">Subscription Name</translation>
+      <translation>Название подписки</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="144"/>
       <source>Subscription Address</source>
-      <translation type="unfinished">Subscription Address</translation>
+      <translation>Адрес подписки</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="156"/>
       <source>Connection List</source>
-      <translation type="unfinished">Connection List</translation>
+      <translation>Список подключений</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="175"/>
       <source>Update Subscription Data</source>
-      <translation type="unfinished">Update Subscription Data</translation>
+      <translation>Обновить данные подписки</translation>
     </message>
   </context>
 </TS>
