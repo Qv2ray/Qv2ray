@@ -46,7 +46,6 @@
 // Add key value pair into JSON named 'root'
 #define JADD(...) FOR_EACH(JADDEx, __VA_ARGS__)
 
-#define DROOT QJsonObject root;
 #define RROOT return root;
 
 #endif

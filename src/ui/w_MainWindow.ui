@@ -2,9 +2,6 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
-  <property name="windowModality">
-   <enum>Qt::ApplicationModal</enum>
-  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -41,9 +38,9 @@
      <height>530</height>
     </size>
    </property>
-   <layout class="QGridLayout" name="gridLayout_2" rowstretch="0,6,4,0" columnstretch="6,4">
+   <layout class="QGridLayout" name="gridLayout_4" rowstretch="0,5,4,0" columnstretch="6,5">
     <item row="0" column="0" colspan="2">
-     <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1,0,1,0,0,0">
+     <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1,0,1,0,0,0,0">
       <property name="spacing">
        <number>5</number>
       </property>
@@ -75,6 +72,13 @@
        <widget class="QPushButton" name="clearlogButton">
         <property name="text">
          <string>Clear Log</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="subsButton">
+        <property name="text">
+         <string>Subscriptions</string>
         </property>
        </widget>
       </item>
@@ -120,43 +124,42 @@
        </widget>
       </item>
       <item>
-       <widget class="QListWidget" name="connectionListWidget">
+       <widget class="QTreeWidget" name="connectionListWidget">
         <property name="contextMenuPolicy">
          <enum>Qt::CustomContextMenu</enum>
-        </property>
-        <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Sunken</enum>
-        </property>
-        <property name="lineWidth">
-         <number>1</number>
-        </property>
-        <property name="midLineWidth">
-         <number>0</number>
-        </property>
-        <property name="verticalScrollBarPolicy">
-         <enum>Qt::ScrollBarAsNeeded</enum>
-        </property>
-        <property name="horizontalScrollBarPolicy">
-         <enum>Qt::ScrollBarAsNeeded</enum>
         </property>
         <property name="editTriggers">
          <set>QAbstractItemView::NoEditTriggers</set>
         </property>
-        <property name="defaultDropAction">
-         <enum>Qt::CopyAction</enum>
+        <property name="selectionMode">
+         <enum>QAbstractItemView::ExtendedSelection</enum>
         </property>
         <property name="verticalScrollMode">
          <enum>QAbstractItemView::ScrollPerPixel</enum>
         </property>
-        <property name="horizontalScrollMode">
-         <enum>QAbstractItemView::ScrollPerPixel</enum>
+        <property name="uniformRowHeights">
+         <bool>true</bool>
         </property>
-        <property name="viewMode">
-         <enum>QListView::ListMode</enum>
+        <property name="sortingEnabled">
+         <bool>true</bool>
         </property>
+        <property name="animated">
+         <bool>true</bool>
+        </property>
+        <property name="allColumnsShowFocus">
+         <bool>true</bool>
+        </property>
+        <property name="headerHidden">
+         <bool>true</bool>
+        </property>
+        <property name="expandsOnDoubleClick">
+         <bool>true</bool>
+        </property>
+        <column>
+         <property name="text">
+          <string notr="true">1</string>
+         </property>
+        </column>
        </widget>
       </item>
       <item>
@@ -272,7 +275,7 @@
       <property name="title">
        <string>Config Details</string>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,0,0">
+      <layout class="QVBoxLayout" name="verticalLayout" stretch="1,0,0">
        <item>
         <layout class="QFormLayout" name="formLayout">
          <item row="0" column="0">
@@ -331,6 +334,20 @@
            </property>
           </widget>
          </item>
+         <item row="4" column="0">
+          <widget class="QLabel" name="label_8">
+           <property name="text">
+            <string>Latency</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="1">
+          <widget class="QLabel" name="latencyLabel">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
         </layout>
        </item>
        <item>
@@ -374,7 +391,7 @@
          <item>
           <widget class="QPushButton" name="pingTestBtn">
            <property name="enabled">
-            <bool>false</bool>
+            <bool>true</bool>
            </property>
            <property name="text">
             <string>Ping Test</string>
@@ -419,29 +436,11 @@
      </widget>
     </item>
     <item row="2" column="0" colspan="2">
-     <layout class="QGridLayout" name="gridLayout" columnstretch="5,2">
+     <layout class="QGridLayout" name="gridLayout_3" rowstretch="0,1" columnstretch="7,0">
       <item row="0" column="0">
-       <widget class="QLabel" name="label_11">
+       <widget class="QLabel" name="logLabel">
         <property name="text">
-         <string>Log</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QTextBrowser" name="logText">
-        <property name="font">
-         <font>
-          <pointsize>9</pointsize>
-         </font>
-        </property>
-        <property name="verticalScrollBarPolicy">
-         <enum>Qt::ScrollBarAlwaysOn</enum>
-        </property>
-        <property name="lineWrapMode">
-         <enum>QTextEdit::NoWrap</enum>
-        </property>
-        <property name="openLinks">
-         <bool>false</bool>
+         <string>Log (click to switch log source)</string>
         </property>
        </widget>
       </item>
@@ -452,18 +451,11 @@
         </property>
        </widget>
       </item>
+      <item row="1" column="0">
+       <widget class="QTextBrowser" name="masterLogBrowser"/>
+      </item>
       <item row="1" column="1">
-       <widget class="QWidget" name="speedChart" native="true">
-        <property name="minimumSize">
-         <size>
-          <width>300</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="layoutDirection">
-         <enum>Qt::LeftToRight</enum>
-        </property>
-       </widget>
+       <widget class="QGraphicsView" name="speedChart"/>
       </item>
      </layout>
     </item>
@@ -631,7 +623,16 @@
  <tabstops>
   <tabstop>startButton</tabstop>
   <tabstop>stopButton</tabstop>
+  <tabstop>reconnectButton</tabstop>
   <tabstop>clearlogButton</tabstop>
+  <tabstop>prefrencesBtn</tabstop>
+  <tabstop>importConfigButton</tabstop>
+  <tabstop>duplicateBtn</tabstop>
+  <tabstop>removeConfigButton</tabstop>
+  <tabstop>editConfigButton</tabstop>
+  <tabstop>editJsonBtn</tabstop>
+  <tabstop>pingTestBtn</tabstop>
+  <tabstop>shareBtn</tabstop>
  </tabstops>
  <resources/>
  <connections/>

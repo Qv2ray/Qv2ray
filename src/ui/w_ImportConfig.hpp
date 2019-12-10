@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <QString>
 #include <QJsonObject>
+#include "QvCoreConfigObjects.hpp"
 #include "ui_w_ImportConfig.h"
 
 class ImportConfigWindow : public QDialog, private Ui::ImportConfigWindow
@@ -13,9 +14,8 @@ class ImportConfigWindow : public QDialog, private Ui::ImportConfigWindow
     public:
         explicit ImportConfigWindow(QWidget *parent = nullptr);
         ~ImportConfigWindow() { }
-        QMap<QString, QJsonObject> OpenImport(bool outboundsOnly = false);
+        QMap<QString, CONFIGROOT> OpenImport(bool outboundsOnly = false);
     private slots:
-        void on_importSourceCombo_currentIndexChanged(int index);
 
         void on_selectFileBtn_clicked();
 
@@ -30,8 +30,12 @@ class ImportConfigWindow : public QDialog, private Ui::ImportConfigWindow
 
         void on_cancelImportBtn_clicked();
 
+        void on_subscriptionButton_clicked();
+
+        void on_routeEditBtn_clicked();
+
     private:
-        QMap<QString, QJsonObject> connections;
+        QMap<QString, CONFIGROOT> connections;
         QMap<QString, QString> vmessErrors;
 };
 

@@ -359,7 +359,7 @@
                <string>...</string>
               </property>
               <property name="icon">
-               <iconset resource="../../resources.qrc">
+               <iconset>
                 <normaloff>:/icons/remove_connection_btn.png</normaloff>:/icons/remove_connection_btn.png</iconset>
               </property>
              </widget>
@@ -380,7 +380,7 @@
                <string>...</string>
               </property>
               <property name="icon">
-               <iconset resource="../../resources.qrc">
+               <iconset>
                 <normaloff>:/icons/add_connection_btn.png</normaloff>:/icons/add_connection_btn.png</iconset>
               </property>
              </widget>
@@ -507,7 +507,7 @@
                <string>...</string>
               </property>
               <property name="icon">
-               <iconset resource="../../resources.qrc">
+               <iconset>
                 <normaloff>:/icons/remove_connection_btn.png</normaloff>:/icons/remove_connection_btn.png</iconset>
               </property>
              </widget>
@@ -528,7 +528,7 @@
                <string>...</string>
               </property>
               <property name="icon">
-               <iconset resource="../../resources.qrc">
+               <iconset>
                 <normaloff>:/icons/add_connection_btn.png</normaloff>:/icons/add_connection_btn.png</iconset>
               </property>
              </widget>
@@ -572,7 +572,7 @@
           <string>Dokodemo-Door Inbound Settings</string>
          </property>
          <layout class="QFormLayout" name="formLayout_6">
-          <item row="0" column="0">
+          <item row="1" column="0">
            <widget class="QLabel" name="label_11">
             <property name="text">
              <string>IP Address</string>
@@ -582,14 +582,14 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="1">
+          <item row="1" column="1">
            <widget class="QLineEdit" name="dokoIPAddrTxt">
             <property name="placeholderText">
              <string>Not necessary when setting &quot;Follow Redirect&quot;</string>
             </property>
            </widget>
           </item>
-          <item row="1" column="0">
+          <item row="2" column="0">
            <widget class="QLabel" name="label_22">
             <property name="text">
              <string>Port</string>
@@ -599,7 +599,7 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="1">
+          <item row="2" column="1">
            <widget class="QSpinBox" name="dokoPortSB">
             <property name="minimum">
              <number>1</number>
@@ -612,7 +612,7 @@
             </property>
            </widget>
           </item>
-          <item row="3" column="0">
+          <item row="4" column="0">
            <widget class="QLabel" name="label_23">
             <property name="text">
              <string>Network</string>
@@ -622,7 +622,7 @@
             </property>
            </widget>
           </item>
-          <item row="3" column="1">
+          <item row="4" column="1">
            <layout class="QVBoxLayout" name="verticalLayout">
             <item>
              <widget class="QCheckBox" name="dokoTCPCB">
@@ -646,7 +646,7 @@
             </item>
            </layout>
           </item>
-          <item row="4" column="0">
+          <item row="5" column="0">
            <widget class="QLabel" name="label_24">
             <property name="text">
              <string>Timeout</string>
@@ -656,7 +656,7 @@
             </property>
            </widget>
           </item>
-          <item row="5" column="0">
+          <item row="6" column="0">
            <widget class="QLabel" name="label_25">
             <property name="text">
              <string>Follow Redirect</string>
@@ -666,7 +666,7 @@
             </property>
            </widget>
           </item>
-          <item row="6" column="0">
+          <item row="7" column="0">
            <widget class="QLabel" name="label_26">
             <property name="text">
              <string>User Level</string>
@@ -676,7 +676,7 @@
             </property>
            </widget>
           </item>
-          <item row="4" column="1">
+          <item row="5" column="1">
            <widget class="QSpinBox" name="dokoTimeoutSB">
             <property name="minimum">
              <number>-1</number>
@@ -689,15 +689,22 @@
             </property>
            </widget>
           </item>
-          <item row="5" column="1">
+          <item row="6" column="1">
            <widget class="QCheckBox" name="dokoFollowRedirectCB">
             <property name="text">
              <string>Enabled</string>
             </property>
            </widget>
           </item>
-          <item row="6" column="1">
+          <item row="7" column="1">
            <widget class="QSpinBox" name="dokoUserLevelSB"/>
+          </item>
+          <item row="0" column="0" colspan="2">
+           <widget class="QLabel" name="label_30">
+            <property name="text">
+             <string>If you want to use tProxy, please go to Prefrence Window to enable this feature.</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>
@@ -806,9 +813,7 @@
   <tabstop>enableSniffingCB</tabstop>
   <tabstop>destOverrideList</tabstop>
  </tabstops>
- <resources>
-  <include location="../../resources.qrc"/>
- </resources>
+ <resources/>
  <connections>
   <connection>
    <sender>buttonBox</sender>

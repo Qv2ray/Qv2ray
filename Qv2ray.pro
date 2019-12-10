@@ -9,37 +9,37 @@ QT += core gui widgets network charts
 TARGET = qv2ray
 TEMPLATE = app
 
-# Don't merge those configs with below.
-CONFIG += enable_decoder_qr_code enable_encoder_qr_code
-include(3rdparty/qzxing_noTests/QZXing-components.pri)
-
-# Main config
-CONFIG += qt c++11 openssl-linked lrelease embed_translations
-
 # Now read build number file.
 _BUILD_NUMBER=$$cat(Build.Counter)
 VERSION = 1.99.2.$$_BUILD_NUMBER
 _BUILD_NUMBER = $$num_add($$_BUILD_NUMBER, 1)
 write_file("Build.Counter", _BUILD_NUMBER)
 
-DEFINES += QT_DEPRECATED_WARNINGS QV2RAY_VERSION_STRING=\"\\\"v$${VERSION}\\\"\"
+DEFINES += QT_DEPRECATED_WARNINGS QV2RAY_VERSION_STRING=\"\\\"v$${VERSION}\\\"\" QAPPLICATION_CLASS=QApplication
+
+# Don't merge those configs with below.
+CONFIG += enable_decoder_qr_code enable_encoder_qr_code qt c++11 openssl-linked
+include(3rdparty/qzxing_noTests/QZXing-components.pri)
+include(3rdparty/SingleApplication/singleapplication.pri)
+
+# Main config
+CONFIG += lrelease embed_translations
 
 SOURCES += \
         src/components/QvComponentsHandler.cpp \
         src/components/QvPACHandler.cpp \
         src/components/QvSystemProxyConfigurator.cpp \
+        src/components/QvTCPing.cpp \
         src/main.cpp \
         src/components/QvCoreInteractions.cpp \
         src/components/QvGFWPACConverter.cpp \
         src/components/QvHTTPRequestHelper.cpp \
+        src/components/QvLogHighlighter.cpp \
         src/QvCoreConfigOperations.cpp \
         src/QvConfigUpgrade.cpp \
         src/QvCoreConfigOperations_Convertion.cpp \
         src/QvCoreConfigOperations_Generation.cpp \
         src/QvUtils.cpp \
-        src/utils/QObjectMessageProxy.cpp \
-        src/utils/QvPingModel.cpp \
-        src/utils/QvRunguard.cpp \
         src/utils/QJsonModel.cpp \
         src/ui/w_ExportConfig.cpp \
         src/ui/w_InboundEditor.cpp \
@@ -71,9 +71,11 @@ HEADERS += \
         src/components/QvComponentsHandler.hpp \
         src/components/QvCoreInteractions.hpp \
         src/components/QvHTTPRequestHelper.hpp \
+        src/components/QvLogHighlighter.hpp \
         src/components/QvNetSpeedPlugin.hpp \
         src/components/QvPACHandler.hpp \
         src/components/QvSystemProxyConfigurator.hpp \
+        src/components/QvTCPing.hpp \
         src/ui/w_ExportConfig.hpp \
         src/ui/w_ImportConfig.hpp \
         src/ui/w_InboundEditor.hpp \
@@ -87,9 +89,6 @@ HEADERS += \
         src/utils/QvTinyLog.hpp \
         src/utils/QJsonModel.hpp \
         src/utils/QJsonObjectInsertMacros.h \
-        src/utils/QObjectMessageProxy.hpp \
-        src/utils/QvPingModel.hpp \
-        src/utils/QvRunguard.hpp \
         libs/gen/v2ray_api_commands.pb.h \
         libs/gen/v2ray_api_commands.grpc.pb.h
 
@@ -187,14 +186,15 @@ win32 {
     DEFINES += _WIN32_WINNT=0x600
 
     message("  --> Linking against gRPC and protobuf library.")
-    LIBS += -L$$PWD/libs/gRPC-win32/lib/ -llibgrpc++.dll -llibprotobuf.dll
-
-    message("  --> Linking against winHTTP.")
-    LIBS += -lwinhttp -lwininet
-
-    INCLUDEPATH += $$PWD/libs/gRPC-win32/include
     DEPENDPATH  += $$PWD/libs/gRPC-win32/include
-    PRE_TARGETDEPS += $$PWD/libs/gRPC-win32/lib/libgrpc++.dll.a $$PWD/libs/gRPC-win32/lib/libprotobuf.dll.a
+    INCLUDEPATH += $$PWD/libs/gRPC-win32/include
+    LIBS += -L$$PWD/libs/gRPC-win32/lib/ \
+            -llibprotobuf.dll \
+            -llibgrpc++.dll
+
+    message("  --> Linking against winHTTP and winSock2.")
+    LIBS += -lwinhttp -lwininet -lws2_32
+
 }
 
 unix {
@@ -202,7 +202,7 @@ unix {
     message("Configuring for unix-like (macOS and linux) environment")
     # For gRPC and protobuf in linux and macOS
     message("  --> Linking against gRPC and protobuf library.")
-    LIBS += -L/usr/local/lib -lgrpc++ -lprotobuf
+    LIBS += -L/usr/local/lib -lgrpc++ -lprotobuf -lgrpc -lgpr
 
     # macOS homebrew include path
     message("  --> Adding local include folder to search path")
@@ -223,5 +223,6 @@ unix {
     INSTALLS += target desktop icon
 }
 
+message(" ")
 message("Done configuring Qv2ray project. Build output will be at:" $$OUT_PWD)
 message("Type `make` or `mingw32-make` to start building Qv2ray")

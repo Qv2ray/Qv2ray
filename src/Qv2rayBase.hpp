@@ -4,11 +4,11 @@
 #include <QtGui>
 #include <QMap>
 #include <vector>
+#include <algorithm>
 #include "QvTinyLog.hpp"
 #include "QvCoreConfigObjects.hpp"
-#include "QObjectMessageProxy.hpp"
 
-#define QV2RAY_CONFIG_VERSION 12
+#define QV2RAY_CONFIG_VERSION 5
 
 // Linux DEs should handle the ui schemes themselves.
 // --> Or.. should we change this into a modifyable setting?
@@ -28,6 +28,7 @@
 // Get Configured Config Dir Path
 #define QV2RAY_CONFIG_DIR (Qv2ray::Utils::GetConfigDirPath())
 #define QV2RAY_CONFIG_FILE (QV2RAY_CONFIG_DIR + "Qv2ray.conf")
+#define QV2RAY_SUBSCRIPTION_DIR (QV2RAY_CONFIG_DIR + "subscriptions/")
 #define QV2RAY_QRCODE_DIR (QV2RAY_CONFIG_DIR + "qr_images/")
 
 // Get GFWList and PAC file path.
@@ -40,6 +41,7 @@
 #define QV2RAY_GENERATED_FILE_PATH (QV2RAY_GENERATED_DIR + "config.gen.json")
 
 #ifndef QV2RAY_DEFAULT_VCORE_PATH
+#define QV2RAY_DEFAULT_VASSETS_PATH (QV2RAY_CONFIG_DIR + "vcore/")
 #ifdef Q_OS_WIN
 #define QV2RAY_DEFAULT_VCORE_PATH (QV2RAY_CONFIG_DIR + "vcore/v2ray.exe")
 #else
@@ -71,13 +73,27 @@
 #define MAX(a, b) (((a) > (b)) ? (a) : (b))
 #endif
 
+/*
+ * Generic function to find if an element of any type exists in list
+ */
+template<typename T>
+bool contains(std::list<T> &listOfElements, const T &element)
+{
+    // Find the iterator if element in list
+    auto it = std::find(listOfElements.begin(), listOfElements.end(), element);
+    //return if iterator points to end or not. It points to end then it means element
+    // does not exists in list
+    return it != listOfElements.end();
+}
+
 namespace Qv2ray
 {
+    //
     // Extra header for QvConfigUpgrade.cpp
-    QJsonObject UpgradeConfig(int fromVersion, int toVersion, QJsonObject root);
+    CONFIGROOT UpgradeConfig(int fromVersion, int toVersion, CONFIGROOT root);
 
     struct QvBarLine {
-        string     Family;
+        string          Family;
         bool            Bold;
         bool            Italic;
         int             ColorA;
@@ -86,7 +102,7 @@ namespace Qv2ray
         int             ColorB;
         int             ContentType;
         double          Size;
-        string     Message;
+        string          Message;
         QvBarLine()
             : Family("Consolas")
             , Bold(true)
@@ -97,6 +113,7 @@ namespace Qv2ray
               Message() { }
         XTOSTRUCT(O(Bold, Italic, ColorA, ColorR, ColorG, ColorB, Size, Family, Message, ContentType))
     };
+
 
     struct QvBarPage {
         int OffsetYpx;
@@ -113,19 +130,19 @@ namespace Qv2ray
     namespace QvConfigModels
     {
         struct Qv2rayPACConfig {
-            bool usePAC;
+            bool enablePAC;
             int port;
-            string proxyIP;
+            string localIP;
             bool useSocksProxy;
-            Qv2rayPACConfig() : usePAC(false), port(8989), useSocksProxy(false) { }
-            XTOSTRUCT(O(usePAC, port, proxyIP, useSocksProxy))
+            Qv2rayPACConfig() : enablePAC(false), port(8989), useSocksProxy(false) { }
+            XTOSTRUCT(O(enablePAC, port, localIP, useSocksProxy))
         };
         struct Qv2rayInboundsConfig {
             string listenip;
             bool setSystemProxy;
             Qv2rayPACConfig pacConfig;
-            // SOCKS
 
+            // SOCKS
             bool useSocks;
             int socks_port;
             bool socks_useAuth;
@@ -138,18 +155,10 @@ namespace Qv2ray
             bool http_useAuth;
             AccountObject httpAccount;
             Qv2rayInboundsConfig():
-                listenip(), setSystemProxy(), pacConfig(),
-                useSocks(), socks_port(), socks_useAuth(), socksUDP(true), socksAccount(),
-                useHTTP(), http_port(), http_useAuth(), httpAccount() {}
-            Qv2rayInboundsConfig(const string &listen, int socksPort, int httpPort): Qv2rayInboundsConfig()
-            {
-                socks_port = socksPort;
-                http_port = httpPort;
-                listenip = listen;
-                socksLocalIP = "0.0.0.0";
-                socksUDP = true;
-                setSystemProxy = true;
-            }
+                listenip("127.0.0.1"), setSystemProxy(false), pacConfig(),
+                useSocks(true), socks_port(1088), socks_useAuth(false), socksUDP(true), socksLocalIP("127.0.0.1"), socksAccount(),
+                useHTTP(true), http_port(8888), http_useAuth(false), httpAccount() {}
+
             XTOSTRUCT(O(setSystemProxy, pacConfig, listenip, useSocks, useHTTP, socks_port, socks_useAuth, socksAccount, socksUDP, socksLocalIP, http_port, http_useAuth, httpAccount))
         };
 
@@ -158,7 +167,7 @@ namespace Qv2ray
             string language;
             bool useDarkTheme;
             bool useDarkTrayIcon;
-            Qv2rayUIConfig() : theme(""), language("en-US"), useDarkTheme(false), useDarkTrayIcon(true) { }
+            Qv2rayUIConfig() : theme("Fusion"), language("en-US"), useDarkTheme(false), useDarkTrayIcon(true) { }
             XTOSTRUCT(O(theme, language, useDarkTheme, useDarkTrayIcon))
         };
 
@@ -180,7 +189,7 @@ namespace Qv2ray
             //
             string v2CorePath;
             string v2AssetsPath;
-            string autoStartConfig;
+            ConfigIdentifier autoStartConfig;
             string ignoredVersion;
             //
             list<string> configs;
@@ -205,15 +214,7 @@ namespace Qv2ray
                 inboundConfig(),
                 connectionConfig(),
                 toolBarConfig() { }
-            //
-            Qv2rayConfig(const string &assetsPath, int log, const Qv2rayInboundsConfig &_inBoundSettings): Qv2rayConfig()
-            {
-                // These settings below are defaults.
-                v2AssetsPath = assetsPath;
-                inboundConfig = _inBoundSettings;
-                logLevel = log;
-                tProxySupport = false;
-            }
+
             XTOSTRUCT(O(config_version,
                         ignoredVersion,
                         tProxySupport,

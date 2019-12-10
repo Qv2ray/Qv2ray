@@ -9,6 +9,12 @@ static bool isLoading = false;
 #define CurrentRule this->rules[this->currentRuleIndex]
 #define LOADINGCHECK if(isLoading) return;
 
+#define CHECKEMPTYRULES  if (this->rules.isEmpty()) { \
+        LOG(MODULE_UI, "No rules currently, we add one.") \
+        on_addRouteBtn_clicked(); \
+        on_routesTable_currentCellChanged(0, 0, 0, 0); \
+    }
+
 RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) :
     QDialog(parent),
     root(connection),
@@ -27,8 +33,8 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) :
     balabcerAddBtn->setIcon(QICON_R("add.png"));
     balancerDelBtn->setIcon(QICON_R("delete.png"));
     //
-    inbounds = root["inbounds"].toArray();
-    outbounds = root["outbounds"].toArray();
+    inbounds = INBOUNDS(root["inbounds"].toArray());
+    outbounds = OUTBOUNDS(root["outbounds"].toArray());
     DomainStrategy = root["routing"].toObject()["domainStrategy"].toString();
 
     // Applying Balancers.
@@ -109,7 +115,7 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) :
     }
 }
 
-QJsonObject RouteEditor::OpenEditor()
+CONFIGROOT RouteEditor::OpenEditor()
 {
     auto result = this->exec();
 
@@ -230,8 +236,7 @@ void RouteEditor::ShowRuleDetail(RuleObject rule)
 
     if (!QSTRING(rule.outboundTag).isEmpty()) {
         // Find outbound index by tag.
-        auto tag = QSTRING(rule.outboundTag);
-        auto index = FindIndexByTag(outbounds, &tag);
+        auto index = FindIndexByTag(outbounds, QSTRING(rule.outboundTag));
         routeOutboundSelector->setCurrentIndex(index);
         //
         // Default balancer tag.
@@ -253,8 +258,7 @@ void RouteEditor::ShowRuleDetail(RuleObject rule)
     isLoading = false;
     on_inboundsList_itemChanged(nullptr);
     //
-    auto outboundTag = QSTRING(rule.outboundTag);
-    int index = FindIndexByTag(outbounds, &outboundTag);
+    int index = FindIndexByTag(outbounds, QSTRING(rule.outboundTag));
     outboundsList->setCurrentRow(index);
     //
     // Networks
@@ -264,10 +268,9 @@ void RouteEditor::ShowRuleDetail(RuleObject rule)
     netBothRB->setChecked(network.contains("tcp") && network.contains("udp"));
     //
     // Set protocol checkboxes.
-    auto protocols = QList<string>::fromStdList(CurrentRule.protocol);
-    routeProtocolHTTPCB->setChecked(protocols.contains("http"));
-    routeProtocolTLSCB->setChecked(protocols.contains("tls"));
-    routeProtocolBTCB->setChecked(protocols.contains("bittorrent"));
+    routeProtocolHTTPCB->setChecked(contains(CurrentRule.protocol, string("http")));
+    routeProtocolTLSCB->setChecked(contains(CurrentRule.protocol, string("tls")));
+    routeProtocolBTCB->setChecked(contains(CurrentRule.protocol, string("bittorrent")));
     //
     // Port
     routePortTxt->setText(QSTRING(CurrentRule.port));
@@ -306,7 +309,7 @@ void RouteEditor::ShowRuleDetail(RuleObject rule)
 
             if (!inTag.isEmpty()) {
                 // forget about the "" issue.
-                int _index = FindIndexByTag(inbounds, &inTag);
+                int _index = FindIndexByTag(inbounds, inTag);
 
                 // FIXED if an inbound is missing (index out of range)
                 if (_index >= 0) {
@@ -340,7 +343,7 @@ void RouteEditor::on_editOutboundBtn_clicked()
         return;
     }
 
-    auto currentOutbound = outbounds[row].toObject();
+    auto currentOutbound = OUTBOUND(outbounds[row].toObject());
     auto protocol =  currentOutbound["protocol"].toString();
 
     if (protocol != "vmess" && protocol != "shadowsocks" && protocol != "socks") {
@@ -631,21 +634,25 @@ void RouteEditor::on_inboundsList_itemChanged(QListWidgetItem *item)
         }
     }
 
-    if (new_inbounds.size() == 0) {
+    if (new_inbounds.empty()) {
         // TODO what to do?
-        LOG(MODULE_UI, "WARN: Inbound size = 0")
+        LOG(MODULE_UI, "TODO: Inbound size = 0")
     }
 
     if (new_inbounds.contains("")) {
         // Empty tag.
-        auto result1 = QvMessageBoxAsk(this, tr("Changing route inbound/outbound"), tr("One or more inbound config(s) have no tag configured, which will be ignored, do you still want to continue?"));
-        new_inbounds.removeAll("");
+        auto result1 = QvMessageBoxAsk(this, tr("Changing route inbound/outbound"), tr("You didn't set tags for one or more Inbound/Outbound") +
+                                       tr("These entry will NOT be added to the route table") + NEWLINE +
+                                       tr("Do you still want to continue?"));
 
         if (result1 != QMessageBox::Yes) {
             return;
         }
+
+        new_inbounds.removeAll("");
     }
 
+    CHECKEMPTYRULES
     CurrentRule.inboundTag = new_inbounds.toStdList();
     statusLabel->setText(tr("OK"));
 }
@@ -666,6 +673,9 @@ void RouteEditor::on_delRouteBtn_clicked()
             currentRuleIndex = 0;
             routesTable->setCurrentCell(currentRuleIndex, 0);
             ShowRuleDetail(CurrentRule);
+        } else {
+            QvMessageBox(this, tr("Removing the last route entry"), tr("This connection will be marked as Simple Config if you save it without adding a route.") + NEWLINE +
+                         tr("All inbounds will be lost after you edit it in the Simple Outbound editor next time."));
         }
     }
 }
@@ -693,6 +703,7 @@ void RouteEditor::on_addDefaultBtn_clicked()
     inbounds.append(_in_SOCKS);
     inboundsList->addItem("SOCKS Global Config");
     inboundsList->item(inboundsList->count() - 1)->setCheckState(Qt::Unchecked);
+    CHECKEMPTYRULES
 }
 
 void RouteEditor::on_insertBlackBtn_clicked()
@@ -738,6 +749,7 @@ void RouteEditor::on_addInboundBtn_clicked()
     auto _result = w.OpenEditor();
     inbounds.append(_result);
     inboundsList->addItem(tr("New Inbound"));
+    CHECKEMPTYRULES
 }
 
 void RouteEditor::on_addOutboundBtn_clicked()
@@ -761,4 +773,6 @@ void RouteEditor::on_addOutboundBtn_clicked()
             outboundsList->addItem(name + "_" + QString::number(i));
         }
     }
+
+    CHECKEMPTYRULES
 }
