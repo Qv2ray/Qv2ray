@@ -8,7 +8,7 @@
 #include "QvTinyLog.hpp"
 #include "QvCoreConfigObjects.hpp"
 
-#define QV2RAY_CONFIG_VERSION 14
+#define QV2RAY_CONFIG_VERSION 5
 
 // Linux DEs should handle the ui schemes themselves.
 // --> Or.. should we change this into a modifyable setting?
