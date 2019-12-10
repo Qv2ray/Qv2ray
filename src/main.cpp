@@ -5,10 +5,8 @@
 #include <QLocale>
 #include <QStyleFactory>
 
-#include "QvUtils.hpp"
-#include "Qv2rayBase.hpp"
-#include "QvRunguard.hpp"
 #include "w_MainWindow.hpp"
+#include "QvRunguard.hpp"
 
 bool verifyConfigAvaliability(QString path, bool checkExistingConfig)
 {

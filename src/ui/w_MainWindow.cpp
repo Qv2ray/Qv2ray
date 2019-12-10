@@ -12,9 +12,9 @@
 #include <QVersionNumber>
 #include <QKeyEvent>
 
+#include "w_MainWindow.hpp"
 #include "w_OutboundEditor.hpp"
 #include "w_ImportConfig.hpp"
-#include "w_MainWindow.hpp"
 #include "w_RoutesEditor.hpp"
 #include "w_PrefrencesWindow.hpp"
 #include "w_SubscriptionEditor.hpp"
