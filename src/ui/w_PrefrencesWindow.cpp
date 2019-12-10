@@ -142,7 +142,7 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     autoStartSubsCombo->setCurrentText(QSTRING(CurrentConfig.autoStartConfig.subscriptionName));
 
     if (CurrentConfig.autoStartConfig.subscriptionName.empty()) {
-        autoStartConnCombo->addItems(ConvertQStringList(CurrentConfig.configs));
+        autoStartConnCombo->addItems(ConvertQStringList(QList<string>::fromStdList(CurrentConfig.configs)));
     } else {
         auto list = GetSubscriptionConnection(CurrentConfig.autoStartConfig.subscriptionName);
         autoStartConnCombo->addItems(list.keys());
@@ -871,7 +871,7 @@ void PrefrencesWindow::on_autoStartSubsCombo_currentIndexChanged(const QString &
 
     if (arg1.isEmpty()) {
         autoStartConnCombo->addItem("");
-        autoStartConnCombo->addItems(ConvertQStringList(CurrentConfig.configs));
+        autoStartConnCombo->addItems(ConvertQStringList(QList<string>::fromStdList(CurrentConfig.configs)));
     } else {
         auto list = GetSubscriptionConnection(arg1.toStdString());
         autoStartConnCombo->addItems(list.keys());

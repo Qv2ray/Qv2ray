@@ -271,7 +271,7 @@ namespace Qv2ray
             cursor.endEditBlock();
         }
 
-        QStringList ConvertQStringList(const list<string> &stdListString)
+        QStringList ConvertQStringList(const QList<string> &stdListString)
         {
             QStringList listQt;
             listQt.reserve(stdListString.size());
