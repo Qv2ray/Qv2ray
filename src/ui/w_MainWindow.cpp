@@ -837,35 +837,33 @@ void MainWindow::on_connectionListWidget_itemChanged(QTreeWidgetItem *item, int)
 }
 void MainWindow::on_removeConfigButton_clicked()
 {
-    if (!IsSelectionConnectable) return;
+    QStringList connlist;
 
-    if (QvMessageBoxAsk(this, tr("Removing this Connection"), tr("Are you sure to remove this connection?")) == QMessageBox::Yes) {
-        auto connectionName = connectionListWidget->currentItem()->text(0);
-        SUBSCRIPTION_CONFIG_MODIFY_ASK(connectionName)
+    for (auto item : connectionListWidget->selectedItems()) {
+        if (IsConnectableItem(item)) {
+            connlist.append(item->text(0));
+        }
+    }
 
-        if (connectionName == CurrentConnectionName) {
+    LOG(MODULE_UI, "Selected " + to_string(connlist.count()) + " items")
+
+    if (connlist.isEmpty()) {
+        return;
+    }
+
+    if (QvMessageBoxAsk(this, tr("Removing Connection(s)"), tr("Are you sure to remove selected connection(s)?")) != QMessageBox::Yes) {
+        return;
+    }
+
+    int subscriptionRemovalCheckStatus = -1;
+
+    for (auto name : connlist) {
+        if (name == CurrentConnectionName) {
             on_stopButton_clicked();
-            CurrentConnectionName = "";
+            CurrentConnectionName.clear();
         }
 
-        auto connData = connections[connectionName];
-
-        if (connData.configType == CON_REGULAR) {
-            if (!connData.subscriptionName.isEmpty()) {
-                LOG(MODULE_UI, "Unexpected subscription name in a single regular config.")
-                connData.subscriptionName.clear();
-            }
-
-            currentConfig.configs.remove(connectionName.toStdString());
-
-            if (!RemoveConnection(connectionName)) {
-                QvMessageBox(this, tr("Removing this Connection"), tr("Failed to delete connection file, please delete manually."));
-            }
-        } else {
-            if (!RemoveSubscriptionConnection(connData.subscriptionName, connData.connectionName)) {
-                QvMessageBox(this, tr("Removing this Connection"), tr("Failed to delete connection file, please delete manually."));
-            }
-        }
+        auto connData = connections[name];
 
         // Remove auto start config.
         if (currentConfig.autoStartConfig.subscriptionName == connData.subscriptionName.toStdString() &&
@@ -874,12 +872,41 @@ void MainWindow::on_removeConfigButton_clicked()
             currentConfig.autoStartConfig.connectionName.clear();
         }
 
-        LOG(MODULE_UI, "Saving GlobalConfig")
-        SetGlobalConfig(currentConfig);
-        OnConfigListChanged(false);
-        ShowAndSetConnection(CurrentConnectionName, false, false);
+        if (IsRegularConfig(name)) {
+            // Just remove the regular configs.
+            if (!connData.subscriptionName.isEmpty()) {
+                LOG(MODULE_UI, "Unexpected subscription name in a single regular config.")
+                connData.subscriptionName.clear();
+            }
+
+            currentConfig.configs.remove(name.toStdString());
+
+            if (!RemoveConnection(name)) {
+                QvMessageBox(this, tr("Removing this Connection"), tr("Failed to delete connection file, please delete manually."));
+            }
+        } else if (IsSubscription(name)) {
+            if (subscriptionRemovalCheckStatus == -1) {
+                subscriptionRemovalCheckStatus = (QvMessageBoxAsk(this, tr("Removing a subscription config"), tr("Do you want to remove the config loaded from a subscription?")) == QMessageBox::Yes)
+                                                 ? 1 // Yes i want
+                                                 : 0; // No please keep
+            }
+
+            if (subscriptionRemovalCheckStatus == 1) {
+                if (!RemoveSubscriptionConnection(connData.subscriptionName, connData.connectionName)) {
+                    QvMessageBox(this, tr("Removing this Connection"), tr("Failed to delete connection file, please delete manually."));
+                }
+            }
+        } else {
+            LOG(MODULE_CONFIG, "Unknown config type -> Not regular nor subscription...")
+        }
     }
+
+    LOG(MODULE_UI, "Saving GlobalConfig")
+    SetGlobalConfig(currentConfig);
+    OnConfigListChanged(false);
+    ShowAndSetConnection(CurrentConnectionName, false, false);
 }
+
 void MainWindow::on_importConfigButton_clicked()
 {
     ImportConfigWindow *w = new ImportConfigWindow(this);
