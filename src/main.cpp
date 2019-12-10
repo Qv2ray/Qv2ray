@@ -163,9 +163,10 @@ int main(int argc, char *argv[])
     //
     // Install a default translater. From the OS/DE
     auto _lang = QLocale::system().name().replace("_", "-");
+    auto _sysTranslator = getTranslator(_lang);
 
     if (_lang != "en-US") {
-        bool _result_ = qApp->installTranslator(getTranslator(_lang));
+        bool _result_ = qApp->installTranslator(_sysTranslator);
         LOG(MODULE_UI, "Installing a tranlator from OS: " + _lang.toStdString() + " -- " + (_result_ ? "OK" : "Failed"))
     }
 
@@ -242,7 +243,7 @@ int main(int argc, char *argv[])
     }
 
     auto confObject = StructFromJsonString<Qv2rayConfig>(JsonToString(conf));
-    qApp->removeTranslator(getTranslator(_lang));
+    qApp->removeTranslator(_sysTranslator);
     LOG(MODULE_INIT, "Removing system translations")
 
     if (confObject.uiConfig.language.empty()) {
