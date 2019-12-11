@@ -98,7 +98,7 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="117"/>
       <source>VMess / QRCode</source>
-      <translation type="unfinished">VMess / QRCode</translation>
+      <translation>VMess / QRCode</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="123"/>
@@ -148,32 +148,32 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="273"/>
       <source>Subscriptions / Manually Input</source>
-      <translation type="unfinished">Subscriptions / Manually Input</translation>
+      <translation>Подписки / Ввод вручную</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="279"/>
       <source>Manually Input Connections</source>
-      <translation type="unfinished">Manually Input Connections</translation>
+      <translation>Входные соединения вручную</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="300"/>
       <source>Route Editor</source>
-      <translation type="unfinished">Route Editor</translation>
+      <translation>Редактор маршрутов</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="307"/>
       <source>Open Route Editor</source>
-      <translation type="unfinished">Open Route Editor</translation>
+      <translation>Открыть редактор маршрута</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="334"/>
       <source>Subscription Manager</source>
-      <translation type="unfinished">Subscription Manager</translation>
+      <translation>Управление подпиской</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="341"/>
       <source>Open Subscription Manager</source>
-      <translation type="unfinished">Open Subscription Manager</translation>
+      <translation>Открыть менеджер подписок</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="286"/>
@@ -255,7 +255,7 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="207"/>
       <source>Failed to save file, please check if you have proper permissions</source>
-      <translation type="unfinished">Failed to save file, please check if you have proper permissions</translation>
+      <translation>Не удалось сохранить файл, пожалуйста, проверьте, есть ли у вас необходимые разрешения</translation>
     </message>
   </context>
   <context>
@@ -473,7 +473,7 @@
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="705"/>
       <source>If you want to use tProxy, please go to Prefrence Window to enable this feature.</source>
-      <translation type="unfinished">If you want to use tProxy, please go to Prefrence Window to enable this feature.</translation>
+      <translation>Если вы хотите использовать tProxy, перейдите в Prefrence Window для включения этой функции.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="719"/>
@@ -622,7 +622,7 @@
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="81"/>
       <source>Subscriptions</source>
-      <translation type="unfinished">Subscriptions</translation>
+      <translation>Подписки</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="88"/>
@@ -687,7 +687,7 @@
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="340"/>
       <source>Latency</source>
-      <translation type="unfinished">Latency</translation>
+      <translation>Задержка</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="356"/>
@@ -702,7 +702,7 @@
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="443"/>
       <source>Log (click to switch log source)</source>
-      <translation type="unfinished">Log (click to switch log source)</translation>
+      <translation>Журнал (нажмите, чтобы переключить источник журнала)</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="192"/>
@@ -844,7 +844,7 @@
       <location filename="../src/ui/w_MainWindow.cpp" line="346"/>
       <location filename="../src/ui/w_MainWindow.cpp" line="356"/>
       <source>Subscription:</source>
-      <translation type="unfinished">Subscription:</translation>
+      <translation>Подписка:</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="210"/>
@@ -856,17 +856,17 @@
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="214"/>
       <source>Autostarting a config</source>
-      <translation type="unfinished">Autostarting a config</translation>
+      <translation>Автозапуск конфигурации</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="214"/>
       <source>Could not find a specified config named: </source>
-      <translation type="unfinished">Could not find a specified config named: </translation>
+      <translation>Не удалось найти указанное имя конфигурации: </translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="216"/>
       <source>Please reset the settings in Prefrence Window</source>
-      <translation type="unfinished">Please reset the settings in Prefrence Window</translation>
+      <translation>Пожалуйста, сбросьте настройки в окне Prefrence</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="274"/>
@@ -901,7 +901,7 @@
       <location filename="../src/ui/w_MainWindow.cpp" line="445"/>
       <location filename="../src/ui/w_MainWindow.cpp" line="1120"/>
       <source>Connected: </source>
-      <translation type="unfinished">Connected: </translation>
+      <translation>Подключен: </translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="467"/>
@@ -962,22 +962,22 @@
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="663"/>
       <source>No data</source>
-      <translation type="unfinished">No data</translation>
+      <translation>Нет данных</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="665"/>
       <source>ms</source>
-      <translation type="unfinished">ms</translation>
+      <translation>мс</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="669"/>
       <source>From subscription</source>
-      <translation type="unfinished">From subscription</translation>
+      <translation>От подписки</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="701"/>
       <source>Guessed</source>
-      <translation type="unfinished">Guessed</translation>
+      <translation>Guessed</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="709"/>
@@ -1010,17 +1010,17 @@
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="803"/>
       <source>The name you suggested is not valid, please try another.</source>
-      <translation type="unfinished">The name you suggested is not valid, please try another.</translation>
+      <translation>Предложенное вами имя неверно, пожалуйста, попробуйте другое.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="854"/>
       <source>Removing Connection(s)</source>
-      <translation type="unfinished">Removing Connection(s)</translation>
+      <translation>Удаление подключения(й)</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="854"/>
       <source>Are you sure to remove selected connection(s)?</source>
-      <translation type="unfinished">Are you sure to remove selected connection(s)?</translation>
+      <translation>Вы уверены, что хотите удалить выбранные подключение(и)?</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="885"/>
@@ -1037,12 +1037,12 @@
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="889"/>
       <source>Removing a subscription config</source>
-      <translation type="unfinished">Removing a subscription config</translation>
+      <translation>Удаление конфигурации подписки</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="889"/>
       <source>Do you want to remove the config loaded from a subscription?</source>
-      <translation type="unfinished">Do you want to remove the config loaded from a subscription?</translation>
+      <translation>Вы хотите удалить конфигурацию, загруженную из подписок?</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="934"/>
@@ -1061,17 +1061,17 @@
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="1041"/>
       <source>Testing...</source>
-      <translation type="unfinished">Testing...</translation>
+      <translation>Тестирование...</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="1050"/>
       <source>Latency Test</source>
-      <translation type="unfinished">Latency Test</translation>
+      <translation>Тест задержки</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="1050"/>
       <source>Failed to test latency for this connection.</source>
-      <translation type="unfinished">Failed to test latency for this connection.</translation>
+      <translation>Не удалось протестировать задержку для этого подключения.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="1072"/>
@@ -1086,7 +1086,7 @@
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="1169"/>
       <source>Subscription</source>
-      <translation type="unfinished">Subscription</translation>
+      <translation>Подписка</translation>
     </message>
   </context>
   <context>
@@ -1554,22 +1554,22 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="138"/>
       <source>Darkmode UI Icons</source>
-      <translation type="unfinished">Darkmode UI Icons</translation>
+      <translation>Темные иконки интерфейса</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="145"/>
       <source>Darkmode Tray Icon</source>
-      <translation type="unfinished">Darkmode Tray Icon</translation>
+      <translation>Светлая иконка в трее</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="281"/>
       <source>Config</source>
-      <translation type="unfinished">Config</translation>
+      <translation>Настройки</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="288"/>
       <source>Subscription</source>
-      <translation type="unfinished">Subscription</translation>
+      <translation>Подписка</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="433"/>
@@ -1600,12 +1600,12 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="589"/>
       <source>Local IP for PAC</source>
-      <translation type="unfinished">Local IP for PAC</translation>
+      <translation>Локальный IP для PAC</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="596"/>
       <source>127.0.0.1</source>
-      <translation type="unfinished">127.0.0.1</translation>
+      <translation>127.0.0.1</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="634"/>
@@ -1809,7 +1809,7 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="1386"/>
       <source>This feature for Windows is not stable yet.</source>
-      <translation type="unfinished">This feature for Windows is not stable yet.</translation>
+      <translation>Эта функция для Windows еще не стабильна.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="1394"/>
@@ -1857,7 +1857,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Noto Sans&apos;; color:#d68952;&quot;&gt;Copyright (c) 2019 Nikolaos Ftylitakis (@ftylitak): QZXing (Apache2)&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Noto Sans&apos;; color:#d68952;&quot;&gt;Copyright (c) 2016 Singein (@Singein): ScreenShot (MIT)&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Noto Sans&apos;; color:#d68952;&quot;&gt;Copyright (c) 2016 Nikhil Marathe (@nikhilm): QHttpServer (MIT)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-      <translation type="unfinished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+      <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Noto Sans&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
@@ -1915,7 +1915,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="46"/>
       <source>Use Darkmode Theme</source>
-      <translation type="unfinished">Use Darkmode Theme</translation>
+      <translation>Использовать темную тему</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="119"/>
@@ -2020,12 +2020,12 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/main.cpp" line="68"/>
       <source>Warning</source>
-      <translation type="unfinished">Warning</translation>
+      <translation>Внимание</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="68"/>
       <source>Qv2ray cannot load the config file from here:</source>
-      <translation type="unfinished">Qv2ray cannot load the config file from here:</translation>
+      <translation>Qv2ray не может загрузить файл конфигурации отсюда:</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="118"/>
@@ -2052,17 +2052,17 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/main.cpp" line="130"/>
       <source>Failed to initialise Qv2ray</source>
-      <translation type="unfinished">Failed to initialise Qv2ray</translation>
+      <translation>Не удалось инициализировать Qv2ray</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="131"/>
       <source>Failed to determine the location of config file.</source>
-      <translation type="unfinished">Failed to determine the location of config file.</translation>
+      <translation>Не удалось определить местоположение конфигурационного файла.</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="133"/>
       <source>Please report if you think it&apos;s a bug.</source>
-      <translation type="unfinished">Please report if you think it&apos;s a bug.</translation>
+      <translation>Пожалуйста, сообщите, если вы считаете об этом, если это ошибка.</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="208"/>
@@ -2087,12 +2087,12 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/main.cpp" line="232"/>
       <source>Please check if there&apos;s an issue explaining about it.</source>
-      <translation type="unfinished">Please check if there&apos;s an issue explaining about it.</translation>
+      <translation>Пожалуйста, проверьте, есть ли проблема с объяснением этого.</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="233"/>
       <source>Or submit a new issue if you think this is an error.</source>
-      <translation type="unfinished">Or submit a new issue if you think this is an error.</translation>
+      <translation>Или отправьте новую проблему, если вы считаете, что это ошибка.</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="268"/>
@@ -2223,27 +2223,27 @@ p, li { white-space: pre-wrap; }
       <location filename="../src/ui/w_MainWindow.cpp" line="39"/>
       <location filename="../src/ui/w_MainWindow.cpp" line="49"/>
       <source>Editing a subscription config</source>
-      <translation type="unfinished">Editing a subscription config</translation>
+      <translation>Редактирование конфигурации подписки</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="39"/>
       <source>You are trying to edit a config loaded from subscription.</source>
-      <translation type="unfinished">You are trying to edit a config loaded from subscription.</translation>
+      <translation>Вы пытаетесь изменить конфигурацию, загруженную из подписок.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="40"/>
       <source>All changes will be overwritten when the subscriptions are updated next time.</source>
-      <translation type="unfinished">All changes will be overwritten when the subscriptions are updated next time.</translation>
+      <translation>Все изменения будут перезаписаны при следующем обновлении подписки.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="41"/>
       <source>Are you still going to do so?</source>
-      <translation type="unfinished">Are you still going to do so?</translation>
+      <translation>Вы все еще собираетесь сделать это?</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="49"/>
       <source>You should not modity this property of a config from a subscription</source>
-      <translation type="unfinished">You should not modity this property of a config from a subscription</translation>
+      <translation>Вы не должны модифицировать это свойство конфигурации из подписки</translation>
     </message>
   </context>
   <context>
@@ -2251,12 +2251,12 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/components/QvPACHandler.cpp" line="43"/>
       <source>PAC Handler</source>
-      <translation type="unfinished">PAC Handler</translation>
+      <translation>PAC Handler</translation>
     </message>
     <message>
       <location filename="../src/components/QvPACHandler.cpp" line="43"/>
       <source>Failed to listen PAC request on this port, please verify the permissions</source>
-      <translation type="unfinished">Failed to listen PAC request on this port, please verify the permissions</translation>
+      <translation>Не удалось прослушать запрос PAC на этом порте, пожалуйста, проверьте права доступа</translation>
     </message>
   </context>
   <context>
@@ -2275,7 +2275,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/components/QvCoreInteractions.cpp" line="34"/>
       <source>v2ray core failed with errcode:</source>
-      <translation type="unfinished">v2ray core failed with errcode:</translation>
+      <translation>Ошибка ядра v2ray:</translation>
     </message>
     <message>
       <location filename="../src/components/QvCoreInteractions.cpp" line="48"/>
@@ -2285,12 +2285,12 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/components/QvCoreInteractions.cpp" line="50"/>
       <source>Please go to Prefrence Window to change the location.</source>
-      <translation type="unfinished">Please go to Prefrence Window to change the location.</translation>
+      <translation>Пожалуйста, перейдите в настройки, чтобы изменить местоположение.</translation>
     </message>
     <message>
       <location filename="../src/components/QvCoreInteractions.cpp" line="51"/>
       <source>Or place your v2ray core file in the location above.</source>
-      <translation type="unfinished">Or place your v2ray core file in the location above.</translation>
+      <translation>Или поместите файл v2ray core выше директорией.</translation>
     </message>
     <message>
       <location filename="../src/components/QvCoreInteractions.cpp" line="171"/>
@@ -2687,32 +2687,32 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="644"/>
       <source>You didn&apos;t set tags for one or more Inbound/Outbound</source>
-      <translation type="unfinished">You didn&apos;t set tags for one or more Inbound/Outbound</translation>
+      <translation>Вы не установили теги для одного или нескольких входящих / исходящих</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="645"/>
       <source>These entry will NOT be added to the route table</source>
-      <translation type="unfinished">These entry will NOT be added to the route table</translation>
+      <translation>Эта запись НЕ будет добавлена в таблицу маршрута</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="646"/>
       <source>Do you still want to continue?</source>
-      <translation type="unfinished">Do you still want to continue?</translation>
+      <translation>Продолжить?</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="677"/>
       <source>Removing the last route entry</source>
-      <translation type="unfinished">Removing the last route entry</translation>
+      <translation>Удаление последнего элемента маршрута</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="677"/>
       <source>This connection will be marked as Simple Config if you save it without adding a route.</source>
-      <translation type="unfinished">This connection will be marked as Simple Config if you save it without adding a route.</translation>
+      <translation>Это соединение будет помечено как Простая конфигурация, если вы сохраните его без добавления маршрута.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="678"/>
       <source>All inbounds will be lost after you edit it in the Simple Outbound editor next time.</source>
-      <translation type="unfinished">All inbounds will be lost after you edit it in the Simple Outbound editor next time.</translation>
+      <translation>Все входящие настройки будут потеряны после того, как вы в следующий раз отредактируете их в простом исходящем редакторе.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="751"/>
@@ -2751,47 +2751,47 @@ p, li { white-space: pre-wrap; }
       <location filename="../src/ui/w_SubscriptionEditor.cpp" line="76"/>
       <location filename="../src/ui/w_SubscriptionEditor.cpp" line="95"/>
       <source>Renaming a subscription</source>
-      <translation type="unfinished">Renaming a subscription</translation>
+      <translation>Переименование подписки</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.cpp" line="59"/>
       <source>The subscription name is invalid, please try another.</source>
-      <translation type="unfinished">The subscription name is invalid, please try another.</translation>
+      <translation>Недопустимое имя подписки, пожалуйста, попробуйте другое.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.cpp" line="64"/>
       <source>New name of this subscription has been used already, please suggest another one</source>
-      <translation type="unfinished">New name of this subscription has been used already, please suggest another one</translation>
+      <translation>Новое имя этой подписки уже используется, пожалуйста, выберите другое имя</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.cpp" line="76"/>
       <source>Failed to rename a subscription, this is an unknown error.</source>
-      <translation type="unfinished">Failed to rename a subscription, this is an unknown error.</translation>
+      <translation>Не удалось переименовать подписку, это неизвестная ошибка.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.cpp" line="95"/>
       <source>Successfully renamed a subscription</source>
-      <translation type="unfinished">Successfully renamed a subscription</translation>
+      <translation>Подписка успешно переименована</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.cpp" line="105"/>
       <source>Update Subscription</source>
-      <translation type="unfinished">Update Subscription</translation>
+      <translation>Обновить подписку</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.cpp" line="105"/>
       <source>Would you like to reload this subscription from the Url?</source>
-      <translation type="unfinished">Would you like to reload this subscription from the Url?</translation>
+      <translation>Вы хотите перезагрузить эту подписку с Url?</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.cpp" line="138"/>
       <source>Updating subscriptions</source>
-      <translation type="unfinished">Updating subscriptions</translation>
+      <translation>Обновление подписок</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.cpp" line="138"/>
       <source>Failed to process the result from the upstream, please check your Url</source>
-      <translation type="unfinished">Failed to process the result from the upstream, please check your Url</translation>
+      <translation>Не удалось обработать результат из исходного потока, пожалуйста, проверьте ваш Url</translation>
     </message>
   </context>
   <context>
@@ -2804,7 +2804,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="42"/>
       <source>Subscription List</source>
-      <translation type="unfinished">Subscription List</translation>
+      <translation>Список подписок</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="82"/>
@@ -2814,42 +2814,42 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="79"/>
       <source>Add Subscription</source>
-      <translation type="unfinished">Add Subscription</translation>
+      <translation>Добавить подписку</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="95"/>
       <source>Remove Subscription</source>
-      <translation type="unfinished">Remove Subscription</translation>
+      <translation>Удалить подписку</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="98"/>
       <source>D</source>
-      <translation type="unfinished">D</translation>
+      <translation>D</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="126"/>
       <source>Subscription Details</source>
-      <translation type="unfinished">Subscription Details</translation>
+      <translation>Детали подписки</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="134"/>
       <source>Subscription Name</source>
-      <translation type="unfinished">Subscription Name</translation>
+      <translation>Название подписки</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="144"/>
       <source>Subscription Address</source>
-      <translation type="unfinished">Subscription Address</translation>
+      <translation>Адрес подписки</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="156"/>
       <source>Connection List</source>
-      <translation type="unfinished">Connection List</translation>
+      <translation>Список подключений</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="175"/>
       <source>Update Subscription Data</source>
-      <translation type="unfinished">Update Subscription Data</translation>
+      <translation>Обновить данные подписки</translation>
     </message>
   </context>
 </TS>
