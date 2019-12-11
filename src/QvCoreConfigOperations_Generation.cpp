@@ -194,7 +194,7 @@ namespace Qv2ray
                 INBOUNDS inboundsList;
 
                 // HTTP InBound
-                if (gConf.inboundConfig.http_port != 0) {
+                if (gConf.inboundConfig.useHTTP) {
                     INBOUND httpInBoundObject;
                     httpInBoundObject.insert("listen", QString::fromStdString(gConf.inboundConfig.listenip));
                     httpInBoundObject.insert("port", gConf.inboundConfig.http_port);
@@ -210,7 +210,7 @@ namespace Qv2ray
                 }
 
                 // SOCKS InBound
-                if (gConf.inboundConfig.socks_port != 0) {
+                if (gConf.inboundConfig.useSocks) {
                     INBOUND socksInBoundObject;
                     socksInBoundObject.insert("listen", QString::fromStdString(gConf.inboundConfig.listenip));
                     socksInBoundObject.insert("port", gConf.inboundConfig.socks_port);

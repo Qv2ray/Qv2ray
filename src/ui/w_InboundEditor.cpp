@@ -3,7 +3,7 @@
 #include "QvCoreConfigOperations.hpp"
 
 static bool isLoading = false;
-#define PREPARE_RETURN if(isLoading) return;
+#define CHECKLOADING if(isLoading) return;
 
 InboundEditor::InboundEditor(QJsonObject root, QWidget *parent) :
     QDialog(parent),
@@ -48,8 +48,18 @@ QJsonObject InboundEditor::GenerateNewRoot()
     auto inboundType = root["protocol"].toString();
 
     if (inboundType == "http") {
+        // Remove useless, misleading 'accounts' array.
+        if (httpAccountListBox->count() == 0) {
+            httpSettings.remove("accounts");
+        }
+
         _newRoot["settings"] = httpSettings;
     } else if (inboundType == "socks") {
+        // See above
+        if (socksAccountListBox->count() == 0) {
+            socksSettings.remove("accounts");
+        }
+
         _newRoot["settings"] = socksSettings;
     } else if (inboundType == "dokodemo-door") {
         _newRoot["settings"] = dokoSettings;
@@ -81,7 +91,6 @@ void InboundEditor::LoadUIData()
         if (item.toString().toLower() == "tls") destOverrideList->item(1)->setCheckState(Qt::Checked);
     }
 
-    //
     inboundTagTxt->setText(root["tag"].toString());
     inboundHostTxt->setText(root["listen"].toString());
     inboundPortTxt->setText(root["port"].toVariant().toString());
@@ -127,7 +136,7 @@ InboundEditor::~InboundEditor()
 
 void InboundEditor::on_inboundProtocolCombo_currentIndexChanged(const QString &arg1)
 {
-    PREPARE_RETURN
+    CHECKLOADING
     root["protocol"] = arg1.toLower();
 }
 
@@ -138,31 +147,31 @@ void InboundEditor::on_inboundProtocolCombo_currentIndexChanged(int index)
 
 void InboundEditor::on_inboundTagTxt_textEdited(const QString &arg1)
 {
-    PREPARE_RETURN
+    CHECKLOADING
     root["tag"] = arg1;
 }
 
 void InboundEditor::on_httpTimeoutSpinBox_valueChanged(int arg1)
 {
-    PREPARE_RETURN
+    CHECKLOADING
     httpSettings["timtout"] = arg1;
 }
 
 void InboundEditor::on_httpTransparentCB_stateChanged(int arg1)
 {
-    PREPARE_RETURN
+    CHECKLOADING
     httpSettings["allowTransparent"] = arg1 == Qt::Checked;
 }
 
 void InboundEditor::on_httpUserLevelSB_valueChanged(int arg1)
 {
-    PREPARE_RETURN
+    CHECKLOADING
     httpSettings["userLevel"] = arg1;
 }
 
 void InboundEditor::on_httpRemoveUserBtn_clicked()
 {
-    PREPARE_RETURN
+    CHECKLOADING
 
     if (httpAccountListBox->currentRow() != -1) {
         auto item = httpAccountListBox->currentItem();
@@ -188,7 +197,7 @@ void InboundEditor::on_httpRemoveUserBtn_clicked()
 
 void InboundEditor::on_httpAddUserBtn_clicked()
 {
-    PREPARE_RETURN
+    CHECKLOADING
     auto user = httpAddUserTxt->text();
     auto pass = httpAddPasswordTxt->text();
     //
@@ -215,7 +224,7 @@ void InboundEditor::on_httpAddUserBtn_clicked()
 
 void InboundEditor::on_socksRemoveUserBtn_clicked()
 {
-    PREPARE_RETURN
+    CHECKLOADING
 
     if (socksAccountListBox->currentRow() != -1) {
         auto item = socksAccountListBox->currentItem();
@@ -240,7 +249,7 @@ void InboundEditor::on_socksRemoveUserBtn_clicked()
 
 void InboundEditor::on_socksAddUserBtn_clicked()
 {
-    PREPARE_RETURN
+    CHECKLOADING
     auto user = socksAddUserTxt->text();
     auto pass = socksAddPasswordTxt->text();
     //
@@ -267,32 +276,32 @@ void InboundEditor::on_socksAddUserBtn_clicked()
 
 void InboundEditor::on_strategyCombo_currentIndexChanged(const QString &arg1)
 {
-    PREPARE_RETURN
+    CHECKLOADING
     allocate["strategy"] = arg1.toLower();
 }
 
 void InboundEditor::on_refreshNumberBox_valueChanged(int arg1)
 {
-    PREPARE_RETURN
+    CHECKLOADING
     allocate["refresh"] = arg1;
 }
 
 void InboundEditor::on_concurrencyNumberBox_valueChanged(int arg1)
 {
-    PREPARE_RETURN
+    CHECKLOADING
     allocate["concurrency"] = arg1;
 }
 
 void InboundEditor::on_enableSniffingCB_stateChanged(int arg1)
 {
-    PREPARE_RETURN
+    CHECKLOADING
     sniffing["enabled"] = arg1 == Qt::Checked;
     destOverrideList->setEnabled(arg1 == Qt::Checked);
 }
 
 void InboundEditor::on_destOverrideList_itemChanged(QListWidgetItem *item)
 {
-    PREPARE_RETURN
+    CHECKLOADING
     Q_UNUSED(item)
     QJsonArray list;
 
@@ -309,37 +318,37 @@ void InboundEditor::on_destOverrideList_itemChanged(QListWidgetItem *item)
 
 void InboundEditor::on_socksUDPCB_stateChanged(int arg1)
 {
-    PREPARE_RETURN
+    CHECKLOADING
     socksSettings["udp"] = arg1 == Qt::Checked;
 }
 
 void InboundEditor::on_socksUDPIPAddrTxt_textEdited(const QString &arg1)
 {
-    PREPARE_RETURN
+    CHECKLOADING
     socksSettings["ip"] = arg1;
 }
 
 void InboundEditor::on_socksUserLevelSB_valueChanged(int arg1)
 {
-    PREPARE_RETURN
+    CHECKLOADING
     socksSettings["userLevel"] = arg1;
 }
 
 void InboundEditor::on_dokoIPAddrTxt_textEdited(const QString &arg1)
 {
-    PREPARE_RETURN
+    CHECKLOADING
     dokoSettings["address"] = arg1;
 }
 
 void InboundEditor::on_dokoPortSB_valueChanged(int arg1)
 {
-    PREPARE_RETURN
+    CHECKLOADING
     dokoSettings["port"]  = arg1;
 }
 
 void InboundEditor::on_dokoTCPCB_stateChanged(int arg1)
 {
-    PREPARE_RETURN
+    CHECKLOADING
     Q_UNUSED(arg1)
     bool hasTCP = dokoTCPCB->checkState() == Qt::Checked;
     bool hasUDP = dokoUDPCB->checkState() == Qt::Checked;
@@ -352,7 +361,7 @@ void InboundEditor::on_dokoTCPCB_stateChanged(int arg1)
 
 void InboundEditor::on_dokoUDPCB_stateChanged(int arg1)
 {
-    PREPARE_RETURN
+    CHECKLOADING
     Q_UNUSED(arg1)
     bool hasTCP = dokoTCPCB->checkState() == Qt::Checked;
     bool hasUDP = dokoUDPCB->checkState() == Qt::Checked;
@@ -365,25 +374,25 @@ void InboundEditor::on_dokoUDPCB_stateChanged(int arg1)
 
 void InboundEditor::on_dokoTimeoutSB_valueChanged(int arg1)
 {
-    PREPARE_RETURN
+    CHECKLOADING
     dokoSettings["timeout"] = arg1;
 }
 
 void InboundEditor::on_dokoFollowRedirectCB_stateChanged(int arg1)
 {
-    PREPARE_RETURN
+    CHECKLOADING
     dokoSettings["followRedirect"] = arg1 == Qt::Checked;
 }
 
 void InboundEditor::on_dokoUserLevelSB_valueChanged(int arg1)
 {
-    PREPARE_RETURN
+    CHECKLOADING
     dokoSettings["userLevel"] = arg1;
 }
 
 void InboundEditor::on_mtEMailTxt_textEdited(const QString &arg1)
 {
-    PREPARE_RETURN
+    CHECKLOADING
 
     if (!mtSettings.contains("users")) mtSettings["users"] = QJsonArray();
 
@@ -396,7 +405,7 @@ void InboundEditor::on_mtEMailTxt_textEdited(const QString &arg1)
 
 void InboundEditor::on_mtSecretTxt_textEdited(const QString &arg1)
 {
-    PREPARE_RETURN
+    CHECKLOADING
 
     if (!mtSettings.contains("users")) mtSettings["users"] = QJsonArray();
 
@@ -409,7 +418,7 @@ void InboundEditor::on_mtSecretTxt_textEdited(const QString &arg1)
 
 void InboundEditor::on_mtUserLevelSB_valueChanged(int arg1)
 {
-    PREPARE_RETURN
+    CHECKLOADING
 
     if (!mtSettings.contains("users")) mtSettings["users"] = QJsonArray();
 
@@ -422,18 +431,18 @@ void InboundEditor::on_mtUserLevelSB_valueChanged(int arg1)
 
 void InboundEditor::on_inboundHostTxt_textEdited(const QString &arg1)
 {
-    PREPARE_RETURN
+    CHECKLOADING
     root["listen"] = arg1;
 }
 
 void InboundEditor::on_inboundPortTxt_textEdited(const QString &arg1)
 {
-    PREPARE_RETURN
+    CHECKLOADING
     root["port"] = arg1;
 }
 
 void InboundEditor::on_socksAuthCombo_currentIndexChanged(const QString &arg1)
 {
-    PREPARE_RETURN
+    CHECKLOADING
     socksSettings["auth"] =  arg1.toLower();
 }
