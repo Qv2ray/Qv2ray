@@ -109,11 +109,24 @@ jobs:
       - name: Extracting gRPC and protobuf libs and headers
         run: tools/grpc_gen.sh
 # --------------------------------------------------------
-      - name: Building Qv2ray
+      - name: Generate Makefile
         run: |
           mkdir build
           cd build
-          qmake ..
+          qmake -d .. > debug.out 2>&1
+      - name: Uploading debug log
+        uses: actions/upload-artifact@master
+        with:
+          name: qv2ray.linux.debug.out
+          path: build/debug.out
+      - name: Uploading debug Makefile
+        uses: actions/upload-artifact@master
+        with:
+          name: qv2ray.linux.makefile
+          path: build/Makefile
+      - name: Building Qv2ray
+        run: |
+          cd build
           make -j2
       - name: Generating filesystem structure for AppImage
         run: | 
