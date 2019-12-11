@@ -10,13 +10,9 @@
 
 # Qv2ray - Make v2ray real cross-platform
 
-[![HitCount](http://hits.dwyl.io/lhy0403/Qv2ray.svg)](http://hits.dwyl.io/lhy0403/Qv2ray) ![GitHub Releases](https://img.shields.io/github/downloads/lhy0403/Qv2ray/latest/total?style=flat-square)
-
 使用 Qt 框架的跨平台 v2ray 客户端. 支持 Windows, Linux, macOS
 
-支持连接编辑，支持导入任意配置和 `vmess://`  分享链接
-
-来自于 [Hv2ray](https://github.com/aliyuchang33/Hv2ray)，原作者 [@aliyuchang33](https://github.com/aliyuchang33)
+[![HitCount](http://hits.dwyl.io/lhy0403/Qv2ray.svg)](http://hits.dwyl.io/lhy0403/Qv2ray) ![GitHub Releases](https://img.shields.io/github/downloads/lhy0403/Qv2ray/latest/total?style=flat-square)
 
 ## 相关链接：
 
@@ -29,51 +25,29 @@
 
 ### 首次使用请查看 ➡ [用户手册](https://lhy0403.github.io/Qv2ray)
 
-
-
-## Qv2ray 项目状态
-
-### Jenkins CI 
-
-- 访问链接: [https://jenkins.lhy0403.top/](https://jenkins.lhy0403.top/)
-
-|                | [Master](https://github.com/lhy0403/Qv2ray/tree/master)      | [Version v1](https://github.com/lhy0403/Qv2ray/tree/version-v1) |
-| -------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| Linux AppImage | [![Build Status](https://jenkins.lhy0403.top/job/Qv2ray-AppImage-Release/badge/icon)](https://jenkins.lhy0403.top/job/Qv2ray-AppImage-Release/) | [![Build Status](https://jenkins.lhy0403.top/job/Qv2ray-AppImage-Version1/badge/icon)](https://jenkins.lhy0403.top/job/Qv2ray-AppImage-Version1/) |
-| Windows Zip    | [![Build Status](https://jenkins.lhy0403.top/job/Qv2ray-Win32-Release/badge/icon)](https://jenkins.lhy0403.top/job/Qv2ray-Win32-Release/) | [![Build Status](https://jenkins.lhy0403.top/job/Qv2ray-Win32-Version1/badge/icon)](https://jenkins.lhy0403.top/job/Qv2ray-Win32-Version1/) |
-
-### Travis & Appveyor 多平台构建状态
-
-*Travis per machine badge provided by: [badge-matrix](https://github.com/exogen/badge-matrix)*
-
-| OS                                                        | 主分支 [master](https://github.com/lhy0403/Qv2ray/tree/master) | 版本分支 [version-v1](https://github.com/lhy0403/Qv2ray/tree/version-v1) |
-| --------------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| [Linux](https://travis-ci.com/lhy0403/Qv2ray)             | ![Build Status Linux in master](http://badges.herokuapp.com/travis.com/lhy0403/Qv2ray?style=flat-square&env=BADGE=linux&label=Linux-master&branch=master) | ![Build Status Linux in v1.0.0](http://badges.herokuapp.com/travis.com/lhy0403/Qv2ray?style=flat-square&env=BADGE=linux&label=Linux-v1&branch=version-v1) |
-| [macOS](https://travis-ci.com/lhy0403/Qv2ray)             | ![Build Status macOS in master](http://badges.herokuapp.com/travis.com/lhy0403/Qv2ray?style=flat-square&env=BADGE=osx&label=macOS-master&branch=master) | ![Build Status macOS in v1](http://badges.herokuapp.com/travis.com/lhy0403/Qv2ray?style=flat-square&env=BADGE=osx&label=macOS-v1&branch=version-v1) |
-| [Windows](https://ci.appveyor.com/project/lhy0403/qv2ray) | [![Build status](https://ci.appveyor.com/api/projects/status/i1l524ws0hiitpm4/branch/master?svg=true)](https://ci.appveyor.com/project/lhy0403/qv2ray/branch/master) | [![Build status](https://ci.appveyor.com/api/projects/status/i1l524ws0hiitpm4/branch/version-v1?svg=true)](https://ci.appveyor.com/project/lhy0403/qv2ray/branch/version-v1) |
-
-
-
 ## 鸣谢
+### This is free software, and you are welcome to redistribute it under certain conditions
+- Copyright (C) 2019 Leroy.H.Y (@lhy0403): *Qv2ray Current Developer*
+- Copyright (C) 2019 Hork (@aliyuchang33): *Hv2ray Initial Designs & gRPC implementation*
+- Copyright (C) 2019 SOneWinstone (@SoneWinstone): *Hv2ray/Qv2ray HTTP Request Helper*
+- ArielAxionL (@axionl): *Qv2ray Logos and ArtWork*
+- TheBadGateway (@thebadgateway): *Qv2ray Russian Translations*
+- Riko (@rikakomoe): *Qv2ray patch 8a8c1a/PR115*
 
-| 姓名 (@Github帐号)                                           | 贡献内容                 |
-| ------------------------------------------------------------ | ------------------------ |
-| Leroy.H.Y [@lhy0403](https://github.com/lhy0403)             | Qv2ray 当前维护人员之一  |
-| Hork [@aliyuchang33](https://github.com/aliyuchang33)        | Hv2ray 灵感与设计        |
-| SOneWinstone [@SoneWinstone](https://github.com/SoneWinstone) | 使用 Qt 的 HTTP 交互逻辑 |
-| ArielAxionL [@axionl](https://github.com/axionl)             | Qv2ray 部分 UI           |
-| TheBadGateway [@thebadgateway](https://github.com/thebadgateway) | 俄罗斯文翻译             |
+### Libraries that have been used in Qv2ray are listed below (Sorted by date added)
+- Copyright (c) 2019 dridk (@dridk): **X2Struct** (Apache)
+- Copyright (c) 2011 SCHUTZ Sacha (@dridk): **QJsonModel** (MIT)
+- Copyright (c) 2019 Nikolaos Ftylitakis (@ftylitak): **QZXing** (Apache2)
+- Copyright (c) 2016 Singein (@Singein): **ScreenShot** (MIT)
+- Copyright (c) 2016 Nikhil Marathe (@nikhilm): **QHttpServer** (MIT)
+- Copyright (c) 2019 Itay Grudev (@itay-grudev): **SingleApplication** (MIT)
 
-
-
+### Special Thanks
+- Issue maintainer: DuckSoft @DuckSoft
 
 ## 许可证
 
 Qv2ray 使用 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) 
-
-Submodule [X2Struct](https://github.com/xyz347/x2struct) 使用 ![License: GPL v3](https://img.shields.io/badge/License-MIT-blue.svg)
-
-[QJsonModel](https://github.com/dridk/QJsonModel) is licensed under![License: GPL v3](https://img.shields.io/badge/License-MIT-blue.svg) (Copyright (c) 2011 SCHUTZ Sacha)
 
 ```
     Qv2ray, A Qt frontend for v2ray. Written in c++
