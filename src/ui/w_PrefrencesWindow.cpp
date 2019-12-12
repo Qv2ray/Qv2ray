@@ -133,22 +133,24 @@ PrefrencesWindow::PrefrencesWindow(QWidget *parent) : QDialog(parent),
     CurrentBarPageId = 0;
     //
     // Empty for global config.
+    auto autoSub = QSTRING(CurrentConfig.autoStartConfig.subscriptionName);
+    auto autoCon = QSTRING(CurrentConfig.autoStartConfig.connectionName);
     autoStartConnCombo->addItem("");
 
     for (auto item : CurrentConfig.subscribes) {
         autoStartSubsCombo->addItem(QSTRING(item.first));
     }
 
-    autoStartSubsCombo->setCurrentText(QSTRING(CurrentConfig.autoStartConfig.subscriptionName));
+    autoStartSubsCombo->setCurrentText(autoSub);
 
     if (CurrentConfig.autoStartConfig.subscriptionName.empty()) {
         autoStartConnCombo->addItems(ConvertQStringList(QList<string>::fromStdList(CurrentConfig.configs)));
     } else {
-        auto list = GetSubscriptionConnection(CurrentConfig.autoStartConfig.subscriptionName);
+        auto list = GetSubscriptionConnection(autoSub.toStdString());
         autoStartConnCombo->addItems(list.keys());
     }
 
-    autoStartConnCombo->setCurrentText(QSTRING(CurrentConfig.autoStartConfig.connectionName));
+    autoStartConnCombo->setCurrentText(autoCon);
     finishedLoading = true;
 }
 

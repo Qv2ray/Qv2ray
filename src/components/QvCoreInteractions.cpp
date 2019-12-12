@@ -101,11 +101,13 @@ namespace Qv2ray
 
                 if (enableAPI) {
                     // Config API
+                    apiFailedCounter = 0;
                     this->apiPort = apiPort;
                     Channel = grpc::CreateChannel("127.0.0.1:" + to_string(apiPort), grpc::InsecureChannelCredentials());
                     StatsService service;
                     Stub = service.NewStub(Channel);
                     apiTimerId = startTimer(1000);
+                    LOG(MODULE_VCORE, "API Worker started.")
                 }
 
                 return true;
