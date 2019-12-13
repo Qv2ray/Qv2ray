@@ -2251,7 +2251,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/components/QvPACHandler.cpp" line="43"/>
       <source>PAC Handler</source>
-      <translation>PAC Handler</translation>
+      <translation>Настройки PAC</translation>
     </message>
     <message>
       <location filename="../src/components/QvPACHandler.cpp" line="43"/>
