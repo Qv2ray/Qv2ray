@@ -962,17 +962,17 @@
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="663"/>
       <source>No data</source>
-      <translation type="unfinished">No data</translation>
+      <translation>没有数据</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="665"/>
       <source>ms</source>
-      <translation type="unfinished">ms</translation>
+      <translation>ms</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="669"/>
       <source>From subscription</source>
-      <translation type="unfinished">From subscription</translation>
+      <translation>从订阅</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="701"/>
@@ -1010,17 +1010,17 @@
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="803"/>
       <source>The name you suggested is not valid, please try another.</source>
-      <translation type="unfinished">The name you suggested is not valid, please try another.</translation>
+      <translation>您建议的名称无效，请尝试其他名称。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="854"/>
       <source>Removing Connection(s)</source>
-      <translation type="unfinished">Removing Connection(s)</translation>
+      <translation>删除连接</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="854"/>
       <source>Are you sure to remove selected connection(s)?</source>
-      <translation type="unfinished">Are you sure to remove selected connection(s)?</translation>
+      <translation>您确定要删除此连接吗？</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="885"/>
@@ -1037,12 +1037,12 @@
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="889"/>
       <source>Removing a subscription config</source>
-      <translation type="unfinished">Removing a subscription config</translation>
+      <translation>删除订阅配置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="889"/>
       <source>Do you want to remove the config loaded from a subscription?</source>
-      <translation type="unfinished">Do you want to remove the config loaded from a subscription?</translation>
+      <translation>您是否要删除从订阅中加载的配置？</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="934"/>
@@ -1061,17 +1061,17 @@
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="1041"/>
       <source>Testing...</source>
-      <translation type="unfinished">Testing...</translation>
+      <translation>正在测试…</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="1050"/>
       <source>Latency Test</source>
-      <translation type="unfinished">Latency Test</translation>
+      <translation>测试延迟</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="1050"/>
       <source>Failed to test latency for this connection.</source>
-      <translation type="unfinished">Failed to test latency for this connection.</translation>
+      <translation>无法测试此连接的延迟。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="1072"/>
@@ -1086,7 +1086,7 @@
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="1169"/>
       <source>Subscription</source>
-      <translation type="unfinished">Subscription</translation>
+      <translation>订阅</translation>
     </message>
   </context>
   <context>
@@ -1554,22 +1554,22 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="138"/>
       <source>Darkmode UI Icons</source>
-      <translation type="unfinished">Darkmode UI Icons</translation>
+      <translation>深色UI图标</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="145"/>
       <source>Darkmode Tray Icon</source>
-      <translation type="unfinished">Darkmode Tray Icon</translation>
+      <translation>深色托盘图标</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="281"/>
       <source>Config</source>
-      <translation type="unfinished">Config</translation>
+      <translation>配置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="288"/>
       <source>Subscription</source>
-      <translation type="unfinished">Subscription</translation>
+      <translation>订阅</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="433"/>
