@@ -1600,12 +1600,12 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="589"/>
       <source>Local IP for PAC</source>
-      <translation type="unfinished">Local IP for PAC</translation>
+      <translation>PAC的本地IP</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="596"/>
       <source>127.0.0.1</source>
-      <translation type="unfinished">127.0.0.1</translation>
+      <translation>127.0.0.1</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="634"/>
@@ -1809,7 +1809,7 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="1386"/>
       <source>This feature for Windows is not stable yet.</source>
-      <translation type="unfinished">This feature for Windows is not stable yet.</translation>
+      <translation>Windows的此功能尚不稳定。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="1394"/>
@@ -1857,7 +1857,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Noto Sans&apos;; color:#d68952;&quot;&gt;Copyright (c) 2019 Nikolaos Ftylitakis (@ftylitak): QZXing (Apache2)&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Noto Sans&apos;; color:#d68952;&quot;&gt;Copyright (c) 2016 Singein (@Singein): ScreenShot (MIT)&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Noto Sans&apos;; color:#d68952;&quot;&gt;Copyright (c) 2016 Nikhil Marathe (@nikhilm): QHttpServer (MIT)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-      <translation type="unfinished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+      <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Noto Sans&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
@@ -1915,7 +1915,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="46"/>
       <source>Use Darkmode Theme</source>
-      <translation type="unfinished">Use Darkmode Theme</translation>
+      <translation>使用深色主题</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="119"/>
@@ -2020,12 +2020,12 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/main.cpp" line="68"/>
       <source>Warning</source>
-      <translation type="unfinished">Warning</translation>
+      <translation>警告</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="68"/>
       <source>Qv2ray cannot load the config file from here:</source>
-      <translation type="unfinished">Qv2ray cannot load the config file from here:</translation>
+      <translation>Qv2ray 无法从这里加载配置文件：</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="118"/>
@@ -2052,17 +2052,17 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/main.cpp" line="130"/>
       <source>Failed to initialise Qv2ray</source>
-      <translation type="unfinished">Failed to initialise Qv2ray</translation>
+      <translation>初始化 Qv2ray 失败</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="131"/>
       <source>Failed to determine the location of config file.</source>
-      <translation type="unfinished">Failed to determine the location of config file.</translation>
+      <translation>无法确定配置文件的位置。</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="133"/>
       <source>Please report if you think it&apos;s a bug.</source>
-      <translation type="unfinished">Please report if you think it&apos;s a bug.</translation>
+      <translation>如果您认为它是一个bug，请&apos;报告。</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="208"/>
@@ -2087,12 +2087,12 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/main.cpp" line="232"/>
       <source>Please check if there&apos;s an issue explaining about it.</source>
-      <translation type="unfinished">Please check if there&apos;s an issue explaining about it.</translation>
+      <translation>请检查是否存在&apos;有关此问题的说明。</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="233"/>
       <source>Or submit a new issue if you think this is an error.</source>
-      <translation type="unfinished">Or submit a new issue if you think this is an error.</translation>
+      <translation>或者如果你认为这是一个错误，请提交一个新问题。</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="268"/>
@@ -2223,17 +2223,17 @@ p, li { white-space: pre-wrap; }
       <location filename="../src/ui/w_MainWindow.cpp" line="39"/>
       <location filename="../src/ui/w_MainWindow.cpp" line="49"/>
       <source>Editing a subscription config</source>
-      <translation type="unfinished">Editing a subscription config</translation>
+      <translation>编辑订阅配置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="39"/>
       <source>You are trying to edit a config loaded from subscription.</source>
-      <translation type="unfinished">You are trying to edit a config loaded from subscription.</translation>
+      <translation>您正在尝试编辑从订阅中加载的配置。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="40"/>
       <source>All changes will be overwritten when the subscriptions are updated next time.</source>
-      <translation type="unfinished">All changes will be overwritten when the subscriptions are updated next time.</translation>
+      <translation>下次更新订阅时，所有更改都会覆盖。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="41"/>
