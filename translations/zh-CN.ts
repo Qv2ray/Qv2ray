@@ -98,7 +98,7 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="117"/>
       <source>VMess / QRCode</source>
-      <translation type="unfinished">VMess / QRCode</translation>
+      <translation>VMess和QRCode</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="123"/>
@@ -148,32 +148,32 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="273"/>
       <source>Subscriptions / Manually Input</source>
-      <translation type="unfinished">Subscriptions / Manually Input</translation>
+      <translation>订阅/手动输入</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="279"/>
       <source>Manually Input Connections</source>
-      <translation type="unfinished">Manually Input Connections</translation>
+      <translation>手动输入连接</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="300"/>
       <source>Route Editor</source>
-      <translation type="unfinished">Route Editor</translation>
+      <translation>路由编辑器</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="307"/>
       <source>Open Route Editor</source>
-      <translation type="unfinished">Open Route Editor</translation>
+      <translation>打开路由编辑器</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="334"/>
       <source>Subscription Manager</source>
-      <translation type="unfinished">Subscription Manager</translation>
+      <translation>订阅管理器</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="341"/>
       <source>Open Subscription Manager</source>
-      <translation type="unfinished">Open Subscription Manager</translation>
+      <translation>打开订阅管理器</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="286"/>
@@ -255,7 +255,7 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="207"/>
       <source>Failed to save file, please check if you have proper permissions</source>
-      <translation type="unfinished">Failed to save file, please check if you have proper permissions</translation>
+      <translation>保存文件失败，请检查您是否拥有所需的权限</translation>
     </message>
   </context>
   <context>
@@ -473,7 +473,7 @@
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="705"/>
       <source>If you want to use tProxy, please go to Prefrence Window to enable this feature.</source>
-      <translation type="unfinished">If you want to use tProxy, please go to Prefrence Window to enable this feature.</translation>
+      <translation>如果你想使用tProxy，请到首选项窗口启用此功能。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="719"/>
@@ -622,7 +622,7 @@
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="81"/>
       <source>Subscriptions</source>
-      <translation type="unfinished">Subscriptions</translation>
+      <translation>订阅</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="88"/>
@@ -687,7 +687,7 @@
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="340"/>
       <source>Latency</source>
-      <translation type="unfinished">Latency</translation>
+      <translation>延迟</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="356"/>
@@ -702,7 +702,7 @@
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="443"/>
       <source>Log (click to switch log source)</source>
-      <translation type="unfinished">Log (click to switch log source)</translation>
+      <translation>日志 (点击切换日志源)</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="192"/>
@@ -844,7 +844,7 @@
       <location filename="../src/ui/w_MainWindow.cpp" line="346"/>
       <location filename="../src/ui/w_MainWindow.cpp" line="356"/>
       <source>Subscription:</source>
-      <translation type="unfinished">Subscription:</translation>
+      <translation>订阅:</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="210"/>
@@ -856,17 +856,17 @@
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="214"/>
       <source>Autostarting a config</source>
-      <translation type="unfinished">Autostarting a config</translation>
+      <translation>自动启动配置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="214"/>
       <source>Could not find a specified config named: </source>
-      <translation type="unfinished">Could not find a specified config named: </translation>
+      <translation>找不到指定的配置： </translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="216"/>
       <source>Please reset the settings in Prefrence Window</source>
-      <translation type="unfinished">Please reset the settings in Prefrence Window</translation>
+      <translation>请重置首选项窗口的设置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="274"/>
@@ -901,7 +901,7 @@
       <location filename="../src/ui/w_MainWindow.cpp" line="445"/>
       <location filename="../src/ui/w_MainWindow.cpp" line="1120"/>
       <source>Connected: </source>
-      <translation type="unfinished">Connected: </translation>
+      <translation>已连接: </translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="467"/>
