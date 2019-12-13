@@ -2687,7 +2687,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="644"/>
       <source>You didn&apos;t set tags for one or more Inbound/Outbound</source>
-      <translation type="unfinished">You didn&apos;t set tags for one or more Inbound/Outbound</translation>
+      <translation>您没有为一个或多个入站/出站&apos;设置标记</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="645"/>
@@ -2702,17 +2702,17 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="677"/>
       <source>Removing the last route entry</source>
-      <translation type="unfinished">Removing the last route entry</translation>
+      <translation>删除最后一个路由项目</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="677"/>
       <source>This connection will be marked as Simple Config if you save it without adding a route.</source>
-      <translation type="unfinished">This connection will be marked as Simple Config if you save it without adding a route.</translation>
+      <translation>如果您在不添加路由的情况下保存了该连接，则该连接将被标记为简单配置。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="678"/>
       <source>All inbounds will be lost after you edit it in the Simple Outbound editor next time.</source>
-      <translation type="unfinished">All inbounds will be lost after you edit it in the Simple Outbound editor next time.</translation>
+      <translation>下次在简单出站编辑器中编辑后将丢失。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="751"/>
@@ -2751,47 +2751,47 @@ p, li { white-space: pre-wrap; }
       <location filename="../src/ui/w_SubscriptionEditor.cpp" line="76"/>
       <location filename="../src/ui/w_SubscriptionEditor.cpp" line="95"/>
       <source>Renaming a subscription</source>
-      <translation type="unfinished">Renaming a subscription</translation>
+      <translation>重命名订阅</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.cpp" line="59"/>
       <source>The subscription name is invalid, please try another.</source>
-      <translation type="unfinished">The subscription name is invalid, please try another.</translation>
+      <translation>订阅名称无效，请重试。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.cpp" line="64"/>
       <source>New name of this subscription has been used already, please suggest another one</source>
-      <translation type="unfinished">New name of this subscription has been used already, please suggest another one</translation>
+      <translation>此订阅的新名称已被使用，请尝试另一个</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.cpp" line="76"/>
       <source>Failed to rename a subscription, this is an unknown error.</source>
-      <translation type="unfinished">Failed to rename a subscription, this is an unknown error.</translation>
+      <translation>无法重命名订阅，这是一个未知错误。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.cpp" line="95"/>
       <source>Successfully renamed a subscription</source>
-      <translation type="unfinished">Successfully renamed a subscription</translation>
+      <translation>成功重命名订阅</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.cpp" line="105"/>
       <source>Update Subscription</source>
-      <translation type="unfinished">Update Subscription</translation>
+      <translation>更新订阅</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.cpp" line="105"/>
       <source>Would you like to reload this subscription from the Url?</source>
-      <translation type="unfinished">Would you like to reload this subscription from the Url?</translation>
+      <translation>您要从 Url 重新加载此订阅吗？</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.cpp" line="138"/>
       <source>Updating subscriptions</source>
-      <translation type="unfinished">Updating subscriptions</translation>
+      <translation>更新订阅</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.cpp" line="138"/>
       <source>Failed to process the result from the upstream, please check your Url</source>
-      <translation type="unfinished">Failed to process the result from the upstream, please check your Url</translation>
+      <translation>无法处理来自上游结果，请检查您的 Url</translation>
     </message>
   </context>
   <context>
@@ -2804,7 +2804,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="42"/>
       <source>Subscription List</source>
-      <translation type="unfinished">Subscription List</translation>
+      <translation>订阅列表</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="82"/>
@@ -2814,37 +2814,37 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="79"/>
       <source>Add Subscription</source>
-      <translation type="unfinished">Add Subscription</translation>
+      <translation>添加订阅</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="95"/>
       <source>Remove Subscription</source>
-      <translation type="unfinished">Remove Subscription</translation>
+      <translation>删除订阅</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="98"/>
       <source>D</source>
-      <translation type="unfinished">D</translation>
+      <translation>D</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="126"/>
       <source>Subscription Details</source>
-      <translation type="unfinished">Subscription Details</translation>
+      <translation>订阅详情</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="134"/>
       <source>Subscription Name</source>
-      <translation type="unfinished">Subscription Name</translation>
+      <translation>订阅名称</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="144"/>
       <source>Subscription Address</source>
-      <translation type="unfinished">Subscription Address</translation>
+      <translation>订阅地址</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="156"/>
       <source>Connection List</source>
-      <translation type="unfinished">Connection List</translation>
+      <translation>连接列表</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="175"/>
