@@ -168,12 +168,12 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="334"/>
       <source>Subscription Manager</source>
-      <translation>订阅管理器</translation>
+      <translation>订阅管理</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="341"/>
       <source>Open Subscription Manager</source>
-      <translation>打开订阅管理器</translation>
+      <translation>打开订阅管理</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="286"/>
@@ -977,7 +977,7 @@
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="701"/>
       <source>Guessed</source>
-      <translation type="unfinished">Guessed</translation>
+      <translation>猜测</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="709"/>
@@ -2238,12 +2238,12 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="41"/>
       <source>Are you still going to do so?</source>
-      <translation type="unfinished">Are you still going to do so?</translation>
+      <translation>你还要这样做吗？</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="49"/>
       <source>You should not modity this property of a config from a subscription</source>
-      <translation type="unfinished">You should not modity this property of a config from a subscription</translation>
+      <translation>您不应从订阅中修改配置的此属性</translation>
     </message>
   </context>
   <context>
@@ -2251,12 +2251,12 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/components/QvPACHandler.cpp" line="43"/>
       <source>PAC Handler</source>
-      <translation type="unfinished">PAC Handler</translation>
+      <translation>PAC处理</translation>
     </message>
     <message>
       <location filename="../src/components/QvPACHandler.cpp" line="43"/>
       <source>Failed to listen PAC request on this port, please verify the permissions</source>
-      <translation type="unfinished">Failed to listen PAC request on this port, please verify the permissions</translation>
+      <translation>无法在此端口上监听PAC请求，请验证权限</translation>
     </message>
   </context>
   <context>
@@ -2275,7 +2275,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/components/QvCoreInteractions.cpp" line="34"/>
       <source>v2ray core failed with errcode:</source>
-      <translation type="unfinished">v2ray core failed with errcode:</translation>
+      <translation>v2ray 核心错误，错误代码：</translation>
     </message>
     <message>
       <location filename="../src/components/QvCoreInteractions.cpp" line="48"/>
@@ -2285,12 +2285,12 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/components/QvCoreInteractions.cpp" line="50"/>
       <source>Please go to Prefrence Window to change the location.</source>
-      <translation type="unfinished">Please go to Prefrence Window to change the location.</translation>
+      <translation>请到首选项窗口更改位置。</translation>
     </message>
     <message>
       <location filename="../src/components/QvCoreInteractions.cpp" line="51"/>
       <source>Or place your v2ray core file in the location above.</source>
-      <translation type="unfinished">Or place your v2ray core file in the location above.</translation>
+      <translation>或将您的v2ray核心文件放在上面的位置。</translation>
     </message>
     <message>
       <location filename="../src/components/QvCoreInteractions.cpp" line="171"/>
@@ -2692,12 +2692,12 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="645"/>
       <source>These entry will NOT be added to the route table</source>
-      <translation type="unfinished">These entry will NOT be added to the route table</translation>
+      <translation>这些项目将不会被添加到路由表</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="646"/>
       <source>Do you still want to continue?</source>
-      <translation type="unfinished">Do you still want to continue?</translation>
+      <translation>您仍然要继续吗？</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="677"/>
@@ -2849,7 +2849,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="175"/>
       <source>Update Subscription Data</source>
-      <translation type="unfinished">Update Subscription Data</translation>
+      <translation>更新订阅数据</translation>
     </message>
   </context>
 </TS>
