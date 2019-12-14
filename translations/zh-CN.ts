@@ -98,7 +98,7 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="117"/>
       <source>VMess / QRCode</source>
-      <translation type="unfinished">VMess / QRCode</translation>
+      <translation>VMess和QRCode</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="123"/>
@@ -148,32 +148,32 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="273"/>
       <source>Subscriptions / Manually Input</source>
-      <translation type="unfinished">Subscriptions / Manually Input</translation>
+      <translation>订阅/手动输入</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="279"/>
       <source>Manually Input Connections</source>
-      <translation type="unfinished">Manually Input Connections</translation>
+      <translation>手动输入连接</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="300"/>
       <source>Route Editor</source>
-      <translation type="unfinished">Route Editor</translation>
+      <translation>路由编辑器</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="307"/>
       <source>Open Route Editor</source>
-      <translation type="unfinished">Open Route Editor</translation>
+      <translation>打开路由编辑器</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="334"/>
       <source>Subscription Manager</source>
-      <translation type="unfinished">Subscription Manager</translation>
+      <translation>订阅管理</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="341"/>
       <source>Open Subscription Manager</source>
-      <translation type="unfinished">Open Subscription Manager</translation>
+      <translation>打开订阅管理</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="286"/>
@@ -255,7 +255,7 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="207"/>
       <source>Failed to save file, please check if you have proper permissions</source>
-      <translation type="unfinished">Failed to save file, please check if you have proper permissions</translation>
+      <translation>保存文件失败，请检查您是否拥有所需的权限</translation>
     </message>
   </context>
   <context>
@@ -473,7 +473,7 @@
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="705"/>
       <source>If you want to use tProxy, please go to Prefrence Window to enable this feature.</source>
-      <translation type="unfinished">If you want to use tProxy, please go to Prefrence Window to enable this feature.</translation>
+      <translation>如果你想使用tProxy，请到首选项窗口启用此功能。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="719"/>
@@ -622,7 +622,7 @@
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="81"/>
       <source>Subscriptions</source>
-      <translation type="unfinished">Subscriptions</translation>
+      <translation>订阅</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="88"/>
@@ -687,7 +687,7 @@
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="340"/>
       <source>Latency</source>
-      <translation type="unfinished">Latency</translation>
+      <translation>延迟</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="356"/>
@@ -702,7 +702,7 @@
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="443"/>
       <source>Log (click to switch log source)</source>
-      <translation type="unfinished">Log (click to switch log source)</translation>
+      <translation>日志 (点击切换日志源)</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="192"/>
@@ -844,7 +844,7 @@
       <location filename="../src/ui/w_MainWindow.cpp" line="346"/>
       <location filename="../src/ui/w_MainWindow.cpp" line="356"/>
       <source>Subscription:</source>
-      <translation type="unfinished">Subscription:</translation>
+      <translation>订阅:</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="210"/>
@@ -856,17 +856,17 @@
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="214"/>
       <source>Autostarting a config</source>
-      <translation type="unfinished">Autostarting a config</translation>
+      <translation>自动启动配置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="214"/>
       <source>Could not find a specified config named: </source>
-      <translation type="unfinished">Could not find a specified config named: </translation>
+      <translation>找不到指定的配置： </translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="216"/>
       <source>Please reset the settings in Prefrence Window</source>
-      <translation type="unfinished">Please reset the settings in Prefrence Window</translation>
+      <translation>请重置首选项窗口的设置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="274"/>
@@ -901,7 +901,7 @@
       <location filename="../src/ui/w_MainWindow.cpp" line="445"/>
       <location filename="../src/ui/w_MainWindow.cpp" line="1120"/>
       <source>Connected: </source>
-      <translation type="unfinished">Connected: </translation>
+      <translation>已连接: </translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="467"/>
@@ -962,22 +962,22 @@
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="663"/>
       <source>No data</source>
-      <translation type="unfinished">No data</translation>
+      <translation>没有数据</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="665"/>
       <source>ms</source>
-      <translation type="unfinished">ms</translation>
+      <translation>ms</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="669"/>
       <source>From subscription</source>
-      <translation type="unfinished">From subscription</translation>
+      <translation>从订阅</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="701"/>
       <source>Guessed</source>
-      <translation type="unfinished">Guessed</translation>
+      <translation>猜测</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="709"/>
@@ -1010,17 +1010,17 @@
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="803"/>
       <source>The name you suggested is not valid, please try another.</source>
-      <translation type="unfinished">The name you suggested is not valid, please try another.</translation>
+      <translation>您建议的名称无效，请尝试其他名称。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="854"/>
       <source>Removing Connection(s)</source>
-      <translation type="unfinished">Removing Connection(s)</translation>
+      <translation>删除连接</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="854"/>
       <source>Are you sure to remove selected connection(s)?</source>
-      <translation type="unfinished">Are you sure to remove selected connection(s)?</translation>
+      <translation>您确定要删除此连接吗？</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="885"/>
@@ -1037,12 +1037,12 @@
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="889"/>
       <source>Removing a subscription config</source>
-      <translation type="unfinished">Removing a subscription config</translation>
+      <translation>删除订阅配置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="889"/>
       <source>Do you want to remove the config loaded from a subscription?</source>
-      <translation type="unfinished">Do you want to remove the config loaded from a subscription?</translation>
+      <translation>您是否要删除从订阅中加载的配置？</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="934"/>
@@ -1061,17 +1061,17 @@
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="1041"/>
       <source>Testing...</source>
-      <translation type="unfinished">Testing...</translation>
+      <translation>正在测试…</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="1050"/>
       <source>Latency Test</source>
-      <translation type="unfinished">Latency Test</translation>
+      <translation>测试延迟</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="1050"/>
       <source>Failed to test latency for this connection.</source>
-      <translation type="unfinished">Failed to test latency for this connection.</translation>
+      <translation>无法测试此连接的延迟。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="1072"/>
@@ -1086,7 +1086,7 @@
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="1169"/>
       <source>Subscription</source>
-      <translation type="unfinished">Subscription</translation>
+      <translation>订阅</translation>
     </message>
   </context>
   <context>
@@ -1554,22 +1554,22 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="138"/>
       <source>Darkmode UI Icons</source>
-      <translation type="unfinished">Darkmode UI Icons</translation>
+      <translation>深色UI图标</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="145"/>
       <source>Darkmode Tray Icon</source>
-      <translation type="unfinished">Darkmode Tray Icon</translation>
+      <translation>深色托盘图标</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="281"/>
       <source>Config</source>
-      <translation type="unfinished">Config</translation>
+      <translation>配置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="288"/>
       <source>Subscription</source>
-      <translation type="unfinished">Subscription</translation>
+      <translation>订阅</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="433"/>
@@ -1600,12 +1600,12 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="589"/>
       <source>Local IP for PAC</source>
-      <translation type="unfinished">Local IP for PAC</translation>
+      <translation>PAC的本地IP</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="596"/>
       <source>127.0.0.1</source>
-      <translation type="unfinished">127.0.0.1</translation>
+      <translation>127.0.0.1</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="634"/>
@@ -1809,7 +1809,7 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="1386"/>
       <source>This feature for Windows is not stable yet.</source>
-      <translation type="unfinished">This feature for Windows is not stable yet.</translation>
+      <translation>Windows的此功能尚不稳定。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="1394"/>
@@ -1857,7 +1857,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Noto Sans&apos;; color:#d68952;&quot;&gt;Copyright (c) 2019 Nikolaos Ftylitakis (@ftylitak): QZXing (Apache2)&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Noto Sans&apos;; color:#d68952;&quot;&gt;Copyright (c) 2016 Singein (@Singein): ScreenShot (MIT)&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Noto Sans&apos;; color:#d68952;&quot;&gt;Copyright (c) 2016 Nikhil Marathe (@nikhilm): QHttpServer (MIT)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-      <translation type="unfinished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+      <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Noto Sans&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
@@ -1915,7 +1915,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="46"/>
       <source>Use Darkmode Theme</source>
-      <translation type="unfinished">Use Darkmode Theme</translation>
+      <translation>使用深色主题</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="119"/>
@@ -2020,12 +2020,12 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/main.cpp" line="68"/>
       <source>Warning</source>
-      <translation type="unfinished">Warning</translation>
+      <translation>警告</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="68"/>
       <source>Qv2ray cannot load the config file from here:</source>
-      <translation type="unfinished">Qv2ray cannot load the config file from here:</translation>
+      <translation>Qv2ray 无法从这里加载配置文件：</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="118"/>
@@ -2052,17 +2052,17 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/main.cpp" line="130"/>
       <source>Failed to initialise Qv2ray</source>
-      <translation type="unfinished">Failed to initialise Qv2ray</translation>
+      <translation>初始化 Qv2ray 失败</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="131"/>
       <source>Failed to determine the location of config file.</source>
-      <translation type="unfinished">Failed to determine the location of config file.</translation>
+      <translation>无法确定配置文件的位置。</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="133"/>
       <source>Please report if you think it&apos;s a bug.</source>
-      <translation type="unfinished">Please report if you think it&apos;s a bug.</translation>
+      <translation>如果您认为它是一个bug，请&apos;报告。</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="208"/>
@@ -2087,12 +2087,12 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/main.cpp" line="232"/>
       <source>Please check if there&apos;s an issue explaining about it.</source>
-      <translation type="unfinished">Please check if there&apos;s an issue explaining about it.</translation>
+      <translation>请检查是否存在&apos;有关此问题的说明。</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="233"/>
       <source>Or submit a new issue if you think this is an error.</source>
-      <translation type="unfinished">Or submit a new issue if you think this is an error.</translation>
+      <translation>或者如果你认为这是一个错误，请提交一个新问题。</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="268"/>
@@ -2223,27 +2223,27 @@ p, li { white-space: pre-wrap; }
       <location filename="../src/ui/w_MainWindow.cpp" line="39"/>
       <location filename="../src/ui/w_MainWindow.cpp" line="49"/>
       <source>Editing a subscription config</source>
-      <translation type="unfinished">Editing a subscription config</translation>
+      <translation>编辑订阅配置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="39"/>
       <source>You are trying to edit a config loaded from subscription.</source>
-      <translation type="unfinished">You are trying to edit a config loaded from subscription.</translation>
+      <translation>您正在尝试编辑从订阅中加载的配置。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="40"/>
       <source>All changes will be overwritten when the subscriptions are updated next time.</source>
-      <translation type="unfinished">All changes will be overwritten when the subscriptions are updated next time.</translation>
+      <translation>下次更新订阅时，所有更改都会覆盖。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="41"/>
       <source>Are you still going to do so?</source>
-      <translation type="unfinished">Are you still going to do so?</translation>
+      <translation>你还要这样做吗？</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="49"/>
       <source>You should not modity this property of a config from a subscription</source>
-      <translation type="unfinished">You should not modity this property of a config from a subscription</translation>
+      <translation>您不应从订阅中修改配置的此属性</translation>
     </message>
   </context>
   <context>
@@ -2251,12 +2251,12 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/components/QvPACHandler.cpp" line="43"/>
       <source>PAC Handler</source>
-      <translation type="unfinished">PAC Handler</translation>
+      <translation>PAC处理</translation>
     </message>
     <message>
       <location filename="../src/components/QvPACHandler.cpp" line="43"/>
       <source>Failed to listen PAC request on this port, please verify the permissions</source>
-      <translation type="unfinished">Failed to listen PAC request on this port, please verify the permissions</translation>
+      <translation>无法在此端口上监听PAC请求，请验证权限</translation>
     </message>
   </context>
   <context>
@@ -2275,7 +2275,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/components/QvCoreInteractions.cpp" line="34"/>
       <source>v2ray core failed with errcode:</source>
-      <translation type="unfinished">v2ray core failed with errcode:</translation>
+      <translation>v2ray 核心错误，错误代码：</translation>
     </message>
     <message>
       <location filename="../src/components/QvCoreInteractions.cpp" line="48"/>
@@ -2285,12 +2285,12 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/components/QvCoreInteractions.cpp" line="50"/>
       <source>Please go to Prefrence Window to change the location.</source>
-      <translation type="unfinished">Please go to Prefrence Window to change the location.</translation>
+      <translation>请到首选项窗口更改位置。</translation>
     </message>
     <message>
       <location filename="../src/components/QvCoreInteractions.cpp" line="51"/>
       <source>Or place your v2ray core file in the location above.</source>
-      <translation type="unfinished">Or place your v2ray core file in the location above.</translation>
+      <translation>或将您的v2ray核心文件放在上面的位置。</translation>
     </message>
     <message>
       <location filename="../src/components/QvCoreInteractions.cpp" line="171"/>
@@ -2687,32 +2687,32 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="644"/>
       <source>You didn&apos;t set tags for one or more Inbound/Outbound</source>
-      <translation type="unfinished">You didn&apos;t set tags for one or more Inbound/Outbound</translation>
+      <translation>您没有为一个或多个入站/出站&apos;设置标记</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="645"/>
       <source>These entry will NOT be added to the route table</source>
-      <translation type="unfinished">These entry will NOT be added to the route table</translation>
+      <translation>这些项目将不会被添加到路由表</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="646"/>
       <source>Do you still want to continue?</source>
-      <translation type="unfinished">Do you still want to continue?</translation>
+      <translation>您仍然要继续吗？</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="677"/>
       <source>Removing the last route entry</source>
-      <translation type="unfinished">Removing the last route entry</translation>
+      <translation>删除最后一个路由项目</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="677"/>
       <source>This connection will be marked as Simple Config if you save it without adding a route.</source>
-      <translation type="unfinished">This connection will be marked as Simple Config if you save it without adding a route.</translation>
+      <translation>如果您在不添加路由的情况下保存了该连接，则该连接将被标记为简单配置。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="678"/>
       <source>All inbounds will be lost after you edit it in the Simple Outbound editor next time.</source>
-      <translation type="unfinished">All inbounds will be lost after you edit it in the Simple Outbound editor next time.</translation>
+      <translation>下次在简单出站编辑器中编辑后将丢失。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="751"/>
@@ -2751,47 +2751,47 @@ p, li { white-space: pre-wrap; }
       <location filename="../src/ui/w_SubscriptionEditor.cpp" line="76"/>
       <location filename="../src/ui/w_SubscriptionEditor.cpp" line="95"/>
       <source>Renaming a subscription</source>
-      <translation type="unfinished">Renaming a subscription</translation>
+      <translation>重命名订阅</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.cpp" line="59"/>
       <source>The subscription name is invalid, please try another.</source>
-      <translation type="unfinished">The subscription name is invalid, please try another.</translation>
+      <translation>订阅名称无效，请重试。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.cpp" line="64"/>
       <source>New name of this subscription has been used already, please suggest another one</source>
-      <translation type="unfinished">New name of this subscription has been used already, please suggest another one</translation>
+      <translation>此订阅的新名称已被使用，请尝试另一个</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.cpp" line="76"/>
       <source>Failed to rename a subscription, this is an unknown error.</source>
-      <translation type="unfinished">Failed to rename a subscription, this is an unknown error.</translation>
+      <translation>无法重命名订阅，这是一个未知错误。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.cpp" line="95"/>
       <source>Successfully renamed a subscription</source>
-      <translation type="unfinished">Successfully renamed a subscription</translation>
+      <translation>成功重命名订阅</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.cpp" line="105"/>
       <source>Update Subscription</source>
-      <translation type="unfinished">Update Subscription</translation>
+      <translation>更新订阅</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.cpp" line="105"/>
       <source>Would you like to reload this subscription from the Url?</source>
-      <translation type="unfinished">Would you like to reload this subscription from the Url?</translation>
+      <translation>您要从 Url 重新加载此订阅吗？</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.cpp" line="138"/>
       <source>Updating subscriptions</source>
-      <translation type="unfinished">Updating subscriptions</translation>
+      <translation>更新订阅</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.cpp" line="138"/>
       <source>Failed to process the result from the upstream, please check your Url</source>
-      <translation type="unfinished">Failed to process the result from the upstream, please check your Url</translation>
+      <translation>无法处理来自上游结果，请检查您的 Url</translation>
     </message>
   </context>
   <context>
@@ -2804,7 +2804,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="42"/>
       <source>Subscription List</source>
-      <translation type="unfinished">Subscription List</translation>
+      <translation>订阅列表</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="82"/>
@@ -2814,42 +2814,42 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="79"/>
       <source>Add Subscription</source>
-      <translation type="unfinished">Add Subscription</translation>
+      <translation>添加订阅</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="95"/>
       <source>Remove Subscription</source>
-      <translation type="unfinished">Remove Subscription</translation>
+      <translation>删除订阅</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="98"/>
       <source>D</source>
-      <translation type="unfinished">D</translation>
+      <translation>D</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="126"/>
       <source>Subscription Details</source>
-      <translation type="unfinished">Subscription Details</translation>
+      <translation>订阅详情</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="134"/>
       <source>Subscription Name</source>
-      <translation type="unfinished">Subscription Name</translation>
+      <translation>订阅名称</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="144"/>
       <source>Subscription Address</source>
-      <translation type="unfinished">Subscription Address</translation>
+      <translation>订阅地址</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="156"/>
       <source>Connection List</source>
-      <translation type="unfinished">Connection List</translation>
+      <translation>连接列表</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="175"/>
       <source>Update Subscription Data</source>
-      <translation type="unfinished">Update Subscription Data</translation>
+      <translation>更新订阅数据</translation>
     </message>
   </context>
 </TS>
