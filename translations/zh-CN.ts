@@ -473,7 +473,7 @@
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="705"/>
       <source>If you want to use tProxy, please go to Prefrence Window to enable this feature.</source>
-      <translation>如果你想使用tProxy，请到首选项窗口启用此功能。</translation>
+      <translation>如果您想要使用 tProxy，请前往首选窗口启用此功能。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="719"/>
@@ -1809,7 +1809,7 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="1386"/>
       <source>This feature for Windows is not stable yet.</source>
-      <translation>Windows的此功能尚不稳定。</translation>
+      <translation>Windows 的此功能尚不稳定。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="1394"/>
@@ -1915,7 +1915,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="46"/>
       <source>Use Darkmode Theme</source>
-      <translation>使用深色主题</translation>
+      <translation>使用暗色主题</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="119"/>
@@ -1987,7 +1987,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="746"/>
       <source>Dark Mode</source>
-      <translation>深色模式</translation>
+      <translation>夜间模式</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="746"/>
