@@ -21,6 +21,7 @@ DEFINES += QT_DEPRECATED_WARNINGS QV2RAY_VERSION_STRING=\"\\\"v$${VERSION}\\\"\"
 CONFIG += enable_decoder_qr_code enable_encoder_qr_code qt c++11 openssl-linked
 include(3rdparty/qzxing_noTests/QZXing-components.pri)
 include(3rdparty/SingleApplication/singleapplication.pri)
+include(3rdparty/QNodeEditor/QNodeEditor.pri)
 
 # Main config
 CONFIG += lrelease embed_translations
