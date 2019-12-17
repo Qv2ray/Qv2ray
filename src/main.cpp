@@ -159,17 +159,20 @@ bool initialiseQv2ray()
 
 int main(int argc, char *argv[])
 {
+    LOG(MODULE_INIT, QV2RAY_VERSION_STRING)
     // This line must be called before any other ones.
-    // ----------------------------> For debug build...
-    SingleApplication _qApp(argc, argv, false, SingleApplication::Mode::ExcludeAppPath | SingleApplication::Mode::ExcludeAppVersion);
-    _qApp.setApplicationVersion(QV2RAY_VERSION_STRING);
-    _qApp.setApplicationName("Qv2ray");
-    _qApp.setApplicationDisplayName("Qv2ray");
-    LOG(MODULE_INIT, _qApp.applicationVersion().toStdString())
-    // Early initialisation
+    SingleApplication::setApplicationName("Qv2ray");
+    SingleApplication::setApplicationVersion(QV2RAY_VERSION_STRING);
+    SingleApplication::setApplicationDisplayName("Qv2ray");
+    //
+    //
 #ifdef QT_DEBUG
-    _qApp.setApplicationName(_qApp.applicationName() + " - DEBUG");
+    // ----------------------------> For debug build...
+    SingleApplication::setApplicationName("Qv2ray - DEBUG");
 #endif
+    //
+    SingleApplication _qApp(argc, argv, false, SingleApplication::Mode::ExcludeAppPath | SingleApplication::Mode::ExcludeAppVersion);
+    // Early initialisation
     //
     //
     // Install a default translater. From the OS/DE
