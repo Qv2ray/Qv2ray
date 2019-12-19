@@ -88,7 +88,7 @@ class RouteEditor : public QDialog, private Ui::RouteEditor
         void ShowRuleDetail(RuleObject rule);
         int currentRuleIndex;
         QMap<QString, QStringList> Balancers;
-        QList<RuleObject> rules;
+        QList<RuleObject> Rules;
         QString DomainStrategy;
         //
         INBOUNDS inbounds;

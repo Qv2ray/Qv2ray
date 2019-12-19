@@ -176,16 +176,17 @@ namespace Qv2ray
             return _string.split(QRegExp("[\r\n]"), QString::SkipEmptyParts);
         }
 
-        QList<string> SplitLinesStdString(const QString &_string)
+        list<string> SplitLines_std(const QString &_string)
         {
-            QList<string> list;
+            list<string> list;
 
             for (auto line : _string.split(QRegExp("[\r\n]"), QString::SkipEmptyParts)) {
-                list.append(line.toStdString());
+                list.push_back(line.toStdString());
             }
 
             return list;
         }
+
         void LoadGlobalConfig()
         {
             QFile file(QV2RAY_CONFIG_FILE);

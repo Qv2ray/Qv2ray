@@ -6,10 +6,10 @@
 #include "w_ImportConfig.hpp"
 
 static bool isLoading = false;
-#define CurrentRule this->rules[this->currentRuleIndex]
+#define CurrentRule this->Rules[this->currentRuleIndex]
 #define LOADINGCHECK if(isLoading) return;
 
-#define CHECKEMPTYRULES  if (this->rules.isEmpty()) { \
+#define CHECKEMPTYRULES  if (this->Rules.isEmpty()) { \
         LOG(MODULE_UI, "No rules currently, we add one.") \
         on_addRouteBtn_clicked(); \
         on_routesTable_currentCellChanged(0, 0, 0, 0); \
@@ -47,7 +47,12 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) :
         }
     }
 
-    rules = QList<RuleObject>::fromStdList(StructFromJsonString<list<RuleObject>>(JsonToString(root["routing"].toObject()["rules"].toArray())));
+    Rules = QList<RuleObject>();
+
+    for (auto item : root["routing"].toObject()["rules"].toArray()) {
+        Rules.append(StructFromJsonString<RuleObject>(JsonToString(item.toObject())));
+    }
+
     //
     outboundsList->clear();
     inboundsList->clear();
@@ -75,8 +80,8 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) :
 
     routesTable->clearContents();
 
-    for (int i = 0; i < rules.size(); i++) {
-#define rule rules[i]
+    for (int i = 0; i < Rules.size(); i++) {
+#define rule Rules[i]
         // Set up balancers.
 
         if (QSTRING(rule.balancerTag).isEmpty()) {
@@ -102,7 +107,7 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) :
 
     isLoading = false;
 
-    if (rules.size() > 0) {
+    if (Rules.size() > 0) {
         routesTable->setCurrentItem(routesTable->item(0, 0));
         currentRuleIndex = 0;
         ShowRuleDetail(CurrentRule);
@@ -145,7 +150,7 @@ CONFIGROOT RouteEditor::OpenEditor()
         //
         QJsonArray rulesArray;
 
-        for (auto _rule : rules) {
+        for (auto _rule : Rules) {
             rulesArray.append(GetRootObject(_rule));
         }
 
@@ -408,45 +413,45 @@ void RouteEditor::on_editInboundBtn_clicked()
 void RouteEditor::on_routeProtocolHTTPCB_stateChanged(int arg1)
 {
     LOADINGCHECK
-    QList<string> protocols;
+    list<string> protocols;
 
-    if (arg1 == Qt::Checked) protocols << "http";
+    if (arg1 == Qt::Checked) protocols.push_back("http");
 
-    if (routeProtocolTLSCB->isChecked()) protocols << "tls";
+    if (routeProtocolTLSCB->isChecked()) protocols.push_back("tls");
 
-    if (routeProtocolBTCB->isChecked()) protocols << "bittorrent";
+    if (routeProtocolBTCB->isChecked()) protocols.push_back("bittorrent");
 
-    CurrentRule.protocol = protocols.toStdList();
+    CurrentRule.protocol = protocols;
     statusLabel->setText(tr("Protocol list changed."));
 }
 
 void RouteEditor::on_routeProtocolTLSCB_stateChanged(int arg1)
 {
     LOADINGCHECK
-    QList<string> protocols;
+    list<string> protocols;
 
-    if (arg1 == Qt::Checked) protocols << "tls";
+    if (arg1 == Qt::Checked) protocols.push_back("tls");
 
-    if (routeProtocolHTTPCB->isChecked()) protocols << "http";
+    if (routeProtocolHTTPCB->isChecked()) protocols.push_back("http");
 
-    if (routeProtocolBTCB->isChecked()) protocols << "bittorrent";
+    if (routeProtocolBTCB->isChecked()) protocols.push_back("bittorrent");
 
-    CurrentRule.protocol = protocols.toStdList();
+    CurrentRule.protocol = protocols;
     statusLabel->setText(tr("Protocol list changed."));
 }
 
 void RouteEditor::on_routeProtocolBTCB_stateChanged(int arg1)
 {
     LOADINGCHECK
-    QList<string> protocols;
+    list<string> protocols;
 
-    if (arg1 == Qt::Checked) protocols << "bittorrent";
+    if (arg1 == Qt::Checked) protocols.push_back("bittorrent");
 
-    if (routeProtocolHTTPCB->isChecked()) protocols << "http";
+    if (routeProtocolHTTPCB->isChecked()) protocols.push_back("http");
 
-    if (routeProtocolTLSCB->isChecked()) protocols << "tls";
+    if (routeProtocolTLSCB->isChecked()) protocols.push_back("tls");
 
-    CurrentRule.protocol = protocols.toStdList();
+    CurrentRule.protocol = protocols;
     statusLabel->setText(tr("Protocol list changed."));
 }
 
@@ -485,13 +490,13 @@ void RouteEditor::on_balancerDelBtn_clicked()
 void RouteEditor::on_hostList_textChanged()
 {
     LOADINGCHECK
-    CurrentRule.domain = SplitLinesStdString(hostList->toPlainText()).toStdList();
+    CurrentRule.domain = SplitLines_std(hostList->toPlainText());
 }
 
 void RouteEditor::on_ipList_textChanged()
 {
     LOADINGCHECK
-    CurrentRule.ip = SplitLinesStdString(ipList->toPlainText()).toStdList();
+    CurrentRule.ip = SplitLines_std(ipList->toPlainText());
 }
 
 void RouteEditor::on_routePortTxt_textEdited(const QString &arg1)
@@ -503,7 +508,7 @@ void RouteEditor::on_routePortTxt_textEdited(const QString &arg1)
 void RouteEditor::on_routeUserTxt_textEdited(const QString &arg1)
 {
     LOADINGCHECK
-    CurrentRule.user = SplitLinesStdString(arg1).toStdList();
+    CurrentRule.user = SplitLines_std(arg1);
 }
 
 void RouteEditor::on_routesTable_currentCellChanged(int currentRow, int currentColumn, int previousRow, int previousColumn)
@@ -513,7 +518,7 @@ void RouteEditor::on_routesTable_currentCellChanged(int currentRow, int currentC
     Q_UNUSED(previousColumn)
     Q_UNUSED(previousRow)
 
-    if (currentRow < 0 || currentRow >= rules.size()) {
+    if (currentRow < 0 || currentRow >= Rules.size()) {
         DEBUG(MODULE_UI, "Out of range: " + to_string(currentRow))
         return;
     }
@@ -544,7 +549,7 @@ void RouteEditor::on_addRouteBtn_clicked()
     routesTable->setItem(routesTable->rowCount() - 1, 1, new QTableWidgetItem(rule.inboundTag.size() > 0 ? Stringify(rule.inboundTag) : tr("Any")));
     routesTable->setItem(routesTable->rowCount() - 1, 2, new QTableWidgetItem(QString::number(rule.domain.size() + rule.ip.size()) + " " + tr("Items")));
     routesTable->setItem(routesTable->rowCount() - 1, 3, new QTableWidgetItem(QSTRING(rule.outboundTag)));
-    rules.append(rule);
+    Rules.append(rule);
     //
     currentRuleIndex = routesTable->rowCount() - 1;
     routesTable->setCurrentCell(currentRuleIndex, 0);
@@ -565,14 +570,14 @@ void RouteEditor::on_routesTable_cellChanged(int row, int column)
         return;
     }
 
-    if (rules.size() <= row) {
+    if (Rules.size() <= row) {
         LOG(MODULE_UI, "INFO: This message is possibly caused by adding a new route.")
         LOG(MODULE_UI, "INFO: ... But may indicate to other bugs if you didn't do that.")
         return;
     }
 
-    rules[row].QV2RAY_RULE_ENABLED = routesTable->item(row, column)->checkState() == Qt::Checked;
-    statusLabel->setText(tr((rules[row].QV2RAY_RULE_ENABLED ? "Enabled a route" : "Disabled a route")));
+    Rules[row].QV2RAY_RULE_ENABLED = routesTable->item(row, column)->checkState() == Qt::Checked;
+    statusLabel->setText(tr((Rules[row].QV2RAY_RULE_ENABLED ? "Enabled a route" : "Disabled a route")));
 }
 
 void RouteEditor::on_netBothRB_clicked()
@@ -596,13 +601,13 @@ void RouteEditor::on_netTCPRB_clicked()
 void RouteEditor::on_routeUserTxt_textChanged()
 {
     LOADINGCHECK
-    CurrentRule.user = SplitLinesStdString(routeUserTxt->toPlainText()).toStdList();
+    CurrentRule.user = SplitLines_std(routeUserTxt->toPlainText());
 }
 
 void RouteEditor::on_sourceIPList_textChanged()
 {
     LOADINGCHECK
-    CurrentRule.source = SplitLinesStdString(sourceIPList->toPlainText()).toStdList();
+    CurrentRule.source = SplitLines_std(sourceIPList->toPlainText());
 }
 
 void RouteEditor::on_enableBalancerCB_stateChanged(int arg1)
@@ -653,7 +658,7 @@ void RouteEditor::on_inboundsList_itemChanged(QListWidgetItem *item)
     }
 
     CHECKEMPTYRULES
-    CurrentRule.inboundTag = new_inbounds.toStdList();
+    CurrentRule.inboundTag = std::list<string>(new_inbounds.begin(), new_inbounds.end());
     statusLabel->setText(tr("OK"));
 }
 
@@ -663,8 +668,8 @@ void RouteEditor::on_delRouteBtn_clicked()
 
     if (routesTable->currentRow() >= 0) {
         auto index = routesTable->currentRow();
-        auto rule = rules[index];
-        rules.removeAt(index);
+        auto rule = Rules[index];
+        Rules.removeAt(index);
         Q_UNUSED(rule)
         routesTable->removeRow(index);
 
