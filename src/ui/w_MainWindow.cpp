@@ -220,6 +220,8 @@ MainWindow::MainWindow(QWidget *parent):
         // The first one is default.
         connectionListWidget->setCurrentItem(connectionListWidget->topLevelItem(0));
         ShowAndSetConnection(connectionListWidget->topLevelItem(0)->text(0), true, false);
+    } else {
+        // ensure that the main window is shown
         this->show();
     }
 
