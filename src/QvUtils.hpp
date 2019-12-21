@@ -100,17 +100,24 @@ namespace Qv2ray
         template<typename TYPE>
         std::list<TYPE> toStdList(QList<TYPE> list)
         {
+#if QT_VERSION >= QT_VERSION_CHECK(5,14,0)
             std::list<TYPE> _list{list.begin(), list.end()};
             return _list;
+#else
+            return list.toStdList();
+#endif
         }
 
         template<typename TYPE>
         QList<TYPE> toQList(std::list<TYPE> list)
         {
+#if QT_VERSION >= QT_VERSION_CHECK(5,14,0)
             QList<TYPE> _list{list.begin(), list.end()};
             return _list;
+#else
+            return QList<TYPE>::fromStdList(list);
+#endif
         }
-
     }
 }
 
