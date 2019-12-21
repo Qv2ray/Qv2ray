@@ -193,35 +193,36 @@ MainWindow::MainWindow(QWidget *parent):
     speedChart->setLayout(layout);
 
     if (!currentConfig.autoStartConfig.connectionName.empty()) {
-        // Has auto start.
-        // Try to find auto start config.
+        // User has auto start configured, we try to find that connection item.
         auto name = currentConfig.autoStartConfig.subscriptionName.empty()
                     ? QSTRING(currentConfig.autoStartConfig.connectionName)
                     : QSTRING(currentConfig.autoStartConfig.connectionName) + " (" + tr("Subscription:") + " " + QSTRING(currentConfig.autoStartConfig.subscriptionName) + ")";
+        //
         LOG(MODULE_UI, "Found auto start config: " + name.toStdString())
         CurrentConnectionName = name;
-        auto _list = connectionListWidget->findItems(name, Qt::MatchExactly | Qt::MatchRecursive);
+        auto widgetItemFindResultList = connectionListWidget->findItems(name, Qt::MatchExactly | Qt::MatchRecursive);
 
-        if (connections.contains(name) && !_list.empty()) {
-            auto item = _list.front();
+        if (connections.contains(name) && !widgetItemFindResultList.empty()) {
+            // We found the item required and start it.
+            auto item = widgetItemFindResultList.front();
             connectionListWidget->setCurrentItem(item);
             on_connectionListWidget_itemChanged(item, 0);
             connectionListWidget->scrollToItem(item);
             trayMenu->actions()[0]->setText(tr("Show"));
-            this->hide();
             on_startButton_clicked();
         } else {
             QvMessageBox(this, tr("Autostarting a config"), tr("Could not find a specified config named: ") + NEWLINE +
                          name + NEWLINE + NEWLINE +
                          tr("Please reset the settings in Preference Window"));
-            this->show();
         }
     } else if (connectionListWidget->topLevelItemCount() > 0) {
-        // The first one is default.
+        // Make the first one our default selected item.
         connectionListWidget->setCurrentItem(connectionListWidget->topLevelItem(0));
         ShowAndSetConnection(connectionListWidget->topLevelItem(0)->text(0), true, false);
-    } else {
-        // ensure that the main window is shown
+    }
+
+    // If we are not connected to anything, show the MainWindow.
+    if(vinstance->ConnectionStatus != STARTED){
         this->show();
     }
 
