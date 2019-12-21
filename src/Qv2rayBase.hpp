@@ -90,7 +90,7 @@ namespace Qv2ray
 {
     //
     // Extra header for QvConfigUpgrade.cpp
-    CONFIGROOT UpgradeConfig(int fromVersion, int toVersion, CONFIGROOT root);
+    QJsonObject UpgradeConfig(int fromVersion, int toVersion, QJsonObject root);
 
     struct QvBarLine {
         string          Family;
