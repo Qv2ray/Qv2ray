@@ -47,7 +47,7 @@ namespace Qv2ray
                 QvMessageBox(nullptr, tr("Cannot start v2ray"),
                              tr("v2ray core file cannot be found at:") + NEWLINE +
                              QSTRING(conf.v2CorePath) + NEWLINE + NEWLINE  +
-                             tr("Please go to Prefrence Window to change the location.") + NEWLINE +
+                             tr("Please go to Preference Window to change the location.") + NEWLINE +
                              tr("Or place your v2ray core file in the location above."));
                 return false;
             }

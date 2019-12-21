@@ -83,9 +83,9 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="prefrencesBtn">
+       <widget class="QPushButton" name="preferencesBtn">
         <property name="text">
-         <string>Prefrences</string>
+         <string>Preferences</string>
         </property>
        </widget>
       </item>
@@ -625,7 +625,7 @@
   <tabstop>stopButton</tabstop>
   <tabstop>reconnectButton</tabstop>
   <tabstop>clearlogButton</tabstop>
-  <tabstop>prefrencesBtn</tabstop>
+  <tabstop>preferencesBtn</tabstop>
   <tabstop>importConfigButton</tabstop>
   <tabstop>duplicateBtn</tabstop>
   <tabstop>removeConfigButton</tabstop>

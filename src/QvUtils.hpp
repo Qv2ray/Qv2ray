@@ -94,6 +94,23 @@ namespace Qv2ray
             // If no match, we are good.
             return QRegExp(R"([\/\\\"?%*:|><]|(^\.{1,2}$))").indexIn(str) == -1;
         }
+
+
+        // These functions a sugers to prevent warnings from deprecated Qt 5.14 functions.
+        template<typename TYPE>
+        std::list<TYPE> toStdList(QList<TYPE> list)
+        {
+            std::list<TYPE> _list{list.begin(), list.end()};
+            return _list;
+        }
+
+        template<typename TYPE>
+        QList<TYPE> toQList(std::list<TYPE> list)
+        {
+            QList<TYPE> _list{list.begin(), list.end()};
+            return _list;
+        }
+
     }
 }
 

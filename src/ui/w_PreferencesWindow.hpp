@@ -2,16 +2,16 @@
 #define HVCONF_H
 
 #include <QDialog>
-#include <ui_w_PrefrencesWindow.h>
+#include <ui_w_PreferencesWindow.h>
 #include "Qv2rayBase.hpp"
 
-class PrefrencesWindow : public QDialog, private Ui::PrefrencesWindow
+class PreferencesWindow : public QDialog, private Ui::PreferencesWindow
 {
         Q_OBJECT
 
     public:
-        explicit PrefrencesWindow(QWidget *parent = nullptr);
-        ~PrefrencesWindow();
+        explicit PreferencesWindow(QWidget *parent = nullptr);
+        ~PreferencesWindow();
     signals:
         void s_reload_config(bool need_restart);
 
@@ -147,6 +147,5 @@ class PrefrencesWindow : public QDialog, private Ui::PrefrencesWindow
         bool IsConnectionPropertyChanged = false;
         bool finishedLoading = false;
         Qv2rayConfig CurrentConfig;
-        Ui::PrefrencesWindow *ui;
 };
 #endif // HVCONF_H

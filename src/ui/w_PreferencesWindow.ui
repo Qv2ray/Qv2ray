@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>PrefrencesWindow</class>
- <widget class="QDialog" name="PrefrencesWindow">
+ <class>PreferencesWindow</class>
+ <widget class="QDialog" name="PreferencesWindow">
   <property name="windowModality">
    <enum>Qt::ApplicationModal</enum>
   </property>
@@ -20,7 +20,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Prefrences</string>
+   <string>Preferences</string>
   </property>
   <property name="modal">
    <bool>true</bool>
@@ -1678,7 +1678,7 @@ p, li { white-space: pre-wrap; }
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>PrefrencesWindow</receiver>
+   <receiver>PreferencesWindow</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1694,7 +1694,7 @@ p, li { white-space: pre-wrap; }
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>PrefrencesWindow</receiver>
+   <receiver>PreferencesWindow</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

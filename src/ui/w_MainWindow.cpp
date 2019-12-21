@@ -16,7 +16,7 @@
 #include "w_OutboundEditor.hpp"
 #include "w_ImportConfig.hpp"
 #include "w_RoutesEditor.hpp"
-#include "w_PrefrencesWindow.hpp"
+#include "w_PreferencesWindow.hpp"
 #include "w_SubscriptionEditor.hpp"
 #include "w_JsonEditor.hpp"
 #include "w_ExportConfig.hpp"
@@ -213,7 +213,7 @@ MainWindow::MainWindow(QWidget *parent):
         } else {
             QvMessageBox(this, tr("Autostarting a config"), tr("Could not find a specified config named: ") + NEWLINE +
                          name + NEWLINE + NEWLINE +
-                         tr("Please reset the settings in Prefrence Window"));
+                         tr("Please reset the settings in Preference Window"));
             this->show();
         }
     } else if (connectionListWidget->topLevelItemCount() > 0) {
@@ -341,7 +341,7 @@ void MainWindow::ReloadConnections()
         connectionListWidget->addTopLevelItem(new QTreeWidgetItem(QStringList() << _o.connectionName));
     }
 
-    auto _subsConnections = GetSubscriptionConnections(QMap<string, string>(currentConfig.subscribes).keys().toStdList());
+    auto _subsConnections = GetSubscriptionConnections(toStdList(QMap<string, string>(currentConfig.subscribes).keys()));
 
     for (auto i = 0; i < _subsConnections.count(); i++) {
         auto subName = _subsConnections.keys()[i];
@@ -574,7 +574,7 @@ void MainWindow::on_stopButton_clicked()
             LOG(MODULE_UI, "Stopping PAC server")
         }
 
-        // BUG If unset from the prefrences. this will not work...
+        // BUG If unset from the preferences. this will not work...
         if (currentConfig.inboundConfig.setSystemProxy) {
             ClearSystemProxy();
             LOG(MODULE_UI, "Clearing System Proxy")
@@ -726,10 +726,10 @@ void MainWindow::ShowAndSetConnection(QString guiConnectionName, bool SetConnect
         on_reconnectButton_clicked();
     }
 }
-void MainWindow::on_prefrencesBtn_clicked()
+void MainWindow::on_preferencesBtn_clicked()
 {
-    PrefrencesWindow *w = new PrefrencesWindow(this);
-    connect(w, &PrefrencesWindow::s_reload_config, this, &MainWindow::OnConfigListChanged);
+    PreferencesWindow *w = new PreferencesWindow(this);
+    connect(w, &PreferencesWindow::s_reload_config, this, &MainWindow::OnConfigListChanged);
     w->show();
 }
 void MainWindow::on_connectionListWidget_doubleClicked(const QModelIndex &index)

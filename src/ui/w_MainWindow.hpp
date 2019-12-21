@@ -56,7 +56,7 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         void quit();
         void on_actionExit_triggered();
 
-        void on_prefrencesBtn_clicked();
+        void on_preferencesBtn_clicked();
 
         void on_connectionListWidget_doubleClicked(const QModelIndex &index);
 

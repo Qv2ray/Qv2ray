@@ -260,7 +260,7 @@ int main(int argc, char *argv[])
         QvMessageBox(
             nullptr, "Translation Failed",
             "Cannot load translation for " + QSTRING(confObject.uiConfig.language) + ", English is now used.\r\n\r\n"
-            "Please go to Prefrences Window to change or Report a Bug at: \r\n"
+            "Please go to Preferences Window to change or Report a Bug at: \r\n"
             "https://github.com/lhy0403/Qv2ray/issues/new");
     }
 

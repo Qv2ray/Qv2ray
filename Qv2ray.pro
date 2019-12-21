@@ -41,6 +41,7 @@ SOURCES += \
         src/QvCoreConfigOperations_Convertion.cpp \
         src/QvCoreConfigOperations_Generation.cpp \
         src/QvUtils.cpp \
+        src/ui/w_PreferencesWindow.cpp \
         src/utils/QJsonModel.cpp \
         src/ui/w_ExportConfig.cpp \
         src/ui/w_InboundEditor.cpp \
@@ -50,7 +51,6 @@ SOURCES += \
         src/ui/w_JsonEditor.cpp \
         src/ui/w_MainWindow.cpp \
         src/ui/w_ImportConfig.cpp \
-        src/ui/w_PrefrencesWindow.cpp \
         src/ui/w_ScreenShot_Core.cpp \
         src/ui/NetSpeedBar/QvNetSpeedBar.cpp \
         libs/gen/v2ray_api_commands.pb.cc \
@@ -83,7 +83,7 @@ HEADERS += \
         src/ui/w_JsonEditor.hpp \
         src/ui/w_MainWindow.hpp \
         src/ui/w_OutboundEditor.hpp \
-        src/ui/w_PrefrencesWindow.hpp \
+        src/ui/w_PreferencesWindow.hpp \
         src/ui/w_RoutesEditor.hpp \
         src/ui/w_SubscriptionEditor.hpp \
         src/ui/w_ScreenShot_Core.hpp \
@@ -100,7 +100,7 @@ FORMS += \
         src/ui/w_JsonEditor.ui \
         src/ui/w_MainWindow.ui \
         src/ui/w_OutboundEditor.ui \
-        src/ui/w_PrefrencesWindow.ui \
+        src/ui/w_PreferencesWindow.ui \
         src/ui/w_RoutesEditor.ui \
         src/ui/w_ScreenShot_Core.ui \
         src/ui/w_SubscriptionEditor.ui
