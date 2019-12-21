@@ -104,8 +104,11 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         void on_connectionListWidget_itemSelectionChanged();
 
     private:
-        //
         void SetEditWidgetEnable(bool enabled);
+        void ShowAndSetConnection(QString currentText, bool SetConnection, bool Apply);
+        void ReloadConnections();
+        Qv2rayConfig currentConfig;
+        //
         // Charts
         QChartView *speedChartView;
         QChart *speedChartObj;
@@ -114,22 +117,19 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         QList<double> uploadList;
         QList<double> downloadList;
         //
-        //
-        QMenu *trayMenu = new QMenu(this);
-        QMenu *listMenu;
+        QMenu *connectionListMenu;
 
         /// Key --> ListWidget.item.text
         QMap<QString, ConnectionObject> connections;
         //
-        QString originalName;
+        QString renameOriginalName;
         bool isRenamingInProgress;
+        //
+        // ID for QTimers
         //
         int logTimerId;
         int speedTimerId;
         int pingTimerId;
-        //
-        void ShowAndSetConnection(QString currentText, bool SetConnection, bool Apply);
-        void ReloadConnections();
         //
         //
         QvHttpRequestHelper *requestHelper;
@@ -139,11 +139,25 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         SyntaxHighlighter *vCoreLogHighlighter;
         SyntaxHighlighter *qvAppLogHighlighter;
         //
-        Qv2rayConfig currentConfig;
-
         QList<QTextBrowser *> logTextBrowsers;
         int currentLogBrowserId = 0;
-        QString currentGUIShownConnectionName;
+        QString currentSelectedName;
+        //
+        // Actions in the system tray menu
+        //
+        QMenu *tray_RootMenu = new QMenu(this);
+        QAction *action_Tray_ShowHide;
+        QAction *action_Tray_Quit;
+        // --> Connectivities
+        QAction *action_Tray_Start;
+        QAction *action_Tray_Reconnect ;
+        QAction *action_Tray_Stop;
+        // --> System proxy settings
+        QMenu *tray_SystemProxyMenu = new QMenu(this);
+        QAction *action_Tray_SetSystemProxy;
+        QAction *action_Tray_ClearSystemProxy;
+        //
+
 };
 
 #endif // MAINWINDOW_H

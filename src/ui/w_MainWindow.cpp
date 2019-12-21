@@ -103,31 +103,36 @@ MainWindow::MainWindow(QWidget *parent):
     updownImageBox->setStyleSheet("image: url(" + QV2RAY_UI_RESOURCES_ROOT + "netspeed_arrow.png)");
     updownImageBox_2->setStyleSheet("image: url(" + QV2RAY_UI_RESOURCES_ROOT + "netspeed_arrow.png)");
     //
+    // Setup System tray icons and menus
+    //
     hTray->setToolTip(TRAY_TOOLTIP_PREFIX);
+    // Basic actions
+    action_Tray_ShowHide = new QAction(this->windowIcon(), tr("Hide"), this);
+    action_Tray_Quit = new QAction(tr("Quit"), this);
+    action_Tray_Start = new QAction(tr("Connect"), this);
+    action_Tray_Reconnect = new QAction(tr("Reconnect"), this);
+    action_Tray_Stop = new QAction(tr("Disconnect"), this);
     //
-    QAction *action_Tray_ShowHide = new QAction(this->windowIcon(), tr("Hide"), this);
-    QAction *action_Tray_Quit = new QAction(tr("Quit"), this);
-    QAction *action_Tray_Start = new QAction(tr("Connect"), this);
-    QAction *action_Tray_Reconnect = new QAction(tr("Reconnect"), this);
-    QAction *action_Tray_Stop = new QAction(tr("Disconnect"), this);
-    //
-    QAction *action_RCM_RenameConnection = new QAction(tr("Rename"), this);
-    QAction *action_RCM_StartThis = new QAction(tr("Connect to this"), this);
-    QAction *action_RCM_ConvToComplex = new QAction(tr("Edit as Complex Config"), this);
-    QAction *action_RCM_EditJson = new QAction(QICON_R("json.png"), tr("Edit as Json"), this);
-    QAction *action_RCM_ShareQR = new QAction(QICON_R("share.png"), tr("Share as QRCode/VMess URL"), this);
+    action_Tray_SetSystemProxy = new QAction(tr("Enable System Proxy"), this);
+    action_Tray_ClearSystemProxy = new QAction(tr("Disable System Proxy"), this);
     //
     action_Tray_Start->setEnabled(true);
     action_Tray_Stop->setEnabled(false);
     action_Tray_Reconnect->setEnabled(false);
     //
-    trayMenu->addAction(action_Tray_ShowHide);
-    trayMenu->addSeparator();
-    trayMenu->addAction(action_Tray_Start);
-    trayMenu->addAction(action_Tray_Stop);
-    trayMenu->addAction(action_Tray_Reconnect);
-    trayMenu->addSeparator();
-    trayMenu->addAction(action_Tray_Quit);
+    tray_SystemProxyMenu->addAction(action_Tray_SetSystemProxy);
+    tray_SystemProxyMenu->addAction(action_Tray_ClearSystemProxy);
+    tray_SystemProxyMenu->setTitle(tr("System Proxy"));
+    //
+    tray_RootMenu->addAction(action_Tray_ShowHide);
+    tray_RootMenu->addSeparator();
+    tray_RootMenu->addMenu(tray_SystemProxyMenu);
+    tray_RootMenu->addSeparator();
+    tray_RootMenu->addAction(action_Tray_Start);
+    tray_RootMenu->addAction(action_Tray_Stop);
+    tray_RootMenu->addAction(action_Tray_Reconnect);
+    tray_RootMenu->addSeparator();
+    tray_RootMenu->addAction(action_Tray_Quit);
     //
     connect(action_Tray_ShowHide, &QAction::triggered, this, &MainWindow::ToggleVisibility);
     connect(action_Tray_Start, &QAction::triggered, this, &MainWindow::on_startButton_clicked);
@@ -135,6 +140,15 @@ MainWindow::MainWindow(QWidget *parent):
     connect(action_Tray_Reconnect, &QAction::triggered, this, &MainWindow::on_reconnectButton_clicked);
     connect(action_Tray_Quit, &QAction::triggered, this, &MainWindow::quit);
     connect(hTray, &QSystemTrayIcon::activated, this, &MainWindow::on_activatedTray);
+    //
+    // Actions for right click the connection list
+    //
+    QAction *action_RCM_RenameConnection = new QAction(tr("Rename"), this);
+    QAction *action_RCM_StartThis = new QAction(tr("Connect to this"), this);
+    QAction *action_RCM_ConvToComplex = new QAction(tr("Edit as Complex Config"), this);
+    QAction *action_RCM_EditJson = new QAction(QICON_R("json.png"), tr("Edit as Json"), this);
+    QAction *action_RCM_ShareQR = new QAction(QICON_R("share.png"), tr("Share as QRCode/VMess URL"), this);
+    //
     connect(action_RCM_RenameConnection, &QAction::triggered, this, &MainWindow::on_action_RCM_RenameConnection_triggered);
     connect(action_RCM_StartThis, &QAction::triggered, this, &MainWindow::on_action_StartThis_triggered);
     connect(action_RCM_EditJson, &QAction::triggered, this, &MainWindow::on_action_RCM_EditJson_triggered);
@@ -147,15 +161,15 @@ MainWindow::MainWindow(QWidget *parent):
     connect(this, &MainWindow::DisConnect, this, &MainWindow::on_stopButton_clicked);
     connect(this, &MainWindow::ReConnect, this, &MainWindow::on_reconnectButton_clicked);
     //
-    hTray->setContextMenu(trayMenu);
+    hTray->setContextMenu(tray_RootMenu);
     hTray->show();
     //
-    listMenu = new QMenu(this);
-    listMenu->addAction(action_RCM_RenameConnection);
-    listMenu->addAction(action_RCM_StartThis);
-    listMenu->addAction(action_RCM_ConvToComplex);
-    listMenu->addAction(action_RCM_EditJson);
-    listMenu->addAction(action_RCM_ShareQR);
+    connectionListMenu = new QMenu(this);
+    connectionListMenu->addAction(action_RCM_RenameConnection);
+    connectionListMenu->addAction(action_RCM_StartThis);
+    connectionListMenu->addAction(action_RCM_ConvToComplex);
+    connectionListMenu->addAction(action_RCM_EditJson);
+    connectionListMenu->addAction(action_RCM_ShareQR);
     //
     ReloadConnections();
     //
@@ -208,7 +222,7 @@ MainWindow::MainWindow(QWidget *parent):
             connectionListWidget->setCurrentItem(item);
             on_connectionListWidget_itemChanged(item, 0);
             connectionListWidget->scrollToItem(item);
-            trayMenu->actions()[0]->setText(tr("Show"));
+            tray_RootMenu->actions()[0]->setText(tr("Show"));
             on_startButton_clicked();
         } else {
             QvMessageBox(this, tr("Autostarting a config"), tr("Could not find a specified config named: ") + NEWLINE +
@@ -222,7 +236,7 @@ MainWindow::MainWindow(QWidget *parent):
     }
 
     // If we are not connected to anything, show the MainWindow.
-    if(vinstance->ConnectionStatus != STARTED){
+    if (vinstance->ConnectionStatus != STARTED) {
         this->show();
     }
 
@@ -315,6 +329,7 @@ void MainWindow::VersionUpdate(QByteArray &data)
 void MainWindow::ReloadConnections()
 {
     LOG(MODULE_UI, "Loading new GlobalConfig")
+    SetEditWidgetEnable(false);
     currentConfig = GetGlobalConfig();
     //
     // Store the latency test value.
@@ -325,10 +340,10 @@ void MainWindow::ReloadConnections()
     }
 
     connections.clear();
-    SetEditWidgetEnable(false);
     //
     connectionListWidget->clear();
     auto _regularConnections = GetRegularConnections(currentConfig.configs);
+    auto _subsConnections = GetSubscriptionConnections(toStdList(QMap<string, string>(currentConfig.subscribes).keys()));
 
     for (auto i = 0; i < _regularConnections.count(); i++) {
         ConnectionObject _o;
@@ -341,8 +356,6 @@ void MainWindow::ReloadConnections()
         connections[_o.connectionName] = _o;
         connectionListWidget->addTopLevelItem(new QTreeWidgetItem(QStringList() << _o.connectionName));
     }
-
-    auto _subsConnections = GetSubscriptionConnections(toStdList(QMap<string, string>(currentConfig.subscribes).keys()));
 
     for (auto i = 0; i < _subsConnections.count(); i++) {
         auto subName = _subsConnections.keys()[i];
@@ -537,9 +550,9 @@ void MainWindow::on_startButton_clicked()
             this->show();
         }
 
-        trayMenu->actions()[2]->setEnabled(!startFlag);
-        trayMenu->actions()[3]->setEnabled(startFlag);
-        trayMenu->actions()[4]->setEnabled(startFlag);
+        action_Tray_Start->setEnabled(!startFlag);
+        action_Tray_Stop->setEnabled(startFlag);
+        action_Tray_Reconnect->setEnabled(startFlag);
         //
         startButton->setEnabled(!startFlag);
         stopButton->setEnabled(startFlag);
@@ -559,9 +572,9 @@ void MainWindow::on_stopButton_clicked()
         QFile(QV2RAY_GENERATED_FILE_PATH).remove();
         statusLabel->setText(tr("Disconnected"));
         vCoreLogBrowser->clear();
-        trayMenu->actions()[2]->setEnabled(true);
-        trayMenu->actions()[3]->setEnabled(false);
-        trayMenu->actions()[4]->setEnabled(false);
+        action_Tray_Start->setEnabled(true);
+        action_Tray_Stop->setEnabled(false);
+        action_Tray_Reconnect->setEnabled(false);
         //
         startButton->setEnabled(true);
         stopButton->setEnabled(false);
@@ -587,7 +600,7 @@ void MainWindow::on_stopButton_clicked()
 void MainWindow::closeEvent(QCloseEvent *event)
 {
     this->hide();
-    trayMenu->actions()[0]->setText(tr("Show"));
+    tray_RootMenu->actions()[0]->setText(tr("Show"));
     event->ignore();
 }
 void MainWindow::on_activatedTray(QSystemTrayIcon::ActivationReason reason)
@@ -631,10 +644,10 @@ void MainWindow::ToggleVisibility()
         QThread::msleep(20);
         SetWindowPos(HWND(this->winId()), HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW);
 #endif
-        trayMenu->actions()[0]->setText(tr("Hide"));
+        tray_RootMenu->actions()[0]->setText(tr("Hide"));
     } else {
         this->hide();
-        trayMenu->actions()[0]->setText(tr("Show"));
+        tray_RootMenu->actions()[0]->setText(tr("Show"));
     }
 }
 void MainWindow::quit()
@@ -655,7 +668,7 @@ void MainWindow::ShowAndSetConnection(QString guiConnectionName, bool SetConnect
     SetEditWidgetEnable(true);
     //
     // --------- BRGIN Show Connection
-    currentGUIShownConnectionName = guiConnectionName;
+    currentSelectedName = guiConnectionName;
     auto conf = connections[guiConnectionName];
     auto root = conf.config;
     //
@@ -766,7 +779,7 @@ void MainWindow::on_connectionListWidget_customContextMenuRequested(const QPoint
     auto item = connectionListWidget->itemAt(connectionListWidget->mapFromGlobal(_pos));
 
     if (IsConnectableItem(item)) {
-        listMenu->popup(_pos);
+        connectionListMenu->popup(_pos);
     }
 }
 void MainWindow::on_action_RCM_RenameConnection_triggered()
@@ -775,7 +788,7 @@ void MainWindow::on_action_RCM_RenameConnection_triggered()
     SUBSCRIPTION_CONFIG_MODIFY_DENY(item->text(0))
     item->setFlags(item->flags() | Qt::ItemIsEditable);
     connectionListWidget->editItem(item);
-    originalName = item->text(0);
+    renameOriginalName = item->text(0);
     isRenamingInProgress = true;
 }
 void MainWindow::on_connectionListWidget_itemChanged(QTreeWidgetItem *item, int)
@@ -785,11 +798,11 @@ void MainWindow::on_connectionListWidget_itemChanged(QTreeWidgetItem *item, int)
     if (isRenamingInProgress) {
         // Should not rename a config from subscription?
         // In this case it's after we entered the name.
-        LOG(MODULE_CONNECTION, "RENAME: " + originalName.toStdString() + " -> " + item->text(0).toStdString())
+        LOG(MODULE_CONNECTION, "RENAME: " + renameOriginalName.toStdString() + " -> " + item->text(0).toStdString())
         auto newName = item->text(0);
 
         // If I really did some changes.
-        if (originalName != newName) {
+        if (renameOriginalName != newName) {
             bool canGo = true;
 
             if (newName.trimmed().isEmpty()) {
@@ -808,25 +821,25 @@ void MainWindow::on_connectionListWidget_itemChanged(QTreeWidgetItem *item, int)
             }
 
             if (!canGo) {
-                item->setText(0, originalName);
+                item->setText(0, renameOriginalName);
                 return;
             }
 
             //
             // Change auto start config.
-            if (originalName.toStdString() == currentConfig.autoStartConfig.connectionName && currentConfig.autoStartConfig.subscriptionName.empty()) {
+            if (renameOriginalName.toStdString() == currentConfig.autoStartConfig.connectionName && currentConfig.autoStartConfig.subscriptionName.empty()) {
                 currentConfig.autoStartConfig.connectionName = newName.toStdString();
             }
 
             //configList[configList.indexOf(originalName.toStdString())] = newName.toStdString();
-            currentConfig.configs.remove(originalName.toStdString());
+            currentConfig.configs.remove(renameOriginalName.toStdString());
             currentConfig.configs.push_back(newName.toStdString());
             //
-            RenameConnection(originalName, newName);
+            RenameConnection(renameOriginalName, newName);
             //
             LOG(MODULE_UI, "Saving a global config")
             SetGlobalConfig(currentConfig);
-            bool running = CurrentConnectionName == originalName;
+            bool running = CurrentConnectionName == renameOriginalName;
 
             if (running) CurrentConnectionName = newName;
 
@@ -1185,7 +1198,7 @@ void MainWindow::onPingFinished(QvTCPingData data)
 
     connections[data.connectionName].latency = data.avg;
 
-    if (data.connectionName == currentGUIShownConnectionName) {
-        ShowAndSetConnection(currentGUIShownConnectionName, false, false);
+    if (data.connectionName == currentSelectedName) {
+        ShowAndSetConnection(currentSelectedName, false, false);
     }
 }

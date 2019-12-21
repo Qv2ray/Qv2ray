@@ -5,7 +5,7 @@
 
 #include "QvUtils.hpp"
 
-#define UPDATELOG(msg) LOG(MODULE_CONFIG, "  [" + to_string(fromVersion) + "-" + to_string(fromVersion + 1) + "] --> " msg)
+#define UPDATELOG(msg) LOG(MODULE_CONFIG, "  [" + to_string(fromVersion) + "-" + to_string(fromVersion + 1) + "] --> " + msg)
 
 namespace Qv2ray
 {

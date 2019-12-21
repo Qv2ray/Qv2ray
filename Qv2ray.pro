@@ -42,6 +42,7 @@ SOURCES += \
         src/QvCoreConfigOperations_Generation.cpp \
         src/QvUtils.cpp \
         src/ui/w_PreferencesWindow.cpp \
+        src/utils/QvHelpers.cpp \
         src/utils/QJsonModel.cpp \
         src/ui/w_ExportConfig.cpp \
         src/ui/w_InboundEditor.cpp \
@@ -87,6 +88,7 @@ HEADERS += \
         src/ui/w_RoutesEditor.hpp \
         src/ui/w_SubscriptionEditor.hpp \
         src/ui/w_ScreenShot_Core.hpp \
+        src/utils/QvHelpers.hpp \
         src/utils/QvTinyLog.hpp \
         src/utils/QJsonModel.hpp \
         src/utils/QJsonObjectInsertMacros.h \
