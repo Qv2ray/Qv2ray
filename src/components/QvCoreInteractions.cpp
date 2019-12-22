@@ -63,7 +63,7 @@ namespace Qv2ray
             ConnectionStatus = STOPPED;
         }
 
-        bool ConnectionInstance::StartConnection(CONFIGROOT root, bool useAPI, int apiPort)
+        bool ConnectionInstance::StartConnection(CONFIGROOT root, int apiPort)
         {
             inboundTags.clear();
 
@@ -80,8 +80,6 @@ namespace Qv2ray
             QString json = JsonToString(root);
             // Write the final configuration to the disk.
             StringToFile(&json, new QFile(QV2RAY_GENERATED_FILE_PATH));
-            //
-            enableAPI = useAPI;
 
             if (ConnectionStatus != STOPPED) {
                 LOG(MODULE_VCORE, "Status is invalid, expect STOPPED when calling StartV2rayCore")
@@ -98,8 +96,7 @@ namespace Qv2ray
                 vProcess->start(QSTRING(GetGlobalConfig().v2CorePath), QStringList() << "-config" << filePath, QIODevice::ReadWrite | QIODevice::Text);
                 vProcess->waitForStarted();
                 ConnectionStatus = STARTED;
-
-                if (enableAPI) {
+                {
                     // Config API
                     apiFailedCounter = 0;
                     this->apiPort = apiPort;
@@ -109,7 +106,6 @@ namespace Qv2ray
                     apiTimerId = startTimer(1000);
                     LOG(MODULE_VCORE, "API Worker started.")
                 }
-
                 return true;
             } else {
                 ConnectionStatus = STOPPED;
@@ -141,11 +137,7 @@ namespace Qv2ray
         void ConnectionInstance::StopConnection()
         {
             vProcess->close();
-
-            if (enableAPI) {
-                killTimer(apiTimerId);
-            }
-
+            killTimer(apiTimerId);
             apiFailedCounter = 0;
             transferData.clear();
             transferSpeed.clear();

@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>780</width>
-    <height>580</height>
+    <height>578</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -836,27 +836,13 @@
            </widget>
           </item>
           <item row="2" column="0">
-           <widget class="QLabel" name="label_5">
-            <property name="text">
-             <string>Statistics</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QCheckBox" name="statsCheckbox">
-            <property name="text">
-             <string>Enabled</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="0">
            <widget class="QLabel" name="label_8">
             <property name="text">
              <string>API Port</string>
             </property>
            </widget>
           </item>
-          <item row="3" column="1">
+          <item row="2" column="1">
            <widget class="QSpinBox" name="statsPortBox">
             <property name="minimumSize">
              <size>
@@ -875,28 +861,28 @@
             </property>
            </widget>
           </item>
-          <item row="4" column="0">
+          <item row="3" column="0">
            <widget class="QLabel" name="label_18">
             <property name="text">
              <string>Use Local DNS</string>
             </property>
            </widget>
           </item>
-          <item row="4" column="1">
+          <item row="3" column="1">
            <widget class="QCheckBox" name="localDNSCb">
             <property name="text">
              <string>Enabled</string>
             </property>
            </widget>
           </item>
-          <item row="5" column="0">
+          <item row="4" column="0">
            <widget class="QLabel" name="label_21">
             <property name="text">
              <string>Custom DNS List</string>
             </property>
            </widget>
           </item>
-          <item row="5" column="1">
+          <item row="4" column="1">
            <widget class="QPlainTextEdit" name="DNSListTxt"/>
           </item>
          </layout>

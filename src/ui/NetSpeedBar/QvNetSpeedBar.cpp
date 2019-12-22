@@ -60,7 +60,6 @@ namespace Qv2ray
                 for (size_t i = 0; i < BarConfig.Pages.size(); i++) {
                     for (size_t j = 0; j < BarConfig.Pages[i].Lines.size(); j++) {
 #define CL BarConfig.Pages[i].Lines[j]
-#define STATS_ENABLE_CHECK if(!config.connectionConfig.enableStats) { CL.Message = QObject::tr("Stats is not enabled").toStdString(); break;}
 
                         switch (CL.ContentType) {
                             case 0: {
@@ -117,27 +116,23 @@ namespace Qv2ray
 
                             case 201: {
                                 // Total upload speed;
-                                STATS_ENABLE_CHECK
                                 CL.Message = FormatBytes(vinstance->getAllSpeedUp()).toStdString() + "/s";
                                 break;
                             }
 
                             case 202: {
                                 // Total download speed;
-                                STATS_ENABLE_CHECK
                                 CL.Message = (FormatBytes(vinstance->getAllSpeedDown()) + "/s").toStdString();
                                 break;
                             }
 
                             case 203: {
                                 // Upload speed for tag
-                                STATS_ENABLE_CHECK
                                 CL.Message = FormatBytes(vinstance->getTagSpeedUp(QSTRING(CL.Message))).toStdString() + "/s";
                                 break;
                             }
 
                             case 204: {
-                                STATS_ENABLE_CHECK
                                 // Download speed for tag
                                 CL.Message = FormatBytes(vinstance->getTagSpeedDown(QSTRING(CL.Message))).toStdString() + "/s";
                                 break;
@@ -145,28 +140,24 @@ namespace Qv2ray
 
                             case 301: {
                                 // Total Upload
-                                STATS_ENABLE_CHECK
                                 CL.Message = FormatBytes(vinstance->getAllDataUp()).toStdString();
                                 break;
                             }
 
                             case 302: {
                                 // Total download
-                                STATS_ENABLE_CHECK
                                 CL.Message = FormatBytes(vinstance->getAllDataDown()).toStdString();
                                 break;
                             }
 
                             case 303: {
                                 // Upload for tag
-                                STATS_ENABLE_CHECK
                                 CL.Message = FormatBytes(vinstance->getTagDataUp(QSTRING(CL.Message))).toStdString();
                                 break;
                             }
 
                             case 304: {
                                 // Download for tag
-                                STATS_ENABLE_CHECK
                                 CL.Message = FormatBytes(vinstance->getTagDataDown(QSTRING(CL.Message))).toStdString();
                                 break;
                             }

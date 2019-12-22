@@ -446,15 +446,11 @@ void MainWindow::on_startButton_clicked()
         auto connectionRoot = connections[CurrentConnectionName].config;
         //
         CurrentFullConfig = GenerateRuntimeConfig(connectionRoot);
-        bool startFlag = this->vinstance->StartConnection(CurrentFullConfig, currentConfig.connectionConfig.enableStats, currentConfig.connectionConfig.statsPort);
+        bool startFlag = this->vinstance->StartConnection(CurrentFullConfig, currentConfig.connectionConfig.statsPort);
 
         if (startFlag) {
             on_pingTestBtn_clicked();
-
-            if (currentConfig.connectionConfig.enableStats) {
-                speedTimerId = startTimer(1000);
-            }
-
+            speedTimerId = startTimer(1000);
             pingTimerId = startTimer(60000);
             this->hTray->showMessage("Qv2ray", tr("Connected: ") + CurrentConnectionName, this->windowIcon());
             hTray->setToolTip(TRAY_TOOLTIP_PREFIX NEWLINE + tr("Connected: ") + CurrentConnectionName);

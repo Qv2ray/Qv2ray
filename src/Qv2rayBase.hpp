@@ -175,10 +175,9 @@ namespace Qv2ray
             bool enableProxy;
             bool withLocalDNS;
             list<string> dnsList;
-            bool enableStats;
             int statsPort;
-            Qv2rayConnectionConfig() : bypassCN(true), enableProxy(true), withLocalDNS(true), dnsList(), enableStats(true), statsPort(15490) { }
-            XTOSTRUCT(O(bypassCN, enableProxy, withLocalDNS, dnsList, enableStats, statsPort))
+            Qv2rayConnectionConfig() : bypassCN(true), enableProxy(true), withLocalDNS(true), dnsList(), statsPort(15490) { }
+            XTOSTRUCT(O(bypassCN, enableProxy, withLocalDNS, dnsList, statsPort))
         };
 
         struct Qv2rayConfig {

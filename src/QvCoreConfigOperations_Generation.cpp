@@ -287,7 +287,7 @@ namespace Qv2ray
                 }
 
                 // Let's process some api features.
-                if (gConf.connectionConfig.enableStats) {
+                {
                     //
                     // Stats
                     //
@@ -332,7 +332,6 @@ namespace Qv2ray
                     root["api"] = GenerateAPIEntry(QV2RAY_API_TAG_DEFAULT);
                     //
                 }
-
                 return root;
             }
         }

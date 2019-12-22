@@ -91,7 +91,6 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent),
     //
     vCorePathTxt->setText(QSTRING(CurrentConfig.v2CorePath));
     vCoreAssetsPathTxt->setText(QSTRING(CurrentConfig.v2AssetsPath));
-    statsCheckbox->setChecked(CurrentConfig.connectionConfig.enableStats);
     statsPortBox->setValue(CurrentConfig.connectionConfig.statsPort);
     //
     //
@@ -441,16 +440,11 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
     tProxyCheckBox->setChecked(false);
 #endif
 }
+
 void PreferencesWindow::on_bypassCNCb_stateChanged(int arg1)
 {
     NEEDRESTART
     CurrentConfig.connectionConfig.bypassCN = arg1 == Qt::Checked;
-}
-
-void PreferencesWindow::on_statsCheckbox_stateChanged(int arg1)
-{
-    NEEDRESTART
-    CurrentConfig.connectionConfig.enableStats = arg1 == Qt::Checked;
 }
 
 void PreferencesWindow::on_statsPortBox_valueChanged(int arg1)

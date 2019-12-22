@@ -35,7 +35,7 @@ namespace Qv2ray
                 long getAllSpeedUp();
                 long getAllSpeedDown();
                 //
-                bool StartConnection(CONFIGROOT root, bool useAPI, int apiPort);
+                bool StartConnection(CONFIGROOT root, int apiPort);
                 void StopConnection();
                 QvInstanceStatus ConnectionStatus;
                 //
@@ -47,7 +47,6 @@ namespace Qv2ray
             private:
                 void timerEvent(QTimerEvent *event) override;
                 QStringList inboundTags;
-                bool enableAPI;
                 int apiTimerId = -1;
                 int apiPort;
                 //

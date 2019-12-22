@@ -62,8 +62,6 @@ class PreferencesWindow : public QDialog, private Ui::PreferencesWindow
 
         void on_bypassCNCb_stateChanged(int arg1);
 
-        void on_statsCheckbox_stateChanged(int arg1);
-
         void on_statsPortBox_valueChanged(int arg1);
 
         void on_socksUDPCB_stateChanged(int arg1);
