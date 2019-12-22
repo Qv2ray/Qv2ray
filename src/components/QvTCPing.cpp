@@ -5,9 +5,20 @@ namespace Qv2ray
 {
     namespace Components
     {
+        static bool isExiting = false;
         QvTCPingModel::QvTCPingModel(int defaultCount, QObject *parent) : QObject(parent)
         {
             count = defaultCount;
+        }
+        void QvTCPingModel::StopAllPing()
+        {
+            isExiting = true;
+
+            while (!pingWorkingThreads.isEmpty()) {
+                auto worker = pingWorkingThreads.dequeue();
+                worker->future().cancel();
+                worker->cancel();
+            }
         }
         void QvTCPingModel::StartPing(const QString &connectionName, const QString &hostName, int port)
         {
@@ -34,6 +45,8 @@ namespace Qv2ray
 
         QvTCPingData QvTCPingModel::startTestLatency(QvTCPingData data, const int count)
         {
+            if (isExiting) return QvTCPingData();
+
             double successCount = 0, errorCount = 0;
             addrinfo *resolved;
             int errcode;
@@ -51,17 +64,19 @@ namespace Qv2ray
             int currentCount = 0;
 
             while (currentCount < count) {
+                if (isExiting) return QvTCPingData();
+
                 timeval rtt;
 
                 if ((errcode = testLatency(resolved, &rtt)) != 0) {
                     if (errcode != -EADDRNOTAVAIL) {
-                        LOG(MODULE_NETWORK, "Error connecting to host " + data.hostName.toStdString() + ":" + to_string(data.port) + strerror(-errcode))
+                        LOG(MODULE_NETWORK, "Error connecting to host: " + data.hostName.toStdString() + ":" + to_string(data.port) + " " + strerror(-errcode))
                         errorCount++;
                     } else {
                         if (noAddress) {
                             LOG(MODULE_NETWORK, ".")
                         } else {
-                            LOG(MODULE_NETWORK, "error connecting to host:" + to_string(-errcode) + strerror(-errcode))
+                            LOG(MODULE_NETWORK, "error connecting to host: " + to_string(-errcode) + " " + strerror(-errcode))
                         }
 
                         noAddress = true;
@@ -90,6 +105,8 @@ namespace Qv2ray
 
         int QvTCPingModel::resolveHost(const string &host, int port, addrinfo **res)
         {
+            if (isExiting) return 0;
+
             addrinfo hints;
 #ifdef _WIN32
             WSADATA wsadata;
@@ -106,6 +123,8 @@ namespace Qv2ray
 
         int QvTCPingModel::testLatency(struct addrinfo *addr, struct timeval *rtt)
         {
+            if (isExiting) return 0;
+
             int fd;
             struct timeval start;
             int connect_result;
@@ -115,6 +134,8 @@ namespace Qv2ray
 
             /* try to connect for each of the entries: */
             while (addr != nullptr) {
+                if (isExiting) return 0;
+
                 /* create socket */
                 if ((fd = socket(addr->ai_family, addr->ai_socktype, addr->ai_protocol)) == -1)
                     goto next_addr0;

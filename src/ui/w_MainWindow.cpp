@@ -23,7 +23,8 @@
 
 #include "QvNetSpeedPlugin.hpp"
 #include "QvPACHandler.hpp"
-#include "QvSystemProxyConfigurator.hpp"
+
+// MainWindow.cpp --> Main MainWindow source file, handles mostly UI-related operations.
 
 #define TRAY_TOOLTIP_PREFIX "Qv2ray " QV2RAY_VERSION_STRING
 //
@@ -79,7 +80,7 @@ MainWindow::MainWindow(QWidget *parent):
     qvAppLogHighlighter = new SyntaxHighlighter(currentConfig.uiConfig.useDarkTheme, qvAppLogBrowser->document());
     currentLogBrowserId = 0;
     masterLogBrowser->setDocument(currentLogBrowser->document());
-    masterLogBrowser->document()->setDocumentMargin(0);
+    masterLogBrowser->document()->setDocumentMargin(8);
     masterLogBrowser->document()->adjustSize();
     masterLogBrowser->setLineWrapMode(QTextBrowser::LineWrapMode::NoWrap);
     //
@@ -139,6 +140,12 @@ MainWindow::MainWindow(QWidget *parent):
     connect(action_Tray_Stop, &QAction::triggered, this, &MainWindow::on_stopButton_clicked);
     connect(action_Tray_Reconnect, &QAction::triggered, this, &MainWindow::on_reconnectButton_clicked);
     connect(action_Tray_Quit, &QAction::triggered, this, &MainWindow::quit);
+    connect(action_Tray_SetSystemProxy, &QAction::triggered, [this]() {
+        this->MWSetSystemProxy();
+    });
+    connect(action_Tray_ClearSystemProxy, &QAction::triggered, [this]() {
+        this->MWClearSystemProxy(true);
+    });
     connect(hTray, &QSystemTrayIcon::activated, this, &MainWindow::on_activatedTray);
     //
     // Actions for right click the connection list
@@ -171,13 +178,13 @@ MainWindow::MainWindow(QWidget *parent):
     connectionListMenu->addAction(action_RCM_EditJson);
     connectionListMenu->addAction(action_RCM_ShareQR);
     //
-    ReloadConnections();
+    OnConfigListChanged(false);
     //
     // For charts
     uploadSerie = new QSplineSeries(this);
     downloadSerie = new QSplineSeries(this);
-    uploadSerie->setName("Upload");
-    downloadSerie->setName("Download");
+    uploadSerie->setName(tr("Upload"));
+    downloadSerie->setName(tr("Download"));
 
     for (int i = 0; i < 30 ; i++) {
         uploadList.append(0);
@@ -205,35 +212,9 @@ MainWindow::MainWindow(QWidget *parent):
     auto layout = new QHBoxLayout(speedChart);
     layout->addWidget(speedChartView);
     speedChart->setLayout(layout);
-
-    if (!currentConfig.autoStartConfig.connectionName.empty()) {
-        // User has auto start configured, we try to find that connection item.
-        auto name = currentConfig.autoStartConfig.subscriptionName.empty()
-                    ? QSTRING(currentConfig.autoStartConfig.connectionName)
-                    : QSTRING(currentConfig.autoStartConfig.connectionName) + " (" + tr("Subscription:") + " " + QSTRING(currentConfig.autoStartConfig.subscriptionName) + ")";
-        //
-        LOG(MODULE_UI, "Found auto start config: " + name.toStdString())
-        CurrentConnectionName = name;
-        auto widgetItemFindResultList = connectionListWidget->findItems(name, Qt::MatchExactly | Qt::MatchRecursive);
-
-        if (connections.contains(name) && !widgetItemFindResultList.empty()) {
-            // We found the item required and start it.
-            auto item = widgetItemFindResultList.front();
-            connectionListWidget->setCurrentItem(item);
-            on_connectionListWidget_itemChanged(item, 0);
-            connectionListWidget->scrollToItem(item);
-            tray_RootMenu->actions()[0]->setText(tr("Show"));
-            on_startButton_clicked();
-        } else {
-            QvMessageBox(this, tr("Autostarting a config"), tr("Could not find a specified config named: ") + NEWLINE +
-                         name + NEWLINE + NEWLINE +
-                         tr("Please reset the settings in Preference Window"));
-        }
-    } else if (connectionListWidget->topLevelItemCount() > 0) {
-        // Make the first one our default selected item.
-        connectionListWidget->setCurrentItem(connectionListWidget->topLevelItem(0));
-        ShowAndSetConnection(connectionListWidget->topLevelItem(0)->text(0), true, false);
-    }
+    //
+    // Find and start if there is an auto-connection
+    MWFindAndStartAutoConfig();
 
     // If we are not connected to anything, show the MainWindow.
     if (vinstance->ConnectionStatus != STARTED) {
@@ -250,15 +231,17 @@ void MainWindow::SetEditWidgetEnable(bool enabled)
     removeConfigButton->setEnabled(enabled);
     editConfigButton->setEnabled(enabled);
     duplicateBtn->setEnabled(enabled);
-    pingTestBtn->setEnabled(enabled);
     editJsonBtn->setEnabled(enabled);
     shareBtn->setEnabled(enabled);
+    // Allow ping all.
+    pingTestBtn->setText(enabled ? tr("Ping") : tr("Ping All"));
 }
 
 void MainWindow::mouseReleaseEvent(QMouseEvent *e)
 {
     Q_UNUSED(e)
 
+    // If mouse is on the logLabel, switch log source.
     if (logLabel->underMouse()) {
         //auto layout = masterLogBrowser->document()->setDocumentLayout()
         currentLogBrowserId = (currentLogBrowserId + 1) % logTextBrowsers.count();
@@ -274,6 +257,8 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *e)
 void MainWindow::keyPressEvent(QKeyEvent *e)
 {
     if (e->key() == Qt::Key_Enter || e->key() == Qt::Key_Return) {
+        // If pressed enter or return on connectionListWidget.
+        // Try to connect to the selected connection.
         if (focusWidget() == connectionListWidget) {
             if (!IsSelectionConnectable) return;
 
@@ -283,7 +268,6 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
         }
     }
 }
-
 
 void MainWindow::on_action_StartThis_triggered()
 {
@@ -297,9 +281,10 @@ void MainWindow::on_action_StartThis_triggered()
 }
 void MainWindow::VersionUpdate(QByteArray &data)
 {
+    // Version update handler.
     QJsonObject root = JsonFromString(QString(data));
     //
-    QVersionNumber newversion = QVersionNumber::fromString(root["tag_name"].toString("").remove(0, 1));
+    QVersionNumber newversion = QVersionNumber::fromString(root["tag_name"].toString("v").remove(0, 1));
     QVersionNumber current = QVersionNumber::fromString(QSTRING(QV2RAY_VERSION_STRING).remove(0, 1));
     QVersionNumber ignored = QVersionNumber::fromString(QSTRING(currentConfig.ignoredVersion));
     LOG(MODULE_UPDATE, "Received update info, Latest: " + newversion.toString().toStdString() + " Current: " + current.toString().toStdString() + " Ignored: " + ignored.toString().toStdString())
@@ -321,13 +306,18 @@ void MainWindow::VersionUpdate(QByteArray &data)
         if (result == QMessageBox::Yes) {
             QDesktopServices::openUrl(QUrl::fromUserInput(link));
         } else if (result == QMessageBox::Ignore) {
+            // Set and save ingored version.
             currentConfig.ignoredVersion = newversion.toString().toStdString();
             SetGlobalConfig(currentConfig);
         }
     }
 }
-void MainWindow::ReloadConnections()
+void MainWindow::OnConfigListChanged(bool need_restart)
 {
+    bool isRunning = vinstance->ConnectionStatus == STARTED;
+
+    if (isRunning && need_restart) on_stopButton_clicked();
+
     LOG(MODULE_UI, "Loading new GlobalConfig")
     SetEditWidgetEnable(false);
     currentConfig = GetGlobalConfig();
@@ -340,7 +330,6 @@ void MainWindow::ReloadConnections()
     }
 
     connections.clear();
-    //
     connectionListWidget->clear();
     auto _regularConnections = GetRegularConnections(currentConfig.configs);
     auto _subsConnections = GetSubscriptionConnections(toStdList(QMap<string, string>(currentConfig.subscribes).keys()));
@@ -351,8 +340,7 @@ void MainWindow::ReloadConnections()
         _o.subscriptionName = "";
         _o.connectionName = _regularConnections.keys()[i];
         _o.config = _regularConnections.values()[i];
-        // Restore latency from cache.
-        _o.latency = latencyValueCache.contains(_o.connectionName) ? latencyValueCache[_o.connectionName] : 0;
+        _o.latency = latencyValueCache.contains(_o.connectionName) ? latencyValueCache[_o.connectionName] : 0; // restore latency values
         connections[_o.connectionName] = _o;
         connectionListWidget->addTopLevelItem(new QTreeWidgetItem(QStringList() << _o.connectionName));
     }
@@ -368,7 +356,7 @@ void MainWindow::ReloadConnections()
             _o.subscriptionName = subName;
             _o.connectionName = _subsConnections.values()[i].keys()[j];
             _o.config = _subsConnections.values()[i].values()[j];
-            //
+            // connection name generated from subscription name and connection name.
             auto connName = _o.connectionName + " (" + tr("Subscription:") + " " + _o.subscriptionName + ")";
             _o.latency = latencyValueCache.contains(connName) ? latencyValueCache[connName] : 0;
             connections[connName] = _o;
@@ -376,7 +364,7 @@ void MainWindow::ReloadConnections()
         }
     }
 
-    //// We set the current item back...
+    // We set the current selected item back...
     if (!CurrentConnectionName.isEmpty() && connections.contains(CurrentConnectionName)) {
         auto items = connectionListWidget->findItems(CurrentConnectionName, Qt::MatchExactly | Qt::MatchRecursive);
 
@@ -388,17 +376,7 @@ void MainWindow::ReloadConnections()
         ShowAndSetConnection(CurrentConnectionName, false, false);
     }
 
-    // This line will trigger Segmentation Fault
-    // Uncomment it if you need bombs.
-    //connectionListWidget->sortItems(0, Qt::AscendingOrder);
-}
-void MainWindow::OnConfigListChanged(bool need_restart)
-{
-    bool isRunning = vinstance->ConnectionStatus == STARTED;
-
-    if (isRunning && need_restart) on_stopButton_clicked();
-
-    ReloadConnections();
+    connectionListWidget->sortItems(0, Qt::AscendingOrder);
 
     if (isRunning && need_restart) on_startButton_clicked();
 }
@@ -442,114 +420,26 @@ void MainWindow::on_startButton_clicked()
 
         LOG(MODULE_VCORE, ("Connecting to: " + CurrentConnectionName).toStdString())
         vCoreLogBrowser->clear();
-        //
-        auto connectionRoot = connections[CurrentConnectionName].config;
-        //
-        CurrentFullConfig = GenerateRuntimeConfig(connectionRoot);
-        bool startFlag = this->vinstance->StartConnection(CurrentFullConfig, currentConfig.connectionConfig.statsPort);
+        bool startFlag = MWtryStartConnection();
 
         if (startFlag) {
-            on_pingTestBtn_clicked();
+            MWTryPingConnection(CurrentConnectionName);
             speedTimerId = startTimer(1000);
             pingTimerId = startTimer(60000);
             this->hTray->showMessage("Qv2ray", tr("Connected: ") + CurrentConnectionName, this->windowIcon());
             hTray->setToolTip(TRAY_TOOLTIP_PREFIX NEWLINE + tr("Connected: ") + CurrentConnectionName);
             statusLabel->setText(tr("Connected: ") + CurrentConnectionName);
-            //
-            bool usePAC = currentConfig.inboundConfig.pacConfig.enablePAC;
-            bool pacUseSocks = currentConfig.inboundConfig.pacConfig.useSocksProxy;
-            bool httpEnabled = currentConfig.inboundConfig.useHTTP;
-            bool socksEnabled = currentConfig.inboundConfig.useSocks;
-
-            if (usePAC) {
-                bool canStartPAC = true;
-                QString pacProxyString;  // Something like this --> SOCKS5 127.0.0.1:1080; SOCKS 127.0.0.1:1080; DIRECT; http://proxy:8080
-                auto pacIP = QSTRING(currentConfig.inboundConfig.pacConfig.localIP);
-
-                if (pacIP.isEmpty()) {
-                    LOG(MODULE_PROXY, "PAC Local IP is empty, default to 127.0.0.1")
-                    pacIP = "127.0.0.1";
-                }
-
-                if (pacUseSocks) {
-                    if (socksEnabled) {
-                        pacProxyString = "SOCKS5 " + pacIP + ":" + QString::number(currentConfig.inboundConfig.socks_port);
-                    } else {
-                        LOG(MODULE_UI, "PAC is using SOCKS, but it is not enabled")
-                        QvMessageBox(this, tr("Configuring PAC"), tr("Could not start PAC server as it is configured to use SOCKS, but it is not enabled"));
-                        canStartPAC = false;
-                    }
-                } else {
-                    if (httpEnabled) {
-                        pacProxyString = "PROXY http://" + pacIP + ":" + QString::number(currentConfig.inboundConfig.http_port);
-                    } else {
-                        LOG(MODULE_UI, "PAC is using HTTP, but it is not enabled")
-                        QvMessageBox(this, tr("Configuring PAC"), tr("Could not start PAC server as it is configured to use HTTP, but it is not enabled"));
-                        canStartPAC = false;
-                    }
-                }
-
-                if (canStartPAC) {
-                    pacServer->SetProxyString(pacProxyString);
-                    pacServer->StartListen();
-                } else {
-                    LOG(MODULE_PROXY, "Not starting PAC due to previous error.")
-                }
-            }
-
-            //
-            // Set system proxy if necessary
-            bool isComplex = CheckIsComplexConfig(connectionRoot);
-
-            if (currentConfig.inboundConfig.setSystemProxy && !isComplex) {
-                // Is simple config and we will try to set system proxy.
-                LOG(MODULE_UI, "Preparing to set system proxy")
-                //
-                QString proxyAddress;
-                bool canSetSystemProxy = true;
-
-                if (usePAC) {
-                    if ((httpEnabled && !pacUseSocks) || (socksEnabled && pacUseSocks)) {
-                        // If we use PAC and socks/http are properly configured for PAC
-                        LOG(MODULE_PROXY, "System proxy uses PAC")
-                        proxyAddress = "http://" + QSTRING(currentConfig.inboundConfig.listenip) + ":" + QString::number(currentConfig.inboundConfig.pacConfig.port) +  "/pac";
-                    } else {
-                        // Not properly configured
-                        LOG(MODULE_PROXY, "Failed to process pac due to following reasons:")
-                        LOG(MODULE_PROXY, " --> PAC is configured to use socks but socks is not enabled.")
-                        LOG(MODULE_PROXY, " --> PAC is configuted to use http but http is not enabled.")
-                        QvMessageBox(this, tr("PAC Processing Failed"), tr("HTTP or SOCKS inbound is not properly configured for PAC") +
-                                     NEWLINE + tr("Qv2ray will continue, but will not set system proxy."));
-                        canSetSystemProxy = false;
-                    }
-                } else {
-                    // Not using PAC
-                    if (httpEnabled) {
-                        // Not use PAC, System proxy should use HTTP
-                        LOG(MODULE_PROXY, "Using system proxy with HTTP")
-                        proxyAddress = "localhost";
-                    } else {
-                        LOG(MODULE_PROXY, "HTTP is not enabled, cannot set system proxy.")
-                        QvMessageBox(this, tr("Cannot set system proxy"), tr("HTTP inbound is not enabled"));
-                        canSetSystemProxy = false;
-                    }
-                }
-
-                if (canSetSystemProxy) {
-                    LOG(MODULE_UI, "Setting system proxy for simple config, HTTP only")
-                    // --------------------We only use HTTP here->>|=========|
-                    SetSystemProxy(proxyAddress, currentConfig.inboundConfig.http_port, usePAC);
-                }
-            }
         } else {
             // If failed, show mainwindow
             this->show();
         }
 
+        // Menu actions
         action_Tray_Start->setEnabled(!startFlag);
         action_Tray_Stop->setEnabled(startFlag);
         action_Tray_Reconnect->setEnabled(startFlag);
-        //
+        tray_SystemProxyMenu->setEnabled(startFlag);
+        // Buttons
         startButton->setEnabled(!startFlag);
         stopButton->setEnabled(startFlag);
     } else {
@@ -561,35 +451,24 @@ void MainWindow::on_stopButton_clicked()
 {
     if (vinstance->ConnectionStatus != STOPPED) {
         // Is running or starting
-        this->vinstance->StopConnection();
         killTimer(speedTimerId);
         killTimer(pingTimerId);
+        //
+        MWStopConnection();
+        //
         hTray->setToolTip(TRAY_TOOLTIP_PREFIX);
-        QFile(QV2RAY_GENERATED_FILE_PATH).remove();
-        statusLabel->setText(tr("Disconnected"));
         vCoreLogBrowser->clear();
+        statusLabel->setText(tr("Disconnected"));
         action_Tray_Start->setEnabled(true);
         action_Tray_Stop->setEnabled(false);
         action_Tray_Reconnect->setEnabled(false);
-        //
+        // Set to false as the system proxy has been cleared in the StopConnection function.
+        tray_SystemProxyMenu->setEnabled(false);
         startButton->setEnabled(true);
         stopButton->setEnabled(false);
         //
         netspeedLabel->setText("0.00 B/s\r\n0.00 B/s");
         dataamountLabel->setText("0.00 B\r\n0.00 B");
-
-        //
-        if (currentConfig.inboundConfig.pacConfig.enablePAC) {
-            pacServer->StopServer();
-            LOG(MODULE_UI, "Stopping PAC server")
-        }
-
-        // BUG If unset from the preferences. this will not work...
-        if (currentConfig.inboundConfig.setSystemProxy) {
-            ClearSystemProxy();
-            LOG(MODULE_UI, "Clearing System Proxy")
-        }
-
         LOG(MODULE_UI, "Stopped successfully.")
     }
 }
@@ -649,6 +528,7 @@ void MainWindow::ToggleVisibility()
 void MainWindow::quit()
 {
     StopProcessingPlugins();
+    tcpingModel->StopAllPing();
     on_stopButton_clicked();
     QApplication::quit();
 }
@@ -666,9 +546,8 @@ void MainWindow::ShowAndSetConnection(QString guiConnectionName, bool SetConnect
     // --------- BRGIN Show Connection
     currentSelectedName = guiConnectionName;
     auto conf = connections[guiConnectionName];
-    auto root = conf.config;
     //
-    auto isComplexConfig = CheckIsComplexConfig(root);
+    auto isComplexConfig = CheckIsComplexConfig(conf.config);
     routeCountLabel->setText(isComplexConfig ? tr("Complex") : tr("Simple"));
 
     if (conf.latency == 0.0) {
@@ -681,52 +560,13 @@ void MainWindow::ShowAndSetConnection(QString guiConnectionName, bool SetConnect
         routeCountLabel->setText(routeCountLabel->text().append(" (" + tr("From subscription") + ":" + conf.subscriptionName + ")"));
     }
 
-    bool validOutboundFound = false;
+    // Get Connection info
+    auto host_port = MWGetConnectionPortNumber(currentSelectedName);
+    _hostLabel->setText(get<0>(host_port));
+    _portLabel->setText(QString::number(get<1>(host_port)));
+    _OutBoundTypeLabel->setText(get<2>(host_port));
 
-    for (auto item : root["outbounds"].toArray()) {
-        OUTBOUND outBoundRoot = OUTBOUND(item.toObject());
-        auto outboundType = outBoundRoot["protocol"].toString();
-
-        if (outboundType == "vmess") {
-            auto Server = StructFromJsonString<VMessServerObject>(JsonToString(outBoundRoot["settings"].toObject()["vnext"].toArray().first().toObject()));
-            _hostLabel->setText(QSTRING(Server.address));
-            _portLabel->setText(QSTRING(to_string(Server.port)));
-            validOutboundFound = true;
-        } else if (outboundType == "shadowsocks") {
-            auto x = JsonToString(outBoundRoot["settings"].toObject()["servers"].toArray().first().toObject());
-            auto Server = StructFromJsonString<ShadowSocksServerObject>(x);
-            _hostLabel->setText(QSTRING(Server.address));
-            _portLabel->setText(QSTRING(to_string(Server.port)));
-            validOutboundFound = true;
-        } else if (outboundType == "socks") {
-            auto x = JsonToString(outBoundRoot["settings"].toObject()["servers"].toArray().first().toObject());
-            auto Server = StructFromJsonString<SocksServerObject>(x);
-            _hostLabel->setText(QSTRING(Server.address));
-            _portLabel->setText(QSTRING(to_string(Server.port)));
-            validOutboundFound = true;
-        }
-
-        if (validOutboundFound) {
-            _OutBoundTypeLabel->setText(outboundType);
-
-            if (isComplexConfig) {
-                _OutBoundTypeLabel->setText(_OutBoundTypeLabel->text() + " (" + tr("Guessed") + ")");
-            }
-
-            break;
-        }
-    }
-
-    if (!validOutboundFound) {
-        _hostLabel->setText(tr("N/A"));
-        _portLabel->setText(tr("N/A"));
-        latencyLabel->setText(tr("N/A"));
-        LOG(MODULE_UI, "Unknown outbound entry, possible very strange config file.")
-    }
-
-    // --------- END Show Connection
-    //
-    // Set Connection
+    // Set to currentConnection
     if (SetConnection) {
         CurrentConnectionName = guiConnectionName;
     }
@@ -791,60 +631,59 @@ void MainWindow::on_connectionListWidget_itemChanged(QTreeWidgetItem *item, int)
 {
     DEBUG(MODULE_UI, "A connection ListViewItem is changed.")
 
-    if (isRenamingInProgress) {
-        // Should not rename a config from subscription?
-        // In this case it's after we entered the name.
-        LOG(MODULE_CONNECTION, "RENAME: " + renameOriginalName.toStdString() + " -> " + item->text(0).toStdString())
-        auto newName = item->text(0);
+    if (!isRenamingInProgress) return;
 
-        // If I really did some changes.
-        if (renameOriginalName != newName) {
-            bool canGo = true;
+    isRenamingInProgress = false;
+    // In this case it's after we entered the name.
+    // and tell user you should not rename a config from subscription.
+    auto newName = item->text(0);
+    LOG(MODULE_CONNECTION, "RENAME: " + renameOriginalName.toStdString() + " -> " + newName.toStdString())
 
-            if (newName.trimmed().isEmpty()) {
-                QvMessageBox(this, tr("Rename a Connection"), tr("The name cannot be empty"));
-                canGo = false;
-            }
+    // If I really did some changes.
+    if (renameOriginalName != newName) {
+        bool canContinueRename = true;
 
-            if (contains(currentConfig.configs, newName.toStdString())) {
-                QvMessageBox(this, tr("Rename a Connection"), tr("The name has been used already, Please choose another."));
-                canGo = false;
-            }
-
-            if (!IsValidFileName(newName + QV2RAY_CONFIG_FILE_EXTENSION)) {
-                QvMessageBox(this, tr("Rename a Connection"), tr("The name you suggested is not valid, please try another."));
-                canGo = false;
-            }
-
-            if (!canGo) {
-                item->setText(0, renameOriginalName);
-                return;
-            }
-
-            //
-            // Change auto start config.
-            if (renameOriginalName.toStdString() == currentConfig.autoStartConfig.connectionName && currentConfig.autoStartConfig.subscriptionName.empty()) {
-                currentConfig.autoStartConfig.connectionName = newName.toStdString();
-            }
-
-            //configList[configList.indexOf(originalName.toStdString())] = newName.toStdString();
-            currentConfig.configs.remove(renameOriginalName.toStdString());
-            currentConfig.configs.push_back(newName.toStdString());
-            //
-            RenameConnection(renameOriginalName, newName);
-            //
-            LOG(MODULE_UI, "Saving a global config")
-            SetGlobalConfig(currentConfig);
-            bool running = CurrentConnectionName == renameOriginalName;
-
-            if (running) CurrentConnectionName = newName;
-
-            OnConfigListChanged(running);
-            //auto newItem = connectionListWidget->findItems(newName, Qt::MatchExactly | Qt::MatchRecursive).front();
-            //connectionListWidget->setCurrentItem(newItem);
+        if (newName.trimmed().isEmpty()) {
+            QvMessageBox(this, tr("Rename a Connection"), tr("The name cannot be empty"));
+            canContinueRename = false;
         }
 
-        isRenamingInProgress = false;
+        if (contains(currentConfig.configs, newName.toStdString())) {
+            QvMessageBox(this, tr("Rename a Connection"), tr("The name has been used already, Please choose another."));
+            canContinueRename = false;
+        }
+
+        if (!IsValidFileName(newName + QV2RAY_CONFIG_FILE_EXTENSION)) {
+            QvMessageBox(this, tr("Rename a Connection"), tr("The name you suggested is not valid, please try another."));
+            canContinueRename = false;
+        }
+
+        if (!canContinueRename) {
+            // Set the item text back
+            assert(item != nullptr); // Let's say the item should not be null
+            item->setText(0, renameOriginalName);
+            return;
+        }
+
+        // Change auto start config.
+        //  |--------------=== In case it's not in a subscription --|
+        if (currentConfig.autoStartConfig.subscriptionName.empty() && renameOriginalName.toStdString() == currentConfig.autoStartConfig.connectionName) {
+            currentConfig.autoStartConfig.connectionName = newName.toStdString();
+        }
+
+        // Replace the items in the current loaded config list and settings.
+        currentConfig.configs.remove(renameOriginalName.toStdString());
+        currentConfig.configs.push_back(newName.toStdString());
+        connections[newName] = connections.take(renameOriginalName);
+        RenameConnection(renameOriginalName, newName);
+        LOG(MODULE_UI, "Saving a global config")
+        SetGlobalConfig(currentConfig);
+
+        if (CurrentConnectionName == renameOriginalName)
+            CurrentConnectionName = newName;
+
+        // Trigger change of the connection list will summon a SegFault
+        //OnConfigListChanged(running);
     }
 }
 void MainWindow::on_removeConfigButton_clicked()
@@ -860,6 +699,7 @@ void MainWindow::on_removeConfigButton_clicked()
     LOG(MODULE_UI, "Selected " + to_string(connlist.count()) + " items")
 
     if (connlist.isEmpty()) {
+        // Remove nothing means doing nothing.
         return;
     }
 
@@ -867,6 +707,7 @@ void MainWindow::on_removeConfigButton_clicked()
         return;
     }
 
+    // A triple-state flag which indicates if the user wants to remove the configs loaded from a subscription.
     int subscriptionRemovalCheckStatus = -1;
 
     for (auto name : connlist) {
@@ -879,7 +720,9 @@ void MainWindow::on_removeConfigButton_clicked()
 
         // Remove auto start config.
         if (currentConfig.autoStartConfig.subscriptionName == connData.subscriptionName.toStdString() &&
-            currentConfig.autoStartConfig.connectionName == connData.connectionName.toStdString()) {
+            currentConfig.autoStartConfig.connectionName == connData.connectionName.toStdString())
+            // If all those settings match.
+        {
             currentConfig.autoStartConfig.subscriptionName.clear();
             currentConfig.autoStartConfig.connectionName.clear();
         }
@@ -1045,21 +888,36 @@ void MainWindow::on_editJsonBtn_clicked()
 }
 void MainWindow::on_pingTestBtn_clicked()
 {
-    // Ping
-    if (!IsSelectionConnectable) {
-        return;
+    // Get data from UI
+    QStringList aliases;
+    auto selection = connectionListWidget->selectedItems();
+
+    if (selection.count() == 0) {
+        // Ping ALL connections, warning.
+        if (QvMessageBoxAsk(this, tr("Latency Test"), tr("You are about to run latency test on all servers, do you want to continue?")) == QMessageBox::Yes) {
+            aliases.append(connections.keys());
+        }
+    } else if (selection.count() == 1) {
+        if (IsSelectionConnectable) {
+            // Current selection is a config
+            aliases.append(selection.first()->text(0));
+        } else {
+            // Current selection is a subscription or... something else strange.
+            // So we add another check to make sure the selected one is a subscription entry.
+            if (selection.first()->childCount() > 0) {
+                // Loop to add all sub-connections to the list.
+                for (auto i = 0; i < selection.first()->childCount(); i++) {
+                    aliases.append(selection.first()->child(i)->text(0));
+                }
+            }
+        }
     }
 
+    LOG(MODULE_UI, "Will perform latency test on " + to_string(aliases.count()) + " hosts.")
     latencyLabel->setText(tr("Testing..."));
-    // We get data from UI?
-    auto alias = connectionListWidget->currentItem()->text(0);
 
-    try {
-        int port = -1;
-        port = stoi(_portLabel->text().isEmpty() ? "0" : _portLabel->text().toStdString());
-        tcpingModel->StartPing(alias, _hostLabel->text(), port);
-    }  catch (...) {
-        QvMessageBox(this, tr("Latency Test"), tr("Failed to test latency for this connection."));
+    for (auto alias : aliases) {
+        MWTryPingConnection(alias);
     }
 }
 void MainWindow::on_shareBtn_clicked()
@@ -1120,7 +978,6 @@ void MainWindow::timerEvent(QTimerEvent *event)
         max = MAX(MAX(graphVUp, graphVDown), historyMax);
         speedChartObj->axes(Qt::Vertical).first()->setRange(0, max * 1.2);
         //
-        //
         auto totalSpeedUp = FormatBytes(_totalSpeedUp) + "/s";
         auto totalSpeedDown = FormatBytes(_totalSpeedDown) + "/s";
         auto totalDataUp = FormatBytes(_totalDataUp);
@@ -1129,8 +986,8 @@ void MainWindow::timerEvent(QTimerEvent *event)
         netspeedLabel->setText(totalSpeedUp + NEWLINE + totalSpeedDown);
         dataamountLabel->setText(totalDataUp + NEWLINE + totalDataDown);
         //
-        hTray->setToolTip(TRAY_TOOLTIP_PREFIX NEWLINE + tr("Connected: ") + CurrentConnectionName + NEWLINE
-                          "Up: " + totalSpeedUp + " Down: " + totalSpeedDown);
+        hTray->setToolTip(TRAY_TOOLTIP_PREFIX NEWLINE +
+                          tr("Connected: ") + CurrentConnectionName + NEWLINE "Up: " + totalSpeedUp + " Down: " + totalSpeedDown);
     } else if (event->timerId() == logTimerId) {
         QString lastLog = readLastLog();
 
@@ -1138,7 +995,7 @@ void MainWindow::timerEvent(QTimerEvent *event)
             qvAppLogBrowser->append(lastLog);
         }
     } else if (event->timerId() == pingTimerId) {
-        on_pingTestBtn_clicked();
+        MWTryPingConnection(CurrentConnectionName);
     }
 }
 void MainWindow::on_duplicateBtn_clicked()
@@ -1172,7 +1029,6 @@ void MainWindow::on_subsButton_clicked()
     w.exec();
     OnConfigListChanged(false);
 }
-
 
 void MainWindow::on_connectionListWidget_itemSelectionChanged()
 {

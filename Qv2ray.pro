@@ -41,6 +41,7 @@ SOURCES += \
         src/QvCoreConfigOperations_Convertion.cpp \
         src/QvCoreConfigOperations_Generation.cpp \
         src/QvUtils.cpp \
+        src/ui/w_MainWindow_extra.cpp \
         src/ui/w_PreferencesWindow.cpp \
         src/utils/QvHelpers.cpp \
         src/utils/QJsonModel.cpp \

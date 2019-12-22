@@ -55,33 +55,19 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         void ToggleVisibility();
         void quit();
         void on_actionExit_triggered();
-
         void on_preferencesBtn_clicked();
-
         void on_connectionListWidget_doubleClicked(const QModelIndex &index);
-
         void on_clearlogButton_clicked();
-
         void on_connectionListWidget_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous);
-
         void on_connectionListWidget_customContextMenuRequested(const QPoint &pos);
-
         void on_connectionListWidget_itemChanged(QTreeWidgetItem *item, int column);
-
         void on_removeConfigButton_clicked();
-
         void on_importConfigButton_clicked();
-
         void on_editConfigButton_clicked();
-
         void on_editJsonBtn_clicked();
-
         void on_pingTestBtn_clicked();
-
         void on_shareBtn_clicked();
-
         void on_duplicateBtn_clicked();
-
         void on_subsButton_clicked();
 
     public:
@@ -106,7 +92,6 @@ class MainWindow : public QMainWindow, Ui::MainWindow
     private:
         void SetEditWidgetEnable(bool enabled);
         void ShowAndSetConnection(QString currentText, bool SetConnection, bool Apply);
-        void ReloadConnections();
         Qv2rayConfig currentConfig;
         //
         // Charts
@@ -157,7 +142,15 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         QAction *action_Tray_SetSystemProxy;
         QAction *action_Tray_ClearSystemProxy;
         //
-
+        // ----------------------------------- Extra Headers For w_MainWindow_extra.cpp Handling v2ray Connectivities.
+        bool systemProxyEnabled;
+        void MWFindAndStartAutoConfig();
+        bool MWtryStartConnection();
+        void MWStopConnection();
+        void MWTryPingConnection(const QString &alias);
+        tuple<QString, int, QString> MWGetConnectionPortNumber(const QString &alias);
+        void MWSetSystemProxy();
+        void MWClearSystemProxy(bool);
 };
 
 #endif // MAINWINDOW_H
