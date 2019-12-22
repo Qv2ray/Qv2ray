@@ -8,6 +8,19 @@
 #include <QListWidgetItem>
 #include "QvUtils.hpp"
 
+#include "Node.hpp"
+#include "FlowScene.hpp"
+#include "FlowView.hpp"
+#include "DataModelRegistry.hpp"
+#include "ConnectionStyle.hpp"
+
+using QtNodes::DataModelRegistry;
+using QtNodes::FlowScene;
+using QtNodes::FlowView;
+using QtNodes::ConnectionStyle;
+using QtNodes::TypeConverter;
+using QtNodes::TypeConverterId;
+
 #include "ui_w_RoutesEditor.h"
 class RouteEditor : public QDialog, private Ui::RouteEditor
 {
