@@ -19,6 +19,10 @@ class ConfigExporter : public QDialog, private Ui::ExportConfigWindow
 
         void on_saveBtn_clicked();
 
+        void on_copyImageBtn_clicked();
+
+        void on_copyVMessBtn_clicked();
+
     private:
         explicit ConfigExporter(QWidget *parent);
         QZXing qzxing;

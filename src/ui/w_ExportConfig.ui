@@ -6,16 +6,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>532</width>
-    <height>666</height>
+    <width>661</width>
+    <height>347</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Export Config</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout" stretch="10,0,3,0">
-   <item>
+  <layout class="QGridLayout" name="gridLayout" rowstretch="1,0" columnstretch="1,1">
+   <item row="0" column="0">
     <widget class="QLabel" name="imageLabel">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
      <property name="frameShape">
       <enum>QFrame::Box</enum>
      </property>
@@ -31,23 +34,60 @@
      <property name="alignment">
       <set>Qt::AlignCenter</set>
      </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QLabel" name="label_2">
-     <property name="text">
-      <string>Text Message</string>
+     <property name="textInteractionFlags">
+      <set>Qt::NoTextInteraction</set>
      </property>
     </widget>
    </item>
-   <item>
-    <widget class="QPlainTextEdit" name="messageTxt">
-     <property name="readOnly">
-      <bool>true</bool>
+   <item row="0" column="1">
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>Share Options</string>
      </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>VMess Connection String</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPlainTextEdit" name="messageTxt">
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QPushButton" name="saveBtn">
+          <property name="text">
+           <string>Save Image</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="copyImageBtn">
+          <property name="text">
+           <string>Copy Image</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="copyVMessBtn">
+          <property name="text">
+           <string>Copy VMess</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
     </widget>
    </item>
-   <item>
+   <item row="1" column="0" colspan="2">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <spacer name="horizontalSpacer">
@@ -63,13 +103,6 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="saveBtn">
-       <property name="text">
-        <string>Save</string>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="QPushButton" name="closeBtn">
        <property name="text">
         <string>OK</string>
@@ -80,6 +113,13 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>messageTxt</tabstop>
+  <tabstop>saveBtn</tabstop>
+  <tabstop>copyImageBtn</tabstop>
+  <tabstop>copyVMessBtn</tabstop>
+  <tabstop>closeBtn</tabstop>
+ </tabstops>
  <resources>
   <include location="../../resources.qrc"/>
  </resources>

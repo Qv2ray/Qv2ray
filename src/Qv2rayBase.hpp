@@ -29,7 +29,6 @@
 #define QV2RAY_CONFIG_DIR (Qv2ray::Utils::GetConfigDirPath())
 #define QV2RAY_CONFIG_FILE (QV2RAY_CONFIG_DIR + "Qv2ray.conf")
 #define QV2RAY_SUBSCRIPTION_DIR (QV2RAY_CONFIG_DIR + "subscriptions/")
-#define QV2RAY_QRCODE_DIR (QV2RAY_CONFIG_DIR + "qr_images/")
 
 // Get GFWList and PAC file path.
 #define QV2RAY_RULES_DIR (QV2RAY_CONFIG_DIR + "rules/")
