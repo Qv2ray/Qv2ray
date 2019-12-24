@@ -2413,7 +2413,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="251"/>
       <source>Add Freedom outbound</source>
-      <translation type="unfinished">Add Freedom outbound</translation>
+      <translation>Добавить исходящую свободу</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="254"/>
@@ -2423,7 +2423,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="261"/>
       <source>Add blackhole outbound</source>
-      <translation type="unfinished">Add blackhole outbound</translation>
+      <translation>Добавить исходящую чёрную дыру</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="264"/>

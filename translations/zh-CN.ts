@@ -98,7 +98,7 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="117"/>
       <source>VMess / QRCode</source>
-      <translation>VMess和QRCode</translation>
+      <translation>VMess和二维码</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="123"/>
@@ -108,7 +108,7 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="132"/>
       <source>From QRCode File</source>
-      <translation>从 QRCode 文件</translation>
+      <translation>从包含二维码的文件</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="160"/>
@@ -255,7 +255,7 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="207"/>
       <source>Failed to save file, please check if you have proper permissions</source>
-      <translation>保存文件失败，请检查您是否拥有所需的权限</translation>
+      <translation>保存文件失败，请检查您是否拥有所需的权限。</translation>
     </message>
   </context>
   <context>
@@ -473,7 +473,7 @@
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="705"/>
       <source>If you want to use tProxy, please go to Prefrence Window to enable this feature.</source>
-      <translation>如果你想使用tProxy，请到首选项窗口启用此功能。</translation>
+      <translation>如果您想要使用 tProxy，请前往首选窗口启用此功能。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="719"/>
@@ -566,12 +566,12 @@
       <location filename="../src/ui/w_JsonEditor.cpp" line="18"/>
       <location filename="../src/ui/w_JsonEditor.cpp" line="32"/>
       <source>Json Contains Syntax Errors</source>
-      <translation>Json包含语法错误</translation>
+      <translation>JSON 包含语法错误</translation>
     </message>
     <message>
       <location filename="../src/ui/w_JsonEditor.cpp" line="18"/>
       <source>Original Json may contain syntax errors. Json tree is disabled.</source>
-      <translation>原Json可能包含语法错误。Json 树被禁用。</translation>
+      <translation>原 JSON 可能包含语法错误，JSON 树被禁用。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_JsonEditor.cpp" line="32"/>
@@ -586,7 +586,7 @@
     <message>
       <location filename="../src/ui/w_JsonEditor.cpp" line="72"/>
       <source>Please fix the JSON errors before continue</source>
-      <translation>请先修复JSON错误，然后继续</translation>
+      <translation>请先修复 JSON 错误，然后继续。</translation>
     </message>
   </context>
   <context>
@@ -1554,12 +1554,12 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="138"/>
       <source>Darkmode UI Icons</source>
-      <translation>深色UI图标</translation>
+      <translation>黑暗模式 UI 图标</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="145"/>
       <source>Darkmode Tray Icon</source>
-      <translation>深色托盘图标</translation>
+      <translation>黑暗模式托盘图标</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="281"/>
@@ -1809,7 +1809,7 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="1386"/>
       <source>This feature for Windows is not stable yet.</source>
-      <translation>Windows的此功能尚不稳定。</translation>
+      <translation>Windows 的此功能尚不稳定。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="1394"/>
@@ -1915,7 +1915,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="46"/>
       <source>Use Darkmode Theme</source>
-      <translation>使用深色主题</translation>
+      <translation>使用暗色主题</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="119"/>
@@ -1987,7 +1987,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="746"/>
       <source>Dark Mode</source>
-      <translation>深色模式</translation>
+      <translation>夜间模式</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.cpp" line="746"/>
