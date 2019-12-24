@@ -98,7 +98,7 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="117"/>
       <source>VMess / QRCode</source>
-      <translation>VMess和QRCode</translation>
+      <translation>VMess和二维码</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="123"/>
@@ -108,7 +108,7 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="132"/>
       <source>From QRCode File</source>
-      <translation>从 QRCode 文件</translation>
+      <translation>从包含二维码的文件</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="160"/>
@@ -255,7 +255,7 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="207"/>
       <source>Failed to save file, please check if you have proper permissions</source>
-      <translation>保存文件失败，请检查您是否拥有所需的权限</translation>
+      <translation>保存文件失败，请检查您是否拥有所需的权限。</translation>
     </message>
   </context>
   <context>
@@ -566,12 +566,12 @@
       <location filename="../src/ui/w_JsonEditor.cpp" line="18"/>
       <location filename="../src/ui/w_JsonEditor.cpp" line="32"/>
       <source>Json Contains Syntax Errors</source>
-      <translation>Json包含语法错误</translation>
+      <translation>JSON 包含语法错误</translation>
     </message>
     <message>
       <location filename="../src/ui/w_JsonEditor.cpp" line="18"/>
       <source>Original Json may contain syntax errors. Json tree is disabled.</source>
-      <translation>原Json可能包含语法错误。Json 树被禁用。</translation>
+      <translation>原 JSON 可能包含语法错误，JSON 树被禁用。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_JsonEditor.cpp" line="32"/>
@@ -586,7 +586,7 @@
     <message>
       <location filename="../src/ui/w_JsonEditor.cpp" line="72"/>
       <source>Please fix the JSON errors before continue</source>
-      <translation>请先修复JSON错误，然后继续</translation>
+      <translation>请先修复 JSON 错误，然后继续。</translation>
     </message>
   </context>
   <context>
