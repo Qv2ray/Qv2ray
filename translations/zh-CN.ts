@@ -1554,12 +1554,12 @@
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="138"/>
       <source>Darkmode UI Icons</source>
-      <translation>深色UI图标</translation>
+      <translation>黑暗模式 UI 图标</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="145"/>
       <source>Darkmode Tray Icon</source>
-      <translation>深色托盘图标</translation>
+      <translation>黑暗模式托盘图标</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PrefrencesWindow.ui" line="281"/>
