@@ -5,15 +5,17 @@
 #include <QJsonObject>
 #include <QListWidgetItem>
 #include "ui_w_InboundEditor.h"
+#include "QvUtils.hpp"
+#include "QvCoreConfigOperations.hpp"
 
 class InboundEditor : public QDialog, private Ui::InboundEditor
 {
         Q_OBJECT
 
     public:
-        explicit InboundEditor(QJsonObject root, QWidget *parent = nullptr);
+        explicit InboundEditor(INBOUND root, QWidget *parent = nullptr);
         ~InboundEditor();
-        QJsonObject OpenEditor();
+        INBOUND OpenEditor();
 
     private slots:
         void on_inboundProtocolCombo_currentIndexChanged(const QString &arg1);
@@ -79,10 +81,10 @@ class InboundEditor : public QDialog, private Ui::InboundEditor
         void on_socksAuthCombo_currentIndexChanged(const QString &arg1);
 
     private:
-        QJsonObject GenerateNewRoot();
+        INBOUND GenerateNewRoot();
         void LoadUIData();
-        QJsonObject original;
-        QJsonObject root;
+        INBOUND original;
+        INBOUND root;
         //
         QJsonObject httpSettings;
         QJsonObject socksSettings;

@@ -5,10 +5,10 @@
 // Forwarded from QvTinyLog
 static QQueue<QString> __loggerBuffer;
 
-void _LOG(const std::string &module, const std::string &log)
+void _LOG(const std::string &func, const std::string &module, const std::string &log)
 {
     string logString = "[" + module + "]: " + log;
-    cout << logString << endl;
+    cout << func << logString << endl;
     __loggerBuffer.enqueue((logString + NEWLINE).c_str());
 }
 
@@ -243,6 +243,16 @@ namespace Qv2ray
             }
 
             return listQt;
+        }
+        std::list<string> ConvertStdStringList(const QStringList &qStringList)
+        {
+            std::list<string> stdList;
+
+            for (auto &s : qStringList) {
+                stdList.push_back(s.toStdString());
+            }
+
+            return stdList;
         }
     }
 }

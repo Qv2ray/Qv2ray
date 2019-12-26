@@ -192,40 +192,6 @@ tuple<QString, int, QString> MainWindow::MWGetConnectionPortNumber(const QString
         return make_tuple(tr("N/A"), 0, tr("N/A"));
 
     auto root = connections[alias].config;
-    bool validOutboundFound = false;
-    QString host;
-    int port;
-
-    for (auto item : root["outbounds"].toArray()) {
-        OUTBOUND outBoundRoot = OUTBOUND(item.toObject());
-        auto outboundType = outBoundRoot["protocol"].toString();
-
-        if (outboundType == "vmess") {
-            auto Server = StructFromJsonString<VMessServerObject>(JsonToString(outBoundRoot["settings"].toObject()["vnext"].toArray().first().toObject()));
-            host = QSTRING(Server.address);
-            port = Server.port;
-            validOutboundFound = true;
-        } else if (outboundType == "shadowsocks") {
-            auto x = JsonToString(outBoundRoot["settings"].toObject()["servers"].toArray().first().toObject());
-            auto Server = StructFromJsonString<ShadowSocksServerObject>(x);
-            host = QSTRING(Server.address);
-            port = Server.port;
-            validOutboundFound = true;
-        } else if (outboundType == "socks") {
-            auto x = JsonToString(outBoundRoot["settings"].toObject()["servers"].toArray().first().toObject());
-            auto Server = StructFromJsonString<SocksServerObject>(x);
-            host = QSTRING(Server.address);
-            port = Server.port;
-            validOutboundFound = true;
-        }
-
-        if (validOutboundFound) {
-            return make_tuple(host, port, outboundType);
-        } else {
-            LOG(MODULE_UI, "Unknown outbound entry, possible very strange config file.")
-        }
-    }
-
-    return make_tuple(tr("N/A"), 0, tr("N/A"));
+    return GetConnectionInfo(root);
 }
 

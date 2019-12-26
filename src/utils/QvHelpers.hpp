@@ -33,6 +33,7 @@ namespace Qv2ray
         QString ConvertGFWToPAC(const QString &rawContent, const QString &customProxyString);
         void QFastAppendTextDocument(const QString &message, QTextDocument *doc);
         QStringList ConvertQStringList(const QList<string> &stdListString);
+        std::list<string> ConvertStdStringList(const QStringList &qStringList);
         //
         template <typename TYPE>
         QString StructToJsonString(const TYPE t)
@@ -95,6 +96,55 @@ namespace Qv2ray
             return QList<TYPE>::fromStdList(list);
 #endif
         }
+
+        // THIS IS ADDED FOR c++11
+        template<typename T, typename... Args>
+        std::unique_ptr<T> make_unique(Args &&... args)
+        {
+            return std::unique_ptr<T>(new T(std::forward<Args>(args)...));
+        }
+    }
+
+    namespace mapExt
+    {
+        template<typename myMap>
+        std::vector<typename myMap::key_type> Keys(const myMap &m)
+        {
+            std::vector<typename myMap::key_type> r;
+            r.reserve(m.size());
+
+            for (const auto &kvp : m) {
+                r.push_back(kvp.first);
+            }
+
+            return r;
+        }
+
+        template<typename myMap>
+        std::vector<typename myMap::mapped_type> Values(const myMap &m)
+        {
+            std::vector<typename myMap::mapped_type> r;
+            r.reserve(m.size());
+
+            for (const auto &kvp : m) {
+                r.push_back(kvp.second);
+            }
+
+            return r;
+        }
+    }
+
+    /*
+     * Generic function to find if an element of any type exists in list
+     */
+    template<typename T>
+    bool contains(std::list<T> &listOfElements, const T &element)
+    {
+        // Find the iterator if element in list
+        auto it = std::find(listOfElements.begin(), listOfElements.end(), element);
+        //return if iterator points to end or not. It points to end then it means element
+        // does not exists in list
+        return it != listOfElements.end();
     }
 }
 #endif // QVHELPERS_H

@@ -530,7 +530,7 @@ void MainWindow::quit()
     StopProcessingPlugins();
     tcpingModel->StopAllPing();
     on_stopButton_clicked();
-    QApplication::quit();
+    ExitQv2ray();
 }
 void MainWindow::on_actionExit_triggered()
 {

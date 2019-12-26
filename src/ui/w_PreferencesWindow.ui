@@ -1370,7 +1370,7 @@
           <string notr="true">color: red</string>
          </property>
          <property name="text">
-          <string>This feature for Windows is not stable yet.</string>
+          <string>This feature is not stable enough.</string>
          </property>
         </widget>
        </item>

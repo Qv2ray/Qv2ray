@@ -5,15 +5,12 @@ namespace Qv2ray
 {
     namespace Components
     {
-        static bool isExiting = false;
         QvTCPingModel::QvTCPingModel(int defaultCount, QObject *parent) : QObject(parent)
         {
             count = defaultCount;
         }
         void QvTCPingModel::StopAllPing()
         {
-            isExiting = true;
-
             while (!pingWorkingThreads.isEmpty()) {
                 auto worker = pingWorkingThreads.dequeue();
                 worker->future().cancel();
@@ -45,7 +42,7 @@ namespace Qv2ray
 
         QvTCPingData QvTCPingModel::startTestLatency(QvTCPingData data, const int count)
         {
-            if (isExiting) return QvTCPingData();
+            if (isExiting()) return QvTCPingData();
 
             double successCount = 0, errorCount = 0;
             addrinfo *resolved;
@@ -64,7 +61,7 @@ namespace Qv2ray
             int currentCount = 0;
 
             while (currentCount < count) {
-                if (isExiting) return QvTCPingData();
+                if (isExiting()) return QvTCPingData();
 
                 timeval rtt;
 
@@ -105,7 +102,7 @@ namespace Qv2ray
 
         int QvTCPingModel::resolveHost(const string &host, int port, addrinfo **res)
         {
-            if (isExiting) return 0;
+            if (isExiting()) return 0;
 
             addrinfo hints;
 #ifdef _WIN32
@@ -123,7 +120,7 @@ namespace Qv2ray
 
         int QvTCPingModel::testLatency(struct addrinfo *addr, struct timeval *rtt)
         {
-            if (isExiting) return 0;
+            if (isExiting()) return 0;
 
             int fd;
             struct timeval start;
@@ -134,7 +131,7 @@ namespace Qv2ray
 
             /* try to connect for each of the entries: */
             while (addr != nullptr) {
-                if (isExiting) return 0;
+                if (isExiting()) return 0;
 
                 /* create socket */
                 if ((fd = socket(addr->ai_family, addr->ai_socktype, addr->ai_protocol)) == -1)
@@ -154,7 +151,7 @@ namespace Qv2ray
 
                 /* connect to peer */
                 // Qt has its own connect() function in QObject....
-                // So we add "::" here.s
+                // So we add "::" here
                 if ((connect_result = ::connect(fd, addr->ai_addr, addr->ai_addrlen)) == 0) {
                     if (gettimeofday(rtt, nullptr) == -1)
                         goto next_addr1;

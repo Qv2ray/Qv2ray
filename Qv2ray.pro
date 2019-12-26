@@ -41,8 +41,12 @@ SOURCES += \
         src/QvCoreConfigOperations_Convertion.cpp \
         src/QvCoreConfigOperations_Generation.cpp \
         src/QvUtils.cpp \
+        src/ui/routeNodeModels/QvInboundNodeModel.cpp \
+        src/ui/routeNodeModels/QvOutboundNodeModel.cpp \
+        src/ui/routeNodeModels/QvRuleNodeModel.cpp \
         src/ui/w_MainWindow_extra.cpp \
         src/ui/w_PreferencesWindow.cpp \
+        src/ui/w_RoutesEditor_extra.cpp \
         src/utils/QvHelpers.cpp \
         src/utils/QJsonModel.cpp \
         src/ui/w_ExportConfig.cpp \
@@ -79,6 +83,10 @@ HEADERS += \
         src/components/QvPACHandler.hpp \
         src/components/QvSystemProxyConfigurator.hpp \
         src/components/QvTCPing.hpp \
+        src/ui/routeNodeModels/QvInboundNodeModel.hpp \
+        src/ui/routeNodeModels/QvNodeModelsBase.hpp \
+        src/ui/routeNodeModels/QvOutboundNodeModel.hpp \
+        src/ui/routeNodeModels/QvRuleNodeModel.hpp \
         src/ui/w_ExportConfig.hpp \
         src/ui/w_ImportConfig.hpp \
         src/ui/w_InboundEditor.hpp \
@@ -161,7 +169,7 @@ message("Qv2ray will build with" $${replace(EXTRA_TRANSLATIONS, "translations/",
 TRANSLATIONS += translations/en-US.ts
 
 message(" ")
-QMAKE_CXXFLAGS += -Wno-missing-field-initializers -Wno-unused-parameter -Wno-unused-variable
+#QMAKE_CXXFLAGS += -Wno-missing-field-initializers -Wno-unused-parameter -Wno-unused-variable
 
 message("Adding QHttpServer Support")
 message("  --> Adding qhttpserver")
