@@ -169,12 +169,23 @@ message("Qv2ray will build with" $${replace(EXTRA_TRANSLATIONS, "translations/",
 TRANSLATIONS += translations/en-US.ts
 
 message(" ")
-#QMAKE_CXXFLAGS += -Wno-missing-field-initializers -Wno-unused-parameter -Wno-unused-variable
+QMAKE_CXXFLAGS += -Wno-missing-field-initializers -Wno-unused-parameter -Wno-unused-variable
 
 message("Adding QHttpServer Support")
 message("  --> Adding qhttpserver")
-HEADERS += $$PWD/3rdparty/qhttpserver/src/*.h
-SOURCES += $$PWD/3rdparty/qhttpserver/src/*.cpp
+HEADERS += \
+    $$PWD/3rdparty/qhttpserver/src/qhttpconnection.h \
+    $$PWD/3rdparty/qhttpserver/src/qhttprequest.h \
+    $$PWD/3rdparty/qhttpserver/src/qhttpresponse.h \
+    $$PWD/3rdparty/qhttpserver/src/qhttpserver.h \
+    $$PWD/3rdparty/qhttpserver/src/qhttpserverapi.h \
+    $$PWD/3rdparty/qhttpserver/src/qhttpserverfwd.h
+SOURCES += \
+    $$PWD/3rdparty/qhttpserver/src/qhttpconnection.cpp \
+    $$PWD/3rdparty/qhttpserver/src/qhttprequest.cpp \
+    $$PWD/3rdparty/qhttpserver/src/qhttpresponse.cpp \
+    $$PWD/3rdparty/qhttpserver/src/qhttpserver.cpp
+
 INCLUDEPATH += 3rdparty/qhttpserver/src/
 
 message("  --> Adding http parser")
