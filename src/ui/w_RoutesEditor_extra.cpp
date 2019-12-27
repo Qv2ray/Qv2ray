@@ -21,7 +21,7 @@ void RouteEditor::AddNewInbound(INBOUND in)
 
 void RouteEditor::AddNewOutbound(OUTBOUND out)
 {
-    QString tag = out["tag"].toString();
+    QString tag = getTag(out);
     auto _nodeData = make_unique<QvOutboundNodeModel>(make_shared<OutboundNodeData>(tag));
     auto pos = nodeGraphWidget->pos();
     pos.setX(pos.x() + 850 + GRAPH_GLOBAL_OFFSET_X);
@@ -29,7 +29,8 @@ void RouteEditor::AddNewOutbound(OUTBOUND out)
     auto &node = nodeScene->createNode(std::move(_nodeData));
     nodeScene->setNodePosition(node, pos);
     outboundNodes[tag] = &node;
-    outbounds[getTag(out)] = out;
+    outbounds[tag] = out;
+    defaultOutboundCombo->addItem(tag);
 }
 
 void RouteEditor::AddNewRule(RuleObject rule)
@@ -58,13 +59,36 @@ void RouteEditor::AddNewRule(RuleObject rule)
     }
 
     this->ruleNodes[QSTRING(rule.QV2RAY_RULE_TAG)] = &node;
+    ruleListWidget->addItem(QSTRING(rule.QV2RAY_RULE_TAG));
 }
 
 void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString &originalTag, const QString &newTag)
 {
     switch (mode) {
         case RENAME_RULE:
-            Q_UNREACHABLE();
+            if (rules.contains(originalTag) && ruleNodes.contains(originalTag)) {
+                if (rules.contains(newTag) && rules.contains(newTag)) {
+                    QvMessageBox(this, tr("Rename tags"), tr("The new tag has been used, please suggest another."));
+                    return;
+                }
+
+                rules[newTag] = rules.take(originalTag);
+                ruleNodes[newTag] = ruleNodes.take(originalTag);
+                //
+                rules[newTag].QV2RAY_RULE_TAG = newTag.toStdString();
+
+                if (currentRuleTag == originalTag) {
+                    currentRuleTag = newTag;
+                }
+
+                //
+                auto node = static_cast<QvRuleNodeDataModel *>(ruleNodes[newTag]->nodeDataModel());
+                node->setData(newTag);
+                // No other operation needed, but need to rename the one in the ruleOrder list widget.
+                auto item = ruleListWidget->findItems(originalTag, Qt::MatchExactly).first();
+                item->setText(newTag);
+            }
+
             break;
 
         case RENAME_OUTBOUND:
@@ -78,7 +102,6 @@ void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString &originalTag
                 outboundNodes[newTag] = outboundNodes.take(originalTag);
                 auto node = static_cast<QvOutboundNodeModel *>(outboundNodes[newTag]->nodeDataModel());
                 node->setData(newTag);
-                node->dataUpdated(0);
 
                 // Change outbound tag in rules accordingly.
                 for (auto k : rules.keys()) {

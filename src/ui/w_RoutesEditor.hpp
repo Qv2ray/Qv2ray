@@ -100,6 +100,13 @@ class RouteEditor : public QDialog, private Ui::RouteEditor
         void on_delBtn_clicked();
 
         void on_editBtn_clicked();
+
+        void on_domainStrategyCombo_currentIndexChanged(const QString &arg1);
+
+        void on_defaultOutboundCombo_currentIndexChanged(const QString &arg1);
+
+        void on_ruleTagLineEdit_textEdited(const QString &arg1);
+
     public slots:
         void onNodeClicked(QtNodes::Node &n);
         void onConnectionCreated(QtNodes::Connection const &c);
@@ -111,8 +118,9 @@ class RouteEditor : public QDialog, private Ui::RouteEditor
         //
         QString currentRuleTag;
         QString currentInboundOutboundTag;
-        QMap<QString, QStringList> Balancers;
-        QString DomainStrategy;
+        QMap<QString, QStringList> balancers;
+        QString domainStrategy;
+        QString defaultOutbound;
         //
         QMap<QString, INBOUND> inbounds;
         QMap<QString, OUTBOUND> outbounds;

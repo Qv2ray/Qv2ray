@@ -66,6 +66,7 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QDialog(pare
     //
     SetupNodeWidget();
     //
+    // Setup icons according to the theme settings.
     addInboundBtn->setIcon(QICON_R("add.png"));
     addOutboundBtn->setIcon(QICON_R("add.png"));
     editBtn->setIcon(QICON_R("edit.png"));
@@ -73,7 +74,9 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QDialog(pare
     delBtn->setIcon(QICON_R("delete.png"));
     balancerAddBtn->setIcon(QICON_R("add.png"));
     balancerDelBtn->setIcon(QICON_R("delete.png"));
-    DomainStrategy = root["routing"].toObject()["domainStrategy"].toString();
+    //
+    domainStrategy = root["routing"].toObject()["domainStrategy"].toString();
+    domainStrategyCombo->setCurrentText(domainStrategy);
 
     // Show connections in the node graph
     for (auto in : root["inbounds"].toArray()) {
@@ -91,12 +94,15 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QDialog(pare
         AddNewRule(_rule);
     }
 
+    // Set default outboung combo text AFTER adding all outbounds.
+    defaultOutboundCombo->setCurrentText(root["outbounds"].toArray().first().toObject()["tag"].toString());
+
     // Find and add balancers.
     for (auto _balancer : root["routing"].toObject()["balancers"].toArray()) {
         auto _balancerObject = _balancer.toObject();
 
         if (!_balancerObject["tag"].toString().isEmpty()) {
-            Balancers[_balancerObject["tag"].toString()] = _balancerObject["selector"].toVariant().toStringList();
+            balancers[_balancerObject["tag"].toString()] = _balancerObject["selector"].toVariant().toStringList();
         }
     }
 
@@ -118,6 +124,7 @@ void RouteEditor::onNodeClicked(Node &n)
         currentRuleTag = GetFirstNodeData(n, QvRuleNodeDataModel, RuleNodeData)->GetRuleTag();
         DEBUG(MODULE_GRAPH, "Selecting rule: " + currentRuleTag.toStdString())
         ShowCurrentRuleDetail();
+        toolBox->setCurrentIndex(1);
     } else if (isOut || isIn) {
         // It's an inbound or an outbound.
         QString alias;
@@ -246,9 +253,11 @@ CONFIGROOT RouteEditor::OpenEditor()
     // If clicking OK
     if (result == QDialog::Accepted) {
         QJsonArray rulesArray;
-        QJsonArray balancers;
+        QJsonArray _balancers;
 
-        for (auto _rule : rules) {
+        // Append rules by order
+        for (auto i = 0; i < ruleListWidget->count(); i++) {
+            auto _rule = rules[ruleListWidget->item(i)->text()];
             auto ruleJsonObject = GetRootObject(_rule);
 
             // Process balancer for a rule
@@ -257,14 +266,14 @@ CONFIGROOT RouteEditor::OpenEditor()
                 ruleJsonObject.remove("outboundTag");
 
                 // Find balancer list
-                if (!Balancers.contains(QSTRING(_rule.balancerTag))) {
+                if (!_balancers.contains(QSTRING(_rule.balancerTag))) {
                     LOG(MODULE_UI, "Cannot find a balancer for tag: " + _rule.balancerTag)
                 } else {
-                    auto _balancerList = Balancers[QSTRING(_rule.balancerTag)];
+                    auto _balancerList = balancers[QSTRING(_rule.balancerTag)];
                     QJsonObject balancerEntry;
                     balancerEntry["tag"] = QSTRING(_rule.balancerTag);
                     balancerEntry["selector"] = QJsonArray::fromStringList(_balancerList);
-                    balancers.append(balancerEntry);
+                    _balancers.append(balancerEntry);
                 }
             }
 
@@ -272,9 +281,9 @@ CONFIGROOT RouteEditor::OpenEditor()
         }
 
         QJsonObject routing;
-        routing["domainStrategy"] = DomainStrategy;
+        routing["domainStrategy"] = domainStrategy;
         routing["rules"] = rulesArray;
-        routing["balancers"] = balancers;
+        routing["balancers"] = _balancers;
         //
         QJsonArray _inbounds;
         QJsonArray _outbounds;
@@ -285,7 +294,12 @@ CONFIGROOT RouteEditor::OpenEditor()
         }
 
         for (auto x : outbounds) {
-            _outbounds.append(x.raw());
+            if (getTag(x) == defaultOutbound) {
+                // Put the default outbound to the first.
+                _outbounds.push_front(x.raw());
+            } else {
+                _outbounds.push_back(x.raw());
+            }
         }
 
         root["inbounds"] = _inbounds;
@@ -309,9 +323,11 @@ void RouteEditor::ShowCurrentRuleDetail()
         return;
     }
 
+    // Switch to the detailed page.
     ruleEnableCB->setEnabled(true);
     ruleEnableCB->setChecked(CurrentRule.QV2RAY_RULE_ENABLED);
     LOAD_FLAG_BEGIN
+    ruleTagLineEdit->setText(QSTRING(CurrentRule.QV2RAY_RULE_TAG));
     balancerSelectionCombo->clear();
 
     // BUG added the wrong items, should be outbound list.
@@ -326,7 +342,7 @@ void RouteEditor::ShowCurrentRuleDetail()
 
     if (!QSTRING(CurrentRule.balancerTag).isEmpty()) {
         balancerList->clear();
-        balancerList->addItems(Balancers[QSTRING(CurrentRule.balancerTag)]);
+        balancerList->addItems(balancers[QSTRING(CurrentRule.balancerTag)]);
     }
 
     isLoading = false;
@@ -418,7 +434,7 @@ void RouteEditor::on_balancerAddBtn_clicked()
     auto balancerTx = balancerSelectionCombo->currentText();
 
     if (!balancerTx.isEmpty()) {
-        this->Balancers[QSTRING(CurrentRule.balancerTag)].append(balancerSelectionCombo->currentText());
+        this->balancers[QSTRING(CurrentRule.balancerTag)].append(balancerSelectionCombo->currentText());
         balancerList->addItem(balancerTx);
         balancerSelectionCombo->setEditText("");
         statusLabel->setText(tr("OK"));
@@ -434,7 +450,7 @@ void RouteEditor::on_balancerDelBtn_clicked()
         return;
     }
 
-    Balancers[QSTRING(CurrentRule.balancerTag)].removeAt(balancerList->currentRow());
+    balancers[QSTRING(CurrentRule.balancerTag)].removeAt(balancerList->currentRow());
     balancerList->takeItem(balancerList->currentRow());
     statusLabel->setText(tr("Removed a balancer entry."));
 }
@@ -470,7 +486,7 @@ void RouteEditor::on_addRouteBtn_clicked()
     auto bTag = GenerateRandomString();
     rule.QV2RAY_RULE_TAG = GenerateRandomString(5).toStdString();
     rule.balancerTag = bTag.toStdString();
-    Balancers[bTag] = QStringList();
+    balancers[bTag] = QStringList();
     AddNewRule(rule);
 }
 void RouteEditor::on_netBothRB_clicked()
@@ -508,7 +524,7 @@ void RouteEditor::on_enableBalancerCB_stateChanged(int arg1)
     if (CurrentRule.balancerTag.empty()) {
         LOG(MODULE_UI, "Creating a new balancer tag.")
         CurrentRule.balancerTag = GenerateRandomString(6).toStdString();
-        Balancers[QSTRING(CurrentRule.balancerTag)] = QStringList();
+        balancers[QSTRING(CurrentRule.balancerTag)] = QStringList();
     }
 
     DEBUG(MODULE_UI, "Balancer: " + CurrentRule.balancerTag)
@@ -621,6 +637,14 @@ void RouteEditor::on_delBtn_clicked()
         outbounds.remove(currentInboundOutboundTag);
         nodeScene->removeNode(*outboundNodes[currentInboundOutboundTag]);
         outboundNodes.remove(currentInboundOutboundTag);
+        //
+        defaultOutboundCombo->removeItem(defaultOutbound.indexOf(currentInboundOutboundTag));
+
+        if (currentInboundOutboundTag == defaultOutbound) {
+            // Set default outbound to the new one since the current has been removed.
+            defaultOutbound = outbounds.firstKey();
+            defaultOutboundCombo->setCurrentText(defaultOutbound);
+        }
     } else if (isRule) {
         ruleEnableCB->setEnabled(false);
         currentRuleTag = GetFirstNodeData(*firstNode, QvRuleNodeDataModel, RuleNodeData)->GetRuleTag();
@@ -629,6 +653,11 @@ void RouteEditor::on_delBtn_clicked()
         rules.remove(currentRuleTag);
         nodeScene->removeNode(*ruleNodes[currentRuleTag]);
         ruleNodes.remove(currentRuleTag);
+        //
+        // Remove item from the rule order list widget.
+        ruleListWidget->takeItem(ruleListWidget->row(ruleListWidget->findItems(currentRuleTag, Qt::MatchExactly).first()));
+        currentRuleTag = rules.firstKey();
+        ShowCurrentRuleDetail();
     } else {
         LOG(MODULE_UI, "Unknown node selected.")
     }
@@ -712,4 +741,21 @@ void RouteEditor::on_editBtn_clicked()
     } else {
         LOG(MODULE_UI, "Cannot apply 'edit' operation to non-inbound and non-outbound")
     }
+}
+
+void RouteEditor::on_domainStrategyCombo_currentIndexChanged(const QString &arg1)
+{
+    LOADINGCHECK
+    domainStrategy = arg1;
+}
+
+void RouteEditor::on_defaultOutboundCombo_currentIndexChanged(const QString &arg1)
+{
+    LOADINGCHECK
+    defaultOutbound = arg1;
+}
+
+void RouteEditor::on_ruleTagLineEdit_textEdited(const QString &arg1)
+{
+    RenameItemTag(RENAME_RULE, QSTRING(CurrentRule.QV2RAY_RULE_TAG), arg1);
 }
