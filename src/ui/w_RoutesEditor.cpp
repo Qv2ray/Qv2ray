@@ -277,6 +277,15 @@ CONFIGROOT RouteEditor::OpenEditor()
                 }
             }
 
+            // Remove some empty fields.
+            if (_rule.port.empty()) {
+                ruleJsonObject.remove("port");
+            }
+
+            if (_rule.network.empty()) {
+                ruleJsonObject.remove("network");
+            }
+
             rulesArray.append(ruleJsonObject);
         }
 
@@ -348,14 +357,16 @@ void RouteEditor::ShowCurrentRuleDetail()
     isLoading = false;
     // Networks
     auto network = QSTRING(CurrentRule.network).toLower();
+    bool isBoth = (network.contains("tcp") && network.contains("udp")) || network.isEmpty();
     netUDPRB->setChecked(network.contains("udp"));
     netTCPRB->setChecked(network.contains("tcp"));
-    netBothRB->setChecked(network.contains("tcp") && network.contains("udp"));
+    netBothRB->setChecked(isBoth);
     //
     // Set protocol checkboxes.
-    routeProtocolHTTPCB->setChecked(contains(CurrentRule.protocol, string("http")));
-    routeProtocolTLSCB->setChecked(contains(CurrentRule.protocol, string("tls")));
-    routeProtocolBTCB->setChecked(contains(CurrentRule.protocol, string("bittorrent")));
+    auto protocol = toQList(CurrentRule.protocol);
+    routeProtocolHTTPCB->setChecked(protocol.contains("http"));
+    routeProtocolTLSCB->setChecked(protocol.contains("tls"));
+    routeProtocolBTCB->setChecked(protocol.contains("bittorrent"));
     //
     // Port
     routePortTxt->setText(QSTRING(CurrentRule.port));
@@ -398,7 +409,7 @@ void RouteEditor::on_routeProtocolHTTPCB_stateChanged(int arg1)
     if (routeProtocolBTCB->isChecked()) protocols.push_back("bittorrent");
 
     CurrentRule.protocol = protocols;
-    statusLabel->setText(tr("Protocol list changed."));
+    statusLabel->setText(tr("Protocol list changed: ") + Stringify(protocols));
 }
 void RouteEditor::on_routeProtocolTLSCB_stateChanged(int arg1)
 {
@@ -412,7 +423,7 @@ void RouteEditor::on_routeProtocolTLSCB_stateChanged(int arg1)
     if (routeProtocolBTCB->isChecked()) protocols.push_back("bittorrent");
 
     CurrentRule.protocol = protocols;
-    statusLabel->setText(tr("Protocol list changed."));
+    statusLabel->setText(tr("Protocol list changed: ") + Stringify(protocols));
 }
 void RouteEditor::on_routeProtocolBTCB_stateChanged(int arg1)
 {
@@ -426,7 +437,7 @@ void RouteEditor::on_routeProtocolBTCB_stateChanged(int arg1)
     if (routeProtocolTLSCB->isChecked()) protocols.push_back("tls");
 
     CurrentRule.protocol = protocols;
-    statusLabel->setText(tr("Protocol list changed."));
+    statusLabel->setText(tr("Protocol list changed: ") + Stringify(protocols));
 }
 void RouteEditor::on_balancerAddBtn_clicked()
 {

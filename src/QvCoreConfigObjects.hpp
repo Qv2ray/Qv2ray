@@ -109,7 +109,7 @@ namespace Qv2ray
             string attrs;
             string outboundTag;
             string balancerTag;
-            RuleObject() : QV2RAY_RULE_ENABLED(true), QV2RAY_RULE_USE_BALANCER(false), QV2RAY_RULE_TAG("new rule"), type("field"), domain(), ip(), port(""), network(""), source(), user(), inboundTag(), protocol(), attrs(), outboundTag(""), balancerTag("") {}
+            RuleObject() : QV2RAY_RULE_ENABLED(true), QV2RAY_RULE_USE_BALANCER(false), QV2RAY_RULE_TAG("new rule"), type("field"), domain(), ip(), port("1-65535"), network(""), source(), user(), inboundTag(), protocol(), attrs(), outboundTag(""), balancerTag("") {}
             XTOSTRUCT(O(QV2RAY_RULE_ENABLED, QV2RAY_RULE_USE_BALANCER, QV2RAY_RULE_TAG, type, domain, ip, port, network, source, user, inboundTag, protocol, attrs, outboundTag, balancerTag))
         };
         //
