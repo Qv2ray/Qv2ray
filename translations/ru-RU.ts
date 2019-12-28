@@ -1494,78 +1494,78 @@
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="229"/>
       <source>none</source>
-      <translation type="unfinished">none</translation>
+      <translation>никто</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="234"/>
       <source>debug</source>
-      <translation type="unfinished">debug</translation>
+      <translation>отладка</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="239"/>
       <source>info</source>
-      <translation type="unfinished">info</translation>
+      <translation>информация</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="244"/>
       <source>warning</source>
-      <translation type="unfinished">warning</translation>
+      <translation>внимание</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="249"/>
       <source>error</source>
-      <translation type="unfinished">error</translation>
+      <translation>ошибка</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="259"/>
       <source>Config</source>
-      <translation type="unfinished">Config</translation>
+      <translation>Конфигурация</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="266"/>
       <source>Subscription</source>
-      <translation type="unfinished">Subscription</translation>
+      <translation>Подписка</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="306"/>
       <source>Transparent Proxy</source>
-      <translation type="unfinished">Transparent Proxy</translation>
+      <translation>Прозрачный прокси</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="320"/>
       <source>V2ray Core Path</source>
-      <translation type="unfinished">V2ray Core Path</translation>
+      <translation>Путь ядра V2ray</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="336"/>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="357"/>
       <source>Select</source>
-      <translation type="unfinished">Select</translation>
+      <translation>Выбрать</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="345"/>
       <source>V2ray Assets Path</source>
-      <translation type="unfinished">V2ray Assets Path</translation>
+      <translation>V2ray Assets путь</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="381"/>
       <source>Auto Connect</source>
-      <translation type="unfinished">Auto Connect</translation>
+      <translation>Автоподключение</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="405"/>
       <source>(Re)Install</source>
-      <translation type="unfinished">(Re)Install</translation>
+      <translation>(Пере)Установить</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="412"/>
       <source>Remove</source>
-      <translation type="unfinished">Remove</translation>
+      <translation>Удалить</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="450"/>
       <source>Inbound Settings</source>
-      <translation type="unfinished">Inbound Settings</translation>
+      <translation>Настройки соединения</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="458"/>
@@ -1834,99 +1834,99 @@
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1253"/>
       <source>Font</source>
-      <translation type="unfinished">Font</translation>
+      <translation>Шрифт</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1265"/>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="664"/>
       <source>Bold</source>
-      <translation type="unfinished">Bold</translation>
+      <translation>Жирный</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1272"/>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="665"/>
       <source>Italic</source>
-      <translation type="unfinished">Italic</translation>
+      <translation>Курсив</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1281"/>
       <source>Size</source>
-      <translation type="unfinished">Size</translation>
+      <translation>Размер</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1291"/>
       <source>Color</source>
-      <translation type="unfinished">Color</translation>
+      <translation>Цвет</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1300"/>
       <source>A:</source>
-      <translation type="unfinished">A:</translation>
+      <translation>А:</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1314"/>
       <source>R:</source>
-      <translation type="unfinished">R:</translation>
+      <translation>R:</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1328"/>
       <source>G:</source>
-      <translation type="unfinished">G:</translation>
+      <translation>G:</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1342"/>
       <source>B:</source>
-      <translation type="unfinished">B:</translation>
+      <translation>B:</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1356"/>
       <source>...</source>
-      <translation type="unfinished">...</translation>
+      <translation>...</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1365"/>
       <source>Style</source>
-      <translation type="unfinished">Style</translation>
+      <translation>Стиль</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1375"/>
       <source>Content</source>
-      <translation type="unfinished">Content</translation>
+      <translation>Контент</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1381"/>
       <source>Content Type</source>
-      <translation type="unfinished">Content Type</translation>
+      <translation>Тип контента</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1391"/>
       <source>Text/Tag</source>
-      <translation type="unfinished">Text/Tag</translation>
+      <translation>Текст/Тег</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1407"/>
       <source>You can config how the network speed toolbar looks like in this panel</source>
-      <translation type="unfinished">You can config how the network speed toolbar looks like in this panel</translation>
+      <translation>Вы можете настроить как выглядит панель скорости сети на этой панели</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1424"/>
       <source>This feature is not stable enough and no documentation is provoded, please use it as your own risk!</source>
-      <translation type="unfinished">This feature is not stable enough and no documentation is provoded, please use it as your own risk!</translation>
+      <translation>Эта функция недостаточно стабильна, и документация не доказана, пожалуйста, используйте её в качестве собственного риска!</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1432"/>
       <source>About</source>
-      <translation type="unfinished">About</translation>
+      <translation>О программе</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1482"/>
       <source>Qv2ray</source>
-      <translation type="unfinished">Qv2ray</translation>
+      <translation>Qv2ray</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1496"/>
       <source>Version:</source>
-      <translation type="unfinished">Version:</translation>
+      <translation>Версия:</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1540"/>
@@ -1936,7 +1936,7 @@
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1556"/>
       <source>Official Repo:</source>
-      <translation type="unfinished">Official Repo:</translation>
+      <translation>Официальный репозиторий:</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1576"/>
@@ -1946,12 +1946,12 @@
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1592"/>
       <source>License:</source>
-      <translation type="unfinished">License:</translation>
+      <translation>Лицензия:</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1599"/>
       <source>Built Time:</source>
-      <translation type="unfinished">Built Time:</translation>
+      <translation>Время постройки:</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1614"/>
@@ -2001,114 +2001,114 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1643"/>
       <source>Ignore Next Version</source>
-      <translation type="unfinished">Ignore Next Version</translation>
+      <translation>Игнорировать следующую версию</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1650"/>
       <source>Cancel</source>
-      <translation type="unfinished">Cancel</translation>
+      <translation>Отменить</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1685"/>
       <source>About Qt</source>
-      <translation type="unfinished">About Qt</translation>
+      <translation>Об инструментарии Qt</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="46"/>
       <source>Use Darkmode Theme</source>
-      <translation type="unfinished">Use Darkmode Theme</translation>
+      <translation>Использовать темную тему</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="118"/>
       <source>Page</source>
-      <translation type="unfinished">Page</translation>
+      <translation>Стр.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="118"/>
       <source>Item(s)</source>
-      <translation type="unfinished">Item(s)</translation>
+      <translation>Объекты</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="167"/>
       <source>Port numbers cannot be the same</source>
-      <translation type="unfinished">Port numbers cannot be the same</translation>
+      <translation>Номера портов не могут совпадать</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="287"/>
       <source>Open v2ray assets folder</source>
-      <translation type="unfinished">Open v2ray assets folder</translation>
+      <translation>Открыть папку с активами v2ray</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="297"/>
       <source>Open v2ray core file</source>
-      <translation type="unfinished">Open v2ray core file</translation>
+      <translation>Открыть файл ядра v2ray</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="356"/>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="401"/>
       <source>Enable tProxy Support</source>
-      <translation type="unfinished">Enable tProxy Support</translation>
+      <translation>Включить tProxy поддержку</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="357"/>
       <source>This will append capabilities to the v2ray executable.</source>
-      <translation type="unfinished">This will append capabilities to the v2ray executable.</translation>
+      <translation>Это добавит возможности к исполняемому файлу v2ray.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="358"/>
       <source>Qv2ray will copy your v2ray core to this path: </source>
-      <translation type="unfinished">Qv2ray will copy your v2ray core to this path: </translation>
+      <translation>Qv2ray скопирует ядро v2ray в этот путь: </translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="359"/>
       <source>If anything goes wrong after enabling this, please refer to issue #57 or the link below:</source>
-      <translation type="unfinished">If anything goes wrong after enabling this, please refer to issue #57 or the link below:</translation>
+      <translation>Если что-либо пошло не так после включения, пожалуйста, обратитесь к проблеме #57 или к ссылке ниже:</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="402"/>
       <source>Qv2ray cannot copy one or both v2ray files from: </source>
-      <translation type="unfinished">Qv2ray cannot copy one or both v2ray files from: </translation>
+      <translation>Qv2ray не может скопировать один или оба файла v2ray из: </translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="404"/>
       <source>to this path: </source>
-      <translation type="unfinished">to this path: </translation>
+      <translation>на этот путь: </translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="417"/>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="428"/>
       <source>Failed to setcap onto v2ray executable. You may need to run `setcap` manually.</source>
-      <translation type="unfinished">Failed to setcap onto v2ray executable. You may need to run `setcap` manually.</translation>
+      <translation>Не удалось установить параметр на v2ray исполняемый файл. Возможно, вам нужно запустить `setcap` вручную.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="439"/>
       <source>tProxy is not supported on macOS and Windows</source>
-      <translation type="unfinished">tProxy is not supported on macOS and Windows</translation>
+      <translation>tProxy не поддерживается на macOS и Windows</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="742"/>
       <source>Dark Mode</source>
-      <translation type="unfinished">Dark Mode</translation>
+      <translation>Тёмный режим</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="742"/>
       <source>Please restart Qv2ray to fully apply this feature.</source>
-      <translation type="unfinished">Please restart Qv2ray to fully apply this feature.</translation>
+      <translation>Пожалуйста, перезапустите Qv2ray, чтобы полностью применить эту функцию.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="813"/>
       <source>Select GFWList in base64</source>
-      <translation type="unfinished">Select GFWList in base64</translation>
+      <translation>Выберите GFWList в base64</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="819"/>
       <source>Download GFWList</source>
-      <translation type="unfinished">Download GFWList</translation>
+      <translation>Скачать GFWList</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="819"/>
       <source>Successfully downloaded GFWList.</source>
-      <translation type="unfinished">Successfully downloaded GFWList.</translation>
+      <translation>Успешно загружено %1$s.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="892"/>
@@ -2116,18 +2116,18 @@ p, li { white-space: pre-wrap; }
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="901"/>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="903"/>
       <source>Start with boot</source>
-      <translation type="unfinished">Start with boot</translation>
+      <translation>Начать при загрузке</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="892"/>
       <source>Successfully installed starting with boot.</source>
-      <translation type="unfinished">Successfully installed starting with boot.</translation>
+      <translation>Успешно установлен скрипт автозапуска.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="894"/>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="903"/>
       <source>Only Windows platform is supported currently.</source>
-      <translation type="unfinished">Only Windows platform is supported currently.</translation>
+      <translation>В настоящее время поддерживается только платформа Windows.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="901"/>
