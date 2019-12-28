@@ -12,8 +12,13 @@ TEMPLATE = app
 # Now read build number file.
 _BUILD_NUMBER=$$cat(Build.Counter)
 VERSION = 1.99.3.$$_BUILD_NUMBER
-_BUILD_NUMBER = $$num_add($$_BUILD_NUMBER, 1)
-write_file("Build.Counter", _BUILD_NUMBER)
+
+!no_increase_build_number {
+    _BUILD_NUMBER = $$num_add($$_BUILD_NUMBER, 1)
+    write_file("Build.Counter", _BUILD_NUMBER)
+} else {
+    message("Build.Counter will not be increased")
+}
 
 DEFINES += QT_DEPRECATED_WARNINGS QV2RAY_VERSION_STRING=\"\\\"v$${VERSION}\\\"\" QAPPLICATION_CLASS=QApplication
 
