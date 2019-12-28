@@ -11,23 +11,23 @@
     <message>
       <location filename="../src/ui/w_ExportConfig.cpp" line="62"/>
       <source>Save Image</source>
-      <translation type="unfinished">Save Image</translation>
+      <translation>Сохранить изображение</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ExportConfig.cpp" line="71"/>
       <location filename="../src/ui/w_ExportConfig.cpp" line="77"/>
       <source>Share Connection</source>
-      <translation type="unfinished">Share Connection</translation>
+      <translation>Поделиться подключением</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ExportConfig.cpp" line="71"/>
       <source>Image has been copied to the clipboard.</source>
-      <translation type="unfinished">Image has been copied to the clipboard.</translation>
+      <translation>Изображение было скопировано в буфер обмена.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ExportConfig.cpp" line="77"/>
       <source>VMess string has been copied to the clipboard.</source>
-      <translation type="unfinished">VMess string has been copied to the clipboard.</translation>
+      <translation>Строка VMess была скопирована в буфер обмена.</translation>
     </message>
   </context>
   <context>
@@ -40,27 +40,27 @@
     <message>
       <location filename="../src/ui/w_ExportConfig.ui" line="45"/>
       <source>Share Options</source>
-      <translation type="unfinished">Share Options</translation>
+      <translation>Открыть совместный доступ к опциям</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ExportConfig.ui" line="51"/>
       <source>VMess Connection String</source>
-      <translation type="unfinished">VMess Connection String</translation>
+      <translation>Строка подключения VMess</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ExportConfig.ui" line="67"/>
       <source>Save Image</source>
-      <translation type="unfinished">Save Image</translation>
+      <translation>Сохранить изображение</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ExportConfig.ui" line="74"/>
       <source>Copy Image</source>
-      <translation type="unfinished">Copy Image</translation>
+      <translation>Копировать изображение</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ExportConfig.ui" line="81"/>
       <source>Copy VMess</source>
-      <translation type="unfinished">Copy VMess</translation>
+      <translation>Скопировать Vess</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ExportConfig.ui" line="108"/>
@@ -509,7 +509,7 @@
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="705"/>
       <source>If you want to use tProxy, please go to Preference Window to enable this feature.</source>
-      <translation type="unfinished">If you want to use tProxy, please go to Preference Window to enable this feature.</translation>
+      <translation>Если вы хотите использовать tProxy, перейдите в Preference Window для включения этой функции.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="719"/>
@@ -743,7 +743,7 @@
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="88"/>
       <source>Preferences</source>
-      <translation type="unfinished">Preferences</translation>
+      <translation>Настройки</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="208"/>
@@ -958,12 +958,12 @@
     <message>
       <location filename="../src/ui/w_MainWindow_extra.cpp" line="30"/>
       <source>Please reset the settings in Preference Window</source>
-      <translation type="unfinished">Please reset the settings in Preference Window</translation>
+      <translation>Пожалуйста, сбросьте настройки в окне Preference</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow_extra.cpp" line="46"/>
       <source>System proxy cleared.</source>
-      <translation type="unfinished">System proxy cleared.</translation>
+      <translation>Системный прокси очищен.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow_extra.cpp" line="77"/>
@@ -988,12 +988,12 @@
     <message>
       <location filename="../src/ui/w_MainWindow_extra.cpp" line="99"/>
       <source>System proxy settings applied.</source>
-      <translation type="unfinished">System proxy settings applied.</translation>
+      <translation>Применены настройки системного прокси.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow_extra.cpp" line="102"/>
       <source>Cannot set proxy for complex config.</source>
-      <translation type="unfinished">Cannot set proxy for complex config.</translation>
+      <translation>Не удается установить прокси для комплексной конфигурации.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="461"/>
@@ -1044,12 +1044,12 @@
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="117"/>
       <source>Enable System Proxy</source>
-      <translation type="unfinished">Enable System Proxy</translation>
+      <translation>Включить системный прокси</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="118"/>
       <source>Disable System Proxy</source>
-      <translation type="unfinished">Disable System Proxy</translation>
+      <translation>Отключить системный прокси</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="126"/>
@@ -1057,27 +1057,27 @@
       <location filename="../src/ui/w_MainWindow_extra.cpp" line="99"/>
       <location filename="../src/ui/w_MainWindow_extra.cpp" line="102"/>
       <source>System Proxy</source>
-      <translation type="unfinished">System Proxy</translation>
+      <translation>Системный прокси</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="186"/>
       <source>Upload</source>
-      <translation type="unfinished">Upload</translation>
+      <translation>Upload</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="187"/>
       <source>Download</source>
-      <translation type="unfinished">Download</translation>
+      <translation>Download</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="237"/>
       <source>Ping</source>
-      <translation type="unfinished">Ping</translation>
+      <translation>Ping</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="237"/>
       <source>Ping All</source>
-      <translation type="unfinished">Ping All</translation>
+      <translation>Пингуть все</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="647"/>
@@ -1143,7 +1143,7 @@
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="897"/>
       <source>You are about to run latency test on all servers, do you want to continue?</source>
-      <translation type="unfinished">You are about to run latency test on all servers, do you want to continue?</translation>
+      <translation>Вы собираетесь запустить тест задержки на всех серверах, вы хотите продолжить?</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="917"/>
@@ -1424,27 +1424,27 @@
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="428"/>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="439"/>
       <source>Preferences</source>
-      <translation type="unfinished">Preferences</translation>
+      <translation>Настройки</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="49"/>
       <source>General</source>
-      <translation type="unfinished">General</translation>
+      <translation>Общие</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="57"/>
       <source>UI Theme</source>
-      <translation type="unfinished">UI Theme</translation>
+      <translation>Тема интерфейса</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="74"/>
       <source>Start With Boot</source>
-      <translation type="unfinished">Start With Boot</translation>
+      <translation>Начать при загрузке</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="96"/>
       <source>Theme Settings</source>
-      <translation type="unfinished">Theme Settings</translation>
+      <translation>Настройки темы</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="120"/>
@@ -1459,37 +1459,37 @@
       <location filename="../src/ui/w_PreferencesWindow.ui" line="963"/>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1033"/>
       <source>Enabled</source>
-      <translation type="unfinished">Enabled</translation>
+      <translation>Включено</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="147"/>
       <source>Darkmode UI Icons</source>
-      <translation type="unfinished">Darkmode UI Icons</translation>
+      <translation>Темные иконки интерфейса</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="154"/>
       <source>Darkmode Tray Icon</source>
-      <translation type="unfinished">Darkmode Tray Icon</translation>
+      <translation>Светлая иконка в трее</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="176"/>
       <source>Language</source>
-      <translation type="unfinished">Language</translation>
+      <translation>Язык (Language)</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="196"/>
       <source>zh-CN</source>
-      <translation type="unfinished">zh-CN</translation>
+      <translation>zh-CN</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="201"/>
       <source>en-US</source>
-      <translation type="unfinished">en-US</translation>
+      <translation>en-US</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="209"/>
       <source>Log Level</source>
-      <translation type="unfinished">Log Level</translation>
+      <translation>Детализация журнала</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="229"/>
