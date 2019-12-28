@@ -28,7 +28,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          qmake ..
+          qmake .. CONFIG+=no_increase_build_number
           mingw32-make -j2
       - name: Copying DLLs to build output folders
         shell: cmd
@@ -79,7 +79,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          qmake ..
+          qmake .. CONFIG+=no_increase_build_number
           make -j2
       - name: Making release tarball
         run: |
@@ -131,7 +131,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          qmake ..
+          qmake .. CONFIG+=no_increase_build_number
           make -j2
       - name: Generating filesystem structure for AppImage
         run: | 
