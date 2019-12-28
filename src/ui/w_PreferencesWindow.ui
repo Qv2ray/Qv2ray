@@ -508,7 +508,7 @@
            <item>
             <widget class="QCheckBox" name="enablePACCB">
              <property name="text">
-              <string>PAC Support</string>
+              <string>Use PAC</string>
              </property>
             </widget>
            </item>

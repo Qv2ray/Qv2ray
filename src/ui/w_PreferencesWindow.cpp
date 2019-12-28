@@ -771,6 +771,8 @@ void PreferencesWindow::on_pacGoBtn_clicked()
     LOADINGCHECK
     QString gfwLocation;
     QString fileContent;
+    pacGoBtn->setEnabled(false);
+    gfwListCB->setEnabled(false);
     auto request = new QvHttpRequestHelper();
     LOG(MODULE_PROXY, "Downloading GFWList file.")
 
@@ -809,13 +811,14 @@ void PreferencesWindow::on_pacGoBtn_clicked()
             QFileDialog d;
             d.exec();
             auto file = d.getOpenFileUrl(this, tr("Select GFWList in base64")).toString();
-            //
             fileContent = StringFromFile(new QFile(file));
             break;
     }
 
     LOG(MODULE_NETWORK, "Fetched: " + gfwLocation.toStdString())
-
+    QvMessageBox(this, tr("Download GFWList"), tr("Successfully downloaded GFWList."));
+    pacGoBtn->setEnabled(true);
+    gfwListCB->setEnabled(true);
 
     if (!QDir(QV2RAY_RULES_DIR).exists()) {
         QDir(QV2RAY_RULES_DIR).mkpath(QV2RAY_RULES_DIR);
