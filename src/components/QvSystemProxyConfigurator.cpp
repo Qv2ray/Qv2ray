@@ -9,6 +9,28 @@ namespace Qv2ray
     namespace Components
     {
 
+#ifdef Q_OS_MACOS
+        QStringList macOSgetNetworkServices()
+        {
+            QProcess p;
+            p.start("/usr/sbin/networksetup -listallnetworkservices");
+            LOG(MODULE_PROXY, p.errorString().toStdString())
+            auto str = p.readAllStandardOutput();
+            auto lines = SplitLines(str);
+            QStringList result;
+
+            // Start from 1 since first line is unneeded.
+            for (auto i = 1; i < lines.count(); i++) {
+                // * means disabled.
+                if (!lines[i].contains("*"))  {
+                    result << (lines[i].contains(" ") ? "\"" +  lines[i] + "\"" : lines[i]);
+                }
+            }
+
+            LOG(MODULE_PROXY, "Found " + to_string(result.size()) + " network services: " + Stringify(result).toStdString())
+            return result;
+        }
+#endif
 #ifdef Q_OS_WIN
 #define NO_CONST(expr) const_cast<wchar_t *>(expr)
         //static auto DEFAULT_CONNECTION_NAME = NO_CONST(L"DefaultConnectionSettings");
@@ -165,6 +187,8 @@ namespace Qv2ray
                 result = result && QProcess::execute("gsettings set org.gnome.system.proxy mode 'manual'") == QProcess::NormalExit;
                 result = result && QProcess::execute("gsettings set org.gnome.system.proxy.http host '" + address + "'") == QProcess::NormalExit;
                 result = result && QProcess::execute("gsettings set org.gnome.system.proxy.http port " + QString::number(port)) == QProcess::NormalExit;
+                result = result && QProcess::execute("gsettings set org.gnome.system.proxy.https host '" + address + "'") == QProcess::NormalExit;
+                result = result && QProcess::execute("gsettings set org.gnome.system.proxy.https port " + QString::number(port)) == QProcess::NormalExit;
             }
 
             if (!result) {
@@ -174,10 +198,23 @@ namespace Qv2ray
 
             return result;
 #else
-            Q_UNUSED(port)
-            Q_UNUSED(address)
-            Q_UNUSED(usePAC)
-            return false;
+            bool result = true;
+
+            for (auto service : macOSgetNetworkServices()) {
+                LOG(MODULE_PROXY, "Setting proxy for interface: " + service.toStdString())
+
+                if (usePAC) {
+                    result = result && QProcess::execute("/usr/sbin/networksetup -setautoproxystate " + service + " on") == QProcess::NormalExit;
+                    result = result && QProcess::execute("/usr/sbin/networksetup -setautoproxyurl " + service + " " + address) == QProcess::NormalExit;
+                } else {
+                    result = result && QProcess::execute("/usr/sbin/networksetup -setwebproxystate " + service + " on") == QProcess::NormalExit;
+                    result = result && QProcess::execute("/usr/sbin/networksetup -setsecurewebproxystate " + service + " on") == QProcess::NormalExit;
+                    result = result && QProcess::execute("/usr/sbin/networksetup -setwebproxy " + service + " " + address + " " + QString::number(port)) == QProcess::NormalExit;
+                    result = result && QProcess::execute("/usr/sbin/networksetup -setsecurewebproxy " + service + " " + address + " " + QString::number(port)) == QProcess::NormalExit;
+                }
+            }
+
+            return result;
 #endif
         }
 
@@ -216,7 +253,16 @@ namespace Qv2ray
 #elif defined(Q_OS_LINUX)
             return QProcess::execute("gsettings set org.gnome.system.proxy mode 'none'") == QProcess::ExitStatus::NormalExit;
 #else
-            return false;
+            bool result = true;
+
+            for (auto service : macOSgetNetworkServices()) {
+                result = result && QProcess::execute("/usr/sbin/networksetup -setautoproxystate " + service + " off") == QProcess::NormalExit;
+                result = result && QProcess::execute("/usr/sbin/networksetup -setwebproxystate " + service + " off") == QProcess::NormalExit;
+                result = result && QProcess::execute("/usr/sbin/networksetup -setsecurewebproxystate " + service + " off") == QProcess::NormalExit;
+                result = result && QProcess::execute("/usr/sbin/networksetup -setsocksfirewallproxystate " + service + " off") == QProcess::NormalExit;
+            }
+
+            return result;
 #endif
         }
     }

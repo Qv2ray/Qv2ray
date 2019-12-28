@@ -2,7 +2,7 @@
 #define QVIMAGEVIEWER_H
 
 #include "ui_w_ExportConfig.h"
-#include "QZXing"
+#include "qzxing/src/QZXing.h"
 
 class ConfigExporter : public QDialog, private Ui::ExportConfigWindow
 {
@@ -18,6 +18,10 @@ class ConfigExporter : public QDialog, private Ui::ExportConfigWindow
         void on_closeBtn_clicked();
 
         void on_saveBtn_clicked();
+
+        void on_copyImageBtn_clicked();
+
+        void on_copyVMessBtn_clicked();
 
     private:
         explicit ConfigExporter(QWidget *parent);

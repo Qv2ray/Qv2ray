@@ -29,7 +29,6 @@
 #define QV2RAY_CONFIG_DIR (Qv2ray::Utils::GetConfigDirPath())
 #define QV2RAY_CONFIG_FILE (QV2RAY_CONFIG_DIR + "Qv2ray.conf")
 #define QV2RAY_SUBSCRIPTION_DIR (QV2RAY_CONFIG_DIR + "subscriptions/")
-#define QV2RAY_QRCODE_DIR (QV2RAY_CONFIG_DIR + "qr_images/")
 
 // Get GFWList and PAC file path.
 #define QV2RAY_RULES_DIR (QV2RAY_CONFIG_DIR + "rules/")
@@ -73,24 +72,11 @@
 #define MAX(a, b) (((a) > (b)) ? (a) : (b))
 #endif
 
-/*
- * Generic function to find if an element of any type exists in list
- */
-template<typename T>
-bool contains(std::list<T> &listOfElements, const T &element)
-{
-    // Find the iterator if element in list
-    auto it = std::find(listOfElements.begin(), listOfElements.end(), element);
-    //return if iterator points to end or not. It points to end then it means element
-    // does not exists in list
-    return it != listOfElements.end();
-}
-
 namespace Qv2ray
 {
     //
     // Extra header for QvConfigUpgrade.cpp
-    CONFIGROOT UpgradeConfig(int fromVersion, int toVersion, CONFIGROOT root);
+    QJsonObject UpgradeConfig(int fromVersion, int toVersion, QJsonObject root);
 
     struct QvBarLine {
         string          Family;
@@ -176,10 +162,9 @@ namespace Qv2ray
             bool enableProxy;
             bool withLocalDNS;
             list<string> dnsList;
-            bool enableStats;
             int statsPort;
-            Qv2rayConnectionConfig() : bypassCN(true), enableProxy(true), withLocalDNS(true), dnsList(), enableStats(true), statsPort(15490) { }
-            XTOSTRUCT(O(bypassCN, enableProxy, withLocalDNS, dnsList, enableStats, statsPort))
+            Qv2rayConnectionConfig() : bypassCN(true), enableProxy(true), withLocalDNS(true), dnsList(), statsPort(15490) { }
+            XTOSTRUCT(O(bypassCN, enableProxy, withLocalDNS, dnsList, statsPort))
         };
 
         struct Qv2rayConfig {

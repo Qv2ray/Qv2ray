@@ -34,6 +34,7 @@ namespace Qv2ray
             public:
                 explicit QvTCPingModel(int defaultCount = 5, QObject *parent = nullptr);
                 void StartPing(const QString &connectionName, const QString &hostName, int port);
+                void StopAllPing();
             signals:
                 void PingFinished(QvTCPingData data);
             private:

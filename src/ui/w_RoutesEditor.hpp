@@ -8,7 +8,39 @@
 #include <QListWidgetItem>
 #include "QvUtils.hpp"
 
+#include "Node.hpp"
+#include "FlowScene.hpp"
+#include "FlowView.hpp"
+#include "ConnectionStyle.hpp"
+
+#include "Node.hpp"
+#include "NodeData.hpp"
+#include "FlowScene.hpp"
+#include "FlowView.hpp"
+#include "DataModelRegistry.hpp"
+
+#include "routeNodeModels/QvRuleNodeModel.hpp"
+#include "routeNodeModels/QvInboundNodeModel.hpp"
+#include "routeNodeModels/QvOutboundNodeModel.hpp"
+
+using QtNodes::DataModelRegistry;
+using QtNodes::FlowScene;
+using QtNodes::FlowView;
+using QtNodes::Node;
+using QtNodes::ConnectionStyle;
+using QtNodes::TypeConverter;
+using QtNodes::TypeConverterId;
+
+using namespace Qv2ray::Components::Nodes;
+
 #include "ui_w_RoutesEditor.h"
+
+enum ROUTE_EDIT_MODE {
+    RENAME_INBOUND,
+    RENAME_OUTBOUND,
+    RENAME_RULE,
+};
+
 class RouteEditor : public QDialog, private Ui::RouteEditor
 {
         Q_OBJECT
@@ -17,18 +49,11 @@ class RouteEditor : public QDialog, private Ui::RouteEditor
         explicit RouteEditor(QJsonObject connection, QWidget *parent = nullptr);
         ~RouteEditor();
         CONFIGROOT OpenEditor();
+
     private slots:
         void on_buttonBox_accepted();
 
-        void on_outboundsList_currentRowChanged(int currentRow);
-
-        void on_inboundsList_currentRowChanged(int currentRow);
-
-        void on_editOutboundBtn_clicked();
-
         void on_insertDirectBtn_clicked();
-
-        void on_editInboundBtn_clicked();
 
         void on_routeProtocolHTTPCB_stateChanged(int arg1);
 
@@ -36,7 +61,7 @@ class RouteEditor : public QDialog, private Ui::RouteEditor
 
         void on_routeProtocolBTCB_stateChanged(int arg1);
 
-        void on_balabcerAddBtn_clicked();
+        void on_balancerAddBtn_clicked();
 
         void on_balancerDelBtn_clicked();
 
@@ -48,11 +73,7 @@ class RouteEditor : public QDialog, private Ui::RouteEditor
 
         void on_routeUserTxt_textEdited(const QString &arg1);
 
-        void on_routesTable_currentCellChanged(int currentRow, int currentColumn, int previousRow, int previousColumn);
-
         void on_addRouteBtn_clicked();
-
-        void on_routesTable_cellChanged(int row, int column);
 
         void on_netBothRB_clicked();
 
@@ -66,35 +87,59 @@ class RouteEditor : public QDialog, private Ui::RouteEditor
 
         void on_enableBalancerCB_stateChanged(int arg1);
 
-        void on_routeOutboundSelector_currentIndexChanged(int index);
-
-        void on_inboundsList_itemChanged(QListWidgetItem *item);
-
-        void on_delRouteBtn_clicked();
-
         void on_addDefaultBtn_clicked();
 
         void on_insertBlackBtn_clicked();
-
-        void on_delOutboundBtn_clicked();
-
-        void on_delInboundBtn_clicked();
 
         void on_addInboundBtn_clicked();
 
         void on_addOutboundBtn_clicked();
 
+        void on_ruleEnableCB_stateChanged(int arg1);
+
+        void on_delBtn_clicked();
+
+        void on_editBtn_clicked();
+
+        void on_domainStrategyCombo_currentIndexChanged(const QString &arg1);
+
+        void on_defaultOutboundCombo_currentIndexChanged(const QString &arg1);
+
+        void on_ruleTagLineEdit_textEdited(const QString &arg1);
+
+    public slots:
+        void onNodeClicked(QtNodes::Node &n);
+        void onConnectionCreated(QtNodes::Connection const &c);
+        void onConnectionDeleted(QtNodes::Connection const &c);
+
     private:
-        void ShowRuleDetail(RuleObject rule);
-        int currentRuleIndex;
-        QMap<QString, QStringList> Balancers;
-        QList<RuleObject> rules;
-        QString DomainStrategy;
+        void RenameItemTag(ROUTE_EDIT_MODE mode, const QString &originalTag, const QString &newTag);
+        void ShowCurrentRuleDetail();
         //
-        INBOUNDS inbounds;
-        OUTBOUNDS outbounds;
+        QString currentRuleTag;
+        QString currentInboundOutboundTag;
+        QMap<QString, QStringList> balancers;
+        QString domainStrategy;
+        QString defaultOutbound;
+        //
+        QMap<QString, INBOUND> inbounds;
+        QMap<QString, OUTBOUND> outbounds;
+        QMap<QString, RuleObject> rules;
+        //
         CONFIGROOT root;
         CONFIGROOT original;
+        //
+        // ---------------------------- Node Graph Impl --------------------------
+        void SetupNodeWidget();
+        QMap<QString, Node *> inboundNodes;
+        QMap<QString, Node *> outboundNodes;
+        QMap<QString, Node *> ruleNodes;
+        //
+        FlowScene *nodeScene;
+        // ---------------------------- Extra Source File Headers ----------------
+        void AddNewInbound(INBOUND in);
+        void AddNewOutbound(OUTBOUND out);
+        void AddNewRule(RuleObject rule);
 };
 
 #endif // W_QVOUTBOUNDEDITOR_H

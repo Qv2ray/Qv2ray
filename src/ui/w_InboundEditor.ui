@@ -702,7 +702,7 @@
           <item row="0" column="0" colspan="2">
            <widget class="QLabel" name="label_30">
             <property name="text">
-             <string>If you want to use tProxy, please go to Prefrence Window to enable this feature.</string>
+             <string>If you want to use tProxy, please go to Preference Window to enable this feature.</string>
             </property>
            </widget>
           </item>

@@ -1,5 +1,6 @@
 ﻿#include "w_ExportConfig.hpp"
 #include "QvUtils.hpp"
+#include <QFileDialog>
 
 // Private initialiser
 ConfigExporter::ConfigExporter(QWidget *parent) :
@@ -58,14 +59,20 @@ void ConfigExporter::on_closeBtn_clicked()
 void ConfigExporter::on_saveBtn_clicked()
 {
     // Save
-    if (!QDir(QV2RAY_QRCODE_DIR).exists()) {
-        QDir().mkpath(QV2RAY_QRCODE_DIR);
-    }
-
-    auto filePath = QV2RAY_QRCODE_DIR + QDateTime::currentDateTime().toString("yyyy-MM-dd_hh-mm-ss-z.png");
+    auto filePath = QFileDialog().getSaveFileName(this, tr("Save Image"), "", "Images (*.png)");
     auto result = image.save(filePath);
-    QDesktopServices::openUrl(QUrl(QV2RAY_QRCODE_DIR));
+    QDesktopServices::openUrl(QUrl::fromUserInput(filePath));
     LOG(MODULE_FILE, "Saving an image to: " + filePath.toStdString() + " result: " + (result ? "OK" : "Failed"))
-    // If succeed, we disable future save.
-    saveBtn->setEnabled(result);
+}
+
+void ConfigExporter::on_copyImageBtn_clicked()
+{
+    QGuiApplication::clipboard()->setImage(image);
+    QvMessageBox(this, tr("Share Connection"), tr("Image has been copied to the clipboard."));
+}
+
+void ConfigExporter::on_copyVMessBtn_clicked()
+{
+    QGuiApplication::clipboard()->setText(message);
+    QvMessageBox(this, tr("Share Connection"), tr("VMess string has been copied to the clipboard."));
 }

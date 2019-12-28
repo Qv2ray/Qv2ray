@@ -55,33 +55,19 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         void ToggleVisibility();
         void quit();
         void on_actionExit_triggered();
-
-        void on_prefrencesBtn_clicked();
-
+        void on_preferencesBtn_clicked();
         void on_connectionListWidget_doubleClicked(const QModelIndex &index);
-
         void on_clearlogButton_clicked();
-
         void on_connectionListWidget_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous);
-
         void on_connectionListWidget_customContextMenuRequested(const QPoint &pos);
-
         void on_connectionListWidget_itemChanged(QTreeWidgetItem *item, int column);
-
         void on_removeConfigButton_clicked();
-
         void on_importConfigButton_clicked();
-
         void on_editConfigButton_clicked();
-
         void on_editJsonBtn_clicked();
-
         void on_pingTestBtn_clicked();
-
         void on_shareBtn_clicked();
-
         void on_duplicateBtn_clicked();
-
         void on_subsButton_clicked();
 
     public:
@@ -104,8 +90,10 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         void on_connectionListWidget_itemSelectionChanged();
 
     private:
-        //
         void SetEditWidgetEnable(bool enabled);
+        void ShowAndSetConnection(QString currentText, bool SetConnection, bool Apply);
+        Qv2rayConfig currentConfig;
+        //
         // Charts
         QChartView *speedChartView;
         QChart *speedChartObj;
@@ -114,22 +102,19 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         QList<double> uploadList;
         QList<double> downloadList;
         //
-        //
-        QMenu *trayMenu = new QMenu(this);
-        QMenu *listMenu;
+        QMenu *connectionListMenu;
 
         /// Key --> ListWidget.item.text
         QMap<QString, ConnectionObject> connections;
         //
-        QString originalName;
+        QString renameOriginalName;
         bool isRenamingInProgress;
+        //
+        // ID for QTimers
         //
         int logTimerId;
         int speedTimerId;
         int pingTimerId;
-        //
-        void ShowAndSetConnection(QString currentText, bool SetConnection, bool Apply);
-        void ReloadConnections();
         //
         //
         QvHttpRequestHelper *requestHelper;
@@ -139,11 +124,33 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         SyntaxHighlighter *vCoreLogHighlighter;
         SyntaxHighlighter *qvAppLogHighlighter;
         //
-        Qv2rayConfig currentConfig;
-
         QList<QTextBrowser *> logTextBrowsers;
         int currentLogBrowserId = 0;
-        QString currentGUIShownConnectionName;
+        QString currentSelectedName;
+        //
+        // Actions in the system tray menu
+        //
+        QMenu *tray_RootMenu = new QMenu(this);
+        QAction *action_Tray_ShowHide;
+        QAction *action_Tray_Quit;
+        // --> Connectivities
+        QAction *action_Tray_Start;
+        QAction *action_Tray_Reconnect ;
+        QAction *action_Tray_Stop;
+        // --> System proxy settings
+        QMenu *tray_SystemProxyMenu = new QMenu(this);
+        QAction *action_Tray_SetSystemProxy;
+        QAction *action_Tray_ClearSystemProxy;
+        //
+        // ----------------------------------- Extra Headers For w_MainWindow_extra.cpp Handling v2ray Connectivities.
+        bool systemProxyEnabled;
+        void MWFindAndStartAutoConfig();
+        bool MWtryStartConnection();
+        void MWStopConnection();
+        void MWTryPingConnection(const QString &alias);
+        tuple<QString, int, QString> MWGetConnectionPortNumber(const QString &alias);
+        void MWSetSystemProxy();
+        void MWClearSystemProxy(bool);
 };
 
 #endif // MAINWINDOW_H

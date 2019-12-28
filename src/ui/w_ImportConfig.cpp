@@ -5,7 +5,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QThread>
-#include "QZXing"
+#include "qzxing/src/QZXing.h"
 
 #include "QvUtils.hpp"
 #include "QvCoreInteractions.hpp"

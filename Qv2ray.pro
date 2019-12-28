@@ -11,21 +11,28 @@ TEMPLATE = app
 
 # Now read build number file.
 _BUILD_NUMBER=$$cat(Build.Counter)
-VERSION = 1.99.3.$$_BUILD_NUMBER
-_BUILD_NUMBER = $$num_add($$_BUILD_NUMBER, 1)
-write_file("Build.Counter", _BUILD_NUMBER)
+VERSION = 1.99.4..$$_BUILD_NUMBER
+
+no_increase_build_number {
+    message("Build.Counter will not be increased")
+} else {
+    _BUILD_NUMBER = $$num_add($$_BUILD_NUMBER, 1)
+    write_file("Build.Counter", _BUILD_NUMBER)
+}
 
 DEFINES += QT_DEPRECATED_WARNINGS QV2RAY_VERSION_STRING=\"\\\"v$${VERSION}\\\"\" QAPPLICATION_CLASS=QApplication
 
 # Don't merge those configs with below.
 CONFIG += enable_decoder_qr_code enable_encoder_qr_code qt c++11 openssl-linked
-include(3rdparty/qzxing_noTests/QZXing-components.pri)
+include(3rdparty/qzxing/src/QZXing-components.pri)
 include(3rdparty/SingleApplication/singleapplication.pri)
+include(3rdparty/QNodeEditor/QNodeEditor.pri)
 
 # Main config
 CONFIG += lrelease embed_translations
 
 SOURCES += \
+        src/components/QvAutoStartConfigurator.cpp \
         src/components/QvComponentsHandler.cpp \
         src/components/QvPACHandler.cpp \
         src/components/QvSystemProxyConfigurator.cpp \
@@ -40,6 +47,13 @@ SOURCES += \
         src/QvCoreConfigOperations_Convertion.cpp \
         src/QvCoreConfigOperations_Generation.cpp \
         src/QvUtils.cpp \
+        src/ui/routeNodeModels/QvInboundNodeModel.cpp \
+        src/ui/routeNodeModels/QvOutboundNodeModel.cpp \
+        src/ui/routeNodeModels/QvRuleNodeModel.cpp \
+        src/ui/w_MainWindow_extra.cpp \
+        src/ui/w_PreferencesWindow.cpp \
+        src/ui/w_RoutesEditor_extra.cpp \
+        src/utils/QvHelpers.cpp \
         src/utils/QJsonModel.cpp \
         src/ui/w_ExportConfig.cpp \
         src/ui/w_InboundEditor.cpp \
@@ -49,7 +63,6 @@ SOURCES += \
         src/ui/w_JsonEditor.cpp \
         src/ui/w_MainWindow.cpp \
         src/ui/w_ImportConfig.cpp \
-        src/ui/w_PrefrencesWindow.cpp \
         src/ui/w_ScreenShot_Core.cpp \
         src/ui/NetSpeedBar/QvNetSpeedBar.cpp \
         libs/gen/v2ray_api_commands.pb.cc \
@@ -68,6 +81,7 @@ HEADERS += \
         src/QvCoreConfigObjects.hpp \
         src/QvCoreConfigOperations.hpp \
         src/QvUtils.hpp \
+        src/components/QvAutoStartConfigurator.hpp \
         src/components/QvComponentsHandler.hpp \
         src/components/QvCoreInteractions.hpp \
         src/components/QvHTTPRequestHelper.hpp \
@@ -76,16 +90,21 @@ HEADERS += \
         src/components/QvPACHandler.hpp \
         src/components/QvSystemProxyConfigurator.hpp \
         src/components/QvTCPing.hpp \
+        src/ui/routeNodeModels/QvInboundNodeModel.hpp \
+        src/ui/routeNodeModels/QvNodeModelsBase.hpp \
+        src/ui/routeNodeModels/QvOutboundNodeModel.hpp \
+        src/ui/routeNodeModels/QvRuleNodeModel.hpp \
         src/ui/w_ExportConfig.hpp \
         src/ui/w_ImportConfig.hpp \
         src/ui/w_InboundEditor.hpp \
         src/ui/w_JsonEditor.hpp \
         src/ui/w_MainWindow.hpp \
         src/ui/w_OutboundEditor.hpp \
-        src/ui/w_PrefrencesWindow.hpp \
+        src/ui/w_PreferencesWindow.hpp \
         src/ui/w_RoutesEditor.hpp \
         src/ui/w_SubscriptionEditor.hpp \
         src/ui/w_ScreenShot_Core.hpp \
+        src/utils/QvHelpers.hpp \
         src/utils/QvTinyLog.hpp \
         src/utils/QJsonModel.hpp \
         src/utils/QJsonObjectInsertMacros.h \
@@ -99,7 +118,7 @@ FORMS += \
         src/ui/w_JsonEditor.ui \
         src/ui/w_MainWindow.ui \
         src/ui/w_OutboundEditor.ui \
-        src/ui/w_PrefrencesWindow.ui \
+        src/ui/w_PreferencesWindow.ui \
         src/ui/w_RoutesEditor.ui \
         src/ui/w_ScreenShot_Core.ui \
         src/ui/w_SubscriptionEditor.ui
@@ -161,8 +180,19 @@ QMAKE_CXXFLAGS += -Wno-missing-field-initializers -Wno-unused-parameter -Wno-unu
 
 message("Adding QHttpServer Support")
 message("  --> Adding qhttpserver")
-HEADERS += $$PWD/3rdparty/qhttpserver/src/*.h
-SOURCES += $$PWD/3rdparty/qhttpserver/src/*.cpp
+HEADERS += \
+    $$PWD/3rdparty/qhttpserver/src/qhttpconnection.h \
+    $$PWD/3rdparty/qhttpserver/src/qhttprequest.h \
+    $$PWD/3rdparty/qhttpserver/src/qhttpresponse.h \
+    $$PWD/3rdparty/qhttpserver/src/qhttpserver.h \
+    $$PWD/3rdparty/qhttpserver/src/qhttpserverapi.h \
+    $$PWD/3rdparty/qhttpserver/src/qhttpserverfwd.h
+SOURCES += \
+    $$PWD/3rdparty/qhttpserver/src/qhttpconnection.cpp \
+    $$PWD/3rdparty/qhttpserver/src/qhttprequest.cpp \
+    $$PWD/3rdparty/qhttpserver/src/qhttpresponse.cpp \
+    $$PWD/3rdparty/qhttpserver/src/qhttpserver.cpp
+
 INCLUDEPATH += 3rdparty/qhttpserver/src/
 
 message("  --> Adding http parser")

@@ -5,12 +5,12 @@
 
 #include "QvUtils.hpp"
 
-#define UPDATELOG(msg) LOG(MODULE_CONFIG, "  [" + to_string(fromVersion) + "-" + to_string(fromVersion + 1) + "] --> " msg)
+#define UPDATELOG(msg) LOG(MODULE_CONFIG, "  [" + to_string(fromVersion) + "-" + to_string(fromVersion + 1) + "] --> " + msg)
 
 namespace Qv2ray
 {
     // Private member
-    CONFIGROOT UpgradeConfig_Inc(int fromVersion, CONFIGROOT root)
+    QJsonObject UpgradeConfig_Inc(int fromVersion, QJsonObject root)
     {
         switch (fromVersion) {
             case 1: {
@@ -108,7 +108,7 @@ namespace Qv2ray
     }
 
     // Exported function
-    CONFIGROOT UpgradeConfig(int fromVersion, int toVersion, CONFIGROOT root)
+    QJsonObject UpgradeConfig(int fromVersion, int toVersion, QJsonObject root)
     {
         LOG(MODULE_CONFIG, "Migrating config from version " + to_string(fromVersion) + " to " + to_string(toVersion))
 

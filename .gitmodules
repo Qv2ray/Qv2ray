@@ -1,12 +1,15 @@
 [submodule "3rdparty/x2struct"]
 	path = 3rdparty/x2struct
 	url = https://github.com/xyz347/x2struct
-[submodule "3rdparty/qzxing_noTests"]
-	path = 3rdparty/qzxing_noTests
-	url = https://github.com/lhy0403/qzxing_noTests
 [submodule "3rdparty/qhttpserver"]
 	path = 3rdparty/qhttpserver
 	url = https://github.com/nikhilm/qhttpserver
 [submodule "3rdparty/SingleApplication"]
 	path = 3rdparty/SingleApplication
 	url = https://github.com/itay-grudev/SingleApplication
+[submodule "3rdparty/QNodeEditor"]
+	path = 3rdparty/QNodeEditor
+	url = https://github.com/lhy0403/QNodeEditor
+[submodule "3rdparty/qzxing"]
+	path = 3rdparty/qzxing
+	url = https://github.com/ftylitak/qzxing

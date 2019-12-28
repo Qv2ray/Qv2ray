@@ -1,11 +1,9 @@
 ﻿#include "w_InboundEditor.hpp"
-#include "QvUtils.hpp"
-#include "QvCoreConfigOperations.hpp"
 
 static bool isLoading = false;
 #define CHECKLOADING if(isLoading) return;
 
-InboundEditor::InboundEditor(QJsonObject root, QWidget *parent) :
+InboundEditor::InboundEditor(INBOUND root, QWidget *parent) :
     QDialog(parent),
     original(root)
 {
@@ -30,22 +28,27 @@ InboundEditor::InboundEditor(QJsonObject root, QWidget *parent) :
                          tr("Inbound: ") + inboundType);
         } else {
             LOG(MODULE_UI, "Creating new inbound config")
+            root["protocol"] = inboundType = "http";
         }
     }
 
     LoadUIData();
 }
 
-QJsonObject InboundEditor::OpenEditor()
+INBOUND InboundEditor::OpenEditor()
 {
     int resultCode = this->exec();
     return resultCode == QDialog::Accepted ? GenerateNewRoot() : original;
 }
 
-QJsonObject InboundEditor::GenerateNewRoot()
+INBOUND InboundEditor::GenerateNewRoot()
 {
-    QJsonObject _newRoot = root;
+    INBOUND _newRoot = root;
     auto inboundType = root["protocol"].toString();
+
+    if (inboundType.isNull() || inboundType.isEmpty()) {
+        inboundType = "http";
+    }
 
     if (inboundType == "http") {
         // Remove useless, misleading 'accounts' array.
@@ -67,6 +70,7 @@ QJsonObject InboundEditor::GenerateNewRoot()
         _newRoot["settings"] = mtSettings;
     }
 
+    _newRoot["protocol"] = inboundType;
     _newRoot["sniffing"] = sniffing;
     _newRoot["allocate"] = allocate;
     return _newRoot;
