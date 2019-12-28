@@ -1,4 +1,5 @@
-﻿#include <QFileDialog>
+﻿#include "w_PreferencesWindow.hpp"
+#include <QFileDialog>
 #include <QColorDialog>
 #include <QStyleFactory>
 #include <QStyle>
@@ -9,8 +10,8 @@
 #include "QvNetSpeedPlugin.hpp"
 #include "QvCoreConfigOperations.hpp"
 
-#include "w_PreferencesWindow.hpp"
 #include "QvHTTPRequestHelper.hpp"
+#include "QvAutoStartConfigurator.hpp"
 
 #define LOADINGCHECK if(!finishedLoading) return;
 #define NEEDRESTART if(finishedLoading) IsConnectionPropertyChanged = true;
@@ -771,10 +772,11 @@ void PreferencesWindow::on_pacGoBtn_clicked()
     QString gfwLocation;
     QString fileContent;
     auto request = new QvHttpRequestHelper();
+    LOG(MODULE_PROXY, "Downloading GFWList file.")
 
     switch (gfwListCB->currentIndex()) {
         case 0:
-            gfwLocation = "https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt";
+            gfwLocation = "https://gitlab.com/gfwlist/gfwlist/raw/master/gfwlist.txt";
             fileContent = QString::fromUtf8(request->syncget(gfwLocation));
             break;
 
@@ -794,7 +796,7 @@ void PreferencesWindow::on_pacGoBtn_clicked()
             break;
 
         case 4:
-            gfwLocation = "https://gitlab.com/gfwlist/gfwlist/raw/master/gfwlist.txt";
+            gfwLocation = "https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt";
             fileContent = QString::fromUtf8(request->syncget(gfwLocation));
             break;
 
@@ -812,7 +814,9 @@ void PreferencesWindow::on_pacGoBtn_clicked()
             break;
     }
 
-    //
+    LOG(MODULE_NETWORK, "Fetched: " + gfwLocation.toStdString())
+
+
     if (!QDir(QV2RAY_RULES_DIR).exists()) {
         QDir(QV2RAY_RULES_DIR).mkpath(QV2RAY_RULES_DIR);
     }
@@ -877,4 +881,22 @@ void PreferencesWindow::on_autoStartConnCombo_currentIndexChanged(const QString 
 {
     LOADINGCHECK
     CurrentConfig.autoStartConfig.connectionName = arg1.toStdString();
+}
+
+void PreferencesWindow::on_installBootStart_clicked()
+{
+    if (InstallAutoStart()) {
+        QvMessageBox(this, tr("Start with boot"), tr("Successfully installed starting with boot."));
+    } else {
+        QvMessageBox(this, tr("Start with boot"), tr("Only Windows platform is supported currently."));
+    }
+}
+
+void PreferencesWindow::on_removeBootStart_clicked()
+{
+    if (RemoveAutoStart()) {
+        QvMessageBox(this, tr("Start with boot"), tr("Successfully removed starting with boot."));
+    } else {
+        QvMessageBox(this, tr("Start with boot"), tr("Only Windows platform is supported currently."));
+    }
 }

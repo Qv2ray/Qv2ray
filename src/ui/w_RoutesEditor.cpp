@@ -63,6 +63,7 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QDialog(pare
 {
     setupUi(this);
     isLoading = true;
+    setWindowFlags(windowFlags() | Qt::WindowMaximizeButtonHint);
     //
     SetupNodeWidget();
     //

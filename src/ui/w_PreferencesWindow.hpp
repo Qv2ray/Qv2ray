@@ -134,6 +134,10 @@ class PreferencesWindow : public QDialog, private Ui::PreferencesWindow
 
         void on_autoStartConnCombo_currentIndexChanged(const QString &arg1);
 
+        void on_installBootStart_clicked();
+
+        void on_removeBootStart_clicked();
+
     private:
         // Set ui parameters for a line;
         void ShowLineParameters(QvBarLine &line);

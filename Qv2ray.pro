@@ -27,6 +27,7 @@ include(3rdparty/QNodeEditor/QNodeEditor.pri)
 CONFIG += lrelease embed_translations
 
 SOURCES += \
+        src/components/QvAutoStartConfigurator.cpp \
         src/components/QvComponentsHandler.cpp \
         src/components/QvPACHandler.cpp \
         src/components/QvSystemProxyConfigurator.cpp \
@@ -75,6 +76,7 @@ HEADERS += \
         src/QvCoreConfigObjects.hpp \
         src/QvCoreConfigOperations.hpp \
         src/QvUtils.hpp \
+        src/components/QvAutoStartConfigurator.hpp \
         src/components/QvComponentsHandler.hpp \
         src/components/QvCoreInteractions.hpp \
         src/components/QvHTTPRequestHelper.hpp \
