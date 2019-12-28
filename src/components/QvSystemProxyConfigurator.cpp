@@ -187,6 +187,8 @@ namespace Qv2ray
                 result = result && QProcess::execute("gsettings set org.gnome.system.proxy mode 'manual'") == QProcess::NormalExit;
                 result = result && QProcess::execute("gsettings set org.gnome.system.proxy.http host '" + address + "'") == QProcess::NormalExit;
                 result = result && QProcess::execute("gsettings set org.gnome.system.proxy.http port " + QString::number(port)) == QProcess::NormalExit;
+                result = result && QProcess::execute("gsettings set org.gnome.system.proxy.https host '" + address + "'") == QProcess::NormalExit;
+                result = result && QProcess::execute("gsettings set org.gnome.system.proxy.https port " + QString::number(port)) == QProcess::NormalExit;
             }
 
             if (!result) {
