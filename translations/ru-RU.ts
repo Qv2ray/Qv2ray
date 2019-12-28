@@ -1570,40 +1570,40 @@
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="458"/>
       <source>Listening Address</source>
-      <translation type="unfinished">Listening Address</translation>
+      <translation>Адрес прослушивания</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="472"/>
       <source>Features</source>
-      <translation type="unfinished">Features</translation>
+      <translation>Особенности</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="484"/>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="749"/>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="983"/>
       <source>HTTP</source>
-      <translation type="unfinished">HTTP</translation>
+      <translation>HTTP</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="491"/>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="754"/>
       <source>SOCKS</source>
-      <translation type="unfinished">SOCKS</translation>
+      <translation>SOCKS</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="511"/>
       <source>Use PAC</source>
-      <translation type="unfinished">Use PAC</translation>
+      <translation>Использовать PAC</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="518"/>
       <source>Set System Proxy</source>
-      <translation type="unfinished">Set System Proxy</translation>
+      <translation>Установить системным прокси</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="531"/>
       <source>SOCKS Settings</source>
-      <translation type="unfinished">SOCKS Settings</translation>
+      <translation>Настройки SOCKS</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="537"/>
@@ -1611,225 +1611,225 @@
       <location filename="../src/ui/w_PreferencesWindow.ui" line="707"/>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1006"/>
       <source>Port</source>
-      <translation type="unfinished">Port</translation>
+      <translation>Порт</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="557"/>
       <source>UDP Support</source>
-      <translation type="unfinished">UDP Support</translation>
+      <translation>Поддержка UDP</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="571"/>
       <source>Local IP (For UDP)</source>
-      <translation type="unfinished">Local IP (For UDP)</translation>
+      <translation>Локальный IP (для UDP)</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="585"/>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="656"/>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1026"/>
       <source>Authentication</source>
-      <translation type="unfinished">Authentication</translation>
+      <translation>Аутентификация</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="599"/>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="670"/>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1040"/>
       <source>Username</source>
-      <translation type="unfinished">Username</translation>
+      <translation>Имя пользователя</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="613"/>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="684"/>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1050"/>
       <source>Password</source>
-      <translation type="unfinished">Password</translation>
+      <translation>Пароль</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="630"/>
       <source>HTTP Settings</source>
-      <translation type="unfinished">HTTP Settings</translation>
+      <translation>Настройки HTTP</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="701"/>
       <source>PAC Settings</source>
-      <translation type="unfinished">PAC Settings</translation>
+      <translation>Настройки PAC</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="727"/>
       <source>Local IP for PAC</source>
-      <translation type="unfinished">Local IP for PAC</translation>
+      <translation>Локальный IP для PAC</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="734"/>
       <source>127.0.0.1</source>
-      <translation type="unfinished">127.0.0.1</translation>
+      <translation>127.0.0.1</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="741"/>
       <source>Use Proxy</source>
-      <translation type="unfinished">Use Proxy</translation>
+      <translation>Использовать прокси</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="762"/>
       <source>Import GFWList</source>
-      <translation type="unfinished">Import GFWList</translation>
+      <translation>Импорт GFWList</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="772"/>
       <source>Mirror: Gitlab</source>
-      <translation type="unfinished">Mirror: Gitlab</translation>
+      <translation>Mirror: Gitlab</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="777"/>
       <source>Github</source>
-      <translation type="unfinished">Github</translation>
+      <translation>GitHub</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="782"/>
       <source>Mirror: Pagure</source>
-      <translation type="unfinished">Mirror: Pagure</translation>
+      <translation>Зеркало: Страсть</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="787"/>
       <source>Mirror: Repo.or.cz</source>
-      <translation type="unfinished">Mirror: Repo.or.cz</translation>
+      <translation>Зеркало: Repo.or.cz</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="792"/>
       <source>Mirror: Bitbucket</source>
-      <translation type="unfinished">Mirror: Bitbucket</translation>
+      <translation>Зеркало: Bitbucket</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="797"/>
       <source>Mirror: TuxFamily</source>
-      <translation type="unfinished">Mirror: TuxFamily</translation>
+      <translation>Зеркало: TuxFamily</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="802"/>
       <source>GFWList File</source>
-      <translation type="unfinished">GFWList File</translation>
+      <translation>GFWList файл</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="810"/>
       <source>Go</source>
-      <translation type="unfinished">Go</translation>
+      <translation>Далее</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="819"/>
       <source>Edit PAC</source>
-      <translation type="unfinished">Edit PAC</translation>
+      <translation>Изменить PAC</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="826"/>
       <source>Open PAC Folder</source>
-      <translation type="unfinished">Open PAC Folder</translation>
+      <translation>Открыть папку PAC</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="852"/>
       <source>Connection Settings</source>
-      <translation type="unfinished">Connection Settings</translation>
+      <translation>Настройки соединения</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="858"/>
       <source>General Connection Settings</source>
-      <translation type="unfinished">General Connection Settings</translation>
+      <translation>Общие настройки соединения</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="864"/>
       <source>Enable Proxy</source>
-      <translation type="unfinished">Enable Proxy</translation>
+      <translation>Включить прокси</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="878"/>
       <source>Bypass Chinese Mainland</source>
-      <translation type="unfinished">Bypass Chinese Mainland</translation>
+      <translation>В обход адресов материкового Китая</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="892"/>
       <source>API Port</source>
-      <translation type="unfinished">API Port</translation>
+      <translation>Порт API</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="918"/>
       <source>Use Local DNS</source>
-      <translation type="unfinished">Use Local DNS</translation>
+      <translation>Использовать локальный DNS</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="932"/>
       <source>Custom DNS List</source>
-      <translation type="unfinished">Custom DNS List</translation>
+      <translation>Пользовательский список DNS</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="948"/>
       <source>Forward Proxy</source>
-      <translation type="unfinished">Forward Proxy</translation>
+      <translation>Ретрансляция прокси</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="956"/>
       <source>Status</source>
-      <translation type="unfinished">Status</translation>
+      <translation>Статус</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="975"/>
       <source>Type</source>
-      <translation type="unfinished">Type</translation>
+      <translation>Тип</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="988"/>
       <source>Socks</source>
-      <translation type="unfinished">Socks</translation>
+      <translation>Socks</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="996"/>
       <source>Host Address</source>
-      <translation type="unfinished">Host Address</translation>
+      <translation>Адрес хоста</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1080"/>
       <source>Network Toolbar Settings</source>
-      <translation type="unfinished">Network Toolbar Settings</translation>
+      <translation>Настройки панели инструментов сети</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1086"/>
       <source>Apply Network Speed Bar UI Settings</source>
-      <translation type="unfinished">Apply Network Speed Bar UI Settings</translation>
+      <translation>Применить настройки панели скорости сети</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1093"/>
       <source>Items</source>
-      <translation type="unfinished">Items</translation>
+      <translation>Объекты</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1111"/>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1190"/>
       <source>-</source>
-      <translation type="unfinished">-</translation>
+      <translation>-</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1130"/>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1209"/>
       <source>+</source>
-      <translation type="unfinished">+</translation>
+      <translation>+</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1137"/>
       <source>Page Y Offset</source>
-      <translation type="unfinished">Page Y Offset</translation>
+      <translation>Смещение изображения по Y</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1144"/>
       <source>Pages</source>
-      <translation type="unfinished">Pages</translation>
+      <translation>Страницы</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1151"/>
       <source>Lines</source>
-      <translation type="unfinished">Lines</translation>
+      <translation>Линии</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1247"/>
       <source>Text Style</source>
-      <translation type="unfinished">Text Style</translation>
+      <translation>Стиль текста</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1253"/>
@@ -2132,7 +2132,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="901"/>
       <source>Successfully removed starting with boot.</source>
-      <translation type="unfinished">Successfully removed starting with boot.</translation>
+      <translation>Сценарий автозапуска успешно удален.</translation>
     </message>
   </context>
   <context>
@@ -2380,7 +2380,7 @@ p, li { white-space: pre-wrap; }
       <location filename="../src/QvUtils.cpp" line="83"/>
       <location filename="../src/QvUtils.cpp" line="85"/>
       <source>N/A</source>
-      <translation type="unfinished">N/A</translation>
+      <translation>N/A</translation>
     </message>
   </context>
   <context>
@@ -2389,13 +2389,13 @@ p, li { white-space: pre-wrap; }
       <location filename="../3rdparty/QNodeEditor/src/FlowScene.cpp" line="432"/>
       <location filename="../3rdparty/QNodeEditor/src/FlowScene.cpp" line="457"/>
       <source>Open Flow Scene</source>
-      <translation type="unfinished">Open Flow Scene</translation>
+      <translation>Сцена открытого потока</translation>
     </message>
     <message>
       <location filename="../3rdparty/QNodeEditor/src/FlowScene.cpp" line="434"/>
       <location filename="../3rdparty/QNodeEditor/src/FlowScene.cpp" line="459"/>
       <source>Flow Scene Files (*.flow)</source>
-      <translation type="unfinished">Flow Scene Files (*.flow)</translation>
+      <translation>Файлы сцен потока (*.flow)</translation>
     </message>
   </context>
   <context>
@@ -2437,7 +2437,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/components/QvCoreInteractions.cpp" line="50"/>
       <source>Please go to Preference Window to change the location.</source>
-      <translation type="unfinished">Please go to Preference Window to change the location.</translation>
+      <translation>Перейдите в Настройки Окна, чтобы изменить местоположение.</translation>
     </message>
     <message>
       <location filename="../src/components/QvCoreInteractions.cpp" line="51"/>
@@ -2460,7 +2460,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/routeNodeModels/QvInboundNodeModel.hpp" line="58"/>
       <source>Missing or incorrect inputs</source>
-      <translation type="unfinished">Missing or incorrect inputs</translation>
+      <translation>Отсутствующие или неправильные входы</translation>
     </message>
   </context>
   <context>
@@ -2468,7 +2468,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/routeNodeModels/QvOutboundNodeModel.hpp" line="65"/>
       <source>Missing or incorrect inputs</source>
-      <translation type="unfinished">Missing or incorrect inputs</translation>
+      <translation>Отсутствующие или неправильные входы</translation>
     </message>
   </context>
   <context>
@@ -2476,7 +2476,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/routeNodeModels/QvRuleNodeModel.hpp" line="88"/>
       <source>Missing or incorrect inputs</source>
-      <translation type="unfinished">Missing or incorrect inputs</translation>
+      <translation>Отсутствующие или неправильные входы</translation>
     </message>
   </context>
   <context>
@@ -2491,12 +2491,12 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="570"/>
       <source>Route Detail Settings</source>
-      <translation type="unfinished">Route Detail Settings</translation>
+      <translation>Параметры детализации маршрута</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="583"/>
       <source>Source IP Matches</source>
-      <translation type="unfinished">Source IP Matches</translation>
+      <translation>Источник IP Соответствия</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="631"/>
@@ -2568,7 +2568,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="506"/>
       <source>Use Balancers</source>
-      <translation type="unfinished">Use Balancers</translation>
+      <translation>Использовать балансиры</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="526"/>
@@ -2615,107 +2615,107 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="31"/>
       <source>Inbound</source>
-      <translation type="unfinished">Inbound</translation>
+      <translation>Входящее</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="40"/>
       <source>Add Inbound</source>
-      <translation type="unfinished">Add Inbound</translation>
+      <translation>Новый входящий</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="50"/>
       <source>Add From Global Settings</source>
-      <translation type="unfinished">Add From Global Settings</translation>
+      <translation>Добавить из глобальных настроек</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="69"/>
       <source>Add Outbound</source>
-      <translation type="unfinished">Add Outbound</translation>
+      <translation>Добавить исходящий</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="79"/>
       <source>Add Black Hole</source>
-      <translation type="unfinished">Add Black Hole</translation>
+      <translation>Запуск черной дыры</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="89"/>
       <source>Add Direct</source>
-      <translation type="unfinished">Add Direct</translation>
+      <translation>Добавить прямую</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="112"/>
       <source>Selected Inbound/Outbound Info</source>
-      <translation type="unfinished">Selected Inbound/Outbound Info</translation>
+      <translation>Выбранная информация о входящих/исходящих</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="139"/>
       <source>Host</source>
-      <translation type="unfinished">Host</translation>
+      <translation>Хост</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="185"/>
       <source>A rule with no inbound connected means there&apos;s no inbound restriction.</source>
-      <translation type="unfinished">A rule with no inbound connected means there&apos;s no inbound restriction.</translation>
+      <translation>Правило без входящего соединения означает, что нет входящего ограничения.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="220"/>
       <source>Edit Selection</source>
-      <translation type="unfinished">Edit Selection</translation>
+      <translation>Изменение выделения</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="230"/>
       <source>Add Route</source>
-      <translation type="unfinished">Add Route</translation>
+      <translation>Добавить маршрут</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="240"/>
       <source>Delete Selection</source>
-      <translation type="unfinished">Delete Selection</translation>
+      <translation>Удалить выделение</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="274"/>
       <source>General Settings</source>
-      <translation type="unfinished">General Settings</translation>
+      <translation>Общие настройки</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="280"/>
       <source>GroupBox</source>
-      <translation type="unfinished">GroupBox</translation>
+      <translation>GroupBox</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="286"/>
       <source>Domain Strategy</source>
-      <translation type="unfinished">Domain Strategy</translation>
+      <translation>Стратегия домена</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="312"/>
       <source>Default Outbound</source>
-      <translation type="unfinished">Default Outbound</translation>
+      <translation>Исходящий по умолчанию</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="325"/>
       <source>Rule Order Settings</source>
-      <translation type="unfinished">Rule Order Settings</translation>
+      <translation>Настройки заказов</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="331"/>
       <source>Drag and drop to re-order the rules.</source>
-      <translation type="unfinished">Drag and drop to re-order the rules.</translation>
+      <translation>Перетащите для изменения порядка правил.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="369"/>
       <source>Rule Settings</source>
-      <translation type="unfinished">Rule Settings</translation>
+      <translation>Настройки правил</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="380"/>
       <source>Rule Status</source>
-      <translation type="unfinished">Rule Status</translation>
+      <translation>Правило Статус</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="397"/>
       <source>Rule Tag</source>
-      <translation type="unfinished">Rule Tag</translation>
+      <translation>Тег правила</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="462"/>
@@ -2775,33 +2775,33 @@ p, li { white-space: pre-wrap; }
       <location filename="../src/ui/w_RoutesEditor.cpp" line="427"/>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="441"/>
       <source>Protocol list changed: </source>
-      <translation type="unfinished">Protocol list changed: </translation>
+      <translation>Список протоколов изменен: </translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="454"/>
       <source>Balancer is empty, not processing.</source>
-      <translation type="unfinished">Balancer is empty, not processing.</translation>
+      <translation>Балансер пуст и не обрабатывается.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="554"/>
       <source>To make this rule ready to use, you need to connect it to an outbound node.</source>
-      <translation type="unfinished">To make this rule ready to use, you need to connect it to an outbound node.</translation>
+      <translation>Чтобы это правило было готовым к использованию, необходимо подключить его к исходящему узлу.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="631"/>
       <source>Remove Items</source>
-      <translation type="unfinished">Remove Items</translation>
+      <translation>Удалить элементы</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="631"/>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="680"/>
       <source>Please select a node from the graph to continue.</source>
-      <translation type="unfinished">Please select a node from the graph to continue.</translation>
+      <translation>Пожалуйста, выберите узел на графике для продолжения.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="680"/>
       <source>Edit Inbound/Outbound</source>
-      <translation type="unfinished">Edit Inbound/Outbound</translation>
+      <translation>Тип: входящий / исходящий</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="697"/>
@@ -2812,7 +2812,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="729"/>
       <source>Unsupported Outbound Type</source>
-      <translation type="unfinished">Unsupported Outbound Type</translation>
+      <translation>Неподдерживаемый исходящий тип</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="738"/>
@@ -2844,14 +2844,14 @@ p, li { white-space: pre-wrap; }
       <location filename="../src/ui/w_RoutesEditor_extra.cpp" line="97"/>
       <location filename="../src/ui/w_RoutesEditor_extra.cpp" line="125"/>
       <source>Rename tags</source>
-      <translation type="unfinished">Rename tags</translation>
+      <translation>Переименовать теги</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor_extra.cpp" line="71"/>
       <location filename="../src/ui/w_RoutesEditor_extra.cpp" line="97"/>
       <location filename="../src/ui/w_RoutesEditor_extra.cpp" line="125"/>
       <source>The new tag has been used, please suggest another.</source>
-      <translation type="unfinished">The new tag has been used, please suggest another.</translation>
+      <translation>Новый тег уже используется, пожалуйста, предложите другой.</translation>
     </message>
   </context>
   <context>
@@ -2869,7 +2869,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_ScreenShot_Core.ui" line="61"/>
       <source>FG</source>
-      <translation type="unfinished">FG</translation>
+      <translation>FG</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ScreenShot_Core.ui" line="48"/>
