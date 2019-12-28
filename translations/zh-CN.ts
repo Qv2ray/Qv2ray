@@ -11,23 +11,23 @@
     <message>
       <location filename="../src/ui/w_ExportConfig.cpp" line="62"/>
       <source>Save Image</source>
-      <translation type="unfinished">Save Image</translation>
+      <translation>保存图片</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ExportConfig.cpp" line="71"/>
       <location filename="../src/ui/w_ExportConfig.cpp" line="77"/>
       <source>Share Connection</source>
-      <translation type="unfinished">Share Connection</translation>
+      <translation>共享连接</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ExportConfig.cpp" line="71"/>
       <source>Image has been copied to the clipboard.</source>
-      <translation type="unfinished">Image has been copied to the clipboard.</translation>
+      <translation>图像已复制到剪贴板。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ExportConfig.cpp" line="77"/>
       <source>VMess string has been copied to the clipboard.</source>
-      <translation type="unfinished">VMess string has been copied to the clipboard.</translation>
+      <translation>VMess字符串已复制到剪贴板。</translation>
     </message>
   </context>
   <context>
@@ -40,27 +40,27 @@
     <message>
       <location filename="../src/ui/w_ExportConfig.ui" line="45"/>
       <source>Share Options</source>
-      <translation type="unfinished">Share Options</translation>
+      <translation>分享选项</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ExportConfig.ui" line="51"/>
       <source>VMess Connection String</source>
-      <translation type="unfinished">VMess Connection String</translation>
+      <translation>VMess 连接字符串</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ExportConfig.ui" line="67"/>
       <source>Save Image</source>
-      <translation type="unfinished">Save Image</translation>
+      <translation>保存图片</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ExportConfig.ui" line="74"/>
       <source>Copy Image</source>
-      <translation type="unfinished">Copy Image</translation>
+      <translation>复制图像</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ExportConfig.ui" line="81"/>
       <source>Copy VMess</source>
-      <translation type="unfinished">Copy VMess</translation>
+      <translation>复制 VMess</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ExportConfig.ui" line="108"/>
@@ -509,7 +509,7 @@
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="705"/>
       <source>If you want to use tProxy, please go to Preference Window to enable this feature.</source>
-      <translation type="unfinished">If you want to use tProxy, please go to Preference Window to enable this feature.</translation>
+      <translation>如果您想要使用 tProxy，请前往首选窗口启用此功能。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="719"/>
@@ -743,7 +743,7 @@
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="88"/>
       <source>Preferences</source>
-      <translation type="unfinished">Preferences</translation>
+      <translation>首选项</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="208"/>
@@ -958,12 +958,12 @@
     <message>
       <location filename="../src/ui/w_MainWindow_extra.cpp" line="30"/>
       <source>Please reset the settings in Preference Window</source>
-      <translation type="unfinished">Please reset the settings in Preference Window</translation>
+      <translation>请重置首选项窗口的设置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow_extra.cpp" line="46"/>
       <source>System proxy cleared.</source>
-      <translation type="unfinished">System proxy cleared.</translation>
+      <translation>系统代理已清除。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow_extra.cpp" line="77"/>
@@ -988,12 +988,12 @@
     <message>
       <location filename="../src/ui/w_MainWindow_extra.cpp" line="99"/>
       <source>System proxy settings applied.</source>
-      <translation type="unfinished">System proxy settings applied.</translation>
+      <translation>系统代理设置已应用。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow_extra.cpp" line="102"/>
       <source>Cannot set proxy for complex config.</source>
-      <translation type="unfinished">Cannot set proxy for complex config.</translation>
+      <translation>无法设置复合配置的代理。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="461"/>
@@ -1044,12 +1044,12 @@
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="117"/>
       <source>Enable System Proxy</source>
-      <translation type="unfinished">Enable System Proxy</translation>
+      <translation>启用系统代理</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="118"/>
       <source>Disable System Proxy</source>
-      <translation type="unfinished">Disable System Proxy</translation>
+      <translation>禁用系统代理</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="126"/>
@@ -1057,27 +1057,27 @@
       <location filename="../src/ui/w_MainWindow_extra.cpp" line="99"/>
       <location filename="../src/ui/w_MainWindow_extra.cpp" line="102"/>
       <source>System Proxy</source>
-      <translation type="unfinished">System Proxy</translation>
+      <translation>系统代理</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="186"/>
       <source>Upload</source>
-      <translation type="unfinished">Upload</translation>
+      <translation>上传</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="187"/>
       <source>Download</source>
-      <translation type="unfinished">Download</translation>
+      <translation>下载</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="237"/>
       <source>Ping</source>
-      <translation type="unfinished">Ping</translation>
+      <translation>Ping</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="237"/>
       <source>Ping All</source>
-      <translation type="unfinished">Ping All</translation>
+      <translation>Ping 所有</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="647"/>
@@ -1143,7 +1143,7 @@
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="897"/>
       <source>You are about to run latency test on all servers, do you want to continue?</source>
-      <translation type="unfinished">You are about to run latency test on all servers, do you want to continue?</translation>
+      <translation>您将在所有服务器上运行延迟测试，是否继续？</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="917"/>
@@ -1424,27 +1424,27 @@
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="428"/>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="439"/>
       <source>Preferences</source>
-      <translation type="unfinished">Preferences</translation>
+      <translation>首选项</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="49"/>
       <source>General</source>
-      <translation type="unfinished">General</translation>
+      <translation>一般</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="57"/>
       <source>UI Theme</source>
-      <translation type="unfinished">UI Theme</translation>
+      <translation>界面主题</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="74"/>
       <source>Start With Boot</source>
-      <translation type="unfinished">Start With Boot</translation>
+      <translation>开机启动</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="96"/>
       <source>Theme Settings</source>
-      <translation type="unfinished">Theme Settings</translation>
+      <translation>主题设置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="120"/>
@@ -1459,113 +1459,113 @@
       <location filename="../src/ui/w_PreferencesWindow.ui" line="963"/>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1033"/>
       <source>Enabled</source>
-      <translation type="unfinished">Enabled</translation>
+      <translation>已启用</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="147"/>
       <source>Darkmode UI Icons</source>
-      <translation type="unfinished">Darkmode UI Icons</translation>
+      <translation>暗模式界面图标</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="154"/>
       <source>Darkmode Tray Icon</source>
-      <translation type="unfinished">Darkmode Tray Icon</translation>
+      <translation>暗模式托盘图标</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="176"/>
       <source>Language</source>
-      <translation type="unfinished">Language</translation>
+      <translation>语言</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="196"/>
       <source>zh-CN</source>
-      <translation type="unfinished">zh-CN</translation>
+      <translation>zh-CN</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="201"/>
       <source>en-US</source>
-      <translation type="unfinished">en-US</translation>
+      <translation>en-US</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="209"/>
       <source>Log Level</source>
-      <translation type="unfinished">Log Level</translation>
+      <translation>日志等级</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="229"/>
       <source>none</source>
-      <translation type="unfinished">none</translation>
+      <translation>不使用</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="234"/>
       <source>debug</source>
-      <translation type="unfinished">debug</translation>
+      <translation>调试</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="239"/>
       <source>info</source>
-      <translation type="unfinished">info</translation>
+      <translation>信息</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="244"/>
       <source>warning</source>
-      <translation type="unfinished">warning</translation>
+      <translation>警告</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="249"/>
       <source>error</source>
-      <translation type="unfinished">error</translation>
+      <translation>错误</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="259"/>
       <source>Config</source>
-      <translation type="unfinished">Config</translation>
+      <translation>配置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="266"/>
       <source>Subscription</source>
-      <translation type="unfinished">Subscription</translation>
+      <translation>订阅</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="306"/>
       <source>Transparent Proxy</source>
-      <translation type="unfinished">Transparent Proxy</translation>
+      <translation>透明代理</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="320"/>
       <source>V2ray Core Path</source>
-      <translation type="unfinished">V2ray Core Path</translation>
+      <translation>V2ray 核心路径</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="336"/>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="357"/>
       <source>Select</source>
-      <translation type="unfinished">Select</translation>
+      <translation>选择</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="345"/>
       <source>V2ray Assets Path</source>
-      <translation type="unfinished">V2ray Assets Path</translation>
+      <translation>V2ray Asset路径</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="381"/>
       <source>Auto Connect</source>
-      <translation type="unfinished">Auto Connect</translation>
+      <translation>自动连接</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="405"/>
       <source>(Re)Install</source>
-      <translation type="unfinished">(Re)Install</translation>
+      <translation>(重新)安装</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="412"/>
       <source>Remove</source>
-      <translation type="unfinished">Remove</translation>
+      <translation>删除</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="450"/>
       <source>Inbound Settings</source>
-      <translation type="unfinished">Inbound Settings</translation>
+      <translation>入站设置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="458"/>
@@ -1834,79 +1834,79 @@
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1253"/>
       <source>Font</source>
-      <translation type="unfinished">Font</translation>
+      <translation>字体</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1265"/>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="664"/>
       <source>Bold</source>
-      <translation type="unfinished">Bold</translation>
+      <translation>粗体</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1272"/>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="665"/>
       <source>Italic</source>
-      <translation type="unfinished">Italic</translation>
+      <translation>斜体</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1281"/>
       <source>Size</source>
-      <translation type="unfinished">Size</translation>
+      <translation>大小</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1291"/>
       <source>Color</source>
-      <translation type="unfinished">Color</translation>
+      <translation>颜色</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1300"/>
       <source>A:</source>
-      <translation type="unfinished">A:</translation>
+      <translation>A:</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1314"/>
       <source>R:</source>
-      <translation type="unfinished">R:</translation>
+      <translation>R:</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1328"/>
       <source>G:</source>
-      <translation type="unfinished">G:</translation>
+      <translation>G：</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1342"/>
       <source>B:</source>
-      <translation type="unfinished">B:</translation>
+      <translation>B:</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1356"/>
       <source>...</source>
-      <translation type="unfinished">...</translation>
+      <translation>...</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1365"/>
       <source>Style</source>
-      <translation type="unfinished">Style</translation>
+      <translation>样式</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1375"/>
       <source>Content</source>
-      <translation type="unfinished">Content</translation>
+      <translation>内容</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1381"/>
       <source>Content Type</source>
-      <translation type="unfinished">Content Type</translation>
+      <translation>内容类型</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1391"/>
       <source>Text/Tag</source>
-      <translation type="unfinished">Text/Tag</translation>
+      <translation>文本/标签</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1407"/>
       <source>You can config how the network speed toolbar looks like in this panel</source>
-      <translation type="unfinished">You can config how the network speed toolbar looks like in this panel</translation>
+      <translation>您可以设定网络速度工具栏在此面板中的外观</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1424"/>
