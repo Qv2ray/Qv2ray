@@ -1570,40 +1570,40 @@
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="458"/>
       <source>Listening Address</source>
-      <translation type="unfinished">Listening Address</translation>
+      <translation>监听地址</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="472"/>
       <source>Features</source>
-      <translation type="unfinished">Features</translation>
+      <translation>功能</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="484"/>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="749"/>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="983"/>
       <source>HTTP</source>
-      <translation type="unfinished">HTTP</translation>
+      <translation>HTTP</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="491"/>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="754"/>
       <source>SOCKS</source>
-      <translation type="unfinished">SOCKS</translation>
+      <translation>SOCKS</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="511"/>
       <source>Use PAC</source>
-      <translation type="unfinished">Use PAC</translation>
+      <translation>使用 PAC</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="518"/>
       <source>Set System Proxy</source>
-      <translation type="unfinished">Set System Proxy</translation>
+      <translation>设置系统代理</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="531"/>
       <source>SOCKS Settings</source>
-      <translation type="unfinished">SOCKS Settings</translation>
+      <translation>SOCKS 设置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="537"/>
@@ -1611,205 +1611,205 @@
       <location filename="../src/ui/w_PreferencesWindow.ui" line="707"/>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1006"/>
       <source>Port</source>
-      <translation type="unfinished">Port</translation>
+      <translation>端口</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="557"/>
       <source>UDP Support</source>
-      <translation type="unfinished">UDP Support</translation>
+      <translation>UDP 支持</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="571"/>
       <source>Local IP (For UDP)</source>
-      <translation type="unfinished">Local IP (For UDP)</translation>
+      <translation>本地 IP (针对 UDP)</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="585"/>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="656"/>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1026"/>
       <source>Authentication</source>
-      <translation type="unfinished">Authentication</translation>
+      <translation>身份验证</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="599"/>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="670"/>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1040"/>
       <source>Username</source>
-      <translation type="unfinished">Username</translation>
+      <translation>用户名</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="613"/>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="684"/>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1050"/>
       <source>Password</source>
-      <translation type="unfinished">Password</translation>
+      <translation>密码</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="630"/>
       <source>HTTP Settings</source>
-      <translation type="unfinished">HTTP Settings</translation>
+      <translation>HTTP 设置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="701"/>
       <source>PAC Settings</source>
-      <translation type="unfinished">PAC Settings</translation>
+      <translation>PAC 设置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="727"/>
       <source>Local IP for PAC</source>
-      <translation type="unfinished">Local IP for PAC</translation>
+      <translation>PAC 本地 IP 地址</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="734"/>
       <source>127.0.0.1</source>
-      <translation type="unfinished">127.0.0.1</translation>
+      <translation>127.0.0.1</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="741"/>
       <source>Use Proxy</source>
-      <translation type="unfinished">Use Proxy</translation>
+      <translation>使用代理服务器</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="762"/>
       <source>Import GFWList</source>
-      <translation type="unfinished">Import GFWList</translation>
+      <translation>导入 GFWList</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="772"/>
       <source>Mirror: Gitlab</source>
-      <translation type="unfinished">Mirror: Gitlab</translation>
+      <translation>镜像源：Gitlab</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="777"/>
       <source>Github</source>
-      <translation type="unfinished">Github</translation>
+      <translation>GitHub</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="782"/>
       <source>Mirror: Pagure</source>
-      <translation type="unfinished">Mirror: Pagure</translation>
+      <translation>镜像源：Pagure</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="787"/>
       <source>Mirror: Repo.or.cz</source>
-      <translation type="unfinished">Mirror: Repo.or.cz</translation>
+      <translation>镜像源：Repo.or.cz</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="792"/>
       <source>Mirror: Bitbucket</source>
-      <translation type="unfinished">Mirror: Bitbucket</translation>
+      <translation>镜像源：Bitbucket</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="797"/>
       <source>Mirror: TuxFamily</source>
-      <translation type="unfinished">Mirror: TuxFamily</translation>
+      <translation>镜像源：TuxFamily</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="802"/>
       <source>GFWList File</source>
-      <translation type="unfinished">GFWList File</translation>
+      <translation>GFWList 文件</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="810"/>
       <source>Go</source>
-      <translation type="unfinished">Go</translation>
+      <translation>开始</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="819"/>
       <source>Edit PAC</source>
-      <translation type="unfinished">Edit PAC</translation>
+      <translation>编辑 PAC</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="826"/>
       <source>Open PAC Folder</source>
-      <translation type="unfinished">Open PAC Folder</translation>
+      <translation>打开 PAC 文件夹</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="852"/>
       <source>Connection Settings</source>
-      <translation type="unfinished">Connection Settings</translation>
+      <translation>连接设置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="858"/>
       <source>General Connection Settings</source>
-      <translation type="unfinished">General Connection Settings</translation>
+      <translation>常规连接设置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="864"/>
       <source>Enable Proxy</source>
-      <translation type="unfinished">Enable Proxy</translation>
+      <translation>启用代理</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="878"/>
       <source>Bypass Chinese Mainland</source>
-      <translation type="unfinished">Bypass Chinese Mainland</translation>
+      <translation>绕过中国大陆</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="892"/>
       <source>API Port</source>
-      <translation type="unfinished">API Port</translation>
+      <translation>API 端口</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="918"/>
       <source>Use Local DNS</source>
-      <translation type="unfinished">Use Local DNS</translation>
+      <translation>使用本地 DNS</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="932"/>
       <source>Custom DNS List</source>
-      <translation type="unfinished">Custom DNS List</translation>
+      <translation>自定义 DNS 列表</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="948"/>
       <source>Forward Proxy</source>
-      <translation type="unfinished">Forward Proxy</translation>
+      <translation>前置代理</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="956"/>
       <source>Status</source>
-      <translation type="unfinished">Status</translation>
+      <translation>状态</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="975"/>
       <source>Type</source>
-      <translation type="unfinished">Type</translation>
+      <translation>类型</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="988"/>
       <source>Socks</source>
-      <translation type="unfinished">Socks</translation>
+      <translation>SOCKS</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="996"/>
       <source>Host Address</source>
-      <translation type="unfinished">Host Address</translation>
+      <translation>主机地址</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1080"/>
       <source>Network Toolbar Settings</source>
-      <translation type="unfinished">Network Toolbar Settings</translation>
+      <translation>网络工具栏设置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1086"/>
       <source>Apply Network Speed Bar UI Settings</source>
-      <translation type="unfinished">Apply Network Speed Bar UI Settings</translation>
+      <translation>应用网络速度栏界面设置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1093"/>
       <source>Items</source>
-      <translation type="unfinished">Items</translation>
+      <translation>项目</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1111"/>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1190"/>
       <source>-</source>
-      <translation type="unfinished">-</translation>
+      <translation>-</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1130"/>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1209"/>
       <source>+</source>
-      <translation type="unfinished">+</translation>
+      <translation>+</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1137"/>
@@ -2615,37 +2615,37 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="31"/>
       <source>Inbound</source>
-      <translation type="unfinished">Inbound</translation>
+      <translation>入站</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="40"/>
       <source>Add Inbound</source>
-      <translation type="unfinished">Add Inbound</translation>
+      <translation>添加出站</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="50"/>
       <source>Add From Global Settings</source>
-      <translation type="unfinished">Add From Global Settings</translation>
+      <translation>从全局设置添加</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="69"/>
       <source>Add Outbound</source>
-      <translation type="unfinished">Add Outbound</translation>
+      <translation>添加出站</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="79"/>
       <source>Add Black Hole</source>
-      <translation type="unfinished">Add Black Hole</translation>
+      <translation>添加黑洞</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="89"/>
       <source>Add Direct</source>
-      <translation type="unfinished">Add Direct</translation>
+      <translation>添加直连</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="112"/>
       <source>Selected Inbound/Outbound Info</source>
-      <translation type="unfinished">Selected Inbound/Outbound Info</translation>
+      <translation>选定进出信息</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="139"/>
