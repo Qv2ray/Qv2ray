@@ -1814,22 +1814,22 @@
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1137"/>
       <source>Page Y Offset</source>
-      <translation type="unfinished">Page Y Offset</translation>
+      <translation>第 Y 页偏移</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1144"/>
       <source>Pages</source>
-      <translation type="unfinished">Pages</translation>
+      <translation>页面</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1151"/>
       <source>Lines</source>
-      <translation type="unfinished">Lines</translation>
+      <translation>行</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1247"/>
       <source>Text Style</source>
-      <translation type="unfinished">Text Style</translation>
+      <translation>文字样式</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1253"/>
@@ -1911,22 +1911,22 @@
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1424"/>
       <source>This feature is not stable enough and no documentation is provoded, please use it as your own risk!</source>
-      <translation type="unfinished">This feature is not stable enough and no documentation is provoded, please use it as your own risk!</translation>
+      <translation>此功能不够稳定，且暂无文档，使用时需自负风险！</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1432"/>
       <source>About</source>
-      <translation type="unfinished">About</translation>
+      <translation>关于</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1482"/>
       <source>Qv2ray</source>
-      <translation type="unfinished">Qv2ray</translation>
+      <translation>Qv2ray</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1496"/>
       <source>Version:</source>
-      <translation type="unfinished">Version:</translation>
+      <translation>版本：</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1540"/>
@@ -1936,7 +1936,7 @@
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1556"/>
       <source>Official Repo:</source>
-      <translation type="unfinished">Official Repo:</translation>
+      <translation>官方仓库：</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1576"/>
@@ -1946,12 +1946,12 @@
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1592"/>
       <source>License:</source>
-      <translation type="unfinished">License:</translation>
+      <translation>许可证：</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1599"/>
       <source>Built Time:</source>
-      <translation type="unfinished">Built Time:</translation>
+      <translation>构建于：</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1614"/>
@@ -2001,114 +2001,114 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1643"/>
       <source>Ignore Next Version</source>
-      <translation type="unfinished">Ignore Next Version</translation>
+      <translation>忽略下个版本</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1650"/>
       <source>Cancel</source>
-      <translation type="unfinished">Cancel</translation>
+      <translation>取消</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1685"/>
       <source>About Qt</source>
-      <translation type="unfinished">About Qt</translation>
+      <translation>关于 Qt</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="46"/>
       <source>Use Darkmode Theme</source>
-      <translation type="unfinished">Use Darkmode Theme</translation>
+      <translation>使用暗色模式主题</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="118"/>
       <source>Page</source>
-      <translation type="unfinished">Page</translation>
+      <translation>页</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="118"/>
       <source>Item(s)</source>
-      <translation type="unfinished">Item(s)</translation>
+      <translation>项目</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="167"/>
       <source>Port numbers cannot be the same</source>
-      <translation type="unfinished">Port numbers cannot be the same</translation>
+      <translation>端口号不能相同</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="287"/>
       <source>Open v2ray assets folder</source>
-      <translation type="unfinished">Open v2ray assets folder</translation>
+      <translation>打开 v2ray 资源文件夹</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="297"/>
       <source>Open v2ray core file</source>
-      <translation type="unfinished">Open v2ray core file</translation>
+      <translation>打开 v2ray 核心文件</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="356"/>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="401"/>
       <source>Enable tProxy Support</source>
-      <translation type="unfinished">Enable tProxy Support</translation>
+      <translation>启用 tProxy 支持</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="357"/>
       <source>This will append capabilities to the v2ray executable.</source>
-      <translation type="unfinished">This will append capabilities to the v2ray executable.</translation>
+      <translation>这将在 v2ray 可执行程序上添加 Capability</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="358"/>
       <source>Qv2ray will copy your v2ray core to this path: </source>
-      <translation type="unfinished">Qv2ray will copy your v2ray core to this path: </translation>
+      <translation>Qv2ray 将复制您的 v2ray 核心至此路径： </translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="359"/>
       <source>If anything goes wrong after enabling this, please refer to issue #57 or the link below:</source>
-      <translation type="unfinished">If anything goes wrong after enabling this, please refer to issue #57 or the link below:</translation>
+      <translation>如果在启用之后出现任何错误，请参阅 Issue #57 或以下链接：</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="402"/>
       <source>Qv2ray cannot copy one or both v2ray files from: </source>
-      <translation type="unfinished">Qv2ray cannot copy one or both v2ray files from: </translation>
+      <translation>Qv2ray 无法从此复制一个或两个 v2ray 文件：</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="404"/>
       <source>to this path: </source>
-      <translation type="unfinished">to this path: </translation>
+      <translation>到此路径：</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="417"/>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="428"/>
       <source>Failed to setcap onto v2ray executable. You may need to run `setcap` manually.</source>
-      <translation type="unfinished">Failed to setcap onto v2ray executable. You may need to run `setcap` manually.</translation>
+      <translation>无法执行 setcap，你可能需要手动进行操作。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="439"/>
       <source>tProxy is not supported on macOS and Windows</source>
-      <translation type="unfinished">tProxy is not supported on macOS and Windows</translation>
+      <translation>在 macOS 和 Windows 上不支持 tProxy</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="742"/>
       <source>Dark Mode</source>
-      <translation type="unfinished">Dark Mode</translation>
+      <translation>深色模式</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="742"/>
       <source>Please restart Qv2ray to fully apply this feature.</source>
-      <translation type="unfinished">Please restart Qv2ray to fully apply this feature.</translation>
+      <translation>请重启 Qv2ray 以充分应用此功能。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="813"/>
       <source>Select GFWList in base64</source>
-      <translation type="unfinished">Select GFWList in base64</translation>
+      <translation>选择 base64 格式的 GFWList</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="819"/>
       <source>Download GFWList</source>
-      <translation type="unfinished">Download GFWList</translation>
+      <translation>下载 GFWList</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="819"/>
       <source>Successfully downloaded GFWList.</source>
-      <translation type="unfinished">Successfully downloaded GFWList.</translation>
+      <translation>下载 GFWList 成功。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="892"/>
@@ -2116,23 +2116,23 @@ p, li { white-space: pre-wrap; }
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="901"/>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="903"/>
       <source>Start with boot</source>
-      <translation type="unfinished">Start with boot</translation>
+      <translation>开机启动</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="892"/>
       <source>Successfully installed starting with boot.</source>
-      <translation type="unfinished">Successfully installed starting with boot.</translation>
+      <translation>开机启动设置成功。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="894"/>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="903"/>
       <source>Only Windows platform is supported currently.</source>
-      <translation type="unfinished">Only Windows platform is supported currently.</translation>
+      <translation>目前只支持 Windows 平台。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="901"/>
       <source>Successfully removed starting with boot.</source>
-      <translation type="unfinished">Successfully removed starting with boot.</translation>
+      <translation>开机启动移除成功。</translation>
     </message>
   </context>
   <context>
@@ -2380,7 +2380,7 @@ p, li { white-space: pre-wrap; }
       <location filename="../src/QvUtils.cpp" line="83"/>
       <location filename="../src/QvUtils.cpp" line="85"/>
       <source>N/A</source>
-      <translation type="unfinished">N/A</translation>
+      <translation>不适用</translation>
     </message>
   </context>
   <context>
@@ -2389,13 +2389,13 @@ p, li { white-space: pre-wrap; }
       <location filename="../3rdparty/QNodeEditor/src/FlowScene.cpp" line="432"/>
       <location filename="../3rdparty/QNodeEditor/src/FlowScene.cpp" line="457"/>
       <source>Open Flow Scene</source>
-      <translation type="unfinished">Open Flow Scene</translation>
+      <translation>打开流场景</translation>
     </message>
     <message>
       <location filename="../3rdparty/QNodeEditor/src/FlowScene.cpp" line="434"/>
       <location filename="../3rdparty/QNodeEditor/src/FlowScene.cpp" line="459"/>
       <source>Flow Scene Files (*.flow)</source>
-      <translation type="unfinished">Flow Scene Files (*.flow)</translation>
+      <translation>流程场景文件(*.flow)</translation>
     </message>
   </context>
   <context>
@@ -2437,7 +2437,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/components/QvCoreInteractions.cpp" line="50"/>
       <source>Please go to Preference Window to change the location.</source>
-      <translation type="unfinished">Please go to Preference Window to change the location.</translation>
+      <translation>请前往首选项窗口更改位置。</translation>
     </message>
     <message>
       <location filename="../src/components/QvCoreInteractions.cpp" line="51"/>
@@ -2460,7 +2460,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/routeNodeModels/QvInboundNodeModel.hpp" line="58"/>
       <source>Missing or incorrect inputs</source>
-      <translation type="unfinished">Missing or incorrect inputs</translation>
+      <translation>输入丢失或不正确</translation>
     </message>
   </context>
   <context>
@@ -2468,7 +2468,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/routeNodeModels/QvOutboundNodeModel.hpp" line="65"/>
       <source>Missing or incorrect inputs</source>
-      <translation type="unfinished">Missing or incorrect inputs</translation>
+      <translation>输入丢失或不正确</translation>
     </message>
   </context>
   <context>
@@ -2476,7 +2476,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/routeNodeModels/QvRuleNodeModel.hpp" line="88"/>
       <source>Missing or incorrect inputs</source>
-      <translation type="unfinished">Missing or incorrect inputs</translation>
+      <translation>输入丢失或不正确</translation>
     </message>
   </context>
   <context>
@@ -2491,12 +2491,12 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="570"/>
       <source>Route Detail Settings</source>
-      <translation type="unfinished">Route Detail Settings</translation>
+      <translation>路由详细设置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="583"/>
       <source>Source IP Matches</source>
-      <translation type="unfinished">Source IP Matches</translation>
+      <translation>源 IP 匹配</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="631"/>
@@ -2568,7 +2568,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="506"/>
       <source>Use Balancers</source>
-      <translation type="unfinished">Use Balancers</translation>
+      <translation>使用负载均衡</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="526"/>
@@ -2645,77 +2645,77 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="112"/>
       <source>Selected Inbound/Outbound Info</source>
-      <translation>选定进出信息</translation>
+      <translation>选定进出站信息</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="139"/>
       <source>Host</source>
-      <translation type="unfinished">Host</translation>
+      <translation>主机</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="185"/>
       <source>A rule with no inbound connected means there&apos;s no inbound restriction.</source>
-      <translation type="unfinished">A rule with no inbound connected means there&apos;s no inbound restriction.</translation>
+      <translation>没有入站连接的规则意味着没有入站限制。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="220"/>
       <source>Edit Selection</source>
-      <translation type="unfinished">Edit Selection</translation>
+      <translation>编辑所选项</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="230"/>
       <source>Add Route</source>
-      <translation type="unfinished">Add Route</translation>
+      <translation>添加路由</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="240"/>
       <source>Delete Selection</source>
-      <translation type="unfinished">Delete Selection</translation>
+      <translation>删除所选项</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="274"/>
       <source>General Settings</source>
-      <translation type="unfinished">General Settings</translation>
+      <translation>常规设置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="280"/>
       <source>GroupBox</source>
-      <translation type="unfinished">GroupBox</translation>
+      <translation>分组框</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="286"/>
       <source>Domain Strategy</source>
-      <translation type="unfinished">Domain Strategy</translation>
+      <translation>域名策略</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="312"/>
       <source>Default Outbound</source>
-      <translation type="unfinished">Default Outbound</translation>
+      <translation>默认出站</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="325"/>
       <source>Rule Order Settings</source>
-      <translation type="unfinished">Rule Order Settings</translation>
+      <translation>规则顺序设置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="331"/>
       <source>Drag and drop to re-order the rules.</source>
-      <translation type="unfinished">Drag and drop to re-order the rules.</translation>
+      <translation>拖放以重新排序规则。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="369"/>
       <source>Rule Settings</source>
-      <translation type="unfinished">Rule Settings</translation>
+      <translation>规则设置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="380"/>
       <source>Rule Status</source>
-      <translation type="unfinished">Rule Status</translation>
+      <translation>规则状态</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="397"/>
       <source>Rule Tag</source>
-      <translation type="unfinished">Rule Tag</translation>
+      <translation>规则标签</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="462"/>
@@ -2775,33 +2775,33 @@ p, li { white-space: pre-wrap; }
       <location filename="../src/ui/w_RoutesEditor.cpp" line="427"/>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="441"/>
       <source>Protocol list changed: </source>
-      <translation type="unfinished">Protocol list changed: </translation>
+      <translation>协议列表已更改： </translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="454"/>
       <source>Balancer is empty, not processing.</source>
-      <translation type="unfinished">Balancer is empty, not processing.</translation>
+      <translation>负载均衡器列表是空的，不处理。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="554"/>
       <source>To make this rule ready to use, you need to connect it to an outbound node.</source>
-      <translation type="unfinished">To make this rule ready to use, you need to connect it to an outbound node.</translation>
+      <translation>要使这条规则可以使用，您需要将它连接到一个出站节点。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="631"/>
       <source>Remove Items</source>
-      <translation type="unfinished">Remove Items</translation>
+      <translation>移除项目</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="631"/>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="680"/>
       <source>Please select a node from the graph to continue.</source>
-      <translation type="unfinished">Please select a node from the graph to continue.</translation>
+      <translation>请从图表中选择要继续的节点。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="680"/>
       <source>Edit Inbound/Outbound</source>
-      <translation type="unfinished">Edit Inbound/Outbound</translation>
+      <translation>编辑入站/出站</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="697"/>
@@ -2812,7 +2812,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="729"/>
       <source>Unsupported Outbound Type</source>
-      <translation type="unfinished">Unsupported Outbound Type</translation>
+      <translation>不支持的出站类型</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="738"/>
@@ -2844,14 +2844,14 @@ p, li { white-space: pre-wrap; }
       <location filename="../src/ui/w_RoutesEditor_extra.cpp" line="97"/>
       <location filename="../src/ui/w_RoutesEditor_extra.cpp" line="125"/>
       <source>Rename tags</source>
-      <translation type="unfinished">Rename tags</translation>
+      <translation>重命名标签</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor_extra.cpp" line="71"/>
       <location filename="../src/ui/w_RoutesEditor_extra.cpp" line="97"/>
       <location filename="../src/ui/w_RoutesEditor_extra.cpp" line="125"/>
       <source>The new tag has been used, please suggest another.</source>
-      <translation type="unfinished">The new tag has been used, please suggest another.</translation>
+      <translation>新标签名已被使用，请换个名称。</translation>
     </message>
   </context>
   <context>
