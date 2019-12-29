@@ -30,11 +30,11 @@ class SubscribeEditor : public QDialog, private Ui::w_SubscribeEditor
     private:
         void StartUpdateSubscription(const QString &subscriptionName);
         void SaveConfig();
-        void LoadSubscriptionList(QMap<QString, QString> list);
+        void LoadSubscriptionList(QMap<QString, Qv2raySubscriptionConfig> list);
 
         bool isUpdateInProgress = false;
         QvHttpRequestHelper helper;
-        QMap<QString, QString> subscriptions;
+        QMap<QString, Qv2raySubscriptionConfig> subscriptions;
         QString currentSubName;
 };
 

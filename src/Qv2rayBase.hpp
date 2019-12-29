@@ -5,17 +5,15 @@
 #include <QMap>
 #include <vector>
 #include <algorithm>
+#include <ctime>
 #include "QvTinyLog.hpp"
 #include "QvCoreConfigObjects.hpp"
 
-#define QV2RAY_CONFIG_VERSION 5
+const int QV2RAY_CONFIG_VERSION = 6;
 
-// Linux DEs should handle the ui schemes themselves.
-// --> Or.. should we change this into a modifyable setting?
-#ifdef Q_OS_LINUX
-#define QV2RAY_USE_BUILTIN_DARKTHEME false
-#else
-#define QV2RAY_USE_BUILTIN_DARKTHEME true
+// Linux users and DEs should handle the darkMode UI themselves.
+#ifndef Q_OS_LINUX
+#define QV2RAY_USE_BUILTIN_DARKTHEME
 #endif
 
 // Base folder suffix.
@@ -72,6 +70,9 @@
 #define MAX(a, b) (((a) > (b)) ? (a) : (b))
 #endif
 
+using namespace std;
+using namespace std::chrono;
+
 namespace Qv2ray
 {
     //
@@ -96,10 +97,9 @@ namespace Qv2ray
             , ColorA(255), ColorR(255), ColorG(255), ColorB(255)
             , ContentType(0)
             , Size(9),
-              Message() { }
+              Message("") { }
         XTOSTRUCT(O(Bold, Italic, ColorA, ColorR, ColorG, ColorB, Size, Family, Message, ContentType))
     };
-
 
     struct QvBarPage {
         int OffsetYpx;
@@ -115,6 +115,14 @@ namespace Qv2ray
 
     namespace QvConfigModels
     {
+        struct Qv2raySubscriptionConfig {
+            time_t lastUpdated;
+            int updateInterval;
+            string address;
+            Qv2raySubscriptionConfig() : lastUpdated(system_clock::to_time_t(system_clock::now())), updateInterval(5), address("") { }
+            XTOSTRUCT(O(lastUpdated, updateInterval, address))
+        };
+
         struct Qv2rayPACConfig {
             bool enablePAC;
             int port;
@@ -123,6 +131,7 @@ namespace Qv2ray
             Qv2rayPACConfig() : enablePAC(false), port(8989), useSocksProxy(false) { }
             XTOSTRUCT(O(enablePAC, port, localIP, useSocksProxy))
         };
+
         struct Qv2rayInboundsConfig {
             string listenip;
             bool setSystemProxy;
@@ -174,11 +183,11 @@ namespace Qv2ray
             //
             string v2CorePath;
             string v2AssetsPath;
-            ConfigIdentifier autoStartConfig;
+            Qv2rayConfigIdentifier autoStartConfig;
             string ignoredVersion;
             //
             list<string> configs;
-            map<string, string> subscribes;
+            map<string, Qv2raySubscriptionConfig> subscriptions;
             //
             Qv2rayUIConfig uiConfig;
             Qv2rayInboundsConfig inboundConfig;
@@ -194,7 +203,7 @@ namespace Qv2ray
                 autoStartConfig(),
                 ignoredVersion(),
                 configs(),
-                subscribes(),
+                subscriptions(),
                 uiConfig(),
                 inboundConfig(),
                 connectionConfig(),
@@ -208,7 +217,7 @@ namespace Qv2ray
                         v2CorePath, v2AssetsPath,
                         configs,
                         uiConfig,
-                        subscribes, inboundConfig, connectionConfig, toolBarConfig))
+                        subscriptions, inboundConfig, connectionConfig, toolBarConfig))
         };
 
     }

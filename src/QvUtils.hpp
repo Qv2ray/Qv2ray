@@ -21,6 +21,7 @@ namespace Qv2ray
         {
             return in["tag"].toString();
         }
+
         inline QString getTag(const OUTBOUND &in)
         {
             return in["tag"].toString();

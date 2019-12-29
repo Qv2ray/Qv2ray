@@ -252,7 +252,6 @@ int main(int argc, char *argv[])
     auto conf = JsonFromString(StringFromFile(new QFile(QV2RAY_CONFIG_FILE)));
     //
     auto confVersion = conf["config_version"].toVariant().toString().toInt();
-    auto newVersion = QV2RAY_CONFIG_VERSION;
 
     if (confVersion > QV2RAY_CONFIG_VERSION) {
         // Config version is larger than the current version...
@@ -263,7 +262,9 @@ int main(int argc, char *argv[])
                      QObject::tr("Or submit a new issue if you think this is an error.") + NEWLINE + NEWLINE +
                      QObject::tr("Qv2ray will now exit."));
         return -3;
-    } else if (confVersion != newVersion) {
+    }
+
+    if (confVersion < QV2RAY_CONFIG_VERSION) {
         // That is, config file needs to be upgraded.
         conf = Qv2ray::UpgradeConfig(confVersion, QV2RAY_CONFIG_VERSION, conf);
     }
@@ -322,7 +323,7 @@ int main(int argc, char *argv[])
     font.setFamily("微软雅黑");
     _qApp.setFont(font);
 #endif
-#if QV2RAY_USE_BUILTIN_DARKTHEME
+#ifdef QV2RAY_USE_BUILTIN_DARKTHEME
     LOG(MODULE_UI, "Using built-in theme.")
 
     if (confObject.uiConfig.useDarkTheme) {

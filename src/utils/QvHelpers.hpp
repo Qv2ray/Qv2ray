@@ -146,5 +146,15 @@ namespace Qv2ray
         // does not exists in list
         return it != listOfElements.end();
     }
+
+    inline std::string timeToString(const time_t &t)
+    {
+        auto _tm = std::localtime(&t);
+        char MY_TIME[128];
+        // using strftime to display time
+        strftime(MY_TIME, sizeof(MY_TIME), "%x - %I:%M%p", _tm);
+        return MY_TIME;
+    }
 }
+
 #endif // QVHELPERS_H

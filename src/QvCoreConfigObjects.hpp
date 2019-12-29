@@ -20,7 +20,7 @@ namespace Qv2ray
 {
     // To prevent anonying QJsonObject misuse
 
-    struct ConfigIdentifier {
+    struct Qv2rayConfigIdentifier {
         string subscriptionName;
         string connectionName;
         XTOSTRUCT(O(subscriptionName, connectionName))

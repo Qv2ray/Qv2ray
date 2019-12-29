@@ -22,7 +22,7 @@ namespace Qv2ray
                 break;
             }
 
-            case 2 : {
+            case 2: {
                 // We copied those files.
                 auto vCoreFilePath = root["v2CorePath"].toString();
                 auto vCoreDestPath = QV2RAY_DEFAULT_VCORE_PATH;
@@ -41,7 +41,7 @@ namespace Qv2ray
                 break;
             }
 
-            case 3 : {
+            case 3: {
                 // We changed a key name in the config file.
                 //proxyDefault
                 auto oldProxyDefault = root["proxyDefault"].toBool();
@@ -96,10 +96,32 @@ namespace Qv2ray
                 // //root["inboundConfig"] = inbound;
                 // //UPDATELOG("Renamed usePAC to enablePAC.")
                 //
-                ConfigIdentifier i;
+                Qv2rayConfigIdentifier i;
                 i.connectionName = root["autoStartConfig"].toString().toStdString();
                 root["autoStartConfig"] = GetRootObject(i);
                 UPDATELOG("Added subscription feature to autoStartConfig.")
+                break;
+            }
+
+            // Qv2ray version 2, RC 2
+            case 5: {
+                // Added subscription auto update
+                auto subs = root["subscribes"].toObject();
+                root.remove("subscribes");
+                QJsonObject newSubscriptions;
+
+                for (auto item = subs.begin(); item != subs.end(); item++) {
+                    auto key = item.key();
+                    Qv2raySubscriptionConfig _conf;
+                    _conf.address = item.value().toString().toStdString();
+                    _conf.lastUpdated = system_clock::to_time_t(system_clock::now());
+                    _conf.updateInterval = 5;
+                    auto value = GetRootObject(_conf);
+                    newSubscriptions[key] = value;
+                }
+
+                root["subscriptions"] = newSubscriptions;
+                break;
             }
         }
 

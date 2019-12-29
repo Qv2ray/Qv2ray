@@ -332,7 +332,9 @@ void MainWindow::OnConfigListChanged(bool need_restart)
     connections.clear();
     connectionListWidget->clear();
     auto _regularConnections = GetRegularConnections(currentConfig.configs);
-    auto _subsConnections = GetSubscriptionConnections(toStdList(QMap<string, string>(currentConfig.subscribes).keys()));
+    //
+    auto _vector = mapExt::Keys(currentConfig.subscriptions);
+    auto _subsConnections = GetSubscriptionConnections(list<string>(_vector.begin(), _vector.end()));
 
     for (auto i = 0; i < _regularConnections.count(); i++) {
         ConnectionObject _o;

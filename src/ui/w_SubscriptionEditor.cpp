@@ -1,6 +1,5 @@
 ﻿#include "w_SubscriptionEditor.hpp"
 #include "QvHTTPRequestHelper.hpp"
-#include "QvUtils.hpp"
 #include "QvCoreConfigOperations.hpp"
 
 SubscribeEditor::SubscribeEditor(QWidget *parent) :
@@ -11,14 +10,14 @@ SubscribeEditor::SubscribeEditor(QWidget *parent) :
     addSubsButton->setIcon(QICON_R("add.png"));
     removeSubsButton->setIcon(QICON_R("delete.png"));
 
-    for (auto _ : conf.subscribes) {
-        subscriptions[QSTRING(_.first)] = QSTRING(_.second);
+    for (auto _ : conf.subscriptions) {
+        subscriptions[QSTRING(_.first)] = _.second;
     }
 
     LoadSubscriptionList(subscriptions);
 }
 
-void SubscribeEditor::LoadSubscriptionList(QMap<QString, QString> list)
+void SubscribeEditor::LoadSubscriptionList(QMap<QString, Qv2raySubscriptionConfig> list)
 {
     subscriptionList->clear();
 
@@ -39,7 +38,7 @@ void SubscribeEditor::on_addSubsButton_clicked()
 {
     auto const key = QString::number(QTime::currentTime().msecsSinceStartOfDay());
     subscriptionList->addItem(key);
-    subscriptions[key] = "http://example.com/myfile";
+    subscriptions[key].address = "http://example.com/myfile";
     QDir().mkpath(QV2RAY_SUBSCRIPTION_DIR + key);
     subscriptionList->setCurrentRow(subscriptions.count() - 1);
     SaveConfig();
@@ -49,6 +48,7 @@ void SubscribeEditor::on_updateButton_clicked()
 {
     auto newName = subNameTxt->text().trimmed();
     auto newAddress = subAddrTxt->text().trimmed();
+    auto newUpdateInterval = updateIntervalSB->value();
 
     if (currentSubName != newName) {
         // Rename needed.
@@ -95,9 +95,11 @@ void SubscribeEditor::on_updateButton_clicked()
         QvMessageBox(this, tr("Renaming a subscription"), tr("Successfully renamed a subscription"));
     }
 
-    if (subscriptions[currentSubName] != newAddress) {
-        LOG(MODULE_SUBSCRIPTION, ("Setting new address, from " + subscriptions[currentSubName] + " to: " + newAddress).toStdString())
-        subscriptions[currentSubName] = newAddress;
+    subscriptions[currentSubName].updateInterval = newUpdateInterval;
+
+    if (subscriptions[currentSubName].address != newAddress.toStdString()) {
+        LOG(MODULE_SUBSCRIPTION, "Setting new address, from " + subscriptions[currentSubName].address + " to: " + newAddress.toStdString())
+        subscriptions[currentSubName].address = newAddress.toStdString();
     }
 
     SaveConfig();
@@ -110,7 +112,7 @@ void SubscribeEditor::on_updateButton_clicked()
 void SubscribeEditor::StartUpdateSubscription(const QString &subscriptionName)
 {
     this->setEnabled(false);
-    auto data = helper.syncget(subscriptions[subscriptionName]);
+    auto data = helper.syncget(QSTRING(subscriptions[subscriptionName].address));
     auto content = DecodeSubscriptionString(data).trimmed();
 
     if (!content.isEmpty()) {
@@ -132,6 +134,7 @@ void SubscribeEditor::StartUpdateSubscription(const QString &subscriptionName)
             }
         }
 
+        subscriptions[subscriptionName].lastUpdated = system_clock::to_time_t(system_clock::now());
         isUpdateInProgress = false;
     } else {
         LOG(MODULE_NETWORK, "We have received an empty string from the URL.")
@@ -181,7 +184,9 @@ void SubscribeEditor::on_subscriptionList_currentRowChanged(int currentRow)
     LOG(MODULE_UI, "Subscription row changed, new name: " + currentSubName.toStdString())
     //
     subNameTxt->setText(currentSubName);
-    subAddrTxt->setText(subscriptions[currentSubName]);
+    subAddrTxt->setText(QSTRING(subscriptions[currentSubName].address));
+    updateIntervalSB->setValue(subscriptions[currentSubName].updateInterval);
+    lastUpdatedLabel->setText(QSTRING(timeToString(subscriptions[currentSubName].lastUpdated)));
     //
     connectionsList->clear();
     auto _list = GetSubscriptionConnection(currentSubName.toStdString());
@@ -194,15 +199,15 @@ void SubscribeEditor::on_subscriptionList_currentRowChanged(int currentRow)
 void SubscribeEditor::SaveConfig()
 {
     auto conf = GetGlobalConfig();
-    QMap<string, string> newConf;
+    QMap<string, Qv2raySubscriptionConfig> newConf;
 
     for (auto _ : subscriptions.toStdMap()) {
-        if (!_.second.isEmpty()) {
-            newConf[_.first.toStdString()] = _.second.toStdString();
+        if (!_.second.address.empty()) {
+            newConf[_.first.toStdString()] = _.second;
         }
     }
 
-    conf.subscribes = newConf.toStdMap();
+    conf.subscriptions = newConf.toStdMap();
     SetGlobalConfig(conf);
 }
 

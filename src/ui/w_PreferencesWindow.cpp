@@ -40,7 +40,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent),
     themeCombo->setCurrentText(QSTRING(CurrentConfig.uiConfig.theme));
     darkThemeCB->setChecked(CurrentConfig.uiConfig.useDarkTheme);
     darkTrayCB->setChecked(CurrentConfig.uiConfig.useDarkTrayIcon);
-#if QV2RAY_USE_BUILTIN_DARKTHEME
+#ifdef QV2RAY_USE_BUILTIN_DARKTHEME
     // If we use built in theme, it should always be fusion.
     themeCombo->setEnabled(!CurrentConfig.uiConfig.useDarkTheme);
     darkThemeLabel->setText(tr("Use Darkmode Theme"));
@@ -136,7 +136,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent),
     auto autoCon = QSTRING(CurrentConfig.autoStartConfig.connectionName);
     autoStartConnCombo->addItem("");
 
-    for (auto item : CurrentConfig.subscribes) {
+    for (auto item : CurrentConfig.subscriptions) {
         autoStartSubsCombo->addItem(QSTRING(item.first));
     }
 
@@ -740,7 +740,7 @@ void PreferencesWindow::on_darkThemeCB_stateChanged(int arg1)
     LOADINGCHECK
     CurrentConfig.uiConfig.useDarkTheme = arg1 == Qt::Checked;
     QvMessageBox(this, tr("Dark Mode"), tr("Please restart Qv2ray to fully apply this feature."));
-#if QV2RAY_USE_BUILTIN_DARKTHEME
+#ifdef QV2RAY_USE_BUILTIN_DARKTHEME
     themeCombo->setEnabled(arg1 != Qt::Checked);
 
     if (arg1 == Qt::Checked) {
