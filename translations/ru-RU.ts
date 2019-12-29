@@ -1555,7 +1555,7 @@
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="405"/>
       <source>(Re)Install</source>
-      <translation>(Пере)Установить</translation>
+      <translation>Установить</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="412"/>
