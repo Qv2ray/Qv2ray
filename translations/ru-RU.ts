@@ -1439,7 +1439,7 @@
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="74"/>
       <source>Start With Boot</source>
-      <translation>Начать при загрузке</translation>
+      <translation>Автозапуск</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="96"/>
@@ -2116,7 +2116,7 @@ p, li { white-space: pre-wrap; }
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="901"/>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="903"/>
       <source>Start with boot</source>
-      <translation>Начать при загрузке</translation>
+      <translation>Автозапуск</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="892"/>
