@@ -70,13 +70,13 @@ namespace Qv2ray
 
                             case 101: {
                                 // Current Time
-                                CL.Message = QTime().currentTime().toString("hh:mm:ss").toStdString();
+                                CL.Message = QTime().currentTime().toString("hh:mm:ss");
                                 break;
                             }
 
                             case 102: {
                                 // Current Date
-                                CL.Message = QDate().currentDate().toString("yyyy-MM-dd").toStdString();
+                                CL.Message = QDate().currentDate().toString("yyyy-MM-dd");
                                 break;
                             }
 
@@ -88,7 +88,7 @@ namespace Qv2ray
 
                             case 104: {
                                 // Current Connection Name
-                                CL.Message = instance->CurrentConnectionName.toStdString();
+                                CL.Message = instance->CurrentConnectionName;
                                 break;
                             }
 
@@ -96,17 +96,17 @@ namespace Qv2ray
                                 // Current Connection Status
                                 switch (instance->vinstance->ConnectionStatus) {
                                     case STARTED: {
-                                        CL.Message = QObject::tr("Connected").toStdString();
+                                        CL.Message = QObject::tr("Connected");
                                         break;
                                     }
 
                                     case STOPPED: {
-                                        CL.Message = QObject::tr("Disconnected").toStdString();
+                                        CL.Message = QObject::tr("Disconnected");
                                         break;
                                     }
 
                                     case STARTING: {
-                                        CL.Message = QObject::tr("Connecting").toStdString();
+                                        CL.Message = QObject::tr("Connecting");
                                         break;
                                     }
                                 }
@@ -116,49 +116,49 @@ namespace Qv2ray
 
                             case 201: {
                                 // Total upload speed;
-                                CL.Message = FormatBytes(vinstance->getAllSpeedUp()).toStdString() + "/s";
+                                CL.Message = FormatBytes(vinstance->getAllSpeedUp()) + "/s";
                                 break;
                             }
 
                             case 202: {
                                 // Total download speed;
-                                CL.Message = (FormatBytes(vinstance->getAllSpeedDown()) + "/s").toStdString();
+                                CL.Message = FormatBytes(vinstance->getAllSpeedDown()) + "/s";
                                 break;
                             }
 
                             case 203: {
                                 // Upload speed for tag
-                                CL.Message = FormatBytes(vinstance->getTagSpeedUp(QSTRING(CL.Message))).toStdString() + "/s";
+                                CL.Message = FormatBytes(vinstance->getTagSpeedUp(CL.Message)) + "/s";
                                 break;
                             }
 
                             case 204: {
                                 // Download speed for tag
-                                CL.Message = FormatBytes(vinstance->getTagSpeedDown(QSTRING(CL.Message))).toStdString() + "/s";
+                                CL.Message = FormatBytes(vinstance->getTagSpeedDown(CL.Message)) + "/s";
                                 break;
                             }
 
                             case 301: {
                                 // Total Upload
-                                CL.Message = FormatBytes(vinstance->getAllDataUp()).toStdString();
+                                CL.Message = FormatBytes(vinstance->getAllDataUp());
                                 break;
                             }
 
                             case 302: {
                                 // Total download
-                                CL.Message = FormatBytes(vinstance->getAllDataDown()).toStdString();
+                                CL.Message = FormatBytes(vinstance->getAllDataDown());
                                 break;
                             }
 
                             case 303: {
                                 // Upload for tag
-                                CL.Message = FormatBytes(vinstance->getTagDataUp(QSTRING(CL.Message))).toStdString();
+                                CL.Message = FormatBytes(vinstance->getTagDataUp(CL.Message));
                                 break;
                             }
 
                             case 304: {
                                 // Download for tag
-                                CL.Message = FormatBytes(vinstance->getTagDataDown(QSTRING(CL.Message))).toStdString();
+                                CL.Message = FormatBytes(vinstance->getTagDataDown(CL.Message));
                                 break;
                             }
 

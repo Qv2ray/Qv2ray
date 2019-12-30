@@ -97,7 +97,7 @@ namespace Qv2ray
                 // //UPDATELOG("Renamed usePAC to enablePAC.")
                 //
                 Qv2rayConfigIdentifier i;
-                i.connectionName = root["autoStartConfig"].toString().toStdString();
+                i.connectionName = root["autoStartConfig"].toString();
                 root["autoStartConfig"] = GetRootObject(i);
                 UPDATELOG("Added subscription feature to autoStartConfig.")
                 break;
@@ -113,7 +113,7 @@ namespace Qv2ray
                 for (auto item = subs.begin(); item != subs.end(); item++) {
                     auto key = item.key();
                     Qv2raySubscriptionConfig _conf;
-                    _conf.address = item.value().toString().toStdString();
+                    _conf.address = item.value().toString();
                     _conf.lastUpdated = system_clock::to_time_t(system_clock::now());
                     _conf.updateInterval = 5;
                     auto value = GetRootObject(_conf);

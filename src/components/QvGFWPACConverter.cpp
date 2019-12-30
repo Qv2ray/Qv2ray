@@ -130,7 +130,7 @@ namespace Qv2ray
                 NEWLINE "        }"
                 NEWLINE "    }";
             //
-            return QSTRING(outputContent);
+            return QString::fromStdString(outputContent);
         }
     }
 }

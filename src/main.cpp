@@ -146,8 +146,8 @@ bool initialiseQv2ray()
             }
 
             Qv2rayConfig conf;
-            conf.v2AssetsPath = QV2RAY_DEFAULT_VASSETS_PATH.toStdString();
-            conf.v2CorePath = QV2RAY_DEFAULT_VCORE_PATH.toStdString();
+            conf.v2AssetsPath = QV2RAY_DEFAULT_VASSETS_PATH;
+            conf.v2CorePath = QV2RAY_DEFAULT_VCORE_PATH;
             conf.logLevel = 3;
             //
             // Save initial config.
@@ -275,20 +275,20 @@ int main(int argc, char *argv[])
     qApp->removeTranslator(_sysTranslator);
     LOG(MODULE_INIT, "Removing system translations")
 
-    if (confObject.uiConfig.language.empty()) {
+    if (confObject.uiConfig.language.isEmpty()) {
         // Prevent empty.
         LOG(MODULE_UI, "Setting default UI language to en-US")
         confObject.uiConfig.language = "en-US";
     }
 
-    if (qApp->installTranslator(getTranslator(QSTRING(confObject.uiConfig.language)))) {
-        LOG(MODULE_INIT, "Successfully installed a translator for " + confObject.uiConfig.language)
+    if (qApp->installTranslator(getTranslator(confObject.uiConfig.language))) {
+        LOG(MODULE_INIT, "Successfully installed a translator for " + confObject.uiConfig.language.toStdString())
     } else {
         // Do not translate these.....
         // If a translator fails to load, pop up a message.
         QvMessageBox(
             nullptr, "Translation Failed",
-            "Cannot load translation for " + QSTRING(confObject.uiConfig.language) + ", English is now used.\r\n\r\n"
+            "Cannot load translation for " + confObject.uiConfig.language + ", English is now used.\r\n\r\n"
             "Please go to Preferences Window to change or Report a Bug at: \r\n"
             "https://github.com/lhy0403/Qv2ray/issues/new");
     }
@@ -297,12 +297,12 @@ int main(int argc, char *argv[])
     SetGlobalConfig(confObject);
     //
     // Check OpenSSL version for auto-update and subscriptions
-    auto osslReqVersion = QSslSocket::sslLibraryBuildVersionString().toStdString();
-    auto osslCurVersion = QSslSocket::sslLibraryVersionString().toStdString();
-    LOG(MODULE_NETWORK, "Current OpenSSL version: " + osslCurVersion)
+    auto osslReqVersion = QSslSocket::sslLibraryBuildVersionString();
+    auto osslCurVersion = QSslSocket::sslLibraryVersionString();
+    LOG(MODULE_NETWORK, "Current OpenSSL version: " + osslCurVersion.toStdString())
 
     if (!QSslSocket::supportsSsl()) {
-        LOG(MODULE_NETWORK, "Required OpenSSL version: " + osslReqVersion)
+        LOG(MODULE_NETWORK, "Required OpenSSL version: " + osslReqVersion.toStdString())
         LOG(MODULE_NETWORK, "OpenSSL library MISSING, Quitting.")
         QvMessageBox(nullptr, QObject::tr("DependencyMissing"),
                      QObject::tr("Cannot find openssl libs") + "\r\n" +
@@ -311,8 +311,8 @@ int main(int argc, char *argv[])
                      QObject::tr("Please refer to Github Issue #65 to check for solutions.") + "\r\n" +
                      QObject::tr("Github Issue Link: ") + "https://github.com/lhy0403/Qv2ray/issues/65" + "\r\n\r\n" +
                      QObject::tr("Technical Details") + "\r\n" +
-                     "OSsl.Rq.V=" + QSTRING(osslReqVersion) + "\r\n" +
-                     "OSsl.Cr.V=" + QSTRING(osslCurVersion));
+                     "OSsl.Rq.V=" + osslReqVersion + "\r\n" +
+                     "OSsl.Cr.V=" + osslCurVersion);
         return -2;
     }
 
@@ -361,9 +361,9 @@ int main(int argc, char *argv[])
     QStringList themes = QStyleFactory::keys();
     //_qApp.setDesktopFileName("qv2ray.desktop");
 
-    if (themes.contains(QSTRING(confObject.uiConfig.theme))) {
-        _qApp.setStyle(QSTRING(confObject.uiConfig.theme));
-        LOG(MODULE_INIT " " MODULE_UI, "Setting Qv2ray UI themes: " + confObject.uiConfig.theme)
+    if (themes.contains(confObject.uiConfig.theme)) {
+        _qApp.setStyle(confObject.uiConfig.theme);
+        LOG(MODULE_INIT " " MODULE_UI, "Setting Qv2ray UI themes: " + confObject.uiConfig.theme.toStdString())
     }
 
 #endif

@@ -189,17 +189,17 @@ void RouteEditor::onConnectionCreated(QtNodes::Connection const &c)
 
         // caused by multi-in connection
         _inbounds.removeDuplicates();
-        CurrentRule.inboundTag = ConvertStdStringList(_inbounds);
+        CurrentRule.inboundTag = _inbounds;
     } else if (ruleNodes.values().contains(sourceNode) && outboundNodes.values().contains(targetNode)) {
         // It's a rule-outbound connection
         onNodeClicked(*sourceNode);
         onNodeClicked(*targetNode);
-        CurrentRule.outboundTag = GetFirstNodeData((*targetNode), QvOutboundNodeModel, OutboundNodeData)->GetOutbound().toStdString();
+        CurrentRule.outboundTag = GetFirstNodeData((*targetNode), QvOutboundNodeModel, OutboundNodeData)->GetOutbound();
         // Connecting to an outbound will disable the balancer feature.
         CurrentRule.QV2RAY_RULE_USE_BALANCER = false;
         // Update balancer settings.
         ShowCurrentRuleDetail();
-        LOG(MODULE_GRAPH, "Updated outbound: " + CurrentRule.outboundTag)
+        LOG(MODULE_GRAPH, "Updated outbound: " + CurrentRule.outboundTag.toStdString())
     } else {
         // It's an impossible connection
         LOG(MODULE_GRAPH, "Unrecognized connection, RARE.")
@@ -223,7 +223,7 @@ void RouteEditor::onConnectionDeleted(QtNodes::Connection const &c)
         currentRuleTag = GetFirstNodeData(*target, QvRuleNodeDataModel, RuleNodeData)->GetRuleTag();
         auto _inboundTag = GetFirstNodeData(*source, QvInboundNodeModel, InboundNodeData)->GetInbound();
         LOG(MODULE_UI, "Removing inbound: " + _inboundTag.toStdString() + " from rule: " + currentRuleTag.toStdString())
-        CurrentRule.inboundTag.remove(_inboundTag.toStdString());
+        CurrentRule.inboundTag.removeAll(_inboundTag);
     } else if (ruleNodes.values().contains(source) && outboundNodes.values().contains(target)) {
         // It's a rule-outbound connection
         onNodeClicked(*source);
@@ -231,7 +231,7 @@ void RouteEditor::onConnectionDeleted(QtNodes::Connection const &c)
         currentRuleTag = GetFirstNodeData(*source, QvRuleNodeDataModel, RuleNodeData)->GetRuleTag();
         auto _outboundTag = GetFirstNodeData(*target, QvOutboundNodeModel, OutboundNodeData)->GetOutbound();
 
-        if (!CurrentRule.QV2RAY_RULE_USE_BALANCER && CurrentRule.outboundTag == _outboundTag.toStdString()) {
+        if (!CurrentRule.QV2RAY_RULE_USE_BALANCER && CurrentRule.outboundTag == _outboundTag) {
             CurrentRule.outboundTag.clear();
         }
 
@@ -267,23 +267,23 @@ CONFIGROOT RouteEditor::OpenEditor()
                 ruleJsonObject.remove("outboundTag");
 
                 // Find balancer list
-                if (!_balancers.contains(QSTRING(_rule.balancerTag))) {
-                    LOG(MODULE_UI, "Cannot find a balancer for tag: " + _rule.balancerTag)
+                if (!_balancers.contains(_rule.balancerTag)) {
+                    LOG(MODULE_UI, "Cannot find a balancer for tag: " + _rule.balancerTag.toStdString())
                 } else {
-                    auto _balancerList = balancers[QSTRING(_rule.balancerTag)];
+                    auto _balancerList = balancers[_rule.balancerTag];
                     QJsonObject balancerEntry;
-                    balancerEntry["tag"] = QSTRING(_rule.balancerTag);
+                    balancerEntry["tag"] = _rule.balancerTag;
                     balancerEntry["selector"] = QJsonArray::fromStringList(_balancerList);
                     _balancers.append(balancerEntry);
                 }
             }
 
             // Remove some empty fields.
-            if (_rule.port.empty()) {
+            if (_rule.port.isEmpty()) {
                 ruleJsonObject.remove("port");
             }
 
-            if (_rule.network.empty()) {
+            if (_rule.network.isEmpty()) {
                 ruleJsonObject.remove("network");
             }
 
@@ -337,7 +337,7 @@ void RouteEditor::ShowCurrentRuleDetail()
     ruleEnableCB->setEnabled(true);
     ruleEnableCB->setChecked(CurrentRule.QV2RAY_RULE_ENABLED);
     LOAD_FLAG_BEGIN
-    ruleTagLineEdit->setText(QSTRING(CurrentRule.QV2RAY_RULE_TAG));
+    ruleTagLineEdit->setText(CurrentRule.QV2RAY_RULE_TAG);
     balancerSelectionCombo->clear();
 
     // BUG added the wrong items, should be outbound list.
@@ -350,27 +350,27 @@ void RouteEditor::ShowCurrentRuleDetail()
     enableBalancerCB->setChecked(CurrentRule.QV2RAY_RULE_USE_BALANCER);
     balancersWidget->setEnabled(CurrentRule.QV2RAY_RULE_USE_BALANCER);
 
-    if (!QSTRING(CurrentRule.balancerTag).isEmpty()) {
+    if (!CurrentRule.balancerTag.isEmpty()) {
         balancerList->clear();
-        balancerList->addItems(balancers[QSTRING(CurrentRule.balancerTag)]);
+        balancerList->addItems(balancers[CurrentRule.balancerTag]);
     }
 
     isLoading = false;
     // Networks
-    auto network = QSTRING(CurrentRule.network).toLower();
+    auto network = CurrentRule.network.toLower();
     bool isBoth = (network.contains("tcp") && network.contains("udp")) || network.isEmpty();
     netUDPRB->setChecked(network.contains("udp"));
     netTCPRB->setChecked(network.contains("tcp"));
     netBothRB->setChecked(isBoth);
     //
     // Set protocol checkboxes.
-    auto protocol = toQList(CurrentRule.protocol);
+    auto protocol = CurrentRule.protocol;
     routeProtocolHTTPCB->setChecked(protocol.contains("http"));
     routeProtocolTLSCB->setChecked(protocol.contains("tls"));
     routeProtocolBTCB->setChecked(protocol.contains("bittorrent"));
     //
     // Port
-    routePortTxt->setText(QSTRING(CurrentRule.port));
+    routePortTxt->setText(CurrentRule.port);
     //
     // Users
     QString users = Stringify(CurrentRule.user, NEWLINE);
@@ -401,7 +401,7 @@ void RouteEditor::on_insertDirectBtn_clicked()
 void RouteEditor::on_routeProtocolHTTPCB_stateChanged(int arg1)
 {
     LOADINGCHECK
-    list<string> protocols;
+    QStringList protocols;
 
     if (arg1 == Qt::Checked) protocols.push_back("http");
 
@@ -415,7 +415,7 @@ void RouteEditor::on_routeProtocolHTTPCB_stateChanged(int arg1)
 void RouteEditor::on_routeProtocolTLSCB_stateChanged(int arg1)
 {
     LOADINGCHECK
-    list<string> protocols;
+    QStringList protocols;
 
     if (arg1 == Qt::Checked) protocols.push_back("tls");
 
@@ -429,7 +429,7 @@ void RouteEditor::on_routeProtocolTLSCB_stateChanged(int arg1)
 void RouteEditor::on_routeProtocolBTCB_stateChanged(int arg1)
 {
     LOADINGCHECK
-    list<string> protocols;
+    QStringList protocols;
 
     if (arg1 == Qt::Checked) protocols.push_back("bittorrent");
 
@@ -446,7 +446,7 @@ void RouteEditor::on_balancerAddBtn_clicked()
     auto balancerTx = balancerSelectionCombo->currentText();
 
     if (!balancerTx.isEmpty()) {
-        this->balancers[QSTRING(CurrentRule.balancerTag)].append(balancerSelectionCombo->currentText());
+        this->balancers[CurrentRule.balancerTag].append(balancerSelectionCombo->currentText());
         balancerList->addItem(balancerTx);
         balancerSelectionCombo->setEditText("");
         statusLabel->setText(tr("OK"));
@@ -462,29 +462,29 @@ void RouteEditor::on_balancerDelBtn_clicked()
         return;
     }
 
-    balancers[QSTRING(CurrentRule.balancerTag)].removeAt(balancerList->currentRow());
+    balancers[CurrentRule.balancerTag].removeAt(balancerList->currentRow());
     balancerList->takeItem(balancerList->currentRow());
     statusLabel->setText(tr("Removed a balancer entry."));
 }
 void RouteEditor::on_hostList_textChanged()
 {
     LOADINGCHECK
-    CurrentRule.domain = SplitLines_std(hostList->toPlainText());
+    CurrentRule.domain = SplitLines(hostList->toPlainText());
 }
 void RouteEditor::on_ipList_textChanged()
 {
     LOADINGCHECK
-    CurrentRule.ip = SplitLines_std(ipList->toPlainText());
+    CurrentRule.ip = SplitLines(ipList->toPlainText());
 }
 void RouteEditor::on_routePortTxt_textEdited(const QString &arg1)
 {
     LOADINGCHECK
-    CurrentRule.port = arg1.toStdString();
+    CurrentRule.port = arg1;
 }
 void RouteEditor::on_routeUserTxt_textEdited(const QString &arg1)
 {
     LOADINGCHECK
-    CurrentRule.user = SplitLines_std(arg1);
+    CurrentRule.user = SplitLines(arg1);
 }
 void RouteEditor::on_addRouteBtn_clicked()
 {
@@ -496,8 +496,8 @@ void RouteEditor::on_addRouteBtn_clicked()
     rule.QV2RAY_RULE_USE_BALANCER = false;
     // Default balancer tag, it's a random string.
     auto bTag = GenerateRandomString();
-    rule.QV2RAY_RULE_TAG = GenerateRandomString(5).toStdString();
-    rule.balancerTag = bTag.toStdString();
+    rule.QV2RAY_RULE_TAG = GenerateRandomString(5);
+    rule.balancerTag = bTag;
     balancers[bTag] = QStringList();
     AddNewRule(rule);
 }
@@ -519,12 +519,12 @@ void RouteEditor::on_netTCPRB_clicked()
 void RouteEditor::on_routeUserTxt_textChanged()
 {
     LOADINGCHECK
-    CurrentRule.user = SplitLines_std(routeUserTxt->toPlainText());
+    CurrentRule.user = SplitLines(routeUserTxt->toPlainText());
 }
 void RouteEditor::on_sourceIPList_textChanged()
 {
     LOADINGCHECK
-    CurrentRule.source = SplitLines_std(sourceIPList->toPlainText());
+    CurrentRule.source = SplitLines(sourceIPList->toPlainText());
 }
 void RouteEditor::on_enableBalancerCB_stateChanged(int arg1)
 {
@@ -533,13 +533,13 @@ void RouteEditor::on_enableBalancerCB_stateChanged(int arg1)
     CurrentRule.QV2RAY_RULE_USE_BALANCER = useBalancer;
     balancersWidget->setEnabled(useBalancer);
 
-    if (CurrentRule.balancerTag.empty()) {
+    if (CurrentRule.balancerTag.isEmpty()) {
         LOG(MODULE_UI, "Creating a new balancer tag.")
-        CurrentRule.balancerTag = GenerateRandomString(6).toStdString();
-        balancers[QSTRING(CurrentRule.balancerTag)] = QStringList();
+        CurrentRule.balancerTag = GenerateRandomString(6);
+        balancers[CurrentRule.balancerTag] = QStringList();
     }
 
-    DEBUG(MODULE_UI, "Balancer: " + CurrentRule.balancerTag)
+    DEBUG(MODULE_UI, "Balancer: " + CurrentRule.balancerTag.toStdString())
 
     if (useBalancer) {
         LOG(MODULE_UI, "A rule has been set to use balancer, disconnect it to any outbound.")
@@ -565,10 +565,10 @@ void RouteEditor::on_addDefaultBtn_clicked()
     auto _in_httpConf = GenerateHTTPIN(QList<AccountObject>() << _Inconfig.httpAccount);
     auto _in_socksConf = GenerateSocksIN((_Inconfig.socks_useAuth ? "password" : "noauth"),
                                          QList<AccountObject>() << _Inconfig.socksAccount,
-                                         _Inconfig.socksUDP, QSTRING(_Inconfig.socksLocalIP));
+                                         _Inconfig.socksUDP, _Inconfig.socksLocalIP);
     //
-    auto _in_HTTP = GenerateInboundEntry(QSTRING(_Inconfig.listenip), _Inconfig.http_port, "http", _in_httpConf, "HTTP_gConf");
-    auto _in_SOCKS = GenerateInboundEntry(QSTRING(_Inconfig.listenip), _Inconfig.socks_port, "socks", _in_socksConf, "SOCKS_gConf");
+    auto _in_HTTP = GenerateInboundEntry(_Inconfig.listenip, _Inconfig.http_port, "http", _in_httpConf, "HTTP_gConf");
+    auto _in_SOCKS = GenerateInboundEntry(_Inconfig.listenip, _Inconfig.socks_port, "socks", _in_socksConf, "SOCKS_gConf");
     //
     AddNewInbound(_in_HTTP);
     AddNewInbound(_in_SOCKS);
@@ -769,5 +769,5 @@ void RouteEditor::on_defaultOutboundCombo_currentIndexChanged(const QString &arg
 
 void RouteEditor::on_ruleTagLineEdit_textEdited(const QString &arg1)
 {
-    RenameItemTag(RENAME_RULE, QSTRING(CurrentRule.QV2RAY_RULE_TAG), arg1);
+    RenameItemTag(RENAME_RULE, CurrentRule.QV2RAY_RULE_TAG, arg1);
 }

@@ -52,7 +52,7 @@ namespace Qv2ray
 #if defined (__WIN32) && defined (UNICODE)
                 data.errorMessage = QString::fromStdWString(gai_strerror(errcode));
 #else
-                data.errorMessage = QSTRING(gai_strerror(errcode));
+                data.errorMessage = gai_strerror(errcode);
 #endif
                 return data;
             }

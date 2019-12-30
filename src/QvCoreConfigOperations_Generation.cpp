@@ -181,12 +181,7 @@ namespace Qv2ray
                 logObject.insert("loglevel", vLogLevels[gConf.logLevel]);
                 root.insert("log", logObject);
                 //
-                QStringList dnsList;
-
-                foreach (auto str, gConf.connectionConfig.dnsList) {
-                    dnsList.append(QString::fromStdString(str));
-                }
-
+                auto dnsList = gConf.connectionConfig.dnsList;
                 auto dnsObject = GenerateDNS(gConf.connectionConfig.withLocalDNS, dnsList);
                 root.insert("dns", dnsObject);
                 //
@@ -196,7 +191,7 @@ namespace Qv2ray
                 // HTTP InBound
                 if (gConf.inboundConfig.useHTTP) {
                     INBOUND httpInBoundObject;
-                    httpInBoundObject.insert("listen", QString::fromStdString(gConf.inboundConfig.listenip));
+                    httpInBoundObject.insert("listen", gConf.inboundConfig.listenip);
                     httpInBoundObject.insert("port", gConf.inboundConfig.http_port);
                     httpInBoundObject.insert("protocol", "http");
                     httpInBoundObject.insert("tag", "http_IN");
@@ -212,14 +207,14 @@ namespace Qv2ray
                 // SOCKS InBound
                 if (gConf.inboundConfig.useSocks) {
                     INBOUND socksInBoundObject;
-                    socksInBoundObject.insert("listen", QString::fromStdString(gConf.inboundConfig.listenip));
+                    socksInBoundObject.insert("listen", gConf.inboundConfig.listenip);
                     socksInBoundObject.insert("port", gConf.inboundConfig.socks_port);
                     socksInBoundObject.insert("protocol", "socks");
                     socksInBoundObject.insert("tag", "socks_IN");
                     auto socksInSettings = GenerateSocksIN(gConf.inboundConfig.socks_useAuth ? "password" : "noauth",
                                                            QList<AccountObject>() << gConf.inboundConfig.socksAccount,
                                                            gConf.inboundConfig.socksUDP,
-                                                           QSTRING(gConf.inboundConfig.socksLocalIP));
+                                                           gConf.inboundConfig.socksLocalIP);
                     socksInBoundObject.insert("settings", socksInSettings);
                     inboundsList.append(socksInBoundObject);
                 }

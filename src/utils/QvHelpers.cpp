@@ -47,7 +47,7 @@ namespace Qv2ray
             QString out;
 
             for (auto item : list) {
-                out.append(QSTRING(item));
+                out.append(QString::fromStdString(item));
                 out.append(saperator);
             }
 

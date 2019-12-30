@@ -27,7 +27,7 @@ namespace Qv2ray
             connect(pacServer, &QHttpServer::newRequest, this, &PACServer::onNewRequest);
             //
             auto conf = GetGlobalConfig();
-            auto address = QSTRING(conf.inboundConfig.listenip);
+            auto address = conf.inboundConfig.listenip;
             auto port = conf.inboundConfig.pacConfig.port;
             //
             QString gfwContent = StringFromFile(new QFile(QV2RAY_RULES_GFWLIST_PATH));

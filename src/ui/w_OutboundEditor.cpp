@@ -87,71 +87,73 @@ void OutboundEditor::ReLoad_GUI_JSON_ModelContent()
 {
     if (OutboundType == "vmess") {
         outBoundTypeCombo->setCurrentIndex(0);
-        ipLineEdit->setText(QSTRING(vmess.address));
+        ipLineEdit->setText(vmess.address);
         portLineEdit->setText(QString::number(vmess.port));
-        idLineEdit->setText(QSTRING(vmess.users.front().id));
+        idLineEdit->setText(vmess.users.front().id);
         alterLineEdit->setValue(vmess.users.front().alterId);
-        securityCombo->setCurrentText(QSTRING(vmess.users.front().security));
-        tranportCombo->setCurrentText(QSTRING(stream.network));
+        securityCombo->setCurrentText(vmess.users.front().security);
+        tranportCombo->setCurrentText(stream.network);
         tlsCB->setChecked(stream.security == "tls");
         // TCP
-        tcpHeaderTypeCB->setCurrentText(QSTRING(stream.tcpSettings.header.type));
+        tcpHeaderTypeCB->setCurrentText(stream.tcpSettings.header.type);
         tcpRequestTxt->setPlainText(StructToJsonString(stream.tcpSettings.header.request));
         tcpRespTxt->setPlainText(StructToJsonString(stream.tcpSettings.header.response));
         // HTTP
         QString allHosts;
 
         foreach (auto host, stream.httpSettings.host) {
-            allHosts = allHosts + QSTRING(host) + "\r\n";
+            allHosts = allHosts + host + "\r\n";
         }
 
         httpHostTxt->setPlainText(allHosts);
-        httpPathTxt->setText(QSTRING(stream.httpSettings.path));
+        httpPathTxt->setText(stream.httpSettings.path);
         // WS
-        wsPathTxt->setText(QSTRING(stream.wsSettings.path));
-        QString wsHeaders = std::accumulate(stream.wsSettings.headers.begin(), stream.wsSettings.headers.end(), QString(), [](QString in1, const pair<string, string> &in2) {
-            in1 += QSTRING(in2.first + "|" + in2.second) + "\r\n";
-            return in1;
-        });
+        wsPathTxt->setText(stream.wsSettings.path);
+        QString wsHeaders;
+
+        for (auto item = stream.wsSettings.headers.begin(); item != stream.wsSettings.headers.end(); item++) {
+            wsHeaders += item.key() + "|" + item.value() + NEWLINE;
+        }
+
         wsHeadersTxt->setPlainText(wsHeaders);
         // mKCP
         kcpMTU->setValue(stream.kcpSettings.mtu);
         kcpTTI->setValue(stream.kcpSettings.tti);
-        kcpHeaderType->setCurrentText(QSTRING(stream.kcpSettings.header.type));
+        kcpHeaderType->setCurrentText(stream.kcpSettings.header.type);
         kcpCongestionCB->setChecked(stream.kcpSettings.congestion);
         kcpReadBufferSB->setValue(stream.kcpSettings.readBufferSize);
         kcpUploadCapacSB->setValue(stream.kcpSettings.uplinkCapacity);
         kcpDownCapacitySB->setValue(stream.kcpSettings.downlinkCapacity);
         kcpWriteBufferSB->setValue(stream.kcpSettings.writeBufferSize);
         // DS
-        dsPathTxt->setText(QSTRING(stream.dsSettings.path));
+        dsPathTxt->setText(stream.dsSettings.path);
         // QUIC
-        quicKeyTxt->setText(QSTRING(stream.quicSettings.key));
-        quicSecurityCB->setCurrentText(QSTRING(stream.quicSettings.security));
-        quicHeaderTypeCB->setCurrentText(QSTRING(stream.quicSettings.header.type));
+        quicKeyTxt->setText(stream.quicSettings.key);
+        quicSecurityCB->setCurrentText(stream.quicSettings.security);
+        quicHeaderTypeCB->setCurrentText(stream.quicSettings.header.type);
         // SOCKOPT
-        tProxyCB->setCurrentText(QSTRING(stream.sockopt.tproxy));
+        tProxyCB->setCurrentText(stream.sockopt.tproxy);
         tcpFastOpenCB->setChecked(stream.sockopt.tcpFastOpen);
         soMarkSpinBox->setValue(stream.sockopt.mark);
     } else if (OutboundType == "shadowsocks") {
         outBoundTypeCombo->setCurrentIndex(1);
         // ShadowSocks Configs
-        ipLineEdit->setText(QSTRING(shadowsocks.address));
+        ipLineEdit->setText(shadowsocks.address);
         portLineEdit->setText(QString::number(shadowsocks.port));
-        ss_emailTxt->setText(QSTRING(shadowsocks.email));
+        ss_emailTxt->setText(shadowsocks.email);
         ss_levelSpin->setValue(shadowsocks.level);
         ss_otaCheckBox->setChecked(shadowsocks.ota);
-        ss_passwordTxt->setText(QSTRING(shadowsocks.password));
-        ss_encryptionMethod->setCurrentText(QSTRING(shadowsocks.method));
+        ss_passwordTxt->setText(shadowsocks.password);
+        ss_encryptionMethod->setCurrentText(shadowsocks.method);
     } else if (OutboundType == "socks") {
         outBoundTypeCombo->setCurrentIndex(2);
-        ipLineEdit->setText(QSTRING(socks.address));
+        ipLineEdit->setText(socks.address);
         portLineEdit->setText(QString::number(socks.port));
 
         if (socks.users.empty()) socks.users.push_back(SocksServerObject::UserObject());
 
-        socks_PasswordTxt->setText(QSTRING(socks.users.front().pass));
-        socks_UserNameTxt->setText(QSTRING(socks.users.front().user));
+        socks_PasswordTxt->setText(socks.users.front().pass);
+        socks_UserNameTxt->setText(socks.users.front().user);
     }
 
     muxEnabledCB->setChecked(Mux["enabled"].toBool());
@@ -166,17 +168,17 @@ void OutboundEditor::on_buttonBox_accepted()
 
 void OutboundEditor::on_ipLineEdit_textEdited(const QString &arg1)
 {
-    vmess.address = arg1.toStdString();
-    shadowsocks.address = arg1.toStdString();
-    socks.address = arg1.toStdString();
+    vmess.address = arg1;
+    shadowsocks.address = arg1;
+    socks.address = arg1;
 }
 
 void OutboundEditor::on_portLineEdit_textEdited(const QString &arg1)
 {
     if (arg1 != "") {
-        vmess.port = stoi(arg1.toStdString());
-        shadowsocks.port = stoi(arg1.toStdString());
-        socks.port = stoi(arg1.toStdString());
+        vmess.port = arg1.toInt();
+        shadowsocks.port = arg1.toInt();
+        socks.port = arg1.toInt();
     }
 }
 
@@ -184,24 +186,24 @@ void OutboundEditor::on_idLineEdit_textEdited(const QString &arg1)
 {
     if (vmess.users.empty()) vmess.users.push_back(VMessServerObject::UserObject());
 
-    vmess.users.front().id = arg1.toStdString();
+    vmess.users.front().id = arg1;
 }
 
 void OutboundEditor::on_securityCombo_currentIndexChanged(const QString &arg1)
 {
     if (vmess.users.empty()) vmess.users.push_back(VMessServerObject::UserObject());
 
-    vmess.users.front().security = arg1.toStdString();
+    vmess.users.front().security = arg1;
 }
 
 void OutboundEditor::on_tranportCombo_currentIndexChanged(const QString &arg1)
 {
-    stream.network = arg1.toStdString();
+    stream.network = arg1;
 }
 
 void OutboundEditor::on_httpPathTxt_textEdited(const QString &arg1)
 {
-    stream.httpSettings.path = arg1.toStdString();
+    stream.httpSettings.path = arg1;
 }
 
 void OutboundEditor::on_httpHostTxt_textChanged()
@@ -212,7 +214,7 @@ void OutboundEditor::on_httpHostTxt_textChanged()
 
         foreach (auto host, hosts) {
             if (host.trimmed() != "")
-                stream.httpSettings.host.push_back(host.trimmed().toStdString());
+                stream.httpSettings.host.push_back(host.trimmed());
         }
 
         BLACK(httpHostTxt)
@@ -230,11 +232,11 @@ void OutboundEditor::on_wsHeadersTxt_textChanged()
         foreach (auto header, headers) {
             if (header.isEmpty()) continue;
 
-            auto content = header.split("|");
+            auto index = header.indexOf("|");
 
-            if (content.length() < 2) throw "fast fail to set RED color";
+            if (index < 0) throw "fast fail to set RED color";
 
-            stream.wsSettings.headers.insert(make_pair(content[0].toStdString(), content[1].toStdString()));
+            stream.wsSettings.headers[header.left(index)] = header.right(index + 1);
         }
 
         BLACK(wsHeadersTxt)
@@ -303,27 +305,27 @@ void OutboundEditor::on_tcpFastOpenCB_stateChanged(int arg1)
 }
 void OutboundEditor::on_tProxyCB_currentIndexChanged(const QString &arg1)
 {
-    stream.sockopt.tproxy = arg1.toStdString();
+    stream.sockopt.tproxy = arg1;
 }
 void OutboundEditor::on_quicSecurityCB_currentTextChanged(const QString &arg1)
 {
-    stream.quicSettings.security = arg1.toStdString();
+    stream.quicSettings.security = arg1;
 }
 void OutboundEditor::on_quicKeyTxt_textEdited(const QString &arg1)
 {
-    stream.quicSettings.key = arg1.toStdString();
+    stream.quicSettings.key = arg1;
 }
 void OutboundEditor::on_quicHeaderTypeCB_currentIndexChanged(const QString &arg1)
 {
-    stream.quicSettings.header.type = arg1.toStdString();
+    stream.quicSettings.header.type = arg1;
 }
 void OutboundEditor::on_tcpHeaderTypeCB_currentIndexChanged(const QString &arg1)
 {
-    stream.tcpSettings.header.type = arg1.toStdString();
+    stream.tcpSettings.header.type = arg1;
 }
 void OutboundEditor::on_wsPathTxt_textEdited(const QString &arg1)
 {
-    stream.wsSettings.path = arg1.toStdString();
+    stream.wsSettings.path = arg1;
 }
 void OutboundEditor::on_kcpMTU_valueChanged(int arg1)
 {
@@ -355,7 +357,7 @@ void OutboundEditor::on_kcpWriteBufferSB_valueChanged(int arg1)
 }
 void OutboundEditor::on_kcpHeaderType_currentTextChanged(const QString &arg1)
 {
-    stream.kcpSettings.header.type = arg1.toStdString();
+    stream.kcpSettings.header.type = arg1;
 }
 void OutboundEditor::on_tranportCombo_currentIndexChanged(int index)
 {
@@ -363,7 +365,7 @@ void OutboundEditor::on_tranportCombo_currentIndexChanged(int index)
 }
 void OutboundEditor::on_dsPathTxt_textEdited(const QString &arg1)
 {
-    stream.dsSettings.path = arg1.toStdString();
+    stream.dsSettings.path = arg1;
 }
 void OutboundEditor::on_outBoundTypeCombo_currentIndexChanged(int index)
 {
@@ -373,17 +375,17 @@ void OutboundEditor::on_outBoundTypeCombo_currentIndexChanged(int index)
 
 void OutboundEditor::on_ss_emailTxt_textEdited(const QString &arg1)
 {
-    shadowsocks.email = arg1.toStdString();
+    shadowsocks.email = arg1;
 }
 
 void OutboundEditor::on_ss_passwordTxt_textEdited(const QString &arg1)
 {
-    shadowsocks.password = arg1.toStdString();
+    shadowsocks.password = arg1;
 }
 
 void OutboundEditor::on_ss_encryptionMethod_currentIndexChanged(const QString &arg1)
 {
-    shadowsocks.method = arg1.toStdString();
+    shadowsocks.method = arg1;
 }
 
 void OutboundEditor::on_ss_levelSpin_valueChanged(int arg1)
@@ -398,12 +400,12 @@ void OutboundEditor::on_ss_otaCheckBox_stateChanged(int arg1)
 
 void OutboundEditor::on_socks_UserNameTxt_textEdited(const QString &arg1)
 {
-    socks.users.front().user = arg1.toStdString();
+    socks.users.front().user = arg1;
 }
 
 void OutboundEditor::on_socks_PasswordTxt_textEdited(const QString &arg1)
 {
-    socks.users.front().pass = arg1.toStdString();
+    socks.users.front().pass = arg1;
 }
 
 void OutboundEditor::on_tcpRequestEditBtn_clicked()

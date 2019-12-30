@@ -60,10 +60,9 @@ const int QV2RAY_CONFIG_VERSION = 6;
 #define BLACK(obj)                             \
     obj->setPalette(this->palette());
 
-#define QV2RAY_UI_RESOURCES_ROOT QSTRING(QV2RAY_IS_DARKTHEME ? ":/icons/ui_dark/" : ":/icons/ui_light/")
+#define QV2RAY_UI_RESOURCES_ROOT QString::fromStdString(QV2RAY_IS_DARKTHEME ? ":/icons/ui_dark/" : ":/icons/ui_light/")
 #define QICON_R(file) QIcon(QV2RAY_UI_RESOURCES_ROOT + file)
 
-#define QSTRING(std_string) QString::fromStdString(std_string)
 #define NEWLINE "\r\n"
 
 #ifndef MAX
@@ -80,7 +79,7 @@ namespace Qv2ray
     QJsonObject UpgradeConfig(int fromVersion, int toVersion, QJsonObject root);
 
     struct QvBarLine {
-        string          Family;
+        QString          Family;
         bool            Bold;
         bool            Italic;
         int             ColorA;
@@ -89,7 +88,7 @@ namespace Qv2ray
         int             ColorB;
         int             ContentType;
         double          Size;
-        string          Message;
+        QString          Message;
         QvBarLine()
             : Family("Consolas")
             , Bold(true)
@@ -103,13 +102,13 @@ namespace Qv2ray
 
     struct QvBarPage {
         int OffsetYpx;
-        vector<QvBarLine> Lines;
+        QList<QvBarLine> Lines;
         QvBarPage() : OffsetYpx(5) { }
         XTOSTRUCT(O(OffsetYpx, Lines))
     };
 
     struct Qv2rayToolBarConfig {
-        vector<QvBarPage> Pages;
+        QList<QvBarPage> Pages;
         XTOSTRUCT(O(Pages))
     };
 
@@ -118,7 +117,7 @@ namespace Qv2ray
         struct Qv2raySubscriptionConfig {
             time_t lastUpdated;
             int updateInterval;
-            string address;
+            QString address;
             Qv2raySubscriptionConfig() : lastUpdated(system_clock::to_time_t(system_clock::now())), updateInterval(5), address("") { }
             XTOSTRUCT(O(lastUpdated, updateInterval, address))
         };
@@ -126,14 +125,14 @@ namespace Qv2ray
         struct Qv2rayPACConfig {
             bool enablePAC;
             int port;
-            string localIP;
+            QString localIP;
             bool useSocksProxy;
             Qv2rayPACConfig() : enablePAC(false), port(8989), useSocksProxy(false) { }
             XTOSTRUCT(O(enablePAC, port, localIP, useSocksProxy))
         };
 
         struct Qv2rayInboundsConfig {
-            string listenip;
+            QString listenip;
             bool setSystemProxy;
             Qv2rayPACConfig pacConfig;
 
@@ -142,7 +141,7 @@ namespace Qv2ray
             int socks_port;
             bool socks_useAuth;
             bool socksUDP;
-            string socksLocalIP;
+            QString socksLocalIP;
             AccountObject socksAccount;
             // HTTP
             bool useHTTP;
@@ -158,8 +157,8 @@ namespace Qv2ray
         };
 
         struct Qv2rayUIConfig {
-            string theme;
-            string language;
+            QString theme;
+            QString language;
             bool useDarkTheme;
             bool useDarkTrayIcon;
             Qv2rayUIConfig() : theme("Fusion"), language("en-US"), useDarkTheme(false), useDarkTrayIcon(true) { }
@@ -170,7 +169,7 @@ namespace Qv2ray
             bool bypassCN;
             bool enableProxy;
             bool withLocalDNS;
-            list<string> dnsList;
+            QList<QString> dnsList;
             int statsPort;
             Qv2rayConnectionConfig() : bypassCN(true), enableProxy(true), withLocalDNS(true), dnsList(), statsPort(15490) { }
             XTOSTRUCT(O(bypassCN, enableProxy, withLocalDNS, dnsList, statsPort))
@@ -181,13 +180,13 @@ namespace Qv2ray
             bool tProxySupport;
             int logLevel;
             //
-            string v2CorePath;
-            string v2AssetsPath;
+            QString v2CorePath;
+            QString v2AssetsPath;
             Qv2rayConfigIdentifier autoStartConfig;
-            string ignoredVersion;
+            QString ignoredVersion;
             //
-            list<string> configs;
-            map<string, Qv2raySubscriptionConfig> subscriptions;
+            QList<QString> configs;
+            QMap<QString, Qv2raySubscriptionConfig> subscriptions;
             //
             Qv2rayUIConfig uiConfig;
             Qv2rayInboundsConfig inboundConfig;

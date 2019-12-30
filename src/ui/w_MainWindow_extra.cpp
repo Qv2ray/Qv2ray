@@ -6,11 +6,11 @@
 
 void MainWindow::MWFindAndStartAutoConfig()
 {
-    if (!currentConfig.autoStartConfig.connectionName.empty()) {
+    if (!currentConfig.autoStartConfig.connectionName.isEmpty()) {
         // User has auto start configured, we try to find that connection item.
-        auto name = currentConfig.autoStartConfig.subscriptionName.empty()
-                    ? QSTRING(currentConfig.autoStartConfig.connectionName)
-                    : QSTRING(currentConfig.autoStartConfig.connectionName) + " (" + tr("Subscription:") + " " + QSTRING(currentConfig.autoStartConfig.subscriptionName) + ")";
+        auto name = currentConfig.autoStartConfig.subscriptionName.isEmpty()
+                    ? currentConfig.autoStartConfig.connectionName
+                    : currentConfig.autoStartConfig.connectionName + " (" + tr("Subscription:") + " " + currentConfig.autoStartConfig.subscriptionName + ")";
         //
         LOG(MODULE_UI, "Found auto start config: " + name.toStdString())
         CurrentConnectionName = name;
@@ -68,7 +68,7 @@ void MainWindow::MWSetSystemProxy()
             if ((httpEnabled && !pacUseSocks) || (socksEnabled && pacUseSocks)) {
                 // If we use PAC and socks/http are properly configured for PAC
                 LOG(MODULE_PROXY, "System proxy uses PAC")
-                proxyAddress = "http://" + QSTRING(currentConfig.inboundConfig.listenip) + ":" + QString::number(currentConfig.inboundConfig.pacConfig.port) +  "/pac";
+                proxyAddress = "http://" + currentConfig.inboundConfig.listenip + ":" + QString::number(currentConfig.inboundConfig.pacConfig.port) +  "/pac";
             } else {
                 // Not properly configured
                 LOG(MODULE_PROXY, "Failed to process pac due to following reasons:")
@@ -118,7 +118,7 @@ bool MainWindow::MWtryStartConnection()
         if (usePAC) {
             bool canStartPAC = true;
             QString pacProxyString;  // Something like this --> SOCKS5 127.0.0.1:1080; SOCKS 127.0.0.1:1080; DIRECT; http://proxy:8080
-            auto pacIP = QSTRING(currentConfig.inboundConfig.pacConfig.localIP);
+            auto pacIP = currentConfig.inboundConfig.pacConfig.localIP;
 
             if (pacIP.isEmpty()) {
                 LOG(MODULE_PROXY, "PAC Local IP is empty, default to 127.0.0.1")

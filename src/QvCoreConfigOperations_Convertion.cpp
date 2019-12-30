@@ -13,32 +13,32 @@ namespace Qv2ray
                 // Constant
                 vmessUriRoot["v"] = 2;
                 vmessUriRoot["ps"] = alias;
-                vmessUriRoot["add"] = QSTRING(serverConfig.address);
+                vmessUriRoot["add"] = serverConfig.address;
                 vmessUriRoot["port"] = serverConfig.port;
-                vmessUriRoot["id"] = QSTRING(serverConfig.users.front().id);
+                vmessUriRoot["id"] = serverConfig.users.front().id;
                 vmessUriRoot["aid"] = serverConfig.users.front().alterId;
-                vmessUriRoot["net"] = QSTRING(transfer.network);
-                vmessUriRoot["tls"] = QSTRING(transfer.security);
+                vmessUriRoot["net"] = transfer.network;
+                vmessUriRoot["tls"] = transfer.security;
 
                 if (transfer.network == "tcp") {
-                    vmessUriRoot["type"] = QSTRING(transfer.tcpSettings.header.type);
+                    vmessUriRoot["type"] = transfer.tcpSettings.header.type;
                 } else if (transfer.network == "kcp") {
-                    vmessUriRoot["type"] = QSTRING(transfer.kcpSettings.header.type);
+                    vmessUriRoot["type"] = transfer.kcpSettings.header.type;
                 } else if (transfer.network == "quic") {
-                    vmessUriRoot["type"] = QSTRING(transfer.quicSettings.header.type);
-                    vmessUriRoot["host"] = QSTRING(transfer.quicSettings.security);
-                    vmessUriRoot["path"] = QSTRING(transfer.quicSettings.key);
+                    vmessUriRoot["type"] = transfer.quicSettings.header.type;
+                    vmessUriRoot["host"] = transfer.quicSettings.security;
+                    vmessUriRoot["path"] = transfer.quicSettings.key;
                 } else if (transfer.network == "ws") {
-                    auto x = QMap<string, string>(transfer.wsSettings.headers);
+                    auto x = transfer.wsSettings.headers;
                     auto host = x.contains("host");
                     auto CapHost = x.contains("Host");
                     auto realHost = host ? x["host"] : (CapHost ? x["Host"] : "");
                     //
-                    vmessUriRoot["host"] = QSTRING(realHost);
-                    vmessUriRoot["path"] = QSTRING(transfer.wsSettings.path);
+                    vmessUriRoot["host"] = realHost;
+                    vmessUriRoot["path"] = transfer.wsSettings.path;
                 } else if (transfer.network == "h2" || transfer.network == "http") {
                     vmessUriRoot["host"] = Stringify(transfer.httpSettings.host, ",");
-                    vmessUriRoot["path"] = QSTRING(transfer.httpSettings.path);
+                    vmessUriRoot["path"] = transfer.httpSettings.path;
                 }
 
                 //
@@ -165,7 +165,7 @@ namespace Qv2ray
                     //return flag ? 0 : 1;
                 } catch (exception *e) {
                     LOG(MODULE_IMPORT, "Failed to decode vmess string: " + string(e->what()))
-                    *errMessage = QSTRING(e->what());
+                    *errMessage = e->what();
                     return CONFIGROOT();
                 }
 
@@ -174,18 +174,18 @@ namespace Qv2ray
                 QStringRef vmessJsonB64(&vmess, 8, vmess.length() - 8);
                 auto vmessConf = JsonFromString(Base64Decode(vmessJsonB64.toString()));
                 //
-                string ps, add, id, net, type, host, path, tls;
+                QString ps, add, id, net, type, host, path, tls;
                 int port, aid;
                 //
-                ps = vmessConf.contains("ps") ? vmessConf["ps"].toVariant().toString().toStdString()
-                     : (vmessConf["add"].toVariant().toString().toStdString() + ":" + vmessConf["port"].toVariant().toString().toStdString());
-                add = vmessConf["add"].toVariant().toString().toStdString();
-                id = vmessConf["id"].toVariant().toString().toStdString();
-                net = vmessConf.contains("net") ? vmessConf["net"].toVariant().toString().toStdString() : "tcp";
-                type = vmessConf.contains("type") ? vmessConf["type"].toVariant().toString().toStdString() : "none";
-                host = vmessConf["host"].toVariant().toString().toStdString();
-                path = vmessConf["path"].toVariant().toString().toStdString();
-                tls = vmessConf.contains("tls") ? vmessConf["tls"].toVariant().toString().toStdString() : "";
+                ps = vmessConf.contains("ps") ? vmessConf["ps"].toVariant().toString()
+                     : (vmessConf["add"].toVariant().toString() + ":" + vmessConf["port"].toVariant().toString());
+                add = vmessConf["add"].toVariant().toString();
+                id = vmessConf["id"].toVariant().toString();
+                net = vmessConf.contains("net") ? vmessConf["net"].toVariant().toString() : "tcp";
+                type = vmessConf.contains("type") ? vmessConf["type"].toVariant().toString() : "none";
+                host = vmessConf["host"].toVariant().toString();
+                path = vmessConf["path"].toVariant().toString();
+                tls = vmessConf.contains("tls") ? vmessConf["tls"].toVariant().toString() : "";
                 //
                 port = vmessConf["port"].toVariant().toInt();
                 aid = vmessConf["aid"].toVariant().toInt();
@@ -217,13 +217,13 @@ namespace Qv2ray
                     streaming.tcpSettings.header.type = type;
                 } else if (net == "http" || net == "h2") {
                     // Fill hosts for HTTP
-                    for (auto _host : QString::fromStdString(host).split(',')) {
-                        streaming.httpSettings.host.push_back(_host.toStdString());
+                    for (auto _host : host.split(',')) {
+                        streaming.httpSettings.host.push_back(_host);
                     }
 
                     streaming.httpSettings.path = path;
                 } else if (net == "ws") {
-                    streaming.wsSettings.headers.insert(make_pair("Host", host));
+                    streaming.wsSettings.headers["Host"] = host;
                     streaming.wsSettings.path = path;
                 } else if (net == "kcp") {
                     streaming.kcpSettings.header.type = type;
@@ -245,7 +245,7 @@ namespace Qv2ray
                 //
                 root["outbounds"] = QJsonArray() << outbound;
                 // If previous alias is empty, just the PS is needed, else, append a "_"
-                *alias = alias->isEmpty() ? QSTRING(ps) : *alias + "_" + QSTRING(ps);
+                *alias = alias->isEmpty() ? ps : *alias + "_" + ps;
                 return root;
             }
 

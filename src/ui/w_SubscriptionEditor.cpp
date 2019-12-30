@@ -10,8 +10,8 @@ SubscribeEditor::SubscribeEditor(QWidget *parent) :
     addSubsButton->setIcon(QICON_R("add.png"));
     removeSubsButton->setIcon(QICON_R("delete.png"));
 
-    for (auto _ : conf.subscriptions) {
-        subscriptions[QSTRING(_.first)] = _.second;
+    for (auto i = conf.subscriptions.begin(); i != conf.subscriptions.end(); i++) {
+        subscriptions[i.key()] = i.value();
     }
 
     LoadSubscriptionList(subscriptions);
@@ -83,10 +83,10 @@ void SubscribeEditor::on_updateButton_clicked()
         //
         // Update auto-start config if possible
         auto conf = GetGlobalConfig();
-        auto ASsetting = QSTRING(conf.autoStartConfig.subscriptionName);
+        auto ASsetting = conf.autoStartConfig.subscriptionName;
 
         if (ASsetting == currentSubName) {
-            conf.autoStartConfig.subscriptionName = newName.toStdString();
+            conf.autoStartConfig.subscriptionName = newName;
         }
 
         SetGlobalConfig(conf);
@@ -97,9 +97,9 @@ void SubscribeEditor::on_updateButton_clicked()
 
     subscriptions[currentSubName].updateInterval = newUpdateInterval;
 
-    if (subscriptions[currentSubName].address != newAddress.toStdString()) {
-        LOG(MODULE_SUBSCRIPTION, "Setting new address, from " + subscriptions[currentSubName].address + " to: " + newAddress.toStdString())
-        subscriptions[currentSubName].address = newAddress.toStdString();
+    if (subscriptions[currentSubName].address != newAddress) {
+        LOG(MODULE_SUBSCRIPTION, "Setting new address, from " + subscriptions[currentSubName].address.toStdString() + " to: " + newAddress.toStdString())
+        subscriptions[currentSubName].address = newAddress;
     }
 
     SaveConfig();
@@ -112,7 +112,7 @@ void SubscribeEditor::on_updateButton_clicked()
 void SubscribeEditor::StartUpdateSubscription(const QString &subscriptionName)
 {
     this->setEnabled(false);
-    auto data = helper.syncget(QSTRING(subscriptions[subscriptionName].address));
+    auto data = helper.syncget(subscriptions[subscriptionName].address);
     auto content = DecodeSubscriptionString(data).trimmed();
 
     if (!content.isEmpty()) {
@@ -160,7 +160,7 @@ void SubscribeEditor::on_removeSubsButton_clicked()
     // If removed a whole subscription...
     auto conf = GetGlobalConfig();
 
-    if (conf.autoStartConfig.subscriptionName == name.toStdString()) {
+    if (conf.autoStartConfig.subscriptionName == name) {
         conf.autoStartConfig.subscriptionName.clear();
         conf.autoStartConfig.connectionName.clear();
         SetGlobalConfig(conf);
@@ -184,12 +184,12 @@ void SubscribeEditor::on_subscriptionList_currentRowChanged(int currentRow)
     LOG(MODULE_UI, "Subscription row changed, new name: " + currentSubName.toStdString())
     //
     subNameTxt->setText(currentSubName);
-    subAddrTxt->setText(QSTRING(subscriptions[currentSubName].address));
+    subAddrTxt->setText(subscriptions[currentSubName].address);
     updateIntervalSB->setValue(subscriptions[currentSubName].updateInterval);
-    lastUpdatedLabel->setText(QSTRING(timeToString(subscriptions[currentSubName].lastUpdated)));
+    lastUpdatedLabel->setText(QString::fromStdString(timeToString(subscriptions[currentSubName].lastUpdated)));
     //
     connectionsList->clear();
-    auto _list = GetSubscriptionConnection(currentSubName.toStdString());
+    auto _list = GetSubscriptionConnection(currentSubName);
 
     for (auto i = 0; i < _list.count(); i++) {
         connectionsList->addItem(_list.keys()[i]);
@@ -199,15 +199,15 @@ void SubscribeEditor::on_subscriptionList_currentRowChanged(int currentRow)
 void SubscribeEditor::SaveConfig()
 {
     auto conf = GetGlobalConfig();
-    QMap<string, Qv2raySubscriptionConfig> newConf;
+    QMap<QString, Qv2raySubscriptionConfig> newConf;
 
     for (auto _ : subscriptions.toStdMap()) {
-        if (!_.second.address.empty()) {
-            newConf[_.first.toStdString()] = _.second;
+        if (!_.second.address.isEmpty()) {
+            newConf[_.first] = _.second;
         }
     }
 
-    conf.subscriptions = newConf.toStdMap();
+    conf.subscriptions = newConf;
     SetGlobalConfig(conf);
 }
 

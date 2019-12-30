@@ -285,8 +285,8 @@ void MainWindow::VersionUpdate(QByteArray &data)
     QJsonObject root = JsonFromString(QString(data));
     //
     QVersionNumber newversion = QVersionNumber::fromString(root["tag_name"].toString("v").remove(0, 1));
-    QVersionNumber current = QVersionNumber::fromString(QSTRING(QV2RAY_VERSION_STRING).remove(0, 1));
-    QVersionNumber ignored = QVersionNumber::fromString(QSTRING(currentConfig.ignoredVersion));
+    QVersionNumber current = QVersionNumber::fromString(QString(QV2RAY_VERSION_STRING).remove(0, 1));
+    QVersionNumber ignored = QVersionNumber::fromString(currentConfig.ignoredVersion);
     LOG(MODULE_UPDATE, "Received update info, Latest: " + newversion.toString().toStdString() + " Current: " + current.toString().toStdString() + " Ignored: " + ignored.toString().toStdString())
 
     // If the version is newer than us.
@@ -307,7 +307,7 @@ void MainWindow::VersionUpdate(QByteArray &data)
             QDesktopServices::openUrl(QUrl::fromUserInput(link));
         } else if (result == QMessageBox::Ignore) {
             // Set and save ingored version.
-            currentConfig.ignoredVersion = newversion.toString().toStdString();
+            currentConfig.ignoredVersion = newversion.toString();
             SetGlobalConfig(currentConfig);
         }
     }
@@ -333,8 +333,7 @@ void MainWindow::OnConfigListChanged(bool need_restart)
     connectionListWidget->clear();
     auto _regularConnections = GetRegularConnections(currentConfig.configs);
     //
-    auto _vector = mapExt::Keys(currentConfig.subscriptions);
-    auto _subsConnections = GetSubscriptionConnections(list<string>(_vector.begin(), _vector.end()));
+    auto _subsConnections = GetSubscriptionConnections(currentConfig.subscriptions.keys());
 
     for (auto i = 0; i < _regularConnections.count(); i++) {
         ConnectionObject _o;
@@ -650,7 +649,7 @@ void MainWindow::on_connectionListWidget_itemChanged(QTreeWidgetItem *item, int)
             canContinueRename = false;
         }
 
-        if (contains(currentConfig.configs, newName.toStdString())) {
+        if (currentConfig.configs.contains(newName)) {
             QvMessageBox(this, tr("Rename a Connection"), tr("The name has been used already, Please choose another."));
             canContinueRename = false;
         }
@@ -669,13 +668,13 @@ void MainWindow::on_connectionListWidget_itemChanged(QTreeWidgetItem *item, int)
 
         // Change auto start config.
         //  |--------------=== In case it's not in a subscription --|
-        if (currentConfig.autoStartConfig.subscriptionName.empty() && renameOriginalName.toStdString() == currentConfig.autoStartConfig.connectionName) {
-            currentConfig.autoStartConfig.connectionName = newName.toStdString();
+        if (currentConfig.autoStartConfig.subscriptionName.isEmpty() && renameOriginalName == currentConfig.autoStartConfig.connectionName) {
+            currentConfig.autoStartConfig.connectionName = newName;
         }
 
         // Replace the items in the current loaded config list and settings.
-        currentConfig.configs.remove(renameOriginalName.toStdString());
-        currentConfig.configs.push_back(newName.toStdString());
+        currentConfig.configs.removeOne(renameOriginalName);
+        currentConfig.configs.push_back(newName);
         connections[newName] = connections.take(renameOriginalName);
         RenameConnection(renameOriginalName, newName);
         LOG(MODULE_UI, "Saving a global config")
@@ -721,8 +720,8 @@ void MainWindow::on_removeConfigButton_clicked()
         auto connData = connections[name];
 
         // Remove auto start config.
-        if (currentConfig.autoStartConfig.subscriptionName == connData.subscriptionName.toStdString() &&
-            currentConfig.autoStartConfig.connectionName == connData.connectionName.toStdString())
+        if (currentConfig.autoStartConfig.subscriptionName == connData.subscriptionName &&
+            currentConfig.autoStartConfig.connectionName == connData.connectionName)
             // If all those settings match.
         {
             currentConfig.autoStartConfig.subscriptionName.clear();
@@ -736,7 +735,7 @@ void MainWindow::on_removeConfigButton_clicked()
                 connData.subscriptionName.clear();
             }
 
-            currentConfig.configs.remove(name.toStdString());
+            currentConfig.configs.removeOne(name);
 
             if (!RemoveConnection(name)) {
                 QvMessageBox(this, tr("Removing this Connection"), tr("Failed to delete connection file, please delete manually."));
@@ -777,7 +776,7 @@ void MainWindow::on_importConfigButton_clicked()
                 continue;
 
             SaveConnectionConfig(conf, &name, false);
-            currentConfig.configs.push_back(name.toStdString());
+            currentConfig.configs.push_back(name);
         }
 
         SetGlobalConfig(currentConfig);
@@ -1020,7 +1019,7 @@ void MainWindow::on_duplicateBtn_clicked()
 
     // Alias may change.
     SaveConnectionConfig(conf, &alias, false);
-    currentConfig.configs.push_back(alias.toStdString());
+    currentConfig.configs.push_back(alias);
     SetGlobalConfig(currentConfig);
     this->OnConfigListChanged(false);
 }
