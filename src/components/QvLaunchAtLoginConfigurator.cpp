@@ -183,8 +183,7 @@ namespace Qv2ray
                 }
             }
         }
-
+#endif
     }
 }
-#endif
 
