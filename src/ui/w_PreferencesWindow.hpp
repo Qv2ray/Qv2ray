@@ -139,6 +139,7 @@ class PreferencesWindow : public QDialog, private Ui::PreferencesWindow
         void on_removeBootStart_clicked();
 
     private:
+        void SetAutoStartButtonsState(bool isAutoStart);
         // Set ui parameters for a line;
         void ShowLineParameters(QvBarLine &line);
         QString GetBarLineDescription(QvBarLine line);

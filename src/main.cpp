@@ -180,7 +180,8 @@ bool initialiseQv2ray()
 
 int main(int argc, char *argv[])
 {
-    LOG(MODULE_INIT, QV2RAY_VERSION_STRING)
+    LOG(MODULE_INIT, "Qv2ray " QV2RAY_VERSION_STRING " running on " + QSysInfo::prettyProductName().toStdString() + " " + QSysInfo::currentCpuArchitecture().toStdString() + NEWLINE)
+    //
     // This line must be called before any other ones, since we are using these values to identify instances.
     SingleApplication::setApplicationName("Qv2ray");
     SingleApplication::setApplicationVersion(QV2RAY_VERSION_STRING);
@@ -224,9 +225,8 @@ int main(int argc, char *argv[])
         "Copyright (c) 2016 Nikhil Marathe (@nikhilm): QHttpServer (MIT)" NEWLINE
         "Copyright (c) 2019 Itay Grudev (@itay-grudev): SingleApplication (MIT)" NEWLINE
         "Copyright (c) 2019 paceholder (@paceholder): nodeeditor (QNodeEditor modified by lhy0403) (BSD-3-Clause)" NEWLINE
-        NEWLINE
-        "Qv2ray " QV2RAY_VERSION_STRING " running on " +
-        (QSysInfo::prettyProductName() + " " + QSysInfo::currentCpuArchitecture()).toStdString() + NEWLINE)
+        "Copyright (c) 2019 TheWanderingCoel (@TheWanderingCoel): ShadowClash (launchatlogin) (GPLv3)" NEWLINE
+        NEWLINE)
     //
     LOG(MODULE_INIT, "Qv2ray Start Time: "  + QString::number(QTime::currentTime().msecsSinceStartOfDay()).toStdString())
     DEBUG("DEBUG", "WARNING: ============================== This is a debug build, many features are not stable enough. ==============================")

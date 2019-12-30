@@ -11,7 +11,7 @@
 #include "QvCoreConfigOperations.hpp"
 
 #include "QvHTTPRequestHelper.hpp"
-#include "QvAutoStartConfigurator.hpp"
+#include "QvLaunchAtLoginConfigurator.hpp"
 
 #define LOADINGCHECK if(!finishedLoading) return;
 #define NEEDRESTART if(finishedLoading) IsConnectionPropertyChanged = true;
@@ -29,6 +29,8 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent),
         languageComboBox->addItem(it.next().split("/").last().split(".").first());
     }
 
+    // Set auto start button state
+    SetAutoStartButtonsState(GetLaunchAtLoginStatus());
     //
     nsBarContentCombo->addItems(NetSpeedPluginMessages.values());
     themeCombo->addItems(QStyleFactory::keys());
@@ -888,18 +890,30 @@ void PreferencesWindow::on_autoStartConnCombo_currentIndexChanged(const QString 
 
 void PreferencesWindow::on_installBootStart_clicked()
 {
-    if (InstallAutoStart()) {
-        QvMessageBox(this, tr("Start with boot"), tr("Successfully installed starting with boot."));
-    } else {
-        QvMessageBox(this, tr("Start with boot"), tr("Only Windows platform is supported currently."));
+    SetLaunchAtLoginStatus(true);
+
+    // If failed to set the status.
+    if (!GetLaunchAtLoginStatus()) {
+        QvMessageBox(this, tr("Start with boot"), tr("Failed to set auto start option."));
     }
+
+    SetAutoStartButtonsState(GetLaunchAtLoginStatus());
 }
 
 void PreferencesWindow::on_removeBootStart_clicked()
 {
-    if (RemoveAutoStart()) {
-        QvMessageBox(this, tr("Start with boot"), tr("Successfully removed starting with boot."));
-    } else {
-        QvMessageBox(this, tr("Start with boot"), tr("Only Windows platform is supported currently."));
+    SetLaunchAtLoginStatus(false);
+
+    // If that setting still present.
+    if (GetLaunchAtLoginStatus()) {
+        QvMessageBox(this, tr("Start with boot"), tr("Failed to set auto start option."));
     }
+
+    SetAutoStartButtonsState(GetLaunchAtLoginStatus());
+}
+
+void PreferencesWindow::SetAutoStartButtonsState(bool isAutoStart)
+{
+    installBootStart->setEnabled(!isAutoStart);
+    removeBootStart->setEnabled(isAutoStart);
 }
