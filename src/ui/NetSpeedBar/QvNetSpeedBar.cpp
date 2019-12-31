@@ -57,8 +57,8 @@ namespace Qv2ray
 
                 auto BarConfig = config.toolBarConfig;
 
-                for (size_t i = 0; i < BarConfig.Pages.size(); i++) {
-                    for (size_t j = 0; j < BarConfig.Pages[i].Lines.size(); j++) {
+                for (auto i = 0; i < BarConfig.Pages.size(); i++) {
+                    for (auto j = 0; j < BarConfig.Pages[i].Lines.size(); j++) {
 #define CL BarConfig.Pages[i].Lines[j]
 
                         switch (CL.ContentType) {

@@ -79,7 +79,7 @@ namespace Qv2ray
     QJsonObject UpgradeConfig(int fromVersion, int toVersion, QJsonObject root);
 
     struct QvBarLine {
-        QString          Family;
+        QString         Family;
         bool            Bold;
         bool            Italic;
         int             ColorA;
@@ -88,7 +88,7 @@ namespace Qv2ray
         int             ColorB;
         int             ContentType;
         double          Size;
-        QString          Message;
+        QString         Message;
         QvBarLine()
             : Family("Consolas")
             , Bold(true)
@@ -115,7 +115,7 @@ namespace Qv2ray
     namespace QvConfigModels
     {
         struct Qv2raySubscriptionConfig {
-            time_t lastUpdated;
+            int64_t lastUpdated;
             int updateInterval;
             QString address;
             Qv2raySubscriptionConfig() : lastUpdated(system_clock::to_time_t(system_clock::now())), updateInterval(5), address("") { }
