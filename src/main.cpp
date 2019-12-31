@@ -210,7 +210,7 @@ int main(int argc, char *argv[])
     LOG("LICENCE", NEWLINE "This program comes with ABSOLUTELY NO WARRANTY." NEWLINE
         "This is free software, and you are welcome to redistribute it" NEWLINE
         "under certain conditions." NEWLINE NEWLINE
-        "Copyright (C) 2019 Leroy.H.Y (@lhy0403): Qv2ray Current Developer" NEWLINE
+        "Copyright (C) 2020 Leroy.H.Y (@lhy0403): Qv2ray Current Developer" NEWLINE
         "Copyright (C) 2019 Hork (@aliyuchang33): Hv2ray Initial Designs & gRPC implementation " NEWLINE
         "Copyright (C) 2019 SOneWinstone (@SoneWinstone): Hv2ray/Qv2ray HTTP Request Helper" NEWLINE
         "Qv2ray ArtWork Done By ArielAxionL (@axionl)" NEWLINE
@@ -218,13 +218,13 @@ int main(int argc, char *argv[])
         "Riko (@rikakomoe): Qv2ray patch 8a8c1a/PR115"
         NEWLINE NEWLINE
         "Libraries that have been used in Qv2ray are listed below (Sorted by date added):" NEWLINE
-        "Copyright (c) 2019 dridk (@dridk): X2Struct (Apache)" NEWLINE
+        "Copyright (c) 2020 dridk (@dridk): X2Struct (Apache)" NEWLINE
         "Copyright (c) 2011 SCHUTZ Sacha (@dridk): QJsonModel (MIT)" NEWLINE
-        "Copyright (c) 2019 Nikolaos Ftylitakis (@ftylitak): QZXing (Apache2)" NEWLINE
+        "Copyright (c) 2020 Nikolaos Ftylitakis (@ftylitak): QZXing (Apache2)" NEWLINE
         "Copyright (c) 2016 Singein (@Singein): ScreenShot (MIT)" NEWLINE
         "Copyright (c) 2016 Nikhil Marathe (@nikhilm): QHttpServer (MIT)" NEWLINE
-        "Copyright (c) 2019 Itay Grudev (@itay-grudev): SingleApplication (MIT)" NEWLINE
-        "Copyright (c) 2019 paceholder (@paceholder): nodeeditor (QNodeEditor modified by lhy0403) (BSD-3-Clause)" NEWLINE
+        "Copyright (c) 2020 Itay Grudev (@itay-grudev): SingleApplication (MIT)" NEWLINE
+        "Copyright (c) 2020 paceholder (@paceholder): nodeeditor (QNodeEditor modified by lhy0403) (BSD-3-Clause)" NEWLINE
         "Copyright (c) 2019 TheWanderingCoel (@TheWanderingCoel): ShadowClash (launchatlogin) (GPLv3)" NEWLINE
         NEWLINE)
     //
