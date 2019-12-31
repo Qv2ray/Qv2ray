@@ -186,51 +186,71 @@ namespace Qv2ray
                 root.insert("dns", dnsObject);
                 //
                 //
-                INBOUNDS inboundsList;
 
-                // HTTP InBound
-                if (gConf.inboundConfig.useHTTP) {
-                    INBOUND httpInBoundObject;
-                    httpInBoundObject.insert("listen", gConf.inboundConfig.listenip);
-                    httpInBoundObject.insert("port", gConf.inboundConfig.http_port);
-                    httpInBoundObject.insert("protocol", "http");
-                    httpInBoundObject.insert("tag", "http_IN");
+                // If inbounds list is empty we append our global configured inbounds to the config.
+                if (!root.contains("inbounds") || root["inbounds"].toArray().empty()) {
+                    INBOUNDS inboundsList;
 
-                    if (gConf.inboundConfig.http_useAuth) {
-                        auto httpInSettings =  GenerateHTTPIN(QList<AccountObject>() << gConf.inboundConfig.httpAccount);
-                        httpInBoundObject.insert("settings", httpInSettings);
+                    // HTTP Inbound
+                    if (gConf.inboundConfig.useHTTP) {
+                        INBOUND httpInBoundObject;
+                        httpInBoundObject.insert("listen", gConf.inboundConfig.listenip);
+                        httpInBoundObject.insert("port", gConf.inboundConfig.http_port);
+                        httpInBoundObject.insert("protocol", "http");
+                        httpInBoundObject.insert("tag", "http_IN");
+
+                        if (gConf.inboundConfig.http_useAuth) {
+                            auto httpInSettings =  GenerateHTTPIN(QList<AccountObject>() << gConf.inboundConfig.httpAccount);
+                            httpInBoundObject.insert("settings", httpInSettings);
+                        }
+
+                        inboundsList.append(httpInBoundObject);
                     }
 
-                    inboundsList.append(httpInBoundObject);
+                    // SOCKS Inbound
+                    if (gConf.inboundConfig.useSocks) {
+                        INBOUND socksInBoundObject;
+                        socksInBoundObject.insert("listen", gConf.inboundConfig.listenip);
+                        socksInBoundObject.insert("port", gConf.inboundConfig.socks_port);
+                        socksInBoundObject.insert("protocol", "socks");
+                        socksInBoundObject.insert("tag", "socks_IN");
+                        auto socksInSettings = GenerateSocksIN(gConf.inboundConfig.socks_useAuth ? "password" : "noauth",
+                                                               QList<AccountObject>() << gConf.inboundConfig.socksAccount,
+                                                               gConf.inboundConfig.socksUDP,
+                                                               gConf.inboundConfig.socksLocalIP);
+                        socksInBoundObject.insert("settings", socksInSettings);
+                        inboundsList.append(socksInBoundObject);
+                    }
+
+                    root["inbounds"] = inboundsList;
+                    DEBUG(MODULE_CONFIG, "Added global config inbounds to the config")
                 }
 
-                // SOCKS InBound
-                if (gConf.inboundConfig.useSocks) {
-                    INBOUND socksInBoundObject;
-                    socksInBoundObject.insert("listen", gConf.inboundConfig.listenip);
-                    socksInBoundObject.insert("port", gConf.inboundConfig.socks_port);
-                    socksInBoundObject.insert("protocol", "socks");
-                    socksInBoundObject.insert("tag", "socks_IN");
-                    auto socksInSettings = GenerateSocksIN(gConf.inboundConfig.socks_useAuth ? "password" : "noauth",
-                                                           QList<AccountObject>() << gConf.inboundConfig.socksAccount,
-                                                           gConf.inboundConfig.socksUDP,
-                                                           gConf.inboundConfig.socksLocalIP);
-                    socksInBoundObject.insert("settings", socksInSettings);
-                    inboundsList.append(socksInBoundObject);
+                // Process every inbounds to make sure a tag is configured, fixed API 0 speed
+                // issue when no tag is configured.
+                INBOUNDS newTaggedInbounds = INBOUNDS(root["inbounds"].toArray());
+
+                for (auto i = 0; i < newTaggedInbounds.count(); i++) {
+                    auto _inboundItem = newTaggedInbounds[i].toObject();
+
+                    if (!_inboundItem.contains("tag") || _inboundItem["tag"].toString().isEmpty()) {
+                        LOG(MODULE_CONFIG, "Adding a tag to an inbound.")
+                        _inboundItem["tag"] = GenerateRandomString(8);
+                        newTaggedInbounds[i] = _inboundItem;
+                    }
                 }
 
-                if (!root.contains("inbounds") || root["inbounds"].toArray().empty()) {
-                    root.insert("inbounds", inboundsList);
-                }
-
+                root["inbounds"] = newTaggedInbounds;
+                //
+                //
                 // Note: The part below always makes the whole functionality in trouble......
                 // BE EXTREME CAREFUL when changing these code below...
                 // See: https://github.com/lhy0403/Qv2ray/issues/129
                 // routeCountLabel in Mainwindow makes here failed to ENOUGH-ly check the routing tables
                 bool isComplex = CheckIsComplexConfig(root);
 
-                //
-                if (isComplex) {  // For some config files that has routing entries already.
+                if (isComplex) {
+                    // For some config files that has routing entries already.
                     // We DO NOT add extra routings.
                     //
                     // HOWEVER, we need to verify the QV2RAY_RULE_ENABLED entry.
@@ -239,8 +259,8 @@ namespace Qv2ray
                     ROUTERULELIST rules;
                     LOG(MODULE_CONNECTION, "Processing an existing routing table.")
 
-                    for (auto _a : routing["rules"].toArray()) {
-                        auto _b = _a.toObject();
+                    for (auto _rule : routing["rules"].toArray()) {
+                        auto _b = _rule.toObject();
 
                         if (_b.contains("QV2RAY_RULE_USE_BALANCER")) {
                             if (_b["QV2RAY_RULE_USE_BALANCER"].toBool()) {
@@ -251,7 +271,7 @@ namespace Qv2ray
                                 _b.remove("balancerTag");
                             }
                         } else {
-                            LOG(MODULE_CONFIG, "We found a rule without QV2RAY_RULE_USE_BALANCER, and we didn't process it.")
+                            LOG(MODULE_CONFIG, "We found a rule without QV2RAY_RULE_USE_BALANCER, so don't process it.")
                         }
 
                         // If this entry has been disabled.
@@ -266,7 +286,7 @@ namespace Qv2ray
                     root["routing"] = routing;
                 } else {
                     //
-                    LOG(MODULE_CONNECTION, "Current connection has NO ROUTING section, we insert default values.")
+                    LOG(MODULE_CONNECTION, "Inserting default values to simple config")
 
                     if (root["outbounds"].toArray().count() != 1) {
                         // There are no ROUTING but 2 or more outbounds.... This is rare, but possible.
@@ -325,7 +345,6 @@ namespace Qv2ray
                     // API
                     //
                     root["api"] = GenerateAPIEntry(QV2RAY_API_TAG_DEFAULT);
-                    //
                 }
                 return root;
             }

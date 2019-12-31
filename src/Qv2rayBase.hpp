@@ -171,7 +171,7 @@ namespace Qv2ray
             bool withLocalDNS;
             QList<QString> dnsList;
             int statsPort;
-            Qv2rayConnectionConfig() : bypassCN(true), enableProxy(true), withLocalDNS(true), dnsList(), statsPort(15490) { }
+            Qv2rayConnectionConfig() : bypassCN(true), enableProxy(true), withLocalDNS(false), dnsList(QStringList() << "8.8.4.4" << "1.1.1.1"), statsPort(15490) { }
             XTOSTRUCT(O(bypassCN, enableProxy, withLocalDNS, dnsList, statsPort))
         };
 
