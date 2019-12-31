@@ -1,0 +1,22 @@
+Source: qv2ray
+Section: net
+Priority: optional
+Maintainer: guobang <ymshenyu@gmail.com>
+Build-Depends:  debhelper (>= 11), 
+                qt512tools (>= 5.12.6-1), 
+                qt512base (>= 5.12.6-1),
+                libssl-dev, 
+                gcc, 
+                libgrpc++-dev (>= 1.19.1-1), 
+                libgrpc-dev (>= 1.19.1-1), 
+                protobuf-compiler-grpc (>= 1.19.1-1), 
+                qt512charts-no-lgpl (>= 5.12.6-1), 
+                libprotobuf-dev (>= 3.6.1.3-1), 
+                git
+Standards-Version: 4.1.2
+Homepage: https://lhy0403.github.io/Qv2ray
+
+Package: qv2ray
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: v2ray linux Windows macOS GUI

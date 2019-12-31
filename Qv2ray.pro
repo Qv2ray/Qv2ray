@@ -232,11 +232,11 @@ unix {
     message("Configuring for unix-like (macOS and linux) environment")
     # For gRPC and protobuf in linux and macOS
     message("  --> Linking against gRPC and protobuf library.")
-    LIBS += -L/usr/local/lib -lgrpc++ -lprotobuf -lgrpc -lgpr
+    LIBS += -L/usr/lib -lgrpc++ -lprotobuf -lgrpc -lgpr
 
     # macOS homebrew include path
     message("  --> Adding local include folder to search path")
-    INCLUDEPATH += /usr/local/include/
+    INCLUDEPATH += /usr/include/
 
     message("  --> Adding Plasma Toolbox CPP files.")
     SOURCES += src/ui/NetSpeedBar/QvNetSpeedBar_linux.cpp
@@ -249,7 +249,7 @@ unix {
     icon.files += ./icons/qv2ray.png
     icon.path = /usr/share/icons/hicolor/256x256/apps/
 
-    target.path = /usr/local/bin/
+    target.path = /usr/bin/
     INSTALLS += target desktop icon
 }
 

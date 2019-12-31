@@ -1,0 +1,48 @@
+qv2ray (1.99.4-1ubuntu3) bionic; urgency=medium
+
+  * Rework
+
+ -- Guobang Bi <ymshenyu@gmail.com>  Tue, 31 Dec 2019 02:07:55 +0000
+
+qv2ray (1.99.4-1ubuntu1) bionic; urgency=medium
+
+  * Bump version
+
+ -- Guobang Bi <ymshenyu@gmail.com>  Tue, 31 Dec 2019 01:21:15 +0000
+
+qv2ray (1.99.3.0-3) unstable; urgency=medium
+
+  * Delete qt 5.12 attribute for buster
+
+ -- guobang <ymshenyu@gmail.com>  Sat, 28 Dec 2019 16:09:25 +0800
+
+qv2ray (1.99.3.0-2) unstable; urgency=medium
+
+  * Rebuild for other distro
+
+ -- guobang <ymshenyu@gmail.com>  Sat, 28 Dec 2019 15:59:03 +0800
+
+qv2ray (1.99.3.0-2ubuntu1) bionic; urgency=medium
+
+  * Added GNOME https proxy settings
+  * Added UI for downloading GFWList
+
+ -- guobang <ymshenyu@gmail.com>  Sat, 28 Dec 2019 15:24:45 +0800
+
+qv2ray (1.99.3.0-1) experimental; urgency=medium
+
+  * Switch to dev branch 
+
+ -- guobang <ymshenyu@gmail.com>  Sat, 28 Dec 2019 08:58:31 +0800
+
+qv2ray (1.3.8.0-2) stable; urgency=medium
+
+  * Delete qt5-default depend
+
+ -- guobang <ymshenyu@gmail.com>  Fri, 27 Dec 2019 20:27:34 +0800
+
+qv2ray (1.3.8.0-1) unstable; urgency=medium
+
+  * Initial release
+
+ -- guobang <ymshenyu@gmail.com>  Fri, 27 Dec 2019 09:47:27 +0800
