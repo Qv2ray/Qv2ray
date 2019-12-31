@@ -229,9 +229,16 @@ win32 {
 
 }
 
+macx {
+    # For Linux and macOS
+    message("Configuring for macOS specific environment")
+    LIBS += -framework Carbon -framework Cocoa
+}
+
+# Reuse unix for macx as well
 unix {
     # For Linux and macOS
-    message("Configuring for unix-like (macOS and linux) environment")
+    message("Configuring for unix-like environment")
     # For gRPC and protobuf in linux and macOS
     message("  --> Linking against gRPC and protobuf library.")
     LIBS += -L/usr/local/lib -lgrpc++ -lprotobuf -lgrpc -lgpr
