@@ -14,6 +14,13 @@ QMAKE_CFLAGS_ISYSTEM = -I
 _BUILD_NUMBER=$$cat(Build.Counter)
 VERSION = 1.99.4.$$_BUILD_NUMBER
 
+no_increase_build_number {
+    message("Build.Counter will not be increased")
+} else {
+    _BUILD_NUMBER = $$num_add($$_BUILD_NUMBER, 1)
+    write_file("Build.Counter", _BUILD_NUMBER)
+}
+
 DEFINES += QT_DEPRECATED_WARNINGS QV2RAY_VERSION_STRING=\"\\\"v$${VERSION}\\\"\" QAPPLICATION_CLASS=QApplication
 
 # Don't merge those configs with below.
@@ -226,11 +233,11 @@ unix {
     message("Configuring for unix-like (macOS and linux) environment")
     # For gRPC and protobuf in linux and macOS
     message("  --> Linking against gRPC and protobuf library.")
-    LIBS += -L/usr/lib -lgrpc++ -lprotobuf -lgrpc -lgpr
+    LIBS += -L/usr/local/lib -lgrpc++ -lprotobuf -lgrpc -lgpr
 
     # macOS homebrew include path
     message("  --> Adding local include folder to search path")
-    INCLUDEPATH += /usr/include/
+    INCLUDEPATH += /usr/local/include/
 
     message("  --> Adding Plasma Toolbox CPP files.")
     SOURCES += src/ui/NetSpeedBar/QvNetSpeedBar_linux.cpp
@@ -243,7 +250,7 @@ unix {
     icon.files += ./icons/qv2ray.png
     icon.path = /usr/share/icons/hicolor/256x256/apps/
 
-    target.path = /usr/bin/
+    target.path = /usr/local/bin/
     INSTALLS += target desktop icon
 }
 
