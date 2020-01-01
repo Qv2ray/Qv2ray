@@ -8,8 +8,9 @@ Build-Depends:  debhelper (>= 11),
                 libprotobuf-dev (>= 3.6.1.3-1~),
                 libqt5charts5-dev (>= 5.12.2-1~),
                 libssl-dev,
+                protobuf-compiler (>= 3.6.1.3-1~),
                 protobuf-compiler-grpc (>= 1.16.1-1~),
-                qtbase5-dev (>= 5.12.2+dfsg-4~),
+                qt5-default (>= 5.12.2+dfsg-4~),
                 qttools5-dev-tools (>= 5.12.2-1~)
 Standards-Version: 4.1.2
 Homepage: https://lhy0403.github.io/Qv2ray
