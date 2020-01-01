@@ -8,6 +8,7 @@ QT += core gui widgets network charts
 
 TARGET = qv2ray
 TEMPLATE = app
+QMAKE_CFLAGS_ISYSTEM = -I
 
 # Now read build number file.
 _BUILD_NUMBER=$$cat(Build.Counter)
