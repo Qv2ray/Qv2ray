@@ -332,7 +332,6 @@ void MainWindow::OnConfigListChanged(bool need_restart)
     connections.clear();
     connectionListWidget->clear();
     auto _regularConnections = GetRegularConnections(currentConfig.configs);
-    //
     auto _subsConnections = GetSubscriptionConnections(currentConfig.subscriptions.keys());
 
     for (auto i = 0; i < _regularConnections.count(); i++) {
@@ -562,7 +561,7 @@ void MainWindow::ShowAndSetConnection(QString guiConnectionName, bool SetConnect
     }
 
     // Get Connection info
-    auto host_port = MWGetConnectionPortNumber(currentSelectedName);
+    auto host_port = MWGetConnectionInfo(currentSelectedName);
     _hostLabel->setText(get<0>(host_port));
     _portLabel->setText(QString::number(get<1>(host_port)));
     _OutBoundTypeLabel->setText(get<2>(host_port));

@@ -106,8 +106,8 @@ void MainWindow::MWSetSystemProxy()
 bool MainWindow::MWtryStartConnection()
 {
     auto connectionRoot = connections[CurrentConnectionName].config;
-    CurrentFullConfig = GenerateRuntimeConfig(connectionRoot);
-    bool startFlag = this->vinstance->StartConnection(CurrentFullConfig, currentConfig.connectionConfig.statsPort);
+    currentFullConfig = GenerateRuntimeConfig(connectionRoot);
+    bool startFlag = this->vinstance->StartConnection(currentFullConfig, currentConfig.connectionConfig.statsPort);
 
     if (startFlag) {
         bool usePAC = currentConfig.inboundConfig.pacConfig.enablePAC;
@@ -177,7 +177,7 @@ void MainWindow::MWStopConnection()
 void MainWindow::MWTryPingConnection(const QString &alias)
 {
     try {
-        auto info  = MWGetConnectionPortNumber(alias);
+        auto info  = MWGetConnectionInfo(alias);
         QString host = get<0>(info);
         int port = get<1>(info);
         tcpingModel->StartPing(alias, host, port);
@@ -186,12 +186,11 @@ void MainWindow::MWTryPingConnection(const QString &alias)
     }
 }
 
-tuple<QString, int, QString> MainWindow::MWGetConnectionPortNumber(const QString &alias)
+tuple<QString, int, QString> MainWindow::MWGetConnectionInfo(const QString &alias)
 {
     if (!connections.contains(alias))
         return make_tuple(tr("N/A"), 0, tr("N/A"));
 
-    auto root = connections[alias].config;
-    return GetConnectionInfo(root);
+    return GetConnectionInfo(connections[alias].config);
 }
 

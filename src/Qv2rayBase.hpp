@@ -12,15 +12,17 @@
 const int QV2RAY_CONFIG_VERSION = 6;
 
 // Linux users and DEs should handle the darkMode UI themselves.
-#ifndef Q_OS_LINUX
-#define QV2RAY_USE_BUILTIN_DARKTHEME
+#ifndef QV2RAY_USE_BUILTIN_DARKTHEME
+# ifndef Q_OS_LINUX
+#  define QV2RAY_USE_BUILTIN_DARKTHEME
+# endif
 #endif
 
 // Base folder suffix.
 #ifdef QT_DEBUG
-#define QV2RAY_CONFIG_DIR_SUFFIX "_debug/"
+# define QV2RAY_CONFIG_DIR_SUFFIX "_debug/"
 #else
-#define QV2RAY_CONFIG_DIR_SUFFIX "/"
+# define QV2RAY_CONFIG_DIR_SUFFIX "/"
 #endif
 
 // Get Configured Config Dir Path
@@ -37,14 +39,21 @@ const int QV2RAY_CONFIG_VERSION = 6;
 #define QV2RAY_GENERATED_DIR (QV2RAY_CONFIG_DIR + "generated/")
 #define QV2RAY_GENERATED_FILE_PATH (QV2RAY_GENERATED_DIR + "config.gen.json")
 
-#ifndef QV2RAY_DEFAULT_VCORE_PATH
-#define QV2RAY_DEFAULT_VASSETS_PATH (QV2RAY_CONFIG_DIR + "vcore/")
-#ifdef Q_OS_WIN
-#define QV2RAY_DEFAULT_VCORE_PATH (QV2RAY_CONFIG_DIR + "vcore/v2ray.exe")
+#if ! defined (QV2RAY_DEFAULT_VCORE_PATH) && ! defined (QV2RAY_DEFAULT_VASSETS_PATH)
+#   define QV2RAY_DEFAULT_VASSETS_PATH (QV2RAY_CONFIG_DIR + "vcore/")
+#   ifdef Q_OS_WIN
+#       define QV2RAY_DEFAULT_VCORE_PATH  (QV2RAY_CONFIG_DIR + "vcore/v2ray.exe")
+#   else
+#       define QV2RAY_DEFAULT_VCORE_PATH  (QV2RAY_CONFIG_DIR + "vcore/v2ray")
+#   endif
+#elif defined (QV2RAY_DEFAULT_VCORE_PATH) && defined (QV2RAY_DEFAULT_VASSETS_PATH)
+// ---- Using user-specified VCore and VAssets path
 #else
-#define QV2RAY_DEFAULT_VCORE_PATH (QV2RAY_CONFIG_DIR + "vcore/v2ray")
+#   error Both QV2RAY_DEFAULT_VCORE_PATH and QV2RAY_DEFAULT_VASSETS_PATH need to present when specifying the paths.
 #endif
-#endif
+
+#undef _HAS_MANUAL_VCORE
+#undef _HAS_MANUAL_VASSETS
 
 #define QV2RAY_VCORE_LOG_DIRNAME "logs/"
 #define QV2RAY_VCORE_ACCESS_LOG_FILENAME "access.log"
@@ -60,13 +69,13 @@ const int QV2RAY_CONFIG_VERSION = 6;
 #define BLACK(obj)                             \
     obj->setPalette(this->palette());
 
-#define QV2RAY_UI_RESOURCES_ROOT QString::fromStdString(QV2RAY_IS_DARKTHEME ? ":/icons/ui_dark/" : ":/icons/ui_light/")
+#define QV2RAY_UI_RESOURCES_ROOT (QV2RAY_IS_DARKTHEME ? QStringLiteral(":/icons/ui_dark/") : QStringLiteral(":/icons/ui_light/"))
 #define QICON_R(file) QIcon(QV2RAY_UI_RESOURCES_ROOT + file)
 
 #define NEWLINE "\r\n"
 
 #ifndef MAX
-#define MAX(a, b) (((a) > (b)) ? (a) : (b))
+# define MAX(a, b) (((a) > (b)) ? (a) : (b))
 #endif
 
 using namespace std;

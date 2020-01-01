@@ -377,8 +377,8 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
                     // Only trying to remove file when they are not in the default dir.
                     // (In other words...) Keep using the current files. <Because we don't know where else we can copy the file from...>
                     if (QFile(QV2RAY_DEFAULT_VCORE_PATH).exists()) {
-                        LOG(MODULE_FILE, QV2RAY_DEFAULT_VCORE_PATH.toStdString() + ": File already exists.")
-                        LOG(MODULE_FILE, QV2RAY_DEFAULT_VCORE_PATH.toStdString() + ": Deleting file.")
+                        LOG(MODULE_FILE, QString(QV2RAY_DEFAULT_VCORE_PATH).toStdString() + ": File already exists.")
+                        LOG(MODULE_FILE, QString(QV2RAY_DEFAULT_VCORE_PATH).toStdString() + ": Deleting file.")
                         QFile(QV2RAY_DEFAULT_VCORE_PATH).remove();
                     }
 

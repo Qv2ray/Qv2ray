@@ -25,7 +25,7 @@ namespace Qv2ray
             case 2: {
                 // We copied those files.
                 auto vCoreFilePath = root["v2CorePath"].toString();
-                auto vCoreDestPath = QV2RAY_DEFAULT_VCORE_PATH;
+                auto vCoreDestPath = QString(QV2RAY_DEFAULT_VCORE_PATH);
                 // We also need v2ctl
                 auto v2CtlFilePath = QFileInfo(vCoreFilePath).dir().path() + "/v2ctl";
                 auto v2CtlDestPath = QFileInfo(vCoreDestPath).dir().path() + "/v2ctl";

@@ -146,8 +146,8 @@ bool initialiseQv2ray()
             }
 
             Qv2rayConfig conf;
-            conf.v2AssetsPath = QV2RAY_DEFAULT_VASSETS_PATH;
-            conf.v2CorePath = QV2RAY_DEFAULT_VCORE_PATH;
+            conf.v2AssetsPath = QString(QV2RAY_DEFAULT_VASSETS_PATH);
+            conf.v2CorePath = QString(QV2RAY_DEFAULT_VCORE_PATH);
             conf.logLevel = 3;
             //
             // Save initial config.

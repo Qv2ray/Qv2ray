@@ -45,15 +45,11 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         void UpdateVCoreLog(const QString &log);
         void OnConfigListChanged(bool need_restart);
     private slots:
-        void setMasterLogHBar();
         void on_action_RCM_ShareQR_triggered();
         void on_startButton_clicked();
         void on_stopButton_clicked();
         void on_reconnectButton_clicked();
-        void VersionUpdate(QByteArray &data);
         void on_activatedTray(QSystemTrayIcon::ActivationReason reason);
-        void ToggleVisibility();
-        void quit();
         void on_actionExit_triggered();
         void on_preferencesBtn_clicked();
         void on_connectionListWidget_doubleClicked(const QModelIndex &index);
@@ -69,10 +65,14 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         void on_shareBtn_clicked();
         void on_duplicateBtn_clicked();
         void on_subsButton_clicked();
+        //
+        void ToggleVisibility();
+        void setMasterLogHBar();
+        void VersionUpdate(QByteArray &data);
+        void quit();
 
     public:
         static MainWindow *mwInstance;
-        CONFIGROOT CurrentFullConfig;
         QString CurrentConnectionName = "";
         ConnectionInstance *vinstance;
 
@@ -93,6 +93,7 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         void SetEditWidgetEnable(bool enabled);
         void ShowAndSetConnection(QString currentText, bool SetConnection, bool Apply);
         Qv2rayConfig currentConfig;
+        CONFIGROOT currentFullConfig;
         //
         // Charts
         QChartView *speedChartView;
@@ -148,7 +149,7 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         bool MWtryStartConnection();
         void MWStopConnection();
         void MWTryPingConnection(const QString &alias);
-        tuple<QString, int, QString> MWGetConnectionPortNumber(const QString &alias);
+        tuple<QString, int, QString> MWGetConnectionInfo(const QString &alias);
         void MWSetSystemProxy();
         void MWClearSystemProxy(bool);
 };
