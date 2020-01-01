@@ -115,7 +115,7 @@ namespace Qv2ray
     namespace QvConfigModels
     {
         struct Qv2raySubscriptionConfig {
-            int64_t lastUpdated;
+            time_t lastUpdated;
             int updateInterval;
             QString address;
             Qv2raySubscriptionConfig() : lastUpdated(system_clock::to_time_t(system_clock::now())), updateInterval(5), address("") { }
