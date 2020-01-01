@@ -5,6 +5,3 @@
 
 override_dh_autoreconf:
 	dh_autoreconf tools/grpc_gen.sh
-
-override_dh_auto_configure:
-	dh_auto_configure -Sqmake CONFIG+=no_increase_build_number
