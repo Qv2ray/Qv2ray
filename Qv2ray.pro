@@ -30,7 +30,7 @@ include(3rdparty/SingleApplication/singleapplication.pri)
 include(3rdparty/QNodeEditor/QNodeEditor.pri)
 
 # Main config
-CONFIG += lrelease embed_translations no_increase_build_number
+CONFIG += lrelease embed_translations
 
 SOURCES += \
         src/components/QvAutoStartConfigurator.cpp \
