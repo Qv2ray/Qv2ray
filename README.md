@@ -44,7 +44,7 @@
 - Copyright (c) 2019 paceholder (@paceholder): nodeeditor (QNodeEditor modified by lhy0403) (BSD-3-Clause)
 
 ### Special Thanks
-- Issue maintainer: DuckSoft @DuckSoft
+- **Quality Assurance & User Experience:** DuckSoft [@DuckSoft](https://github.com/DuckSoft/)
 
 ## 许可证
 
