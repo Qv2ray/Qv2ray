@@ -23,9 +23,9 @@ Forwarded: <no|not-needed|url proving that it has been forwarded>
 Reviewed-By: <name and email of someone who approved the patch>
 Last-Update: 2020-01-01
 
---- qv2ray-1.99.4.orig/Qv2ray.pro
-+++ qv2ray-1.99.4/Qv2ray.pro
-@@ -8,6 +8,7 @@ QT += core gui widgets network charts
+--- a/Qv2ray.pro
++++ b/Qv2ray.pro
+@@ -8,6 +8,7 @@
  
  TARGET = qv2ray
  TEMPLATE = app
