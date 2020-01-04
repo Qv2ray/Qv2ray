@@ -1,3 +1,4 @@
 disable-build-counter.patch
 change-target-path.patch
 disable-passing-isystem.patch
+remove-gpr-link.patch
