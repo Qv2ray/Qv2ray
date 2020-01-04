@@ -233,6 +233,7 @@ macx {
     # For Linux and macOS
     message("Configuring for macOS specific environment")
     LIBS += -framework Carbon -framework Cocoa
+    LIBS += -lgpr
 }
 
 # Reuse unix for macx as well
@@ -241,7 +242,7 @@ unix {
     message("Configuring for unix-like environment")
     # For gRPC and protobuf in linux and macOS
     message("  --> Linking against gRPC and protobuf library.")
-    LIBS += -L/usr/local/lib -lgrpc++ -lprotobuf -lgrpc -lgpr
+    LIBS += -L/usr/local/lib -lgrpc++ -lprotobuf -lgrpc
 
     # macOS homebrew include path
     message("  --> Adding local include folder to search path")
