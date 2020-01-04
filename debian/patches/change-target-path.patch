@@ -21,11 +21,25 @@ Bug-Debian: https://bugs.debian.org/<bugnumber>
 Bug-Ubuntu: https://launchpad.net/bugs/<bugnumber>
 Forwarded: <no|not-needed|url proving that it has been forwarded>
 Reviewed-By: <name and email of someone who approved the patch>
-Last-Update: 2020-01-01
+Last-Update: 2020-01-04
 
---- a/Qv2ray.pro
-+++ b/Qv2ray.pro
-@@ -252,7 +252,7 @@
+--- qv2ray-1.99.4.orig/Qv2ray.pro
++++ qv2ray-1.99.4/Qv2ray.pro
+@@ -236,11 +236,11 @@ unix {
+     message("Configuring for unix-like environment")
+     # For gRPC and protobuf in linux and macOS
+     message("  --> Linking against gRPC and protobuf library.")
+-    LIBS += -L/usr/local/lib -lgrpc++ -lprotobuf -lgrpc
++    LIBS += -L/usr/lib -lgrpc++ -lprotobuf -lgrpc
+ 
+     # macOS homebrew include path
+     message("  --> Adding local include folder to search path")
+-    INCLUDEPATH += /usr/local/include/
++    INCLUDEPATH += /usr/include/
+ 
+     message("  --> Adding Plasma Toolbox CPP files.")
+     SOURCES += src/ui/NetSpeedBar/QvNetSpeedBar_linux.cpp
+@@ -253,7 +253,7 @@ unix {
      icon.files += ./icons/qv2ray.png
      icon.path = /usr/share/icons/hicolor/256x256/apps/
  
