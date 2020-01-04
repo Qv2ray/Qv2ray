@@ -25,21 +25,7 @@ Last-Update: 2020-01-01
 
 --- a/Qv2ray.pro
 +++ b/Qv2ray.pro
-@@ -234,11 +234,11 @@
-     message("Configuring for unix-like environment")
-     # For gRPC and protobuf in linux and macOS
-     message("  --> Linking against gRPC and protobuf library.")
--    LIBS += -L/usr/local/lib -lgrpc++ -lprotobuf -lgrpc -lgpr
-+    LIBS += -L/usr/lib -lgrpc++ -lprotobuf -lgrpc -lgpr
- 
-     # macOS homebrew include path
-     message("  --> Adding local include folder to search path")
--    INCLUDEPATH += /usr/local/include/
-+    INCLUDEPATH += /usr/include/
- 
-     message("  --> Adding Plasma Toolbox CPP files.")
-     SOURCES += src/ui/NetSpeedBar/QvNetSpeedBar_linux.cpp
-@@ -251,7 +251,7 @@
+@@ -252,7 +252,7 @@
      icon.files += ./icons/qv2ray.png
      icon.path = /usr/share/icons/hicolor/256x256/apps/
  
