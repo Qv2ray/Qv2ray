@@ -1,8 +1,6 @@
 ﻿#ifndef VINTERACT_H
 #define VINTERACT_H
 #include <QProcess>
-#include <QString>
-#include "Qv2rayBase.hpp"
 #include <grpc++/grpc++.h>
 #include "QvUtils.hpp"
 #include "v2ray_api_commands.pb.h"
@@ -10,7 +8,7 @@
 
 namespace Qv2ray
 {
-    namespace QvCoreInteration
+    namespace QvKernelInterations
     {
         enum QvInstanceStatus {
             STOPPED,
@@ -18,12 +16,12 @@ namespace Qv2ray
             STARTED
         };
 
-        class ConnectionInstance : public QObject
+        class V2rayKernelInstance : public QObject
         {
                 Q_OBJECT
             public:
-                explicit ConnectionInstance();
-                ~ConnectionInstance() override;
+                explicit V2rayKernelInstance();
+                ~V2rayKernelInstance() override;
                 //
                 // Speed
                 long getTagSpeedUp(const QString &tag);
@@ -63,6 +61,6 @@ namespace Qv2ray
     }
 }
 
-using namespace Qv2ray::QvCoreInteration;
+using namespace Qv2ray::QvKernelInterations;
 
 #endif // VINTERACT_H

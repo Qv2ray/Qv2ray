@@ -35,12 +35,13 @@ CONFIG += lrelease embed_translations
 
 SOURCES += \
         src/components/QvComponentsHandler.cpp \
+        src/components/QvCore/QvCommandLineArgs.cpp \
+        src/components/QvKernelInteractions.cpp \
         src/components/QvLaunchAtLoginConfigurator.cpp \
         src/components/QvPACHandler.cpp \
         src/components/QvSystemProxyConfigurator.cpp \
         src/components/QvTCPing.cpp \
         src/main.cpp \
-        src/components/QvCoreInteractions.cpp \
         src/components/QvGFWPACConverter.cpp \
         src/components/QvHTTPRequestHelper.cpp \
         src/components/QvLogHighlighter.cpp \
@@ -84,8 +85,9 @@ HEADERS += \
         src/QvCoreConfigOperations.hpp \
         src/QvUtils.hpp \
         src/components/QvComponentsHandler.hpp \
-        src/components/QvCoreInteractions.hpp \
+        src/components/QvCore/QvCommandLineArgs.hpp \
         src/components/QvHTTPRequestHelper.hpp \
+        src/components/QvKernelInteractions.hpp \
         src/components/QvLaunchAtLoginConfigurator.hpp \
         src/components/QvLogHighlighter.hpp \
         src/components/QvNetSpeedPlugin.hpp \

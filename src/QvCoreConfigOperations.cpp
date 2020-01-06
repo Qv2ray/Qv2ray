@@ -69,17 +69,5 @@ namespace Qv2ray
             bool cRules = cRule && root["routing"].toObject()["rules"].toArray().count() > 0;
             return cRules;
         }
-
-        int FindIndexByTag(INOUTLIST list, const QString &tag)
-        {
-            for (int i = 0; i < list.count(); i++) {
-                auto value = list[i].toObject();
-
-                if (value.contains("tag") && value["tag"].toString() == tag)
-                    return i;
-            }
-
-            return -1;
-        }
     }
 }

@@ -6,7 +6,7 @@
 #include <QDesktopServices>
 
 #include "QvUtils.hpp"
-#include "QvCoreInteractions.hpp"
+#include "QvKernelInteractions.hpp"
 #include "QvNetSpeedPlugin.hpp"
 #include "QvCoreConfigOperations.hpp"
 

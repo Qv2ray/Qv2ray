@@ -62,8 +62,8 @@ MainWindow::MainWindow(QWidget *parent):
 {
     MainWindow::mwInstance = this;
     currentConfig = GetGlobalConfig();
-    vinstance = new ConnectionInstance();
-    connect(vinstance, &ConnectionInstance::onProcessOutputReadyRead, this, &MainWindow::UpdateVCoreLog);
+    vinstance = new V2rayKernelInstance();
+    connect(vinstance, &V2rayKernelInstance::onProcessOutputReadyRead, this, &MainWindow::UpdateVCoreLog);
     setupUi(this);
     //
     // Two browsers
@@ -957,13 +957,13 @@ void MainWindow::timerEvent(QTimerEvent *event)
         auto _totalDataUp = vinstance->getAllDataUp();
         auto _totalDataDown = vinstance->getAllDataDown();
         //
-        double max = 0;
+        double _max = 0;
         double historyMax = 0;
         auto graphVUp  = _totalSpeedUp / 1024;
         auto graphVDown  = _totalSpeedDown / 1024;
 
         for (auto i = 0; i < 29; i++) {
-            historyMax = MAX(historyMax, MAX(uploadList[i + 1], downloadList[i + 1]));
+            historyMax = max(historyMax, max(uploadList[i + 1], downloadList[i + 1]));
             uploadList[i] = uploadList[i + 1];
             downloadList[i] = downloadList[i + 1];
             uploadSerie->replace(i, i, uploadList[i + 1]);
@@ -975,8 +975,8 @@ void MainWindow::timerEvent(QTimerEvent *event)
         uploadSerie->replace(29, 29, graphVUp);
         downloadSerie->replace(29, 29, graphVDown);
         //
-        max = MAX(MAX(graphVUp, graphVDown), historyMax);
-        speedChartObj->axes(Qt::Vertical).first()->setRange(0, max * 1.2);
+        _max = max(historyMax, double(max(graphVUp, graphVDown)));
+        speedChartObj->axes(Qt::Vertical).first()->setRange(0, _max * 1.2);
         //
         auto totalSpeedUp = FormatBytes(_totalSpeedUp) + "/s";
         auto totalSpeedDown = FormatBytes(_totalSpeedDown) + "/s";

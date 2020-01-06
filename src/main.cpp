@@ -11,6 +11,8 @@
 
 #include "w_MainWindow.hpp"
 
+#include "QvCore/QvCommandLineArgs.hpp"
+
 bool verifyConfigAvaliability(QString path, bool checkExistingConfig)
 {
     // Does not exist.
@@ -207,6 +209,28 @@ int main(int argc, char *argv[])
         LOG(MODULE_UI, "Installing a tranlator from OS: " + _lang.toStdString() + " -- " + (_result_ ? "OK" : "Failed"))
     }
 
+    QvCommandArgParser parser;
+    QString errorMessage;
+
+    switch (parser.ParseCommandLine(&errorMessage)) {
+        case CommandLineOk:
+            break;
+
+        case CommandLineError:
+            cout << errorMessage.toStdString() << endl;
+            cout <<  parser.Parser()->helpText().toStdString() << endl;
+            return 1;
+
+        case CommandLineVersionRequested:
+            LOG(QCoreApplication::applicationName().toStdString(), QCoreApplication::applicationVersion().toStdString());
+            return 0;
+
+        case CommandLineHelpRequested:
+            cout << parser.Parser()->helpText().toStdString() << endl;
+            return 0;
+    }
+
+    //
     LOG("LICENCE", NEWLINE "This program comes with ABSOLUTELY NO WARRANTY." NEWLINE
         "This is free software, and you are welcome to redistribute it" NEWLINE
         "under certain conditions." NEWLINE NEWLINE
@@ -250,7 +274,6 @@ int main(int argc, char *argv[])
 
     // Load the config for upgrade, but do not parse it to the struct.
     auto conf = JsonFromString(StringFromFile(new QFile(QV2RAY_CONFIG_FILE)));
-    //
     auto confVersion = conf["config_version"].toVariant().toString().toInt();
 
     if (confVersion > QV2RAY_CONFIG_VERSION) {
@@ -261,7 +284,7 @@ int main(int argc, char *argv[])
                      QObject::tr("Please check if there's an issue explaining about it.") + NEWLINE +
                      QObject::tr("Or submit a new issue if you think this is an error.") + NEWLINE + NEWLINE +
                      QObject::tr("Qv2ray will now exit."));
-        return -3;
+        return -2;
     }
 
     if (confVersion < QV2RAY_CONFIG_VERSION) {
@@ -313,7 +336,7 @@ int main(int argc, char *argv[])
                      QObject::tr("Technical Details") + "\r\n" +
                      "OSsl.Rq.V=" + osslReqVersion + "\r\n" +
                      "OSsl.Cr.V=" + osslCurVersion);
-        return -2;
+        return -3;
     }
 
 #ifdef Q_OS_WIN
@@ -386,7 +409,7 @@ int main(int argc, char *argv[])
     }  catch (...) {
         QvMessageBox(nullptr, "ERROR", "There's something wrong happened and Qv2ray will quit now.");
         LOG(MODULE_INIT, "EXCEPTION THROWN: " __FILE__)
-        return -9;
+        return -99;
     }
 
 #endif

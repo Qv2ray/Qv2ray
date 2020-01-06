@@ -12,7 +12,7 @@
 #include "ui_w_MainWindow.h"
 
 #include "QvUtils.hpp"
-#include "QvCoreInteractions.hpp"
+#include "QvKernelInteractions.hpp"
 #include "QvCoreConfigOperations.hpp"
 #include "QvHTTPRequestHelper.hpp"
 #include "QvPACHandler.hpp"
@@ -74,7 +74,7 @@ class MainWindow : public QMainWindow, Ui::MainWindow
     public:
         static MainWindow *mwInstance;
         QString CurrentConnectionName = "";
-        ConnectionInstance *vinstance;
+        V2rayKernelInstance *vinstance;
 
     protected:
         void mouseReleaseEvent(QMouseEvent *e) override;

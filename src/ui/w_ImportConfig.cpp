@@ -8,7 +8,7 @@
 #include "qzxing/src/QZXing.h"
 
 #include "QvUtils.hpp"
-#include "QvCoreInteractions.hpp"
+#include "QvKernelInteractions.hpp"
 #include "QvCoreConfigOperations.hpp"
 
 #include "w_ScreenShot_Core.hpp"
@@ -70,7 +70,7 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
             bool keepInBound = keepImportedInboundCheckBox->isChecked();
             QString path = fileLineTxt->text();
 
-            if (!ConnectionInstance::ValidateConfig(path)) {
+            if (!V2rayKernelInstance::ValidateConfig(path)) {
                 QvMessageBox(this, tr("Import config file"), tr("Failed to check the validity of the config file."));
                 return;
             }

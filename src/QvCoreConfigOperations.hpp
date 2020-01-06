@@ -20,7 +20,6 @@ namespace Qv2ray
         QMap<QString, CONFIGROOT> GetSubscriptionConnection(QString subscription);
         QMap<QString, QMap<QString, CONFIGROOT>> GetSubscriptionConnections(QStringList subscriptions);
         bool CheckIsComplexConfig(CONFIGROOT root);
-        int FindIndexByTag(INOUTLIST list, const QString &tag);
 
         //
         // -------------------------- BEGIN CONFIG CONVERSIONS --------------------------

@@ -74,10 +74,6 @@ const int QV2RAY_CONFIG_VERSION = 6;
 
 #define NEWLINE "\r\n"
 
-#ifndef MAX
-# define MAX(a, b) (((a) > (b)) ? (a) : (b))
-#endif
-
 using namespace std;
 using namespace std::chrono;
 
