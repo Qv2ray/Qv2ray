@@ -230,7 +230,6 @@ int main(int argc, char *argv[])
             return 0;
     }
 
-    //
     LOG("LICENCE", NEWLINE "This program comes with ABSOLUTELY NO WARRANTY." NEWLINE
         "This is free software, and you are welcome to redistribute it" NEWLINE
         "under certain conditions." NEWLINE NEWLINE
@@ -252,7 +251,7 @@ int main(int argc, char *argv[])
         "Copyright (c) 2019 TheWanderingCoel (@TheWanderingCoel): ShadowClash (launchatlogin) (GPLv3)" NEWLINE
         NEWLINE)
     //
-    LOG(MODULE_INIT, "Qv2ray Start Time: "  + QString::number(QTime::currentTime().msecsSinceStartOfDay()).toStdString())
+    LOG(MODULE_INIT, "Qv2ray Start Time: "  + to_string(QTime::currentTime().msecsSinceStartOfDay()))
     DEBUG("DEBUG", "WARNING: ============================== This is a debug build, many features are not stable enough. ==============================")
     //
     // Load the language translation list.
