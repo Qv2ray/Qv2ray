@@ -88,7 +88,7 @@ namespace Qv2ray
 
                             case 104: {
                                 // Current Connection Name
-                                CL.Message = instance->CurrentConnectionName;
+                                CL.Message = instance->GetCurrentConnectedConfigName();
                                 break;
                             }
 

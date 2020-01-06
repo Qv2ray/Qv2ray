@@ -73,8 +73,9 @@ class MainWindow : public QMainWindow, Ui::MainWindow
 
     public:
         static MainWindow *mwInstance;
-        QString CurrentConnectionName = "";
+        QTreeWidgetItem *CurrentConnectedItem = nullptr;
         V2rayKernelInstance *vinstance;
+        QString GetCurrentConnectedConfigName();
 
     protected:
         void mouseReleaseEvent(QMouseEvent *e) override;
@@ -90,8 +91,9 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         void on_connectionListWidget_itemSelectionChanged();
 
     private:
+        QTreeWidgetItem *FindItemByNames(QList<QTreeWidgetItem *> items, QString confName, QString subsName);
         void SetEditWidgetEnable(bool enabled);
-        void ShowAndSetConnection(QString currentText, bool SetConnection, bool Apply);
+        void ShowAndSetConnection(QTreeWidgetItem *selectedItem, bool SetConnection, bool Apply);
         Qv2rayConfig currentConfig;
         CONFIGROOT currentFullConfig;
         //
@@ -127,13 +129,13 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         //
         QList<QTextBrowser *> logTextBrowsers;
         int currentLogBrowserId = 0;
-        QString currentSelectedName;
+        QTreeWidgetItem *CurrentSelectedItem;
         //
         // Actions in the system tray menu
         //
         QMenu *tray_RootMenu = new QMenu(this);
         QAction *action_Tray_ShowHide;
-        QAction *action_Tray_ShowPreferenceWindow;
+        QAction *action_Tray_ShowPreferencesWindow;
         QAction *action_Tray_Quit;
         // --> Connectivities
         QAction *action_Tray_Start;

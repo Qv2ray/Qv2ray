@@ -1,8 +1,30 @@
 // Supplementary file for MainWindow -- Basically the handler for connectivity management
 // and components interactions.
-
-#include "w_MainWindow.hpp"
+// We NEED to include the cpp file to define the macros.
+#include "w_MainWindow.cpp"
 #include "QvSystemProxyConfigurator.hpp"
+
+QTreeWidgetItem *MainWindow::FindItemByNames(QList<QTreeWidgetItem *> items, QString confName, QString subsName)
+{
+    for (auto item : items) {
+        // This connectable prevents the an item with (which is the parent node of a subscription, having the same
+        // -- name as our current connected name)
+        if (IsConnectableItem(item)) {
+            // If the connection name matches.
+            if (item->text(0) == confName) {
+                // If is not in a subscription
+                if (subsName.isEmpty() && item->parent() == nullptr && IsRegularConfig(item)) {
+                    return item;
+                } // If it's a subscription.
+                else if (!subsName.isEmpty() && item->parent()->text(0) == (tr("Subscription:") + " " + subsName) && IsSubscription(item)) {
+                    return item;
+                }
+            }
+        }
+    }
+
+    return nullptr;
+}
 
 void MainWindow::MWFindAndStartAutoConfig()
 {
@@ -13,12 +35,11 @@ void MainWindow::MWFindAndStartAutoConfig()
                     : currentConfig.autoStartConfig.connectionName + " (" + tr("Subscription:") + " " + currentConfig.autoStartConfig.subscriptionName + ")";
         //
         LOG(MODULE_UI, "Found auto start config: " + name.toStdString())
-        CurrentConnectionName = name;
-        auto widgetItemFindResultList = connectionListWidget->findItems(name, Qt::MatchExactly | Qt::MatchRecursive);
+        auto validItems = connectionListWidget->findItems(currentConfig.autoStartConfig.connectionName, Qt::MatchExactly | Qt::MatchRecursive);
+        auto item = FindItemByNames(validItems, currentConfig.autoStartConfig.connectionName, currentConfig.autoStartConfig.subscriptionName);
 
-        if (connections.contains(name) && !widgetItemFindResultList.empty()) {
+        if (item != nullptr) {
             // We found the item required and start it.
-            auto item = widgetItemFindResultList.front();
             connectionListWidget->setCurrentItem(item);
             on_connectionListWidget_itemChanged(item, 0);
             connectionListWidget->scrollToItem(item);
@@ -32,7 +53,7 @@ void MainWindow::MWFindAndStartAutoConfig()
     } else if (connectionListWidget->topLevelItemCount() > 0) {
         // Make the first one our default selected item.
         connectionListWidget->setCurrentItem(connectionListWidget->topLevelItem(0));
-        ShowAndSetConnection(connectionListWidget->topLevelItem(0)->text(0), true, false);
+        ShowAndSetConnection(connectionListWidget->topLevelItem(0), true, false);
     }
 }
 
@@ -55,7 +76,7 @@ void MainWindow::MWSetSystemProxy()
     bool socksEnabled = currentConfig.inboundConfig.useSocks;
     //
     // Set system proxy if necessary
-    bool isComplex = CheckIsComplexConfig(connections[CurrentConnectionName].config);
+    bool isComplex = CheckIsComplexConfig(connections[ ItemFullConfigName(CurrentConnectedItem)].config);
 
     if (!isComplex) {
         // Is simple config and we will try to set system proxy.
@@ -105,7 +126,7 @@ void MainWindow::MWSetSystemProxy()
 
 bool MainWindow::MWtryStartConnection()
 {
-    auto connectionRoot = connections[CurrentConnectionName].config;
+    auto connectionRoot = connections[ItemFullConfigName(CurrentConnectedItem)].config;
     currentFullConfig = GenerateRuntimeConfig(connectionRoot);
     bool startFlag = this->vinstance->StartConnection(currentFullConfig, currentConfig.connectionConfig.statsPort);
 

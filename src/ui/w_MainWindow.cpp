@@ -1,3 +1,5 @@
+#pragma once
+
 #include <QAction>
 #include <QCloseEvent>
 #include <QDebug>
@@ -32,11 +34,13 @@
 #define qvAppLogBrowser this->logTextBrowsers[1]
 #define currentLogBrowser this->logTextBrowsers[currentLogBrowserId]
 //
-#define IsRegularConfig(var) (connections.contains(var) && connections[var].configType == CON_REGULAR)
-#define IsSubscription(var) (connections.contains(var) && connections[var].configType == CON_SUBSCRIPTION)
+#define ItemFullConfigName(__item_) (__item_ == nullptr ? "" : (__item_->parent() == nullptr ? __item_->text(0) : (__item_->text(0) + " (" + __item_->parent()->text(0) + ")")))
 //
-#define SUBSCRIPTION_CONFIG_MODIFY_ASK(varName)                                                                                                                 \
-    if (!IsRegularConfig(varName)) {                                                                                                                            \
+#define IsRegularConfig(_item) (connections.contains(ItemFullConfigName(_item)) && connections[ItemFullConfigName(_item)].configType == CON_REGULAR)
+#define IsSubscription(_item) (connections.contains(ItemFullConfigName(_item)) && connections[ItemFullConfigName(_item)].configType == CON_SUBSCRIPTION)
+//
+#define SUBSCRIPTION_CONFIG_MODIFY_ASK(__item)                                                                                                                  \
+    if (!IsRegularConfig(__item)) {                                                                                                                             \
         if (QvMessageBoxAsk(this, QObject::tr("Editing a subscription config"), QObject::tr("You are trying to edit a config loaded from subscription.") +      \
                             NEWLINE + QObject::tr("All changes will be overwritten when the subscriptions are updated next time.") +                            \
                             NEWLINE + QObject::tr("Are you still going to do so?")) != QMessageBox::Yes) {                                                      \
@@ -45,13 +49,13 @@
     }                                                                                                                                                           \
 
 
-#define SUBSCRIPTION_CONFIG_MODIFY_DENY(varName)                                                                                                                \
-    if (!IsRegularConfig(varName)) {                                                                                                                            \
+#define SUBSCRIPTION_CONFIG_MODIFY_DENY(__item)                                                                                                                 \
+    if (!IsRegularConfig(__item)) {                                                                                                                             \
         QvMessageBox(this, QObject::tr("Editing a subscription config"), QObject::tr("You should not modity this property of a config from a subscription"));   \
         return;                                                                                                                                                 \
     }                                                                                                                                                           \
 
-#define IsConnectableItem(item) (item != nullptr && item->childCount() == 0 && (IsRegularConfig(item->text(0)) || IsSubscription(item->text(0))))
+#define IsConnectableItem(item) (item != nullptr && item->childCount() == 0 && (IsRegularConfig(item) || IsSubscription(item)))
 #define IsSelectionConnectable (!connectionListWidget->selectedItems().empty() && IsConnectableItem(connectionListWidget->selectedItems().first()))
 
 MainWindow *MainWindow::mwInstance = nullptr;
@@ -266,8 +270,7 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
             if (!IsSelectionConnectable) return;
 
             auto selections = connectionListWidget->selectedItems();
-            auto connectionName = selections.first()->text(0);
-            ShowAndSetConnection(connectionName, true, true);
+            ShowAndSetConnection(selections.first(), true, true);
         }
     }
 }
@@ -279,7 +282,7 @@ void MainWindow::on_action_StartThis_triggered()
         return;
     }
 
-    CurrentConnectionName = connectionListWidget->selectedItems().first()->text(0);
+    CurrentSelectedItem = connectionListWidget->selectedItems().first();
     on_reconnectButton_clicked();
 }
 void MainWindow::VersionUpdate(QByteArray &data)
@@ -315,6 +318,7 @@ void MainWindow::VersionUpdate(QByteArray &data)
         }
     }
 }
+
 void MainWindow::OnConfigListChanged(bool need_restart)
 {
     bool isRunning = vinstance->ConnectionStatus == STARTED;
@@ -324,6 +328,16 @@ void MainWindow::OnConfigListChanged(bool need_restart)
     LOG(MODULE_UI, "Loading new GlobalConfig")
     SetEditWidgetEnable(false);
     currentConfig = GetGlobalConfig();
+    QString currentConfName;
+    QString currentSubsName;
+    QString currentFullName;
+
+    if (CurrentConnectedItem != nullptr) {
+        currentConfName = CurrentConnectedItem->text(0);
+        currentSubsName = CurrentConnectedItem->parent() == nullptr ? "" : CurrentConnectedItem->parent()->text(0);
+        currentFullName = ItemFullConfigName(CurrentConnectedItem);
+    }
+
     //
     // Store the latency test value.
     QMap<QString, double> latencyValueCache;
@@ -363,20 +377,27 @@ void MainWindow::OnConfigListChanged(bool need_restart)
             auto connName = _o.connectionName + " (" + tr("Subscription:") + " " + _o.subscriptionName + ")";
             _o.latency = latencyValueCache.contains(connName) ? latencyValueCache[connName] : 0;
             connections[connName] = _o;
-            subTopLevel->addChild(new QTreeWidgetItem(QStringList() << connName));
+            subTopLevel->addChild(new QTreeWidgetItem(QStringList() << _o.connectionName));
         }
     }
 
     // We set the current selected item back...
-    if (!CurrentConnectionName.isEmpty() && connections.contains(CurrentConnectionName)) {
-        auto items = connectionListWidget->findItems(CurrentConnectionName, Qt::MatchExactly | Qt::MatchRecursive);
+    if (!currentConfName.isEmpty() && connections.contains(currentFullName)) {
+        auto items = connectionListWidget->findItems(currentConfName, Qt::MatchExactly | Qt::MatchRecursive);
+        auto item = FindItemByNames(items, currentConfName, currentSubsName);
 
-        if (items.count() > 0 && IsConnectableItem(items.first())) {
-            connectionListWidget->setCurrentItem(items.first());
-            connectionListWidget->scrollToItem(items.first());
+        if (item != nullptr) {
+            connectionListWidget->setCurrentItem(item);
+            connectionListWidget->scrollToItem(item);
+            CurrentConnectedItem = item;
+        } else if (connectionListWidget->topLevelItemCount() > 0) {
+            CurrentConnectedItem = connectionListWidget->topLevelItem(0);
+        } else {
+            CurrentConnectedItem = nullptr;
+            return;
         }
 
-        ShowAndSetConnection(CurrentConnectionName, false, false);
+        ShowAndSetConnection(CurrentConnectedItem, false, false);
     }
 
     connectionListWidget->sortItems(0, Qt::AscendingOrder);
@@ -416,22 +437,23 @@ void MainWindow::on_startButton_clicked()
         }
 
         // Check Selection
-        if (CurrentConnectionName.isEmpty()) {
+        if (CurrentConnectedItem == nullptr) {
             QvMessageBox(this, tr("No connection selected!"), tr("Please select a config from the list."));
             return;
         }
 
-        LOG(MODULE_VCORE, ("Connecting to: " + CurrentConnectionName).toStdString())
+        auto name = ItemFullConfigName(CurrentConnectedItem);
+        LOG(MODULE_VCORE, ("Connecting to: " + name).toStdString())
         vCoreLogBrowser->clear();
         bool startFlag = MWtryStartConnection();
 
         if (startFlag) {
-            MWTryPingConnection(CurrentConnectionName);
+            MWTryPingConnection(name);
             speedTimerId = startTimer(1000);
             pingTimerId = startTimer(60000);
-            this->hTray->showMessage("Qv2ray", tr("Connected: ") + CurrentConnectionName, this->windowIcon());
-            hTray->setToolTip(TRAY_TOOLTIP_PREFIX NEWLINE + tr("Connected: ") + CurrentConnectionName);
-            statusLabel->setText(tr("Connected: ") + CurrentConnectionName);
+            this->hTray->showMessage("Qv2ray", tr("Connected: ") + name, this->windowIcon());
+            hTray->setToolTip(TRAY_TOOLTIP_PREFIX NEWLINE + tr("Connected: ") + name);
+            statusLabel->setText(tr("Connected: ") + name);
         } else {
             // If failed, show mainwindow
             this->show();
@@ -539,15 +561,17 @@ void MainWindow::on_actionExit_triggered()
 {
     quit();
 }
-void MainWindow::ShowAndSetConnection(QString guiConnectionName, bool SetConnection, bool ApplyConnection)
+void MainWindow::ShowAndSetConnection(QTreeWidgetItem *selectedItem, bool SetConnection, bool ApplyConnection)
 {
     // Check empty again...
-    if (guiConnectionName.isEmpty()) return;
+    auto guiConnectionName = ItemFullConfigName(selectedItem);
+
+    if (guiConnectionName.isEmpty() || !connections.contains(guiConnectionName)) return;
 
     SetEditWidgetEnable(true);
     //
     // --------- BRGIN Show Connection
-    currentSelectedName = guiConnectionName;
+    CurrentSelectedItem = selectedItem;
     auto conf = connections[guiConnectionName];
     //
     auto isComplexConfig = CheckIsComplexConfig(conf.config);
@@ -564,14 +588,14 @@ void MainWindow::ShowAndSetConnection(QString guiConnectionName, bool SetConnect
     }
 
     // Get Connection info
-    auto host_port = MWGetConnectionInfo(currentSelectedName);
+    auto host_port = MWGetConnectionInfo(ItemFullConfigName(selectedItem));
     _hostLabel->setText(get<0>(host_port));
     _portLabel->setText(QString::number(get<1>(host_port)));
     _OutBoundTypeLabel->setText(get<2>(host_port));
 
     // Set to currentConnection
     if (SetConnection) {
-        CurrentConnectionName = guiConnectionName;
+        CurrentConnectedItem = selectedItem;
     }
 
     // Restart Connection
@@ -591,8 +615,7 @@ void MainWindow::on_connectionListWidget_doubleClicked(const QModelIndex &index)
 
     if (!IsSelectionConnectable) return;
 
-    QString currentText = connectionListWidget->currentItem()->text(0);
-    ShowAndSetConnection(currentText, true, false);
+    ShowAndSetConnection(connectionListWidget->currentItem(), true, false);
     on_reconnectButton_clicked();
 }
 void MainWindow::on_clearlogButton_clicked()
@@ -606,9 +629,8 @@ void MainWindow::on_connectionListWidget_currentItemChanged(QTreeWidgetItem *cur
 
     if (!IsConnectableItem(current)) return;
 
-    QString currentText = current->text(0);
     bool canSetConnection = !isRenamingInProgress && vinstance->ConnectionStatus != STARTED;
-    ShowAndSetConnection(currentText, canSetConnection, false);
+    ShowAndSetConnection(current, canSetConnection, false);
     //on_connectionListWidget_itemClicked(current, 0);
 }
 void MainWindow::on_connectionListWidget_customContextMenuRequested(const QPoint &pos)
@@ -624,7 +646,7 @@ void MainWindow::on_connectionListWidget_customContextMenuRequested(const QPoint
 void MainWindow::on_action_RCM_RenameConnection_triggered()
 {
     auto item = connectionListWidget->currentItem();
-    SUBSCRIPTION_CONFIG_MODIFY_DENY(item->text(0))
+    SUBSCRIPTION_CONFIG_MODIFY_DENY(item)
     item->setFlags(item->flags() | Qt::ItemIsEditable);
     connectionListWidget->editItem(item);
     renameOriginalName = item->text(0);
@@ -682,8 +704,9 @@ void MainWindow::on_connectionListWidget_itemChanged(QTreeWidgetItem *item, int)
         LOG(MODULE_UI, "Saving a global config")
         SetGlobalConfig(currentConfig);
 
-        if (CurrentConnectionName == renameOriginalName)
-            CurrentConnectionName = newName;
+        if (ItemFullConfigName(CurrentConnectedItem) == renameOriginalName)
+            // POSSIBLE BUG
+            CurrentConnectedItem->setText(0, newName);
 
         // Trigger change of the connection list will summon a SegFault
         //OnConfigListChanged(running);
@@ -691,11 +714,11 @@ void MainWindow::on_connectionListWidget_itemChanged(QTreeWidgetItem *item, int)
 }
 void MainWindow::on_removeConfigButton_clicked()
 {
-    QStringList connlist;
+    QList<QTreeWidgetItem *> connlist;
 
     for (auto item : connectionListWidget->selectedItems()) {
         if (IsConnectableItem(item)) {
-            connlist.append(item->text(0));
+            connlist.append(item);
         }
     }
 
@@ -713,10 +736,12 @@ void MainWindow::on_removeConfigButton_clicked()
     // A triple-state flag which indicates if the user wants to remove the configs loaded from a subscription.
     int subscriptionRemovalCheckStatus = -1;
 
-    for (auto name : connlist) {
-        if (name == CurrentConnectionName) {
+    for (auto item : connlist) {
+        auto name = ItemFullConfigName(item);
+
+        if (name == ItemFullConfigName(CurrentConnectedItem)) {
             on_stopButton_clicked();
-            CurrentConnectionName.clear();
+            CurrentConnectedItem = nullptr;
         }
 
         auto connData = connections[name];
@@ -730,7 +755,7 @@ void MainWindow::on_removeConfigButton_clicked()
             currentConfig.autoStartConfig.connectionName.clear();
         }
 
-        if (IsRegularConfig(name)) {
+        if (IsRegularConfig(item)) {
             // Just remove the regular configs.
             if (!connData.subscriptionName.isEmpty()) {
                 LOG(MODULE_UI, "Unexpected subscription name in a single regular config.")
@@ -742,7 +767,7 @@ void MainWindow::on_removeConfigButton_clicked()
             if (!RemoveConnection(name)) {
                 QvMessageBox(this, tr("Removing this Connection"), tr("Failed to delete connection file, please delete manually."));
             }
-        } else if (IsSubscription(name)) {
+        } else if (IsSubscription(item)) {
             if (subscriptionRemovalCheckStatus == -1) {
                 subscriptionRemovalCheckStatus = (QvMessageBoxAsk(this, tr("Removing a subscription config"), tr("Do you want to remove the config loaded from a subscription?")) == QMessageBox::Yes)
                                                  ? 1 // Yes i want
@@ -762,7 +787,7 @@ void MainWindow::on_removeConfigButton_clicked()
     LOG(MODULE_UI, "Saving GlobalConfig")
     SetGlobalConfig(currentConfig);
     OnConfigListChanged(false);
-    ShowAndSetConnection(CurrentConnectionName, false, false);
+    ShowAndSetConnection(CurrentConnectedItem, false, false);
 }
 
 void MainWindow::on_importConfigButton_clicked()
@@ -793,8 +818,9 @@ void MainWindow::on_editConfigButton_clicked()
         return;
     }
 
-    auto alias = connectionListWidget->selectedItems().first()->text(0);
-    SUBSCRIPTION_CONFIG_MODIFY_ASK(alias)
+    auto firstSelected = connectionListWidget->selectedItems().first();
+    auto alias = ItemFullConfigName(firstSelected);
+    SUBSCRIPTION_CONFIG_MODIFY_ASK(firstSelected)
     //
     auto outBoundRoot = connections[alias].config;
     CONFIGROOT root;
@@ -816,7 +842,7 @@ void MainWindow::on_editConfigButton_clicked()
     }
 
     if (isChanged) {
-        if (IsSubscription(alias)) {
+        if (IsSubscription(firstSelected)) {
             SaveSubscriptionConfig(root, connections[alias].subscriptionName, connections[alias].connectionName);
         } else {
             connections[alias].config = root;
@@ -824,7 +850,7 @@ void MainWindow::on_editConfigButton_clicked()
             SaveConnectionConfig(root, &alias, true);
         }
 
-        OnConfigListChanged(alias == CurrentConnectionName);
+        OnConfigListChanged(alias == ItemFullConfigName(CurrentConnectedItem));
     }
 }
 void MainWindow::on_reconnectButton_clicked()
@@ -841,8 +867,9 @@ void MainWindow::on_action_RCM_ConvToComplex_triggered()
         return;
     }
 
-    auto alias = connectionListWidget->currentItem()->text(0);
-    SUBSCRIPTION_CONFIG_MODIFY_ASK(alias)
+    auto selectedFirst = connectionListWidget->currentItem();
+    auto alias = ItemFullConfigName(selectedFirst);
+    SUBSCRIPTION_CONFIG_MODIFY_DENY(selectedFirst)
     //
     auto outBoundRoot = connections[alias].config;
     CONFIGROOT root;
@@ -857,8 +884,8 @@ void MainWindow::on_action_RCM_ConvToComplex_triggered()
         connections[alias].config = root;
         // true indicates the alias will NOT change
         SaveConnectionConfig(root, &alias, true);
-        OnConfigListChanged(alias == CurrentConnectionName);
-        ShowAndSetConnection(CurrentConnectionName, false, false);
+        OnConfigListChanged(alias == ItemFullConfigName(CurrentConnectedItem));
+        ShowAndSetConnection(CurrentConnectedItem, false, false);
     }
 }
 
@@ -870,8 +897,9 @@ void MainWindow::on_action_RCM_EditJson_triggered()
         return;
     }
 
-    auto alias = connectionListWidget->currentItem()->text(0);
-    SUBSCRIPTION_CONFIG_MODIFY_ASK(alias)
+    auto selectedFirst = connectionListWidget->currentItem();
+    auto alias = ItemFullConfigName(selectedFirst);
+    SUBSCRIPTION_CONFIG_MODIFY_DENY(selectedFirst)
     JsonEditor *w = new JsonEditor(connections[alias].config, this);
     auto root = CONFIGROOT(w->OpenEditor());
     bool isChanged = w->result() == QDialog::Accepted;
@@ -881,7 +909,7 @@ void MainWindow::on_action_RCM_EditJson_triggered()
         connections[alias].config = root;
         // Alias here will not change.
         SaveConnectionConfig(root, &alias, true);
-        ShowAndSetConnection(CurrentConnectionName, false, false);
+        ShowAndSetConnection(CurrentConnectedItem, false, false);
     }
 }
 void MainWindow::on_editJsonBtn_clicked()
@@ -903,14 +931,14 @@ void MainWindow::on_pingTestBtn_clicked()
     } else if (selection.count() == 1) {
         if (IsSelectionConnectable) {
             // Current selection is a config
-            aliases.append(selection.first()->text(0));
+            aliases.append(ItemFullConfigName(selection.first()));
         } else {
             // Current selection is a subscription or... something else strange.
             // So we add another check to make sure the selected one is a subscription entry.
             if (selection.first()->childCount() > 0) {
                 // Loop to add all sub-connections to the list.
                 for (auto i = 0; i < selection.first()->childCount(); i++) {
-                    aliases.append(selection.first()->child(i)->text(0));
+                    aliases.append(ItemFullConfigName(selection.first()->child(i)));
                 }
             }
         }
@@ -930,7 +958,7 @@ void MainWindow::on_shareBtn_clicked()
         return;
     }
 
-    auto alias = connectionListWidget->currentItem()->text(0);
+    auto alias = ItemFullConfigName(connectionListWidget->currentItem());
     auto root = connections[alias].config;
     auto outBoundRoot = root["outbounds"].toArray().first().toObject();
     auto outboundType = outBoundRoot["protocol"].toString();
@@ -989,8 +1017,7 @@ void MainWindow::timerEvent(QTimerEvent *event)
         netspeedLabel->setText(totalSpeedUp + NEWLINE + totalSpeedDown);
         dataamountLabel->setText(totalDataUp + NEWLINE + totalDataDown);
         //
-        hTray->setToolTip(TRAY_TOOLTIP_PREFIX NEWLINE +
-                          tr("Connected: ") + CurrentConnectionName + NEWLINE "Up: " + totalSpeedUp + " Down: " + totalSpeedDown);
+        hTray->setToolTip(TRAY_TOOLTIP_PREFIX NEWLINE + tr("Connected: ") + ItemFullConfigName(CurrentConnectedItem) + NEWLINE "Up: " + totalSpeedUp + " Down: " + totalSpeedDown);
     } else if (event->timerId() == logTimerId) {
         QString lastLog = readLastLog();
 
@@ -998,7 +1025,7 @@ void MainWindow::timerEvent(QTimerEvent *event)
             qvAppLogBrowser->append(lastLog);
         }
     } else if (event->timerId() == pingTimerId) {
-        MWTryPingConnection(CurrentConnectionName);
+        MWTryPingConnection(ItemFullConfigName(CurrentConnectedItem));
     }
 }
 void MainWindow::on_duplicateBtn_clicked()
@@ -1007,8 +1034,9 @@ void MainWindow::on_duplicateBtn_clicked()
         return;
     }
 
-    auto alias = connectionListWidget->currentItem()->text(0);
-    SUBSCRIPTION_CONFIG_MODIFY_ASK(alias)
+    auto selectedFirst = connectionListWidget->currentItem();
+    auto alias = ItemFullConfigName(selectedFirst);
+    SUBSCRIPTION_CONFIG_MODIFY_ASK(selectedFirst)
     CONFIGROOT conf;
     auto connData = connections[alias];
 
@@ -1036,8 +1064,9 @@ void MainWindow::on_subsButton_clicked()
 void MainWindow::on_connectionListWidget_itemSelectionChanged()
 {
     if (!isRenamingInProgress && !IsSelectionConnectable) {
+        CurrentSelectedItem = nullptr;
         SetEditWidgetEnable(false);
-        routeCountLabel->setText(tr("Subscription"));
+        routeCountLabel->setText(tr("N/A"));
         _OutBoundTypeLabel->setText(tr("N/A"));
         _hostLabel->setText(tr("N/A"));
         _portLabel->setText(tr("N/A"));
@@ -1053,7 +1082,12 @@ void MainWindow::onPingFinished(QvTCPingData data)
 
     connections[data.connectionName].latency = data.avg;
 
-    if (data.connectionName == currentSelectedName) {
-        ShowAndSetConnection(currentSelectedName, false, false);
+    if (CurrentSelectedItem != nullptr && data.connectionName == ItemFullConfigName(CurrentSelectedItem)) {
+        ShowAndSetConnection(CurrentSelectedItem, false, false);
     }
+}
+
+QString MainWindow::GetCurrentConnectedConfigName()
+{
+    return ItemFullConfigName(CurrentConnectedItem);
 }
