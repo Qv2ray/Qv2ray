@@ -133,6 +133,7 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         //
         QMenu *tray_RootMenu = new QMenu(this);
         QAction *action_Tray_ShowHide;
+        QAction *action_Tray_ShowPreferenceWindow;
         QAction *action_Tray_Quit;
         // --> Connectivities
         QAction *action_Tray_Start;

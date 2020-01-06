@@ -109,6 +109,7 @@ MainWindow::MainWindow(QWidget *parent):
     hTray->setToolTip(TRAY_TOOLTIP_PREFIX);
     // Basic actions
     action_Tray_ShowHide = new QAction(this->windowIcon(), tr("Hide"), this);
+    action_Tray_ShowPreferencesWindow = new QAction(tr("Preferences"), this);
     action_Tray_Quit = new QAction(tr("Quit"), this);
     action_Tray_Start = new QAction(tr("Connect"), this);
     action_Tray_Reconnect = new QAction(tr("Reconnect"), this);
@@ -127,6 +128,7 @@ MainWindow::MainWindow(QWidget *parent):
     //
     tray_RootMenu->addAction(action_Tray_ShowHide);
     tray_RootMenu->addSeparator();
+    tray_RootMenu->addAction(action_Tray_ShowPreferencesWindow);
     tray_RootMenu->addMenu(tray_SystemProxyMenu);
     tray_RootMenu->addSeparator();
     tray_RootMenu->addAction(action_Tray_Start);
@@ -136,6 +138,7 @@ MainWindow::MainWindow(QWidget *parent):
     tray_RootMenu->addAction(action_Tray_Quit);
     //
     connect(action_Tray_ShowHide, &QAction::triggered, this, &MainWindow::ToggleVisibility);
+    connect(action_Tray_ShowPreferencesWindow, &QAction::triggered, this, &MainWindow::on_preferencesBtn_clicked);
     connect(action_Tray_Start, &QAction::triggered, this, &MainWindow::on_startButton_clicked);
     connect(action_Tray_Stop, &QAction::triggered, this, &MainWindow::on_stopButton_clicked);
     connect(action_Tray_Reconnect, &QAction::triggered, this, &MainWindow::on_reconnectButton_clicked);
