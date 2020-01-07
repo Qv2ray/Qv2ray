@@ -23,9 +23,9 @@ Forwarded: <no|not-needed|url proving that it has been forwarded>
 Reviewed-By: <name and email of someone who approved the patch>
 Last-Update: 2020-01-04
 
---- qv2ray-1.99.4.orig/Qv2ray.pro
-+++ qv2ray-1.99.4/Qv2ray.pro
-@@ -236,11 +236,11 @@ unix {
+--- a/Qv2ray.pro
++++ b/Qv2ray.pro
+@@ -245,11 +245,11 @@
      message("Configuring for unix-like environment")
      # For gRPC and protobuf in linux and macOS
      message("  --> Linking against gRPC and protobuf library.")
@@ -39,7 +39,7 @@ Last-Update: 2020-01-04
  
      message("  --> Adding Plasma Toolbox CPP files.")
      SOURCES += src/ui/NetSpeedBar/QvNetSpeedBar_linux.cpp
-@@ -253,7 +253,7 @@ unix {
+@@ -262,7 +262,7 @@
      icon.files += ./icons/qv2ray.png
      icon.path = /usr/share/icons/hicolor/256x256/apps/
  

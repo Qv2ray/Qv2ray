@@ -3,5 +3,14 @@
 %:
 	dh $@
 
+clean:
+	rm -f qmake_qmake_qm_files.qrc
+	dh_autoreconf_clean
+	dh_auto_clean
+	dh_clean
+
 override_dh_autoreconf:
 	dh_autoreconf tools/grpc_gen.sh
+
+override_dh_auto_configure:
+	dh_auto_configure -- CONFIG+=no_increase_build_number
