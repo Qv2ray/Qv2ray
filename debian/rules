@@ -4,6 +4,7 @@
 	dh $@
 
 clean:
+	rm -rf libs/gen
 	rm -f qmake_qmake_qm_files.qrc
 	dh_autoreconf_clean
 	dh_auto_clean
