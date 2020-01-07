@@ -4,22 +4,22 @@
 #include "w_MainWindow.cpp"
 #include "QvSystemProxyConfigurator.hpp"
 
-QTreeWidgetItem *MainWindow::FindItemByNames(QList<QTreeWidgetItem *> items, QString confName, QString subsName)
+QTreeWidgetItem *MainWindow::FindItemByIdentifier(QvConfigIdentifier identifier)
 {
+    // First filter out all items with our config name.
+    auto items = connectionListWidget->findItems(identifier.connectionName, Qt::MatchExactly | Qt::MatchRecursive);
+
     for (auto item : items) {
         // This connectable prevents the an item with (which is the parent node of a subscription, having the same
         // -- name as our current connected name)
-        if (IsConnectableItem(item)) {
-            // If the connection name matches.
-            if (item->text(0) == confName) {
-                // If is not in a subscription
-                if (subsName.isEmpty() && item->parent() == nullptr && IsRegularConfig(item)) {
-                    return item;
-                } // If it's a subscription.
-                else if (!subsName.isEmpty() && item->parent()->text(0) == (tr("Subscription:") + " " + subsName) && IsSubscription(item)) {
-                    return item;
-                }
-            }
+        if (!IsConnectableItem(item)) {
+            continue;
+        }
+
+        auto thisIdentifier = ItemConnectionIdentifier(item);
+
+        if (identifier == thisIdentifier) {
+            return item;
         }
     }
 
@@ -35,13 +35,12 @@ void MainWindow::MWFindAndStartAutoConfig()
                     : currentConfig.autoStartConfig.connectionName + " (" + tr("Subscription:") + " " + currentConfig.autoStartConfig.subscriptionName + ")";
         //
         LOG(MODULE_UI, "Found auto start config: " + name.toStdString())
-        auto validItems = connectionListWidget->findItems(currentConfig.autoStartConfig.connectionName, Qt::MatchExactly | Qt::MatchRecursive);
-        auto item = FindItemByNames(validItems, currentConfig.autoStartConfig.connectionName, currentConfig.autoStartConfig.subscriptionName);
+        auto item = FindItemByIdentifier(currentConfig.autoStartConfig);
 
         if (item != nullptr) {
             // We found the item required and start it.
             connectionListWidget->setCurrentItem(item);
-            on_connectionListWidget_itemChanged(item, 0);
+            on_connectionListWidget_currentItemChanged(item, nullptr);
             connectionListWidget->scrollToItem(item);
             tray_RootMenu->actions()[0]->setText(tr("Show"));
             on_startButton_clicked();
@@ -53,7 +52,7 @@ void MainWindow::MWFindAndStartAutoConfig()
     } else if (connectionListWidget->topLevelItemCount() > 0) {
         // Make the first one our default selected item.
         connectionListWidget->setCurrentItem(connectionListWidget->topLevelItem(0));
-        ShowAndSetConnection(connectionListWidget->topLevelItem(0), true, false);
+        ShowAndSetConnection(ItemConnectionIdentifier(connectionListWidget->topLevelItem(0)), true, false);
     }
 }
 
@@ -76,7 +75,7 @@ void MainWindow::MWSetSystemProxy()
     bool socksEnabled = currentConfig.inboundConfig.useSocks;
     //
     // Set system proxy if necessary
-    bool isComplex = CheckIsComplexConfig(connections[ ItemFullConfigName(CurrentConnectedItem)].config);
+    bool isComplex = CheckIsComplexConfig(connections[CurrentConnectionIdentifier].config);
 
     if (!isComplex) {
         // Is simple config and we will try to set system proxy.
@@ -126,7 +125,7 @@ void MainWindow::MWSetSystemProxy()
 
 bool MainWindow::MWtryStartConnection()
 {
-    auto connectionRoot = connections[ItemFullConfigName(CurrentConnectedItem)].config;
+    auto connectionRoot = connections[CurrentConnectionIdentifier].config;
     currentFullConfig = GenerateRuntimeConfig(connectionRoot);
     bool startFlag = this->vinstance->StartConnection(currentFullConfig, currentConfig.connectionConfig.statsPort);
 
@@ -195,7 +194,7 @@ void MainWindow::MWStopConnection()
     }
 }
 
-void MainWindow::MWTryPingConnection(const QString &alias)
+void MainWindow::MWTryPingConnection(const QvConfigIdentifier &alias)
 {
     try {
         auto info  = MWGetConnectionInfo(alias);
@@ -207,7 +206,7 @@ void MainWindow::MWTryPingConnection(const QString &alias)
     }
 }
 
-tuple<QString, int, QString> MainWindow::MWGetConnectionInfo(const QString &alias)
+tuple<QString, int, QString> MainWindow::MWGetConnectionInfo(const QvConfigIdentifier &alias)
 {
     if (!connections.contains(alias))
         return make_tuple(tr("N/A"), 0, tr("N/A"));

@@ -27,6 +27,8 @@ class SubscribeEditor : public QDialog, private Ui::w_SubscribeEditor
 
         void on_subscriptionList_itemSelectionChanged();
 
+        void on_updateIntervalSB_valueChanged(double arg1);
+
     private:
         void StartUpdateSubscription(const QString &subscriptionName);
         void SaveConfig();

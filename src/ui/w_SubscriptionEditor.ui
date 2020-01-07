@@ -158,7 +158,20 @@
         <item row="2" column="1">
          <layout class="QHBoxLayout" name="horizontalLayout_3">
           <item>
-           <widget class="QSpinBox" name="updateIntervalSB"/>
+           <widget class="QDoubleSpinBox" name="updateIntervalSB">
+            <property name="minimum">
+             <double>0.500000000000000</double>
+            </property>
+            <property name="maximum">
+             <double>31.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>0.500000000000000</double>
+            </property>
+            <property name="value">
+             <double>5.000000000000000</double>
+            </property>
+           </widget>
           </item>
           <item>
            <widget class="QLabel" name="label_5">

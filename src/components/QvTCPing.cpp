@@ -17,12 +17,12 @@ namespace Qv2ray
                 worker->cancel();
             }
         }
-        void QvTCPingModel::StartPing(const QString &connectionName, const QString &hostName, int port)
+        void QvTCPingModel::StartPing(const QvConfigIdentifier &connectionName, const QString &hostName, int port)
         {
             QvTCPingData data;
             data.hostName = hostName;
             data.port = port;
-            data.connectionName = connectionName;
+            data.connectionIdentifier = connectionName;
             auto watcher = new QFutureWatcher<QvTCPingData>(this);
             DEBUG(MODULE_NETWORK, "Start Ping: " + hostName.toStdString() + ":" + to_string(port))
             watcher->setFuture(QtConcurrent::run(&QvTCPingModel::startTestLatency, data, count));

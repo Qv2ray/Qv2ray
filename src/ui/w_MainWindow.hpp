@@ -17,15 +17,13 @@
 #include "QvHTTPRequestHelper.hpp"
 #include "QvPACHandler.hpp"
 #include "QvLogHighlighter.hpp"
-enum TREENODEOBJECT_TYPE {
-    CON_REGULAR = 1,
-    CON_SUBSCRIPTION = 2
+enum QvConnectionType {
+    CONNECTION_REGULAR = 1,
+    CONNECTION_SUBSCRIPTION = 2
 };
 //
-struct ConnectionObject {
-    TREENODEOBJECT_TYPE configType;
-    QString subscriptionName;
-    QString connectionName;
+struct ConnectionObject : QvConfigIdentifier {
+    QvConnectionType configType;
     double latency;
     CONFIGROOT config;
 };
@@ -73,7 +71,7 @@ class MainWindow : public QMainWindow, Ui::MainWindow
 
     public:
         static MainWindow *mwInstance;
-        QTreeWidgetItem *CurrentConnectedItem = nullptr;
+        QvConfigIdentifier CurrentConnectionIdentifier;
         V2rayKernelInstance *vinstance;
         QString GetCurrentConnectedConfigName();
 
@@ -91,9 +89,8 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         void on_connectionListWidget_itemSelectionChanged();
 
     private:
-        QTreeWidgetItem *FindItemByNames(QList<QTreeWidgetItem *> items, QString confName, QString subsName);
         void SetEditWidgetEnable(bool enabled);
-        void ShowAndSetConnection(QTreeWidgetItem *selectedItem, bool SetConnection, bool Apply);
+        void ShowAndSetConnection(QvConfigIdentifier fullIdentifier, bool SetConnection, bool Apply);
         Qv2rayConfig currentConfig;
         CONFIGROOT currentFullConfig;
         //
@@ -108,7 +105,7 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         QMenu *connectionListMenu;
 
         /// Key --> ListWidget.item.text
-        QMap<QString, ConnectionObject> connections;
+        QMap<QvConfigIdentifier, ConnectionObject> connections;
         //
         QString renameOriginalName;
         bool isRenamingInProgress;
@@ -151,10 +148,13 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         void MWFindAndStartAutoConfig();
         bool MWtryStartConnection();
         void MWStopConnection();
-        void MWTryPingConnection(const QString &alias);
-        tuple<QString, int, QString> MWGetConnectionInfo(const QString &alias);
+        void MWTryPingConnection(const QvConfigIdentifier &alias);
+        tuple<QString, int, QString> MWGetConnectionInfo(const QvConfigIdentifier &alias);
         void MWSetSystemProxy();
         void MWClearSystemProxy(bool);
+        //
+
+        QTreeWidgetItem *FindItemByIdentifier(QvConfigIdentifier identifier);
 };
 
 #endif // MAINWINDOW_H

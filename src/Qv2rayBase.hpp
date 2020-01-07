@@ -121,7 +121,7 @@ namespace Qv2ray
     {
         struct Qv2raySubscriptionConfig {
             time_t lastUpdated;
-            int updateInterval;
+            float updateInterval;
             QString address;
             Qv2raySubscriptionConfig() : lastUpdated(system_clock::to_time_t(system_clock::now())), updateInterval(5), address("") { }
             XTOSTRUCT(O(lastUpdated, updateInterval, address))
@@ -187,7 +187,7 @@ namespace Qv2ray
             //
             QString v2CorePath;
             QString v2AssetsPath;
-            Qv2rayConfigIdentifier autoStartConfig;
+            QvConfigIdentifier autoStartConfig;
             QString ignoredVersion;
             //
             QList<QString> configs;

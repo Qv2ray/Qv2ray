@@ -220,3 +220,8 @@ void SubscribeEditor::on_subscriptionList_itemSelectionChanged()
 {
     groupBox_2->setEnabled(subscriptionList->selectedItems().count() > 0);
 }
+
+void SubscribeEditor::on_updateIntervalSB_valueChanged(double arg1)
+{
+    subscriptions[currentSubName].updateInterval = arg1;
+}
