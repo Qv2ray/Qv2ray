@@ -36,7 +36,7 @@ SubscribeEditor::~SubscribeEditor()
 
 void SubscribeEditor::on_addSubsButton_clicked()
 {
-    auto const key = QString::number(QTime::currentTime().msecsSinceStartOfDay());
+    auto const key = QSTRN(QTime::currentTime().msecsSinceStartOfDay());
     subscriptionList->addItem(key);
     subscriptions[key].address = "http://example.com/myfile";
     QDir().mkpath(QV2RAY_SUBSCRIPTION_DIR + key);

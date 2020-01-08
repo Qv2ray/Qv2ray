@@ -117,7 +117,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent),
     ignoredNextVersion->setText(CurrentConfig.ignoredVersion);
 
     for (auto i = 0; i < CurrentConfig.toolBarConfig.Pages.size(); i++) {
-        nsBarPagesList->addItem(tr("Page") + QString::number(i + 1) + ": " + QString::number(CurrentConfig.toolBarConfig.Pages[i].Lines.size()) + " " + tr("Item(s)"));
+        nsBarPagesList->addItem(tr("Page") + QSTRN(i + 1) + ": " + QSTRN(CurrentConfig.toolBarConfig.Pages[i].Lines.size()) + " " + tr("Item(s)"));
     }
 
     if (CurrentConfig.toolBarConfig.Pages.size() > 0) {
@@ -244,7 +244,7 @@ void PreferencesWindow::on_listenIPTxt_textEdited(const QString &arg1)
 {
     NEEDRESTART
     CurrentConfig.inboundConfig.listenip = arg1;
-    //pacAccessPathTxt->setText("http://" + arg1 + ":" + QString::number(pacPortSB->value()) + "/pac");
+    //pacAccessPathTxt->setText("http://" + arg1 + ":" + QSTRN(pacPortSB->value()) + "/pac");
 }
 
 void PreferencesWindow::on_httpAuthUsernameTxt_textEdited(const QString &arg1)
@@ -415,7 +415,7 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
                 int ret = QProcess::execute("pkexec setcap CAP_NET_ADMIN,CAP_NET_RAW,CAP_NET_BIND_SERVICE=eip " + CurrentConfig.v2CorePath);
 
                 if (ret != 0) {
-                    LOG(MODULE_UI, "WARN: setcap exits with code: " + QString::number(ret))
+                    LOG(MODULE_UI, "WARN: setcap exits with code: " + QSTRN(ret))
                     QvMessageBox(this, tr("Preferences"), tr("Failed to setcap onto v2ray executable. You may need to run `setcap` manually."));
                 }
 
@@ -426,7 +426,7 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
             int ret = QProcess::execute("pkexec setcap -r " + CurrentConfig.v2CorePath);
 
             if (ret != 0) {
-                LOG(MODULE_UI, "WARN: setcap exits with code: " + QString::number(ret))
+                LOG(MODULE_UI, "WARN: setcap exits with code: " + QSTRN(ret))
                 QvMessageBox(this, tr("Preferences"), tr("Failed to setcap onto v2ray executable. You may need to run `setcap` manually."));
             }
 
@@ -496,9 +496,9 @@ void PreferencesWindow::on_nsBarPageAddBTN_clicked()
     QvBarLine line;
     CurrentBarPage.Lines.push_back(line);
     CurrentBarLineId = 0;
-    nsBarPagesList->addItem(QString::number(CurrentBarPageId));
+    nsBarPagesList->addItem(QSTRN(CurrentBarPageId));
     ShowLineParameters(CurrentBarLine);
-    LOG(MODULE_UI, "Adding new page Id: " + QString::number(CurrentBarPageId))
+    LOG(MODULE_UI, "Adding new page Id: " + QSTRN(CurrentBarPageId))
     nsBarPageDelBTN->setEnabled(true);
     nsBarLineAddBTN->setEnabled(true);
     nsBarLineDelBTN->setEnabled(true);
@@ -538,10 +538,10 @@ void PreferencesWindow::on_nsBarLineAddBTN_clicked()
     QvBarLine line;
     CurrentBarPage.Lines.push_back(line);
     CurrentBarLineId = CurrentBarPage.Lines.size() - 1;
-    nsBarLinesList->addItem(QString::number(CurrentBarLineId));
+    nsBarLinesList->addItem(QSTRN(CurrentBarLineId));
     ShowLineParameters(CurrentBarLine);
     nsBarLineDelBTN->setEnabled(true);
-    LOG(MODULE_UI, "Adding new line Id: " + QString::number(CurrentBarLineId))
+    LOG(MODULE_UI, "Adding new line Id: " + QSTRN(CurrentBarLineId))
     nsBarLinesList->setCurrentRow(static_cast<int>(CurrentBarPage.Lines.size() - 1));
 }
 
@@ -568,7 +568,7 @@ void PreferencesWindow::on_nsBarPagesList_currentRowChanged(int currentRow)
     // Change page.
     // We reload the lines
     // Set all parameters item to the property of the first line.
-    CurrentBarPageId = static_cast<size_t>(currentRow);
+    CurrentBarPageId = currentRow;
     CurrentBarLineId = 0;
     nsBarPageYOffset->setValue(CurrentBarPage.OffsetYpx);
     nsBarLinesList->clear();
@@ -590,7 +590,7 @@ void PreferencesWindow::on_nsBarLinesList_currentRowChanged(int currentRow)
 {
     if (currentRow < 0) return;
 
-    CurrentBarLineId = static_cast<size_t>(currentRow);
+    CurrentBarLineId = currentRow;
     ShowLineParameters(CurrentBarLine);
 }
 
@@ -835,7 +835,7 @@ void PreferencesWindow::on_pacPortSB_valueChanged(int arg1)
     LOADINGCHECK
     NEEDRESTART
     CurrentConfig.inboundConfig.pacConfig.port = arg1;
-    //pacAccessPathTxt->setText("http://" + listenIPTxt->text() + ":" + QString::number(arg1) + "/pac");
+    //pacAccessPathTxt->setText("http://" + listenIPTxt->text() + ":" + QSTRN(arg1) + "/pac");
 }
 
 void PreferencesWindow::on_setSysProxyCB_stateChanged(int arg1)

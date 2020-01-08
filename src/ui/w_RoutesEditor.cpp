@@ -392,7 +392,7 @@ void RouteEditor::ShowCurrentRuleDetail()
 void RouteEditor::on_insertDirectBtn_clicked()
 {
     auto freedom = GenerateFreedomOUT("as-is", "", 0);
-    auto tag = "Freedom_" + QString::number(QTime::currentTime().msecsSinceStartOfDay());
+    auto tag = "Freedom_" + QSTRN(QTime::currentTime().msecsSinceStartOfDay());
     auto out = GenerateOutboundEntry("freedom", freedom, QJsonObject(), QJsonObject(), "0.0.0.0", tag);
     // ADD NODE
     AddNewOutbound(out);
@@ -578,7 +578,7 @@ void RouteEditor::on_insertBlackBtn_clicked()
 {
     LOADINGCHECK
     auto blackHole = GenerateBlackHoleOUT(false);
-    auto tag = "blackhole_" + QString::number(QTime::currentTime().msecsSinceStartOfDay());
+    auto tag = "blackhole_" + QSTRN(QTime::currentTime().msecsSinceStartOfDay());
     auto _blackHoleOutbound = GenerateOutboundEntry("blackhole", blackHole, QJsonObject(), QJsonObject(), "0.0.0.0", tag);
     AddNewOutbound(_blackHoleOutbound);
 }

@@ -96,7 +96,7 @@ namespace Qv2ray
 
     void QvHttpRequestHelper::onRequestFinished()
     {
-        LOG(MODULE_NETWORK, "Network request errcode: " + QString::number(reply->error()))
+        LOG(MODULE_NETWORK, "Network request errcode: " + QSTRN(reply->error()))
         emit httpRequestFinished(this->data);
     }
 

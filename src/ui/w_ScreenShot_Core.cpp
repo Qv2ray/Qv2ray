@@ -69,7 +69,7 @@ void ScreenShotWindow::pSize()
     imgH = abs(end.y() - origin.y());
     imgX = origin.x() < end.x() ? origin.x() : end.x();
     imgY = origin.y() < end.y() ? origin.y() : end.y();
-    DEBUG("Capture Mouse Position", QString::number(imgW)  + " " + QString::number(imgH)  + " " + QString::number(imgX) + " " + QString::number(imgY))
+    DEBUG("Capture Mouse Position", QSTRN(imgW)  + " " + QSTRN(imgH)  + " " + QSTRN(imgX) + " " + QSTRN(imgY))
     rubber->setGeometry(imgX, imgY, imgW, imgH);
     fg->setGeometry(rubber->geometry());
     auto copied = desktopImage.copy(fg->x() * devicePixelRatio(), fg->y() * devicePixelRatio(), fg->width() * devicePixelRatio(), fg->height() * devicePixelRatio());

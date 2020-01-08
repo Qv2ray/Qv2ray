@@ -88,7 +88,7 @@ void OutboundEditor::ReLoad_GUI_JSON_ModelContent()
     if (OutboundType == "vmess") {
         outBoundTypeCombo->setCurrentIndex(0);
         ipLineEdit->setText(vmess.address);
-        portLineEdit->setText(QString::number(vmess.port));
+        portLineEdit->setText(QSTRN(vmess.port));
         idLineEdit->setText(vmess.users.front().id);
         alterLineEdit->setValue(vmess.users.front().alterId);
         securityCombo->setCurrentText(vmess.users.front().security);
@@ -139,7 +139,7 @@ void OutboundEditor::ReLoad_GUI_JSON_ModelContent()
         outBoundTypeCombo->setCurrentIndex(1);
         // ShadowSocks Configs
         ipLineEdit->setText(shadowsocks.address);
-        portLineEdit->setText(QString::number(shadowsocks.port));
+        portLineEdit->setText(QSTRN(shadowsocks.port));
         ss_emailTxt->setText(shadowsocks.email);
         ss_levelSpin->setValue(shadowsocks.level);
         ss_otaCheckBox->setChecked(shadowsocks.ota);
@@ -148,7 +148,7 @@ void OutboundEditor::ReLoad_GUI_JSON_ModelContent()
     } else if (OutboundType == "socks") {
         outBoundTypeCombo->setCurrentIndex(2);
         ipLineEdit->setText(socks.address);
-        portLineEdit->setText(QString::number(socks.port));
+        portLineEdit->setText(QSTRN(socks.port));
 
         if (socks.users.empty()) socks.users.push_back(SocksServerObject::UserObject());
 

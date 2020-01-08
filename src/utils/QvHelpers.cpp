@@ -212,11 +212,11 @@ namespace Qv2ray
             }
 
             while (true) {
-                if (!QFile(baseDir + "/" + fileName + "_" + QString::number(i) + extension).exists()) {
-                    *fileName = *fileName + "_" + QString::number(i);
+                if (!QFile(baseDir + "/" + fileName + "_" + QSTRN(i) + extension).exists()) {
+                    *fileName = *fileName + "_" + QSTRN(i);
                     return;
                 } else {
-                    DEBUG(MODULE_FILE, "File with name: " + *fileName + "_" + QString::number(i) + extension + " already exists")
+                    DEBUG(MODULE_FILE, "File with name: " + *fileName + "_" + QSTRN(i) + extension + " already exists")
                 }
 
                 i++;

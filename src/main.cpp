@@ -19,7 +19,7 @@ bool verifyConfigAvaliability(QString path, bool checkExistingConfig)
     if (!QDir(path).exists()) return false;
 
     // A temp file used to test file permissions in that folder.
-    QFile testFile(path + ".qv2ray_file_write_test_file" + QString::number(QTime::currentTime().msecsSinceStartOfDay()));
+    QFile testFile(path + ".qv2ray_file_write_test_file" + QSTRN(QTime::currentTime().msecsSinceStartOfDay()));
     bool opened = testFile.open(QFile::OpenModeFlag::ReadWrite);
 
     if (!opened) {
@@ -251,7 +251,7 @@ int main(int argc, char *argv[])
         "Copyright (c) 2019 TheWanderingCoel (@TheWanderingCoel): ShadowClash (launchatlogin) (GPLv3)" NEWLINE
         NEWLINE)
     //
-    LOG(MODULE_INIT, "Qv2ray Start Time: "  + QString::number(QTime::currentTime().msecsSinceStartOfDay()))
+    LOG(MODULE_INIT, "Qv2ray Start Time: "  + QSTRN(QTime::currentTime().msecsSinceStartOfDay()))
     DEBUG("DEBUG", "WARNING: ============================== This is a debug build, many features are not stable enough. ==============================")
     //
     // Load the language translation list.

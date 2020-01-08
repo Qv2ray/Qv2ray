@@ -144,8 +144,8 @@ class PreferencesWindow : public QDialog, private Ui::PreferencesWindow
         void ShowLineParameters(QvBarLine &line);
         QString GetBarLineDescription(QvBarLine line);
         //
-        size_t CurrentBarLineId;
-        size_t CurrentBarPageId;
+        int CurrentBarLineId;
+        int CurrentBarPageId;
         //
         bool IsConnectionPropertyChanged = false;
         bool finishedLoading = false;

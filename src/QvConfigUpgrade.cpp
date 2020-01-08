@@ -5,7 +5,7 @@
 
 #include "QvUtils.hpp"
 
-#define UPDATELOG(msg) LOG(MODULE_CONFIG, "  [" + QString::number(fromVersion) + "-" + QString::number(fromVersion + 1) + "] --> " + msg)
+#define UPDATELOG(msg) LOG(MODULE_CONFIG, "  [" + QSTRN(fromVersion) + "-" + QSTRN(fromVersion + 1) + "] --> " + msg)
 
 namespace Qv2ray
 {
@@ -48,7 +48,7 @@ namespace Qv2ray
                 root.remove("proxyDefault");
                 root["enableProxy"] = oldProxyDefault;
                 //enableProxy
-                UPDATELOG("key: proxyDefault->enableProxy, value from: " + QString::number(oldProxyDefault) + " to " + QString::number(oldProxyDefault))
+                UPDATELOG("key: proxyDefault->enableProxy, value from: " + QSTRN(oldProxyDefault) + " to " + QSTRN(oldProxyDefault))
                 break;
             }
 
@@ -61,7 +61,7 @@ namespace Qv2ray
                 // From 3 to 4, we changed 'runAsRoot' to 'tProxySupport'
                 auto v3_oldrunAsRoot = root["runAsRoot"].toBool();
                 root.insert("tProxySupport", v3_oldrunAsRoot);
-                UPDATELOG("Upgrading runAsRoot to tProxySupport, the value is not changed: " + QString::number(v3_oldrunAsRoot))
+                UPDATELOG("Upgrading runAsRoot to tProxySupport, the value is not changed: " + QSTRN(v3_oldrunAsRoot))
                 //
                 QString path;
                 path = QV2RAY_DEFAULT_VCORE_PATH;
@@ -132,7 +132,7 @@ namespace Qv2ray
     // Exported function
     QJsonObject UpgradeConfig(int fromVersion, int toVersion, QJsonObject root)
     {
-        LOG(MODULE_CONFIG, "Migrating config from version " + QString::number(fromVersion) + " to " + QString::number(toVersion))
+        LOG(MODULE_CONFIG, "Migrating config from version " + QSTRN(fromVersion) + " to " + QSTRN(toVersion))
 
         for (int i = fromVersion; i < toVersion; i++) {
             root = UpgradeConfig_Inc(i, root);

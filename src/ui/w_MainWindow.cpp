@@ -572,7 +572,7 @@ void MainWindow::ShowAndSetConnection(QvConfigIdentifier fullIdentifier, bool Se
     if (conf.latency == 0.0) {
         latencyLabel->setText(tr("No data"));
     } else {
-        latencyLabel->setText(QString::number(conf.latency) + " " + tr("ms"));
+        latencyLabel->setText(QSTRN(conf.latency) + " " + tr("ms"));
     }
 
     if (conf.configType == CONNECTION_SUBSCRIPTION) {
@@ -582,7 +582,7 @@ void MainWindow::ShowAndSetConnection(QvConfigIdentifier fullIdentifier, bool Se
     // Get Connection info
     auto host_port = MWGetConnectionInfo(fullIdentifier.IdentifierString());
     _hostLabel->setText(get<0>(host_port));
-    _portLabel->setText(QString::number(get<1>(host_port)));
+    _portLabel->setText(QSTRN(get<1>(host_port)));
     _OutBoundTypeLabel->setText(get<2>(host_port));
 
     // Set to currentConnection
@@ -723,7 +723,7 @@ void MainWindow::on_removeConfigButton_clicked()
         }
     }
 
-    LOG(MODULE_UI, "Selected " + QString::number(connlist.count()) + " items")
+    LOG(MODULE_UI, "Selected " + QSTRN(connlist.count()) + " items")
 
     if (connlist.isEmpty()) {
         // Remove nothing means doing nothing.
@@ -947,7 +947,7 @@ void MainWindow::on_pingTestBtn_clicked()
         }
     }
 
-    LOG(MODULE_UI, "Will perform latency test on " + QString::number(aliases.count()) + " hosts.")
+    LOG(MODULE_UI, "Will perform latency test on " + QSTRN(aliases.count()) + " hosts.")
     latencyLabel->setText(tr("Testing..."));
 
     for (auto alias : aliases) {

@@ -91,7 +91,7 @@ void MainWindow::MWSetSystemProxy()
             if ((httpEnabled && !pacUseSocks) || (socksEnabled && pacUseSocks)) {
                 // If we use PAC and socks/http are properly configured for PAC
                 LOG(MODULE_PROXY, "System proxy uses PAC")
-                proxyAddress = "http://" + currentConfig.inboundConfig.listenip + ":" + QString::number(currentConfig.inboundConfig.pacConfig.port) +  "/pac";
+                proxyAddress = "http://" + currentConfig.inboundConfig.listenip + ":" + QSTRN(currentConfig.inboundConfig.pacConfig.port) +  "/pac";
             } else {
                 // Not properly configured
                 LOG(MODULE_PROXY, "Failed to process pac due to following reasons:")
@@ -150,7 +150,7 @@ bool MainWindow::MWtryStartConnection()
 
             if (pacUseSocks) {
                 if (socksEnabled) {
-                    pacProxyString = "SOCKS5 " + pacIP + ":" + QString::number(currentConfig.inboundConfig.socks_port);
+                    pacProxyString = "SOCKS5 " + pacIP + ":" + QSTRN(currentConfig.inboundConfig.socks_port);
                 } else {
                     LOG(MODULE_UI, "PAC is using SOCKS, but it is not enabled")
                     QvMessageBox(this, tr("Configuring PAC"), tr("Could not start PAC server as it is configured to use SOCKS, but it is not enabled"));
@@ -158,7 +158,7 @@ bool MainWindow::MWtryStartConnection()
                 }
             } else {
                 if (httpEnabled) {
-                    pacProxyString = "PROXY http://" + pacIP + ":" + QString::number(currentConfig.inboundConfig.http_port);
+                    pacProxyString = "PROXY http://" + pacIP + ":" + QSTRN(currentConfig.inboundConfig.http_port);
                 } else {
                     LOG(MODULE_UI, "PAC is using HTTP, but it is not enabled")
                     QvMessageBox(this, tr("Configuring PAC"), tr("Could not start PAC server as it is configured to use HTTP, but it is not enabled"));

@@ -29,8 +29,8 @@ namespace Qv2ray
                 process.start(conf.v2CorePath, QStringList() << "-test" << "-config" << path, QIODevice::ReadWrite | QIODevice::Text);
 
                 if (!process.waitForFinished(1000) && process.exitCode() != 0) {
-                    LOG(MODULE_VCORE, "v2ray core failed with exitcode: " + QString::number(process.exitCode()))
-                    QvMessageBox(nullptr, tr("Cannot start v2ray"), tr("v2ray core failed with errcode:") + QString::number(process.exitCode()));
+                    LOG(MODULE_VCORE, "v2ray core failed with exitcode: " + QSTRN(process.exitCode()))
+                    QvMessageBox(nullptr, tr("Cannot start v2ray"), tr("v2ray core failed with errcode:") + QSTRN(process.exitCode()));
                     return false;
                 }
 
@@ -182,7 +182,7 @@ namespace Qv2ray
             Status status = Stub->GetStats(&context, request, &response);
 
             if (!status.ok()) {
-                LOG(MODULE_VCORE, "API call returns: " + QString::number(status.error_code()) + " (" + QString::fromStdString(status.error_message()) + ")")
+                LOG(MODULE_VCORE, "API call returns: " + QSTRN(status.error_code()) + " (" + QString::fromStdString(status.error_message()) + ")")
                 apiFailedCounter++;
             }
 

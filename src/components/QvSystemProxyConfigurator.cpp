@@ -27,7 +27,7 @@ namespace Qv2ray
                 }
             }
 
-            LOG(MODULE_PROXY, "Found " + QString::number(result.size()) + " network services: " + Stringify(result))
+            LOG(MODULE_PROXY, "Found " + QSTRN(result.size()) + " network services: " + Stringify(result))
             return result;
         }
 #endif
@@ -55,7 +55,7 @@ namespace Qv2ray
             List.pOptions = Option;
 
             if (!InternetQueryOption(nullptr, INTERNET_OPTION_PER_CONNECTION_OPTION, &List, &nSize)) {
-                LOG(MODULE_PROXY, "InternetQueryOption failed, GLE=" + QString::number(GetLastError()))
+                LOG(MODULE_PROXY, "InternetQueryOption failed, GLE=" + QSTRN(GetLastError()))
             }
 
             LOG(MODULE_PROXY, "System default proxy info:")
@@ -81,7 +81,7 @@ namespace Qv2ray
             }
 
             if (!InternetQueryOption(nullptr, INTERNET_OPTION_PER_CONNECTION_OPTION, &List, &nSize)) {
-                LOG(MODULE_PROXY, "InternetQueryOption failed,GLE=" + QString::number(GetLastError()))
+                LOG(MODULE_PROXY, "InternetQueryOption failed,GLE=" + QSTRN(GetLastError()))
             }
 
             if (Option[4].Value.pszValue != nullptr) {
@@ -173,7 +173,7 @@ namespace Qv2ray
             if (usePAC) {
                 __a = address;
             } else {
-                __a = "http://" + address + ":" + QString::number(port);
+                __a = "http://" + address + ":" + QSTRN(port);
             }
 
             auto proxyStrW = new WCHAR[__a.length() + 1];
@@ -197,9 +197,9 @@ namespace Qv2ray
             } else {
                 result = result && QProcess::execute("gsettings set org.gnome.system.proxy mode 'manual'") == QProcess::NormalExit;
                 result = result && QProcess::execute("gsettings set org.gnome.system.proxy.http host '" + address + "'") == QProcess::NormalExit;
-                result = result && QProcess::execute("gsettings set org.gnome.system.proxy.http port " + QString::number(port)) == QProcess::NormalExit;
+                result = result && QProcess::execute("gsettings set org.gnome.system.proxy.http port " + QSTRN(port)) == QProcess::NormalExit;
                 result = result && QProcess::execute("gsettings set org.gnome.system.proxy.https host '" + address + "'") == QProcess::NormalExit;
-                result = result && QProcess::execute("gsettings set org.gnome.system.proxy.https port " + QString::number(port)) == QProcess::NormalExit;
+                result = result && QProcess::execute("gsettings set org.gnome.system.proxy.https port " + QSTRN(port)) == QProcess::NormalExit;
             }
 
             if (!result) {
@@ -220,8 +220,8 @@ namespace Qv2ray
                 } else {
                     result = result && QProcess::execute("/usr/sbin/networksetup -setwebproxystate " + service + " on") == QProcess::NormalExit;
                     result = result && QProcess::execute("/usr/sbin/networksetup -setsecurewebproxystate " + service + " on") == QProcess::NormalExit;
-                    result = result && QProcess::execute("/usr/sbin/networksetup -setwebproxy " + service + " " + address + " " + QString::number(port)) == QProcess::NormalExit;
-                    result = result && QProcess::execute("/usr/sbin/networksetup -setsecurewebproxy " + service + " " + address + " " + QString::number(port)) == QProcess::NormalExit;
+                    result = result && QProcess::execute("/usr/sbin/networksetup -setwebproxy " + service + " " + address + " " + QSTRN(port)) == QProcess::NormalExit;
+                    result = result && QProcess::execute("/usr/sbin/networksetup -setsecurewebproxy " + service + " " + address + " " + QSTRN(port)) == QProcess::NormalExit;
                 }
             }
 
