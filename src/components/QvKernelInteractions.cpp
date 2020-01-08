@@ -29,7 +29,7 @@ namespace Qv2ray
                 process.start(conf.v2CorePath, QStringList() << "-test" << "-config" << path, QIODevice::ReadWrite | QIODevice::Text);
 
                 if (!process.waitForFinished(1000) && process.exitCode() != 0) {
-                    LOG(MODULE_VCORE, "v2ray core failed with exitcode: " + to_string(process.exitCode()))
+                    LOG(MODULE_VCORE, "v2ray core failed with exitcode: " + QString::number(process.exitCode()))
                     QvMessageBox(nullptr, tr("Cannot start v2ray"), tr("v2ray core failed with errcode:") + QString::number(process.exitCode()));
                     return false;
                 }
@@ -75,7 +75,7 @@ namespace Qv2ray
                 inboundTags.append(tag);
             }
 
-            LOG(MODULE_VCORE, "Found Inbound Tags: " + Stringify(inboundTags).toStdString())
+            LOG(MODULE_VCORE, "Found Inbound Tags: " + Stringify(inboundTags))
             QString json = JsonToString(root);
             // Write the final configuration to the disk.
             StringToFile(&json, new QFile(QV2RAY_GENERATED_FILE_PATH));
@@ -182,7 +182,7 @@ namespace Qv2ray
             Status status = Stub->GetStats(&context, request, &response);
 
             if (!status.ok()) {
-                LOG(MODULE_VCORE, "API call returns: " + to_string(status.error_code()) + " (" + status.error_message() + ")")
+                LOG(MODULE_VCORE, "API call returns: " + QString::number(status.error_code()) + " (" + QString::fromStdString(status.error_message()) + ")")
                 apiFailedCounter++;
             }
 

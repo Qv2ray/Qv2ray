@@ -10,7 +10,7 @@ namespace Qv2ray
             auto conf = CONFIGROOT(JsonFromString(jsonString));
 
             if (conf.count() == 0) {
-                LOG(MODULE_CONFIG, "WARN: Possible file corruption, failed to load file: " + connection.toStdString() + " --> File might be empty.")
+                LOG(MODULE_CONFIG, "WARN: Possible file corruption, failed to load file: " + connection + " --> File might be empty.")
             }
 
             return conf;
@@ -39,12 +39,12 @@ namespace Qv2ray
                     confName.chop(sizeof(QV2RAY_CONFIG_FILE_EXTENSION) - 1);
                     _config[confName] = _ReadConnection(QV2RAY_SUBSCRIPTION_DIR + subscription + "/" + _file);
                 } else {
-                    LOG(MODULE_SUBSCRIPTION, "Found a file in subscription folder but without proper suffix: " + _file.toStdString())
+                    LOG(MODULE_SUBSCRIPTION, "Found a file in subscription folder but without proper suffix: " + _file)
                 }
             }
 
             if (_config.isEmpty()) {
-                LOG(MODULE_SUBSCRIPTION, "WARN: Maybe loading an empty subscrption: " + subscription.toStdString())
+                LOG(MODULE_SUBSCRIPTION, "WARN: Maybe loading an empty subscrption: " + subscription)
             }
 
             return _config;
@@ -56,7 +56,7 @@ namespace Qv2ray
             QMap<QString, QMap<QString, CONFIGROOT>> list;
 
             for (auto singleSub : subscriptions) {
-                LOG(MODULE_SUBSCRIPTION, "Processing subscription: " + singleSub.toStdString())
+                LOG(MODULE_SUBSCRIPTION, "Processing subscription: " + singleSub)
                 list[singleSub] = GetSubscriptionConnection(singleSub);
             }
 

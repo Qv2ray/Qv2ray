@@ -52,8 +52,7 @@ namespace Qv2ray
         QJsonObject GetRootObject(const T &t)
         {
             auto json = StructToJsonString(t);
-            QJsonDocument doc = QJsonDocument::fromJson(QByteArray::fromStdString(json.toStdString()));
-            return doc.object();
+            return JsonFromString(json);
         }
         template QJsonObject GetRootObject<RuleObject>(const RuleObject &t);
         template QJsonObject GetRootObject<StreamSettingsObject>(const StreamSettingsObject &t);

@@ -51,7 +51,7 @@ void ImportConfigWindow::on_qrFromScreenBtn_clicked()
         auto str = QZXing().decodeImage(pix);
 
         if (str.trimmed().isEmpty()) {
-            LOG(MODULE_UI, "Cannot decode QR Code from an image, size: h=" + to_string(pix.width()) + ", v=" + to_string(pix.height()))
+            LOG(MODULE_UI, "Cannot decode QR Code from an image, size: h=" + QString::number(pix.width()) + ", v=" + QString::number(pix.height()))
             QvMessageBox(this, tr("Capture QRCode"), tr("Cannot find a valid QRCode from this region."));
         } else {
             vmessConnectionStringTxt->appendPlainText(str.trimmed() + NEWLINE);
@@ -89,7 +89,7 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
             vmessConnectionStringTxt->clear();
             errorsList->clear();
             //
-            LOG(MODULE_IMPORT, to_string(vmessList.count()) + " string found in vmess box.")
+            LOG(MODULE_IMPORT, QString::number(vmessList.count()) + " string found in vmess box.")
 
             while (!vmessList.isEmpty()) {
                 aliasPrefix = nameTxt->text();

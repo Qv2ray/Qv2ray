@@ -219,7 +219,7 @@ void PreferencesWindow::on_languageComboBox_currentTextChanged(const QString &ar
     //
     //
     //if (QApplication::installTranslator(getTranslator(arg1))) {
-    //    LOG(MODULE_UI, "Loaded translations " + arg1.toStdString())
+    //    LOG(MODULE_UI, "Loaded translations " + arg1)
     //    retranslateUi(this);
     //} else {
     //    QvMessageBox(this, tr("#Preferences"), tr("#SwitchTranslationError"));
@@ -364,12 +364,12 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
                 LOG(MODULE_UI, "Canceled enabling tProxy feature.")
             } else {
                 LOG(MODULE_VCORE, "ENABLING tProxy Support")
-                LOG(MODULE_FILE, " --> Origin v2ray core file is at: " + CurrentConfig.v2CorePath.toStdString())
+                LOG(MODULE_FILE, " --> Origin v2ray core file is at: " + CurrentConfig.v2CorePath)
                 auto v2ctlPath = QFileInfo(CurrentConfig.v2CorePath).path() + "/v2ctl";
                 auto newPath = QFileInfo(QV2RAY_DEFAULT_VCORE_PATH).path();
                 //
-                LOG(MODULE_FILE, " --> Origin v2ctl file is at: " + v2ctlPath.toStdString())
-                LOG(MODULE_FILE, " --> New v2ray files will be placed in: " + newPath.toStdString())
+                LOG(MODULE_FILE, " --> Origin v2ctl file is at: " + v2ctlPath)
+                LOG(MODULE_FILE, " --> New v2ray files will be placed in: " + newPath)
                 //
                 LOG(MODULE_FILE, " --> Copying files....")
 
@@ -377,21 +377,21 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
                     // Only trying to remove file when they are not in the default dir.
                     // (In other words...) Keep using the current files. <Because we don't know where else we can copy the file from...>
                     if (QFile(QV2RAY_DEFAULT_VCORE_PATH).exists()) {
-                        LOG(MODULE_FILE, QString(QV2RAY_DEFAULT_VCORE_PATH).toStdString() + ": File already exists.")
-                        LOG(MODULE_FILE, QString(QV2RAY_DEFAULT_VCORE_PATH).toStdString() + ": Deleting file.")
+                        LOG(MODULE_FILE, QString(QV2RAY_DEFAULT_VCORE_PATH) + ": File already exists.")
+                        LOG(MODULE_FILE, QString(QV2RAY_DEFAULT_VCORE_PATH) + ": Deleting file.")
                         QFile(QV2RAY_DEFAULT_VCORE_PATH).remove();
                     }
 
                     if (QFile(newPath + "/v2ctl").exists()) {
-                        LOG(MODULE_FILE, newPath.toStdString() + "/v2ctl : File already exists.")
-                        LOG(MODULE_FILE, newPath.toStdString() + "/v2ctl : Deleting file.")
+                        LOG(MODULE_FILE, newPath + "/v2ctl : File already exists.")
+                        LOG(MODULE_FILE, newPath + "/v2ctl : Deleting file.")
                         QFile(newPath + "/v2ctl").remove();
                     }
 
-                    string vCoreresult = QFile(CurrentConfig.v2CorePath).copy(QV2RAY_DEFAULT_VCORE_PATH) ? "OK" : "FAILED";
+                    QString vCoreresult = QFile(CurrentConfig.v2CorePath).copy(QV2RAY_DEFAULT_VCORE_PATH) ? "OK" : "FAILED";
                     LOG(MODULE_FILE, " --> v2ray Core: " + vCoreresult)
                     //
-                    string vCtlresult = QFile(v2ctlPath).copy(newPath + "/v2ctl") ? "OK" : "FAILED";
+                    QString vCtlresult = QFile(v2ctlPath).copy(newPath + "/v2ctl") ? "OK" : "FAILED";
                     LOG(MODULE_FILE, " --> v2ray Ctl: " + vCtlresult)
                     //
 
@@ -415,7 +415,7 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
                 int ret = QProcess::execute("pkexec setcap CAP_NET_ADMIN,CAP_NET_RAW,CAP_NET_BIND_SERVICE=eip " + CurrentConfig.v2CorePath);
 
                 if (ret != 0) {
-                    LOG(MODULE_UI, "WARN: setcap exits with code: " + to_string(ret))
+                    LOG(MODULE_UI, "WARN: setcap exits with code: " + QString::number(ret))
                     QvMessageBox(this, tr("Preferences"), tr("Failed to setcap onto v2ray executable. You may need to run `setcap` manually."));
                 }
 
@@ -426,7 +426,7 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
             int ret = QProcess::execute("pkexec setcap -r " + CurrentConfig.v2CorePath);
 
             if (ret != 0) {
-                LOG(MODULE_UI, "WARN: setcap exits with code: " + to_string(ret))
+                LOG(MODULE_UI, "WARN: setcap exits with code: " + QString::number(ret))
                 QvMessageBox(this, tr("Preferences"), tr("Failed to setcap onto v2ray executable. You may need to run `setcap` manually."));
             }
 
@@ -498,7 +498,7 @@ void PreferencesWindow::on_nsBarPageAddBTN_clicked()
     CurrentBarLineId = 0;
     nsBarPagesList->addItem(QString::number(CurrentBarPageId));
     ShowLineParameters(CurrentBarLine);
-    LOG(MODULE_UI, "Adding new page Id: " + to_string(CurrentBarPageId))
+    LOG(MODULE_UI, "Adding new page Id: " + QString::number(CurrentBarPageId))
     nsBarPageDelBTN->setEnabled(true);
     nsBarLineAddBTN->setEnabled(true);
     nsBarLineDelBTN->setEnabled(true);
@@ -541,7 +541,7 @@ void PreferencesWindow::on_nsBarLineAddBTN_clicked()
     nsBarLinesList->addItem(QString::number(CurrentBarLineId));
     ShowLineParameters(CurrentBarLine);
     nsBarLineDelBTN->setEnabled(true);
-    LOG(MODULE_UI, "Adding new line Id: " + to_string(CurrentBarLineId))
+    LOG(MODULE_UI, "Adding new line Id: " + QString::number(CurrentBarLineId))
     nsBarLinesList->setCurrentRow(static_cast<int>(CurrentBarPage.Lines.size() - 1));
 }
 
@@ -817,7 +817,7 @@ void PreferencesWindow::on_pacGoBtn_clicked()
             break;
     }
 
-    LOG(MODULE_NETWORK, "Fetched: " + gfwLocation.toStdString())
+    LOG(MODULE_NETWORK, "Fetched: " + gfwLocation)
     QvMessageBox(this, tr("Download GFWList"), tr("Successfully downloaded GFWList."));
     pacGoBtn->setEnabled(true);
     gfwListCB->setEnabled(true);

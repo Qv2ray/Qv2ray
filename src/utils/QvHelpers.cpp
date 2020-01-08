@@ -5,11 +5,11 @@
 // Forwarded from QvTinyLog
 static QQueue<QString> __loggerBuffer;
 
-void _LOG(const std::string &func, const std::string &module, const std::string &log)
+void _LOG(const std::string &func, const QString &module, const QString &log)
 {
-    string logString = "[" + module + "]: " + log;
-    cout << func << logString << endl;
-    __loggerBuffer.enqueue((logString + NEWLINE).c_str());
+    auto logString = "[" + module + "]: " + log;
+    cout << func << logString.toStdString() << endl;
+    __loggerBuffer.enqueue(logString + NEWLINE);
 }
 
 const QString readLastLog()
@@ -121,7 +121,7 @@ namespace Qv2ray
             if (error.error == QJsonParseError::NoError) {
                 return "";
             } else {
-                LOG(MODULE_UI, "WARNING: Json parse returns: " + error.errorString().toStdString())
+                LOG(MODULE_UI, "WARNING: Json parse returns: " + error.errorString())
                 return error.errorString();
             }
         }
@@ -208,7 +208,7 @@ namespace Qv2ray
 
             if (!QDir(baseDir).exists()) {
                 QDir(baseDir).mkpath(baseDir);
-                LOG(MODULE_FILE, "Making path: " + baseDir.toStdString())
+                LOG(MODULE_FILE, "Making path: " + baseDir)
             }
 
             while (true) {
@@ -216,7 +216,7 @@ namespace Qv2ray
                     *fileName = *fileName + "_" + QString::number(i);
                     return;
                 } else {
-                    DEBUG(MODULE_FILE, "File with name: " + fileName->toStdString() + "_" + to_string(i) + extension.toStdString() + " already exists")
+                    DEBUG(MODULE_FILE, "File with name: " + *fileName + "_" + QString::number(i) + extension + " already exists")
                 }
 
                 i++;

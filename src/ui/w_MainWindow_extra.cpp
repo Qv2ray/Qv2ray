@@ -13,16 +13,19 @@ QTreeWidgetItem *MainWindow::FindItemByIdentifier(QvConfigIdentifier identifier)
         // This connectable prevents the an item with (which is the parent node of a subscription, having the same
         // -- name as our current connected name)
         if (!IsConnectableItem(item)) {
+            LOG(MODULE_UI, "Invalid Item found: " + item->text(0))
             continue;
         }
 
         auto thisIdentifier = ItemConnectionIdentifier(item);
+        DEBUG(MODULE_UI, "Item Identifier: " + thisIdentifier.IdentifierString())
 
         if (identifier == thisIdentifier) {
             return item;
         }
     }
 
+    LOG(MODULE_UI, "Warning: Failed to find an item named: " + identifier.IdentifierString())
     return nullptr;
 }
 
@@ -34,7 +37,7 @@ void MainWindow::MWFindAndStartAutoConfig()
                     ? currentConfig.autoStartConfig.connectionName
                     : currentConfig.autoStartConfig.connectionName + " (" + tr("Subscription:") + " " + currentConfig.autoStartConfig.subscriptionName + ")";
         //
-        LOG(MODULE_UI, "Found auto start config: " + name.toStdString())
+        LOG(MODULE_UI, "Found auto start config: " + name)
         auto item = FindItemByIdentifier(currentConfig.autoStartConfig);
 
         if (item != nullptr) {

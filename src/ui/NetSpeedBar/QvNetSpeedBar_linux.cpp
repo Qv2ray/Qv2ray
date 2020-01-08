@@ -59,8 +59,8 @@ namespace Qv2ray
 
                     while (!isExiting) {
                         bool result = server->waitForNewConnection(5000, &timeOut);
-                        DEBUG(MODULE_PLUGIN, "Plugin thread listening failed: " + server->errorString().toStdString())
-                        DEBUG(MODULE_PLUGIN, "waitForNewConnection: " + string(result ? "true" : "false") + ", " + string(timeOut ? "true" : "false"))
+                        DEBUG(MODULE_PLUGIN, "Plugin thread listening failed: " + server->errorString())
+                        DEBUG(MODULE_PLUGIN, "waitForNewConnection: " + QString(result ? "true" : "false") + ", " + QString(timeOut ? "true" : "false"))
                     }
 
                     server->close();

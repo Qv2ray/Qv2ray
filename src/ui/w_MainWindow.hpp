@@ -107,7 +107,7 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         /// Key --> ListWidget.item.text
         QMap<QvConfigIdentifier, ConnectionObject> connections;
         //
-        QString renameOriginalName;
+        QvConfigIdentifier renameOriginalIdentifier;
         bool isRenamingInProgress;
         //
         // ID for QTimers

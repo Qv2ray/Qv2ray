@@ -67,7 +67,7 @@ namespace Qv2ray
                     config = new QFile(QV2RAY_CONFIG_DIR + *alias + QV2RAY_CONFIG_FILE_EXTENSION);
                 }
 
-                LOG(MODULE_CONFIG, "Saving a config named: " + alias->toStdString())
+                LOG(MODULE_CONFIG, "Saving a config named: " + *alias)
                 return StringToFile(&str, config);
             }
 
@@ -81,7 +81,7 @@ namespace Qv2ray
                     LOG(MODULE_FILE, "Trying to overrwrite an existing subscription config file. THIS IS RARE")
                 }
 
-                LOG(MODULE_CONFIG, "Saving a subscription named: " + name.toStdString())
+                LOG(MODULE_CONFIG, "Saving a subscription named: " + name)
                 return StringToFile(&str, config);
             }
 
@@ -164,7 +164,7 @@ namespace Qv2ray
 #undef C
                     //return flag ? 0 : 1;
                 } catch (exception *e) {
-                    LOG(MODULE_IMPORT, "Failed to decode vmess string: " + string(e->what()))
+                    LOG(MODULE_IMPORT, "Failed to decode vmess string: " + QString(e->what()))
                     *errMessage = e->what();
                     return CONFIGROOT();
                 }
@@ -273,13 +273,13 @@ namespace Qv2ray
 
             bool RenameConnection(const QString &originalName, const QString &newName)
             {
-                LOG(MODULE_CONFIG, "[RENAME] --> ORIGINAL: " + originalName.toStdString() + ", NEW: " + newName.toStdString())
+                LOG(MODULE_CONFIG, "[RENAME] --> ORIGINAL: " + originalName + ", NEW: " + newName)
                 return QFile::rename(QV2RAY_CONFIG_DIR + originalName + QV2RAY_CONFIG_FILE_EXTENSION, QV2RAY_CONFIG_DIR + newName + QV2RAY_CONFIG_FILE_EXTENSION);
             }
 
             bool RenameSubscription(const QString &originalName, const QString &newName)
             {
-                LOG(MODULE_SUBSCRIPTION, "[RENAME] --> ORIGINAL: " + originalName.toStdString() + ", NEW: " + newName.toStdString())
+                LOG(MODULE_SUBSCRIPTION, "[RENAME] --> ORIGINAL: " + originalName + ", NEW: " + newName)
                 return QDir().rename(QV2RAY_SUBSCRIPTION_DIR + originalName, QV2RAY_SUBSCRIPTION_DIR + newName);
             }
         }

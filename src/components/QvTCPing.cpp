@@ -24,16 +24,16 @@ namespace Qv2ray
             data.port = port;
             data.connectionIdentifier = connectionName;
             auto watcher = new QFutureWatcher<QvTCPingData>(this);
-            DEBUG(MODULE_NETWORK, "Start Ping: " + hostName.toStdString() + ":" + to_string(port))
+            DEBUG(MODULE_NETWORK, "Start Ping: " + hostName + ":" + QString::number(port))
             watcher->setFuture(QtConcurrent::run(&QvTCPingModel::startTestLatency, data, count));
             pingWorkingThreads.enqueue(watcher);
             connect(watcher, &QFutureWatcher<void>::finished, this, [this, watcher]() {
                 this->pingWorkingThreads.removeOne(watcher);
                 auto result = watcher->result();
-                DEBUG(MODULE_NETWORK, "Ping finished: " + result.hostName.toStdString() + ":" + to_string(result.port) + " --> " + to_string(result.avg) + "ms")
+                DEBUG(MODULE_NETWORK, "Ping finished: " + result.hostName + ":" + QString::number(result.port) + " --> " + QString::number(result.avg) + "ms")
 
                 if (!result.errorMessage.isEmpty()) {
-                    LOG(MODULE_NETWORK, "Ping --> " + result.errorMessage.toStdString())
+                    LOG(MODULE_NETWORK, "Ping --> " + result.errorMessage)
                 }
 
                 emit this->PingFinished(result);
@@ -67,13 +67,13 @@ namespace Qv2ray
 
                 if ((errcode = testLatency(resolved, &rtt)) != 0) {
                     if (errcode != -EADDRNOTAVAIL) {
-                        LOG(MODULE_NETWORK, "Error connecting to host: " + data.hostName.toStdString() + ":" + to_string(data.port) + " " + strerror(-errcode))
+                        LOG(MODULE_NETWORK, "Error connecting to host: " + data.hostName + ":" + QString::number(data.port) + " " + strerror(-errcode))
                         errorCount++;
                     } else {
                         if (noAddress) {
                             LOG(MODULE_NETWORK, ".")
                         } else {
-                            LOG(MODULE_NETWORK, "error connecting to host: " + to_string(-errcode) + " " + strerror(-errcode))
+                            LOG(MODULE_NETWORK, "error connecting to host: " + QString::number(-errcode) + " " + strerror(-errcode))
                         }
 
                         noAddress = true;

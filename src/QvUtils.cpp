@@ -70,7 +70,7 @@ namespace Qv2ray
                 if (validOutboundFound) {
                     return make_tuple(host, port, outboundType);
                 } else {
-                    LOG(MODULE_UI, "Unknown outbound entry: " + outboundType.toStdString() + ", cannot deduce host and port.")
+                    LOG(MODULE_UI, "Unknown outbound entry: " + outboundType + ", cannot deduce host and port.")
                 }
             }
 

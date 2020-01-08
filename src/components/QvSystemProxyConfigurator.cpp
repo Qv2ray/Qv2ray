@@ -14,7 +14,7 @@ namespace Qv2ray
         {
             QProcess p;
             p.start("/usr/sbin/networksetup -listallnetworkservices");
-            LOG(MODULE_PROXY, p.errorString().toStdString())
+            LOG(MODULE_PROXY, p.errorString())
             auto str = p.readAllStandardOutput();
             auto lines = SplitLines(str);
             QStringList result;
@@ -27,7 +27,7 @@ namespace Qv2ray
                 }
             }
 
-            LOG(MODULE_PROXY, "Found " + to_string(result.size()) + " network services: " + Stringify(result).toStdString())
+            LOG(MODULE_PROXY, "Found " + to_string(result.size()) + " network services: " + Stringify(result))
             return result;
         }
 #endif
@@ -60,7 +60,7 @@ namespace Qv2ray
             LOG(MODULE_PROXY, "System default proxy info:")
 
             if (Option[0].Value.pszValue != nullptr)
-                LOG(MODULE_PROXY, QString::fromWCharArray(Option[0].Value.pszValue).toStdString());
+                LOG(MODULE_PROXY, QString::fromWCharArray(Option[0].Value.pszValue));
 
             if ((Option[2].Value.dwValue & PROXY_TYPE_AUTO_PROXY_URL) == PROXY_TYPE_AUTO_PROXY_URL)
                 LOG(MODULE_PROXY, "PROXY_TYPE_AUTO_PROXY_URL");
@@ -78,7 +78,7 @@ namespace Qv2ray
                 LOG(MODULE_PROXY, "InternetQueryOption failed,GLE=" + to_string(GetLastError()));
 
             if (Option[4].Value.pszValue != nullptr)
-                LOG(MODULE_PROXY, QString::fromStdWString(Option[4].Value.pszValue).toStdString());
+                LOG(MODULE_PROXY, QString::fromStdWString(Option[4].Value.pszValue));
 
             INTERNET_VERSION_INFO Version;
             nSize = sizeof(INTERNET_VERSION_INFO);
@@ -201,7 +201,7 @@ namespace Qv2ray
             bool result = true;
 
             for (auto service : macOSgetNetworkServices()) {
-                LOG(MODULE_PROXY, "Setting proxy for interface: " + service.toStdString())
+                LOG(MODULE_PROXY, "Setting proxy for interface: " + service)
 
                 if (usePAC) {
                     result = result && QProcess::execute("/usr/sbin/networksetup -setautoproxystate " + service + " on") == QProcess::NormalExit;

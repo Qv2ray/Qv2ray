@@ -294,7 +294,7 @@ void MainWindow::VersionUpdate(QByteArray &data)
     QVersionNumber newversion = QVersionNumber::fromString(root["tag_name"].toString("v").remove(0, 1));
     QVersionNumber current = QVersionNumber::fromString(QString(QV2RAY_VERSION_STRING).remove(0, 1));
     QVersionNumber ignored = QVersionNumber::fromString(currentConfig.ignoredVersion);
-    LOG(MODULE_UPDATE, "Received update info, Latest: " + newversion.toString().toStdString() + " Current: " + current.toString().toStdString() + " Ignored: " + ignored.toString().toStdString())
+    LOG(MODULE_UPDATE, "Received update info, Latest: " + newversion.toString() + " Current: " + current.toString() + " Ignored: " + ignored.toString())
 
     // If the version is newer than us.
     // And new version is newer than the ignored version.
@@ -352,7 +352,7 @@ void MainWindow::OnConfigListChanged(bool need_restart)
         connections[name] = _o;
         auto item = new QTreeWidgetItem(QStringList() << _o.connectionName);
         item->setData(0, Qt::UserRole, QVariant::fromValue<QvConfigIdentifier>(_o));
-        DEBUG(MODULE_UI, ItemConnectionIdentifier(item).IdentifierString().toStdString())
+        DEBUG(MODULE_UI, ItemConnectionIdentifier(item).IdentifierString())
         connectionListWidget->addTopLevelItem(item);
     }
 
@@ -373,7 +373,7 @@ void MainWindow::OnConfigListChanged(bool need_restart)
             connections[connName] = _o;
             auto item = new QTreeWidgetItem(QStringList() << _o.connectionName);
             item->setData(0, Qt::UserRole, QVariant::fromValue<QvConfigIdentifier>(_o));
-            DEBUG(MODULE_UI, ItemConnectionIdentifier(item).IdentifierString().toStdString())
+            DEBUG(MODULE_UI, ItemConnectionIdentifier(item).IdentifierString())
             subTopLevel->addChild(item);
         }
     }
@@ -438,7 +438,7 @@ void MainWindow::on_startButton_clicked()
         }
 
         auto name = CurrentConnectionIdentifier.IdentifierString();
-        LOG(MODULE_VCORE, ("Connecting to: " + name).toStdString())
+        LOG(MODULE_VCORE, "Connecting to: " + name)
         vCoreLogBrowser->clear();
         bool startFlag = MWtryStartConnection();
 
@@ -642,7 +642,7 @@ void MainWindow::on_action_RCM_RenameConnection_triggered()
     SUBSCRIPTION_CONFIG_MODIFY_DENY(item)
     item->setFlags(item->flags() | Qt::ItemIsEditable);
     connectionListWidget->editItem(item);
-    renameOriginalName = item->text(0);
+    renameOriginalIdentifier = ItemConnectionIdentifier(item);
     isRenamingInProgress = true;
 }
 void MainWindow::on_connectionListWidget_itemChanged(QTreeWidgetItem *item, int)
@@ -651,26 +651,28 @@ void MainWindow::on_connectionListWidget_itemChanged(QTreeWidgetItem *item, int)
 
     if (!isRenamingInProgress) return;
 
+    isRenamingInProgress = false;
     // In this case it's after we entered the name.
     // and tell user you should not rename a config from subscription.
-    auto newName = item->text(0);
-    LOG(MODULE_CONNECTION, "RENAME: " + renameOriginalName.toStdString() + " -> " + newName.toStdString())
+    auto newIdentifier = renameOriginalIdentifier;
+    newIdentifier.connectionName = item->text(0);
+    LOG(MODULE_CONNECTION, "RENAME: " + renameOriginalIdentifier.IdentifierString() + " -> " + newIdentifier.IdentifierString())
 
     // If I really did some changes.
-    if (renameOriginalName != newName) {
+    if (renameOriginalIdentifier != newIdentifier) {
         bool canContinueRename = true;
 
-        if (newName.trimmed().isEmpty()) {
+        if (newIdentifier.connectionName.trimmed().isEmpty()) {
             QvMessageBox(this, tr("Rename a Connection"), tr("The name cannot be empty"));
             canContinueRename = false;
         }
 
-        if (currentConfig.configs.contains(newName)) {
+        if (currentConfig.configs.contains(newIdentifier.connectionName)) {
             QvMessageBox(this, tr("Rename a Connection"), tr("The name has been used already, Please choose another."));
             canContinueRename = false;
         }
 
-        if (!IsValidFileName(newName + QV2RAY_CONFIG_FILE_EXTENSION)) {
+        if (!IsValidFileName(newIdentifier.connectionName + QV2RAY_CONFIG_FILE_EXTENSION)) {
             QvMessageBox(this, tr("Rename a Connection"), tr("The name you suggested is not valid, please try another."));
             canContinueRename = false;
         }
@@ -678,27 +680,38 @@ void MainWindow::on_connectionListWidget_itemChanged(QTreeWidgetItem *item, int)
         if (!canContinueRename) {
             // Set the item text back
             assert(item != nullptr); // Let's say the item should not be null
-            item->setText(0, renameOriginalName);
+            item->setText(0, renameOriginalIdentifier.connectionName);
             return;
         }
 
         // Change auto start config.
         //  |--------------=== In case it's not in a subscription --|
-        if (currentConfig.autoStartConfig.subscriptionName.isEmpty() && renameOriginalName == currentConfig.autoStartConfig.connectionName) {
-            currentConfig.autoStartConfig.connectionName = newName;
+        if (currentConfig.autoStartConfig == renameOriginalIdentifier) {
+            currentConfig.autoStartConfig = newIdentifier;
         }
 
         // Replace the items in the current loaded config list and settings.
-        currentConfig.configs.removeOne(renameOriginalName);
-        currentConfig.configs.push_back(newName);
-        connections[newName] = connections.take(renameOriginalName);
-        RenameConnection(renameOriginalName, newName);
+        // Note: This original name should only be a reguular.
+        currentConfig.configs.removeOne(renameOriginalIdentifier.connectionName);
+        currentConfig.configs.push_back(newIdentifier.connectionName);
+        //
+        connections[newIdentifier] = connections.take(renameOriginalIdentifier);
+        RenameConnection(renameOriginalIdentifier.connectionName, newIdentifier.connectionName);
         LOG(MODULE_UI, "Saving a global config")
         SetGlobalConfig(currentConfig);
-        OnConfigListChanged(CurrentConnectionIdentifier.connectionName == renameOriginalName);
-    }
+        //
+        //FindItemByIdentifier(renameOriginalIdentifier)->setText(0, newIdentifier.connectionName);
+        item->setData(0, Qt::UserRole, QVariant::fromValue(newIdentifier));
+        //
+        bool needRestart = CurrentConnectionIdentifier == renameOriginalIdentifier;
 
-    isRenamingInProgress = false;
+        if (needRestart) {
+            CurrentConnectionIdentifier = newIdentifier;
+            on_reconnectButton_clicked();
+        }
+
+        //OnConfigListChanged(CurrentConnectionIdentifier.connectionName == renameOriginalName);
+    }
 }
 void MainWindow::on_removeConfigButton_clicked()
 {
@@ -710,7 +723,7 @@ void MainWindow::on_removeConfigButton_clicked()
         }
     }
 
-    LOG(MODULE_UI, "Selected " + to_string(connlist.count()) + " items")
+    LOG(MODULE_UI, "Selected " + QString::number(connlist.count()) + " items")
 
     if (connlist.isEmpty()) {
         // Remove nothing means doing nothing.
@@ -934,7 +947,7 @@ void MainWindow::on_pingTestBtn_clicked()
         }
     }
 
-    LOG(MODULE_UI, "Will perform latency test on " + to_string(aliases.count()) + " hosts.")
+    LOG(MODULE_UI, "Will perform latency test on " + QString::number(aliases.count()) + " hosts.")
     latencyLabel->setText(tr("Testing..."));
 
     for (auto alias : aliases) {

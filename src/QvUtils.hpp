@@ -8,7 +8,6 @@ namespace Qv2ray
 {
     namespace Utils
     {
-
         void SetConfigDirPath(const QString *path);
         QString GetConfigDirPath();
 

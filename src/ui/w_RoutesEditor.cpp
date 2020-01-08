@@ -123,7 +123,7 @@ void RouteEditor::onNodeClicked(Node &n)
     if (isRule) {
         // It's a rule object
         currentRuleTag = GetFirstNodeData(n, QvRuleNodeDataModel, RuleNodeData)->GetRuleTag();
-        DEBUG(MODULE_GRAPH, "Selecting rule: " + currentRuleTag.toStdString())
+        DEBUG(MODULE_GRAPH, "Selecting rule: " + currentRuleTag)
         ShowCurrentRuleDetail();
         toolBox->setCurrentIndex(1);
     } else if (isOut || isIn) {
@@ -199,7 +199,7 @@ void RouteEditor::onConnectionCreated(QtNodes::Connection const &c)
         CurrentRule.QV2RAY_RULE_USE_BALANCER = false;
         // Update balancer settings.
         ShowCurrentRuleDetail();
-        LOG(MODULE_GRAPH, "Updated outbound: " + CurrentRule.outboundTag.toStdString())
+        LOG(MODULE_GRAPH, "Updated outbound: " + CurrentRule.outboundTag)
     } else {
         // It's an impossible connection
         LOG(MODULE_GRAPH, "Unrecognized connection, RARE.")
@@ -222,7 +222,7 @@ void RouteEditor::onConnectionDeleted(QtNodes::Connection const &c)
         onNodeClicked(*target);
         currentRuleTag = GetFirstNodeData(*target, QvRuleNodeDataModel, RuleNodeData)->GetRuleTag();
         auto _inboundTag = GetFirstNodeData(*source, QvInboundNodeModel, InboundNodeData)->GetInbound();
-        LOG(MODULE_UI, "Removing inbound: " + _inboundTag.toStdString() + " from rule: " + currentRuleTag.toStdString())
+        LOG(MODULE_UI, "Removing inbound: " + _inboundTag + " from rule: " + currentRuleTag)
         CurrentRule.inboundTag.removeAll(_inboundTag);
     } else if (ruleNodes.values().contains(source) && outboundNodes.values().contains(target)) {
         // It's a rule-outbound connection
@@ -235,7 +235,7 @@ void RouteEditor::onConnectionDeleted(QtNodes::Connection const &c)
             CurrentRule.outboundTag.clear();
         }
 
-        LOG(MODULE_GRAPH, "Removing an outbound: " + _outboundTag.toStdString())
+        LOG(MODULE_GRAPH, "Removing an outbound: " + _outboundTag)
     } else {
         // It's an impossible connection
         LOG(MODULE_GRAPH, "Selected an unknown node, RARE.")
@@ -268,7 +268,7 @@ CONFIGROOT RouteEditor::OpenEditor()
 
                 // Find balancer list
                 if (!_balancers.contains(_rule.balancerTag)) {
-                    LOG(MODULE_UI, "Cannot find a balancer for tag: " + _rule.balancerTag.toStdString())
+                    LOG(MODULE_UI, "Cannot find a balancer for tag: " + _rule.balancerTag)
                 } else {
                     auto _balancerList = balancers[_rule.balancerTag];
                     QJsonObject balancerEntry;
@@ -539,7 +539,7 @@ void RouteEditor::on_enableBalancerCB_stateChanged(int arg1)
         balancers[CurrentRule.balancerTag] = QStringList();
     }
 
-    DEBUG(MODULE_UI, "Balancer: " + CurrentRule.balancerTag.toStdString())
+    DEBUG(MODULE_UI, "Balancer: " + CurrentRule.balancerTag)
 
     if (useBalancer) {
         LOG(MODULE_UI, "A rule has been set to use balancer, disconnect it to any outbound.")

@@ -5,7 +5,7 @@
 
 #include "QvUtils.hpp"
 
-#define UPDATELOG(msg) LOG(MODULE_CONFIG, "  [" + to_string(fromVersion) + "-" + to_string(fromVersion + 1) + "] --> " + msg)
+#define UPDATELOG(msg) LOG(MODULE_CONFIG, "  [" + QString::number(fromVersion) + "-" + QString::number(fromVersion + 1) + "] --> " + msg)
 
 namespace Qv2ray
 {
@@ -18,7 +18,7 @@ namespace Qv2ray
                 // From 1 to 2, we changed the config_version from 'string' to 'int'
                 root.remove("config_version");
                 root["config_version"] = 2;
-                UPDATELOG("Upgrading config_version from old value " + v1_oldConfigVersion.toStdString() + " to 2")
+                UPDATELOG("Upgrading config_version from old value " + v1_oldConfigVersion + " to 2")
                 break;
             }
 
@@ -36,8 +36,8 @@ namespace Qv2ray
                 QFile::copy(vCoreFilePath, vCoreDestPath);
                 QFile::copy(v2CtlFilePath, v2CtlDestPath);
                 root.remove("v2CorePath");
-                UPDATELOG("v2CorePath value from: " + vCoreFilePath.toStdString() + " to " +  vCoreDestPath.toStdString())
-                UPDATELOG("v2CtlFilePath value from: " + v2CtlFilePath.toStdString() + " to " + v2CtlDestPath.toStdString())
+                UPDATELOG("v2CorePath value from: " + vCoreFilePath + " to " +  vCoreDestPath)
+                UPDATELOG("v2CtlFilePath value from: " + v2CtlFilePath + " to " + v2CtlDestPath)
                 break;
             }
 
@@ -48,7 +48,7 @@ namespace Qv2ray
                 root.remove("proxyDefault");
                 root["enableProxy"] = oldProxyDefault;
                 //enableProxy
-                UPDATELOG("key: proxyDefault->enableProxy, value from: " + to_string(oldProxyDefault) + " to " + to_string(oldProxyDefault))
+                UPDATELOG("key: proxyDefault->enableProxy, value from: " + QString::number(oldProxyDefault) + " to " + QString::number(oldProxyDefault))
                 break;
             }
 
@@ -61,7 +61,7 @@ namespace Qv2ray
                 // From 3 to 4, we changed 'runAsRoot' to 'tProxySupport'
                 auto v3_oldrunAsRoot = root["runAsRoot"].toBool();
                 root.insert("tProxySupport", v3_oldrunAsRoot);
-                UPDATELOG("Upgrading runAsRoot to tProxySupport, the value is not changed: " + to_string(v3_oldrunAsRoot))
+                UPDATELOG("Upgrading runAsRoot to tProxySupport, the value is not changed: " + QString::number(v3_oldrunAsRoot))
                 //
                 QString path;
                 path = QV2RAY_DEFAULT_VCORE_PATH;
@@ -132,7 +132,7 @@ namespace Qv2ray
     // Exported function
     QJsonObject UpgradeConfig(int fromVersion, int toVersion, QJsonObject root)
     {
-        LOG(MODULE_CONFIG, "Migrating config from version " + to_string(fromVersion) + " to " + to_string(toVersion))
+        LOG(MODULE_CONFIG, "Migrating config from version " + QString::number(fromVersion) + " to " + QString::number(toVersion))
 
         for (int i = fromVersion; i < toVersion; i++) {
             root = UpgradeConfig_Inc(i, root);
