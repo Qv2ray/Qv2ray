@@ -52,9 +52,6 @@ const int QV2RAY_CONFIG_VERSION = 6;
 #   error Both QV2RAY_DEFAULT_VCORE_PATH and QV2RAY_DEFAULT_VASSETS_PATH need to present when specifying the paths.
 #endif
 
-#undef _HAS_MANUAL_VCORE
-#undef _HAS_MANUAL_VASSETS
-
 #define QV2RAY_VCORE_LOG_DIRNAME "logs/"
 #define QV2RAY_VCORE_ACCESS_LOG_FILENAME "access.log"
 #define QV2RAY_VCORE_ERROR_LOG_FILENAME "error.log"

@@ -700,14 +700,14 @@ void MainWindow::on_connectionListWidget_itemChanged(QTreeWidgetItem *item, int)
         LOG(MODULE_UI, "Saving a global config")
         SetGlobalConfig(currentConfig);
         //
-        //FindItemByIdentifier(renameOriginalIdentifier)->setText(0, newIdentifier.connectionName);
         item->setData(0, Qt::UserRole, QVariant::fromValue(newIdentifier));
-        //
-        bool needRestart = CurrentConnectionIdentifier == renameOriginalIdentifier;
 
-        if (needRestart) {
+        if (CurrentConnectionIdentifier == renameOriginalIdentifier) {
             CurrentConnectionIdentifier = newIdentifier;
-            on_reconnectButton_clicked();
+
+            if (vinstance->ConnectionStatus == STARTED) {
+                on_reconnectButton_clicked();
+            }
         }
 
         //OnConfigListChanged(CurrentConnectionIdentifier.connectionName == renameOriginalName);

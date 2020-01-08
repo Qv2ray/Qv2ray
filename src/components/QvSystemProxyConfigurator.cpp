@@ -27,7 +27,7 @@ namespace Qv2ray
                 }
             }
 
-            LOG(MODULE_PROXY, "Found " + to_string(result.size()) + " network services: " + Stringify(result))
+            LOG(MODULE_PROXY, "Found " + QString::number(result.size()) + " network services: " + Stringify(result))
             return result;
         }
 #endif
@@ -54,44 +54,55 @@ namespace Qv2ray
             List.dwOptionError = 0;
             List.pOptions = Option;
 
-            if (!InternetQueryOption(nullptr, INTERNET_OPTION_PER_CONNECTION_OPTION, &List, &nSize))
-                LOG(MODULE_PROXY, "InternetQueryOption failed, GLE=" + to_string(GetLastError()));
+            if (!InternetQueryOption(nullptr, INTERNET_OPTION_PER_CONNECTION_OPTION, &List, &nSize)) {
+                LOG(MODULE_PROXY, "InternetQueryOption failed, GLE=" + QString::number(GetLastError()))
+            }
 
             LOG(MODULE_PROXY, "System default proxy info:")
 
-            if (Option[0].Value.pszValue != nullptr)
-                LOG(MODULE_PROXY, QString::fromWCharArray(Option[0].Value.pszValue));
+            if (Option[0].Value.pszValue != nullptr) {
+                LOG(MODULE_PROXY, QString::fromWCharArray(Option[0].Value.pszValue))
+            }
 
-            if ((Option[2].Value.dwValue & PROXY_TYPE_AUTO_PROXY_URL) == PROXY_TYPE_AUTO_PROXY_URL)
-                LOG(MODULE_PROXY, "PROXY_TYPE_AUTO_PROXY_URL");
+            if ((Option[2].Value.dwValue & PROXY_TYPE_AUTO_PROXY_URL) == PROXY_TYPE_AUTO_PROXY_URL) {
+                LOG(MODULE_PROXY, "PROXY_TYPE_AUTO_PROXY_URL")
+            }
 
-            if ((Option[2].Value.dwValue & PROXY_TYPE_AUTO_DETECT) == PROXY_TYPE_AUTO_DETECT)
-                LOG(MODULE_PROXY, "PROXY_TYPE_AUTO_DETECT");
+            if ((Option[2].Value.dwValue & PROXY_TYPE_AUTO_DETECT) == PROXY_TYPE_AUTO_DETECT) {
+                LOG(MODULE_PROXY, "PROXY_TYPE_AUTO_DETECT")
+            }
 
-            if ((Option[2].Value.dwValue & PROXY_TYPE_DIRECT) == PROXY_TYPE_DIRECT)
-                LOG(MODULE_PROXY, "PROXY_TYPE_DIRECT");
+            if ((Option[2].Value.dwValue & PROXY_TYPE_DIRECT) == PROXY_TYPE_DIRECT) {
+                LOG(MODULE_PROXY, "PROXY_TYPE_DIRECT")
+            }
 
-            if ((Option[2].Value.dwValue & PROXY_TYPE_PROXY) == PROXY_TYPE_PROXY)
-                LOG(MODULE_PROXY, "PROXY_TYPE_PROXY");
+            if ((Option[2].Value.dwValue & PROXY_TYPE_PROXY) == PROXY_TYPE_PROXY) {
+                LOG(MODULE_PROXY, "PROXY_TYPE_PROXY")
+            }
 
-            if (!InternetQueryOption(nullptr, INTERNET_OPTION_PER_CONNECTION_OPTION, &List, &nSize))
-                LOG(MODULE_PROXY, "InternetQueryOption failed,GLE=" + to_string(GetLastError()));
+            if (!InternetQueryOption(nullptr, INTERNET_OPTION_PER_CONNECTION_OPTION, &List, &nSize)) {
+                LOG(MODULE_PROXY, "InternetQueryOption failed,GLE=" + QString::number(GetLastError()))
+            }
 
-            if (Option[4].Value.pszValue != nullptr)
-                LOG(MODULE_PROXY, QString::fromStdWString(Option[4].Value.pszValue));
+            if (Option[4].Value.pszValue != nullptr) {
+                LOG(MODULE_PROXY, QString::fromStdWString(Option[4].Value.pszValue))
+            }
 
             INTERNET_VERSION_INFO Version;
             nSize = sizeof(INTERNET_VERSION_INFO);
             InternetQueryOption(nullptr, INTERNET_OPTION_VERSION, &Version, &nSize);
 
-            if (Option[0].Value.pszValue != nullptr)
+            if (Option[0].Value.pszValue != nullptr) {
                 GlobalFree(Option[0].Value.pszValue);
+            }
 
-            if (Option[3].Value.pszValue != nullptr)
+            if (Option[3].Value.pszValue != nullptr) {
                 GlobalFree(Option[3].Value.pszValue);
+            }
 
-            if (Option[4].Value.pszValue != nullptr)
+            if (Option[4].Value.pszValue != nullptr) {
                 GlobalFree(Option[4].Value.pszValue);
+            }
 
             return false;
         }
@@ -236,7 +247,7 @@ namespace Qv2ray
             // Make sure the memory was allocated.
             if (nullptr == list.pOptions) {
                 // Return FALSE if the memory wasn't allocated.
-                LOG(MODULE_PROXY, "Failed to allocat memory in DisableConnectionProxy()");
+                LOG(MODULE_PROXY, "Failed to allocat memory in DisableConnectionProxy()")
                 return FALSE;
             }
 

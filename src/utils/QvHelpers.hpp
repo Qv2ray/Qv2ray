@@ -54,9 +54,6 @@ namespace Qv2ray
             auto json = StructToJsonString(t);
             return JsonFromString(json);
         }
-        template QJsonObject GetRootObject<RuleObject>(const RuleObject &t);
-        template QJsonObject GetRootObject<StreamSettingsObject>(const StreamSettingsObject &t);
-        template QJsonObject GetRootObject<VMessServerObject>(const VMessServerObject &t);
         //
         template <typename T>
         void RemoveItem(std::vector<T> &vec, size_t pos)
