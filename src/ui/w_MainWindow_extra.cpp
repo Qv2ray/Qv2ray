@@ -66,7 +66,7 @@ void MainWindow::MWClearSystemProxy(bool showMessage)
     systemProxyEnabled = false;
 
     if (showMessage) {
-        hTray->showMessage(tr("System Proxy"), tr("System proxy cleared."), windowIcon());
+        hTray->showMessage("Qv2ray", tr("System proxy cleared."), windowIcon());
     }
 }
 
@@ -119,10 +119,10 @@ void MainWindow::MWSetSystemProxy()
             // ------------------------|=======We only use HTTP here->>|=======|
             SetSystemProxy(proxyAddress, currentConfig.inboundConfig.http_port, usePAC);
             systemProxyEnabled = true;
-            hTray->showMessage(tr("System Proxy"), tr("System proxy settings applied."), windowIcon());
+            hTray->showMessage("Qv2ray", tr("System proxy settings applied."), windowIcon());
         }
     } else {
-        hTray->showMessage(tr("System Proxy"), tr("Cannot set proxy for complex config."), windowIcon());
+        hTray->showMessage("Qv2ray", tr("Cannot set proxy for complex config."), windowIcon());
     }
 }
 
