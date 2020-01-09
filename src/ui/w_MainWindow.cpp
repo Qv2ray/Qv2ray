@@ -284,6 +284,7 @@ void MainWindow::on_action_StartThis_triggered()
     }
 
     CurrentSelectedItem = connectionListWidget->selectedItems().first();
+    CurrentConnectionIdentifier = ItemConnectionIdentifier(CurrentSelectedItem);
     on_reconnectButton_clicked();
 }
 void MainWindow::VersionUpdate(QByteArray &data)
@@ -622,7 +623,8 @@ void MainWindow::on_connectionListWidget_currentItemChanged(QTreeWidgetItem *cur
 
     if (!IsConnectableItem(current)) return;
 
-    bool canSetConnection = !isRenamingInProgress && vinstance->ConnectionStatus != STARTED;
+    // no need to check !isRenamingInProgress since it's always true.
+    bool canSetConnection = vinstance->ConnectionStatus != STARTED;
     ShowAndSetConnection(ItemConnectionIdentifier(current), canSetConnection, false);
     //on_connectionListWidget_itemClicked(current, 0);
 }
