@@ -13,7 +13,7 @@ namespace Qv2ray
         QvCommandArgParser::QvCommandArgParser() : QObject(),
             noAPIOption("FAKE"), helpOption("FAKE"), versionOption("FAKE")
         {
-            parser.setApplicationDescription(QObject::tr("Qv2ray - An cross-platform Qt frontend for V2ray."));
+            parser.setApplicationDescription(QObject::tr("Qv2ray - A cross-platform Qt frontend for V2ray."));
             parser.setSingleDashWordOptionMode(QCommandLineParser::ParseAsLongOptions);
             //
             noAPIOption = QCommandLineOption("noAPI", QObject::tr("Disable gRPC API subsystems."));
