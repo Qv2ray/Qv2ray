@@ -20,8 +20,14 @@ namespace Qv2ray
         bool V2rayKernelInstance::ValidateConfig(const QString &path)
         {
             auto conf = GetGlobalConfig();
+            QFile coreFile(conf.v2CorePath);
+            bool coreFileExists = coreFile.exists() && coreFile.open(QFile::ReadOnly);
 
-            if (QFile::exists(conf.v2CorePath)) {
+            if (coreFileExists) {
+                coreFile.close();
+            }
+
+            if (coreFileExists) {
                 QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
                 env.insert("V2RAY_LOCATION_ASSET", conf.v2AssetsPath);
                 QProcess process;
