@@ -401,6 +401,14 @@ int main(int argc, char *argv[])
             w.raise();
             w.activateWindow();
         });
+
+        // Handler for session logout, shutdown, etc.
+        // Will not block.
+        QGuiApplication::setFallbackSessionManagementEnabled(false);
+        QObject::connect(&_qApp, &QGuiApplication::commitDataRequest, []() {
+            LOG(MODULE_INIT, "Quit triggered by session manager.");
+        });
+
         auto rcode = _qApp.exec();
         LOG(MODULE_INIT, "Quitting normally")
         return rcode;
