@@ -84,7 +84,7 @@ jobs:
         run: git submodule update --init
 # --------------------------------------------------------
       - name: Install Qt
-        uses: jurplel/install-qt-action@v1
+        uses: jurplel/install-qt-action@v2
 # --------------------------------------------------------
       - name: Install libgl-dev and openssl libx11-dev libxkbcommon-x11-dev
         run: sudo apt install -y libgl-dev openssl libx11-dev libxkbcommon-x11-dev mlocate
