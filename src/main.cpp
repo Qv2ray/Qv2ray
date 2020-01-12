@@ -186,8 +186,9 @@ int main(int argc, char *argv[])
     {
         std::unique_ptr<QCoreApplication> consoleApp(new QCoreApplication(argc, argv));
         QvCommandArgParser parser;
-
-        switch (QString errorMessage; parser.ParseCommandLine(&errorMessage)) {
+        QString errorMessage;
+        
+        switch (parser.ParseCommandLine(&errorMessage)) {
             case CommandLineOk:
                 break;
 
