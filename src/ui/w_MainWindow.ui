@@ -107,8 +107,14 @@
       </item>
       <item>
        <widget class="QLabel" name="statusLabel">
+        <property name="cursor">
+         <cursorShape>IBeamCursor</cursorShape>
+        </property>
         <property name="text">
          <string>Stopped</string>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
         </property>
        </widget>
       </item>
@@ -287,8 +293,14 @@
          </item>
          <item row="0" column="1">
           <widget class="QLabel" name="routeCountLabel">
+           <property name="cursor">
+            <cursorShape>IBeamCursor</cursorShape>
+           </property>
            <property name="text">
             <string/>
+           </property>
+           <property name="textInteractionFlags">
+            <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
            </property>
           </widget>
          </item>
@@ -301,8 +313,14 @@
          </item>
          <item row="1" column="1">
           <widget class="QLabel" name="_OutBoundTypeLabel">
+           <property name="cursor">
+            <cursorShape>IBeamCursor</cursorShape>
+           </property>
            <property name="text">
             <string/>
+           </property>
+           <property name="textInteractionFlags">
+            <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
            </property>
           </widget>
          </item>
@@ -315,8 +333,14 @@
          </item>
          <item row="2" column="1">
           <widget class="QLabel" name="_hostLabel">
+           <property name="cursor">
+            <cursorShape>IBeamCursor</cursorShape>
+           </property>
            <property name="text">
             <string/>
+           </property>
+           <property name="textInteractionFlags">
+            <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
            </property>
           </widget>
          </item>
@@ -329,8 +353,14 @@
          </item>
          <item row="3" column="1">
           <widget class="QLabel" name="_portLabel">
+           <property name="cursor">
+            <cursorShape>IBeamCursor</cursorShape>
+           </property>
            <property name="text">
             <string/>
+           </property>
+           <property name="textInteractionFlags">
+            <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
            </property>
           </widget>
          </item>
@@ -343,8 +373,14 @@
          </item>
          <item row="4" column="1">
           <widget class="QLabel" name="latencyLabel">
+           <property name="cursor">
+            <cursorShape>IBeamCursor</cursorShape>
+           </property>
            <property name="text">
             <string/>
+           </property>
+           <property name="textInteractionFlags">
+            <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
            </property>
           </widget>
          </item>
