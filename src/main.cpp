@@ -182,6 +182,32 @@ bool initialiseQv2ray()
 
 int main(int argc, char *argv[])
 {
+    // parse the command line before starting as a Qt application
+    {
+        std::unique_ptr<QCoreApplication> consoleApp(new QCoreApplication(argc, argv));
+        QvCommandArgParser parser;
+
+        switch (QString errorMessage; parser.ParseCommandLine(&errorMessage)) {
+            case CommandLineOk:
+                break;
+
+            case CommandLineError:
+                cout << errorMessage.toStdString() << endl;
+                cout << parser.Parser()->helpText().toStdString() << endl;
+                return 1;
+
+            case CommandLineVersionRequested:
+                LOG("Qv2ray", QV2RAY_VERSION_STRING);
+                return 0;
+
+            case CommandLineHelpRequested:
+                cout << parser.Parser()->helpText().toStdString() << endl;
+                return 0;
+        }
+    }
+
+    // finished: command line parsing
+
     LOG(MODULE_INIT, "Qv2ray " QV2RAY_VERSION_STRING " running on " + QSysInfo::prettyProductName() + " " + QSysInfo::currentCpuArchitecture() + NEWLINE)
     //
     // This line must be called before any other ones, since we are using these values to identify instances.
@@ -207,27 +233,6 @@ int main(int argc, char *argv[])
         // Do not install en-US as it's the default language.
         bool _result_ = qApp->installTranslator(_sysTranslator);
         LOG(MODULE_UI, "Installing a tranlator from OS: " + _lang + " -- " + (_result_ ? "OK" : "Failed"))
-    }
-
-    QvCommandArgParser parser;
-    QString errorMessage;
-
-    switch (parser.ParseCommandLine(&errorMessage)) {
-        case CommandLineOk:
-            break;
-
-        case CommandLineError:
-            cout << errorMessage.toStdString() << endl;
-            cout <<  parser.Parser()->helpText().toStdString() << endl;
-            return 1;
-
-        case CommandLineVersionRequested:
-            LOG(QCoreApplication::applicationName(), QCoreApplication::applicationVersion());
-            return 0;
-
-        case CommandLineHelpRequested:
-            cout << parser.Parser()->helpText().toStdString() << endl;
-            return 0;
     }
 
     LOG("LICENCE", NEWLINE "This program comes with ABSOLUTELY NO WARRANTY." NEWLINE
