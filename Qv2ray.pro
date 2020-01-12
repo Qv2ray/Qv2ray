@@ -23,7 +23,7 @@ no_increase_build_number {
 DEFINES += QT_DEPRECATED_WARNINGS QV2RAY_VERSION_STRING=\"\\\"v$${VERSION}\\\"\" QAPPLICATION_CLASS=QApplication
 
 # Don't merge those configs with below.
-CONFIG += enable_decoder_qr_code enable_encoder_qr_code qt c++11 openssl-linked
+CONFIG += enable_decoder_qr_code enable_encoder_qr_code qt c++17 openssl-linked
 
 include(3rdparty/qzxing/src/QZXing-components.pri)
 include(3rdparty/SingleApplication/singleapplication.pri)
