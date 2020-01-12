@@ -54,7 +54,7 @@ jobs:
 
   macOS:
     name: Release for macOS
-    runs-on: macOS-10.14
+    runs-on: macOS-latest
     steps:
       - name: Checkout Sources
         uses: actions/checkout@master
