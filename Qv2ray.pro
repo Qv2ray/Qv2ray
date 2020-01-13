@@ -265,6 +265,15 @@ unix {
     INSTALLS += target desktop icon
 }
 
+has_metainfo {
+    # For Packaging
+    message("Configuring for packaging platform")
+    message("  --> Generating metainfo dependency.")
+    appdataXml.files += ./icons/qv2ray.appdata.xml
+    appdataXml.path = /usr/share/metainfo/
+    INSTALLS += appdataXml
+}
+
 message(" ")
 message("Done configuring Qv2ray project. Build output will be at:" $$OUT_PWD)
 message("Type `make` or `mingw32-make` to start building Qv2ray")
