@@ -115,6 +115,30 @@ namespace Qv2ray
                 RROOT
             }
 
+            OUTBOUNDSETTING GenerateHTTPSOCKSOut(QString address, int port, bool useAuth, QString username, QString password)
+            {
+                OUTBOUNDSETTING root;
+                QJsonArray servers;
+                {
+                    QJsonObject oneServer;
+                    oneServer["address"] = address;
+                    oneServer["port"] = port;
+
+                    if (useAuth) {
+                        QJsonArray users;
+                        QJsonObject oneUser;
+                        oneUser["user"] = username;
+                        oneUser["pass"] = password;
+                        users.push_back(oneUser);
+                        oneServer["users"] = users;
+                    }
+
+                    servers.push_back(oneServer);
+                }
+                JADD(servers)
+                RROOT
+            }
+
             INBOUNDSETTING GenerateSocksIN(QString auth, QList<AccountObject> _accounts, bool udp, QString ip, int userLevel)
             {
                 INBOUNDSETTING root;
@@ -296,6 +320,36 @@ namespace Qv2ray
 
                     auto routeObject = GenerateRoutes(gConf.connectionConfig.enableProxy, gConf.connectionConfig.bypassCN);
                     root.insert("routing", routeObject);
+                    //
+                    // Process forward proxy
+#define fpConf gConf.connectionConfig.forwardProxyConfig
+                    {
+                        auto outboundArray = root["outbounds"].toArray();
+                        auto firstOutbound = outboundArray.first().toObject();
+
+                        if (firstOutbound[QV2RAY_USE_FPROXY_KEY].toBool(false)) {
+                            LOG(MODULE_CONNECTION, "Applying forward proxy to current connection.")
+                            auto proxy = PROXYSETTING();
+                            proxy["tag"] = OUTBOUND_TAG_FORWARD_PROXY;
+                            firstOutbound["proxySettings"] = proxy;
+                            // FP Outbound.
+                            OUTBOUNDSETTING fpOutbound;
+
+                            if (fpConf.type.toLower() == "http" || fpConf.type.toLower() == "socks") {
+                                fpOutbound = GenerateHTTPSOCKSOut(fpConf.serverAddress, fpConf.port, fpConf.useAuth, fpConf.username, fpConf.password);
+                                outboundArray.push_back(GenerateOutboundEntry(fpConf.type.toLower(), fpOutbound, QJsonObject(), QJsonObject(), "0.0.0.0", OUTBOUND_TAG_FORWARD_PROXY));
+                            } else {
+                                LOG(MODULE_CONNECTION, "WARNING: Unsupported outbound type: " + fpConf.type)
+                            }
+                        } else {
+                            // Remove proxySettings from firstOutbound
+                            firstOutbound.remove("proxySettings");
+                        }
+
+                        outboundArray.replace(0, firstOutbound);
+                        root["outbounds"] = outboundArray;
+                    }
+#undef fpConf
                     OUTBOUNDS outbounds = OUTBOUNDS(root["outbounds"].toArray());
                     outbounds.append(GenerateOutboundEntry("freedom", GenerateFreedomOUT("AsIs", ":0", 0), QJsonObject(), QJsonObject(), "0.0.0.0", OUTBOUND_TAG_DIRECT));
                     root["outbounds"] = outbounds;
@@ -314,9 +368,9 @@ namespace Qv2ray
                     QJsonArray routingRules = routing["rules"].toArray();
                     QJsonObject APIRouteRoot;
                     APIRouteRoot["type"] = "field";
-                    APIRouteRoot["outboundTag"] = QV2RAY_API_TAG_DEFAULT;
+                    APIRouteRoot["outboundTag"] = API_TAG_DEFAULT;
                     QJsonArray inboundTag;
-                    inboundTag.append(QV2RAY_API_TAG_INBOUND);
+                    inboundTag.append(API_TAG_INBOUND);
                     APIRouteRoot["inboundTag"] = inboundTag;
                     // Add this to root.
                     routingRules.push_front(APIRouteRoot);
@@ -338,13 +392,13 @@ namespace Qv2ray
                     INBOUNDS inbounds = INBOUNDS(root["inbounds"].toArray());
                     INBOUNDSETTING fakeDocodemoDoor;
                     fakeDocodemoDoor["address"] = "127.0.0.1";
-                    QJsonObject apiInboundsRoot = GenerateInboundEntry("127.0.0.1", gConf.connectionConfig.statsPort, "dokodemo-door", fakeDocodemoDoor, QV2RAY_API_TAG_INBOUND);
+                    QJsonObject apiInboundsRoot = GenerateInboundEntry("127.0.0.1", gConf.connectionConfig.statsPort, "dokodemo-door", fakeDocodemoDoor, API_TAG_INBOUND);
                     inbounds.push_front(apiInboundsRoot);
                     root["inbounds"] = inbounds;
                     //
                     // API
                     //
-                    root["api"] = GenerateAPIEntry(QV2RAY_API_TAG_DEFAULT);
+                    root["api"] = GenerateAPIEntry(API_TAG_DEFAULT);
                 }
                 return root;
             }

@@ -25,18 +25,19 @@ OutboundEditor::OutboundEditor(QWidget *parent)
     stream = StreamSettingsObject();
     OutboundType = "vmess";
     Tag = OUTBOUND_TAG_PROXY;
-    ReLoad_GUI_JSON_ModelContent();
+    useFProxy = false;
+    ReloadGUI();
     Result = GenerateConnectionJson();
 }
 
-OutboundEditor::OutboundEditor(OUTBOUND outboundEntry, QWidget *parent)
-    : OutboundEditor(parent)
+OutboundEditor::OutboundEditor(OUTBOUND outboundEntry, QWidget *parent) : OutboundEditor(parent)
 {
     Original = outboundEntry;
     Tag = outboundEntry["tag"].toString();
     tagTxt->setText(Tag);
     OutboundType = outboundEntry["protocol"].toString();
     Mux = outboundEntry["mux"].toObject();
+    useFProxy = outboundEntry[QV2RAY_USE_FPROXY_KEY].toBool(false);
 
     if (OutboundType == "vmess") {
         vmess = StructFromJsonString<VMessServerObject>(JsonToString(outboundEntry["settings"].toObject()["vnext"].toArray().first().toObject()));
@@ -59,7 +60,7 @@ OutboundEditor::OutboundEditor(OUTBOUND outboundEntry, QWidget *parent)
         shadowsocks.port = socks.port;
     }
 
-    ReLoad_GUI_JSON_ModelContent();
+    ReloadGUI();
     Result = GenerateConnectionJson();
 }
 
@@ -83,7 +84,7 @@ QString OutboundEditor::GetFriendlyName()
     return name;
 }
 
-void OutboundEditor::ReLoad_GUI_JSON_ModelContent()
+void OutboundEditor::ReloadGUI()
 {
     if (OutboundType == "vmess") {
         outBoundTypeCombo->setCurrentIndex(0);
@@ -101,7 +102,7 @@ void OutboundEditor::ReLoad_GUI_JSON_ModelContent()
         // HTTP
         QString allHosts;
 
-        foreach (auto host, stream.httpSettings.host) {
+        for (auto host : stream.httpSettings.host) {
             allHosts = allHosts + host + "\r\n";
         }
 
@@ -156,6 +157,7 @@ void OutboundEditor::ReLoad_GUI_JSON_ModelContent()
         socks_UserNameTxt->setText(socks.users.front().user);
     }
 
+    useFPCB->setChecked(useFProxy);
     muxEnabledCB->setChecked(Mux["enabled"].toBool());
     muxConcurrencyTxt->setValue(Mux["concurrency"].toInt());
 }
@@ -212,9 +214,10 @@ void OutboundEditor::on_httpHostTxt_textChanged()
         QStringList hosts = httpHostTxt->toPlainText().replace("\r", "").split("\n");
         stream.httpSettings.host.clear();
 
-        foreach (auto host, hosts) {
-            if (host.trimmed() != "")
+        for (auto host : hosts) {
+            if (!host.trimmed().isEmpty()) {
                 stream.httpSettings.host.push_back(host.trimmed());
+            }
         }
 
         BLACK(httpHostTxt)
@@ -226,17 +229,19 @@ void OutboundEditor::on_httpHostTxt_textChanged()
 void OutboundEditor::on_wsHeadersTxt_textChanged()
 {
     try {
-        QStringList headers = wsHeadersTxt->toPlainText().replace("\r", "").split("\n");
+        QStringList headers = SplitLines(wsHeadersTxt->toPlainText());
         stream.wsSettings.headers.clear();
 
-        foreach (auto header, headers) {
+        for (auto header : headers) {
             if (header.isEmpty()) continue;
 
             auto index = header.indexOf("|");
 
             if (index < 0) throw "fast fail to set RED color";
 
-            stream.wsSettings.headers[header.left(index)] = header.right(index + 1);
+            auto key = header.left(index);
+            auto value = header.right(header.length() - index - 1);
+            stream.wsSettings.headers[key] = value;
         }
 
         BLACK(wsHeadersTxt)
@@ -288,6 +293,7 @@ OUTBOUND OutboundEditor::GenerateConnectionJson()
     }
 
     auto root = GenerateOutboundEntry(OutboundType, settings, streaming, Mux, "0.0.0.0", Tag);
+    root[QV2RAY_USE_FPROXY_KEY] = useFProxy;
     return root;
 }
 
@@ -448,4 +454,9 @@ void OutboundEditor::on_alterLineEdit_valueChanged(int arg1)
     if (vmess.users.empty()) vmess.users.push_back(VMessServerObject::UserObject());
 
     vmess.users.front().alterId = arg1;
+}
+
+void OutboundEditor::on_useFPCB_stateChanged(int arg1)
+{
+    useFProxy = arg1 == Qt::Checked;
 }

@@ -106,9 +106,12 @@ class OutboundEditor : public QDialog, private Ui::OutboundEditor
 
         void on_alterLineEdit_valueChanged(int arg1);
 
+        void on_useFPCB_stateChanged(int arg1);
+
     private:
         QString Tag;
-        void ReLoad_GUI_JSON_ModelContent();
+        void ReloadGUI();
+        bool useFProxy;
         OUTBOUND GenerateConnectionJson();
         OUTBOUND Original;
         OUTBOUND Result;

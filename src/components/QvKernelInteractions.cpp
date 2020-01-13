@@ -75,7 +75,7 @@ namespace Qv2ray
             for (auto item : root["inbounds"].toArray()) {
                 auto tag = item.toObject()["tag"].toString("");
 
-                if (tag.isEmpty() || tag == QV2RAY_API_TAG_INBOUND)
+                if (tag.isEmpty() || tag == API_TAG_INBOUND)
                     continue;
 
                 inboundTags.append(tag);

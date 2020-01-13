@@ -135,6 +135,18 @@ namespace Qv2ray
             XTOSTRUCT(O(enablePAC, port, localIP, useSocksProxy))
         };
 
+        struct Qv2rayForwardProxyConfig {
+            bool enableForwardProxy;
+            QString type;
+            QString serverAddress;
+            int port;
+            bool useAuth;
+            QString username;
+            QString password;
+
+            XTOSTRUCT(O(enableForwardProxy, type, serverAddress, port, useAuth, username, password))
+        };
+
         struct Qv2rayInboundsConfig {
             QString listenip;
             bool setSystemProxy;
@@ -152,6 +164,7 @@ namespace Qv2ray
             int http_port;
             bool http_useAuth;
             AccountObject httpAccount;
+
             Qv2rayInboundsConfig():
                 listenip("127.0.0.1"), setSystemProxy(false), pacConfig(),
                 useSocks(true), socks_port(1088), socks_useAuth(false), socksUDP(true), socksLocalIP("127.0.0.1"), socksAccount(),
@@ -175,8 +188,10 @@ namespace Qv2ray
             bool withLocalDNS;
             QList<QString> dnsList;
             int statsPort;
+            Qv2rayForwardProxyConfig forwardProxyConfig;
+
             Qv2rayConnectionConfig() : bypassCN(true), enableProxy(true), withLocalDNS(false), dnsList(QStringList() << "8.8.4.4" << "1.1.1.1"), statsPort(15490) { }
-            XTOSTRUCT(O(bypassCN, enableProxy, withLocalDNS, dnsList, statsPort))
+            XTOSTRUCT(O(bypassCN, enableProxy, withLocalDNS, dnsList, statsPort, forwardProxyConfig))
         };
 
         struct Qv2rayConfig {

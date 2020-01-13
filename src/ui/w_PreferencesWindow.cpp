@@ -152,6 +152,18 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent),
     }
 
     autoStartConnCombo->setCurrentText(autoCon);
+    // FP Settings
+    fpEnabledCB->setChecked(CurrentConfig.connectionConfig.forwardProxyConfig.enableForwardProxy);
+    fpFrame->setEnabled(fpEnabledCB->isChecked());
+    fpUsernameTx->setText(CurrentConfig.connectionConfig.forwardProxyConfig.username);
+    fpPasswordTx->setText(CurrentConfig.connectionConfig.forwardProxyConfig.password);
+    fpAddressTx->setText(CurrentConfig.connectionConfig.forwardProxyConfig.serverAddress);
+    fpTypeCombo->setCurrentText(CurrentConfig.connectionConfig.forwardProxyConfig.type);
+    fpPortSB->setValue(CurrentConfig.connectionConfig.forwardProxyConfig.port);
+    fpUseAuthCB->setChecked(CurrentConfig.connectionConfig.forwardProxyConfig.useAuth);
+    fpUsernameTx->setEnabled(fpUseAuthCB->isChecked());
+    fpPasswordTx->setEnabled(fpUseAuthCB->isChecked());
+    //
     finishedLoading = true;
 }
 
@@ -916,4 +928,49 @@ void PreferencesWindow::SetAutoStartButtonsState(bool isAutoStart)
 {
     installBootStart->setEnabled(!isAutoStart);
     removeBootStart->setEnabled(isAutoStart);
+}
+
+void PreferencesWindow::on_fpEnabledCB_stateChanged(int arg1)
+{
+    bool fpEnabled = arg1 == Qt::Checked;
+    CurrentConfig.connectionConfig.forwardProxyConfig.enableForwardProxy = fpEnabled;
+    fpFrame->setEnabled(fpEnabled);
+}
+
+void PreferencesWindow::on_fpTypeCombo_currentIndexChanged(const QString &arg1)
+{
+    CurrentConfig.connectionConfig.forwardProxyConfig.type = arg1;
+}
+
+void PreferencesWindow::on_fpAddressTx_textEdited(const QString &arg1)
+{
+    CurrentConfig.connectionConfig.forwardProxyConfig.serverAddress = arg1;
+}
+
+void PreferencesWindow::on_spPortSB_valueChanged(int arg1)
+{
+    CurrentConfig.connectionConfig.forwardProxyConfig.port = arg1;
+}
+
+void PreferencesWindow::on_fpUseAuthCB_stateChanged(int arg1)
+{
+    bool authEnabled = arg1 == Qt::Checked;
+    CurrentConfig.connectionConfig.forwardProxyConfig.useAuth = authEnabled;
+    fpUsernameTx->setEnabled(authEnabled);
+    fpPasswordTx->setEnabled(authEnabled);
+}
+
+void PreferencesWindow::on_fpUsernameTx_textEdited(const QString &arg1)
+{
+    CurrentConfig.connectionConfig.forwardProxyConfig.username = arg1;
+}
+
+void PreferencesWindow::on_fpPasswordTx_textEdited(const QString &arg1)
+{
+    CurrentConfig.connectionConfig.forwardProxyConfig.password = arg1;
+}
+
+void PreferencesWindow::on_fpPortSB_valueChanged(int arg1)
+{
+    CurrentConfig.connectionConfig.forwardProxyConfig.port = arg1;
 }
