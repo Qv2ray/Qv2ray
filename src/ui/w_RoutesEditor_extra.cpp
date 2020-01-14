@@ -36,30 +36,30 @@ void RouteEditor::AddNewOutbound(OUTBOUND out)
 void RouteEditor::AddNewRule(RuleObject rule)
 {
     // Prevent duplicate
-    if (ruleNodes.contains(QSTRING(rule.QV2RAY_RULE_TAG))) {
-        rule.QV2RAY_RULE_TAG += "-" + GenerateRandomString(5).toStdString();
+    if (ruleNodes.contains(rule.QV2RAY_RULE_TAG)) {
+        rule.QV2RAY_RULE_TAG += "-" + GenerateRandomString(5);
     }
 
-    rules[QSTRING(rule.QV2RAY_RULE_TAG)] = rule;
+    rules[rule.QV2RAY_RULE_TAG] = rule;
     auto pos = nodeGraphWidget->pos();
     pos.setX(pos.x() + 350 + GRAPH_GLOBAL_OFFSET_X);
     pos.setY(pos.y() + ruleNodes.count() * 120 + GRAPH_GLOBAL_OFFSET_Y);
-    auto _nodeData = make_unique<QvRuleNodeDataModel>(make_shared<RuleNodeData>(QSTRING(rule.QV2RAY_RULE_TAG)));
+    auto _nodeData = make_unique<QvRuleNodeDataModel>(make_shared<RuleNodeData>(rule.QV2RAY_RULE_TAG));
     auto &node = nodeScene->createNode(std::move(_nodeData));
     nodeScene->setNodePosition(node, pos);
 
     for (auto inTag : rule.inboundTag) {
-        auto inboundNode = inboundNodes[QSTRING(inTag)];
+        auto inboundNode = inboundNodes[inTag];
         nodeScene->createConnection(node, 0, *inboundNode, 0);
     }
 
     // If not using balancers (use outbound tag)
-    if (!rule.QV2RAY_RULE_USE_BALANCER && outboundNodes.contains(QSTRING(rule.outboundTag))) {
-        nodeScene->createConnection(*outboundNodes[QSTRING(rule.outboundTag)], 0, node, 0);
+    if (!rule.QV2RAY_RULE_USE_BALANCER && outboundNodes.contains(rule.outboundTag)) {
+        nodeScene->createConnection(*outboundNodes[rule.outboundTag], 0, node, 0);
     }
 
-    this->ruleNodes[QSTRING(rule.QV2RAY_RULE_TAG)] = &node;
-    ruleListWidget->addItem(QSTRING(rule.QV2RAY_RULE_TAG));
+    this->ruleNodes[rule.QV2RAY_RULE_TAG] = &node;
+    ruleListWidget->addItem(rule.QV2RAY_RULE_TAG);
 }
 
 void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString &originalTag, const QString &newTag)
@@ -75,7 +75,7 @@ void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString &originalTag
                 rules[newTag] = rules.take(originalTag);
                 ruleNodes[newTag] = ruleNodes.take(originalTag);
                 //
-                rules[newTag].QV2RAY_RULE_TAG = newTag.toStdString();
+                rules[newTag].QV2RAY_RULE_TAG = newTag;
 
                 if (currentRuleTag == originalTag) {
                     currentRuleTag = newTag;
@@ -107,8 +107,8 @@ void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString &originalTag
                 for (auto k : rules.keys()) {
                     auto v = rules[k];
 
-                    if (v.outboundTag == originalTag.toStdString()) {
-                        v.outboundTag = newTag.toStdString();
+                    if (v.outboundTag == originalTag) {
+                        v.outboundTag = newTag;
                         // Put this inside the if block since no need an extra operation if the condition is false.
                         rules[k] = v;
                     }
@@ -134,9 +134,9 @@ void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString &originalTag
                 for (auto k : rules.keys()) {
                     auto v = rules[k];
 
-                    if (contains(v.inboundTag, originalTag.toStdString())) {
-                        v.inboundTag.remove(originalTag.toStdString());
-                        v.inboundTag.push_back(newTag.toStdString());
+                    if (v.inboundTag.contains(originalTag)) {
+                        v.inboundTag.removeAll(originalTag);
+                        v.inboundTag.append(newTag);
                         // Put this inside the if block since no need an extra operation if the condition is false.
                         rules[k] = v;
                     }

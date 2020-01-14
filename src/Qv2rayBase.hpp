@@ -5,24 +5,24 @@
 #include <QMap>
 #include <vector>
 #include <algorithm>
+#include <ctime>
 #include "QvTinyLog.hpp"
 #include "QvCoreConfigObjects.hpp"
 
-#define QV2RAY_CONFIG_VERSION 5
+const int QV2RAY_CONFIG_VERSION = 6;
 
-// Linux DEs should handle the ui schemes themselves.
-// --> Or.. should we change this into a modifyable setting?
-#ifdef Q_OS_LINUX
-#define QV2RAY_USE_BUILTIN_DARKTHEME false
-#else
-#define QV2RAY_USE_BUILTIN_DARKTHEME true
+// Linux users and DEs should handle the darkMode UI themselves.
+#ifndef QV2RAY_USE_BUILTIN_DARKTHEME
+# ifndef Q_OS_LINUX
+#  define QV2RAY_USE_BUILTIN_DARKTHEME
+# endif
 #endif
 
 // Base folder suffix.
 #ifdef QT_DEBUG
-#define QV2RAY_CONFIG_DIR_SUFFIX "_debug/"
+# define QV2RAY_CONFIG_DIR_SUFFIX "_debug/"
 #else
-#define QV2RAY_CONFIG_DIR_SUFFIX "/"
+# define QV2RAY_CONFIG_DIR_SUFFIX "/"
 #endif
 
 // Get Configured Config Dir Path
@@ -39,13 +39,17 @@
 #define QV2RAY_GENERATED_DIR (QV2RAY_CONFIG_DIR + "generated/")
 #define QV2RAY_GENERATED_FILE_PATH (QV2RAY_GENERATED_DIR + "config.gen.json")
 
-#ifndef QV2RAY_DEFAULT_VCORE_PATH
-#define QV2RAY_DEFAULT_VASSETS_PATH (QV2RAY_CONFIG_DIR + "vcore/")
-#ifdef Q_OS_WIN
-#define QV2RAY_DEFAULT_VCORE_PATH (QV2RAY_CONFIG_DIR + "vcore/v2ray.exe")
+#if ! defined (QV2RAY_DEFAULT_VCORE_PATH) && ! defined (QV2RAY_DEFAULT_VASSETS_PATH)
+#   define QV2RAY_DEFAULT_VASSETS_PATH (QV2RAY_CONFIG_DIR + "vcore/")
+#   ifdef Q_OS_WIN
+#       define QV2RAY_DEFAULT_VCORE_PATH  (QV2RAY_CONFIG_DIR + "vcore/v2ray.exe")
+#   else
+#       define QV2RAY_DEFAULT_VCORE_PATH  (QV2RAY_CONFIG_DIR + "vcore/v2ray")
+#   endif
+#elif defined (QV2RAY_DEFAULT_VCORE_PATH) && defined (QV2RAY_DEFAULT_VASSETS_PATH)
+// ---- Using user-specified VCore and VAssets path
 #else
-#define QV2RAY_DEFAULT_VCORE_PATH (QV2RAY_CONFIG_DIR + "vcore/v2ray")
-#endif
+#   error Both QV2RAY_DEFAULT_VCORE_PATH and QV2RAY_DEFAULT_VASSETS_PATH need to present when specifying the paths.
 #endif
 
 #define QV2RAY_VCORE_LOG_DIRNAME "logs/"
@@ -62,15 +66,15 @@
 #define BLACK(obj)                             \
     obj->setPalette(this->palette());
 
-#define QV2RAY_UI_RESOURCES_ROOT QSTRING(QV2RAY_IS_DARKTHEME ? ":/icons/ui_dark/" : ":/icons/ui_light/")
+#define QV2RAY_UI_RESOURCES_ROOT (QV2RAY_IS_DARKTHEME ? QStringLiteral(":/icons/ui_dark/") : QStringLiteral(":/icons/ui_light/"))
 #define QICON_R(file) QIcon(QV2RAY_UI_RESOURCES_ROOT + file)
 
-#define QSTRING(std_string) QString::fromStdString(std_string)
+#define QSTRN(num) QString::number(num)
+
 #define NEWLINE "\r\n"
 
-#ifndef MAX
-#define MAX(a, b) (((a) > (b)) ? (a) : (b))
-#endif
+using namespace std;
+using namespace std::chrono;
 
 namespace Qv2ray
 {
@@ -79,7 +83,7 @@ namespace Qv2ray
     QJsonObject UpgradeConfig(int fromVersion, int toVersion, QJsonObject root);
 
     struct QvBarLine {
-        string          Family;
+        QString         Family;
         bool            Bold;
         bool            Italic;
         int             ColorA;
@@ -88,7 +92,7 @@ namespace Qv2ray
         int             ColorB;
         int             ContentType;
         double          Size;
-        string          Message;
+        QString         Message;
         QvBarLine()
             : Family("Consolas")
             , Bold(true)
@@ -96,35 +100,55 @@ namespace Qv2ray
             , ColorA(255), ColorR(255), ColorG(255), ColorB(255)
             , ContentType(0)
             , Size(9),
-              Message() { }
+              Message("") { }
         XTOSTRUCT(O(Bold, Italic, ColorA, ColorR, ColorG, ColorB, Size, Family, Message, ContentType))
     };
 
-
     struct QvBarPage {
         int OffsetYpx;
-        vector<QvBarLine> Lines;
+        QList<QvBarLine> Lines;
         QvBarPage() : OffsetYpx(5) { }
         XTOSTRUCT(O(OffsetYpx, Lines))
     };
 
     struct Qv2rayToolBarConfig {
-        vector<QvBarPage> Pages;
+        QList<QvBarPage> Pages;
         XTOSTRUCT(O(Pages))
     };
 
     namespace QvConfigModels
     {
+        struct Qv2raySubscriptionConfig {
+            time_t lastUpdated;
+            float updateInterval;
+            QString address;
+            Qv2raySubscriptionConfig() : lastUpdated(system_clock::to_time_t(system_clock::now())), updateInterval(5), address("") { }
+            XTOSTRUCT(O(lastUpdated, updateInterval, address))
+        };
+
         struct Qv2rayPACConfig {
             bool enablePAC;
             int port;
-            string localIP;
+            QString localIP;
             bool useSocksProxy;
             Qv2rayPACConfig() : enablePAC(false), port(8989), useSocksProxy(false) { }
             XTOSTRUCT(O(enablePAC, port, localIP, useSocksProxy))
         };
+
+        struct Qv2rayForwardProxyConfig {
+            bool enableForwardProxy;
+            QString type;
+            QString serverAddress;
+            int port;
+            bool useAuth;
+            QString username;
+            QString password;
+
+            XTOSTRUCT(O(enableForwardProxy, type, serverAddress, port, useAuth, username, password))
+        };
+
         struct Qv2rayInboundsConfig {
-            string listenip;
+            QString listenip;
             bool setSystemProxy;
             Qv2rayPACConfig pacConfig;
 
@@ -133,13 +157,14 @@ namespace Qv2ray
             int socks_port;
             bool socks_useAuth;
             bool socksUDP;
-            string socksLocalIP;
+            QString socksLocalIP;
             AccountObject socksAccount;
             // HTTP
             bool useHTTP;
             int http_port;
             bool http_useAuth;
             AccountObject httpAccount;
+
             Qv2rayInboundsConfig():
                 listenip("127.0.0.1"), setSystemProxy(false), pacConfig(),
                 useSocks(true), socks_port(1088), socks_useAuth(false), socksUDP(true), socksLocalIP("127.0.0.1"), socksAccount(),
@@ -149,8 +174,8 @@ namespace Qv2ray
         };
 
         struct Qv2rayUIConfig {
-            string theme;
-            string language;
+            QString theme;
+            QString language;
             bool useDarkTheme;
             bool useDarkTrayIcon;
             Qv2rayUIConfig() : theme("Fusion"), language("en-US"), useDarkTheme(false), useDarkTrayIcon(true) { }
@@ -161,10 +186,12 @@ namespace Qv2ray
             bool bypassCN;
             bool enableProxy;
             bool withLocalDNS;
-            list<string> dnsList;
+            QList<QString> dnsList;
             int statsPort;
-            Qv2rayConnectionConfig() : bypassCN(true), enableProxy(true), withLocalDNS(true), dnsList(), statsPort(15490) { }
-            XTOSTRUCT(O(bypassCN, enableProxy, withLocalDNS, dnsList, statsPort))
+            Qv2rayForwardProxyConfig forwardProxyConfig;
+
+            Qv2rayConnectionConfig() : bypassCN(true), enableProxy(true), withLocalDNS(false), dnsList(QStringList() << "8.8.4.4" << "1.1.1.1"), statsPort(15490) { }
+            XTOSTRUCT(O(bypassCN, enableProxy, withLocalDNS, dnsList, statsPort, forwardProxyConfig))
         };
 
         struct Qv2rayConfig {
@@ -172,13 +199,13 @@ namespace Qv2ray
             bool tProxySupport;
             int logLevel;
             //
-            string v2CorePath;
-            string v2AssetsPath;
-            ConfigIdentifier autoStartConfig;
-            string ignoredVersion;
+            QString v2CorePath;
+            QString v2AssetsPath;
+            QvConfigIdentifier autoStartConfig;
+            QString ignoredVersion;
             //
-            list<string> configs;
-            map<string, string> subscribes;
+            QList<QString> configs;
+            QMap<QString, Qv2raySubscriptionConfig> subscriptions;
             //
             Qv2rayUIConfig uiConfig;
             Qv2rayInboundsConfig inboundConfig;
@@ -194,7 +221,7 @@ namespace Qv2ray
                 autoStartConfig(),
                 ignoredVersion(),
                 configs(),
-                subscribes(),
+                subscriptions(),
                 uiConfig(),
                 inboundConfig(),
                 connectionConfig(),
@@ -208,7 +235,7 @@ namespace Qv2ray
                         v2CorePath, v2AssetsPath,
                         configs,
                         uiConfig,
-                        subscribes, inboundConfig, connectionConfig, toolBarConfig))
+                        subscriptions, inboundConfig, connectionConfig, toolBarConfig))
         };
 
     }

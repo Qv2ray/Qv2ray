@@ -8,7 +8,6 @@ namespace Qv2ray
 {
     namespace Utils
     {
-
         void SetConfigDirPath(const QString *path);
         QString GetConfigDirPath();
 
@@ -21,6 +20,7 @@ namespace Qv2ray
         {
             return in["tag"].toString();
         }
+
         inline QString getTag(const OUTBOUND &in)
         {
             return in["tag"].toString();

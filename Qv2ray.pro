@@ -24,21 +24,24 @@ DEFINES += QT_DEPRECATED_WARNINGS QV2RAY_VERSION_STRING=\"\\\"v$${VERSION}\\\"\"
 
 # Don't merge those configs with below.
 CONFIG += enable_decoder_qr_code enable_encoder_qr_code qt c++11 openssl-linked
+
 include(3rdparty/qzxing/src/QZXing-components.pri)
 include(3rdparty/SingleApplication/singleapplication.pri)
 include(3rdparty/QNodeEditor/QNodeEditor.pri)
+include(3rdparty/x2struct/x2struct.pri)
 
 # Main config
 CONFIG += lrelease embed_translations
 
 SOURCES += \
-        src/components/QvAutoStartConfigurator.cpp \
         src/components/QvComponentsHandler.cpp \
+        src/components/QvCore/QvCommandLineArgs.cpp \
+        src/components/QvKernelInteractions.cpp \
+        src/components/QvLaunchAtLoginConfigurator.cpp \
         src/components/QvPACHandler.cpp \
         src/components/QvSystemProxyConfigurator.cpp \
         src/components/QvTCPing.cpp \
         src/main.cpp \
-        src/components/QvCoreInteractions.cpp \
         src/components/QvGFWPACConverter.cpp \
         src/components/QvHTTPRequestHelper.cpp \
         src/components/QvLogHighlighter.cpp \
@@ -81,10 +84,11 @@ HEADERS += \
         src/QvCoreConfigObjects.hpp \
         src/QvCoreConfigOperations.hpp \
         src/QvUtils.hpp \
-        src/components/QvAutoStartConfigurator.hpp \
         src/components/QvComponentsHandler.hpp \
-        src/components/QvCoreInteractions.hpp \
+        src/components/QvCore/QvCommandLineArgs.hpp \
         src/components/QvHTTPRequestHelper.hpp \
+        src/components/QvKernelInteractions.hpp \
+        src/components/QvLaunchAtLoginConfigurator.hpp \
         src/components/QvLogHighlighter.hpp \
         src/components/QvNetSpeedPlugin.hpp \
         src/components/QvPACHandler.hpp \
@@ -227,12 +231,20 @@ win32 {
 
 }
 
+macx {
+    # For Linux and macOS
+    message("Configuring for macOS specific environment")
+    LIBS += -framework Carbon -framework Cocoa
+    LIBS += -lgpr
+}
+
+# Reuse unix for macx as well
 unix {
     # For Linux and macOS
-    message("Configuring for unix-like (macOS and linux) environment")
+    message("Configuring for unix-like environment")
     # For gRPC and protobuf in linux and macOS
     message("  --> Linking against gRPC and protobuf library.")
-    LIBS += -L/usr/local/lib -lgrpc++ -lprotobuf -lgrpc -lgpr
+    LIBS += -L/usr/local/lib -lgrpc++ -lprotobuf -lgrpc
 
     # macOS homebrew include path
     message("  --> Adding local include folder to search path")
@@ -251,6 +263,20 @@ unix {
 
     target.path = /usr/local/bin/
     INSTALLS += target desktop icon
+}
+
+build_flatpak {
+    # For Packaging
+    message("Configuring for packaging platform")
+    message("  --> Generating metainfo dependency.")
+    appdataXml.files += ./icons/qv2ray.metainfo.xml
+    appdataXml.path = /app/share/metainfo/
+    LIBS += -L/app/lib
+    INCLUDEPATH += /app/include/
+    desktop.path = /app/share/applications/
+    icon.path = /app/share/icons/hicolor/256x256/apps/
+    target.path = /app/bin/
+    INSTALLS += appdataXml
 }
 
 message(" ")

@@ -8,7 +8,7 @@
 #include "qzxing/src/QZXing.h"
 
 #include "QvUtils.hpp"
-#include "QvCoreInteractions.hpp"
+#include "QvKernelInteractions.hpp"
 #include "QvCoreConfigOperations.hpp"
 
 #include "w_ScreenShot_Core.hpp"
@@ -51,7 +51,7 @@ void ImportConfigWindow::on_qrFromScreenBtn_clicked()
         auto str = QZXing().decodeImage(pix);
 
         if (str.trimmed().isEmpty()) {
-            LOG(MODULE_UI, "Cannot decode QR Code from an image, size: h=" + to_string(pix.width()) + ", v=" + to_string(pix.height()))
+            LOG(MODULE_UI, "Cannot decode QR Code from an image, size: h=" + QSTRN(pix.width()) + ", v=" + QSTRN(pix.height()))
             QvMessageBox(this, tr("Capture QRCode"), tr("Cannot find a valid QRCode from this region."));
         } else {
             vmessConnectionStringTxt->appendPlainText(str.trimmed() + NEWLINE);
@@ -70,7 +70,7 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
             bool keepInBound = keepImportedInboundCheckBox->isChecked();
             QString path = fileLineTxt->text();
 
-            if (!ConnectionInstance::ValidateConfig(path)) {
+            if (!V2rayKernelInstance::ValidateConfig(path)) {
                 QvMessageBox(this, tr("Import config file"), tr("Failed to check the validity of the config file."));
                 return;
             }
@@ -89,7 +89,7 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
             vmessConnectionStringTxt->clear();
             errorsList->clear();
             //
-            LOG(MODULE_IMPORT, to_string(vmessList.count()) + " string found in vmess box.")
+            LOG(MODULE_IMPORT, QSTRN(vmessList.count()) + " string found in vmess box.")
 
             while (!vmessList.isEmpty()) {
                 aliasPrefix = nameTxt->text();
@@ -100,7 +100,7 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
                 // If the config is empty or we have any err messages.
                 if (config.isEmpty() || !errMessage.isEmpty()) {
                     // To prevent duplicated values.
-                    vmessErrors[vmess] = QString::number(vmessErrors.count() + 1) + ": " + errMessage;
+                    vmessErrors[vmess] = QSTRN(vmessErrors.count() + 1) + ": " + errMessage;
                     continue;
                 } else {
                     connections[aliasPrefix] = config;

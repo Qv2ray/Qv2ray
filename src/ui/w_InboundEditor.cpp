@@ -23,7 +23,7 @@ InboundEditor::InboundEditor(INBOUND root, QWidget *parent) :
         mtSettings = root["settings"].toObject();
     } else {
         if (!root["protocol"].toString().isEmpty()) {
-            LOG(MODULE_UI, "Unsupported inbound type: " + inboundType.toStdString())
+            LOG(MODULE_UI, "Unsupported inbound type: " + inboundType)
             QvMessageBox(this, tr("Inbound type not supported"), tr("The inbound type is not supported by Qv2ray (yet). Please use JsonEditor to change the settings") + "\r\n" +
                          tr("Inbound: ") + inboundType);
         } else {
@@ -188,7 +188,7 @@ void InboundEditor::on_httpRemoveUserBtn_clicked()
             if (entry == item->text().trimmed()) {
                 list.removeAt(i);
                 httpSettings["accounts"] = list;
-                LOG(MODULE_UI, "Removed http inbound user " + entry.toStdString())
+                LOG(MODULE_UI, "Removed http inbound user " + entry)
                 httpAccountListBox->takeItem(httpAccountListBox->currentRow());
             }
         }
@@ -241,7 +241,7 @@ void InboundEditor::on_socksRemoveUserBtn_clicked()
             if (entry == item->text().trimmed()) {
                 list.removeAt(i);
                 socksSettings["accounts"] = list;
-                LOG(MODULE_UI, "Removed http inbound user " + entry.toStdString())
+                LOG(MODULE_UI, "Removed http inbound user " + entry)
                 socksAccountListBox->takeItem(socksAccountListBox->currentRow());
                 return;
             }

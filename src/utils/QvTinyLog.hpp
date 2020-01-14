@@ -10,7 +10,7 @@ using namespace std;
  * Tiny log module.
  */
 
-void _LOG(const std::string &func, const std::string &module, const std::string &log);
+void _LOG(const std::string &func, const QString &module, const QString &log);
 const QString readLastLog();
 
 #ifdef QV2RAY_LOG_WITH_FUNCTION_NAME

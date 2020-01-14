@@ -138,13 +138,30 @@ class PreferencesWindow : public QDialog, private Ui::PreferencesWindow
 
         void on_removeBootStart_clicked();
 
+        void on_fpEnabledCB_stateChanged(int arg1);
+
+        void on_fpTypeCombo_currentIndexChanged(const QString &arg1);
+
+        void on_fpAddressTx_textEdited(const QString &arg1);
+
+        void on_spPortSB_valueChanged(int arg1);
+
+        void on_fpUseAuthCB_stateChanged(int arg1);
+
+        void on_fpUsernameTx_textEdited(const QString &arg1);
+
+        void on_fpPasswordTx_textEdited(const QString &arg1);
+
+        void on_fpPortSB_valueChanged(int arg1);
+
     private:
+        void SetAutoStartButtonsState(bool isAutoStart);
         // Set ui parameters for a line;
         void ShowLineParameters(QvBarLine &line);
         QString GetBarLineDescription(QvBarLine line);
         //
-        size_t CurrentBarLineId;
-        size_t CurrentBarPageId;
+        int CurrentBarLineId;
+        int CurrentBarPageId;
         //
         bool IsConnectionPropertyChanged = false;
         bool finishedLoading = false;

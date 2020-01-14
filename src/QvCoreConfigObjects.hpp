@@ -4,6 +4,7 @@
 #include <string>
 #include <QJsonObject>
 #include <QJsonArray>
+#include <QVariant>
 #include <x2struct/x2struct.hpp>
 using namespace x2struct;
 using namespace std;
@@ -16,20 +17,67 @@ using namespace std;
             const Base& raw() const { return *this; } \
     };
 
+struct QvConfigIdentifier {
+    QString subscriptionName;
+    QString connectionName;
+    QvConfigIdentifier() { };
+    //
+    bool isEmpty()
+    {
+        return connectionName.isEmpty();
+    }
+    QvConfigIdentifier(QString connectionName)
+    {
+        this->connectionName = connectionName;
+    }
+    QvConfigIdentifier(QString connectionName, QString subscriptionName)
+    {
+        this->connectionName = connectionName;
+        this->subscriptionName = subscriptionName;
+    }
+    const QString IdentifierString() const
+    {
+        return connectionName + (subscriptionName.isEmpty() ? "" : " (" + subscriptionName + ")");
+    }
+    friend bool operator==(QvConfigIdentifier &left, QvConfigIdentifier &right)
+    {
+        return left.subscriptionName == right.subscriptionName && left.connectionName == right.connectionName;
+    }
+    friend bool operator!=(QvConfigIdentifier &left, QvConfigIdentifier &right)
+    {
+        return !(left == right);
+    }
+    friend bool operator==(QvConfigIdentifier &left, QString &right)
+    {
+        return left.IdentifierString() == right;
+    }
+    friend bool operator!=(QvConfigIdentifier &left, QString &right)
+    {
+        return !(left.IdentifierString() == right);
+    }
+    // To make QMap happy
+    friend bool operator<(const QvConfigIdentifier left, const QvConfigIdentifier right)
+    {
+        return left.IdentifierString() < right.IdentifierString();
+    }
+    friend bool operator>(const QvConfigIdentifier left, const QvConfigIdentifier right)
+    {
+        return left.IdentifierString() > right.IdentifierString();
+    }
+    XTOSTRUCT(O(subscriptionName, connectionName))
+};
+
+Q_DECLARE_METATYPE(QvConfigIdentifier);
+
 namespace Qv2ray
 {
     // To prevent anonying QJsonObject misuse
-
-    struct ConfigIdentifier {
-        string subscriptionName;
-        string connectionName;
-        XTOSTRUCT(O(subscriptionName, connectionName))
-    };
     SAFE_TYPEDEF(QJsonObject, INBOUNDSETTING)
     SAFE_TYPEDEF(QJsonObject, OUTBOUNDSETTING)
     SAFE_TYPEDEF(QJsonObject, INBOUND)
     SAFE_TYPEDEF(QJsonObject, OUTBOUND)
     SAFE_TYPEDEF(QJsonObject, CONFIGROOT)
+    SAFE_TYPEDEF(QJsonObject, PROXYSETTING)
     //
     SAFE_TYPEDEF(QJsonArray, INOUTLIST)
     SAFE_TYPEDEF(INOUTLIST, OUTBOUNDS)
@@ -48,15 +96,15 @@ namespace Qv2ray
         //
         // Used in config generation
         struct AccountObject {
-            string user;
-            string pass;
+            QString user;
+            QString pass;
             XTOSTRUCT(O(user, pass))
         };
         //
         //
         struct ApiObject {
-            string tag;
-            list<string> services;
+            QString tag;
+            QList<QString> services;
             ApiObject() : tag("api"), services() {}
             XTOSTRUCT(O(tag, services))
         };
@@ -84,7 +132,7 @@ namespace Qv2ray
         //
         //
         struct PolicyObject {
-            map<string, LevelPolicyObject> level;
+            QMap<QString, LevelPolicyObject> level;
             list<SystemPolicyObject> system;
             PolicyObject(): level(), system() {}
             XTOSTRUCT(O(level, system))
@@ -95,28 +143,28 @@ namespace Qv2ray
             // Added due to the request of @aliyuchang33
             bool QV2RAY_RULE_ENABLED;
             bool QV2RAY_RULE_USE_BALANCER;
-            string QV2RAY_RULE_TAG;
+            QString QV2RAY_RULE_TAG;
             //
-            string type;
-            list<string> domain;
-            list<string> ip;
-            string port;
-            string network;
-            list<string> source;
-            list<string> user;
-            list<string> inboundTag;
-            list<string> protocol;
-            string attrs;
-            string outboundTag;
-            string balancerTag;
+            QString type;
+            QList<QString> domain;
+            QList<QString> ip;
+            QString port;
+            QString network;
+            QList<QString> source;
+            QList<QString> user;
+            QList<QString> inboundTag;
+            QList<QString> protocol;
+            QString attrs;
+            QString outboundTag;
+            QString balancerTag;
             RuleObject() : QV2RAY_RULE_ENABLED(true), QV2RAY_RULE_USE_BALANCER(false), QV2RAY_RULE_TAG("new rule"), type("field"), domain(), ip(), port("1-65535"), network(""), source(), user(), inboundTag(), protocol(), attrs(), outboundTag(""), balancerTag("") {}
             XTOSTRUCT(O(QV2RAY_RULE_ENABLED, QV2RAY_RULE_USE_BALANCER, QV2RAY_RULE_TAG, type, domain, ip, port, network, source, user, inboundTag, protocol, attrs, outboundTag, balancerTag))
         };
         //
         //
         struct BalancerObject {
-            string tag ;
-            list<string> selector;
+            QString tag ;
+            QList<QString> selector;
             BalancerObject() : tag(), selector() {}
             XTOSTRUCT(O(tag, selector))
         };
@@ -125,27 +173,27 @@ namespace Qv2ray
         namespace TSObjects
         {
             struct HTTPRequestObject {
-                string version;
-                string method;
-                list<string> path;
-                map<string, list<string>> headers;
+                QString version;
+                QString method;
+                QList<QString> path;
+                QMap<QString, QList<QString>> headers;
                 HTTPRequestObject(): version("1.1"), method("GET"), path(), headers() {}
                 XTOSTRUCT(O(version, method, path, headers))
             };
             //
             //
             struct HTTPResponseObject {
-                string version;
-                string status;
-                string reason;
-                map<string, list<string>> headers;
+                QString version;
+                QString status;
+                QString reason;
+                QMap<QString, QList<QString>> headers;
                 HTTPResponseObject(): version("1.1"), status("200"), reason("OK"), headers() {}
                 XTOSTRUCT(O(version, status, reason, headers))
             };
             //
             //
             struct TCPHeader_M_Object {
-                string type;
+                QString type;
                 HTTPRequestObject request;
                 HTTPResponseObject response;
                 TCPHeader_M_Object(): type("none"), request(), response() {}
@@ -154,7 +202,7 @@ namespace Qv2ray
             //
             //
             struct HeaderObject {
-                string type;
+                QString type;
                 HeaderObject(): type("none") {}
                 XTOSTRUCT(O(type))
             };
@@ -182,31 +230,31 @@ namespace Qv2ray
             //
             //
             struct WebSocketObject {
-                string path;
-                map<string, string> headers;
+                QString path;
+                QMap<QString, QString> headers;
                 WebSocketObject(): path("/"), headers() {}
                 XTOSTRUCT(O(path, headers))
             };
             //
             //
             struct HttpObject {
-                list<string> host;
-                string path;
+                QList<QString> host;
+                QString path;
                 HttpObject() : host(), path("/") {}
                 XTOSTRUCT(O(host, path))
             };
             //
             //
             struct DomainSocketObject {
-                string path;
+                QString path;
                 DomainSocketObject(): path("/") {}
                 XTOSTRUCT(O(path))
             };
             //
             //
             struct QuicObject {
-                string security;
-                string key;
+                QString security;
+                QString key;
                 HeaderObject header;
                 QuicObject(): security(""), key(""), header() {}
                 XTOSTRUCT(O(security, key, header))
@@ -216,27 +264,27 @@ namespace Qv2ray
             struct SockoptObject {
                 int mark;
                 bool tcpFastOpen;
-                string tproxy;
+                QString tproxy;
                 SockoptObject(): mark(0), tcpFastOpen(false), tproxy("off") {}
                 XTOSTRUCT(O(mark, tcpFastOpen, tproxy))
             };
             //
             //
             struct CertificateObject {
-                string usage;
-                string certificateFile;
-                string keyFile;
-                list<string> certificate;
-                list<string> key;
+                QString usage;
+                QString certificateFile;
+                QString keyFile;
+                QList<QString> certificate;
+                QList<QString> key;
                 CertificateObject(): usage(), certificateFile(), keyFile(), certificate(), key() {}
                 XTOSTRUCT(O(usage, certificateFile, keyFile, certificate, key))
             };
             //
             //
             struct TLSObject {
-                string serverName;
+                QString serverName;
                 bool allowInsecure;
-                list<string> alpn;
+                QList<QString> alpn;
                 list<CertificateObject> certificates;
                 bool disableSystemRoot;
                 TLSObject(): serverName(), allowInsecure(), certificates(), disableSystemRoot() {}
@@ -247,15 +295,15 @@ namespace Qv2ray
         //
         struct SniffingObject {
             bool enabled = false;
-            list<string> destOverride;
+            QList<QString> destOverride;
             SniffingObject(): enabled(), destOverride() {}
             XTOSTRUCT(O(enabled, destOverride))
         };
         //
         //
         struct StreamSettingsObject  {
-            string network;
-            string security;
+            QString network;
+            QString security;
             TSObjects::SockoptObject sockopt;
             TSObjects::TLSObject tlsSettings;
             TSObjects::TCPObject tcpSettings;
@@ -281,8 +329,8 @@ namespace Qv2ray
         {
             // DNS, OutBound
             struct DNSOut {
-                string network;
-                string address;
+                QString network;
+                QString address;
                 int port;
                 DNSOut(): network(""), address("0.0.0.0"), port(0) {}
                 XTOSTRUCT(O(network, address, port))
@@ -291,9 +339,9 @@ namespace Qv2ray
             // MTProto, InBound || OutBound
             struct MTProtoIn {
                 struct UserObject {
-                    string email;
+                    QString email;
                     int level;
-                    string secret;
+                    QString secret;
                     UserObject() : email("user@domain.com"), level(0), secret("") {}
                     XTOSTRUCT(O(email, level, secret))
                 };
@@ -304,14 +352,14 @@ namespace Qv2ray
             // Socks, OutBound
             struct SocksServerObject {
                 struct UserObject {
-                    string user;
-                    string pass;
+                    QString user;
+                    QString pass;
                     int level;
                     UserObject(): user("username"), pass("password"), level(0) {}
                     XTOSTRUCT(O(user, pass, level))
                 };
 
-                string address;
+                QString address;
                 int port;
                 list<UserObject> users;
                 SocksServerObject(): address("0.0.0.0"), port(0), users() {}
@@ -321,15 +369,15 @@ namespace Qv2ray
             // VMess Server
             struct VMessServerObject {
                 struct UserObject {
-                    string id;
+                    QString id;
                     int alterId;
-                    string security;
+                    QString security;
                     int level;
                     UserObject() : id(""), alterId(64), security("auto"), level(0) {}
                     XTOSTRUCT(O(id, alterId, security, level))
                 };
 
-                string address;
+                QString address;
                 int port;
                 list<UserObject> users;
                 VMessServerObject(): address(""), port(0), users() {}
@@ -338,10 +386,10 @@ namespace Qv2ray
             //
             // ShadowSocks Server
             struct ShadowSocksServerObject {
-                string email;
-                string address;
-                string method;
-                string password;
+                QString email;
+                QString address;
+                QString method;
+                QString password;
                 bool ota;
                 int level;
                 int port;

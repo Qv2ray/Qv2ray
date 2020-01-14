@@ -1,6 +1,5 @@
 ﻿#include "w_SubscriptionEditor.hpp"
 #include "QvHTTPRequestHelper.hpp"
-#include "QvUtils.hpp"
 #include "QvCoreConfigOperations.hpp"
 
 SubscribeEditor::SubscribeEditor(QWidget *parent) :
@@ -11,14 +10,14 @@ SubscribeEditor::SubscribeEditor(QWidget *parent) :
     addSubsButton->setIcon(QICON_R("add.png"));
     removeSubsButton->setIcon(QICON_R("delete.png"));
 
-    for (auto _ : conf.subscribes) {
-        subscriptions[QSTRING(_.first)] = QSTRING(_.second);
+    for (auto i = conf.subscriptions.begin(); i != conf.subscriptions.end(); i++) {
+        subscriptions[i.key()] = i.value();
     }
 
     LoadSubscriptionList(subscriptions);
 }
 
-void SubscribeEditor::LoadSubscriptionList(QMap<QString, QString> list)
+void SubscribeEditor::LoadSubscriptionList(QMap<QString, Qv2raySubscriptionConfig> list)
 {
     subscriptionList->clear();
 
@@ -37,9 +36,9 @@ SubscribeEditor::~SubscribeEditor()
 
 void SubscribeEditor::on_addSubsButton_clicked()
 {
-    auto const key = QString::number(QTime::currentTime().msecsSinceStartOfDay());
+    auto const key = QSTRN(QTime::currentTime().msecsSinceStartOfDay());
     subscriptionList->addItem(key);
-    subscriptions[key] = "http://example.com/myfile";
+    subscriptions[key].address = "http://example.com/myfile";
     QDir().mkpath(QV2RAY_SUBSCRIPTION_DIR + key);
     subscriptionList->setCurrentRow(subscriptions.count() - 1);
     SaveConfig();
@@ -49,10 +48,11 @@ void SubscribeEditor::on_updateButton_clicked()
 {
     auto newName = subNameTxt->text().trimmed();
     auto newAddress = subAddrTxt->text().trimmed();
+    auto newUpdateInterval = updateIntervalSB->value();
 
     if (currentSubName != newName) {
         // Rename needed.
-        LOG(MODULE_SUBSCRIPTION, "Renaming a subscription, from " + currentSubName.toStdString() + " to: " + newName.toStdString())
+        LOG(MODULE_SUBSCRIPTION, "Renaming a subscription, from " + currentSubName + " to: " + newName)
         bool canGo = true;
 
         if (newName.isEmpty() || !IsValidFileName(newName)) {
@@ -83,10 +83,10 @@ void SubscribeEditor::on_updateButton_clicked()
         //
         // Update auto-start config if possible
         auto conf = GetGlobalConfig();
-        auto ASsetting = QSTRING(conf.autoStartConfig.subscriptionName);
+        auto ASsetting = conf.autoStartConfig.subscriptionName;
 
         if (ASsetting == currentSubName) {
-            conf.autoStartConfig.subscriptionName = newName.toStdString();
+            conf.autoStartConfig.subscriptionName = newName;
         }
 
         SetGlobalConfig(conf);
@@ -95,9 +95,11 @@ void SubscribeEditor::on_updateButton_clicked()
         QvMessageBox(this, tr("Renaming a subscription"), tr("Successfully renamed a subscription"));
     }
 
-    if (subscriptions[currentSubName] != newAddress) {
-        LOG(MODULE_SUBSCRIPTION, ("Setting new address, from " + subscriptions[currentSubName] + " to: " + newAddress).toStdString())
-        subscriptions[currentSubName] = newAddress;
+    subscriptions[currentSubName].updateInterval = newUpdateInterval;
+
+    if (subscriptions[currentSubName].address != newAddress) {
+        LOG(MODULE_SUBSCRIPTION, "Setting new address, from " + subscriptions[currentSubName].address + " to: " + newAddress)
+        subscriptions[currentSubName].address = newAddress;
     }
 
     SaveConfig();
@@ -110,7 +112,7 @@ void SubscribeEditor::on_updateButton_clicked()
 void SubscribeEditor::StartUpdateSubscription(const QString &subscriptionName)
 {
     this->setEnabled(false);
-    auto data = helper.syncget(subscriptions[subscriptionName]);
+    auto data = helper.syncget(subscriptions[subscriptionName].address);
     auto content = DecodeSubscriptionString(data).trimmed();
 
     if (!content.isEmpty()) {
@@ -125,13 +127,14 @@ void SubscribeEditor::StartUpdateSubscription(const QString &subscriptionName)
             auto config = ConvertConfigFromVMessString(vmess.trimmed(), &_alias, &errMessage);
 
             if (!errMessage.isEmpty()) {
-                LOG(MODULE_SUBSCRIPTION, "Processing a subscription with following error: " + errMessage.toStdString())
+                LOG(MODULE_SUBSCRIPTION, "Processing a subscription with following error: " + errMessage)
             } else {
                 connectionsList->addItem(_alias);
                 SaveSubscriptionConfig(config, subscriptionName, _alias);
             }
         }
 
+        subscriptions[subscriptionName].lastUpdated = system_clock::to_time_t(system_clock::now());
         isUpdateInProgress = false;
     } else {
         LOG(MODULE_NETWORK, "We have received an empty string from the URL.")
@@ -157,7 +160,7 @@ void SubscribeEditor::on_removeSubsButton_clicked()
     // If removed a whole subscription...
     auto conf = GetGlobalConfig();
 
-    if (conf.autoStartConfig.subscriptionName == name.toStdString()) {
+    if (conf.autoStartConfig.subscriptionName == name) {
         conf.autoStartConfig.subscriptionName.clear();
         conf.autoStartConfig.connectionName.clear();
         SetGlobalConfig(conf);
@@ -178,13 +181,15 @@ void SubscribeEditor::on_subscriptionList_currentRowChanged(int currentRow)
     }
 
     currentSubName = subscriptionList->currentItem()->text();
-    LOG(MODULE_UI, "Subscription row changed, new name: " + currentSubName.toStdString())
+    LOG(MODULE_UI, "Subscription row changed, new name: " + currentSubName)
     //
     subNameTxt->setText(currentSubName);
-    subAddrTxt->setText(subscriptions[currentSubName]);
+    subAddrTxt->setText(subscriptions[currentSubName].address);
+    updateIntervalSB->setValue(subscriptions[currentSubName].updateInterval);
+    lastUpdatedLabel->setText(QString::fromStdString(timeToString(subscriptions[currentSubName].lastUpdated)));
     //
     connectionsList->clear();
-    auto _list = GetSubscriptionConnection(currentSubName.toStdString());
+    auto _list = GetSubscriptionConnection(currentSubName);
 
     for (auto i = 0; i < _list.count(); i++) {
         connectionsList->addItem(_list.keys()[i]);
@@ -194,15 +199,15 @@ void SubscribeEditor::on_subscriptionList_currentRowChanged(int currentRow)
 void SubscribeEditor::SaveConfig()
 {
     auto conf = GetGlobalConfig();
-    QMap<string, string> newConf;
+    QMap<QString, Qv2raySubscriptionConfig> newConf;
 
     for (auto _ : subscriptions.toStdMap()) {
-        if (!_.second.isEmpty()) {
-            newConf[_.first.toStdString()] = _.second.toStdString();
+        if (!_.second.address.isEmpty()) {
+            newConf[_.first] = _.second;
         }
     }
 
-    conf.subscribes = newConf.toStdMap();
+    conf.subscriptions = newConf;
     SetGlobalConfig(conf);
 }
 
@@ -214,4 +219,9 @@ void SubscribeEditor::on_buttonBox_accepted()
 void SubscribeEditor::on_subscriptionList_itemSelectionChanged()
 {
     groupBox_2->setEnabled(subscriptionList->selectedItems().count() > 0);
+}
+
+void SubscribeEditor::on_updateIntervalSB_valueChanged(double arg1)
+{
+    subscriptions[currentSubName].updateInterval = arg1;
 }

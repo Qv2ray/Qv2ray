@@ -1,10 +1,9 @@
 #include <QObject>
 #include <QWidget>
 #include <QDesktopServices>
-#include "QvCoreInteractions.hpp"
+#include "QvKernelInteractions.hpp"
 #include "QvCoreConfigOperations.hpp"
-
-#include "QvTinyLog.hpp"
+#include "QvCore/QvCommandLineArgs.hpp"
 
 using namespace v2ray::core::app::stats::command;
 using grpc::Channel;
@@ -16,22 +15,28 @@ using grpc::Status;
 
 namespace Qv2ray
 {
-    namespace QvCoreInteration
+    namespace QvKernelInterations
     {
-        bool ConnectionInstance::ValidateConfig(const QString &path)
+        bool V2rayKernelInstance::ValidateConfig(const QString &path)
         {
             auto conf = GetGlobalConfig();
+            QFile coreFile(conf.v2CorePath);
+            bool coreFileExists = coreFile.exists() && coreFile.open(QFile::ReadOnly);
 
-            if (QFile::exists(QSTRING(conf.v2CorePath))) {
+            if (coreFileExists) {
+                coreFile.close();
+            }
+
+            if (coreFileExists) {
                 QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
-                env.insert("V2RAY_LOCATION_ASSET", QSTRING(conf.v2AssetsPath));
+                env.insert("V2RAY_LOCATION_ASSET", conf.v2AssetsPath);
                 QProcess process;
                 process.setProcessEnvironment(env);
-                process.start(QSTRING(conf.v2CorePath), QStringList() << "-test" << "-config" << path, QIODevice::ReadWrite | QIODevice::Text);
+                process.start(conf.v2CorePath, QStringList() << "-test" << "-config" << path, QIODevice::ReadWrite | QIODevice::Text);
 
                 if (!process.waitForFinished(1000) && process.exitCode() != 0) {
-                    LOG(MODULE_VCORE, "v2ray core failed with exitcode: " + to_string(process.exitCode()))
-                    QvMessageBox(nullptr, tr("Cannot start v2ray"), tr("v2ray core failed with errcode:") + QString::number(process.exitCode()));
+                    LOG(MODULE_VCORE, "v2ray core failed with exitcode: " + QSTRN(process.exitCode()))
+                    QvMessageBox(nullptr, tr("Cannot start v2ray"), tr("v2ray core failed with errcode:") + QSTRN(process.exitCode()));
                     return false;
                 }
 
@@ -45,15 +50,15 @@ namespace Qv2ray
                 return true;
             } else {
                 QvMessageBox(nullptr, tr("Cannot start v2ray"),
-                             tr("v2ray core file cannot be found at:") + NEWLINE +
-                             QSTRING(conf.v2CorePath) + NEWLINE + NEWLINE  +
-                             tr("Please go to Preference Window to change the location.") + NEWLINE +
-                             tr("Or place your v2ray core file in the location above."));
+                             tr("We cannot find v2ray core binary.") + NEWLINE + NEWLINE +
+                             tr("Possible solutions:") + NEWLINE +
+                             tr("1. The location is wrong, please go to Preference Window to change it.") + NEWLINE +
+                             tr("2. Please make sure the path is an excutable file, use \"chmod +x\" and make sure it's not a directory: ") + conf.v2CorePath + NEWLINE);
                 return false;
             }
         }
 
-        ConnectionInstance::ConnectionInstance()
+        V2rayKernelInstance::V2rayKernelInstance()
         {
             auto proc = new QProcess();
             vProcess = proc;
@@ -63,20 +68,20 @@ namespace Qv2ray
             ConnectionStatus = STOPPED;
         }
 
-        bool ConnectionInstance::StartConnection(CONFIGROOT root, int apiPort)
+        bool V2rayKernelInstance::StartConnection(CONFIGROOT root, int apiPort)
         {
             inboundTags.clear();
 
             for (auto item : root["inbounds"].toArray()) {
                 auto tag = item.toObject()["tag"].toString("");
 
-                if (tag.isEmpty() || tag == QV2RAY_API_TAG_INBOUND)
+                if (tag.isEmpty() || tag == API_TAG_INBOUND)
                     continue;
 
                 inboundTags.append(tag);
             }
 
-            LOG(MODULE_VCORE, "Found Inbound Tags: " + Stringify(inboundTags).toStdString())
+            LOG(MODULE_VCORE, "Found Inbound Tags: " + Stringify(inboundTags))
             QString json = JsonToString(root);
             // Write the final configuration to the disk.
             StringToFile(&json, new QFile(QV2RAY_GENERATED_FILE_PATH));
@@ -91,12 +96,15 @@ namespace Qv2ray
 
             if (ValidateConfig(filePath)) {
                 QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
-                env.insert("V2RAY_LOCATION_ASSET", QSTRING(GetGlobalConfig().v2AssetsPath));
+                env.insert("V2RAY_LOCATION_ASSET", GetGlobalConfig().v2AssetsPath);
                 vProcess->setProcessEnvironment(env);
-                vProcess->start(QSTRING(GetGlobalConfig().v2CorePath), QStringList() << "-config" << filePath, QIODevice::ReadWrite | QIODevice::Text);
+                vProcess->start(GetGlobalConfig().v2CorePath, QStringList() << "-config" << filePath, QIODevice::ReadWrite | QIODevice::Text);
                 vProcess->waitForStarted();
                 ConnectionStatus = STARTED;
-                {
+
+                if (StartupOption.noAPI) {
+                    LOG(MODULE_VCORE, "API is disabled by the command line arg \"--noAPI\"")
+                } else {
                     // Config API
                     apiFailedCounter = 0;
                     this->apiPort = apiPort;
@@ -106,6 +114,7 @@ namespace Qv2ray
                     apiTimerId = startTimer(1000);
                     LOG(MODULE_VCORE, "API Worker started.")
                 }
+
                 return true;
             } else {
                 ConnectionStatus = STOPPED;
@@ -113,7 +122,7 @@ namespace Qv2ray
             }
         }
 
-        void ConnectionInstance::timerEvent(QTimerEvent *event)
+        void V2rayKernelInstance::timerEvent(QTimerEvent *event)
         {
             QObject::timerEvent(event);
 
@@ -134,7 +143,7 @@ namespace Qv2ray
             }
         }
 
-        void ConnectionInstance::StopConnection()
+        void V2rayKernelInstance::StopConnection()
         {
             vProcess->close();
             killTimer(apiTimerId);
@@ -144,7 +153,7 @@ namespace Qv2ray
             ConnectionStatus = STOPPED;
         }
 
-        ConnectionInstance::~ConnectionInstance()
+        V2rayKernelInstance::~V2rayKernelInstance()
         {
             if (ConnectionStatus != STOPPED) {
                 StopConnection();
@@ -153,7 +162,7 @@ namespace Qv2ray
             delete vProcess;
         }
 
-        long ConnectionInstance::CallStatsAPIByName(QString name)
+        long V2rayKernelInstance::CallStatsAPIByName(QString name)
         {
             if (ConnectionStatus != STARTED) {
                 LOG(MODULE_VCORE, "Invalid connection status when calling API")
@@ -179,30 +188,30 @@ namespace Qv2ray
             Status status = Stub->GetStats(&context, request, &response);
 
             if (!status.ok()) {
-                LOG(MODULE_VCORE, "API call returns: " + to_string(status.error_code()) + " (" + status.error_message() + ")")
+                LOG(MODULE_VCORE, "API call returns: " + QSTRN(status.error_code()) + " (" + QString::fromStdString(status.error_message()) + ")")
                 apiFailedCounter++;
             }
 
             return response.stat().value();
         }
         // ------------------------------------------------------------- API FUNCTIONS --------------------------
-        long ConnectionInstance::getTagSpeedUp(const QString &tag)
+        long V2rayKernelInstance::getTagSpeedUp(const QString &tag)
         {
             return transferSpeed[tag + "_up"];
         }
-        long ConnectionInstance::getTagSpeedDown(const QString &tag)
+        long V2rayKernelInstance::getTagSpeedDown(const QString &tag)
         {
             return transferSpeed[tag + "_down"];
         }
-        long ConnectionInstance::getTagDataUp(const QString &tag)
+        long V2rayKernelInstance::getTagDataUp(const QString &tag)
         {
             return transferData[tag + "_up"];
         }
-        long ConnectionInstance::getTagDataDown(const QString &tag)
+        long V2rayKernelInstance::getTagDataDown(const QString &tag)
         {
             return transferData[tag + "_down"];
         }
-        long ConnectionInstance::getAllDataUp()
+        long V2rayKernelInstance::getAllDataUp()
         {
             long val = 0;
 
@@ -212,7 +221,7 @@ namespace Qv2ray
 
             return val;
         }
-        long ConnectionInstance::getAllDataDown()
+        long V2rayKernelInstance::getAllDataDown()
         {
             long val = 0;
 
@@ -222,7 +231,7 @@ namespace Qv2ray
 
             return val;
         }
-        long ConnectionInstance::getAllSpeedUp()
+        long V2rayKernelInstance::getAllSpeedUp()
         {
             long val = 0;
 
@@ -232,7 +241,7 @@ namespace Qv2ray
 
             return val;
         }
-        long ConnectionInstance::getAllSpeedDown()
+        long V2rayKernelInstance::getAllSpeedDown()
         {
             long val = 0;
 

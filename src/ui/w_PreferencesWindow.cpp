@@ -6,12 +6,12 @@
 #include <QDesktopServices>
 
 #include "QvUtils.hpp"
-#include "QvCoreInteractions.hpp"
+#include "QvKernelInteractions.hpp"
 #include "QvNetSpeedPlugin.hpp"
 #include "QvCoreConfigOperations.hpp"
 
 #include "QvHTTPRequestHelper.hpp"
-#include "QvAutoStartConfigurator.hpp"
+#include "QvLaunchAtLoginConfigurator.hpp"
 
 #define LOADINGCHECK if(!finishedLoading) return;
 #define NEEDRESTART if(finishedLoading) IsConnectionPropertyChanged = true;
@@ -29,6 +29,8 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent),
         languageComboBox->addItem(it.next().split("/").last().split(".").first());
     }
 
+    // Set auto start button state
+    SetAutoStartButtonsState(GetLaunchAtLoginStatus());
     //
     nsBarContentCombo->addItems(NetSpeedPluginMessages.values());
     themeCombo->addItems(QStyleFactory::keys());
@@ -37,20 +39,20 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent),
     qvBuildTime->setText(__DATE__ " " __TIME__);
     CurrentConfig = GetGlobalConfig();
     //
-    themeCombo->setCurrentText(QSTRING(CurrentConfig.uiConfig.theme));
+    themeCombo->setCurrentText(CurrentConfig.uiConfig.theme);
     darkThemeCB->setChecked(CurrentConfig.uiConfig.useDarkTheme);
     darkTrayCB->setChecked(CurrentConfig.uiConfig.useDarkTrayIcon);
-#if QV2RAY_USE_BUILTIN_DARKTHEME
+#ifdef QV2RAY_USE_BUILTIN_DARKTHEME
     // If we use built in theme, it should always be fusion.
     themeCombo->setEnabled(!CurrentConfig.uiConfig.useDarkTheme);
     darkThemeLabel->setText(tr("Use Darkmode Theme"));
 #endif
-    languageComboBox->setCurrentText(QSTRING(CurrentConfig.uiConfig.language));
+    languageComboBox->setCurrentText(CurrentConfig.uiConfig.language);
     logLevelComboBox->setCurrentIndex(CurrentConfig.logLevel);
     tProxyCheckBox->setChecked(CurrentConfig.tProxySupport);
     //
     //
-    listenIPTxt->setText(QSTRING(CurrentConfig.inboundConfig.listenip));
+    listenIPTxt->setText(CurrentConfig.inboundConfig.listenip);
     bool pacEnabled = CurrentConfig.inboundConfig.pacConfig.enablePAC;
     enablePACCB->setChecked(pacEnabled);
     setSysProxyCB->setChecked(CurrentConfig.inboundConfig.setSystemProxy);
@@ -58,7 +60,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent),
     // PAC
     pacGroupBox->setEnabled(pacEnabled);
     pacPortSB->setValue(CurrentConfig.inboundConfig.pacConfig.port);
-    pacProxyTxt->setText(QSTRING(CurrentConfig.inboundConfig.pacConfig.localIP));
+    pacProxyTxt->setText(CurrentConfig.inboundConfig.pacConfig.localIP);
     pacProxyCB->setCurrentIndex(CurrentConfig.inboundConfig.pacConfig.useSocksProxy ? 1 : 0);
     //
     bool have_http = CurrentConfig.inboundConfig.useHTTP;
@@ -69,8 +71,8 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent),
     httpAuthCB->setChecked(CurrentConfig.inboundConfig.http_useAuth);
     httpAuthUsernameTxt->setEnabled(CurrentConfig.inboundConfig.http_useAuth);
     httpAuthPasswordTxt->setEnabled(CurrentConfig.inboundConfig.http_useAuth);
-    httpAuthUsernameTxt->setText(QSTRING(CurrentConfig.inboundConfig.httpAccount.user));
-    httpAuthPasswordTxt->setText(QSTRING(CurrentConfig.inboundConfig.httpAccount.pass));
+    httpAuthUsernameTxt->setText(CurrentConfig.inboundConfig.httpAccount.user);
+    httpAuthPasswordTxt->setText(CurrentConfig.inboundConfig.httpAccount.pass);
     httpGroupBox->setEnabled(have_http);
     //
     //
@@ -81,17 +83,17 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent),
     socksAuthCB->setChecked(CurrentConfig.inboundConfig.socks_useAuth);
     socksAuthUsernameTxt->setEnabled(CurrentConfig.inboundConfig.socks_useAuth);
     socksAuthPasswordTxt->setEnabled(CurrentConfig.inboundConfig.socks_useAuth);
-    socksAuthUsernameTxt->setText(QSTRING(CurrentConfig.inboundConfig.socksAccount.user));
-    socksAuthPasswordTxt->setText(QSTRING(CurrentConfig.inboundConfig.socksAccount.pass));
+    socksAuthUsernameTxt->setText(CurrentConfig.inboundConfig.socksAccount.user);
+    socksAuthPasswordTxt->setText(CurrentConfig.inboundConfig.socksAccount.pass);
     // Socks UDP Options
     socksUDPCB->setChecked(CurrentConfig.inboundConfig.socksUDP);
     socksUDPIP->setEnabled(CurrentConfig.inboundConfig.socksUDP);
-    socksUDPIP->setText(QSTRING(CurrentConfig.inboundConfig.socksLocalIP));
+    socksUDPIP->setText(CurrentConfig.inboundConfig.socksLocalIP);
     socksGroupBox->setEnabled(have_socks);
     //
     //
-    vCorePathTxt->setText(QSTRING(CurrentConfig.v2CorePath));
-    vCoreAssetsPathTxt->setText(QSTRING(CurrentConfig.v2AssetsPath));
+    vCorePathTxt->setText(CurrentConfig.v2CorePath);
+    vCoreAssetsPathTxt->setText(CurrentConfig.v2AssetsPath);
     statsPortBox->setValue(CurrentConfig.connectionConfig.statsPort);
     //
     //
@@ -103,7 +105,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent),
     DNSListTxt->clear();
 
     foreach (auto dnsStr, CurrentConfig.connectionConfig.dnsList) {
-        auto str = QString::fromStdString(dnsStr).trimmed();
+        auto str = dnsStr.trimmed();
 
         if (!str.isEmpty()) {
             DNSListTxt->appendPlainText(str);
@@ -112,10 +114,10 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent),
 
     //
     cancelIgnoreVersionBtn->setEnabled(CurrentConfig.ignoredVersion != "");
-    ignoredNextVersion->setText(QSTRING(CurrentConfig.ignoredVersion));
+    ignoredNextVersion->setText(CurrentConfig.ignoredVersion);
 
-    for (size_t i = 0; i < CurrentConfig.toolBarConfig.Pages.size(); i++) {
-        nsBarPagesList->addItem(tr("Page") + QString::number(i + 1) + ": " + QString::number(CurrentConfig.toolBarConfig.Pages[i].Lines.size()) + " " + tr("Item(s)"));
+    for (auto i = 0; i < CurrentConfig.toolBarConfig.Pages.size(); i++) {
+        nsBarPagesList->addItem(tr("Page") + QSTRN(i + 1) + ": " + QSTRN(CurrentConfig.toolBarConfig.Pages[i].Lines.size()) + " " + tr("Item(s)"));
     }
 
     if (CurrentConfig.toolBarConfig.Pages.size() > 0) {
@@ -132,24 +134,36 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent),
     CurrentBarPageId = 0;
     //
     // Empty for global config.
-    auto autoSub = QSTRING(CurrentConfig.autoStartConfig.subscriptionName);
-    auto autoCon = QSTRING(CurrentConfig.autoStartConfig.connectionName);
+    auto autoSub = CurrentConfig.autoStartConfig.subscriptionName;
+    auto autoCon = CurrentConfig.autoStartConfig.connectionName;
     autoStartConnCombo->addItem("");
 
-    for (auto item : CurrentConfig.subscribes) {
-        autoStartSubsCombo->addItem(QSTRING(item.first));
+    for (auto item : CurrentConfig.subscriptions.keys()) {
+        autoStartSubsCombo->addItem(item);
     }
 
     autoStartSubsCombo->setCurrentText(autoSub);
 
-    if (CurrentConfig.autoStartConfig.subscriptionName.empty()) {
-        autoStartConnCombo->addItems(ConvertQStringList(toQList(CurrentConfig.configs)));
+    if (CurrentConfig.autoStartConfig.subscriptionName.isEmpty()) {
+        autoStartConnCombo->addItems(CurrentConfig.configs);
     } else {
-        auto list = GetSubscriptionConnection(autoSub.toStdString());
+        auto list = GetSubscriptionConnection(autoSub);
         autoStartConnCombo->addItems(list.keys());
     }
 
     autoStartConnCombo->setCurrentText(autoCon);
+    // FP Settings
+    fpEnabledCB->setChecked(CurrentConfig.connectionConfig.forwardProxyConfig.enableForwardProxy);
+    fpFrame->setEnabled(fpEnabledCB->isChecked());
+    fpUsernameTx->setText(CurrentConfig.connectionConfig.forwardProxyConfig.username);
+    fpPasswordTx->setText(CurrentConfig.connectionConfig.forwardProxyConfig.password);
+    fpAddressTx->setText(CurrentConfig.connectionConfig.forwardProxyConfig.serverAddress);
+    fpTypeCombo->setCurrentText(CurrentConfig.connectionConfig.forwardProxyConfig.type);
+    fpPortSB->setValue(CurrentConfig.connectionConfig.forwardProxyConfig.port);
+    fpUseAuthCB->setChecked(CurrentConfig.connectionConfig.forwardProxyConfig.useAuth);
+    fpUsernameTx->setEnabled(fpUseAuthCB->isChecked());
+    fpPasswordTx->setEnabled(fpUseAuthCB->isChecked());
+    //
     finishedLoading = true;
 }
 
@@ -213,11 +227,11 @@ void PreferencesWindow::on_languageComboBox_currentTextChanged(const QString &ar
     // A strange bug prevents us to change the UI language online
     //    https://github.com/lhy0403/Qv2ray/issues/34
     //
-    CurrentConfig.uiConfig.language = arg1.toStdString();
+    CurrentConfig.uiConfig.language = arg1;
     //
     //
     //if (QApplication::installTranslator(getTranslator(arg1))) {
-    //    LOG(MODULE_UI, "Loaded translations " + arg1.toStdString())
+    //    LOG(MODULE_UI, "Loaded translations " + arg1)
     //    retranslateUi(this);
     //} else {
     //    QvMessageBox(this, tr("#Preferences"), tr("#SwitchTranslationError"));
@@ -235,38 +249,38 @@ void PreferencesWindow::on_logLevelComboBox_currentIndexChanged(int index)
 void PreferencesWindow::on_vCoreAssetsPathTxt_textEdited(const QString &arg1)
 {
     NEEDRESTART
-    CurrentConfig.v2AssetsPath = arg1.toStdString();
+    CurrentConfig.v2AssetsPath = arg1;
 }
 
 void PreferencesWindow::on_listenIPTxt_textEdited(const QString &arg1)
 {
     NEEDRESTART
-    CurrentConfig.inboundConfig.listenip = arg1.toStdString();
-    //pacAccessPathTxt->setText("http://" + arg1 + ":" + QString::number(pacPortSB->value()) + "/pac");
+    CurrentConfig.inboundConfig.listenip = arg1;
+    //pacAccessPathTxt->setText("http://" + arg1 + ":" + QSTRN(pacPortSB->value()) + "/pac");
 }
 
 void PreferencesWindow::on_httpAuthUsernameTxt_textEdited(const QString &arg1)
 {
     NEEDRESTART
-    CurrentConfig.inboundConfig.httpAccount.user = arg1.toStdString();
+    CurrentConfig.inboundConfig.httpAccount.user = arg1;
 }
 
 void PreferencesWindow::on_httpAuthPasswordTxt_textEdited(const QString &arg1)
 {
     NEEDRESTART
-    CurrentConfig.inboundConfig.httpAccount.pass = arg1.toStdString();
+    CurrentConfig.inboundConfig.httpAccount.pass = arg1;
 }
 
 void PreferencesWindow::on_socksAuthUsernameTxt_textEdited(const QString &arg1)
 {
     NEEDRESTART
-    CurrentConfig.inboundConfig.socksAccount.user = arg1.toStdString();
+    CurrentConfig.inboundConfig.socksAccount.user = arg1;
 }
 
 void PreferencesWindow::on_socksAuthPasswordTxt_textEdited(const QString &arg1)
 {
     NEEDRESTART
-    CurrentConfig.inboundConfig.socksAccount.pass = arg1.toStdString();
+    CurrentConfig.inboundConfig.socksAccount.pass = arg1;
 }
 
 void PreferencesWindow::on_proxyDefaultCb_stateChanged(int arg1)
@@ -305,7 +319,7 @@ void PreferencesWindow::on_selectVCoreBtn_clicked()
 void PreferencesWindow::on_vCorePathTxt_textEdited(const QString &arg1)
 {
     NEEDRESTART
-    CurrentConfig.v2CorePath = arg1.toStdString();
+    CurrentConfig.v2CorePath = arg1;
 }
 
 void PreferencesWindow::on_DNSListTxt_textChanged()
@@ -318,7 +332,7 @@ void PreferencesWindow::on_DNSListTxt_textChanged()
             foreach (auto host, hosts) {
                 if (host != "" && host != "\r") {
                     // Not empty, so we save.
-                    CurrentConfig.connectionConfig.dnsList.push_back(host.toStdString());
+                    CurrentConfig.connectionConfig.dnsList.push_back(host);
                     NEEDRESTART
                 }
             }
@@ -363,33 +377,33 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
             } else {
                 LOG(MODULE_VCORE, "ENABLING tProxy Support")
                 LOG(MODULE_FILE, " --> Origin v2ray core file is at: " + CurrentConfig.v2CorePath)
-                auto v2ctlPath = QFileInfo(QSTRING(CurrentConfig.v2CorePath)).path() + "/v2ctl";
+                auto v2ctlPath = QFileInfo(CurrentConfig.v2CorePath).path() + "/v2ctl";
                 auto newPath = QFileInfo(QV2RAY_DEFAULT_VCORE_PATH).path();
                 //
-                LOG(MODULE_FILE, " --> Origin v2ctl file is at: " + v2ctlPath.toStdString())
-                LOG(MODULE_FILE, " --> New v2ray files will be placed in: " + newPath.toStdString())
+                LOG(MODULE_FILE, " --> Origin v2ctl file is at: " + v2ctlPath)
+                LOG(MODULE_FILE, " --> New v2ray files will be placed in: " + newPath)
                 //
                 LOG(MODULE_FILE, " --> Copying files....")
 
-                if (QFileInfo(QSTRING(CurrentConfig.v2CorePath)).absoluteFilePath() !=  QFileInfo(QV2RAY_DEFAULT_VCORE_PATH).absoluteFilePath()) {
+                if (QFileInfo(CurrentConfig.v2CorePath).absoluteFilePath() !=  QFileInfo(QV2RAY_DEFAULT_VCORE_PATH).absoluteFilePath()) {
                     // Only trying to remove file when they are not in the default dir.
                     // (In other words...) Keep using the current files. <Because we don't know where else we can copy the file from...>
                     if (QFile(QV2RAY_DEFAULT_VCORE_PATH).exists()) {
-                        LOG(MODULE_FILE, QV2RAY_DEFAULT_VCORE_PATH.toStdString() + ": File already exists.")
-                        LOG(MODULE_FILE, QV2RAY_DEFAULT_VCORE_PATH.toStdString() + ": Deleting file.")
+                        LOG(MODULE_FILE, QString(QV2RAY_DEFAULT_VCORE_PATH) + ": File already exists.")
+                        LOG(MODULE_FILE, QString(QV2RAY_DEFAULT_VCORE_PATH) + ": Deleting file.")
                         QFile(QV2RAY_DEFAULT_VCORE_PATH).remove();
                     }
 
                     if (QFile(newPath + "/v2ctl").exists()) {
-                        LOG(MODULE_FILE, newPath.toStdString() + "/v2ctl : File already exists.")
-                        LOG(MODULE_FILE, newPath.toStdString() + "/v2ctl : Deleting file.")
+                        LOG(MODULE_FILE, newPath + "/v2ctl : File already exists.")
+                        LOG(MODULE_FILE, newPath + "/v2ctl : Deleting file.")
                         QFile(newPath + "/v2ctl").remove();
                     }
 
-                    string vCoreresult = QFile(QSTRING(CurrentConfig.v2CorePath)).copy(QV2RAY_DEFAULT_VCORE_PATH) ? "OK" : "FAILED";
+                    QString vCoreresult = QFile(CurrentConfig.v2CorePath).copy(QV2RAY_DEFAULT_VCORE_PATH) ? "OK" : "FAILED";
                     LOG(MODULE_FILE, " --> v2ray Core: " + vCoreresult)
                     //
-                    string vCtlresult = QFile(v2ctlPath).copy(newPath + "/v2ctl") ? "OK" : "FAILED";
+                    QString vCtlresult = QFile(v2ctlPath).copy(newPath + "/v2ctl") ? "OK" : "FAILED";
                     LOG(MODULE_FILE, " --> v2ray Ctl: " + vCtlresult)
                     //
 
@@ -400,7 +414,7 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
                         LOG(MODULE_VCORE, "FAILED to copy v2ray files. Aborting.")
                         QvMessageBox(this, tr("Enable tProxy Support"),
                                      tr("Qv2ray cannot copy one or both v2ray files from: ") + NEWLINE + NEWLINE +
-                                     QSTRING(CurrentConfig.v2CorePath) + NEWLINE + v2ctlPath + NEWLINE + NEWLINE +
+                                     CurrentConfig.v2CorePath + NEWLINE + v2ctlPath + NEWLINE + NEWLINE +
                                      tr("to this path: ") + NEWLINE + newPath);
                         return;
                     }
@@ -410,10 +424,10 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
                 }
 
                 LOG(MODULE_UI, "Calling pkexec and setcap...")
-                int ret = QProcess::execute("pkexec setcap CAP_NET_ADMIN,CAP_NET_RAW,CAP_NET_BIND_SERVICE=eip " + QSTRING(CurrentConfig.v2CorePath));
+                int ret = QProcess::execute("pkexec setcap CAP_NET_ADMIN,CAP_NET_RAW,CAP_NET_BIND_SERVICE=eip " + CurrentConfig.v2CorePath);
 
                 if (ret != 0) {
-                    LOG(MODULE_UI, "WARN: setcap exits with code: " + to_string(ret))
+                    LOG(MODULE_UI, "WARN: setcap exits with code: " + QSTRN(ret))
                     QvMessageBox(this, tr("Preferences"), tr("Failed to setcap onto v2ray executable. You may need to run `setcap` manually."));
                 }
 
@@ -421,10 +435,10 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
                 NEEDRESTART
             }
         } else {
-            int ret = QProcess::execute("pkexec setcap -r " + QSTRING(CurrentConfig.v2CorePath));
+            int ret = QProcess::execute("pkexec setcap -r " + CurrentConfig.v2CorePath);
 
             if (ret != 0) {
-                LOG(MODULE_UI, "WARN: setcap exits with code: " + to_string(ret))
+                LOG(MODULE_UI, "WARN: setcap exits with code: " + QSTRN(ret))
                 QvMessageBox(this, tr("Preferences"), tr("Failed to setcap onto v2ray executable. You may need to run `setcap` manually."));
             }
 
@@ -476,7 +490,7 @@ void PreferencesWindow::on_socksUDPCB_stateChanged(int arg1)
 void PreferencesWindow::on_socksUDPIP_textEdited(const QString &arg1)
 {
     NEEDRESTART
-    CurrentConfig.inboundConfig.socksLocalIP = arg1.toStdString();
+    CurrentConfig.inboundConfig.socksLocalIP = arg1;
 }
 
 // ------------------- NET SPEED PLUGIN OPERATIONS -----------------------------------------------------------------
@@ -494,9 +508,9 @@ void PreferencesWindow::on_nsBarPageAddBTN_clicked()
     QvBarLine line;
     CurrentBarPage.Lines.push_back(line);
     CurrentBarLineId = 0;
-    nsBarPagesList->addItem(QString::number(CurrentBarPageId));
+    nsBarPagesList->addItem(QSTRN(CurrentBarPageId));
     ShowLineParameters(CurrentBarLine);
-    LOG(MODULE_UI, "Adding new page Id: " + to_string(CurrentBarPageId))
+    LOG(MODULE_UI, "Adding new page Id: " + QSTRN(CurrentBarPageId))
     nsBarPageDelBTN->setEnabled(true);
     nsBarLineAddBTN->setEnabled(true);
     nsBarLineDelBTN->setEnabled(true);
@@ -509,7 +523,7 @@ void PreferencesWindow::on_nsBarPageAddBTN_clicked()
 void PreferencesWindow::on_nsBarPageDelBTN_clicked()
 {
     if (nsBarPagesList->currentRow() >= 0) {
-        RemoveItem(CurrentConfig.toolBarConfig.Pages, static_cast<size_t>(nsBarPagesList->currentRow()));
+        CurrentConfig.toolBarConfig.Pages.removeAt(nsBarPagesList->currentRow());
         nsBarPagesList->takeItem(nsBarPagesList->currentRow());
 
         if (nsBarPagesList->count() <= 0) {
@@ -536,17 +550,17 @@ void PreferencesWindow::on_nsBarLineAddBTN_clicked()
     QvBarLine line;
     CurrentBarPage.Lines.push_back(line);
     CurrentBarLineId = CurrentBarPage.Lines.size() - 1;
-    nsBarLinesList->addItem(QString::number(CurrentBarLineId));
+    nsBarLinesList->addItem(QSTRN(CurrentBarLineId));
     ShowLineParameters(CurrentBarLine);
     nsBarLineDelBTN->setEnabled(true);
-    LOG(MODULE_UI, "Adding new line Id: " + to_string(CurrentBarLineId))
+    LOG(MODULE_UI, "Adding new line Id: " + QSTRN(CurrentBarLineId))
     nsBarLinesList->setCurrentRow(static_cast<int>(CurrentBarPage.Lines.size() - 1));
 }
 
 void PreferencesWindow::on_nsBarLineDelBTN_clicked()
 {
     if (nsBarLinesList->currentRow() >= 0) {
-        RemoveItem(CurrentBarPage.Lines, static_cast<size_t>(nsBarLinesList->currentRow()));
+        CurrentBarPage.Lines.removeAt(nsBarLinesList->currentRow());
         nsBarLinesList->takeItem(nsBarLinesList->currentRow());
         CurrentBarLineId = 0;
 
@@ -566,7 +580,7 @@ void PreferencesWindow::on_nsBarPagesList_currentRowChanged(int currentRow)
     // Change page.
     // We reload the lines
     // Set all parameters item to the property of the first line.
-    CurrentBarPageId = static_cast<size_t>(currentRow);
+    CurrentBarPageId = currentRow;
     CurrentBarLineId = 0;
     nsBarPageYOffset->setValue(CurrentBarPage.OffsetYpx);
     nsBarLinesList->clear();
@@ -588,14 +602,14 @@ void PreferencesWindow::on_nsBarLinesList_currentRowChanged(int currentRow)
 {
     if (currentRow < 0) return;
 
-    CurrentBarLineId = static_cast<size_t>(currentRow);
+    CurrentBarLineId = currentRow;
     ShowLineParameters(CurrentBarLine);
 }
 
 void PreferencesWindow::on_fontComboBox_currentFontChanged(const QFont &f)
 {
     LOADINGCHECK
-    CurrentBarLine.Family = f.family().toStdString();
+    CurrentBarLine.Family = f.family();
     SET_LINE_LIST_TEXT
 }
 
@@ -658,7 +672,7 @@ QString PreferencesWindow::GetBarLineDescription(QvBarLine barLine)
     result = NetSpeedPluginMessages[barLine.ContentType];
 
     if (barLine.ContentType == 0) {
-        result +=  " (" + QSTRING(barLine.Message) + ")";
+        result +=  " (" + barLine.Message + ")";
     }
 
     result = result.append(barLine.Bold ?  ", " + tr("Bold") : "");
@@ -670,8 +684,8 @@ void PreferencesWindow::ShowLineParameters(QvBarLine &barLine)
 {
     finishedLoading = false;
 
-    if (!barLine.Family.empty()) {
-        fontComboBox->setCurrentFont(QFont(QSTRING(barLine.Family)));
+    if (!barLine.Family.isEmpty()) {
+        fontComboBox->setCurrentFont(QFont(barLine.Family));
     }
 
     // Colors
@@ -681,16 +695,16 @@ void PreferencesWindow::ShowLineParameters(QvBarLine &barLine)
     nsBarFontRSB->setValue(barLine.ColorR);
     //
     QColor color = QColor::fromRgb(barLine.ColorR, barLine.ColorG, barLine.ColorB, barLine.ColorA);
-    QString s("background: #"
-              + QString(color.red() < 16 ? "0" : "") + QString::number(color.red(), 16)
-              + QString(color.green() < 16 ? "0" : "") + QString::number(color.green(), 16)
-              + QString(color.blue() < 16 ? "0" : "") + QString::number(color.blue(), 16) + ";");
+    QString s(QStringLiteral("background: #")
+              + ((color.red() < 16) ? "0" : "") + QString::number(color.red(), 16)
+              + ((color.green() < 16) ? "0" : "") + QString::number(color.green(), 16)
+              + ((color.blue() < 16) ? "0" : "") + QString::number(color.blue(), 16) + ";");
     chooseColorBtn->setStyleSheet(s);
     nsBarFontSizeSB->setValue(barLine.Size);
     nsBarFontBoldCB->setChecked(barLine.Bold);
     nsBarFontItalicCB->setChecked(barLine.Italic);
     nsBarContentCombo->setCurrentText(NetSpeedPluginMessages[barLine.ContentType]);
-    nsBarTagTxt->setText(QSTRING(barLine.Message));
+    nsBarTagTxt->setText(barLine.Message);
     finishedLoading = true;
     nsBarVerticalLayout->setEnabled(true);
 }
@@ -711,7 +725,7 @@ void PreferencesWindow::on_chooseColorBtn_clicked()
 void PreferencesWindow::on_nsBarTagTxt_textEdited(const QString &arg1)
 {
     LOADINGCHECK
-    CurrentBarLine.Message = arg1.toStdString();
+    CurrentBarLine.Message = arg1;
     SET_LINE_LIST_TEXT
 }
 
@@ -732,7 +746,7 @@ void PreferencesWindow::on_applyNSBarSettingsBtn_clicked()
 void PreferencesWindow::on_themeCombo_currentTextChanged(const QString &arg1)
 {
     LOADINGCHECK
-    CurrentConfig.uiConfig.theme = arg1.toStdString();
+    CurrentConfig.uiConfig.theme = arg1;
 }
 
 void PreferencesWindow::on_darkThemeCB_stateChanged(int arg1)
@@ -740,7 +754,7 @@ void PreferencesWindow::on_darkThemeCB_stateChanged(int arg1)
     LOADINGCHECK
     CurrentConfig.uiConfig.useDarkTheme = arg1 == Qt::Checked;
     QvMessageBox(this, tr("Dark Mode"), tr("Please restart Qv2ray to fully apply this feature."));
-#if QV2RAY_USE_BUILTIN_DARKTHEME
+#ifdef QV2RAY_USE_BUILTIN_DARKTHEME
     themeCombo->setEnabled(arg1 != Qt::Checked);
 
     if (arg1 == Qt::Checked) {
@@ -815,7 +829,7 @@ void PreferencesWindow::on_pacGoBtn_clicked()
             break;
     }
 
-    LOG(MODULE_NETWORK, "Fetched: " + gfwLocation.toStdString())
+    LOG(MODULE_NETWORK, "Fetched: " + gfwLocation)
     QvMessageBox(this, tr("Download GFWList"), tr("Successfully downloaded GFWList."));
     pacGoBtn->setEnabled(true);
     gfwListCB->setEnabled(true);
@@ -833,7 +847,7 @@ void PreferencesWindow::on_pacPortSB_valueChanged(int arg1)
     LOADINGCHECK
     NEEDRESTART
     CurrentConfig.inboundConfig.pacConfig.port = arg1;
-    //pacAccessPathTxt->setText("http://" + listenIPTxt->text() + ":" + QString::number(arg1) + "/pac");
+    //pacAccessPathTxt->setText("http://" + listenIPTxt->text() + ":" + QSTRN(arg1) + "/pac");
 }
 
 void PreferencesWindow::on_setSysProxyCB_stateChanged(int arg1)
@@ -862,20 +876,20 @@ void PreferencesWindow::on_pacProxyTxt_textEdited(const QString &arg1)
 {
     LOADINGCHECK
     NEEDRESTART
-    CurrentConfig.inboundConfig.pacConfig.localIP = arg1.toStdString();
+    CurrentConfig.inboundConfig.pacConfig.localIP = arg1;
 }
 
 void PreferencesWindow::on_autoStartSubsCombo_currentIndexChanged(const QString &arg1)
 {
     LOADINGCHECK
-    CurrentConfig.autoStartConfig.subscriptionName = arg1.toStdString();
+    CurrentConfig.autoStartConfig.subscriptionName = arg1;
     autoStartConnCombo->clear();
 
     if (arg1.isEmpty()) {
         autoStartConnCombo->addItem("");
-        autoStartConnCombo->addItems(ConvertQStringList(toQList(CurrentConfig.configs)));
+        autoStartConnCombo->addItems(CurrentConfig.configs);
     } else {
-        auto list = GetSubscriptionConnection(arg1.toStdString());
+        auto list = GetSubscriptionConnection(arg1);
         autoStartConnCombo->addItems(list.keys());
     }
 }
@@ -883,23 +897,80 @@ void PreferencesWindow::on_autoStartSubsCombo_currentIndexChanged(const QString 
 void PreferencesWindow::on_autoStartConnCombo_currentIndexChanged(const QString &arg1)
 {
     LOADINGCHECK
-    CurrentConfig.autoStartConfig.connectionName = arg1.toStdString();
+    CurrentConfig.autoStartConfig.connectionName = arg1;
 }
 
 void PreferencesWindow::on_installBootStart_clicked()
 {
-    if (InstallAutoStart()) {
-        QvMessageBox(this, tr("Start with boot"), tr("Successfully installed starting with boot."));
-    } else {
-        QvMessageBox(this, tr("Start with boot"), tr("Only Windows platform is supported currently."));
+    SetLaunchAtLoginStatus(true);
+
+    // If failed to set the status.
+    if (!GetLaunchAtLoginStatus()) {
+        QvMessageBox(this, tr("Start with boot"), tr("Failed to set auto start option."));
     }
+
+    SetAutoStartButtonsState(GetLaunchAtLoginStatus());
 }
 
 void PreferencesWindow::on_removeBootStart_clicked()
 {
-    if (RemoveAutoStart()) {
-        QvMessageBox(this, tr("Start with boot"), tr("Successfully removed starting with boot."));
-    } else {
-        QvMessageBox(this, tr("Start with boot"), tr("Only Windows platform is supported currently."));
+    SetLaunchAtLoginStatus(false);
+
+    // If that setting still present.
+    if (GetLaunchAtLoginStatus()) {
+        QvMessageBox(this, tr("Start with boot"), tr("Failed to set auto start option."));
     }
+
+    SetAutoStartButtonsState(GetLaunchAtLoginStatus());
+}
+
+void PreferencesWindow::SetAutoStartButtonsState(bool isAutoStart)
+{
+    installBootStart->setEnabled(!isAutoStart);
+    removeBootStart->setEnabled(isAutoStart);
+}
+
+void PreferencesWindow::on_fpEnabledCB_stateChanged(int arg1)
+{
+    bool fpEnabled = arg1 == Qt::Checked;
+    CurrentConfig.connectionConfig.forwardProxyConfig.enableForwardProxy = fpEnabled;
+    fpFrame->setEnabled(fpEnabled);
+}
+
+void PreferencesWindow::on_fpTypeCombo_currentIndexChanged(const QString &arg1)
+{
+    CurrentConfig.connectionConfig.forwardProxyConfig.type = arg1;
+}
+
+void PreferencesWindow::on_fpAddressTx_textEdited(const QString &arg1)
+{
+    CurrentConfig.connectionConfig.forwardProxyConfig.serverAddress = arg1;
+}
+
+void PreferencesWindow::on_spPortSB_valueChanged(int arg1)
+{
+    CurrentConfig.connectionConfig.forwardProxyConfig.port = arg1;
+}
+
+void PreferencesWindow::on_fpUseAuthCB_stateChanged(int arg1)
+{
+    bool authEnabled = arg1 == Qt::Checked;
+    CurrentConfig.connectionConfig.forwardProxyConfig.useAuth = authEnabled;
+    fpUsernameTx->setEnabled(authEnabled);
+    fpPasswordTx->setEnabled(authEnabled);
+}
+
+void PreferencesWindow::on_fpUsernameTx_textEdited(const QString &arg1)
+{
+    CurrentConfig.connectionConfig.forwardProxyConfig.username = arg1;
+}
+
+void PreferencesWindow::on_fpPasswordTx_textEdited(const QString &arg1)
+{
+    CurrentConfig.connectionConfig.forwardProxyConfig.password = arg1;
+}
+
+void PreferencesWindow::on_fpPortSB_valueChanged(int arg1)
+{
+    CurrentConfig.connectionConfig.forwardProxyConfig.port = arg1;
 }

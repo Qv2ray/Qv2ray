@@ -17,23 +17,23 @@ namespace Qv2ray
                 worker->cancel();
             }
         }
-        void QvTCPingModel::StartPing(const QString &connectionName, const QString &hostName, int port)
+        void QvTCPingModel::StartPing(const QvConfigIdentifier &connectionName, const QString &hostName, int port)
         {
             QvTCPingData data;
             data.hostName = hostName;
             data.port = port;
-            data.connectionName = connectionName;
+            data.connectionIdentifier = connectionName;
             auto watcher = new QFutureWatcher<QvTCPingData>(this);
-            DEBUG(MODULE_NETWORK, "Start Ping: " + hostName.toStdString() + ":" + to_string(port))
+            DEBUG(MODULE_NETWORK, "Start Ping: " + hostName + ":" + QSTRN(port))
             watcher->setFuture(QtConcurrent::run(&QvTCPingModel::startTestLatency, data, count));
             pingWorkingThreads.enqueue(watcher);
             connect(watcher, &QFutureWatcher<void>::finished, this, [this, watcher]() {
                 this->pingWorkingThreads.removeOne(watcher);
                 auto result = watcher->result();
-                DEBUG(MODULE_NETWORK, "Ping finished: " + result.hostName.toStdString() + ":" + to_string(result.port) + " --> " + to_string(result.avg) + "ms")
+                DEBUG(MODULE_NETWORK, "Ping finished: " + result.hostName + ":" + QSTRN(result.port) + " --> " + QSTRN(result.avg) + "ms")
 
                 if (!result.errorMessage.isEmpty()) {
-                    LOG(MODULE_NETWORK, "Ping --> " + result.errorMessage.toStdString())
+                    LOG(MODULE_NETWORK, "Ping --> " + result.errorMessage)
                 }
 
                 emit this->PingFinished(result);
@@ -52,7 +52,7 @@ namespace Qv2ray
 #if defined (__WIN32) && defined (UNICODE)
                 data.errorMessage = QString::fromStdWString(gai_strerror(errcode));
 #else
-                data.errorMessage = QSTRING(gai_strerror(errcode));
+                data.errorMessage = gai_strerror(errcode);
 #endif
                 return data;
             }
@@ -67,13 +67,13 @@ namespace Qv2ray
 
                 if ((errcode = testLatency(resolved, &rtt)) != 0) {
                     if (errcode != -EADDRNOTAVAIL) {
-                        LOG(MODULE_NETWORK, "Error connecting to host: " + data.hostName.toStdString() + ":" + to_string(data.port) + " " + strerror(-errcode))
+                        LOG(MODULE_NETWORK, "Error connecting to host: " + data.hostName + ":" + QSTRN(data.port) + " " + strerror(-errcode))
                         errorCount++;
                     } else {
                         if (noAddress) {
                             LOG(MODULE_NETWORK, ".")
                         } else {
-                            LOG(MODULE_NETWORK, "error connecting to host: " + to_string(-errcode) + " " + strerror(-errcode))
+                            LOG(MODULE_NETWORK, "error connecting to host: " + QSTRN(-errcode) + " " + strerror(-errcode))
                         }
 
                         noAddress = true;

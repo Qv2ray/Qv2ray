@@ -70,7 +70,7 @@ namespace Qv2ray
                 if (validOutboundFound) {
                     return make_tuple(host, port, outboundType);
                 } else {
-                    LOG(MODULE_UI, "Unknown outbound entry: " + outboundType.toStdString() + ", cannot deduce host and port.")
+                    LOG(MODULE_UI, "Unknown outbound entry: " + outboundType + ", cannot deduce host and port.")
                 }
             }
 
@@ -86,19 +86,19 @@ namespace Qv2ray
 
             if (*protocol == "vmess") {
                 auto Server = StructFromJsonString<VMessServerObject>(JsonToString(out["settings"].toObject()["vnext"].toArray().first().toObject()));
-                *host = QSTRING(Server.address);
+                *host = Server.address;
                 *port = Server.port;
                 return true;
             } else if (*protocol == "shadowsocks") {
                 auto x = JsonToString(out["settings"].toObject()["servers"].toArray().first().toObject());
                 auto Server = StructFromJsonString<ShadowSocksServerObject>(x);
-                *host = QSTRING(Server.address);
+                *host = Server.address;
                 *port = Server.port;
                 return true;
             } else if (*protocol == "socks") {
                 auto x = JsonToString(out["settings"].toObject()["servers"].toArray().first().toObject());
                 auto Server = StructFromJsonString<SocksServerObject>(x);
-                *host = QSTRING(Server.address);
+                *host = Server.address;
                 *port = Server.port;
                 return true;
             } else {

@@ -6,8 +6,12 @@
 
 #define OUTBOUND_TAG_DIRECT "outBound_DIRECT"
 #define OUTBOUND_TAG_PROXY "outBound_PROXY"
-#define QV2RAY_API_TAG_DEFAULT "_QV2RAY_API_"
-#define QV2RAY_API_TAG_INBOUND "_QV2RAY_API_INBOUND_"
+#define OUTBOUND_TAG_FORWARD_PROXY "_QV2RAY_FORWARD_PROXY_"
+
+#define API_TAG_DEFAULT "_QV2RAY_API_"
+#define API_TAG_INBOUND "_QV2RAY_API_INBOUND_"
+
+#define QV2RAY_USE_FPROXY_KEY "_QV2RAY_USE_GLOBAL_FORWARD_PROXY_"
 
 #define JSON_ROOT_TRY_REMOVE(obj) if (root.contains(obj)) { root.remove(obj); }
 
@@ -16,11 +20,10 @@ namespace Qv2ray
     // -------------------------- BEGIN GENERAL FUNCTIONS ----------------------------------------------
     namespace ConfigOperations
     {
-        QMap<QString, CONFIGROOT> GetRegularConnections(list<string> connections);
-        QMap<QString, CONFIGROOT> GetSubscriptionConnection(string subscription);
-        QMap<QString, QMap<QString, CONFIGROOT>> GetSubscriptionConnections(list<string> subscriptions);
+        QMap<QString, CONFIGROOT> GetRegularConnections(QStringList connections);
+        QMap<QString, CONFIGROOT> GetSubscriptionConnection(QString subscription);
+        QMap<QString, QMap<QString, CONFIGROOT>> GetSubscriptionConnections(QStringList subscriptions);
         bool CheckIsComplexConfig(CONFIGROOT root);
-        int FindIndexByTag(INOUTLIST list, const QString &tag);
 
         //
         // -------------------------- BEGIN CONFIG CONVERSIONS --------------------------
@@ -57,6 +60,7 @@ namespace Qv2ray
             OUTBOUNDSETTING GenerateBlackHoleOUT(bool useHTTP);
             OUTBOUNDSETTING GenerateShadowSocksServerOUT(QString email, QString address, int port, QString method, QString password, bool ota, int level);
             OUTBOUNDSETTING GenerateShadowSocksOUT(QList<QJsonObject> servers);
+            OUTBOUNDSETTING GenerateHTTPSOCKSOut(QString address, int port, bool useAuth, QString username, QString password);
             //
             // Inbounds Protocols
             INBOUNDSETTING GenerateDokodemoIN(QString address, int port, QString  network, int timeout, bool followRedirect, int userLevel);

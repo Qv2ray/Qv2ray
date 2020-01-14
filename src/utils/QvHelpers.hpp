@@ -9,7 +9,6 @@ namespace Qv2ray
 {
     namespace Utils
     {
-
         QTranslator *getTranslator(const QString &lang);
         QStringList GetFileList(QDir dir);
         QString Base64Encode(QString string);
@@ -53,12 +52,8 @@ namespace Qv2ray
         QJsonObject GetRootObject(const T &t)
         {
             auto json = StructToJsonString(t);
-            QJsonDocument doc = QJsonDocument::fromJson(QByteArray::fromStdString(json.toStdString()));
-            return doc.object();
+            return JsonFromString(json);
         }
-        template QJsonObject GetRootObject<RuleObject>(const RuleObject &t);
-        template QJsonObject GetRootObject<StreamSettingsObject>(const StreamSettingsObject &t);
-        template QJsonObject GetRootObject<VMessServerObject>(const VMessServerObject &t);
         //
         template <typename T>
         void RemoveItem(std::vector<T> &vec, size_t pos)
@@ -146,5 +141,15 @@ namespace Qv2ray
         // does not exists in list
         return it != listOfElements.end();
     }
+
+    inline std::string timeToString(const time_t &t)
+    {
+        auto _tm = std::localtime(&t);
+        char MY_TIME[128];
+        // using strftime to display time
+        strftime(MY_TIME, sizeof(MY_TIME), "%x - %I:%M%p", _tm);
+        return MY_TIME;
+    }
 }
+
 #endif // QVHELPERS_H

@@ -12,20 +12,18 @@
 #include "ui_w_MainWindow.h"
 
 #include "QvUtils.hpp"
-#include "QvCoreInteractions.hpp"
+#include "QvKernelInteractions.hpp"
 #include "QvCoreConfigOperations.hpp"
 #include "QvHTTPRequestHelper.hpp"
 #include "QvPACHandler.hpp"
 #include "QvLogHighlighter.hpp"
-enum TREENODEOBJECT_TYPE {
-    CON_REGULAR = 1,
-    CON_SUBSCRIPTION = 2
+enum QvConnectionType {
+    CONNECTION_REGULAR = 1,
+    CONNECTION_SUBSCRIPTION = 2
 };
 //
-struct ConnectionObject {
-    TREENODEOBJECT_TYPE configType;
-    QString subscriptionName;
-    QString connectionName;
+struct ConnectionObject : QvConfigIdentifier {
+    QvConnectionType configType;
     double latency;
     CONFIGROOT config;
 };
@@ -45,15 +43,11 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         void UpdateVCoreLog(const QString &log);
         void OnConfigListChanged(bool need_restart);
     private slots:
-        void setMasterLogHBar();
         void on_action_RCM_ShareQR_triggered();
         void on_startButton_clicked();
         void on_stopButton_clicked();
         void on_reconnectButton_clicked();
-        void VersionUpdate(QByteArray &data);
         void on_activatedTray(QSystemTrayIcon::ActivationReason reason);
-        void ToggleVisibility();
-        void quit();
         void on_actionExit_triggered();
         void on_preferencesBtn_clicked();
         void on_connectionListWidget_doubleClicked(const QModelIndex &index);
@@ -69,12 +63,17 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         void on_shareBtn_clicked();
         void on_duplicateBtn_clicked();
         void on_subsButton_clicked();
+        //
+        void ToggleVisibility();
+        void setMasterLogHBar();
+        void VersionUpdate(QByteArray &data);
+        void quit();
 
     public:
         static MainWindow *mwInstance;
-        CONFIGROOT CurrentFullConfig;
-        QString CurrentConnectionName = "";
-        ConnectionInstance *vinstance;
+        QvConfigIdentifier CurrentConnectionIdentifier;
+        V2rayKernelInstance *vinstance;
+        QString GetCurrentConnectedConfigName();
 
     protected:
         void mouseReleaseEvent(QMouseEvent *e) override;
@@ -91,8 +90,9 @@ class MainWindow : public QMainWindow, Ui::MainWindow
 
     private:
         void SetEditWidgetEnable(bool enabled);
-        void ShowAndSetConnection(QString currentText, bool SetConnection, bool Apply);
+        void ShowAndSetConnection(QvConfigIdentifier fullIdentifier, bool SetConnection, bool Apply);
         Qv2rayConfig currentConfig;
+        CONFIGROOT currentFullConfig;
         //
         // Charts
         QChartView *speedChartView;
@@ -105,9 +105,9 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         QMenu *connectionListMenu;
 
         /// Key --> ListWidget.item.text
-        QMap<QString, ConnectionObject> connections;
+        QMap<QvConfigIdentifier, ConnectionObject> connections;
         //
-        QString renameOriginalName;
+        QvConfigIdentifier renameOriginalIdentifier;
         bool isRenamingInProgress;
         //
         // ID for QTimers
@@ -126,12 +126,13 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         //
         QList<QTextBrowser *> logTextBrowsers;
         int currentLogBrowserId = 0;
-        QString currentSelectedName;
+        QTreeWidgetItem *CurrentSelectedItem;
         //
         // Actions in the system tray menu
         //
         QMenu *tray_RootMenu = new QMenu(this);
         QAction *action_Tray_ShowHide;
+        QAction *action_Tray_ShowPreferencesWindow;
         QAction *action_Tray_Quit;
         // --> Connectivities
         QAction *action_Tray_Start;
@@ -147,10 +148,14 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         void MWFindAndStartAutoConfig();
         bool MWtryStartConnection();
         void MWStopConnection();
-        void MWTryPingConnection(const QString &alias);
-        tuple<QString, int, QString> MWGetConnectionPortNumber(const QString &alias);
+        void MWTryPingConnection(const QvConfigIdentifier &alias);
+        tuple<QString, int, QString> MWGetConnectionInfo(const QvConfigIdentifier &alias);
         void MWSetSystemProxy();
         void MWClearSystemProxy(bool);
+        void CheckSubscriptionsUpdate();
+        //
+
+        QTreeWidgetItem *FindItemByIdentifier(QvConfigIdentifier identifier);
 };
 
 #endif // MAINWINDOW_H

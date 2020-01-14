@@ -1,0 +1,13 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@
+
+override_dh_auto_clean:
+	dh_auto_clean
+	rm -fv qmake_qmake_qm_files.qrc
+	rm -rfv libs/gen
+
+override_dh_auto_configure:
+	./tools/grpc_gen.sh
+	dh_auto_configure -- CONFIG+=no_increase_build_number

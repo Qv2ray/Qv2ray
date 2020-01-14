@@ -27,7 +27,7 @@ namespace Qv2ray
             connect(pacServer, &QHttpServer::newRequest, this, &PACServer::onNewRequest);
             //
             auto conf = GetGlobalConfig();
-            auto address = QSTRING(conf.inboundConfig.listenip);
+            auto address = conf.inboundConfig.listenip;
             auto port = conf.inboundConfig.pacConfig.port;
             //
             QString gfwContent = StringFromFile(new QFile(QV2RAY_RULES_GFWLIST_PATH));
@@ -39,7 +39,7 @@ namespace Qv2ray
                 isStarted = true;
                 LOG(MODULE_PROXY, "Started PAC listener")
             } else {
-                LOG(MODULE_PROXY, "Failed to listen on port " + to_string(port) + ", please verify the permission.")
+                LOG(MODULE_PROXY, "Failed to listen on port " + QSTRN(port) + ", please verify the permission.")
                 QvMessageBox(nullptr, tr("PAC Handler"), tr("Failed to listen PAC request on this port, please verify the permissions"));
             }
         }

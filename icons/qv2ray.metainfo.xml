@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+​<component type="desktop-application">
+​  <id>com.github.Qv2ray</id>
+​  <metadata_license>CC0-1.0</metadata_license>
+​  <project_license>GPL-3.0</project_license>
+​  <name>Qv2ray</name>
+​  <summary>Qv2ray is a cross-platform v2ray graphical frontend written in Qt.</summary>
+​
+​  <description>
+​    <p>
+      Qv2ray is a cross-platform v2ray graphical frontend written in Qt which can improve v2ray user experience. 
+      It can help users to set up v2ray configuration files easily and automatically set the system proxy.
+​    </p>
+​  </description>
+​
+​  <launchable type="desktop-id">com.github.Qv2ray.desktop</launchable>
+​
+​  <screenshots>
+​    <screenshot type="default">
+​      <caption>The options dialog</caption>
+​      <image>http://www.hughsie.com/en_US/main.png</image>
+​    </screenshot>
+​    <screenshot>
+​      <image>http://www.hughsie.com/en_US/preferences.png</image>
+​    </screenshot>
+​  </screenshots>
+
+​  <releases>
+​    <release version="1.99.4" date="2019-12-30">
+​      <description>
+​        <p>New Crowdin translations</p>
+​      </description>
+​    </release>
+​  </releases>
+​
+​  <url type="homepage">https://github.com/lhy0403/Qv2ray</url>
+  <url type="bugtracker">https://github.com/lhy0403/Qv2ray/issues</url>
+​</component>
