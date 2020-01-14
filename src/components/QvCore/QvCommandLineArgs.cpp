@@ -11,13 +11,15 @@ namespace Qv2ray
         QvStartupOptions StartupOption = QvStartupOptions{};
 
         QvCommandArgParser::QvCommandArgParser() : QObject(),
-            noAPIOption("FAKE"), helpOption("FAKE"), versionOption("FAKE")
+            noAPIOption("FAKE"), runAsRootOption("FAKE"), helpOption("FAKE"), versionOption("FAKE")
         {
             parser.setApplicationDescription(QObject::tr("Qv2ray - A cross-platform Qt frontend for V2ray."));
             parser.setSingleDashWordOptionMode(QCommandLineParser::ParseAsLongOptions);
             //
             noAPIOption = QCommandLineOption("noAPI", QObject::tr("Disable gRPC API subsystems."));
+            runAsRootOption = QCommandLineOption("I-just-wanna-run-with-root", QObject::tr("Explicitly run Qv2ray as root."));
             parser.addOption(noAPIOption);
+            parser.addOption(runAsRootOption);
             helpOption = parser.addHelpOption();
             versionOption = parser.addVersionOption();
         }
@@ -37,6 +39,10 @@ namespace Qv2ray
 
             if (parser.isSet(noAPIOption)) {
                 StartupOption.noAPI = true;
+            }
+
+            if (parser.isSet(runAsRootOption)) {
+                StartupOption.forceRunAsRootUser = true;
             }
 
             return CommandLineOk;

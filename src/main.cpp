@@ -5,13 +5,15 @@
 #include <QLocale>
 #include <QObject>
 #include <QStyleFactory>
-
 #include <QApplication>
 #include <singleapplication.h>
-
 #include "w_MainWindow.hpp"
-
 #include "QvCore/QvCommandLineArgs.hpp"
+
+#ifdef Q_OS_UNIX
+// For unix root user check
+#include "unistd.h"
+#endif
 
 bool verifyConfigAvaliability(QString path, bool checkExistingConfig)
 {
@@ -187,7 +189,7 @@ int main(int argc, char *argv[])
         std::unique_ptr<QCoreApplication> consoleApp(new QCoreApplication(argc, argv));
         QvCommandArgParser parser;
         QString errorMessage;
-        
+
         switch (parser.ParseCommandLine(&errorMessage)) {
             case CommandLineOk:
                 break;
@@ -205,10 +207,21 @@ int main(int argc, char *argv[])
                 cout << parser.Parser()->helpText().toStdString() << endl;
                 return 0;
         }
+
+#ifdef Q_OS_UNIX
+
+        // Unix OS root user check.
+        // Do not use getuid() here since it's installed as owned by the root, someone may accidently setuid to it.
+        if (!StartupOption.forceRunAsRootUser && geteuid() == 0) {
+            LOG("ERROR", QObject::tr("You cannot run Qv2ray as root, please use --I-just-wanna-run-with-root if you REALLY want to do so."))
+            LOG("ERROR", QObject::tr(" --> USE IT AS YOUR OWN RISK!"))
+            return 1;
+        }
+
+#endif
     }
-
+    //
     // finished: command line parsing
-
     LOG(MODULE_INIT, "Qv2ray " QV2RAY_VERSION_STRING " running on " + QSysInfo::prettyProductName() + " " + QSysInfo::currentCpuArchitecture() + NEWLINE)
     //
     // This line must be called before any other ones, since we are using these values to identify instances.
@@ -222,7 +235,7 @@ int main(int argc, char *argv[])
     SingleApplication::setApplicationName("Qv2ray - DEBUG");
 #endif
     //
-    SingleApplication _qApp(argc, argv, false, SingleApplication::Mode::ExcludeAppPath | SingleApplication::Mode::ExcludeAppVersion);
+    SingleApplication _qApp(argc, argv, false, SingleApplication::Mode::User | SingleApplication::Mode::ExcludeAppPath | SingleApplication::Mode::ExcludeAppVersion);
     // Early initialisation
     //
     //
@@ -407,14 +420,12 @@ int main(int argc, char *argv[])
             w.raise();
             w.activateWindow();
         });
-
         // Handler for session logout, shutdown, etc.
         // Will not block.
         QGuiApplication::setFallbackSessionManagementEnabled(false);
         QObject::connect(&_qApp, &QGuiApplication::commitDataRequest, []() {
             LOG(MODULE_INIT, "Quit triggered by session manager.");
         });
-
         auto rcode = _qApp.exec();
         LOG(MODULE_INIT, "Quitting normally")
         return rcode;

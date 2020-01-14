@@ -10,6 +10,8 @@ namespace Qv2ray
         struct QvStartupOptions {
             /// No API subsystem
             bool noAPI;
+            /// Explicitly run as root user.
+            bool forceRunAsRootUser;
         };
         enum CommandLineParseResult {
             CommandLineOk,
@@ -34,6 +36,7 @@ namespace Qv2ray
             private:
                 QCommandLineParser parser;
                 QCommandLineOption noAPIOption;
+                QCommandLineOption runAsRootOption;
                 QCommandLineOption helpOption;
                 QCommandLineOption versionOption;
         };
