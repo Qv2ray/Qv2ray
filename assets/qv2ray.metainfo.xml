@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-​<component type="desktop-application">
-​  <id>com.github.Qv2ray</id>
-​  <metadata_license>CC0-1.0</metadata_license>
-​  <project_license>GPL-3.0</project_license>
-​  <name>Qv2ray</name>
-​  <summary>Qv2ray is a cross-platform v2ray graphical frontend written in Qt.</summary>
-​
-​  <description>
-​    <p>
+<component type="desktop-application">
+  <id>com.github.Qv2ray</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0</project_license>
+  <name>Qv2ray</name>
+  <summary>Qv2ray is a cross-platform v2ray graphical frontend written in Qt.</summary>
+
+  <description>
+    <p>
       Qv2ray is a cross-platform v2ray graphical frontend written in Qt which can improve v2ray user experience. 
       It can help users to set up v2ray configuration files easily and automatically set the system proxy.
     </p>
@@ -38,4 +38,4 @@
   <content_rating type="oars-1.1" />
   <url type="homepage">https://github.com/lhy0403/Qv2ray</url>
   <url type="bugtracker">https://github.com/lhy0403/Qv2ray/issues</url>
-​</component>
+</component>
