@@ -10,32 +10,32 @@
 ​    <p>
       Qv2ray is a cross-platform v2ray graphical frontend written in Qt which can improve v2ray user experience. 
       It can help users to set up v2ray configuration files easily and automatically set the system proxy.
-​    </p>
-​  </description>
-​
-​  <launchable type="desktop-id">com.github.Qv2ray.desktop</launchable>
-​
-​  <screenshots>
-​    <screenshot type="default">
-​      <caption>The options dialog</caption>
-​      <image>http://www.hughsie.com/en_US/main.png</image>
-​    </screenshot>
-​  </screenshots>
+    </p>
+  </description>
 
-​  <releases>
-​    <release version="1.99.5" date="2019-1-14">
-​      <description>
-​        <ul>
+  <launchable type="desktop-id">com.github.Qv2ray.desktop</launchable>
+
+  <screenshots>
+    <screenshot type="default">
+      <caption>The options dialog</caption>
+      <image>http://www.hughsie.com/en_US/main.png</image>
+    </screenshot>
+  </screenshots>
+
+  <releases>
+    <release version="1.99.5" date="2019-1-14">
+      <description>
+        <ul>
             <li>[ux] improve ui selection experience</li>
             <li>[ui] Fixed #234</li>
             <li>[add] Added subscription renewal</li>
             <li>[fix] command line parsing workaround</li>
             <li>[fix] prevent from blocking shutdown and logout, fixed #224</li>
         </ul>
-​      </description>
-​    </release>
-​  </releases>
-​
-​  <url type="homepage">https://github.com/lhy0403/Qv2ray</url>
+      </description>
+    </release>
+  </releases>
+
+  <url type="homepage">https://github.com/lhy0403/Qv2ray</url>
   <url type="bugtracker">https://github.com/lhy0403/Qv2ray/issues</url>
 ​</component>
