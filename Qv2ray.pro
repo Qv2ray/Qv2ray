@@ -145,8 +145,8 @@ message("|-------------------------------------------------|")
 message(" ")
 
 
-RC_ICONS += ./icons/qv2ray.ico
-ICON = ./icons/qv2ray.icns
+RC_ICONS += ./assets/icons/qv2ray.ico
+ICON = ./assets/icons/qv2ray.icns
 
 # ------------------------------------------ Begin checking gRPC and protobuf headers.
 !exists(libs/gen/v2ray_api_commands.grpc.pb.h) || !exists(libs/gen/v2ray_api_commands.grpc.pb.cc) || !exists(libs/gen/v2ray_api_commands.pb.h) || !exists(libs/gen/v2ray_api_commands.pb.cc) {
@@ -254,11 +254,11 @@ unix {
     SOURCES += src/ui/NetSpeedBar/QvNetSpeedBar_linux.cpp
 
     message("  --> Generating desktop dependency.")
-    desktop.files += ./icons/qv2ray.desktop
+    desktop.files += ./assets/icons/qv2ray.desktop
     desktop.path = /usr/share/applications/
 
     message("  --> Generating icons dependency.")
-    icon.files += ./icons/qv2ray.png
+    icon.files += ./assets/icons/qv2ray.png
     icon.path = /usr/share/icons/hicolor/256x256/apps/
 
     target.path = /usr/local/bin/
@@ -269,7 +269,7 @@ build_flatpak {
     # For Packaging
     message("Configuring for packaging platform")
     message("  --> Generating metainfo dependency.")
-    appdataXml.files += ./icons/qv2ray.metainfo.xml
+    appdataXml.files += ./assets/qv2ray.metainfo.xml
     appdataXml.path = /app/share/metainfo/
     LIBS += -L/app/lib
     INCLUDEPATH += /app/include/

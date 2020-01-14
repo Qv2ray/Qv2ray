@@ -356,11 +356,7 @@
             <item row="1" column="3">
              <widget class="QToolButton" name="httpRemoveUserBtn">
               <property name="text">
-               <string>...</string>
-              </property>
-              <property name="icon">
-               <iconset>
-                <normaloff>:/icons/remove_connection_btn.png</normaloff>:/icons/remove_connection_btn.png</iconset>
+               <string>-</string>
               </property>
              </widget>
             </item>
@@ -377,11 +373,7 @@
             <item row="3" column="3">
              <widget class="QToolButton" name="httpAddUserBtn">
               <property name="text">
-               <string>...</string>
-              </property>
-              <property name="icon">
-               <iconset>
-                <normaloff>:/icons/add_connection_btn.png</normaloff>:/icons/add_connection_btn.png</iconset>
+               <string>+</string>
               </property>
              </widget>
             </item>
@@ -504,11 +496,7 @@
             <item row="1" column="3">
              <widget class="QToolButton" name="socksRemoveUserBtn">
               <property name="text">
-               <string>...</string>
-              </property>
-              <property name="icon">
-               <iconset>
-                <normaloff>:/icons/remove_connection_btn.png</normaloff>:/icons/remove_connection_btn.png</iconset>
+               <string>-</string>
               </property>
              </widget>
             </item>
@@ -525,11 +513,7 @@
             <item row="3" column="3">
              <widget class="QToolButton" name="socksAddUserBtn">
               <property name="text">
-               <string>...</string>
-              </property>
-              <property name="icon">
-               <iconset>
-                <normaloff>:/icons/add_connection_btn.png</normaloff>:/icons/add_connection_btn.png</iconset>
+               <string>+</string>
               </property>
              </widget>
             </item>

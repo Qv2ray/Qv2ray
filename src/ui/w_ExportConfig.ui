@@ -26,7 +26,7 @@
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="../../resources.qrc">:/icons/qv2ray.png</pixmap>
+      <pixmap resource="../../resources.qrc">:/assets/icons/qv2ray.ico</pixmap>
      </property>
      <property name="scaledContents">
       <bool>false</bool>

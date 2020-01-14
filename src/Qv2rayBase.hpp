@@ -66,7 +66,7 @@ const int QV2RAY_CONFIG_VERSION = 6;
 #define BLACK(obj)                             \
     obj->setPalette(this->palette());
 
-#define QV2RAY_UI_RESOURCES_ROOT (QV2RAY_IS_DARKTHEME ? QStringLiteral(":/icons/ui_dark/") : QStringLiteral(":/icons/ui_light/"))
+#define QV2RAY_UI_RESOURCES_ROOT (QV2RAY_IS_DARKTHEME ? QStringLiteral(":/assets/icons/ui_dark/") : QStringLiteral(":/assets/icons/ui_light/"))
 #define QICON_R(file) QIcon(QV2RAY_UI_RESOURCES_ROOT + file)
 
 #define QSTRN(num) QString::number(num)

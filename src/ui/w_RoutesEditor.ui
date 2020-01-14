@@ -261,13 +261,16 @@
    </item>
    <item row="1" column="1">
     <widget class="QToolBox" name="toolBox">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
      <widget class="QWidget" name="page_2">
       <property name="geometry">
        <rect>
         <x>0</x>
         <y>0</y>
         <width>359</width>
-        <height>529</height>
+        <height>535</height>
        </rect>
       </property>
       <attribute name="label">
@@ -362,7 +365,7 @@
         <x>0</x>
         <y>0</y>
         <width>345</width>
-        <height>618</height>
+        <height>607</height>
        </rect>
       </property>
       <attribute name="label">
@@ -525,10 +528,6 @@
                <property name="text">
                 <string>...</string>
                </property>
-               <property name="icon">
-                <iconset>
-                 <normaloff>:/icons/remove_connection_btn.png</normaloff>:/icons/remove_connection_btn.png</iconset>
-               </property>
               </widget>
              </item>
              <item row="2" column="1">
@@ -548,10 +547,6 @@
               <widget class="QToolButton" name="balancerAddBtn">
                <property name="text">
                 <string>...</string>
-               </property>
-               <property name="icon">
-                <iconset>
-                 <normaloff>:/icons/add_connection_btn.png</normaloff>:/icons/add_connection_btn.png</iconset>
                </property>
               </widget>
              </item>

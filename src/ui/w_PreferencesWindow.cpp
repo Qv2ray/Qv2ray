@@ -20,6 +20,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent),
     CurrentConfig()
 {
     setupUi(this);
+    textBrowser->setHtml(StringFromFile(new QFile(":/assets/credit.html")));
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
     // We add locales
     languageComboBox->clear();

@@ -94,8 +94,8 @@ MainWindow::MainWindow(QWidget *parent):
     requestHelper = new QvHttpRequestHelper();
     connect(tcpingModel, &QvTCPingModel::PingFinished, this, &MainWindow::onPingFinished);
     //
-    this->setWindowIcon(QIcon(":/icons/qv2ray.png"));
-    hTray->setIcon(QIcon(currentConfig.uiConfig.useDarkTrayIcon ? ":/icons/ui_dark/tray.png" : ":/icons/ui_light/tray.png"));
+    this->setWindowIcon(QIcon(":/assets/icons/qv2ray.png"));
+    hTray->setIcon(QIcon(currentConfig.uiConfig.useDarkTrayIcon ? ":/assets/icons/ui_dark/tray.png" : ":/assets/icons/ui_light/tray.png"));
     importConfigButton->setIcon(QICON_R("import.png"));
     duplicateBtn->setIcon(QICON_R("duplicate.png"));
     removeConfigButton->setIcon(QICON_R("delete.png"));
