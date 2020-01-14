@@ -214,7 +214,7 @@ int main(int argc, char *argv[])
         // Do not use getuid() here since it's installed as owned by the root, someone may accidently setuid to it.
         if (!StartupOption.forceRunAsRootUser && geteuid() == 0) {
             LOG("ERROR", QObject::tr("You cannot run Qv2ray as root, please use --I-just-wanna-run-with-root if you REALLY want to do so."))
-            LOG("ERROR", QObject::tr(" --> USE IT AS YOUR OWN RISK!"))
+            LOG("ERROR", QObject::tr(" --> USE IT AT YOUR OWN RISK!"))
             return 1;
         }
 
