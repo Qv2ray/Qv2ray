@@ -2451,17 +2451,17 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/components/QvKernelInteractions.cpp" line="56"/>
       <source>2. Please make sure the path is an excutable file, use &quot;chmod +x&quot; and make sure it&apos;s not a directory: </source>
-      <translation type="unfinished">2. Please make sure the path is an excutable file, use &quot;chmod +x&quot; and make sure it&apos;s not a directory: </translation>
+      <translation>2. 请确保路径是可执行文件，使用 “chmod+x” 并确保它不是目录：</translation>
     </message>
     <message>
       <location filename="../src/components/QvKernelInteractions.cpp" line="174"/>
       <source>API Call Failed</source>
-      <translation type="unfinished">API Call Failed</translation>
+      <translation>API 调用失败</translation>
     </message>
     <message>
       <location filename="../src/components/QvKernelInteractions.cpp" line="174"/>
       <source>Failed to get statistics data, please check if v2ray is running properly</source>
-      <translation type="unfinished">Failed to get statistics data, please check if v2ray is running properly</translation>
+      <translation>获取统计数据失败，请检查 v2ray 是否正常运行</translation>
     </message>
   </context>
   <context>
@@ -2987,17 +2987,17 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="154"/>
       <source>Update Interval</source>
-      <translation type="unfinished">Update Interval</translation>
+      <translation>更新间隔</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="179"/>
       <source>Days</source>
-      <translation type="unfinished">Days</translation>
+      <translation>天</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="201"/>
       <source>Last Updated</source>
-      <translation type="unfinished">Last Updated</translation>
+      <translation>最后更新</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="217"/>
