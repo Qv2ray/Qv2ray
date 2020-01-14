@@ -24,6 +24,14 @@
 ​      <image>http://www.hughsie.com/en_US/preferences.png</image>
 ​    </screenshot>
 ​  </screenshots>
+
+​  <releases>
+​    <release version="1.99.4" date="2019-12-30">
+​      <description>
+​        <p>New Crowdin translations</p>
+​      </description>
+​    </release>
+​  </releases>
 ​
 ​  <url type="homepage">https://github.com/lhy0403/Qv2ray</url>
   <url type="bugtracker">https://github.com/lhy0403/Qv2ray/issues</url>
