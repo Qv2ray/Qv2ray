@@ -50,10 +50,10 @@ namespace Qv2ray
                 return true;
             } else {
                 QvMessageBox(nullptr, tr("Cannot start v2ray"),
-                             tr("v2ray core file cannot be found at:") + NEWLINE +
-                             conf.v2CorePath + NEWLINE + NEWLINE  +
-                             tr("Please go to Preference Window to change the location.") + NEWLINE +
-                             tr("Or place your v2ray core file in the location above."));
+                             tr("We cannot find v2ray core binary.") + NEWLINE + NEWLINE +
+                             tr("Possible solutions:") + NEWLINE +
+                             tr("1. The location is wrong, please go to Preference Window to change it.") + NEWLINE +
+                             tr("2. Please make sure the path is an excutable file, use \"chmod +x\" and make sure it's not a directory: ") + conf.v2CorePath + NEWLINE);
                 return false;
             }
         }
