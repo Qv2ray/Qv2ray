@@ -35,7 +35,7 @@
       </description>
     </release>
   </releases>
-
+  <content_rating type="oars-1.1" />
   <url type="homepage">https://github.com/lhy0403/Qv2ray</url>
   <url type="bugtracker">https://github.com/lhy0403/Qv2ray/issues</url>
 ​</component>
