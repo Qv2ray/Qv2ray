@@ -75,18 +75,27 @@ void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString &originalTag
                 rules[newTag] = rules.take(originalTag);
                 ruleNodes[newTag] = ruleNodes.take(originalTag);
                 //
-                rules[newTag].QV2RAY_RULE_TAG = newTag;
+                auto node = static_cast<QvRuleNodeDataModel *>(ruleNodes[newTag]->nodeDataModel());
+                node->setData(newTag);
+                // No other operation needed, but need to rename the one in the ruleOrder list widget.
+                auto items = ruleListWidget->findItems(originalTag, Qt::MatchExactly);
+
+                if (!items.isEmpty()) {
+                    auto item = items.first();
+                    item->setText(newTag);
+                } else {
+                    LOG(MODULE_UI, "Cannot find a node: " + originalTag)
+                }
 
                 if (currentRuleTag == originalTag) {
                     currentRuleTag = newTag;
                 }
 
-                //
-                auto node = static_cast<QvRuleNodeDataModel *>(ruleNodes[newTag]->nodeDataModel());
-                node->setData(newTag);
-                // No other operation needed, but need to rename the one in the ruleOrder list widget.
-                auto item = ruleListWidget->findItems(originalTag, Qt::MatchExactly).first();
-                item->setText(newTag);
+                // Do not move this line, since originalTag is a reference (implicitly a pointer) to this value.
+                // We must change this at last.
+                rules[newTag].QV2RAY_RULE_TAG = newTag;
+            } else {
+                LOG(MODULE_UI, "There's thing match " + originalTag + " in the containers.")
             }
 
             break;
