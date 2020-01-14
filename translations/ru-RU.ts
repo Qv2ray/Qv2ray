@@ -380,8 +380,8 @@
       <location filename="../src/ui/w_InboundEditor.ui" line="267"/>
       <location filename="../src/ui/w_InboundEditor.ui" line="274"/>
       <location filename="../src/ui/w_InboundEditor.ui" line="335"/>
-      <location filename="../src/ui/w_InboundEditor.ui" line="486"/>
-      <location filename="../src/ui/w_InboundEditor.ui" line="695"/>
+      <location filename="../src/ui/w_InboundEditor.ui" line="478"/>
+      <location filename="../src/ui/w_InboundEditor.ui" line="679"/>
       <source>Enabled</source>
       <translation>Включено</translation>
     </message>
@@ -392,7 +392,7 @@
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="312"/>
-      <location filename="../src/ui/w_InboundEditor.ui" line="652"/>
+      <location filename="../src/ui/w_InboundEditor.ui" line="636"/>
       <source>Timeout</source>
       <translation>Время ожидания истекло</translation>
     </message>
@@ -403,131 +403,135 @@
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="342"/>
-      <location filename="../src/ui/w_InboundEditor.ui" line="476"/>
-      <location filename="../src/ui/w_InboundEditor.ui" line="672"/>
-      <location filename="../src/ui/w_InboundEditor.ui" line="759"/>
+      <location filename="../src/ui/w_InboundEditor.ui" line="468"/>
+      <location filename="../src/ui/w_InboundEditor.ui" line="656"/>
+      <location filename="../src/ui/w_InboundEditor.ui" line="743"/>
       <source>User Level</source>
       <translation>Тип пользователя</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="359"/>
-      <location filename="../src/ui/w_InboundEditor.ui" line="380"/>
-      <location filename="../src/ui/w_InboundEditor.ui" line="507"/>
-      <location filename="../src/ui/w_InboundEditor.ui" line="528"/>
-      <source>...</source>
-      <translation>...</translation>
+      <location filename="../src/ui/w_InboundEditor.ui" line="499"/>
+      <source>-</source>
+      <translation type="unfinished">-</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_InboundEditor.ui" line="373"/>
-      <location filename="../src/ui/w_InboundEditor.ui" line="521"/>
+      <location filename="../src/ui/w_InboundEditor.ui" line="369"/>
+      <location filename="../src/ui/w_InboundEditor.ui" line="509"/>
       <source>Password</source>
       <translation>Пароль</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_InboundEditor.ui" line="391"/>
-      <location filename="../src/ui/w_InboundEditor.ui" line="539"/>
+      <location filename="../src/ui/w_InboundEditor.ui" line="376"/>
+      <location filename="../src/ui/w_InboundEditor.ui" line="516"/>
+      <source>+</source>
+      <translation type="unfinished">+</translation>
+    </message>
+    <message>
+      <location filename="../src/ui/w_InboundEditor.ui" line="383"/>
+      <location filename="../src/ui/w_InboundEditor.ui" line="523"/>
       <source>Add</source>
       <translation>Добавить</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_InboundEditor.ui" line="401"/>
-      <location filename="../src/ui/w_InboundEditor.ui" line="549"/>
+      <location filename="../src/ui/w_InboundEditor.ui" line="393"/>
+      <location filename="../src/ui/w_InboundEditor.ui" line="533"/>
       <source>Username</source>
       <translation>Имя пользователя</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_InboundEditor.ui" line="408"/>
-      <location filename="../src/ui/w_InboundEditor.ui" line="556"/>
+      <location filename="../src/ui/w_InboundEditor.ui" line="400"/>
+      <location filename="../src/ui/w_InboundEditor.ui" line="540"/>
       <source>Accounts</source>
       <translation>Аккаунты</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_InboundEditor.ui" line="424"/>
+      <location filename="../src/ui/w_InboundEditor.ui" line="416"/>
       <source>SOCKS Inbound Settings</source>
       <translation>Настройки SOCKS InBound</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_InboundEditor.ui" line="432"/>
+      <location filename="../src/ui/w_InboundEditor.ui" line="424"/>
       <source>Auth</source>
       <translation>Авторизация</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_InboundEditor.ui" line="456"/>
+      <location filename="../src/ui/w_InboundEditor.ui" line="448"/>
       <source>Enable UDP</source>
       <translation>Включить UDP</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_InboundEditor.ui" line="466"/>
+      <location filename="../src/ui/w_InboundEditor.ui" line="458"/>
       <source>Local UDP IP</source>
       <translation>Локальный UDP IP</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_InboundEditor.ui" line="493"/>
+      <location filename="../src/ui/w_InboundEditor.ui" line="485"/>
       <source>127.0.0.1</source>
       <translation>127.0.0.1</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_InboundEditor.ui" line="572"/>
+      <location filename="../src/ui/w_InboundEditor.ui" line="556"/>
       <source>Dokodemo-Door Inbound Settings</source>
       <translation>Настройки Inbound Dokodemo-Door</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_InboundEditor.ui" line="578"/>
+      <location filename="../src/ui/w_InboundEditor.ui" line="562"/>
       <source>IP Address</source>
       <translation>IP-Адрес</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_InboundEditor.ui" line="588"/>
+      <location filename="../src/ui/w_InboundEditor.ui" line="572"/>
       <source>Not necessary when setting &quot;Follow Redirect&quot;</source>
       <translation>Не требуется при настройке &quot;Follow Redirect&quot;</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_InboundEditor.ui" line="595"/>
+      <location filename="../src/ui/w_InboundEditor.ui" line="579"/>
       <source>Port</source>
       <translation>Порт</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_InboundEditor.ui" line="618"/>
+      <location filename="../src/ui/w_InboundEditor.ui" line="602"/>
       <source>Network</source>
       <translation>Сеть</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_InboundEditor.ui" line="630"/>
+      <location filename="../src/ui/w_InboundEditor.ui" line="614"/>
       <source>TCP</source>
       <translation>TCP</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_InboundEditor.ui" line="643"/>
+      <location filename="../src/ui/w_InboundEditor.ui" line="627"/>
       <source>UDP</source>
       <translation>UDP</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_InboundEditor.ui" line="662"/>
+      <location filename="../src/ui/w_InboundEditor.ui" line="646"/>
       <source>Follow Redirect</source>
       <translation>Использовать переадресацию</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_InboundEditor.ui" line="705"/>
+      <location filename="../src/ui/w_InboundEditor.ui" line="689"/>
       <source>If you want to use tProxy, please go to Preference Window to enable this feature.</source>
       <translation>Если вы хотите использовать tProxy, перейдите в Preference Window для включения этой функции.</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_InboundEditor.ui" line="719"/>
+      <location filename="../src/ui/w_InboundEditor.ui" line="703"/>
       <source>MTProto Inbound Settings</source>
       <translation>Параметры HTTP InBound</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_InboundEditor.ui" line="725"/>
+      <location filename="../src/ui/w_InboundEditor.ui" line="709"/>
       <source>EMail Address</source>
       <translation>Адрес email</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_InboundEditor.ui" line="742"/>
+      <location filename="../src/ui/w_InboundEditor.ui" line="726"/>
       <source>Secret</source>
       <translation>Секрет</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_InboundEditor.ui" line="752"/>
+      <location filename="../src/ui/w_InboundEditor.ui" line="736"/>
       <source>SECRET</source>
       <translation>СЕКРЕТ</translation>
     </message>
@@ -1433,10 +1437,10 @@
     <name>PreferencesWindow</name>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="23"/>
-      <location filename="../src/ui/w_PreferencesWindow.cpp" line="181"/>
-      <location filename="../src/ui/w_PreferencesWindow.cpp" line="431"/>
-      <location filename="../src/ui/w_PreferencesWindow.cpp" line="442"/>
-      <location filename="../src/ui/w_PreferencesWindow.cpp" line="453"/>
+      <location filename="../src/ui/w_PreferencesWindow.cpp" line="182"/>
+      <location filename="../src/ui/w_PreferencesWindow.cpp" line="432"/>
+      <location filename="../src/ui/w_PreferencesWindow.cpp" line="443"/>
+      <location filename="../src/ui/w_PreferencesWindow.cpp" line="454"/>
       <source>Preferences</source>
       <translation>Настройки</translation>
     </message>
@@ -1857,13 +1861,13 @@
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1286"/>
-      <location filename="../src/ui/w_PreferencesWindow.cpp" line="678"/>
+      <location filename="../src/ui/w_PreferencesWindow.cpp" line="679"/>
       <source>Bold</source>
       <translation>Жирный</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1293"/>
-      <location filename="../src/ui/w_PreferencesWindow.cpp" line="679"/>
+      <location filename="../src/ui/w_PreferencesWindow.cpp" line="680"/>
       <source>Italic</source>
       <translation>Курсив</translation>
     </message>
@@ -1933,53 +1937,6 @@
       <translation type="unfinished">This feature is not stable enough and no documentation is provided, please use it as your own risk!</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1644"/>
-      <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;WenQuanYi Micro Hei&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MonoSpace&apos;; font-weight:600; color:#d68952;&quot;&gt;This program comes with ABSOLUTELY NO WARRANTY.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MonoSpace&apos;; font-weight:600; color:#d68952;&quot;&gt;This is free software, and you are welcome to redistribute it under certain conditions.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MonoSpace&apos;; color:#d68952;&quot;&gt;Copyright (C) 2020 Leroy.H.Y (@lhy0403): Qv2ray Current Developer&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MonoSpace&apos;; color:#d68952;&quot;&gt;Copyright (C) 2019 Hork (@aliyuchang33): Hv2ray Initial Designs &amp;amp; gRPC implementation&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MonoSpace&apos;; color:#d68952;&quot;&gt;Copyright (C) 2019 SOneWinstone (@SoneWinstone): Hv2ray/Qv2ray HTTP Request Helper&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MonoSpace&apos;; color:#d68952;&quot;&gt;Qv2ray ArtWork designs done by ArielAxionL (@axionl)&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MonoSpace&apos;; color:#d68952;&quot;&gt;TheBadGateway (@thebadgateway): Qv2ray Russian Translations&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MonoSpace&apos;; color:#d68952;&quot;&gt;Riko (@rikakomoe): Qv2ray patch 8a8c1a/PR115&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Noto Sans&apos;; color:#d68952;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MonoSpace&apos;; font-weight:600; color:#d68952;&quot;&gt;Libraries that have been used in Qv2ray are listed below (Sorted by date added):&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MonoSpace&apos;; color:#d68952;&quot;&gt;Copyright (c) 2020 dridk (@dridk): X2Struct (Apache)&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MonoSpace&apos;; color:#d68952;&quot;&gt;Copyright (c) 2011 SCHUTZ Sacha (@dridk): QJsonModel (MIT)&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MonoSpace&apos;; color:#d68952;&quot;&gt;Copyright (c) 2020 Nikolaos Ftylitakis (@ftylitak): QZXing (Apache2)&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MonoSpace&apos;; color:#d68952;&quot;&gt;Copyright (c) 2016 Singein (@Singein): ScreenShot (MIT)&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MonoSpace&apos;; color:#d68952;&quot;&gt;Copyright (c) 2016 Nikhil Marathe (@nikhilm): QHttpServer (MIT)&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MonoSpace&apos;; color:#d68952;&quot;&gt;Copyright (c) 2020 Itay Grudev (@itay-grudev): SingleApplication (MIT)&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MonoSpace&apos;; color:#d68952;&quot;&gt;Copyright (c) 2020 paceholder (@paceholder): nodeeditor (QNodeEditor modified by lhy0403) (BSD-3-Clause)&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MonoSpace&apos;; color:#d68952;&quot;&gt;Copyright (c) 2019 TheWanderingCoel (@TheWanderingCoel): ShadowClash (launchatlogin) (GPLv3)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-      <translation type="unfinished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;WenQuanYi Micro Hei&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MonoSpace&apos;; font-weight:600; color:#d68952;&quot;&gt;This program comes with ABSOLUTELY NO WARRANTY.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MonoSpace&apos;; font-weight:600; color:#d68952;&quot;&gt;This is free software, and you are welcome to redistribute it under certain conditions.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MonoSpace&apos;; color:#d68952;&quot;&gt;Copyright (C) 2020 Leroy.H.Y (@lhy0403): Qv2ray Current Developer&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MonoSpace&apos;; color:#d68952;&quot;&gt;Copyright (C) 2019 Hork (@aliyuchang33): Hv2ray Initial Designs &amp; gRPC implementation&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MonoSpace&apos;; color:#d68952;&quot;&gt;Copyright (C) 2019 SOneWinstone (@SoneWinstone): Hv2ray/Qv2ray HTTP Request Helper&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MonoSpace&apos;; color:#d68952;&quot;&gt;Qv2ray ArtWork designs done by ArielAxionL (@axionl)&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MonoSpace&apos;; color:#d68952;&quot;&gt;TheBadGateway (@thebadgateway): Qv2ray Russian Translations&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MonoSpace&apos;; color:#d68952;&quot;&gt;Riko (@rikakomoe): Qv2ray patch 8a8c1a/PR115&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Noto Sans&apos;; color:#d68952;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MonoSpace&apos;; font-weight:600; color:#d68952;&quot;&gt;Libraries that have been used in Qv2ray are listed below (Sorted by date added):&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MonoSpace&apos;; color:#d68952;&quot;&gt;Copyright (c) 2020 dridk (@dridk): X2Struct (Apache)&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MonoSpace&apos;; color:#d68952;&quot;&gt;Copyright (c) 2011 SCHUTZ Sacha (@dridk): QJsonModel (MIT)&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MonoSpace&apos;; color:#d68952;&quot;&gt;Copyright (c) 2020 Nikolaos Ftylitakis (@ftylitak): QZXing (Apache2)&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MonoSpace&apos;; color:#d68952;&quot;&gt;Copyright (c) 2016 Singein (@Singein): ScreenShot (MIT)&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MonoSpace&apos;; color:#d68952;&quot;&gt;Copyright (c) 2016 Nikhil Marathe (@nikhilm): QHttpServer (MIT)&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MonoSpace&apos;; color:#d68952;&quot;&gt;Copyright (c) 2020 Itay Grudev (@itay-grudev): SingleApplication (MIT)&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MonoSpace&apos;; color:#d68952;&quot;&gt;Copyright (c) 2020 paceholder (@paceholder): nodeeditor (QNodeEditor modified by lhy0403) (BSD-3-Clause)&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;MonoSpace&apos;; color:#d68952;&quot;&gt;Copyright (c) 2019 TheWanderingCoel (@TheWanderingCoel): ShadowClash (launchatlogin) (GPLv3)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1453"/>
       <source>About</source>
       <translation>О программе</translation>
@@ -2020,126 +1977,139 @@ p, li { white-space: pre-wrap; }
       <translation>Время постройки:</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1674"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1644"/>
+      <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;WenQuanYi Micro Hei&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;WenQuanYi Micro Hei&apos;;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+      <translation type="unfinished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;WenQuanYi Micro Hei&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;WenQuanYi Micro Hei&apos;;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1657"/>
       <source>Ignore Next Version</source>
       <translation>Игнорировать следующую версию</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1681"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1664"/>
       <source>Cancel</source>
       <translation>Отменить</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1722"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1705"/>
       <source>About Qt</source>
       <translation>Об инструментарии Qt</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.cpp" line="48"/>
+      <location filename="../src/ui/w_PreferencesWindow.cpp" line="49"/>
       <source>Use Darkmode Theme</source>
       <translation>Использовать темную тему</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.cpp" line="120"/>
+      <location filename="../src/ui/w_PreferencesWindow.cpp" line="121"/>
       <source>Page</source>
       <translation>Стр.</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.cpp" line="120"/>
+      <location filename="../src/ui/w_PreferencesWindow.cpp" line="121"/>
       <source>Item(s)</source>
       <translation>Объекты</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.cpp" line="181"/>
+      <location filename="../src/ui/w_PreferencesWindow.cpp" line="182"/>
       <source>Port numbers cannot be the same</source>
       <translation>Номера портов не могут совпадать</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.cpp" line="301"/>
+      <location filename="../src/ui/w_PreferencesWindow.cpp" line="302"/>
       <source>Open v2ray assets folder</source>
       <translation>Открыть папку с активами v2ray</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.cpp" line="311"/>
+      <location filename="../src/ui/w_PreferencesWindow.cpp" line="312"/>
       <source>Open v2ray core file</source>
       <translation>Открыть файл ядра v2ray</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.cpp" line="370"/>
-      <location filename="../src/ui/w_PreferencesWindow.cpp" line="415"/>
+      <location filename="../src/ui/w_PreferencesWindow.cpp" line="371"/>
+      <location filename="../src/ui/w_PreferencesWindow.cpp" line="416"/>
       <source>Enable tProxy Support</source>
       <translation>Включить tProxy поддержку</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.cpp" line="371"/>
+      <location filename="../src/ui/w_PreferencesWindow.cpp" line="372"/>
       <source>This will append capabilities to the v2ray executable.</source>
       <translation>Это добавит возможности к исполняемому файлу v2ray.</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.cpp" line="372"/>
+      <location filename="../src/ui/w_PreferencesWindow.cpp" line="373"/>
       <source>Qv2ray will copy your v2ray core to this path: </source>
       <translation>Qv2ray скопирует ядро v2ray в этот путь: </translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.cpp" line="373"/>
+      <location filename="../src/ui/w_PreferencesWindow.cpp" line="374"/>
       <source>If anything goes wrong after enabling this, please refer to issue #57 or the link below:</source>
       <translation>Если что-либо пошло не так после включения, пожалуйста, обратитесь к проблеме #57 или к ссылке ниже:</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.cpp" line="416"/>
+      <location filename="../src/ui/w_PreferencesWindow.cpp" line="417"/>
       <source>Qv2ray cannot copy one or both v2ray files from: </source>
       <translation>Qv2ray не может скопировать один или оба файла v2ray из: </translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.cpp" line="418"/>
+      <location filename="../src/ui/w_PreferencesWindow.cpp" line="419"/>
       <source>to this path: </source>
       <translation>на этот путь: </translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.cpp" line="431"/>
-      <location filename="../src/ui/w_PreferencesWindow.cpp" line="442"/>
+      <location filename="../src/ui/w_PreferencesWindow.cpp" line="432"/>
+      <location filename="../src/ui/w_PreferencesWindow.cpp" line="443"/>
       <source>Failed to setcap onto v2ray executable. You may need to run `setcap` manually.</source>
       <translation>Не удалось установить параметр на v2ray исполняемый файл. Возможно, вам нужно запустить `setcap` вручную.</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.cpp" line="453"/>
+      <location filename="../src/ui/w_PreferencesWindow.cpp" line="454"/>
       <source>tProxy is not supported on macOS and Windows</source>
       <translation>tProxy не поддерживается на macOS и Windows</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.cpp" line="756"/>
+      <location filename="../src/ui/w_PreferencesWindow.cpp" line="757"/>
       <source>Dark Mode</source>
       <translation>Тёмный режим</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.cpp" line="756"/>
+      <location filename="../src/ui/w_PreferencesWindow.cpp" line="757"/>
       <source>Please restart Qv2ray to fully apply this feature.</source>
       <translation>Пожалуйста, перезапустите Qv2ray, чтобы полностью применить эту функцию.</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.cpp" line="827"/>
+      <location filename="../src/ui/w_PreferencesWindow.cpp" line="828"/>
       <source>Select GFWList in base64</source>
       <translation>Выберите GFWList в base64</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.cpp" line="833"/>
+      <location filename="../src/ui/w_PreferencesWindow.cpp" line="834"/>
       <source>Download GFWList</source>
       <translation>Скачать GFWList</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.cpp" line="833"/>
+      <location filename="../src/ui/w_PreferencesWindow.cpp" line="834"/>
       <source>Successfully downloaded GFWList.</source>
       <translation>Успешно загружено %1$s.</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.cpp" line="909"/>
-      <location filename="../src/ui/w_PreferencesWindow.cpp" line="921"/>
+      <location filename="../src/ui/w_PreferencesWindow.cpp" line="910"/>
+      <location filename="../src/ui/w_PreferencesWindow.cpp" line="922"/>
       <source>Start with boot</source>
       <translation>Автозапуск</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.cpp" line="909"/>
-      <location filename="../src/ui/w_PreferencesWindow.cpp" line="921"/>
+      <location filename="../src/ui/w_PreferencesWindow.cpp" line="910"/>
+      <location filename="../src/ui/w_PreferencesWindow.cpp" line="922"/>
       <source>Failed to set auto start option.</source>
       <translation type="unfinished">Failed to set auto start option.</translation>
     </message>
@@ -2522,23 +2492,23 @@ p, li { white-space: pre-wrap; }
     <name>RouteEditor</name>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="20"/>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="412"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="415"/>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="554"/>
       <source>Route Editor</source>
       <translation>Редактор маршрута</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="570"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="565"/>
       <source>Route Detail Settings</source>
       <translation>Параметры детализации маршрута</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="583"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="578"/>
       <source>Source IP Matches</source>
       <translation>Источник IP Соответствия</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="631"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="626"/>
       <source>Status</source>
       <translation>Статус</translation>
     </message>
@@ -2549,7 +2519,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="160"/>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="485"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="488"/>
       <source>Port</source>
       <translation>Порт</translation>
     </message>
@@ -2590,7 +2560,7 @@ p, li { white-space: pre-wrap; }
       <translation>Маршруты</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="390"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="393"/>
       <source>Enabled</source>
       <translation>Включено</translation>
     </message>
@@ -2605,49 +2575,49 @@ p, li { white-space: pre-wrap; }
       <translation>Добавить новый маршрут</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="506"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="509"/>
       <source>Use Balancers</source>
       <translation>Использовать балансиры</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="526"/>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="550"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="529"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="549"/>
       <source>...</source>
       <translation>...</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="603"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="598"/>
       <source>Target IP List</source>
       <translation>Список адресов IP</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="596"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="591"/>
       <source>Target Domain List</source>
       <translation>Список адресов</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="421"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="424"/>
       <source>Network</source>
       <translation>Сеть</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="430"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="433"/>
       <source>TCP</source>
       <translation>TCP</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="437"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="440"/>
       <source>UDP</source>
       <translation>UDP</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="444"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="447"/>
       <source>Both</source>
       <translation>Оба</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="118"/>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="453"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="456"/>
       <source>Protocol</source>
       <translation>Протокол</translation>
     </message>
@@ -2712,77 +2682,77 @@ p, li { white-space: pre-wrap; }
       <translation>Удалить выделение</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="274"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="277"/>
       <source>General Settings</source>
       <translation>Общие настройки</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="280"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="283"/>
       <source>GroupBox</source>
       <translation>GroupBox</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="286"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="289"/>
       <source>Domain Strategy</source>
       <translation>Стратегия домена</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="312"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="315"/>
       <source>Default Outbound</source>
       <translation>Исходящий по умолчанию</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="325"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="328"/>
       <source>Rule Order Settings</source>
       <translation>Настройки заказов</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="331"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="334"/>
       <source>Drag and drop to re-order the rules.</source>
       <translation>Перетащите для изменения порядка правил.</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="369"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="372"/>
       <source>Rule Settings</source>
       <translation>Настройки правил</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="380"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="383"/>
       <source>Rule Status</source>
       <translation>Правило Статус</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="397"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="400"/>
       <source>Rule Tag</source>
       <translation>Тег правила</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="462"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="465"/>
       <source>HTTP</source>
       <translation>HTTP</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="469"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="472"/>
       <source>TLS</source>
       <translation>TLS</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="476"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="479"/>
       <source>BitTorrent</source>
       <translation>BitTorrent</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="492"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="495"/>
       <source>e.g. 80, 443, 8000-8080</source>
       <translation>напр. 80, 443, 8000-8080</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="499"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="502"/>
       <source>Balancers</source>
       <translation>Балансеры</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.ui" line="576"/>
+      <location filename="../src/ui/w_RoutesEditor.ui" line="571"/>
       <source>Users List</source>
       <translation>Список пользователей</translation>
     </message>
