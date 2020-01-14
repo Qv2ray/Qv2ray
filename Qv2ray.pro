@@ -269,9 +269,9 @@ build_flatpak {
     # For Packaging
     message("Configuring for packaging platform")
     message("  --> Generating metainfo dependency.")
-    appdataXml.files += ./icons/qv2ray.appdata.xml
+    appdataXml.files += ./icons/qv2ray.metainfo.xml
     appdataXml.path = /app/share/metainfo/
-    LIBS += -L/app/lib -lgrpc++ -lprotobuf -lgrpc
+    LIBS += -L/app/lib
     INCLUDEPATH += /app/include/
     desktop.path = /app/share/applications/
     icon.path = /app/share/icons/hicolor/256x256/apps/
