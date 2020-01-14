@@ -1002,17 +1002,17 @@
     <message>
       <location filename="../src/ui/w_MainWindow_extra.cpp" line="242"/>
       <source>Update Subscriptions</source>
-      <translation type="unfinished">Update Subscriptions</translation>
+      <translation>更新订阅</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow_extra.cpp" line="243"/>
       <source>There are subscriptions need to be updated, please go to subscriptions window to update them.</source>
-      <translation type="unfinished">There are subscriptions need to be updated, please go to subscriptions window to update them.</translation>
+      <translation>订阅需要更新，请前往订阅窗口更新。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow_extra.cpp" line="244"/>
       <source>These subscriptions are out-of-date: </source>
-      <translation type="unfinished">These subscriptions are out-of-date: </translation>
+      <translation>这些订阅已过期： </translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="483"/>
@@ -1253,17 +1253,17 @@
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="116"/>
       <source>Misc Settings</source>
-      <translation type="unfinished">Misc Settings</translation>
+      <translation>其他设定</translation>
     </message>
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="136"/>
       <source>Mux Concurrency</source>
-      <translation type="unfinished">Mux Concurrency</translation>
+      <translation>Mux 并发性</translation>
     </message>
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="163"/>
       <source>Use Forward Proxy</source>
-      <translation type="unfinished">Use Forward Proxy</translation>
+      <translation>使用前置代理</translation>
     </message>
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="173"/>
@@ -1629,17 +1629,17 @@
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="74"/>
       <source>Launch at Login</source>
-      <translation type="unfinished">Launch at Login</translation>
+      <translation>登录时启动</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="405"/>
       <source>Install</source>
-      <translation type="unfinished">Install</translation>
+      <translation>安装</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="586"/>
       <source>IP:</source>
-      <translation type="unfinished">IP:</translation>
+      <translation>IP：</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="602"/>
@@ -1785,7 +1785,7 @@
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="968"/>
       <source>Only simple config is supported.</source>
-      <translation type="unfinished">Only simple config is supported.</translation>
+      <translation>只支持简单配置。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="977"/>
@@ -1934,7 +1934,7 @@
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1445"/>
       <source>This feature is not stable enough and no documentation is provided, please use it as your own risk!</source>
-      <translation type="unfinished">This feature is not stable enough and no documentation is provided, please use it as your own risk!</translation>
+      <translation>此功能不够稳定，且暂无文档，使用时需自负风险！</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1453"/>
@@ -2111,7 +2111,7 @@ p, li { white-space: pre-wrap; }
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="910"/>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="922"/>
       <source>Failed to set auto start option.</source>
-      <translation type="unfinished">Failed to set auto start option.</translation>
+      <translation>设置自动启动选项失败。</translation>
     </message>
   </context>
   <context>
@@ -2181,7 +2181,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/main.cpp" line="216"/>
       <source>You cannot run Qv2ray as root, please use --I-just-wanna-run-with-root if you REALLY want to do so.</source>
-      <translation type="unfinished">You cannot run Qv2ray as root, please use --I-just-wanna-run-with-root if you REALLY want to do so.</translation>
+      <translation>您不能以 root 身份运行 Qv2ray，如果您真的想要使用 Qv2ray，请使用 --I-just-wanna-run-with-root</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="217"/>
@@ -2374,17 +2374,17 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/components/QvCore/QvCommandLineArgs.cpp" line="16"/>
       <source>Qv2ray - A cross-platform Qt frontend for V2ray.</source>
-      <translation type="unfinished">Qv2ray - A cross-platform Qt frontend for V2ray.</translation>
+      <translation>Qv2ray - V2ray跨平台的 Qt 前端。</translation>
     </message>
     <message>
       <location filename="../src/components/QvCore/QvCommandLineArgs.cpp" line="19"/>
       <source>Disable gRPC API subsystems.</source>
-      <translation type="unfinished">Disable gRPC API subsystems.</translation>
+      <translation>禁用 gRPC API 子系统。</translation>
     </message>
     <message>
       <location filename="../src/components/QvCore/QvCommandLineArgs.cpp" line="20"/>
       <source>Explicitly run Qv2ray as root.</source>
-      <translation type="unfinished">Explicitly run Qv2ray as root.</translation>
+      <translation>以root形式明确运行 Qv2ray</translation>
     </message>
   </context>
   <context>
@@ -2421,32 +2421,32 @@ p, li { white-space: pre-wrap; }
       <location filename="../src/components/QvKernelInteractions.cpp" line="39"/>
       <location filename="../src/components/QvKernelInteractions.cpp" line="52"/>
       <source>Cannot start v2ray</source>
-      <translation type="unfinished">Cannot start v2ray</translation>
+      <translation>无法启动 v2ray</translation>
     </message>
     <message>
       <location filename="../src/components/QvKernelInteractions.cpp" line="39"/>
       <source>v2ray core failed with errcode:</source>
-      <translation type="unfinished">v2ray core failed with errcode:</translation>
+      <translation>v2ray 核心错误，错误代码：</translation>
     </message>
     <message>
       <location filename="../src/components/QvKernelInteractions.cpp" line="46"/>
       <source>Configuration Error</source>
-      <translation type="unfinished">Configuration Error</translation>
+      <translation>配置错误</translation>
     </message>
     <message>
       <location filename="../src/components/QvKernelInteractions.cpp" line="53"/>
       <source>We cannot find v2ray core binary.</source>
-      <translation type="unfinished">We cannot find v2ray core binary.</translation>
+      <translation>我们找不到 v2ray 核心二进制。</translation>
     </message>
     <message>
       <location filename="../src/components/QvKernelInteractions.cpp" line="54"/>
       <source>Possible solutions:</source>
-      <translation type="unfinished">Possible solutions:</translation>
+      <translation>可能的解决方案:</translation>
     </message>
     <message>
       <location filename="../src/components/QvKernelInteractions.cpp" line="55"/>
       <source>1. The location is wrong, please go to Preference Window to change it.</source>
-      <translation type="unfinished">1. The location is wrong, please go to Preference Window to change it.</translation>
+      <translation>1. 位置错误，请前往首选项窗口更改它。</translation>
     </message>
     <message>
       <location filename="../src/components/QvKernelInteractions.cpp" line="56"/>
