@@ -217,3 +217,32 @@ tuple<QString, int, QString> MainWindow::MWGetConnectionInfo(const QvConfigIdent
     return GetConnectionInfo(connections[alias].config);
 }
 
+void MainWindow::CheckSubscriptionsUpdate()
+{
+    QStringList updateList;
+
+    for (auto index = 0; index < currentConfig.subscriptions.count(); index++) {
+        auto subs = currentConfig.subscriptions.values()[index];
+        auto key = currentConfig.subscriptions.keys()[index];
+        //
+        auto lastRenewDate = QDateTime::fromTime_t(subs.lastUpdated);
+        auto renewTime = lastRenewDate.addSecs(subs.updateInterval * 86400);
+        LOG(MODULE_SUBSCRIPTION, "Subscription \"" + key + "\": " + NEWLINE +
+            " --> Last renewal time: "  + lastRenewDate.toString() + NEWLINE +
+            " --> Renew interval: " + QSTRN(subs.updateInterval) + NEWLINE +
+            " --> Ideal renew time: " + renewTime.toString())
+
+        if (renewTime <= QDateTime::currentDateTime()) {
+            LOG(MODULE_SUBSCRIPTION, "Subscription: " + key + " needs to be updated.")
+            updateList.append(key);
+        }
+    }
+
+    if (!updateList.isEmpty()) {
+        QvMessageBox(this, tr("Update Subscriptions"),
+                     tr("There are subscriptions need to be updated, please go to subscriptions window to update them.") + NEWLINE + NEWLINE +
+                     tr("These subscriptions are out-of-date: ") + NEWLINE + Stringify(updateList));
+        on_subsButton_clicked();
+    }
+}
+

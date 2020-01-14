@@ -230,6 +230,7 @@ MainWindow::MainWindow(QWidget *parent):
     connect(requestHelper, &QvHttpRequestHelper::httpRequestFinished, this, &MainWindow::VersionUpdate);
     requestHelper->get("https://api.github.com/repos/lhy0403/Qv2ray/releases/latest");
     StartProcessingPlugins();
+    CheckSubscriptionsUpdate();
 }
 
 void MainWindow::SetEditWidgetEnable(bool enabled)

@@ -152,6 +152,7 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         tuple<QString, int, QString> MWGetConnectionInfo(const QvConfigIdentifier &alias);
         void MWSetSystemProxy();
         void MWClearSystemProxy(bool);
+        void CheckSubscriptionsUpdate();
         //
 
         QTreeWidgetItem *FindItemByIdentifier(QvConfigIdentifier identifier);
