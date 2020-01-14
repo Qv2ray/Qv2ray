@@ -20,15 +20,18 @@
 ​      <caption>The options dialog</caption>
 ​      <image>http://www.hughsie.com/en_US/main.png</image>
 ​    </screenshot>
-​    <screenshot>
-​      <image>http://www.hughsie.com/en_US/preferences.png</image>
-​    </screenshot>
 ​  </screenshots>
 
 ​  <releases>
-​    <release version="1.99.4" date="2019-12-30">
+​    <release version="1.99.5" date="2019-1-14">
 ​      <description>
-​        <p>New Crowdin translations</p>
+​        <ul>
+            <li>[ux] improve ui selection experience</li>
+            <li>[ui] Fixed #234</li>
+            <li>[add] Added subscription renewal</li>
+            <li>[fix] command line parsing workaround</li>
+            <li>[fix] prevent from blocking shutdown and logout, fixed #224</li>
+        </ul>
 ​      </description>
 ​    </release>
 ​  </releases>
