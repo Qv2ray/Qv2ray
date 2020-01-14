@@ -413,7 +413,7 @@
       <location filename="../src/ui/w_InboundEditor.ui" line="359"/>
       <location filename="../src/ui/w_InboundEditor.ui" line="499"/>
       <source>-</source>
-      <translation type="unfinished">-</translation>
+      <translation>-</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="369"/>
@@ -425,7 +425,7 @@
       <location filename="../src/ui/w_InboundEditor.ui" line="376"/>
       <location filename="../src/ui/w_InboundEditor.ui" line="516"/>
       <source>+</source>
-      <translation type="unfinished">+</translation>
+      <translation>+</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="383"/>
@@ -1002,17 +1002,17 @@
     <message>
       <location filename="../src/ui/w_MainWindow_extra.cpp" line="242"/>
       <source>Update Subscriptions</source>
-      <translation type="unfinished">Update Subscriptions</translation>
+      <translation>Обновить подписку</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow_extra.cpp" line="243"/>
       <source>There are subscriptions need to be updated, please go to subscriptions window to update them.</source>
-      <translation type="unfinished">There are subscriptions need to be updated, please go to subscriptions window to update them.</translation>
+      <translation>Есть подписки, которые необходимо обновить, перейдите в окно подписок, чтобы обновить их.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow_extra.cpp" line="244"/>
       <source>These subscriptions are out-of-date: </source>
-      <translation type="unfinished">These subscriptions are out-of-date: </translation>
+      <translation>Эти подписки устарели: </translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="483"/>
@@ -1253,17 +1253,17 @@
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="116"/>
       <source>Misc Settings</source>
-      <translation type="unfinished">Misc Settings</translation>
+      <translation>Прочие настройки</translation>
     </message>
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="136"/>
       <source>Mux Concurrency</source>
-      <translation type="unfinished">Mux Concurrency</translation>
+      <translation>Mux Согласие</translation>
     </message>
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="163"/>
       <source>Use Forward Proxy</source>
-      <translation type="unfinished">Use Forward Proxy</translation>
+      <translation>Использовать Ретрансляция прокси</translation>
     </message>
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="173"/>
@@ -1629,17 +1629,17 @@
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="74"/>
       <source>Launch at Login</source>
-      <translation type="unfinished">Launch at Login</translation>
+      <translation>Запуск при входе</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="405"/>
       <source>Install</source>
-      <translation type="unfinished">Install</translation>
+      <translation>Установить</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="586"/>
       <source>IP:</source>
-      <translation type="unfinished">IP:</translation>
+      <translation>IP:</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="602"/>
@@ -1785,7 +1785,7 @@
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="968"/>
       <source>Only simple config is supported.</source>
-      <translation type="unfinished">Only simple config is supported.</translation>
+      <translation>Поддерживаются только простые настройки.</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="977"/>
@@ -1934,7 +1934,7 @@
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1445"/>
       <source>This feature is not stable enough and no documentation is provided, please use it as your own risk!</source>
-      <translation type="unfinished">This feature is not stable enough and no documentation is provided, please use it as your own risk!</translation>
+      <translation>Эта функция недостаточно стабильна, и документация не доказана, пожалуйста, используйте её в качестве собственного риска!</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1453"/>
@@ -1954,7 +1954,7 @@
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1567"/>
       <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://www.gnu.org/licenses/gpl-3.0.txt&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#2980b9;&quot;&gt;GPLv3 (https://www.gnu.org/licenses/gpl-3.0.txt)&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-      <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://www.gnu.org/licenses/gpl-3.0.txt&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#2980b9;&quot;&gt;GPLv3 (https://www.gnu.org/licenses/gpl-3.0.txt)&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+      <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://www.gnu.org/licenses/gpl-3.0.txt&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#2980b9;&quot;&gt;GPLv3 (https://www.gnu.org/licenses/gpl-3.0.txt)&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1583"/>
@@ -1964,7 +1964,7 @@
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1606"/>
       <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/lhy0403/Qv2ray&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#2980b9;&quot;&gt;https://github.com/lhy0403/Qv2ray&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-      <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/lhy0403/Qv2ray&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#2980b9;&quot;&gt;https://github.com/lhy0403/Qv2ray&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+      <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/lhy0403/Qv2ray&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#2980b9;&quot;&gt;https://github.com/lhy0403/Qv2ray&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1622"/>
@@ -1983,7 +1983,7 @@
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;WenQuanYi Micro Hei&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;WenQuanYi Micro Hei&apos;;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-      <translation type="unfinished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+      <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;WenQuanYi Micro Hei&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
@@ -2111,7 +2111,7 @@ p, li { white-space: pre-wrap; }
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="910"/>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="922"/>
       <source>Failed to set auto start option.</source>
-      <translation type="unfinished">Failed to set auto start option.</translation>
+      <translation>Не удалось установить опцию автозапуска.</translation>
     </message>
   </context>
   <context>
@@ -2181,12 +2181,12 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/main.cpp" line="216"/>
       <source>You cannot run Qv2ray as root, please use --I-just-wanna-run-with-root if you REALLY want to do so.</source>
-      <translation type="unfinished">You cannot run Qv2ray as root, please use --I-just-wanna-run-with-root if you REALLY want to do so.</translation>
+      <translation>Вы не можете запустить Qv2ray как root, пожалуйста, используйте --I-just-wanna-run-with-root, если вы хотите это сделать.</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="217"/>
       <source> --&gt; USE IT AS YOUR OWN RISK!</source>
-      <translation type="unfinished"> --&gt; USE IT AS YOUR OWN RISK!</translation>
+      <translation> --&gt; Используйте на свой страх и риск!</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="281"/>
@@ -2374,17 +2374,17 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/components/QvCore/QvCommandLineArgs.cpp" line="16"/>
       <source>Qv2ray - A cross-platform Qt frontend for V2ray.</source>
-      <translation type="unfinished">Qv2ray - A cross-platform Qt frontend for V2ray.</translation>
+      <translation>Qv2ray - кросс-платформенный Qt фронтенд для V2ray.</translation>
     </message>
     <message>
       <location filename="../src/components/QvCore/QvCommandLineArgs.cpp" line="19"/>
       <source>Disable gRPC API subsystems.</source>
-      <translation type="unfinished">Disable gRPC API subsystems.</translation>
+      <translation>Отключить подсистемы gRPC API.</translation>
     </message>
     <message>
       <location filename="../src/components/QvCore/QvCommandLineArgs.cpp" line="20"/>
       <source>Explicitly run Qv2ray as root.</source>
-      <translation type="unfinished">Explicitly run Qv2ray as root.</translation>
+      <translation>Явно запускайте Qv2ray как root.</translation>
     </message>
   </context>
   <context>
@@ -2421,47 +2421,47 @@ p, li { white-space: pre-wrap; }
       <location filename="../src/components/QvKernelInteractions.cpp" line="39"/>
       <location filename="../src/components/QvKernelInteractions.cpp" line="52"/>
       <source>Cannot start v2ray</source>
-      <translation type="unfinished">Cannot start v2ray</translation>
+      <translation>Невозможно запустить v2ray</translation>
     </message>
     <message>
       <location filename="../src/components/QvKernelInteractions.cpp" line="39"/>
       <source>v2ray core failed with errcode:</source>
-      <translation type="unfinished">v2ray core failed with errcode:</translation>
+      <translation>ошибка ядра v2ray:</translation>
     </message>
     <message>
       <location filename="../src/components/QvKernelInteractions.cpp" line="46"/>
       <source>Configuration Error</source>
-      <translation type="unfinished">Configuration Error</translation>
+      <translation>Ошибка конфигурации</translation>
     </message>
     <message>
       <location filename="../src/components/QvKernelInteractions.cpp" line="53"/>
       <source>We cannot find v2ray core binary.</source>
-      <translation type="unfinished">We cannot find v2ray core binary.</translation>
+      <translation>Мы не можем найти файл ядра v2ray.</translation>
     </message>
     <message>
       <location filename="../src/components/QvKernelInteractions.cpp" line="54"/>
       <source>Possible solutions:</source>
-      <translation type="unfinished">Possible solutions:</translation>
+      <translation>Варианты решений:</translation>
     </message>
     <message>
       <location filename="../src/components/QvKernelInteractions.cpp" line="55"/>
       <source>1. The location is wrong, please go to Preference Window to change it.</source>
-      <translation type="unfinished">1. The location is wrong, please go to Preference Window to change it.</translation>
+      <translation>1. Неправильное местоположение, пожалуйста, перейдите в окно настроек, чтобы изменить его.</translation>
     </message>
     <message>
       <location filename="../src/components/QvKernelInteractions.cpp" line="56"/>
       <source>2. Please make sure the path is an excutable file, use &quot;chmod +x&quot; and make sure it&apos;s not a directory: </source>
-      <translation type="unfinished">2. Please make sure the path is an excutable file, use &quot;chmod +x&quot; and make sure it&apos;s not a directory: </translation>
+      <translation>2. Пожалуйста, убедитесь, что путь является отличным файлом, используйте &quot;chmod +x&quot; и убедитесь, что он&apos;с не папкой: </translation>
     </message>
     <message>
       <location filename="../src/components/QvKernelInteractions.cpp" line="174"/>
       <source>API Call Failed</source>
-      <translation type="unfinished">API Call Failed</translation>
+      <translation>Ошибка вызова API</translation>
     </message>
     <message>
       <location filename="../src/components/QvKernelInteractions.cpp" line="174"/>
       <source>Failed to get statistics data, please check if v2ray is running properly</source>
-      <translation type="unfinished">Failed to get statistics data, please check if v2ray is running properly</translation>
+      <translation>Не удалось получить статистику, проверьте корректно ли работает v2ray</translation>
     </message>
   </context>
   <context>
@@ -2987,17 +2987,17 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="154"/>
       <source>Update Interval</source>
-      <translation type="unfinished">Update Interval</translation>
+      <translation>Интервалы обновления</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="179"/>
       <source>Days</source>
-      <translation type="unfinished">Days</translation>
+      <translation>Дней</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="201"/>
       <source>Last Updated</source>
-      <translation type="unfinished">Last Updated</translation>
+      <translation>Последнее обновление</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="217"/>
