@@ -254,7 +254,7 @@ unix {
     SOURCES += src/ui/NetSpeedBar/QvNetSpeedBar_linux.cpp
 
     message("  --> Generating desktop dependency.")
-    desktop.files += ./assets/icons/qv2ray.desktop
+    desktop.files += ./assets/qv2ray.desktop
     desktop.path = /usr/share/applications/
 
     message("  --> Generating icons dependency.")
