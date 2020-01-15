@@ -15,6 +15,8 @@
 #include "unistd.h"
 #endif
 
+bool isDebug = false;
+
 bool verifyConfigAvaliability(QString path, bool checkExistingConfig)
 {
     // Does not exist.
@@ -232,8 +234,15 @@ int main(int argc, char *argv[])
     //
 #ifdef QT_DEBUG
     // ----------------------------> For debug build...
+    isDebug = true;
     SingleApplication::setApplicationName("Qv2ray - DEBUG");
 #endif
+
+    //
+    if (StartupOption.debugLog) {
+        DEBUG(MODULE_INIT, "Debug log enabled")
+    }
+
     //
     SingleApplication _qApp(argc, argv, false, SingleApplication::Mode::User | SingleApplication::Mode::ExcludeAppPath | SingleApplication::Mode::ExcludeAppVersion);
     // Early initialisation

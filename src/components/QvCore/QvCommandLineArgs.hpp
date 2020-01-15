@@ -12,6 +12,8 @@ namespace Qv2ray
             bool noAPI;
             /// Explicitly run as root user.
             bool forceRunAsRootUser;
+            /// Enable Debug Log.
+            bool debugLog;
         };
         enum CommandLineParseResult {
             CommandLineOk,
@@ -37,6 +39,7 @@ namespace Qv2ray
                 QCommandLineParser parser;
                 QCommandLineOption noAPIOption;
                 QCommandLineOption runAsRootOption;
+                QCommandLineOption debugOption;
                 QCommandLineOption helpOption;
                 QCommandLineOption versionOption;
         };

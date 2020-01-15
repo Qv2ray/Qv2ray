@@ -5,10 +5,15 @@
 // Forwarded from QvTinyLog
 static QQueue<QString> __loggerBuffer;
 
-void _LOG(const std::string &func, const QString &module, const QString &log)
+void __QV2RAY_LOG_FUNC__(int type, const std::string &func, int line, const QString &module, const QString &log)
 {
     auto logString = "[" + module + "]: " + log;
-    cout << func << logString.toStdString() << endl;
+
+    if (StartupOption.debugLog || (isDebug && type == QV2RAY_LOG_DEBUG)) {
+        logString.prepend(QString::fromStdString(func + ":" + to_string(line) + " "));
+    }
+
+    cout << logString.toStdString() << endl;
     __loggerBuffer.enqueue(logString + NEWLINE);
 }
 
