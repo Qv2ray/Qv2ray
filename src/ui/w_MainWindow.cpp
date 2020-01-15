@@ -158,7 +158,7 @@ MainWindow::MainWindow(QWidget *parent):
     //
     QAction *action_RCM_RenameConnection = new QAction(tr("Rename"), this);
     QAction *action_RCM_StartThis = new QAction(tr("Connect to this"), this);
-    QAction *action_RCM_ConvToComplex = new QAction(tr("Edit as Complex Config"), this);
+    QAction *action_RCM_ConvToComplex = new QAction(QICON_R("edit.png"), tr("Edit as Complex Config"), this);
     QAction *action_RCM_EditJson = new QAction(QICON_R("json.png"), tr("Edit as Json"), this);
     QAction *action_RCM_ShareQR = new QAction(QICON_R("share.png"), tr("Share as QRCode/VMess URL"), this);
     //
@@ -178,11 +178,11 @@ MainWindow::MainWindow(QWidget *parent):
     hTray->show();
     //
     connectionListMenu = new QMenu(this);
-    connectionListMenu->addAction(action_RCM_RenameConnection);
     connectionListMenu->addAction(action_RCM_StartThis);
-    connectionListMenu->addAction(action_RCM_ConvToComplex);
-    connectionListMenu->addAction(action_RCM_EditJson);
     connectionListMenu->addAction(action_RCM_ShareQR);
+    connectionListMenu->addAction(action_RCM_RenameConnection);
+    connectionListMenu->addAction(action_RCM_EditJson);
+    connectionListMenu->addAction(action_RCM_ConvToComplex);
     //
     OnConfigListChanged(false);
     //
