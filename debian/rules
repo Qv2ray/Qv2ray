@@ -10,4 +10,4 @@ override_dh_auto_clean:
 
 override_dh_auto_configure:
 	./tools/grpc_gen.sh
-	dh_auto_configure -- CONFIG+=no_increase_build_number CONFIG+=build_distro PREFIX=/usr
+	dh_auto_configure -- CONFIG+="no_increase_build_number with_prefix" PREFIX=/usr
