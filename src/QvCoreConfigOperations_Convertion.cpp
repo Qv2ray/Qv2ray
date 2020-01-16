@@ -211,8 +211,8 @@ namespace Qv2ray
                 __vmess_checker__func(id, empty_arg)
                 __vmess_checker__func(net, << "tcp" << "http" << "h2" << "ws" << "kcp" << "domainsocket" << "quic")
                 __vmess_checker__func(type, << "none" << "http" << "srtp" << "utp" << "wechat-video")
-                __vmess_checker__func(path, empty_arg)
-                __vmess_checker__func(host, empty_arg)
+                __vmess_checker__func(path, << "")
+                __vmess_checker__func(host, << "")
                 __vmess_checker__func(tls, << "")
                 //
                 port = vmessConf["port"].toVariant().toInt();
