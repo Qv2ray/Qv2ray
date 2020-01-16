@@ -235,7 +235,7 @@ macx {
     # For Linux and macOS
     message("Configuring for macOS specific environment")
     LIBS += -framework Carbon -framework Cocoa
-    LIBS += -lgpr
+    LIBS += -lgpr -lupb
 }
 
 # Reuse unix for macx as well
