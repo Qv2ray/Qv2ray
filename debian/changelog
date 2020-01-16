@@ -1,3 +1,9 @@
+qv2ray (1.99.5-1) unstable; urgency=medium
+
+  * Bump version to v1.99.5
+
+ -- Guobang Bi <ymshenyu@gmail.com>  Thu, 16 Jan 2020 09:12:06 +0800
+
 qv2ray (1.99.4-1) unstable; urgency=medium
 
   * Bump version to v1.99.4
