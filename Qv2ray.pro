@@ -255,28 +255,31 @@ unix {
 
     message("  --> Generating desktop dependency.")
     desktop.files += ./assets/qv2ray.desktop
-    desktop.path = /usr/share/applications/
+    desktop.path = /usr/local/share/applications/
 
     message("  --> Generating icons dependency.")
     icon.files += ./assets/icons/qv2ray.png
-    icon.path = /usr/share/icons/hicolor/256x256/apps/
+    icon.path = /usr/local/share/icons/hicolor/256x256/apps/
+
+    message("  --> Generating metainfo dependency.")
+    appdataXml.files += ./assets/qv2ray.metainfo.xml
+    appdataXml.path = /usr/local/share/metainfo/
 
     target.path = /usr/local/bin/
     INSTALLS += target desktop icon
 }
 
-build_flatpak {
+with_metainfo {
+    INSTALLS += appdataXml
+}
+
+with_prefix {
     # For Packaging
     message("Configuring for packaging platform")
-    message("  --> Generating metainfo dependency.")
-    appdataXml.files += ./assets/qv2ray.metainfo.xml
-    appdataXml.path = /app/share/metainfo/
-    LIBS += -L/app/lib
-    INCLUDEPATH += /app/include/
-    desktop.path = /app/share/applications/
-    icon.path = /app/share/icons/hicolor/256x256/apps/
-    target.path = /app/bin/
-    INSTALLS += appdataXml
+    desktop.path = $$(PREFIX)/share/applications/
+    icon.path = $$(PREFIX)/share/icons/hicolor/256x256/apps/
+    target.path = $$(PREFIX)/bin/
+    appdataXml.path = $$(PREFIX)/share/metainfo/
 }
 
 message(" ")
