@@ -255,11 +255,11 @@ unix {
 
     message("  --> Generating desktop dependency.")
     desktop.files += ./assets/qv2ray.desktop
-    desktop.path = /usr/local/share/applications/
+    desktop.path = /usr/share/applications/
 
     message("  --> Generating icons dependency.")
     icon.files += ./assets/icons/qv2ray.png
-    icon.path = /usr/local/share/icons/hicolor/256x256/apps/
+    icon.path = /usr/share/icons/hicolor/256x256/apps/
 
     message("  --> Generating metainfo dependency.")
     appdataXml.files += ./assets/qv2ray.metainfo.xml
