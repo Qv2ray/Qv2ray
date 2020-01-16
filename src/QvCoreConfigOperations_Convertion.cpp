@@ -193,7 +193,7 @@ namespace Qv2ray
             && (val.size() <= 1 || val.contains(vmessConf[#key].toVariant().toString()))) {\
             key = vmessConf[#key].toVariant().toString();\
             DEBUG(MODULE_IMPORT, "Found key \"" #key "\" within the vmess object.")\
-        } else if (val.size() == 1) {\
+        } else if (!val.isEmpty()) {\
             key = val.first(); \
             DEBUG(MODULE_IMPORT, "Using key \"" #key "\" from the first candidate list.")\
         } else{\
