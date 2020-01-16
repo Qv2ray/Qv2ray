@@ -1,4 +1,5 @@
 #!/usr/bin/make -f
+export PREFIX=/usr
 
 %:
 	dh $@
@@ -10,4 +11,4 @@ override_dh_auto_clean:
 
 override_dh_auto_configure:
 	./tools/grpc_gen.sh
-	dh_auto_configure -- CONFIG+="no_increase_build_number with_prefix" PREFIX=/usr
+	dh_auto_configure -- CONFIG+="no_increase_build_number with_prefix"
