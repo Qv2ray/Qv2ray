@@ -110,10 +110,17 @@ namespace Qv2ray
             }
 
             // This generates global config containing only one outbound....
-            CONFIGROOT ConvertConfigFromVMessString(const QString &vmess, QString *alias, QString *errMessage)
+            CONFIGROOT ConvertConfigFromVMessString(const QString &vmessStr, QString *alias, QString *errMessage)
             {
 #define default CONFIGROOT()
                 LOG(MODULE_CONFIG, "Trying to convert from a vmess string.")
+                QString vmess = vmessStr;
+
+                if (vmess.trimmed() != vmess) {
+                    LOG(MODULE_CONFIG, "VMess string has some prefix/postfix spaces, trimming.")
+                    vmess = vmessStr.trimmed();
+                }
+
                 // Reset errMessage
                 *errMessage = "";
 
@@ -195,7 +202,7 @@ namespace Qv2ray
             DEBUG(MODULE_IMPORT, "Found key \"" #key "\" within the vmess object.")\
         } else if (!val.isEmpty()) {\
             key = val.first(); \
-            DEBUG(MODULE_IMPORT, "Using key \"" #key "\" from the first candidate list.")\
+            DEBUG(MODULE_IMPORT, "Using key \"" #key "\" from the first candidate list: " + key)\
         } else{\
             *errMessage = QObject::tr(#key " does not exist."); \
             LOG(MODULE_IMPORT, "Cannot process \"" #key "\" since it's not included in the json object." ) \

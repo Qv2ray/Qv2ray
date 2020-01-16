@@ -128,6 +128,7 @@ MainWindow::MainWindow(QWidget *parent):
     tray_SystemProxyMenu->addAction(action_Tray_SetSystemProxy);
     tray_SystemProxyMenu->addAction(action_Tray_ClearSystemProxy);
     tray_SystemProxyMenu->setTitle(tr("System Proxy"));
+    tray_SystemProxyMenu->setEnabled(false);
     //
     tray_RootMenu->addAction(action_Tray_ShowHide);
     tray_RootMenu->addSeparator();
@@ -375,7 +376,6 @@ void MainWindow::OnConfigListChanged(bool need_restart)
             connections[connName] = _o;
             auto item = new QTreeWidgetItem(QStringList() << _o.connectionName);
             item->setData(0, Qt::UserRole, QVariant::fromValue<QvConfigIdentifier>(_o));
-            DEBUG(MODULE_UI, ItemConnectionIdentifier(item).IdentifierString())
             subTopLevel->addChild(item);
         }
     }
