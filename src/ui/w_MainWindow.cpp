@@ -578,7 +578,7 @@ void MainWindow::ShowAndSetConnection(QvConfigIdentifier fullIdentifier, bool Se
     }
 
     if (conf.configType == CONNECTION_SUBSCRIPTION) {
-        routeCountLabel->setText(routeCountLabel->text().append(" (" + tr("From subscription") + ":" + conf.subscriptionName + ")"));
+        routeCountLabel->setText(routeCountLabel->text().append(" (" + tr("Subscription") + ":" + conf.subscriptionName + ")"));
     }
 
     // Get Connection info
