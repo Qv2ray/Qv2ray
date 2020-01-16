@@ -261,21 +261,15 @@ unix {
     icon.files += ./assets/icons/qv2ray.png
     icon.path = /usr/local/share/icons/hicolor/256x256/apps/
 
+    message("  --> Generating metainfo dependency.")
+    appdataXml.files += ./assets/qv2ray.metainfo.xml
+    appdataXml.path = /usr/local/share/metainfo/
+
     target.path = /usr/local/bin/
     INSTALLS += target desktop icon
 }
 
-build_flatpak {
-    # For Packaging
-    message("Configuring for packaging platform")
-    message("  --> Generating metainfo dependency.")
-    appdataXml.files += ./assets/qv2ray.metainfo.xml
-    appdataXml.path = /app/share/metainfo/
-    LIBS += -L/app/lib
-    INCLUDEPATH += /app/include/
-    desktop.path = /app/share/applications/
-    icon.path = /app/share/icons/hicolor/256x256/apps/
-    target.path = /app/bin/
+with_metainfo {
     INSTALLS += appdataXml
 }
 
@@ -285,6 +279,7 @@ build_distro {
     desktop.path = $$(PREFIX)/share/applications/
     icon.path = $$(PREFIX)/share/icons/hicolor/256x256/apps/
     target.path = $$(PREFIX)/bin/
+    appdataXml.path = $$(PREFIX)/share/metainfo/
 }
 
 message(" ")
