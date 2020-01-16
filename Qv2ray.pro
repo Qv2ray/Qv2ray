@@ -255,11 +255,11 @@ unix {
 
     message("  --> Generating desktop dependency.")
     desktop.files += ./assets/qv2ray.desktop
-    desktop.path = /usr/share/applications/
+    desktop.path = /usr/local/share/applications/
 
     message("  --> Generating icons dependency.")
     icon.files += ./assets/icons/qv2ray.png
-    icon.path = /usr/share/icons/hicolor/256x256/apps/
+    icon.path = /usr/local/share/icons/hicolor/256x256/apps/
 
     target.path = /usr/local/bin/
     INSTALLS += target desktop icon
@@ -277,6 +277,14 @@ build_flatpak {
     icon.path = /app/share/icons/hicolor/256x256/apps/
     target.path = /app/bin/
     INSTALLS += appdataXml
+}
+
+build_distro {
+    # For Packaging
+    message("Configuring for packaging platform")
+    desktop.path = $$(PREFIX)/share/applications/
+    icon.path = $$(PREFIX)/share/icons/hicolor/256x256/apps/
+    target.path = $$(PREFIX)/bin/
 }
 
 message(" ")
