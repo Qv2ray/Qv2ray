@@ -158,7 +158,7 @@ bool MainWindow::MWtryStartConnection()
                 }
             } else {
                 if (httpEnabled) {
-                    pacProxyString = "PROXY http://" + pacIP + ":" + QSTRN(currentConfig.inboundConfig.http_port);
+                    pacProxyString = "PROXY " + pacIP + ":" + QSTRN(currentConfig.inboundConfig.http_port);
                 } else {
                     LOG(MODULE_UI, "PAC is using HTTP, but it is not enabled")
                     QvMessageBox(this, tr("Configuring PAC"), tr("Could not start PAC server as it is configured to use HTTP, but it is not enabled"));
