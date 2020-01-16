@@ -273,7 +273,7 @@ with_metainfo {
     INSTALLS += appdataXml
 }
 
-build_distro {
+with_prefix {
     # For Packaging
     message("Configuring for packaging platform")
     desktop.path = $$(PREFIX)/share/applications/
