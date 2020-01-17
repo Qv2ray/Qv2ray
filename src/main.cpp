@@ -437,7 +437,7 @@ int main(int argc, char *argv[])
         return rcode;
 #ifndef QT_DEBUG
     }  catch (...) {
-        QvMessageBox(nullptr, "ERROR", "There's something wrong happened and Qv2ray will quit now.");
+        QvMessageBoxWarn(nullptr, "ERROR", "There's something wrong happened and Qv2ray will quit now.");
         LOG(MODULE_INIT, "EXCEPTION THROWN: " __FILE__)
         return -99;
     }
