@@ -551,7 +551,7 @@ void RouteEditor::on_enableBalancerCB_stateChanged(int arg1)
             }
         }
     } else {
-        QvMessageBox(this, tr("Route Editor"), tr("To make this rule ready to use, you need to connect it to an outbound node."));
+        QvMessageBoxWarn(this, tr("Route Editor"), tr("To make this rule ready to use, you need to connect it to an outbound node."));
     }
 }
 void RouteEditor::on_addDefaultBtn_clicked()
@@ -628,7 +628,7 @@ void RouteEditor::on_ruleEnableCB_stateChanged(int arg1)
 void RouteEditor::on_delBtn_clicked()
 {
     if (nodeScene->selectedNodes().empty()) {
-        QvMessageBox(this, tr("Remove Items"), tr("Please select a node from the graph to continue."));
+        QvMessageBoxWarn(this, tr("Remove Items"), tr("Please select a node from the graph to continue."));
     }
 
     auto firstNode = nodeScene->selectedNodes()[0];
@@ -677,7 +677,7 @@ void RouteEditor::on_delBtn_clicked()
 void RouteEditor::on_editBtn_clicked()
 {
     if (nodeScene->selectedNodes().empty()) {
-        QvMessageBox(this, tr("Edit Inbound/Outbound"), tr("Please select a node from the graph to continue."));
+        QvMessageBoxWarn(this, tr("Edit Inbound/Outbound"), tr("Please select a node from the graph to continue."));
     }
 
     auto firstNode = nodeScene->selectedNodes()[0];
@@ -692,7 +692,7 @@ void RouteEditor::on_editBtn_clicked()
         int _code;
 
         if (protocol != "http" && protocol != "mtproto" && protocol != "socks" && protocol != "dokodemo-door") {
-            QvMessageBox(this, tr("Cannot Edit"), tr("Currently, this type of outbound is not supported by the editor.") + "\r\n" +
+            QvMessageBoxWarn(this, tr("Cannot Edit"), tr("Currently, this type of outbound is not supported by the editor.") + "\r\n" +
                          tr("We will launch Json Editor instead."));
             statusLabel->setText(tr("Opening JSON editor"));
             JsonEditor *w = new JsonEditor(_in, this);
@@ -726,7 +726,7 @@ void RouteEditor::on_editBtn_clicked()
         int _code;
 
         if (protocol != "vmess" && protocol != "shadowsocks" && protocol != "socks") {
-            QvMessageBox(this, tr("Unsupported Outbound Type"),
+            QvMessageBoxWarn(this, tr("Unsupported Outbound Type"),
                          tr("This outbound entry is not supported by the GUI editor.") + NEWLINE +
                          tr("We will launch Json Editor instead."));
             JsonEditor w(_out, this);

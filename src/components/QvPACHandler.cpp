@@ -40,7 +40,7 @@ namespace Qv2ray
                 LOG(MODULE_PROXY, "Started PAC listener")
             } else {
                 LOG(MODULE_PROXY, "Failed to listen on port " + QSTRN(port) + ", please verify the permission.")
-                QvMessageBox(nullptr, tr("PAC Handler"), tr("Failed to listen PAC request on this port, please verify the permissions"));
+                QvMessageBoxWarn(nullptr, tr("PAC Handler"), tr("Failed to listen PAC request on this port, please verify the permissions"));
             }
         }
 

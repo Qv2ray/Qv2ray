@@ -100,18 +100,18 @@ namespace Qv2ray
 
                 if (!process.waitForFinished(1000) && process.exitCode() != 0) {
                     LOG(MODULE_VCORE, "V2ray core failed with an exit code: " + QSTRN(process.exitCode()))
-                    QvMessageBox(nullptr, tr("Cannot start v2ray"), tr("V2ray core failed with an exit code: ") + QSTRN(process.exitCode()));
+                    QvMessageBoxWarn(nullptr, tr("Cannot start v2ray"), tr("V2ray core failed with an exit code: ") + QSTRN(process.exitCode()));
                     return false;
                 } else if (process.exitCode() != 0) {
                     QString output = QString(process.readAllStandardOutput());
-                    QvMessageBox(nullptr, tr("Configuration Error"), output.mid(output.indexOf("anti-censorship.") + 17));
+                    QvMessageBoxWarn(nullptr, tr("Configuration Error"), output.mid(output.indexOf("anti-censorship.") + 17));
                     return false;
                 } else {
                     DEBUG(MODULE_VCORE, "Config file check passed.")
                     return true;
                 }
             } else {
-                QvMessageBox(nullptr, tr("Cannot start v2ray"),
+                QvMessageBoxWarn(nullptr, tr("Cannot start v2ray"),
                              tr("V2ray core settings is incorrect.") + NEWLINE + NEWLINE +
                              tr("The error is: ") + NEWLINE + v2rayCheckResult);
                 return false;
@@ -235,7 +235,7 @@ namespace Qv2ray
 
             if (apiFailedCounter == QV2RAY_API_CALL_FAILEDCHECK_THRESHOLD) {
                 LOG(MODULE_VCORE, "API call failure threshold reached, cancelling further API aclls.")
-                QvMessageBox(nullptr, tr("API Call Failed"), tr("Failed to get statistics data, please check if v2ray is running properly"));
+                QvMessageBoxWarn(nullptr, tr("API Call Failed"), tr("Failed to get statistics data, please check if v2ray is running properly"));
                 transferData.clear();
                 transferSpeed.clear();
                 apiFailedCounter++;

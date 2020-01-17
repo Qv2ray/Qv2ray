@@ -19,8 +19,11 @@ namespace Qv2ray
         list<string> SplitLines_std(const QString &_string);
         bool FileExistsIn(QDir dir, QString fileName);
         const QString GenerateRandomString(int len = 12);
-        void QvMessageBox(QWidget *parent, QString title, QString text);
+        //
+        void QvMessageBoxWarn(QWidget *parent, QString title, QString text);
+        void QvMessageBoxInfo(QWidget *parent, QString title, QString text);
         int QvMessageBoxAsk(QWidget *parent, QString title, QString text, QMessageBox::StandardButton extraButtons = QMessageBox::NoButton);
+        //
         QString StringFromFile(QFile *source);
         bool StringToFile(const QString *text, QFile *target);
         QJsonObject JsonFromString(QString string);
@@ -149,13 +152,13 @@ namespace Qv2ray
         return it != listOfElements.end();
     }
 
-    inline std::string timeToString(const time_t &t)
+    inline QString timeToString(const time_t &t)
     {
         auto _tm = std::localtime(&t);
         char MY_TIME[128];
         // using strftime to display time
         strftime(MY_TIME, sizeof(MY_TIME), "%x - %I:%M%p", _tm);
-        return MY_TIME;
+        return QString(MY_TIME);
     }
 }
 

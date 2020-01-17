@@ -22,6 +22,15 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent),
     setupUi(this);
     textBrowser->setHtml(StringFromFile(new QFile(":/assets/credit.html")));
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
+    //
+    // Set network Toolbar page state.
+    networkToolbarPage->setEnabled(StartupOption.enableToolbarPlguin);
+
+    if (!StartupOption.enableToolbarPlguin) {
+        networkToolbarInfoLabel->setText(tr("Qv2ray Network Toolbar is disabled and still under test. Add --withNetworkToolbar to enable."));
+    }
+
+    //
     // We add locales
     languageComboBox->clear();
     QDirIterator it(":/translations");
@@ -55,17 +64,16 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent),
     //
     listenIPTxt->setText(CurrentConfig.inboundConfig.listenip);
     bool pacEnabled = CurrentConfig.inboundConfig.pacConfig.enablePAC;
-    enablePACCB->setChecked(pacEnabled);
+    pacGroupBox->setChecked(pacEnabled);
     setSysProxyCB->setChecked(CurrentConfig.inboundConfig.setSystemProxy);
     //
     // PAC
-    pacGroupBox->setEnabled(pacEnabled);
     pacPortSB->setValue(CurrentConfig.inboundConfig.pacConfig.port);
     pacProxyTxt->setText(CurrentConfig.inboundConfig.pacConfig.localIP);
     pacProxyCB->setCurrentIndex(CurrentConfig.inboundConfig.pacConfig.useSocksProxy ? 1 : 0);
     //
     bool have_http = CurrentConfig.inboundConfig.useHTTP;
-    httpCB->setChecked(have_http);
+    httpGroupBox->setChecked(have_http);
     httpPortLE->setValue(CurrentConfig.inboundConfig.http_port);
     httpAuthCB->setChecked(CurrentConfig.inboundConfig.http_useAuth);
     //
@@ -74,11 +82,10 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent),
     httpAuthPasswordTxt->setEnabled(CurrentConfig.inboundConfig.http_useAuth);
     httpAuthUsernameTxt->setText(CurrentConfig.inboundConfig.httpAccount.user);
     httpAuthPasswordTxt->setText(CurrentConfig.inboundConfig.httpAccount.pass);
-    httpGroupBox->setEnabled(have_http);
     //
     //
     bool have_socks = CurrentConfig.inboundConfig.useSocks;
-    socksCB->setChecked(have_socks);
+    socksGroupBox->setChecked(have_socks);
     socksPortLE->setValue(CurrentConfig.inboundConfig.socks_port);
     //
     socksAuthCB->setChecked(CurrentConfig.inboundConfig.socks_useAuth);
@@ -125,7 +132,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent),
         nsBarPagesList->setCurrentRow(0);
         on_nsBarPagesList_currentRowChanged(0);
     } else {
-        nsBarVerticalLayout->setEnabled(false);
+        networkToolbarSettingsFrame->setEnabled(false);
         nsBarLinesList->setEnabled(false);
         nsBarLineDelBTN->setEnabled(false);
         nsBarLineAddBTN->setEnabled(false);
@@ -181,28 +188,12 @@ void PreferencesWindow::on_buttonBox_accepted()
     int hp = httpPortLE->text().toInt() ;
 
     if (!(sp == 0 || hp == 0) && sp == hp) {
-        QvMessageBox(this, tr("Preferences"), tr("Port numbers cannot be the same"));
+        QvMessageBoxWarn(this, tr("Preferences"), tr("Port numbers cannot be the same"));
         return;
     }
 
     SetGlobalConfig(CurrentConfig);
     emit s_reload_config(IsConnectionPropertyChanged);
-}
-
-void PreferencesWindow::on_httpCB_stateChanged(int checked)
-{
-    NEEDRESTART
-    bool enabled = checked == Qt::Checked;
-    httpGroupBox->setEnabled(enabled);
-    CurrentConfig.inboundConfig.useHTTP = enabled;
-}
-
-void PreferencesWindow::on_socksCB_stateChanged(int checked)
-{
-    NEEDRESTART
-    bool enabled = checked == Qt::Checked;
-    socksGroupBox->setEnabled(enabled);
-    CurrentConfig.inboundConfig.useSocks = enabled;
 }
 
 void PreferencesWindow::on_httpAuthCB_stateChanged(int checked)
@@ -415,10 +406,10 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
                         on_vCorePathTxt_textEdited(QV2RAY_DEFAULT_VCORE_PATH);
                     } else {
                         LOG(MODULE_VCORE, "FAILED to copy v2ray files. Aborting.")
-                        QvMessageBox(this, tr("Enable tProxy Support"),
-                                     tr("Qv2ray cannot copy one or both v2ray files from: ") + NEWLINE + NEWLINE +
-                                     CurrentConfig.v2CorePath + NEWLINE + v2ctlPath + NEWLINE + NEWLINE +
-                                     tr("to this path: ") + NEWLINE + newPath);
+                        QvMessageBoxWarn(this, tr("Enable tProxy Support"),
+                                         tr("Qv2ray cannot copy one or both v2ray files from: ") + NEWLINE + NEWLINE +
+                                         CurrentConfig.v2CorePath + NEWLINE + v2ctlPath + NEWLINE + NEWLINE +
+                                         tr("to this path: ") + NEWLINE + newPath);
                         return;
                     }
                 } else {
@@ -431,7 +422,7 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
 
                 if (ret != 0) {
                     LOG(MODULE_UI, "WARN: setcap exits with code: " + QSTRN(ret))
-                    QvMessageBox(this, tr("Preferences"), tr("Failed to setcap onto v2ray executable. You may need to run `setcap` manually."));
+                    QvMessageBoxWarn(this, tr("Preferences"), tr("Failed to setcap onto v2ray executable. You may need to run `setcap` manually."));
                 }
 
                 CurrentConfig.tProxySupport = true;
@@ -442,7 +433,7 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
 
             if (ret != 0) {
                 LOG(MODULE_UI, "WARN: setcap exits with code: " + QSTRN(ret))
-                QvMessageBox(this, tr("Preferences"), tr("Failed to setcap onto v2ray executable. You may need to run `setcap` manually."));
+                QvMessageBoxWarn(this, tr("Preferences"), tr("Failed to setcap onto v2ray executable. You may need to run `setcap` manually."));
             }
 
             CurrentConfig.tProxySupport = false;
@@ -534,7 +525,7 @@ void PreferencesWindow::on_nsBarPageDelBTN_clicked()
             nsBarLineAddBTN->setEnabled(false);
             nsBarLineDelBTN->setEnabled(false);
             nsBarLinesList->setEnabled(false);
-            nsBarVerticalLayout->setEnabled(false);
+            networkToolbarSettingsFrame->setEnabled(false);
             nsBarPageYOffset->setEnabled(false);
             nsBarLinesList->clear();
         }
@@ -568,7 +559,7 @@ void PreferencesWindow::on_nsBarLineDelBTN_clicked()
         CurrentBarLineId = 0;
 
         if (nsBarLinesList->count() <= 0) {
-            nsBarVerticalLayout->setEnabled(false);
+            networkToolbarSettingsFrame->setEnabled(false);
             nsBarLineDelBTN->setEnabled(false);
         }
 
@@ -597,7 +588,7 @@ void PreferencesWindow::on_nsBarPagesList_currentRowChanged(int currentRow)
         nsBarLinesList->setCurrentRow(0);
         ShowLineParameters(CurrentBarLine);
     } else {
-        nsBarVerticalLayout->setEnabled(false);
+        networkToolbarSettingsFrame->setEnabled(false);
     }
 }
 
@@ -709,7 +700,7 @@ void PreferencesWindow::ShowLineParameters(QvBarLine &barLine)
     nsBarContentCombo->setCurrentText(NetSpeedPluginMessages[barLine.ContentType]);
     nsBarTagTxt->setText(barLine.Message);
     finishedLoading = true;
-    nsBarVerticalLayout->setEnabled(true);
+    networkToolbarSettingsFrame->setEnabled(true);
 }
 
 void PreferencesWindow::on_chooseColorBtn_clicked()
@@ -756,7 +747,7 @@ void PreferencesWindow::on_darkThemeCB_stateChanged(int arg1)
 {
     LOADINGCHECK
     CurrentConfig.uiConfig.useDarkTheme = arg1 == Qt::Checked;
-    QvMessageBox(this, tr("Dark Mode"), tr("Please restart Qv2ray to fully apply this feature."));
+    QvMessageBoxWarn(this, tr("Dark Mode"), tr("Please restart Qv2ray to fully apply this feature."));
 #ifdef QV2RAY_USE_BUILTIN_DARKTHEME
     themeCombo->setEnabled(arg1 != Qt::Checked);
 
@@ -772,15 +763,6 @@ void PreferencesWindow::on_darkTrayCB_stateChanged(int arg1)
 {
     LOADINGCHECK
     CurrentConfig.uiConfig.useDarkTrayIcon = arg1 == Qt::Checked;
-}
-
-void PreferencesWindow::on_enablePACCB_stateChanged(int arg1)
-{
-    LOADINGCHECK
-    NEEDRESTART
-    bool enabled = arg1 == Qt::Checked;
-    CurrentConfig.inboundConfig.pacConfig.enablePAC = enabled;
-    pacGroupBox->setEnabled(enabled);
 }
 
 void PreferencesWindow::on_pacGoBtn_clicked()
@@ -833,7 +815,7 @@ void PreferencesWindow::on_pacGoBtn_clicked()
     }
 
     LOG(MODULE_NETWORK, "Fetched: " + gfwLocation)
-    QvMessageBox(this, tr("Download GFWList"), tr("Successfully downloaded GFWList."));
+    QvMessageBoxWarn(this, tr("Download GFWList"), tr("Successfully downloaded GFWList."));
     pacGoBtn->setEnabled(true);
     gfwListCB->setEnabled(true);
 
@@ -909,7 +891,7 @@ void PreferencesWindow::on_installBootStart_clicked()
 
     // If failed to set the status.
     if (!GetLaunchAtLoginStatus()) {
-        QvMessageBox(this, tr("Start with boot"), tr("Failed to set auto start option."));
+        QvMessageBoxWarn(this, tr("Start with boot"), tr("Failed to set auto start option."));
     }
 
     SetAutoStartButtonsState(GetLaunchAtLoginStatus());
@@ -921,7 +903,7 @@ void PreferencesWindow::on_removeBootStart_clicked()
 
     // If that setting still present.
     if (GetLaunchAtLoginStatus()) {
-        QvMessageBox(this, tr("Start with boot"), tr("Failed to set auto start option."));
+        QvMessageBoxWarn(this, tr("Start with boot"), tr("Failed to set auto start option."));
     }
 
     SetAutoStartButtonsState(GetLaunchAtLoginStatus());
@@ -998,9 +980,31 @@ void PreferencesWindow::on_checkVCoreSettings_clicked()
     QString result;
 
     if (!V2rayKernelInstance::ValidateKernel(vcorePath, vAssetsPath, &result)) {
-        QvMessageBox(this, tr("V2ray Core Settings"), result);
+        QvMessageBoxWarn(this, tr("V2ray Core Settings"), result);
     } else {
-        QvMessageBox(this, tr("V2ray Core Settings"), tr("V2ray path configuration check passed.") + NEWLINE + NEWLINE +
-                     tr("Current version of V2ray is: ") + NEWLINE + result);
+        QvMessageBoxInfo(this, tr("V2ray Core Settings"), tr("V2ray path configuration check passed.") + NEWLINE + NEWLINE +
+                         tr("Current version of V2ray is: ") + NEWLINE + result);
     }
+}
+
+void PreferencesWindow::on_httpGroupBox_clicked(bool checked)
+{
+    NEEDRESTART
+    httpGroupBox->setEnabled(checked);
+    CurrentConfig.inboundConfig.useHTTP = checked;
+}
+
+void PreferencesWindow::on_socksGroupBox_clicked(bool checked)
+{
+    NEEDRESTART
+    socksGroupBox->setEnabled(checked);
+    CurrentConfig.inboundConfig.useSocks = checked;
+}
+
+void PreferencesWindow::on_pacGroupBox_clicked(bool checked)
+{
+    LOADINGCHECK
+    NEEDRESTART
+    CurrentConfig.inboundConfig.pacConfig.enablePAC = checked;
+    pacGroupBox->setEnabled(checked);
 }

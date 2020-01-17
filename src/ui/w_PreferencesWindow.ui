@@ -9,15 +9,9 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>780</width>
-    <height>578</height>
+    <width>701</width>
+    <height>486</height>
    </rect>
-  </property>
-  <property name="minimumSize">
-   <size>
-    <width>780</width>
-    <height>578</height>
-   </size>
   </property>
   <property name="windowTitle">
    <string>Preferences</string>
@@ -25,1170 +19,1186 @@
   <property name="modal">
    <bool>true</bool>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
-   <item row="2" column="0">
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="0">
+  <layout class="QGridLayout" name="gridLayout_10">
+   <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
-     <property name="tabShape">
-      <enum>QTabWidget::Rounded</enum>
-     </property>
      <property name="currentIndex">
       <number>0</number>
      </property>
-     <widget class="QWidget" name="tab">
+     <widget class="QWidget" name="tabWidgetPage1" native="true">
       <attribute name="title">
-       <string>General</string>
+       <string>General Settings</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_7">
-       <item>
-        <layout class="QFormLayout" name="formLayout_5">
-         <item row="0" column="0">
-          <widget class="QLabel" name="label_35">
-           <property name="text">
-            <string>UI Theme</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QComboBox" name="themeCombo">
-           <property name="minimumSize">
-            <size>
-             <width>200</width>
-             <height>0</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QLabel" name="label_5">
-           <property name="text">
-            <string>Launch at Login</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <layout class="QHBoxLayout" name="horizontalLayout_7">
-           <item>
-            <widget class="QPushButton" name="installBootStart">
+      <layout class="QGridLayout" name="gridLayout_3">
+       <item row="0" column="0">
+        <widget class="QScrollArea" name="scrollArea">
+         <property name="frameShape">
+          <enum>QFrame::NoFrame</enum>
+         </property>
+         <property name="widgetResizable">
+          <bool>true</bool>
+         </property>
+         <widget class="QWidget" name="scrollAreaWidgetContents">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>649</width>
+            <height>442</height>
+           </rect>
+          </property>
+          <layout class="QFormLayout" name="formLayout_5">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_35">
              <property name="text">
-              <string>Install</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="removeBootStart">
-             <property name="text">
-              <string>Remove</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <spacer name="horizontalSpacer_6">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
-         </item>
-         <item row="2" column="0">
-          <layout class="QVBoxLayout" name="verticalLayout_6">
-           <item>
-            <spacer name="verticalSpacer_7">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>0</width>
-               <height>0</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item>
-            <widget class="QLabel" name="label_55">
-             <property name="text">
-              <string>Theme Settings</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <spacer name="verticalSpacer_5">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>0</width>
-               <height>0</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
-         </item>
-         <item row="2" column="1">
-          <layout class="QGridLayout" name="gridLayout_6" columnstretch="0,0,0,1">
-           <item row="1" column="2">
-            <widget class="QCheckBox" name="darkTrayCB">
-             <property name="text">
-              <string>Enabled</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="3" rowspan="2">
-            <spacer name="horizontalSpacer_2">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="0" column="2">
-            <widget class="QCheckBox" name="darkThemeCB">
-             <property name="text">
-              <string>Enabled</string>
+              <string>UI Theme</string>
              </property>
             </widget>
            </item>
            <item row="0" column="1">
-            <widget class="QLabel" name="darkThemeLabel">
-             <property name="text">
-              <string>Darkmode UI Icons</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QLabel" name="label_36">
-             <property name="text">
-              <string>Darkmode Tray Icon</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0" rowspan="2">
-            <widget class="Line" name="line">
-             <property name="frameShadow">
-              <enum>QFrame::Plain</enum>
-             </property>
-             <property name="lineWidth">
-              <number>2</number>
-             </property>
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item row="3" column="0">
-          <widget class="QLabel" name="label_6">
-           <property name="text">
-            <string>Language</string>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="1">
-          <widget class="QComboBox" name="languageComboBox">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>100</width>
-             <height>0</height>
-            </size>
-           </property>
-           <item>
-            <property name="text">
-             <string>zh-CN</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>en-US</string>
-            </property>
-           </item>
-          </widget>
-         </item>
-         <item row="4" column="0">
-          <widget class="QLabel" name="label">
-           <property name="text">
-            <string>Log Level</string>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="1">
-          <widget class="QComboBox" name="logLevelComboBox">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>150</width>
-             <height>0</height>
-            </size>
-           </property>
-           <item>
-            <property name="text">
-             <string>none</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>debug</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>info</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>warning</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>error</string>
-            </property>
-           </item>
-          </widget>
-         </item>
-         <item row="5" column="0">
-          <layout class="QVBoxLayout" name="verticalLayout_9">
-           <item>
-            <spacer name="verticalSpacer_6">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>0</width>
-               <height>0</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item>
-            <widget class="QLabel" name="label_19">
-             <property name="text">
-              <string>Auto Connect</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <spacer name="verticalSpacer_8">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>0</width>
-               <height>0</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
-         </item>
-         <item row="5" column="1">
-          <layout class="QGridLayout" name="gridLayout_8" columnstretch="0,0,1">
-           <item row="1" column="1">
-            <widget class="QLabel" name="label_61">
-             <property name="text">
-              <string>Config</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QLabel" name="label_60">
-             <property name="text">
-              <string>Subscription</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="2">
-            <widget class="QComboBox" name="autoStartConnCombo"/>
-           </item>
-           <item row="0" column="2">
-            <widget class="QComboBox" name="autoStartSubsCombo">
+            <widget class="QComboBox" name="themeCombo">
              <property name="minimumSize">
               <size>
-               <width>180</width>
+               <width>200</width>
                <height>0</height>
               </size>
              </property>
-             <item>
-              <property name="text">
-               <string/>
-              </property>
-             </item>
             </widget>
            </item>
-           <item row="0" column="0" rowspan="2">
-            <widget class="Line" name="line_2">
-             <property name="frameShadow">
-              <enum>QFrame::Plain</enum>
-             </property>
-             <property name="lineWidth">
-              <number>2</number>
-             </property>
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item row="6" column="0">
-          <widget class="QLabel" name="label_7">
-           <property name="text">
-            <string>Transparent Proxy</string>
-           </property>
-          </widget>
-         </item>
-         <item row="6" column="1">
-          <widget class="QCheckBox" name="tProxyCheckBox">
-           <property name="text">
-            <string>Enabled</string>
-           </property>
-          </widget>
-         </item>
-         <item row="7" column="0">
-          <layout class="QVBoxLayout" name="verticalLayout_8">
-           <item>
-            <spacer name="verticalSpacer_12">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item>
-            <widget class="QLabel" name="label_67">
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_5">
              <property name="text">
-              <string>V2ray Settings</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <spacer name="verticalSpacer_13">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
-         </item>
-         <item row="7" column="1">
-          <layout class="QGridLayout" name="gridLayout_9">
-           <item row="0" column="0" rowspan="3">
-            <widget class="Line" name="line_3">
-             <property name="frameShadow">
-              <enum>QFrame::Plain</enum>
-             </property>
-             <property name="lineWidth">
-              <number>2</number>
-             </property>
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QLabel" name="label_46">
-             <property name="text">
-              <string>Core Executable Path</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="2">
-            <widget class="QLineEdit" name="vCoreAssetsPathTxt"/>
-           </item>
-           <item row="0" column="3">
-            <widget class="QPushButton" name="selectVCoreBtn">
-             <property name="text">
-              <string>Select</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="3">
-            <widget class="QPushButton" name="selectVAssetBtn">
-             <property name="text">
-              <string>Select</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="2">
-            <widget class="QLineEdit" name="vCorePathTxt">
-             <property name="placeholderText">
-              <string/>
+              <string>Launch at Login</string>
              </property>
             </widget>
            </item>
            <item row="1" column="1">
-            <widget class="QLabel" name="label_15">
-             <property name="text">
-              <string>Assets Directory Path</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1" colspan="3">
-            <widget class="QPushButton" name="checkVCoreSettings">
-             <property name="text">
-              <string>Check V2ray Core Settings</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <spacer name="verticalSpacer_9">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>183</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="tab_3">
-      <attribute name="title">
-       <string>Inbound Settings</string>
-      </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout">
-       <item>
-        <layout class="QFormLayout" name="formLayout_4">
-         <item row="0" column="0">
-          <widget class="QLabel" name="label_22">
-           <property name="text">
-            <string>Listening Address</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QLineEdit" name="listenIPTxt">
-           <property name="placeholderText">
-            <string notr="true">0.0.0.0</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QLabel" name="label_59">
-           <property name="text">
-            <string>Features</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <layout class="QHBoxLayout" name="horizontalLayout_3">
-           <item>
-            <widget class="QCheckBox" name="httpCB">
-             <property name="layoutDirection">
-              <enum>Qt::LeftToRight</enum>
-             </property>
-             <property name="text">
-              <string>HTTP</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="socksCB">
-             <property name="text">
-              <string>SOCKS</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <spacer name="horizontalSpacer_3">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="enablePACCB">
-             <property name="text">
-              <string>Use PAC</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="setSysProxyCB">
-             <property name="text">
-              <string>Set System Proxy</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QGridLayout" name="gridLayout_7">
-         <item row="0" column="0">
-          <widget class="QGroupBox" name="socksGroupBox">
-           <property name="title">
-            <string>SOCKS Settings</string>
-           </property>
-           <layout class="QFormLayout" name="formLayout_2">
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_4">
-              <property name="text">
-               <string>Port</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QSpinBox" name="socksPortLE">
-              <property name="minimum">
-               <number>1</number>
-              </property>
-              <property name="maximum">
-               <number>65535</number>
-              </property>
-              <property name="value">
-               <number>1081</number>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="label_14">
-              <property name="text">
-               <string>UDP Support</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <layout class="QHBoxLayout" name="horizontalLayout_8">
-              <item>
-               <widget class="QCheckBox" name="socksUDPCB">
-                <property name="text">
-                 <string>Enabled</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_5">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QLabel" name="label_25">
-                <property name="text">
-                 <string>IP:</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="socksUDPIP">
-                <property name="placeholderText">
-                 <string notr="true">127.0.0.1</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="label_10">
-              <property name="text">
-               <string>Authentication</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="1">
-             <widget class="QCheckBox" name="socksAuthCB">
-              <property name="text">
-               <string>Enabled</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="0">
-             <widget class="QLabel" name="label_11">
-              <property name="text">
-               <string>Username</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="1">
-             <widget class="QLineEdit" name="socksAuthUsernameTxt">
-              <property name="placeholderText">
-               <string notr="true">user</string>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="0">
-             <widget class="QLabel" name="label_12">
-              <property name="text">
-               <string>Password</string>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="1">
-             <widget class="QLineEdit" name="socksAuthPasswordTxt">
-              <property name="placeholderText">
-               <string notr="true">pass</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QGroupBox" name="httpGroupBox">
-           <property name="title">
-            <string>HTTP Settings</string>
-           </property>
-           <layout class="QFormLayout" name="formLayout_7">
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_3">
-              <property name="text">
-               <string>Port</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QSpinBox" name="httpPortLE">
-              <property name="minimum">
-               <number>1</number>
-              </property>
-              <property name="maximum">
-               <number>65535</number>
-              </property>
-              <property name="value">
-               <number>18001</number>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="label_9">
-              <property name="text">
-               <string>Authentication</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QCheckBox" name="httpAuthCB">
-              <property name="text">
-               <string>Enabled</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="label_2">
-              <property name="text">
-               <string>Username</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="1">
-             <widget class="QLineEdit" name="httpAuthUsernameTxt">
-              <property name="placeholderText">
-               <string notr="true">user</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="0">
-             <widget class="QLabel" name="label_13">
-              <property name="text">
-               <string>Password</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="1">
-             <widget class="QLineEdit" name="httpAuthPasswordTxt">
-              <property name="placeholderText">
-               <string notr="true">pass</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-         <item row="0" column="1" rowspan="2">
-          <widget class="QGroupBox" name="pacGroupBox">
-           <property name="title">
-            <string>PAC Settings</string>
-           </property>
-           <layout class="QFormLayout" name="formLayout_11">
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_57">
-              <property name="text">
-               <string>Port</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QSpinBox" name="pacPortSB">
-              <property name="minimum">
-               <number>1</number>
-              </property>
-              <property name="maximum">
-               <number>65535</number>
-              </property>
-              <property name="value">
-               <number>8088</number>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="label_56">
-              <property name="text">
-               <string>Local IP for PAC</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QLineEdit" name="pacProxyTxt">
-              <property name="placeholderText">
-               <string>127.0.0.1</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="label_63">
-              <property name="text">
-               <string>Use Proxy</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="1">
-             <widget class="QComboBox" name="pacProxyCB">
-              <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_7">
+             <item>
+              <widget class="QPushButton" name="installBootStart">
                <property name="text">
-                <string>HTTP</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>SOCKS</string>
-               </property>
-              </item>
-             </widget>
-            </item>
-            <item row="3" column="0">
-             <widget class="QLabel" name="label_58">
-              <property name="text">
-               <string>Import GFWList</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="1">
-             <layout class="QHBoxLayout" name="horizontalLayout_2">
-              <item>
-               <widget class="QComboBox" name="gfwListCB">
-                <item>
-                 <property name="text">
-                  <string>Mirror: Gitlab</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Github</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Mirror: Pagure</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Mirror: Repo.or.cz</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Mirror: Bitbucket</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Mirror: TuxFamily</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>GFWList File</string>
-                 </property>
-                </item>
-               </widget>
-              </item>
-              <item>
-               <widget class="QToolButton" name="pacGoBtn">
-                <property name="text">
-                 <string>Go</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item row="4" column="0">
-             <widget class="QLabel" name="label_62">
-              <property name="text">
-               <string>Edit PAC</string>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="1">
-             <widget class="QPushButton" name="pushButton">
-              <property name="text">
-               <string>Open PAC Folder</string>
-              </property>
-             </widget>
-            </item>
-            <item row="6" column="0">
-             <widget class="QLabel" name="label_66">
-              <property name="text">
-               <string>PAC Access Path</string>
-              </property>
-             </widget>
-            </item>
-            <item row="6" column="1">
-             <widget class="QLineEdit" name="pacListenAddrLabel">
-              <property name="readOnly">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="5" column="0">
-             <spacer name="verticalSpacer_11">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>20</width>
-                <height>40</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-           </layout>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <spacer name="verticalSpacer_10">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="tab_4">
-      <attribute name="title">
-       <string>Connection Settings</string>
-      </attribute>
-      <layout class="QGridLayout" name="gridLayout_4" rowstretch="0,0" columnstretch="6,4" rowminimumheight="0,1">
-       <item row="0" column="0" rowspan="2">
-        <widget class="QGroupBox" name="groupBox">
-         <property name="title">
-          <string>General Connection Settings</string>
-         </property>
-         <layout class="QFormLayout" name="formLayout">
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_16">
-            <property name="text">
-             <string>Enable Proxy</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QCheckBox" name="proxyDefaultCb">
-            <property name="text">
-             <string>Enabled</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_17">
-            <property name="text">
-             <string>Bypass Chinese Mainland</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QCheckBox" name="bypassCNCb">
-            <property name="text">
-             <string>Enabled</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="label_8">
-            <property name="text">
-             <string>API Port</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QSpinBox" name="statsPortBox">
-            <property name="minimumSize">
-             <size>
-              <width>100</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="minimum">
-             <number>1024</number>
-            </property>
-            <property name="maximum">
-             <number>65535</number>
-            </property>
-            <property name="value">
-             <number>15934</number>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="0">
-           <widget class="QLabel" name="label_18">
-            <property name="text">
-             <string>Use Local DNS</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="1">
-           <widget class="QCheckBox" name="localDNSCb">
-            <property name="text">
-             <string>Enabled</string>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="0">
-           <widget class="QLabel" name="label_21">
-            <property name="text">
-             <string>Custom DNS List</string>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="1">
-           <widget class="QPlainTextEdit" name="DNSListTxt"/>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QGroupBox" name="formGroupBox">
-         <property name="title">
-          <string>Forward Proxy</string>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0,0,0">
-          <item>
-           <widget class="QLabel" name="label_65">
-            <property name="text">
-             <string>Only simple config is supported.</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <layout class="QFormLayout" name="formLayout_8">
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_48">
-              <property name="text">
-               <string>Status</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QCheckBox" name="fpEnabledCB">
-              <property name="text">
-               <string>Enabled</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <widget class="QFrame" name="fpFrame">
-            <layout class="QFormLayout" name="formLayout_6">
-             <item row="0" column="0">
-              <widget class="QLabel" name="label_49">
-               <property name="text">
-                <string>Type</string>
+                <string>Install</string>
                </property>
               </widget>
              </item>
-             <item row="0" column="1">
-              <widget class="QComboBox" name="fpTypeCombo">
-               <item>
-                <property name="text">
-                 <string>HTTP</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Socks</string>
-                </property>
-               </item>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QLabel" name="label_50">
+             <item>
+              <widget class="QPushButton" name="removeBootStart">
                <property name="text">
-                <string>Host Address</string>
+                <string>Remove</string>
                </property>
               </widget>
              </item>
-             <item row="1" column="1">
-              <widget class="QLineEdit" name="fpAddressTx"/>
+             <item>
+              <spacer name="horizontalSpacer_6">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
              </item>
-             <item row="2" column="0">
-              <widget class="QLabel" name="label_51">
+            </layout>
+           </item>
+           <item row="2" column="0">
+            <layout class="QVBoxLayout" name="verticalLayout_6">
+             <item>
+              <spacer name="verticalSpacer_7">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>0</width>
+                 <height>0</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_55">
                <property name="text">
-                <string>Port</string>
+                <string>Theme Settings</string>
                </property>
               </widget>
              </item>
-             <item row="2" column="1">
-              <widget class="QSpinBox" name="fpPortSB">
-               <property name="minimum">
-                <number>1</number>
+             <item>
+              <spacer name="verticalSpacer_5">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
                </property>
-               <property name="maximum">
-                <number>65535</number>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>0</width>
+                 <height>0</height>
+                </size>
                </property>
-               <property name="value">
-                <number>8000</number>
-               </property>
-              </widget>
+              </spacer>
              </item>
-             <item row="3" column="0">
-              <widget class="QLabel" name="label_54">
-               <property name="text">
-                <string>Authentication</string>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="1">
-              <widget class="QCheckBox" name="fpUseAuthCB">
+            </layout>
+           </item>
+           <item row="2" column="1">
+            <layout class="QGridLayout" name="gridLayout_6" columnstretch="0,0,0,1">
+             <item row="1" column="2">
+              <widget class="QCheckBox" name="darkTrayCB">
                <property name="text">
                 <string>Enabled</string>
                </property>
               </widget>
              </item>
-             <item row="4" column="0">
-              <widget class="QLabel" name="label_52">
+             <item row="0" column="3" rowspan="2">
+              <spacer name="horizontalSpacer_2">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item row="0" column="2">
+              <widget class="QCheckBox" name="darkThemeCB">
                <property name="text">
-                <string>Username</string>
+                <string>Enabled</string>
                </property>
               </widget>
              </item>
-             <item row="4" column="1">
-              <widget class="QLineEdit" name="fpUsernameTx"/>
-             </item>
-             <item row="5" column="0">
-              <widget class="QLabel" name="label_53">
+             <item row="0" column="1">
+              <widget class="QLabel" name="darkThemeLabel">
                <property name="text">
-                <string>Password</string>
+                <string>Darkmode UI Icons</string>
                </property>
               </widget>
              </item>
-             <item row="5" column="1">
-              <widget class="QLineEdit" name="fpPasswordTx"/>
+             <item row="1" column="1">
+              <widget class="QLabel" name="label_36">
+               <property name="text">
+                <string>Darkmode Tray Icon</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0" rowspan="2">
+              <widget class="Line" name="line">
+               <property name="frameShadow">
+                <enum>QFrame::Plain</enum>
+               </property>
+               <property name="lineWidth">
+                <number>2</number>
+               </property>
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+              </widget>
              </item>
             </layout>
-           </widget>
-          </item>
-         </layout>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="label_6">
+             <property name="text">
+              <string>Language</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QComboBox" name="languageComboBox">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>100</width>
+               <height>0</height>
+              </size>
+             </property>
+             <item>
+              <property name="text">
+               <string>zh-CN</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>en-US</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item row="4" column="0">
+            <widget class="QLabel" name="label">
+             <property name="text">
+              <string>Log Level</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="1">
+            <widget class="QComboBox" name="logLevelComboBox">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>150</width>
+               <height>0</height>
+              </size>
+             </property>
+             <item>
+              <property name="text">
+               <string>none</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>debug</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>info</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>warning</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>error</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item row="5" column="0">
+            <layout class="QVBoxLayout" name="verticalLayout_9">
+             <item>
+              <spacer name="verticalSpacer_6">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>0</width>
+                 <height>0</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_19">
+               <property name="text">
+                <string>Auto Connect</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="verticalSpacer_8">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>0</width>
+                 <height>0</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+           <item row="5" column="1">
+            <layout class="QGridLayout" name="gridLayout_8" columnstretch="0,0,1">
+             <item row="1" column="1">
+              <widget class="QLabel" name="label_61">
+               <property name="text">
+                <string>Config</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLabel" name="label_60">
+               <property name="text">
+                <string>Subscription</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="2">
+              <widget class="QComboBox" name="autoStartConnCombo"/>
+             </item>
+             <item row="0" column="2">
+              <widget class="QComboBox" name="autoStartSubsCombo">
+               <property name="minimumSize">
+                <size>
+                 <width>180</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <item>
+                <property name="text">
+                 <string/>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item row="0" column="0" rowspan="2">
+              <widget class="Line" name="line_2">
+               <property name="frameShadow">
+                <enum>QFrame::Plain</enum>
+               </property>
+               <property name="lineWidth">
+                <number>2</number>
+               </property>
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="6" column="0">
+            <widget class="QLabel" name="label_7">
+             <property name="text">
+              <string>Transparent Proxy</string>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="1">
+            <widget class="QCheckBox" name="tProxyCheckBox">
+             <property name="text">
+              <string>Enabled</string>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="0">
+            <layout class="QVBoxLayout" name="verticalLayout_8">
+             <item>
+              <spacer name="verticalSpacer_12">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_67">
+               <property name="text">
+                <string>V2ray Settings</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="verticalSpacer_13">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+           <item row="7" column="1">
+            <layout class="QGridLayout" name="gridLayout_9">
+             <item row="0" column="0" rowspan="3">
+              <widget class="Line" name="line_3">
+               <property name="frameShadow">
+                <enum>QFrame::Plain</enum>
+               </property>
+               <property name="lineWidth">
+                <number>2</number>
+               </property>
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLabel" name="label_46">
+               <property name="text">
+                <string>Core Executable Path</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="2">
+              <widget class="QLineEdit" name="vCoreAssetsPathTxt"/>
+             </item>
+             <item row="0" column="3">
+              <widget class="QPushButton" name="selectVCoreBtn">
+               <property name="text">
+                <string>Select</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="3">
+              <widget class="QPushButton" name="selectVAssetBtn">
+               <property name="text">
+                <string>Select</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="2">
+              <widget class="QLineEdit" name="vCorePathTxt">
+               <property name="placeholderText">
+                <string/>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QLabel" name="label_15">
+               <property name="text">
+                <string>Assets Directory Path</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1" colspan="3">
+              <widget class="QPushButton" name="checkVCoreSettings">
+               <property name="text">
+                <string>Check V2ray Core Settings</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="8" column="1">
+            <spacer name="verticalSpacer_11">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </widget>
         </widget>
-       </item>
-       <item row="1" column="1">
-        <spacer name="verticalSpacer">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_2">
+     <widget class="QWidget" name="tabWidgetPage2" native="true">
+      <attribute name="title">
+       <string>Inbound Settings</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_7">
+       <item row="0" column="0">
+        <widget class="QScrollArea" name="scrollArea_2">
+         <property name="frameShape">
+          <enum>QFrame::NoFrame</enum>
+         </property>
+         <property name="widgetResizable">
+          <bool>true</bool>
+         </property>
+         <widget class="QWidget" name="scrollAreaWidgetContents_2">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>649</width>
+            <height>607</height>
+           </rect>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_2">
+           <item>
+            <layout class="QFormLayout" name="formLayout_4">
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_22">
+               <property name="text">
+                <string>Listening Address</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLineEdit" name="listenIPTxt">
+               <property name="placeholderText">
+                <string notr="true">0.0.0.0</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="label_59">
+               <property name="text">
+                <string>Set System Proxy</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QCheckBox" name="setSysProxyCB">
+               <property name="text">
+                <string>Set System Proxy</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout">
+             <item>
+              <widget class="QGroupBox" name="socksGroupBox">
+               <property name="title">
+                <string>SOCKS Settings</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+               <property name="checked">
+                <bool>false</bool>
+               </property>
+               <layout class="QFormLayout" name="formLayout_2">
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_4">
+                  <property name="text">
+                   <string>Port</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QSpinBox" name="socksPortLE">
+                  <property name="minimum">
+                   <number>1</number>
+                  </property>
+                  <property name="maximum">
+                   <number>65535</number>
+                  </property>
+                  <property name="value">
+                   <number>1081</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QLabel" name="label_14">
+                  <property name="text">
+                   <string>UDP Support</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QCheckBox" name="socksUDPCB">
+                  <property name="text">
+                   <string>Enabled</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="0">
+                 <widget class="QLabel" name="label_25">
+                  <property name="text">
+                   <string>UDP Local IP</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="1">
+                 <widget class="QLineEdit" name="socksUDPIP">
+                  <property name="placeholderText">
+                   <string notr="true">127.0.0.1</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="0">
+                 <widget class="QLabel" name="label_10">
+                  <property name="text">
+                   <string>Authentication</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="1">
+                 <widget class="QCheckBox" name="socksAuthCB">
+                  <property name="text">
+                   <string>Enabled</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="0">
+                 <widget class="QLabel" name="label_11">
+                  <property name="text">
+                   <string>Username</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="1">
+                 <widget class="QLineEdit" name="socksAuthUsernameTxt">
+                  <property name="placeholderText">
+                   <string notr="true">user</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="5" column="0">
+                 <widget class="QLabel" name="label_12">
+                  <property name="text">
+                   <string>Password</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="5" column="1">
+                 <widget class="QLineEdit" name="socksAuthPasswordTxt">
+                  <property name="placeholderText">
+                   <string notr="true">pass</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QGroupBox" name="httpGroupBox">
+               <property name="title">
+                <string>HTTP Settings</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+               <property name="checked">
+                <bool>false</bool>
+               </property>
+               <layout class="QFormLayout" name="formLayout_7">
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_3">
+                  <property name="text">
+                   <string>Port</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QSpinBox" name="httpPortLE">
+                  <property name="minimum">
+                   <number>1</number>
+                  </property>
+                  <property name="maximum">
+                   <number>65535</number>
+                  </property>
+                  <property name="value">
+                   <number>18001</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QLabel" name="label_9">
+                  <property name="text">
+                   <string>Authentication</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QCheckBox" name="httpAuthCB">
+                  <property name="text">
+                   <string>Enabled</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="0">
+                 <widget class="QLabel" name="label_2">
+                  <property name="text">
+                   <string>Username</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="1">
+                 <widget class="QLineEdit" name="httpAuthUsernameTxt">
+                  <property name="placeholderText">
+                   <string notr="true">user</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="0">
+                 <widget class="QLabel" name="label_13">
+                  <property name="text">
+                   <string>Password</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="1">
+                 <widget class="QLineEdit" name="httpAuthPasswordTxt">
+                  <property name="placeholderText">
+                   <string notr="true">pass</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="pacGroupBox">
+             <property name="title">
+              <string>PAC Settings</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+             <layout class="QFormLayout" name="formLayout_11">
+              <item row="0" column="0" colspan="2">
+               <widget class="QLabel" name="label_74">
+                <property name="font">
+                 <font>
+                  <italic>true</italic>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>The system proxy will be configured to use the PAC instead of HTTP and SOCKS.</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLabel" name="label_57">
+                <property name="text">
+                 <string>Port</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QSpinBox" name="pacPortSB">
+                <property name="minimum">
+                 <number>1</number>
+                </property>
+                <property name="maximum">
+                 <number>65535</number>
+                </property>
+                <property name="value">
+                 <number>8088</number>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="QLabel" name="label_56">
+                <property name="text">
+                 <string>Local IP for PAC</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <widget class="QLineEdit" name="pacProxyTxt">
+                <property name="placeholderText">
+                 <string>127.0.0.1</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="0">
+               <widget class="QLabel" name="label_63">
+                <property name="text">
+                 <string>Use Proxy</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="1">
+               <widget class="QComboBox" name="pacProxyCB">
+                <item>
+                 <property name="text">
+                  <string>HTTP</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>SOCKS</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item row="4" column="0">
+               <widget class="QLabel" name="label_58">
+                <property name="text">
+                 <string>Import GFWList</string>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="1">
+               <layout class="QHBoxLayout" name="horizontalLayout_2">
+                <item>
+                 <widget class="QComboBox" name="gfwListCB">
+                  <item>
+                   <property name="text">
+                    <string>Mirror: Gitlab</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Github</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Mirror: Pagure</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Mirror: Repo.or.cz</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Mirror: Bitbucket</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Mirror: TuxFamily</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>GFWList File</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QToolButton" name="pacGoBtn">
+                  <property name="text">
+                   <string>Go</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="5" column="0">
+               <widget class="QLabel" name="label_62">
+                <property name="text">
+                 <string>Edit PAC</string>
+                </property>
+               </widget>
+              </item>
+              <item row="5" column="1">
+               <widget class="QPushButton" name="pushButton">
+                <property name="text">
+                 <string>Open PAC Folder</string>
+                </property>
+               </widget>
+              </item>
+              <item row="6" column="0">
+               <widget class="QLabel" name="label_66">
+                <property name="text">
+                 <string>PAC Access Path</string>
+                </property>
+               </widget>
+              </item>
+              <item row="6" column="1">
+               <widget class="QLabel" name="pacListenAddrLabel">
+                <property name="cursor">
+                 <cursorShape>IBeamCursor</cursorShape>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="textInteractionFlags">
+                 <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_10">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tabWidgetPage3" native="true">
+      <attribute name="title">
+       <string>Connection Settings</string>
+      </attribute>
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_10">
+         <item>
+          <widget class="QGroupBox" name="groupBox">
+           <property name="title">
+            <string>General Connection Settings</string>
+           </property>
+           <layout class="QFormLayout" name="formLayout">
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_16">
+              <property name="text">
+               <string>Enable Proxy</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QCheckBox" name="proxyDefaultCb">
+              <property name="text">
+               <string>Enabled</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_17">
+              <property name="text">
+               <string>Bypass Chinese Mainland</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QCheckBox" name="bypassCNCb">
+              <property name="text">
+               <string>Enabled</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_8">
+              <property name="text">
+               <string>API Port</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QSpinBox" name="statsPortBox">
+              <property name="minimumSize">
+               <size>
+                <width>100</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="minimum">
+               <number>1024</number>
+              </property>
+              <property name="maximum">
+               <number>65535</number>
+              </property>
+              <property name="value">
+               <number>15934</number>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QLabel" name="label_18">
+              <property name="text">
+               <string>Use Local DNS</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QCheckBox" name="localDNSCb">
+              <property name="text">
+               <string>Enabled</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0">
+             <widget class="QLabel" name="label_21">
+              <property name="text">
+               <string>Custom DNS List</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="1">
+             <widget class="QPlainTextEdit" name="DNSListTxt"/>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <spacer name="verticalSpacer">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_7">
+         <item>
+          <widget class="QGroupBox" name="formGroupBox">
+           <property name="title">
+            <string>Forward Proxy</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0,0,0">
+            <item>
+             <widget class="QLabel" name="label_65">
+              <property name="text">
+               <string>Only simple config is supported.</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QFormLayout" name="formLayout_8">
+              <item row="0" column="0">
+               <widget class="QLabel" name="label_48">
+                <property name="text">
+                 <string>Status</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QCheckBox" name="fpEnabledCB">
+                <property name="text">
+                 <string>Enabled</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QFrame" name="fpFrame">
+              <layout class="QFormLayout" name="formLayout_6">
+               <item row="0" column="0">
+                <widget class="QLabel" name="label_49">
+                 <property name="text">
+                  <string>Type</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QComboBox" name="fpTypeCombo">
+                 <item>
+                  <property name="text">
+                   <string>HTTP</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Socks</string>
+                  </property>
+                 </item>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="label_50">
+                 <property name="text">
+                  <string>Host Address</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QLineEdit" name="fpAddressTx"/>
+               </item>
+               <item row="2" column="0">
+                <widget class="QLabel" name="label_51">
+                 <property name="text">
+                  <string>Port</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="1">
+                <widget class="QSpinBox" name="fpPortSB">
+                 <property name="minimum">
+                  <number>1</number>
+                 </property>
+                 <property name="maximum">
+                  <number>65535</number>
+                 </property>
+                 <property name="value">
+                  <number>8000</number>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="0">
+                <widget class="QLabel" name="label_54">
+                 <property name="text">
+                  <string>Authentication</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="1">
+                <widget class="QCheckBox" name="fpUseAuthCB">
+                 <property name="text">
+                  <string>Enabled</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="0">
+                <widget class="QLabel" name="label_52">
+                 <property name="text">
+                  <string>Username</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="1">
+                <widget class="QLineEdit" name="fpUsernameTx"/>
+               </item>
+               <item row="5" column="0">
+                <widget class="QLabel" name="label_53">
+                 <property name="text">
+                  <string>Password</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="5" column="1">
+                <widget class="QLineEdit" name="fpPasswordTx"/>
+               </item>
+              </layout>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <spacer name="verticalSpacer_14">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="networkToolbarPage" native="true">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
       <attribute name="title">
        <string>Network Toolbar Settings</string>
       </attribute>
-      <layout class="QGridLayout" name="gridLayout_3">
-       <item row="4" column="1">
-        <widget class="QPushButton" name="applyNSBarSettingsBtn">
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="1" column="0" colspan="2">
+        <widget class="QLabel" name="label_33">
          <property name="text">
-          <string>Apply Network Speed Bar UI Settings</string>
+          <string>You can config how the network speed toolbar looks like in this panel</string>
          </property>
         </widget>
        </item>
-       <item row="3" column="0" rowspan="3">
+       <item row="3" column="0">
         <widget class="QGroupBox" name="groupBox_6">
          <property name="title">
           <string>Items</string>
@@ -1333,9 +1343,58 @@
          </layout>
         </widget>
        </item>
+       <item row="0" column="0" colspan="2">
+        <widget class="QLabel" name="networkToolbarInfoLabel">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <italic>true</italic>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: red</string>
+         </property>
+         <property name="text">
+          <string>This feature is not stable and no documentation is provided, please use it at your own risk!</string>
+         </property>
+        </widget>
+       </item>
        <item row="3" column="1">
-        <widget class="QFrame" name="nsBarVerticalLayout">
-         <layout class="QVBoxLayout" name="verticalLayout_2">
+        <widget class="QFrame" name="networkToolbarSettingsFrame">
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <item>
+           <widget class="QGroupBox" name="groupBox_5">
+            <property name="title">
+             <string>Content</string>
+            </property>
+            <layout class="QFormLayout" name="formLayout_9">
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_44">
+               <property name="text">
+                <string>Content Type</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QComboBox" name="nsBarContentCombo"/>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="label_31">
+               <property name="text">
+                <string>Text/Tag</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QLineEdit" name="nsBarTagTxt"/>
+             </item>
+            </layout>
+           </widget>
+          </item>
           <item>
            <widget class="QGroupBox" name="groupBox_3">
             <property name="sizePolicy">
@@ -1471,68 +1530,35 @@
            </widget>
           </item>
           <item>
-           <widget class="QGroupBox" name="groupBox_5">
-            <property name="title">
-             <string>Content</string>
+           <widget class="QPushButton" name="applyNSBarSettingsBtn">
+            <property name="text">
+             <string>Apply Network Speed Bar UI Settings</string>
             </property>
-            <layout class="QFormLayout" name="formLayout_9">
-             <item row="0" column="0">
-              <widget class="QLabel" name="label_44">
-               <property name="text">
-                <string>Content Type</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1">
-              <widget class="QComboBox" name="nsBarContentCombo"/>
-             </item>
-             <item row="1" column="0">
-              <widget class="QLabel" name="label_31">
-               <property name="text">
-                <string>Text/Tag</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="1">
-              <widget class="QLineEdit" name="nsBarTagTxt"/>
-             </item>
-            </layout>
            </widget>
+          </item>
+          <item>
+           <spacer name="verticalSpacer_9">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
           </item>
          </layout>
         </widget>
        </item>
-       <item row="1" column="0" colspan="2">
-        <widget class="QLabel" name="label_33">
-         <property name="text">
-          <string>You can config how the network speed toolbar looks like in this panel</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0" colspan="2">
-        <widget class="QLabel" name="label_64">
-         <property name="font">
-          <font>
-           <weight>75</weight>
-           <italic>true</italic>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">color: red</string>
-         </property>
-         <property name="text">
-          <string>This feature is not stable enough and no documentation is provided, please use it as your own risk!</string>
-         </property>
-        </widget>
-       </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_5">
+     <widget class="QWidget" name="tabWidgetPage5" native="true">
       <attribute name="title">
        <string>About</string>
       </attribute>
-      <layout class="QHBoxLayout" name="horizontalLayout">
+      <layout class="QHBoxLayout" name="horizontalLayout_5">
        <item>
         <layout class="QVBoxLayout" name="verticalLayout_5">
          <item>
@@ -1791,6 +1817,16 @@ p, li { white-space: pre-wrap; }
        </item>
       </layout>
      </widget>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
     </widget>
    </item>
   </layout>

@@ -56,12 +56,12 @@ void SubscribeEditor::on_updateButton_clicked()
         bool canGo = true;
 
         if (newName.isEmpty() || !IsValidFileName(newName)) {
-            QvMessageBox(this, tr("Renaming a subscription"), tr("The subscription name is invalid, please try another."));
+            QvMessageBoxWarn(this, tr("Renaming a subscription"), tr("The subscription name is invalid, please try another."));
             canGo = false;
         }
 
         if (subscriptionList->findItems(newName, Qt::MatchExactly).count() > 0) {
-            QvMessageBox(this, tr("Renaming a subscription"), tr("New name of this subscription has been used already, please suggest another one"));
+            QvMessageBoxWarn(this, tr("Renaming a subscription"), tr("New name of this subscription has been used already, please suggest another one"));
             canGo = false;
         }
 
@@ -73,7 +73,7 @@ void SubscribeEditor::on_updateButton_clicked()
         bool result = RenameSubscription(currentSubName, newName);
 
         if (!result) {
-            QvMessageBox(this, tr("Renaming a subscription"), tr("Failed to rename a subscription, this is an unknown error."));
+            QvMessageBoxWarn(this, tr("Renaming a subscription"), tr("Failed to rename a subscription, this is an unknown error."));
             return;
         }
 
@@ -92,7 +92,7 @@ void SubscribeEditor::on_updateButton_clicked()
         SetGlobalConfig(conf);
         // This will set the name to the new name.
         LoadSubscriptionList(subscriptions);
-        QvMessageBox(this, tr("Renaming a subscription"), tr("Successfully renamed a subscription"));
+        QvMessageBoxInfo(this, tr("Renaming a subscription"), tr("Successfully renamed a subscription"));
     }
 
     subscriptions[currentSubName].updateInterval = newUpdateInterval;
@@ -135,10 +135,11 @@ void SubscribeEditor::StartUpdateSubscription(const QString &subscriptionName)
         }
 
         subscriptions[subscriptionName].lastUpdated = system_clock::to_time_t(system_clock::now());
+        lastUpdatedLabel->setText(timeToString(subscriptions[subscriptionName].lastUpdated));
         isUpdateInProgress = false;
     } else {
         LOG(MODULE_NETWORK, "We have received an empty string from the URL.")
-        QvMessageBox(this, tr("Updating subscriptions"), tr("Failed to process the result from the upstream, please check your Url"));
+        QvMessageBoxWarn(this, tr("Updating subscriptions"), tr("Failed to process the result from the upstream, please check your Url."));
     }
 
     this->setEnabled(true);
@@ -161,8 +162,7 @@ void SubscribeEditor::on_removeSubsButton_clicked()
     auto conf = GetGlobalConfig();
 
     if (conf.autoStartConfig.subscriptionName == name) {
-        conf.autoStartConfig.subscriptionName.clear();
-        conf.autoStartConfig.connectionName.clear();
+        conf.autoStartConfig = QvConfigIdentifier();
         SetGlobalConfig(conf);
     }
 
@@ -186,7 +186,7 @@ void SubscribeEditor::on_subscriptionList_currentRowChanged(int currentRow)
     subNameTxt->setText(currentSubName);
     subAddrTxt->setText(subscriptions[currentSubName].address);
     updateIntervalSB->setValue(subscriptions[currentSubName].updateInterval);
-    lastUpdatedLabel->setText(QString::fromStdString(timeToString(subscriptions[currentSubName].lastUpdated)));
+    lastUpdatedLabel->setText(timeToString(subscriptions[currentSubName].lastUpdated));
     //
     connectionsList->clear();
     auto _list = GetSubscriptionConnection(currentSubName);

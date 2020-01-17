@@ -14,6 +14,8 @@ namespace Qv2ray
             bool forceRunAsRootUser;
             /// Enable Debug Log.
             bool debugLog;
+            /// Enable Network toolbar plugin.
+            bool enableToolbarPlguin;
         };
         enum CommandLineParseResult {
             CommandLineOk,
@@ -40,6 +42,7 @@ namespace Qv2ray
                 QCommandLineOption noAPIOption;
                 QCommandLineOption runAsRootOption;
                 QCommandLineOption debugOption;
+                QCommandLineOption withToolbarOption;
                 QCommandLineOption helpOption;
                 QCommandLineOption versionOption;
         };

@@ -68,7 +68,7 @@ void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString &originalTag
         case RENAME_RULE:
             if (rules.contains(originalTag) && ruleNodes.contains(originalTag)) {
                 if (rules.contains(newTag) && rules.contains(newTag)) {
-                    QvMessageBox(this, tr("Rename tags"), tr("The new tag has been used, please suggest another."));
+                    QvMessageBoxWarn(this, tr("Rename tags"), tr("The new tag has been used, please suggest another."));
                     return;
                 }
 
@@ -103,7 +103,7 @@ void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString &originalTag
         case RENAME_OUTBOUND:
             if (outbounds.contains(originalTag) && outboundNodes.contains(originalTag)) {
                 if (outbounds.contains(newTag) && outboundNodes.contains(newTag)) {
-                    QvMessageBox(this, tr("Rename tags"), tr("The new tag has been used, please suggest another."));
+                    QvMessageBoxWarn(this, tr("Rename tags"), tr("The new tag has been used, please suggest another."));
                     return;
                 }
 
@@ -131,7 +131,7 @@ void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString &originalTag
         case RENAME_INBOUND:
             if (inbounds.contains(originalTag) && inboundNodes.contains(originalTag)) {
                 if (inbounds.contains(newTag) && inboundNodes.contains(newTag)) {
-                    QvMessageBox(this, tr("Rename tags"), tr("The new tag has been used, please suggest another."));
+                    QvMessageBoxWarn(this, tr("Rename tags"), tr("The new tag has been used, please suggest another."));
                     return;
                 }
 

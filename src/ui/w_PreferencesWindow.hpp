@@ -18,10 +18,6 @@ class PreferencesWindow : public QDialog, private Ui::PreferencesWindow
     private slots:
         void on_buttonBox_accepted();
 
-        void on_httpCB_stateChanged(int arg1);
-
-        void on_socksCB_stateChanged(int arg1);
-
         void on_httpAuthCB_stateChanged(int arg1);
 
         void on_socksAuthCB_stateChanged(int arg1);
@@ -116,8 +112,6 @@ class PreferencesWindow : public QDialog, private Ui::PreferencesWindow
 
         void on_darkTrayCB_stateChanged(int arg1);
 
-        void on_enablePACCB_stateChanged(int arg1);
-
         void on_pacGoBtn_clicked();
 
         void on_pacPortSB_valueChanged(int arg1);
@@ -157,6 +151,12 @@ class PreferencesWindow : public QDialog, private Ui::PreferencesWindow
         void on_pacProxyTxt_textChanged(const QString &arg1);
 
         void on_checkVCoreSettings_clicked();
+
+        void on_httpGroupBox_clicked(bool checked);
+
+        void on_socksGroupBox_clicked(bool checked);
+
+        void on_pacGroupBox_clicked(bool checked);
 
     private:
         void SetAutoStartButtonsState(bool isAutoStart);

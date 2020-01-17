@@ -175,14 +175,20 @@ namespace Qv2ray
             return GetFileList(dir).contains(fileName);
         }
 
-        void QvMessageBox(QWidget *parent, QString title, QString text)
+        void QvMessageBoxWarn(QWidget *parent, QString title, QString text)
         {
             QMessageBox::warning(parent, title, text, QMessageBox::Ok | QMessageBox::Default, 0);
         }
 
+        void QvMessageBoxInfo(QWidget *parent, QString title, QString text)
+        {
+            QMessageBox::information(parent, title, text, QMessageBox::Ok | QMessageBox::Default, 0);
+        }
+
+
         int QvMessageBoxAsk(QWidget *parent, QString title, QString text, QMessageBox::StandardButton extraButtons)
         {
-            return QMessageBox::information(parent, title, text, QMessageBox::Yes | QMessageBox::No | extraButtons);
+            return QMessageBox::question(parent, title, text, QMessageBox::Yes | QMessageBox::No | extraButtons);
         }
 
         QString FormatBytes(long long bytes)

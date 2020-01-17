@@ -50,7 +50,7 @@
 
 #define SUBSCRIPTION_CONFIG_MODIFY_DENY(_item_)                                                                                                                 \
     if (!CheckConfigType(_item_, REGULAR)) {                                                                                                                    \
-        QvMessageBox(this, QObject::tr("Editing a subscription config"), QObject::tr("You should not modity this property of a config from a subscription"));   \
+        QvMessageBoxWarn(this, QObject::tr("Editing a subscription config"), QObject::tr("You should not modity this property of a config from a subscription"));   \
         return;                                                                                                                                                 \
     }                                                                                                                                                           \
 
@@ -230,7 +230,12 @@ MainWindow::MainWindow(QWidget *parent):
 
     connect(requestHelper, &QvHttpRequestHelper::httpRequestFinished, this, &MainWindow::VersionUpdate);
     requestHelper->get("https://api.github.com/repos/lhy0403/Qv2ray/releases/latest");
-    StartProcessingPlugins();
+
+    if (StartupOption.enableToolbarPlguin) {
+        LOG(MODULE_UI, "Plugin daemon is enabled.")
+        StartProcessingPlugins();
+    }
+
     CheckSubscriptionsUpdate();
 }
 
@@ -281,7 +286,7 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
 void MainWindow::on_action_StartThis_triggered()
 {
     if (!IsSelectionConnectable) {
-        QvMessageBox(this, tr("No connection selected!"), tr("Please select a config from the list."));
+        QvMessageBoxWarn(this, tr("No connection selected!"), tr("Please select a config from the list."));
         return;
     }
 
@@ -435,7 +440,7 @@ void MainWindow::on_startButton_clicked()
 
         // Check Selection
         if (CurrentConnectionIdentifier.isEmpty()) {
-            QvMessageBox(this, tr("No connection selected!"), tr("Please select a config from the list."));
+            QvMessageBoxWarn(this, tr("No connection selected!"), tr("Please select a config from the list."));
             return;
         }
 
@@ -666,17 +671,17 @@ void MainWindow::on_connectionListWidget_itemChanged(QTreeWidgetItem *item, int)
         bool canContinueRename = true;
 
         if (newIdentifier.connectionName.trimmed().isEmpty()) {
-            QvMessageBox(this, tr("Rename a Connection"), tr("The name cannot be empty"));
+            QvMessageBoxWarn(this, tr("Rename a Connection"), tr("The name cannot be empty"));
             canContinueRename = false;
         }
 
         if (currentConfig.configs.contains(newIdentifier.connectionName)) {
-            QvMessageBox(this, tr("Rename a Connection"), tr("The name has been used already, Please choose another."));
+            QvMessageBoxWarn(this, tr("Rename a Connection"), tr("The name has been used already, Please choose another."));
             canContinueRename = false;
         }
 
         if (!IsValidFileName(newIdentifier.connectionName + QV2RAY_CONFIG_FILE_EXTENSION)) {
-            QvMessageBox(this, tr("Rename a Connection"), tr("The name you suggested is not valid, please try another."));
+            QvMessageBoxWarn(this, tr("Rename a Connection"), tr("The name you suggested is not valid, please try another."));
             canContinueRename = false;
         }
 
@@ -767,7 +772,7 @@ void MainWindow::on_removeConfigButton_clicked()
             currentConfig.configs.removeOne(conn.connectionName);
 
             if (!RemoveConnection(conn.connectionName)) {
-                QvMessageBox(this, tr("Removing this Connection"), tr("Failed to delete connection file, please delete manually."));
+                QvMessageBoxWarn(this, tr("Removing this Connection"), tr("Failed to delete connection file, please delete manually."));
             }
         } else if (connData.configType == CONNECTION_SUBSCRIPTION) {
             if (subscriptionRemovalCheckStatus == -1) {
@@ -778,7 +783,7 @@ void MainWindow::on_removeConfigButton_clicked()
 
             if (subscriptionRemovalCheckStatus == 1) {
                 if (!RemoveSubscriptionConnection(connData.subscriptionName, connData.connectionName)) {
-                    QvMessageBox(this, tr("Removing this Connection"), tr("Failed to delete connection file, please delete manually."));
+                    QvMessageBoxWarn(this, tr("Removing this Connection"), tr("Failed to delete connection file, please delete manually."));
                 }
             }
         } else {
@@ -816,7 +821,7 @@ void MainWindow::on_editConfigButton_clicked()
 {
     // Check if we have a connection selected...
     if (!IsSelectionConnectable) {
-        QvMessageBox(this, tr("No Config Selected"), tr("Please Select a Config"));
+        QvMessageBoxWarn(this, tr("No Config Selected"), tr("Please Select a Config"));
         return;
     }
 
@@ -867,7 +872,7 @@ void MainWindow::on_action_RCM_ConvToComplex_triggered()
 {
     // Check if we have a connection selected...
     if (!IsSelectionConnectable) {
-        QvMessageBox(this, tr("No Config Selected"), tr("Please Select a Config"));
+        QvMessageBoxWarn(this, tr("No Config Selected"), tr("Please Select a Config"));
         return;
     }
 
@@ -898,7 +903,7 @@ void MainWindow::on_action_RCM_EditJson_triggered()
 {
     // Check if we have a connection selected...
     if (!IsSelectionConnectable) {
-        QvMessageBox(this, tr("No Config Selected"), tr("Please Select a Config"));
+        QvMessageBoxWarn(this, tr("No Config Selected"), tr("Please Select a Config"));
         return;
     }
 
@@ -976,7 +981,7 @@ void MainWindow::on_shareBtn_clicked()
         ConfigExporter v(vmess, this);
         v.OpenExport();
     } else {
-        QvMessageBox(this, tr("Share Connection"), tr("There're no support of sharing configs other than vmess"));
+        QvMessageBoxWarn(this, tr("Share Connection"), tr("There're no support of sharing configs other than vmess"));
     }
 }
 void MainWindow::on_action_RCM_ShareQR_triggered()

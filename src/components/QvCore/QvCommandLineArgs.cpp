@@ -11,17 +11,20 @@ namespace Qv2ray
         QvStartupOptions StartupOption = QvStartupOptions{};
 
         QvCommandArgParser::QvCommandArgParser() : QObject(),
-            noAPIOption("FAKE"), runAsRootOption("FAKE"), debugOption("FAKE"), helpOption("FAKE"), versionOption("FAKE")
+            noAPIOption("noAPI", QObject::tr("Disable gRPC API subsystems.")),
+            runAsRootOption("I-just-wanna-run-with-root", QObject::tr("Explicitly run Qv2ray as root.")),
+            debugOption("debug", QObject::tr("Enable Debug Output")),
+            withToolbarOption("withToolbarPlugin", QObject::tr("Enable Qv2ray network toolbar plugin")),
+            //
+            helpOption("FAKE"), versionOption("FAKE")
         {
             parser.setApplicationDescription(QObject::tr("Qv2ray - A cross-platform Qt frontend for V2ray."));
             parser.setSingleDashWordOptionMode(QCommandLineParser::ParseAsLongOptions);
             //
-            noAPIOption = QCommandLineOption("noAPI", QObject::tr("Disable gRPC API subsystems."));
-            runAsRootOption = QCommandLineOption("I-just-wanna-run-with-root", QObject::tr("Explicitly run Qv2ray as root."));
-            debugOption = QCommandLineOption("debug", QObject::tr("Enable Debug Output"));
             parser.addOption(noAPIOption);
             parser.addOption(runAsRootOption);
             parser.addOption(debugOption);
+            parser.addOption(withToolbarOption);
             helpOption = parser.addHelpOption();
             versionOption = parser.addVersionOption();
         }
@@ -49,6 +52,10 @@ namespace Qv2ray
 
             if (parser.isSet(debugOption)) {
                 StartupOption.debugLog = true;
+            }
+
+            if (parser.isSet(withToolbarOption)) {
+                StartupOption.enableToolbarPlguin = true;
             }
 
             return CommandLineOk;
