@@ -96,6 +96,7 @@ namespace Qv2ray
                 //
                 QProcess process;
                 process.setProcessEnvironment(env);
+                DEBUG(MODULE_VCORE, "Starting V2ray core with test options")
                 process.start(conf.v2CorePath, QStringList() << "-test" << "-config" << path, QIODevice::ReadWrite | QIODevice::Text);
 
                 if (!process.waitForFinished(1000) && process.exitCode() != 0) {
@@ -112,8 +113,8 @@ namespace Qv2ray
                 }
             } else {
                 QvMessageBoxWarn(nullptr, tr("Cannot start v2ray"),
-                             tr("V2ray core settings is incorrect.") + NEWLINE + NEWLINE +
-                             tr("The error is: ") + NEWLINE + v2rayCheckResult);
+                                 tr("V2ray core settings is incorrect.") + NEWLINE + NEWLINE +
+                                 tr("The error is: ") + NEWLINE + v2rayCheckResult);
                 return false;
             }
         }
@@ -143,7 +144,7 @@ namespace Qv2ray
                 inboundTags.append(tag);
             }
 
-            LOG(MODULE_VCORE, "Found Inbound Tags: " + Stringify(inboundTags))
+            DEBUG(MODULE_VCORE, "Found Inbound Tags: " + Stringify(inboundTags))
             QString json = JsonToString(root);
             // Write the final configuration to the disk.
             StringToFile(&json, new QFile(QV2RAY_GENERATED_FILE_PATH));
@@ -162,6 +163,7 @@ namespace Qv2ray
                 vProcess->setProcessEnvironment(env);
                 vProcess->start(GetGlobalConfig().v2CorePath, QStringList() << "-config" << filePath, QIODevice::ReadWrite | QIODevice::Text);
                 vProcess->waitForStarted();
+                DEBUG(MODULE_VCORE, "V2ray core started.")
                 ConnectionStatus = STARTED;
 
                 if (StartupOption.noAPI) {

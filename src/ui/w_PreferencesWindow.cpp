@@ -217,21 +217,7 @@ void PreferencesWindow::on_socksAuthCB_stateChanged(int checked)
 void PreferencesWindow::on_languageComboBox_currentTextChanged(const QString &arg1)
 {
     LOADINGCHECK
-    //
-    // A strange bug prevents us to change the UI language online
-    //    https://github.com/lhy0403/Qv2ray/issues/34
-    //
     CurrentConfig.uiConfig.language = arg1;
-    //
-    //
-    //if (QApplication::installTranslator(getTranslator(arg1))) {
-    //    LOG(MODULE_UI, "Loaded translations " + arg1)
-    //    retranslateUi(this);
-    //} else {
-    //    QvMessageBox(this, tr("#Preferences"), tr("#SwitchTranslationError"));
-    //}
-    //
-    //emit retranslateUi(this);
 }
 
 void PreferencesWindow::on_logLevelComboBox_currentIndexChanged(int index)
@@ -444,7 +430,7 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
 #else
     Q_UNUSED(arg1)
     // No such tProxy thing on Windows and macOS
-    QvMessageBox(this, tr("Preferences"), tr("tProxy is not supported on macOS and Windows"));
+    QvMessageBoxWarn(this, tr("Preferences"), tr("tProxy is not supported on macOS and Windows"));
     CurrentConfig.tProxySupport = false;
     tProxyCheckBox->setChecked(false);
 #endif
