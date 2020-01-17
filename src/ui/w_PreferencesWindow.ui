@@ -75,6 +75,37 @@
            </property>
           </widget>
          </item>
+         <item row="1" column="1">
+          <layout class="QHBoxLayout" name="horizontalLayout_7">
+           <item>
+            <widget class="QPushButton" name="installBootStart">
+             <property name="text">
+              <string>Install</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="removeBootStart">
+             <property name="text">
+              <string>Remove</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_6">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </item>
          <item row="2" column="0">
           <layout class="QVBoxLayout" name="verticalLayout_6">
            <item>
@@ -251,6 +282,43 @@
            </item>
           </widget>
          </item>
+         <item row="5" column="0">
+          <layout class="QVBoxLayout" name="verticalLayout_9">
+           <item>
+            <spacer name="verticalSpacer_6">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_19">
+             <property name="text">
+              <string>Auto Connect</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_8">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </item>
          <item row="5" column="1">
           <layout class="QGridLayout" name="gridLayout_8" columnstretch="0,0,1">
            <item row="1" column="1">
@@ -315,116 +383,101 @@
           </widget>
          </item>
          <item row="7" column="0">
-          <widget class="QLabel" name="label_46">
-           <property name="text">
-            <string>V2ray Core Path</string>
-           </property>
-          </widget>
-         </item>
-         <item row="7" column="1">
-          <layout class="QHBoxLayout" name="horizontalLayout_12">
+          <layout class="QVBoxLayout" name="verticalLayout_8">
            <item>
-            <widget class="QLineEdit" name="vCorePathTxt">
-             <property name="placeholderText">
-              <string/>
+            <spacer name="verticalSpacer_12">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_67">
+             <property name="text">
+              <string>V2ray Settings</string>
              </property>
             </widget>
            </item>
            <item>
+            <spacer name="verticalSpacer_13">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </item>
+         <item row="7" column="1">
+          <layout class="QGridLayout" name="gridLayout_9">
+           <item row="0" column="0" rowspan="3">
+            <widget class="Line" name="line_3">
+             <property name="frameShadow">
+              <enum>QFrame::Plain</enum>
+             </property>
+             <property name="lineWidth">
+              <number>2</number>
+             </property>
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="label_46">
+             <property name="text">
+              <string>Core Executable Path</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="2">
+            <widget class="QLineEdit" name="vCoreAssetsPathTxt"/>
+           </item>
+           <item row="0" column="3">
             <widget class="QPushButton" name="selectVCoreBtn">
              <property name="text">
               <string>Select</string>
              </property>
             </widget>
            </item>
-          </layout>
-         </item>
-         <item row="8" column="0">
-          <widget class="QLabel" name="label_15">
-           <property name="text">
-            <string>V2ray Assets Path</string>
-           </property>
-          </widget>
-         </item>
-         <item row="8" column="1">
-          <layout class="QHBoxLayout" name="horizontalLayout_5">
-           <item>
-            <widget class="QLineEdit" name="vCoreAssetsPathTxt"/>
-           </item>
-           <item>
+           <item row="1" column="3">
             <widget class="QPushButton" name="selectVAssetBtn">
              <property name="text">
               <string>Select</string>
              </property>
             </widget>
            </item>
-          </layout>
-         </item>
-         <item row="5" column="0">
-          <layout class="QVBoxLayout" name="verticalLayout_9">
-           <item>
-            <spacer name="verticalSpacer_6">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>0</width>
-               <height>0</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item>
-            <widget class="QLabel" name="label_19">
-             <property name="text">
-              <string>Auto Connect</string>
+           <item row="0" column="2">
+            <widget class="QLineEdit" name="vCorePathTxt">
+             <property name="placeholderText">
+              <string/>
              </property>
             </widget>
            </item>
-           <item>
-            <spacer name="verticalSpacer_8">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>0</width>
-               <height>0</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
-         </item>
-         <item row="1" column="1">
-          <layout class="QHBoxLayout" name="horizontalLayout_7">
-           <item>
-            <widget class="QPushButton" name="installBootStart">
+           <item row="1" column="1">
+            <widget class="QLabel" name="label_15">
              <property name="text">
-              <string>Install</string>
+              <string>Assets Directory Path</string>
              </property>
             </widget>
            </item>
-           <item>
-            <widget class="QPushButton" name="removeBootStart">
+           <item row="2" column="1" colspan="3">
+            <widget class="QPushButton" name="checkVCoreSettings">
              <property name="text">
-              <string>Remove</string>
+              <string>Check V2ray Core Settings</string>
              </property>
             </widget>
-           </item>
-           <item>
-            <spacer name="horizontalSpacer_6">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
            </item>
           </layout>
          </item>
@@ -843,6 +896,33 @@
                <string>Open PAC Folder</string>
               </property>
              </widget>
+            </item>
+            <item row="6" column="0">
+             <widget class="QLabel" name="label_66">
+              <property name="text">
+               <string>PAC Access Path</string>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="1">
+             <widget class="QLineEdit" name="pacListenAddrLabel">
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="0">
+             <spacer name="verticalSpacer_11">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
             </item>
            </layout>
           </widget>

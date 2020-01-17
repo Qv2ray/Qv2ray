@@ -17,43 +17,103 @@ namespace Qv2ray
 {
     namespace QvKernelInterations
     {
+        bool V2rayKernelInstance::ValidateKernel(const QString &vCorePath, const QString &vAssetsPath, QString *message)
+        {
+            QFile coreFile(vCorePath);
+
+            if (!coreFile.exists()) {
+                DEBUG(MODULE_VCORE, "V2ray core file cannot be found.")
+                *message = tr("V2ray core executable not found.");
+                return false;
+            }
+
+            // Use open() here to prevent `executing` a folder, which may have the same name as the v2ray core.
+            if (!coreFile.open(QFile::ReadOnly)) {
+                DEBUG(MODULE_VCORE, "V2ray core file cannot be opened, possibly be a folder?")
+                *message = tr("V2ray core file cannot be opened, please ensure there's a file instead of a folder.");
+                return false;
+            }
+
+            coreFile.close();
+            //
+            // Check file existance.
+            // From: https://www.v2fly.org/chapter_02/env.html#asset-location
+            //
+            bool hasGeoIP = FileExistsIn(QDir(vAssetsPath), "geoip.dat");
+            bool hasGeoSite = FileExistsIn(QDir(vAssetsPath), "geosite.dat");
+
+            if (!hasGeoIP && !hasGeoSite) {
+                DEBUG(MODULE_VCORE, "V2ray assets path contains none of those two files.")
+                *message = tr("V2ray assets path is not valid.");
+                return false;
+            }
+
+            if (!hasGeoIP) {
+                DEBUG(MODULE_VCORE, "No geoip.dat in assets path, aborting.")
+                *message =  tr("No geoip.dat in assets path.");
+                return false;
+            }
+
+            if (!hasGeoSite) {
+                DEBUG(MODULE_VCORE, "No geosite.dat in assets path, aborting.")
+                *message =  tr("No geosite.dat in assets path.");
+                return false;
+            }
+
+            // Check if v2ray core returns a version number correctly.
+            QProcess proc;
+            proc.start(vCorePath + " -version");
+
+            if (!proc.waitForFinished(1000) || proc.exitCode() != 0) {
+                DEBUG(MODULE_VCORE, "V2ray core not exited within 1 sec, or it failed with an exit code: " + QSTRN(proc.exitCode()))
+
+                if (proc.exitCode() != 0) {
+                    *message = tr("V2ray core failed with an exit code: ") + QSTRN(proc.exitCode());
+                } else {
+                    *message = tr("V2ray core not responsed within 1 secs.");
+                }
+
+                return false;
+            }
+
+            QString output = QString(proc.readAllStandardOutput());
+            LOG(MODULE_VCORE, "V2ray output: " + Stringify(SplitLines(output)))
+            *message =  SplitLines(output).first();
+            return true;
+        }
+
+
         bool V2rayKernelInstance::ValidateConfig(const QString &path)
         {
             auto conf = GetGlobalConfig();
-            QFile coreFile(conf.v2CorePath);
-            bool coreFileExists = coreFile.exists() && coreFile.open(QFile::ReadOnly);
+            QString v2rayCheckResult;
 
-            if (coreFileExists) {
-                coreFile.close();
-            }
-
-            if (coreFileExists) {
+            if (ValidateKernel(conf.v2CorePath, conf.v2AssetsPath, &v2rayCheckResult)) {
+                DEBUG(MODULE_VCORE, "V2ray version: " + v2rayCheckResult)
+                // Append assets location env.
                 QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
                 env.insert("V2RAY_LOCATION_ASSET", conf.v2AssetsPath);
+                //
                 QProcess process;
                 process.setProcessEnvironment(env);
                 process.start(conf.v2CorePath, QStringList() << "-test" << "-config" << path, QIODevice::ReadWrite | QIODevice::Text);
 
                 if (!process.waitForFinished(1000) && process.exitCode() != 0) {
-                    LOG(MODULE_VCORE, "v2ray core failed with exitcode: " + QSTRN(process.exitCode()))
-                    QvMessageBox(nullptr, tr("Cannot start v2ray"), tr("v2ray core failed with errcode:") + QSTRN(process.exitCode()));
+                    LOG(MODULE_VCORE, "V2ray core failed with an exit code: " + QSTRN(process.exitCode()))
+                    QvMessageBox(nullptr, tr("Cannot start v2ray"), tr("V2ray core failed with an exit code: ") + QSTRN(process.exitCode()));
                     return false;
-                }
-
-                QString output = QString(process.readAllStandardOutput());
-
-                if (process.exitCode() != 0) {
+                } else if (process.exitCode() != 0) {
+                    QString output = QString(process.readAllStandardOutput());
                     QvMessageBox(nullptr, tr("Configuration Error"), output.mid(output.indexOf("anti-censorship.") + 17));
                     return false;
+                } else {
+                    DEBUG(MODULE_VCORE, "Config file check passed.")
+                    return true;
                 }
-
-                return true;
             } else {
                 QvMessageBox(nullptr, tr("Cannot start v2ray"),
-                             tr("We cannot find v2ray core binary.") + NEWLINE + NEWLINE +
-                             tr("Possible solutions:") + NEWLINE +
-                             tr("1. The location is wrong, please go to Preference Window to change it.") + NEWLINE +
-                             tr("2. Please make sure the path is an excutable file, use \"chmod +x\" and make sure it's not a directory: ") + conf.v2CorePath + NEWLINE);
+                             tr("V2ray core settings is incorrect.") + NEWLINE + NEWLINE +
+                             tr("The error is: ") + NEWLINE + v2rayCheckResult);
                 return false;
             }
         }
@@ -75,8 +135,10 @@ namespace Qv2ray
             for (auto item : root["inbounds"].toArray()) {
                 auto tag = item.toObject()["tag"].toString("");
 
-                if (tag.isEmpty() || tag == API_TAG_INBOUND)
+                if (tag.isEmpty() || tag == API_TAG_INBOUND) {
+                    // Ignore API tag and empty tags.
                     continue;
+                }
 
                 inboundTags.append(tag);
             }
@@ -103,7 +165,9 @@ namespace Qv2ray
                 ConnectionStatus = STARTED;
 
                 if (StartupOption.noAPI) {
-                    LOG(MODULE_VCORE, "API is disabled by the command line arg \"--noAPI\"")
+                    LOG(MODULE_VCORE, "API has been disabled by the command line argument \"-noAPI\"")
+                } else if (inboundTags.isEmpty()) {
+                    LOG(MODULE_VCORE, "API is disabled since no inbound tags configured. This is probably caused by a bad complex config.")
                 } else {
                     // Config API
                     apiFailedCounter = 0;

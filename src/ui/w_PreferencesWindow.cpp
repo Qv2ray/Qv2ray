@@ -165,6 +165,8 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent),
     fpUsernameTx->setEnabled(fpUseAuthCB->isChecked());
     fpPasswordTx->setEnabled(fpUseAuthCB->isChecked());
     //
+    pacListenAddrLabel->setText("http://" + (pacProxyTxt->text().isEmpty() ? "127.0.0.1" : pacProxyTxt->text()) + ":" + QSTRN(pacPortSB->value()) + "/pac");
+    //
     finishedLoading = true;
 }
 
@@ -848,7 +850,7 @@ void PreferencesWindow::on_pacPortSB_valueChanged(int arg1)
     LOADINGCHECK
     NEEDRESTART
     CurrentConfig.inboundConfig.pacConfig.port = arg1;
-    //pacAccessPathTxt->setText("http://" + listenIPTxt->text() + ":" + QSTRN(arg1) + "/pac");
+    pacListenAddrLabel->setText("http://" + (pacProxyTxt->text().isEmpty() ? "127.0.0.1" : pacProxyTxt->text()) + ":" + QSTRN(pacPortSB->value()) + "/pac");
 }
 
 void PreferencesWindow::on_setSysProxyCB_stateChanged(int arg1)
@@ -933,6 +935,7 @@ void PreferencesWindow::SetAutoStartButtonsState(bool isAutoStart)
 
 void PreferencesWindow::on_fpEnabledCB_stateChanged(int arg1)
 {
+    LOADINGCHECK
     bool fpEnabled = arg1 == Qt::Checked;
     CurrentConfig.connectionConfig.forwardProxyConfig.enableForwardProxy = fpEnabled;
     fpFrame->setEnabled(fpEnabled);
@@ -940,16 +943,19 @@ void PreferencesWindow::on_fpEnabledCB_stateChanged(int arg1)
 
 void PreferencesWindow::on_fpTypeCombo_currentIndexChanged(const QString &arg1)
 {
+    LOADINGCHECK
     CurrentConfig.connectionConfig.forwardProxyConfig.type = arg1;
 }
 
 void PreferencesWindow::on_fpAddressTx_textEdited(const QString &arg1)
 {
+    LOADINGCHECK
     CurrentConfig.connectionConfig.forwardProxyConfig.serverAddress = arg1;
 }
 
 void PreferencesWindow::on_spPortSB_valueChanged(int arg1)
 {
+    LOADINGCHECK
     CurrentConfig.connectionConfig.forwardProxyConfig.port = arg1;
 }
 
@@ -963,15 +969,38 @@ void PreferencesWindow::on_fpUseAuthCB_stateChanged(int arg1)
 
 void PreferencesWindow::on_fpUsernameTx_textEdited(const QString &arg1)
 {
+    LOADINGCHECK
     CurrentConfig.connectionConfig.forwardProxyConfig.username = arg1;
 }
 
 void PreferencesWindow::on_fpPasswordTx_textEdited(const QString &arg1)
 {
+    LOADINGCHECK
     CurrentConfig.connectionConfig.forwardProxyConfig.password = arg1;
 }
 
 void PreferencesWindow::on_fpPortSB_valueChanged(int arg1)
 {
+    LOADINGCHECK
     CurrentConfig.connectionConfig.forwardProxyConfig.port = arg1;
+}
+
+void PreferencesWindow::on_pacProxyTxt_textChanged(const QString &arg1)
+{
+    Q_UNUSED(arg1)
+    pacListenAddrLabel->setText("http://" + (pacProxyTxt->text().isEmpty() ? "127.0.0.1" : pacProxyTxt->text()) + ":" + QSTRN(pacPortSB->value()) + "/pac");
+}
+
+void PreferencesWindow::on_checkVCoreSettings_clicked()
+{
+    auto vcorePath = vCorePathTxt->text();
+    auto vAssetsPath = vCoreAssetsPathTxt->text();
+    QString result;
+
+    if (!V2rayKernelInstance::ValidateKernel(vcorePath, vAssetsPath, &result)) {
+        QvMessageBox(this, tr("V2ray Core Settings"), result);
+    } else {
+        QvMessageBox(this, tr("V2ray Core Settings"), tr("V2ray path configuration check passed.") + NEWLINE + NEWLINE +
+                     tr("Current version of V2ray is: ") + NEWLINE + result);
+    }
 }

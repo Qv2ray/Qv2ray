@@ -154,6 +154,10 @@ class PreferencesWindow : public QDialog, private Ui::PreferencesWindow
 
         void on_fpPortSB_valueChanged(int arg1);
 
+        void on_pacProxyTxt_textChanged(const QString &arg1);
+
+        void on_checkVCoreSettings_clicked();
+
     private:
         void SetAutoStartButtonsState(bool isAutoStart);
         // Set ui parameters for a line;

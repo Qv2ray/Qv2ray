@@ -38,6 +38,7 @@ namespace Qv2ray
                 QvInstanceStatus ConnectionStatus;
                 //
                 static bool ValidateConfig(const QString &path);
+                static bool ValidateKernel(const QString &vCorePath, const QString &vAssetsPath, QString *message);
 
             signals:
                 void onProcessOutputReadyRead(QString);
