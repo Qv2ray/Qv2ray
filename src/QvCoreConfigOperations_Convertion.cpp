@@ -223,7 +223,7 @@ namespace Qv2ray
                 __vmess_checker__func(tls, << "")
                 //
                 port = vmessConf["port"].toVariant().toInt();
-                aid = vmessConf["aid"].toVariant().type();
+                aid = vmessConf["aid"].toVariant().toInt();
                 // Apply the settings.
                 //
                 // User
