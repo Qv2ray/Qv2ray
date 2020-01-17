@@ -20,6 +20,10 @@ no_increase_build_number {
     write_file("Build.Counter", _BUILD_NUMBER)
 }
 
+isEmpty(PREFIX) {
+    PREFIX=/usr/local
+}
+
 DEFINES += QT_DEPRECATED_WARNINGS QV2RAY_VERSION_STRING=\"\\\"v$${VERSION}\\\"\" QAPPLICATION_CLASS=QApplication
 
 # Don't merge those configs with below.
@@ -255,31 +259,22 @@ unix {
 
     message("  --> Generating desktop dependency.")
     desktop.files += ./assets/qv2ray.desktop
-    desktop.path = /usr/share/applications/
+    desktop.path = $$PREFIX/share/applications/
 
     message("  --> Generating icons dependency.")
     icon.files += ./assets/icons/qv2ray.png
-    icon.path = /usr/share/icons/hicolor/256x256/apps/
+    icon.path = $$PREFIX/share/icons/hicolor/256x256/apps/
 
     message("  --> Generating metainfo dependency.")
     appdataXml.files += ./assets/qv2ray.metainfo.xml
-    appdataXml.path = /usr/local/share/metainfo/
+    appdataXml.path = $$PREFIX/share/metainfo/
 
-    target.path = /usr/local/bin/
+    target.path = $$PREFIX/bin/
     INSTALLS += target desktop icon
 }
 
 with_metainfo {
     INSTALLS += appdataXml
-}
-
-with_prefix {
-    # For Packaging
-    message("Configuring for packaging platform")
-    desktop.path = $$(PREFIX)/share/applications/
-    icon.path = $$(PREFIX)/share/icons/hicolor/256x256/apps/
-    target.path = $$(PREFIX)/bin/
-    appdataXml.path = $$(PREFIX)/share/metainfo/
 }
 
 message(" ")
