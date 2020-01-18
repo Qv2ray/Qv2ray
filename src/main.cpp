@@ -191,15 +191,7 @@ int main(int argc, char *argv[])
         std::unique_ptr<QCoreApplication> consoleApp(new QCoreApplication(argc, argv));
         //
         // Install a default translater. From the OS/DE
-        auto _lang = QLocale::system().name().replace("_", "-");
-        auto _sysTranslator = getTranslator(_lang);
-
-        if (_lang != "en-US") {
-            // Do not install en-US as it's the default language.
-            bool _result_ = consoleApp->installTranslator(_sysTranslator);
-            LOG(MODULE_UI, "Installing a tranlator from OS: " + _lang + " -- " + (_result_ ? "OK" : "Failed"))
-        }
-
+        consoleApp->installTranslator(getTranslator(QLocale::system().name().replace("_", "-")));
         QvCommandArgParser parser;
         QString errorMessage;
 
@@ -220,19 +212,18 @@ int main(int argc, char *argv[])
                 cout << parser.Parser()->helpText().toStdString() << endl;
                 return 0;
         }
-
+    }
 #ifdef Q_OS_UNIX
 
-        // Unix OS root user check.
-        // Do not use getuid() here since it's installed as owned by the root, someone may accidently setuid to it.
-        if (!StartupOption.forceRunAsRootUser && geteuid() == 0) {
-            LOG("ERROR", QObject::tr("You cannot run Qv2ray as root, please use --I-just-wanna-run-with-root if you REALLY want to do so."))
-            LOG("ERROR", QObject::tr(" --> USE IT AT YOUR OWN RISK!"))
-            return 1;
-        }
+    // Unix OS root user check.
+    // Do not use getuid() here since it's installed as owned by the root, someone may accidently setuid to it.
+    if (!StartupOption.forceRunAsRootUser && geteuid() == 0) {
+        LOG("ERROR", QObject::tr("You cannot run Qv2ray as root, please use --I-just-wanna-run-with-root if you REALLY want to do so."))
+        LOG("ERROR", QObject::tr(" --> USE IT AT YOUR OWN RISK!"))
+        return 1;
+    }
 
 #endif
-    }
     //
     // finished: command line parsing
     LOG(MODULE_INIT, "Qv2ray " QV2RAY_VERSION_STRING " running on " + QSysInfo::prettyProductName() + " " + QSysInfo::currentCpuArchitecture() + NEWLINE)
@@ -335,7 +326,7 @@ int main(int argc, char *argv[])
     auto confObject = StructFromJsonString<Qv2rayConfig>(JsonToString(conf));
     // Remove system translator, for loading custom translations.
     qApp->removeTranslator(_sysTranslator);
-    LOG(MODULE_INIT, "Removing system translations")
+    LOG(MODULE_INIT, "Removed system translations")
 
     if (confObject.uiConfig.language.isEmpty()) {
         // Prevent empty.

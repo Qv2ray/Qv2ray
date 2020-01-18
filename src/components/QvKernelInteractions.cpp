@@ -121,16 +121,29 @@ namespace Qv2ray
 
         V2rayKernelInstance::V2rayKernelInstance()
         {
-            auto proc = new QProcess();
-            vProcess = proc;
+            vProcess = new QProcess();;
             connect(vProcess, &QProcess::readyReadStandardOutput, this, [this]() {
                 emit onProcessOutputReadyRead(vProcess->readAllStandardOutput().trimmed());
             });
-            ConnectionStatus = STOPPED;
+            connect(vProcess, &QProcess::stateChanged, [this](QProcess::ProcessState state) {
+                DEBUG(MODULE_VCORE, "V2ray kernel process status changed: " + QVariant::fromValue(state).toString())
+
+                // If v2ray crashed AFTER we start it.
+                if (KernelStarted && state == QProcess::NotRunning) {
+                    LOG(MODULE_VCORE, "V2ray kernel crashed.")
+                    emit onProcessErrored();
+                }
+            });
+            KernelStarted = false;
         }
 
         bool V2rayKernelInstance::StartConnection(CONFIGROOT root, int apiPort)
         {
+            if (KernelStarted) {
+                LOG(MODULE_VCORE, "Status is invalid, expect STOPPED when calling StartConnection")
+                return false;
+            }
+
             inboundTags.clear();
 
             for (auto item : root["inbounds"].toArray()) {
@@ -144,17 +157,11 @@ namespace Qv2ray
                 inboundTags.append(tag);
             }
 
-            DEBUG(MODULE_VCORE, "Found Inbound Tags: " + inboundTags.join(";"))
-            QString json = JsonToString(root);
+            DEBUG(MODULE_VCORE, "Found inbound tags: " + inboundTags.join(";"))
             // Write the final configuration to the disk.
+            QString json = JsonToString(root);
             StringToFile(&json, new QFile(QV2RAY_GENERATED_FILE_PATH));
-
-            if (ConnectionStatus != STOPPED) {
-                LOG(MODULE_VCORE, "Status is invalid, expect STOPPED when calling StartV2rayCore")
-                return false;
-            }
-
-            ConnectionStatus = STARTING;
+            //
             auto filePath = QV2RAY_GENERATED_FILE_PATH;
 
             if (ValidateConfig(filePath)) {
@@ -164,7 +171,7 @@ namespace Qv2ray
                 vProcess->start(GetGlobalConfig().v2CorePath, QStringList() << "-config" << filePath, QIODevice::ReadWrite | QIODevice::Text);
                 vProcess->waitForStarted();
                 DEBUG(MODULE_VCORE, "V2ray core started.")
-                ConnectionStatus = STARTED;
+                KernelStarted = true;
 
                 if (StartupOption.noAPI) {
                     LOG(MODULE_VCORE, "API has been disabled by the command line argument \"-noAPI\"")
@@ -178,12 +185,12 @@ namespace Qv2ray
                     StatsService service;
                     Stub = service.NewStub(Channel);
                     apiTimerId = startTimer(1000);
-                    LOG(MODULE_VCORE, "API Worker started.")
+                    DEBUG(MODULE_VCORE, "API Worker started.")
                 }
 
                 return true;
             } else {
-                ConnectionStatus = STOPPED;
+                KernelStarted = false;
                 return false;
             }
         }
@@ -211,17 +218,17 @@ namespace Qv2ray
 
         void V2rayKernelInstance::StopConnection()
         {
+            KernelStarted = false;
             vProcess->close();
             killTimer(apiTimerId);
             apiFailedCounter = 0;
             transferData.clear();
             transferSpeed.clear();
-            ConnectionStatus = STOPPED;
         }
 
         V2rayKernelInstance::~V2rayKernelInstance()
         {
-            if (ConnectionStatus != STOPPED) {
+            if (KernelStarted) {
                 StopConnection();
             }
 
@@ -230,7 +237,7 @@ namespace Qv2ray
 
         long V2rayKernelInstance::CallStatsAPIByName(QString name)
         {
-            if (ConnectionStatus != STARTED) {
+            if (!KernelStarted) {
                 LOG(MODULE_VCORE, "Invalid connection status when calling API")
                 return 0;
             }

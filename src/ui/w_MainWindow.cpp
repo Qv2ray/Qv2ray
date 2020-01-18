@@ -67,6 +67,14 @@ MainWindow::MainWindow(QWidget *parent):
     currentConfig = GetGlobalConfig();
     vinstance = new V2rayKernelInstance();
     connect(vinstance, &V2rayKernelInstance::onProcessOutputReadyRead, this, &MainWindow::UpdateVCoreLog);
+    //
+    connect(vinstance, &V2rayKernelInstance::onProcessErrored, [this] {
+        on_stopButton_clicked();
+        this->show();
+        QvMessageBoxWarn(this, tr("V2ray vcore terminated."), tr("V2ray vcore terminated unexpectedly.") + NEWLINE + NEWLINE +
+                         tr("To solve the problem, read the V2ray log in the log text browser."));
+    });
+    //
     setupUi(this);
     //
     // Two browsers
@@ -224,7 +232,7 @@ MainWindow::MainWindow(QWidget *parent):
     MWFindAndStartAutoConfig();
 
     // If we are not connected to anything, show the MainWindow.
-    if (vinstance->ConnectionStatus != STARTED) {
+    if (!vinstance->KernelStarted) {
         this->show();
     }
 
@@ -330,9 +338,7 @@ void MainWindow::VersionUpdate(QByteArray &data)
 
 void MainWindow::OnConfigListChanged(bool need_restart)
 {
-    bool isRunning = vinstance->ConnectionStatus == STARTED;
-
-    if (isRunning && need_restart) on_stopButton_clicked();
+    if (vinstance->KernelStarted && need_restart) on_stopButton_clicked();
 
     LOG(MODULE_UI, "Loading new GlobalConfig")
     SetEditWidgetEnable(false);
@@ -404,7 +410,7 @@ void MainWindow::OnConfigListChanged(bool need_restart)
 
     connectionListWidget->sortItems(0, Qt::AscendingOrder);
 
-    if (isRunning && need_restart) on_startButton_clicked();
+    if (vinstance->KernelStarted && need_restart) on_startButton_clicked();
 }
 MainWindow::~MainWindow()
 {
@@ -429,7 +435,9 @@ void MainWindow::setMasterLogHBar()
 }
 void MainWindow::on_startButton_clicked()
 {
-    if (vinstance->ConnectionStatus != STARTED) {
+    vCoreLogBrowser->clear();
+
+    if (!vinstance->KernelStarted) {
         // Reset the graph
         for (int i = 0; i < 30 ; i++) {
             uploadList[i] = 0;
@@ -476,7 +484,7 @@ void MainWindow::on_startButton_clicked()
 
 void MainWindow::on_stopButton_clicked()
 {
-    if (vinstance->ConnectionStatus != STOPPED) {
+    if (vinstance->KernelStarted) {
         // Is running or starting
         killTimer(speedTimerId);
         killTimer(pingTimerId);
@@ -484,7 +492,6 @@ void MainWindow::on_stopButton_clicked()
         MWStopConnection();
         //
         hTray->setToolTip(TRAY_TOOLTIP_PREFIX);
-        vCoreLogBrowser->clear();
         statusLabel->setText(tr("Disconnected"));
         action_Tray_Start->setEnabled(true);
         action_Tray_Stop->setEnabled(false);
@@ -518,7 +525,7 @@ void MainWindow::on_activatedTray(QSystemTrayIcon::ActivationReason reason)
             break;
 
         case QSystemTrayIcon::MiddleClick:
-            if (this->vinstance->ConnectionStatus == STARTED) {
+            if (vinstance->KernelStarted) {
                 on_stopButton_clicked();
             } else {
                 on_startButton_clicked();
@@ -633,8 +640,7 @@ void MainWindow::on_connectionListWidget_currentItemChanged(QTreeWidgetItem *cur
     if (!IsConnectableItem(current)) return;
 
     // no need to check !isRenamingInProgress since it's always true.
-    bool canSetConnection = vinstance->ConnectionStatus != STARTED;
-    ShowAndSetConnection(ItemConnectionIdentifier(current), canSetConnection, false);
+    ShowAndSetConnection(ItemConnectionIdentifier(current), !vinstance->KernelStarted, false);
     //on_connectionListWidget_itemClicked(current, 0);
 }
 void MainWindow::on_connectionListWidget_customContextMenuRequested(const QPoint &pos)
@@ -716,7 +722,7 @@ void MainWindow::on_connectionListWidget_itemChanged(QTreeWidgetItem *item, int)
         if (CurrentConnectionIdentifier == renameOriginalIdentifier) {
             CurrentConnectionIdentifier = newIdentifier;
 
-            if (vinstance->ConnectionStatus == STARTED) {
+            if (vinstance->KernelStarted) {
                 on_reconnectButton_clicked();
             }
         }
@@ -1000,7 +1006,7 @@ void MainWindow::timerEvent(QTimerEvent *event)
         auto _totalSpeedUp = vinstance->getAllSpeedUp();
         auto _totalSpeedDown = vinstance->getAllSpeedDown();
         auto _totalDataUp = vinstance->getAllDataUp();
-        auto _totalDataDown = vinstance->getAllDataDown();
+        auto _totalDataDown = vinstance->KernelStarted;
         //
         double _max = 0;
         double historyMax = 0;
