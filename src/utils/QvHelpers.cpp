@@ -47,36 +47,6 @@ namespace Qv2ray
             return randomString;
         }
 
-        QString Stringify(list<string> list, QString saperator)
-        {
-            QString out;
-
-            for (auto item : list) {
-                out.append(QString::fromStdString(item));
-                out.append(saperator);
-            }
-
-            if (out.length() >= 1)
-                out = out.remove(out.length() - 1, 1);
-
-            return out;
-        }
-
-        QString Stringify(QList<QString> list, QString saperator)
-        {
-            QString out;
-
-            for (auto item : list) {
-                out.append(item);
-                out.append(saperator);
-            }
-
-            if (out.length() >= 1)
-                out = out.remove(out.length() - 1, 1);
-
-            return out;
-        }
-
         QString StringFromFile(QFile *source)
         {
             source->open(QFile::ReadOnly);

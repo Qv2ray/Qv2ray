@@ -37,7 +37,7 @@ namespace Qv2ray
                     vmessUriRoot["host"] = realHost;
                     vmessUriRoot["path"] = transfer.wsSettings.path;
                 } else if (transfer.network == "h2" || transfer.network == "http") {
-                    vmessUriRoot["host"] = Stringify(transfer.httpSettings.host, ",");
+                    vmessUriRoot["host"] = transfer.httpSettings.host.join(",");
                     vmessUriRoot["path"] = transfer.httpSettings.path;
                 }
 
@@ -206,7 +206,7 @@ namespace Qv2ray
         } else{\
             *errMessage = QObject::tr(#key " does not exist."); \
             LOG(MODULE_IMPORT, "Cannot process \"" #key "\" since it's not included in the json object." ) \
-            LOG(MODULE_IMPORT, " --> values: " + Stringify(val) ) \
+            LOG(MODULE_IMPORT, " --> values: " + val.join(";")) \
             LOG(MODULE_IMPORT, " --> PS: " + ps) \
         }\
     }

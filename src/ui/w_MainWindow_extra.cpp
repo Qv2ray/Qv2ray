@@ -49,8 +49,8 @@ void MainWindow::MWFindAndStartAutoConfig()
             on_startButton_clicked();
         } else {
             QvMessageBoxWarn(this, tr("Autostarting a config"), tr("Could not find a specified config named: ") + NEWLINE +
-                         name + NEWLINE + NEWLINE +
-                         tr("Please reset the settings in Preference Window"));
+                             name + NEWLINE + NEWLINE +
+                             tr("Please reset the settings in Preference Window"));
         }
     } else if (connectionListWidget->topLevelItemCount() > 0) {
         // Make the first one our default selected item.
@@ -98,7 +98,7 @@ void MainWindow::MWSetSystemProxy()
                 LOG(MODULE_PROXY, " --> PAC is configured to use socks but socks is not enabled.")
                 LOG(MODULE_PROXY, " --> PAC is configuted to use http but http is not enabled.")
                 QvMessageBoxWarn(this, tr("PAC Processing Failed"), tr("HTTP or SOCKS inbound is not properly configured for PAC") +
-                             NEWLINE + tr("Qv2ray will continue, but will not set system proxy."));
+                                 NEWLINE + tr("Qv2ray will continue, but will not set system proxy."));
                 canSetSystemProxy = false;
             }
         } else {
@@ -240,8 +240,8 @@ void MainWindow::CheckSubscriptionsUpdate()
 
     if (!updateList.isEmpty()) {
         QvMessageBoxWarn(this, tr("Update Subscriptions"),
-                     tr("There are subscriptions need to be updated, please go to subscriptions window to update them.") + NEWLINE + NEWLINE +
-                     tr("These subscriptions are out-of-date: ") + NEWLINE + Stringify(updateList));
+                         tr("There are subscriptions need to be updated, please go to subscriptions window to update them.") + NEWLINE + NEWLINE +
+                         tr("These subscriptions are out-of-date: ") + NEWLINE + updateList.join(";"));
         on_subsButton_clicked();
     }
 }

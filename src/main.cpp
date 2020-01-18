@@ -164,7 +164,7 @@ bool initialiseQv2ray()
             // Even the last folder failed to pass the check.
             LOG(MODULE_INIT, "FATAL")
             LOG(MODULE_INIT, " ---> CANNOT find a proper place to store Qv2ray config files.")
-            QString searchPath = Stringify(configFilePaths, NEWLINE);
+            QString searchPath = configFilePaths.join(NEWLINE);
             QvMessageBoxWarn(nullptr, QObject::tr("Cannot Start Qv2ray"),
                              QObject::tr("Cannot find a place to store config files.") + NEWLINE +
                              QObject::tr("Qv2ray has searched these paths below:") +

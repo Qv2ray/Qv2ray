@@ -77,7 +77,7 @@ namespace Qv2ray
             }
 
             QString output = QString(proc.readAllStandardOutput());
-            LOG(MODULE_VCORE, "V2ray output: " + Stringify(SplitLines(output)))
+            LOG(MODULE_VCORE, "V2ray output: " + SplitLines(output).join(";"))
             *message =  SplitLines(output).first();
             return true;
         }
@@ -144,7 +144,7 @@ namespace Qv2ray
                 inboundTags.append(tag);
             }
 
-            DEBUG(MODULE_VCORE, "Found Inbound Tags: " + Stringify(inboundTags))
+            DEBUG(MODULE_VCORE, "Found Inbound Tags: " + inboundTags.join(";"))
             QString json = JsonToString(root);
             // Write the final configuration to the disk.
             StringToFile(&json, new QFile(QV2RAY_GENERATED_FILE_PATH));

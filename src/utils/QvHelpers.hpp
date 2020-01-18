@@ -30,8 +30,8 @@ namespace Qv2ray
         QString JsonToString(QJsonObject json, QJsonDocument::JsonFormat format = QJsonDocument::JsonFormat::Indented);
         QString JsonToString(QJsonArray array, QJsonDocument::JsonFormat format = QJsonDocument::JsonFormat::Indented);
         QString VerifyJsonString(const QString &source);
-        QString Stringify(list<string> list, QString saperator = ";");
-        QString Stringify(QList<QString> list, QString saperator = ";");
+        //QString Stringify(list<string> list, QString saperator = ";");
+        //QString Stringify(QList<QString> list, QString saperator = ";");
         QString FormatBytes(long long bytes);
         void DeducePossibleFileName(const QString &baseDir, QString *fileName, const QString &extension);
         QString ConvertGFWToPAC(const QString &rawContent, const QString &customProxyString);
