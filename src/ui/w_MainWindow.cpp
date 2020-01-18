@@ -554,7 +554,10 @@ void MainWindow::ToggleVisibility()
 }
 void MainWindow::quit()
 {
-    StopProcessingPlugins();
+    if (StartupOption.enableToolbarPlguin) {
+        StopProcessingPlugins();
+    }
+
     tcpingModel->StopAllPing();
     on_stopButton_clicked();
     ExitQv2ray();

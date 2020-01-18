@@ -186,20 +186,20 @@ bool initialiseQv2ray()
 
 int main(int argc, char *argv[])
 {
-    //
-    // Install a default translater. From the OS/DE
-    auto _lang = QLocale::system().name().replace("_", "-");
-    auto _sysTranslator = getTranslator(_lang);
-
-    if (_lang != "en-US") {
-        // Do not install en-US as it's the default language.
-        bool _result_ = QApplication::installTranslator(_sysTranslator);
-        LOG(MODULE_UI, "Installing a tranlator from OS: " + _lang + " -- " + (_result_ ? "OK" : "Failed"))
-    }
-
     // parse the command line before starting as a Qt application
     {
         std::unique_ptr<QCoreApplication> consoleApp(new QCoreApplication(argc, argv));
+        //
+        // Install a default translater. From the OS/DE
+        auto _lang = QLocale::system().name().replace("_", "-");
+        auto _sysTranslator = getTranslator(_lang);
+
+        if (_lang != "en-US") {
+            // Do not install en-US as it's the default language.
+            bool _result_ = consoleApp->installTranslator(_sysTranslator);
+            LOG(MODULE_UI, "Installing a tranlator from OS: " + _lang + " -- " + (_result_ ? "OK" : "Failed"))
+        }
+
         QvCommandArgParser parser;
         QString errorMessage;
 
@@ -257,6 +257,18 @@ int main(int argc, char *argv[])
     //
     SingleApplication _qApp(argc, argv, false, SingleApplication::Mode::User | SingleApplication::Mode::ExcludeAppPath | SingleApplication::Mode::ExcludeAppVersion);
     // Early initialisation
+    //
+    // Not duplicated.
+    // Install a default translater. From the OS/DE
+    auto _lang = QLocale::system().name().replace("_", "-");
+    auto _sysTranslator = getTranslator(_lang);
+
+    if (_lang != "en-US") {
+        // Do not install en-US as it's the default language.
+        bool _result_ = _qApp.installTranslator(_sysTranslator);
+        LOG(MODULE_UI, "Installing a tranlator from OS: " + _lang + " -- " + (_result_ ? "OK" : "Failed"))
+    }
+
     //
     LOG("LICENCE", NEWLINE "This program comes with ABSOLUTELY NO WARRANTY." NEWLINE
         "This is free software, and you are welcome to redistribute it" NEWLINE
