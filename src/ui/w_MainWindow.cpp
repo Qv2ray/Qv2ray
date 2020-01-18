@@ -1006,7 +1006,7 @@ void MainWindow::timerEvent(QTimerEvent *event)
         auto _totalSpeedUp = vinstance->getAllSpeedUp();
         auto _totalSpeedDown = vinstance->getAllSpeedDown();
         auto _totalDataUp = vinstance->getAllDataUp();
-        auto _totalDataDown = vinstance->KernelStarted;
+        auto _totalDataDown = vinstance->getAllDataDown();
         //
         double _max = 0;
         double historyMax = 0;
