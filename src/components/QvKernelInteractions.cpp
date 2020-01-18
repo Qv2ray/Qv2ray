@@ -27,7 +27,7 @@ namespace Qv2ray
                 return false;
             }
 
-            // Use open() here to prevent `executing` a folder, which may have the same name as the v2ray core.
+            // Use open() here to prevent `executing` a folder, which may have the same name as the V2ray core.
             if (!coreFile.open(QFile::ReadOnly)) {
                 DEBUG(MODULE_VCORE, "V2ray core file cannot be opened, possibly be a folder?")
                 *message = tr("V2ray core file cannot be opened, please ensure there's a file instead of a folder.");
@@ -60,7 +60,7 @@ namespace Qv2ray
                 return false;
             }
 
-            // Check if v2ray core returns a version number correctly.
+            // Check if V2ray core returns a version number correctly.
             QProcess proc;
             proc.start(vCorePath + " -version");
 
@@ -101,7 +101,7 @@ namespace Qv2ray
 
                 if (!process.waitForFinished(1000) && process.exitCode() != 0) {
                     LOG(MODULE_VCORE, "V2ray core failed with an exit code: " + QSTRN(process.exitCode()))
-                    QvMessageBoxWarn(nullptr, tr("Cannot start v2ray"), tr("V2ray core failed with an exit code: ") + QSTRN(process.exitCode()));
+                    QvMessageBoxWarn(nullptr, tr("Cannot start V2ray"), tr("V2ray core failed with an exit code: ") + QSTRN(process.exitCode()));
                     return false;
                 } else if (process.exitCode() != 0) {
                     QString output = QString(process.readAllStandardOutput());
@@ -112,7 +112,7 @@ namespace Qv2ray
                     return true;
                 }
             } else {
-                QvMessageBoxWarn(nullptr, tr("Cannot start v2ray"),
+                QvMessageBoxWarn(nullptr, tr("Cannot start V2ray"),
                                  tr("V2ray core settings is incorrect.") + NEWLINE + NEWLINE +
                                  tr("The error is: ") + NEWLINE + v2rayCheckResult);
                 return false;
@@ -128,7 +128,7 @@ namespace Qv2ray
             connect(vProcess, &QProcess::stateChanged, [this](QProcess::ProcessState state) {
                 DEBUG(MODULE_VCORE, "V2ray kernel process status changed: " + QVariant::fromValue(state).toString())
 
-                // If v2ray crashed AFTER we start it.
+                // If V2ray crashed AFTER we start it.
                 if (KernelStarted && state == QProcess::NotRunning) {
                     LOG(MODULE_VCORE, "V2ray kernel crashed.")
                     emit onProcessErrored();
@@ -244,7 +244,7 @@ namespace Qv2ray
 
             if (apiFailedCounter == QV2RAY_API_CALL_FAILEDCHECK_THRESHOLD) {
                 LOG(MODULE_VCORE, "API call failure threshold reached, cancelling further API aclls.")
-                QvMessageBoxWarn(nullptr, tr("API Call Failed"), tr("Failed to get statistics data, please check if v2ray is running properly"));
+                QvMessageBoxWarn(nullptr, tr("API Call Failed"), tr("Failed to get statistics data, please check if V2ray is running properly"));
                 transferData.clear();
                 transferSpeed.clear();
                 apiFailedCounter++;

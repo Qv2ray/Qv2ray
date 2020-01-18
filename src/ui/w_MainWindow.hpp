@@ -143,7 +143,7 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         QAction *action_Tray_SetSystemProxy;
         QAction *action_Tray_ClearSystemProxy;
         //
-        // ----------------------------------- Extra Headers For w_MainWindow_extra.cpp Handling v2ray Connectivities.
+        // ----------------------------------- Extra Headers For w_MainWindow_extra.cpp Handling V2ray Connectivities.
         bool systemProxyEnabled;
         void MWFindAndStartAutoConfig();
         bool MWtryStartConnection();

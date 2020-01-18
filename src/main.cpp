@@ -175,7 +175,7 @@ bool initialiseQv2ray()
     }
 
     if (!QDir(QV2RAY_GENERATED_DIR).exists()) {
-        // The dir used to generate final config file, for v2ray interaction.
+        // The dir used to generate final config file, for V2ray interaction.
         QDir().mkdir(QV2RAY_GENERATED_DIR);
         LOG(MODULE_INIT, "Created config generation dir at: " + QV2RAY_GENERATED_DIR)
     }

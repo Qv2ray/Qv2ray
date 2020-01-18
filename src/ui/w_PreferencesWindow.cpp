@@ -278,7 +278,7 @@ void PreferencesWindow::on_localDNSCb_stateChanged(int arg1)
 void PreferencesWindow::on_selectVAssetBtn_clicked()
 {
     NEEDRESTART
-    QString dir = QFileDialog::getExistingDirectory(this, tr("Open v2ray assets folder"), QDir::currentPath());
+    QString dir = QFileDialog::getExistingDirectory(this, tr("Open V2ray assets folder"), QDir::currentPath());
 
     if (!dir.isEmpty()) {
         vCoreAssetsPathTxt->setText(dir);
@@ -288,7 +288,7 @@ void PreferencesWindow::on_selectVAssetBtn_clicked()
 
 void PreferencesWindow::on_selectVCoreBtn_clicked()
 {
-    QString core = QFileDialog::getOpenFileName(this, tr("Open v2ray core file"), QDir::currentPath());
+    QString core = QFileDialog::getOpenFileName(this, tr("Open V2ray core file"), QDir::currentPath());
 
     if (!core.isEmpty()) {
         vCorePathTxt->setText(core);
@@ -342,26 +342,26 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
     if (finishedLoading) {
         // Set UID and GID for linux
         // Steps:
-        // --> 1. Copy v2ray core files to the #CONFIG_DIR#/vcore/ dir.
+        // --> 1. Copy V2ray core files to the #CONFIG_DIR#/vcore/ dir.
         // --> 2. Change GlobalConfig.v2CorePath.
-        // --> 3. Call `pkexec setcap CAP_NET_ADMIN,CAP_NET_RAW,CAP_NET_BIND_SERVICE=eip` on the v2ray core.
+        // --> 3. Call `pkexec setcap CAP_NET_ADMIN,CAP_NET_RAW,CAP_NET_BIND_SERVICE=eip` on the V2ray core.
         if (arg1 == Qt::Checked) {
             // We enable it!
             if (QvMessageBoxAsk(this, tr("Enable tProxy Support"),
-                                tr("This will append capabilities to the v2ray executable.")  + NEWLINE + NEWLINE +
-                                tr("Qv2ray will copy your v2ray core to this path: ") + NEWLINE + QV2RAY_DEFAULT_VCORE_PATH + NEWLINE + NEWLINE +
+                                tr("This will append capabilities to the V2ray executable.")  + NEWLINE + NEWLINE +
+                                tr("Qv2ray will copy your V2ray core to this path: ") + NEWLINE + QV2RAY_DEFAULT_VCORE_PATH + NEWLINE + NEWLINE +
                                 tr("If anything goes wrong after enabling this, please refer to issue #57 or the link below:") + NEWLINE +
                                 " https://lhy0403.github.io/Qv2ray/zh-CN/FAQ.html ") != QMessageBox::Yes) {
                 tProxyCheckBox->setChecked(false);
                 LOG(MODULE_UI, "Canceled enabling tProxy feature.")
             } else {
                 LOG(MODULE_VCORE, "ENABLING tProxy Support")
-                LOG(MODULE_FILE, " --> Origin v2ray core file is at: " + CurrentConfig.v2CorePath)
+                LOG(MODULE_FILE, " --> Origin V2ray core file is at: " + CurrentConfig.v2CorePath)
                 auto v2ctlPath = QFileInfo(CurrentConfig.v2CorePath).path() + "/v2ctl";
                 auto newPath = QFileInfo(QV2RAY_DEFAULT_VCORE_PATH).path();
                 //
                 LOG(MODULE_FILE, " --> Origin v2ctl file is at: " + v2ctlPath)
-                LOG(MODULE_FILE, " --> New v2ray files will be placed in: " + newPath)
+                LOG(MODULE_FILE, " --> New V2ray files will be placed in: " + newPath)
                 //
                 LOG(MODULE_FILE, " --> Copying files....")
 
@@ -381,25 +381,25 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
                     }
 
                     QString vCoreresult = QFile(CurrentConfig.v2CorePath).copy(QV2RAY_DEFAULT_VCORE_PATH) ? "OK" : "FAILED";
-                    LOG(MODULE_FILE, " --> v2ray Core: " + vCoreresult)
+                    LOG(MODULE_FILE, " --> V2ray Core: " + vCoreresult)
                     //
                     QString vCtlresult = QFile(v2ctlPath).copy(newPath + "/v2ctl") ? "OK" : "FAILED";
-                    LOG(MODULE_FILE, " --> v2ray Ctl: " + vCtlresult)
+                    LOG(MODULE_FILE, " --> V2ray Ctl: " + vCtlresult)
                     //
 
                     if (vCoreresult == "OK" && vCtlresult == "OK") {
                         LOG(MODULE_VCORE, " --> Done copying files.")
                         on_vCorePathTxt_textEdited(QV2RAY_DEFAULT_VCORE_PATH);
                     } else {
-                        LOG(MODULE_VCORE, "FAILED to copy v2ray files. Aborting.")
+                        LOG(MODULE_VCORE, "FAILED to copy V2ray files. Aborting.")
                         QvMessageBoxWarn(this, tr("Enable tProxy Support"),
-                                         tr("Qv2ray cannot copy one or both v2ray files from: ") + NEWLINE + NEWLINE +
+                                         tr("Qv2ray cannot copy one or both V2ray files from: ") + NEWLINE + NEWLINE +
                                          CurrentConfig.v2CorePath + NEWLINE + v2ctlPath + NEWLINE + NEWLINE +
                                          tr("to this path: ") + NEWLINE + newPath);
                         return;
                     }
                 } else {
-                    LOG(MODULE_VCORE, "Skipped removing files since the current v2ray core is in the default path.")
+                    LOG(MODULE_VCORE, "Skipped removing files since the current V2ray core is in the default path.")
                     LOG(MODULE_VCORE, " --> Actually because we don't know where else to obtain the files.")
                 }
 
@@ -408,7 +408,7 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
 
                 if (ret != 0) {
                     LOG(MODULE_UI, "WARN: setcap exits with code: " + QSTRN(ret))
-                    QvMessageBoxWarn(this, tr("Preferences"), tr("Failed to setcap onto v2ray executable. You may need to run `setcap` manually."));
+                    QvMessageBoxWarn(this, tr("Preferences"), tr("Failed to setcap onto V2ray executable. You may need to run `setcap` manually."));
                 }
 
                 CurrentConfig.tProxySupport = true;
@@ -419,7 +419,7 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
 
             if (ret != 0) {
                 LOG(MODULE_UI, "WARN: setcap exits with code: " + QSTRN(ret))
-                QvMessageBoxWarn(this, tr("Preferences"), tr("Failed to setcap onto v2ray executable. You may need to run `setcap` manually."));
+                QvMessageBoxWarn(this, tr("Preferences"), tr("Failed to setcap onto V2ray executable. You may need to run `setcap` manually."));
             }
 
             CurrentConfig.tProxySupport = false;
