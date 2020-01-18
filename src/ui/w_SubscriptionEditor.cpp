@@ -17,6 +17,11 @@ SubscribeEditor::SubscribeEditor(QWidget *parent) :
     LoadSubscriptionList(subscriptions);
 }
 
+QPair<QString, CONFIGROOT> SubscribeEditor::GetSelectedConfig()
+{
+    return currentSelectedConfig;
+}
+
 void SubscribeEditor::LoadSubscriptionList(QMap<QString, Qv2raySubscriptionConfig> list)
 {
     subscriptionList->clear();
@@ -224,4 +229,13 @@ void SubscribeEditor::on_subscriptionList_itemSelectionChanged()
 void SubscribeEditor::on_updateIntervalSB_valueChanged(double arg1)
 {
     subscriptions[currentSubName].updateInterval = arg1;
+}
+
+void SubscribeEditor::on_connectionsList_itemClicked(QListWidgetItem *item)
+{
+    if (item != nullptr) {
+        auto name = item->text();
+        currentSelectedConfig.first = name;
+        currentSelectedConfig.second = GetSubscriptionConnection(currentSubName)[name];
+    }
 }

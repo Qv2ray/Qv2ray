@@ -8,7 +8,12 @@
 
 void RouteEditor::AddNewInbound(INBOUND in)
 {
-    QString tag = in["tag"].toString();
+    QString tag = getTag(in);
+
+    if (inbounds.contains(tag)) {
+        tag = tag + "_" + GenerateRandomString(5);
+    }
+
     auto _nodeData = make_unique<QvInboundNodeModel>(make_shared<InboundNodeData>(tag));
     auto &node = nodeScene->createNode(std::move(_nodeData));
     auto pos = QPointF();
@@ -22,6 +27,11 @@ void RouteEditor::AddNewInbound(INBOUND in)
 void RouteEditor::AddNewOutbound(OUTBOUND out)
 {
     QString tag = getTag(out);
+
+    if (outbounds.contains(tag)) {
+        tag = tag + "_" + GenerateRandomString(5);
+    }
+
     auto _nodeData = make_unique<QvOutboundNodeModel>(make_shared<OutboundNodeData>(tag));
     auto pos = nodeGraphWidget->pos();
     pos.setX(pos.x() + 850 + GRAPH_GLOBAL_OFFSET_X);

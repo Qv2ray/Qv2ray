@@ -26,11 +26,12 @@ ImportConfigWindow::ImportConfigWindow(QWidget *parent)
     nameTxt->setText(QDateTime::currentDateTime().toString("MMdd_hhmm"));
 }
 
-QMap<QString, CONFIGROOT> ImportConfigWindow::OpenImport(bool outboundsOnly)
+QMap<QString, CONFIGROOT> ImportConfigWindow::OpenImport(bool partialImport)
 {
-    // if Outbound Only, set keepImported to false and disable the checkbox
+    // partial import means only import as an outbound, will set keepImported to false and disable the checkbox
     // keepImportedInboundCheckBox->setChecked(!outboundsOnly);
-    keepImportedInboundCheckBox->setEnabled(!outboundsOnly);
+    keepImportedInboundCheckBox->setEnabled(!partialImport);
+    routeEditBtn->setEnabled(!partialImport);
     this->exec();
     return this->result() == QDialog::Accepted ? connections : QMap<QString, CONFIGROOT>();
 }
@@ -236,6 +237,9 @@ void ImportConfigWindow::on_subscriptionButton_clicked()
     hide();
     SubscribeEditor w;
     w.exec();
+    auto _result = w.GetSelectedConfig();
+    connections.clear();
+    connections[_result.first] = _result.second;
     accept();
 }
 
