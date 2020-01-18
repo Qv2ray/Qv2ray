@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>701</width>
-    <height>486</height>
+    <height>525</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -25,7 +25,7 @@
      <property name="currentIndex">
       <number>0</number>
      </property>
-     <widget class="QWidget" name="tabWidgetPage1" native="true">
+     <widget class="QWidget" name="tabWidgetPage1">
       <attribute name="title">
        <string>General Settings</string>
       </attribute>
@@ -43,8 +43,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>649</width>
-            <height>442</height>
+            <width>647</width>
+            <height>440</height>
            </rect>
           </property>
           <layout class="QFormLayout" name="formLayout_5">
@@ -497,7 +497,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tabWidgetPage2" native="true">
+     <widget class="QWidget" name="tabWidgetPage2">
       <attribute name="title">
        <string>Inbound Settings</string>
       </attribute>
@@ -515,8 +515,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>649</width>
-            <height>607</height>
+            <width>647</width>
+            <height>625</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -930,7 +930,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tabWidgetPage3" native="true">
+     <widget class="QWidget" name="tabWidgetPage3">
       <attribute name="title">
        <string>Connection Settings</string>
       </attribute>
@@ -1042,125 +1042,107 @@
        <item>
         <layout class="QVBoxLayout" name="verticalLayout_7">
          <item>
-          <widget class="QGroupBox" name="formGroupBox">
+          <widget class="QGroupBox" name="fpGroupBox">
            <property name="title">
             <string>Forward Proxy</string>
            </property>
-           <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0,0,0">
-            <item>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+           <property name="checked">
+            <bool>false</bool>
+           </property>
+           <layout class="QFormLayout" name="formLayout_8">
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_49">
+              <property name="text">
+               <string>Type</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QComboBox" name="fpTypeCombo">
+              <item>
+               <property name="text">
+                <string>HTTP</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Socks</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_50">
+              <property name="text">
+               <string>Host Address</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QLineEdit" name="fpAddressTx"/>
+            </item>
+            <item row="3" column="0">
+             <widget class="QLabel" name="label_51">
+              <property name="text">
+               <string>Port</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QSpinBox" name="fpPortSB">
+              <property name="minimum">
+               <number>1</number>
+              </property>
+              <property name="maximum">
+               <number>65535</number>
+              </property>
+              <property name="value">
+               <number>8000</number>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0">
+             <widget class="QLabel" name="label_54">
+              <property name="text">
+               <string>Authentication</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="1">
+             <widget class="QCheckBox" name="fpUseAuthCB">
+              <property name="text">
+               <string>Enabled</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="0">
+             <widget class="QLabel" name="label_52">
+              <property name="text">
+               <string>Username</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="1">
+             <widget class="QLineEdit" name="fpUsernameTx"/>
+            </item>
+            <item row="6" column="0">
+             <widget class="QLabel" name="label_53">
+              <property name="text">
+               <string>Password</string>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="1">
+             <widget class="QLineEdit" name="fpPasswordTx"/>
+            </item>
+            <item row="0" column="0" colspan="2">
              <widget class="QLabel" name="label_65">
               <property name="text">
                <string>Only simple config is supported.</string>
               </property>
-             </widget>
-            </item>
-            <item>
-             <layout class="QFormLayout" name="formLayout_8">
-              <item row="0" column="0">
-               <widget class="QLabel" name="label_48">
-                <property name="text">
-                 <string>Status</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="1">
-               <widget class="QCheckBox" name="fpEnabledCB">
-                <property name="text">
-                 <string>Enabled</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <widget class="QFrame" name="fpFrame">
-              <layout class="QFormLayout" name="formLayout_6">
-               <item row="0" column="0">
-                <widget class="QLabel" name="label_49">
-                 <property name="text">
-                  <string>Type</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="1">
-                <widget class="QComboBox" name="fpTypeCombo">
-                 <item>
-                  <property name="text">
-                   <string>HTTP</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>Socks</string>
-                  </property>
-                 </item>
-                </widget>
-               </item>
-               <item row="1" column="0">
-                <widget class="QLabel" name="label_50">
-                 <property name="text">
-                  <string>Host Address</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="1">
-                <widget class="QLineEdit" name="fpAddressTx"/>
-               </item>
-               <item row="2" column="0">
-                <widget class="QLabel" name="label_51">
-                 <property name="text">
-                  <string>Port</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="1">
-                <widget class="QSpinBox" name="fpPortSB">
-                 <property name="minimum">
-                  <number>1</number>
-                 </property>
-                 <property name="maximum">
-                  <number>65535</number>
-                 </property>
-                 <property name="value">
-                  <number>8000</number>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="0">
-                <widget class="QLabel" name="label_54">
-                 <property name="text">
-                  <string>Authentication</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="1">
-                <widget class="QCheckBox" name="fpUseAuthCB">
-                 <property name="text">
-                  <string>Enabled</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="4" column="0">
-                <widget class="QLabel" name="label_52">
-                 <property name="text">
-                  <string>Username</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="4" column="1">
-                <widget class="QLineEdit" name="fpUsernameTx"/>
-               </item>
-               <item row="5" column="0">
-                <widget class="QLabel" name="label_53">
-                 <property name="text">
-                  <string>Password</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="5" column="1">
-                <widget class="QLineEdit" name="fpPasswordTx"/>
-               </item>
-              </layout>
              </widget>
             </item>
            </layout>
@@ -1183,7 +1165,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="networkToolbarPage" native="true">
+     <widget class="QWidget" name="networkToolbarPage">
       <property name="enabled">
        <bool>true</bool>
       </property>
@@ -1554,7 +1536,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tabWidgetPage5" native="true">
+     <widget class="QWidget" name="tabWidgetPage5">
       <attribute name="title">
        <string>About</string>
       </attribute>
@@ -1750,7 +1732,7 @@
              <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'WenQuanYi Micro Hei'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Titillium Web'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'WenQuanYi Micro Hei';&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
            </widget>

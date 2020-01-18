@@ -132,8 +132,6 @@ class PreferencesWindow : public QDialog, private Ui::PreferencesWindow
 
         void on_removeBootStart_clicked();
 
-        void on_fpEnabledCB_stateChanged(int arg1);
-
         void on_fpTypeCombo_currentIndexChanged(const QString &arg1);
 
         void on_fpAddressTx_textEdited(const QString &arg1);
@@ -157,6 +155,8 @@ class PreferencesWindow : public QDialog, private Ui::PreferencesWindow
         void on_socksGroupBox_clicked(bool checked);
 
         void on_pacGroupBox_clicked(bool checked);
+
+        void on_fpGroupBox_clicked(bool checked);
 
     private:
         void SetAutoStartButtonsState(bool isAutoStart);

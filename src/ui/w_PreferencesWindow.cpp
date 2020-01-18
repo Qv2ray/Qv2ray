@@ -97,7 +97,6 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent),
     socksUDPCB->setChecked(CurrentConfig.inboundConfig.socksUDP);
     socksUDPIP->setEnabled(CurrentConfig.inboundConfig.socksUDP);
     socksUDPIP->setText(CurrentConfig.inboundConfig.socksLocalIP);
-    socksGroupBox->setEnabled(have_socks);
     //
     //
     vCorePathTxt->setText(CurrentConfig.v2CorePath);
@@ -161,8 +160,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent),
 
     autoStartConnCombo->setCurrentText(autoCon);
     // FP Settings
-    fpEnabledCB->setChecked(CurrentConfig.connectionConfig.forwardProxyConfig.enableForwardProxy);
-    fpFrame->setEnabled(fpEnabledCB->isChecked());
+    fpGroupBox->setChecked(CurrentConfig.connectionConfig.forwardProxyConfig.enableForwardProxy);
     fpUsernameTx->setText(CurrentConfig.connectionConfig.forwardProxyConfig.username);
     fpPasswordTx->setText(CurrentConfig.connectionConfig.forwardProxyConfig.password);
     fpAddressTx->setText(CurrentConfig.connectionConfig.forwardProxyConfig.serverAddress);
@@ -184,16 +182,38 @@ PreferencesWindow::~PreferencesWindow()
 
 void PreferencesWindow::on_buttonBox_accepted()
 {
-    int sp = socksPortLE->text().toInt();
-    int hp = httpPortLE->text().toInt() ;
+    QSet<int> ports;
+    auto size = 0;
 
-    if (!(sp == 0 || hp == 0) && sp == hp) {
-        QvMessageBoxWarn(this, tr("Preferences"), tr("Port numbers cannot be the same"));
-        return;
+    if (CurrentConfig.inboundConfig.useHTTP) {
+        size ++;
+        ports << CurrentConfig.inboundConfig.http_port;
     }
 
-    SetGlobalConfig(CurrentConfig);
-    emit s_reload_config(IsConnectionPropertyChanged);
+    if (CurrentConfig.inboundConfig.useSocks) {
+        size ++;
+        ports << CurrentConfig.inboundConfig.socks_port;
+    }
+
+    if (CurrentConfig.inboundConfig.pacConfig.enablePAC) {
+        size ++;
+        ports << CurrentConfig.inboundConfig.pacConfig.port;
+    }
+
+    if (!StartupOption.noAPI) {
+        size ++;
+        ports << CurrentConfig.connectionConfig.statsPort;
+    }
+
+    if (ports.size() != size) {
+        // Duplicates detected.
+        QvMessageBoxWarn(this, tr("Preferences"), tr("Duplicated port numbers detected, please check the port number settings."));
+        this->show();
+        this->exec();
+    } else {
+        SetGlobalConfig(CurrentConfig);
+        emit s_reload_config(IsConnectionPropertyChanged);
+    }
 }
 
 void PreferencesWindow::on_httpAuthCB_stateChanged(int checked)
@@ -901,14 +921,6 @@ void PreferencesWindow::SetAutoStartButtonsState(bool isAutoStart)
     removeBootStart->setEnabled(isAutoStart);
 }
 
-void PreferencesWindow::on_fpEnabledCB_stateChanged(int arg1)
-{
-    LOADINGCHECK
-    bool fpEnabled = arg1 == Qt::Checked;
-    CurrentConfig.connectionConfig.forwardProxyConfig.enableForwardProxy = fpEnabled;
-    fpFrame->setEnabled(fpEnabled);
-}
-
 void PreferencesWindow::on_fpTypeCombo_currentIndexChanged(const QString &arg1)
 {
     LOADINGCHECK
@@ -975,15 +987,15 @@ void PreferencesWindow::on_checkVCoreSettings_clicked()
 
 void PreferencesWindow::on_httpGroupBox_clicked(bool checked)
 {
+    LOADINGCHECK
     NEEDRESTART
-    httpGroupBox->setEnabled(checked);
     CurrentConfig.inboundConfig.useHTTP = checked;
 }
 
 void PreferencesWindow::on_socksGroupBox_clicked(bool checked)
 {
+    LOADINGCHECK
     NEEDRESTART
-    socksGroupBox->setEnabled(checked);
     CurrentConfig.inboundConfig.useSocks = checked;
 }
 
@@ -992,5 +1004,11 @@ void PreferencesWindow::on_pacGroupBox_clicked(bool checked)
     LOADINGCHECK
     NEEDRESTART
     CurrentConfig.inboundConfig.pacConfig.enablePAC = checked;
-    pacGroupBox->setEnabled(checked);
+}
+
+void PreferencesWindow::on_fpGroupBox_clicked(bool checked)
+{
+    LOADINGCHECK
+    NEEDRESTART
+    CurrentConfig.connectionConfig.forwardProxyConfig.enableForwardProxy = checked;
 }
