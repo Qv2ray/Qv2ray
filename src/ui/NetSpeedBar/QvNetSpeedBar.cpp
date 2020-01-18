@@ -132,7 +132,7 @@ namespace Qv2ray
 
                             case 302: {
                                 // Total download
-                                CL.Message = FormatBytes(vinstance->KernelStarted);
+                                CL.Message = FormatBytes(vinstance->getAllDataDown());
                                 break;
                             }
 
