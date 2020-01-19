@@ -948,18 +948,18 @@ void MainWindow::on_pingTestBtn_clicked()
         if (QvMessageBoxAsk(this, tr("Latency Test"), tr("You are about to run latency test on all servers, do you want to continue?")) == QMessageBox::Yes) {
             aliases.append(connections.keys());
         }
-    } else if (selection.count() == 1) {
-        if (IsSelectionConnectable) {
-            // Current selection is a config
-            aliases.append(ItemConnectionIdentifier(selection.first()));
-        } else {
-            // Current selection is a subscription or... something else strange.
-            // So we add another check to make sure the selected one is a subscription entry.
-            if (selection.first()->childCount() > 0) {
+    } else {
+        for (auto i = 0; i < selection.count(); i++) {
+            auto thisItem = selection[i];
+
+            if (thisItem->childCount() > 0) {
+                // So we add another check to make sure the selected one is a subscription entry.
                 // Loop to add all sub-connections to the list.
-                for (auto i = 0; i < selection.first()->childCount(); i++) {
-                    aliases.append(ItemConnectionIdentifier(selection.first()->child(i)));
+                for (auto j = 0; j < thisItem->childCount(); j++) {
+                    aliases.append(ItemConnectionIdentifier(thisItem->child(j)));
                 }
+            } else {
+                aliases.append(ItemConnectionIdentifier(thisItem));
             }
         }
     }

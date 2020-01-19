@@ -74,15 +74,27 @@ namespace Qv2ray
             bool SaveSubscriptionConfig(CONFIGROOT obj, const QString &subscription, const QString &name)
             {
                 auto str = JsonToString(obj);
-                QFile *config = new QFile(QV2RAY_SUBSCRIPTION_DIR + subscription + "/" + name + QV2RAY_CONFIG_FILE_EXTENSION);
+                auto fName = name;
+
+                if (!IsValidFileName(fName + QV2RAY_CONFIG_FILE_EXTENSION)) {
+                    fName = QObject::tr("Invalid filename") + "_" + GenerateRandomString(6) + QV2RAY_CONFIG_FILE_EXTENSION;
+                }
+
+                QFile *config = new QFile(QV2RAY_SUBSCRIPTION_DIR + subscription + "/" + fName + QV2RAY_CONFIG_FILE_EXTENSION);
 
                 // If there's already a file. THIS IS EXTREMELY RARE
                 if (config->exists()) {
                     LOG(MODULE_FILE, "Trying to overrwrite an existing subscription config file. THIS IS RARE")
                 }
 
-                LOG(MODULE_CONFIG, "Saving a subscription named: " + name)
-                return StringToFile(&str, config);
+                LOG(MODULE_CONFIG, "Saving a subscription named: " + fName)
+                bool result = StringToFile(&str, config);
+
+                if (!result) {
+                    LOG(MODULE_FILE, "Failed to save a connection config from subscription: " + subscription + ", name: " + fName)
+                }
+
+                return result;
             }
 
             bool RemoveConnection(const QString &alias)

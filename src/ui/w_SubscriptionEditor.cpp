@@ -135,7 +135,10 @@ void SubscribeEditor::StartUpdateSubscription(const QString &subscriptionName)
                 LOG(MODULE_SUBSCRIPTION, "Processing a subscription with following error: " + errMessage)
             } else {
                 connectionsList->addItem(_alias);
-                SaveSubscriptionConfig(config, subscriptionName, _alias);
+
+                if (!SaveSubscriptionConfig(config, subscriptionName, _alias)) {
+                    // Cannot save.
+                }
             }
         }
 

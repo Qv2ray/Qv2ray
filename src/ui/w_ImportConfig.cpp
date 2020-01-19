@@ -237,9 +237,14 @@ void ImportConfigWindow::on_subscriptionButton_clicked()
     hide();
     SubscribeEditor w;
     w.exec();
-    auto _result = w.GetSelectedConfig();
+    auto importToComplex = !keepImportedInboundCheckBox->isEnabled();
     connections.clear();
-    connections[_result.first] = _result.second;
+
+    if (importToComplex) {
+        auto _result = w.GetSelectedConfig();
+        connections[_result.first] = _result.second;
+    }
+
     accept();
 }
 

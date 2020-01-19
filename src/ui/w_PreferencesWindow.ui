@@ -465,7 +465,7 @@
              <item row="1" column="1">
               <widget class="QLabel" name="label_15">
                <property name="text">
-                <string>Assets Directory Path</string>
+                <string>V2ray Assets Directory</string>
                </property>
               </widget>
              </item>
