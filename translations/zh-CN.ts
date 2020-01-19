@@ -17,17 +17,17 @@
       <location filename="../src/ui/w_ExportConfig.cpp" line="71"/>
       <location filename="../src/ui/w_ExportConfig.cpp" line="77"/>
       <source>Share Connection</source>
-      <translation type="unfinished">Share Connection</translation>
+      <translation>共享连接</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ExportConfig.cpp" line="71"/>
       <source>Image has been copied to the clipboard.</source>
-      <translation type="unfinished">Image has been copied to the clipboard.</translation>
+      <translation>图像已复制到剪贴板。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ExportConfig.cpp" line="77"/>
       <source>VMess string has been copied to the clipboard.</source>
-      <translation type="unfinished">VMess string has been copied to the clipboard.</translation>
+      <translation>VMess字符串已复制到剪贴板。</translation>
     </message>
   </context>
   <context>
@@ -35,37 +35,37 @@
     <message>
       <location filename="../src/ui/w_ExportConfig.ui" line="14"/>
       <source>Export Config</source>
-      <translation type="unfinished">Export Config</translation>
+      <translation>导出配置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ExportConfig.ui" line="45"/>
       <source>Share Options</source>
-      <translation type="unfinished">Share Options</translation>
+      <translation>分享选项</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ExportConfig.ui" line="51"/>
       <source>VMess Connection String</source>
-      <translation type="unfinished">VMess Connection String</translation>
+      <translation>VMess连接字符串</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ExportConfig.ui" line="67"/>
       <source>Save Image</source>
-      <translation type="unfinished">Save Image</translation>
+      <translation>保存图片</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ExportConfig.ui" line="74"/>
       <source>Copy Image</source>
-      <translation type="unfinished">Copy Image</translation>
+      <translation>复制图像</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ExportConfig.ui" line="81"/>
       <source>Copy VMess</source>
-      <translation type="unfinished">Copy VMess</translation>
+      <translation>复制 VMess</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ExportConfig.ui" line="108"/>
       <source>OK</source>
-      <translation type="unfinished">OK</translation>
+      <translation>好</translation>
     </message>
   </context>
   <context>
@@ -73,63 +73,63 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="20"/>
       <source>Import file</source>
-      <translation type="unfinished">Import file</translation>
+      <translation>导入文件</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="34"/>
       <source>Name/Prefix</source>
-      <translation type="unfinished">Name/Prefix</translation>
+      <translation>名称/前缀</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="46"/>
       <source>Import Source</source>
-      <translation type="unfinished">Import Source</translation>
+      <translation>导入源</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="57"/>
       <source>Existing File</source>
-      <translation type="unfinished">Existing File</translation>
+      <translation>已存在的文件</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="324"/>
       <source>Subscription Link</source>
-      <translation type="unfinished">Subscription Link</translation>
+      <translation>订阅链接</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="364"/>
       <source>Import</source>
-      <translation type="unfinished">Import</translation>
+      <translation>导入</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="63"/>
       <source>Path</source>
-      <translation type="unfinished">Path</translation>
+      <translation>路径</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="79"/>
       <location filename="../src/ui/w_ImportConfig.ui" line="151"/>
       <source>Select</source>
-      <translation type="unfinished">Select</translation>
+      <translation>选择</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="88"/>
       <source>Inbound</source>
-      <translation type="unfinished">Inbound</translation>
+      <translation>入站</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="95"/>
       <source>Keep imported inbound settings</source>
-      <translation type="unfinished">Keep imported inbound settings</translation>
+      <translation>保留导入的入站设置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="102"/>
       <source>Edit Config</source>
-      <translation type="unfinished">Edit Config</translation>
+      <translation>编辑配置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="109"/>
       <source>Open in JSON Editor</source>
-      <translation type="unfinished">Open in JSON Editor</translation>
+      <translation>在 JSON 编辑器中打开</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="117"/>
@@ -139,7 +139,7 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="123"/>
       <source>VMess Connection String</source>
-      <translation type="unfinished">VMess Connection String</translation>
+      <translation>VMess连接字符串</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="132"/>
@@ -149,37 +149,37 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="160"/>
       <source>From Screenshot</source>
-      <translation type="unfinished">From Screenshot</translation>
+      <translation>从屏幕截图</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="181"/>
       <source>Go</source>
-      <translation type="unfinished">Go</translation>
+      <translation>开始</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="188"/>
       <source>After</source>
-      <translation type="unfinished">After</translation>
+      <translation>在</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="208"/>
       <source>second(s).</source>
-      <translation type="unfinished">second(s).</translation>
+      <translation>秒以后</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="243"/>
       <source>Place your vmess:// here, one line for each.</source>
-      <translation type="unfinished">Place your vmess:// here, one line for each.</translation>
+      <translation>将你的 vmess:// 放在这里，每行一个。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="253"/>
       <source>Error List</source>
-      <translation type="unfinished">Error List</translation>
+      <translation>错误列表：</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="260"/>
       <source>VMess</source>
-      <translation type="unfinished">VMess</translation>
+      <translation>VMess</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="270"/>
@@ -214,17 +214,17 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="283"/>
       <source>Connection Editor</source>
-      <translation type="unfinished">Connection Editor</translation>
+      <translation>连接编辑器</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="290"/>
       <source>Open Connection Editor</source>
-      <translation type="unfinished">Open Connection Editor</translation>
+      <translation>打开连接编辑器</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="371"/>
       <source>Cancel</source>
-      <translation type="unfinished">Cancel</translation>
+      <translation>取消</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="41"/>
@@ -254,7 +254,7 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="130"/>
       <source>Select an image to import</source>
-      <translation type="unfinished">Select an image to import</translation>
+      <translation>选择要导入的图像</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="141"/>
@@ -264,24 +264,24 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="141"/>
       <source>Cannot find any QRCode from the image.</source>
-      <translation type="unfinished">Cannot find any QRCode from the image.</translation>
+      <translation>无法从图像中找到任何QRCode。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="176"/>
       <location filename="../src/ui/w_ImportConfig.cpp" line="186"/>
       <location filename="../src/ui/w_ImportConfig.cpp" line="202"/>
       <source>Edit file as JSON</source>
-      <translation type="unfinished">Edit file as JSON</translation>
+      <translation>以 JSON 格式编辑文件</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="176"/>
       <source>Provided file not found: </source>
-      <translation type="unfinished">Provided file not found: </translation>
+      <translation>找不到提供的文件： </translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="186"/>
       <source>The file you selected has json syntax error. Continue editing may make you lose data. Would you like to continue?</source>
-      <translation type="unfinished">The file you selected has json syntax error. Continue editing may make you lose data. Would you like to continue?</translation>
+      <translation>您选择的文件有 json 语法错误。继续编辑可能会使您丢失数据。您想要继续吗？</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="202"/>
@@ -294,62 +294,62 @@
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="17"/>
       <source>Inbound Editor</source>
-      <translation type="unfinished">Inbound Editor</translation>
+      <translation>入站编辑器</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="28"/>
       <source>Tag</source>
-      <translation type="unfinished">Tag</translation>
+      <translation>标签</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="38"/>
       <source>Tag of this inbound entry</source>
-      <translation type="unfinished">Tag of this inbound entry</translation>
+      <translation>此入站条目的标签</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="45"/>
       <source>Listening</source>
-      <translation type="unfinished">Listening</translation>
+      <translation>正在监听</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="54"/>
       <source>Hostname or IP Address</source>
-      <translation type="unfinished">Hostname or IP Address</translation>
+      <translation>主机名或IP地址</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="61"/>
       <source>:</source>
-      <translation type="unfinished">:</translation>
+      <translation>:</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="68"/>
       <source>Port: 1080|80-85</source>
-      <translation type="unfinished">Port: 1080|80-85</translation>
+      <translation>端口： 1080|80-85</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="77"/>
       <source>Protocol</source>
-      <translation type="unfinished">Protocol</translation>
+      <translation>协议</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="119"/>
       <source>Allocation Settings</source>
-      <translation type="unfinished">Allocation Settings</translation>
+      <translation>分配设置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="125"/>
       <source>Strategy</source>
-      <translation type="unfinished">Strategy</translation>
+      <translation>策略</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="142"/>
       <source>always</source>
-      <translation type="unfinished">always</translation>
+      <translation>总是</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="147"/>
       <source>random</source>
-      <translation type="unfinished">random</translation>
+      <translation>随机</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="155"/>
@@ -662,57 +662,57 @@
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="114"/>
       <source>Stopped</source>
-      <translation type="unfinished">Stopped</translation>
+      <translation>已停止</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="128"/>
       <source>Host List</source>
-      <translation type="unfinished">Host List</translation>
+      <translation>主机列表</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="195"/>
       <source>Import connection</source>
-      <translation type="unfinished">Import connection</translation>
+      <translation>导入连接</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="211"/>
       <source>Duplicate connection</source>
-      <translation type="unfinished">Duplicate connection</translation>
+      <translation>复制连接</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="233"/>
       <source>Delete a connection</source>
-      <translation type="unfinished">Delete a connection</translation>
+      <translation>删除连接</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="249"/>
       <source>Edit connection</source>
-      <translation type="unfinished">Edit connection</translation>
+      <translation>编辑连接</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="282"/>
       <source>Config Details</source>
-      <translation type="unfinished">Config Details</translation>
+      <translation>配置详细信息</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="290"/>
       <source>Config Type</source>
-      <translation type="unfinished">Config Type</translation>
+      <translation>配置类型</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="310"/>
       <source>Protocol</source>
-      <translation type="unfinished">Protocol</translation>
+      <translation>协议</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="330"/>
       <source>Address</source>
-      <translation type="unfinished">Address</translation>
+      <translation>地址</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="350"/>
       <source>Port Number</source>
-      <translation type="unfinished">Port Number</translation>
+      <translation>端口号</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="370"/>
@@ -722,12 +722,12 @@
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="392"/>
       <source>Operations</source>
-      <translation type="unfinished">Operations</translation>
+      <translation>操作</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="414"/>
       <source>Edit connection as JSON</source>
-      <translation type="unfinished">Edit connection as JSON</translation>
+      <translation>将连接编辑为 JSON</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="479"/>
@@ -737,143 +737,143 @@
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="198"/>
       <source>Add</source>
-      <translation type="unfinished">Add</translation>
+      <translation>添加</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="88"/>
       <location filename="../src/ui/w_MainWindow.cpp" line="140"/>
       <source>Preferences</source>
-      <translation type="unfinished">Preferences</translation>
+      <translation>首选项</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="214"/>
       <source>Duplicate</source>
-      <translation type="unfinished">Duplicate</translation>
+      <translation>复制</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="236"/>
       <source>Delete</source>
-      <translation type="unfinished">Delete</translation>
+      <translation>删除</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="252"/>
       <source>Edit</source>
-      <translation type="unfinished">Edit</translation>
+      <translation>编辑</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="417"/>
       <source>Edit JSON</source>
-      <translation type="unfinished">Edit JSON</translation>
+      <translation>编辑 JSON</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="433"/>
       <source>Ping Test</source>
-      <translation type="unfinished">Ping Test</translation>
+      <translation>Ping 测试</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="446"/>
       <source>Share</source>
-      <translation type="unfinished">Share</translation>
+      <translation>分享</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="486"/>
       <source>Speed Graph</source>
-      <translation type="unfinished">Speed Graph</translation>
+      <translation>速度图像</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="505"/>
       <source>Speed</source>
-      <translation type="unfinished">Speed</translation>
+      <translation>速度</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="533"/>
       <source>0.00 B/s
 0.00 B/s</source>
-      <translation type="unfinished">0.00 B/s
+      <translation>0.00 B/s
 0.00 B/s</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="570"/>
       <source>Data</source>
-      <translation type="unfinished">Data</translation>
+      <translation>数据</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="598"/>
       <source>0.00 B
 0.00 B</source>
-      <translation type="unfinished">0.00 B
+      <translation>0.00 B
 0.00 B</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="624"/>
       <source>#ManuallyCreateConnection</source>
-      <translation type="unfinished">#ManuallyCreateConnection</translation>
+      <translation>手动添加连接配置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="629"/>
       <source>#ImportConnection</source>
-      <translation type="unfinished">#ImportConnection</translation>
+      <translation>导入连接</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="634"/>
       <source>#Exit</source>
-      <translation type="unfinished">#Exit</translation>
+      <translation>退出</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="639"/>
       <source>#Preferences</source>
-      <translation type="unfinished">#Preferences</translation>
+      <translation>首选项</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="644"/>
       <source>#Start</source>
-      <translation type="unfinished">#Start</translation>
+      <translation>开始</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="649"/>
       <source>#Stop</source>
-      <translation type="unfinished">#Stop</translation>
+      <translation>停止</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.ui" line="654"/>
       <source>#Restart</source>
-      <translation type="unfinished">#Restart</translation>
+      <translation>重启</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="139"/>
       <location filename="../src/ui/w_MainWindow.cpp" line="575"/>
       <source>Hide</source>
-      <translation type="unfinished">Hide</translation>
+      <translation>隐藏</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="141"/>
       <source>Quit</source>
-      <translation type="unfinished">Quit</translation>
+      <translation>退出</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="185"/>
       <source>Rename</source>
-      <translation type="unfinished">Rename</translation>
+      <translation>重命名</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="186"/>
       <source>Connect to this</source>
-      <translation type="unfinished">Connect to this</translation>
+      <translation>连接到此服务器</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="187"/>
       <source>Edit as Complex Config</source>
-      <translation type="unfinished">Edit as Complex Config</translation>
+      <translation>编辑为复杂配置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="188"/>
       <source>Edit as Json</source>
-      <translation type="unfinished">Edit as Json</translation>
+      <translation>编辑为 Json</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="189"/>
       <source>Share as QRCode/VMess URL</source>
-      <translation type="unfinished">Share as QRCode/VMess URL</translation>
+      <translation>以QRCode/VMess URL 分享</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow_extra.cpp" line="38"/>
@@ -885,7 +885,7 @@
       <location filename="../src/ui/w_MainWindow.cpp" line="578"/>
       <location filename="../src/ui/w_MainWindow_extra.cpp" line="48"/>
       <source>Show</source>
-      <translation type="unfinished">Show</translation>
+      <translation>显示</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow_extra.cpp" line="51"/>
@@ -901,28 +901,28 @@
       <location filename="../src/ui/w_MainWindow.cpp" line="314"/>
       <location filename="../src/ui/w_MainWindow.cpp" line="470"/>
       <source>No connection selected!</source>
-      <translation type="unfinished">No connection selected!</translation>
+      <translation>没有选择连接！</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="314"/>
       <location filename="../src/ui/w_MainWindow.cpp" line="470"/>
       <source>Please select a config from the list.</source>
-      <translation type="unfinished">Please select a config from the list.</translation>
+      <translation>请从列表中选择一个配置。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="337"/>
       <source>Update</source>
-      <translation type="unfinished">Update</translation>
+      <translation>更新</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="338"/>
       <source>Found a new version: </source>
-      <translation type="unfinished">Found a new version: </translation>
+      <translation>找到新的版本： </translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="344"/>
       <source>Download Link: </source>
-      <translation type="unfinished">Download Link: </translation>
+      <translation>下载链接： </translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="483"/>
@@ -936,22 +936,22 @@
       <location filename="../src/ui/w_MainWindow_extra.cpp" line="156"/>
       <location filename="../src/ui/w_MainWindow_extra.cpp" line="164"/>
       <source>Configuring PAC</source>
-      <translation type="unfinished">Configuring PAC</translation>
+      <translation>配置 PAC</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow_extra.cpp" line="156"/>
       <source>Could not start PAC server as it is configured to use SOCKS, but it is not enabled</source>
-      <translation type="unfinished">Could not start PAC server as it is configured to use SOCKS, but it is not enabled</translation>
+      <translation>无法启动 PAC 服务器，因为它被配置为使用 SOCKS，但它没有启用</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow_extra.cpp" line="164"/>
       <source>Could not start PAC server as it is configured to use HTTP, but it is not enabled</source>
-      <translation type="unfinished">Could not start PAC server as it is configured to use HTTP, but it is not enabled</translation>
+      <translation>无法启动 PAC 服务器，因为它被配置为使用 HTTP ，但它尚未启用</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow_extra.cpp" line="100"/>
       <source>PAC Processing Failed</source>
-      <translation type="unfinished">PAC Processing Failed</translation>
+      <translation>PAC 处理失败</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow_extra.cpp" line="53"/>
@@ -1925,52 +1925,52 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1458"/>
       <source>A:</source>
-      <translation type="unfinished">A:</translation>
+      <translation>A:</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1472"/>
       <source>R:</source>
-      <translation type="unfinished">R:</translation>
+      <translation>R:</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1486"/>
       <source>G:</source>
-      <translation type="unfinished">G:</translation>
+      <translation>G：</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1500"/>
       <source>B:</source>
-      <translation type="unfinished">B:</translation>
+      <translation>B:</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1514"/>
       <source>...</source>
-      <translation type="unfinished">...</translation>
+      <translation>...</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1523"/>
       <source>Style</source>
-      <translation type="unfinished">Style</translation>
+      <translation>样式</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1370"/>
       <source>Content</source>
-      <translation type="unfinished">Content</translation>
+      <translation>内容</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1376"/>
       <source>Content Type</source>
-      <translation type="unfinished">Content Type</translation>
+      <translation>内容类型</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1386"/>
       <source>Text/Tag</source>
-      <translation type="unfinished">Text/Tag</translation>
+      <translation>文本/标签</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1195"/>
       <source>You can config how the network speed toolbar looks like in this panel</source>
-      <translation type="unfinished">You can config how the network speed toolbar looks like in this panel</translation>
+      <translation>您可以设定网络速度工具栏在此面板中的外观</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1557"/>
@@ -2061,43 +2061,43 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="30"/>
       <source>Qv2ray Network Toolbar is disabled and still under test. Add --withNetworkToolbar to enable.</source>
-      <translation type="unfinished">Qv2ray Network Toolbar is disabled and still under test. Add --withNetworkToolbar to enable.</translation>
+      <translation>Qv2ray 网络工具栏已禁用，仍在测试中。添加 --withNetwork工具栏以启用。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="211"/>
       <source>Duplicated port numbers detected, please check the port number settings.</source>
-      <translation type="unfinished">Duplicated port numbers detected, please check the port number settings.</translation>
+      <translation>检测到重复的端口号，请检查端口号设置。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="302"/>
       <source>Open V2ray assets folder</source>
-      <translation type="unfinished">Open V2ray assets folder</translation>
+      <translation>打开 v2ray 资源文件夹</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="312"/>
       <source>Open V2ray core file</source>
-      <translation type="unfinished">Open V2ray core file</translation>
+      <translation>打开 v2ray 核心文件</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="372"/>
       <source>This will append capabilities to the V2ray executable.</source>
-      <translation type="unfinished">This will append capabilities to the V2ray executable.</translation>
+      <translation>这将在 v2ray 可执行程序上添加 Capability</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="373"/>
       <source>Qv2ray will copy your V2ray core to this path: </source>
-      <translation type="unfinished">Qv2ray will copy your V2ray core to this path: </translation>
+      <translation>Qv2ray 将复制您的 v2ray 核心至此路径： </translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="417"/>
       <source>Qv2ray cannot copy one or both V2ray files from: </source>
-      <translation type="unfinished">Qv2ray cannot copy one or both V2ray files from: </translation>
+      <translation>Qv2ray 无法复制一个或两个 v2ray 文件： </translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="432"/>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="443"/>
       <source>Failed to setcap onto V2ray executable. You may need to run `setcap` manually.</source>
-      <translation type="unfinished">Failed to setcap onto V2ray executable. You may need to run `setcap` manually.</translation>
+      <translation>无法执行 setcap，你可能需要手动进行操作</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="454"/>
@@ -2139,23 +2139,23 @@ p, li { white-space: pre-wrap; }
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="901"/>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="913"/>
       <source>Failed to set auto start option.</source>
-      <translation type="unfinished">Failed to set auto start option.</translation>
+      <translation>设置自动启动选项失败。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="982"/>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="984"/>
       <source>V2ray Core Settings</source>
-      <translation type="unfinished">V2ray Core Settings</translation>
+      <translation>V2ray 核心设置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="984"/>
       <source>V2ray path configuration check passed.</source>
-      <translation type="unfinished">V2ray path configuration check passed.</translation>
+      <translation>V2ray 路径配置检查通过。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="985"/>
       <source>Current version of V2ray is: </source>
-      <translation type="unfinished">Current version of V2ray is: </translation>
+      <translation>V2ray 当前版本是： </translation>
     </message>
   </context>
   <context>
@@ -2163,22 +2163,22 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/QvCoreConfigOperations_Convertion.cpp" line="80"/>
       <source>Invalid filename</source>
-      <translation type="unfinished">Invalid filename</translation>
+      <translation>无效文件名</translation>
     </message>
     <message>
       <location filename="../src/QvCoreConfigOperations_Convertion.cpp" line="140"/>
       <source>VMess string should start with &apos;vmess://&apos;</source>
-      <translation type="unfinished">VMess string should start with &apos;vmess://&apos;</translation>
+      <translation>VMess字符串应以 &apos;vmess://&apos; 开始</translation>
     </message>
     <message>
       <location filename="../src/QvCoreConfigOperations_Convertion.cpp" line="149"/>
       <source>VMess string should be a valid base64 string</source>
-      <translation type="unfinished">VMess string should be a valid base64 string</translation>
+      <translation>VMess字符串应该是一个有效的 base64 字符串</translation>
     </message>
     <message>
       <location filename="../src/QvCoreConfigOperations_Convertion.cpp" line="164"/>
       <source>JSON should not be empty</source>
-      <translation type="unfinished">JSON should not be empty</translation>
+      <translation>JSON 不应该为空</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="83"/>
@@ -2193,24 +2193,24 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/main.cpp" line="168"/>
       <source>Cannot Start Qv2ray</source>
-      <translation type="unfinished">Cannot Start Qv2ray</translation>
+      <translation>无法启动 Qv2ray</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="169"/>
       <source>Cannot find a place to store config files.</source>
-      <translation type="unfinished">Cannot find a place to store config files.</translation>
+      <translation>找不到保存配置文件的地方。</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="170"/>
       <source>Qv2ray has searched these paths below:</source>
-      <translation type="unfinished">Qv2ray has searched these paths below:</translation>
+      <translation>Qv2ray 搜索了以下路径：</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="149"/>
       <location filename="../src/main.cpp" line="172"/>
       <location filename="../src/main.cpp" line="316"/>
       <source>Qv2ray will now exit.</source>
-      <translation type="unfinished">Qv2ray will now exit.</translation>
+      <translation>Qv2ray 现在将退出。</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="147"/>
@@ -2230,32 +2230,32 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/main.cpp" line="221"/>
       <source>You cannot run Qv2ray as root, please use --I-just-wanna-run-with-root if you REALLY want to do so.</source>
-      <translation type="unfinished">You cannot run Qv2ray as root, please use --I-just-wanna-run-with-root if you REALLY want to do so.</translation>
+      <translation>您不能以 root 身份运行 Qv2ray ，请使用 --I-just-wanna-run-with-root ，如果您真的想要使用 Qv2ray</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="222"/>
       <source> --&gt; USE IT AT YOUR OWN RISK!</source>
-      <translation type="unfinished"> --&gt; USE IT AT YOUR OWN RISK!</translation>
+      <translation> --&gt; 请自负风险！</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="293"/>
       <source>Cannot load languages</source>
-      <translation type="unfinished">Cannot load languages</translation>
+      <translation>无法加载语言</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="293"/>
       <source>Qv2ray will continue running, but you cannot change the UI language.</source>
-      <translation type="unfinished">Qv2ray will continue running, but you cannot change the UI language.</translation>
+      <translation>Qv2ray 将继续运行，但您不能更改界面语言。</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="312"/>
       <source>Qv2ray Cannot Continue</source>
-      <translation type="unfinished">Qv2ray Cannot Continue</translation>
+      <translation>Qv2ray 无法继续</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="313"/>
       <source>You are running a lower version of Qv2ray compared to the current config file.</source>
-      <translation type="unfinished">You are running a lower version of Qv2ray compared to the current config file.</translation>
+      <translation>与当前配置文件相比，您正在运行一个较低版本的 Qv2ray</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="314"/>
@@ -2270,52 +2270,52 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/main.cpp" line="359"/>
       <source>Dependency Missing</source>
-      <translation type="unfinished">Dependency Missing</translation>
+      <translation>缺少依赖关系</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="361"/>
       <source>This could be caused by a missing of `openssl` package in your system.</source>
-      <translation type="unfinished">This could be caused by a missing of `openssl` package in your system.</translation>
+      <translation>这可能是系统中缺少`openssl`软件包造成的。</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="362"/>
       <source>If you are using an AppImage from Github Action, please report a bug.</source>
-      <translation type="unfinished">If you are using an AppImage from Github Action, please report a bug.</translation>
+      <translation>如果您正在使用 Github Action的AppImage ，请报告 bug。</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="360"/>
       <source>Cannot find openssl libs</source>
-      <translation type="unfinished">Cannot find openssl libs</translation>
+      <translation>找不到 OpenSSL 库</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="363"/>
       <source>Technical Details</source>
-      <translation type="unfinished">Technical Details</translation>
+      <translation>技术细节</translation>
     </message>
     <message>
       <location filename="../src/ui/NetSpeedBar/QvNetSpeedBar.cpp" line="98"/>
       <source>Connected</source>
-      <translation type="unfinished">Connected</translation>
+      <translation>已连接</translation>
     </message>
     <message>
       <location filename="../src/ui/NetSpeedBar/QvNetSpeedBar.cpp" line="99"/>
       <source>Disconnected</source>
-      <translation type="unfinished">Disconnected</translation>
+      <translation>未连接</translation>
     </message>
     <message>
       <location filename="../src/components/QvNetSpeedPlugin.hpp" line="17"/>
       <source>Custom Text</source>
-      <translation type="unfinished">Custom Text</translation>
+      <translation>自定义文本</translation>
     </message>
     <message>
       <location filename="../src/components/QvNetSpeedPlugin.hpp" line="19"/>
       <source>Current Time</source>
-      <translation type="unfinished">Current Time</translation>
+      <translation>当前时间</translation>
     </message>
     <message>
       <location filename="../src/components/QvNetSpeedPlugin.hpp" line="20"/>
       <source>Current Date</source>
-      <translation type="unfinished">Current Date</translation>
+      <translation>当前日期</translation>
     </message>
     <message>
       <location filename="../src/components/QvNetSpeedPlugin.hpp" line="21"/>
@@ -2612,22 +2612,22 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="86"/>
       <source>Add Freedom outbound</source>
-      <translation type="unfinished">Add Freedom outbound</translation>
+      <translation>添加自由出站</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="76"/>
       <source>Add blackhole outbound</source>
-      <translation type="unfinished">Add blackhole outbound</translation>
+      <translation>添加黑洞出站</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="179"/>
       <source>Routes</source>
-      <translation type="unfinished">Routes</translation>
+      <translation>路由</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="393"/>
       <source>Enabled</source>
-      <translation type="unfinished">Enabled</translation>
+      <translation>已启用</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="60"/>
@@ -2637,7 +2637,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="227"/>
       <source>Add new route</source>
-      <translation type="unfinished">Add new route</translation>
+      <translation>添加新路由</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="509"/>
@@ -2648,17 +2648,17 @@ p, li { white-space: pre-wrap; }
       <location filename="../src/ui/w_RoutesEditor.ui" line="529"/>
       <location filename="../src/ui/w_RoutesEditor.ui" line="549"/>
       <source>...</source>
-      <translation type="unfinished">...</translation>
+      <translation>...</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="598"/>
       <source>Target IP List</source>
-      <translation type="unfinished">Target IP List</translation>
+      <translation>目标 IP 列表</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="591"/>
       <source>Target Domain List</source>
-      <translation type="unfinished">Target Domain List</translation>
+      <translation>目标域名列表</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="424"/>
@@ -2668,17 +2668,17 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="433"/>
       <source>TCP</source>
-      <translation type="unfinished">TCP</translation>
+      <translation>TCP</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="440"/>
       <source>UDP</source>
-      <translation type="unfinished">UDP</translation>
+      <translation>UDP</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="447"/>
       <source>Both</source>
-      <translation type="unfinished">Both</translation>
+      <translation>全部</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="118"/>
@@ -2794,39 +2794,39 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="465"/>
       <source>HTTP</source>
-      <translation type="unfinished">HTTP</translation>
+      <translation>HTTP</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="472"/>
       <source>TLS</source>
-      <translation type="unfinished">TLS</translation>
+      <translation>TLS</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="479"/>
       <source>BitTorrent</source>
-      <translation type="unfinished">BitTorrent</translation>
+      <translation>BitTorrent</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="495"/>
       <source>e.g. 80, 443, 8000-8080</source>
-      <translation type="unfinished">e.g. 80, 443, 8000-8080</translation>
+      <translation>例如：80、443、8000-8080</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="502"/>
       <source>Balancers</source>
-      <translation type="unfinished">Balancers</translation>
+      <translation>负载均衡器</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="571"/>
       <source>Users List</source>
-      <translation type="unfinished">Users List</translation>
+      <translation>用户列表</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="452"/>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="710"/>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="751"/>
       <source>OK</source>
-      <translation type="unfinished">OK</translation>
+      <translation>好</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="695"/>
@@ -2836,13 +2836,13 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="730"/>
       <source>This outbound entry is not supported by the GUI editor.</source>
-      <translation type="unfinished">This outbound entry is not supported by the GUI editor.</translation>
+      <translation>此出站条目不支持GUI编辑。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="696"/>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="731"/>
       <source>We will launch Json Editor instead.</source>
-      <translation type="unfinished">We will launch Json Editor instead.</translation>
+      <translation>我们将启动 Json 编辑器。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="413"/>
@@ -2881,7 +2881,7 @@ p, li { white-space: pre-wrap; }
       <location filename="../src/ui/w_RoutesEditor.cpp" line="697"/>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="733"/>
       <source>Opening JSON editor</source>
-      <translation type="unfinished">Opening JSON editor</translation>
+      <translation>正在打开 JSON 编辑器</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="729"/>
@@ -2891,12 +2891,12 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="738"/>
       <source>Opening default outbound editor.</source>
-      <translation type="unfinished">Opening default outbound editor.</translation>
+      <translation>打开默认出站编辑器。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="399"/>
       <source>Added DIRECT outbound</source>
-      <translation type="unfinished">Added DIRECT outbound</translation>
+      <translation>已添加 DIRECT 出站</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="695"/>
@@ -2906,12 +2906,12 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="704"/>
       <source>Opening default inbound editor</source>
-      <translation type="unfinished">Opening default inbound editor</translation>
+      <translation>打开默认的入站编辑器</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="467"/>
       <source>Removed a balancer entry.</source>
-      <translation type="unfinished">Removed a balancer entry.</translation>
+      <translation>删除了一个平衡条目。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor_extra.cpp" line="81"/>
@@ -2933,22 +2933,22 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_ScreenShot_Core.ui" line="20"/>
       <source>ScreenShot</source>
-      <translation type="unfinished">ScreenShot</translation>
+      <translation>屏幕截图</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ScreenShot_Core.ui" line="35"/>
       <source>Size</source>
-      <translation type="unfinished">Size</translation>
+      <translation>大小</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ScreenShot_Core.ui" line="61"/>
       <source>FG</source>
-      <translation type="unfinished">FG</translation>
+      <translation>FG</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ScreenShot_Core.ui" line="48"/>
       <source>Screen Shot</source>
-      <translation type="unfinished">Screen Shot</translation>
+      <translation>截屏</translation>
     </message>
   </context>
   <context>
@@ -2999,7 +2999,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.cpp" line="150"/>
       <source>Failed to process the result from the upstream, please check your Url.</source>
-      <translation type="unfinished">Failed to process the result from the upstream, please check your Url.</translation>
+      <translation>无法处理源自上游的结果，请检查您的URL。</translation>
     </message>
   </context>
   <context>
@@ -3007,7 +3007,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="20"/>
       <source>SubscribeEditor</source>
-      <translation type="unfinished">SubscribeEditor</translation>
+      <translation>订阅编辑器</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="42"/>
@@ -3017,7 +3017,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="82"/>
       <source>A</source>
-      <translation type="unfinished">A</translation>
+      <translation>A</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="79"/>
@@ -3052,17 +3052,17 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="154"/>
       <source>Update Interval</source>
-      <translation type="unfinished">Update Interval</translation>
+      <translation>更新间隔</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="179"/>
       <source>Days</source>
-      <translation type="unfinished">Days</translation>
+      <translation>天</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="201"/>
       <source>Last Updated</source>
-      <translation type="unfinished">Last Updated</translation>
+      <translation>最后更新</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="217"/>
