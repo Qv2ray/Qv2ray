@@ -1001,7 +1001,7 @@
     <message>
       <location filename="../src/ui/w_MainWindow_extra.cpp" line="243"/>
       <source>There are subscriptions need to be updated, please go to subscriptions window to update them.</source>
-      <translation>订阅需要更新，请前往订阅窗口更新。</translation>
+      <translation>有订阅需要更新，请转到订阅窗口进行更新。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow_extra.cpp" line="244"/>
@@ -1263,12 +1263,12 @@
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="941"/>
       <source>Misc Settings</source>
-      <translation>其他设定</translation>
+      <translation>其他设置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="961"/>
       <source>Mux Concurrency</source>
-      <translation>Mux 并发性</translation>
+      <translation>Mux 并发</translation>
     </message>
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="988"/>
@@ -2139,7 +2139,7 @@ p, li { white-space: pre-wrap; }
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="901"/>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="913"/>
       <source>Failed to set auto start option.</source>
-      <translation>设置自动启动选项失败。</translation>
+      <translation>无法设置自动启动选项。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="982"/>
@@ -2230,7 +2230,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/main.cpp" line="221"/>
       <source>You cannot run Qv2ray as root, please use --I-just-wanna-run-with-root if you REALLY want to do so.</source>
-      <translation>您不能以 root 身份运行 Qv2ray ，请使用 --I-just-wanna-run-with-root ，如果您真的想要使用 Qv2ray</translation>
+      <translation>您不能以root用户身份运行Qv2ray，如果您确实想这样做，请使用 --I-just-wanna-run-with-root。</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="222"/>
@@ -2408,7 +2408,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/components/QvCore/QvCommandLineArgs.cpp" line="21"/>
       <source>Qv2ray - A cross-platform Qt frontend for V2ray.</source>
-      <translation>Qv2ray - V2ray跨平台的 Qt 前端。</translation>
+      <translation>Qv2ray - V2ray的跨平台Qt前端。</translation>
     </message>
     <message>
       <location filename="../src/components/QvCore/QvCommandLineArgs.cpp" line="14"/>
@@ -2418,7 +2418,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/components/QvCore/QvCommandLineArgs.cpp" line="15"/>
       <source>Explicitly run Qv2ray as root.</source>
-      <translation>以root形式明确运行 Qv2ray</translation>
+      <translation>以 root 身份运行 Qv2ray。</translation>
     </message>
     <message>
       <location filename="../src/components/QvCore/QvCommandLineArgs.cpp" line="16"/>
