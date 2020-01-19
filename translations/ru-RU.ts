@@ -407,7 +407,7 @@
       <location filename="../src/ui/w_InboundEditor.ui" line="656"/>
       <location filename="../src/ui/w_InboundEditor.ui" line="743"/>
       <source>User Level</source>
-      <translation>Тип пользователя</translation>
+      <translation type="unfinished">User Level</translation>
     </message>
     <message>
       <location filename="../src/ui/w_InboundEditor.ui" line="359"/>
@@ -1059,7 +1059,7 @@
       <location filename="../src/ui/w_MainWindow.cpp" line="674"/>
       <location filename="../src/ui/w_MainWindow.cpp" line="679"/>
       <source>Rename a Connection</source>
-      <translation>Переименовать подключение</translation>
+      <translation type="unfinished">Rename a Connection</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="121"/>
@@ -1099,7 +1099,7 @@
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="669"/>
       <source>The name cannot be empty</source>
-      <translation>Имя не может быть пустым</translation>
+      <translation type="unfinished">The name cannot be empty</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="674"/>
@@ -1125,7 +1125,7 @@
       <location filename="../src/ui/w_MainWindow.cpp" line="770"/>
       <location filename="../src/ui/w_MainWindow.cpp" line="781"/>
       <source>Removing this Connection</source>
-      <translation>Удалить из списка</translation>
+      <translation type="unfinished">Removing this Connection</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="770"/>
@@ -2161,7 +2161,7 @@ p, li { white-space: pre-wrap; }
       <location filename="../src/main.cpp" line="170"/>
       <location filename="../src/main.cpp" line="304"/>
       <source>Qv2ray will now exit.</source>
-      <translation>Qv2ray теперь выйдет.</translation>
+      <translation type="unfinished">Qv2ray will now exit.</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="145"/>
@@ -2201,12 +2201,12 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/main.cpp" line="300"/>
       <source>Qv2ray Cannot Continue</source>
-      <translation>Qv2ray не может продолжить</translation>
+      <translation type="unfinished">Qv2ray Cannot Continue</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="301"/>
       <source>You are running a lower version of Qv2ray compared to the current config file.</source>
-      <translation>Вы используете более низкую версию Qv2ray по сравнению с текущим конфигурационным файлом.</translation>
+      <translation type="unfinished">You are running a lower version of Qv2ray compared to the current config file.</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="302"/>
@@ -2547,12 +2547,12 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="86"/>
       <source>Add Freedom outbound</source>
-      <translation>Добавить исходящую свободу</translation>
+      <translation type="unfinished">Add Freedom outbound</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="76"/>
       <source>Add blackhole outbound</source>
-      <translation>Добавить исходящую чёрную дыру</translation>
+      <translation type="unfinished">Add blackhole outbound</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.ui" line="179"/>
