@@ -170,6 +170,8 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent),
     fpUsernameTx->setEnabled(fpUseAuthCB->isChecked());
     fpPasswordTx->setEnabled(fpUseAuthCB->isChecked());
     //
+    maxLogLinesSB->setValue(CurrentConfig.uiConfig.maximumLogLines);
+    //
     pacListenAddrLabel->setText("http://" + (pacProxyTxt->text().isEmpty() ? "127.0.0.1" : pacProxyTxt->text()) + ":" + QSTRN(pacPortSB->value()) + "/pac");
     //
     finishedLoading = true;
@@ -1011,4 +1013,11 @@ void PreferencesWindow::on_fpGroupBox_clicked(bool checked)
     LOADINGCHECK
     NEEDRESTART
     CurrentConfig.connectionConfig.forwardProxyConfig.enableForwardProxy = checked;
+}
+
+void PreferencesWindow::on_maxLogLinesSB_valueChanged(int arg1)
+{
+    LOADINGCHECK
+    NEEDRESTART
+    CurrentConfig.uiConfig.maximumLogLines = arg1;
 }

@@ -112,7 +112,7 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         //
         // ID for QTimers
         //
-        int logTimerId;
+        int qvLogTimerId;
         int speedTimerId;
         int pingTimerId;
         //

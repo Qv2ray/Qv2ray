@@ -179,8 +179,9 @@ namespace Qv2ray
             QString language;
             bool useDarkTheme;
             bool useDarkTrayIcon;
-            Qv2rayUIConfig() : theme("Fusion"), language("en-US"), useDarkTheme(false), useDarkTrayIcon(true) { }
-            XTOSTRUCT(O(theme, language, useDarkTheme, useDarkTrayIcon))
+            int maximumLogLines;
+            Qv2rayUIConfig() : theme("Fusion"), language("en-US"), useDarkTheme(false), useDarkTrayIcon(true), maximumLogLines(2000) { }
+            XTOSTRUCT(O(theme, language, useDarkTheme, useDarkTrayIcon, maximumLogLines))
         };
 
         struct Qv2rayConnectionConfig {

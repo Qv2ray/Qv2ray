@@ -56,6 +56,23 @@
 
 #define IsConnectableItem(item) (item != nullptr && item->childCount() == 0 && (CheckConfigType(item, REGULAR) || CheckConfigType(item, SUBSCRIPTION)))
 #define IsSelectionConnectable (!connectionListWidget->selectedItems().empty() && IsConnectableItem(connectionListWidget->selectedItems().first()))
+// From https://gist.github.com/jemyzhang/7130092
+#define CleanUpLogs(browser) \
+    {\
+        auto maxLines = currentConfig.uiConfig.maximumLogLines; \
+        QTextBlock block = browser->document()->begin();\
+        while (block.isValid()) {\
+            if (browser->document()->blockCount() > maxLines) {\
+                QTextCursor cursor(block);\
+                block = block.next();\
+                cursor.select(QTextCursor::BlockUnderCursor);\
+                cursor.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor);\
+                cursor.removeSelectedText();\
+            } else {\
+                break;\
+            }\
+        }\
+    }
 
 MainWindow *MainWindow::mwInstance = nullptr;
 
@@ -95,7 +112,7 @@ MainWindow::MainWindow(QWidget *parent):
     masterLogBrowser->document()->adjustSize();
     masterLogBrowser->setLineWrapMode(QTextBrowser::LineWrapMode::NoWrap);
     //
-    logTimerId = startTimer(500);
+    qvLogTimerId = startTimer(500);
     //
     pacServer = new PACServer();
     tcpingModel = new QvTCPingModel(3, this);
@@ -414,7 +431,7 @@ void MainWindow::OnConfigListChanged(bool need_restart)
 }
 MainWindow::~MainWindow()
 {
-    killTimer(logTimerId);
+    killTimer(qvLogTimerId);
     hTray->hide();
     delete this->hTray;
     delete this->vinstance;
@@ -422,6 +439,7 @@ MainWindow::~MainWindow()
 void MainWindow::UpdateVCoreLog(const QString &log)
 {
     vCoreLogBrowser->append(log);
+    CleanUpLogs(vCoreLogBrowser)
     setMasterLogHBar();
 }
 void MainWindow::setMasterLogHBar()
@@ -1038,12 +1056,14 @@ void MainWindow::timerEvent(QTimerEvent *event)
         dataamountLabel->setText(totalDataUp + NEWLINE + totalDataDown);
         //
         hTray->setToolTip(TRAY_TOOLTIP_PREFIX NEWLINE + tr("Connected: ") + CurrentConnectionIdentifier.IdentifierString() + NEWLINE "Up: " + totalSpeedUp + " Down: " + totalSpeedDown);
-    } else if (event->timerId() == logTimerId) {
+    } else if (event->timerId() == qvLogTimerId) {
         QString lastLog = readLastLog();
 
         if (!lastLog.isEmpty()) {
             qvAppLogBrowser->append(lastLog);
         }
+
+        CleanUpLogs(vCoreLogBrowser)
     } else if (event->timerId() == pingTimerId) {
         MWTryPingConnection(CurrentConnectionIdentifier);
     }

@@ -22,7 +22,11 @@ const QString readLastLog()
     QString result;
 
     while (!__loggerBuffer.isEmpty()) {
-        result += __loggerBuffer.dequeue();
+        auto str = __loggerBuffer.dequeue();
+
+        if (!str.trimmed().isEmpty()) {
+            result += str;
+        }
     }
 
     return result;

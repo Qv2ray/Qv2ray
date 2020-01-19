@@ -158,6 +158,8 @@ class PreferencesWindow : public QDialog, private Ui::PreferencesWindow
 
         void on_fpGroupBox_clicked(bool checked);
 
+        void on_maxLogLinesSB_valueChanged(int arg1);
+
     private:
         void SetAutoStartButtonsState(bool isAutoStart);
         // Set ui parameters for a line;
