@@ -82,11 +82,12 @@ void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString &originalTag
                     return;
                 }
 
+                //
+                auto node = static_cast<QvRuleNodeDataModel *>(ruleNodes[originalTag]->nodeDataModel());
+                node->setData(newTag);
+                //
                 rules[newTag] = rules.take(originalTag);
                 ruleNodes[newTag] = ruleNodes.take(originalTag);
-                //
-                auto node = static_cast<QvRuleNodeDataModel *>(ruleNodes[newTag]->nodeDataModel());
-                node->setData(newTag);
                 // No other operation needed, but need to rename the one in the ruleOrder list widget.
                 auto items = ruleListWidget->findItems(originalTag, Qt::MatchExactly);
 

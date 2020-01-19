@@ -267,7 +267,7 @@ CONFIGROOT RouteEditor::OpenEditor()
                 ruleJsonObject.remove("outboundTag");
 
                 // Find balancer list
-                if (!_balancers.contains(_rule.balancerTag)) {
+                if (!balancers.contains(_rule.balancerTag)) {
                     LOG(MODULE_UI, "Cannot find a balancer for tag: " + _rule.balancerTag)
                 } else {
                     auto _balancerList = balancers[_rule.balancerTag];
@@ -769,5 +769,10 @@ void RouteEditor::on_defaultOutboundCombo_currentIndexChanged(const QString &arg
 
 void RouteEditor::on_ruleTagLineEdit_textEdited(const QString &arg1)
 {
+    if (arg1.isEmpty()) {
+        ruleTagLineEdit->setText(CurrentRule.QV2RAY_RULE_TAG);
+        return;
+    }
+
     RenameItemTag(RENAME_RULE, CurrentRule.QV2RAY_RULE_TAG, arg1);
 }
