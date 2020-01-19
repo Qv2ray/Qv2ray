@@ -27,7 +27,7 @@
     <message>
       <location filename="../src/ui/w_ExportConfig.cpp" line="77"/>
       <source>VMess string has been copied to the clipboard.</source>
-      <translation>VMess字符串已复制到剪贴板。</translation>
+      <translation>VMess 链接已复制到剪贴板。</translation>
     </message>
   </context>
   <context>
@@ -139,7 +139,7 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="123"/>
       <source>VMess Connection String</source>
-      <translation>VMess连接字符串</translation>
+      <translation>VMess 链接</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="132"/>
@@ -164,7 +164,7 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="208"/>
       <source>second(s).</source>
-      <translation>秒以后</translation>
+      <translation>秒。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="243"/>
@@ -174,7 +174,7 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="253"/>
       <source>Error List</source>
-      <translation>错误列表：</translation>
+      <translation>错误列表</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.ui" line="260"/>
@@ -264,7 +264,7 @@
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="141"/>
       <source>Cannot find any QRCode from the image.</source>
-      <translation>无法从图像中找到任何QRCode。</translation>
+      <translation>无法从图像中找到任何二维码。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ImportConfig.cpp" line="176"/>
@@ -873,7 +873,7 @@
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="189"/>
       <source>Share as QRCode/VMess URL</source>
-      <translation>以QRCode/VMess URL 分享</translation>
+      <translation>以二维码或 VMess 链接分享</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow_extra.cpp" line="38"/>
@@ -2168,7 +2168,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/QvCoreConfigOperations_Convertion.cpp" line="140"/>
       <source>VMess string should start with &apos;vmess://&apos;</source>
-      <translation>VMess字符串应以 &apos;vmess://&apos; 开始</translation>
+      <translation>VMess 链接应以 &apos;vmess://&apos; 开始</translation>
     </message>
     <message>
       <location filename="../src/QvCoreConfigOperations_Convertion.cpp" line="149"/>
