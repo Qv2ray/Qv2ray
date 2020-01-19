@@ -390,8 +390,8 @@ void MainWindow::OnConfigListChanged(bool need_restart)
 
     for (auto i = 0; i < _subsConnections.count(); i++) {
         auto subName = _subsConnections.keys()[i];
-        auto subTopLevel = new QTreeWidgetItem(QStringList() << tr("Subscription") + ": " + subName);
-        connectionListWidget->addTopLevelItem(subTopLevel);
+        auto subTopLevelItem = new QTreeWidgetItem(QStringList() << tr("Subscription") + ": " + subName);
+        connectionListWidget->addTopLevelItem(subTopLevelItem);
 
         for (auto j = 0; j < _subsConnections.values()[i].count(); j++) {
             ConnectionObject _o;
@@ -405,7 +405,7 @@ void MainWindow::OnConfigListChanged(bool need_restart)
             connections[connName] = _o;
             auto item = new QTreeWidgetItem(QStringList() << _o.connectionName);
             item->setData(0, Qt::UserRole, QVariant::fromValue<QvConfigIdentifier>(_o));
-            subTopLevel->addChild(item);
+            subTopLevelItem->addChild(item);
         }
     }
 

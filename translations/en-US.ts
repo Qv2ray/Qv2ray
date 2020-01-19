@@ -839,7 +839,7 @@
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.cpp" line="139"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="576"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="575"/>
         <source>Hide</source>
         <translation></translation>
     </message>
@@ -874,14 +874,13 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="394"/>
         <location filename="../src/ui/w_MainWindow_extra.cpp" line="38"/>
         <source>Subscription:</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="532"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="579"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="531"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="578"/>
         <location filename="../src/ui/w_MainWindow_extra.cpp" line="48"/>
         <source>Show</source>
         <translation></translation>
@@ -898,13 +897,13 @@
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.cpp" line="314"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="471"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="470"/>
         <source>No connection selected!</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.cpp" line="314"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="471"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="470"/>
         <source>Please select a config from the list.</source>
         <translation></translation>
     </message>
@@ -924,10 +923,10 @@
         <translation></translation>
     </message>
     <message>
+        <location filename="../src/ui/w_MainWindow.cpp" line="483"/>
         <location filename="../src/ui/w_MainWindow.cpp" line="484"/>
         <location filename="../src/ui/w_MainWindow.cpp" line="485"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="486"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="1060"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="1059"/>
         <source>Connected: </source>
         <translation type="unfinished"></translation>
     </message>
@@ -1008,44 +1007,44 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="515"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="514"/>
         <source>Disconnected</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="607"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="606"/>
         <source>Complex</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="607"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="606"/>
         <source>Simple</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="610"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="609"/>
         <source>No data</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="612"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="611"/>
         <source>ms</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/ui/w_MainWindow.cpp" line="1110"/>
         <location filename="../src/ui/w_MainWindow.cpp" line="1111"/>
         <location filename="../src/ui/w_MainWindow.cpp" line="1112"/>
         <location filename="../src/ui/w_MainWindow.cpp" line="1113"/>
         <location filename="../src/ui/w_MainWindow.cpp" line="1114"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="1115"/>
         <location filename="../src/ui/w_MainWindow_extra.cpp" line="215"/>
         <source>N/A</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="703"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="708"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="713"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="702"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="707"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="712"/>
         <source>Rename a Connection</source>
         <translation></translation>
     </message>
@@ -1100,83 +1099,84 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="616"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="393"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="615"/>
         <source>Subscription</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="703"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="702"/>
         <source>The name cannot be empty</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="708"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="707"/>
         <source>The name has been used already, Please choose another.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="713"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="712"/>
         <source>The name you suggested is not valid, please try another.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="770"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="769"/>
         <source>Removing Connection(s)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="770"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="769"/>
         <source>Are you sure to remove selected connection(s)?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="804"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="815"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="803"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="814"/>
         <source>Removing this Connection</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="804"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="815"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="803"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="814"/>
         <source>Failed to delete connection file, please delete manually.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="808"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="807"/>
         <source>Removing a subscription config</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="808"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="807"/>
         <source>Do you want to remove the config loaded from a subscription?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="853"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="904"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="935"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="852"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="903"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="934"/>
         <source>No Config Selected</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="853"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="904"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="935"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="852"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="903"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="934"/>
         <source>Please Select a Config</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="968"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="967"/>
         <source>You are about to run latency test on all servers, do you want to continue?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="988"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="987"/>
         <source>Testing...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="968"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="967"/>
         <location filename="../src/ui/w_MainWindow_extra.cpp" line="208"/>
         <source>Latency Test</source>
         <translation type="unfinished"></translation>
@@ -1187,12 +1187,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="1013"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="1012"/>
         <source>Share Connection</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="1013"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="1012"/>
         <source>There&apos;re no support of sharing configs other than vmess</source>
         <translation></translation>
     </message>
