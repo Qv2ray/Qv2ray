@@ -1053,12 +1053,12 @@
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="91"/>
       <source>V2ray vcore terminated.</source>
-      <translation>V2ray vcore 已终止。</translation>
+      <translation>V2ray 核心已终止。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="91"/>
       <source>V2ray vcore terminated unexpectedly.</source>
-      <translation>V2ray vcore 意外终止。</translation>
+      <translation>V2ray 核心意外终止。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="92"/>
@@ -2173,7 +2173,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/QvCoreConfigOperations_Convertion.cpp" line="149"/>
       <source>VMess string should be a valid base64 string</source>
-      <translation>VMess字符串应该是一个有效的 base64 字符串</translation>
+      <translation>VMess 链接应该是一个有效的 base64 字符串</translation>
     </message>
     <message>
       <location filename="../src/QvCoreConfigOperations_Convertion.cpp" line="164"/>
