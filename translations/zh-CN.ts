@@ -1826,7 +1826,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="171"/>
       <source>Maximum log lines</source>
-      <translation>最大日志行</translation>
+      <translation>日志最大行数</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="187"/>
@@ -1841,7 +1841,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="453"/>
       <source>Core Executable Path</source>
-      <translation>核心可执行路径</translation>
+      <translation>核心可执行文件路径</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="484"/>
@@ -2061,7 +2061,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="30"/>
       <source>Qv2ray Network Toolbar is disabled and still under test. Add --withNetworkToolbar to enable.</source>
-      <translation>Qv2ray 网络工具栏已禁用，仍在测试中。添加 --withNetwork工具栏以启用。</translation>
+      <translation>Qv2ray 网络工具栏已禁用，仍在测试中。添加参数 --withNetworkToolbar 以启用。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="211"/>
@@ -2071,12 +2071,12 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="302"/>
       <source>Open V2ray assets folder</source>
-      <translation>打开 v2ray 资源文件夹</translation>
+      <translation>打开 V2ray 资源文件夹</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="312"/>
       <source>Open V2ray core file</source>
-      <translation>打开 v2ray 核心文件</translation>
+      <translation>打开 V2ray 核心文件</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="372"/>
