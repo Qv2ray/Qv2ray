@@ -254,7 +254,7 @@ MainWindow::MainWindow(QWidget *parent):
     }
 
     connect(requestHelper, &QvHttpRequestHelper::httpRequestFinished, this, &MainWindow::VersionUpdate);
-    requestHelper->get("https://api.github.com/repos/lhy0403/Qv2ray/releases/latest");
+    requestHelper->get("https://api.github.com/repos/Qv2ray/Qv2ray/releases/latest");
 
     if (StartupOption.enableToolbarPlguin) {
         LOG(MODULE_UI, "Plugin daemon is enabled.")
