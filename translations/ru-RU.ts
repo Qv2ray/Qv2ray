@@ -1104,7 +1104,7 @@
       <location filename="../src/ui/w_MainWindow.cpp" line="393"/>
       <location filename="../src/ui/w_MainWindow.cpp" line="615"/>
       <source>Subscription</source>
-      <translation type="unfinished">Subscription</translation>
+      <translation>Подписка</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="702"/>
@@ -1816,7 +1816,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="30"/>
       <source>General Settings</source>
-      <translation type="unfinished">General Settings</translation>
+      <translation>Общие настройки</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="69"/>
