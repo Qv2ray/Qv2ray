@@ -661,7 +661,9 @@
   <tabstop>stopButton</tabstop>
   <tabstop>reconnectButton</tabstop>
   <tabstop>clearlogButton</tabstop>
+  <tabstop>subsButton</tabstop>
   <tabstop>preferencesBtn</tabstop>
+  <tabstop>connectionListWidget</tabstop>
   <tabstop>importConfigButton</tabstop>
   <tabstop>duplicateBtn</tabstop>
   <tabstop>removeConfigButton</tabstop>
@@ -669,6 +671,8 @@
   <tabstop>editJsonBtn</tabstop>
   <tabstop>pingTestBtn</tabstop>
   <tabstop>shareBtn</tabstop>
+  <tabstop>masterLogBrowser</tabstop>
+  <tabstop>speedChart</tabstop>
  </tabstops>
  <resources/>
  <connections/>

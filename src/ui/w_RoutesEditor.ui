@@ -262,7 +262,7 @@
    <item row="1" column="1">
     <widget class="QToolBox" name="toolBox">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="page_2">
       <property name="geometry">
@@ -270,7 +270,7 @@
         <x>0</x>
         <y>0</y>
         <width>359</width>
-        <height>535</height>
+        <height>511</height>
        </rect>
       </property>
       <attribute name="label">
@@ -363,9 +363,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>0</y>
+        <y>-140</y>
         <width>345</width>
-        <height>607</height>
+        <height>651</height>
        </rect>
       </property>
       <attribute name="label">
@@ -648,7 +648,19 @@
   </layout>
  </widget>
  <tabstops>
+  <tabstop>addInboundBtn</tabstop>
+  <tabstop>addDefaultBtn</tabstop>
+  <tabstop>addOutboundBtn</tabstop>
+  <tabstop>insertBlackBtn</tabstop>
+  <tabstop>insertDirectBtn</tabstop>
+  <tabstop>editBtn</tabstop>
   <tabstop>addRouteBtn</tabstop>
+  <tabstop>delBtn</tabstop>
+  <tabstop>domainStrategyCombo</tabstop>
+  <tabstop>defaultOutboundCombo</tabstop>
+  <tabstop>ruleListWidget</tabstop>
+  <tabstop>ruleEnableCB</tabstop>
+  <tabstop>ruleTagLineEdit</tabstop>
   <tabstop>netTCPRB</tabstop>
   <tabstop>netUDPRB</tabstop>
   <tabstop>netBothRB</tabstop>
@@ -658,9 +670,13 @@
   <tabstop>routePortTxt</tabstop>
   <tabstop>enableBalancerCB</tabstop>
   <tabstop>balancerSelectionCombo</tabstop>
-  <tabstop>balancerList</tabstop>
-  <tabstop>balancerDelBtn</tabstop>
   <tabstop>balancerAddBtn</tabstop>
+  <tabstop>balancerDelBtn</tabstop>
+  <tabstop>balancerList</tabstop>
+  <tabstop>routeUserTxt</tabstop>
+  <tabstop>sourceIPList</tabstop>
+  <tabstop>hostList</tabstop>
+  <tabstop>ipList</tabstop>
  </tabstops>
  <resources/>
  <connections>

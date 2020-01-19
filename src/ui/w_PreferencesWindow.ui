@@ -87,71 +87,6 @@
            </item>
            <item row="0" column="1">
             <layout class="QGridLayout" name="gridLayout_6" columnstretch="0,0,1">
-             <item row="2" column="1">
-              <widget class="QLabel" name="label_35">
-               <property name="text">
-                <string>UI Theme</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="2">
-              <widget class="QCheckBox" name="darkThemeCB">
-               <property name="text">
-                <string>Enabled</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="2">
-              <widget class="QCheckBox" name="darkTrayCB">
-               <property name="text">
-                <string>Enabled</string>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="1">
-              <widget class="QLabel" name="label_6">
-               <property name="text">
-                <string>Language</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="0" rowspan="4">
-              <widget class="Line" name="line">
-               <property name="frameShadow">
-                <enum>QFrame::Plain</enum>
-               </property>
-               <property name="lineWidth">
-                <number>2</number>
-               </property>
-               <property name="orientation">
-                <enum>Qt::Vertical</enum>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="1">
-              <widget class="QLabel" name="label_36">
-               <property name="text">
-                <string>Darkmode Tray Icon</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="2">
-              <widget class="QComboBox" name="themeCombo">
-               <property name="minimumSize">
-                <size>
-                 <width>200</width>
-                 <height>0</height>
-                </size>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1">
-              <widget class="QLabel" name="darkThemeLabel">
-               <property name="text">
-                <string>Darkmode UI Icons</string>
-               </property>
-              </widget>
-             </item>
              <item row="3" column="2">
               <widget class="QComboBox" name="languageComboBox">
                <property name="sizePolicy">
@@ -176,6 +111,100 @@
                  <string>en-US</string>
                 </property>
                </item>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QLabel" name="label_35">
+               <property name="text">
+                <string>UI Theme</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="2">
+              <widget class="QCheckBox" name="darkTrayCB">
+               <property name="text">
+                <string>Enabled</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="2">
+              <widget class="QComboBox" name="themeCombo">
+               <property name="minimumSize">
+                <size>
+                 <width>200</width>
+                 <height>0</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLabel" name="darkThemeLabel">
+               <property name="text">
+                <string>Darkmode UI Icons</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="QLabel" name="label_6">
+               <property name="text">
+                <string>Language</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QLabel" name="label_36">
+               <property name="text">
+                <string>Darkmode Tray Icon</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="2">
+              <widget class="QCheckBox" name="darkThemeCB">
+               <property name="text">
+                <string>Enabled</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="1">
+              <widget class="QLabel" name="label_48">
+               <property name="text">
+                <string>Maximum log lines</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="2">
+              <widget class="QSpinBox" name="maxLogLinesSB">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="accelerated">
+                <bool>true</bool>
+               </property>
+               <property name="suffix">
+                <string> lines</string>
+               </property>
+               <property name="minimum">
+                <number>10</number>
+               </property>
+               <property name="maximum">
+                <number>2000</number>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0" rowspan="5">
+              <widget class="Line" name="line">
+               <property name="frameShadow">
+                <enum>QFrame::Plain</enum>
+               </property>
+               <property name="lineWidth">
+                <number>2</number>
+               </property>
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
               </widget>
              </item>
             </layout>
@@ -266,7 +295,7 @@
              </item>
             </widget>
            </item>
-           <item row="4" column="0">
+           <item row="3" column="0">
             <layout class="QVBoxLayout" name="verticalLayout_9">
              <item>
               <spacer name="verticalSpacer_6">
@@ -303,7 +332,7 @@
              </item>
             </layout>
            </item>
-           <item row="4" column="1">
+           <item row="3" column="1">
             <layout class="QGridLayout" name="gridLayout_8" columnstretch="0,0,1">
              <item row="1" column="1">
               <widget class="QLabel" name="label_61">
@@ -352,21 +381,21 @@
              </item>
             </layout>
            </item>
-           <item row="5" column="0">
+           <item row="4" column="0">
             <widget class="QLabel" name="label_7">
              <property name="text">
               <string>Transparent Proxy</string>
              </property>
             </widget>
            </item>
-           <item row="5" column="1">
+           <item row="4" column="1">
             <widget class="QCheckBox" name="tProxyCheckBox">
              <property name="text">
               <string>Enabled</string>
              </property>
             </widget>
            </item>
-           <item row="6" column="0">
+           <item row="5" column="0">
             <layout class="QVBoxLayout" name="verticalLayout_8">
              <item>
               <spacer name="verticalSpacer_12">
@@ -403,7 +432,7 @@
              </item>
             </layout>
            </item>
-           <item row="6" column="1">
+           <item row="5" column="1">
             <layout class="QGridLayout" name="gridLayout_9">
              <item row="0" column="0" rowspan="3">
               <widget class="Line" name="line_3">
@@ -465,7 +494,7 @@
              </item>
             </layout>
            </item>
-           <item row="7" column="1">
+           <item row="6" column="1">
             <spacer name="verticalSpacer_11">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
@@ -477,29 +506,6 @@
               </size>
              </property>
             </spacer>
-           </item>
-           <item row="3" column="0">
-            <widget class="QLabel" name="label_48">
-             <property name="text">
-              <string>Maximum log lines</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="1">
-            <widget class="QSpinBox" name="maxLogLinesSB">
-             <property name="accelerated">
-              <bool>true</bool>
-             </property>
-             <property name="suffix">
-              <string> lines</string>
-             </property>
-             <property name="minimum">
-              <number>50</number>
-             </property>
-             <property name="maximum">
-              <number>2000</number>
-             </property>
-            </widget>
            </item>
           </layout>
          </widget>
@@ -524,7 +530,7 @@
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>0</y>
+            <y>-206</y>
             <width>647</width>
             <height>625</height>
            </rect>
@@ -1823,6 +1829,82 @@ p, li { white-space: pre-wrap; }
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>scrollArea</tabstop>
+  <tabstop>darkThemeCB</tabstop>
+  <tabstop>darkTrayCB</tabstop>
+  <tabstop>themeCombo</tabstop>
+  <tabstop>languageComboBox</tabstop>
+  <tabstop>maxLogLinesSB</tabstop>
+  <tabstop>installBootStart</tabstop>
+  <tabstop>removeBootStart</tabstop>
+  <tabstop>logLevelComboBox</tabstop>
+  <tabstop>autoStartSubsCombo</tabstop>
+  <tabstop>autoStartConnCombo</tabstop>
+  <tabstop>tProxyCheckBox</tabstop>
+  <tabstop>vCorePathTxt</tabstop>
+  <tabstop>selectVCoreBtn</tabstop>
+  <tabstop>vCoreAssetsPathTxt</tabstop>
+  <tabstop>selectVAssetBtn</tabstop>
+  <tabstop>checkVCoreSettings</tabstop>
+  <tabstop>scrollArea_2</tabstop>
+  <tabstop>listenIPTxt</tabstop>
+  <tabstop>setSysProxyCB</tabstop>
+  <tabstop>socksGroupBox</tabstop>
+  <tabstop>socksPortLE</tabstop>
+  <tabstop>socksUDPCB</tabstop>
+  <tabstop>socksUDPIP</tabstop>
+  <tabstop>socksAuthCB</tabstop>
+  <tabstop>socksAuthUsernameTxt</tabstop>
+  <tabstop>socksAuthPasswordTxt</tabstop>
+  <tabstop>httpGroupBox</tabstop>
+  <tabstop>httpPortLE</tabstop>
+  <tabstop>httpAuthCB</tabstop>
+  <tabstop>httpAuthUsernameTxt</tabstop>
+  <tabstop>httpAuthPasswordTxt</tabstop>
+  <tabstop>pacGroupBox</tabstop>
+  <tabstop>pacPortSB</tabstop>
+  <tabstop>pacProxyTxt</tabstop>
+  <tabstop>pacProxyCB</tabstop>
+  <tabstop>gfwListCB</tabstop>
+  <tabstop>pacGoBtn</tabstop>
+  <tabstop>pushButton</tabstop>
+  <tabstop>proxyDefaultCb</tabstop>
+  <tabstop>bypassCNCb</tabstop>
+  <tabstop>statsPortBox</tabstop>
+  <tabstop>localDNSCb</tabstop>
+  <tabstop>DNSListTxt</tabstop>
+  <tabstop>fpGroupBox</tabstop>
+  <tabstop>fpTypeCombo</tabstop>
+  <tabstop>fpAddressTx</tabstop>
+  <tabstop>fpPortSB</tabstop>
+  <tabstop>fpUseAuthCB</tabstop>
+  <tabstop>fpUsernameTx</tabstop>
+  <tabstop>fpPasswordTx</tabstop>
+  <tabstop>nsBarPagesList</tabstop>
+  <tabstop>nsBarPageAddBTN</tabstop>
+  <tabstop>nsBarPageDelBTN</tabstop>
+  <tabstop>nsBarPageYOffset</tabstop>
+  <tabstop>nsBarLinesList</tabstop>
+  <tabstop>nsBarLineAddBTN</tabstop>
+  <tabstop>nsBarLineDelBTN</tabstop>
+  <tabstop>nsBarContentCombo</tabstop>
+  <tabstop>nsBarTagTxt</tabstop>
+  <tabstop>fontComboBox</tabstop>
+  <tabstop>nsBarFontBoldCB</tabstop>
+  <tabstop>nsBarFontItalicCB</tabstop>
+  <tabstop>nsBarFontSizeSB</tabstop>
+  <tabstop>nsBarFontASB</tabstop>
+  <tabstop>nsBarFontRSB</tabstop>
+  <tabstop>nsBarFontGSB</tabstop>
+  <tabstop>nsBarFontBSB</tabstop>
+  <tabstop>chooseColorBtn</tabstop>
+  <tabstop>applyNSBarSettingsBtn</tabstop>
+  <tabstop>textBrowser</tabstop>
+  <tabstop>cancelIgnoreVersionBtn</tabstop>
+  <tabstop>aboutQt</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

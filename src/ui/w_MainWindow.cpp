@@ -56,6 +56,7 @@
 
 #define IsConnectableItem(item) (item != nullptr && item->childCount() == 0 && (CheckConfigType(item, REGULAR) || CheckConfigType(item, SUBSCRIPTION)))
 #define IsSelectionConnectable (!connectionListWidget->selectedItems().empty() && IsConnectableItem(connectionListWidget->selectedItems().first()))
+
 // From https://gist.github.com/jemyzhang/7130092
 #define CleanUpLogs(browser) \
     {\
@@ -84,7 +85,6 @@ MainWindow::MainWindow(QWidget *parent):
     currentConfig = GetGlobalConfig();
     vinstance = new V2rayKernelInstance();
     connect(vinstance, &V2rayKernelInstance::onProcessOutputReadyRead, this, &MainWindow::UpdateVCoreLog);
-    //
     connect(vinstance, &V2rayKernelInstance::onProcessErrored, [this] {
         on_stopButton_clicked();
         this->show();
@@ -355,7 +355,9 @@ void MainWindow::VersionUpdate(QByteArray &data)
 
 void MainWindow::OnConfigListChanged(bool need_restart)
 {
-    if (vinstance->KernelStarted && need_restart) on_stopButton_clicked();
+    auto wasRunning = vinstance->KernelStarted && need_restart;
+
+    if (wasRunning) on_stopButton_clicked();
 
     LOG(MODULE_UI, "Loading new GlobalConfig")
     SetEditWidgetEnable(false);
@@ -427,7 +429,7 @@ void MainWindow::OnConfigListChanged(bool need_restart)
 
     connectionListWidget->sortItems(0, Qt::AscendingOrder);
 
-    if (vinstance->KernelStarted && need_restart) on_startButton_clicked();
+    if (wasRunning) on_startButton_clicked();
 }
 MainWindow::~MainWindow()
 {

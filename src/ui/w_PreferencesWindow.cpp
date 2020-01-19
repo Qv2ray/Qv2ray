@@ -30,7 +30,6 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent),
         networkToolbarInfoLabel->setText(tr("Qv2ray Network Toolbar is disabled and still under test. Add --withNetworkToolbar to enable."));
     }
 
-    //
     // We add locales
     languageComboBox->clear();
     QDirIterator it(":/translations");
