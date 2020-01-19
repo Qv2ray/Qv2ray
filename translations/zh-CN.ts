@@ -2280,7 +2280,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/main.cpp" line="362"/>
       <source>If you are using an AppImage from Github Action, please report a bug.</source>
-      <translation>如果您正在使用 Github Action的AppImage ，请报告 bug。</translation>
+      <translation>如果您使用的是来自 Github Action 的 AppImage，请报告错误。</translation>
     </message>
     <message>
       <location filename="../src/main.cpp" line="360"/>
@@ -2474,12 +2474,12 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/components/QvKernelInteractions.cpp" line="47"/>
       <source>V2ray assets path is not valid.</source>
-      <translation>V2ray asset路径无效。</translation>
+      <translation>V2ray 资源路径无效。</translation>
     </message>
     <message>
       <location filename="../src/components/QvKernelInteractions.cpp" line="53"/>
       <source>No geoip.dat in assets path.</source>
-      <translation>asset路径中没有 geoip.dat。</translation>
+      <translation>资源路径中没有 geoip.dat。</translation>
     </message>
     <message>
       <location filename="../src/components/QvKernelInteractions.cpp" line="59"/>
@@ -2490,7 +2490,7 @@ p, li { white-space: pre-wrap; }
       <location filename="../src/components/QvKernelInteractions.cpp" line="71"/>
       <location filename="../src/components/QvKernelInteractions.cpp" line="104"/>
       <source>V2ray core failed with an exit code: </source>
-      <translation>有退出代码的 V2ray 核心失败： </translation>
+      <translation>V2ray核心失败，退出代码： </translation>
     </message>
     <message>
       <location filename="../src/components/QvKernelInteractions.cpp" line="73"/>
