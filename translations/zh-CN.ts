@@ -2081,23 +2081,23 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="372"/>
       <source>This will append capabilities to the V2ray executable.</source>
-      <translation>这将在 v2ray 可执行程序上添加 Capability</translation>
+      <translation>这会将功能附加到 V2ray 可执行文件。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="373"/>
       <source>Qv2ray will copy your V2ray core to this path: </source>
-      <translation>Qv2ray 将复制您的 v2ray 核心至此路径： </translation>
+      <translation>Qv2ray 会将您的 V2ray 核心复制到以下路径： </translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="417"/>
       <source>Qv2ray cannot copy one or both V2ray files from: </source>
-      <translation>Qv2ray 无法复制一个或两个 v2ray 文件： </translation>
+      <translation>Qv2ray 无法从以下位置复制一个或两个 V2ray 文件： </translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="432"/>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="443"/>
       <source>Failed to setcap onto V2ray executable. You may need to run `setcap` manually.</source>
-      <translation>无法执行 setcap，你可能需要手动进行操作</translation>
+      <translation>无法将 Capcap 设置到 V2ray 可执行文件上。 您可能需要手动运行“ setcap”。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="454"/>
