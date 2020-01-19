@@ -6,12 +6,12 @@
     <message>
       <location filename="../src/ui/w_ExportConfig.cpp" line="16"/>
       <source>Empty</source>
-      <translation type="unfinished">Empty</translation>
+      <translation>空</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ExportConfig.cpp" line="62"/>
       <source>Save Image</source>
-      <translation type="unfinished">Save Image</translation>
+      <translation>保存图片</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ExportConfig.cpp" line="71"/>
@@ -956,72 +956,72 @@
     <message>
       <location filename="../src/ui/w_MainWindow_extra.cpp" line="53"/>
       <source>Please reset the settings in Preference Window</source>
-      <translation type="unfinished">Please reset the settings in Preference Window</translation>
+      <translation>请重置首选项窗口的设置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow_extra.cpp" line="69"/>
       <source>System proxy cleared.</source>
-      <translation type="unfinished">System proxy cleared.</translation>
+      <translation>系统代理已清除。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow_extra.cpp" line="100"/>
       <source>HTTP or SOCKS inbound is not properly configured for PAC</source>
-      <translation type="unfinished">HTTP or SOCKS inbound is not properly configured for PAC</translation>
+      <translation>HTTP 或 SOCKS 入站配置不正确</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow_extra.cpp" line="101"/>
       <source>Qv2ray will continue, but will not set system proxy.</source>
-      <translation type="unfinished">Qv2ray will continue, but will not set system proxy.</translation>
+      <translation>Qv2ray 将继续，但不会设置系统代理人。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow_extra.cpp" line="112"/>
       <source>Cannot set system proxy</source>
-      <translation type="unfinished">Cannot set system proxy</translation>
+      <translation>无法设置系统代理</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow_extra.cpp" line="112"/>
       <source>HTTP inbound is not enabled</source>
-      <translation type="unfinished">HTTP inbound is not enabled</translation>
+      <translation>HTTP 入站未启用</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow_extra.cpp" line="122"/>
       <source>System proxy settings applied.</source>
-      <translation type="unfinished">System proxy settings applied.</translation>
+      <translation>系统代理设置已应用。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow_extra.cpp" line="125"/>
       <source>Cannot set proxy for complex config.</source>
-      <translation type="unfinished">Cannot set proxy for complex config.</translation>
+      <translation>无法设置复合配置的代理。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow_extra.cpp" line="242"/>
       <source>Update Subscriptions</source>
-      <translation type="unfinished">Update Subscriptions</translation>
+      <translation>更新订阅</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow_extra.cpp" line="243"/>
       <source>There are subscriptions need to be updated, please go to subscriptions window to update them.</source>
-      <translation type="unfinished">There are subscriptions need to be updated, please go to subscriptions window to update them.</translation>
+      <translation>订阅需要更新，请前往订阅窗口更新。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow_extra.cpp" line="244"/>
       <source>These subscriptions are out-of-date: </source>
-      <translation type="unfinished">These subscriptions are out-of-date: </translation>
+      <translation>这些订阅已过期： </translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="514"/>
       <source>Disconnected</source>
-      <translation type="unfinished">Disconnected</translation>
+      <translation>已断开</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="606"/>
       <source>Complex</source>
-      <translation type="unfinished">Complex</translation>
+      <translation>复杂</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="606"/>
       <source>Simple</source>
-      <translation type="unfinished">Simple</translation>
+      <translation>简单</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="609"/>
@@ -1041,80 +1041,80 @@
       <location filename="../src/ui/w_MainWindow.cpp" line="1114"/>
       <location filename="../src/ui/w_MainWindow_extra.cpp" line="215"/>
       <source>N/A</source>
-      <translation type="unfinished">N/A</translation>
+      <translation>不适用</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="702"/>
       <location filename="../src/ui/w_MainWindow.cpp" line="707"/>
       <location filename="../src/ui/w_MainWindow.cpp" line="712"/>
       <source>Rename a Connection</source>
-      <translation type="unfinished">Rename a Connection</translation>
+      <translation>重命名连接</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="91"/>
       <source>V2ray vcore terminated.</source>
-      <translation type="unfinished">V2ray vcore terminated.</translation>
+      <translation>V2ray vcore 已终止。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="91"/>
       <source>V2ray vcore terminated unexpectedly.</source>
-      <translation type="unfinished">V2ray vcore terminated unexpectedly.</translation>
+      <translation>V2ray vcore 意外终止。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="92"/>
       <source>To solve the problem, read the V2ray log in the log text browser.</source>
-      <translation type="unfinished">To solve the problem, read the V2ray log in the log text browser.</translation>
+      <translation>要解决问题，请阅读日志文本浏览器中的 V2ray 日志。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="146"/>
       <source>Enable System Proxy</source>
-      <translation type="unfinished">Enable System Proxy</translation>
+      <translation>启用系统代理</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="147"/>
       <source>Disable System Proxy</source>
-      <translation type="unfinished">Disable System Proxy</translation>
+      <translation>禁用系统代理</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="155"/>
       <source>System Proxy</source>
-      <translation type="unfinished">System Proxy</translation>
+      <translation>系统代理</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="218"/>
       <source>Upload</source>
-      <translation type="unfinished">Upload</translation>
+      <translation>上传</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="219"/>
       <source>Download</source>
-      <translation type="unfinished">Download</translation>
+      <translation>下载</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="275"/>
       <source>Ping</source>
-      <translation type="unfinished">Ping</translation>
+      <translation>Ping</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="275"/>
       <source>Ping All</source>
-      <translation type="unfinished">Ping All</translation>
+      <translation>Ping 所有</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="393"/>
       <location filename="../src/ui/w_MainWindow.cpp" line="615"/>
       <source>Subscription</source>
-      <translation type="unfinished">Subscription</translation>
+      <translation>订阅</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="702"/>
       <source>The name cannot be empty</source>
-      <translation type="unfinished">The name cannot be empty</translation>
+      <translation>名称不能为空</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="707"/>
       <source>The name has been used already, Please choose another.</source>
-      <translation type="unfinished">The name has been used already, Please choose another.</translation>
+      <translation>名称已被使用，请选择其他名称。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="712"/>
@@ -1135,13 +1135,13 @@
       <location filename="../src/ui/w_MainWindow.cpp" line="803"/>
       <location filename="../src/ui/w_MainWindow.cpp" line="814"/>
       <source>Removing this Connection</source>
-      <translation type="unfinished">Removing this Connection</translation>
+      <translation>正在删除此连接</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="803"/>
       <location filename="../src/ui/w_MainWindow.cpp" line="814"/>
       <source>Failed to delete connection file, please delete manually.</source>
-      <translation type="unfinished">Failed to delete connection file, please delete manually.</translation>
+      <translation>删除连接文件失败，请手动删除。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="807"/>
@@ -1170,7 +1170,7 @@
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="967"/>
       <source>You are about to run latency test on all servers, do you want to continue?</source>
-      <translation type="unfinished">You are about to run latency test on all servers, do you want to continue?</translation>
+      <translation>您将在所有服务器上运行延迟测试，是否继续？</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="987"/>
@@ -1191,12 +1191,12 @@
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="1012"/>
       <source>Share Connection</source>
-      <translation type="unfinished">Share Connection</translation>
+      <translation>共享连接</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="1012"/>
       <source>There&apos;re no support of sharing configs other than vmess</source>
-      <translation type="unfinished">There&apos;re no support of sharing configs other than vmess</translation>
+      <translation>那里&apos;不支持共享除vmess以外的配置</translation>
     </message>
   </context>
   <context>
@@ -1204,51 +1204,51 @@
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="26"/>
       <source>EditConnectionSettings</source>
-      <translation type="unfinished">EditConnectionSettings</translation>
+      <translation>编辑连接设置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="1000"/>
       <source>Tag</source>
-      <translation type="unfinished">Tag</translation>
+      <translation>标签</translation>
     </message>
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="1007"/>
       <source>Tag of this outbound setting</source>
-      <translation type="unfinished">Tag of this outbound setting</translation>
+      <translation>此出站设置的标签</translation>
     </message>
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="346"/>
       <location filename="../src/ui/w_OutboundEditor.ui" line="1014"/>
       <source>Host</source>
-      <translation type="unfinished">Host</translation>
+      <translation>主机</translation>
     </message>
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="1021"/>
       <source>Hostname or IP/IPv6 Address</source>
-      <translation type="unfinished">Hostname or IP/IPv6 Address</translation>
+      <translation>主机名或 IP/IPv6 地址</translation>
     </message>
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="1028"/>
       <location filename="../src/ui/w_OutboundEditor.ui" line="1038"/>
       <source>Port</source>
-      <translation type="unfinished">Port</translation>
+      <translation>端口</translation>
     </message>
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="265"/>
       <location filename="../src/ui/w_OutboundEditor.ui" line="561"/>
       <location filename="../src/ui/w_OutboundEditor.ui" line="1045"/>
       <source>Type</source>
-      <translation type="unfinished">Type</translation>
+      <translation>类型</translation>
     </message>
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="1069"/>
       <source>Socks</source>
-      <translation type="unfinished">Socks</translation>
+      <translation>Socks</translation>
     </message>
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="947"/>
       <source>Use Mux</source>
-      <translation type="unfinished">Use Mux</translation>
+      <translation>使用Mux</translation>
     </message>
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="151"/>
@@ -1258,37 +1258,37 @@
       <location filename="../src/ui/w_OutboundEditor.ui" line="954"/>
       <location filename="../src/ui/w_OutboundEditor.ui" line="981"/>
       <source>Enabled</source>
-      <translation type="unfinished">Enabled</translation>
+      <translation>已启用</translation>
     </message>
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="941"/>
       <source>Misc Settings</source>
-      <translation type="unfinished">Misc Settings</translation>
+      <translation>其他设定</translation>
     </message>
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="961"/>
       <source>Mux Concurrency</source>
-      <translation type="unfinished">Mux Concurrency</translation>
+      <translation>Mux 并发性</translation>
     </message>
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="988"/>
       <source>Use Forward Proxy</source>
-      <translation type="unfinished">Use Forward Proxy</translation>
+      <translation>使用前置代理</translation>
     </message>
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="49"/>
       <source>Outbound Settings</source>
-      <translation type="unfinished">Outbound Settings</translation>
+      <translation>出站设置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="70"/>
       <source>UUID</source>
-      <translation type="unfinished">UUID</translation>
+      <translation>UUID</translation>
     </message>
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="90"/>
       <source>Alter ID</source>
-      <translation type="unfinished">Alter ID</translation>
+      <translation>Alter ID</translation>
     </message>
     <message>
       <location filename="../src/ui/w_OutboundEditor.ui" line="107"/>
@@ -1607,12 +1607,12 @@
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="215"/>
       <source>Launch at Login</source>
-      <translation type="unfinished">Launch at Login</translation>
+      <translation>登录时启动</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="224"/>
       <source>Install</source>
-      <translation type="unfinished">Install</translation>
+      <translation>安装</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="636"/>
@@ -1648,7 +1648,7 @@
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="777"/>
       <source>The system proxy will be configured to use the PAC instead of HTTP and SOCKS.</source>
-      <translation type="unfinished">The system proxy will be configured to use the PAC instead of HTTP and SOCKS.</translation>
+      <translation>系统代理将被配置为使用 PAC 而不是 HTTP 和 SOCKS。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="804"/>
@@ -1723,7 +1723,7 @@
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="910"/>
       <source>PAC Access Path</source>
-      <translation type="unfinished">PAC Access Path</translation>
+      <translation>PAC 访问路径</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="951"/>
@@ -1768,7 +1768,7 @@
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1160"/>
       <source>Only simple config is supported.</source>
-      <translation type="unfinished">Only simple config is supported.</translation>
+      <translation>只支持简单配置。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1748"/>
@@ -1777,10 +1777,10 @@
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Titillium Web&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;WenQuanYi Micro Hei&apos;;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-      <translation type="unfinished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+      <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Titillium Web&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;WenQuanYi Micro Hei&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;WenQuanYi Micro Hei&apos;;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
@@ -1816,47 +1816,47 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="30"/>
       <source>General Settings</source>
-      <translation type="unfinished">General Settings</translation>
+      <translation>常规设置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="69"/>
       <source>UI Settings</source>
-      <translation type="unfinished">UI Settings</translation>
+      <translation>用户界面设置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="171"/>
       <source>Maximum log lines</source>
-      <translation type="unfinished">Maximum log lines</translation>
+      <translation>最大日志行</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="187"/>
       <source> lines</source>
-      <translation type="unfinished"> lines</translation>
+      <translation> 行</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="416"/>
       <source>V2ray Settings</source>
-      <translation type="unfinished">V2ray Settings</translation>
+      <translation>V2ray 设置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="453"/>
       <source>Core Executable Path</source>
-      <translation type="unfinished">Core Executable Path</translation>
+      <translation>核心可执行路径</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="484"/>
       <source>V2ray Assets Directory</source>
-      <translation type="unfinished">V2ray Assets Directory</translation>
+      <translation>V2ray 资源目录</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="491"/>
       <source>Check V2ray Core Settings</source>
-      <translation type="unfinished">Check V2ray Core Settings</translation>
+      <translation>检查 V2ray 核心设置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="622"/>
       <source>UDP Local IP</source>
-      <translation type="unfinished">UDP Local IP</translation>
+      <translation>UDP 本地IP</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1220"/>
@@ -1888,7 +1888,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1360"/>
       <source>This feature is not stable and no documentation is provided, please use it at your own risk!</source>
-      <translation type="unfinished">This feature is not stable and no documentation is provided, please use it at your own risk!</translation>
+      <translation>此功能不够稳定，且暂无文档，使用时需自负风险！</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1405"/>
@@ -1898,29 +1898,29 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1411"/>
       <source>Font</source>
-      <translation type="unfinished">Font</translation>
+      <translation>字体</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1423"/>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="679"/>
       <source>Bold</source>
-      <translation type="unfinished">Bold</translation>
+      <translation>粗体</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1430"/>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="680"/>
       <source>Italic</source>
-      <translation type="unfinished">Italic</translation>
+      <translation>斜体</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1439"/>
       <source>Size</source>
-      <translation type="unfinished">Size</translation>
+      <translation>大小</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1449"/>
       <source>Color</source>
-      <translation type="unfinished">Color</translation>
+      <translation>颜色</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="1458"/>
