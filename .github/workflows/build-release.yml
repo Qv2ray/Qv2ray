@@ -131,7 +131,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          qmake .. CONFIG+=no_increase_build_number
+          qmake .. CONFIG+=no_increase_build_number PREFIX=/usr
           make -j2
       - name: Generating filesystem structure for AppImage
         run: | 
@@ -139,8 +139,6 @@ jobs:
           make install INSTALL_ROOT=AppDir
           cd AppDir
           mkdir -p ./usr/lib/
-          mkdir -p ./usr/bin/
-          mv ./usr/local/bin/qv2ray ./usr/bin/qv2ray 
           cp /usr/lib/x86_64-linux-gnu/libssl.so.1.1 /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1 ./usr/lib/
       - name: Building AppImage using linuxdeployqt
         run: |

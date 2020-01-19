@@ -37,7 +37,7 @@ namespace Qv2ray
                     vmessUriRoot["host"] = realHost;
                     vmessUriRoot["path"] = transfer.wsSettings.path;
                 } else if (transfer.network == "h2" || transfer.network == "http") {
-                    vmessUriRoot["host"] = Stringify(transfer.httpSettings.host, ",");
+                    vmessUriRoot["host"] = transfer.httpSettings.host.join(",");
                     vmessUriRoot["path"] = transfer.httpSettings.path;
                 }
 
@@ -74,15 +74,27 @@ namespace Qv2ray
             bool SaveSubscriptionConfig(CONFIGROOT obj, const QString &subscription, const QString &name)
             {
                 auto str = JsonToString(obj);
-                QFile *config = new QFile(QV2RAY_SUBSCRIPTION_DIR + subscription + "/" + name + QV2RAY_CONFIG_FILE_EXTENSION);
+                auto fName = name;
+
+                if (!IsValidFileName(fName + QV2RAY_CONFIG_FILE_EXTENSION)) {
+                    fName = QObject::tr("Invalid filename") + "_" + GenerateRandomString(6) + QV2RAY_CONFIG_FILE_EXTENSION;
+                }
+
+                QFile *config = new QFile(QV2RAY_SUBSCRIPTION_DIR + subscription + "/" + fName + QV2RAY_CONFIG_FILE_EXTENSION);
 
                 // If there's already a file. THIS IS EXTREMELY RARE
                 if (config->exists()) {
                     LOG(MODULE_FILE, "Trying to overrwrite an existing subscription config file. THIS IS RARE")
                 }
 
-                LOG(MODULE_CONFIG, "Saving a subscription named: " + name)
-                return StringToFile(&str, config);
+                LOG(MODULE_CONFIG, "Saving a subscription named: " + fName)
+                bool result = StringToFile(&str, config);
+
+                if (!result) {
+                    LOG(MODULE_FILE, "Failed to save a connection config from subscription: " + subscription + ", name: " + fName)
+                }
+
+                return result;
             }
 
             bool RemoveConnection(const QString &alias)
@@ -110,14 +122,23 @@ namespace Qv2ray
             }
 
             // This generates global config containing only one outbound....
-            CONFIGROOT ConvertConfigFromVMessString(const QString &vmess, QString *alias, QString *errMessage)
+            CONFIGROOT ConvertConfigFromVMessString(const QString &vmessStr, QString *alias, QString *errMessage)
             {
+#define default CONFIGROOT()
+                LOG(MODULE_CONFIG, "Trying to convert from a vmess string.")
+                QString vmess = vmessStr;
+
+                if (vmess.trimmed() != vmess) {
+                    LOG(MODULE_CONFIG, "VMess string has some prefix/postfix spaces, trimming.")
+                    vmess = vmessStr.trimmed();
+                }
+
                 // Reset errMessage
                 *errMessage = "";
 
                 if (!vmess.toLower().startsWith("vmess://")) {
                     *errMessage = QObject::tr("VMess string should start with 'vmess://'");
-                    return CONFIGROOT();
+                    return default;
                 }
 
                 try {
@@ -126,7 +147,7 @@ namespace Qv2ray
 
                     if (b64Str.isEmpty()) {
                         *errMessage = QObject::tr("VMess string should be a valid base64 string");
-                        return CONFIGROOT();
+                        return default;
                     }
 
                     auto vmessString = Base64Decode(b64Str);
@@ -134,23 +155,21 @@ namespace Qv2ray
 
                     if (!jsonErr.isEmpty()) {
                         *errMessage = jsonErr;
-                        return CONFIGROOT();
+                        return default;
                     }
 
                     auto vmessConf = JsonFromString(vmessString);
 
                     if (vmessConf.isEmpty()) {
                         *errMessage = QObject::tr("JSON should not be empty");
-                        return CONFIGROOT();
+                        return default;
                     }
 
+                    bool flag = true;
                     // C is a quick hack...
 #define C(k) vmessConf.contains(k)
-                    bool flag = true;
-                    flag = flag && C("id");
-                    flag = flag && C("aid");
-                    flag = flag && C("port");
-                    flag = flag && C("add");
+                    // id, aid, port and add are mandatory fields of a vmess:// link.
+                    flag = flag && C("id") && C("aid") && C("port") && C("add");
                     // Stream Settings
                     auto net = C("net") ? vmessConf["net"].toString() : "tcp";
 
@@ -166,32 +185,58 @@ namespace Qv2ray
                 } catch (exception *e) {
                     LOG(MODULE_IMPORT, "Failed to decode vmess string: " + QString(e->what()))
                     *errMessage = e->what();
-                    return CONFIGROOT();
+                    return default;
                 }
 
                 // --------------------------------------------------------------------------------------
                 CONFIGROOT root;
-                QStringRef vmessJsonB64(&vmess, 8, vmess.length() - 8);
-                auto vmessConf = JsonFromString(Base64Decode(vmessJsonB64.toString()));
+                auto b64String = QStringRef(&vmess, 8, vmess.length() - 8).toString();
+                auto vmessConf = JsonFromString(Base64Decode(b64String));
                 //
                 QString ps, add, id, net, type, host, path, tls;
                 int port, aid;
                 //
-                ps = vmessConf.contains("ps") ? vmessConf["ps"].toVariant().toString()
-                     : (vmessConf["add"].toVariant().toString() + ":" + vmessConf["port"].toVariant().toString());
-                add = vmessConf["add"].toVariant().toString();
-                id = vmessConf["id"].toVariant().toString();
-                net = vmessConf.contains("net") ? vmessConf["net"].toVariant().toString() : "tcp";
-                type = vmessConf.contains("type") ? vmessConf["type"].toVariant().toString() : "none";
-                host = vmessConf["host"].toVariant().toString();
-                path = vmessConf["path"].toVariant().toString();
-                tls = vmessConf.contains("tls") ? vmessConf["tls"].toVariant().toString() : "";
+                // key = key in JSON and the variable name.
+                // values = Candidate variable list, if not match, the first one is used as default.
+                //          [[val.size() <= 1]] is used when only the default value exists.
+                //          - It can be empty, if so,           if the key is not in the JSON, or the value is empty,  it'll report an error.
+                //          - Else if it contains one thing.    if the key is not in the JSON, or the value is empty,  it'll use that one.
+                //          - Else if it contains many things,  when the key IS in the JSON but not in those THINGS,   it'll use the first one in the THINGS
+                //          - Else, it'll use the value found from the JSON object.
+                //
+#define empty_arg
+#define __vmess_checker__func(key, values) \
+    {\
+        auto val = QStringList() values;\
+        if (vmessConf.contains(#key) && !vmessConf[#key].toVariant().toString().trimmed().isEmpty() \
+            && (val.size() <= 1 || val.contains(vmessConf[#key].toVariant().toString()))) {\
+            key = vmessConf[#key].toVariant().toString();\
+            DEBUG(MODULE_IMPORT, "Found key \"" #key "\" within the vmess object.")\
+        } else if (!val.isEmpty()) {\
+            key = val.first(); \
+            DEBUG(MODULE_IMPORT, "Using key \"" #key "\" from the first candidate list: " + key)\
+        } else{\
+            *errMessage = QObject::tr(#key " does not exist."); \
+            LOG(MODULE_IMPORT, "Cannot process \"" #key "\" since it's not included in the json object." ) \
+            LOG(MODULE_IMPORT, " --> values: " + val.join(";")) \
+            LOG(MODULE_IMPORT, " --> PS: " + ps) \
+        }\
+    }
+                // Strict check of VMess protocol, to check if the specified value is in the correct range.
+                //
+                // Get Alias (AKA ps) from address and port.
+                __vmess_checker__func(ps, << vmessConf["add"].toVariant().toString() + ":" + vmessConf["port"].toVariant().toString());
+                __vmess_checker__func(add, empty_arg)
+                __vmess_checker__func(id, empty_arg)
+                __vmess_checker__func(net, << "tcp" << "http" << "h2" << "ws" << "kcp" << "domainsocket" << "quic")
+                __vmess_checker__func(type, << "none" << "http" << "srtp" << "utp" << "wechat-video")
+                __vmess_checker__func(path, << "")
+                __vmess_checker__func(host, << "")
+                __vmess_checker__func(tls, << "")
                 //
                 port = vmessConf["port"].toVariant().toInt();
                 aid = vmessConf["aid"].toVariant().toInt();
-                //
-                // More strict check could be implemented, such as to check if the specified value is
-                // in the currect format.
+                // Apply the settings.
                 //
                 // User
                 VMessServerObject::UserObject user;
@@ -218,7 +263,7 @@ namespace Qv2ray
                 } else if (net == "http" || net == "h2") {
                     // Fill hosts for HTTP
                     for (auto _host : host.split(',')) {
-                        streaming.httpSettings.host.push_back(_host);
+                        streaming.httpSettings.host.push_back(_host.trimmed());
                     }
 
                     streaming.httpSettings.path = path;
@@ -245,7 +290,8 @@ namespace Qv2ray
                 //
                 root["outbounds"] = QJsonArray() << outbound;
                 // If previous alias is empty, just the PS is needed, else, append a "_"
-                *alias = alias->isEmpty() ? ps : *alias + "_" + ps;
+                *alias = alias->trimmed().isEmpty() ? ps : *alias + "_" + ps;
+#undef default
                 return root;
             }
 

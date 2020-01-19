@@ -15,7 +15,7 @@ JsonEditor::JsonEditor(QJsonObject rootObject, QWidget *parent) :
         jsonTree->setModel(&model);
         model.loadJson(QJsonDocument(rootObject).toJson());
     } else {
-        QvMessageBox(this, tr("Json Contains Syntax Errors"), tr("Original Json may contain syntax errors. Json tree is disabled."));
+        QvMessageBoxWarn(this, tr("Json Contains Syntax Errors"), tr("Original Json may contain syntax errors. Json tree is disabled."));
     }
 
     jsonEditor->setText(JsonToString(rootObject));
@@ -29,7 +29,7 @@ QJsonObject JsonEditor::OpenEditor()
     auto string = jsonEditor->toPlainText();
 
     while (resultCode == QDialog::Accepted && !VerifyJsonString(string).isEmpty()) {
-        QvMessageBox(this, tr("Json Contains Syntax Errors"), tr("You must correct these errors before continue."));
+        QvMessageBoxWarn(this, tr("Json Contains Syntax Errors"), tr("You must correct these errors before continue."));
         resultCode = this->exec();
         string = jsonEditor->toPlainText();
     }
@@ -69,6 +69,6 @@ void JsonEditor::on_formatJsonBtn_clicked()
         jsonEditor->setPlainText(JsonToString(JsonFromString(string)));
     } else {
         RED(jsonEditor)
-        QvMessageBox(this, tr("Syntax Errors"), tr("Please fix the JSON errors before continue"));
+        QvMessageBoxWarn(this, tr("Syntax Errors"), tr("Please fix the JSON errors before continue"));
     }
 }

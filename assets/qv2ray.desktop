@@ -1,8 +1,26 @@
 [Desktop Entry]
+Version=1.0
+Name=Qv2ray
 Type=Application
-Keywords=Internet;VPN;Proxy;v2ray;Qt;
+GenericName=V2ray Graphical Frontend
+GenericName[zh_CN]=V2ray 图形前端
+Comment=A Cross-platform v2ray Qt GUI Client
+Comment[zh_CN]=跨平台的 v2ray Qt 客户端
+Keywords=Internet;VPN;Proxy;v2ray;Qt;qv;
+Keywords[zh_CN]=Internet;VPN;Proxy;v2ray;Qt;qv;代理;翻墙;梯子;
 Categories=Network;Qt;
+Terminal=false
 Icon=qv2ray
 Exec=qv2ray
-Name=Qv2ray
-Comment=Cross platform v2ray Qt GUI Client.
+Actions=noAPI;withToolbarPlugin;
+
+[Desktop Action noAPI]
+Name=Start without gRPC API
+Name[zh_CN]=不使用 gRPC API 启动
+Exec=qv2ray --noAPI
+
+[Desktop Action withToolbarPlugin]
+Name=Start with Toolbar Plugin
+Name[zh_CN]=使用工具栏插件启动
+Exec=qv2ray --withToolbarPlugin
+

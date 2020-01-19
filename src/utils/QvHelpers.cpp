@@ -5,10 +5,15 @@
 // Forwarded from QvTinyLog
 static QQueue<QString> __loggerBuffer;
 
-void _LOG(const std::string &func, const QString &module, const QString &log)
+void __QV2RAY_LOG_FUNC__(int type, const std::string &func, int line, const QString &module, const QString &log)
 {
     auto logString = "[" + module + "]: " + log;
-    cout << func << logString.toStdString() << endl;
+
+    if (StartupOption.debugLog || (isDebug && type == QV2RAY_LOG_DEBUG)) {
+        logString.prepend(QString::fromStdString(func + ":" + to_string(line) + " "));
+    }
+
+    cout << logString.toStdString() << endl;
     __loggerBuffer.enqueue(logString + NEWLINE);
 }
 
@@ -17,7 +22,11 @@ const QString readLastLog()
     QString result;
 
     while (!__loggerBuffer.isEmpty()) {
-        result += __loggerBuffer.dequeue();
+        auto str = __loggerBuffer.dequeue();
+
+        if (!str.trimmed().isEmpty()) {
+            result += str;
+        }
     }
 
     return result;
@@ -40,36 +49,6 @@ namespace Qv2ray
             }
 
             return randomString;
-        }
-
-        QString Stringify(list<string> list, QString saperator)
-        {
-            QString out;
-
-            for (auto item : list) {
-                out.append(QString::fromStdString(item));
-                out.append(saperator);
-            }
-
-            if (out.length() >= 1)
-                out = out.remove(out.length() - 1, 1);
-
-            return out;
-        }
-
-        QString Stringify(QList<QString> list, QString saperator)
-        {
-            QString out;
-
-            for (auto item : list) {
-                out.append(item);
-                out.append(saperator);
-            }
-
-            if (out.length() >= 1)
-                out = out.remove(out.length() - 1, 1);
-
-            return out;
         }
 
         QString StringFromFile(QFile *source)
@@ -170,14 +149,20 @@ namespace Qv2ray
             return GetFileList(dir).contains(fileName);
         }
 
-        void QvMessageBox(QWidget *parent, QString title, QString text)
+        void QvMessageBoxWarn(QWidget *parent, QString title, QString text)
         {
             QMessageBox::warning(parent, title, text, QMessageBox::Ok | QMessageBox::Default, 0);
         }
 
+        void QvMessageBoxInfo(QWidget *parent, QString title, QString text)
+        {
+            QMessageBox::information(parent, title, text, QMessageBox::Ok | QMessageBox::Default, 0);
+        }
+
+
         int QvMessageBoxAsk(QWidget *parent, QString title, QString text, QMessageBox::StandardButton extraButtons)
         {
-            return QMessageBox::information(parent, title, text, QMessageBox::Yes | QMessageBox::No | extraButtons);
+            return QMessageBox::question(parent, title, text, QMessageBox::Yes | QMessageBox::No | extraButtons);
         }
 
         QString FormatBytes(long long bytes)

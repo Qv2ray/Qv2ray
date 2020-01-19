@@ -13,6 +13,7 @@ class SubscribeEditor : public QDialog, private Ui::w_SubscribeEditor
     public:
         explicit SubscribeEditor(QWidget *parent = nullptr);
         ~SubscribeEditor();
+        QPair<QString, CONFIGROOT> GetSelectedConfig();
 
     private slots:
         void on_addSubsButton_clicked();
@@ -29,6 +30,8 @@ class SubscribeEditor : public QDialog, private Ui::w_SubscribeEditor
 
         void on_updateIntervalSB_valueChanged(double arg1);
 
+        void on_connectionsList_itemClicked(QListWidgetItem *item);
+
     private:
         void StartUpdateSubscription(const QString &subscriptionName);
         void SaveConfig();
@@ -36,6 +39,7 @@ class SubscribeEditor : public QDialog, private Ui::w_SubscribeEditor
 
         bool isUpdateInProgress = false;
         QvHttpRequestHelper helper;
+        QPair<QString, CONFIGROOT> currentSelectedConfig;
         QMap<QString, Qv2raySubscriptionConfig> subscriptions;
         QString currentSubName;
 };

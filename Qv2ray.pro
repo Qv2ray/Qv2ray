@@ -20,6 +20,10 @@ no_increase_build_number {
     write_file("Build.Counter", _BUILD_NUMBER)
 }
 
+isEmpty(PREFIX) {
+    PREFIX=/usr/local
+}
+
 DEFINES += QT_DEPRECATED_WARNINGS QV2RAY_VERSION_STRING=\"\\\"v$${VERSION}\\\"\" QAPPLICATION_CLASS=QApplication
 
 # Don't merge those configs with below.
@@ -156,7 +160,7 @@ ICON = ./assets/icons/qv2ray.icns
     message("  --> Qv2ray is not properly configured yet: ")
     message("      gRPC and protobuf headers for v2ray API is missing.")
     message("  --> Please run gen_grpc.sh gen_grpc.bat or deps_macOS.sh located in tools/")
-    message("  --> Or consider reading https://github.com/lhy0403/Qv2ray/blob/master/BUILDING.md")
+    message("  --> Or consider reading the build wiki: https://github.com/lhy0403/Qv2ray/wiki/Manually-Build-Qv2ray")
     message("-----------------------------------------------")
     message(" ")
     warning("IF YOU THINK IT'S A MISTAKE, PLEASE OPEN AN ISSUE")
@@ -235,7 +239,7 @@ macx {
     # For Linux and macOS
     message("Configuring for macOS specific environment")
     LIBS += -framework Carbon -framework Cocoa
-    LIBS += -lgpr
+    LIBS += -lgpr -lupb
 }
 
 # Reuse unix for macx as well
@@ -255,27 +259,21 @@ unix {
 
     message("  --> Generating desktop dependency.")
     desktop.files += ./assets/qv2ray.desktop
-    desktop.path = /usr/share/applications/
+    desktop.path = $$PREFIX/share/applications/
 
     message("  --> Generating icons dependency.")
     icon.files += ./assets/icons/qv2ray.png
-    icon.path = /usr/share/icons/hicolor/256x256/apps/
+    icon.path = $$PREFIX/share/icons/hicolor/256x256/apps/
 
-    target.path = /usr/local/bin/
+    message("  --> Generating metainfo dependency.")
+    appdataXml.files += ./assets/qv2ray.metainfo.xml
+    appdataXml.path = $$PREFIX/share/metainfo/
+
+    target.path = $$PREFIX/bin/
     INSTALLS += target desktop icon
 }
 
-build_flatpak {
-    # For Packaging
-    message("Configuring for packaging platform")
-    message("  --> Generating metainfo dependency.")
-    appdataXml.files += ./assets/qv2ray.metainfo.xml
-    appdataXml.path = /app/share/metainfo/
-    LIBS += -L/app/lib
-    INCLUDEPATH += /app/include/
-    desktop.path = /app/share/applications/
-    icon.path = /app/share/icons/hicolor/256x256/apps/
-    target.path = /app/bin/
+with_metainfo {
     INSTALLS += appdataXml
 }
 

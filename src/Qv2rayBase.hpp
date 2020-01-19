@@ -18,6 +18,7 @@ const int QV2RAY_CONFIG_VERSION = 6;
 # endif
 #endif
 
+extern bool isDebug;
 // Base folder suffix.
 #ifdef QT_DEBUG
 # define QV2RAY_CONFIG_DIR_SUFFIX "_debug/"
@@ -178,8 +179,9 @@ namespace Qv2ray
             QString language;
             bool useDarkTheme;
             bool useDarkTrayIcon;
-            Qv2rayUIConfig() : theme("Fusion"), language("en-US"), useDarkTheme(false), useDarkTrayIcon(true) { }
-            XTOSTRUCT(O(theme, language, useDarkTheme, useDarkTrayIcon))
+            int maximumLogLines;
+            Qv2rayUIConfig() : theme("Fusion"), language("en-US"), useDarkTheme(false), useDarkTrayIcon(true), maximumLogLines(500) { }
+            XTOSTRUCT(O(theme, language, useDarkTheme, useDarkTrayIcon, maximumLogLines))
         };
 
         struct Qv2rayConnectionConfig {

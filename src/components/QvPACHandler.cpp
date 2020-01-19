@@ -18,6 +18,7 @@ namespace Qv2ray
         }
         void PACServer::SetProxyString(const QString &proxyString)
         {
+            DEBUG(MODULE_PROXY, "Setting new PAC proxy string: " + proxyString)
             this->proxyString = proxyString;
         }
         void PACServer::StartListen()
@@ -30,6 +31,8 @@ namespace Qv2ray
             auto address = conf.inboundConfig.listenip;
             auto port = conf.inboundConfig.pacConfig.port;
             //
+            DEBUG(MODULE_PROXY, "PAC Listening local endpoint: " + address + ":" + QSTRN(port))
+            //
             QString gfwContent = StringFromFile(new QFile(QV2RAY_RULES_GFWLIST_PATH));
             pacContent = ConvertGFWToPAC(gfwContent, proxyString);
             //
@@ -37,10 +40,10 @@ namespace Qv2ray
 
             if (result) {
                 isStarted = true;
-                LOG(MODULE_PROXY, "Started PAC listener")
+                DEBUG(MODULE_PROXY, "Started PAC handler")
             } else {
-                LOG(MODULE_PROXY, "Failed to listen on port " + QSTRN(port) + ", please verify the permission.")
-                QvMessageBox(nullptr, tr("PAC Handler"), tr("Failed to listen PAC request on this port, please verify the permissions"));
+                LOG(MODULE_PROXY, "Failed to listen on port " + QSTRN(port) + ", possible permission denied.")
+                QvMessageBoxWarn(nullptr, tr("PAC Handler"), tr("Failed to listen PAC request on this port, please verify the permissions"));
             }
         }
 
@@ -48,8 +51,9 @@ namespace Qv2ray
         {
             if (isStarted) {
                 pacServer->close();
-                delete pacServer;
+                DEBUG(MODULE_PROXY, "PAC Handler stopped.")
                 isStarted = false;
+                delete pacServer;
             }
         }
 
@@ -60,6 +64,8 @@ namespace Qv2ray
             if (req->method() == QHttpRequest::HTTP_GET) {
                 //
                 if (req->path() == "/pac") {
+                    DEBUG(MODULE_PROXY, "Serving PAC file request.")
+                    //
                     rsp->setHeader("Content-Type", "application/javascript; charset=utf-8");
                     rsp->writeHead(QHttpResponse::StatusCode::STATUS_OK);
                     rsp->end(pacContent.toUtf8());

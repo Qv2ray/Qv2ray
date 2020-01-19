@@ -3,6 +3,7 @@
 
 #include "Qv2rayBase.hpp"
 #include "QvHelpers.hpp"
+#include "QvCore/QvCommandLineArgs.hpp"
 
 namespace Qv2ray
 {

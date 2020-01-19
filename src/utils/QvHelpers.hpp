@@ -5,6 +5,8 @@
 #include <QMessageBox>
 #include <QUuid>
 
+#define REGEX_IPV6_ADDR "\\[\\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}))|:)))(%.+)?\\s*\\]"
+
 namespace Qv2ray
 {
     namespace Utils
@@ -17,16 +19,19 @@ namespace Qv2ray
         list<string> SplitLines_std(const QString &_string);
         bool FileExistsIn(QDir dir, QString fileName);
         const QString GenerateRandomString(int len = 12);
-        void QvMessageBox(QWidget *parent, QString title, QString text);
+        //
+        void QvMessageBoxWarn(QWidget *parent, QString title, QString text);
+        void QvMessageBoxInfo(QWidget *parent, QString title, QString text);
         int QvMessageBoxAsk(QWidget *parent, QString title, QString text, QMessageBox::StandardButton extraButtons = QMessageBox::NoButton);
+        //
         QString StringFromFile(QFile *source);
         bool StringToFile(const QString *text, QFile *target);
         QJsonObject JsonFromString(QString string);
         QString JsonToString(QJsonObject json, QJsonDocument::JsonFormat format = QJsonDocument::JsonFormat::Indented);
         QString JsonToString(QJsonArray array, QJsonDocument::JsonFormat format = QJsonDocument::JsonFormat::Indented);
         QString VerifyJsonString(const QString &source);
-        QString Stringify(list<string> list, QString saperator = ";");
-        QString Stringify(QList<QString> list, QString saperator = ";");
+        //QString Stringify(list<string> list, QString saperator = ";");
+        //QString Stringify(QList<QString> list, QString saperator = ";");
         QString FormatBytes(long long bytes);
         void DeducePossibleFileName(const QString &baseDir, QString *fileName, const QString &extension);
         QString ConvertGFWToPAC(const QString &rawContent, const QString &customProxyString);
@@ -67,6 +72,11 @@ namespace Qv2ray
         {
             // If no match, we are good.
             return QRegExp(R"([\/\\\"?%*:|><]|(^\.{1,2}$))").indexIn(str) == -1;
+        }
+
+        inline bool IsIPv6Address(const QString &addr)
+        {
+            return QRegularExpression(REGEX_IPV6_ADDR).match(addr).hasMatch();
         }
 
         // These functions a sugers to prevent warnings from deprecated Qt 5.14 functions.
@@ -142,13 +152,13 @@ namespace Qv2ray
         return it != listOfElements.end();
     }
 
-    inline std::string timeToString(const time_t &t)
+    inline QString timeToString(const time_t &t)
     {
         auto _tm = std::localtime(&t);
         char MY_TIME[128];
         // using strftime to display time
         strftime(MY_TIME, sizeof(MY_TIME), "%x - %I:%M%p", _tm);
-        return MY_TIME;
+        return QString(MY_TIME);
     }
 }
 

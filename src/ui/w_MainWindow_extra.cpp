@@ -48,9 +48,9 @@ void MainWindow::MWFindAndStartAutoConfig()
             tray_RootMenu->actions()[0]->setText(tr("Show"));
             on_startButton_clicked();
         } else {
-            QvMessageBox(this, tr("Autostarting a config"), tr("Could not find a specified config named: ") + NEWLINE +
-                         name + NEWLINE + NEWLINE +
-                         tr("Please reset the settings in Preference Window"));
+            QvMessageBoxWarn(this, tr("Autostarting a config"), tr("Could not find a specified config named: ") + NEWLINE +
+                             name + NEWLINE + NEWLINE +
+                             tr("Please reset the settings in Preference Window"));
         }
     } else if (connectionListWidget->topLevelItemCount() > 0) {
         // Make the first one our default selected item.
@@ -97,8 +97,8 @@ void MainWindow::MWSetSystemProxy()
                 LOG(MODULE_PROXY, "Failed to process pac due to following reasons:")
                 LOG(MODULE_PROXY, " --> PAC is configured to use socks but socks is not enabled.")
                 LOG(MODULE_PROXY, " --> PAC is configuted to use http but http is not enabled.")
-                QvMessageBox(this, tr("PAC Processing Failed"), tr("HTTP or SOCKS inbound is not properly configured for PAC") +
-                             NEWLINE + tr("Qv2ray will continue, but will not set system proxy."));
+                QvMessageBoxWarn(this, tr("PAC Processing Failed"), tr("HTTP or SOCKS inbound is not properly configured for PAC") +
+                                 NEWLINE + tr("Qv2ray will continue, but will not set system proxy."));
                 canSetSystemProxy = false;
             }
         } else {
@@ -106,10 +106,10 @@ void MainWindow::MWSetSystemProxy()
             if (httpEnabled) {
                 // Not use PAC, System proxy should use HTTP
                 LOG(MODULE_PROXY, "Using system proxy with HTTP")
-                proxyAddress = "localhost";
+                proxyAddress = "http://localhost";
             } else {
                 LOG(MODULE_PROXY, "HTTP is not enabled, cannot set system proxy.")
-                QvMessageBox(this, tr("Cannot set system proxy"), tr("HTTP inbound is not enabled"));
+                QvMessageBoxWarn(this, tr("Cannot set system proxy"), tr("HTTP inbound is not enabled"));
                 canSetSystemProxy = false;
             }
         }
@@ -153,15 +153,15 @@ bool MainWindow::MWtryStartConnection()
                     pacProxyString = "SOCKS5 " + pacIP + ":" + QSTRN(currentConfig.inboundConfig.socks_port);
                 } else {
                     LOG(MODULE_UI, "PAC is using SOCKS, but it is not enabled")
-                    QvMessageBox(this, tr("Configuring PAC"), tr("Could not start PAC server as it is configured to use SOCKS, but it is not enabled"));
+                    QvMessageBoxWarn(this, tr("Configuring PAC"), tr("Could not start PAC server as it is configured to use SOCKS, but it is not enabled"));
                     canStartPAC = false;
                 }
             } else {
                 if (httpEnabled) {
-                    pacProxyString = "PROXY http://" + pacIP + ":" + QSTRN(currentConfig.inboundConfig.http_port);
+                    pacProxyString = "PROXY " + pacIP + ":" + QSTRN(currentConfig.inboundConfig.http_port);
                 } else {
                     LOG(MODULE_UI, "PAC is using HTTP, but it is not enabled")
-                    QvMessageBox(this, tr("Configuring PAC"), tr("Could not start PAC server as it is configured to use HTTP, but it is not enabled"));
+                    QvMessageBoxWarn(this, tr("Configuring PAC"), tr("Could not start PAC server as it is configured to use HTTP, but it is not enabled"));
                     canStartPAC = false;
                 }
             }
@@ -205,7 +205,7 @@ void MainWindow::MWTryPingConnection(const QvConfigIdentifier &alias)
         int port = get<1>(info);
         tcpingModel->StartPing(alias, host, port);
     }  catch (...) {
-        QvMessageBox(this, tr("Latency Test"), tr("Failed to test latency for this connection."));
+        QvMessageBoxWarn(this, tr("Latency Test"), tr("Failed to test latency for this connection."));
     }
 }
 
@@ -239,9 +239,9 @@ void MainWindow::CheckSubscriptionsUpdate()
     }
 
     if (!updateList.isEmpty()) {
-        QvMessageBox(this, tr("Update Subscriptions"),
-                     tr("There are subscriptions need to be updated, please go to subscriptions window to update them.") + NEWLINE + NEWLINE +
-                     tr("These subscriptions are out-of-date: ") + NEWLINE + Stringify(updateList));
+        QvMessageBoxWarn(this, tr("Update Subscriptions"),
+                         tr("There are subscriptions need to be updated, please go to subscriptions window to update them.") + NEWLINE + NEWLINE +
+                         tr("These subscriptions are out-of-date: ") + NEWLINE + updateList.join(";"));
         on_subsButton_clicked();
     }
 }

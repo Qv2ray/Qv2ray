@@ -27,7 +27,7 @@ namespace Qv2ray
                 }
             }
 
-            LOG(MODULE_PROXY, "Found " + QSTRN(result.size()) + " network services: " + Stringify(result))
+            LOG(MODULE_PROXY, "Found " + QSTRN(result.size()) + " network services: " + result.join(";"))
             return result;
         }
 #endif

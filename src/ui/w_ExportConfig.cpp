@@ -68,11 +68,11 @@ void ConfigExporter::on_saveBtn_clicked()
 void ConfigExporter::on_copyImageBtn_clicked()
 {
     QGuiApplication::clipboard()->setImage(image);
-    QvMessageBox(this, tr("Share Connection"), tr("Image has been copied to the clipboard."));
+    QvMessageBoxInfo(this, tr("Share Connection"), tr("Image has been copied to the clipboard."));
 }
 
 void ConfigExporter::on_copyVMessBtn_clicked()
 {
     QGuiApplication::clipboard()->setText(message);
-    QvMessageBox(this, tr("Share Connection"), tr("VMess string has been copied to the clipboard."));
+    QvMessageBoxInfo(this, tr("Share Connection"), tr("VMess string has been copied to the clipboard."));
 }

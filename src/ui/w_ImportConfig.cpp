@@ -26,11 +26,12 @@ ImportConfigWindow::ImportConfigWindow(QWidget *parent)
     nameTxt->setText(QDateTime::currentDateTime().toString("MMdd_hhmm"));
 }
 
-QMap<QString, CONFIGROOT> ImportConfigWindow::OpenImport(bool outboundsOnly)
+QMap<QString, CONFIGROOT> ImportConfigWindow::OpenImport(bool partialImport)
 {
-    // if Outbound Only, set keepImported to false and disable the checkbox
+    // partial import means only import as an outbound, will set keepImported to false and disable the checkbox
     // keepImportedInboundCheckBox->setChecked(!outboundsOnly);
-    keepImportedInboundCheckBox->setEnabled(!outboundsOnly);
+    keepImportedInboundCheckBox->setEnabled(!partialImport);
+    routeEditBtn->setEnabled(!partialImport);
     this->exec();
     return this->result() == QDialog::Accepted ? connections : QMap<QString, CONFIGROOT>();
 }
@@ -52,7 +53,7 @@ void ImportConfigWindow::on_qrFromScreenBtn_clicked()
 
         if (str.trimmed().isEmpty()) {
             LOG(MODULE_UI, "Cannot decode QR Code from an image, size: h=" + QSTRN(pix.width()) + ", v=" + QSTRN(pix.height()))
-            QvMessageBox(this, tr("Capture QRCode"), tr("Cannot find a valid QRCode from this region."));
+            QvMessageBoxWarn(this, tr("Capture QRCode"), tr("Cannot find a valid QRCode from this region."));
         } else {
             vmessConnectionStringTxt->appendPlainText(str.trimmed() + NEWLINE);
         }
@@ -71,7 +72,7 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
             QString path = fileLineTxt->text();
 
             if (!V2rayKernelInstance::ValidateConfig(path)) {
-                QvMessageBox(this, tr("Import config file"), tr("Failed to check the validity of the config file."));
+                QvMessageBoxWarn(this, tr("Import config file"), tr("Failed to check the validity of the config file."));
                 return;
             }
 
@@ -120,12 +121,6 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
 
             break;
         }
-
-        case 2: {
-            QvMessageBox(this, tr("TODO"), tr("TODO"));
-            // Subscription link.
-            break;
-        }
     }
 
     accept();
@@ -143,7 +138,7 @@ void ImportConfigWindow::on_selectImageBtn_clicked()
     auto str = QZXing().decodeImage(QImage::fromData(buf));
 
     if (str.isEmpty()) {
-        QvMessageBox(this, tr("QRCode scanning failed"), tr("Cannot find any QRCode from the image."));
+        QvMessageBoxWarn(this, tr("QRCode scanning failed"), tr("Cannot find any QRCode from the image."));
         return;
     } else {
         vmessConnectionStringTxt->appendPlainText(str.trimmed() + NEWLINE);
@@ -178,7 +173,7 @@ void ImportConfigWindow::on_editFileBtn_clicked()
     QFile file(fileLineTxt->text());
 
     if (!file.exists()) {
-        QvMessageBox(this, tr("Edit file as JSON"), tr("Provided file not found: ")  +  fileLineTxt->text());
+        QvMessageBoxWarn(this, tr("Edit file as JSON"), tr("Provided file not found: ")  +  fileLineTxt->text());
         return;
     }
 
@@ -204,7 +199,7 @@ void ImportConfigWindow::on_editFileBtn_clicked()
         bool result = StringToFile(&str, &file);
 
         if (!result) {
-            QvMessageBox(this, tr("Edit file as JSON"), tr("Failed to save file, please check if you have proper permissions"));
+            QvMessageBoxWarn(this, tr("Edit file as JSON"), tr("Failed to save file, please check if you have proper permissions"));
         }
     } else {
         LOG(MODULE_FILE, "Canceled saving a file.")
@@ -242,6 +237,14 @@ void ImportConfigWindow::on_subscriptionButton_clicked()
     hide();
     SubscribeEditor w;
     w.exec();
+    auto importToComplex = !keepImportedInboundCheckBox->isEnabled();
+    connections.clear();
+
+    if (importToComplex) {
+        auto _result = w.GetSelectedConfig();
+        connections[_result.first] = _result.second;
+    }
+
     accept();
 }
 

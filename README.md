@@ -1,6 +1,6 @@
-***注意：Qv2ray 仅能用于 Qt/c++/linux/CI/自动化 等相关技术的学习和在法律允许范围内的使用，任何个人或集体不得使用 Qv2ray 进行任何违反相关法律法规的活动。***
+***注意：Qv2ray 仅能用于 Qt/C++/Linux/CI/自动化 等相关技术的学习和在法律允许范围内的使用，任何个人或集体不得使用 Qv2ray 进行任何违反相关法律法规的活动。***
 
-> Note: Qv2ray can **ONLY** be used for learning related technologies such as Qt/c++/linux/CI/automation and use within the scope permitted by law. Any individual or group **MAY NOT** use Qv2ray for any violation of relevant laws and regulations.
+> Note: Qv2ray can **ONLY** be used for learning related technologies such as Qt/C++/Linux/CI/automation and use within the scope permitted by law. Any individual or group **MAY NOT** use Qv2ray for any violation of relevant laws and regulations.
 
 *任何尝试下载或下载 Qv2ray 任意分支或发行版即代表您同意本项目作者不承担任何由于您违反以上准则所带来的任何法律责任。*
 

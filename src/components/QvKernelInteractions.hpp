@@ -10,12 +10,6 @@ namespace Qv2ray
 {
     namespace QvKernelInterations
     {
-        enum QvInstanceStatus {
-            STOPPED,
-            STARTING,
-            STARTED
-        };
-
         class V2rayKernelInstance : public QObject
         {
                 Q_OBJECT
@@ -35,11 +29,13 @@ namespace Qv2ray
                 //
                 bool StartConnection(CONFIGROOT root, int apiPort);
                 void StopConnection();
-                QvInstanceStatus ConnectionStatus;
+                bool KernelStarted = false;
                 //
                 static bool ValidateConfig(const QString &path);
+                static bool ValidateKernel(const QString &vCorePath, const QString &vAssetsPath, QString *message);
 
             signals:
+                void onProcessErrored();
                 void onProcessOutputReadyRead(QString);
 
             private:

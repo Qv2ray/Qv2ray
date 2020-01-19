@@ -8,7 +8,12 @@
 
 void RouteEditor::AddNewInbound(INBOUND in)
 {
-    QString tag = in["tag"].toString();
+    QString tag = getTag(in);
+
+    if (inbounds.contains(tag)) {
+        tag = tag + "_" + GenerateRandomString(5);
+    }
+
     auto _nodeData = make_unique<QvInboundNodeModel>(make_shared<InboundNodeData>(tag));
     auto &node = nodeScene->createNode(std::move(_nodeData));
     auto pos = QPointF();
@@ -22,6 +27,11 @@ void RouteEditor::AddNewInbound(INBOUND in)
 void RouteEditor::AddNewOutbound(OUTBOUND out)
 {
     QString tag = getTag(out);
+
+    if (outbounds.contains(tag)) {
+        tag = tag + "_" + GenerateRandomString(5);
+    }
+
     auto _nodeData = make_unique<QvOutboundNodeModel>(make_shared<OutboundNodeData>(tag));
     auto pos = nodeGraphWidget->pos();
     pos.setX(pos.x() + 850 + GRAPH_GLOBAL_OFFSET_X);
@@ -68,15 +78,16 @@ void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString &originalTag
         case RENAME_RULE:
             if (rules.contains(originalTag) && ruleNodes.contains(originalTag)) {
                 if (rules.contains(newTag) && rules.contains(newTag)) {
-                    QvMessageBox(this, tr("Rename tags"), tr("The new tag has been used, please suggest another."));
+                    QvMessageBoxWarn(this, tr("Rename tags"), tr("The new tag has been used, please suggest another."));
                     return;
                 }
 
+                //
+                auto node = static_cast<QvRuleNodeDataModel *>(ruleNodes[originalTag]->nodeDataModel());
+                node->setData(newTag);
+                //
                 rules[newTag] = rules.take(originalTag);
                 ruleNodes[newTag] = ruleNodes.take(originalTag);
-                //
-                auto node = static_cast<QvRuleNodeDataModel *>(ruleNodes[newTag]->nodeDataModel());
-                node->setData(newTag);
                 // No other operation needed, but need to rename the one in the ruleOrder list widget.
                 auto items = ruleListWidget->findItems(originalTag, Qt::MatchExactly);
 
@@ -103,7 +114,7 @@ void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString &originalTag
         case RENAME_OUTBOUND:
             if (outbounds.contains(originalTag) && outboundNodes.contains(originalTag)) {
                 if (outbounds.contains(newTag) && outboundNodes.contains(newTag)) {
-                    QvMessageBox(this, tr("Rename tags"), tr("The new tag has been used, please suggest another."));
+                    QvMessageBoxWarn(this, tr("Rename tags"), tr("The new tag has been used, please suggest another."));
                     return;
                 }
 
@@ -131,7 +142,7 @@ void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString &originalTag
         case RENAME_INBOUND:
             if (inbounds.contains(originalTag) && inboundNodes.contains(originalTag)) {
                 if (inbounds.contains(newTag) && inboundNodes.contains(newTag)) {
-                    QvMessageBox(this, tr("Rename tags"), tr("The new tag has been used, please suggest another."));
+                    QvMessageBoxWarn(this, tr("Rename tags"), tr("The new tag has been used, please suggest another."));
                     return;
                 }
 

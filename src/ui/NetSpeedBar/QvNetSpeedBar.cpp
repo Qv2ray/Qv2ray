@@ -94,23 +94,9 @@ namespace Qv2ray
 
                             case 105: {
                                 // Current Connection Status
-                                switch (instance->vinstance->ConnectionStatus) {
-                                    case STARTED: {
-                                        CL.Message = QObject::tr("Connected");
-                                        break;
-                                    }
-
-                                    case STOPPED: {
-                                        CL.Message = QObject::tr("Disconnected");
-                                        break;
-                                    }
-
-                                    case STARTING: {
-                                        CL.Message = QObject::tr("Connecting");
-                                        break;
-                                    }
-                                }
-
+                                CL.Message = instance->vinstance->KernelStarted
+                                             ? QObject::tr("Connected")
+                                             : QObject::tr("Disconnected");
                                 break;
                             }
 

@@ -377,10 +377,12 @@
   </layout>
  </widget>
  <tabstops>
+  <tabstop>nameTxt</tabstop>
+  <tabstop>tabWidget</tabstop>
   <tabstop>fileLineTxt</tabstop>
+  <tabstop>selectFileBtn</tabstop>
   <tabstop>keepImportedInboundCheckBox</tabstop>
   <tabstop>editFileBtn</tabstop>
-  <tabstop>selectFileBtn</tabstop>
   <tabstop>imageFileEdit</tabstop>
   <tabstop>selectImageBtn</tabstop>
   <tabstop>qrFromScreenBtn</tabstop>
@@ -388,8 +390,10 @@
   <tabstop>vmessConnectionStringTxt</tabstop>
   <tabstop>errorsList</tabstop>
   <tabstop>connectionEditBtn</tabstop>
-  <tabstop>cancelImportBtn</tabstop>
+  <tabstop>routeEditBtn</tabstop>
+  <tabstop>subscriptionButton</tabstop>
   <tabstop>beginImportBtn</tabstop>
+  <tabstop>cancelImportBtn</tabstop>
  </tabstops>
  <resources/>
  <connections/>

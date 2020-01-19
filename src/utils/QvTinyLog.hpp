@@ -10,22 +10,16 @@ using namespace std;
  * Tiny log module.
  */
 
-void _LOG(const std::string &func, const QString &module, const QString &log);
+void __QV2RAY_LOG_FUNC__(int type, const std::string &func, int line, const QString &module, const QString &log);
 const QString readLastLog();
 
-#ifdef QV2RAY_LOG_WITH_FUNCTION_NAME
-# define _QV2RAY_LOG_FUNCSTR __PRETTY_FUNCTION__
-#else
-# define _QV2RAY_LOG_FUNCSTR ""
-#endif
+#define QV2RAY_LOG_NORMAL 0
+#define QV2RAY_LOG_DEBUG  1
 
-#define LOG(module, msg) _LOG(_QV2RAY_LOG_FUNCSTR, module, msg);
+#define __LOG_IMPL(LEVEL, MODULE, MSG) __QV2RAY_LOG_FUNC__(LEVEL, __PRETTY_FUNCTION__, __LINE__, MODULE, MSG);
 
-#ifdef QT_DEBUG
-#define DEBUG(module, msg) _LOG(__PRETTY_FUNCTION__, module, msg);
-#else
-#define DEBUG(module, msg)
-#endif
+#define LOG(MODULE, MSG) __LOG_IMPL(QV2RAY_LOG_NORMAL, (MODULE), (MSG));
+#define DEBUG(MODULE, MSG) __LOG_IMPL(QV2RAY_LOG_DEBUG, (MODULE), (MSG));
 
 // Log modules used by Qv2ray
 #define MODULE_INIT              "INIT"

@@ -15,6 +15,8 @@
 #include "unistd.h"
 #endif
 
+bool isDebug = false;
+
 bool verifyConfigAvaliability(QString path, bool checkExistingConfig)
 {
     // Does not exist.
@@ -78,7 +80,7 @@ bool verifyConfigAvaliability(QString path, bool checkExistingConfig)
         }  catch (...) {
             LOG(MODULE_CONFIG, "Exception raised when checking config: " + configFile.fileName())
             //LOG(MODULE_INIT, e->what())
-            QvMessageBox(nullptr, QObject::tr("Warning"), QObject::tr("Qv2ray cannot load the config file from here:") + NEWLINE + configFile.fileName());
+            QvMessageBoxWarn(nullptr, QObject::tr("Warning"), QObject::tr("Qv2ray cannot load the config file from here:") + NEWLINE + configFile.fileName());
             return false;
         }
     } else return true;
@@ -142,10 +144,10 @@ bool initialiseQv2ray()
                 // Otherwise Qv2ray would have loaded this config already instead of notifying to
                 // create a new config in this folder.
                 LOG(MODULE_INIT, "This should not occur: Qv2ray config exists but failed to load.")
-                QvMessageBox(nullptr, QObject::tr("Failed to initialise Qv2ray"),
-                             QObject::tr("Failed to determine the location of config file.") + NEWLINE +
-                             QObject::tr("Qv2ray will now exit.") + NEWLINE +
-                             QObject::tr("Please report if you think it's a bug."));
+                QvMessageBoxWarn(nullptr, QObject::tr("Failed to initialise Qv2ray"),
+                                 QObject::tr("Failed to determine the location of config file.") + NEWLINE +
+                                 QObject::tr("Qv2ray will now exit.") + NEWLINE +
+                                 QObject::tr("Please report if you think it's a bug."));
                 return false;
             }
 
@@ -162,18 +164,18 @@ bool initialiseQv2ray()
             // Even the last folder failed to pass the check.
             LOG(MODULE_INIT, "FATAL")
             LOG(MODULE_INIT, " ---> CANNOT find a proper place to store Qv2ray config files.")
-            QString searchPath = Stringify(configFilePaths, NEWLINE);
-            QvMessageBox(nullptr, QObject::tr("Cannot Start Qv2ray"),
-                         QObject::tr("Cannot find a place to store config files.") + NEWLINE +
-                         QObject::tr("Qv2ray has searched these paths below:") +
-                         NEWLINE + NEWLINE + searchPath + NEWLINE +
-                         QObject::tr("Qv2ray will now exit."));
+            QString searchPath = configFilePaths.join(NEWLINE);
+            QvMessageBoxWarn(nullptr, QObject::tr("Cannot Start Qv2ray"),
+                             QObject::tr("Cannot find a place to store config files.") + NEWLINE +
+                             QObject::tr("Qv2ray has searched these paths below:") +
+                             NEWLINE + NEWLINE + searchPath + NEWLINE +
+                             QObject::tr("Qv2ray will now exit."));
             return false;
         }
     }
 
     if (!QDir(QV2RAY_GENERATED_DIR).exists()) {
-        // The dir used to generate final config file, for v2ray interaction.
+        // The dir used to generate final config file, for V2ray interaction.
         QDir().mkdir(QV2RAY_GENERATED_DIR);
         LOG(MODULE_INIT, "Created config generation dir at: " + QV2RAY_GENERATED_DIR)
     }
@@ -187,6 +189,9 @@ int main(int argc, char *argv[])
     // parse the command line before starting as a Qt application
     {
         std::unique_ptr<QCoreApplication> consoleApp(new QCoreApplication(argc, argv));
+        //
+        // Install a default translater. From the OS/DE
+        consoleApp->installTranslator(getTranslator(QLocale::system().name().replace("_", "-")));
         QvCommandArgParser parser;
         QString errorMessage;
 
@@ -207,19 +212,18 @@ int main(int argc, char *argv[])
                 cout << parser.Parser()->helpText().toStdString() << endl;
                 return 0;
         }
-
+    }
 #ifdef Q_OS_UNIX
 
-        // Unix OS root user check.
-        // Do not use getuid() here since it's installed as owned by the root, someone may accidently setuid to it.
-        if (!StartupOption.forceRunAsRootUser && geteuid() == 0) {
-            LOG("ERROR", QObject::tr("You cannot run Qv2ray as root, please use --I-just-wanna-run-with-root if you REALLY want to do so."))
-            LOG("ERROR", QObject::tr(" --> USE IT AT YOUR OWN RISK!"))
-            return 1;
-        }
+    // Unix OS root user check.
+    // Do not use getuid() here since it's installed as owned by the root, someone may accidently setuid to it.
+    if (!StartupOption.forceRunAsRootUser && geteuid() == 0) {
+        LOG("ERROR", QObject::tr("You cannot run Qv2ray as root, please use --I-just-wanna-run-with-root if you REALLY want to do so."))
+        LOG("ERROR", QObject::tr(" --> USE IT AT YOUR OWN RISK!"))
+        return 1;
+    }
 
 #endif
-    }
     //
     // finished: command line parsing
     LOG(MODULE_INIT, "Qv2ray " QV2RAY_VERSION_STRING " running on " + QSysInfo::prettyProductName() + " " + QSysInfo::currentCpuArchitecture() + NEWLINE)
@@ -232,23 +236,31 @@ int main(int argc, char *argv[])
     //
 #ifdef QT_DEBUG
     // ----------------------------> For debug build...
+    isDebug = true;
     SingleApplication::setApplicationName("Qv2ray - DEBUG");
 #endif
+
+    //
+    if (StartupOption.debugLog) {
+        DEBUG(MODULE_INIT, "Debug log enabled")
+    }
+
     //
     SingleApplication _qApp(argc, argv, false, SingleApplication::Mode::User | SingleApplication::Mode::ExcludeAppPath | SingleApplication::Mode::ExcludeAppVersion);
     // Early initialisation
     //
-    //
+    // Not duplicated.
     // Install a default translater. From the OS/DE
     auto _lang = QLocale::system().name().replace("_", "-");
     auto _sysTranslator = getTranslator(_lang);
 
     if (_lang != "en-US") {
         // Do not install en-US as it's the default language.
-        bool _result_ = qApp->installTranslator(_sysTranslator);
+        bool _result_ = _qApp.installTranslator(_sysTranslator);
         LOG(MODULE_UI, "Installing a tranlator from OS: " + _lang + " -- " + (_result_ ? "OK" : "Failed"))
     }
 
+    //
     LOG("LICENCE", NEWLINE "This program comes with ABSOLUTELY NO WARRANTY." NEWLINE
         "This is free software, and you are welcome to redistribute it" NEWLINE
         "under certain conditions." NEWLINE NEWLINE
@@ -278,7 +290,7 @@ int main(int argc, char *argv[])
 
     if (langs.empty()) {
         LOG(MODULE_INIT, "FAILED to find any translations. THIS IS A BUILD ERROR.")
-        QvMessageBox(nullptr, QObject::tr("Cannot load languages"), QObject::tr("Qv2ray will continue running, but you cannot change the UI language."));
+        QvMessageBoxWarn(nullptr, QObject::tr("Cannot load languages"), QObject::tr("Qv2ray will continue running, but you cannot change the UI language."));
     } else {
         for (auto lang : langs) {
             LOG(MODULE_INIT, "Found Translator: " + lang)
@@ -297,11 +309,11 @@ int main(int argc, char *argv[])
     if (confVersion > QV2RAY_CONFIG_VERSION) {
         // Config version is larger than the current version...
         // This is rare but it may happen....
-        QvMessageBox(nullptr, QObject::tr("Qv2ray Cannot Continue"),
-                     QObject::tr("You are running a lower version of Qv2ray compared to the current config file.") + NEWLINE +
-                     QObject::tr("Please check if there's an issue explaining about it.") + NEWLINE +
-                     QObject::tr("Or submit a new issue if you think this is an error.") + NEWLINE + NEWLINE +
-                     QObject::tr("Qv2ray will now exit."));
+        QvMessageBoxWarn(nullptr, QObject::tr("Qv2ray Cannot Continue"),
+                         QObject::tr("You are running a lower version of Qv2ray compared to the current config file.") + NEWLINE +
+                         QObject::tr("Please check if there's an issue explaining about it.") + NEWLINE +
+                         QObject::tr("Or submit a new issue if you think this is an error.") + NEWLINE + NEWLINE +
+                         QObject::tr("Qv2ray will now exit."));
         return -2;
     }
 
@@ -314,7 +326,7 @@ int main(int argc, char *argv[])
     auto confObject = StructFromJsonString<Qv2rayConfig>(JsonToString(conf));
     // Remove system translator, for loading custom translations.
     qApp->removeTranslator(_sysTranslator);
-    LOG(MODULE_INIT, "Removing system translations")
+    LOG(MODULE_INIT, "Removed system translations")
 
     if (confObject.uiConfig.language.isEmpty()) {
         // Prevent empty.
@@ -327,11 +339,10 @@ int main(int argc, char *argv[])
     } else {
         // Do not translate these.....
         // If a translator fails to load, pop up a message.
-        QvMessageBox(
+        QvMessageBoxWarn(
             nullptr, "Translation Failed",
-            "Cannot load translation for " + confObject.uiConfig.language + ", English is now used.\r\n\r\n"
-            "Please go to Preferences Window to change or Report a Bug at: \r\n"
-            "https://github.com/lhy0403/Qv2ray/issues/new");
+            "Cannot load translation for " + confObject.uiConfig.language + ", English is now used." + NEWLINE + NEWLINE +
+            "Please go to Preferences Window to change language or open an Issue");
     }
 
     // Let's save the config.
@@ -345,15 +356,13 @@ int main(int argc, char *argv[])
     if (!QSslSocket::supportsSsl()) {
         LOG(MODULE_NETWORK, "Required OpenSSL version: " + osslReqVersion)
         LOG(MODULE_NETWORK, "OpenSSL library MISSING, Quitting.")
-        QvMessageBox(nullptr, QObject::tr("DependencyMissing"),
-                     QObject::tr("Cannot find openssl libs") + "\r\n" +
-                     QObject::tr("This could be caused by a missing of `openssl` package in your system. Or an AppImage issue.") + "\r\n" +
-                     QObject::tr("If you are using AppImage, please report a bug.") + "\r\n\r\n" +
-                     QObject::tr("Please refer to Github Issue #65 to check for solutions.") + "\r\n" +
-                     QObject::tr("Github Issue Link: ") + "https://github.com/lhy0403/Qv2ray/issues/65" + "\r\n\r\n" +
-                     QObject::tr("Technical Details") + "\r\n" +
-                     "OSsl.Rq.V=" + osslReqVersion + "\r\n" +
-                     "OSsl.Cr.V=" + osslCurVersion);
+        QvMessageBoxWarn(nullptr, QObject::tr("Dependency Missing"),
+                         QObject::tr("Cannot find openssl libs") + NEWLINE +
+                         QObject::tr("This could be caused by a missing of `openssl` package in your system.") + NEWLINE +
+                         QObject::tr("If you are using an AppImage from Github Action, please report a bug.") + NEWLINE + NEWLINE +
+                         QObject::tr("Technical Details") + NEWLINE +
+                         "OSsl.Rq.V=" + osslReqVersion + NEWLINE +
+                         "OSsl.Cr.V=" + osslCurVersion);
         return -3;
     }
 
@@ -431,7 +440,7 @@ int main(int argc, char *argv[])
         return rcode;
 #ifndef QT_DEBUG
     }  catch (...) {
-        QvMessageBox(nullptr, "ERROR", "There's something wrong happened and Qv2ray will quit now.");
+        QvMessageBoxWarn(nullptr, "ERROR", "There's something wrong happened and Qv2ray will quit now.");
         LOG(MODULE_INIT, "EXCEPTION THROWN: " __FILE__)
         return -99;
     }

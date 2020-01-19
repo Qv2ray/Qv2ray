@@ -24,7 +24,7 @@ InboundEditor::InboundEditor(INBOUND root, QWidget *parent) :
     } else {
         if (!root["protocol"].toString().isEmpty()) {
             LOG(MODULE_UI, "Unsupported inbound type: " + inboundType)
-            QvMessageBox(this, tr("Inbound type not supported"), tr("The inbound type is not supported by Qv2ray (yet). Please use JsonEditor to change the settings") + "\r\n" +
+            QvMessageBoxWarn(this, tr("Inbound type not supported"), tr("The inbound type is not supported by Qv2ray (yet). Please use JsonEditor to change the settings") + "\r\n" +
                          tr("Inbound: ") + inboundType);
         } else {
             LOG(MODULE_UI, "Creating new inbound config")
@@ -195,7 +195,7 @@ void InboundEditor::on_httpRemoveUserBtn_clicked()
 
         //QvMessageBox(this, tr("Removing a user"), tr("No user has been removed. Why?"));
     } else {
-        QvMessageBox(this, tr("Removing a user"), tr("You haven't selected a user yet."));
+        QvMessageBoxWarn(this, tr("Removing a user"), tr("You haven't selected a user yet."));
     }
 }
 
@@ -211,7 +211,7 @@ void InboundEditor::on_httpAddUserBtn_clicked()
         auto _user = list[i].toObject();
 
         if (_user["user"].toString() == user) {
-            QvMessageBox(this, tr("Add a user"), tr("This user exists already."));
+            QvMessageBoxWarn(this, tr("Add a user"), tr("This user exists already."));
             return;
         }
     }
@@ -247,7 +247,7 @@ void InboundEditor::on_socksRemoveUserBtn_clicked()
             }
         }
     } else {
-        QvMessageBox(this, tr("Removing a user"), tr("You haven't selected a user yet."));
+        QvMessageBoxWarn(this, tr("Removing a user"), tr("You haven't selected a user yet."));
     }
 }
 
@@ -263,7 +263,7 @@ void InboundEditor::on_socksAddUserBtn_clicked()
         auto _user = list[i].toObject();
 
         if (_user["user"].toString() == user) {
-            QvMessageBox(this, tr("Add a user"), tr("This user exists already."));
+            QvMessageBoxWarn(this, tr("Add a user"), tr("This user exists already."));
             return;
         }
     }

@@ -267,7 +267,7 @@ CONFIGROOT RouteEditor::OpenEditor()
                 ruleJsonObject.remove("outboundTag");
 
                 // Find balancer list
-                if (!_balancers.contains(_rule.balancerTag)) {
+                if (!balancers.contains(_rule.balancerTag)) {
                     LOG(MODULE_UI, "Cannot find a balancer for tag: " + _rule.balancerTag)
                 } else {
                     auto _balancerList = balancers[_rule.balancerTag];
@@ -373,19 +373,19 @@ void RouteEditor::ShowCurrentRuleDetail()
     routePortTxt->setText(CurrentRule.port);
     //
     // Users
-    QString users = Stringify(CurrentRule.user, NEWLINE);
+    QString users = CurrentRule.user.join(NEWLINE);
     routeUserTxt->setPlainText(users);
     //
     // Incoming Sources
-    QString sources = Stringify(CurrentRule.source, NEWLINE);
+    QString sources = CurrentRule.source.join(NEWLINE);
     sourceIPList->setPlainText(sources);
     //
     // Domains
-    QString domains = Stringify(CurrentRule.domain, NEWLINE);
+    QString domains = CurrentRule.domain.join(NEWLINE);
     hostList->setPlainText(domains);
     //
     // Outcoming IPs
-    QString ips = Stringify(CurrentRule.ip, NEWLINE);
+    QString ips = CurrentRule.ip.join(NEWLINE);
     ipList->setPlainText(ips);
     LOAD_FLAG_END
 }
@@ -410,7 +410,7 @@ void RouteEditor::on_routeProtocolHTTPCB_stateChanged(int arg1)
     if (routeProtocolBTCB->isChecked()) protocols.push_back("bittorrent");
 
     CurrentRule.protocol = protocols;
-    statusLabel->setText(tr("Protocol list changed: ") + Stringify(protocols));
+    statusLabel->setText(tr("Protocol list changed: ") + protocols.join(";"));
 }
 void RouteEditor::on_routeProtocolTLSCB_stateChanged(int arg1)
 {
@@ -424,7 +424,7 @@ void RouteEditor::on_routeProtocolTLSCB_stateChanged(int arg1)
     if (routeProtocolBTCB->isChecked()) protocols.push_back("bittorrent");
 
     CurrentRule.protocol = protocols;
-    statusLabel->setText(tr("Protocol list changed: ") + Stringify(protocols));
+    statusLabel->setText(tr("Protocol list changed: ") + protocols.join(";"));
 }
 void RouteEditor::on_routeProtocolBTCB_stateChanged(int arg1)
 {
@@ -438,7 +438,7 @@ void RouteEditor::on_routeProtocolBTCB_stateChanged(int arg1)
     if (routeProtocolTLSCB->isChecked()) protocols.push_back("tls");
 
     CurrentRule.protocol = protocols;
-    statusLabel->setText(tr("Protocol list changed: ") + Stringify(protocols));
+    statusLabel->setText(tr("Protocol list changed: ") + protocols.join(";"));
 }
 void RouteEditor::on_balancerAddBtn_clicked()
 {
@@ -551,7 +551,7 @@ void RouteEditor::on_enableBalancerCB_stateChanged(int arg1)
             }
         }
     } else {
-        QvMessageBox(this, tr("Route Editor"), tr("To make this rule ready to use, you need to connect it to an outbound node."));
+        QvMessageBoxWarn(this, tr("Route Editor"), tr("To make this rule ready to use, you need to connect it to an outbound node."));
     }
 }
 void RouteEditor::on_addDefaultBtn_clicked()
@@ -628,7 +628,7 @@ void RouteEditor::on_ruleEnableCB_stateChanged(int arg1)
 void RouteEditor::on_delBtn_clicked()
 {
     if (nodeScene->selectedNodes().empty()) {
-        QvMessageBox(this, tr("Remove Items"), tr("Please select a node from the graph to continue."));
+        QvMessageBoxWarn(this, tr("Remove Items"), tr("Please select a node from the graph to continue."));
     }
 
     auto firstNode = nodeScene->selectedNodes()[0];
@@ -677,7 +677,7 @@ void RouteEditor::on_delBtn_clicked()
 void RouteEditor::on_editBtn_clicked()
 {
     if (nodeScene->selectedNodes().empty()) {
-        QvMessageBox(this, tr("Edit Inbound/Outbound"), tr("Please select a node from the graph to continue."));
+        QvMessageBoxWarn(this, tr("Edit Inbound/Outbound"), tr("Please select a node from the graph to continue."));
     }
 
     auto firstNode = nodeScene->selectedNodes()[0];
@@ -692,8 +692,8 @@ void RouteEditor::on_editBtn_clicked()
         int _code;
 
         if (protocol != "http" && protocol != "mtproto" && protocol != "socks" && protocol != "dokodemo-door") {
-            QvMessageBox(this, tr("Cannot Edit"), tr("Currently, this type of outbound is not supported by the editor.") + "\r\n" +
-                         tr("We will launch Json Editor instead."));
+            QvMessageBoxWarn(this, tr("Cannot Edit"), tr("Currently, this type of outbound is not supported by the editor.") + "\r\n" +
+                             tr("We will launch Json Editor instead."));
             statusLabel->setText(tr("Opening JSON editor"));
             JsonEditor *w = new JsonEditor(_in, this);
             _result = INBOUND(w->OpenEditor());
@@ -726,9 +726,9 @@ void RouteEditor::on_editBtn_clicked()
         int _code;
 
         if (protocol != "vmess" && protocol != "shadowsocks" && protocol != "socks") {
-            QvMessageBox(this, tr("Unsupported Outbound Type"),
-                         tr("This outbound entry is not supported by the GUI editor.") + NEWLINE +
-                         tr("We will launch Json Editor instead."));
+            QvMessageBoxWarn(this, tr("Unsupported Outbound Type"),
+                             tr("This outbound entry is not supported by the GUI editor.") + NEWLINE +
+                             tr("We will launch Json Editor instead."));
             JsonEditor w(_out, this);
             statusLabel->setText(tr("Opening JSON editor"));
             _result = OUTBOUND(w.OpenEditor());
@@ -769,5 +769,10 @@ void RouteEditor::on_defaultOutboundCombo_currentIndexChanged(const QString &arg
 
 void RouteEditor::on_ruleTagLineEdit_textEdited(const QString &arg1)
 {
+    if (arg1.isEmpty()) {
+        ruleTagLineEdit->setText(CurrentRule.QV2RAY_RULE_TAG);
+        return;
+    }
+
     RenameItemTag(RENAME_RULE, CurrentRule.QV2RAY_RULE_TAG, arg1);
 }

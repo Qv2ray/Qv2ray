@@ -22,6 +22,14 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent),
     setupUi(this);
     textBrowser->setHtml(StringFromFile(new QFile(":/assets/credit.html")));
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
+    //
+    // Set network Toolbar page state.
+    networkToolbarPage->setEnabled(StartupOption.enableToolbarPlguin);
+
+    if (!StartupOption.enableToolbarPlguin) {
+        networkToolbarInfoLabel->setText(tr("Qv2ray Network Toolbar is disabled and still under test. Add --withNetworkToolbar to enable."));
+    }
+
     // We add locales
     languageComboBox->clear();
     QDirIterator it(":/translations");
@@ -55,17 +63,16 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent),
     //
     listenIPTxt->setText(CurrentConfig.inboundConfig.listenip);
     bool pacEnabled = CurrentConfig.inboundConfig.pacConfig.enablePAC;
-    enablePACCB->setChecked(pacEnabled);
+    pacGroupBox->setChecked(pacEnabled);
     setSysProxyCB->setChecked(CurrentConfig.inboundConfig.setSystemProxy);
     //
     // PAC
-    pacGroupBox->setEnabled(pacEnabled);
     pacPortSB->setValue(CurrentConfig.inboundConfig.pacConfig.port);
     pacProxyTxt->setText(CurrentConfig.inboundConfig.pacConfig.localIP);
     pacProxyCB->setCurrentIndex(CurrentConfig.inboundConfig.pacConfig.useSocksProxy ? 1 : 0);
     //
     bool have_http = CurrentConfig.inboundConfig.useHTTP;
-    httpCB->setChecked(have_http);
+    httpGroupBox->setChecked(have_http);
     httpPortLE->setValue(CurrentConfig.inboundConfig.http_port);
     httpAuthCB->setChecked(CurrentConfig.inboundConfig.http_useAuth);
     //
@@ -74,11 +81,10 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent),
     httpAuthPasswordTxt->setEnabled(CurrentConfig.inboundConfig.http_useAuth);
     httpAuthUsernameTxt->setText(CurrentConfig.inboundConfig.httpAccount.user);
     httpAuthPasswordTxt->setText(CurrentConfig.inboundConfig.httpAccount.pass);
-    httpGroupBox->setEnabled(have_http);
     //
     //
     bool have_socks = CurrentConfig.inboundConfig.useSocks;
-    socksCB->setChecked(have_socks);
+    socksGroupBox->setChecked(have_socks);
     socksPortLE->setValue(CurrentConfig.inboundConfig.socks_port);
     //
     socksAuthCB->setChecked(CurrentConfig.inboundConfig.socks_useAuth);
@@ -90,7 +96,6 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent),
     socksUDPCB->setChecked(CurrentConfig.inboundConfig.socksUDP);
     socksUDPIP->setEnabled(CurrentConfig.inboundConfig.socksUDP);
     socksUDPIP->setText(CurrentConfig.inboundConfig.socksLocalIP);
-    socksGroupBox->setEnabled(have_socks);
     //
     //
     vCorePathTxt->setText(CurrentConfig.v2CorePath);
@@ -125,7 +130,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent),
         nsBarPagesList->setCurrentRow(0);
         on_nsBarPagesList_currentRowChanged(0);
     } else {
-        nsBarVerticalLayout->setEnabled(false);
+        networkToolbarSettingsFrame->setEnabled(false);
         nsBarLinesList->setEnabled(false);
         nsBarLineDelBTN->setEnabled(false);
         nsBarLineAddBTN->setEnabled(false);
@@ -154,8 +159,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent),
 
     autoStartConnCombo->setCurrentText(autoCon);
     // FP Settings
-    fpEnabledCB->setChecked(CurrentConfig.connectionConfig.forwardProxyConfig.enableForwardProxy);
-    fpFrame->setEnabled(fpEnabledCB->isChecked());
+    fpGroupBox->setChecked(CurrentConfig.connectionConfig.forwardProxyConfig.enableForwardProxy);
     fpUsernameTx->setText(CurrentConfig.connectionConfig.forwardProxyConfig.username);
     fpPasswordTx->setText(CurrentConfig.connectionConfig.forwardProxyConfig.password);
     fpAddressTx->setText(CurrentConfig.connectionConfig.forwardProxyConfig.serverAddress);
@@ -164,6 +168,10 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent),
     fpUseAuthCB->setChecked(CurrentConfig.connectionConfig.forwardProxyConfig.useAuth);
     fpUsernameTx->setEnabled(fpUseAuthCB->isChecked());
     fpPasswordTx->setEnabled(fpUseAuthCB->isChecked());
+    //
+    maxLogLinesSB->setValue(CurrentConfig.uiConfig.maximumLogLines);
+    //
+    pacListenAddrLabel->setText("http://" + (pacProxyTxt->text().isEmpty() ? "127.0.0.1" : pacProxyTxt->text()) + ":" + QSTRN(pacPortSB->value()) + "/pac");
     //
     finishedLoading = true;
 }
@@ -175,32 +183,38 @@ PreferencesWindow::~PreferencesWindow()
 
 void PreferencesWindow::on_buttonBox_accepted()
 {
-    int sp = socksPortLE->text().toInt();
-    int hp = httpPortLE->text().toInt() ;
+    QSet<int> ports;
+    auto size = 0;
 
-    if (!(sp == 0 || hp == 0) && sp == hp) {
-        QvMessageBox(this, tr("Preferences"), tr("Port numbers cannot be the same"));
-        return;
+    if (CurrentConfig.inboundConfig.useHTTP) {
+        size ++;
+        ports << CurrentConfig.inboundConfig.http_port;
     }
 
-    SetGlobalConfig(CurrentConfig);
-    emit s_reload_config(IsConnectionPropertyChanged);
-}
+    if (CurrentConfig.inboundConfig.useSocks) {
+        size ++;
+        ports << CurrentConfig.inboundConfig.socks_port;
+    }
 
-void PreferencesWindow::on_httpCB_stateChanged(int checked)
-{
-    NEEDRESTART
-    bool enabled = checked == Qt::Checked;
-    httpGroupBox->setEnabled(enabled);
-    CurrentConfig.inboundConfig.useHTTP = enabled;
-}
+    if (CurrentConfig.inboundConfig.pacConfig.enablePAC) {
+        size ++;
+        ports << CurrentConfig.inboundConfig.pacConfig.port;
+    }
 
-void PreferencesWindow::on_socksCB_stateChanged(int checked)
-{
-    NEEDRESTART
-    bool enabled = checked == Qt::Checked;
-    socksGroupBox->setEnabled(enabled);
-    CurrentConfig.inboundConfig.useSocks = enabled;
+    if (!StartupOption.noAPI) {
+        size ++;
+        ports << CurrentConfig.connectionConfig.statsPort;
+    }
+
+    if (ports.size() != size) {
+        // Duplicates detected.
+        QvMessageBoxWarn(this, tr("Preferences"), tr("Duplicated port numbers detected, please check the port number settings."));
+        this->show();
+        this->exec();
+    } else {
+        SetGlobalConfig(CurrentConfig);
+        emit s_reload_config(IsConnectionPropertyChanged);
+    }
 }
 
 void PreferencesWindow::on_httpAuthCB_stateChanged(int checked)
@@ -224,21 +238,7 @@ void PreferencesWindow::on_socksAuthCB_stateChanged(int checked)
 void PreferencesWindow::on_languageComboBox_currentTextChanged(const QString &arg1)
 {
     LOADINGCHECK
-    //
-    // A strange bug prevents us to change the UI language online
-    //    https://github.com/lhy0403/Qv2ray/issues/34
-    //
     CurrentConfig.uiConfig.language = arg1;
-    //
-    //
-    //if (QApplication::installTranslator(getTranslator(arg1))) {
-    //    LOG(MODULE_UI, "Loaded translations " + arg1)
-    //    retranslateUi(this);
-    //} else {
-    //    QvMessageBox(this, tr("#Preferences"), tr("#SwitchTranslationError"));
-    //}
-    //
-    //emit retranslateUi(this);
 }
 
 void PreferencesWindow::on_logLevelComboBox_currentIndexChanged(int index)
@@ -299,7 +299,7 @@ void PreferencesWindow::on_localDNSCb_stateChanged(int arg1)
 void PreferencesWindow::on_selectVAssetBtn_clicked()
 {
     NEEDRESTART
-    QString dir = QFileDialog::getExistingDirectory(this, tr("Open v2ray assets folder"), QDir::currentPath());
+    QString dir = QFileDialog::getExistingDirectory(this, tr("Open V2ray assets folder"), QDir::currentPath());
 
     if (!dir.isEmpty()) {
         vCoreAssetsPathTxt->setText(dir);
@@ -309,7 +309,7 @@ void PreferencesWindow::on_selectVAssetBtn_clicked()
 
 void PreferencesWindow::on_selectVCoreBtn_clicked()
 {
-    QString core = QFileDialog::getOpenFileName(this, tr("Open v2ray core file"), QDir::currentPath());
+    QString core = QFileDialog::getOpenFileName(this, tr("Open V2ray core file"), QDir::currentPath());
 
     if (!core.isEmpty()) {
         vCorePathTxt->setText(core);
@@ -363,26 +363,26 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
     if (finishedLoading) {
         // Set UID and GID for linux
         // Steps:
-        // --> 1. Copy v2ray core files to the #CONFIG_DIR#/vcore/ dir.
+        // --> 1. Copy V2ray core files to the #CONFIG_DIR#/vcore/ dir.
         // --> 2. Change GlobalConfig.v2CorePath.
-        // --> 3. Call `pkexec setcap CAP_NET_ADMIN,CAP_NET_RAW,CAP_NET_BIND_SERVICE=eip` on the v2ray core.
+        // --> 3. Call `pkexec setcap CAP_NET_ADMIN,CAP_NET_RAW,CAP_NET_BIND_SERVICE=eip` on the V2ray core.
         if (arg1 == Qt::Checked) {
             // We enable it!
             if (QvMessageBoxAsk(this, tr("Enable tProxy Support"),
-                                tr("This will append capabilities to the v2ray executable.")  + NEWLINE + NEWLINE +
-                                tr("Qv2ray will copy your v2ray core to this path: ") + NEWLINE + QV2RAY_DEFAULT_VCORE_PATH + NEWLINE + NEWLINE +
+                                tr("This will append capabilities to the V2ray executable.")  + NEWLINE + NEWLINE +
+                                tr("Qv2ray will copy your V2ray core to this path: ") + NEWLINE + QV2RAY_DEFAULT_VCORE_PATH + NEWLINE + NEWLINE +
                                 tr("If anything goes wrong after enabling this, please refer to issue #57 or the link below:") + NEWLINE +
                                 " https://lhy0403.github.io/Qv2ray/zh-CN/FAQ.html ") != QMessageBox::Yes) {
                 tProxyCheckBox->setChecked(false);
                 LOG(MODULE_UI, "Canceled enabling tProxy feature.")
             } else {
                 LOG(MODULE_VCORE, "ENABLING tProxy Support")
-                LOG(MODULE_FILE, " --> Origin v2ray core file is at: " + CurrentConfig.v2CorePath)
+                LOG(MODULE_FILE, " --> Origin V2ray core file is at: " + CurrentConfig.v2CorePath)
                 auto v2ctlPath = QFileInfo(CurrentConfig.v2CorePath).path() + "/v2ctl";
                 auto newPath = QFileInfo(QV2RAY_DEFAULT_VCORE_PATH).path();
                 //
                 LOG(MODULE_FILE, " --> Origin v2ctl file is at: " + v2ctlPath)
-                LOG(MODULE_FILE, " --> New v2ray files will be placed in: " + newPath)
+                LOG(MODULE_FILE, " --> New V2ray files will be placed in: " + newPath)
                 //
                 LOG(MODULE_FILE, " --> Copying files....")
 
@@ -402,25 +402,25 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
                     }
 
                     QString vCoreresult = QFile(CurrentConfig.v2CorePath).copy(QV2RAY_DEFAULT_VCORE_PATH) ? "OK" : "FAILED";
-                    LOG(MODULE_FILE, " --> v2ray Core: " + vCoreresult)
+                    LOG(MODULE_FILE, " --> V2ray Core: " + vCoreresult)
                     //
                     QString vCtlresult = QFile(v2ctlPath).copy(newPath + "/v2ctl") ? "OK" : "FAILED";
-                    LOG(MODULE_FILE, " --> v2ray Ctl: " + vCtlresult)
+                    LOG(MODULE_FILE, " --> V2ray Ctl: " + vCtlresult)
                     //
 
                     if (vCoreresult == "OK" && vCtlresult == "OK") {
                         LOG(MODULE_VCORE, " --> Done copying files.")
                         on_vCorePathTxt_textEdited(QV2RAY_DEFAULT_VCORE_PATH);
                     } else {
-                        LOG(MODULE_VCORE, "FAILED to copy v2ray files. Aborting.")
-                        QvMessageBox(this, tr("Enable tProxy Support"),
-                                     tr("Qv2ray cannot copy one or both v2ray files from: ") + NEWLINE + NEWLINE +
-                                     CurrentConfig.v2CorePath + NEWLINE + v2ctlPath + NEWLINE + NEWLINE +
-                                     tr("to this path: ") + NEWLINE + newPath);
+                        LOG(MODULE_VCORE, "FAILED to copy V2ray files. Aborting.")
+                        QvMessageBoxWarn(this, tr("Enable tProxy Support"),
+                                         tr("Qv2ray cannot copy one or both V2ray files from: ") + NEWLINE + NEWLINE +
+                                         CurrentConfig.v2CorePath + NEWLINE + v2ctlPath + NEWLINE + NEWLINE +
+                                         tr("to this path: ") + NEWLINE + newPath);
                         return;
                     }
                 } else {
-                    LOG(MODULE_VCORE, "Skipped removing files since the current v2ray core is in the default path.")
+                    LOG(MODULE_VCORE, "Skipped removing files since the current V2ray core is in the default path.")
                     LOG(MODULE_VCORE, " --> Actually because we don't know where else to obtain the files.")
                 }
 
@@ -429,7 +429,7 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
 
                 if (ret != 0) {
                     LOG(MODULE_UI, "WARN: setcap exits with code: " + QSTRN(ret))
-                    QvMessageBox(this, tr("Preferences"), tr("Failed to setcap onto v2ray executable. You may need to run `setcap` manually."));
+                    QvMessageBoxWarn(this, tr("Preferences"), tr("Failed to setcap onto V2ray executable. You may need to run `setcap` manually."));
                 }
 
                 CurrentConfig.tProxySupport = true;
@@ -440,7 +440,7 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
 
             if (ret != 0) {
                 LOG(MODULE_UI, "WARN: setcap exits with code: " + QSTRN(ret))
-                QvMessageBox(this, tr("Preferences"), tr("Failed to setcap onto v2ray executable. You may need to run `setcap` manually."));
+                QvMessageBoxWarn(this, tr("Preferences"), tr("Failed to setcap onto V2ray executable. You may need to run `setcap` manually."));
             }
 
             CurrentConfig.tProxySupport = false;
@@ -451,7 +451,7 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
 #else
     Q_UNUSED(arg1)
     // No such tProxy thing on Windows and macOS
-    QvMessageBox(this, tr("Preferences"), tr("tProxy is not supported on macOS and Windows"));
+    QvMessageBoxWarn(this, tr("Preferences"), tr("tProxy is not supported on macOS and Windows"));
     CurrentConfig.tProxySupport = false;
     tProxyCheckBox->setChecked(false);
 #endif
@@ -532,7 +532,7 @@ void PreferencesWindow::on_nsBarPageDelBTN_clicked()
             nsBarLineAddBTN->setEnabled(false);
             nsBarLineDelBTN->setEnabled(false);
             nsBarLinesList->setEnabled(false);
-            nsBarVerticalLayout->setEnabled(false);
+            networkToolbarSettingsFrame->setEnabled(false);
             nsBarPageYOffset->setEnabled(false);
             nsBarLinesList->clear();
         }
@@ -566,7 +566,7 @@ void PreferencesWindow::on_nsBarLineDelBTN_clicked()
         CurrentBarLineId = 0;
 
         if (nsBarLinesList->count() <= 0) {
-            nsBarVerticalLayout->setEnabled(false);
+            networkToolbarSettingsFrame->setEnabled(false);
             nsBarLineDelBTN->setEnabled(false);
         }
 
@@ -595,7 +595,7 @@ void PreferencesWindow::on_nsBarPagesList_currentRowChanged(int currentRow)
         nsBarLinesList->setCurrentRow(0);
         ShowLineParameters(CurrentBarLine);
     } else {
-        nsBarVerticalLayout->setEnabled(false);
+        networkToolbarSettingsFrame->setEnabled(false);
     }
 }
 
@@ -707,7 +707,7 @@ void PreferencesWindow::ShowLineParameters(QvBarLine &barLine)
     nsBarContentCombo->setCurrentText(NetSpeedPluginMessages[barLine.ContentType]);
     nsBarTagTxt->setText(barLine.Message);
     finishedLoading = true;
-    nsBarVerticalLayout->setEnabled(true);
+    networkToolbarSettingsFrame->setEnabled(true);
 }
 
 void PreferencesWindow::on_chooseColorBtn_clicked()
@@ -754,7 +754,7 @@ void PreferencesWindow::on_darkThemeCB_stateChanged(int arg1)
 {
     LOADINGCHECK
     CurrentConfig.uiConfig.useDarkTheme = arg1 == Qt::Checked;
-    QvMessageBox(this, tr("Dark Mode"), tr("Please restart Qv2ray to fully apply this feature."));
+    QvMessageBoxWarn(this, tr("Dark Mode"), tr("Please restart Qv2ray to fully apply this feature."));
 #ifdef QV2RAY_USE_BUILTIN_DARKTHEME
     themeCombo->setEnabled(arg1 != Qt::Checked);
 
@@ -770,15 +770,6 @@ void PreferencesWindow::on_darkTrayCB_stateChanged(int arg1)
 {
     LOADINGCHECK
     CurrentConfig.uiConfig.useDarkTrayIcon = arg1 == Qt::Checked;
-}
-
-void PreferencesWindow::on_enablePACCB_stateChanged(int arg1)
-{
-    LOADINGCHECK
-    NEEDRESTART
-    bool enabled = arg1 == Qt::Checked;
-    CurrentConfig.inboundConfig.pacConfig.enablePAC = enabled;
-    pacGroupBox->setEnabled(enabled);
 }
 
 void PreferencesWindow::on_pacGoBtn_clicked()
@@ -831,7 +822,7 @@ void PreferencesWindow::on_pacGoBtn_clicked()
     }
 
     LOG(MODULE_NETWORK, "Fetched: " + gfwLocation)
-    QvMessageBox(this, tr("Download GFWList"), tr("Successfully downloaded GFWList."));
+    QvMessageBoxWarn(this, tr("Download GFWList"), tr("Successfully downloaded GFWList."));
     pacGoBtn->setEnabled(true);
     gfwListCB->setEnabled(true);
 
@@ -848,7 +839,7 @@ void PreferencesWindow::on_pacPortSB_valueChanged(int arg1)
     LOADINGCHECK
     NEEDRESTART
     CurrentConfig.inboundConfig.pacConfig.port = arg1;
-    //pacAccessPathTxt->setText("http://" + listenIPTxt->text() + ":" + QSTRN(arg1) + "/pac");
+    pacListenAddrLabel->setText("http://" + (pacProxyTxt->text().isEmpty() ? "127.0.0.1" : pacProxyTxt->text()) + ":" + QSTRN(pacPortSB->value()) + "/pac");
 }
 
 void PreferencesWindow::on_setSysProxyCB_stateChanged(int arg1)
@@ -907,7 +898,7 @@ void PreferencesWindow::on_installBootStart_clicked()
 
     // If failed to set the status.
     if (!GetLaunchAtLoginStatus()) {
-        QvMessageBox(this, tr("Start with boot"), tr("Failed to set auto start option."));
+        QvMessageBoxWarn(this, tr("Start with boot"), tr("Failed to set auto start option."));
     }
 
     SetAutoStartButtonsState(GetLaunchAtLoginStatus());
@@ -919,7 +910,7 @@ void PreferencesWindow::on_removeBootStart_clicked()
 
     // If that setting still present.
     if (GetLaunchAtLoginStatus()) {
-        QvMessageBox(this, tr("Start with boot"), tr("Failed to set auto start option."));
+        QvMessageBoxWarn(this, tr("Start with boot"), tr("Failed to set auto start option."));
     }
 
     SetAutoStartButtonsState(GetLaunchAtLoginStatus());
@@ -931,25 +922,21 @@ void PreferencesWindow::SetAutoStartButtonsState(bool isAutoStart)
     removeBootStart->setEnabled(isAutoStart);
 }
 
-void PreferencesWindow::on_fpEnabledCB_stateChanged(int arg1)
-{
-    bool fpEnabled = arg1 == Qt::Checked;
-    CurrentConfig.connectionConfig.forwardProxyConfig.enableForwardProxy = fpEnabled;
-    fpFrame->setEnabled(fpEnabled);
-}
-
 void PreferencesWindow::on_fpTypeCombo_currentIndexChanged(const QString &arg1)
 {
+    LOADINGCHECK
     CurrentConfig.connectionConfig.forwardProxyConfig.type = arg1;
 }
 
 void PreferencesWindow::on_fpAddressTx_textEdited(const QString &arg1)
 {
+    LOADINGCHECK
     CurrentConfig.connectionConfig.forwardProxyConfig.serverAddress = arg1;
 }
 
 void PreferencesWindow::on_spPortSB_valueChanged(int arg1)
 {
+    LOADINGCHECK
     CurrentConfig.connectionConfig.forwardProxyConfig.port = arg1;
 }
 
@@ -963,15 +950,73 @@ void PreferencesWindow::on_fpUseAuthCB_stateChanged(int arg1)
 
 void PreferencesWindow::on_fpUsernameTx_textEdited(const QString &arg1)
 {
+    LOADINGCHECK
     CurrentConfig.connectionConfig.forwardProxyConfig.username = arg1;
 }
 
 void PreferencesWindow::on_fpPasswordTx_textEdited(const QString &arg1)
 {
+    LOADINGCHECK
     CurrentConfig.connectionConfig.forwardProxyConfig.password = arg1;
 }
 
 void PreferencesWindow::on_fpPortSB_valueChanged(int arg1)
 {
+    LOADINGCHECK
     CurrentConfig.connectionConfig.forwardProxyConfig.port = arg1;
+}
+
+void PreferencesWindow::on_pacProxyTxt_textChanged(const QString &arg1)
+{
+    Q_UNUSED(arg1)
+    pacListenAddrLabel->setText("http://" + (pacProxyTxt->text().isEmpty() ? "127.0.0.1" : pacProxyTxt->text()) + ":" + QSTRN(pacPortSB->value()) + "/pac");
+}
+
+void PreferencesWindow::on_checkVCoreSettings_clicked()
+{
+    auto vcorePath = vCorePathTxt->text();
+    auto vAssetsPath = vCoreAssetsPathTxt->text();
+    QString result;
+
+    if (!V2rayKernelInstance::ValidateKernel(vcorePath, vAssetsPath, &result)) {
+        QvMessageBoxWarn(this, tr("V2ray Core Settings"), result);
+    } else {
+        QvMessageBoxInfo(this, tr("V2ray Core Settings"), tr("V2ray path configuration check passed.") + NEWLINE + NEWLINE +
+                         tr("Current version of V2ray is: ") + NEWLINE + result);
+    }
+}
+
+void PreferencesWindow::on_httpGroupBox_clicked(bool checked)
+{
+    LOADINGCHECK
+    NEEDRESTART
+    CurrentConfig.inboundConfig.useHTTP = checked;
+}
+
+void PreferencesWindow::on_socksGroupBox_clicked(bool checked)
+{
+    LOADINGCHECK
+    NEEDRESTART
+    CurrentConfig.inboundConfig.useSocks = checked;
+}
+
+void PreferencesWindow::on_pacGroupBox_clicked(bool checked)
+{
+    LOADINGCHECK
+    NEEDRESTART
+    CurrentConfig.inboundConfig.pacConfig.enablePAC = checked;
+}
+
+void PreferencesWindow::on_fpGroupBox_clicked(bool checked)
+{
+    LOADINGCHECK
+    NEEDRESTART
+    CurrentConfig.connectionConfig.forwardProxyConfig.enableForwardProxy = checked;
+}
+
+void PreferencesWindow::on_maxLogLinesSB_valueChanged(int arg1)
+{
+    LOADINGCHECK
+    NEEDRESTART
+    CurrentConfig.uiConfig.maximumLogLines = arg1;
 }
