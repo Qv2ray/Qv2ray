@@ -11,7 +11,7 @@
     <message>
       <location filename="../src/ui/w_ExportConfig.cpp" line="62"/>
       <source>Save Image</source>
-      <translation>保存图片</translation>
+      <translation>保存二维码图片</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ExportConfig.cpp" line="71"/>
@@ -55,7 +55,7 @@
     <message>
       <location filename="../src/ui/w_ExportConfig.ui" line="74"/>
       <source>Copy Image</source>
-      <translation>复制图像</translation>
+      <translation>复制二维码图片</translation>
     </message>
     <message>
       <location filename="../src/ui/w_ExportConfig.ui" line="81"/>
