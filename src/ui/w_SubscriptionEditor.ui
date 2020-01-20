@@ -229,7 +229,14 @@
        </widget>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QCheckBox" name="withProxyCB">
+          <property name="text">
+           <string>Update Subscription With System Proxy</string>
+          </property>
+         </widget>
+        </item>
         <item>
          <widget class="QPushButton" name="updateButton">
           <property name="text">

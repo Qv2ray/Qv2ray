@@ -530,7 +530,7 @@
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-206</y>
+            <y>0</y>
             <width>647</width>
             <height>625</height>
            </rect>
@@ -756,13 +756,13 @@
            </item>
            <item>
             <widget class="QGroupBox" name="pacGroupBox">
+             <property name="contextMenuPolicy">
+              <enum>Qt::PreventContextMenu</enum>
+             </property>
              <property name="title">
               <string>PAC Settings</string>
              </property>
              <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="checked">
               <bool>true</bool>
              </property>
              <layout class="QFormLayout" name="formLayout_11">
@@ -879,6 +879,13 @@
                     <string>GFWList File</string>
                    </property>
                   </item>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="getGFWListWithProxyCB">
+                  <property name="text">
+                   <string>Download with System Proxy</string>
+                  </property>
                  </widget>
                 </item>
                 <item>

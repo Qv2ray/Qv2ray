@@ -117,7 +117,7 @@ void SubscribeEditor::on_updateButton_clicked()
 void SubscribeEditor::StartUpdateSubscription(const QString &subscriptionName)
 {
     this->setEnabled(false);
-    auto data = helper.syncget(subscriptions[subscriptionName].address);
+    auto data = helper.syncget(subscriptions[subscriptionName].address, withProxyCB->isChecked());
     auto content = DecodeSubscriptionString(data).trimmed();
 
     if (!content.isEmpty()) {

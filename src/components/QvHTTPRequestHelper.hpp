@@ -36,7 +36,7 @@ namespace Qv2ray
             bool setUrl(const QString &url);
             void setHeader(const QByteArray &key, const QByteArray &value);
             // get
-            QByteArray syncget(const QString &url);
+            QByteArray syncget(const QString &url, bool useProxy);
             void get(const QString &url);
             //// insert
             //void post(const QString &url, const QByteArray &data);

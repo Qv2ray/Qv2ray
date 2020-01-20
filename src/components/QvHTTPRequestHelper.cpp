@@ -32,11 +32,17 @@ namespace Qv2ray
         request.setRawHeader(key, value);
     }
 
-    QByteArray QvHttpRequestHelper::syncget(const QString &url)
+    QByteArray QvHttpRequestHelper::syncget(const QString &url, bool useProxy)
     {
         this->setUrl(url);
-        auto proxy = QNetworkProxyFactory::systemProxyForQuery();
-        accessManager.setProxy(proxy.first());
+
+        if (useProxy) {
+            auto proxy = QNetworkProxyFactory::systemProxyForQuery();
+            accessManager.setProxy(proxy.first());
+        } else {
+            accessManager.setProxy(QNetworkProxy(QNetworkProxy::ProxyType::NoProxy));
+        }
+
         LOG(MODULE_NETWORK, "Sync get is using system proxy settings")
         request.setAttribute(QNetworkRequest::RedirectPolicyAttribute, QNetworkRequest::NoLessSafeRedirectPolicy);
         reply = accessManager.get(request);

@@ -781,36 +781,37 @@ void PreferencesWindow::on_pacGoBtn_clicked()
     gfwListCB->setEnabled(false);
     auto request = new QvHttpRequestHelper();
     LOG(MODULE_PROXY, "Downloading GFWList file.")
+    bool withProxy = getGFWListWithProxyCB->isChecked();
 
     switch (gfwListCB->currentIndex()) {
         case 0:
             gfwLocation = "https://gitlab.com/gfwlist/gfwlist/raw/master/gfwlist.txt";
-            fileContent = QString::fromUtf8(request->syncget(gfwLocation));
+            fileContent = QString::fromUtf8(request->syncget(gfwLocation, withProxy));
             break;
 
         case 1:
             gfwLocation = "https://pagure.io/gfwlist/raw/master/f/gfwlist.txt";
-            fileContent = QString::fromUtf8(request->syncget(gfwLocation));
+            fileContent = QString::fromUtf8(request->syncget(gfwLocation, withProxy));
             break;
 
         case 2:
             gfwLocation = "http://repo.or.cz/gfwlist.git/blob_plain/HEAD:/gfwlist.txt";
-            fileContent = QString::fromUtf8(request->syncget(gfwLocation));
+            fileContent = QString::fromUtf8(request->syncget(gfwLocation, withProxy));
             break;
 
         case 3:
             gfwLocation = "https://bitbucket.org/gfwlist/gfwlist/raw/HEAD/gfwlist.txt";
-            fileContent = QString::fromUtf8(request->syncget(gfwLocation));
+            fileContent = QString::fromUtf8(request->syncget(gfwLocation, withProxy));
             break;
 
         case 4:
             gfwLocation = "https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt";
-            fileContent = QString::fromUtf8(request->syncget(gfwLocation));
+            fileContent = QString::fromUtf8(request->syncget(gfwLocation, withProxy));
             break;
 
         case 5:
             gfwLocation = "https://git.tuxfamily.org/gfwlist/gfwlist.git/plain/gfwlist.txt";
-            fileContent = QString::fromUtf8(request->syncget(gfwLocation));
+            fileContent = QString::fromUtf8(request->syncget(gfwLocation, withProxy));
             break;
 
         case 6:
