@@ -1708,7 +1708,7 @@
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="887"/>
       <source>Download with System Proxy</source>
-      <translation type="unfinished">Download with System Proxy</translation>
+      <translation>使用系统代理下载</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="894"/>
@@ -2859,12 +2859,12 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="499"/>
       <source>Default rule</source>
-      <translation type="unfinished">Default rule</translation>
+      <translation>默认规则</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="499"/>
       <source>rule</source>
-      <translation type="unfinished">rule</translation>
+      <translation>规则</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="554"/>
@@ -2885,12 +2885,12 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="677"/>
       <source>Error</source>
-      <translation type="unfinished">Error</translation>
+      <translation>错误</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="677"/>
       <source>Qv2ray entered an unknown state.</source>
-      <translation type="unfinished">Qv2ray entered an unknown state.</translation>
+      <translation>Qv2ray进入未知状态。</translation>
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="683"/>
@@ -3092,7 +3092,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="236"/>
       <source>Update Subscription With System Proxy</source>
-      <translation type="unfinished">Update Subscription With System Proxy</translation>
+      <translation>使用系统代理更新订阅</translation>
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="243"/>
