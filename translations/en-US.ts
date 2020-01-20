@@ -2817,24 +2817,24 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../src/ui/w_RoutesEditor.cpp" line="452"/>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="710"/>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="751"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="713"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="754"/>
         <source>OK</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="695"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="698"/>
         <source>Cannot Edit</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="730"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="733"/>
         <source>This outbound entry is not supported by the GUI editor.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="696"/>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="731"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="699"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="734"/>
         <source>We will launch Json Editor instead.</source>
         <translation></translation>
     </message>
@@ -2851,6 +2851,16 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="499"/>
+        <source>Default rule</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="499"/>
+        <source>rule</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/ui/w_RoutesEditor.cpp" line="554"/>
         <source>To make this rule ready to use, you need to connect it to an outbound node.</source>
         <translation type="unfinished"></translation>
@@ -2862,28 +2872,38 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../src/ui/w_RoutesEditor.cpp" line="631"/>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="680"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="683"/>
         <source>Please select a node from the graph to continue.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="680"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="677"/>
+        <source>Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="677"/>
+        <source>Qv2ray entered an unknown state.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="683"/>
         <source>Edit Inbound/Outbound</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="697"/>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="733"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="700"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="736"/>
         <source>Opening JSON editor</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="729"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="732"/>
         <source>Unsupported Outbound Type</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="738"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="741"/>
         <source>Opening default outbound editor.</source>
         <translation></translation>
     </message>
@@ -2893,12 +2913,12 @@ p, li { white-space: pre-wrap; }
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="695"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="698"/>
         <source>Currently, this type of outbound is not supported by the editor.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_RoutesEditor.cpp" line="704"/>
+        <location filename="../src/ui/w_RoutesEditor.cpp" line="707"/>
         <source>Opening default inbound editor</source>
         <translation></translation>
     </message>
