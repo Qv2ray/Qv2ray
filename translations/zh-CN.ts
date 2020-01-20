@@ -928,7 +928,7 @@
       <location filename="../src/ui/w_MainWindow.cpp" line="483"/>
       <location filename="../src/ui/w_MainWindow.cpp" line="484"/>
       <location filename="../src/ui/w_MainWindow.cpp" line="485"/>
-      <location filename="../src/ui/w_MainWindow.cpp" line="1059"/>
+      <location filename="../src/ui/w_MainWindow.cpp" line="1061"/>
       <source>Connected: </source>
       <translation>已连接: </translation>
     </message>
@@ -1034,11 +1034,11 @@
       <translation>ms</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_MainWindow.cpp" line="1110"/>
-      <location filename="../src/ui/w_MainWindow.cpp" line="1111"/>
       <location filename="../src/ui/w_MainWindow.cpp" line="1112"/>
       <location filename="../src/ui/w_MainWindow.cpp" line="1113"/>
       <location filename="../src/ui/w_MainWindow.cpp" line="1114"/>
+      <location filename="../src/ui/w_MainWindow.cpp" line="1115"/>
+      <location filename="../src/ui/w_MainWindow.cpp" line="1116"/>
       <location filename="../src/ui/w_MainWindow_extra.cpp" line="215"/>
       <source>N/A</source>
       <translation>不适用</translation>
@@ -1155,30 +1155,30 @@
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="852"/>
-      <location filename="../src/ui/w_MainWindow.cpp" line="903"/>
-      <location filename="../src/ui/w_MainWindow.cpp" line="934"/>
+      <location filename="../src/ui/w_MainWindow.cpp" line="905"/>
+      <location filename="../src/ui/w_MainWindow.cpp" line="936"/>
       <source>No Config Selected</source>
       <translation>未选择配置</translation>
     </message>
     <message>
       <location filename="../src/ui/w_MainWindow.cpp" line="852"/>
-      <location filename="../src/ui/w_MainWindow.cpp" line="903"/>
-      <location filename="../src/ui/w_MainWindow.cpp" line="934"/>
+      <location filename="../src/ui/w_MainWindow.cpp" line="905"/>
+      <location filename="../src/ui/w_MainWindow.cpp" line="936"/>
       <source>Please Select a Config</source>
       <translation>请选择一个配置</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_MainWindow.cpp" line="967"/>
+      <location filename="../src/ui/w_MainWindow.cpp" line="969"/>
       <source>You are about to run latency test on all servers, do you want to continue?</source>
       <translation>您将在所有服务器上运行延迟测试，是否继续？</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_MainWindow.cpp" line="987"/>
+      <location filename="../src/ui/w_MainWindow.cpp" line="989"/>
       <source>Testing...</source>
       <translation>正在测试…</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_MainWindow.cpp" line="967"/>
+      <location filename="../src/ui/w_MainWindow.cpp" line="969"/>
       <location filename="../src/ui/w_MainWindow_extra.cpp" line="208"/>
       <source>Latency Test</source>
       <translation>测试延迟</translation>
@@ -1189,12 +1189,12 @@
       <translation>无法测试此连接的延迟。</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_MainWindow.cpp" line="1012"/>
+      <location filename="../src/ui/w_MainWindow.cpp" line="1014"/>
       <source>Share Connection</source>
       <translation>共享连接</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_MainWindow.cpp" line="1012"/>
+      <location filename="../src/ui/w_MainWindow.cpp" line="1014"/>
       <source>There&apos;re no support of sharing configs other than vmess</source>
       <translation>那里&apos;不支持共享除vmess以外的配置</translation>
     </message>
@@ -1466,10 +1466,10 @@
       <location filename="../src/ui/w_PreferencesWindow.ui" line="615"/>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="643"/>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="720"/>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="972"/>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="986"/>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1026"/>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1133"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="979"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="993"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1033"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1140"/>
       <source>Enabled</source>
       <translation>已启用</translation>
     </message>
@@ -1571,7 +1571,7 @@
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="826"/>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1083"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1090"/>
       <source>HTTP</source>
       <translation>HTTP</translation>
     </message>
@@ -1595,7 +1595,7 @@
       <location filename="../src/ui/w_PreferencesWindow.ui" line="588"/>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="693"/>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="784"/>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1106"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1113"/>
       <source>Port</source>
       <translation>端口</translation>
     </message>
@@ -1617,21 +1617,21 @@
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="636"/>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="713"/>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1126"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1133"/>
       <source>Authentication</source>
       <translation>身份验证</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="650"/>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="727"/>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1140"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1147"/>
       <source>Username</source>
       <translation>用户名</translation>
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="664"/>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="741"/>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1150"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1157"/>
       <source>Password</source>
       <translation>密码</translation>
     </message>
@@ -1641,7 +1641,7 @@
       <translation>HTTP 设置</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="760"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="763"/>
       <source>PAC Settings</source>
       <translation>PAC 设置</translation>
     </message>
@@ -1707,71 +1707,76 @@
     </message>
     <message>
       <location filename="../src/ui/w_PreferencesWindow.ui" line="887"/>
+      <source>Download with System Proxy</source>
+      <translation type="unfinished">Download with System Proxy</translation>
+    </message>
+    <message>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="894"/>
       <source>Go</source>
       <translation>开始</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="896"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="903"/>
       <source>Edit PAC</source>
       <translation>编辑 PAC</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="903"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="910"/>
       <source>Open PAC Folder</source>
       <translation>打开 PAC 文件夹</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="910"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="917"/>
       <source>PAC Access Path</source>
       <translation>PAC 访问路径</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="951"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="958"/>
       <source>Connection Settings</source>
       <translation>连接设置</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="959"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="966"/>
       <source>General Connection Settings</source>
       <translation>常规连接设置</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="965"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="972"/>
       <source>Enable Proxy</source>
       <translation>启用代理</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="979"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="986"/>
       <source>Bypass Chinese Mainland</source>
       <translation>绕过中国大陆</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="993"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1000"/>
       <source>API Port</source>
       <translation>API 端口</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1019"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1026"/>
       <source>Use Local DNS</source>
       <translation>使用本地 DNS</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1033"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1040"/>
       <source>Custom DNS List</source>
       <translation>自定义 DNS 列表</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1063"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1070"/>
       <source>Forward Proxy</source>
       <translation>前置代理</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1160"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1167"/>
       <source>Only simple config is supported.</source>
       <translation>只支持简单配置。</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1748"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1755"/>
       <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -1784,32 +1789,32 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;WenQuanYi Micro Hei&apos;;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1075"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1082"/>
       <source>Type</source>
       <translation>类型</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1088"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1095"/>
       <source>Socks</source>
       <translation>SOCKS</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1096"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1103"/>
       <source>Host Address</source>
       <translation>主机地址</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1189"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1196"/>
       <source>Network Toolbar Settings</source>
       <translation>网络工具栏设置</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1533"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1540"/>
       <source>Apply Network Speed Bar UI Settings</source>
       <translation>应用网络速度栏界面设置</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1202"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1209"/>
       <source>Items</source>
       <translation>项目</translation>
     </message>
@@ -1859,171 +1864,171 @@ p, li { white-space: pre-wrap; }
       <translation>UDP 本地IP</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1220"/>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1299"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1227"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1306"/>
       <source>-</source>
       <translation>-</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1239"/>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1318"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1246"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1325"/>
       <source>+</source>
       <translation>+</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1246"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1253"/>
       <source>Page Y Offset</source>
       <translation>第 Y 页偏移</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1253"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1260"/>
       <source>Pages</source>
       <translation>页面</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1260"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1267"/>
       <source>Lines</source>
       <translation>行</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1360"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1367"/>
       <source>This feature is not stable and no documentation is provided, please use it at your own risk!</source>
       <translation>此功能不够稳定，且暂无文档，使用时需自负风险！</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1405"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1412"/>
       <source>Text Style</source>
       <translation>文字样式</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1411"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1418"/>
       <source>Font</source>
       <translation>字体</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1423"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1430"/>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="679"/>
       <source>Bold</source>
       <translation>粗体</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1430"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1437"/>
       <location filename="../src/ui/w_PreferencesWindow.cpp" line="680"/>
       <source>Italic</source>
       <translation>斜体</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1439"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1446"/>
       <source>Size</source>
       <translation>大小</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1449"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1456"/>
       <source>Color</source>
       <translation>颜色</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1458"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1465"/>
       <source>A:</source>
       <translation>A:</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1472"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1479"/>
       <source>R:</source>
       <translation>R:</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1486"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1493"/>
       <source>G:</source>
       <translation>G：</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1500"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1507"/>
       <source>B:</source>
       <translation>B:</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1514"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1521"/>
       <source>...</source>
       <translation>...</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1523"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1530"/>
       <source>Style</source>
       <translation>样式</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1370"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1377"/>
       <source>Content</source>
       <translation>内容</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1376"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1383"/>
       <source>Content Type</source>
       <translation>内容类型</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1386"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1393"/>
       <source>Text/Tag</source>
       <translation>文本/标签</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1195"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1202"/>
       <source>You can config how the network speed toolbar looks like in this panel</source>
       <translation>您可以设定网络速度工具栏在此面板中的外观</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1557"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1564"/>
       <source>About</source>
       <translation>关于</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1607"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1614"/>
       <source>Qv2ray</source>
       <translation>Qv2ray</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1621"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1628"/>
       <source>Version:</source>
       <translation>版本：</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1671"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1678"/>
       <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://www.gnu.org/licenses/gpl-3.0.txt&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#2980b9;&quot;&gt;GPLv3 (https://www.gnu.org/licenses/gpl-3.0.txt)&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
       <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://www.gnu.org/licenses/gpl-3.0.txt&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#2980b9;&quot;&gt;GPLv3 (https://www.gnu.org/licenses/gpl-3.0.txt)&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1687"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1694"/>
       <source>Official Repo:</source>
       <translation>官方仓库：</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1710"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1717"/>
       <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/lhy0403/Qv2ray&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#2980b9;&quot;&gt;https://github.com/lhy0403/Qv2ray&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
       <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/lhy0403/Qv2ray&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#2980b9;&quot;&gt;https://github.com/lhy0403/Qv2ray&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1726"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1733"/>
       <source>License:</source>
       <translation>许可证：</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1733"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1740"/>
       <source>Built Time:</source>
       <translation>构建于：</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1761"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1768"/>
       <source>Ignore Next Version</source>
       <translation>忽略下个版本</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1768"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1775"/>
       <source>Cancel</source>
       <translation>取消</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.ui" line="1809"/>
+      <location filename="../src/ui/w_PreferencesWindow.ui" line="1816"/>
       <source>About Qt</source>
       <translation>关于 Qt</translation>
     </message>
@@ -2115,45 +2120,45 @@ p, li { white-space: pre-wrap; }
       <translation>请重启 Qv2ray 以充分应用此功能。</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.cpp" line="819"/>
+      <location filename="../src/ui/w_PreferencesWindow.cpp" line="820"/>
       <source>Select GFWList in base64</source>
       <translation>选择 base64 格式的 GFWList</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.cpp" line="825"/>
+      <location filename="../src/ui/w_PreferencesWindow.cpp" line="826"/>
       <source>Download GFWList</source>
       <translation>下载 GFWList</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.cpp" line="825"/>
+      <location filename="../src/ui/w_PreferencesWindow.cpp" line="826"/>
       <source>Successfully downloaded GFWList.</source>
       <translation>下载 GFWList 成功。</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.cpp" line="901"/>
-      <location filename="../src/ui/w_PreferencesWindow.cpp" line="913"/>
+      <location filename="../src/ui/w_PreferencesWindow.cpp" line="902"/>
+      <location filename="../src/ui/w_PreferencesWindow.cpp" line="914"/>
       <source>Start with boot</source>
       <translation>开机启动</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.cpp" line="901"/>
-      <location filename="../src/ui/w_PreferencesWindow.cpp" line="913"/>
+      <location filename="../src/ui/w_PreferencesWindow.cpp" line="902"/>
+      <location filename="../src/ui/w_PreferencesWindow.cpp" line="914"/>
       <source>Failed to set auto start option.</source>
       <translation>无法设置自动启动选项。</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.cpp" line="982"/>
-      <location filename="../src/ui/w_PreferencesWindow.cpp" line="984"/>
+      <location filename="../src/ui/w_PreferencesWindow.cpp" line="983"/>
+      <location filename="../src/ui/w_PreferencesWindow.cpp" line="985"/>
       <source>V2ray Core Settings</source>
       <translation>V2ray 核心设置</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.cpp" line="984"/>
+      <location filename="../src/ui/w_PreferencesWindow.cpp" line="985"/>
       <source>V2ray path configuration check passed.</source>
       <translation>V2ray 路径配置检查通过。</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_PreferencesWindow.cpp" line="985"/>
+      <location filename="../src/ui/w_PreferencesWindow.cpp" line="986"/>
       <source>Current version of V2ray is: </source>
       <translation>V2ray 当前版本是： </translation>
     </message>
@@ -2161,22 +2166,17 @@ p, li { white-space: pre-wrap; }
   <context>
     <name>QObject</name>
     <message>
-      <location filename="../src/QvCoreConfigOperations_Convertion.cpp" line="80"/>
-      <source>Invalid filename</source>
-      <translation>无效文件名</translation>
-    </message>
-    <message>
-      <location filename="../src/QvCoreConfigOperations_Convertion.cpp" line="140"/>
+      <location filename="../src/QvCoreConfigOperations_Convertion.cpp" line="141"/>
       <source>VMess string should start with &apos;vmess://&apos;</source>
       <translation>VMess 链接应以 &apos;vmess://&apos; 开始</translation>
     </message>
     <message>
-      <location filename="../src/QvCoreConfigOperations_Convertion.cpp" line="149"/>
+      <location filename="../src/QvCoreConfigOperations_Convertion.cpp" line="150"/>
       <source>VMess string should be a valid base64 string</source>
       <translation>VMess 链接应该是一个有效的 base64 字符串</translation>
     </message>
     <message>
-      <location filename="../src/QvCoreConfigOperations_Convertion.cpp" line="164"/>
+      <location filename="../src/QvCoreConfigOperations_Convertion.cpp" line="165"/>
       <source>JSON should not be empty</source>
       <translation>JSON 不应该为空</translation>
     </message>
@@ -2208,7 +2208,7 @@ p, li { white-space: pre-wrap; }
     <message>
       <location filename="../src/main.cpp" line="149"/>
       <location filename="../src/main.cpp" line="172"/>
-      <location filename="../src/main.cpp" line="316"/>
+      <location filename="../src/main.cpp" line="311"/>
       <source>Qv2ray will now exit.</source>
       <translation>Qv2ray 现在将退出。</translation>
     </message>
@@ -2238,57 +2238,57 @@ p, li { white-space: pre-wrap; }
       <translation> --&gt; 请自负风险！</translation>
     </message>
     <message>
-      <location filename="../src/main.cpp" line="293"/>
+      <location filename="../src/main.cpp" line="288"/>
       <source>Cannot load languages</source>
       <translation>无法加载语言</translation>
     </message>
     <message>
-      <location filename="../src/main.cpp" line="293"/>
+      <location filename="../src/main.cpp" line="288"/>
       <source>Qv2ray will continue running, but you cannot change the UI language.</source>
       <translation>Qv2ray 将继续运行，但您不能更改界面语言。</translation>
     </message>
     <message>
-      <location filename="../src/main.cpp" line="312"/>
+      <location filename="../src/main.cpp" line="307"/>
       <source>Qv2ray Cannot Continue</source>
       <translation>Qv2ray 无法继续</translation>
     </message>
     <message>
-      <location filename="../src/main.cpp" line="313"/>
+      <location filename="../src/main.cpp" line="308"/>
       <source>You are running a lower version of Qv2ray compared to the current config file.</source>
       <translation>与当前配置文件相比，您正在运行一个较低版本的 Qv2ray</translation>
     </message>
     <message>
-      <location filename="../src/main.cpp" line="314"/>
+      <location filename="../src/main.cpp" line="309"/>
       <source>Please check if there&apos;s an issue explaining about it.</source>
       <translation>请检查是否存在&apos;有关此问题的说明。</translation>
     </message>
     <message>
-      <location filename="../src/main.cpp" line="315"/>
+      <location filename="../src/main.cpp" line="310"/>
       <source>Or submit a new issue if you think this is an error.</source>
       <translation>或者如果你认为这是一个错误，请提交一个新问题。</translation>
     </message>
     <message>
-      <location filename="../src/main.cpp" line="359"/>
+      <location filename="../src/main.cpp" line="354"/>
       <source>Dependency Missing</source>
       <translation>缺少依赖关系</translation>
     </message>
     <message>
-      <location filename="../src/main.cpp" line="361"/>
+      <location filename="../src/main.cpp" line="356"/>
       <source>This could be caused by a missing of `openssl` package in your system.</source>
       <translation>这可能是系统中缺少`openssl`软件包造成的。</translation>
     </message>
     <message>
-      <location filename="../src/main.cpp" line="362"/>
+      <location filename="../src/main.cpp" line="357"/>
       <source>If you are using an AppImage from Github Action, please report a bug.</source>
       <translation>如果您使用的是来自 Github Action 的 AppImage，请报告错误。</translation>
     </message>
     <message>
-      <location filename="../src/main.cpp" line="360"/>
+      <location filename="../src/main.cpp" line="355"/>
       <source>Cannot find openssl libs</source>
       <translation>找不到 OpenSSL 库</translation>
     </message>
     <message>
-      <location filename="../src/main.cpp" line="363"/>
+      <location filename="../src/main.cpp" line="358"/>
       <source>Technical Details</source>
       <translation>技术细节</translation>
     </message>
@@ -2823,24 +2823,24 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="452"/>
-      <location filename="../src/ui/w_RoutesEditor.cpp" line="710"/>
-      <location filename="../src/ui/w_RoutesEditor.cpp" line="751"/>
+      <location filename="../src/ui/w_RoutesEditor.cpp" line="713"/>
+      <location filename="../src/ui/w_RoutesEditor.cpp" line="754"/>
       <source>OK</source>
       <translation>好</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.cpp" line="695"/>
+      <location filename="../src/ui/w_RoutesEditor.cpp" line="698"/>
       <source>Cannot Edit</source>
       <translation>无法编辑</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.cpp" line="730"/>
+      <location filename="../src/ui/w_RoutesEditor.cpp" line="733"/>
       <source>This outbound entry is not supported by the GUI editor.</source>
       <translation>此出站条目不支持GUI编辑。</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.cpp" line="696"/>
-      <location filename="../src/ui/w_RoutesEditor.cpp" line="731"/>
+      <location filename="../src/ui/w_RoutesEditor.cpp" line="699"/>
+      <location filename="../src/ui/w_RoutesEditor.cpp" line="734"/>
       <source>We will launch Json Editor instead.</source>
       <translation>我们将启动 Json 编辑器。</translation>
     </message>
@@ -2857,6 +2857,16 @@ p, li { white-space: pre-wrap; }
       <translation>负载均衡器列表是空的，不处理。</translation>
     </message>
     <message>
+      <location filename="../src/ui/w_RoutesEditor.cpp" line="499"/>
+      <source>Default rule</source>
+      <translation type="unfinished">Default rule</translation>
+    </message>
+    <message>
+      <location filename="../src/ui/w_RoutesEditor.cpp" line="499"/>
+      <source>rule</source>
+      <translation type="unfinished">rule</translation>
+    </message>
+    <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="554"/>
       <source>To make this rule ready to use, you need to connect it to an outbound node.</source>
       <translation>要使这条规则可以使用，您需要将它连接到一个出站节点。</translation>
@@ -2868,28 +2878,38 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
       <location filename="../src/ui/w_RoutesEditor.cpp" line="631"/>
-      <location filename="../src/ui/w_RoutesEditor.cpp" line="680"/>
+      <location filename="../src/ui/w_RoutesEditor.cpp" line="683"/>
       <source>Please select a node from the graph to continue.</source>
       <translation>请从图表中选择要继续的节点。</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.cpp" line="680"/>
+      <location filename="../src/ui/w_RoutesEditor.cpp" line="677"/>
+      <source>Error</source>
+      <translation type="unfinished">Error</translation>
+    </message>
+    <message>
+      <location filename="../src/ui/w_RoutesEditor.cpp" line="677"/>
+      <source>Qv2ray entered an unknown state.</source>
+      <translation type="unfinished">Qv2ray entered an unknown state.</translation>
+    </message>
+    <message>
+      <location filename="../src/ui/w_RoutesEditor.cpp" line="683"/>
       <source>Edit Inbound/Outbound</source>
       <translation>编辑入站/出站</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.cpp" line="697"/>
-      <location filename="../src/ui/w_RoutesEditor.cpp" line="733"/>
+      <location filename="../src/ui/w_RoutesEditor.cpp" line="700"/>
+      <location filename="../src/ui/w_RoutesEditor.cpp" line="736"/>
       <source>Opening JSON editor</source>
       <translation>正在打开 JSON 编辑器</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.cpp" line="729"/>
+      <location filename="../src/ui/w_RoutesEditor.cpp" line="732"/>
       <source>Unsupported Outbound Type</source>
       <translation>不支持的出站类型</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.cpp" line="738"/>
+      <location filename="../src/ui/w_RoutesEditor.cpp" line="741"/>
       <source>Opening default outbound editor.</source>
       <translation>打开默认出站编辑器。</translation>
     </message>
@@ -2899,12 +2919,12 @@ p, li { white-space: pre-wrap; }
       <translation>已添加 DIRECT 出站</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.cpp" line="695"/>
+      <location filename="../src/ui/w_RoutesEditor.cpp" line="698"/>
       <source>Currently, this type of outbound is not supported by the editor.</source>
       <translation>目前不支持此类型的出站</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_RoutesEditor.cpp" line="704"/>
+      <location filename="../src/ui/w_RoutesEditor.cpp" line="707"/>
       <source>Opening default inbound editor</source>
       <translation>打开默认的入站编辑器</translation>
     </message>
@@ -2992,12 +3012,12 @@ p, li { white-space: pre-wrap; }
       <translation>您要从 Url 重新加载此订阅吗？</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_SubscriptionEditor.cpp" line="150"/>
+      <location filename="../src/ui/w_SubscriptionEditor.cpp" line="147"/>
       <source>Updating subscriptions</source>
       <translation>更新订阅</translation>
     </message>
     <message>
-      <location filename="../src/ui/w_SubscriptionEditor.cpp" line="150"/>
+      <location filename="../src/ui/w_SubscriptionEditor.cpp" line="147"/>
       <source>Failed to process the result from the upstream, please check your Url.</source>
       <translation>无法处理源自上游的结果，请检查您的URL。</translation>
     </message>
@@ -3071,6 +3091,11 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
       <location filename="../src/ui/w_SubscriptionEditor.ui" line="236"/>
+      <source>Update Subscription With System Proxy</source>
+      <translation type="unfinished">Update Subscription With System Proxy</translation>
+    </message>
+    <message>
+      <location filename="../src/ui/w_SubscriptionEditor.ui" line="243"/>
       <source>Update Subscription Data</source>
       <translation>更新订阅数据</translation>
     </message>
