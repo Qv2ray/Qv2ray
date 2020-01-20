@@ -15,6 +15,7 @@ namespace Qv2ray
 
             return conf;
         }
+
         QMap<QString, CONFIGROOT> GetRegularConnections(QStringList connectionNames)
         {
             QMap<QString, CONFIGROOT> list;

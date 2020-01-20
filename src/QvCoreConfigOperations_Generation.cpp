@@ -108,10 +108,18 @@ namespace Qv2ray
                 QJsonArray accounts;
 
                 foreach (auto account, _accounts) {
+                    if (account.user.isEmpty() && account.pass.isEmpty()) {
+                        continue;
+                    }
+
                     accounts.append(GetRootObject(account));
                 }
 
-                JADD(timeout, accounts, allowTransparent, userLevel)
+                if (!accounts.isEmpty()) {
+                    JADD(accounts)
+                }
+
+                JADD(timeout, allowTransparent, userLevel)
                 RROOT
             }
 
@@ -145,13 +153,21 @@ namespace Qv2ray
                 QJsonArray accounts;
 
                 foreach (auto acc, _accounts) {
+                    if (acc.user.isEmpty() && acc.pass.isEmpty()) {
+                        continue;
+                    }
+
                     accounts.append(GetRootObject(acc));
                 }
 
+                if (!accounts.isEmpty()) {
+                    JADD(accounts)
+                }
+
                 if (udp) {
-                    JADD(auth, accounts, udp, ip, userLevel)
+                    JADD(auth, udp, ip, userLevel)
                 } else {
-                    JADD(auth, accounts, userLevel)
+                    JADD(auth, userLevel)
                 }
 
                 RROOT

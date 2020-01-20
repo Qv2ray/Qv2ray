@@ -496,7 +496,7 @@ void RouteEditor::on_addRouteBtn_clicked()
     rule.QV2RAY_RULE_USE_BALANCER = false;
     // Default balancer tag, it's a random string.
     auto bTag = GenerateRandomString();
-    rule.QV2RAY_RULE_TAG = GenerateRandomString(5);
+    rule.QV2RAY_RULE_TAG = rules.isEmpty() ? tr("Default rule") : (tr("rule") + "-" + GenerateRandomString(5));
     rule.balancerTag = bTag;
     balancers[bTag] = QStringList();
     AddNewRule(rule);
@@ -629,6 +629,7 @@ void RouteEditor::on_delBtn_clicked()
 {
     if (nodeScene->selectedNodes().empty()) {
         QvMessageBoxWarn(this, tr("Remove Items"), tr("Please select a node from the graph to continue."));
+        return;
     }
 
     auto firstNode = nodeScene->selectedNodes()[0];
@@ -668,10 +669,12 @@ void RouteEditor::on_delBtn_clicked()
         //
         // Remove item from the rule order list widget.
         ruleListWidget->takeItem(ruleListWidget->row(ruleListWidget->findItems(currentRuleTag, Qt::MatchExactly).first()));
+        CHECKEMPTYRULES
         currentRuleTag = rules.firstKey();
         ShowCurrentRuleDetail();
     } else {
         LOG(MODULE_UI, "Unknown node selected.")
+        QvMessageBoxWarn(this, tr("Error"), tr("Qv2ray entered an unknown state."));
     }
 }
 void RouteEditor::on_editBtn_clicked()

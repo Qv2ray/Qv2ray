@@ -1,5 +1,4 @@
-#ifndef W_QVOUTBOUNDEDITOR_H
-#define W_QVOUTBOUNDEDITOR_H
+#pragma once
 
 #include <list>
 #include <QDialog>
@@ -141,5 +140,3 @@ class RouteEditor : public QDialog, private Ui::RouteEditor
         void AddNewOutbound(OUTBOUND out);
         void AddNewRule(RuleObject rule);
 };
-
-#endif // W_QVOUTBOUNDEDITOR_H
