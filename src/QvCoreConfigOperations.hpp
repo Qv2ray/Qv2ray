@@ -34,7 +34,7 @@ namespace Qv2ray
             //
             // Save Connection Config
             bool SaveConnectionConfig(CONFIGROOT obj, QString *alias, bool canOverrideExisting);
-            bool SaveSubscriptionConfig(CONFIGROOT obj, const QString &subscription, const QString &name);
+            bool SaveSubscriptionConfig(CONFIGROOT obj, const QString &subscription, QString *name);
             bool RemoveConnection(const QString &alias);
             bool RemoveSubscriptionConnection(const QString &subsName, const QString &name);
             bool RenameConnection(const QString &originalName, const QString &newName);

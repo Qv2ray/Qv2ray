@@ -880,7 +880,9 @@ void MainWindow::on_editConfigButton_clicked()
 
     if (isChanged) {
         if (CheckConfigType(firstSelected, SUBSCRIPTION)) {
-            SaveSubscriptionConfig(root, connections[_identifier].subscriptionName, connections[_identifier].connectionName);
+            auto name = connections[_identifier].connectionName;
+            // Assume name will not change.
+            SaveSubscriptionConfig(root, connections[_identifier].subscriptionName, &name);
         } else {
             connections[_identifier].config = root;
             // true indicates the alias will NOT change

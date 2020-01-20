@@ -179,6 +179,21 @@ namespace Qv2ray
             return strcat(strcat(str, " "), sizes[i]);
         }
 
+        bool IsValidFileName(const QString &fileName)
+        {
+            QString name = fileName;
+            return name == RemoveInvalidFileName(fileName);
+        }
+
+        QString RemoveInvalidFileName(const QString &fileName)
+        {
+            std::string _name = fileName.toStdString();
+            std::replace_if(_name.begin(), _name.end(), [](char c) {
+                return std::string::npos != string(R"("/\?%&^*;:|><)").find(c);
+            }, '_');
+            return QString::fromStdString(_name);
+        }
+
         QTranslator *getTranslator(const QString &lang)
         {
             QTranslator *translator = new QTranslator();

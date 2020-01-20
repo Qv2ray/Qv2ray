@@ -71,13 +71,13 @@ namespace Qv2ray
                 return StringToFile(&str, config);
             }
 
-            bool SaveSubscriptionConfig(CONFIGROOT obj, const QString &subscription, const QString &name)
+            bool SaveSubscriptionConfig(CONFIGROOT obj, const QString &subscription, QString *name)
             {
                 auto str = JsonToString(obj);
-                auto fName = name;
+                auto fName = *name;
 
-                if (!IsValidFileName(fName + QV2RAY_CONFIG_FILE_EXTENSION)) {
-                    fName = QObject::tr("Invalid filename") + "_" + GenerateRandomString(6) + QV2RAY_CONFIG_FILE_EXTENSION;
+                if (!IsValidFileName(fName)) {
+                    fName = RemoveInvalidFileName(fName);
                 }
 
                 QFile *config = new QFile(QV2RAY_SUBSCRIPTION_DIR + subscription + "/" + fName + QV2RAY_CONFIG_FILE_EXTENSION);
@@ -94,6 +94,7 @@ namespace Qv2ray
                     LOG(MODULE_FILE, "Failed to save a connection config from subscription: " + subscription + ", name: " + fName)
                 }
 
+                *name = fName;
                 return result;
             }
 

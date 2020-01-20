@@ -39,6 +39,10 @@ namespace Qv2ray
         QStringList ConvertQStringList(const QList<string> &stdListString);
         std::list<string> ConvertStdStringList(const QStringList &qStringList);
         //
+        // This function cannot be marked as inline.
+        QString RemoveInvalidFileName(const QString &fileName);
+        bool IsValidFileName(const QString &fileName);
+        //
         template <typename TYPE>
         QString StructToJsonString(const TYPE t)
         {
@@ -66,12 +70,6 @@ namespace Qv2ray
             auto it = vec.begin();
             std::advance(it, pos);
             vec.erase(it);
-        }
-
-        inline bool IsValidFileName(const QString &str)
-        {
-            // If no match, we are good.
-            return QRegExp(R"([\/\\\"?%*:|><]|(^\.{1,2}$))").indexIn(str) == -1;
         }
 
         inline bool IsIPv6Address(const QString &addr)
@@ -108,6 +106,28 @@ namespace Qv2ray
         {
             return std::unique_ptr<T>(new T(std::forward<Args>(args)...));
         }
+
+        /*
+         * Generic function to find if an element of any type exists in list
+         */
+        template<typename T>
+        bool contains(std::list<T> &listOfElements, const T &element)
+        {
+            // Find the iterator if element in list
+            auto it = std::find(listOfElements.begin(), listOfElements.end(), element);
+            //return if iterator points to end or not. It points to end then it means element
+            // does not exists in list
+            return it != listOfElements.end();
+        }
+
+        inline QString timeToString(const time_t &t)
+        {
+            auto _tm = std::localtime(&t);
+            char MY_TIME[128];
+            // using strftime to display time
+            strftime(MY_TIME, sizeof(MY_TIME), "%x - %I:%M%p", _tm);
+            return QString(MY_TIME);
+        }
     }
 
     namespace mapExt
@@ -138,28 +158,9 @@ namespace Qv2ray
             return r;
         }
     }
-
-    /*
-     * Generic function to find if an element of any type exists in list
-     */
-    template<typename T>
-    bool contains(std::list<T> &listOfElements, const T &element)
-    {
-        // Find the iterator if element in list
-        auto it = std::find(listOfElements.begin(), listOfElements.end(), element);
-        //return if iterator points to end or not. It points to end then it means element
-        // does not exists in list
-        return it != listOfElements.end();
-    }
-
-    inline QString timeToString(const time_t &t)
-    {
-        auto _tm = std::localtime(&t);
-        char MY_TIME[128];
-        // using strftime to display time
-        strftime(MY_TIME, sizeof(MY_TIME), "%x - %I:%M%p", _tm);
-        return QString(MY_TIME);
-    }
 }
+
+using namespace Qv2ray::Utils;
+using namespace Qv2ray::mapExt;
 
 #endif // QVHELPERS_H
