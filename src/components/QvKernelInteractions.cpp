@@ -98,12 +98,9 @@ namespace Qv2ray
                 process.setProcessEnvironment(env);
                 DEBUG(MODULE_VCORE, "Starting V2ray core with test options")
                 process.start(conf.v2CorePath, QStringList() << "-test" << "-config" << path, QIODevice::ReadWrite | QIODevice::Text);
+                process.waitForFinished();
 
-                if (!process.waitForFinished(1000) && process.exitCode() != 0) {
-                    LOG(MODULE_VCORE, "V2ray core failed with an exit code: " + QSTRN(process.exitCode()))
-                    QvMessageBoxWarn(nullptr, tr("Cannot start V2ray"), tr("V2ray core failed with an exit code: ") + QSTRN(process.exitCode()));
-                    return false;
-                } else if (process.exitCode() != 0) {
+                if (process.exitCode() != 0) {
                     QString output = QString(process.readAllStandardOutput());
                     QvMessageBoxWarn(nullptr, tr("Configuration Error"), output.mid(output.indexOf("anti-censorship.") + 17));
                     return false;
