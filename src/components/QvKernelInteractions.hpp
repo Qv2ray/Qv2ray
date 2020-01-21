@@ -27,7 +27,7 @@ namespace Qv2ray
                 long getAllSpeedUp();
                 long getAllSpeedDown();
                 //
-                bool StartConnection(CONFIGROOT root, int apiPort);
+                bool StartConnection(CONFIGROOT root);
                 void StopConnection();
                 bool KernelStarted = false;
                 //

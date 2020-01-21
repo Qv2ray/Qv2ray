@@ -44,7 +44,7 @@
             <x>0</x>
             <y>0</y>
             <width>647</width>
-            <height>476</height>
+            <height>547</height>
            </rect>
           </property>
           <layout class="QFormLayout" name="formLayout_5">
@@ -248,13 +248,107 @@
             </layout>
            </item>
            <item row="2" column="0">
+            <layout class="QVBoxLayout" name="verticalLayout_3">
+             <item>
+              <spacer name="verticalSpacer_16">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_64">
+               <property name="text">
+                <string>API Subsystem</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="verticalSpacer_15">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+           <item row="2" column="1">
+            <layout class="QGridLayout" name="gridLayout_4" columnstretch="0,0,1">
+             <item row="1" column="1">
+              <widget class="QLabel" name="label_8">
+               <property name="text">
+                <string>API Port</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLabel" name="label_68">
+               <property name="text">
+                <string>Enabled</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="2">
+              <widget class="QSpinBox" name="statsPortBox">
+               <property name="minimumSize">
+                <size>
+                 <width>100</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="minimum">
+                <number>1024</number>
+               </property>
+               <property name="maximum">
+                <number>65535</number>
+               </property>
+               <property name="value">
+                <number>15934</number>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="2">
+              <widget class="QCheckBox" name="enableAPI">
+               <property name="text">
+                <string>Enabled</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0" rowspan="2">
+              <widget class="Line" name="line_4">
+               <property name="frameShadow">
+                <enum>QFrame::Plain</enum>
+               </property>
+               <property name="lineWidth">
+                <number>2</number>
+               </property>
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="3" column="0">
             <widget class="QLabel" name="label">
              <property name="text">
               <string>Log Level</string>
              </property>
             </widget>
            </item>
-           <item row="2" column="1">
+           <item row="3" column="1">
             <widget class="QComboBox" name="logLevelComboBox">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
@@ -295,7 +389,7 @@
              </item>
             </widget>
            </item>
-           <item row="3" column="0">
+           <item row="4" column="0">
             <layout class="QVBoxLayout" name="verticalLayout_9">
              <item>
               <spacer name="verticalSpacer_6">
@@ -332,7 +426,7 @@
              </item>
             </layout>
            </item>
-           <item row="3" column="1">
+           <item row="4" column="1">
             <layout class="QGridLayout" name="gridLayout_8" columnstretch="0,0,1">
              <item row="1" column="1">
               <widget class="QLabel" name="label_61">
@@ -381,21 +475,21 @@
              </item>
             </layout>
            </item>
-           <item row="4" column="0">
+           <item row="5" column="0">
             <widget class="QLabel" name="label_7">
              <property name="text">
               <string>Transparent Proxy</string>
              </property>
             </widget>
            </item>
-           <item row="4" column="1">
+           <item row="5" column="1">
             <widget class="QCheckBox" name="tProxyCheckBox">
              <property name="text">
               <string>Enabled</string>
              </property>
             </widget>
            </item>
-           <item row="5" column="0">
+           <item row="6" column="0">
             <layout class="QVBoxLayout" name="verticalLayout_8">
              <item>
               <spacer name="verticalSpacer_12">
@@ -432,7 +526,7 @@
              </item>
             </layout>
            </item>
-           <item row="5" column="1">
+           <item row="6" column="1">
             <layout class="QGridLayout" name="gridLayout_9">
              <item row="0" column="0" rowspan="3">
               <widget class="Line" name="line_3">
@@ -494,7 +588,7 @@
              </item>
             </layout>
            </item>
-           <item row="6" column="1">
+           <item row="7" column="1">
             <spacer name="verticalSpacer_11">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
@@ -995,53 +1089,27 @@
              </widget>
             </item>
             <item row="2" column="0">
-             <widget class="QLabel" name="label_8">
-              <property name="text">
-               <string>API Port</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="1">
-             <widget class="QSpinBox" name="statsPortBox">
-              <property name="minimumSize">
-               <size>
-                <width>100</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="minimum">
-               <number>1024</number>
-              </property>
-              <property name="maximum">
-               <number>65535</number>
-              </property>
-              <property name="value">
-               <number>15934</number>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="0">
              <widget class="QLabel" name="label_18">
               <property name="text">
                <string>Use Local DNS</string>
               </property>
              </widget>
             </item>
-            <item row="3" column="1">
+            <item row="2" column="1">
              <widget class="QCheckBox" name="localDNSCb">
               <property name="text">
                <string>Enabled</string>
               </property>
              </widget>
             </item>
-            <item row="4" column="0">
+            <item row="3" column="0">
              <widget class="QLabel" name="label_21">
               <property name="text">
                <string>Custom DNS List</string>
               </property>
              </widget>
             </item>
-            <item row="4" column="1">
+            <item row="3" column="1">
              <widget class="QPlainTextEdit" name="DNSListTxt"/>
             </item>
            </layout>
@@ -1879,7 +1947,6 @@ p, li { white-space: pre-wrap; }
   <tabstop>pushButton</tabstop>
   <tabstop>proxyDefaultCb</tabstop>
   <tabstop>bypassCNCb</tabstop>
-  <tabstop>statsPortBox</tabstop>
   <tabstop>localDNSCb</tabstop>
   <tabstop>DNSListTxt</tabstop>
   <tabstop>fpGroupBox</tabstop>

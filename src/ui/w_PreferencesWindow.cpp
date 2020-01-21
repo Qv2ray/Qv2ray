@@ -100,7 +100,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent),
     //
     vCorePathTxt->setText(CurrentConfig.v2CorePath);
     vCoreAssetsPathTxt->setText(CurrentConfig.v2AssetsPath);
-    statsPortBox->setValue(CurrentConfig.connectionConfig.statsPort);
+    statsPortBox->setValue(CurrentConfig.apiConfig.statsPort);
     //
     //
     bypassCNCb->setChecked(CurrentConfig.connectionConfig.bypassCN);
@@ -203,7 +203,7 @@ void PreferencesWindow::on_buttonBox_accepted()
 
     if (!StartupOption.noAPI) {
         size ++;
-        ports << CurrentConfig.connectionConfig.statsPort;
+        ports << CurrentConfig.apiConfig.statsPort;
     }
 
     if (ports.size() != size) {
@@ -466,7 +466,7 @@ void PreferencesWindow::on_bypassCNCb_stateChanged(int arg1)
 void PreferencesWindow::on_statsPortBox_valueChanged(int arg1)
 {
     NEEDRESTART
-    CurrentConfig.connectionConfig.statsPort = arg1;
+    CurrentConfig.apiConfig.statsPort = arg1;
 }
 
 void PreferencesWindow::on_socksPortLE_valueChanged(int arg1)
@@ -1020,4 +1020,11 @@ void PreferencesWindow::on_maxLogLinesSB_valueChanged(int arg1)
     LOADINGCHECK
     NEEDRESTART
     CurrentConfig.uiConfig.maximumLogLines = arg1;
+}
+
+void PreferencesWindow::on_enableAPI_stateChanged(int arg1)
+{
+    LOADINGCHECK
+    NEEDRESTART
+    CurrentConfig.apiConfig.enableAPI = arg1 == Qt::Checked;
 }

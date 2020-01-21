@@ -9,7 +9,7 @@
 #include "QvTinyLog.hpp"
 #include "QvCoreConfigObjects.hpp"
 
-const int QV2RAY_CONFIG_VERSION = 6;
+const int QV2RAY_CONFIG_VERSION = 7;
 
 // Linux users and DEs should handle the darkMode UI themselves.
 #ifndef QV2RAY_USE_BUILTIN_DARKTHEME
@@ -189,11 +189,17 @@ namespace Qv2ray
             bool enableProxy;
             bool withLocalDNS;
             QList<QString> dnsList;
-            int statsPort;
             Qv2rayForwardProxyConfig forwardProxyConfig;
 
-            Qv2rayConnectionConfig() : bypassCN(true), enableProxy(true), withLocalDNS(false), dnsList(QStringList() << "8.8.4.4" << "1.1.1.1"), statsPort(15490) { }
-            XTOSTRUCT(O(bypassCN, enableProxy, withLocalDNS, dnsList, statsPort, forwardProxyConfig))
+            Qv2rayConnectionConfig() : bypassCN(true), enableProxy(true), withLocalDNS(false), dnsList(QStringList() << "8.8.4.4" << "1.1.1.1") { }
+            XTOSTRUCT(O(bypassCN, enableProxy, withLocalDNS, dnsList, forwardProxyConfig))
+        };
+
+        struct Qv2rayAPIConfig {
+            bool enableAPI;
+            int statsPort;
+            Qv2rayAPIConfig(): enableAPI(true), statsPort(15490) { }
+            XTOSTRUCT(O(enableAPI, statsPort))
         };
 
         struct Qv2rayConfig {
@@ -210,6 +216,7 @@ namespace Qv2ray
             QMap<QString, Qv2raySubscriptionConfig> subscriptions;
             //
             Qv2rayUIConfig uiConfig;
+            Qv2rayAPIConfig apiConfig;
             Qv2rayInboundsConfig inboundConfig;
             Qv2rayConnectionConfig connectionConfig;
             Qv2rayToolBarConfig toolBarConfig;

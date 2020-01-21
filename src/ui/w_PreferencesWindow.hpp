@@ -160,6 +160,8 @@ class PreferencesWindow : public QDialog, private Ui::PreferencesWindow
 
         void on_maxLogLinesSB_valueChanged(int arg1);
 
+        void on_enableAPI_stateChanged(int arg1);
+
     private:
         void SetAutoStartButtonsState(bool isAutoStart);
         // Set ui parameters for a line;

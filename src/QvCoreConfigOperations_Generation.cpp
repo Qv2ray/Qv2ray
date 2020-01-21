@@ -408,7 +408,7 @@ namespace Qv2ray
                     INBOUNDS inbounds = INBOUNDS(root["inbounds"].toArray());
                     INBOUNDSETTING fakeDocodemoDoor;
                     fakeDocodemoDoor["address"] = "127.0.0.1";
-                    QJsonObject apiInboundsRoot = GenerateInboundEntry("127.0.0.1", gConf.connectionConfig.statsPort, "dokodemo-door", fakeDocodemoDoor, API_TAG_INBOUND);
+                    QJsonObject apiInboundsRoot = GenerateInboundEntry("127.0.0.1", gConf.apiConfig.statsPort, "dokodemo-door", fakeDocodemoDoor, API_TAG_INBOUND);
                     inbounds.push_front(apiInboundsRoot);
                     root["inbounds"] = inbounds;
                     //

@@ -130,7 +130,7 @@ bool MainWindow::MWtryStartConnection()
 {
     auto connectionRoot = connections[CurrentConnectionIdentifier].config;
     currentFullConfig = GenerateRuntimeConfig(connectionRoot);
-    bool startFlag = this->vinstance->StartConnection(currentFullConfig, currentConfig.connectionConfig.statsPort);
+    bool startFlag = this->vinstance->StartConnection(currentFullConfig);
 
     if (startFlag) {
         bool usePAC = currentConfig.inboundConfig.pacConfig.enablePAC;

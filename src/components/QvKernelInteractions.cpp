@@ -63,22 +63,18 @@ namespace Qv2ray
             // Check if V2ray core returns a version number correctly.
             QProcess proc;
             proc.start(vCorePath + " -version");
+            proc.waitForFinished();
+            auto exitCode = proc.exitCode();
 
-            if (!proc.waitForFinished(1000) || proc.exitCode() != 0) {
-                DEBUG(MODULE_VCORE, "V2ray core not exited within 1 sec, or it failed with an exit code: " + QSTRN(proc.exitCode()))
-
-                if (proc.exitCode() != 0) {
-                    *message = tr("V2ray core failed with an exit code: ") + QSTRN(proc.exitCode());
-                } else {
-                    *message = tr("V2ray core not responsed within 1 secs.");
-                }
-
+            if (exitCode != 0) {
+                DEBUG(MODULE_VCORE, "VCore failed with an exit code: " + QSTRN(exitCode))
+                *message = tr("V2ray core failed with an exit code: ") + QSTRN(exitCode);
                 return false;
             }
 
             QString output = QString(proc.readAllStandardOutput());
             LOG(MODULE_VCORE, "V2ray output: " + SplitLines(output).join(";"))
-            *message =  SplitLines(output).first();
+            *message = SplitLines(output).first();
             return true;
         }
 
@@ -134,7 +130,7 @@ namespace Qv2ray
             KernelStarted = false;
         }
 
-        bool V2rayKernelInstance::StartConnection(CONFIGROOT root, int apiPort)
+        bool V2rayKernelInstance::StartConnection(CONFIGROOT root)
         {
             if (KernelStarted) {
                 LOG(MODULE_VCORE, "Status is invalid, expect STOPPED when calling StartConnection")
@@ -169,15 +165,18 @@ namespace Qv2ray
                 vProcess->waitForStarted();
                 DEBUG(MODULE_VCORE, "V2ray core started.")
                 KernelStarted = true;
+                auto conf = GetGlobalConfig();
 
                 if (StartupOption.noAPI) {
                     LOG(MODULE_VCORE, "API has been disabled by the command line argument \"-noAPI\"")
+                } else if (!conf.apiConfig.enableAPI) {
+                    LOG(MODULE_VCORE, "API has been disabled by the global config option")
                 } else if (inboundTags.isEmpty()) {
                     LOG(MODULE_VCORE, "API is disabled since no inbound tags configured. This is probably caused by a bad complex config.")
                 } else {
                     // Config API
                     apiFailedCounter = 0;
-                    this->apiPort = apiPort;
+                    this->apiPort = conf.apiConfig.statsPort;
                     Channel = grpc::CreateChannel("127.0.0.1:" + to_string(apiPort), grpc::InsecureChannelCredentials());
                     StatsService service;
                     Stub = service.NewStub(Channel);

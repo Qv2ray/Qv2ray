@@ -123,6 +123,16 @@ namespace Qv2ray
                 root["subscriptions"] = newSubscriptions;
                 break;
             }
+
+            // Qv2ray version 2, RC 4
+            case 6: {
+                // Moved API Stats port from connectionConfig to apiConfig
+                QJsonObject apiConfig;
+                apiConfig["enableAPI"] = true;
+                apiConfig["statsPort"] = root["connectionConfig"].toObject()["statsPort"].toInt();
+                root["apiConfig"] = apiConfig;
+                break;
+            }
         }
 
         root["config_version"] = root["config_version"].toInt() + 1;
