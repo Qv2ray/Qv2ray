@@ -94,7 +94,7 @@ void RouteEditor::AddRule(RuleObject rule)
             nodeScene->createConnection(*outboundNodes[rule.outboundTag], 0, node, 0);
         } else {
             LOG(MODULE_GRAPH, "Outbound tag not found: " + rule.outboundTag + ", for: " + rule.QV2RAY_RULE_TAG)
-            QvMessageBoxWarn(this, tr("No outbound tag"), tr("Please connect the rule with an outbound."));
+            //QvMessageBoxWarn(this, tr("No outbound tag"), tr("Please connect the rule with an outbound."));
         }
     }
 
