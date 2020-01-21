@@ -23,14 +23,14 @@
   </screenshots>
 
   <releases>
-    <release version="1.99.5" date="2019-1-14">
+    <release version="1.99.6" date="2019-1-20">
       <description>
         <ul>
-            <li>[ux] improve ui selection experience</li>
-            <li>[ui] Fixed #234</li>
-            <li>[add] Added subscription renewal</li>
-            <li>[fix] command line parsing workaround</li>
-            <li>[fix] prevent from blocking shutdown and logout, fixed #224</li>
+            <li>upload translations</li>
+            <li>fix: fixed several issues</li>
+            <li>add: add option to update subscription without system proxy</li>
+            <li>fix: fixed Subscription Import filename issue</li>
+            <li>New Crowdin translations (#261)</li>
         </ul>
       </description>
     </release>
