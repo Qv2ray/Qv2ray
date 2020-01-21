@@ -328,7 +328,14 @@ CONFIGROOT RouteEditor::OpenEditor()
     }
 }
 
-RouteEditor::~RouteEditor() {}
+RouteEditor::~RouteEditor()
+{
+    // Double prevent events to be processed while closing the Editor.
+    isLoading = true;
+    disconnect(nodeScene, &FlowScene::connectionDeleted, this, &RouteEditor::onConnectionDeleted);
+    disconnect(nodeScene, &FlowScene::connectionCreated, this, &RouteEditor::onConnectionCreated);
+    disconnect(nodeScene, &FlowScene::nodeClicked, this, &RouteEditor::onNodeClicked);
+}
 void RouteEditor::on_buttonBox_accepted() {}
 
 void RouteEditor::ShowCurrentRuleDetail()
