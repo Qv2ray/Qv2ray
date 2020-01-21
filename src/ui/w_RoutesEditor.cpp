@@ -20,7 +20,7 @@ static bool isLoading = false;
 
 #define CHECKEMPTYRULES if (this->rules.isEmpty()) { \
         LOG(MODULE_UI, "No rules currently, we add one.") \
-        on_addRouteBtn_clicked(); \
+        AddNewRule(); \
     }
 
 #define GRAPH_GLOBAL_OFFSET_X -80
@@ -82,17 +82,17 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QDialog(pare
     // Show connections in the node graph
     for (auto in : root["inbounds"].toArray()) {
         INBOUND _in = INBOUND(in.toObject());
-        AddNewInbound(_in);
+        AddInbound(_in);
     }
 
     for (auto out : root["outbounds"].toArray()) {
         OUTBOUND _out = OUTBOUND(out.toObject());
-        AddNewOutbound(_out);
+        AddOutbound(_out);
     }
 
     for (auto item : root["routing"].toObject()["rules"].toArray()) {
         auto _rule = StructFromJsonString<RuleObject>(JsonToString(item.toObject()));
-        AddNewRule(_rule);
+        AddRule(_rule);
     }
 
     // Set default outboung combo text AFTER adding all outbounds.
@@ -300,11 +300,18 @@ CONFIGROOT RouteEditor::OpenEditor()
 
         // Convert our internal data format to QJsonArray
         for (auto x : inbounds) {
+            if (x.isEmpty())
+                continue;
+
             _inbounds.append(x.raw());
         }
 
         for (auto x : outbounds) {
+            if (x.isEmpty())
+                continue;
+
             if (getTag(x) == defaultOutbound) {
+                LOG(MODULE_CONNECTION, "Pushing default outbound to the front.")
                 // Put the default outbound to the first.
                 _outbounds.push_front(x.raw());
             } else {
@@ -328,7 +335,13 @@ void RouteEditor::ShowCurrentRuleDetail()
 {
     LOADINGCHECK
 
+    if (currentRuleTag.isEmpty()) {
+        LOG(MODULE_UI, "WARNING, trying to access a non-exist rule entry. return.")
+        return;
+    }
+
     if (!rules.contains(currentRuleTag)) {
+        QvMessageBoxWarn(this, tr("Show rule details"), tr("A rule cannot be found: ") + currentRuleTag);
         LOG(MODULE_UI, "WARNING, trying to access a non-exist rule entry. return.")
         return;
     }
@@ -389,15 +402,17 @@ void RouteEditor::ShowCurrentRuleDetail()
     ipList->setPlainText(ips);
     LOAD_FLAG_END
 }
+
 void RouteEditor::on_insertDirectBtn_clicked()
 {
     auto freedom = GenerateFreedomOUT("as-is", "", 0);
     auto tag = "Freedom_" + QSTRN(QTime::currentTime().msecsSinceStartOfDay());
     auto out = GenerateOutboundEntry("freedom", freedom, QJsonObject(), QJsonObject(), "0.0.0.0", tag);
     // ADD NODE
-    AddNewOutbound(out);
+    AddOutbound(out);
     statusLabel->setText(tr("Added DIRECT outbound"));
 }
+
 void RouteEditor::on_routeProtocolHTTPCB_stateChanged(int arg1)
 {
     LOADINGCHECK
@@ -488,18 +503,8 @@ void RouteEditor::on_routeUserTxt_textEdited(const QString &arg1)
 }
 void RouteEditor::on_addRouteBtn_clicked()
 {
-    LOADINGCHECK
-    // Add Route
-    RuleObject rule;
-    //
-    rule.QV2RAY_RULE_ENABLED = true;
-    rule.QV2RAY_RULE_USE_BALANCER = false;
-    // Default balancer tag, it's a random string.
-    auto bTag = GenerateRandomString();
-    rule.QV2RAY_RULE_TAG = rules.isEmpty() ? tr("Default rule") : (tr("rule") + "-" + GenerateRandomString(5));
-    rule.balancerTag = bTag;
-    balancers[bTag] = QStringList();
-    AddNewRule(rule);
+    auto ruleName = AddNewRule();
+    Q_UNUSED(ruleName)
 }
 void RouteEditor::on_netBothRB_clicked()
 {
@@ -570,8 +575,8 @@ void RouteEditor::on_addDefaultBtn_clicked()
     auto _in_HTTP = GenerateInboundEntry(_Inconfig.listenip, _Inconfig.http_port, "http", _in_httpConf, "HTTP_gConf");
     auto _in_SOCKS = GenerateInboundEntry(_Inconfig.listenip, _Inconfig.socks_port, "socks", _in_socksConf, "SOCKS_gConf");
     //
-    AddNewInbound(_in_HTTP);
-    AddNewInbound(_in_SOCKS);
+    AddInbound(_in_HTTP);
+    AddInbound(_in_SOCKS);
     CHECKEMPTYRULES
 }
 void RouteEditor::on_insertBlackBtn_clicked()
@@ -580,7 +585,7 @@ void RouteEditor::on_insertBlackBtn_clicked()
     auto blackHole = GenerateBlackHoleOUT(false);
     auto tag = "blackhole_" + QSTRN(QTime::currentTime().msecsSinceStartOfDay());
     auto _blackHoleOutbound = GenerateOutboundEntry("blackhole", blackHole, QJsonObject(), QJsonObject(), "0.0.0.0", tag);
-    AddNewOutbound(_blackHoleOutbound);
+    AddOutbound(_blackHoleOutbound);
 }
 void RouteEditor::on_addInboundBtn_clicked()
 {
@@ -589,7 +594,7 @@ void RouteEditor::on_addInboundBtn_clicked()
     auto _result = w.OpenEditor();
 
     if (w.result() == QDialog::Accepted) {
-        AddNewInbound(_result);
+        AddInbound(_result);
     }
 
     CHECKEMPTYRULES
@@ -612,7 +617,7 @@ void RouteEditor::on_addOutboundBtn_clicked()
         auto confList = conf["outbounds"].toArray();
 
         for (int i = 0; i < confList.count(); i++) {
-            AddNewOutbound(OUTBOUND(confList[i].toObject()));
+            AddOutbound(OUTBOUND(confList[i].toObject()));
         }
     }
 
@@ -642,22 +647,41 @@ void RouteEditor::on_delBtn_clicked()
     // Then remove the node container.
     if (isInbound) {
         currentInboundOutboundTag = GetFirstNodeData(*firstNode, QvInboundNodeModel, InboundNodeData)->GetInbound();
-        inbounds.remove(currentInboundOutboundTag);
         nodeScene->removeNode(*inboundNodes[currentInboundOutboundTag]);
         inboundNodes.remove(currentInboundOutboundTag);
+
+        // Remove corresponded inboundtags from the rules.
+        for (auto k : rules.keys()) {
+            auto v = rules[k];
+            v.inboundTag.removeAll(currentInboundOutboundTag);
+            rules[k] = v;
+        }
+
+        inbounds.remove(currentInboundOutboundTag);
     } else if (isOutbound) {
         currentInboundOutboundTag = GetFirstNodeData(*firstNode, QvOutboundNodeModel, OutboundNodeData)->GetOutbound();
         outbounds.remove(currentInboundOutboundTag);
-        nodeScene->removeNode(*outboundNodes[currentInboundOutboundTag]);
-        outboundNodes.remove(currentInboundOutboundTag);
-        //
-        defaultOutboundCombo->removeItem(defaultOutbound.indexOf(currentInboundOutboundTag));
+        defaultOutboundCombo->clear();
+        defaultOutboundCombo->addItems(outbounds.keys());
+
+        // Remove corresponded inboundtags from the rules.
+        for (auto k : rules.keys()) {
+            auto v = rules[k];
+
+            if (v.outboundTag == currentInboundOutboundTag)
+                v.outboundTag.clear();
+
+            rules[k] = v;
+        }
 
         if (currentInboundOutboundTag == defaultOutbound) {
             // Set default outbound to the new one since the current has been removed.
             defaultOutbound = outbounds.firstKey();
-            defaultOutboundCombo->setCurrentText(defaultOutbound);
         }
+
+        defaultOutboundCombo->setCurrentText(defaultOutbound);
+        nodeScene->removeNode(*outboundNodes[currentInboundOutboundTag]);
+        outboundNodes.remove(currentInboundOutboundTag);
     } else if (isRule) {
         ruleEnableCB->setEnabled(false);
         currentRuleTag = GetFirstNodeData(*firstNode, QvRuleNodeDataModel, RuleNodeData)->GetRuleTag();
@@ -683,12 +707,18 @@ void RouteEditor::on_editBtn_clicked()
         QvMessageBoxWarn(this, tr("Edit Inbound/Outbound"), tr("Please select a node from the graph to continue."));
     }
 
-    auto firstNode = nodeScene->selectedNodes()[0];
+    auto firstNode = nodeScene->selectedNodes().at(0);
     auto isInbound = inboundNodes.values().contains(firstNode);
     auto isOutbound = outboundNodes.values().contains(firstNode);
 
     if (isInbound) {
         currentInboundOutboundTag = GetFirstNodeData(*firstNode, QvInboundNodeModel, InboundNodeData)->GetInbound();
+
+        if (!inbounds.contains(currentInboundOutboundTag)) {
+            QvMessageBoxWarn(this, tr("Edit Inbound"), tr("No inbound tag found: ") + currentInboundOutboundTag);
+            return;
+        }
+
         auto _in = inbounds[currentInboundOutboundTag];
         INBOUND _result;
         auto protocol = _in["protocol"].toString();
@@ -719,13 +749,22 @@ void RouteEditor::on_editBtn_clicked()
                 RenameItemTag(RENAME_INBOUND, getTag(_in), getTag(_result));
             }
 
+            DEBUG(MODULE_UI, "Removed old tag: " + getTag(_in))
+            inbounds.remove(getTag(_in));
+            DEBUG(MODULE_UI, "Adding new tag: " + getTag(_result))
             inbounds[getTag(_result)] = _result;
         }
     } else if (isOutbound) {
         currentInboundOutboundTag = GetFirstNodeData(*firstNode, QvOutboundNodeModel, OutboundNodeData)->GetOutbound();
+
+        if (!outbounds.contains(currentInboundOutboundTag)) {
+            QvMessageBoxWarn(this, tr("Edit Inbound"), tr("No inbound tag found: ") + currentInboundOutboundTag);
+            return;
+        }
+
         OUTBOUND _result;
         auto _out = outbounds[currentInboundOutboundTag];
-        auto protocol =  _out["protocol"].toString();
+        auto protocol = _out["protocol"].toString().toLower();
         int _code;
 
         if (protocol != "vmess" && protocol != "shadowsocks" && protocol != "socks") {
@@ -747,9 +786,13 @@ void RouteEditor::on_editBtn_clicked()
             bool isTagChanged = getTag(_out) != getTag(_result);
 
             if (isTagChanged) {
+                DEBUG(MODULE_UI, "Outbound tag is changed: " + QString(isTagChanged))
                 RenameItemTag(RENAME_OUTBOUND, getTag(_out), getTag(_result));
+                DEBUG(MODULE_UI, "Removed old tag: " + getTag(_out))
+                outbounds.remove(getTag(_out));
             }
 
+            DEBUG(MODULE_UI, "Adding new tag: " + getTag(_result))
             outbounds[getTag(_result)] = _result;
             statusLabel->setText(tr("OK"));
         }

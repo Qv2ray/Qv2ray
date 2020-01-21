@@ -112,7 +112,7 @@ class RouteEditor : public QDialog, private Ui::RouteEditor
         void onConnectionDeleted(QtNodes::Connection const &c);
 
     private:
-        void RenameItemTag(ROUTE_EDIT_MODE mode, const QString &originalTag, const QString &newTag);
+        void RenameItemTag(ROUTE_EDIT_MODE mode, const QString originalTag, const QString newTag);
         void ShowCurrentRuleDetail();
         //
         QString currentRuleTag;
@@ -136,7 +136,8 @@ class RouteEditor : public QDialog, private Ui::RouteEditor
         //
         FlowScene *nodeScene;
         // ---------------------------- Extra Source File Headers ----------------
-        void AddNewInbound(INBOUND in);
-        void AddNewOutbound(OUTBOUND out);
-        void AddNewRule(RuleObject rule);
+        void AddInbound(INBOUND in);
+        void AddOutbound(OUTBOUND out);
+        void AddRule(RuleObject rule);
+        QString AddNewRule();
 };
