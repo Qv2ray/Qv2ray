@@ -81,7 +81,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          qmake .. CONFIG+=no_increase_build_number
+          qmake .. CONFIG+=no_increase_build_number CONFIG+=with_new_backend
           make -j2
       - name: Making release tarball
         run: |
