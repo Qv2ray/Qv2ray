@@ -23,7 +23,7 @@ jobs:
         run: tools\grpc_gen.bat
 # --------------------------------------------------------
 #      - name: Download libqvb static library.
-#        run: curl -o .\libs\libqvb-win64.a https://github.com/Qv2ray/QvRPCBridge/releases/download/v1.0/libqvb-win64.a
+#        run: curl -o .\libs\libqvb-win64.a -L https://github.com/Qv2ray/QvRPCBridge/releases/download/v1.0/libqvb-win64.a
 # --------------------------------------------------------
       - name: Building Qv2ray
         shell: cmd
@@ -75,7 +75,7 @@ jobs:
         run: tools/deps_macOS.sh
 # --------------------------------------------------------
       - name: Download libqvb static library.
-        run: curl -o ./libs/libqvb-darwin.a https://github.com/Qv2ray/QvRPCBridge/releases/download/v1.0/libqvb-darwin.a
+        run: curl -o ./libs/libqvb-darwin.a -L https://github.com/Qv2ray/QvRPCBridge/releases/download/v1.0/libqvb-darwin.a
 # --------------------------------------------------------
       - name: Building Qv2ray
         run: |
@@ -118,8 +118,8 @@ jobs:
           sudo apt update
           sudo apt install -y libgl-dev openssl libx11-dev libxkbcommon-x11-dev libgrpc++-dev libprotobuf-dev protobuf-compiler protobuf-c-compiler protobuf-compiler-grpc
 # --------------------------------------------------------
-      - name: Extracting gRPC and protobuf libs and headers
-        run: tools/grpc_gen.sh
+#      - name: Extracting gRPC and protobuf libs and headers
+#        run: tools/grpc_gen.sh
 # --------------------------------------------------------
       - name: Download libqvb static library.
         uses: Legion2/download-release-action@v2.1.0
