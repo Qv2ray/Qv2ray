@@ -43,15 +43,15 @@ jobs:
           del *.cpp *.h *.o *.qrc *.qm
           windeployqt ./qv2ray.exe --compiler-runtime
       - name: Create Zip File
-        uses: montudor/action-zip@v0.1.0
-        with:
-          args: zip -r Qv2ray.Win64.zip ./release
-
+        shell: cmd
+        run: |
+          dir .\build\release /s /b /a-d > files.txt
+          makecab /d "CabinetName1=release.cab" /f files.txt
       - name: Uploading artifact
         uses: actions/upload-artifact@master
         with:
-          name: Qv2ray.Win64.zip
-          path: build/Qv2ray.zip
+          name: Qv2ray.Win64.cab
+          path: release.cab
 
 # ========================================================================================= MACOS
 
