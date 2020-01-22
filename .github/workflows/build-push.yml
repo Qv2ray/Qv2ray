@@ -46,7 +46,7 @@ jobs:
         shell: cmd
         run: |
           dir .\build\release /s /b /a-d > files.txt
-          makecab /d "CabinetName1=.\release.cab" /f files.txt >nul 2>nul
+          makecab /d "CabinetName1=.\release.cab" /d CabinetFileCountThreshold=0 /d FolderFileCountThreshold=0 /d FolderSizeThreshold=0 /d MaxCabinetSize=0 /d MaxDiskFileCount=0 /d MaxDiskSize=0 /f files.txt >nul 2>nul
           dir
       - name: Uploading artifact
         uses: actions/upload-artifact@master
