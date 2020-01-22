@@ -153,20 +153,24 @@ message(" ")
 RC_ICONS += ./assets/icons/qv2ray.ico
 ICON = ./assets/icons/qv2ray.icns
 
-# ------------------------------------------ Begin checking gRPC and protobuf headers.
-!exists(libs/gen/v2ray_api_commands.grpc.pb.h) || !exists(libs/gen/v2ray_api_commands.grpc.pb.cc) || !exists(libs/gen/v2ray_api_commands.pb.h) || !exists(libs/gen/v2ray_api_commands.pb.cc) {
-    message(" ")
-    message("-----------------------------------------------")
-    message("Cannot continue: ")
-    message("  --> Qv2ray is not properly configured yet: ")
-    message("      gRPC and protobuf headers for v2ray API is missing.")
-    message("  --> Please run gen_grpc.sh gen_grpc.bat or deps_macOS.sh located in tools/")
-    message("  --> Or consider reading the build wiki: https://github.com/lhy0403/Qv2ray/wiki/Manually-Build-Qv2ray")
-    message("-----------------------------------------------")
-    message(" ")
-    warning("IF YOU THINK IT'S A MISTAKE, PLEASE OPEN AN ISSUE")
-    error("! ABORTING THE BUILD !")
-    message(" ")
+contains( CONFIG, with_backend ) {
+    message("Compiling Qv2ray with custom backend")
+} else {
+    # ------------------------------------------ Begin checking gRPC and protobuf headers.
+    !exists(libs/gen/v2ray_api_commands.grpc.pb.h) || !exists(libs/gen/v2ray_api_commands.grpc.pb.cc) || !exists(libs/gen/v2ray_api_commands.pb.h) || !exists(libs/gen/v2ray_api_commands.pb.cc) {
+        message(" ")
+        message("-----------------------------------------------")
+        message("Cannot continue: ")
+        message("  --> Qv2ray is not properly configured yet: ")
+        message("      gRPC and protobuf headers for v2ray API is missing.")
+        message("  --> Please run gen_grpc.sh gen_grpc.bat or deps_macOS.sh located in tools/")
+        message("  --> Or consider reading the build wiki: https://github.com/lhy0403/Qv2ray/wiki/Manually-Build-Qv2ray")
+        message("-----------------------------------------------")
+        message(" ")
+        warning("IF YOU THINK IT'S A MISTAKE, PLEASE OPEN AN ISSUE")
+        error("! ABORTING THE BUILD !")
+        message(" ")
+    }
 }
 
 
@@ -285,15 +289,15 @@ with_metainfo {
 }
 
 with_backend {
-    message("  --> Unlinking gRPC and protobuf library.")
-    LIBS -= -lgrpc++ -lprotobuf -lgrpc
+    # message("  --> Unlinking gRPC and protobuf library.")
+    # LIBS -= -lgrpc++ -lprotobuf -lgrpc
     
-    linux-g++ {
+    unix {
         message("  --> Linking libqvb static library.")
-        LIBS += -L$$PWD/libs/ -lqvb-linux64
+        unix:!macx: LIBS += -L$$PWD/libs/ -lqvb-linux64
     }
 
-    macx-g++ {
+    macx {
         message("  --> Linking libqvb static library.")
         LIBS += -L$$PWD/libs/ -lqvb-darwin
     }
