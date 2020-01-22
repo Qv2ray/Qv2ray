@@ -22,8 +22,8 @@ jobs:
       - name: Extracting gRPC and protobuf libs and headers
         run: tools\grpc_gen.bat
 # --------------------------------------------------------
-      - name: Download libqvb static library.
-        run: curl -o .\libs\libqvb-win64.a https://github.com/Qv2ray/QvRPCBridge/releases/download/v1.0/libqvb-win64.a
+#      - name: Download libqvb static library.
+#        run: curl -o .\libs\libqvb-win64.a https://github.com/Qv2ray/QvRPCBridge/releases/download/v1.0/libqvb-win64.a
 # --------------------------------------------------------
       - name: Building Qv2ray
         shell: cmd
@@ -35,15 +35,18 @@ jobs:
       - name: Copying DLLs to build output folders
         shell: cmd
         run: .github\workflows\copy_DLLs.bat
-      - name: Make release zipball
+      - name: Deploy Qt
         shell: cmd
         run: |
           cd build
           cd release
           del *.cpp *.h *.o *.qrc *.qm
           windeployqt ./qv2ray.exe --compiler-runtime
-          cd ..
-          ..\tools\7z.exe a Qv2ray.zip .\release
+      - name: Create Zip File
+        uses: montudor/action-zip@v0.1.0
+        with:
+          args: zip -r Qv2ray.Win64.zip ./release
+
       - name: Uploading artifact
         uses: actions/upload-artifact@master
         with:
