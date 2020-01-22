@@ -6,7 +6,7 @@ jobs:
 # ======================================================================================== WINDOWS
   Windows:
     name: Push build for win64
-    runs-on: windows-2019
+    runs-on: windows-latest
     steps:
       - name: Checking out Qv2ray sources
         uses: actions/checkout@master
@@ -23,12 +23,7 @@ jobs:
         run: tools\grpc_gen.bat
 # --------------------------------------------------------
       - name: Download libqvb static library.
-        uses: Legion2/download-release-action@v2.1.0
-        with:
-          repository: Qv2ray/QvRPCBridge
-          tag: 'latest'
-          path: libs
-          file: libqvb-win64.a
+        run: curl -o .\libs\libqvb-win64.a https://github.com/Qv2ray/QvRPCBridge/releases/download/v1.0/libqvb-win64.a
 # --------------------------------------------------------
       - name: Building Qv2ray
         shell: cmd
@@ -59,7 +54,7 @@ jobs:
 
   macOS:
     name: Push build for macOS
-    runs-on: macOS-latest
+    runs-on: macos-latest
     steps:
       - name: Checking out sources
         uses: actions/checkout@master
@@ -75,12 +70,7 @@ jobs:
         run: tools/deps_macOS.sh
 # --------------------------------------------------------
       - name: Download libqvb static library.
-        uses: Legion2/download-release-action@v2.1.0
-        with:
-          repository: Qv2ray/QvRPCBridge
-          tag: 'latest'
-          path: libs
-          file: libqvb-darwin.a
+        run: curl -o .\libs\libqvb-win64.a https://github.com/Qv2ray/QvRPCBridge/releases/download/v1.0/libqvb-win64.a
 # --------------------------------------------------------
       - name: Building Qv2ray
         run: |
