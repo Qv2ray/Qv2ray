@@ -5,7 +5,7 @@
 #include "QvCoreConfigOperations.hpp"
 #include "QvCore/QvCommandLineArgs.hpp"
 
-#include "libs/libqvb.h"
+#include "libs/libqvb/build/libqvb.h"
 
 using namespace v2ray::core::app::stats::command;
 using grpc::Channel;

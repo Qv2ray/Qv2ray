@@ -16,3 +16,6 @@
 [submodule "libs/gRPC-win32"]
 	path = libs/gRPC-win32
 	url = https://github.com/Qv2ray/gRPC-Windows-Packages
+[submodule "libs/libqvb"]
+	path = libs/libqvb
+	url = https://github.com/Qv2ray/QvRPCBridge

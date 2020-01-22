@@ -7,5 +7,6 @@
 SourceTrail/
 
 libs/gen/
+libs/libqvb-*
 
 build/

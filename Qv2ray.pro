@@ -84,7 +84,6 @@ INCLUDEPATH += \
         libs/gen/
 
 HEADERS += \
-        libs/libqvb.h \
         src/Qv2rayBase.hpp \
         src/Qv2rayFeatures.hpp \
         src/QvCoreConfigObjects.hpp \
@@ -235,13 +234,20 @@ win32 {
     message("  --> Linking against winHTTP and winSock2.")
     LIBS += -lwinhttp -lwininet -lws2_32
 
+    message("  --> Linking libqvb static library.")
+    LIBS += -L$$PWD/libs/ -lqvb-win64
 }
 
 macx {
     # For Linux and macOS
     message("Configuring for macOS specific environment")
     LIBS += -framework Carbon -framework Cocoa
+
+    message("  --> Linking libgpr and libupb.")
     LIBS += -lgpr -lupb
+
+    message("  --> Linking libqvb static library.")
+    LIBS += -L$$PWD/libs/ -lqvb-darwin
 }
 
 # Reuse unix for macx as well
@@ -251,6 +257,9 @@ unix {
     # For gRPC and protobuf in linux and macOS
     message("  --> Linking against gRPC and protobuf library.")
     LIBS += -L/usr/local/lib -lgrpc++ -lprotobuf -lgrpc
+
+    message("  --> Linking libqvb static library.")
+    unix:!macx: LIBS += -L$$PWD/libs/ -lqvb-linux64
 
     # macOS homebrew include path
     message("  --> Adding local include folder to search path")
@@ -283,4 +292,6 @@ message(" ")
 message("Done configuring Qv2ray project. Build output will be at:" $$OUT_PWD)
 message("Type `make` or `mingw32-make` to start building Qv2ray")
 
-unix|win32: LIBS += -L$$PWD/libs/ -lqvb
+
+
+

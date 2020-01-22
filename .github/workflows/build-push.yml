@@ -3,6 +3,7 @@ name: Qv2ray Push Build
 on: push
 
 jobs:
+# ======================================================================================== WINDOWS
   Windows:
     name: Push build for win64
     runs-on: windows-2019
@@ -20,6 +21,14 @@ jobs:
 # --------------------------------------------------------
       - name: Extracting gRPC and protobuf libs and headers
         run: tools\grpc_gen.bat
+# --------------------------------------------------------
+      - name: Download libqvb static library.
+        uses: Legion2/download-release-action@v2.1.0
+        with:
+          repository: Qv2ray/QvRPCBridge
+          tag: 'latest'
+          path: libs
+          file: libqvb-win64.a
 # --------------------------------------------------------
       - name: Building Qv2ray
         shell: cmd
@@ -46,7 +55,7 @@ jobs:
           name: Qv2ray.Win64.zip
           path: build/Qv2ray.zip
 
-# =========================================================================================
+# ========================================================================================= MACOS
 
   macOS:
     name: Push build for macOS
@@ -64,6 +73,14 @@ jobs:
 # --------------------------------------------------------
       - name: Extracting gRPC and protobuf libs and headers
         run: tools/deps_macOS.sh
+# --------------------------------------------------------
+      - name: Download libqvb static library.
+        uses: Legion2/download-release-action@v2.1.0
+        with:
+          repository: Qv2ray/QvRPCBridge
+          tag: 'latest'
+          path: libs
+          file: libqvb-darwin.a
 # --------------------------------------------------------
       - name: Building Qv2ray
         run: |
@@ -83,7 +100,7 @@ jobs:
         with:
           name: Qv2ray.macOS.app.zip
           path: build/Qv2ray.app.tar.gz
-# ===================================================================================
+# =================================================================================== LINUX
           
   Linux:
     name: Push build for Linux
@@ -108,6 +125,14 @@ jobs:
 # --------------------------------------------------------
       - name: Extracting gRPC and protobuf libs and headers
         run: tools/grpc_gen.sh
+# --------------------------------------------------------
+      - name: Download libqvb static library.
+        uses: Legion2/download-release-action@v2.1.0
+        with:
+          repository: Qv2ray/QvRPCBridge
+          tag: 'latest'
+          path: libs
+          file: libqvb-linux64.a
 # --------------------------------------------------------
       - name: Generate Makefile
         run: |
