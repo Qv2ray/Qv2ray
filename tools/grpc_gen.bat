@@ -1,11 +1,5 @@
 @echo off
 cd tools
-echo Extracting files.
-%~dp0\7z.exe -y e %~dp0gRPC-win32.tar.gz -o%~dp0 && %~dp0\7z.exe -y x %~dp0gRPC-win32.tar -o%~dp0\..\libs\gRPC-win32
-if errorlevel 1 goto errored
-
-del %~dp0gRPC-win32.tar
-
 mkdir %~dp0..\libs\gen
 
 echo.

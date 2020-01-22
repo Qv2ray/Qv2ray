@@ -84,7 +84,9 @@ INCLUDEPATH += \
         libs/gen/
 
 HEADERS += \
+        libs/libqvb.h \
         src/Qv2rayBase.hpp \
+        src/Qv2rayFeatures.hpp \
         src/QvCoreConfigObjects.hpp \
         src/QvCoreConfigOperations.hpp \
         src/QvUtils.hpp \
@@ -280,3 +282,5 @@ with_metainfo {
 message(" ")
 message("Done configuring Qv2ray project. Build output will be at:" $$OUT_PWD)
 message("Type `make` or `mingw32-make` to start building Qv2ray")
+
+unix|win32: LIBS += -L$$PWD/libs/ -lqvb

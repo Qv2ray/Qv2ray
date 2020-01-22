@@ -100,6 +100,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent),
     //
     vCorePathTxt->setText(CurrentConfig.v2CorePath);
     vCoreAssetsPathTxt->setText(CurrentConfig.v2AssetsPath);
+    enableAPI->setChecked(CurrentConfig.apiConfig.enableAPI);
     statsPortBox->setValue(CurrentConfig.apiConfig.statsPort);
     //
     //

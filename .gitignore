@@ -7,6 +7,5 @@
 SourceTrail/
 
 libs/gen/
-libs/gRPC-win32/
 
 build/
