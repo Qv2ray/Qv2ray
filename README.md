@@ -10,11 +10,11 @@
 
 使用 Qt 框架的跨平台 v2ray 客户端. 支持 Windows, Linux, macOS
 
-[![HitCount](http://hits.dwyl.io/lhy0403/Qv2ray.svg)](http://hits.dwyl.io/lhy0403/Qv2ray) ![GitHub Releases](https://img.shields.io/github/downloads/lhy0403/Qv2ray/latest/total?style=flat-square)
+[![HitCount](http://hits.dwyl.io/Qv2ray/Qv2ray.svg)](http://hits.dwyl.io/Qv2ray/Qv2ray) ![GitHub Releases](https://img.shields.io/github/downloads/Qv2ray/Qv2ray/latest/total?style=flat-square)
 
 ## Related Links
- - [Wiki](https://github.com/lhy0403/Qv2ray/wiki) and [First Time Usage](https://github.com/lhy0403/Qv2ray/wiki/Getting-Started)
- - Latest **[Release Version](https://github.com/lhy0403/Qv2ray/releases/latest)**
+ - [Wiki](https://github.com/Qv2ray/Qv2ray/wiki) and [First Time Usage](https://github.com/Qv2ray/Qv2ray/wiki/Getting-Started)
+ - Latest **[Release Version](https://github.com/Qv2ray/Qv2ray/releases/latest)**
  - Crowdin translation platform, translations are welcome at here: **[Public Translation Platform](https://crwd.in/qv2ray)**
 
 ## Special Thanks
