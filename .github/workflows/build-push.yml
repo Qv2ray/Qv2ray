@@ -138,7 +138,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          qmake .. CONFIG+=no_increase_build_number PREFIX=/usr with_backend
+          qmake .. CONFIG+="no_increase_build_number with_backend" PREFIX=/usr
       - name: Building Qv2ray
         run: |
           cd build
