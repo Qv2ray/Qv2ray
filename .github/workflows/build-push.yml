@@ -42,17 +42,18 @@ jobs:
           cd release
           del *.cpp *.h *.o *.qrc *.qm
           windeployqt ./qv2ray.exe --compiler-runtime
-      - name: Create Zip File
-        shell: cmd
-        run: |
-          dir .\build\release /s /b /a-d > files.txt
-          makecab /d "CabinetName1=.\release.cab" /d CabinetFileCountThreshold=0 /d FolderFileCountThreshold=0 /d FolderSizeThreshold=0 /d MaxCabinetSize=0 /d MaxDiskFileCount=0 /d MaxDiskSize=0 /f files.txt >nul 2>nul
-          dir
+      - name: Create 7z Release
+        uses: DuckSoft/create-7z-action@v1.0
+        with:
+          # file/folder path to compress
+          pathSource: ./build/release/
+          # 7z archive path to write
+          pathTarget: ./release.7z
       - name: Uploading artifact
         uses: actions/upload-artifact@master
         with:
-          name: Qv2ray.Win64.cab
-          path: release.cab
+          name: Qv2ray.Win64.7z
+          path: release.7z
 
 # ========================================================================================= MACOS
 
