@@ -23,14 +23,14 @@
   </screenshots>
 
   <releases>
-    <release version="1.99.6" date="2019-1-20">
+    <release version="1.99.7" date="2019-1-20">
       <description>
         <ul>
-            <li>upload translations</li>
-            <li>fix: fixed several issues</li>
-            <li>add: add option to update subscription without system proxy</li>
-            <li>fix: fixed Subscription Import filename issue</li>
-            <li>New Crowdin translations (#261)</li>
+            <li>fix: prevent wait for V2ray core, fixed #265</li>
+            <li>fix: several fix of complex editor</li>
+            <li>add: add global option to disable API system</li>
+            <li>fix: fixed segfault while closing complex editor</li>
+            <li>fix: prevent messy messagebox</li>
         </ul>
       </description>
     </release>
