@@ -37,6 +37,10 @@ include(3rdparty/x2struct/x2struct.pri)
 # Main config
 CONFIG += lrelease embed_translations
 
+# Win32 support.
+win32:CONFIG += win
+win64:CONFIG += win
+
 SOURCES += \
         src/components/QvComponentsHandler.cpp \
         src/components/QvCore/QvCommandLineArgs.cpp \
@@ -71,9 +75,7 @@ SOURCES += \
         src/ui/w_MainWindow.cpp \
         src/ui/w_ImportConfig.cpp \
         src/ui/w_ScreenShot_Core.cpp \
-        src/ui/NetSpeedBar/QvNetSpeedBar.cpp \
-        libs/gen/v2ray_api_commands.pb.cc \
-        libs/gen/v2ray_api_commands.grpc.pb.cc
+        src/ui/NetSpeedBar/QvNetSpeedBar.cpp
 
 INCLUDEPATH += \
         3rdparty/ \
@@ -116,9 +118,7 @@ HEADERS += \
         src/utils/QvHelpers.hpp \
         src/utils/QvTinyLog.hpp \
         src/utils/QJsonModel.hpp \
-        src/utils/QJsonObjectInsertMacros.h \
-        libs/gen/v2ray_api_commands.pb.h \
-        libs/gen/v2ray_api_commands.grpc.pb.h
+        src/utils/QJsonObjectInsertMacros.h
 
 FORMS += \
         src/ui/w_ExportConfig.ui \
@@ -154,26 +154,38 @@ RC_ICONS += ./assets/icons/qv2ray.ico
 ICON = ./assets/icons/qv2ray.icns
 
 with_new_backend {
-    message("Compiling Qv2ray with custom backend.")
-    SOURCES -= libs/gen/v2ray_api_commands.pb.cc \
-               libs/gen/v2ray_api_commands.pb.h \
-               libs/gen/v2ray_api_commands.grpc.pb.cc \
-               libs/gen/v2ray_api_commands.grpc.pb.h
-
-    !exists(libs/libqvb/build/libqvb.h) {
+    !exists($$PWD/libs/libqvb/build/libqvb.h) {
         message(" ")
         message("Cannot continue: ")
         message("  --> Qv2ray is configured to use custom backend, but: ")
         message("      libs/libqvb/build/libqvb.h is missing. ")
-        error("! ABORTING !")
+        error("! ABORTING THE BUILD !")
         message(" ")
     }
 
-    SOURCES += libs/libqvb/build/libqvb.h
+    message("Qv2ray will use custom API backend.")
+    message("  --> Adding libqvb header.")
+    HEADERS += libs/libqvb/build/libqvb.h
+
+    # ==-- OS Specific configurations for libqvb --==
+    win {
+        message("  --> Linking libqvb static library, for Windows platform.")
+        LIBS += -L$$PWD/libs/ -lqvb-win64
+    }
+    unix:!macx {
+        message("  --> Linking libqvb static library, for Linux platform.")
+        LIBS += -L$$PWD/libs/ -lqvb-linux64
+    }
+    macx {
+        message("  --> Linking libqvb static library, for macOS platform.")
+        LIBS += -L$$PWD/libs/ -lqvb-darwin
+    }
 } else {
     DEFINES += WITH_LIB_GRPCPP
+    message("Qv2ray will use libgRPC as API backend")
+
     # ------------------------------------------ Begin checking gRPC and protobuf headers.
-    !exists(libs/gen/v2ray_api_commands.grpc.pb.h) || !exists(libs/gen/v2ray_api_commands.grpc.pb.cc) || !exists(libs/gen/v2ray_api_commands.pb.h) || !exists(libs/gen/v2ray_api_commands.pb.cc) {
+    !exists($$PWD/libs/gen/v2ray_api_commands.grpc.pb.h) || !exists($$PWD/libs/gen/v2ray_api_commands.grpc.pb.cc) || !exists($$PWD/libs/gen/v2ray_api_commands.pb.h) || !exists($$PWD/libs/gen/v2ray_api_commands.pb.cc) {
         message(" ")
         message("-----------------------------------------------")
         message("Cannot continue: ")
@@ -187,9 +199,38 @@ with_new_backend {
         error("! ABORTING THE BUILD !")
         message(" ")
     }
+
+    SOURCES += libs/gen/v2ray_api_commands.pb.cc \
+               libs/gen/v2ray_api_commands.grpc.pb.cc
+
+    HEADERS += libs/gen/v2ray_api_commands.pb.h \
+               libs/gen/v2ray_api_commands.grpc.pb.h
+
+    # ==-- OS Specific configurations for libgRPC and libprotobuf --==
+    win {
+        # A hack for protobuf header.
+        message("  --> Applying a hack for protobuf header")
+        DEFINES += _WIN32_WINNT=0x600
+
+        message("  --> Linking against gRPC and protobuf library.")
+        DEPENDPATH  += $$PWD/libs/gRPC-win32/include
+        INCLUDEPATH += $$PWD/libs/gRPC-win32/include
+        LIBS += -L$$PWD/libs/gRPC-win32/lib/ \
+                -llibprotobuf.dll \
+                -llibgrpc++.dll
+    }
+    unix {
+        # For gRPC and protobuf in linux and macOS
+        message("  --> Linking against gRPC and protobuf library.")
+        LIBS += -L/usr/local/lib -lgrpc++ -lprotobuf -lgrpc
+    }
+    macx {
+        message("  --> Linking libgpr and libupb.")
+        LIBS += -lgpr -lupb
+    }
 }
 
-
+message(" ")
 # ------------------------------------------ Begin to detect language files.
 message("Looking for language support.")
 QM_FILES_RESOURCE_PREFIX = "translations"
@@ -231,7 +272,7 @@ SOURCES += 3rdparty/qhttpserver/http-parser/http_parser.c
 INCLUDEPATH += 3rdparty/qhttpserver/http-parser/
 
 message(" ")
-win32 {
+win {
     message("Configuring for win32 environment")
     DEFINES += QHTTPSERVER_EXPORT
     message("  --> Setting up target descriptions")
@@ -243,52 +284,24 @@ win32 {
     
     message("  --> Linking against winHTTP and winSock2.")
     LIBS += -lwinhttp -lwininet -lws2_32
-    
-    with_new_backend {
-        message("  --> Linking libqvb static library.")
-        LIBS += -L$$PWD/libs/ -lqvb-win64
-    } else {
-        # A hack for protobuf header.
-        message("  --> Applying a hack for protobuf header")
-        DEFINES += _WIN32_WINNT=0x600
-
-        message("  --> Linking against gRPC and protobuf library.")
-        DEPENDPATH  += $$PWD/libs/gRPC-win32/include
-        INCLUDEPATH += $$PWD/libs/gRPC-win32/include
-        LIBS += -L$$PWD/libs/gRPC-win32/lib/ \
-                -llibprotobuf.dll \
-                -llibgrpc++.dll
-    }
 }
 
 macx {
     # For Linux and macOS
     message("Configuring for macOS specific environment")
     LIBS += -framework Carbon -framework Cocoa
-
-    !with_new_backend {
-        message("  --> Linking libgpr and libupb.")
-        LIBS += -lgpr -lupb
-    }
 }
 
 # Reuse unix for macx as well
 unix {
     # For Linux and macOS
     message("Configuring for unix-like environment")
-    
-    !with_new_backend {
-        # For gRPC and protobuf in linux and macOS
-        message("  --> Linking against gRPC and protobuf library.")
-        LIBS += -L/usr/local/lib -lgrpc++ -lprotobuf -lgrpc
-    }
-
     # macOS homebrew include path
     message("  --> Adding local include folder to search path")
     INCLUDEPATH += /usr/local/include/
 
     message("  --> Adding Plasma Toolbox CPP files.")
-    SOURCES += src/ui/NetSpeedBar/QvNetSpeedBar_linux.cpp
+    SOURCES += $$PWD/src/ui/NetSpeedBar/QvNetSpeedBar_linux.cpp
 
     message("  --> Generating desktop dependency.")
     desktop.files += ./assets/qv2ray.desktop
@@ -298,34 +311,17 @@ unix {
     icon.files += ./assets/icons/qv2ray.png
     icon.path = $$PREFIX/share/icons/hicolor/256x256/apps/
 
-    message("  --> Generating metainfo dependency.")
-    appdataXml.files += ./assets/qv2ray.metainfo.xml
-    appdataXml.path = $$PREFIX/share/metainfo/
-
     target.path = $$PREFIX/bin/
     INSTALLS += target desktop icon
 }
 
 with_metainfo {
+    message("  --> Generating metainfo dependency.")
+    appdataXml.files += ./assets/qv2ray.metainfo.xml
+    appdataXml.path = $$PREFIX/share/metainfo/
     INSTALLS += appdataXml
-}
-
-with_new_backend {
-    unix {
-        message("  --> Linking libqvb static library.")
-        unix:!macx: LIBS += -L$$PWD/libs/ -lqvb-linux64
-    }
-
-    macx {
-        message("  --> Linking libqvb static library.")
-        LIBS += -L$$PWD/libs/ -lqvb-darwin
-    }
 }
 
 message(" ")
 message("Done configuring Qv2ray project. Build output will be at:" $$OUT_PWD)
 message("Type `make` or `mingw32-make` to start building Qv2ray")
-
-
-
-

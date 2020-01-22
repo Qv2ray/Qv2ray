@@ -181,13 +181,13 @@ namespace Qv2ray
                     // Config API
                     apiFailedCounter = 0;
                     this->apiPort = conf.apiConfig.statsPort;
+                    auto channelAddress = "127.0.0.1" + QString::number(apiPort);
 #ifdef WITH_LIB_GRPCPP
-                    Channel = grpc::CreateChannel("127.0.0.1:" + to_string(apiPort), grpc::InsecureChannelCredentials());
+                    Channel = grpc::CreateChannel(channelAddress.toStdString(), grpc::InsecureChannelCredentials());
                     StatsService service;
                     Stub = service.NewStub(Channel);
 #else
-                    auto addr = "127.0.0.1:" + QString::number(apiPort);
-                    auto str = Dial(const_cast<char *>(addr.toStdString().c_str()), 10000);
+                    auto str = Dial(const_cast<char *>(channelAddress.toStdString().c_str()), 10000);
                     LOG(MODULE_VCORE, str)
 #endif
                     apiTimerId = startTimer(1000);
@@ -258,6 +258,7 @@ namespace Qv2ray
             } else if (apiFailedCounter > QV2RAY_API_CALL_FAILEDCHECK_THRESHOLD) {
                 return 0;
             }
+
 #ifdef WITH_LIB_GRPCPP
             //GetStatsRequest request;
             //request.set_name(name.toStdString());
