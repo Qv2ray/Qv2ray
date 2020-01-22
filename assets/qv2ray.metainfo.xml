@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
-  <id>com.github.lhy0403.Qv2ray</id>
+  <id>com.github.Qv2ray</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-3.0</project_license>
   <name>Qv2ray</name>
@@ -13,7 +13,7 @@
     </p>
   </description>
 
-  <launchable type="desktop-id">com.github.lhy0403.Qv2ray.desktop</launchable>
+  <launchable type="desktop-id">com.github.Qv2ray.desktop</launchable>
 
   <screenshots>
     <screenshot type="default">
@@ -36,6 +36,6 @@
     </release>
   </releases>
   <content_rating type="oars-1.1" />
-  <url type="homepage">https://github.com/lhy0403/Qv2ray</url>
-  <url type="bugtracker">https://github.com/lhy0403/Qv2ray/issues</url>
+  <url type="homepage">https://github.com/Qv2ray/Qv2ray</url>
+  <url type="bugtracker">https://github.com/Qv2ray/Qv2ray/issues</url>
 </component>
