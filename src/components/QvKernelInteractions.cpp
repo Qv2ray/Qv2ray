@@ -5,12 +5,14 @@
 #include "QvCoreConfigOperations.hpp"
 #include "QvCore/QvCommandLineArgs.hpp"
 
-#include "libs/libqvb/build/libqvb.h"
-
+#ifdef WITH_LIB_GRPCPP
 using namespace v2ray::core::app::stats::command;
 using grpc::Channel;
 using grpc::ClientContext;
 using grpc::Status;
+#else
+#include "libs/libqvb/build/libqvb.h"
+#endif
 
 // Check 10 times before telling user that API has failed.
 #define QV2RAY_API_CALL_FAILEDCHECK_THRESHOLD 10
@@ -179,12 +181,15 @@ namespace Qv2ray
                     // Config API
                     apiFailedCounter = 0;
                     this->apiPort = conf.apiConfig.statsPort;
+#ifdef WITH_LIB_GRPCPP
+                    Channel = grpc::CreateChannel("127.0.0.1:" + to_string(apiPort), grpc::InsecureChannelCredentials());
+                    StatsService service;
+                    Stub = service.NewStub(Channel);
+#else
                     auto addr = "127.0.0.1:" + QString::number(apiPort);
                     auto str = Dial(const_cast<char *>(addr.toStdString().c_str()), 10000);
                     LOG(MODULE_VCORE, str)
-                    //Channel = grpc::CreateChannel("127.0.0.1:" + to_string(apiPort), grpc::InsecureChannelCredentials());
-                    //StatsService service;
-                    //Stub = service.NewStub(Channel);
+#endif
                     apiTimerId = startTimer(1000);
                     DEBUG(MODULE_VCORE, "API Worker started.")
                 }
@@ -253,7 +258,7 @@ namespace Qv2ray
             } else if (apiFailedCounter > QV2RAY_API_CALL_FAILEDCHECK_THRESHOLD) {
                 return 0;
             }
-
+#ifdef WITH_LIB_GRPCPP
             //GetStatsRequest request;
             //request.set_name(name.toStdString());
             //request.set_reset(false);
@@ -266,9 +271,11 @@ namespace Qv2ray
             //    apiFailedCounter++;
             //}
             //return response.stat().value();
-            auto data = GetStats(const_cast<char *>(name.toStdString().c_str()), 1000);
             //LOG(MODULE_VCORE, "API RETURN: " + QString::number(data))
+#else
+            auto data = GetStats(const_cast<char *>(name.toStdString().c_str()), 1000);
             return data;
+#endif
         }
         // ------------------------------------------------------------- API FUNCTIONS --------------------------
         long V2rayKernelInstance::getTagSpeedUp(const QString &tag)

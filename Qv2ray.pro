@@ -153,9 +153,25 @@ message(" ")
 RC_ICONS += ./assets/icons/qv2ray.ico
 ICON = ./assets/icons/qv2ray.icns
 
-contains( CONFIG, with_backend ) {
-    message("Compiling Qv2ray with custom backend")
+with_new_backend {
+    message("Compiling Qv2ray with custom backend.")
+    SOURCES -= libs/gen/v2ray_api_commands.pb.cc \
+               libs/gen/v2ray_api_commands.pb.h \
+               libs/gen/v2ray_api_commands.grpc.pb.cc \
+               libs/gen/v2ray_api_commands.grpc.pb.h
+
+    !exists(libs/libqvb/build/libqvb.h) {
+        message(" ")
+        message("Cannot continue: ")
+        message("  --> Qv2ray is configured to use custom backend, but: ")
+        message("      libs/libqvb/build/libqvb.h is missing. ")
+        error("! ABORTING !")
+        message(" ")
+    }
+
+    SOURCES += libs/libqvb/build/libqvb.h
 } else {
+    DEFINES += WITH_LIB_GRPCPP
     # ------------------------------------------ Begin checking gRPC and protobuf headers.
     !exists(libs/gen/v2ray_api_commands.grpc.pb.h) || !exists(libs/gen/v2ray_api_commands.grpc.pb.cc) || !exists(libs/gen/v2ray_api_commands.pb.h) || !exists(libs/gen/v2ray_api_commands.pb.cc) {
         message(" ")
@@ -224,23 +240,25 @@ win32 {
 
     message("  --> Adding Taskbar Toolbox CPP files.")
     SOURCES += src/ui/NetSpeedBar/QvNetSpeedBar_win.cpp
-
-    # A hack for protobuf header.
-    message("  --> Applying a hack for protobuf header")
-    DEFINES += _WIN32_WINNT=0x600
-
-    message("  --> Linking against gRPC and protobuf library.")
-    DEPENDPATH  += $$PWD/libs/gRPC-win32/include
-    INCLUDEPATH += $$PWD/libs/gRPC-win32/include
-    LIBS += -L$$PWD/libs/gRPC-win32/lib/ \
-            -llibprotobuf.dll \
-            -llibgrpc++.dll
-
+    
     message("  --> Linking against winHTTP and winSock2.")
     LIBS += -lwinhttp -lwininet -lws2_32
+    
+    with_new_backend {
+        message("  --> Linking libqvb static library.")
+        LIBS += -L$$PWD/libs/ -lqvb-win64
+    } else {
+        # A hack for protobuf header.
+        message("  --> Applying a hack for protobuf header")
+        DEFINES += _WIN32_WINNT=0x600
 
-    message("  --> Linking libqvb static library.")
-    LIBS += -L$$PWD/libs/ -lqvb-win64
+        message("  --> Linking against gRPC and protobuf library.")
+        DEPENDPATH  += $$PWD/libs/gRPC-win32/include
+        INCLUDEPATH += $$PWD/libs/gRPC-win32/include
+        LIBS += -L$$PWD/libs/gRPC-win32/lib/ \
+                -llibprotobuf.dll \
+                -llibgrpc++.dll
+    }
 }
 
 macx {
@@ -248,18 +266,22 @@ macx {
     message("Configuring for macOS specific environment")
     LIBS += -framework Carbon -framework Cocoa
 
-    message("  --> Linking libgpr and libupb.")
-    LIBS += -lgpr -lupb
+    !with_new_backend {
+        message("  --> Linking libgpr and libupb.")
+        LIBS += -lgpr -lupb
+    }
 }
 
 # Reuse unix for macx as well
 unix {
     # For Linux and macOS
     message("Configuring for unix-like environment")
-    # For gRPC and protobuf in linux and macOS
-    message("  --> Linking against gRPC and protobuf library.")
-    LIBS += -L/usr/local/lib -lgrpc++ -lprotobuf -lgrpc
-
+    
+    !with_new_backend {
+        # For gRPC and protobuf in linux and macOS
+        message("  --> Linking against gRPC and protobuf library.")
+        LIBS += -L/usr/local/lib -lgrpc++ -lprotobuf -lgrpc
+    }
 
     # macOS homebrew include path
     message("  --> Adding local include folder to search path")
@@ -288,10 +310,7 @@ with_metainfo {
     INSTALLS += appdataXml
 }
 
-with_backend {
-    # message("  --> Unlinking gRPC and protobuf library.")
-    # LIBS -= -lgrpc++ -lprotobuf -lgrpc
-    
+with_new_backend {
     unix {
         message("  --> Linking libqvb static library.")
         unix:!macx: LIBS += -L$$PWD/libs/ -lqvb-linux64

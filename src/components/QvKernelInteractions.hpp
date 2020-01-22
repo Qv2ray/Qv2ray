@@ -3,8 +3,10 @@
 #include <QProcess>
 #include <grpc++/grpc++.h>
 #include "QvUtils.hpp"
+#ifdef WITH_LIB_GRPCPP
 #include "v2ray_api_commands.pb.h"
 #include "v2ray_api_commands.grpc.pb.h"
+#endif
 
 namespace Qv2ray
 {
@@ -51,8 +53,10 @@ namespace Qv2ray
                 QMap<QString, long> transferData;
                 QMap<QString, long> transferSpeed;
                 //
+#ifdef WITH_LIB_GRPCPP
                 std::shared_ptr<::grpc::Channel> Channel;
                 std::unique_ptr<::v2ray::core::app::stats::command::StatsService::Stub> Stub;
+#endif
         };
     }
 }
