@@ -7,7 +7,7 @@ on:
 jobs:
   Windows:
     name: Release for Windows x64
-    runs-on: windows-2019
+    runs-on: [windows-latest]
     steps:
       - name: Checking out Qv2ray sources
         uses: actions/checkout@master
@@ -23,13 +23,8 @@ jobs:
       - name: Extracting gRPC and protobuf libs and headers
         run: tools\grpc_gen.bat
 # --------------------------------------------------------
-      - name: Download libqvb static library.
-        uses: Legion2/download-release-action@v2.1.0
-        with:
-          repository: Qv2ray/QvRPCBridge
-          tag: 'latest'
-          path: libs
-          file: libqvb-win64.a
+#      - name: Download libqvb static library.
+#        run: curl -o .\libs\libqvb-win64.a -L https://github.com/Qv2ray/QvRPCBridge/releases/download/v1.0/libqvb-win64.a
 # --------------------------------------------------------
       - name: Building Qv2ray
         shell: cmd
@@ -48,8 +43,11 @@ jobs:
           cd release
           del *.cpp *.h *.o *.qrc *.qm
           windeployqt ./qv2ray.exe --compiler-runtime
-          cd ..
-          ..\tools\7z.exe a Qv2ray.zip .\release
+      - name: Create 7z Release
+        uses: DuckSoft/create-7z-action@v1.0
+        with:
+          pathSource: ./build/release/
+          pathTarget: ./release.7z
       - name: Uploading artifact
         uses: actions/upload-artifact@master
         with:
@@ -68,7 +66,7 @@ jobs:
 
   macOS:
     name: Release for macOS
-    runs-on: macOS-latest
+    runs-on: macos-latest
     steps:
       - name: Checking out sources
         uses: actions/checkout@master
@@ -80,22 +78,17 @@ jobs:
         with:
           modules: qtcharts
 # --------------------------------------------------------
-      - name: Extracting gRPC and protobuf libs and headers
-        run: tools/deps_macOS.sh
+#      - name: Extracting gRPC and protobuf libs and headers
+#        run: tools/deps_macOS.sh
 # --------------------------------------------------------
       - name: Download libqvb static library.
-        uses: Legion2/download-release-action@v2.1.0
-        with:
-          repository: Qv2ray/QvRPCBridge
-          tag: 'latest'
-          path: libs
-          file: libqvb-darwin.a
+        run: curl -o .\libs\libqvb-darwin.a -L https://github.com/Qv2ray/QvRPCBridge/releases/download/v1.0/libqvb-darwin.a
 # --------------------------------------------------------
       - name: Building Qv2ray
         run: |
           mkdir build
           cd build
-          qmake .. CONFIG+=no_increase_build_number
+          qmake .. CONFIG+=no_increase_build_number CONFIG+=with_new_backend
           make -j2
       - name: Making release tarball
         run: |
@@ -140,8 +133,8 @@ jobs:
           sudo apt update
           sudo apt install -y libgl-dev openssl libx11-dev libxkbcommon-x11-dev libgrpc++-dev libprotobuf-dev protobuf-compiler protobuf-c-compiler protobuf-compiler-grpc
 # --------------------------------------------------------
-      - name: Extracting gRPC and protobuf libs and headers
-        run: tools/grpc_gen.sh
+#      - name: Extracting gRPC and protobuf libs and headers
+#        run: tools/grpc_gen.sh
 # --------------------------------------------------------
       - name: Download libqvb static library.
         uses: Legion2/download-release-action@v2.1.0
@@ -155,7 +148,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          qmake .. CONFIG+=no_increase_build_number PREFIX=/usr
+          qmake .. CONFIG+=no_increase_build_number CONFIG+=with_new_backend PREFIX=/usr
           make -j2
       - name: Generating filesystem structure for AppImage
         run: | 

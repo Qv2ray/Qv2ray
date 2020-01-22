@@ -1,9 +1,9 @@
 ﻿#ifndef VINTERACT_H
 #define VINTERACT_H
 #include <QProcess>
-#include <grpc++/grpc++.h>
 #include "QvUtils.hpp"
 #ifdef WITH_LIB_GRPCPP
+#include <grpc++/grpc++.h>
 #include "v2ray_api_commands.pb.h"
 #include "v2ray_api_commands.grpc.pb.h"
 #endif

@@ -290,6 +290,10 @@ macx {
     # For Linux and macOS
     message("Configuring for macOS specific environment")
     LIBS += -framework Carbon -framework Cocoa
+    
+    with_new_backend {
+        LIBS += -framework Security
+    }
 }
 
 # Reuse unix for macx as well
