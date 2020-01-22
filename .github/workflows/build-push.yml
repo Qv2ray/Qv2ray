@@ -71,8 +71,8 @@ jobs:
         with:
           modules: qtcharts
 # --------------------------------------------------------
-      - name: Extracting gRPC and protobuf libs and headers
-        run: tools/deps_macOS.sh
+#      - name: Extracting gRPC and protobuf libs and headers
+#        run: tools/deps_macOS.sh
 # --------------------------------------------------------
       - name: Download libqvb static library.
         run: curl -o ./libs/libqvb-darwin.a -L https://github.com/Qv2ray/QvRPCBridge/releases/download/v1.0/libqvb-darwin.a
