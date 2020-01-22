@@ -7,7 +7,7 @@ on:
 jobs:
   Windows:
     name: Release for Windows x64
-    runs-on: windows-2019
+    runs-on: [windows-latest]
     steps:
       - name: Checking out Qv2ray sources
         uses: actions/checkout@master
@@ -48,8 +48,11 @@ jobs:
           cd release
           del *.cpp *.h *.o *.qrc *.qm
           windeployqt ./qv2ray.exe --compiler-runtime
-          cd ..
-          ..\tools\7z.exe a Qv2ray.zip .\release
+      - name: Create 7z Release
+        uses: DuckSoft/create-7z-action@v1.0
+        with:
+          pathSource: ./build/release/
+          pathTarget: ./release.7z
       - name: Uploading artifact
         uses: actions/upload-artifact@master
         with:
@@ -68,7 +71,7 @@ jobs:
 
   macOS:
     name: Release for macOS
-    runs-on: macOS-latest
+    runs-on: macos-latest
     steps:
       - name: Checking out sources
         uses: actions/checkout@master
@@ -95,7 +98,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          qmake .. CONFIG+=no_increase_build_number
+          qmake .. CONFIG+=no_increase_build_number CONFIG+=with_new_backend
           make -j2
       - name: Making release tarball
         run: |
@@ -155,7 +158,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          qmake .. CONFIG+=no_increase_build_number PREFIX=/usr
+          qmake .. CONFIG+=no_increase_build_number CONFIG+=with_new_backend PREFIX=/usr
           make -j2
       - name: Generating filesystem structure for AppImage
         run: | 
