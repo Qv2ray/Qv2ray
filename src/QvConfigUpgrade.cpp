@@ -69,7 +69,7 @@ namespace Qv2ray
                 UPDATELOG("Added v2CorePath to the config file.")
                 //
                 QJsonObject uiSettings;
-                uiSettings["language"] = root["language"].toString("en-US");
+                uiSettings["language"] = root["language"].toString("en-US").replace("-", "_");
                 root["uiConfig"] = uiSettings;
                 //
                 root["inboundConfig"] = root["inBoundSettings"];
@@ -121,6 +121,7 @@ namespace Qv2ray
                 }
 
                 root["subscriptions"] = newSubscriptions;
+                UPDATELOG("Added subscription renewal options.")
                 break;
             }
 
@@ -131,6 +132,15 @@ namespace Qv2ray
                 apiConfig["enableAPI"] = true;
                 apiConfig["statsPort"] = root["connectionConfig"].toObject()["statsPort"].toInt();
                 root["apiConfig"] = apiConfig;
+                break;
+            }
+
+            case 7: {
+                auto lang = root["uiConfig"].toObject()["language"].toString().replace("-", "_");
+                auto uiConfig = root["uiConfig"].toObject();
+                uiConfig["language"] = lang;
+                root["uiConfig"] = uiConfig;
+                UPDATELOG("Changed language: " + lang)
                 break;
             }
         }

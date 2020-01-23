@@ -9,7 +9,7 @@
 #include "QvTinyLog.hpp"
 #include "QvCoreConfigObjects.hpp"
 
-const int QV2RAY_CONFIG_VERSION = 7;
+const int QV2RAY_CONFIG_VERSION = 8;
 
 // Linux users and DEs should handle the darkMode UI themselves.
 #ifndef QV2RAY_USE_BUILTIN_DARKTHEME

@@ -191,7 +191,7 @@ int main(int argc, char *argv[])
         std::unique_ptr<QCoreApplication> consoleApp(new QCoreApplication(argc, argv));
         //
         // Install a default translater. From the OS/DE
-        consoleApp->installTranslator(getTranslator(QLocale::system().name().replace("_", "-")));
+        consoleApp->installTranslator(getTranslator(QLocale::system().name()));
         QvCommandArgParser parser;
         QString errorMessage;
 
@@ -251,7 +251,7 @@ int main(int argc, char *argv[])
     //
     // Not duplicated.
     // Install a default translater. From the OS/DE
-    auto _lang = QLocale::system().name().replace("_", "-");
+    auto _lang = QLocale::system().name();
     auto _sysTranslator = getTranslator(_lang);
 
     if (_lang != "en-US") {
