@@ -28,8 +28,8 @@ jobs:
           sudo apt update
           sudo apt install -y libgl-dev openssl libx11-dev libxkbcommon-x11-dev libgrpc++-dev libprotobuf-dev protobuf-compiler protobuf-c-compiler protobuf-compiler-grpc
 # --------------------------------------------------------
-#      - name: Extracting gRPC and protobuf libs and headers
-#        run: tools/grpc_gen.sh
+      - name: Extracting gRPC and protobuf libs and headers
+        run: tools/grpc_gen.sh
 # --------------------------------------------------------
       - name: Download libqvb static library.
         uses: Legion2/download-release-action@v2.1.0

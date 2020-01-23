@@ -66,7 +66,7 @@ jobs:
 # -------------------------------------------------------- cleanup
       - name: cleanup -- clean up build directory to build against legacy gRPC
         shell: cmd
-        run: rmdir /S build
+        run: echo y|rmdir /S build
 # -------------------------------------------------------- gRPC
       - name: gRPC - Building Qv2ray
         shell: cmd

@@ -35,7 +35,7 @@ jobs:
           cd qv2ray.app
           macdeployqt ./
           cd ..
-          tar czf Qv2ray.app..tar.gz qv2ray.app
+          tar czf Qv2ray.app.tar.gz qv2ray.app
       - name: libqvb - Uploading Artifact
         uses: actions/upload-artifact@master
         with:
@@ -66,7 +66,7 @@ jobs:
           cd qv2ray.app
           macdeployqt ./
           cd ..
-          tar czf Qv2ray.app..tar.gz qv2ray.app
+          tar czf Qv2ray.app.tar.gz qv2ray.app
       - name: gRPC - Uploading Artifact
         uses: actions/upload-artifact@master
         with:
