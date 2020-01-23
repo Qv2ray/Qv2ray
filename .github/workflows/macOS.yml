@@ -1,6 +1,9 @@
 name: Qv2ray Push Build for macOS
 
-on: push
+on: 
+  push:
+  release:
+    types: [prereleased]
 
 jobs:
   macOS:

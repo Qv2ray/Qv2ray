@@ -1,6 +1,9 @@
 name: Qv2ray Push Build for Windows
 
-on: push
+on: 
+  push:
+  release:
+    types: [prereleased]
 
 jobs:
 # ======================================================================================== WINDOWS
