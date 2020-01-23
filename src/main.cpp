@@ -275,6 +275,7 @@ int main(int argc, char *argv[])
         "Copyright (c) 2020 Itay Grudev (@itay-grudev): SingleApplication (MIT)" NEWLINE
         "Copyright (c) 2020 paceholder (@paceholder): nodeeditor (QNodeEditor modified by lhy0403) (BSD-3-Clause)" NEWLINE
         "Copyright (c) 2019 TheWanderingCoel (@TheWanderingCoel): ShadowClash (launchatlogin) (GPLv3)" NEWLINE
+        "Copyright (c) 2020 Ram Pani (@DuckSoft): **QvRPCBridge** (WTFPL)" NEWLINE
         NEWLINE)
     //
     LOG(MODULE_INIT, "Qv2ray Start Time: "  + QSTRN(QTime::currentTime().msecsSinceStartOfDay()))
