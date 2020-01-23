@@ -1,0 +1,108 @@
+name: Qv2ray Push Build for Windows
+
+on: push
+
+jobs:
+# ======================================================================================== WINDOWS
+  Windows:
+    name: Push build for win64
+    runs-on: windows-latest
+    steps:
+      - name: Checking out Qv2ray sources
+        uses: actions/checkout@master
+      - name: Restoring submodules
+        run: git submodule update --init
+# --------------------------------------------------------
+      - name: Installing Qt
+        uses: jurplel/install-qt-action@v2
+        with:
+          arch: win64_mingw73
+          modules: qtcharts
+# --------------------------------------------------------
+      - name: Extracting gRPC and protobuf libs and headers
+        run: tools\grpc_gen.bat
+# --------------------------------------------------------
+      - name: Download libqvb static library.
+        run: curl -o .\libs\libqvb-win64.a -L https://github.com/Qv2ray/QvRPCBridge/releases/download/v1.0/libqvb-win64.a
+# -------------------------------------------------------- libqvb
+      - name: libqvb: Building Qv2ray
+        shell: cmd
+        run: |
+          mkdir build
+          cd build
+          qmake .. CONFIG+=no_increase_build_number CONFIG+=with_new_backend
+          mingw32-make -j2
+      - name: libqvb: Copying DLLs to build output folders
+        shell: cmd
+        run: .github\workflows\copy_DLLs.bat
+      - name: libqvb: Deploy Qt
+        shell: cmd
+        run: |
+          cd build
+          cd release
+          del *.cpp *.h *.o *.qrc *.qm
+          windeployqt ./qv2ray.exe --compiler-runtime
+      - name: libqvb: Create 7z Release
+        uses: DuckSoft/create-7z-action@v1.0
+        with:
+          # file/folder path to compress
+          pathSource: ./build/release/
+          # 7z archive path to write
+          pathTarget: ./release.7z
+      - name: libqvb: Uploading artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: Qv2ray.Win64-libqvb.7z
+          path: release.7z
+      - name: libqvb: Upload binaries to release
+        uses: svenstaro/upload-release-action@v1-release
+        if: github.event_name == "release"
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: release.7z
+          asset_name: Qv2ray-${{ github.ref }}-win64-libqvb.7z
+          tag: ${{ github.ref }}
+          overwrite: true
+# -------------------------------------------------------- cleanup
+      - name: cleanup: clean up build directory to build against legacy gRPC
+        shell: cmd
+        run: rmdir /S build
+# -------------------------------------------------------- gRPC
+      - name: gRPC: Building Qv2ray
+        shell: cmd
+        run: |
+          mkdir build
+          cd build
+          qmake .. CONFIG+=no_increase_build_number CONFIG+=with_new_backend
+          mingw32-make -j2
+      - name: gRPC: Copying DLLs to build output folders
+        shell: cmd
+        run: .github\workflows\copy_DLLs.bat
+      - name: gRPC: Deploy Qt
+        shell: cmd
+        run: |
+          cd build
+          cd release
+          del *.cpp *.h *.o *.qrc *.qm
+          windeployqt ./qv2ray.exe --compiler-runtime
+      - name: gRPC: Create 7z Release
+        uses: DuckSoft/create-7z-action@v1.0
+        with:
+          # file/folder path to compress
+          pathSource: ./build/release/
+          # 7z archive path to write
+          pathTarget: ./release.7z
+      - name: gRPC: Uploading artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: Qv2ray.Win64-gRPC.7z
+          path: release.7z
+      - name: gRPC: Upload binaries to release
+        uses: svenstaro/upload-release-action@v1-release
+        if: github.event_name == "release"
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: release.7z
+          asset_name: Qv2ray-${{ github.ref }}-win64-gRPC.7z
+          tag: ${{ github.ref }}
+          overwrite: true
