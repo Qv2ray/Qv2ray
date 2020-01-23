@@ -1,4 +1,4 @@
-name: Qv2ray Push Build for Windows
+name: Qv2ray Push Build for macOS
 
 on: push
 
@@ -43,7 +43,7 @@ jobs:
           path: build/Qv2ray.app.tar.gz
       - name: libqvb - Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release
-        if: github.event_name == "release"
+        if: github.event_name == 'release'
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: build/Qv2ray.app.tar.gz
@@ -74,7 +74,7 @@ jobs:
           path: build/Qv2ray.app.tar.gz
       - name: gRPC - Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release
-        if: github.event_name == "release"
+        if: github.event_name == 'release'
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: build/Qv2ray.app.tar.gz

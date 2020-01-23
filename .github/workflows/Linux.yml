@@ -68,7 +68,7 @@ jobs:
           name: Qv2ray.linux-libqvb.AppImage
           path: build/AppDir/Qv2ray.AppImage
       - name: libqvb - Upload binaries to release
-        if: github.event_name == "release"
+        if: github.event_name == 'release'
         uses: svenstaro/upload-release-action@v1-release
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
@@ -109,7 +109,7 @@ jobs:
           name: Qv2ray.linux-gRPC.AppImage
           path: build/AppDir/Qv2ray.AppImage
       - name: gRPC - Upload binaries to release
-        if: github.event_name == "release"
+        if: github.event_name == 'release'
         uses: svenstaro/upload-release-action@v1-release
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
