@@ -44,7 +44,6 @@ jobs:
           mkdir build
           cd build
           qmake .. CONFIG+=no_increase_build_number CONFIG+=with_new_backend PREFIX=/usr
-          cd build
           make -j2
       - name: libqvb - Generating filesystem structure for AppImage
         run: | 
@@ -85,7 +84,6 @@ jobs:
           mkdir build
           cd build
           qmake .. CONFIG+=no_increase_build_number PREFIX=/usr
-          cd build
           make -j2
       - name: gRPC - Generating filesystem structure for AppImage
         run: | 
