@@ -23,25 +23,25 @@ jobs:
       - name: Download libqvb static library.
         run: curl -o ./libs/libqvb-darwin.a -L https://github.com/Qv2ray/QvRPCBridge/releases/download/v1.0/libqvb-darwin.a
 # -------------------------------------------------------- == build against libqvb
-      - name: libqvb: Build Qv2ray
+      - name: libqvb - Build Qv2ray
         run: |
           mkdir build
           cd build
           qmake .. CONFIG+=no_increase_build_number CONFIG+=with_new_backend
           make -j2
-      - name: libqvb: Making release tarball
+      - name: libqvb - Making release tarball
         run: |
           cd build
           cd qv2ray.app
           macdeployqt ./
           cd ..
           tar czf Qv2ray.app..tar.gz qv2ray.app
-      - name: libqvb: Uploading Artifact
+      - name: libqvb - Uploading Artifact
         uses: actions/upload-artifact@master
         with:
           name: Qv2ray.macOS.app-libqvb.zip
           path: build/Qv2ray.app.tar.gz
-      - name: libqvb: Upload binaries to release
+      - name: libqvb - Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release
         if: github.event_name == "release"
         with:
@@ -51,28 +51,28 @@ jobs:
           tag: ${{ github.ref }}
           overwrite: true
 # -------------------------------------------------------- == cleanup
-      - name: cleanup: clean up build directory to build against legacy gRPC
+      - name: cleanup -- clean up build directory to build against legacy gRPC
         run: rm -rvf ./build
 # -------------------------------------------------------- == build against gRPC
-      - name: gRPC: Build Qv2ray
+      - name: gRPC - Build Qv2ray
         run: |
           mkdir build
           cd build
           qmake .. CONFIG+=no_increase_build_number
           make -j2
-      - name: gRPC: Making release tarball
+      - name: gRPC - Making release tarball
         run: |
           cd build
           cd qv2ray.app
           macdeployqt ./
           cd ..
           tar czf Qv2ray.app..tar.gz qv2ray.app
-      - name: gRPC: Uploading Artifact
+      - name: gRPC - Uploading Artifact
         uses: actions/upload-artifact@master
         with:
           name: Qv2ray.macOS.app-gRPC.zip
           path: build/Qv2ray.app.tar.gz
-      - name: gRPC: Upload binaries to release
+      - name: gRPC - Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release
         if: github.event_name == "release"
         with:

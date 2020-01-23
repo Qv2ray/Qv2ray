@@ -39,21 +39,21 @@ jobs:
           path: libs
           file: libqvb-linux64.a
 # -------------------------------------------------------- libqvb build
-      - name: libqvb: Build Qv2ray
+      - name: libqvb - Build Qv2ray
         run: |
           mkdir build
           cd build
           qmake .. CONFIG+=no_increase_build_number CONFIG+=with_new_backend PREFIX=/usr
           cd build
           make -j2
-      - name: libqvb: Generating filesystem structure for AppImage
+      - name: libqvb - Generating filesystem structure for AppImage
         run: | 
           cd build
           make install INSTALL_ROOT=AppDir
           cd AppDir
           mkdir -p ./usr/lib/
           cp /usr/lib/x86_64-linux-gnu/libssl.so.1.1 /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1 ./usr/lib/ 
-      - name: libqvb: Building AppImage using linuxdeployqt
+      - name: libqvb - Building AppImage using linuxdeployqt
         run: |
           cd build
           wget https://github.com/probonopd/linuxdeployqt/releases/download/6/linuxdeployqt-6-x86_64.AppImage
@@ -62,12 +62,12 @@ jobs:
           cd AppDir
           ../squashfs-root/AppRun usr/share/applications/qv2ray.desktop -appimage -no-strip -always-overwrite
           mv ./Qv2ray*.AppImage ./Qv2ray.AppImage
-      - name: libqvb: Uploading artifact
+      - name: libqvb - Uploading artifact
         uses: actions/upload-artifact@master
         with:
           name: Qv2ray.linux-libqvb.AppImage
           path: build/AppDir/Qv2ray.AppImage
-      - name: libqvb: Upload binaries to release
+      - name: libqvb - Upload binaries to release
         if: github.event_name == "release"
         uses: svenstaro/upload-release-action@v1-release
         with:
@@ -77,24 +77,24 @@ jobs:
           tag: ${{ github.ref }}
           overwrite: true
 # -------------------------------------------------------- cleanup build
-      - name: cleanup: clean up build directory to build against legacy gRPC
+      - name: cleanup -- clean up build directory to build against legacy gRPC
         run: rm -rvf ./build
 # -------------------------------------------------------- gRPC build
-      - name: gRPC: Build Qv2ray
+      - name: gRPC - Build Qv2ray
         run: |
           mkdir build
           cd build
           qmake .. CONFIG+=no_increase_build_number PREFIX=/usr
           cd build
           make -j2
-      - name: gRPC: Generating filesystem structure for AppImage
+      - name: gRPC - Generating filesystem structure for AppImage
         run: | 
           cd build
           make install INSTALL_ROOT=AppDir
           cd AppDir
           mkdir -p ./usr/lib/
           cp /usr/lib/x86_64-linux-gnu/libssl.so.1.1 /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1 ./usr/lib/ 
-      - name: gRPC: Building AppImage using linuxdeployqt
+      - name: gRPC - Building AppImage using linuxdeployqt
         run: |
           cd build
           wget https://github.com/probonopd/linuxdeployqt/releases/download/6/linuxdeployqt-6-x86_64.AppImage
@@ -103,12 +103,12 @@ jobs:
           cd AppDir
           ../squashfs-root/AppRun usr/share/applications/qv2ray.desktop -appimage -no-strip -always-overwrite
           mv ./Qv2ray*.AppImage ./Qv2ray.AppImage
-      - name: gRPC: Uploading artifact
+      - name: gRPC - Uploading artifact
         uses: actions/upload-artifact@master
         with:
           name: Qv2ray.linux-gRPC.AppImage
           path: build/AppDir/Qv2ray.AppImage
-      - name: gRPC: Upload binaries to release
+      - name: gRPC - Upload binaries to release
         if: github.event_name == "release"
         uses: svenstaro/upload-release-action@v1-release
         with:
