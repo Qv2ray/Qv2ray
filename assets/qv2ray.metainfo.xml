@@ -35,17 +35,6 @@
         </ul>
       </description>
     </release>
-    <release version="1.99.6" date="2019-1-20">
-      <description>
-        <ul>
-            <li>upload translations</li>
-            <li>fix: fixed several issues</li>
-            <li>add: add option to update subscription without system proxy</li>
-            <li>fix: fixed Subscription Import filename issue</li>
-            <li>New Crowdin translations (#261)</li>
-        </ul>
-      </description>
-    </release>
   </releases>
   <content_rating type="oars-1.1" />
   <url type="homepage">https://github.com/Qv2ray/Qv2ray</url>
