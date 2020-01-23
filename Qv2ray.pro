@@ -177,8 +177,9 @@ with_new_backend {
         LIBS += -L$$PWD/libs/ -lqvb-linux64
     }
     macx {
-        message("  --> Linking libqvb static library, for macOS platform.")
+        message("  --> Linking libqvb static library and Security framework, for macOS platform.")
         LIBS += -L$$PWD/libs/ -lqvb-darwin
+        LIBS += -framework Security
     }
 } else {
     DEFINES += WITH_LIB_GRPCPP
@@ -290,10 +291,6 @@ macx {
     # For Linux and macOS
     message("Configuring for macOS specific environment")
     LIBS += -framework Carbon -framework Cocoa
-    
-    with_new_backend {
-        LIBS += -framework Security
-    }
 }
 
 # Reuse unix for macx as well
