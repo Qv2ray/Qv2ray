@@ -20,9 +20,11 @@ no_increase_build_number {
     write_file("Build.Counter", _BUILD_NUMBER)
 }
 
+# Unix (Actually Linux only) prefix config.
 isEmpty(PREFIX) {
     PREFIX=/usr/local
 }
+message("Qv2ray installation PREFIX="$$PREFIX)
 
 DEFINES += QT_DEPRECATED_WARNINGS QV2RAY_VERSION_STRING=\"\\\"v$${VERSION}\\\"\" QAPPLICATION_CLASS=QApplication
 
