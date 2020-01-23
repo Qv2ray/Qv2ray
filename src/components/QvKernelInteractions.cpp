@@ -181,7 +181,7 @@ namespace Qv2ray
                     // Config API
                     apiFailedCounter = 0;
                     this->apiPort = conf.apiConfig.statsPort;
-                    auto channelAddress = "127.0.0.1" + QString::number(apiPort);
+                    auto channelAddress = "127.0.0.1:" + QString::number(apiPort);
 #ifdef WITH_LIB_GRPCPP
                     Channel = grpc::CreateChannel(channelAddress.toStdString(), grpc::InsecureChannelCredentials());
                     StatsService service;
