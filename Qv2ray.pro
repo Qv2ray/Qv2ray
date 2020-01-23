@@ -238,14 +238,14 @@ QM_FILES_RESOURCE_PREFIX = "translations"
 for(var, $$list($$files("translations/*.ts", true))) {
     LOCALE_FILENAME = $$basename(var)
     message("  --> Found:" $$LOCALE_FILENAME)
-    !equals(LOCALE_FILENAME, "en-US.ts") {
+    !equals(LOCALE_FILENAME, "en_US.ts") {
         # ONLY USED IN LRELEASE CONTEXT
-        # en-US is not EXTRA...
+        # en_US is not EXTRA...
         EXTRA_TRANSLATIONS += translations/$$LOCALE_FILENAME
     }
 }
 message("Qv2ray will build with" $${replace(EXTRA_TRANSLATIONS, "translations/", "")})
-TRANSLATIONS += translations/en-US.ts
+TRANSLATIONS += translations/en_US.ts
 
 message(" ")
 QMAKE_CXXFLAGS += -Wno-missing-field-initializers -Wno-unused-parameter -Wno-unused-variable
