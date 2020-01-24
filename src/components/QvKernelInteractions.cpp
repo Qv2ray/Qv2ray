@@ -66,7 +66,16 @@ namespace Qv2ray
 
             // Check if V2ray core returns a version number correctly.
             QProcess proc;
-            proc.start(vCorePath + " -version");
+#ifdef Q_OS_WIN32
+            // nativeArguments are required for Windows platform, without a reason...
+            proc.setProcessChannelMode(QProcess::MergedChannels);
+            proc.setProgram(vCorePath);
+            proc.setNativeArguments("--version");
+            proc.start();
+#else
+            proc.start(vCorePath + " --version");
+#endif
+            proc.waitForStarted();
             proc.waitForFinished();
             auto exitCode = proc.exitCode();
 
@@ -76,8 +85,14 @@ namespace Qv2ray
                 return false;
             }
 
-            QString output = QString(proc.readAllStandardOutput());
+            QString output = proc.readAllStandardOutput();
             LOG(MODULE_VCORE, "V2ray output: " + SplitLines(output).join(";"))
+
+            if (SplitLines(output).isEmpty()) {
+                *message = tr("V2ray core returns empty string.");
+                return false;
+            }
+
             *message = SplitLines(output).first();
             return true;
         }
@@ -118,7 +133,7 @@ namespace Qv2ray
 
         V2rayKernelInstance::V2rayKernelInstance()
         {
-            vProcess = new QProcess();;
+            vProcess = new QProcess();
             connect(vProcess, &QProcess::readyReadStandardOutput, this, [this]() {
                 emit onProcessOutputReadyRead(vProcess->readAllStandardOutput().trimmed());
             });
