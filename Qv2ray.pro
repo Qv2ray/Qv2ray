@@ -11,7 +11,7 @@ TEMPLATE = app
 
 # Now read build number file.
 _BUILD_NUMBER=$$cat(Build.Counter)
-VERSION = 1.99.7.$$_BUILD_NUMBER
+VERSION = 2.0.0.$$_BUILD_NUMBER
 
 no_increase_build_number {
     message("Build.Counter will not be increased")
