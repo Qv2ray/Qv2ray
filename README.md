@@ -15,7 +15,7 @@
 ## Related Links
  - [Wiki](https://github.com/Qv2ray/Qv2ray/wiki) and [First Time Usage](https://github.com/Qv2ray/Qv2ray/wiki/Getting-Started)
  - Latest **[Release Version](https://github.com/Qv2ray/Qv2ray/releases/latest)**
- - Crowdin translation platform, translations are welcome at here: **[Public Translation Platform](https://crwd.in/qv2ray)**
+ - Translation platform, translations are welcome at here: **[Public Translation Platform](https://www.transifex.com/qv2ray/qv2ray)**
 
 ## Special Thanks
 - **Quality Assurance & User Experience:** DuckSoft [@DuckSoft](https://github.com/DuckSoft/)
