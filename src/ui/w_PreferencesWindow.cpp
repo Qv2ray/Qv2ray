@@ -372,8 +372,8 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
             if (QvMessageBoxAsk(this, tr("Enable tProxy Support"),
                                 tr("This will append capabilities to the V2ray executable.")  + NEWLINE + NEWLINE +
                                 tr("Qv2ray will copy your V2ray core to this path: ") + NEWLINE + QV2RAY_DEFAULT_VCORE_PATH + NEWLINE + NEWLINE +
-                                tr("If anything goes wrong after enabling this, please refer to issue #57 or the link below:") + NEWLINE +
-                                " https://lhy0403.github.io/Qv2ray/zh-CN/FAQ.html ") != QMessageBox::Yes) {
+                                tr("If anything goes wrong after enabling this, please check issue #57 or the link below:") + NEWLINE +
+                                " https://github.com/Qv2ray/Qv2ray/wiki/FAQ ") != QMessageBox::Yes) {
                 tProxyCheckBox->setChecked(false);
                 LOG(MODULE_UI, "Canceled enabling tProxy feature.")
             } else {
