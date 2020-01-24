@@ -275,13 +275,14 @@ namespace Qv2ray
             auto data = response.stat().value();
 #else
             auto data = GetStats(const_cast<char *>(name.toStdString().c_str()), 1000);
+#endif
 
             if (data < 0) {
                 LOG(MODULE_VCORE, "API call returns: " + QSTRN(data))
                 apiFailedCounter++;
+                return 0;
             }
 
-#endif
             return data;
         }
         // ------------------------------------------------------------- API FUNCTIONS --------------------------

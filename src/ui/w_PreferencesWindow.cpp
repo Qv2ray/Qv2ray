@@ -379,8 +379,10 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
             } else {
                 LOG(MODULE_VCORE, "ENABLING tProxy Support")
                 LOG(MODULE_FILE, " --> Origin V2ray core file is at: " + CurrentConfig.v2CorePath)
-                auto v2ctlPath = QFileInfo(CurrentConfig.v2CorePath).path() + "/v2ctl";
-                auto newPath = QFileInfo(QV2RAY_DEFAULT_VCORE_PATH).path();
+                auto v2ctlPath = QFileInfo(CurrentConfig.v2CorePath).absolutePath() + "/v2ctl";
+                auto newPath = QFileInfo(QV2RAY_DEFAULT_VCORE_PATH).absolutePath();
+                QString mkPathResult = QDir().mkpath(newPath) ? "OK" : "FAILED";
+                LOG(MODULE_FILE, " --> mkPath result: " + mkPathResult)
                 //
                 LOG(MODULE_FILE, " --> Origin v2ctl file is at: " + v2ctlPath)
                 LOG(MODULE_FILE, " --> New V2ray files will be placed in: " + newPath)

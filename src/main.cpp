@@ -89,10 +89,11 @@ bool verifyConfigAvaliability(QString path, bool checkExistingConfig)
 bool initialiseQv2ray()
 {
     // Some built-in search paths for Qv2ray to find configs. Reversed Priority (load the bottom one if possible).
+    LOG(MODULE_INIT, "Application exec path: " + QApplication::applicationDirPath())
     QStringList configFilePaths;
     configFilePaths << QDir::homePath() + "/.qv2ray" QV2RAY_CONFIG_DIR_SUFFIX;
     configFilePaths << QDir::homePath() + "/.config/qv2ray" QV2RAY_CONFIG_DIR_SUFFIX;
-    configFilePaths << QDir::currentPath() + "/config" QV2RAY_CONFIG_DIR_SUFFIX;
+    configFilePaths << QApplication::applicationDirPath() + "/config" QV2RAY_CONFIG_DIR_SUFFIX;
     QString configPath = "";
     //
     bool hasExistingConfig = false;
