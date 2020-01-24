@@ -26,7 +26,7 @@ jobs:
         run: tools\grpc_gen.bat
 # --------------------------------------------------------
       - name: Download libqvb static library.
-        run: curl -o .\libs\libqvb-win64.a -L https://github.com/Qv2ray/QvRPCBridge/releases/download/v1.0/libqvb-win64.a
+        run: curl -o .\libs\libqvb-win64.a -L https://github.com/Qv2ray/QvRPCBridge/releases/download/v1.1/libqvb-win64.a
 # -------------------------------------------------------- libqvb
       - name: libqvb - Building Qv2ray
         shell: cmd

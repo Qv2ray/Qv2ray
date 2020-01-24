@@ -24,7 +24,7 @@ jobs:
         run: tools/deps_macOS.sh
 # --------------------------------------------------------
       - name: Download libqvb static library.
-        run: curl -o ./libs/libqvb-darwin.a -L https://github.com/Qv2ray/QvRPCBridge/releases/download/v1.0/libqvb-darwin.a
+        run: curl -o ./libs/libqvb-darwin.a -L https://github.com/Qv2ray/QvRPCBridge/releases/download/v1.1/libqvb-darwin.a
 # -------------------------------------------------------- == build against libqvb
       - name: libqvb - Build Qv2ray
         run: |
