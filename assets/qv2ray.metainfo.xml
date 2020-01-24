@@ -23,15 +23,11 @@
   </screenshots>
 
   <releases>
-    <release version="1.99.7" date="2019-1-23">
+    <release version="2.0.0" date="2019-1-24">
       <description>
         <ul>
-            <li>fix: prevent wait for v2ray core, fixed #265</li>
-            <li>fix: several fix of complex editor</li>
-            <li>add: add global option to disable API system</li>
-            <li>fix: fixed segfault while closing complex editor</li>
-            <li>fix: prevent messy messagebox</li>
-            <li>introduced new backend for rpc</li>
+            <li>fix: fixed windows startup issue</li>
+            <li>fix: autostart, tProxyPrep and negative API fixed</li>
         </ul>
       </description>
     </release>
