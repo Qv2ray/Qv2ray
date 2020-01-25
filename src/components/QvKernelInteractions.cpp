@@ -202,8 +202,11 @@ namespace Qv2ray
                     StatsService service;
                     Stub = service.NewStub(Channel);
 #else
-                    auto str = Dial(const_cast<char *>(channelAddress.toStdString().c_str()), 10000);
-                    LOG(MODULE_VCORE, str)
+                    std::unique_ptr<char, std::function<void(char*)>> ret(
+                        Dial(const_cast<char *>(channelAddress.toStdString().c_str()), 10000),
+                        [](char* ptr) { free(ptr); }
+                    );
+                    LOG(MODULE_VCORE, ret.get())
 #endif
                     apiTimerId = startTimer(1000);
                     DEBUG(MODULE_VCORE, "API Worker started.")
