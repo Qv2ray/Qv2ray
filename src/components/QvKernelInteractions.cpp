@@ -206,7 +206,6 @@ namespace Qv2ray
                         Dial(const_cast<char *>(channelAddress.toStdString().c_str()), 10000),
                         [](char* ptr) { free(ptr); }
                     );
-                    LOG(MODULE_VCORE, ret.get())
 #endif
                     apiTimerId = startTimer(1000);
                     DEBUG(MODULE_VCORE, "API Worker started.")
