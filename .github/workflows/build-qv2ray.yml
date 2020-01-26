@@ -46,7 +46,7 @@ jobs:
         run: tools\grpc_gen.bat
 # --------------------------------------------------------
       - name: Linux - Download libqvb static library.
-        if: matrix.platform == 'ubuntu-latest'
+        if: matrix.platform == 'ubuntu-latest' && matrix.backend == 'libqvb'
         uses: Legion2/download-release-action@v2.1.0
         with:
           repository: Qv2ray/QvRPCBridge
@@ -55,11 +55,11 @@ jobs:
           file: libqvb-linux64.a
 # ==
       - name: macOS - Download libqvb static library.
-        if: matrix.platform == 'macos-latest'
+        if: matrix.platform == 'macos-latest' && matrix.backend == 'libqvb'
         run: curl -o ./libs/libqvb-darwin.a -L https://github.com/Qv2ray/QvRPCBridge/releases/download/v1.1/libqvb-darwin.a
 # ==
       - name: Win32 - Download libqvb static library.
-        if: matrix.platform == 'windows-latest'
+        if: matrix.platform == 'windows-latest' && matrix.backend == 'libqvb'
         run: curl -o .\libs\libqvb-win64.a -L https://github.com/Qv2ray/QvRPCBridge/releases/download/v1.1/libqvb-win64.a
 # -------------------------------------------------------- Generate MakeFile
       - name: Generate Makefile
