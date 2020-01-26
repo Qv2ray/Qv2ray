@@ -62,13 +62,27 @@ jobs:
         if: matrix.platform == 'windows-latest' && matrix.backend == 'libqvb'
         run: curl -o .\libs\libqvb-win64.a -L https://github.com/Qv2ray/QvRPCBridge/releases/download/v1.1/libqvb-win64.a
 # -------------------------------------------------------- Generate MakeFile
-      - name: Generate Makefile
+      - name: Win32 - Generate Makefile
+        if: matrix.platform == 'windows-latest'
+        shell: cmd
         run: |
           mkdir build
           cd build
           qmake .. CONFIG+=no_increase_build_number PREFIX=/usr
-      - name: reGenerate Makefile for libqvb
-        if: matrix.backend == 'libqvb'
+      - name: Win32 - reGenerate Makefile for libqvb
+        shell: cmd
+        if: matrix.backend == 'libqvb' && matrix.platform == 'windows-latest'
+        run: |
+          cd build
+          qmake .. CONFIG+=no_increase_build_number CONFIG+=with_new_backend PREFIX=/usr
+      - name: Unix - Generate Makefile
+        if: matrix.platform != 'windows-latest'
+        run: |
+          mkdir build
+          cd build
+          qmake .. CONFIG+=no_increase_build_number PREFIX=/usr
+      - name: Unix - reGenerate Makefile for libqvb
+        if: matrix.backend == 'libqvb' && matrix.platform != 'windows-latest'
         run: |
           cd build
           qmake .. CONFIG+=no_increase_build_number CONFIG+=with_new_backend PREFIX=/usr
