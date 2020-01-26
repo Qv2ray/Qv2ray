@@ -7,6 +7,7 @@ InboundEditor::InboundEditor(INBOUND root, QWidget *parent) :
     QDialog(parent),
     original(root)
 {
+    REGISTER_WINDOW
     setupUi(this);
     this->root = root;
     auto inboundType = root["protocol"].toString();
@@ -25,7 +26,7 @@ InboundEditor::InboundEditor(INBOUND root, QWidget *parent) :
         if (!root["protocol"].toString().isEmpty()) {
             LOG(MODULE_UI, "Unsupported inbound type: " + inboundType)
             QvMessageBoxWarn(this, tr("Inbound type not supported"), tr("The inbound type is not supported by Qv2ray (yet). Please use JsonEditor to change the settings") + "\r\n" +
-                         tr("Inbound: ") + inboundType);
+                             tr("Inbound: ") + inboundType);
         } else {
             LOG(MODULE_UI, "Creating new inbound config")
             root["protocol"] = inboundType = "http";
@@ -136,6 +137,7 @@ void InboundEditor::LoadUIData()
 
 InboundEditor::~InboundEditor()
 {
+    UNREGISTER_WINDOW
 }
 
 void InboundEditor::on_inboundProtocolCombo_currentIndexChanged(const QString &arg1)

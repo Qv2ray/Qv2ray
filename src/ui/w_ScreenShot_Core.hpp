@@ -19,6 +19,7 @@ class ScreenShotWindow : public QDialog, private Ui::ScreenShot
 
     public:
         ScreenShotWindow();
+        ~ScreenShotWindow();
         QImage DoScreenShot();
         //
         void mouseMoveEvent(QMouseEvent *e) override;

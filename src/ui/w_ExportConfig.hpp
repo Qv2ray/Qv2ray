@@ -11,6 +11,7 @@ class ConfigExporter : public QDialog, private Ui::ExportConfigWindow
     public:
         explicit ConfigExporter(const QImage &img, QWidget *parent = nullptr);
         explicit ConfigExporter(const QString &data, QWidget *parent = nullptr);
+        ~ConfigExporter();
         void OpenExport();
     protected:
         void changeEvent(QEvent *e);

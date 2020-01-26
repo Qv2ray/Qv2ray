@@ -19,6 +19,7 @@
 PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent),
     CurrentConfig()
 {
+    REGISTER_WINDOW
     setupUi(this);
     textBrowser->setHtml(StringFromFile(new QFile(":/assets/credit.html")));
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
@@ -179,7 +180,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent),
 
 PreferencesWindow::~PreferencesWindow()
 {
-    //
+    UNREGISTER_WINDOW
 }
 
 void PreferencesWindow::on_buttonBox_accepted()

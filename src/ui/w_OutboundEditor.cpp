@@ -16,6 +16,7 @@ OutboundEditor::OutboundEditor(QWidget *parent)
       vmess(),
       shadowsocks()
 {
+    REGISTER_WINDOW
     setupUi(this);
     shadowsocks = ShadowSocksServerObject();
     socks = SocksServerObject();
@@ -67,6 +68,7 @@ OutboundEditor::OutboundEditor(OUTBOUND outboundEntry, QWidget *parent) : Outbou
 
 OutboundEditor::~OutboundEditor()
 {
+    UNREGISTER_WINDOW
 }
 
 OUTBOUND OutboundEditor::OpenEditor()

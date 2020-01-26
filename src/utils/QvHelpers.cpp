@@ -36,6 +36,7 @@ namespace Qv2ray
 {
     namespace Utils
     {
+        QVector<QWidget *> GlobalWindows = QVector<QWidget *>();
         const QString GenerateRandomString(int len)
         {
             const QString possibleCharacters("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789");
@@ -159,8 +160,7 @@ namespace Qv2ray
             QMessageBox::information(parent, title, text, QMessageBox::Ok | QMessageBox::Default, 0);
         }
 
-
-        int QvMessageBoxAsk(QWidget *parent, QString title, QString text, QMessageBox::StandardButton extraButtons)
+        QMessageBox::StandardButton QvMessageBoxAsk(QWidget *parent, QString title, QString text, QMessageBox::StandardButton extraButtons)
         {
             return QMessageBox::question(parent, title, text, QMessageBox::Yes | QMessageBox::No | extraButtons);
         }
@@ -253,6 +253,21 @@ namespace Qv2ray
             }
 
             return stdList;
+        }
+
+
+        void HideAllGlobalWindow()
+        {
+            for (auto window : GlobalWindows) {
+                // Do we use opacity or... hide() and show()?
+                window->setVisible(false);
+            }
+        }
+        void ShowAllGlobalWindow()
+        {
+            for (auto window : GlobalWindows) {
+                window->setVisible(true);
+            }
         }
     }
 }

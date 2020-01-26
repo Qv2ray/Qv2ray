@@ -81,6 +81,7 @@ MainWindow::MainWindow(QWidget *parent):
     QMainWindow(parent), vinstance(), uploadList(), downloadList(),
     hTray(new QSystemTrayIcon(this)), vCoreLogHighlighter(), qvAppLogHighlighter()
 {
+    REGISTER_WINDOW
     MainWindow::mwInstance = this;
     currentConfig = GetGlobalConfig();
     vinstance = new V2rayKernelInstance();
@@ -432,6 +433,7 @@ void MainWindow::OnConfigListChanged(bool need_restart)
 }
 MainWindow::~MainWindow()
 {
+    UNREGISTER_WINDOW
     killTimer(qvLogTimerId);
     hTray->hide();
     delete this->hTray;

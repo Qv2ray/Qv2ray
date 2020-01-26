@@ -8,6 +8,12 @@ ConfigExporter::ConfigExporter(QWidget *parent) :
     qzxing(this)
 {
     setupUi(this);
+    REGISTER_WINDOW
+}
+
+ConfigExporter::~ConfigExporter()
+{
+    UNREGISTER_WINDOW
 }
 
 ConfigExporter::ConfigExporter(const QImage &img, QWidget *parent): ConfigExporter(parent)

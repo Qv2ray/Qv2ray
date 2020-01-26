@@ -61,6 +61,7 @@ void RouteEditor::SetupNodeWidget()
 
 RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QDialog(parent), root(connection), original(connection)
 {
+    REGISTER_WINDOW
     setupUi(this);
     isLoading = true;
     setWindowFlags(windowFlags() | Qt::WindowMaximizeButtonHint);
@@ -330,6 +331,7 @@ CONFIGROOT RouteEditor::OpenEditor()
 
 RouteEditor::~RouteEditor()
 {
+    UNREGISTER_WINDOW
     // Double prevent events to be processed while closing the Editor.
     isLoading = true;
     disconnect(nodeScene, &FlowScene::connectionDeleted, this, &RouteEditor::onConnectionDeleted);

@@ -13,7 +13,7 @@ class ImportConfigWindow : public QDialog, private Ui::ImportConfigWindow
 
     public:
         explicit ImportConfigWindow(QWidget *parent = nullptr);
-        ~ImportConfigWindow() { }
+        ~ImportConfigWindow();
         QMap<QString, CONFIGROOT> OpenImport(bool outboundsOnly = false);
     private slots:
 

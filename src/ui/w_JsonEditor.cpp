@@ -5,6 +5,7 @@
 JsonEditor::JsonEditor(QJsonObject rootObject, QWidget *parent) :
     QDialog(parent)
 {
+    REGISTER_WINDOW
     setupUi(this);
     original = rootObject;
     final = rootObject;
@@ -39,6 +40,7 @@ QJsonObject JsonEditor::OpenEditor()
 
 JsonEditor::~JsonEditor()
 {
+    UNREGISTER_WINDOW
 }
 
 void JsonEditor::on_jsonEditor_textChanged()

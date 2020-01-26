@@ -6,11 +6,15 @@
 #include <QUuid>
 
 #define REGEX_IPV6_ADDR "\\[\\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}))|:)))(%.+)?\\s*\\]"
+#define REGISTER_WINDOW GlobalWindows.append(this);
+#define UNREGISTER_WINDOW GlobalWindows.removeAll(this);
 
 namespace Qv2ray
 {
     namespace Utils
     {
+        extern QVector<QWidget *> GlobalWindows;
+        //
         QTranslator *getTranslator(const QString &lang);
         QStringList GetFileList(QDir dir);
         QString Base64Encode(QString string);
@@ -22,22 +26,26 @@ namespace Qv2ray
         //
         void QvMessageBoxWarn(QWidget *parent, QString title, QString text);
         void QvMessageBoxInfo(QWidget *parent, QString title, QString text);
-        int QvMessageBoxAsk(QWidget *parent, QString title, QString text, QMessageBox::StandardButton extraButtons = QMessageBox::NoButton);
+        QMessageBox::StandardButton QvMessageBoxAsk(QWidget *parent, QString title, QString text, QMessageBox::StandardButton extraButtons = QMessageBox::NoButton);
         //
         QString StringFromFile(QFile *source);
         bool StringToFile(const QString *text, QFile *target);
+        //
         QJsonObject JsonFromString(QString string);
         QString JsonToString(QJsonObject json, QJsonDocument::JsonFormat format = QJsonDocument::JsonFormat::Indented);
         QString JsonToString(QJsonArray array, QJsonDocument::JsonFormat format = QJsonDocument::JsonFormat::Indented);
         QString VerifyJsonString(const QString &source);
-        //QString Stringify(list<string> list, QString saperator = ";");
-        //QString Stringify(QList<QString> list, QString saperator = ";");
+        //
         QString FormatBytes(long long bytes);
         void DeducePossibleFileName(const QString &baseDir, QString *fileName, const QString &extension);
         QString ConvertGFWToPAC(const QString &rawContent, const QString &customProxyString);
         void QFastAppendTextDocument(const QString &message, QTextDocument *doc);
         QStringList ConvertQStringList(const QList<string> &stdListString);
         std::list<string> ConvertStdStringList(const QStringList &qStringList);
+        //
+        // Global Windows Operations
+        void HideAllGlobalWindow();
+        void ShowAllGlobalWindow();
         //
         // This function cannot be marked as inline.
         QString RemoveInvalidFileName(const QString &fileName);
@@ -63,41 +71,10 @@ namespace Qv2ray
             auto json = StructToJsonString(t);
             return JsonFromString(json);
         }
-        //
-        template <typename T>
-        void RemoveItem(std::vector<T> &vec, size_t pos)
-        {
-            auto it = vec.begin();
-            std::advance(it, pos);
-            vec.erase(it);
-        }
 
         inline bool IsIPv6Address(const QString &addr)
         {
             return QRegularExpression(REGEX_IPV6_ADDR).match(addr).hasMatch();
-        }
-
-        // These functions a sugers to prevent warnings from deprecated Qt 5.14 functions.
-        template<typename TYPE>
-        std::list<TYPE> toStdList(QList<TYPE> list)
-        {
-#if QT_VERSION >= QT_VERSION_CHECK(5,14,0)
-            std::list<TYPE> _list {list.begin(), list.end()};
-            return _list;
-#else
-            return list.toStdList();
-#endif
-        }
-
-        template<typename TYPE>
-        QList<TYPE> toQList(std::list<TYPE> list)
-        {
-#if QT_VERSION >= QT_VERSION_CHECK(5,14,0)
-            QList<TYPE> _list {list.begin(), list.end()};
-            return _list;
-#else
-            return QList<TYPE>::fromStdList(list);
-#endif
         }
 
         // THIS IS ADDED FOR c++11

@@ -24,6 +24,12 @@ ImportConfigWindow::ImportConfigWindow(QWidget *parent)
 {
     setupUi(this);
     nameTxt->setText(QDateTime::currentDateTime().toString("MMdd_hhmm"));
+    REGISTER_WINDOW
+}
+
+ImportConfigWindow::~ImportConfigWindow()
+{
+    UNREGISTER_WINDOW
 }
 
 QMap<QString, CONFIGROOT> ImportConfigWindow::OpenImport(bool partialImport)
@@ -44,11 +50,24 @@ void ImportConfigWindow::on_selectFileBtn_clicked()
 
 void ImportConfigWindow::on_qrFromScreenBtn_clicked()
 {
-    QThread::msleep(static_cast<ulong>(doubleSpinBox->value() * 1000));
-    ScreenShotWindow w;
-    auto pix = w.DoScreenShot();
+    bool hideQv2ray = hideQv2rayCB->isChecked();
 
-    if (w.result() == QDialog::Accepted) {
+    if (hideQv2ray) {
+        HideAllGlobalWindow();
+    }
+
+    QThread::msleep(static_cast<ulong>(doubleSpinBox->value() * 1000));
+    auto w = new ScreenShotWindow();
+    auto pix = w->DoScreenShot();
+    auto _r = w->result();
+    w->close();
+    delete w;
+
+    if (hideQv2ray) {
+        ShowAllGlobalWindow();
+    }
+
+    if (_r == QDialog::Accepted) {
         auto str = QZXing().decodeImage(pix);
 
         if (str.trimmed().isEmpty()) {
