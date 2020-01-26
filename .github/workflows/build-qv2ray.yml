@@ -34,15 +34,15 @@ jobs:
           sudo apt install -y libgl-dev openssl libx11-dev libxkbcommon-x11-dev libgrpc++-dev libprotobuf-dev protobuf-compiler protobuf-c-compiler protobuf-compiler-grpc
 # --------------------------------------------------------
       - name: Linux - Extracting gRPC and protobuf libs and headers
-        if: matrix.platform == 'ubuntu-latest'
+        if: matrix.platform == 'ubuntu-latest' && matrix.backend == 'gRPC'
         run: tools/grpc_gen.sh
 # ==
       - name: macOS - Extracting gRPC and protobuf libs and headers
-        if: matrix.platform == 'macos-latest'
+        if: matrix.platform == 'macos-latest' && matrix.backend == 'gRPC'
         run: tools/deps_macOS.sh
 # ==
       - name: Win32 - Extracting gRPC and protobuf libs and headers
-        if: matrix.platform == 'windows-latest'
+        if: matrix.platform == 'windows-latest' && matrix.backend == 'gRPC'
         run: tools\grpc_gen.bat
 # --------------------------------------------------------
       - name: Linux - Download libqvb static library.
