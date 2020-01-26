@@ -25,7 +25,7 @@ jobs:
         uses: jurplel/install-qt-action@v2
         with:
           modules: qtcharts
-      - name: ${{ matrix.platform }} - Installing Qt
+      - name: ${{ matrix.platform }} - Installing Qt - Windows Only
         if: matrix.platform == 'windows-latest'
         uses: jurplel/install-qt-action@v2
         with:
@@ -79,6 +79,7 @@ jobs:
           qmake .. CONFIG+=no_increase_build_number PREFIX=/usr
       - name: Generate Makefile for libqvb
         if: matrix.backend == 'libqvb'
+        shell: bash
         run: |
           PATH=$PATH:$Qt5_Dir
           mkdir build
