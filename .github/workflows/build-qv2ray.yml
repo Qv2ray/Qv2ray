@@ -67,13 +67,11 @@ jobs:
           mkdir build
           cd build
           qmake .. CONFIG+=no_increase_build_number PREFIX=/usr
-          make -j2
       - name: reGenerate Makefile for libqvb
         if: matrix.backend == 'libqvb'
         run: |
           cd build
           qmake .. CONFIG+=no_increase_build_number CONFIG+=with_new_backend PREFIX=/usr
-          make -j2
 # -------------------------------------------------------- Build
       - name: Linux - ${{ matrix.backend }} - Build Qv2ray
         if: matrix.platform == 'ubuntu-latest'
