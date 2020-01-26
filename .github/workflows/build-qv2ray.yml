@@ -20,10 +20,17 @@ jobs:
       - name: Restoring submodules
         run: git submodule update --init
 # --------------------------------------------------------
-      - name: Installing Qt
+      - name: ${{ matrix.platform }} - Installing Qt
+        if: matrix.platform != 'windows-latest'
         uses: jurplel/install-qt-action@v2
         with:
           modules: qtcharts
+      - name: ${{ matrix.platform }} - Installing Qt
+        if: matrix.platform == 'windows-latest'
+        uses: jurplel/install-qt-action@v2
+        with:
+          modules: qtcharts
+          arch: win64_mingw73
 # --------------------------------------------------------
       - name: Linux - Install Packages 
         if: matrix.platform == 'ubuntu-latest'
