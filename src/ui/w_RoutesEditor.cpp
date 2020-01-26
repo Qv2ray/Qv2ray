@@ -610,9 +610,9 @@ void RouteEditor::on_addInboundBtn_clicked()
 void RouteEditor::on_addOutboundBtn_clicked()
 {
     LOADINGCHECK
-    ImportConfigWindow *w = new ImportConfigWindow(this);
+    ImportConfigWindow w(this);
     // True here for not keep the inbounds.
-    auto configs = w->OpenImport(true);
+    auto configs = w.OpenImport(true);
 
     for (auto i = 0; i < configs.count(); i++) {
         auto conf = configs.values()[i];
@@ -736,16 +736,14 @@ void RouteEditor::on_editBtn_clicked()
             QvMessageBoxWarn(this, tr("Cannot Edit"), tr("Currently, this type of outbound is not supported by the editor.") + "\r\n" +
                              tr("We will launch Json Editor instead."));
             statusLabel->setText(tr("Opening JSON editor"));
-            JsonEditor *w = new JsonEditor(_in, this);
-            _result = INBOUND(w->OpenEditor());
-            _code = w->result();
-            delete w;
+            JsonEditor w(_in, this);
+            _result = INBOUND(w.OpenEditor());
+            _code = w.result();
         } else {
-            InboundEditor *w = new InboundEditor(_in, this);
+            InboundEditor w(_in, this);
             statusLabel->setText(tr("Opening default inbound editor"));
-            _result = w->OpenEditor();
-            _code = w->result();
-            delete w;
+            _result = w.OpenEditor();
+            _code = w.result();
         }
 
         statusLabel->setText(tr("OK"));

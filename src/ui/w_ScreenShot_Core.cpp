@@ -63,6 +63,7 @@ QImage ScreenShotWindow::DoScreenShot()
     setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
     this->showFullScreen();
     this->exec();
+    this->close();
     return resultImage;
 }
 

@@ -418,22 +418,20 @@ void OutboundEditor::on_socks_PasswordTxt_textEdited(const QString &arg1)
 
 void OutboundEditor::on_tcpRequestEditBtn_clicked()
 {
-    JsonEditor *w = new JsonEditor(JsonFromString(tcpRequestTxt->toPlainText()), this);
-    auto rString = JsonToString(w->OpenEditor());
+    JsonEditor w(JsonFromString(tcpRequestTxt->toPlainText()), this);
+    auto rString = JsonToString(w.OpenEditor());
     tcpRequestTxt->setPlainText(rString);
     auto tcpReqObject = StructFromJsonString<TSObjects::HTTPRequestObject>(rString);
     stream.tcpSettings.header.request = tcpReqObject;
-    delete w;
 }
 
 void OutboundEditor::on_tcpResponseEditBtn_clicked()
 {
-    JsonEditor *w = new JsonEditor(JsonFromString(tcpRespTxt->toPlainText()), this);
-    auto rString = JsonToString(w->OpenEditor());
+    JsonEditor w(JsonFromString(tcpRespTxt->toPlainText()), this);
+    auto rString = JsonToString(w.OpenEditor());
     tcpRespTxt->setPlainText(rString);
     auto tcpRspObject = StructFromJsonString<TSObjects::HTTPResponseObject>(rString);
     stream.tcpSettings.header.response = tcpRspObject;
-    delete w;
 }
 
 void OutboundEditor::on_tagTxt_textEdited(const QString &arg1)

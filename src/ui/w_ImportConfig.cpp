@@ -60,7 +60,7 @@ void ImportConfigWindow::on_qrFromScreenBtn_clicked()
     auto w = new ScreenShotWindow();
     auto pix = w->DoScreenShot();
     auto _r = w->result();
-    w->close();
+    // Explicitly delete w to call UNREGISTER_WINDOW
     delete w;
 
     if (hideQv2ray) {
@@ -210,10 +210,10 @@ void ImportConfigWindow::on_editFileBtn_clicked()
     }
 
     auto json  = JsonFromString(jsonString);
-    auto editor = new JsonEditor(json, this);
-    json = editor->OpenEditor();
+    JsonEditor editor(json, this);
+    json = editor.OpenEditor();
 
-    if (editor->result() == QDialog::Accepted) {
+    if (editor.result() == QDialog::Accepted) {
         auto str = JsonToString(json);
         bool result = StringToFile(&str, &file);
 
@@ -227,11 +227,10 @@ void ImportConfigWindow::on_editFileBtn_clicked()
 
 void ImportConfigWindow::on_connectionEditBtn_clicked()
 {
-    OutboundEditor *w = new OutboundEditor(this);
-    auto outboundEntry = w->OpenEditor();
-    bool isChanged = w->result() == QDialog::Accepted;
-    QString alias = w->GetFriendlyName();
-    delete w;
+    OutboundEditor w(this);
+    auto outboundEntry = w.OpenEditor();
+    bool isChanged = w.result() == QDialog::Accepted;
+    QString alias = w.GetFriendlyName();
 
     if (isChanged) {
         OUTBOUNDS outboundsList;

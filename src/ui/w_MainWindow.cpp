@@ -634,9 +634,9 @@ void MainWindow::ShowAndSetConnection(QvConfigIdentifier fullIdentifier, bool Se
 }
 void MainWindow::on_preferencesBtn_clicked()
 {
-    PreferencesWindow *w = new PreferencesWindow(this);
-    connect(w, &PreferencesWindow::s_reload_config, this, &MainWindow::OnConfigListChanged);
-    w->show();
+    PreferencesWindow w(this);
+    connect(&w, &PreferencesWindow::s_reload_config, this, &MainWindow::OnConfigListChanged);
+    w.exec();
 }
 void MainWindow::on_connectionListWidget_doubleClicked(const QModelIndex &index)
 {
@@ -827,8 +827,8 @@ void MainWindow::on_removeConfigButton_clicked()
 
 void MainWindow::on_importConfigButton_clicked()
 {
-    ImportConfigWindow *w = new ImportConfigWindow(this);
-    auto configs = w->OpenImport();
+    ImportConfigWindow w(this);
+    auto configs = w.OpenImport();
 
     if (!configs.isEmpty()) {
         for (auto conf : configs) {
@@ -863,14 +863,14 @@ void MainWindow::on_editConfigButton_clicked()
 
     if (CheckIsComplexConfig(outBoundRoot)) {
         LOG(MODULE_UI, "INFO: Opening route editor.")
-        RouteEditor *routeWindow = new RouteEditor(outBoundRoot, this);
-        root = routeWindow->OpenEditor();
-        isChanged = routeWindow->result() == QDialog::Accepted;
+        RouteEditor routeWindow(outBoundRoot, this);
+        root = routeWindow.OpenEditor();
+        isChanged = routeWindow.result() == QDialog::Accepted;
     } else {
         LOG(MODULE_UI, "INFO: Opening single connection edit window.")
-        OutboundEditor *w = new OutboundEditor(OUTBOUND(outBoundRoot["outbounds"].toArray().first().toObject()), this);
-        auto outboundEntry = w->OpenEditor();
-        isChanged = w->result() == QDialog::Accepted;
+        OutboundEditor w(OUTBOUND(outBoundRoot["outbounds"].toArray().first().toObject()), this);
+        auto outboundEntry = w.OpenEditor();
+        isChanged = w.result() == QDialog::Accepted;
         QJsonArray outboundsList;
         outboundsList.push_back(outboundEntry);
         root.insert("outbounds", outboundsList);
@@ -940,10 +940,9 @@ void MainWindow::on_action_RCM_EditJson_triggered()
     auto selectedFirst = connectionListWidget->currentItem();
     auto _identifier = ItemConnectionIdentifier(selectedFirst);
     SUBSCRIPTION_CONFIG_MODIFY_DENY(selectedFirst)
-    JsonEditor *w = new JsonEditor(connections[_identifier].config, this);
-    auto root = CONFIGROOT(w->OpenEditor());
-    bool isChanged = w->result() == QDialog::Accepted;
-    delete w;
+    JsonEditor w(connections[_identifier].config, this);
+    auto root = CONFIGROOT(w.OpenEditor());
+    bool isChanged = w.result() == QDialog::Accepted;
     QString alias = _identifier.connectionName;
 
     if (isChanged) {
