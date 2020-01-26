@@ -31,7 +31,7 @@ static bool isLoading = false;
 
 void RouteEditor::SetupNodeWidget()
 {
-    if (GetGlobalConfig().uiConfig.useDarkTheme) {
+    if (GlobalConfig.uiConfig.useDarkTheme) {
         ConnectionStyle::setConnectionStyle(R"({"ConnectionStyle": {"ConstructionColor": "gray","NormalColor": "black","SelectedColor": "gray",
                                             "SelectedHaloColor": "deepskyblue","HoveredColor": "deepskyblue","LineWidth": 3.0,
                                             "ConstructionLineWidth": 2.0,"PointDiameter": 10.0,"UseDataDefinedColors": true}})");
@@ -572,9 +572,8 @@ void RouteEditor::on_addDefaultBtn_clicked()
 {
     LOADINGCHECK
     // Add default connection from GlobalConfig
-    auto conf = GetGlobalConfig();
     //
-    auto _Inconfig = conf.inboundConfig;
+    auto _Inconfig = GlobalConfig.inboundConfig;
     //
     auto _in_httpConf = GenerateHTTPIN(QList<AccountObject>() << _Inconfig.httpAccount);
     auto _in_socksConf = GenerateSocksIN((_Inconfig.socks_useAuth ? "password" : "noauth"),

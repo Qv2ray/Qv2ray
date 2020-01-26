@@ -9,7 +9,6 @@ namespace Qv2ray
     {
         namespace NetSpeedPlugin
         {
-            static Qv2rayConfig config;
             void StopProcessingPlugins()
             {
 #ifdef Q_OS_LINUX
@@ -24,7 +23,6 @@ namespace Qv2ray
             /// To start processing plugins' command.
             void StartProcessingPlugins()
             {
-                config = GetGlobalConfig();
 #ifdef Q_OS_LINUX
                 _linux::StartMessageQThread();
 #endif
@@ -44,7 +42,6 @@ namespace Qv2ray
                 auto vinstance = instance->vinstance;
                 //
                 auto req = pchRequest.trimmed();
-                config = GetGlobalConfig();
                 QString reply = "{}";
 
                 if (req == "START") {
@@ -55,7 +52,7 @@ namespace Qv2ray
                     emit instance->ReConnect();
                 }
 
-                auto BarConfig = config.toolBarConfig;
+                auto BarConfig = GlobalConfig.toolBarConfig;
 
                 for (auto i = 0; i < BarConfig.Pages.size(); i++) {
                     for (auto j = 0; j < BarConfig.Pages[i].Lines.size(); j++) {

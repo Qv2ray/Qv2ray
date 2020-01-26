@@ -1,6 +1,7 @@
 #include "QvPACHandler.hpp"
 #include "qhttprequest.h"
 #include "qhttpresponse.h"
+#include "QvUtils.hpp"
 
 namespace Qv2ray
 {
@@ -27,9 +28,8 @@ namespace Qv2ray
             pacServer = new QHttpServer();
             connect(pacServer, &QHttpServer::newRequest, this, &PACServer::onNewRequest);
             //
-            auto conf = GetGlobalConfig();
-            auto address = conf.inboundConfig.listenip;
-            auto port = conf.inboundConfig.pacConfig.port;
+            auto address = GlobalConfig.inboundConfig.listenip;
+            auto port = GlobalConfig.inboundConfig.pacConfig.port;
             //
             DEBUG(MODULE_PROXY, "PAC Listening local endpoint: " + address + ":" + QSTRN(port))
             //

@@ -6,32 +6,22 @@ namespace Qv2ray
     namespace Utils
     {
         static bool _isQv2rayExiting = false;
-        static Qv2rayConfig GlobalConfig;
-        static QString ConfigDirPath;
-        void SetGlobalConfig(Qv2rayConfig conf)
+        Qv2rayConfig GlobalConfig = Qv2rayConfig();
+        QString Qv2rayConfigPath = "";
+        void SaveGlobalConfig(Qv2rayConfig conf)
         {
             GlobalConfig = conf;
             QFile config(QV2RAY_CONFIG_FILE);
-            QString str = StructToJsonString(GetGlobalConfig());
+            QString str = StructToJsonString(conf);
             StringToFile(&str, &config);
         }
 
-        Qv2rayConfig GetGlobalConfig()
+        void SetConfigDirPath(const QString &path)
         {
-            return GlobalConfig;
-        }
+            Qv2rayConfigPath = path;
 
-        QString GetConfigDirPath()
-        {
-            return ConfigDirPath;
-        }
-
-        void SetConfigDirPath(const QString *path)
-        {
-            ConfigDirPath = *path;
-
-            if (!path->endsWith("/")) {
-                ConfigDirPath += "/";
+            if (!path.endsWith("/")) {
+                Qv2rayConfigPath += "/";
             }
         }
 
@@ -42,7 +32,7 @@ namespace Qv2ray
             QTextStream stream(&file);
             auto str = stream.readAll();
             auto config  = StructFromJsonString<Qv2rayConfig>(str);
-            SetGlobalConfig(config);
+            SaveGlobalConfig(config);
             file.close();
         }
 

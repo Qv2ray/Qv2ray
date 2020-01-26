@@ -31,14 +31,14 @@ QTreeWidgetItem *MainWindow::FindItemByIdentifier(QvConfigIdentifier identifier)
 
 void MainWindow::MWFindAndStartAutoConfig()
 {
-    if (!currentConfig.autoStartConfig.connectionName.isEmpty()) {
+    if (!GlobalConfig.autoStartConfig.connectionName.isEmpty()) {
         // User has auto start configured, we try to find that connection item.
-        auto name = currentConfig.autoStartConfig.subscriptionName.isEmpty()
-                    ? currentConfig.autoStartConfig.connectionName
-                    : currentConfig.autoStartConfig.connectionName + " (" + tr("Subscription:") + " " + currentConfig.autoStartConfig.subscriptionName + ")";
+        auto name = GlobalConfig.autoStartConfig.subscriptionName.isEmpty()
+                    ? GlobalConfig.autoStartConfig.connectionName
+                    : GlobalConfig.autoStartConfig.connectionName + " (" + tr("Subscription:") + " " + GlobalConfig.autoStartConfig.subscriptionName + ")";
         //
         LOG(MODULE_UI, "Found auto start config: " + name)
-        auto item = FindItemByIdentifier(currentConfig.autoStartConfig);
+        auto item = FindItemByIdentifier(GlobalConfig.autoStartConfig);
 
         if (item != nullptr) {
             // We found the item required and start it.
@@ -72,10 +72,10 @@ void MainWindow::MWClearSystemProxy(bool showMessage)
 
 void MainWindow::MWSetSystemProxy()
 {
-    bool usePAC = currentConfig.inboundConfig.pacConfig.enablePAC;
-    bool pacUseSocks = currentConfig.inboundConfig.pacConfig.useSocksProxy;
-    bool httpEnabled = currentConfig.inboundConfig.useHTTP;
-    bool socksEnabled = currentConfig.inboundConfig.useSocks;
+    bool usePAC = GlobalConfig.inboundConfig.pacConfig.enablePAC;
+    bool pacUseSocks = GlobalConfig.inboundConfig.pacConfig.useSocksProxy;
+    bool httpEnabled = GlobalConfig.inboundConfig.useHTTP;
+    bool socksEnabled = GlobalConfig.inboundConfig.useSocks;
     //
     // Set system proxy if necessary
     bool isComplex = CheckIsComplexConfig(connections[CurrentConnectionIdentifier].config);
@@ -91,7 +91,7 @@ void MainWindow::MWSetSystemProxy()
             if ((httpEnabled && !pacUseSocks) || (socksEnabled && pacUseSocks)) {
                 // If we use PAC and socks/http are properly configured for PAC
                 LOG(MODULE_PROXY, "System proxy uses PAC")
-                proxyAddress = "http://" + currentConfig.inboundConfig.listenip + ":" + QSTRN(currentConfig.inboundConfig.pacConfig.port) +  "/pac";
+                proxyAddress = "http://" + GlobalConfig.inboundConfig.listenip + ":" + QSTRN(GlobalConfig.inboundConfig.pacConfig.port) +  "/pac";
             } else {
                 // Not properly configured
                 LOG(MODULE_PROXY, "Failed to process pac due to following reasons:")
@@ -117,7 +117,7 @@ void MainWindow::MWSetSystemProxy()
         if (canSetSystemProxy) {
             LOG(MODULE_UI, "Setting system proxy for simple config, HTTP only")
             // ------------------------|=======We only use HTTP here->>|=======|
-            SetSystemProxy(proxyAddress, currentConfig.inboundConfig.http_port, usePAC);
+            SetSystemProxy(proxyAddress, GlobalConfig.inboundConfig.http_port, usePAC);
             systemProxyEnabled = true;
             hTray->showMessage("Qv2ray", tr("System proxy settings applied."), windowIcon());
         }
@@ -133,15 +133,15 @@ bool MainWindow::MWtryStartConnection()
     bool startFlag = this->vinstance->StartConnection(currentFullConfig);
 
     if (startFlag) {
-        bool usePAC = currentConfig.inboundConfig.pacConfig.enablePAC;
-        bool pacUseSocks = currentConfig.inboundConfig.pacConfig.useSocksProxy;
-        bool httpEnabled = currentConfig.inboundConfig.useHTTP;
-        bool socksEnabled = currentConfig.inboundConfig.useSocks;
+        bool usePAC = GlobalConfig.inboundConfig.pacConfig.enablePAC;
+        bool pacUseSocks = GlobalConfig.inboundConfig.pacConfig.useSocksProxy;
+        bool httpEnabled = GlobalConfig.inboundConfig.useHTTP;
+        bool socksEnabled = GlobalConfig.inboundConfig.useSocks;
 
         if (usePAC) {
             bool canStartPAC = true;
             QString pacProxyString;  // Something like this --> SOCKS5 127.0.0.1:1080; SOCKS 127.0.0.1:1080; DIRECT; http://proxy:8080
-            auto pacIP = currentConfig.inboundConfig.pacConfig.localIP;
+            auto pacIP = GlobalConfig.inboundConfig.pacConfig.localIP;
 
             if (pacIP.isEmpty()) {
                 LOG(MODULE_PROXY, "PAC Local IP is empty, default to 127.0.0.1")
@@ -150,7 +150,7 @@ bool MainWindow::MWtryStartConnection()
 
             if (pacUseSocks) {
                 if (socksEnabled) {
-                    pacProxyString = "SOCKS5 " + pacIP + ":" + QSTRN(currentConfig.inboundConfig.socks_port);
+                    pacProxyString = "SOCKS5 " + pacIP + ":" + QSTRN(GlobalConfig.inboundConfig.socks_port);
                 } else {
                     LOG(MODULE_UI, "PAC is using SOCKS, but it is not enabled")
                     QvMessageBoxWarn(this, tr("Configuring PAC"), tr("Could not start PAC server as it is configured to use SOCKS, but it is not enabled"));
@@ -158,7 +158,7 @@ bool MainWindow::MWtryStartConnection()
                 }
             } else {
                 if (httpEnabled) {
-                    pacProxyString = "PROXY " + pacIP + ":" + QSTRN(currentConfig.inboundConfig.http_port);
+                    pacProxyString = "PROXY " + pacIP + ":" + QSTRN(GlobalConfig.inboundConfig.http_port);
                 } else {
                     LOG(MODULE_UI, "PAC is using HTTP, but it is not enabled")
                     QvMessageBoxWarn(this, tr("Configuring PAC"), tr("Could not start PAC server as it is configured to use HTTP, but it is not enabled"));
@@ -174,7 +174,7 @@ bool MainWindow::MWtryStartConnection()
             }
         }
 
-        if (currentConfig.inboundConfig.setSystemProxy) {
+        if (GlobalConfig.inboundConfig.setSystemProxy) {
             MWSetSystemProxy();
         }
     }
@@ -191,7 +191,7 @@ void MainWindow::MWStopConnection()
     this->vinstance->StopConnection();
     QFile(QV2RAY_GENERATED_FILE_PATH).remove();
 
-    if (currentConfig.inboundConfig.pacConfig.enablePAC) {
+    if (GlobalConfig.inboundConfig.pacConfig.enablePAC) {
         pacServer->StopServer();
         LOG(MODULE_UI, "Stopping PAC server")
     }
@@ -221,9 +221,9 @@ void MainWindow::CheckSubscriptionsUpdate()
 {
     QStringList updateList;
 
-    for (auto index = 0; index < currentConfig.subscriptions.count(); index++) {
-        auto subs = currentConfig.subscriptions.values()[index];
-        auto key = currentConfig.subscriptions.keys()[index];
+    for (auto index = 0; index < GlobalConfig.subscriptions.count(); index++) {
+        auto subs = GlobalConfig.subscriptions.values()[index];
+        auto key = GlobalConfig.subscriptions.keys()[index];
         //
         auto lastRenewDate = QDateTime::fromTime_t(subs.lastUpdated);
         auto renewTime = lastRenewDate.addSecs(subs.updateInterval * 86400);

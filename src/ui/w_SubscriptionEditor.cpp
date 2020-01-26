@@ -7,11 +7,10 @@ SubscribeEditor::SubscribeEditor(QWidget *parent) :
 {
     REGISTER_WINDOW
     setupUi(this);
-    auto conf = GetGlobalConfig();
     addSubsButton->setIcon(QICON_R("add.png"));
     removeSubsButton->setIcon(QICON_R("delete.png"));
 
-    for (auto i = conf.subscriptions.begin(); i != conf.subscriptions.end(); i++) {
+    for (auto i = GlobalConfig.subscriptions.begin(); i != GlobalConfig.subscriptions.end(); i++) {
         subscriptions[i.key()] = i.value();
     }
 
@@ -89,14 +88,13 @@ void SubscribeEditor::on_updateButton_clicked()
         subNameTxt->setText(newName);
         //
         // Update auto-start config if possible
-        auto conf = GetGlobalConfig();
-        auto ASsetting = conf.autoStartConfig.subscriptionName;
+        auto ASsetting = GlobalConfig.autoStartConfig.subscriptionName;
 
         if (ASsetting == currentSubName) {
-            conf.autoStartConfig.subscriptionName = newName;
+            GlobalConfig.autoStartConfig.subscriptionName = newName;
         }
 
-        SetGlobalConfig(conf);
+        SaveGlobalConfig(GlobalConfig);
         // This will set the name to the new name.
         LoadSubscriptionList(subscriptions);
         QvMessageBoxInfo(this, tr("Renaming a subscription"), tr("Successfully renamed a subscription"));
@@ -166,11 +164,9 @@ void SubscribeEditor::on_removeSubsButton_clicked()
     }
 
     // If removed a whole subscription...
-    auto conf = GetGlobalConfig();
-
-    if (conf.autoStartConfig.subscriptionName == name) {
-        conf.autoStartConfig = QvConfigIdentifier();
-        SetGlobalConfig(conf);
+    if (GlobalConfig.autoStartConfig.subscriptionName == name) {
+        GlobalConfig.autoStartConfig = QvConfigIdentifier();
+        SaveGlobalConfig(GlobalConfig);
     }
 
     groupBox_2->setEnabled(subscriptionList->count() > 0);
@@ -205,7 +201,6 @@ void SubscribeEditor::on_subscriptionList_currentRowChanged(int currentRow)
 
 void SubscribeEditor::SaveConfig()
 {
-    auto conf = GetGlobalConfig();
     QMap<QString, Qv2raySubscriptionConfig> newConf;
 
     for (auto _ : subscriptions.toStdMap()) {
@@ -214,8 +209,8 @@ void SubscribeEditor::SaveConfig()
         }
     }
 
-    conf.subscriptions = newConf;
-    SetGlobalConfig(conf);
+    GlobalConfig.subscriptions = newConf;
+    SaveGlobalConfig(GlobalConfig);
 }
 
 void SubscribeEditor::on_buttonBox_accepted()

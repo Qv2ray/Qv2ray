@@ -91,7 +91,6 @@ class MainWindow : public QMainWindow, Ui::MainWindow
     private:
         void SetEditWidgetEnable(bool enabled);
         void ShowAndSetConnection(QvConfigIdentifier fullIdentifier, bool SetConnection, bool Apply);
-        Qv2rayConfig currentConfig;
         CONFIGROOT currentFullConfig;
         //
         // Charts

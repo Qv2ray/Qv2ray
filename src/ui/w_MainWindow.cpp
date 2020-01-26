@@ -60,7 +60,7 @@
 // From https://gist.github.com/jemyzhang/7130092
 #define CleanUpLogs(browser) \
     {\
-        auto maxLines = currentConfig.uiConfig.maximumLogLines; \
+        auto maxLines = GlobalConfig.uiConfig.maximumLogLines; \
         QTextBlock block = browser->document()->begin();\
         while (block.isValid()) {\
             if (browser->document()->blockCount() > maxLines) {\
@@ -83,7 +83,6 @@ MainWindow::MainWindow(QWidget *parent):
 {
     REGISTER_WINDOW
     MainWindow::mwInstance = this;
-    currentConfig = GetGlobalConfig();
     vinstance = new V2rayKernelInstance();
     connect(vinstance, &V2rayKernelInstance::onProcessOutputReadyRead, this, &MainWindow::UpdateVCoreLog);
     connect(vinstance, &V2rayKernelInstance::onProcessErrored, [this] {
@@ -105,8 +104,8 @@ MainWindow::MainWindow(QWidget *parent):
     qvAppLogBrowser->setReadOnly(true);
     qvAppLogBrowser->setLineWrapMode(QTextBrowser::LineWrapMode::NoWrap);
     //
-    vCoreLogHighlighter = new SyntaxHighlighter(currentConfig.uiConfig.useDarkTheme, vCoreLogBrowser->document());
-    qvAppLogHighlighter = new SyntaxHighlighter(currentConfig.uiConfig.useDarkTheme, qvAppLogBrowser->document());
+    vCoreLogHighlighter = new SyntaxHighlighter(GlobalConfig.uiConfig.useDarkTheme, vCoreLogBrowser->document());
+    qvAppLogHighlighter = new SyntaxHighlighter(GlobalConfig.uiConfig.useDarkTheme, qvAppLogBrowser->document());
     currentLogBrowserId = 0;
     masterLogBrowser->setDocument(currentLogBrowser->document());
     masterLogBrowser->document()->setDocumentMargin(8);
@@ -121,7 +120,7 @@ MainWindow::MainWindow(QWidget *parent):
     connect(tcpingModel, &QvTCPingModel::PingFinished, this, &MainWindow::onPingFinished);
     //
     this->setWindowIcon(QIcon(":/assets/icons/qv2ray.png"));
-    hTray->setIcon(QIcon(currentConfig.uiConfig.useDarkTrayIcon ? ":/assets/icons/ui_dark/tray.png" : ":/assets/icons/ui_light/tray.png"));
+    hTray->setIcon(QIcon(GlobalConfig.uiConfig.useDarkTrayIcon ? ":/assets/icons/ui_dark/tray.png" : ":/assets/icons/ui_light/tray.png"));
     importConfigButton->setIcon(QICON_R("import.png"));
     duplicateBtn->setIcon(QICON_R("duplicate.png"));
     removeConfigButton->setIcon(QICON_R("delete.png"));
@@ -227,7 +226,7 @@ MainWindow::MainWindow(QWidget *parent):
     }
 
     speedChartObj = new QChart();
-    speedChartObj->setTheme(currentConfig.uiConfig.useDarkTheme ? QChart::ChartThemeDark : QChart::ChartThemeLight);
+    speedChartObj->setTheme(GlobalConfig.uiConfig.useDarkTheme ? QChart::ChartThemeDark : QChart::ChartThemeLight);
     speedChartObj->setTitle(""); // Fake hidden
     speedChartObj->legend()->hide();
     speedChartObj->createDefaultAxes();
@@ -325,14 +324,14 @@ void MainWindow::VersionUpdate(QByteArray &data)
     // Version update handler.
     QJsonObject root = JsonFromString(QString(data));
     //
-    QVersionNumber newversion = QVersionNumber::fromString(root["tag_name"].toString("v").remove(0, 1));
-    QVersionNumber current = QVersionNumber::fromString(QString(QV2RAY_VERSION_STRING).remove(0, 1));
-    QVersionNumber ignored = QVersionNumber::fromString(currentConfig.ignoredVersion);
-    LOG(MODULE_UPDATE, "Received update info, Latest: " + newversion.toString() + " Current: " + current.toString() + " Ignored: " + ignored.toString())
+    QVersionNumber newVersion = QVersionNumber::fromString(root["tag_name"].toString("v").remove(0, 1));
+    QVersionNumber currentVersion = QVersionNumber::fromString(QString(QV2RAY_VERSION_STRING).remove(0, 1));
+    QVersionNumber ignoredVersion = QVersionNumber::fromString(GlobalConfig.ignoredVersion);
+    LOG(MODULE_UPDATE, "Received update info, Latest: " + newVersion.toString() + " Current: " + currentVersion.toString() + " Ignored: " + ignoredVersion.toString())
 
     // If the version is newer than us.
     // And new version is newer than the ignored version.
-    if (newversion > current && newversion > ignored) {
+    if (newVersion > currentVersion && newVersion > ignoredVersion) {
         LOG(MODULE_UPDATE, "New version detected.")
         auto link = root["html_url"].toString("");
         auto result = QvMessageBoxAsk(this, tr("Update"),
@@ -348,8 +347,8 @@ void MainWindow::VersionUpdate(QByteArray &data)
             QDesktopServices::openUrl(QUrl::fromUserInput(link));
         } else if (result == QMessageBox::Ignore) {
             // Set and save ingored version.
-            currentConfig.ignoredVersion = newversion.toString();
-            SetGlobalConfig(currentConfig);
+            GlobalConfig.ignoredVersion = newVersion.toString();
+            SaveGlobalConfig(GlobalConfig);
         }
     }
 }
@@ -362,7 +361,6 @@ void MainWindow::OnConfigListChanged(bool need_restart)
 
     LOG(MODULE_UI, "Loading new GlobalConfig")
     SetEditWidgetEnable(false);
-    currentConfig = GetGlobalConfig();
     //
     // Store the latency test value.
     QMap<QvConfigIdentifier, double> latencyValueCache;
@@ -373,8 +371,8 @@ void MainWindow::OnConfigListChanged(bool need_restart)
 
     connections.clear();
     connectionListWidget->clear();
-    auto _regularConnections = GetRegularConnections(currentConfig.configs);
-    auto _subsConnections = GetSubscriptionConnections(currentConfig.subscriptions.keys());
+    auto _regularConnections = GetRegularConnections(GlobalConfig.configs);
+    auto _subsConnections = GetSubscriptionConnections(GlobalConfig.subscriptions.keys());
 
     for (auto i = 0; i < _regularConnections.count(); i++) {
         ConnectionObject _o;
@@ -705,7 +703,7 @@ void MainWindow::on_connectionListWidget_itemChanged(QTreeWidgetItem *item, int)
             canContinueRename = false;
         }
 
-        if (currentConfig.configs.contains(newIdentifier.connectionName)) {
+        if (GlobalConfig.configs.contains(newIdentifier.connectionName)) {
             QvMessageBoxWarn(this, tr("Rename a Connection"), tr("The name has been used already, Please choose another."));
             canContinueRename = false;
         }
@@ -724,19 +722,19 @@ void MainWindow::on_connectionListWidget_itemChanged(QTreeWidgetItem *item, int)
 
         // Change auto start config.
         //  |--------------=== In case it's not in a subscription --|
-        if (currentConfig.autoStartConfig == renameOriginalIdentifier) {
-            currentConfig.autoStartConfig = newIdentifier;
+        if (GlobalConfig.autoStartConfig == renameOriginalIdentifier) {
+            GlobalConfig.autoStartConfig = newIdentifier;
         }
 
         // Replace the items in the current loaded config list and settings.
         // Note: This original name should only be a reguular.
-        currentConfig.configs.removeOne(renameOriginalIdentifier.connectionName);
-        currentConfig.configs.push_back(newIdentifier.connectionName);
+        GlobalConfig.configs.removeOne(renameOriginalIdentifier.connectionName);
+        GlobalConfig.configs.push_back(newIdentifier.connectionName);
         //
         connections[newIdentifier] = connections.take(renameOriginalIdentifier);
         RenameConnection(renameOriginalIdentifier.connectionName, newIdentifier.connectionName);
         LOG(MODULE_UI, "Saving a global config")
-        SetGlobalConfig(currentConfig);
+        SaveGlobalConfig(GlobalConfig);
         //
         item->setData(0, Qt::UserRole, QVariant::fromValue(newIdentifier));
 
@@ -784,12 +782,12 @@ void MainWindow::on_removeConfigButton_clicked()
         auto connData = connections[conn];
 
         // Remove auto start config.
-        if (currentConfig.autoStartConfig.subscriptionName == connData.subscriptionName &&
-            currentConfig.autoStartConfig.connectionName == connData.connectionName)
+        if (GlobalConfig.autoStartConfig.subscriptionName == connData.subscriptionName &&
+            GlobalConfig.autoStartConfig.connectionName == connData.connectionName)
             // If all those settings match.
         {
-            currentConfig.autoStartConfig.subscriptionName.clear();
-            currentConfig.autoStartConfig.connectionName.clear();
+            GlobalConfig.autoStartConfig.subscriptionName.clear();
+            GlobalConfig.autoStartConfig.connectionName.clear();
         }
 
         if (connData.configType == CONNECTION_REGULAR) {
@@ -799,7 +797,7 @@ void MainWindow::on_removeConfigButton_clicked()
                 connData.subscriptionName.clear();
             }
 
-            currentConfig.configs.removeOne(conn.connectionName);
+            GlobalConfig.configs.removeOne(conn.connectionName);
 
             if (!RemoveConnection(conn.connectionName)) {
                 QvMessageBoxWarn(this, tr("Removing this Connection"), tr("Failed to delete connection file, please delete manually."));
@@ -822,7 +820,7 @@ void MainWindow::on_removeConfigButton_clicked()
     }
 
     LOG(MODULE_UI, "Saving GlobalConfig")
-    SetGlobalConfig(currentConfig);
+    SaveGlobalConfig(GlobalConfig);
     OnConfigListChanged(false);
     ShowAndSetConnection(CurrentConnectionIdentifier, false, false);
 }
@@ -840,10 +838,10 @@ void MainWindow::on_importConfigButton_clicked()
                 continue;
 
             SaveConnectionConfig(conf, &name, false);
-            currentConfig.configs.push_back(name);
+            GlobalConfig.configs.push_back(name);
         }
 
-        SetGlobalConfig(currentConfig);
+        SaveGlobalConfig(GlobalConfig);
         OnConfigListChanged(false);
     }
 }
@@ -1094,8 +1092,8 @@ void MainWindow::on_duplicateBtn_clicked()
     }
 
     SaveConnectionConfig(conf, &alias, false);
-    currentConfig.configs.push_back(alias);
-    SetGlobalConfig(currentConfig);
+    GlobalConfig.configs.push_back(alias);
+    SaveGlobalConfig(GlobalConfig);
     this->OnConfigListChanged(false);
 }
 

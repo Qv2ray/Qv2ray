@@ -9,14 +9,13 @@ namespace Qv2ray
 {
     namespace Utils
     {
-        void SetConfigDirPath(const QString *path);
-        QString GetConfigDirPath();
-
-        void SetGlobalConfig(Qv2rayConfig conf);
-        Qv2rayConfig GetGlobalConfig();
-
+        extern QString Qv2rayConfigPath;
+        extern Qv2rayConfig GlobalConfig;
+        //
+        void SaveGlobalConfig(Qv2rayConfig conf);
         void LoadGlobalConfig();
-
+        void SetConfigDirPath(const QString &path);
+        //
         inline QString getTag(const INBOUND &in)
         {
             return in["tag"].toString();

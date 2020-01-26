@@ -212,17 +212,16 @@ namespace Qv2ray
 
             CONFIGROOT GenerateRuntimeConfig(CONFIGROOT root)
             {
-                auto gConf = GetGlobalConfig();
                 QJsonObject logObject;
                 //
                 //logObject.insert("access", QV2RAY_CONFIG_PATH + QV2RAY_VCORE_LOG_DIRNAME + QV2RAY_VCORE_ACCESS_LOG_FILENAME);
                 //logObject.insert("error", QV2RAY_CONFIG_PATH + QV2RAY_VCORE_LOG_DIRNAME + QV2RAY_VCORE_ERROR_LOG_FILENAME);
                 //
-                logObject.insert("loglevel", vLogLevels[gConf.logLevel]);
+                logObject.insert("loglevel", vLogLevels[GlobalConfig.logLevel]);
                 root.insert("log", logObject);
                 //
-                auto dnsList = gConf.connectionConfig.dnsList;
-                auto dnsObject = GenerateDNS(gConf.connectionConfig.withLocalDNS, dnsList);
+                auto dnsList = GlobalConfig.connectionConfig.dnsList;
+                auto dnsObject = GenerateDNS(GlobalConfig.connectionConfig.withLocalDNS, dnsList);
                 root.insert("dns", dnsObject);
                 //
                 //
@@ -232,15 +231,15 @@ namespace Qv2ray
                     INBOUNDS inboundsList;
 
                     // HTTP Inbound
-                    if (gConf.inboundConfig.useHTTP) {
+                    if (GlobalConfig.inboundConfig.useHTTP) {
                         INBOUND httpInBoundObject;
-                        httpInBoundObject.insert("listen", gConf.inboundConfig.listenip);
-                        httpInBoundObject.insert("port", gConf.inboundConfig.http_port);
+                        httpInBoundObject.insert("listen", GlobalConfig.inboundConfig.listenip);
+                        httpInBoundObject.insert("port", GlobalConfig.inboundConfig.http_port);
                         httpInBoundObject.insert("protocol", "http");
                         httpInBoundObject.insert("tag", "http_IN");
 
-                        if (gConf.inboundConfig.http_useAuth) {
-                            auto httpInSettings =  GenerateHTTPIN(QList<AccountObject>() << gConf.inboundConfig.httpAccount);
+                        if (GlobalConfig.inboundConfig.http_useAuth) {
+                            auto httpInSettings =  GenerateHTTPIN(QList<AccountObject>() << GlobalConfig.inboundConfig.httpAccount);
                             httpInBoundObject.insert("settings", httpInSettings);
                         }
 
@@ -248,16 +247,16 @@ namespace Qv2ray
                     }
 
                     // SOCKS Inbound
-                    if (gConf.inboundConfig.useSocks) {
+                    if (GlobalConfig.inboundConfig.useSocks) {
                         INBOUND socksInBoundObject;
-                        socksInBoundObject.insert("listen", gConf.inboundConfig.listenip);
-                        socksInBoundObject.insert("port", gConf.inboundConfig.socks_port);
+                        socksInBoundObject.insert("listen", GlobalConfig.inboundConfig.listenip);
+                        socksInBoundObject.insert("port", GlobalConfig.inboundConfig.socks_port);
                         socksInBoundObject.insert("protocol", "socks");
                         socksInBoundObject.insert("tag", "socks_IN");
-                        auto socksInSettings = GenerateSocksIN(gConf.inboundConfig.socks_useAuth ? "password" : "noauth",
-                                                               QList<AccountObject>() << gConf.inboundConfig.socksAccount,
-                                                               gConf.inboundConfig.socksUDP,
-                                                               gConf.inboundConfig.socksLocalIP);
+                        auto socksInSettings = GenerateSocksIN(GlobalConfig.inboundConfig.socks_useAuth ? "password" : "noauth",
+                                                               QList<AccountObject>() << GlobalConfig.inboundConfig.socksAccount,
+                                                               GlobalConfig.inboundConfig.socksUDP,
+                                                               GlobalConfig.inboundConfig.socksLocalIP);
                         socksInBoundObject.insert("settings", socksInSettings);
                         inboundsList.append(socksInBoundObject);
                     }
@@ -334,11 +333,11 @@ namespace Qv2ray
                         LOG(MODULE_CONNECTION, "WARN: --> The config file has NO routing section, however more than 1 outbounds are detected.")
                     }
 
-                    auto routeObject = GenerateRoutes(gConf.connectionConfig.enableProxy, gConf.connectionConfig.bypassCN);
+                    auto routeObject = GenerateRoutes(GlobalConfig.connectionConfig.enableProxy, GlobalConfig.connectionConfig.bypassCN);
                     root.insert("routing", routeObject);
                     //
                     // Process forward proxy
-#define fpConf gConf.connectionConfig.forwardProxyConfig
+#define fpConf GlobalConfig.connectionConfig.forwardProxyConfig
                     {
                         auto outboundArray = root["outbounds"].toArray();
                         auto firstOutbound = outboundArray.first().toObject();
@@ -408,7 +407,7 @@ namespace Qv2ray
                     INBOUNDS inbounds = INBOUNDS(root["inbounds"].toArray());
                     INBOUNDSETTING fakeDocodemoDoor;
                     fakeDocodemoDoor["address"] = "127.0.0.1";
-                    QJsonObject apiInboundsRoot = GenerateInboundEntry("127.0.0.1", gConf.apiConfig.statsPort, "dokodemo-door", fakeDocodemoDoor, API_TAG_INBOUND);
+                    QJsonObject apiInboundsRoot = GenerateInboundEntry("127.0.0.1", GlobalConfig.apiConfig.statsPort, "dokodemo-door", fakeDocodemoDoor, API_TAG_INBOUND);
                     inbounds.push_front(apiInboundsRoot);
                     root["inbounds"] = inbounds;
                     //

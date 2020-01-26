@@ -119,7 +119,7 @@ bool initialiseQv2ray()
     // If there's no existing config.
     if (hasExistingConfig) {
         // Use the config path found by the checks above
-        SetConfigDirPath(&configPath);
+        SetConfigDirPath(configPath);
         LOG(MODULE_INIT, "Using " + QV2RAY_CONFIG_DIR + " as the config path.")
     } else {
         // Create new config at these dirs, these are default values for each platform.
@@ -144,7 +144,7 @@ bool initialiseQv2ray()
         if (mkpathResult && verifyConfigAvaliability(configPath, false)) {
             // Found a valid config dir, with write permission, but assume no config is located in it.
             LOG(MODULE_INIT, "Set " + configPath + " as the config path.")
-            SetConfigDirPath(&configPath);
+            SetConfigDirPath(configPath);
 
             if (QFile::exists(QV2RAY_CONFIG_FILE)) {
                 // As we already tried to load config from every possible dir.
@@ -167,7 +167,7 @@ bool initialiseQv2ray()
             conf.logLevel = 3;
             //
             // Save initial config.
-            SetGlobalConfig(conf);
+            SaveGlobalConfig(conf);
             LOG(MODULE_INIT, "Created initial config file.")
         } else {
             // None of the path above can be used as a dir for storing config.
@@ -352,7 +352,7 @@ int main(int argc, char *argv[])
     }
 
     // Let's save the config.
-    SetGlobalConfig(confObject);
+    SaveGlobalConfig(confObject);
     //
     // Check OpenSSL version for auto-update and subscriptions
     auto osslReqVersion = QSslSocket::sslLibraryBuildVersionString();

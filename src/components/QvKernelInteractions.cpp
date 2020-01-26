@@ -100,19 +100,18 @@ namespace Qv2ray
 
         bool V2rayKernelInstance::ValidateConfig(const QString &path)
         {
-            auto conf = GetGlobalConfig();
             QString v2rayCheckResult;
 
-            if (ValidateKernel(conf.v2CorePath, conf.v2AssetsPath, &v2rayCheckResult)) {
+            if (ValidateKernel(GlobalConfig.v2CorePath, GlobalConfig.v2AssetsPath, &v2rayCheckResult)) {
                 DEBUG(MODULE_VCORE, "V2ray version: " + v2rayCheckResult)
                 // Append assets location env.
                 QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
-                env.insert("V2RAY_LOCATION_ASSET", conf.v2AssetsPath);
+                env.insert("V2RAY_LOCATION_ASSET", GlobalConfig.v2AssetsPath);
                 //
                 QProcess process;
                 process.setProcessEnvironment(env);
                 DEBUG(MODULE_VCORE, "Starting V2ray core with test options")
-                process.start(conf.v2CorePath, QStringList() << "-test" << "-config" << path, QIODevice::ReadWrite | QIODevice::Text);
+                process.start(GlobalConfig.v2CorePath, QStringList() << "-test" << "-config" << path, QIODevice::ReadWrite | QIODevice::Text);
                 process.waitForFinished();
 
                 if (process.exitCode() != 0) {
@@ -178,34 +177,34 @@ namespace Qv2ray
 
             if (ValidateConfig(filePath)) {
                 QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
-                env.insert("V2RAY_LOCATION_ASSET", GetGlobalConfig().v2AssetsPath);
+                env.insert("V2RAY_LOCATION_ASSET", GlobalConfig.v2AssetsPath);
                 vProcess->setProcessEnvironment(env);
-                vProcess->start(GetGlobalConfig().v2CorePath, QStringList() << "-config" << filePath, QIODevice::ReadWrite | QIODevice::Text);
+                vProcess->start(GlobalConfig.v2CorePath, QStringList() << "-config" << filePath, QIODevice::ReadWrite | QIODevice::Text);
                 vProcess->waitForStarted();
                 DEBUG(MODULE_VCORE, "V2ray core started.")
                 KernelStarted = true;
-                auto conf = GetGlobalConfig();
 
                 if (StartupOption.noAPI) {
                     LOG(MODULE_VCORE, "API has been disabled by the command line argument \"-noAPI\"")
-                } else if (!conf.apiConfig.enableAPI) {
+                } else if (!GlobalConfig.apiConfig.enableAPI) {
                     LOG(MODULE_VCORE, "API has been disabled by the global config option")
                 } else if (inboundTags.isEmpty()) {
                     LOG(MODULE_VCORE, "API is disabled since no inbound tags configured. This is probably caused by a bad complex config.")
                 } else {
                     // Config API
                     apiFailedCounter = 0;
-                    this->apiPort = conf.apiConfig.statsPort;
+                    this->apiPort = GlobalConfig.apiConfig.statsPort;
                     auto channelAddress = "127.0.0.1:" + QString::number(apiPort);
 #ifdef WITH_LIB_GRPCPP
                     Channel = grpc::CreateChannel(channelAddress.toStdString(), grpc::InsecureChannelCredentials());
                     StatsService service;
                     Stub = service.NewStub(Channel);
 #else
-                    std::unique_ptr<char, std::function<void(char*)>> ret(
-                        Dial(const_cast<char *>(channelAddress.toStdString().c_str()), 10000),
-                        [](char* ptr) { free(ptr); }
-                    );
+                    std::unique_ptr<char, std::function<void(char *)>> ret(
+                                Dial(const_cast<char *>(channelAddress.toStdString().c_str()), 10000),
+                    [](char *ptr) {
+                        free(ptr);
+                    });
 #endif
                     apiTimerId = startTimer(1000);
                     DEBUG(MODULE_VCORE, "API Worker started.")

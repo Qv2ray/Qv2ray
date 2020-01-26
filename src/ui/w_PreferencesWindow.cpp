@@ -47,7 +47,9 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent),
     //
     qvVersion->setText(QV2RAY_VERSION_STRING);
     qvBuildTime->setText(__DATE__ " " __TIME__);
-    CurrentConfig = GetGlobalConfig();
+    //
+    // Deep copy
+    CurrentConfig = GlobalConfig;
     //
     themeCombo->setCurrentText(CurrentConfig.uiConfig.theme);
     darkThemeCB->setChecked(CurrentConfig.uiConfig.useDarkTheme);
@@ -214,7 +216,7 @@ void PreferencesWindow::on_buttonBox_accepted()
         this->show();
         this->exec();
     } else {
-        SetGlobalConfig(CurrentConfig);
+        SaveGlobalConfig(CurrentConfig);
         emit s_reload_config(IsConnectionPropertyChanged);
     }
 }
@@ -743,9 +745,13 @@ void PreferencesWindow::on_nsBarContentCombo_currentIndexChanged(const QString &
 
 void PreferencesWindow::on_applyNSBarSettingsBtn_clicked()
 {
-    auto conf = GetGlobalConfig();
-    conf.toolBarConfig = CurrentConfig.toolBarConfig;
-    SetGlobalConfig(conf);
+    if (QvMessageBoxAsk(this, tr("Apply network toolbar settings"), tr("All other modified settings will be applied as well after this object.") +
+                        NEWLINE +
+                        tr("Do you want to continue?")) == QMessageBox::Yes) {
+        auto conf = GlobalConfig;
+        conf.toolBarConfig = CurrentConfig.toolBarConfig;
+        SaveGlobalConfig(conf);
+    }
 }
 
 void PreferencesWindow::on_themeCombo_currentTextChanged(const QString &arg1)

@@ -27,7 +27,7 @@ extern bool isDebug;
 #endif
 
 // Get Configured Config Dir Path
-#define QV2RAY_CONFIG_DIR (Qv2ray::Utils::GetConfigDirPath())
+#define QV2RAY_CONFIG_DIR (Qv2ray::Utils::Qv2rayConfigPath)
 #define QV2RAY_CONFIG_FILE (QV2RAY_CONFIG_DIR + "Qv2ray.conf")
 #define QV2RAY_SUBSCRIPTION_DIR (QV2RAY_CONFIG_DIR + "subscriptions/")
 
@@ -58,7 +58,7 @@ extern bool isDebug;
 #define QV2RAY_VCORE_ERROR_LOG_FILENAME "error.log"
 
 // GUI TOOLS
-#define QV2RAY_IS_DARKTHEME (GetGlobalConfig().uiConfig.useDarkTheme)
+#define QV2RAY_IS_DARKTHEME (GlobalConfig.uiConfig.useDarkTheme)
 #define RED(obj)                               \
     auto _temp = obj->palette();               \
     _temp.setColor(QPalette::Text, Qt::red);   \

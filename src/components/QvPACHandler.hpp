@@ -1,6 +1,5 @@
 #ifndef QVPACHANDLER_H
 #define QVPACHANDLER_H
-#include "QvUtils.hpp"
 #include "qhttpserver.h"
 #include <QObject>
 namespace Qv2ray
