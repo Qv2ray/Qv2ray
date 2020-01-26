@@ -1,0 +1,187 @@
+name: Qv2ray build matrix
+
+on: 
+  push:
+  release:
+    types: [prereleased]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        platform: [ubuntu-latest, windows-latest, macos-latest]
+        backend: [libqvb, gRPC]
+        
+    runs-on: ${{ matrix.platform }}
+    
+    steps:
+      - name: Checking out sources
+        uses: actions/checkout@master
+      - name: Restoring submodules
+        run: git submodule update --init
+# --------------------------------------------------------
+      - name: Installing Qt
+        uses: jurplel/install-qt-action@v2
+        with:
+          modules: qtcharts
+# --------------------------------------------------------
+      - name: Linux - Install Packages 
+        if: matrix.platform == 'ubuntu-latest'
+        run: |
+          sudo add-apt-repository ppa:webispy/grpc
+          sudo add-apt-repository ppa:carsten-uppenbrink-net/openssl
+          sudo apt update
+          sudo apt install -y libgl-dev openssl libx11-dev libxkbcommon-x11-dev libgrpc++-dev libprotobuf-dev protobuf-compiler protobuf-c-compiler protobuf-compiler-grpc
+# --------------------------------------------------------
+      - name: Linux - Extracting gRPC and protobuf libs and headers
+        if: matrix.platform == 'ubuntu-latest'
+        run: tools/grpc_gen.sh
+# ==
+      - name: macOS - Extracting gRPC and protobuf libs and headers
+        if: matrix.platform == 'macos-latest'
+        run: tools/deps_macOS.sh
+# ==
+      - name: Win32 - Extracting gRPC and protobuf libs and headers
+        if: matrix.platform == 'windows-latest'
+        run: tools\grpc_gen.bat
+# --------------------------------------------------------
+      - name: Linux - Download libqvb static library.
+        if: matrix.platform == 'ubuntu-latest'
+        uses: Legion2/download-release-action@v2.1.0
+        with:
+          repository: Qv2ray/QvRPCBridge
+          tag: 'latest'
+          path: libs
+          file: libqvb-linux64.a
+# ==
+      - name: macOS - Download libqvb static library.
+        if: matrix.platform == 'macos-latest'
+        run: curl -o ./libs/libqvb-darwin.a -L https://github.com/Qv2ray/QvRPCBridge/releases/download/v1.1/libqvb-darwin.a
+# ==
+      - name: Win32 - Download libqvb static library.
+        if: matrix.platform == 'windows-latest'
+        run: curl -o .\libs\libqvb-win64.a -L https://github.com/Qv2ray/QvRPCBridge/releases/download/v1.1/libqvb-win64.a
+# -------------------------------------------------------- Generate MakeFile
+      - name: Generate Makefile
+        run: |
+          mkdir build
+          cd build
+          qmake .. CONFIG+=no_increase_build_number PREFIX=/usr
+          make -j2
+      - name: reGenerate Makefile for libqvb
+        - if matrix.backend == 'libqvb'
+        run: |
+          cd build
+          qmake .. CONFIG+=no_increase_build_number CONFIG+=with_new_backend PREFIX=/usr
+          make -j2
+# -------------------------------------------------------- Build
+      - name: Linux - ${{ matrix.backend }} - Build Qv2ray
+        if: matrix.platform == 'ubuntu-latest'
+        run: |
+          cd build
+          make -j2
+      - name: Linux - ${{ matrix.backend }} - Generating AppImage
+        if: matrix.platform == 'ubuntu-latest'
+        run: | 
+          cd build
+          make install INSTALL_ROOT=AppDir
+          cd AppDir
+          mkdir -p ./usr/lib/
+          cp /usr/lib/x86_64-linux-gnu/libssl.so.1.1 /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1 ./usr/lib/ 
+          cd ..
+          wget https://github.com/probonopd/linuxdeployqt/releases/download/6/linuxdeployqt-6-x86_64.AppImage
+          chmod +x ./linuxdeployqt-6-x86_64.AppImage
+          ./linuxdeployqt-6-x86_64.AppImage --appimage-extract 
+          cd AppDir
+          ../squashfs-root/AppRun usr/share/applications/qv2ray.desktop -appimage -no-strip -always-overwrite
+          mv ./Qv2ray*.AppImage ./Qv2ray-${{ matrix.backend }}.AppImage
+      - name: Linux - ${{ matrix.backend }} - Uploading artifact
+        if: matrix.platform == 'ubuntu-latest'
+        uses: actions/upload-artifact@master
+        with:
+          name: Qv2ray.linux-${{ matrix.backend }}.AppImage
+          path: build/AppDir/Qv2ray-${{ matrix.backend }}.AppImage
+      - name: Linux - ${{ matrix.backend }} - Upload binaries to release
+        if: matrix.platform == 'ubuntu-latest'
+        if: github.event_name == 'release'
+        uses: svenstaro/upload-release-action@v1-release
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: build/AppDir/Qv2ray.AppImage
+          asset_name: Qv2ray-${{ github.ref }}-linux-${{ matrix.backend }}.AppImage
+          tag: ${{ github.ref }}
+          overwrite: true
+# ==
+      - name: macOS - ${{ matrix.backend }} - Build Qv2ray
+        if: matrix.platform == 'macos-latest'
+        run: |
+          cd build
+          make -j2
+      - name: macOS - ${{ matrix.backend }} - Making release tarball
+        if: matrix.platform == 'macos-latest'
+        run: |
+          cd build
+          cd qv2ray.app
+          macdeployqt ./
+          cd ..
+          tar czf Qv2ray.app.tar.gz qv2ray.app
+      - name: macOS - ${{ matrix.backend }} - Uploading Artifact
+        if: matrix.platform == 'macos-latest'
+        uses: actions/upload-artifact@master
+        with:
+          name: Qv2ray.macOS.app-${{ matrix.backend }}.zip
+          path: build/Qv2ray.app.tar.gz
+      - name: libqvb - Upload binaries to release
+        uses: svenstaro/upload-release-action@v1-release
+        if: matrix.platform == 'macos-latest'
+        if: github.event_name == 'release'
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: build/Qv2ray.app.tar.gz
+          asset_name: Qv2ray-${{ github.ref }}-macOS-${{ matrix.backend }}.tar.gz
+          tag: ${{ github.ref }}
+          overwrite: true
+# ==
+      - name: Win32 - ${{ matrix.backend }} - Building Qv2ray
+        if: matrix.platform == 'windows-latest'
+        shell: cmd
+        run: |
+          cd build
+          mingw32-make -j2
+      - name: Win32 - ${{ matrix.backend }} - Copying DLLs to build output folders
+        if: matrix.platform == 'windows-latest'
+        shell: cmd
+        run: .github\workflows\copy_DLLs.bat
+      - name: Win32 - ${{ matrix.backend }} - Running windeployqt
+        if: matrix.platform == 'windows-latest'
+        shell: cmd
+        run: |
+          cd build
+          cd release
+          del *.cpp *.h *.o *.qrc *.qm
+          windeployqt ./qv2ray.exe --compiler-runtime
+      - name: Win32 - ${{ matrix.backend }} - Create 7z Release
+        if: matrix.platform == 'windows-latest'
+        uses: DuckSoft/create-7z-action@v1.0
+        with:
+          # file/folder path to compress
+          pathSource: ./build/release/
+          # 7z archive path to write
+          pathTarget: ./release.7z
+      - name: Win32 - ${{ matrix.backend }} - Uploading artifact
+        if: matrix.platform == 'windows-latest'
+        uses: actions/upload-artifact@master
+        with:
+          name: Qv2ray.Win64-${{ matrix.backend }}.7z
+          path: release.7z
+      - name: Win32 - ${{ matrix.backend }} - Upload binaries to release
+        uses: svenstaro/upload-release-action@v1-release
+        if: matrix.platform == 'windows-latest'
+        if: github.event_name == 'release'
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: release.7z
+          asset_name: Qv2ray-${{ github.ref }}-win64-${{ matrix.backend }}.7z
+          tag: ${{ github.ref }}
+          overwrite: true
+# -------------------------------------
