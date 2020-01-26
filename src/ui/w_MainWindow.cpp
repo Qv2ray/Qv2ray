@@ -455,9 +455,9 @@ void MainWindow::setMasterLogHBar()
 }
 void MainWindow::on_startButton_clicked()
 {
-    vCoreLogBrowser->clear();
-
     if (!vinstance->KernelStarted) {
+        vCoreLogBrowser->clear();
+
         // Reset the graph
         for (int i = 0; i < 30 ; i++) {
             uploadList[i] = 0;
@@ -498,7 +498,7 @@ void MainWindow::on_startButton_clicked()
         startButton->setEnabled(!startFlag);
         stopButton->setEnabled(startFlag);
     } else {
-        LOG(MODULE_UI, "vCore already started.")
+        this->hTray->showMessage("Qv2ray", tr("Already connected to: ") + CurrentConnectionIdentifier.IdentifierString(), this->windowIcon());
     }
 }
 
@@ -524,6 +524,9 @@ void MainWindow::on_stopButton_clicked()
         netspeedLabel->setText("0.00 B/s\r\n0.00 B/s");
         dataamountLabel->setText("0.00 B\r\n0.00 B");
         LOG(MODULE_UI, "Stopped successfully.")
+        this->hTray->showMessage("Qv2ray", tr("Disconnected from: ") + CurrentConnectionIdentifier.IdentifierString());
+    } else {
+        this->hTray->showMessage("Qv2ray", tr("Qv2ray is not connected"));
     }
 }
 void MainWindow::closeEvent(QCloseEvent *event)
