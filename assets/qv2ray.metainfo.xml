@@ -29,11 +29,11 @@
   </screenshots>
 
   <releases>
-    <release version="2.0.0" date="2019-1-24">
+    <release version="2.0.1" date="2019-1-26">
       <description>
         <ul>
-            <li>fix: fixed windows startup issue</li>
-            <li>fix: autostart, tProxyPrep and negative API fixed</li>
+            <li>Prevent messing up vcore logs</li>
+            <li>upstream: solved QTimer issue and golang memory leak issue</li>
         </ul>
       </description>
     </release>
