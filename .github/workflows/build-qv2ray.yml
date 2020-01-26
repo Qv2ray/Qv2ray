@@ -33,7 +33,7 @@ jobs:
           arch: win64_mingw73
 # --------------------------------------------------------
       - name: Linux - Install Packages 
-        if: matrix.platform == 'ubuntu-latest'
+        if: matrix.platform == 'ubuntu-16.04'
         run: |
           sudo add-apt-repository ppa:webispy/grpc
           sudo add-apt-repository ppa:carsten-uppenbrink-net/openssl
@@ -41,7 +41,7 @@ jobs:
           sudo apt install -y libgl-dev openssl libx11-dev libxkbcommon-x11-dev libgrpc++-dev libprotobuf-dev protobuf-compiler protobuf-c-compiler protobuf-compiler-grpc
 # --------------------------------------------------------
       - name: Linux - Extracting gRPC and protobuf libs and headers
-        if: matrix.platform == 'ubuntu-latest' && matrix.backend == 'gRPC'
+        if: matrix.platform == 'ubuntu-16.04' && matrix.backend == 'gRPC'
         run: tools/grpc_gen.sh
 # ==
       - name: macOS - Extracting gRPC and protobuf libs and headers
@@ -53,7 +53,7 @@ jobs:
         run: tools\grpc_gen.bat
 # --------------------------------------------------------
       - name: Linux - Download libqvb static library.
-        if: matrix.platform == 'ubuntu-latest' && matrix.backend == 'libqvb'
+        if: matrix.platform == 'ubuntu-16.04' && matrix.backend == 'libqvb'
         uses: Legion2/download-release-action@v2.1.0
         with:
           repository: Qv2ray/QvRPCBridge
@@ -87,12 +87,12 @@ jobs:
           qmake .. CONFIG+=no_increase_build_number CONFIG+=with_new_backend PREFIX=/usr
 # -------------------------------------------------------- Build
       - name: Linux - ${{ matrix.backend }} - Build Qv2ray
-        if: matrix.platform == 'ubuntu-latest'
+        if: matrix.platform == 'ubuntu-16.04'
         run: |
           cd build
           make -j2
       - name: Linux - ${{ matrix.backend }} - Generating AppImage
-        if: matrix.platform == 'ubuntu-latest'
+        if: matrix.platform == 'ubuntu-16.04'
         run: | 
           cd build
           make install INSTALL_ROOT=AppDir
@@ -107,13 +107,13 @@ jobs:
           ../squashfs-root/AppRun usr/share/applications/qv2ray.desktop -appimage -no-strip -always-overwrite
           mv ./Qv2ray*.AppImage ./Qv2ray-${{ matrix.backend }}.AppImage
       - name: Linux - ${{ matrix.backend }} - Uploading artifact
-        if: matrix.platform == 'ubuntu-latest'
+        if: matrix.platform == 'ubuntu-16.04'
         uses: actions/upload-artifact@master
         with:
           name: Qv2ray.linux-${{ matrix.backend }}.AppImage
           path: build/AppDir/Qv2ray-${{ matrix.backend }}.AppImage
       - name: Linux - ${{ matrix.backend }} - Upload binaries to release
-        if: github.event_name == 'release' && matrix.platform == 'ubuntu-latest'
+        if: github.event_name == 'release' && matrix.platform == 'ubuntu-16.04'
         uses: svenstaro/upload-release-action@v1-release
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
