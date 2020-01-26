@@ -102,8 +102,7 @@ jobs:
           name: Qv2ray.linux-${{ matrix.backend }}.AppImage
           path: build/AppDir/Qv2ray-${{ matrix.backend }}.AppImage
       - name: Linux - ${{ matrix.backend }} - Upload binaries to release
-        if: matrix.platform == 'ubuntu-latest'
-        if: github.event_name == 'release'
+        if: github.event_name == 'release' && matrix.platform == 'ubuntu-latest'
         uses: svenstaro/upload-release-action@v1-release
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
@@ -133,8 +132,7 @@ jobs:
           path: build/Qv2ray.app.tar.gz
       - name: libqvb - Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release
-        if: matrix.platform == 'macos-latest'
-        if: github.event_name == 'release'
+        if: github.event_name == 'release' && matrix.platform == 'macos-latest'
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: build/Qv2ray.app.tar.gz
@@ -176,8 +174,7 @@ jobs:
           path: release.7z
       - name: Win32 - ${{ matrix.backend }} - Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release
-        if: matrix.platform == 'windows-latest'
-        if: github.event_name == 'release'
+        if: github.event_name == 'release' && matrix.platform == 'windows-latest'
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: release.7z
