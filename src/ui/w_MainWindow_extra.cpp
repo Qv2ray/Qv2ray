@@ -106,7 +106,7 @@ void MainWindow::MWSetSystemProxy()
             if (httpEnabled) {
                 // Not use PAC, System proxy should use HTTP
                 LOG(MODULE_PROXY, "Using system proxy with HTTP")
-                proxyAddress = "http://localhost";
+                proxyAddress = "localhost";
             } else {
                 LOG(MODULE_PROXY, "HTTP is not enabled, cannot set system proxy.")
                 QvMessageBoxWarn(this, tr("Cannot set system proxy"), tr("HTTP inbound is not enabled"));

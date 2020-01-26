@@ -232,6 +232,7 @@ namespace Qv2ray
                 configs(),
                 subscriptions(),
                 uiConfig(),
+                apiConfig(),
                 inboundConfig(),
                 connectionConfig(),
                 toolBarConfig() { }
@@ -244,7 +245,7 @@ namespace Qv2ray
                         v2CorePath, v2AssetsPath,
                         configs,
                         uiConfig,
-                        subscriptions, inboundConfig, connectionConfig, toolBarConfig))
+                        subscriptions, inboundConfig, connectionConfig, toolBarConfig, apiConfig))
         };
 
     }
