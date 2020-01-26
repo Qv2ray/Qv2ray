@@ -7,6 +7,7 @@
 #include <QStyleFactory>
 #include <QApplication>
 #include <singleapplication.h>
+#include <csignal>
 #include "w_MainWindow.hpp"
 #include "QvCore/QvCommandLineArgs.hpp"
 
@@ -16,6 +17,20 @@
 #endif
 
 bool isDebug = false;
+
+
+void signalHandler(int signum)
+{
+    cout << "Interrupt signal (" << signum << ") received." << endl;
+
+    if (MainWindow::mwInstance && MainWindow::mwInstance->vinstance) {
+        cout << "Trying to stop connection..." << endl;
+        MainWindow::mwInstance->vinstance->StopConnection();
+    }
+
+    exit(signum);
+}
+
 
 bool verifyConfigAvaliability(QString path, bool checkExistingConfig)
 {
@@ -196,6 +211,12 @@ bool initialiseQv2ray()
 
 int main(int argc, char *argv[])
 {
+    // Register signal handlers.
+    signal(SIGINT, signalHandler);
+    signal(SIGHUP, signalHandler);
+    signal(SIGKILL, signalHandler);
+    signal(SIGTERM, signalHandler);
+    //
     // parse the command line before starting as a Qt application
     {
         std::unique_ptr<QCoreApplication> consoleApp(new QCoreApplication(argc, argv));
@@ -440,6 +461,12 @@ int main(int argc, char *argv[])
         QGuiApplication::setFallbackSessionManagementEnabled(false);
         QObject::connect(&_qApp, &QGuiApplication::commitDataRequest, []() {
             LOG(MODULE_INIT, "Quit triggered by session manager.");
+        });
+        signal(SIGUSR1, [](int) {
+            emit MainWindow::mwInstance->Connect();
+        });
+        signal(SIGUSR2, [](int) {
+            emit MainWindow::mwInstance->DisConnect();
         });
         auto rcode = _qApp.exec();
         LOG(MODULE_INIT, "Quitting normally")

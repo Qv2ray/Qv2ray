@@ -196,6 +196,7 @@ MainWindow::MainWindow(QWidget *parent):
     // Share options
     connect(action_RCM_ShareQR, &QAction::triggered, this, &MainWindow::on_action_RCM_ShareQR_triggered);
     //
+    // Globally invokable signals.
     connect(this, &MainWindow::Connect, this, &MainWindow::on_startButton_clicked);
     connect(this, &MainWindow::DisConnect, this, &MainWindow::on_stopButton_clicked);
     connect(this, &MainWindow::ReConnect, this, &MainWindow::on_reconnectButton_clicked);
