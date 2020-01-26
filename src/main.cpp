@@ -211,11 +211,13 @@ bool initialiseQv2ray()
 
 int main(int argc, char *argv[])
 {
+#ifndef Q_OS_WIN
     // Register signal handlers.
     signal(SIGINT, signalHandler);
     signal(SIGHUP, signalHandler);
     signal(SIGKILL, signalHandler);
     signal(SIGTERM, signalHandler);
+#endif
     //
     // parse the command line before starting as a Qt application
     {
@@ -462,12 +464,14 @@ int main(int argc, char *argv[])
         QObject::connect(&_qApp, &QGuiApplication::commitDataRequest, []() {
             LOG(MODULE_INIT, "Quit triggered by session manager.");
         });
+#ifndef Q_OS_WIN
         signal(SIGUSR1, [](int) {
             emit MainWindow::mwInstance->Connect();
         });
         signal(SIGUSR2, [](int) {
             emit MainWindow::mwInstance->DisConnect();
         });
+#endif
         auto rcode = _qApp.exec();
         LOG(MODULE_INIT, "Quitting normally")
         return rcode;
