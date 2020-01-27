@@ -10,6 +10,7 @@ jobs:
     strategy:
       matrix:
         platform: [ubuntu-16.04, windows-latest, macos-latest]
+        qt_version: [5.12.6, 5.13.2, 5.14.0, 5.14.1]
         backend: [libqvb, gRPC]
       fail-fast: false
         
@@ -25,11 +26,13 @@ jobs:
         if: matrix.platform != 'windows-latest'
         uses: jurplel/install-qt-action@v2
         with:
+          version: ${{ matrix.qt_version }}
           modules: qtcharts
       - name: ${{ matrix.platform }} - Installing Qt - Windows Only
         if: matrix.platform == 'windows-latest'
         uses: jurplel/install-qt-action@v2
         with:
+          version: ${{ matrix.qt_version }}
           modules: qtcharts
           arch: win64_mingw73
 # --------------------------------------------------------
@@ -87,12 +90,12 @@ jobs:
           cd build
           qmake .. CONFIG+=no_increase_build_number CONFIG+=with_new_backend PREFIX=/usr
 # -------------------------------------------------------- Build
-      - name: Linux - ${{ matrix.backend }} - Build Qv2ray
+      - name: Linux - ${{ matrix.qt_version }} - ${{ matrix.backend }} - Build Qv2ray
         if: matrix.platform == 'ubuntu-16.04'
         run: |
           cd build
           make -j2
-      - name: Linux - ${{ matrix.backend }} - Generating AppImage
+      - name: Linux - ${{ matrix.qt_version }} - ${{ matrix.backend }} - Generating AppImage
         if: matrix.platform == 'ubuntu-16.04'
         run: | 
           cd build
@@ -107,28 +110,28 @@ jobs:
           cd AppDir
           ../squashfs-root/AppRun usr/share/applications/qv2ray.desktop -appimage -no-strip -always-overwrite
           mv ./Qv2ray*.AppImage ./Qv2ray-${{ matrix.backend }}.AppImage
-      - name: Linux - ${{ matrix.backend }} - Uploading artifact
+      - name: Linux - ${{ matrix.qt_version }} - ${{ matrix.backend }} - Uploading artifact
         if: matrix.platform == 'ubuntu-16.04'
         uses: actions/upload-artifact@master
         with:
           name: Qv2ray.linux-${{ matrix.backend }}.AppImage
-          path: build/AppDir/Qv2ray-${{ matrix.backend }}.AppImage
-      - name: Linux - ${{ matrix.backend }} - Upload binaries to release
-        if: github.event_name == 'release' && matrix.platform == 'ubuntu-16.04'
+          path: build/AppDir/Qv2ray-qt${{ matrix.qt_version }}-${{ matrix.backend }}.AppImage
+      - name: Linux - ${{ matrix.qt_version }} - ${{ matrix.backend }} - Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release
+        if: github.event_name == 'release' && matrix.platform == 'ubuntu-16.04' && matrix.backend == "5.12.6"
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: build/AppDir/Qv2ray.AppImage
-          asset_name: Qv2ray-${{ github.ref }}-linux-${{ matrix.backend }}.AppImage
+          asset_name: Qv2ray-${{ github.ref }}-linux-qt${{ matrix.qt_version }}-${{ matrix.backend }}.AppImage
           tag: ${{ github.ref }}
           overwrite: true
 # ==
-      - name: macOS - ${{ matrix.backend }} - Build Qv2ray
+      - name: macOS - ${{ matrix.qt_version }} - ${{ matrix.backend }} - Build Qv2ray
         if: matrix.platform == 'macos-latest'
         run: |
           cd build
           make -j2
-      - name: macOS - ${{ matrix.backend }} - Making release tarball
+      - name: macOS - ${{ matrix.qt_version }} - ${{ matrix.backend }} - Making release tarball
         if: matrix.platform == 'macos-latest'
         run: |
           cd build
@@ -136,33 +139,33 @@ jobs:
           macdeployqt ./
           cd ..
           tar czf Qv2ray.app.tar.gz qv2ray.app
-      - name: macOS - ${{ matrix.backend }} - Uploading Artifact
+      - name: macOS - ${{ matrix.qt_version }} - ${{ matrix.backend }} - Uploading Artifact
         if: matrix.platform == 'macos-latest'
         uses: actions/upload-artifact@master
         with:
-          name: Qv2ray.macOS.app-${{ matrix.backend }}.zip
+          name: Qv2ray.macOS.app-qt${{ matrix.qt_version }}-${{ matrix.backend }}.zip
           path: build/Qv2ray.app.tar.gz
-      - name: libqvb - Upload binaries to release
+      - name: macOS - ${{ matrix.qt_version }} - ${{ matrix.backend }} - Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release
-        if: github.event_name == 'release' && matrix.platform == 'macos-latest'
+        if: github.event_name == 'release' && matrix.platform == 'macos-latest' && matrix.backend == "5.12.6"
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: build/Qv2ray.app.tar.gz
-          asset_name: Qv2ray-${{ github.ref }}-macOS-${{ matrix.backend }}.tar.gz
+          asset_name: Qv2ray-${{ github.ref }}-macOS-qt${{ matrix.qt_version }}-${{ matrix.backend }}.tar.gz
           tag: ${{ github.ref }}
           overwrite: true
 # ==
-      - name: Win32 - ${{ matrix.backend }} - Building Qv2ray
+      - name: Win32 - ${{ matrix.qt_version }} - ${{ matrix.backend }} - Building Qv2ray
         if: matrix.platform == 'windows-latest'
         shell: cmd
         run: |
           cd build
           mingw32-make -j2
-      - name: Win32 - ${{ matrix.backend }} - Copying DLLs to build output folders
+      - name: Win32 - ${{ matrix.qt_version }} - ${{ matrix.backend }} - Copying DLLs to build output folders
         if: matrix.platform == 'windows-latest'
         shell: cmd
         run: .github\workflows\copy_DLLs.bat
-      - name: Win32 - ${{ matrix.backend }} - Running windeployqt
+      - name: Win32 - ${{ matrix.qt_version }} - ${{ matrix.backend }} - Running windeployqt
         if: matrix.platform == 'windows-latest'
         shell: cmd
         run: |
@@ -170,7 +173,7 @@ jobs:
           cd release
           del *.cpp *.h *.o *.qrc *.qm
           windeployqt ./qv2ray.exe --compiler-runtime
-      - name: Win32 - ${{ matrix.backend }} - Create 7z Release
+      - name: Win32 - ${{ matrix.qt_version }} - ${{ matrix.backend }} - Create 7z Release
         if: matrix.platform == 'windows-latest'
         uses: DuckSoft/create-7z-action@v1.0
         with:
@@ -178,19 +181,19 @@ jobs:
           pathSource: ./build/release/
           # 7z archive path to write
           pathTarget: ./release.7z
-      - name: Win32 - ${{ matrix.backend }} - Uploading artifact
+      - name: Win32 - ${{ matrix.qt_version }} - ${{ matrix.backend }} - Uploading artifact
         if: matrix.platform == 'windows-latest'
         uses: actions/upload-artifact@master
         with:
-          name: Qv2ray.Win64-${{ matrix.backend }}.7z
+          name: Qv2ray.Win64-qt${{ matrix.qt_version }}-${{ matrix.backend }}.7z
           path: release.7z
-      - name: Win32 - ${{ matrix.backend }} - Upload binaries to release
+      - name: Win32 - ${{ matrix.qt_version }} - ${{ matrix.backend }} - Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release
-        if: github.event_name == 'release' && matrix.platform == 'windows-latest'
+        if: github.event_name == 'release' && matrix.platform == 'windows-latest' && matrix.backend == "5.12.6"
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: release.7z
-          asset_name: Qv2ray-${{ github.ref }}-win64-${{ matrix.backend }}.7z
+          asset_name: Qv2ray-${{ github.ref }}-win64-qt${{ matrix.qt_version }}-${{ matrix.backend }}.7z
           tag: ${{ github.ref }}
           overwrite: true
 # -------------------------------------
