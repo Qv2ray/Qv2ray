@@ -109,13 +109,13 @@ jobs:
           ./linuxdeployqt-6-x86_64.AppImage --appimage-extract 
           cd AppDir
           ../squashfs-root/AppRun usr/share/applications/qv2ray.desktop -appimage -no-strip -always-overwrite
-          mv ./Qv2ray*.AppImage ./Qv2ray-${{ matrix.backend }}.AppImage
+          mv ./Qv2ray*.AppImage ./Qv2ray.AppImage
       - name: Linux - ${{ matrix.qt_version }} - ${{ matrix.backend }} - Uploading artifact
         if: matrix.platform == 'ubuntu-16.04'
         uses: actions/upload-artifact@master
         with:
-          name: Qv2ray.linux-${{ matrix.backend }}.AppImage
-          path: build/AppDir/Qv2ray-qt${{ matrix.qt_version }}-${{ matrix.backend }}.AppImage
+          name: Qv2ray.linux-qt${{ matrix.qt_version }}-${{ matrix.backend }}.AppImage
+          path: build/AppDir/Qv2ray.AppImage
       - name: Linux - ${{ matrix.qt_version }} - ${{ matrix.backend }} - Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release
         if: github.event_name == 'release' && matrix.platform == 'ubuntu-16.04' && matrix.backend == '5.12.6'
@@ -177,9 +177,7 @@ jobs:
         if: matrix.platform == 'windows-latest'
         uses: DuckSoft/create-7z-action@v1.0
         with:
-          # file/folder path to compress
           pathSource: ./build/release/
-          # 7z archive path to write
           pathTarget: ./release.7z
       - name: Win32 - ${{ matrix.qt_version }} - ${{ matrix.backend }} - Uploading artifact
         if: matrix.platform == 'windows-latest'
