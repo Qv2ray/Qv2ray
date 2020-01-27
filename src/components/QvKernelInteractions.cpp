@@ -242,6 +242,9 @@ namespace Qv2ray
         {
             KernelStarted = false;
             vProcess->close();
+            // Block until V2ray core exits
+            // Should we use -1 instead of waiting for 30secs?
+            vProcess->waitForFinished();
             killTimer(apiTimerId);
             apiFailedCounter = 0;
             transferData.clear();

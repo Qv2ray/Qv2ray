@@ -18,6 +18,7 @@
 #include "w_SubscriptionEditor.hpp"
 #include "w_RoutesEditor.hpp"
 
+#include "QvRuntimeConfig.hpp"
 
 ImportConfigWindow::ImportConfigWindow(QWidget *parent)
     : QDialog(parent)
@@ -25,6 +26,7 @@ ImportConfigWindow::ImportConfigWindow(QWidget *parent)
     setupUi(this);
     nameTxt->setText(QDateTime::currentDateTime().toString("MMdd_hhmm"));
     REGISTER_WINDOW
+    RESTORE_RUNTIME_CONFIG(screenShotHideQv2ray, hideQv2rayCB->setChecked)
 }
 
 ImportConfigWindow::~ImportConfigWindow()
@@ -279,4 +281,10 @@ void ImportConfigWindow::on_routeEditBtn_clicked()
     } else {
         return;
     }
+}
+
+void ImportConfigWindow::on_hideQv2rayCB_stateChanged(int arg1)
+{
+    Q_UNUSED(arg1)
+    SET_RUNTIME_CONFIG(screenShotHideQv2ray, hideQv2rayCB->isChecked)
 }

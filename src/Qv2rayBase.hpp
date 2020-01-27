@@ -18,7 +18,7 @@ const int QV2RAY_CONFIG_VERSION = 8;
 # endif
 #endif
 
-extern bool isDebug;
+extern const bool isDebugBuild;
 // Base folder suffix.
 #ifdef QT_DEBUG
 # define QV2RAY_CONFIG_DIR_SUFFIX "_debug/"

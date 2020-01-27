@@ -9,7 +9,7 @@ void __QV2RAY_LOG_FUNC__(int type, const std::string &func, int line, const QStr
 {
     auto logString = "[" + module + "]: " + log;
 
-    if (StartupOption.debugLog || (isDebug && type == QV2RAY_LOG_DEBUG)) {
+    if (StartupOption.debugLog || (isDebugBuild && type == QV2RAY_LOG_DEBUG)) {
         logString.prepend(QString::fromStdString(func + ":" + to_string(line) + " "));
     }
 

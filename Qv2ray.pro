@@ -60,12 +60,13 @@ SOURCES += \
         src/QvCoreConfigOperations_Convertion.cpp \
         src/QvCoreConfigOperations_Generation.cpp \
         src/QvUtils.cpp \
-        src/ui/routeNodeModels/QvInboundNodeModel.cpp \
-        src/ui/routeNodeModels/QvOutboundNodeModel.cpp \
-        src/ui/routeNodeModels/QvRuleNodeModel.cpp \
+        src/ui/RouteNodeModels/QvInboundNodeModel.cpp \
+        src/ui/RouteNodeModels/QvOutboundNodeModel.cpp \
+        src/ui/RouteNodeModels/QvRuleNodeModel.cpp \
         src/ui/w_MainWindow_extra.cpp \
         src/ui/w_PreferencesWindow.cpp \
         src/ui/w_RoutesEditor_extra.cpp \
+        src/utils/QvGlobalVarsInstantiation.cpp \
         src/utils/QvHelpers.cpp \
         src/utils/QJsonModel.cpp \
         src/ui/w_ExportConfig.cpp \
@@ -103,10 +104,10 @@ HEADERS += \
         src/components/QvPACHandler.hpp \
         src/components/QvSystemProxyConfigurator.hpp \
         src/components/QvTCPing.hpp \
-        src/ui/routeNodeModels/QvInboundNodeModel.hpp \
-        src/ui/routeNodeModels/QvNodeModelsBase.hpp \
-        src/ui/routeNodeModels/QvOutboundNodeModel.hpp \
-        src/ui/routeNodeModels/QvRuleNodeModel.hpp \
+        src/ui/RouteNodeModels/QvInboundNodeModel.hpp \
+        src/ui/RouteNodeModels/QvNodeModelsBase.hpp \
+        src/ui/RouteNodeModels/QvOutboundNodeModel.hpp \
+        src/ui/RouteNodeModels/QvRuleNodeModel.hpp \
         src/ui/w_ExportConfig.hpp \
         src/ui/w_ImportConfig.hpp \
         src/ui/w_InboundEditor.hpp \
@@ -118,6 +119,7 @@ HEADERS += \
         src/ui/w_SubscriptionEditor.hpp \
         src/ui/w_ScreenShot_Core.hpp \
         src/utils/QvHelpers.hpp \
+        src/utils/QvRuntimeConfig.hpp \
         src/utils/QvTinyLog.hpp \
         src/utils/QJsonModel.hpp \
         src/utils/QJsonObjectInsertMacros.h

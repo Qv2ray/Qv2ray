@@ -10,8 +10,16 @@
 #include "w_InboundEditor.hpp"
 #include "w_ImportConfig.hpp"
 
+#include "RouteNodeModels/QvRuleNodeModel.hpp"
+#include "RouteNodeModels/QvInboundNodeModel.hpp"
+#include "RouteNodeModels/QvOutboundNodeModel.hpp"
+
 #include "NodeStyle.hpp"
+#include "FlowView.hpp"
 #include "FlowViewStyle.hpp"
+
+using QtNodes::FlowView;
+using namespace Qv2ray::Components::Nodes;
 
 static bool isLoading = false;
 #define CurrentRule this->rules[this->currentRuleTag]
@@ -115,7 +123,7 @@ void RouteEditor::onNodeClicked(Node &n)
 {
     LOADINGCHECK
 
-    if (isExiting()) return;
+    if (isExiting) return;
 
     auto isOut = outboundNodes.values().contains(&n);
     auto isIn = inboundNodes.values().contains(&n);
@@ -160,7 +168,7 @@ void RouteEditor::onConnectionCreated(QtNodes::Connection const &c)
 {
     LOADINGCHECK
 
-    if (isExiting()) return;
+    if (isExiting) return;
 
     // Connection Established
     auto const sourceNode = c.getNode(PortType::Out);
@@ -211,7 +219,7 @@ void RouteEditor::onConnectionDeleted(QtNodes::Connection const &c)
 {
     LOADINGCHECK
 
-    if (isExiting()) return;
+    if (isExiting) return;
 
     // Connection Deleted
     auto const source = c.getNode(PortType::Out);

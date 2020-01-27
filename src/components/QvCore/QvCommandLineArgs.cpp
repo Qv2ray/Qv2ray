@@ -7,9 +7,6 @@ namespace Qv2ray
 {
     namespace CommandArgOperations
     {
-        // Instantiation
-        QvStartupOptions StartupOption = QvStartupOptions{};
-
         QvCommandArgParser::QvCommandArgParser() : QObject(),
             noAPIOption("noAPI", QObject::tr("Disable gRPC API subsystems.")),
             runAsRootOption("I-just-wanna-run-with-root", QObject::tr("Explicitly run Qv2ray as root.")),

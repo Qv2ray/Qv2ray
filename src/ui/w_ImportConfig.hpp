@@ -34,6 +34,8 @@ class ImportConfigWindow : public QDialog, private Ui::ImportConfigWindow
 
         void on_routeEditBtn_clicked();
 
+        void on_hideQv2rayCB_stateChanged(int arg1);
+
     private:
         QMap<QString, CONFIGROOT> connections;
         QMap<QString, QString> vmessErrors;

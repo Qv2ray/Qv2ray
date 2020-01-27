@@ -42,7 +42,7 @@ namespace Qv2ray
 
         QvTCPingData QvTCPingModel::startTestLatency(QvTCPingData data, const int count)
         {
-            if (isExiting()) return QvTCPingData();
+            if (isExiting) return QvTCPingData();
 
             double successCount = 0, errorCount = 0;
             addrinfo *resolved;
@@ -61,7 +61,7 @@ namespace Qv2ray
             int currentCount = 0;
 
             while (currentCount < count) {
-                if (isExiting()) return QvTCPingData();
+                if (isExiting) return QvTCPingData();
 
                 timeval rtt;
 
@@ -102,7 +102,7 @@ namespace Qv2ray
 
         int QvTCPingModel::resolveHost(const string &host, int port, addrinfo **res)
         {
-            if (isExiting()) return 0;
+            if (isExiting) return 0;
 
             addrinfo hints;
 #ifdef _WIN32
@@ -120,7 +120,7 @@ namespace Qv2ray
 
         int QvTCPingModel::testLatency(struct addrinfo *addr, struct timeval *rtt)
         {
-            if (isExiting()) return 0;
+            if (isExiting) return 0;
 
             int fd;
             struct timeval start;
@@ -131,7 +131,7 @@ namespace Qv2ray
 
             /* try to connect for each of the entries: */
             while (addr != nullptr) {
-                if (isExiting()) return 0;
+                if (isExiting) return 0;
 
                 /* create socket */
                 if ((fd = socket(addr->ai_family, addr->ai_socktype, addr->ai_protocol)) == -1)

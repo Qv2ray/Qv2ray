@@ -11,6 +11,7 @@ namespace Qv2ray
     {
         extern QString Qv2rayConfigPath;
         extern Qv2rayConfig GlobalConfig;
+        extern bool isExiting;
         //
         void SaveGlobalConfig(Qv2rayConfig conf);
         void LoadGlobalConfig();
@@ -27,7 +28,6 @@ namespace Qv2ray
         }
 
         void ExitQv2ray();
-        bool isExiting();
         tuple<QString, int, QString> GetConnectionInfo(const CONFIGROOT &alias);
         bool GetOutboundData(const OUTBOUND &out, QString *host, int *port, QString *protocol);
     }

@@ -8,29 +8,13 @@
 #include "QvUtils.hpp"
 
 #include "Node.hpp"
-#include "FlowScene.hpp"
-#include "FlowView.hpp"
-#include "ConnectionStyle.hpp"
-
-#include "Node.hpp"
 #include "NodeData.hpp"
+#include "ConnectionStyle.hpp"
 #include "FlowScene.hpp"
-#include "FlowView.hpp"
-#include "DataModelRegistry.hpp"
 
-#include "routeNodeModels/QvRuleNodeModel.hpp"
-#include "routeNodeModels/QvInboundNodeModel.hpp"
-#include "routeNodeModels/QvOutboundNodeModel.hpp"
-
-using QtNodes::DataModelRegistry;
-using QtNodes::FlowScene;
-using QtNodes::FlowView;
 using QtNodes::Node;
+using QtNodes::FlowScene;
 using QtNodes::ConnectionStyle;
-using QtNodes::TypeConverter;
-using QtNodes::TypeConverterId;
-
-using namespace Qv2ray::Components::Nodes;
 
 #include "ui_w_RoutesEditor.h"
 

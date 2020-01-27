@@ -16,9 +16,6 @@
 #include "unistd.h"
 #endif
 
-bool isDebug = false;
-
-
 void signalHandler(int signum)
 {
     cout << "Interrupt signal (" << signum << ") received." << endl;
@@ -269,12 +266,10 @@ int main(int argc, char *argv[])
     //
 #ifdef QT_DEBUG
     // ----------------------------> For debug build...
-    isDebug = true;
     SingleApplication::setApplicationName("Qv2ray - DEBUG");
 #endif
 
-    //
-    if (StartupOption.debugLog) {
+    if (isDebugBuild || StartupOption.debugLog) {
         DEBUG(MODULE_INIT, "Debug log enabled")
     }
 

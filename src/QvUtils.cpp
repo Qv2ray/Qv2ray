@@ -5,9 +5,6 @@ namespace Qv2ray
 {
     namespace Utils
     {
-        static bool _isQv2rayExiting = false;
-        Qv2rayConfig GlobalConfig = Qv2rayConfig();
-        QString Qv2rayConfigPath = "";
         void SaveGlobalConfig(Qv2rayConfig conf)
         {
             GlobalConfig = conf;
@@ -31,21 +28,17 @@ namespace Qv2ray
             file.open(QFile::ReadOnly);
             QTextStream stream(&file);
             auto str = stream.readAll();
-            auto config  = StructFromJsonString<Qv2rayConfig>(str);
+            auto config = StructFromJsonString<Qv2rayConfig>(str);
             SaveGlobalConfig(config);
             file.close();
         }
 
         void ExitQv2ray()
         {
-            _isQv2rayExiting = true;
+            isExiting = true;
             QApplication::quit();
         }
 
-        bool isExiting()
-        {
-            return _isQv2rayExiting;
-        }
         tuple<QString, int, QString> GetConnectionInfo(const CONFIGROOT &root)
         {
             bool validOutboundFound = false;
