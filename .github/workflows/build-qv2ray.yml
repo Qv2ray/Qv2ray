@@ -10,7 +10,7 @@ jobs:
     strategy:
       matrix:
         platform: [ubuntu-16.04, windows-latest, macos-latest]
-        qt_version: [5.12.6, 5.13.2, 5.14.0, 5.14.1]
+        qt_version: [5.12.6, 5.13.2, 5.14.1]
         backend: [libqvb, gRPC]
       fail-fast: false
         
