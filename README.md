@@ -14,19 +14,23 @@
  - Translation platform, translations are welcome at here: **[Public Translation Platform](https://www.transifex.com/qv2ray/qv2ray)**
 
 ## Special Thanks
-- **Quality Assurance & User Experience:** DuckSoft [@DuckSoft](https://github.com/DuckSoft/)
-- **Debian-based distro Packager:** ymshenyu [@ymshenyu](https://github.com/ymshenyu)
+- **Quality Assurance & User Experience:** [@DuckSoft](https://github.com/DuckSoft/)
+- **Debian-based distro Packager:** [@ymshenyu](https://github.com/ymshenyu)
 
 -------------------------------
 
 ## Copyright
 ### This is free software, and you are welcome to redistribute it under certain conditions
-- Copyright (C) 2019 Leroy.H.Y (@lhy0403): *Qv2ray Current Developer*
-- Copyright (C) 2019 Hork (@aliyuchang33): *Hv2ray Initial Designs & gRPC implementation*
-- Copyright (C) 2019 SOneWinstone (@SoneWinstone): *Hv2ray/Qv2ray HTTP Request Helper*
-- ArielAxionL (@axionl): *Qv2ray Logos and ArtWork*
-- TheBadGateway (@thebadgateway): *Qv2ray Russian Translations*
-- Riko (@rikakomoe): *Qv2ray patch 8a8c1a/PR115*
+- ALL Credit goes to **Qv2ray User Group** and **Qv2ray Development Group**
+- Contributors (sorted alphabetically):
+  - @aliyuchang33
+  - @axionl
+  - @DuckSoft
+  - @lhy0403
+  - @rikakomoe
+  - @SoneWinstone
+  - @thebadgateway
+
 
 ### Libraries that have been used in Qv2ray are listed below (Sorted by date added)
 - Copyright (c) 2019 dridk (@dridk): **X2Struct** (Apache)
