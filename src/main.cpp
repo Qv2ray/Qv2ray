@@ -95,7 +95,7 @@ bool initialiseQv2ray()
     configFilePaths << QDir::homePath() + "/.config/qv2ray" QV2RAY_CONFIG_DIR_SUFFIX;
 #ifdef WITH_FLATHUB_CONFIG_PATH
     LOG(MODULE_INIT, "---> Adding flakpak config path support.")
-    configFilePaths << QDir::homePath() + "/.var/app/com.github.Qv2ray/config/qv2ray" QV2RAY_CONFIG_DIR_SUFFIX;
+    configFilePaths << QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + QV2RAY_CONFIG_DIR_SUFFIX;
 #endif
     configFilePaths << QApplication::applicationDirPath() + "/config" QV2RAY_CONFIG_DIR_SUFFIX;
     QString configPath = "";
@@ -128,7 +128,7 @@ bool initialiseQv2ray()
 #elif defined (Q_OS_LINUX)
 #   ifdef WITH_FLATHUB_CONFIG_PATH
         LOG(MODULE_INIT, "---> Using flatpak config path as the default path.")
-        configPath = QDir::homePath() + "/.var/app/com.github.Qv2ray/config/qv2ray" QV2RAY_CONFIG_DIR_SUFFIX;
+        configPath = QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + QV2RAY_CONFIG_DIR_SUFFIX;
 #   else
         configPath = QDir::homePath() + "/.config/qv2ray" QV2RAY_CONFIG_DIR_SUFFIX;
 #   endif
