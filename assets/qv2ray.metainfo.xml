@@ -29,7 +29,7 @@
   </screenshots>
 
   <releases>
-    <release version="2.0.1" date="2019-1-26">
+    <release version="2.0.1" date="2019-1-28">
       <description>
         <ul>
             <li>Prevent messing up vcore logs</li>
