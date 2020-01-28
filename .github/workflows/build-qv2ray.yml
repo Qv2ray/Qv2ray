@@ -12,6 +12,10 @@ jobs:
         platform: [ubuntu-16.04, windows-latest, macos-latest]
         qt_version: [5.12.6, 5.13.2, 5.14.1]
         backend: [libqvb, gRPC]
+        exclude:
+          # donot build Qt 5.14.1 on the buggy Windows platform
+          - platform: windows-latest
+            qt_version: 5.14.1
       fail-fast: false
         
     runs-on: ${{ matrix.platform }}
