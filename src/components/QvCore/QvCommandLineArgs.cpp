@@ -43,22 +43,22 @@ namespace Qv2ray
                 return CommandLineHelpRequested;
 
             if (parser.isSet(noAPIOption)) {
-                DEBUG(MODULE_INIT, "No API subsystem is set.")
+                DEBUG(MODULE_INIT, "noAPIOption is set.")
                 StartupOption.noAPI = true;
             }
 
             if (parser.isSet(runAsRootOption)) {
-                DEBUG(MODULE_INIT, "Force run as root is set.")
+                DEBUG(MODULE_INIT, "runAsRootOption is set.")
                 StartupOption.forceRunAsRootUser = true;
             }
 
             if (parser.isSet(debugOption)) {
-                DEBUG(MODULE_INIT, "Debug log is set.")
+                DEBUG(MODULE_INIT, "debugOption is set.")
                 StartupOption.debugLog = true;
             }
 
             if (parser.isSet(withToolbarOption)) {
-                DEBUG(MODULE_INIT, "Run with network toolbar is set.")
+                DEBUG(MODULE_INIT, "withToolbarOption is set.")
                 StartupOption.enableToolbarPlguin = true;
             }
 
