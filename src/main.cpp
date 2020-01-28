@@ -31,7 +31,7 @@ bool verifyConfigAvaliability(QString path, bool checkExistingConfig)
         LOG(MODULE_INIT, "---> Cannot create a new file or openwrite a file.")
         return false;
     } else {
-        testFile.write("qv2ray test file, feel free to remove.");
+        testFile.write("Qv2ray test file, feel free to remove.");
         testFile.flush();
         testFile.close();
         bool removed = testFile.remove();
@@ -93,6 +93,10 @@ bool initialiseQv2ray()
     QStringList configFilePaths;
     configFilePaths << QDir::homePath() + "/.qv2ray" QV2RAY_CONFIG_DIR_SUFFIX;
     configFilePaths << QDir::homePath() + "/.config/qv2ray" QV2RAY_CONFIG_DIR_SUFFIX;
+#ifdef WITH_FLATHUB_CONFIG_PATH
+    LOG(MODULE_INIT, "---> Adding flakpak config path support.")
+    configFilePaths << QDir::homePath() + "/.var/app/com.github.Qv2ray/config/qv2ray" QV2RAY_CONFIG_DIR_SUFFIX;
+#endif
     configFilePaths << QApplication::applicationDirPath() + "/config" QV2RAY_CONFIG_DIR_SUFFIX;
     QString configPath = "";
     //
@@ -122,7 +126,12 @@ bool initialiseQv2ray()
 #ifdef Q_OS_WIN
         configPath = QDir::currentPath() + "/config" QV2RAY_CONFIG_DIR_SUFFIX;
 #elif defined (Q_OS_LINUX)
+#   ifdef WITH_FLATHUB_CONFIG_PATH
+        LOG(MODULE_INIT, "---> Using flatpak config path as the default path.")
+        configPath = QDir::homePath() + "/.var/app/com.github.Qv2ray/config/qv2ray" QV2RAY_CONFIG_DIR_SUFFIX;
+#   else
         configPath = QDir::homePath() + "/.config/qv2ray" QV2RAY_CONFIG_DIR_SUFFIX;
+#   endif
 #elif defined (__APPLE__)
         configPath = QDir::homePath() + "/.qv2ray" QV2RAY_CONFIG_DIR_SUFFIX;
 #else
@@ -240,13 +249,6 @@ int main(int argc, char *argv[])
     isDebug = true;
     SingleApplication::setApplicationName("Qv2ray - DEBUG");
 #endif
-
-    //
-    if (StartupOption.debugLog) {
-        DEBUG(MODULE_INIT, "Debug log enabled")
-    }
-
-    //
     SingleApplication _qApp(argc, argv, false, SingleApplication::Mode::User | SingleApplication::Mode::ExcludeAppPath | SingleApplication::Mode::ExcludeAppVersion);
     // Early initialisation
     //
@@ -276,11 +278,14 @@ int main(int argc, char *argv[])
         "Copyright (c) 2020 Itay Grudev (@itay-grudev): SingleApplication (MIT)" NEWLINE
         "Copyright (c) 2020 paceholder (@paceholder): nodeeditor (QNodeEditor modified by lhy0403) (BSD-3-Clause)" NEWLINE
         "Copyright (c) 2019 TheWanderingCoel (@TheWanderingCoel): ShadowClash (launchatlogin) (GPLv3)" NEWLINE
-        "Copyright (c) 2020 Ram Pani (@DuckSoft): **QvRPCBridge** (WTFPL)" NEWLINE
+        "Copyright (c) 2020 Ram Pani (@DuckSoft): QvRPCBridge (WTFPL)" NEWLINE
         NEWLINE)
     //
     LOG(MODULE_INIT, "Qv2ray Start Time: "  + QSTRN(QTime::currentTime().msecsSinceStartOfDay()))
-    DEBUG("DEBUG", "WARNING: ============================== This is a debug build, many features are not stable enough. ==============================")
+    //
+#ifdef QT_DEBUG
+    cout << "WARNING: ============================== This is a debug build, many features are not stable enough. ==============================" << endl;
+#endif
     //
     // Load the language translation list.
     auto langs = GetFileList(QDir(":/translations"));

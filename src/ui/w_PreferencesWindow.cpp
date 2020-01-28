@@ -111,7 +111,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent),
     //
     DNSListTxt->clear();
 
-    foreach (auto dnsStr, CurrentConfig.connectionConfig.dnsList) {
+    for (auto dnsStr : CurrentConfig.connectionConfig.dnsList) {
         auto str = dnsStr.trimmed();
 
         if (!str.isEmpty()) {
@@ -159,7 +159,12 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent),
     }
 
     autoStartConnCombo->setCurrentText(autoCon);
+
     // FP Settings
+    if (CurrentConfig.connectionConfig.forwardProxyConfig.type.trimmed().isEmpty()) {
+        CurrentConfig.connectionConfig.forwardProxyConfig.type = "http";
+    }
+
     fpGroupBox->setChecked(CurrentConfig.connectionConfig.forwardProxyConfig.enableForwardProxy);
     fpUsernameTx->setText(CurrentConfig.connectionConfig.forwardProxyConfig.username);
     fpPasswordTx->setText(CurrentConfig.connectionConfig.forwardProxyConfig.password);
@@ -929,7 +934,7 @@ void PreferencesWindow::SetAutoStartButtonsState(bool isAutoStart)
 void PreferencesWindow::on_fpTypeCombo_currentIndexChanged(const QString &arg1)
 {
     LOADINGCHECK
-    CurrentConfig.connectionConfig.forwardProxyConfig.type = arg1;
+    CurrentConfig.connectionConfig.forwardProxyConfig.type = arg1.toLower();
 }
 
 void PreferencesWindow::on_fpAddressTx_textEdited(const QString &arg1)

@@ -145,6 +145,12 @@ namespace Qv2ray
             QString username;
             QString password;
 
+            Qv2rayForwardProxyConfig() :
+                enableForwardProxy(false),
+                type("http"), serverAddress("127.0.0.1"), port(8008), useAuth(false),
+                username("username"), password("password")
+            { }
+
             XTOSTRUCT(O(enableForwardProxy, type, serverAddress, port, useAuth, username, password))
         };
 
@@ -232,6 +238,7 @@ namespace Qv2ray
                 configs(),
                 subscriptions(),
                 uiConfig(),
+                apiConfig(),
                 inboundConfig(),
                 connectionConfig(),
                 toolBarConfig() { }
@@ -244,7 +251,7 @@ namespace Qv2ray
                         v2CorePath, v2AssetsPath,
                         configs,
                         uiConfig,
-                        subscriptions, inboundConfig, connectionConfig, toolBarConfig))
+                        subscriptions, inboundConfig, connectionConfig, toolBarConfig, apiConfig))
         };
 
     }

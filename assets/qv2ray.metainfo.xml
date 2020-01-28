@@ -13,6 +13,12 @@
     </p>
   </description>
 
+  <categories>
+    <category>Network</category>
+  </categories>
+
+  <developer_name>Leroy.H.Y</developer_name>
+
   <launchable type="desktop-id">com.github.Qv2ray.desktop</launchable>
 
   <screenshots>
