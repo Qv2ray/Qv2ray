@@ -236,6 +236,8 @@ int main(int argc, char *argv[])
 
             case CommandLineVersionRequested:
                 LOG("Qv2ray", QV2RAY_VERSION_STRING);
+                LOG("QV2RAY_BUILD_INFO", QV2RAY_BUILD_INFO)
+                LOG("QV2RAY_BUILD_EXTRA_INFO", QV2RAY_BUILD_EXTRA_INFO)
                 return 0;
 
             case CommandLineHelpRequested:
@@ -256,6 +258,8 @@ int main(int argc, char *argv[])
 #endif
     //
     // finished: command line parsing
+    LOG("QV2RAY_BUILD_INFO", QV2RAY_BUILD_INFO)
+    LOG("QV2RAY_BUILD_EXTRA_INFO", QV2RAY_BUILD_EXTRA_INFO)
     LOG(MODULE_INIT, "Qv2ray " QV2RAY_VERSION_STRING " running on " + QSysInfo::prettyProductName() + " " + QSysInfo::currentCpuArchitecture() + NEWLINE)
     //
     // This line must be called before any other ones, since we are using these values to identify instances.

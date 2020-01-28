@@ -18,6 +18,9 @@ const int QV2RAY_CONFIG_VERSION = 8;
 # endif
 #endif
 
+#define QV2RAY_BUILD_INFO QString(_QV2RAY_BUILD_INFO_STR_)
+#define QV2RAY_BUILD_EXTRA_INFO QString(_QV2RAY_BUILD_EXTRA_INFO_STR_)
+
 extern const bool isDebugBuild;
 // Base folder suffix.
 #ifdef QT_DEBUG

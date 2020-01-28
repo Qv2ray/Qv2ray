@@ -153,6 +153,25 @@ message("| See: https://www.gnu.org/licenses/gpl-3.0.html  |")
 message("|-------------------------------------------------|")
 message(" ")
 
+# Qv2ray manual build info
+_QV2RAY_BUILD_INFO_STR_=$$getenv(_QV2RAY_BUILD_INFO_)
+_QV2RAY_BUILD_EXTRA_INFO_STR_=$$getenv(_QV2RAY_BUILD_EXTRA_INFO_)
+
+isEmpty(_QV2RAY_BUILD_INFO_STR_) {
+    _QV2RAY_BUILD_INFO_STR_ = "Qv2ray from manual build"
+}
+
+isEmpty(_QV2RAY_BUILD_EXTRA_INFO_STR_) {
+    _QV2RAY_BUILD_EXTRA_INFO_STR_ = "Qv2ray $$VERSION"
+}
+
+message(Qv2ray build info: $$_QV2RAY_BUILD_INFO_STR_)
+message(Qv2ray build extra info: $$_QV2RAY_BUILD_EXTRA_INFO_STR_)
+# \"\\\"v$${VERSION}\\\"\"
+DEFINES += _QV2RAY_BUILD_INFO_STR_=\"\\\"$${_QV2RAY_BUILD_INFO_STR_}\\\"\" \
+           _QV2RAY_BUILD_EXTRA_INFO_STR_=\"\\\"$${_QV2RAY_BUILD_EXTRA_INFO_STR_}\\\"\"
+
+message(" ")
 
 RC_ICONS += ./assets/icons/qv2ray.ico
 ICON = ./assets/icons/qv2ray.icns

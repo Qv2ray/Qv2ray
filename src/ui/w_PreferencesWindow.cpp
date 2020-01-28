@@ -46,6 +46,8 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent),
     themeCombo->addItems(QStyleFactory::keys());
     //
     qvVersion->setText(QV2RAY_VERSION_STRING);
+    qvBuildInfo->setText(QV2RAY_BUILD_INFO);
+    qvBuildExInfo->setText(QV2RAY_BUILD_EXTRA_INFO);
     qvBuildTime->setText(__DATE__ " " __TIME__);
     //
     // Deep copy
