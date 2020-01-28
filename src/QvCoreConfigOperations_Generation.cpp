@@ -338,7 +338,8 @@ namespace Qv2ray
                     //
                     // Process forward proxy
 #define fpConf GlobalConfig.connectionConfig.forwardProxyConfig
-                    {
+
+                    if (fpConf.enableForwardProxy) {
                         auto outboundArray = root["outbounds"].toArray();
                         auto firstOutbound = outboundArray.first().toObject();
 
@@ -364,6 +365,7 @@ namespace Qv2ray
                         outboundArray.replace(0, firstOutbound);
                         root["outbounds"] = outboundArray;
                     }
+
 #undef fpConf
                     OUTBOUNDS outbounds = OUTBOUNDS(root["outbounds"].toArray());
                     outbounds.append(GenerateOutboundEntry("freedom", GenerateFreedomOUT("AsIs", ":0", 0), QJsonObject(), QJsonObject(), "0.0.0.0", OUTBOUND_TAG_DIRECT));

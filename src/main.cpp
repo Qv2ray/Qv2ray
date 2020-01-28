@@ -43,7 +43,7 @@ bool verifyConfigAvaliability(QString path, bool checkExistingConfig)
         LOG(MODULE_INIT, "---> Cannot create a new file or openwrite a file.")
         return false;
     } else {
-        testFile.write("qv2ray test file, feel free to remove.");
+        testFile.write("Qv2ray test file, feel free to remove.");
         testFile.flush();
         testFile.close();
         bool removed = testFile.remove();
@@ -268,12 +268,6 @@ int main(int argc, char *argv[])
     // ----------------------------> For debug build...
     SingleApplication::setApplicationName("Qv2ray - DEBUG");
 #endif
-
-    if (isDebugBuild || StartupOption.debugLog) {
-        DEBUG(MODULE_INIT, "Debug log enabled")
-    }
-
-    //
     SingleApplication _qApp(argc, argv, false, SingleApplication::Mode::User | SingleApplication::Mode::ExcludeAppPath | SingleApplication::Mode::ExcludeAppVersion);
     // Early initialisation
     //
@@ -303,11 +297,14 @@ int main(int argc, char *argv[])
         "Copyright (c) 2020 Itay Grudev (@itay-grudev): SingleApplication (MIT)" NEWLINE
         "Copyright (c) 2020 paceholder (@paceholder): nodeeditor (QNodeEditor modified by lhy0403) (BSD-3-Clause)" NEWLINE
         "Copyright (c) 2019 TheWanderingCoel (@TheWanderingCoel): ShadowClash (launchatlogin) (GPLv3)" NEWLINE
-        "Copyright (c) 2020 Ram Pani (@DuckSoft): **QvRPCBridge** (WTFPL)" NEWLINE
+        "Copyright (c) 2020 Ram Pani (@DuckSoft): QvRPCBridge (WTFPL)" NEWLINE
         NEWLINE)
     //
     LOG(MODULE_INIT, "Qv2ray Start Time: "  + QSTRN(QTime::currentTime().msecsSinceStartOfDay()))
-    DEBUG("DEBUG", "WARNING: ============================== This is a debug build, many features are not stable enough. ==============================")
+    //
+#ifdef QT_DEBUG
+    cout << "WARNING: ============================== This is a debug build, many features are not stable enough. ==============================" << endl;
+#endif
     //
     // Load the language translation list.
     auto langs = GetFileList(QDir(":/translations"));
