@@ -84,6 +84,8 @@ jobs:
           PATH=$PATH:$Qt5_Dir
           mkdir build
           cd build
+          export _QV2RAY_BUILD_INFO_="Github Action Asset"
+          export _QV2RAY_BUILD_EXTRA_INFO_="This is a build of Qv2ray from Github Action: qt${{ matrix.qt_version }}-${{ matrix.backend }}-${{ matrix.platform }}"
           qmake .. CONFIG+=no_increase_build_number PREFIX=/usr
       - name: Generate Makefile for libqvb
         if: matrix.backend == 'libqvb'
@@ -92,6 +94,8 @@ jobs:
           PATH=$PATH:$Qt5_Dir
           mkdir build
           cd build
+          export _QV2RAY_BUILD_INFO_="Github Action Asset"
+          export _QV2RAY_BUILD_EXTRA_INFO_="This is a build of Qv2ray from Github Action: qt${{ matrix.qt_version }}-${{ matrix.backend }}-${{ matrix.platform }}"
           qmake .. CONFIG+=no_increase_build_number CONFIG+=with_new_backend PREFIX=/usr
 # -------------------------------------------------------- Build
       - name: Linux - ${{ matrix.qt_version }} - ${{ matrix.backend }} - Build Qv2ray
