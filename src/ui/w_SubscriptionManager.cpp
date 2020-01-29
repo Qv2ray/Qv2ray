@@ -1,4 +1,4 @@
-﻿#include "w_SubscriptionEditor.hpp"
+﻿#include "w_SubscriptionManager.hpp"
 #include "QvHTTPRequestHelper.hpp"
 #include "QvCoreConfigOperations.hpp"
 

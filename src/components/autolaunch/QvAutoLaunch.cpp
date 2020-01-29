@@ -1,4 +1,4 @@
-#include "QvLaunchAtLoginConfigurator.hpp"
+#include "QvAutoLaunch.hpp"
 #include <QSettings>
 #include <QApplication>
 #include <QDir>

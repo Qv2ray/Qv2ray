@@ -43,99 +43,108 @@ CONFIG += lrelease embed_translations
 win32:CONFIG += win
 win64:CONFIG += win
 
-SOURCES += \
-        src/components/QvComponentsHandler.cpp \
-        src/components/QvCore/QvCommandLineArgs.cpp \
-        src/components/QvKernelInteractions.cpp \
-        src/components/QvLaunchAtLoginConfigurator.cpp \
-        src/components/QvPACHandler.cpp \
-        src/components/QvSystemProxyConfigurator.cpp \
-        src/components/QvTCPing.cpp \
-        src/main.cpp \
-        src/components/QvGFWPACConverter.cpp \
-        src/components/QvHTTPRequestHelper.cpp \
-        src/components/QvLogHighlighter.cpp \
-        src/QvCoreConfigOperations.cpp \
-        src/QvConfigUpgrade.cpp \
-        src/QvCoreConfigOperations_Convertion.cpp \
-        src/QvCoreConfigOperations_Generation.cpp \
-        src/QvUtils.cpp \
-        src/ui/RouteNodeModels/QvInboundNodeModel.cpp \
-        src/ui/RouteNodeModels/QvOutboundNodeModel.cpp \
-        src/ui/RouteNodeModels/QvRuleNodeModel.cpp \
-        src/ui/w_MainWindow_extra.cpp \
-        src/ui/w_PreferencesWindow.cpp \
-        src/ui/w_RoutesEditor_extra.cpp \
-        src/utils/QvGlobalVarsInstantiation.cpp \
-        src/utils/QvHelpers.cpp \
-        src/utils/QJsonModel.cpp \
-        src/ui/w_ExportConfig.cpp \
-        src/ui/w_InboundEditor.cpp \
-        src/ui/w_OutboundEditor.cpp \
-        src/ui/w_RoutesEditor.cpp \
-        src/ui/w_SubscriptionEditor.cpp \
-        src/ui/w_JsonEditor.cpp \
-        src/ui/w_MainWindow.cpp \
-        src/ui/w_ImportConfig.cpp \
-        src/ui/w_ScreenShot_Core.cpp \
-        src/ui/NetSpeedBar/QvNetSpeedBar.cpp
+defineTest(Qv2rayAddFile) {
+    ext = $$take_last(ARGS)
+    filename = $${take_first(ARGS)}.$${ext}
+    qmake_debug: message("Qv2rayAddFile: filename: $$filename")
+    !exists($$filename) {
+        error("File: \"$$filename\" is not found, Qv2ray build preparation cannot continue")
+    }
+    equals(ext, "cpp") {
+        qmake_debug: message(Adding source $$filename)
+        SOURCES += $$filename
+    } else {
+        equals(ext, "hpp") {
+            qmake_debug: message(Adding header $$filename)
+            HEADERS += $$filename
+        } else {
+            equals(ext, "ui") {
+                qmake_debug: message(Adding form $$filename)
+                FORMS += $$filename
+            } else {
+                error("Unknown extension: $${ext}")
+            }
+        }
+    }
 
-INCLUDEPATH += \
-        3rdparty/ \
-        src/ \
-        src/components \
-        src/ui/ \
-        src/utils/ \
-        libs/gen/
+    export(SOURCES)
+    export(HEADERS)
+    export(FORMS)
+}
 
-HEADERS += \
-        src/Qv2rayBase.hpp \
-        src/Qv2rayFeatures.hpp \
-        src/QvCoreConfigObjects.hpp \
-        src/QvCoreConfigOperations.hpp \
-        src/QvUtils.hpp \
-        src/components/QvComponentsHandler.hpp \
-        src/components/QvCore/QvCommandLineArgs.hpp \
-        src/components/QvHTTPRequestHelper.hpp \
-        src/components/QvKernelInteractions.hpp \
-        src/components/QvLaunchAtLoginConfigurator.hpp \
-        src/components/QvLogHighlighter.hpp \
-        src/components/QvNetSpeedPlugin.hpp \
-        src/components/QvPACHandler.hpp \
-        src/components/QvSystemProxyConfigurator.hpp \
-        src/components/QvTCPing.hpp \
-        src/ui/RouteNodeModels/QvInboundNodeModel.hpp \
-        src/ui/RouteNodeModels/QvNodeModelsBase.hpp \
-        src/ui/RouteNodeModels/QvOutboundNodeModel.hpp \
-        src/ui/RouteNodeModels/QvRuleNodeModel.hpp \
-        src/ui/w_ExportConfig.hpp \
-        src/ui/w_ImportConfig.hpp \
-        src/ui/w_InboundEditor.hpp \
-        src/ui/w_JsonEditor.hpp \
-        src/ui/w_MainWindow.hpp \
-        src/ui/w_OutboundEditor.hpp \
-        src/ui/w_PreferencesWindow.hpp \
-        src/ui/w_RoutesEditor.hpp \
-        src/ui/w_SubscriptionEditor.hpp \
-        src/ui/w_ScreenShot_Core.hpp \
-        src/utils/QvHelpers.hpp \
-        src/utils/QvRuntimeConfig.hpp \
-        src/utils/QvTinyLog.hpp \
-        src/utils/QJsonModel.hpp \
-        src/utils/QJsonObjectInsertMacros.h
+defineTest(Qv2rayAddSource) {
+    # Module Compnent Filename extlist
+    module = $$take_first(ARGS)
+    component = $$take_first(ARGS)
+    filename = $$take_first(ARGS)
+    extlist = $$ARGS
+    FILEPATH = "$$PWD/src/$${module}"
+    qmake_debug: message(Qv2rayAddSource: Adding \"$${filename}\" of module \"$${module}\" and component \"$${component}\" to the project)
+    equals(component, "_") {
+        qmake_debug: message("Qv2rayAddSource: Component is empty, ignore")
+        FILEPATH += "/$${filename}"
+        FILEPATH=$$join(FILEPATH)
+    } else {
+        FILEPATH += "/$${component}/$${filename}"
+        FILEPATH=$$join(FILEPATH)
+    }
+    qmake_debug: message("Qv2rayAddSource: filepath: $${FILEPATH}, extlist: $${extlist}")
+    for(iterate, extlist) {
+        Qv2rayAddFile($$FILEPATH, $$iterate)
+    }
+    export(SOURCES)
+    export(HEADERS)
+    export(FORMS)
+}
 
-FORMS += \
-        src/ui/w_ExportConfig.ui \
-        src/ui/w_ImportConfig.ui \
-        src/ui/w_InboundEditor.ui \
-        src/ui/w_JsonEditor.ui \
-        src/ui/w_MainWindow.ui \
-        src/ui/w_OutboundEditor.ui \
-        src/ui/w_PreferencesWindow.ui \
-        src/ui/w_RoutesEditor.ui \
-        src/ui/w_ScreenShot_Core.ui \
-        src/ui/w_SubscriptionEditor.ui
+Qv2rayAddSource(base, _, GlobalInstances, cpp, hpp)
+Qv2rayAddSource(base, _, JsonHelpers, hpp)
+Qv2rayAddSource(base, _, Qv2rayBase, hpp)
+Qv2rayAddSource(base, _, Qv2rayFeatures, hpp)
+Qv2rayAddSource(base, _, Qv2rayLog, cpp, hpp)
+Qv2rayAddSource(common, _, CommandArgs, cpp, hpp)
+Qv2rayAddSource(common, _, HTTPRequestHelper, cpp, hpp)
+Qv2rayAddSource(common, _, LogHighlighter, cpp, hpp)
+Qv2rayAddSource(common, _, QJsonModel, cpp, hpp)
+Qv2rayAddSource(common, _, QvHelpers, cpp, hpp)
+Qv2rayAddSource(common, models, CoreObjectModels, hpp)
+Qv2rayAddSource(common, models, QvConfigModel, hpp)
+Qv2rayAddSource(common, models, QvSafeType, hpp)
+Qv2rayAddSource(common, models, RuntimeConfig, hpp)
+Qv2rayAddSource(components, autolaunch, QvAutoLaunch, cpp, hpp)
+Qv2rayAddSource(components, pac, QvGFWPACConverter, cpp)
+Qv2rayAddSource(components, pac, QvPACHandler, cpp, hpp)
+Qv2rayAddSource(components, plugins/toolbar, QvToolbar, cpp, hpp)
+#Qv2rayAddSource(components, plugins/toolbar, QvToolbar_linux, cpp)
+#Qv2rayAddSource(components, plugins/toolbar, QvToolbar_win, cpp)
+Qv2rayAddSource(components, proxy, QvProxyConfigurator, cpp, hpp)
+Qv2rayAddSource(components, tcping, QvTCPing, cpp, hpp)
+Qv2rayAddSource(core, config, ConfigBackend, cpp)
+Qv2rayAddSource(core, config, ConfigUpgrade, cpp)
+Qv2rayAddSource(core, connection, ConnectionConfig_Convertion, cpp)
+Qv2rayAddSource(core, connection, ConnectionConfig_Generation, cpp)
+Qv2rayAddSource(core, connection, ConnectionConfigOperations, cpp, hpp)
+Qv2rayAddSource(core, _, CoreUtils, cpp, hpp)
+Qv2rayAddSource(core, kernel, QvKernelInteractions, cpp, hpp)
+Qv2rayAddSource(ui, editors, w_InboundEditor, cpp, hpp, ui)
+Qv2rayAddSource(ui, editors, w_JsonEditor, cpp, hpp, ui)
+Qv2rayAddSource(ui, editors, w_OutboundEditor, cpp, hpp, ui)
+Qv2rayAddSource(ui, editors, w_RoutesEditor, cpp, hpp, ui)
+Qv2rayAddSource(ui, editors, w_RoutesEditor_extra, cpp)
+Qv2rayAddSource(ui, nodemodels, InboundNodeModel, cpp, hpp)
+Qv2rayAddSource(ui, nodemodels, OutboundNodeModel, cpp, hpp)
+Qv2rayAddSource(ui, nodemodels, RuleNodeModel, cpp, hpp)
+Qv2rayAddSource(ui, nodemodels, NodeModelsBase, hpp)
+Qv2rayAddSource(ui, _, w_ExportConfig, cpp, hpp, ui)
+Qv2rayAddSource(ui, _, w_ImportConfig, cpp, hpp, ui)
+Qv2rayAddSource(ui, _, w_MainWindow, cpp, hpp, ui)
+Qv2rayAddSource(ui, _, w_MainWindow_extra, cpp)
+Qv2rayAddSource(ui, _, w_PreferencesWindow, cpp, hpp, ui)
+Qv2rayAddSource(ui, _, w_ScreenShot_Core, cpp, hpp, ui)
+Qv2rayAddSource(ui, _, w_SubscriptionManager, cpp, hpp, ui)
 
+SOURCES += $$PWD/src/main.cpp
+#SOURCES += $$PWD/src/main.cpp
 RESOURCES += \
         resources.qrc
 
@@ -304,7 +313,7 @@ win {
     QMAKE_TARGET_PRODUCT = "Qv2ray"
 
     message("  --> Adding Taskbar Toolbox CPP files.")
-    SOURCES += src/ui/NetSpeedBar/QvNetSpeedBar_win.cpp
+    Qv2rayAddSource(components, plugins/toolbar, QvToolbar_win, cpp)
     
     message("  --> Linking against winHTTP and winSock2.")
     LIBS += -lwinhttp -lwininet -lws2_32
@@ -325,7 +334,7 @@ unix {
     INCLUDEPATH += /usr/local/include/
 
     message("  --> Adding Plasma Toolbox CPP files.")
-    SOURCES += $$PWD/src/ui/NetSpeedBar/QvNetSpeedBar_linux.cpp
+    Qv2rayAddSource(components, plugins/toolbar, QvToolbar_linux, cpp)
 
     message("  --> Generating desktop dependency.")
     desktop.files += ./assets/qv2ray.desktop
@@ -347,6 +356,13 @@ with_metainfo {
     DEFINES += WITH_FLATHUB_CONFIG_PATH
 }
 
+message(" ")
+message("Qv2ray build contains: ")
+message(" -- > $${size(SOURCES)} source files")
+message(" -- > $${size(HEADERS)} header files")
+message(" -- > $${size(FORMS)} ui files")
+message(" -- > $${size(TRANSLATIONS)} translation files")
+message(" -- > $${size(EXTRA_TRANSLATIONS)} extra translation files")
 message(" ")
 message("Done configuring Qv2ray project. Build output will be at:" $$OUT_PWD)
 message("Type `make` or `mingw32-make` to start building Qv2ray")
