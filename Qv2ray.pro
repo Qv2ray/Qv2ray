@@ -225,7 +225,7 @@ with_new_backend {
         message("  --> Qv2ray is not properly configured yet: ")
         message("      gRPC and protobuf headers for v2ray API is missing.")
         message("  --> Please run gen_grpc.sh gen_grpc.bat or deps_macOS.sh located in tools/")
-        message("  --> Or consider reading the build wiki: https://github.com/lhy0403/Qv2ray/wiki/Manually-Build-Qv2ray")
+        message("  --> Or consider reading the build wiki: https://github.com/Qv2ray/Qv2ray/wiki/Manually-Build-Qv2ray")
         message("-----------------------------------------------")
         message(" ")
         warning("IF YOU THINK IT'S A MISTAKE, PLEASE OPEN AN ISSUE")
