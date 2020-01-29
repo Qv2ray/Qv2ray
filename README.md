@@ -9,7 +9,7 @@
 使用 Qt 框架的跨平台 v2ray 客户端。支持 Windows, Linux, macOS。
 
 ## Related Links
- - [Wiki](https://github.com/Qv2ray/Qv2ray/wiki) and [First Time Usage](https://github.com/Qv2ray/Qv2ray/wiki/Getting-Started)
+ - [Wiki](https://github.com/Qv2ray/Qv2ray/wiki) and [First Time Usage](https://github.com/Qv2ray/Qv2ray/wiki/Getting-Started-step0)
  - Latest **[Release Version](https://github.com/Qv2ray/Qv2ray/releases/latest)**
  - Translation platform, translations are welcome at here: **[Public Translation Platform](https://www.transifex.com/qv2ray/qv2ray)**
 
