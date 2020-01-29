@@ -357,12 +357,12 @@ with_metainfo {
 }
 
 message(" ")
-message("Qv2ray build contains: ")
-message(" -- > $${size(SOURCES)} source files")
-message(" -- > $${size(HEADERS)} header files")
-message(" -- > $${size(FORMS)} ui files")
-message(" -- > $${size(TRANSLATIONS)} translation files")
-message(" -- > $${size(EXTRA_TRANSLATIONS)} extra translation files")
+message("This Qv2ray build contains: ")
+message("  --> $${size(SOURCES)} source files")
+message("  --> $${size(HEADERS)} header files")
+message("  --> $${size(FORMS)} ui files")
+message("  --> $${size(TRANSLATIONS)} translation files")
+message("  --> $${size(EXTRA_TRANSLATIONS)} extra translation files")
 message(" ")
 message("Done configuring Qv2ray project. Build output will be at:" $$OUT_PWD)
 message("Type `make` or `mingw32-make` to start building Qv2ray")
