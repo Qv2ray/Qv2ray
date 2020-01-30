@@ -89,7 +89,6 @@ jobs:
           qmake .. CONFIG+=no_increase_build_number $([ "${{ matrix.backend }}" == libqvb ] && echo "CONFIG+=with_new_backend" || echo "") PREFIX=/usr
 # -------------------------------------------------------- Build
       - name: Cross-platform - ${{ matrix.qt_version }} - ${{ matrix.backend }} - Build Qv2ray
-        if: matrix.platform == 'ubuntu-16.04' || matrix.platform == 'macos-latest'
         shell: bash
         run: |
           cd build
