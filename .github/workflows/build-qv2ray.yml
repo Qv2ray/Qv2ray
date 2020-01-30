@@ -43,10 +43,11 @@ jobs:
       - name: Linux - Install Packages 
         if: matrix.platform == 'ubuntu-16.04'
         run: |
+          sudo add-apt-repository ppa:ubuntu-toolchain-r/test
           sudo add-apt-repository ppa:webispy/grpc
           sudo add-apt-repository ppa:carsten-uppenbrink-net/openssl
           sudo apt update
-          sudo apt install -y libgl-dev openssl libx11-dev libxkbcommon-x11-dev libgrpc++-dev libprotobuf-dev protobuf-compiler protobuf-c-compiler protobuf-compiler-grpc
+          sudo apt install -y gcc-7 libgl-dev openssl libx11-dev libxkbcommon-x11-dev libgrpc++-dev libprotobuf-dev protobuf-compiler protobuf-c-compiler protobuf-compiler-grpc
 # --------------------------------------------------------
       - name: Linux - Extracting gRPC and protobuf libs and headers
         if: matrix.platform == 'ubuntu-16.04' && matrix.backend == 'gRPC'
@@ -88,7 +89,7 @@ jobs:
           cd build
           export _QV2RAY_BUILD_INFO_="Github Action Asset"
           export _QV2RAY_BUILD_EXTRA_INFO_="This is a build of Qv2ray from Github Action: qt${{ matrix.qt_version }}-${{ matrix.backend }}-${{ matrix.platform }}"
-          qmake .. CONFIG+=no_increase_build_number $([ "$backend" == libqvb ] && echo "CONFIG+=with_new_backend" || echo "") PREFIX=/usr
+          qmake .. CONFIG+=no_increase_build_number $([ "$backend" == libqvb ] && echo "CONFIG+=with_new_backend" || echo "") PREFIX=/usr $([ "$OS" == "ubuntu-16.04" ] && echo "QMAKE_CC=gcc-7 QMAKE_CXX=g++-7" || echo "")
 # -------------------------------------------------------- Build
       - name: Linux - ${{ matrix.qt_version }} - ${{ matrix.backend }} - Build Qv2ray
         if: matrix.platform == 'ubuntu-16.04'
