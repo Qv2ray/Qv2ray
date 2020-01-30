@@ -1,6 +1,4 @@
-#ifndef SCREENSHOT_H
-#define SCREENSHOT_H
-
+#pragma once
 #include <QDialog>
 #include <QRubberBand>
 #include <QImage>
@@ -46,5 +44,3 @@ class ScreenShotWindow : public QDialog, private Ui::ScreenShot
 
         void pSize();
 };
-
-#endif // SCREENSHOT_H

@@ -1,6 +1,4 @@
-﻿#ifndef CONFEDIT_H
-#define CONFEDIT_H
-
+﻿#pragma once
 #include <QtCore>
 #include <QDialog>
 #include "base/Qv2rayBase.hpp"
@@ -125,4 +123,3 @@ class OutboundEditor : public QDialog, private Ui::OutboundEditor
         SocksServerObject socks;
         //
 };
-#endif // CONFEDIT_H

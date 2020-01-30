@@ -1,5 +1,4 @@
-#ifndef QVTCPING_H
-#define QVTCPING_H
+#pragma once
 #ifdef _WIN32
 #include <winsock2.h>
 #include <ws2def.h>
@@ -49,4 +48,3 @@ namespace Qv2ray
 
 using namespace Qv2ray;
 using namespace Qv2ray::Components;
-#endif

@@ -1,5 +1,4 @@
-﻿#ifndef HVCONF_H
-#define HVCONF_H
+﻿#pragma once
 
 #include <QDialog>
 #include <ui_w_PreferencesWindow.h>
@@ -175,4 +174,3 @@ class PreferencesWindow : public QDialog, private Ui::PreferencesWindow
         bool finishedLoading = false;
         Qv2rayConfig CurrentConfig;
 };
-#endif // HVCONF_H

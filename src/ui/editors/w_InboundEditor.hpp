@@ -1,5 +1,4 @@
-﻿#ifndef W_INBOUNDEDITOR_H
-#define W_INBOUNDEDITOR_H
+﻿#pragma once
 
 #include <QDialog>
 #include <QJsonObject>
@@ -93,5 +92,3 @@ class InboundEditor : public QDialog, private Ui::InboundEditor
         QJsonObject sniffing;
         QJsonObject allocate;
 };
-
-#endif // W_INBOUNDEDITOR_H

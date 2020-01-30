@@ -1,5 +1,4 @@
-﻿#ifndef W_JSONEDITOR_H
-#define W_JSONEDITOR_H
+﻿#pragma once
 
 #include <QDialog>
 #include <QtCore>
@@ -25,5 +24,3 @@ class JsonEditor : public QDialog, private Ui::JsonEditor
         QJsonObject original;
         QJsonObject final;
 };
-
-#endif // W_JSONEDITOR_H

@@ -1,5 +1,4 @@
-#ifndef QVNODEMODELSBASE_HPP
-#define QVNODEMODELSBASE_HPP
+#pragma once
 
 #include <QLabel>
 
@@ -106,4 +105,3 @@ namespace Qv2ray
 
 using namespace Qv2ray::Components::Nodes;
 
-#endif // QVNODEMODELSBASE_HPP

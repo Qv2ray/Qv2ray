@@ -1,5 +1,4 @@
-#ifndef QVRULENODEMODEL_HPP
-#define QVRULENODEMODEL_HPP
+#pragma once
 
 #include <QtCore/qglobal.h>
 #include "ui/nodemodels/NodeModelsBase.hpp"
@@ -90,5 +89,3 @@ class QvRuleNodeDataModel : public NodeDataModel
         shared_ptr<RuleNodeData> _ruleTag;
         QLabel *_label;
 };
-
-#endif // QVRULENODEMODEL_HPP

@@ -16,8 +16,7 @@
     along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-#ifndef QVHTTPREQUESTHELPER_H
-#define QVHTTPREQUESTHELPER_H
+#pragma once
 
 #include <QObject>
 #include <QNetworkRequest>
@@ -59,5 +58,3 @@ namespace Qv2ray
             QNetworkAccessManager accessManager;
     };
 }
-
-#endif // QVHTTPREQUESTHELPER_H

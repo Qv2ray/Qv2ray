@@ -1,5 +1,4 @@
-﻿#ifndef QVIMAGEVIEWER_H
-#define QVIMAGEVIEWER_H
+﻿#pragma once
 
 #include "ui_w_ExportConfig.h"
 #include "3rdparty/qzxing/src/QZXing.h"
@@ -30,5 +29,3 @@ class ConfigExporter : public QDialog, private Ui::ExportConfigWindow
         QImage image;
         QString message;
 };
-
-#endif // QVIMAGEVIEWER_H

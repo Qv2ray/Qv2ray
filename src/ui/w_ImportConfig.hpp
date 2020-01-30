@@ -1,5 +1,4 @@
-﻿#ifndef IMPORTCONF_H
-#define IMPORTCONF_H
+﻿#pragma once
 
 #include <QDialog>
 #include <QString>
@@ -40,5 +39,3 @@ class ImportConfigWindow : public QDialog, private Ui::ImportConfigWindow
         QMap<QString, CONFIGROOT> connections;
         QMap<QString, QString> vmessErrors;
 };
-
-#endif // IMPORTCONF_H

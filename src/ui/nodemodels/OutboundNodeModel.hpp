@@ -1,6 +1,4 @@
-#ifndef QVOUTBOUNDNODEMODEL_HPP
-#define QVOUTBOUNDNODEMODEL_HPP
-
+#pragma once
 #include <QtCore/qglobal.h>
 #include "ui/nodemodels/NodeModelsBase.hpp"
 
@@ -67,5 +65,3 @@ class QvOutboundNodeModel : public NodeDataModel
         std::shared_ptr<OutboundNodeData> _out;
         QLabel *_label;
 };
-
-#endif // QVOUTBOUNDNODEMODEL_HPP

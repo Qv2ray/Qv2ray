@@ -1,5 +1,4 @@
-#ifndef QVINBOUNDNODEMODEL_HPP
-#define QVINBOUNDNODEMODEL_HPP
+#pragma once
 
 #include <QtCore/qglobal.h>
 #include "ui/nodemodels/NodeModelsBase.hpp"
@@ -60,5 +59,3 @@ class QvInboundNodeModel : public NodeDataModel
         std::shared_ptr<InboundNodeData> _in;
         QLabel *_label;
 };
-
-#endif // QVINBOUNDNODEMODEL_HPP

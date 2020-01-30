@@ -1,5 +1,4 @@
-#ifndef QVHELPERS_H
-#define QVHELPERS_H
+#pragma once
 
 #include "base/Qv2rayBase.hpp"
 #include <QMessageBox>
@@ -131,5 +130,3 @@ namespace Qv2ray
 
 using namespace Qv2ray::Utils;
 using namespace Qv2ray::mapExt;
-
-#endif // QVHELPERS_H

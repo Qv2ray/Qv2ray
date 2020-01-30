@@ -1,6 +1,4 @@
-﻿#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
-
+﻿#pragma once
 
 #include <QMainWindow>
 #include <QMenu>
@@ -158,5 +156,3 @@ class MainWindow : public QMainWindow, Ui::MainWindow
 
         QTreeWidgetItem *FindItemByIdentifier(QvConfigIdentifier identifier);
 };
-
-#endif // MAINWINDOW_H

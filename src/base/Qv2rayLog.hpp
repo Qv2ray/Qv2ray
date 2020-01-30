@@ -1,5 +1,4 @@
-﻿#ifndef QVTINYLOG_H
-#define QVTINYLOG_H
+﻿#pragma once
 
 #include <iostream>
 #include <QtDebug>
@@ -35,5 +34,3 @@ const QString readLastLog();
 #define MODULE_CONNECTION        "CONNECTION"
 #define MODULE_IMPORT            "IMPORT"
 #define MODULE_PLUGIN            "PLUGIN"
-
-#endif // QVTINYLOG_H

@@ -1,5 +1,4 @@
-﻿#ifndef W_SUBSCRIBEEDITOR_H
-#define W_SUBSCRIBEEDITOR_H
+﻿#pragma once
 
 #include <QDialog>
 #include "core/CoreUtils.hpp"
@@ -43,5 +42,3 @@ class SubscribeEditor : public QDialog, private Ui::w_SubscribeEditor
         QMap<QString, Qv2raySubscriptionConfig> subscriptions;
         QString currentSubName;
 };
-
-#endif // W_SUBSCRIBEEDITOR_H

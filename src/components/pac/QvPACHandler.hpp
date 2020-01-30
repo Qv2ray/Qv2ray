@@ -1,5 +1,4 @@
-#ifndef QVPACHANDLER_H
-#define QVPACHANDLER_H
+#pragma once
 #include "qhttpserver.h"
 #include <QObject>
 namespace Qv2ray
@@ -31,4 +30,3 @@ namespace Qv2ray
 }
 
 using namespace Qv2ray::Components;
-#endif // QVPACHANDLER_H

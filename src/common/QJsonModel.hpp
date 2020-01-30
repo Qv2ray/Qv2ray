@@ -22,8 +22,7 @@
 * SOFTWARE.
 */
 
-#ifndef QJSONMODEL_H
-#define QJSONMODEL_H
+#pragma once
 
 #include <QAbstractItemModel>
 #include <QJsonDocument>
@@ -100,5 +99,3 @@ class QJsonModel : public QAbstractItemModel
 
 
 };
-
-#endif // QJSONMODEL_H
