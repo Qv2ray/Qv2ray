@@ -81,7 +81,7 @@ jobs:
         shell: bash
         env:
           OS: ${{ matrix.platform }}
-          backend: ${{ matrix.backend })
+          backend: ${{ matrix.backend }}
         run: |
           PATH=$PATH:$Qt5_Dir
           mkdir build
