@@ -1,5 +1,5 @@
 #include "QvProxyConfigurator.hpp"
-#include "base/Qv2rayBase.hpp"
+#include "common/QvHelpers.hpp"
 #ifdef Q_OS_WIN
 #include "wininet.h"
 #include <windows.h>
