@@ -1,7 +1,7 @@
 #pragma once
 #include "3rdparty/x2struct/x2struct.hpp"
 
-namespace Qv2ray::base
+namespace Qv2ray::base::objects
 {
     //
     // Used in config generation
@@ -308,4 +308,3 @@ namespace Qv2ray::base
         };
     }
 }
-

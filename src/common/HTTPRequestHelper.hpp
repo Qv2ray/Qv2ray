@@ -23,7 +23,7 @@
 #include <QNetworkReply>
 #include <QNetworkAccessManager>
 
-namespace Qv2ray
+namespace Qv2ray::common
 {
     class QvHttpRequestHelper : public QObject
     {

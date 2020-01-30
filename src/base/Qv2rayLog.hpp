@@ -8,9 +8,13 @@ using namespace std;
 /*
  * Tiny log module.
  */
+namespace Qv2ray::base
+{
+    void __QV2RAY_LOG_FUNC__(int type, const std::string &func, int line, const QString &module, const QString &log);
+    const QString readLastLog();
+}
 
-void __QV2RAY_LOG_FUNC__(int type, const std::string &func, int line, const QString &module, const QString &log);
-const QString readLastLog();
+#define NEWLINE "\r\n"
 
 #define QV2RAY_LOG_NORMAL 0
 #define QV2RAY_LOG_DEBUG  1

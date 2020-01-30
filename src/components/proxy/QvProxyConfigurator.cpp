@@ -5,7 +5,7 @@
 #include <windows.h>
 #endif
 
-namespace Qv2ray::components
+namespace Qv2ray::components::proxy
 {
 
 #ifdef Q_OS_MACOS

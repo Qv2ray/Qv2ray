@@ -11,12 +11,12 @@ const bool isDebugBuild = true;
 const bool isDebugBuild = false;
 #endif
 
-namespace Qv2ray::base
+namespace Qv2ray
 {
     // Qv2ray runtime config
     inline bool isExiting = false;
-    inline Qv2rayRuntimeConfig RuntimeConfig = Qv2rayRuntimeConfig();
-    inline Qv2rayConfig GlobalConfig = Qv2rayConfig();
     inline QString Qv2rayConfigPath = "/";
-    inline QvStartupOptions StartupOption = QvStartupOptions();
+    inline base::Qv2rayRuntimeConfig RuntimeConfig = base::Qv2rayRuntimeConfig();
+    inline base::config::Qv2rayConfig GlobalConfig = base::config::Qv2rayConfig();
+    inline base::QvStartupOptions StartupOption = base::QvStartupOptions();
 }

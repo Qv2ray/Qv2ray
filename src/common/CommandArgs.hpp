@@ -1,6 +1,6 @@
 #pragma once
 #include "base/Qv2rayBase.hpp"
-namespace Qv2ray::common::CommandArgOperations
+namespace Qv2ray::common
 {
     enum CommandLineParseResult {
         CommandLineOk,
@@ -30,4 +30,4 @@ namespace Qv2ray::common::CommandArgOperations
     };
 }
 
-using namespace Qv2ray::common::CommandArgOperations;
+using namespace Qv2ray::common;

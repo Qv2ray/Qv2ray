@@ -3,7 +3,7 @@
 #include <QNetworkProxy>
 #include "base/Qv2rayBase.hpp"
 
-namespace Qv2ray
+namespace Qv2ray::common
 {
     QvHttpRequestHelper::QvHttpRequestHelper() : reply()
     {

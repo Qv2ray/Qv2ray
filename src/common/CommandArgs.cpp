@@ -1,7 +1,7 @@
 #include "CommandArgs.hpp"
 #include <QCommandLineParser>
 
-namespace Qv2ray::common::CommandArgOperations
+namespace Qv2ray::common
 {
     QvCommandArgParser::QvCommandArgParser() : QObject(),
         noAPIOption("noAPI", QObject::tr("Disable gRPC API subsystems.")),

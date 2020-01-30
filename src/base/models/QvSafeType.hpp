@@ -12,7 +12,7 @@
             const Base& raw() const { return *this; } \
     };
 
-namespace Qv2ray
+namespace Qv2ray::base::safetype
 {
     // To prevent anonying QJsonObject misuse
     SAFE_TYPEDEF(QJsonObject, INBOUNDSETTING)

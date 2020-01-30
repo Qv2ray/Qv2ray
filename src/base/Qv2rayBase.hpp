@@ -22,8 +22,11 @@ using namespace std;
 using namespace std::chrono;
 using namespace Qv2ray;
 using namespace Qv2ray::base;
-using namespace Qv2ray::base::protocol;
-using namespace Qv2ray::base::transfer;
+using namespace Qv2ray::base::safetype;
+using namespace Qv2ray::base::config;
+using namespace Qv2ray::base::objects;
+using namespace Qv2ray::base::objects::protocol;
+using namespace Qv2ray::base::objects::transfer;
 
 // Linux users and DEs should handle the darkMode UI themselves.
 #ifndef QV2RAY_USE_BUILTIN_DARKTHEME
@@ -44,7 +47,7 @@ extern const bool isDebugBuild;
 #endif
 
 // Get Configured Config Dir Path
-#define QV2RAY_CONFIG_DIR (Qv2ray::base::Qv2rayConfigPath)
+#define QV2RAY_CONFIG_DIR (Qv2ray::Qv2rayConfigPath)
 #define QV2RAY_CONFIG_FILE (QV2RAY_CONFIG_DIR + "Qv2ray.conf")
 #define QV2RAY_SUBSCRIPTION_DIR (QV2RAY_CONFIG_DIR + "subscriptions/")
 
@@ -88,9 +91,6 @@ extern const bool isDebugBuild;
 #define QICON_R(file) QIcon(QV2RAY_UI_RESOURCES_ROOT + file)
 
 #define QSTRN(num) QString::number(num)
-
-#define NEWLINE "\r\n"
-
 
 namespace Qv2ray
 {
