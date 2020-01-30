@@ -3,12 +3,8 @@
 #include "QvNetSpeedPlugin.hpp"
 #include "QvUtils.hpp"
 #include <windows.h>
-namespace Qv2ray
+namespace Qv2ray::components::plugins::Toolbar
 {
-    namespace Components
-    {
-        namespace NetSpeedPlugin
-        {
             namespace _win
             {
                 // Private Headers
@@ -115,6 +111,4 @@ namespace Qv2ray
                 }
             }
         }
-    }
-}
 #endif

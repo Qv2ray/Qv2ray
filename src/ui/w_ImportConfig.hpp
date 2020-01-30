@@ -4,7 +4,7 @@
 #include <QDialog>
 #include <QString>
 #include <QJsonObject>
-#include "QvCoreConfigObjects.hpp"
+#include "base/Qv2rayBase.hpp"
 #include "ui_w_ImportConfig.h"
 
 class ImportConfigWindow : public QDialog, private Ui::ImportConfigWindow

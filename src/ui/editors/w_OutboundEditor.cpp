@@ -4,9 +4,9 @@
 #include <iostream>
 
 #include "w_OutboundEditor.hpp"
-#include "w_MainWindow.hpp"
-#include "w_JsonEditor.hpp"
-#include "w_RoutesEditor.hpp"
+#include "ui/w_MainWindow.hpp"
+#include "ui/editors/w_JsonEditor.hpp"
+#include "ui/editors/w_RoutesEditor.hpp"
 
 OutboundEditor::OutboundEditor(QWidget *parent)
     : QDialog(parent),
@@ -421,7 +421,7 @@ void OutboundEditor::on_tcpRequestEditBtn_clicked()
     JsonEditor w(JsonFromString(tcpRequestTxt->toPlainText()), this);
     auto rString = JsonToString(w.OpenEditor());
     tcpRequestTxt->setPlainText(rString);
-    auto tcpReqObject = StructFromJsonString<TSObjects::HTTPRequestObject>(rString);
+    auto tcpReqObject = StructFromJsonString<HTTPRequestObject>(rString);
     stream.tcpSettings.header.request = tcpReqObject;
 }
 
@@ -430,7 +430,7 @@ void OutboundEditor::on_tcpResponseEditBtn_clicked()
     JsonEditor w(JsonFromString(tcpRespTxt->toPlainText()), this);
     auto rString = JsonToString(w.OpenEditor());
     tcpRespTxt->setPlainText(rString);
-    auto tcpRspObject = StructFromJsonString<TSObjects::HTTPResponseObject>(rString);
+    auto tcpRspObject = StructFromJsonString<HTTPResponseObject>(rString);
     stream.tcpSettings.header.response = tcpRspObject;
 }
 

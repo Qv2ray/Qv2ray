@@ -5,13 +5,11 @@
 #include <QStyle>
 #include <QDesktopServices>
 
-#include "QvUtils.hpp"
-#include "QvKernelInteractions.hpp"
-#include "QvNetSpeedPlugin.hpp"
-#include "QvCoreConfigOperations.hpp"
-
-#include "QvHTTPRequestHelper.hpp"
-#include "QvLaunchAtLoginConfigurator.hpp"
+#include "common/HTTPRequestHelper.hpp"
+#include "core/kernel/QvKernelInteractions.hpp"
+#include "core/connection/ConnectionConfigOperations.hpp"
+#include "components/plugins/toolbar/QvToolbar.hpp"
+#include "components/autolaunch/QvAutoLaunch.hpp"
 
 #define LOADINGCHECK if(!finishedLoading) return;
 #define NEEDRESTART if(finishedLoading) IsConnectionPropertyChanged = true;

@@ -4,7 +4,7 @@
  * MODIFIED BY Leroy.H.Y @lhy0403 re-licenced under GPLv3
  */
 
-#include "QvUtils.hpp"
+#include "common/QvHelpers.hpp"
 
 namespace Qv2ray
 {

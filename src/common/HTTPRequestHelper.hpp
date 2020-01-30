@@ -23,7 +23,6 @@
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QNetworkAccessManager>
-#include "QvUtils.hpp"
 
 namespace Qv2ray
 {

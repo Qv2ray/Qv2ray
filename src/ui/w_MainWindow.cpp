@@ -15,16 +15,16 @@
 #include <QKeyEvent>
 
 #include "w_MainWindow.hpp"
-#include "w_OutboundEditor.hpp"
 #include "w_ImportConfig.hpp"
-#include "w_RoutesEditor.hpp"
 #include "w_PreferencesWindow.hpp"
-#include "w_SubscriptionEditor.hpp"
-#include "w_JsonEditor.hpp"
+#include "w_SubscriptionManager.hpp"
 #include "w_ExportConfig.hpp"
+#include "ui/editors/w_OutboundEditor.hpp"
+#include "ui/editors/w_RoutesEditor.hpp"
+#include "ui/editors/w_JsonEditor.hpp"
 
-#include "QvNetSpeedPlugin.hpp"
-#include "QvPACHandler.hpp"
+#include "components/plugins/toolbar/QvToolbar.hpp"
+#include "components/pac/QvPACHandler.hpp"
 
 // MainWindow.cpp --> Main MainWindow source file, handles mostly UI-related operations.
 
@@ -240,7 +240,7 @@ MainWindow::MainWindow(QWidget *parent):
     speedChartObj->axes(Qt::Horizontal).first()->setRange(0, 30);
     speedChartObj->setContentsMargins(-20, -50, -20, -25);
     speedChartView = new QChartView(speedChartObj, this);
-    speedChartView->setRenderHint(QPainter::RenderHint::HighQualityAntialiasing, true);
+    speedChartView->setRenderHint(QPainter::Antialiasing, true);
     //
     auto layout = new QHBoxLayout(speedChart);
     layout->addWidget(speedChartView);

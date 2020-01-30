@@ -4,15 +4,16 @@
 #pragma once
 
 #include "w_RoutesEditor.hpp"
-#include "QvCoreConfigOperations.hpp"
+#include "core/connection/ConnectionConfigOperations.hpp"
 #include "w_OutboundEditor.hpp"
 #include "w_JsonEditor.hpp"
 #include "w_InboundEditor.hpp"
-#include "w_ImportConfig.hpp"
+#include "ui/w_ImportConfig.hpp"
+#include "core/CoreUtils.hpp"
 
-#include "RouteNodeModels/QvRuleNodeModel.hpp"
-#include "RouteNodeModels/QvInboundNodeModel.hpp"
-#include "RouteNodeModels/QvOutboundNodeModel.hpp"
+#include "ui/nodemodels/RuleNodeModel.hpp"
+#include "ui/nodemodels/InboundNodeModel.hpp"
+#include "ui/nodemodels/OutboundNodeModel.hpp"
 
 #include "NodeStyle.hpp"
 #include "FlowView.hpp"

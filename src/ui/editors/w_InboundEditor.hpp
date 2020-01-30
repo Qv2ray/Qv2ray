@@ -5,8 +5,7 @@
 #include <QJsonObject>
 #include <QListWidgetItem>
 #include "ui_w_InboundEditor.h"
-#include "QvUtils.hpp"
-#include "QvCoreConfigOperations.hpp"
+#include "base/Qv2rayBase.hpp"
 
 class InboundEditor : public QDialog, private Ui::InboundEditor
 {

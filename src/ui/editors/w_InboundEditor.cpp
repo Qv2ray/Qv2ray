@@ -1,4 +1,6 @@
 ﻿#include "w_InboundEditor.hpp"
+#include "core/CoreUtils.hpp"
+#include "core/connection/ConnectionConfigOperations.hpp"
 
 static bool isLoading = false;
 #define CHECKLOADING if(isLoading) return;

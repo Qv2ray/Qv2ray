@@ -1,5 +1,4 @@
-#ifndef QJSONMACROS_H
-#define QJSONMACROS_H
+#pragma once
 
 #define STRINGIZE(arg)  STRINGIZE1(arg)
 #define STRINGIZE1(arg) STRINGIZE2(arg)
@@ -47,5 +46,3 @@
 #define JADD(...) FOR_EACH(JADDEx, __VA_ARGS__)
 
 #define RROOT return root;
-
-#endif

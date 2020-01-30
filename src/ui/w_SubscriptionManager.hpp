@@ -2,10 +2,10 @@
 #define W_SUBSCRIBEEDITOR_H
 
 #include <QDialog>
-#include "QvUtils.hpp"
-#include "QvHTTPRequestHelper.hpp"
+#include "core/CoreUtils.hpp"
+#include "common/HTTPRequestHelper.hpp"
 
-#include "ui_w_SubscriptionEditor.h"
+#include "ui_w_SubscriptionManager.h"
 class SubscribeEditor : public QDialog, private Ui::w_SubscribeEditor
 {
         Q_OBJECT

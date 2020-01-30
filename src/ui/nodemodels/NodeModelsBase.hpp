@@ -6,7 +6,7 @@
 #include "NodeDataModel.hpp"
 #include "PortType.hpp"
 
-#include "QvUtils.hpp"
+#include "common/QvHelpers.hpp"
 
 using QtNodes::PortType;
 using QtNodes::PortIndex;

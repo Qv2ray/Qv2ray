@@ -5,7 +5,7 @@
 #include <QJsonArray>
 #include <QJsonObject>
 #include <QListWidgetItem>
-#include "QvUtils.hpp"
+#include "common/QvHelpers.hpp"
 
 #include "Node.hpp"
 #include "NodeData.hpp"

@@ -1,9 +1,8 @@
 #ifndef QVHELPERS_H
 #define QVHELPERS_H
 
-#include "Qv2rayBase.hpp"
+#include "base/Qv2rayBase.hpp"
 #include <QMessageBox>
-#include <QUuid>
 
 #define REGEX_IPV6_ADDR "\\[\\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)(\\.(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)){3}))|:)))(%.+)?\\s*\\]"
 #define REGISTER_WINDOW GlobalWindows.append(this);
@@ -54,14 +53,14 @@ namespace Qv2ray
         template <typename TYPE>
         QString StructToJsonString(const TYPE t)
         {
-            return QString::fromStdString(X::tojson(t, "", 4, ' '));
+            return QString::fromStdString(x2struct::X::tojson(t, "", 4, ' '));
         }
         //
         template <typename TYPE>
         TYPE StructFromJsonString(const QString &str)
         {
             TYPE v;
-            X::loadjson(str.toStdString(), v, false);
+            x2struct::X::loadjson(str.toStdString(), v, false);
             return v;
         }
         // Misc
@@ -75,13 +74,6 @@ namespace Qv2ray
         inline bool IsIPv6Address(const QString &addr)
         {
             return QRegularExpression(REGEX_IPV6_ADDR).match(addr).hasMatch();
-        }
-
-        // THIS IS ADDED FOR c++11
-        template<typename T, typename... Args>
-        std::unique_ptr<T> make_unique(Args &&... args)
-        {
-            return std::unique_ptr<T>(new T(std::forward<Args>(args)...));
         }
 
         /*

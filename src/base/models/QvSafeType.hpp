@@ -1,3 +1,9 @@
+#pragma once
+
+#include <QJsonObject>
+#include <QJsonArray>
+#include <QJsonDocument>
+
 #define SAFE_TYPEDEF(Base, name) \
     class name : public Base { \
         public: \
@@ -5,8 +11,6 @@
             explicit name (Args... args) : Base(args...) {} \
             const Base& raw() const { return *this; } \
     };
-
-
 
 namespace Qv2ray
 {
@@ -25,6 +29,3 @@ namespace Qv2ray
     SAFE_TYPEDEF(QJsonObject, ROUTERULE)
     SAFE_TYPEDEF(QJsonArray, ROUTERULELIST)
 }
-
-/* ----------------------------------------- */
-

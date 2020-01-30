@@ -48,14 +48,11 @@
 **
 ****************************************************************************/
 
-#ifndef HIGHLIGHTER_H
-#define HIGHLIGHTER_H
-
+#pragma once
 #include <QSyntaxHighlighter>
 #include <QTextCharFormat>
 #include <QRegularExpression>
 #include <QTextDocument>
-#include "QvUtils.hpp"
 
 namespace Qv2ray
 {
@@ -97,5 +94,3 @@ namespace Qv2ray
 }
 
 using namespace Qv2ray::Components;
-
-#endif // HIGHLIGHTER_H

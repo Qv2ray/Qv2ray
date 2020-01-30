@@ -1,6 +1,6 @@
 ﻿#include "w_JsonEditor.hpp"
 
-#include "QvUtils.hpp"
+#include "common/QvHelpers.hpp"
 
 JsonEditor::JsonEditor(QJsonObject rootObject, QWidget *parent) :
     QDialog(parent)

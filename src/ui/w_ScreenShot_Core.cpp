@@ -1,5 +1,5 @@
 #include "w_ScreenShot_Core.hpp"
-#include "QvUtils.hpp"
+#include "common/QvHelpers.hpp"
 #include <QMessageBox>
 #include <QThread>
 #include <QStyleFactory>
@@ -56,7 +56,7 @@ QImage ScreenShotWindow::DoScreenShot()
 
     bg_grey = bg_grey.scaled(bg_grey.size() / devicePixelRatio(), Qt::KeepAspectRatio, Qt::TransformationMode::SmoothTransformation);
     auto p = this->palette();
-    p.setBrush(QPalette::Background, bg_grey);
+    p.setBrush(QPalette::Window, bg_grey);
     setPalette(p);
     setWindowState(Qt::WindowState::WindowFullScreen);
     setMouseTracking(true);

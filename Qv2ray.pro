@@ -29,7 +29,7 @@ message("Qv2ray installation PREFIX="$$PREFIX)
 DEFINES += QT_DEPRECATED_WARNINGS QV2RAY_VERSION_STRING=\"\\\"v$${VERSION}\\\"\" QAPPLICATION_CLASS=QApplication
 
 # Don't merge those configs with below.
-CONFIG += enable_decoder_qr_code enable_encoder_qr_code qt c++11 openssl-linked
+CONFIG += enable_decoder_qr_code enable_encoder_qr_code qt c++17 openssl-linked
 
 include(3rdparty/qzxing/src/QZXing-components.pri)
 include(3rdparty/SingleApplication/singleapplication.pri)
@@ -51,15 +51,12 @@ defineTest(Qv2rayAddFile) {
         error("File: \"$$filename\" is not found, Qv2ray build preparation cannot continue")
     }
     equals(ext, "cpp") {
-        qmake_debug: message(Adding source $$filename)
         SOURCES += $$filename
     } else {
         equals(ext, "hpp") {
-            qmake_debug: message(Adding header $$filename)
             HEADERS += $$filename
         } else {
             equals(ext, "ui") {
-                qmake_debug: message(Adding form $$filename)
                 FORMS += $$filename
             } else {
                 error("Unknown extension: $${ext}")
@@ -79,7 +76,7 @@ defineTest(Qv2rayAddSource) {
     filename = $$take_first(ARGS)
     extlist = $$ARGS
     FILEPATH = "$$PWD/src/$${module}"
-    qmake_debug: message(Qv2rayAddSource: Adding \"$${filename}\" of module \"$${module}\" and component \"$${component}\" to the project)
+    qmake_debug: message(Qv2rayAddSource: Adding \"$${filename}\" of module \"$${module}\", component \"$${component}\" to the project)
     equals(component, "_") {
         qmake_debug: message("Qv2rayAddSource: Component is empty, ignore")
         FILEPATH += "/$${filename}"
@@ -97,20 +94,22 @@ defineTest(Qv2rayAddSource) {
     export(FORMS)
 }
 
-Qv2rayAddSource(base, _, GlobalInstances, cpp, hpp)
+Qv2rayAddSource(base, _, GlobalInstances, hpp)
 Qv2rayAddSource(base, _, JsonHelpers, hpp)
 Qv2rayAddSource(base, _, Qv2rayBase, hpp)
 Qv2rayAddSource(base, _, Qv2rayFeatures, hpp)
 Qv2rayAddSource(base, _, Qv2rayLog, cpp, hpp)
+Qv2rayAddSource(base, models, CoreObjectModels, hpp)
+Qv2rayAddSource(base, models, QvConfigModel, hpp)
+Qv2rayAddSource(base, models, QvConfigIdentifier, hpp)
+Qv2rayAddSource(base, models, QvSafeType, hpp)
+Qv2rayAddSource(base, models, QvRuntimeConfig, hpp)
+Qv2rayAddSource(base, models, QvStartupConfig, hpp)
 Qv2rayAddSource(common, _, CommandArgs, cpp, hpp)
 Qv2rayAddSource(common, _, HTTPRequestHelper, cpp, hpp)
 Qv2rayAddSource(common, _, LogHighlighter, cpp, hpp)
 Qv2rayAddSource(common, _, QJsonModel, cpp, hpp)
 Qv2rayAddSource(common, _, QvHelpers, cpp, hpp)
-Qv2rayAddSource(common, models, CoreObjectModels, hpp)
-Qv2rayAddSource(common, models, QvConfigModel, hpp)
-Qv2rayAddSource(common, models, QvSafeType, hpp)
-Qv2rayAddSource(common, models, RuntimeConfig, hpp)
 Qv2rayAddSource(components, autolaunch, QvAutoLaunch, cpp, hpp)
 Qv2rayAddSource(components, pac, QvGFWPACConverter, cpp)
 Qv2rayAddSource(components, pac, QvPACHandler, cpp, hpp)
@@ -144,7 +143,7 @@ Qv2rayAddSource(ui, _, w_ScreenShot_Core, cpp, hpp, ui)
 Qv2rayAddSource(ui, _, w_SubscriptionManager, cpp, hpp, ui)
 
 SOURCES += $$PWD/src/main.cpp
-#SOURCES += $$PWD/src/main.cpp
+INCLUDEPATH += $$PWD/src
 RESOURCES += \
         resources.qrc
 
@@ -174,9 +173,10 @@ isEmpty(_QV2RAY_BUILD_EXTRA_INFO_STR_) {
     _QV2RAY_BUILD_EXTRA_INFO_STR_ = "Qv2ray $$VERSION"
 }
 
-message(Qv2ray build info: $$_QV2RAY_BUILD_INFO_STR_)
-message(Qv2ray build extra info: $$_QV2RAY_BUILD_EXTRA_INFO_STR_)
-# \"\\\"v$${VERSION}\\\"\"
+message("Qv2ray build info:")
+message("  --> $$_QV2RAY_BUILD_INFO_STR_")
+message("  --> $$_QV2RAY_BUILD_EXTRA_INFO_STR_")
+
 DEFINES += _QV2RAY_BUILD_INFO_STR_=\"\\\"$${_QV2RAY_BUILD_INFO_STR_}\\\"\" \
            _QV2RAY_BUILD_EXTRA_INFO_STR_=\"\\\"$${_QV2RAY_BUILD_EXTRA_INFO_STR_}\\\"\"
 

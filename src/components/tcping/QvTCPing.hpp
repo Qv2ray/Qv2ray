@@ -10,7 +10,7 @@
 #endif
 #include <sys/time.h>
 #include <unistd.h>
-#include "QvUtils.hpp"
+#include "common/QvHelpers.hpp"
 
 
 namespace Qv2ray

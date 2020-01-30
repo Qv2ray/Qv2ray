@@ -2,7 +2,7 @@
 #define QVRULENODEMODEL_HPP
 
 #include <QtCore/qglobal.h>
-#include "QvNodeModelsBase.hpp"
+#include "ui/nodemodels/NodeModelsBase.hpp"
 
 class QvRuleNodeDataModel : public NodeDataModel
 {

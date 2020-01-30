@@ -1,4 +1,5 @@
-#include "QvLogHighlighter.hpp"
+#include "LogHighlighter.hpp"
+#include "common/QvHelpers.hpp"
 
 #define REGEX_PORT_NUMBER "([0-9]|[1-9]\\d{1,3}|[1-5]\\d{4}|6[0-5]{2}[0-3][0-5])*"
 #define TO_EOL "(([\\s\\S]*)|([\\d\\D]*)|([\\w\\W]*))$"

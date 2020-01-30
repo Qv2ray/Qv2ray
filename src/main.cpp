@@ -8,8 +8,9 @@
 #include <QApplication>
 #include <singleapplication.h>
 #include <csignal>
-#include "w_MainWindow.hpp"
-#include "QvCore/QvCommandLineArgs.hpp"
+#include "ui/w_MainWindow.hpp"
+#include "base/Qv2rayBase.hpp"
+#include "common/CommandArgs.hpp"
 
 #ifdef Q_OS_UNIX
 // For unix root user check

@@ -1,6 +1,5 @@
 ﻿#include "w_SubscriptionManager.hpp"
-#include "QvHTTPRequestHelper.hpp"
-#include "QvCoreConfigOperations.hpp"
+#include "core/connection/ConnectionConfigOperations.hpp"
 
 SubscribeEditor::SubscribeEditor(QWidget *parent) :
     QDialog(parent)

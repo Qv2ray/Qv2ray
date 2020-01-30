@@ -1,7 +1,7 @@
 #include "QvPACHandler.hpp"
 #include "qhttprequest.h"
 #include "qhttpresponse.h"
-#include "QvUtils.hpp"
+#include "core/CoreUtils.hpp"
 
 namespace Qv2ray
 {

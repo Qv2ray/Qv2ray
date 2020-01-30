@@ -5,20 +5,18 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QThread>
-#include "qzxing/src/QZXing.h"
+#include "3rdparty/qzxing/src/QZXing.h"
 
-#include "QvUtils.hpp"
-#include "QvKernelInteractions.hpp"
-#include "QvCoreConfigOperations.hpp"
+#include "core/CoreUtils.hpp"
+#include "core/kernel/QvKernelInteractions.hpp"
+#include "core/connection/ConnectionConfigOperations.hpp"
 
 #include "w_ScreenShot_Core.hpp"
-#include "w_OutboundEditor.hpp"
-#include "w_JsonEditor.hpp"
+#include "ui/editors/w_OutboundEditor.hpp"
+#include "ui/editors/w_JsonEditor.hpp"
 #include "w_ImportConfig.hpp"
-#include "w_SubscriptionEditor.hpp"
-#include "w_RoutesEditor.hpp"
-
-#include "QvRuntimeConfig.hpp"
+#include "ui/w_SubscriptionManager.hpp"
+#include "ui/editors/w_RoutesEditor.hpp"
 
 ImportConfigWindow::ImportConfigWindow(QWidget *parent)
     : QDialog(parent)

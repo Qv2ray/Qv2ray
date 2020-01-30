@@ -3,7 +3,7 @@
 
 #include <QtCore>
 #include <QDialog>
-#include "QvCoreConfigObjects.hpp"
+#include "base/Qv2rayBase.hpp"
 #include "ui_w_OutboundEditor.h"
 
 class OutboundEditor : public QDialog, private Ui::OutboundEditor

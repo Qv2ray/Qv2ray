@@ -2,7 +2,7 @@
 #define QVIMAGEVIEWER_H
 
 #include "ui_w_ExportConfig.h"
-#include "qzxing/src/QZXing.h"
+#include "3rdparty/qzxing/src/QZXing.h"
 
 class ConfigExporter : public QDialog, private Ui::ExportConfigWindow
 {

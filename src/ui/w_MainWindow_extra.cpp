@@ -2,7 +2,7 @@
 // and components interactions.
 // We NEED to include the cpp file to define the macros.
 #include "w_MainWindow.cpp"
-#include "QvSystemProxyConfigurator.hpp"
+#include "components/proxy/QvProxyConfigurator.hpp"
 
 QTreeWidgetItem *MainWindow::FindItemByIdentifier(QvConfigIdentifier identifier)
 {

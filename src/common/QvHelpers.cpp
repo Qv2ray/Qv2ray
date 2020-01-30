@@ -1,5 +1,5 @@
-#include "QvHelpers.hpp"
-#include "QvUtils.hpp"
+#include "common/QvHelpers.hpp"
+#include "common/CommandArgs.hpp"
 #include <QQueue>
 
 // Forwarded from QvTinyLog

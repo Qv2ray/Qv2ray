@@ -3,7 +3,7 @@
 
 #include <QDialog>
 #include <QtCore>
-#include "QJsonModel.hpp"
+#include "common/QJsonModel.hpp"
 #include "ui_w_JsonEditor.h"
 
 class JsonEditor : public QDialog, private Ui::JsonEditor

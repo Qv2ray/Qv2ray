@@ -1,7 +1,6 @@
 ﻿#ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "QvTCPing.hpp"
 
 #include <QMainWindow>
 #include <QMenu>
@@ -11,12 +10,15 @@
 
 #include "ui_w_MainWindow.h"
 
-#include "QvUtils.hpp"
-#include "QvKernelInteractions.hpp"
-#include "QvCoreConfigOperations.hpp"
-#include "QvHTTPRequestHelper.hpp"
-#include "QvPACHandler.hpp"
-#include "QvLogHighlighter.hpp"
+#include "core/CoreUtils.hpp"
+#include "core/kernel/QvKernelInteractions.hpp"
+#include "core/connection/ConnectionConfigOperations.hpp"
+
+#include "components/pac/QvPACHandler.hpp"
+#include "common/LogHighlighter.hpp"
+#include "common/HTTPRequestHelper.hpp"
+#include "components/tcping/QvTCPing.hpp"
+
 enum QvConnectionType {
     CONNECTION_REGULAR = 1,
     CONNECTION_SUBSCRIPTION = 2

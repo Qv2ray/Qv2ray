@@ -1,17 +1,11 @@
-#ifndef QVSYSTEMPROXYCONFIGURATOR_H
-#define QVSYSTEMPROXYCONFIGURATOR_H
-#include "QvUtils.hpp"
+#pragma once
+#include <QString>
 #include <QObject>
 //
-namespace Qv2ray
+namespace Qv2ray::components
 {
-    namespace Components
-    {
-        bool ClearSystemProxy();
-        bool SetSystemProxy(const QString &address, int port, bool usePAC);
-    }
+    bool ClearSystemProxy();
+    bool SetSystemProxy(const QString &address, int port, bool usePAC);
 }
 
-using namespace Qv2ray::Components;
-
-#endif // QVSYSTEMPROXYCONFIGURATOR_H
+using namespace Qv2ray::components;

@@ -1,17 +1,9 @@
-#ifndef QVLAUNCH_AT_LOGINCONFIGURATOR_H
-#define QVLAUNCH_AT_LOGINCONFIGURATOR_H
+#pragma once
 
-#include "QvUtils.hpp"
-
-namespace Qv2ray
+namespace Qv2ray::components::autolaunch
 {
-    namespace Components
-    {
-        bool GetLaunchAtLoginStatus();
-        void SetLaunchAtLoginStatus(bool enable);
-    }
+    bool GetLaunchAtLoginStatus();
+    void SetLaunchAtLoginStatus(bool enable);
 }
 
-using namespace Qv2ray::Components;
-
-#endif // QVLAUNCH_AT_LOGINCONFIGURATOR_H
+using namespace Qv2ray::components::autolaunch;

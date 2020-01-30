@@ -1,5 +1,5 @@
 ﻿#include "w_ExportConfig.hpp"
-#include "QvUtils.hpp"
+#include "common/QvHelpers.hpp"
 #include <QFileDialog>
 
 // Private initialiser

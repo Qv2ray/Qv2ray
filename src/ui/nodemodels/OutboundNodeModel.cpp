@@ -1,4 +1,4 @@
-#include "QvOutboundNodeModel.hpp"
+#include "ui/nodemodels/OutboundNodeModel.hpp"
 
 QvOutboundNodeModel::QvOutboundNodeModel(std::shared_ptr<OutboundNodeData> data): NodeDataModel()
 {
