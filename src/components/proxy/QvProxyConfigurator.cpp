@@ -12,7 +12,11 @@ namespace Qv2ray::components::proxy
     QStringList macOSgetNetworkServices()
     {
         QProcess p;
-        p.start("/usr/sbin/networksetup -listallnetworkservices");
+        p.setProgram("/usr/sbin/networksetup");
+        p.setArguments(QStringList() << "-listallnetworkservices");
+        p.start();
+        p.waitForStarted();
+        p.waitForFinished();
         LOG(MODULE_PROXY, p.errorString())
         auto str = p.readAllStandardOutput();
         auto lines = SplitLines(str);
