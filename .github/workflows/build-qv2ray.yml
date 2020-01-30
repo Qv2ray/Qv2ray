@@ -77,26 +77,18 @@ jobs:
         if: matrix.platform == 'windows-latest' && matrix.backend == 'libqvb'
         run: curl -o .\libs\libqvb-win64.a -L https://github.com/Qv2ray/QvRPCBridge/releases/download/v1.1/libqvb-win64.a
 # -------------------------------------------------------- Generate MakeFile
-      - name: Generate Makefile for gRPC
-        if: matrix.backend != 'libqvb'
+      - name: Generate Makefile
         shell: bash
+        env:
+          OS: ${{ matrix.platform }}
+          backend: ${{ matrix.backend })
         run: |
           PATH=$PATH:$Qt5_Dir
           mkdir build
           cd build
           export _QV2RAY_BUILD_INFO_="Github Action Asset"
           export _QV2RAY_BUILD_EXTRA_INFO_="This is a build of Qv2ray from Github Action: qt${{ matrix.qt_version }}-${{ matrix.backend }}-${{ matrix.platform }}"
-          qmake .. CONFIG+=no_increase_build_number PREFIX=/usr
-      - name: Generate Makefile for libqvb
-        if: matrix.backend == 'libqvb'
-        shell: bash
-        run: |
-          PATH=$PATH:$Qt5_Dir
-          mkdir build
-          cd build
-          export _QV2RAY_BUILD_INFO_="Github Action Asset"
-          export _QV2RAY_BUILD_EXTRA_INFO_="This is a build of Qv2ray from Github Action: qt${{ matrix.qt_version }}-${{ matrix.backend }}-${{ matrix.platform }}"
-          qmake .. CONFIG+=no_increase_build_number CONFIG+=with_new_backend PREFIX=/usr
+          qmake .. CONFIG+=no_increase_build_number $([ "$backend" == libqvb ] && echo "CONFIG+=with_new_backend" || echo "") PREFIX=/usr
 # -------------------------------------------------------- Build
       - name: Linux - ${{ matrix.qt_version }} - ${{ matrix.backend }} - Build Qv2ray
         if: matrix.platform == 'ubuntu-16.04'
