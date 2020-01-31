@@ -1,6 +1,6 @@
 # Qv2ray - Make v2ray real cross-platform
 
-![archlinuxcn](https://img.shields.io/badge/archlinuxcn-available-success?style=flat-square)
+[![archlinuxcn](https://img.shields.io/badge/archlinuxcn-available-success?style=flat-square)](https://build.archlinuxcn.org/packages/#/qv2ray)
 [![flathub](https://img.shields.io/badge/flathub-available-success?style=flat-square)](https://flathub.org/apps/details/com.github.Qv2ray)
 [![HitCount](http://hits.dwyl.io/Qv2ray/Qv2ray.svg)](http://hits.dwyl.io/Qv2ray/Qv2ray)
 ![GitHub Releases](https://img.shields.io/github/downloads/Qv2ray/Qv2ray/latest/total?style=flat-square)
