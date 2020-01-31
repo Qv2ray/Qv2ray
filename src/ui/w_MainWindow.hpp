@@ -9,13 +9,15 @@
 #include "ui_w_MainWindow.h"
 
 #include "core/CoreUtils.hpp"
-#include "core/kernel/QvKernelInteractions.hpp"
+#include "core/kernel/KernelInteractions.hpp"
 #include "core/connection/ConnectionIO.hpp"
 
-#include "components/pac/QvPACHandler.hpp"
 #include "common/LogHighlighter.hpp"
 #include "common/HTTPRequestHelper.hpp"
+
 #include "components/tcping/QvTCPing.hpp"
+#include "components/pac/QvPACHandler.hpp"
+#include "components/speedchart/speedwidget.hpp"
 
 enum QvConnectionType {
     CONNECTION_REGULAR = 1,
@@ -94,12 +96,7 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         CONFIGROOT currentFullConfig;
         //
         // Charts
-        QChartView *speedChartView;
-        QChart *speedChartObj;
-        QSplineSeries *uploadSerie;
-        QSplineSeries *downloadSerie;
-        QList<double> uploadList;
-        QList<double> downloadList;
+        SpeedWidget *speedChartView;
         //
         QMenu *connectionListMenu;
 

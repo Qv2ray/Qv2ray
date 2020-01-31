@@ -2,20 +2,8 @@
 #include <QWidget>
 #include <QDesktopServices>
 #include "common/QvHelpers.hpp"
-#include "QvKernelInteractions.hpp"
+#include "KernelInteractions.hpp"
 #include "core/connection/ConnectionIO.hpp"
-
-#ifdef WITH_LIB_GRPCPP
-using namespace v2ray::core::app::stats::command;
-using grpc::Channel;
-using grpc::ClientContext;
-using grpc::Status;
-#else
-#include "libs/libqvb/build/libqvb.h"
-#endif
-
-// Check 10 times before telling user that API has failed.
-#define QV2RAY_API_CALL_FAILEDCHECK_THRESHOLD 10
 
 namespace Qv2ray::core::kernel
 {
@@ -140,9 +128,12 @@ namespace Qv2ray::core::kernel
             // If V2ray crashed AFTER we start it.
             if (KernelStarted && state == QProcess::NotRunning) {
                 LOG(MODULE_VCORE, "V2ray kernel crashed.")
+                StopConnection();
                 emit onProcessErrored();
             }
         });
+        apiWorker = new APIWorkder();
+        connect(apiWorker, &APIWorkder::OnDataReady, this, &V2rayKernelInstance::onAPIDataReady);
         KernelStarted = false;
     }
 
@@ -153,20 +144,6 @@ namespace Qv2ray::core::kernel
             return false;
         }
 
-        inboundTags.clear();
-
-        for (auto item : root["inbounds"].toArray()) {
-            auto tag = item.toObject()["tag"].toString("");
-
-            if (tag.isEmpty() || tag == API_TAG_INBOUND) {
-                // Ignore API tag and empty tags.
-                continue;
-            }
-
-            inboundTags.append(tag);
-        }
-
-        DEBUG(MODULE_VCORE, "Found inbound tags: " + inboundTags.join(";"))
         // Write the final configuration to the disk.
         QString json = JsonToString(root);
         StringToFile(&json, new QFile(QV2RAY_GENERATED_FILE_PATH));
@@ -181,7 +158,23 @@ namespace Qv2ray::core::kernel
             vProcess->waitForStarted();
             DEBUG(MODULE_VCORE, "V2ray core started.")
             KernelStarted = true;
+            QStringList inboundTags;
 
+            for (auto item : root["inbounds"].toArray()) {
+                auto tag = item.toObject()["tag"].toString("");
+
+                if (tag.isEmpty() || tag == API_TAG_INBOUND) {
+                    // Ignore API tag and empty tags.
+                    continue;
+                }
+
+                inboundTags.append(tag);
+            }
+
+            DEBUG(MODULE_VCORE, "Found inbound tags: " + inboundTags.join(";"))
+            apiEnabled = false;
+
+            //
             if (StartupOption.noAPI) {
                 LOG(MODULE_VCORE, "API has been disabled by the command line argument \"-noAPI\"")
             } else if (!GlobalConfig.apiConfig.enableAPI) {
@@ -189,23 +182,9 @@ namespace Qv2ray::core::kernel
             } else if (inboundTags.isEmpty()) {
                 LOG(MODULE_VCORE, "API is disabled since no inbound tags configured. This is probably caused by a bad complex config.")
             } else {
-                // Config API
-                apiFailedCounter = 0;
-                this->apiPort = GlobalConfig.apiConfig.statsPort;
-                auto channelAddress = "127.0.0.1:" + QString::number(apiPort);
-#ifdef WITH_LIB_GRPCPP
-                Channel = grpc::CreateChannel(channelAddress.toStdString(), grpc::InsecureChannelCredentials());
-                StatsService service;
-                Stub = service.NewStub(Channel);
-#else
-                std::unique_ptr<char, std::function<void(char *)>> ret(
-                            Dial(const_cast<char *>(channelAddress.toStdString().c_str()), 10000),
-                [](char *ptr) {
-                    free(ptr);
-                });
-#endif
-                apiTimerId = startTimer(1000);
-                DEBUG(MODULE_VCORE, "API Worker started.")
+                apiWorker->StartAPI(inboundTags);
+                apiEnabled = true;
+                DEBUG(MODULE_VCORE, "Qv2ray API started")
             }
 
             return true;
@@ -215,38 +194,24 @@ namespace Qv2ray::core::kernel
         }
     }
 
-    void V2rayKernelInstance::timerEvent(QTimerEvent *event)
-    {
-        QObject::timerEvent(event);
-
-        if (event->timerId() == apiTimerId) {
-            // Call API
-            for (auto tag : inboundTags) {
-                // Upload
-                auto valup = CallStatsAPIByName("inbound>>>" + tag + ">>>traffic>>>uplink");
-                auto dataup = valup - transferData[tag + "_up"];
-                transferData[tag + "_up"] = valup;
-                transferSpeed[tag + "_up"] = dataup;
-                // Download
-                auto valdown = CallStatsAPIByName("inbound>>>" + tag + ">>>traffic>>>downlink");
-                auto datadown = valdown - transferData[tag + "_down"];
-                transferData[tag + "_down"] = valdown;
-                transferSpeed[tag + "_down"] = datadown;
-            }
-        }
-    }
-
     void V2rayKernelInstance::StopConnection()
     {
+        if (apiEnabled) {
+            apiWorker->StopAPI();
+            apiEnabled = false;
+        }
+
+        // Set this to false BEFORE close the Process, since we need this flag to capture the real kernel CRASH
         KernelStarted = false;
         vProcess->close();
         // Block until V2ray core exits
         // Should we use -1 instead of waiting for 30secs?
         vProcess->waitForFinished();
-        killTimer(apiTimerId);
-        apiFailedCounter = 0;
-        transferData.clear();
-        transferSpeed.clear();
+        //
+        transferDataUp.clear();
+        transferDataDown.clear();
+        transferSpeedUp.clear();
+        transferSpeedDown.clear();
     }
 
     V2rayKernelInstance::~V2rayKernelInstance()
@@ -255,76 +220,44 @@ namespace Qv2ray::core::kernel
             StopConnection();
         }
 
+        delete apiWorker;
         delete vProcess;
     }
 
-    long V2rayKernelInstance::CallStatsAPIByName(QString name)
+    void V2rayKernelInstance::onAPIDataReady(QString tag, long totalUp, long totalDown)
     {
-        if (!KernelStarted) {
-            LOG(MODULE_VCORE, "Invalid connection status when calling API")
-            return 0;
-        }
-
-        if (apiFailedCounter == QV2RAY_API_CALL_FAILEDCHECK_THRESHOLD) {
-            LOG(MODULE_VCORE, "API call failure threshold reached, cancelling further API aclls.")
-            QvMessageBoxWarn(nullptr, tr("API Call Failed"), tr("Failed to get statistics data, please check if V2ray is running properly"));
-            transferData.clear();
-            transferSpeed.clear();
-            apiFailedCounter++;
-            return 0;
-        } else if (apiFailedCounter > QV2RAY_API_CALL_FAILEDCHECK_THRESHOLD) {
-            return 0;
-        }
-
-#ifdef WITH_LIB_GRPCPP
-        GetStatsRequest request;
-        request.set_name(name.toStdString());
-        request.set_reset(false);
-        GetStatsResponse response;
-        ClientContext context;
-        Status status = Stub->GetStats(&context, request, &response);
-
-        if (!status.ok()) {
-            LOG(MODULE_VCORE, "API call returns: " + QSTRN(status.error_code()) + " (" + QString::fromStdString(status.error_message()) + ")")
-            apiFailedCounter++;
-        }
-
-        auto data = response.stat().value();
-#else
-        auto data = GetStats(const_cast<char *>(name.toStdString().c_str()), 1000);
-#endif
-
-        if (data < 0) {
-            LOG(MODULE_VCORE, "API call returns: " + QSTRN(data))
-            apiFailedCounter++;
-            return 0;
-        }
-
-        return data;
+        auto dataup = totalUp - transferDataUp[tag];
+        transferDataUp[tag] = totalUp;
+        transferSpeedUp[tag] = dataup;
+        // Download
+        auto datadown = totalDown - transferDataDown[tag];
+        transferDataDown[tag] = totalDown;
+        transferSpeedDown[tag] = datadown;
     }
+
     // ------------------------------------------------------------- API FUNCTIONS --------------------------
     long V2rayKernelInstance::getTagSpeedUp(const QString &tag)
     {
-        return transferSpeed[tag + "_up"];
+        return transferSpeedUp[tag];
     }
     long V2rayKernelInstance::getTagSpeedDown(const QString &tag)
     {
-        return transferSpeed[tag + "_down"];
+        return transferSpeedDown[tag];
     }
     long V2rayKernelInstance::getTagDataUp(const QString &tag)
     {
-        return transferData[tag + "_up"];
+        return transferDataUp[tag];
     }
     long V2rayKernelInstance::getTagDataDown(const QString &tag)
     {
-        return transferData[tag + "_down"];
+        return transferDataDown[tag];
     }
     long V2rayKernelInstance::getAllDataUp()
     {
         long val = 0;
 
-        for (auto tag : inboundTags) {
-            val += transferData[tag + "_up"];
+        for (auto _val : transferDataUp.values()) {
+            val += _val;
         }
 
         return val;
@@ -333,8 +266,8 @@ namespace Qv2ray::core::kernel
     {
         long val = 0;
 
-        for (auto tag : inboundTags) {
-            val += transferData[tag + "_down"];
+        for (auto _val : transferDataDown.values()) {
+            val += _val;
         }
 
         return val;
@@ -343,8 +276,8 @@ namespace Qv2ray::core::kernel
     {
         long val = 0;
 
-        for (auto tag : inboundTags) {
-            val += transferSpeed[tag + "_up"];
+        for (auto _val : transferSpeedUp.values()) {
+            val += _val;
         }
 
         return val;
@@ -353,8 +286,8 @@ namespace Qv2ray::core::kernel
     {
         long val = 0;
 
-        for (auto tag : inboundTags) {
-            val += transferSpeed[tag + "_down"];
+        for (auto _val : transferSpeedDown.values()) {
+            val += _val;
         }
 
         return val;

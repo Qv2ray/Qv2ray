@@ -8,7 +8,7 @@
 #include "3rdparty/qzxing/src/QZXing.h"
 
 #include "core/CoreUtils.hpp"
-#include "core/kernel/QvKernelInteractions.hpp"
+#include "core/kernel/KernelInteractions.hpp"
 #include "core/connection/ConnectionIO.hpp"
 #include "core/connection/Serialization.hpp"
 

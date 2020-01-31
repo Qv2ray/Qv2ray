@@ -80,7 +80,7 @@
 MainWindow *MainWindow::mwInstance = nullptr;
 
 MainWindow::MainWindow(QWidget *parent):
-    QMainWindow(parent), vinstance(), uploadList(), downloadList(),
+    QMainWindow(parent), vinstance(),
     hTray(new QSystemTrayIcon(this)), vCoreLogHighlighter(), qvAppLogHighlighter()
 {
     REGISTER_WINDOW
@@ -216,37 +216,9 @@ MainWindow::MainWindow(QWidget *parent):
     OnConfigListChanged(false);
     //
     // For charts
-    uploadSerie = new QSplineSeries(this);
-    downloadSerie = new QSplineSeries(this);
-    uploadSerie->setName(tr("Upload"));
-    downloadSerie->setName(tr("Download"));
-
-    for (int i = 0; i < 30 ; i++) {
-        uploadList.append(0);
-        downloadList.append(0);
-        uploadSerie->append(i, 0);
-        downloadSerie->append(i, 0);
-    }
-
-    speedChartObj = new QChart();
-    speedChartObj->setTheme(GlobalConfig.uiConfig.useDarkTheme ? QChart::ChartThemeDark : QChart::ChartThemeLight);
-    speedChartObj->setTitle(""); // Fake hidden
-    speedChartObj->legend()->hide();
-    speedChartObj->createDefaultAxes();
-    speedChartObj->addSeries(uploadSerie);
-    speedChartObj->addSeries(downloadSerie);
-    speedChartObj->createDefaultAxes();
-    speedChartObj->axes(Qt::Vertical).first()->setRange(0, 512);
-    //
-    static_cast<QValueAxis>(speedChartObj->axes(Qt::Horizontal).first()).setLabelFormat("dd");
-    speedChartObj->axes(Qt::Horizontal).first()->setRange(0, 30);
-    speedChartObj->setContentsMargins(-20, -50, -20, -25);
-    speedChartView = new QChartView(speedChartObj, this);
-    speedChartView->setRenderHint(QPainter::Antialiasing, true);
-    //
-    auto layout = new QHBoxLayout(speedChart);
-    layout->addWidget(speedChartView);
-    speedChart->setLayout(layout);
+    speedChartView = new SpeedWidget(this);
+    speedChartView->setContentsMargins(10, 10, 10, 10);
+    speedChart->addWidget(speedChartView);
     //
     // Find and start if there is an auto-connection
     MWFindAndStartAutoConfig();
@@ -459,14 +431,7 @@ void MainWindow::on_startButton_clicked()
 {
     if (!vinstance->KernelStarted) {
         vCoreLogBrowser->clear();
-
-        // Reset the graph
-        for (int i = 0; i < 30 ; i++) {
-            uploadList[i] = 0;
-            downloadList[i] = 0;
-            uploadSerie->replace(i, 0, 0);
-            downloadSerie->replace(i, 0, 0);
-        }
+        speedChartView->Clear();
 
         // Check Selection
         if (CurrentConnectionIdentifier.isEmpty()) {
@@ -506,31 +471,28 @@ void MainWindow::on_startButton_clicked()
 
 void MainWindow::on_stopButton_clicked()
 {
-    if (vinstance->KernelStarted) {
-        // Is running or starting
-        killTimer(speedTimerId);
-        killTimer(pingTimerId);
-        //
-        MWStopConnection();
-        //
-        hTray->setToolTip(TRAY_TOOLTIP_PREFIX);
-        statusLabel->setText(tr("Disconnected"));
-        action_Tray_Start->setEnabled(true);
-        action_Tray_Stop->setEnabled(false);
-        action_Tray_Reconnect->setEnabled(false);
-        // Set to false as the system proxy has been cleared in the StopConnection function.
-        tray_SystemProxyMenu->setEnabled(false);
-        startButton->setEnabled(true);
-        stopButton->setEnabled(false);
-        //
-        netspeedLabel->setText("0.00 B/s\r\n0.00 B/s");
-        dataamountLabel->setText("0.00 B\r\n0.00 B");
-        LOG(MODULE_UI, "Stopped successfully.")
-        this->hTray->showMessage("Qv2ray", tr("Disconnected from: ") + CurrentConnectionIdentifier.IdentifierString());
-    } else {
-        this->hTray->showMessage("Qv2ray", tr("Qv2ray is not connected"));
-    }
+    // Is running or starting
+    killTimer(speedTimerId);
+    killTimer(pingTimerId);
+    //
+    MWStopConnection();
+    //
+    hTray->setToolTip(TRAY_TOOLTIP_PREFIX);
+    statusLabel->setText(tr("Disconnected"));
+    action_Tray_Start->setEnabled(true);
+    action_Tray_Stop->setEnabled(false);
+    action_Tray_Reconnect->setEnabled(false);
+    // Set to false as the system proxy has been cleared in the StopConnection function.
+    tray_SystemProxyMenu->setEnabled(false);
+    startButton->setEnabled(true);
+    stopButton->setEnabled(false);
+    //
+    netspeedLabel->setText("0.00 B/s\r\n0.00 B/s");
+    dataamountLabel->setText("0.00 B\r\n0.00 B");
+    LOG(MODULE_UI, "Stopped successfully.")
+    this->hTray->showMessage("Qv2ray", tr("Disconnected from: ") + CurrentConnectionIdentifier.IdentifierString());
 }
+
 void MainWindow::closeEvent(QCloseEvent *event)
 {
     this->hide();
@@ -1030,26 +992,28 @@ void MainWindow::timerEvent(QTimerEvent *event)
         auto _totalDataUp = vinstance->getAllDataUp();
         auto _totalDataDown = vinstance->getAllDataDown();
         //
-        double _max = 0;
-        double historyMax = 0;
-        auto graphVUp  = _totalSpeedUp / 1024;
-        auto graphVDown  = _totalSpeedDown / 1024;
-
-        for (auto i = 0; i < 29; i++) {
-            historyMax = max(historyMax, max(uploadList[i + 1], downloadList[i + 1]));
-            uploadList[i] = uploadList[i + 1];
-            downloadList[i] = downloadList[i + 1];
-            uploadSerie->replace(i, i, uploadList[i + 1]);
-            downloadSerie->replace(i, i, downloadList[i + 1]);
-        }
-
-        uploadList[uploadList.count() - 1] = graphVUp;
-        downloadList[uploadList.count() - 1] = graphVDown;
-        uploadSerie->replace(29, 29, graphVUp);
-        downloadSerie->replace(29, 29, graphVDown);
+        //double _max = 0;
+        //double historyMax = 0;
+        //auto graphVUp = double(_totalSpeedUp / 1024);
+        //auto graphVDown = double(_totalSpeedDown / 1024);
+        speedChartView->AddPointData(_totalSpeedUp, _totalSpeedDown);
+        //// Move all points forward (shift left by 1)
+        //for (auto i = 0; i < 29; i++) {
+        //    auto nextUploadValue = uploadSerie->at(i + 1).y();
+        //    auto nextDownloadValue = downloadSerie->at(i + 1).y();
+        //    historyMax = max(nextUploadValue, nextDownloadValue);
+        //    //
+        //    uploadSerie->replace(i, i, nextUploadValue);
+        //    downloadSerie->replace(i, i, nextDownloadValue);
+        //}
         //
-        _max = max(historyMax, double(max(graphVUp, graphVDown)));
-        speedChartObj->axes(Qt::Vertical).first()->setRange(0, _max * 1.2);
+        //// Set the latest data.
+        //uploadSerie->replace(29, 29, graphVUp);
+        //downloadSerie->replace(29, 29, graphVDown);
+        //historyMax = max(historyMax, max(graphVUp, graphVDown));
+        ////
+        //_max = max(historyMax, double(max(graphVUp, graphVDown)));
+        //speedChartObj->axes(Qt::Vertical).first()->setRange(0, _max * 1.2);
         //
         auto totalSpeedUp = FormatBytes(_totalSpeedUp) + "/s";
         auto totalSpeedDown = FormatBytes(_totalSpeedDown) + "/s";

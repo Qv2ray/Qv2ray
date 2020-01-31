@@ -1,11 +1,7 @@
 ﻿#pragma once
 #include <QProcess>
 #include "base/Qv2rayBase.hpp"
-#ifdef WITH_LIB_GRPCPP
-#include <grpc++/grpc++.h>
-#include "libs/gen/v2ray_api_commands.pb.h"
-#include "libs/gen/v2ray_api_commands.grpc.pb.h"
-#endif
+#include "APIBackend.hpp"
 
 namespace Qv2ray::core::kernel
 {
@@ -37,23 +33,17 @@ namespace Qv2ray::core::kernel
             void onProcessErrored();
             void onProcessOutputReadyRead(QString);
 
+        public slots:
+            void onAPIDataReady(QString tag, long totalUp, long totalDown);
+
         private:
-            void timerEvent(QTimerEvent *event) override;
-            QStringList inboundTags;
-            int apiTimerId = -1;
-            int apiPort;
-            //
-            int apiFailedCounter;
-            long CallStatsAPIByName(QString name);
+            APIWorkder *apiWorker;
             QProcess *vProcess;
-            //
-            QMap<QString, long> transferData;
-            QMap<QString, long> transferSpeed;
-            //
-#ifdef WITH_LIB_GRPCPP
-            std::shared_ptr<::grpc::Channel> Channel;
-            std::unique_ptr<::v2ray::core::app::stats::command::StatsService::Stub> Stub;
-#endif
+            bool apiEnabled;
+            QMap<QString, long> transferDataUp;
+            QMap<QString, long> transferDataDown;
+            QMap<QString, long> transferSpeedUp;
+            QMap<QString, long> transferSpeedDown;
     };
 }
 

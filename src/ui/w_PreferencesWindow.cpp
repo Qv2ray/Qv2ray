@@ -9,7 +9,7 @@
 #include "common/HTTPRequestHelper.hpp"
 #include "core/config/ConfigBackend.hpp"
 #include "core/connection/ConnectionIO.hpp"
-#include "core/kernel/QvKernelInteractions.hpp"
+#include "core/kernel/KernelInteractions.hpp"
 #include "components/plugins/toolbar/QvToolbar.hpp"
 #include "components/autolaunch/QvAutoLaunch.hpp"
 
