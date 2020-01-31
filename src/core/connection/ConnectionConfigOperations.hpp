@@ -71,5 +71,5 @@ namespace Qv2ray::core::connection
     }
 }
 
-
+using namespace Qv2ray::core;
 using namespace Qv2ray::core::connection;

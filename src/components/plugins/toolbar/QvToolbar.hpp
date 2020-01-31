@@ -51,5 +51,7 @@ namespace Qv2ray::components::plugins
         QString GetAnswerToRequest(const QString &pchRequest);
     }
 }
+
+using namespace Qv2ray::components;
 using namespace Qv2ray::components::plugins::Toolbar;
 

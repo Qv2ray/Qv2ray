@@ -1,6 +1,7 @@
 #include <QObject>
 #include <QWidget>
 #include <QDesktopServices>
+#include "common/QvHelpers.hpp"
 #include "QvKernelInteractions.hpp"
 #include "core/connection/ConnectionConfigOperations.hpp"
 

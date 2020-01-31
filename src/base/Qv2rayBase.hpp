@@ -1,6 +1,7 @@
 #pragma once
 #include <QtCore>
 #include <QtGui>
+#include <QApplication>
 #include <QMap>
 #include <vector>
 #include <algorithm>
@@ -96,4 +97,10 @@ namespace Qv2ray
 {
     // Extra header for QvConfigUpgrade.cpp
     QJsonObject UpgradeConfig(int fromVersion, int toVersion, QJsonObject root);
+
+    inline void ExitQv2ray()
+    {
+        isExiting = true;
+        QApplication::quit();
+    }
 }

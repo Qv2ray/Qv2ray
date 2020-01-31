@@ -27,4 +27,5 @@ namespace Qv2ray::components::pac
     };
 }
 
+using namespace Qv2ray::components;
 using namespace Qv2ray::components::pac;

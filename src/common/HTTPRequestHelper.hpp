@@ -58,3 +58,5 @@ namespace Qv2ray::common
             QNetworkAccessManager accessManager;
     };
 }
+
+using namespace Qv2ray::common;

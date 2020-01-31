@@ -1,5 +1,6 @@
 ﻿#include "w_InboundEditor.hpp"
 #include "core/CoreUtils.hpp"
+#include "common/QvHelpers.hpp"
 #include "core/connection/ConnectionConfigOperations.hpp"
 
 static bool isLoading = false;

@@ -1,5 +1,5 @@
 #include "CommandArgs.hpp"
-#include <QCommandLineParser>
+#include "base/Qv2rayBase.hpp"
 
 namespace Qv2ray::common
 {

@@ -2,6 +2,7 @@
 #include "qhttprequest.h"
 #include "qhttpresponse.h"
 #include "core/CoreUtils.hpp"
+#include "common/QvHelpers.hpp"
 
 namespace Qv2ray::components::pac
 {
@@ -13,8 +14,13 @@ namespace Qv2ray::components::pac
     }
     PACServer::~PACServer()
     {
-        pacServer->close();
-        delete pacServer;
+        if (isStarted) {
+            pacServer->close();
+        }
+
+        if (pacServer != nullptr) {
+            delete pacServer;
+        }
     }
     void PACServer::SetProxyString(const QString &proxyString)
     {

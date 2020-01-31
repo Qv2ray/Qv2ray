@@ -1,5 +1,7 @@
 #pragma once
-#include "base/Qv2rayBase.hpp"
+
+#include <QCommandLineParser>
+
 namespace Qv2ray::common
 {
     enum CommandLineParseResult {

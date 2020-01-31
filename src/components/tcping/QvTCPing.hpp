@@ -9,8 +9,7 @@
 #endif
 #include <sys/time.h>
 #include <unistd.h>
-#include "common/QvHelpers.hpp"
-
+#include "base/Qv2rayBase.hpp"
 
 namespace Qv2ray::components::tcping
 {

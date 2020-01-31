@@ -1,5 +1,4 @@
 #include "common/QvHelpers.hpp"
-#include "common/CommandArgs.hpp"
 #include <QQueue>
 
 namespace Qv2ray::common
@@ -189,16 +188,6 @@ namespace Qv2ray::common
 
             i++;
         }
-    }
-
-    void QFastAppendTextDocument(const QString &message, QTextDocument *doc)
-    {
-        QTextCursor cursor(doc);
-        cursor.movePosition(QTextCursor::End);
-        cursor.beginEditBlock();
-        cursor.insertBlock();
-        cursor.insertHtml(message);
-        cursor.endEditBlock();
     }
 
     QStringList ConvertQStringList(const QList<string> &stdListString)

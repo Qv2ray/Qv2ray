@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include <QProcess>
-#include "core/CoreUtils.hpp"
+#include "base/Qv2rayBase.hpp"
 #ifdef WITH_LIB_GRPCPP
 #include <grpc++/grpc++.h>
 #include "libs/gen/v2ray_api_commands.pb.h"

@@ -5,7 +5,9 @@
 #include <QStyle>
 #include <QDesktopServices>
 
+#include "common/QvHelpers.hpp"
 #include "common/HTTPRequestHelper.hpp"
+#include "core/config/ConfigBackend.hpp"
 #include "core/kernel/QvKernelInteractions.hpp"
 #include "core/connection/ConnectionConfigOperations.hpp"
 #include "components/plugins/toolbar/QvToolbar.hpp"
@@ -26,7 +28,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent),
     networkToolbarPage->setEnabled(StartupOption.enableToolbarPlguin);
 
     if (!StartupOption.enableToolbarPlguin) {
-        networkToolbarInfoLabel->setText(tr("Qv2ray Network Toolbar is disabled and still under test. Add --withNetworkToolbar to enable."));
+        networkToolbarInfoLabel->setText(tr("Qv2ray Network Toolbar is disabled and still under test. Add --withToolbarPlugin to enable."));
     }
 
     // We add locales

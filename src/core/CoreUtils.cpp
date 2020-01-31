@@ -1,42 +1,9 @@
 ﻿#include "CoreUtils.hpp"
+#include "common/QvHelpers.hpp"
 #include "QApplication"
 
 namespace Qv2ray::core
 {
-    void SaveGlobalConfig(Qv2rayConfig conf)
-    {
-        GlobalConfig = conf;
-        QFile config(QV2RAY_CONFIG_FILE);
-        QString str = StructToJsonString(conf);
-        StringToFile(&str, &config);
-    }
-
-    void SetConfigDirPath(const QString &path)
-    {
-        Qv2rayConfigPath = path;
-
-        if (!path.endsWith("/")) {
-            Qv2rayConfigPath += "/";
-        }
-    }
-
-    void LoadGlobalConfig()
-    {
-        QFile file(QV2RAY_CONFIG_FILE);
-        file.open(QFile::ReadOnly);
-        QTextStream stream(&file);
-        auto str = stream.readAll();
-        auto config = StructFromJsonString<Qv2rayConfig>(str);
-        SaveGlobalConfig(config);
-        file.close();
-    }
-
-    void ExitQv2ray()
-    {
-        isExiting = true;
-        QApplication::quit();
-    }
-
     tuple<QString, int, QString> GetConnectionInfo(const CONFIGROOT &root)
     {
         bool validOutboundFound = false;
@@ -63,7 +30,7 @@ namespace Qv2ray::core
         // Set initial values.
         *host = QObject::tr("N/A");
         *port = 0;
-        *protocol = out["protocol"].toString(QObject::tr("N/A"));
+        *protocol = out["protocol"].toString(QObject::tr("N/A")).toLower();
 
         if (*protocol == "vmess") {
             auto Server = StructFromJsonString<VMessServerObject>(JsonToString(out["settings"].toObject()["vnext"].toArray().first().toObject()));

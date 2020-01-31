@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include <QDialog>
-#include "core/CoreUtils.hpp"
+#include "base/Qv2rayBase.hpp"
 #include "common/HTTPRequestHelper.hpp"
 
 #include "ui_w_SubscriptionManager.h"

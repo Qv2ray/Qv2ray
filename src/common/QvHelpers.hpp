@@ -34,7 +34,6 @@ namespace Qv2ray::common
     //
     QString FormatBytes(long long bytes);
     void DeducePossibleFileName(const QString &baseDir, QString *fileName, const QString &extension);
-    void QFastAppendTextDocument(const QString &message, QTextDocument *doc);
     QStringList ConvertQStringList(const QList<string> &stdListString);
     std::list<string> ConvertStdStringList(const QStringList &qStringList);
     //

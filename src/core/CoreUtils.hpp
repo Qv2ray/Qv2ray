@@ -1,14 +1,10 @@
 ﻿#pragma once
 
 #include "base/Qv2rayBase.hpp"
-#include "common/QvHelpers.hpp"
+#include "core/config/ConfigBackend.hpp"
 
 namespace Qv2ray::core
 {
-    void SaveGlobalConfig(Qv2rayConfig conf);
-    void LoadGlobalConfig();
-    void SetConfigDirPath(const QString &path);
-    //
     inline QString getTag(const INBOUND &in)
     {
         return in["tag"].toString();
@@ -19,7 +15,11 @@ namespace Qv2ray::core
         return in["tag"].toString();
     }
 
-    void ExitQv2ray();
+    inline QString getTag(const RuleObject &in)
+    {
+        return in.QV2RAY_RULE_TAG;
+    }
+
     tuple<QString, int, QString> GetConnectionInfo(const CONFIGROOT &alias);
     bool GetOutboundData(const OUTBOUND &out, QString *host, int *port, QString *protocol);
 }
