@@ -1,7 +1,7 @@
 ﻿#include <QThread>
 #include "ui/w_MainWindow.hpp"
 #include "components/plugins/toolbar/QvToolbar.hpp"
-#include "core/CoreUtils.hpp"
+#include "common/QvHelpers.hpp"
 
 namespace Qv2ray::components::plugins
 {

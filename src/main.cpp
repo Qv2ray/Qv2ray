@@ -9,7 +9,7 @@
 #include <singleapplication.h>
 #include <csignal>
 #include "ui/w_MainWindow.hpp"
-#include "base/Qv2rayBase.hpp"
+#include "common/QvHelpers.hpp"
 #include "common/CommandArgs.hpp"
 
 #ifdef Q_OS_UNIX
