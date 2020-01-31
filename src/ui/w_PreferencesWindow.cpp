@@ -8,8 +8,8 @@
 #include "common/QvHelpers.hpp"
 #include "common/HTTPRequestHelper.hpp"
 #include "core/config/ConfigBackend.hpp"
+#include "core/connection/ConnectionIO.hpp"
 #include "core/kernel/QvKernelInteractions.hpp"
-#include "core/connection/ConnectionConfigOperations.hpp"
 #include "components/plugins/toolbar/QvToolbar.hpp"
 #include "components/autolaunch/QvAutoLaunch.hpp"
 

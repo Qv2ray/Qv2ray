@@ -9,7 +9,8 @@
 
 #include "core/CoreUtils.hpp"
 #include "core/kernel/QvKernelInteractions.hpp"
-#include "core/connection/ConnectionConfigOperations.hpp"
+#include "core/connection/ConnectionIO.hpp"
+#include "core/connection/Serialization.hpp"
 
 #include "w_ScreenShot_Core.hpp"
 #include "ui/editors/w_OutboundEditor.hpp"

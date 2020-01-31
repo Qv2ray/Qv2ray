@@ -3,7 +3,7 @@
 #include <QDesktopServices>
 #include "common/QvHelpers.hpp"
 #include "QvKernelInteractions.hpp"
-#include "core/connection/ConnectionConfigOperations.hpp"
+#include "core/connection/ConnectionIO.hpp"
 
 #ifdef WITH_LIB_GRPCPP
 using namespace v2ray::core::app::stats::command;

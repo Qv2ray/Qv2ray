@@ -1,9 +1,10 @@
-#include "ConnectionConfigOperations.hpp"
+#include "Serialization.hpp"
+#include "Generation.hpp"
 #include "common/QvHelpers.hpp"
 
 namespace Qv2ray::core::connection
 {
-    inline namespace Convertion
+    namespace Serialization
     {
         // From https://github.com/2dust/v2rayN/wiki/%E5%88%86%E4%BA%AB%E9%93%BE%E6%8E%A5%E6%A0%BC%E5%BC%8F%E8%AF%B4%E6%98%8E(ver-2)
         QString ConvertConfigToVMessString(const StreamSettingsObject &transfer, const VMessServerObject &serverConfig, const QString &alias)
@@ -44,6 +45,7 @@ namespace Qv2ray::core::connection
             auto vmessPart = Base64Encode(JsonToString(vmessUriRoot, QJsonDocument::JsonFormat::Compact));
             return "vmess://" + vmessPart;
         }
+
         QString DecodeSubscriptionString(QByteArray arr)
         {
             // Some subscription providers may use plain vmess:// saperated by lines
@@ -51,76 +53,118 @@ namespace Qv2ray::core::connection
             auto result = QString::fromUtf8(arr).trimmed();
             return result.startsWith("vmess://") ? result : Base64Decode(result);
         }
+
+        CONFIGROOT fromUri(const QString &ssUri, QString *alias, QString *errMessage)
+        {
+            ShadowSocksServerObject server;
+            QString d_name;
+
+            //auto ssUri = _ssUri.toStdString();
+            if (ssUri.length() < 5) {
+                LOG(MODULE_CONNECTION, "ss:// string too short")
+                *errMessage = QObject::tr("SS URI is too short");
+            }
+
+            auto uri = ssUri.mid(5);
+            auto hashPos = uri.lastIndexOf("#");
+            DEBUG(MODULE_CONNECTION, "Hash sign position: " + QSTRN(hashPos))
+
+            if (hashPos >= 0) {
+                // Get the name/remark
+                d_name = uri.mid(uri.lastIndexOf("#") + 1);
+                uri.truncate(hashPos);
+            }
+
+            // No plugins for Qv2ray so disable those lnes.i
+            //size_t pluginPos = uri.find_first_of('/');
+            //
+            //if (pluginPos != std::string::npos) {
+            //    // TODO: support plugins. For now, just ignore them
+            //    uri.erase(pluginPos);
+            //}
+            auto atPos = uri.indexOf('@');
+            DEBUG(MODULE_CONNECTION, "At sign position: " + QSTRN(atPos))
+
+            if (atPos < 0) {
+                // Old URI scheme
+                QString decoded = QByteArray::fromBase64(uri.toUtf8(), QByteArray::Base64Option::OmitTrailingEquals);
+                auto colonPos = decoded.indexOf(':');
+                DEBUG(MODULE_CONNECTION, "Colon position: " + QSTRN(colonPos))
+
+                if (colonPos < 0) {
+                    *errMessage = QObject::tr("Can't find the colon separator between method and password");
+                }
+
+                server.method = decoded.left(colonPos);
+                decoded.remove(0, colonPos + 1);
+                atPos = decoded.lastIndexOf('@');
+                DEBUG(MODULE_CONNECTION, "At sign position: " + QSTRN(atPos))
+
+                if (atPos < 0) {
+                    *errMessage = QObject::tr("Can't find the at separator between password and hostname");
+                }
+
+                server.password = decoded.mid(0, atPos);
+                decoded.remove(0, atPos + 1);
+                colonPos = decoded.lastIndexOf(':');
+                DEBUG(MODULE_CONNECTION, "Colon position: " + QSTRN(colonPos))
+
+                if (colonPos < 0) {
+                    *errMessage = QObject::tr("Can't find the colon separator between hostname and port");
+                }
+
+                server.address = decoded.mid(0, colonPos);
+                server.port = decoded.mid(colonPos + 1).toInt();
+            } else {
+                // SIP002 URI scheme
+                QString userInfo(QByteArray::fromBase64(QByteArray(uri.mid(0, atPos).toUtf8(), QByteArray::Base64Option::Base64UrlEncoding)));
+                auto userInfoSp = userInfo.indexOf(':');
+                DEBUG(MODULE_CONNECTION, "Userinfo splitter position: " + QSTRN(userInfoSp))
+
+                if (userInfoSp < 0) {
+                    *errMessage = QObject::tr("Can't find the colon separator between method and password");
+                }
+
+                QString method = userInfo.mid(0, userInfoSp);
+                server.method = method;
+                server.password = userInfo.mid(userInfoSp + 1);
+                uri.remove(0, atPos + 1);
+                auto hostSpPos = uri.lastIndexOf(':');
+                DEBUG(MODULE_CONNECTION, "Host splitter position: " + QSTRN(hostSpPos))
+
+                if (hostSpPos < 0) {
+                    *errMessage = QObject::tr("Can't find the colon separator between hostname and port");
+                }
+
+                server.address = uri.mid(0, hostSpPos);
+                server.port = uri.mid(hostSpPos + 1).toInt();
+            }
+
+            CONFIGROOT root;
+            OUTBOUNDS outbounds;
+            outbounds.append(GenerateOutboundEntry("shadowsocks", GenerateShadowSocksOUT(QList<ShadowSocksServerObject>() << server), QJsonObject()));
+            JADD(outbounds)
+            *alias = alias->isEmpty() ? d_name : *alias + "_" + d_name;
+            LOG(MODULE_CONNECTION, "Deduced alias: " + *alias)
+            return root;
+        }
+
+        QString toUri(const ShadowSocksServerObject &server, const QString &alias)
+        {
+            LOG(MODULE_CONNECTION, "Converting an ss-server config to old ss:// string format")
+            QString ssUri = server.method + ":" + server.password + "@" + server.address + ":" + QSTRN(server.port);
+            return "ss://" + ssUri.toUtf8().toBase64(QByteArray::Base64Option::OmitTrailingEquals) + "#" + alias;
+        }
+
+        QString toUriSip002(const ShadowSocksServerObject &server, const QString &alias)
+        {
+            LOG(MODULE_CONNECTION, "Converting an ss-server config to Sip002 ss:// format")
+            QString plainUserInfo = server.method + ":" + server.password;
+            QString userinfo(plainUserInfo.toUtf8().toBase64(QByteArray::Base64Option::Base64UrlEncoding).data());
+            return "ss://" + userinfo + "@" + server.address + ":" + QSTRN(server.port) + "#" + alias;
+        }
+
         //
-        // Save Connection to a place, with checking if there's existing file.
-        // If so, append "_N" to the name.
-        bool SaveConnectionConfig(CONFIGROOT obj, QString *alias, bool canOverrideExisting)
-        {
-            auto str = JsonToString(obj);
-            QFile *config = new QFile(QV2RAY_CONFIG_DIR + *alias + QV2RAY_CONFIG_FILE_EXTENSION);
-
-            // If there's already a file AND we CANNOT override existing file.
-            if (config->exists() && !canOverrideExisting) {
-                // Alias is a pointer to a QString.
-                DeducePossibleFileName(QV2RAY_CONFIG_DIR, alias, QV2RAY_CONFIG_FILE_EXTENSION);
-                config = new QFile(QV2RAY_CONFIG_DIR + *alias + QV2RAY_CONFIG_FILE_EXTENSION);
-            }
-
-            LOG(MODULE_CONFIG, "Saving a config named: " + *alias)
-            return StringToFile(&str, config);
-        }
-
-        bool SaveSubscriptionConfig(CONFIGROOT obj, const QString &subscription, QString *name)
-        {
-            auto str = JsonToString(obj);
-            auto fName = *name;
-
-            if (!IsValidFileName(fName)) {
-                fName = RemoveInvalidFileName(fName);
-            }
-
-            QFile *config = new QFile(QV2RAY_SUBSCRIPTION_DIR + subscription + "/" + fName + QV2RAY_CONFIG_FILE_EXTENSION);
-
-            // If there's already a file. THIS IS EXTREMELY RARE
-            if (config->exists()) {
-                LOG(MODULE_FILE, "Trying to overrwrite an existing subscription config file. THIS IS RARE")
-            }
-
-            LOG(MODULE_CONFIG, "Saving a subscription named: " + fName)
-            bool result = StringToFile(&str, config);
-
-            if (!result) {
-                LOG(MODULE_FILE, "Failed to save a connection config from subscription: " + subscription + ", name: " + fName)
-            }
-
-            *name = fName;
-            return result;
-        }
-
-        bool RemoveConnection(const QString &alias)
-        {
-            QFile config(QV2RAY_CONFIG_DIR + alias + QV2RAY_CONFIG_FILE_EXTENSION);
-
-            if (!config.exists()) {
-                LOG(MODULE_FILE, "Trying to remove a non-existing file?")
-                return false;
-            } else {
-                return config.remove();
-            }
-        }
-
-        bool RemoveSubscriptionConnection(const QString &subsName, const QString &name)
-        {
-            QFile config(QV2RAY_SUBSCRIPTION_DIR + subsName + "/" + name + QV2RAY_CONFIG_FILE_EXTENSION);
-
-            if (!config.exists()) {
-                LOG(MODULE_FILE, "Trying to remove a non-existing file?")
-                return false;
-            } else {
-                return config.remove();
-            }
-        }
-
         // This generates global config containing only one outbound....
         CONFIGROOT ConvertConfigFromVMessString(const QString &vmessStr, QString *alias, QString *errMessage)
         {
@@ -293,40 +337,6 @@ namespace Qv2ray::core::connection
             *alias = alias->trimmed().isEmpty() ? ps : *alias + "_" + ps;
 #undef default
             return root;
-        }
-
-        CONFIGROOT ConvertConfigFromFile(QString sourceFilePath, bool keepInbounds)
-        {
-            QFile source(sourceFilePath);
-
-            if (!source.exists()) {
-                LOG(MODULE_FILE, "Trying to import from an non-existing file.")
-                return CONFIGROOT();
-            }
-
-            auto root = CONFIGROOT(JsonFromString(StringFromFile(&source)));
-
-            if (!keepInbounds) {
-                JSON_ROOT_TRY_REMOVE("inbounds")
-            }
-
-            JSON_ROOT_TRY_REMOVE("log")
-            JSON_ROOT_TRY_REMOVE("api")
-            JSON_ROOT_TRY_REMOVE("stats")
-            JSON_ROOT_TRY_REMOVE("dns")
-            return root;
-        }
-
-        bool RenameConnection(const QString &originalName, const QString &newName)
-        {
-            LOG(MODULE_CONFIG, "[RENAME] --> ORIGINAL: " + originalName + ", NEW: " + newName)
-            return QFile::rename(QV2RAY_CONFIG_DIR + originalName + QV2RAY_CONFIG_FILE_EXTENSION, QV2RAY_CONFIG_DIR + newName + QV2RAY_CONFIG_FILE_EXTENSION);
-        }
-
-        bool RenameSubscription(const QString &originalName, const QString &newName)
-        {
-            LOG(MODULE_SUBSCRIPTION, "[RENAME] --> ORIGINAL: " + originalName + ", NEW: " + newName)
-            return QDir().rename(QV2RAY_SUBSCRIPTION_DIR + originalName, QV2RAY_SUBSCRIPTION_DIR + newName);
         }
     }
 }

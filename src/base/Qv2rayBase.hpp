@@ -93,6 +93,18 @@ extern const bool isDebugBuild;
 
 #define QSTRN(num) QString::number(num)
 
+
+#define OUTBOUND_TAG_DIRECT "outBound_DIRECT"
+#define OUTBOUND_TAG_PROXY "outBound_PROXY"
+#define OUTBOUND_TAG_FORWARD_PROXY "_QV2RAY_FORWARD_PROXY_"
+
+#define API_TAG_DEFAULT "_QV2RAY_API_"
+#define API_TAG_INBOUND "_QV2RAY_API_INBOUND_"
+
+#define QV2RAY_USE_FPROXY_KEY "_QV2RAY_USE_GLOBAL_FORWARD_PROXY_"
+
+#define JSON_ROOT_TRY_REMOVE(obj) if (root.contains(obj)) { root.remove(obj); }
+
 namespace Qv2ray
 {
     // Extra header for QvConfigUpgrade.cpp

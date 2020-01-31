@@ -16,19 +16,22 @@ ConfigExporter::~ConfigExporter()
     UNREGISTER_WINDOW
 }
 
-ConfigExporter::ConfigExporter(const QImage &img, QWidget *parent): ConfigExporter(parent)
+ConfigExporter::ConfigExporter(const CONFIGROOT &root, QWidget *parent)
 {
-    image = img;
-    message = tr("Empty");
-}
-ConfigExporter::ConfigExporter(const QString &data, QWidget *parent): ConfigExporter(parent)
-{
-    QZXingEncoderConfig conf;
-    conf.border = true;
-    conf.imageSize = QSize(400, 400);
-    auto img = qzxing.encodeData(data, conf);
-    image = img.copy();
-    message = data;
+    //
+    //auto vmessServer = StructFromJsonString<VMessServerObject>(JsonToString(outBoundRoot["settings"].toObject()["vnext"].toArray().first().toObject()));
+    //auto transport = StructFromJsonString<StreamSettingsObject>(JsonToString(outBoundRoot["streamSettings"].toObject()));
+    //auto vmess = ConvertConfigToVMessString(transport, vmessServer, _identifier.connectionName);
+    //
+    //image = img;
+    //message = tr("Empty");
+    ////
+    //QZXingEncoderConfig conf;
+    //conf.border = true;
+    //conf.imageSize = QSize(400, 400);
+    //auto img = qzxing.encodeData(data, conf);
+    //image = img.copy();
+    //message = data;
 }
 
 void ConfigExporter::OpenExport()

@@ -1,7 +1,9 @@
 ﻿#include "w_SubscriptionManager.hpp"
 #include "common/QvHelpers.hpp"
 #include "core/CoreUtils.hpp"
-#include "core/connection/ConnectionConfigOperations.hpp"
+
+#include "core/connection/ConnectionIO.hpp"
+#include "core/connection/Serialization.hpp"
 
 SubscribeEditor::SubscribeEditor(QWidget *parent) :
     QDialog(parent)

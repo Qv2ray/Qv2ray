@@ -26,6 +26,8 @@
 #include "components/plugins/toolbar/QvToolbar.hpp"
 #include "components/pac/QvPACHandler.hpp"
 
+#include "core/connection/ConnectionIO.hpp"
+
 // MainWindow.cpp --> Main MainWindow source file, handles mostly UI-related operations.
 
 #define TRAY_TOOLTIP_PREFIX "Qv2ray " QV2RAY_VERSION_STRING
@@ -1004,17 +1006,13 @@ void MainWindow::on_shareBtn_clicked()
 
     auto _identifier = ItemConnectionIdentifier(connectionListWidget->currentItem());
     auto root = connections[_identifier].config;
-    auto outBoundRoot = root["outbounds"].toArray().first().toObject();
-    auto outboundType = outBoundRoot["protocol"].toString();
+    auto type = get<2>(GetConnectionInfo(root));
 
-    if (!CheckIsComplexConfig(root) && outboundType == "vmess") {
-        auto vmessServer = StructFromJsonString<VMessServerObject>(JsonToString(outBoundRoot["settings"].toObject()["vnext"].toArray().first().toObject()));
-        auto transport = StructFromJsonString<StreamSettingsObject>(JsonToString(outBoundRoot["streamSettings"].toObject()));
-        auto vmess = ConvertConfigToVMessString(transport, vmessServer, _identifier.connectionName);
-        ConfigExporter v(vmess, this);
+    if (!CheckIsComplexConfig(root) && (type == "vmess" || type == "shadowsocks")) {
+        ConfigExporter v(root, this);
         v.OpenExport();
     } else {
-        QvMessageBoxWarn(this, tr("Share Connection"), tr("There're no support of sharing configs other than vmess"));
+        QvMessageBoxWarn(this, tr("Share Connection"), tr("There're no support of sharing configs other than vmess and shadowsocks"));
     }
 }
 void MainWindow::on_action_RCM_ShareQR_triggered()
@@ -1086,11 +1084,12 @@ void MainWindow::on_duplicateBtn_clicked()
     CONFIGROOT conf;
     // Alias may change.
     QString alias = _identifier.connectionName;
+    bool isComplex = CheckIsComplexConfig(connections[_identifier].config);
 
     if (connections[_identifier].configType == CONNECTION_REGULAR) {
-        conf = ConvertConfigFromFile(QV2RAY_CONFIG_DIR + _identifier.connectionName + QV2RAY_CONFIG_FILE_EXTENSION, false);
+        conf = ConvertConfigFromFile(QV2RAY_CONFIG_DIR + _identifier.connectionName + QV2RAY_CONFIG_FILE_EXTENSION, isComplex);
     } else {
-        conf = ConvertConfigFromFile(QV2RAY_SUBSCRIPTION_DIR + _identifier.subscriptionName + "/" + _identifier.connectionName  + QV2RAY_CONFIG_FILE_EXTENSION, false);
+        conf = ConvertConfigFromFile(QV2RAY_SUBSCRIPTION_DIR + _identifier.subscriptionName + "/" + _identifier.connectionName  + QV2RAY_CONFIG_FILE_EXTENSION, isComplex);
         alias = _identifier.subscriptionName + "_" + _identifier.connectionName;
     }
 

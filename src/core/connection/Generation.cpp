@@ -1,12 +1,11 @@
-#include "ConnectionConfigOperations.hpp"
+#include "Generation.hpp"
+#include "core/CoreUtils.hpp"
 #include "common/QvHelpers.hpp"
 
 namespace Qv2ray::core::connection
 {
-    inline namespace Generation
+    namespace Generation
     {
-        // Important config generation algorithms.
-        static const QStringList vLogLevels = {"none", "debug", "info", "warning", "error"};
         // -------------------------- BEGIN CONFIG GENERATIONS ----------------------------------------------------------------------------
         ROUTING GenerateRoutes(bool enableProxy, bool proxyCN)
         {
@@ -57,13 +56,13 @@ namespace Qv2ray::core::connection
             RROOT
         }
 
-        OUTBOUNDSETTING GenerateShadowSocksOUT(QList<QJsonObject> servers)
+        OUTBOUNDSETTING GenerateShadowSocksOUT(QList<ShadowSocksServerObject> servers)
         {
             OUTBOUNDSETTING root;
             QJsonArray x;
 
             foreach (auto server, servers) {
-                x.append(server);
+                x.append(GenerateShadowSocksServerOUT(server.email, server.address, server.port, server.method, server.password, server.ota, server.level));
             }
 
             root.insert("servers", x);

@@ -53,5 +53,13 @@ namespace Qv2ray::core
             return false;
         }
     }
+
+    bool CheckIsComplexConfig(CONFIGROOT root)
+    {
+        bool cRouting = root.contains("routing");
+        bool cRule = cRouting && root["routing"].toObject().contains("rules");
+        bool cRules = cRule && root["routing"].toObject()["rules"].toArray().count() > 0;
+        return cRules;
+    }
 }
 

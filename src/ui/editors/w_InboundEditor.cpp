@@ -1,7 +1,7 @@
 ﻿#include "w_InboundEditor.hpp"
 #include "core/CoreUtils.hpp"
 #include "common/QvHelpers.hpp"
-#include "core/connection/ConnectionConfigOperations.hpp"
+#include "core/connection/ConnectionIO.hpp"
 
 static bool isLoading = false;
 #define CHECKLOADING if(isLoading) return;

@@ -4,7 +4,8 @@
 #pragma once
 
 #include "w_RoutesEditor.hpp"
-#include "core/connection/ConnectionConfigOperations.hpp"
+#include "core/connection/ConnectionIO.hpp"
+#include "core/connection/Generation.hpp"
 #include "w_OutboundEditor.hpp"
 #include "w_JsonEditor.hpp"
 #include "w_InboundEditor.hpp"

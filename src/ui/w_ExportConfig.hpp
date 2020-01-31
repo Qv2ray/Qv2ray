@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "ui_w_ExportConfig.h"
+#include "base/Qv2rayBase.hpp"
 #include "3rdparty/qzxing/src/QZXing.h"
 
 class ConfigExporter : public QDialog, private Ui::ExportConfigWindow
@@ -8,8 +9,7 @@ class ConfigExporter : public QDialog, private Ui::ExportConfigWindow
         Q_OBJECT
 
     public:
-        explicit ConfigExporter(const QImage &img, QWidget *parent = nullptr);
-        explicit ConfigExporter(const QString &data, QWidget *parent = nullptr);
+        explicit ConfigExporter(const CONFIGROOT &root, QWidget *parent = nullptr);
         ~ConfigExporter();
         void OpenExport();
     protected:

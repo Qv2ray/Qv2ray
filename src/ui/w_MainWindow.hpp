@@ -10,7 +10,7 @@
 
 #include "core/CoreUtils.hpp"
 #include "core/kernel/QvKernelInteractions.hpp"
-#include "core/connection/ConnectionConfigOperations.hpp"
+#include "core/connection/ConnectionIO.hpp"
 
 #include "components/pac/QvPACHandler.hpp"
 #include "common/LogHighlighter.hpp"
