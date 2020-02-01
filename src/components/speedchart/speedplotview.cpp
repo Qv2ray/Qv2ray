@@ -261,16 +261,9 @@ void SpeedPlotView::paintEvent(QPaintEvent *)
     int yAxisWidth = 0;
 
     for (const QString &label : speedLabels)
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 11, 0))
         if (fontMetrics.horizontalAdvance(label) > yAxisWidth)
             yAxisWidth = fontMetrics.horizontalAdvance(label);
 
-#else
-
-        if (fontMetrics.width(label) > yAxisWidth)
-            yAxisWidth = fontMetrics.width(label);
-
-#endif
     int i = 0;
 
     for (const QString &label : speedLabels) {
@@ -299,7 +292,7 @@ void SpeedPlotView::paintEvent(QPaintEvent *)
     }
 
     // Set antialiasing for graphs
-    painter.setRenderHints(QPainter::Antialiasing | QPainter::HighQualityAntialiasing);
+    painter.setRenderHints(QPainter::Antialiasing);
     // draw graphs
     rect.adjust(3, 0, 0, 0); // Need, else graphs cross left gridline
     const double yMultiplier = (niceScale.arg == 0.0) ? 0.0 : (static_cast<double>(rect.height()) / niceScale.sizeInBytes());
@@ -325,17 +318,9 @@ void SpeedPlotView::paintEvent(QPaintEvent *)
     int legendWidth = 0;
 
     for (const auto &property : asConst(m_properties)) {
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 11, 0))
-
         if (fontMetrics.horizontalAdvance(property.name) > legendWidth)
             legendWidth = fontMetrics.horizontalAdvance(property.name);
 
-#else
-
-        if (fontMetrics.width(property.name) > legendWidth)
-            legendWidth = fontMetrics.width(property.name);
-
-#endif
         legendHeight += 1.5 * fontMetrics.height();
     }
 
@@ -346,11 +331,7 @@ void SpeedPlotView::paintEvent(QPaintEvent *)
     i = 0;
 
     for (const auto &property : asConst(m_properties)) {
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 11, 0))
         int nameSize = fontMetrics.horizontalAdvance(property.name);
-#else
-        int nameSize = fontMetrics.width(property.name);
-#endif
         double indent = 1.5 * (i++) * fontMetrics.height();
         painter.setPen(property.pen);
         painter.drawLine(legendTopLeft + QPointF(0, indent + fontMetrics.height()),

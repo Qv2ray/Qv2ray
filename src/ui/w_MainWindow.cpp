@@ -217,7 +217,7 @@ MainWindow::MainWindow(QWidget *parent):
     //
     // For charts
     speedChartView = new SpeedWidget(this);
-    speedChartView->setContentsMargins(10, 10, 10, 10);
+    //speedChartView->setContentsMargins(1, 1, 1, 1);
     speedChart->addWidget(speedChartView);
     //
     // Find and start if there is an auto-connection
