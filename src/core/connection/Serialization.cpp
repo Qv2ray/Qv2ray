@@ -360,6 +360,13 @@ namespace Qv2ray::core::connection
                 streaming.quicSettings.key = path;
             }
 
+            // FIXME: makeshift patch for #290.
+            //        to be rewritten after refactoring.
+            if (tls == "tls" && host != "" && (net == "tcp" || net == "ws")) {
+                streaming.tlsSettings.serverName = host;
+                streaming.tlsSettings.allowInsecure = false;
+            }
+
             streaming.security = tls;
             //
             // Network type
