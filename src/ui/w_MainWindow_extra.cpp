@@ -5,7 +5,7 @@
 #include "components/proxy/QvProxyConfigurator.hpp"
 #include "core/connection/Generation.hpp"
 
-QTreeWidgetItem *MainWindow::FindItemByIdentifier(QvConfigIdentifier identifier)
+QTreeWidgetItem *MainWindow::FindItemByIdentifier(ConnectionIdentifier identifier)
 {
     // First filter out all items with our config name.
     auto items = connectionListWidget->findItems(identifier.connectionName, Qt::MatchExactly | Qt::MatchRecursive);
@@ -198,7 +198,7 @@ void MainWindow::MWStopConnection()
     }
 }
 
-void MainWindow::MWTryPingConnection(const QvConfigIdentifier &alias)
+void MainWindow::MWTryPingConnection(const ConnectionIdentifier &alias)
 {
     try {
         auto info  = MWGetConnectionInfo(alias);
@@ -210,7 +210,7 @@ void MainWindow::MWTryPingConnection(const QvConfigIdentifier &alias)
     }
 }
 
-tuple<QString, int, QString> MainWindow::MWGetConnectionInfo(const QvConfigIdentifier &alias)
+tuple<QString, int, QString> MainWindow::MWGetConnectionInfo(const ConnectionIdentifier &alias)
 {
     if (!connections.contains(alias))
         return make_tuple(tr("N/A"), 0, tr("N/A"));

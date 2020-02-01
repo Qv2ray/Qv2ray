@@ -48,7 +48,7 @@
       <item>
        <widget class="QLabel" name="label_3">
         <property name="text">
-         <string>VMess Connection String</string>
+         <string>Connection String</string>
         </property>
        </widget>
       </item>
@@ -78,7 +78,7 @@
         <item>
          <widget class="QPushButton" name="copyVMessBtn">
           <property name="text">
-           <string>Copy VMess</string>
+           <string>Copy Link</string>
           </property>
          </widget>
         </item>

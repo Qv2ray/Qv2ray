@@ -1,11 +1,49 @@
 #include "Serialization.hpp"
 #include "Generation.hpp"
 #include "common/QvHelpers.hpp"
+#include "core/CoreUtils.hpp"
 
 namespace Qv2ray::core::connection
 {
     namespace Serialization
     {
+        CONFIGROOT ConvertConfigFromString(const QString &link, QString *alias, QString *errMessage)
+        {
+            CONFIGROOT config;
+
+            if (link.startsWith("vmess://")) {
+                config = ConvertConfigFromVMessString(link, alias, errMessage);
+            } else if (link.startsWith("ss://")) {
+                config = ConvertConfigFromSSString(link, alias, errMessage);
+            } else {
+                *errMessage = QObject::tr("Unsupported share link format.");
+            }
+
+            return config;
+        }
+
+
+        QString ConvertConfigToString(const CONFIGROOT &server, const QString &alias, bool isSip002)
+        {
+            OUTBOUND outbound = OUTBOUND(server["outbounds"].toArray().first().toObject());
+            auto info = GetConnectionInfo(server);
+            auto type = get<2>(info);
+            QString sharelink = "";
+
+            if (type == "vmess") {
+                auto vmessServer = StructFromJsonString<VMessServerObject>(JsonToString(outbound["settings"].toObject()["vnext"].toArray().first().toObject()));
+                auto transport = StructFromJsonString<StreamSettingsObject>(JsonToString(outbound["streamSettings"].toObject()));
+                sharelink = ConvertConfigToVMessString(transport, vmessServer, alias);
+            } else if (type == "shadowsocks") {
+                auto ssServer = StructFromJsonString<ShadowSocksServerObject>(JsonToString(outbound["settings"].toObject()["servers"].toArray().first().toObject()));
+                sharelink = ConvertConfigToSSString(ssServer, alias, isSip002);
+            } else {
+                LOG(MODULE_CONNECTION, "Unsupported outbound type: " + type)
+            }
+
+            return sharelink;
+        }
+
         // From https://github.com/2dust/v2rayN/wiki/%E5%88%86%E4%BA%AB%E9%93%BE%E6%8E%A5%E6%A0%BC%E5%BC%8F%E8%AF%B4%E6%98%8E(ver-2)
         QString ConvertConfigToVMessString(const StreamSettingsObject &transfer, const VMessServerObject &serverConfig, const QString &alias)
         {
@@ -48,13 +86,15 @@ namespace Qv2ray::core::connection
 
         QString DecodeSubscriptionString(QByteArray arr)
         {
+            // String may start with: vmess:// and ss://
+            // We only process vmess:// here
             // Some subscription providers may use plain vmess:// saperated by lines
             // But others may use base64 of above.
             auto result = QString::fromUtf8(arr).trimmed();
             return result.startsWith("vmess://") ? result : Base64Decode(result);
         }
 
-        CONFIGROOT fromUri(const QString &ssUri, QString *alias, QString *errMessage)
+        CONFIGROOT ConvertConfigFromSSString(const QString &ssUri, QString *alias, QString *errMessage)
         {
             ShadowSocksServerObject server;
             QString d_name;
@@ -117,8 +157,12 @@ namespace Qv2ray::core::connection
                 server.port = decoded.mid(colonPos + 1).toInt();
             } else {
                 // SIP002 URI scheme
-                QString userInfo(QByteArray::fromBase64(QByteArray(uri.mid(0, atPos).toUtf8(), QByteArray::Base64Option::Base64UrlEncoding)));
+                auto x = QUrl::fromUserInput(uri);
+                server.address = x.host();
+                server.port = x.port();
+                QString userInfo = Base64Decode(x.userName());
                 auto userInfoSp = userInfo.indexOf(':');
+                //
                 DEBUG(MODULE_CONNECTION, "Userinfo splitter position: " + QSTRN(userInfoSp))
 
                 if (userInfoSp < 0) {
@@ -128,18 +172,9 @@ namespace Qv2ray::core::connection
                 QString method = userInfo.mid(0, userInfoSp);
                 server.method = method;
                 server.password = userInfo.mid(userInfoSp + 1);
-                uri.remove(0, atPos + 1);
-                auto hostSpPos = uri.lastIndexOf(':');
-                DEBUG(MODULE_CONNECTION, "Host splitter position: " + QSTRN(hostSpPos))
-
-                if (hostSpPos < 0) {
-                    *errMessage = QObject::tr("Can't find the colon separator between hostname and port");
-                }
-
-                server.address = uri.mid(0, hostSpPos);
-                server.port = uri.mid(hostSpPos + 1).toInt();
             }
 
+            d_name = QUrl::fromPercentEncoding(d_name.toUtf8());
             CONFIGROOT root;
             OUTBOUNDS outbounds;
             outbounds.append(GenerateOutboundEntry("shadowsocks", GenerateShadowSocksOUT(QList<ShadowSocksServerObject>() << server), QJsonObject()));
@@ -149,19 +184,20 @@ namespace Qv2ray::core::connection
             return root;
         }
 
-        QString toUri(const ShadowSocksServerObject &server, const QString &alias)
+        QString ConvertConfigToSSString(const ShadowSocksServerObject &server, const QString &alias, bool isSip002)
         {
-            LOG(MODULE_CONNECTION, "Converting an ss-server config to old ss:// string format")
-            QString ssUri = server.method + ":" + server.password + "@" + server.address + ":" + QSTRN(server.port);
-            return "ss://" + ssUri.toUtf8().toBase64(QByteArray::Base64Option::OmitTrailingEquals) + "#" + alias;
-        }
+            auto myAlias = QUrl::toPercentEncoding(alias);
 
-        QString toUriSip002(const ShadowSocksServerObject &server, const QString &alias)
-        {
-            LOG(MODULE_CONNECTION, "Converting an ss-server config to Sip002 ss:// format")
-            QString plainUserInfo = server.method + ":" + server.password;
-            QString userinfo(plainUserInfo.toUtf8().toBase64(QByteArray::Base64Option::Base64UrlEncoding).data());
-            return "ss://" + userinfo + "@" + server.address + ":" + QSTRN(server.port) + "#" + alias;
+            if (isSip002) {
+                LOG(MODULE_CONNECTION, "Converting an ss-server config to Sip002 ss:// format")
+                QString plainUserInfo = server.method + ":" + server.password;
+                QString userinfo(plainUserInfo.toUtf8().toBase64(QByteArray::Base64Option::Base64UrlEncoding).data());
+                return "ss://" + userinfo + "@" + server.address + ":" + QSTRN(server.port) + "#" + myAlias;
+            } else {
+                LOG(MODULE_CONNECTION, "Converting an ss-server config to old ss:// string format")
+                QString ssUri = server.method + ":" + server.password + "@" + server.address + ":" + QSTRN(server.port);
+                return "ss://" + ssUri.toUtf8().toBase64(QByteArray::Base64Option::OmitTrailingEquals) + "#" + myAlias;
+            }
         }
 
         //

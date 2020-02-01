@@ -37,5 +37,5 @@ class ImportConfigWindow : public QDialog, private Ui::ImportConfigWindow
 
     private:
         QMap<QString, CONFIGROOT> connections;
-        QMap<QString, QString> vmessErrors;
+        QMap<QString, QString> linkErrors;
 };

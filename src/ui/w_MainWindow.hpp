@@ -24,7 +24,7 @@ enum QvConnectionType {
     CONNECTION_SUBSCRIPTION = 2
 };
 //
-struct ConnectionObject : QvConfigIdentifier {
+struct ConnectionObject : ConnectionIdentifier {
     QvConnectionType configType;
     double latency;
     CONFIGROOT config;
@@ -73,7 +73,7 @@ class MainWindow : public QMainWindow, Ui::MainWindow
 
     public:
         static MainWindow *mwInstance;
-        QvConfigIdentifier CurrentConnectionIdentifier;
+        ConnectionIdentifier CurrentConnectionIdentifier;
         V2rayKernelInstance *vinstance;
         QString GetCurrentConnectedConfigName();
 
@@ -92,7 +92,7 @@ class MainWindow : public QMainWindow, Ui::MainWindow
 
     private:
         void SetEditWidgetEnable(bool enabled);
-        void ShowAndSetConnection(QvConfigIdentifier fullIdentifier, bool SetConnection, bool Apply);
+        void ShowAndSetConnection(ConnectionIdentifier fullIdentifier, bool SetConnection, bool Apply);
         CONFIGROOT currentFullConfig;
         //
         // Charts
@@ -101,9 +101,9 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         QMenu *connectionListMenu;
 
         /// Key --> ListWidget.item.text
-        QMap<QvConfigIdentifier, ConnectionObject> connections;
+        QMap<ConnectionIdentifier, ConnectionObject> connections;
         //
-        QvConfigIdentifier renameOriginalIdentifier;
+        ConnectionIdentifier renameOriginalIdentifier;
         bool isRenamingInProgress;
         //
         // ID for QTimers
@@ -144,12 +144,12 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         void MWFindAndStartAutoConfig();
         bool MWtryStartConnection();
         void MWStopConnection();
-        void MWTryPingConnection(const QvConfigIdentifier &alias);
-        tuple<QString, int, QString> MWGetConnectionInfo(const QvConfigIdentifier &alias);
+        void MWTryPingConnection(const ConnectionIdentifier &alias);
+        tuple<QString, int, QString> MWGetConnectionInfo(const ConnectionIdentifier &alias);
         void MWSetSystemProxy();
         void MWClearSystemProxy(bool);
         void CheckSubscriptionsUpdate();
         //
 
-        QTreeWidgetItem *FindItemByIdentifier(QvConfigIdentifier identifier);
+        QTreeWidgetItem *FindItemByIdentifier(ConnectionIdentifier identifier);
 };

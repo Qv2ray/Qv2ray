@@ -15,7 +15,7 @@ namespace Qv2ray::components::tcping
             worker->cancel();
         }
     }
-    void QvTCPingModel::StartPing(const QvConfigIdentifier &connectionName, const QString &hostName, int port)
+    void QvTCPingModel::StartPing(const ConnectionIdentifier &connectionName, const QString &hostName, int port)
     {
         QvTCPingData data;
         data.hostName = hostName;

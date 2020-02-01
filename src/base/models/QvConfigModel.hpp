@@ -142,7 +142,7 @@ namespace Qv2ray::base
             //
             QString v2CorePath;
             QString v2AssetsPath;
-            QvConfigIdentifier autoStartConfig;
+            ConnectionIdentifier autoStartConfig;
             QString ignoredVersion;
             //
             QList<QString> configs;

@@ -1,5 +1,6 @@
 ﻿#include "w_ExportConfig.hpp"
 #include "common/QvHelpers.hpp"
+#include "core/connection/Serialization.hpp"
 #include <QFileDialog>
 
 // Private initialiser
@@ -16,22 +17,15 @@ ConfigExporter::~ConfigExporter()
     UNREGISTER_WINDOW
 }
 
-ConfigExporter::ConfigExporter(const CONFIGROOT &root, QWidget *parent)
+ConfigExporter::ConfigExporter(const CONFIGROOT &root, const ConnectionIdentifier &alias, QWidget *parent) : ConfigExporter(parent)
 {
+    message = ConvertConfigToString(root, alias.IdentifierString());
     //
-    //auto vmessServer = StructFromJsonString<VMessServerObject>(JsonToString(outBoundRoot["settings"].toObject()["vnext"].toArray().first().toObject()));
-    //auto transport = StructFromJsonString<StreamSettingsObject>(JsonToString(outBoundRoot["streamSettings"].toObject()));
-    //auto vmess = ConvertConfigToVMessString(transport, vmessServer, _identifier.connectionName);
-    //
-    //image = img;
-    //message = tr("Empty");
-    ////
-    //QZXingEncoderConfig conf;
-    //conf.border = true;
-    //conf.imageSize = QSize(400, 400);
-    //auto img = qzxing.encodeData(data, conf);
-    //image = img.copy();
-    //message = data;
+    QZXingEncoderConfig conf;
+    conf.border = true;
+    conf.imageSize = QSize(400, 400);
+    auto img = qzxing.encodeData(message, conf);
+    image = img.copy();
 }
 
 void ConfigExporter::OpenExport()

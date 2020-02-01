@@ -132,7 +132,7 @@ void SubscribeEditor::StartUpdateSubscription(const QString &subscriptionName)
         for (auto vmess : vmessList) {
             QString errMessage;
             QString _alias;
-            auto config = ConvertConfigFromVMessString(vmess.trimmed(), &_alias, &errMessage);
+            auto config = ConvertConfigFromString(vmess.trimmed(), &_alias, &errMessage);
 
             if (!errMessage.isEmpty()) {
                 LOG(MODULE_SUBSCRIPTION, "Processing a subscription with following error: " + errMessage)
@@ -168,7 +168,7 @@ void SubscribeEditor::on_removeSubsButton_clicked()
 
     // If removed a whole subscription...
     if (GlobalConfig.autoStartConfig.subscriptionName == name) {
-        GlobalConfig.autoStartConfig = QvConfigIdentifier();
+        GlobalConfig.autoStartConfig = ConnectionIdentifier();
         SaveGlobalConfig(GlobalConfig);
     }
 

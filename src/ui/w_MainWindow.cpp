@@ -36,7 +36,7 @@
 #define qvAppLogBrowser this->logTextBrowsers[1]
 #define currentLogBrowser this->logTextBrowsers[currentLogBrowserId]
 //
-#define ItemConnectionIdentifier(__item__) (__item__->data(0, Qt::UserRole).value<QvConfigIdentifier>())
+#define ItemConnectionIdentifier(__item__) (__item__->data(0, Qt::UserRole).value<ConnectionIdentifier>())
 //
 #define CheckConfigType(_item_, TYPE) (connections.contains(ItemConnectionIdentifier(_item_)) && connections[ItemConnectionIdentifier(_item_)].configType == CONNECTION_ ## TYPE)
 //
@@ -277,7 +277,7 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
 
             auto selections = connectionListWidget->selectedItems();
             QVariant v;
-            auto vv = v.value<QvConfigIdentifier>();
+            auto vv = v.value<ConnectionIdentifier>();
             ShowAndSetConnection(ItemConnectionIdentifier(selections.first()), true, true);
         }
     }
@@ -338,7 +338,7 @@ void MainWindow::OnConfigListChanged(bool need_restart)
     SetEditWidgetEnable(false);
     //
     // Store the latency test value.
-    QMap<QvConfigIdentifier, double> latencyValueCache;
+    QMap<ConnectionIdentifier, double> latencyValueCache;
 
     for (auto i = 0; i < connections.count(); i++) {
         latencyValueCache[connections.keys()[i]] = connections.values()[i].latency;
@@ -358,7 +358,7 @@ void MainWindow::OnConfigListChanged(bool need_restart)
         _o.latency = latencyValueCache[name]; // restore latency values
         connections[name] = _o;
         auto item = new QTreeWidgetItem(QStringList() << _o.connectionName);
-        item->setData(0, Qt::UserRole, QVariant::fromValue<QvConfigIdentifier>(_o));
+        item->setData(0, Qt::UserRole, QVariant::fromValue<ConnectionIdentifier>(_o));
         connectionListWidget->addTopLevelItem(item);
     }
 
@@ -378,7 +378,7 @@ void MainWindow::OnConfigListChanged(bool need_restart)
             _o.latency = latencyValueCache[connName];
             connections[connName] = _o;
             auto item = new QTreeWidgetItem(QStringList() << _o.connectionName);
-            item->setData(0, Qt::UserRole, QVariant::fromValue<QvConfigIdentifier>(_o));
+            item->setData(0, Qt::UserRole, QVariant::fromValue<ConnectionIdentifier>(_o));
             subTopLevelItem->addChild(item);
         }
     }
@@ -560,7 +560,7 @@ void MainWindow::on_actionExit_triggered()
 {
     quit();
 }
-void MainWindow::ShowAndSetConnection(QvConfigIdentifier fullIdentifier, bool SetConnection, bool ApplyConnection)
+void MainWindow::ShowAndSetConnection(ConnectionIdentifier fullIdentifier, bool SetConnection, bool ApplyConnection)
 {
     // Check empty again...
     if (!connections.contains(fullIdentifier)) return;
@@ -719,7 +719,7 @@ void MainWindow::on_connectionListWidget_itemChanged(QTreeWidgetItem *item, int)
 }
 void MainWindow::on_removeConfigButton_clicked()
 {
-    QList<QvConfigIdentifier> connlist;
+    QList<ConnectionIdentifier> connlist;
 
     for (auto item : connectionListWidget->selectedItems()) {
         if (IsConnectableItem(item)) {
@@ -744,7 +744,7 @@ void MainWindow::on_removeConfigButton_clicked()
     for (auto conn : connlist) {
         if (conn == CurrentConnectionIdentifier) {
             on_stopButton_clicked();
-            CurrentConnectionIdentifier = QvConfigIdentifier();
+            CurrentConnectionIdentifier = ConnectionIdentifier();
         }
 
         auto connData = connections[conn];
@@ -928,7 +928,7 @@ void MainWindow::on_editJsonBtn_clicked()
 void MainWindow::on_pingTestBtn_clicked()
 {
     // Get data from UI
-    QList<QvConfigIdentifier> aliases;
+    QList<ConnectionIdentifier> aliases;
     auto selection = connectionListWidget->selectedItems();
 
     if (selection.count() == 0) {
@@ -971,7 +971,7 @@ void MainWindow::on_shareBtn_clicked()
     auto type = get<2>(GetConnectionInfo(root));
 
     if (!CheckIsComplexConfig(root) && (type == "vmess" || type == "shadowsocks")) {
-        ConfigExporter v(root, this);
+        ConfigExporter v(root, _identifier, this);
         v.OpenExport();
     } else {
         QvMessageBoxWarn(this, tr("Share Connection"), tr("There're no support of sharing configs other than vmess and shadowsocks"));

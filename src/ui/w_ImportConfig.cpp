@@ -54,7 +54,7 @@ void ImportConfigWindow::on_qrFromScreenBtn_clicked()
     bool hideQv2ray = hideQv2rayCB->isChecked();
 
     if (hideQv2ray) {
-        HideAllGlobalWindow();
+        //HideAllGlobalWindow();
     }
 
     QThread::msleep(static_cast<ulong>(doubleSpinBox->value() * 1000));
@@ -65,11 +65,14 @@ void ImportConfigWindow::on_qrFromScreenBtn_clicked()
     delete w;
 
     if (hideQv2ray) {
-        ShowAllGlobalWindow();
+        //ShowAllGlobalWindow();
     }
 
     if (_r == QDialog::Accepted) {
-        auto str = QZXing().decodeImage(pix);
+        QZXing decoder;
+        decoder.setDecoder(QZXing::DecoderFormat_QR_CODE | QZXing::DecoderFormat_EAN_13);
+        auto str = decoder.decodeImage(pix);
+        //auto str = QZXing().decodeImage(pix);
 
         if (str.trimmed().isEmpty()) {
             LOG(MODULE_UI, "Cannot decode QR Code from an image, size: h=" + QSTRN(pix.width()) + ", v=" + QSTRN(pix.height()))
@@ -103,34 +106,34 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
         }
 
         case 1: {
-            QStringList vmessList = SplitLines(vmessConnectionStringTxt->toPlainText());
+            QStringList linkList = SplitLines(vmessConnectionStringTxt->toPlainText());
             //
             // Clear UI and error lists
-            vmessErrors.clear();
+            linkErrors.clear();
             vmessConnectionStringTxt->clear();
             errorsList->clear();
             //
-            LOG(MODULE_IMPORT, QSTRN(vmessList.count()) + " string found in vmess box.")
+            LOG(MODULE_IMPORT, QSTRN(linkList.count()) + " string found in vmess box.")
 
-            while (!vmessList.isEmpty()) {
+            while (!linkList.isEmpty()) {
                 aliasPrefix = nameTxt->text();
-                auto vmess = vmessList.takeFirst();
+                auto link = linkList.takeFirst();
                 QString errMessage;
-                CONFIGROOT config = ConvertConfigFromVMessString(vmess, &aliasPrefix, &errMessage);
+                CONFIGROOT config = ConvertConfigFromString(link, &aliasPrefix, &errMessage);
 
                 // If the config is empty or we have any err messages.
                 if (config.isEmpty() || !errMessage.isEmpty()) {
                     // To prevent duplicated values.
-                    vmessErrors[vmess] = QSTRN(vmessErrors.count() + 1) + ": " + errMessage;
+                    linkErrors[link] = QSTRN(linkErrors.count() + 1) + ": " + errMessage;
                     continue;
                 } else {
                     connections[aliasPrefix] = config;
                 }
             }
 
-            if (!vmessErrors.isEmpty()) {
-                for (auto item : vmessErrors) {
-                    vmessConnectionStringTxt->appendPlainText(vmessErrors.key(item));
+            if (!linkErrors.isEmpty()) {
+                for (auto item : linkErrors) {
+                    vmessConnectionStringTxt->appendPlainText(linkErrors.key(item));
                     errorsList->addItem(item);
                 }
 
@@ -155,7 +158,9 @@ void ImportConfigWindow::on_selectImageBtn_clicked()
     auto buf = file.readAll();
     file.close();
     //
-    auto str = QZXing().decodeImage(QImage::fromData(buf));
+    QZXing decoder;
+    decoder.setDecoder(QZXing::DecoderFormat_QR_CODE | QZXing::DecoderFormat_EAN_13);
+    auto str = decoder.decodeImage(QImage::fromData(buf));
 
     if (str.isEmpty()) {
         QvMessageBoxWarn(this, tr("QRCode scanning failed"), tr("Cannot find any QRCode from the image."));
@@ -173,7 +178,7 @@ void ImportConfigWindow::on_errorsList_currentItemChanged(QListWidgetItem *curre
     }
 
     auto currentErrorText = current->text();
-    auto vmessEntry = vmessErrors.key(currentErrorText);
+    auto vmessEntry = linkErrors.key(currentErrorText);
     //
     auto startPos = vmessConnectionStringTxt->toPlainText().indexOf(vmessEntry);
     auto endPos = startPos + vmessEntry.length();

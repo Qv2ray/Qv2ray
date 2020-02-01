@@ -9,7 +9,7 @@ class ConfigExporter : public QDialog, private Ui::ExportConfigWindow
         Q_OBJECT
 
     public:
-        explicit ConfigExporter(const CONFIGROOT &root, QWidget *parent = nullptr);
+        explicit ConfigExporter(const CONFIGROOT &root, const ConnectionIdentifier &alias, QWidget *parent = nullptr);
         ~ConfigExporter();
         void OpenExport();
     protected:

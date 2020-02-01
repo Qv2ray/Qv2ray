@@ -20,6 +20,7 @@ namespace Qv2ray::core
         return in.QV2RAY_RULE_TAG;
     }
 
+    /// Host, port, type
     tuple<QString, int, QString> GetConnectionInfo(const CONFIGROOT &alias);
     bool GetOutboundData(const OUTBOUND &out, QString *host, int *port, QString *protocol);
     bool CheckIsComplexConfig(CONFIGROOT root);
