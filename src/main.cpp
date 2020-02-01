@@ -291,7 +291,7 @@ int main(int argc, char *argv[])
     LOG("LICENCE", NEWLINE "This program comes with ABSOLUTELY NO WARRANTY." NEWLINE
         "This is free software, and you are welcome to redistribute it" NEWLINE
         "under certain conditions." NEWLINE NEWLINE
-        "Copyright (c) 2019 2020 Qv2ray Developemnt Group." NEWLINE
+        "Copyright (c) 2019-2020 Qv2ray Developemnt Group." NEWLINE
         NEWLINE NEWLINE
         "Libraries that have been used in Qv2ray are listed below (Sorted by date added):" NEWLINE
         "Copyright (c) 2020 dridk (@dridk): X2Struct (Apache)" NEWLINE
@@ -303,6 +303,7 @@ int main(int argc, char *argv[])
         "Copyright (c) 2020 paceholder (@paceholder): nodeeditor (QNodeEditor modified by lhy0403) (BSD-3-Clause)" NEWLINE
         "Copyright (c) 2019 TheWanderingCoel (@TheWanderingCoel): ShadowClash (launchatlogin) (GPLv3)" NEWLINE
         "Copyright (c) 2020 Ram Pani (@DuckSoft): QvRPCBridge (WTFPL)" NEWLINE
+        "Copyright (c) 2019 ShadowSocks (@shadowsocks): libQtShadowsocks (LGPLv3)" NEWLINE
         NEWLINE)
     //
     LOG(MODULE_INIT, "Qv2ray Start Time: "  + QSTRN(QTime::currentTime().msecsSinceStartOfDay()))
