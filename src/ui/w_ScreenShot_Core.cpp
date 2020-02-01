@@ -114,6 +114,7 @@ void ScreenShotWindow::mouseMoveEvent(QMouseEvent *e)
         pSize();
         //
         label->setText(QString("%1x%2").arg(imgW).arg(imgH));
+        label->adjustSize();
         //
         //
         QRect labelRect(label->contentsRect());
