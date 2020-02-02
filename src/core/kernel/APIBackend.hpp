@@ -3,8 +3,8 @@
 
 #ifdef WITH_LIB_GRPCPP
 #include <grpc++/grpc++.h>
-#include "libs/gen/v2ray_api_commands.pb.h"
-#include "libs/gen/v2ray_api_commands.grpc.pb.h"
+#include "libs/gen/v2ray_api.pb.h"
+#include "libs/gen/v2ray_api.grpc.pb.h"
 #endif
 
 // Check 10 times before telling user that API has failed.

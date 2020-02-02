@@ -38,7 +38,7 @@ jobs:
       - name: Cross-platform - ${{ matrix.qt_version }} - ${{ matrix.backend }} - Generate Dependencies and Makefile
         shell: bash
         run: |
-          tools\win-generate-geosite.bat
+          tools/win-generate-geosite.bat
           PATH=$PATH:$Qt5_Dir
           mkdir build
           cd build
