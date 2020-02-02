@@ -647,10 +647,10 @@ void MainWindow::on_action_RCM_RenameConnection_triggered()
 }
 void MainWindow::on_connectionListWidget_itemChanged(QTreeWidgetItem *item, int)
 {
-    DEBUG(MODULE_UI, "A connection ListViewItem is changed.")
-
-    if (!isRenamingInProgress) return;
-
+    DEBUG(MODULE_UI, "A connection ListViewItem is changed. This should ONLY occur when renaming an connection.")
+    //
+    assert(isRenamingInProgress);
+    //
     isRenamingInProgress = false;
     // In this case it's after we entered the name.
     // and tell user you should not rename a config from subscription.
@@ -1069,6 +1069,7 @@ void MainWindow::on_subsButton_clicked()
 void MainWindow::on_connectionListWidget_itemSelectionChanged()
 {
     if (!isRenamingInProgress && !IsSelectionConnectable) {
+        // If renaming is not in progress AND our selection is invalid.
         CurrentSelectedItem = nullptr;
         SetEditWidgetEnable(false);
         routeCountLabel->setText(tr("N/A"));
@@ -1078,6 +1079,7 @@ void MainWindow::on_connectionListWidget_itemSelectionChanged()
         latencyLabel->setText(tr("N/A"));
     } else {
         if (!connectionListWidget->selectedItems().isEmpty()) {
+            on_connectionListWidget_currentItemChanged(connectionListWidget->selectedItems().first(), nullptr);
             CurrentSelectedItem = connectionListWidget->selectedItems().first();
         }
     }
