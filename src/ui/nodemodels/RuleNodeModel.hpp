@@ -65,6 +65,7 @@ class QvRuleNodeDataModel : public NodeDataModel
         {
             _ruleTag = make_shared<RuleNodeData>(data);
             _label->setText(_ruleTag->GetRuleTag());
+            _label->adjustSize();
         }
 
         QWidget *embeddedWidget() override

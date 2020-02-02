@@ -46,6 +46,7 @@ class QvInboundNodeModel : public NodeDataModel
         {
             _in = make_shared<InboundNodeData>(data);
             _label->setText(data);
+            _label->adjustSize();
         }
 
         QWidget *embeddedWidget() override
