@@ -31,13 +31,11 @@ jobs:
         uses: jurplel/install-qt-action@v2
         with:
           version: ${{ matrix.qt_version }}
-          modules: qtcharts
       - name: ${{ matrix.platform }} - Installing Qt - Windows Only
         if: matrix.platform == 'windows-latest'
         uses: jurplel/install-qt-action@v2
         with:
           version: ${{ matrix.qt_version }}
-          modules: qtcharts
           arch: win64_mingw73
 # --------------------------------------------------------
       - name: Linux - Install Packages 
@@ -48,18 +46,20 @@ jobs:
           sudo add-apt-repository ppa:carsten-uppenbrink-net/openssl
           sudo apt update
           sudo apt install -y gcc-7 libgl-dev openssl libx11-dev libxkbcommon-x11-dev libgrpc++-dev libprotobuf-dev protobuf-compiler protobuf-c-compiler protobuf-compiler-grpc
-# --------------------------------------------------------
-      - name: Linux - Extracting gRPC and protobuf libs and headers
-        if: matrix.platform == 'ubuntu-16.04' && matrix.backend == 'gRPC'
-        run: tools/grpc_gen.sh
-# ==
-      - name: macOS - Extracting gRPC and protobuf libs and headers
+
+      - name: macOS - Install Packages
         if: matrix.platform == 'macos-latest' && matrix.backend == 'gRPC'
-        run: tools/deps_macOS.sh
-# ==
+        run: |
+          brew install grpc
+          brew install protobuf
+# --------------------------------------------------------
+      - name: Unix - Extracting gRPC and protobuf libs and headers
+        if: matrix.platform != 'windows-latest' && matrix.backend == 'gRPC'
+        run: tools/unix-generate-api.sh
+=
       - name: Win32 - Extracting gRPC and protobuf libs and headers
         if: matrix.platform == 'windows-latest' && matrix.backend == 'gRPC'
-        run: tools\grpc_gen.bat
+        run: tools\win-generate-api.bat
 # --------------------------------------------------------
       - name: Linux - Download libqvb static library.
         if: matrix.platform == 'ubuntu-16.04' && matrix.backend == 'libqvb'
@@ -78,9 +78,10 @@ jobs:
         if: matrix.platform == 'windows-latest' && matrix.backend == 'libqvb'
         run: curl -o .\libs\libqvb-win64.a -L https://github.com/Qv2ray/QvRPCBridge/releases/download/v1.1/libqvb-win64.a
 # -------------------------------------------------------- Generate MakeFile
-      - name: Generate Makefile
+      - name: Cross-platform - ${{ matrix.qt_version }} - ${{ matrix.backend }} - Generate Dependencies and Makefile
         shell: bash
         run: |
+          $([ "${{ matrix.platform }}" == windows-latest ] && echo "tools\win-generate-geosite.bat" || echo "./tools/unix-generate-geosite.sh")
           PATH=$PATH:$Qt5_Dir
           mkdir build
           cd build

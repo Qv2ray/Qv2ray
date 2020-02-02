@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT += core gui widgets network charts
+QT += core gui widgets network
 
 TARGET = qv2ray
 TEMPLATE = app
@@ -34,7 +34,7 @@ CONFIG += enable_decoder_qr_code enable_encoder_qr_code qt c++17 openssl-linked
 include(3rdparty/qzxing/src/QZXing-components.pri)
 include(3rdparty/SingleApplication/singleapplication.pri)
 include(3rdparty/QNodeEditor/QNodeEditor.pri)
-include(3rdparty/x2struct/x2struct.pri)
+#include(3rdparty/x2struct/x2struct.pri)
 
 # Main config
 CONFIG += lrelease embed_translations
@@ -42,6 +42,20 @@ CONFIG += lrelease embed_translations
 # Win32 support.
 win32:CONFIG += win
 win64:CONFIG += win
+
+# Fine......
+message(" ")
+message("Qv2ray Version: $${VERSION}")
+message("|-------------------------------------------------|")
+message("| Qv2ray, A Cross Platform v2ray Qt GUI Client.   |")
+message("| Licenced under GPLv3                            |")
+message("|                                                 |")
+message("| You may only use this program to the extent     |")
+message("| permitted by local law.                         |")
+message("|                                                 |")
+message("| See: https://www.gnu.org/licenses/gpl-3.0.html  |")
+message("|-------------------------------------------------|")
+message(" ")
 
 defineTest(Qv2rayAddFile) {
     ext = $$take_last(ARGS)
@@ -120,6 +134,7 @@ Qv2rayAddSource(components, proxy, QvProxyConfigurator, cpp, hpp)
 Qv2rayAddSource(components, tcping, QvTCPing, cpp, hpp)
 Qv2rayAddSource(components, speedchart, speedwidget, cpp, hpp)
 Qv2rayAddSource(components, speedchart, speedplotview, cpp, hpp)
+Qv2rayAddSource(components, geosite, QvGeositeReader, cpp, hpp)
 Qv2rayAddSource(core, config, ConfigBackend, cpp, hpp)
 Qv2rayAddSource(core, config, ConfigUpgrade, cpp)
 Qv2rayAddSource(core, connection, ConnectionIO, cpp, hpp)
@@ -149,23 +164,8 @@ Qv2rayAddSource(ui, widgets, StreamSettingsWidget, cpp, hpp, ui)
 SOURCES += $$PWD/src/main.cpp
 HEADERS +=
 FORMS +=
-
 INCLUDEPATH += $$PWD/src
 RESOURCES += resources.qrc
-
-# Fine......
-message(" ")
-message("Qv2ray Version: $${VERSION}")
-message("|-------------------------------------------------|")
-message("| Qv2ray, A Cross Platform v2ray Qt GUI Client.   |")
-message("| Licenced under GPLv3                            |")
-message("|                                                 |")
-message("| You may only use this program to the extent     |")
-message("| permitted by local law.                         |")
-message("|                                                 |")
-message("| See: https://www.gnu.org/licenses/gpl-3.0.html  |")
-message("|-------------------------------------------------|")
-message(" ")
 
 # Qv2ray manual build info
 _QV2RAY_BUILD_INFO_STR_=$$getenv(_QV2RAY_BUILD_INFO_)
@@ -190,6 +190,29 @@ message(" ")
 
 RC_ICONS += ./assets/icons/qv2ray.ico
 ICON = ./assets/icons/qv2ray.icns
+
+defineTest(Qv2rayQMakeError)　{
+    message(" ")
+    message("-----------------------------------------------")
+    message("Cannot continue: ")
+    message("  --> Qv2ray is not properly configured yet: ")
+    message("      $$ARGS")
+    message("  --> Please read the build wiki: https://github.com/Qv2ray/Qv2ray/wiki/Manually-Build-Qv2ray")
+    message("-----------------------------------------------")
+    message(" ")
+    warning("IF YOU THINK IT'S A MISTAKE, PLEASE OPEN AN ISSUE")
+    error("! ABORTING THE BUILD !")
+    message(" ")
+}
+
+# ------------------------------------------ Begin checking protobuf domain list headers.
+!exists($$PWD/libs/gen/v2ray_geosite.pb.cc) || !exists($$PWD/libs/gen/v2ray_geosite.pb.cc) {
+    Qv2rayQMakeError("Protobuf headers for v2ray geosite is missing.")
+}
+
+SOURCES += libs/gen/v2ray_geosite.pb.cc
+HEADERS += libs/gen/v2ray_geosite.pb.h
+CONFIG += _qv2ray_with_protobuf_
 
 with_new_backend {
     !exists($$PWD/libs/libqvb/build/libqvb.h) {
@@ -224,48 +247,60 @@ with_new_backend {
     message("Qv2ray will use libgRPC as API backend")
 
     # ------------------------------------------ Begin checking gRPC and protobuf headers.
-    !exists($$PWD/libs/gen/v2ray_api_commands.grpc.pb.h) || !exists($$PWD/libs/gen/v2ray_api_commands.grpc.pb.cc) || !exists($$PWD/libs/gen/v2ray_api_commands.pb.h) || !exists($$PWD/libs/gen/v2ray_api_commands.pb.cc) {
-        message(" ")
-        message("-----------------------------------------------")
-        message("Cannot continue: ")
-        message("  --> Qv2ray is not properly configured yet: ")
-        message("      gRPC and protobuf headers for v2ray API is missing.")
-        message("  --> Please run gen_grpc.sh gen_grpc.bat or deps_macOS.sh located in tools/")
-        message("  --> Or consider reading the build wiki: https://github.com/Qv2ray/Qv2ray/wiki/Manually-Build-Qv2ray")
-        message("-----------------------------------------------")
-        message(" ")
-        warning("IF YOU THINK IT'S A MISTAKE, PLEASE OPEN AN ISSUE")
-        error("! ABORTING THE BUILD !")
-        message(" ")
+    !exists($$PWD/libs/gen/v2ray_api.grpc.pb.h) || !exists($$PWD/libs/gen/v2ray_api.grpc.pb.cc) || !exists($$PWD/libs/gen/v2ray_api.pb.h) || !exists($$PWD/libs/gen/v2ray_api.pb.cc) {
+        Qv2rayQMakeError("gRPC and protobuf headers for v2ray API is missing.")
     }
 
-    SOURCES += libs/gen/v2ray_api_commands.pb.cc \
-               libs/gen/v2ray_api_commands.grpc.pb.cc
+    SOURCES += libs/gen/v2ray_api.pb.cc \
+               libs/gen/v2ray_api.grpc.pb.cc
 
-    HEADERS += libs/gen/v2ray_api_commands.pb.h \
-               libs/gen/v2ray_api_commands.grpc.pb.h
+    HEADERS += libs/gen/v2ray_api.pb.h \
+               libs/gen/v2ray_api.grpc.pb.h
 
-    # ==-- OS Specific configurations for libgRPC and libprotobuf --==
+    CONFIG += _qv2ray_with_protobuf_
+
+    message(" ")
+    message("Adding gRPC headers and linker libraries.")
+    # ==-- OS Specific configurations for libgRPC --==
+    win {
+        message("  --> Linking against gRPC library.")
+        DEPENDPATH  += $$PWD/libs/gRPC-win32/include
+        INCLUDEPATH += $$PWD/libs/gRPC-win32/include
+        LIBS += -L$$PWD/libs/gRPC-win32/lib/ -llibgrpc++.dll
+    }
+    unix {
+        # For gRPC and protobuf in linux and macOS
+        message("  --> Linking against gRPC and protobuf library.")
+        LIBS += -L/usr/local/lib -lgrpc++ -lgrpc
+    }
+    macx {
+        message("  --> Linking libgpr.")
+        LIBS += -lgpr
+    }
+}
+
+_qv2ray_with_protobuf_ {
+    message(" ")
+    message("Adding libprotobuf headers and linker libraries.")
+    # ==-- OS Specific configurations for libprotobuf --==
     win {
         # A hack for protobuf header.
         message("  --> Applying a hack for protobuf header")
         DEFINES += _WIN32_WINNT=0x600
 
-        message("  --> Linking against gRPC and protobuf library.")
+        message("  --> Linking against protobuf library.")
         DEPENDPATH  += $$PWD/libs/gRPC-win32/include
         INCLUDEPATH += $$PWD/libs/gRPC-win32/include
-        LIBS += -L$$PWD/libs/gRPC-win32/lib/ \
-                -llibprotobuf.dll \
-                -llibgrpc++.dll
+        LIBS += -L$$PWD/libs/gRPC-win32/lib/ -llibprotobuf.dll
     }
     unix {
         # For gRPC and protobuf in linux and macOS
-        message("  --> Linking against gRPC and protobuf library.")
-        LIBS += -L/usr/local/lib -lgrpc++ -lprotobuf -lgrpc
+        message("  --> Linking against protobuf library.")
+        LIBS += -L/usr/local/lib -lprotobuf
     }
     macx {
-        message("  --> Linking libgpr and libupb.")
-        LIBS += -lgpr -lupb
+        message("  --> Linking libupb.")
+        LIBS += -lupb
     }
 }
 
@@ -282,11 +317,12 @@ for(var, $$list($$files("translations/*.ts", true))) {
         EXTRA_TRANSLATIONS += translations/$$LOCALE_FILENAME
     }
 }
-message("Qv2ray will build with" $${replace(EXTRA_TRANSLATIONS, "translations/", "")})
-TRANSLATIONS += translations/en_US.ts
 
-message(" ")
+TRANSLATIONS += translations/en_US.ts
+message("Qv2ray will build with" $${replace(EXTRA_TRANSLATIONS, "translations/", "")} $${replace(TRANSLATIONS, "translations/", "")})
+
 QMAKE_CXXFLAGS += -Wno-missing-field-initializers -Wno-unused-parameter -Wno-unused-variable
+message(" ")
 
 message("Adding QHttpServer Support")
 message("  --> Adding qhttpserver")
@@ -368,7 +404,7 @@ qmake_lupdate {
     message("Running lupdate...")
     message(" ")
     lupdate_output = $$system(lupdate $$SOURCES $$HEADERS $$FORMS -ts $$PWD/$$TRANSLATIONS -no-ui-lines)
-    message($$lupdate_output)
+    message(" $$lupdate_output")
     message("lupdate finished.")
 }
 

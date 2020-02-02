@@ -2082,114 +2082,114 @@ p, li { white-space: pre-wrap; }
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="96"/>
+        <location filename="../src/main.cpp" line="99"/>
         <source>Warning</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="96"/>
+        <location filename="../src/main.cpp" line="99"/>
         <source>Qv2ray cannot load the config file from here:</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="191"/>
+        <location filename="../src/main.cpp" line="194"/>
         <source>Cannot Start Qv2ray</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="192"/>
+        <location filename="../src/main.cpp" line="195"/>
         <source>Cannot find a place to store config files.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="193"/>
+        <location filename="../src/main.cpp" line="196"/>
         <source>Qv2ray has searched these paths below:</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="172"/>
-        <location filename="../src/main.cpp" line="195"/>
-        <location filename="../src/main.cpp" line="343"/>
+        <location filename="../src/main.cpp" line="175"/>
+        <location filename="../src/main.cpp" line="198"/>
+        <location filename="../src/main.cpp" line="346"/>
         <source>Qv2ray will now exit.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="170"/>
+        <location filename="../src/main.cpp" line="173"/>
         <source>Failed to initialise Qv2ray</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="171"/>
+        <location filename="../src/main.cpp" line="174"/>
         <source>Failed to determine the location of config file.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="173"/>
+        <location filename="../src/main.cpp" line="176"/>
         <source>Please report if you think it&apos;s a bug.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="254"/>
+        <location filename="../src/main.cpp" line="257"/>
         <source>You cannot run Qv2ray as root, please use --I-just-wanna-run-with-root if you REALLY want to do so.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="255"/>
+        <location filename="../src/main.cpp" line="258"/>
         <source> --&gt; USE IT AT YOUR OWN RISK!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="320"/>
+        <location filename="../src/main.cpp" line="323"/>
         <source>Cannot load languages</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="320"/>
+        <location filename="../src/main.cpp" line="323"/>
         <source>Qv2ray will continue running, but you cannot change the UI language.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="339"/>
+        <location filename="../src/main.cpp" line="342"/>
         <source>Qv2ray Cannot Continue</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="340"/>
+        <location filename="../src/main.cpp" line="343"/>
         <source>You are running a lower version of Qv2ray compared to the current config file.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="341"/>
+        <location filename="../src/main.cpp" line="344"/>
         <source>Please check if there&apos;s an issue explaining about it.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="342"/>
+        <location filename="../src/main.cpp" line="345"/>
         <source>Or submit a new issue if you think this is an error.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="386"/>
+        <location filename="../src/main.cpp" line="389"/>
         <source>Dependency Missing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="388"/>
+        <location filename="../src/main.cpp" line="391"/>
         <source>This could be caused by a missing of `openssl` package in your system.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="389"/>
+        <location filename="../src/main.cpp" line="392"/>
         <source>If you are using an AppImage from Github Action, please report a bug.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="387"/>
+        <location filename="../src/main.cpp" line="390"/>
         <source>Cannot find openssl libs</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="390"/>
+        <location filename="../src/main.cpp" line="393"/>
         <source>Technical Details</source>
         <translation></translation>
     </message>

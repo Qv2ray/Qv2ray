@@ -1,4 +1,9 @@
 #pragma once
+//
+#ifndef XTOSTRUCT_QT
+#   define XTOSTRUCT_QT
+#endif
+//
 #include <QtCore>
 #include <QtGui>
 #include <QApplication>

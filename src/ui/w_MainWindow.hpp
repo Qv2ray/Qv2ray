@@ -3,7 +3,6 @@
 #include <QMainWindow>
 #include <QMenu>
 #include <QScrollBar>
-#include <QtCharts>
 #include <QSystemTrayIcon>
 
 #include "ui_w_MainWindow.h"
