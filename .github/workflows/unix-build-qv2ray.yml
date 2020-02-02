@@ -1,4 +1,4 @@
-name: Qv2ray build matrix
+name: Qv2ray build matrix - Unix
 
 on: 
   push:
@@ -9,13 +9,9 @@ jobs:
   build:
     strategy:
       matrix:
-        platform: [ubuntu-16.04, windows-latest, macos-latest]
+        platform: [ubuntu-16.04, macos-latest]
         qt_version: [5.12.6, 5.13.2, 5.14.1]
         backend: [libqvb, gRPC]
-        exclude:
-          # donot build Qt 5.14.1 on the buggy Windows platform
-          - platform: windows-latest
-            qt_version: 5.14.1
       fail-fast: false
         
     runs-on: ${{ matrix.platform }}
@@ -27,16 +23,9 @@ jobs:
         run: git submodule update --init
 # --------------------------------------------------------
       - name: ${{ matrix.platform }} - Installing Qt
-        if: matrix.platform != 'windows-latest'
         uses: jurplel/install-qt-action@v2
         with:
           version: ${{ matrix.qt_version }}
-      - name: ${{ matrix.platform }} - Installing Qt - Windows Only
-        if: matrix.platform == 'windows-latest'
-        uses: jurplel/install-qt-action@v2
-        with:
-          version: ${{ matrix.qt_version }}
-          arch: win64_mingw73
 # --------------------------------------------------------
       - name: Linux - Install Packages 
         if: matrix.platform == 'ubuntu-16.04'
@@ -53,12 +42,8 @@ jobs:
           brew install grpc@1.25.0
 # --------------------------------------------------------
       - name: Unix - Extracting gRPC and protobuf libs and headers
-        if: matrix.platform != 'windows-latest' && matrix.backend == 'gRPC'
+        if: matrix.backend == 'gRPC'
         run: tools/unix-generate-api.sh
-
-      - name: Win32 - Extracting gRPC and protobuf libs and headers
-        if: matrix.platform == 'windows-latest' && matrix.backend == 'gRPC'
-        run: tools\win-generate-api.bat
 # --------------------------------------------------------
       - name: Linux - Download libqvb static library.
         if: matrix.platform == 'ubuntu-16.04' && matrix.backend == 'libqvb'
@@ -72,15 +57,11 @@ jobs:
       - name: macOS - Download libqvb static library.
         if: matrix.platform == 'macos-latest' && matrix.backend == 'libqvb'
         run: curl -o ./libs/libqvb-darwin.a -L https://github.com/Qv2ray/QvRPCBridge/releases/download/v1.1/libqvb-darwin.a
-# ==
-      - name: Win32 - Download libqvb static library.
-        if: matrix.platform == 'windows-latest' && matrix.backend == 'libqvb'
-        run: curl -o .\libs\libqvb-win64.a -L https://github.com/Qv2ray/QvRPCBridge/releases/download/v1.1/libqvb-win64.a
 # -------------------------------------------------------- Generate MakeFile
       - name: Cross-platform - ${{ matrix.qt_version }} - ${{ matrix.backend }} - Generate Dependencies and Makefile
         shell: bash
         run: |
-          $([ "${{ matrix.platform }}" == windows-latest ] && echo "tools\win-generate-geosite.bat" || echo "./tools/unix-generate-geosite.sh")
+          ./tools/unix-generate-geosite.sh
           PATH=$PATH:$Qt5_Dir
           mkdir build
           cd build
@@ -92,7 +73,7 @@ jobs:
         shell: bash
         run: |
           cd build
-          $([ "${{ matrix.platform }}" == "windows-latest" ] && echo "mingw32-make" || echo "make") -j2 $([ "${{ matrix.platform }}" == "ubuntu-16.04" ] && echo "CC=gcc-7 CXX=g++-7" LINK="g++-7" || echo "")
+          make -j2 $([ "${{ matrix.platform }}" == "ubuntu-16.04" ] && echo "CC=gcc-7 CXX=g++-7" LINK="g++-7" || echo "")
       - name: Linux - ${{ matrix.qt_version }} - ${{ matrix.backend }} - Generating AppImage
         if: matrix.platform == 'ubuntu-16.04'
         run: | 
@@ -145,40 +126,6 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: build/Qv2ray.app.tar.gz
           asset_name: Qv2ray-${{ github.ref }}-macOS-qt${{ matrix.qt_version }}-${{ matrix.backend }}.tar.gz
-          tag: ${{ github.ref }}
-          overwrite: true
-# ==
-      - name: Win32 - ${{ matrix.qt_version }} - ${{ matrix.backend }} - Copying DLLs to build output folders
-        if: matrix.platform == 'windows-latest'
-        shell: cmd
-        run: .github\workflows\copy_DLLs.bat
-      - name: Win32 - ${{ matrix.qt_version }} - ${{ matrix.backend }} - Running windeployqt
-        if: matrix.platform == 'windows-latest'
-        shell: cmd
-        run: |
-          cd build
-          cd release
-          del *.cpp *.h *.o *.qrc *.qm
-          windeployqt ./qv2ray.exe --compiler-runtime
-      - name: Win32 - ${{ matrix.qt_version }} - ${{ matrix.backend }} - Create 7z Release
-        if: matrix.platform == 'windows-latest'
-        uses: DuckSoft/create-7z-action@v1.0
-        with:
-          pathSource: ./build/release/
-          pathTarget: ./release.7z
-      - name: Win32 - ${{ matrix.qt_version }} - ${{ matrix.backend }} - Uploading artifact
-        if: matrix.platform == 'windows-latest'
-        uses: actions/upload-artifact@master
-        with:
-          name: Qv2ray.Win64-qt${{ matrix.qt_version }}-${{ matrix.backend }}.7z
-          path: release.7z
-      - name: Win32 - ${{ matrix.qt_version }} - ${{ matrix.backend }} - Upload binaries to release
-        uses: svenstaro/upload-release-action@v1-release
-        if: github.event_name == 'release' && matrix.platform == 'windows-latest' && matrix.qt_version == '5.12.6'
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: release.7z
-          asset_name: Qv2ray-${{ github.ref }}-win64-qt${{ matrix.qt_version }}-${{ matrix.backend }}.7z
           tag: ${{ github.ref }}
           overwrite: true
 # -------------------------------------
