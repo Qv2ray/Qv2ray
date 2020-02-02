@@ -26,7 +26,7 @@ void signalHandler(int signum)
         MainWindow::mwInstance->vinstance->StopConnection();
     }
 
-    exit(signum);
+    qApp->exit(-99);
 }
 
 
