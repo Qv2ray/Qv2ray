@@ -174,12 +174,8 @@ MainWindow::MainWindow(QWidget *parent):
     connect(action_Tray_Stop, &QAction::triggered, this, &MainWindow::on_stopButton_clicked);
     connect(action_Tray_Reconnect, &QAction::triggered, this, &MainWindow::on_reconnectButton_clicked);
     connect(action_Tray_Quit, &QAction::triggered, this, &MainWindow::quit);
-    connect(action_Tray_SetSystemProxy, &QAction::triggered, [this]() {
-        this->MWSetSystemProxy();
-    });
-    connect(action_Tray_ClearSystemProxy, &QAction::triggered, [this]() {
-        this->MWClearSystemProxy(true);
-    });
+    connect(action_Tray_SetSystemProxy, &QAction::triggered, this, &MainWindow::MWSetSystemProxy);
+    connect(action_Tray_ClearSystemProxy, &QAction::triggered, this, &MainWindow::MWClearSystemProxy);
     connect(hTray, &QSystemTrayIcon::activated, this, &MainWindow::on_activatedTray);
     //
     // Actions for right click the connection list

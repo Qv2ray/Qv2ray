@@ -1,4 +1,7 @@
 #pragma once
+#include <QString>
+#include <QList>
+#include <QMap>
 #include "3rdparty/x2struct/x2struct.hpp"
 
 namespace Qv2ray::base::objects

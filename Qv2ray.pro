@@ -13,7 +13,7 @@ TEMPLATE = app
 _BUILD_NUMBER=$$cat(Build.Counter)
 VERSION = 2.0.1.$$_BUILD_NUMBER
 
-no_increase_build_number {
+no_increase_build_number | qmake_lupdate {
     message("Build.Counter will not be increased")
 } else {
     _BUILD_NUMBER = $$num_add($$_BUILD_NUMBER, 1)
@@ -144,11 +144,14 @@ Qv2rayAddSource(ui, _, w_MainWindow_extra, cpp)
 Qv2rayAddSource(ui, _, w_PreferencesWindow, cpp, hpp, ui)
 Qv2rayAddSource(ui, _, w_ScreenShot_Core, cpp, hpp, ui)
 Qv2rayAddSource(ui, _, w_SubscriptionManager, cpp, hpp, ui)
+Qv2rayAddSource(ui, widgets, StreamSettingsWidget, cpp, hpp, ui)
 
 SOURCES += $$PWD/src/main.cpp
+HEADERS +=
+FORMS +=
+
 INCLUDEPATH += $$PWD/src
-RESOURCES += \
-        resources.qrc
+RESOURCES += resources.qrc
 
 # Fine......
 message(" ")
@@ -294,6 +297,7 @@ HEADERS += \
     $$PWD/3rdparty/qhttpserver/src/qhttpserver.h \
     $$PWD/3rdparty/qhttpserver/src/qhttpserverapi.h \
     $$PWD/3rdparty/qhttpserver/src/qhttpserverfwd.h
+
 SOURCES += \
     $$PWD/3rdparty/qhttpserver/src/qhttpconnection.cpp \
     $$PWD/3rdparty/qhttpserver/src/qhttprequest.cpp \
@@ -357,6 +361,15 @@ with_metainfo {
     appdataXml.path = $$PREFIX/share/metainfo/
     INSTALLS += appdataXml
     DEFINES += WITH_FLATHUB_CONFIG_PATH
+}
+
+qmake_lupdate {
+    message(" ")
+    message("Running lupdate...")
+    message(" ")
+    lupdate_output = $$system(lupdate $$SOURCES $$HEADERS $$FORMS -ts $$PWD/$$TRANSLATIONS -no-ui-lines)
+    message($$lupdate_output)
+    message("lupdate finished.")
 }
 
 message(" ")

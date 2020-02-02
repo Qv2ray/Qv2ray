@@ -13,18 +13,24 @@ OutboundEditor::OutboundEditor(QWidget *parent)
     : QDialog(parent),
       Tag(""),
       Mux(),
-      stream(),
       vmess(),
       shadowsocks()
 {
     REGISTER_WINDOW
     setupUi(this);
+    //
+    ssWidget = new StreamSettingsWidget(this);
+    transportFrame->addWidget(ssWidget);
+    //
     shadowsocks = ShadowSocksServerObject();
     socks = SocksServerObject();
-    socks.users.push_back(SocksServerObject::UserObject());
     vmess = VMessServerObject();
+    socks.users.push_back(SocksServerObject::UserObject());
     vmess.users.push_back(VMessServerObject::UserObject());
-    stream = StreamSettingsObject();
+    //
+    auto stream = StreamSettingsObject();
+    ssWidget->SetStreamObject(stream);
+    //
     OutboundType = "vmess";
     Tag = OUTBOUND_TAG_PROXY;
     useFProxy = false;
@@ -40,10 +46,10 @@ OutboundEditor::OutboundEditor(OUTBOUND outboundEntry, QWidget *parent) : Outbou
     OutboundType = outboundEntry["protocol"].toString();
     Mux = outboundEntry["mux"].toObject();
     useFProxy = outboundEntry[QV2RAY_USE_FPROXY_KEY].toBool(false);
+    ssWidget->SetStreamObject(StructFromJsonString<StreamSettingsObject>(JsonToString(outboundEntry["streamSettings"].toObject())));
 
     if (OutboundType == "vmess") {
         vmess = StructFromJsonString<VMessServerObject>(JsonToString(outboundEntry["settings"].toObject()["vnext"].toArray().first().toObject()));
-        stream = StructFromJsonString<StreamSettingsObject>(JsonToString(outboundEntry["streamSettings"].toObject()));
         shadowsocks.port = vmess.port;
         shadowsocks.address = vmess.address;
         socks.address = vmess.address;
@@ -87,6 +93,33 @@ QString OutboundEditor::GetFriendlyName()
     return name;
 }
 
+OUTBOUND OutboundEditor::GenerateConnectionJson()
+{
+    OUTBOUNDSETTING settings;
+    auto streaming = JsonFromString(StructToJsonString(ssWidget->GetStreamSettings()));
+
+    if (OutboundType == "vmess") {
+        // VMess is only a ServerObject, and we need an array { "vnext": [] }
+        QJsonArray vnext;
+        vnext.append(GetRootObject(vmess));
+        settings.insert("vnext", vnext);
+    } else if (OutboundType == "shadowsocks") {
+        streaming = QJsonObject();
+        QJsonArray servers;
+        servers.append(GetRootObject(shadowsocks));
+        settings["servers"] = servers;
+    } else if (OutboundType == "socks") {
+        streaming = QJsonObject();
+        QJsonArray servers;
+        servers.append(GetRootObject(socks));
+        settings["servers"] = servers;
+    }
+
+    auto root = GenerateOutboundEntry(OutboundType, settings, streaming, Mux, "0.0.0.0", Tag);
+    root[QV2RAY_USE_FPROXY_KEY] = useFProxy;
+    return root;
+}
+
 void OutboundEditor::ReloadGUI()
 {
     if (OutboundType == "vmess") {
@@ -96,49 +129,6 @@ void OutboundEditor::ReloadGUI()
         idLineEdit->setText(vmess.users.front().id);
         alterLineEdit->setValue(vmess.users.front().alterId);
         securityCombo->setCurrentText(vmess.users.front().security);
-        tranportCombo->setCurrentText(stream.network);
-        tlsCB->setChecked(stream.security == "tls");
-        // TCP
-        tcpHeaderTypeCB->setCurrentText(stream.tcpSettings.header.type);
-        tcpRequestTxt->setPlainText(StructToJsonString(stream.tcpSettings.header.request));
-        tcpRespTxt->setPlainText(StructToJsonString(stream.tcpSettings.header.response));
-        // HTTP
-        QString allHosts;
-
-        for (auto host : stream.httpSettings.host) {
-            allHosts = allHosts + host + "\r\n";
-        }
-
-        httpHostTxt->setPlainText(allHosts);
-        httpPathTxt->setText(stream.httpSettings.path);
-        // WS
-        wsPathTxt->setText(stream.wsSettings.path);
-        QString wsHeaders;
-
-        for (auto item = stream.wsSettings.headers.begin(); item != stream.wsSettings.headers.end(); item++) {
-            wsHeaders += item.key() + "|" + item.value() + NEWLINE;
-        }
-
-        wsHeadersTxt->setPlainText(wsHeaders);
-        // mKCP
-        kcpMTU->setValue(stream.kcpSettings.mtu);
-        kcpTTI->setValue(stream.kcpSettings.tti);
-        kcpHeaderType->setCurrentText(stream.kcpSettings.header.type);
-        kcpCongestionCB->setChecked(stream.kcpSettings.congestion);
-        kcpReadBufferSB->setValue(stream.kcpSettings.readBufferSize);
-        kcpUploadCapacSB->setValue(stream.kcpSettings.uplinkCapacity);
-        kcpDownCapacitySB->setValue(stream.kcpSettings.downlinkCapacity);
-        kcpWriteBufferSB->setValue(stream.kcpSettings.writeBufferSize);
-        // DS
-        dsPathTxt->setText(stream.dsSettings.path);
-        // QUIC
-        quicKeyTxt->setText(stream.quicSettings.key);
-        quicSecurityCB->setCurrentText(stream.quicSettings.security);
-        quicHeaderTypeCB->setCurrentText(stream.quicSettings.header.type);
-        // SOCKOPT
-        tProxyCB->setCurrentText(stream.sockopt.tproxy);
-        tcpFastOpenCB->setChecked(stream.sockopt.tcpFastOpen);
-        soMarkSpinBox->setValue(stream.sockopt.mark);
     } else if (OutboundType == "shadowsocks") {
         outBoundTypeCombo->setCurrentIndex(1);
         // ShadowSocks Configs
@@ -201,181 +191,33 @@ void OutboundEditor::on_securityCombo_currentIndexChanged(const QString &arg1)
     vmess.users.front().security = arg1;
 }
 
-void OutboundEditor::on_tranportCombo_currentIndexChanged(const QString &arg1)
+void OutboundEditor::on_tagTxt_textEdited(const QString &arg1)
 {
-    stream.network = arg1;
+    Tag = arg1;
 }
 
-void OutboundEditor::on_httpPathTxt_textEdited(const QString &arg1)
+void OutboundEditor::on_muxEnabledCB_stateChanged(int arg1)
 {
-    stream.httpSettings.path = arg1;
+    Mux["enabled"] = arg1 == Qt::Checked;
 }
 
-void OutboundEditor::on_httpHostTxt_textChanged()
+void OutboundEditor::on_muxConcurrencyTxt_valueChanged(int arg1)
 {
-    try {
-        QStringList hosts = httpHostTxt->toPlainText().replace("\r", "").split("\n");
-        stream.httpSettings.host.clear();
-
-        for (auto host : hosts) {
-            if (!host.trimmed().isEmpty()) {
-                stream.httpSettings.host.push_back(host.trimmed());
-            }
-        }
-
-        BLACK(httpHostTxt)
-    } catch (...) {
-        RED(httpHostTxt)
-    }
+    Mux["concurrency"] = arg1;
 }
 
-void OutboundEditor::on_wsHeadersTxt_textChanged()
+void OutboundEditor::on_alterLineEdit_valueChanged(int arg1)
 {
-    try {
-        QStringList headers = SplitLines(wsHeadersTxt->toPlainText());
-        stream.wsSettings.headers.clear();
+    if (vmess.users.empty()) vmess.users.push_back(VMessServerObject::UserObject());
 
-        for (auto header : headers) {
-            if (header.isEmpty()) continue;
-
-            auto index = header.indexOf("|");
-
-            if (index < 0) throw "fast fail to set RED color";
-
-            auto key = header.left(index);
-            auto value = header.right(header.length() - index - 1);
-            stream.wsSettings.headers[key] = value;
-        }
-
-        BLACK(wsHeadersTxt)
-    } catch (...) {
-        RED(wsHeadersTxt)
-    }
+    vmess.users.front().alterId = arg1;
 }
 
-
-void OutboundEditor::on_tcpRequestDefBtn_clicked()
+void OutboundEditor::on_useFPCB_stateChanged(int arg1)
 {
-    tcpRequestTxt->clear();
-    tcpRequestTxt->insertPlainText("{\"version\":\"1.1\",\"method\":\"GET\",\"path\":[\"/\"],\"headers\":"
-                                   "{\"Host\":[\"www.baidu.com\",\"www.bing.com\"],\"User-Agent\":"
-                                   "[\"Mozilla/5.0 (Windows NT 10.0; WOW64) "
-                                   "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36\","
-                                   "\"Mozilla/5.0 (iPhone; CPU iPhone OS 10_0_2 like Mac OS X) "
-                                   "AppleWebKit/601.1 (KHTML, like Gecko) CriOS/53.0.2785.109 Mobile/14A456 "
-                                   "Safari/601.1.46\"],\"Accept-Encoding\":[\"gzip, deflate\"],"
-                                   "\"Connection\":[\"keep-alive\"],\"Pragma\":\"no-cache\"}}");
+    useFProxy = arg1 == Qt::Checked;
 }
 
-void OutboundEditor::on_tcpRespDefBtn_clicked()
-{
-    tcpRespTxt->clear();
-    tcpRespTxt->insertPlainText("{\"version\":\"1.1\",\"status\":\"200\",\"reason\":\"OK\",\"headers\":{\"Content-Type\":[\"application/octet-stream\",\"video/mpeg\"],\"Transfer-Encoding\":[\"chunked\"],\"Connection\":[\"keep-alive\"],\"Pragma\":\"no-cache\"}}");
-}
-
-OUTBOUND OutboundEditor::GenerateConnectionJson()
-{
-    OUTBOUNDSETTING settings;
-    auto streaming = JsonFromString(StructToJsonString(stream));
-
-    if (OutboundType == "vmess") {
-        // VMess is only a ServerObject, and we need an array { "vnext": [] }
-        QJsonArray vnext;
-        vnext.append(GetRootObject(vmess));
-        settings.insert("vnext", vnext);
-    } else if (OutboundType == "shadowsocks") {
-        streaming = QJsonObject();
-        QJsonArray servers;
-        servers.append(GetRootObject(shadowsocks));
-        settings["servers"] = servers;
-    } else if (OutboundType == "socks") {
-        streaming = QJsonObject();
-        QJsonArray servers;
-        servers.append(GetRootObject(socks));
-        settings["servers"] = servers;
-    }
-
-    auto root = GenerateOutboundEntry(OutboundType, settings, streaming, Mux, "0.0.0.0", Tag);
-    root[QV2RAY_USE_FPROXY_KEY] = useFProxy;
-    return root;
-}
-
-void OutboundEditor::on_tlsCB_stateChanged(int arg1)
-{
-    stream.security = arg1 == Qt::Checked ? "tls" : "none";
-}
-void OutboundEditor::on_soMarkSpinBox_valueChanged(int arg1)
-{
-    stream.sockopt.mark = arg1;
-}
-void OutboundEditor::on_tcpFastOpenCB_stateChanged(int arg1)
-{
-    stream.sockopt.tcpFastOpen = arg1 == Qt::Checked;
-}
-void OutboundEditor::on_tProxyCB_currentIndexChanged(const QString &arg1)
-{
-    stream.sockopt.tproxy = arg1;
-}
-void OutboundEditor::on_quicSecurityCB_currentTextChanged(const QString &arg1)
-{
-    stream.quicSettings.security = arg1;
-}
-void OutboundEditor::on_quicKeyTxt_textEdited(const QString &arg1)
-{
-    stream.quicSettings.key = arg1;
-}
-void OutboundEditor::on_quicHeaderTypeCB_currentIndexChanged(const QString &arg1)
-{
-    stream.quicSettings.header.type = arg1;
-}
-void OutboundEditor::on_tcpHeaderTypeCB_currentIndexChanged(const QString &arg1)
-{
-    stream.tcpSettings.header.type = arg1;
-}
-void OutboundEditor::on_wsPathTxt_textEdited(const QString &arg1)
-{
-    stream.wsSettings.path = arg1;
-}
-void OutboundEditor::on_kcpMTU_valueChanged(int arg1)
-{
-    stream.kcpSettings.mtu = arg1;
-}
-void OutboundEditor::on_kcpTTI_valueChanged(int arg1)
-{
-    stream.kcpSettings.tti  = arg1;
-}
-void OutboundEditor::on_kcpUploadCapacSB_valueChanged(int arg1)
-{
-    stream.kcpSettings.uplinkCapacity = arg1;
-}
-void OutboundEditor::on_kcpCongestionCB_stateChanged(int arg1)
-{
-    stream.kcpSettings.congestion = arg1 == Qt::Checked;
-}
-void OutboundEditor::on_kcpDownCapacitySB_valueChanged(int arg1)
-{
-    stream.kcpSettings.downlinkCapacity = arg1;
-}
-void OutboundEditor::on_kcpReadBufferSB_valueChanged(int arg1)
-{
-    stream.kcpSettings.readBufferSize = arg1;
-}
-void OutboundEditor::on_kcpWriteBufferSB_valueChanged(int arg1)
-{
-    stream.kcpSettings.writeBufferSize = arg1;
-}
-void OutboundEditor::on_kcpHeaderType_currentTextChanged(const QString &arg1)
-{
-    stream.kcpSettings.header.type = arg1;
-}
-void OutboundEditor::on_tranportCombo_currentIndexChanged(int index)
-{
-    v2rayStackView->setCurrentIndex(index);
-}
-void OutboundEditor::on_dsPathTxt_textEdited(const QString &arg1)
-{
-    stream.dsSettings.path = arg1;
-}
 void OutboundEditor::on_outBoundTypeCombo_currentIndexChanged(int index)
 {
     outboundTypeStackView->setCurrentIndex(index);
@@ -415,49 +257,4 @@ void OutboundEditor::on_socks_UserNameTxt_textEdited(const QString &arg1)
 void OutboundEditor::on_socks_PasswordTxt_textEdited(const QString &arg1)
 {
     socks.users.front().pass = arg1;
-}
-
-void OutboundEditor::on_tcpRequestEditBtn_clicked()
-{
-    JsonEditor w(JsonFromString(tcpRequestTxt->toPlainText()), this);
-    auto rString = JsonToString(w.OpenEditor());
-    tcpRequestTxt->setPlainText(rString);
-    auto tcpReqObject = StructFromJsonString<HTTPRequestObject>(rString);
-    stream.tcpSettings.header.request = tcpReqObject;
-}
-
-void OutboundEditor::on_tcpResponseEditBtn_clicked()
-{
-    JsonEditor w(JsonFromString(tcpRespTxt->toPlainText()), this);
-    auto rString = JsonToString(w.OpenEditor());
-    tcpRespTxt->setPlainText(rString);
-    auto tcpRspObject = StructFromJsonString<HTTPResponseObject>(rString);
-    stream.tcpSettings.header.response = tcpRspObject;
-}
-
-void OutboundEditor::on_tagTxt_textEdited(const QString &arg1)
-{
-    Tag = arg1;
-}
-
-void OutboundEditor::on_muxEnabledCB_stateChanged(int arg1)
-{
-    Mux["enabled"] = arg1 == Qt::Checked;
-}
-
-void OutboundEditor::on_muxConcurrencyTxt_valueChanged(int arg1)
-{
-    Mux["concurrency"] = arg1;
-}
-
-void OutboundEditor::on_alterLineEdit_valueChanged(int arg1)
-{
-    if (vmess.users.empty()) vmess.users.push_back(VMessServerObject::UserObject());
-
-    vmess.users.front().alterId = arg1;
-}
-
-void OutboundEditor::on_useFPCB_stateChanged(int arg1)
-{
-    useFProxy = arg1 == Qt::Checked;
 }
