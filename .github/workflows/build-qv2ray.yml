@@ -50,8 +50,7 @@ jobs:
       - name: macOS - Install Packages
         if: matrix.platform == 'macos-latest' && matrix.backend == 'gRPC'
         run: |
-          brew install grpc
-          brew install protobuf
+          brew install grpc@1.25.0
 # --------------------------------------------------------
       - name: Unix - Extracting gRPC and protobuf libs and headers
         if: matrix.platform != 'windows-latest' && matrix.backend == 'gRPC'
