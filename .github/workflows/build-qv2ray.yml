@@ -56,7 +56,7 @@ jobs:
       - name: Unix - Extracting gRPC and protobuf libs and headers
         if: matrix.platform != 'windows-latest' && matrix.backend == 'gRPC'
         run: tools/unix-generate-api.sh
-=
+
       - name: Win32 - Extracting gRPC and protobuf libs and headers
         if: matrix.platform == 'windows-latest' && matrix.backend == 'gRPC'
         run: tools\win-generate-api.bat
