@@ -368,6 +368,9 @@ void RouteEditor::ShowCurrentRuleDetail()
     // Switch to the detailed page.
     ruleEnableCB->setEnabled(true);
     ruleEnableCB->setChecked(CurrentRule.QV2RAY_RULE_ENABLED);
+    routeEditGroupBox->setEnabled(true);
+    ruleTagLineEdit->setEnabled(true);
+    routeRuleGroupBox->setEnabled(true);
     LOAD_FLAG_BEGIN
     ruleTagLineEdit->setText(CurrentRule.QV2RAY_RULE_TAG);
     balancerSelectionCombo->clear();
@@ -668,7 +671,7 @@ void RouteEditor::on_delBtn_clicked()
         nodeScene->removeNode(*inboundNodes[currentInboundOutboundTag]);
         inboundNodes.remove(currentInboundOutboundTag);
 
-        // Remove corresponded inboundtags from the rules.
+        // Remove corresponded inbound tags from the rules.
         for (auto k : rules.keys()) {
             auto v = rules[k];
             v.inboundTag.removeAll(currentInboundOutboundTag);
@@ -679,10 +682,9 @@ void RouteEditor::on_delBtn_clicked()
     } else if (isOutbound) {
         currentInboundOutboundTag = GetFirstNodeData(*firstNode, QvOutboundNodeModel, OutboundNodeData)->GetOutbound();
         outbounds.remove(currentInboundOutboundTag);
-        defaultOutboundCombo->clear();
-        defaultOutboundCombo->addItems(outbounds.keys());
+        ResolveDefaultOutboundTag(currentInboundOutboundTag, "");
 
-        // Remove corresponded inboundtags from the rules.
+        // Remove corresponded outbound tags from the rules.
         for (auto k : rules.keys()) {
             auto v = rules[k];
 
@@ -692,28 +694,24 @@ void RouteEditor::on_delBtn_clicked()
             rules[k] = v;
         }
 
-        if (currentInboundOutboundTag == defaultOutbound) {
-            // Set default outbound to the new one since the current has been removed.
-            defaultOutbound = outbounds.firstKey();
-        }
-
-        defaultOutboundCombo->setCurrentText(defaultOutbound);
         nodeScene->removeNode(*outboundNodes[currentInboundOutboundTag]);
         outboundNodes.remove(currentInboundOutboundTag);
     } else if (isRule) {
         ruleEnableCB->setEnabled(false);
-        currentRuleTag = GetFirstNodeData(*firstNode, QvRuleNodeDataModel, RuleNodeData)->GetRuleTag();
+        ruleTagLineEdit->setEnabled(false);
+        auto RuleTag = GetFirstNodeData(*firstNode, QvRuleNodeDataModel, RuleNodeData)->GetRuleTag();
+        currentRuleTag.clear();
         routeRuleGroupBox->setEnabled(false);
         routeEditGroupBox->setEnabled(false);
-        rules.remove(currentRuleTag);
-        nodeScene->removeNode(*ruleNodes[currentRuleTag]);
-        ruleNodes.remove(currentRuleTag);
+        rules.remove(RuleTag);
+        nodeScene->removeNode(*ruleNodes[RuleTag]);
+        ruleNodes.remove(RuleTag);
         //
         // Remove item from the rule order list widget.
-        ruleListWidget->takeItem(ruleListWidget->row(ruleListWidget->findItems(currentRuleTag, Qt::MatchExactly).first()));
+        ruleListWidget->takeItem(ruleListWidget->row(ruleListWidget->findItems(RuleTag, Qt::MatchExactly).first()));
         CHECKEMPTYRULES
-        currentRuleTag = rules.firstKey();
-        ShowCurrentRuleDetail();
+        //currentRuleTag = rules.firstKey();
+        //ShowCurrentRuleDetail();
     } else {
         LOG(MODULE_UI, "Unknown node selected.")
         QvMessageBoxWarn(this, tr("Error"), tr("Qv2ray entered an unknown state."));

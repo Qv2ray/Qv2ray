@@ -170,6 +170,9 @@ void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString originalTag,
                         rules[k] = v;
                     }
                 }
+
+                // Resolve default outbound.
+                ResolveDefaultOutboundTag(originalTag, newTag);
             } else {
                 LOG(MODULE_UI, "Failed to rename an outbound --> Item not found.")
             }
@@ -211,5 +214,33 @@ void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString originalTag,
             }
 
             break;
+    }
+}
+
+void RouteEditor::ResolveDefaultOutboundTag(QString original, QString newTag)
+{
+    LOG(MODULE_UI, "Resolving default outbound settings: default=" + defaultOutbound +  " original=" + original + " new=" + newTag)
+    auto isDefaultChanged = original == defaultOutbound;
+    defaultOutboundCombo->clear();
+    defaultOutboundCombo->addItems(outbounds.keys());
+
+    if (!isDefaultChanged) {
+        LOG(MODULE_UI, "Default outbound is not changed: retaining: " + defaultOutbound)
+        // Just simply restore the default one.
+        defaultOutboundCombo->setCurrentText(defaultOutbound);
+    } else if (newTag.isEmpty()) {
+        LOG(MODULE_UI, "Default outbound is removed, using first key from the outbounds as the default one.")
+
+        // Removed the default one, so set the first one as the default.
+        if (outbounds.isEmpty()) {
+            defaultOutbound.clear();
+        } else {
+            defaultOutbound = getTag(outbounds.first());
+            defaultOutboundCombo->addItem(outbounds.firstKey());
+        }
+    } else {
+        LOG(MODULE_UI, "Default outbound is renamed,    ")
+        defaultOutboundCombo->setCurrentText(newTag);
+        defaultOutbound = newTag;
     }
 }

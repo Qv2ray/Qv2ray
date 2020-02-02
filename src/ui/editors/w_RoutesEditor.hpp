@@ -124,4 +124,5 @@ class RouteEditor : public QDialog, private Ui::RouteEditor
         void AddOutbound(OUTBOUND out);
         void AddRule(RuleObject rule);
         QString AddNewRule();
+        void ResolveDefaultOutboundTag(QString original, QString newTag);
 };
