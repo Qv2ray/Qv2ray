@@ -1,4 +1,4 @@
-name: Qv2ray build matrix - Unix
+name: Qv2ray build matrix
 
 on: 
   push:
