@@ -124,6 +124,7 @@ Qv2rayAddSource(common, _, HTTPRequestHelper, cpp, hpp)
 Qv2rayAddSource(common, _, LogHighlighter, cpp, hpp)
 Qv2rayAddSource(common, _, QJsonModel, cpp, hpp)
 Qv2rayAddSource(common, _, QvHelpers, cpp, hpp)
+Qv2rayAddSource(common, _, QvGlobalMessageBus, cpp, hpp)
 Qv2rayAddSource(components, autolaunch, QvAutoLaunch, cpp, hpp)
 Qv2rayAddSource(components, pac, QvGFWPACConverter, cpp)
 Qv2rayAddSource(components, pac, QvPACHandler, cpp, hpp)
@@ -212,94 +213,26 @@ defineTest(Qv2rayQMakeError)　{
 
 SOURCES += libs/gen/v2ray_geosite.pb.cc
 HEADERS += libs/gen/v2ray_geosite.pb.h
-CONFIG += _qv2ray_with_protobuf_
 
-with_new_backend {
-    !exists($$PWD/libs/libqvb/build/libqvb.h) {
-        message(" ")
-        message("Cannot continue: ")
-        message("  --> Qv2ray is configured to use custom backend, but: ")
-        message("      libs/libqvb/build/libqvb.h is missing. ")
-        error("! ABORTING THE BUILD !")
-        message(" ")
-    }
-
-    message("Qv2ray will use custom API backend.")
-    message("  --> Adding libqvb header.")
-    HEADERS += libs/libqvb/build/libqvb.h
-
-    # ==-- OS Specific configurations for libqvb --==
-    win {
-        message("  --> Linking libqvb static library, for Windows platform.")
-        LIBS += -L$$PWD/libs/ -lqvb-win64
-    }
-    unix:!macx {
-        message("  --> Linking libqvb static library, for Linux platform.")
-        LIBS += -L$$PWD/libs/ -lqvb-linux64
-    }
-    macx {
-        message("  --> Linking libqvb static library and Security framework, for macOS platform.")
-        LIBS += -L$$PWD/libs/ -lqvb-darwin
-        LIBS += -framework Security
-    }
-} else {
-    DEFINES += WITH_LIB_GRPCPP
-    message("Qv2ray will use libgRPC as API backend")
-
-    # ------------------------------------------ Begin checking gRPC and protobuf headers.
-    !exists($$PWD/libs/gen/v2ray_api.grpc.pb.h) || !exists($$PWD/libs/gen/v2ray_api.grpc.pb.cc) || !exists($$PWD/libs/gen/v2ray_api.pb.h) || !exists($$PWD/libs/gen/v2ray_api.pb.cc) {
-        Qv2rayQMakeError("gRPC and protobuf headers for v2ray API is missing.")
-    }
-
-    SOURCES += libs/gen/v2ray_api.pb.cc \
-               libs/gen/v2ray_api.grpc.pb.cc
-
-    HEADERS += libs/gen/v2ray_api.pb.h \
-               libs/gen/v2ray_api.grpc.pb.h
-
-    CONFIG += _qv2ray_with_protobuf_
-
-    message(" ")
-    message("Adding gRPC headers and linker libraries.")
-    # ==-- OS Specific configurations for libgRPC --==
-    win {
-        message("  --> Linking against gRPC library.")
-        DEPENDPATH  += $$PWD/libs/gRPC-win32/include
-        INCLUDEPATH += $$PWD/libs/gRPC-win32/include
-        LIBS += -L$$PWD/libs/gRPC-win32/lib/ -llibgrpc++.dll
-    }
-    unix {
-        # For gRPC and protobuf in linux and macOS
-        message("  --> Linking against gRPC and protobuf library.")
-        LIBS += -L/usr/local/lib -lgrpc++ -lgrpc
-    }
-    macx {
-        message("  --> Linking libgpr.")
-        LIBS += -lgpr
-        # message("  --> Linking libupb.")
-        # LIBS += -lupb
-    }
+!exists($$PWD/libs/libqvb/build/libqvb.h) {
+    Qv2rayQMakeError("libs/libqvb/build/libqvb.h is missing.")
 }
 
-_qv2ray_with_protobuf_ {
-    message(" ")
-    message("Adding libprotobuf headers and linker libraries.")
-    # ==-- OS Specific configurations for libprotobuf --==
-    win {
-        # A hack for protobuf header.
-        message("  --> Applying a hack for protobuf header")
-        DEFINES += _WIN32_WINNT=0x600
+HEADERS += libs/libqvb/build/libqvb.h
 
-        message("  --> Linking against protobuf library.")
-        DEPENDPATH  += $$PWD/libs/gRPC-win32/include
-        INCLUDEPATH += $$PWD/libs/gRPC-win32/include
-        LIBS += -L$$PWD/libs/gRPC-win32/lib/ -llibprotobuf.dll
-    }
-    unix {
-        # For gRPC and protobuf in linux and macOS
-        message("  --> Linking against protobuf library.")
-        LIBS += -L/usr/local/lib -lprotobuf
-    }
+# ==-- OS Specific configurations for libqvb --==
+win {
+    message("  --> Linking libqvb static library, for Windows platform.")
+    LIBS += -L$$PWD/libs/ -lqvb-win64
+}
+unix:!macx {
+    message("  --> Linking libqvb static library, for Linux platform.")
+    LIBS += -L$$PWD/libs/ -lqvb-linux64
+}
+macx {
+    message("  --> Linking libqvb static library and Security framework, for macOS platform.")
+    LIBS += -L$$PWD/libs/ -lqvb-darwin
+    LIBS += -framework Security
 }
 
 message(" ")
@@ -358,6 +291,15 @@ win {
     
     message("  --> Linking against winHTTP and winSock2.")
     LIBS += -lwinhttp -lwininet -lws2_32
+
+    # A hack for protobuf header.
+    message("  --> Applying a hack for protobuf header")
+    DEFINES += _WIN32_WINNT=0x600
+
+    message("  --> Linking against protobuf library.")
+    DEPENDPATH  += $$PWD/libs/gRPC-win32/include
+    INCLUDEPATH += $$PWD/libs/gRPC-win32/include
+    LIBS += -L$$PWD/libs/gRPC-win32/lib/ -llibprotobuf.dll
 }
 
 macx {
@@ -373,6 +315,10 @@ unix {
     # macOS homebrew include path
     message("  --> Adding local include folder to search path")
     INCLUDEPATH += /usr/local/include/
+
+    # For protobuf in linux and macOS
+    message("  --> Linking against protobuf library.")
+    LIBS += -L/usr/local/lib -lprotobuf
 
     message("  --> Adding Plasma Toolbox CPP files.")
     Qv2rayAddSource(components, plugins/toolbar, QvToolbar_linux, cpp)

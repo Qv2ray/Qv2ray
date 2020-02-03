@@ -19,7 +19,7 @@ namespace Qv2ray::common
         QUrl qUrl = QUrl(url);
 
         if (!qUrl.isValid()) {
-            LOG(MODULE_NETWORK, "Provided URL is invalid: " + url)
+            LOG(NETWORK, "Provided URL is invalid: " + url)
             return false;
         }
 
@@ -29,7 +29,7 @@ namespace Qv2ray::common
 
     void QvHttpRequestHelper::setHeader(const QByteArray &key, const QByteArray &value)
     {
-        DEBUG(MODULE_NETWORK, "Adding HTTP request header: " + key + ":" + value)
+        DEBUG(NETWORK, "Adding HTTP request header: " + key + ":" + value)
         request.setRawHeader(key, value);
     }
 
@@ -44,7 +44,7 @@ namespace Qv2ray::common
             accessManager.setProxy(QNetworkProxy(QNetworkProxy::ProxyType::NoProxy));
         }
 
-        LOG(MODULE_NETWORK, "Sync get is using system proxy settings")
+        LOG(NETWORK, "Sync get is using system proxy settings")
         request.setAttribute(QNetworkRequest::RedirectPolicyAttribute, QNetworkRequest::NoLessSafeRedirectPolicy);
         reply = accessManager.get(request);
         connect(reply, &QNetworkReply::finished, this, &QvHttpRequestHelper::onRequestFinished);
@@ -104,13 +104,13 @@ namespace Qv2ray::common
 
     void QvHttpRequestHelper::onRequestFinished()
     {
-        LOG(MODULE_NETWORK, "Network request errcode: " + QSTRN(reply->error()))
+        LOG(NETWORK, "Network request errcode: " + QSTRN(reply->error()))
         emit httpRequestFinished(this->data);
     }
 
     void QvHttpRequestHelper::onReadyRead()
     {
-        DEBUG(MODULE_NETWORK, "A request is now ready read")
+        DEBUG(NETWORK, "A request is now ready read")
         this->data += reply->readAll();
     }
 }

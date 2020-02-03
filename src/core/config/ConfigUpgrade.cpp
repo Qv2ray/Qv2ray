@@ -6,7 +6,7 @@
 #include "base/Qv2rayBase.hpp"
 #include "common/QvHelpers.hpp"
 
-#define UPDATELOG(msg) LOG(MODULE_CONFIG, "  [" + QSTRN(fromVersion) + "-" + QSTRN(fromVersion + 1) + "] --> " + msg)
+#define UPDATELOG(msg) LOG(SETTINGS, "  [" + QSTRN(fromVersion) + "-" + QSTRN(fromVersion + 1) + "] --> " + msg)
 
 namespace Qv2ray
 {
@@ -153,7 +153,7 @@ namespace Qv2ray
     // Exported function
     QJsonObject UpgradeConfig(int fromVersion, int toVersion, QJsonObject root)
     {
-        LOG(MODULE_CONFIG, "Migrating config from version " + QSTRN(fromVersion) + " to " + QSTRN(toVersion))
+        LOG(SETTINGS, "Migrating config from version " + QSTRN(fromVersion) + " to " + QSTRN(toVersion))
 
         for (int i = fromVersion; i < toVersion; i++) {
             root = UpgradeConfig_Inc(i, root);

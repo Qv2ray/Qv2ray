@@ -11,7 +11,6 @@ jobs:
       matrix:
         platform: [ubuntu-16.04, macos-latest]
         qt_version: [5.12.6, 5.13.2, 5.14.1]
-        backend: [libqvb, gRPC]
       fail-fast: false
         
     runs-on: ${{ matrix.platform }}
@@ -31,23 +30,16 @@ jobs:
         if: matrix.platform == 'ubuntu-16.04'
         run: |
           sudo add-apt-repository ppa:ubuntu-toolchain-r/test
-          sudo add-apt-repository ppa:webispy/grpc
           sudo add-apt-repository ppa:carsten-uppenbrink-net/openssl
           sudo apt update
-          sudo apt install -y gcc-7 libgl-dev openssl libx11-dev libxkbcommon-x11-dev libgrpc++-dev libprotobuf-dev protobuf-compiler protobuf-c-compiler protobuf-compiler-grpc
+          sudo apt install -y gcc-7 libgl-dev openssl libx11-dev libxkbcommon-x11-dev libprotobuf-dev protobuf-compiler protobuf-c-compiler
 
       - name: macOS - Install Packages
         if: matrix.platform == 'macos-latest'
-        run: |
-          brew install protobuf
-          brew install https://raw.githubusercontent.com/Homebrew/homebrew-core/35d7f485905273db8a440a9c8e7f0c2f0c8533f5/Formula/grpc.rb
-# --------------------------------------------------------
-      - name: Unix - Extracting gRPC and protobuf libs and headers
-        if: matrix.backend == 'gRPC'
-        run: tools/unix-generate-api.sh
+        run: brew install protobuf
 # --------------------------------------------------------
       - name: Linux - Download libqvb static library.
-        if: matrix.platform == 'ubuntu-16.04' && matrix.backend == 'libqvb'
+        if: matrix.platform == 'ubuntu-16.04'
         uses: Legion2/download-release-action@v2.1.0
         with:
           repository: Qv2ray/QvRPCBridge
@@ -56,26 +48,26 @@ jobs:
           file: libqvb-linux64.a
 # ==
       - name: macOS - Download libqvb static library.
-        if: matrix.platform == 'macos-latest' && matrix.backend == 'libqvb'
+        if: matrix.platform == 'macos-latest'
         run: curl -o ./libs/libqvb-darwin.a -L https://github.com/Qv2ray/QvRPCBridge/releases/download/v1.1/libqvb-darwin.a
 # -------------------------------------------------------- Generate MakeFile
-      - name: Cross-platform - ${{ matrix.qt_version }} - ${{ matrix.backend }} - Generate Dependencies and Makefile
+      - name: Cross-platform - ${{ matrix.qt_version }} - Generate Dependencies and Makefile
         shell: bash
         run: |
           ./tools/unix-generate-geosite.sh
           PATH=$PATH:$Qt5_Dir
           mkdir build
           cd build
-          export _QV2RAY_BUILD_INFO_="Qv2ray built from Github Action"
-          export _QV2RAY_BUILD_EXTRA_INFO_="qt${{ matrix.qt_version }}-${{ matrix.backend }}-${{ github.sha }}"
-          qmake .. CONFIG+=no_increase_build_number $([ "${{ matrix.backend }}" == libqvb ] && echo "CONFIG+=with_new_backend" || echo "") PREFIX=/usr
+          export _QV2RAY_BUILD_INFO_="Qv2ray built from Github Action"  
+          export _QV2RAY_BUILD_EXTRA_INFO_="qt${{ matrix.qt_version }}--${{ github.sha }}"
+          qmake .. CONFIG+=no_increase_build_number PREFIX=/usr
 # -------------------------------------------------------- Build
-      - name: Cross-platform - ${{ matrix.qt_version }} - ${{ matrix.backend }} - Build Qv2ray
+      - name: Cross-platform - ${{ matrix.qt_version }} - Build Qv2ray
         shell: bash
         run: |
           cd build
           make -j2 $([ "${{ matrix.platform }}" == "ubuntu-16.04" ] && echo "CC=gcc-7 CXX=g++-7" LINK="g++-7" || echo "")
-      - name: Linux - ${{ matrix.qt_version }} - ${{ matrix.backend }} - Generating AppImage
+      - name: Linux - ${{ matrix.qt_version }} - Generating AppImage
         if: matrix.platform == 'ubuntu-16.04'
         run: | 
           cd build
@@ -90,23 +82,23 @@ jobs:
           cd AppDir
           ../squashfs-root/AppRun usr/share/applications/qv2ray.desktop -appimage -no-strip -always-overwrite
           mv ./Qv2ray*.AppImage ./Qv2ray.AppImage
-      - name: Linux - ${{ matrix.qt_version }} - ${{ matrix.backend }} - Uploading artifact
+      - name: Linux - ${{ matrix.qt_version }} - Uploading artifact
         if: matrix.platform == 'ubuntu-16.04'
         uses: actions/upload-artifact@master
         with:
-          name: Qv2ray.linux-qt${{ matrix.qt_version }}-${{ matrix.backend }}.AppImage
+          name: Qv2ray.linux-qt${{ matrix.qt_version }}-.AppImage
           path: build/AppDir/Qv2ray.AppImage
-      - name: Linux - ${{ matrix.qt_version }} - ${{ matrix.backend }} - Upload binaries to release
+      - name: Linux - ${{ matrix.qt_version }} - Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release
         if: github.event_name == 'release' && matrix.platform == 'ubuntu-16.04' && matrix.qt_version == '5.12.6'
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: build/AppDir/Qv2ray.AppImage
-          asset_name: Qv2ray-${{ github.ref }}-linux-qt${{ matrix.qt_version }}-${{ matrix.backend }}.AppImage
+          asset_name: Qv2ray-${{ github.ref }}-linux-qt${{ matrix.qt_version }}.AppImage
           tag: ${{ github.ref }}
           overwrite: true
 # ==
-      - name: macOS - ${{ matrix.qt_version }} - ${{ matrix.backend }} - Making release tarball
+      - name: macOS - ${{ matrix.qt_version }} - Making release tarball
         if: matrix.platform == 'macos-latest'
         run: |
           cd build
@@ -114,19 +106,19 @@ jobs:
           macdeployqt ./
           cd ..
           tar czf Qv2ray.app.tar.gz qv2ray.app
-      - name: macOS - ${{ matrix.qt_version }} - ${{ matrix.backend }} - Uploading Artifact
+      - name: macOS - ${{ matrix.qt_version }} - Uploading Artifact
         if: matrix.platform == 'macos-latest'
         uses: actions/upload-artifact@master
         with:
-          name: Qv2ray.macOS.app-qt${{ matrix.qt_version }}-${{ matrix.backend }}.zip
+          name: Qv2ray.macOS.app-qt${{ matrix.qt_version }}.zip
           path: build/Qv2ray.app.tar.gz
-      - name: macOS - ${{ matrix.qt_version }} - ${{ matrix.backend }} - Upload binaries to release
+      - name: macOS - ${{ matrix.qt_version }} - Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release
         if: github.event_name == 'release' && matrix.platform == 'macos-latest' && matrix.qt_version == '5.12.6'
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: build/Qv2ray.app.tar.gz
-          asset_name: Qv2ray-${{ github.ref }}-macOS-qt${{ matrix.qt_version }}-${{ matrix.backend }}.tar.gz
+          asset_name: Qv2ray-${{ github.ref }}-macOS-qt${{ matrix.qt_version }}.tar.gz
           tag: ${{ github.ref }}
           overwrite: true
 # -------------------------------------

@@ -17,7 +17,7 @@ namespace Qv2ray::components::proxy
         p.start();
         p.waitForStarted();
         p.waitForFinished();
-        LOG(MODULE_PROXY, p.errorString())
+        LOG(PROXY, p.errorString())
         auto str = p.readAllStandardOutput();
         auto lines = SplitLines(str);
         QStringList result;
@@ -30,7 +30,7 @@ namespace Qv2ray::components::proxy
             }
         }
 
-        LOG(MODULE_PROXY, "Found " + QSTRN(result.size()) + " network services: " + result.join(";"))
+        LOG(PROXY, "Found " + QSTRN(result.size()) + " network services: " + result.join(";"))
         return result;
     }
 #endif
@@ -58,37 +58,37 @@ namespace Qv2ray::components::proxy
         List.pOptions = Option;
 
         if (!InternetQueryOption(nullptr, INTERNET_OPTION_PER_CONNECTION_OPTION, &List, &nSize)) {
-            LOG(MODULE_PROXY, "InternetQueryOption failed, GLE=" + QSTRN(GetLastError()))
+            LOG(PROXY, "InternetQueryOption failed, GLE=" + QSTRN(GetLastError()))
         }
 
-        LOG(MODULE_PROXY, "System default proxy info:")
+        LOG(PROXY, "System default proxy info:")
 
         if (Option[0].Value.pszValue != nullptr) {
-            LOG(MODULE_PROXY, QString::fromWCharArray(Option[0].Value.pszValue))
+            LOG(PROXY, QString::fromWCharArray(Option[0].Value.pszValue))
         }
 
         if ((Option[2].Value.dwValue & PROXY_TYPE_AUTO_PROXY_URL) == PROXY_TYPE_AUTO_PROXY_URL) {
-            LOG(MODULE_PROXY, "PROXY_TYPE_AUTO_PROXY_URL")
+            LOG(PROXY, "PROXY_TYPE_AUTO_PROXY_URL")
         }
 
         if ((Option[2].Value.dwValue & PROXY_TYPE_AUTO_DETECT) == PROXY_TYPE_AUTO_DETECT) {
-            LOG(MODULE_PROXY, "PROXY_TYPE_AUTO_DETECT")
+            LOG(PROXY, "PROXY_TYPE_AUTO_DETECT")
         }
 
         if ((Option[2].Value.dwValue & PROXY_TYPE_DIRECT) == PROXY_TYPE_DIRECT) {
-            LOG(MODULE_PROXY, "PROXY_TYPE_DIRECT")
+            LOG(PROXY, "PROXY_TYPE_DIRECT")
         }
 
         if ((Option[2].Value.dwValue & PROXY_TYPE_PROXY) == PROXY_TYPE_PROXY) {
-            LOG(MODULE_PROXY, "PROXY_TYPE_PROXY")
+            LOG(PROXY, "PROXY_TYPE_PROXY")
         }
 
         if (!InternetQueryOption(nullptr, INTERNET_OPTION_PER_CONNECTION_OPTION, &List, &nSize)) {
-            LOG(MODULE_PROXY, "InternetQueryOption failed,GLE=" + QSTRN(GetLastError()))
+            LOG(PROXY, "InternetQueryOption failed,GLE=" + QSTRN(GetLastError()))
         }
 
         if (Option[4].Value.pszValue != nullptr) {
-            LOG(MODULE_PROXY, QString::fromStdWString(Option[4].Value.pszValue))
+            LOG(PROXY, QString::fromStdWString(Option[4].Value.pszValue))
         }
 
         INTERNET_VERSION_INFO Version;
@@ -120,7 +120,7 @@ namespace Qv2ray::components::proxy
         list.pszConnection = nullptr;
 
         if (isPAC) {
-            LOG(MODULE_PROXY, "Setting system proxy for PAC")
+            LOG(PROXY, "Setting system proxy for PAC")
             //
             list.dwOptionCount = 2;
             list.pOptions = new INTERNET_PER_CONN_OPTION[2];
@@ -138,7 +138,7 @@ namespace Qv2ray::components::proxy
             list.pOptions[1].dwOption = INTERNET_PER_CONN_AUTOCONFIG_URL;
             list.pOptions[1].Value.pszValue = proxy_full_addr;
         } else {
-            LOG(MODULE_PROXY, "Setting system proxy for Global Proxy")
+            LOG(PROXY, "Setting system proxy for Global Proxy")
             //
             list.dwOptionCount = 3;
             list.pOptions = new INTERNET_PER_CONN_OPTION[3];
@@ -185,7 +185,7 @@ namespace Qv2ray::components::proxy
         __QueryProxyOptions();
 
         if (!__SetProxyOptions(proxyStrW, usePAC)) {
-            LOG(MODULE_PROXY, "Failed to set proxy.")
+            LOG(PROXY, "Failed to set proxy.")
             return false;
         }
 
@@ -206,8 +206,8 @@ namespace Qv2ray::components::proxy
         }
 
         if (!result) {
-            LOG(MODULE_PROXY, "Something wrong happens when setting system proxy -> Gnome ONLY.")
-            LOG(MODULE_PROXY, "If you are using KDE Plasma and receiving this message, just simply ignore this.")
+            LOG(PROXY, "Something wrong happens when setting system proxy -> Gnome ONLY.")
+            LOG(PROXY, "If you are using KDE Plasma and receiving this message, just simply ignore this.")
         }
 
         return result;
@@ -215,7 +215,7 @@ namespace Qv2ray::components::proxy
         bool result = true;
 
         for (auto service : macOSgetNetworkServices()) {
-            LOG(MODULE_PROXY, "Setting proxy for interface: " + service)
+            LOG(PROXY, "Setting proxy for interface: " + service)
 
             if (usePAC) {
                 result = result && QProcess::execute("/usr/sbin/networksetup -setautoproxystate " + service + " on") == QProcess::NormalExit;
@@ -235,7 +235,7 @@ namespace Qv2ray::components::proxy
     bool ClearSystemProxy()
     {
 #ifdef Q_OS_WIN
-        LOG(MODULE_PROXY, "Cleaning system proxy settings.")
+        LOG(PROXY, "Cleaning system proxy settings.")
         INTERNET_PER_CONN_OPTION_LIST list;
         BOOL bReturn;
         DWORD dwBufSize = sizeof(list);
@@ -250,7 +250,7 @@ namespace Qv2ray::components::proxy
         // Make sure the memory was allocated.
         if (nullptr == list.pOptions) {
             // Return FALSE if the memory wasn't allocated.
-            LOG(MODULE_PROXY, "Failed to allocat memory in DisableConnectionProxy()")
+            LOG(PROXY, "Failed to allocat memory in DisableConnectionProxy()")
             return FALSE;
         }
 

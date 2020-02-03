@@ -75,7 +75,7 @@ void ImportConfigWindow::on_qrFromScreenBtn_clicked()
         //auto str = QZXing().decodeImage(pix);
 
         if (str.trimmed().isEmpty()) {
-            LOG(MODULE_UI, "Cannot decode QR Code from an image, size: h=" + QSTRN(pix.width()) + ", v=" + QSTRN(pix.height()))
+            LOG(UI, "Cannot decode QR Code from an image, size: h=" + QSTRN(pix.width()) + ", v=" + QSTRN(pix.height()))
             QvMessageBoxWarn(this, tr("Capture QRCode"), tr("Cannot find a valid QRCode from this region."));
         } else {
             vmessConnectionStringTxt->appendPlainText(str.trimmed() + NEWLINE);
@@ -113,7 +113,7 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
             vmessConnectionStringTxt->clear();
             errorsList->clear();
             //
-            LOG(MODULE_IMPORT, QSTRN(linkList.count()) + " string found in vmess box.")
+            LOG(IMPORT, QSTRN(linkList.count()) + " string found in vmess box.")
 
             while (!linkList.isEmpty()) {
                 aliasPrefix = nameTxt->text();
@@ -206,12 +206,12 @@ void ImportConfigWindow::on_editFileBtn_clicked()
     auto jsonCheckingError = VerifyJsonString(jsonString);
 
     if (!jsonCheckingError.isEmpty()) {
-        LOG(MODULE_FILE, "Currupted JSON file detected")
+        LOG(FILEIO, "Currupted JSON file detected")
 
         if (QvMessageBoxAsk(this, tr("Edit file as JSON"), tr("The file you selected has json syntax error. Continue editing may make you lose data. Would you like to continue?") + NEWLINE + jsonCheckingError) != QMessageBox::Yes) {
             return;
         } else {
-            LOG(MODULE_FILE, "Continue editing curruped json file, data loss is expected.")
+            LOG(FILEIO, "Continue editing curruped json file, data loss is expected.")
         }
     }
 
@@ -227,7 +227,7 @@ void ImportConfigWindow::on_editFileBtn_clicked()
             QvMessageBoxWarn(this, tr("Edit file as JSON"), tr("Failed to save file, please check if you have proper permissions"));
         }
     } else {
-        LOG(MODULE_FILE, "Canceled saving a file.")
+        LOG(FILEIO, "Canceled saving a file.")
     }
 }
 

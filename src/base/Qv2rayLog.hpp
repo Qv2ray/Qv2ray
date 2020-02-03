@@ -25,16 +25,21 @@ namespace Qv2ray::base
 #define DEBUG(MODULE, MSG) __LOG_IMPL(QV2RAY_LOG_DEBUG, (MODULE), (MSG));
 
 // Log modules used by Qv2ray
-#define MODULE_INIT              "INIT"
-#define MODULE_UPDATE            "UPDATE"
-#define MODULE_VCORE             "VCORE"
-#define MODULE_CONFIG            "CONFIG"
-#define MODULE_PROXY             "PROXY"
-#define MODULE_UI                "UI"
-#define MODULE_GRAPH             "GRAPH-NODE"
-#define MODULE_NETWORK           "NETWORK"
-#define MODULE_FILE              "FILE"
-#define MODULE_SUBSCRIPTION      "SUBSCRIPTION"
-#define MODULE_CONNECTION        "CONNECTION"
-#define MODULE_IMPORT            "IMPORT"
-#define MODULE_PLUGIN            "PLUGIN"
+const inline QString INIT           =   "INIT"                   ;
+const inline QString MESSAGING      =   "BASE-MESSAGING"         ;
+const inline QString UI             =   "CORE-UI"                ;
+const inline QString GRAPH          =   "CORE-UI-GRAPH"          ;
+const inline QString SETTINGS       =   "CORE-SETTINGS"          ;
+const inline QString VCORE          =   "CORE-VCORE"             ;
+//
+const inline QString CONNECTION     =   "CORE-CONNECTION"        ;
+const inline QString SUBSCRIPTION   =   "CORE-SUBSCRIPTION"      ;
+const inline QString IMPORT         =   "CORE-IMPORT"            ;
+const inline QString EXPORT         =   "CORE-EXPORT"            ;
+//
+const inline QString NETWORK        =   "COMMON-NETWORK"         ;
+const inline QString FILEIO         =   "COMMON-FILEIO"          ;
+//
+const inline QString PROXY          =   "COMPONENT-PROXY"        ;
+const inline QString UPDATE         =   "COMPONENT-UPDATE"       ;
+const inline QString PLUGIN         =   "COMPONENT-PLUGIN"       ;

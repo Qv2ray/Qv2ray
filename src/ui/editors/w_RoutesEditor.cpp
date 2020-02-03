@@ -29,7 +29,7 @@ static bool isLoading = false;
 #define GetFirstNodeData(node, nodeModel, dataModel) (static_cast<dataModel *>(static_cast<nodeModel *>((node).nodeDataModel())->outData(0).get()))
 
 #define CHECKEMPTYRULES if (this->rules.isEmpty()) { \
-        LOG(MODULE_UI, "No rules currently, we add one.") \
+        LOG(UI, "No rules currently, we add one.") \
         AddNewRule(); \
     }
 
@@ -134,7 +134,7 @@ void RouteEditor::onNodeClicked(Node &n)
     if (isRule) {
         // It's a rule object
         currentRuleTag = GetFirstNodeData(n, QvRuleNodeDataModel, RuleNodeData)->GetRuleTag();
-        DEBUG(MODULE_GRAPH, "Selecting rule: " + currentRuleTag)
+        DEBUG(GRAPH, "Selecting rule: " + currentRuleTag)
         ShowCurrentRuleDetail();
         toolBox->setCurrentIndex(1);
     } else if (isOut || isIn) {
@@ -162,7 +162,7 @@ void RouteEditor::onNodeClicked(Node &n)
         portLabel->setNum(port);
         hostLabel->setText(host);
     } else {
-        LOG(MODULE_GRAPH, "Selected an unknown node, RARE.")
+        LOG(GRAPH, "Selected an unknown node, RARE.")
     }
 }
 
@@ -181,7 +181,7 @@ void RouteEditor::onConnectionCreated(QtNodes::Connection const &c)
         // It's a inbound-rule connection
         onNodeClicked(*sourceNode);
         onNodeClicked(*targetNode);
-        LOG(MODULE_GRAPH, "Inbound-rule new connection.")
+        LOG(GRAPH, "Inbound-rule new connection.")
         // Get all connected inbounds to this rule node.
         // QStringList has an helper to let us remove duplicates, see below.
         QStringList _inbounds;
@@ -210,10 +210,10 @@ void RouteEditor::onConnectionCreated(QtNodes::Connection const &c)
         CurrentRule.QV2RAY_RULE_USE_BALANCER = false;
         // Update balancer settings.
         ShowCurrentRuleDetail();
-        LOG(MODULE_GRAPH, "Updated outbound: " + CurrentRule.outboundTag)
+        LOG(GRAPH, "Updated outbound: " + CurrentRule.outboundTag)
     } else {
         // It's an impossible connection
-        LOG(MODULE_GRAPH, "Unrecognized connection, RARE.")
+        LOG(GRAPH, "Unrecognized connection, RARE.")
     }
 }
 
@@ -233,7 +233,7 @@ void RouteEditor::onConnectionDeleted(QtNodes::Connection const &c)
         onNodeClicked(*target);
         currentRuleTag = GetFirstNodeData(*target, QvRuleNodeDataModel, RuleNodeData)->GetRuleTag();
         auto _inboundTag = GetFirstNodeData(*source, QvInboundNodeModel, InboundNodeData)->GetInbound();
-        LOG(MODULE_UI, "Removing inbound: " + _inboundTag + " from rule: " + currentRuleTag)
+        LOG(UI, "Removing inbound: " + _inboundTag + " from rule: " + currentRuleTag)
         CurrentRule.inboundTag.removeAll(_inboundTag);
     } else if (ruleNodes.values().contains(source) && outboundNodes.values().contains(target)) {
         // It's a rule-outbound connection
@@ -246,10 +246,10 @@ void RouteEditor::onConnectionDeleted(QtNodes::Connection const &c)
             CurrentRule.outboundTag.clear();
         }
 
-        LOG(MODULE_GRAPH, "Removing an outbound: " + _outboundTag)
+        LOG(GRAPH, "Removing an outbound: " + _outboundTag)
     } else {
         // It's an impossible connection
-        LOG(MODULE_GRAPH, "Selected an unknown node, RARE.")
+        LOG(GRAPH, "Selected an unknown node, RARE.")
     }
 }
 
@@ -279,7 +279,7 @@ CONFIGROOT RouteEditor::OpenEditor()
 
                 // Find balancer list
                 if (!balancers.contains(_rule.balancerTag)) {
-                    LOG(MODULE_UI, "Cannot find a balancer for tag: " + _rule.balancerTag)
+                    LOG(UI, "Cannot find a balancer for tag: " + _rule.balancerTag)
                 } else {
                     auto _balancerList = balancers[_rule.balancerTag];
                     QJsonObject balancerEntry;
@@ -322,7 +322,7 @@ CONFIGROOT RouteEditor::OpenEditor()
                 continue;
 
             if (getTag(x) == defaultOutbound) {
-                LOG(MODULE_CONNECTION, "Pushing default outbound to the front.")
+                LOG(CONNECTION, "Pushing default outbound to the front.")
                 // Put the default outbound to the first.
                 _outbounds.push_front(x.raw());
             } else {
@@ -355,13 +355,13 @@ void RouteEditor::ShowCurrentRuleDetail()
     LOADINGCHECK
 
     if (currentRuleTag.isEmpty()) {
-        LOG(MODULE_UI, "WARNING, trying to access a non-exist rule entry. return.")
+        LOG(UI, "WARNING, trying to access a non-exist rule entry. return.")
         return;
     }
 
     if (!rules.contains(currentRuleTag)) {
         QvMessageBoxWarn(this, tr("Show rule details"), tr("A rule cannot be found: ") + currentRuleTag);
-        LOG(MODULE_UI, "WARNING, trying to access a non-exist rule entry. return.")
+        LOG(UI, "WARNING, trying to access a non-exist rule entry. return.")
         return;
     }
 
@@ -561,15 +561,15 @@ void RouteEditor::on_enableBalancerCB_stateChanged(int arg1)
     balancersWidget->setEnabled(useBalancer);
 
     if (CurrentRule.balancerTag.isEmpty()) {
-        LOG(MODULE_UI, "Creating a new balancer tag.")
+        LOG(UI, "Creating a new balancer tag.")
         CurrentRule.balancerTag = GenerateRandomString(6);
         balancers[CurrentRule.balancerTag] = QStringList();
     }
 
-    DEBUG(MODULE_UI, "Balancer: " + CurrentRule.balancerTag)
+    DEBUG(UI, "Balancer: " + CurrentRule.balancerTag)
 
     if (useBalancer) {
-        LOG(MODULE_UI, "A rule has been set to use balancer, disconnect it to any outbound.")
+        LOG(UI, "A rule has been set to use balancer, disconnect it to any outbound.")
         auto ruleNode = ruleNodes[currentRuleTag];
 
         for (auto conn : Qv2ray::common::Values(nodeScene->connections())) {
@@ -713,7 +713,7 @@ void RouteEditor::on_delBtn_clicked()
         //currentRuleTag = rules.firstKey();
         //ShowCurrentRuleDetail();
     } else {
-        LOG(MODULE_UI, "Unknown node selected.")
+        LOG(UI, "Unknown node selected.")
         QvMessageBoxWarn(this, tr("Error"), tr("Qv2ray entered an unknown state."));
     }
 }
@@ -763,9 +763,9 @@ void RouteEditor::on_editBtn_clicked()
                 RenameItemTag(RENAME_INBOUND, getTag(_in), getTag(_result));
             }
 
-            DEBUG(MODULE_UI, "Removed old tag: " + getTag(_in))
+            DEBUG(UI, "Removed old tag: " + getTag(_in))
             inbounds.remove(getTag(_in));
-            DEBUG(MODULE_UI, "Adding new tag: " + getTag(_result))
+            DEBUG(UI, "Adding new tag: " + getTag(_result))
             inbounds[getTag(_result)] = _result;
         }
     } else if (isOutbound) {
@@ -800,18 +800,18 @@ void RouteEditor::on_editBtn_clicked()
             bool isTagChanged = getTag(_out) != getTag(_result);
 
             if (isTagChanged) {
-                DEBUG(MODULE_UI, "Outbound tag is changed: " + QString(isTagChanged))
+                DEBUG(UI, "Outbound tag is changed: " + QString(isTagChanged))
                 RenameItemTag(RENAME_OUTBOUND, getTag(_out), getTag(_result));
-                DEBUG(MODULE_UI, "Removed old tag: " + getTag(_out))
+                DEBUG(UI, "Removed old tag: " + getTag(_out))
                 outbounds.remove(getTag(_out));
             }
 
-            DEBUG(MODULE_UI, "Adding new tag: " + getTag(_result))
+            DEBUG(UI, "Adding new tag: " + getTag(_result))
             outbounds[getTag(_result)] = _result;
             statusLabel->setText(tr("OK"));
         }
     } else {
-        LOG(MODULE_UI, "Cannot apply 'edit' operation to non-inbound and non-outbound")
+        LOG(UI, "Cannot apply 'edit' operation to non-inbound and non-outbound")
     }
 }
 

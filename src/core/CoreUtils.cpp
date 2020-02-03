@@ -18,7 +18,7 @@ namespace Qv2ray::core
             if (validOutboundFound) {
                 return make_tuple(host, port, outboundType);
             } else {
-                LOG(MODULE_UI, "Unknown outbound entry: " + outboundType + ", cannot deduce host and port.")
+                LOG(UI, "Unknown outbound entry: " + outboundType + ", cannot deduce host and port.")
             }
         }
 

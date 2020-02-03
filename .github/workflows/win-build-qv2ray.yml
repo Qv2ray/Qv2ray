@@ -11,7 +11,6 @@ jobs:
       matrix:
         platform: [windows-latest]
         qt_version: [5.12.6, 5.13.2]
-        backend: [libqvb, gRPC]
       fail-fast: false
         
     runs-on: ${{ matrix.platform }}
@@ -28,14 +27,10 @@ jobs:
           version: ${{ matrix.qt_version }}
           arch: win64_mingw73
 # --------------------------------------------------------
-      - name: Win32 - Extracting gRPC and protobuf libs and headers
-        run: tools\win-generate-api.bat
-# --------------------------------------------------------
       - name: Win32 - Download libqvb static library.
-        if: matrix.backend == 'libqvb'
         run: curl -o .\libs\libqvb-win64.a -L https://github.com/Qv2ray/QvRPCBridge/releases/download/v1.1/libqvb-win64.a
 # -------------------------------------------------------- Generate MakeFile
-      - name: Cross-platform - ${{ matrix.qt_version }} - ${{ matrix.backend }} - Generate Dependencies and Makefile
+      - name: Cross-platform - ${{ matrix.qt_version }} - Generate Dependencies and Makefile
         shell: bash
         run: |
           tools/win-generate-geosite.bat
@@ -43,42 +38,42 @@ jobs:
           mkdir build
           cd build
           export _QV2RAY_BUILD_INFO_="Qv2ray built from Github Action"
-          export _QV2RAY_BUILD_EXTRA_INFO_="qt${{ matrix.qt_version }}-${{ matrix.backend }}-${{ github.sha }}"
-          qmake .. CONFIG+=no_increase_build_number $([ "${{ matrix.backend }}" == libqvb ] && echo "CONFIG+=with_new_backend" || echo "") PREFIX=/usr
+          export _QV2RAY_BUILD_EXTRA_INFO_="qt${{ matrix.qt_version }}-${{ github.sha }}"
+          qmake .. CONFIG+=no_increase_build_number PREFIX=/usr
 # -------------------------------------------------------- Build
-      - name: Cross-platform - ${{ matrix.qt_version }} - ${{ matrix.backend }} - Build Qv2ray
+      - name: Cross-platform - ${{ matrix.qt_version }} - Build Qv2ray
         shell: bash
         run: |
           cd build
           mingw32-make -j2
 # ==
-      - name: Win32 - ${{ matrix.qt_version }} - ${{ matrix.backend }} - Copying DLLs to build output folders
+      - name: Win32 - ${{ matrix.qt_version }} - Copying DLLs to build output folders
         shell: cmd
         run: .github\workflows\copy_DLLs.bat
-      - name: Win32 - ${{ matrix.qt_version }} - ${{ matrix.backend }} - Running windeployqt
+      - name: Win32 - ${{ matrix.qt_version }} - Running windeployqt
         shell: cmd
         run: |
           cd build
           cd release
           del *.cpp *.h *.o *.qrc *.qm
           windeployqt ./qv2ray.exe --compiler-runtime
-      - name: Win32 - ${{ matrix.qt_version }} - ${{ matrix.backend }} - Create 7z Release
+      - name: Win32 - ${{ matrix.qt_version }} - Create 7z Release
         uses: DuckSoft/create-7z-action@v1.0
         with:
           pathSource: ./build/release/
           pathTarget: ./release.7z
-      - name: Win32 - ${{ matrix.qt_version }} - ${{ matrix.backend }} - Uploading artifact
+      - name: Win32 - ${{ matrix.qt_version }} - Uploading artifact
         uses: actions/upload-artifact@master
         with:
-          name: Qv2ray.Win64-qt${{ matrix.qt_version }}-${{ matrix.backend }}.7z
+          name: Qv2ray.Win64-qt${{ matrix.qt_version }}.7z
           path: release.7z
-      - name: Win32 - ${{ matrix.qt_version }} - ${{ matrix.backend }} - Upload binaries to release
+      - name: Win32 - ${{ matrix.qt_version }} - Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release
         if: github.event_name == 'release' && matrix.qt_version == '5.12.6'
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: release.7z
-          asset_name: Qv2ray-${{ github.ref }}-win64-qt${{ matrix.qt_version }}-${{ matrix.backend }}.7z
+          asset_name: Qv2ray-${{ github.ref }}-win64-qt${{ matrix.qt_version }}.7z
           tag: ${{ github.ref }}
           overwrite: true
 # -------------------------------------

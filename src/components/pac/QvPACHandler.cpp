@@ -24,19 +24,19 @@ namespace Qv2ray::components::pac
     }
     void PACServer::SetProxyString(const QString &proxyString)
     {
-        DEBUG(MODULE_PROXY, "Setting new PAC proxy string: " + proxyString)
+        DEBUG(PROXY, "Setting new PAC proxy string: " + proxyString)
         this->proxyString = proxyString;
     }
     void PACServer::StartListen()
     {
-        LOG(MODULE_PROXY, "Starting PAC listener")
+        LOG(PROXY, "Starting PAC listener")
         pacServer = new QHttpServer();
         connect(pacServer, &QHttpServer::newRequest, this, &PACServer::onNewRequest);
         //
         auto address = GlobalConfig.inboundConfig.listenip;
         auto port = GlobalConfig.inboundConfig.pacConfig.port;
         //
-        DEBUG(MODULE_PROXY, "PAC Listening local endpoint: " + address + ":" + QSTRN(port))
+        DEBUG(PROXY, "PAC Listening local endpoint: " + address + ":" + QSTRN(port))
         //
         QString gfwContent = StringFromFile(new QFile(QV2RAY_RULES_GFWLIST_PATH));
         pacContent = ConvertGFWToPAC(gfwContent, proxyString);
@@ -45,9 +45,9 @@ namespace Qv2ray::components::pac
 
         if (result) {
             isStarted = true;
-            DEBUG(MODULE_PROXY, "Started PAC handler")
+            DEBUG(PROXY, "Started PAC handler")
         } else {
-            LOG(MODULE_PROXY, "Failed to listen on port " + QSTRN(port) + ", possible permission denied.")
+            LOG(PROXY, "Failed to listen on port " + QSTRN(port) + ", possible permission denied.")
             QvMessageBoxWarn(nullptr, tr("PAC Handler"), tr("Failed to listen PAC request on this port, please verify the permissions"));
         }
     }
@@ -56,7 +56,7 @@ namespace Qv2ray::components::pac
     {
         if (isStarted) {
             pacServer->close();
-            DEBUG(MODULE_PROXY, "PAC Handler stopped.")
+            DEBUG(PROXY, "PAC Handler stopped.")
             isStarted = false;
             delete pacServer;
         }
@@ -69,12 +69,12 @@ namespace Qv2ray::components::pac
         if (req->method() == QHttpRequest::HTTP_GET) {
             //
             if (req->path() == "/pac") {
-                DEBUG(MODULE_PROXY, "Serving PAC file request.")
+                DEBUG(PROXY, "Serving PAC file request.")
                 //
                 rsp->setHeader("Content-Type", "application/javascript; charset=utf-8");
                 rsp->writeHead(QHttpResponse::StatusCode::STATUS_OK);
                 rsp->end(pacContent.toUtf8());
-                DEBUG(MODULE_PROXY, "Serving a pac file...")
+                DEBUG(PROXY, "Serving a pac file...")
             } else {
                 rsp->writeHead(QHttpResponse::StatusCode::STATUS_NOT_FOUND);
                 rsp->end("NOT FOUND");

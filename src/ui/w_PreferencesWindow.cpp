@@ -385,47 +385,47 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
                                 tr("If anything goes wrong after enabling this, please check issue #57 or the link below:") + NEWLINE +
                                 " https://github.com/Qv2ray/Qv2ray/wiki/FAQ ") != QMessageBox::Yes) {
                 tProxyCheckBox->setChecked(false);
-                LOG(MODULE_UI, "Canceled enabling tProxy feature.")
+                LOG(UI, "Canceled enabling tProxy feature.")
             } else {
-                LOG(MODULE_VCORE, "ENABLING tProxy Support")
-                LOG(MODULE_FILE, " --> Origin V2ray core file is at: " + CurrentConfig.v2CorePath)
+                LOG(VCORE, "ENABLING tProxy Support")
+                LOG(FILEIO, " --> Origin V2ray core file is at: " + CurrentConfig.v2CorePath)
                 auto v2ctlPath = QFileInfo(CurrentConfig.v2CorePath).absolutePath() + "/v2ctl";
                 auto newPath = QFileInfo(QV2RAY_DEFAULT_VCORE_PATH).absolutePath();
                 QString mkPathResult = QDir().mkpath(newPath) ? "OK" : "FAILED";
-                LOG(MODULE_FILE, " --> mkPath result: " + mkPathResult)
+                LOG(FILEIO, " --> mkPath result: " + mkPathResult)
                 //
-                LOG(MODULE_FILE, " --> Origin v2ctl file is at: " + v2ctlPath)
-                LOG(MODULE_FILE, " --> New V2ray files will be placed in: " + newPath)
+                LOG(FILEIO, " --> Origin v2ctl file is at: " + v2ctlPath)
+                LOG(FILEIO, " --> New V2ray files will be placed in: " + newPath)
                 //
-                LOG(MODULE_FILE, " --> Copying files....")
+                LOG(FILEIO, " --> Copying files....")
 
                 if (QFileInfo(CurrentConfig.v2CorePath).absoluteFilePath() !=  QFileInfo(QV2RAY_DEFAULT_VCORE_PATH).absoluteFilePath()) {
                     // Only trying to remove file when they are not in the default dir.
                     // (In other words...) Keep using the current files. <Because we don't know where else we can copy the file from...>
                     if (QFile(QV2RAY_DEFAULT_VCORE_PATH).exists()) {
-                        LOG(MODULE_FILE, QString(QV2RAY_DEFAULT_VCORE_PATH) + ": File already exists.")
-                        LOG(MODULE_FILE, QString(QV2RAY_DEFAULT_VCORE_PATH) + ": Deleting file.")
+                        LOG(FILEIO, QString(QV2RAY_DEFAULT_VCORE_PATH) + ": File already exists.")
+                        LOG(FILEIO, QString(QV2RAY_DEFAULT_VCORE_PATH) + ": Deleting file.")
                         QFile(QV2RAY_DEFAULT_VCORE_PATH).remove();
                     }
 
                     if (QFile(newPath + "/v2ctl").exists()) {
-                        LOG(MODULE_FILE, newPath + "/v2ctl : File already exists.")
-                        LOG(MODULE_FILE, newPath + "/v2ctl : Deleting file.")
+                        LOG(FILEIO, newPath + "/v2ctl : File already exists.")
+                        LOG(FILEIO, newPath + "/v2ctl : Deleting file.")
                         QFile(newPath + "/v2ctl").remove();
                     }
 
                     QString vCoreresult = QFile(CurrentConfig.v2CorePath).copy(QV2RAY_DEFAULT_VCORE_PATH) ? "OK" : "FAILED";
-                    LOG(MODULE_FILE, " --> V2ray Core: " + vCoreresult)
+                    LOG(FILEIO, " --> V2ray Core: " + vCoreresult)
                     //
                     QString vCtlresult = QFile(v2ctlPath).copy(newPath + "/v2ctl") ? "OK" : "FAILED";
-                    LOG(MODULE_FILE, " --> V2ray Ctl: " + vCtlresult)
+                    LOG(FILEIO, " --> V2ray Ctl: " + vCtlresult)
                     //
 
                     if (vCoreresult == "OK" && vCtlresult == "OK") {
-                        LOG(MODULE_VCORE, " --> Done copying files.")
+                        LOG(VCORE, " --> Done copying files.")
                         on_vCorePathTxt_textEdited(QV2RAY_DEFAULT_VCORE_PATH);
                     } else {
-                        LOG(MODULE_VCORE, "FAILED to copy V2ray files. Aborting.")
+                        LOG(VCORE, "FAILED to copy V2ray files. Aborting.")
                         QvMessageBoxWarn(this, tr("Enable tProxy Support"),
                                          tr("Qv2ray cannot copy one or both V2ray files from: ") + NEWLINE + NEWLINE +
                                          CurrentConfig.v2CorePath + NEWLINE + v2ctlPath + NEWLINE + NEWLINE +
@@ -433,15 +433,15 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
                         return;
                     }
                 } else {
-                    LOG(MODULE_VCORE, "Skipped removing files since the current V2ray core is in the default path.")
-                    LOG(MODULE_VCORE, " --> Actually because we don't know where else to obtain the files.")
+                    LOG(VCORE, "Skipped removing files since the current V2ray core is in the default path.")
+                    LOG(VCORE, " --> Actually because we don't know where else to obtain the files.")
                 }
 
-                LOG(MODULE_UI, "Calling pkexec and setcap...")
+                LOG(UI, "Calling pkexec and setcap...")
                 int ret = QProcess::execute("pkexec setcap CAP_NET_ADMIN,CAP_NET_RAW,CAP_NET_BIND_SERVICE=eip " + CurrentConfig.v2CorePath);
 
                 if (ret != 0) {
-                    LOG(MODULE_UI, "WARN: setcap exits with code: " + QSTRN(ret))
+                    LOG(UI, "WARN: setcap exits with code: " + QSTRN(ret))
                     QvMessageBoxWarn(this, tr("Preferences"), tr("Failed to setcap onto V2ray executable. You may need to run `setcap` manually."));
                 }
 
@@ -452,7 +452,7 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
             int ret = QProcess::execute("pkexec setcap -r " + CurrentConfig.v2CorePath);
 
             if (ret != 0) {
-                LOG(MODULE_UI, "WARN: setcap exits with code: " + QSTRN(ret))
+                LOG(UI, "WARN: setcap exits with code: " + QSTRN(ret))
                 QvMessageBoxWarn(this, tr("Preferences"), tr("Failed to setcap onto V2ray executable. You may need to run `setcap` manually."));
             }
 
@@ -524,7 +524,7 @@ void PreferencesWindow::on_nsBarPageAddBTN_clicked()
     CurrentBarLineId = 0;
     nsBarPagesList->addItem(QSTRN(CurrentBarPageId));
     ShowLineParameters(CurrentBarLine);
-    LOG(MODULE_UI, "Adding new page Id: " + QSTRN(CurrentBarPageId))
+    LOG(UI, "Adding new page Id: " + QSTRN(CurrentBarPageId))
     nsBarPageDelBTN->setEnabled(true);
     nsBarLineAddBTN->setEnabled(true);
     nsBarLineDelBTN->setEnabled(true);
@@ -567,7 +567,7 @@ void PreferencesWindow::on_nsBarLineAddBTN_clicked()
     nsBarLinesList->addItem(QSTRN(CurrentBarLineId));
     ShowLineParameters(CurrentBarLine);
     nsBarLineDelBTN->setEnabled(true);
-    LOG(MODULE_UI, "Adding new line Id: " + QSTRN(CurrentBarLineId))
+    LOG(UI, "Adding new line Id: " + QSTRN(CurrentBarLineId))
     nsBarLinesList->setCurrentRow(static_cast<int>(CurrentBarPage.Lines.size() - 1));
 }
 
@@ -797,7 +797,7 @@ void PreferencesWindow::on_pacGoBtn_clicked()
     pacGoBtn->setEnabled(false);
     gfwListCB->setEnabled(false);
     auto request = new QvHttpRequestHelper();
-    LOG(MODULE_PROXY, "Downloading GFWList file.")
+    LOG(PROXY, "Downloading GFWList file.")
     bool withProxy = getGFWListWithProxyCB->isChecked();
 
     switch (gfwListCB->currentIndex()) {
@@ -839,7 +839,7 @@ void PreferencesWindow::on_pacGoBtn_clicked()
             break;
     }
 
-    LOG(MODULE_NETWORK, "Fetched: " + gfwLocation)
+    LOG(NETWORK, "Fetched: " + gfwLocation)
     QvMessageBoxWarn(this, tr("Download GFWList"), tr("Successfully downloaded GFWList."));
     pacGoBtn->setEnabled(true);
     gfwListCB->setEnabled(true);

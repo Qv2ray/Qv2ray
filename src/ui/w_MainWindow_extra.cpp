@@ -14,19 +14,19 @@ QTreeWidgetItem *MainWindow::FindItemByIdentifier(ConnectionIdentifier identifie
         // This connectable prevents the an item with (which is the parent node of a subscription, having the same
         // -- name as our current connected name)
         if (!IsConnectableItem(item)) {
-            LOG(MODULE_UI, "Invalid Item found: " + item->text(0))
+            LOG(UI, "Invalid Item found: " + item->text(0))
             continue;
         }
 
         auto thisIdentifier = ItemConnectionIdentifier(item);
-        DEBUG(MODULE_UI, "Item Identifier: " + thisIdentifier.IdentifierString())
+        DEBUG(UI, "Item Identifier: " + thisIdentifier.IdentifierString())
 
         if (identifier == thisIdentifier) {
             return item;
         }
     }
 
-    LOG(MODULE_UI, "Warning: Failed to find an item named: " + identifier.IdentifierString())
+    LOG(UI, "Warning: Failed to find an item named: " + identifier.IdentifierString())
     return nullptr;
 }
 
@@ -38,7 +38,7 @@ void MainWindow::MWFindAndStartAutoConfig()
                     ? GlobalConfig.autoStartConfig.connectionName
                     : GlobalConfig.autoStartConfig.connectionName + " (" + tr("Subscription:") + " " + GlobalConfig.autoStartConfig.subscriptionName + ")";
         //
-        LOG(MODULE_UI, "Found auto start config: " + name)
+        LOG(UI, "Found auto start config: " + name)
         auto item = FindItemByIdentifier(GlobalConfig.autoStartConfig);
 
         if (item != nullptr) {
@@ -63,7 +63,7 @@ void MainWindow::MWFindAndStartAutoConfig()
 void MainWindow::MWClearSystemProxy(bool showMessage)
 {
     ClearSystemProxy();
-    LOG(MODULE_UI, "Clearing System Proxy")
+    LOG(UI, "Clearing System Proxy")
     systemProxyEnabled = false;
 
     if (showMessage) {
@@ -83,7 +83,7 @@ void MainWindow::MWSetSystemProxy()
 
     if (!isComplex) {
         // Is simple config and we will try to set system proxy.
-        LOG(MODULE_UI, "Preparing to set system proxy")
+        LOG(UI, "Preparing to set system proxy")
         //
         QString proxyAddress;
         bool canSetSystemProxy = true;
@@ -91,13 +91,13 @@ void MainWindow::MWSetSystemProxy()
         if (usePAC) {
             if ((httpEnabled && !pacUseSocks) || (socksEnabled && pacUseSocks)) {
                 // If we use PAC and socks/http are properly configured for PAC
-                LOG(MODULE_PROXY, "System proxy uses PAC")
+                LOG(PROXY, "System proxy uses PAC")
                 proxyAddress = "http://" + GlobalConfig.inboundConfig.listenip + ":" + QSTRN(GlobalConfig.inboundConfig.pacConfig.port) +  "/pac";
             } else {
                 // Not properly configured
-                LOG(MODULE_PROXY, "Failed to process pac due to following reasons:")
-                LOG(MODULE_PROXY, " --> PAC is configured to use socks but socks is not enabled.")
-                LOG(MODULE_PROXY, " --> PAC is configuted to use http but http is not enabled.")
+                LOG(PROXY, "Failed to process pac due to following reasons:")
+                LOG(PROXY, " --> PAC is configured to use socks but socks is not enabled.")
+                LOG(PROXY, " --> PAC is configuted to use http but http is not enabled.")
                 QvMessageBoxWarn(this, tr("PAC Processing Failed"), tr("HTTP or SOCKS inbound is not properly configured for PAC") +
                                  NEWLINE + tr("Qv2ray will continue, but will not set system proxy."));
                 canSetSystemProxy = false;
@@ -106,17 +106,17 @@ void MainWindow::MWSetSystemProxy()
             // Not using PAC
             if (httpEnabled) {
                 // Not use PAC, System proxy should use HTTP
-                LOG(MODULE_PROXY, "Using system proxy with HTTP")
+                LOG(PROXY, "Using system proxy with HTTP")
                 proxyAddress = "localhost";
             } else {
-                LOG(MODULE_PROXY, "HTTP is not enabled, cannot set system proxy.")
+                LOG(PROXY, "HTTP is not enabled, cannot set system proxy.")
                 QvMessageBoxWarn(this, tr("Cannot set system proxy"), tr("HTTP inbound is not enabled"));
                 canSetSystemProxy = false;
             }
         }
 
         if (canSetSystemProxy) {
-            LOG(MODULE_UI, "Setting system proxy for simple config, HTTP only")
+            LOG(UI, "Setting system proxy for simple config, HTTP only")
             // ------------------------|=======We only use HTTP here->>|=======|
             SetSystemProxy(proxyAddress, GlobalConfig.inboundConfig.http_port, usePAC);
             systemProxyEnabled = true;
@@ -145,7 +145,7 @@ bool MainWindow::MWtryStartConnection()
             auto pacIP = GlobalConfig.inboundConfig.pacConfig.localIP;
 
             if (pacIP.isEmpty()) {
-                LOG(MODULE_PROXY, "PAC Local IP is empty, default to 127.0.0.1")
+                LOG(PROXY, "PAC Local IP is empty, default to 127.0.0.1")
                 pacIP = "127.0.0.1";
             }
 
@@ -153,7 +153,7 @@ bool MainWindow::MWtryStartConnection()
                 if (socksEnabled) {
                     pacProxyString = "SOCKS5 " + pacIP + ":" + QSTRN(GlobalConfig.inboundConfig.socks_port);
                 } else {
-                    LOG(MODULE_UI, "PAC is using SOCKS, but it is not enabled")
+                    LOG(UI, "PAC is using SOCKS, but it is not enabled")
                     QvMessageBoxWarn(this, tr("Configuring PAC"), tr("Could not start PAC server as it is configured to use SOCKS, but it is not enabled"));
                     canStartPAC = false;
                 }
@@ -161,7 +161,7 @@ bool MainWindow::MWtryStartConnection()
                 if (httpEnabled) {
                     pacProxyString = "PROXY " + pacIP + ":" + QSTRN(GlobalConfig.inboundConfig.http_port);
                 } else {
-                    LOG(MODULE_UI, "PAC is using HTTP, but it is not enabled")
+                    LOG(UI, "PAC is using HTTP, but it is not enabled")
                     QvMessageBoxWarn(this, tr("Configuring PAC"), tr("Could not start PAC server as it is configured to use HTTP, but it is not enabled"));
                     canStartPAC = false;
                 }
@@ -171,7 +171,7 @@ bool MainWindow::MWtryStartConnection()
                 pacServer->SetProxyString(pacProxyString);
                 pacServer->StartListen();
             } else {
-                LOG(MODULE_PROXY, "Not starting PAC due to previous error.")
+                LOG(PROXY, "Not starting PAC due to previous error.")
             }
         }
 
@@ -194,7 +194,7 @@ void MainWindow::MWStopConnection()
 
     if (GlobalConfig.inboundConfig.pacConfig.enablePAC) {
         pacServer->StopServer();
-        LOG(MODULE_UI, "Stopping PAC server")
+        LOG(UI, "Stopping PAC server")
     }
 }
 
@@ -228,13 +228,13 @@ void MainWindow::CheckSubscriptionsUpdate()
         //
         auto lastRenewDate = QDateTime::fromTime_t(subs.lastUpdated);
         auto renewTime = lastRenewDate.addSecs(subs.updateInterval * 86400);
-        LOG(MODULE_SUBSCRIPTION, "Subscription \"" + key + "\": " + NEWLINE +
+        LOG(SUBSCRIPTION, "Subscription \"" + key + "\": " + NEWLINE +
             " --> Last renewal time: "  + lastRenewDate.toString() + NEWLINE +
             " --> Renew interval: " + QSTRN(subs.updateInterval) + NEWLINE +
             " --> Ideal renew time: " + renewTime.toString())
 
         if (renewTime <= QDateTime::currentDateTime()) {
-            LOG(MODULE_SUBSCRIPTION, "Subscription: " + key + " needs to be updated.")
+            LOG(SUBSCRIPTION, "Subscription: " + key + " needs to be updated.")
             updateList.append(key);
         }
     }

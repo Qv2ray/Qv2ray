@@ -181,7 +181,7 @@ namespace Qv2ray::core::connection
         INBOUND GenerateInboundEntry(QString listen, int port, QString protocol, INBOUNDSETTING settings, QString tag, QJsonObject sniffing, QJsonObject allocate)
         {
             INBOUND root;
-            LOG(MODULE_CONNECTION, "allocation is not used here.")
+            LOG(CONNECTION, "allocation is not used here.")
             Q_UNUSED(allocate)
             JADD(listen, port, protocol, settings, tag, sniffing)
             RROOT
@@ -260,7 +260,7 @@ namespace Qv2ray::core::connection
                 }
 
                 root["inbounds"] = inboundsList;
-                DEBUG(MODULE_CONFIG, "Added global config inbounds to the config")
+                DEBUG(CONNECTION, "Added global config inbounds to the config")
             }
 
             // Process every inbounds to make sure a tag is configured, fixed API 0 speed
@@ -271,7 +271,7 @@ namespace Qv2ray::core::connection
                 auto _inboundItem = newTaggedInbounds[i].toObject();
 
                 if (!_inboundItem.contains("tag") || _inboundItem["tag"].toString().isEmpty()) {
-                    LOG(MODULE_CONFIG, "Adding a tag to an inbound.")
+                    LOG(SETTINGS, "Adding a tag to an inbound.")
                     _inboundItem["tag"] = GenerateRandomString(8);
                     newTaggedInbounds[i] = _inboundItem;
                 }
@@ -294,7 +294,7 @@ namespace Qv2ray::core::connection
                 // And what's more, process (by removing unused items) from a rule object.
                 ROUTING routing = ROUTING(root["routing"].toObject());
                 ROUTERULELIST rules;
-                LOG(MODULE_CONNECTION, "Processing an existing routing table.")
+                LOG(CONNECTION, "Processing an existing routing table.")
 
                 for (auto _rule : routing["rules"].toArray()) {
                     auto _b = _rule.toObject();
@@ -308,14 +308,14 @@ namespace Qv2ray::core::connection
                             _b.remove("balancerTag");
                         }
                     } else {
-                        LOG(MODULE_CONFIG, "We found a rule without QV2RAY_RULE_USE_BALANCER, so don't process it.")
+                        LOG(SETTINGS, "We found a rule without QV2RAY_RULE_USE_BALANCER, so don't process it.")
                     }
 
                     // If this entry has been disabled.
                     if (_b.contains("QV2RAY_RULE_ENABLED") && _b["QV2RAY_RULE_ENABLED"].toBool() == true) {
                         rules.append(_b);
                     } else {
-                        LOG(MODULE_CONFIG, "Discarded a rule as it's been set DISABLED")
+                        LOG(SETTINGS, "Discarded a rule as it's been set DISABLED")
                     }
                 }
 
@@ -323,12 +323,12 @@ namespace Qv2ray::core::connection
                 root["routing"] = routing;
             } else {
                 //
-                LOG(MODULE_CONNECTION, "Inserting default values to simple config")
+                LOG(CONNECTION, "Inserting default values to simple config")
 
                 if (root["outbounds"].toArray().count() != 1) {
                     // There are no ROUTING but 2 or more outbounds.... This is rare, but possible.
-                    LOG(MODULE_CONNECTION, "WARN: This message usually indicates the config file has logic errors:")
-                    LOG(MODULE_CONNECTION, "WARN: --> The config file has NO routing section, however more than 1 outbounds are detected.")
+                    LOG(CONNECTION, "WARN: This message usually indicates the config file has logic errors:")
+                    LOG(CONNECTION, "WARN: --> The config file has NO routing section, however more than 1 outbounds are detected.")
                 }
 
                 auto routeObject = GenerateRoutes(GlobalConfig.connectionConfig.enableProxy, GlobalConfig.connectionConfig.bypassCN);
@@ -342,7 +342,7 @@ namespace Qv2ray::core::connection
                     auto firstOutbound = outboundArray.first().toObject();
 
                     if (firstOutbound[QV2RAY_USE_FPROXY_KEY].toBool(false)) {
-                        LOG(MODULE_CONNECTION, "Applying forward proxy to current connection.")
+                        LOG(CONNECTION, "Applying forward proxy to current connection.")
                         auto proxy = PROXYSETTING();
                         proxy["tag"] = OUTBOUND_TAG_FORWARD_PROXY;
                         firstOutbound["proxySettings"] = proxy;
@@ -353,7 +353,7 @@ namespace Qv2ray::core::connection
                             fpOutbound = GenerateHTTPSOCKSOut(fpConf.serverAddress, fpConf.port, fpConf.useAuth, fpConf.username, fpConf.password);
                             outboundArray.push_back(GenerateOutboundEntry(fpConf.type.toLower(), fpOutbound, QJsonObject(), QJsonObject(), "0.0.0.0", OUTBOUND_TAG_FORWARD_PROXY));
                         } else {
-                            LOG(MODULE_CONNECTION, "WARNING: Unsupported outbound type: " + fpConf.type)
+                            LOG(CONNECTION, "WARNING: Unsupported outbound type: " + fpConf.type)
                         }
                     } else {
                         // Remove proxySettings from firstOutbound

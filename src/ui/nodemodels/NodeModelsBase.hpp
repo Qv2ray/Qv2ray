@@ -31,7 +31,7 @@ namespace Qv2ray::ui::nodemodels
         public:
             InboundNodeData()
             {
-                DEBUG(MODULE_GRAPH, "DANGER: Initialising a data model without value.")
+                DEBUG(GRAPH, "DANGER: Initialising a data model without value.")
             }
             InboundNodeData(QString in) : _inboundTag(in) { }
 
@@ -55,7 +55,7 @@ namespace Qv2ray::ui::nodemodels
         public:
             OutboundNodeData() : _outboundTag()
             {
-                DEBUG(MODULE_GRAPH, "DANGER: Initialising a data model without value.")
+                DEBUG(GRAPH, "DANGER: Initialising a data model without value.")
             }
             OutboundNodeData(QString out) : _outboundTag(out) { }
 
@@ -79,7 +79,7 @@ namespace Qv2ray::ui::nodemodels
         public:
             RuleNodeData() : _ruleTag()
             {
-                DEBUG(MODULE_GRAPH, "DANGER: Initialising a data model without value.")
+                DEBUG(GRAPH, "DANGER: Initialising a data model without value.")
             }
             RuleNodeData(QString out) : _ruleTag(out) { }
 

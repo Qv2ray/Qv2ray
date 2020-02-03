@@ -33,7 +33,7 @@ namespace Qv2ray::components::plugins
             auto instance = MainWindow::mwInstance;
 
             if (instance == nullptr || instance->vinstance == nullptr) {
-                LOG(MODULE_PLUGIN, "MainWindow != nullptr Assertion failed!")
+                LOG(PLUGIN, "MainWindow != nullptr Assertion failed!")
                 return "{}";
             }
 

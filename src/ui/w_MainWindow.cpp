@@ -228,7 +228,7 @@ MainWindow::MainWindow(QWidget *parent):
     requestHelper->get("https://api.github.com/repos/Qv2ray/Qv2ray/releases/latest");
 
     if (StartupOption.enableToolbarPlguin) {
-        LOG(MODULE_UI, "Plugin daemon is enabled.")
+        LOG(UI, "Plugin daemon is enabled.")
         StartProcessingPlugins();
     }
 
@@ -298,12 +298,12 @@ void MainWindow::VersionUpdate(QByteArray &data)
     QVersionNumber newVersion = QVersionNumber::fromString(root["tag_name"].toString("v").remove(0, 1));
     QVersionNumber currentVersion = QVersionNumber::fromString(QString(QV2RAY_VERSION_STRING).remove(0, 1));
     QVersionNumber ignoredVersion = QVersionNumber::fromString(GlobalConfig.ignoredVersion);
-    LOG(MODULE_UPDATE, "Received update info, Latest: " + newVersion.toString() + " Current: " + currentVersion.toString() + " Ignored: " + ignoredVersion.toString())
+    LOG(UPDATE, "Received update info, Latest: " + newVersion.toString() + " Current: " + currentVersion.toString() + " Ignored: " + ignoredVersion.toString())
 
     // If the version is newer than us.
     // And new version is newer than the ignored version.
     if (newVersion > currentVersion && newVersion > ignoredVersion) {
-        LOG(MODULE_UPDATE, "New version detected.")
+        LOG(UPDATE, "New version detected.")
         auto link = root["html_url"].toString("");
         auto result = QvMessageBoxAsk(this, tr("Update"),
                                       tr("Found a new version: ") + root["tag_name"].toString("") +
@@ -330,7 +330,7 @@ void MainWindow::OnConfigListChanged(bool need_restart)
 
     if (wasRunning) on_stopButton_clicked();
 
-    LOG(MODULE_UI, "Loading new GlobalConfig")
+    LOG(UI, "Loading new GlobalConfig")
     SetEditWidgetEnable(false);
     //
     // Store the latency test value.
@@ -436,7 +436,7 @@ void MainWindow::on_startButton_clicked()
         }
 
         auto name = CurrentConnectionIdentifier.IdentifierString();
-        LOG(MODULE_VCORE, "Connecting to: " + name)
+        LOG(VCORE, "Connecting to: " + name)
         vCoreLogBrowser->clear();
         bool startFlag = MWtryStartConnection();
 
@@ -485,7 +485,7 @@ void MainWindow::on_stopButton_clicked()
     //
     netspeedLabel->setText("0.00 B/s\r\n0.00 B/s");
     dataamountLabel->setText("0.00 B\r\n0.00 B");
-    LOG(MODULE_UI, "Stopped successfully.")
+    LOG(UI, "Stopped successfully.")
     this->hTray->showMessage("Qv2ray", tr("Disconnected from: ") + CurrentConnectionIdentifier.IdentifierString());
 }
 
@@ -647,7 +647,7 @@ void MainWindow::on_action_RCM_RenameConnection_triggered()
 }
 void MainWindow::on_connectionListWidget_itemChanged(QTreeWidgetItem *item, int)
 {
-    DEBUG(MODULE_UI, "A connection ListViewItem is changed. This should ONLY occur when renaming an connection.")
+    DEBUG(UI, "A connection ListViewItem is changed. This should ONLY occur when renaming an connection.")
     //
     assert(isRenamingInProgress);
     //
@@ -656,7 +656,7 @@ void MainWindow::on_connectionListWidget_itemChanged(QTreeWidgetItem *item, int)
     // and tell user you should not rename a config from subscription.
     auto newIdentifier = renameOriginalIdentifier;
     newIdentifier.connectionName = item->text(0);
-    LOG(MODULE_CONNECTION, "RENAME: " + renameOriginalIdentifier.IdentifierString() + " -> " + newIdentifier.IdentifierString())
+    LOG(CONNECTION, "RENAME: " + renameOriginalIdentifier.IdentifierString() + " -> " + newIdentifier.IdentifierString())
 
     // If I really did some changes.
     if (renameOriginalIdentifier != newIdentifier) {
@@ -697,7 +697,7 @@ void MainWindow::on_connectionListWidget_itemChanged(QTreeWidgetItem *item, int)
         //
         connections[newIdentifier] = connections.take(renameOriginalIdentifier);
         RenameConnection(renameOriginalIdentifier.connectionName, newIdentifier.connectionName);
-        LOG(MODULE_UI, "Saving a global config")
+        LOG(UI, "Saving a global config")
         SaveGlobalConfig(GlobalConfig);
         //
         item->setData(0, Qt::UserRole, QVariant::fromValue(newIdentifier));
@@ -723,7 +723,7 @@ void MainWindow::on_removeConfigButton_clicked()
         }
     }
 
-    LOG(MODULE_UI, "Selected " + QSTRN(connlist.count()) + " items")
+    LOG(UI, "Selected " + QSTRN(connlist.count()) + " items")
 
     if (connlist.isEmpty()) {
         // Remove nothing means doing nothing.
@@ -757,7 +757,7 @@ void MainWindow::on_removeConfigButton_clicked()
         if (connData.configType == CONNECTION_REGULAR) {
             // Just remove the regular configs.
             if (!connData.subscriptionName.isEmpty()) {
-                LOG(MODULE_UI, "Unexpected subscription name in a single regular config.")
+                LOG(UI, "Unexpected subscription name in a single regular config.")
                 connData.subscriptionName.clear();
             }
 
@@ -779,11 +779,11 @@ void MainWindow::on_removeConfigButton_clicked()
                 }
             }
         } else {
-            LOG(MODULE_CONFIG, "Unknown config type -> Not regular nor subscription...")
+            LOG(SETTINGS, "Unknown config type -> Not regular nor subscription...")
         }
     }
 
-    LOG(MODULE_UI, "Saving GlobalConfig")
+    LOG(UI, "Saving GlobalConfig")
     SaveGlobalConfig(GlobalConfig);
     OnConfigListChanged(false);
     ShowAndSetConnection(CurrentConnectionIdentifier, false, false);
@@ -826,12 +826,12 @@ void MainWindow::on_editConfigButton_clicked()
     bool isChanged = false;
 
     if (CheckIsComplexConfig(outBoundRoot)) {
-        LOG(MODULE_UI, "INFO: Opening route editor.")
+        LOG(UI, "INFO: Opening route editor.")
         RouteEditor routeWindow(outBoundRoot, this);
         root = routeWindow.OpenEditor();
         isChanged = routeWindow.result() == QDialog::Accepted;
     } else {
-        LOG(MODULE_UI, "INFO: Opening single connection edit window.")
+        LOG(UI, "INFO: Opening single connection edit window.")
         OutboundEditor w(OUTBOUND(outBoundRoot["outbounds"].toArray().first().toObject()), this);
         auto outboundEntry = w.OpenEditor();
         isChanged = w.result() == QDialog::Accepted;
@@ -878,7 +878,7 @@ void MainWindow::on_action_RCM_ConvToComplex_triggered()
     CONFIGROOT root;
     bool isChanged = false;
     //
-    LOG(MODULE_UI, "INFO: Opening route editor.")
+    LOG(UI, "INFO: Opening route editor.")
     RouteEditor *routeWindow = new RouteEditor(outBoundRoot, this);
     root = routeWindow->OpenEditor();
     isChanged = routeWindow->result() == QDialog::Accepted;
@@ -948,7 +948,7 @@ void MainWindow::on_pingTestBtn_clicked()
         }
     }
 
-    LOG(MODULE_UI, "Will perform latency test on " + QSTRN(aliases.count()) + " hosts.")
+    LOG(UI, "Will perform latency test on " + QSTRN(aliases.count()) + " hosts.")
     latencyLabel->setText(tr("Testing..."));
 
     for (auto alias : aliases) {

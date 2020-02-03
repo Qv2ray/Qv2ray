@@ -11,7 +11,7 @@ namespace Qv2ray::core::connection
             auto conf = CONFIGROOT(JsonFromString(jsonString));
 
             if (conf.count() == 0) {
-                LOG(MODULE_CONFIG, "WARN: Possible file corruption, failed to load file: " + connection + " --> File might be empty.")
+                LOG(SETTINGS, "WARN: Possible file corruption, failed to load file: " + connection + " --> File might be empty.")
             }
 
             return conf;
@@ -41,12 +41,12 @@ namespace Qv2ray::core::connection
                     confName.chop(sizeof(QV2RAY_CONFIG_FILE_EXTENSION) - 1);
                     _config[confName] = _ReadConnection(QV2RAY_SUBSCRIPTION_DIR + subscription + "/" + _file);
                 } else {
-                    LOG(MODULE_SUBSCRIPTION, "Found a file in subscription folder but without proper suffix: " + _file)
+                    LOG(SUBSCRIPTION, "Found a file in subscription folder but without proper suffix: " + _file)
                 }
             }
 
             if (_config.isEmpty()) {
-                LOG(MODULE_SUBSCRIPTION, "WARN: Maybe loading an empty subscrption: " + subscription)
+                LOG(SUBSCRIPTION, "WARN: Maybe loading an empty subscrption: " + subscription)
             }
 
             return _config;
@@ -58,7 +58,7 @@ namespace Qv2ray::core::connection
             QMap<QString, QMap<QString, CONFIGROOT>> list;
 
             for (auto singleSub : subscriptions) {
-                LOG(MODULE_SUBSCRIPTION, "Processing subscription: " + singleSub)
+                LOG(SUBSCRIPTION, "Processing subscription: " + singleSub)
                 list[singleSub] = GetSubscriptionConnection(singleSub);
             }
 
@@ -80,7 +80,7 @@ namespace Qv2ray::core::connection
                 config = new QFile(QV2RAY_CONFIG_DIR + *alias + QV2RAY_CONFIG_FILE_EXTENSION);
             }
 
-            LOG(MODULE_CONFIG, "Saving a config named: " + *alias)
+            LOG(SETTINGS, "Saving a config named: " + *alias)
             return StringToFile(&str, config);
         }
 
@@ -97,14 +97,14 @@ namespace Qv2ray::core::connection
 
             // If there's already a file. THIS IS EXTREMELY RARE
             if (config->exists()) {
-                LOG(MODULE_FILE, "Trying to overrwrite an existing subscription config file. THIS IS RARE")
+                LOG(FILEIO, "Trying to overrwrite an existing subscription config file. THIS IS RARE")
             }
 
-            LOG(MODULE_CONFIG, "Saving a subscription named: " + fName)
+            LOG(SETTINGS, "Saving a subscription named: " + fName)
             bool result = StringToFile(&str, config);
 
             if (!result) {
-                LOG(MODULE_FILE, "Failed to save a connection config from subscription: " + subscription + ", name: " + fName)
+                LOG(FILEIO, "Failed to save a connection config from subscription: " + subscription + ", name: " + fName)
             }
 
             *name = fName;
@@ -116,7 +116,7 @@ namespace Qv2ray::core::connection
             QFile config(QV2RAY_CONFIG_DIR + alias + QV2RAY_CONFIG_FILE_EXTENSION);
 
             if (!config.exists()) {
-                LOG(MODULE_FILE, "Trying to remove a non-existing file?")
+                LOG(FILEIO, "Trying to remove a non-existing file?")
                 return false;
             } else {
                 return config.remove();
@@ -128,7 +128,7 @@ namespace Qv2ray::core::connection
             QFile config(QV2RAY_SUBSCRIPTION_DIR + subsName + "/" + name + QV2RAY_CONFIG_FILE_EXTENSION);
 
             if (!config.exists()) {
-                LOG(MODULE_FILE, "Trying to remove a non-existing file?")
+                LOG(FILEIO, "Trying to remove a non-existing file?")
                 return false;
             } else {
                 return config.remove();
@@ -137,13 +137,13 @@ namespace Qv2ray::core::connection
 
         bool RenameConnection(const QString &originalName, const QString &newName)
         {
-            LOG(MODULE_CONFIG, "[RENAME] --> ORIGINAL: " + originalName + ", NEW: " + newName)
+            LOG(CONNECTION, "[RENAME] --> ORIGINAL: " + originalName + ", NEW: " + newName)
             return QFile::rename(QV2RAY_CONFIG_DIR + originalName + QV2RAY_CONFIG_FILE_EXTENSION, QV2RAY_CONFIG_DIR + newName + QV2RAY_CONFIG_FILE_EXTENSION);
         }
 
         bool RenameSubscription(const QString &originalName, const QString &newName)
         {
-            LOG(MODULE_SUBSCRIPTION, "[RENAME] --> ORIGINAL: " + originalName + ", NEW: " + newName)
+            LOG(SUBSCRIPTION, "[RENAME] --> ORIGINAL: " + originalName + ", NEW: " + newName)
             return QDir().rename(QV2RAY_SUBSCRIPTION_DIR + originalName, QV2RAY_SUBSCRIPTION_DIR + newName);
         }
 
@@ -152,7 +152,7 @@ namespace Qv2ray::core::connection
             QFile source(sourceFilePath);
 
             if (!source.exists()) {
-                LOG(MODULE_FILE, "Trying to import from an non-existing file.")
+                LOG(FILEIO, "Trying to import from an non-existing file.")
                 return CONFIGROOT();
             }
 

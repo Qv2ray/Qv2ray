@@ -1,13 +1,10 @@
 #include "APIBackend.hpp"
 
 #ifdef WITH_LIB_GRPCPP
-using namespace v2ray::core::app::stats::command;
-using grpc::Channel;
-using grpc::ClientContext;
-using grpc::Status;
-#else
-#include "libs/libqvb/build/libqvb.h"
+#warning gRPC backend is not supported anymore.
 #endif
+
+#include "libs/libqvb/build/libqvb.h"
 
 namespace Qv2ray::core::kernel::api
 {
@@ -19,15 +16,15 @@ namespace Qv2ray::core::kernel::api
     {
         thread = new QThread();
         this->moveToThread(thread);
-        DEBUG(MODULE_VCORE, "API Worker initialised.")
+        DEBUG(VCORE, "API Worker initialised.")
         connect(this, SIGNAL(error(QString)), this, SLOT(errorString(QString)));
         connect(thread, SIGNAL(started()), this, SLOT(process()));
         connect(thread, &QThread::finished, []() {
-            LOG(MODULE_VCORE, "API thread stopped")
+            LOG(VCORE, "API thread stopped")
         });
         started = true;
         thread->start();
-        DEBUG(MODULE_VCORE, "API Worker started.")
+        DEBUG(VCORE, "API Worker started.")
     }
 
     void APIWorkder::StartAPI(QStringList tags)
@@ -68,15 +65,9 @@ namespace Qv2ray::core::kernel::api
             while (running) {
                 if (!dialed) {
                     auto channelAddress = "127.0.0.1:" + QString::number(GlobalConfig.apiConfig.statsPort);
-#ifdef WITH_LIB_GRPCPP
-                    Channel = grpc::CreateChannel(channelAddress.toStdString(), grpc::InsecureChannelCredentials());
-                    StatsService service;
-                    Stub = service.NewStub(Channel);
-#else
                     auto str = Dial(const_cast<char *>(channelAddress.toStdString().c_str()), 10000);
-                    LOG(MODULE_VCORE, QString(str))
+                    LOG(VCORE, QString(str))
                     free(str);
-#endif
                     dialed = true;
                 }
 
@@ -108,7 +99,7 @@ namespace Qv2ray::core::kernel::api
     long APIWorkder::CallStatsAPIByName(QString name)
     {
         if (apiFailedCounter == QV2RAY_API_CALL_FAILEDCHECK_THRESHOLD) {
-            LOG(MODULE_VCORE, "API call failure threshold reached, cancelling further API aclls.")
+            LOG(VCORE, "API call failure threshold reached, cancelling further API aclls.")
             emit error("Failed to get statistics data, please check if V2ray is running properly");
             apiFailedCounter++;
             return 0;
@@ -116,26 +107,10 @@ namespace Qv2ray::core::kernel::api
             return 0;
         }
 
-#ifdef WITH_LIB_GRPCPP
-        GetStatsRequest request;
-        request.set_name(name.toStdString());
-        request.set_reset(false);
-        GetStatsResponse response;
-        ClientContext context;
-        Status status = Stub->GetStats(&context, request, &response);
-
-        if (!status.ok()) {
-            LOG(MODULE_VCORE, "API call returns: " + QSTRN(status.error_code()) + " (" + QString::fromStdString(status.error_message()) + ")")
-            apiFailedCounter++;
-        }
-
-        auto data = response.stat().value();
-#else
         auto data = GetStats(const_cast<char *>(name.toStdString().c_str()), 1000);
-#endif
 
         if (data < 0) {
-            LOG(MODULE_VCORE, "API call returns: " + QSTRN(data))
+            LOG(VCORE, "API call returns: " + QSTRN(data))
             apiFailedCounter++;
             return 0;
         }

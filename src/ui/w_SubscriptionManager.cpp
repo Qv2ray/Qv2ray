@@ -61,7 +61,7 @@ void SubscribeEditor::on_updateButton_clicked()
 
     if (currentSubName != newName) {
         // Rename needed.
-        LOG(MODULE_SUBSCRIPTION, "Renaming a subscription, from " + currentSubName + " to: " + newName)
+        LOG(SUBSCRIPTION, "Renaming a subscription, from " + currentSubName + " to: " + newName)
         bool canGo = true;
 
         if (newName.isEmpty() || !IsValidFileName(newName)) {
@@ -106,7 +106,7 @@ void SubscribeEditor::on_updateButton_clicked()
     subscriptions[currentSubName].updateInterval = newUpdateInterval;
 
     if (subscriptions[currentSubName].address != newAddress) {
-        LOG(MODULE_SUBSCRIPTION, "Setting new address, from " + subscriptions[currentSubName].address + " to: " + newAddress)
+        LOG(SUBSCRIPTION, "Setting new address, from " + subscriptions[currentSubName].address + " to: " + newAddress)
         subscriptions[currentSubName].address = newAddress;
     }
 
@@ -135,7 +135,7 @@ void SubscribeEditor::StartUpdateSubscription(const QString &subscriptionName)
             auto config = ConvertConfigFromString(vmess.trimmed(), &_alias, &errMessage);
 
             if (!errMessage.isEmpty()) {
-                LOG(MODULE_SUBSCRIPTION, "Processing a subscription with following error: " + errMessage)
+                LOG(SUBSCRIPTION, "Processing a subscription with following error: " + errMessage)
             } else {
                 SaveSubscriptionConfig(config, subscriptionName, &_alias);
                 connectionsList->addItem(_alias);
@@ -146,7 +146,7 @@ void SubscribeEditor::StartUpdateSubscription(const QString &subscriptionName)
         lastUpdatedLabel->setText(timeToString(subscriptions[subscriptionName].lastUpdated));
         isUpdateInProgress = false;
     } else {
-        LOG(MODULE_NETWORK, "We have received an empty string from the URL.")
+        LOG(NETWORK, "We have received an empty string from the URL.")
         QvMessageBoxWarn(this, tr("Updating subscriptions"), tr("Failed to process the result from the upstream, please check your Url."));
     }
 
@@ -187,7 +187,7 @@ void SubscribeEditor::on_subscriptionList_currentRowChanged(int currentRow)
     }
 
     currentSubName = subscriptionList->currentItem()->text();
-    LOG(MODULE_UI, "Subscription row changed, new name: " + currentSubName)
+    LOG(UI, "Subscription row changed, new name: " + currentSubName)
     //
     subNameTxt->setText(currentSubName);
     subAddrTxt->setText(subscriptions[currentSubName].address);

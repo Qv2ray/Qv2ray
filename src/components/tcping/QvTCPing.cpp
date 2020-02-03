@@ -22,16 +22,16 @@ namespace Qv2ray::components::tcping
         data.port = port;
         data.connectionIdentifier = connectionName;
         auto watcher = new QFutureWatcher<QvTCPingData>(this);
-        DEBUG(MODULE_NETWORK, "Start Ping: " + hostName + ":" + QSTRN(port))
+        DEBUG(NETWORK, "Start Ping: " + hostName + ":" + QSTRN(port))
         watcher->setFuture(QtConcurrent::run(&QvTCPingModel::startTestLatency, data, count));
         pingWorkingThreads.enqueue(watcher);
         connect(watcher, &QFutureWatcher<void>::finished, this, [this, watcher]() {
             this->pingWorkingThreads.removeOne(watcher);
             auto result = watcher->result();
-            DEBUG(MODULE_NETWORK, "Ping finished: " + result.hostName + ":" + QSTRN(result.port) + " --> " + QSTRN(result.avg) + "ms")
+            DEBUG(NETWORK, "Ping finished: " + result.hostName + ":" + QSTRN(result.port) + " --> " + QSTRN(result.avg) + "ms")
 
             if (!result.errorMessage.isEmpty()) {
-                LOG(MODULE_NETWORK, "Ping --> " + result.errorMessage)
+                LOG(NETWORK, "Ping --> " + result.errorMessage)
             }
 
             emit this->PingFinished(result);
@@ -65,13 +65,13 @@ namespace Qv2ray::components::tcping
 
             if ((errcode = testLatency(resolved, &rtt)) != 0) {
                 if (errcode != -EADDRNOTAVAIL) {
-                    LOG(MODULE_NETWORK, "Error connecting to host: " + data.hostName + ":" + QSTRN(data.port) + " " + strerror(-errcode))
+                    LOG(NETWORK, "Error connecting to host: " + data.hostName + ":" + QSTRN(data.port) + " " + strerror(-errcode))
                     errorCount++;
                 } else {
                     if (noAddress) {
-                        LOG(MODULE_NETWORK, ".")
+                        LOG(NETWORK, ".")
                     } else {
-                        LOG(MODULE_NETWORK, "error connecting to host: " + QSTRN(-errcode) + " " + strerror(-errcode))
+                        LOG(NETWORK, "error connecting to host: " + QSTRN(-errcode) + " " + strerror(-errcode))
                     }
 
                     noAddress = true;

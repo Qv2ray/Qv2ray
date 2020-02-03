@@ -30,7 +30,7 @@ ScreenShotWindow::ScreenShotWindow() : QDialog(), rubber(new QRubberBand(QRubber
 
 QImage ScreenShotWindow::DoScreenShot()
 {
-    LOG(MODULE_IMPORT, "We currently only support the current screen.")
+    LOG(IMPORT, "We currently only support the current screen.")
     // The msleep is the only solution which prevent capturing our windows again.
     // It works on KDE, https://www.qtcentre.org/threads/55708-Get-Desktop-Screenshot-Without-Application-Window-Being-Shown?p=248993#post248993
     QThread::msleep(250);
