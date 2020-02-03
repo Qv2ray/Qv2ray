@@ -93,7 +93,7 @@ jobs:
         if: matrix.platform == 'ubuntu-16.04'
         uses: actions/upload-artifact@master
         with:
-          name: Qv2ray.linux-qt${{ matrix.qt_version }}-.AppImage
+          name: Qv2ray.linux-qt${{ matrix.qt_version }}.AppImage
           path: build/AppDir/Qv2ray.AppImage
       - name: Linux - ${{ matrix.qt_version }} - Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release
