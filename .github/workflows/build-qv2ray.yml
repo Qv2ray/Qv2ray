@@ -50,16 +50,12 @@ jobs:
         if: matrix.platform == 'macos-latest'
         run: brew install protobuf
 # --------------------------------------------------------
-      - name: Linux - Download libqvb static library.
-        if: matrix.platform == 'ubuntu-16.04'
-        run: curl -o ./libs/libqvb-linux64.a -L https://github.com/Qv2ray/QvRPCBridge/releases/download/v1.1/libqvb-linux64.a
-# ==
-      - name: macOS - Download libqvb static library.
-        if: matrix.platform == 'macos-latest'
-        run: curl -o ./libs/libqvb-darwin.a -L https://github.com/Qv2ray/QvRPCBridge/releases/download/v1.1/libqvb-darwin.a
-# ==
-      - name: Win32 - Download libqvb static library.
-        run: curl -o .\libs\libqvb-win64.a -L https://github.com/Qv2ray/QvRPCBridge/releases/download/v1.1/libqvb-win64.a
+      - name: Cross-platform - Download libqvb static library.
+        shell: bash
+        run: |
+         curl -o ./libs/libqvb-linux64.a -L https://github.com/Qv2ray/QvRPCBridge/releases/download/v1.1/libqvb-linux64.a
+         curl -o ./libs/libqvb-darwin.a -L https://github.com/Qv2ray/QvRPCBridge/releases/download/v1.1/libqvb-darwin.a
+         curl -o ./libs/libqvb-win64.a -L https://github.com/Qv2ray/QvRPCBridge/releases/download/v1.1/libqvb-win64.a
 # -------------------------------------------------------- Generate MakeFile
       - name: Cross-platform - ${{ matrix.qt_version }} - Generate Dependencies and Makefile
         shell: bash
