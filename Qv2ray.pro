@@ -276,6 +276,8 @@ with_new_backend {
     macx {
         message("  --> Linking libgpr.")
         LIBS += -lgpr
+        # message("  --> Linking libupb.")
+        # LIBS += -lupb
     }
 }
 
@@ -297,10 +299,6 @@ _qv2ray_with_protobuf_ {
         # For gRPC and protobuf in linux and macOS
         message("  --> Linking against protobuf library.")
         LIBS += -L/usr/local/lib -lprotobuf
-    }
-    macx {
-        message("  --> Linking libupb.")
-        LIBS += -lupb
     }
 }
 
