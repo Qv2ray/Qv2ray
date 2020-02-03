@@ -113,7 +113,7 @@ namespace Qv2ray::base
             bool useDarkTheme;
             bool useDarkTrayIcon;
             int maximumLogLines;
-            Qv2rayUIConfig() : theme("Fusion"), language("en-US"), useDarkTheme(false), useDarkTrayIcon(true), maximumLogLines(500) { }
+            Qv2rayUIConfig() : theme("Fusion"), language("en_US"), useDarkTheme(false), useDarkTrayIcon(true), maximumLogLines(500) { }
             XTOSTRUCT(O(theme, language, useDarkTheme, useDarkTrayIcon, maximumLogLines))
         };
 
