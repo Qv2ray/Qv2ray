@@ -76,7 +76,7 @@ jobs:
         run: |
           cd build
           _make=$([ "${{ matrix.platform }}" == "windows-latest" ] && echo "mingw32-make" || echo "make")
-          $make -j2 $([ "${{ matrix.platform }}" == "ubuntu-16.04" ] && echo "CC=gcc-7 CXX=g++-7" LINK="g++-7" || echo "")
+          $_make -j2 $([ "${{ matrix.platform }}" == "ubuntu-16.04" ] && echo "CC=gcc-7 CXX=g++-7" LINK="g++-7" || echo "")
 # -------------------------------------------------------- Deployments
       - name: Linux - ${{ matrix.qt_version }} - Generating AppImage
         if: matrix.platform == 'ubuntu-16.04'
