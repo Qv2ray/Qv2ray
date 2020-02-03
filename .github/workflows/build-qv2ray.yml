@@ -130,9 +130,11 @@ jobs:
           overwrite: true
 # ==
       - name: Win32 - ${{ matrix.qt_version }} - Copying DLLs to build output folders
+        if: matrix.platform == 'windows-latest'
         shell: cmd
         run: .github\workflows\copy_DLLs.bat
       - name: Win32 - ${{ matrix.qt_version }} - Running windeployqt
+        if: matrix.platform == 'windows-latest'
         shell: cmd
         run: |
           cd build
@@ -140,18 +142,20 @@ jobs:
           del *.cpp *.h *.o *.qrc *.qm
           windeployqt ./qv2ray.exe --compiler-runtime
       - name: Win32 - ${{ matrix.qt_version }} - Create 7z Release
+        if: matrix.platform == 'windows-latest'
         uses: DuckSoft/create-7z-action@v1.0
         with:
           pathSource: ./build/release/
           pathTarget: ./release.7z
       - name: Win32 - ${{ matrix.qt_version }} - Uploading artifact
+        if: matrix.platform == 'windows-latest'
         uses: actions/upload-artifact@master
         with:
           name: Qv2ray.Win64-qt${{ matrix.qt_version }}.7z
           path: release.7z
       - name: Win32 - ${{ matrix.qt_version }} - Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release
-        if: github.event_name == 'release' && matrix.qt_version == '5.12.6'
+        if: github.event_name == 'release' && matrix.qt_version == '5.12.6' && matrix.platform == 'windows-latest'
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: release.7z
