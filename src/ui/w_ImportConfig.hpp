@@ -14,6 +14,8 @@ class ImportConfigWindow : public QDialog, private Ui::ImportConfigWindow
         explicit ImportConfigWindow(QWidget *parent = nullptr);
         ~ImportConfigWindow();
         QMap<QString, CONFIGROOT> OpenImport(bool outboundsOnly = false);
+    public slots:
+        QvMessageBusSlotHeader
     private slots:
 
         void on_selectFileBtn_clicked();

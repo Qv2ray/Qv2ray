@@ -79,11 +79,12 @@
 
 MainWindow *MainWindow::mwInstance = nullptr;
 
+QvMessageBusSlotImplDefault(MainWindow)
+
 MainWindow::MainWindow(QWidget *parent):
     QMainWindow(parent), vinstance(),
     hTray(new QSystemTrayIcon(this)), vCoreLogHighlighter(), qvAppLogHighlighter()
 {
-    REGISTER_WINDOW
     MainWindow::mwInstance = this;
     vinstance = new V2rayKernelInstance();
     connect(vinstance, &V2rayKernelInstance::onProcessOutputReadyRead, this, &MainWindow::UpdateVCoreLog);
@@ -95,6 +96,7 @@ MainWindow::MainWindow(QWidget *parent):
     });
     //
     setupUi(this);
+    QvMessageBusConnect(MainWindow);
     //
     // Two browsers
     logTextBrowsers.append(new QTextBrowser());
@@ -402,7 +404,6 @@ void MainWindow::OnConfigListChanged(bool need_restart)
 }
 MainWindow::~MainWindow()
 {
-    UNREGISTER_WINDOW
     killTimer(qvLogTimerId);
     hTray->hide();
     delete this->hTray;

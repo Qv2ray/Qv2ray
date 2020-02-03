@@ -3,7 +3,6 @@
 
 namespace Qv2ray::common
 {
-    QVector<QWidget *> GlobalWindows = QVector<QWidget *>();
     const QString GenerateRandomString(int len)
     {
         const QString possibleCharacters("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789");
@@ -210,20 +209,5 @@ namespace Qv2ray::common
         }
 
         return stdList;
-    }
-
-
-    void HideAllGlobalWindow()
-    {
-        for (auto window : GlobalWindows) {
-            // Do we use opacity or... hide() and show()?
-            window->setVisible(false);
-        }
-    }
-    void ShowAllGlobalWindow()
-    {
-        for (auto window : GlobalWindows) {
-            window->setVisible(true);
-        }
     }
 }

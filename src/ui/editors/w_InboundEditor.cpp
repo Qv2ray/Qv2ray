@@ -10,7 +10,7 @@ InboundEditor::InboundEditor(INBOUND root, QWidget *parent) :
     QDialog(parent),
     original(root)
 {
-    REGISTER_WINDOW
+    QvMessageBusConnect(InboundEditor);
     setupUi(this);
     this->root = root;
     auto inboundType = root["protocol"].toString();
@@ -38,6 +38,8 @@ InboundEditor::InboundEditor(INBOUND root, QWidget *parent) :
 
     LoadUIData();
 }
+
+QvMessageBusSlotImplDefault(InboundEditor)
 
 INBOUND InboundEditor::OpenEditor()
 {
@@ -140,7 +142,6 @@ void InboundEditor::LoadUIData()
 
 InboundEditor::~InboundEditor()
 {
-    UNREGISTER_WINDOW
 }
 
 void InboundEditor::on_inboundProtocolCombo_currentIndexChanged(const QString &arg1)

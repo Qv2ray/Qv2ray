@@ -9,12 +9,13 @@ ConfigExporter::ConfigExporter(QWidget *parent) :
     qzxing(this)
 {
     setupUi(this);
-    REGISTER_WINDOW
+    QvMessageBusConnect(ConfigExporter);
 }
+
+QvMessageBusSlotImplDefault(ConfigExporter)
 
 ConfigExporter::~ConfigExporter()
 {
-    UNREGISTER_WINDOW
 }
 
 ConfigExporter::ConfigExporter(const CONFIGROOT &root, const ConnectionIdentifier &alias, QWidget *parent) : ConfigExporter(parent)

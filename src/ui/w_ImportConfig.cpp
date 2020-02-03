@@ -24,13 +24,14 @@ ImportConfigWindow::ImportConfigWindow(QWidget *parent)
 {
     setupUi(this);
     nameTxt->setText(QDateTime::currentDateTime().toString("MMdd_hhmm"));
-    REGISTER_WINDOW
+    QvMessageBusConnect(ImportConfigWindow);
     RESTORE_RUNTIME_CONFIG(screenShotHideQv2ray, hideQv2rayCB->setChecked)
 }
 
+QvMessageBusSlotImplDefault(ImportConfigWindow)
+
 ImportConfigWindow::~ImportConfigWindow()
 {
-    UNREGISTER_WINDOW
 }
 
 QMap<QString, CONFIGROOT> ImportConfigWindow::OpenImport(bool partialImport)
@@ -54,7 +55,7 @@ void ImportConfigWindow::on_qrFromScreenBtn_clicked()
     bool hideQv2ray = hideQv2rayCB->isChecked();
 
     if (hideQv2ray) {
-        //HideAllGlobalWindow();
+        messageBus.EmitGlobalSignal(QvMessage::HIDE_WINDOWS);
     }
 
     QThread::msleep(static_cast<ulong>(doubleSpinBox->value() * 1000));
@@ -65,6 +66,7 @@ void ImportConfigWindow::on_qrFromScreenBtn_clicked()
     delete w;
 
     if (hideQv2ray) {
+        messageBus.EmitGlobalSignal(QvMessage::SHOW_WINDOWS);
         //ShowAllGlobalWindow();
     }
 
@@ -79,6 +81,8 @@ void ImportConfigWindow::on_qrFromScreenBtn_clicked()
             QvMessageBoxWarn(this, tr("Capture QRCode"), tr("Cannot find a valid QRCode from this region."));
         } else {
             vmessConnectionStringTxt->appendPlainText(str.trimmed() + NEWLINE);
+            //QvMessageBoxWarn(this, tr("Capture QRCode"), tr("Successfully imported a QR code form the screen."));
+            //this->show();
         }
     }
 }

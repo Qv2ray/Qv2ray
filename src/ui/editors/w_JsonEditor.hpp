@@ -3,6 +3,7 @@
 #include <QDialog>
 #include <QtCore>
 #include "common/QJsonModel.hpp"
+#include "base/Qv2rayBase.hpp"
 #include "ui_w_JsonEditor.h"
 
 class JsonEditor : public QDialog, private Ui::JsonEditor
@@ -13,6 +14,8 @@ class JsonEditor : public QDialog, private Ui::JsonEditor
         explicit JsonEditor(QJsonObject rootObject, QWidget *parent = nullptr);
         ~JsonEditor();
         QJsonObject OpenEditor();
+    public slots:
+        QvMessageBusSlotHeader
 
     private slots:
         void on_jsonEditor_textChanged();

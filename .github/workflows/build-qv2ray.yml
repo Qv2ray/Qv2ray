@@ -9,8 +9,12 @@ jobs:
   build:
     strategy:
       matrix:
-        platform: [ubuntu-16.04, macos-latest]
+        platform: [ubuntu-16.04, macos-latest, windows-latest]
         qt_version: [5.12.6, 5.13.2, 5.14.1]
+        exclude:
+          # do not build Qt 5.14.1 on the buggy Windows platform
+          - platform: windows-latest
+            qt_version: 5.14.1
       fail-fast: false
         
     runs-on: ${{ matrix.platform }}
@@ -22,9 +26,16 @@ jobs:
         run: git submodule update --init
 # --------------------------------------------------------
       - name: ${{ matrix.platform }} - Installing Qt
+        if: matrix.platform != 'windows-latest'
         uses: jurplel/install-qt-action@v2
         with:
           version: ${{ matrix.qt_version }}
+      - name: ${{ matrix.platform }} - Installing Qt - Windows Only
+        if: matrix.platform == 'windows-latest'
+        uses: jurplel/install-qt-action@v2
+        with:
+          version: ${{ matrix.qt_version }}
+          arch: win64_mingw73
 # --------------------------------------------------------
       - name: Linux - Install Packages 
         if: matrix.platform == 'ubuntu-16.04'
@@ -41,21 +52,18 @@ jobs:
 # --------------------------------------------------------
       - name: Linux - Download libqvb static library.
         if: matrix.platform == 'ubuntu-16.04'
-        uses: Legion2/download-release-action@v2.1.0
-        with:
-          repository: Qv2ray/QvRPCBridge
-          tag: 'latest'
-          path: libs
-          file: libqvb-linux64.a
+        run: curl -o ./libs/libqvb-linux64.a -L https://github.com/Qv2ray/QvRPCBridge/releases/download/v1.1/libqvb-linux64.a
 # ==
       - name: macOS - Download libqvb static library.
         if: matrix.platform == 'macos-latest'
         run: curl -o ./libs/libqvb-darwin.a -L https://github.com/Qv2ray/QvRPCBridge/releases/download/v1.1/libqvb-darwin.a
+# ==
+      - name: Win32 - Download libqvb static library.
+        run: curl -o .\libs\libqvb-win64.a -L https://github.com/Qv2ray/QvRPCBridge/releases/download/v1.1/libqvb-win64.a
 # -------------------------------------------------------- Generate MakeFile
       - name: Cross-platform - ${{ matrix.qt_version }} - Generate Dependencies and Makefile
         shell: bash
         run: |
-          ./tools/unix-generate-geosite.sh
           PATH=$PATH:$Qt5_Dir
           mkdir build
           cd build
@@ -67,7 +75,9 @@ jobs:
         shell: bash
         run: |
           cd build
-          make -j2 $([ "${{ matrix.platform }}" == "ubuntu-16.04" ] && echo "CC=gcc-7 CXX=g++-7" LINK="g++-7" || echo "")
+          _make=$([ "${{ matrix.platform }}" == "windows-latest" ] && echo "mingw32-make" || echo "make")
+          $make -j2 $([ "${{ matrix.platform }}" == "ubuntu-16.04" ] && echo "CC=gcc-7 CXX=g++-7" LINK="g++-7" || echo "")
+# -------------------------------------------------------- Deployments
       - name: Linux - ${{ matrix.qt_version }} - Generating AppImage
         if: matrix.platform == 'ubuntu-16.04'
         run: | 
@@ -120,6 +130,36 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: build/Qv2ray.app.tar.gz
           asset_name: Qv2ray-${{ github.ref }}-macOS-qt${{ matrix.qt_version }}.tar.gz
+          tag: ${{ github.ref }}
+          overwrite: true
+# ==
+      - name: Win32 - ${{ matrix.qt_version }} - Copying DLLs to build output folders
+        shell: cmd
+        run: .github\workflows\copy_DLLs.bat
+      - name: Win32 - ${{ matrix.qt_version }} - Running windeployqt
+        shell: cmd
+        run: |
+          cd build
+          cd release
+          del *.cpp *.h *.o *.qrc *.qm
+          windeployqt ./qv2ray.exe --compiler-runtime
+      - name: Win32 - ${{ matrix.qt_version }} - Create 7z Release
+        uses: DuckSoft/create-7z-action@v1.0
+        with:
+          pathSource: ./build/release/
+          pathTarget: ./release.7z
+      - name: Win32 - ${{ matrix.qt_version }} - Uploading artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: Qv2ray.Win64-qt${{ matrix.qt_version }}.7z
+          path: release.7z
+      - name: Win32 - ${{ matrix.qt_version }} - Upload binaries to release
+        uses: svenstaro/upload-release-action@v1-release
+        if: github.event_name == 'release' && matrix.qt_version == '5.12.6'
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: release.7z
+          asset_name: Qv2ray-${{ github.ref }}-win64-qt${{ matrix.qt_version }}.7z
           tag: ${{ github.ref }}
           overwrite: true
 # -------------------------------------

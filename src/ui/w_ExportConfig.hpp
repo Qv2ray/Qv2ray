@@ -12,6 +12,8 @@ class ConfigExporter : public QDialog, private Ui::ExportConfigWindow
         explicit ConfigExporter(const CONFIGROOT &root, const ConnectionIdentifier &alias, QWidget *parent = nullptr);
         ~ConfigExporter();
         void OpenExport();
+    public slots:
+        QvMessageBusSlotHeader
     protected:
         void changeEvent(QEvent *e);
     private slots:

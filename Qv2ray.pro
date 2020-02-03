@@ -57,6 +57,18 @@ message("| See: https://www.gnu.org/licenses/gpl-3.0.html  |")
 message("|-------------------------------------------------|")
 message(" ")
 
+!no_generate_protobuf_headers {
+    # Generate protobuf domain list headers.
+    win {
+        system("$$PWD/tools/win-generate-geosite.bat"): message("Generated protobuf domain list headers for Windows")
+    }
+    unix {
+        system("$$PWD/tools/unix-generate-geosite.sh"):message("Generated protobuf domain list headers for Unix")
+    }
+} else {
+    message("Skipped generation of protobuf header files")
+}
+
 defineTest(Qv2rayAddFile) {
     ext = $$take_last(ARGS)
     filename = $${take_first(ARGS)}.$${ext}
@@ -119,12 +131,12 @@ Qv2rayAddSource(base, models, QvConfigIdentifier, hpp)
 Qv2rayAddSource(base, models, QvSafeType, hpp)
 Qv2rayAddSource(base, models, QvRuntimeConfig, hpp)
 Qv2rayAddSource(base, models, QvStartupConfig, hpp)
+Qv2rayAddSource(base, messaging, QvGlobalMessageBus, cpp, hpp)
 Qv2rayAddSource(common, _, CommandArgs, cpp, hpp)
 Qv2rayAddSource(common, _, HTTPRequestHelper, cpp, hpp)
 Qv2rayAddSource(common, _, LogHighlighter, cpp, hpp)
 Qv2rayAddSource(common, _, QJsonModel, cpp, hpp)
 Qv2rayAddSource(common, _, QvHelpers, cpp, hpp)
-Qv2rayAddSource(common, _, QvGlobalMessageBus, cpp, hpp)
 Qv2rayAddSource(components, autolaunch, QvAutoLaunch, cpp, hpp)
 Qv2rayAddSource(components, pac, QvGFWPACConverter, cpp)
 Qv2rayAddSource(components, pac, QvPACHandler, cpp, hpp)

@@ -5,7 +5,7 @@
 JsonEditor::JsonEditor(QJsonObject rootObject, QWidget *parent) :
     QDialog(parent)
 {
-    REGISTER_WINDOW
+    QvMessageBusConnect(JsonEditor);
     setupUi(this);
     original = rootObject;
     final = rootObject;
@@ -24,6 +24,8 @@ JsonEditor::JsonEditor(QJsonObject rootObject, QWidget *parent) :
     jsonTree->resizeColumnToContents(0);
 }
 
+QvMessageBusSlotImplDefault(JsonEditor)
+
 QJsonObject JsonEditor::OpenEditor()
 {
     int resultCode = this->exec();
@@ -40,7 +42,6 @@ QJsonObject JsonEditor::OpenEditor()
 
 JsonEditor::~JsonEditor()
 {
-    UNREGISTER_WINDOW
 }
 
 void JsonEditor::on_jsonEditor_textChanged()

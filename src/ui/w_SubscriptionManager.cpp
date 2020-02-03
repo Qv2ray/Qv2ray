@@ -8,7 +8,6 @@
 SubscribeEditor::SubscribeEditor(QWidget *parent) :
     QDialog(parent)
 {
-    REGISTER_WINDOW
     setupUi(this);
     addSubsButton->setIcon(QICON_R("add.png"));
     removeSubsButton->setIcon(QICON_R("delete.png"));
@@ -40,7 +39,6 @@ void SubscribeEditor::LoadSubscriptionList(QMap<QString, Qv2raySubscriptionConfi
 
 SubscribeEditor::~SubscribeEditor()
 {
-    UNREGISTER_WINDOW
 }
 
 void SubscribeEditor::on_addSubsButton_clicked()

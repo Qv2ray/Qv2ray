@@ -8,7 +8,6 @@
 
 ScreenShotWindow::ScreenShotWindow() : QDialog(), rubber(new QRubberBand(QRubberBand::Rectangle, this))
 {
-    REGISTER_WINDOW
     setupUi(this);
     // Fusion prevents the KDE Plasma Breeze's "Move window when dragging in the empty area" issue
     this->setStyle(QStyleFactory::create("Fusion"));
@@ -147,7 +146,6 @@ void ScreenShotWindow::mouseReleaseEvent(QMouseEvent *e)
 
 ScreenShotWindow::~ScreenShotWindow()
 {
-    UNREGISTER_WINDOW
 }
 
 void ScreenShotWindow::on_startBtn_clicked()
