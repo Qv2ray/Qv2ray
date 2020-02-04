@@ -1,7 +1,12 @@
 #include "APIBackend.hpp"
 
 #ifdef WITH_LIB_GRPCPP
-#warning gRPC backend is not supported anymore.
+using namespace v2ray::core::app::stats::command;
+using grpc::Channel;
+using grpc::ClientContext;
+using grpc::Status;
+#else
+#include "libs/libqvb/build/libqvb.h"
 #endif
 
 #include "libs/libqvb/build/libqvb.h"
@@ -65,9 +70,15 @@ namespace Qv2ray::core::kernel::api
             while (running) {
                 if (!dialed) {
                     auto channelAddress = "127.0.0.1:" + QString::number(GlobalConfig.apiConfig.statsPort);
+#ifdef WITH_LIB_GRPCPP
+                    Channel = grpc::CreateChannel(channelAddress.toStdString(), grpc::InsecureChannelCredentials());
+                    StatsService service;
+                    Stub = service.NewStub(Channel);
+#else
                     auto str = Dial(const_cast<char *>(channelAddress.toStdString().c_str()), 10000);
                     LOG(VCORE, QString(str))
                     free(str);
+#endif
                     dialed = true;
                 }
 
@@ -107,7 +118,23 @@ namespace Qv2ray::core::kernel::api
             return 0;
         }
 
+#ifdef WITH_LIB_GRPCPP
+        GetStatsRequest request;
+        request.set_name(name.toStdString());
+        request.set_reset(false);
+        GetStatsResponse response;
+        ClientContext context;
+        Status status = Stub->GetStats(&context, request, &response);
+
+        if (!status.ok()) {
+            LOG(VCORE, "API call returns: " + QSTRN(status.error_code()) + " (" + QString::fromStdString(status.error_message()) + ")")
+            apiFailedCounter++;
+        }
+
+        auto data = response.stat().value();
+#else
         auto data = GetStats(const_cast<char *>(name.toStdString().c_str()), 1000);
+#endif
 
         if (data < 0) {
             LOG(VCORE, "API call returns: " + QSTRN(data))

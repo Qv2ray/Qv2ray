@@ -40,8 +40,8 @@ include(3rdparty/QNodeEditor/QNodeEditor.pri)
 CONFIG += lrelease embed_translations
 
 # Win32 support.
-win32:CONFIG += win
-win64:CONFIG += win
+win32: CONFIG += win
+win64: CONFIG += win
 
 # Fine......
 message(" ")
@@ -57,16 +57,17 @@ message("| See: https://www.gnu.org/licenses/gpl-3.0.html  |")
 message("|-------------------------------------------------|")
 message(" ")
 
-!no_generate_protobuf_headers {
+!no_auto_generate_headers {
     # Generate protobuf domain list headers.
-    win {
-        system("$$PWD/tools/win-generate-geosite.bat"): message("Generated protobuf domain list headers for Windows")
-    }
-    unix {
-        system("$$PWD/tools/unix-generate-geosite.sh"):message("Generated protobuf domain list headers for Unix")
+    win: system("$$PWD/tools/win-generate-geosite.bat"): message("Generated protobuf domain list headers for Windows")
+    unix: system("$$PWD/tools/unix-generate-geosite.sh"): message("Generated protobuf domain list headers for Unix")
+
+    use_grpc {
+        win: system("$$PWD/tools/win-generate-api.bat"): message("Generated gRPC and protobuf headers for Windows")
+        unix: system("$$PWD/tools/unix-generate-api.sh"): message("Generated gRPC and protobuf headers for unix")
     }
 } else {
-    message("Skipped generation of protobuf header files")
+    message("Skipped generation of protobuf and/or gRPC header files")
 }
 
 defineTest(Qv2rayAddFile) {
@@ -219,6 +220,7 @@ defineTest(Qv2rayQMakeError)　{
 }
 
 # ------------------------------------------ Begin checking protobuf domain list headers.
+
 !exists($$PWD/libs/gen/v2ray_geosite.pb.cc) || !exists($$PWD/libs/gen/v2ray_geosite.pb.cc) {
     Qv2rayQMakeError("Protobuf headers for v2ray geosite is missing.")
 }
@@ -226,25 +228,59 @@ defineTest(Qv2rayQMakeError)　{
 SOURCES += libs/gen/v2ray_geosite.pb.cc
 HEADERS += libs/gen/v2ray_geosite.pb.h
 
-!exists($$PWD/libs/libqvb/build/libqvb.h) {
-    Qv2rayQMakeError("libs/libqvb/build/libqvb.h is missing.")
-}
+!use_grpc {
+    !exists($$PWD/libs/libqvb/build/libqvb.h) {
+        Qv2rayQMakeError("libs/libqvb/build/libqvb.h is missing.")
+    }
 
-HEADERS += libs/libqvb/build/libqvb.h
+    HEADERS += $$PWD/libs/libqvb/build/libqvb.h
 
-# ==-- OS Specific configurations for libqvb --==
-win {
-    message("  --> Linking libqvb static library, for Windows platform.")
-    LIBS += -L$$PWD/libs/ -lqvb-win64
-}
-unix:!macx {
-    message("  --> Linking libqvb static library, for Linux platform.")
-    LIBS += -L$$PWD/libs/ -lqvb-linux64
-}
-macx {
-    message("  --> Linking libqvb static library and Security framework, for macOS platform.")
-    LIBS += -L$$PWD/libs/ -lqvb-darwin
-    LIBS += -framework Security
+    # ==-- OS Specific configurations for libqvb --==
+    win {
+        message("  --> Linking libqvb static library, for Windows platform.")
+        LIBS += -L$$PWD/libs/ -lqvb-win64
+    }
+    unix:!macx {
+        message("  --> Linking libqvb static library, for Linux platform.")
+        LIBS += -L$$PWD/libs/ -lqvb-linux64
+    }
+    macx {
+        message("  --> Linking libqvb static library and Security framework, for macOS platform.")
+        LIBS += -L$$PWD/libs/ -lqvb-darwin
+        LIBS += -framework Security
+    }
+} else {
+    # No support of gRPC on macOS
+    macx: error("WARN: The use of gRPC backend is not supported on macOS platform.")
+
+    DEFINES += WITH_LIB_GRPCPP
+    message("Qv2ray will use libgRPC as API backend")
+    # Generating gRPC and protobuf headers.
+    # ------------------------------------------ Begin checking gRPC and protobuf headers.
+    !exists($$PWD/libs/gen/v2ray_api.grpc.pb.h) || !exists($$PWD/libs/gen/v2ray_api.grpc.pb.cc) || !exists($$PWD/libs/gen/v2ray_api.pb.h) || !exists($$PWD/libs/gen/v2ray_api.pb.cc) {
+        Qv2rayQMakeError("gRPC and protobuf headers for v2ray API is missing.")
+    }
+
+    SOURCES += libs/gen/v2ray_api.pb.cc \
+               libs/gen/v2ray_api.grpc.pb.cc
+
+    HEADERS += libs/gen/v2ray_api.pb.h \
+               libs/gen/v2ray_api.grpc.pb.h
+
+    message(" ")
+    message("Adding gRPC headers and linker libraries.")
+    # ==-- OS Specific configurations for libgRPC --==
+    win {
+        message("  --> Linking against gRPC library.")
+        DEPENDPATH  += $$PWD/libs/gRPC-win32/include
+        INCLUDEPATH += $$PWD/libs/gRPC-win32/include
+        LIBS += -L$$PWD/libs/gRPC-win32/lib/ -llibgrpc++.dll
+    }
+    unix {
+        # For gRPC and protobuf in linux and macOS
+        message("  --> Linking against gRPC and protobuf library.")
+        LIBS += -L/usr/local/lib -lgrpc++ -lgrpc
+    }
 }
 
 message(" ")
