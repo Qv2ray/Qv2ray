@@ -70,9 +70,9 @@ extern const bool isDebugBuild;
 #if ! defined (QV2RAY_DEFAULT_VCORE_PATH) && ! defined (QV2RAY_DEFAULT_VASSETS_PATH)
 #   define QV2RAY_DEFAULT_VASSETS_PATH (QV2RAY_CONFIG_DIR + "vcore/")
 #   ifdef Q_OS_WIN
-#       define QV2RAY_DEFAULT_VCORE_PATH  (QV2RAY_CONFIG_DIR + "vcore/v2ray.exe")
+#       define QV2RAY_DEFAULT_VCORE_PATH (QV2RAY_CONFIG_DIR + "vcore/v2ray.exe")
 #   else
-#       define QV2RAY_DEFAULT_VCORE_PATH  (QV2RAY_CONFIG_DIR + "vcore/v2ray")
+#       define QV2RAY_DEFAULT_VCORE_PATH (QV2RAY_CONFIG_DIR + "vcore/v2ray")
 #   endif
 #elif defined (QV2RAY_DEFAULT_VCORE_PATH) && defined (QV2RAY_DEFAULT_VASSETS_PATH)
 // ---- Using user-specified VCore and VAssets path
@@ -80,12 +80,20 @@ extern const bool isDebugBuild;
 #   error Both QV2RAY_DEFAULT_VCORE_PATH and QV2RAY_DEFAULT_VASSETS_PATH need to present when specifying the paths.
 #endif
 
+#ifdef Q_OS_WIN
+///    There's no tProxy thing on Windows....
+//#    define QV2RAY_TPROXY_VCORE_PATH (QV2RAY_CONFIG_DIR + "vcore/v2ray.exe")
+//#    define QV2RAY_TPROXY_VCTL_PATH (QV2RAY_CONFIG_DIR + "vcore/v2ctl.exe")
+#else
+#    define QV2RAY_TPROXY_VCORE_PATH (QV2RAY_CONFIG_DIR + "vcore/v2ray")
+#    define QV2RAY_TPROXY_VCTL_PATH (QV2RAY_CONFIG_DIR + "vcore/v2ctl")
+#endif
+
 #define QV2RAY_VCORE_LOG_DIRNAME "logs/"
 #define QV2RAY_VCORE_ACCESS_LOG_FILENAME "access.log"
 #define QV2RAY_VCORE_ERROR_LOG_FILENAME "error.log"
 
 // GUI TOOLS
-#define QV2RAY_IS_DARKTHEME (GlobalConfig.uiConfig.useDarkTheme)
 #define RED(obj)                               \
     auto _temp = obj->palette();               \
     _temp.setColor(QPalette::Text, Qt::red);   \
@@ -94,7 +102,7 @@ extern const bool isDebugBuild;
 #define BLACK(obj)                             \
     obj->setPalette(this->palette());
 
-#define QV2RAY_UI_RESOURCES_ROOT (QV2RAY_IS_DARKTHEME ? QStringLiteral(":/assets/icons/ui_dark/") : QStringLiteral(":/assets/icons/ui_light/"))
+#define QV2RAY_UI_RESOURCES_ROOT ((GlobalConfig.uiConfig.useDarkTheme) ? QStringLiteral(":/assets/icons/ui_dark/") : QStringLiteral(":/assets/icons/ui_light/"))
 #define QICON_R(file) QIcon(QV2RAY_UI_RESOURCES_ROOT + file)
 
 #define QSTRN(num) QString::number(num)
