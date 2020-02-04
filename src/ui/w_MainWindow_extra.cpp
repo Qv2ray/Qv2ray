@@ -104,12 +104,13 @@ void MainWindow::MWSetSystemProxy()
             }
         } else {
             // Not using PAC
-            if (httpEnabled) {
+            if (!httpEnabled && !socksEnabled) {
                 // Not use PAC, System proxy should use HTTP
-                LOG(PROXY, "Using system proxy with HTTP")
+                LOG(PROXY, "Setting up system proxy.")
+                // A 'proxy host' should be a host WITHOUT `http://` uri scheme
                 proxyAddress = "localhost";
             } else {
-                LOG(PROXY, "HTTP is not enabled, cannot set system proxy.")
+                LOG(PROXY, "Neither of HTTP nor SOCKS is not enabled, cannot set system proxy.")
                 QvMessageBoxWarn(this, tr("Cannot set system proxy"), tr("HTTP inbound is not enabled"));
                 canSetSystemProxy = false;
             }
@@ -117,8 +118,11 @@ void MainWindow::MWSetSystemProxy()
 
         if (canSetSystemProxy) {
             LOG(UI, "Setting system proxy for simple config, HTTP only")
-            // ------------------------|=======We only use HTTP here->>|=======|
-            SetSystemProxy(proxyAddress, GlobalConfig.inboundConfig.http_port, usePAC);
+            auto httpPort = GlobalConfig.inboundConfig.useHTTP ? GlobalConfig.inboundConfig.http_port : 0;
+            auto socksPort = GlobalConfig.inboundConfig.useSocks ? GlobalConfig.inboundConfig.socks_port : 0;
+            //
+            // If usePAC is set
+            SetSystemProxy(proxyAddress, httpPort, socksPort, usePAC);
             systemProxyEnabled = true;
             hTray->showMessage("Qv2ray", tr("System proxy settings applied."), windowIcon());
         }
