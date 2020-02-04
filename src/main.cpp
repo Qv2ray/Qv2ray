@@ -103,7 +103,7 @@ bool initialiseQv2ray()
 {
     LOG(INIT, "Application exec path: " + QApplication::applicationDirPath())
     const QString homeQv2ray = QDir::homePath() + "/.qv2ray" QV2RAY_CONFIG_DIR_SUFFIX;
-    const QString configQv2ray = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "./qv2ray" QV2RAY_CONFIG_DIR_SUFFIX;
+    const QString configQv2ray = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/qv2ray" QV2RAY_CONFIG_DIR_SUFFIX;
     const QString currentPathConfig = QApplication::applicationDirPath() + "/config" QV2RAY_CONFIG_DIR_SUFFIX;
     //
     //
