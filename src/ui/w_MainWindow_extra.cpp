@@ -110,8 +110,8 @@ void MainWindow::MWSetSystemProxy()
                 // A 'proxy host' should be a host WITHOUT `http://` uri scheme
                 proxyAddress = "localhost";
             } else {
-                LOG(PROXY, "Neither of HTTP nor SOCKS is not enabled, cannot set system proxy.")
-                QvMessageBoxWarn(this, tr("Cannot set system proxy"), tr("HTTP inbound is not enabled"));
+                LOG(PROXY, "Neither of HTTP nor SOCKS is enabled, cannot set system proxy.")
+                QvMessageBoxWarn(this, tr("Cannot set system proxy"), tr("Both HTTP and SOCKS inbounds are not enabled"));
                 canSetSystemProxy = false;
             }
         }
