@@ -101,31 +101,40 @@ bool verifyConfigAvaliability(QString path, bool checkExistingConfig)
 
 bool initialiseQv2ray()
 {
-    // Some built-in search paths for Qv2ray to find configs. Reversed Priority (load the bottom one if possible).
     LOG(INIT, "Application exec path: " + QApplication::applicationDirPath())
+    const QString homeQv2ray = QDir::homePath() + "/.qv2ray" QV2RAY_CONFIG_DIR_SUFFIX;
+    const QString configQv2ray = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "./qv2ray" QV2RAY_CONFIG_DIR_SUFFIX;
+    const QString currentPathConfig = QApplication::applicationDirPath() + "/config" QV2RAY_CONFIG_DIR_SUFFIX;
+    //
+    //
+    // Some built-in search paths for Qv2ray to find configs. (load the first one if possible).
+    //
     QStringList configFilePaths;
-    configFilePaths << QDir::homePath() + "/.qv2ray" QV2RAY_CONFIG_DIR_SUFFIX;
-    configFilePaths << QDir::homePath() + "/.config/qv2ray" QV2RAY_CONFIG_DIR_SUFFIX;
+    configFilePaths << currentPathConfig;
 #ifdef WITH_FLATHUB_CONFIG_PATH
-    LOG(INIT, "---> Adding flakpak config path support.")
+    // AppConfigLocation uses 'Q'v2ray instead of `q`v2ray. Keep here as backward compatibility.
     configFilePaths << QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + QV2RAY_CONFIG_DIR_SUFFIX;
 #endif
-    configFilePaths << QApplication::applicationDirPath() + "/config" QV2RAY_CONFIG_DIR_SUFFIX;
-    QString configPath = "";
+    configFilePaths << configQv2ray;
+    configFilePaths << homeQv2ray;
     //
+    QString configPath = "";
     bool hasExistingConfig = false;
 
     for (auto path : configFilePaths) {
         // Verify the config path, check if the config file exists and in the correct JSON format.
-        // True means we check for config existance as well. --|     |
+        // True means we check for config existance as well. --|HERE |
         bool isValidConfigPath = verifyConfigAvaliability(path, true);
+
+        // If we already found a valid config file. just simply load it...
+        if (hasExistingConfig) break;
 
         if (isValidConfigPath) {
             DEBUG(INIT, "Path: " + path + " is valid.")
             configPath = path;
             hasExistingConfig = true;
         } else {
-            DEBUG(INIT, "Path: " + path + " does not contain a valid config file.")
+            LOG(INIT, "Path: " + path + " does not contain a valid config file.")
         }
     }
 
@@ -135,21 +144,12 @@ bool initialiseQv2ray()
         SetConfigDirPath(configPath);
         LOG(INIT, "Using " + QV2RAY_CONFIG_DIR + " as the config path.")
     } else {
+        //
         // Create new config at these dirs, these are default values for each platform.
 #ifdef Q_OS_WIN
-        configPath = QDir::currentPath() + "/config" QV2RAY_CONFIG_DIR_SUFFIX;
-#elif defined (Q_OS_LINUX)
-#   ifdef WITH_FLATHUB_CONFIG_PATH
-        LOG(INIT, "---> Using flatpak config path as the default path.")
-        configPath = QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + QV2RAY_CONFIG_DIR_SUFFIX;
-#   else
-        configPath = QDir::homePath() + "/.config/qv2ray" QV2RAY_CONFIG_DIR_SUFFIX;
-#   endif
-#elif defined (__APPLE__)
-        configPath = QDir::homePath() + "/.qv2ray" QV2RAY_CONFIG_DIR_SUFFIX;
+        configPath = currentPathConfig;
 #else
-        LOG(INIT, "CANNOT CONTINUE because Qv2ray cannot determine the OS type.")
-        static_assert(false, "Qv2ray Cannot understand the enviornment");
+        configPath = configQv2ray;
 #endif
         bool mkpathResult = QDir().mkpath(configPath);
 
