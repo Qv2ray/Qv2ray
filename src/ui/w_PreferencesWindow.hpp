@@ -127,10 +127,6 @@ class PreferencesWindow : public QDialog, private Ui::PreferencesWindow
 
         void on_autoStartConnCombo_currentIndexChanged(const QString &arg1);
 
-        void on_installBootStart_clicked();
-
-        void on_removeBootStart_clicked();
-
         void on_fpTypeCombo_currentIndexChanged(const QString &arg1);
 
         void on_fpAddressTx_textEdited(const QString &arg1);
@@ -160,6 +156,8 @@ class PreferencesWindow : public QDialog, private Ui::PreferencesWindow
         void on_maxLogLinesSB_valueChanged(int arg1);
 
         void on_enableAPI_stateChanged(int arg1);
+
+        void on_startWithLoginCB_stateChanged(int arg1);
 
     private:
         void SetAutoStartButtonsState(bool isAutoStart);

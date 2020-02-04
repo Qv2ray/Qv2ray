@@ -909,24 +909,12 @@ void PreferencesWindow::on_autoStartConnCombo_currentIndexChanged(const QString 
     CurrentConfig.autoStartConfig.connectionName = arg1;
 }
 
-void PreferencesWindow::on_installBootStart_clicked()
+void PreferencesWindow::on_startWithLoginCB_stateChanged(int arg1)
 {
-    SetLaunchAtLoginStatus(true);
+    bool isEnabled = arg1 == Qt::Checked;
+    SetLaunchAtLoginStatus(isEnabled);
 
-    // If failed to set the status.
-    if (!GetLaunchAtLoginStatus()) {
-        QvMessageBoxWarn(this, tr("Start with boot"), tr("Failed to set auto start option."));
-    }
-
-    SetAutoStartButtonsState(GetLaunchAtLoginStatus());
-}
-
-void PreferencesWindow::on_removeBootStart_clicked()
-{
-    SetLaunchAtLoginStatus(false);
-
-    // If that setting still present.
-    if (GetLaunchAtLoginStatus()) {
+    if (GetLaunchAtLoginStatus() != isEnabled) {
         QvMessageBoxWarn(this, tr("Start with boot"), tr("Failed to set auto start option."));
     }
 
@@ -935,8 +923,7 @@ void PreferencesWindow::on_removeBootStart_clicked()
 
 void PreferencesWindow::SetAutoStartButtonsState(bool isAutoStart)
 {
-    installBootStart->setEnabled(!isAutoStart);
-    removeBootStart->setEnabled(isAutoStart);
+    startWithLoginCB->setChecked(isAutoStart);
 }
 
 void PreferencesWindow::on_fpTypeCombo_currentIndexChanged(const QString &arg1)
