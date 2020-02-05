@@ -9,8 +9,6 @@ using grpc::Status;
 #include "libs/libqvb/build/libqvb.h"
 #endif
 
-#include "libs/libqvb/build/libqvb.h"
-
 namespace Qv2ray::core::kernel::api
 {
     // To all contributors:
