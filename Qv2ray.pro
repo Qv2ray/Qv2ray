@@ -57,19 +57,6 @@ message("| See: https://www.gnu.org/licenses/gpl-3.0.html  |")
 message("|-------------------------------------------------|")
 message(" ")
 
-!no_auto_generate_headers {
-    # Generate protobuf domain list headers.
-    win: system("$$PWD/tools/win-generate-geosite.bat"): message("Generated protobuf domain list headers for Windows")
-    unix: system("$$PWD/tools/unix-generate-geosite.sh"): message("Generated protobuf domain list headers for Unix")
-
-    use_grpc {
-        win: system("$$PWD/tools/win-generate-api.bat"): message("Generated gRPC and protobuf headers for Windows")
-        unix: system("$$PWD/tools/unix-generate-api.sh"): message("Generated gRPC and protobuf headers for unix")
-    }
-} else {
-    message("Skipped generation of protobuf and/or gRPC header files")
-}
-
 defineTest(Qv2rayAddFile) {
     ext = $$take_last(ARGS)
     filename = $${take_first(ARGS)}.$${ext}
@@ -217,6 +204,24 @@ defineTest(Qv2rayQMakeError)　{
     warning("IF YOU THINK IT'S A MISTAKE, PLEASE OPEN AN ISSUE")
     error("! ABORTING THE BUILD !")
     message(" ")
+}
+
+win: CONFIG += use_grpc
+win: message("Qv2ray will always use gRPC on Windows platforms.")
+win: message(" ")
+
+# ----------------------------------------- Auto generation of PB/gRPC headers
+!no_auto_generate_headers {
+    # Generate protobuf domain list headers.
+    win: system("$$PWD/tools/win-generate-geosite.bat"): message("Generated protobuf domain list headers for Windows")
+    unix: system("$$PWD/tools/unix-generate-geosite.sh"): message("Generated protobuf domain list headers for Unix")
+
+    use_grpc {
+        win: system("$$PWD/tools/win-generate-api.bat"): message("Generated gRPC and protobuf headers for Windows")
+        unix: system("$$PWD/tools/unix-generate-api.sh"): message("Generated gRPC and protobuf headers for unix")
+    }
+} else {
+    message("Skipped generation of protobuf and/or gRPC header files")
 }
 
 # ------------------------------------------ Begin checking protobuf domain list headers.
