@@ -25,6 +25,9 @@ jobs:
       - name: Restoring submodules
         run: git submodule update --init
 # --------------------------------------------------------
+      - name: Install MSVC compiler
+        if: matrix.platform == 'windows-latest'
+        uses: ilammy/msvc-dev-cmd@v1
       - name: Installing Qt
         uses: jurplel/install-qt-action@v2
         with:
