@@ -329,6 +329,7 @@ INCLUDEPATH += 3rdparty/qhttpserver/http-parser/
 message(" ")
 win {
     message("Configuring for win32 environment")
+    QMAKE_CXXFLAGS += /MP
     DEFINES += QHTTPSERVER_EXPORT
     message("  --> Setting up target descriptions")
     QMAKE_TARGET_DESCRIPTION = "Qv2ray, a cross-platform v2ray GUI client."
