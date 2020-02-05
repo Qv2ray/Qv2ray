@@ -25,17 +25,10 @@ jobs:
       - name: Restoring submodules
         run: git submodule update --init
 # --------------------------------------------------------
-      - name: ${{ matrix.platform }} - Installing Qt
-        if: matrix.platform != 'windows-latest'
+      - name: Installing Qt
         uses: jurplel/install-qt-action@v2
         with:
           version: ${{ matrix.qt_version }}
-      - name: ${{ matrix.platform }} - Installing Qt - Windows Only
-        if: matrix.platform == 'windows-latest'
-        uses: jurplel/install-qt-action@v2
-        with:
-          version: ${{ matrix.qt_version }}
-          arch: win64_mingw73
 # --------------------------------------------------------
       - name: Linux - Install Packages 
         if: matrix.platform == 'ubuntu-16.04'
@@ -71,7 +64,7 @@ jobs:
         shell: bash
         run: |
           cd build
-          _make=$([ "${{ matrix.platform }}" == "windows-latest" ] && echo "mingw32-make" || echo "make")
+          _make=$([ "${{ matrix.platform }}" == "windows-latest" ] && echo "nmake" || echo "make")
           $_make -j2 $([ "${{ matrix.platform }}" == "ubuntu-16.04" ] && echo "CC=gcc-7 CXX=g++-7" LINK="g++-7" || echo "")
 # -------------------------------------------------------- Deployments
       - name: Linux - ${{ matrix.qt_version }} - Generating AppImage
