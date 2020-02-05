@@ -300,7 +300,7 @@ for(var, $$list($$files("translations/*.ts", true))) {
 TRANSLATIONS += translations/en_US.ts
 message("Qv2ray will build with" $${replace(EXTRA_TRANSLATIONS, "translations/", "")} $${replace(TRANSLATIONS, "translations/", "")})
 
-QMAKE_CXXFLAGS += -Wno-missing-field-initializers -Wno-unused-parameter -Wno-unused-variable
+!win: QMAKE_CXXFLAGS += -Wno-missing-field-initializers -Wno-unused-parameter -Wno-unused-variable
 message(" ")
 
 message("Adding QHttpServer Support")
