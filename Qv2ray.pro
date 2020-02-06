@@ -42,6 +42,7 @@ CONFIG += lrelease embed_translations
 # Win32 support.
 win32: CONFIG += win
 win64: CONFIG += win
+win: CONFIG += use_grpc
 
 # Fine......
 message(" ")
