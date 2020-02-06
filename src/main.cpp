@@ -274,6 +274,7 @@ int main(int argc, char *argv[])
     SingleApplication::setApplicationName("Qv2ray - DEBUG");
 #endif
     SingleApplication _qApp(argc, argv, false, SingleApplication::Mode::User | SingleApplication::Mode::ExcludeAppPath | SingleApplication::Mode::ExcludeAppVersion);
+    _qApp.setQuitOnLastWindowClosed(false);
     // Early initialisation
     //
     // Not duplicated.
