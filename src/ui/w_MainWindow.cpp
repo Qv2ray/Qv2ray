@@ -642,16 +642,18 @@ void MainWindow::on_action_RCM_RenameConnection_triggered()
     auto item = connectionListWidget->currentItem();
     SUBSCRIPTION_CONFIG_MODIFY_DENY(item)
     item->setFlags(item->flags() | Qt::ItemIsEditable);
+    isRenamingInProgress = true;
     connectionListWidget->editItem(item);
     renameOriginalIdentifier = ItemConnectionIdentifier(item);
-    isRenamingInProgress = true;
 }
 void MainWindow::on_connectionListWidget_itemChanged(QTreeWidgetItem *item, int)
 {
     DEBUG(UI, "A connection ListViewItem is changed. This should ONLY occur when renaming an connection.")
-    //
-    assert(isRenamingInProgress);
-    //
+
+    if (!isRenamingInProgress) {
+        return;
+    }
+
     isRenamingInProgress = false;
     // In this case it's after we entered the name.
     // and tell user you should not rename a config from subscription.
