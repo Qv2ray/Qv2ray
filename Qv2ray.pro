@@ -212,6 +212,7 @@ defineTest(Qv2rayQMakeError)　{
     # Generate protobuf domain list headers.
     win32: system("$$PWD/tools/win32-generate-pb.bat"): message("Generated gRPC and protobuf headers for Windows x86")
     win64: system("$$PWD/tools/win64-generate-pb.bat"): message("Generated gRPC and protobuf headers for Windows x64")
+    #
     unix: system("$$PWD/tools/unix-generate-geosite.sh"): message("Generated protobuf domain list headers for Unix")
 
     use_grpc {
@@ -276,9 +277,9 @@ HEADERS += libs/gen/v2ray_geosite.pb.h
     win32: LIBS += -L$$PWD/libs/x86-windows/lib/ -laddress_sorting -lcares -lgrpc++_unsecure -lupb -lzlib -lgrpc_unsecure -lgpr
 
     win64: message("  --> WIN64: Linking against gRPC library.")
-    win64: DEPENDPATH  += $$PWD/libs/x86-windows/include
-    win64: INCLUDEPATH += $$PWD/libs/x86-windows/include
-    win64: LIBS += -L$$PWD/libs/x86-windows/lib/ -laddress_sorting -lcares -lgrpc++_unsecure -lupb -lzlib -lgrpc_unsecure -lgpr
+    win64: DEPENDPATH  += $$PWD/libs/x64-windows/include
+    win64: INCLUDEPATH += $$PWD/libs/x64-windows/include
+    win64: LIBS += -L$$PWD/libs/x64-windows/lib/ -laddress_sorting -lcares -lgrpc++_unsecure -lupb -lzlib -lgrpc_unsecure -lgpr
 
     # General Windows
     win: message("  --> Applying a hack for protobuf header")
