@@ -239,8 +239,8 @@ defineTest(Qv2rayQMakeError)　{
     Qv2rayQMakeError("Protobuf headers for v2ray geosite is missing.")
 }
 
-SOURCES += $PWD/libs/gen/v2ray_geosite.pb.cc
-HEADERS += $PWD/libs/gen/v2ray_geosite.pb.h
+SOURCES += $$PWD/libs/gen/v2ray_geosite.pb.cc
+HEADERS += $$PWD/libs/gen/v2ray_geosite.pb.h
 
 !use_grpc {
     win: error("The use of libqvb is not supported on Windows.")
