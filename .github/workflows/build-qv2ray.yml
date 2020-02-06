@@ -69,7 +69,7 @@ jobs:
           mkdir build
           cd build
           export _QV2RAY_BUILD_INFO_="Qv2ray built from Github Action"  
-          export _QV2RAY_BUILD_EXTRA_INFO_="qt${{ matrix.qt_version }}--${{ github.sha }}"
+          export _QV2RAY_BUILD_EXTRA_INFO_="qt${{ matrix.qt_version }}-${{ github.sha }}"
           qmake .. CONFIG+=no_increase_build_number PREFIX=/usr
 # -------------------------------------------------------- Build
       - name: Cross-platform - ${{ matrix.qt_version }} - Build Qv2ray
@@ -136,7 +136,7 @@ jobs:
 # ==
       - name: Win64 - ${{ matrix.qt_version }} - Copying DLLs to build output folders
         if: matrix.platform == 'windows-latest'
-        run: forfiles /s /p %GITHUB_WORKSPACE%\libs\x64-windows\bin /m "*.dll" /c "cmd.exe /c copy @file %GITHUB_WORKSPACE%\build\release\"
+        run: forfiles /s /p libs\x64-windows\bin /m "*.dll" /c "cmd.exe /c copy @file build\release\"
       - name: Win64 - ${{ matrix.qt_version }} - Running windeployqt
         if: matrix.platform == 'windows-latest'
         shell: cmd
@@ -212,7 +212,7 @@ jobs:
           mkdir build
           cd build
           export _QV2RAY_BUILD_INFO_="Qv2ray built from Github Action"  
-          export _QV2RAY_BUILD_EXTRA_INFO_="qt${{ matrix.qt_version }}--${{ github.sha }}"
+          export _QV2RAY_BUILD_EXTRA_INFO_="qt${{ matrix.qt_version }}-${{ github.sha }}"
           qmake .. CONFIG+=no_increase_build_number
 # -------------------------------------------------------- Build
       - name: Cross-platform - ${{ matrix.qt_version }} - Build Qv2ray
@@ -222,7 +222,7 @@ jobs:
           nmake
 # -------------------------------------------------------- Deployments
       - name: Win32 - ${{ matrix.qt_version }} - Copying DLLs to build output folders
-        run: forfiles /s /p %GITHUB_WORKSPACE%\libs\x86-windows\bin /m "*.dll" /c "cmd.exe /c copy @file %GITHUB_WORKSPACE%\build\release\"
+        run: forfiles /s /p libs\x86-windows\bin /m "*.dll" /c "cmd.exe /c copy @file build\release\"
       - name: Win32 - ${{ matrix.qt_version }} - Running windeployqt
         shell: cmd
         run: |
