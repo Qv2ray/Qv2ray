@@ -102,9 +102,9 @@ bool verifyConfigAvaliability(QString path, bool checkExistingConfig)
 bool initialiseQv2ray()
 {
     LOG(INIT, "Application exec path: " + QApplication::applicationDirPath())
-    const QString homeQv2ray = QDir::homePath() + "/.qv2ray" QV2RAY_CONFIG_DIR_SUFFIX;
-    const QString configQv2ray = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/qv2ray" QV2RAY_CONFIG_DIR_SUFFIX;
     const QString currentPathConfig = QApplication::applicationDirPath() + "/config" QV2RAY_CONFIG_DIR_SUFFIX;
+    const QString configQv2ray = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/qv2ray" QV2RAY_CONFIG_DIR_SUFFIX;
+    const QString homeQv2ray = QDir::homePath() + "/.qv2ray" QV2RAY_CONFIG_DIR_SUFFIX;
     //
     //
     // Some built-in search paths for Qv2ray to find configs. (load the first one if possible).
