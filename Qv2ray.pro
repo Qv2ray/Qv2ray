@@ -261,10 +261,10 @@ HEADERS += libs/gen/v2ray_geosite.pb.h
     }
 
     SOURCES += $$PWD/libs/gen/v2ray_api.pb.cc \
-               $$PWD/gen/v2ray_api.grpc.pb.cc
+               $$PWD/libs/gen/v2ray_api.grpc.pb.cc
 
-    HEADERS += $$PWD/gen/v2ray_api.pb.h \
-               $$PWD/gen/v2ray_api.grpc.pb.h
+    HEADERS += $$PWD/libs/gen/v2ray_api.pb.h \
+               $$PWD/libs/gen/v2ray_api.grpc.pb.h
 
     message(" ")
     message("Adding gRPC headers and linker libraries.")
