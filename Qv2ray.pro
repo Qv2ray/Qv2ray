@@ -39,6 +39,17 @@ include(3rdparty/QNodeEditor/QNodeEditor.pri)
 # Main config
 CONFIG += lrelease embed_translations
 
+win32 {
+    !contains(QMAKE_TARGET.arch, x86_64) {
+        message("x86 build")
+        CONFIG+=win32
+    } else {
+        message("x86_64 build")
+        CONFIG-=win32
+        CONFIG+=win64
+    }
+}
+
 # Win32 support.
 win32: CONFIG += win
 win64: CONFIG += win
@@ -228,8 +239,8 @@ defineTest(Qv2rayQMakeError)　{
     Qv2rayQMakeError("Protobuf headers for v2ray geosite is missing.")
 }
 
-SOURCES += libs/gen/v2ray_geosite.pb.cc
-HEADERS += libs/gen/v2ray_geosite.pb.h
+SOURCES += $PWD/libs/gen/v2ray_geosite.pb.cc
+HEADERS += $PWD/libs/gen/v2ray_geosite.pb.h
 
 !use_grpc {
     win: error("The use of libqvb is not supported on Windows.")
