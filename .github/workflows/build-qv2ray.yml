@@ -200,7 +200,6 @@ jobs:
         run: |
          curl -o ./libs/Qv2ray-deps-x86-windows.7z -L https://github.com/Qv2ray/Qv2ray-deps/releases/download/release/Qv2ray-deps-x86-windows.7z
       - name: Win32 - ${{ matrix.qt_version }} - Extract Windows Dependencies
-        if: matrix.platform == 'windows-latest'
         uses: DuckSoft/create-7z-action@v1.0
         with:
           pathSource: ./libs/Qv2ray-deps-x86-windows.7z
