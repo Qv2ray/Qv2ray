@@ -279,7 +279,7 @@ HEADERS += libs/gen/v2ray_geosite.pb.h
         message("  --> Linking against gRPC library.")
         DEPENDPATH  += $$PWD/libs/gRPC-win32/include
         INCLUDEPATH += $$PWD/libs/gRPC-win32/include
-        LIBS += -L$$PWD/libs/gRPC-win32/lib/ -llibgrpc++.dll
+        LIBS += -L$$PWD/libs/gRPC-win32/lib/ -laddress_sorting -lcares -lgrpc++_unsecure -lupb -lzlib -lgrpc_unsecure -lgpr
     }
     unix {
         # For gRPC and protobuf in linux and macOS
@@ -344,7 +344,7 @@ win {
     Qv2rayAddSource(components, plugins/toolbar, QvToolbar_win, cpp)
     
     message("  --> Linking against winHTTP and winSock2.")
-    LIBS += -lwinhttp -lwininet -lws2_32
+    LIBS += -lwinhttp -lwininet -lws2_32 -luser32
 
     # A hack for protobuf header.
     message("  --> Applying a hack for protobuf header")
@@ -353,7 +353,7 @@ win {
     message("  --> Linking against protobuf library.")
     DEPENDPATH  += $$PWD/libs/gRPC-win32/include
     INCLUDEPATH += $$PWD/libs/gRPC-win32/include
-    LIBS += -L$$PWD/libs/gRPC-win32/lib/ -llibprotobuf.dll
+    LIBS += -L$$PWD/libs/gRPC-win32/lib/ -llibprotobuf
 }
 
 macx {
