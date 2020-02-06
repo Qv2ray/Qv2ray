@@ -1,11 +1,11 @@
 @echo off
 cd tools
-mkdir %~dp0..\libs\gen
+mkdir %~dp0\..\libs\gen
 
 echo.
 echo Generate grpc.pb.h using gRPC and protocol buffer
 echo. ---^> Generating gRPC file.
-%~dp0\..\libs\x86-windows\tools\protobuf\protoc.exe v2ray_api.proto --grpc_out=%~dp0..\libs\gen --plugin=protoc-gen-grpc="%~dp0..\libs\x86-windows\tools\grpc\grpc_cpp_plugin.exe" 
+%~dp0\..\libs\x86-windows\tools\protobuf\protoc.exe v2ray_api.proto --grpc_out=%~dp0..\libs\gen --plugin=protoc-gen-grpc="%~dp0\..\libs\x86-windows\tools\grpc\grpc_cpp_plugin.exe" 
 if errorlevel 1 goto errored
 
 echo. ---^> Generating proto file.
