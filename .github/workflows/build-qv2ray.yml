@@ -49,12 +49,18 @@ jobs:
         if: matrix.platform == 'macos-latest'
         run: brew install protobuf
 # --------------------------------------------------------
-      - name: Cross-platform - Download libqvb static library.
+      - name: Cross-platform - Download libraries
         shell: bash
         run: |
          curl -o ./libs/libqvb-linux64.a -L https://github.com/Qv2ray/QvRPCBridge/releases/download/v1.1/libqvb-linux64.a
          curl -o ./libs/libqvb-darwin.a -L https://github.com/Qv2ray/QvRPCBridge/releases/download/v1.1/libqvb-darwin.a
-         curl -o ./libs/libqvb-win64.a -L https://github.com/Qv2ray/QvRPCBridge/releases/download/v1.1/libqvb-win64.a
+         curl -o ./libs/Qv2ray-deps-x64-windows.7z -L https://github.com/Qv2ray/Qv2ray-deps/releases/download/release/Qv2ray-deps-x64-windows.7z
+      - name: Win64 - ${{ matrix.qt_version }} - Extract Windows Dependencies
+        if: matrix.platform == 'windows-latest'
+        uses: DuckSoft/create-7z-action@v1.0
+        with:
+          pathSource: ./libs/Qv2ray-deps-x64-windows.7z
+          pathTarget: ./libs
 # -------------------------------------------------------- Generate MakeFile
       - name: Cross-platform - ${{ matrix.qt_version }} - Generate Dependencies and Makefile
         shell: bash
@@ -130,8 +136,8 @@ jobs:
 # ==
       - name: Win64 - ${{ matrix.qt_version }} - Copying DLLs to build output folders
         if: matrix.platform == 'windows-latest'
-        shell: cmd
-        run: .github\workflows\copy_DLLs.bat
+        shell: bash
+        run: find ./libs/x64-windows | grep dll | grep bin | grep -v debug | xargs -I{} cp {} -v ./build/release
       - name: Win64 - ${{ matrix.qt_version }} - Running windeployqt
         if: matrix.platform == 'windows-latest'
         shell: cmd
@@ -189,6 +195,16 @@ jobs:
         with:
           version: ${{ matrix.qt_version }}
           arch: win32_msvc2017
+      - name: Cross-platform - Download libraries
+        shell: bash
+        run: |
+         curl -o ./libs/Qv2ray-deps-x86-windows.7z -L https://github.com/Qv2ray/Qv2ray-deps/releases/download/release/Qv2ray-deps-x86-windows.7z
+      - name: Win32 - ${{ matrix.qt_version }} - Extract Windows Dependencies
+        if: matrix.platform == 'windows-latest'
+        uses: DuckSoft/create-7z-action@v1.0
+        with:
+          pathSource: ./libs/Qv2ray-deps-x86-windows.7z
+          pathTarget: ./libs
 # -------------------------------------------------------- Generate MakeFile
       - name: Cross-platform - ${{ matrix.qt_version }} - Generate Dependencies and Makefile
         shell: bash
@@ -198,7 +214,7 @@ jobs:
           cd build
           export _QV2RAY_BUILD_INFO_="Qv2ray built from Github Action"  
           export _QV2RAY_BUILD_EXTRA_INFO_="qt${{ matrix.qt_version }}--${{ github.sha }}"
-          qmake .. CONFIG+=no_increase_build_number PREFIX=/usr
+          qmake .. CONFIG+=no_increase_build_number
 # -------------------------------------------------------- Build
       - name: Cross-platform - ${{ matrix.qt_version }} - Build Qv2ray
         shell: bash
@@ -207,8 +223,8 @@ jobs:
           nmake
 # -------------------------------------------------------- Deployments
       - name: Win32 - ${{ matrix.qt_version }} - Copying DLLs to build output folders
-        shell: cmd
-        run: .github\workflows\copy_DLLs.bat
+        shell: bash
+        run: find ./libs/x86-windows | grep dll | grep bin | grep -v debug | xargs -I{} cp {} -v ./build/release
       - name: Win32 - ${{ matrix.qt_version }} - Running windeployqt
         shell: cmd
         run: |

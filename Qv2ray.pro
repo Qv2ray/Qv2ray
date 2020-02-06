@@ -206,18 +206,14 @@ defineTest(Qv2rayQMakeError)　{
     message(" ")
 }
 
-win: CONFIG += use_grpc
-win: message("Qv2ray will always use gRPC on Windows platforms.")
-win: message(" ")
-
 # ----------------------------------------- Auto generation of PB/gRPC headers
 !no_auto_generate_headers {
     # Generate protobuf domain list headers.
-    win: system("$$PWD/tools/win-generate-geosite.bat"): message("Generated protobuf domain list headers for Windows")
+    win32: system("$$PWD/tools/win32-generate-pb.bat"): message("Generated gRPC and protobuf headers for Windows x86")
+    win64: system("$$PWD/tools/win64-generate-pb.bat"): message("Generated gRPC and protobuf headers for Windows x64")
     unix: system("$$PWD/tools/unix-generate-geosite.sh"): message("Generated protobuf domain list headers for Unix")
 
     use_grpc {
-        win: system("$$PWD/tools/win-generate-api.bat"): message("Generated gRPC and protobuf headers for Windows")
         unix: system("$$PWD/tools/unix-generate-api.sh"): message("Generated gRPC and protobuf headers for unix")
     }
 } else {
@@ -234,6 +230,7 @@ SOURCES += libs/gen/v2ray_geosite.pb.cc
 HEADERS += libs/gen/v2ray_geosite.pb.h
 
 !use_grpc {
+    win: error("The use of libqvb is not supported on Windows.")
     !exists($$PWD/libs/libqvb/build/libqvb.h) {
         Qv2rayQMakeError("libs/libqvb/build/libqvb.h is missing.")
     }
@@ -241,10 +238,6 @@ HEADERS += libs/gen/v2ray_geosite.pb.h
     HEADERS += $$PWD/libs/libqvb/build/libqvb.h
 
     # ==-- OS Specific configurations for libqvb --==
-    win {
-        message("  --> Linking libqvb static library, for Windows platform.")
-        LIBS += -L$$PWD/libs/ -lqvb-win64
-    }
     unix:!macx {
         message("  --> Linking libqvb static library, for Linux platform.")
         LIBS += -L$$PWD/libs/ -lqvb-linux64
@@ -256,7 +249,7 @@ HEADERS += libs/gen/v2ray_geosite.pb.h
     }
 } else {
     # No support of gRPC on macOS
-    macx: error("WARN: The use of gRPC backend is not supported on macOS platform.")
+    macx: error("The use of gRPC backend is not supported on macOS platform.")
 
     DEFINES += WITH_LIB_GRPCPP
     message("Qv2ray will use libgRPC as API backend")
@@ -266,21 +259,40 @@ HEADERS += libs/gen/v2ray_geosite.pb.h
         Qv2rayQMakeError("gRPC and protobuf headers for v2ray API is missing.")
     }
 
-    SOURCES += libs/gen/v2ray_api.pb.cc \
-               libs/gen/v2ray_api.grpc.pb.cc
+    SOURCES += $$PWD/libs/gen/v2ray_api.pb.cc \
+               $$PWD/gen/v2ray_api.grpc.pb.cc
 
-    HEADERS += libs/gen/v2ray_api.pb.h \
-               libs/gen/v2ray_api.grpc.pb.h
+    HEADERS += $$PWD/gen/v2ray_api.pb.h \
+               $$PWD/gen/v2ray_api.grpc.pb.h
 
     message(" ")
     message("Adding gRPC headers and linker libraries.")
     # ==-- OS Specific configurations for libgRPC --==
-    win {
-        message("  --> Linking against gRPC library.")
-        DEPENDPATH  += $$PWD/libs/gRPC-win32/include
-        INCLUDEPATH += $$PWD/libs/gRPC-win32/include
-        LIBS += -L$$PWD/libs/gRPC-win32/lib/ -laddress_sorting -lcares -lgrpc++_unsecure -lupb -lzlib -lgrpc_unsecure -lgpr
-    }
+
+    win32: message("  --> WIN32: Linking against gRPC library.")
+    win32: DEPENDPATH  += $$PWD/libs/x86-windows/include
+    win32: INCLUDEPATH += $$PWD/libs/x86-windows/include
+    win32: LIBS += -L$$PWD/libs/x86-windows/lib/ -laddress_sorting -lcares -lgrpc++_unsecure -lupb -lzlib -lgrpc_unsecure -lgpr
+
+    win64: message("  --> WIN64: Linking against gRPC library.")
+    win64: DEPENDPATH  += $$PWD/libs/x86-windows/include
+    win64: INCLUDEPATH += $$PWD/libs/x86-windows/include
+    win64: LIBS += -L$$PWD/libs/x86-windows/lib/ -laddress_sorting -lcares -lgrpc++_unsecure -lupb -lzlib -lgrpc_unsecure -lgpr
+
+    # General Windows
+    win: message("  --> Applying a hack for protobuf header")
+    win: DEFINES += _WIN32_WINNT=0x600
+
+    win32: message("  --> WIN32: Linking against protobuf library.")
+    win32: DEPENDPATH  += $$PWD/libs/x86-windows/include
+    win32: INCLUDEPATH += $$PWD/libs/x86-windows/include
+    win32: LIBS += -L$$PWD/libs/x86-windows/lib/ -llibprotobuf
+
+    win64: message("  --> WIN64: Linking against protobuf library.")
+    win64: DEPENDPATH  += $$PWD/libs/x64-windows/include
+    win64: INCLUDEPATH += $$PWD/libs/x64-windows/include
+    win64: LIBS += -L$$PWD/libs/x64-windows/lib/ -llibprotobuf
+
     unix {
         # For gRPC and protobuf in linux and macOS
         message("  --> Linking against gRPC and protobuf library.")
@@ -333,7 +345,7 @@ INCLUDEPATH += 3rdparty/qhttpserver/http-parser/
 
 message(" ")
 win {
-    message("Configuring for win32 environment")
+    message("Configuring for Windows environment")
     QMAKE_CXXFLAGS += /MP
     DEFINES += QHTTPSERVER_EXPORT
     message("  --> Setting up target descriptions")
@@ -345,15 +357,6 @@ win {
     
     message("  --> Linking against winHTTP and winSock2.")
     LIBS += -lwinhttp -lwininet -lws2_32 -luser32
-
-    # A hack for protobuf header.
-    message("  --> Applying a hack for protobuf header")
-    DEFINES += _WIN32_WINNT=0x600
-
-    message("  --> Linking against protobuf library.")
-    DEPENDPATH  += $$PWD/libs/gRPC-win32/include
-    INCLUDEPATH += $$PWD/libs/gRPC-win32/include
-    LIBS += -L$$PWD/libs/gRPC-win32/lib/ -llibprotobuf
 }
 
 macx {
