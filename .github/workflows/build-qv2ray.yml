@@ -207,7 +207,6 @@ jobs:
       - name: Cross-platform - ${{ matrix.qt_version }} - Generate Dependencies and Makefile
         shell: bash
         run: |
-          tree
           PATH=$PATH:$Qt5_Dir
           mkdir build
           cd build
