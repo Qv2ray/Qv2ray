@@ -26,7 +26,7 @@ jobs:
         uses: ilammy/msvc-dev-cmd@v1
         with: 
           # 14.1 is for vs2017
-          toolset: 14.1
+          toolset: 14.2
       - name: Installing Qt
         uses: jurplel/install-qt-action@v2
         with:
@@ -183,7 +183,7 @@ jobs:
         uses: ilammy/msvc-dev-cmd@v1
         with: 
           # 14.1 is for vs2017
-          toolset: 14.1
+          toolset: 14.2
           arch: x86
       - name: Installing Qt
         uses: jurplel/install-qt-action@v2
