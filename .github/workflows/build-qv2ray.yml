@@ -136,7 +136,7 @@ jobs:
 # ==
       - name: Win64 - ${{ matrix.qt_version }} - Copying DLLs to build output folders
         if: matrix.platform == 'windows-latest'
-        run: forfiles /s /p libs\x64-windows\bin /m "*.dll" /c "cmd.exe /c copy @file build\release\"
+        run: .\.github\workflows\copy_DLLs.bat
       - name: Win64 - ${{ matrix.qt_version }} - Running windeployqt
         if: matrix.platform == 'windows-latest'
         shell: cmd
@@ -220,8 +220,8 @@ jobs:
           cd build
           nmake
 # -------------------------------------------------------- Deployments
-      - name: Win32 - ${{ matrix.qt_version }} - Copying DLLs to build output folders
-        run: forfiles /s /p libs\x86-windows\bin /m "*.dll" /c "cmd.exe /c copy @file build\release\"
+      - name: Win64 - ${{ matrix.qt_version }} - Copying DLLs to build output folders
+        run: .\.github\workflows\copy_DLLs.bat
       - name: Win32 - ${{ matrix.qt_version }} - Running windeployqt
         shell: cmd
         run: |
