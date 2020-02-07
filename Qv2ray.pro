@@ -334,7 +334,7 @@ TRANSLATIONS += translations/en_US.ts
 message("Qv2ray will build with" $${replace(EXTRA_TRANSLATIONS, "translations/", "")} $${replace(TRANSLATIONS, "translations/", "")})
 
 !win: QMAKE_CXXFLAGS += -Wno-missing-field-initializers -Wno-unused-parameter -Wno-unused-variable
-win: QMAKE_CXXFLAGS += /d2FH4-
+win: QMAKE_CXXFLAGS += /d2FH4
 
 message(" ")
 
