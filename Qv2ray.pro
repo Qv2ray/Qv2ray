@@ -306,7 +306,7 @@ HEADERS += $$PWD/libs/gen/v2ray_geosite.pb.h
     Qv2ray_release: LIBS += -L$$PWD/libs/$$GRPC_LIB_PATH/lib/ -laddress_sorting -lcares -lgrpc++_unsecure -lupb -lzlib -lgrpc_unsecure -lgpr
 
     win: message("  --> WIN32: Linking against protobuf library: $$GRPC_LIB_PATH")
-    Qv2ray_release: LIBS += -llibcmt -L$$PWD/libs/$$GRPC_LIB_PATH/lib/ -llibprotobuf
+    Qv2ray_release: LIBS += -llibcmt -lmsvcrt -L$$PWD/libs/$$GRPC_LIB_PATH/lib/ -llibprotobuf
     Qv2ray_debug: LIBS += -llibcmtd -L$$PWD/libs/$$GRPC_LIB_PATH/lib/ -llibprotobufd
 
     unix {
