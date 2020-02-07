@@ -1,5 +1,11 @@
-name: AUR Push Build
-on: [push]
+name: AUR Test Build
+on: 
+  push:
+    paths-ignore: [README.md]
+  release: {}
+  schedule:
+    - cron: "0 19 * * *"
+
 jobs:
   aur:
     strategy:
