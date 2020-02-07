@@ -1,10 +1,13 @@
 name: AUR Push Build
 on: [push]
 jobs:
-  qv2ray-dev-git:
-    name: AUR Build qv2ray-dev-git
+  aur:
+    strategy:
+      fail-fast: true
+      matrix:
+        repo: [qv2ray, qv2ray-dev-git]
     runs-on: [ubuntu-latest]
     steps:
-      - uses: DuckSoft/build-aur-action@master
+      - uses: DuckSoft/build-aur-action@v1.0
         with:
-          repo-name: qv2ray-dev-git
+          repo-name: ${{ matrix.repo }}
