@@ -7,6 +7,8 @@
 SourceTrail/
 
 libs/gen/
+libs/x64-windows/
+libs/x86-windows/
 libs/libqvb-*
 
 build/

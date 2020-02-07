@@ -1,14 +1,4 @@
 #pragma once
-#ifdef _WIN32
-#include <winsock2.h>
-#include <ws2def.h>
-#include <ws2tcpip.h>
-#else
-#include <sys/socket.h>
-#include <netdb.h>
-#endif
-#include <sys/time.h>
-#include <unistd.h>
 #include "base/Qv2rayBase.hpp"
 
 namespace Qv2ray::components::tcping
@@ -33,8 +23,6 @@ namespace Qv2ray::components::tcping
         signals:
             void PingFinished(QvTCPingData data);
         private:
-            static int resolveHost(const string &host, int portnr, struct addrinfo **res);
-            static int testLatency(struct addrinfo *addr, struct timeval *rtt);
             static QvTCPingData startTestLatency(QvTCPingData data, const int count);
             int count;
             QQueue<QFutureWatcher<QvTCPingData>*> pingWorkingThreads;

@@ -1,8 +1,20 @@
+#ifdef _WIN32
+#include <WinSock2.h>
+#include <WS2tcpip.h>
+#else
+#include <sys/socket.h>
+#include <netdb.h>
+#include <sys/time.h>
+#include <unistd.h>
+#endif
 #include "QvTCPing.hpp"
 #include "QtConcurrent/QtConcurrent"
 
 namespace Qv2ray::components::tcping
 {
+    static int resolveHost(const std::string &host, int portnr, struct addrinfo **res);
+    static int testLatency(struct addrinfo *addr, std::chrono::system_clock::time_point *start, std::chrono::system_clock::time_point *end);
+    //
     QvTCPingModel::QvTCPingModel(int defaultCount, QObject *parent) : QObject(parent)
     {
         count = defaultCount;
@@ -47,7 +59,7 @@ namespace Qv2ray::components::tcping
         int errcode;
 
         if ((errcode = resolveHost(data.hostName.toStdString(), data.port, &resolved)) != 0) {
-#if defined (__WIN32) && defined (UNICODE)
+#ifdef _WIN32
             data.errorMessage = QString::fromStdWString(gai_strerror(errcode));
 #else
             data.errorMessage = gai_strerror(errcode);
@@ -61,9 +73,10 @@ namespace Qv2ray::components::tcping
         while (currentCount < count) {
             if (isExiting) return QvTCPingData();
 
-            timeval rtt;
+            std::chrono::system_clock::time_point start;
+            std::chrono::system_clock::time_point end;
 
-            if ((errcode = testLatency(resolved, &rtt)) != 0) {
+            if ((errcode = testLatency(resolved, &start, &end)) != 0) {
                 if (errcode != -EADDRNOTAVAIL) {
                     LOG(NETWORK, "Error connecting to host: " + data.hostName + ":" + QSTRN(data.port) + " " + strerror(-errcode))
                     errorCount++;
@@ -79,7 +92,8 @@ namespace Qv2ray::components::tcping
             } else {
                 noAddress = false;
                 successCount++;
-                double ms = (rtt.tv_sec * 1000.0) + (rtt.tv_usec / 1000.0);
+                auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+                double ms = milliseconds.count();
                 data.avg += ms;
                 data.min = min(data.min, ms);
                 data.max = max(data.max, ms);
@@ -98,7 +112,7 @@ namespace Qv2ray::components::tcping
         return data;
     }
 
-    int QvTCPingModel::resolveHost(const string &host, int port, addrinfo **res)
+    int resolveHost(const string &host, int port, addrinfo **res)
     {
         if (isExiting) return 0;
 
@@ -116,12 +130,15 @@ namespace Qv2ray::components::tcping
         return getaddrinfo(host.c_str(), to_string(port).c_str(), &hints, res);
     }
 
-    int QvTCPingModel::testLatency(struct addrinfo *addr, struct timeval *rtt)
+    int testLatency(struct addrinfo *addr, std::chrono::system_clock::time_point *start, std::chrono::system_clock::time_point *end)
     {
         if (isExiting) return 0;
 
+#ifdef _WIN32
+        SOCKET fd;
+#else
         int fd;
-        struct timeval start;
+#endif
         int connect_result;
         const int on = 1;
         /* int flags; */
@@ -132,8 +149,11 @@ namespace Qv2ray::components::tcping
             if (isExiting) return 0;
 
             /* create socket */
-            if ((fd = socket(addr->ai_family, addr->ai_socktype, addr->ai_protocol)) == -1)
+            fd = socket(addr->ai_family, addr->ai_socktype, addr->ai_protocol);
+
+            if (!fd) {
                 goto next_addr0;
+            }
 
 #ifdef _WIN32
 
@@ -142,26 +162,32 @@ namespace Qv2ray::components::tcping
 #else
             if (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on)) < 0)
 #endif
+            {
                 goto next_addr1;
+            }
 
-            if (gettimeofday(&start, nullptr) == -1)
-                goto next_addr1;
-
+            *start = system_clock::now();
             /* connect to peer */
             // Qt has its own connect() function in QObject....
             // So we add "::" here
-            if ((connect_result = ::connect(fd, addr->ai_addr, addr->ai_addrlen)) == 0) {
-                if (gettimeofday(rtt, nullptr) == -1)
-                    goto next_addr1;
+            connect_result = ::connect(fd, addr->ai_addr, addr->ai_addrlen);
 
-                rtt->tv_sec = rtt->tv_sec - start.tv_sec;
-                rtt->tv_usec = rtt->tv_usec - start.tv_usec;
+            if (connect_result) {
+                *end = system_clock::now();
+#ifdef _WIN32
+                closesocket(fd);
+#else
                 close(fd);
+#endif
                 return 0;
             }
 
 next_addr1:
+#ifdef _WIN32
+            closesocket(fd);
+#else
             close(fd);
+#endif
 next_addr0:
             addr = addr->ai_next;
         }

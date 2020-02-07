@@ -236,7 +236,7 @@ int main(int argc, char *argv[])
                 return 1;
 
             case CommandLineVersionRequested:
-                LOG("Qv2ray", QV2RAY_VERSION_STRING);
+                LOG("Qv2ray", QV2RAY_VERSION_STRING)
                 LOG("QV2RAY_BUILD_INFO", QV2RAY_BUILD_INFO)
                 LOG("QV2RAY_BUILD_EXTRA_INFO", QV2RAY_BUILD_EXTRA_INFO)
                 return 0;
@@ -398,7 +398,7 @@ int main(int argc, char *argv[])
     // Set special font in Windows
     QFont font;
     font.setPointSize(9);
-    font.setFamily("微软雅黑");
+    font.setFamily("Microsoft YaHei");
     _qApp.setFont(font);
 #endif
 #ifdef QV2RAY_USE_BUILTIN_DARKTHEME
@@ -461,7 +461,7 @@ int main(int argc, char *argv[])
         // Will not block.
         QGuiApplication::setFallbackSessionManagementEnabled(false);
         QObject::connect(&_qApp, &QGuiApplication::commitDataRequest, []() {
-            LOG(INIT, "Quit triggered by session manager.");
+            LOG(INIT, "Quit triggered by session manager.")
         });
 #ifndef Q_OS_WIN
         signal(SIGUSR1, [](int) {
