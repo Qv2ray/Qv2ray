@@ -20,6 +20,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent),
     CurrentConfig()
 {
     setupUi(this);
+    QvMsgBusSlot(QvMsgBusImplDefault)
     textBrowser->setHtml(StringFromFile(new QFile(":/assets/credit.html")));
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
     //

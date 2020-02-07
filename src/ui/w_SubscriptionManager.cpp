@@ -9,6 +9,7 @@ SubscribeEditor::SubscribeEditor(QWidget *parent) :
     QDialog(parent)
 {
     setupUi(this);
+    QvMsgBusSlot(QvMsgBusImplDefault)
     addSubsButton->setIcon(QICON_R("add.png"));
     removeSubsButton->setIcon(QICON_R("delete.png"));
 
