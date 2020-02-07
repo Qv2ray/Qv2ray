@@ -168,7 +168,7 @@ jobs:
   x86-build:
     strategy:
       matrix:
-        qt_version: [5.12.6, 5.13.2]
+        qt_version: [5.12.6, 5.13.2, 5.14.1]
       fail-fast: false
         
     runs-on: windows-latest
