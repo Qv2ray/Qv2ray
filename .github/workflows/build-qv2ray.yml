@@ -59,8 +59,7 @@ jobs:
         shell: bash
         run: |
           cd build
-          _make=$([ "${{ matrix.platform }}" == "windows-latest" ] && echo "nmake" || echo "make -j2")
-          $_make $([ "${{ matrix.platform }}" == "ubuntu-16.04" ] && echo "CC=gcc-7 CXX=g++-7" LINK="g++-7" || echo "")
+          make -j2 $([ "${{ matrix.platform }}" == "ubuntu-16.04" ] && echo "CC=gcc-7 CXX=g++-7" LINK="g++-7" || echo "")
 # -------------------------------------------------------- Deployments
       - name: Linux - ${{ matrix.qt_version }} - Generating AppImage
         if: matrix.platform == 'ubuntu-16.04'
@@ -168,7 +167,7 @@ jobs:
           cd build
           nmake
 # -------------------------------------------------------- Deployments
-      - name: Win64 - ${{ matrix.qt_version }} - Copying DLLs to build output folders
+      - name: Win32 - ${{ matrix.qt_version }} - Copying DLLs to build output folders
         run: .\.github\workflows\copy_DLLs.bat
       - name: Win32 - ${{ matrix.qt_version }} - Running windeployqt
         shell: cmd

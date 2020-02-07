@@ -1,3 +1,6 @@
+If you succeed builing Qv2ray using x64 MSVC, VS2017, in other words, VC14.2
+Please let us know.
+
 Qv2ray Dependencies Directory for Windows x64
 
 THIS IS A PLACEHOLDER WHICH ALLOWS GIT TO INCLUDE THIS DIRECTORY
@@ -15,6 +18,8 @@ Make sure these file exists:
 - Qv2raySourceRoot/libs/x64-windows/tools/protobuf/protoc.exe
 
 # ======================================================================
+
+如果你成功使用 VS2017 编译了 64 位的 Qv2ray，请告诉我们
 
 64 位 Windows 的 Qv2ray 依赖文件夹
 这个文件的存在使得 git 可以添加此文件夹
