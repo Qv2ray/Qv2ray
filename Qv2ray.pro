@@ -13,6 +13,14 @@ TEMPLATE = app
 _BUILD_NUMBER=$$cat(Build.Counter)
 VERSION = 2.0.1.$$_BUILD_NUMBER
 
+CONFIG(release, debug|release) {
+    message("Will not increase build number for release.")
+    CONFIG+=Qv2ray_release no_increase_build_number
+}
+CONFIG(debug, debug|release) {
+    CONFIG+=Qv2ray_debug
+}
+
 no_increase_build_number | qmake_lupdate {
     message("Build.Counter will not be increased")
 } else {
@@ -42,17 +50,16 @@ CONFIG += lrelease embed_translations
 win32 {
     !contains(QMAKE_TARGET.arch, x86_64) {
         message("x86 build")
-        CONFIG+=win32
+        CONFIG+=Qv2ray_win32
     } else {
         message("x86_64 build")
-        CONFIG-=win32
-        CONFIG+=win64
+        CONFIG+=Qv2ray_win64
     }
 }
 
 # Win32 support.
-win32: CONFIG += win
-win64: CONFIG += win
+Qv2ray_win32: CONFIG += win
+Qv2ray_win64: CONFIG += win
 win: CONFIG += use_grpc
 
 # Fine......
@@ -221,8 +228,8 @@ defineTest(Qv2rayQMakeError)　{
 # ----------------------------------------- Auto generation of PB/gRPC headers
 !no_auto_generate_headers {
     # Generate protobuf domain list headers.
-    win32: system("$$PWD/tools/win32-generate-pb.bat"): message("Generated gRPC and protobuf headers for Windows x86")
-    win64: system("$$PWD/tools/win64-generate-pb.bat"): message("Generated gRPC and protobuf headers for Windows x64")
+    Qv2ray_win32: system("$$PWD/tools/win32-generate-pb.bat"): message("Generated gRPC and protobuf headers for Windows x86")
+    Qv2ray_win64: system("$$PWD/tools/win64-generate-pb.bat"): message("Generated gRPC and protobuf headers for Windows x64")
     #
     unix: system("$$PWD/tools/unix-generate-geosite.sh"): message("Generated protobuf domain list headers for Unix")
 
@@ -282,29 +289,25 @@ HEADERS += $$PWD/libs/gen/v2ray_geosite.pb.h
     message("Adding gRPC headers and linker libraries.")
     # ==-- OS Specific configurations for libgRPC --==
 
-    win32: message("  --> WIN32: Linking against gRPC library.")
-    win32: DEPENDPATH  += $$PWD/libs/x86-windows/include
-    win32: INCLUDEPATH += $$PWD/libs/x86-windows/include
-    win32: LIBS += -L$$PWD/libs/x86-windows/lib/ -laddress_sorting -lcares -lgrpc++_unsecure -lupb -lzlib -lgrpc_unsecure -lgpr
+    Qv2ray_win32: GRPC_DEPS_PATH=x86-windows
+    Qv2ray_win64: GRPC_DEPS_PATH=x64-windows
 
-    win64: message("  --> WIN64: Linking against gRPC library.")
-    win64: DEPENDPATH  += $$PWD/libs/x64-windows/include
-    win64: INCLUDEPATH += $$PWD/libs/x64-windows/include
-    win64: LIBS += -L$$PWD/libs/x64-windows/lib/ -laddress_sorting -lcares -lgrpc++_unsecure -lupb -lzlib -lgrpc_unsecure -lgpr
+    Qv2ray_debug: GRPC_LIB_PATH=$$GRPC_DEPS_PATH/debug
+    Qv2ray_release: GRPC_LIB_PATH=$$GRPC_DEPS_PATH
 
-    # General Windows
     win: message("  --> Applying a hack for protobuf header")
     win: DEFINES += _WIN32_WINNT=0x600
 
-    win32: message("  --> WIN32: Linking against protobuf library.")
-    win32: DEPENDPATH  += $$PWD/libs/x86-windows/include
-    win32: INCLUDEPATH += $$PWD/libs/x86-windows/include
-    win32: LIBS += -L$$PWD/libs/x86-windows/lib/ -llibprotobuf
+    win: DEPENDPATH  += $$PWD/libs/$$GRPC_DEPS_PATH/include
+    win: INCLUDEPATH += $$PWD/libs/$$GRPC_DEPS_PATH/include
 
-    win64: message("  --> WIN64: Linking against protobuf library.")
-    win64: DEPENDPATH  += $$PWD/libs/x64-windows/include
-    win64: INCLUDEPATH += $$PWD/libs/x64-windows/include
-    win64: LIBS += -L$$PWD/libs/x64-windows/lib/ -llibprotobuf
+    win: message("  --> WIN32: Linking against gRPC library: $$GRPC_LIB_PATH")
+    Qv2ray_debug: LIBS += -L$$PWD/libs/$$GRPC_LIB_PATH/lib/ -laddress_sorting -lcares -lgrpc++_unsecure -lupb -lzlibd -lgrpc_unsecure -lgpr
+    Qv2ray_release: LIBS += -L$$PWD/libs/$$GRPC_LIB_PATH/lib/ -laddress_sorting -lcares -lgrpc++_unsecure -lupb -lzlib -lgrpc_unsecure -lgpr
+
+    win: message("  --> WIN32: Linking against protobuf library: $$GRPC_LIB_PATH")
+    Qv2ray_release: LIBS += -L$$PWD/libs/$$GRPC_LIB_PATH/lib/ -llibprotobuf
+    Qv2ray_debug: LIBS += -L$$PWD/libs/$$GRPC_LIB_PATH/lib/ -llibprotobufd
 
     unix {
         # For gRPC and protobuf in linux and macOS
@@ -431,4 +434,4 @@ message("  --> $${size(TRANSLATIONS)} translation files")
 message("  --> $${size(EXTRA_TRANSLATIONS)} extra translation files")
 message(" ")
 message("Done configuring Qv2ray project. Build output will be at:" $$OUT_PWD)
-message("Type `make` or `mingw32-make` to start building Qv2ray")
+message("Type `make` or `nmake` to start building Qv2ray")
