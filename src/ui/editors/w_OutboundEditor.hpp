@@ -5,6 +5,7 @@
 #include "ui_w_OutboundEditor.h"
 #include "ui/widgets/StreamSettingsWidget.hpp"
 
+
 class OutboundEditor : public QDialog, private Ui::OutboundEditor
 {
         Q_OBJECT
@@ -14,8 +15,6 @@ class OutboundEditor : public QDialog, private Ui::OutboundEditor
         ~OutboundEditor();
         OUTBOUND OpenEditor();
         QString GetFriendlyName();
-    public slots:
-        QvMessageBusSlotHeader
     signals:
         void s_reload_config(bool need_restart);
     private slots:

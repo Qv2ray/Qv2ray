@@ -4,6 +4,7 @@
 #include <ui_w_PreferencesWindow.h>
 #include "base/Qv2rayBase.hpp"
 
+
 class PreferencesWindow : public QDialog, private Ui::PreferencesWindow
 {
         Q_OBJECT

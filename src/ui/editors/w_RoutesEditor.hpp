@@ -32,8 +32,6 @@ class RouteEditor : public QDialog, private Ui::RouteEditor
         explicit RouteEditor(QJsonObject connection, QWidget *parent = nullptr);
         ~RouteEditor();
         CONFIGROOT OpenEditor();
-    public slots:
-        QvMessageBusSlotHeader
 
     private slots:
         void on_buttonBox_accepted();

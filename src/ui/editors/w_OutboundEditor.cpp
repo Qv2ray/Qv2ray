@@ -16,7 +16,7 @@ OutboundEditor::OutboundEditor(QWidget *parent)
       vmess(),
       shadowsocks()
 {
-    QvMessageBusConnect(OutboundEditor);
+    QvMsgBusSlot(QvMsgBusImplDefault)
     setupUi(this);
     //
     ssWidget = new StreamSettingsWidget(this);
@@ -37,8 +37,6 @@ OutboundEditor::OutboundEditor(QWidget *parent)
     ReloadGUI();
     Result = GenerateConnectionJson();
 }
-
-QvMessageBusSlotImplDefault(OutboundEditor)
 
 OutboundEditor::OutboundEditor(OUTBOUND outboundEntry, QWidget *parent) : OutboundEditor(parent)
 {

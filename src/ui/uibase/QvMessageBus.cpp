@@ -1,13 +1,13 @@
 #include <QMetaEnum>
 
-#include "QvGlobalMessageBus.hpp"
+#include "QvMessageBus.hpp"
 #include "base/Qv2rayBase.hpp"
 
 namespace Qv2ray::base
 {
     QvMessageBusObject::QvMessageBusObject()
     {
-        QvMessageBusConnect(QvMessageBusObject);
+        QvMsgBusConnect(QvMsgBusLambda(this->on_QvMessageReceived(msg);))
     }
 
     void QvMessageBusObject::on_QvMessageReceived(QvMessage msg)

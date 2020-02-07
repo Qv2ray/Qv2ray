@@ -9,10 +9,9 @@ ConfigExporter::ConfigExporter(QWidget *parent) :
     qzxing(this)
 {
     setupUi(this);
-    QvMessageBusConnect(ConfigExporter);
+    QvMsgBusSlot(QvMsgBusImplDefault)
 }
 
-QvMessageBusSlotImplDefault(ConfigExporter)
 
 ConfigExporter::~ConfigExporter()
 {

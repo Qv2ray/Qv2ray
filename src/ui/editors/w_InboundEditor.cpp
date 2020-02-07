@@ -10,7 +10,7 @@ InboundEditor::InboundEditor(INBOUND root, QWidget *parent) :
     QDialog(parent),
     original(root)
 {
-    QvMessageBusConnect(InboundEditor);
+    QvMsgBusSlot(QvMsgBusImplDefault)
     setupUi(this);
     this->root = root;
     auto inboundType = root["protocol"].toString();
@@ -38,8 +38,6 @@ InboundEditor::InboundEditor(INBOUND root, QWidget *parent) :
 
     LoadUIData();
 }
-
-QvMessageBusSlotImplDefault(InboundEditor)
 
 INBOUND InboundEditor::OpenEditor()
 {
