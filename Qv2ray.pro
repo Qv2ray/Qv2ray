@@ -301,14 +301,16 @@ HEADERS += $$PWD/libs/gen/v2ray_geosite.pb.h
     win: DEPENDPATH  += $$PWD/libs/$$GRPC_DEPS_PATH/include
     win: INCLUDEPATH += $$PWD/libs/$$GRPC_DEPS_PATH/include
 
-    win: message("  --> WIN32: Linking against gRPC library: $$GRPC_LIB_PATH")
-    Qv2ray_debug: LIBS += -L$$PWD/libs/$$GRPC_LIB_PATH/lib/ -laddress_sorting -lcares -lgrpc++_unsecure -lupb -lzlibd -lgrpc_unsecure -lgpr
-    Qv2ray_release: LIBS += -L$$PWD/libs/$$GRPC_LIB_PATH/lib/ -laddress_sorting -lcares -lgrpc++_unsecure -lupb -lzlib -lgrpc_unsecure -lgpr
+    win {
+        message("  --> WIN32: Linking against gRPC library: $$GRPC_LIB_PATH")
+        Qv2ray_debug: LIBS += -L$$PWD/libs/$$GRPC_LIB_PATH/lib/ -laddress_sorting -lcares -lgrpc++_unsecure -lupb -lzlibd -lgrpc_unsecure -lgpr
+        Qv2ray_release: LIBS += -L$$PWD/libs/$$GRPC_LIB_PATH/lib/ -laddress_sorting -lcares -lgrpc++_unsecure -lupb -lzlib -lgrpc_unsecure -lgpr
 
-    win: message("  --> WIN32: Linking against protobuf library: $$GRPC_LIB_PATH")
-    Qv2ray_release: LIBS += -lmsvcrt -L$$PWD/libs/$$GRPC_LIB_PATH/lib/ -llibprotobuf
-    Qv2ray_debug: LIBS += -lmsvcrtd -L$$PWD/libs/$$GRPC_LIB_PATH/lib/ -llibprotobufd
-
+        message("  --> WIN32: Linking against protobuf library: $$GRPC_LIB_PATH")
+        Qv2ray_release: LIBS += -lmsvcrt -L$$PWD/libs/$$GRPC_LIB_PATH/lib/ -llibprotobuf
+        Qv2ray_debug: LIBS += -lmsvcrtd -L$$PWD/libs/$$GRPC_LIB_PATH/lib/ -llibprotobufd
+    }
+    
     unix {
         # For gRPC and protobuf in linux and macOS
         message("  --> Linking against gRPC and protobuf library.")
