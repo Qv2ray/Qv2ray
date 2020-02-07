@@ -1,1 +1,10 @@
-
+name: AUR Push Build
+on: [push]
+jobs:
+  qv2ray-dev-git:
+    name: AUR Build qv2ray-dev-git
+    runs-on: [linux]
+    steps:
+      - uses: DuckSoft/build-aur-action@master
+        with:
+          repo-name: qv2ray-dev-git
