@@ -79,7 +79,14 @@
 
 MainWindow *MainWindow::mwInstance = nullptr;
 
-QvMessageBusSlotImplDefault(MainWindow)
+QvMessageBusSlotImpl(MainWindow)
+{
+    switch (msg) {
+            QvMessageBusShowDefault
+            QvMessageBusHideDefault
+            QvMessageBusRetranslateDefault
+    }
+}
 
 MainWindow::MainWindow(QWidget *parent):
     QMainWindow(parent), vinstance(),

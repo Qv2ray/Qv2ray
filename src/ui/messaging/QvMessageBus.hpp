@@ -1,10 +1,10 @@
 #pragma once
 #include <QObject>
 
-#define QvMessageBusConnect(CLASSNAME) connect(&::Qv2ray::messageBus, &::Qv2ray::base::QvMessageBusObject::QvSendMessage, this, &CLASSNAME::on_QvMessageReceived)
+#define QvMessageBusConnect(CLASSNAME) connect(&messageBus, &QvMessageBusObject::QvSendMessage, this, &CLASSNAME::on_QvMessageReceived)
 
-#define QvMessageBusSlotHeader void on_QvMessageReceived(::Qv2ray::base::QvMessage msg);
-#define QvMessageBusSlotImpl(CLASSNAME) void CLASSNAME::on_QvMessageReceived(::Qv2ray::base::QvMessage msg)
+#define QvMessageBusSlotHeader void on_QvMessageReceived(QvMessage msg);
+#define QvMessageBusSlotImpl(CLASSNAME) void CLASSNAME::on_QvMessageReceived(QvMessage msg)
 
 #define QvMessageBusShowDefault \
     case SHOW_WINDOWS:\
@@ -18,20 +18,12 @@
 
 #define QvMessageBusRetranslateDefault \
     case RETRANSLATE:\
-    this->retranslateUi(this);\
+    {\
+        this->retranslateUi(this);\
+    }\
     break;
 
-#define QvMessageBusSlotImplDefault(CLASSNAME) \
-    QvMessageBusSlotImpl(CLASSNAME)\
-    {\
-        switch (msg) {\
-                QvMessageBusShowDefault\
-                QvMessageBusHideDefault\
-                QvMessageBusRetranslateDefault\
-        }\
-    }
-
-namespace Qv2ray::base
+namespace Qv2ray::ui::messaging
 {
     Q_NAMESPACE
     enum QvMessage {
@@ -59,6 +51,9 @@ namespace Qv2ray::base
         private slots:
             void on_QvMessageReceived(QvMessage msg);
     };
+
+    // Danger, new is used here. Possible memory leak (hope not so much leak)
+    inline QvMessageBusObject messageBus = QvMessageBusObject();
 }
 
-using namespace Qv2ray::base;
+using namespace Qv2ray::ui::messaging;

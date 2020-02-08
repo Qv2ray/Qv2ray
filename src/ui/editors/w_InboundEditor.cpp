@@ -39,7 +39,14 @@ InboundEditor::InboundEditor(INBOUND root, QWidget *parent) :
     LoadUIData();
 }
 
-QvMessageBusSlotImplDefault(InboundEditor)
+QvMessageBusSlotImpl(InboundEditor)
+{
+    switch (msg) {
+            QvMessageBusShowDefault\
+            QvMessageBusHideDefault\
+            QvMessageBusRetranslateDefault\
+    }
+}
 
 INBOUND InboundEditor::OpenEditor()
 {

@@ -3,8 +3,9 @@
 #include <QDialog>
 #include "base/Qv2rayBase.hpp"
 #include "common/HTTPRequestHelper.hpp"
-
 #include "ui_w_SubscriptionManager.h"
+#include "ui/messaging/QvMessageBus.hpp"
+
 class SubscribeEditor : public QDialog, private Ui::w_SubscribeEditor
 {
         Q_OBJECT
@@ -13,6 +14,9 @@ class SubscribeEditor : public QDialog, private Ui::w_SubscribeEditor
         explicit SubscribeEditor(QWidget *parent = nullptr);
         ~SubscribeEditor();
         QPair<QString, CONFIGROOT> GetSelectedConfig();
+
+    public slots:
+        QvMessageBusSlotHeader
 
     private slots:
         void on_addSubsButton_clicked();

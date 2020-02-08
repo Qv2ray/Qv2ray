@@ -20,7 +20,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent),
     CurrentConfig()
 {
     setupUi(this);
-    QvMsgBusSlot(QvMsgBusImplDefault)
+    QvMessageBusConnect(PreferencesWindow);
     textBrowser->setHtml(StringFromFile(new QFile(":/assets/credit.html")));
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
     //
@@ -187,6 +187,16 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent),
     finishedLoading = true;
 }
 
+
+QvMessageBusSlotImpl(PreferencesWindow)
+{
+    switch (msg) {
+            QvMessageBusShowDefault
+            QvMessageBusHideDefault
+            QvMessageBusRetranslateDefault
+    }
+}
+
 PreferencesWindow::~PreferencesWindow()
 {
 }
@@ -222,6 +232,19 @@ void PreferencesWindow::on_buttonBox_accepted()
         this->show();
         this->exec();
     } else {
+        if (CurrentConfig.uiConfig.language != GlobalConfig.uiConfig.language) {
+            qApp->removeTranslator(Qv2rayTranslator);
+            Qv2rayTranslator = getTranslator(CurrentConfig.uiConfig.language);
+
+            // Install translator
+            if (!qApp->installTranslator(Qv2rayTranslator)) {
+                LOG(UI, "Failed to translate UI to: " + CurrentConfig.uiConfig.language)
+            } else {
+                messageBus.EmitGlobalSignal(QvMessage::RETRANSLATE);
+                QApplication::processEvents();
+            }
+        }
+
         SaveGlobalConfig(CurrentConfig);
         emit s_reload_config(IsConnectionPropertyChanged);
     }

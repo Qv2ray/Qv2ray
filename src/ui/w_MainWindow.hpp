@@ -18,6 +18,8 @@
 #include "components/pac/QvPACHandler.hpp"
 #include "components/speedchart/speedwidget.hpp"
 
+#include "ui/messaging/QvMessageBus.hpp"
+
 enum QvConnectionType {
     CONNECTION_REGULAR = 1,
     CONNECTION_SUBSCRIPTION = 2

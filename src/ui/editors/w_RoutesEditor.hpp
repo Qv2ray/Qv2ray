@@ -17,6 +17,7 @@ using QtNodes::FlowScene;
 using QtNodes::ConnectionStyle;
 
 #include "ui_w_RoutesEditor.h"
+#include "ui/messaging/QvMessageBus.hpp"
 
 enum ROUTE_EDIT_MODE {
     RENAME_INBOUND,

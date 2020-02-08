@@ -28,7 +28,14 @@ ImportConfigWindow::ImportConfigWindow(QWidget *parent)
     RESTORE_RUNTIME_CONFIG(screenShotHideQv2ray, hideQv2rayCB->setChecked)
 }
 
-QvMessageBusSlotImplDefault(ImportConfigWindow)
+QvMessageBusSlotImpl(ImportConfigWindow)
+{
+    switch (msg) {
+            QvMessageBusShowDefault
+            QvMessageBusHideDefault
+            QvMessageBusRetranslateDefault
+    }
+}
 
 ImportConfigWindow::~ImportConfigWindow()
 {
@@ -58,6 +65,7 @@ void ImportConfigWindow::on_qrFromScreenBtn_clicked()
         messageBus.EmitGlobalSignal(QvMessage::HIDE_WINDOWS);
     }
 
+    QApplication::processEvents();
     QThread::msleep(static_cast<ulong>(doubleSpinBox->value() * 1000));
     auto w = new ScreenShotWindow();
     auto pix = w->DoScreenShot();

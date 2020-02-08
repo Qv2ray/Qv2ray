@@ -3,6 +3,7 @@
 #include "ui_w_ExportConfig.h"
 #include "base/Qv2rayBase.hpp"
 #include "3rdparty/qzxing/src/QZXing.h"
+#include "ui/messaging/QvMessageBus.hpp"
 
 class ConfigExporter : public QDialog, private Ui::ExportConfigWindow
 {

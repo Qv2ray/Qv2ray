@@ -1,9 +1,9 @@
 #include <QMetaEnum>
 
-#include "QvGlobalMessageBus.hpp"
+#include "QvMessageBus.hpp"
 #include "base/Qv2rayBase.hpp"
 
-namespace Qv2ray::base
+namespace Qv2ray::ui::messaging
 {
     QvMessageBusObject::QvMessageBusObject()
     {

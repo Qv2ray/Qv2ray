@@ -24,7 +24,14 @@ JsonEditor::JsonEditor(QJsonObject rootObject, QWidget *parent) :
     jsonTree->resizeColumnToContents(0);
 }
 
-QvMessageBusSlotImplDefault(JsonEditor)
+QvMessageBusSlotImpl(JsonEditor)
+{
+    switch (msg) {
+            QvMessageBusShowDefault
+            QvMessageBusHideDefault
+            QvMessageBusRetranslateDefault
+    }
+}
 
 QJsonObject JsonEditor::OpenEditor()
 {

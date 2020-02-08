@@ -5,6 +5,7 @@
 #include <QJsonObject>
 #include "base/Qv2rayBase.hpp"
 #include "ui_w_ImportConfig.h"
+#include "ui/messaging/QvMessageBus.hpp"
 
 class ImportConfigWindow : public QDialog, private Ui::ImportConfigWindow
 {

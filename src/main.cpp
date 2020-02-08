@@ -280,14 +280,11 @@ int main(int argc, char *argv[])
     // Not duplicated.
     // Install a default translater. From the OS/DE
     auto _lang = QLocale::system().name();
-    auto _sysTranslator = getTranslator(_lang);
-
-    if (_lang != "en-US") {
-        // Do not install en-US as it's the default language.
-        bool _result_ = _qApp.installTranslator(_sysTranslator);
-        LOG(UI, "Installing a tranlator from OS: " + _lang + " -- " + (_result_ ? "OK" : "Failed"))
-    }
-
+    Qv2rayTranslator = getTranslator(_lang);
+    //
+    // Do not install en-US as it's the default language.
+    bool _result_ = _qApp.installTranslator(Qv2rayTranslator);
+    LOG(UI, "Installing a tranlator from OS: " + _lang + " -- " + (_result_ ? "OK" : "Failed"))
     //
     LOG("LICENCE", NEWLINE "This program comes with ABSOLUTELY NO WARRANTY." NEWLINE
         "This is free software, and you are welcome to redistribute it" NEWLINE
@@ -353,7 +350,7 @@ int main(int argc, char *argv[])
     // Load config object from upgraded config QJsonObject
     auto confObject = StructFromJsonString<Qv2rayConfig>(JsonToString(conf));
     // Remove system translator, for loading custom translations.
-    qApp->removeTranslator(_sysTranslator);
+    qApp->removeTranslator(Qv2rayTranslator);
     LOG(INIT, "Removed system translations")
 
     if (confObject.uiConfig.language.isEmpty()) {
@@ -362,7 +359,9 @@ int main(int argc, char *argv[])
         confObject.uiConfig.language = "en-US";
     }
 
-    if (qApp->installTranslator(getTranslator(confObject.uiConfig.language))) {
+    Qv2rayTranslator = getTranslator(confObject.uiConfig.language);
+
+    if (qApp->installTranslator(Qv2rayTranslator)) {
         LOG(INIT, "Successfully installed a translator for " + confObject.uiConfig.language)
     } else {
         // Do not translate these.....

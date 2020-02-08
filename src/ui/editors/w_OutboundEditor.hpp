@@ -4,6 +4,7 @@
 #include "base/Qv2rayBase.hpp"
 #include "ui_w_OutboundEditor.h"
 #include "ui/widgets/StreamSettingsWidget.hpp"
+#include "ui/messaging/QvMessageBus.hpp"
 
 class OutboundEditor : public QDialog, private Ui::OutboundEditor
 {

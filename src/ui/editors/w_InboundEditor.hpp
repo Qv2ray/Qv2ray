@@ -5,6 +5,7 @@
 #include <QListWidgetItem>
 #include "ui_w_InboundEditor.h"
 #include "base/Qv2rayBase.hpp"
+#include "ui/messaging/QvMessageBus.hpp"
 
 class InboundEditor : public QDialog, private Ui::InboundEditor
 {

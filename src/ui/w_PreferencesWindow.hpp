@@ -3,6 +3,7 @@
 #include <QDialog>
 #include <ui_w_PreferencesWindow.h>
 #include "base/Qv2rayBase.hpp"
+#include "ui/messaging/QvMessageBus.hpp"
 
 class PreferencesWindow : public QDialog, private Ui::PreferencesWindow
 {
@@ -13,6 +14,9 @@ class PreferencesWindow : public QDialog, private Ui::PreferencesWindow
         ~PreferencesWindow();
     signals:
         void s_reload_config(bool need_restart);
+
+    public slots:
+        QvMessageBusSlotHeader
 
     private slots:
         void on_buttonBox_accepted();

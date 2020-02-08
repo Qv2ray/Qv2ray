@@ -38,7 +38,14 @@ OutboundEditor::OutboundEditor(QWidget *parent)
     Result = GenerateConnectionJson();
 }
 
-QvMessageBusSlotImplDefault(OutboundEditor)
+QvMessageBusSlotImpl(OutboundEditor)
+{
+    switch (msg) {
+            QvMessageBusShowDefault
+            QvMessageBusHideDefault
+            QvMessageBusRetranslateDefault
+    }
+}
 
 OutboundEditor::OutboundEditor(OUTBOUND outboundEntry, QWidget *parent) : OutboundEditor(parent)
 {

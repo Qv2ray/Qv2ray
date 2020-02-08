@@ -5,6 +5,7 @@
 #include "common/QJsonModel.hpp"
 #include "base/Qv2rayBase.hpp"
 #include "ui_w_JsonEditor.h"
+#include "ui/messaging/QvMessageBus.hpp"
 
 class JsonEditor : public QDialog, private Ui::JsonEditor
 {

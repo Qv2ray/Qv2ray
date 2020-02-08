@@ -9,7 +9,7 @@ SubscribeEditor::SubscribeEditor(QWidget *parent) :
     QDialog(parent)
 {
     setupUi(this);
-    QvMsgBusSlot(QvMsgBusImplDefault)
+    QvMessageBusConnect(SubscribeEditor);
     addSubsButton->setIcon(QICON_R("add.png"));
     removeSubsButton->setIcon(QICON_R("delete.png"));
 
@@ -18,6 +18,15 @@ SubscribeEditor::SubscribeEditor(QWidget *parent) :
     }
 
     LoadSubscriptionList(subscriptions);
+}
+
+QvMessageBusSlotImpl(SubscribeEditor)
+{
+    switch (msg) {
+            QvMessageBusShowDefault
+            QvMessageBusHideDefault
+            QvMessageBusRetranslateDefault
+    }
 }
 
 QPair<QString, CONFIGROOT> SubscribeEditor::GetSelectedConfig()

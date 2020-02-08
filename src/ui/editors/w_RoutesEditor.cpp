@@ -121,7 +121,14 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QDialog(pare
     isLoading = false;
 }
 
-QvMessageBusSlotImplDefault(RouteEditor)
+QvMessageBusSlotImpl(RouteEditor)
+{
+    switch (msg) {
+            QvMessageBusShowDefault
+            QvMessageBusHideDefault
+            QvMessageBusRetranslateDefault
+    }
+}
 
 void RouteEditor::onNodeClicked(Node &n)
 {
