@@ -79,6 +79,8 @@
 
 MainWindow *MainWindow::mwInstance = nullptr;
 
+QvMessageBusSlotImplDefault(MainWindow)
+
 MainWindow::MainWindow(QWidget *parent):
     QMainWindow(parent), vinstance(),
     hTray(new QSystemTrayIcon(this)), vCoreLogHighlighter(), qvAppLogHighlighter()
@@ -94,7 +96,7 @@ MainWindow::MainWindow(QWidget *parent):
     });
     //
     setupUi(this);
-    QvMsgBusSlot(QvMsgBusImplDefault)
+    QvMessageBusConnect(MainWindow);
     //
     // Two browsers
     logTextBrowsers.append(new QTextBrowser());

@@ -16,6 +16,7 @@
 #include "base/Qv2rayFeatures.hpp"
 #include "base/JsonHelpers.hpp"
 #include "base/GlobalInstances.hpp"
+#include "base/messaging/QvGlobalMessageBus.hpp"
 // Code Models
 #include "base/models/QvSafeType.hpp"
 #include "base/models/CoreObjectModels.hpp"

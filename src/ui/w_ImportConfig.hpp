@@ -6,7 +6,6 @@
 #include "base/Qv2rayBase.hpp"
 #include "ui_w_ImportConfig.h"
 
-
 class ImportConfigWindow : public QDialog, private Ui::ImportConfigWindow
 {
         Q_OBJECT
@@ -15,6 +14,8 @@ class ImportConfigWindow : public QDialog, private Ui::ImportConfigWindow
         explicit ImportConfigWindow(QWidget *parent = nullptr);
         ~ImportConfigWindow();
         QMap<QString, CONFIGROOT> OpenImport(bool outboundsOnly = false);
+    public slots:
+        QvMessageBusSlotHeader
     private slots:
 
         void on_selectFileBtn_clicked();

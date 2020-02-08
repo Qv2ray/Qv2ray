@@ -24,9 +24,11 @@ ImportConfigWindow::ImportConfigWindow(QWidget *parent)
 {
     setupUi(this);
     nameTxt->setText(QDateTime::currentDateTime().toString("MMdd_hhmm"));
-    QvMsgBusSlot(QvMsgBusImplDefault)
+    QvMessageBusConnect(ImportConfigWindow);
     RESTORE_RUNTIME_CONFIG(screenShotHideQv2ray, hideQv2rayCB->setChecked)
 }
+
+QvMessageBusSlotImplDefault(ImportConfigWindow)
 
 ImportConfigWindow::~ImportConfigWindow()
 {
@@ -53,10 +55,9 @@ void ImportConfigWindow::on_qrFromScreenBtn_clicked()
     bool hideQv2ray = hideQv2rayCB->isChecked();
 
     if (hideQv2ray) {
-        messageBus.EmitGlobalSignal(QvMessage::MINIMIZE_WINDOWS);
+        messageBus.EmitGlobalSignal(QvMessage::HIDE_WINDOWS);
     }
 
-    QApplication::processEvents();
     QThread::msleep(static_cast<ulong>(doubleSpinBox->value() * 1000));
     auto w = new ScreenShotWindow();
     auto pix = w->DoScreenShot();
@@ -65,7 +66,7 @@ void ImportConfigWindow::on_qrFromScreenBtn_clicked()
     delete w;
 
     if (hideQv2ray) {
-        messageBus.EmitGlobalSignal(QvMessage::RESTORE_WINDOWS);
+        messageBus.EmitGlobalSignal(QvMessage::SHOW_WINDOWS);
         //ShowAllGlobalWindow();
     }
 

@@ -40,6 +40,7 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         void DisConnect() const;
         void ReConnect() const;
     public slots:
+        QvMessageBusSlotHeader
         void onPingFinished(QvTCPingData data);
         void UpdateVCoreLog(const QString &log);
         void OnConfigListChanged(bool need_restart);

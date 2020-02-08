@@ -71,7 +71,7 @@ void RouteEditor::SetupNodeWidget()
 
 RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QDialog(parent), root(connection), original(connection)
 {
-    QvMsgBusSlot(QvMsgBusImplDefault)
+    QvMessageBusConnect(RouteEditor);
     setupUi(this);
     isLoading = true;
     setWindowFlags(windowFlags() | Qt::WindowMaximizeButtonHint);
@@ -120,6 +120,8 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QDialog(pare
 
     isLoading = false;
 }
+
+QvMessageBusSlotImplDefault(RouteEditor)
 
 void RouteEditor::onNodeClicked(Node &n)
 {

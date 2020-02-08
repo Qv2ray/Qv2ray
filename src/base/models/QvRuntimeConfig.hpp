@@ -6,7 +6,7 @@
 namespace Qv2ray::base
 {
     struct Qv2rayRuntimeConfig {
-        /// Whether to hide Qv2ray when taking a screenshot
+        //
         bool screenShotHideQv2ray;
     };
 }
