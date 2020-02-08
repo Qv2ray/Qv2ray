@@ -11,6 +11,7 @@
 #include "ui/w_MainWindow.hpp"
 #include "common/QvHelpers.hpp"
 #include "common/CommandArgs.hpp"
+#include "common/QvTranslator.hpp"
 
 #ifdef Q_OS_UNIX
 // For unix root user check
@@ -222,7 +223,7 @@ int main(int argc, char *argv[])
         std::unique_ptr<QCoreApplication> consoleApp(new QCoreApplication(argc, argv));
         //
         // Install a default translater. From the OS/DE
-        consoleApp->installTranslator(getTranslator(QLocale::system().name()));
+        consoleApp->installTranslator(QvTranslator(QLocale::system().name()).pTranslator.get());
         QvCommandArgParser parser;
         QString errorMessage;
 
@@ -280,10 +281,10 @@ int main(int argc, char *argv[])
     // Not duplicated.
     // Install a default translater. From the OS/DE
     auto _lang = QLocale::system().name();
-    Qv2rayTranslator = getTranslator(_lang);
+    Qv2rayTranslator = std::move(QvTranslator(_lang).pTranslator);
     //
     // Do not install en-US as it's the default language.
-    bool _result_ = _qApp.installTranslator(Qv2rayTranslator);
+    bool _result_ = _qApp.installTranslator(Qv2rayTranslator.get());
     LOG(UI, "Installing a tranlator from OS: " + _lang + " -- " + (_result_ ? "OK" : "Failed"))
     //
     LOG("LICENCE", NEWLINE "This program comes with ABSOLUTELY NO WARRANTY." NEWLINE
@@ -350,7 +351,7 @@ int main(int argc, char *argv[])
     // Load config object from upgraded config QJsonObject
     auto confObject = StructFromJsonString<Qv2rayConfig>(JsonToString(conf));
     // Remove system translator, for loading custom translations.
-    qApp->removeTranslator(Qv2rayTranslator);
+    qApp->removeTranslator(Qv2rayTranslator.get());
     LOG(INIT, "Removed system translations")
 
     if (confObject.uiConfig.language.isEmpty()) {
@@ -359,9 +360,9 @@ int main(int argc, char *argv[])
         confObject.uiConfig.language = "en-US";
     }
 
-    Qv2rayTranslator = getTranslator(confObject.uiConfig.language);
+    Qv2rayTranslator = std::move(QvTranslator(confObject.uiConfig.language).pTranslator);
 
-    if (qApp->installTranslator(Qv2rayTranslator)) {
+    if (qApp->installTranslator(Qv2rayTranslator.get())) {
         LOG(INIT, "Successfully installed a translator for " + confObject.uiConfig.language)
     } else {
         // Do not translate these.....

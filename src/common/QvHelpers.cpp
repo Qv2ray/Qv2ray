@@ -160,13 +160,6 @@ namespace Qv2ray::common
         return QString::fromStdString(_name);
     }
 
-    QTranslator *getTranslator(const QString &lang)
-    {
-        QTranslator *translator = new QTranslator();
-        translator->load(lang + ".qm", ":/translations/");
-        return translator;
-    }
-
     /// This returns a file name without extensions.
     void DeducePossibleFileName(const QString &baseDir, QString *fileName, const QString &extension)
     {

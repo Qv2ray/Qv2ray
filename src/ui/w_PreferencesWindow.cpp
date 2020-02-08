@@ -12,6 +12,7 @@
 #include "core/kernel/KernelInteractions.hpp"
 #include "components/plugins/toolbar/QvToolbar.hpp"
 #include "components/autolaunch/QvAutoLaunch.hpp"
+#include <common/QvTranslator.hpp>
 
 #define LOADINGCHECK if(!finishedLoading) return;
 #define NEEDRESTART if(finishedLoading) IsConnectionPropertyChanged = true;
@@ -233,11 +234,11 @@ void PreferencesWindow::on_buttonBox_accepted()
         this->exec();
     } else {
         if (CurrentConfig.uiConfig.language != GlobalConfig.uiConfig.language) {
-            qApp->removeTranslator(Qv2rayTranslator);
-            Qv2rayTranslator = getTranslator(CurrentConfig.uiConfig.language);
+            qApp->removeTranslator(Qv2rayTranslator.get());
+            Qv2rayTranslator = std::move(QvTranslator(CurrentConfig.uiConfig.language).pTranslator);
 
             // Install translator
-            if (!qApp->installTranslator(Qv2rayTranslator)) {
+            if (!qApp->installTranslator(Qv2rayTranslator.get())) {
                 LOG(UI, "Failed to translate UI to: " + CurrentConfig.uiConfig.language)
             } else {
                 messageBus.EmitGlobalSignal(QvMessage::RETRANSLATE);

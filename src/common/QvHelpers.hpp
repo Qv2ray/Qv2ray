@@ -7,7 +7,6 @@
 
 namespace Qv2ray::common
 {
-    QTranslator *getTranslator(const QString &lang);
     QStringList GetFileList(QDir dir);
     QString Base64Encode(QString string);
     QString Base64Decode(QString string);
