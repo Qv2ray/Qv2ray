@@ -38,7 +38,7 @@ namespace Qv2ray::components::pac
         //
         DEBUG(PROXY, "PAC Listening local endpoint: " + address + ":" + QSTRN(port))
         //
-        QString gfwContent = StringFromFile(new QFile(QV2RAY_RULES_GFWLIST_PATH));
+        QString gfwContent = StringFromFile(std::make_unique<QFile>(QV2RAY_RULES_GFWLIST_PATH).get());
         pacContent = ConvertGFWToPAC(gfwContent, proxyString);
         //
         auto result = pacServer->listen(QHostAddress(address), static_cast<ushort>(port));

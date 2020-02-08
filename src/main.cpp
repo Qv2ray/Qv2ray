@@ -329,7 +329,7 @@ int main(int argc, char *argv[])
     }
 
     // Load the config for upgrade, but do not parse it to the struct.
-    auto conf = JsonFromString(StringFromFile(new QFile(QV2RAY_CONFIG_FILE)));
+    auto conf = JsonFromString(StringFromFile(std::make_unique<QFile>(QV2RAY_CONFIG_FILE).get()));
     auto confVersion = conf["config_version"].toVariant().toString().toInt();
 
     if (confVersion > QV2RAY_CONFIG_VERSION) {

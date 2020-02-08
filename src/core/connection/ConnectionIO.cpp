@@ -7,7 +7,7 @@ namespace Qv2ray::core::connection
     {
         CONFIGROOT _ReadConnection(const QString &connection)
         {
-            QString jsonString = StringFromFile(new QFile(connection));
+            QString jsonString = StringFromFile(std::make_unique<QFile>(connection).get());
             auto conf = CONFIGROOT(JsonFromString(jsonString));
 
             if (conf.count() == 0) {

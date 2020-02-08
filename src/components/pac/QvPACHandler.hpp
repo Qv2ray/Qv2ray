@@ -1,6 +1,8 @@
 #pragma once
 #include "qhttpserver.h"
 #include <QObject>
+#include <memory>
+
 namespace Qv2ray::components::pac
 {
     QString ConvertGFWToPAC(const QString &rawContent, const QString &customProxyString);
