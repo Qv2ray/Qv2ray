@@ -9,9 +9,9 @@ class QvOutboundNodeModel : public NodeDataModel
         explicit QvOutboundNodeModel(std::shared_ptr<OutboundNodeData> data);
         ~QvOutboundNodeModel()
         {
-            if (_label) {
-                delete _label;
-            }
+            //if (_label) {
+            //    delete _label;
+            //}
         }
 
         QString caption() const override

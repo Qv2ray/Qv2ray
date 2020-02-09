@@ -23,7 +23,7 @@ namespace Qv2ray::components::pac
 
         private:
             bool isStarted;
-            QHttpServer *pacServer;
+            QHttpServer pacServer;
             QString pacContent;
             QString proxyString;
     };

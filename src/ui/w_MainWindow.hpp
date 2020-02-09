@@ -117,14 +117,14 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         //
         QvHttpRequestHelper *requestHelper;
         QSystemTrayIcon *hTray;
-        PACServer *pacServer;
-        QvTCPingModel *tcpingModel;
+        PACServer pacServer;
+        QvTCPingModel tcpingHelper;
         SyntaxHighlighter *vCoreLogHighlighter;
         SyntaxHighlighter *qvAppLogHighlighter;
         //
         QList<QTextBrowser *> logTextBrowsers;
         int currentLogBrowserId = 0;
-        QTreeWidgetItem *CurrentSelectedItem;
+        QTreeWidgetItem *CurrentSelectedItemPtr;
         //
         // Actions in the system tray menu
         //
