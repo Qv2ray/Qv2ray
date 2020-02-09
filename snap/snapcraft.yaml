@@ -1,0 +1,70 @@
+name: qv2ray
+base: core18
+adopt-info: qv2ray
+
+grade: devel
+confinement: strict
+
+apps:
+  qv2ray:
+      command: kf5-launch qv2ray
+      plugs:
+      - kde-frameworks-5-plug
+      - home
+      - x11
+      - opengl
+      - network
+      - network-bind
+      - unity7
+      - pulseaudio
+      - desktop
+      - desktop-legacy
+      common-id: com.github.Qv2ray
+      desktop: "usr/share/applications/qv2ray.desktop"
+
+plugs:
+  kde-frameworks-5-plug:
+      content: kde-frameworks-5-core18-all
+      interface: content
+      default-provider: kde-frameworks-5-core18
+      target: kf5
+
+parts:
+  qv2ray:
+    plugin: qmake
+    source-type: git
+    source: .
+    parse-info: [usr/share/metainfo/qv2ray.metainfo.xml]
+    build-packages:
+      - build-essential
+    build-snaps:
+      - kde-frameworks-5-core18-sdk
+    configflags:
+      - PREFIX=/usr
+    override-pull: |
+      snapcraftctl pull
+
+      build_number=$(cat Build.Counter)
+      tag=$(git describe --abbrev=0 --tags)
+      version=$version.$(cat Build.Counter)
+
+      snapcraftctl set-version "$version"
+    after:
+      - kde-frameworks-5-env
+      - grpc
+  
+  grpc:
+    plugin: make
+    source-type: git
+    source: https://github.com/grpc/grpc.git
+    source-tag: v1.27.1
+    build-packages:
+      - build-essential
+      - autoconf
+      - libtool
+      - pkg-config
+      - libssl-dev
+
+  kde-frameworks-5-env:
+    plugin: dump
+    source: https://github.com/apachelogger/kf5-snap-env.git
