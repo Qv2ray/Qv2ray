@@ -41,6 +41,7 @@ parts:
       - kde-frameworks-5-core18-sdk
     configflags:
       - PREFIX=/usr
+      - CONFIG+=with_metainfo
     override-pull: |
       snapcraftctl pull
 
