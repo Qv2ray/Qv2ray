@@ -52,7 +52,7 @@ namespace Qv2ray::core::kernel::api
         thread->wait();
 
         // Although thread shouldnot be null, we'll add this check to be safe.
-        if (thread != nullptr) {
+        if (thread) {
             delete thread;
         }
     }

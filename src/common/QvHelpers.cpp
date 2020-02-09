@@ -18,6 +18,12 @@ namespace Qv2ray::common
         return randomString;
     }
 
+    QString StringFromFile(const QString &filePath)
+    {
+        QFile f(filePath);
+        return StringFromFile(&f);
+    }
+
     QString StringFromFile(QFile *source)
     {
         source->open(QFile::ReadOnly);

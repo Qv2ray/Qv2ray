@@ -67,11 +67,10 @@ void ImportConfigWindow::on_qrFromScreenBtn_clicked()
 
     QApplication::processEvents();
     QThread::msleep(static_cast<ulong>(doubleSpinBox->value() * 1000));
-    auto w = new ScreenShotWindow();
-    auto pix = w->DoScreenShot();
-    auto _r = w->result();
+    ScreenShotWindow w;
+    auto pix = w.DoScreenShot();
+    auto _r = w.result();
     // Explicitly delete w to call UNREGISTER_WINDOW
-    delete w;
 
     if (hideQv2ray) {
         messageBus.EmitGlobalSignal(QvMessage::SHOW_WINDOWS);

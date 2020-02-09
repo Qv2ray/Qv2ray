@@ -7,19 +7,14 @@
 namespace Qv2ray::components::pac
 {
 
-    PACServer::PACServer() : QObject()
+    PACServer::PACServer() : QObject(), pacServer(this)
     {
-        pacServer = new QHttpServer();
-        connect(pacServer, &QHttpServer::newRequest, this, &PACServer::onNewRequest);
+        connect(&pacServer, &QHttpServer::newRequest, this, &PACServer::onNewRequest);
     }
     PACServer::~PACServer()
     {
         if (isStarted) {
-            pacServer->close();
-        }
-
-        if (pacServer != nullptr) {
-            delete pacServer;
+            pacServer.close();
         }
     }
     void PACServer::SetProxyString(const QString &proxyString)
@@ -30,18 +25,16 @@ namespace Qv2ray::components::pac
     void PACServer::StartListen()
     {
         LOG(PROXY, "Starting PAC listener")
-        pacServer = new QHttpServer();
-        connect(pacServer, &QHttpServer::newRequest, this, &PACServer::onNewRequest);
         //
         auto address = GlobalConfig.inboundConfig.listenip;
         auto port = GlobalConfig.inboundConfig.pacConfig.port;
         //
         DEBUG(PROXY, "PAC Listening local endpoint: " + address + ":" + QSTRN(port))
         //
-        QString gfwContent = StringFromFile(new QFile(QV2RAY_RULES_GFWLIST_PATH));
+        QString gfwContent = StringFromFile(QV2RAY_RULES_GFWLIST_PATH);
         pacContent = ConvertGFWToPAC(gfwContent, proxyString);
         //
-        auto result = pacServer->listen(QHostAddress(address), static_cast<ushort>(port));
+        auto result = pacServer.listen(QHostAddress(address), static_cast<ushort>(port));
 
         if (result) {
             isStarted = true;
@@ -55,10 +48,9 @@ namespace Qv2ray::components::pac
     void PACServer::StopServer()
     {
         if (isStarted) {
-            pacServer->close();
+            pacServer.close();
             DEBUG(PROXY, "PAC Handler stopped.")
             isStarted = false;
-            delete pacServer;
         }
     }
 
