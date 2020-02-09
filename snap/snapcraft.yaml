@@ -69,7 +69,7 @@ parts:
       tag=$(git describe --abbrev=0 --tags)
       version=$tag.$build_number
       snapcraftctl set-version "$version"
-      sed -i 's/Icon=qv2ray/Icon=icon/g' assets/qv2ray.desktop
+      sed -i 's|^Icon=.*|Icon=/usr/share/icons/hicolor/256x256/apps/qv2ray.png|g' assets/qv2ray.desktop
     after:
       - mytools
       - desktop-qt5
