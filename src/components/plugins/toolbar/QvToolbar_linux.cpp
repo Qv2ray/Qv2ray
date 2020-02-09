@@ -60,6 +60,7 @@ namespace Qv2ray::components::plugins::Toolbar
             }
 
             server->close();
+            delete server;
         }
         void StartMessageQThread()
         {

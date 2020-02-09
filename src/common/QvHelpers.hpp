@@ -19,6 +19,7 @@ namespace Qv2ray::common
     void QvMessageBoxInfo(QWidget *parent, QString title, QString text);
     QMessageBox::StandardButton QvMessageBoxAsk(QWidget *parent, QString title, QString text, QMessageBox::StandardButton extraButtons = QMessageBox::NoButton);
     //
+    QString StringFromFile(const QString &filePath);
     QString StringFromFile(QFile *source);
     bool StringToFile(const QString *text, QFile *target);
     //

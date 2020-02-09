@@ -88,9 +88,7 @@ QvMessageBusSlotImpl(MainWindow)
     }
 }
 
-MainWindow::MainWindow(QWidget *parent):
-    QMainWindow(parent), vinstance(),
-    hTray(new QSystemTrayIcon(this)), vCoreLogHighlighter(), qvAppLogHighlighter()
+MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), vinstance(), hTray(new QSystemTrayIcon(this)), tcpingHelper(3, this)
 {
     MainWindow::mwInstance = this;
     vinstance = new V2rayKernelInstance();
@@ -125,10 +123,8 @@ MainWindow::MainWindow(QWidget *parent):
     //
     qvLogTimerId = startTimer(500);
     //
-    pacServer = new PACServer();
-    tcpingModel = new QvTCPingModel(3, this);
     requestHelper = new QvHttpRequestHelper();
-    connect(tcpingModel, &QvTCPingModel::PingFinished, this, &MainWindow::onPingFinished);
+    connect(&tcpingHelper, &QvTCPingModel::PingFinished, this, &MainWindow::onPingFinished);
     //
     this->setWindowIcon(QIcon(":/assets/icons/qv2ray.png"));
     hTray->setIcon(QIcon(GlobalConfig.uiConfig.useDarkTrayIcon ? ":/assets/icons/ui_dark/tray.png" : ":/assets/icons/ui_light/tray.png"));
@@ -295,8 +291,8 @@ void MainWindow::on_action_StartThis_triggered()
         return;
     }
 
-    CurrentSelectedItem = connectionListWidget->selectedItems().first();
-    CurrentConnectionIdentifier = ItemConnectionIdentifier(CurrentSelectedItem);
+    CurrentSelectedItemPtr = connectionListWidget->selectedItems().first();
+    CurrentConnectionIdentifier = ItemConnectionIdentifier(CurrentSelectedItemPtr);
     on_reconnectButton_clicked();
 }
 void MainWindow::VersionUpdate(QByteArray &data)
@@ -556,14 +552,16 @@ void MainWindow::quit()
         StopProcessingPlugins();
     }
 
-    tcpingModel->StopAllPing();
+    tcpingHelper.StopAllPing();
     on_stopButton_clicked();
     ExitQv2ray();
 }
+
 void MainWindow::on_actionExit_triggered()
 {
     quit();
 }
+
 void MainWindow::ShowAndSetConnection(ConnectionIdentifier fullIdentifier, bool SetConnection, bool ApplyConnection)
 {
     // Check empty again...
@@ -595,7 +593,7 @@ void MainWindow::ShowAndSetConnection(ConnectionIdentifier fullIdentifier, bool 
 
     // Set to currentConnection
     if (SetConnection) {
-        CurrentSelectedItem  = FindItemByIdentifier(fullIdentifier);
+        CurrentSelectedItemPtr  = FindItemByIdentifier(fullIdentifier);
         CurrentConnectionIdentifier = fullIdentifier;
     }
 
@@ -889,9 +887,9 @@ void MainWindow::on_action_RCM_ConvToComplex_triggered()
     bool isChanged = false;
     //
     LOG(UI, "INFO: Opening route editor.")
-    RouteEditor *routeWindow = new RouteEditor(outBoundRoot, this);
-    root = routeWindow->OpenEditor();
-    isChanged = routeWindow->result() == QDialog::Accepted;
+    RouteEditor routeWindow(outBoundRoot, this);
+    root = routeWindow.OpenEditor();
+    isChanged = routeWindow.result() == QDialog::Accepted;
     QString alias = _identifier.connectionName;
 
     if (isChanged) {
@@ -1080,7 +1078,7 @@ void MainWindow::on_connectionListWidget_itemSelectionChanged()
 {
     if (!isRenamingInProgress && !IsSelectionConnectable) {
         // If renaming is not in progress AND our selection is invalid.
-        CurrentSelectedItem = nullptr;
+        CurrentSelectedItemPtr = nullptr;
         SetEditWidgetEnable(false);
         routeCountLabel->setText(tr("N/A"));
         _OutBoundTypeLabel->setText(tr("N/A"));
@@ -1090,7 +1088,7 @@ void MainWindow::on_connectionListWidget_itemSelectionChanged()
     } else {
         if (!connectionListWidget->selectedItems().isEmpty()) {
             on_connectionListWidget_currentItemChanged(connectionListWidget->selectedItems().first(), nullptr);
-            CurrentSelectedItem = connectionListWidget->selectedItems().first();
+            CurrentSelectedItemPtr = connectionListWidget->selectedItems().first();
         }
     }
 }
@@ -1103,8 +1101,8 @@ void MainWindow::onPingFinished(QvTCPingData data)
 
     connections[data.connectionIdentifier].latency = data.avg;
 
-    if (IsConnectableItem(CurrentSelectedItem)) {
-        ShowAndSetConnection(ItemConnectionIdentifier(CurrentSelectedItem), false, false);
+    if (IsConnectableItem(CurrentSelectedItemPtr)) {
+        ShowAndSetConnection(ItemConnectionIdentifier(CurrentSelectedItemPtr), false, false);
     }
 }
 

@@ -172,8 +172,8 @@ bool MainWindow::MWtryStartConnection()
             }
 
             if (canStartPAC) {
-                pacServer->SetProxyString(pacProxyString);
-                pacServer->StartListen();
+                pacServer.SetProxyString(pacProxyString);
+                pacServer.StartListen();
             } else {
                 LOG(PROXY, "Not starting PAC due to previous error.")
             }
@@ -197,7 +197,7 @@ void MainWindow::MWStopConnection()
     QFile(QV2RAY_GENERATED_FILE_PATH).remove();
 
     if (GlobalConfig.inboundConfig.pacConfig.enablePAC) {
-        pacServer->StopServer();
+        pacServer.StopServer();
         LOG(UI, "Stopping PAC server")
     }
 }
@@ -208,7 +208,7 @@ void MainWindow::MWTryPingConnection(const ConnectionIdentifier &alias)
         auto info  = MWGetConnectionInfo(alias);
         QString host = get<0>(info);
         int port = get<1>(info);
-        tcpingModel->StartPing(alias, host, port);
+        tcpingHelper.StartPing(alias, host, port);
     }  catch (...) {
         QvMessageBoxWarn(this, tr("Latency Test"), tr("Failed to test latency for this connection."));
     }
