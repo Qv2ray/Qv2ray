@@ -134,6 +134,7 @@ SOURCES += $$PWD/libs/gen/v2ray_geosite.pb.cc
 HEADERS += $$PWD/libs/gen/v2ray_geosite.pb.h
 
 # General header and source files for gRPC and libQvb
+message(" ")
 use_grpc {
     DEFINES += WITH_LIB_GRPCPP
     message("Qv2ray will use gRPC as API backend")
