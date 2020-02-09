@@ -29,7 +29,6 @@ parts:
     parse-info: [usr/share/metainfo/qv2ray.metainfo.xml]
     build-packages:
       - build-essential
-      - software-properties-common
       - libgrpc++-dev
       - libprotobuf-dev
       - protobuf-compiler-grpc
@@ -44,14 +43,15 @@ parts:
       - PREFIX=/usr
       - CONFIG+=with_metainfo
     override-pull: |
-      snapcraftctl pull
-
-      sudo add-apt-repository ppa:ymshenyu/qt
-      sudo add-apt-repository ppa:ymshenyu/grpc
+      set -x
+      echo "deb http://ppa.launchpad.net/ymshenyu/qt5/ubuntu bionic main" | \
+      sudo tee /etc/apt/sources.list.d/qt.list
+      echo "deb http://ppa.launchpad.net/ymshenyu/grpc/ubuntu bionic main" | \
+      sudo tee /etc/apt/sources.list.d/grpc.list
+      sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 281f24e574404629aa3bda1a4f10c386c55cdb04
       sudo apt-get update
-
+      snapcraftctl pull
       build_number=$(cat Build.Counter)
       tag=$(git describe --abbrev=0 --tags)
       version=$version.$(cat Build.Counter)
-
       snapcraftctl set-version "$version"
