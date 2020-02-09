@@ -290,7 +290,7 @@ int main(int argc, char *argv[])
     LOG("LICENCE", NEWLINE "This program comes with ABSOLUTELY NO WARRANTY." NEWLINE
         "This is free software, and you are welcome to redistribute it" NEWLINE
         "under certain conditions." NEWLINE NEWLINE
-        "Copyright (c) 2019-2020 Qv2ray Developemnt Group." NEWLINE
+        "Copyright (c) 2019-2020 Qv2ray Development Group." NEWLINE
         NEWLINE NEWLINE
         "Libraries that have been used in Qv2ray are listed below (Sorted by date added):" NEWLINE
         "Copyright (c) 2020 dridk (@dridk): X2Struct (Apache)" NEWLINE
