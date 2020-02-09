@@ -97,7 +97,6 @@ parts:
       - try: [appmenu-qt5] # not available on core18
       - locales-all
       - xdg-user-dirs
-#      - fcitx-frontend-qt5
     after:
       - mytools
     
