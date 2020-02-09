@@ -5,7 +5,7 @@ icon: assets/icons/qv2ray.png
 license: GPL-3.0
 
 grade: devel
-confinement: strict
+confinement: devmode
 
 plugs:
   gsettings:
@@ -27,19 +27,6 @@ apps:
       command: bin/desktop-launch qv2ray
       environment:
         QT_QPA_PLATFORMTHEME: gtk3
-      plugs:
-      - home
-      - x11
-      - opengl
-      - network
-      - network-bind
-      - unity7
-      - pulseaudio
-      - desktop
-      - desktop-legacy
-      - gsettings
-      - network-control
-      - network-manager
       common-id: com.github.Qv2ray
       desktop: "usr/share/applications/qv2ray.desktop"
 
