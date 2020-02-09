@@ -1,6 +1,8 @@
 name: qv2ray
 base: core18
 adopt-info: qv2ray
+icon: assets/icons/qv2ray.png
+license: GPL-3.0
 
 grade: devel
 confinement: strict
@@ -30,6 +32,9 @@ parts:
     build-packages:
       - build-essential
     stage-packages:
+      - libc6
+      - libgcc1
+      - libstdc++6
       - libssl1.1
       - libgrpc++1
       - libprotobuf17
