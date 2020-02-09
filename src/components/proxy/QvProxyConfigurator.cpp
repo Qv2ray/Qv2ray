@@ -199,27 +199,33 @@ namespace Qv2ray::components::proxy
         }
 
 #elif defined(Q_OS_LINUX)
-        bool result = true;
+        QStringList actions;
+        auto proxyMode = usePAC ? "auto" : "manual";
+        actions << QString("gsettings set org.gnome.system.proxy mode '%1'").arg(proxyMode);
 
         if (usePAC) {
-            result = result && QProcess::execute("gsettings set org.gnome.system.proxy mode 'auto'") == QProcess::NormalExit;
-            result = result && QProcess::execute("gsettings set org.gnome.system.proxy autoconfig-url '" + address + "'") == QProcess::NormalExit;
+            actions << QString("gsettings set org.gnome.system.proxy autoconfig-url '%1'").arg(address);
         } else {
-            result = result && QProcess::execute("gsettings set org.gnome.system.proxy mode 'manual'") == QProcess::NormalExit;
-
             if (hasHTTP) {
-                result = result && QProcess::execute("gsettings set org.gnome.system.proxy.http host '" + address + "'") == QProcess::NormalExit;
-                result = result && QProcess::execute("gsettings set org.gnome.system.proxy.http port " + QSTRN(httpPort)) == QProcess::NormalExit;
+                actions << QString("gsettings set org.gnome.system.proxy.http host '%1'").arg(address);
+                actions << QString("gsettings set org.gnome.system.proxy.http port %1").arg(httpPort);
                 //
-                result = result && QProcess::execute("gsettings set org.gnome.system.proxy.https host '" + address + "'") == QProcess::NormalExit;
-                result = result && QProcess::execute("gsettings set org.gnome.system.proxy.https port " + QSTRN(httpPort)) == QProcess::NormalExit;
+                actions << QString("gsettings set org.gnome.system.proxy.https host '%1'").arg(address);
+                actions << QString("gsettings set org.gnome.system.proxy.https port %1").arg(httpPort);;
             }
 
             if (hasSOCKS) {
-                result = result && QProcess::execute("gsettings set org.gnome.system.proxy.socks host '" + address + "'") == QProcess::NormalExit;
-                result = result && QProcess::execute("gsettings set org.gnome.system.proxy.socks port " + QSTRN(socksPort)) == QProcess::NormalExit;
+                actions << QString("gsettings set org.gnome.system.proxy.socks host '%1'").arg(address);
+                actions << QString("gsettings set org.gnome.system.proxy.socks port %1").arg(socksPort);
             }
         }
+
+        // note: do not use std::all_of / any_of / none_of,
+        // because those are short-circuit and cannot guarantee atomicity.
+        auto result = std::count_if(actions.cbegin(), actions.cend(), [](const QString & action) {
+            DEBUG(PROXY, action)
+            return QProcess::execute(action) == QProcess::NormalExit;
+        }) == actions.size();
 
         if (!result) {
             LOG(PROXY, "Something wrong happens when setting system proxy -> Gnome ONLY.")
