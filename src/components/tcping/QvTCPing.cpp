@@ -94,6 +94,7 @@ namespace Qv2ray::components::tcping
                 successCount++;
                 auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
                 double ms = milliseconds.count();
+                ms = ms < 0 ? 0 : ms;
                 data.avg += ms;
                 data.min = min(data.min, ms);
                 data.max = max(data.max, ms);
@@ -172,7 +173,7 @@ namespace Qv2ray::components::tcping
             // So we add "::" here
             connect_result = ::connect(fd, addr->ai_addr, addr->ai_addrlen);
 
-            if (connect_result) {
+            if (connect_result == 0) {
                 *end = system_clock::now();
 #ifdef _WIN32
                 closesocket(fd);

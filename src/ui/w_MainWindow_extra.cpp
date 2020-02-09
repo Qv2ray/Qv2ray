@@ -104,7 +104,7 @@ void MainWindow::MWSetSystemProxy()
             }
         } else {
             // Not using PAC
-            if (!httpEnabled && !socksEnabled) {
+            if (httpEnabled || socksEnabled) {
                 // Not use PAC, System proxy should use HTTP
                 LOG(PROXY, "Setting up system proxy.")
                 // A 'proxy host' should be a host WITHOUT `http://` uri scheme
