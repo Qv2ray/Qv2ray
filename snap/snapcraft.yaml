@@ -32,26 +32,26 @@ parts:
       - libgrpc++-dev
       - libprotobuf-dev
       - protobuf-compiler-grpc
-    stage-packages:
-      - libgrpc++1
-      - libprotobuf17
-      - libqt5core5a
-      - libqt5gui5
-      - libqt5network5
-      - libqt5widgets5
     options:
       - PREFIX=/usr
       - CONFIG+=with_metainfo
     override-pull: |
-      set -x
-      echo "deb http://ppa.launchpad.net/ymshenyu/qt5/ubuntu bionic main" | \
-      sudo tee /etc/apt/sources.list.d/qt.list
-      echo "deb http://ppa.launchpad.net/ymshenyu/grpc/ubuntu bionic main" | \
-      sudo tee /etc/apt/sources.list.d/grpc.list
-      sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 281f24e574404629aa3bda1a4f10c386c55cdb04
-      sudo apt-get update
       snapcraftctl pull
       build_number=$(cat Build.Counter)
       tag=$(git describe --abbrev=0 --tags)
       version=$version.$(cat Build.Counter)
       snapcraftctl set-version "$version"
+    after:
+      - mytools
+  
+  mytools:
+    plugin: nil
+    override-pull: |
+      echo "deb http://ppa.launchpad.net/ymshenyu/qt5/ubuntu bionic main" >> /etc/apt/sources.list.d/tools.list
+      echo "deb http://ppa.launchpad.net/ymshenyu/grpc/ubuntu bionic main" >> /etc/apt/sources.list.d/tools.list
+      sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 281f24e574404629aa3bda1a4f10c386c55cdb04
+      sudo apt-get update
+      snapcraftctl pull
+    override-build: |
+      snapcraftctl build
+      sudo apt upgrade -y
