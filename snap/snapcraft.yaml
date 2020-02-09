@@ -7,9 +7,26 @@ license: GPL-3.0
 grade: devel
 confinement: strict
 
+plugs:
+  gsettings:
+  gtk-3-themes:
+    interface: content
+    target: $SNAP/data-dir/themes
+    default-provider: gtk-common-themes
+  icon-themes:
+    interface: content
+    target: $SNAP/data-dir/icons
+    default-provider: gtk-common-themes
+  sound-themes:
+    interface: content
+    target: $SNAP/data-dir/sounds
+    default-provider: gtk-common-themes
+
 apps:
   qv2ray:
-      command: usr/bin/qv2ray
+      command: bin/desktop-launch qv2ray
+      environment:
+        QT_QPA_PLATFORMTHEME: gtk3
       plugs:
       - home
       - x11
@@ -20,6 +37,7 @@ apps:
       - pulseaudio
       - desktop
       - desktop-legacy
+      - gsettings
       common-id: com.github.Qv2ray
       desktop: "usr/share/applications/qv2ray.desktop"
 
@@ -32,7 +50,6 @@ parts:
     build-packages:
       - build-essential
     stage-packages:
-      - libc6
       - libgcc1
       - libstdc++6
       - libssl1.1
@@ -52,6 +69,42 @@ parts:
       tag=$(git describe --abbrev=0 --tags)
       version=$tag.$build_number
       snapcraftctl set-version "$version"
+      sed -i 's/Icon=qv2ray/Icon=${SNAP}\/meta\/gui\/icon.png/g' assets/qv2ray.desktop
+    after:
+      - mytools
+      - desktop-qt5
+
+  desktop-qt5:
+    source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
+    source-subdir: qt
+    plugin: make
+    make-parameters: ["FLAVOR=qt5"]
+    build-packages:
+      - build-essential
+      - qtbase5-dev
+      - dpkg-dev
+    stage-packages:
+      - libxkbcommon0
+      - ttf-ubuntu-font-family
+      - dmz-cursor-theme
+      - light-themes
+      - adwaita-icon-theme
+      - gnome-themes-standard
+      - shared-mime-info
+      - libqt5gui5
+      - libgdk-pixbuf2.0-0
+      - libqt5svg5 # for loading icon themes which are svg
+      - try: [appmenu-qt5] # not available on core18
+      - locales-all
+      - xdg-user-dirs
+      - fcitx-frontend-qt5
+    after:
+      - mytools
+    
+  qt5-gtk-platform:
+    plugin: nil
+    stage-packages:
+      - qt5-gtk-platformtheme
     after:
       - mytools
   
