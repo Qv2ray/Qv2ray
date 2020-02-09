@@ -145,8 +145,10 @@ namespace Qv2ray::core::kernel
         }
 
         // Write the final configuration to the disk.
+
         QString json = JsonToString(root);
-        StringToFile(&json, new QFile(QV2RAY_GENERATED_FILE_PATH));
+        QFile configFile(QV2RAY_GENERATED_FILE_PATH);
+        StringToFile(&json, &configFile);
         //
         auto filePath = QV2RAY_GENERATED_FILE_PATH;
 

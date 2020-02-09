@@ -8,6 +8,12 @@ class QvRuleNodeDataModel : public NodeDataModel
         Q_OBJECT
     public:
         QvRuleNodeDataModel(std::shared_ptr<RuleNodeData> data);
+        ~QvRuleNodeDataModel()
+        {
+            if (_label) {
+                delete _label;
+            }
+        }
 
         QString caption() const override
         {

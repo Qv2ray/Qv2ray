@@ -7,7 +7,7 @@ namespace Qv2ray::core::connection
     {
         CONFIGROOT _ReadConnection(const QString &connection)
         {
-            QString jsonString = StringFromFile(std::make_unique<QFile>(connection).get());
+            QString jsonString = StringFromFile(connection);
             auto conf = CONFIGROOT(JsonFromString(jsonString));
 
             if (conf.count() == 0) {
@@ -71,17 +71,18 @@ namespace Qv2ray::core::connection
         bool SaveConnectionConfig(CONFIGROOT obj, QString *alias, bool canOverrideExisting)
         {
             auto str = JsonToString(obj);
-            QFile *config = new QFile(QV2RAY_CONFIG_DIR + *alias + QV2RAY_CONFIG_FILE_EXTENSION);
+            auto fullPath = QV2RAY_CONFIG_DIR + *alias + QV2RAY_CONFIG_FILE_EXTENSION;
 
             // If there's already a file AND we CANNOT override existing file.
-            if (config->exists() && !canOverrideExisting) {
+            if (QFile::exists(fullPath) && !canOverrideExisting) {
                 // Alias is a pointer to a QString.
                 DeducePossibleFileName(QV2RAY_CONFIG_DIR, alias, QV2RAY_CONFIG_FILE_EXTENSION);
-                config = new QFile(QV2RAY_CONFIG_DIR + *alias + QV2RAY_CONFIG_FILE_EXTENSION);
+                fullPath = QV2RAY_CONFIG_DIR + *alias + QV2RAY_CONFIG_FILE_EXTENSION;
             }
 
             LOG(SETTINGS, "Saving a config named: " + *alias)
-            return StringToFile(&str, config);
+            QFile config(fullPath);
+            return StringToFile(&str, &config);
         }
 
         bool SaveSubscriptionConfig(CONFIGROOT obj, const QString &subscription, QString *name)
@@ -93,15 +94,15 @@ namespace Qv2ray::core::connection
                 fName = RemoveInvalidFileName(fName);
             }
 
-            QFile *config = new QFile(QV2RAY_SUBSCRIPTION_DIR + subscription + "/" + fName + QV2RAY_CONFIG_FILE_EXTENSION);
+            QFile config(QV2RAY_SUBSCRIPTION_DIR + subscription + "/" + fName + QV2RAY_CONFIG_FILE_EXTENSION);
 
             // If there's already a file. THIS IS EXTREMELY RARE
-            if (config->exists()) {
+            if (config.exists()) {
                 LOG(FILEIO, "Trying to overrwrite an existing subscription config file. THIS IS RARE")
             }
 
             LOG(SETTINGS, "Saving a subscription named: " + fName)
-            bool result = StringToFile(&str, config);
+            bool result = StringToFile(&str, &config);
 
             if (!result) {
                 LOG(FILEIO, "Failed to save a connection config from subscription: " + subscription + ", name: " + fName)

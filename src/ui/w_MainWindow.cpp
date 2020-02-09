@@ -889,9 +889,9 @@ void MainWindow::on_action_RCM_ConvToComplex_triggered()
     bool isChanged = false;
     //
     LOG(UI, "INFO: Opening route editor.")
-    RouteEditor *routeWindow = new RouteEditor(outBoundRoot, this);
-    root = routeWindow->OpenEditor();
-    isChanged = routeWindow->result() == QDialog::Accepted;
+    RouteEditor routeWindow(outBoundRoot, this);
+    root = routeWindow.OpenEditor();
+    isChanged = routeWindow.result() == QDialog::Accepted;
     QString alias = _identifier.connectionName;
 
     if (isChanged) {

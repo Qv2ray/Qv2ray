@@ -22,7 +22,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent),
 {
     setupUi(this);
     QvMessageBusConnect(PreferencesWindow);
-    textBrowser->setHtml(StringFromFile(new QFile(":/assets/credit.html")));
+    textBrowser->setHtml(StringFromFile(":/assets/credit.html"));
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
     //
     // Set network Toolbar page state.
@@ -820,46 +820,46 @@ void PreferencesWindow::on_pacGoBtn_clicked()
     QString fileContent;
     pacGoBtn->setEnabled(false);
     gfwListCB->setEnabled(false);
-    auto request = new QvHttpRequestHelper();
+    QvHttpRequestHelper request;
     LOG(PROXY, "Downloading GFWList file.")
     bool withProxy = getGFWListWithProxyCB->isChecked();
 
     switch (gfwListCB->currentIndex()) {
         case 0:
             gfwLocation = "https://gitlab.com/gfwlist/gfwlist/raw/master/gfwlist.txt";
-            fileContent = QString::fromUtf8(request->syncget(gfwLocation, withProxy));
+            fileContent = QString::fromUtf8(request.syncget(gfwLocation, withProxy));
             break;
 
         case 1:
             gfwLocation = "https://pagure.io/gfwlist/raw/master/f/gfwlist.txt";
-            fileContent = QString::fromUtf8(request->syncget(gfwLocation, withProxy));
+            fileContent = QString::fromUtf8(request.syncget(gfwLocation, withProxy));
             break;
 
         case 2:
             gfwLocation = "http://repo.or.cz/gfwlist.git/blob_plain/HEAD:/gfwlist.txt";
-            fileContent = QString::fromUtf8(request->syncget(gfwLocation, withProxy));
+            fileContent = QString::fromUtf8(request.syncget(gfwLocation, withProxy));
             break;
 
         case 3:
             gfwLocation = "https://bitbucket.org/gfwlist/gfwlist/raw/HEAD/gfwlist.txt";
-            fileContent = QString::fromUtf8(request->syncget(gfwLocation, withProxy));
+            fileContent = QString::fromUtf8(request.syncget(gfwLocation, withProxy));
             break;
 
         case 4:
             gfwLocation = "https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt";
-            fileContent = QString::fromUtf8(request->syncget(gfwLocation, withProxy));
+            fileContent = QString::fromUtf8(request.syncget(gfwLocation, withProxy));
             break;
 
         case 5:
             gfwLocation = "https://git.tuxfamily.org/gfwlist/gfwlist.git/plain/gfwlist.txt";
-            fileContent = QString::fromUtf8(request->syncget(gfwLocation, withProxy));
+            fileContent = QString::fromUtf8(request.syncget(gfwLocation, withProxy));
             break;
 
         case 6:
             QFileDialog d;
             d.exec();
             auto file = d.getOpenFileUrl(this, tr("Select GFWList in base64")).toString();
-            fileContent = StringFromFile(new QFile(file));
+            fileContent = StringFromFile(file);
             break;
     }
 
