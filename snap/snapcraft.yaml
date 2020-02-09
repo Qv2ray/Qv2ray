@@ -32,8 +32,7 @@ parts:
       - libgrpc++-dev
       - libprotobuf-dev
       - protobuf-compiler-grpc
-      - qt5-default
-      - qttools5-dev-tools
+      - 
     stage-packages:
       - libgrpc++1
       - libprotobuf17
@@ -64,4 +63,5 @@ parts:
       snapcraftctl pull
     override-build: |
       snapcraftctl build
+      sudo apt install qttools5-dev-tools qt5-default -y
       sudo apt upgrade -y
