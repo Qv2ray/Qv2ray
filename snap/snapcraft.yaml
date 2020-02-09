@@ -30,6 +30,7 @@ parts:
     build-packages:
       - build-essential
     stage-packages:
+      - libssl1.1
       - libgrpc++1
       - libprotobuf17
       - libqt5core5a
@@ -44,7 +45,7 @@ parts:
       snapcraftctl pull
       build_number=$(cat Build.Counter)
       tag=$(git describe --abbrev=0 --tags)
-      version=$version.$(cat Build.Counter)
+      version=$tag.$(cat Build.Counter)
       snapcraftctl set-version "$version"
     after:
       - mytools
