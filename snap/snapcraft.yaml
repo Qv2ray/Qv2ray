@@ -32,6 +32,8 @@ parts:
       - libgrpc++-dev
       - libprotobuf-dev
       - protobuf-compiler-grpc
+      - qt5-default
+      - qttools5-dev-tools
     stage-packages:
       - libgrpc++1
       - libprotobuf17
@@ -42,6 +44,7 @@ parts:
     options:
       - PREFIX=/usr
       - CONFIG+=with_metainfo
+      - CONFIG+=use_grpc
     override-pull: |
       snapcraftctl pull
       build_number=$(cat Build.Counter)
