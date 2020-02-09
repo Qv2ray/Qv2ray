@@ -45,7 +45,7 @@ parts:
       snapcraftctl pull
       build_number=$(cat Build.Counter)
       tag=$(git describe --abbrev=0 --tags)
-      version=$tag.$(cat Build.Counter)
+      version=$tag.$build_number
       snapcraftctl set-version "$version"
     after:
       - mytools
