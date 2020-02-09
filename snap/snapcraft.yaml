@@ -39,7 +39,7 @@ parts:
       - build-essential
     build-snaps:
       - kde-frameworks-5-core18-sdk
-    configflags:
+    options:
       - PREFIX=/usr
       - CONFIG+=with_metainfo
     override-pull: |
