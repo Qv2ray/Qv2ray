@@ -1,5 +1,5 @@
 @echo off
-cd tools
+cd ..\tools
 mkdir %~dp0\..\libs\gen
 
 echo.
