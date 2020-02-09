@@ -7,9 +7,8 @@ confinement: strict
 
 apps:
   qv2ray:
-      command: kf5-launch qv2ray
+      command: usr/bin/qv2ray
       plugs:
-      - kde-frameworks-5-plug
       - home
       - x11
       - opengl
@@ -22,13 +21,6 @@ apps:
       common-id: com.github.Qv2ray
       desktop: "usr/share/applications/qv2ray.desktop"
 
-plugs:
-  kde-frameworks-5-plug:
-      content: kde-frameworks-5-core18-all
-      interface: content
-      default-provider: kde-frameworks-5-core18
-      target: kf5
-
 parts:
   qv2ray:
     plugin: qmake
@@ -37,35 +29,29 @@ parts:
     parse-info: [usr/share/metainfo/qv2ray.metainfo.xml]
     build-packages:
       - build-essential
-    build-snaps:
-      - kde-frameworks-5-core18-sdk
+      - software-properties-common
+      - libgrpc++-dev
+      - libprotobuf-dev
+      - protobuf-compiler-grpc
+    stage-packages:
+      - libgrpc++1
+      - libprotobuf17
+      - libqt5core5a
+      - libqt5gui5
+      - libqt5network5
+      - libqt5widgets5
     options:
       - PREFIX=/usr
       - CONFIG+=with_metainfo
     override-pull: |
       snapcraftctl pull
 
+      sudo add-apt-repository ppa:ymshenyu/qt
+      sudo add-apt-repository ppa:ymshenyu/grpc
+      sudo apt-get update
+
       build_number=$(cat Build.Counter)
       tag=$(git describe --abbrev=0 --tags)
       version=$version.$(cat Build.Counter)
 
       snapcraftctl set-version "$version"
-    after:
-      - kde-frameworks-5-env
-      - grpc
-  
-  grpc:
-    plugin: make
-    source-type: git
-    source: https://github.com/grpc/grpc.git
-    source-tag: v1.27.1
-    build-packages:
-      - build-essential
-      - autoconf
-      - libtool
-      - pkg-config
-      - libssl-dev
-
-  kde-frameworks-5-env:
-    plugin: dump
-    source: https://github.com/apachelogger/kf5-snap-env.git
