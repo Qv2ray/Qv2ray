@@ -416,7 +416,6 @@ with_metainfo {
     appdataXml.files += ./assets/qv2ray.metainfo.xml
     appdataXml.path = $$PREFIX/share/metainfo/
     INSTALLS += appdataXml
-    DEFINES += WITH_FLATHUB_CONFIG_PATH
 }
 
 qmake_lupdate {
