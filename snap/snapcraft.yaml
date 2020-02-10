@@ -38,11 +38,6 @@ parts:
     parse-info: [usr/share/metainfo/qv2ray.metainfo.xml]
     build-packages:
       - build-essential
-      - qttools5-dev-tools
-      - qt5-default
-      - libgrpc++-dev
-      - libprotobuf-dev
-      - protobuf-compiler-grpc
     stage-packages:
       - libgcc1
       - libstdc++6
@@ -118,4 +113,4 @@ parts:
     override-build: |
       snapcraftctl build
       sudo apt upgrade -y
-      sudo apt dist-upgrade -y
+      sudo apt install -y qttools5-dev-tools qt5-default libgrpc++-dev libprotobuf-dev protobuf-compiler-grpc
