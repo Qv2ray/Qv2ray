@@ -166,7 +166,7 @@ namespace Qv2ray::components::autolaunch
             ts.setCodec("UTF-8");
             ts << QLatin1String("[Desktop Entry]") << endl
                << QLatin1String("Name=") << QApplication::applicationName() << endl
-               << QLatin1String("GenericName=") << QLatin1String("File Synchronizer") << endl
+               << QLatin1String("GenericName=") << QLatin1String("V2ray Frontend") << endl
                << QLatin1String("Exec=") << QCoreApplication::applicationFilePath() << endl
                << QLatin1String("Terminal=") << "false" << endl
                << QLatin1String("Icon=") << "qv2ray" << endl // always use lowercase for icons
