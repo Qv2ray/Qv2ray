@@ -5,6 +5,7 @@ namespace Qv2ray::base
 {
     // Forwarded from QvTinyLog
     static QQueue<QString> __loggerBuffer;
+    static QMutex mutex;
 
     void __QV2RAY_LOG_FUNC__(int type, const std::string &func, int line, const QString &module, const QString &log)
     {
@@ -28,8 +29,10 @@ namespace Qv2ray::base
             }
         }
 
+        mutex.lock();
         cout << logString.toStdString() << endl;
         __loggerBuffer.enqueue(logString + NEWLINE);
+        mutex.unlock();
     }
 
     const QString readLastLog()
