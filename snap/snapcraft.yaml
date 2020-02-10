@@ -55,7 +55,7 @@ parts:
       - CONFIG+=use_grpc
     override-pull: |
       snapcraftctl pull
-      build_number=$(cat Build.Counter)
+      build_number=$(cat makespec/BUILDVERSION)
       tag=$(git describe --abbrev=0 --tags)
       version=$tag.$build_number
       snapcraftctl set-version "$version"
