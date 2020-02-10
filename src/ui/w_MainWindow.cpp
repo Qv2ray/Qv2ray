@@ -572,7 +572,7 @@ void MainWindow::ShowAndSetConnection(ConnectionIdentifier fullIdentifier, bool 
     // --------- BRGIN Show Connection
     auto conf = connections[fullIdentifier];
     //
-    auto isComplexConfig = CheckIsComplexConfig(conf.config);
+    auto isComplexConfig = IsComplexConfig(conf.config);
     routeCountLabel->setText(isComplexConfig ? tr("Complex") : tr("Simple"));
 
     if (conf.latency == 0.0) {
@@ -833,7 +833,7 @@ void MainWindow::on_editConfigButton_clicked()
     CONFIGROOT root;
     bool isChanged = false;
 
-    if (CheckIsComplexConfig(outBoundRoot)) {
+    if (IsComplexConfig(outBoundRoot)) {
         LOG(UI, "INFO: Opening route editor.")
         RouteEditor routeWindow(outBoundRoot, this);
         root = routeWindow.OpenEditor();
@@ -974,7 +974,7 @@ void MainWindow::on_shareBtn_clicked()
     auto root = connections[_identifier].config;
     auto type = get<2>(GetConnectionInfo(root));
 
-    if (!CheckIsComplexConfig(root) && (type == "vmess" || type == "shadowsocks")) {
+    if (!IsComplexConfig(root) && (type == "vmess" || type == "shadowsocks")) {
         ConfigExporter v(root, _identifier, this);
         v.OpenExport();
     } else {
@@ -1031,7 +1031,7 @@ void MainWindow::on_duplicateBtn_clicked()
     CONFIGROOT conf;
     // Alias may change.
     QString alias = _identifier.connectionName;
-    bool isComplex = CheckIsComplexConfig(connections[_identifier].config);
+    bool isComplex = IsComplexConfig(connections[_identifier].config);
 
     if (connections[_identifier].configType == CONNECTION_REGULAR) {
         conf = ConvertConfigFromFile(QV2RAY_CONFIG_DIR + _identifier.connectionName + QV2RAY_CONFIG_FILE_EXTENSION, isComplex);

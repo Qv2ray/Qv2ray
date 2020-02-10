@@ -284,7 +284,7 @@ namespace Qv2ray::core::connection
             // BE EXTREME CAREFUL when changing these code below...
             // See: https://github.com/lhy0403/Qv2ray/issues/129
             // routeCountLabel in Mainwindow makes here failed to ENOUGH-ly check the routing tables
-            bool isComplex = CheckIsComplexConfig(root);
+            bool isComplex = IsComplexConfig(root);
 
             if (isComplex) {
                 // For some config files that has routing entries already.

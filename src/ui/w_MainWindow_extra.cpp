@@ -79,7 +79,7 @@ void MainWindow::MWSetSystemProxy()
     bool socksEnabled = GlobalConfig.inboundConfig.useSocks;
     //
     // Set system proxy if necessary
-    bool isComplex = CheckIsComplexConfig(connections[CurrentConnectionIdentifier].config);
+    bool isComplex = IsComplexConfig(connections[CurrentConnectionIdentifier].config);
 
     if (!isComplex) {
         // Is simple config and we will try to set system proxy.
