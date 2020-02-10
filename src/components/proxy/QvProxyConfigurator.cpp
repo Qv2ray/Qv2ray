@@ -280,7 +280,6 @@ namespace Qv2ray::components::proxy
         if (nullptr == list.pOptions) {
             // Return FALSE if the memory wasn't allocated.
             LOG(PROXY, "Failed to allocat memory in DisableConnectionProxy()")
-            return FALSE;
         }
 
         // Set flags.
@@ -292,7 +291,6 @@ namespace Qv2ray::components::proxy
         delete [] list.pOptions;
         InternetSetOption(nullptr, INTERNET_OPTION_SETTINGS_CHANGED, nullptr, 0);
         InternetSetOption(nullptr, INTERNET_OPTION_REFRESH, nullptr, 0);
-        return bReturn;
 #elif defined(Q_OS_LINUX)
         QProcess::execute("gsettings set org.gnome.system.proxy mode 'none'");
 #else
