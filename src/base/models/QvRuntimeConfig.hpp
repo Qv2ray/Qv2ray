@@ -7,6 +7,6 @@ namespace Qv2ray::base
 {
     struct Qv2rayRuntimeConfig {
         //
-        bool screenShotHideQv2ray;
+        bool screenShotHideQv2ray = false;
     };
 }
