@@ -1,5 +1,6 @@
 #pragma once
 #include "base/Qv2rayBase.hpp"
+#include <limits>
 
 namespace Qv2ray::components::tcping
 {
@@ -9,7 +10,7 @@ namespace Qv2ray::components::tcping
         int port;
         QString errorMessage;
         int total, succeed, failed;
-        double min = 999999999999999.0, max = 0.0, avg = 0.0;
+        double min = numeric_limits<double>::max(), max = 0.0, avg = 0.0;
     };
 
     class QvTCPingModel : public QObject
