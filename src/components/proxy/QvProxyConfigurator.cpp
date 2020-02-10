@@ -207,7 +207,6 @@ namespace Qv2ray::components::proxy
 
         if (!__SetProxyOptions(proxyStrW, usePAC)) {
             LOG(PROXY, "Failed to set proxy.")
-            return false;
         }
 
         __QueryProxyOptions();
