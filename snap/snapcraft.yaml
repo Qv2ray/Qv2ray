@@ -1,5 +1,5 @@
 name: qv2ray
-base: core20
+base: core18
 adopt-info: qv2ray
 icon: assets/icons/qv2ray.png
 license: GPL-3.0
@@ -50,8 +50,6 @@ parts:
       - libqt5widgets5
       - fonts-noto-cjk
       - libglib2.0-bin
-      - fcitx-frontend-gtk2
-      - fcitx-frontend-gtk3
     options:
       - PREFIX=/usr
       - CONFIG+=with_metainfo
@@ -64,6 +62,7 @@ parts:
       snapcraftctl set-version "$version"
       sed -i 's|^Icon=.*|Icon=/usr/share/icons/hicolor/256x256/apps/qv2ray.png|g' assets/qv2ray.desktop
     after:
+      - mytools
       - desktop-qt5
 
   desktop-qt5:
@@ -90,8 +89,28 @@ parts:
       - locales-all
       - xdg-user-dirs
       - fcitx-frontend-qt5
+    after:
+      - mytools
   
   qt5-gtk-platform:
     plugin: nil
     stage-packages:
       - qt5-gtk-platformtheme
+    after:
+      - mytools
+  
+  mytools:
+    plugin: nil
+    build-packages:
+      - dirmngr
+    override-pull: |
+      echo "deb http://ppa.launchpad.net/ymshenyu/qv2ray-deps/ubuntu bionic main" >> /etc/apt/sources.list.d/tools.list
+      echo "deb http://archive.neon.kde.org/user bionic main" >> /etc/apt/sources.list.d/tools.list
+      sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E6D4736255751E5D
+      sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 281f24e574404629aa3bda1a4f10c386c55cdb04
+      sudo apt-get update
+      snapcraftctl pull
+    override-build: |
+      snapcraftctl build
+      sudo apt upgrade -y
+      sudo apt install -y qttools5-dev-tools qt5-default libgrpc++-dev libprotobuf-dev protobuf-compiler-grpc
