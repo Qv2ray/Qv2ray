@@ -404,12 +404,11 @@ void PreferencesWindow::on_cancelIgnoreVersionBtn_clicked()
 void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
 {
     LOADINGCHECK
-#ifdef __linux
-    LOADINGCHECK
+#ifdef Q_OS_LINUX
 
-    // Set UID and GID for linux
+    // Setting up tProxy for linux
     // Steps:
-    // --> 1. Copy V2ray core files to the #CONFIG_DIR#/vcore/ dir.
+    // --> 1. Copy V2ray core files to the QV2RAY_TPROXY_VCORE_PATH and QV2RAY_TPROXY_VCTL_PATH dir.
     // --> 2. Change GlobalConfig.v2CorePath.
     // --> 3. Call `pkexec setcap CAP_NET_ADMIN,CAP_NET_RAW,CAP_NET_BIND_SERVICE=eip` on the V2ray core.
     if (arg1 == Qt::Checked) {
@@ -874,6 +873,12 @@ void PreferencesWindow::on_pacGoBtn_clicked()
 
         case 6:
             auto file = QFileDialog::getOpenFileName(this, tr("Select GFWList in base64"));
+
+            if (file.isEmpty()) {
+                QvMessageBoxWarn(this, tr("Download GFWList"), tr("Operation is cancelled."));
+                return;
+            }
+
             fileContent = StringFromFile(file);
             break;
     }
