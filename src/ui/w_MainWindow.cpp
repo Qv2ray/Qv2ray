@@ -88,7 +88,7 @@ QvMessageBusSlotImpl(MainWindow)
     }
 }
 
-MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), vinstance(), hTray(new QSystemTrayIcon(this)), tcpingHelper(3, this)
+MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), vinstance(), hTray(this), tcpingHelper(3, this)
 {
     MainWindow::mwInstance = this;
     vinstance = new V2rayKernelInstance();
@@ -96,7 +96,8 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), vinstance(), hTray
     connect(vinstance, &V2rayKernelInstance::onProcessErrored, [this] {
         on_stopButton_clicked();
         this->show();
-        QvMessageBoxWarn(this, tr("V2ray vcore terminated."), tr("V2ray vcore terminated unexpectedly.") + NEWLINE + NEWLINE +
+        QvMessageBoxWarn(this, tr("V2ray vcore terminated."),
+                         tr("V2ray vcore terminated unexpectedly.") + NEWLINE + NEWLINE +
                          tr("To solve the problem, read the V2ray log in the log text browser."));
     });
     //
@@ -127,7 +128,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), vinstance(), hTray
     connect(&tcpingHelper, &QvTCPingModel::PingFinished, this, &MainWindow::onPingFinished);
     //
     this->setWindowIcon(QIcon(":/assets/icons/qv2ray.png"));
-    hTray->setIcon(QIcon(GlobalConfig.uiConfig.useDarkTrayIcon ? ":/assets/icons/ui_dark/tray.png" : ":/assets/icons/ui_light/tray.png"));
+    hTray.setIcon(QIcon(GlobalConfig.uiConfig.useDarkTrayIcon ? ":/assets/icons/ui_dark/tray.png" : ":/assets/icons/ui_light/tray.png"));
     importConfigButton->setIcon(QICON_R("import.png"));
     duplicateBtn->setIcon(QICON_R("duplicate.png"));
     removeConfigButton->setIcon(QICON_R("delete.png"));
@@ -141,7 +142,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), vinstance(), hTray
     //
     // Setup System tray icons and menus
     //
-    hTray->setToolTip(TRAY_TOOLTIP_PREFIX);
+    hTray.setToolTip(TRAY_TOOLTIP_PREFIX);
     // Basic actions
     action_Tray_ShowHide = new QAction(this->windowIcon(), tr("Hide"), this);
     action_Tray_ShowPreferencesWindow = new QAction(tr("Preferences"), this);
@@ -181,7 +182,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), vinstance(), hTray
     connect(action_Tray_Quit, &QAction::triggered, this, &MainWindow::quit);
     connect(action_Tray_SetSystemProxy, &QAction::triggered, this, &MainWindow::MWSetSystemProxy);
     connect(action_Tray_ClearSystemProxy, &QAction::triggered, this, &MainWindow::MWClearSystemProxy);
-    connect(hTray, &QSystemTrayIcon::activated, this, &MainWindow::on_activatedTray);
+    connect(&hTray, &QSystemTrayIcon::activated, this, &MainWindow::on_activatedTray);
     //
     // Actions for right click the connection list
     //
@@ -204,8 +205,8 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), vinstance(), hTray
     connect(this, &MainWindow::DisConnect, this, &MainWindow::on_stopButton_clicked);
     connect(this, &MainWindow::ReConnect, this, &MainWindow::on_reconnectButton_clicked);
     //
-    hTray->setContextMenu(tray_RootMenu);
-    hTray->show();
+    hTray.setContextMenu(tray_RootMenu);
+    hTray.show();
     //
     connectionListMenu = new QMenu(this);
     connectionListMenu->addAction(action_RCM_StartThis);
@@ -408,8 +409,7 @@ void MainWindow::OnConfigListChanged(bool need_restart)
 MainWindow::~MainWindow()
 {
     killTimer(qvLogTimerId);
-    hTray->hide();
-    delete this->hTray;
+    hTray.hide();
     delete this->vinstance;
 }
 void MainWindow::UpdateVCoreLog(const QString &log)
@@ -448,8 +448,8 @@ void MainWindow::on_startButton_clicked()
             MWTryPingConnection(name);
             speedTimerId = startTimer(1000);
             pingTimerId = startTimer(60000);
-            this->hTray->showMessage("Qv2ray", tr("Connected: ") + name, this->windowIcon());
-            hTray->setToolTip(TRAY_TOOLTIP_PREFIX NEWLINE + tr("Connected: ") + name);
+            this->hTray.showMessage("Qv2ray", tr("Connected: ") + name, this->windowIcon());
+            hTray.setToolTip(TRAY_TOOLTIP_PREFIX NEWLINE + tr("Connected: ") + name);
             statusLabel->setText(tr("Connected: ") + name);
         } else {
             // If failed, show mainwindow
@@ -465,7 +465,7 @@ void MainWindow::on_startButton_clicked()
         startButton->setEnabled(!startFlag);
         stopButton->setEnabled(startFlag);
     } else {
-        this->hTray->showMessage("Qv2ray", tr("Already connected to: ") + CurrentConnectionIdentifier.IdentifierString(), this->windowIcon());
+        this->hTray.showMessage("Qv2ray", tr("Already connected to: ") + CurrentConnectionIdentifier.IdentifierString(), this->windowIcon());
     }
 }
 
@@ -477,7 +477,7 @@ void MainWindow::on_stopButton_clicked()
     //
     MWStopConnection();
     //
-    hTray->setToolTip(TRAY_TOOLTIP_PREFIX);
+    hTray.setToolTip(TRAY_TOOLTIP_PREFIX);
     statusLabel->setText(tr("Disconnected"));
     action_Tray_Start->setEnabled(true);
     action_Tray_Stop->setEnabled(false);
@@ -490,7 +490,7 @@ void MainWindow::on_stopButton_clicked()
     netspeedLabel->setText("0.00 B/s\r\n0.00 B/s");
     dataamountLabel->setText("0.00 B\r\n0.00 B");
     LOG(UI, "Stopped successfully.")
-    this->hTray->showMessage("Qv2ray", tr("Disconnected from: ") + CurrentConnectionIdentifier.IdentifierString());
+    this->hTray.showMessage("Qv2ray", tr("Disconnected from: ") + CurrentConnectionIdentifier.IdentifierString());
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
@@ -996,28 +996,7 @@ void MainWindow::timerEvent(QTimerEvent *event)
         auto _totalDataUp = vinstance->getAllDataUp();
         auto _totalDataDown = vinstance->getAllDataDown();
         //
-        //double _max = 0;
-        //double historyMax = 0;
-        //auto graphVUp = double(_totalSpeedUp / 1024);
-        //auto graphVDown = double(_totalSpeedDown / 1024);
         speedChartView->AddPointData(_totalSpeedUp, _totalSpeedDown);
-        //// Move all points forward (shift left by 1)
-        //for (auto i = 0; i < 29; i++) {
-        //    auto nextUploadValue = uploadSerie->at(i + 1).y();
-        //    auto nextDownloadValue = downloadSerie->at(i + 1).y();
-        //    historyMax = max(nextUploadValue, nextDownloadValue);
-        //    //
-        //    uploadSerie->replace(i, i, nextUploadValue);
-        //    downloadSerie->replace(i, i, nextDownloadValue);
-        //}
-        //
-        //// Set the latest data.
-        //uploadSerie->replace(29, 29, graphVUp);
-        //downloadSerie->replace(29, 29, graphVDown);
-        //historyMax = max(historyMax, max(graphVUp, graphVDown));
-        ////
-        //_max = max(historyMax, double(max(graphVUp, graphVDown)));
-        //speedChartObj->axes(Qt::Vertical).first()->setRange(0, _max * 1.2);
         //
         auto totalSpeedUp = FormatBytes(_totalSpeedUp) + "/s";
         auto totalSpeedDown = FormatBytes(_totalSpeedDown) + "/s";
@@ -1027,7 +1006,7 @@ void MainWindow::timerEvent(QTimerEvent *event)
         netspeedLabel->setText(totalSpeedUp + NEWLINE + totalSpeedDown);
         dataamountLabel->setText(totalDataUp + NEWLINE + totalDataDown);
         //
-        hTray->setToolTip(TRAY_TOOLTIP_PREFIX NEWLINE + tr("Connected: ") + CurrentConnectionIdentifier.IdentifierString() + NEWLINE "Up: " + totalSpeedUp + " Down: " + totalSpeedDown);
+        hTray.setToolTip(TRAY_TOOLTIP_PREFIX NEWLINE + tr("Connected: ") + CurrentConnectionIdentifier.IdentifierString() + NEWLINE "Up: " + totalSpeedUp + " Down: " + totalSpeedDown);
     } else if (event->timerId() == qvLogTimerId) {
         QString lastLog = readLastLog();
 

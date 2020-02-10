@@ -5,7 +5,7 @@ isEmpty(PREFIX) {
 }
 
 use_grpc {
-    # For gRPC and protobuf in linux and macOS
+    # For gRPC and protobuf in linux
     message("  --> Linking against gRPC and protobuf library.")
     LIBS += -L/usr/local/lib -lgrpc++ -lgrpc
 } else {

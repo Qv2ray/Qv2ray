@@ -204,6 +204,9 @@ PreferencesWindow::~PreferencesWindow()
 
 void PreferencesWindow::on_buttonBox_accepted()
 {
+    // Note:
+    // A signal-slot connection from buttonbox_accpted to QDialog::accepted() has been removed.
+    // To prevent closing this Dialog.
     QSet<int> ports;
     auto size = 0;
 
@@ -230,8 +233,8 @@ void PreferencesWindow::on_buttonBox_accepted()
     if (ports.size() != size) {
         // Duplicates detected.
         QvMessageBoxWarn(this, tr("Preferences"), tr("Duplicated port numbers detected, please check the port number settings."));
-        this->show();
-        this->exec();
+    } else if (CurrentConfig.inboundConfig.listenip.toLower() != "localhost" && !IsValidIPAddress(CurrentConfig.inboundConfig.listenip)) {
+        QvMessageBoxWarn(this, tr("Preferences"), tr("Invalid inbound listening address."));;
     } else {
         if (CurrentConfig.uiConfig.language != GlobalConfig.uiConfig.language) {
             qApp->removeTranslator(Qv2rayTranslator.get());
@@ -248,6 +251,7 @@ void PreferencesWindow::on_buttonBox_accepted()
 
         SaveGlobalConfig(CurrentConfig);
         emit s_reload_config(IsConnectionPropertyChanged);
+        emit accept();
     }
 }
 
@@ -291,6 +295,13 @@ void PreferencesWindow::on_listenIPTxt_textEdited(const QString &arg1)
 {
     NEEDRESTART
     CurrentConfig.inboundConfig.listenip = arg1;
+
+    if (IsValidIPAddress(arg1)) {
+        BLACK(listenIPTxt)
+    } else {
+        RED(listenIPTxt)
+    }
+
     //pacAccessPathTxt->setText("http://" + arg1 + ":" + QSTRN(pacPortSB->value()) + "/pac");
 }
 
@@ -529,6 +540,12 @@ void PreferencesWindow::on_socksUDPIP_textEdited(const QString &arg1)
 {
     NEEDRESTART
     CurrentConfig.inboundConfig.socksLocalIP = arg1;
+
+    if (IsValidIPAddress(arg1)) {
+        BLACK(socksUDPIP)
+    } else {
+        RED(socksUDPIP)
+    }
 }
 
 // ------------------- NET SPEED PLUGIN OPERATIONS -----------------------------------------------------------------
@@ -959,6 +976,12 @@ void PreferencesWindow::on_fpAddressTx_textEdited(const QString &arg1)
 {
     LOADINGCHECK
     CurrentConfig.connectionConfig.forwardProxyConfig.serverAddress = arg1;
+
+    if (IsValidIPAddress(arg1)) {
+        BLACK(fpAddressTx)
+    } else {
+        RED(fpAddressTx)
+    }
 }
 
 void PreferencesWindow::on_spPortSB_valueChanged(int arg1)
@@ -996,6 +1019,13 @@ void PreferencesWindow::on_fpPortSB_valueChanged(int arg1)
 void PreferencesWindow::on_pacProxyTxt_textChanged(const QString &arg1)
 {
     Q_UNUSED(arg1)
+
+    if (IsValidIPAddress(arg1)) {
+        BLACK(pacProxyTxt)
+    } else {
+        RED(pacProxyTxt)
+    }
+
     pacListenAddrLabel->setText("http://" + (pacProxyTxt->text().isEmpty() ? "127.0.0.1" : pacProxyTxt->text()) + ":" + QSTRN(pacPortSB->value()) + "/pac");
 }
 

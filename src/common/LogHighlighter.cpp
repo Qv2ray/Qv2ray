@@ -1,7 +1,6 @@
 #include "LogHighlighter.hpp"
 #include "common/QvHelpers.hpp"
 
-#define REGEX_PORT_NUMBER "([0-9]|[1-9]\\d{1,3}|[1-5]\\d{4}|6[0-5]{2}[0-3][0-5])*"
 #define TO_EOL "(([\\s\\S]*)|([\\d\\D]*)|([\\w\\W]*))$"
 
 namespace Qv2ray::common
@@ -58,7 +57,7 @@ namespace Qv2ray::common
         //
         {
             // IP IPv6 Host;
-            rule.pattern = QRegularExpression("(\\d{1,2}|1\\d\\d|2[0-4]\\d|25[0-5])\\.(\\d{1,2}|1\\d\\d|2[0-4]\\d|25[0-5])\\.(\\d{1,2}|1\\d\\d|2[0-4]\\d|25[0-5])\\.(\\d{1,2}|1\\d\\d|2[0-4]\\d|25[0-5])\\:" REGEX_PORT_NUMBER);
+            rule.pattern = QRegularExpression(REGEX_IPV4_ADDR ":" REGEX_PORT_NUMBER);
             rule.pattern.setPatternOptions(QRegularExpression::PatternOption::ExtendedPatternSyntaxOption);
             rule.format = ipHostFormat;
             highlightingRules.append(rule);
