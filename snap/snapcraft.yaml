@@ -108,6 +108,8 @@ parts:
   
   mytools:
     plugin: nil
+    build-packages:
+      - dirmngr
     override-pull: |
       echo "deb http://ppa.launchpad.net/ymshenyu/qt/ubuntu bionic main" >> /etc/apt/sources.list.d/tools.list
       echo "deb http://ppa.launchpad.net/ymshenyu/grpc/ubuntu bionic main" >> /etc/apt/sources.list.d/tools.list
