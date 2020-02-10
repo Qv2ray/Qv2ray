@@ -50,6 +50,9 @@ parts:
       - libqt5widgets5
       - fonts-noto-cjk
       - libglib2.0-bin
+      - ibus-gtk
+      - ibus-gtk3
+      - libibus-1.0-5
     options:
       - PREFIX=/usr
       - CONFIG+=with_metainfo
