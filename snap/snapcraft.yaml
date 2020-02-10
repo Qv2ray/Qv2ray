@@ -49,6 +49,7 @@ parts:
       - libqt5network5
       - libqt5widgets5
       - fonts-noto-cjk
+      - libglib2.0-bin
     options:
       - PREFIX=/usr
       - CONFIG+=with_metainfo
@@ -90,15 +91,6 @@ parts:
     after:
       - mytools
   
-  glib-only:
-    source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
-    source-subdir: glib-only
-    plugin: make
-    build-packages:
-      - libglib2.0-dev
-    stage-packages:
-      - libglib2.0-bin
-    
   qt5-gtk-platform:
     plugin: nil
     stage-packages:
