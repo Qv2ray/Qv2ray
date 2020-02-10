@@ -856,9 +856,7 @@ void PreferencesWindow::on_pacGoBtn_clicked()
             break;
 
         case 6:
-            QFileDialog d;
-            d.exec();
-            auto file = d.getOpenFileUrl(this, tr("Select GFWList in base64")).toString();
+            auto file = QFileDialog::getOpenFileName(this, tr("Select GFWList in base64"));
             fileContent = StringFromFile(file);
             break;
     }
