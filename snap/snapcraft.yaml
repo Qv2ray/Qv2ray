@@ -38,6 +38,11 @@ parts:
     parse-info: [usr/share/metainfo/qv2ray.metainfo.xml]
     build-packages:
       - build-essential
+      - qttools5-dev-tools
+      - qt5-default
+      - libgrpc++-dev
+      - libprotobuf-dev
+      - protobuf-compiler-grpc
     stage-packages:
       - libgcc1
       - libstdc++6
