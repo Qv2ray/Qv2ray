@@ -105,7 +105,7 @@ void MainWindow::MWSetSystemProxy()
         } else {
             // Not using PAC
             if (httpEnabled || socksEnabled) {
-                // Not use PAC, System proxy should use HTTP
+                // Not use PAC, System proxy should use HTTP or SOCKS
                 LOG(PROXY, "Setting up system proxy.")
                 // A 'proxy host' should be a host WITHOUT `http://` uri scheme
                 proxyAddress = "localhost";
@@ -117,7 +117,7 @@ void MainWindow::MWSetSystemProxy()
         }
 
         if (canSetSystemProxy) {
-            LOG(UI, "Setting system proxy for simple config, HTTP only")
+            LOG(UI, "Setting system proxy for simple config.")
             auto httpPort = GlobalConfig.inboundConfig.useHTTP ? GlobalConfig.inboundConfig.http_port : 0;
             auto socksPort = GlobalConfig.inboundConfig.useSocks ? GlobalConfig.inboundConfig.socks_port : 0;
             //

@@ -170,8 +170,21 @@ namespace Qv2ray::components::proxy
 
     bool SetSystemProxy(const QString &address, int httpPort, int socksPort, bool usePAC)
     {
-        bool hasHTTP = httpPort == 0;
-        bool hasSOCKS = socksPort == 0;
+        bool hasHTTP = (httpPort != 0);
+        bool hasSOCKS = (socksPort != 0);
+
+        if (usePAC) {
+            LOG(PROXY, "Qv2ray will set system proxy to use PAC file")
+        } else {
+            if (hasHTTP) {
+                LOG(PROXY, "Qv2ray will set system proxy to use HTTP")
+            }
+
+            if (hasSOCKS) {
+                LOG(PROXY, "Qv2ray will set system proxy to use SOCKS")
+            }
+        }
+
 #ifdef Q_OS_WIN
         QString __a;
 
@@ -180,6 +193,8 @@ namespace Qv2ray::components::proxy
         } else {
             __a = (hasHTTP ? "http://" : "socks5://") + address + ":" + QSTRN(httpPort);
         }
+
+        LOG(PROXY, "Windows proxy string: " + __a)
 
         if (hasHTTP || hasSOCKS) {
             auto proxyStrW = new WCHAR[__a.length() + 1];
