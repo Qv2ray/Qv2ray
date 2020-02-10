@@ -1086,3 +1086,7 @@ void PreferencesWindow::on_enableAPI_stateChanged(int arg1)
     NEEDRESTART
     CurrentConfig.apiConfig.enableAPI = arg1 == Qt::Checked;
 }
+
+void PreferencesWindow::on_tProxyGroupBox_clicked(bool checked)
+{
+}

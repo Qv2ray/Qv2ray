@@ -163,6 +163,8 @@ class PreferencesWindow : public QDialog, private Ui::PreferencesWindow
 
         void on_startWithLoginCB_stateChanged(int arg1);
 
+        void on_tProxyGroupBox_clicked(bool checked);
+
     private:
         void SetAutoStartButtonsState(bool isAutoStart);
         // Set ui parameters for a line;
