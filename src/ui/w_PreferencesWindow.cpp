@@ -884,7 +884,7 @@ void PreferencesWindow::on_pacGoBtn_clicked()
     }
 
     LOG(NETWORK, "Fetched: " + gfwLocation)
-    QvMessageBoxWarn(this, tr("Download GFWList"), tr("Successfully downloaded GFWList."));
+    QvMessageBoxInfo(this, tr("Download GFWList"), tr("Successfully downloaded GFWList."));
     pacGoBtn->setEnabled(true);
     gfwListCB->setEnabled(true);
 

@@ -91,7 +91,7 @@ class RouteEditor : public QDialog, private Ui::RouteEditor
 
         void on_defaultOutboundCombo_currentIndexChanged(const QString &arg1);
 
-        void on_ruleTagLineEdit_textEdited(const QString &arg1);
+        void on_ruleRenameBtn_clicked();
 
     public slots:
         void onNodeClicked(QtNodes::Node &n);
