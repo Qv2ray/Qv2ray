@@ -4,140 +4,17 @@
 #
 #-------------------------------------------------
 
-QT += core gui widgets network charts
+QT += core gui widgets network
 
 TARGET = qv2ray
 TEMPLATE = app
 
 # Now read build number file.
-_BUILD_NUMBER=$$cat(Build.Counter)
-VERSION = 2.0.1.$$_BUILD_NUMBER
+QV2RAY_VERSION=$$cat($$PWD/makespec/VERSION)
+QV2RAY_BUILD_VERSION=$$cat($$PWD/makespec/BUILDVERSION)
 
-no_increase_build_number {
-    message("Build.Counter will not be increased")
-} else {
-    _BUILD_NUMBER = $$num_add($$_BUILD_NUMBER, 1)
-    write_file("Build.Counter", _BUILD_NUMBER)
-}
+VERSION = $${QV2RAY_VERSION}.$${QV2RAY_BUILD_VERSION}
 
-# Unix (Actually Linux only) prefix config.
-isEmpty(PREFIX) {
-    PREFIX=/usr/local
-}
-message("Qv2ray installation PREFIX="$$PREFIX)
-
-DEFINES += QT_DEPRECATED_WARNINGS QV2RAY_VERSION_STRING=\"\\\"v$${VERSION}\\\"\" QAPPLICATION_CLASS=QApplication
-
-# Don't merge those configs with below.
-CONFIG += enable_decoder_qr_code enable_encoder_qr_code qt c++11 openssl-linked
-
-include(3rdparty/qzxing/src/QZXing-components.pri)
-include(3rdparty/SingleApplication/singleapplication.pri)
-include(3rdparty/QNodeEditor/QNodeEditor.pri)
-include(3rdparty/x2struct/x2struct.pri)
-
-# Main config
-CONFIG += lrelease embed_translations
-
-# Win32 support.
-win32:CONFIG += win
-win64:CONFIG += win
-
-SOURCES += \
-        src/components/QvComponentsHandler.cpp \
-        src/components/QvCore/QvCommandLineArgs.cpp \
-        src/components/QvKernelInteractions.cpp \
-        src/components/QvLaunchAtLoginConfigurator.cpp \
-        src/components/QvPACHandler.cpp \
-        src/components/QvSystemProxyConfigurator.cpp \
-        src/components/QvTCPing.cpp \
-        src/main.cpp \
-        src/components/QvGFWPACConverter.cpp \
-        src/components/QvHTTPRequestHelper.cpp \
-        src/components/QvLogHighlighter.cpp \
-        src/QvCoreConfigOperations.cpp \
-        src/QvConfigUpgrade.cpp \
-        src/QvCoreConfigOperations_Convertion.cpp \
-        src/QvCoreConfigOperations_Generation.cpp \
-        src/QvUtils.cpp \
-        src/ui/routeNodeModels/QvInboundNodeModel.cpp \
-        src/ui/routeNodeModels/QvOutboundNodeModel.cpp \
-        src/ui/routeNodeModels/QvRuleNodeModel.cpp \
-        src/ui/w_MainWindow_extra.cpp \
-        src/ui/w_PreferencesWindow.cpp \
-        src/ui/w_RoutesEditor_extra.cpp \
-        src/utils/QvHelpers.cpp \
-        src/utils/QJsonModel.cpp \
-        src/ui/w_ExportConfig.cpp \
-        src/ui/w_InboundEditor.cpp \
-        src/ui/w_OutboundEditor.cpp \
-        src/ui/w_RoutesEditor.cpp \
-        src/ui/w_SubscriptionEditor.cpp \
-        src/ui/w_JsonEditor.cpp \
-        src/ui/w_MainWindow.cpp \
-        src/ui/w_ImportConfig.cpp \
-        src/ui/w_ScreenShot_Core.cpp \
-        src/ui/NetSpeedBar/QvNetSpeedBar.cpp
-
-INCLUDEPATH += \
-        3rdparty/ \
-        src/ \
-        src/components \
-        src/ui/ \
-        src/utils/ \
-        libs/gen/
-
-HEADERS += \
-        src/Qv2rayBase.hpp \
-        src/Qv2rayFeatures.hpp \
-        src/QvCoreConfigObjects.hpp \
-        src/QvCoreConfigOperations.hpp \
-        src/QvUtils.hpp \
-        src/components/QvComponentsHandler.hpp \
-        src/components/QvCore/QvCommandLineArgs.hpp \
-        src/components/QvHTTPRequestHelper.hpp \
-        src/components/QvKernelInteractions.hpp \
-        src/components/QvLaunchAtLoginConfigurator.hpp \
-        src/components/QvLogHighlighter.hpp \
-        src/components/QvNetSpeedPlugin.hpp \
-        src/components/QvPACHandler.hpp \
-        src/components/QvSystemProxyConfigurator.hpp \
-        src/components/QvTCPing.hpp \
-        src/ui/routeNodeModels/QvInboundNodeModel.hpp \
-        src/ui/routeNodeModels/QvNodeModelsBase.hpp \
-        src/ui/routeNodeModels/QvOutboundNodeModel.hpp \
-        src/ui/routeNodeModels/QvRuleNodeModel.hpp \
-        src/ui/w_ExportConfig.hpp \
-        src/ui/w_ImportConfig.hpp \
-        src/ui/w_InboundEditor.hpp \
-        src/ui/w_JsonEditor.hpp \
-        src/ui/w_MainWindow.hpp \
-        src/ui/w_OutboundEditor.hpp \
-        src/ui/w_PreferencesWindow.hpp \
-        src/ui/w_RoutesEditor.hpp \
-        src/ui/w_SubscriptionEditor.hpp \
-        src/ui/w_ScreenShot_Core.hpp \
-        src/utils/QvHelpers.hpp \
-        src/utils/QvTinyLog.hpp \
-        src/utils/QJsonModel.hpp \
-        src/utils/QJsonObjectInsertMacros.h
-
-FORMS += \
-        src/ui/w_ExportConfig.ui \
-        src/ui/w_ImportConfig.ui \
-        src/ui/w_InboundEditor.ui \
-        src/ui/w_JsonEditor.ui \
-        src/ui/w_MainWindow.ui \
-        src/ui/w_OutboundEditor.ui \
-        src/ui/w_PreferencesWindow.ui \
-        src/ui/w_RoutesEditor.ui \
-        src/ui/w_ScreenShot_Core.ui \
-        src/ui/w_SubscriptionEditor.ui
-
-RESOURCES += \
-        resources.qrc
-
-# Fine......
 message(" ")
 message("Qv2ray Version: $${VERSION}")
 message("|-------------------------------------------------|")
@@ -149,183 +26,143 @@ message("| permitted by local law.                         |")
 message("|                                                 |")
 message("| See: https://www.gnu.org/licenses/gpl-3.0.html  |")
 message("|-------------------------------------------------|")
+message("| Project Homepage: https://github.com/Qv2ray     |")
+message("| Welcome to contribute!                          |")
+message("|-------------------------------------------------|")
 message(" ")
 
-
-RC_ICONS += ./assets/icons/qv2ray.ico
-ICON = ./assets/icons/qv2ray.icns
-
-with_new_backend {
-    !exists($$PWD/libs/libqvb/build/libqvb.h) {
-        message(" ")
-        message("Cannot continue: ")
-        message("  --> Qv2ray is configured to use custom backend, but: ")
-        message("      libs/libqvb/build/libqvb.h is missing. ")
-        error("! ABORTING THE BUILD !")
-        message(" ")
-    }
-
-    message("Qv2ray will use custom API backend.")
-    message("  --> Adding libqvb header.")
-    HEADERS += libs/libqvb/build/libqvb.h
-
-    # ==-- OS Specific configurations for libqvb --==
-    win {
-        message("  --> Linking libqvb static library, for Windows platform.")
-        LIBS += -L$$PWD/libs/ -lqvb-win64
-    }
-    unix:!macx {
-        message("  --> Linking libqvb static library, for Linux platform.")
-        LIBS += -L$$PWD/libs/ -lqvb-linux64
-    }
-    macx {
-        message("  --> Linking libqvb static library and Security framework, for macOS platform.")
-        LIBS += -L$$PWD/libs/ -lqvb-darwin
-        LIBS += -framework Security
-    }
-} else {
-    DEFINES += WITH_LIB_GRPCPP
-    message("Qv2ray will use libgRPC as API backend")
-
-    # ------------------------------------------ Begin checking gRPC and protobuf headers.
-    !exists($$PWD/libs/gen/v2ray_api_commands.grpc.pb.h) || !exists($$PWD/libs/gen/v2ray_api_commands.grpc.pb.cc) || !exists($$PWD/libs/gen/v2ray_api_commands.pb.h) || !exists($$PWD/libs/gen/v2ray_api_commands.pb.cc) {
-        message(" ")
-        message("-----------------------------------------------")
-        message("Cannot continue: ")
-        message("  --> Qv2ray is not properly configured yet: ")
-        message("      gRPC and protobuf headers for v2ray API is missing.")
-        message("  --> Please run gen_grpc.sh gen_grpc.bat or deps_macOS.sh located in tools/")
-        message("  --> Or consider reading the build wiki: https://github.com/lhy0403/Qv2ray/wiki/Manually-Build-Qv2ray")
-        message("-----------------------------------------------")
-        message(" ")
-        warning("IF YOU THINK IT'S A MISTAKE, PLEASE OPEN AN ISSUE")
-        error("! ABORTING THE BUILD !")
-        message(" ")
-    }
-
-    SOURCES += libs/gen/v2ray_api_commands.pb.cc \
-               libs/gen/v2ray_api_commands.grpc.pb.cc
-
-    HEADERS += libs/gen/v2ray_api_commands.pb.h \
-               libs/gen/v2ray_api_commands.grpc.pb.h
-
-    # ==-- OS Specific configurations for libgRPC and libprotobuf --==
-    win {
-        # A hack for protobuf header.
-        message("  --> Applying a hack for protobuf header")
-        DEFINES += _WIN32_WINNT=0x600
-
-        message("  --> Linking against gRPC and protobuf library.")
-        DEPENDPATH  += $$PWD/libs/gRPC-win32/include
-        INCLUDEPATH += $$PWD/libs/gRPC-win32/include
-        LIBS += -L$$PWD/libs/gRPC-win32/lib/ \
-                -llibprotobuf.dll \
-                -llibgrpc++.dll
-    }
-    unix {
-        # For gRPC and protobuf in linux and macOS
-        message("  --> Linking against gRPC and protobuf library.")
-        LIBS += -L/usr/local/lib -lgrpc++ -lprotobuf -lgrpc
-    }
-    macx {
-        message("  --> Linking libgpr and libupb.")
-        LIBS += -lgpr -lupb
-    }
+# Distinguish debug and release builds.
+CONFIG(release, debug|release) {
+    CONFIG+=Qv2ray_release no_increase_build_number
+}
+CONFIG(debug, debug|release) {
+    CONFIG+=Qv2ray_debug
 }
 
-message(" ")
-# ------------------------------------------ Begin to detect language files.
-message("Looking for language support.")
-QM_FILES_RESOURCE_PREFIX = "translations"
-for(var, $$list($$files("translations/*.ts", true))) {
-    LOCALE_FILENAME = $$basename(var)
-    message("  --> Found:" $$LOCALE_FILENAME)
-    !equals(LOCALE_FILENAME, "en_US.ts") {
-        # ONLY USED IN LRELEASE CONTEXT
-        # en_US is not EXTRA...
-        EXTRA_TRANSLATIONS += translations/$$LOCALE_FILENAME
-    }
-}
-message("Qv2ray will build with" $${replace(EXTRA_TRANSLATIONS, "translations/", "")})
-TRANSLATIONS += translations/en_US.ts
+# Qv2ray basic configuration
+CONFIG += qt c++17 openssl-linked
+include($$PWD/makespec/00-deps.pri)
 
-message(" ")
-QMAKE_CXXFLAGS += -Wno-missing-field-initializers -Wno-unused-parameter -Wno-unused-variable
+# lrelease will not work when adding BEFORE 00-deps.pri
+CONFIG += lrelease embed_translations
+DEFINES += QT_DEPRECATED_WARNINGS QV2RAY_VERSION_STRING=\"\\\"v$${VERSION}\\\"\" QAPPLICATION_CLASS=QApplication
 
-message("Adding QHttpServer Support")
-message("  --> Adding qhttpserver")
-HEADERS += \
-    $$PWD/3rdparty/qhttpserver/src/qhttpconnection.h \
-    $$PWD/3rdparty/qhttpserver/src/qhttprequest.h \
-    $$PWD/3rdparty/qhttpserver/src/qhttpresponse.h \
-    $$PWD/3rdparty/qhttpserver/src/qhttpserver.h \
-    $$PWD/3rdparty/qhttpserver/src/qhttpserverapi.h \
-    $$PWD/3rdparty/qhttpserver/src/qhttpserverfwd.h
-SOURCES += \
-    $$PWD/3rdparty/qhttpserver/src/qhttpconnection.cpp \
-    $$PWD/3rdparty/qhttpserver/src/qhttprequest.cpp \
-    $$PWD/3rdparty/qhttpserver/src/qhttpresponse.cpp \
-    $$PWD/3rdparty/qhttpserver/src/qhttpserver.cpp
+# Source file parser
+include($$PWD/makespec/01-sourcesparser.pri)
 
-INCLUDEPATH += 3rdparty/qhttpserver/src/
+# Main config
+Qv2rayAddSource(base, _, GlobalInstances, hpp)
+Qv2rayAddSource(base, _, JsonHelpers, hpp)
+Qv2rayAddSource(base, _, Qv2rayBase, hpp)
+Qv2rayAddSource(base, _, Qv2rayFeatures, hpp)
+Qv2rayAddSource(base, _, Qv2rayLog, cpp, hpp)
+Qv2rayAddSource(base, models, CoreObjectModels, hpp)
+Qv2rayAddSource(base, models, QvConfigModel, hpp)
+Qv2rayAddSource(base, models, QvConfigIdentifier, hpp)
+Qv2rayAddSource(base, models, QvSafeType, hpp)
+Qv2rayAddSource(base, models, QvRuntimeConfig, hpp)
+Qv2rayAddSource(base, models, QvStartupConfig, hpp)
+Qv2rayAddSource(common, _, CommandArgs, cpp, hpp)
+Qv2rayAddSource(common, _, HTTPRequestHelper, cpp, hpp)
+Qv2rayAddSource(common, _, LogHighlighter, cpp, hpp)
+Qv2rayAddSource(common, _, QJsonModel, cpp, hpp)
+Qv2rayAddSource(common, _, QvHelpers, cpp, hpp)
+Qv2rayAddSource(common, _, QvTranslator, hpp)
+Qv2rayAddSource(components, autolaunch, QvAutoLaunch, cpp, hpp)
+Qv2rayAddSource(components, pac, QvGFWPACConverter, cpp)
+Qv2rayAddSource(components, pac, QvPACHandler, cpp, hpp)
+Qv2rayAddSource(components, plugins/toolbar, QvToolbar, cpp, hpp)
+Qv2rayAddSource(components, plugins/toolbar, QvToolbar_linux, cpp)
+Qv2rayAddSource(components, plugins/toolbar, QvToolbar_win, cpp)
+Qv2rayAddSource(components, proxy, QvProxyConfigurator, cpp, hpp)
+Qv2rayAddSource(components, tcping, QvTCPing, cpp, hpp)
+Qv2rayAddSource(components, speedchart, speedwidget, cpp, hpp)
+Qv2rayAddSource(components, speedchart, speedplotview, cpp, hpp)
+Qv2rayAddSource(components, geosite, QvGeositeReader, cpp, hpp)
+Qv2rayAddSource(core, config, ConfigBackend, cpp, hpp)
+Qv2rayAddSource(core, config, ConfigUpgrade, cpp)
+Qv2rayAddSource(core, connection, ConnectionIO, cpp, hpp)
+Qv2rayAddSource(core, connection, Generation, cpp, hpp)
+Qv2rayAddSource(core, connection, Serialization, cpp, hpp)
+Qv2rayAddSource(core, _, CoreUtils, cpp, hpp)
+Qv2rayAddSource(core, kernel, KernelInteractions, cpp, hpp)
+Qv2rayAddSource(core, kernel, APIBackend, cpp, hpp)
+Qv2rayAddSource(ui, editors, w_InboundEditor, cpp, hpp, ui)
+Qv2rayAddSource(ui, editors, w_JsonEditor, cpp, hpp, ui)
+Qv2rayAddSource(ui, editors, w_OutboundEditor, cpp, hpp, ui)
+Qv2rayAddSource(ui, editors, w_RoutesEditor, cpp, hpp, ui)
+Qv2rayAddSource(ui, editors, w_RoutesEditor_extra, cpp)
+Qv2rayAddSource(ui, nodemodels, InboundNodeModel, cpp, hpp)
+Qv2rayAddSource(ui, nodemodels, OutboundNodeModel, cpp, hpp)
+Qv2rayAddSource(ui, nodemodels, RuleNodeModel, cpp, hpp)
+Qv2rayAddSource(ui, nodemodels, NodeModelsBase, hpp)
+Qv2rayAddSource(ui, messaging, QvMessageBus, cpp, hpp)
+Qv2rayAddSource(ui, _, w_ExportConfig, cpp, hpp, ui)
+Qv2rayAddSource(ui, _, w_ImportConfig, cpp, hpp, ui)
+Qv2rayAddSource(ui, _, w_MainWindow, cpp, hpp, ui)
+Qv2rayAddSource(ui, _, w_MainWindow_extra, cpp)
+Qv2rayAddSource(ui, _, w_PreferencesWindow, cpp, hpp, ui)
+Qv2rayAddSource(ui, _, w_ScreenShot_Core, cpp, hpp, ui)
+Qv2rayAddSource(ui, _, w_SubscriptionManager, cpp, hpp, ui)
+Qv2rayAddSource(ui, widgets, StreamSettingsWidget, cpp, hpp, ui)
 
-message("  --> Adding http parser")
-HEADERS += 3rdparty/qhttpserver/http-parser/http_parser.h
-SOURCES += 3rdparty/qhttpserver/http-parser/http_parser.c
-INCLUDEPATH += 3rdparty/qhttpserver/http-parser/
+SOURCES += $$PWD/src/main.cpp
+HEADERS +=
+FORMS +=
+INCLUDEPATH += $$PWD/src
+RESOURCES += $$PWD/resources.qrc
+ICON = $$PWD/assets/icons/qv2ray.icns
+RC_ICONS += $$PWD/assets/icons/qv2ray.ico
 
-message(" ")
-win {
-    message("Configuring for win32 environment")
-    DEFINES += QHTTPSERVER_EXPORT
-    message("  --> Setting up target descriptions")
-    QMAKE_TARGET_DESCRIPTION = "Qv2ray, a cross-platform v2ray GUI client."
-    QMAKE_TARGET_PRODUCT = "Qv2ray"
+include($$PWD/makespec/02-translations.pri)
 
-    message("  --> Adding Taskbar Toolbox CPP files.")
-    SOURCES += src/ui/NetSpeedBar/QvNetSpeedBar_win.cpp
-    
-    message("  --> Linking against winHTTP and winSock2.")
-    LIBS += -lwinhttp -lwininet -lws2_32
-}
-
-macx {
-    # For Linux and macOS
-    message("Configuring for macOS specific environment")
-    LIBS += -framework Carbon -framework Cocoa
-}
-
-# Reuse unix for macx as well
 unix {
-    # For Linux and macOS
-    message("Configuring for unix-like environment")
-    # macOS homebrew include path
-    message("  --> Adding local include folder to search path")
-    INCLUDEPATH += /usr/local/include/
-
-    message("  --> Adding Plasma Toolbox CPP files.")
-    SOURCES += $$PWD/src/ui/NetSpeedBar/QvNetSpeedBar_linux.cpp
-
-    message("  --> Generating desktop dependency.")
-    desktop.files += ./assets/qv2ray.desktop
-    desktop.path = $$PREFIX/share/applications/
-
-    message("  --> Generating icons dependency.")
-    icon.files += ./assets/icons/qv2ray.png
-    icon.path = $$PREFIX/share/icons/hicolor/256x256/apps/
-
-    target.path = $$PREFIX/bin/
-    INSTALLS += target desktop icon
+    include($$PWD/makespec/03-unix.pri)
+    # Sub-process of Qv2ray per-OS build
+    !macx: include($$PWD/makespec/04-unix-linux.pri)
+    macx: include($$PWD/makespec/04-unix-macOS.pri)
+} else {
+    include($$PWD/makespec/03-Windows.pri)
 }
 
-with_metainfo {
-    message("  --> Generating metainfo dependency.")
-    appdataXml.files += ./assets/qv2ray.metainfo.xml
-    appdataXml.path = $$PREFIX/share/metainfo/
-    INSTALLS += appdataXml
-    DEFINES += WITH_FLATHUB_CONFIG_PATH
+# ------------------------------------------ Begin checking protobuf domain list headers.
+!exists($$PWD/libs/gen/v2ray_geosite.pb.cc) || !exists($$PWD/libs/gen/v2ray_geosite.pb.cc) {
+    Qv2rayQMakeError("Protobuf headers for v2ray geosite is missing.")
 }
+
+SOURCES += $$PWD/libs/gen/v2ray_geosite.pb.cc
+HEADERS += $$PWD/libs/gen/v2ray_geosite.pb.h
+
+# General header and source files for gRPC and libQvb
+message(" ")
+use_grpc {
+    DEFINES += WITH_LIB_GRPCPP
+    message("Qv2ray will use gRPC as API backend")
+
+    !exists($$PWD/libs/gen/v2ray_api.grpc.pb.h) || !exists($$PWD/libs/gen/v2ray_api.grpc.pb.cc) || !exists($$PWD/libs/gen/v2ray_api.pb.h) || !exists($$PWD/libs/gen/v2ray_api.pb.cc) {
+        Qv2rayQMakeError("gRPC and protobuf headers for v2ray API is missing.")
+    }
+
+    SOURCES += $$PWD/libs/gen/v2ray_api.pb.cc $$PWD/libs/gen/v2ray_api.grpc.pb.cc
+    HEADERS += $$PWD/libs/gen/v2ray_api.pb.h $$PWD/libs/gen/v2ray_api.grpc.pb.h
+} else {
+    message("Qv2ray will use libqvb as API backend")
+    !exists($$PWD/libs/libqvb/build/libqvb.h) {
+        Qv2rayQMakeError("libs/libqvb/build/libqvb.h is missing.")
+    }
+    HEADERS += $$PWD/libs/libqvb/build/libqvb.h
+}
+
+# Misc steps to build Qv2ray.
+include($$PWD/makespec/99-others.pri)
 
 message(" ")
-message("Done configuring Qv2ray project. Build output will be at:" $$OUT_PWD)
-message("Type `make` or `mingw32-make` to start building Qv2ray")
+message("This Qv2ray build contains: ")
+message("  --> $${size(SOURCES)} source files")
+message("  --> $${size(HEADERS)} header files")
+message("  --> $${size(FORMS)} ui files")
+message("  --> $${size(TRANSLATIONS)} translation files")
+message("  --> $${size(EXTRA_TRANSLATIONS)} extra translation files")
+message(" ")
+message("Finished configuring Qv2ray project. Build output will be at:" $$OUT_PWD)
+message("Type 'make' or 'nmake' to start building Qv2ray")

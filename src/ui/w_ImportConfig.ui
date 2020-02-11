@@ -171,12 +171,6 @@
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
-             <property name="minimumSize">
-              <size>
-               <width>130</width>
-               <height>0</height>
-              </size>
-             </property>
              <property name="text">
               <string>Go</string>
              </property>
@@ -191,6 +185,9 @@
            </item>
            <item>
             <widget class="QDoubleSpinBox" name="doubleSpinBox">
+             <property name="suffix">
+              <string> secs</string>
+             </property>
              <property name="maximum">
               <double>5.000000000000000</double>
              </property>
@@ -203,9 +200,22 @@
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="label_9">
+            <spacer name="horizontalSpacer_3">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="hideQv2rayCB">
              <property name="text">
-              <string>second(s).</string>
+              <string>Hide Qv2ray</string>
              </property>
             </widget>
            </item>
@@ -257,7 +267,7 @@
          <item row="0" column="0">
           <widget class="QLabel" name="label_8">
            <property name="text">
-            <string>VMess</string>
+            <string>Share Link</string>
            </property>
           </widget>
          </item>

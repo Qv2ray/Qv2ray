@@ -1,17 +1,20 @@
-﻿#ifndef QVIMAGEVIEWER_H
-#define QVIMAGEVIEWER_H
+﻿#pragma once
 
 #include "ui_w_ExportConfig.h"
-#include "qzxing/src/QZXing.h"
+#include "base/Qv2rayBase.hpp"
+#include "3rdparty/qzxing/src/QZXing.h"
+#include "ui/messaging/QvMessageBus.hpp"
 
 class ConfigExporter : public QDialog, private Ui::ExportConfigWindow
 {
         Q_OBJECT
 
     public:
-        explicit ConfigExporter(const QImage &img, QWidget *parent = nullptr);
-        explicit ConfigExporter(const QString &data, QWidget *parent = nullptr);
+        explicit ConfigExporter(const CONFIGROOT &root, const ConnectionIdentifier &alias, QWidget *parent = nullptr);
+        ~ConfigExporter();
         void OpenExport();
+    public slots:
+        QvMessageBusSlotHeader
     protected:
         void changeEvent(QEvent *e);
     private slots:
@@ -29,5 +32,3 @@ class ConfigExporter : public QDialog, private Ui::ExportConfigWindow
         QImage image;
         QString message;
 };
-
-#endif // QVIMAGEVIEWER_H

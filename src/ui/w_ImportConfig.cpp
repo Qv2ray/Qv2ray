@@ -5,25 +5,40 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QThread>
-#include "qzxing/src/QZXing.h"
+#include "3rdparty/qzxing/src/QZXing.h"
 
-#include "QvUtils.hpp"
-#include "QvKernelInteractions.hpp"
-#include "QvCoreConfigOperations.hpp"
+#include "core/CoreUtils.hpp"
+#include "core/kernel/KernelInteractions.hpp"
+#include "core/connection/ConnectionIO.hpp"
+#include "core/connection/Serialization.hpp"
 
 #include "w_ScreenShot_Core.hpp"
-#include "w_OutboundEditor.hpp"
-#include "w_JsonEditor.hpp"
+#include "ui/editors/w_OutboundEditor.hpp"
+#include "ui/editors/w_JsonEditor.hpp"
 #include "w_ImportConfig.hpp"
-#include "w_SubscriptionEditor.hpp"
-#include "w_RoutesEditor.hpp"
-
+#include "ui/w_SubscriptionManager.hpp"
+#include "ui/editors/w_RoutesEditor.hpp"
 
 ImportConfigWindow::ImportConfigWindow(QWidget *parent)
     : QDialog(parent)
 {
     setupUi(this);
     nameTxt->setText(QDateTime::currentDateTime().toString("MMdd_hhmm"));
+    QvMessageBusConnect(ImportConfigWindow);
+    RESTORE_RUNTIME_CONFIG(screenShotHideQv2ray, hideQv2rayCB->setChecked)
+}
+
+QvMessageBusSlotImpl(ImportConfigWindow)
+{
+    switch (msg) {
+            QvMessageBusShowDefault
+            QvMessageBusHideDefault
+            QvMessageBusRetranslateDefault
+    }
+}
+
+ImportConfigWindow::~ImportConfigWindow()
+{
 }
 
 QMap<QString, CONFIGROOT> ImportConfigWindow::OpenImport(bool partialImport)
@@ -44,18 +59,37 @@ void ImportConfigWindow::on_selectFileBtn_clicked()
 
 void ImportConfigWindow::on_qrFromScreenBtn_clicked()
 {
+    bool hideQv2ray = hideQv2rayCB->isChecked();
+
+    if (hideQv2ray) {
+        messageBus.EmitGlobalSignal(QvMessage::HIDE_WINDOWS);
+    }
+
+    QApplication::processEvents();
     QThread::msleep(static_cast<ulong>(doubleSpinBox->value() * 1000));
     ScreenShotWindow w;
     auto pix = w.DoScreenShot();
+    auto _r = w.result();
+    // Explicitly delete w to call UNREGISTER_WINDOW
 
-    if (w.result() == QDialog::Accepted) {
-        auto str = QZXing().decodeImage(pix);
+    if (hideQv2ray) {
+        messageBus.EmitGlobalSignal(QvMessage::SHOW_WINDOWS);
+        //ShowAllGlobalWindow();
+    }
+
+    if (_r == QDialog::Accepted) {
+        QZXing decoder;
+        decoder.setDecoder(QZXing::DecoderFormat_QR_CODE | QZXing::DecoderFormat_EAN_13);
+        auto str = decoder.decodeImage(pix);
+        //auto str = QZXing().decodeImage(pix);
 
         if (str.trimmed().isEmpty()) {
-            LOG(MODULE_UI, "Cannot decode QR Code from an image, size: h=" + QSTRN(pix.width()) + ", v=" + QSTRN(pix.height()))
+            LOG(UI, "Cannot decode QR Code from an image, size: h=" + QSTRN(pix.width()) + ", v=" + QSTRN(pix.height()))
             QvMessageBoxWarn(this, tr("Capture QRCode"), tr("Cannot find a valid QRCode from this region."));
         } else {
             vmessConnectionStringTxt->appendPlainText(str.trimmed() + NEWLINE);
+            //QvMessageBoxWarn(this, tr("Capture QRCode"), tr("Successfully imported a QR code form the screen."));
+            //this->show();
         }
     }
 }
@@ -83,34 +117,34 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
         }
 
         case 1: {
-            QStringList vmessList = SplitLines(vmessConnectionStringTxt->toPlainText());
+            QStringList linkList = SplitLines(vmessConnectionStringTxt->toPlainText());
             //
             // Clear UI and error lists
-            vmessErrors.clear();
+            linkErrors.clear();
             vmessConnectionStringTxt->clear();
             errorsList->clear();
             //
-            LOG(MODULE_IMPORT, QSTRN(vmessList.count()) + " string found in vmess box.")
+            LOG(IMPORT, QSTRN(linkList.count()) + " string found in vmess box.")
 
-            while (!vmessList.isEmpty()) {
+            while (!linkList.isEmpty()) {
                 aliasPrefix = nameTxt->text();
-                auto vmess = vmessList.takeFirst();
+                auto link = linkList.takeFirst();
                 QString errMessage;
-                CONFIGROOT config = ConvertConfigFromVMessString(vmess, &aliasPrefix, &errMessage);
+                CONFIGROOT config = ConvertConfigFromString(link, &aliasPrefix, &errMessage);
 
                 // If the config is empty or we have any err messages.
                 if (config.isEmpty() || !errMessage.isEmpty()) {
                     // To prevent duplicated values.
-                    vmessErrors[vmess] = QSTRN(vmessErrors.count() + 1) + ": " + errMessage;
+                    linkErrors[link] = QSTRN(linkErrors.count() + 1) + ": " + errMessage;
                     continue;
                 } else {
                     connections[aliasPrefix] = config;
                 }
             }
 
-            if (!vmessErrors.isEmpty()) {
-                for (auto item : vmessErrors) {
-                    vmessConnectionStringTxt->appendPlainText(vmessErrors.key(item));
+            if (!linkErrors.isEmpty()) {
+                for (auto item : linkErrors) {
+                    vmessConnectionStringTxt->appendPlainText(linkErrors.key(item));
                     errorsList->addItem(item);
                 }
 
@@ -135,7 +169,9 @@ void ImportConfigWindow::on_selectImageBtn_clicked()
     auto buf = file.readAll();
     file.close();
     //
-    auto str = QZXing().decodeImage(QImage::fromData(buf));
+    QZXing decoder;
+    decoder.setDecoder(QZXing::DecoderFormat_QR_CODE | QZXing::DecoderFormat_EAN_13);
+    auto str = decoder.decodeImage(QImage::fromData(buf));
 
     if (str.isEmpty()) {
         QvMessageBoxWarn(this, tr("QRCode scanning failed"), tr("Cannot find any QRCode from the image."));
@@ -153,7 +189,7 @@ void ImportConfigWindow::on_errorsList_currentItemChanged(QListWidgetItem *curre
     }
 
     auto currentErrorText = current->text();
-    auto vmessEntry = vmessErrors.key(currentErrorText);
+    auto vmessEntry = linkErrors.key(currentErrorText);
     //
     auto startPos = vmessConnectionStringTxt->toPlainText().indexOf(vmessEntry);
     auto endPos = startPos + vmessEntry.length();
@@ -181,20 +217,20 @@ void ImportConfigWindow::on_editFileBtn_clicked()
     auto jsonCheckingError = VerifyJsonString(jsonString);
 
     if (!jsonCheckingError.isEmpty()) {
-        LOG(MODULE_FILE, "Currupted JSON file detected")
+        LOG(FILEIO, "Currupted JSON file detected")
 
         if (QvMessageBoxAsk(this, tr("Edit file as JSON"), tr("The file you selected has json syntax error. Continue editing may make you lose data. Would you like to continue?") + NEWLINE + jsonCheckingError) != QMessageBox::Yes) {
             return;
         } else {
-            LOG(MODULE_FILE, "Continue editing curruped json file, data loss is expected.")
+            LOG(FILEIO, "Continue editing curruped json file, data loss is expected.")
         }
     }
 
     auto json  = JsonFromString(jsonString);
-    auto editor = new JsonEditor(json, this);
-    json = editor->OpenEditor();
+    JsonEditor editor(json, this);
+    json = editor.OpenEditor();
 
-    if (editor->result() == QDialog::Accepted) {
+    if (editor.result() == QDialog::Accepted) {
         auto str = JsonToString(json);
         bool result = StringToFile(&str, &file);
 
@@ -202,17 +238,16 @@ void ImportConfigWindow::on_editFileBtn_clicked()
             QvMessageBoxWarn(this, tr("Edit file as JSON"), tr("Failed to save file, please check if you have proper permissions"));
         }
     } else {
-        LOG(MODULE_FILE, "Canceled saving a file.")
+        LOG(FILEIO, "Canceled saving a file.")
     }
 }
 
 void ImportConfigWindow::on_connectionEditBtn_clicked()
 {
-    OutboundEditor *w = new OutboundEditor(this);
-    auto outboundEntry = w->OpenEditor();
-    bool isChanged = w->result() == QDialog::Accepted;
-    QString alias = w->GetFriendlyName();
-    delete w;
+    OutboundEditor w(this);
+    auto outboundEntry = w.OpenEditor();
+    bool isChanged = w.result() == QDialog::Accepted;
+    QString alias = w.GetFriendlyName();
 
     if (isChanged) {
         OUTBOUNDS outboundsList;
@@ -261,4 +296,10 @@ void ImportConfigWindow::on_routeEditBtn_clicked()
     } else {
         return;
     }
+}
+
+void ImportConfigWindow::on_hideQv2rayCB_stateChanged(int arg1)
+{
+    Q_UNUSED(arg1)
+    SET_RUNTIME_CONFIG(screenShotHideQv2ray, hideQv2rayCB->isChecked)
 }

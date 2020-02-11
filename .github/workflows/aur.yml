@@ -1,0 +1,19 @@
+name: AUR Test Build
+on: 
+  push:
+    paths-ignore: [README.md]
+  release: {}
+  schedule:
+    - cron: "0 19 * * *"
+
+jobs:
+  aur:
+    strategy:
+      fail-fast: true
+      matrix:
+        repo: [qv2ray, qv2ray-dev-git]
+    runs-on: [ubuntu-latest]
+    steps:
+      - uses: DuckSoft/build-aur-action@v1.0
+        with:
+          repo-name: ${{ matrix.repo }}

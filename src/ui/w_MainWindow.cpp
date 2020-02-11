@@ -15,16 +15,18 @@
 #include <QKeyEvent>
 
 #include "w_MainWindow.hpp"
-#include "w_OutboundEditor.hpp"
 #include "w_ImportConfig.hpp"
-#include "w_RoutesEditor.hpp"
 #include "w_PreferencesWindow.hpp"
-#include "w_SubscriptionEditor.hpp"
-#include "w_JsonEditor.hpp"
+#include "w_SubscriptionManager.hpp"
 #include "w_ExportConfig.hpp"
+#include "ui/editors/w_OutboundEditor.hpp"
+#include "ui/editors/w_RoutesEditor.hpp"
+#include "ui/editors/w_JsonEditor.hpp"
 
-#include "QvNetSpeedPlugin.hpp"
-#include "QvPACHandler.hpp"
+#include "components/plugins/toolbar/QvToolbar.hpp"
+#include "components/pac/QvPACHandler.hpp"
+
+#include "core/connection/ConnectionIO.hpp"
 
 // MainWindow.cpp --> Main MainWindow source file, handles mostly UI-related operations.
 
@@ -34,7 +36,7 @@
 #define qvAppLogBrowser this->logTextBrowsers[1]
 #define currentLogBrowser this->logTextBrowsers[currentLogBrowserId]
 //
-#define ItemConnectionIdentifier(__item__) (__item__->data(0, Qt::UserRole).value<QvConfigIdentifier>())
+#define ItemConnectionIdentifier(__item__) (__item__->data(0, Qt::UserRole).value<ConnectionIdentifier>())
 //
 #define CheckConfigType(_item_, TYPE) (connections.contains(ItemConnectionIdentifier(_item_)) && connections[ItemConnectionIdentifier(_item_)].configType == CONNECTION_ ## TYPE)
 //
@@ -60,7 +62,7 @@
 // From https://gist.github.com/jemyzhang/7130092
 #define CleanUpLogs(browser) \
     {\
-        auto maxLines = currentConfig.uiConfig.maximumLogLines; \
+        auto maxLines = GlobalConfig.uiConfig.maximumLogLines; \
         QTextBlock block = browser->document()->begin();\
         while (block.isValid()) {\
             if (browser->document()->blockCount() > maxLines) {\
@@ -77,22 +79,30 @@
 
 MainWindow *MainWindow::mwInstance = nullptr;
 
-MainWindow::MainWindow(QWidget *parent):
-    QMainWindow(parent), vinstance(), uploadList(), downloadList(),
-    hTray(new QSystemTrayIcon(this)), vCoreLogHighlighter(), qvAppLogHighlighter()
+QvMessageBusSlotImpl(MainWindow)
+{
+    switch (msg) {
+            QvMessageBusShowDefault
+            QvMessageBusHideDefault
+            QvMessageBusRetranslateDefault
+    }
+}
+
+MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), vinstance(), hTray(this), tcpingHelper(3, this)
 {
     MainWindow::mwInstance = this;
-    currentConfig = GetGlobalConfig();
     vinstance = new V2rayKernelInstance();
     connect(vinstance, &V2rayKernelInstance::onProcessOutputReadyRead, this, &MainWindow::UpdateVCoreLog);
     connect(vinstance, &V2rayKernelInstance::onProcessErrored, [this] {
         on_stopButton_clicked();
         this->show();
-        QvMessageBoxWarn(this, tr("V2ray vcore terminated."), tr("V2ray vcore terminated unexpectedly.") + NEWLINE + NEWLINE +
+        QvMessageBoxWarn(this, tr("V2ray vcore terminated."),
+                         tr("V2ray vcore terminated unexpectedly.") + NEWLINE + NEWLINE +
                          tr("To solve the problem, read the V2ray log in the log text browser."));
     });
     //
     setupUi(this);
+    QvMessageBusConnect(MainWindow);
     //
     // Two browsers
     logTextBrowsers.append(new QTextBrowser());
@@ -104,8 +114,8 @@ MainWindow::MainWindow(QWidget *parent):
     qvAppLogBrowser->setReadOnly(true);
     qvAppLogBrowser->setLineWrapMode(QTextBrowser::LineWrapMode::NoWrap);
     //
-    vCoreLogHighlighter = new SyntaxHighlighter(currentConfig.uiConfig.useDarkTheme, vCoreLogBrowser->document());
-    qvAppLogHighlighter = new SyntaxHighlighter(currentConfig.uiConfig.useDarkTheme, qvAppLogBrowser->document());
+    vCoreLogHighlighter = new SyntaxHighlighter(GlobalConfig.uiConfig.useDarkTheme, vCoreLogBrowser->document());
+    qvAppLogHighlighter = new SyntaxHighlighter(GlobalConfig.uiConfig.useDarkTheme, qvAppLogBrowser->document());
     currentLogBrowserId = 0;
     masterLogBrowser->setDocument(currentLogBrowser->document());
     masterLogBrowser->document()->setDocumentMargin(8);
@@ -114,13 +124,11 @@ MainWindow::MainWindow(QWidget *parent):
     //
     qvLogTimerId = startTimer(500);
     //
-    pacServer = new PACServer();
-    tcpingModel = new QvTCPingModel(3, this);
     requestHelper = new QvHttpRequestHelper();
-    connect(tcpingModel, &QvTCPingModel::PingFinished, this, &MainWindow::onPingFinished);
+    connect(&tcpingHelper, &QvTCPingModel::PingFinished, this, &MainWindow::onPingFinished);
     //
     this->setWindowIcon(QIcon(":/assets/icons/qv2ray.png"));
-    hTray->setIcon(QIcon(currentConfig.uiConfig.useDarkTrayIcon ? ":/assets/icons/ui_dark/tray.png" : ":/assets/icons/ui_light/tray.png"));
+    hTray.setIcon(QIcon(GlobalConfig.uiConfig.useDarkTrayIcon ? ":/assets/icons/ui_dark/tray.png" : ":/assets/icons/ui_light/tray.png"));
     importConfigButton->setIcon(QICON_R("import.png"));
     duplicateBtn->setIcon(QICON_R("duplicate.png"));
     removeConfigButton->setIcon(QICON_R("delete.png"));
@@ -134,7 +142,7 @@ MainWindow::MainWindow(QWidget *parent):
     //
     // Setup System tray icons and menus
     //
-    hTray->setToolTip(TRAY_TOOLTIP_PREFIX);
+    hTray.setToolTip(TRAY_TOOLTIP_PREFIX);
     // Basic actions
     action_Tray_ShowHide = new QAction(this->windowIcon(), tr("Hide"), this);
     action_Tray_ShowPreferencesWindow = new QAction(tr("Preferences"), this);
@@ -172,13 +180,9 @@ MainWindow::MainWindow(QWidget *parent):
     connect(action_Tray_Stop, &QAction::triggered, this, &MainWindow::on_stopButton_clicked);
     connect(action_Tray_Reconnect, &QAction::triggered, this, &MainWindow::on_reconnectButton_clicked);
     connect(action_Tray_Quit, &QAction::triggered, this, &MainWindow::quit);
-    connect(action_Tray_SetSystemProxy, &QAction::triggered, [this]() {
-        this->MWSetSystemProxy();
-    });
-    connect(action_Tray_ClearSystemProxy, &QAction::triggered, [this]() {
-        this->MWClearSystemProxy(true);
-    });
-    connect(hTray, &QSystemTrayIcon::activated, this, &MainWindow::on_activatedTray);
+    connect(action_Tray_SetSystemProxy, &QAction::triggered, this, &MainWindow::MWSetSystemProxy);
+    connect(action_Tray_ClearSystemProxy, &QAction::triggered, this, &MainWindow::MWClearSystemProxy);
+    connect(&hTray, &QSystemTrayIcon::activated, this, &MainWindow::on_activatedTray);
     //
     // Actions for right click the connection list
     //
@@ -196,12 +200,13 @@ MainWindow::MainWindow(QWidget *parent):
     // Share options
     connect(action_RCM_ShareQR, &QAction::triggered, this, &MainWindow::on_action_RCM_ShareQR_triggered);
     //
+    // Globally invokable signals.
     connect(this, &MainWindow::Connect, this, &MainWindow::on_startButton_clicked);
     connect(this, &MainWindow::DisConnect, this, &MainWindow::on_stopButton_clicked);
     connect(this, &MainWindow::ReConnect, this, &MainWindow::on_reconnectButton_clicked);
     //
-    hTray->setContextMenu(tray_RootMenu);
-    hTray->show();
+    hTray.setContextMenu(tray_RootMenu);
+    hTray.show();
     //
     connectionListMenu = new QMenu(this);
     connectionListMenu->addAction(action_RCM_StartThis);
@@ -213,37 +218,9 @@ MainWindow::MainWindow(QWidget *parent):
     OnConfigListChanged(false);
     //
     // For charts
-    uploadSerie = new QSplineSeries(this);
-    downloadSerie = new QSplineSeries(this);
-    uploadSerie->setName(tr("Upload"));
-    downloadSerie->setName(tr("Download"));
-
-    for (int i = 0; i < 30 ; i++) {
-        uploadList.append(0);
-        downloadList.append(0);
-        uploadSerie->append(i, 0);
-        downloadSerie->append(i, 0);
-    }
-
-    speedChartObj = new QChart();
-    speedChartObj->setTheme(currentConfig.uiConfig.useDarkTheme ? QChart::ChartThemeDark : QChart::ChartThemeLight);
-    speedChartObj->setTitle(""); // Fake hidden
-    speedChartObj->legend()->hide();
-    speedChartObj->createDefaultAxes();
-    speedChartObj->addSeries(uploadSerie);
-    speedChartObj->addSeries(downloadSerie);
-    speedChartObj->createDefaultAxes();
-    speedChartObj->axes(Qt::Vertical).first()->setRange(0, 512);
-    //
-    static_cast<QValueAxis>(speedChartObj->axes(Qt::Horizontal).first()).setLabelFormat("dd");
-    speedChartObj->axes(Qt::Horizontal).first()->setRange(0, 30);
-    speedChartObj->setContentsMargins(-20, -50, -20, -25);
-    speedChartView = new QChartView(speedChartObj, this);
-    speedChartView->setRenderHint(QPainter::RenderHint::HighQualityAntialiasing, true);
-    //
-    auto layout = new QHBoxLayout(speedChart);
-    layout->addWidget(speedChartView);
-    speedChart->setLayout(layout);
+    speedChartView = new SpeedWidget(this);
+    //speedChartView->setContentsMargins(1, 1, 1, 1);
+    speedChart->addWidget(speedChartView);
     //
     // Find and start if there is an auto-connection
     MWFindAndStartAutoConfig();
@@ -257,7 +234,7 @@ MainWindow::MainWindow(QWidget *parent):
     requestHelper->get("https://api.github.com/repos/Qv2ray/Qv2ray/releases/latest");
 
     if (StartupOption.enableToolbarPlguin) {
-        LOG(MODULE_UI, "Plugin daemon is enabled.")
+        LOG(UI, "Plugin daemon is enabled.")
         StartProcessingPlugins();
     }
 
@@ -302,7 +279,7 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
 
             auto selections = connectionListWidget->selectedItems();
             QVariant v;
-            auto vv = v.value<QvConfigIdentifier>();
+            auto vv = v.value<ConnectionIdentifier>();
             ShowAndSetConnection(ItemConnectionIdentifier(selections.first()), true, true);
         }
     }
@@ -315,8 +292,8 @@ void MainWindow::on_action_StartThis_triggered()
         return;
     }
 
-    CurrentSelectedItem = connectionListWidget->selectedItems().first();
-    CurrentConnectionIdentifier = ItemConnectionIdentifier(CurrentSelectedItem);
+    CurrentSelectedItemPtr = connectionListWidget->selectedItems().first();
+    CurrentConnectionIdentifier = ItemConnectionIdentifier(CurrentSelectedItemPtr);
     on_reconnectButton_clicked();
 }
 void MainWindow::VersionUpdate(QByteArray &data)
@@ -324,15 +301,15 @@ void MainWindow::VersionUpdate(QByteArray &data)
     // Version update handler.
     QJsonObject root = JsonFromString(QString(data));
     //
-    QVersionNumber newversion = QVersionNumber::fromString(root["tag_name"].toString("v").remove(0, 1));
-    QVersionNumber current = QVersionNumber::fromString(QString(QV2RAY_VERSION_STRING).remove(0, 1));
-    QVersionNumber ignored = QVersionNumber::fromString(currentConfig.ignoredVersion);
-    LOG(MODULE_UPDATE, "Received update info, Latest: " + newversion.toString() + " Current: " + current.toString() + " Ignored: " + ignored.toString())
+    QVersionNumber newVersion = QVersionNumber::fromString(root["tag_name"].toString("v").remove(0, 1));
+    QVersionNumber currentVersion = QVersionNumber::fromString(QString(QV2RAY_VERSION_STRING).remove(0, 1));
+    QVersionNumber ignoredVersion = QVersionNumber::fromString(GlobalConfig.ignoredVersion);
+    LOG(UPDATE, "Received update info, Latest: " + newVersion.toString() + " Current: " + currentVersion.toString() + " Ignored: " + ignoredVersion.toString())
 
     // If the version is newer than us.
     // And new version is newer than the ignored version.
-    if (newversion > current && newversion > ignored) {
-        LOG(MODULE_UPDATE, "New version detected.")
+    if (newVersion > currentVersion && newVersion > ignoredVersion) {
+        LOG(UPDATE, "New version detected.")
         auto link = root["html_url"].toString("");
         auto result = QvMessageBoxAsk(this, tr("Update"),
                                       tr("Found a new version: ") + root["tag_name"].toString("") +
@@ -347,8 +324,8 @@ void MainWindow::VersionUpdate(QByteArray &data)
             QDesktopServices::openUrl(QUrl::fromUserInput(link));
         } else if (result == QMessageBox::Ignore) {
             // Set and save ingored version.
-            currentConfig.ignoredVersion = newversion.toString();
-            SetGlobalConfig(currentConfig);
+            GlobalConfig.ignoredVersion = newVersion.toString();
+            SaveGlobalConfig(GlobalConfig);
         }
     }
 }
@@ -359,12 +336,11 @@ void MainWindow::OnConfigListChanged(bool need_restart)
 
     if (wasRunning) on_stopButton_clicked();
 
-    LOG(MODULE_UI, "Loading new GlobalConfig")
+    LOG(UI, "Loading new GlobalConfig")
     SetEditWidgetEnable(false);
-    currentConfig = GetGlobalConfig();
     //
     // Store the latency test value.
-    QMap<QvConfigIdentifier, double> latencyValueCache;
+    QMap<ConnectionIdentifier, double> latencyValueCache;
 
     for (auto i = 0; i < connections.count(); i++) {
         latencyValueCache[connections.keys()[i]] = connections.values()[i].latency;
@@ -372,8 +348,8 @@ void MainWindow::OnConfigListChanged(bool need_restart)
 
     connections.clear();
     connectionListWidget->clear();
-    auto _regularConnections = GetRegularConnections(currentConfig.configs);
-    auto _subsConnections = GetSubscriptionConnections(currentConfig.subscriptions.keys());
+    auto _regularConnections = GetRegularConnections(GlobalConfig.configs);
+    auto _subsConnections = GetSubscriptionConnections(GlobalConfig.subscriptions.keys());
 
     for (auto i = 0; i < _regularConnections.count(); i++) {
         ConnectionObject _o;
@@ -384,7 +360,7 @@ void MainWindow::OnConfigListChanged(bool need_restart)
         _o.latency = latencyValueCache[name]; // restore latency values
         connections[name] = _o;
         auto item = new QTreeWidgetItem(QStringList() << _o.connectionName);
-        item->setData(0, Qt::UserRole, QVariant::fromValue<QvConfigIdentifier>(_o));
+        item->setData(0, Qt::UserRole, QVariant::fromValue<ConnectionIdentifier>(_o));
         connectionListWidget->addTopLevelItem(item);
     }
 
@@ -404,7 +380,7 @@ void MainWindow::OnConfigListChanged(bool need_restart)
             _o.latency = latencyValueCache[connName];
             connections[connName] = _o;
             auto item = new QTreeWidgetItem(QStringList() << _o.connectionName);
-            item->setData(0, Qt::UserRole, QVariant::fromValue<QvConfigIdentifier>(_o));
+            item->setData(0, Qt::UserRole, QVariant::fromValue<ConnectionIdentifier>(_o));
             subTopLevelItem->addChild(item);
         }
     }
@@ -433,8 +409,7 @@ void MainWindow::OnConfigListChanged(bool need_restart)
 MainWindow::~MainWindow()
 {
     killTimer(qvLogTimerId);
-    hTray->hide();
-    delete this->hTray;
+    hTray.hide();
     delete this->vinstance;
 }
 void MainWindow::UpdateVCoreLog(const QString &log)
@@ -454,16 +429,9 @@ void MainWindow::setMasterLogHBar()
 }
 void MainWindow::on_startButton_clicked()
 {
-    vCoreLogBrowser->clear();
-
     if (!vinstance->KernelStarted) {
-        // Reset the graph
-        for (int i = 0; i < 30 ; i++) {
-            uploadList[i] = 0;
-            downloadList[i] = 0;
-            uploadSerie->replace(i, 0, 0);
-            downloadSerie->replace(i, 0, 0);
-        }
+        vCoreLogBrowser->clear();
+        speedChartView->Clear();
 
         // Check Selection
         if (CurrentConnectionIdentifier.isEmpty()) {
@@ -472,7 +440,7 @@ void MainWindow::on_startButton_clicked()
         }
 
         auto name = CurrentConnectionIdentifier.IdentifierString();
-        LOG(MODULE_VCORE, "Connecting to: " + name)
+        LOG(VCORE, "Connecting to: " + name)
         vCoreLogBrowser->clear();
         bool startFlag = MWtryStartConnection();
 
@@ -480,8 +448,8 @@ void MainWindow::on_startButton_clicked()
             MWTryPingConnection(name);
             speedTimerId = startTimer(1000);
             pingTimerId = startTimer(60000);
-            this->hTray->showMessage("Qv2ray", tr("Connected: ") + name, this->windowIcon());
-            hTray->setToolTip(TRAY_TOOLTIP_PREFIX NEWLINE + tr("Connected: ") + name);
+            this->hTray.showMessage("Qv2ray", tr("Connected: ") + name, this->windowIcon());
+            hTray.setToolTip(TRAY_TOOLTIP_PREFIX NEWLINE + tr("Connected: ") + name);
             statusLabel->setText(tr("Connected: ") + name);
         } else {
             // If failed, show mainwindow
@@ -497,34 +465,34 @@ void MainWindow::on_startButton_clicked()
         startButton->setEnabled(!startFlag);
         stopButton->setEnabled(startFlag);
     } else {
-        LOG(MODULE_UI, "vCore already started.")
+        this->hTray.showMessage("Qv2ray", tr("Already connected to: ") + CurrentConnectionIdentifier.IdentifierString(), this->windowIcon());
     }
 }
 
 void MainWindow::on_stopButton_clicked()
 {
-    if (vinstance->KernelStarted) {
-        // Is running or starting
-        killTimer(speedTimerId);
-        killTimer(pingTimerId);
-        //
-        MWStopConnection();
-        //
-        hTray->setToolTip(TRAY_TOOLTIP_PREFIX);
-        statusLabel->setText(tr("Disconnected"));
-        action_Tray_Start->setEnabled(true);
-        action_Tray_Stop->setEnabled(false);
-        action_Tray_Reconnect->setEnabled(false);
-        // Set to false as the system proxy has been cleared in the StopConnection function.
-        tray_SystemProxyMenu->setEnabled(false);
-        startButton->setEnabled(true);
-        stopButton->setEnabled(false);
-        //
-        netspeedLabel->setText("0.00 B/s\r\n0.00 B/s");
-        dataamountLabel->setText("0.00 B\r\n0.00 B");
-        LOG(MODULE_UI, "Stopped successfully.")
-    }
+    // Is running or starting
+    killTimer(speedTimerId);
+    killTimer(pingTimerId);
+    //
+    MWStopConnection();
+    //
+    hTray.setToolTip(TRAY_TOOLTIP_PREFIX);
+    statusLabel->setText(tr("Disconnected"));
+    action_Tray_Start->setEnabled(true);
+    action_Tray_Stop->setEnabled(false);
+    action_Tray_Reconnect->setEnabled(false);
+    // Set to false as the system proxy has been cleared in the StopConnection function.
+    tray_SystemProxyMenu->setEnabled(false);
+    startButton->setEnabled(true);
+    stopButton->setEnabled(false);
+    //
+    netspeedLabel->setText("0.00 B/s\r\n0.00 B/s");
+    dataamountLabel->setText("0.00 B\r\n0.00 B");
+    LOG(UI, "Stopped successfully.")
+    this->hTray.showMessage("Qv2ray", tr("Disconnected from: ") + CurrentConnectionIdentifier.IdentifierString());
 }
+
 void MainWindow::closeEvent(QCloseEvent *event)
 {
     this->hide();
@@ -584,15 +552,17 @@ void MainWindow::quit()
         StopProcessingPlugins();
     }
 
-    tcpingModel->StopAllPing();
+    tcpingHelper.StopAllPing();
     on_stopButton_clicked();
     ExitQv2ray();
 }
+
 void MainWindow::on_actionExit_triggered()
 {
     quit();
 }
-void MainWindow::ShowAndSetConnection(QvConfigIdentifier fullIdentifier, bool SetConnection, bool ApplyConnection)
+
+void MainWindow::ShowAndSetConnection(ConnectionIdentifier fullIdentifier, bool SetConnection, bool ApplyConnection)
 {
     // Check empty again...
     if (!connections.contains(fullIdentifier)) return;
@@ -602,7 +572,7 @@ void MainWindow::ShowAndSetConnection(QvConfigIdentifier fullIdentifier, bool Se
     // --------- BRGIN Show Connection
     auto conf = connections[fullIdentifier];
     //
-    auto isComplexConfig = CheckIsComplexConfig(conf.config);
+    auto isComplexConfig = IsComplexConfig(conf.config);
     routeCountLabel->setText(isComplexConfig ? tr("Complex") : tr("Simple"));
 
     if (conf.latency == 0.0) {
@@ -623,7 +593,7 @@ void MainWindow::ShowAndSetConnection(QvConfigIdentifier fullIdentifier, bool Se
 
     // Set to currentConnection
     if (SetConnection) {
-        CurrentSelectedItem  = FindItemByIdentifier(fullIdentifier);
+        CurrentSelectedItemPtr  = FindItemByIdentifier(fullIdentifier);
         CurrentConnectionIdentifier = fullIdentifier;
     }
 
@@ -634,9 +604,9 @@ void MainWindow::ShowAndSetConnection(QvConfigIdentifier fullIdentifier, bool Se
 }
 void MainWindow::on_preferencesBtn_clicked()
 {
-    PreferencesWindow *w = new PreferencesWindow(this);
-    connect(w, &PreferencesWindow::s_reload_config, this, &MainWindow::OnConfigListChanged);
-    w->show();
+    PreferencesWindow w(this);
+    connect(&w, &PreferencesWindow::s_reload_config, this, &MainWindow::OnConfigListChanged);
+    w.exec();
 }
 void MainWindow::on_connectionListWidget_doubleClicked(const QModelIndex &index)
 {
@@ -677,22 +647,24 @@ void MainWindow::on_action_RCM_RenameConnection_triggered()
     auto item = connectionListWidget->currentItem();
     SUBSCRIPTION_CONFIG_MODIFY_DENY(item)
     item->setFlags(item->flags() | Qt::ItemIsEditable);
+    isRenamingInProgress = true;
     connectionListWidget->editItem(item);
     renameOriginalIdentifier = ItemConnectionIdentifier(item);
-    isRenamingInProgress = true;
 }
 void MainWindow::on_connectionListWidget_itemChanged(QTreeWidgetItem *item, int)
 {
-    DEBUG(MODULE_UI, "A connection ListViewItem is changed.")
+    DEBUG(UI, "A connection ListViewItem is changed. This should ONLY occur when renaming an connection.")
 
-    if (!isRenamingInProgress) return;
+    if (!isRenamingInProgress) {
+        return;
+    }
 
     isRenamingInProgress = false;
     // In this case it's after we entered the name.
     // and tell user you should not rename a config from subscription.
     auto newIdentifier = renameOriginalIdentifier;
     newIdentifier.connectionName = item->text(0);
-    LOG(MODULE_CONNECTION, "RENAME: " + renameOriginalIdentifier.IdentifierString() + " -> " + newIdentifier.IdentifierString())
+    LOG(CONNECTION, "RENAME: " + renameOriginalIdentifier.IdentifierString() + " -> " + newIdentifier.IdentifierString())
 
     // If I really did some changes.
     if (renameOriginalIdentifier != newIdentifier) {
@@ -703,7 +675,7 @@ void MainWindow::on_connectionListWidget_itemChanged(QTreeWidgetItem *item, int)
             canContinueRename = false;
         }
 
-        if (currentConfig.configs.contains(newIdentifier.connectionName)) {
+        if (GlobalConfig.configs.contains(newIdentifier.connectionName)) {
             QvMessageBoxWarn(this, tr("Rename a Connection"), tr("The name has been used already, Please choose another."));
             canContinueRename = false;
         }
@@ -722,19 +694,19 @@ void MainWindow::on_connectionListWidget_itemChanged(QTreeWidgetItem *item, int)
 
         // Change auto start config.
         //  |--------------=== In case it's not in a subscription --|
-        if (currentConfig.autoStartConfig == renameOriginalIdentifier) {
-            currentConfig.autoStartConfig = newIdentifier;
+        if (GlobalConfig.autoStartConfig == renameOriginalIdentifier) {
+            GlobalConfig.autoStartConfig = newIdentifier;
         }
 
         // Replace the items in the current loaded config list and settings.
         // Note: This original name should only be a reguular.
-        currentConfig.configs.removeOne(renameOriginalIdentifier.connectionName);
-        currentConfig.configs.push_back(newIdentifier.connectionName);
+        GlobalConfig.configs.removeOne(renameOriginalIdentifier.connectionName);
+        GlobalConfig.configs.push_back(newIdentifier.connectionName);
         //
         connections[newIdentifier] = connections.take(renameOriginalIdentifier);
         RenameConnection(renameOriginalIdentifier.connectionName, newIdentifier.connectionName);
-        LOG(MODULE_UI, "Saving a global config")
-        SetGlobalConfig(currentConfig);
+        LOG(UI, "Saving a global config")
+        SaveGlobalConfig(GlobalConfig);
         //
         item->setData(0, Qt::UserRole, QVariant::fromValue(newIdentifier));
 
@@ -751,7 +723,7 @@ void MainWindow::on_connectionListWidget_itemChanged(QTreeWidgetItem *item, int)
 }
 void MainWindow::on_removeConfigButton_clicked()
 {
-    QList<QvConfigIdentifier> connlist;
+    QList<ConnectionIdentifier> connlist;
 
     for (auto item : connectionListWidget->selectedItems()) {
         if (IsConnectableItem(item)) {
@@ -759,7 +731,7 @@ void MainWindow::on_removeConfigButton_clicked()
         }
     }
 
-    LOG(MODULE_UI, "Selected " + QSTRN(connlist.count()) + " items")
+    LOG(UI, "Selected " + QSTRN(connlist.count()) + " items")
 
     if (connlist.isEmpty()) {
         // Remove nothing means doing nothing.
@@ -776,28 +748,28 @@ void MainWindow::on_removeConfigButton_clicked()
     for (auto conn : connlist) {
         if (conn == CurrentConnectionIdentifier) {
             on_stopButton_clicked();
-            CurrentConnectionIdentifier = QvConfigIdentifier();
+            CurrentConnectionIdentifier = ConnectionIdentifier();
         }
 
         auto connData = connections[conn];
 
         // Remove auto start config.
-        if (currentConfig.autoStartConfig.subscriptionName == connData.subscriptionName &&
-            currentConfig.autoStartConfig.connectionName == connData.connectionName)
+        if (GlobalConfig.autoStartConfig.subscriptionName == connData.subscriptionName &&
+            GlobalConfig.autoStartConfig.connectionName == connData.connectionName)
             // If all those settings match.
         {
-            currentConfig.autoStartConfig.subscriptionName.clear();
-            currentConfig.autoStartConfig.connectionName.clear();
+            GlobalConfig.autoStartConfig.subscriptionName.clear();
+            GlobalConfig.autoStartConfig.connectionName.clear();
         }
 
         if (connData.configType == CONNECTION_REGULAR) {
             // Just remove the regular configs.
             if (!connData.subscriptionName.isEmpty()) {
-                LOG(MODULE_UI, "Unexpected subscription name in a single regular config.")
+                LOG(UI, "Unexpected subscription name in a single regular config.")
                 connData.subscriptionName.clear();
             }
 
-            currentConfig.configs.removeOne(conn.connectionName);
+            GlobalConfig.configs.removeOne(conn.connectionName);
 
             if (!RemoveConnection(conn.connectionName)) {
                 QvMessageBoxWarn(this, tr("Removing this Connection"), tr("Failed to delete connection file, please delete manually."));
@@ -815,20 +787,20 @@ void MainWindow::on_removeConfigButton_clicked()
                 }
             }
         } else {
-            LOG(MODULE_CONFIG, "Unknown config type -> Not regular nor subscription...")
+            LOG(SETTINGS, "Unknown config type -> Not regular nor subscription...")
         }
     }
 
-    LOG(MODULE_UI, "Saving GlobalConfig")
-    SetGlobalConfig(currentConfig);
+    LOG(UI, "Saving GlobalConfig")
+    SaveGlobalConfig(GlobalConfig);
     OnConfigListChanged(false);
     ShowAndSetConnection(CurrentConnectionIdentifier, false, false);
 }
 
 void MainWindow::on_importConfigButton_clicked()
 {
-    ImportConfigWindow *w = new ImportConfigWindow(this);
-    auto configs = w->OpenImport();
+    ImportConfigWindow w(this);
+    auto configs = w.OpenImport();
 
     if (!configs.isEmpty()) {
         for (auto conf : configs) {
@@ -838,10 +810,10 @@ void MainWindow::on_importConfigButton_clicked()
                 continue;
 
             SaveConnectionConfig(conf, &name, false);
-            currentConfig.configs.push_back(name);
+            GlobalConfig.configs.push_back(name);
         }
 
-        SetGlobalConfig(currentConfig);
+        SaveGlobalConfig(GlobalConfig);
         OnConfigListChanged(false);
     }
 }
@@ -861,16 +833,16 @@ void MainWindow::on_editConfigButton_clicked()
     CONFIGROOT root;
     bool isChanged = false;
 
-    if (CheckIsComplexConfig(outBoundRoot)) {
-        LOG(MODULE_UI, "INFO: Opening route editor.")
-        RouteEditor *routeWindow = new RouteEditor(outBoundRoot, this);
-        root = routeWindow->OpenEditor();
-        isChanged = routeWindow->result() == QDialog::Accepted;
+    if (IsComplexConfig(outBoundRoot)) {
+        LOG(UI, "INFO: Opening route editor.")
+        RouteEditor routeWindow(outBoundRoot, this);
+        root = routeWindow.OpenEditor();
+        isChanged = routeWindow.result() == QDialog::Accepted;
     } else {
-        LOG(MODULE_UI, "INFO: Opening single connection edit window.")
-        OutboundEditor *w = new OutboundEditor(OUTBOUND(outBoundRoot["outbounds"].toArray().first().toObject()), this);
-        auto outboundEntry = w->OpenEditor();
-        isChanged = w->result() == QDialog::Accepted;
+        LOG(UI, "INFO: Opening single connection edit window.")
+        OutboundEditor w(OUTBOUND(outBoundRoot["outbounds"].toArray().first().toObject()), this);
+        auto outboundEntry = w.OpenEditor();
+        isChanged = w.result() == QDialog::Accepted;
         QJsonArray outboundsList;
         outboundsList.push_back(outboundEntry);
         root.insert("outbounds", outboundsList);
@@ -914,10 +886,10 @@ void MainWindow::on_action_RCM_ConvToComplex_triggered()
     CONFIGROOT root;
     bool isChanged = false;
     //
-    LOG(MODULE_UI, "INFO: Opening route editor.")
-    RouteEditor *routeWindow = new RouteEditor(outBoundRoot, this);
-    root = routeWindow->OpenEditor();
-    isChanged = routeWindow->result() == QDialog::Accepted;
+    LOG(UI, "INFO: Opening route editor.")
+    RouteEditor routeWindow(outBoundRoot, this);
+    root = routeWindow.OpenEditor();
+    isChanged = routeWindow.result() == QDialog::Accepted;
     QString alias = _identifier.connectionName;
 
     if (isChanged) {
@@ -940,10 +912,9 @@ void MainWindow::on_action_RCM_EditJson_triggered()
     auto selectedFirst = connectionListWidget->currentItem();
     auto _identifier = ItemConnectionIdentifier(selectedFirst);
     SUBSCRIPTION_CONFIG_MODIFY_DENY(selectedFirst)
-    JsonEditor *w = new JsonEditor(connections[_identifier].config, this);
-    auto root = CONFIGROOT(w->OpenEditor());
-    bool isChanged = w->result() == QDialog::Accepted;
-    delete w;
+    JsonEditor w(connections[_identifier].config, this);
+    auto root = CONFIGROOT(w.OpenEditor());
+    bool isChanged = w.result() == QDialog::Accepted;
     QString alias = _identifier.connectionName;
 
     if (isChanged) {
@@ -961,7 +932,7 @@ void MainWindow::on_editJsonBtn_clicked()
 void MainWindow::on_pingTestBtn_clicked()
 {
     // Get data from UI
-    QList<QvConfigIdentifier> aliases;
+    QList<ConnectionIdentifier> aliases;
     auto selection = connectionListWidget->selectedItems();
 
     if (selection.count() == 0) {
@@ -985,7 +956,7 @@ void MainWindow::on_pingTestBtn_clicked()
         }
     }
 
-    LOG(MODULE_UI, "Will perform latency test on " + QSTRN(aliases.count()) + " hosts.")
+    LOG(UI, "Will perform latency test on " + QSTRN(aliases.count()) + " hosts.")
     latencyLabel->setText(tr("Testing..."));
 
     for (auto alias : aliases) {
@@ -1001,17 +972,13 @@ void MainWindow::on_shareBtn_clicked()
 
     auto _identifier = ItemConnectionIdentifier(connectionListWidget->currentItem());
     auto root = connections[_identifier].config;
-    auto outBoundRoot = root["outbounds"].toArray().first().toObject();
-    auto outboundType = outBoundRoot["protocol"].toString();
+    auto type = get<2>(GetConnectionInfo(root));
 
-    if (!CheckIsComplexConfig(root) && outboundType == "vmess") {
-        auto vmessServer = StructFromJsonString<VMessServerObject>(JsonToString(outBoundRoot["settings"].toObject()["vnext"].toArray().first().toObject()));
-        auto transport = StructFromJsonString<StreamSettingsObject>(JsonToString(outBoundRoot["streamSettings"].toObject()));
-        auto vmess = ConvertConfigToVMessString(transport, vmessServer, _identifier.connectionName);
-        ConfigExporter v(vmess, this);
+    if (!IsComplexConfig(root) && (type == "vmess" || type == "shadowsocks")) {
+        ConfigExporter v(root, _identifier, this);
         v.OpenExport();
     } else {
-        QvMessageBoxWarn(this, tr("Share Connection"), tr("There're no support of sharing configs other than vmess"));
+        QvMessageBoxWarn(this, tr("Share Connection"), tr("There're no support of sharing configs other than vmess and shadowsocks"));
     }
 }
 void MainWindow::on_action_RCM_ShareQR_triggered()
@@ -1029,26 +996,7 @@ void MainWindow::timerEvent(QTimerEvent *event)
         auto _totalDataUp = vinstance->getAllDataUp();
         auto _totalDataDown = vinstance->getAllDataDown();
         //
-        double _max = 0;
-        double historyMax = 0;
-        auto graphVUp  = _totalSpeedUp / 1024;
-        auto graphVDown  = _totalSpeedDown / 1024;
-
-        for (auto i = 0; i < 29; i++) {
-            historyMax = max(historyMax, max(uploadList[i + 1], downloadList[i + 1]));
-            uploadList[i] = uploadList[i + 1];
-            downloadList[i] = downloadList[i + 1];
-            uploadSerie->replace(i, i, uploadList[i + 1]);
-            downloadSerie->replace(i, i, downloadList[i + 1]);
-        }
-
-        uploadList[uploadList.count() - 1] = graphVUp;
-        downloadList[uploadList.count() - 1] = graphVDown;
-        uploadSerie->replace(29, 29, graphVUp);
-        downloadSerie->replace(29, 29, graphVDown);
-        //
-        _max = max(historyMax, double(max(graphVUp, graphVDown)));
-        speedChartObj->axes(Qt::Vertical).first()->setRange(0, _max * 1.2);
+        speedChartView->AddPointData(_totalSpeedUp, _totalSpeedDown);
         //
         auto totalSpeedUp = FormatBytes(_totalSpeedUp) + "/s";
         auto totalSpeedDown = FormatBytes(_totalSpeedDown) + "/s";
@@ -1058,7 +1006,7 @@ void MainWindow::timerEvent(QTimerEvent *event)
         netspeedLabel->setText(totalSpeedUp + NEWLINE + totalSpeedDown);
         dataamountLabel->setText(totalDataUp + NEWLINE + totalDataDown);
         //
-        hTray->setToolTip(TRAY_TOOLTIP_PREFIX NEWLINE + tr("Connected: ") + CurrentConnectionIdentifier.IdentifierString() + NEWLINE "Up: " + totalSpeedUp + " Down: " + totalSpeedDown);
+        hTray.setToolTip(TRAY_TOOLTIP_PREFIX NEWLINE + tr("Connected: ") + CurrentConnectionIdentifier.IdentifierString() + NEWLINE "Up: " + totalSpeedUp + " Down: " + totalSpeedDown);
     } else if (event->timerId() == qvLogTimerId) {
         QString lastLog = readLastLog();
 
@@ -1083,17 +1031,18 @@ void MainWindow::on_duplicateBtn_clicked()
     CONFIGROOT conf;
     // Alias may change.
     QString alias = _identifier.connectionName;
+    bool isComplex = IsComplexConfig(connections[_identifier].config);
 
     if (connections[_identifier].configType == CONNECTION_REGULAR) {
-        conf = ConvertConfigFromFile(QV2RAY_CONFIG_DIR + _identifier.connectionName + QV2RAY_CONFIG_FILE_EXTENSION, false);
+        conf = ConvertConfigFromFile(QV2RAY_CONFIG_DIR + _identifier.connectionName + QV2RAY_CONFIG_FILE_EXTENSION, isComplex);
     } else {
-        conf = ConvertConfigFromFile(QV2RAY_SUBSCRIPTION_DIR + _identifier.subscriptionName + "/" + _identifier.connectionName  + QV2RAY_CONFIG_FILE_EXTENSION, false);
+        conf = ConvertConfigFromFile(QV2RAY_SUBSCRIPTION_DIR + _identifier.subscriptionName + "/" + _identifier.connectionName  + QV2RAY_CONFIG_FILE_EXTENSION, isComplex);
         alias = _identifier.subscriptionName + "_" + _identifier.connectionName;
     }
 
     SaveConnectionConfig(conf, &alias, false);
-    currentConfig.configs.push_back(alias);
-    SetGlobalConfig(currentConfig);
+    GlobalConfig.configs.push_back(alias);
+    SaveGlobalConfig(GlobalConfig);
     this->OnConfigListChanged(false);
 }
 
@@ -1107,7 +1056,8 @@ void MainWindow::on_subsButton_clicked()
 void MainWindow::on_connectionListWidget_itemSelectionChanged()
 {
     if (!isRenamingInProgress && !IsSelectionConnectable) {
-        CurrentSelectedItem = nullptr;
+        // If renaming is not in progress AND our selection is invalid.
+        CurrentSelectedItemPtr = nullptr;
         SetEditWidgetEnable(false);
         routeCountLabel->setText(tr("N/A"));
         _OutBoundTypeLabel->setText(tr("N/A"));
@@ -1116,7 +1066,8 @@ void MainWindow::on_connectionListWidget_itemSelectionChanged()
         latencyLabel->setText(tr("N/A"));
     } else {
         if (!connectionListWidget->selectedItems().isEmpty()) {
-            CurrentSelectedItem = connectionListWidget->selectedItems().first();
+            on_connectionListWidget_currentItemChanged(connectionListWidget->selectedItems().first(), nullptr);
+            CurrentSelectedItemPtr = connectionListWidget->selectedItems().first();
         }
     }
 }
@@ -1129,8 +1080,8 @@ void MainWindow::onPingFinished(QvTCPingData data)
 
     connections[data.connectionIdentifier].latency = data.avg;
 
-    if (IsConnectableItem(CurrentSelectedItem)) {
-        ShowAndSetConnection(ItemConnectionIdentifier(CurrentSelectedItem), false, false);
+    if (IsConnectableItem(CurrentSelectedItemPtr)) {
+        ShowAndSetConnection(ItemConnectionIdentifier(CurrentSelectedItemPtr), false, false);
     }
 }
 

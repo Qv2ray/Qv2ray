@@ -1,5 +1,6 @@
 ﻿#include "w_ExportConfig.hpp"
-#include "QvUtils.hpp"
+#include "common/QvHelpers.hpp"
+#include "core/connection/Serialization.hpp"
 #include <QFileDialog>
 
 // Private initialiser
@@ -8,21 +9,31 @@ ConfigExporter::ConfigExporter(QWidget *parent) :
     qzxing(this)
 {
     setupUi(this);
+    QvMessageBusConnect(ConfigExporter);
 }
 
-ConfigExporter::ConfigExporter(const QImage &img, QWidget *parent): ConfigExporter(parent)
+QvMessageBusSlotImpl(ConfigExporter)
 {
-    image = img;
-    message = tr("Empty");
+    switch (msg) {
+            QvMessageBusShowDefault
+            QvMessageBusHideDefault
+            QvMessageBusRetranslateDefault
+    }
 }
-ConfigExporter::ConfigExporter(const QString &data, QWidget *parent): ConfigExporter(parent)
+
+ConfigExporter::~ConfigExporter()
 {
+}
+
+ConfigExporter::ConfigExporter(const CONFIGROOT &root, const ConnectionIdentifier &alias, QWidget *parent) : ConfigExporter(parent)
+{
+    message = ConvertConfigToString(root, alias.IdentifierString());
+    //
     QZXingEncoderConfig conf;
     conf.border = true;
     conf.imageSize = QSize(400, 400);
-    auto img = qzxing.encodeData(data, conf);
+    auto img = qzxing.encodeData(message, conf);
     image = img.copy();
-    message = data;
 }
 
 void ConfigExporter::OpenExport()
@@ -62,7 +73,7 @@ void ConfigExporter::on_saveBtn_clicked()
     auto filePath = QFileDialog().getSaveFileName(this, tr("Save Image"), "", "Images (*.png)");
     auto result = image.save(filePath);
     QDesktopServices::openUrl(QUrl::fromUserInput(filePath));
-    LOG(MODULE_FILE, "Saving an image to: " + filePath + " result: " + (result ? "OK" : "Failed"))
+    LOG(FILEIO, "Saving an image to: " + filePath + " result: " + (result ? "OK" : "Failed"))
 }
 
 void ConfigExporter::on_copyImageBtn_clicked()
