@@ -149,7 +149,7 @@ jobs:
       - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - Copying DLLs to build output folders
         if: matrix.platform == 'windows-latest'
         run: .\.github\workflows\copy_DLLs.bat
-      - name: Win64 - ${{ matrix.qt_version }} - Running windeployqt
+      - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - Running windeployqt
         if: matrix.platform == 'windows-latest'
         shell: cmd
         run: |
