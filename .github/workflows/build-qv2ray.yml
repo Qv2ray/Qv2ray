@@ -87,7 +87,7 @@ jobs:
         run: |
           cd build
           make -j2 $([ "${{ matrix.platform }}" == "ubuntu-16.04" ] && echo "CC=gcc-7 CXX=g++-7" LINK="g++-7" || echo "")
-      - name: Windows - ${{ matrix.arch }}- ${{ matrix.qt_version }} - Build Qv2ray
+      - name: Win-${{ matrix.arch }}- ${{ matrix.qt_version }} - Build Qv2ray
         if: matrix.platform == 'windows-latest'
         run: |
           cd build
