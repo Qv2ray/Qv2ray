@@ -1,6 +1,15 @@
 language: bash
 dist: bionic
 
+git:
+  depth: false
+
+arch:
+  - amd64
+  - arm64
+  - ppc64le
+  - s390x
+
 env:
   global:
     - LC_ALL: C.UTF-8
