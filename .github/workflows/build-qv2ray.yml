@@ -22,13 +22,10 @@ jobs:
     runs-on: ${{ matrix.platform }}
     
     steps:
-      - name: Extract tag name
-        id: tag
-        uses: actions/github-script@0.2.0
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            return github.ref.replace(/\/refs\/tags\//, '');
+      - name: Get the version
+        id: get_version
+        shell: bash
+        run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
       - name: Checking out sources
         uses: actions/checkout@master
       - name: Restoring submodules
@@ -118,7 +115,7 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: build/AppDir/Qv2ray.AppImage
-          asset_name: Qv2ray.linux-${{ matrix.arch }}.${{ steps.tag.outputs.result }}.AppImage
+          asset_name: Qv2ray.linux-${{ matrix.arch }}.${{ steps.get_version.outputs.VERSION }}.AppImage
           tag: ${{ github.ref }}
           overwrite: true
 # ==
@@ -142,7 +139,7 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: build/Qv2ray.app.tar.gz
-          asset_name: Qv2ray.macOS-${{ matrix.arch }}.${{ steps.tag.outputs.result }}.tar.gz
+          asset_name: Qv2ray.macOS-${{ matrix.arch }}.${{ steps.get_version.outputs.VERSION }}.tar.gz
           tag: ${{ github.ref }}
           overwrite: true
 # ==
@@ -176,6 +173,6 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: release.7z
-          asset_name: Qv2ray.Windows-${{ matrix.arch }}.${{ steps.tag.outputs.result }}.7z
+          asset_name: Qv2ray.Windows-${{ matrix.arch }}.${{ steps.get_version.outputs.VERSION }}.7z
           tag: ${{ github.ref }}
           overwrite: true
