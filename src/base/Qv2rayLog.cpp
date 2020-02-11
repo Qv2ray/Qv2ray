@@ -4,8 +4,10 @@
 namespace Qv2ray::base
 {
     // Forwarded from QvTinyLog
-    static QQueue<QString> __loggerBuffer;
-    static QMutex mutex;
+    static auto __loggerBuffer = std::make_unique<QStringList>();
+    static auto __purgerBuffer = std::make_unique<QStringList>();
+    static QMutex __loggerMutex;
+    static QMutex __purgerMutex;
 
     void __QV2RAY_LOG_FUNC__(int type, const std::string &func, int line, const QString &module, const QString &log)
     {
@@ -29,26 +31,22 @@ namespace Qv2ray::base
             }
         }
 
-        mutex.lock();
         cout << logString.toStdString() << endl;
-        __loggerBuffer.enqueue(logString + NEWLINE);
-        mutex.unlock();
+        {
+            QMutexLocker _(&__loggerMutex);
+            __loggerBuffer->append(logString + NEWLINE);
+        }
     }
 
     const QString readLastLog()
     {
-        QString result;
-
-        mutex.lock();
-        while (!__loggerBuffer.isEmpty()) {
-            auto str = __loggerBuffer.dequeue();
-
-            if (!str.trimmed().isEmpty()) {
-                result += str;
-            }
+        QMutexLocker _(&__purgerMutex);
+        {
+            QMutexLocker _(&__loggerMutex);
+            __loggerBuffer.swap(__purgerBuffer);
         }
-        mutex.unlock();
-
+        auto result = __purgerBuffer->join("");
+        __purgerBuffer->clear();
         return result;
     }
 }
