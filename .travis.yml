@@ -6,7 +6,7 @@ git:
 
 branches:
   only:
-  - dev
+    - dev
 
 env:
   global:
