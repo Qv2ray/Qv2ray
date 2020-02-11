@@ -1,9 +1,9 @@
-﻿#ifndef HVCONF_H
-#define HVCONF_H
+﻿#pragma once
 
 #include <QDialog>
 #include <ui_w_PreferencesWindow.h>
-#include "Qv2rayBase.hpp"
+#include "base/Qv2rayBase.hpp"
+#include "ui/messaging/QvMessageBus.hpp"
 
 class PreferencesWindow : public QDialog, private Ui::PreferencesWindow
 {
@@ -14,6 +14,9 @@ class PreferencesWindow : public QDialog, private Ui::PreferencesWindow
         ~PreferencesWindow();
     signals:
         void s_reload_config(bool need_restart);
+
+    public slots:
+        QvMessageBusSlotHeader
 
     private slots:
         void on_buttonBox_accepted();
@@ -128,10 +131,6 @@ class PreferencesWindow : public QDialog, private Ui::PreferencesWindow
 
         void on_autoStartConnCombo_currentIndexChanged(const QString &arg1);
 
-        void on_installBootStart_clicked();
-
-        void on_removeBootStart_clicked();
-
         void on_fpTypeCombo_currentIndexChanged(const QString &arg1);
 
         void on_fpAddressTx_textEdited(const QString &arg1);
@@ -162,6 +161,8 @@ class PreferencesWindow : public QDialog, private Ui::PreferencesWindow
 
         void on_enableAPI_stateChanged(int arg1);
 
+        void on_startWithLoginCB_stateChanged(int arg1);
+
     private:
         void SetAutoStartButtonsState(bool isAutoStart);
         // Set ui parameters for a line;
@@ -175,4 +176,3 @@ class PreferencesWindow : public QDialog, private Ui::PreferencesWindow
         bool finishedLoading = false;
         Qv2rayConfig CurrentConfig;
 };
-#endif // HVCONF_H

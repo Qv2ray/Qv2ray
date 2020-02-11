@@ -41,6 +41,7 @@
 - Copyright (c) 2019 Itay Grudev (@itay-grudev): **SingleApplication** (MIT)
 - Copyright (c) 2019 paceholder (@paceholder): **nodeeditor (QNodeEditor modified by lhy0403)** (BSD-3-Clause)
 - Copyright (c) 2020 Ram Pani (@DuckSoft): **QvRPCBridge** (WTFPL)
+- Copyright (c) 2019 ShadowSocks (@shadowsocks): **libQtShadowsocks** (LGPLv3)
 
 ## Licences
 

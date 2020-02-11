@@ -1,5 +1,5 @@
 #include "w_ScreenShot_Core.hpp"
-#include "QvUtils.hpp"
+#include "common/QvHelpers.hpp"
 #include <QMessageBox>
 #include <QThread>
 #include <QStyleFactory>
@@ -12,7 +12,29 @@ ScreenShotWindow::ScreenShotWindow() : QDialog(), rubber(new QRubberBand(QRubber
     // Fusion prevents the KDE Plasma Breeze's "Move window when dragging in the empty area" issue
     this->setStyle(QStyleFactory::create("Fusion"));
     //
-    LOG(MODULE_IMPORT, "We currently only support the primary screen.")
+    label->setAttribute(Qt::WA_TranslucentBackground);
+    startBtn->setAttribute(Qt::WA_TranslucentBackground);
+    //
+    QPalette pal;
+    pal.setColor(QPalette::WindowText, Qt::white);
+    label->setPalette(pal);
+    startBtn->setPalette(pal);
+    //
+    label->setWindowFlags(Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint);
+    startBtn->setWindowFlags(Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint);
+    //
+    label->hide();
+    startBtn->hide();
+}
+
+QImage ScreenShotWindow::DoScreenShot()
+{
+    LOG(IMPORT, "We currently only support the current screen.")
+    // The msleep is the only solution which prevent capturing our windows again.
+    // It works on KDE, https://www.qtcentre.org/threads/55708-Get-Desktop-Screenshot-Without-Application-Window-Being-Shown?p=248993#post248993
+    QThread::msleep(100);
+    QApplication::processEvents();
+    //
     auto pos = QCursor::pos();
     desktopImage = QGuiApplication::screenAt(pos)->grabWindow(0);
     //
@@ -34,31 +56,12 @@ ScreenShotWindow::ScreenShotWindow() : QDialog(), rubber(new QRubberBand(QRubber
 
     bg_grey = bg_grey.scaled(bg_grey.size() / devicePixelRatio(), Qt::KeepAspectRatio, Qt::TransformationMode::SmoothTransformation);
     auto p = this->palette();
-    p.setBrush(QPalette::Background, bg_grey);
+    p.setBrush(QPalette::Window, bg_grey);
     setPalette(p);
-    //
     setWindowState(Qt::WindowState::WindowFullScreen);
     setMouseTracking(true);
     setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
     this->showFullScreen();
-    label->setAttribute(Qt::WA_TranslucentBackground);
-    startBtn->setAttribute(Qt::WA_TranslucentBackground);
-    //
-    QPalette pal;
-    pal.setColor(QPalette::WindowText, Qt::white);
-    label->setPalette(pal);
-    startBtn->setPalette(pal);
-    //
-    label->setWindowFlags(Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint);
-    startBtn->setWindowFlags(Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint);
-    //
-    label->hide();
-    startBtn->hide();
-    this->show();
-}
-
-QImage ScreenShotWindow::DoScreenShot()
-{
     this->exec();
     return resultImage;
 }
@@ -97,12 +100,11 @@ void ScreenShotWindow::keyPressEvent(QKeyEvent *e)
 void ScreenShotWindow::mousePressEvent(QMouseEvent *e)
 {
     origin = e->pos();
-    LOG(MODULE_UI, "Start capturing mouse")
     rubber->setGeometry(origin.x(), origin.y(), 0, 0);
     rubber->show();
     rubber->raise();
-    label->hide();
-    startBtn->hide();
+    //label->hide();
+    //startBtn->hide();
 }
 
 void ScreenShotWindow::mouseMoveEvent(QMouseEvent *e)
@@ -112,6 +114,7 @@ void ScreenShotWindow::mouseMoveEvent(QMouseEvent *e)
         pSize();
         //
         label->setText(QString("%1x%2").arg(imgW).arg(imgH));
+        label->adjustSize();
         //
         //
         QRect labelRect(label->contentsRect());
@@ -142,6 +145,9 @@ void ScreenShotWindow::mouseReleaseEvent(QMouseEvent *e)
     }
 }
 
+ScreenShotWindow::~ScreenShotWindow()
+{
+}
 
 void ScreenShotWindow::on_startBtn_clicked()
 {

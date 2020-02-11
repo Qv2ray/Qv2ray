@@ -1,11 +1,11 @@
-﻿#ifndef IMPORTCONF_H
-#define IMPORTCONF_H
+﻿#pragma once
 
 #include <QDialog>
 #include <QString>
 #include <QJsonObject>
-#include "QvCoreConfigObjects.hpp"
+#include "base/Qv2rayBase.hpp"
 #include "ui_w_ImportConfig.h"
+#include "ui/messaging/QvMessageBus.hpp"
 
 class ImportConfigWindow : public QDialog, private Ui::ImportConfigWindow
 {
@@ -13,8 +13,10 @@ class ImportConfigWindow : public QDialog, private Ui::ImportConfigWindow
 
     public:
         explicit ImportConfigWindow(QWidget *parent = nullptr);
-        ~ImportConfigWindow() { }
+        ~ImportConfigWindow();
         QMap<QString, CONFIGROOT> OpenImport(bool outboundsOnly = false);
+    public slots:
+        QvMessageBusSlotHeader
     private slots:
 
         void on_selectFileBtn_clicked();
@@ -34,9 +36,9 @@ class ImportConfigWindow : public QDialog, private Ui::ImportConfigWindow
 
         void on_routeEditBtn_clicked();
 
+        void on_hideQv2rayCB_stateChanged(int arg1);
+
     private:
         QMap<QString, CONFIGROOT> connections;
-        QMap<QString, QString> vmessErrors;
+        QMap<QString, QString> linkErrors;
 };
-
-#endif // IMPORTCONF_H
