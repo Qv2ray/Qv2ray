@@ -152,7 +152,7 @@ jobs:
         run: |
           cd build
           cd release
-          del *.cpp *.h *.o *.qrc *.qm *.hpp
+          del *.cpp *.h *.o *.qrc *.qm *.hpp *.obj
           set VCINSTALLDIR=C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\
           windeployqt ./qv2ray.exe --compiler-runtime --verbose 2
       - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - Create 7z Release
