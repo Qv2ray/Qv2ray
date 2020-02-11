@@ -4,9 +4,9 @@ dist: bionic
 git:
   depth: false
 
-arch:
-  - amd64
-  - arm64
+branches:
+  only:
+  - dev
 
 env:
   global:
