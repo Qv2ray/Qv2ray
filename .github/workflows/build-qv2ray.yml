@@ -110,7 +110,7 @@ jobs:
         if: matrix.platform == 'ubuntu-16.04'
         uses: actions/upload-artifact@master
         with:
-          name: Qv2ray.linux-${{ matrix.arch }}.qt${{ matrix.qt_version }}.${{ github.sha }}.AppImage
+          name: Qv2ray.linux-${{ matrix.arch }}.qt${{ matrix.qt_version }}-${{ github.sha }}.AppImage
           path: build/AppDir/Qv2ray.AppImage
       - name: Linux - ${{ matrix.qt_version }} - Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release
@@ -134,7 +134,7 @@ jobs:
         if: matrix.platform == 'macos-latest'
         uses: actions/upload-artifact@master
         with:
-          name: Qv2ray.macOS-${{ matrix.arch }}.qt${{ matrix.qt_version }}.${{ github.sha }}.zip
+          name: Qv2ray.macOS-${{ matrix.arch }}.qt${{ matrix.qt_version }}-${{ github.sha }}.zip
           path: build/Qv2ray.app.tar.gz
       - name: macOS - ${{ matrix.qt_version }} - Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release
@@ -168,7 +168,7 @@ jobs:
         if: matrix.platform == 'windows-latest'
         uses: actions/upload-artifact@master
         with:
-          name: Qv2ray.Windows-${{ matrix.arch }}.qt${{ matrix.qt_version }}.${{ github.sha }}.7z
+          name: Qv2ray.Windows-${{ matrix.arch }}.qt${{ matrix.qt_version }}-${{ github.sha }}.7z
           path: release.7z
       - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release
