@@ -211,12 +211,12 @@ jobs:
           qmake .. CONFIG+=no_increase_build_number
 # -------------------------------------------------------- Build
       - name: Cross-platform - ${{ matrix.qt_version }} - Build Qv2ray
-        shell: bash
+        shell: cmd
         run: |
           cd build
           nmake
 # -------------------------------------------------------- Deployments
-      - name: Win64 - ${{ matrix.qt_version }} - Copying DLLs to build output folders
+      - name: Win32 - ${{ matrix.qt_version }} - Copying DLLs to build output folders
         run: .\.github\workflows\copy_DLLs.bat
       - name: Win32 - ${{ matrix.qt_version }} - Running windeployqt
         shell: cmd
