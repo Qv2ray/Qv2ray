@@ -9,9 +9,9 @@ jobs:
   build:
     strategy:
       matrix:
-        platform: [ubuntu-16.04, macos-latest, windows-latest]
         qt_version: [5.12.6, 5.13.2, 5.14.1]
         arch: [x86, x64]
+        platform: [ubuntu-16.04, macos-latest, windows-latest]
         exclude:
           - platform: ubuntu-16.04
             arch: x86
@@ -59,7 +59,7 @@ jobs:
          curl -o ./libs/libqvb-linux64.a -L https://github.com/Qv2ray/QvRPCBridge/releases/download/v1.1/libqvb-linux64.a
          curl -o ./libs/libqvb-darwin.a -L https://github.com/Qv2ray/QvRPCBridge/releases/download/v1.1/libqvb-darwin.a
          curl -o ./libs/Qv2ray-deps-${{ matrix.arch }}-windows.7z -L https://github.com/Qv2ray/Qv2ray-deps/releases/download/release/Qv2ray-deps-${{ matrix.arch }}-windows.7z
-      - name: Win64 - ${{ matrix.qt_version }} - Extract Windows Dependencies
+      - name: Win${{ matrix.arch }} - ${{ matrix.qt_version }} - Extract Windows Dependencies
         if: matrix.platform == 'windows-latest'
         uses: DuckSoft/extract-7z-action@v1.0
         with:
@@ -69,33 +69,34 @@ jobs:
       - name: Cross-platform - ${{ matrix.qt_version }} - Generate Dependencies and Makefile
         shell: bash
         run: |
-          PATH=$PATH:$Qt5_Dir
           mkdir build
           cd build
           export _QV2RAY_BUILD_INFO_="Qv2ray built from Github Action"  
           export _QV2RAY_BUILD_EXTRA_INFO_="qt${{ matrix.qt_version }}-${{ github.sha }}"
           qmake .. CONFIG+=no_increase_build_number PREFIX=/usr
 # -------------------------------------------------------- Build
-      - name: Cross-platform - ${{ matrix.qt_version }} - Build Qv2ray
-        shell: bash
+      - name: Unix - ${{ matrix.qt_version }} - Build Qv2ray
+        if: matrix.platform != 'windows-latest'
         run: |
           cd build
-          _make=$([ "${{ matrix.platform }}" == "windows-latest" ] && echo "nmake" || echo "make -j2")
-          $_make $([ "${{ matrix.platform }}" == "ubuntu-16.04" ] && echo "CC=gcc-7 CXX=g++-7" LINK="g++-7" || echo "")
+          make -j2 $([ "${{ matrix.platform }}" == "ubuntu-16.04" ] && echo "CC=gcc-7 CXX=g++-7" LINK="g++-7" || echo "")
+      - name: Windows - ${{ matrix.arch }}- ${{ matrix.qt_version }} - Build Qv2ray
+        if: matrix.platform == 'windows-latest'
+        run: |
+          cd build
+          nmake
 # -------------------------------------------------------- Deployments
       - name: Linux - ${{ matrix.qt_version }} - Generating AppImage
         if: matrix.platform == 'ubuntu-16.04'
         run: | 
           cd build
+          wget https://github.com/probonopd/linuxdeployqt/releases/download/6/linuxdeployqt-6-x86_64.AppImage
+          chmod +x ./linuxdeployqt-6-x86_64.AppImage
+          ./linuxdeployqt-6-x86_64.AppImage --appimage-extract
           make install INSTALL_ROOT=AppDir
           cd AppDir
           mkdir -p ./usr/lib/
-          cp /usr/lib/x86_64-linux-gnu/libssl.so.1.1 /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1 ./usr/lib/ 
-          cd ..
-          wget https://github.com/probonopd/linuxdeployqt/releases/download/6/linuxdeployqt-6-x86_64.AppImage
-          chmod +x ./linuxdeployqt-6-x86_64.AppImage
-          ./linuxdeployqt-6-x86_64.AppImage --appimage-extract 
-          cd AppDir
+          cp /usr/lib/x86_64-linux-gnu/libssl.so.1.1 /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1 ./usr/lib/
           ../squashfs-root/AppRun usr/share/applications/qv2ray.desktop -appimage -no-strip -always-overwrite
           mv ./Qv2ray*.AppImage ./Qv2ray.AppImage
       - name: Linux - ${{ matrix.qt_version }} - Uploading artifact
