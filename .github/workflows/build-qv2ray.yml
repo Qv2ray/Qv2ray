@@ -110,7 +110,7 @@ jobs:
         if: matrix.platform == 'ubuntu-16.04'
         uses: actions/upload-artifact@master
         with:
-          name: Qv2ray.linux-${{ github.sha }}-qt${{ matrix.qt_version }}.AppImage
+          name: Qv2ray.linux-${{ matrix.arch }}.qt${{ matrix.qt_version }}.${{ github.sha }}.AppImage
           path: build/AppDir/Qv2ray.AppImage
       - name: Linux - ${{ matrix.qt_version }} - Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release
@@ -118,7 +118,7 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: build/AppDir/Qv2ray.AppImage
-          asset_name: Qv2ray-${{ steps.tag.outputs.result }}-linux.AppImage
+          asset_name: Qv2ray.linux-${{ matrix.arch }}.${{ steps.tag.outputs.result }}.AppImage
           tag: ${{ github.ref }}
           overwrite: true
 # ==
@@ -134,7 +134,7 @@ jobs:
         if: matrix.platform == 'macos-latest'
         uses: actions/upload-artifact@master
         with:
-          name: Qv2ray.macOS.app-${{ github.sha }}-qt${{ matrix.qt_version }}.zip
+          name: Qv2ray.macOS-${{ matrix.arch }}.qt${{ matrix.qt_version }}.${{ github.sha }}.zip
           path: build/Qv2ray.app.tar.gz
       - name: macOS - ${{ matrix.qt_version }} - Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release
@@ -142,7 +142,7 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: build/Qv2ray.app.tar.gz
-          asset_name: Qv2ray-${{ steps.tag.outputs.result }}-macOS.tar.gz
+          asset_name: Qv2ray.macOS-${{ matrix.arch }}.${{ steps.tag.outputs.result }}.tar.gz
           tag: ${{ github.ref }}
           overwrite: true
 # ==
@@ -168,7 +168,7 @@ jobs:
         if: matrix.platform == 'windows-latest'
         uses: actions/upload-artifact@master
         with:
-          name: Qv2ray.Win-${{ matrix.arch }}-${{ github.sha }}-qt${{ matrix.qt_version }}.7z
+          name: Qv2ray.Windows-${{ matrix.arch }}.qt${{ matrix.qt_version }}.${{ github.sha }}.7z
           path: release.7z
       - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release
@@ -176,6 +176,6 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: release.7z
-          asset_name: Qv2ray-${{ steps.tag.outputs.result }}-win-${{ matrix.arch }}.7z
+          asset_name: Qv2ray.Windows-${{ matrix.arch }}.${{ steps.tag.outputs.result }}.7z
           tag: ${{ github.ref }}
           overwrite: true
