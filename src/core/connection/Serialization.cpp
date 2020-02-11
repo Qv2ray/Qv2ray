@@ -263,8 +263,9 @@ namespace Qv2ray::core::connection
 #undef C
                 //return flag ? 0 : 1;
             } catch (exception *e) {
-                LOG(IMPORT, "Failed to decode vmess string: " + QString(e->what()))
                 *errMessage = e->what();
+                LOG(IMPORT, "Failed to decode vmess string: " + *errMessage)
+                delete e;
                 return default;
             }
 
