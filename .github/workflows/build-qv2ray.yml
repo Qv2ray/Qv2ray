@@ -170,7 +170,7 @@ jobs:
         with:
           name: Qv2ray.Win-${{ matrix.arch }}-${{ github.sha }}-qt${{ matrix.qt_version }}.7z
           path: release.7z
-      - name: Win64 - ${{ matrix.qt_version }} - Upload binaries to release
+      - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release
         if: github.event_name == 'release' && matrix.qt_version == '5.12.6' && matrix.platform == 'windows-latest'
         with:
