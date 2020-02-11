@@ -39,6 +39,7 @@ namespace Qv2ray::base
     {
         QString result;
 
+        mutex.lock();
         while (!__loggerBuffer.isEmpty()) {
             auto str = __loggerBuffer.dequeue();
 
@@ -46,6 +47,7 @@ namespace Qv2ray::base
                 result += str;
             }
         }
+        mutex.unlock();
 
         return result;
     }
