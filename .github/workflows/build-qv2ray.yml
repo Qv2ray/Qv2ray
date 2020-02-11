@@ -10,8 +10,8 @@ jobs:
     strategy:
       matrix:
         qt_version: [5.12.6, 5.13.2, 5.14.1]
-        arch: [x86, x64]
         platform: [ubuntu-16.04, macos-latest, windows-latest]
+        arch: [x86, x64]
         exclude:
           - platform: ubuntu-16.04
             arch: x86
