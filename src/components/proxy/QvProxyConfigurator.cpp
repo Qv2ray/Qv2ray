@@ -211,30 +211,40 @@ namespace Qv2ray::components::proxy
 
         __QueryProxyOptions();
 #elif defined(Q_OS_LINUX)
+        QStringList actions;
+        auto proxyMode = usePAC ? "auto" : "manual";
+        actions << QString("gsettings set org.gnome.system.proxy mode '%1'").arg(proxyMode);
 
         if (usePAC) {
-            QProcess::execute("gsettings set org.gnome.system.proxy mode 'auto'");
-            QProcess::execute("gsettings set org.gnome.system.proxy autoconfig-url '" + address + "'");
+            actions << QString("gsettings set org.gnome.system.proxy autoconfig-url '%1'").arg(address);
         } else {
-            QProcess::execute("gsettings set org.gnome.system.proxy mode 'manual'");
-
             if (hasHTTP) {
-                QProcess::execute("gsettings set org.gnome.system.proxy.http host '" + address + "'");
-                QProcess::execute("gsettings set org.gnome.system.proxy.http port " + QSTRN(httpPort));
-                QProcess::execute("gsettings set org.gnome.system.proxy.https host '" + address + "'");
-                QProcess::execute("gsettings set org.gnome.system.proxy.https port " + QSTRN(httpPort));
+                actions << QString("gsettings set org.gnome.system.proxy.http host '%1'").arg(address);
+                actions << QString("gsettings set org.gnome.system.proxy.http port %1").arg(httpPort);
+                //
+                actions << QString("gsettings set org.gnome.system.proxy.https host '%1'").arg(address);
+                actions << QString("gsettings set org.gnome.system.proxy.https port %1").arg(httpPort);;
             }
 
             if (hasSOCKS) {
-                QProcess::execute("gsettings set org.gnome.system.proxy.socks host '" + address + "'");
-                QProcess::execute("gsettings set org.gnome.system.proxy.socks port " + QSTRN(socksPort));
+                actions << QString("gsettings set org.gnome.system.proxy.socks host '%1'").arg(address);
+                actions << QString("gsettings set org.gnome.system.proxy.socks port %1").arg(socksPort);
             }
         }
 
-        //if (!result) {
-        //    LOG(PROXY, "Something wrong happens when setting system proxy -> Gnome ONLY.")
-        //    LOG(PROXY, "If you are using KDE Plasma and receiving this message, just simply ignore this.")
-        //}
+        // note: do not use std::all_of / any_of / none_of,
+        // because those are short-circuit and cannot guarantee atomicity.
+        auto result = std::count_if(actions.cbegin(), actions.cend(), [](const QString & action) {
+            DEBUG(PROXY, action)
+            return QProcess::execute(action) == QProcess::NormalExit;
+        }) == actions.size();
+
+        if (!result) {
+            LOG(PROXY, "Something wrong happens when setting system proxy -> Gnome ONLY.")
+            LOG(PROXY, "If you are using KDE Plasma and receiving this message, just simply ignore this.")
+        }
+
+        Q_UNUSED(result);
 #else
 
         for (auto service : macOSgetNetworkServices()) {
