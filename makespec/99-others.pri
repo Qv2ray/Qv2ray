@@ -15,15 +15,6 @@ no_increase_build_number | qmake_lupdate {
     write_file($$PWD/BUILDVERSION, QV2RAY_BUILD_VERSION)
 }
 
-qmake_lupdate {
-    message(" ")
-    message("Running lupdate...")
-    message(" ")
-    lupdate_output = $$system(lupdate $$SOURCES $$HEADERS $$FORMS -ts $$PWD/$$TRANSLATIONS -no-ui-lines)
-    message(" $$lupdate_output")
-    message("lupdate finished.")
-}
-
 # Qv2ray manual build info
 !no_build_info {
     _QV2RAY_BUILD_INFO_STR_=$$getenv(_QV2RAY_BUILD_INFO_)
