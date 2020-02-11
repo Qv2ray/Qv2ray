@@ -6,11 +6,17 @@ on:
     types: [prereleased]
 
 jobs:
-  x64-build:
+  build:
     strategy:
       matrix:
         platform: [ubuntu-16.04, macos-latest, windows-latest]
         qt_version: [5.12.6, 5.13.2, 5.14.1]
+        arch: [x86, x64]
+        exclude:
+          - platform: ubuntu-16.04
+            arch: x86
+          - platform: macos-latest
+            arch: x86
       fail-fast: false
         
     runs-on: ${{ matrix.platform }}
@@ -25,12 +31,14 @@ jobs:
         if: matrix.platform == 'windows-latest'
         uses: ilammy/msvc-dev-cmd@v1
         with: 
-          # 14.1 is for vs2017
+          # 14.1 is for vs2017, 14.2 is vs2019, following the upstream vcpkg build from Qv2ray-deps repo
           toolset: 14.2
-      - name: Installing Qt
-        uses: jurplel/install-qt-action@v2
+          arch: ${{ matrix.arch }}
+      - name: Installing Qt - ${{ matrix.arch }}
+        uses: Qv2ray/install-qt-action@master
         with:
           version: ${{ matrix.qt_version }}
+          arch: ${{ matrix.arch }}
 # --------------------------------------------------------
       - name: Linux - Install Packages 
         if: matrix.platform == 'ubuntu-16.04'
@@ -50,12 +58,12 @@ jobs:
         run: |
          curl -o ./libs/libqvb-linux64.a -L https://github.com/Qv2ray/QvRPCBridge/releases/download/v1.1/libqvb-linux64.a
          curl -o ./libs/libqvb-darwin.a -L https://github.com/Qv2ray/QvRPCBridge/releases/download/v1.1/libqvb-darwin.a
-         curl -o ./libs/Qv2ray-deps-x64-windows.7z -L https://github.com/Qv2ray/Qv2ray-deps/releases/download/release/Qv2ray-deps-x64-windows.7z
+         curl -o ./libs/Qv2ray-deps-${{ matrix.arch }}-windows.7z -L https://github.com/Qv2ray/Qv2ray-deps/releases/download/release/Qv2ray-deps-${{ matrix.arch }}-windows.7z
       - name: Win64 - ${{ matrix.qt_version }} - Extract Windows Dependencies
         if: matrix.platform == 'windows-latest'
         uses: DuckSoft/extract-7z-action@v1.0
         with:
-          pathSource: ./libs/Qv2ray-deps-x64-windows.7z
+          pathSource: ./libs/Qv2ray-deps-${{ matrix.arch }}-windows.7z
           pathTarget: ./libs
 # -------------------------------------------------------- Generate MakeFile
       - name: Cross-platform - ${{ matrix.qt_version }} - Generate Dependencies and Makefile
@@ -72,7 +80,7 @@ jobs:
         shell: bash
         run: |
           cd build
-          _make=$([ "${{ matrix.platform }}" == "windows-latest" ] && echo "nmake" || echo "make -j2")
+          _make=$([ "${{ matrix.platform }}" == "windows-latest" ] && echo "cmd /C nmake" || echo "make -j2")
           $_make $([ "${{ matrix.platform }}" == "ubuntu-16.04" ] && echo "CC=gcc-7 CXX=g++-7" LINK="g++-7" || echo "")
 # -------------------------------------------------------- Deployments
       - name: Linux - ${{ matrix.qt_version }} - Generating AppImage
@@ -130,7 +138,7 @@ jobs:
           tag: ${{ github.ref }}
           overwrite: true
 # ==
-      - name: Win64 - ${{ matrix.qt_version }} - Copying DLLs to build output folders
+      - name: Win${{ matrix.arch }} - ${{ matrix.qt_version }} - Copying DLLs to build output folders
         if: matrix.platform == 'windows-latest'
         run: .\.github\workflows\copy_DLLs.bat
       - name: Win64 - ${{ matrix.qt_version }} - Running windeployqt
@@ -141,17 +149,17 @@ jobs:
           cd release
           del *.cpp *.h *.o *.qrc *.qm *.hpp
           windeployqt ./qv2ray.exe --compiler-runtime
-      - name: Win64 - ${{ matrix.qt_version }} - Create 7z Release
+      - name: Win${{ matrix.arch }} - ${{ matrix.qt_version }} - Create 7z Release
         if: matrix.platform == 'windows-latest'
         uses: DuckSoft/create-7z-action@v1.0
         with:
           pathSource: ./build/release/
           pathTarget: ./release.7z
-      - name: Win64 - ${{ matrix.qt_version }} - Uploading artifact
+      - name: Win${{ matrix.arch }} - ${{ matrix.qt_version }} - Uploading artifact
         if: matrix.platform == 'windows-latest'
         uses: actions/upload-artifact@master
         with:
-          name: Qv2ray.Win64-qt${{ matrix.qt_version }}.7z
+          name: Qv2ray.Win${{ matrix.arch }}-qt${{ matrix.qt_version }}.7z
           path: release.7z
       - name: Win64 - ${{ matrix.qt_version }} - Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release
@@ -159,89 +167,6 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: release.7z
-          asset_name: Qv2ray-${{ github.ref }}-win64-qt${{ matrix.qt_version }}.7z
+          asset_name: Qv2ray-${{ github.ref }}-win${{ matrix.arch }}-qt${{ matrix.qt_version }}.7z
           tag: ${{ github.ref }}
           overwrite: true
-# -
-# =================================================================================================================
-# -
-  x86-build:
-    strategy:
-      matrix:
-        qt_version: [5.12.6, 5.13.2, 5.14.1]
-      fail-fast: false
-        
-    runs-on: windows-latest
-    
-    steps:
-      - name: Checking out sources
-        uses: actions/checkout@master
-      - name: Restoring submodules
-        run: git submodule update --init
-# --------------------------------------------------------
-      - name: Install MSVC compiler
-        uses: ilammy/msvc-dev-cmd@v1
-        with: 
-          # 14.1 is for vs2017
-          toolset: 14.2
-          arch: x86
-      - name: Installing Qt
-        uses: jurplel/install-qt-action@v2
-        with:
-          version: ${{ matrix.qt_version }}
-          arch: win32_msvc2017
-      - name: Cross-platform - Download libraries
-        shell: bash
-        run: |
-         curl -o ./libs/Qv2ray-deps-x86-windows.7z -L https://github.com/Qv2ray/Qv2ray-deps/releases/download/release/Qv2ray-deps-x86-windows.7z
-      - name: Win32 - ${{ matrix.qt_version }} - Extract Windows Dependencies
-        uses: DuckSoft/extract-7z-action@v1.0
-        with:
-          pathSource: ./libs/Qv2ray-deps-x86-windows.7z
-          pathTarget: ./libs
-# -------------------------------------------------------- Generate MakeFile
-      - name: Cross-platform - ${{ matrix.qt_version }} - Generate Dependencies and Makefile
-        shell: bash
-        run: |
-          PATH=$PATH:$Qt5_Dir
-          mkdir build
-          cd build
-          export _QV2RAY_BUILD_INFO_="Qv2ray built from Github Action"  
-          export _QV2RAY_BUILD_EXTRA_INFO_="qt${{ matrix.qt_version }}-${{ github.sha }}"
-          qmake .. CONFIG+=no_increase_build_number
-# -------------------------------------------------------- Build
-      - name: Cross-platform - ${{ matrix.qt_version }} - Build Qv2ray
-        shell: cmd
-        run: |
-          cd build
-          nmake
-# -------------------------------------------------------- Deployments
-      - name: Win32 - ${{ matrix.qt_version }} - Copying DLLs to build output folders
-        run: .\.github\workflows\copy_DLLs.bat
-      - name: Win32 - ${{ matrix.qt_version }} - Running windeployqt
-        shell: cmd
-        run: |
-          cd build
-          cd release
-          del *.cpp *.h *.o *.qrc *.qm *.hpp
-          windeployqt ./qv2ray.exe --compiler-runtime
-      - name: Win32 - ${{ matrix.qt_version }} - Create 7z Release
-        uses: DuckSoft/create-7z-action@v1.0
-        with:
-          pathSource: ./build/release/
-          pathTarget: ./release.7z
-      - name: Win32 - ${{ matrix.qt_version }} - Uploading artifact
-        uses: actions/upload-artifact@master
-        with:
-          name: Qv2ray.Win32-qt${{ matrix.qt_version }}.7z
-          path: release.7z
-      - name: Win32 - ${{ matrix.qt_version }} - Upload binaries to release
-        uses: svenstaro/upload-release-action@v1-release
-        if: github.event_name == 'release' && matrix.qt_version == '5.12.6'
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: release.7z
-          asset_name: Qv2ray-${{ github.ref }}-win32-qt${{ matrix.qt_version }}.7z
-          tag: ${{ github.ref }}
-          overwrite: true
-# -------------------------------------
