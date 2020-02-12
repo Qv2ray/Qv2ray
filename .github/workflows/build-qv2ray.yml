@@ -77,18 +77,18 @@ jobs:
           cd build
           export _QV2RAY_BUILD_INFO_="Qv2ray built from Github Action"  
           export _QV2RAY_BUILD_EXTRA_INFO_="qt${{ matrix.qt_version }}-${{ github.sha }}"
-          qmake .. CONFIG+=no_increase_build_number PREFIX=/usr
+          qmake .. CONFIG+="debug_and_release no_increase_build_number" PREFIX=/usr
 # -------------------------------------------------------- Build
       - name: Unix - ${{ matrix.qt_version }} - Build Qv2ray
         if: matrix.platform != 'windows-latest'
         run: |
           cd build
-          make -j2 $([ "${{ matrix.platform }}" == "ubuntu-16.04" ] && echo "CC=gcc-7 CXX=g++-7" LINK="g++-7" || echo "")
+          make -j2 release $([ "${{ matrix.platform }}" == "ubuntu-16.04" ] && echo "CC=gcc-7 CXX=g++-7" LINK="g++-7" || echo "")
       - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - Build Qv2ray
         if: matrix.platform == 'windows-latest'
         run: |
           cd build
-          nmake
+          nmake release
 # -------------------------------------------------------- Deployments
       - name: Linux - ${{ matrix.qt_version }} - Generating AppImage
         if: matrix.platform == 'ubuntu-16.04'
