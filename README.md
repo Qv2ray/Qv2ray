@@ -42,6 +42,7 @@
 - Copyright (c) 2019 paceholder (@paceholder): **nodeeditor (QNodeEditor modified by lhy0403)** (BSD-3-Clause)
 - Copyright (c) 2020 Ram Pani (@DuckSoft): **QvRPCBridge** (WTFPL)
 - Copyright (c) 2019 ShadowSocks (@shadowsocks): **libQtShadowsocks** (LGPLv3)
+- Copyright (c) 2015-2020 qBittorrent (Anton Lashkov) (@qBittorrent): **speedplotview** (GPLv2)
 
 ## Licences
 
@@ -70,4 +71,4 @@ Qv2ray is licenced under [![License: GPL v3](https://img.shields.io/badge/Licens
 
 *任何尝试下载或下载 Qv2ray 任意分支或发行版即代表您同意本项目作者不承担任何由于您违反以上准则所带来的任何法律责任。*
 
-> Any attempt to download of any branch or distribution of Qv2ray constitutes your agreement that the author of the project **will not be** liable for any legal liability arising from your breach of the above guidelines.
+> Any attempt to download of any branch or distribution of Qv2ray constitutes your agreement that the author of the project **will not be** liable for any legal liability arising from your breach of the above guidelines.t
