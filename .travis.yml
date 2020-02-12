@@ -1,11 +1,6 @@
 language: bash
 dist: bionic
 
-arch:
-  - amd64
-  - arm64
-os: linux
-
 git:
   depth: false
 
@@ -27,7 +22,10 @@ addons:
      channel: stable
 
 script:
-  - sudo snapcraft --destructive-mode
+  - sudo /snap/bin/lxd.migrate -yes
+  - sudo /snap/bin/lxd waitready
+  - sudo /snap/bin/lxd init --auto
+  - sudo snapcraft --use-lxd
 
 after_failure:
   - sudo journalctl -u snapd
