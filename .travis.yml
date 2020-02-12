@@ -1,6 +1,11 @@
 language: bash
 dist: bionic
 
+arch:
+  - amd64
+  - arm64
+os: linux
+
 git:
   depth: false
 
@@ -18,14 +23,11 @@ addons:
    - name: snapcraft
      channel: stable
      confinement: classic
-   - name: multipass
+   - name: lxd
      channel: stable
-     confinement: classic
 
 script:
-  - sudo snapcraft
-  - sudo snapcraft clean
-  - sudo snapcraft --target-arch arm64
+  - sudo snapcraft --destructive-mode
 
 after_failure:
   - sudo journalctl -u snapd
