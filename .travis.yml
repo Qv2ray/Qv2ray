@@ -26,6 +26,7 @@ script:
   - sudo /snap/bin/lxd waitready
   - sudo /snap/bin/lxd init --auto
   - sudo snapcraft --use-lxd
+  - sudo snapcraft clean --use-lxd
   - sudo snapcraft --use-lxd --target-arch arm64
 
 after_failure:

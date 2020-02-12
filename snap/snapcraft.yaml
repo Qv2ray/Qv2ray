@@ -2,17 +2,9 @@ name: qv2ray
 base: core18
 adopt-info: qv2ray
 icon: assets/icons/qv2ray.png
-license: GPL-3.0
 
 grade: devel
 confinement: devmode
-
-architectures:
-  - build-on: amd64
-    run-on: amd64
-  
-  - build-on: arm64
-    run-on: arm64
 
 plugs:
   gsettings:
