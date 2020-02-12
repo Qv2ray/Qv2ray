@@ -17,17 +17,13 @@ addons:
   snaps:
    - name: snapcraft
      channel: stable
-     confinement: classic
-   - name: lxd
+   - name: multipass
      channel: stable
 
 script:
-  - sudo /snap/bin/lxd.migrate -yes
-  - sudo /snap/bin/lxd waitready
-  - sudo /snap/bin/lxd init --auto
-  - sudo snapcraft --use-lxd
-  - sudo snapcraft clean --use-lxd
-  - sudo snapcraft --use-lxd --target-arch arm64
+  - sudo snapcraft
+  - sudo snapcraft clean
+  - sudo snapcraft --target-arch arm64
 
 after_failure:
   - sudo journalctl -u snapd
