@@ -210,6 +210,7 @@ namespace Qv2ray::core::connection
 
         CONFIGROOT GenerateRuntimeConfig(CONFIGROOT root)
         {
+            bool isComplex = IsComplexConfig(root);
             QJsonObject logObject;
             //
             //logObject.insert("access", QV2RAY_CONFIG_PATH + QV2RAY_VCORE_LOG_DIRNAME + QV2RAY_VCORE_ACCESS_LOG_FILENAME);
@@ -284,7 +285,6 @@ namespace Qv2ray::core::connection
             // BE EXTREME CAREFUL when changing these code below...
             // See: https://github.com/lhy0403/Qv2ray/issues/129
             // routeCountLabel in Mainwindow makes here failed to ENOUGH-ly check the routing tables
-            bool isComplex = IsComplexConfig(root);
 
             if (isComplex) {
                 // For some config files that has routing entries already.
