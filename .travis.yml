@@ -35,3 +35,5 @@ deploy:
   snap: qv2ray_*.snap
   channel: edge
   skip_cleanup: true
+  on:
+    branch: dev
