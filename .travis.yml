@@ -17,8 +17,10 @@ addons:
   snaps:
    - name: snapcraft
      channel: stable
+     confinement: classic
    - name: multipass
      channel: stable
+     confinement: classic
 
 script:
   - sudo snapcraft
