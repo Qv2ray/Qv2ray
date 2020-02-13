@@ -22,8 +22,7 @@ addons:
      channel: stable
 
 script:
-  - sudo /snap/bin/lxd.migrate -yes
-  - sudo /snap/bin/lxd waitready
+  - sudo apt autoremove lxd --purge
   - sudo /snap/bin/lxd init --auto
   - sudo snapcraft --use-lxd
 
