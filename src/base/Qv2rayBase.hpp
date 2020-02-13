@@ -55,6 +55,7 @@ extern const bool isDebugBuild;
 // Get Configured Config Dir Path
 #define QV2RAY_CONFIG_DIR (Qv2ray::Qv2rayConfigPath)
 #define QV2RAY_CONFIG_FILE (QV2RAY_CONFIG_DIR + "Qv2ray.conf")
+#define QV2RAY_CONNECTIONS_DIR (QV2RAY_CONFIG_DIR + "connections/")
 #define QV2RAY_SUBSCRIPTION_DIR (QV2RAY_CONFIG_DIR + "subscriptions/")
 
 // Get GFWList and PAC file path.

@@ -6,7 +6,7 @@
 #include "base/Qv2rayBase.hpp"
 #include "common/QvHelpers.hpp"
 
-#define UPDATELOG(msg) LOG(SETTINGS, "  [" + QSTRN(fromVersion) + "-" + QSTRN(fromVersion + 1) + "] --> " + msg)
+#define UPGRADELOG(msg) LOG(SETTINGS, "  [" + QSTRN(fromVersion) + "-" + QSTRN(fromVersion + 1) + "] --> " + msg)
 
 namespace Qv2ray
 {
@@ -19,7 +19,7 @@ namespace Qv2ray
                 // From 1 to 2, we changed the config_version from 'string' to 'int'
                 root.remove("config_version");
                 root["config_version"] = 2;
-                UPDATELOG("Upgrading config_version from old value " + v1_oldConfigVersion + " to 2")
+                UPGRADELOG("Upgrading config_version from old value " + v1_oldConfigVersion + " to 2")
                 break;
             }
 
@@ -37,8 +37,8 @@ namespace Qv2ray
                 QFile::copy(vCoreFilePath, vCoreDestPath);
                 QFile::copy(v2CtlFilePath, v2CtlDestPath);
                 root.remove("v2CorePath");
-                UPDATELOG("v2CorePath value from: " + vCoreFilePath + " to " +  vCoreDestPath)
-                UPDATELOG("v2CtlFilePath value from: " + v2CtlFilePath + " to " + v2CtlDestPath)
+                UPGRADELOG("v2CorePath value from: " + vCoreFilePath + " to " +  vCoreDestPath)
+                UPGRADELOG("v2CtlFilePath value from: " + v2CtlFilePath + " to " + v2CtlDestPath)
                 break;
             }
 
@@ -49,7 +49,7 @@ namespace Qv2ray
                 root.remove("proxyDefault");
                 root["enableProxy"] = oldProxyDefault;
                 //enableProxy
-                UPDATELOG("key: proxyDefault->enableProxy, value from: " + QSTRN(oldProxyDefault) + " to " + QSTRN(oldProxyDefault))
+                UPGRADELOG("key: proxyDefault->enableProxy, value from: " + QSTRN(oldProxyDefault) + " to " + QSTRN(oldProxyDefault))
                 break;
             }
 
@@ -62,12 +62,12 @@ namespace Qv2ray
                 // From 3 to 4, we changed 'runAsRoot' to 'tProxySupport'
                 auto v3_oldrunAsRoot = root["runAsRoot"].toBool();
                 root.insert("tProxySupport", v3_oldrunAsRoot);
-                UPDATELOG("Upgrading runAsRoot to tProxySupport, the value is not changed: " + QSTRN(v3_oldrunAsRoot))
+                UPGRADELOG("Upgrading runAsRoot to tProxySupport, the value is not changed: " + QSTRN(v3_oldrunAsRoot))
                 //
                 QString path;
                 path = QV2RAY_DEFAULT_VCORE_PATH;
                 root["v2CorePath"] = path;
-                UPDATELOG("Added v2CorePath to the config file.")
+                UPGRADELOG("Added v2CorePath to the config file.")
                 //
                 QJsonObject uiSettings;
                 uiSettings["language"] = root["language"].toString("en-US").replace("-", "_");
@@ -75,7 +75,7 @@ namespace Qv2ray
                 //
                 root["inboundConfig"] = root["inBoundSettings"];
                 root.remove("inBoundSettings");
-                UPDATELOG("Renamed inBoundSettings to inboundConfig.")
+                UPGRADELOG("Renamed inBoundSettings to inboundConfig.")
                 //
                 //connectionConfig
                 QJsonObject o;
@@ -85,9 +85,9 @@ namespace Qv2ray
                 o["bypassCN"] = !v2_oldProxyCN;
                 o["enableStats"] = true;
                 o["statsPort"] = 13459;
-                UPDATELOG("Default statistics enabled.")
+                UPGRADELOG("Default statistics enabled.")
                 root["connectionConfig"] = o;
-                UPDATELOG("Renamed some connection configs to connectionConfig.")
+                UPGRADELOG("Renamed some connection configs to connectionConfig.")
                 //
                 // Do we need renaming here?
                 // //auto inbound = root["inboundConfig"].toObject();
@@ -100,7 +100,7 @@ namespace Qv2ray
                 ConnectionIdentifier i;
                 i.connectionName = root["autoStartConfig"].toString();
                 root["autoStartConfig"] = GetRootObject(i);
-                UPDATELOG("Added subscription feature to autoStartConfig.")
+                UPGRADELOG("Added subscription feature to autoStartConfig.")
                 break;
             }
 
@@ -122,7 +122,7 @@ namespace Qv2ray
                 }
 
                 root["subscriptions"] = newSubscriptions;
-                UPDATELOG("Added subscription renewal options.")
+                UPGRADELOG("Added subscription renewal options.")
                 break;
             }
 
@@ -141,8 +141,52 @@ namespace Qv2ray
                 auto uiConfig = root["uiConfig"].toObject();
                 uiConfig["language"] = lang;
                 root["uiConfig"] = uiConfig;
-                UPDATELOG("Changed language: " + lang)
+                UPGRADELOG("Changed language: " + lang)
                 break;
+            }
+
+            // From version 8 to 9, we introduced a lot of new connection metainfo(s)
+            case 8: {
+                // Generate a default group
+                auto groupId = QUuid::createUuid().toString();
+                QJsonObject defaultGroup;
+                defaultGroup["groupId"] = groupId;
+                defaultGroup["displayName"] = QObject::tr("Default Group");
+                QJsonArray groups;
+                groups.push_back(defaultGroup);
+                root["groups"] = groups;
+
+                if (!QDir(QV2RAY_CONNECTIONS_DIR).exists()) {
+                    QDir().mkpath(QV2RAY_CONNECTIONS_DIR);
+                }
+
+                for (auto config : root["configs"].toArray()) {
+                    UPGRADELOG("Migrating: " + config.toString())
+                    //
+                    // MOVE FILES.
+                    auto filePath = QV2RAY_CONNECTIONS_DIR + config.toString() + QV2RAY_CONFIG_FILE_EXTENSION;
+                    auto configFile = QFile(filePath);
+                    auto newUuid = QUuid::createUuid().toString();
+                    DEBUG(SETTINGS, "Generated new UUID: " + newUuid);
+
+                    if (configFile.exists()) {
+                        auto newPath = QV2RAY_CONNECTIONS_DIR + newUuid + QV2RAY_CONFIG_FILE_EXTENSION;
+                        configFile.rename(newPath);
+                        UPGRADELOG("Moved: " + filePath + " to " + newPath);
+                    } else {
+                        UPGRADELOG("WARNING! This file is not found, possible loss of data!")
+                        continue;
+                    }
+
+                    QJsonObject connectionObject;
+                    connectionObject["displayName"] = config.toString();
+                    connectionObject["connectionId"] = newUuid;
+                    connectionObject["groupId"] = groupId;
+                    //
+                    auto connections = root["connections"].toArray();
+                    connections.push_back(connectionObject);
+                    root["connections"] = connections;
+                }
             }
         }
 

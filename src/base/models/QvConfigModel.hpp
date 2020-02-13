@@ -4,14 +4,12 @@
 #include "base/models/QvConfigIdentifier.hpp"
 #include <chrono>
 
-const int QV2RAY_CONFIG_VERSION = 8;
+const int QV2RAY_CONFIG_VERSION = 9;
 
 namespace Qv2ray::base
 {
     namespace config
     {
-
-
         struct QvBarLine {
             QString         Family;
             bool            Bold;
@@ -123,7 +121,6 @@ namespace Qv2ray::base
             bool withLocalDNS;
             QList<QString> dnsList;
             Qv2rayForwardProxyConfig forwardProxyConfig;
-
             Qv2rayConnectionConfig() : bypassCN(true), enableProxy(true), withLocalDNS(false), dnsList(QStringList() << "8.8.4.4" << "1.1.1.1") { }
             XTOSTRUCT(O(bypassCN, enableProxy, withLocalDNS, dnsList, forwardProxyConfig))
         };
@@ -133,6 +130,27 @@ namespace Qv2ray::base
             int statsPort;
             Qv2rayAPIConfig(): enableAPI(true), statsPort(15490) { }
             XTOSTRUCT(O(enableAPI, statsPort))
+        };
+
+        struct QvGroupObject {
+            QString groupId;
+            QString displayName;
+            QvGroupObject(): groupId(QUuid::createUuid().toString()), displayName() {}
+            XTOSTRUCT(O(displayName))
+        };
+
+        struct QvConnectionObject {
+            QString displayName;
+            QString connectionId;
+            QString groupId;
+            //
+            time_t importDate;
+            long latency;
+            long upLinkData;
+            long downLinkData;
+            QvConnectionObject(): displayName(), importDate(std::chrono::system_clock::to_time_t(std::chrono::system_clock::now())),
+                latency(0), upLinkData(0), downLinkData(0) { }
+            XTOSTRUCT(O(displayName, importDate, latency, upLinkData, downLinkData))
         };
 
         struct Qv2rayConfig {
@@ -145,7 +163,9 @@ namespace Qv2ray::base
             ConnectionIdentifier autoStartConfig;
             QString ignoredVersion;
             //
-            QList<QString> configs;
+            QList<QvGroupObject> groups;
+            QList<QvConnectionObject> connections;
+            //QList<QString> configs;
             QMap<QString, Qv2raySubscriptionConfig> subscriptions;
             //
             Qv2rayUIConfig uiConfig;
@@ -162,7 +182,7 @@ namespace Qv2ray::base
                 v2AssetsPath(),
                 autoStartConfig(),
                 ignoredVersion(),
-                configs(),
+                connections(),
                 subscriptions(),
                 uiConfig(),
                 apiConfig(),
@@ -176,7 +196,7 @@ namespace Qv2ray::base
                         logLevel,
                         autoStartConfig,
                         v2CorePath, v2AssetsPath,
-                        configs,
+                        connections,
                         uiConfig,
                         subscriptions, inboundConfig, connectionConfig, toolBarConfig, apiConfig))
         };
