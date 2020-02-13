@@ -100,7 +100,7 @@ jobs:
           make install INSTALL_ROOT=AppDir
           cd AppDir
           mkdir -p ./usr/lib/
-          cp -fv /lib/x86_64-linux-gnu/{ld-linux-x86-64.so.2,libm.so.6,libc.so.6,libgcc_s.so.1} /usr/lib/x86_64-linux-gnu/{libstdc++.so.6,libssl.so.1.1,libcrypto.so.1.1} ./usr/lib/
+          cp -fv /lib/x86_64-linux-gnu/{libbsd.so.0,libcom_err.so.2.1,libexpat.so.1,libkeyutils.so.1,libbsd.so.0.8.7,libdbus-1.so.3,libexpat.so.1.6.7,libkeyutils.so.1.5,libcom_err.so.2,libdbus-1.so.3.19.4,ld-linux-x86-64.so.2,libm.so.6,libc.so.6,libgcc_s.so.1} /usr/lib/x86_64-linux-gnu/{libstdc++.so.6,libssl.so.1.1,libcrypto.so.1.1} ./usr/lib/
           ../squashfs-root/AppRun usr/share/applications/qv2ray.desktop -appimage -no-strip -always-overwrite
           mv ./Qv2ray*.AppImage ./Qv2ray.AppImage
       - name: Linux - ${{ matrix.qt_version }} - Uploading artifact
