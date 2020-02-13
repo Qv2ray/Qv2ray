@@ -102,7 +102,7 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
     switch (tabWidget->currentIndex()) {
         case 0: {
             // From File...
-            bool keepInBound = keepImportedInboundCheckBox->isChecked();
+            bool ImportAsComplex = keepImportedInboundCheckBox->isChecked();
             QString path = fileLineTxt->text();
 
             if (!V2rayKernelInstance::ValidateConfig(path)) {
@@ -111,7 +111,7 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
             }
 
             aliasPrefix += "_" + QFileInfo(path).fileName();
-            CONFIGROOT config = ConvertConfigFromFile(path, keepInBound);
+            CONFIGROOT config = ConvertConfigFromFile(path, ImportAsComplex);
             connections[aliasPrefix] = config;
             break;
         }
