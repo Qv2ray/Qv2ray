@@ -51,7 +51,7 @@ jobs:
           sudo add-apt-repository ppa:webispy/grpc
           sudo add-apt-repository ppa:carsten-uppenbrink-net/openssl
           sudo apt update
-          sudo apt install -y libc6 libgcc1 gcc-7 libgl-dev openssl libx11-dev libxkbcommon-x11-dev libprotobuf-dev protobuf-compiler protobuf-c-compiler
+          sudo apt install -y gcc-7 libgl-dev openssl libx11-dev libxkbcommon-x11-dev libprotobuf-dev protobuf-compiler protobuf-c-compiler
 
       - name: macOS - Install Packages
         if: matrix.platform == 'macos-latest'
@@ -100,7 +100,9 @@ jobs:
           make install INSTALL_ROOT=AppDir
           cd AppDir
           mkdir -p ./usr/lib/
-          cp -fv /usr/lib/x86_64-linux-gnu/{libm.so.6,libc.so.6,libgcc_s.so.1,libstdc++.so.6,libssl.so.1.1,libcrypto.so.1.1} ./usr/lib/
+          mkdir ./lib
+          cp -fv /lib/x86_64-linux-gnu/{libm.so.6,libc.so.6,libgcc_s.so.1} ./lib/
+          cp -fv /usr/lib/x86_64-linux-gnu/{libstdc++.so.6,libssl.so.1.1,libcrypto.so.1.1} ./usr/lib/
           ../squashfs-root/AppRun usr/share/applications/qv2ray.desktop -appimage -no-strip -always-overwrite
           mv ./Qv2ray*.AppImage ./Qv2ray.AppImage
       - name: Linux - ${{ matrix.qt_version }} - Uploading artifact
