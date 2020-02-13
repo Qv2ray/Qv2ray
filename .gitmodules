@@ -9,7 +9,7 @@
 	url = https://github.com/itay-grudev/SingleApplication
 [submodule "3rdparty/QNodeEditor"]
 	path = 3rdparty/QNodeEditor
-	url = https://github.com/lhy0403/QNodeEditor
+	url = https://github.com/Qv2ray/QNodeEditor
 [submodule "3rdparty/qzxing"]
 	path = 3rdparty/qzxing
 	url = https://github.com/ftylitak/qzxing
