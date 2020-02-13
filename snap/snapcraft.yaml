@@ -2,7 +2,6 @@ name: qv2ray
 base: core18
 adopt-info: qv2ray
 icon: assets/icons/qv2ray.png
-license: GPL-3.0
 
 grade: devel
 confinement: devmode
@@ -38,6 +37,11 @@ parts:
     parse-info: [usr/share/metainfo/qv2ray.metainfo.xml]
     build-packages:
       - build-essential
+      - qttools5-dev-tools
+      - qt5-default
+      - libgrpc++-dev
+      - libprotobuf-dev
+      - protobuf-compiler-grpc
     stage-packages:
       - libgcc1
       - libstdc++6
@@ -104,13 +108,13 @@ parts:
     build-packages:
       - dirmngr
     override-pull: |
-      echo "deb http://ppa.launchpad.net/ymshenyu/qv2ray-deps/ubuntu bionic main" >> /etc/apt/sources.list.d/tools.list
-      echo "deb http://archive.neon.kde.org/user bionic main" >> /etc/apt/sources.list.d/tools.list
-      sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E6D4736255751E5D
+      echo 'deb http://archive.neon.kde.org/unstable bionic main' > /etc/apt/sources.list.d/neon.list
+      echo 'deb http://ppa.launchpad.net/ymshenyu/grpc-1/ubuntu bionic main' >> /etc/apt/sources.list.d/tools.list
+      sudo apt-key adv --keyserver keyserver.ubuntu.com --recv E6D4736255751E5D
       sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 281f24e574404629aa3bda1a4f10c386c55cdb04
       sudo apt-get update
       snapcraftctl pull
     override-build: |
       snapcraftctl build
       sudo apt upgrade -y
-      sudo apt install -y qttools5-dev-tools qt5-default libgrpc++-dev libprotobuf-dev protobuf-compiler-grpc
+      sudo apt dist-upgrade -y

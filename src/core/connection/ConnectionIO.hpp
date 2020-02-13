@@ -19,7 +19,7 @@ namespace Qv2ray::core::connection
         bool RenameSubscription(const QString &originalName, const QString &newName);
 
         // File Protocol
-        CONFIGROOT ConvertConfigFromFile(QString sourceFilePath, bool keepInbounds);
+        CONFIGROOT ConvertConfigFromFile(QString sourceFilePath, bool importComplex);
     }
 }
 

@@ -1,6 +1,6 @@
 # Qv2ray - Make v2ray real cross-platform
 
-![archlinuxcn](https://img.shields.io/badge/archlinuxcn-available-success?style=flat-square)
+[![archlinuxcn](https://img.shields.io/badge/archlinuxcn-available-success?style=flat-square)](https://build.archlinuxcn.org/packages/#/qv2ray)
 [![flathub](https://img.shields.io/badge/flathub-available-success?style=flat-square)](https://flathub.org/apps/details/com.github.Qv2ray)
 [![HitCount](http://hits.dwyl.io/Qv2ray/Qv2ray.svg)](http://hits.dwyl.io/Qv2ray/Qv2ray)
 ![GitHub Releases](https://img.shields.io/github/downloads/Qv2ray/Qv2ray/latest/total?style=flat-square)
@@ -9,7 +9,7 @@
 使用 Qt 框架的跨平台 v2ray 客户端。支持 Windows, Linux, macOS。
 
 ## Related Links
- - [Wiki](https://github.com/Qv2ray/Qv2ray/wiki) and [First Time Usage](https://github.com/Qv2ray/Qv2ray/wiki/Getting-Started)
+ - [Wiki](https://github.com/Qv2ray/Qv2ray/wiki) and [First Time Usage](https://github.com/Qv2ray/Qv2ray/wiki/Getting-Started-step0)
  - Latest **[Release Version](https://github.com/Qv2ray/Qv2ray/releases/latest)**
  - Translation platform, translations are welcome at here: **[Public Translation Platform](https://www.transifex.com/qv2ray/qv2ray)**
 
@@ -42,6 +42,7 @@
 - Copyright (c) 2019 paceholder (@paceholder): **nodeeditor (QNodeEditor modified by lhy0403)** (BSD-3-Clause)
 - Copyright (c) 2020 Ram Pani (@DuckSoft): **QvRPCBridge** (WTFPL)
 - Copyright (c) 2019 ShadowSocks (@shadowsocks): **libQtShadowsocks** (LGPLv3)
+- Copyright (c) 2015-2020 qBittorrent (Anton Lashkov) (@qBittorrent): **speedplotview** (GPLv2)
 
 ## Licences
 
@@ -70,4 +71,4 @@ Qv2ray is licenced under [![License: GPL v3](https://img.shields.io/badge/Licens
 
 *任何尝试下载或下载 Qv2ray 任意分支或发行版即代表您同意本项目作者不承担任何由于您违反以上准则所带来的任何法律责任。*
 
-> Any attempt to download of any branch or distribution of Qv2ray constitutes your agreement that the author of the project **will not be** liable for any legal liability arising from your breach of the above guidelines.
+> Any attempt to download of any branch or distribution of Qv2ray constitutes your agreement that the author of the project **will not be** liable for any legal liability arising from your breach of the above guidelines.t

@@ -104,7 +104,7 @@ QString OutboundEditor::GetFriendlyName()
 OUTBOUND OutboundEditor::GenerateConnectionJson()
 {
     OUTBOUNDSETTING settings;
-    auto streaming = JsonFromString(StructToJsonString(ssWidget->GetStreamSettings()));
+    auto streaming = GetRootObject(ssWidget->GetStreamSettings());
 
     if (OutboundType == "vmess") {
         // VMess is only a ServerObject, and we need an array { "vnext": [] }
@@ -113,11 +113,13 @@ OUTBOUND OutboundEditor::GenerateConnectionJson()
         settings.insert("vnext", vnext);
     } else if (OutboundType == "shadowsocks") {
         streaming = QJsonObject();
+        LOG(CONNECTION, "Shadowsocks outbound does not need StreamSettings.")
         QJsonArray servers;
         servers.append(GetRootObject(shadowsocks));
         settings["servers"] = servers;
     } else if (OutboundType == "socks") {
         streaming = QJsonObject();
+        LOG(CONNECTION, "Socks outbound does not need StreamSettings.")
         QJsonArray servers;
         servers.append(GetRootObject(socks));
         settings["servers"] = servers;

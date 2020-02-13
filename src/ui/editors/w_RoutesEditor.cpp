@@ -378,6 +378,7 @@ void RouteEditor::ShowCurrentRuleDetail()
     ruleEnableCB->setChecked(CurrentRule.QV2RAY_RULE_ENABLED);
     routeEditGroupBox->setEnabled(true);
     ruleTagLineEdit->setEnabled(true);
+    ruleRenameBtn->setEnabled(true);
     routeRuleGroupBox->setEnabled(true);
     LOAD_FLAG_BEGIN
     ruleTagLineEdit->setText(CurrentRule.QV2RAY_RULE_TAG);
@@ -707,6 +708,7 @@ void RouteEditor::on_delBtn_clicked()
     } else if (isRule) {
         ruleEnableCB->setEnabled(false);
         ruleTagLineEdit->setEnabled(false);
+        ruleRenameBtn->setEnabled(false);
         auto RuleTag = GetFirstNodeData(*firstNode, QvRuleNodeDataModel, RuleNodeData)->GetRuleTag();
         currentRuleTag.clear();
         routeRuleGroupBox->setEnabled(false);
@@ -835,12 +837,20 @@ void RouteEditor::on_defaultOutboundCombo_currentIndexChanged(const QString &arg
     defaultOutbound = arg1;
 }
 
-void RouteEditor::on_ruleTagLineEdit_textEdited(const QString &arg1)
+void RouteEditor::on_ruleRenameBtn_clicked()
 {
-    if (arg1.isEmpty()) {
-        ruleTagLineEdit->setText(CurrentRule.QV2RAY_RULE_TAG);
-        return;
-    }
+    auto newTag = ruleTagLineEdit->text();
 
-    RenameItemTag(RENAME_RULE, CurrentRule.QV2RAY_RULE_TAG, arg1);
+    if (newTag.isEmpty()) {
+        LOG(UI, "Tag is empty, this is ILLEGAL!")
+        QvMessageBoxWarn(this, tr("Renaming a tag"), tr("New tag is empty, please try another."));
+    } else if (newTag == CurrentRule.QV2RAY_RULE_TAG) {
+        LOG(UI, "No tag changed, returning.")
+        QvMessageBoxInfo(this, tr("Renaming a tag"), tr("New tag is the same as the original one."));
+    } else if (rules.contains(newTag)) {
+        LOG(UI, "Tag duplicate detected.")
+        QvMessageBoxWarn(this, tr("Renaming a tag"), tr("Duplicate rule tag detected, please try another."));
+    } else {
+        RenameItemTag(RENAME_RULE, CurrentRule.QV2RAY_RULE_TAG, newTag);
+    }
 }

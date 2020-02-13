@@ -32,8 +32,8 @@ Qv2ray_debug: GRPC_LIB_PATH=$$GRPC_DEPS_PATH/debug
 Qv2ray_release: GRPC_LIB_PATH=$$GRPC_DEPS_PATH
 
 message("  --> WIN32: Linking against gRPC library: $$GRPC_LIB_PATH")
-Qv2ray_debug: LIBS += -L$$GRPC_LIB_PATH/lib/ -laddress_sorting -lcares -lgrpc++_unsecure -lupb -lzlibd -lgrpc_unsecure -lgpr
-Qv2ray_release: LIBS += -L$$GRPC_LIB_PATH/lib/ -laddress_sorting -lcares -lgrpc++_unsecure -lupb -lzlib -lgrpc_unsecure -lgpr
+Qv2ray_debug: LIBS += -L$$GRPC_LIB_PATH/lib/ -laddress_sorting -lcares -lgrpc++_unsecure -lupb -lzlibd -lgrpc_unsecure -lgpr -labsl_base -labsl_strings -labsl_throw_delegate
+Qv2ray_release: LIBS += -L$$GRPC_LIB_PATH/lib/ -laddress_sorting -lcares -lgrpc++_unsecure -lupb -lzlib -lgrpc_unsecure -lgpr -labsl_base -labsl_strings -labsl_throw_delegate
 
 message("  --> WIN32: Linking against protobuf library: $$GRPC_LIB_PATH")
 Qv2ray_release: LIBS += -lmsvcrt -L$$GRPC_LIB_PATH/lib/ -llibprotobuf

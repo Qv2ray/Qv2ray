@@ -20,7 +20,7 @@ system("$$PWD/../tools/unix-generate-geosite.sh $$PWD")
 
 use_grpc {
     no_generate_headers {
-         message("  --> Skipped generation of protobuf and/or gRPC header files")
+        message("  --> Skipped generation of protobuf and/or gRPC header files")
     } else {
         message("  --> Generating gRPC and protobuf headers for Unix")
         system("$$PWD/../tools/unix-generate-api.sh $$PWD")

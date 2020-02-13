@@ -204,6 +204,9 @@ PreferencesWindow::~PreferencesWindow()
 
 void PreferencesWindow::on_buttonBox_accepted()
 {
+    // Note:
+    // A signal-slot connection from buttonbox_accpted to QDialog::accepted() has been removed.
+    // To prevent closing this Dialog.
     QSet<int> ports;
     auto size = 0;
 
@@ -230,8 +233,8 @@ void PreferencesWindow::on_buttonBox_accepted()
     if (ports.size() != size) {
         // Duplicates detected.
         QvMessageBoxWarn(this, tr("Preferences"), tr("Duplicated port numbers detected, please check the port number settings."));
-        this->show();
-        this->exec();
+    } else if (CurrentConfig.inboundConfig.listenip.toLower() != "localhost" && !IsValidIPAddress(CurrentConfig.inboundConfig.listenip)) {
+        QvMessageBoxWarn(this, tr("Preferences"), tr("Invalid inbound listening address."));;
     } else {
         if (CurrentConfig.uiConfig.language != GlobalConfig.uiConfig.language) {
             qApp->removeTranslator(Qv2rayTranslator.get());
@@ -248,6 +251,7 @@ void PreferencesWindow::on_buttonBox_accepted()
 
         SaveGlobalConfig(CurrentConfig);
         emit s_reload_config(IsConnectionPropertyChanged);
+        emit accept();
     }
 }
 
@@ -291,6 +295,13 @@ void PreferencesWindow::on_listenIPTxt_textEdited(const QString &arg1)
 {
     NEEDRESTART
     CurrentConfig.inboundConfig.listenip = arg1;
+
+    if (IsValidIPAddress(arg1)) {
+        BLACK(listenIPTxt)
+    } else {
+        RED(listenIPTxt)
+    }
+
     //pacAccessPathTxt->setText("http://" + arg1 + ":" + QSTRN(pacPortSB->value()) + "/pac");
 }
 
@@ -393,12 +404,11 @@ void PreferencesWindow::on_cancelIgnoreVersionBtn_clicked()
 void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
 {
     LOADINGCHECK
-#ifdef __linux
-    LOADINGCHECK
+#ifdef Q_OS_LINUX
 
-    // Set UID and GID for linux
+    // Setting up tProxy for linux
     // Steps:
-    // --> 1. Copy V2ray core files to the #CONFIG_DIR#/vcore/ dir.
+    // --> 1. Copy V2ray core files to the QV2RAY_TPROXY_VCORE_PATH and QV2RAY_TPROXY_VCTL_PATH dir.
     // --> 2. Change GlobalConfig.v2CorePath.
     // --> 3. Call `pkexec setcap CAP_NET_ADMIN,CAP_NET_RAW,CAP_NET_BIND_SERVICE=eip` on the V2ray core.
     if (arg1 == Qt::Checked) {
@@ -529,6 +539,12 @@ void PreferencesWindow::on_socksUDPIP_textEdited(const QString &arg1)
 {
     NEEDRESTART
     CurrentConfig.inboundConfig.socksLocalIP = arg1;
+
+    if (IsValidIPAddress(arg1)) {
+        BLACK(socksUDPIP)
+    } else {
+        RED(socksUDPIP)
+    }
 }
 
 // ------------------- NET SPEED PLUGIN OPERATIONS -----------------------------------------------------------------
@@ -856,15 +872,19 @@ void PreferencesWindow::on_pacGoBtn_clicked()
             break;
 
         case 6:
-            QFileDialog d;
-            d.exec();
-            auto file = d.getOpenFileUrl(this, tr("Select GFWList in base64")).toString();
+            auto file = QFileDialog::getOpenFileName(this, tr("Select GFWList in base64"));
+
+            if (file.isEmpty()) {
+                QvMessageBoxWarn(this, tr("Download GFWList"), tr("Operation is cancelled."));
+                return;
+            }
+
             fileContent = StringFromFile(file);
             break;
     }
 
     LOG(NETWORK, "Fetched: " + gfwLocation)
-    QvMessageBoxWarn(this, tr("Download GFWList"), tr("Successfully downloaded GFWList."));
+    QvMessageBoxInfo(this, tr("Download GFWList"), tr("Successfully downloaded GFWList."));
     pacGoBtn->setEnabled(true);
     gfwListCB->setEnabled(true);
 
@@ -961,6 +981,12 @@ void PreferencesWindow::on_fpAddressTx_textEdited(const QString &arg1)
 {
     LOADINGCHECK
     CurrentConfig.connectionConfig.forwardProxyConfig.serverAddress = arg1;
+
+    if (IsValidIPAddress(arg1)) {
+        BLACK(fpAddressTx)
+    } else {
+        RED(fpAddressTx)
+    }
 }
 
 void PreferencesWindow::on_spPortSB_valueChanged(int arg1)
@@ -998,6 +1024,13 @@ void PreferencesWindow::on_fpPortSB_valueChanged(int arg1)
 void PreferencesWindow::on_pacProxyTxt_textChanged(const QString &arg1)
 {
     Q_UNUSED(arg1)
+
+    if (IsValidIPAddress(arg1)) {
+        BLACK(pacProxyTxt)
+    } else {
+        RED(pacProxyTxt)
+    }
+
     pacListenAddrLabel->setText("http://" + (pacProxyTxt->text().isEmpty() ? "127.0.0.1" : pacProxyTxt->text()) + ":" + QSTRN(pacPortSB->value()) + "/pac");
 }
 

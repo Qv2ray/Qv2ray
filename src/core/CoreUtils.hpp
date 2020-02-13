@@ -23,7 +23,7 @@ namespace Qv2ray::core
     /// Host, port, type
     tuple<QString, int, QString> GetConnectionInfo(const CONFIGROOT &alias);
     bool GetOutboundData(const OUTBOUND &out, QString *host, int *port, QString *protocol);
-    bool CheckIsComplexConfig(CONFIGROOT root);
+    bool IsComplexConfig(CONFIGROOT root);
 }
 
 using namespace Qv2ray::core;

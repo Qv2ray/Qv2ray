@@ -168,10 +168,15 @@ namespace Qv2ray::components::proxy
     }
 #endif
 
-    bool SetSystemProxy(const QString &address, int httpPort, int socksPort, bool usePAC)
+    void SetSystemProxy(const QString &address, int httpPort, int socksPort, bool usePAC)
     {
         bool hasHTTP = (httpPort != 0);
         bool hasSOCKS = (socksPort != 0);
+
+        if (!(hasHTTP || hasSOCKS || usePAC)) {
+            LOG(PROXY, "Nothing?")
+            return;
+        }
 
         if (usePAC) {
             LOG(PROXY, "Qv2ray will set system proxy to use PAC file")
@@ -195,82 +200,78 @@ namespace Qv2ray::components::proxy
         }
 
         LOG(PROXY, "Windows proxy string: " + __a)
+        auto proxyStrW = new WCHAR[__a.length() + 1];
+        wcscpy(proxyStrW, __a.toStdWString().c_str());
+        //
+        __QueryProxyOptions();
 
-        if (hasHTTP || hasSOCKS) {
-            auto proxyStrW = new WCHAR[__a.length() + 1];
-            wcscpy(proxyStrW, __a.toStdWString().c_str());
-            //
-            __QueryProxyOptions();
-
-            if (!__SetProxyOptions(proxyStrW, usePAC)) {
-                LOG(PROXY, "Failed to set proxy.")
-                return false;
-            }
-
-            __QueryProxyOptions();
-            return true;
-        } else {
-            return false;
+        if (!__SetProxyOptions(proxyStrW, usePAC)) {
+            LOG(PROXY, "Failed to set proxy.")
         }
 
+        __QueryProxyOptions();
 #elif defined(Q_OS_LINUX)
-        bool result = true;
+        QStringList actions;
+        auto proxyMode = usePAC ? "auto" : "manual";
+        actions << QString("gsettings set org.gnome.system.proxy mode '%1'").arg(proxyMode);
 
         if (usePAC) {
-            result = result && QProcess::execute("gsettings set org.gnome.system.proxy mode 'auto'") == QProcess::NormalExit;
-            result = result && QProcess::execute("gsettings set org.gnome.system.proxy autoconfig-url '" + address + "'") == QProcess::NormalExit;
+            actions << QString("gsettings set org.gnome.system.proxy autoconfig-url '%1'").arg(address);
         } else {
-            result = result && QProcess::execute("gsettings set org.gnome.system.proxy mode 'manual'") == QProcess::NormalExit;
-
             if (hasHTTP) {
-                result = result && QProcess::execute("gsettings set org.gnome.system.proxy.http host '" + address + "'") == QProcess::NormalExit;
-                result = result && QProcess::execute("gsettings set org.gnome.system.proxy.http port " + QSTRN(httpPort)) == QProcess::NormalExit;
+                actions << QString("gsettings set org.gnome.system.proxy.http host '%1'").arg(address);
+                actions << QString("gsettings set org.gnome.system.proxy.http port %1").arg(httpPort);
                 //
-                result = result && QProcess::execute("gsettings set org.gnome.system.proxy.https host '" + address + "'") == QProcess::NormalExit;
-                result = result && QProcess::execute("gsettings set org.gnome.system.proxy.https port " + QSTRN(httpPort)) == QProcess::NormalExit;
+                actions << QString("gsettings set org.gnome.system.proxy.https host '%1'").arg(address);
+                actions << QString("gsettings set org.gnome.system.proxy.https port %1").arg(httpPort);;
             }
 
             if (hasSOCKS) {
-                result = result && QProcess::execute("gsettings set org.gnome.system.proxy.socks host '" + address + "'") == QProcess::NormalExit;
-                result = result && QProcess::execute("gsettings set org.gnome.system.proxy.socks port " + QSTRN(socksPort)) == QProcess::NormalExit;
+                actions << QString("gsettings set org.gnome.system.proxy.socks host '%1'").arg(address);
+                actions << QString("gsettings set org.gnome.system.proxy.socks port %1").arg(socksPort);
             }
         }
+
+        // note: do not use std::all_of / any_of / none_of,
+        // because those are short-circuit and cannot guarantee atomicity.
+        auto result = std::count_if(actions.cbegin(), actions.cend(), [](const QString & action) {
+            DEBUG(PROXY, action)
+            return QProcess::execute(action) == QProcess::NormalExit;
+        }) == actions.size();
 
         if (!result) {
             LOG(PROXY, "Something wrong happens when setting system proxy -> Gnome ONLY.")
             LOG(PROXY, "If you are using KDE Plasma and receiving this message, just simply ignore this.")
         }
 
-        return result;
+        Q_UNUSED(result);
 #else
-        bool result = true;
 
         for (auto service : macOSgetNetworkServices()) {
             LOG(PROXY, "Setting proxy for interface: " + service)
 
             if (usePAC) {
-                result = result && QProcess::execute("/usr/sbin/networksetup -setautoproxystate " + service + " on") == QProcess::NormalExit;
-                result = result && QProcess::execute("/usr/sbin/networksetup -setautoproxyurl " + service + " " + address) == QProcess::NormalExit;
+                QProcess::execute("/usr/sbin/networksetup -setautoproxystate " + service + " on");
+                QProcess::execute("/usr/sbin/networksetup -setautoproxyurl " + service + " " + address);
             } else {
                 if (hasHTTP) {
-                    result = result && QProcess::execute("/usr/sbin/networksetup -setwebproxystate " + service + " on") == QProcess::NormalExit;
-                    result = result && QProcess::execute("/usr/sbin/networksetup -setsecurewebproxystate " + service + " on") == QProcess::NormalExit;
-                    result = result && QProcess::execute("/usr/sbin/networksetup -setwebproxy " + service + " " + address + " " + QSTRN(httpPort)) == QProcess::NormalExit;
-                    result = result && QProcess::execute("/usr/sbin/networksetup -setsecurewebproxy " + service + " " + address + " " + QSTRN(httpPort)) == QProcess::NormalExit;
+                    QProcess::execute("/usr/sbin/networksetup -setwebproxystate " + service + " on");
+                    QProcess::execute("/usr/sbin/networksetup -setsecurewebproxystate " + service + " on");
+                    QProcess::execute("/usr/sbin/networksetup -setwebproxy " + service + " " + address + " " + QSTRN(httpPort));
+                    QProcess::execute("/usr/sbin/networksetup -setsecurewebproxy " + service + " " + address + " " + QSTRN(httpPort));
                 }
 
                 if (hasSOCKS) {
-                    result = result && QProcess::execute("/usr/sbin/networksetup -setsocksfirewallproxystate " + service + " on") == QProcess::NormalExit;
-                    result = result && QProcess::execute("/usr/sbin/networksetup -setsocksfirewallproxy " + service + " " + address + " " + QSTRN(socksPort)) == QProcess::NormalExit;
+                    QProcess::execute("/usr/sbin/networksetup -setsocksfirewallproxystate " + service + " on");
+                    QProcess::execute("/usr/sbin/networksetup -setsocksfirewallproxy " + service + " " + address + " " + QSTRN(socksPort));
                 }
             }
         }
 
-        return result;
 #endif
     }
 
-    bool ClearSystemProxy()
+    void ClearSystemProxy()
     {
 #ifdef Q_OS_WIN
         LOG(PROXY, "Cleaning system proxy settings.")
@@ -289,7 +290,6 @@ namespace Qv2ray::components::proxy
         if (nullptr == list.pOptions) {
             // Return FALSE if the memory wasn't allocated.
             LOG(PROXY, "Failed to allocat memory in DisableConnectionProxy()")
-            return FALSE;
         }
 
         // Set flags.
@@ -301,20 +301,18 @@ namespace Qv2ray::components::proxy
         delete [] list.pOptions;
         InternetSetOption(nullptr, INTERNET_OPTION_SETTINGS_CHANGED, nullptr, 0);
         InternetSetOption(nullptr, INTERNET_OPTION_REFRESH, nullptr, 0);
-        return bReturn;
 #elif defined(Q_OS_LINUX)
-        return QProcess::execute("gsettings set org.gnome.system.proxy mode 'none'") == QProcess::ExitStatus::NormalExit;
+        QProcess::execute("gsettings set org.gnome.system.proxy mode 'none'");
 #else
-        bool result = true;
 
         for (auto service : macOSgetNetworkServices()) {
-            result = result && QProcess::execute("/usr/sbin/networksetup -setautoproxystate " + service + " off") == QProcess::NormalExit;
-            result = result && QProcess::execute("/usr/sbin/networksetup -setwebproxystate " + service + " off") == QProcess::NormalExit;
-            result = result && QProcess::execute("/usr/sbin/networksetup -setsecurewebproxystate " + service + " off") == QProcess::NormalExit;
-            result = result && QProcess::execute("/usr/sbin/networksetup -setsocksfirewallproxystate " + service + " off") == QProcess::NormalExit;
+            LOG(PROXY, "Clearing proxy for interface: " + service)
+            QProcess::execute("/usr/sbin/networksetup -setautoproxystate " + service + " off");
+            QProcess::execute("/usr/sbin/networksetup -setwebproxystate " + service + " off");
+            QProcess::execute("/usr/sbin/networksetup -setsecurewebproxystate " + service + " off");
+            QProcess::execute("/usr/sbin/networksetup -setsocksfirewallproxystate " + service + " off");
         }
 
-        return result;
 #endif
     }
 }

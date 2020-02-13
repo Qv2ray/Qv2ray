@@ -116,7 +116,7 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         //
         //
         QvHttpRequestHelper *requestHelper;
-        QSystemTrayIcon *hTray;
+        QSystemTrayIcon hTray;
         PACServer pacServer;
         QvTCPingModel tcpingHelper;
         SyntaxHighlighter *vCoreLogHighlighter;

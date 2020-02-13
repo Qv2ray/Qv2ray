@@ -67,7 +67,7 @@ void MainWindow::MWClearSystemProxy(bool showMessage)
     systemProxyEnabled = false;
 
     if (showMessage) {
-        hTray->showMessage("Qv2ray", tr("System proxy cleared."), windowIcon());
+        hTray.showMessage("Qv2ray", tr("System proxy cleared."), windowIcon());
     }
 }
 
@@ -79,7 +79,7 @@ void MainWindow::MWSetSystemProxy()
     bool socksEnabled = GlobalConfig.inboundConfig.useSocks;
     //
     // Set system proxy if necessary
-    bool isComplex = CheckIsComplexConfig(connections[CurrentConnectionIdentifier].config);
+    bool isComplex = IsComplexConfig(connections[CurrentConnectionIdentifier].config);
 
     if (!isComplex) {
         // Is simple config and we will try to set system proxy.
@@ -124,10 +124,10 @@ void MainWindow::MWSetSystemProxy()
             // If usePAC is set
             SetSystemProxy(proxyAddress, httpPort, socksPort, usePAC);
             systemProxyEnabled = true;
-            hTray->showMessage("Qv2ray", tr("System proxy settings applied."), windowIcon());
+            hTray.showMessage("Qv2ray", tr("System proxy settings applied."), windowIcon());
         }
     } else {
-        hTray->showMessage("Qv2ray", tr("Cannot set proxy for complex config."), windowIcon());
+        hTray.showMessage("Qv2ray", tr("Cannot set proxy for complex config."), windowIcon());
     }
 }
 

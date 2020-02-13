@@ -37,7 +37,7 @@
            <string>Add outbound</string>
           </property>
           <property name="text">
-           <string>Add Inbound</string>
+           <string>Add an Inbound</string>
           </property>
          </widget>
         </item>
@@ -66,7 +66,7 @@
            <string>Add outbound</string>
           </property>
           <property name="text">
-           <string>Add Outbound</string>
+           <string>Add an Outbound</string>
           </property>
          </widget>
         </item>
@@ -262,15 +262,15 @@
    <item row="1" column="1">
     <widget class="QToolBox" name="toolBox">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="page_2">
       <property name="geometry">
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>361</width>
-        <height>512</height>
+        <width>359</width>
+        <height>535</height>
        </rect>
       </property>
       <attribute name="label">
@@ -280,7 +280,7 @@
        <item>
         <widget class="QGroupBox" name="groupBox_7">
          <property name="title">
-          <string>GroupBox</string>
+          <string>Misc Settings</string>
          </property>
          <layout class="QFormLayout" name="formLayout_3">
           <item row="0" column="0">
@@ -371,8 +371,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>341</width>
-        <height>687</height>
+        <width>345</width>
+        <height>615</height>
        </rect>
       </property>
       <attribute name="label">
@@ -409,11 +409,25 @@
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QLineEdit" name="ruleTagLineEdit">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-          </widget>
+          <layout class="QHBoxLayout" name="horizontalLayout_6">
+           <item>
+            <widget class="QLineEdit" name="ruleTagLineEdit">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="ruleRenameBtn">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="text">
+              <string>Rename</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </item>
         </layout>
        </item>
@@ -671,7 +685,6 @@
   <tabstop>defaultOutboundCombo</tabstop>
   <tabstop>ruleListWidget</tabstop>
   <tabstop>ruleEnableCB</tabstop>
-  <tabstop>ruleTagLineEdit</tabstop>
   <tabstop>netTCPRB</tabstop>
   <tabstop>netUDPRB</tabstop>
   <tabstop>netBothRB</tabstop>
