@@ -31,13 +31,16 @@
   <releases>
     <release version="2.0.1" date="2019-1-28">
       <description>
-        <ul>
-            <li>Prevent messing up vcore logs</li>
-            <li>upstream: solved QTimer issue and golang memory leak issue</li>
-            <li>fix: fixed duplicated scheme:// in GNOME system settings</li>
-            <li>add: added os process signals support</li>
-            <li>add: enable hiding Qv2ray when performing screenshot, fixed #283</li>
-        </ul>
+        <p>
+          New bugfix version.
+          <ul>
+              <li>Prevent messing up vcore logs</li>
+              <li>upstream: solved QTimer issue and golang memory leak issue</li>
+              <li>fix: fixed duplicated scheme:// in GNOME system settings</li>
+              <li>add: added os process signals support</li>
+              <li>add: enable hiding Qv2ray when performing screenshot, fixed #283</li>
+          </ul>
+        </p>
       </description>
     </release>
   </releases>

@@ -148,7 +148,7 @@ namespace Qv2ray::core::connection
             return QDir().rename(QV2RAY_SUBSCRIPTION_DIR + originalName, QV2RAY_SUBSCRIPTION_DIR + newName);
         }
 
-        CONFIGROOT ConvertConfigFromFile(QString sourceFilePath, bool keepInbounds)
+        CONFIGROOT ConvertConfigFromFile(QString sourceFilePath, bool importComplex)
         {
             QFile source(sourceFilePath);
 
@@ -159,8 +159,9 @@ namespace Qv2ray::core::connection
 
             auto root = CONFIGROOT(JsonFromString(StringFromFile(&source)));
 
-            if (!keepInbounds) {
+            if (!importComplex) {
                 JSON_ROOT_TRY_REMOVE("inbounds")
+                JSON_ROOT_TRY_REMOVE("routing")
             }
 
             JSON_ROOT_TRY_REMOVE("log")
