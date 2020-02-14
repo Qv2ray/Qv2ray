@@ -10,7 +10,7 @@
         <location filename="../src/ui/w_ExportConfig.cpp" line="82"/>
         <location filename="../src/ui/w_ExportConfig.cpp" line="88"/>
         <source>Share Connection</source>
-        <translation>共享连接</translation>
+        <translation>分享连接</translation>
     </message>
     <message>
         <location filename="../src/ui/w_ExportConfig.cpp" line="82"/>
@@ -156,7 +156,7 @@
     <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
         <source>VMess / QRCode</source>
-        <translation>VMess和二维码</translation>
+        <translation>VMess / 二维码</translation>
     </message>
     <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
@@ -166,7 +166,7 @@
     <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
         <source>From QRCode File</source>
-        <translation>从包含二维码的文件</translation>
+        <translation>从二维码的文件</translation>
     </message>
     <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
@@ -221,7 +221,7 @@
     <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
         <source>Open Subscription Manager</source>
-        <translation>打开订阅管理</translation>
+        <translation>打开订阅管理器</translation>
     </message>
     <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
@@ -536,7 +536,7 @@
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.cpp" line="31"/>
         <source>The inbound type is not supported by Qv2ray (yet). Please use JsonEditor to change the settings</source>
-        <translation>Qv2ray 不支持这个入站类型。请使用 JsonEditor 更改设置</translation>
+        <translation>Qv2ray （暂时）不支持这个入站类型。请使用 JsonEditor 更改设置</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.cpp" line="32"/>
@@ -1086,12 +1086,12 @@
     <message>
         <location filename="../src/ui/w_MainWindow.cpp" line="252"/>
         <source>Ping</source>
-        <translation>Ping</translation>
+        <translation>Ping 测试</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.cpp" line="252"/>
         <source>Ping All</source>
-        <translation>Ping 所有</translation>
+        <translation>Ping 测试所有连接</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.cpp" line="369"/>
@@ -1132,7 +1132,7 @@
     <message>
         <location filename="../src/ui/w_MainWindow.cpp" line="741"/>
         <source>Are you sure to remove selected connection(s)?</source>
-        <translation>您确定要删除此连接吗？</translation>
+        <translation>您确定要删除这（些）连接吗？</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.cpp" line="775"/>
@@ -1194,7 +1194,7 @@
     <message>
         <location filename="../src/ui/w_MainWindow.cpp" line="981"/>
         <source>Share Connection</source>
-        <translation>共享连接</translation>
+        <translation>分享连接</translation>
     </message>
 </context>
 <context>
@@ -1350,12 +1350,12 @@
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
         <source>Darkmode UI Icons</source>
-        <translation>黑暗模式 UI 图标</translation>
+        <translation>深色模式 UI 图标</translation>
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
         <source>Darkmode Tray Icon</source>
-        <translation>黑暗模式托盘图标</translation>
+        <translation>深色模式托盘图标</translation>
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
@@ -1710,7 +1710,7 @@
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
         <source>Page Y Offset</source>
-        <translation>第 Y 页偏移</translation>
+        <translation>页面 Y 轴偏移</translation>
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
@@ -1772,7 +1772,7 @@
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
         <source>G:</source>
-        <translation>G：</translation>
+        <translation>G:</translation>
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
@@ -1807,7 +1807,7 @@
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
         <source>You can config how the network speed toolbar looks like in this panel</source>
-        <translation>您可以设定网络速度工具栏在此面板中的外观</translation>
+        <translation>您可以设定网络速度工具栏的外观</translation>
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
@@ -3164,7 +3164,7 @@ p, li { white-space: pre-wrap; }
         <location filename="../src/components/speedchart/speedplotview.cpp" line="77"/>
         <source>/s</source>
         <comment>per second</comment>
-        <translation>每秒</translation>
+        <translation>/s</translation>
     </message>
 </context>
 <context>

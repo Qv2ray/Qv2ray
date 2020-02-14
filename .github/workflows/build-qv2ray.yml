@@ -99,8 +99,15 @@ jobs:
           ./linuxdeployqt-6-x86_64.AppImage --appimage-extract
           make install INSTALL_ROOT=AppDir
           cd AppDir
-          mkdir -p ./usr/lib/
-          cp /usr/lib/x86_64-linux-gnu/libssl.so.1.1 /usr/lib/x86_64-linux-gnu/libcrypto.so.1.1 ./usr/lib/
+          wget -c https://github.com/darealshinji/AppImageKit-checkrt/releases/download/continuous/AppRun-patched-x86_64 -O AppRun
+          chmod a+x AppRun
+          mkdir -p ./usr/{lib,optional}/
+          wget -c https://github.com/darealshinji/AppImageKit-checkrt/releases/download/continuous/exec-x86_64.so -O ./usr/optional/exec.so
+          mkdir -p ./usr/optional/libstdc++/
+          cp -fv /usr/lib/x86_64-linux-gnu/libstdc++.so.6 ./usr/optional/libstdc++/
+          mkdir -p ./usr/optional/libgcc_s/
+          cp -fv /lib/x86_64-linux-gnu/libgcc_s.so.1 ./usr/optional/libgcc_s/
+          cp -fv /usr/lib/x86_64-linux-gnu/{libssl.so.1.1,libcrypto.so.1.1} ./usr/lib/
           ../squashfs-root/AppRun usr/share/applications/qv2ray.desktop -appimage -no-strip -always-overwrite
           mv ./Qv2ray*.AppImage ./Qv2ray.AppImage
       - name: Linux - ${{ matrix.qt_version }} - Uploading artifact

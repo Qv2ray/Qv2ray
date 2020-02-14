@@ -311,22 +311,22 @@
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.ui"/>
         <source>Tag</source>
-        <translation>Tag</translation>
+        <translation>标签</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.ui"/>
         <source>Tag of this inbound entry</source>
-        <translation>Tag of this inbound entry</translation>
+        <translation>このインバウンドエントリのタグ</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.ui"/>
         <source>Listening</source>
-        <translation>Listening</translation>
+        <translation>リスニング</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.ui"/>
         <source>Hostname or IP Address</source>
-        <translation>Hostname or IP Address</translation>
+        <translation>ホスト名またはIPアドレス</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.ui"/>
@@ -346,12 +346,12 @@
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.ui"/>
         <source>Allocation Settings</source>
-        <translation>Allocation Settings</translation>
+        <translation>割り当て設定</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.ui"/>
         <source>Strategy</source>
-        <translation>Strategy</translation>
+        <translation>戦略</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.ui"/>
@@ -366,47 +366,47 @@
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.ui"/>
         <source>Refresh</source>
-        <translation>Refresh</translation>
+        <translation>リフレッシュ</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.ui"/>
         <source>Concurrency</source>
-        <translation>Concurrency</translation>
+        <translation>同時実行</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.ui"/>
         <source>Sniffing Settings</source>
-        <translation>Sniffing Settings</translation>
+        <translation>スニッフィング設定</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.ui"/>
         <source>Destination Override</source>
-        <translation>Destination Override</translation>
+        <translation>宛先オーバーライド</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.ui"/>
         <source>Enabled</source>
-        <translation>Enabled</translation>
+        <translation>有効</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.ui"/>
         <source>HTTP Inbound Settings</source>
-        <translation>HTTP Inbound Settings</translation>
+        <translation>HTTPインバウンド設定</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.ui"/>
         <source>Timeout</source>
-        <translation>Timeout</translation>
+        <translation>タイムアウト</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.ui"/>
         <source>Allow Transparent</source>
-        <translation>Allow Transparent</translation>
+        <translation>透明を許可</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.ui"/>
         <source>User Level</source>
-        <translation>User Level</translation>
+        <translation>ユーザーレベル</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.ui"/>
@@ -416,7 +416,7 @@
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.ui"/>
         <source>Password</source>
-        <translation>Password</translation>
+        <translation>暗号</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.ui"/>
@@ -426,37 +426,37 @@
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.ui"/>
         <source>Add</source>
-        <translation>Add</translation>
+        <translation>追加</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.ui"/>
         <source>Username</source>
-        <translation>Username</translation>
+        <translation>ユーザー名</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.ui"/>
         <source>Accounts</source>
-        <translation>Accounts</translation>
+        <translation>アカウント</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.ui"/>
         <source>SOCKS Inbound Settings</source>
-        <translation>SOCKS Inbound Settings</translation>
+        <translation>SOCKSインバウンド設定</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.ui"/>
         <source>Auth</source>
-        <translation>Auth</translation>
+        <translation>認証</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.ui"/>
         <source>Enable UDP</source>
-        <translation>Enable UDP</translation>
+        <translation>UDPを有効にする</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.ui"/>
         <source>Local UDP IP</source>
-        <translation>Local UDP IP</translation>
+        <translation>ローカルUDP IP</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.ui"/>
@@ -466,27 +466,27 @@
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.ui"/>
         <source>Dokodemo-Door Inbound Settings</source>
-        <translation>Dokodemo-Door Inbound Settings</translation>
+        <translation>どこでもドアのインバウンド設定</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.ui"/>
         <source>IP Address</source>
-        <translation>IP Address</translation>
+        <translation>IPアドレス</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.ui"/>
         <source>Not necessary when setting &quot;Follow Redirect&quot;</source>
-        <translation>Not necessary when setting &quot;Follow Redirect&quot;</translation>
+        <translation>「リダイレクトに従う」を設定する場合は不要</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.ui"/>
         <source>Port</source>
-        <translation>Port</translation>
+        <translation>ポート</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.ui"/>
         <source>Network</source>
-        <translation>Network</translation>
+        <translation>ネットワーク</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.ui"/>
@@ -501,22 +501,22 @@
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.ui"/>
         <source>Follow Redirect</source>
-        <translation>Follow Redirect</translation>
+        <translation>リダイレクトに従う</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.ui"/>
         <source>If you want to use tProxy, please go to Preference Window to enable this feature.</source>
-        <translation>If you want to use tProxy, please go to Preference Window to enable this feature.</translation>
+        <translation>tProxyを使用する場合は、設定ウィンドウに移動してこの機能を有効にしてください。</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.ui"/>
         <source>MTProto Inbound Settings</source>
-        <translation>MTProto Inbound Settings</translation>
+        <translation>MTProtoインバウンド設定</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.ui"/>
         <source>EMail Address</source>
-        <translation>EMail Address</translation>
+        <translation>電子メールアドレス</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.ui"/>
@@ -531,12 +531,12 @@
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.cpp" line="31"/>
         <source>Inbound type not supported</source>
-        <translation>Inbound type not supported</translation>
+        <translation>インバウンドタイプがサポートされていません</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.cpp" line="31"/>
         <source>The inbound type is not supported by Qv2ray (yet). Please use JsonEditor to change the settings</source>
-        <translation>The inbound type is not supported by Qv2ray (yet). Please use JsonEditor to change the settings</translation>
+        <translation>このインバウンドタイプは、Qv2rayでは(まだ)サポートされていません。 JsonEditorを使用して設定を変更してください</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.cpp" line="32"/>
