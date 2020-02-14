@@ -97,10 +97,18 @@ jobs:
           wget https://github.com/probonopd/linuxdeployqt/releases/download/6/linuxdeployqt-6-x86_64.AppImage
           chmod +x ./linuxdeployqt-6-x86_64.AppImage
           ./linuxdeployqt-6-x86_64.AppImage --appimage-extract
+          rm AppRun
+          wget -c https://github.com/darealshinji/AppImageKit-checkrt/releases/download/continuous/AppRun-patched-x86_64 -O AppRun
+          chmod a+x AppRun
           make install INSTALL_ROOT=AppDir
           cd AppDir
-          mkdir -p ./usr/lib/
-          cp -fv /lib/x86_64-linux-gnu/{libbsd.so.0,libcom_err.so.2.1,libexpat.so.1,libkeyutils.so.1,libdbus-1.so.3,libkeyutils.so.1.5,libcom_err.so.2,ld-linux-x86-64.so.2,libm.so.6,libc.so.6,libgcc_s.so.1} /usr/lib/x86_64-linux-gnu/{libstdc++.so.6,libssl.so.1.1,libcrypto.so.1.1} ./usr/lib/
+          mkdir -p ./usr/{lib,optional}/
+          wget -c https://github.com/darealshinji/AppImageKit-checkrt/releases/download/continuous/exec-x86_64.so -O ./usr/optional/exec.so
+          mkdir -p ./usr/optional/libstdc++/
+          cp -fv /usr/lib/x86_64-linux-gnu/libstdc++.so.6 ./usr/optional/libstdc++/
+          mkdir -p ./usr/optional/libgcc_s/
+          cp -fv /lib/x86_64-linux-gnu/libgcc_s.so.1 ./usr/optional/libgcc_s/
+          cp -fv /usr/lib/x86_64-linux-gnu/{libssl.so.1.1,libcrypto.so.1.1} ./usr/lib/
           ../squashfs-root/AppRun usr/share/applications/qv2ray.desktop -appimage -no-strip -always-overwrite
           mv ./Qv2ray*.AppImage ./Qv2ray.AppImage
       - name: Linux - ${{ matrix.qt_version }} - Uploading artifact
