@@ -99,7 +99,6 @@ jobs:
           ./linuxdeployqt-6-x86_64.AppImage --appimage-extract
           make install INSTALL_ROOT=AppDir
           cd AppDir
-          rm AppRun
           wget -c https://github.com/darealshinji/AppImageKit-checkrt/releases/download/continuous/AppRun-patched-x86_64 -O AppRun
           chmod a+x AppRun
           mkdir -p ./usr/{lib,optional}/
