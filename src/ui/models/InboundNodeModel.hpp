@@ -1,7 +1,7 @@
 #pragma once
 
 #include <QtCore/qglobal.h>
-#include "ui/nodemodels/NodeModelsBase.hpp"
+#include "ui/models/NodeModelsBase.hpp"
 
 class QvInboundNodeModel : public NodeDataModel
 {

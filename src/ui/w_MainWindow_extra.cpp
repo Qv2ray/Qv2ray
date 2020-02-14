@@ -5,59 +5,59 @@
 #include "components/proxy/QvProxyConfigurator.hpp"
 #include "core/connection/Generation.hpp"
 
-QTreeWidgetItem *MainWindow::FindItemByIdentifier(ConnectionIdentifier identifier)
+QTreeWidgetItem *MainWindow::FindItemByIdentifier(QvConnectionObject identifier)
 {
-    // First filter out all items with our config name.
-    auto items = connectionListWidget->findItems(identifier.connectionName, Qt::MatchExactly | Qt::MatchRecursive);
-
-    for (auto item : items) {
-        // This connectable prevents the an item with (which is the parent node of a subscription, having the same
-        // -- name as our current connected name)
-        if (!IsConnectableItem(item)) {
-            LOG(UI, "Invalid Item found: " + item->text(0))
-            continue;
-        }
-
-        auto thisIdentifier = ItemConnectionIdentifier(item);
-        DEBUG(UI, "Item Identifier: " + thisIdentifier.IdentifierString())
-
-        if (identifier == thisIdentifier) {
-            return item;
-        }
-    }
-
-    LOG(UI, "Warning: Failed to find an item named: " + identifier.IdentifierString())
+    //// First filter out all items with our config name.
+    //auto items = connectionListWidget->findItems(identifier.connectionName, Qt::MatchExactly | Qt::MatchRecursive);
+    //
+    //for (auto item : items) {
+    //    // This connectable prevents the an item with (which is the parent node of a subscription, having the same
+    //    // -- name as our current connected name)
+    //    if (!IsConnectableItem(item)) {
+    //        LOG(UI, "Invalid Item found: " + item->text(0))
+    //        continue;
+    //    }
+    //
+    //    auto thisIdentifier = ItemConnectionIdentifier(item);
+    //    DEBUG(UI, "Item Identifier: " + thisIdentifier.IdentifierString())
+    //
+    //    if (identifier == thisIdentifier) {
+    //        return item;
+    //    }
+    //}
+    //
+    //LOG(UI, "Warning: Failed to find an item named: " + identifier.IdentifierString())
     return nullptr;
 }
 
 void MainWindow::MWFindAndStartAutoConfig()
 {
-    if (!GlobalConfig.autoStartConfig.connectionName.isEmpty()) {
-        // User has auto start configured, we try to find that connection item.
-        auto name = GlobalConfig.autoStartConfig.subscriptionName.isEmpty()
-                    ? GlobalConfig.autoStartConfig.connectionName
-                    : GlobalConfig.autoStartConfig.connectionName + " (" + tr("Subscription:") + " " + GlobalConfig.autoStartConfig.subscriptionName + ")";
-        //
-        LOG(UI, "Found auto start config: " + name)
-        auto item = FindItemByIdentifier(GlobalConfig.autoStartConfig);
-
-        if (item != nullptr) {
-            // We found the item required and start it.
-            connectionListWidget->setCurrentItem(item);
-            on_connectionListWidget_currentItemChanged(item, nullptr);
-            connectionListWidget->scrollToItem(item);
-            tray_RootMenu->actions()[0]->setText(tr("Show"));
-            on_startButton_clicked();
-        } else {
-            QvMessageBoxWarn(this, tr("Autostarting a config"), tr("Could not find a specified config named: ") + NEWLINE +
-                             name + NEWLINE + NEWLINE +
-                             tr("Please reset the settings in Preference Window"));
-        }
-    } else if (connectionListWidget->topLevelItemCount() > 0) {
-        // Make the first one our default selected item.
-        connectionListWidget->setCurrentItem(connectionListWidget->topLevelItem(0));
-        ShowAndSetConnection(ItemConnectionIdentifier(connectionListWidget->topLevelItem(0)), true, false);
-    }
+    //if (!GlobalConfig.autoStartConfig.connectionName.isEmpty()) {
+    //    // User has auto start configured, we try to find that connection item.
+    //    auto name = GlobalConfig.autoStartConfig.subscriptionName.isEmpty()
+    //                ? GlobalConfig.autoStartConfig.connectionName
+    //                : GlobalConfig.autoStartConfig.connectionName + " (" + tr("Subscription:") + " " + GlobalConfig.autoStartConfig.subscriptionName + ")";
+    //    //
+    //    LOG(UI, "Found auto start config: " + name)
+    //    auto item = FindItemByIdentifier(GlobalConfig.autoStartConfig);
+    //
+    //    if (item != nullptr) {
+    //        // We found the item required and start it.
+    //        connectionListWidget->setCurrentItem(item);
+    //        on_connectionListWidget_currentItemChanged(item, nullptr);
+    //        connectionListWidget->scrollToItem(item);
+    //        tray_RootMenu->actions()[0]->setText(tr("Show"));
+    //        on_startButton_clicked();
+    //    } else {
+    //        QvMessageBoxWarn(this, tr("Autostarting a config"), tr("Could not find a specified config named: ") + NEWLINE +
+    //                         name + NEWLINE + NEWLINE +
+    //                         tr("Please reset the settings in Preference Window"));
+    //    }
+    //} else if (connectionListWidget->topLevelItemCount() > 0) {
+    //    // Make the first one our default selected item.
+    //    connectionListWidget->setCurrentItem(connectionListWidget->topLevelItem(0));
+    //    ShowAndSetConnection(ItemConnectionIdentifier(connectionListWidget->topLevelItem(0)), true, false);
+    //}
 }
 
 void MainWindow::MWClearSystemProxy(bool showMessage)
@@ -79,7 +79,8 @@ void MainWindow::MWSetSystemProxy()
     bool socksEnabled = GlobalConfig.inboundConfig.useSocks;
     //
     // Set system proxy if necessary
-    bool isComplex = IsComplexConfig(connections[CurrentConnectionIdentifier].config);
+    //bool isComplex = IsComplexConfig(connections[CurrentConnectionIdentifier].config);
+    bool isComplex = true;
 
     if (!isComplex) {
         // Is simple config and we will try to set system proxy.
@@ -133,58 +134,59 @@ void MainWindow::MWSetSystemProxy()
 
 bool MainWindow::MWtryStartConnection()
 {
-    auto connectionRoot = connections[CurrentConnectionIdentifier].config;
-    currentFullConfig = GenerateRuntimeConfig(connectionRoot);
-    bool startFlag = this->vinstance->StartConnection(currentFullConfig);
-
-    if (startFlag) {
-        bool usePAC = GlobalConfig.inboundConfig.pacConfig.enablePAC;
-        bool pacUseSocks = GlobalConfig.inboundConfig.pacConfig.useSocksProxy;
-        bool httpEnabled = GlobalConfig.inboundConfig.useHTTP;
-        bool socksEnabled = GlobalConfig.inboundConfig.useSocks;
-
-        if (usePAC) {
-            bool canStartPAC = true;
-            QString pacProxyString;  // Something like this --> SOCKS5 127.0.0.1:1080; SOCKS 127.0.0.1:1080; DIRECT; http://proxy:8080
-            auto pacIP = GlobalConfig.inboundConfig.pacConfig.localIP;
-
-            if (pacIP.isEmpty()) {
-                LOG(PROXY, "PAC Local IP is empty, default to 127.0.0.1")
-                pacIP = "127.0.0.1";
-            }
-
-            if (pacUseSocks) {
-                if (socksEnabled) {
-                    pacProxyString = "SOCKS5 " + pacIP + ":" + QSTRN(GlobalConfig.inboundConfig.socks_port);
-                } else {
-                    LOG(UI, "PAC is using SOCKS, but it is not enabled")
-                    QvMessageBoxWarn(this, tr("Configuring PAC"), tr("Could not start PAC server as it is configured to use SOCKS, but it is not enabled"));
-                    canStartPAC = false;
-                }
-            } else {
-                if (httpEnabled) {
-                    pacProxyString = "PROXY " + pacIP + ":" + QSTRN(GlobalConfig.inboundConfig.http_port);
-                } else {
-                    LOG(UI, "PAC is using HTTP, but it is not enabled")
-                    QvMessageBoxWarn(this, tr("Configuring PAC"), tr("Could not start PAC server as it is configured to use HTTP, but it is not enabled"));
-                    canStartPAC = false;
-                }
-            }
-
-            if (canStartPAC) {
-                pacServer.SetProxyString(pacProxyString);
-                pacServer.StartListen();
-            } else {
-                LOG(PROXY, "Not starting PAC due to previous error.")
-            }
-        }
-
-        if (GlobalConfig.inboundConfig.setSystemProxy) {
-            MWSetSystemProxy();
-        }
-    }
-
-    return startFlag;
+    //auto connectionRoot = connections[CurrentConnectionIdentifier].config;
+    //currentFullConfig = GenerateRuntimeConfig(connectionRoot);
+    //bool startFlag = this->vinstance->StartConnection(currentFullConfig);
+    //
+    //if (startFlag) {
+    //    bool usePAC = GlobalConfig.inboundConfig.pacConfig.enablePAC;
+    //    bool pacUseSocks = GlobalConfig.inboundConfig.pacConfig.useSocksProxy;
+    //    bool httpEnabled = GlobalConfig.inboundConfig.useHTTP;
+    //    bool socksEnabled = GlobalConfig.inboundConfig.useSocks;
+    //
+    //    if (usePAC) {
+    //        bool canStartPAC = true;
+    //        QString pacProxyString;  // Something like this --> SOCKS5 127.0.0.1:1080; SOCKS 127.0.0.1:1080; DIRECT; http://proxy:8080
+    //        auto pacIP = GlobalConfig.inboundConfig.pacConfig.localIP;
+    //
+    //        if (pacIP.isEmpty()) {
+    //            LOG(PROXY, "PAC Local IP is empty, default to 127.0.0.1")
+    //            pacIP = "127.0.0.1";
+    //        }
+    //
+    //        if (pacUseSocks) {
+    //            if (socksEnabled) {
+    //                pacProxyString = "SOCKS5 " + pacIP + ":" + QSTRN(GlobalConfig.inboundConfig.socks_port);
+    //            } else {
+    //                LOG(UI, "PAC is using SOCKS, but it is not enabled")
+    //                QvMessageBoxWarn(this, tr("Configuring PAC"), tr("Could not start PAC server as it is configured to use SOCKS, but it is not enabled"));
+    //                canStartPAC = false;
+    //            }
+    //        } else {
+    //            if (httpEnabled) {
+    //                pacProxyString = "PROXY " + pacIP + ":" + QSTRN(GlobalConfig.inboundConfig.http_port);
+    //            } else {
+    //                LOG(UI, "PAC is using HTTP, but it is not enabled")
+    //                QvMessageBoxWarn(this, tr("Configuring PAC"), tr("Could not start PAC server as it is configured to use HTTP, but it is not enabled"));
+    //                canStartPAC = false;
+    //            }
+    //        }
+    //
+    //        if (canStartPAC) {
+    //            pacServer.SetProxyString(pacProxyString);
+    //            pacServer.StartListen();
+    //        } else {
+    //            LOG(PROXY, "Not starting PAC due to previous error.")
+    //        }
+    //    }
+    //
+    //    if (GlobalConfig.inboundConfig.setSystemProxy) {
+    //        MWSetSystemProxy();
+    //    }
+    //}
+    //
+    //return startFlag;
+    return false;
 }
 
 void MainWindow::MWStopConnection()
@@ -202,7 +204,7 @@ void MainWindow::MWStopConnection()
     }
 }
 
-void MainWindow::MWTryPingConnection(const ConnectionIdentifier &alias)
+void MainWindow::MWTryPingConnection(const QvConnectionObject &alias)
 {
     try {
         auto info  = MWGetConnectionInfo(alias);
@@ -214,12 +216,12 @@ void MainWindow::MWTryPingConnection(const ConnectionIdentifier &alias)
     }
 }
 
-tuple<QString, int, QString> MainWindow::MWGetConnectionInfo(const ConnectionIdentifier &alias)
+tuple<QString, int, QString> MainWindow::MWGetConnectionInfo(const QvConnectionObject &alias)
 {
-    if (!connections.contains(alias))
-        return make_tuple(tr("N/A"), 0, tr("N/A"));
-
-    return GetConnectionInfo(connections[alias].config);
+    //if (!connections.contains(alias))
+    //    return make_tuple(tr("N/A"), 0, tr("N/A"));
+    //
+    //return GetConnectionInfo(connections[alias].config);
 }
 
 void MainWindow::CheckSubscriptionsUpdate()

@@ -37,6 +37,11 @@ namespace Qv2ray::common
     // This function cannot be marked as inline.
     QString RemoveInvalidFileName(const QString &fileName);
     bool IsValidFileName(const QString &fileName);
+    inline QString GenerateUuid()
+    {
+        return GenerateRandomString().toLower();
+        //return QUuid::createUuid().toString(QUuid::WithoutBraces);
+    }
     //
     template <typename TYPE>
     QString StructToJsonString(const TYPE t)

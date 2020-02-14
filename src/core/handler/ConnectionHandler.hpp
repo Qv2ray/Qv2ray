@@ -2,22 +2,29 @@
 
 #include "base/Qv2rayBase.hpp"
 
-class ConnectionGroupIdentifier;
+class QvConnectionListModel;
 
 namespace Qv2ray::core::handler
 {
     class ConnectionHandler : public QObject
     {
-            Q_OBJECT
-            explicit ConnectionHandler();
-            ~ConnectionHandler();
-            void ReloadConnections();
-
-        public slots:
-            optional<QString> DeleteConnection(const ConnectionIdentifier &identifier);
+            //    Q_OBJECT
+            //public:
+            //    explicit ConnectionHandler();
+            //    ~ConnectionHandler();
+            //    void ReloadConnections();
+            //    // Get operations.
+            //    QvConnectionListModel GetConnections();
             //
-            optional<QString> RenameConnection(const ConnectionIdentifier &identifier, const QString &newName);
-            optional<QString> MoveConnection(const ConnectionIdentifier &identifier, const ConnectionGroupIdentifier &newGroup);
-            optional<QString> DuplicateConnection(const ConnectionIdentifier &identifier, ConnectionIdentifier *newIdentifier);
+            //public slots:
+            //    optional<QString> DeleteConnection(const ConnectionId &id);
+            //    optional<QString> RenameConnection(const ConnectionId &id, const QString &newName);
+            //    optional<QString> DuplicateConnection(const ConnectionId &id, ConnectionId *newId);
+            //    optional<QString> MoveConnection(const ConnectionId &id, const GroupId &newGroupId);
+            //    // Group Operations
+            //    optional<QString> DeleteGroup(const GroupId &id);
+            //    optional<QString> RenameGroup(const GroupId &id, const QString &newName);
     };
 }
+
+using namespace Qv2ray::core::handler;

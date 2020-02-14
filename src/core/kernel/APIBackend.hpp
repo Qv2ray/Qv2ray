@@ -26,11 +26,11 @@ namespace Qv2ray::core::kernel::api
             void process();
 
         signals:
-            void OnDataReady(QString tag, long dataUp, long dataDown);
+            void OnDataReady(QString tag, qint64 dataUp, qint64 dataDown);
             void error(QString err);
 
         private:
-            long CallStatsAPIByName(QString name);
+            qint64 CallStatsAPIByName(QString name);
             QStringList inboundTags;
             QThread *thread;
             //

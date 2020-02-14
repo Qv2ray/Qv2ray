@@ -14,45 +14,6 @@ namespace Qv2ray
     QJsonObject UpgradeConfig_Inc(int fromVersion, QJsonObject root)
     {
         switch (fromVersion) {
-            case 1: {
-                auto v1_oldConfigVersion = root["config_version"].toString();
-                // From 1 to 2, we changed the config_version from 'string' to 'int'
-                root.remove("config_version");
-                root["config_version"] = 2;
-                UPGRADELOG("Upgrading config_version from old value " + v1_oldConfigVersion + " to 2")
-                break;
-            }
-
-            case 2: {
-                // We copied those files.
-                auto vCoreFilePath = root["v2CorePath"].toString();
-                auto vCoreDestPath = QString(QV2RAY_DEFAULT_VCORE_PATH);
-                // We also need v2ctl
-                auto v2CtlFilePath = QFileInfo(vCoreFilePath).dir().path() + "/v2ctl";
-                auto v2CtlDestPath = QFileInfo(vCoreDestPath).dir().path() + "/v2ctl";
-#ifdef Q_OS_WIN
-                v2CtlFilePath = v2CtlFilePath.append(".exe");
-                v2CtlDestPath = v2CtlDestPath.append(".exe");
-#endif
-                QFile::copy(vCoreFilePath, vCoreDestPath);
-                QFile::copy(v2CtlFilePath, v2CtlDestPath);
-                root.remove("v2CorePath");
-                UPGRADELOG("v2CorePath value from: " + vCoreFilePath + " to " +  vCoreDestPath)
-                UPGRADELOG("v2CtlFilePath value from: " + v2CtlFilePath + " to " + v2CtlDestPath)
-                break;
-            }
-
-            case 3: {
-                // We changed a key name in the config file.
-                //proxyDefault
-                auto oldProxyDefault = root["proxyDefault"].toBool();
-                root.remove("proxyDefault");
-                root["enableProxy"] = oldProxyDefault;
-                //enableProxy
-                UPGRADELOG("key: proxyDefault->enableProxy, value from: " + QSTRN(oldProxyDefault) + " to " + QSTRN(oldProxyDefault))
-                break;
-            }
-
             // --------------------------------------------------------------------------------------
             // Below is for Qv2ray version 2
             case 4: {
@@ -97,9 +58,9 @@ namespace Qv2ray
                 // //root["inboundConfig"] = inbound;
                 // //UPDATELOG("Renamed usePAC to enablePAC.")
                 //
-                ConnectionIdentifier i;
-                i.connectionName = root["autoStartConfig"].toString();
-                root["autoStartConfig"] = GetRootObject(i);
+                QJsonObject i;
+                i["connectionName"] = root["autoStartConfig"].toString();
+                root["autoStartConfig"] = i;
                 UPGRADELOG("Added subscription feature to autoStartConfig.")
                 break;
             }
@@ -113,7 +74,7 @@ namespace Qv2ray
 
                 for (auto item = subs.begin(); item != subs.end(); item++) {
                     auto key = item.key();
-                    Qv2raySubscriptionConfig _conf;
+                    QvSubscriptionObject _conf;
                     _conf.address = item.value().toString();
                     _conf.lastUpdated = system_clock::to_time_t(system_clock::now());
                     _conf.updateInterval = 5;
@@ -148,25 +109,27 @@ namespace Qv2ray
             // From version 8 to 9, we introduced a lot of new connection metainfo(s)
             case 8: {
                 // Generate a default group
-                auto groupId = QUuid::createUuid().toString();
                 QJsonObject defaultGroup;
-                defaultGroup["groupId"] = groupId;
+                QStringList defaultGroupConnectionId;
                 defaultGroup["displayName"] = QObject::tr("Default Group");
-                QJsonArray groups;
-                groups.push_back(defaultGroup);
-                root["groups"] = groups;
+                QString defaultGroupId = "000000000000";
 
                 if (!QDir(QV2RAY_CONNECTIONS_DIR).exists()) {
                     QDir().mkpath(QV2RAY_CONNECTIONS_DIR);
                 }
 
+                QString autoStartId;
+                UPGRADELOG("Upgrading connections...")
+                QJsonObject rootConnections;
+
                 for (auto config : root["configs"].toArray()) {
                     UPGRADELOG("Migrating: " + config.toString())
                     //
                     // MOVE FILES.
-                    auto filePath = QV2RAY_CONNECTIONS_DIR + config.toString() + QV2RAY_CONFIG_FILE_EXTENSION;
+                    // OLD PATH is at QV2RAY_CONFIG_DIR
+                    auto filePath = QV2RAY_CONFIG_DIR + config.toString() + QV2RAY_CONFIG_FILE_EXTENSION;
                     auto configFile = QFile(filePath);
-                    auto newUuid = QUuid::createUuid().toString();
+                    auto newUuid = GenerateUuid();
                     DEBUG(SETTINGS, "Generated new UUID: " + newUuid);
 
                     if (configFile.exists()) {
@@ -180,13 +143,76 @@ namespace Qv2ray
 
                     QJsonObject connectionObject;
                     connectionObject["displayName"] = config.toString();
-                    connectionObject["connectionId"] = newUuid;
-                    connectionObject["groupId"] = groupId;
-                    //
-                    auto connections = root["connections"].toArray();
-                    connections.push_back(connectionObject);
-                    root["connections"] = connections;
+                    defaultGroupConnectionId << newUuid;
+                    DEBUG(SETTINGS, "Pushed uuid: " + newUuid + " to default group.")
+                    rootConnections[newUuid] = connectionObject;
                 }
+
+                // Upgrading subscriptions.
+                QJsonObject rootSubscriptions = root.take("subscriptions").toObject();
+                QJsonObject newSubscriptions;
+
+                for (auto i = 0; i < rootSubscriptions.count(); i++) {
+                    auto key = rootSubscriptions.keys()[i];
+                    auto value = rootSubscriptions.value(key);
+                    //
+                    UPGRADELOG("Upgrading subscription: " + key)
+                    QString subsUuid = GenerateUuid();
+                    QJsonObject subs;
+                    QStringList subsConnectionIds;
+                    subs["address"] = value["address"].toString();
+                    subs["lastUpdated"] = value["lastUpdated"];
+                    subs["updateInterval"] = value["updateInterval"];
+                    subs["displayName"] = key;
+                    //
+                    auto baseDirPath = QV2RAY_SUBSCRIPTION_DIR + key;
+                    auto newDirPath = QV2RAY_SUBSCRIPTION_DIR + subsUuid;
+                    QDir newDir(newDirPath);
+
+                    if (!newDir.exists()) {
+                        newDir.mkpath(newDirPath);
+                    }
+
+                    // With extensions
+                    auto fileList = GetFileList(baseDirPath);
+
+                    // Copy every file within a subscription.
+                    for (auto fileName : fileList) {
+                        auto subsConnectionId = GenerateUuid();
+                        auto baseFilePath = baseDirPath + "/" + fileName;
+                        auto newFilePath = newDirPath + "/" + subsConnectionId + QV2RAY_CONFIG_FILE_EXTENSION;
+                        //
+                        QJsonObject subsConnection;
+                        subsConnection["displayName"] = fileName.chopped(QString(QV2RAY_CONFIG_FILE_EXTENSION).count());
+                        QFile(baseFilePath).rename(newFilePath);
+                        UPGRADELOG("Moved subscription file from: " + baseFilePath + " to: " + newFilePath);
+                        subsConnectionIds << subsConnectionId;
+                        rootConnections[subsConnectionId] = subsConnection;
+                    }
+
+                    subs["connections"] = QJsonArray::fromStringList(subsConnectionIds);
+                    newSubscriptions[subsUuid] = subs;
+                    QDir().rmdir(baseDirPath);
+                }
+
+                defaultGroup["connections"] = QJsonArray::fromStringList(defaultGroupConnectionId);
+                QJsonObject groups;
+                groups[defaultGroupId] = defaultGroup;
+                root["groups"] = groups;
+                root["connections"] = rootConnections;
+                root["subscriptions"] = newSubscriptions;
+                UPGRADELOG("Finished upgrading config, version 8.")
+                break;
+            }
+
+            default: {
+                // Due to technical issue, we cannot maintain all of those upgrade processes anymore.
+                // Check https://github.com/Qv2ray/Qv2ray/issues/353#issuecomment-586117507 for more information
+                QvMessageBoxWarn(nullptr, QObject::tr("Configuration Upgrade Failed"),
+                                 QObject::tr("Unsupported config version number: ") + QSTRN(fromVersion) + NEWLINE + NEWLINE +
+                                 QObject::tr("Please upgrade firstly up to Qv2ray v2.0/v2.1 and try again."));
+                throw new runtime_error("The configuration version of your old Qv2ray installation is out-of-date and that"
+                                        " version is not supported anymore, please try to update to an intermediate version of Qv2ray first.");
             }
         }
 

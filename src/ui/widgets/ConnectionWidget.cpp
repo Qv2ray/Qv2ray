@@ -1,6 +1,6 @@
-#include "formwidget.h"
+#include "ConnectionWidget.hpp"
 #include "QMessageBox"
-#include "ui_formwidget.h"
+#include "ui_ConnectionWidget.h"
 
 Formwidget::Formwidget(int id, QWidget *parent) :
     QWidget(parent),

@@ -147,24 +147,26 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent),
     CurrentBarPageId = 0;
     //
     // Empty for global config.
-    auto autoSub = CurrentConfig.autoStartConfig.subscriptionName;
-    auto autoCon = CurrentConfig.autoStartConfig.connectionName;
-    autoStartConnCombo->addItem("");
+    //auto autoSub = CurrentConfig.autoStartConfig.subscriptionName;
+    //auto autoCon = CurrentConfig.autoStartConfig.connectionName;
+    //autoStartConnCombo->addItem("");
+    QvMessageBoxInfo(this, "NOT SUPPORTED", "WIP");
 
-    for (auto item : CurrentConfig.subscriptions.keys()) {
-        autoStartSubsCombo->addItem(item);
-    }
-
-    autoStartSubsCombo->setCurrentText(autoSub);
-
-    if (CurrentConfig.autoStartConfig.subscriptionName.isEmpty()) {
-        autoStartConnCombo->addItems(CurrentConfig.configs);
-    } else {
-        auto list = GetSubscriptionConnection(autoSub);
-        autoStartConnCombo->addItems(list.keys());
-    }
-
-    autoStartConnCombo->setCurrentText(autoCon);
+    // TODO: Now use grouping, subscriptions are the special type of group
+    //autoStartConnCombo->setCurrentText(autoCon);for (auto item : CurrentConfig.subscriptions.keys()) {
+    //    autoStartSubsCombo->addItem(item);
+    //}
+    //
+    //autoStartSubsCombo->setCurrentText(autoSub);
+    //
+    //if (CurrentConfig.autoStartConfig.subscriptionName.isEmpty()) {
+    //    autoStartConnCombo->addItems(CurrentConfig.configs);
+    //} else {
+    //    auto list = GetSubscriptionConnection(autoSub);
+    //    autoStartConnCombo->addItems(list.keys());
+    //}
+    //
+    //
 
     // FP Settings
     if (CurrentConfig.connectionConfig.forwardProxyConfig.type.trimmed().isEmpty()) {
@@ -936,22 +938,24 @@ void PreferencesWindow::on_pacProxyTxt_textEdited(const QString &arg1)
 void PreferencesWindow::on_autoStartSubsCombo_currentIndexChanged(const QString &arg1)
 {
     LOADINGCHECK
-    CurrentConfig.autoStartConfig.subscriptionName = arg1;
-    autoStartConnCombo->clear();
-
-    if (arg1.isEmpty()) {
-        autoStartConnCombo->addItem("");
-        autoStartConnCombo->addItems(CurrentConfig.configs);
-    } else {
-        auto list = GetSubscriptionConnection(arg1);
-        autoStartConnCombo->addItems(list.keys());
-    }
+    QvMessageBoxInfo(this, "NOT SUPPORTED", "WIP");
+    //CurrentConfig.autoStartConfig.subscriptionName = arg1;
+    //autoStartConnCombo->clear();
+    //
+    //if (arg1.isEmpty()) {
+    //    autoStartConnCombo->addItem("");
+    //    autoStartConnCombo->addItems(CurrentConfig.configs);
+    //} else {
+    //    auto list = GetSubscriptionConnection(arg1);
+    //    autoStartConnCombo->addItems(list.keys());
+    //}
 }
 
 void PreferencesWindow::on_autoStartConnCombo_currentIndexChanged(const QString &arg1)
 {
     LOADINGCHECK
-    CurrentConfig.autoStartConfig.connectionName = arg1;
+    QvMessageBoxInfo(this, "NOT SUPPORTED", "WIP");
+    //CurrentConfig.autoStartConfig.connectionName = arg1;
 }
 
 void PreferencesWindow::on_startWithLoginCB_stateChanged(int arg1)

@@ -12,9 +12,9 @@
 #include "ui/w_ImportConfig.hpp"
 #include "core/CoreUtils.hpp"
 
-#include "ui/nodemodels/RuleNodeModel.hpp"
-#include "ui/nodemodels/InboundNodeModel.hpp"
-#include "ui/nodemodels/OutboundNodeModel.hpp"
+#include "ui/models/RuleNodeModel.hpp"
+#include "ui/models/InboundNodeModel.hpp"
+#include "ui/models/OutboundNodeModel.hpp"
 
 #include "NodeStyle.hpp"
 #include "FlowView.hpp"

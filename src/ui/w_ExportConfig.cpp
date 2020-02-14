@@ -25,9 +25,11 @@ ConfigExporter::~ConfigExporter()
 {
 }
 
-ConfigExporter::ConfigExporter(const CONFIGROOT &root, const ConnectionIdentifier &alias, QWidget *parent) : ConfigExporter(parent)
+ConfigExporter::ConfigExporter(const ConnectionId &connection, QWidget *parent) : ConfigExporter(parent)
 {
-    message = ConvertConfigToString(root, alias.IdentifierString());
+    // WIP
+    auto x = connection;
+    //message = ConvertConfigToString(root, alias.IdentifierString());
     //
     QZXingEncoderConfig conf;
     conf.border = true;

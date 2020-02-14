@@ -145,7 +145,6 @@ namespace Qv2ray::core::kernel
         }
 
         // Write the final configuration to the disk.
-
         QString json = JsonToString(root);
         QFile configFile(QV2RAY_GENERATED_FILE_PATH);
         StringToFile(&json, &configFile);
@@ -226,7 +225,7 @@ namespace Qv2ray::core::kernel
         delete vProcess;
     }
 
-    void V2rayKernelInstance::onAPIDataReady(QString tag, long totalUp, long totalDown)
+    void V2rayKernelInstance::onAPIDataReady(QString tag, qulonglong totalUp, qulonglong totalDown)
     {
         auto dataup = totalUp - transferDataUp[tag];
         transferDataUp[tag] = totalUp;
@@ -238,23 +237,23 @@ namespace Qv2ray::core::kernel
     }
 
     // ------------------------------------------------------------- API FUNCTIONS --------------------------
-    long V2rayKernelInstance::getTagSpeedUp(const QString &tag)
+    qulonglong V2rayKernelInstance::getTagSpeedUp(const QString &tag)
     {
         return transferSpeedUp[tag];
     }
-    long V2rayKernelInstance::getTagSpeedDown(const QString &tag)
+    qulonglong V2rayKernelInstance::getTagSpeedDown(const QString &tag)
     {
         return transferSpeedDown[tag];
     }
-    long V2rayKernelInstance::getTagDataUp(const QString &tag)
+    qulonglong V2rayKernelInstance::getTagDataUp(const QString &tag)
     {
         return transferDataUp[tag];
     }
-    long V2rayKernelInstance::getTagDataDown(const QString &tag)
+    qulonglong V2rayKernelInstance::getTagDataDown(const QString &tag)
     {
         return transferDataDown[tag];
     }
-    long V2rayKernelInstance::getAllDataUp()
+    qulonglong V2rayKernelInstance::getAllDataUp()
     {
         long val = 0;
 
@@ -264,7 +263,7 @@ namespace Qv2ray::core::kernel
 
         return val;
     }
-    long V2rayKernelInstance::getAllDataDown()
+    qulonglong V2rayKernelInstance::getAllDataDown()
     {
         long val = 0;
 
@@ -274,9 +273,9 @@ namespace Qv2ray::core::kernel
 
         return val;
     }
-    long V2rayKernelInstance::getAllSpeedUp()
+    qulonglong V2rayKernelInstance::getAllSpeedUp()
     {
-        long val = 0;
+        qulonglong val = 0;
 
         for (auto _val : transferSpeedUp.values()) {
             val += _val;
@@ -284,9 +283,9 @@ namespace Qv2ray::core::kernel
 
         return val;
     }
-    long V2rayKernelInstance::getAllSpeedDown()
+    qulonglong V2rayKernelInstance::getAllSpeedDown()
     {
-        long val = 0;
+        qulonglong val = 0;
 
         for (auto _val : transferSpeedDown.values()) {
             val += _val;

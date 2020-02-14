@@ -105,7 +105,7 @@ namespace Qv2ray::core::kernel::api
         thread->exit();
     }
 
-    long APIWorkder::CallStatsAPIByName(QString name)
+    qint64 APIWorkder::CallStatsAPIByName(QString name)
     {
         if (apiFailedCounter == QV2RAY_API_CALL_FAILEDCHECK_THRESHOLD) {
             LOG(VCORE, "API call failure threshold reached, cancelling further API aclls.")
@@ -129,9 +129,9 @@ namespace Qv2ray::core::kernel::api
             apiFailedCounter++;
         }
 
-        auto data = response.stat().value();
+        qint64 data = response.stat().value();
 #else
-        auto data = GetStats(const_cast<char *>(name.toStdString().c_str()), 1000);
+        qint64 data = GetStats(const_cast<char *>(name.toStdString().c_str()), 1000);
 #endif
 
         if (data < 0) {

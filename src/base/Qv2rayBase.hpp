@@ -44,7 +44,12 @@ using namespace Qv2ray::base::objects::transfer;
 #define QV2RAY_BUILD_INFO QString(_QV2RAY_BUILD_INFO_STR_)
 #define QV2RAY_BUILD_EXTRA_INFO QString(_QV2RAY_BUILD_EXTRA_INFO_STR_)
 
-extern const bool isDebugBuild;
+#ifdef QT_DEBUG
+inline const bool isDebugBuild = true;
+#else
+inline const bool isDebugBuild = false;
+#endif
+
 // Base folder suffix.
 #ifdef QT_DEBUG
 # define QV2RAY_CONFIG_DIR_SUFFIX "_debug/"
@@ -106,7 +111,6 @@ extern const bool isDebugBuild;
 #define QICON_R(file) QIcon(QV2RAY_UI_RESOURCES_ROOT + file)
 
 #define QSTRN(num) QString::number(num)
-
 
 #define OUTBOUND_TAG_DIRECT "outBound_DIRECT"
 #define OUTBOUND_TAG_PROXY "outBound_PROXY"

@@ -34,7 +34,7 @@ QPair<QString, CONFIGROOT> SubscribeEditor::GetSelectedConfig()
     return currentSelectedConfig;
 }
 
-void SubscribeEditor::LoadSubscriptionList(QMap<QString, Qv2raySubscriptionConfig> list)
+void SubscribeEditor::LoadSubscriptionList(QMap<QString, QvSubscriptionObject> list)
 {
     subscriptionList->clear();
 
@@ -98,13 +98,13 @@ void SubscribeEditor::on_updateButton_clicked()
         subscriptions.remove(currentSubName);
         subNameTxt->setText(newName);
         //
+        QvMessageBoxInfo(this, "NOT SUPPORTED", "WIP");
         // Update auto-start config if possible
-        auto ASsetting = GlobalConfig.autoStartConfig.subscriptionName;
-
-        if (ASsetting == currentSubName) {
-            GlobalConfig.autoStartConfig.subscriptionName = newName;
-        }
-
+        //auto ASsetting = GlobalConfig.autoStartConfig.subscriptionName;
+        //
+        //if (ASsetting == currentSubName) {
+        //    GlobalConfig.autoStartConfig.subscriptionName = newName;
+        //}
         SaveGlobalConfig(GlobalConfig);
         // This will set the name to the new name.
         LoadSubscriptionList(subscriptions);
@@ -174,12 +174,11 @@ void SubscribeEditor::on_removeSubsButton_clicked()
         QDir(QV2RAY_SUBSCRIPTION_DIR + name).removeRecursively();
     }
 
-    // If removed a whole subscription...
-    if (GlobalConfig.autoStartConfig.subscriptionName == name) {
-        GlobalConfig.autoStartConfig = ConnectionIdentifier();
-        SaveGlobalConfig(GlobalConfig);
-    }
-
+    //// If removed a whole subscription...
+    //if (GlobalConfig.autoStartConfig.subscriptionName == name) {
+    //    GlobalConfig.autoStartConfig = QvConnectionObject();
+    //    SaveGlobalConfig(GlobalConfig);
+    //}
     groupBox_2->setEnabled(subscriptionList->count() > 0);
     SaveConfig();
 }
@@ -212,7 +211,7 @@ void SubscribeEditor::on_subscriptionList_currentRowChanged(int currentRow)
 
 void SubscribeEditor::SaveConfig()
 {
-    QMap<QString, Qv2raySubscriptionConfig> newConf;
+    QMap<QString, QvSubscriptionObject> newConf;
 
     for (auto _ : subscriptions.toStdMap()) {
         if (!_.second.address.isEmpty()) {

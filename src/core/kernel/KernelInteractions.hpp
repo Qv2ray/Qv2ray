@@ -13,14 +13,14 @@ namespace Qv2ray::core::kernel
             ~V2rayKernelInstance() override;
             //
             // Speed
-            long getTagSpeedUp(const QString &tag);
-            long getTagSpeedDown(const QString &tag);
-            long getTagDataUp(const QString &tag);
-            long getTagDataDown(const QString &tag);
-            long getAllDataUp();
-            long getAllDataDown();
-            long getAllSpeedUp();
-            long getAllSpeedDown();
+            qulonglong getTagSpeedUp(const QString &tag);
+            qulonglong getTagSpeedDown(const QString &tag);
+            qulonglong getTagDataUp(const QString &tag);
+            qulonglong getTagDataDown(const QString &tag);
+            qulonglong getAllDataUp();
+            qulonglong getAllDataDown();
+            qulonglong getAllSpeedUp();
+            qulonglong getAllSpeedDown();
             //
             bool StartConnection(CONFIGROOT root);
             void StopConnection();
@@ -34,16 +34,16 @@ namespace Qv2ray::core::kernel
             void onProcessOutputReadyRead(QString);
 
         public slots:
-            void onAPIDataReady(QString tag, long totalUp, long totalDown);
+            void onAPIDataReady(QString tag, qulonglong totalUp, qulonglong totalDown);
 
         private:
             APIWorkder *apiWorker;
             QProcess *vProcess;
             bool apiEnabled;
-            QMap<QString, long> transferDataUp;
-            QMap<QString, long> transferDataDown;
-            QMap<QString, long> transferSpeedUp;
-            QMap<QString, long> transferSpeedDown;
+            QMap<QString, qulonglong> transferDataUp;
+            QMap<QString, qulonglong> transferDataDown;
+            QMap<QString, qulonglong> transferSpeedUp;
+            QMap<QString, qulonglong> transferSpeedDown;
     };
 }
 

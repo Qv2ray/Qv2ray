@@ -1,5 +1,4 @@
 #pragma once
-
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QJsonDocument>
@@ -12,6 +11,7 @@
             const Base& raw() const { return *this; } \
     };
 
+using namespace std;
 namespace Qv2ray::base::safetype
 {
     // To prevent anonying QJsonObject misuse
@@ -22,10 +22,15 @@ namespace Qv2ray::base::safetype
     SAFE_TYPEDEF(QJsonObject, CONFIGROOT)
     SAFE_TYPEDEF(QJsonObject, PROXYSETTING)
     //
+    SAFE_TYPEDEF(QJsonArray, ROUTERULELIST)
     SAFE_TYPEDEF(QJsonArray, INOUTLIST)
-    SAFE_TYPEDEF(INOUTLIST, OUTBOUNDS)
-    SAFE_TYPEDEF(INOUTLIST, INBOUNDS)
     SAFE_TYPEDEF(QJsonObject, ROUTING)
     SAFE_TYPEDEF(QJsonObject, ROUTERULE)
-    SAFE_TYPEDEF(QJsonArray, ROUTERULELIST)
+    SAFE_TYPEDEF(INOUTLIST, OUTBOUNDS)
+    SAFE_TYPEDEF(INOUTLIST, INBOUNDS)
+    //
+    SAFE_TYPEDEF(QString, SubscriptionId)
+    SAFE_TYPEDEF(QString, ConnectionId)
+    SAFE_TYPEDEF(QString, GroupId)
 }
+
