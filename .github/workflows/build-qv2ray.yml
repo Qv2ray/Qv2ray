@@ -97,11 +97,11 @@ jobs:
           wget https://github.com/probonopd/linuxdeployqt/releases/download/6/linuxdeployqt-6-x86_64.AppImage
           chmod +x ./linuxdeployqt-6-x86_64.AppImage
           ./linuxdeployqt-6-x86_64.AppImage --appimage-extract
+          make install INSTALL_ROOT=AppDir
+          cd AppDir
           rm AppRun
           wget -c https://github.com/darealshinji/AppImageKit-checkrt/releases/download/continuous/AppRun-patched-x86_64 -O AppRun
           chmod a+x AppRun
-          make install INSTALL_ROOT=AppDir
-          cd AppDir
           mkdir -p ./usr/{lib,optional}/
           wget -c https://github.com/darealshinji/AppImageKit-checkrt/releases/download/continuous/exec-x86_64.so -O ./usr/optional/exec.so
           mkdir -p ./usr/optional/libstdc++/
