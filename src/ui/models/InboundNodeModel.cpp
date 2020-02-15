@@ -1,4 +1,4 @@
-#include "ui/nodemodels/InboundNodeModel.hpp"
+#include "ui/models/InboundNodeModel.hpp"
 
 QvInboundNodeModel::QvInboundNodeModel(std::shared_ptr<InboundNodeData> data): NodeDataModel()
 {

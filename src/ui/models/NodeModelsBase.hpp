@@ -18,7 +18,7 @@ using QtNodes::NodeValidationState;
 using QtNodes::NodeDataType;
 using QtNodes::NodeData;
 
-#define GRAPH_NODE_LABEL_FONTSIZE_INCREMENT 3
+const int GRAPH_NODE_LABEL_FONTSIZE_INCREMENT = 3;
 
 namespace Qv2ray::ui::nodemodels
 {

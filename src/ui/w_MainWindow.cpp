@@ -340,15 +340,15 @@ void MainWindow::OnConfigListChanged(bool need_restart)
     SetEditWidgetEnable(false);
     //
     // Store the latency test value.
-    QMap<QvConnectionObject, double> latencyValueCache;
+    //QMap<QvConnectionObject, double> latencyValueCache;
     //for (auto i = 0; i < connections.count(); i++) {
     //    latencyValueCache[connections.keys()[i]] = connections.values()[i].latency;
     //}
-    connections.clear();
-    connectionListWidget->clear();
-    QvMessageBoxInfo(this, "NOT SUPPORTED", "WIP, only subscriptions are supported");
-    //auto _regularConnections = GetRegularConnections(GlobalConfig.configs);
-    auto _subsConnections = GetSubscriptionConnections(GlobalConfig.subscriptions.keys());
+    //connections.clear();
+    //connectionListWidget->clear();
+    //QvMessageBoxInfo(this, "NOT SUPPORTED", "WIP, only subscriptions are supported");
+    ////auto _regularConnections = GetRegularConnections(GlobalConfig.configs);
+    //auto _subsConnections = GetSubscriptionConnections(GlobalConfig.subscriptions.keys());
     //for (auto i = 0; i < _regularConnections.count(); i++) {
     //    ConnectionObject _o;
     //    _o.configType = CONNECTION_REGULAR;

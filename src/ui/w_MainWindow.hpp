@@ -20,17 +20,6 @@
 
 #include "ui/messaging/QvMessageBus.hpp"
 
-enum QvConnectionType {
-    CONNECTION_REGULAR = 1,
-    CONNECTION_SUBSCRIPTION = 2
-};
-//
-struct ConnectionObject : QvConnectionObject {
-    QvConnectionType configType;
-    double latency;
-    CONFIGROOT config;
-};
-
 class MainWindow : public QMainWindow, Ui::MainWindow
 {
         Q_OBJECT
@@ -101,9 +90,6 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         SpeedWidget *speedChartView;
         //
         QMenu *connectionListMenu;
-
-        /// Key --> ListWidget.item.text
-        QMap<QvConnectionObject, ConnectionObject> connections;
         //
         QvConnectionObject renameOriginalIdentifier;
         bool isRenamingInProgress;

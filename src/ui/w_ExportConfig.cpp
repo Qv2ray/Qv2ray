@@ -25,18 +25,18 @@ ConfigExporter::~ConfigExporter()
 {
 }
 
-ConfigExporter::ConfigExporter(const ConnectionId &connection, QWidget *parent) : ConfigExporter(parent)
-{
-    // WIP
-    auto x = connection;
-    //message = ConvertConfigToString(root, alias.IdentifierString());
-    //
-    QZXingEncoderConfig conf;
-    conf.border = true;
-    conf.imageSize = QSize(400, 400);
-    auto img = qzxing.encodeData(message, conf);
-    image = img.copy();
-}
+//ConfigExporter::ConfigExporter(QWidget *parent) : ConfigExporter(parent)
+//{
+//    // WIP
+//    //    /auto &x = connection;
+//    //message = ConvertConfigToString(root, alias.IdentifierString());
+//    //
+//    QZXingEncoderConfig conf;
+//    conf.border = true;
+//    conf.imageSize = QSize(400, 400);
+//    auto img = qzxing.encodeData(message, conf);
+//    image = img.copy();
+//}
 
 void ConfigExporter::OpenExport()
 {

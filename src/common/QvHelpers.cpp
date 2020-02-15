@@ -27,8 +27,7 @@ namespace Qv2ray::common
     QString StringFromFile(QFile *source)
     {
         source->open(QFile::ReadOnly);
-        QTextStream stream(source);
-        QString str = stream.readAll();
+        QString str = QString::fromUtf8(source->readAll());
         source->close();
         return str;
     }

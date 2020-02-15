@@ -3,13 +3,16 @@
 #include <QJsonArray>
 #include <QJsonDocument>
 
-#define SAFE_TYPEDEF(Base, name) \
+#define SAFE_TYPEDEF_EXTRA(Base, name, extra) \
     class name : public Base { \
         public: \
             template <class... Args> \
             explicit name (Args... args) : Base(args...) {} \
             const Base& raw() const { return *this; } \
-    };
+            extra };
+
+#define nothing
+#define SAFE_TYPEDEF(Base, name) SAFE_TYPEDEF_EXTRA(Base, name, nothing)
 
 using namespace std;
 namespace Qv2ray::base::safetype
@@ -28,9 +31,5 @@ namespace Qv2ray::base::safetype
     SAFE_TYPEDEF(QJsonObject, ROUTERULE)
     SAFE_TYPEDEF(INOUTLIST, OUTBOUNDS)
     SAFE_TYPEDEF(INOUTLIST, INBOUNDS)
-    //
-    SAFE_TYPEDEF(QString, SubscriptionId)
-    SAFE_TYPEDEF(QString, ConnectionId)
-    SAFE_TYPEDEF(QString, GroupId)
 }
 

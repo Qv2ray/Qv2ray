@@ -45,7 +45,7 @@ include($$PWD/makespec/00-deps.pri)
 
 # lrelease will not work when adding BEFORE 00-deps.pri
 CONFIG += lrelease embed_translations
-DEFINES += QT_DEPRECATED_WARNINGS QV2RAY_VERSION_STRING=\"\\\"v$${VERSION}\\\"\" QAPPLICATION_CLASS=QApplication
+DEFINES += QT_DEPRECATED_WARNINGS QV2RAY_VERSION_STRING=\"\\\"v$${VERSION}\\\"\" QAPPLICATION_CLASS=QApplication XTOSTRUCT_QT
 
 # Source file parser
 include($$PWD/makespec/01-sourcesparser.pri)
@@ -87,6 +87,7 @@ Qv2rayAddSource(core, connection, Serialization, cpp, hpp)
 Qv2rayAddSource(core, kernel, KernelInteractions, cpp, hpp)
 Qv2rayAddSource(core, kernel, APIBackend, cpp, hpp)
 Qv2rayAddSource(core, handler, ConnectionHandler, cpp, hpp)
+Qv2rayAddSource(core, handler, SubscriptionHandler, cpp)
 Qv2rayAddSource(core, handler, V2rayInstanceHandler, cpp, hpp)
 Qv2rayAddSource(core, _, CoreUtils, cpp, hpp)
 Qv2rayAddSource(ui, editors, w_InboundEditor, cpp, hpp, ui)
