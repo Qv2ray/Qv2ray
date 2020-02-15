@@ -5,30 +5,30 @@
 #include "components/proxy/QvProxyConfigurator.hpp"
 #include "core/connection/Generation.hpp"
 
-QTreeWidgetItem *MainWindow::FindItemByIdentifier(QvConnectionObject identifier)
-{
-    //// First filter out all items with our config name.
-    //auto items = connectionListWidget->findItems(identifier.connectionName, Qt::MatchExactly | Qt::MatchRecursive);
-    //
-    //for (auto item : items) {
-    //    // This connectable prevents the an item with (which is the parent node of a subscription, having the same
-    //    // -- name as our current connected name)
-    //    if (!IsConnectableItem(item)) {
-    //        LOG(UI, "Invalid Item found: " + item->text(0))
-    //        continue;
-    //    }
-    //
-    //    auto thisIdentifier = ItemConnectionIdentifier(item);
-    //    DEBUG(UI, "Item Identifier: " + thisIdentifier.IdentifierString())
-    //
-    //    if (identifier == thisIdentifier) {
-    //        return item;
-    //    }
-    //}
-    //
-    //LOG(UI, "Warning: Failed to find an item named: " + identifier.IdentifierString())
-    return nullptr;
-}
+//QTreeWidgetItem *MainWindow::FindItemByIdentifier(QvConnectionObject identifier)
+//{
+//    //// First filter out all items with our config name.
+//    //auto items = connectionListWidget->findItems(identifier.connectionName, Qt::MatchExactly | Qt::MatchRecursive);
+//    //
+//    //for (auto item : items) {
+//    //    // This connectable prevents the an item with (which is the parent node of a subscription, having the same
+//    //    // -- name as our current connected name)
+//    //    if (!IsConnectableItem(item)) {
+//    //        LOG(UI, "Invalid Item found: " + item->text(0))
+//    //        continue;
+//    //    }
+//    //
+//    //    auto thisIdentifier = ItemConnectionIdentifier(item);
+//    //    DEBUG(UI, "Item Identifier: " + thisIdentifier.IdentifierString())
+//    //
+//    //    if (identifier == thisIdentifier) {
+//    //        return item;
+//    //    }
+//    //}
+//    //
+//    //LOG(UI, "Warning: Failed to find an item named: " + identifier.IdentifierString())
+//    return nullptr;
+//}
 
 void MainWindow::MWFindAndStartAutoConfig()
 {
@@ -191,38 +191,38 @@ bool MainWindow::MWtryStartConnection()
 
 void MainWindow::MWStopConnection()
 {
-    if (systemProxyEnabled) {
-        MWClearSystemProxy(false);
-    }
-
-    this->vinstance->StopConnection();
-    QFile(QV2RAY_GENERATED_FILE_PATH).remove();
-
-    if (GlobalConfig.inboundConfig.pacConfig.enablePAC) {
-        pacServer.StopServer();
-        LOG(UI, "Stopping PAC server")
-    }
-}
-
-void MainWindow::MWTryPingConnection(const QvConnectionObject &alias)
-{
-    try {
-        auto info  = MWGetConnectionInfo(alias);
-        QString host = get<0>(info);
-        int port = get<1>(info);
-        tcpingHelper.StartPing(alias, host, port);
-    }  catch (...) {
-        QvMessageBoxWarn(this, tr("Latency Test"), tr("Failed to test latency for this connection."));
-    }
-}
-
-tuple<QString, int, QString> MainWindow::MWGetConnectionInfo(const QvConnectionObject &alias)
-{
-    //if (!connections.contains(alias))
-    //    return make_tuple(tr("N/A"), 0, tr("N/A"));
+    //if (systemProxyEnabled) {
+    //    MWClearSystemProxy(false);
+    //}
     //
-    //return GetConnectionInfo(connections[alias].config);
+    //this->vinstance->StopConnection();
+    //QFile(QV2RAY_GENERATED_FILE_PATH).remove();
+    //
+    //if (GlobalConfig.inboundConfig.pacConfig.enablePAC) {
+    //    pacServer.StopServer();
+    //    LOG(UI, "Stopping PAC server")
+    //}
 }
+
+//void MainWindow::MWTryPingConnection(const QvConnectionObject &alias)
+//{
+//    //try {
+//    //    auto info  = MWGetConnectionInfo(alias);
+//    //    QString host = get<0>(info);
+//    //    int port = get<1>(info);
+//    //    tcpingHelper.StartPing(alias, host, port);
+//    //}  catch (...) {
+//    //    QvMessageBoxWarn(this, tr("Latency Test"), tr("Failed to test latency for this connection."));
+//    //}
+//}
+//
+//tuple<QString, int, QString> MainWindow::MWGetConnectionInfo(const QvConnectionObject &alias)
+//{
+//    //if (!connections.contains(alias))
+//    //    return make_tuple(tr("N/A"), 0, tr("N/A"));
+//    //
+//    //return GetConnectionInfo(connections[alias].config);
+//}
 
 void MainWindow::CheckSubscriptionsUpdate()
 {

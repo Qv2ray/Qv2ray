@@ -7,15 +7,16 @@
 
 #include "ui_w_MainWindow.h"
 
-#include "core/CoreUtils.hpp"
-#include "core/kernel/KernelInteractions.hpp"
-#include "core/connection/ConnectionIO.hpp"
+//#include "core/CoreUtils.hpp"
+//#include "core/kernel/KernelInteractions.hpp"
+//#include "core/connection/ConnectionIO.hpp"
 
 #include "common/LogHighlighter.hpp"
 #include "common/HTTPRequestHelper.hpp"
 
-#include "components/tcping/QvTCPing.hpp"
-#include "components/pac/QvPACHandler.hpp"
+
+//#include "components/tcping/QvTCPing.hpp"
+//#include "components/pac/QvPACHandler.hpp"
 #include "components/speedchart/speedwidget.hpp"
 
 #include "ui/messaging/QvMessageBus.hpp"
@@ -32,7 +33,7 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         void ReConnect() const;
     public slots:
         QvMessageBusSlotHeader
-        void onPingFinished(QvTCPingData data);
+        //void onPingFinished(QvTCPingData data);
         void UpdateVCoreLog(const QString &log);
         void OnConfigListChanged(bool need_restart);
     private slots:
@@ -64,9 +65,7 @@ class MainWindow : public QMainWindow, Ui::MainWindow
 
     public:
         static MainWindow *mwInstance;
-        QvConnectionObject CurrentConnectionIdentifier;
-        V2rayKernelInstance *vinstance;
-        QString GetCurrentConnectedConfigName();
+        //QvConnectionObject CurrentConnectionIdentifier;
 
     protected:
         void mouseReleaseEvent(QMouseEvent *e) override;
@@ -82,16 +81,17 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         void on_connectionListWidget_itemSelectionChanged();
 
     private:
+        //
         void SetEditWidgetEnable(bool enabled);
-        void ShowAndSetConnection(QvConnectionObject fullIdentifier, bool SetConnection, bool Apply);
-        CONFIGROOT currentFullConfig;
+        //void ShowAndSetConnection(QvConnectionObject fullIdentifier, bool SetConnection, bool Apply);
+        //CONFIGROOT currentFullConfig;
         //
         // Charts
         SpeedWidget *speedChartView;
         //
         QMenu *connectionListMenu;
         //
-        QvConnectionObject renameOriginalIdentifier;
+        //QvConnectionObject renameOriginalIdentifier;
         bool isRenamingInProgress;
         //
         // ID for QTimers
@@ -103,8 +103,8 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         //
         QvHttpRequestHelper *requestHelper;
         QSystemTrayIcon hTray;
-        PACServer pacServer;
-        QvTCPingModel tcpingHelper;
+        //PACServer pacServer;
+        //QvTCPingModel tcpingHelper;
         SyntaxHighlighter *vCoreLogHighlighter;
         SyntaxHighlighter *qvAppLogHighlighter;
         //
@@ -132,12 +132,7 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         void MWFindAndStartAutoConfig();
         bool MWtryStartConnection();
         void MWStopConnection();
-        void MWTryPingConnection(const QvConnectionObject &alias);
-        tuple<QString, int, QString> MWGetConnectionInfo(const QvConnectionObject &alias);
         void MWSetSystemProxy();
         void MWClearSystemProxy(bool);
         void CheckSubscriptionsUpdate();
-        //
-
-        QTreeWidgetItem *FindItemByIdentifier(QvConnectionObject identifier);
 };

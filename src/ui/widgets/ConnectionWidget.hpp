@@ -1,27 +1,23 @@
-#ifndef FORMWIDGET_H
-#define FORMWIDGET_H
+#pragma once
 
 #include <QWidget>
+#include "ui_ConnectionWidget.h"
+#include "core/handler/ConnectionHandler.hpp"
 
-namespace Ui
-{
-    class Formwidget;
-}
-
-class Formwidget : public QWidget
+class ConnectionWidget : public QWidget, private Ui::ConnectionWidget
 {
         Q_OBJECT
 
     public:
-        explicit Formwidget(int id, QWidget *parent = nullptr);
-        ~Formwidget();
+        explicit ConnectionWidget(const ConnectionId &id, QWidget *parent = nullptr);
+        ~ConnectionWidget();
 
     private slots:
-        void on_pushButton_clicked();
+        void on_editBtn_clicked();
+
+        void on_latencyBtn_clicked();
 
     private:
-        int _id;
-        Ui::Formwidget *ui;
+        const ConnectionId _id;
+        const QvConnectionObject &connection;
 };
-
-#endif // FORMWIDGET_H

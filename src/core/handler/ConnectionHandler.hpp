@@ -2,21 +2,37 @@
 
 #include "base/Qv2rayBase.hpp"
 #include "core/kernel/KernelInteractions.hpp"
+#include <QHash>
+#include <QHashFunctions>
+
+template <typename T>
+class IDType
+{
+    public:
+        IDType(const QString &id): m_id(id) {}
+        friend bool operator==(const IDType<T> &lhs, const IDType<T> &rhs)
+        {
+            return lhs.m_id == rhs.m_id;
+        }
+        const QString &toString() const
+        {
+            return m_id;
+        }
+        uint qHash(uint seed) const
+        {
+            return ::qHash(m_id, seed);
+        }
+    private:
+        QString m_id;
+};
+
+template <typename T> uint qHash(const IDType<T> &key, uint seed = 0)
+{
+    return key.qHash(seed);
+}
 
 namespace Qv2ray::core::handlers
 {
-    template <typename T>
-    class IDType
-    {
-        public:
-            IDType(const QString &id): m_id(id) {}
-            friend bool operator==(const IDType<T> &lhs, const IDType<T> &rhs)
-            {
-                return lhs.m_id == rhs.m_id;
-            }
-        private:
-            QString m_id;
-    };
     //
     class __QvGroup;
     class __QvConnection;
@@ -32,24 +48,18 @@ namespace Qv2ray::core::handlers
             explicit ConnectionHandler();
             ~ConnectionHandler();
             //
-            const QList<GroupId> Groups() const
-            {
-                return groups.keys();
-            }
-            const QList<ConnectionId> Connections() const
-            {
-                return connections.keys();
-            }
-            const QList<SubscriptionId> Subscriptions() const
-            {
-                return subscriptions.keys();
-            }
+            const QList<GroupId> Groups() const;
+            const QList<ConnectionId> Connections() const;
+            const QList<ConnectionId> Connections(const GroupId &groupId) const;
+            const QList<ConnectionId> Connections(const SubscriptionId &subscriptionId) const;
+            const QList<SubscriptionId> Subscriptions() const;
         public:
             //
             optional<QString> StartConnection(const ConnectionId &id);
             optional<QString> StopConnection(const ConnectionId &id);
             //
             // Connection Operations.
+            const QvConnectionObject &GetConnection(const ConnectionId &id);
             const ConnectionId &CreateConnection(const QString &displayName, const GroupId &groupId, const CONFIGROOT &root);
             optional<QString> DeleteConnection(const ConnectionId &id);
             optional<QString> UpdateConnection(const ConnectionId &id, const CONFIGROOT &root);
@@ -94,12 +104,21 @@ namespace Qv2ray::core::handlers
 
         private:
             int saveTimerId;
-            QMap<GroupId, QvConnectionObject> groups;
-            QMap<ConnectionId, QvConnectionObject> connections;
-            QMap<SubscriptionId, QvSubscriptionObject> subscriptions;
+            QHash<GroupId, QvGroupObject> groups;
+            QHash<ConnectionId, QvConnectionObject> connections;
+            QHash<SubscriptionId, QvSubscriptionObject> subscriptions;
             //
             QMap<ConnectionId, V2rayKernelInstance> kernelInstances;
     };
+    //
+    inline unique_ptr<Qv2ray::core::handlers::ConnectionHandler> connectionHandler = nullptr;
+    //
+    inline void InitialiseConnectionHandler()
+    {
+        LOG(CORE_HANDLER, "Initializing ConnectionHandler...")
+        connectionHandler = make_unique<ConnectionHandler>();
+    }
+    //
 }
 
 using namespace Qv2ray::core::handlers;

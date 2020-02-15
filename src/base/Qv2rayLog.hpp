@@ -49,3 +49,5 @@ const inline QString FILEIO         =   "COMMON-FILEIO"          ;
 const inline QString PROXY          =   "COMPONENT-PROXY"        ;
 const inline QString UPDATE         =   "COMPONENT-UPDATE"       ;
 const inline QString PLUGIN         =   "COMPONENT-PLUGIN"       ;
+// ================================================================
+const inline QString CORE_HANDLER   =   "libQv2ray: ConnectionHandler";

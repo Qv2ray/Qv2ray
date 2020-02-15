@@ -9,6 +9,9 @@
 #include <singleapplication.h>
 #include <csignal>
 #include "ui/w_MainWindow.hpp"
+
+#include "core/config/ConfigBackend.hpp"
+#include "core/handler/ConnectionHandler.hpp"
 #include "common/QvHelpers.hpp"
 #include "common/CommandArgs.hpp"
 #include "common/QvTranslator.hpp"
@@ -21,12 +24,10 @@
 void signalHandler(int signum)
 {
     cout << "Interrupt signal (" << signum << ") received." << endl;
-
-    if (MainWindow::mwInstance && MainWindow::mwInstance->vinstance) {
-        cout << "Trying to stop connection..." << endl;
-        MainWindow::mwInstance->vinstance->StopConnection();
-    }
-
+    //if (MainWindow::mwInstance && MainWindow::mwInstance->vinstance) {
+    //    cout << "Trying to stop connection..." << endl;
+    //    MainWindow::mwInstance->vinstance->StopConnection();
+    //}
     qApp->exit(-99);
 }
 
@@ -446,6 +447,8 @@ int main(int argc, char *argv[])
     }
 
 #endif
+    // Initialise Connection Handler
+    InitialiseConnectionHandler();
     // Show MainWindow
     MainWindow w;
 #ifndef QT_DEBUG

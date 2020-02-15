@@ -1,21 +1,22 @@
 #include "ConnectionWidget.hpp"
 #include "QMessageBox"
-#include "ui_ConnectionWidget.h"
 
-Formwidget::Formwidget(int id, QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::Formwidget)
+ConnectionWidget::ConnectionWidget(const ConnectionId &id, QWidget *parent): QWidget(parent),
+    _id(id), connection(connectionHandler->GetConnection(id))
 {
-    _id = id;
-    ui->setupUi(this);
+    setupUi(this);
+    connNameLabel->setText(connection.displayName);
+    latencyLabel->setText(tr("Latency: ") + QSTRN(connection.latency) + " " + tr("ms"));
 }
 
-Formwidget::~Formwidget()
+ConnectionWidget::~ConnectionWidget()
 {
-    delete ui;
 }
 
-void Formwidget::on_pushButton_clicked()
+void ConnectionWidget::on_editBtn_clicked()
 {
-    QMessageBox::information(this, "d", QString::number(_id));
+}
+
+void ConnectionWidget::on_latencyBtn_clicked()
+{
 }

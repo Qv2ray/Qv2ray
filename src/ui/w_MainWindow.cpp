@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include "w_MainWindow.hpp"
 #include "w_ImportConfig.hpp"
 #include "w_PreferencesWindow.hpp"
@@ -27,6 +26,9 @@
 #include "components/pac/QvPACHandler.hpp"
 
 #include "core/connection/ConnectionIO.hpp"
+
+// ==========================================================================================
+#include "ui/widgets/ConnectionWidget.hpp"
 
 // MainWindow.cpp --> Main MainWindow source file, handles mostly UI-related operations.
 
@@ -88,18 +90,18 @@ QvMessageBusSlotImpl(MainWindow)
     }
 }
 
-MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), vinstance(), hTray(this), tcpingHelper(3, this)
+MainWindow::MainWindow(QWidget *parent): QMainWindow(parent)//, vinstance(), hTray(this), tcpingHelper(3, this)
 {
     MainWindow::mwInstance = this;
-    vinstance = new V2rayKernelInstance();
-    connect(vinstance, &V2rayKernelInstance::onProcessOutputReadyRead, this, &MainWindow::UpdateVCoreLog);
-    connect(vinstance, &V2rayKernelInstance::onProcessErrored, [this] {
-        on_stopButton_clicked();
-        this->show();
-        QvMessageBoxWarn(this, tr("V2ray vcore terminated."),
-                         tr("V2ray vcore terminated unexpectedly.") + NEWLINE + NEWLINE +
-                         tr("To solve the problem, read the V2ray log in the log text browser."));
-    });
+    //vinstance = new V2rayKernelInstance();
+    //connect(vinstance, &V2rayKernelInstance::onProcessOutputReadyRead, this, &MainWindow::UpdateVCoreLog);
+    //connect(vinstance, &V2rayKernelInstance::onProcessErrored, [this] {
+    //    on_stopButton_clicked();
+    //    this->show();
+    //    QvMessageBoxWarn(this, tr("V2ray vcore terminated."),
+    //                     tr("V2ray vcore terminated unexpectedly.") + NEWLINE + NEWLINE +
+    //                     tr("To solve the problem, read the V2ray log in the log text browser."));
+    //});
     //
     setupUi(this);
     QvMessageBusConnect(MainWindow);
@@ -125,7 +127,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), vinstance(), hTray
     qvLogTimerId = startTimer(500);
     //
     requestHelper = new QvHttpRequestHelper();
-    connect(&tcpingHelper, &QvTCPingModel::PingFinished, this, &MainWindow::onPingFinished);
+    //connect(&tcpingHelper, &QvTCPingModel::PingFinished, this, &MainWindow::onPingFinished);
     //
     this->setWindowIcon(QIcon(":/assets/icons/qv2ray.png"));
     hTray.setIcon(QIcon(GlobalConfig.uiConfig.useDarkTrayIcon ? ":/assets/icons/ui_dark/tray.png" : ":/assets/icons/ui_light/tray.png"));
@@ -224,12 +226,10 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), vinstance(), hTray
     //
     // Find and start if there is an auto-connection
     MWFindAndStartAutoConfig();
-
-    // If we are not connected to anything, show the MainWindow.
-    if (!vinstance->KernelStarted) {
-        this->show();
-    }
-
+    //// If we are not connected to anything, show the MainWindow.
+    //if (!vinstance->KernelStarted) {
+    //    this->show();
+    //}
     connect(requestHelper, &QvHttpRequestHelper::httpRequestFinished, this, &MainWindow::VersionUpdate);
     requestHelper->get("https://api.github.com/repos/Qv2ray/Qv2ray/releases/latest");
 
@@ -325,19 +325,28 @@ void MainWindow::VersionUpdate(QByteArray &data)
         } else if (result == QMessageBox::Ignore) {
             // Set and save ingored version.
             GlobalConfig.ignoredVersion = newVersion.toString();
-            SaveGlobalConfig(GlobalConfig);
+            //SaveGlobalConfig(GlobalConfig);
         }
     }
 }
 
 void MainWindow::OnConfigListChanged(bool need_restart)
 {
-    auto wasRunning = vinstance->KernelStarted && need_restart;
+    LOG(UI, "Loading data...")
+    auto conns = connectionHandler->Connections();
 
-    if (wasRunning) on_stopButton_clicked();
+    for (auto conn : conns) {
+        auto item = new QTreeWidgetItem();
+        connectionListWidget->addTopLevelItem(item);
+        connectionListWidget->setItemWidget(item, 0, new ConnectionWidget(conn, connectionListWidget));
+    }
 
-    LOG(UI, "Loading new GlobalConfig")
-    SetEditWidgetEnable(false);
+    //auto wasRunning = vinstance->KernelStarted && need_restart;
+    //
+    //if (wasRunning) on_stopButton_clicked();
+    //
+    //LOG(UI, "Loading new GlobalConfig")
+    //SetEditWidgetEnable(false);
     //
     // Store the latency test value.
     //QMap<QvConnectionObject, double> latencyValueCache;
@@ -407,7 +416,7 @@ MainWindow::~MainWindow()
 {
     killTimer(qvLogTimerId);
     hTray.hide();
-    delete this->vinstance;
+    //delete this->vinstance;
 }
 void MainWindow::UpdateVCoreLog(const QString &log)
 {
@@ -508,14 +517,14 @@ void MainWindow::on_activatedTray(QSystemTrayIcon::ActivationReason reason)
 #endif
             break;
 
-        case QSystemTrayIcon::MiddleClick:
-            if (vinstance->KernelStarted) {
-                on_stopButton_clicked();
-            } else {
-                on_startButton_clicked();
-            }
-
-            break;
+        //case QSystemTrayIcon::MiddleClick:
+        //    if (vinstance->KernelStarted) {
+        //        on_stopButton_clicked();
+        //    } else {
+        //        on_startButton_clicked();
+        //    }
+        //
+        //    break;
 
         case QSystemTrayIcon::DoubleClick:
 #ifdef __APPLE__
@@ -549,7 +558,7 @@ void MainWindow::quit()
         StopProcessingPlugins();
     }
 
-    tcpingHelper.StopAllPing();
+    //tcpingHelper.StopAllPing();
     on_stopButton_clicked();
     ExitQv2ray();
 }
@@ -559,46 +568,46 @@ void MainWindow::on_actionExit_triggered()
     quit();
 }
 
-void MainWindow::ShowAndSetConnection(QvConnectionObject fullIdentifier, bool SetConnection, bool ApplyConnection)
-{
-    //// Check empty again...
-    //if (!connections.contains(fullIdentifier)) return;
-    //
-    //SetEditWidgetEnable(true);
-    ////
-    //// --------- BRGIN Show Connection
-    //auto conf = connections[fullIdentifier];
-    ////
-    //auto isComplexConfig = IsComplexConfig(conf.config);
-    //routeCountLabel->setText(isComplexConfig ? tr("Complex") : tr("Simple"));
-    //
-    //if (conf.latency == 0.0) {
-    //    latencyLabel->setText(tr("No data"));
-    //} else {
-    //    latencyLabel->setText(QSTRN(conf.latency) + " " + tr("ms"));
-    //}
-    //
-    //if (conf.configType == CONNECTION_SUBSCRIPTION) {
-    //    routeCountLabel->setText(routeCountLabel->text().append(" (" + tr("Subscription") + ":" + conf.subscriptionName + ")"));
-    //}
-    //
-    //// Get Connection info
-    //auto host_port = MWGetConnectionInfo(fullIdentifier.IdentifierString());
-    //_hostLabel->setText(get<0>(host_port));
-    //_portLabel->setText(QSTRN(get<1>(host_port)));
-    //_OutBoundTypeLabel->setText(get<2>(host_port));
-    //
-    //// Set to currentConnection
-    //if (SetConnection) {
-    //    CurrentSelectedItemPtr  = FindItemByIdentifier(fullIdentifier);
-    //    CurrentConnectionIdentifier = fullIdentifier;
-    //}
-    //
-    //// Restart Connection
-    //if (ApplyConnection) {
-    //    on_reconnectButton_clicked();
-    //}
-}
+//void MainWindow::ShowAndSetConnection(QvConnectionObject fullIdentifier, bool SetConnection, bool ApplyConnection)
+//{
+//// Check empty again...
+//if (!connections.contains(fullIdentifier)) return;
+//
+//SetEditWidgetEnable(true);
+////
+//// --------- BRGIN Show Connection
+//auto conf = connections[fullIdentifier];
+////
+//auto isComplexConfig = IsComplexConfig(conf.config);
+//routeCountLabel->setText(isComplexConfig ? tr("Complex") : tr("Simple"));
+//
+//if (conf.latency == 0.0) {
+//    latencyLabel->setText(tr("No data"));
+//} else {
+//    latencyLabel->setText(QSTRN(conf.latency) + " " + tr("ms"));
+//}
+//
+//if (conf.configType == CONNECTION_SUBSCRIPTION) {
+//    routeCountLabel->setText(routeCountLabel->text().append(" (" + tr("Subscription") + ":" + conf.subscriptionName + ")"));
+//}
+//
+//// Get Connection info
+//auto host_port = MWGetConnectionInfo(fullIdentifier.IdentifierString());
+//_hostLabel->setText(get<0>(host_port));
+//_portLabel->setText(QSTRN(get<1>(host_port)));
+//_OutBoundTypeLabel->setText(get<2>(host_port));
+//
+//// Set to currentConnection
+//if (SetConnection) {
+//    CurrentSelectedItemPtr  = FindItemByIdentifier(fullIdentifier);
+//    CurrentConnectionIdentifier = fullIdentifier;
+//}
+//
+//// Restart Connection
+//if (ApplyConnection) {
+//    on_reconnectButton_clicked();
+//}
+//}
 void MainWindow::on_preferencesBtn_clicked()
 {
     PreferencesWindow w(this);
@@ -1070,21 +1079,4 @@ void MainWindow::on_connectionListWidget_itemSelectionChanged()
     //        CurrentSelectedItemPtr = connectionListWidget->selectedItems().first();
     //    }
     //}
-}
-
-void MainWindow::onPingFinished(QvTCPingData data)
-{
-    //if (!connections.contains(data.connectionIdentifier)) {
-    //    return;
-    //}
-    //connections[data.connectionIdentifier].latency = data.avg;
-    //if (IsConnectableItem(CurrentSelectedItemPtr)) {
-    //    ShowAndSetConnection(ItemConnectionIdentifier(CurrentSelectedItemPtr), false, false);
-    //}
-}
-
-QString MainWindow::GetCurrentConnectedConfigName()
-{
-    return "";
-    //return CurrentConnectionIdentifier.IdentifierString();
 }
