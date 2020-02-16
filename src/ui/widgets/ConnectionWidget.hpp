@@ -66,7 +66,6 @@ class ConnectionWidget : public QWidget, private Ui::ConnectionWidget
         {
             //
         }
-        Q_DISABLE_COPY_MOVE(ConnectionWidget)
 
     private:
         ConnectionWidget(QWidget *parent = nullptr) : QWidget(parent), connectionId("null"), groupId("null"), subscriptionId("null")
@@ -99,4 +98,6 @@ class ConnectionWidget : public QWidget, private Ui::ConnectionWidget
         ConnectionId connectionId;
         GroupId groupId;
         SubscriptionId subscriptionId;
+        
+        Q_DISABLE_COPY_MOVE(ConnectionWidget)
 };
