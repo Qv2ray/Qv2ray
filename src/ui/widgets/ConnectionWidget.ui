@@ -6,16 +6,16 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>474</width>
+    <width>283</width>
     <height>84</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout" columnstretch="1,0">
-   <item row="0" column="0" rowspan="2">
-    <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,0,0">
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QLabel" name="connNameLabel">
        <property name="font">
@@ -29,53 +29,35 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="connTypeLabel">
+      <widget class="QLabel" name="latencyLabel">
        <property name="text">
-        <string>Type: vmess + tls + ws</string>
+        <string>Latency: 500ms</string>
        </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="dataLabel">
-       <property name="font">
-        <font>
-         <pointsize>8</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>0KB/0KB</string>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
      </item>
     </layout>
    </item>
-   <item row="0" column="1">
-    <widget class="QLabel" name="latencyLabel">
+   <item>
+    <widget class="QLabel" name="connTypeLabel">
      <property name="text">
-      <string>Latency: 0ms</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      <string>Type: vmess + tls + ws</string>
      </property>
     </widget>
    </item>
-   <item row="1" column="1">
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QPushButton" name="editBtn">
-       <property name="text">
-        <string>Edit</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="latencyBtn">
-       <property name="text">
-        <string>Ping</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
+   <item>
+    <widget class="QLabel" name="dataLabel">
+     <property name="font">
+      <font>
+       <pointsize>8</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>0KB / 0KB</string>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>

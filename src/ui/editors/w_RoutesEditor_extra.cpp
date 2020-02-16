@@ -78,7 +78,7 @@ void RouteEditor::AddRule(RuleObject rule)
 
     for (auto inTag : rule.inboundTag) {
         if (!inboundNodes.contains(inTag)) {
-            LOG(UI, "No inbound tag found for rule: " + rule.QV2RAY_RULE_TAG + ", inbound tag: " + inTag)
+            LOG(MODULE_UI, "No inbound tag found for rule: " + rule.QV2RAY_RULE_TAG + ", inbound tag: " + inTag)
             QvMessageBoxWarn(this, tr("No Inbound"), tr("No inbound item found: ") + inTag);
             rule.inboundTag.removeAll(inTag);
         } else {
@@ -90,10 +90,10 @@ void RouteEditor::AddRule(RuleObject rule)
     // If not using balancers (use outbound tag)
     if (!rule.QV2RAY_RULE_USE_BALANCER) {
         if (outboundNodes.contains(rule.outboundTag)) {
-            DEBUG(GRAPH, "Found outbound tag: " + rule.outboundTag + ", for rule: " + rule.QV2RAY_RULE_TAG)
+            DEBUG(MODULE_GRAPH, "Found outbound tag: " + rule.outboundTag + ", for rule: " + rule.QV2RAY_RULE_TAG)
             nodeScene->createConnection(*outboundNodes[rule.outboundTag], 0, node, 0);
         } else {
-            LOG(GRAPH, "Outbound tag not found: " + rule.outboundTag + ", for: " + rule.QV2RAY_RULE_TAG)
+            LOG(MODULE_GRAPH, "Outbound tag not found: " + rule.outboundTag + ", for: " + rule.QV2RAY_RULE_TAG)
             //QvMessageBoxWarn(this, tr("No outbound tag"), tr("Please connect the rule with an outbound."));
         }
     }
@@ -116,7 +116,7 @@ void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString originalTag,
                 auto node = static_cast<QvRuleNodeDataModel *>(ruleNodes[originalTag]->nodeDataModel());
 
                 if (node == nullptr) {
-                    LOG(GRAPH, "EMPTY NODE WARN")
+                    LOG(MODULE_GRAPH, "EMPTY NODE WARN")
                 }
 
                 node->setData(newTag);
@@ -129,7 +129,7 @@ void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString originalTag,
                 auto items = ruleListWidget->findItems(originalTag, Qt::MatchExactly);
 
                 if (items.isEmpty()) {
-                    LOG(UI, "Cannot find a node: " + originalTag)
+                    LOG(MODULE_UI, "Cannot find a node: " + originalTag)
                 } else {
                     items.first()->setText(newTag);
                 }
@@ -138,7 +138,7 @@ void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString originalTag,
                     currentRuleTag = newTag;
                 }
             } else {
-                LOG(UI, "There's nothing match " + originalTag + " in the containers.")
+                LOG(MODULE_UI, "There's nothing match " + originalTag + " in the containers.")
             }
 
             break;
@@ -155,7 +155,7 @@ void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString originalTag,
                 auto node = static_cast<QvOutboundNodeModel *>(outboundNodes[newTag]->nodeDataModel());
 
                 if (node == nullptr) {
-                    LOG(GRAPH, "EMPTY NODE WARN")
+                    LOG(MODULE_GRAPH, "EMPTY NODE WARN")
                 }
 
                 node->setData(newTag);
@@ -174,7 +174,7 @@ void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString originalTag,
                 // Resolve default outbound.
                 ResolveDefaultOutboundTag(originalTag, newTag);
             } else {
-                LOG(UI, "Failed to rename an outbound --> Item not found.")
+                LOG(MODULE_UI, "Failed to rename an outbound --> Item not found.")
             }
 
             break;
@@ -191,7 +191,7 @@ void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString originalTag,
                 auto node = static_cast<QvInboundNodeModel *>(inboundNodes[newTag]->nodeDataModel());
 
                 if (node == nullptr) {
-                    LOG(GRAPH, "EMPTY NODE WARN")
+                    LOG(MODULE_GRAPH, "EMPTY NODE WARN")
                 }
 
                 node->setData(newTag);
@@ -210,7 +210,7 @@ void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString originalTag,
                     }
                 }
             } else {
-                LOG(UI, "Failed to rename an outbound --> Item not found.")
+                LOG(MODULE_UI, "Failed to rename an outbound --> Item not found.")
             }
 
             break;
@@ -219,17 +219,17 @@ void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString originalTag,
 
 void RouteEditor::ResolveDefaultOutboundTag(QString original, QString newTag)
 {
-    LOG(UI, "Resolving default outbound settings: default=" + defaultOutbound +  " original=" + original + " new=" + newTag)
+    LOG(MODULE_UI, "Resolving default outbound settings: default=" + defaultOutbound +  " original=" + original + " new=" + newTag)
     auto isDefaultChanged = original == defaultOutbound;
     defaultOutboundCombo->clear();
     defaultOutboundCombo->addItems(outbounds.keys());
 
     if (!isDefaultChanged) {
-        LOG(UI, "Default outbound is not changed: retaining: " + defaultOutbound)
+        LOG(MODULE_UI, "Default outbound is not changed: retaining: " + defaultOutbound)
         // Just simply restore the default one.
         defaultOutboundCombo->setCurrentText(defaultOutbound);
     } else if (newTag.isEmpty()) {
-        LOG(UI, "Default outbound is removed, using first key from the outbounds as the default one.")
+        LOG(MODULE_UI, "Default outbound is removed, using first key from the outbounds as the default one.")
 
         // Removed the default one, so set the first one as the default.
         if (outbounds.isEmpty()) {
@@ -239,7 +239,7 @@ void RouteEditor::ResolveDefaultOutboundTag(QString original, QString newTag)
             defaultOutboundCombo->addItem(outbounds.firstKey());
         }
     } else {
-        LOG(UI, "Default outbound is renamed,    ")
+        LOG(MODULE_UI, "Default outbound is renamed,    ")
         defaultOutboundCombo->setCurrentText(newTag);
         defaultOutbound = newTag;
     }

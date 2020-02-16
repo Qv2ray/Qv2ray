@@ -6,7 +6,7 @@
 #include "base/Qv2rayBase.hpp"
 #include "common/QvHelpers.hpp"
 
-#define UPGRADELOG(msg) LOG(SETTINGS, "  [" + QSTRN(fromVersion) + "-" + QSTRN(fromVersion + 1) + "] --> " + msg)
+#define UPGRADELOG(msg) LOG(MODULE_SETTINGS, "  [" + QSTRN(fromVersion) + "-" + QSTRN(fromVersion + 1) + "] --> " + msg)
 
 namespace Qv2ray
 {
@@ -130,7 +130,7 @@ namespace Qv2ray
                     auto filePath = QV2RAY_CONFIG_DIR + config.toString() + QV2RAY_CONFIG_FILE_EXTENSION;
                     auto configFile = QFile(filePath);
                     auto newUuid = GenerateUuid();
-                    DEBUG(SETTINGS, "Generated new UUID: " + newUuid);
+                    DEBUG(MODULE_SETTINGS, "Generated new UUID: " + newUuid);
 
                     if (configFile.exists()) {
                         auto newPath = QV2RAY_CONNECTIONS_DIR + newUuid + QV2RAY_CONFIG_FILE_EXTENSION;
@@ -144,7 +144,7 @@ namespace Qv2ray
                     QJsonObject connectionObject;
                     connectionObject["displayName"] = config.toString();
                     defaultGroupConnectionId << newUuid;
-                    DEBUG(SETTINGS, "Pushed uuid: " + newUuid + " to default group.")
+                    DEBUG(MODULE_SETTINGS, "Pushed uuid: " + newUuid + " to default group.")
                     rootConnections[newUuid] = connectionObject;
                 }
 
@@ -223,7 +223,7 @@ namespace Qv2ray
     // Exported function
     QJsonObject UpgradeConfig(int fromVersion, int toVersion, QJsonObject root)
     {
-        LOG(SETTINGS, "Migrating config from version " + QSTRN(fromVersion) + " to " + QSTRN(toVersion))
+        LOG(MODULE_SETTINGS, "Migrating config from version " + QSTRN(fromVersion) + " to " + QSTRN(toVersion))
 
         for (int i = fromVersion; i < toVersion; i++) {
             root = UpgradeConfig_Inc(i, root);

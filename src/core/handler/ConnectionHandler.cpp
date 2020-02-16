@@ -16,7 +16,7 @@ namespace Qv2ray::core::handlers
 
     ConnectionHandler::ConnectionHandler()
     {
-        DEBUG(CORE_HANDLER, "ConnectionHandler Constructor.")
+        DEBUG(MODULE_CORE_HANDLER, "ConnectionHandler Constructor.")
 
         // Do we need to check how many of them are loaded?
         for (auto i = 0; i < GlobalConfig.connections.count(); i++) {
@@ -58,10 +58,20 @@ namespace Qv2ray::core::handlers
     const QvConnectionObject &ConnectionHandler::GetConnection(const ConnectionId &id)
     {
         if (!connections.contains(id)) {
-            LOG(CORE_HANDLER, "Cannot find id: " + id.toString());
+            LOG(MODULE_CORE_HANDLER, "Cannot find id: " + id.toString());
         }
 
         return connections[id];
+    }
+
+    const QvGroupObject &ConnectionHandler::GetGroup(const GroupId &id)
+    {
+        return groups[id];
+    }
+
+    const QvSubscriptionObject &ConnectionHandler::GetSubscription(const SubscriptionId &id)
+    {
+        return subscriptions[id];
     }
     ConnectionHandler::~ConnectionHandler()
     {

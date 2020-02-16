@@ -113,13 +113,13 @@ OUTBOUND OutboundEditor::GenerateConnectionJson()
         settings.insert("vnext", vnext);
     } else if (OutboundType == "shadowsocks") {
         streaming = QJsonObject();
-        LOG(CONNECTION, "Shadowsocks outbound does not need StreamSettings.")
+        LOG(MODULE_CONNECTION, "Shadowsocks outbound does not need StreamSettings.")
         QJsonArray servers;
         servers.append(GetRootObject(shadowsocks));
         settings["servers"] = servers;
     } else if (OutboundType == "socks") {
         streaming = QJsonObject();
-        LOG(CONNECTION, "Socks outbound does not need StreamSettings.")
+        LOG(MODULE_CONNECTION, "Socks outbound does not need StreamSettings.")
         QJsonArray servers;
         servers.append(GetRootObject(socks));
         settings["servers"] = servers;

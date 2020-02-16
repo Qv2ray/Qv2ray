@@ -75,7 +75,7 @@ void ConfigExporter::on_saveBtn_clicked()
     auto filePath = QFileDialog().getSaveFileName(this, tr("Save Image"), "", "Images (*.png)");
     auto result = image.save(filePath);
     QDesktopServices::openUrl(QUrl::fromUserInput(filePath));
-    LOG(FILEIO, "Saving an image to: " + filePath + " result: " + (result ? "OK" : "Failed"))
+    LOG(MODULE_FILEIO, "Saving an image to: " + filePath + " result: " + (result ? "OK" : "Failed"))
 }
 
 void ConfigExporter::on_copyImageBtn_clicked()

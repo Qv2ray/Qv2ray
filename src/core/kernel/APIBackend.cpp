@@ -19,15 +19,15 @@ namespace Qv2ray::core::kernel::api
     {
         thread = new QThread();
         this->moveToThread(thread);
-        DEBUG(VCORE, "API Worker initialised.")
+        DEBUG(MODULE_VCORE, "API Worker initialised.")
         connect(this, SIGNAL(error(QString)), this, SLOT(errorString(QString)));
         connect(thread, SIGNAL(started()), this, SLOT(process()));
         connect(thread, &QThread::finished, []() {
-            LOG(VCORE, "API thread stopped")
+            LOG(MODULE_VCORE, "API thread stopped")
         });
         started = true;
         thread->start();
-        DEBUG(VCORE, "API Worker started.")
+        DEBUG(MODULE_VCORE, "API Worker started.")
     }
 
     void APIWorkder::StartAPI(QStringList tags)
@@ -74,7 +74,7 @@ namespace Qv2ray::core::kernel::api
                     Stub = service.NewStub(Channel);
 #else
                     auto str = Dial(const_cast<char *>(channelAddress.toStdString().c_str()), 10000);
-                    LOG(VCORE, QString(str))
+                    LOG(MODULE_VCORE, QString(str))
                     free(str);
 #endif
                     dialed = true;
@@ -108,7 +108,7 @@ namespace Qv2ray::core::kernel::api
     qint64 APIWorkder::CallStatsAPIByName(QString name)
     {
         if (apiFailedCounter == QV2RAY_API_CALL_FAILEDCHECK_THRESHOLD) {
-            LOG(VCORE, "API call failure threshold reached, cancelling further API aclls.")
+            LOG(MODULE_VCORE, "API call failure threshold reached, cancelling further API aclls.")
             emit error("Failed to get statistics data, please check if V2ray is running properly");
             apiFailedCounter++;
             return 0;
@@ -135,7 +135,7 @@ namespace Qv2ray::core::kernel::api
 #endif
 
         if (data < 0) {
-            LOG(VCORE, "API call returns: " + QSTRN(data))
+            LOG(MODULE_VCORE, "API call returns: " + QSTRN(data))
             apiFailedCounter++;
             return 0;
         }

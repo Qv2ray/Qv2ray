@@ -63,7 +63,7 @@ void MainWindow::MWFindAndStartAutoConfig()
 void MainWindow::MWClearSystemProxy(bool showMessage)
 {
     ClearSystemProxy();
-    LOG(UI, "Clearing System Proxy")
+    LOG(MODULE_UI, "Clearing System Proxy")
     systemProxyEnabled = false;
 
     if (showMessage) {
@@ -84,7 +84,7 @@ void MainWindow::MWSetSystemProxy()
 
     if (!isComplex) {
         // Is simple config and we will try to set system proxy.
-        LOG(UI, "Preparing to set system proxy")
+        LOG(MODULE_UI, "Preparing to set system proxy")
         //
         QString proxyAddress;
         bool canSetSystemProxy = true;
@@ -92,13 +92,13 @@ void MainWindow::MWSetSystemProxy()
         if (usePAC) {
             if ((httpEnabled && !pacUseSocks) || (socksEnabled && pacUseSocks)) {
                 // If we use PAC and socks/http are properly configured for PAC
-                LOG(PROXY, "System proxy uses PAC")
+                LOG(MODULE_PROXY, "System proxy uses PAC")
                 proxyAddress = "http://" + GlobalConfig.inboundConfig.listenip + ":" + QSTRN(GlobalConfig.inboundConfig.pacConfig.port) +  "/pac";
             } else {
                 // Not properly configured
-                LOG(PROXY, "Failed to process pac due to following reasons:")
-                LOG(PROXY, " --> PAC is configured to use socks but socks is not enabled.")
-                LOG(PROXY, " --> PAC is configuted to use http but http is not enabled.")
+                LOG(MODULE_PROXY, "Failed to process pac due to following reasons:")
+                LOG(MODULE_PROXY, " --> PAC is configured to use socks but socks is not enabled.")
+                LOG(MODULE_PROXY, " --> PAC is configuted to use http but http is not enabled.")
                 QvMessageBoxWarn(this, tr("PAC Processing Failed"), tr("HTTP or SOCKS inbound is not properly configured for PAC") +
                                  NEWLINE + tr("Qv2ray will continue, but will not set system proxy."));
                 canSetSystemProxy = false;
@@ -107,18 +107,18 @@ void MainWindow::MWSetSystemProxy()
             // Not using PAC
             if (httpEnabled || socksEnabled) {
                 // Not use PAC, System proxy should use HTTP or SOCKS
-                LOG(PROXY, "Setting up system proxy.")
+                LOG(MODULE_PROXY, "Setting up system proxy.")
                 // A 'proxy host' should be a host WITHOUT `http://` uri scheme
                 proxyAddress = "localhost";
             } else {
-                LOG(PROXY, "Neither of HTTP nor SOCKS is enabled, cannot set system proxy.")
+                LOG(MODULE_PROXY, "Neither of HTTP nor SOCKS is enabled, cannot set system proxy.")
                 QvMessageBoxWarn(this, tr("Cannot set system proxy"), tr("Both HTTP and SOCKS inbounds are not enabled"));
                 canSetSystemProxy = false;
             }
         }
 
         if (canSetSystemProxy) {
-            LOG(UI, "Setting system proxy for simple config.")
+            LOG(MODULE_UI, "Setting system proxy for simple config.")
             auto httpPort = GlobalConfig.inboundConfig.useHTTP ? GlobalConfig.inboundConfig.http_port : 0;
             auto socksPort = GlobalConfig.inboundConfig.useSocks ? GlobalConfig.inboundConfig.socks_port : 0;
             //
@@ -234,13 +234,13 @@ void MainWindow::CheckSubscriptionsUpdate()
         //
         auto lastRenewDate = QDateTime::fromTime_t(subs.lastUpdated);
         auto renewTime = lastRenewDate.addSecs(subs.updateInterval * 86400);
-        LOG(SUBSCRIPTION, "Subscription \"" + key + "\": " + NEWLINE +
+        LOG(MODULE_SUBSCRIPTION, "Subscription \"" + key + "\": " + NEWLINE +
             " --> Last renewal time: "  + lastRenewDate.toString() + NEWLINE +
             " --> Renew interval: " + QSTRN(subs.updateInterval) + NEWLINE +
             " --> Ideal renew time: " + renewTime.toString())
 
         if (renewTime <= QDateTime::currentDateTime()) {
-            LOG(SUBSCRIPTION, "Subscription: " + key + " needs to be updated.")
+            LOG(MODULE_SUBSCRIPTION, "Subscription: " + key + " needs to be updated.")
             updateList.append(key);
         }
     }

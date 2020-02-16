@@ -234,7 +234,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent)//, vinstance(), hTr
     requestHelper->get("https://api.github.com/repos/Qv2ray/Qv2ray/releases/latest");
 
     if (StartupOption.enableToolbarPlguin) {
-        LOG(UI, "Plugin daemon is enabled.")
+        LOG(MODULE_UI, "Plugin daemon is enabled.")
         StartProcessingPlugins();
     }
 
@@ -304,12 +304,12 @@ void MainWindow::VersionUpdate(QByteArray &data)
     QVersionNumber newVersion = QVersionNumber::fromString(root["tag_name"].toString("v").remove(0, 1));
     QVersionNumber currentVersion = QVersionNumber::fromString(QString(QV2RAY_VERSION_STRING).remove(0, 1));
     QVersionNumber ignoredVersion = QVersionNumber::fromString(GlobalConfig.ignoredVersion);
-    LOG(UPDATE, "Received update info, Latest: " + newVersion.toString() + " Current: " + currentVersion.toString() + " Ignored: " + ignoredVersion.toString())
+    LOG(MODULE_UPDATE, "Received update info, Latest: " + newVersion.toString() + " Current: " + currentVersion.toString() + " Ignored: " + ignoredVersion.toString())
 
     // If the version is newer than us.
     // And new version is newer than the ignored version.
     if (newVersion > currentVersion && newVersion > ignoredVersion) {
-        LOG(UPDATE, "New version detected.")
+        LOG(MODULE_UPDATE, "New version detected.")
         auto link = root["html_url"].toString("");
         auto result = QvMessageBoxAsk(this, tr("Update"),
                                       tr("Found a new version: ") + root["tag_name"].toString("") +
@@ -332,13 +332,35 @@ void MainWindow::VersionUpdate(QByteArray &data)
 
 void MainWindow::OnConfigListChanged(bool need_restart)
 {
-    LOG(UI, "Loading data...")
-    auto conns = connectionHandler->Connections();
+    LOG(MODULE_UI, "Loading data...")
+    auto groups = connectionHandler->Groups();
 
-    for (auto conn : conns) {
-        auto item = new QTreeWidgetItem();
-        connectionListWidget->addTopLevelItem(item);
-        connectionListWidget->setItemWidget(item, 0, new ConnectionWidget(conn, connectionListWidget));
+    for (auto group : groups) {
+        auto groupItem = new QTreeWidgetItem();
+        connectionListWidget->addTopLevelItem(groupItem);
+        connectionListWidget->setItemWidget(groupItem, 0, new ConnectionWidget(group, connectionListWidget));
+        auto connections = connectionHandler->Connections(group);
+
+        for (auto connection : connections) {
+            auto connectionItem = new QTreeWidgetItem();
+            groupItem->addChild(connectionItem);
+            connectionListWidget->setItemWidget(connectionItem, 0, new ConnectionWidget(connection, connectionListWidget));
+        }
+    }
+
+    auto subscriptions = connectionHandler->Subscriptions();
+
+    for (auto subscription : subscriptions) {
+        auto subscriptionItem = new QTreeWidgetItem();
+        connectionListWidget->addTopLevelItem(subscriptionItem);
+        connectionListWidget->setItemWidget(subscriptionItem, 0, new ConnectionWidget(subscription, connectionListWidget));
+        auto connections = connectionHandler->Connections(subscription);
+
+        for (auto connection : connections) {
+            auto connectionItem = new QTreeWidgetItem();
+            subscriptionItem->addChild(connectionItem);
+            connectionListWidget->setItemWidget(connectionItem, 0, new ConnectionWidget(connection, connectionListWidget));
+        }
     }
 
     //auto wasRunning = vinstance->KernelStarted && need_restart;

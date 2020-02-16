@@ -174,19 +174,19 @@ namespace Qv2ray::components::proxy
         bool hasSOCKS = (socksPort != 0);
 
         if (!(hasHTTP || hasSOCKS || usePAC)) {
-            LOG(PROXY, "Nothing?")
+            LOG(MODULE_PROXY, "Nothing?")
             return;
         }
 
         if (usePAC) {
-            LOG(PROXY, "Qv2ray will set system proxy to use PAC file")
+            LOG(MODULE_PROXY, "Qv2ray will set system proxy to use PAC file")
         } else {
             if (hasHTTP) {
-                LOG(PROXY, "Qv2ray will set system proxy to use HTTP")
+                LOG(MODULE_PROXY, "Qv2ray will set system proxy to use HTTP")
             }
 
             if (hasSOCKS) {
-                LOG(PROXY, "Qv2ray will set system proxy to use SOCKS")
+                LOG(MODULE_PROXY, "Qv2ray will set system proxy to use SOCKS")
             }
         }
 
@@ -235,13 +235,13 @@ namespace Qv2ray::components::proxy
         // note: do not use std::all_of / any_of / none_of,
         // because those are short-circuit and cannot guarantee atomicity.
         auto result = std::count_if(actions.cbegin(), actions.cend(), [](const QString & action) {
-            DEBUG(PROXY, action)
+            DEBUG(MODULE_PROXY, action)
             return QProcess::execute(action) == QProcess::NormalExit;
         }) == actions.size();
 
         if (!result) {
-            LOG(PROXY, "Something wrong happens when setting system proxy -> Gnome ONLY.")
-            LOG(PROXY, "If you are using KDE Plasma and receiving this message, just simply ignore this.")
+            LOG(MODULE_PROXY, "Something wrong happens when setting system proxy -> Gnome ONLY.")
+            LOG(MODULE_PROXY, "If you are using KDE Plasma and receiving this message, just simply ignore this.")
         }
 
         Q_UNUSED(result);

@@ -73,13 +73,15 @@ namespace Qv2ray::core::handlers
             optional<QString> TestAllLatency();
             //
             // Group Operations
+            const QvGroupObject &GetGroup(const GroupId &id);
             const GroupId CreateGroup(const QString displayName);
             optional<QString> DeleteGroup(const GroupId &id);
             optional<QString> DuplicateGroup(const GroupId &id);
             optional<QString> RenameGroup(const GroupId &id, const QString &newName);
             //
             // Subscriptions
-            const SubscriptionId CreateSubscription(const QString &displayName, const QString &address);
+            const QvSubscriptionObject &GetSubscription(const SubscriptionId &id);
+            const SubscriptionId &CreateSubscription(const QString &displayName, const QString &address);
             optional<QString> RenameSubscription(const SubscriptionId &id, const QString &newName);
             optional<QString> DeleteSubscription(const SubscriptionId &id);
             optional<QString> UpdateSubscription(const SubscriptionId &id);
@@ -108,14 +110,14 @@ namespace Qv2ray::core::handlers
             QHash<ConnectionId, QvConnectionObject> connections;
             QHash<SubscriptionId, QvSubscriptionObject> subscriptions;
             //
-            QMap<ConnectionId, V2rayKernelInstance> kernelInstances;
+            QHash<ConnectionId, V2rayKernelInstance> kernelInstances;
     };
     //
     inline unique_ptr<Qv2ray::core::handlers::ConnectionHandler> connectionHandler = nullptr;
     //
     inline void InitialiseConnectionHandler()
     {
-        LOG(CORE_HANDLER, "Initializing ConnectionHandler...")
+        LOG(MODULE_CORE_HANDLER, "Initializing ConnectionHandler...")
         connectionHandler = make_unique<ConnectionHandler>();
     }
     //

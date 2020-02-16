@@ -38,7 +38,7 @@ namespace Qv2ray::core::connection
                 auto ssServer = StructFromJsonString<ShadowSocksServerObject>(JsonToString(outbound["settings"].toObject()["servers"].toArray().first().toObject()));
                 sharelink = ConvertConfigToSSString(ssServer, alias, isSip002);
             } else {
-                LOG(CONNECTION, "Unsupported outbound type: " + type)
+                LOG(MODULE_CONNECTION, "Unsupported outbound type: " + type)
             }
 
             return sharelink;
@@ -101,13 +101,13 @@ namespace Qv2ray::core::connection
 
             //auto ssUri = _ssUri.toStdString();
             if (ssUri.length() < 5) {
-                LOG(CONNECTION, "ss:// string too short")
+                LOG(MODULE_CONNECTION, "ss:// string too short")
                 *errMessage = QObject::tr("SS URI is too short");
             }
 
             auto uri = ssUri.mid(5);
             auto hashPos = uri.lastIndexOf("#");
-            DEBUG(CONNECTION, "Hash sign position: " + QSTRN(hashPos))
+            DEBUG(MODULE_CONNECTION, "Hash sign position: " + QSTRN(hashPos))
 
             if (hashPos >= 0) {
                 // Get the name/remark
@@ -123,13 +123,13 @@ namespace Qv2ray::core::connection
             //    uri.erase(pluginPos);
             //}
             auto atPos = uri.indexOf('@');
-            DEBUG(CONNECTION, "At sign position: " + QSTRN(atPos))
+            DEBUG(MODULE_CONNECTION, "At sign position: " + QSTRN(atPos))
 
             if (atPos < 0) {
                 // Old URI scheme
                 QString decoded = QByteArray::fromBase64(uri.toUtf8(), QByteArray::Base64Option::OmitTrailingEquals);
                 auto colonPos = decoded.indexOf(':');
-                DEBUG(CONNECTION, "Colon position: " + QSTRN(colonPos))
+                DEBUG(MODULE_CONNECTION, "Colon position: " + QSTRN(colonPos))
 
                 if (colonPos < 0) {
                     *errMessage = QObject::tr("Can't find the colon separator between method and password");
@@ -138,7 +138,7 @@ namespace Qv2ray::core::connection
                 server.method = decoded.left(colonPos);
                 decoded.remove(0, colonPos + 1);
                 atPos = decoded.lastIndexOf('@');
-                DEBUG(CONNECTION, "At sign position: " + QSTRN(atPos))
+                DEBUG(MODULE_CONNECTION, "At sign position: " + QSTRN(atPos))
 
                 if (atPos < 0) {
                     *errMessage = QObject::tr("Can't find the at separator between password and hostname");
@@ -147,7 +147,7 @@ namespace Qv2ray::core::connection
                 server.password = decoded.mid(0, atPos);
                 decoded.remove(0, atPos + 1);
                 colonPos = decoded.lastIndexOf(':');
-                DEBUG(CONNECTION, "Colon position: " + QSTRN(colonPos))
+                DEBUG(MODULE_CONNECTION, "Colon position: " + QSTRN(colonPos))
 
                 if (colonPos < 0) {
                     *errMessage = QObject::tr("Can't find the colon separator between hostname and port");
@@ -163,7 +163,7 @@ namespace Qv2ray::core::connection
                 QString userInfo = Base64Decode(x.userName());
                 auto userInfoSp = userInfo.indexOf(':');
                 //
-                DEBUG(CONNECTION, "Userinfo splitter position: " + QSTRN(userInfoSp))
+                DEBUG(MODULE_CONNECTION, "Userinfo splitter position: " + QSTRN(userInfoSp))
 
                 if (userInfoSp < 0) {
                     *errMessage = QObject::tr("Can't find the colon separator between method and password");
@@ -180,7 +180,7 @@ namespace Qv2ray::core::connection
             outbounds.append(GenerateOutboundEntry("shadowsocks", GenerateShadowSocksOUT(QList<ShadowSocksServerObject>() << server), QJsonObject()));
             JADD(outbounds)
             *alias = alias->isEmpty() ? d_name : *alias + "_" + d_name;
-            LOG(CONNECTION, "Deduced alias: " + *alias)
+            LOG(MODULE_CONNECTION, "Deduced alias: " + *alias)
             return root;
         }
 
@@ -189,12 +189,12 @@ namespace Qv2ray::core::connection
             auto myAlias = QUrl::toPercentEncoding(alias);
 
             if (isSip002) {
-                LOG(CONNECTION, "Converting an ss-server config to Sip002 ss:// format")
+                LOG(MODULE_CONNECTION, "Converting an ss-server config to Sip002 ss:// format")
                 QString plainUserInfo = server.method + ":" + server.password;
                 QString userinfo(plainUserInfo.toUtf8().toBase64(QByteArray::Base64Option::Base64UrlEncoding).data());
                 return "ss://" + userinfo + "@" + server.address + ":" + QSTRN(server.port) + "#" + myAlias;
             } else {
-                LOG(CONNECTION, "Converting an ss-server config to old ss:// string format")
+                LOG(MODULE_CONNECTION, "Converting an ss-server config to old ss:// string format")
                 QString ssUri = server.method + ":" + server.password + "@" + server.address + ":" + QSTRN(server.port);
                 return "ss://" + ssUri.toUtf8().toBase64(QByteArray::Base64Option::OmitTrailingEquals) + "#" + myAlias;
             }
@@ -205,11 +205,11 @@ namespace Qv2ray::core::connection
         CONFIGROOT ConvertConfigFromVMessString(const QString &vmessStr, QString *alias, QString *errMessage)
         {
 #define default CONFIGROOT()
-            LOG(SETTINGS, "Trying to convert from a vmess string.")
+            LOG(MODULE_SETTINGS, "Trying to convert from a vmess string.")
             QString vmess = vmessStr;
 
             if (vmess.trimmed() != vmess) {
-                LOG(SETTINGS, "VMess string has some prefix/postfix spaces, trimming.")
+                LOG(MODULE_SETTINGS, "VMess string has some prefix/postfix spaces, trimming.")
                 vmess = vmessStr.trimmed();
             }
 
@@ -264,7 +264,7 @@ namespace Qv2ray::core::connection
                 //return flag ? 0 : 1;
             } catch (exception *e) {
                 *errMessage = e->what();
-                LOG(IMPORT, "Failed to decode vmess string: " + *errMessage)
+                LOG(MODULE_IMPORT, "Failed to decode vmess string: " + *errMessage)
                 delete e;
                 return default;
             }
@@ -292,15 +292,15 @@ namespace Qv2ray::core::connection
         if (vmessConf.contains(#key) && !vmessConf[#key].toVariant().toString().trimmed().isEmpty() \
             && (val.size() <= 1 || val.contains(vmessConf[#key].toVariant().toString()))) {\
             key = vmessConf[#key].toVariant().toString();\
-            DEBUG(IMPORT, "Found key \"" #key "\" within the vmess object.")\
+            DEBUG(MODULE_IMPORT, "Found key \"" #key "\" within the vmess object.")\
         } else if (!val.isEmpty()) {\
             key = val.first(); \
-            DEBUG(IMPORT, "Using key \"" #key "\" from the first candidate list: " + key)\
+            DEBUG(MODULE_IMPORT, "Using key \"" #key "\" from the first candidate list: " + key)\
         } else{\
             *errMessage = QObject::tr(#key " does not exist."); \
-            LOG(IMPORT, "Cannot process \"" #key "\" since it's not included in the json object." ) \
-            LOG(IMPORT, " --> values: " + val.join(";")) \
-            LOG(IMPORT, " --> PS: " + ps) \
+            LOG(MODULE_IMPORT, "Cannot process \"" #key "\" since it's not included in the json object." ) \
+            LOG(MODULE_IMPORT, " --> values: " + val.join(";")) \
+            LOG(MODULE_IMPORT, " --> PS: " + ps) \
         }\
     }
             // Strict check of VMess protocol, to check if the specified value is in the correct range.

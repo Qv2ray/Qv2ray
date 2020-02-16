@@ -36,22 +36,22 @@ namespace Qv2ray::common
             return CommandLineHelpRequested;
 
         if (parser.isSet(noAPIOption)) {
-            DEBUG(INIT, "noAPIOption is set.")
+            DEBUG(MODULE_INIT, "noAPIOption is set.")
             StartupOption.noAPI = true;
         }
 
         if (parser.isSet(runAsRootOption)) {
-            DEBUG(INIT, "runAsRootOption is set.")
+            DEBUG(MODULE_INIT, "runAsRootOption is set.")
             StartupOption.forceRunAsRootUser = true;
         }
 
         if (parser.isSet(debugOption)) {
-            DEBUG(INIT, "debugOption is set.")
+            DEBUG(MODULE_INIT, "debugOption is set.")
             StartupOption.debugLog = true;
         }
 
         if (parser.isSet(withToolbarOption)) {
-            DEBUG(INIT, "withToolbarOption is set.")
+            DEBUG(MODULE_INIT, "withToolbarOption is set.")
             StartupOption.enableToolbarPlguin = true;
         }
 
