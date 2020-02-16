@@ -255,18 +255,17 @@ void MainWindow::SetEditWidgetEnable(bool enabled)
 void MainWindow::mouseReleaseEvent(QMouseEvent *e)
 {
     Q_UNUSED(e)
-
-    // If mouse is on the logLabel, switch log source.
-    if (logLabel->underMouse()) {
-        //auto layout = masterLogBrowser->document()->setDocumentLayout()
-        currentLogBrowserId = (currentLogBrowserId + 1) % logTextBrowsers.count();
-        masterLogBrowser->setDocument(currentLogBrowser->document());
-        masterLogBrowser->document()->setDocumentMargin(4);
-        masterLogBrowser->document()->adjustSize();
-        masterLogBrowser->setLineWrapMode(QTextBrowser::LineWrapMode::NoWrap);
-        auto bar = masterLogBrowser->verticalScrollBar();
-        bar->setValue(bar->maximum());
-    }
+    //// If mouse is on the logLabel, switch log source.
+    //if (logbox->underMouse()) {
+    //    //auto layout = masterLogBrowser->document()->setDocumentLayout()
+    //    currentLogBrowserId = (currentLogBrowserId + 1) % logTextBrowsers.count();
+    //    masterLogBrowser->setDocument(currentLogBrowser->document());
+    //    masterLogBrowser->document()->setDocumentMargin(4);
+    //    masterLogBrowser->document()->adjustSize();
+    //    masterLogBrowser->setLineWrapMode(QTextBrowser::LineWrapMode::NoWrap);
+    //    auto bar = masterLogBrowser->verticalScrollBar();
+    //    bar->setValue(bar->maximum());
+    //}
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *e)

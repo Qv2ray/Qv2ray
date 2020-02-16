@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>928</width>
-    <height>640</height>
+    <width>865</width>
+    <height>659</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -38,9 +38,9 @@
      <height>530</height>
     </size>
    </property>
-   <layout class="QGridLayout" name="gridLayout">
+   <layout class="QGridLayout" name="gridLayout" columnstretch="5,8">
     <item row="0" column="0" colspan="2">
-     <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1,0,1,0,0,0,0">
+     <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1,0,1,0,0,0">
       <property name="spacing">
        <number>5</number>
       </property>
@@ -105,30 +105,10 @@
         </property>
        </spacer>
       </item>
-      <item>
-       <widget class="QLabel" name="statusLabel">
-        <property name="cursor">
-         <cursorShape>IBeamCursor</cursorShape>
-        </property>
-        <property name="text">
-         <string>Stopped</string>
-        </property>
-        <property name="textInteractionFlags">
-         <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-        </property>
-       </widget>
-      </item>
      </layout>
     </item>
     <item row="1" column="0">
-     <layout class="QVBoxLayout" name="verticalLayout_3">
-      <item>
-       <widget class="QLabel" name="label_14">
-        <property name="text">
-         <string>Host List</string>
-        </property>
-       </widget>
-      </item>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
        <widget class="QTreeWidget" name="connectionListWidget">
         <property name="contextMenuPolicy">
@@ -203,22 +183,6 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="duplicateBtn">
-          <property name="toolTip">
-           <string>Duplicate connection</string>
-          </property>
-          <property name="text">
-           <string>Duplicate</string>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>22</width>
-            <height>22</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-        <item>
          <widget class="QPushButton" name="removeConfigButton">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -231,22 +195,6 @@
           </property>
           <property name="text">
            <string>Delete</string>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>22</width>
-            <height>22</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="editConfigButton">
-          <property name="toolTip">
-           <string>Edit connection</string>
-          </property>
-          <property name="text">
-           <string>Edit</string>
           </property>
           <property name="iconSize">
            <size>
@@ -273,15 +221,158 @@
       </item>
      </layout>
     </item>
-    <item row="1" column="1">
-     <layout class="QVBoxLayout" name="verticalLayout_2">
+    <item row="2" column="0" colspan="2">
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
-       <widget class="QGroupBox" name="groupBox">
-        <property name="title">
-         <string>Config Details</string>
+       <widget class="QLabel" name="label_8">
+        <property name="minimumSize">
+         <size>
+          <width>300</width>
+          <height>0</height>
+         </size>
         </property>
-        <layout class="QVBoxLayout" name="verticalLayout" stretch="1,0,0">
-         <item>
+        <property name="text">
+         <string>Connection Status</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_5">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_5">
+        <property name="text">
+         <string>Speed</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" name="updownImageBox" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>32</horstretch>
+          <verstretch>32</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>25</width>
+          <height>25</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="netspeedLabel">
+        <property name="minimumSize">
+         <size>
+          <width>85</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>8</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>0.00 B/s
+0.00 B/s</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_6">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Data</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" name="updownImageBox_2" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>32</horstretch>
+          <verstretch>32</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>25</width>
+          <height>25</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="dataamountLabel">
+        <property name="minimumSize">
+         <size>
+          <width>85</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>8</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>0.00 B
+0.00 B</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="1" column="1">
+     <widget class="QScrollArea" name="scrollArea">
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="widgetResizable">
+       <bool>true</bool>
+      </property>
+      <widget class="QWidget" name="scrollAreaWidgetContents">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>504</width>
+         <height>759</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QGroupBox" name="groupBox">
+          <property name="title">
+           <string>Config Details</string>
+          </property>
           <layout class="QFormLayout" name="formLayout">
            <item row="0" column="0">
             <widget class="QLabel" name="label_4">
@@ -363,262 +454,271 @@
              </property>
             </widget>
            </item>
-           <item row="4" column="0">
-            <widget class="QLabel" name="label_8">
-             <property name="text">
-              <string>Latency</string>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="1">
-            <widget class="QLabel" name="latencyLabel">
-             <property name="cursor">
-              <cursorShape>IBeamCursor</cursorShape>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-             <property name="textInteractionFlags">
-              <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-             </property>
-            </widget>
-           </item>
           </layout>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_7">
-           <property name="text">
-            <string>Operations</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_4">
-           <item>
-            <spacer name="horizontalSpacer_4">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item>
-            <widget class="QPushButton" name="editJsonBtn">
-             <property name="toolTip">
-              <string>Edit connection as JSON</string>
-             </property>
-             <property name="text">
-              <string>Edit JSON</string>
-             </property>
-             <property name="iconSize">
-              <size>
-               <width>22</width>
-               <height>22</height>
-              </size>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="pingTestBtn">
-             <property name="enabled">
-              <bool>true</bool>
-             </property>
-             <property name="text">
-              <string>Ping Test</string>
-             </property>
-             <property name="iconSize">
-              <size>
-               <width>22</width>
-               <height>22</height>
-              </size>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="shareBtn">
-             <property name="text">
-              <string>Share</string>
-             </property>
-             <property name="iconSize">
-              <size>
-               <width>22</width>
-               <height>22</height>
-              </size>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <spacer name="horizontalSpacer_9">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item>
-       <layout class="QGridLayout" name="gridLayout_3" rowstretch="0,1" columnstretch="7,5">
-        <item row="0" column="0">
-         <widget class="QLabel" name="logLabel">
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_7">
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
           <property name="text">
-           <string>Log (click to switch log source)</string>
+           <string>Operations</string>
           </property>
          </widget>
         </item>
-        <item row="0" column="1">
-         <widget class="QLabel" name="label_10">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <item>
+           <spacer name="horizontalSpacer_4">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="duplicateBtn">
+            <property name="toolTip">
+             <string>Duplicate connection</string>
+            </property>
+            <property name="text">
+             <string>Duplicate</string>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>22</width>
+              <height>22</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="editConfigButton">
+            <property name="toolTip">
+             <string>Edit connection</string>
+            </property>
+            <property name="text">
+             <string>Edit</string>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>22</width>
+              <height>22</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="editJsonBtn">
+            <property name="toolTip">
+             <string>Edit connection as JSON</string>
+            </property>
+            <property name="text">
+             <string>Edit JSON</string>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>22</width>
+              <height>22</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pingTestBtn">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
+            <property name="text">
+             <string>Ping Test</string>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>22</width>
+              <height>22</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="shareBtn">
+            <property name="text">
+             <string>Share</string>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>22</width>
+              <height>22</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_9">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_9">
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>Speed Graph</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="0">
-         <widget class="QTextBrowser" name="masterLogBrowser"/>
-        </item>
-        <item row="1" column="1">
-         <layout class="QGridLayout" name="speedChart"/>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="1,1">
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_5">
-          <item>
-           <widget class="QLabel" name="label_5">
-            <property name="text">
-             <string>Speed</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QWidget" name="updownImageBox" native="true">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>32</horstretch>
-              <verstretch>32</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>25</width>
-              <height>25</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="netspeedLabel">
-            <property name="font">
-             <font>
-              <pointsize>8</pointsize>
-             </font>
-            </property>
-            <property name="text">
-             <string>0.00 B/s
-0.00 B/s</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_6">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
+         <widget class="QWidget" name="widget" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>250</height>
+           </size>
+          </property>
+          <layout class="QGridLayout" name="speedChart">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+          </layout>
+         </widget>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_2">
-          <item>
-           <widget class="QLabel" name="label_6">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="text">
-             <string>Data</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QWidget" name="updownImageBox_2" native="true">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>32</horstretch>
-              <verstretch>32</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>25</width>
-              <height>25</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="dataamountLabel">
-            <property name="font">
-             <font>
-              <pointsize>8</pointsize>
-             </font>
-            </property>
-            <property name="text">
-             <string>0.00 B
-0.00 B</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_7">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
+         <widget class="QLabel" name="label_10">
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Log</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QTextBrowser" name="masterLogBrowser">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>250</height>
+           </size>
+          </property>
+         </widget>
         </item>
        </layout>
-      </item>
-     </layout>
+      </widget>
+     </widget>
     </item>
    </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>865</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <widget class="QMenu" name="menuImport_Connection">
+     <property name="title">
+      <string>Import Connection</string>
+     </property>
+     <addaction name="actionFrom_File"/>
+     <addaction name="actionFrom_Connection_Link"/>
+     <addaction name="actionFrom_QRCode_File"/>
+     <addaction name="actionTake_ScreenShot"/>
+     <addaction name="separator"/>
+     <addaction name="actionManually_Create_Connection"/>
+     <addaction name="actionManually_Create_Complex_Connection"/>
+    </widget>
+    <widget class="QMenu" name="menuExport_Connection">
+     <property name="title">
+      <string>Export Connection</string>
+     </property>
+     <addaction name="actionCopy_Connection_Link"/>
+     <addaction name="actionCopy_QRCode"/>
+     <addaction name="actionSave_QRCode"/>
+    </widget>
+    <addaction name="menuImport_Connection"/>
+    <addaction name="menuExport_Connection"/>
+    <addaction name="separator"/>
+    <addaction name="actionOpen_Qv2ray_Configuration_Folder"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit_2"/>
+   </widget>
+   <widget class="QMenu" name="menuSubscriptions">
+    <property name="title">
+     <string>Subscriptions</string>
+    </property>
+    <widget class="QMenu" name="menuUpdate_Subscriptions">
+     <property name="title">
+      <string>Update Subscriptions</string>
+     </property>
+     <addaction name="actionUpdate_All_Subscriptions"/>
+     <addaction name="actionUpdate_All_Subscriptions_with_System_Proxy"/>
+     <addaction name="separator"/>
+    </widget>
+    <addaction name="actionSubscription_Manager"/>
+    <addaction name="separator"/>
+    <addaction name="menuUpdate_Subscriptions"/>
+   </widget>
+   <widget class="QMenu" name="menuTools">
+    <property name="title">
+     <string>Tools</string>
+    </property>
+    <addaction name="actionJson_Editor"/>
+    <addaction name="separator"/>
+    <addaction name="actionOptions"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionSave_Qv2ray_Log"/>
+    <addaction name="separator"/>
+    <addaction name="actionAbout_Qt"/>
+    <addaction name="actionAbout_Qv2ray"/>
+    <addaction name="separator"/>
+    <addaction name="actionHelp"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuSubscriptions"/>
+   <addaction name="menuTools"/>
+   <addaction name="menuHelp"/>
   </widget>
   <action name="actionEdit">
    <property name="text">
@@ -655,6 +755,126 @@
     <string>#Restart</string>
    </property>
   </action>
+  <action name="actionImport_from_vmess">
+   <property name="text">
+    <string>Import from vmess://</string>
+   </property>
+  </action>
+  <action name="actionImport_from_QRCode_File">
+   <property name="text">
+    <string>Import from QRCode File</string>
+   </property>
+  </action>
+  <action name="actionImport_from_ScreenShot">
+   <property name="text">
+    <string>Import from ScreenShot</string>
+   </property>
+  </action>
+  <action name="actionOpen_Qv2ray_Configuration_Folder">
+   <property name="text">
+    <string>Open Configuration Folder</string>
+   </property>
+  </action>
+  <action name="actionExit_2">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionFrom_File">
+   <property name="text">
+    <string>From File</string>
+   </property>
+  </action>
+  <action name="actionFrom_Connection_Link">
+   <property name="text">
+    <string>From Connection Link</string>
+   </property>
+  </action>
+  <action name="actionFrom_QRCode_File">
+   <property name="text">
+    <string>From QRCode File</string>
+   </property>
+  </action>
+  <action name="actionTake_ScreenShot">
+   <property name="text">
+    <string>Take ScreenShot</string>
+   </property>
+  </action>
+  <action name="actionOpen_Connection_Editor">
+   <property name="text">
+    <string>Open Connection Editor</string>
+   </property>
+  </action>
+  <action name="actionManually_Create_Connection">
+   <property name="text">
+    <string>Manually Create Connection</string>
+   </property>
+  </action>
+  <action name="actionManually_Create_Complex_Connection">
+   <property name="text">
+    <string>Manually Create Complex Connection</string>
+   </property>
+  </action>
+  <action name="actionCopy_Connection_Link">
+   <property name="text">
+    <string>Copy Connection Link</string>
+   </property>
+  </action>
+  <action name="actionCopy_QRCode">
+   <property name="text">
+    <string>Copy QRCode</string>
+   </property>
+  </action>
+  <action name="actionSave_QRCode">
+   <property name="text">
+    <string>Save QRCode to File</string>
+   </property>
+  </action>
+  <action name="actionSubscription_Manager">
+   <property name="text">
+    <string>Open Subscription Manager</string>
+   </property>
+  </action>
+  <action name="actionUpdate_All_Subscriptions">
+   <property name="text">
+    <string>Update All Subscriptions</string>
+   </property>
+  </action>
+  <action name="actionUpdate_All_Subscriptions_with_System_Proxy">
+   <property name="text">
+    <string>Update All Subscriptions with System Proxy</string>
+   </property>
+  </action>
+  <action name="actionOptions">
+   <property name="text">
+    <string>Options</string>
+   </property>
+  </action>
+  <action name="actionAbout_Qt">
+   <property name="text">
+    <string>About Qt</string>
+   </property>
+  </action>
+  <action name="actionAbout_Qv2ray">
+   <property name="text">
+    <string>About Qv2ray</string>
+   </property>
+  </action>
+  <action name="actionHelp">
+   <property name="text">
+    <string>Help</string>
+   </property>
+  </action>
+  <action name="actionSave_Qv2ray_Log">
+   <property name="text">
+    <string>Save Qv2ray Log</string>
+   </property>
+  </action>
+  <action name="actionJson_Editor">
+   <property name="text">
+    <string>Json Editor</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <tabstops>
@@ -666,13 +886,10 @@
   <tabstop>preferencesBtn</tabstop>
   <tabstop>connectionListWidget</tabstop>
   <tabstop>importConfigButton</tabstop>
-  <tabstop>duplicateBtn</tabstop>
   <tabstop>removeConfigButton</tabstop>
-  <tabstop>editConfigButton</tabstop>
   <tabstop>editJsonBtn</tabstop>
   <tabstop>pingTestBtn</tabstop>
   <tabstop>shareBtn</tabstop>
-  <tabstop>masterLogBrowser</tabstop>
  </tabstops>
  <resources/>
  <connections/>

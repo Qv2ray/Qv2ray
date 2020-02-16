@@ -20,7 +20,7 @@
       <widget class="QLabel" name="connNameLabel">
        <property name="font">
         <font>
-         <pointsize>13</pointsize>
+         <pointsize>12</pointsize>
         </font>
        </property>
        <property name="text">

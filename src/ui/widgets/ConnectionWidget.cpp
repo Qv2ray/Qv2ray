@@ -3,4 +3,5 @@
 
 ConnectionWidget::~ConnectionWidget()
 {
+    //
 }

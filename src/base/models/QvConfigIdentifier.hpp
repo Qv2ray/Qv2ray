@@ -28,10 +28,11 @@ namespace Qv2ray::base
     struct QvConnectionObject {
         QString displayName;
         int64_t importDate;
+        int64_t lastConnected;
         int64_t latency;
         int64_t upLinkData;
         int64_t downLinkData;
-        QvConnectionObject(): displayName(), importDate(system_clock::to_time_t(system_clock::now())), latency(0), upLinkData(0), downLinkData(0) { }
-        XTOSTRUCT(O(displayName, importDate, latency, upLinkData, downLinkData))
+        QvConnectionObject(): displayName(), importDate(system_clock::to_time_t(system_clock::now())), lastConnected(), latency(0), upLinkData(0), downLinkData(0) { }
+        XTOSTRUCT(O(displayName, importDate, lastConnected, latency, upLinkData, downLinkData))
     };
 }

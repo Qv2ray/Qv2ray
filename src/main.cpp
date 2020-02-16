@@ -447,6 +447,7 @@ int main(int argc, char *argv[])
     }
 
 #endif
+    //_qApp.setAttribute(Qt::AA_DontUseNativeMenuBar);
     // Initialise Connection Handler
     InitialiseConnectionHandler();
     // Show MainWindow
@@ -455,7 +456,7 @@ int main(int argc, char *argv[])
 
     try {
 #endif
-        QObject::connect(&_qApp, &SingleApplication::instanceStarted, [&w]() {
+        QObject::connect(&_qApp, &SingleApplication::instanceStarted, [&]() {
             // When a second instance is connected, show the mainwindow.
             w.show();
             w.raise();

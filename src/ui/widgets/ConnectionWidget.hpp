@@ -46,7 +46,7 @@ class ConnectionWidget : public QWidget, private Ui::ConnectionWidget
         }
         void InitialiseForGroups(const QString &displayName, int connectionCount)
         {
-            connNameLabel->setText(tr("Group: ") + displayName);
+            connNameLabel->setText(displayName);
             latencyLabel->setText(QSTRN(connectionCount) + " " + (connectionCount < 2 ? tr("connection") : tr("connections")));
             //
             layout()->removeWidget(connTypeLabel);
