@@ -407,7 +407,7 @@ int main(int argc, char *argv[])
     LOG(UI, "Using built-in theme.")
 
     if (confObject.uiConfig.useDarkTheme) {
-        LOG(UI, " --> Using built-in dark theme.")
+        LOG(MODULE_UI, " --> Using built-in dark theme.")
         // From https://forum.qt.io/topic/101391/windows-10-dark-theme/4
         _qApp.setStyle("Fusion");
         QPalette darkPalette;
@@ -482,7 +482,7 @@ int main(int argc, char *argv[])
 #ifndef QT_DEBUG
     }  catch (...) {
         QvMessageBoxWarn(nullptr, "ERROR", "There's something wrong happened and Qv2ray will quit now.");
-        LOG(INIT, "EXCEPTION THROWN: " __FILE__)
+        LOG(MODULE_INIT, "EXCEPTION THROWN: " __FILE__)
         return -99;
     }
 

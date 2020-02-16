@@ -34,9 +34,7 @@
 
 #define TRAY_TOOLTIP_PREFIX "Qv2ray " QV2RAY_VERSION_STRING
 //
-#define vCoreLogBrowser this->logTextBrowsers[0]
-#define qvAppLogBrowser this->logTextBrowsers[1]
-#define currentLogBrowser this->logTextBrowsers[currentLogBrowserId]
+#define GetItemWidget(item) (static_cast<ConnectionWidget*>(connectionListWidget->itemWidget(item, 0)))
 //
 //#define ItemConnectionIdentifier(__item__) (__item__->data(0, Qt::UserRole).value<ConnectionIdentifier>())
 //
@@ -106,20 +104,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent)//, vinstance(), hTr
     setupUi(this);
     QvMessageBusConnect(MainWindow);
     //
-    // Two browsers
-    logTextBrowsers.append(new QTextBrowser());
-    logTextBrowsers.append(new QTextBrowser());
-    vCoreLogBrowser->setFontPointSize(8);
-    vCoreLogBrowser->setReadOnly(true);
-    vCoreLogBrowser->setLineWrapMode(QTextBrowser::LineWrapMode::NoWrap);
-    qvAppLogBrowser->setFontPointSize(8);
-    qvAppLogBrowser->setReadOnly(true);
-    qvAppLogBrowser->setLineWrapMode(QTextBrowser::LineWrapMode::NoWrap);
-    //
-    vCoreLogHighlighter = new SyntaxHighlighter(GlobalConfig.uiConfig.useDarkTheme, vCoreLogBrowser->document());
-    qvAppLogHighlighter = new SyntaxHighlighter(GlobalConfig.uiConfig.useDarkTheme, qvAppLogBrowser->document());
-    currentLogBrowserId = 0;
-    masterLogBrowser->setDocument(currentLogBrowser->document());
+    vCoreLogHighlighter = new SyntaxHighlighter(GlobalConfig.uiConfig.useDarkTheme, masterLogBrowser->document());
     masterLogBrowser->document()->setDocumentMargin(8);
     masterLogBrowser->document()->adjustSize();
     masterLogBrowser->setLineWrapMode(QTextBrowser::LineWrapMode::NoWrap);
@@ -332,33 +317,33 @@ void MainWindow::VersionUpdate(QByteArray &data)
 void MainWindow::OnConfigListChanged(bool need_restart)
 {
     LOG(MODULE_UI, "Loading data...")
-    auto groups = connectionHandler->Groups();
+    auto groups = ConnectionHandler->Groups();
 
     for (auto group : groups) {
         auto groupItem = new QTreeWidgetItem();
         connectionListWidget->addTopLevelItem(groupItem);
         connectionListWidget->setItemWidget(groupItem, 0, new ConnectionWidget(group, connectionListWidget));
-        auto connections = connectionHandler->Connections(group);
+        auto connections = ConnectionHandler->Connections(group);
 
         for (auto connection : connections) {
             auto connectionItem = new QTreeWidgetItem();
             groupItem->addChild(connectionItem);
-            connectionListWidget->setItemWidget(connectionItem, 0, new ConnectionWidget(connection, connectionListWidget));
+            connectionListWidget->setItemWidget(connectionItem, 0, new ConnectionWidget(group, connection, connectionListWidget));
         }
     }
 
-    auto subscriptions = connectionHandler->Subscriptions();
+    auto subscriptions = ConnectionHandler->Subscriptions();
 
     for (auto subscription : subscriptions) {
         auto subscriptionItem = new QTreeWidgetItem();
         connectionListWidget->addTopLevelItem(subscriptionItem);
         connectionListWidget->setItemWidget(subscriptionItem, 0, new ConnectionWidget(subscription, connectionListWidget));
-        auto connections = connectionHandler->Connections(subscription);
+        auto connections = ConnectionHandler->Connections(subscription);
 
         for (auto connection : connections) {
             auto connectionItem = new QTreeWidgetItem();
             subscriptionItem->addChild(connectionItem);
-            connectionListWidget->setItemWidget(connectionItem, 0, new ConnectionWidget(connection, connectionListWidget));
+            connectionListWidget->setItemWidget(connectionItem, 0, new ConnectionWidget(subscription, connection, connectionListWidget));
         }
     }
 
@@ -441,12 +426,8 @@ MainWindow::~MainWindow()
 }
 void MainWindow::UpdateVCoreLog(const QString &log)
 {
-    vCoreLogBrowser->append(log);
-    CleanUpLogs(vCoreLogBrowser)
-    setMasterLogHBar();
-}
-void MainWindow::setMasterLogHBar()
-{
+    masterLogBrowser->append(log);
+    CleanUpLogs(masterLogBrowser)
     auto bar = masterLogBrowser->verticalScrollBar();
     auto max = bar->maximum();
     auto val = bar->value();
@@ -456,44 +437,6 @@ void MainWindow::setMasterLogHBar()
 }
 void MainWindow::on_startButton_clicked()
 {
-    //if (!vinstance->KernelStarted) {
-    //    vCoreLogBrowser->clear();
-    //    speedChartView->Clear();
-    //
-    //    // Check Selection
-    //    if (CurrentConnectionIdentifier.isEmpty()) {
-    //        QvMessageBoxWarn(this, tr("No connection selected!"), tr("Please select a config from the list."));
-    //        return;
-    //    }
-    //
-    //    auto name = CurrentConnectionIdentifier.IdentifierString();
-    //    LOG(VCORE, "Connecting to: " + name)
-    //    vCoreLogBrowser->clear();
-    //    bool startFlag = MWtryStartConnection();
-    //
-    //    if (startFlag) {
-    //        MWTryPingConnection(name);
-    //        speedTimerId = startTimer(1000);
-    //        pingTimerId = startTimer(60000);
-    //        this->hTray.showMessage("Qv2ray", tr("Connected: ") + name, this->windowIcon());
-    //        hTray.setToolTip(TRAY_TOOLTIP_PREFIX NEWLINE + tr("Connected: ") + name);
-    //        statusLabel->setText(tr("Connected: ") + name);
-    //    } else {
-    //        // If failed, show mainwindow
-    //        this->show();
-    //    }
-    //
-    //    // Menu actions
-    //    action_Tray_Start->setEnabled(!startFlag);
-    //    action_Tray_Stop->setEnabled(startFlag);
-    //    action_Tray_Reconnect->setEnabled(startFlag);
-    //    tray_SystemProxyMenu->setEnabled(startFlag);
-    //    // Buttons
-    //    startButton->setEnabled(!startFlag);
-    //    stopButton->setEnabled(startFlag);
-    //} else {
-    //    this->hTray.showMessage("Qv2ray", tr("Already connected to: ") + CurrentConnectionIdentifier.IdentifierString(), this->windowIcon());
-    //}
 }
 
 void MainWindow::on_stopButton_clicked()
@@ -646,7 +589,7 @@ void MainWindow::on_connectionListWidget_doubleClicked(const QModelIndex &index)
 }
 void MainWindow::on_clearlogButton_clicked()
 {
-    vCoreLogBrowser->clear();
+    masterLogBrowser->clear();
 }
 void MainWindow::on_connectionListWidget_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous)
 {
@@ -1100,4 +1043,14 @@ void MainWindow::on_connectionListWidget_itemSelectionChanged()
     //        CurrentSelectedItemPtr = connectionListWidget->selectedItems().first();
     //    }
     //}
+}
+
+void MainWindow::on_connectionListWidget_itemDoubleClicked(QTreeWidgetItem *item, int column)
+{
+    Q_UNUSED(column)
+    auto widget = GetItemWidget(item);
+
+    if (widget->IsConnection()) {
+        widget->BeginConnection();
+    }
 }

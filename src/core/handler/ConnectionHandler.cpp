@@ -1,4 +1,5 @@
 #include "ConnectionHandler.hpp"
+#include "core/connection/ConnectionIO.hpp"
 
 namespace Qv2ray::core::handlers
 {
@@ -14,7 +15,7 @@ namespace Qv2ray::core::handlers
         return list;
     }
 
-    ConnectionHandler::ConnectionHandler()
+    QvConnectionHandler::QvConnectionHandler()
     {
         DEBUG(MODULE_CORE_HANDLER, "ConnectionHandler Constructor.")
 
@@ -34,28 +35,28 @@ namespace Qv2ray::core::handlers
         saveTimerId = startTimer(60000);
     }
 
-    const QList<GroupId> ConnectionHandler::Groups() const
+    const QList<GroupId> QvConnectionHandler::Groups() const
     {
         return groups.keys();
     }
-    const QList<SubscriptionId> ConnectionHandler::Subscriptions() const
+    const QList<SubscriptionId> QvConnectionHandler::Subscriptions() const
     {
         return subscriptions.keys();
     }
-    const QList<ConnectionId> ConnectionHandler::Connections() const
+    const QList<ConnectionId> QvConnectionHandler::Connections() const
     {
         return connections.keys();
     }
-    const QList<ConnectionId> ConnectionHandler::Connections(const GroupId &groupId) const
+    const QList<ConnectionId> QvConnectionHandler::Connections(const GroupId &groupId) const
     {
         return StringsToIdList<ConnectionId>(groups[groupId].connections);
     }
-    const QList<ConnectionId> ConnectionHandler::Connections(const SubscriptionId &subscriptionId) const
+    const QList<ConnectionId> QvConnectionHandler::Connections(const SubscriptionId &subscriptionId) const
     {
         return StringsToIdList<ConnectionId>(subscriptions[subscriptionId].connections);
     }
 
-    const QvConnectionObject &ConnectionHandler::GetConnection(const ConnectionId &id)
+    const QvConnectionObject &QvConnectionHandler::GetConnection(const ConnectionId &id)
     {
         if (!connections.contains(id)) {
             LOG(MODULE_CORE_HANDLER, "Cannot find id: " + id.toString());
@@ -64,16 +65,44 @@ namespace Qv2ray::core::handlers
         return connections[id];
     }
 
-    const QvGroupObject &ConnectionHandler::GetGroup(const GroupId &id)
+    const QvGroupObject &QvConnectionHandler::GetGroup(const GroupId &id)
     {
         return groups[id];
     }
 
-    const QvSubscriptionObject &ConnectionHandler::GetSubscription(const SubscriptionId &id)
+    const QvSubscriptionObject &QvConnectionHandler::GetSubscription(const SubscriptionId &id)
     {
         return subscriptions[id];
     }
-    ConnectionHandler::~ConnectionHandler()
+    optional<QString> QvConnectionHandler::StartConnection(const SubscriptionId &group, const ConnectionId &id)
+    {
+        //
+        return "";
+    }
+    optional<QString> QvConnectionHandler::StartConnection(const GroupId &group, const ConnectionId &id)
+    {
+        //if (!kernelInstance->KernelStarted) {
+        //    // Check Selection
+        //    if (!connections.contains(id)) {
+        //        return tr("No connection selected!") + NEWLINE + tr("Please select a config from the list.");
+        //    }
+        //
+        //    bool startFlag = CHTryStartConnection();
+        //
+        //    if (startFlag) {
+        //        MWTryPingConnection(name);
+        //        speedTimerId = startTimer(1000);
+        //        pingTimerId = startTimer(60000);
+        //        this->hTray.showMessage("Qv2ray", tr("Connected: ") + name, this->windowIcon());
+        //        hTray.setToolTip(TRAY_TOOLTIP_PREFIX NEWLINE + tr("Connected: ") + name);
+        //        statusLabel->setText(tr("Connected: ") + name);
+        //    }
+        //} else {
+        //    this->hTray.showMessage("Qv2ray", tr("Already connected to: ") + CurrentConnectionIdentifier.IdentifierString(), this->windowIcon());
+        //}
+        return "";
+    }
+    QvConnectionHandler::~QvConnectionHandler()
     {
     }
 }

@@ -5,7 +5,7 @@
 #include "core/handler/ConnectionHandler.hpp"
 
 enum CONNECTION_ITEM_TYPE {
-    CONNECTION,
+    INVALID,
     GROUP,
     SUBSCRIPTION
 };
@@ -14,29 +14,58 @@ class ConnectionWidget : public QWidget, private Ui::ConnectionWidget
 {
         Q_OBJECT
     public:
-        CONNECTION_ITEM_TYPE type;
-        explicit ConnectionWidget(const ConnectionId &id, QWidget *parent = nullptr): ConnectionWidget(parent)
-        {
-            type = CONNECTION;
-            connectionId = id;
-            //
-            auto connection = connectionHandler->GetConnection(id);
-            connNameLabel->setText(connection.displayName);
-            latencyLabel->setText(tr("Latency: ") + QSTRN(connection.latency) + " " + tr("ms"));
-        }
-        explicit ConnectionWidget(const GroupId &id, QWidget *parent = nullptr) : ConnectionWidget(parent)
+        //
+        // ======================================= Initialisation for connection nodes.
+        //
+        explicit ConnectionWidget(const GroupId &group, const ConnectionId &id, QWidget *parent = nullptr): ConnectionWidget(parent)
         {
             type = GROUP;
+            connectionId = id;
+            groupId = group;
+            InitialiseForConnection(id);
+        }
+        explicit ConnectionWidget(const SubscriptionId &group, const ConnectionId &id, QWidget *parent = nullptr): ConnectionWidget(parent)
+        {
+            type = SUBSCRIPTION;
+            connectionId = id;
+            subscriptionId = group;
+            InitialiseForConnection(id);
+        }
+        //
+        // ======================================= Initialisation for root nodes.
+        //
+        explicit ConnectionWidget(const GroupId &id, QWidget *parent = nullptr) : ConnectionWidget(parent)
+        {
+            type = INVALID;
             groupId = id;
-            InitialiseForGroups(connectionHandler->GetGroup(id).displayName, connectionHandler->Connections(id).count());
+            InitialiseForGroup(ConnectionHandler->GetGroup(id).displayName, ConnectionHandler->Connections(id).count());
         }
         explicit ConnectionWidget(const SubscriptionId &id, QWidget *parent = nullptr) : ConnectionWidget(parent)
         {
-            type = SUBSCRIPTION;
+            type = INVALID;
             subscriptionId = id;
-            InitialiseForGroups(connectionHandler->GetSubscription(id).displayName, connectionHandler->Connections(id).count());
+            InitialiseForGroup(ConnectionHandler->GetSubscription(id).displayName, ConnectionHandler->Connections(id).count());
         }
-        ~ConnectionWidget();
+        inline bool IsConnection() const
+        {
+            return isConnectionItem;
+        }
+        void BeginConnection()
+        {
+            if (isConnectionItem) {
+                if (type == GROUP) {
+                    ConnectionHandler->StartConnection(groupId, connectionId);
+                } else {
+                    ConnectionHandler->StartConnection(subscriptionId, connectionId);
+                }
+            } else {
+                LOG(MODULE_UI, "Trying to start a non-connection entry, this call is illegal.")
+            }
+        }
+        ~ConnectionWidget()
+        {
+            //
+        }
         Q_DISABLE_COPY_MOVE(ConnectionWidget)
 
     private:
@@ -44,9 +73,18 @@ class ConnectionWidget : public QWidget, private Ui::ConnectionWidget
         {
             setupUi(this);
         }
-        void InitialiseForGroups(const QString &displayName, int connectionCount)
+        void InitialiseForConnection(const ConnectionId &id)
         {
-            connNameLabel->setText(displayName);
+            isConnectionItem = true;
+            auto connection = ConnectionHandler->GetConnection(id);
+            rawDisplayName = connection.displayName;
+            connNameLabel->setText(rawDisplayName);
+            latencyLabel->setText(tr("Latency: ") + QSTRN(connection.latency) + " " + tr("ms"));
+        }
+        void InitialiseForGroup(const QString &displayName, int connectionCount)
+        {
+            rawDisplayName = displayName;
+            connNameLabel->setText(rawDisplayName);
             latencyLabel->setText(QSTRN(connectionCount) + " " + (connectionCount < 2 ? tr("connection") : tr("connections")));
             //
             layout()->removeWidget(connTypeLabel);
@@ -54,6 +92,9 @@ class ConnectionWidget : public QWidget, private Ui::ConnectionWidget
             layout()->removeWidget(dataLabel);
             delete dataLabel;
         }
+        CONNECTION_ITEM_TYPE type;
+        bool isConnectionItem = false;
+        QString rawDisplayName;
         //
         ConnectionId connectionId;
         GroupId groupId;

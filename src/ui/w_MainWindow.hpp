@@ -59,7 +59,6 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         void on_subsButton_clicked();
         //
         void ToggleVisibility();
-        void setMasterLogHBar();
         void VersionUpdate(QByteArray &data);
         void quit();
 
@@ -79,6 +78,8 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         void on_action_RCM_ConvToComplex_triggered();
         void on_action_RCM_RenameConnection_triggered();
         void on_connectionListWidget_itemSelectionChanged();
+
+        void on_connectionListWidget_itemDoubleClicked(QTreeWidgetItem *item, int column);
 
     private:
         //
@@ -106,10 +107,6 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         //PACServer pacServer;
         //QvTCPingModel tcpingHelper;
         SyntaxHighlighter *vCoreLogHighlighter;
-        SyntaxHighlighter *qvAppLogHighlighter;
-        //
-        QList<QTextBrowser *> logTextBrowsers;
-        int currentLogBrowserId = 0;
         QTreeWidgetItem *CurrentSelectedItemPtr;
         //
         // Actions in the system tray menu
@@ -130,7 +127,6 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         // ----------------------------------- Extra Headers For w_MainWindow_extra.cpp Handling V2ray Connectivities.
         bool systemProxyEnabled;
         void MWFindAndStartAutoConfig();
-        bool MWtryStartConnection();
         void MWStopConnection();
         void MWSetSystemProxy();
         void MWClearSystemProxy(bool);
