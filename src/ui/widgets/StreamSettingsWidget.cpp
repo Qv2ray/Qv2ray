@@ -18,19 +18,17 @@ void StreamSettingsWidget::SetStreamObject(StreamSettingsObject sso)
     stream = sso;
     //
     transportCombo->setCurrentText(stream.network);
+    // TLS
     tlsCB->setChecked(stream.security == "tls");
+    serverNameTxt->setText(stream.tlsSettings.serverName);
+    allowInsecureCB->setChecked(stream.tlsSettings.allowInsecure);
+    alpnTxt->setPlainText(stream.tlsSettings.alpn.join(NEWLINE));
     // TCP
     tcpHeaderTypeCB->setCurrentText(stream.tcpSettings.header.type);
     tcpRequestTxt->setPlainText(StructToJsonString(stream.tcpSettings.header.request));
     tcpRespTxt->setPlainText(StructToJsonString(stream.tcpSettings.header.response));
     // HTTP
-    QString allHosts;
-
-    for (auto host : stream.httpSettings.host) {
-        allHosts = allHosts + host + "\r\n";
-    }
-
-    httpHostTxt->setPlainText(allHosts);
+    httpHostTxt->setPlainText(stream.httpSettings.host.join(NEWLINE));
     httpPathTxt->setText(stream.httpSettings.path);
     // WS
     wsPathTxt->setText(stream.wsSettings.path);
