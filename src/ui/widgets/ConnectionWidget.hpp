@@ -55,8 +55,10 @@ class ConnectionWidget : public QWidget, private Ui::ConnectionWidget
             if (isConnectionItem) {
                 if (type == GROUP) {
                     ConnectionHandler->StartConnection(groupId, connectionId);
-                } else {
+                } else if (type == SUBSCRIPTION) {
                     ConnectionHandler->StartConnection(subscriptionId, connectionId);
+                } else {
+                    LOG(MODULE_UI, "Trying to start an INVALID non-connection entry, this call is illegal.")
                 }
             } else {
                 LOG(MODULE_UI, "Trying to start a non-connection entry, this call is illegal.")
@@ -98,6 +100,6 @@ class ConnectionWidget : public QWidget, private Ui::ConnectionWidget
         ConnectionId connectionId;
         GroupId groupId;
         SubscriptionId subscriptionId;
-        
+
         Q_DISABLE_COPY_MOVE(ConnectionWidget)
 };

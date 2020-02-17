@@ -87,13 +87,12 @@ void SubscribeEditor::on_updateButton_clicked()
             return;
         }
 
-        bool result = RenameSubscription(currentSubName, newName);
-
-        if (!result) {
-            QvMessageBoxWarn(this, tr("Renaming a subscription"), tr("Failed to rename a subscription, this is an unknown error."));
-            return;
-        }
-
+        ////bool result = RenameSubscription(currentSubName, newName);
+        //
+        //if (!result) {
+        //    QvMessageBoxWarn(this, tr("Renaming a subscription"), tr("Failed to rename a subscription, this is an unknown error."));
+        //    return;
+        //}
         subscriptions[newName] = subscriptions[currentSubName];
         subscriptions.remove(currentSubName);
         subNameTxt->setText(newName);
@@ -127,86 +126,86 @@ void SubscribeEditor::on_updateButton_clicked()
 
 void SubscribeEditor::StartUpdateSubscription(const QString &subscriptionName)
 {
-    this->setEnabled(false);
-    auto data = helper.syncget(subscriptions[subscriptionName].address, withProxyCB->isChecked());
-    auto content = DecodeSubscriptionString(data).trimmed();
-
-    if (!content.isEmpty()) {
-        connectionsList->clear();
-        auto vmessList = SplitLines(content);
-        QDir(QV2RAY_SUBSCRIPTION_DIR + subscriptionName).removeRecursively();
-        QDir().mkpath(QV2RAY_SUBSCRIPTION_DIR + subscriptionName);
-
-        for (auto vmess : vmessList) {
-            QString errMessage;
-            QString _alias;
-            auto config = ConvertConfigFromString(vmess.trimmed(), &_alias, &errMessage);
-
-            if (!errMessage.isEmpty()) {
-                LOG(MODULE_SUBSCRIPTION, "Processing a subscription with following error: " + errMessage)
-            } else {
-                SaveSubscriptionConfig(config, subscriptionName, &_alias);
-                connectionsList->addItem(_alias);
-            }
-        }
-
-        subscriptions[subscriptionName].lastUpdated = system_clock::to_time_t(system_clock::now());
-        lastUpdatedLabel->setText(timeToString(subscriptions[subscriptionName].lastUpdated));
-        isUpdateInProgress = false;
-    } else {
-        LOG(MODULE_NETWORK, "We have received an empty string from the URL.")
-        QvMessageBoxWarn(this, tr("Updating subscriptions"), tr("Failed to process the result from the upstream, please check your Url."));
-    }
-
-    this->setEnabled(true);
+    //this->setEnabled(false);
+    //auto data = helper.syncget(subscriptions[subscriptionName].address, withProxyCB->isChecked());
+    //auto content = DecodeSubscriptionString(data).trimmed();
+    //
+    //if (!content.isEmpty()) {
+    //    connectionsList->clear();
+    //    auto vmessList = SplitLines(content);
+    //    QDir(QV2RAY_SUBSCRIPTION_DIR + subscriptionName).removeRecursively();
+    //    QDir().mkpath(QV2RAY_SUBSCRIPTION_DIR + subscriptionName);
+    //
+    //    for (auto vmess : vmessList) {
+    //        QString errMessage;
+    //        QString _alias;
+    //        auto config = ConvertConfigFromString(vmess.trimmed(), &_alias, &errMessage);
+    //
+    //        if (!errMessage.isEmpty()) {
+    //            LOG(MODULE_SUBSCRIPTION, "Processing a subscription with following error: " + errMessage)
+    //        } else {
+    //            //SaveSubscriptionConfig(config, subscriptionName, &_alias);
+    //            connectionsList->addItem(_alias);
+    //        }
+    //    }
+    //
+    //    subscriptions[subscriptionName].lastUpdated = system_clock::to_time_t(system_clock::now());
+    //    lastUpdatedLabel->setText(timeToString(subscriptions[subscriptionName].lastUpdated));
+    //    isUpdateInProgress = false;
+    //} else {
+    //    LOG(MODULE_NETWORK, "We have received an empty string from the URL.")
+    //    QvMessageBoxWarn(this, tr("Updating subscriptions"), tr("Failed to process the result from the upstream, please check your Url."));
+    //}
+    //
+    //this->setEnabled(true);
 }
 
 void SubscribeEditor::on_removeSubsButton_clicked()
 {
-    if (subscriptionList->currentRow() < 0)
-        return;
-
-    auto name = subscriptionList->currentItem()->text();
-    subscriptionList->takeItem(subscriptionList->currentRow());
-    subscriptions.remove(name);
-
-    if (!name.isEmpty()) {
-        QDir(QV2RAY_SUBSCRIPTION_DIR + name).removeRecursively();
-    }
-
-    //// If removed a whole subscription...
-    //if (GlobalConfig.autoStartConfig.subscriptionName == name) {
-    //    GlobalConfig.autoStartConfig = QvConnectionObject();
-    //    SaveGlobalConfig(GlobalConfig);
+    //if (subscriptionList->currentRow() < 0)
+    //    return;
+    //
+    //auto name = subscriptionList->currentItem()->text();
+    //subscriptionList->takeItem(subscriptionList->currentRow());
+    //subscriptions.remove(name);
+    //
+    //if (!name.isEmpty()) {
+    //    QDir(QV2RAY_SUBSCRIPTION_DIR + name).removeRecursively();
     //}
-    groupBox_2->setEnabled(subscriptionList->count() > 0);
-    SaveConfig();
+    //
+    ////// If removed a whole subscription...
+    ////if (GlobalConfig.autoStartConfig.subscriptionName == name) {
+    ////    GlobalConfig.autoStartConfig = QvConnectionObject();
+    ////    SaveGlobalConfig(GlobalConfig);
+    ////}
+    //groupBox_2->setEnabled(subscriptionList->count() > 0);
+    //SaveConfig();
 }
 
 void SubscribeEditor::on_subscriptionList_currentRowChanged(int currentRow)
 {
-    if (subscriptionList->count() == 0) {
-        return;
-    }
-
-    if (currentRow < 0 && subscriptionList->count() > 0) {
-        subscriptionList->setCurrentRow(0);
-    }
-
-    currentSubName = subscriptionList->currentItem()->text();
-    LOG(MODULE_UI, "Subscription row changed, new name: " + currentSubName)
+    //if (subscriptionList->count() == 0) {
+    //    return;
+    //}
     //
-    subNameTxt->setText(currentSubName);
-    subAddrTxt->setText(subscriptions[currentSubName].address);
-    updateIntervalSB->setValue(subscriptions[currentSubName].updateInterval);
-    lastUpdatedLabel->setText(timeToString(subscriptions[currentSubName].lastUpdated));
+    //if (currentRow < 0 && subscriptionList->count() > 0) {
+    //    subscriptionList->setCurrentRow(0);
+    //}
     //
-    connectionsList->clear();
-    auto _list = GetSubscriptionConnection(currentSubName);
-
-    for (auto i = 0; i < _list.count(); i++) {
-        connectionsList->addItem(_list.keys()[i]);
-    }
+    //currentSubName = subscriptionList->currentItem()->text();
+    //LOG(MODULE_UI, "Subscription row changed, new name: " + currentSubName)
+    ////
+    //subNameTxt->setText(currentSubName);
+    //subAddrTxt->setText(subscriptions[currentSubName].address);
+    //updateIntervalSB->setValue(subscriptions[currentSubName].updateInterval);
+    //lastUpdatedLabel->setText(timeToString(subscriptions[currentSubName].lastUpdated));
+    ////
+    //connectionsList->clear();
+    //auto _list = GetSubscriptionConnection(currentSubName);
+    //
+    //for (auto i = 0; i < _list.count(); i++) {
+    //    connectionsList->addItem(_list.keys()[i]);
+    //}
 }
 
 void SubscribeEditor::SaveConfig()
@@ -243,6 +242,6 @@ void SubscribeEditor::on_connectionsList_itemClicked(QListWidgetItem *item)
     if (item != nullptr) {
         auto name = item->text();
         currentSelectedConfig.first = name;
-        currentSelectedConfig.second = GetSubscriptionConnection(currentSubName)[name];
+        //currentSelectedConfig.second = GetSubscriptionConnection(currentSubName)[name];
     }
 }

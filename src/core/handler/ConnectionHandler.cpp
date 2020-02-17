@@ -1,6 +1,4 @@
 #include "ConnectionHandler.hpp"
-#include "core/connection/ConnectionIO.hpp"
-
 namespace Qv2ray::core::handlers
 {
     template<typename IDType>
@@ -32,6 +30,7 @@ namespace Qv2ray::core::handlers
             groups[GroupId(GlobalConfig.groups.keys()[i])] = GlobalConfig.groups.values()[i];
         }
 
+        kernelInstance = new V2rayKernelInstance();
         saveTimerId = startTimer(60000);
     }
 
@@ -74,35 +73,14 @@ namespace Qv2ray::core::handlers
     {
         return subscriptions[id];
     }
-    optional<QString> QvConnectionHandler::StartConnection(const SubscriptionId &group, const ConnectionId &id)
-    {
-        //
-        return "";
-    }
-    optional<QString> QvConnectionHandler::StartConnection(const GroupId &group, const ConnectionId &id)
-    {
-        //if (!kernelInstance->KernelStarted) {
-        //    // Check Selection
-        //    if (!connections.contains(id)) {
-        //        return tr("No connection selected!") + NEWLINE + tr("Please select a config from the list.");
-        //    }
-        //
-        //    bool startFlag = CHTryStartConnection();
-        //
-        //    if (startFlag) {
-        //        MWTryPingConnection(name);
-        //        speedTimerId = startTimer(1000);
-        //        pingTimerId = startTimer(60000);
-        //        this->hTray.showMessage("Qv2ray", tr("Connected: ") + name, this->windowIcon());
-        //        hTray.setToolTip(TRAY_TOOLTIP_PREFIX NEWLINE + tr("Connected: ") + name);
-        //        statusLabel->setText(tr("Connected: ") + name);
-        //    }
-        //} else {
-        //    this->hTray.showMessage("Qv2ray", tr("Already connected to: ") + CurrentConnectionIdentifier.IdentifierString(), this->windowIcon());
-        //}
-        return "";
-    }
+
     QvConnectionHandler::~QvConnectionHandler()
     {
+        if (kernelInstance->KernelStarted) {
+            kernelInstance->StopConnection();
+            LOG(MODULE_CORE_HANDLER, "Stopped connection from destructor.")
+        }
+
+        delete kernelInstance;
     }
 }

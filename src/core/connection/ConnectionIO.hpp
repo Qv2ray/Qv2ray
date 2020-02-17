@@ -5,9 +5,8 @@ namespace Qv2ray::core::connection
 {
     namespace ConnectionIO
     {
-        QMap<ConnectionId, CONFIGROOT> GetGroupConnections(const GroupId &group);
-        QMap<ConnectionId, CONFIGROOT> GetSubscriptionConnections(const SubscriptionId &subscription);
-        QMap<SubscriptionId, QMap<ConnectionId, CONFIGROOT>> GetSubscriptionConnections(const QList<SubscriptionId> &subscriptions);
+        CONFIGROOT GetConnectionRoot(const GroupId &group, const ConnectionId &id);
+        CONFIGROOT GetConnectionRoot(const SubscriptionId &subscription, const ConnectionId &id);
         //
         // Save Connection Config
         bool SaveConnectionConfig(CONFIGROOT obj, const ConnectionId &id, bool canOverrideExisting);

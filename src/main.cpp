@@ -447,15 +447,15 @@ int main(int argc, char *argv[])
     }
 
 #endif
-    //_qApp.setAttribute(Qt::AA_DontUseNativeMenuBar);
-    // Initialise Connection Handler
-    InitialiseConnectionHandler();
-    // Show MainWindow
-    MainWindow w;
 #ifndef QT_DEBUG
 
     try {
 #endif
+        //_qApp.setAttribute(Qt::AA_DontUseNativeMenuBar);
+        // Initialise Connection Handler
+        ConnectionHandler = new QvConnectionHandler();
+        // Show MainWindow
+        MainWindow w;
         QObject::connect(&_qApp, &SingleApplication::instanceStarted, [&]() {
             // When a second instance is connected, show the mainwindow.
             w.show();
@@ -477,6 +477,7 @@ int main(int argc, char *argv[])
         });
 #endif
         auto rcode = _qApp.exec();
+        delete ConnectionHandler;
         LOG(MODULE_INIT, "Quitting normally")
         return rcode;
 #ifndef QT_DEBUG

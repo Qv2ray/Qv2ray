@@ -114,8 +114,8 @@ namespace Qv2ray
                 defaultGroup["displayName"] = QObject::tr("Default Group");
                 QString defaultGroupId = "000000000000";
 
-                if (!QDir(QV2RAY_CONNECTIONS_DIR).exists()) {
-                    QDir().mkpath(QV2RAY_CONNECTIONS_DIR);
+                if (!QDir(QV2RAY_CONNECTIONS_DIR + defaultGroupId).exists()) {
+                    QDir().mkpath(QV2RAY_CONNECTIONS_DIR + defaultGroupId);
                 }
 
                 QString autoStartId;
@@ -133,7 +133,7 @@ namespace Qv2ray
                     DEBUG(MODULE_SETTINGS, "Generated new UUID: " + newUuid);
 
                     if (configFile.exists()) {
-                        auto newPath = QV2RAY_CONNECTIONS_DIR + newUuid + QV2RAY_CONFIG_FILE_EXTENSION;
+                        auto newPath = QV2RAY_CONNECTIONS_DIR + defaultGroupId + "/" + newUuid + QV2RAY_CONFIG_FILE_EXTENSION;
                         configFile.rename(newPath);
                         UPGRADELOG("Moved: " + filePath + " to " + newPath);
                     } else {

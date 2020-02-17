@@ -137,11 +137,11 @@ namespace Qv2ray::core::kernel
         KernelStarted = false;
     }
 
-    bool V2rayKernelInstance::StartConnection(CONFIGROOT root)
+    optional<QString> V2rayKernelInstance::StartConnection(CONFIGROOT root)
     {
         if (KernelStarted) {
             LOG(MODULE_VCORE, "Status is invalid, expect STOPPED when calling StartConnection")
-            return false;
+            return tr("Invalid V2ray Instance Status.");
         }
 
         // Write the final configuration to the disk.
@@ -188,10 +188,10 @@ namespace Qv2ray::core::kernel
                 DEBUG(MODULE_VCORE, "Qv2ray API started")
             }
 
-            return true;
+            return {};
         } else {
             KernelStarted = false;
-            return false;
+            return tr("V2ray kernel failed to start.");
         }
     }
 

@@ -1054,3 +1054,16 @@ void MainWindow::on_connectionListWidget_itemDoubleClicked(QTreeWidgetItem *item
         widget->BeginConnection();
     }
 }
+/*
+ *        //if (startFlag) {
+        //    MWTryPingConnection(name);
+        //    speedTimerId = startTimer(1000);
+        //    pingTimerId = startTimer(60000);
+        //    this->hTray.showMessage("Qv2ray", tr("Connected: ") + name, this->windowIcon());
+        //    hTray.setToolTip(TRAY_TOOLTIP_PREFIX NEWLINE + tr("Connected: ") + name);
+        //    statusLabel->setText(tr("Connected: ") + name);
+        //}
+        //} else {
+        //    this->hTray.showMessage("Qv2ray", tr("Already connected to: ") + CurrentConnectionIdentifier.IdentifierString(), this->windowIcon());
+        //}
+ */

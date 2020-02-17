@@ -3,6 +3,8 @@
 #include "base/Qv2rayBase.hpp"
 #include "core/kernel/KernelInteractions.hpp"
 #include "core/CoreSafeTypes.hpp"
+#include "core/connection/ConnectionIO.hpp"
+
 
 namespace Qv2ray::core::handlers
 {
@@ -19,9 +21,21 @@ namespace Qv2ray::core::handlers
             const QList<ConnectionId> Connections(const GroupId &groupId) const;
             const QList<ConnectionId> Connections(const SubscriptionId &subscriptionId) const;
             //
-            optional<QString> StartConnection(const GroupId &group, const ConnectionId &id);
-            optional<QString> StartConnection(const SubscriptionId &subscription, const ConnectionId &id);
             optional<QString> StopConnection(const ConnectionId &id);
+            //
+            template<typename T>
+            optional<QString> StartConnection(const T &group, const ConnectionId &id)
+            {
+                if (!connections.contains(id)) {
+                    return tr("No connection selected!") + NEWLINE + tr("Please select a config from the list.");
+                }
+
+                auto root = GetConnectionRoot(group, id);
+                return _CHTryStartConnection_p(id, root);
+            }
+            template<typename T> optional<QString> StartConnection(const GroupId &group, const ConnectionId &id);
+            template<typename T> optional<QString> StartConnection(const SubscriptionId &group, const ConnectionId &id);
+            //
         public:
             //
             // Connection Operations.
@@ -77,20 +91,14 @@ namespace Qv2ray::core::handlers
             QHash<ConnectionId, QvConnectionObject> connections;
             QHash<SubscriptionId, QvSubscriptionObject> subscriptions;
             //
-            unique_ptr<V2rayKernelInstance> kernelInstance = make_unique<V2rayKernelInstance>();
             // We only support one cuncurrent connection currently.
             //QHash<ConnectionId, V2rayKernelInstance> kernelInstances;
+            V2rayKernelInstance *kernelInstance = nullptr;
             //
-            optional<QString> _CHTryStartConnection(const ConnectionId &id);
+            optional<QString> _CHTryStartConnection_p(const ConnectionId &id, const CONFIGROOT &root);
     };
     //
-    inline unique_ptr<QvConnectionHandler> ConnectionHandler = nullptr;
-    //
-    inline void InitialiseConnectionHandler()
-    {
-        LOG(MODULE_CORE_HANDLER, "Initializing ConnectionHandler...")
-        ConnectionHandler = make_unique<QvConnectionHandler>();
-    }
+    inline QvConnectionHandler *ConnectionHandler = nullptr;
 }
 
 using namespace Qv2ray::core::handlers;

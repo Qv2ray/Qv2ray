@@ -1,11 +1,11 @@
 #include "ConnectionHandler.hpp"
 #include "core/connection/Generation.hpp"
 
-optional<QString> QvConnectionHandler::_CHTryStartConnection(const ConnectionId &id)
+optional<QString> QvConnectionHandler::_CHTryStartConnection_p(const ConnectionId &id, const CONFIGROOT &root)
 {
-    auto connection = connections[id];
-    //currentFullConfig = GenerateRuntimeConfig(connection);
-    //bool startFlag = this->vinstance->StartConnection(currentFullConfig);
+    auto &connectionMeta = connections[id];
+    auto fullConfig = GenerateRuntimeConfig(root);
+    return kernelInstance->StartConnection(fullConfig);
     //if (startFlag) {
     //    bool usePAC = GlobalConfig.inboundConfig.pacConfig.enablePAC;
     //    bool pacUseSocks = GlobalConfig.inboundConfig.pacConfig.useSocksProxy;
