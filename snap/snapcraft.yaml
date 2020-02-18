@@ -3,8 +3,8 @@ base: core18
 adopt-info: qv2ray
 icon: assets/icons/qv2ray.png
 
-grade: devel
-confinement: devmode
+grade: stable
+confinement: strict
 
 plugs:
   gsettings:
@@ -26,6 +26,20 @@ apps:
       command: bin/desktop-launch qv2ray
       environment:
         QT_QPA_PLATFORMTHEME: gtk3
+      plugs:
+        - home
+        - x11
+        - opengl
+        - network
+        - network-bind
+        - unity7
+        - pulseaudio
+        - desktop
+        - desktop-legacy
+        - gsettings
+        - network-control
+        - network-manager
+        - system-observe
       common-id: com.github.Qv2ray
       desktop: "usr/share/applications/qv2ray.desktop"
 
@@ -52,7 +66,6 @@ parts:
       - libqt5gui5
       - libqt5network5
       - libqt5widgets5
-      - fonts-noto-cjk
       - libglib2.0-bin
     options:
       - PREFIX=/usr
@@ -107,14 +120,11 @@ parts:
     plugin: nil
     build-packages:
       - dirmngr
-    override-pull: |
+    override-build: |
       echo 'deb http://archive.neon.kde.org/unstable bionic main' > /etc/apt/sources.list.d/neon.list
       echo 'deb http://ppa.launchpad.net/ymshenyu/grpc-1/ubuntu bionic main' >> /etc/apt/sources.list.d/tools.list
       sudo apt-key adv --keyserver keyserver.ubuntu.com --recv E6D4736255751E5D
       sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 281f24e574404629aa3bda1a4f10c386c55cdb04
-      sudo apt-get update
-      snapcraftctl pull
-    override-build: |
-      snapcraftctl build
-      sudo apt upgrade -y
+      sudo apt update
       sudo apt dist-upgrade -y
+      snapcraftctl build
