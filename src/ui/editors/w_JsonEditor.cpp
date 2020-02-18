@@ -12,7 +12,7 @@ JsonEditor::JsonEditor(QJsonObject rootObject, QWidget *parent) :
     QString jsonString  = JsonToString(rootObject);
 
     if (VerifyJsonString(jsonString).isEmpty()) {
-        LOG(UI, "Begin loading Json Model")
+        LOG(MODULE_UI, "Begin loading Json Model")
         jsonTree->setModel(&model);
         model.loadJson(QJsonDocument(rootObject).toJson());
     } else {

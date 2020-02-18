@@ -1,4 +1,4 @@
-#include "ui/nodemodels/RuleNodeModel.hpp"
+#include "ui/models/RuleNodeModel.hpp"
 
 QvRuleNodeDataModel::QvRuleNodeDataModel(std::shared_ptr<RuleNodeData> data): NodeDataModel()
 {

@@ -31,13 +31,12 @@ namespace Qv2ray::components::plugins
         QString GetAnswerToRequest(const QString &pchRequest)
         {
             auto instance = MainWindow::mwInstance;
-
-            if (instance == nullptr || instance->vinstance == nullptr) {
-                LOG(PLUGIN, "MainWindow != nullptr Assertion failed!")
-                return "{}";
-            }
-
-            auto vinstance = instance->vinstance;
+            //if (instance == nullptr || instance->vinstance == nullptr) {
+            //    LOG(PLUGIN, "MainWindow != nullptr Assertion failed!")
+            //    return "{}";
+            //}
+            //
+            //auto vinstance = instance->vinstance;
             //
             auto req = pchRequest.trimmed();
             QString reply = "{}";
@@ -81,67 +80,67 @@ namespace Qv2ray::components::plugins
                             break;
                         }
 
-                        case 104: {
-                            // Current Connection Name
-                            CL.Message = instance->GetCurrentConnectedConfigName();
-                            break;
-                        }
-
-                        case 105: {
-                            // Current Connection Status
-                            CL.Message = instance->vinstance->KernelStarted
-                                         ? QObject::tr("Connected")
-                                         : QObject::tr("Disconnected");
-                            break;
-                        }
-
-                        case 201: {
-                            // Total upload speed;
-                            CL.Message = FormatBytes(vinstance->getAllSpeedUp()) + "/s";
-                            break;
-                        }
-
-                        case 202: {
-                            // Total download speed;
-                            CL.Message = FormatBytes(vinstance->getAllSpeedDown()) + "/s";
-                            break;
-                        }
-
-                        case 203: {
-                            // Upload speed for tag
-                            CL.Message = FormatBytes(vinstance->getTagSpeedUp(CL.Message)) + "/s";
-                            break;
-                        }
-
-                        case 204: {
-                            // Download speed for tag
-                            CL.Message = FormatBytes(vinstance->getTagSpeedDown(CL.Message)) + "/s";
-                            break;
-                        }
-
-                        case 301: {
-                            // Total Upload
-                            CL.Message = FormatBytes(vinstance->getAllDataUp());
-                            break;
-                        }
-
-                        case 302: {
-                            // Total download
-                            CL.Message = FormatBytes(vinstance->getAllDataDown());
-                            break;
-                        }
-
-                        case 303: {
-                            // Upload for tag
-                            CL.Message = FormatBytes(vinstance->getTagDataUp(CL.Message));
-                            break;
-                        }
-
-                        case 304: {
-                            // Download for tag
-                            CL.Message = FormatBytes(vinstance->getTagDataDown(CL.Message));
-                            break;
-                        }
+                        //case 104: {
+                        //    // Current Connection Name
+                        //    CL.Message = instance->GetCurrentConnectedConfigName();
+                        //    break;
+                        //}
+                        //
+                        //case 105: {
+                        //    // Current Connection Status
+                        //    CL.Message = instance->vinstance->KernelStarted
+                        //                 ? QObject::tr("Connected")
+                        //                 : QObject::tr("Disconnected");
+                        //    break;
+                        //}
+                        //
+                        //case 201: {
+                        //    // Total upload speed;
+                        //    CL.Message = FormatBytes(vinstance->getAllSpeedUp()) + "/s";
+                        //    break;
+                        //}
+                        //
+                        //case 202: {
+                        //    // Total download speed;
+                        //    CL.Message = FormatBytes(vinstance->getAllSpeedDown()) + "/s";
+                        //    break;
+                        //}
+                        //
+                        //case 203: {
+                        //    // Upload speed for tag
+                        //    CL.Message = FormatBytes(vinstance->getTagSpeedUp(CL.Message)) + "/s";
+                        //    break;
+                        //}
+                        //
+                        //case 204: {
+                        //    // Download speed for tag
+                        //    CL.Message = FormatBytes(vinstance->getTagSpeedDown(CL.Message)) + "/s";
+                        //    break;
+                        //}
+                        //
+                        //case 301: {
+                        //    // Total Upload
+                        //    CL.Message = FormatBytes(vinstance->getAllDataUp());
+                        //    break;
+                        //}
+                        //
+                        //case 302: {
+                        //    // Total download
+                        //    CL.Message = FormatBytes(vinstance->getAllDataDown());
+                        //    break;
+                        //}
+                        //
+                        //case 303: {
+                        //    // Upload for tag
+                        //    CL.Message = FormatBytes(vinstance->getTagDataUp(CL.Message));
+                        //    break;
+                        //}
+                        //
+                        //case 304: {
+                        //    // Download for tag
+                        //    CL.Message = FormatBytes(vinstance->getTagDataDown(CL.Message));
+                        //    break;
+                        //}
 
                         default: {
                             CL.Message = "Not Supported?";

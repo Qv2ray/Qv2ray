@@ -84,7 +84,7 @@ void ImportConfigWindow::on_qrFromScreenBtn_clicked()
         //auto str = QZXing().decodeImage(pix);
 
         if (str.trimmed().isEmpty()) {
-            LOG(UI, "Cannot decode QR Code from an image, size: h=" + QSTRN(pix.width()) + ", v=" + QSTRN(pix.height()))
+            LOG(MODULE_UI, "Cannot decode QR Code from an image, size: h=" + QSTRN(pix.width()) + ", v=" + QSTRN(pix.height()))
             QvMessageBoxWarn(this, tr("Capture QRCode"), tr("Cannot find a valid QRCode from this region."));
         } else {
             vmessConnectionStringTxt->appendPlainText(str.trimmed() + NEWLINE);
@@ -101,19 +101,19 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
 
     switch (tabWidget->currentIndex()) {
         case 0: {
-            // From File...
-            bool ImportAsComplex = keepImportedInboundCheckBox->isChecked();
-            QString path = fileLineTxt->text();
-
-            if (!V2rayKernelInstance::ValidateConfig(path)) {
-                QvMessageBoxWarn(this, tr("Import config file"), tr("Failed to check the validity of the config file."));
-                return;
-            }
-
-            aliasPrefix += "_" + QFileInfo(path).fileName();
-            CONFIGROOT config = ConvertConfigFromFile(path, ImportAsComplex);
-            connections[aliasPrefix] = config;
-            break;
+            //// From File...
+            //bool ImportAsComplex = keepImportedInboundCheckBox->isChecked();
+            //QString path = fileLineTxt->text();
+            //
+            //if (!V2rayKernelInstance::ValidateConfig(path)) {
+            //    QvMessageBoxWarn(this, tr("Import config file"), tr("Failed to check the validity of the config file."));
+            //    return;
+            //}
+            //
+            //aliasPrefix += "_" + QFileInfo(path).fileName();
+            ////CONFIGROOT config = ConvertConfigFromFile(path, ImportAsComplex);
+            //connections[aliasPrefix] = config;
+            //break;
         }
 
         case 1: {
@@ -124,7 +124,7 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
             vmessConnectionStringTxt->clear();
             errorsList->clear();
             //
-            LOG(IMPORT, QSTRN(linkList.count()) + " string found in vmess box.")
+            LOG(MODULE_IMPORT, QSTRN(linkList.count()) + " string found in vmess box.")
 
             while (!linkList.isEmpty()) {
                 aliasPrefix = nameTxt->text();
@@ -217,12 +217,12 @@ void ImportConfigWindow::on_editFileBtn_clicked()
     auto jsonCheckingError = VerifyJsonString(jsonString);
 
     if (!jsonCheckingError.isEmpty()) {
-        LOG(FILEIO, "Currupted JSON file detected")
+        LOG(MODULE_FILEIO, "Currupted JSON file detected")
 
         if (QvMessageBoxAsk(this, tr("Edit file as JSON"), tr("The file you selected has json syntax error. Continue editing may make you lose data. Would you like to continue?") + NEWLINE + jsonCheckingError) != QMessageBox::Yes) {
             return;
         } else {
-            LOG(FILEIO, "Continue editing curruped json file, data loss is expected.")
+            LOG(MODULE_FILEIO, "Continue editing curruped json file, data loss is expected.")
         }
     }
 
@@ -238,7 +238,7 @@ void ImportConfigWindow::on_editFileBtn_clicked()
             QvMessageBoxWarn(this, tr("Edit file as JSON"), tr("Failed to save file, please check if you have proper permissions"));
         }
     } else {
-        LOG(FILEIO, "Canceled saving a file.")
+        LOG(MODULE_FILEIO, "Canceled saving a file.")
     }
 }
 

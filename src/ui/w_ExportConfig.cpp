@@ -25,16 +25,18 @@ ConfigExporter::~ConfigExporter()
 {
 }
 
-ConfigExporter::ConfigExporter(const CONFIGROOT &root, const ConnectionIdentifier &alias, QWidget *parent) : ConfigExporter(parent)
-{
-    message = ConvertConfigToString(root, alias.IdentifierString());
-    //
-    QZXingEncoderConfig conf;
-    conf.border = true;
-    conf.imageSize = QSize(400, 400);
-    auto img = qzxing.encodeData(message, conf);
-    image = img.copy();
-}
+//ConfigExporter::ConfigExporter(QWidget *parent) : ConfigExporter(parent)
+//{
+//    // WIP
+//    //    /auto &x = connection;
+//    //message = ConvertConfigToString(root, alias.IdentifierString());
+//    //
+//    QZXingEncoderConfig conf;
+//    conf.border = true;
+//    conf.imageSize = QSize(400, 400);
+//    auto img = qzxing.encodeData(message, conf);
+//    image = img.copy();
+//}
 
 void ConfigExporter::OpenExport()
 {
@@ -73,7 +75,7 @@ void ConfigExporter::on_saveBtn_clicked()
     auto filePath = QFileDialog().getSaveFileName(this, tr("Save Image"), "", "Images (*.png)");
     auto result = image.save(filePath);
     QDesktopServices::openUrl(QUrl::fromUserInput(filePath));
-    LOG(FILEIO, "Saving an image to: " + filePath + " result: " + (result ? "OK" : "Failed"))
+    LOG(MODULE_FILEIO, "Saving an image to: " + filePath + " result: " + (result ? "OK" : "Failed"))
 }
 
 void ConfigExporter::on_copyImageBtn_clicked()

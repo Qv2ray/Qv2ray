@@ -3,7 +3,7 @@
 
 namespace Qv2ray::core::config
 {
-    void SaveGlobalConfig(Qv2rayConfig conf)
+    void SaveGlobalConfig(const Qv2rayConfig &conf)
     {
         GlobalConfig = conf;
         QFile config(QV2RAY_CONFIG_FILE);
@@ -18,17 +18,6 @@ namespace Qv2ray::core::config
         if (!path.endsWith("/")) {
             Qv2rayConfigPath += "/";
         }
-    }
-
-    void LoadGlobalConfig()
-    {
-        QFile file(QV2RAY_CONFIG_FILE);
-        file.open(QFile::ReadOnly);
-        QTextStream stream(&file);
-        auto str = stream.readAll();
-        auto config = StructFromJsonString<Qv2rayConfig>(str);
-        SaveGlobalConfig(config);
-        file.close();
     }
 }
 

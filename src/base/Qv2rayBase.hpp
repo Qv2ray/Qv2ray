@@ -44,7 +44,12 @@ using namespace Qv2ray::base::objects::transfer;
 #define QV2RAY_BUILD_INFO QString(_QV2RAY_BUILD_INFO_STR_)
 #define QV2RAY_BUILD_EXTRA_INFO QString(_QV2RAY_BUILD_EXTRA_INFO_STR_)
 
-extern const bool isDebugBuild;
+#ifdef QT_DEBUG
+inline const bool isDebugBuild = true;
+#else
+inline const bool isDebugBuild = false;
+#endif
+
 // Base folder suffix.
 #ifdef QT_DEBUG
 # define QV2RAY_CONFIG_DIR_SUFFIX "_debug/"
@@ -55,6 +60,7 @@ extern const bool isDebugBuild;
 // Get Configured Config Dir Path
 #define QV2RAY_CONFIG_DIR (Qv2ray::Qv2rayConfigPath)
 #define QV2RAY_CONFIG_FILE (QV2RAY_CONFIG_DIR + "Qv2ray.conf")
+#define QV2RAY_CONNECTIONS_DIR (QV2RAY_CONFIG_DIR + "connections/")
 #define QV2RAY_SUBSCRIPTION_DIR (QV2RAY_CONFIG_DIR + "subscriptions/")
 
 // Get GFWList and PAC file path.
@@ -76,7 +82,7 @@ extern const bool isDebugBuild;
 #elif defined (QV2RAY_DEFAULT_VCORE_PATH) && defined (QV2RAY_DEFAULT_VASSETS_PATH)
 // ---- Using user-specified VCore and VAssets path
 #else
-#   error Both QV2RAY_DEFAULT_VCORE_PATH and QV2RAY_DEFAULT_VASSETS_PATH need to present when specifying the paths.
+#   error Both QV2RAY_DEFAULT_VCORE_PATH and QV2RAY_DEFAULT_VASSETS_PATH need to be presented when using manually specify the paths.
 #endif
 
 #ifdef Q_OS_WIN
@@ -105,7 +111,6 @@ extern const bool isDebugBuild;
 #define QICON_R(file) QIcon(QV2RAY_UI_RESOURCES_ROOT + file)
 
 #define QSTRN(num) QString::number(num)
-
 
 #define OUTBOUND_TAG_DIRECT "outBound_DIRECT"
 #define OUTBOUND_TAG_PROXY "outBound_PROXY"

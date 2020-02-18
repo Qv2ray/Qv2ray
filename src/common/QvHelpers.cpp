@@ -27,8 +27,7 @@ namespace Qv2ray::common
     QString StringFromFile(QFile *source)
     {
         source->open(QFile::ReadOnly);
-        QTextStream stream(source);
-        QString str = stream.readAll();
+        QString str = QString::fromUtf8(source->readAll());
         source->close();
         return str;
     }
@@ -73,7 +72,7 @@ namespace Qv2ray::common
         if (error.error == QJsonParseError::NoError) {
             return "";
         } else {
-            LOG(UI, "WARNING: Json parse returns: " + error.errorString())
+            LOG(MODULE_UI, "WARNING: Json parse returns: " + error.errorString())
             return error.errorString();
         }
     }
@@ -173,7 +172,7 @@ namespace Qv2ray::common
 
         if (!QDir(baseDir).exists()) {
             QDir(baseDir).mkpath(baseDir);
-            LOG(FILEIO, "Making path: " + baseDir)
+            LOG(MODULE_FILEIO, "Making path: " + baseDir)
         }
 
         while (true) {
@@ -181,7 +180,7 @@ namespace Qv2ray::common
                 *fileName = *fileName + "_" + QSTRN(i);
                 return;
             } else {
-                DEBUG(FILEIO, "File with name: " + *fileName + "_" + QSTRN(i) + extension + " already exists")
+                DEBUG(MODULE_FILEIO, "File with name: " + *fileName + "_" + QSTRN(i) + extension + " already exists")
             }
 
             i++;

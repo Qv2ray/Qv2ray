@@ -35,7 +35,7 @@ namespace Qv2ray::components::plugins::Toolbar
                     }
                 }
             }  catch (...) {
-                LOG(PLUGIN, "Closing a broken socket.")
+                LOG(MODULE_PLUGIN, "Closing a broken socket.")
             }
         }
         void DataMessageQThread()
@@ -55,8 +55,8 @@ namespace Qv2ray::components::plugins::Toolbar
 
             while (!isExiting) {
                 bool result = server->waitForNewConnection(5000, &timeOut);
-                DEBUG(PLUGIN, "Plugin thread listening failed: " + server->errorString())
-                DEBUG(PLUGIN, "waitForNewConnection: " + QString(result ? "true" : "false") + ", " + QString(timeOut ? "true" : "false"))
+                DEBUG(MODULE_PLUGIN, "Plugin thread listening failed: " + server->errorString())
+                DEBUG(MODULE_PLUGIN, "waitForNewConnection: " + QString(result ? "true" : "false") + ", " + QString(timeOut ? "true" : "false"))
             }
 
             server->close();
@@ -73,7 +73,7 @@ namespace Qv2ray::components::plugins::Toolbar
             isExiting = true;
 
             if (linuxWorkerThread->isRunning()) {
-                LOG(PLUGIN, "Waiting for linuxWorkerThread to stop.")
+                LOG(MODULE_PLUGIN, "Waiting for linuxWorkerThread to stop.")
                 linuxWorkerThread->wait();
             }
 

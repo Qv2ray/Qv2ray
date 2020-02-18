@@ -7,11 +7,6 @@
 #include <QTranslator>
 
 // Instantiation for Qv2ray global objects.
-#ifdef QT_DEBUG
-const bool isDebugBuild = true;
-#else
-const bool isDebugBuild = false;
-#endif
 
 namespace Qv2ray
 {

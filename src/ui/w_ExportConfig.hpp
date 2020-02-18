@@ -10,7 +10,7 @@ class ConfigExporter : public QDialog, private Ui::ExportConfigWindow
         Q_OBJECT
 
     public:
-        explicit ConfigExporter(const CONFIGROOT &root, const ConnectionIdentifier &alias, QWidget *parent = nullptr);
+        explicit ConfigExporter(QWidget *parent = nullptr);
         ~ConfigExporter();
         void OpenExport();
     public slots:
@@ -25,9 +25,7 @@ class ConfigExporter : public QDialog, private Ui::ExportConfigWindow
         void on_copyImageBtn_clicked();
 
         void on_copyVMessBtn_clicked();
-
     private:
-        explicit ConfigExporter(QWidget *parent);
         QZXing qzxing;
         QImage image;
         QString message;

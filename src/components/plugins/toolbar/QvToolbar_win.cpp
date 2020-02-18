@@ -44,18 +44,18 @@ namespace Qv2ray::components::plugins::Toolbar
                 hPipe = CreateNamedPipe(lpszPipename.c_str(), PIPE_ACCESS_DUPLEX, PIPE_TYPE_MESSAGE | PIPE_READMODE_MESSAGE | PIPE_WAIT, PIPE_UNLIMITED_INSTANCES, BUFSIZE, BUFSIZE, 0, nullptr);
 
                 if (hPipe == INVALID_HANDLE_VALUE) {
-                    LOG(PLUGIN, "CreateNamedPipe failed, GLE=" + QSTRN(GetLastError()))
+                    LOG(MODULE_PLUGIN, "CreateNamedPipe failed, GLE=" + QSTRN(GetLastError()))
                     return static_cast<DWORD>(-1);
                 }
 
                 fConnected = ConnectNamedPipe(hPipe, nullptr) ? true : (GetLastError() == ERROR_PIPE_CONNECTED);
 
                 if (fConnected) {
-                    LOG(PLUGIN, "Client connected, creating a processing thread")
+                    LOG(MODULE_PLUGIN, "Client connected, creating a processing thread")
                     ThreadHandle = CreateThread(nullptr, 0, InstanceThread, hPipe, 0, &dwThreadId);
 
                     if (ThreadHandle == nullptr) {
-                        LOG(PLUGIN, "CreateThread failed, GLE=" + QSTRN(GetLastError()))
+                        LOG(MODULE_PLUGIN, "CreateThread failed, GLE=" + QSTRN(GetLastError()))
                         return static_cast<DWORD>(-1);
                     } else CloseHandle(ThreadHandle);
                 } else CloseHandle(hPipe);
@@ -76,9 +76,9 @@ namespace Qv2ray::components::plugins::Toolbar
 
                 if (!fSuccess || cbBytesRead == 0) {
                     if (GetLastError() == ERROR_BROKEN_PIPE) {
-                        LOG(PLUGIN, "InstanceThread: client disconnected, GLE=" + QSTRN(GetLastError()))
+                        LOG(MODULE_PLUGIN, "InstanceThread: client disconnected, GLE=" + QSTRN(GetLastError()))
                     } else {
-                        LOG(PLUGIN, "InstanceThread ReadFile failed, GLE=" + QSTRN(GetLastError()))
+                        LOG(MODULE_PLUGIN, "InstanceThread ReadFile failed, GLE=" + QSTRN(GetLastError()))
                     }
 
                     break;
@@ -98,7 +98,7 @@ namespace Qv2ray::components::plugins::Toolbar
                     fSuccess = WriteFile(hPipe, pchReply.c_str(), cbReplyBytes, &cbWritten, nullptr);
 
                     if (!fSuccess || cbReplyBytes != cbWritten) {
-                        LOG(PLUGIN, "InstanceThread WriteFile failed, GLE=" + QSTRN(GetLastError()))
+                        LOG(MODULE_PLUGIN, "InstanceThread WriteFile failed, GLE=" + QSTRN(GetLastError()))
                         break;
                     }
                 }

@@ -27,23 +27,23 @@ namespace Qv2ray::components::tcping
             worker->cancel();
         }
     }
-    void QvTCPingModel::StartPing(const ConnectionIdentifier &connectionName, const QString &hostName, int port)
+    void QvTCPingModel::StartPing(const QvConnectionObject &connectionName, const QString &hostName, int port)
     {
         QvTCPingData data;
         data.hostName = hostName;
         data.port = port;
         data.connectionIdentifier = connectionName;
         auto watcher = new QFutureWatcher<QvTCPingData>(this);
-        DEBUG(NETWORK, "Start Ping: " + hostName + ":" + QSTRN(port))
+        DEBUG(MODULE_NETWORK, "Start Ping: " + hostName + ":" + QSTRN(port))
         watcher->setFuture(QtConcurrent::run(&QvTCPingModel::startTestLatency, data, count));
         pingWorkingThreads.enqueue(watcher);
         connect(watcher, &QFutureWatcher<void>::finished, this, [this, watcher]() {
             this->pingWorkingThreads.removeOne(watcher);
             auto result = watcher->result();
-            DEBUG(NETWORK, "Ping finished: " + result.hostName + ":" + QSTRN(result.port) + " --> " + QSTRN(result.avg) + "ms")
+            DEBUG(MODULE_NETWORK, "Ping finished: " + result.hostName + ":" + QSTRN(result.port) + " --> " + QSTRN(result.avg) + "ms")
 
             if (!result.errorMessage.isEmpty()) {
-                LOG(NETWORK, "Ping --> " + result.errorMessage)
+                LOG(MODULE_NETWORK, "Ping --> " + result.errorMessage)
             }
 
             emit this->PingFinished(result);
@@ -78,13 +78,13 @@ namespace Qv2ray::components::tcping
 
             if ((errcode = testLatency(resolved, &start, &end)) != 0) {
                 if (errcode != -EADDRNOTAVAIL) {
-                    LOG(NETWORK, "Error connecting to host: " + data.hostName + ":" + QSTRN(data.port) + " " + strerror(-errcode))
+                    LOG(MODULE_NETWORK, "Error connecting to host: " + data.hostName + ":" + QSTRN(data.port) + " " + strerror(-errcode))
                     errorCount++;
                 } else {
                     if (noAddress) {
-                        LOG(NETWORK, ".")
+                        LOG(MODULE_NETWORK, ".")
                     } else {
-                        LOG(NETWORK, "error connecting to host: " + QSTRN(-errcode) + " " + strerror(-errcode))
+                        LOG(MODULE_NETWORK, "error connecting to host: " + QSTRN(-errcode) + " " + strerror(-errcode))
                     }
 
                     noAddress = true;

@@ -18,7 +18,7 @@ using QtNodes::NodeValidationState;
 using QtNodes::NodeDataType;
 using QtNodes::NodeData;
 
-#define GRAPH_NODE_LABEL_FONTSIZE_INCREMENT 3
+const int GRAPH_NODE_LABEL_FONTSIZE_INCREMENT = 3;
 
 namespace Qv2ray::ui::nodemodels
 {
@@ -31,7 +31,7 @@ namespace Qv2ray::ui::nodemodels
         public:
             InboundNodeData()
             {
-                DEBUG(GRAPH, "DANGER: Initialising a data model without value.")
+                DEBUG(MODULE_GRAPH, "DANGER: Initialising a data model without value.")
             }
             InboundNodeData(QString in) : _inboundTag(in) { }
 
@@ -55,7 +55,7 @@ namespace Qv2ray::ui::nodemodels
         public:
             OutboundNodeData() : _outboundTag()
             {
-                DEBUG(GRAPH, "DANGER: Initialising a data model without value.")
+                DEBUG(MODULE_GRAPH, "DANGER: Initialising a data model without value.")
             }
             OutboundNodeData(QString out) : _outboundTag(out) { }
 
@@ -79,7 +79,7 @@ namespace Qv2ray::ui::nodemodels
         public:
             RuleNodeData() : _ruleTag()
             {
-                DEBUG(GRAPH, "DANGER: Initialising a data model without value.")
+                DEBUG(MODULE_GRAPH, "DANGER: Initialising a data model without value.")
             }
             RuleNodeData(QString out) : _ruleTag(out) { }
 

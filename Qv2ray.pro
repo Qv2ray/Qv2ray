@@ -45,7 +45,7 @@ include($$PWD/makespec/00-deps.pri)
 
 # lrelease will not work when adding BEFORE 00-deps.pri
 CONFIG += lrelease embed_translations
-DEFINES += QT_DEPRECATED_WARNINGS QV2RAY_VERSION_STRING=\"\\\"v$${VERSION}\\\"\" QAPPLICATION_CLASS=QApplication
+DEFINES += QT_DEPRECATED_WARNINGS QV2RAY_VERSION_STRING=\"\\\"v$${VERSION}\\\"\" QAPPLICATION_CLASS=QApplication XTOSTRUCT_QT
 
 # Source file parser
 include($$PWD/makespec/01-sourcesparser.pri)
@@ -84,18 +84,23 @@ Qv2rayAddSource(core, config, ConfigUpgrade, cpp)
 Qv2rayAddSource(core, connection, ConnectionIO, cpp, hpp)
 Qv2rayAddSource(core, connection, Generation, cpp, hpp)
 Qv2rayAddSource(core, connection, Serialization, cpp, hpp)
-Qv2rayAddSource(core, _, CoreUtils, cpp, hpp)
 Qv2rayAddSource(core, kernel, KernelInteractions, cpp, hpp)
 Qv2rayAddSource(core, kernel, APIBackend, cpp, hpp)
+Qv2rayAddSource(core, handler, ConnectionHandler, cpp, hpp)
+Qv2rayAddSource(core, handler, SubscriptionHandler, cpp)
+Qv2rayAddSource(core, handler, V2rayInstanceHandler, cpp, hpp)
+Qv2rayAddSource(core, _, CoreUtils, cpp, hpp)
+Qv2rayAddSource(core, _, CoreSafeTypes, hpp)
 Qv2rayAddSource(ui, editors, w_InboundEditor, cpp, hpp, ui)
 Qv2rayAddSource(ui, editors, w_JsonEditor, cpp, hpp, ui)
 Qv2rayAddSource(ui, editors, w_OutboundEditor, cpp, hpp, ui)
 Qv2rayAddSource(ui, editors, w_RoutesEditor, cpp, hpp, ui)
 Qv2rayAddSource(ui, editors, w_RoutesEditor_extra, cpp)
-Qv2rayAddSource(ui, nodemodels, InboundNodeModel, cpp, hpp)
-Qv2rayAddSource(ui, nodemodels, OutboundNodeModel, cpp, hpp)
-Qv2rayAddSource(ui, nodemodels, RuleNodeModel, cpp, hpp)
-Qv2rayAddSource(ui, nodemodels, NodeModelsBase, hpp)
+Qv2rayAddSource(ui, models, InboundNodeModel, cpp, hpp)
+Qv2rayAddSource(ui, models, OutboundNodeModel, cpp, hpp)
+Qv2rayAddSource(ui, models, RuleNodeModel, cpp, hpp)
+Qv2rayAddSource(ui, models, NodeModelsBase, hpp)
+Qv2rayAddSource(ui, models, ConnectionTreeModel, cpp, hpp)
 Qv2rayAddSource(ui, messaging, QvMessageBus, cpp, hpp)
 Qv2rayAddSource(ui, _, w_ExportConfig, cpp, hpp, ui)
 Qv2rayAddSource(ui, _, w_ImportConfig, cpp, hpp, ui)
@@ -104,6 +109,7 @@ Qv2rayAddSource(ui, _, w_MainWindow_extra, cpp)
 Qv2rayAddSource(ui, _, w_PreferencesWindow, cpp, hpp, ui)
 Qv2rayAddSource(ui, _, w_ScreenShot_Core, cpp, hpp, ui)
 Qv2rayAddSource(ui, _, w_SubscriptionManager, cpp, hpp, ui)
+Qv2rayAddSource(ui, widgets, ConnectionWidget, cpp, hpp, ui)
 Qv2rayAddSource(ui, widgets, StreamSettingsWidget, cpp, hpp, ui)
 
 SOURCES += $$PWD/src/main.cpp

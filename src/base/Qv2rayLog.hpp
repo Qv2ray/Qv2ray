@@ -31,21 +31,23 @@ namespace Qv2ray::base
 #define DEBUG(MODULE, MSG) __LOG_IMPL(QV2RAY_LOG_DEBUG, (MODULE), (MSG));
 
 // Log modules used by Qv2ray
-const inline QString INIT           =   "INIT"                   ;
-const inline QString MESSAGING      =   "BASE-MESSAGING"         ;
-const inline QString UI             =   "CORE-UI"                ;
-const inline QString GRAPH          =   "CORE-UI-GRAPH"          ;
-const inline QString SETTINGS       =   "CORE-SETTINGS"          ;
-const inline QString VCORE          =   "CORE-VCORE"             ;
+const inline QString MODULE_INIT           =   "INIT"                   ;
+const inline QString MODULE_MESSAGING      =   "BASE-MESSAGING"         ;
+const inline QString MODULE_UI             =   "CORE-UI"                ;
+const inline QString MODULE_GRAPH          =   "CORE-UI-GRAPH"          ;
+const inline QString MODULE_SETTINGS       =   "CORE-SETTINGS"          ;
+const inline QString MODULE_VCORE          =   "CORE-VCORE"             ;
 //
-const inline QString CONNECTION     =   "CORE-CONNECTION"        ;
-const inline QString SUBSCRIPTION   =   "CORE-SUBSCRIPTION"      ;
-const inline QString IMPORT         =   "CORE-IMPORT"            ;
-const inline QString EXPORT         =   "CORE-EXPORT"            ;
+const inline QString MODULE_CONNECTION     =   "CORE-CONNECTION"        ;
+const inline QString MODULE_SUBSCRIPTION   =   "CORE-SUBSCRIPTION"      ;
+const inline QString MODULE_IMPORT         =   "CORE-IMPORT"            ;
+const inline QString MODULE_EXPORT         =   "CORE-EXPORT"            ;
 //
-const inline QString NETWORK        =   "COMMON-NETWORK"         ;
-const inline QString FILEIO         =   "COMMON-FILEIO"          ;
+const inline QString MODULE_NETWORK        =   "COMMON-NETWORK"         ;
+const inline QString MODULE_FILEIO         =   "COMMON-FILEIO"          ;
 //
-const inline QString PROXY          =   "COMPONENT-PROXY"        ;
-const inline QString UPDATE         =   "COMPONENT-UPDATE"       ;
-const inline QString PLUGIN         =   "COMPONENT-PLUGIN"       ;
+const inline QString MODULE_PROXY          =   "COMPONENT-PROXY"        ;
+const inline QString MODULE_UPDATE         =   "COMPONENT-UPDATE"       ;
+const inline QString MODULE_PLUGIN         =   "COMPONENT-PLUGIN"       ;
+// ================================================================
+const inline QString MODULE_CORE_HANDLER   =   "libQv2ray: ConnectionHandler";
