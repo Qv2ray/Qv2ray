@@ -10,10 +10,10 @@ jobs:
     strategy:
       matrix:
         qt_version: [5.12.6, 5.13.2, 5.14.1]
-        platform: [ubuntu-16.04, macos-latest, windows-latest]
+        platform: [ubuntu-latest, macos-latest, windows-latest]
         arch: [x86, x64]
         exclude:
-          - platform: ubuntu-16.04
+          - platform: ubuntu-latest
             arch: x86
           - platform: macos-latest
             arch: x86
@@ -45,13 +45,11 @@ jobs:
           arch: ${{ matrix.arch }}
 # --------------------------------------------------------
       - name: Linux - Install Packages 
-        if: matrix.platform == 'ubuntu-16.04'
+        if: matrix.platform == 'ubuntu-latest'
         run: |
-          sudo add-apt-repository ppa:ubuntu-toolchain-r/test
-          sudo add-apt-repository ppa:webispy/grpc
-          sudo add-apt-repository ppa:carsten-uppenbrink-net/openssl
+          sudo add-apt-repository ppa:ymshenyu/grpc-1
           sudo apt update
-          sudo apt install -y gcc-7 libgl-dev openssl libx11-dev libxkbcommon-x11-dev libprotobuf-dev protobuf-compiler protobuf-c-compiler
+          sudo apt install -y libgl-dev openssl libx11-dev libxkbcommon-x11-dev libprotobuf-dev protobuf-compiler protobuf-c-compiler
 
       - name: macOS - Install Packages
         if: matrix.platform == 'macos-latest'
@@ -83,7 +81,7 @@ jobs:
         if: matrix.platform != 'windows-latest'
         run: |
           cd build
-          make -j2 release $([ "${{ matrix.platform }}" == "ubuntu-16.04" ] && echo "CC=gcc-7 CXX=g++-7" LINK="g++-7" || echo "")
+          make -j2 release $([ "${{ matrix.platform }}" == "ubuntu-latest" ] || echo "")
       - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - Build Qv2ray
         if: matrix.platform == 'windows-latest'
         run: |
@@ -91,7 +89,7 @@ jobs:
           nmake release
 # -------------------------------------------------------- Deployments
       - name: Linux - ${{ matrix.qt_version }} - Generating AppImage
-        if: matrix.platform == 'ubuntu-16.04'
+        if: matrix.platform == 'ubuntu-latest'
         run: | 
           cd build
           wget https://github.com/probonopd/linuxdeployqt/releases/download/6/linuxdeployqt-6-x86_64.AppImage
@@ -99,26 +97,17 @@ jobs:
           ./linuxdeployqt-6-x86_64.AppImage --appimage-extract
           make install INSTALL_ROOT=AppDir
           cd AppDir
-          wget -c https://github.com/darealshinji/AppImageKit-checkrt/releases/download/continuous/AppRun-patched-x86_64 -O AppRun
-          chmod a+x AppRun
-          mkdir -p ./usr/{lib,optional}/
-          wget -c https://github.com/darealshinji/AppImageKit-checkrt/releases/download/continuous/exec-x86_64.so -O ./usr/optional/exec.so
-          mkdir -p ./usr/optional/libstdc++/
-          cp -fv /usr/lib/x86_64-linux-gnu/libstdc++.so.6 ./usr/optional/libstdc++/
-          mkdir -p ./usr/optional/libgcc_s/
-          cp -fv /lib/x86_64-linux-gnu/libgcc_s.so.1 ./usr/optional/libgcc_s/
-          cp -fv /usr/lib/x86_64-linux-gnu/{libssl.so.1.1,libcrypto.so.1.1} ./usr/lib/
-          ../squashfs-root/AppRun usr/share/applications/qv2ray.desktop -appimage -no-strip -always-overwrite
+          ../squashfs-root/AppRun usr/share/applications/qv2ray.desktop -appimage -no-strip -always-overwrite -unsupported-allow-new-glibc -unsupported-bundle-everything
           mv ./Qv2ray*.AppImage ./Qv2ray.AppImage
       - name: Linux - ${{ matrix.qt_version }} - Uploading artifact
-        if: matrix.platform == 'ubuntu-16.04'
+        if: matrix.platform == 'ubuntu-latest'
         uses: actions/upload-artifact@master
         with:
           name: Qv2ray-${{ github.sha }}.linux-${{ matrix.arch }}.qt${{ matrix.qt_version }}.AppImage
           path: build/AppDir/Qv2ray.AppImage
       - name: Linux - ${{ matrix.qt_version }} - Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release
-        if: github.event_name == 'release' && matrix.platform == 'ubuntu-16.04'
+        if: github.event_name == 'release' && matrix.platform == 'ubuntu-latest'
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: build/AppDir/Qv2ray.AppImage
