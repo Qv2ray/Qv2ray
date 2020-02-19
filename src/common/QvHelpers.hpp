@@ -8,6 +8,7 @@
 #define REGEX_PORT_NUMBER R"(([0-9]|[1-9]\d{1,3}|[1-5]\d{4}|6[0-5]{2}[0-3][0-5])*)"
 
 namespace Qv2ray::common
+
 {
     QStringList GetFileList(QDir dir);
     QString Base64Encode(QString string);
@@ -64,20 +65,28 @@ namespace Qv2ray::common
         return JsonFromString(json);
     }
 
-    inline bool IsIPv4Address(const QString &addr)
+
+    namespace validation
     {
-        return QRegularExpression(REGEX_IPV4_ADDR "$").match(addr).hasMatch();
+        static QRegularExpression __regex_ipv4_full(REGEX_IPV4_ADDR "$");
+        static QRegularExpression __regex_ipv6_full(REGEX_IPV6_ADDR "$");
+
+        inline bool IsIPv4Address(const QString &addr)
+        {
+            return __regex_ipv4_full.match(addr).hasMatch();
+        }
+
+        inline bool IsIPv6Address(const QString &addr)
+        {
+            return __regex_ipv6_full.match(addr).hasMatch();
+        }
+
+        inline bool IsValidIPAddress(const QString &addr)
+        {
+            return IsIPv4Address(addr) || IsIPv6Address(addr);
+        }
     }
 
-    inline bool IsIPv6Address(const QString &addr)
-    {
-        return QRegularExpression(REGEX_IPV6_ADDR "$").match(addr).hasMatch();
-    }
-
-    inline bool IsValidIPAddress(const QString &addr)
-    {
-        return IsIPv4Address(addr) || IsIPv6Address(addr);
-    }
 
     inline QString timeToString(const time_t &t)
     {

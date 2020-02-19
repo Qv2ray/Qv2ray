@@ -14,6 +14,8 @@
 #include "components/autolaunch/QvAutoLaunch.hpp"
 #include <common/QvTranslator.hpp>
 
+using Qv2ray::common::validation::IsValidIPAddress;
+
 #define LOADINGCHECK if(!finishedLoading) return;
 #define NEEDRESTART if(finishedLoading) IsConnectionPropertyChanged = true;
 
