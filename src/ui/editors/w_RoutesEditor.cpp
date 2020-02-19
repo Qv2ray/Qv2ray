@@ -184,7 +184,6 @@ void RouteEditor::onConnectionCreated(QtNodes::Connection const &c)
     // Connection Established
     auto const sourceNode = c.getNode(PortType::Out);
     auto const targetNode = c.getNode(PortType::In);
-    auto conns = Qv2ray::common::Values(nodeScene->connections());
 
     if (inboundNodes.values().contains(sourceNode) && ruleNodes.values().contains(targetNode)) {
         // It's a inbound-rule connection
@@ -195,7 +194,7 @@ void RouteEditor::onConnectionCreated(QtNodes::Connection const &c)
         // QStringList has an helper to let us remove duplicates, see below.
         QStringList _inbounds;
 
-        for (auto conn : conns) {
+        for (auto &&[_, conn] : nodeScene->connections()) {
             auto _connection = conn.get();
 
             if (_connection->getNode(PortType::In) == targetNode && _connection->getNode(PortType::Out) == sourceNode && _connection->id() != c.id()) {
@@ -581,7 +580,7 @@ void RouteEditor::on_enableBalancerCB_stateChanged(int arg1)
         LOG(MODULE_UI, "A rule has been set to use balancer, disconnect it to any outbound.")
         auto ruleNode = ruleNodes[currentRuleTag];
 
-        for (auto conn : Qv2ray::common::Values(nodeScene->connections())) {
+        for (auto &&[_, conn] : nodeScene->connections()) {
             if (conn.get()->getNode(PortType::Out) == ruleNode) {
                 nodeScene->deleteConnection(*conn);
             }
