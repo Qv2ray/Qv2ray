@@ -98,7 +98,7 @@ jobs:
           make install INSTALL_ROOT=AppDir
           cd AppDir
           mkdir -p ./usr/lib/
-          cp -fv /usr/lib/x86_64-linux-gnu/{libssl.so.1.1,libcrypto.so.1.1} ./usr/lib/
+          cp -fv /lib64/ld-linux-x86-64.so.2 /usr/lib/x86_64-linux-gnu/{libssl.so.1.1,libcrypto.so.1.1} ./usr/lib/
           ../squashfs-root/AppRun usr/share/applications/qv2ray.desktop -appimage -no-strip -always-overwrite -unsupported-allow-new-glibc -unsupported-bundle-everything
           mv ./Qv2ray*.AppImage ./Qv2ray.AppImage
       - name: Linux - ${{ matrix.qt_version }} - Uploading artifact
