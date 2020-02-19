@@ -7,19 +7,15 @@
 
 #include "ui_w_MainWindow.h"
 
-//#include "core/CoreUtils.hpp"
-//#include "core/kernel/KernelInteractions.hpp"
-//#include "core/connection/ConnectionIO.hpp"
-
 #include "common/LogHighlighter.hpp"
 #include "common/HTTPRequestHelper.hpp"
-
-
-//#include "components/tcping/QvTCPing.hpp"
-//#include "components/pac/QvPACHandler.hpp"
 #include "components/speedchart/speedwidget.hpp"
-
+#include "core/handler/ConnectionHandler.hpp"
 #include "ui/messaging/QvMessageBus.hpp"
+
+// ==========================================================================================
+#include "ui/widgets/ConnectionWidget.hpp"
+#include "ui/widgets/ConnectionInfoWidget.hpp"
 
 class MainWindow : public QMainWindow, Ui::MainWindow
 {
@@ -60,11 +56,11 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         //
         void ToggleVisibility();
         void VersionUpdate(QByteArray &data);
-        void quit();
+        //
+        void OnConnected(const ConnectionId &id);
 
     public:
         static MainWindow *mwInstance;
-        //QvConnectionObject CurrentConnectionIdentifier;
 
     protected:
         void mouseReleaseEvent(QMouseEvent *e) override;
@@ -73,18 +69,24 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         void closeEvent(QCloseEvent *) override;
 
     private slots:
+        //
+        void onConnectionWidgetFocusRequested(const ConnectionWidget *widget);
+        //
         void on_action_StartThis_triggered();
         void on_action_RCM_EditJson_triggered();
         void on_action_RCM_ConvToComplex_triggered();
         void on_action_RCM_RenameConnection_triggered();
         void on_connectionListWidget_itemSelectionChanged();
-
         void on_connectionListWidget_itemDoubleClicked(QTreeWidgetItem *item, int column);
 
+        void on_connectionFilterTxt_textEdited(const QString &arg1);
+
+        void on_connectionListWidget_itemClicked(QTreeWidgetItem *item, int column);
+
     private:
+        QTreeWidgetItem *CurrentItem;
         //
         void SetEditWidgetEnable(bool enabled);
-        //void ShowAndSetConnection(QvConnectionObject fullIdentifier, bool SetConnection, bool Apply);
         //CONFIGROOT currentFullConfig;
         //
         // Charts
@@ -95,19 +97,12 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         //QvConnectionObject renameOriginalIdentifier;
         bool isRenamingInProgress;
         //
-        // ID for QTimers
-        //
-        int qvLogTimerId;
-        int speedTimerId;
-        int pingTimerId;
-        //
-        //
         QvHttpRequestHelper *requestHelper;
         QSystemTrayIcon hTray;
         //PACServer pacServer;
         //QvTCPingModel tcpingHelper;
         SyntaxHighlighter *vCoreLogHighlighter;
-        QTreeWidgetItem *CurrentSelectedItemPtr;
+        ConnectionInfoWidget *infoWidget;
         //
         // Actions in the system tray menu
         //

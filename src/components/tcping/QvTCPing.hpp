@@ -5,7 +5,7 @@
 namespace Qv2ray::components::tcping
 {
     struct QvTCPingData {
-        QvConnectionObject connectionIdentifier;
+        ConnectionObject connectionIdentifier;
         QString hostName;
         int port;
         QString errorMessage;
@@ -19,7 +19,7 @@ namespace Qv2ray::components::tcping
 
         public:
             explicit QvTCPingModel(int defaultCount = 5, QObject *parent = nullptr);
-            void StartPing(const QvConnectionObject &connectionName, const QString &hostName, int port);
+            void StartPing(const ConnectionObject &connectionName, const QString &hostName, int port);
             void StopAllPing();
         signals:
             void PingFinished(QvTCPingData data);

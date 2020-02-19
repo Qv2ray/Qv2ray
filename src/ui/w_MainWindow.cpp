@@ -26,9 +26,7 @@
 #include "components/pac/QvPACHandler.hpp"
 
 #include "core/connection/ConnectionIO.hpp"
-
-// ==========================================================================================
-#include "ui/widgets/ConnectionWidget.hpp"
+#include "ui/widgets/ConnectionInfoWidget.hpp"
 
 // MainWindow.cpp --> Main MainWindow source file, handles mostly UI-related operations.
 
@@ -90,6 +88,7 @@ QvMessageBusSlotImpl(MainWindow)
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent)//, vinstance(), hTray(this), tcpingHelper(3, this)
 {
+    setupUi(this);
     MainWindow::mwInstance = this;
     //vinstance = new V2rayKernelInstance();
     //connect(vinstance, &V2rayKernelInstance::onProcessOutputReadyRead, this, &MainWindow::UpdateVCoreLog);
@@ -101,15 +100,15 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent)//, vinstance(), hTr
     //                     tr("To solve the problem, read the V2ray log in the log text browser."));
     //});
     //
-    setupUi(this);
     QvMessageBusConnect(MainWindow);
+    //
+    infoWidget = new ConnectionInfoWidget(this);
+    connectionInfoLayout->addWidget(infoWidget);
     //
     vCoreLogHighlighter = new SyntaxHighlighter(GlobalConfig.uiConfig.useDarkTheme, masterLogBrowser->document());
     masterLogBrowser->document()->setDocumentMargin(8);
     masterLogBrowser->document()->adjustSize();
     masterLogBrowser->setLineWrapMode(QTextBrowser::LineWrapMode::NoWrap);
-    //
-    qvLogTimerId = startTimer(500);
     //
     requestHelper = new QvHttpRequestHelper();
     //connect(&tcpingHelper, &QvTCPingModel::PingFinished, this, &MainWindow::onPingFinished);
@@ -119,11 +118,11 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent)//, vinstance(), hTr
     importConfigButton->setIcon(QICON_R("import.png"));
     duplicateBtn->setIcon(QICON_R("duplicate.png"));
     removeConfigButton->setIcon(QICON_R("delete.png"));
-    editConfigButton->setIcon(QICON_R("edit.png"));
-    editJsonBtn->setIcon(QICON_R("json.png"));
-    //
-    pingTestBtn->setIcon(QICON_R("ping_gauge.png"));
-    shareBtn->setIcon(QICON_R("share.png"));
+    //editConfigButton->setIcon(QICON_R("edit.png"));
+    //editJsonBtn->setIcon(QICON_R("json.png"));
+    ////
+    //pingTestBtn->setIcon(QICON_R("ping_gauge.png"));
+    //shareBtn->setIcon(QICON_R("share.png"));
     updownImageBox->setStyleSheet("image: url(" + QV2RAY_UI_RESOURCES_ROOT + "netspeed_arrow.png)");
     updownImageBox_2->setStyleSheet("image: url(" + QV2RAY_UI_RESOURCES_ROOT + "netspeed_arrow.png)");
     //
@@ -166,7 +165,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent)//, vinstance(), hTr
     connect(action_Tray_Start, &QAction::triggered, this, &MainWindow::on_startButton_clicked);
     connect(action_Tray_Stop, &QAction::triggered, this, &MainWindow::on_stopButton_clicked);
     connect(action_Tray_Reconnect, &QAction::triggered, this, &MainWindow::on_reconnectButton_clicked);
-    connect(action_Tray_Quit, &QAction::triggered, this, &MainWindow::quit);
+    connect(action_Tray_Quit, &QAction::triggered, this, &MainWindow::on_actionExit_triggered);
     connect(action_Tray_SetSystemProxy, &QAction::triggered, this, &MainWindow::MWSetSystemProxy);
     connect(action_Tray_ClearSystemProxy, &QAction::triggered, this, &MainWindow::MWClearSystemProxy);
     connect(&hTray, &QSystemTrayIcon::activated, this, &MainWindow::on_activatedTray);
@@ -229,12 +228,12 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent)//, vinstance(), hTr
 void MainWindow::SetEditWidgetEnable(bool enabled)
 {
     removeConfigButton->setEnabled(enabled);
-    editConfigButton->setEnabled(enabled);
+    //editConfigButton->setEnabled(enabled);
     duplicateBtn->setEnabled(enabled);
-    editJsonBtn->setEnabled(enabled);
-    shareBtn->setEnabled(enabled);
+    //editJsonBtn->setEnabled(enabled);
+    //shareBtn->setEnabled(enabled);
     // Allow ping all.
-    pingTestBtn->setText(enabled ? tr("Ping") : tr("Ping All"));
+    //pingTestBtn->setText(enabled ? tr("Ping") : tr("Ping All"));
 }
 
 void MainWindow::mouseReleaseEvent(QMouseEvent *e)
@@ -328,7 +327,9 @@ void MainWindow::OnConfigListChanged(bool need_restart)
         for (auto connection : connections) {
             auto connectionItem = new QTreeWidgetItem();
             groupItem->addChild(connectionItem);
-            connectionListWidget->setItemWidget(connectionItem, 0, new ConnectionWidget(group, connection, connectionListWidget));
+            auto widget = new ConnectionWidget(connection, connectionListWidget);
+            connect(widget, &ConnectionWidget::RequestWidgetFocus, this, &MainWindow::onConnectionWidgetFocusRequested);
+            connectionListWidget->setItemWidget(connectionItem, 0, widget);
         }
     }
 
@@ -343,7 +344,9 @@ void MainWindow::OnConfigListChanged(bool need_restart)
         for (auto connection : connections) {
             auto connectionItem = new QTreeWidgetItem();
             subscriptionItem->addChild(connectionItem);
-            connectionListWidget->setItemWidget(connectionItem, 0, new ConnectionWidget(subscription, connection, connectionListWidget));
+            auto widget = new ConnectionWidget(connection, connectionListWidget);
+            connect(widget, &ConnectionWidget::RequestWidgetFocus, this, &MainWindow::onConnectionWidgetFocusRequested);
+            connectionListWidget->setItemWidget(connectionItem, 0, widget);
         }
     }
 
@@ -420,9 +423,7 @@ void MainWindow::OnConfigListChanged(bool need_restart)
 }
 MainWindow::~MainWindow()
 {
-    killTimer(qvLogTimerId);
     hTray.hide();
-    //delete this->vinstance;
 }
 void MainWindow::UpdateVCoreLog(const QString &log)
 {
@@ -449,13 +450,13 @@ void MainWindow::on_stopButton_clicked()
     ////
     //hTray.setToolTip(TRAY_TOOLTIP_PREFIX);
     //statusLabel->setText(tr("Disconnected"));
-    //action_Tray_Start->setEnabled(true);
-    //action_Tray_Stop->setEnabled(false);
-    //action_Tray_Reconnect->setEnabled(false);
-    //// Set to false as the system proxy has been cleared in the StopConnection function.
-    //tray_SystemProxyMenu->setEnabled(false);
-    //startButton->setEnabled(true);
-    //stopButton->setEnabled(false);
+    action_Tray_Start->setEnabled(true);
+    action_Tray_Stop->setEnabled(false);
+    action_Tray_Reconnect->setEnabled(false);
+    // Set to false as the system proxy has been cleared in the StopConnection function.
+    tray_SystemProxyMenu->setEnabled(false);
+    startButton->setEnabled(true);
+    stopButton->setEnabled(false);
     ////
     //netspeedLabel->setText("0.00 B/s\r\n0.00 B/s");
     //dataamountLabel->setText("0.00 B\r\n0.00 B");
@@ -466,7 +467,7 @@ void MainWindow::on_stopButton_clicked()
 void MainWindow::closeEvent(QCloseEvent *event)
 {
     this->hide();
-    tray_RootMenu->actions()[0]->setText(tr("Show"));
+    tray_RootMenu->actions().first()->setText(tr("Show"));
     event->ignore();
 }
 void MainWindow::on_activatedTray(QSystemTrayIcon::ActivationReason reason)
@@ -480,15 +481,6 @@ void MainWindow::on_activatedTray(QSystemTrayIcon::ActivationReason reason)
             ToggleVisibility();
 #endif
             break;
-
-        //case QSystemTrayIcon::MiddleClick:
-        //    if (vinstance->KernelStarted) {
-        //        on_stopButton_clicked();
-        //    } else {
-        //        on_startButton_clicked();
-        //    }
-        //
-        //    break;
 
         case QSystemTrayIcon::DoubleClick:
 #ifdef __APPLE__
@@ -516,7 +508,8 @@ void MainWindow::ToggleVisibility()
         tray_RootMenu->actions()[0]->setText(tr("Show"));
     }
 }
-void MainWindow::quit()
+
+void MainWindow::on_actionExit_triggered()
 {
     if (StartupOption.enableToolbarPlguin) {
         StopProcessingPlugins();
@@ -527,51 +520,6 @@ void MainWindow::quit()
     ExitQv2ray();
 }
 
-void MainWindow::on_actionExit_triggered()
-{
-    quit();
-}
-
-//void MainWindow::ShowAndSetConnection(QvConnectionObject fullIdentifier, bool SetConnection, bool ApplyConnection)
-//{
-//// Check empty again...
-//if (!connections.contains(fullIdentifier)) return;
-//
-//SetEditWidgetEnable(true);
-////
-//// --------- BRGIN Show Connection
-//auto conf = connections[fullIdentifier];
-////
-//auto isComplexConfig = IsComplexConfig(conf.config);
-//routeCountLabel->setText(isComplexConfig ? tr("Complex") : tr("Simple"));
-//
-//if (conf.latency == 0.0) {
-//    latencyLabel->setText(tr("No data"));
-//} else {
-//    latencyLabel->setText(QSTRN(conf.latency) + " " + tr("ms"));
-//}
-//
-//if (conf.configType == CONNECTION_SUBSCRIPTION) {
-//    routeCountLabel->setText(routeCountLabel->text().append(" (" + tr("Subscription") + ":" + conf.subscriptionName + ")"));
-//}
-//
-//// Get Connection info
-//auto host_port = MWGetConnectionInfo(fullIdentifier.IdentifierString());
-//_hostLabel->setText(get<0>(host_port));
-//_portLabel->setText(QSTRN(get<1>(host_port)));
-//_OutBoundTypeLabel->setText(get<2>(host_port));
-//
-//// Set to currentConnection
-//if (SetConnection) {
-//    CurrentSelectedItemPtr  = FindItemByIdentifier(fullIdentifier);
-//    CurrentConnectionIdentifier = fullIdentifier;
-//}
-//
-//// Restart Connection
-//if (ApplyConnection) {
-//    on_reconnectButton_clicked();
-//}
-//}
 void MainWindow::on_preferencesBtn_clicked()
 {
     PreferencesWindow w(this);
@@ -593,7 +541,8 @@ void MainWindow::on_clearlogButton_clicked()
 }
 void MainWindow::on_connectionListWidget_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous)
 {
-    //Q_UNUSED(previous)
+    Q_UNUSED(previous)
+    CurrentItem = current;
     //isRenamingInProgress = false;
     //
     //if (!IsConnectableItem(current)) return;
@@ -1067,3 +1016,60 @@ void MainWindow::on_connectionListWidget_itemDoubleClicked(QTreeWidgetItem *item
         //    this->hTray.showMessage("Qv2ray", tr("Already connected to: ") + CurrentConnectionIdentifier.IdentifierString(), this->windowIcon());
         //}
  */
+
+void MainWindow::OnConnected(const ConnectionId &id)
+{
+    Q_UNUSED(id)
+}
+
+
+void MainWindow::onConnectionWidgetFocusRequested(const ConnectionWidget *_widget)
+{
+    if (_widget == nullptr) {
+        return;
+    }
+
+    for (auto _item_ : connectionListWidget->findItems(QString("*"), Qt::MatchWrap | Qt::MatchWildcard | Qt::MatchRecursive)) {
+        auto myWidget = GetItemWidget(_item_);
+
+        if (myWidget == _widget) {
+            LOG(MODULE_UI, "Setting current item.")
+            connectionListWidget->setCurrentItem(_item_);
+        }
+    }
+}
+
+void MainWindow::on_connectionFilterTxt_textEdited(const QString &arg1)
+{
+    // No recursive since we only need top level item
+    for (auto _top_item_ : connectionListWidget->findItems(QString("*"), Qt::MatchWrap | Qt::MatchWildcard)) {
+        //auto topWidget = GetItemWidget(_top_item_);
+        bool isTotallyHide = true;
+
+        for (auto i = 0; i < _top_item_->childCount(); i++) {
+            auto _child_ = _top_item_->child(i);
+            auto childWidget = GetItemWidget(_child_);
+
+            if (childWidget->NameMatched(arg1)) {
+                LOG(MODULE_UI, "Setting current item.")
+                // Show the child
+                _child_->setHidden(false);
+                isTotallyHide = false;
+            } else {
+                _child_->setHidden(true);
+            }
+        }
+
+        _top_item_->setHidden(isTotallyHide);
+
+        if (!isTotallyHide) {
+            connectionListWidget->expandItem(_top_item_);
+        }
+    }
+}
+
+void MainWindow::on_connectionListWidget_itemClicked(QTreeWidgetItem *item, int column)
+{
+    Q_UNUSED(column)
+    infoWidget->ShowConnectionDetails(GetItemWidget(item)->Identifier());
+}

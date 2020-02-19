@@ -12,27 +12,27 @@ namespace Qv2ray::base
         _QvGroupObjectBase(): displayName(), connections() { }
     };
 
-    struct QvGroupObject : _QvGroupObjectBase {
-        QvGroupObject() { }
+    struct GroupObject : _QvGroupObjectBase {
+        GroupObject() { }
         XTOSTRUCT(O(displayName, connections))
     };
 
-    struct QvSubscriptionObject : _QvGroupObjectBase {
+    struct SubscriptionObject : _QvGroupObjectBase {
         QString address;
         int64_t lastUpdated;
         float updateInterval;
-        QvSubscriptionObject(): address(""), lastUpdated(system_clock::to_time_t(system_clock::now())), updateInterval(10) { }
+        SubscriptionObject(): address(""), lastUpdated(system_clock::to_time_t(system_clock::now())), updateInterval(10) { }
         XTOSTRUCT(O(lastUpdated, updateInterval, address, connections, displayName))
     };
 
-    struct QvConnectionObject {
+    struct ConnectionObject {
         QString displayName;
         int64_t importDate;
         int64_t lastConnected;
         int64_t latency;
         int64_t upLinkData;
         int64_t downLinkData;
-        QvConnectionObject(): displayName(), importDate(system_clock::to_time_t(system_clock::now())), lastConnected(), latency(0), upLinkData(0), downLinkData(0) { }
+        ConnectionObject(): displayName(), importDate(system_clock::to_time_t(system_clock::now())), lastConnected(), latency(0), upLinkData(0), downLinkData(0) { }
         XTOSTRUCT(O(displayName, importDate, lastConnected, latency, upLinkData, downLinkData))
     };
 }

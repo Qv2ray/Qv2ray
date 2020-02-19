@@ -4,10 +4,10 @@
 #include "ui_ConnectionWidget.h"
 #include "core/handler/ConnectionHandler.hpp"
 
-enum CONNECTION_ITEM_TYPE {
-    INVALID,
-    GROUP,
-    SUBSCRIPTION
+enum ITEM_TYPE {
+    GROUP_HEADER_ITEM,
+    SUBS_HEADER_ITEM,
+    NODE_ITEM
 };
 
 class ConnectionWidget : public QWidget, private Ui::ConnectionWidget
@@ -16,88 +16,51 @@ class ConnectionWidget : public QWidget, private Ui::ConnectionWidget
     public:
         //
         // ======================================= Initialisation for connection nodes.
-        //
-        explicit ConnectionWidget(const GroupId &group, const ConnectionId &id, QWidget *parent = nullptr): ConnectionWidget(parent)
-        {
-            type = GROUP;
-            connectionId = id;
-            groupId = group;
-            InitialiseForConnection(id);
-        }
-        explicit ConnectionWidget(const SubscriptionId &group, const ConnectionId &id, QWidget *parent = nullptr): ConnectionWidget(parent)
-        {
-            type = SUBSCRIPTION;
-            connectionId = id;
-            subscriptionId = group;
-            InitialiseForConnection(id);
-        }
+        explicit ConnectionWidget(const ConnectionIdentifier &identifier, QWidget *parent = nullptr);
         //
         // ======================================= Initialisation for root nodes.
+        explicit ConnectionWidget(const GroupId &id, QWidget *parent = nullptr);
+        explicit ConnectionWidget(const SubscriptionId &id, QWidget *parent = nullptr);
         //
-        explicit ConnectionWidget(const GroupId &id, QWidget *parent = nullptr) : ConnectionWidget(parent)
+        void BeginConnection();
+        ~ConnectionWidget();
+        //
+        inline bool NameMatched(const QString &arg)
         {
-            type = INVALID;
-            groupId = id;
-            InitialiseForGroup(ConnectionHandler->GetGroup(id).displayName, ConnectionHandler->Connections(id).count());
-        }
-        explicit ConnectionWidget(const SubscriptionId &id, QWidget *parent = nullptr) : ConnectionWidget(parent)
-        {
-            type = INVALID;
-            subscriptionId = id;
-            InitialiseForGroup(ConnectionHandler->GetSubscription(id).displayName, ConnectionHandler->Connections(id).count());
-        }
-        inline bool IsConnection() const
-        {
-            return isConnectionItem;
-        }
-        void BeginConnection()
-        {
-            if (isConnectionItem) {
-                if (type == GROUP) {
-                    ConnectionHandler->StartConnection(groupId, connectionId);
-                } else if (type == SUBSCRIPTION) {
-                    ConnectionHandler->StartConnection(subscriptionId, connectionId);
-                } else {
-                    LOG(MODULE_UI, "Trying to start an INVALID non-connection entry, this call is illegal.")
-                }
+            auto searchString = arg.toLower();
+            auto matchHeader = [&](const QString & arg1) {
+                return itemType == SUBS_HEADER_ITEM
+                       ? ConnectionHandler->GetSubscription(subscriptionId).displayName.toLower().contains(arg1)
+                       : ConnectionHandler->GetGroup(groupId).displayName.toLower().contains(arg1);
+            };
+
+            if (itemType != NODE_ITEM) {
+                return matchHeader(searchString);
             } else {
-                LOG(MODULE_UI, "Trying to start a non-connection entry, this call is illegal.")
+                return matchHeader(searchString) || ConnectionHandler->GetConnection(connectionIdentifier.connectionId).displayName.toLower().contains(searchString);
             }
         }
-        ~ConnectionWidget()
+        inline const ConnectionIdentifier Identifier() const
         {
-            //
+            return connectionIdentifier;
         }
-
+        //
+        inline bool IsConnection() const
+        {
+            return itemType == NODE_ITEM;
+        }
+    signals:
+        void RequestWidgetFocus(const ConnectionWidget *me);
+    private slots:
+        void OnConnected(const ConnectionId &id);
     private:
-        ConnectionWidget(QWidget *parent = nullptr) : QWidget(parent), connectionId("null"), groupId("null"), subscriptionId("null")
-        {
-            setupUi(this);
-        }
-        void InitialiseForConnection(const ConnectionId &id)
-        {
-            isConnectionItem = true;
-            auto connection = ConnectionHandler->GetConnection(id);
-            rawDisplayName = connection.displayName;
-            connNameLabel->setText(rawDisplayName);
-            latencyLabel->setText(tr("Latency: ") + QSTRN(connection.latency) + " " + tr("ms"));
-        }
-        void InitialiseForGroup(const QString &displayName, int connectionCount)
-        {
-            rawDisplayName = displayName;
-            connNameLabel->setText(rawDisplayName);
-            latencyLabel->setText(QSTRN(connectionCount) + " " + (connectionCount < 2 ? tr("connection") : tr("connections")));
-            //
-            layout()->removeWidget(connTypeLabel);
-            delete connTypeLabel;
-            layout()->removeWidget(dataLabel);
-            delete dataLabel;
-        }
-        CONNECTION_ITEM_TYPE type;
-        bool isConnectionItem = false;
+        explicit ConnectionWidget(QWidget *parent = nullptr);
+        void InitialiseForGroup(const QString &displayName, int connectionCount);
         QString rawDisplayName;
         //
-        ConnectionId connectionId;
+        ITEM_TYPE itemType;
+        //
+        ConnectionIdentifier connectionIdentifier;
         GroupId groupId;
         SubscriptionId subscriptionId;
 

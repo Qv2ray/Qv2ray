@@ -5,7 +5,15 @@ optional<QString> QvConnectionHandler::_CHTryStartConnection_p(const ConnectionI
 {
     auto &connectionMeta = connections[id];
     auto fullConfig = GenerateRuntimeConfig(root);
-    return kernelInstance->StartConnection(fullConfig);
+    //
+    auto result = kernelInstance->StartConnection(fullConfig);
+
+    if (!result.has_value()) {
+        emit OnConnected(id);
+        connectionMeta.lastConnected = system_clock::to_time_t(system_clock::now());
+    }
+
+    return result;
     //if (startFlag) {
     //    bool usePAC = GlobalConfig.inboundConfig.pacConfig.enablePAC;
     //    bool pacUseSocks = GlobalConfig.inboundConfig.pacConfig.useSocksProxy;
@@ -52,5 +60,5 @@ optional<QString> QvConnectionHandler::_CHTryStartConnection_p(const ConnectionI
     //        MWSetSystemProxy();
     //    }
     //}
-    return "startFlag";
+    //return "startFlag";
 }
