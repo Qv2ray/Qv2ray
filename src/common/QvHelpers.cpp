@@ -186,26 +186,4 @@ namespace Qv2ray::common
             i++;
         }
     }
-
-    QStringList ConvertQStringList(const QList<string> &stdListString)
-    {
-        QStringList listQt;
-        listQt.reserve(stdListString.size());
-
-        for (const std::string &s : stdListString) {
-            listQt.append(QString::fromStdString(s));
-        }
-
-        return listQt;
-    }
-    std::list<string> ConvertStdStringList(const QStringList &qStringList)
-    {
-        std::list<string> stdList;
-
-        for (auto &s : qStringList) {
-            stdList.push_back(s.toStdString());
-        }
-
-        return stdList;
-    }
 }

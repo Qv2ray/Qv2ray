@@ -33,8 +33,7 @@ namespace Qv2ray::common
     //
     QString FormatBytes(long long bytes);
     void DeducePossibleFileName(const QString &baseDir, QString *fileName, const QString &extension);
-    QStringList ConvertQStringList(const QList<string> &stdListString);
-    std::list<string> ConvertStdStringList(const QStringList &qStringList);
+
     // This function cannot be marked as inline.
     QString RemoveInvalidFileName(const QString &fileName);
     bool IsValidFileName(const QString &fileName);
