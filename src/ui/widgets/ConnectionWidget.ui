@@ -31,7 +31,7 @@
      <item>
       <widget class="QLabel" name="latencyLabel">
        <property name="text">
-        <string>Latency: 500ms</string>
+        <string>500ms</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -55,7 +55,7 @@
       </font>
      </property>
      <property name="text">
-      <string>0KB / 0KB</string>
+      <string>0KB</string>
      </property>
     </widget>
    </item>

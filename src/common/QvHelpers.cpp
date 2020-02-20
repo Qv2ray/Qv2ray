@@ -147,7 +147,7 @@ namespace Qv2ray::common
             dblByte = bytes / 1024.0;
 
         sprintf(str, "%.2f", dblByte);
-        return strcat(strcat(str, " "), sizes[i]);
+        return QString(str) + " " + QString(sizes[i]);
     }
 
     bool IsValidFileName(const QString &fileName)

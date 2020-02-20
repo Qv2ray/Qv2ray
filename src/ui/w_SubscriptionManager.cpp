@@ -34,7 +34,7 @@ QPair<QString, CONFIGROOT> SubscribeEditor::GetSelectedConfig()
     return currentSelectedConfig;
 }
 
-void SubscribeEditor::LoadSubscriptionList(QMap<QString, SubscriptionObject> list)
+void SubscribeEditor::LoadSubscriptionList(QMap<QString, SubscriptionObject_Config> list)
 {
     subscriptionList->clear();
 
@@ -210,7 +210,7 @@ void SubscribeEditor::on_subscriptionList_currentRowChanged(int currentRow)
 
 void SubscribeEditor::SaveConfig()
 {
-    QMap<QString, SubscriptionObject> newConf;
+    QMap<QString, SubscriptionObject_Config> newConf;
 
     for (auto _ : subscriptions.toStdMap()) {
         if (!_.second.address.isEmpty()) {

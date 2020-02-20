@@ -5,27 +5,15 @@ namespace Qv2ray::core::connection
 {
     namespace ConnectionIO
     {
-        CONFIGROOT ReadConnectionInternal(const QString &connection)
-        {
-            QString jsonString = StringFromFile(connection);
-            auto conf = CONFIGROOT(JsonFromString(jsonString));
-
-            if (conf.count() == 0) {
-                LOG(MODULE_SETTINGS, "WARN: Possible file corruption, failed to load file: " + connection + " --> File might be empty.")
-            }
-
-            return conf;
-        }
 
         CONFIGROOT GetConnectionRoot(const GroupId &group, const ConnectionId &id)
         {
-            return ReadConnectionInternal(QV2RAY_CONNECTIONS_DIR + group.toString() + "/" + id.toString() + QV2RAY_CONFIG_FILE_EXTENSION);
         }
 
-        CONFIGROOT GetConnectionRoot(const SubscriptionId &subscription, const ConnectionId &id)
-        {
-            return ReadConnectionInternal(QV2RAY_SUBSCRIPTION_DIR + subscription.toString() + "/" + id.toString() + QV2RAY_CONFIG_FILE_EXTENSION);
-        }
+        //CONFIGROOT GetConnectionRoot(const SubscriptionId &subscription, const ConnectionId &id)
+        //{
+        //    return ReadConnectionInternal(QV2RAY_SUBSCRIPTION_DIR + subscription.toString() + "/" + id.toString() + QV2RAY_CONFIG_FILE_EXTENSION);
+        //}
 
         ////
         //// Save Connection to a place, with checking if there's existing file.

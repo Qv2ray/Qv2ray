@@ -64,11 +64,10 @@ namespace Qv2ray::common
         return JsonFromString(json);
     }
 
-
     namespace validation
     {
-        static QRegularExpression __regex_ipv4_full(REGEX_IPV4_ADDR "$");
-        static QRegularExpression __regex_ipv6_full(REGEX_IPV6_ADDR "$");
+        const inline QRegularExpression __regex_ipv4_full(REGEX_IPV4_ADDR "$");
+        const inline QRegularExpression __regex_ipv6_full(REGEX_IPV6_ADDR "$");
 
         inline bool IsIPv4Address(const QString &addr)
         {
@@ -85,7 +84,6 @@ namespace Qv2ray::common
             return IsIPv4Address(addr) || IsIPv6Address(addr);
         }
     }
-
 
     inline QString timeToString(const time_t &t)
     {

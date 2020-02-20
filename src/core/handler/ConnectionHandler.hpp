@@ -7,17 +7,6 @@
 
 namespace Qv2ray::core::handlers
 {
-
-    struct ConnectionIdentifier {
-        bool isConnection;
-        bool isSubscription;
-        ConnectionId connectionId;
-        GroupId groupId;
-        SubscriptionId subscriptionId;
-        //
-        ConnectionIdentifier() : isSubscription(false), connectionId("null"), groupId("null"), subscriptionId("null") { }
-    };
-
     class QvConnectionHandler : public QObject
     {
             Q_OBJECT
@@ -25,22 +14,22 @@ namespace Qv2ray::core::handlers
             explicit QvConnectionHandler();
             ~QvConnectionHandler();
             //
-            const QList<ConnectionIdentifier> Connections() const;
+            const QList<ConnectionId> Connections() const;
             //
-            const QList<GroupId> Groups() const;
-            const QList<SubscriptionId> Subscriptions() const;
-            const QList<ConnectionIdentifier> Connections(const GroupId &groupId) const;
-            const QList<ConnectionIdentifier> Connections(const SubscriptionId &subscriptionId) const;
+            const QList<GroupId> AllGroups() const;
+            const QList<GroupId> Subscriptions() const;
+            const QList<ConnectionId> Connections(const GroupId &groupId) const;
             //
-            bool IsConnectionConnected(const ConnectionId &id);
+            bool IsConnectionConnected(const ConnectionId &id) const;
             //
             const optional<QString> StopConnection(const ConnectionId &id);
-            const optional<QString> StartConnection(const ConnectionIdentifier &identifier);
+            const optional<QString> StartConnection(const ConnectionId &identifier);
             //
         public:
             //
             // Connection Operations.
-            const ConnectionObject &GetConnection(const ConnectionId &id);
+            const QString GetConnectionBasicInfo(const ConnectionId &id) const;
+            const ConnectionMetaObject GetConnection(const ConnectionId &id) const;
             const ConnectionId &CreateConnection(const QString &displayName, const GroupId &groupId, const CONFIGROOT &root);
             const optional<QString> DeleteConnection(const ConnectionId &id);
             const optional<QString> UpdateConnection(const ConnectionId &id, const CONFIGROOT &root);
@@ -51,28 +40,27 @@ namespace Qv2ray::core::handlers
             // Misc Connection Operations
             const optional<QString> TestLatency(const ConnectionId &id);
             const optional<QString> TestLatency(const GroupId &id);
-            const optional<QString> TestLatency(const SubscriptionId &id);
-            const optional<QString> TestAllLatency();
+            const optional<QString> TestLatency();
             //
             // Group Operations
-            const GroupObject &GetGroup(const GroupId &id);
-            const GroupId &CreateGroup(const QString displayName);
+            const GroupMetaObject GetGroup(const GroupId &id) const;
+            const GroupId &CreateGroup(const QString displayName, bool isSubscription);
             const optional<QString> DeleteGroup(const GroupId &id);
             const optional<QString> DuplicateGroup(const GroupId &id);
             const optional<QString> RenameGroup(const GroupId &id, const QString &newName);
             //
             // Subscriptions
-            const SubscriptionObject &GetSubscription(const SubscriptionId &id);
-            const SubscriptionId &CreateSubscription(const QString &displayName, const QString &address);
-            const optional<QString> RenameSubscription(const SubscriptionId &id, const QString &newName);
-            const optional<QString> DeleteSubscription(const SubscriptionId &id);
-            const optional<QString> UpdateSubscription(const SubscriptionId &id);
-            const optional<QString> UpdateSubscriptionASync(const SubscriptionId &id);
+            const GroupId &CreateSubscription(const QString &displayName, const QString &address);
+            const optional<QString> RenameSubscription(const GroupId &id, const QString &newName);
+            const optional<QString> DeleteSubscription(const GroupId &id);
+            const optional<QString> UpdateSubscription(const GroupId &id);
+            const optional<QString> UpdateSubscriptionASync(const GroupId &id);
 
         signals:
             //
             void OnConnected(const ConnectionId &id);
             void OnDisConnected(const ConnectionId &id);
+            void OnNewConnectionStatsAvaliable(const ConnectionId &id, uint64_t totalUpload, uint64_t totalDownload);
             //
             void OnConnectionCreated(const ConnectionId &id, const QString &displayName);
             void OnConnectionRenamed(const ConnectionId &id, const QString &originalName, const QString &newName);
@@ -86,26 +74,23 @@ namespace Qv2ray::core::handlers
             void OnGroupRenamed(const GroupId &id, const QString &oldName, const QString &newName);
             void OnGroupDeleted(const GroupId &id, const QString &displayName);
             //
-            void OnSubscriptionCreated(const SubscriptionId &id, const QString &displayName, const QString &address);
-            void OnSubscriptionDeleted(const SubscriptionId &id);
-            void OnSubscriptionRenamed(const SubscriptionId &id, const QString &oldName, const QString &newName);
-            void OnSubscriptionUpdateFinished(const SubscriptionId &id);
+            void OnSubscriptionCreated(const GroupId &id, const QString &displayName, const QString &address);
+            void OnSubscriptionDeleted(const GroupId &id, const QString &oldName, const QString &newName);
+            void OnSubscriptionUpdateFinished(const GroupId &id);
 
         private:
-            int saveTimerId;
-            QHash<GroupId, GroupObject> groups;
-            QHash<ConnectionId, ConnectionObject> connections;
-            QHash<SubscriptionId, SubscriptionObject> subscriptions;
+            optional<QString> CHTryStartConnection_p(const ConnectionId &id, const CONFIGROOT &root);
+            const CONFIGROOT CHGetConnectionRoot_p(const GroupId &group, const ConnectionId &id) const;
+            bool CHSaveConnectionConfig(CONFIGROOT obj, const ConnectionId &id, bool override);
             //
             // We only support one cuncurrent connection currently.
             //QHash<ConnectionId, V2rayKernelInstance> kernelInstances;
             V2rayKernelInstance *kernelInstance = nullptr;
-            //
-            optional<QString> _CHTryStartConnection_p(const ConnectionId &id, const CONFIGROOT &root);
-            const QList<ConnectionIdentifier> IdentifierList(const GroupId &groupId, const QList<ConnectionId> &idList) const;
-            const QList<ConnectionIdentifier> IdentifierList(const SubscriptionId &groupId, const QList<ConnectionId> &idList) const;
+            int saveTimerId;
+            QHash<GroupId, GroupMetaObject> groups;
+            QHash<ConnectionId, ConnectionMetaObject> connections;
     };
-    //
+
     inline QvConnectionHandler *ConnectionHandler = nullptr;
 }
 

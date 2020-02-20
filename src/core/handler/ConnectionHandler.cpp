@@ -1,55 +1,8 @@
 #include "ConnectionHandler.hpp"
+#include "common/QvHelpers.hpp"
+
 namespace Qv2ray::core::handlers
 {
-    template<typename IDType>
-    QList<IDType> StringsToIdList(const QList<QString> &strings)
-    {
-        QList<IDType> list;
-
-        for (auto str : strings) {
-            list << IDType(str);
-        }
-
-        return list;
-    }
-
-    const QList<ConnectionIdentifier> QvConnectionHandler::IdentifierList(const SubscriptionId &subsId, const QList<ConnectionId> &idList) const
-    {
-        QList<ConnectionIdentifier> list;
-
-        for (auto groupConnection : idList) {
-            auto connId = ConnectionId(groupConnection);
-
-            if (connections.keys().contains(connId)) {
-                ConnectionIdentifier x;
-                x.isSubscription = true;
-                x.connectionId = connId;
-                x.subscriptionId = subsId;
-                list.push_back(x);
-            }
-        }
-
-        return list;
-    }
-
-    const QList<ConnectionIdentifier> QvConnectionHandler::IdentifierList(const GroupId &groupId, const QList<ConnectionId> &idList) const
-    {
-        QList<ConnectionIdentifier> list;
-
-        for (auto groupConnection : idList) {
-            auto connId = ConnectionId(groupConnection);
-
-            if (connections.keys().contains(connId)) {
-                ConnectionIdentifier x;
-                x.isSubscription = false;
-                x.connectionId = connId;
-                x.groupId = groupId;
-                list.push_back(x);
-            }
-        }
-
-        return list;
-    }
 
     QvConnectionHandler::QvConnectionHandler()
     {
@@ -57,60 +10,59 @@ namespace Qv2ray::core::handlers
 
         // Do we need to check how many of them are loaded?
         for (auto i = 0; i < GlobalConfig.connections.count(); i++) {
-            connections[ConnectionId(GlobalConfig.connections.keys()[i])] = GlobalConfig.connections.values()[i];
+            connections[GlobalConfig.connections.keys()[i]] = GlobalConfig.connections.values()[i];
         }
 
-        for (auto i = 0; i < GlobalConfig.subscriptions.count(); i++) {
-            subscriptions[SubscriptionId(GlobalConfig.subscriptions.keys()[i])] = GlobalConfig.subscriptions.values()[i];
+        for (auto key : GlobalConfig.subscriptions.keys()) {
+            auto val = GlobalConfig.subscriptions[key];
+            groups[key] = val;
+
+            for (auto conn : val.connections) {
+                connections[conn].groupId = key;
+            }
         }
 
-        for (auto i = 0; i < GlobalConfig.groups.count(); i++) {
-            groups[GroupId(GlobalConfig.groups.keys()[i])] = GlobalConfig.groups.values()[i];
+        for (auto key : GlobalConfig.groups.keys()) {
+            auto val = GlobalConfig.groups[key];
+            groups[key] = val;
+
+            for (auto conn : val.connections) {
+                connections[conn].groupId = key;
+            }
         }
 
         kernelInstance = new V2rayKernelInstance();
         saveTimerId = startTimer(60000);
     }
-    const QList<ConnectionIdentifier> QvConnectionHandler::Connections() const
+    const QList<ConnectionId> QvConnectionHandler::Connections() const
     {
-        QList<ConnectionIdentifier> list;
-
-        for (auto i = 0; i < groups.count(); i++) {
-            auto key = groups.keys()[i];
-            auto group = groups[key];
-            list.append(IdentifierList(key, StringsToIdList<ConnectionId>(group.connections)));
-        }
-
-        for (auto i = 0; i < subscriptions.count(); i++) {
-            auto key = subscriptions.keys()[i];
-            auto subs = subscriptions[key];
-            list.append(IdentifierList(key, StringsToIdList<ConnectionId>(subs.connections)));
-        }
-
-        return list;
+        return connections.keys();
     }
 
-    const QList<GroupId> QvConnectionHandler::Groups() const
+    const QList<GroupId> QvConnectionHandler::AllGroups() const
     {
         return groups.keys();
     }
 
-    const QList<SubscriptionId> QvConnectionHandler::Subscriptions() const
+    const QList<GroupId> QvConnectionHandler::Subscriptions() const
     {
-        return subscriptions.keys();
+        QList<GroupId> subsList;
+
+        for (auto group : groups.keys()) {
+            if (groups[group].isSubscription) {
+                subsList.push_back(group);
+            }
+        }
+
+        return subsList;
     }
 
-    const QList<ConnectionIdentifier> QvConnectionHandler::Connections(const GroupId &groupId) const
+    const QList<ConnectionId> QvConnectionHandler::Connections(const GroupId &groupId) const
     {
-        return IdentifierList(groupId, StringsToIdList<ConnectionId>(groups[groupId].connections));
+        return groups[groupId].connections;
     }
 
-    const QList<ConnectionIdentifier> QvConnectionHandler::Connections(const SubscriptionId &subscriptionId) const
-    {
-        return IdentifierList(subscriptionId, StringsToIdList<ConnectionId>(subscriptions[subscriptionId].connections));
-    }
-
-    const ConnectionObject &QvConnectionHandler::GetConnection(const ConnectionId &id)
+    const ConnectionMetaObject QvConnectionHandler::GetConnection(const ConnectionId &id) const
     {
         if (!connections.contains(id)) {
             LOG(MODULE_CORE_HANDLER, "Cannot find id: " + id.toString());
@@ -119,27 +71,55 @@ namespace Qv2ray::core::handlers
         return connections[id];
     }
 
-    const optional<QString> QvConnectionHandler::StartConnection(const ConnectionIdentifier &identifier)
+    const optional<QString> QvConnectionHandler::StartConnection(const ConnectionId &identifier)
     {
-        if (!connections.contains(identifier.connectionId)) {
+        if (!connections.contains(identifier)) {
             return tr("No connection selected!") + NEWLINE + tr("Please select a config from the list.");
         }
 
-        CONFIGROOT root = identifier.isSubscription
-                          ? GetConnectionRoot(identifier.subscriptionId, identifier.connectionId)
-                          : GetConnectionRoot(identifier.groupId, identifier.connectionId);
-        return _CHTryStartConnection_p(identifier.connectionId, root);
+        CONFIGROOT root = CHGetConnectionRoot_p(connections[identifier].groupId, identifier);
+        return CHTryStartConnection_p(identifier, root);
     }
 
 
-    const GroupObject &QvConnectionHandler::GetGroup(const GroupId &id)
+    const QString QvConnectionHandler:: GetConnectionBasicInfo(const ConnectionId &id) const
+    {
+        QString result;
+
+        if (!connections.contains(id)) {
+            result = tr("N/A");
+        }
+
+        CONFIGROOT root = CHGetConnectionRoot_p(connections[id].groupId, id);
+        bool isTLSEnabled = false;
+
+        if (root.contains("inbounds") && !root["inbounds"].toArray().isEmpty()) {
+            QString inProtocol = tr("Inbounds: ");
+
+            for (auto inbound : root["inbounds"].toArray()) {
+                inProtocol.append(inbound.toObject()["protocol"].toString());
+                inProtocol.append("/");
+            }
+
+            inProtocol.chop(1);
+            result.append(inProtocol);
+        }
+
+        QStringList protocols;
+        QStringList streamProtocols;
+
+        for (auto outbound : root["outbounds"].toArray()) {
+            protocols.append(outbound.toObject()["protocol"].toString());
+        }
+
+        result.chop(1);
+        return result;
+    }
+
+
+    const GroupMetaObject QvConnectionHandler::GetGroup(const GroupId &id) const
     {
         return groups[id];
-    }
-
-    const SubscriptionObject &QvConnectionHandler::GetSubscription(const SubscriptionId &id)
-    {
-        return subscriptions[id];
     }
 
     QvConnectionHandler::~QvConnectionHandler()
@@ -150,5 +130,12 @@ namespace Qv2ray::core::handlers
         }
 
         delete kernelInstance;
+    }
+
+    const CONFIGROOT QvConnectionHandler::CHGetConnectionRoot_p(const GroupId &group, const ConnectionId &id) const
+    {
+        auto path = QV2RAY_CONNECTIONS_DIR + group.toString() + "/" + id.toString() + QV2RAY_CONFIG_FILE_EXTENSION;
+        path.prepend(groups[group].isSubscription ? QV2RAY_SUBSCRIPTION_DIR : QV2RAY_CONNECTIONS_DIR);
+        return CONFIGROOT(JsonFromString(StringFromFile(path)));
     }
 }

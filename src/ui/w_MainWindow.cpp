@@ -214,8 +214,10 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent)//, vinstance(), hTr
     //if (!vinstance->KernelStarted) {
     //    this->show();
     //}
+#ifndef DISABLE_AUTO_UPDATE
     connect(requestHelper, &QvHttpRequestHelper::httpRequestFinished, this, &MainWindow::VersionUpdate);
     requestHelper->get("https://api.github.com/repos/Qv2ray/Qv2ray/releases/latest");
+#endif
 
     if (StartupOption.enableToolbarPlguin) {
         LOG(MODULE_UI, "Plugin daemon is enabled.")
@@ -279,6 +281,8 @@ void MainWindow::on_action_StartThis_triggered()
     //CurrentConnectionIdentifier = ItemConnectionIdentifier(CurrentSelectedItemPtr);
     //on_reconnectButton_clicked();
 }
+
+#ifndef DISABLE_AUTO_UPDATE
 void MainWindow::VersionUpdate(QByteArray &data)
 {
     // Version update handler.
@@ -312,11 +316,12 @@ void MainWindow::VersionUpdate(QByteArray &data)
         }
     }
 }
+#endif
 
 void MainWindow::OnConfigListChanged(bool need_restart)
 {
     LOG(MODULE_UI, "Loading data...")
-    auto groups = ConnectionHandler->Groups();
+    auto groups = ConnectionHandler->AllGroups();
 
     for (auto group : groups) {
         auto groupItem = new QTreeWidgetItem();
@@ -327,23 +332,6 @@ void MainWindow::OnConfigListChanged(bool need_restart)
         for (auto connection : connections) {
             auto connectionItem = new QTreeWidgetItem();
             groupItem->addChild(connectionItem);
-            auto widget = new ConnectionWidget(connection, connectionListWidget);
-            connect(widget, &ConnectionWidget::RequestWidgetFocus, this, &MainWindow::onConnectionWidgetFocusRequested);
-            connectionListWidget->setItemWidget(connectionItem, 0, widget);
-        }
-    }
-
-    auto subscriptions = ConnectionHandler->Subscriptions();
-
-    for (auto subscription : subscriptions) {
-        auto subscriptionItem = new QTreeWidgetItem();
-        connectionListWidget->addTopLevelItem(subscriptionItem);
-        connectionListWidget->setItemWidget(subscriptionItem, 0, new ConnectionWidget(subscription, connectionListWidget));
-        auto connections = ConnectionHandler->Connections(subscription);
-
-        for (auto connection : connections) {
-            auto connectionItem = new QTreeWidgetItem();
-            subscriptionItem->addChild(connectionItem);
             auto widget = new ConnectionWidget(connection, connectionListWidget);
             connect(widget, &ConnectionWidget::RequestWidgetFocus, this, &MainWindow::onConnectionWidgetFocusRequested);
             connectionListWidget->setItemWidget(connectionItem, 0, widget);
@@ -1071,5 +1059,5 @@ void MainWindow::on_connectionFilterTxt_textEdited(const QString &arg1)
 void MainWindow::on_connectionListWidget_itemClicked(QTreeWidgetItem *item, int column)
 {
     Q_UNUSED(column)
-    infoWidget->ShowConnectionDetails(GetItemWidget(item)->Identifier());
+    infoWidget->ShowDetails(GetItemWidget(item)->Identifier());
 }

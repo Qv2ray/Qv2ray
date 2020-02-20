@@ -55,7 +55,9 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         void on_subsButton_clicked();
         //
         void ToggleVisibility();
+#ifndef DISABLE_AUTO_UPDATE
         void VersionUpdate(QByteArray &data);
+#endif
         //
         void OnConnected(const ConnectionId &id);
 

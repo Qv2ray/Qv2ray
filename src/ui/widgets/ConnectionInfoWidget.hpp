@@ -10,7 +10,7 @@ class ConnectionInfoWidget : public QWidget, private Ui::ConnectionInfoWidget
 
     public:
         explicit ConnectionInfoWidget(QWidget *parent = nullptr);
-        void ShowConnectionDetails(const ConnectionIdentifier &_identifier);
+        void ShowDetails(const tuple<GroupId, ConnectionId> &_identifier);
         ~ConnectionInfoWidget();
     private slots:
         void on_connectBtn_clicked();
@@ -19,6 +19,7 @@ class ConnectionInfoWidget : public QWidget, private Ui::ConnectionInfoWidget
         void on_pushButton_clicked();
 
     private:
-        ConnectionIdentifier identifier;
+        ConnectionId connectionId;
+        GroupId groupId;
 };
 

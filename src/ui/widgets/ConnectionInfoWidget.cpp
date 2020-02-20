@@ -1,21 +1,24 @@
 #include "ConnectionInfoWidget.hpp"
 
 ConnectionInfoWidget::ConnectionInfoWidget(QWidget *parent) :
-    QWidget(parent)
+    QWidget(parent), connectionId("null"), groupId("null")
 {
     setupUi(this);
 }
 
-void ConnectionInfoWidget::ShowConnectionDetails(const ConnectionIdentifier &_identifier)
+void ConnectionInfoWidget::ShowDetails(const tuple<GroupId, ConnectionId> &_identifier)
 {
-    identifier = _identifier;
-    auto data = ConnectionHandler->GetConnection(identifier.connectionId);
-    connNameLabel->setText(data.displayName);
+    groupId = get<0>(_identifier);
+    connectionId = get<1>(_identifier);
+
+    if (connectionId.toString() != "null") {
+        connNameLabel->setText(ConnectionHandler->GetConnection(connectionId).displayName);
+        groupLabel->setText(ConnectionHandler->GetGroup(groupId).displayName);
+    } else {
+        connNameLabel->setText(ConnectionHandler->GetGroup(groupId).displayName);
+    }
+
     //
-    auto groupname = identifier.isSubscription
-                     ? ConnectionHandler->GetSubscription(identifier.subscriptionId).displayName
-                     : ConnectionHandler->GetGroup(identifier.groupId).displayName;
-    groupLabel->setText(groupname);
     //auto isComplexConfig = IsComplexConfig(conf.config);
     //routeCountLabel->setText(isComplexConfig ? tr("Complex") : tr("Simple"));
     //

@@ -106,23 +106,6 @@ qlonglong sizeInBytes(qreal size, const SizeUnit unit)
     return size;
 }
 
-template <typename T>
-constexpr typename std::add_const<T>::type &asConst(T &t) noexcept
-{
-    return t;
-}
-
-// Forward rvalue as const
-template <typename T>
-constexpr typename std::add_const<T>::type asConst(T &&t) noexcept
-{
-    return std::move(t);
-}
-
-// Prevent const rvalue arguments
-template <typename T>
-void asConst(const T &&) = delete;
-
 namespace
 {
     // table of supposed nice steps for grid marks to get nice looking quarters of scale
@@ -317,7 +300,7 @@ void SpeedPlotView::paintEvent(QPaintEvent *)
     double legendHeight = 0;
     int legendWidth = 0;
 
-    for (const auto &property : asConst(m_properties)) {
+    for (const auto &property : m_properties) {
         if (fontMetrics.horizontalAdvance(property.name) > legendWidth)
             legendWidth = fontMetrics.horizontalAdvance(property.name);
 
@@ -330,7 +313,7 @@ void SpeedPlotView::paintEvent(QPaintEvent *)
     painter.fillRect(legendBackgroundRect, legendBackgroundColor);
     i = 0;
 
-    for (const auto &property : asConst(m_properties)) {
+    for (const auto &property : m_properties) {
         int nameSize = fontMetrics.horizontalAdvance(property.name);
         double indent = 1.5 * (i++) * fontMetrics.height();
         painter.setPen(property.pen);

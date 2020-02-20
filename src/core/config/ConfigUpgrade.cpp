@@ -74,7 +74,7 @@ namespace Qv2ray
 
                 for (auto item = subs.begin(); item != subs.end(); item++) {
                     auto key = item.key();
-                    SubscriptionObject _conf;
+                    SubscriptionObject_Config _conf;
                     _conf.address = item.value().toString();
                     _conf.lastUpdated = system_clock::to_time_t(system_clock::now());
                     _conf.updateInterval = 5;

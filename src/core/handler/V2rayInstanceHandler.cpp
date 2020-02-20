@@ -1,7 +1,7 @@
 #include "ConnectionHandler.hpp"
 #include "core/connection/Generation.hpp"
 
-optional<QString> QvConnectionHandler::_CHTryStartConnection_p(const ConnectionId &id, const CONFIGROOT &root)
+optional<QString> QvConnectionHandler::CHTryStartConnection_p(const ConnectionId &id, const CONFIGROOT &root)
 {
     auto &connectionMeta = connections[id];
     auto fullConfig = GenerateRuntimeConfig(root);

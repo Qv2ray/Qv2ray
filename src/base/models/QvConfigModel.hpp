@@ -118,10 +118,10 @@ namespace Qv2ray::base::config
         QString autoStartId;
         //
         // Key = groupId, connectionId, subscriptionId
-        QMap<QString, GroupObject> groups;
-        QMap<QString, SubscriptionObject> subscriptions;
+        QMap<QString, GroupObject_Config> groups;
+        QMap<QString, SubscriptionObject_Config> subscriptions;
         /// Connections are used privately.
-        QMap<QString, ConnectionObject> connections;
+        QMap<QString, ConnectionObject_Config> connections;
         //
         Qv2rayUIConfig uiConfig;
         Qv2rayAPIConfig apiConfig;
