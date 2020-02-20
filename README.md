@@ -3,7 +3,8 @@
 [![archlinuxcn](https://img.shields.io/badge/archlinuxcn-available-success?style=flat-square)](https://build.archlinuxcn.org/packages/#/qv2ray)
 [![flathub](https://img.shields.io/badge/flathub-available-success?style=flat-square)](https://flathub.org/apps/details/com.github.Qv2ray)
 [![HitCount](http://hits.dwyl.io/Qv2ray/Qv2ray.svg)](http://hits.dwyl.io/Qv2ray/Qv2ray)
-![GitHub Releases](https://img.shields.io/github/downloads/Qv2ray/Qv2ray/latest/total?style=flat-square)
+![GitHub Releases](https://img.shields.io/github/downloads/Qv2ray/Qv2ray/latest/total?style=flat-square&logo=github)
+![GitHub All Releases](https://img.shields.io/github/downloads/Qv2ray/Qv2ray/total?label=downloads-total&logo=github&style=flat-square)
 [![AUR Stable](https://img.shields.io/aur/version/qv2ray?label=aur-stable&style=flat-square)](https://aur.archlinux.org/packages/qv2ray)
 
 使用 Qt 框架的跨平台 v2ray 客户端。支持 Windows, Linux, macOS。
