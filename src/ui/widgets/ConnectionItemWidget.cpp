@@ -4,18 +4,18 @@
 ConnectionItemWidget::ConnectionItemWidget(QWidget *parent) : QWidget(parent), connectionId("null"), groupId("null")
 {
     setupUi(this);
-    connect(ConnectionHandler, &QvConnectionHandler::OnConnected, this, &ConnectionItemWidget::OnConnected);
+    connect(ConnectionManager, &QvConnectionHandler::OnConnected, this, &ConnectionItemWidget::OnConnected);
 }
 
 ConnectionItemWidget::ConnectionItemWidget(const ConnectionId &identifier, QWidget *parent): ConnectionItemWidget(parent)
 {
-    auto connection = ConnectionHandler->GetConnection(identifier);
+    auto connection = ConnectionManager->GetConnection(identifier);
     connectionId = identifier;
     groupId = connection.groupId;
     itemType = NODE_ITEM;
     connNameLabel->setText("" + connection.displayName);
     latencyLabel->setText(QSTRN(connection.latency) + " " + tr("ms"));
-    connTypeLabel->setText(tr("Type: ") + ConnectionHandler->GetConnectionBasicInfo(identifier));
+    connTypeLabel->setText(tr("Type: ") + ConnectionManager->GetConnectionBasicInfo(identifier));
     dataLabel->setText(FormatBytes(connection.upLinkData + connection.downLinkData));
     //
     indentSpacer->changeSize(10, indentSpacer->sizeHint().height());
@@ -26,8 +26,8 @@ ConnectionItemWidget::ConnectionItemWidget(const GroupId &id, QWidget *parent) :
 {
     groupId = id;
     itemType = GROUP_HEADER_ITEM;
-    auto displayName = ConnectionHandler->GetGroup(id).displayName;
-    auto connectionCount = ConnectionHandler->Connections(id).count();
+    auto displayName = ConnectionManager->GetGroup(id).displayName;
+    auto connectionCount = ConnectionManager->Connections(id).count();
     connNameLabel->setText(/*"• " +*/ displayName);
     latencyLabel->setText(QSTRN(connectionCount) + " " + (connectionCount < 2 ? tr("connection") : tr("connections")));
     //
@@ -41,7 +41,7 @@ ConnectionItemWidget::ConnectionItemWidget(const GroupId &id, QWidget *parent) :
 void ConnectionItemWidget::BeginConnection()
 {
     if (itemType == NODE_ITEM) {
-        ConnectionHandler->StartConnection(connectionId);
+        ConnectionManager->StartConnection(connectionId);
     } else {
         LOG(MODULE_UI, "Trying to start a non-connection entry, this call is illegal.")
     }

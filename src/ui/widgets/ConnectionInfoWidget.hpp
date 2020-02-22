@@ -16,7 +16,7 @@ class ConnectionInfoWidget : public QWidget, private Ui::ConnectionInfoWidget
         void on_connectBtn_clicked();
         void on_editBtn_clicked();
         void on_editJsonBtn_clicked();
-        void on_pushButton_clicked();
+        void on_deleteBtn_clicked();
 
     private:
         ConnectionId connectionId;

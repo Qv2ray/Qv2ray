@@ -33,42 +33,14 @@
     </size>
    </property>
    <layout class="QGridLayout" name="gridLayout" columnstretch="10,14">
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
     <item row="0" column="0" colspan="2">
-     <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1,0,1,0,0,0">
+     <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,0">
       <property name="spacing">
        <number>5</number>
       </property>
-      <item>
-       <widget class="QPushButton" name="startButton">
-        <property name="text">
-         <string>Connect</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="stopButton">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="text">
-         <string>Disconnect</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="reconnectButton">
-        <property name="text">
-         <string>Reconnect</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="clearlogButton">
-        <property name="text">
-         <string>Clear Log</string>
-        </property>
-       </widget>
-      </item>
       <item>
        <widget class="QPushButton" name="subsButton">
         <property name="text">
@@ -190,44 +162,6 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="removeConfigButton">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="toolTip">
-           <string>Delete a connection</string>
-          </property>
-          <property name="text">
-           <string>Delete</string>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>22</width>
-            <height>22</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="duplicateBtn">
-          <property name="toolTip">
-           <string>Duplicate connection</string>
-          </property>
-          <property name="text">
-           <string>Duplicate</string>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>22</width>
-            <height>22</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-        <item>
          <spacer name="horizontalSpacer_2">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -246,6 +180,12 @@
     </item>
     <item row="2" column="0" colspan="2">
      <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <property name="topMargin">
+       <number>2</number>
+      </property>
+      <property name="bottomMargin">
+       <number>2</number>
+      </property>
       <item>
        <widget class="QLabel" name="label_8">
         <property name="minimumSize">
@@ -390,38 +330,28 @@
          <x>0</x>
          <y>0</y>
          <width>480</width>
-         <height>851</height>
+         <height>716</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_3">
+        <property name="spacing">
+         <number>2</number>
+        </property>
         <property name="topMargin">
          <number>0</number>
         </property>
-        <item>
-         <widget class="QLabel" name="label_11">
-          <property name="font">
-           <font>
-            <pointsize>13</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string>Connection Info</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="Line" name="line_3">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
         <item>
          <widget class="QFrame" name="connectionInfoFrame">
           <property name="minimumSize">
            <size>
             <width>0</width>
-            <height>250</height>
+            <height>215</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>215</height>
            </size>
           </property>
           <layout class="QGridLayout" name="connectionInfoLayout">
@@ -437,24 +367,11 @@
            <property name="bottomMargin">
             <number>0</number>
            </property>
+           <property name="spacing">
+            <number>0</number>
+           </property>
           </layout>
          </widget>
-        </item>
-        <item>
-         <spacer name="verticalSpacer_2">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeType">
-           <enum>QSizePolicy::Minimum</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>30</height>
-           </size>
-          </property>
-         </spacer>
         </item>
         <item>
          <widget class="QLabel" name="label_9">
@@ -500,22 +417,6 @@
          </widget>
         </item>
         <item>
-         <spacer name="verticalSpacer">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeType">
-           <enum>QSizePolicy::Minimum</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>30</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
          <widget class="QLabel" name="label_10">
           <property name="font">
            <font>
@@ -541,6 +442,13 @@
             <width>0</width>
             <height>200</height>
            </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="clearlogButton">
+          <property name="text">
+           <string>Clear Log</string>
           </property>
          </widget>
         </item>
@@ -575,16 +483,7 @@
      <addaction name="actionManually_Create_Connection"/>
      <addaction name="actionManually_Create_Complex_Connection"/>
     </widget>
-    <widget class="QMenu" name="menuExport_Connection">
-     <property name="title">
-      <string>Export Connection</string>
-     </property>
-     <addaction name="actionCopy_Connection_Link"/>
-     <addaction name="actionCopy_QRCode"/>
-     <addaction name="actionSave_QRCode"/>
-    </widget>
     <addaction name="menuImport_Connection"/>
-    <addaction name="menuExport_Connection"/>
     <addaction name="separator"/>
     <addaction name="actionOpen_Qv2ray_Configuration_Folder"/>
     <addaction name="separator"/>
@@ -788,15 +687,10 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <tabstops>
-  <tabstop>startButton</tabstop>
-  <tabstop>stopButton</tabstop>
-  <tabstop>reconnectButton</tabstop>
-  <tabstop>clearlogButton</tabstop>
   <tabstop>subsButton</tabstop>
   <tabstop>preferencesBtn</tabstop>
   <tabstop>connectionListWidget</tabstop>
   <tabstop>importConfigButton</tabstop>
-  <tabstop>removeConfigButton</tabstop>
  </tabstops>
  <resources/>
  <connections/>

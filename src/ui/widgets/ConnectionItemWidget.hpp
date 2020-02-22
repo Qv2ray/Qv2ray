@@ -22,12 +22,12 @@ class ConnectionItemWidget : public QWidget, private Ui::ConnectionWidget
         inline bool NameMatched(const QString &arg)
         {
             auto searchString = arg.toLower();
-            auto headerMatched = ConnectionHandler->GetGroup(groupId).displayName.toLower().contains(arg);
+            auto headerMatched = ConnectionManager->GetGroup(groupId).displayName.toLower().contains(arg);
 
             if (itemType != NODE_ITEM) {
                 return headerMatched;
             } else {
-                return headerMatched || ConnectionHandler->GetConnection(connectionId).displayName.toLower().contains(searchString);
+                return headerMatched || ConnectionManager->GetConnection(connectionId).displayName.toLower().contains(searchString);
             }
         }
         inline const tuple<GroupId, ConnectionId> Identifier() const

@@ -1,4 +1,5 @@
 #include "ConnectionInfoWidget.hpp"
+#include "core/CoreUtils.hpp"
 
 ConnectionInfoWidget::ConnectionInfoWidget(QWidget *parent) :
     QWidget(parent), connectionId("null"), groupId("null")
@@ -12,25 +13,27 @@ void ConnectionInfoWidget::ShowDetails(const tuple<GroupId, ConnectionId> &_iden
     connectionId = get<1>(_identifier);
 
     if (connectionId.toString() != "null") {
-        connNameLabel->setText(ConnectionHandler->GetConnection(connectionId).displayName);
-        groupLabel->setText(ConnectionHandler->GetGroup(groupId).displayName);
+        connNameLabel->setText(ConnectionManager->GetConnection(connectionId).displayName);
+        groupLabel->setText(ConnectionManager->GetGroup(groupId).displayName);
+        protocolLabel->setText(ConnectionManager->GetConnectionBasicInfo(connectionId));
+        auto x = ConnectionManager->GetConnectionInfo(connectionId);
+        addressLabel->setText(get<0>(x));
+        portLabel->setNum(get<1>(x));
+        //
+        editJsonBtn->setEnabled(true);
+        connectBtn->setEnabled(true);
+        duplicateBtn->setEnabled(true);
     } else {
-        connNameLabel->setText(ConnectionHandler->GetGroup(groupId).displayName);
+        connNameLabel->setText(ConnectionManager->GetGroup(groupId).displayName);
+        groupLabel->setText(tr("N/A"));
+        protocolLabel->setText(tr("N/A"));
+        addressLabel->setText(tr("N/A"));
+        portLabel->setText(tr("N/A"));
+        //
+        editJsonBtn->setEnabled(false);
+        connectBtn->setEnabled(false);
+        duplicateBtn->setEnabled(false);
     }
-
-    //
-    //auto isComplexConfig = IsComplexConfig(conf.config);
-    //routeCountLabel->setText(isComplexConfig ? tr("Complex") : tr("Simple"));
-    //
-    //if (conf.configType == CONNECTION_SUBSCRIPTION) {
-    //    routeCountLabel->setText(routeCountLabel->text().append(" (" + tr("Subscription") + ":" + conf.subscriptionName + ")"));
-    //}
-    //
-    //// Get Connection info
-    //auto host_port = MWGetConnectionInfo(fullIdentifier.IdentifierString());
-    //_hostLabel->setText(get<0>(host_port));
-    //_portLabel->setText(QSTRN(get<1>(host_port)));
-    //_OutBoundTypeLabel->setText(get<2>(host_port));
 }
 
 ConnectionInfoWidget::~ConnectionInfoWidget()
@@ -39,6 +42,7 @@ ConnectionInfoWidget::~ConnectionInfoWidget()
 
 void ConnectionInfoWidget::on_connectBtn_clicked()
 {
+    ConnectionManager->StartConnection(connectionId);
 }
 
 void ConnectionInfoWidget::on_editBtn_clicked()
@@ -49,7 +53,7 @@ void ConnectionInfoWidget::on_editJsonBtn_clicked()
 {
 }
 
-void ConnectionInfoWidget::on_pushButton_clicked()
+void ConnectionInfoWidget::on_deleteBtn_clicked()
 {
-    QGuiApplication::clipboard()->setText(shareLinkTxt->text());
+    ConnectionManager->DeleteConnection(connectionId);
 }

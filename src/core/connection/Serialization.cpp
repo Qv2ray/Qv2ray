@@ -26,22 +26,22 @@ namespace Qv2ray::core::connection
         QString ConvertConfigToString(const CONFIGROOT &server, const QString &alias, bool isSip002)
         {
             OUTBOUND outbound = OUTBOUND(server["outbounds"].toArray().first().toObject());
-            auto info = GetConnectionInfo(server);
-            auto type = get<2>(info);
-            QString sharelink = "";
-
-            if (type == "vmess") {
-                auto vmessServer = StructFromJsonString<VMessServerObject>(JsonToString(outbound["settings"].toObject()["vnext"].toArray().first().toObject()));
-                auto transport = StructFromJsonString<StreamSettingsObject>(JsonToString(outbound["streamSettings"].toObject()));
-                sharelink = ConvertConfigToVMessString(transport, vmessServer, alias);
-            } else if (type == "shadowsocks") {
-                auto ssServer = StructFromJsonString<ShadowSocksServerObject>(JsonToString(outbound["settings"].toObject()["servers"].toArray().first().toObject()));
-                sharelink = ConvertConfigToSSString(ssServer, alias, isSip002);
-            } else {
-                LOG(MODULE_CONNECTION, "Unsupported outbound type: " + type)
-            }
-
-            return sharelink;
+            //auto info = GetConnectionInfo(server);
+            //auto type = get<2>(info);
+            //QString sharelink = "";
+            //
+            //if (type == "vmess") {
+            //    auto vmessServer = StructFromJsonString<VMessServerObject>(JsonToString(outbound["settings"].toObject()["vnext"].toArray().first().toObject()));
+            //    auto transport = StructFromJsonString<StreamSettingsObject>(JsonToString(outbound["streamSettings"].toObject()));
+            //    sharelink = ConvertConfigToVMessString(transport, vmessServer, alias);
+            //} else if (type == "shadowsocks") {
+            //    auto ssServer = StructFromJsonString<ShadowSocksServerObject>(JsonToString(outbound["settings"].toObject()["servers"].toArray().first().toObject()));
+            //    sharelink = ConvertConfigToSSString(ssServer, alias, isSip002);
+            //} else {
+            //    LOG(MODULE_CONNECTION, "Unsupported outbound type: " + type)
+            //}
+            return "WIP";
+            //return sharelink;
         }
 
         // From https://github.com/2dust/v2rayN/wiki/%E5%88%86%E4%BA%AB%E9%93%BE%E6%8E%A5%E6%A0%BC%E5%BC%8F%E8%AF%B4%E6%98%8E(ver-2)

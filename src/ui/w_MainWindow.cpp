@@ -116,8 +116,8 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent)//, vinstance(), hTr
     this->setWindowIcon(QIcon(":/assets/icons/qv2ray.png"));
     hTray.setIcon(QIcon(GlobalConfig.uiConfig.useDarkTrayIcon ? ":/assets/icons/ui_dark/tray.png" : ":/assets/icons/ui_light/tray.png"));
     importConfigButton->setIcon(QICON_R("import.png"));
-    duplicateBtn->setIcon(QICON_R("duplicate.png"));
-    removeConfigButton->setIcon(QICON_R("delete.png"));
+    //duplicateBtn->setIcon(QICON_R("duplicate.png"));
+    //removeConfigButton->setIcon(QICON_R("delete.png"));
     //editConfigButton->setIcon(QICON_R("edit.png"));
     //editJsonBtn->setIcon(QICON_R("json.png"));
     ////
@@ -229,29 +229,13 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent)//, vinstance(), hTr
 
 void MainWindow::SetEditWidgetEnable(bool enabled)
 {
-    removeConfigButton->setEnabled(enabled);
+    //removeConfigButton->setEnabled(enabled);
     //editConfigButton->setEnabled(enabled);
-    duplicateBtn->setEnabled(enabled);
+    //duplicateBtn->setEnabled(enabled);
     //editJsonBtn->setEnabled(enabled);
     //shareBtn->setEnabled(enabled);
     // Allow ping all.
     //pingTestBtn->setText(enabled ? tr("Ping") : tr("Ping All"));
-}
-
-void MainWindow::mouseReleaseEvent(QMouseEvent *e)
-{
-    Q_UNUSED(e)
-    //// If mouse is on the logLabel, switch log source.
-    //if (logbox->underMouse()) {
-    //    //auto layout = masterLogBrowser->document()->setDocumentLayout()
-    //    currentLogBrowserId = (currentLogBrowserId + 1) % logTextBrowsers.count();
-    //    masterLogBrowser->setDocument(currentLogBrowser->document());
-    //    masterLogBrowser->document()->setDocumentMargin(4);
-    //    masterLogBrowser->document()->adjustSize();
-    //    masterLogBrowser->setLineWrapMode(QTextBrowser::LineWrapMode::NoWrap);
-    //    auto bar = masterLogBrowser->verticalScrollBar();
-    //    bar->setValue(bar->maximum());
-    //}
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *e)
@@ -321,16 +305,16 @@ void MainWindow::VersionUpdate(QByteArray &data)
 void MainWindow::OnConfigListChanged(bool need_restart)
 {
     LOG(MODULE_UI, "Loading data...")
-    auto groups = ConnectionHandler->AllGroups();
+    auto groups = ConnectionManager->AllGroups();
 
     for (auto group : groups) {
-        auto groupItem = new QTreeWidgetItem(QStringList() << "" << ConnectionHandler->GetGroup(group).displayName);
+        auto groupItem = new QTreeWidgetItem(QStringList() << "" << ConnectionManager->GetGroup(group).displayName);
         connectionListWidget->addTopLevelItem(groupItem);
         connectionListWidget->setItemWidget(groupItem, 0, new ConnectionItemWidget(group, connectionListWidget));
-        auto connections = ConnectionHandler->Connections(group);
+        auto connections = ConnectionManager->Connections(group);
 
         for (auto connection : connections) {
-            auto connectionItem = new QTreeWidgetItem(QStringList() << "" << ConnectionHandler->GetConnection(connection).displayName);
+            auto connectionItem = new QTreeWidgetItem(QStringList() << "" << ConnectionManager->GetConnection(connection).displayName);
             groupItem->addChild(connectionItem);
             auto widget = new ConnectionItemWidget(connection, connectionListWidget);
             connect(widget, &ConnectionItemWidget::RequestWidgetFocus, this, &MainWindow::onConnectionWidgetFocusRequested);
@@ -448,8 +432,8 @@ void MainWindow::on_stopButton_clicked()
     action_Tray_Reconnect->setEnabled(false);
     // Set to false as the system proxy has been cleared in the StopConnection function.
     tray_SystemProxyMenu->setEnabled(false);
-    startButton->setEnabled(true);
-    stopButton->setEnabled(false);
+    //startButton->setEnabled(true);
+    //stopButton->setEnabled(false);
     ////
     //netspeedLabel->setText("0.00 B/s\r\n0.00 B/s");
     //dataamountLabel->setText("0.00 B\r\n0.00 B");

@@ -8,7 +8,6 @@
 #define REGEX_PORT_NUMBER R"(([0-9]|[1-9]\d{1,3}|[1-5]\d{4}|6[0-5]{2}[0-3][0-5])*)"
 
 namespace Qv2ray::common
-
 {
     QStringList GetFileList(QDir dir);
     QString Base64Encode(QString string);

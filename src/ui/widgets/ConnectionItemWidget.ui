@@ -32,6 +32,9 @@
    </item>
    <item>
     <layout class="QVBoxLayout" name="verticalLayout">
+     <property name="spacing">
+      <number>5</number>
+     </property>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,0">
        <item>

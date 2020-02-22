@@ -65,7 +65,6 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         static MainWindow *mwInstance;
 
     protected:
-        void mouseReleaseEvent(QMouseEvent *e) override;
         void keyPressEvent(QKeyEvent *e) override;
         void timerEvent(QTimerEvent *event) override;
         void closeEvent(QCloseEvent *) override;

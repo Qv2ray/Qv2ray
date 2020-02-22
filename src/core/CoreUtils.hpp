@@ -1,10 +1,14 @@
 ﻿#pragma once
-
-#include "base/Qv2rayBase.hpp"
-#include "core/config/ConfigBackend.hpp"
+#include <QString>
+#include <base/models/QvSafeType.hpp>
+#include <base/models/CoreObjectModels.hpp>
 
 namespace Qv2ray::core
 {
+    using namespace Qv2ray::base;
+    using namespace Qv2ray::base::safetype;
+    using namespace Qv2ray::base::objects;
+    //
     inline QString getTag(const INBOUND &in)
     {
         return in["tag"].toString();
@@ -20,9 +24,6 @@ namespace Qv2ray::core
         return in.QV2RAY_RULE_TAG;
     }
 
-    /// Host, port, type
-    tuple<QString, int, QString> GetConnectionInfo(const CONFIGROOT &alias);
-    bool GetOutboundData(const OUTBOUND &out, QString *host, int *port, QString *protocol);
     bool IsComplexConfig(CONFIGROOT root);
 }
 

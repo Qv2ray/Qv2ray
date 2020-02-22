@@ -1,7 +1,6 @@
 ﻿#include "w_SubscriptionManager.hpp"
 #include "common/QvHelpers.hpp"
-#include "core/CoreUtils.hpp"
-
+#include "core/config/ConfigBackend.hpp"
 #include "core/connection/ConnectionIO.hpp"
 #include "core/connection/Serialization.hpp"
 

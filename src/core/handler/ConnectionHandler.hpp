@@ -37,6 +37,9 @@ namespace Qv2ray::core::handlers
             const optional<QString> DuplicateConnection(const ConnectionId &id);
             const optional<QString> MoveConnectionGroup(const ConnectionId &id, const GroupId &newGroupId);
             //
+            // Get Conncetion Property
+            const tuple<QString, int> GetConnectionInfo(const ConnectionId &connectionId);
+            //
             // Misc Connection Operations
             const optional<QString> TestLatency(const ConnectionId &id);
             const optional<QString> TestLatency(const GroupId &id);
@@ -79,7 +82,9 @@ namespace Qv2ray::core::handlers
             void OnSubscriptionUpdateFinished(const GroupId &id);
 
         private:
+            bool CHGetOutboundData_p(const OUTBOUND &out, QString *host, int *port);
             optional<QString> CHTryStartConnection_p(const ConnectionId &id, const CONFIGROOT &root);
+            const CONFIGROOT CHGetConnectionRoot_p(const ConnectionId &id) const;
             const CONFIGROOT CHGetConnectionRoot_p(const GroupId &group, const ConnectionId &id) const;
             bool CHSaveConnectionConfig(CONFIGROOT obj, const ConnectionId &id, bool override);
             //
@@ -89,9 +94,11 @@ namespace Qv2ray::core::handlers
             int saveTimerId;
             QHash<GroupId, GroupMetaObject> groups;
             QHash<ConnectionId, ConnectionMetaObject> connections;
+            //
+            QHash<ConnectionId, CONFIGROOT> connectionRootCache;
     };
 
-    inline QvConnectionHandler *ConnectionHandler = nullptr;
+    inline ::Qv2ray::core::handlers::QvConnectionHandler *ConnectionManager = nullptr;
 }
 
 using namespace Qv2ray::core::handlers;

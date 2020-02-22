@@ -24,5 +24,7 @@
         <file>assets/icons/qv2ray.ico</file>
         <file>assets/icons/qv2ray.png</file>
         <file>assets/credit.html</file>
+        <file>assets/icons/ui_dark/connect.png</file>
+        <file>assets/icons/ui_light/connect.png</file>
     </qresource>
 </RCC>
