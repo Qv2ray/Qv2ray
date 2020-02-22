@@ -404,7 +404,7 @@ int main(int argc, char *argv[])
     _qApp.setFont(font);
 #endif
 #ifdef QV2RAY_USE_BUILTIN_DARKTHEME
-    LOG(UI, "Using built-in theme.")
+    LOG(MODULE_UI, "Using built-in theme.")
 
     if (confObject.uiConfig.useDarkTheme) {
         LOG(MODULE_UI, " --> Using built-in dark theme.")
