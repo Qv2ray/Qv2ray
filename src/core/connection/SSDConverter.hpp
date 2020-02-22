@@ -20,7 +20,7 @@ namespace Qv2ray::core::handlers
          * %2: node name
          * %3: rate
          */
-        inline auto DEFAULT_NAME_PATTERN = "%1 - %2 (rate %3)";
+        inline auto DEFAULT_NAME_PATTERN = QString::tr("%1 - %2 (rate %3)");
 
         /**
          * @brief decodeSSD
