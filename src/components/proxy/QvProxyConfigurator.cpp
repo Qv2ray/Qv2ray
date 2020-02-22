@@ -274,7 +274,7 @@ namespace Qv2ray::components::proxy
     void ClearSystemProxy()
     {
 #ifdef Q_OS_WIN
-        LOG(PROXY, "Cleaning system proxy settings.")
+        LOG(MODULE_PROXY, "Cleaning system proxy settings.")
         INTERNET_PER_CONN_OPTION_LIST list;
         BOOL bReturn;
         DWORD dwBufSize = sizeof(list);
@@ -289,7 +289,7 @@ namespace Qv2ray::components::proxy
         // Make sure the memory was allocated.
         if (nullptr == list.pOptions) {
             // Return FALSE if the memory wasn't allocated.
-            LOG(PROXY, "Failed to allocat memory in DisableConnectionProxy()")
+            LOG(MODULE_PROXY, "Failed to allocat memory in DisableConnectionProxy()")
         }
 
         // Set flags.
@@ -306,7 +306,7 @@ namespace Qv2ray::components::proxy
 #else
 
         for (auto service : macOSgetNetworkServices()) {
-            LOG(PROXY, "Clearing proxy for interface: " + service)
+            LOG(MODULE_PROXY, "Clearing proxy for interface: " + service)
             QProcess::execute("/usr/sbin/networksetup -setautoproxystate " + service + " off");
             QProcess::execute("/usr/sbin/networksetup -setwebproxystate " + service + " off");
             QProcess::execute("/usr/sbin/networksetup -setsecurewebproxystate " + service + " off");
