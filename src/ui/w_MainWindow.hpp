@@ -14,7 +14,7 @@
 #include "ui/messaging/QvMessageBus.hpp"
 
 // ==========================================================================================
-#include "ui/widgets/ConnectionWidget.hpp"
+#include "ui/widgets/ConnectionItemWidget.hpp"
 #include "ui/widgets/ConnectionInfoWidget.hpp"
 
 class MainWindow : public QMainWindow, Ui::MainWindow
@@ -72,7 +72,7 @@ class MainWindow : public QMainWindow, Ui::MainWindow
 
     private slots:
         //
-        void onConnectionWidgetFocusRequested(const ConnectionWidget *widget);
+        void onConnectionWidgetFocusRequested(const ConnectionItemWidget *widget);
         //
         void on_action_StartThis_triggered();
         void on_action_RCM_EditJson_triggered();

@@ -32,7 +32,7 @@
 
 #define TRAY_TOOLTIP_PREFIX "Qv2ray " QV2RAY_VERSION_STRING
 //
-#define GetItemWidget(item) (static_cast<ConnectionWidget*>(connectionListWidget->itemWidget(item, 0)))
+#define GetItemWidget(item) (qobject_cast<ConnectionItemWidget*>(connectionListWidget->itemWidget(item, 0)))
 //
 //#define ItemConnectionIdentifier(__item__) (__item__->data(0, Qt::UserRole).value<ConnectionIdentifier>())
 //
@@ -324,20 +324,25 @@ void MainWindow::OnConfigListChanged(bool need_restart)
     auto groups = ConnectionHandler->AllGroups();
 
     for (auto group : groups) {
-        auto groupItem = new QTreeWidgetItem();
+        auto groupItem = new QTreeWidgetItem(QStringList() << "" << ConnectionHandler->GetGroup(group).displayName);
         connectionListWidget->addTopLevelItem(groupItem);
-        connectionListWidget->setItemWidget(groupItem, 0, new ConnectionWidget(group, connectionListWidget));
+        connectionListWidget->setItemWidget(groupItem, 0, new ConnectionItemWidget(group, connectionListWidget));
         auto connections = ConnectionHandler->Connections(group);
 
         for (auto connection : connections) {
-            auto connectionItem = new QTreeWidgetItem();
+            auto connectionItem = new QTreeWidgetItem(QStringList() << "" << ConnectionHandler->GetConnection(connection).displayName);
             groupItem->addChild(connectionItem);
-            auto widget = new ConnectionWidget(connection, connectionListWidget);
-            connect(widget, &ConnectionWidget::RequestWidgetFocus, this, &MainWindow::onConnectionWidgetFocusRequested);
+            auto widget = new ConnectionItemWidget(connection, connectionListWidget);
+            connect(widget, &ConnectionItemWidget::RequestWidgetFocus, this, &MainWindow::onConnectionWidgetFocusRequested);
             connectionListWidget->setItemWidget(connectionItem, 0, widget);
         }
     }
 
+    // Do not sort
+    //connectionListWidget->sortItems(1, Qt::SortOrder::AscendingOrder);
+    //
+    // ================================================================
+    //
     //auto wasRunning = vinstance->KernelStarted && need_restart;
     //
     //if (wasRunning) on_stopButton_clicked();
@@ -1011,7 +1016,7 @@ void MainWindow::OnConnected(const ConnectionId &id)
 }
 
 
-void MainWindow::onConnectionWidgetFocusRequested(const ConnectionWidget *_widget)
+void MainWindow::onConnectionWidgetFocusRequested(const ConnectionItemWidget *_widget)
 {
     if (_widget == nullptr) {
         return;

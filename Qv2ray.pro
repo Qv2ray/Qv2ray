@@ -109,8 +109,8 @@ Qv2rayAddSource(ui, _, w_MainWindow_extra, cpp)
 Qv2rayAddSource(ui, _, w_PreferencesWindow, cpp, hpp, ui)
 Qv2rayAddSource(ui, _, w_ScreenShot_Core, cpp, hpp, ui)
 Qv2rayAddSource(ui, _, w_SubscriptionManager, cpp, hpp, ui)
-Qv2rayAddSource(ui, widgets, ConnectionWidget, cpp, hpp, ui)
 Qv2rayAddSource(ui, widgets, StreamSettingsWidget, cpp, hpp, ui)
+Qv2rayAddSource(ui, widgets, ConnectionItemWidget, cpp, hpp, ui)
 Qv2rayAddSource(ui, widgets, ConnectionInfoWidget, cpp, hpp, ui)
 
 SOURCES += $$PWD/src/main.cpp

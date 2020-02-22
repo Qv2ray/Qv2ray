@@ -1,32 +1,34 @@
-#include "ConnectionWidget.hpp"
+#include "ConnectionItemWidget.hpp"
 #include "common/QvHelpers.hpp"
 
-ConnectionWidget::ConnectionWidget(QWidget *parent) : QWidget(parent), connectionId("null"), groupId("null")
+ConnectionItemWidget::ConnectionItemWidget(QWidget *parent) : QWidget(parent), connectionId("null"), groupId("null")
 {
     setupUi(this);
-    connect(ConnectionHandler, &QvConnectionHandler::OnConnected, this, &ConnectionWidget::OnConnected);
+    connect(ConnectionHandler, &QvConnectionHandler::OnConnected, this, &ConnectionItemWidget::OnConnected);
 }
 
-ConnectionWidget::ConnectionWidget(const ConnectionId &identifier, QWidget *parent): ConnectionWidget(parent)
+ConnectionItemWidget::ConnectionItemWidget(const ConnectionId &identifier, QWidget *parent): ConnectionItemWidget(parent)
 {
     auto connection = ConnectionHandler->GetConnection(identifier);
     connectionId = identifier;
     groupId = connection.groupId;
     itemType = NODE_ITEM;
-    connNameLabel->setText(connection.displayName);
+    connNameLabel->setText("" + connection.displayName);
     latencyLabel->setText(QSTRN(connection.latency) + " " + tr("ms"));
-    connTypeLabel->setText("DODO");
+    connTypeLabel->setText(tr("Type: ") + ConnectionHandler->GetConnectionBasicInfo(identifier));
     dataLabel->setText(FormatBytes(connection.upLinkData + connection.downLinkData));
+    //
+    indentSpacer->changeSize(10, indentSpacer->sizeHint().height());
 }
 
 // ======================================= Initialisation for root nodes.
-ConnectionWidget::ConnectionWidget(const GroupId &id, QWidget *parent) : ConnectionWidget(parent)
+ConnectionItemWidget::ConnectionItemWidget(const GroupId &id, QWidget *parent) : ConnectionItemWidget(parent)
 {
     groupId = id;
     itemType = GROUP_HEADER_ITEM;
     auto displayName = ConnectionHandler->GetGroup(id).displayName;
     auto connectionCount = ConnectionHandler->Connections(id).count();
-    connNameLabel->setText(displayName);
+    connNameLabel->setText(/*"• " +*/ displayName);
     latencyLabel->setText(QSTRN(connectionCount) + " " + (connectionCount < 2 ? tr("connection") : tr("connections")));
     //
     layout()->removeWidget(connTypeLabel);
@@ -36,7 +38,7 @@ ConnectionWidget::ConnectionWidget(const GroupId &id, QWidget *parent) : Connect
 }
 
 
-void ConnectionWidget::BeginConnection()
+void ConnectionItemWidget::BeginConnection()
 {
     if (itemType == NODE_ITEM) {
         ConnectionHandler->StartConnection(connectionId);
@@ -45,7 +47,7 @@ void ConnectionWidget::BeginConnection()
     }
 }
 
-void ConnectionWidget::OnConnected(const ConnectionId &id)
+void ConnectionItemWidget::OnConnected(const ConnectionId &id)
 {
     if (id == connectionId) {
         LOG(MODULE_UI, "OnConnected signal received for: " + id.toString())
@@ -53,7 +55,7 @@ void ConnectionWidget::OnConnected(const ConnectionId &id)
     }
 }
 
-ConnectionWidget::~ConnectionWidget()
+ConnectionItemWidget::~ConnectionItemWidget()
 {
     //
 }

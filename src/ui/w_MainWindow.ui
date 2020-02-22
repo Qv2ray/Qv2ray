@@ -127,6 +127,9 @@
         <property name="verticalScrollMode">
          <enum>QAbstractItemView::ScrollPerPixel</enum>
         </property>
+        <property name="indentation">
+         <number>0</number>
+        </property>
         <property name="sortingEnabled">
          <bool>true</bool>
         </property>
@@ -386,8 +389,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>459</width>
-         <height>848</height>
+         <width>480</width>
+         <height>851</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -553,7 +556,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>29</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

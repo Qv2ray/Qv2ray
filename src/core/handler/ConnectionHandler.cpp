@@ -82,7 +82,7 @@ namespace Qv2ray::core::handlers
     }
 
 
-    const QString QvConnectionHandler:: GetConnectionBasicInfo(const ConnectionId &id) const
+    const QString QvConnectionHandler::GetConnectionBasicInfo(const ConnectionId &id) const
     {
         QString result;
 
@@ -91,28 +91,19 @@ namespace Qv2ray::core::handlers
         }
 
         CONFIGROOT root = CHGetConnectionRoot_p(connections[id].groupId, id);
-        bool isTLSEnabled = false;
-
-        if (root.contains("inbounds") && !root["inbounds"].toArray().isEmpty()) {
-            QString inProtocol = tr("Inbounds: ");
-
-            for (auto inbound : root["inbounds"].toArray()) {
-                inProtocol.append(inbound.toObject()["protocol"].toString());
-                inProtocol.append("/");
-            }
-
-            inProtocol.chop(1);
-            result.append(inProtocol);
-        }
-
         QStringList protocols;
         QStringList streamProtocols;
+        auto outbound = root["outbounds"].toArray().first().toObject();
+        result.append(outbound["protocol"].toString());
 
-        for (auto outbound : root["outbounds"].toArray()) {
-            protocols.append(outbound.toObject()["protocol"].toString());
+        if (outbound.contains("streamSettings")) {
+            result.append(" + " + outbound["streamSettings"].toObject()["network"].toString());
+
+            if (outbound["streamSettings"].toObject().contains("tls")) {
+                result.append(outbound["streamSettings"].toObject()["tls"].toBool() ?  " + tls" : "");
+            }
         }
 
-        result.chop(1);
         return result;
     }
 
@@ -134,7 +125,7 @@ namespace Qv2ray::core::handlers
 
     const CONFIGROOT QvConnectionHandler::CHGetConnectionRoot_p(const GroupId &group, const ConnectionId &id) const
     {
-        auto path = QV2RAY_CONNECTIONS_DIR + group.toString() + "/" + id.toString() + QV2RAY_CONFIG_FILE_EXTENSION;
+        auto path = group.toString() + "/" + id.toString() + QV2RAY_CONFIG_FILE_EXTENSION;
         path.prepend(groups[group].isSubscription ? QV2RAY_SUBSCRIPTION_DIR : QV2RAY_CONNECTIONS_DIR);
         return CONFIGROOT(JsonFromString(StringFromFile(path)));
     }

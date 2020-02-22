@@ -1,7 +1,7 @@
 #pragma once
 
 #include <QWidget>
-#include "ui_ConnectionWidget.h"
+#include "ui_ConnectionItemWidget.h"
 #include "core/handler/ConnectionHandler.hpp"
 
 enum ITEM_TYPE {
@@ -9,15 +9,15 @@ enum ITEM_TYPE {
     NODE_ITEM
 };
 
-class ConnectionWidget : public QWidget, private Ui::ConnectionWidget
+class ConnectionItemWidget : public QWidget, private Ui::ConnectionWidget
 {
         Q_OBJECT
     public:
-        explicit ConnectionWidget(const ConnectionId &connecionId, QWidget *parent = nullptr);
-        explicit ConnectionWidget(const GroupId &groupId, QWidget *parent = nullptr);
+        explicit ConnectionItemWidget(const ConnectionId &connecionId, QWidget *parent = nullptr);
+        explicit ConnectionItemWidget(const GroupId &groupId, QWidget *parent = nullptr);
         //
         void BeginConnection();
-        ~ConnectionWidget();
+        ~ConnectionItemWidget();
         //
         inline bool NameMatched(const QString &arg)
         {
@@ -39,14 +39,14 @@ class ConnectionWidget : public QWidget, private Ui::ConnectionWidget
             return itemType == NODE_ITEM;
         }
     signals:
-        void RequestWidgetFocus(const ConnectionWidget *me);
+        void RequestWidgetFocus(const ConnectionItemWidget *me);
     private slots:
         void OnConnected(const ConnectionId &id);
     private:
-        explicit ConnectionWidget(QWidget *parent = nullptr);
+        explicit ConnectionItemWidget(QWidget *parent = nullptr);
         ITEM_TYPE itemType;
         ConnectionId connectionId;
         GroupId groupId;
 
-        Q_DISABLE_COPY_MOVE(ConnectionWidget)
+        Q_DISABLE_COPY_MOVE(ConnectionItemWidget)
 };
