@@ -26,7 +26,7 @@ namespace Qv2ray::components::plugins::Toolbar
             auto hThread = CreateThread(nullptr, 0, NamedPipeMasterThread, nullptr, 0, nullptr);
 
             if (hThread == nullptr) {
-                LOG(PLUGIN, "CreateThread failed, GLE=" + QSTRN(GetLastError()))
+                LOG(MODULE_PLUGIN, "CreateThread failed, GLE=" + QSTRN(GetLastError()))
                 return;
             } else CloseHandle(hThread);
         }
