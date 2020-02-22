@@ -108,6 +108,10 @@ void SubscribeEditor::on_updateButton_clicked()
         SaveGlobalConfig(GlobalConfig);
         // This will set the name to the new name.
         LoadSubscriptionList(subscriptions);
+        // Keep subAddress && Interval changes
+        // Update thing still down
+        subAddrTxt->setText(newAddress);
+        updateIntervalSB->setValue(newUpdateInterval);
         QvMessageBoxInfo(this, tr("Renaming a subscription"), tr("Successfully renamed a subscription"));
     }
 
