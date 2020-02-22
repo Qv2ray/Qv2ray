@@ -1,5 +1,6 @@
 #include "Qv2rayLog.hpp"
-#include "Qv2rayBase.hpp"
+#include "base/GlobalInstances.hpp"
+#include <iostream>
 
 namespace Qv2ray::base
 {

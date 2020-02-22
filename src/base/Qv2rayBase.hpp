@@ -44,12 +44,6 @@ using namespace Qv2ray::base::objects::transfer;
 #define QV2RAY_BUILD_INFO QString(_QV2RAY_BUILD_INFO_STR_)
 #define QV2RAY_BUILD_EXTRA_INFO QString(_QV2RAY_BUILD_EXTRA_INFO_STR_)
 
-#ifdef QT_DEBUG
-inline const bool isDebugBuild = true;
-#else
-inline const bool isDebugBuild = false;
-#endif
-
 // Base folder suffix.
 #ifdef QT_DEBUG
 # define QV2RAY_CONFIG_DIR_SUFFIX "_debug/"

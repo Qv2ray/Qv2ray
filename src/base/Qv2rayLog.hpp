@@ -1,13 +1,18 @@
 ﻿#pragma once
 
-#include <iostream>
-#include <QtDebug>
-#include <QBuffer>
+#include <QString>
 using namespace std;
 
 /*
  * Tiny log module.
  */
+
+#ifdef QT_DEBUG
+inline const bool isDebugBuild = true;
+#else
+inline const bool isDebugBuild = false;
+#endif
+
 namespace Qv2ray::base
 {
     void __QV2RAY_LOG_FUNC__(int type, const std::string &func, int line, const QString &module, const QString &log);
