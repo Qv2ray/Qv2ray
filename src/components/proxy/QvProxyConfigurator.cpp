@@ -17,7 +17,7 @@ namespace Qv2ray::components::proxy
         p.start();
         p.waitForStarted();
         p.waitForFinished();
-        LOG(PROXY, p.errorString())
+        LOG(MODULE_PROXY, p.errorString())
         auto str = p.readAllStandardOutput();
         auto lines = SplitLines(str);
         QStringList result;
