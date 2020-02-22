@@ -10,6 +10,7 @@
 #include <QMap>
 #include <vector>
 #include <algorithm>
+#include <iostream>
 #include <ctime>
 // Base support.
 #include "base/Qv2rayLog.hpp"
