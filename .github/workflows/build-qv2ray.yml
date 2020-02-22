@@ -28,6 +28,11 @@ jobs:
         run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
       - name: Checking out sources
         uses: actions/checkout@master
+      - name: Install Python 3.7 version
+        uses: actions/setup-python@v1
+        with:
+          python-version: '3.7'
+          architecture: ${{ matrix.arch }}
       - name: Restoring submodules
         run: git submodule update --init
 # --------------------------------------------------------

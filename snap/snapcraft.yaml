@@ -29,6 +29,7 @@ apps:
       plugs:
         - home
         - x11
+        - wayland
         - opengl
         - network
         - network-bind
