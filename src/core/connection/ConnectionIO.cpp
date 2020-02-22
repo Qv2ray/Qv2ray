@@ -6,10 +6,6 @@ namespace Qv2ray::core::connection
     namespace ConnectionIO
     {
 
-        CONFIGROOT GetConnectionRoot(const GroupId &group, const ConnectionId &id)
-        {
-        }
-
         //CONFIGROOT GetConnectionRoot(const SubscriptionId &subscription, const ConnectionId &id)
         //{
         //    return ReadConnectionInternal(QV2RAY_SUBSCRIPTION_DIR + subscription.toString() + "/" + id.toString() + QV2RAY_CONFIG_FILE_EXTENSION);
