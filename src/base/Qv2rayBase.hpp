@@ -12,6 +12,7 @@
 #include <algorithm>
 #include <iostream>
 #include <ctime>
+#include <optional>
 // Base support.
 #include "base/Qv2rayLog.hpp"
 #include "base/Qv2rayFeatures.hpp"

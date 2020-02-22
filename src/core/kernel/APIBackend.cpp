@@ -125,7 +125,7 @@ namespace Qv2ray::core::kernel::api
         Status status = Stub->GetStats(&context, request, &response);
 
         if (!status.ok()) {
-            LOG(VCORE, "API call returns: " + QSTRN(status.error_code()) + " (" + QString::fromStdString(status.error_message()) + ")")
+            LOG(MODULE_VCORE, "API call returns: " + QSTRN(status.error_code()) + " (" + QString::fromStdString(status.error_message()) + ")")
             apiFailedCounter++;
         }
 
