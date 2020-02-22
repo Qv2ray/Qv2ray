@@ -61,7 +61,7 @@ namespace Qv2ray::components::proxy
             LOG(MODULE_PROXY, "InternetQueryOption failed, GLE=" + QSTRN(GetLastError()))
         }
 
-        LOG(PROXY, "System default proxy info:")
+        LOG(MODULE_PROXY, "System default proxy info:")
 
         if (Option[0].Value.pszValue != nullptr) {
             LOG(MODULE_PROXY, QString::fromWCharArray(Option[0].Value.pszValue))
