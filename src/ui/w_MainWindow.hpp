@@ -31,16 +31,11 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         QvMessageBusSlotHeader
         //void onPingFinished(QvTCPingData data);
         void UpdateVCoreLog(const QString &log);
-        void OnConfigListChanged(bool need_restart);
     private slots:
         void on_action_RCM_ShareQR_triggered();
-        void on_startButton_clicked();
-        void on_stopButton_clicked();
-        void on_reconnectButton_clicked();
         void on_activatedTray(QSystemTrayIcon::ActivationReason reason);
         void on_actionExit_triggered();
         void on_preferencesBtn_clicked();
-        void on_connectionListWidget_doubleClicked(const QModelIndex &index);
         void on_clearlogButton_clicked();
         void on_connectionListWidget_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous);
         void on_connectionListWidget_customContextMenuRequested(const QPoint &pos);
@@ -72,6 +67,10 @@ class MainWindow : public QMainWindow, Ui::MainWindow
     private slots:
         //
         void onConnectionWidgetFocusRequested(const ConnectionItemWidget *widget);
+        //void onConnectionConnected(const ConnectionId &id);
+        //void onConnectionDisConnected(const ConnectionId &id);
+        void onConnectionStatsArrived(const ConnectionId &id, const quint64 upSpeed, const quint64 downSpeed);
+        void onVCoreLogArrived(const ConnectionId &id, const QString &log);
         //
         void on_action_StartThis_triggered();
         void on_action_RCM_EditJson_triggered();
@@ -79,26 +78,24 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         void on_action_RCM_RenameConnection_triggered();
         void on_connectionListWidget_itemSelectionChanged();
         void on_connectionListWidget_itemDoubleClicked(QTreeWidgetItem *item, int column);
-
         void on_connectionFilterTxt_textEdited(const QString &arg1);
-
         void on_connectionListWidget_itemClicked(QTreeWidgetItem *item, int column);
 
     private:
         QTreeWidgetItem *CurrentItem;
-        //
-        void SetEditWidgetEnable(bool enabled);
         //CONFIGROOT currentFullConfig;
         //
         // Charts
-        SpeedWidget *speedChartView;
+        SpeedWidget *speedChartWidget;
         //
         QMenu *connectionListMenu;
         //
         //QvConnectionObject renameOriginalIdentifier;
         bool isRenamingInProgress;
         //
+#ifndef DISABLE_AUTO_UPDATE
         QvHttpRequestHelper *requestHelper;
+#endif
         QSystemTrayIcon hTray;
         //PACServer pacServer;
         //QvTCPingModel tcpingHelper;
@@ -122,7 +119,7 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         //
         // ----------------------------------- Extra Headers For w_MainWindow_extra.cpp Handling V2ray Connectivities.
         bool systemProxyEnabled;
-        void MWFindAndStartAutoConfig();
+        bool MWFindAndStartAutoConfig();
         void MWStopConnection();
         void MWSetSystemProxy();
         void MWClearSystemProxy(bool);

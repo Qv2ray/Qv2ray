@@ -15,7 +15,7 @@ ConnectionItemWidget::ConnectionItemWidget(const ConnectionId &identifier, QWidg
     itemType = NODE_ITEM;
     connNameLabel->setText("" + connection.displayName);
     latencyLabel->setText(QSTRN(connection.latency) + " " + tr("ms"));
-    connTypeLabel->setText(tr("Type: ") + ConnectionManager->GetConnectionBasicInfo(identifier));
+    connTypeLabel->setText(tr("Type: ") + ConnectionManager->GetConnectionProtocolString(identifier));
     dataLabel->setText(FormatBytes(connection.upLinkData + connection.downLinkData));
     //
     indentSpacer->changeSize(10, indentSpacer->sizeHint().height());

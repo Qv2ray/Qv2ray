@@ -30,7 +30,7 @@
 //    return nullptr;
 //}
 
-void MainWindow::MWFindAndStartAutoConfig()
+bool MainWindow::MWFindAndStartAutoConfig()
 {
     //if (!GlobalConfig.autoStartConfig.connectionName.isEmpty()) {
     //    // User has auto start configured, we try to find that connection item.
@@ -58,6 +58,7 @@ void MainWindow::MWFindAndStartAutoConfig()
     //    connectionListWidget->setCurrentItem(connectionListWidget->topLevelItem(0));
     //    ShowAndSetConnection(ItemConnectionIdentifier(connectionListWidget->topLevelItem(0)), true, false);
     //}
+    return true;
 }
 
 void MainWindow::MWClearSystemProxy(bool showMessage)

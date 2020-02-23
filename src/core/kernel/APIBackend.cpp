@@ -9,13 +9,13 @@ using grpc::Status;
 #include "libs/libqvb/build/libqvb.h"
 #endif
 
-namespace Qv2ray::core::kernel::api
+namespace Qv2ray::core::kernel
 {
     // To all contributors:
     //
 
     // --- CONSTRUCTOR ---
-    APIWorkder::APIWorkder()
+    APIWorker::APIWorker()
     {
         thread = new QThread();
         this->moveToThread(thread);
@@ -30,7 +30,7 @@ namespace Qv2ray::core::kernel::api
         DEBUG(MODULE_VCORE, "API Worker started.")
     }
 
-    void APIWorkder::StartAPI(QStringList tags)
+    void APIWorker::StartAPI(const QStringList &tags)
     {
         // Config API
         apiFailedCounter = 0;
@@ -38,13 +38,13 @@ namespace Qv2ray::core::kernel::api
         running = true;
     }
 
-    void APIWorkder::StopAPI()
+    void APIWorker::StopAPI()
     {
         running = false;
     }
 
     // --- DECONSTRUCTOR ---
-    APIWorkder::~APIWorkder()
+    APIWorker::~APIWorker()
     {
         StopAPI();
         // Set started signal to false and wait for API thread to stop.
@@ -59,7 +59,7 @@ namespace Qv2ray::core::kernel::api
 
     // API Core Operations
     // Start processing data.
-    void APIWorkder::process()
+    void APIWorker::process()
     {
         while (started) {
             QThread::msleep(1000);
@@ -75,16 +75,38 @@ namespace Qv2ray::core::kernel::api
 #else
                     auto str = Dial(const_cast<char *>(channelAddress.toStdString().c_str()), 10000);
                     LOG(MODULE_VCORE, QString(str))
+                    LOG(MODULE_VCORE, "Currently, libqvb does not support speed reporting, your stats might go wrong.")
                     free(str);
 #endif
                     dialed = true;
                 }
 
+#ifndef QV2RAY_STATS_PER_TAG
+                qint64 value_up = 0;
+                qint64 value_down = 0;
+
+                for (auto tag : inboundTags) {
+                    value_up += CallStatsAPIByName("inbound>>>" + tag + ">>>traffic>>>uplink");
+                    value_down += CallStatsAPIByName("inbound>>>" + tag + ">>>traffic>>>downlink");
+                }
+
+                if (value_up < 0 || value_down < 0) {
+                    dialed = false;
+                    break;
+                }
+
+                if (running) {
+                    apiFailedCounter = 0;
+                    emit OnDataReady("", value_up, value_down);
+                }
+
+#else
+
                 for (auto tag : inboundTags) {
                     auto valup = CallStatsAPIByName("inbound>>>" + tag + ">>>traffic>>>uplink");
                     auto valdown = CallStatsAPIByName("inbound>>>" + tag + ">>>traffic>>>downlink");
 
-                    if (valup < 0 && valdown < 0) {
+                    if (valup < 0 || valdown < 0) {
                         dialed = false;
                         break;
                     }
@@ -98,6 +120,7 @@ namespace Qv2ray::core::kernel::api
                     }
                 }
 
+#endif
                 QThread::msleep(1000);
             } // end while running
         } // end while started
@@ -105,7 +128,7 @@ namespace Qv2ray::core::kernel::api
         thread->exit();
     }
 
-    qint64 APIWorkder::CallStatsAPIByName(QString name)
+    qint64 APIWorker::CallStatsAPIByName(const QString &name)
     {
         if (apiFailedCounter == QV2RAY_API_CALL_FAILEDCHECK_THRESHOLD) {
             LOG(MODULE_VCORE, "API call failure threshold reached, cancelling further API aclls.")
@@ -119,7 +142,7 @@ namespace Qv2ray::core::kernel::api
 #ifdef WITH_LIB_GRPCPP
         GetStatsRequest request;
         request.set_name(name.toStdString());
-        request.set_reset(false);
+        request.set_reset(true);
         GetStatsResponse response;
         ClientContext context;
         Status status = Stub->GetStats(&context, request, &response);

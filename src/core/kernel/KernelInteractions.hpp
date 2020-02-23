@@ -1,10 +1,11 @@
 ﻿#pragma once
 #include <QProcess>
 #include "base/Qv2rayBase.hpp"
-#include "APIBackend.hpp"
+#include "core/CoreSafeTypes.hpp"
 
 namespace Qv2ray::core::kernel
 {
+    class APIWorker;
     class V2rayKernelInstance : public QObject
     {
             Q_OBJECT
@@ -15,14 +16,10 @@ namespace Qv2ray::core::kernel
             // Speed
             qulonglong getTagSpeedUp(const QString &tag);
             qulonglong getTagSpeedDown(const QString &tag);
-            qulonglong getTagDataUp(const QString &tag);
-            qulonglong getTagDataDown(const QString &tag);
-            qulonglong getAllDataUp();
-            qulonglong getAllDataDown();
             qulonglong getAllSpeedUp();
             qulonglong getAllSpeedDown();
             //
-            optional<QString> StartConnection(CONFIGROOT root);
+            optional<QString> StartConnection(const ConnectionId &id, const CONFIGROOT &root);
             void StopConnection();
             bool KernelStarted = false;
             //
@@ -30,20 +27,19 @@ namespace Qv2ray::core::kernel
             static bool ValidateKernel(const QString &vCorePath, const QString &vAssetsPath, QString *message);
 
         signals:
-            void onProcessErrored();
-            void onProcessOutputReadyRead(QString);
+            void OnProcessErrored();
+            void OnProcessOutputReadyRead(const ConnectionId &id, const QString &output);
+            void OnNewStatsDataArrived(const ConnectionId &id, const QString &tag, const quint64 _totalUp, const quint64 _totalDown);
 
         public slots:
-            void onAPIDataReady(QString tag, qulonglong totalUp, qulonglong totalDown);
+            void onAPIDataReady(const QString &tag, const quint64 _totalUp, const quint64 _totalDown);
 
         private:
-            APIWorkder *apiWorker;
+            APIWorker *apiWorker;
             QProcess *vProcess;
             bool apiEnabled;
-            QMap<QString, qulonglong> transferDataUp;
-            QMap<QString, qulonglong> transferDataDown;
-            QMap<QString, qulonglong> transferSpeedUp;
-            QMap<QString, qulonglong> transferSpeedDown;
+            //
+            ConnectionId id;
     };
 }
 

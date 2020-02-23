@@ -24,11 +24,13 @@ namespace Qv2ray::core::handlers
             //
             const optional<QString> StopConnection(const ConnectionId &id);
             const optional<QString> StartConnection(const ConnectionId &identifier);
+
+        private slots:
+            void OnStatsDataArrived(const ConnectionId &id, const QString tag, const quint64 uploadSpeed, const quint64 downloadSpeed);
             //
         public:
             //
             // Connection Operations.
-            const QString GetConnectionBasicInfo(const ConnectionId &id) const;
             const ConnectionMetaObject GetConnection(const ConnectionId &id) const;
             const ConnectionId &CreateConnection(const QString &displayName, const GroupId &groupId, const CONFIGROOT &root);
             const optional<QString> DeleteConnection(const ConnectionId &id);
@@ -38,18 +40,19 @@ namespace Qv2ray::core::handlers
             const optional<QString> MoveConnectionGroup(const ConnectionId &id, const GroupId &newGroupId);
             //
             // Get Conncetion Property
+            const QString GetConnectionProtocolString(const ConnectionId &id) const;
             const tuple<QString, int> GetConnectionInfo(const ConnectionId &connectionId);
             //
             // Misc Connection Operations
-            const optional<QString> TestLatency(const ConnectionId &id);
-            const optional<QString> TestLatency(const GroupId &id);
             const optional<QString> TestLatency();
+            const optional<QString> TestLatency(const GroupId &id);
+            const optional<QString> TestLatency(const ConnectionId &id);
             //
             // Group Operations
             const GroupMetaObject GetGroup(const GroupId &id) const;
-            const GroupId &CreateGroup(const QString displayName, bool isSubscription);
             const optional<QString> DeleteGroup(const GroupId &id);
             const optional<QString> DuplicateGroup(const GroupId &id);
+            const GroupId &CreateGroup(const QString displayName, bool isSubscription);
             const optional<QString> RenameGroup(const GroupId &id, const QString &newName);
             //
             // Subscriptions
@@ -63,7 +66,8 @@ namespace Qv2ray::core::handlers
             //
             void OnConnected(const ConnectionId &id);
             void OnDisConnected(const ConnectionId &id);
-            void OnNewConnectionStatsAvaliable(const ConnectionId &id, uint64_t totalUpload, uint64_t totalDownload);
+            void OnVCoreLogAvailable(const ConnectionId &id, const QString &log);
+            void OnStatsAvailable(const ConnectionId &id, uint64_t totalUpload, uint64_t totalDownload);
             //
             void OnConnectionCreated(const ConnectionId &id, const QString &displayName);
             void OnConnectionRenamed(const ConnectionId &id, const QString &originalName, const QString &newName);
@@ -82,16 +86,22 @@ namespace Qv2ray::core::handlers
             void OnSubscriptionUpdateFinished(const GroupId &id);
 
         private:
+            //
             bool CHGetOutboundData_p(const OUTBOUND &out, QString *host, int *port);
             optional<QString> CHTryStartConnection_p(const ConnectionId &id, const CONFIGROOT &root);
             const CONFIGROOT CHGetConnectionRoot_p(const ConnectionId &id) const;
             const CONFIGROOT CHGetConnectionRoot_p(const GroupId &group, const ConnectionId &id) const;
             bool CHSaveConnectionConfig(CONFIGROOT obj, const ConnectionId &id, bool override);
             //
+            //
             // We only support one cuncurrent connection currently.
-            //QHash<ConnectionId, V2rayKernelInstance> kernelInstances;
+#ifdef QV2RAY_MULTIPlE_ONNECTION
+            QHash<ConnectionId, V2rayKernelInstance> kernelInstances;
+#else
             V2rayKernelInstance *kernelInstance = nullptr;
+#endif
             int saveTimerId;
+            int apiTimerId;
             QHash<GroupId, GroupMetaObject> groups;
             QHash<ConnectionId, ConnectionMetaObject> connections;
             //

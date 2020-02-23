@@ -4,6 +4,7 @@
 #include "common/QvHelpers.hpp"
 #include "KernelInteractions.hpp"
 #include "core/connection/ConnectionIO.hpp"
+#include "APIBackend.hpp"
 
 namespace Qv2ray::core::kernel
 {
@@ -116,11 +117,11 @@ namespace Qv2ray::core::kernel
         }
     }
 
-    V2rayKernelInstance::V2rayKernelInstance()
+    V2rayKernelInstance::V2rayKernelInstance() : id("null")
     {
         vProcess = new QProcess();
-        connect(vProcess, &QProcess::readyReadStandardOutput, this, [this]() {
-            emit onProcessOutputReadyRead(vProcess->readAllStandardOutput().trimmed());
+        connect(vProcess, &QProcess::readyReadStandardOutput, this, [&]() {
+            emit OnProcessOutputReadyRead(id, vProcess->readAllStandardOutput().trimmed());
         });
         connect(vProcess, &QProcess::stateChanged, [this](QProcess::ProcessState state) {
             DEBUG(MODULE_VCORE, "V2ray kernel process status changed: " + QVariant::fromValue(state).toString())
@@ -129,15 +130,15 @@ namespace Qv2ray::core::kernel
             if (KernelStarted && state == QProcess::NotRunning) {
                 LOG(MODULE_VCORE, "V2ray kernel crashed.")
                 StopConnection();
-                emit onProcessErrored();
+                emit OnProcessErrored();
             }
         });
-        apiWorker = new APIWorkder();
-        connect(apiWorker, &APIWorkder::OnDataReady, this, &V2rayKernelInstance::onAPIDataReady);
+        apiWorker = new APIWorker();
+        connect(apiWorker, &APIWorker::OnDataReady, this, &V2rayKernelInstance::onAPIDataReady);
         KernelStarted = false;
     }
 
-    optional<QString> V2rayKernelInstance::StartConnection(CONFIGROOT root)
+    optional<QString> V2rayKernelInstance::StartConnection(const ConnectionId &id, const CONFIGROOT &root)
     {
         if (KernelStarted) {
             LOG(MODULE_VCORE, "Status is invalid, expect STOPPED when calling StartConnection")
@@ -159,6 +160,8 @@ namespace Qv2ray::core::kernel
             vProcess->waitForStarted();
             DEBUG(MODULE_VCORE, "V2ray core started.")
             KernelStarted = true;
+            // Set Connection ID
+            this->id = id;
             QStringList inboundTags;
 
             for (auto item : root["inbounds"].toArray()) {
@@ -188,7 +191,7 @@ namespace Qv2ray::core::kernel
                 DEBUG(MODULE_VCORE, "Qv2ray API started")
             }
 
-            return {};
+            return { };
         } else {
             KernelStarted = false;
             return tr("V2ray kernel failed to start.");
@@ -208,11 +211,6 @@ namespace Qv2ray::core::kernel
         // Block until V2ray core exits
         // Should we use -1 instead of waiting for 30secs?
         vProcess->waitForFinished();
-        //
-        transferDataUp.clear();
-        transferDataDown.clear();
-        transferSpeedUp.clear();
-        transferSpeedDown.clear();
     }
 
     V2rayKernelInstance::~V2rayKernelInstance()
@@ -225,72 +223,8 @@ namespace Qv2ray::core::kernel
         delete vProcess;
     }
 
-    void V2rayKernelInstance::onAPIDataReady(QString tag, qulonglong totalUp, qulonglong totalDown)
+    void V2rayKernelInstance::onAPIDataReady(const QString &tag, const quint64 _totalUp, const quint64 _totalDown)
     {
-        auto dataup = totalUp - transferDataUp[tag];
-        transferDataUp[tag] = totalUp;
-        transferSpeedUp[tag] = dataup;
-        // Download
-        auto datadown = totalDown - transferDataDown[tag];
-        transferDataDown[tag] = totalDown;
-        transferSpeedDown[tag] = datadown;
-    }
-
-    // ------------------------------------------------------------- API FUNCTIONS --------------------------
-    qulonglong V2rayKernelInstance::getTagSpeedUp(const QString &tag)
-    {
-        return transferSpeedUp[tag];
-    }
-    qulonglong V2rayKernelInstance::getTagSpeedDown(const QString &tag)
-    {
-        return transferSpeedDown[tag];
-    }
-    qulonglong V2rayKernelInstance::getTagDataUp(const QString &tag)
-    {
-        return transferDataUp[tag];
-    }
-    qulonglong V2rayKernelInstance::getTagDataDown(const QString &tag)
-    {
-        return transferDataDown[tag];
-    }
-    qulonglong V2rayKernelInstance::getAllDataUp()
-    {
-        long val = 0;
-
-        for (auto _val : transferDataUp.values()) {
-            val += _val;
-        }
-
-        return val;
-    }
-    qulonglong V2rayKernelInstance::getAllDataDown()
-    {
-        long val = 0;
-
-        for (auto _val : transferDataDown.values()) {
-            val += _val;
-        }
-
-        return val;
-    }
-    qulonglong V2rayKernelInstance::getAllSpeedUp()
-    {
-        qulonglong val = 0;
-
-        for (auto _val : transferSpeedUp.values()) {
-            val += _val;
-        }
-
-        return val;
-    }
-    qulonglong V2rayKernelInstance::getAllSpeedDown()
-    {
-        qulonglong val = 0;
-
-        for (auto _val : transferSpeedDown.values()) {
-            val += _val;
-        }
-
-        return val;
+        emit OnNewStatsDataArrived(id, tag, _totalUp, _totalDown);
     }
 }

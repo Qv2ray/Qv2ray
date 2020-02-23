@@ -6,7 +6,7 @@ optional<QString> QvConnectionHandler::CHTryStartConnection_p(const ConnectionId
     auto &connectionMeta = connections[id];
     auto fullConfig = GenerateRuntimeConfig(root);
     //
-    auto result = kernelInstance->StartConnection(fullConfig);
+    auto result = kernelInstance->StartConnection(id, fullConfig);
 
     if (!result.has_value()) {
         emit OnConnected(id);
@@ -61,4 +61,12 @@ optional<QString> QvConnectionHandler::CHTryStartConnection_p(const ConnectionId
     //    }
     //}
     //return "startFlag";
+}
+
+void QvConnectionHandler::OnStatsDataArrived(const ConnectionId &id, const QString tag, const quint64 uploadSpeed, const quint64 downloadSpeed)
+{
+    Q_UNUSED(tag)
+    emit OnStatsAvailable(id, uploadSpeed, downloadSpeed);
+    connections[id].upLinkData += uploadSpeed;
+    connections[id].downLinkData += downloadSpeed;
 }

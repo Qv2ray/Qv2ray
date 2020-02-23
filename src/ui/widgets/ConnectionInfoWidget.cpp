@@ -5,6 +5,10 @@ ConnectionInfoWidget::ConnectionInfoWidget(QWidget *parent) :
     QWidget(parent), connectionId("null"), groupId("null")
 {
     setupUi(this);
+    duplicateBtn->setIcon(QICON_R("duplicate.png"));
+    deleteBtn->setIcon(QICON_R("delete.png"));
+    editBtn->setIcon(QICON_R("edit.png"));
+    editJsonBtn->setIcon(QICON_R("json.png"));
 }
 
 void ConnectionInfoWidget::ShowDetails(const tuple<GroupId, ConnectionId> &_identifier)
@@ -15,7 +19,7 @@ void ConnectionInfoWidget::ShowDetails(const tuple<GroupId, ConnectionId> &_iden
     if (connectionId.toString() != "null") {
         connNameLabel->setText(ConnectionManager->GetConnection(connectionId).displayName);
         groupLabel->setText(ConnectionManager->GetGroup(groupId).displayName);
-        protocolLabel->setText(ConnectionManager->GetConnectionBasicInfo(connectionId));
+        protocolLabel->setText(ConnectionManager->GetConnectionProtocolString(connectionId));
         auto x = ConnectionManager->GetConnectionInfo(connectionId);
         addressLabel->setText(get<0>(x));
         portLabel->setNum(get<1>(x));

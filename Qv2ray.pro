@@ -86,9 +86,10 @@ Qv2rayAddSource(core, connection, Generation, cpp, hpp)
 Qv2rayAddSource(core, connection, Serialization, cpp, hpp)
 Qv2rayAddSource(core, kernel, KernelInteractions, cpp, hpp)
 Qv2rayAddSource(core, kernel, APIBackend, cpp, hpp)
+# Connection Handlers
 Qv2rayAddSource(core, handler, ConnectionHandler, cpp, hpp)
-Qv2rayAddSource(core, handler, SubscriptionHandler, cpp)
-Qv2rayAddSource(core, handler, V2rayInstanceHandler, cpp, hpp)
+Qv2rayAddSource(core, handler, V2rayInstanceHandler, cpp)
+#
 Qv2rayAddSource(core, _, CoreUtils, cpp, hpp)
 Qv2rayAddSource(core, _, CoreSafeTypes, hpp)
 Qv2rayAddSource(ui, editors, w_InboundEditor, cpp, hpp, ui)

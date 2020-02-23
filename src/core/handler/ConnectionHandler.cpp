@@ -32,6 +32,8 @@ namespace Qv2ray::core::handlers
         }
 
         kernelInstance = new V2rayKernelInstance();
+        connect(kernelInstance, &V2rayKernelInstance::OnNewStatsDataArrived, this, &QvConnectionHandler::OnStatsDataArrived);
+        connect(kernelInstance, &V2rayKernelInstance::OnProcessOutputReadyRead, this, &QvConnectionHandler::OnVCoreLogAvailable);
         saveTimerId = startTimer(60000);
     }
     const QList<ConnectionId> QvConnectionHandler::Connections() const
@@ -88,8 +90,7 @@ namespace Qv2ray::core::handlers
         return CHTryStartConnection_p(identifier, root);
     }
 
-
-    const QString QvConnectionHandler::GetConnectionBasicInfo(const ConnectionId &id) const
+    const QString QvConnectionHandler::GetConnectionProtocolString(const ConnectionId &id) const
     {
         QString result;
 
