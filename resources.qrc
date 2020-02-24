@@ -26,5 +26,7 @@
         <file>assets/credit.html</file>
         <file>assets/icons/ui_dark/connect.png</file>
         <file>assets/icons/ui_light/connect.png</file>
+        <file>assets/icons/ui_dark/stop.png</file>
+        <file>assets/icons/ui_light/stop.png</file>
     </qresource>
 </RCC>

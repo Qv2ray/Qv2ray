@@ -90,9 +90,6 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         //
         QMenu *connectionListMenu;
         //
-        //QvConnectionObject renameOriginalIdentifier;
-        bool isRenamingInProgress;
-        //
 #ifndef DISABLE_AUTO_UPDATE
         QvHttpRequestHelper *requestHelper;
 #endif

@@ -14,6 +14,9 @@ ConnectionInfoWidget::ConnectionInfoWidget(QWidget *parent) :
     shareLinkTxt->setStyleSheet("border-bottom: 1px solid gray; border-radius: 0px; padding: 2px; background-color: " + this->palette().color(this->backgroundRole()).name(QColor::HexRgb));
     shareLinkTxt->setCursor(QCursor(Qt::CursorShape::IBeamCursor));
     shareLinkTxt->installEventFilter(this);
+    //
+    connect(ConnectionManager, &QvConnectionHandler::OnConnected, this, &ConnectionInfoWidget::OnConnected);
+    connect(ConnectionManager, &QvConnectionHandler::OnDisConnected, this, &ConnectionInfoWidget::OnDisConnected);
 }
 
 void ConnectionInfoWidget::ShowDetails(const tuple<GroupId, ConnectionId> &_identifier)
@@ -54,7 +57,11 @@ ConnectionInfoWidget::~ConnectionInfoWidget()
 
 void ConnectionInfoWidget::on_connectBtn_clicked()
 {
-    ConnectionManager->StartConnection(connectionId);
+    if (ConnectionManager->IsConnected(connectionId)) {
+        ConnectionManager->StartConnection(connectionId);
+    } else {
+        ConnectionManager->StopConnection();
+    }
 }
 
 void ConnectionInfoWidget::on_editBtn_clicked()
@@ -81,4 +88,18 @@ bool ConnectionInfoWidget::eventFilter(QObject *object, QEvent *event)
     }
 
     return QWidget::eventFilter(object, event);
+}
+
+void ConnectionInfoWidget::OnConnected(const ConnectionId &id)
+{
+    if (connectionId == id) {
+        connectBtn->setIcon(QICON_R("stop.png"));
+    }
+}
+
+void ConnectionInfoWidget::OnDisConnected(const ConnectionId &id)
+{
+    if (connectionId == id) {
+        connectBtn->setIcon(QICON_R("connect.png"));
+    }
 }

@@ -35,7 +35,7 @@
 
 #include <QCoreApplication>
 
-#define VIEWABLE 60
+#define VIEWABLE 120
 
 // use binary prefix standards from IEC 60027-2
 // see http://en.wikipedia.org/wiki/Kilobyte

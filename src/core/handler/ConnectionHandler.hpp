@@ -20,15 +20,10 @@ namespace Qv2ray::core::handlers
             const QList<GroupId> Subscriptions() const;
             const QList<ConnectionId> Connections(const GroupId &groupId) const;
             //
-            bool IsConnectionConnected(const ConnectionId &id) const;
-            //
-            const optional<QString> StopConnection(const ConnectionId &id);
+            // Connectivity Operationss
+            bool IsConnected(const ConnectionId &id) const;
             const optional<QString> StartConnection(const ConnectionId &identifier);
-
-        private slots:
-            void OnStatsDataArrived(const ConnectionId &id, const QString tag, const quint64 uploadSpeed, const quint64 downloadSpeed);
-            //
-        public:
+            void StopConnection(); //const ConnectionId &id
             //
             // Connection Operations.
             const ConnectionMetaObject GetConnection(const ConnectionId &id) const;
@@ -85,10 +80,15 @@ namespace Qv2ray::core::handlers
             void OnSubscriptionDeleted(const GroupId &id, const QString &oldName, const QString &newName);
             void OnSubscriptionUpdateFinished(const GroupId &id);
 
+        private slots:
+            void OnStatsDataArrived(const ConnectionId &id, const QString tag, const quint64 uploadSpeed, const quint64 downloadSpeed);
+            void OnVCoreCrashed(const ConnectionId &id);
+
         private:
             //
             bool CHGetOutboundData_p(const OUTBOUND &out, QString *host, int *port);
-            optional<QString> CHTryStartConnection_p(const ConnectionId &id, const CONFIGROOT &root);
+            optional<QString> CHStartConnection_p(const ConnectionId &id, const CONFIGROOT &root);
+            void CHStopConnection_p();
             const CONFIGROOT CHGetConnectionRoot_p(const ConnectionId &id) const;
             const CONFIGROOT CHGetConnectionRoot_p(const GroupId &group, const ConnectionId &id) const;
             bool CHSaveConnectionConfig(CONFIGROOT obj, const ConnectionId &id, bool override);
@@ -98,7 +98,8 @@ namespace Qv2ray::core::handlers
 #ifdef QV2RAY_MULTIPlE_ONNECTION
             QHash<ConnectionId, V2rayKernelInstance> kernelInstances;
 #else
-            V2rayKernelInstance *kernelInstance = nullptr;
+            ConnectionId currentConnectionId;
+            V2rayKernelInstance *vCoreInstance = nullptr;
 #endif
             int saveTimerId;
             int apiTimerId;

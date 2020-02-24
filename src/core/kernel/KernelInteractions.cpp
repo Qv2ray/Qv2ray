@@ -123,14 +123,14 @@ namespace Qv2ray::core::kernel
         connect(vProcess, &QProcess::readyReadStandardOutput, this, [&]() {
             emit OnProcessOutputReadyRead(id, vProcess->readAllStandardOutput().trimmed());
         });
-        connect(vProcess, &QProcess::stateChanged, [this](QProcess::ProcessState state) {
+        connect(vProcess, &QProcess::stateChanged, [&](QProcess::ProcessState state) {
             DEBUG(MODULE_VCORE, "V2ray kernel process status changed: " + QVariant::fromValue(state).toString())
 
             // If V2ray crashed AFTER we start it.
             if (KernelStarted && state == QProcess::NotRunning) {
                 LOG(MODULE_VCORE, "V2ray kernel crashed.")
                 StopConnection();
-                emit OnProcessErrored();
+                emit OnProcessErrored(id);
             }
         });
         apiWorker = new APIWorker();

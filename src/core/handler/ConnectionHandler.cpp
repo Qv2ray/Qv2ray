@@ -4,7 +4,7 @@
 namespace Qv2ray::core::handlers
 {
 
-    QvConnectionHandler::QvConnectionHandler()
+    QvConnectionHandler::QvConnectionHandler() : currentConnectionId("null")
     {
         DEBUG(MODULE_CORE_HANDLER, "ConnectionHandler Constructor.")
 
@@ -31,9 +31,10 @@ namespace Qv2ray::core::handlers
             }
         }
 
-        kernelInstance = new V2rayKernelInstance();
-        connect(kernelInstance, &V2rayKernelInstance::OnNewStatsDataArrived, this, &QvConnectionHandler::OnStatsDataArrived);
-        connect(kernelInstance, &V2rayKernelInstance::OnProcessOutputReadyRead, this, &QvConnectionHandler::OnVCoreLogAvailable);
+        vCoreInstance = new V2rayKernelInstance();
+        connect(vCoreInstance, &V2rayKernelInstance::OnProcessErrored, this, &QvConnectionHandler::OnVCoreCrashed);
+        connect(vCoreInstance, &V2rayKernelInstance::OnNewStatsDataArrived, this, &QvConnectionHandler::OnStatsDataArrived);
+        connect(vCoreInstance, &V2rayKernelInstance::OnProcessOutputReadyRead, this, &QvConnectionHandler::OnVCoreLogAvailable);
         saveTimerId = startTimer(60000);
     }
     const QList<ConnectionId> QvConnectionHandler::Connections() const
@@ -86,8 +87,23 @@ namespace Qv2ray::core::handlers
             return tr("No connection selected!") + NEWLINE + tr("Please select a config from the list.");
         }
 
+        StopConnection();
         CONFIGROOT root = CHGetConnectionRoot_p(connections[identifier].groupId, identifier);
-        return CHTryStartConnection_p(identifier, root);
+        return CHStartConnection_p(identifier, root);
+    }
+
+    void QvConnectionHandler::StopConnection() //const ConnectionId &id
+    {
+        // Currently just simply stop it.
+        //_UNUSED(id)
+        //if (currentConnectionId == id) {
+        //}
+        CHStopConnection_p();
+    }
+
+    bool QvConnectionHandler::IsConnected(const ConnectionId &id) const
+    {
+        return currentConnectionId == id;
     }
 
     const QString QvConnectionHandler::GetConnectionProtocolString(const ConnectionId &id) const
@@ -123,12 +139,12 @@ namespace Qv2ray::core::handlers
 
     QvConnectionHandler::~QvConnectionHandler()
     {
-        if (kernelInstance->KernelStarted) {
-            kernelInstance->StopConnection();
+        if (vCoreInstance->KernelStarted) {
+            vCoreInstance->StopConnection();
             LOG(MODULE_CORE_HANDLER, "Stopped connection from destructor.")
         }
 
-        delete kernelInstance;
+        delete vCoreInstance;
     }
 
     const CONFIGROOT QvConnectionHandler::CHGetConnectionRoot_p(const ConnectionId &id) const
