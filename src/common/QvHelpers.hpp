@@ -63,6 +63,15 @@ namespace Qv2ray::common
         return JsonFromString(json);
     }
 
+    inline QString TruncateString(const QString &str, int limit = -1, const QString &suffix = "...")
+    {
+        QString t = str;
+        t.truncate(limit);
+        return (limit == -1 || str.length() < limit)
+               ? str
+               : (t + suffix);
+    }
+
     namespace validation
     {
         const inline QRegularExpression __regex_ipv4_full(REGEX_IPV4_ADDR "$");

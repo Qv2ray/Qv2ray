@@ -21,8 +21,8 @@ namespace Qv2ray::core::handlers
             const QList<ConnectionId> Connections(const GroupId &groupId) const;
             //
             // Generic Get Options
-            const QString GetDisplayName(const ConnectionId &id) const;
-            const QString GetDisplayName(const GroupId &id) const;
+            const QString GetDisplayName(const ConnectionId &id, int limit = -1) const;
+            const QString GetDisplayName(const GroupId &id, int limit = -1) const;
             //
             // Connectivity Operationss
             bool IsConnected(const ConnectionId &id) const;

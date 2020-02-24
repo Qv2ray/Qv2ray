@@ -25,8 +25,8 @@ void ConnectionInfoWidget::ShowDetails(const tuple<GroupId, ConnectionId> &_iden
     connectionId = get<1>(_identifier);
 
     if (connectionId.toString() != "null") {
-        connNameLabel->setText(ConnectionManager->GetDisplayName(connectionId));
-        groupLabel->setText(ConnectionManager->GetDisplayName(groupId));
+        //connNameLabel->setText(ConnectionManager->GetDisplayName(connectionId));
+        groupLabel->setText(ConnectionManager->GetDisplayName(groupId, 175));
         protocolLabel->setText(ConnectionManager->GetConnectionProtocolString(connectionId));
         auto x = ConnectionManager->GetConnectionInfo(connectionId);
         addressLabel->setText(get<0>(x));
@@ -41,7 +41,7 @@ void ConnectionInfoWidget::ShowDetails(const tuple<GroupId, ConnectionId> &_iden
         //
         connectBtn->setIcon(ConnectionManager->IsConnected(connectionId) ? QICON_R("stop.png") : QICON_R("connect.png"));
     } else {
-        connNameLabel->setText(ConnectionManager->GetDisplayName(groupId));
+        //connNameLabel->setText(ConnectionManager->GetDisplayName(groupId));
         connectBtn->setIcon(QICON_R("connect.png"));
         groupLabel->setText(tr("N/A"));
         protocolLabel->setText(tr("N/A"));

@@ -103,14 +103,14 @@ namespace Qv2ray::core::handlers
         return groups[groupId].connections;
     }
 
-    const QString QvConnectionHandler::GetDisplayName(const ConnectionId &id) const
+    const QString QvConnectionHandler::GetDisplayName(const ConnectionId &id, int limit) const
     {
-        return connections[id].displayName;
+        return TruncateString(connections[id].displayName, limit);
     }
 
-    const QString QvConnectionHandler::GetDisplayName(const GroupId &id) const
+    const QString QvConnectionHandler::GetDisplayName(const GroupId &id, int limit) const
     {
-        return groups[id].displayName;
+        return TruncateString(groups[id].displayName, limit);
     }
 
     const GroupId QvConnectionHandler::GetConnectionGroupId(const ConnectionId &id) const
