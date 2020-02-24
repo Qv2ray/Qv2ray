@@ -30,37 +30,6 @@
 //    return nullptr;
 //}
 
-bool MainWindow::MWFindAndStartAutoConfig()
-{
-    //if (!GlobalConfig.autoStartConfig.connectionName.isEmpty()) {
-    //    // User has auto start configured, we try to find that connection item.
-    //    auto name = GlobalConfig.autoStartConfig.subscriptionName.isEmpty()
-    //                ? GlobalConfig.autoStartConfig.connectionName
-    //                : GlobalConfig.autoStartConfig.connectionName + " (" + tr("Subscription:") + " " + GlobalConfig.autoStartConfig.subscriptionName + ")";
-    //    //
-    //    LOG(UI, "Found auto start config: " + name)
-    //    auto item = FindItemByIdentifier(GlobalConfig.autoStartConfig);
-    //
-    //    if (item != nullptr) {
-    //        // We found the item required and start it.
-    //        connectionListWidget->setCurrentItem(item);
-    //        on_connectionListWidget_currentItemChanged(item, nullptr);
-    //        connectionListWidget->scrollToItem(item);
-    //        tray_RootMenu->actions()[0]->setText(tr("Show"));
-    //        on_startButton_clicked();
-    //    } else {
-    //        QvMessageBoxWarn(this, tr("Autostarting a config"), tr("Could not find a specified config named: ") + NEWLINE +
-    //                         name + NEWLINE + NEWLINE +
-    //                         tr("Please reset the settings in Preference Window"));
-    //    }
-    //} else if (connectionListWidget->topLevelItemCount() > 0) {
-    //    // Make the first one our default selected item.
-    //    connectionListWidget->setCurrentItem(connectionListWidget->topLevelItem(0));
-    //    ShowAndSetConnection(ItemConnectionIdentifier(connectionListWidget->topLevelItem(0)), true, false);
-    //}
-    return true;
-}
-
 void MainWindow::MWClearSystemProxy(bool showMessage)
 {
     ClearSystemProxy();

@@ -25,8 +25,8 @@ void ConnectionInfoWidget::ShowDetails(const tuple<GroupId, ConnectionId> &_iden
     connectionId = get<1>(_identifier);
 
     if (connectionId.toString() != "null") {
-        connNameLabel->setText(ConnectionManager->GetConnection(connectionId).displayName);
-        groupLabel->setText(ConnectionManager->GetGroup(groupId).displayName);
+        connNameLabel->setText(ConnectionManager->GetDisplayName(connectionId));
+        groupLabel->setText(ConnectionManager->GetDisplayName(groupId));
         protocolLabel->setText(ConnectionManager->GetConnectionProtocolString(connectionId));
         auto x = ConnectionManager->GetConnectionInfo(connectionId);
         addressLabel->setText(get<0>(x));
@@ -38,8 +38,11 @@ void ConnectionInfoWidget::ShowDetails(const tuple<GroupId, ConnectionId> &_iden
         //
         shareLinkTxt->setText("scheme://user:pass@host:port/path/to/file?arg1=ARG1&arg2=ARG2#tag");
         shareLinkTxt->setCursorPosition(0);
+        //
+        connectBtn->setIcon(ConnectionManager->IsConnected(connectionId) ? QICON_R("stop.png") : QICON_R("connect.png"));
     } else {
-        connNameLabel->setText(ConnectionManager->GetGroup(groupId).displayName);
+        connNameLabel->setText(ConnectionManager->GetDisplayName(groupId));
+        connectBtn->setIcon(QICON_R("connect.png"));
         groupLabel->setText(tr("N/A"));
         protocolLabel->setText(tr("N/A"));
         addressLabel->setText(tr("N/A"));
@@ -58,9 +61,9 @@ ConnectionInfoWidget::~ConnectionInfoWidget()
 void ConnectionInfoWidget::on_connectBtn_clicked()
 {
     if (ConnectionManager->IsConnected(connectionId)) {
-        ConnectionManager->StartConnection(connectionId);
-    } else {
         ConnectionManager->StopConnection();
+    } else {
+        ConnectionManager->StartConnection(connectionId);
     }
 }
 

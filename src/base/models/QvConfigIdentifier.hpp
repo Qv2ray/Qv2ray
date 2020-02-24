@@ -6,19 +6,15 @@ namespace Qv2ray::base
 {
     using namespace std::chrono;
     // Common struct for Groups and Subscriptions
-    struct GroupObjectBase {
+    struct GroupObject_Config {
         QString displayName;
         QList<QString> connections;
         int64_t importDate;
-        GroupObjectBase(): displayName(), connections(), importDate() { }
-    };
-
-    struct GroupObject_Config : GroupObjectBase {
-        GroupObject_Config() { }
+        GroupObject_Config(): displayName(), connections(), importDate() { }
         XTOSTRUCT(O(displayName, connections, importDate))
     };
 
-    struct SubscriptionObject_Config : GroupObjectBase {
+    struct SubscriptionObject_Config : GroupObject_Config {
         //
         QString address;
         int64_t lastUpdated;

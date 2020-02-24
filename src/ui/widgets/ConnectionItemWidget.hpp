@@ -22,12 +22,12 @@ class ConnectionItemWidget : public QWidget, private Ui::ConnectionWidget
         inline bool NameMatched(const QString &arg)
         {
             auto searchString = arg.toLower();
-            auto headerMatched = ConnectionManager->GetGroup(groupId).displayName.toLower().contains(arg);
+            auto headerMatched = ConnectionManager->GetDisplayName(groupId).toLower().contains(arg);
 
             if (itemType != NODE_ITEM) {
                 return headerMatched;
             } else {
-                return headerMatched || ConnectionManager->GetConnection(connectionId).displayName.toLower().contains(searchString);
+                return headerMatched || ConnectionManager->GetDisplayName(connectionId).toLower().contains(searchString);
             }
         }
         inline const tuple<GroupId, ConnectionId> Identifier() const
@@ -41,8 +41,11 @@ class ConnectionItemWidget : public QWidget, private Ui::ConnectionWidget
     signals:
         void RequestWidgetFocus(const ConnectionItemWidget *me);
     private slots:
+        void OnConnectionStatsArrived(const ConnectionId &id, const quint64 upSpeed, const quint64 downSpeed);
         void OnConnected(const ConnectionId &id);
+        void OnDisConnected(const ConnectionId &id);
     private:
+        QString originalConnectionName;
         explicit ConnectionItemWidget(QWidget *parent = nullptr);
         ITEM_TYPE itemType;
         ConnectionId connectionId;

@@ -21,7 +21,10 @@ void QvConnectionHandler::CHStopConnection_p()
 {
     if (vCoreInstance->KernelStarted) {
         vCoreInstance->StopConnection();
-        emit OnDisConnected(currentConnectionId);
+        // Copy
+        ConnectionId id = currentConnectionId;
+        currentConnectionId = ConnectionId("null");
+        emit OnDisConnected(id);
     } else {
         LOG(MODULE_CORE_HANDLER, "VCore is not started, not disconnecting")
     }

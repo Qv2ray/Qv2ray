@@ -54,7 +54,6 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         void VersionUpdate(QByteArray &data);
 #endif
         //
-        void OnConnected(const ConnectionId &id);
 
     public:
         static MainWindow *mwInstance;
@@ -66,6 +65,7 @@ class MainWindow : public QMainWindow, Ui::MainWindow
 
     private slots:
         //
+        void OnConnected(const ConnectionId &id);
         void onConnectionWidgetFocusRequested(const ConnectionItemWidget *widget);
         //void onConnectionConnected(const ConnectionId &id);
         //void onConnectionDisConnected(const ConnectionId &id);
@@ -83,13 +83,9 @@ class MainWindow : public QMainWindow, Ui::MainWindow
 
     private:
         QTreeWidgetItem *CurrentItem;
-        //CONFIGROOT currentFullConfig;
-        //
         // Charts
         SpeedWidget *speedChartWidget;
-        //
         QMenu *connectionListMenu;
-        //
 #ifndef DISABLE_AUTO_UPDATE
         QvHttpRequestHelper *requestHelper;
 #endif
@@ -116,7 +112,6 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         //
         // ----------------------------------- Extra Headers For w_MainWindow_extra.cpp Handling V2ray Connectivities.
         bool systemProxyEnabled;
-        bool MWFindAndStartAutoConfig();
         void MWStopConnection();
         void MWSetSystemProxy();
         void MWClearSystemProxy(bool);

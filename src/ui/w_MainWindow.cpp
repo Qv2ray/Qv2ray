@@ -105,9 +105,6 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent)//, vinstance(), hTr
     connectionInfoLayout->addWidget(infoWidget);
     //
     vCoreLogHighlighter = new SyntaxHighlighter(GlobalConfig.uiConfig.useDarkTheme, masterLogBrowser->document());
-    masterLogBrowser->document()->setDocumentMargin(8);
-    masterLogBrowser->document()->adjustSize();
-    masterLogBrowser->setLineWrapMode(QTextBrowser::LineWrapMode::NoWrap);
     // For charts
     speedChartWidget = new SpeedWidget(this);
     speedChart->addWidget(speedChartWidget);
@@ -202,13 +199,13 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent)//, vinstance(), hTr
     auto groups = ConnectionManager->AllGroups();
 
     for (auto group : groups) {
-        auto groupItem = new QTreeWidgetItem(QStringList() << "" << ConnectionManager->GetGroup(group).displayName);
+        auto groupItem = new QTreeWidgetItem(QStringList() << "" << ConnectionManager->GetDisplayName(group));
         connectionListWidget->addTopLevelItem(groupItem);
         connectionListWidget->setItemWidget(groupItem, 0, new ConnectionItemWidget(group, connectionListWidget));
         auto connections = ConnectionManager->Connections(group);
 
         for (auto connection : connections) {
-            auto connectionItem = new QTreeWidgetItem(QStringList() << "" << ConnectionManager->GetConnection(connection).displayName);
+            auto connectionItem = new QTreeWidgetItem(QStringList() << "" << ConnectionManager->GetDisplayName(connection));
             groupItem->addChild(connectionItem);
             auto widget = new ConnectionItemWidget(connection, connectionListWidget);
             connect(widget, &ConnectionItemWidget::RequestWidgetFocus, this, &MainWindow::onConnectionWidgetFocusRequested);
@@ -218,7 +215,17 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent)//, vinstance(), hTr
 
     //
     // Find and start if there is an auto-connection
-    if (!MWFindAndStartAutoConfig()) {
+    auto needShowWindow = true;
+
+    if (!GlobalConfig.autoStartId.isEmpty()) {
+        auto id = ConnectionId(GlobalConfig.autoStartId);
+        ConnectionManager->StartConnection(id);
+        needShowWindow = ConnectionManager->IsConnected(id);
+    } else {
+        needShowWindow = true;
+    }
+
+    if (needShowWindow) {
         this->show();
     }
 
@@ -922,6 +929,9 @@ void MainWindow::onConnectionWidgetFocusRequested(const ConnectionItemWidget *_w
         if (myWidget == _widget) {
             LOG(MODULE_UI, "Setting current item.")
             connectionListWidget->setCurrentItem(_item_);
+            connectionListWidget->scrollToItem(_item_);
+            // Click it to show details.
+            on_connectionListWidget_itemClicked(_item_, 0);
         }
     }
 }
@@ -967,6 +977,16 @@ void MainWindow::onConnectionStatsArrived(const ConnectionId &id, const quint64 
     // This may not be, or may not precisely be, speed per second if low-level has "any" latency.
     // (Hope not...)
     speedChartWidget->AddPointData(upSpeed, downSpeed);
+    auto data = ConnectionManager->GetConnectionUsageAmount(id);
+    auto totalSpeedUp = FormatBytes(upSpeed) + "/s";
+    auto totalSpeedDown = FormatBytes(downSpeed) + "/s";
+    auto totalDataUp = FormatBytes(get<0>(data));
+    auto totalDataDown = FormatBytes(get<1>(data));
+    //
+    netspeedLabel->setText(totalSpeedUp + NEWLINE + totalSpeedDown);
+    dataamountLabel->setText(totalDataUp + NEWLINE + totalDataDown);
+    //
+    hTray.setToolTip(TRAY_TOOLTIP_PREFIX NEWLINE + tr("Connected: ") + id.toString() + NEWLINE "Up: " + totalSpeedUp + " Down: " + totalSpeedDown);
 }
 
 void MainWindow::onVCoreLogArrived(const ConnectionId &id, const QString &log)

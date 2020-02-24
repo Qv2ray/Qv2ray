@@ -78,7 +78,7 @@
           </font>
          </property>
          <property name="text">
-          <string>0KB</string>
+          <string>0KB / 0KB</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>

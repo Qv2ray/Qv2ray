@@ -1,5 +1,6 @@
 #include "ConnectionHandler.hpp"
 #include "common/QvHelpers.hpp"
+#include "core/config/ConfigBackend.hpp"
 
 namespace Qv2ray::core::handlers
 {
@@ -35,8 +36,45 @@ namespace Qv2ray::core::handlers
         connect(vCoreInstance, &V2rayKernelInstance::OnProcessErrored, this, &QvConnectionHandler::OnVCoreCrashed);
         connect(vCoreInstance, &V2rayKernelInstance::OnNewStatsDataArrived, this, &QvConnectionHandler::OnStatsDataArrived);
         connect(vCoreInstance, &V2rayKernelInstance::OnProcessOutputReadyRead, this, &QvConnectionHandler::OnVCoreLogAvailable);
-        saveTimerId = startTimer(60000);
+        saveTimerId = startTimer(10 * 1000);
     }
+
+    void QvConnectionHandler::CHSaveConnectionData_p()
+    {
+        // Copy
+        auto newGlobalConfig = GlobalConfig;
+        newGlobalConfig.connections.clear();
+        newGlobalConfig.groups.clear();
+        newGlobalConfig.subscriptions.clear();
+
+        for (auto i = 0; i < connections.count(); i++) {
+            newGlobalConfig.connections[connections.keys()[i].toString()] = connections.values()[i];
+        }
+
+        for (auto i = 0; i < groups.count(); i++) {
+            QStringList connections = IdListToStrings(groups.values()[i].connections);
+
+            if (groups.values()[i].isSubscription) {
+                SubscriptionObject_Config o = groups.values()[i];
+                o.connections = connections;
+                newGlobalConfig.subscriptions[groups.keys()[i].toString()] = o;
+            } else {
+                GroupObject_Config o = groups.values()[i];
+                o.connections = connections;
+                newGlobalConfig.groups[groups.keys()[i].toString()] = o;
+            }
+        }
+
+        SaveGlobalConfig(newGlobalConfig);
+    }
+
+    void QvConnectionHandler::timerEvent(QTimerEvent *event)
+    {
+        if (event->timerId() == saveTimerId) {
+            CHSaveConnectionData_p();
+        }
+    }
+
     const QList<ConnectionId> QvConnectionHandler::Connections() const
     {
         return connections.keys();
@@ -65,13 +103,32 @@ namespace Qv2ray::core::handlers
         return groups[groupId].connections;
     }
 
-    const ConnectionMetaObject QvConnectionHandler::GetConnection(const ConnectionId &id) const
+    const QString QvConnectionHandler::GetDisplayName(const ConnectionId &id) const
+    {
+        return connections[id].displayName;
+    }
+
+    const QString QvConnectionHandler::GetDisplayName(const GroupId &id) const
+    {
+        return groups[id].displayName;
+    }
+
+    const GroupId QvConnectionHandler::GetConnectionGroupId(const ConnectionId &id) const
     {
         if (!connections.contains(id)) {
             LOG(MODULE_CORE_HANDLER, "Cannot find id: " + id.toString());
         }
 
-        return connections[id];
+        return connections[id].groupId;
+    }
+
+    int64_t QvConnectionHandler::GetConnectionLatency(const ConnectionId &id) const
+    {
+        if (!connections.contains(id)) {
+            LOG(MODULE_CORE_HANDLER, "Cannot find id: " + id.toString());
+        }
+
+        return connections[id].latency;
     }
 
     const optional<QString> QvConnectionHandler::DeleteConnection(const ConnectionId &id)
@@ -131,14 +188,24 @@ namespace Qv2ray::core::handlers
         return result;
     }
 
-
-    const GroupMetaObject QvConnectionHandler::GetGroup(const GroupId &id) const
+    const tuple<quint64, quint64> QvConnectionHandler::GetConnectionUsageAmount(const ConnectionId &id) const
     {
-        return groups[id];
+        if (!connections.contains(id)) {
+            return make_tuple(0, 0);
+        }
+
+        return make_tuple(connections[id].upLinkData, connections[id].downLinkData);
     }
+
+    //const GroupMetaObject QvConnectionHandler::GetGroup(const GroupId &id) const
+    //{
+    //    return groups[id];
+    //}
 
     QvConnectionHandler::~QvConnectionHandler()
     {
+        CHSaveConnectionData_p();
+
         if (vCoreInstance->KernelStarted) {
             vCoreInstance->StopConnection();
             LOG(MODULE_CORE_HANDLER, "Stopped connection from destructor.")
@@ -160,7 +227,7 @@ namespace Qv2ray::core::handlers
     }
     //
 
-    const tuple<QString, int> QvConnectionHandler::GetConnectionInfo(const ConnectionId &id)
+    const tuple<QString, int> QvConnectionHandler::GetConnectionInfo(const ConnectionId &id) const
     {
         auto root = CHGetConnectionRoot_p(id);
         bool validOutboundFound = false;
@@ -182,7 +249,7 @@ namespace Qv2ray::core::handlers
         return make_tuple(QObject::tr("N/A"), 0);
     }
 
-    bool QvConnectionHandler::CHGetOutboundData_p(const OUTBOUND &out, QString *host, int *port)
+    bool QvConnectionHandler::CHGetOutboundData_p(const OUTBOUND &out, QString *host, int *port) const
     {
         // Set initial values.
         *host = QObject::tr("N/A");

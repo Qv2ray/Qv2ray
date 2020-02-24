@@ -5,18 +5,22 @@ ConnectionItemWidget::ConnectionItemWidget(QWidget *parent) : QWidget(parent), c
 {
     setupUi(this);
     connect(ConnectionManager, &QvConnectionHandler::OnConnected, this, &ConnectionItemWidget::OnConnected);
+    connect(ConnectionManager, &QvConnectionHandler::OnDisConnected, this, &ConnectionItemWidget::OnDisConnected);
+    connect(ConnectionManager, &QvConnectionHandler::OnStatsAvailable, this, &ConnectionItemWidget::OnConnectionStatsArrived);
 }
 
-ConnectionItemWidget::ConnectionItemWidget(const ConnectionId &identifier, QWidget *parent): ConnectionItemWidget(parent)
+ConnectionItemWidget::ConnectionItemWidget(const ConnectionId &id, QWidget *parent): ConnectionItemWidget(parent)
 {
-    auto connection = ConnectionManager->GetConnection(identifier);
-    connectionId = identifier;
-    groupId = connection.groupId;
+    connectionId = id;
+    groupId = ConnectionManager->GetConnectionGroupId(id);
+    originalConnectionName = ConnectionManager->GetDisplayName(id);
     itemType = NODE_ITEM;
-    connNameLabel->setText("" + connection.displayName);
-    latencyLabel->setText(QSTRN(connection.latency) + " " + tr("ms"));
-    connTypeLabel->setText(tr("Type: ") + ConnectionManager->GetConnectionProtocolString(identifier));
-    dataLabel->setText(FormatBytes(connection.upLinkData + connection.downLinkData));
+    connNameLabel->setText("" + originalConnectionName);
+    // TODO
+    latencyLabel->setText(QSTRN(ConnectionManager->GetConnectionLatency(id)) + " " + tr("ms"));
+    connTypeLabel->setText(tr("Type: ") + ConnectionManager->GetConnectionProtocolString(id));
+    auto [uplink, downlink] = ConnectionManager->GetConnectionUsageAmount(connectionId);
+    dataLabel->setText(FormatBytes(uplink) + " / " + FormatBytes(downlink));
     //
     indentSpacer->changeSize(10, indentSpacer->sizeHint().height());
 }
@@ -26,9 +30,9 @@ ConnectionItemWidget::ConnectionItemWidget(const GroupId &id, QWidget *parent) :
 {
     groupId = id;
     itemType = GROUP_HEADER_ITEM;
-    auto displayName = ConnectionManager->GetGroup(id).displayName;
+    originalConnectionName = ConnectionManager->GetDisplayName(id);
     auto connectionCount = ConnectionManager->Connections(id).count();
-    connNameLabel->setText(/*"• " +*/ displayName);
+    connNameLabel->setText(originalConnectionName);
     latencyLabel->setText(QSTRN(connectionCount) + " " + (connectionCount < 2 ? tr("connection") : tr("connections")));
     //
     layout()->removeWidget(connTypeLabel);
@@ -50,8 +54,27 @@ void ConnectionItemWidget::BeginConnection()
 void ConnectionItemWidget::OnConnected(const ConnectionId &id)
 {
     if (id == connectionId) {
+        connNameLabel->setText("• " + originalConnectionName);
         LOG(MODULE_UI, "OnConnected signal received for: " + id.toString())
         emit RequestWidgetFocus(this);
+    }
+}
+
+void ConnectionItemWidget::OnDisConnected(const ConnectionId &id)
+{
+    if (id == connectionId) {
+        connNameLabel->setText(originalConnectionName);
+    }
+}
+
+void ConnectionItemWidget::OnConnectionStatsArrived(const ConnectionId &id, const quint64 upSpeed, const quint64 downSpeed)
+{
+    Q_UNUSED(upSpeed)
+    Q_UNUSED(downSpeed)
+
+    if (id == connectionId) {
+        auto [uplink, downlink] = ConnectionManager->GetConnectionUsageAmount(id);
+        dataLabel->setText(FormatBytes(uplink) + " / " + FormatBytes(downlink));
     }
 }
 

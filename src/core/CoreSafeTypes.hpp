@@ -29,7 +29,14 @@ namespace Qv2ray::core
             QString m_id;
     };
 
+
+    // Define several safetypes to prevent misuse of QString.
+    class __QvGroup;
+    class __QvConnection;
+    typedef IDType<__QvGroup> GroupId;
+    typedef IDType<__QvConnection> ConnectionId;
     template<typename IDType>
+
     QList<IDType> StringsToIdList(const QList<QString> &strings)
     {
         QList<IDType> list;
@@ -41,16 +48,21 @@ namespace Qv2ray::core
         return list;
     }
 
+    template<typename IDType>
+    QList<QString> IdListToStrings(const QList<IDType> &ids)
+    {
+        QList<QString> list;
+
+        for (auto id : ids) {
+            list << id.toString();
+        }
+
+        return list;
+    }
     template <typename T> uint qHash(const IDType<T> &key, uint seed = 0)
     {
         return key.qHash(seed);
     }
-
-    // Define several safetypes to prevent misuse of QString.
-    class __QvGroup;
-    class __QvConnection;
-    typedef IDType<__QvGroup> GroupId;
-    typedef IDType<__QvConnection> ConnectionId;
     //
     /// Metadata object representing a connection.
     struct ConnectionMetaObject : ConnectionObject_Config {
@@ -69,30 +81,26 @@ namespace Qv2ray::core
     };
 
     /// Metadata object representing a group.
-    struct GroupMetaObject: SubscriptionObject_Config  {
+    struct GroupMetaObject: SubscriptionObject_Config {
         // Implicit base of two types, since group object is actually the group base object.
         bool isSubscription;
         QList<ConnectionId> connections;
         // Suger for down casting.
         GroupMetaObject(): connections() {}
-        GroupMetaObject(const GroupObjectBase &base): GroupMetaObject()
+        GroupMetaObject(const GroupObject_Config &base): GroupMetaObject()
         {
+            this->isSubscription = false;
             this->displayName = base.displayName;
             this->importDate = base.importDate;
             this->connections = StringsToIdList<ConnectionId>(base.connections);
         }
         // Suger for down casting.
-        GroupMetaObject(const GroupObject_Config &base): GroupMetaObject((GroupObjectBase)base)
+        GroupMetaObject(const SubscriptionObject_Config &base): GroupMetaObject((GroupObject_Config)base)
         {
-            this->isSubscription = false;
-        }
-        // Suger for down casting.
-        GroupMetaObject(const SubscriptionObject_Config &base): GroupMetaObject((GroupObjectBase)base)
-        {
-            this->isSubscription = true;
             this->address = base.address;
             this->lastUpdated = base.lastUpdated;
             this->updateInterval = base.updateInterval;
+            this->isSubscription = true;
         }
     };
 }

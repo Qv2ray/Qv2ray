@@ -132,6 +132,13 @@ namespace Qv2ray
                     auto newUuid = GenerateUuid();
                     DEBUG(MODULE_SETTINGS, "Generated new UUID: " + newUuid);
 
+                    // Check Autostart Id
+                    if (root["autoStartConfig"].toObject()["subscriptionName"].toString().isEmpty()) {
+                        if (root["autoStartConfig"].toObject()["connectionName"].toString() == config.toString()) {
+                            autoStartId = newUuid;
+                        }
+                    }
+
                     if (configFile.exists()) {
                         auto newPath = QV2RAY_CONNECTIONS_DIR + defaultGroupId + "/" + newUuid + QV2RAY_CONFIG_FILE_EXTENSION;
                         configFile.rename(newPath);
@@ -188,6 +195,15 @@ namespace Qv2ray
                         UPGRADELOG("Moved subscription file from: " + baseFilePath + " to: " + newFilePath);
                         subsConnectionIds << subsConnectionId;
                         rootConnections[subsConnectionId] = subsConnection;
+
+                        //
+
+                        // Check Autostart Id
+                        if (root["autoStartConfig"].toObject()["subscriptionName"].toString() == key) {
+                            if (root["autoStartConfig"].toObject()["connectionName"].toString() == subsConnection["displayName"].toString()) {
+                                autoStartId = subsConnectionId;
+                            }
+                        }
                     }
 
                     subs["connections"] = QJsonArray::fromStringList(subsConnectionIds);
@@ -198,6 +214,7 @@ namespace Qv2ray
                 defaultGroup["connections"] = QJsonArray::fromStringList(defaultGroupConnectionId);
                 QJsonObject groups;
                 groups[defaultGroupId] = defaultGroup;
+                root["autoStartId"] = autoStartId;
                 root["groups"] = groups;
                 root["connections"] = rootConnections;
                 root["subscriptions"] = newSubscriptions;

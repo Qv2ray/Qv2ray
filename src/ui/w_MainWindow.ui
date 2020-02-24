@@ -6,14 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>955</width>
-    <height>695</height>
+    <width>900</width>
+    <height>650</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>800</width>
-    <height>590</height>
+    <width>900</width>
+    <height>650</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -76,10 +76,10 @@
     <item row="2" column="0" colspan="2">
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <property name="topMargin">
-       <number>2</number>
+       <number>4</number>
       </property>
       <property name="bottomMargin">
-       <number>2</number>
+       <number>6</number>
       </property>
       <item>
        <widget class="QLabel" name="label_8">
@@ -224,7 +224,7 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>581</width>
+         <width>526</width>
          <height>706</height>
         </rect>
        </property>
@@ -337,6 +337,14 @@
             <width>0</width>
             <height>200</height>
            </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>9</pointsize>
+           </font>
+          </property>
+          <property name="lineWrapMode">
+           <enum>QTextEdit::NoWrap</enum>
           </property>
          </widget>
         </item>
@@ -471,7 +479,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>955</width>
+     <width>900</width>
      <height>26</height>
     </rect>
    </property>

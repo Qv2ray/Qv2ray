@@ -20,13 +20,18 @@ namespace Qv2ray::core::handlers
             const QList<GroupId> Subscriptions() const;
             const QList<ConnectionId> Connections(const GroupId &groupId) const;
             //
+            // Generic Get Options
+            const QString GetDisplayName(const ConnectionId &id) const;
+            const QString GetDisplayName(const GroupId &id) const;
+            //
             // Connectivity Operationss
             bool IsConnected(const ConnectionId &id) const;
             const optional<QString> StartConnection(const ConnectionId &identifier);
             void StopConnection(); //const ConnectionId &id
             //
             // Connection Operations.
-            const ConnectionMetaObject GetConnection(const ConnectionId &id) const;
+            const GroupId GetConnectionGroupId(const ConnectionId &id) const;
+            int64_t GetConnectionLatency(const ConnectionId &id) const;
             const ConnectionId &CreateConnection(const QString &displayName, const GroupId &groupId, const CONFIGROOT &root);
             const optional<QString> DeleteConnection(const ConnectionId &id);
             const optional<QString> UpdateConnection(const ConnectionId &id, const CONFIGROOT &root);
@@ -36,7 +41,8 @@ namespace Qv2ray::core::handlers
             //
             // Get Conncetion Property
             const QString GetConnectionProtocolString(const ConnectionId &id) const;
-            const tuple<QString, int> GetConnectionInfo(const ConnectionId &connectionId);
+            const tuple<QString, int> GetConnectionInfo(const ConnectionId &connectionId) const;
+            const tuple<quint64, quint64> GetConnectionUsageAmount(const ConnectionId &id) const;
             //
             // Misc Connection Operations
             const optional<QString> TestLatency();
@@ -44,7 +50,7 @@ namespace Qv2ray::core::handlers
             const optional<QString> TestLatency(const ConnectionId &id);
             //
             // Group Operations
-            const GroupMetaObject GetGroup(const GroupId &id) const;
+            //const GroupMetaObject GetGroup(const GroupId &id) const;
             const optional<QString> DeleteGroup(const GroupId &id);
             const optional<QString> DuplicateGroup(const GroupId &id);
             const GroupId &CreateGroup(const QString displayName, bool isSubscription);
@@ -84,14 +90,18 @@ namespace Qv2ray::core::handlers
             void OnStatsDataArrived(const ConnectionId &id, const QString tag, const quint64 uploadSpeed, const quint64 downloadSpeed);
             void OnVCoreCrashed(const ConnectionId &id);
 
+        protected:
+            void timerEvent(QTimerEvent *event) override;
+
         private:
+            void CHSaveConnectionData_p();
             //
-            bool CHGetOutboundData_p(const OUTBOUND &out, QString *host, int *port);
+            bool CHGetOutboundData_p(const OUTBOUND &out, QString *host, int *port) const;
             optional<QString> CHStartConnection_p(const ConnectionId &id, const CONFIGROOT &root);
             void CHStopConnection_p();
             const CONFIGROOT CHGetConnectionRoot_p(const ConnectionId &id) const;
             const CONFIGROOT CHGetConnectionRoot_p(const GroupId &group, const ConnectionId &id) const;
-            bool CHSaveConnectionConfig(CONFIGROOT obj, const ConnectionId &id, bool override);
+            bool CHSaveConnectionConfig_p(CONFIGROOT obj, const ConnectionId &id, bool override);
             //
             //
             // We only support one cuncurrent connection currently.
