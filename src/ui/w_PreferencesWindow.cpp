@@ -253,6 +253,7 @@ void PreferencesWindow::on_buttonBox_accepted()
             }
         }
 
+        qApp->setStyle(QStyleFactory::create(CurrentConfig.uiConfig.theme));
         SaveGlobalConfig(CurrentConfig);
         emit s_reload_config(IsConnectionPropertyChanged);
         emit accept();

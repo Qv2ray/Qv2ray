@@ -9,6 +9,11 @@ ConnectionInfoWidget::ConnectionInfoWidget(QWidget *parent) :
     deleteBtn->setIcon(QICON_R("delete.png"));
     editBtn->setIcon(QICON_R("edit.png"));
     editJsonBtn->setIcon(QICON_R("json.png"));
+    //
+    shareLinkTxt->setAutoFillBackground(true);
+    shareLinkTxt->setStyleSheet("border-bottom: 1px solid gray; border-radius: 0px; padding: 2px; background-color: " + this->palette().color(this->backgroundRole()).name(QColor::HexRgb));
+    shareLinkTxt->setCursor(QCursor(Qt::CursorShape::IBeamCursor));
+    shareLinkTxt->installEventFilter(this);
 }
 
 void ConnectionInfoWidget::ShowDetails(const tuple<GroupId, ConnectionId> &_identifier)
@@ -27,6 +32,9 @@ void ConnectionInfoWidget::ShowDetails(const tuple<GroupId, ConnectionId> &_iden
         editJsonBtn->setEnabled(true);
         connectBtn->setEnabled(true);
         duplicateBtn->setEnabled(true);
+        //
+        shareLinkTxt->setText("scheme://user:pass@host:port/path/to/file?arg1=ARG1&arg2=ARG2#tag");
+        shareLinkTxt->setCursorPosition(0);
     } else {
         connNameLabel->setText(ConnectionManager->GetGroup(groupId).displayName);
         groupLabel->setText(tr("N/A"));
@@ -60,4 +68,17 @@ void ConnectionInfoWidget::on_editJsonBtn_clicked()
 void ConnectionInfoWidget::on_deleteBtn_clicked()
 {
     ConnectionManager->DeleteConnection(connectionId);
+}
+
+bool ConnectionInfoWidget::eventFilter(QObject *object, QEvent *event)
+{
+    if (event->type() == QEvent::MouseButtonRelease) {
+        if (shareLinkTxt->underMouse()) {
+            if (!shareLinkTxt->hasSelectedText()) {
+                shareLinkTxt->selectAll();
+            }
+        }
+    }
+
+    return QWidget::eventFilter(object, event);
 }

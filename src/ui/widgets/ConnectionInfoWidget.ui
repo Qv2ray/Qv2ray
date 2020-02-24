@@ -10,6 +10,9 @@
     <height>205</height>
    </rect>
   </property>
+  <property name="mouseTracking">
+   <bool>true</bool>
+  </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
@@ -132,6 +135,9 @@
      </item>
      <item row="4" column="1">
       <widget class="QLineEdit" name="shareLinkTxt">
+       <property name="cursor">
+        <cursorShape>IBeamCursor</cursorShape>
+       </property>
        <property name="readOnly">
         <bool>true</bool>
        </property>

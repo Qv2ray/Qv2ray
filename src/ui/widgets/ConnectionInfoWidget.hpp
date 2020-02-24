@@ -18,6 +18,9 @@ class ConnectionInfoWidget : public QWidget, private Ui::ConnectionInfoWidget
         void on_editJsonBtn_clicked();
         void on_deleteBtn_clicked();
 
+    protected:
+        bool eventFilter(QObject *object, QEvent *event) override;
+
     private:
         ConnectionId connectionId;
         GroupId groupId;
