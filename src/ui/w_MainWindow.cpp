@@ -220,7 +220,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent)//, vinstance(), hTr
     if (!GlobalConfig.autoStartId.isEmpty()) {
         auto id = ConnectionId(GlobalConfig.autoStartId);
         ConnectionManager->StartConnection(id);
-        needShowWindow = ConnectionManager->IsConnected(id);
+        needShowWindow = !ConnectionManager->IsConnected(id);
     } else {
         needShowWindow = true;
     }
