@@ -61,6 +61,10 @@ jobs:
       - name: macOS - Install Packages
         if: matrix.platform == 'macos-latest'
         run: brew install protobuf
+      
+      - name: Windows - Install Packages
+        if: matrix.platform == 'windows-latest'
+        run: choco install jom -y
 # --------------------------------------------------------
       - name: Cross-platform - Download libraries
         shell: bash
@@ -93,7 +97,7 @@ jobs:
         if: matrix.platform == 'windows-latest'
         run: |
           cd build
-          nmake release
+          jom
 # -------------------------------------------------------- Deployments
       - name: Linux - ${{ matrix.qt_version }} - Generating AppImage
         if: matrix.platform == 'ubuntu-16.04'
