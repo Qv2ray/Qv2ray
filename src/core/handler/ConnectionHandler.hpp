@@ -21,8 +21,10 @@ namespace Qv2ray::core::handlers
             const QList<ConnectionId> Connections(const GroupId &groupId) const;
             //
             // Generic Get Options
-            const QString GetDisplayName(const ConnectionId &id, int limit = -1) const;
             const QString GetDisplayName(const GroupId &id, int limit = -1) const;
+            const QString GetDisplayName(const ConnectionId &id, int limit = -1) const;
+            const GroupId GetGroupIdByDisplayName(const QString &displayName) const;
+            const ConnectionId GetConnectionIdByDisplayName(const QString &displayName) const;
             //
             // Connectivity Operationss
             bool IsConnected(const ConnectionId &id) const;
@@ -36,7 +38,7 @@ namespace Qv2ray::core::handlers
             const optional<QString> DeleteConnection(const ConnectionId &id);
             const optional<QString> UpdateConnection(const ConnectionId &id, const CONFIGROOT &root);
             const optional<QString> RenameConnection(const ConnectionId &id, const QString &newName);
-            const optional<QString> DuplicateConnection(const ConnectionId &id);
+            const ConnectionId DuplicateConnection(const ConnectionId &id);
             const optional<QString> MoveConnectionGroup(const ConnectionId &id, const GroupId &newGroupId);
             //
             // Get Conncetion Property
@@ -50,16 +52,12 @@ namespace Qv2ray::core::handlers
             const optional<QString> TestLatency(const ConnectionId &id);
             //
             // Group Operations
-            //const GroupMetaObject GetGroup(const GroupId &id) const;
             const optional<QString> DeleteGroup(const GroupId &id);
             const optional<QString> DuplicateGroup(const GroupId &id);
             const GroupId &CreateGroup(const QString displayName, bool isSubscription);
             const optional<QString> RenameGroup(const GroupId &id, const QString &newName);
             //
             // Subscriptions
-            const GroupId &CreateSubscription(const QString &displayName, const QString &address);
-            const optional<QString> RenameSubscription(const GroupId &id, const QString &newName);
-            const optional<QString> DeleteSubscription(const GroupId &id);
             const optional<QString> UpdateSubscription(const GroupId &id);
             const optional<QString> UpdateSubscriptionASync(const GroupId &id);
 

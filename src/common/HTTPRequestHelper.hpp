@@ -47,7 +47,7 @@ namespace Qv2ray::common
             void httpRequestFinished(QByteArray &data);
 
         public slots:
-            void onRequestFinished();
+            void onRequestFinished_p();
         private slots:
             void onReadyRead();
         private:

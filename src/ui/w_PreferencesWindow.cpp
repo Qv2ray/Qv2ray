@@ -10,9 +10,10 @@
 #include "core/config/ConfigBackend.hpp"
 #include "core/connection/ConnectionIO.hpp"
 #include "core/kernel/KernelInteractions.hpp"
+#include "core/handler/ConnectionHandler.hpp"
 #include "components/plugins/toolbar/QvToolbar.hpp"
 #include "components/autolaunch/QvAutoLaunch.hpp"
-#include <common/QvTranslator.hpp>
+#include "common/QvTranslator.hpp"
 
 using Qv2ray::common::validation::IsValidIPAddress;
 
@@ -149,26 +150,20 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent),
     CurrentBarPageId = 0;
     //
     // Empty for global config.
-    //auto autoSub = CurrentConfig.autoStartConfig.subscriptionName;
-    //auto autoCon = CurrentConfig.autoStartConfig.connectionName;
-    //autoStartConnCombo->addItem("");
-    QvMessageBoxInfo(this, "NOT SUPPORTED", "WIP");
+    auto autoStartConnId = ConnectionId(CurrentConfig.autoStartId);
+    auto autoStartGroupId = ConnectionManager->GetConnectionGroupId(autoStartConnId);
 
-    // TODO: Now use grouping, subscriptions are the special type of group
-    //autoStartConnCombo->setCurrentText(autoCon);for (auto item : CurrentConfig.subscriptions.keys()) {
-    //    autoStartSubsCombo->addItem(item);
-    //}
-    //
-    //autoStartSubsCombo->setCurrentText(autoSub);
-    //
-    //if (CurrentConfig.autoStartConfig.subscriptionName.isEmpty()) {
-    //    autoStartConnCombo->addItems(CurrentConfig.configs);
-    //} else {
-    //    auto list = GetSubscriptionConnection(autoSub);
-    //    autoStartConnCombo->addItems(list.keys());
-    //}
-    //
-    //
+    for (auto group : ConnectionManager->AllGroups()) {
+        autoStartSubsCombo->addItem(ConnectionManager->GetDisplayName(group));
+    }
+
+    autoStartSubsCombo->setCurrentText(ConnectionManager->GetDisplayName(autoStartGroupId));
+
+    for (auto conn : ConnectionManager->Connections(autoStartGroupId)) {
+        autoStartConnCombo->addItem(ConnectionManager->GetDisplayName(conn));
+    }
+
+    autoStartConnCombo->setCurrentText(ConnectionManager->GetDisplayName(autoStartConnId));
 
     // FP Settings
     if (CurrentConfig.connectionConfig.forwardProxyConfig.type.trimmed().isEmpty()) {
@@ -941,24 +936,19 @@ void PreferencesWindow::on_pacProxyTxt_textEdited(const QString &arg1)
 void PreferencesWindow::on_autoStartSubsCombo_currentIndexChanged(const QString &arg1)
 {
     LOADINGCHECK
-    QvMessageBoxInfo(this, "NOT SUPPORTED", "WIP");
-    //CurrentConfig.autoStartConfig.subscriptionName = arg1;
-    //autoStartConnCombo->clear();
-    //
-    //if (arg1.isEmpty()) {
-    //    autoStartConnCombo->addItem("");
-    //    autoStartConnCombo->addItems(CurrentConfig.configs);
-    //} else {
-    //    auto list = GetSubscriptionConnection(arg1);
-    //    autoStartConnCombo->addItems(list.keys());
-    //}
+    auto groupId = ConnectionManager->GetGroupIdByDisplayName(arg1);
+    auto list = ConnectionManager->Connections(groupId);
+    autoStartConnCombo->clear();
+
+    for (auto id : list) {
+        autoStartConnCombo->addItem(ConnectionManager->GetDisplayName(id));
+    }
 }
 
 void PreferencesWindow::on_autoStartConnCombo_currentIndexChanged(const QString &arg1)
 {
     LOADINGCHECK
-    QvMessageBoxInfo(this, "NOT SUPPORTED", "WIP");
-    //CurrentConfig.autoStartConfig.connectionName = arg1;
+    CurrentConfig.autoStartId = ConnectionManager->GetConnectionIdByDisplayName(arg1).toString();
 }
 
 void PreferencesWindow::on_startWithLoginCB_stateChanged(int arg1)

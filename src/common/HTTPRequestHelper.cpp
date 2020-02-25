@@ -40,14 +40,15 @@ namespace Qv2ray::common
         if (useProxy) {
             auto proxy = QNetworkProxyFactory::systemProxyForQuery();
             accessManager.setProxy(proxy.first());
+            LOG(MODULE_NETWORK, "Sync get is using system proxy settings")
         } else {
             accessManager.setProxy(QNetworkProxy(QNetworkProxy::ProxyType::NoProxy));
         }
 
-        LOG(MODULE_NETWORK, "Sync get is using system proxy settings")
         request.setAttribute(QNetworkRequest::RedirectPolicyAttribute, QNetworkRequest::NoLessSafeRedirectPolicy);
+        request.setHeader(QNetworkRequest::KnownHeaders::UserAgentHeader, "Mozilla/5.0 (rv:71.0) Gecko/20100101 Firefox/71.0");
         reply = accessManager.get(request);
-        connect(reply, &QNetworkReply::finished, this, &QvHttpRequestHelper::onRequestFinished);
+        connect(reply, &QNetworkReply::finished, this, &QvHttpRequestHelper::onRequestFinished_p);
         //
         QEventLoop loop;
         connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
@@ -62,7 +63,7 @@ namespace Qv2ray::common
         this->setUrl(url);
         //    request.setRawHeader("Content-Type", "application/x-www-form-urlencoded");
         reply = accessManager.get(request);
-        connect(reply, &QNetworkReply::finished, this, &QvHttpRequestHelper::onRequestFinished);
+        connect(reply, &QNetworkReply::finished, this, &QvHttpRequestHelper::onRequestFinished_p);
         connect(reply, &QNetworkReply::readyRead, this, &QvHttpRequestHelper::onReadyRead);
     }
 
@@ -102,9 +103,15 @@ namespace Qv2ray::common
     //        connect(reply, &QNetworkReply::readyRead, this, &QvHttpRequestHelper::onReadyRead);
     //    }
 
-    void QvHttpRequestHelper::onRequestFinished()
+    void QvHttpRequestHelper::onRequestFinished_p()
     {
-        LOG(MODULE_NETWORK, "Network request errcode: " + QSTRN(reply->error()))
+        if (reply->error() != QNetworkReply::NoError) {
+            QString error = QMetaEnum::fromType<QNetworkReply::NetworkError>().key(reply->error());
+            LOG(MODULE_NETWORK, "Network request error string: " + error)
+            QByteArray empty;
+            emit httpRequestFinished(empty);
+        }
+
         emit httpRequestFinished(this->data);
     }
 

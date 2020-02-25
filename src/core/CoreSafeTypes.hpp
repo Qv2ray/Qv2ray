@@ -12,7 +12,8 @@ namespace Qv2ray::core
     class IDType
     {
         public:
-            IDType(const QString &id): m_id(id) {}
+            //explicit IDType(): m_id("null") {}
+            explicit IDType(const QString &id): m_id(id) {}
             friend bool operator==(const IDType<T> &lhs, const IDType<T> &rhs)
             {
                 return lhs.m_id == rhs.m_id;

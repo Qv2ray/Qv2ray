@@ -11,24 +11,24 @@ namespace Qv2ray::core::handlers
 
         // Do we need to check how many of them are loaded?
         for (auto i = 0; i < GlobalConfig.connections.count(); i++) {
-            connections[GlobalConfig.connections.keys()[i]] = GlobalConfig.connections.values()[i];
+            connections[ConnectionId(GlobalConfig.connections.keys()[i])] = GlobalConfig.connections.values()[i];
         }
 
         for (auto key : GlobalConfig.subscriptions.keys()) {
             auto val = GlobalConfig.subscriptions[key];
-            groups[key] = val;
+            groups[GroupId(key)] = val;
 
             for (auto conn : val.connections) {
-                connections[conn].groupId = key;
+                connections[ConnectionId(conn)].groupId = GroupId(key);
             }
         }
 
         for (auto key : GlobalConfig.groups.keys()) {
             auto val = GlobalConfig.groups[key];
-            groups[key] = val;
+            groups[GroupId(key)] = val;
 
             for (auto conn : val.connections) {
-                connections[conn].groupId = key;
+                connections[ConnectionId(conn)].groupId = GroupId(key);
             }
         }
 
@@ -111,6 +111,28 @@ namespace Qv2ray::core::handlers
     const QString QvConnectionHandler::GetDisplayName(const GroupId &id, int limit) const
     {
         return TruncateString(groups[id].displayName, limit);
+    }
+
+    const ConnectionId QvConnectionHandler::GetConnectionIdByDisplayName(const QString &displayName) const
+    {
+        for (auto conn : connections.keys()) {
+            if (connections[conn].displayName == displayName) {
+                return conn;
+            }
+        }
+
+        return ConnectionId("null");
+    }
+
+    const GroupId QvConnectionHandler::GetGroupIdByDisplayName(const QString &displayName) const
+    {
+        for (auto group : groups.keys()) {
+            if (groups[group].displayName == displayName) {
+                return group;
+            }
+        }
+
+        return GroupId("null");
     }
 
     const GroupId QvConnectionHandler::GetConnectionGroupId(const ConnectionId &id) const
