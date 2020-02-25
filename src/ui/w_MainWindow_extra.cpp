@@ -3,7 +3,6 @@
 // We NEED to include the cpp file to define the macros.
 #include "w_MainWindow.cpp"
 #include "components/proxy/QvProxyConfigurator.hpp"
-#include "core/connection/Generation.hpp"
 
 //QTreeWidgetItem *MainWindow::FindItemByIdentifier(QvConnectionObject identifier)
 //{

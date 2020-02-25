@@ -204,7 +204,7 @@ namespace Qv2ray::core::handlers
             StopConnection();
         }
 
-        CONFIGROOT root = CHGetConnectionRoot_p(connections[identifier].groupId, identifier);
+        CONFIGROOT root = GetConnectionRoot(connections[identifier].groupId, identifier);
         return CHStartConnection_p(identifier, root);
     }
 
@@ -230,7 +230,7 @@ namespace Qv2ray::core::handlers
             result = tr("N/A");
         }
 
-        CONFIGROOT root = CHGetConnectionRoot_p(connections[id].groupId, id);
+        CONFIGROOT root = GetConnectionRoot(connections[id].groupId, id);
         QStringList protocols;
         QStringList streamProtocols;
         auto outbound = root["outbounds"].toArray().first().toObject();
@@ -273,12 +273,12 @@ namespace Qv2ray::core::handlers
         delete vCoreInstance;
     }
 
-    const CONFIGROOT QvConnectionHandler::CHGetConnectionRoot_p(const ConnectionId &id) const
+    const CONFIGROOT QvConnectionHandler::GetConnectionRoot(const ConnectionId &id) const
     {
-        return connections.contains(id) ? CHGetConnectionRoot_p(connections[id].groupId, id) : CONFIGROOT();
+        return connections.contains(id) ? GetConnectionRoot(connections[id].groupId, id) : CONFIGROOT();
     }
 
-    const CONFIGROOT QvConnectionHandler::CHGetConnectionRoot_p(const GroupId &group, const ConnectionId &id) const
+    const CONFIGROOT QvConnectionHandler::GetConnectionRoot(const GroupId &group, const ConnectionId &id) const
     {
         auto path = group.toString() + "/" + id.toString() + QV2RAY_CONFIG_FILE_EXTENSION;
         path.prepend(groups[group].isSubscription ? QV2RAY_SUBSCRIPTION_DIR : QV2RAY_CONNECTIONS_DIR);
@@ -288,7 +288,7 @@ namespace Qv2ray::core::handlers
 
     const tuple<QString, int> QvConnectionHandler::GetConnectionInfo(const ConnectionId &id) const
     {
-        auto root = CHGetConnectionRoot_p(id);
+        auto root = GetConnectionRoot(id);
         bool validOutboundFound = false;
         QString host;
         int port;

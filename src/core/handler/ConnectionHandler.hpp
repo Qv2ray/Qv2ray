@@ -42,6 +42,9 @@ namespace Qv2ray::core::handlers
             const ConnectionId DuplicateConnection(const ConnectionId &id);
             const optional<QString> MoveConnectionGroup(const ConnectionId &id, const GroupId &newGroupId);
             //
+            const CONFIGROOT GetConnectionRoot(const ConnectionId &id) const;
+            const CONFIGROOT GetConnectionRoot(const GroupId &group, const ConnectionId &id) const;
+            //
             // Get Conncetion Property
             const QString GetConnectionProtocolString(const ConnectionId &id) const;
             const tuple<QString, int> GetConnectionInfo(const ConnectionId &connectionId) const;
@@ -101,8 +104,6 @@ namespace Qv2ray::core::handlers
             bool CHGetOutboundData_p(const OUTBOUND &out, QString *host, int *port) const;
             optional<QString> CHStartConnection_p(const ConnectionId &id, const CONFIGROOT &root);
             void CHStopConnection_p();
-            const CONFIGROOT CHGetConnectionRoot_p(const ConnectionId &id) const;
-            const CONFIGROOT CHGetConnectionRoot_p(const GroupId &group, const ConnectionId &id) const;
             bool CHSaveConnectionConfig_p(CONFIGROOT obj, const ConnectionId &id, bool override);
 
         private:

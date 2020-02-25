@@ -1,5 +1,7 @@
 #include "ConnectionInfoWidget.hpp"
 #include "core/CoreUtils.hpp"
+#include "core/connection/Serialization.hpp"
+#include "3rdparty/qzxing/src/QZXing.h"
 
 ConnectionInfoWidget::ConnectionInfoWidget(QWidget *parent): QWidget(parent)
 {
@@ -35,12 +37,18 @@ void ConnectionInfoWidget::ShowDetails(const tuple<GroupId, ConnectionId> &_iden
         connectBtn->setEnabled(true);
         duplicateBtn->setEnabled(true);
         //
-        shareLinkTxt->setText("scheme://user:pass@host:port/path/to/file?arg1=ARG1&arg2=ARG2#tag");
+        auto shareLink = ConvertConfigToString(connectionId);
+        shareLinkTxt->setText(shareLink);
         shareLinkTxt->setCursorPosition(0);
+        //
+        QZXingEncoderConfig conf;
+        conf.border = true;
+        conf.imageSize = QSize(400, 400);
+        auto img = QZXing().encodeData(shareLink, conf);
+        qrLabel->setPixmap(QPixmap::fromImage(img));
         //
         connectBtn->setIcon(ConnectionManager->IsConnected(connectionId) ? QICON_R("stop.png") : QICON_R("connect.png"));
     } else {
-        //connNameLabel->setText(ConnectionManager->GetDisplayName(groupId));
         connectBtn->setIcon(QICON_R("connect.png"));
         groupLabel->setText(tr("N/A"));
         protocolLabel->setText(tr("N/A"));
@@ -50,6 +58,9 @@ void ConnectionInfoWidget::ShowDetails(const tuple<GroupId, ConnectionId> &_iden
         editJsonBtn->setEnabled(false);
         connectBtn->setEnabled(false);
         duplicateBtn->setEnabled(false);
+        //
+        shareLinkTxt->clear();
+        qrLabel->clear();
     }
 }
 

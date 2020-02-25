@@ -1,4 +1,5 @@
 #include "base/Qv2rayBase.hpp"
+#include "core/CoreSafeTypes.hpp"
 
 namespace Qv2ray::core::connection
 {
@@ -9,7 +10,7 @@ namespace Qv2ray::core::connection
 
         // General
         CONFIGROOT ConvertConfigFromString(const QString &link, QString *alias, QString *errMessage);
-        QString ConvertConfigToString(const CONFIGROOT &server, const QString &alias, bool isSip002 = false);
+        const QString ConvertConfigToString(const ConnectionId &id, bool isSip002 = false);
 
         // VMess URI Protocol
         CONFIGROOT ConvertConfigFromVMessString(const QString &vmess, QString *alias, QString *errMessage);
