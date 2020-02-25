@@ -5,7 +5,7 @@
 namespace Qv2ray::core::handlers
 {
 
-    QvConnectionHandler::QvConnectionHandler() : currentConnectionId("null")
+    QvConnectionHandler::QvConnectionHandler()
     {
         DEBUG(MODULE_CORE_HANDLER, "ConnectionHandler Constructor.")
 
@@ -35,8 +35,16 @@ namespace Qv2ray::core::handlers
         vCoreInstance = new V2rayKernelInstance();
         connect(vCoreInstance, &V2rayKernelInstance::OnProcessErrored, this, &QvConnectionHandler::OnVCoreCrashed);
         connect(vCoreInstance, &V2rayKernelInstance::OnNewStatsDataArrived, this, &QvConnectionHandler::OnStatsDataArrived);
+        // Directly connected to a signal.
         connect(vCoreInstance, &V2rayKernelInstance::OnProcessOutputReadyRead, this, &QvConnectionHandler::OnVCoreLogAvailable);
+        //
+        //
+        tcpingHelper = new QvTCPingHelper(5, this);
+        connect(tcpingHelper, &QvTCPingHelper::OnLatencyTestCompleted, this, &QvConnectionHandler::OnLatencyDataArrived);
+        //
         saveTimerId = startTimer(10 * 1000);
+        pingAllTimerId = startTimer(5 * 60 * 1000);
+        pingConnectionTimerId = startTimer(60 * 1000);
     }
 
     void QvConnectionHandler::CHSaveConnectionData_p()
@@ -72,7 +80,33 @@ namespace Qv2ray::core::handlers
     {
         if (event->timerId() == saveTimerId) {
             CHSaveConnectionData_p();
+        } else if (event->timerId() == pingAllTimerId) {
+            StartLatencyTest();
+        } else if (event->timerId() == pingConnectionTimerId) {
+            if (currentConnectionId != NullConnectionId) {
+                StartLatencyTest(currentConnectionId);
+            }
         }
+    }
+
+    void QvConnectionHandler::StartLatencyTest()
+    {
+        for (auto connection : connections.keys()) {
+            StartLatencyTest(connection);
+        }
+    }
+
+    void QvConnectionHandler::StartLatencyTest(const GroupId &id)
+    {
+        for (auto connection : groups[id].connections) {
+            StartLatencyTest(connection);
+        }
+    }
+
+    void QvConnectionHandler::StartLatencyTest(const ConnectionId &id)
+    {
+        emit OnLatencyTestStarted(id);
+        tcpingHelper->TestLatency(id);
     }
 
     const QList<ConnectionId> QvConnectionHandler::Connections() const
@@ -121,7 +155,7 @@ namespace Qv2ray::core::handlers
             }
         }
 
-        return ConnectionId("null");
+        return NullConnectionId;
     }
 
     const GroupId QvConnectionHandler::GetGroupIdByDisplayName(const QString &displayName) const
@@ -132,7 +166,7 @@ namespace Qv2ray::core::handlers
             }
         }
 
-        return GroupId("null");
+        return NullGroupId;
     }
 
     const GroupId QvConnectionHandler::GetConnectionGroupId(const ConnectionId &id) const
@@ -144,7 +178,7 @@ namespace Qv2ray::core::handlers
         return connections[id].groupId;
     }
 
-    int64_t QvConnectionHandler::GetConnectionLatency(const ConnectionId &id) const
+    double QvConnectionHandler::GetConnectionLatency(const ConnectionId &id) const
     {
         if (!connections.contains(id)) {
             LOG(MODULE_CORE_HANDLER, "Cannot find id: " + id.toString());
@@ -166,7 +200,10 @@ namespace Qv2ray::core::handlers
             return tr("No connection selected!") + NEWLINE + tr("Please select a config from the list.");
         }
 
-        StopConnection();
+        if (currentConnectionId != NullConnectionId) {
+            StopConnection();
+        }
+
         CONFIGROOT root = CHGetConnectionRoot_p(connections[identifier].groupId, identifier);
         return CHStartConnection_p(identifier, root);
     }
@@ -297,6 +334,16 @@ namespace Qv2ray::core::handlers
             return true;
         } else {
             return false;
+        }
+    }
+
+    void QvConnectionHandler::OnLatencyDataArrived(const QvTCPingResultObject &result)
+    {
+        if (connections.contains(result.connectionId)) {
+            connections[result.connectionId].latency = result.avg;
+            emit OnLatencyTestFinished(result.connectionId, result.avg);
+        } else {
+            LOG(MODULE_CORE_HANDLER, "Received a latecy result with non-exist connection id.")
         }
     }
 }

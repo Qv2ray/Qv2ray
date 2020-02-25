@@ -12,11 +12,14 @@ namespace Qv2ray::core
     class IDType
     {
         public:
-            //explicit IDType(): m_id("null") {}
             explicit IDType(const QString &id): m_id(id) {}
             friend bool operator==(const IDType<T> &lhs, const IDType<T> &rhs)
             {
                 return lhs.m_id == rhs.m_id;
+            }
+            friend bool operator!=(const IDType<T> &lhs, const IDType<T> &rhs)
+            {
+                return lhs.toString() != rhs.toString();
             }
             const QString &toString() const
             {
@@ -36,8 +39,11 @@ namespace Qv2ray::core
     class __QvConnection;
     typedef IDType<__QvGroup> GroupId;
     typedef IDType<__QvConnection> ConnectionId;
-    template<typename IDType>
 
+    inline const static ConnectionId NullConnectionId = ConnectionId("null");
+    inline const static GroupId NullGroupId = GroupId("null");
+
+    template<typename IDType>
     QList<IDType> StringsToIdList(const QList<QString> &strings)
     {
         QList<IDType> list;
@@ -67,8 +73,8 @@ namespace Qv2ray::core
     //
     /// Metadata object representing a connection.
     struct ConnectionMetaObject : ConnectionObject_Config {
-        GroupId groupId;
-        ConnectionMetaObject(): ConnectionObject_Config(), groupId("null") { }
+        GroupId groupId = NullGroupId;
+        ConnectionMetaObject(): ConnectionObject_Config() { }
         // Suger for down casting.
         ConnectionMetaObject(const ConnectionObject_Config &base) : ConnectionMetaObject()
         {

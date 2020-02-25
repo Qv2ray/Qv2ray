@@ -101,7 +101,7 @@ using namespace Qv2ray::base::objects::transfer;
     obj->setPalette(_temp);
 
 #define BLACK(obj)                             \
-    obj->setPalette(this->palette());
+    obj->setPalette(QWidget::palette());
 
 #define QV2RAY_UI_RESOURCES_ROOT ((GlobalConfig.uiConfig.useDarkTheme) ? QStringLiteral(":/assets/icons/ui_dark/") : QStringLiteral(":/assets/icons/ui_light/"))
 #define QICON_R(file) QIcon(QV2RAY_UI_RESOURCES_ROOT + file)

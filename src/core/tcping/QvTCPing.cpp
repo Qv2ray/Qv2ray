@@ -8,18 +8,20 @@
 #include <unistd.h>
 #endif
 #include "QvTCPing.hpp"
+#include "core/handler/ConnectionHandler.hpp"
 #include "QtConcurrent/QtConcurrent"
 
-namespace Qv2ray::components::tcping
+namespace Qv2ray::core::tcping
 {
     static int resolveHost(const std::string &host, int portnr, struct addrinfo **res);
     static int testLatency(struct addrinfo *addr, std::chrono::system_clock::time_point *start, std::chrono::system_clock::time_point *end);
     //
-    QvTCPingModel::QvTCPingModel(int defaultCount, QObject *parent) : QObject(parent)
+    QvTCPingHelper::QvTCPingHelper(const int defaultCount, QObject *parent) : QObject(parent)
     {
         count = defaultCount;
     }
-    void QvTCPingModel::StopAllPing()
+
+    void QvTCPingHelper::StopAllLatenceTest()
     {
         while (!pingWorkingThreads.isEmpty()) {
             auto worker = pingWorkingThreads.dequeue();
@@ -27,38 +29,37 @@ namespace Qv2ray::components::tcping
             worker->cancel();
         }
     }
-    void QvTCPingModel::StartPing(const ConnectionObject_Config &connectionName, const QString &hostName, int port)
+    void QvTCPingHelper::TestLatency(const ConnectionId &id)
     {
-        QvTCPingData data;
-        data.hostName = hostName;
-        data.port = port;
-        data.connectionIdentifier = connectionName;
-        auto watcher = new QFutureWatcher<QvTCPingData>(this);
-        DEBUG(MODULE_NETWORK, "Start Ping: " + hostName + ":" + QSTRN(port))
-        watcher->setFuture(QtConcurrent::run(&QvTCPingModel::startTestLatency, data, count));
+        auto watcher = new QFutureWatcher<QvTCPingResultObject>(this);
+        watcher->setFuture(QtConcurrent::run(&QvTCPingHelper::TestLatency_p, id, count));
         pingWorkingThreads.enqueue(watcher);
-        connect(watcher, &QFutureWatcher<void>::finished, this, [this, watcher]() {
-            this->pingWorkingThreads.removeOne(watcher);
+        //
+        connect(watcher, &QFutureWatcher<QvTCPingResultObject>::finished, this, [ = ]() {
             auto result = watcher->result();
-            DEBUG(MODULE_NETWORK, "Ping finished: " + result.hostName + ":" + QSTRN(result.port) + " --> " + QSTRN(result.avg) + "ms")
+            this->pingWorkingThreads.removeOne(watcher);
 
             if (!result.errorMessage.isEmpty()) {
                 LOG(MODULE_NETWORK, "Ping --> " + result.errorMessage)
             }
 
-            emit this->PingFinished(result);
+            emit this->OnLatencyTestCompleted(result);
         });
     }
 
-    QvTCPingData QvTCPingModel::startTestLatency(QvTCPingData data, const int count)
+    QvTCPingResultObject QvTCPingHelper::TestLatency_p(const ConnectionId &id, const int count)
     {
-        if (isExiting) return QvTCPingData();
+        QvTCPingResultObject data;
+        data.connectionId = id;
 
+        if (isExiting) return data;
+
+        auto [host, port] = ConnectionManager->GetConnectionInfo(id);
         double successCount = 0, errorCount = 0;
         addrinfo *resolved;
         int errcode;
 
-        if ((errcode = resolveHost(data.hostName.toStdString(), data.port, &resolved)) != 0) {
+        if ((errcode = resolveHost(host.toStdString(), port, &resolved)) != 0) {
 #ifdef _WIN32
             data.errorMessage = QString::fromStdWString(gai_strerror(errcode));
 #else
@@ -71,14 +72,14 @@ namespace Qv2ray::components::tcping
         int currentCount = 0;
 
         while (currentCount < count) {
-            if (isExiting) return QvTCPingData();
+            if (isExiting) return QvTCPingResultObject();
 
-            std::chrono::system_clock::time_point start;
-            std::chrono::system_clock::time_point end;
+            system_clock::time_point start;
+            system_clock::time_point end;
 
             if ((errcode = testLatency(resolved, &start, &end)) != 0) {
                 if (errcode != -EADDRNOTAVAIL) {
-                    LOG(MODULE_NETWORK, "Error connecting to host: " + data.hostName + ":" + QSTRN(data.port) + " " + strerror(-errcode))
+                    //LOG(MODULE_NETWORK, "Error connecting to host: " + data.hostName + ":" + QSTRN(data.port) + " " + strerror(-errcode))
                     errorCount++;
                 } else {
                     if (noAddress) {
@@ -93,13 +94,13 @@ namespace Qv2ray::components::tcping
                 noAddress = false;
                 successCount++;
                 auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
-                double ms = milliseconds.count();
-                ms = ms < 0 ? 0 : ms;
+                uint ms = milliseconds.count();
                 data.avg += ms;
-                data.min = min(data.min, ms);
-                data.max = max(data.max, ms);
+                data.worst = min(data.worst, ms);
+                data.best = max(data.best, ms);
 
                 if (ms > 1000) {
+                    LOG(MODULE_NETWORK, "Stop the test on the first long connect()")
                     break; /* Stop the test on the first long connect() */
                 }
             }

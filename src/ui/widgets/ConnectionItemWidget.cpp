@@ -7,6 +7,8 @@ ConnectionItemWidget::ConnectionItemWidget(QWidget *parent) : QWidget(parent), c
     connect(ConnectionManager, &QvConnectionHandler::OnConnected, this, &ConnectionItemWidget::OnConnected);
     connect(ConnectionManager, &QvConnectionHandler::OnDisConnected, this, &ConnectionItemWidget::OnDisConnected);
     connect(ConnectionManager, &QvConnectionHandler::OnStatsAvailable, this, &ConnectionItemWidget::OnConnectionStatsArrived);
+    connect(ConnectionManager, &QvConnectionHandler::OnLatencyTestStarted, this, &ConnectionItemWidget::OnLatencyTestStart);
+    connect(ConnectionManager, &QvConnectionHandler::OnLatencyTestFinished, this, &ConnectionItemWidget::OnLatencyTestFinished);
 }
 
 ConnectionItemWidget::ConnectionItemWidget(const ConnectionId &id, QWidget *parent): ConnectionItemWidget(parent)
@@ -17,7 +19,14 @@ ConnectionItemWidget::ConnectionItemWidget(const ConnectionId &id, QWidget *pare
     itemType = NODE_ITEM;
     connNameLabel->setText("" + originalConnectionName);
     // TODO
-    latencyLabel->setText(QSTRN(ConnectionManager->GetConnectionLatency(id)) + " " + tr("ms"));
+    auto latency = ConnectionManager->GetConnectionLatency(id);
+
+    if (latency == 0) {
+        latencyLabel->setText(tr("Not Tested"));
+    } else {
+        latencyLabel->setText(QSTRN(latency) + " " + tr("ms"));
+    }
+
     connTypeLabel->setText(tr("Type: ") + ConnectionManager->GetConnectionProtocolString(id));
     auto [uplink, downlink] = ConnectionManager->GetConnectionUsageAmount(connectionId);
     dataLabel->setText(FormatBytes(uplink) + " / " + FormatBytes(downlink));
@@ -40,7 +49,6 @@ ConnectionItemWidget::ConnectionItemWidget(const GroupId &id, QWidget *parent) :
     delete connTypeLabel;
     delete dataLabel;
 }
-
 
 void ConnectionItemWidget::BeginConnection()
 {
@@ -67,14 +75,32 @@ void ConnectionItemWidget::OnDisConnected(const ConnectionId &id)
     }
 }
 
-void ConnectionItemWidget::OnConnectionStatsArrived(const ConnectionId &id, const quint64 upSpeed, const quint64 downSpeed)
+void ConnectionItemWidget::OnConnectionStatsArrived(const ConnectionId &id, const quint64 upSpeed, const quint64 downSpeed, const quint64 totalUp, const quint64 totalDown)
 {
     Q_UNUSED(upSpeed)
     Q_UNUSED(downSpeed)
 
     if (id == connectionId) {
-        auto [uplink, downlink] = ConnectionManager->GetConnectionUsageAmount(id);
-        dataLabel->setText(FormatBytes(uplink) + " / " + FormatBytes(downlink));
+        dataLabel->setText(FormatBytes(totalUp) + " / " + FormatBytes(totalDown));
+    }
+}
+
+void ConnectionItemWidget::OnLatencyTestStart(const ConnectionId &id)
+{
+    if (id == connectionId) {
+        latencyLabel->setText(tr("Testing..."));
+    }
+}
+void ConnectionItemWidget::OnLatencyTestFinished(const ConnectionId &id, const uint average)
+{
+    if (id == connectionId) {
+        if (average == 0) {
+            latencyLabel->setText(tr("Error"));
+            RED(latencyLabel)
+        } else {
+            latencyLabel->setText(QSTRN(average) + tr("ms"));
+            BLACK(latencyLabel)
+        }
     }
 }
 

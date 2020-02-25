@@ -79,6 +79,12 @@
        <bool>true</bool>
       </property>
       <widget class="QWidget" name="leftWidget" native="true">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
          <widget class="QLineEdit" name="connectionFilterTxt">
@@ -201,7 +207,7 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>559</width>
+          <width>480</width>
           <height>743</height>
          </rect>
         </property>
@@ -340,7 +346,7 @@
        <number>6</number>
       </property>
       <item>
-       <widget class="QLabel" name="label_8">
+       <widget class="QLabel" name="connetionStatusLabel">
         <property name="minimumSize">
          <size>
           <width>300</width>

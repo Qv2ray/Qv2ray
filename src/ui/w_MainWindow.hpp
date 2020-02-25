@@ -29,8 +29,6 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         void ReConnect() const;
     public slots:
         QvMessageBusSlotHeader
-        //void onPingFinished(QvTCPingData data);
-        void UpdateVCoreLog(const QString &log);
     private slots:
         void on_action_RCM_ShareQR_triggered();
         void on_activatedTray(QSystemTrayIcon::ActivationReason reason);
@@ -43,10 +41,6 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         void on_removeConfigButton_clicked();
         void on_importConfigButton_clicked();
         void on_editConfigButton_clicked();
-        void on_editJsonBtn_clicked();
-        void on_pingTestBtn_clicked();
-        void on_shareBtn_clicked();
-        void on_duplicateBtn_clicked();
         void on_subsButton_clicked();
         //
         void ToggleVisibility();
@@ -60,23 +54,23 @@ class MainWindow : public QMainWindow, Ui::MainWindow
 
     protected:
         void keyPressEvent(QKeyEvent *e) override;
-        void timerEvent(QTimerEvent *event) override;
         void closeEvent(QCloseEvent *) override;
 
     private slots:
         //
         void OnConnected(const ConnectionId &id);
+        void OnDisConnected(const ConnectionId &id);
+
         void onConnectionWidgetFocusRequested(const ConnectionItemWidget *widget);
         //void onConnectionConnected(const ConnectionId &id);
         //void onConnectionDisConnected(const ConnectionId &id);
-        void onConnectionStatsArrived(const ConnectionId &id, const quint64 upSpeed, const quint64 downSpeed);
+        void onConnectionStatsArrived(const ConnectionId &id, const quint64 upSpeed, const quint64 downSpeed, const quint64 totalUp, const quint64 totalDown);
         void onVCoreLogArrived(const ConnectionId &id, const QString &log);
         //
         void on_action_StartThis_triggered();
         void on_action_RCM_EditJson_triggered();
         void on_action_RCM_ConvToComplex_triggered();
         void on_action_RCM_RenameConnection_triggered();
-        void on_connectionListWidget_itemSelectionChanged();
         void on_connectionListWidget_itemDoubleClicked(QTreeWidgetItem *item, int column);
         void on_connectionFilterTxt_textEdited(const QString &arg1);
         void on_connectionListWidget_itemClicked(QTreeWidgetItem *item, int column);
@@ -112,7 +106,6 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         //
         // ----------------------------------- Extra Headers For w_MainWindow_extra.cpp Handling V2ray Connectivities.
         bool systemProxyEnabled;
-        void MWStopConnection();
         void MWSetSystemProxy();
         void MWClearSystemProxy(bool);
         void CheckSubscriptionsUpdate();

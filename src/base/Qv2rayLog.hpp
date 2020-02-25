@@ -55,4 +55,4 @@ const inline QString MODULE_PROXY          =   "COMPONENT-PROXY"        ;
 const inline QString MODULE_UPDATE         =   "COMPONENT-UPDATE"       ;
 const inline QString MODULE_PLUGIN         =   "COMPONENT-PLUGIN"       ;
 // ================================================================
-const inline QString MODULE_CORE_HANDLER   =   "libQv2ray: ConnectionHandler";
+const inline QString MODULE_CORE_HANDLER   =   "QV2RAY-CORE";

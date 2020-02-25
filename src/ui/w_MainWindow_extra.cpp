@@ -102,41 +102,6 @@ void MainWindow::MWSetSystemProxy()
     }
 }
 
-void MainWindow::MWStopConnection()
-{
-    //if (systemProxyEnabled) {
-    //    MWClearSystemProxy(false);
-    //}
-    //
-    //this->vinstance->StopConnection();
-    //QFile(QV2RAY_GENERATED_FILE_PATH).remove();
-    //
-    //if (GlobalConfig.inboundConfig.pacConfig.enablePAC) {
-    //    pacServer.StopServer();
-    //    LOG(UI, "Stopping PAC server")
-    //}
-}
-
-//void MainWindow::MWTryPingConnection(const QvConnectionObject &alias)
-//{
-//    //try {
-//    //    auto info  = MWGetConnectionInfo(alias);
-//    //    QString host = get<0>(info);
-//    //    int port = get<1>(info);
-//    //    tcpingHelper.StartPing(alias, host, port);
-//    //}  catch (...) {
-//    //    QvMessageBoxWarn(this, tr("Latency Test"), tr("Failed to test latency for this connection."));
-//    //}
-//}
-//
-//tuple<QString, int, QString> MainWindow::MWGetConnectionInfo(const QvConnectionObject &alias)
-//{
-//    //if (!connections.contains(alias))
-//    //    return make_tuple(tr("N/A"), 0, tr("N/A"));
-//    //
-//    //return GetConnectionInfo(connections[alias].config);
-//}
-
 void MainWindow::CheckSubscriptionsUpdate()
 {
     QStringList updateList;

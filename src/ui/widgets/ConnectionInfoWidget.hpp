@@ -26,8 +26,12 @@ class ConnectionInfoWidget : public QWidget, private Ui::ConnectionInfoWidget
         void OnConnected(const ConnectionId &id);
         void OnDisConnected(const ConnectionId &id);
 
+        void on_duplicateBtn_clicked();
+
+        void on_latencyBtn_clicked();
+
     private:
-        ConnectionId connectionId;
-        GroupId groupId;
+        ConnectionId connectionId = NullConnectionId;
+        GroupId groupId = NullGroupId;
 };
 

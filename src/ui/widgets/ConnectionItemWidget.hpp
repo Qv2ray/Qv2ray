@@ -41,9 +41,11 @@ class ConnectionItemWidget : public QWidget, private Ui::ConnectionWidget
     signals:
         void RequestWidgetFocus(const ConnectionItemWidget *me);
     private slots:
-        void OnConnectionStatsArrived(const ConnectionId &id, const quint64 upSpeed, const quint64 downSpeed);
+        void OnConnectionStatsArrived(const ConnectionId &id, const quint64 upSpeed, const quint64 downSpeed, const quint64 totalUp, const quint64 totalDown);
         void OnConnected(const ConnectionId &id);
         void OnDisConnected(const ConnectionId &id);
+        void OnLatencyTestStart(const ConnectionId &id);
+        void OnLatencyTestFinished(const ConnectionId &id, const uint average);
     private:
         QString originalConnectionName;
         explicit ConnectionItemWidget(QWidget *parent = nullptr);

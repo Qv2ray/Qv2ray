@@ -56,6 +56,17 @@
         </spacer>
        </item>
        <item>
+        <widget class="QToolButton" name="latencyBtn">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../../../resources.qrc">
+           <normaloff>:/assets/icons/ui_light/ping_gauge.png</normaloff>:/assets/icons/ui_light/ping_gauge.png</iconset>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QToolButton" name="deleteBtn">
          <property name="toolTip">
           <string>Delete Connection</string>

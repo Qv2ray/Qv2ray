@@ -117,7 +117,7 @@ namespace Qv2ray::core::kernel
         }
     }
 
-    V2rayKernelInstance::V2rayKernelInstance() : id("null")
+    V2rayKernelInstance::V2rayKernelInstance()
     {
         vProcess = new QProcess();
         connect(vProcess, &QProcess::readyReadStandardOutput, this, [&]() {
@@ -223,8 +223,8 @@ namespace Qv2ray::core::kernel
         delete vProcess;
     }
 
-    void V2rayKernelInstance::onAPIDataReady(const QString &tag, const quint64 _totalUp, const quint64 _totalDown)
+    void V2rayKernelInstance::onAPIDataReady(const quint64 _totalUp, const quint64 _totalDown)
     {
-        emit OnNewStatsDataArrived(id, tag, _totalUp, _totalDown);
+        emit OnNewStatsDataArrived(id, _totalUp, _totalDown);
     }
 }

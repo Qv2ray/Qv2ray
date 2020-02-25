@@ -97,7 +97,7 @@ namespace Qv2ray::core::kernel
 
                 if (running) {
                     apiFailedCounter = 0;
-                    emit OnDataReady("", value_up, value_down);
+                    emit OnDataReady(value_up, value_down);
                 }
 
 #else

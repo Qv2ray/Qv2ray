@@ -2,6 +2,7 @@
 
 #include "base/Qv2rayBase.hpp"
 #include "core/kernel/KernelInteractions.hpp"
+#include "core/tcping/QvTCPing.hpp"
 #include "core/CoreSafeTypes.hpp"
 #include "core/connection/ConnectionIO.hpp"
 
@@ -33,7 +34,7 @@ namespace Qv2ray::core::handlers
             //
             // Connection Operations.
             const GroupId GetConnectionGroupId(const ConnectionId &id) const;
-            int64_t GetConnectionLatency(const ConnectionId &id) const;
+            double GetConnectionLatency(const ConnectionId &id) const;
             const ConnectionId &CreateConnection(const QString &displayName, const GroupId &groupId, const CONFIGROOT &root);
             const optional<QString> DeleteConnection(const ConnectionId &id);
             const optional<QString> UpdateConnection(const ConnectionId &id, const CONFIGROOT &root);
@@ -47,9 +48,9 @@ namespace Qv2ray::core::handlers
             const tuple<quint64, quint64> GetConnectionUsageAmount(const ConnectionId &id) const;
             //
             // Misc Connection Operations
-            const optional<QString> TestLatency();
-            const optional<QString> TestLatency(const GroupId &id);
-            const optional<QString> TestLatency(const ConnectionId &id);
+            void StartLatencyTest();
+            void StartLatencyTest(const GroupId &id);
+            void StartLatencyTest(const ConnectionId &id);
             //
             // Group Operations
             const optional<QString> DeleteGroup(const GroupId &id);
@@ -62,19 +63,21 @@ namespace Qv2ray::core::handlers
             const optional<QString> UpdateSubscriptionASync(const GroupId &id);
 
         signals:
-            //
+            void OnCrashed();
             void OnConnected(const ConnectionId &id);
             void OnDisConnected(const ConnectionId &id);
             void OnVCoreLogAvailable(const ConnectionId &id, const QString &log);
-            void OnStatsAvailable(const ConnectionId &id, uint64_t totalUpload, uint64_t totalDownload);
+            void OnStatsAvailable(const ConnectionId &id,
+                                  const quint64 uploadSpeed, const quint64 downloadSpeed,
+                                  const quint64 totalUpload, const quint64 totalDownload);
             //
             void OnConnectionCreated(const ConnectionId &id, const QString &displayName);
             void OnConnectionRenamed(const ConnectionId &id, const QString &originalName, const QString &newName);
             void OnConnectionChanged(const ConnectionId &id);
             void OnConnectionGroupChanged(const ConnectionId &id, const QString &originalGroup, const QString &newGroup);
             //
-            void OnConnectionLatencyTestStart(const ConnectionId &id);
-            void OnConnectionLatencyTestFinished(const ConnectionId &id);
+            void OnLatencyTestStarted(const ConnectionId &id);
+            void OnLatencyTestFinished(const ConnectionId &id, const uint average);
             //
             void OnGroupCreated(const GroupId &id, const QString &displayName);
             void OnGroupRenamed(const GroupId &id, const QString &oldName, const QString &newName);
@@ -85,8 +88,9 @@ namespace Qv2ray::core::handlers
             void OnSubscriptionUpdateFinished(const GroupId &id);
 
         private slots:
-            void OnStatsDataArrived(const ConnectionId &id, const QString tag, const quint64 uploadSpeed, const quint64 downloadSpeed);
+            void OnStatsDataArrived(const ConnectionId &id, const quint64 uploadSpeed, const quint64 downloadSpeed);
             void OnVCoreCrashed(const ConnectionId &id);
+            void OnLatencyDataArrived(const QvTCPingResultObject &data);
 
         protected:
             void timerEvent(QTimerEvent *event) override;
@@ -100,21 +104,24 @@ namespace Qv2ray::core::handlers
             const CONFIGROOT CHGetConnectionRoot_p(const ConnectionId &id) const;
             const CONFIGROOT CHGetConnectionRoot_p(const GroupId &group, const ConnectionId &id) const;
             bool CHSaveConnectionConfig_p(CONFIGROOT obj, const ConnectionId &id, bool override);
-            //
-            //
-            // We only support one cuncurrent connection currently.
-#ifdef QV2RAY_MULTIPlE_ONNECTION
-            QHash<ConnectionId, V2rayKernelInstance> kernelInstances;
-#else
-            ConnectionId currentConnectionId;
-            V2rayKernelInstance *vCoreInstance = nullptr;
-#endif
+
+        private:
             int saveTimerId;
-            int apiTimerId;
+            int pingAllTimerId;
+            int pingConnectionTimerId;
             QHash<GroupId, GroupMetaObject> groups;
             QHash<ConnectionId, ConnectionMetaObject> connections;
-            //
             QHash<ConnectionId, CONFIGROOT> connectionRootCache;
+
+        private:
+            QvTCPingHelper *tcpingHelper;
+            // We only support one cuncurrent connection currently.
+#ifdef QV2RAY_MULTIPlE_ONNECTION
+            QHash<ConnectionId, *V2rayKernelInstance> kernelInstances;
+#else
+            ConnectionId currentConnectionId = NullConnectionId;
+            V2rayKernelInstance *vCoreInstance = nullptr;
+#endif
     };
 
     inline ::Qv2ray::core::handlers::QvConnectionHandler *ConnectionManager = nullptr;

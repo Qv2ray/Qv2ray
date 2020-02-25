@@ -1,8 +1,7 @@
 #include "ConnectionInfoWidget.hpp"
 #include "core/CoreUtils.hpp"
 
-ConnectionInfoWidget::ConnectionInfoWidget(QWidget *parent) :
-    QWidget(parent), connectionId("null"), groupId("null")
+ConnectionInfoWidget::ConnectionInfoWidget(QWidget *parent): QWidget(parent)
 {
     setupUi(this);
     duplicateBtn->setIcon(QICON_R("duplicate.png"));
@@ -24,13 +23,13 @@ void ConnectionInfoWidget::ShowDetails(const tuple<GroupId, ConnectionId> &_iden
     groupId = get<0>(_identifier);
     connectionId = get<1>(_identifier);
 
-    if (connectionId.toString() != "null") {
+    if (connectionId != NullConnectionId) {
         //connNameLabel->setText(ConnectionManager->GetDisplayName(connectionId));
         groupLabel->setText(ConnectionManager->GetDisplayName(groupId, 175));
         protocolLabel->setText(ConnectionManager->GetConnectionProtocolString(connectionId));
-        auto x = ConnectionManager->GetConnectionInfo(connectionId);
-        addressLabel->setText(get<0>(x));
-        portLabel->setNum(get<1>(x));
+        auto [host, port] = ConnectionManager->GetConnectionInfo(connectionId);
+        addressLabel->setText(host);
+        portLabel->setNum(port);
         //
         editJsonBtn->setEnabled(true);
         connectBtn->setEnabled(true);
@@ -66,7 +65,21 @@ void ConnectionInfoWidget::on_connectBtn_clicked()
         ConnectionManager->StartConnection(connectionId);
     }
 }
-
+//// Share QR
+//if (!IsSelectionConnectable) {
+//    return;
+//}
+//
+//auto _identifier = ItemConnectionIdentifier(connectionListWidget->currentItem());
+//auto root = connections[_identifier].config;
+//auto type = get<2>(GetConnectionInfo(root));
+//
+//if (!IsComplexConfig(root) && (type == "vmess" || type == "shadowsocks")) {
+//    ConfigExporter v(root, _identifier, this);
+//    v.OpenExport();
+//} else {
+//    QvMessageBoxWarn(this, tr("Share Connection"), tr("There're no support of sharing configs other than vmess and shadowsocks"));
+//}
 void ConnectionInfoWidget::on_editBtn_clicked()
 {
 }
@@ -104,5 +117,42 @@ void ConnectionInfoWidget::OnDisConnected(const ConnectionId &id)
 {
     if (connectionId == id) {
         connectBtn->setIcon(QICON_R("connect.png"));
+    }
+}
+//MWTryPingConnection(CurrentConnectionIdentifier);
+void ConnectionInfoWidget::on_duplicateBtn_clicked()
+{
+    //QvMessageBoxInfo(this, "NOT SUPPORTED", "WIP");
+    //if (!IsSelectionConnectable) {
+    //    return;
+    //}
+    //
+    //auto selectedFirst = connectionListWidget->currentItem();
+    //auto _identifier = ItemConnectionIdentifier(selectedFirst);
+    //SUBSCRIPTION_CONFIG_MODIFY_ASK(selectedFirst)
+    //CONFIGROOT conf;
+    //// Alias may change.
+    //QString alias = _identifier.connectionName;
+    //bool isComplex = IsComplexConfig(connections[_identifier].config);
+    //
+    //if (connections[_identifier].configType == CONNECTION_REGULAR) {
+    //    conf = ConvertConfigFromFile(QV2RAY_CONFIG_DIR + _identifier.connectionName + QV2RAY_CONFIG_FILE_EXTENSION, isComplex);
+    //} else {
+    //    conf = ConvertConfigFromFile(QV2RAY_SUBSCRIPTION_DIR + _identifier.subscriptionName + "/" + _identifier.connectionName  + QV2RAY_CONFIG_FILE_EXTENSION, isComplex);
+    //    alias = _identifier.subscriptionName + "_" + _identifier.connectionName;
+    //}
+    //
+    //SaveConnectionConfig(conf, &alias, false);
+    //GlobalConfig.configs.push_back(alias);
+    //SaveGlobalConfig(GlobalConfig);
+    //this->OnConfigListChanged(false);}
+}
+
+void ConnectionInfoWidget::on_latencyBtn_clicked()
+{
+    if (connectionId != NullConnectionId) {
+        ConnectionManager->StartLatencyTest(connectionId);
+    } else {
+        ConnectionManager->StartLatencyTest(groupId);
     }
 }

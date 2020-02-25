@@ -29,17 +29,17 @@ namespace Qv2ray::core::kernel
         signals:
             void OnProcessErrored(const ConnectionId &id);
             void OnProcessOutputReadyRead(const ConnectionId &id, const QString &output);
-            void OnNewStatsDataArrived(const ConnectionId &id, const QString &tag, const quint64 _totalUp, const quint64 _totalDown);
+            void OnNewStatsDataArrived(const ConnectionId &id, const quint64 _totalUp, const quint64 _totalDown);
 
         public slots:
-            void onAPIDataReady(const QString &tag, const quint64 _totalUp, const quint64 _totalDown);
+            void onAPIDataReady(const quint64 _totalUp, const quint64 _totalDown);
 
         private:
             APIWorker *apiWorker;
             QProcess *vProcess;
             bool apiEnabled;
             //
-            ConnectionId id;
+            ConnectionId id = NullConnectionId;
     };
 }
 
