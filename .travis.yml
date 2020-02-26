@@ -1,6 +1,11 @@
 language: bash
 dist: bionic
 
+arch:
+  - amd64
+  - arm64
+os: linux
+
 git:
   depth: false
 
@@ -15,16 +20,18 @@ env:
 
 addons:
   snaps:
-   - name: snapcraft
-     channel: stable
-     confinement: classic
-   - name: lxd
-     channel: stable
+    - name: snapcraft
+      channel: stable
+      confinement: classic
+  apt:
+    update: true
+    sources:
+      - sourceline: 'ppa:ymshenyu/grpc-1'
+      - sourceline: 'deb http://archive.neon.kde.org/unstable bionic main'
+        key_url: 'http://archive.neon.kde.org/public.key'
 
 script:
-  - sudo apt autoremove lxd --purge
-  - sudo /snap/bin/lxd init --auto
-  - sudo snapcraft --use-lxd
+  - sudo snapcraft --destructive-mode
 
 after_failure:
   - sudo journalctl -u snapd
