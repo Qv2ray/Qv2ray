@@ -157,8 +157,7 @@ void RouteEditor::onNodeClicked(Node &n)
             alias = GetFirstNodeData(n, QvOutboundNodeModel, OutboundNodeData)->GetOutbound();
             QJsonObject _root = outbounds[alias].raw();
             throw new runtime_error("Not implemented");
-            //auto result = GetOutboundData(OUTBOUND(_root), &host, &port, &protocol);
-            //Q_UNUSED(result)
+            GetOutboundData(OUTBOUND(_root), &host, &port, &protocol);
         } else {
             alias = GetFirstNodeData(n, QvInboundNodeModel, InboundNodeData)->GetInbound();
             QJsonObject _root = inbounds[alias].raw();

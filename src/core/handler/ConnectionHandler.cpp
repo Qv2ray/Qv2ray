@@ -284,7 +284,6 @@ namespace Qv2ray::core::handlers
         path.prepend(groups[group].isSubscription ? QV2RAY_SUBSCRIPTION_DIR : QV2RAY_CONNECTIONS_DIR);
         return CONFIGROOT(JsonFromString(StringFromFile(path)));
     }
-    //
 
     const tuple<QString, int> QvConnectionHandler::GetConnectionInfo(const ConnectionId &id) const
     {
@@ -296,7 +295,7 @@ namespace Qv2ray::core::handlers
         for (auto item : root["outbounds"].toArray()) {
             OUTBOUND outBoundRoot = OUTBOUND(item.toObject());
             QString outboundType = "";
-            validOutboundFound = CHGetOutboundData_p(outBoundRoot, &host, &port);
+            validOutboundFound = GetOutboundData(outBoundRoot, &host, &port, &outboundType);
 
             if (validOutboundFound) {
                 return make_tuple(host, port);
@@ -308,34 +307,7 @@ namespace Qv2ray::core::handlers
         return make_tuple(QObject::tr("N/A"), 0);
     }
 
-    bool QvConnectionHandler::CHGetOutboundData_p(const OUTBOUND &out, QString *host, int *port) const
-    {
-        // Set initial values.
-        *host = QObject::tr("N/A");
-        *port = 0;
-        auto protocol = out["protocol"].toString(QObject::tr("N/A")).toLower();
 
-        if (protocol == "vmess") {
-            auto Server = StructFromJsonString<VMessServerObject>(JsonToString(out["settings"].toObject()["vnext"].toArray().first().toObject()));
-            *host = Server.address;
-            *port = Server.port;
-            return true;
-        } else if (protocol == "shadowsocks") {
-            auto x = JsonToString(out["settings"].toObject()["servers"].toArray().first().toObject());
-            auto Server = StructFromJsonString<ShadowSocksServerObject>(x);
-            *host = Server.address;
-            *port = Server.port;
-            return true;
-        } else if (protocol == "socks") {
-            auto x = JsonToString(out["settings"].toObject()["servers"].toArray().first().toObject());
-            auto Server = StructFromJsonString<SocksServerObject>(x);
-            *host = Server.address;
-            *port = Server.port;
-            return true;
-        } else {
-            return false;
-        }
-    }
 
     void QvConnectionHandler::OnLatencyDataArrived(const QvTCPingResultObject &result)
     {
@@ -345,5 +317,14 @@ namespace Qv2ray::core::handlers
         } else {
             LOG(MODULE_CORE_HANDLER, "Received a latecy result with non-exist connection id.")
         }
+    }
+
+    bool QvConnectionHandler::UpdateConnection(const ConnectionId &id, const CONFIGROOT &root)
+    {
+        auto groupId = connections[id].groupId;
+        auto path = (groups[groupId].isSubscription ? QV2RAY_SUBSCRIPTION_DIR : QV2RAY_CONNECTIONS_DIR)
+                    + groupId.toString() + "/" + id.toString() + QV2RAY_CONFIG_FILE_EXTENSION;
+        auto content = JsonToString(root);
+        return StringToFile(content, path);
     }
 }

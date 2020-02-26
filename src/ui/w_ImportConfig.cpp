@@ -232,7 +232,7 @@ void ImportConfigWindow::on_editFileBtn_clicked()
 
     if (editor.result() == QDialog::Accepted) {
         auto str = JsonToString(json);
-        bool result = StringToFile(&str, &file);
+        bool result = StringToFile(str, file);
 
         if (!result) {
             QvMessageBoxWarn(this, tr("Edit file as JSON"), tr("Failed to save file, please check if you have proper permissions"));

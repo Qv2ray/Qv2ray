@@ -74,12 +74,6 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent)//, vinstance(), hTr
 {
     setupUi(this);
     MainWindow::mwInstance = this;
-    connect(ConnectionManager, &QvConnectionHandler::OnCrashed, [&] {
-        this->show();
-        QvMessageBoxWarn(this, tr("V2ray vcore terminated."),
-                         tr("V2ray vcore terminated unexpectedly.") + NEWLINE + NEWLINE +
-                         tr("To solve the problem, read the V2ray log in the log text browser."));
-    });
     QvMessageBusConnect(MainWindow);
     //
     infoWidget = new ConnectionInfoWidget(this);
@@ -98,10 +92,19 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent)//, vinstance(), hTr
     updownImageBox_2->setStyleSheet("image: url(" + QV2RAY_UI_RESOURCES_ROOT + "netspeed_arrow.png)");
     //
     //
+    connect(ConnectionManager, &QvConnectionHandler::OnCrashed, [&] {
+        this->show();
+        QvMessageBoxWarn(this, tr("V2ray vcore terminated."),
+                         tr("V2ray vcore terminated unexpectedly.") + NEWLINE + NEWLINE +
+                         tr("To solve the problem, read the V2ray log in the log text browser."));
+    });
     connect(ConnectionManager, &QvConnectionHandler::OnConnected, this, &MainWindow::OnConnected);
     connect(ConnectionManager, &QvConnectionHandler::OnDisConnected, this, &MainWindow::OnDisConnected);
     connect(ConnectionManager, &QvConnectionHandler::OnStatsAvailable, this, &MainWindow::onConnectionStatsArrived);
     connect(ConnectionManager, &QvConnectionHandler::OnVCoreLogAvailable, this, &MainWindow::onVCoreLogArrived);
+    //
+    connect(infoWidget, &ConnectionInfoWidget::OnEditRequested, this, &MainWindow::OnEditRequested);
+    connect(infoWidget, &ConnectionInfoWidget::OnJsonEditRequested, this, &MainWindow::OnJsonEditRequested);
     //
     // Setup System tray icons and menus
     hTray.setToolTip(TRAY_TOOLTIP_PREFIX);
@@ -201,10 +204,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent)//, vinstance(), hTr
 
     if (!GlobalConfig.autoStartId.isEmpty()) {
         auto id = ConnectionId(GlobalConfig.autoStartId);
-        ConnectionManager->StartConnection(id);
-        needShowWindow = !ConnectionManager->IsConnected(id);
-    } else {
-        needShowWindow = true;
+        needShowWindow = ConnectionManager->StartConnection(id).has_value();
     }
 
     if (needShowWindow) {
@@ -212,6 +212,9 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent)//, vinstance(), hTr
     }
 
     //// If we are not connected to anything, show the MainWindow.
+    if (needShowWindow) {
+    }
+
 #ifndef DISABLE_AUTO_UPDATE
     requestHelper = new QvHttpRequestHelper();
     connect(requestHelper, &QvHttpRequestHelper::httpRequestFinished, this, &MainWindow::VersionUpdate);
@@ -297,24 +300,6 @@ MainWindow::~MainWindow()
 {
     hTray.hide();
 }
-
-//void MainWindow::on_stopButton_clicked()
-//{
-//    //hTray.setToolTip(TRAY_TOOLTIP_PREFIX);
-//    //statusLabel->setText(tr("Disconnected"));
-//    action_Tray_Start->setEnabled(true);
-//    action_Tray_Stop->setEnabled(false);
-//    action_Tray_Reconnect->setEnabled(false);
-//    // Set to false as the system proxy has been cleared in the StopConnection function.
-//    tray_SystemProxyMenu->setEnabled(false);
-//    //startButton->setEnabled(true);
-//    //stopButton->setEnabled(false);
-//    ////
-//    //netspeedLabel->setText("0.00 B/s\r\n0.00 B/s");
-//    //dataamountLabel->setText("0.00 B\r\n0.00 B");
-//    //LOG(UI, "Stopped successfully.")
-//    //this->hTray.showMessage("Qv2ray", tr("Disconnected from: ") + CurrentConnectionIdentifier.IdentifierString());
-//}
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
@@ -579,50 +564,6 @@ void MainWindow::on_importConfigButton_clicked()
 }
 void MainWindow::on_editConfigButton_clicked()
 {
-    //// Check if we have a connection selected...
-    //if (!IsSelectionConnectable) {
-    //    QvMessageBoxWarn(this, tr("No Config Selected"), tr("Please Select a Config"));
-    //    return;
-    //}
-    //
-    //auto firstSelected = connectionListWidget->selectedItems().first();
-    //auto _identifier = ItemConnectionIdentifier(firstSelected);
-    //SUBSCRIPTION_CONFIG_MODIFY_ASK(firstSelected)
-    ////
-    //auto outBoundRoot = connections[_identifier].config;
-    //CONFIGROOT root;
-    //bool isChanged = false;
-    //
-    //if (IsComplexConfig(outBoundRoot)) {
-    //    LOG(UI, "INFO: Opening route editor.")
-    //    RouteEditor routeWindow(outBoundRoot, this);
-    //    root = routeWindow.OpenEditor();
-    //    isChanged = routeWindow.result() == QDialog::Accepted;
-    //} else {
-    //    LOG(UI, "INFO: Opening single connection edit window.")
-    //    OutboundEditor w(OUTBOUND(outBoundRoot["outbounds"].toArray().first().toObject()), this);
-    //    auto outboundEntry = w.OpenEditor();
-    //    isChanged = w.result() == QDialog::Accepted;
-    //    QJsonArray outboundsList;
-    //    outboundsList.push_back(outboundEntry);
-    //    root.insert("outbounds", outboundsList);
-    //}
-    //
-    //QString alias = _identifier.connectionName;
-    //
-    //if (isChanged) {
-    //    if (CheckConfigType(firstSelected, SUBSCRIPTION)) {
-    //        auto name = connections[_identifier].connectionName;
-    //        // Assume name will not change.
-    //        SaveSubscriptionConfig(root, connections[_identifier].subscriptionName, &name);
-    //    } else {
-    //        connections[_identifier].config = root;
-    //        // true indicates the alias will NOT change
-    //        SaveConnectionConfig(root, &alias, true);
-    //    }
-    //
-    //    OnConfigListChanged(alias == CurrentConnectionIdentifier.connectionName);
-    //}
 }
 
 void MainWindow::on_action_RCM_ConvToComplex_triggered()
@@ -658,26 +599,6 @@ void MainWindow::on_action_RCM_ConvToComplex_triggered()
 
 void MainWindow::on_action_RCM_EditJson_triggered()
 {
-    //// Check if we have a connection selected...
-    //if (!IsSelectionConnectable) {
-    //    QvMessageBoxWarn(this, tr("No Config Selected"), tr("Please Select a Config"));
-    //    return;
-    //}
-    //
-    //auto selectedFirst = connectionListWidget->currentItem();
-    //auto _identifier = ItemConnectionIdentifier(selectedFirst);
-    //SUBSCRIPTION_CONFIG_MODIFY_DENY(selectedFirst)
-    //JsonEditor w(connections[_identifier].config, this);
-    //auto root = CONFIGROOT(w.OpenEditor());
-    //bool isChanged = w.result() == QDialog::Accepted;
-    //QString alias = _identifier.connectionName;
-    //
-    //if (isChanged) {
-    //    connections[_identifier].config = root;
-    //    // Alias here will not change.
-    //    SaveConnectionConfig(root, &alias, true);
-    //    ShowAndSetConnection(CurrentConnectionIdentifier, false, false);
-    //}
 }
 
 void MainWindow::on_action_RCM_ShareQR_triggered()
@@ -870,4 +791,51 @@ void MainWindow::onVCoreLogArrived(const ConnectionId &id, const QString &log)
 
     if (val >= max * 0.8 || val >= max - 20)
         bar->setValue(max);
+}
+
+
+void MainWindow::OnEditRequested(const ConnectionId &id)
+{
+    auto outBoundRoot = ConnectionManager->GetConnectionRoot(id);
+    CONFIGROOT root;
+    bool isChanged = false;
+
+    if (IsComplexConfig(outBoundRoot)) {
+        LOG(MODULE_UI, "INFO: Opening route editor.")
+        RouteEditor routeWindow(outBoundRoot, this);
+        root = routeWindow.OpenEditor();
+        isChanged = routeWindow.result() == QDialog::Accepted;
+    } else {
+        LOG(MODULE_UI, "INFO: Opening single connection edit window.")
+        auto out = OUTBOUND(outBoundRoot["outbounds"].toArray().first().toObject());
+        OutboundEditor w(out, this);
+        auto outboundEntry = w.OpenEditor();
+        isChanged = w.result() == QDialog::Accepted;
+        QJsonArray outboundsList;
+        outboundsList.push_back(outboundEntry);
+        root.insert("outbounds", outboundsList);
+    }
+
+    if (isChanged) {
+        //if (CheckConfigType(firstSelected, SUBSCRIPTION)) {
+        //    auto name = connections[_identifier].connectionName;
+        //    // Assume name will not change.
+        //    SaveSubscriptionConfig(root, connections[_identifier].subscriptionName, &name);
+        //} else {
+        //    connections[_identifier].config = root;
+        //    // true indicates the alias will NOT change
+        //    SaveConnectionConfig(root, &alias, true);
+        //}
+        ConnectionManager->UpdateConnection(id, root);
+        //OnConfigListChanged(alias == CurrentConnectionIdentifier.connectionName);
+    }
+}
+void MainWindow::OnJsonEditRequested(const ConnectionId &id)
+{
+    JsonEditor w(ConnectionManager->GetConnectionRoot(id), this);
+    auto root = CONFIGROOT(w.OpenEditor());
+
+    if (w.result() == QDialog::Accepted) {
+        ConnectionManager->UpdateConnection(id, root);
+    }
 }

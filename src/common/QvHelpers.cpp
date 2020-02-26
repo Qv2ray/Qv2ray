@@ -31,15 +31,19 @@ namespace Qv2ray::common
         source->close();
         return str;
     }
-
-    bool StringToFile(const QString *text, QFile *targetFile)
+    bool StringToFile(const QString &text, const QString &targetpath)
     {
-        bool override = targetFile->exists();
-        targetFile->open(QFile::WriteOnly);
-        QTextStream stream(targetFile);
-        stream << *text << endl;
+        auto file = QFile(targetpath);
+        return StringToFile(text, file);
+    }
+    bool StringToFile(const QString &text, QFile &targetFile)
+    {
+        bool override = targetFile.exists();
+        targetFile.open(QFile::WriteOnly);
+        QTextStream stream(&targetFile);
+        stream << text << endl;
         stream.flush();
-        targetFile->close();
+        targetFile.close();
         return override;
     }
 

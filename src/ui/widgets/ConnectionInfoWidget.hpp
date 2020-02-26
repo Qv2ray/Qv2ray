@@ -13,6 +13,10 @@ class ConnectionInfoWidget : public QWidget, private Ui::ConnectionInfoWidget
         void ShowDetails(const tuple<GroupId, ConnectionId> &_identifier);
         ~ConnectionInfoWidget();
 
+    signals:
+        void OnEditRequested(const ConnectionId &id);
+        void OnJsonEditRequested(const ConnectionId &id);
+
     private slots:
         void on_connectBtn_clicked();
         void on_editBtn_clicked();
@@ -25,9 +29,7 @@ class ConnectionInfoWidget : public QWidget, private Ui::ConnectionInfoWidget
     private slots:
         void OnConnected(const ConnectionId &id);
         void OnDisConnected(const ConnectionId &id);
-
         void on_duplicateBtn_clicked();
-
         void on_latencyBtn_clicked();
 
     private:

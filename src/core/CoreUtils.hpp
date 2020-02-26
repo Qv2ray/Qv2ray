@@ -24,7 +24,8 @@ namespace Qv2ray::core
         return in.QV2RAY_RULE_TAG;
     }
 
-    bool IsComplexConfig(CONFIGROOT root);
+    bool GetOutboundData(const OUTBOUND &out, QString *host, int *port, QString *protocol);
+    bool IsComplexConfig(const CONFIGROOT &root);
 }
 
 using namespace Qv2ray::core;

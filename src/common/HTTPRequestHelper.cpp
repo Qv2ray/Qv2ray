@@ -46,6 +46,7 @@ namespace Qv2ray::common
         }
 
         request.setAttribute(QNetworkRequest::RedirectPolicyAttribute, QNetworkRequest::NoLessSafeRedirectPolicy);
+        request.setAttribute(QNetworkRequest::HTTP2AllowedAttribute, true);
         request.setHeader(QNetworkRequest::KnownHeaders::UserAgentHeader, "Mozilla/5.0 (rv:71.0) Gecko/20100101 Firefox/71.0");
         reply = accessManager.get(request);
         connect(reply, &QNetworkReply::finished, this, &QvHttpRequestHelper::onRequestFinished_p);
@@ -105,6 +106,10 @@ namespace Qv2ray::common
 
     void QvHttpRequestHelper::onRequestFinished_p()
     {
+        if (reply->attribute(QNetworkRequest::HTTP2WasUsedAttribute).toBool()) {
+            DEBUG(MODULE_NETWORK, "HTTP/2 was used.")
+        }
+
         if (reply->error() != QNetworkReply::NoError) {
             QString error = QMetaEnum::fromType<QNetworkReply::NetworkError>().key(reply->error());
             LOG(MODULE_NETWORK, "Network request error string: " + error)

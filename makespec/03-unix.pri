@@ -15,8 +15,10 @@ INCLUDEPATH += /usr/local/include/
 message("  --> Linking against protobuf library.")
 LIBS += -L/usr/local/lib -lprotobuf
 
-message("  --> Generating geosite headers for Unix")
-system("$$PWD/../tools/unix-generate-geosite.sh $$PWD")
+!no_generate_headers {
+    message("  --> Generating geosite headers for Unix")
+    system("$$PWD/../tools/unix-generate-geosite.sh $$PWD")
+}
 
 use_grpc {
     no_generate_headers {

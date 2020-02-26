@@ -60,6 +60,8 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         //
         void OnConnected(const ConnectionId &id);
         void OnDisConnected(const ConnectionId &id);
+        void OnEditRequested(const ConnectionId &id);
+        void OnJsonEditRequested(const ConnectionId &id);
 
         void onConnectionWidgetFocusRequested(const ConnectionItemWidget *widget);
         //void onConnectionConnected(const ConnectionId &id);

@@ -892,8 +892,7 @@ void PreferencesWindow::on_pacGoBtn_clicked()
         QDir(QV2RAY_RULES_DIR).mkpath(QV2RAY_RULES_DIR);
     }
 
-    QFile privateGFWListFile(QV2RAY_RULES_GFWLIST_PATH);
-    StringToFile(&fileContent, &privateGFWListFile);
+    StringToFile(fileContent, QV2RAY_RULES_GFWLIST_PATH);
 }
 
 void PreferencesWindow::on_pacPortSB_valueChanged(int arg1)

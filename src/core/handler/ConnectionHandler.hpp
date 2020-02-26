@@ -5,6 +5,7 @@
 #include "core/tcping/QvTCPing.hpp"
 #include "core/CoreSafeTypes.hpp"
 #include "core/connection/ConnectionIO.hpp"
+#include "core/CoreUtils.hpp"
 
 namespace Qv2ray::core::handlers
 {
@@ -37,7 +38,7 @@ namespace Qv2ray::core::handlers
             double GetConnectionLatency(const ConnectionId &id) const;
             const ConnectionId &CreateConnection(const QString &displayName, const GroupId &groupId, const CONFIGROOT &root);
             const optional<QString> DeleteConnection(const ConnectionId &id);
-            const optional<QString> UpdateConnection(const ConnectionId &id, const CONFIGROOT &root);
+            bool UpdateConnection(const ConnectionId &id, const CONFIGROOT &root);
             const optional<QString> RenameConnection(const ConnectionId &id, const QString &newName);
             const ConnectionId DuplicateConnection(const ConnectionId &id);
             const optional<QString> MoveConnectionGroup(const ConnectionId &id, const GroupId &newGroupId);
@@ -101,7 +102,6 @@ namespace Qv2ray::core::handlers
         private:
             void CHSaveConnectionData_p();
             //
-            bool CHGetOutboundData_p(const OUTBOUND &out, QString *host, int *port) const;
             optional<QString> CHStartConnection_p(const ConnectionId &id, const CONFIGROOT &root);
             void CHStopConnection_p();
             bool CHSaveConnectionConfig_p(CONFIGROOT obj, const ConnectionId &id, bool override);
@@ -112,7 +112,7 @@ namespace Qv2ray::core::handlers
             int pingConnectionTimerId;
             QHash<GroupId, GroupMetaObject> groups;
             QHash<ConnectionId, ConnectionMetaObject> connections;
-            QHash<ConnectionId, CONFIGROOT> connectionRootCache;
+            //QHash<ConnectionId, CONFIGROOT> connectionRootCache;
 
         private:
             QvTCPingHelper *tcpingHelper;

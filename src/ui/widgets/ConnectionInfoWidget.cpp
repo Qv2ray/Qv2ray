@@ -24,18 +24,18 @@ void ConnectionInfoWidget::ShowDetails(const tuple<GroupId, ConnectionId> &_iden
 {
     groupId = get<0>(_identifier);
     connectionId = get<1>(_identifier);
+    bool isConnection = connectionId != NullConnectionId;
+    editJsonBtn->setEnabled(isConnection);
+    connectBtn->setEnabled(isConnection);
+    duplicateBtn->setEnabled(isConnection);
+    editBtn->setEnabled(isConnection);
 
-    if (connectionId != NullConnectionId) {
-        //connNameLabel->setText(ConnectionManager->GetDisplayName(connectionId));
+    if (isConnection) {
         groupLabel->setText(ConnectionManager->GetDisplayName(groupId, 175));
         protocolLabel->setText(ConnectionManager->GetConnectionProtocolString(connectionId));
         auto [host, port] = ConnectionManager->GetConnectionInfo(connectionId);
         addressLabel->setText(host);
         portLabel->setNum(port);
-        //
-        editJsonBtn->setEnabled(true);
-        connectBtn->setEnabled(true);
-        duplicateBtn->setEnabled(true);
         //
         auto shareLink = ConvertConfigToString(connectionId);
         shareLinkTxt->setText(shareLink);
@@ -55,10 +55,6 @@ void ConnectionInfoWidget::ShowDetails(const tuple<GroupId, ConnectionId> &_iden
         addressLabel->setText(tr("N/A"));
         portLabel->setText(tr("N/A"));
         //
-        editJsonBtn->setEnabled(false);
-        connectBtn->setEnabled(false);
-        duplicateBtn->setEnabled(false);
-        //
         shareLinkTxt->clear();
         qrLabel->clear();
     }
@@ -76,27 +72,15 @@ void ConnectionInfoWidget::on_connectBtn_clicked()
         ConnectionManager->StartConnection(connectionId);
     }
 }
-//// Share QR
-//if (!IsSelectionConnectable) {
-//    return;
-//}
-//
-//auto _identifier = ItemConnectionIdentifier(connectionListWidget->currentItem());
-//auto root = connections[_identifier].config;
-//auto type = get<2>(GetConnectionInfo(root));
-//
-//if (!IsComplexConfig(root) && (type == "vmess" || type == "shadowsocks")) {
-//    ConfigExporter v(root, _identifier, this);
-//    v.OpenExport();
-//} else {
-//    QvMessageBoxWarn(this, tr("Share Connection"), tr("There're no support of sharing configs other than vmess and shadowsocks"));
-//}
+
 void ConnectionInfoWidget::on_editBtn_clicked()
 {
+    emit OnEditRequested(connectionId);
 }
 
 void ConnectionInfoWidget::on_editJsonBtn_clicked()
 {
+    emit OnJsonEditRequested(connectionId);
 }
 
 void ConnectionInfoWidget::on_deleteBtn_clicked()

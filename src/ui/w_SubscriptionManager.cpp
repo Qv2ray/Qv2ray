@@ -120,7 +120,7 @@ void SubscribeEditor::on_updateButton_clicked()
         subscriptions[currentSubName].address = newAddress;
     }
 
-    SaveConfig();
+    //SaveConfig();
 
     if (QvMessageBoxAsk(this, tr("Update Subscription"), tr("Would you like to reload this subscription from the Url?")) == QMessageBox::Yes) {
         StartUpdateSubscription(currentSubName);
@@ -129,10 +129,9 @@ void SubscribeEditor::on_updateButton_clicked()
 
 void SubscribeEditor::StartUpdateSubscription(const QString &subscriptionName)
 {
-    //this->setEnabled(false);
-    //auto data = helper.syncget(subscriptions[subscriptionName].address, withProxyCB->isChecked());
-    //auto content = DecodeSubscriptionString(data).trimmed();
-    //
+    this->setEnabled(false);
+    auto data = helper.syncget(subscriptions[subscriptionName].address, withProxyCB->isChecked());
+    auto content = DecodeSubscriptionString(data).trimmed();
     //if (!content.isEmpty()) {
     //    connectionsList->clear();
     //    auto vmessList = SplitLines(content);
@@ -160,7 +159,7 @@ void SubscribeEditor::StartUpdateSubscription(const QString &subscriptionName)
     //    QvMessageBoxWarn(this, tr("Updating subscriptions"), tr("Failed to process the result from the upstream, please check your Url."));
     //}
     //
-    //this->setEnabled(true);
+    this->setEnabled(true);
 }
 
 void SubscribeEditor::on_removeSubsButton_clicked()
@@ -213,16 +212,16 @@ void SubscribeEditor::on_subscriptionList_currentRowChanged(int currentRow)
 
 void SubscribeEditor::SaveConfig()
 {
-    QMap<QString, SubscriptionObject_Config> newConf;
-
-    for (auto _ : subscriptions.toStdMap()) {
-        if (!_.second.address.isEmpty()) {
-            newConf[_.first] = _.second;
-        }
-    }
-
-    GlobalConfig.subscriptions = newConf;
-    SaveGlobalConfig(GlobalConfig);
+    //QMap<QString, SubscriptionObject_Config> newConf;
+    //
+    //for (auto _ : subscriptions.toStdMap()) {
+    //    if (!_.second.address.isEmpty()) {
+    //        newConf[_.first] = _.second;
+    //    }
+    //}
+    //
+    //GlobalConfig.subscriptions = newConf;
+    //SaveGlobalConfig(GlobalConfig);
 }
 
 void SubscribeEditor::on_buttonBox_accepted()
