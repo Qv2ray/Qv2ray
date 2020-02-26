@@ -325,6 +325,18 @@ namespace Qv2ray::core::handlers
         auto path = (groups[groupId].isSubscription ? QV2RAY_SUBSCRIPTION_DIR : QV2RAY_CONNECTIONS_DIR)
                     + groupId.toString() + "/" + id.toString() + QV2RAY_CONFIG_FILE_EXTENSION;
         auto content = JsonToString(root);
+        emit OnConnectionChanged(id);
         return StringToFile(content, path);
+    }
+
+    const tuple<QString, int64_t, float> QvConnectionHandler::GetSubscriptionData(const GroupId &id)
+    {
+        tuple<QString, int64_t, float> result;
+
+        if (!groups[id].isSubscription) {
+            return result;
+        }
+
+        return make_tuple(groups[id].address, groups[id].lastUpdated, groups[id].updateInterval);
     }
 }

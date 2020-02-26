@@ -6,6 +6,7 @@
 #include "core/CoreSafeTypes.hpp"
 #include "core/connection/ConnectionIO.hpp"
 #include "core/CoreUtils.hpp"
+#include "common/HTTPRequestHelper.hpp"
 
 namespace Qv2ray::core::handlers
 {
@@ -63,8 +64,9 @@ namespace Qv2ray::core::handlers
             const optional<QString> RenameGroup(const GroupId &id, const QString &newName);
             //
             // Subscriptions
-            const optional<QString> UpdateSubscription(const GroupId &id);
-            const optional<QString> UpdateSubscriptionASync(const GroupId &id);
+            const optional<QString> UpdateSubscription(const GroupId &id, bool useSystemProxy);
+            const optional<QString> UpdateSubscriptionASync(const GroupId &id, bool useSystemProxy);
+            const tuple<QString, int64_t, float> GetSubscriptionData(const GroupId &id);
 
         signals:
             void OnCrashed();
@@ -87,8 +89,8 @@ namespace Qv2ray::core::handlers
             void OnGroupRenamed(const GroupId &id, const QString &oldName, const QString &newName);
             void OnGroupDeleted(const GroupId &id, const QString &displayName);
             //
-            void OnSubscriptionCreated(const GroupId &id, const QString &displayName, const QString &address);
-            void OnSubscriptionDeleted(const GroupId &id, const QString &oldName, const QString &newName);
+            //void OnSubscriptionCreated(const GroupId &id, const QString &displayName, const QString &address);
+            //void OnSubscriptionDeleted(const GroupId &id, const QString &oldName, const QString &newName);
             void OnSubscriptionUpdateFinished(const GroupId &id);
 
         private slots:
@@ -115,6 +117,7 @@ namespace Qv2ray::core::handlers
             //QHash<ConnectionId, CONFIGROOT> connectionRootCache;
 
         private:
+            QvHttpRequestHelper *httpHelper;
             QvTCPingHelper *tcpingHelper;
             // We only support one cuncurrent connection currently.
 #ifdef QV2RAY_MULTIPlE_ONNECTION
