@@ -3,6 +3,14 @@ message("Configuring for Windows environment")
 QMAKE_CXXFLAGS += /MP /wo4251
 DEFINES += QHTTPSERVER_EXPORT
 
+!has_std_byte {
+    message("WARN: c++17 std::byte is disabled")
+    DEFINES += _HAS_STD_BYTE=0
+} else {
+    message("WARN: You are playing with a conflict between c++17 std::byte and Windows.h typedef byte")
+    message("  --> Be careful and good luck")
+}
+
 CONFIG += Qv2ray_Windows use_grpc
 !contains(QMAKE_TARGET.arch, x86_64) {
     CONFIG+=Qv2ray_win32
