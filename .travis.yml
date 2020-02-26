@@ -31,7 +31,7 @@ addons:
         key_url: 'http://archive.neon.kde.org/public.key'
 
 script:
-  - sudo snapcraft --destructive-mode
+  - snapcraft --destructive-mode
 
 after_failure:
   - sudo journalctl -u snapd
