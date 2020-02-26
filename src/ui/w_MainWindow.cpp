@@ -842,7 +842,7 @@ void MainWindow::onConnectionStatsArrived(const ConnectionId &id, const quint64 
     netspeedLabel->setText(totalSpeedUp + NEWLINE + totalSpeedDown);
     dataamountLabel->setText(totalDataUp + NEWLINE + totalDataDown);
     //
-    hTray.setToolTip(TRAY_TOOLTIP_PREFIX NEWLINE + tr("Connected: ") + id.toString() + NEWLINE "Up: " + totalSpeedUp + " Down: " + totalSpeedDown);
+    hTray.setToolTip(TRAY_TOOLTIP_PREFIX NEWLINE + tr("Connected: ") + ConnectionManager->GetDisplayName(id) + NEWLINE "Up: " + totalSpeedUp + " Down: " + totalSpeedDown);
 }
 
 void MainWindow::onVCoreLogArrived(const ConnectionId &id, const QString &log)

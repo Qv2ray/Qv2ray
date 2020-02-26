@@ -141,7 +141,6 @@ namespace Qv2ray::core::tcping
 #else
         int fd;
 #endif
-        int connect_result;
         const int on = 1;
         /* int flags; */
         int rv = 0;
@@ -169,12 +168,11 @@ namespace Qv2ray::core::tcping
             }
 
             *start = system_clock::now();
+
             /* connect to peer */
             // Qt has its own connect() function in QObject....
             // So we add "::" here
-            connect_result = ::connect(fd, addr->ai_addr, addr->ai_addrlen);
-
-            if (connect_result == 0) {
+            if (::connect(fd, addr->ai_addr, addr->ai_addrlen) == 0) {
                 *end = system_clock::now();
 #ifdef _WIN32
                 closesocket(fd);
