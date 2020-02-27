@@ -119,8 +119,6 @@ parts:
   
   mytools:
     plugin: nil
-    build-packages:
-      - dirmngr
     override-build: |
       echo 'deb http://archive.neon.kde.org/unstable bionic main' > /etc/apt/sources.list.d/neon.list
       echo 'deb http://ppa.launchpad.net/ymshenyu/grpc-1/ubuntu bionic main' >> /etc/apt/sources.list.d/tools.list
