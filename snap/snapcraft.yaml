@@ -74,7 +74,9 @@ parts:
   grpc:
     plugin: nil
     override-build: |
-      sudo add-apt-repository -y ppa:ymshenyu/qv2ray-deps
+      echo 'deb http://ppa.launchpad.net/ymshenyu/qv2ray-deps/ubuntu bionic main' > /etc/apt/sources.list.d/grpc.list
+      sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 281F24E574404629AA3BDA1A4F10C386C55CDB04
+      sudo apt update
       sudo apt dist-upgrade -y
       snapcraftctl build
 
