@@ -1,10 +1,6 @@
-language: bash
-dist: bionic
-
-arch:
-  - amd64
-  - arm64
+language: shell
 os: linux
+dist: bionic
 
 git:
   depth: false
@@ -23,15 +19,12 @@ addons:
     - name: snapcraft
       channel: stable
       confinement: classic
-  apt:
-    update: true
-    sources:
-      - sourceline: 'ppa:ymshenyu/grpc-1'
-      - sourceline: 'deb http://archive.neon.kde.org/unstable bionic main'
-        key_url: 'http://archive.neon.kde.org/public.key'
+    - name: multipass
+      channel: stable
+      confinement: classic
 
 script:
-  - snapcraft --destructive-mode
+  - sudo snapcraft
 
 after_failure:
   - sudo journalctl -u snapd
