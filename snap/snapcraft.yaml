@@ -67,12 +67,16 @@ parts:
       version=$tag.$build_number
       snapcraftctl set-version "$version"
       sed -i 's|^Icon=.*|Icon=/usr/share/icons/hicolor/256x256/apps/qv2ray.png|g' assets/qv2ray.desktop
+    after:
+      - kde-frameworks-5-env
+      - grpc
+
+  grpc:
+    plugin: nil
     override-build: |
       sudo add-apt-repository -y ppa:ymshenyu/qv2ray-deps
       sudo apt dist-upgrade -y
       snapcraftctl build
-    after:
-      - kde-frameworks-5-env
 
   kde-frameworks-5-env:
       plugin: dump
