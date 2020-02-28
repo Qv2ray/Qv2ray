@@ -102,7 +102,7 @@ class QmakePlugin(snapcraft.BasePlugin):
 
         self.build_packages.append("make")
         if self.options.qt_version == "qt5":
-            pass
+            self.build_packages.extend(["qt5-qmake", "qtbase5-dev"])
         elif self.options.qt_version == "qt4":
             self.build_packages.extend(["qt4-qmake", "libqt4-dev"])
         else:
