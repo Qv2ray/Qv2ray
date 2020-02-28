@@ -46,7 +46,7 @@ apps:
 
 parts:
   qv2ray:
-    plugin: qmake
+    plugin: x-qmake
     source-type: git
     source: .
     parse-info: [usr/share/metainfo/qv2ray.metainfo.xml]
