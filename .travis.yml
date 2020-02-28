@@ -8,7 +8,6 @@ git:
 branches:
   only:
     - dev
-    - dev-shared-qt
 
 env:
   global:
