@@ -6,28 +6,27 @@
 #define QvMessageBusSlotSig const QvMBMessage &msg
 #define QvMessageBusSlotIdentifier on_QvMessageReceived
 
-#define QvMessageBusSlotDecl void QvMessageBusSlotIdentifier(QvMessageBusSlotSig);
+#define QvMessageBusSlotDecl void QvMessageBusSlotIdentifier(QvMessageBusSlotSig)
 #define QvMessageBusSlotImpl(CLASSNAME) void CLASSNAME::QvMessageBusSlotIdentifier(QvMessageBusSlotSig)
 
-#define MBShowDefaultImpl \
-    case SHOW_WINDOWS:\
-    this->setWindowOpacity(1);\
-    break;
+#define MBShowDefaultImpl                                                                                                                       \
+    case SHOW_WINDOWS:                                                                                                                          \
+        this->setWindowOpacity(1);                                                                                                              \
+        break;
 
-#define MBHideDefaultImpl \
-    case HIDE_WINDOWS:\
-    this->setWindowOpacity(0);\
-    break;
+#define MBHideDefaultImpl                                                                                                                       \
+    case HIDE_WINDOWS:                                                                                                                          \
+        this->setWindowOpacity(0);                                                                                                              \
+        break;
 
-#define MBRetranslateDefaultImpl \
-    case RETRANSLATE:\
-    this->retranslateUi(this);\
-    break;
+#define MBRetranslateDefaultImpl                                                                                                                \
+    case RETRANSLATE: this->retranslateUi(this); break;
 
 namespace Qv2ray::ui::messaging
 {
     Q_NAMESPACE
-    enum QvMBMessage {
+    enum QvMBMessage
+    {
         /// Show all windows.
         SHOW_WINDOWS,
         /// Hide all windows.
@@ -43,20 +42,20 @@ namespace Qv2ray::ui::messaging
     //
     class QvMessageBusObject : public QObject
     {
-            Q_OBJECT
-        public:
-            explicit QvMessageBusObject();
+        Q_OBJECT
+      public:
+        explicit QvMessageBusObject();
 
-            //
-            void EmitGlobalSignal(const QvMBMessage &msg);
-        signals:
-            void QvSendMessage(const QvMBMessage &msg);
-            //private slots:
-            //    void on_QvMessageReceived(QvMessage msg);
+        //
+        void EmitGlobalSignal(const QvMBMessage &msg);
+      signals:
+        void QvSendMessage(const QvMBMessage &msg);
+        // private slots:
+        //    void on_QvMessageReceived(QvMessage msg);
     };
 
     // Danger, new is used here. Possible memory leak (hope not so much leak)
     inline QvMessageBusObject messageBus = QvMessageBusObject();
-}
+} // namespace Qv2ray::ui::messaging
 
 using namespace Qv2ray::ui::messaging;

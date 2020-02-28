@@ -13,11 +13,14 @@ namespace Qv2ray
     // Private member
     QJsonObject UpgradeConfig_Inc(int fromVersion, QJsonObject root)
     {
-        switch (fromVersion) {
+        switch (fromVersion)
+        {
             // --------------------------------------------------------------------------------------
             // Below is for Qv2ray version 2
-            case 4: {
-                // We changed the "proxyCN" to "bypassCN" as it's easier to understand....
+            case 4:
+            {
+                // We changed the "proxyCN" to "bypassCN" as it's easier to
+                // understand....
                 auto v2_oldProxyCN = root["proxyCN"].toBool();
                 //
                 // From 3 to 4, we changed 'runAsRoot' to 'tProxySupport'
@@ -38,7 +41,7 @@ namespace Qv2ray
                 root.remove("inBoundSettings");
                 UPGRADELOG("Renamed inBoundSettings to inboundConfig.")
                 //
-                //connectionConfig
+                // connectionConfig
                 QJsonObject o;
                 o["dnsList"] = root["dnsList"];
                 o["withLocalDNS"] = root["withLocalDNS"];
@@ -66,13 +69,15 @@ namespace Qv2ray
             }
 
             // Qv2ray version 2, RC 2
-            case 5: {
+            case 5:
+            {
                 // Added subscription auto update
                 auto subs = root["subscribes"].toObject();
                 root.remove("subscribes");
                 QJsonObject newSubscriptions;
 
-                for (auto item = subs.begin(); item != subs.end(); item++) {
+                for (auto item = subs.begin(); item != subs.end(); item++)
+                {
                     auto key = item.key();
                     SubscriptionObject_Config _conf;
                     _conf.address = item.value().toString();
@@ -88,7 +93,8 @@ namespace Qv2ray
             }
 
             // Qv2ray version 2, RC 4
-            case 6: {
+            case 6:
+            {
                 // Moved API Stats port from connectionConfig to apiConfig
                 QJsonObject apiConfig;
                 apiConfig["enableAPI"] = true;
@@ -97,7 +103,8 @@ namespace Qv2ray
                 break;
             }
 
-            case 7: {
+            case 7:
+            {
                 auto lang = root["uiConfig"].toObject()["language"].toString().replace("-", "_");
                 auto uiConfig = root["uiConfig"].toObject();
                 uiConfig["language"] = lang;
@@ -106,23 +113,24 @@ namespace Qv2ray
                 break;
             }
 
-            // From version 8 to 9, we introduced a lot of new connection metainfo(s)
-            case 8: {
+            // From version 8 to 9, we introduced a lot of new connection
+            // metainfo(s)
+            case 8:
+            {
                 // Generate a default group
                 QJsonObject defaultGroup;
                 QStringList defaultGroupConnectionId;
                 defaultGroup["displayName"] = QObject::tr("Default Group");
                 QString defaultGroupId = "000000000000";
 
-                if (!QDir(QV2RAY_CONNECTIONS_DIR + defaultGroupId).exists()) {
-                    QDir().mkpath(QV2RAY_CONNECTIONS_DIR + defaultGroupId);
-                }
+                if (!QDir(QV2RAY_CONNECTIONS_DIR + defaultGroupId).exists()) { QDir().mkpath(QV2RAY_CONNECTIONS_DIR + defaultGroupId); }
 
                 QString autoStartId;
                 UPGRADELOG("Upgrading connections...")
                 QJsonObject rootConnections;
 
-                for (auto config : root["configs"].toArray()) {
+                for (auto config : root["configs"].toArray())
+                {
                     UPGRADELOG("Migrating: " + config.toString())
                     //
                     // MOVE FILES.
@@ -133,17 +141,19 @@ namespace Qv2ray
                     DEBUG(MODULE_SETTINGS, "Generated new UUID: " + newUuid);
 
                     // Check Autostart Id
-                    if (root["autoStartConfig"].toObject()["subscriptionName"].toString().isEmpty()) {
-                        if (root["autoStartConfig"].toObject()["connectionName"].toString() == config.toString()) {
-                            autoStartId = newUuid;
-                        }
+                    if (root["autoStartConfig"].toObject()["subscriptionName"].toString().isEmpty())
+                    {
+                        if (root["autoStartConfig"].toObject()["connectionName"].toString() == config.toString()) { autoStartId = newUuid; }
                     }
 
-                    if (configFile.exists()) {
+                    if (configFile.exists())
+                    {
                         auto newPath = QV2RAY_CONNECTIONS_DIR + defaultGroupId + "/" + newUuid + QV2RAY_CONFIG_FILE_EXTENSION;
                         configFile.rename(newPath);
                         UPGRADELOG("Moved: " + filePath + " to " + newPath);
-                    } else {
+                    }
+                    else
+                    {
                         UPGRADELOG("WARNING! This file is not found, possible loss of data!")
                         continue;
                     }
@@ -159,7 +169,8 @@ namespace Qv2ray
                 QJsonObject rootSubscriptions = root.take("subscriptions").toObject();
                 QJsonObject newSubscriptions;
 
-                for (auto i = 0; i < rootSubscriptions.count(); i++) {
+                for (auto i = 0; i < rootSubscriptions.count(); i++)
+                {
                     auto key = rootSubscriptions.keys()[i];
                     auto value = rootSubscriptions.value(key);
                     //
@@ -176,15 +187,14 @@ namespace Qv2ray
                     auto newDirPath = QV2RAY_SUBSCRIPTION_DIR + subsUuid;
                     QDir newDir(newDirPath);
 
-                    if (!newDir.exists()) {
-                        newDir.mkpath(newDirPath);
-                    }
+                    if (!newDir.exists()) { newDir.mkpath(newDirPath); }
 
                     // With extensions
                     auto fileList = GetFileList(baseDirPath);
 
                     // Copy every file within a subscription.
-                    for (auto fileName : fileList) {
+                    for (auto fileName : fileList)
+                    {
                         auto subsConnectionId = GenerateUuid();
                         auto baseFilePath = baseDirPath + "/" + fileName;
                         auto newFilePath = newDirPath + "/" + subsConnectionId + QV2RAY_CONFIG_FILE_EXTENSION;
@@ -199,10 +209,10 @@ namespace Qv2ray
                         //
 
                         // Check Autostart Id
-                        if (root["autoStartConfig"].toObject()["subscriptionName"].toString() == key) {
-                            if (root["autoStartConfig"].toObject()["connectionName"].toString() == subsConnection["displayName"].toString()) {
-                                autoStartId = subsConnectionId;
-                            }
+                        if (root["autoStartConfig"].toObject()["subscriptionName"].toString() == key)
+                        {
+                            if (root["autoStartConfig"].toObject()["connectionName"].toString() == subsConnection["displayName"].toString())
+                            { autoStartId = subsConnectionId; }
                         }
                     }
 
@@ -222,12 +232,15 @@ namespace Qv2ray
                 break;
             }
 
-            default: {
-                // Due to technical issue, we cannot maintain all of those upgrade processes anymore.
-                // Check https://github.com/Qv2ray/Qv2ray/issues/353#issuecomment-586117507 for more information
+            default:
+            {
+                // Due to technical issue, we cannot maintain all of those
+                // upgrade processes anymore. Check
+                // https://github.com/Qv2ray/Qv2ray/issues/353#issuecomment-586117507
+                // for more information
                 QvMessageBoxWarn(nullptr, QObject::tr("Configuration Upgrade Failed"),
                                  QObject::tr("Unsupported config version number: ") + QSTRN(fromVersion) + NEWLINE + NEWLINE +
-                                 QObject::tr("Please upgrade firstly up to Qv2ray v2.0/v2.1 and try again."));
+                                     QObject::tr("Please upgrade firstly up to Qv2ray v2.0/v2.1 and try again."));
                 throw new runtime_error("The configuration version of your old Qv2ray installation is out-of-date and that"
                                         " version is not supported anymore, please try to update to an intermediate version of Qv2ray first.");
             }
@@ -242,10 +255,8 @@ namespace Qv2ray
     {
         LOG(MODULE_SETTINGS, "Migrating config from version " + QSTRN(fromVersion) + " to " + QSTRN(toVersion))
 
-        for (int i = fromVersion; i < toVersion; i++) {
-            root = UpgradeConfig_Inc(i, root);
-        }
+        for (int i = fromVersion; i < toVersion; i++) { root = UpgradeConfig_Inc(i, root); }
 
         return root;
     }
-}
+} // namespace Qv2ray

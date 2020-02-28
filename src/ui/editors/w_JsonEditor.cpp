@@ -2,20 +2,22 @@
 
 #include "common/QvHelpers.hpp"
 
-JsonEditor::JsonEditor(QJsonObject rootObject, QWidget *parent) :
-    QDialog(parent)
+JsonEditor::JsonEditor(QJsonObject rootObject, QWidget *parent) : QDialog(parent)
 {
     QvMessageBusConnect(JsonEditor);
     setupUi(this);
     original = rootObject;
     final = rootObject;
-    QString jsonString  = JsonToString(rootObject);
+    QString jsonString = JsonToString(rootObject);
 
-    if (VerifyJsonString(jsonString).isEmpty()) {
+    if (VerifyJsonString(jsonString).isEmpty())
+    {
         LOG(MODULE_UI, "Begin loading Json Model")
         jsonTree->setModel(&model);
         model.loadJson(QJsonDocument(rootObject).toJson());
-    } else {
+    }
+    else
+    {
         QvMessageBoxWarn(this, tr("Json Contains Syntax Errors"), tr("Original Json may contain syntax errors. Json tree is disabled."));
     }
 
@@ -26,10 +28,9 @@ JsonEditor::JsonEditor(QJsonObject rootObject, QWidget *parent) :
 
 QvMessageBusSlotImpl(JsonEditor)
 {
-    switch (msg) {
-            MBShowDefaultImpl
-            MBHideDefaultImpl
-            MBRetranslateDefaultImpl
+    switch (msg)
+    {
+        MBShowDefaultImpl MBHideDefaultImpl MBRetranslateDefaultImpl
     }
 }
 
@@ -38,7 +39,8 @@ QJsonObject JsonEditor::OpenEditor()
     int resultCode = this->exec();
     auto string = jsonEditor->toPlainText();
 
-    while (resultCode == QDialog::Accepted && !VerifyJsonString(string).isEmpty()) {
+    while (resultCode == QDialog::Accepted && !VerifyJsonString(string).isEmpty())
+    {
         QvMessageBoxWarn(this, tr("Json Contains Syntax Errors"), tr("You must correct these errors before continue."));
         resultCode = this->exec();
         string = jsonEditor->toPlainText();
@@ -57,13 +59,16 @@ void JsonEditor::on_jsonEditor_textChanged()
     auto VerifyResult = VerifyJsonString(string);
     jsonValidateStatus->setText(VerifyResult);
 
-    if (VerifyResult.isEmpty()) {
+    if (VerifyResult.isEmpty())
+    {
         BLACK(jsonEditor)
         final = JsonFromString(string);
         model.loadJson(QJsonDocument(final).toJson());
         jsonTree->expandAll();
         jsonTree->resizeColumnToContents(0);
-    } else {
+    }
+    else
+    {
         RED(jsonEditor)
     }
 }
@@ -74,10 +79,13 @@ void JsonEditor::on_formatJsonBtn_clicked()
     auto VerifyResult = VerifyJsonString(string);
     jsonValidateStatus->setText(VerifyResult);
 
-    if (VerifyResult.isEmpty()) {
+    if (VerifyResult.isEmpty())
+    {
         BLACK(jsonEditor)
         jsonEditor->setPlainText(JsonToString(JsonFromString(string)));
-    } else {
+    }
+    else
+    {
         RED(jsonEditor)
         QvMessageBoxWarn(this, tr("Syntax Errors"), tr("Please fix the JSON errors before continue"));
     }

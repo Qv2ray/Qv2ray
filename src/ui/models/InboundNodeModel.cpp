@@ -1,6 +1,6 @@
 #include "ui/models/InboundNodeModel.hpp"
 
-QvInboundNodeModel::QvInboundNodeModel(std::shared_ptr<InboundNodeData> data): NodeDataModel()
+QvInboundNodeModel::QvInboundNodeModel(std::shared_ptr<InboundNodeData> data) : NodeDataModel()
 {
     _in = data;
     _label = new QLabel();

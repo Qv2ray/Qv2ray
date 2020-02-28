@@ -1,8 +1,9 @@
 #include <QtCore>
 #ifdef Q_OS_WIN
-#include "components/plugins/toolbar/QvToolbar.hpp"
-#include "common/QvHelpers.hpp"
-#include <windows.h>
+    #include "common/QvHelpers.hpp"
+    #include "components/plugins/toolbar/QvToolbar.hpp"
+
+    #include <windows.h>
 namespace Qv2ray::components::plugins::Toolbar
 {
     namespace _win
@@ -25,40 +26,53 @@ namespace Qv2ray::components::plugins::Toolbar
         {
             auto hThread = CreateThread(nullptr, 0, NamedPipeMasterThread, nullptr, 0, nullptr);
 
-            if (hThread == nullptr) {
+            if (hThread == nullptr)
+            {
                 LOG(MODULE_PLUGIN, "CreateThread failed, GLE=" + QSTRN(GetLastError()))
                 return;
-            } else CloseHandle(hThread);
+            }
+            else
+                CloseHandle(hThread);
         }
 
         DWORD WINAPI NamedPipeMasterThread(LPVOID lpvParam)
         {
             Q_UNUSED(lpvParam)
-            BOOL   fConnected = FALSE;
-            DWORD  dwThreadId = 0;
+            BOOL fConnected = FALSE;
+            DWORD dwThreadId = 0;
             HANDLE hPipe = INVALID_HANDLE_VALUE;
             auto lpszPipename = QString(QV2RAY_NETSPEED_PLUGIN_PIPE_NAME_WIN).toStdWString();
 
-            while (!isExiting) {
-                //printf("Pipe Server: Main thread awaiting client connection on %s\n", lpszPipename.c_str());
-                hPipe = CreateNamedPipe(lpszPipename.c_str(), PIPE_ACCESS_DUPLEX, PIPE_TYPE_MESSAGE | PIPE_READMODE_MESSAGE | PIPE_WAIT, PIPE_UNLIMITED_INSTANCES, BUFSIZE, BUFSIZE, 0, nullptr);
+            while (!isExiting)
+            {
+                // printf("Pipe Server: Main thread awaiting client connection
+                // on %s\n", lpszPipename.c_str());
+                hPipe = CreateNamedPipe(lpszPipename.c_str(), PIPE_ACCESS_DUPLEX, PIPE_TYPE_MESSAGE | PIPE_READMODE_MESSAGE | PIPE_WAIT,
+                                        PIPE_UNLIMITED_INSTANCES, BUFSIZE, BUFSIZE, 0, nullptr);
 
-                if (hPipe == INVALID_HANDLE_VALUE) {
+                if (hPipe == INVALID_HANDLE_VALUE)
+                {
                     LOG(MODULE_PLUGIN, "CreateNamedPipe failed, GLE=" + QSTRN(GetLastError()))
                     return static_cast<DWORD>(-1);
                 }
 
                 fConnected = ConnectNamedPipe(hPipe, nullptr) ? true : (GetLastError() == ERROR_PIPE_CONNECTED);
 
-                if (fConnected) {
+                if (fConnected)
+                {
                     LOG(MODULE_PLUGIN, "Client connected, creating a processing thread")
                     ThreadHandle = CreateThread(nullptr, 0, InstanceThread, hPipe, 0, &dwThreadId);
 
-                    if (ThreadHandle == nullptr) {
+                    if (ThreadHandle == nullptr)
+                    {
                         LOG(MODULE_PLUGIN, "CreateThread failed, GLE=" + QSTRN(GetLastError()))
                         return static_cast<DWORD>(-1);
-                    } else CloseHandle(ThreadHandle);
-                } else CloseHandle(hPipe);
+                    }
+                    else
+                        CloseHandle(ThreadHandle);
+                }
+                else
+                    CloseHandle(hPipe);
             }
 
             return 0;
@@ -71,13 +85,16 @@ namespace Qv2ray::components::plugins::Toolbar
             HANDLE hPipe = static_cast<HANDLE>(lpvParam);
             TCHAR pchRequest[BUFSIZE] = { 0 };
 
-            while (!isExiting) {
+            while (!isExiting)
+            {
                 fSuccess = ReadFile(hPipe, pchRequest, BUFSIZE * sizeof(TCHAR), &cbBytesRead, nullptr);
 
-                if (!fSuccess || cbBytesRead == 0) {
-                    if (GetLastError() == ERROR_BROKEN_PIPE) {
-                        LOG(MODULE_PLUGIN, "InstanceThread: client disconnected, GLE=" + QSTRN(GetLastError()))
-                    } else {
+                if (!fSuccess || cbBytesRead == 0)
+                {
+                    if (GetLastError() == ERROR_BROKEN_PIPE)
+                    { LOG(MODULE_PLUGIN, "InstanceThread: client disconnected, GLE=" + QSTRN(GetLastError())) }
+                    else
+                    {
                         LOG(MODULE_PLUGIN, "InstanceThread ReadFile failed, GLE=" + QSTRN(GetLastError()))
                     }
 
@@ -87,17 +104,20 @@ namespace Qv2ray::components::plugins::Toolbar
                 auto req = QString::fromStdWString(pchRequest);
                 QString replyQString = "{}";
 
-                if (!isExiting) {
+                if (!isExiting)
+                {
                     replyQString = GetAnswerToRequest(req);
                     //
                     // REPLY as std::string
                     std::string pchReply = replyQString.toUtf8().constData();
                     cbReplyBytes = static_cast<DWORD>(pchReply.length() + 1) * sizeof(CHAR);
-                    //cbReplyBytes = static_cast<DWORD>(replyQString.length() + 1) * sizeof(TCHAR);
+                    // cbReplyBytes = static_cast<DWORD>(replyQString.length() +
+                    // 1) * sizeof(TCHAR);
                     //
                     fSuccess = WriteFile(hPipe, pchReply.c_str(), cbReplyBytes, &cbWritten, nullptr);
 
-                    if (!fSuccess || cbReplyBytes != cbWritten) {
+                    if (!fSuccess || cbReplyBytes != cbWritten)
+                    {
                         LOG(MODULE_PLUGIN, "InstanceThread WriteFile failed, GLE=" + QSTRN(GetLastError()))
                         break;
                     }
@@ -109,6 +129,6 @@ namespace Qv2ray::components::plugins::Toolbar
             CloseHandle(hPipe);
             return 1;
         }
-    }
-}
+    } // namespace _win
+} // namespace Qv2ray::components::plugins::Toolbar
 #endif

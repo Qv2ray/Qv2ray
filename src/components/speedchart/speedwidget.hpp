@@ -41,17 +41,18 @@ class SpeedPlotView;
 
 class SpeedWidget : public QWidget
 {
-        Q_OBJECT
+    Q_OBJECT
 
-    public:
-        explicit SpeedWidget(QWidget *parent);
-        ~SpeedWidget();
-        void AddPointData(long up, long down);
-        void Clear();
-    private:
-        QVBoxLayout *m_layout;
-        QHBoxLayout *m_hlayout;
-        SpeedPlotView *m_plot;
+  public:
+    explicit SpeedWidget(QWidget *parent);
+    ~SpeedWidget();
+    void AddPointData(long up, long down);
+    void Clear();
+
+  private:
+    QVBoxLayout *m_layout;
+    QHBoxLayout *m_hlayout;
+    SpeedPlotView *m_plot;
 };
 
 #endif // SPEEDWIDGET_H

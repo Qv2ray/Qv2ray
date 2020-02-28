@@ -7,8 +7,8 @@ namespace Qv2ray::core::connection
     {
         // File Protocol
         CONFIGROOT ConvertConfigFromFile(QString sourceFilePath, bool importComplex);
-    }
-}
+    } // namespace ConnectionIO
+} // namespace Qv2ray::core::connection
 
 using namespace Qv2ray::core::connection;
 using namespace Qv2ray::core::connection::ConnectionIO;

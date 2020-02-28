@@ -1,9 +1,10 @@
 #include "ConnectionInfoWidget.hpp"
+
+#include "3rdparty/qzxing/src/QZXing.h"
 #include "core/CoreUtils.hpp"
 #include "core/connection/Serialization.hpp"
-#include "3rdparty/qzxing/src/QZXing.h"
 
-ConnectionInfoWidget::ConnectionInfoWidget(QWidget *parent): QWidget(parent)
+ConnectionInfoWidget::ConnectionInfoWidget(QWidget *parent) : QWidget(parent)
 {
     setupUi(this);
     duplicateBtn->setIcon(QICON_R("duplicate.png"));
@@ -12,7 +13,8 @@ ConnectionInfoWidget::ConnectionInfoWidget(QWidget *parent): QWidget(parent)
     editJsonBtn->setIcon(QICON_R("json.png"));
     //
     shareLinkTxt->setAutoFillBackground(true);
-    shareLinkTxt->setStyleSheet("border-bottom: 1px solid gray; border-radius: 0px; padding: 2px; background-color: " + this->palette().color(this->backgroundRole()).name(QColor::HexRgb));
+    shareLinkTxt->setStyleSheet("border-bottom: 1px solid gray; border-radius: 0px; padding: 2px; background-color: " +
+                                this->palette().color(this->backgroundRole()).name(QColor::HexRgb));
     shareLinkTxt->setCursor(QCursor(Qt::CursorShape::IBeamCursor));
     shareLinkTxt->installEventFilter(this);
     //
@@ -30,10 +32,12 @@ void ConnectionInfoWidget::ShowDetails(const tuple<GroupId, ConnectionId> &_iden
     duplicateBtn->setEnabled(isConnection);
     editBtn->setEnabled(isConnection);
 
-    if (isConnection) {
+    if (isConnection)
+    {
         groupLabel->setText(ConnectionManager->GetDisplayName(groupId, 175));
         protocolLabel->setText(ConnectionManager->GetConnectionProtocolString(connectionId));
-        auto [host, port] = ConnectionManager->GetConnectionInfo(connectionId);
+        auto [protocol, host, port] = ConnectionManager->GetConnectionData(connectionId);
+        Q_UNUSED(protocol)
         addressLabel->setText(host);
         portLabel->setNum(port);
         //
@@ -48,7 +52,9 @@ void ConnectionInfoWidget::ShowDetails(const tuple<GroupId, ConnectionId> &_iden
         qrLabel->setPixmap(QPixmap::fromImage(img));
         //
         connectBtn->setIcon(ConnectionManager->IsConnected(connectionId) ? QICON_R("stop.png") : QICON_R("connect.png"));
-    } else {
+    }
+    else
+    {
         connectBtn->setIcon(QICON_R("connect.png"));
         groupLabel->setText(tr("N/A"));
         protocolLabel->setText(tr("N/A"));
@@ -66,9 +72,9 @@ ConnectionInfoWidget::~ConnectionInfoWidget()
 
 void ConnectionInfoWidget::on_connectBtn_clicked()
 {
-    if (ConnectionManager->IsConnected(connectionId)) {
-        ConnectionManager->StopConnection();
-    } else {
+    if (ConnectionManager->IsConnected(connectionId)) { ConnectionManager->StopConnection(); }
+    else
+    {
         ConnectionManager->StartConnection(connectionId);
     }
 }
@@ -90,11 +96,11 @@ void ConnectionInfoWidget::on_deleteBtn_clicked()
 
 bool ConnectionInfoWidget::eventFilter(QObject *object, QEvent *event)
 {
-    if (event->type() == QEvent::MouseButtonRelease) {
-        if (shareLinkTxt->underMouse()) {
-            if (!shareLinkTxt->hasSelectedText()) {
-                shareLinkTxt->selectAll();
-            }
+    if (event->type() == QEvent::MouseButtonRelease)
+    {
+        if (shareLinkTxt->underMouse())
+        {
+            if (!shareLinkTxt->hasSelectedText()) { shareLinkTxt->selectAll(); }
         }
     }
 
@@ -103,51 +109,50 @@ bool ConnectionInfoWidget::eventFilter(QObject *object, QEvent *event)
 
 void ConnectionInfoWidget::OnConnected(const ConnectionId &id)
 {
-    if (connectionId == id) {
-        connectBtn->setIcon(QICON_R("stop.png"));
-    }
+    if (connectionId == id) { connectBtn->setIcon(QICON_R("stop.png")); }
 }
 
 void ConnectionInfoWidget::OnDisConnected(const ConnectionId &id)
 {
-    if (connectionId == id) {
-        connectBtn->setIcon(QICON_R("connect.png"));
-    }
+    if (connectionId == id) { connectBtn->setIcon(QICON_R("connect.png")); }
 }
-//MWTryPingConnection(CurrentConnectionIdentifier);
+// MWTryPingConnection(CurrentConnectionIdentifier);
 void ConnectionInfoWidget::on_duplicateBtn_clicked()
 {
-    //QvMessageBoxInfo(this, "NOT SUPPORTED", "WIP");
-    //if (!IsSelectionConnectable) {
+    // QvMessageBoxInfo(this, "NOT SUPPORTED", "WIP");
+    // if (!IsSelectionConnectable) {
     //    return;
     //}
     //
-    //auto selectedFirst = connectionListWidget->currentItem();
-    //auto _identifier = ItemConnectionIdentifier(selectedFirst);
-    //SUBSCRIPTION_CONFIG_MODIFY_ASK(selectedFirst)
-    //CONFIGROOT conf;
+    // auto selectedFirst = connectionListWidget->currentItem();
+    // auto _identifier = ItemConnectionIdentifier(selectedFirst);
+    // SUBSCRIPTION_CONFIG_MODIFY_ASK(selectedFirst)
+    // CONFIGROOT conf;
     //// Alias may change.
-    //QString alias = _identifier.connectionName;
-    //bool isComplex = IsComplexConfig(connections[_identifier].config);
+    // QString alias = _identifier.connectionName;
+    // bool isComplex = IsComplexConfig(connections[_identifier].config);
     //
-    //if (connections[_identifier].configType == CONNECTION_REGULAR) {
-    //    conf = ConvertConfigFromFile(QV2RAY_CONFIG_DIR + _identifier.connectionName + QV2RAY_CONFIG_FILE_EXTENSION, isComplex);
+    // if (connections[_identifier].configType == CONNECTION_REGULAR) {
+    //    conf = ConvertConfigFromFile(QV2RAY_CONFIG_DIR +
+    //    _identifier.connectionName + QV2RAY_CONFIG_FILE_EXTENSION, isComplex);
     //} else {
-    //    conf = ConvertConfigFromFile(QV2RAY_SUBSCRIPTION_DIR + _identifier.subscriptionName + "/" + _identifier.connectionName  + QV2RAY_CONFIG_FILE_EXTENSION, isComplex);
-    //    alias = _identifier.subscriptionName + "_" + _identifier.connectionName;
+    //    conf = ConvertConfigFromFile(QV2RAY_SUBSCRIPTION_DIR +
+    //    _identifier.subscriptionName + "/" + _identifier.connectionName  +
+    //    QV2RAY_CONFIG_FILE_EXTENSION, isComplex); alias =
+    //    _identifier.subscriptionName + "_" + _identifier.connectionName;
     //}
     //
-    //SaveConnectionConfig(conf, &alias, false);
-    //GlobalConfig.configs.push_back(alias);
-    //SaveGlobalConfig(GlobalConfig);
-    //this->OnConfigListChanged(false);}
+    // SaveConnectionConfig(conf, &alias, false);
+    // GlobalConfig.configs.push_back(alias);
+    // SaveGlobalConfig(GlobalConfig);
+    // this->OnConfigListChanged(false);}
 }
 
 void ConnectionInfoWidget::on_latencyBtn_clicked()
 {
-    if (connectionId != NullConnectionId) {
-        ConnectionManager->StartLatencyTest(connectionId);
-    } else {
+    if (connectionId != NullConnectionId) { ConnectionManager->StartLatencyTest(connectionId); }
+    else
+    {
         ConnectionManager->StartLatencyTest(groupId);
     }
 }

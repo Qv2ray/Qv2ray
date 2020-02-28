@@ -1,7 +1,8 @@
-#include <QMetaEnum>
-
 #include "QvMessageBus.hpp"
+
 #include "base/Qv2rayBase.hpp"
+
+#include <QMetaEnum>
 
 namespace Qv2ray::ui::messaging
 {
@@ -15,4 +16,4 @@ namespace Qv2ray::ui::messaging
         LOG(MODULE_MESSAGING, "Emitting signal: " + QString(metaEnum.valueToKey(msg)));
         emit QvSendMessage(msg);
     }
-}
+} // namespace Qv2ray::ui::messaging

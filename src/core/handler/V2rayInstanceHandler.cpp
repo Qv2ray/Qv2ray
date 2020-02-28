@@ -8,7 +8,8 @@ optional<QString> QvConnectionHandler::CHStartConnection_p(const ConnectionId &i
     auto fullConfig = GenerateRuntimeConfig(root);
     auto result = vCoreInstance->StartConnection(id, fullConfig);
 
-    if (!result.has_value()) {
+    if (!result.has_value())
+    {
         currentConnectionId = id;
         emit OnConnected(currentConnectionId);
     }
@@ -18,13 +19,16 @@ optional<QString> QvConnectionHandler::CHStartConnection_p(const ConnectionId &i
 
 void QvConnectionHandler::CHStopConnection_p()
 {
-    if (vCoreInstance->KernelStarted) {
+    if (vCoreInstance->KernelStarted)
+    {
         vCoreInstance->StopConnection();
         // Copy
         ConnectionId id = currentConnectionId;
         currentConnectionId = NullConnectionId;
         emit OnDisConnected(id);
-    } else {
+    }
+    else
+    {
         LOG(MODULE_CORE_HANDLER, "VCore is not started, not disconnecting")
     }
 }

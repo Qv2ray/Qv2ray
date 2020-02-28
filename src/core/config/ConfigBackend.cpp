@@ -1,4 +1,5 @@
 #include "ConfigBackend.hpp"
+
 #include "common/QvHelpers.hpp"
 
 namespace Qv2ray::core::config
@@ -14,10 +15,8 @@ namespace Qv2ray::core::config
     {
         Qv2rayConfigPath = path;
 
-        if (!path.endsWith("/")) {
-            Qv2rayConfigPath += "/";
-        }
+        if (!path.endsWith("/")) { Qv2rayConfigPath += "/"; }
     }
-}
+} // namespace Qv2ray::core::config
 
 using namespace Qv2ray::core::config;

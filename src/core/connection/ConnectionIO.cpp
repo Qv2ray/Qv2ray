@@ -1,4 +1,5 @@
 #include "ConnectionIO.hpp"
+
 #include "common/QvHelpers.hpp"
 
 namespace Qv2ray::core::connection
@@ -8,16 +9,19 @@ namespace Qv2ray::core::connection
         ////
         //// Save Connection to a place, with checking if there's existing file.
         //// If so, append "_N" to the name.
-        //bool SaveConnectionConfig(CONFIGROOT obj, QString *alias, bool canOverrideExisting)
+        // bool SaveConnectionConfig(CONFIGROOT obj, QString *alias, bool
+        // canOverrideExisting)
         //{
         //    auto str = JsonToString(obj);
-        //    auto fullPath = QV2RAY_CONFIG_DIR + *alias + QV2RAY_CONFIG_FILE_EXTENSION;
+        //    auto fullPath = QV2RAY_CONFIG_DIR + *alias +
+        //    QV2RAY_CONFIG_FILE_EXTENSION;
         //
         //    // If there's already a file AND we CANNOT override existing file.
         //    if (QFile::exists(fullPath) && !canOverrideExisting) {
         //        // Alias is a pointer to a QString.
-        //        DeducePossibleFileName(QV2RAY_CONFIG_DIR, alias, QV2RAY_CONFIG_FILE_EXTENSION);
-        //        fullPath = QV2RAY_CONFIG_DIR + *alias + QV2RAY_CONFIG_FILE_EXTENSION;
+        //        DeducePossibleFileName(QV2RAY_CONFIG_DIR, alias,
+        //        QV2RAY_CONFIG_FILE_EXTENSION); fullPath = QV2RAY_CONFIG_DIR +
+        //        *alias + QV2RAY_CONFIG_FILE_EXTENSION;
         //    }
         //
         //    LOG(MODULE_SETTINGS, "Saving a config named: " + *alias)
@@ -25,7 +29,8 @@ namespace Qv2ray::core::connection
         //    return StringToFile(&str, &config);
         //}
         //
-        //bool SaveSubscriptionConfig(CONFIGROOT obj, const QString &subscription, QString *name)
+        // bool SaveSubscriptionConfig(CONFIGROOT obj, const QString
+        // &subscription, QString *name)
         //{
         //    auto str = JsonToString(obj);
         //    auto fName = *name;
@@ -34,27 +39,31 @@ namespace Qv2ray::core::connection
         //        fName = RemoveInvalidFileName(fName);
         //    }
         //
-        //    QFile config(QV2RAY_SUBSCRIPTION_DIR + subscription + "/" + fName + QV2RAY_CONFIG_FILE_EXTENSION);
+        //    QFile config(QV2RAY_SUBSCRIPTION_DIR + subscription + "/" + fName
+        //    + QV2RAY_CONFIG_FILE_EXTENSION);
         //
         //    // If there's already a file. THIS IS EXTREMELY RARE
         //    if (config.exists()) {
-        //        LOG(MODULE_FILEIO, "Trying to overrwrite an existing subscription config file. THIS IS RARE")
+        //        LOG(MODULE_FILEIO, "Trying to overrwrite an existing
+        //        subscription config file. THIS IS RARE")
         //    }
         //
         //    LOG(MODULE_SETTINGS, "Saving a subscription named: " + fName)
         //    bool result = StringToFile(&str, &config);
         //
         //    if (!result) {
-        //        LOG(MODULE_FILEIO, "Failed to save a connection config from subscription: " + subscription + ", name: " + fName)
+        //        LOG(MODULE_FILEIO, "Failed to save a connection config from
+        //        subscription: " + subscription + ", name: " + fName)
         //    }
         //
         //    *name = fName;
         //    return result;
         //}
         //
-        //bool RemoveConnection(const QString &alias)
+        // bool RemoveConnection(const QString &alias)
         //{
-        //    QFile config(QV2RAY_CONFIG_DIR + alias + QV2RAY_CONFIG_FILE_EXTENSION);
+        //    QFile config(QV2RAY_CONFIG_DIR + alias +
+        //    QV2RAY_CONFIG_FILE_EXTENSION);
         //
         //    if (!config.exists()) {
         //        LOG(MODULE_FILEIO, "Trying to remove a non-existing file?")
@@ -64,9 +73,11 @@ namespace Qv2ray::core::connection
         //    }
         //}
         //
-        //bool RemoveSubscriptionConnection(const QString &subsName, const QString &name)
+        // bool RemoveSubscriptionConnection(const QString &subsName, const
+        // QString &name)
         //{
-        //    QFile config(QV2RAY_SUBSCRIPTION_DIR + subsName + "/" + name + QV2RAY_CONFIG_FILE_EXTENSION);
+        //    QFile config(QV2RAY_SUBSCRIPTION_DIR + subsName + "/" + name +
+        //    QV2RAY_CONFIG_FILE_EXTENSION);
         //
         //    if (!config.exists()) {
         //        LOG(MODULE_FILEIO, "Trying to remove a non-existing file?")
@@ -76,25 +87,32 @@ namespace Qv2ray::core::connection
         //    }
         //}
         //
-        //bool RenameConnection(const QString &originalName, const QString &newName)
+        // bool RenameConnection(const QString &originalName, const QString
+        // &newName)
         //{
-        //    LOG(MODULE_CONNECTION, "[RENAME] --> ORIGINAL: " + originalName + ", NEW: " + newName)
-        //    return QFile::rename(QV2RAY_CONFIG_DIR + originalName + QV2RAY_CONFIG_FILE_EXTENSION, QV2RAY_CONFIG_DIR + newName + QV2RAY_CONFIG_FILE_EXTENSION);
+        //    LOG(MODULE_CONNECTION, "[RENAME] --> ORIGINAL: " + originalName +
+        //    ", NEW: " + newName) return QFile::rename(QV2RAY_CONFIG_DIR +
+        //    originalName + QV2RAY_CONFIG_FILE_EXTENSION, QV2RAY_CONFIG_DIR +
+        //    newName + QV2RAY_CONFIG_FILE_EXTENSION);
         //}
         //
-        //bool RenameSubscription(const QString &originalName, const QString &newName)
+        // bool RenameSubscription(const QString &originalName, const QString
+        // &newName)
         //{
-        //    LOG(MODULE_SUBSCRIPTION, "[RENAME] --> ORIGINAL: " + originalName + ", NEW: " + newName)
-        //    return QDir().rename(QV2RAY_SUBSCRIPTION_DIR + originalName, QV2RAY_SUBSCRIPTION_DIR + newName);
+        //    LOG(MODULE_SUBSCRIPTION, "[RENAME] --> ORIGINAL: " + originalName
+        //    + ", NEW: " + newName) return
+        //    QDir().rename(QV2RAY_SUBSCRIPTION_DIR + originalName,
+        //    QV2RAY_SUBSCRIPTION_DIR + newName);
         //}
         //
-        //CONFIGROOT ConvertConfigFromFile(QString sourceFilePath, bool importComplex)
+        // CONFIGROOT ConvertConfigFromFile(QString sourceFilePath, bool
+        // importComplex)
         //{
         //    QFile source(sourceFilePath);
         //
         //    if (!source.exists()) {
-        //        LOG(MODULE_FILEIO, "Trying to import from an non-existing file.")
-        //        return CONFIGROOT();
+        //        LOG(MODULE_FILEIO, "Trying to import from an non-existing
+        //        file.") return CONFIGROOT();
         //    }
         //
         //    auto root = CONFIGROOT(JsonFromString(StringFromFile(&source)));
@@ -111,4 +129,4 @@ namespace Qv2ray::core::connection
         //    return root;
         //}
     }
-}
+} // namespace Qv2ray::core::connection

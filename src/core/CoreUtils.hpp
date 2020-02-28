@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include <QString>
-#include <base/models/QvSafeType.hpp>
 #include <base/models/CoreObjectModels.hpp>
+#include <base/models/QvSafeType.hpp>
 
 namespace Qv2ray::core
 {
@@ -26,6 +26,6 @@ namespace Qv2ray::core
 
     bool GetOutboundData(const OUTBOUND &out, QString *host, int *port, QString *protocol);
     bool IsComplexConfig(const CONFIGROOT &root);
-}
+} // namespace Qv2ray::core
 
 using namespace Qv2ray::core;

@@ -1,9 +1,9 @@
 #include "StreamSettingsWidget.hpp"
+
 #include "common/QvHelpers.hpp"
 #include "ui/editors/w_JsonEditor.hpp"
 
-StreamSettingsWidget::StreamSettingsWidget(QWidget *parent) :
-    QWidget(parent)
+StreamSettingsWidget::StreamSettingsWidget(QWidget *parent) : QWidget(parent)
 {
     setupUi(this);
 }
@@ -34,9 +34,8 @@ void StreamSettingsWidget::SetStreamObject(StreamSettingsObject sso)
     wsPathTxt->setText(stream.wsSettings.path);
     QString wsHeaders;
 
-    for (auto item = stream.wsSettings.headers.begin(); item != stream.wsSettings.headers.end(); item++) {
-        wsHeaders += item.key() + "|" + item.value() + NEWLINE;
-    }
+    for (auto item = stream.wsSettings.headers.begin(); item != stream.wsSettings.headers.end(); item++)
+    { wsHeaders += item.key() + "|" + item.value() + NEWLINE; }
 
     wsHeadersTxt->setPlainText(wsHeaders);
     // mKCP
@@ -60,7 +59,6 @@ void StreamSettingsWidget::SetStreamObject(StreamSettingsObject sso)
     soMarkSpinBox->setValue(stream.sockopt.mark);
 }
 
-
 void StreamSettingsWidget::on_transportCombo_currentIndexChanged(int index)
 {
     v2rayStackView->setCurrentIndex(index);
@@ -73,29 +71,33 @@ void StreamSettingsWidget::on_httpPathTxt_textEdited(const QString &arg1)
 
 void StreamSettingsWidget::on_httpHostTxt_textChanged()
 {
-    try {
+    try
+    {
         QStringList hosts = httpHostTxt->toPlainText().replace("\r", "").split("\n");
         stream.httpSettings.host.clear();
 
-        for (auto host : hosts) {
-            if (!host.trimmed().isEmpty()) {
-                stream.httpSettings.host.push_back(host.trimmed());
-            }
+        for (auto host : hosts)
+        {
+            if (!host.trimmed().isEmpty()) { stream.httpSettings.host.push_back(host.trimmed()); }
         }
 
         BLACK(httpHostTxt)
-    } catch (...) {
+    }
+    catch (...)
+    {
         RED(httpHostTxt)
     }
 }
 
 void StreamSettingsWidget::on_wsHeadersTxt_textChanged()
 {
-    try {
+    try
+    {
         QStringList headers = SplitLines(wsHeadersTxt->toPlainText());
         stream.wsSettings.headers.clear();
 
-        for (auto header : headers) {
+        for (auto header : headers)
+        {
             if (header.isEmpty()) continue;
 
             auto index = header.indexOf("|");
@@ -108,11 +110,12 @@ void StreamSettingsWidget::on_wsHeadersTxt_textChanged()
         }
 
         BLACK(wsHeadersTxt)
-    } catch (...) {
+    }
+    catch (...)
+    {
         RED(wsHeadersTxt)
     }
 }
-
 
 void StreamSettingsWidget::on_tcpRequestDefBtn_clicked()
 {
@@ -130,7 +133,8 @@ void StreamSettingsWidget::on_tcpRequestDefBtn_clicked()
 void StreamSettingsWidget::on_tcpRespDefBtn_clicked()
 {
     tcpRespTxt->clear();
-    tcpRespTxt->setPlainText("{\"version\":\"1.1\",\"status\":\"200\",\"reason\":\"OK\",\"headers\":{\"Content-Type\":[\"application/octet-stream\",\"video/mpeg\"],\"Transfer-Encoding\":[\"chunked\"],\"Connection\":[\"keep-alive\"],\"Pragma\":\"no-cache\"}}");
+    tcpRespTxt->setPlainText(
+        "{\"version\":\"1.1\",\"status\":\"200\",\"reason\":\"OK\",\"headers\":{\"Content-Type\":[\"application/octet-stream\",\"video/mpeg\"],\"Transfer-Encoding\":[\"chunked\"],\"Connection\":[\"keep-alive\"],\"Pragma\":\"no-cache\"}}");
 }
 
 void StreamSettingsWidget::on_tlsCB_stateChanged(int arg1)
@@ -185,7 +189,7 @@ void StreamSettingsWidget::on_kcpMTU_valueChanged(int arg1)
 
 void StreamSettingsWidget::on_kcpTTI_valueChanged(int arg1)
 {
-    stream.kcpSettings.tti  = arg1;
+    stream.kcpSettings.tti = arg1;
 }
 
 void StreamSettingsWidget::on_kcpUploadCapacSB_valueChanged(int arg1)

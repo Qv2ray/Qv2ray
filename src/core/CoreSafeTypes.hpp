@@ -1,38 +1,43 @@
 #pragma once
 
-#include <QString>
+#include "base/models/QvConfigIdentifier.hpp"
+
 #include <QHash>
 #include <QHashFunctions>
-
-#include "base/models/QvConfigIdentifier.hpp"
+#include <QString>
 
 namespace Qv2ray::core
 {
-    template <typename T>
+    template<typename T>
     class IDType
     {
-        public:
-            explicit IDType(const QString &id): m_id(id) {}
-            friend bool operator==(const IDType<T> &lhs, const IDType<T> &rhs)
-            {
-                return lhs.m_id == rhs.m_id;
-            }
-            friend bool operator!=(const IDType<T> &lhs, const IDType<T> &rhs)
-            {
-                return lhs.toString() != rhs.toString();
-            }
-            const QString &toString() const
-            {
-                return m_id;
-            }
-            uint qHash(uint seed) const
-            {
-                return ::qHash(m_id, seed);
-            }
-        private:
-            QString m_id;
-    };
+      public:
+        explicit IDType() : m_id("null")
+        {
+        }
+        explicit IDType(const QString &id) : m_id(id)
+        {
+        }
+        friend bool operator==(const IDType<T> &lhs, const IDType<T> &rhs)
+        {
+            return lhs.m_id == rhs.m_id;
+        }
+        friend bool operator!=(const IDType<T> &lhs, const IDType<T> &rhs)
+        {
+            return lhs.toString() != rhs.toString();
+        }
+        const QString &toString() const
+        {
+            return m_id;
+        }
+        uint qHash(uint seed) const
+        {
+            return ::qHash(m_id, seed);
+        }
 
+      private:
+        QString m_id;
+    };
 
     // Define several safetypes to prevent misuse of QString.
     class __QvGroup;
@@ -48,9 +53,7 @@ namespace Qv2ray::core
     {
         QList<IDType> list;
 
-        for (auto str : strings) {
-            list << IDType(str);
-        }
+        for (auto str : strings) { list << IDType(str); }
 
         return list;
     }
@@ -60,21 +63,23 @@ namespace Qv2ray::core
     {
         QList<QString> list;
 
-        for (auto id : ids) {
-            list << id.toString();
-        }
+        for (auto id : ids) { list << id.toString(); }
 
         return list;
     }
-    template <typename T> uint qHash(const IDType<T> &key, uint seed = 0)
+    template<typename T>
+    uint qHash(const IDType<T> &key, uint seed = 0)
     {
         return key.qHash(seed);
     }
     //
     /// Metadata object representing a connection.
-    struct ConnectionMetaObject : ConnectionObject_Config {
+    struct ConnectionMetaObject : ConnectionObject_Config
+    {
         GroupId groupId = NullGroupId;
-        ConnectionMetaObject(): ConnectionObject_Config() { }
+        ConnectionMetaObject() : ConnectionObject_Config()
+        {
+        }
         // Suger for down casting.
         ConnectionMetaObject(const ConnectionObject_Config &base) : ConnectionMetaObject()
         {
@@ -88,13 +93,16 @@ namespace Qv2ray::core
     };
 
     /// Metadata object representing a group.
-    struct GroupMetaObject: SubscriptionObject_Config {
+    struct GroupMetaObject : SubscriptionObject_Config
+    {
         // Implicit base of two types, since group object is actually the group base object.
         bool isSubscription;
         QList<ConnectionId> connections;
         // Suger for down casting.
-        GroupMetaObject(): connections() {}
-        GroupMetaObject(const GroupObject_Config &base): GroupMetaObject()
+        GroupMetaObject() : connections()
+        {
+        }
+        GroupMetaObject(const GroupObject_Config &base) : GroupMetaObject()
         {
             this->isSubscription = false;
             this->displayName = base.displayName;
@@ -102,7 +110,7 @@ namespace Qv2ray::core
             this->connections = StringsToIdList<ConnectionId>(base.connections);
         }
         // Suger for down casting.
-        GroupMetaObject(const SubscriptionObject_Config &base): GroupMetaObject((GroupObject_Config)base)
+        GroupMetaObject(const SubscriptionObject_Config &base) : GroupMetaObject((GroupObject_Config) base)
         {
             this->address = base.address;
             this->lastUpdated = base.lastUpdated;
@@ -110,6 +118,6 @@ namespace Qv2ray::core
             this->isSubscription = true;
         }
     };
-}
+} // namespace Qv2ray::core
 
 using namespace Qv2ray::core;

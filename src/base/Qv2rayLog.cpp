@@ -1,5 +1,7 @@
 #include "Qv2rayLog.hpp"
+
 #include "base/GlobalInstances.hpp"
+
 #include <iostream>
 
 namespace Qv2ray::base
@@ -15,18 +17,22 @@ namespace Qv2ray::base
         auto logString = "[" + module + "]: " + log;
         auto funcPrepend = QString::fromStdString(func + ":" + to_string(line) + " ");
 
-        if (isDebugBuild) {
-            // Debug build version, we only print info for DEBUG logs and print ALL info when debugLog presents,
-            if (type == QV2RAY_LOG_DEBUG || StartupOption.debugLog) {
-                logString = logString.prepend(funcPrepend);
-            }
-        } else {
+        if (isDebugBuild)
+        {
+            // Debug build version, we only print info for DEBUG logs and print
+            // ALL info when debugLog presents,
+            if (type == QV2RAY_LOG_DEBUG || StartupOption.debugLog) { logString = logString.prepend(funcPrepend); }
+        }
+        else
+        {
             // We only process DEBUG log in Release mode
-            if (type == QV2RAY_LOG_DEBUG) {
-                if (StartupOption.debugLog) {
-                    logString = logString.prepend(funcPrepend);
-                } else {
-                    // Discard debug log in non-debug Qv2ray version with no-debugLog mode.
+            if (type == QV2RAY_LOG_DEBUG)
+            {
+                if (StartupOption.debugLog) { logString = logString.prepend(funcPrepend); }
+                else
+                {
+                    // Discard debug log in non-debug Qv2ray version with
+                    // no-debugLog mode.
                     return;
                 }
             }
@@ -50,4 +56,4 @@ namespace Qv2ray::base
         __purgerBuffer->clear();
         return result;
     }
-}
+} // namespace Qv2ray::base

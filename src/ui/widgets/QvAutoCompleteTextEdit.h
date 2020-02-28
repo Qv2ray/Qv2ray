@@ -62,27 +62,26 @@ class TextEdit : public QTextEdit
 {
     Q_OBJECT
 
-public:
+  public:
     TextEdit(QWidget *parent = nullptr);
     ~TextEdit();
 
     void setCompleter(QCompleter *c);
     QCompleter *completer() const;
 
-protected:
+  protected:
     void keyPressEvent(QKeyEvent *e) override;
     void focusInEvent(QFocusEvent *e) override;
 
-private slots:
+  private slots:
     void insertCompletion(const QString &completion);
 
-private:
+  private:
     QString textUnderCursor() const;
 
-private:
+  private:
     QCompleter *c = nullptr;
 };
 //! [0]
 
 #endif // TEXTEDIT_H
-

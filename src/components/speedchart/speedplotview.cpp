@@ -14,39 +14,40 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+ * USA.
  *
  * In addition, as a special exception, the copyright holders give permission to
  * link this program with the OpenSSL project's "OpenSSL" library (or with
  * modified versions of it that use the same license as the "OpenSSL" library),
  * and distribute the linked executables. You must obey the GNU General Public
- * License in all respects for all of the code used other than "OpenSSL".  If you
- * modify file(s), you may extend this exception to your version of the file(s),
- * but you are not obligated to do so. If you do not wish to do so, delete this
- * exception statement from your version.
+ * License in all respects for all of the code used other than "OpenSSL".  If
+ * you modify file(s), you may extend this exception to your version of the
+ * file(s), but you are not obligated to do so. If you do not wish to do so,
+ * delete this exception statement from your version.
  */
 
 #include "speedplotview.hpp"
 
+#include <QCoreApplication>
 #include <QLocale>
 #include <QPainter>
 #include <QPen>
 #include <list>
 
-#include <QCoreApplication>
-
 #define VIEWABLE 120
 
 // use binary prefix standards from IEC 60027-2
 // see http://en.wikipedia.org/wiki/Kilobyte
-enum class SizeUnit {
-    Byte,       // 1024^0,
-    KibiByte,   // 1024^1,
-    MebiByte,   // 1024^2,
-    GibiByte,   // 1024^3,
-    TebiByte,   // 1024^4,
-    PebiByte,   // 1024^5,
-    ExbiByte    // 1024^6,
+enum class SizeUnit
+{
+    Byte,     // 1024^0,
+    KibiByte, // 1024^1,
+    MebiByte, // 1024^2,
+    GibiByte, // 1024^3,
+    TebiByte, // 1024^4,
+    PebiByte, // 1024^5,
+    ExbiByte  // 1024^6,
     // int64 is used for sizes and thus the next units can not be handled
     // ZebiByte,   // 1024^7,
     // YobiByte,   // 1024^8
@@ -54,27 +55,25 @@ enum class SizeUnit {
 
 namespace
 {
-    const struct {
+    const struct
+    {
         const char *source;
         const char *comment;
-    } units[] = {
-        QT_TRANSLATE_NOOP3("misc", "B", "bytes"),
-        QT_TRANSLATE_NOOP3("misc", "KiB", "kibibytes (1024 bytes)"),
-        QT_TRANSLATE_NOOP3("misc", "MiB", "mebibytes (1024 kibibytes)"),
-        QT_TRANSLATE_NOOP3("misc", "GiB", "gibibytes (1024 mibibytes)"),
-        QT_TRANSLATE_NOOP3("misc", "TiB", "tebibytes (1024 gibibytes)"),
-        QT_TRANSLATE_NOOP3("misc", "PiB", "pebibytes (1024 tebibytes)"),
-        QT_TRANSLATE_NOOP3("misc", "EiB", "exbibytes (1024 pebibytes)")
-    };
-}
+    } units[] = { QT_TRANSLATE_NOOP3("misc", "B", "bytes"),
+                  QT_TRANSLATE_NOOP3("misc", "KiB", "kibibytes (1024 bytes)"),
+                  QT_TRANSLATE_NOOP3("misc", "MiB", "mebibytes (1024 kibibytes)"),
+                  QT_TRANSLATE_NOOP3("misc", "GiB", "gibibytes (1024 mibibytes)"),
+                  QT_TRANSLATE_NOOP3("misc", "TiB", "tebibytes (1024 gibibytes)"),
+                  QT_TRANSLATE_NOOP3("misc", "PiB", "pebibytes (1024 tebibytes)"),
+                  QT_TRANSLATE_NOOP3("misc", "EiB", "exbibytes (1024 pebibytes)") };
+} // namespace
 
 QString unitString(const SizeUnit unit, const bool isSpeed)
 {
     const auto &unitString = units[static_cast<int>(unit)];
     QString ret = QCoreApplication::translate("misc", unitString.source, unitString.comment);
 
-    if (isSpeed)
-        ret += QCoreApplication::translate("misc", "/s", "per second");
+    if (isSpeed) ret += QCoreApplication::translate("misc", "/s", "per second");
 
     return ret;
 }
@@ -82,36 +81,34 @@ QString unitString(const SizeUnit unit, const bool isSpeed)
 int friendlyUnitPrecision(const SizeUnit unit)
 {
     // friendlyUnit's number of digits after the decimal point
-    switch (unit) {
-        case SizeUnit::Byte:
-            return 0;
+    switch (unit)
+    {
+        case SizeUnit::Byte: return 0;
 
         case SizeUnit::KibiByte:
-        case SizeUnit::MebiByte:
-            return 1;
+        case SizeUnit::MebiByte: return 1;
 
-        case SizeUnit::GibiByte:
-            return 2;
+        case SizeUnit::GibiByte: return 2;
 
-        default:
-            return 3;
+        default: return 3;
     }
 }
 
 qlonglong sizeInBytes(qreal size, const SizeUnit unit)
 {
-    for (int i = 0; i < static_cast<int>(unit); ++i)
-        size *= 1024;
+    for (int i = 0; i < static_cast<int>(unit); ++i) size *= 1024;
 
     return size;
 }
 
 namespace
 {
-    // table of supposed nice steps for grid marks to get nice looking quarters of scale
-    const double roundingTable[] = {1.2, 1.6, 2, 2.4, 2.8, 3.2, 4, 6, 8};
+    // table of supposed nice steps for grid marks to get nice looking quarters
+    // of scale
+    const double roundingTable[] = { 1.2, 1.6, 2, 2.4, 2.8, 3.2, 4, 6, 8 };
 
-    struct SplittedValue {
+    struct SplittedValue
+    {
         double arg;
         SizeUnit unit;
         qint64 sizeInBytes() const
@@ -122,56 +119,53 @@ namespace
 
     SplittedValue getRoundedYScale(double value)
     {
-        if (value == 0.0) return {0, SizeUnit::Byte};
+        if (value == 0.0) return { 0, SizeUnit::Byte };
 
-        if (value <= 12.0) return {12, SizeUnit::Byte};
+        if (value <= 12.0) return { 12, SizeUnit::Byte };
 
         SizeUnit calculatedUnit = SizeUnit::Byte;
 
-        while (value > 1024) {
+        while (value > 1024)
+        {
             value /= 1024;
             calculatedUnit = static_cast<SizeUnit>(static_cast<int>(calculatedUnit) + 1);
         }
 
-        if (value > 100.0) {
+        if (value > 100.0)
+        {
             int roundedValue = static_cast<int>(value / 40) * 40;
 
-            while (roundedValue < value)
-                roundedValue += 40;
+            while (roundedValue < value) roundedValue += 40;
 
-            return {static_cast<double>(roundedValue), calculatedUnit};
+            return { static_cast<double>(roundedValue), calculatedUnit };
         }
 
-        if (value > 10.0) {
+        if (value > 10.0)
+        {
             int roundedValue = static_cast<int>(value / 4) * 4;
 
-            while (roundedValue < value)
-                roundedValue += 4;
+            while (roundedValue < value) roundedValue += 4;
 
-            return {static_cast<double>(roundedValue), calculatedUnit};
+            return { static_cast<double>(roundedValue), calculatedUnit };
         }
 
-        for (const auto &roundedValue : roundingTable) {
-            if (value <= roundedValue)
-                return {roundedValue, calculatedUnit};
+        for (const auto &roundedValue : roundingTable)
+        {
+            if (value <= roundedValue) return { roundedValue, calculatedUnit };
         }
 
-        return {10.0, calculatedUnit};
+        return { 10.0, calculatedUnit };
     }
 
     QString formatLabel(const double argValue, const SizeUnit unit)
     {
         // check is there need for digits after decimal separator
         const int precision = (argValue < 10) ? friendlyUnitPrecision(unit) : 0;
-        return QLocale::system().toString(argValue, 'f', precision)
-               + QString::fromUtf8(" ")
-               + unitString(unit, true);
+        return QLocale::system().toString(argValue, 'f', precision) + QString::fromUtf8(" ") + unitString(unit, true);
     }
-}
+} // namespace
 
-SpeedPlotView::SpeedPlotView(QWidget *parent)
-    : QGraphicsView(parent)
-    , m_currentData(&m_datahalfMin)
+SpeedPlotView::SpeedPlotView(QWidget *parent) : QGraphicsView(parent), m_currentData(&m_datahalfMin)
 {
     QPen greenPen;
     greenPen.setWidthF(1.5);
@@ -193,9 +187,7 @@ void SpeedPlotView::pushPoint(const SpeedPlotView::PointData &point)
 {
     m_datahalfMin.push_back(point);
 
-    while (m_datahalfMin.length() > VIEWABLE) {
-        m_datahalfMin.removeFirst();
-    }
+    while (m_datahalfMin.length() > VIEWABLE) { m_datahalfMin.removeFirst(); }
 }
 
 void SpeedPlotView::replot()
@@ -213,11 +205,12 @@ quint64 SpeedPlotView::maxYValue()
     auto &queue = getCurrentData();
     quint64 maxYValue = 0;
 
-    for (int id = UP; id < NB_GRAPHS; ++id) {
+    for (int id = UP; id < NB_GRAPHS; ++id)
+    {
         // 30 is half min
-        for (int i = queue.size() - 1, j = 0; (i >= 0) && (j <= VIEWABLE); --i, ++j) {
-            if (queue[i].y[id] > maxYValue)
-                maxYValue = queue[i].y[id];
+        for (int i = queue.size() - 1, j = 0; (i >= 0) && (j <= VIEWABLE); --i, ++j)
+        {
+            if (queue[i].y[id] > maxYValue) maxYValue = queue[i].y[id];
         }
     }
 
@@ -244,12 +237,12 @@ void SpeedPlotView::paintEvent(QPaintEvent *)
     int yAxisWidth = 0;
 
     for (const QString &label : speedLabels)
-        if (fontMetrics.horizontalAdvance(label) > yAxisWidth)
-            yAxisWidth = fontMetrics.horizontalAdvance(label);
+        if (fontMetrics.horizontalAdvance(label) > yAxisWidth) yAxisWidth = fontMetrics.horizontalAdvance(label);
 
     int i = 0;
 
-    for (const QString &label : speedLabels) {
+    for (const QString &label : speedLabels)
+    {
         QRectF labelRect(rect.topLeft() + QPointF(-yAxisWidth, (i++) * 0.25 * rect.height() - fontMetrics.height()),
                          QSizeF(2 * yAxisWidth, fontMetrics.height()));
         painter.drawText(labelRect, label, Qt::AlignRight | Qt::AlignTop);
@@ -269,7 +262,8 @@ void SpeedPlotView::paintEvent(QPaintEvent *)
     painter.drawLine(fullRect.left(), rect.bottom(), rect.right(), rect.bottom());
     const int TIME_AXIS_DIVISIONS = 6;
 
-    for (int i = 0; i < TIME_AXIS_DIVISIONS; ++i) {
+    for (int i = 0; i < TIME_AXIS_DIVISIONS; ++i)
+    {
         const int x = rect.left() + (i * rect.width()) / TIME_AXIS_DIVISIONS;
         painter.drawLine(x, fullRect.top(), x, fullRect.bottom());
     }
@@ -282,10 +276,12 @@ void SpeedPlotView::paintEvent(QPaintEvent *)
     const double xTickSize = static_cast<double>(rect.width()) / VIEWABLE;
     auto &queue = getCurrentData();
 
-    for (int id = UP; id < NB_GRAPHS; ++id) {
+    for (int id = UP; id < NB_GRAPHS; ++id)
+    {
         QVector<QPoint> points;
 
-        for (int i = static_cast<int>(queue.size()) - 1, j = 0; (i >= 0) && (j <= VIEWABLE); --i, ++j) {
+        for (int i = static_cast<int>(queue.size()) - 1, j = 0; (i >= 0) && (j <= VIEWABLE); --i, ++j)
+        {
             int newX = rect.right() - j * xTickSize;
             int newY = rect.bottom() - queue[i].y[id] * yMultiplier;
             points.push_back(QPoint(newX, newY));
@@ -300,27 +296,28 @@ void SpeedPlotView::paintEvent(QPaintEvent *)
     double legendHeight = 0;
     int legendWidth = 0;
 
-    for (const auto &property : m_properties) {
-        if (fontMetrics.horizontalAdvance(property.name) > legendWidth)
-            legendWidth = fontMetrics.horizontalAdvance(property.name);
+    for (const auto &property : m_properties)
+    {
+        if (fontMetrics.horizontalAdvance(property.name) > legendWidth) legendWidth = fontMetrics.horizontalAdvance(property.name);
 
         legendHeight += 1.5 * fontMetrics.height();
     }
 
     QRectF legendBackgroundRect(QPoint(legendTopLeft.x() - 4, legendTopLeft.y() - 4), QSizeF(legendWidth + 8, legendHeight + 8));
     QColor legendBackgroundColor = QWidget::palette().color(QWidget::backgroundRole());
-    legendBackgroundColor.setAlpha(128);  // 50% transparent
+    legendBackgroundColor.setAlpha(128); // 50% transparent
     painter.fillRect(legendBackgroundRect, legendBackgroundColor);
     i = 0;
 
-    for (const auto &property : m_properties) {
+    for (const auto &property : m_properties)
+    {
         int nameSize = fontMetrics.horizontalAdvance(property.name);
         double indent = 1.5 * (i++) * fontMetrics.height();
         painter.setPen(property.pen);
         painter.drawLine(legendTopLeft + QPointF(0, indent + fontMetrics.height()),
                          legendTopLeft + QPointF(nameSize, indent + fontMetrics.height()));
-        painter.drawText(QRectF(legendTopLeft + QPointF(0, indent), QSizeF(2 * nameSize, fontMetrics.height())),
-                         property.name, QTextOption(Qt::AlignVCenter));
+        painter.drawText(QRectF(legendTopLeft + QPointF(0, indent), QSizeF(2 * nameSize, fontMetrics.height())), property.name,
+                         QTextOption(Qt::AlignVCenter));
     }
 }
 
@@ -328,8 +325,6 @@ SpeedPlotView::GraphProperties::GraphProperties()
 {
 }
 
-SpeedPlotView::GraphProperties::GraphProperties(const QString &name, const QPen &pen)
-    : name(name)
-    , pen(pen)
+SpeedPlotView::GraphProperties::GraphProperties(const QString &name, const QPen &pen) : name(name), pen(pen)
 {
 }

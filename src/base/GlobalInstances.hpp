@@ -1,8 +1,8 @@
 #pragma once
 
+#include "base/models/QvConfigModel.hpp"
 #include "base/models/QvRuntimeConfig.hpp"
 #include "base/models/QvStartupConfig.hpp"
-#include "base/models/QvConfigModel.hpp"
 
 #include <QTranslator>
 
@@ -18,4 +18,4 @@ namespace Qv2ray
     inline base::QvStartupOptions StartupOption = base::QvStartupOptions();
     //
     inline std::unique_ptr<QTranslator> Qv2rayTranslator;
-}
+} // namespace Qv2ray

@@ -1,15 +1,15 @@
 #ifdef _WIN32
-#include <WinSock2.h>
-#include <WS2tcpip.h>
+    #include <WS2tcpip.h>
+    #include <WinSock2.h>
 #else
-#include <sys/socket.h>
-#include <netdb.h>
-#include <sys/time.h>
-#include <unistd.h>
+    #include <netdb.h>
+    #include <sys/socket.h>
+    #include <sys/time.h>
+    #include <unistd.h>
 #endif
+#include "QtConcurrent/QtConcurrent"
 #include "QvTCPing.hpp"
 #include "core/handler/ConnectionHandler.hpp"
-#include "QtConcurrent/QtConcurrent"
 
 namespace Qv2ray::core::tcping
 {
@@ -23,7 +23,8 @@ namespace Qv2ray::core::tcping
 
     void QvTCPingHelper::StopAllLatenceTest()
     {
-        while (!pingWorkingThreads.isEmpty()) {
+        while (!pingWorkingThreads.isEmpty())
+        {
             auto worker = pingWorkingThreads.dequeue();
             worker->future().cancel();
             worker->cancel();
@@ -35,13 +36,11 @@ namespace Qv2ray::core::tcping
         watcher->setFuture(QtConcurrent::run(&QvTCPingHelper::TestLatency_p, id, count));
         pingWorkingThreads.enqueue(watcher);
         //
-        connect(watcher, &QFutureWatcher<QvTCPingResultObject>::finished, this, [ = ]() {
+        connect(watcher, &QFutureWatcher<QvTCPingResultObject>::finished, this, [=]() {
             auto result = watcher->result();
             this->pingWorkingThreads.removeOne(watcher);
 
-            if (!result.errorMessage.isEmpty()) {
-                LOG(MODULE_NETWORK, "Ping --> " + result.errorMessage)
-            }
+            if (!result.errorMessage.isEmpty()) { LOG(MODULE_NETWORK, "Ping --> " + result.errorMessage) }
 
             emit this->OnLatencyTestCompleted(result);
         });
@@ -54,12 +53,14 @@ namespace Qv2ray::core::tcping
 
         if (isExiting) return data;
 
-        auto [host, port] = ConnectionManager->GetConnectionInfo(id);
+        auto [protocol, host, port] = ConnectionManager->GetConnectionData(id);
+        Q_UNUSED(protocol)
         double successCount = 0, errorCount = 0;
         addrinfo *resolved;
         int errcode;
 
-        if ((errcode = resolveHost(host.toStdString(), port, &resolved)) != 0) {
+        if ((errcode = resolveHost(host.toStdString(), port, &resolved)) != 0)
+        {
 #ifdef _WIN32
             data.errorMessage = QString::fromStdWString(gai_strerror(errcode));
 #else
@@ -71,26 +72,35 @@ namespace Qv2ray::core::tcping
         bool noAddress = false;
         int currentCount = 0;
 
-        while (currentCount < count) {
+        while (currentCount < count)
+        {
             if (isExiting) return QvTCPingResultObject();
 
             system_clock::time_point start;
             system_clock::time_point end;
 
-            if ((errcode = testLatency(resolved, &start, &end)) != 0) {
-                if (errcode != -EADDRNOTAVAIL) {
-                    //LOG(MODULE_NETWORK, "Error connecting to host: " + data.hostName + ":" + QSTRN(data.port) + " " + strerror(-errcode))
+            if ((errcode = testLatency(resolved, &start, &end)) != 0)
+            {
+                if (errcode != -EADDRNOTAVAIL)
+                {
+                    // LOG(MODULE_NETWORK, "Error connecting to host: " +
+                    // data.hostName + ":" + QSTRN(data.port) + " " +
+                    // strerror(-errcode))
                     errorCount++;
-                } else {
-                    if (noAddress) {
-                        LOG(MODULE_NETWORK, ".")
-                    } else {
+                }
+                else
+                {
+                    if (noAddress) { LOG(MODULE_NETWORK, ".") }
+                    else
+                    {
                         LOG(MODULE_NETWORK, "error connecting to host: " + QSTRN(-errcode) + " " + strerror(-errcode))
                     }
 
                     noAddress = true;
                 }
-            } else {
+            }
+            else
+            {
                 noAddress = false;
                 successCount++;
                 auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
@@ -99,7 +109,8 @@ namespace Qv2ray::core::tcping
                 data.worst = min(data.worst, ms);
                 data.best = max(data.best, ms);
 
-                if (ms > 1000) {
+                if (ms > 1000)
+                {
                     LOG(MODULE_NETWORK, "Stop the test on the first long connect()")
                     break; /* Stop the test on the first long connect() */
                 }
@@ -146,20 +157,19 @@ namespace Qv2ray::core::tcping
         int rv = 0;
 
         /* try to connect for each of the entries: */
-        while (addr != nullptr) {
+        while (addr != nullptr)
+        {
             if (isExiting) return 0;
 
             /* create socket */
             fd = socket(addr->ai_family, addr->ai_socktype, addr->ai_protocol);
 
-            if (!fd) {
-                goto next_addr0;
-            }
+            if (!fd) { goto next_addr0; }
 
 #ifdef _WIN32
 
             // Windows needs special conversion.
-            if (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, (const char *)&on, sizeof(on)) < 0)
+            if (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, (const char *) &on, sizeof(on)) < 0)
 #else
             if (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on)) < 0)
 #endif
@@ -172,7 +182,8 @@ namespace Qv2ray::core::tcping
             /* connect to peer */
             // Qt has its own connect() function in QObject....
             // So we add "::" here
-            if (::connect(fd, addr->ai_addr, addr->ai_addrlen) == 0) {
+            if (::connect(fd, addr->ai_addr, addr->ai_addrlen) == 0)
+            {
                 *end = system_clock::now();
 #ifdef _WIN32
                 closesocket(fd);
@@ -182,17 +193,17 @@ namespace Qv2ray::core::tcping
                 return 0;
             }
 
-next_addr1:
+        next_addr1:
 #ifdef _WIN32
             closesocket(fd);
 #else
             close(fd);
 #endif
-next_addr0:
+        next_addr0:
             addr = addr->ai_next;
         }
 
         rv = rv ? rv : -errno;
         return rv;
     }
-}
+} // namespace Qv2ray::core::tcping

@@ -33,57 +33,68 @@ namespace Qv2ray::core::handlers
          *          - log list
          *         in case of error, no objects will be returned.
          */
-        std::pair <std::optional<std::pair<QString, QList<std::pair<QString, ShadowSocksServerObject>>>>, QStringList>
-        decodeSSD(const QString &uri, const QString &pattern = DEFAULT_NAME_PATTERN);
-    }
-}
+        std::pair<std::optional<std::pair<QString, QList<std::pair<QString, ShadowSocksServerObject>>>>, QStringList> decodeSSD(
+            const QString &uri, const QString &pattern = DEFAULT_NAME_PATTERN);
+    } // namespace ssd
+} // namespace Qv2ray::core::handlers
 
-#define MUST_EXIST(fieldName) \
-    if (obj[(fieldName)].isUndefined()) {\
-        logList << QObject::tr("invalid ssd link: json: field %1 must exist").arg(fieldName);\
-        return std::make_pair(std::nullopt, logList);\
+#define MUST_EXIST(fieldName)                                                                                                                   \
+    if (obj[(fieldName)].isUndefined())                                                                                                         \
+    {                                                                                                                                           \
+        logList << QObject::tr("invalid ssd link: json: field %1 must exist").arg(fieldName);                                                   \
+        return std::make_pair(std::nullopt, logList);                                                                                           \
     }
-#define MUST_PORT(fieldName) MUST_EXIST(fieldName);\
-    if (int value = obj[(fieldName)].toInt(-1); value < 0 || value > 65535) { \
-        logList << QObject::tr("invalid ssd link: json: field %1 must be valid port number");\
-        return std::make_pair(std::nullopt, logList);\
+#define MUST_PORT(fieldName)                                                                                                                    \
+    MUST_EXIST(fieldName);                                                                                                                      \
+    if (int value = obj[(fieldName)].toInt(-1); value < 0 || value > 65535)                                                                     \
+    {                                                                                                                                           \
+        logList << QObject::tr("invalid ssd link: json: field %1 must be valid port number");                                                   \
+        return std::make_pair(std::nullopt, logList);                                                                                           \
     }
-#define MUST_STRING(fieldName) MUST_EXIST(fieldName);\
-    if (!obj[(fieldName)].isString()) {\
-        logList << QObject::tr("invalid ssd link: json: field %1 must be of type 'string'").arg(fieldName);\
-        return std::make_pair(std::nullopt, logList);\
+#define MUST_STRING(fieldName)                                                                                                                  \
+    MUST_EXIST(fieldName);                                                                                                                      \
+    if (!obj[(fieldName)].isString())                                                                                                           \
+    {                                                                                                                                           \
+        logList << QObject::tr("invalid ssd link: json: field %1 must be of type 'string'").arg(fieldName);                                     \
+        return std::make_pair(std::nullopt, logList);                                                                                           \
     }
-#define MUST_ARRAY(fieldName) MUST_EXIST(fieldName);\
-    if (!obj[(fieldName)].isArray()) {\
-        logList << QObject::tr("invalid ssd link: json: field %1 must be an array").arg(fieldName);\
-        return std::make_pair(std::nullopt, logList);\
-    }
-
-#define SERVER_SHOULD_BE_OBJECT(server) \
-    if (!server.isObject()) {\
-        logList << QObject::tr("skipping invalid ssd server: server must be an object");\
-        continue;\
-    }
-#define SHOULD_EXIST(fieldName) \
-    if (serverObject[(fieldName)].isUndefined()) { \
-        logList << QObject::tr("skipping invalid ssd server: missing required field %1").arg(fieldName);\
-        continue;\
-    }
-#define SHOULD_STRING(fieldName) SHOULD_EXIST(fieldName); \
-    if (!serverObject[(fieldName)].isString()) { \
-        logList << QObject::tr("skipping invalid ssd server: field %1 should be of type 'string'").arg(fieldName);\
-        continue; \
+#define MUST_ARRAY(fieldName)                                                                                                                   \
+    MUST_EXIST(fieldName);                                                                                                                      \
+    if (!obj[(fieldName)].isArray())                                                                                                            \
+    {                                                                                                                                           \
+        logList << QObject::tr("invalid ssd link: json: field %1 must be an array").arg(fieldName);                                             \
+        return std::make_pair(std::nullopt, logList);                                                                                           \
     }
 
+#define SERVER_SHOULD_BE_OBJECT(server)                                                                                                         \
+    if (!server.isObject())                                                                                                                     \
+    {                                                                                                                                           \
+        logList << QObject::tr("skipping invalid ssd server: server must be an object");                                                        \
+        continue;                                                                                                                               \
+    }
+#define SHOULD_EXIST(fieldName)                                                                                                                 \
+    if (serverObject[(fieldName)].isUndefined())                                                                                                \
+    {                                                                                                                                           \
+        logList << QObject::tr("skipping invalid ssd server: missing required field %1").arg(fieldName);                                        \
+        continue;                                                                                                                               \
+    }
+#define SHOULD_STRING(fieldName)                                                                                                                \
+    SHOULD_EXIST(fieldName);                                                                                                                    \
+    if (!serverObject[(fieldName)].isString())                                                                                                  \
+    {                                                                                                                                           \
+        logList << QObject::tr("skipping invalid ssd server: field %1 should be of type 'string'").arg(fieldName);                              \
+        continue;                                                                                                                               \
+    }
 
-std::pair <std::optional<std::pair<QString, QList<std::pair<QString, ShadowSocksServerObject>>>>, QStringList>
-Qv2ray::core::handlers::ssd::decodeSSD(const QString &uri, const QString &pattern)
+std::pair<std::optional<std::pair<QString, QList<std::pair<QString, ShadowSocksServerObject>>>>, QStringList> Qv2ray::core::handlers::ssd::
+    decodeSSD(const QString &uri, const QString &pattern)
 {
     // The list for the parsing log.
     QStringList logList;
 
     // ssd links should begin with "ssd://"
-    if (!uri.startsWith("ssd://")) {
+    if (!uri.startsWith("ssd://"))
+    {
         logList << QObject::tr("invalid ssd link: should begin with ssd://");
         return std::make_pair(std::nullopt, logList);
     }
@@ -92,7 +103,8 @@ Qv2ray::core::handlers::ssd::decodeSSD(const QString &uri, const QString &patter
     const auto ssdURIBody = QStringRef(&uri, 5, uri.length() - 6);
     const auto decodedJSON = QByteArray::fromBase64(ssdURIBody.toUtf8());
 
-    if (decodedJSON.length() == 0) {
+    if (decodedJSON.length() == 0)
+    {
         logList << QObject::tr("invalid ssd link: base64 parse failed");
         return std::make_pair(std::nullopt, logList);
     }
@@ -101,13 +113,15 @@ Qv2ray::core::handlers::ssd::decodeSSD(const QString &uri, const QString &patter
     QJsonParseError err;
     QJsonDocument document = QJsonDocument::fromJson(decodedJSON, &err);
 
-    if (document.isNull()) {
+    if (document.isNull())
+    {
         logList << QObject::tr("invalid ssd link: json parse failed: ") % err.errorString();
         return std::make_pair(std::nullopt, logList);
     }
 
     // json should be an object
-    if (!document.isObject()) {
+    if (!document.isObject())
+    {
         logList << QObject::tr("invalid ssd link: found non-object json, aborting");
         return std::make_pair(std::nullopt, logList);
     }
@@ -127,7 +141,8 @@ Qv2ray::core::handlers::ssd::decodeSSD(const QString &uri, const QString &patter
 
     // check: rc4-md5 is not supported by v2ray-core
     // TODO: more checks, including all algorithms
-    if (encryption == "rc4-md5") {
+    if (encryption == "rc4-md5")
+    {
         logList << QObject::tr("invalid ssd link: rc4-md5 encryption is not supported by v2ray-core");
         return std::make_pair(std::nullopt, logList);
     }
@@ -142,7 +157,8 @@ Qv2ray::core::handlers::ssd::decodeSSD(const QString &uri, const QString &patter
     //
 
     // iterate through the servers
-    for (QJsonValueRef server : obj["servers"].toArray()) {
+    for (QJsonValueRef server : obj["servers"].toArray())
+    {
         SERVER_SHOULD_BE_OBJECT(server);
         QJsonObject serverObject = server.toObject();
         ShadowSocksServerObject ssObject;
@@ -158,11 +174,13 @@ Qv2ray::core::handlers::ssd::decodeSSD(const QString &uri, const QString &patter
         // port selection:
         //   normal:     use global settings
         //   overriding: use current config
-        if (serverObject["port"].isUndefined()) {
-            ssObject.port = port;
-        } else if (auto currPort = serverObject["port"].toInt(-1); port >= 0 && port <= 65535) {
+        if (serverObject["port"].isUndefined()) { ssObject.port = port; }
+        else if (auto currPort = serverObject["port"].toInt(-1); port >= 0 && port <= 65535)
+        {
             ssObject.port = currPort;
-        } else {
+        }
+        else
+        {
             logList << QObject::tr("warning: invalid port encountered. using fallback value.");
             ssObject.port = port;
         }
@@ -172,11 +190,13 @@ Qv2ray::core::handlers::ssd::decodeSSD(const QString &uri, const QString &patter
         //   entitled: using given name
         QString nodeName;
 
-        if (serverObject["remarks"].isUndefined()) {
-            nodeName = QString("%1:%2").arg(ssObject.address).arg(ssObject.port);
-        } else if (serverObject["remarks"].isString()) {
+        if (serverObject["remarks"].isUndefined()) { nodeName = QString("%1:%2").arg(ssObject.address).arg(ssObject.port); }
+        else if (serverObject["remarks"].isString())
+        {
             nodeName = serverObject["remarks"].toString();
-        } else {
+        }
+        else
+        {
             logList << QObject::tr("warning: invalid name encountered. using fallback value.");
             nodeName = QString("%1:%2").arg(ssObject.address).arg(ssObject.port);
         }
@@ -186,9 +206,9 @@ Qv2ray::core::handlers::ssd::decodeSSD(const QString &uri, const QString &patter
         //   specified:   use given value
         double ratio = 1.0;
 
-        if (auto currRatio = serverObject["ratio"].toDouble(-1.0); currRatio != -1.0) {
-            ratio = currRatio;
-        } else if (!serverObject["ratio"].isUndefined()) {
+        if (auto currRatio = serverObject["ratio"].toDouble(-1.0); currRatio != -1.0) { ratio = currRatio; }
+        else if (!serverObject["ratio"].isUndefined())
+        {
             logList << QObject::tr("warning: invalid ratio encountered. using fallback value.");
         }
 

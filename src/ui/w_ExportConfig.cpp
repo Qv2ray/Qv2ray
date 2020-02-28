@@ -1,12 +1,11 @@
 ﻿#include "w_ExportConfig.hpp"
 #include "common/QvHelpers.hpp"
 #include "core/connection/Serialization.hpp"
+
 #include <QFileDialog>
 
 // Private initialiser
-ConfigExporter::ConfigExporter(QWidget *parent) :
-    QDialog(parent),
-    qzxing(this)
+ConfigExporter::ConfigExporter(QWidget *parent) : QDialog(parent), qzxing(this)
 {
     setupUi(this);
     QvMessageBusConnect(ConfigExporter);
@@ -14,10 +13,9 @@ ConfigExporter::ConfigExporter(QWidget *parent) :
 
 QvMessageBusSlotImpl(ConfigExporter)
 {
-    switch (msg) {
-            MBShowDefaultImpl
-            MBHideDefaultImpl
-            MBRetranslateDefaultImpl
+    switch (msg)
+    {
+        MBShowDefaultImpl MBHideDefaultImpl MBRetranslateDefaultImpl
     }
 }
 
@@ -25,7 +23,7 @@ ConfigExporter::~ConfigExporter()
 {
 }
 
-//ConfigExporter::ConfigExporter(QWidget *parent) : ConfigExporter(parent)
+// ConfigExporter::ConfigExporter(QWidget *parent) : ConfigExporter(parent)
 //{
 //    // WIP
 //    //    /auto &x = connection;
@@ -49,17 +47,13 @@ void ConfigExporter::changeEvent(QEvent *e)
 {
     QDialog::changeEvent(e);
 
-    switch (e->type()) {
-        case QEvent::LanguageChange:
-            retranslateUi(this);
-            break;
+    switch (e->type())
+    {
+        case QEvent::LanguageChange: retranslateUi(this); break;
 
-        case QEvent::Resize:
-            imageLabel->setPixmap(QPixmap::fromImage(image));
-            break;
+        case QEvent::Resize: imageLabel->setPixmap(QPixmap::fromImage(image)); break;
 
-        default:
-            break;
+        default: break;
     }
 }
 

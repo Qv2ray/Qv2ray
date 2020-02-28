@@ -49,17 +49,17 @@
 ****************************************************************************/
 
 #include "textedit.h"
+
+#include <QAbstractItemModel>
+#include <QAbstractItemView>
+#include <QApplication>
 #include <QCompleter>
 #include <QKeyEvent>
-#include <QAbstractItemView>
-#include <QtDebug>
-#include <QApplication>
 #include <QModelIndex>
-#include <QAbstractItemModel>
 #include <QScrollBar>
+#include <QtDebug>
 
-TextEdit::TextEdit(QWidget *parent)
-    : QTextEdit(parent)
+TextEdit::TextEdit(QWidget *parent) : QTextEdit(parent)
 {
     setPlainText(tr("This TextEdit provides autocompletions for words that have more than"
                     " 3 characters. You can trigger autocompletion using ") +
@@ -72,14 +72,11 @@ TextEdit::~TextEdit()
 
 void TextEdit::setCompleter(QCompleter *completer)
 {
-    if (c)
-        c->disconnect(this);
+    if (c) c->disconnect(this);
 
     c = completer;
 
-    if (!c) {
-        return;
-    }
+    if (!c) { return; }
 
     c->setWidget(this);
     c->setCompletionMode(QCompleter::PopupCompletion);
@@ -94,8 +91,7 @@ QCompleter *TextEdit::completer() const
 
 void TextEdit::insertCompletion(const QString &completion)
 {
-    if (c->widget() != this)
-        return;
+    if (c->widget() != this) return;
 
     QTextCursor tc = textCursor();
     int extra = completion.length() - c->completionPrefix().length();
@@ -121,43 +117,43 @@ void TextEdit::focusInEvent(QFocusEvent *e)
 
 void TextEdit::keyPressEvent(QKeyEvent *e)
 {
-    if (c && c->popup()->isVisible()) {
+    if (c && c->popup()->isVisible())
+    {
         // The following keys are forwarded by the completer to the widget
-        switch (e->key()) {
+        switch (e->key())
+        {
             case Qt::Key_Enter:
             case Qt::Key_Return:
             case Qt::Key_Escape:
             case Qt::Key_Tab:
-            case Qt::Key_Backtab:
-                e->ignore();
-                return; // let the completer do default behavior
+            case Qt::Key_Backtab: e->ignore(); return; // let the completer do default behavior
 
-            default:
-                break;
+            default: break;
         }
     }
 
     const bool isShortcut = (e->modifiers().testFlag(Qt::ControlModifier) && e->key() == Qt::Key_Space); // CTRL+Space
 
-    if (!c || !isShortcut) // do not process the shortcut when we have a completer
+    if (!c || !isShortcut) // do not process the shortcut when we have a
+                           // completer
         QTextEdit::keyPressEvent(e);
 
-    const bool ctrlOrShift = e->modifiers().testFlag(Qt::ControlModifier) ||
-                             e->modifiers().testFlag(Qt::ShiftModifier);
+    const bool ctrlOrShift = e->modifiers().testFlag(Qt::ControlModifier) || e->modifiers().testFlag(Qt::ShiftModifier);
 
-    if (!c || (ctrlOrShift && e->text().isEmpty()))
-        return;
+    if (!c || (ctrlOrShift && e->text().isEmpty())) return;
 
     static QString eow("~!@#$%^&*()_+{}|:\"<>?,./;'[]\\-="); // end of word
     const bool hasModifier = (e->modifiers() != Qt::NoModifier) && !ctrlOrShift;
     QString completionPrefix = textUnderCursor();
 
-    if (!isShortcut && (hasModifier || e->text().isEmpty() || completionPrefix.length() < 2 || eow.contains(e->text().right(1)))) {
+    if (!isShortcut && (hasModifier || e->text().isEmpty() || completionPrefix.length() < 2 || eow.contains(e->text().right(1))))
+    {
         c->popup()->hide();
         return;
     }
 
-    if (completionPrefix != c->completionPrefix()) {
+    if (completionPrefix != c->completionPrefix())
+    {
         c->setCompletionPrefix(completionPrefix);
         c->popup()->setCurrentIndex(c->completionModel()->index(0, 0));
     }

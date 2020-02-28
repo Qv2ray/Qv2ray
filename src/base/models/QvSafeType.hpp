@@ -1,15 +1,22 @@
 #pragma once
-#include <QJsonObject>
 #include <QJsonArray>
 #include <QJsonDocument>
+#include <QJsonObject>
 
-#define SAFE_TYPEDEF_EXTRA(Base, name, extra) \
-    class name : public Base { \
-        public: \
-            template <class... Args> \
-            explicit name (Args... args) : Base(args...) {} \
-            const Base& raw() const { return *this; } \
-            extra };
+#define SAFE_TYPEDEF_EXTRA(Base, name, extra)                                                                                                   \
+    class name : public Base                                                                                                                    \
+    {                                                                                                                                           \
+      public:                                                                                                                                   \
+        template<class... Args>                                                                                                                 \
+        explicit name(Args... args) : Base(args...)                                                                                             \
+        {                                                                                                                                       \
+        }                                                                                                                                       \
+        const Base &raw() const                                                                                                                 \
+        {                                                                                                                                       \
+            return *this;                                                                                                                       \
+        }                                                                                                                                       \
+        extra                                                                                                                                   \
+    };
 
 #define nothing
 #define SAFE_TYPEDEF(Base, name) SAFE_TYPEDEF_EXTRA(Base, name, nothing)
@@ -31,5 +38,4 @@ namespace Qv2ray::base::safetype
     SAFE_TYPEDEF(QJsonObject, ROUTERULE)
     SAFE_TYPEDEF(INOUTLIST, OUTBOUNDS)
     SAFE_TYPEDEF(INOUTLIST, INBOUNDS)
-}
-
+} // namespace Qv2ray::base::safetype

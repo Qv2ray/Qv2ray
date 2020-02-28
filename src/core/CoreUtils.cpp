@@ -24,26 +24,33 @@ namespace Qv2ray::core
         *port = 0;
         *protocol = out["protocol"].toString(QObject::tr("N/A")).toLower();
 
-        if (*protocol == "vmess") {
-            auto Server = StructFromJsonString<VMessServerObject>(JsonToString(out["settings"].toObject()["vnext"].toArray().first().toObject()));
+        if (*protocol == "vmess")
+        {
+            auto Server =
+                StructFromJsonString<VMessServerObject>(JsonToString(out["settings"].toObject()["vnext"].toArray().first().toObject()));
             *host = Server.address;
             *port = Server.port;
             return true;
-        } else if (*protocol == "shadowsocks") {
+        }
+        else if (*protocol == "shadowsocks")
+        {
             auto x = JsonToString(out["settings"].toObject()["servers"].toArray().first().toObject());
             auto Server = StructFromJsonString<ShadowSocksServerObject>(x);
             *host = Server.address;
             *port = Server.port;
             return true;
-        } else if (*protocol == "socks") {
+        }
+        else if (*protocol == "socks")
+        {
             auto x = JsonToString(out["settings"].toObject()["servers"].toArray().first().toObject());
             auto Server = StructFromJsonString<SocksServerObject>(x);
             *host = Server.address;
             *port = Server.port;
             return true;
-        } else {
+        }
+        else
+        {
             return false;
         }
     }
-}
-
+} // namespace Qv2ray::core

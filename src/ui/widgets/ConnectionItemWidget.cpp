@@ -1,4 +1,5 @@
 #include "ConnectionItemWidget.hpp"
+
 #include "common/QvHelpers.hpp"
 
 ConnectionItemWidget::ConnectionItemWidget(QWidget *parent) : QWidget(parent), connectionId("null"), groupId("null")
@@ -11,7 +12,7 @@ ConnectionItemWidget::ConnectionItemWidget(QWidget *parent) : QWidget(parent), c
     connect(ConnectionManager, &QvConnectionHandler::OnLatencyTestFinished, this, &ConnectionItemWidget::OnLatencyTestFinished);
 }
 
-ConnectionItemWidget::ConnectionItemWidget(const ConnectionId &id, QWidget *parent): ConnectionItemWidget(parent)
+ConnectionItemWidget::ConnectionItemWidget(const ConnectionId &id, QWidget *parent) : ConnectionItemWidget(parent)
 {
     connectionId = id;
     groupId = ConnectionManager->GetConnectionGroupId(id);
@@ -21,9 +22,9 @@ ConnectionItemWidget::ConnectionItemWidget(const ConnectionId &id, QWidget *pare
     // TODO
     auto latency = ConnectionManager->GetConnectionLatency(id);
 
-    if (latency == 0) {
-        latencyLabel->setText(tr("Not Tested"));
-    } else {
+    if (latency == 0) { latencyLabel->setText(tr("Not Tested")); }
+    else
+    {
         latencyLabel->setText(QSTRN(latency) + " " + tr("ms"));
     }
 
@@ -52,16 +53,17 @@ ConnectionItemWidget::ConnectionItemWidget(const GroupId &id, QWidget *parent) :
 
 void ConnectionItemWidget::BeginConnection()
 {
-    if (itemType == NODE_ITEM) {
-        ConnectionManager->StartConnection(connectionId);
-    } else {
+    if (itemType == NODE_ITEM) { ConnectionManager->StartConnection(connectionId); }
+    else
+    {
         LOG(MODULE_UI, "Trying to start a non-connection entry, this call is illegal.")
     }
 }
 
 void ConnectionItemWidget::OnConnected(const ConnectionId &id)
 {
-    if (id == connectionId) {
+    if (id == connectionId)
+    {
         connNameLabel->setText("• " + originalConnectionName);
         LOG(MODULE_UI, "OnConnected signal received for: " + id.toString())
         emit RequestWidgetFocus(this);
@@ -70,34 +72,33 @@ void ConnectionItemWidget::OnConnected(const ConnectionId &id)
 
 void ConnectionItemWidget::OnDisConnected(const ConnectionId &id)
 {
-    if (id == connectionId) {
-        connNameLabel->setText(originalConnectionName);
-    }
+    if (id == connectionId) { connNameLabel->setText(originalConnectionName); }
 }
 
-void ConnectionItemWidget::OnConnectionStatsArrived(const ConnectionId &id, const quint64 upSpeed, const quint64 downSpeed, const quint64 totalUp, const quint64 totalDown)
+void ConnectionItemWidget::OnConnectionStatsArrived(const ConnectionId &id, const quint64 upSpeed, const quint64 downSpeed,
+                                                    const quint64 totalUp, const quint64 totalDown)
 {
     Q_UNUSED(upSpeed)
     Q_UNUSED(downSpeed)
 
-    if (id == connectionId) {
-        dataLabel->setText(FormatBytes(totalUp) + " / " + FormatBytes(totalDown));
-    }
+    if (id == connectionId) { dataLabel->setText(FormatBytes(totalUp) + " / " + FormatBytes(totalDown)); }
 }
 
 void ConnectionItemWidget::OnLatencyTestStart(const ConnectionId &id)
 {
-    if (id == connectionId) {
-        latencyLabel->setText(tr("Testing..."));
-    }
+    if (id == connectionId) { latencyLabel->setText(tr("Testing...")); }
 }
 void ConnectionItemWidget::OnLatencyTestFinished(const ConnectionId &id, const uint average)
 {
-    if (id == connectionId) {
-        if (average == 0) {
+    if (id == connectionId)
+    {
+        if (average == 0)
+        {
             latencyLabel->setText(tr("Error"));
             RED(latencyLabel)
-        } else {
+        }
+        else
+        {
             latencyLabel->setText(QSTRN(average) + tr("ms"));
             BLACK(latencyLabel)
         }

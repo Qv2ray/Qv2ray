@@ -1,4 +1,5 @@
 #include "QvGeositeReader.hpp"
+
 #include "libs/gen/v2ray_geosite.pb.h"
 
 namespace Qv2ray::components::geosite
@@ -13,7 +14,8 @@ namespace Qv2ray::components::geosite
         QFile f(filepath);
         bool opened = f.open(QFile::OpenModeFlag::ReadOnly);
 
-        if (!opened) {
+        if (!opened)
+        {
             LOG(MODULE_FILEIO, "File cannot be opened: " + filepath)
             return list;
         }
@@ -24,7 +26,8 @@ namespace Qv2ray::components::geosite
         GeoSiteList sites;
         sites.ParseFromArray(content.data(), content.size());
 
-        for (auto e : sites.entry()) {
+        for (auto e : sites.entry())
+        {
             // We want to use lower string.
             list << QString::fromStdString(e.country_code()).toLower();
         }
@@ -34,4 +37,4 @@ namespace Qv2ray::components::geosite
         google::protobuf::ShutdownProtobufLibrary();
         return list;
     }
-}
+} // namespace Qv2ray::components::geosite

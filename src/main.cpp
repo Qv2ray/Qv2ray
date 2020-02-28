@@ -1,36 +1,35 @@
 ﻿#include <QFileInfo>
-#include <QStandardPaths>
-#include <QTranslator>
-#include <QStyle>
-#include <QLocale>
-#include <QObject>
-#include <QStyleFactory>
-#include <QApplication>
-#include <singleapplication.h>
-#include <csignal>
-#include "ui/w_MainWindow.hpp"
-
+#include "common/CommandArgs.hpp"
+#include "common/QvHelpers.hpp"
+#include "common/QvTranslator.hpp"
 #include "core/config/ConfigBackend.hpp"
 #include "core/handler/ConnectionHandler.hpp"
-#include "common/QvHelpers.hpp"
-#include "common/CommandArgs.hpp"
-#include "common/QvTranslator.hpp"
+#include "ui/w_MainWindow.hpp"
+
+#include <QApplication>
+#include <QLocale>
+#include <QObject>
+#include <QStandardPaths>
+#include <QStyle>
+#include <QStyleFactory>
+#include <QTranslator>
+#include <csignal>
+#include <singleapplication.h>
 
 #ifdef Q_OS_UNIX
-// For unix root user check
-#include "unistd.h"
+    // For unix root user check
+    #include "unistd.h"
 #endif
 
 void signalHandler(int signum)
 {
     cout << "Interrupt signal (" << signum << ") received." << endl;
-    //if (MainWindow::mwInstance && MainWindow::mwInstance->vinstance) {
+    // if (MainWindow::mwInstance && MainWindow::mwInstance->vinstance) {
     //    cout << "Trying to stop connection..." << endl;
     //    MainWindow::mwInstance->vinstance->StopConnection();
     //}
     qApp->exit(-99);
 }
-
 
 bool verifyConfigAvaliability(QString path, bool checkExistingConfig)
 {
@@ -41,17 +40,21 @@ bool verifyConfigAvaliability(QString path, bool checkExistingConfig)
     QFile testFile(path + ".qv2ray_file_write_test_file" + QSTRN(QTime::currentTime().msecsSinceStartOfDay()));
     bool opened = testFile.open(QFile::OpenModeFlag::ReadWrite);
 
-    if (!opened) {
+    if (!opened)
+    {
         LOG(MODULE_SETTINGS, "Directory at: " + path + " cannot be used as a valid config file path.")
         LOG(MODULE_INIT, "---> Cannot create a new file or openwrite a file.")
         return false;
-    } else {
+    }
+    else
+    {
         testFile.write("Qv2ray test file, feel free to remove.");
         testFile.flush();
         testFile.close();
         bool removed = testFile.remove();
 
-        if (!removed) {
+        if (!removed)
+        {
             // This is rare, as we can create a file but failed to remove it.
             LOG(MODULE_SETTINGS, "Directory at: " + path + " cannot be used as a valid config file path.")
             LOG(MODULE_INIT, "---> Cannot remove a file.")
@@ -59,7 +62,8 @@ bool verifyConfigAvaliability(QString path, bool checkExistingConfig)
         }
     }
 
-    if (checkExistingConfig) {
+    if (checkExistingConfig)
+    {
         // Check if an existing config is found.
         QFile configFile(path + "Qv2ray.conf");
 
@@ -68,37 +72,52 @@ bool verifyConfigAvaliability(QString path, bool checkExistingConfig)
 
         bool opened2 = configFile.open(QIODevice::ReadWrite);
 
-        try {
-            if (opened2) {
+        try
+        {
+            if (opened2)
+            {
                 // Verify if the config can be loaded.
                 // Failed to parse if we changed the file structure...
                 // Original:
-                //  --  auto conf = StructFromJsonString<Qv2rayConfig>(configFile.readAll());
+                //  --  auto conf =
+                //  StructFromJsonString<Qv2rayConfig>(configFile.readAll());
                 //
-                // Verify JSON file format. (only) because this file version may not be upgraded and may contain unsupported structure.
+                // Verify JSON file format. (only) because this file version may
+                // not be upgraded and may contain unsupported structure.
                 auto err = VerifyJsonString(StringFromFile(&configFile));
 
-                if (!err.isEmpty()) {
+                if (!err.isEmpty())
+                {
                     LOG(MODULE_INIT, "Json parse returns: " + err)
                     return false;
-                } else {
+                }
+                else
+                {
                     // If the file format is valid.
                     auto conf = JsonFromString(StringFromFile(&configFile));
-                    LOG(MODULE_SETTINGS, "Path: " + path + " contains a config file, in version " + conf["config_version"].toVariant().toString())
+                    LOG(MODULE_SETTINGS,
+                        "Path: " + path + " contains a config file, in version " + conf["config_version"].toVariant().toString())
                     configFile.close();
                     return true;
                 }
-            } else {
-                LOG(MODULE_SETTINGS, "File: " + configFile.fileName()  + " cannot be opened!")
+            }
+            else
+            {
+                LOG(MODULE_SETTINGS, "File: " + configFile.fileName() + " cannot be opened!")
                 return false;
             }
-        }  catch (...) {
+        }
+        catch (...)
+        {
             LOG(MODULE_SETTINGS, "Exception raised when checking config: " + configFile.fileName())
-            //LOG(INIT, e->what())
-            QvMessageBoxWarn(nullptr, QObject::tr("Warning"), QObject::tr("Qv2ray cannot load the config file from here:") + NEWLINE + configFile.fileName());
+            // LOG(INIT, e->what())
+            QvMessageBoxWarn(nullptr, QObject::tr("Warning"),
+                             QObject::tr("Qv2ray cannot load the config file from here:") + NEWLINE + configFile.fileName());
             return false;
         }
-    } else return true;
+    }
+    else
+        return true;
 }
 
 bool initialiseQv2ray()
@@ -109,12 +128,14 @@ bool initialiseQv2ray()
     const QString homeQv2ray = QDir::homePath() + "/.qv2ray" QV2RAY_CONFIG_DIR_SUFFIX;
     //
     //
-    // Some built-in search paths for Qv2ray to find configs. (load the first one if possible).
+    // Some built-in search paths for Qv2ray to find configs. (load the first
+    // one if possible).
     //
     QStringList configFilePaths;
     configFilePaths << currentPathConfig;
 #ifdef WITH_FLATHUB_CONFIG_PATH
-    // AppConfigLocation uses 'Q'v2ray instead of `q`v2ray. Keep here as backward compatibility.
+    // AppConfigLocation uses 'Q'v2ray instead of `q`v2ray. Keep here as
+    // backward compatibility.
     configFilePaths << QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + QV2RAY_CONFIG_DIR_SUFFIX;
 #endif
     configFilePaths << configQv2ray;
@@ -123,31 +144,40 @@ bool initialiseQv2ray()
     QString configPath = "";
     bool hasExistingConfig = false;
 
-    for (auto path : configFilePaths) {
-        // Verify the config path, check if the config file exists and in the correct JSON format.
-        // True means we check for config existance as well. --|HERE |
+    for (auto path : configFilePaths)
+    {
+        // Verify the config path, check if the config file exists and in the
+        // correct JSON format. True means we check for config existance as
+        // well. --|HERE |
         bool isValidConfigPath = verifyConfigAvaliability(path, true);
 
         // If we already found a valid config file. just simply load it...
         if (hasExistingConfig) break;
 
-        if (isValidConfigPath) {
+        if (isValidConfigPath)
+        {
             DEBUG(MODULE_INIT, "Path: " + path + " is valid.")
             configPath = path;
             hasExistingConfig = true;
-        } else {
+        }
+        else
+        {
             LOG(MODULE_INIT, "Path: " + path + " does not contain a valid config file.")
         }
     }
 
     // If there's no existing config.
-    if (hasExistingConfig) {
+    if (hasExistingConfig)
+    {
         // Use the config path found by the checks above
         SetConfigDirPath(configPath);
         LOG(MODULE_INIT, "Using " + QV2RAY_CONFIG_DIR + " as the config path.")
-    } else {
+    }
+    else
+    {
         //
-        // Create new config at these dirs, these are default values for each platform.
+        // Create new config at these dirs, these are default values for each
+        // platform.
 #ifdef Q_OS_WIN
         configPath = currentPathConfig;
 #else
@@ -156,23 +186,26 @@ bool initialiseQv2ray()
         bool mkpathResult = QDir().mkpath(configPath);
 
         // Check if the dirs are write-able
-        if (mkpathResult && verifyConfigAvaliability(configPath, false)) {
-            // Found a valid config dir, with write permission, but assume no config is located in it.
+        if (mkpathResult && verifyConfigAvaliability(configPath, false))
+        {
+            // Found a valid config dir, with write permission, but assume no
+            // config is located in it.
             LOG(MODULE_INIT, "Set " + configPath + " as the config path.")
             SetConfigDirPath(configPath);
 
-            if (QFile::exists(QV2RAY_CONFIG_FILE)) {
+            if (QFile::exists(QV2RAY_CONFIG_FILE))
+            {
                 // As we already tried to load config from every possible dir.
-                // This condition branch (!hasExistingConfig check) holds the fact that
-                // current config dir, should NOT contain any valid file (at least in the same name)
-                // It usually means that QV2RAY_CONFIG_FILE here is corrupted, in JSON format.
-                // Otherwise Qv2ray would have loaded this config already instead of notifying to
-                // create a new config in this folder.
+                // This condition branch (!hasExistingConfig check) holds the
+                // fact that current config dir, should NOT contain any valid
+                // file (at least in the same name) It usually means that
+                // QV2RAY_CONFIG_FILE here is corrupted, in JSON format.
+                // Otherwise Qv2ray would have loaded this config already
+                // instead of notifying to create a new config in this folder.
                 LOG(MODULE_INIT, "This should not occur: Qv2ray config exists but failed to load.")
                 QvMessageBoxWarn(nullptr, QObject::tr("Failed to initialise Qv2ray"),
                                  QObject::tr("Failed to determine the location of config file.") + NEWLINE +
-                                 QObject::tr("Qv2ray will now exit.") + NEWLINE +
-                                 QObject::tr("Please report if you think it's a bug."));
+                                     QObject::tr("Qv2ray will now exit.") + NEWLINE + QObject::tr("Please report if you think it's a bug."));
                 return false;
             }
 
@@ -184,7 +217,9 @@ bool initialiseQv2ray()
             // Save initial config.
             SaveGlobalConfig(conf);
             LOG(MODULE_INIT, "Created initial config file.")
-        } else {
+        }
+        else
+        {
             // None of the path above can be used as a dir for storing config.
             // Even the last folder failed to pass the check.
             LOG(MODULE_INIT, "FATAL")
@@ -192,14 +227,14 @@ bool initialiseQv2ray()
             QString searchPath = configFilePaths.join(NEWLINE);
             QvMessageBoxWarn(nullptr, QObject::tr("Cannot Start Qv2ray"),
                              QObject::tr("Cannot find a place to store config files.") + NEWLINE +
-                             QObject::tr("Qv2ray has searched these paths below:") +
-                             NEWLINE + NEWLINE + searchPath + NEWLINE +
-                             QObject::tr("Qv2ray will now exit."));
+                                 QObject::tr("Qv2ray has searched these paths below:") + NEWLINE + NEWLINE + searchPath + NEWLINE +
+                                 QObject::tr("Qv2ray will now exit."));
             return false;
         }
     }
 
-    if (!QDir(QV2RAY_GENERATED_DIR).exists()) {
+    if (!QDir(QV2RAY_GENERATED_DIR).exists())
+    {
         // The dir used to generate final config file, for V2ray interaction.
         QDir().mkdir(QV2RAY_GENERATED_DIR);
         LOG(MODULE_INIT, "Created config generation dir at: " + QV2RAY_GENERATED_DIR)
@@ -207,7 +242,6 @@ bool initialiseQv2ray()
 
     return true;
 }
-
 
 int main(int argc, char *argv[])
 {
@@ -228,9 +262,9 @@ int main(int argc, char *argv[])
         QvCommandArgParser parser;
         QString errorMessage;
 
-        switch (parser.ParseCommandLine(&errorMessage)) {
-            case CommandLineOk:
-                break;
+        switch (parser.ParseCommandLine(&errorMessage))
+        {
+            case CommandLineOk: break;
 
             case CommandLineError:
                 cout << errorMessage.toStdString() << endl;
@@ -243,16 +277,16 @@ int main(int argc, char *argv[])
                 LOG("QV2RAY_BUILD_EXTRA_INFO", QV2RAY_BUILD_EXTRA_INFO)
                 return 0;
 
-            case CommandLineHelpRequested:
-                cout << parser.Parser()->helpText().toStdString() << endl;
-                return 0;
+            case CommandLineHelpRequested: cout << parser.Parser()->helpText().toStdString() << endl; return 0;
         }
     }
 #ifdef Q_OS_UNIX
 
     // Unix OS root user check.
-    // Do not use getuid() here since it's installed as owned by the root, someone may accidently setuid to it.
-    if (!StartupOption.forceRunAsRootUser && geteuid() == 0) {
+    // Do not use getuid() here since it's installed as owned by the root,
+    // someone may accidently setuid to it.
+    if (!StartupOption.forceRunAsRootUser && geteuid() == 0)
+    {
         LOG("ERROR", QObject::tr("You cannot run Qv2ray as root, please use --I-just-wanna-run-with-root if you REALLY want to do so."))
         LOG("ERROR", QObject::tr(" --> USE IT AT YOUR OWN RISK!"))
         return 1;
@@ -263,9 +297,11 @@ int main(int argc, char *argv[])
     // finished: command line parsing
     LOG("QV2RAY_BUILD_INFO", QV2RAY_BUILD_INFO)
     LOG("QV2RAY_BUILD_EXTRA_INFO", QV2RAY_BUILD_EXTRA_INFO)
-    LOG(MODULE_INIT, "Qv2ray " QV2RAY_VERSION_STRING " running on " + QSysInfo::prettyProductName() + " " + QSysInfo::currentCpuArchitecture() + NEWLINE)
+    LOG(MODULE_INIT,
+        "Qv2ray " QV2RAY_VERSION_STRING " running on " + QSysInfo::prettyProductName() + " " + QSysInfo::currentCpuArchitecture() + NEWLINE)
     //
-    // This line must be called before any other ones, since we are using these values to identify instances.
+    // This line must be called before any other ones, since we are using these
+    // values to identify instances.
     SingleApplication::setApplicationName("Qv2ray");
     SingleApplication::setApplicationVersion(QV2RAY_VERSION_STRING);
     SingleApplication::setApplicationDisplayName("Qv2ray");
@@ -275,7 +311,8 @@ int main(int argc, char *argv[])
     // ----------------------------> For debug build...
     SingleApplication::setApplicationName("Qv2ray - DEBUG");
 #endif
-    SingleApplication _qApp(argc, argv, false, SingleApplication::Mode::User | SingleApplication::Mode::ExcludeAppPath | SingleApplication::Mode::ExcludeAppVersion);
+    SingleApplication _qApp(
+        argc, argv, false, SingleApplication::Mode::User | SingleApplication::Mode::ExcludeAppPath | SingleApplication::Mode::ExcludeAppVersion);
     _qApp.setQuitOnLastWindowClosed(false);
     // Early initialisation
     //
@@ -288,14 +325,11 @@ int main(int argc, char *argv[])
     bool _result_ = _qApp.installTranslator(Qv2rayTranslator.get());
     LOG(MODULE_UI, "Installing a tranlator from OS: " + _lang + " -- " + (_result_ ? "OK" : "Failed"))
     //
-    LOG("LICENCE", NEWLINE "This program comes with ABSOLUTELY NO WARRANTY." NEWLINE
-        "This is free software, and you are welcome to redistribute it" NEWLINE
-        "under certain conditions." NEWLINE NEWLINE
-        "Copyright (c) 2019-2020 Qv2ray Development Group." NEWLINE
-        NEWLINE NEWLINE
+    LOG("LICENCE", NEWLINE
+        "This program comes with ABSOLUTELY NO WARRANTY." NEWLINE "This is free software, and you are welcome to redistribute it" NEWLINE
+        "under certain conditions." NEWLINE NEWLINE "Copyright (c) 2019-2020 Qv2ray Development Group." NEWLINE NEWLINE NEWLINE
         "Libraries that have been used in Qv2ray are listed below (Sorted by date added):" NEWLINE
-        "Copyright (c) 2020 dridk (@dridk): X2Struct (Apache)" NEWLINE
-        "Copyright (c) 2011 SCHUTZ Sacha (@dridk): QJsonModel (MIT)" NEWLINE
+        "Copyright (c) 2020 dridk (@dridk): X2Struct (Apache)" NEWLINE "Copyright (c) 2011 SCHUTZ Sacha (@dridk): QJsonModel (MIT)" NEWLINE
         "Copyright (c) 2020 Nikolaos Ftylitakis (@ftylitak): QZXing (Apache2)" NEWLINE
         "Copyright (c) 2016 Singein (@Singein): ScreenShot (MIT)" NEWLINE
         "Copyright (c) 2016 Nikhil Marathe (@nikhilm): QHttpServer (MIT)" NEWLINE
@@ -304,48 +338,50 @@ int main(int argc, char *argv[])
         "Copyright (c) 2019 TheWanderingCoel (@TheWanderingCoel): ShadowClash (launchatlogin) (GPLv3)" NEWLINE
         "Copyright (c) 2020 Ram Pani (@DuckSoft): QvRPCBridge (WTFPL)" NEWLINE
         "Copyright (c) 2019 ShadowSocks (@shadowsocks): libQtShadowsocks (LGPLv3)" NEWLINE
-        "Copyright (c) 2015-2020 qBittorrent (Anton Lashkov) (@qBittorrent): speedplotview (GPLv2)" NEWLINE
-        NEWLINE)
+        "Copyright (c) 2015-2020 qBittorrent (Anton Lashkov) (@qBittorrent): speedplotview (GPLv2)" NEWLINE NEWLINE)
     //
-    LOG(MODULE_INIT, "Qv2ray Start Time: "  + QSTRN(QTime::currentTime().msecsSinceStartOfDay()))
+    LOG(MODULE_INIT, "Qv2ray Start Time: " + QSTRN(QTime::currentTime().msecsSinceStartOfDay()))
     //
 #ifdef QT_DEBUG
-    cout << "WARNING: ============================== This is a debug build, many features are not stable enough. ==============================" << endl;
+    cout << "WARNING: ============================== This is a debug build, many features are not stable enough. =============================="
+         << endl;
 #endif
     //
     // Load the language translation list.
     auto langs = GetFileList(QDir(":/translations"));
 
-    if (langs.empty()) {
+    if (langs.empty())
+    {
         LOG(MODULE_INIT, "FAILED to find any translations. THIS IS A BUILD ERROR.")
-        QvMessageBoxWarn(nullptr, QObject::tr("Cannot load languages"), QObject::tr("Qv2ray will continue running, but you cannot change the UI language."));
-    } else {
-        for (auto lang : langs) {
-            LOG(MODULE_INIT, "Found Translator: " + lang)
-        }
+        QvMessageBoxWarn(nullptr, QObject::tr("Cannot load languages"),
+                         QObject::tr("Qv2ray will continue running, but you cannot change the UI language."));
+    }
+    else
+    {
+        for (auto lang : langs) { LOG(MODULE_INIT, "Found Translator: " + lang) }
     }
 
     // Qv2ray Initialize, find possible config paths and verify them.
-    if (!initialiseQv2ray()) {
-        return -1;
-    }
+    if (!initialiseQv2ray()) { return -1; }
 
     // Load the config for upgrade, but do not parse it to the struct.
     auto conf = JsonFromString(StringFromFile(QV2RAY_CONFIG_FILE));
     auto confVersion = conf["config_version"].toVariant().toString().toInt();
 
-    if (confVersion > QV2RAY_CONFIG_VERSION) {
+    if (confVersion > QV2RAY_CONFIG_VERSION)
+    {
         // Config version is larger than the current version...
         // This is rare but it may happen....
         QvMessageBoxWarn(nullptr, QObject::tr("Qv2ray Cannot Continue"),
                          QObject::tr("You are running a lower version of Qv2ray compared to the current config file.") + NEWLINE +
-                         QObject::tr("Please check if there's an issue explaining about it.") + NEWLINE +
-                         QObject::tr("Or submit a new issue if you think this is an error.") + NEWLINE + NEWLINE +
-                         QObject::tr("Qv2ray will now exit."));
+                             QObject::tr("Please check if there's an issue explaining about it.") + NEWLINE +
+                             QObject::tr("Or submit a new issue if you think this is an error.") + NEWLINE + NEWLINE +
+                             QObject::tr("Qv2ray will now exit."));
         return -2;
     }
 
-    if (confVersion < QV2RAY_CONFIG_VERSION) {
+    if (confVersion < QV2RAY_CONFIG_VERSION)
+    {
         // That is, config file needs to be upgraded.
         conf = Qv2ray::UpgradeConfig(confVersion, QV2RAY_CONFIG_VERSION, conf);
     }
@@ -356,7 +392,8 @@ int main(int argc, char *argv[])
     qApp->removeTranslator(Qv2rayTranslator.get());
     LOG(MODULE_INIT, "Removed system translations")
 
-    if (confObject.uiConfig.language.isEmpty()) {
+    if (confObject.uiConfig.language.isEmpty())
+    {
         // Prevent empty.
         LOG(MODULE_UI, "Setting default UI language to en-US")
         confObject.uiConfig.language = "en-US";
@@ -364,15 +401,15 @@ int main(int argc, char *argv[])
 
     Qv2rayTranslator = std::move(QvTranslator(confObject.uiConfig.language).pTranslator);
 
-    if (qApp->installTranslator(Qv2rayTranslator.get())) {
-        LOG(MODULE_INIT, "Successfully installed a translator for " + confObject.uiConfig.language)
-    } else {
+    if (qApp->installTranslator(Qv2rayTranslator.get()))
+    { LOG(MODULE_INIT, "Successfully installed a translator for " + confObject.uiConfig.language) }
+    else
+    {
         // Do not translate these.....
         // If a translator fails to load, pop up a message.
-        QvMessageBoxWarn(
-            nullptr, "Translation Failed",
-            "Cannot load translation for " + confObject.uiConfig.language + ", English is now used." + NEWLINE + NEWLINE +
-            "Please go to Preferences Window to change language or open an Issue");
+        QvMessageBoxWarn(nullptr, "Translation Failed",
+                         "Cannot load translation for " + confObject.uiConfig.language + ", English is now used." + NEWLINE + NEWLINE +
+                             "Please go to Preferences Window to change language or open an Issue");
     }
 
     // Let's save the config.
@@ -383,16 +420,16 @@ int main(int argc, char *argv[])
     auto osslCurVersion = QSslSocket::sslLibraryVersionString();
     LOG(MODULE_NETWORK, "Current OpenSSL version: " + osslCurVersion)
 
-    if (!QSslSocket::supportsSsl()) {
+    if (!QSslSocket::supportsSsl())
+    {
         LOG(MODULE_NETWORK, "Required OpenSSL version: " + osslReqVersion)
         LOG(MODULE_NETWORK, "OpenSSL library MISSING, Quitting.")
         QvMessageBoxWarn(nullptr, QObject::tr("Dependency Missing"),
                          QObject::tr("Cannot find openssl libs") + NEWLINE +
-                         QObject::tr("This could be caused by a missing of `openssl` package in your system.") + NEWLINE +
-                         QObject::tr("If you are using an AppImage from Github Action, please report a bug.") + NEWLINE + NEWLINE +
-                         QObject::tr("Technical Details") + NEWLINE +
-                         "OSsl.Rq.V=" + osslReqVersion + NEWLINE +
-                         "OSsl.Cr.V=" + osslCurVersion);
+                             QObject::tr("This could be caused by a missing of `openssl` package in your system.") + NEWLINE +
+                             QObject::tr("If you are using an AppImage from Github Action, please report a bug.") + NEWLINE + NEWLINE +
+                             QObject::tr("Technical Details") + NEWLINE + "OSsl.Rq.V=" + osslReqVersion + NEWLINE +
+                             "OSsl.Cr.V=" + osslCurVersion);
         return -3;
     }
 
@@ -406,7 +443,8 @@ int main(int argc, char *argv[])
 #ifdef QV2RAY_USE_BUILTIN_DARKTHEME
     LOG(MODULE_UI, "Using built-in theme.")
 
-    if (confObject.uiConfig.useDarkTheme) {
+    if (confObject.uiConfig.useDarkTheme)
+    {
         LOG(MODULE_UI, " --> Using built-in dark theme.")
         // From https://forum.qt.io/topic/101391/windows-10-dark-theme/4
         _qApp.setStyle("Fusion");
@@ -441,7 +479,8 @@ int main(int argc, char *argv[])
     QStringList themes = QStyleFactory::keys();
     //_qApp.setDesktopFileName("qv2ray.desktop");
 
-    if (themes.contains(confObject.uiConfig.theme)) {
+    if (themes.contains(confObject.uiConfig.theme))
+    {
         _qApp.setStyle(confObject.uiConfig.theme);
         LOG(MODULE_INIT + " " + MODULE_UI, "Setting Qv2ray UI themes: " + confObject.uiConfig.theme)
     }
@@ -449,7 +488,8 @@ int main(int argc, char *argv[])
 #endif
 #ifndef QT_DEBUG
 
-    try {
+    try
+    {
 #endif
         //_qApp.setAttribute(Qt::AA_DontUseNativeMenuBar);
         // Initialise Connection Handler
@@ -465,23 +505,19 @@ int main(int argc, char *argv[])
         // Handler for session logout, shutdown, etc.
         // Will not block.
         QGuiApplication::setFallbackSessionManagementEnabled(false);
-        QObject::connect(&_qApp, &QGuiApplication::commitDataRequest, []() {
-            LOG(MODULE_INIT, "Quit triggered by session manager.")
-        });
+        QObject::connect(&_qApp, &QGuiApplication::commitDataRequest, []() { LOG(MODULE_INIT, "Quit triggered by session manager.") });
 #ifndef Q_OS_WIN
-        signal(SIGUSR1, [](int) {
-            emit MainWindow::mwInstance->Connect();
-        });
-        signal(SIGUSR2, [](int) {
-            emit MainWindow::mwInstance->DisConnect();
-        });
+        signal(SIGUSR1, [](int) { emit MainWindow::mwInstance->Connect(); });
+        signal(SIGUSR2, [](int) { emit MainWindow::mwInstance->DisConnect(); });
 #endif
         auto rcode = _qApp.exec();
         delete ConnectionManager;
         LOG(MODULE_INIT, "Quitting normally")
         return rcode;
 #ifndef QT_DEBUG
-    }  catch (...) {
+    }
+    catch (...)
+    {
         QvMessageBoxWarn(nullptr, "ERROR", "There's something wrong happened and Qv2ray will quit now.");
         LOG(MODULE_INIT, "EXCEPTION THROWN: " __FILE__)
         return -99;

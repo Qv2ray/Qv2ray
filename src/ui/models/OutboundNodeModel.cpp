@@ -1,6 +1,6 @@
 #include "ui/models/OutboundNodeModel.hpp"
 
-QvOutboundNodeModel::QvOutboundNodeModel(std::shared_ptr<OutboundNodeData> data): NodeDataModel()
+QvOutboundNodeModel::QvOutboundNodeModel(std::shared_ptr<OutboundNodeData> data) : NodeDataModel()
 {
     _out = data;
     _label = new QLabel();

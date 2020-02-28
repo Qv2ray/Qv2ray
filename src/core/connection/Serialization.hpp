@@ -5,7 +5,7 @@ namespace Qv2ray::core::connection
 {
     namespace Serialization
     {
-        //int VerifyVMessProtocolString(QString vmess);
+        // int VerifyVMessProtocolString(QString vmess);
         QString DecodeSubscriptionString(QByteArray arr);
 
         // General
@@ -19,8 +19,8 @@ namespace Qv2ray::core::connection
         // SS URI Protocol
         CONFIGROOT ConvertConfigFromSSString(const QString &ss, QString *alias, QString *errMessage);
         QString ConvertConfigToSSString(const ShadowSocksServerObject &server, const QString &alias, bool isSip002);
-    }
-}
+    } // namespace Serialization
+} // namespace Qv2ray::core::connection
 
 using namespace Qv2ray::core;
 using namespace Qv2ray::core::connection;

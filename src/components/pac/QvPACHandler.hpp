@@ -1,5 +1,6 @@
 #pragma once
 #include "qhttpserver.h"
+
 #include <QObject>
 #include <memory>
 
@@ -8,26 +9,26 @@ namespace Qv2ray::components::pac
     QString ConvertGFWToPAC(const QString &rawContent, const QString &customProxyString);
     class PACServer : public QObject
     {
-            Q_OBJECT
-        public:
-            explicit PACServer();
-            ~PACServer();
-            void SetProxyString(const QString &proxyString);
-            void StartListen();
-            void StopServer();
+        Q_OBJECT
+      public:
+        explicit PACServer();
+        ~PACServer();
+        void SetProxyString(const QString &proxyString);
+        void StartListen();
+        void StopServer();
 
-            QString gfwFilePath;
+        QString gfwFilePath;
 
-        public slots:
-            void onNewRequest(QHttpRequest *request, QHttpResponse *response);
+      public slots:
+        void onNewRequest(QHttpRequest *request, QHttpResponse *response);
 
-        private:
-            bool isStarted;
-            QHttpServer pacServer;
-            QString pacContent;
-            QString proxyString;
+      private:
+        bool isStarted;
+        QHttpServer pacServer;
+        QString pacContent;
+        QString proxyString;
     };
-}
+} // namespace Qv2ray::components::pac
 
 using namespace Qv2ray::components;
 using namespace Qv2ray::components::pac;

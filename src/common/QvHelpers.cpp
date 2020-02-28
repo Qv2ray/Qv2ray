@@ -1,4 +1,5 @@
 #include "common/QvHelpers.hpp"
+
 #include <QQueue>
 
 namespace Qv2ray::common
@@ -8,7 +9,8 @@ namespace Qv2ray::common
         const QString possibleCharacters("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789");
         QString randomString;
 
-        for (int i = 0; i < len; ++i) {
+        for (int i = 0; i < len; ++i)
+        {
             uint rand = QRandomGenerator::system()->generate();
             uint max = static_cast<uint>(possibleCharacters.length());
             QChar nextChar = possibleCharacters[rand % max];
@@ -73,9 +75,9 @@ namespace Qv2ray::common
         QJsonDocument doc = QJsonDocument::fromJson(source.toUtf8(), &error);
         Q_UNUSED(doc)
 
-        if (error.error == QJsonParseError::NoError) {
-            return "";
-        } else {
+        if (error.error == QJsonParseError::NoError) { return ""; }
+        else
+        {
             LOG(MODULE_UI, "WARNING: Json parse returns: " + error.errorString())
             return error.errorString();
         }
@@ -108,16 +110,16 @@ namespace Qv2ray::common
     {
         list<string> list;
 
-        for (auto line : _string.split(QRegExp("[\r\n]"), QString::SkipEmptyParts)) {
-            list.push_back(line.toStdString());
-        }
+        for (auto line : _string.split(QRegExp("[\r\n]"), QString::SkipEmptyParts)) { list.push_back(line.toStdString()); }
 
         return list;
     }
 
     QStringList GetFileList(QDir dir)
     {
-        return dir.entryList(QStringList() << "*" << "*.*", QDir::Hidden | QDir::Files);
+        return dir.entryList(QStringList() << "*"
+                                           << "*.*",
+                             QDir::Hidden | QDir::Files);
     }
 
     bool FileExistsIn(QDir dir, QString fileName)
@@ -147,8 +149,7 @@ namespace Qv2ray::common
         int i;
         double dblByte = bytes;
 
-        for (i = 0; i < 5 && bytes >= 1024; i++, bytes /= 1024)
-            dblByte = bytes / 1024.0;
+        for (i = 0; i < 5 && bytes >= 1024; i++, bytes /= 1024) dblByte = bytes / 1024.0;
 
         sprintf(str, "%.2f", dblByte);
         return QString(str) + " " + QString(sizes[i]);
@@ -163,9 +164,8 @@ namespace Qv2ray::common
     QString RemoveInvalidFileName(const QString &fileName)
     {
         std::string _name = fileName.toStdString();
-        std::replace_if(_name.begin(), _name.end(), [](char c) {
-            return std::string::npos != string(R"("/\?%&^*;:|><)").find(c);
-        }, '_');
+        std::replace_if(
+            _name.begin(), _name.end(), [](char c) { return std::string::npos != string(R"("/\?%&^*;:|><)").find(c); }, '_');
         return QString::fromStdString(_name);
     }
 
@@ -174,20 +174,25 @@ namespace Qv2ray::common
     {
         int i = 1;
 
-        if (!QDir(baseDir).exists()) {
+        if (!QDir(baseDir).exists())
+        {
             QDir(baseDir).mkpath(baseDir);
             LOG(MODULE_FILEIO, "Making path: " + baseDir)
         }
 
-        while (true) {
-            if (!QFile(baseDir + "/" + fileName + "_" + QSTRN(i) + extension).exists()) {
+        while (true)
+        {
+            if (!QFile(baseDir + "/" + fileName + "_" + QSTRN(i) + extension).exists())
+            {
                 *fileName = *fileName + "_" + QSTRN(i);
                 return;
-            } else {
+            }
+            else
+            {
                 DEBUG(MODULE_FILEIO, "File with name: " + *fileName + "_" + QSTRN(i) + extension + " already exists")
             }
 
             i++;
         }
     }
-}
+} // namespace Qv2ray::common
