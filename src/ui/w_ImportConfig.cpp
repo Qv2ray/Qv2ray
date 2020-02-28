@@ -31,9 +31,9 @@ ImportConfigWindow::ImportConfigWindow(QWidget *parent)
 QvMessageBusSlotImpl(ImportConfigWindow)
 {
     switch (msg) {
-            QvMessageBusShowDefault
-            QvMessageBusHideDefault
-            QvMessageBusRetranslateDefault
+            MBShowDefaultImpl
+            MBHideDefaultImpl
+            MBRetranslateDefaultImpl
     }
 }
 
@@ -62,7 +62,7 @@ void ImportConfigWindow::on_qrFromScreenBtn_clicked()
     bool hideQv2ray = hideQv2rayCB->isChecked();
 
     if (hideQv2ray) {
-        messageBus.EmitGlobalSignal(QvMessage::HIDE_WINDOWS);
+        messageBus.EmitGlobalSignal(QvMBMessage::HIDE_WINDOWS);
     }
 
     QApplication::processEvents();
@@ -73,7 +73,7 @@ void ImportConfigWindow::on_qrFromScreenBtn_clicked()
     // Explicitly delete w to call UNREGISTER_WINDOW
 
     if (hideQv2ray) {
-        messageBus.EmitGlobalSignal(QvMessage::SHOW_WINDOWS);
+        messageBus.EmitGlobalSignal(QvMBMessage::SHOW_WINDOWS);
         //ShowAllGlobalWindow();
     }
 

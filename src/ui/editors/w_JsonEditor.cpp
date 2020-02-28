@@ -27,9 +27,9 @@ JsonEditor::JsonEditor(QJsonObject rootObject, QWidget *parent) :
 QvMessageBusSlotImpl(JsonEditor)
 {
     switch (msg) {
-            QvMessageBusShowDefault
-            QvMessageBusHideDefault
-            QvMessageBusRetranslateDefault
+            MBShowDefaultImpl
+            MBHideDefaultImpl
+            MBRetranslateDefaultImpl
     }
 }
 

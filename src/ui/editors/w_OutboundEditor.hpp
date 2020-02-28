@@ -16,7 +16,7 @@ class OutboundEditor : public QDialog, private Ui::OutboundEditor
         OUTBOUND OpenEditor();
         QString GetFriendlyName();
     public slots:
-        QvMessageBusSlotHeader
+        QvMessageBusSlotDecl
     signals:
         void s_reload_config(bool need_restart);
     private slots:

@@ -15,9 +15,9 @@ ConfigExporter::ConfigExporter(QWidget *parent) :
 QvMessageBusSlotImpl(ConfigExporter)
 {
     switch (msg) {
-            QvMessageBusShowDefault
-            QvMessageBusHideDefault
-            QvMessageBusRetranslateDefault
+            MBShowDefaultImpl
+            MBHideDefaultImpl
+            MBRetranslateDefaultImpl
     }
 }
 

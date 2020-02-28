@@ -3,40 +3,43 @@
 
 #define QvMessageBusConnect(CLASSNAME) connect(&messageBus, &QvMessageBusObject::QvSendMessage, this, &CLASSNAME::on_QvMessageReceived)
 
-#define QvMessageBusSlotHeader void on_QvMessageReceived(QvMessage msg);
-#define QvMessageBusSlotImpl(CLASSNAME) void CLASSNAME::on_QvMessageReceived(QvMessage msg)
+#define QvMessageBusSlotSig const QvMBMessage &msg
+#define QvMessageBusSlotIdentifier on_QvMessageReceived
 
-#define QvMessageBusShowDefault \
+#define QvMessageBusSlotDecl void QvMessageBusSlotIdentifier(QvMessageBusSlotSig);
+#define QvMessageBusSlotImpl(CLASSNAME) void CLASSNAME::QvMessageBusSlotIdentifier(QvMessageBusSlotSig)
+
+#define MBShowDefaultImpl \
     case SHOW_WINDOWS:\
     this->setWindowOpacity(1);\
     break;
 
-#define QvMessageBusHideDefault \
+#define MBHideDefaultImpl \
     case HIDE_WINDOWS:\
     this->setWindowOpacity(0);\
     break;
 
-#define QvMessageBusRetranslateDefault \
+#define MBRetranslateDefaultImpl \
     case RETRANSLATE:\
-    {\
-        this->retranslateUi(this);\
-    }\
+    this->retranslateUi(this);\
     break;
 
 namespace Qv2ray::ui::messaging
 {
     Q_NAMESPACE
-    enum QvMessage {
+    enum QvMBMessage {
         /// Show all windows.
         SHOW_WINDOWS,
         /// Hide all windows.
         HIDE_WINDOWS,
         /// Retranslate User Interface.
-        RETRANSLATE,
+        RETRANSLATE
+        /*,
         /// Change Color Scheme
-        //CHANGE_COLORSCHEME
+        CHANGE_COLORSCHEME
+        */
     };
-    Q_ENUM_NS(QvMessage);
+    Q_ENUM_NS(QvMBMessage);
     //
     class QvMessageBusObject : public QObject
     {
@@ -45,11 +48,11 @@ namespace Qv2ray::ui::messaging
             explicit QvMessageBusObject();
 
             //
-            void EmitGlobalSignal(QvMessage msg);
+            void EmitGlobalSignal(const QvMBMessage &msg);
         signals:
-            void QvSendMessage(QvMessage msg);
-        private slots:
-            void on_QvMessageReceived(QvMessage msg);
+            void QvSendMessage(const QvMBMessage &msg);
+            //private slots:
+            //    void on_QvMessageReceived(QvMessage msg);
     };
 
     // Danger, new is used here. Possible memory leak (hope not so much leak)

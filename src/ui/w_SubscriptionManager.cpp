@@ -19,9 +19,9 @@ SubscribeEditor::SubscribeEditor(QWidget *parent) :
 QvMessageBusSlotImpl(SubscribeEditor)
 {
     switch (msg) {
-            QvMessageBusShowDefault
-            QvMessageBusHideDefault
-            QvMessageBusRetranslateDefault
+            MBShowDefaultImpl
+            MBHideDefaultImpl
+            MBRetranslateDefaultImpl
     }
 }
 

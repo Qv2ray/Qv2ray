@@ -16,7 +16,7 @@ class JsonEditor : public QDialog, private Ui::JsonEditor
         ~JsonEditor();
         QJsonObject OpenEditor();
     public slots:
-        QvMessageBusSlotHeader
+        QvMessageBusSlotDecl
 
     private slots:
         void on_jsonEditor_textChanged();

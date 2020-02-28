@@ -191,9 +191,9 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent),
 QvMessageBusSlotImpl(PreferencesWindow)
 {
     switch (msg) {
-            QvMessageBusShowDefault
-            QvMessageBusHideDefault
-            QvMessageBusRetranslateDefault
+            MBShowDefaultImpl
+            MBHideDefaultImpl
+            MBRetranslateDefaultImpl
     }
 }
 
@@ -243,7 +243,7 @@ void PreferencesWindow::on_buttonBox_accepted()
             if (!qApp->installTranslator(Qv2rayTranslator.get())) {
                 LOG(MODULE_UI, "Failed to translate UI to: " + CurrentConfig.uiConfig.language)
             } else {
-                messageBus.EmitGlobalSignal(QvMessage::RETRANSLATE);
+                messageBus.EmitGlobalSignal(QvMBMessage::RETRANSLATE);
                 QApplication::processEvents();
             }
         }

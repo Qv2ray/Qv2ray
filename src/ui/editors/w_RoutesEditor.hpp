@@ -34,7 +34,7 @@ class RouteEditor : public QDialog, private Ui::RouteEditor
         ~RouteEditor();
         CONFIGROOT OpenEditor();
     public slots:
-        QvMessageBusSlotHeader
+        QvMessageBusSlotDecl
 
     private slots:
         void on_buttonBox_accepted();

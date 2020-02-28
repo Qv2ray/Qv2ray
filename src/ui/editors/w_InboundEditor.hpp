@@ -16,7 +16,7 @@ class InboundEditor : public QDialog, private Ui::InboundEditor
         ~InboundEditor();
         INBOUND OpenEditor();
     public slots:
-        QvMessageBusSlotHeader
+        QvMessageBusSlotDecl
 
     private slots:
         void on_inboundProtocolCombo_currentIndexChanged(const QString &arg1);

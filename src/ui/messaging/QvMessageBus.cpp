@@ -7,18 +7,11 @@ namespace Qv2ray::ui::messaging
 {
     QvMessageBusObject::QvMessageBusObject()
     {
-        QvMessageBusConnect(QvMessageBusObject);
     }
 
-    void QvMessageBusObject::on_QvMessageReceived(QvMessage msg)
+    void QvMessageBusObject::EmitGlobalSignal(const QvMBMessage &msg)
     {
-        QMetaEnum metaEnum = QMetaEnum::fromType<QvMessage>();
-        DEBUG(MODULE_MESSAGING, "Signal recieved: " + QString(metaEnum.valueToKey(msg)));
-    }
-
-    void QvMessageBusObject::EmitGlobalSignal(QvMessage msg)
-    {
-        QMetaEnum metaEnum = QMetaEnum::fromType<QvMessage>();
+        QMetaEnum metaEnum = QMetaEnum::fromType<QvMBMessage>();
         LOG(MODULE_MESSAGING, "Emitting signal: " + QString(metaEnum.valueToKey(msg)));
         emit QvSendMessage(msg);
     }

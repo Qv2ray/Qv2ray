@@ -41,9 +41,9 @@ OutboundEditor::OutboundEditor(QWidget *parent)
 QvMessageBusSlotImpl(OutboundEditor)
 {
     switch (msg) {
-            QvMessageBusShowDefault
-            QvMessageBusHideDefault
-            QvMessageBusRetranslateDefault
+            MBShowDefaultImpl
+            MBHideDefaultImpl
+            MBRetranslateDefaultImpl
     }
 }
 

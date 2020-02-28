@@ -16,7 +16,7 @@ class SubscribeEditor : public QDialog, private Ui::w_SubscribeEditor
         QPair<QString, CONFIGROOT> GetSelectedConfig();
 
     public slots:
-        QvMessageBusSlotHeader
+        QvMessageBusSlotDecl
 
     private slots:
         void on_addSubsButton_clicked();

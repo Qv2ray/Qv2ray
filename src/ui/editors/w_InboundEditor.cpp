@@ -42,9 +42,9 @@ InboundEditor::InboundEditor(INBOUND root, QWidget *parent) :
 QvMessageBusSlotImpl(InboundEditor)
 {
     switch (msg) {
-            QvMessageBusShowDefault\
-            QvMessageBusHideDefault\
-            QvMessageBusRetranslateDefault\
+            MBShowDefaultImpl\
+            MBHideDefaultImpl\
+            MBRetranslateDefaultImpl\
     }
 }
 

@@ -16,7 +16,7 @@ class PreferencesWindow : public QDialog, private Ui::PreferencesWindow
         void s_reload_config(bool need_restart);
 
     public slots:
-        QvMessageBusSlotHeader
+        QvMessageBusSlotDecl
 
     private slots:
         void on_buttonBox_accepted();

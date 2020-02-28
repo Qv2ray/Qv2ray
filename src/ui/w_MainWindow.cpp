@@ -64,9 +64,9 @@ MainWindow *MainWindow::mwInstance = nullptr;
 QvMessageBusSlotImpl(MainWindow)
 {
     switch (msg) {
-            QvMessageBusShowDefault
-            QvMessageBusHideDefault
-            QvMessageBusRetranslateDefault
+            MBShowDefaultImpl
+            MBHideDefaultImpl
+            MBRetranslateDefaultImpl
     }
 }
 

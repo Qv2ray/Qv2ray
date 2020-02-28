@@ -28,7 +28,7 @@ class MainWindow : public QMainWindow, Ui::MainWindow
         void DisConnect() const;
         void ReConnect() const;
     public slots:
-        QvMessageBusSlotHeader
+        QvMessageBusSlotDecl
     private slots:
         void on_action_RCM_ShareQR_triggered();
         void on_activatedTray(QSystemTrayIcon::ActivationReason reason);
