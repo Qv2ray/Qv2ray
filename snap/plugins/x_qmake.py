@@ -94,7 +94,7 @@ class QmakePlugin(snapcraft.BasePlugin):
         os.system("echo 'deb http://ppa.launchpad.net/ymshenyu/grpc-1/ubuntu bionic main' > /etc/apt/sources.list.d/grpc.list")
         os.system("sudo apt-key adv --keyserver keyserver.ubuntu.com --recv E6D4736255751E5D")
         os.system("sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 281f24e574404629aa3bda1a4f10c386c55cdb04")
-        os.system("sudo apt update")
+        os.system("sudo apt update -qq")
 
         self.build_packages.append("make")
         if self.options.qt_version == "qt5":
