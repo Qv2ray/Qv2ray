@@ -36,7 +36,7 @@ Additionally, this plugin uses the following plugin-specific keywords:
 """
 
 import os
-
+import subprocess
 import snapcraft
 from snapcraft import common
 from snapcraft.internal import errors
@@ -89,12 +89,16 @@ class QmakePlugin(snapcraft.BasePlugin):
             raise errors.PluginBaseError(
                 part_name=self.name, base=project.info.get_build_base()
             )
-        
-        os.system("echo 'deb http://archive.neon.kde.org/unstable bionic main' > /etc/apt/sources.list.d/neon.list")
-        os.system("echo 'deb http://ppa.launchpad.net/ymshenyu/grpc-1/ubuntu bionic main' > /etc/apt/sources.list.d/grpc.list")
-        os.system("sudo apt-key adv --keyserver keyserver.ubuntu.com --recv E6D4736255751E5D")
-        os.system("sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 281f24e574404629aa3bda1a4f10c386c55cdb04")
-        os.system("sudo apt update -qq")
+
+        cmd = '''
+        echo 'deb http://archive.neon.kde.org/unstable bionic main' > /etc/apt/sources.list.d/neon.list
+        echo 'deb http://ppa.launchpad.net/ymshenyu/grpc-1/ubuntu bionic main' > /etc/apt/sources.list.d/grpc.list
+        sudo apt-key adv --keyserver keyserver.ubuntu.com --recv E6D4736255751E5D
+        sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 281f24e574404629aa3bda1a4f10c386c55cdb04
+        sudo apt update -qq
+        '''
+
+        subprocess.call(cmd, shell=True)
 
         self.build_packages.append("make")
         if self.options.qt_version == "qt5":
