@@ -174,7 +174,10 @@ std::pair<std::optional<std::pair<QString, QList<std::pair<QString, ShadowSocksS
         // port selection:
         //   normal:     use global settings
         //   overriding: use current config
-        if (serverObject["port"].isUndefined()) { ssObject.port = port; }
+        if (serverObject["port"].isUndefined())
+        {
+            ssObject.port = port;
+        }
         else if (auto currPort = serverObject["port"].toInt(-1); port >= 0 && port <= 65535)
         {
             ssObject.port = currPort;
@@ -190,7 +193,10 @@ std::pair<std::optional<std::pair<QString, QList<std::pair<QString, ShadowSocksS
         //   entitled: using given name
         QString nodeName;
 
-        if (serverObject["remarks"].isUndefined()) { nodeName = QString("%1:%2").arg(ssObject.address).arg(ssObject.port); }
+        if (serverObject["remarks"].isUndefined())
+        {
+            nodeName = QString("%1:%2").arg(ssObject.address).arg(ssObject.port);
+        }
         else if (serverObject["remarks"].isString())
         {
             nodeName = serverObject["remarks"].toString();
@@ -206,7 +212,10 @@ std::pair<std::optional<std::pair<QString, QList<std::pair<QString, ShadowSocksS
         //   specified:   use given value
         double ratio = 1.0;
 
-        if (auto currRatio = serverObject["ratio"].toDouble(-1.0); currRatio != -1.0) { ratio = currRatio; }
+        if (auto currRatio = serverObject["ratio"].toDouble(-1.0); currRatio != -1.0)
+        {
+            ratio = currRatio;
+        }
         else if (!serverObject["ratio"].isUndefined())
         {
             logList << QObject::tr("warning: invalid ratio encountered. using fallback value.");

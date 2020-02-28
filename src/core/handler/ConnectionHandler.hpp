@@ -10,6 +10,8 @@
 
 namespace Qv2ray::core::handlers
 {
+    const inline GroupId DefaultGroupId = GroupId("000000000000");
+    //
     class QvConnectionHandler : public QObject
     {
         Q_OBJECT
@@ -42,7 +44,7 @@ namespace Qv2ray::core::handlers
         bool UpdateConnection(const ConnectionId &id, const CONFIGROOT &root);
         const optional<QString> RenameConnection(const ConnectionId &id, const QString &newName);
         const ConnectionId DuplicateConnection(const ConnectionId &id);
-        const optional<QString> MoveConnectionGroup(const ConnectionId &id, const GroupId &newGroupId);
+        const optional<QString> MoveConnectionGroup(const ConnectionId &id, const GroupId &newGroupId, bool emitSignal = true);
         //
         const CONFIGROOT GetConnectionRoot(const ConnectionId &id) const;
         const CONFIGROOT GetConnectionRoot(const GroupId &group, const ConnectionId &id) const;
@@ -58,12 +60,13 @@ namespace Qv2ray::core::handlers
         void StartLatencyTest(const ConnectionId &id);
         //
         // Group Operations
+        const GroupId CreateGroup(const QString displayName, bool isSubscription);
         const optional<QString> DeleteGroup(const GroupId &id);
-        const optional<QString> DuplicateGroup(const GroupId &id);
-        const GroupId &CreateGroup(const QString displayName, bool isSubscription);
         const optional<QString> RenameGroup(const GroupId &id, const QString &newName);
+        // const optional<QString> DuplicateGroup(const GroupId &id);
         //
         // Subscriptions
+        bool SetSubscriptionData(const GroupId &id, const QString &address = "", float updateInterval = -1);
         bool UpdateSubscription(const GroupId &id, bool useSystemProxy);
         bool UpdateSubscriptionASync(const GroupId &id, bool useSystemProxy);
         const tuple<QString, int64_t, float> GetSubscriptionData(const GroupId &id);
@@ -78,8 +81,9 @@ namespace Qv2ray::core::handlers
         //
         void OnConnectionCreated(const ConnectionId &id, const QString &displayName);
         void OnConnectionRenamed(const ConnectionId &id, const QString &originalName, const QString &newName);
+        void OnConnectionRemoved(const ConnectionId &id);
         void OnConnectionChanged(const ConnectionId &id);
-        void OnConnectionGroupChanged(const ConnectionId &id, const QString &originalGroup, const QString &newGroup);
+        void OnConnectionGroupChanged(const ConnectionId &id, const GroupId &originalGroup, const GroupId &newGroup);
         //
         void OnLatencyTestStarted(const ConnectionId &id);
         void OnLatencyTestFinished(const ConnectionId &id, const uint average);

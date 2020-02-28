@@ -117,12 +117,18 @@ namespace Qv2ray::core::connection
 
             foreach (auto account, _accounts)
             {
-                if (account.user.isEmpty() && account.pass.isEmpty()) { continue; }
+                if (account.user.isEmpty() && account.pass.isEmpty())
+                {
+                    continue;
+                }
 
                 accounts.append(GetRootObject(account));
             }
 
-            if (!accounts.isEmpty()) { JADD(accounts) }
+            if (!accounts.isEmpty())
+            {
+                JADD(accounts)
+            }
 
             JADD(timeout, allowTransparent, userLevel)
             RROOT
@@ -160,14 +166,23 @@ namespace Qv2ray::core::connection
 
             foreach (auto acc, _accounts)
             {
-                if (acc.user.isEmpty() && acc.pass.isEmpty()) { continue; }
+                if (acc.user.isEmpty() && acc.pass.isEmpty())
+                {
+                    continue;
+                }
 
                 accounts.append(GetRootObject(acc));
             }
 
-            if (!accounts.isEmpty()) { JADD(accounts) }
+            if (!accounts.isEmpty())
+            {
+                JADD(accounts)
+            }
 
-            if (udp) { JADD(auth, udp, ip, userLevel) }
+            if (udp)
+            {
+                JADD(auth, udp, ip, userLevel)
+            }
             else
             {
                 JADD(auth, userLevel)
@@ -199,11 +214,14 @@ namespace Qv2ray::core::connection
             QJsonObject root;
             QJsonArray services;
 
-            if (withHandler) services << "HandlerService";
+            if (withHandler)
+                services << "HandlerService";
 
-            if (withLogger) services << "LoggerService";
+            if (withLogger)
+                services << "LoggerService";
 
-            if (withStats) services << "StatsService";
+            if (withStats)
+                services << "StatsService";
 
             JADD(services, tag)
             RROOT
@@ -335,7 +353,10 @@ namespace Qv2ray::core::connection
                     }
 
                     // If this entry has been disabled.
-                    if (_b.contains("QV2RAY_RULE_ENABLED") && _b["QV2RAY_RULE_ENABLED"].toBool() == true) { rules.append(_b); }
+                    if (_b.contains("QV2RAY_RULE_ENABLED") && _b["QV2RAY_RULE_ENABLED"].toBool() == true)
+                    {
+                        rules.append(_b);
+                    }
                     else
                     {
                         LOG(MODULE_SETTINGS, "Discarded a rule as it's been set DISABLED")

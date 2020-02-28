@@ -5,7 +5,8 @@
 
 static bool isLoading = false;
 #define CHECKLOADING                                                                                                                            \
-    if (isLoading) return;
+    if (isLoading)                                                                                                                              \
+        return;
 
 InboundEditor::InboundEditor(INBOUND root, QWidget *parent) : QDialog(parent), original(root)
 {
@@ -16,7 +17,10 @@ InboundEditor::InboundEditor(INBOUND root, QWidget *parent) : QDialog(parent), o
     allocate = root["allocate"].toObject();
     sniffing = root["sniffing"].toObject();
 
-    if (inboundType == "http") { httpSettings = root["settings"].toObject(); }
+    if (inboundType == "http")
+    {
+        httpSettings = root["settings"].toObject();
+    }
     else if (inboundType == "socks")
     {
         socksSettings = root["settings"].toObject();
@@ -67,19 +71,28 @@ INBOUND InboundEditor::GenerateNewRoot()
     INBOUND _newRoot = root;
     auto inboundType = root["protocol"].toString();
 
-    if (inboundType.isNull() || inboundType.isEmpty()) { inboundType = "http"; }
+    if (inboundType.isNull() || inboundType.isEmpty())
+    {
+        inboundType = "http";
+    }
 
     if (inboundType == "http")
     {
         // Remove useless, misleading 'accounts' array.
-        if (httpAccountListBox->count() == 0) { httpSettings.remove("accounts"); }
+        if (httpAccountListBox->count() == 0)
+        {
+            httpSettings.remove("accounts");
+        }
 
         _newRoot["settings"] = httpSettings;
     }
     else if (inboundType == "socks")
     {
         // See above
-        if (socksAccountListBox->count() == 0) { socksSettings.remove("accounts"); }
+        if (socksAccountListBox->count() == 0)
+        {
+            socksSettings.remove("accounts");
+        }
 
         _newRoot["settings"] = socksSettings;
     }
@@ -113,9 +126,11 @@ void InboundEditor::LoadUIData()
 
     for (auto item : sniffing["destOverride"].toArray())
     {
-        if (item.toString().toLower() == "http") destOverrideList->item(0)->setCheckState(Qt::Checked);
+        if (item.toString().toLower() == "http")
+            destOverrideList->item(0)->setCheckState(Qt::Checked);
 
-        if (item.toString().toLower() == "tls") destOverrideList->item(1)->setCheckState(Qt::Checked);
+        if (item.toString().toLower() == "tls")
+            destOverrideList->item(1)->setCheckState(Qt::Checked);
     }
 
     inboundTagTxt->setText(root["tag"].toString());
@@ -349,7 +364,10 @@ void InboundEditor::on_destOverrideList_itemChanged(QListWidgetItem *item)
     {
         auto _item = destOverrideList->item(i);
 
-        if (_item->checkState() == Qt::Checked) { list.append(_item->text().toLower()); }
+        if (_item->checkState() == Qt::Checked)
+        {
+            list.append(_item->text().toLower());
+        }
     }
 
     sniffing["destOverride"] = list;
@@ -433,7 +451,8 @@ void InboundEditor::on_mtEMailTxt_textEdited(const QString &arg1)
 {
     CHECKLOADING
 
-    if (!mtSettings.contains("users")) mtSettings["users"] = QJsonArray();
+    if (!mtSettings.contains("users"))
+        mtSettings["users"] = QJsonArray();
 
     QJsonObject user = mtSettings["users"].toArray().empty() ? QJsonObject() : mtSettings["users"].toArray().first().toObject();
     user["email"] = arg1;
@@ -446,7 +465,8 @@ void InboundEditor::on_mtSecretTxt_textEdited(const QString &arg1)
 {
     CHECKLOADING
 
-    if (!mtSettings.contains("users")) mtSettings["users"] = QJsonArray();
+    if (!mtSettings.contains("users"))
+        mtSettings["users"] = QJsonArray();
 
     QJsonObject user = mtSettings["users"].toArray().empty() ? QJsonObject() : mtSettings["users"].toArray().first().toObject();
     user["secret"] = arg1;
@@ -459,7 +479,8 @@ void InboundEditor::on_mtUserLevelSB_valueChanged(int arg1)
 {
     CHECKLOADING
 
-    if (!mtSettings.contains("users")) mtSettings["users"] = QJsonArray();
+    if (!mtSettings.contains("users"))
+        mtSettings["users"] = QJsonArray();
 
     QJsonObject user = mtSettings["users"].toArray().empty() ? QJsonObject() : mtSettings["users"].toArray().first().toObject();
     user["userLevel"] = arg1;

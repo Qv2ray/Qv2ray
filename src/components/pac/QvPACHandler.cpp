@@ -14,7 +14,10 @@ namespace Qv2ray::components::pac
     }
     PACServer::~PACServer()
     {
-        if (isStarted) { pacServer.close(); }
+        if (isStarted)
+        {
+            pacServer.close();
+        }
     }
     void PACServer::SetProxyString(const QString &proxyString)
     {

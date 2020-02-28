@@ -40,7 +40,10 @@ namespace Qv2ray::core::tcping
             auto result = watcher->result();
             this->pingWorkingThreads.removeOne(watcher);
 
-            if (!result.errorMessage.isEmpty()) { LOG(MODULE_NETWORK, "Ping --> " + result.errorMessage) }
+            if (!result.errorMessage.isEmpty())
+            {
+                LOG(MODULE_NETWORK, "Ping --> " + result.errorMessage)
+            }
 
             emit this->OnLatencyTestCompleted(result);
         });
@@ -51,7 +54,8 @@ namespace Qv2ray::core::tcping
         QvTCPingResultObject data;
         data.connectionId = id;
 
-        if (isExiting) return data;
+        if (isExiting)
+            return data;
 
         auto [protocol, host, port] = ConnectionManager->GetConnectionData(id);
         Q_UNUSED(protocol)
@@ -74,7 +78,8 @@ namespace Qv2ray::core::tcping
 
         while (currentCount < count)
         {
-            if (isExiting) return QvTCPingResultObject();
+            if (isExiting)
+                return QvTCPingResultObject();
 
             system_clock::time_point start;
             system_clock::time_point end;
@@ -90,7 +95,10 @@ namespace Qv2ray::core::tcping
                 }
                 else
                 {
-                    if (noAddress) { LOG(MODULE_NETWORK, ".") }
+                    if (noAddress)
+                    {
+                        LOG(MODULE_NETWORK, ".")
+                    }
                     else
                     {
                         LOG(MODULE_NETWORK, "error connecting to host: " + QSTRN(-errcode) + " " + strerror(-errcode))
@@ -127,7 +135,8 @@ namespace Qv2ray::core::tcping
 
     int resolveHost(const string &host, int port, addrinfo **res)
     {
-        if (isExiting) return 0;
+        if (isExiting)
+            return 0;
 
         addrinfo hints;
 #ifdef _WIN32
@@ -145,7 +154,8 @@ namespace Qv2ray::core::tcping
 
     int testLatency(struct addrinfo *addr, std::chrono::system_clock::time_point *start, std::chrono::system_clock::time_point *end)
     {
-        if (isExiting) return 0;
+        if (isExiting)
+            return 0;
 
 #ifdef _WIN32
         SOCKET fd;
@@ -159,12 +169,16 @@ namespace Qv2ray::core::tcping
         /* try to connect for each of the entries: */
         while (addr != nullptr)
         {
-            if (isExiting) return 0;
+            if (isExiting)
+                return 0;
 
             /* create socket */
             fd = socket(addr->ai_family, addr->ai_socktype, addr->ai_protocol);
 
-            if (!fd) { goto next_addr0; }
+            if (!fd)
+            {
+                goto next_addr0;
+            }
 
 #ifdef _WIN32
 

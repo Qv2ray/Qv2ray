@@ -166,7 +166,8 @@ void OutboundEditor::ReloadGUI()
         ipLineEdit->setText(socks.address);
         portLineEdit->setText(QSTRN(socks.port));
 
-        if (socks.users.empty()) socks.users.push_back(SocksServerObject::UserObject());
+        if (socks.users.empty())
+            socks.users.push_back(SocksServerObject::UserObject());
 
         socks_PasswordTxt->setText(socks.users.front().pass);
         socks_UserNameTxt->setText(socks.users.front().user);
@@ -201,14 +202,16 @@ void OutboundEditor::on_portLineEdit_textEdited(const QString &arg1)
 
 void OutboundEditor::on_idLineEdit_textEdited(const QString &arg1)
 {
-    if (vmess.users.empty()) vmess.users.push_back(VMessServerObject::UserObject());
+    if (vmess.users.empty())
+        vmess.users.push_back(VMessServerObject::UserObject());
 
     vmess.users.front().id = arg1;
 }
 
 void OutboundEditor::on_securityCombo_currentIndexChanged(const QString &arg1)
 {
-    if (vmess.users.empty()) vmess.users.push_back(VMessServerObject::UserObject());
+    if (vmess.users.empty())
+        vmess.users.push_back(VMessServerObject::UserObject());
 
     vmess.users.front().security = arg1;
 }
@@ -230,7 +233,8 @@ void OutboundEditor::on_muxConcurrencyTxt_valueChanged(int arg1)
 
 void OutboundEditor::on_alterLineEdit_valueChanged(int arg1)
 {
-    if (vmess.users.empty()) vmess.users.push_back(VMessServerObject::UserObject());
+    if (vmess.users.empty())
+        vmess.users.push_back(VMessServerObject::UserObject());
 
     vmess.users.front().alterId = arg1;
 }

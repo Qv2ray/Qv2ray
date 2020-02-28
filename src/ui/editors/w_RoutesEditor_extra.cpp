@@ -10,7 +10,10 @@ void RouteEditor::AddInbound(INBOUND in)
 {
     QString tag = getTag(in);
 
-    if (inbounds.contains(tag)) { tag = tag + "_" + GenerateRandomString(5); }
+    if (inbounds.contains(tag))
+    {
+        tag = tag + "_" + GenerateRandomString(5);
+    }
 
     in["tag"] = tag;
     auto _nodeData = make_unique<QvInboundNodeModel>(make_shared<InboundNodeData>(tag));
@@ -27,7 +30,10 @@ void RouteEditor::AddOutbound(OUTBOUND out)
 {
     QString tag = getTag(out);
 
-    if (outbounds.contains(tag)) { tag = tag + "_" + GenerateRandomString(5); }
+    if (outbounds.contains(tag))
+    {
+        tag = tag + "_" + GenerateRandomString(5);
+    }
 
     out["tag"] = tag;
     auto _nodeData = make_unique<QvOutboundNodeModel>(make_shared<OutboundNodeData>(tag));
@@ -60,7 +66,10 @@ QString RouteEditor::AddNewRule()
 void RouteEditor::AddRule(RuleObject rule)
 {
     // Prevent duplicate
-    if (ruleNodes.contains(rule.QV2RAY_RULE_TAG)) { rule.QV2RAY_RULE_TAG += "-" + GenerateRandomString(5); }
+    if (ruleNodes.contains(rule.QV2RAY_RULE_TAG))
+    {
+        rule.QV2RAY_RULE_TAG += "-" + GenerateRandomString(5);
+    }
 
     rules[rule.QV2RAY_RULE_TAG] = rule;
     auto pos = nodeGraphWidget->pos();
@@ -121,7 +130,10 @@ void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString originalTag,
 
                 auto node = static_cast<QvRuleNodeDataModel *>(ruleNodes[originalTag]->nodeDataModel());
 
-                if (node == nullptr) { LOG(MODULE_GRAPH, "EMPTY NODE WARN") }
+                if (node == nullptr)
+                {
+                    LOG(MODULE_GRAPH, "EMPTY NODE WARN")
+                }
 
                 node->setData(newTag);
                 //
@@ -133,13 +145,19 @@ void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString originalTag,
                 // ruleOrder list widget.
                 auto items = ruleListWidget->findItems(originalTag, Qt::MatchExactly);
 
-                if (items.isEmpty()) { LOG(MODULE_UI, "Cannot find a node: " + originalTag) }
+                if (items.isEmpty())
+                {
+                    LOG(MODULE_UI, "Cannot find a node: " + originalTag)
+                }
                 else
                 {
                     items.first()->setText(newTag);
                 }
 
-                if (currentRuleTag == originalTag) { currentRuleTag = newTag; }
+                if (currentRuleTag == originalTag)
+                {
+                    currentRuleTag = newTag;
+                }
             }
             else
             {
@@ -161,7 +179,10 @@ void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString originalTag,
                 outboundNodes[newTag] = outboundNodes.take(originalTag);
                 auto node = static_cast<QvOutboundNodeModel *>(outboundNodes[newTag]->nodeDataModel());
 
-                if (node == nullptr) { LOG(MODULE_GRAPH, "EMPTY NODE WARN") }
+                if (node == nullptr)
+                {
+                    LOG(MODULE_GRAPH, "EMPTY NODE WARN")
+                }
 
                 node->setData(newTag);
 
@@ -202,7 +223,10 @@ void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString originalTag,
                 inboundNodes[newTag] = inboundNodes.take(originalTag);
                 auto node = static_cast<QvInboundNodeModel *>(inboundNodes[newTag]->nodeDataModel());
 
-                if (node == nullptr) { LOG(MODULE_GRAPH, "EMPTY NODE WARN") }
+                if (node == nullptr)
+                {
+                    LOG(MODULE_GRAPH, "EMPTY NODE WARN")
+                }
 
                 node->setData(newTag);
 
@@ -250,7 +274,10 @@ void RouteEditor::ResolveDefaultOutboundTag(QString original, QString newTag)
         LOG(MODULE_UI, "Default outbound is removed, using first key from the outbounds as the default one.")
 
         // Removed the default one, so set the first one as the default.
-        if (outbounds.isEmpty()) { defaultOutbound.clear(); }
+        if (outbounds.isEmpty())
+        {
+            defaultOutbound.clear();
+        }
         else
         {
             defaultOutbound = getTag(outbounds.first());

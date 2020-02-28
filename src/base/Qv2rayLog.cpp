@@ -21,14 +21,20 @@ namespace Qv2ray::base
         {
             // Debug build version, we only print info for DEBUG logs and print
             // ALL info when debugLog presents,
-            if (type == QV2RAY_LOG_DEBUG || StartupOption.debugLog) { logString = logString.prepend(funcPrepend); }
+            if (type == QV2RAY_LOG_DEBUG || StartupOption.debugLog)
+            {
+                logString = logString.prepend(funcPrepend);
+            }
         }
         else
         {
             // We only process DEBUG log in Release mode
             if (type == QV2RAY_LOG_DEBUG)
             {
-                if (StartupOption.debugLog) { logString = logString.prepend(funcPrepend); }
+                if (StartupOption.debugLog)
+                {
+                    logString = logString.prepend(funcPrepend);
+                }
                 else
                 {
                     // Discard debug log in non-debug Qv2ray version with

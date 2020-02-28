@@ -13,7 +13,10 @@ namespace Qv2ray::core::handlers
 
         // Do we need to check how many of them are loaded?
         for (auto i = 0; i < GlobalConfig.connections.count(); i++)
-        { connections[ConnectionId(GlobalConfig.connections.keys()[i])] = GlobalConfig.connections.values()[i]; }
+        {
+            auto id = ConnectionId(GlobalConfig.connections.keys()[i]);
+            connections[id] = GlobalConfig.connections.values()[i];
+        }
 
         for (auto key : GlobalConfig.subscriptions.keys())
         {
@@ -31,6 +34,12 @@ namespace Qv2ray::core::handlers
             for (auto conn : val.connections) { connections[ConnectionId(conn)].groupId = GroupId(key); }
         }
 
+        //
+        // Force default group name.
+        groups[DefaultGroupId].displayName = tr("Default Group");
+        groups[DefaultGroupId].isSubscription = false;
+        //
+
         vCoreInstance = new V2rayKernelInstance();
         connect(vCoreInstance, &V2rayKernelInstance::OnProcessErrored, this, &QvConnectionHandler::OnVCoreCrashed);
         connect(vCoreInstance, &V2rayKernelInstance::OnNewStatsDataArrived, this, &QvConnectionHandler::OnStatsDataArrived);
@@ -39,10 +48,12 @@ namespace Qv2ray::core::handlers
         //
         //
         tcpingHelper = new QvTCPingHelper(5, this);
+        httpHelper = new QvHttpRequestHelper(this);
         connect(tcpingHelper, &QvTCPingHelper::OnLatencyTestCompleted, this, &QvConnectionHandler::OnLatencyDataArrived);
         //
         saveTimerId = startTimer(10 * 1000);
-        pingAllTimerId = startTimer(5 * 60 * 1000);
+        // Do not ping all...
+        // pingAllTimerId = startTimer(5 * 60 * 1000);
         pingConnectionTimerId = startTimer(60 * 1000);
     }
 
@@ -80,14 +91,20 @@ namespace Qv2ray::core::handlers
 
     void QvConnectionHandler::timerEvent(QTimerEvent *event)
     {
-        if (event->timerId() == saveTimerId) { CHSaveConfigData_p(); }
+        if (event->timerId() == saveTimerId)
+        {
+            CHSaveConfigData_p();
+        }
         else if (event->timerId() == pingAllTimerId)
         {
             StartLatencyTest();
         }
         else if (event->timerId() == pingConnectionTimerId)
         {
-            if (currentConnectionId != NullConnectionId) { StartLatencyTest(currentConnectionId); }
+            if (currentConnectionId != NullConnectionId)
+            {
+                StartLatencyTest(currentConnectionId);
+            }
         }
     }
 
@@ -123,7 +140,10 @@ namespace Qv2ray::core::handlers
 
         for (auto group : groups.keys())
         {
-            if (groups[group].isSubscription) { subsList.push_back(group); }
+            if (groups[group].isSubscription)
+            {
+                subsList.push_back(group);
+            }
         }
 
         return subsList;
@@ -148,7 +168,10 @@ namespace Qv2ray::core::handlers
     {
         for (auto conn : connections.keys())
         {
-            if (connections[conn].displayName == displayName) { return conn; }
+            if (connections[conn].displayName == displayName)
+            {
+                return conn;
+            }
         }
 
         return NullConnectionId;
@@ -158,7 +181,10 @@ namespace Qv2ray::core::handlers
     {
         for (auto group : groups.keys())
         {
-            if (groups[group].displayName == displayName) { return group; }
+            if (groups[group].displayName == displayName)
+            {
+                return group;
+            }
         }
 
         return NullGroupId;
@@ -166,14 +192,20 @@ namespace Qv2ray::core::handlers
 
     const GroupId QvConnectionHandler::GetConnectionGroupId(const ConnectionId &id) const
     {
-        if (!connections.contains(id)) { LOG(MODULE_CORE_HANDLER, "Cannot find id: " + id.toString()); }
+        if (!connections.contains(id))
+        {
+            LOG(MODULE_CORE_HANDLER, "Cannot find id: " + id.toString());
+        }
 
         return connections[id].groupId;
     }
 
     double QvConnectionHandler::GetConnectionLatency(const ConnectionId &id) const
     {
-        if (!connections.contains(id)) { LOG(MODULE_CORE_HANDLER, "Cannot find id: " + id.toString()); }
+        if (!connections.contains(id))
+        {
+            LOG(MODULE_CORE_HANDLER, "Cannot find id: " + id.toString());
+        }
 
         return connections[id].latency;
     }
@@ -193,6 +225,7 @@ namespace Qv2ray::core::handlers
             {
                 connections.remove(id);
                 groups[groupId].connections.removeAll(id);
+                emit OnConnectionRemoved(id);
                 return {};
             }
             else
@@ -202,11 +235,76 @@ namespace Qv2ray::core::handlers
             return tr("File does not exist.");
     }
 
+    const optional<QString> QvConnectionHandler::MoveConnectionGroup(const ConnectionId &id, const GroupId &newGroupId, bool emitSignal)
+    {
+        auto const oldgid = connections[id].groupId;
+        //
+        QString oldPath = (groups[oldgid].isSubscription ? QV2RAY_SUBSCRIPTION_DIR : QV2RAY_CONNECTIONS_DIR) + oldgid.toString() + "/" +
+                          id.toString() + QV2RAY_CONFIG_FILE_EXTENSION;
+        //
+        auto newDir = (groups[newGroupId].isSubscription ? QV2RAY_SUBSCRIPTION_DIR : QV2RAY_CONNECTIONS_DIR) + newGroupId.toString() + "/";
+        QString newPath = newDir + id.toString() + QV2RAY_CONFIG_FILE_EXTENSION;
+        //
+        if (!QDir(newDir).exists())
+        {
+            QDir().mkpath(newDir);
+        }
+        //
+        if (!QFile(oldPath).rename(newPath))
+        {
+            LOG(MODULE_FILEIO, "Cannot rename")
+        }
+        groups[oldgid].connections.removeAll(id);
+        groups[newGroupId].connections.append(id);
+        connections[id].groupId = newGroupId;
+        //
+        if (emitSignal)
+        {
+            emit OnConnectionGroupChanged(id, oldgid, newGroupId);
+        }
+        //
+        return {};
+    }
+
+    const optional<QString> QvConnectionHandler::DeleteGroup(const GroupId &id)
+    {
+        if (!groups.contains(id))
+        {
+            return tr("Group does not exist");
+        }
+
+        // Copy construct
+        auto list = groups[id].connections;
+        for (auto conn : list)
+        {
+            MoveConnectionGroup(conn, DefaultGroupId, false); //
+        }
+        //
+        if (groups[id].isSubscription)
+        {
+            QDir(QV2RAY_SUBSCRIPTION_DIR + id.toString()).removeRecursively(); //
+        }
+        else
+        {
+            QDir(QV2RAY_CONNECTIONS_DIR + id.toString()).removeRecursively();
+        }
+        emit OnGroupDeleted(id, groups[id].displayName);
+        //
+        groups.remove(id);
+        return {};
+    }
+
     const optional<QString> QvConnectionHandler::StartConnection(const ConnectionId &identifier)
     {
-        if (!connections.contains(identifier)) { return tr("No connection selected!") + NEWLINE + tr("Please select a config from the list."); }
+        if (!connections.contains(identifier))
+        {
+            return tr("No connection selected!");
+        }
 
-        if (currentConnectionId != NullConnectionId) { StopConnection(); }
+        if (currentConnectionId != NullConnectionId)
+        {
+            StopConnection();
+        }
 
         CONFIGROOT root = GetConnectionRoot(connections[identifier].groupId, identifier);
         return CHStartConnection_p(identifier, root);
@@ -230,7 +328,10 @@ namespace Qv2ray::core::handlers
     {
         QString result;
 
-        if (!connections.contains(id)) { result = tr("N/A"); }
+        if (!connections.contains(id))
+        {
+            result = tr("N/A");
+        }
 
         CONFIGROOT root = GetConnectionRoot(connections[id].groupId, id);
         QStringList protocols;
@@ -243,7 +344,9 @@ namespace Qv2ray::core::handlers
             result.append(" / " + outbound["streamSettings"].toObject()["network"].toString());
 
             if (outbound["streamSettings"].toObject().contains("tls"))
-            { result.append(outbound["streamSettings"].toObject()["tls"].toBool() ? " / tls" : ""); }
+            {
+                result.append(outbound["streamSettings"].toObject()["tls"].toBool() ? " / tls" : "");
+            }
         }
 
         return result;
@@ -251,19 +354,17 @@ namespace Qv2ray::core::handlers
 
     const tuple<quint64, quint64> QvConnectionHandler::GetConnectionUsageAmount(const ConnectionId &id) const
     {
-        if (!connections.contains(id)) { return make_tuple(0, 0); }
+        if (!connections.contains(id))
+        {
+            return make_tuple(0, 0);
+        }
 
         return make_tuple(connections[id].upLinkData, connections[id].downLinkData);
     }
 
-    // const GroupMetaObject QvConnectionHandler::GetGroup(const GroupId &id)
-    // const
-    //{
-    //    return groups[id];
-    //}
-
     QvConnectionHandler::~QvConnectionHandler()
     {
+        LOG(MODULE_CORE_HANDLER, "Triggering save settings from destructor")
         CHSaveConfigData_p();
 
         if (vCoreInstance->KernelStarted)
@@ -344,18 +445,61 @@ namespace Qv2ray::core::handlers
         return StringToFile(content, path);
     }
 
+    const GroupId QvConnectionHandler::CreateGroup(const QString displayName, bool isSubscription)
+    {
+        GroupId id(GenerateRandomString());
+        groups[id].displayName = displayName;
+        groups[id].isSubscription = isSubscription;
+        groups[id].importDate = system_clock::to_time_t(system_clock::now());
+        emit OnGroupCreated(id, displayName);
+        return id;
+    }
+
+    const optional<QString> QvConnectionHandler::RenameGroup(const GroupId &id, const QString &newName)
+    {
+        if (!groups.contains(id))
+        {
+            return tr("Group does not exist");
+        }
+        groups[id].displayName = newName;
+        return {};
+    }
+
     const tuple<QString, int64_t, float> QvConnectionHandler::GetSubscriptionData(const GroupId &id)
     {
         tuple<QString, int64_t, float> result;
 
-        if (!groups[id].isSubscription) { return result; }
+        if (!groups[id].isSubscription)
+        {
+            return result;
+        }
 
         return make_tuple(groups[id].address, groups[id].lastUpdated, groups[id].updateInterval);
     }
 
+    bool QvConnectionHandler::SetSubscriptionData(const GroupId &id, const QString &address, float updateInterval)
+    {
+        if (!groups.contains(id))
+        {
+            return false;
+        }
+        if (!address.isEmpty())
+        {
+            groups[id].address = address;
+        }
+        if (updateInterval != -1)
+        {
+            groups[id].updateInterval = updateInterval;
+        }
+        return true;
+    }
+
     bool QvConnectionHandler::UpdateSubscription(const GroupId &id, bool useSystemProxy)
     {
-        if (isHttpRequestInProgress) { return false; }
+        if (isHttpRequestInProgress)
+        {
+            return false;
+        }
         isHttpRequestInProgress = true;
         auto data = httpHelper->syncget(groups[id].address, useSystemProxy);
         isHttpRequestInProgress = false;
@@ -364,7 +508,10 @@ namespace Qv2ray::core::handlers
 
     bool QvConnectionHandler::CHUpdateSubscription_p(const GroupId &id, const QByteArray &subscriptionData)
     {
-        if (!groups.contains(id)) { return false; }
+        if (!groups.contains(id))
+        {
+            return false;
+        }
         bool isAutoConnectionContainedWithin = groups[id].connections.contains(ConnectionId(GlobalConfig.autoStartId));
         Q_UNUSED(isAutoConnectionContainedWithin)
         //
@@ -375,16 +522,21 @@ namespace Qv2ray::core::handlers
         {
             nameMap[GetDisplayName(conn)] = conn;
             auto [protocol, host, port] = GetConnectionData(conn);
-            if (port != 0) { typeMap[make_tuple(protocol, host, port)] = conn; }
+            if (port != 0)
+            {
+                typeMap[make_tuple(protocol, host, port)] = conn;
+            }
         }
         //
         /// List that is holding connection IDs to be updated.
         auto connectionsOrig = groups[id].connections;
+        QList<ConnectionId> connectionsNew;
         auto str = DecodeSubscriptionString(subscriptionData);
-        if (str.isEmpty()) return false;
+        if (str.isEmpty())
+            return false;
         //
         auto subsList = SplitLines(str);
-        QDir(QV2RAY_SUBSCRIPTION_DIR + id.toString()).removeRecursively();
+        // QDir(QV2RAY_SUBSCRIPTION_DIR + id.toString()).removeRecursively();
         QDir().mkpath(QV2RAY_SUBSCRIPTION_DIR + id.toString());
 
         bool hasErrorOccured = false;
@@ -407,14 +559,16 @@ namespace Qv2ray::core::handlers
             if (nameMap.contains(_alias))
             {
                 // Just go and save the connection...
-                LOG(MODULE_CORE_HANDLER, "Guessed id from name: " + _alias + ", connectionId: " + nameMap[_alias].toString())
+                LOG(MODULE_CORE_HANDLER, "Reused connection id from name: " + _alias)
+                connectionsNew << nameMap[_alias];
                 UpdateConnection(nameMap[_alias], config);
                 // Remove Connection Id from the list.
                 connectionsOrig.removeAll(nameMap[_alias]);
             }
             else if (canGetOutboundData && typeMap.contains(outboundData))
             {
-                LOG(MODULE_CORE_HANDLER, "Guessed id from protocol/host/port pair for connectionId: " + typeMap[outboundData].toString())
+                LOG(MODULE_CORE_HANDLER, "Reused connection id from protocol/host/port pair for connection: " + _alias)
+                connectionsNew << typeMap[outboundData];
                 UpdateConnection(typeMap[outboundData], config);
                 // Update displayName
                 connections[typeMap[outboundData]].displayName = _alias;
@@ -424,11 +578,12 @@ namespace Qv2ray::core::handlers
             else
             {
                 // New connection id is required since nothing matched found...
+                LOG(MODULE_CORE_HANDLER, "Generated new connection id for connection: " + _alias)
                 ConnectionId newId(GenerateUuid());
+                connectionsNew << newId;
                 connections[newId].groupId = id;
                 connections[newId].importDate = system_clock::to_time_t(system_clock::now());
                 connections[newId].displayName = _alias;
-                LOG(MODULE_CORE_HANDLER, "Generated new connectionId.")
                 UpdateConnection(newId, config);
             }
             // End guessing connectionId
@@ -441,6 +596,8 @@ namespace Qv2ray::core::handlers
             LOG(MODULE_CORE_HANDLER, "Removing: " + conn.toString())
             DeleteConnection(conn);
         }
+        // Set new connection list
+        groups[id].connections = connectionsNew;
 
         return hasErrorOccured;
     }

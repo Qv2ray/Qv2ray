@@ -28,7 +28,10 @@ class ConnectionItemWidget
         auto searchString = arg.toLower();
         auto headerMatched = ConnectionManager->GetDisplayName(groupId).toLower().contains(arg);
 
-        if (itemType != NODE_ITEM) { return headerMatched; }
+        if (itemType != NODE_ITEM)
+        {
+            return headerMatched;
+        }
         else
         {
             return headerMatched || ConnectionManager->GetDisplayName(connectionId).toLower().contains(searchString);

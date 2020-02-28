@@ -21,21 +21,34 @@ namespace Qv2ray::components::pac
         bool passRule1 = originLine.find("|") != string::npos; // Proxy Lines
         bool passRule2 = originLine.find(".") != string::npos; // Link-Contained Lines
 
-        if (originLine[endPosition] == '\n') { endPosition -= 1; }
+        if (originLine[endPosition] == '\n')
+        {
+            endPosition -= 1;
+        }
 
-        if (originLine.find("http://") != string::npos) { startPosition += 8; }
+        if (originLine.find("http://") != string::npos)
+        {
+            startPosition += 8;
+        }
         else if (originLine.find("https://") != string::npos)
         {
             startPosition += 9;
         }
 
         // Skip unrelated lines
-        if (skipRule1 || skipRule2 || skipRule3 || skipRule4) { return ""; }
+        if (skipRule1 || skipRule2 || skipRule3 || skipRule4)
+        {
+            return "";
+        }
         else if (passRule2)
         {
-            if (passRule1) { startPosition += originLine.find_last_of("|") + 1; }
+            if (passRule1)
+            {
+                startPosition += originLine.find_last_of("|") + 1;
+            }
 
-            if (originLine[startPosition] == '\n') startPosition += 1;
+            if (originLine[startPosition] == '\n')
+                startPosition += 1;
 
             for (size_t i = startPosition; i < endPosition; ++i) { returnBuffer += originLine[i]; }
         }
@@ -58,7 +71,10 @@ namespace Qv2ray::components::pac
             {
                 writeBuffer = getRawDomain(readBuffer);
 
-                if (writeBuffer != "") { domainListCache += writeBuffer + "\n"; }
+                if (writeBuffer != "")
+                {
+                    domainListCache += writeBuffer + "\n";
+                }
 
                 readBuffer = "";
                 i += 1;
@@ -90,7 +106,8 @@ namespace Qv2ray::components::pac
             }
 
             // Format
-            if (!isFirstLine) outputContent += ",\n";
+            if (!isFirstLine)
+                outputContent += ",\n";
             else
                 isFirstLine = false;
 

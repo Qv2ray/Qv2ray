@@ -42,7 +42,10 @@ namespace Qv2ray::components::plugins
             auto req = pchRequest.trimmed();
             QString reply = "{}";
 
-            if (req == "START") { emit instance->Connect(); }
+            if (req == "START")
+            {
+                emit instance->Connect();
+            }
             else if (req == "STOP")
             {
                 emit instance->DisConnect();

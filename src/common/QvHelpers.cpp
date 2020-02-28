@@ -75,7 +75,10 @@ namespace Qv2ray::common
         QJsonDocument doc = QJsonDocument::fromJson(source.toUtf8(), &error);
         Q_UNUSED(doc)
 
-        if (error.error == QJsonParseError::NoError) { return ""; }
+        if (error.error == QJsonParseError::NoError)
+        {
+            return "";
+        }
         else
         {
             LOG(MODULE_UI, "WARNING: Json parse returns: " + error.errorString())

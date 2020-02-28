@@ -26,7 +26,8 @@ using namespace Qv2ray::ui::nodemodels;
 static bool isLoading = false;
 #define CurrentRule this->rules[this->currentRuleTag]
 #define LOADINGCHECK                                                                                                                            \
-    if (isLoading) return;
+    if (isLoading)                                                                                                                              \
+        return;
 #define GetFirstNodeData(node, nodeModel, dataModel)                                                                                            \
     (static_cast<dataModel *>(static_cast<nodeModel *>((node).nodeDataModel())->outData(0).get()))
 
@@ -129,7 +130,9 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QDialog(pare
         auto _balancerObject = _balancer.toObject();
 
         if (!_balancerObject["tag"].toString().isEmpty())
-        { balancers[_balancerObject["tag"].toString()] = _balancerObject["selector"].toVariant().toStringList(); }
+        {
+            balancers[_balancerObject["tag"].toString()] = _balancerObject["selector"].toVariant().toStringList();
+        }
     }
 
     isLoading = false;
@@ -147,7 +150,8 @@ void RouteEditor::onNodeClicked(Node &n)
 {
     LOADINGCHECK
 
-    if (isExiting) return;
+    if (isExiting)
+        return;
 
     auto isOut = outboundNodes.values().contains(&n);
     auto isIn = inboundNodes.values().contains(&n);
@@ -200,7 +204,8 @@ void RouteEditor::onConnectionCreated(QtNodes::Connection const &c)
 {
     LOADINGCHECK
 
-    if (isExiting) return;
+    if (isExiting)
+        return;
 
     // Connection Established
     auto const sourceNode = c.getNode(PortType::Out);
@@ -222,7 +227,9 @@ void RouteEditor::onConnectionCreated(QtNodes::Connection const &c)
 
             if (_connection->getNode(PortType::In) == targetNode && _connection->getNode(PortType::Out) == sourceNode &&
                 _connection->id() != c.id())
-            { nodeScene->deleteConnection(*_connection); }
+            {
+                nodeScene->deleteConnection(*_connection);
+            }
             // Append all inbounds
             else if (_connection->getNode(PortType::In) == targetNode)
             {
@@ -257,7 +264,8 @@ void RouteEditor::onConnectionDeleted(QtNodes::Connection const &c)
 {
     LOADINGCHECK
 
-    if (isExiting) return;
+    if (isExiting)
+        return;
 
     // Connection Deleted
     auto const source = c.getNode(PortType::Out);
@@ -281,7 +289,10 @@ void RouteEditor::onConnectionDeleted(QtNodes::Connection const &c)
         currentRuleTag = GetFirstNodeData(*source, QvRuleNodeDataModel, RuleNodeData)->GetRuleTag();
         auto _outboundTag = GetFirstNodeData(*target, QvOutboundNodeModel, OutboundNodeData)->GetOutbound();
 
-        if (!CurrentRule.QV2RAY_RULE_USE_BALANCER && CurrentRule.outboundTag == _outboundTag) { CurrentRule.outboundTag.clear(); }
+        if (!CurrentRule.QV2RAY_RULE_USE_BALANCER && CurrentRule.outboundTag == _outboundTag)
+        {
+            CurrentRule.outboundTag.clear();
+        }
 
         LOG(MODULE_GRAPH, "Removing an outbound: " + _outboundTag)
     }
@@ -322,7 +333,10 @@ CONFIGROOT RouteEditor::OpenEditor()
                 ruleJsonObject.remove("outboundTag");
 
                 // Find balancer list
-                if (!balancers.contains(_rule.balancerTag)) { LOG(MODULE_UI, "Cannot find a balancer for tag: " + _rule.balancerTag) }
+                if (!balancers.contains(_rule.balancerTag))
+                {
+                    LOG(MODULE_UI, "Cannot find a balancer for tag: " + _rule.balancerTag)
+                }
                 else
                 {
                     auto _balancerList = balancers[_rule.balancerTag];
@@ -334,9 +348,15 @@ CONFIGROOT RouteEditor::OpenEditor()
             }
 
             // Remove some empty fields.
-            if (_rule.port.isEmpty()) { ruleJsonObject.remove("port"); }
+            if (_rule.port.isEmpty())
+            {
+                ruleJsonObject.remove("port");
+            }
 
-            if (_rule.network.isEmpty()) { ruleJsonObject.remove("network"); }
+            if (_rule.network.isEmpty())
+            {
+                ruleJsonObject.remove("network");
+            }
 
             rulesArray.append(ruleJsonObject);
         }
@@ -352,14 +372,16 @@ CONFIGROOT RouteEditor::OpenEditor()
         // Convert our internal data format to QJsonArray
         for (auto x : inbounds)
         {
-            if (x.isEmpty()) continue;
+            if (x.isEmpty())
+                continue;
 
             _inbounds.append(x.raw());
         }
 
         for (auto x : outbounds)
         {
-            if (x.isEmpty()) continue;
+            if (x.isEmpty())
+                continue;
 
             if (getTag(x) == defaultOutbound)
             {
@@ -488,11 +510,14 @@ void RouteEditor::on_routeProtocolHTTPCB_stateChanged(int arg1)
     LOADINGCHECK
     QStringList protocols;
 
-    if (arg1 == Qt::Checked) protocols.push_back("http");
+    if (arg1 == Qt::Checked)
+        protocols.push_back("http");
 
-    if (routeProtocolTLSCB->isChecked()) protocols.push_back("tls");
+    if (routeProtocolTLSCB->isChecked())
+        protocols.push_back("tls");
 
-    if (routeProtocolBTCB->isChecked()) protocols.push_back("bittorrent");
+    if (routeProtocolBTCB->isChecked())
+        protocols.push_back("bittorrent");
 
     CurrentRule.protocol = protocols;
     statusLabel->setText(tr("Protocol list changed: ") + protocols.join(";"));
@@ -502,11 +527,14 @@ void RouteEditor::on_routeProtocolTLSCB_stateChanged(int arg1)
     LOADINGCHECK
     QStringList protocols;
 
-    if (arg1 == Qt::Checked) protocols.push_back("tls");
+    if (arg1 == Qt::Checked)
+        protocols.push_back("tls");
 
-    if (routeProtocolHTTPCB->isChecked()) protocols.push_back("http");
+    if (routeProtocolHTTPCB->isChecked())
+        protocols.push_back("http");
 
-    if (routeProtocolBTCB->isChecked()) protocols.push_back("bittorrent");
+    if (routeProtocolBTCB->isChecked())
+        protocols.push_back("bittorrent");
 
     CurrentRule.protocol = protocols;
     statusLabel->setText(tr("Protocol list changed: ") + protocols.join(";"));
@@ -516,11 +544,14 @@ void RouteEditor::on_routeProtocolBTCB_stateChanged(int arg1)
     LOADINGCHECK
     QStringList protocols;
 
-    if (arg1 == Qt::Checked) protocols.push_back("bittorrent");
+    if (arg1 == Qt::Checked)
+        protocols.push_back("bittorrent");
 
-    if (routeProtocolHTTPCB->isChecked()) protocols.push_back("http");
+    if (routeProtocolHTTPCB->isChecked())
+        protocols.push_back("http");
 
-    if (routeProtocolTLSCB->isChecked()) protocols.push_back("tls");
+    if (routeProtocolTLSCB->isChecked())
+        protocols.push_back("tls");
 
     CurrentRule.protocol = protocols;
     statusLabel->setText(tr("Protocol list changed: ") + protocols.join(";"));
@@ -546,7 +577,10 @@ void RouteEditor::on_balancerDelBtn_clicked()
 {
     LOADINGCHECK
 
-    if (balancerList->currentRow() < 0) { return; }
+    if (balancerList->currentRow() < 0)
+    {
+        return;
+    }
 
     balancers[CurrentRule.balancerTag].removeAt(balancerList->currentRow());
     balancerList->takeItem(balancerList->currentRow());
@@ -625,7 +659,10 @@ void RouteEditor::on_enableBalancerCB_stateChanged(int arg1)
 
         for (auto &&[_, conn] : nodeScene->connections())
         {
-            if (conn.get()->getNode(PortType::Out) == ruleNode) { nodeScene->deleteConnection(*conn); }
+            if (conn.get()->getNode(PortType::Out) == ruleNode)
+            {
+                nodeScene->deleteConnection(*conn);
+            }
         }
     }
     else
@@ -665,7 +702,10 @@ void RouteEditor::on_addInboundBtn_clicked()
     InboundEditor w(INBOUND(), this);
     auto _result = w.OpenEditor();
 
-    if (w.result() == QDialog::Accepted) { AddInbound(_result); }
+    if (w.result() == QDialog::Accepted)
+    {
+        AddInbound(_result);
+    }
 
     CHECKEMPTYRULES
 }
@@ -681,7 +721,8 @@ void RouteEditor::on_addOutboundBtn_clicked()
         auto conf = configs.values()[i];
         auto name = configs.key(conf, "");
 
-        if (name.isEmpty()) continue;
+        if (name.isEmpty())
+            continue;
 
         // conf is rootObject, needs to unwrap it.
         auto confList = conf["outbounds"].toArray();
@@ -741,7 +782,8 @@ void RouteEditor::on_delBtn_clicked()
         {
             auto v = rules[k];
 
-            if (v.outboundTag == currentInboundOutboundTag) v.outboundTag.clear();
+            if (v.outboundTag == currentInboundOutboundTag)
+                v.outboundTag.clear();
 
             rules[k] = v;
         }
@@ -777,7 +819,9 @@ void RouteEditor::on_delBtn_clicked()
 void RouteEditor::on_editBtn_clicked()
 {
     if (nodeScene->selectedNodes().empty())
-    { QvMessageBoxWarn(this, tr("Edit Inbound/Outbound"), tr("Please select a node from the graph to continue.")); }
+    {
+        QvMessageBoxWarn(this, tr("Edit Inbound/Outbound"), tr("Please select a node from the graph to continue."));
+    }
 
     auto firstNode = nodeScene->selectedNodes().at(0);
     auto isInbound = inboundNodes.values().contains(firstNode);
@@ -822,7 +866,10 @@ void RouteEditor::on_editBtn_clicked()
         {
             bool isTagChanged = getTag(_in) != getTag(_result);
 
-            if (isTagChanged) { RenameItemTag(RENAME_INBOUND, getTag(_in), getTag(_result)); }
+            if (isTagChanged)
+            {
+                RenameItemTag(RENAME_INBOUND, getTag(_in), getTag(_result));
+            }
 
             DEBUG(MODULE_UI, "Removed old tag: " + getTag(_in))
             inbounds.remove(getTag(_in));

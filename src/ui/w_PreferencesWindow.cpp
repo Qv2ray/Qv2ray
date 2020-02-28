@@ -18,9 +18,11 @@
 using Qv2ray::common::validation::IsValidIPAddress;
 
 #define LOADINGCHECK                                                                                                                            \
-    if (!finishedLoading) return;
+    if (!finishedLoading)                                                                                                                       \
+        return;
 #define NEEDRESTART                                                                                                                             \
-    if (finishedLoading) IsConnectionPropertyChanged = true;
+    if (finishedLoading)                                                                                                                        \
+        IsConnectionPropertyChanged = true;
 
 PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), CurrentConfig()
 {
@@ -33,7 +35,9 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     networkToolbarPage->setEnabled(StartupOption.enableToolbarPlguin);
 
     if (!StartupOption.enableToolbarPlguin)
-    { networkToolbarInfoLabel->setText(tr("Qv2ray Network Toolbar is disabled and still under test. Add --withToolbarPlugin to enable.")); }
+    {
+        networkToolbarInfoLabel->setText(tr("Qv2ray Network Toolbar is disabled and still under test. Add --withToolbarPlugin to enable."));
+    }
 
     // We add locales
     languageComboBox->clear();
@@ -122,7 +126,10 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     {
         auto str = dnsStr.trimmed();
 
-        if (!str.isEmpty()) { DNSListTxt->appendPlainText(str); }
+        if (!str.isEmpty())
+        {
+            DNSListTxt->appendPlainText(str);
+        }
     }
 
     //
@@ -165,7 +172,9 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
 
     // FP Settings
     if (CurrentConfig.connectionConfig.forwardProxyConfig.type.trimmed().isEmpty())
-    { CurrentConfig.connectionConfig.forwardProxyConfig.type = "http"; }
+    {
+        CurrentConfig.connectionConfig.forwardProxyConfig.type = "http";
+    }
 
     fpGroupBox->setChecked(CurrentConfig.connectionConfig.forwardProxyConfig.enableForwardProxy);
     fpUsernameTx->setText(CurrentConfig.connectionConfig.forwardProxyConfig.username);
@@ -248,7 +257,9 @@ void PreferencesWindow::on_buttonBox_accepted()
 
             // Install translator
             if (!qApp->installTranslator(Qv2rayTranslator.get()))
-            { LOG(MODULE_UI, "Failed to translate UI to: " + CurrentConfig.uiConfig.language) }
+            {
+                LOG(MODULE_UI, "Failed to translate UI to: " + CurrentConfig.uiConfig.language)
+            }
             else
             {
                 messageBus.EmitGlobalSignal(QvMBMessage::RETRANSLATE);
@@ -304,7 +315,10 @@ void PreferencesWindow::on_listenIPTxt_textEdited(const QString &arg1)
     NEEDRESTART
     CurrentConfig.inboundConfig.listenip = arg1;
 
-    if (IsValidIPAddress(arg1)) { BLACK(listenIPTxt) }
+    if (IsValidIPAddress(arg1))
+    {
+        BLACK(listenIPTxt)
+    }
     else
     {
         RED(listenIPTxt)
@@ -576,7 +590,10 @@ void PreferencesWindow::on_socksUDPIP_textEdited(const QString &arg1)
     NEEDRESTART
     CurrentConfig.inboundConfig.socksLocalIP = arg1;
 
-    if (IsValidIPAddress(arg1)) { BLACK(socksUDPIP) }
+    if (IsValidIPAddress(arg1))
+    {
+        BLACK(socksUDPIP)
+    }
     else
     {
         RED(socksUDPIP)
@@ -670,7 +687,8 @@ void PreferencesWindow::on_nsBarLineDelBTN_clicked()
 
 void PreferencesWindow::on_nsBarPagesList_currentRowChanged(int currentRow)
 {
-    if (currentRow < 0) return;
+    if (currentRow < 0)
+        return;
 
     // Change page.
     // We reload the lines
@@ -699,7 +717,8 @@ void PreferencesWindow::on_nsBarPagesList_currentRowChanged(int currentRow)
 
 void PreferencesWindow::on_nsBarLinesList_currentRowChanged(int currentRow)
 {
-    if (currentRow < 0) return;
+    if (currentRow < 0)
+        return;
 
     CurrentBarLineId = currentRow;
     ShowLineParameters(CurrentBarLine);
@@ -770,7 +789,10 @@ QString PreferencesWindow::GetBarLineDescription(QvBarLine barLine)
     QString result = "Empty";
     result = NetSpeedPluginMessages[barLine.ContentType];
 
-    if (barLine.ContentType == 0) { result += " (" + barLine.Message + ")"; }
+    if (barLine.ContentType == 0)
+    {
+        result += " (" + barLine.Message + ")";
+    }
 
     result = result.append(barLine.Bold ? ", " + tr("Bold") : "");
     result = result.append(barLine.Italic ? ", " + tr("Italic") : "");
@@ -781,7 +803,10 @@ void PreferencesWindow::ShowLineParameters(QvBarLine &barLine)
 {
     finishedLoading = false;
 
-    if (!barLine.Family.isEmpty()) { fontComboBox->setCurrentFont(QFont(barLine.Family)); }
+    if (!barLine.Family.isEmpty())
+    {
+        fontComboBox->setCurrentFont(QFont(barLine.Family));
+    }
 
     // Colors
     nsBarFontASB->setValue(barLine.ColorA);
@@ -933,7 +958,10 @@ void PreferencesWindow::on_pacGoBtn_clicked()
     pacGoBtn->setEnabled(true);
     gfwListCB->setEnabled(true);
 
-    if (!QDir(QV2RAY_RULES_DIR).exists()) { QDir(QV2RAY_RULES_DIR).mkpath(QV2RAY_RULES_DIR); }
+    if (!QDir(QV2RAY_RULES_DIR).exists())
+    {
+        QDir(QV2RAY_RULES_DIR).mkpath(QV2RAY_RULES_DIR);
+    }
 
     StringToFile(fileContent, QV2RAY_RULES_GFWLIST_PATH);
 }
@@ -997,7 +1025,10 @@ void PreferencesWindow::on_startWithLoginCB_stateChanged(int arg1)
     bool isEnabled = arg1 == Qt::Checked;
     SetLaunchAtLoginStatus(isEnabled);
 
-    if (GetLaunchAtLoginStatus() != isEnabled) { QvMessageBoxWarn(this, tr("Start with boot"), tr("Failed to set auto start option.")); }
+    if (GetLaunchAtLoginStatus() != isEnabled)
+    {
+        QvMessageBoxWarn(this, tr("Start with boot"), tr("Failed to set auto start option."));
+    }
 
     SetAutoStartButtonsState(GetLaunchAtLoginStatus());
 }
@@ -1018,7 +1049,10 @@ void PreferencesWindow::on_fpAddressTx_textEdited(const QString &arg1)
     LOADINGCHECK
     CurrentConfig.connectionConfig.forwardProxyConfig.serverAddress = arg1;
 
-    if (IsValidIPAddress(arg1)) { BLACK(fpAddressTx) }
+    if (IsValidIPAddress(arg1))
+    {
+        BLACK(fpAddressTx)
+    }
     else
     {
         RED(fpAddressTx)
@@ -1061,7 +1095,10 @@ void PreferencesWindow::on_pacProxyTxt_textChanged(const QString &arg1)
 {
     Q_UNUSED(arg1)
 
-    if (IsValidIPAddress(arg1)) { BLACK(pacProxyTxt) }
+    if (IsValidIPAddress(arg1))
+    {
+        BLACK(pacProxyTxt)
+    }
     else
     {
         RED(pacProxyTxt)
@@ -1077,7 +1114,10 @@ void PreferencesWindow::on_checkVCoreSettings_clicked()
     auto vAssetsPath = vCoreAssetsPathTxt->text();
     QString result;
 
-    if (!V2rayKernelInstance::ValidateKernel(vcorePath, vAssetsPath, &result)) { QvMessageBoxWarn(this, tr("V2ray Core Settings"), result); }
+    if (!V2rayKernelInstance::ValidateKernel(vcorePath, vAssetsPath, &result))
+    {
+        QvMessageBoxWarn(this, tr("V2ray Core Settings"), result);
+    }
     else
     {
         QvMessageBoxInfo(this, tr("V2ray Core Settings"),

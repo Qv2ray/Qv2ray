@@ -78,7 +78,10 @@ void StreamSettingsWidget::on_httpHostTxt_textChanged()
 
         for (auto host : hosts)
         {
-            if (!host.trimmed().isEmpty()) { stream.httpSettings.host.push_back(host.trimmed()); }
+            if (!host.trimmed().isEmpty())
+            {
+                stream.httpSettings.host.push_back(host.trimmed());
+            }
         }
 
         BLACK(httpHostTxt)
@@ -98,11 +101,13 @@ void StreamSettingsWidget::on_wsHeadersTxt_textChanged()
 
         for (auto header : headers)
         {
-            if (header.isEmpty()) continue;
+            if (header.isEmpty())
+                continue;
 
             auto index = header.indexOf("|");
 
-            if (index < 0) throw "fast fail to set RED color";
+            if (index < 0)
+                throw "fast fail to set RED color";
 
             auto key = header.left(index);
             auto value = header.right(header.length() - index - 1);

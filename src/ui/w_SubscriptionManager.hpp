@@ -34,10 +34,15 @@ class SubscribeEditor
 
     void on_subscriptionList_itemClicked(QTreeWidgetItem *item, int column);
 
-  private:
-    void StartUpdateSubscription(const QString &subscriptionName);
-    void SaveConfig();
+    void on_subscriptionList_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous);
 
+    void on_subNameTxt_textEdited(const QString &arg1);
+
+    void on_subAddrTxt_textEdited(const QString &arg1);
+
+    void on_updateIntervalSB_valueChanged(double arg1);
+
+  private:
     bool isUpdateInProgress = false;
     GroupId currentSubId = NullGroupId;
 };

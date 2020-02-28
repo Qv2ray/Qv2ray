@@ -123,7 +123,10 @@ namespace Qv2ray
                 defaultGroup["displayName"] = QObject::tr("Default Group");
                 QString defaultGroupId = "000000000000";
 
-                if (!QDir(QV2RAY_CONNECTIONS_DIR + defaultGroupId).exists()) { QDir().mkpath(QV2RAY_CONNECTIONS_DIR + defaultGroupId); }
+                if (!QDir(QV2RAY_CONNECTIONS_DIR + defaultGroupId).exists())
+                {
+                    QDir().mkpath(QV2RAY_CONNECTIONS_DIR + defaultGroupId);
+                }
 
                 QString autoStartId;
                 UPGRADELOG("Upgrading connections...")
@@ -143,7 +146,10 @@ namespace Qv2ray
                     // Check Autostart Id
                     if (root["autoStartConfig"].toObject()["subscriptionName"].toString().isEmpty())
                     {
-                        if (root["autoStartConfig"].toObject()["connectionName"].toString() == config.toString()) { autoStartId = newUuid; }
+                        if (root["autoStartConfig"].toObject()["connectionName"].toString() == config.toString())
+                        {
+                            autoStartId = newUuid;
+                        }
                     }
 
                     if (configFile.exists())
@@ -187,7 +193,10 @@ namespace Qv2ray
                     auto newDirPath = QV2RAY_SUBSCRIPTION_DIR + subsUuid;
                     QDir newDir(newDirPath);
 
-                    if (!newDir.exists()) { newDir.mkpath(newDirPath); }
+                    if (!newDir.exists())
+                    {
+                        newDir.mkpath(newDirPath);
+                    }
 
                     // With extensions
                     auto fileList = GetFileList(baseDirPath);
@@ -212,7 +221,9 @@ namespace Qv2ray
                         if (root["autoStartConfig"].toObject()["subscriptionName"].toString() == key)
                         {
                             if (root["autoStartConfig"].toObject()["connectionName"].toString() == subsConnection["displayName"].toString())
-                            { autoStartId = subsConnectionId; }
+                            {
+                                autoStartId = subsConnectionId;
+                            }
                         }
                     }
 

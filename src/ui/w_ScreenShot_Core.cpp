@@ -98,7 +98,10 @@ bool ScreenShotWindow::event(QEvent *e)
 
 void ScreenShotWindow::keyPressEvent(QKeyEvent *e)
 {
-    if (e->key() == Qt::Key_Escape) { reject(); }
+    if (e->key() == Qt::Key_Escape)
+    {
+        reject();
+    }
     else if (e->key() == Qt::Key_Enter || e->key() == Qt::Key_Return)
     {
         on_startBtn_clicked();
@@ -129,13 +132,19 @@ void ScreenShotWindow::mouseMoveEvent(QMouseEvent *e)
         QRect labelRect(label->contentsRect());
         QRect btnRect(startBtn->contentsRect());
 
-        if (imgY > labelRect.height()) { label->move(imgX, imgY - labelRect.height()); }
+        if (imgY > labelRect.height())
+        {
+            label->move(imgX, imgY - labelRect.height());
+        }
         else
         {
             label->move(imgX, imgY);
         }
 
-        if (height() - imgY - imgH > btnRect.height()) { startBtn->move(imgX + imgW - btnRect.width(), imgY + imgH); }
+        if (height() - imgY - imgH > btnRect.height())
+        {
+            startBtn->move(imgX + imgW - btnRect.width(), imgY + imgH);
+        }
         else
         {
             startBtn->move(imgX + imgW - btnRect.width(), imgY + imgH - btnRect.height());
@@ -148,7 +157,10 @@ void ScreenShotWindow::mouseMoveEvent(QMouseEvent *e)
 
 void ScreenShotWindow::mouseReleaseEvent(QMouseEvent *e)
 {
-    if (e->button() == Qt::RightButton) { reject(); }
+    if (e->button() == Qt::RightButton)
+    {
+        reject();
+    }
 }
 
 ScreenShotWindow::~ScreenShotWindow()

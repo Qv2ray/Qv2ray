@@ -34,7 +34,8 @@ void signalHandler(int signum)
 bool verifyConfigAvaliability(QString path, bool checkExistingConfig)
 {
     // Does not exist.
-    if (!QDir(path).exists()) return false;
+    if (!QDir(path).exists())
+        return false;
 
     // A temp file used to test file permissions in that folder.
     QFile testFile(path + ".qv2ray_file_write_test_file" + QSTRN(QTime::currentTime().msecsSinceStartOfDay()));
@@ -68,7 +69,8 @@ bool verifyConfigAvaliability(QString path, bool checkExistingConfig)
         QFile configFile(path + "Qv2ray.conf");
 
         // No such config file.
-        if (!configFile.exists()) return false;
+        if (!configFile.exists())
+            return false;
 
         bool opened2 = configFile.open(QIODevice::ReadWrite);
 
@@ -152,7 +154,8 @@ bool initialiseQv2ray()
         bool isValidConfigPath = verifyConfigAvaliability(path, true);
 
         // If we already found a valid config file. just simply load it...
-        if (hasExistingConfig) break;
+        if (hasExistingConfig)
+            break;
 
         if (isValidConfigPath)
         {
@@ -362,7 +365,10 @@ int main(int argc, char *argv[])
     }
 
     // Qv2ray Initialize, find possible config paths and verify them.
-    if (!initialiseQv2ray()) { return -1; }
+    if (!initialiseQv2ray())
+    {
+        return -1;
+    }
 
     // Load the config for upgrade, but do not parse it to the struct.
     auto conf = JsonFromString(StringFromFile(QV2RAY_CONFIG_FILE));
@@ -402,7 +408,9 @@ int main(int argc, char *argv[])
     Qv2rayTranslator = std::move(QvTranslator(confObject.uiConfig.language).pTranslator);
 
     if (qApp->installTranslator(Qv2rayTranslator.get()))
-    { LOG(MODULE_INIT, "Successfully installed a translator for " + confObject.uiConfig.language) }
+    {
+        LOG(MODULE_INIT, "Successfully installed a translator for " + confObject.uiConfig.language)
+    }
     else
     {
         // Do not translate these.....

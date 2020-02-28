@@ -28,7 +28,10 @@ namespace Qv2ray::components::proxy
         for (auto i = 1; i < lines.count(); i++)
         {
             // * means disabled.
-            if (!lines[i].contains("*")) { result << (lines[i].contains(" ") ? "\"" + lines[i] + "\"" : lines[i]); }
+            if (!lines[i].contains("*"))
+            {
+                result << (lines[i].contains(" ") ? "\"" + lines[i] + "\"" : lines[i]);
+            }
         }
 
         LOG(MODULE_PROXY, "Found " + QSTRN(result.size()) + " network services: " + result.join(";"))
@@ -60,35 +63,65 @@ namespace Qv2ray::components::proxy
         List.pOptions = Option;
 
         if (!InternetQueryOption(nullptr, INTERNET_OPTION_PER_CONNECTION_OPTION, &List, &nSize))
-        { LOG(MODULE_PROXY, "InternetQueryOption failed, GLE=" + QSTRN(GetLastError())) }
+        {
+            LOG(MODULE_PROXY, "InternetQueryOption failed, GLE=" + QSTRN(GetLastError()))
+        }
 
         LOG(MODULE_PROXY, "System default proxy info:")
 
-        if (Option[0].Value.pszValue != nullptr) { LOG(MODULE_PROXY, QString::fromWCharArray(Option[0].Value.pszValue)) }
+        if (Option[0].Value.pszValue != nullptr)
+        {
+            LOG(MODULE_PROXY, QString::fromWCharArray(Option[0].Value.pszValue))
+        }
 
         if ((Option[2].Value.dwValue & PROXY_TYPE_AUTO_PROXY_URL) == PROXY_TYPE_AUTO_PROXY_URL)
-        { LOG(MODULE_PROXY, "PROXY_TYPE_AUTO_PROXY_URL") }
+        {
+            LOG(MODULE_PROXY, "PROXY_TYPE_AUTO_PROXY_URL")
+        }
 
-        if ((Option[2].Value.dwValue & PROXY_TYPE_AUTO_DETECT) == PROXY_TYPE_AUTO_DETECT) { LOG(MODULE_PROXY, "PROXY_TYPE_AUTO_DETECT") }
+        if ((Option[2].Value.dwValue & PROXY_TYPE_AUTO_DETECT) == PROXY_TYPE_AUTO_DETECT)
+        {
+            LOG(MODULE_PROXY, "PROXY_TYPE_AUTO_DETECT")
+        }
 
-        if ((Option[2].Value.dwValue & PROXY_TYPE_DIRECT) == PROXY_TYPE_DIRECT) { LOG(MODULE_PROXY, "PROXY_TYPE_DIRECT") }
+        if ((Option[2].Value.dwValue & PROXY_TYPE_DIRECT) == PROXY_TYPE_DIRECT)
+        {
+            LOG(MODULE_PROXY, "PROXY_TYPE_DIRECT")
+        }
 
-        if ((Option[2].Value.dwValue & PROXY_TYPE_PROXY) == PROXY_TYPE_PROXY) { LOG(MODULE_PROXY, "PROXY_TYPE_PROXY") }
+        if ((Option[2].Value.dwValue & PROXY_TYPE_PROXY) == PROXY_TYPE_PROXY)
+        {
+            LOG(MODULE_PROXY, "PROXY_TYPE_PROXY")
+        }
 
         if (!InternetQueryOption(nullptr, INTERNET_OPTION_PER_CONNECTION_OPTION, &List, &nSize))
-        { LOG(MODULE_PROXY, "InternetQueryOption failed,GLE=" + QSTRN(GetLastError())) }
+        {
+            LOG(MODULE_PROXY, "InternetQueryOption failed,GLE=" + QSTRN(GetLastError()))
+        }
 
-        if (Option[4].Value.pszValue != nullptr) { LOG(MODULE_PROXY, QString::fromStdWString(Option[4].Value.pszValue)) }
+        if (Option[4].Value.pszValue != nullptr)
+        {
+            LOG(MODULE_PROXY, QString::fromStdWString(Option[4].Value.pszValue))
+        }
 
         INTERNET_VERSION_INFO Version;
         nSize = sizeof(INTERNET_VERSION_INFO);
         InternetQueryOption(nullptr, INTERNET_OPTION_VERSION, &Version, &nSize);
 
-        if (Option[0].Value.pszValue != nullptr) { GlobalFree(Option[0].Value.pszValue); }
+        if (Option[0].Value.pszValue != nullptr)
+        {
+            GlobalFree(Option[0].Value.pszValue);
+        }
 
-        if (Option[3].Value.pszValue != nullptr) { GlobalFree(Option[3].Value.pszValue); }
+        if (Option[3].Value.pszValue != nullptr)
+        {
+            GlobalFree(Option[3].Value.pszValue);
+        }
 
-        if (Option[4].Value.pszValue != nullptr) { GlobalFree(Option[4].Value.pszValue); }
+        if (Option[4].Value.pszValue != nullptr)
+        {
+            GlobalFree(Option[4].Value.pszValue);
+        }
 
         return false;
     }
@@ -130,7 +163,10 @@ namespace Qv2ray::components::proxy
             list.dwOptionCount = 3;
             list.pOptions = new INTERNET_PER_CONN_OPTION[3];
 
-            if (nullptr == list.pOptions) { return false; }
+            if (nullptr == list.pOptions)
+            {
+                return false;
+            }
 
             // Set flags.
             list.pOptions[0].dwOption = INTERNET_PER_CONN_FLAGS;
@@ -164,18 +200,30 @@ namespace Qv2ray::components::proxy
             return;
         }
 
-        if (usePAC) { LOG(MODULE_PROXY, "Qv2ray will set system proxy to use PAC file") }
+        if (usePAC)
+        {
+            LOG(MODULE_PROXY, "Qv2ray will set system proxy to use PAC file")
+        }
         else
         {
-            if (hasHTTP) { LOG(MODULE_PROXY, "Qv2ray will set system proxy to use HTTP") }
+            if (hasHTTP)
+            {
+                LOG(MODULE_PROXY, "Qv2ray will set system proxy to use HTTP")
+            }
 
-            if (hasSOCKS) { LOG(MODULE_PROXY, "Qv2ray will set system proxy to use SOCKS") }
+            if (hasSOCKS)
+            {
+                LOG(MODULE_PROXY, "Qv2ray will set system proxy to use SOCKS")
+            }
         }
 
 #ifdef Q_OS_WIN
         QString __a;
 
-        if (usePAC) { __a = address; }
+        if (usePAC)
+        {
+            __a = address;
+        }
         else
         {
             __a = (hasHTTP ? "http://" : "socks5://") + address + ":" + QSTRN(httpPort);
@@ -187,7 +235,10 @@ namespace Qv2ray::components::proxy
         //
         __QueryProxyOptions();
 
-        if (!__SetProxyOptions(proxyStrW, usePAC)) { LOG(MODULE_PROXY, "Failed to set proxy.") }
+        if (!__SetProxyOptions(proxyStrW, usePAC))
+        {
+            LOG(MODULE_PROXY, "Failed to set proxy.")
+        }
 
         __QueryProxyOptions();
 #elif defined(Q_OS_LINUX)
@@ -195,7 +246,10 @@ namespace Qv2ray::components::proxy
         auto proxyMode = usePAC ? "auto" : "manual";
         actions << QString("gsettings set org.gnome.system.proxy mode '%1'").arg(proxyMode);
 
-        if (usePAC) { actions << QString("gsettings set org.gnome.system.proxy autoconfig-url '%1'").arg(address); }
+        if (usePAC)
+        {
+            actions << QString("gsettings set org.gnome.system.proxy autoconfig-url '%1'").arg(address);
+        }
         else
         {
             if (hasHTTP)

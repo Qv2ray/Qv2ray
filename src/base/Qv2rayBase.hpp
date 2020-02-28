@@ -118,7 +118,10 @@ using namespace Qv2ray::base::objects::transfer;
 #define QV2RAY_USE_FPROXY_KEY "_QV2RAY_USE_GLOBAL_FORWARD_PROXY_"
 
 #define JSON_ROOT_TRY_REMOVE(obj)                                                                                                               \
-    if (root.contains(obj)) { root.remove(obj); }
+    if (root.contains(obj))                                                                                                                     \
+    {                                                                                                                                           \
+        root.remove(obj);                                                                                                                       \
+    }
 
 namespace Qv2ray
 {

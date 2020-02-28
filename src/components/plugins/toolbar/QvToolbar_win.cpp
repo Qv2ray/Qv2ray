@@ -92,7 +92,9 @@ namespace Qv2ray::components::plugins::Toolbar
                 if (!fSuccess || cbBytesRead == 0)
                 {
                     if (GetLastError() == ERROR_BROKEN_PIPE)
-                    { LOG(MODULE_PLUGIN, "InstanceThread: client disconnected, GLE=" + QSTRN(GetLastError())) }
+                    {
+                        LOG(MODULE_PLUGIN, "InstanceThread: client disconnected, GLE=" + QSTRN(GetLastError()))
+                    }
                     else
                     {
                         LOG(MODULE_PLUGIN, "InstanceThread ReadFile failed, GLE=" + QSTRN(GetLastError()))

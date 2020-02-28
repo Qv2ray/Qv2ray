@@ -1,6 +1,7 @@
 #include "ConnectionInfoWidget.hpp"
 
 #include "3rdparty/qzxing/src/QZXing.h"
+#include "common/QvHelpers.hpp"
 #include "core/CoreUtils.hpp"
 #include "core/connection/Serialization.hpp"
 
@@ -72,7 +73,10 @@ ConnectionInfoWidget::~ConnectionInfoWidget()
 
 void ConnectionInfoWidget::on_connectBtn_clicked()
 {
-    if (ConnectionManager->IsConnected(connectionId)) { ConnectionManager->StopConnection(); }
+    if (ConnectionManager->IsConnected(connectionId))
+    {
+        ConnectionManager->StopConnection();
+    }
     else
     {
         ConnectionManager->StartConnection(connectionId);
@@ -91,7 +95,17 @@ void ConnectionInfoWidget::on_editJsonBtn_clicked()
 
 void ConnectionInfoWidget::on_deleteBtn_clicked()
 {
-    ConnectionManager->DeleteConnection(connectionId);
+    if (QvMessageBoxAsk(this, tr("Delete an item"), tr("Are you sure to delete the current item?")) == QMessageBox::Yes)
+    {
+        if (connectionId != NullConnectionId)
+        {
+            ConnectionManager->DeleteConnection(connectionId);
+        }
+        else
+        {
+            ConnectionManager->DeleteGroup(groupId);
+        }
+    }
 }
 
 bool ConnectionInfoWidget::eventFilter(QObject *object, QEvent *event)
@@ -100,7 +114,10 @@ bool ConnectionInfoWidget::eventFilter(QObject *object, QEvent *event)
     {
         if (shareLinkTxt->underMouse())
         {
-            if (!shareLinkTxt->hasSelectedText()) { shareLinkTxt->selectAll(); }
+            if (!shareLinkTxt->hasSelectedText())
+            {
+                shareLinkTxt->selectAll();
+            }
         }
     }
 
@@ -109,12 +126,18 @@ bool ConnectionInfoWidget::eventFilter(QObject *object, QEvent *event)
 
 void ConnectionInfoWidget::OnConnected(const ConnectionId &id)
 {
-    if (connectionId == id) { connectBtn->setIcon(QICON_R("stop.png")); }
+    if (connectionId == id)
+    {
+        connectBtn->setIcon(QICON_R("stop.png"));
+    }
 }
 
 void ConnectionInfoWidget::OnDisConnected(const ConnectionId &id)
 {
-    if (connectionId == id) { connectBtn->setIcon(QICON_R("connect.png")); }
+    if (connectionId == id)
+    {
+        connectBtn->setIcon(QICON_R("connect.png"));
+    }
 }
 // MWTryPingConnection(CurrentConnectionIdentifier);
 void ConnectionInfoWidget::on_duplicateBtn_clicked()
@@ -150,7 +173,10 @@ void ConnectionInfoWidget::on_duplicateBtn_clicked()
 
 void ConnectionInfoWidget::on_latencyBtn_clicked()
 {
-    if (connectionId != NullConnectionId) { ConnectionManager->StartLatencyTest(connectionId); }
+    if (connectionId != NullConnectionId)
+    {
+        ConnectionManager->StartLatencyTest(connectionId);
+    }
     else
     {
         ConnectionManager->StartLatencyTest(groupId);

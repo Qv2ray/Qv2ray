@@ -3,7 +3,10 @@
 ICMPPinger::ICMPPinger(UINT64 timeout = DEFAULT_TIMEOUT)
 {
     // create icmp handle
-    if ((this->hIcmpFile = IcmpCreateFile()) == INVALID_HANDLE_VALUE) { throw "IcmpCreateFile failed"; }
+    if ((this->hIcmpFile = IcmpCreateFile()) == INVALID_HANDLE_VALUE)
+    {
+        throw "IcmpCreateFile failed";
+    }
 
     // remember the timeout
     this->timeout = timeout;
@@ -19,7 +22,10 @@ std::pair<std::optional<UINT64>, std::optional<std::string>> ICMPPinger::ping(co
 {
     // convert network address
     const auto addr = inet_addr(ipAddr.c_str());
-    if (addr == INADDR_NONE) { return std::pair(std::nullopt, "invalid ip address: " + ipAddr); }
+    if (addr == INADDR_NONE)
+    {
+        return std::pair(std::nullopt, "invalid ip address: " + ipAddr);
+    }
 
     // request buffer
     const static char bufRequest[] = "echo test";
@@ -32,7 +38,10 @@ std::pair<std::optional<UINT64>, std::optional<std::string>> ICMPPinger::ping(co
     auto ret = IcmpSendEcho(this->hIcmpFile, addr, (LPVOID) bufRequest, sizeof(bufRequest), NULL, bufRecv.get(), responseSize, this->timeout);
 
     // ret == 0: failed
-    if (ret == 0) { return std::pair(std::nullopt, "IcmpSendEcho returned error"); }
+    if (ret == 0)
+    {
+        return std::pair(std::nullopt, "IcmpSendEcho returned error");
+    }
 
     // read round-trip time
     PICMP_ECHO_REPLY pReply = (PICMP_ECHO_REPLY) bufRecv.get();

@@ -50,7 +50,10 @@ namespace Qv2ray::core::kernel
         thread->wait();
 
         // Although thread shouldnot be null, we'll add this check to be safe.
-        if (thread) { delete thread; }
+        if (thread)
+        {
+            delete thread;
+        }
     }
 
     // API Core Operations

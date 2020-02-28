@@ -18,11 +18,13 @@ ConnectionItemWidget::ConnectionItemWidget(const ConnectionId &id, QWidget *pare
     groupId = ConnectionManager->GetConnectionGroupId(id);
     originalConnectionName = ConnectionManager->GetDisplayName(id);
     itemType = NODE_ITEM;
-    connNameLabel->setText("" + originalConnectionName);
-    // TODO
+    connNameLabel->setText((ConnectionManager->IsConnected(id) ? "• " : "") + originalConnectionName);
     auto latency = ConnectionManager->GetConnectionLatency(id);
 
-    if (latency == 0) { latencyLabel->setText(tr("Not Tested")); }
+    if (latency == 0)
+    {
+        latencyLabel->setText(tr("Not Tested"));
+    }
     else
     {
         latencyLabel->setText(QSTRN(latency) + " " + tr("ms"));
@@ -33,6 +35,11 @@ ConnectionItemWidget::ConnectionItemWidget(const ConnectionId &id, QWidget *pare
     dataLabel->setText(FormatBytes(uplink) + " / " + FormatBytes(downlink));
     //
     indentSpacer->changeSize(10, indentSpacer->sizeHint().height());
+    //
+    if (ConnectionManager->IsConnected(id))
+    {
+        emit RequestWidgetFocus(this);
+    }
 }
 
 // ======================================= Initialisation for root nodes.
@@ -53,7 +60,10 @@ ConnectionItemWidget::ConnectionItemWidget(const GroupId &id, QWidget *parent) :
 
 void ConnectionItemWidget::BeginConnection()
 {
-    if (itemType == NODE_ITEM) { ConnectionManager->StartConnection(connectionId); }
+    if (itemType == NODE_ITEM)
+    {
+        ConnectionManager->StartConnection(connectionId);
+    }
     else
     {
         LOG(MODULE_UI, "Trying to start a non-connection entry, this call is illegal.")
@@ -72,7 +82,10 @@ void ConnectionItemWidget::OnConnected(const ConnectionId &id)
 
 void ConnectionItemWidget::OnDisConnected(const ConnectionId &id)
 {
-    if (id == connectionId) { connNameLabel->setText(originalConnectionName); }
+    if (id == connectionId)
+    {
+        connNameLabel->setText(originalConnectionName);
+    }
 }
 
 void ConnectionItemWidget::OnConnectionStatsArrived(const ConnectionId &id, const quint64 upSpeed, const quint64 downSpeed,
@@ -81,12 +94,18 @@ void ConnectionItemWidget::OnConnectionStatsArrived(const ConnectionId &id, cons
     Q_UNUSED(upSpeed)
     Q_UNUSED(downSpeed)
 
-    if (id == connectionId) { dataLabel->setText(FormatBytes(totalUp) + " / " + FormatBytes(totalDown)); }
+    if (id == connectionId)
+    {
+        dataLabel->setText(FormatBytes(totalUp) + " / " + FormatBytes(totalDown));
+    }
 }
 
 void ConnectionItemWidget::OnLatencyTestStart(const ConnectionId &id)
 {
-    if (id == connectionId) { latencyLabel->setText(tr("Testing...")); }
+    if (id == connectionId)
+    {
+        latencyLabel->setText(tr("Testing..."));
+    }
 }
 void ConnectionItemWidget::OnLatencyTestFinished(const ConnectionId &id, const uint average)
 {

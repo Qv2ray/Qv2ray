@@ -96,7 +96,7 @@ namespace Qv2ray::core
     struct GroupMetaObject : SubscriptionObject_Config
     {
         // Implicit base of two types, since group object is actually the group base object.
-        bool isSubscription;
+        bool isSubscription = false;
         QList<ConnectionId> connections;
         // Suger for down casting.
         GroupMetaObject() : connections()

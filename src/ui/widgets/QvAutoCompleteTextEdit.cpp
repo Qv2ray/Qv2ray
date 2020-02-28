@@ -72,11 +72,15 @@ TextEdit::~TextEdit()
 
 void TextEdit::setCompleter(QCompleter *completer)
 {
-    if (c) c->disconnect(this);
+    if (c)
+        c->disconnect(this);
 
     c = completer;
 
-    if (!c) { return; }
+    if (!c)
+    {
+        return;
+    }
 
     c->setWidget(this);
     c->setCompletionMode(QCompleter::PopupCompletion);
@@ -91,7 +95,8 @@ QCompleter *TextEdit::completer() const
 
 void TextEdit::insertCompletion(const QString &completion)
 {
-    if (c->widget() != this) return;
+    if (c->widget() != this)
+        return;
 
     QTextCursor tc = textCursor();
     int extra = completion.length() - c->completionPrefix().length();
@@ -110,7 +115,8 @@ QString TextEdit::textUnderCursor() const
 
 void TextEdit::focusInEvent(QFocusEvent *e)
 {
-    if (c) c->setWidget(this);
+    if (c)
+        c->setWidget(this);
 
     QTextEdit::focusInEvent(e);
 }
@@ -140,7 +146,8 @@ void TextEdit::keyPressEvent(QKeyEvent *e)
 
     const bool ctrlOrShift = e->modifiers().testFlag(Qt::ControlModifier) || e->modifiers().testFlag(Qt::ShiftModifier);
 
-    if (!c || (ctrlOrShift && e->text().isEmpty())) return;
+    if (!c || (ctrlOrShift && e->text().isEmpty()))
+        return;
 
     static QString eow("~!@#$%^&*()_+{}|:\"<>?,./;'[]\\-="); // end of word
     const bool hasModifier = (e->modifiers() != Qt::NoModifier) && !ctrlOrShift;

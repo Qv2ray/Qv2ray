@@ -200,7 +200,10 @@ namespace Qv2ray::core::kernel
             apiEnabled = false;
 
             //
-            if (StartupOption.noAPI) { LOG(MODULE_VCORE, "API has been disabled by the command line argument \"-noAPI\"") }
+            if (StartupOption.noAPI)
+            {
+                LOG(MODULE_VCORE, "API has been disabled by the command line argument \"-noAPI\"")
+            }
             else if (!GlobalConfig.apiConfig.enableAPI)
             {
                 LOG(MODULE_VCORE, "API has been disabled by the global config option")
@@ -244,7 +247,10 @@ namespace Qv2ray::core::kernel
 
     V2rayKernelInstance::~V2rayKernelInstance()
     {
-        if (KernelStarted) { StopConnection(); }
+        if (KernelStarted)
+        {
+            StopConnection();
+        }
 
         delete apiWorker;
         delete vProcess;

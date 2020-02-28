@@ -7,7 +7,7 @@
 
 namespace Qv2ray::common
 {
-    QvHttpRequestHelper::QvHttpRequestHelper() : reply()
+    QvHttpRequestHelper::QvHttpRequestHelper(QObject *parent) : QObject(parent), reply()
     {
     }
 
@@ -124,7 +124,10 @@ namespace Qv2ray::common
 
     void QvHttpRequestHelper::onRequestFinished_p()
     {
-        if (reply->attribute(QNetworkRequest::HTTP2WasUsedAttribute).toBool()) { DEBUG(MODULE_NETWORK, "HTTP/2 was used.") }
+        if (reply->attribute(QNetworkRequest::HTTP2WasUsedAttribute).toBool())
+        {
+            DEBUG(MODULE_NETWORK, "HTTP/2 was used.")
+        }
 
         if (reply->error() != QNetworkReply::NoError)
         {

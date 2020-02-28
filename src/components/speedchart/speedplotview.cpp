@@ -73,7 +73,8 @@ QString unitString(const SizeUnit unit, const bool isSpeed)
     const auto &unitString = units[static_cast<int>(unit)];
     QString ret = QCoreApplication::translate("misc", unitString.source, unitString.comment);
 
-    if (isSpeed) ret += QCoreApplication::translate("misc", "/s", "per second");
+    if (isSpeed)
+        ret += QCoreApplication::translate("misc", "/s", "per second");
 
     return ret;
 }
@@ -119,9 +120,11 @@ namespace
 
     SplittedValue getRoundedYScale(double value)
     {
-        if (value == 0.0) return { 0, SizeUnit::Byte };
+        if (value == 0.0)
+            return { 0, SizeUnit::Byte };
 
-        if (value <= 12.0) return { 12, SizeUnit::Byte };
+        if (value <= 12.0)
+            return { 12, SizeUnit::Byte };
 
         SizeUnit calculatedUnit = SizeUnit::Byte;
 
@@ -151,7 +154,8 @@ namespace
 
         for (const auto &roundedValue : roundingTable)
         {
-            if (value <= roundedValue) return { roundedValue, calculatedUnit };
+            if (value <= roundedValue)
+                return { roundedValue, calculatedUnit };
         }
 
         return { 10.0, calculatedUnit };
@@ -210,7 +214,8 @@ quint64 SpeedPlotView::maxYValue()
         // 30 is half min
         for (int i = queue.size() - 1, j = 0; (i >= 0) && (j <= VIEWABLE); --i, ++j)
         {
-            if (queue[i].y[id] > maxYValue) maxYValue = queue[i].y[id];
+            if (queue[i].y[id] > maxYValue)
+                maxYValue = queue[i].y[id];
         }
     }
 
@@ -237,7 +242,8 @@ void SpeedPlotView::paintEvent(QPaintEvent *)
     int yAxisWidth = 0;
 
     for (const QString &label : speedLabels)
-        if (fontMetrics.horizontalAdvance(label) > yAxisWidth) yAxisWidth = fontMetrics.horizontalAdvance(label);
+        if (fontMetrics.horizontalAdvance(label) > yAxisWidth)
+            yAxisWidth = fontMetrics.horizontalAdvance(label);
 
     int i = 0;
 
@@ -298,7 +304,8 @@ void SpeedPlotView::paintEvent(QPaintEvent *)
 
     for (const auto &property : m_properties)
     {
-        if (fontMetrics.horizontalAdvance(property.name) > legendWidth) legendWidth = fontMetrics.horizontalAdvance(property.name);
+        if (fontMetrics.horizontalAdvance(property.name) > legendWidth)
+            legendWidth = fontMetrics.horizontalAdvance(property.name);
 
         legendHeight += 1.5 * fontMetrics.height();
     }

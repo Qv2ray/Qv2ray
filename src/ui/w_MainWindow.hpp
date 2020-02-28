@@ -59,6 +59,8 @@ class MainWindow
 
   private slots:
     //
+    void ReloadConnectionList();
+    //
     void OnConnected(const ConnectionId &id);
     void OnDisConnected(const ConnectionId &id);
     void OnEditRequested(const ConnectionId &id);

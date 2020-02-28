@@ -28,7 +28,10 @@ class QvRuleNodeDataModel : public NodeDataModel
 
     unsigned int nPorts(PortType portType) const override
     {
-        if (portType == PortType::In) { return 1; }
+        if (portType == PortType::In)
+        {
+            return 1;
+        }
         else if (portType == PortType::Out)
         {
             return 1;

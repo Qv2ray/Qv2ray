@@ -29,7 +29,7 @@ namespace Qv2ray::common
     {
         Q_OBJECT
       public:
-        explicit QvHttpRequestHelper();
+        explicit QvHttpRequestHelper(QObject *parent = nullptr);
         ~QvHttpRequestHelper();
         bool setUrl(const QString &url);
         void setHeader(const QByteArray &key, const QByteArray &value);

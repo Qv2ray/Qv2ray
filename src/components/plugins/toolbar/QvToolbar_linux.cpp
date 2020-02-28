@@ -17,7 +17,8 @@ namespace Qv2ray::components::plugins::Toolbar
         {
             QLocalSocket *socket = server->nextPendingConnection();
 
-            if (!socket->waitForConnected() || !socket->waitForReadyRead()) return;
+            if (!socket->waitForConnected() || !socket->waitForReadyRead())
+                return;
 
             try
             {

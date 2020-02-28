@@ -38,7 +38,10 @@ void MainWindow::MWClearSystemProxy(bool showMessage)
     LOG(MODULE_UI, "Clearing System Proxy")
     systemProxyEnabled = false;
 
-    if (showMessage) { hTray.showMessage("Qv2ray", tr("System proxy cleared."), windowIcon()); }
+    if (showMessage)
+    {
+        hTray.showMessage("Qv2ray", tr("System proxy cleared."), windowIcon());
+    }
 }
 
 void MainWindow::MWSetSystemProxy()

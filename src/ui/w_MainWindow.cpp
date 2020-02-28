@@ -32,43 +32,7 @@
 // operations.
 
 #define TRAY_TOOLTIP_PREFIX "Qv2ray " QV2RAY_VERSION_STRING
-//
 #define GetItemWidget(item) (qobject_cast<ConnectionItemWidget *>(connectionListWidget->itemWidget(item, 0)))
-
-/*
-#define ItemConnectionIdentifier(__item__) (__item__->data(0,
-Qt::UserRole).value<ConnectionIdentifier>())
-
-#define CheckConfigType(_item_, TYPE)
-(connections.contains(ItemConnectionIdentifier(_item_)) &&
-connections[ItemConnectionIdentifier(_item_)].configType == CONNECTION_ ## TYPE)
-
-#define SUBSCRIPTION_CONFIG_MODIFY_ASK(_item_) \
-    if (!CheckConfigType(_item_, REGULAR)) { \
-        if (QvMessageBoxAsk(this, QObject::tr("Editing a subscription config"),
-QObject::tr("You are trying to edit a config loaded from subscription.") + \
-                            NEWLINE + QObject::tr("All changes will be
-overwritten when the subscriptions are updated next time.") + \
-                            NEWLINE + QObject::tr("Are you still going to do
-so?")) != QMessageBox::Yes) { \
-            return; \
-        } \
-    } \
-
-
-#define SUBSCRIPTION_CONFIG_MODIFY_DENY(_item_) \
-    if (!CheckConfigType(_item_, REGULAR)) { \
-        QvMessageBoxWarn(this, QObject::tr("Editing a subscription config"),
-QObject::tr("You should not modity this property of a config from a
-subscription"));   \
-        return; \
-    } \
-
-#define IsConnectableItem(item) (item != nullptr && item->childCount() == 0 &&
-(CheckConfigType(item, REGULAR) || CheckConfigType(item, SUBSCRIPTION))) #define
-IsSelectionConnectable (!connectionListWidget->selectedItems().empty() &&
-IsConnectableItem(connectionListWidget->selectedItems().first()))
-*/
 
 MainWindow *MainWindow::mwInstance = nullptr;
 
@@ -112,6 +76,18 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) //, vinstance(), h
     connect(ConnectionManager, &QvConnectionHandler::OnDisConnected, this, &MainWindow::OnDisConnected);
     connect(ConnectionManager, &QvConnectionHandler::OnStatsAvailable, this, &MainWindow::onConnectionStatsArrived);
     connect(ConnectionManager, &QvConnectionHandler::OnVCoreLogAvailable, this, &MainWindow::onVCoreLogArrived);
+    //
+    connect(ConnectionManager, &QvConnectionHandler::OnGroupCreated, this, &MainWindow::ReloadConnectionList);
+    connect(ConnectionManager, &QvConnectionHandler::OnGroupRenamed, this, &MainWindow::ReloadConnectionList);
+    connect(ConnectionManager, &QvConnectionHandler::OnGroupDeleted, this, &MainWindow::ReloadConnectionList);
+
+    // TODO: A better UI algorithm
+    connect(ConnectionManager, &QvConnectionHandler::OnConnectionRemoved, this, &MainWindow::ReloadConnectionList);
+    connect(ConnectionManager, &QvConnectionHandler::OnConnectionChanged, this, &MainWindow::ReloadConnectionList);
+    connect(ConnectionManager, &QvConnectionHandler::OnConnectionCreated, this, &MainWindow::ReloadConnectionList);
+    connect(ConnectionManager, &QvConnectionHandler::OnConnectionRenamed, this, &MainWindow::ReloadConnectionList);
+    connect(ConnectionManager, &QvConnectionHandler::OnConnectionGroupChanged, this, &MainWindow::ReloadConnectionList);
+
     //
     connect(infoWidget, &ConnectionInfoWidget::OnEditRequested, this, &MainWindow::OnEditRequested);
     connect(infoWidget, &ConnectionInfoWidget::OnJsonEditRequested, this, &MainWindow::OnJsonEditRequested);
@@ -194,26 +170,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) //, vinstance(), h
     connectionListMenu->addAction(action_RCM_EditJson);
     connectionListMenu->addAction(action_RCM_ConvToComplex);
     //
-    LOG(MODULE_UI, "Loading data...")
-    auto groups = ConnectionManager->AllGroups();
-
-    for (auto group : groups)
-    {
-        auto groupItem = new QTreeWidgetItem(QStringList() << "" << ConnectionManager->GetDisplayName(group));
-        connectionListWidget->addTopLevelItem(groupItem);
-        connectionListWidget->setItemWidget(groupItem, 0, new ConnectionItemWidget(group, connectionListWidget));
-        auto connections = ConnectionManager->Connections(group);
-
-        for (auto connection : connections)
-        {
-            auto connectionItem = new QTreeWidgetItem(QStringList() << "" << ConnectionManager->GetDisplayName(connection));
-            groupItem->addChild(connectionItem);
-            auto widget = new ConnectionItemWidget(connection, connectionListWidget);
-            connect(widget, &ConnectionItemWidget::RequestWidgetFocus, this, &MainWindow::onConnectionWidgetFocusRequested);
-            connectionListWidget->setItemWidget(connectionItem, 0, widget);
-        }
-    }
-
+    ReloadConnectionList();
     //
     // Find and start if there is an auto-connection
     auto needShowWindow = true;
@@ -224,7 +181,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) //, vinstance(), h
         needShowWindow = ConnectionManager->StartConnection(id).has_value();
     }
 
-    if (needShowWindow) { this->show(); }
+    if (needShowWindow)
+    {
+        this->show();
+    }
 
     //// If we are not connected to anything, show the MainWindow.
     if (needShowWindow) {}
@@ -244,6 +204,35 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) //, vinstance(), h
     CheckSubscriptionsUpdate();
     //
     splitter->setSizes(QList<int>() << 100 << 300);
+}
+
+void MainWindow::ReloadConnectionList()
+{
+    // Firstly, delete all items.
+    // for (auto _item_ : connectionListWidget->findItems(QString("*"), Qt::MatchWrap | Qt::MatchWildcard | Qt::MatchRecursive))
+    //{
+    //}
+    connectionListWidget->clear();
+    //
+    LOG(MODULE_UI, "Loading data...")
+    auto groups = ConnectionManager->AllGroups();
+
+    for (auto group : groups)
+    {
+        auto groupItem = new QTreeWidgetItem(QStringList() << "" << ConnectionManager->GetDisplayName(group));
+        connectionListWidget->addTopLevelItem(groupItem);
+        connectionListWidget->setItemWidget(groupItem, 0, new ConnectionItemWidget(group, connectionListWidget));
+        auto connections = ConnectionManager->Connections(group);
+
+        for (auto connection : connections)
+        {
+            auto connectionItem = new QTreeWidgetItem(QStringList() << "" << ConnectionManager->GetDisplayName(connection));
+            groupItem->addChild(connectionItem);
+            auto widget = new ConnectionItemWidget(connection, connectionListWidget);
+            connect(widget, &ConnectionItemWidget::RequestWidgetFocus, this, &MainWindow::onConnectionWidgetFocusRequested);
+            connectionListWidget->setItemWidget(connectionItem, 0, widget);
+        }
+    }
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *e)
@@ -301,7 +290,10 @@ void MainWindow::VersionUpdate(QByteArray &data)
                                 "\r\n------------\r\n" + root["body"].toString("") + "\r\n------------\r\n" + tr("Download Link: ") + link,
                             QMessageBox::Ignore);
 
-        if (result == QMessageBox::Yes) { QDesktopServices::openUrl(QUrl::fromUserInput(link)); }
+        if (result == QMessageBox::Yes)
+        {
+            QDesktopServices::openUrl(QUrl::fromUserInput(link));
+        }
         else if (result == QMessageBox::Ignore)
         {
             // Set and save ingored version.
@@ -368,7 +360,10 @@ void MainWindow::ToggleVisibility()
 
 void MainWindow::on_actionExit_triggered()
 {
-    if (StartupOption.enableToolbarPlguin) { StopProcessingPlugins(); }
+    if (StartupOption.enableToolbarPlguin)
+    {
+        StopProcessingPlugins();
+    }
 
     ExitQv2ray();
 }
@@ -400,7 +395,10 @@ void MainWindow::on_connectionListWidget_customContextMenuRequested(const QPoint
     auto _pos = QCursor::pos();
     auto item = connectionListWidget->itemAt(connectionListWidget->mapFromGlobal(_pos));
 
-    if (GetItemWidget(item)->IsConnection()) { connectionListMenu->popup(_pos); }
+    if (GetItemWidget(item)->IsConnection())
+    {
+        connectionListMenu->popup(_pos);
+    }
 }
 void MainWindow::on_action_RCM_RenameConnection_triggered()
 {
@@ -654,7 +652,10 @@ void MainWindow::on_connectionListWidget_itemDoubleClicked(QTreeWidgetItem *item
     Q_UNUSED(column)
     auto widget = GetItemWidget(item);
 
-    if (widget->IsConnection()) { widget->BeginConnection(); }
+    if (widget->IsConnection())
+    {
+        widget->BeginConnection();
+    }
 }
 
 void MainWindow::OnDisConnected(const ConnectionId &id)
@@ -664,7 +665,10 @@ void MainWindow::OnDisConnected(const ConnectionId &id)
     hTray.setToolTip(TRAY_TOOLTIP_PREFIX NEWLINE);
     connetionStatusLabel->setText(tr("Disconnected"));
 
-    if (systemProxyEnabled) { MWClearSystemProxy(false); }
+    if (systemProxyEnabled)
+    {
+        MWClearSystemProxy(false);
+    }
 
     // QFile(QV2RAY_GENERATED_FILE_PATH).remove();
 
@@ -705,7 +709,10 @@ void MainWindow::OnConnected(const ConnectionId &id)
 
         if (pacUseSocks)
         {
-            if (socksEnabled) { pacProxyString = "SOCKS5 " + pacIP + ":" + QSTRN(GlobalConfig.inboundConfig.socks_port); }
+            if (socksEnabled)
+            {
+                pacProxyString = "SOCKS5 " + pacIP + ":" + QSTRN(GlobalConfig.inboundConfig.socks_port);
+            }
             else
             {
                 LOG(MODULE_UI, "PAC is using SOCKS, but it is not enabled")
@@ -716,7 +723,10 @@ void MainWindow::OnConnected(const ConnectionId &id)
         }
         else
         {
-            if (httpEnabled) { pacProxyString = "PROXY " + pacIP + ":" + QSTRN(GlobalConfig.inboundConfig.http_port); }
+            if (httpEnabled)
+            {
+                pacProxyString = "PROXY " + pacIP + ":" + QSTRN(GlobalConfig.inboundConfig.http_port);
+            }
             else
             {
                 LOG(MODULE_UI, "PAC is using HTTP, but it is not enabled")
@@ -737,12 +747,18 @@ void MainWindow::OnConnected(const ConnectionId &id)
         }
     }
 
-    if (GlobalConfig.inboundConfig.setSystemProxy) { MWSetSystemProxy(); }
+    if (GlobalConfig.inboundConfig.setSystemProxy)
+    {
+        MWSetSystemProxy();
+    }
 }
 
 void MainWindow::onConnectionWidgetFocusRequested(const ConnectionItemWidget *_widget)
 {
-    if (_widget == nullptr) { return; }
+    if (_widget == nullptr)
+    {
+        return;
+    }
 
     for (auto _item_ : connectionListWidget->findItems(QString("*"), Qt::MatchWrap | Qt::MatchWildcard | Qt::MatchRecursive))
     {
@@ -784,7 +800,10 @@ void MainWindow::on_connectionFilterTxt_textEdited(const QString &arg1)
 
         _top_item_->setHidden(isTotallyHide);
 
-        if (!isTotallyHide) { connectionListWidget->expandItem(_top_item_); }
+        if (!isTotallyHide)
+        {
+            connectionListWidget->expandItem(_top_item_);
+        }
     }
 }
 
@@ -841,7 +860,8 @@ void MainWindow::onVCoreLogArrived(const ConnectionId &id, const QString &log)
         }
     }
 
-    if (val >= max * 0.8 || val >= max - 20) bar->setValue(max);
+    if (val >= max * 0.8 || val >= max - 20)
+        bar->setValue(max);
 }
 
 void MainWindow::OnEditRequested(const ConnectionId &id)
@@ -891,5 +911,8 @@ void MainWindow::OnJsonEditRequested(const ConnectionId &id)
     JsonEditor w(ConnectionManager->GetConnectionRoot(id), this);
     auto root = CONFIGROOT(w.OpenEditor());
 
-    if (w.result() == QDialog::Accepted) { ConnectionManager->UpdateConnection(id, root); }
+    if (w.result() == QDialog::Accepted)
+    {
+        ConnectionManager->UpdateConnection(id, root);
+    }
 }

@@ -60,7 +60,10 @@ void ImportConfigWindow::on_qrFromScreenBtn_clicked()
 {
     bool hideQv2ray = hideQv2rayCB->isChecked();
 
-    if (hideQv2ray) { messageBus.EmitGlobalSignal(QvMBMessage::HIDE_WINDOWS); }
+    if (hideQv2ray)
+    {
+        messageBus.EmitGlobalSignal(QvMBMessage::HIDE_WINDOWS);
+    }
 
     QApplication::processEvents();
     QThread::msleep(static_cast<ulong>(doubleSpinBox->value() * 1000));
@@ -199,7 +202,10 @@ void ImportConfigWindow::on_errorsList_currentItemChanged(QListWidgetItem *curre
 {
     Q_UNUSED(previous)
 
-    if (current == nullptr) { return; }
+    if (current == nullptr)
+    {
+        return;
+    }
 
     auto currentErrorText = current->text();
     auto vmessEntry = linkErrors.key(currentErrorText);
@@ -207,7 +213,10 @@ void ImportConfigWindow::on_errorsList_currentItemChanged(QListWidgetItem *curre
     auto startPos = vmessConnectionStringTxt->toPlainText().indexOf(vmessEntry);
     auto endPos = startPos + vmessEntry.length();
 
-    if (startPos < 0) { return; }
+    if (startPos < 0)
+    {
+        return;
+    }
 
     // Select vmess string that is invalid.
     QTextCursor c = vmessConnectionStringTxt->textCursor();
@@ -236,7 +245,9 @@ void ImportConfigWindow::on_editFileBtn_clicked()
                 this, tr("Edit file as JSON"),
                 tr("The file you selected has json syntax error. Continue editing may make you lose data. Would you like to continue?") +
                     NEWLINE + jsonCheckingError) != QMessageBox::Yes)
-        { return; }
+        {
+            return;
+        }
         else
         {
             LOG(MODULE_FILEIO, "Continue editing curruped json file, data loss is expected.")
@@ -252,7 +263,10 @@ void ImportConfigWindow::on_editFileBtn_clicked()
         auto str = JsonToString(json);
         bool result = StringToFile(str, file);
 
-        if (!result) { QvMessageBoxWarn(this, tr("Edit file as JSON"), tr("Failed to save file, please check if you have proper permissions")); }
+        if (!result)
+        {
+            QvMessageBoxWarn(this, tr("Edit file as JSON"), tr("Failed to save file, please check if you have proper permissions"));
+        }
     }
     else
     {

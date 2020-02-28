@@ -13,7 +13,10 @@ namespace Qv2ray::core::connection
         {
             CONFIGROOT config;
 
-            if (link.startsWith("vmess://")) { config = ConvertConfigFromVMessString(link, alias, errMessage); }
+            if (link.startsWith("vmess://"))
+            {
+                config = ConvertConfigFromVMessString(link, alias, errMessage);
+            }
             else if (link.startsWith("ss://"))
             {
                 config = ConvertConfigFromSSString(link, alias, errMessage);
@@ -70,7 +73,10 @@ namespace Qv2ray::core::connection
             vmessUriRoot["net"] = transfer.network;
             vmessUriRoot["tls"] = transfer.security;
 
-            if (transfer.network == "tcp") { vmessUriRoot["type"] = transfer.tcpSettings.header.type; }
+            if (transfer.network == "tcp")
+            {
+                vmessUriRoot["type"] = transfer.tcpSettings.header.type;
+            }
             else if (transfer.network == "kcp")
             {
                 vmessUriRoot["type"] = transfer.kcpSettings.header.type;
@@ -152,21 +158,30 @@ namespace Qv2ray::core::connection
                 auto colonPos = decoded.indexOf(':');
                 DEBUG(MODULE_CONNECTION, "Colon position: " + QSTRN(colonPos))
 
-                if (colonPos < 0) { *errMessage = QObject::tr("Can't find the colon separator between method and password"); }
+                if (colonPos < 0)
+                {
+                    *errMessage = QObject::tr("Can't find the colon separator between method and password");
+                }
 
                 server.method = decoded.left(colonPos);
                 decoded.remove(0, colonPos + 1);
                 atPos = decoded.lastIndexOf('@');
                 DEBUG(MODULE_CONNECTION, "At sign position: " + QSTRN(atPos))
 
-                if (atPos < 0) { *errMessage = QObject::tr("Can't find the at separator between password and hostname"); }
+                if (atPos < 0)
+                {
+                    *errMessage = QObject::tr("Can't find the at separator between password and hostname");
+                }
 
                 server.password = decoded.mid(0, atPos);
                 decoded.remove(0, atPos + 1);
                 colonPos = decoded.lastIndexOf(':');
                 DEBUG(MODULE_CONNECTION, "Colon position: " + QSTRN(colonPos))
 
-                if (colonPos < 0) { *errMessage = QObject::tr("Can't find the colon separator between hostname and port"); }
+                if (colonPos < 0)
+                {
+                    *errMessage = QObject::tr("Can't find the colon separator between hostname and port");
+                }
 
                 server.address = decoded.mid(0, colonPos);
                 server.port = decoded.mid(colonPos + 1).toInt();
@@ -182,7 +197,10 @@ namespace Qv2ray::core::connection
                 //
                 DEBUG(MODULE_CONNECTION, "Userinfo splitter position: " + QSTRN(userInfoSp))
 
-                if (userInfoSp < 0) { *errMessage = QObject::tr("Can't find the colon separator between method and password"); }
+                if (userInfoSp < 0)
+                {
+                    *errMessage = QObject::tr("Can't find the colon separator between method and password");
+                }
 
                 QString method = userInfo.mid(0, userInfoSp);
                 server.method = method;
@@ -279,7 +297,8 @@ namespace Qv2ray::core::connection
                 // Stream Settings
                 auto net = C("net") ? vmessConf["net"].toString() : "tcp";
 
-                if (net == "http" || net == "ws") flag = flag && C("host") && C("path");
+                if (net == "http" || net == "ws")
+                    flag = flag && C("host") && C("path");
                 else if (net == "domainsocket")
                     flag = flag && C("path");
                 else if (net == "quic")
@@ -326,7 +345,6 @@ namespace Qv2ray::core::connection
             (val.size() <= 1 || val.contains(vmessConf[#key].toVariant().toString())))                                                          \
         {                                                                                                                                       \
             key = vmessConf[#key].toVariant().toString();                                                                                       \
-            DEBUG(MODULE_IMPORT, "Found key \"" #key "\" within the vmess object.")                                                             \
         }                                                                                                                                       \
         else if (!val.isEmpty())                                                                                                                \
         {                                                                                                                                       \
@@ -345,22 +363,28 @@ namespace Qv2ray::core::connection
             // is in the correct range.
             //
             // Get Alias (AKA ps) from address and port.
-            __vmess_checker__func(ps, << vmessConf["add"].toVariant().toString() + ":" + vmessConf["port"].toVariant().toString());
-            __vmess_checker__func(add, empty_arg) __vmess_checker__func(id, empty_arg) __vmess_checker__func(net, << "tcp"
-                                                                                                                  << "http"
-                                                                                                                  << "h2"
-                                                                                                                  << "ws"
-                                                                                                                  << "kcp"
-                                                                                                                  << "domainsocket"
-                                                                                                                  << "quic")
-                __vmess_checker__func(type, << "none"
-                                            << "http"
-                                            << "srtp"
-                                            << "utp"
-                                            << "wechat-video") __vmess_checker__func(path, << "") __vmess_checker__func(host, << "")
-                    __vmess_checker__func(tls, << "")
-                //
-                port = vmessConf["port"].toVariant().toInt();
+            {
+                __vmess_checker__func(ps, << vmessConf["add"].toVariant().toString() + ":" + vmessConf["port"].toVariant().toString()) //
+                __vmess_checker__func(add, empty_arg)                                                                                  //
+                __vmess_checker__func(id, empty_arg)                                                                                   //
+                __vmess_checker__func(net, << "tcp"                                                                                    //
+                                           << "http"                                                                                   //
+                                           << "h2"                                                                                     //
+                                           << "ws"                                                                                     //
+                                           << "kcp"                                                                                    //
+                                           << "domainsocket"                                                                           //
+                                           << "quic")                                                                                  //
+                __vmess_checker__func(type, << "none"                                                                                  //
+                                            << "http"                                                                                  //
+                                            << "srtp"                                                                                  //
+                                            << "utp"                                                                                   //
+                                            << "wechat-video")                                                                         //
+                __vmess_checker__func(path, << "")                                                                                     //
+                __vmess_checker__func(host, << "")                                                                                     //
+                __vmess_checker__func(tls, << "")                                                                                      //
+
+            } //
+            port = vmessConf["port"].toVariant().toInt();
             aid = vmessConf["aid"].toVariant().toInt();
             // Apply the settings.
             //
@@ -384,7 +408,10 @@ namespace Qv2ray::core::connection
             // Stream Settings
             StreamSettingsObject streaming;
 
-            if (net == "tcp") { streaming.tcpSettings.header.type = type; }
+            if (net == "tcp")
+            {
+                streaming.tcpSettings.header.type = type;
+            }
             else if (net == "http" || net == "h2")
             {
                 // Fill hosts for HTTP

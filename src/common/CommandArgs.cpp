@@ -31,9 +31,11 @@ namespace Qv2ray::common
             return CommandLineError;
         }
 
-        if (parser.isSet(versionOption)) return CommandLineVersionRequested;
+        if (parser.isSet(versionOption))
+            return CommandLineVersionRequested;
 
-        if (parser.isSet(helpOption)) return CommandLineHelpRequested;
+        if (parser.isSet(helpOption))
+            return CommandLineHelpRequested;
 
         if (parser.isSet(noAPIOption))
         {

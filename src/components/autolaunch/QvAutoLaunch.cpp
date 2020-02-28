@@ -61,7 +61,10 @@ namespace Qv2ray::components::autolaunch
                 {
                     CFStringRef itemUrlString = CFURLGetString(itemUrlRef);
 
-                    if (CFStringCompare(itemUrlString, appUrlRefString, 0) == kCFCompareEqualTo) { returnValue = true; }
+                    if (CFStringCompare(itemUrlString, appUrlRefString, 0) == kCFCompareEqualTo)
+                    {
+                        returnValue = true;
+                    }
 
                     CFRelease(itemUrlRef);
                 }
@@ -113,7 +116,8 @@ namespace Qv2ray::components::autolaunch
             // Insert an item to the list.
             LSSharedFileListItemRef item = LSSharedFileListInsertItemURL(loginItems, kLSSharedFileListItemLast, 0, 0, urlRef, 0, 0);
 
-            if (item) CFRelease(item);
+            if (item)
+                CFRelease(item);
 
             CFRelease(loginItems);
         }
