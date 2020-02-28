@@ -7,17 +7,26 @@ grade: stable
 confinement: strict
 
 plugs:
-  kde-frameworks-5-plug:
-      content: kde-frameworks-5-core18-all
-      interface: content
-      default-provider: kde-frameworks-5-qt-5-14-core18
-      target: kf5
+  gsettings:
+  gtk-3-themes:
+    interface: content
+    target: $SNAP/data-dir/themes
+    default-provider: gtk-common-themes
+  icon-themes:
+    interface: content
+    target: $SNAP/data-dir/icons
+    default-provider: gtk-common-themes
+  sound-themes:
+    interface: content
+    target: $SNAP/data-dir/sounds
+    default-provider: gtk-common-themes
 
 apps:
   qv2ray:
-      command: kf5-launch qv2ray
+      command: bin/desktop-launch qv2ray
+      environment:
+        QT_QPA_PLATFORMTHEME: gtk3
       plugs:
-        - kde-frameworks-5-plug
         - home
         - x11
         - wayland
@@ -37,24 +46,27 @@ apps:
 
 parts:
   qv2ray:
-    plugin: x-qmake
+    plugin: qmake
     source-type: git
     source: .
     parse-info: [usr/share/metainfo/qv2ray.metainfo.xml]
     build-packages:
       - build-essential
+      - qttools5-dev-tools
+      - qt5-default
       - libgrpc++-dev
       - libprotobuf-dev
       - protobuf-compiler-grpc
-    build-snaps:
-      - kde-frameworks-5-qt-5-14-core18
-      - kde-frameworks-5-qt-5-14-core18-sdk
     stage-packages:
       - libgcc1
       - libstdc++6
       - libssl1.1
       - libgrpc++1
       - libprotobuf17
+      - libqt5core5a
+      - libqt5gui5
+      - libqt5network5
+      - libqt5widgets5
       - libglib2.0-bin
     options:
       - PREFIX=/usr
@@ -68,18 +80,34 @@ parts:
       snapcraftctl set-version "$version"
       sed -i 's|^Icon=.*|Icon=/usr/share/icons/hicolor/256x256/apps/qv2ray.png|g' assets/qv2ray.desktop
     after:
-      - kde-frameworks-5-env
-      - grpc
+      - desktop-qt5
 
-  grpc:
+  desktop-qt5:
+    source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
+    source-subdir: qt
+    plugin: make
+    make-parameters: ["FLAVOR=qt5"]
+    build-packages:
+      - build-essential
+      - qtbase5-dev
+      - dpkg-dev
+    stage-packages:
+      - libxkbcommon0
+      - ttf-ubuntu-font-family
+      - dmz-cursor-theme
+      - light-themes
+      - adwaita-icon-theme
+      - gnome-themes-standard
+      - shared-mime-info
+      - libqt5gui5
+      - libgdk-pixbuf2.0-0
+      - libqt5svg5 # for loading icon themes which are svg
+      - try: [appmenu-qt5] # not available on core18
+      - locales-all
+      - xdg-user-dirs
+      - fcitx-frontend-qt5
+  
+  qt5-gtk-platform:
     plugin: nil
-    override-build: |
-      echo 'deb http://ppa.launchpad.net/ymshenyu/qv2ray-deps/ubuntu bionic main' > /etc/apt/sources.list.d/grpc.list
-      sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 281F24E574404629AA3BDA1A4F10C386C55CDB04
-      sudo apt update
-      sudo apt dist-upgrade -y
-      snapcraftctl build
-
-  kde-frameworks-5-env:
-      plugin: dump
-      source: https://github.com/apachelogger/kf5-snap-env.git
+    stage-packages:
+      - qt5-gtk-platformtheme
