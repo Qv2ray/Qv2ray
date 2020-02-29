@@ -1,6 +1,6 @@
 message(" ")
 
-macx: CONFIG += use_grpc
+CONFIG += use_grpc
 
 # For Linux and macOS
 message("Configuring for macOS specific environment")
