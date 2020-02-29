@@ -576,23 +576,20 @@ void MainWindow::on_removeConfigButton_clicked()
 
 void MainWindow::on_importConfigButton_clicked()
 {
-    QvMessageBoxInfo(this, "NOT SUPPORTED", "WIP");
-    // ImportConfigWindow w(this);
-    // auto configs = w.OpenImport();
-    // if (!configs.isEmpty()) {
-    //    for (auto conf : configs) {
-    //        auto name = configs.key(conf, "");
-    //
-    //        if (name.isEmpty())
-    //            continue;
-    //
-    //        SaveConnectionConfig(conf, &name, false);
-    //        GlobalConfig.configs.push_back(name);
-    //    }
-    //
-    //    SaveGlobalConfig(GlobalConfig);
-    //    OnConfigListChanged(false);
-    //}
+
+    ImportConfigWindow w(this);
+    auto configs = w.OpenImport();
+    if (!configs.isEmpty())
+    {
+        for (auto conf : configs)
+        {
+            auto name = configs.key(conf, "");
+
+            if (name.isEmpty())
+                continue;
+            ConnectionManager->CreateConnection(name, DefaultGroupId, conf);
+        }
+    }
 }
 void MainWindow::on_editConfigButton_clicked()
 {
@@ -601,9 +598,10 @@ void MainWindow::on_editConfigButton_clicked()
 void MainWindow::on_action_RCM_ConvToComplex_triggered()
 {
     //// Check if we have a connection selected...
-    // if (!IsSelectionConnectable) {
-    //    QvMessageBoxWarn(this, tr("No Config Selected"), tr("Please Select a
-    //    Config")); return;
+    // if (!IsSelectionConnectable)
+    //{
+    //    QvMessageBoxWarn(this, tr("No Config Selected"), tr("Please Select a Config"));
+    //    return;
     //}
     //
     // auto selectedFirst = connectionListWidget->currentItem();
@@ -620,7 +618,8 @@ void MainWindow::on_action_RCM_ConvToComplex_triggered()
     // isChanged = routeWindow.result() == QDialog::Accepted;
     // QString alias = _identifier.connectionName;
     //
-    // if (isChanged) {
+    // if (isChanged)
+    //{
     //    connections[_identifier].config = root;
     //    // true indicates the alias will NOT change
     //    SaveConnectionConfig(root, &alias, true);

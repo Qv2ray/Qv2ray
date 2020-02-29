@@ -18,6 +18,8 @@ namespace Qv2ray::core::handlers
       public:
         explicit QvConnectionHandler();
         ~QvConnectionHandler();
+
+      public:
         //
         const QList<ConnectionId> Connections() const;
         //
@@ -30,6 +32,7 @@ namespace Qv2ray::core::handlers
         const QString GetDisplayName(const ConnectionId &id, int limit = -1) const;
         const GroupId GetGroupIdByDisplayName(const QString &displayName) const;
         const ConnectionId GetConnectionIdByDisplayName(const QString &displayName) const;
+        const ConnectionId GetConnectionIdByDisplayName(const QString &displayName, const GroupId &group) const;
         //
         // Connectivity Operationss
         const optional<QString> StartConnection(const ConnectionId &identifier);
@@ -42,8 +45,8 @@ namespace Qv2ray::core::handlers
         const optional<QString> DeleteConnection(const ConnectionId &id);
         const optional<QString> RenameConnection(const ConnectionId &id, const QString &newName);
         const optional<QString> MoveConnectionGroup(const ConnectionId &id, const GroupId &newGroupId);
-        const ConnectionId &CreateConnection(const QString &displayName, const GroupId &groupId, const CONFIGROOT &root);
-        const ConnectionId DuplicateConnection(const ConnectionId &id);
+        const ConnectionId CreateConnection(const QString &displayName, const GroupId &groupId, const CONFIGROOT &root);
+        // const ConnectionId DuplicateConnection(const ConnectionId &id);
         //
         // Get Conncetion Property
         const tuple<QString, QString, int> GetConnectionData(const ConnectionId &connectionId) const;
@@ -68,7 +71,7 @@ namespace Qv2ray::core::handlers
         // Subscriptions
         bool SetSubscriptionData(const GroupId &id, const QString &address = "", float updateInterval = -1);
         bool UpdateSubscription(const GroupId &id, bool useSystemProxy);
-        bool UpdateSubscriptionASync(const GroupId &id, bool useSystemProxy);
+        // bool UpdateSubscriptionASync(const GroupId &id, bool useSystemProxy);
         const tuple<QString, int64_t, float> GetSubscriptionData(const GroupId &id);
 
       signals:

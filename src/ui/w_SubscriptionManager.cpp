@@ -29,7 +29,8 @@ QvMessageBusSlotImpl(SubscribeEditor)
 
 QPair<QString, CONFIGROOT> SubscribeEditor::GetSelectedConfig()
 {
-    return QPair<QString, CONFIGROOT>();
+    return QPair<QString, CONFIGROOT>(ConnectionManager->GetDisplayName(currentConnectionId),
+                                      ConnectionManager->GetConnectionRoot(currentConnectionId));
 }
 
 SubscribeEditor::~SubscribeEditor()
@@ -137,4 +138,10 @@ void SubscribeEditor::on_updateIntervalSB_valueChanged(double arg1)
 {
     auto newAddress = subAddrTxt->text().trimmed();
     ConnectionManager->SetSubscriptionData(currentSubId, newAddress, arg1);
+}
+
+void SubscribeEditor::on_connectionsList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
+{
+    Q_UNUSED(previous)
+    currentConnectionId = ConnectionManager->GetConnectionIdByDisplayName(current->text(), currentSubId);
 }

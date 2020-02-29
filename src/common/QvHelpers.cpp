@@ -40,6 +40,11 @@ namespace Qv2ray::common
     }
     bool StringToFile(const QString &text, QFile &targetFile)
     {
+        QFileInfo info(targetFile);
+        if (!info.dir().exists())
+        {
+            info.dir().mkpath(info.dir().path());
+        }
         bool override = targetFile.exists();
         targetFile.open(QFile::WriteOnly);
         QTextStream stream(&targetFile);

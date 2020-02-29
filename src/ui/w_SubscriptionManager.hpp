@@ -42,7 +42,10 @@ class SubscribeEditor
 
     void on_updateIntervalSB_valueChanged(double arg1);
 
+    void on_connectionsList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
+
   private:
     bool isUpdateInProgress = false;
     GroupId currentSubId = NullGroupId;
+    ConnectionId currentConnectionId = NullConnectionId;
 };

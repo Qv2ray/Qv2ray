@@ -1,5 +1,4 @@
-﻿#include <QDebug>
-#include "w_ImportConfig.hpp"
+﻿#include "w_ImportConfig.hpp"
 
 #include "3rdparty/qzxing/src/QZXing.h"
 #include "core/CoreUtils.hpp"
@@ -12,6 +11,7 @@
 #include "ui/w_SubscriptionManager.hpp"
 #include "w_ScreenShot_Core.hpp"
 
+#include <QDebug>
 #include <QFile>
 #include <QFileDialog>
 #include <QJsonArray>
@@ -108,20 +108,20 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
     {
         case 0:
         {
-            //// From File...
-            // bool ImportAsComplex = keepImportedInboundCheckBox->isChecked();
-            // QString path = fileLineTxt->text();
-            //
-            // if (!V2rayKernelInstance::ValidateConfig(path)) {
-            //    QvMessageBoxWarn(this, tr("Import config file"), tr("Failed to
-            //    check the validity of the config file.")); return;
-            //}
-            //
-            // aliasPrefix += "_" + QFileInfo(path).fileName();
-            ////CONFIGROOT config = ConvertConfigFromFile(path,
-            /// ImportAsComplex);
-            // connections[aliasPrefix] = config;
-            // break;
+            // From File...
+            bool ImportAsComplex = keepImportedInboundCheckBox->isChecked();
+            QString path = fileLineTxt->text();
+
+            if (!V2rayKernelInstance::ValidateConfig(path))
+            {
+                QvMessageBoxWarn(this, tr("Import config file"), tr("Failed to check the validity of the config file."));
+                return;
+            }
+
+            aliasPrefix += "_" + QFileInfo(path).fileName();
+            CONFIGROOT config = ConvertConfigFromFile(path, ImportAsComplex);
+            connections[aliasPrefix] = config;
+            break;
         }
 
         case 1:

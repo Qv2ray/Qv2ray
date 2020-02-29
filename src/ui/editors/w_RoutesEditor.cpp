@@ -177,7 +177,6 @@ void RouteEditor::onNodeClicked(Node &n)
         {
             alias = GetFirstNodeData(n, QvOutboundNodeModel, OutboundNodeData)->GetOutbound();
             QJsonObject _root = outbounds[alias].raw();
-            throw new runtime_error("Not implemented");
             GetOutboundData(OUTBOUND(_root), &host, &port, &protocol);
         }
         else
