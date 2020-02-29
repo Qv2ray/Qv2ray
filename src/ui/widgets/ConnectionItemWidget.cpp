@@ -40,6 +40,12 @@ ConnectionItemWidget::ConnectionItemWidget(const ConnectionId &id, QWidget *pare
     {
         emit RequestWidgetFocus(this);
     }
+    connect(ConnectionManager, &QvConnectionHandler::OnConnectionRenamed, [&](const ConnectionId &id, const QString &, const QString &newName) {
+        if (id == connectionId)
+        {
+            connNameLabel->setText(newName);
+        }
+    });
 }
 
 // ======================================= Initialisation for root nodes.
@@ -61,6 +67,13 @@ ConnectionItemWidget::ConnectionItemWidget(const GroupId &id, QWidget *parent) :
     connect(ConnectionManager, &QvConnectionHandler::OnConnectionChanged, this, &ConnectionItemWidget::RecalculateConnectionsCount);
     connect(ConnectionManager, &QvConnectionHandler::OnConnectionGroupChanged, this, &ConnectionItemWidget::RecalculateConnectionsCount);
     connect(ConnectionManager, &QvConnectionHandler::OnSubscriptionUpdateFinished, this, &ConnectionItemWidget::RecalculateConnectionsCount);
+    //
+    connect(ConnectionManager, &QvConnectionHandler::OnGroupRenamed, [&](const GroupId &id, const QString &, const QString &newName) {
+        if (id == groupId)
+        {
+            connNameLabel->setText(newName);
+        }
+    });
 }
 
 void ConnectionItemWidget::BeginConnection()

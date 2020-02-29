@@ -482,6 +482,7 @@ namespace Qv2ray::core::handlers
         {
             return tr("Group does not exist");
         }
+        OnGroupRenamed(id, groups[id].displayName, newName);
         groups[id].displayName = newName;
         return {};
     }

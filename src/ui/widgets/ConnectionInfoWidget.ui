@@ -187,6 +187,9 @@
         <property name="pixmap">
          <pixmap resource="../../../resources.qrc">:/assets/icons/qv2ray.ico</pixmap>
         </property>
+        <property name="scaledContents">
+         <bool>true</bool>
+        </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
         </property>
