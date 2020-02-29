@@ -46,7 +46,7 @@ apps:
 
 parts:
   qv2ray:
-    plugin: qmake
+    plugin: x-qmake
     source-type: git
     source: .
     parse-info: [usr/share/metainfo/qv2ray.metainfo.xml]
@@ -80,7 +80,6 @@ parts:
       snapcraftctl set-version "$version"
       sed -i 's|^Icon=.*|Icon=/usr/share/icons/hicolor/256x256/apps/qv2ray.png|g' assets/qv2ray.desktop
     after:
-      - mytools
       - desktop-qt5
 
   desktop-qt5:
@@ -107,25 +106,8 @@ parts:
       - locales-all
       - xdg-user-dirs
       - fcitx-frontend-qt5
-    after:
-      - mytools
   
   qt5-gtk-platform:
     plugin: nil
     stage-packages:
       - qt5-gtk-platformtheme
-    after:
-      - mytools
-  
-  mytools:
-    plugin: nil
-    build-packages:
-      - dirmngr
-    override-build: |
-      echo 'deb http://archive.neon.kde.org/unstable bionic main' > /etc/apt/sources.list.d/neon.list
-      echo 'deb http://ppa.launchpad.net/ymshenyu/grpc-1/ubuntu bionic main' >> /etc/apt/sources.list.d/tools.list
-      sudo apt-key adv --keyserver keyserver.ubuntu.com --recv E6D4736255751E5D
-      sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 281f24e574404629aa3bda1a4f10c386c55cdb04
-      sudo apt update
-      sudo apt dist-upgrade -y
-      snapcraftctl build

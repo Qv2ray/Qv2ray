@@ -60,7 +60,9 @@ jobs:
 
       - name: macOS - Install Packages
         if: matrix.platform == 'macos-latest'
-        run: brew install protobuf
+        run: |
+          brew install protobuf
+          brew install grpc
       
       - name: Windows - Install Packages
         if: matrix.platform == 'windows-latest'
