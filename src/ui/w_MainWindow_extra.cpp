@@ -54,7 +54,7 @@ void MainWindow::MWSetSystemProxy()
     // Set system proxy if necessary
     // bool isComplex =
     // IsComplexConfig(connections[CurrentConnectionIdentifier].config);
-    bool isComplex = true;
+    bool isComplex = false;
 
     if (!isComplex)
     {
