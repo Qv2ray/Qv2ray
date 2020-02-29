@@ -1,7 +1,5 @@
 message(" ")
 
-CONFIG += use_grpc
-
 # For Linux and macOS
 message("Configuring for macOS specific environment")
 LIBS += -framework Carbon -framework Cocoa

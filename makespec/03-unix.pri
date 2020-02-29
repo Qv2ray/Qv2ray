@@ -1,5 +1,6 @@
 message(" ")
 win32: Qv2rayQMakeError("Do not include this file in Windows platform.")
+macx: CONFIG += use_grpc
 
 # For Linux and macOS
 message("Configuring for unix-like environment")
