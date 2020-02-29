@@ -44,6 +44,29 @@ QvMessageBusSlotImpl(MainWindow)
     }
 }
 
+void MainWindow::MWAddConnectionItem_p(const ConnectionId &connection, const GroupId &groupId)
+{
+    if (!groupNodes.contains(groupId))
+    {
+        MWAddGroupItem_p(groupId);
+    }
+    auto groupItem = groupNodes[groupId];
+    auto connectionItem = make_shared<QTreeWidgetItem>(QStringList() << "" << ConnectionManager->GetDisplayName(connection));
+    connectionNodes[connection] = connectionItem;
+    groupItem->addChild(connectionItem.get());
+    auto widget = new ConnectionItemWidget(connection, connectionListWidget);
+    connect(widget, &ConnectionItemWidget::RequestWidgetFocus, this, &MainWindow::OnConnectionWidgetFocusRequested);
+    connectionListWidget->setItemWidget(connectionItem.get(), 0, widget);
+}
+
+void MainWindow::MWAddGroupItem_p(const GroupId &groupId)
+{
+    auto groupItem = make_shared<QTreeWidgetItem>(QStringList() << "" << ConnectionManager->GetDisplayName(groupId));
+    groupNodes[groupId] = groupItem;
+    connectionListWidget->addTopLevelItem(groupItem.get());
+    connectionListWidget->setItemWidget(groupItem.get(), 0, new ConnectionItemWidget(groupId, connectionListWidget));
+}
+
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) //, vinstance(), hTray(this), tcpingHelper(3, this)
 {
     setupUi(this);
@@ -72,21 +95,18 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) //, vinstance(), h
                          tr("V2ray vcore terminated unexpectedly.") + NEWLINE + NEWLINE +
                              tr("To solve the problem, read the V2ray log in the log text browser."));
     });
-    connect(ConnectionManager, &QvConnectionHandler::OnConnected, this, &MainWindow::OnConnected);
-    connect(ConnectionManager, &QvConnectionHandler::OnDisConnected, this, &MainWindow::OnDisConnected);
-    connect(ConnectionManager, &QvConnectionHandler::OnStatsAvailable, this, &MainWindow::onConnectionStatsArrived);
-    connect(ConnectionManager, &QvConnectionHandler::OnVCoreLogAvailable, this, &MainWindow::onVCoreLogArrived);
     //
-    connect(ConnectionManager, &QvConnectionHandler::OnGroupCreated, this, &MainWindow::ReloadConnectionList);
-    connect(ConnectionManager, &QvConnectionHandler::OnGroupRenamed, this, &MainWindow::ReloadConnectionList);
-    connect(ConnectionManager, &QvConnectionHandler::OnGroupDeleted, this, &MainWindow::ReloadConnectionList);
-
-    // TODO: A better UI algorithm
-    connect(ConnectionManager, &QvConnectionHandler::OnConnectionRemoved, this, &MainWindow::ReloadConnectionList);
-    connect(ConnectionManager, &QvConnectionHandler::OnConnectionChanged, this, &MainWindow::ReloadConnectionList);
-    connect(ConnectionManager, &QvConnectionHandler::OnConnectionCreated, this, &MainWindow::ReloadConnectionList);
-    connect(ConnectionManager, &QvConnectionHandler::OnConnectionRenamed, this, &MainWindow::ReloadConnectionList);
-    connect(ConnectionManager, &QvConnectionHandler::OnConnectionGroupChanged, this, &MainWindow::ReloadConnectionList);
+    connect(ConnectionManager, &QvConnectionHandler::OnConnected, this, &MainWindow::OnConnected);
+    connect(ConnectionManager, &QvConnectionHandler::OnDisconnected, this, &MainWindow::OnDisconnected);
+    connect(ConnectionManager, &QvConnectionHandler::OnStatsAvailable, this, &MainWindow::OnStatsAvailable);
+    connect(ConnectionManager, &QvConnectionHandler::OnVCoreLogAvailable, this, &MainWindow::OnVCoreLogAvailable);
+    //
+    connect(ConnectionManager, &QvConnectionHandler::OnConnectionDeleted, this, &MainWindow::OnConnectionDeleted);
+    connect(ConnectionManager, &QvConnectionHandler::OnConnectionCreated, this, &MainWindow::OnConnectionCreated);
+    connect(ConnectionManager, &QvConnectionHandler::OnConnectionGroupChanged, this, &MainWindow::OnConnectionGroupChanged);
+    //
+    connect(ConnectionManager, &QvConnectionHandler::OnGroupCreated, this, &MainWindow::OnGroupCreated);
+    connect(ConnectionManager, &QvConnectionHandler::OnGroupDeleted, this, &MainWindow::OnGroupDeleted);
 
     //
     connect(infoWidget, &ConnectionInfoWidget::OnEditRequested, this, &MainWindow::OnEditRequested);
@@ -127,11 +147,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) //, vinstance(), h
     //
     connect(action_Tray_ShowHide, &QAction::triggered, this, &MainWindow::ToggleVisibility);
     connect(action_Tray_ShowPreferencesWindow, &QAction::triggered, this, &MainWindow::on_preferencesBtn_clicked);
-    // connect(action_Tray_Start, &QAction::triggered, this,
-    // &MainWindow::on_startButton_clicked); connect(action_Tray_Stop,
-    // &QAction::triggered, this, &MainWindow::on_stopButton_clicked);
-    // connect(action_Tray_Reconnect, &QAction::triggered, this,
-    // &MainWindow::on_reconnectButton_clicked);
+    //
+    connect(action_Tray_Start, &QAction::triggered, [&] { ConnectionManager->StartConnection(lastConnectedId); });
+    connect(action_Tray_Stop, &QAction::triggered, ConnectionManager, &QvConnectionHandler::StopConnection);
+    connect(action_Tray_Reconnect, &QAction::triggered, ConnectionManager, &QvConnectionHandler::RestartConnection);
+    //
     connect(action_Tray_Quit, &QAction::triggered, this, &MainWindow::on_actionExit_triggered);
     connect(action_Tray_SetSystemProxy, &QAction::triggered, this, &MainWindow::MWSetSystemProxy);
     connect(action_Tray_ClearSystemProxy, &QAction::triggered, this, &MainWindow::MWClearSystemProxy);
@@ -154,11 +174,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) //, vinstance(), h
     connect(action_RCM_ShareQR, &QAction::triggered, this, &MainWindow::on_action_RCM_ShareQR_triggered);
     //
     // Globally invokable signals.
-    // connect(this, &MainWindow::Connect, this,
-    // &MainWindow::on_startButton_clicked); connect(this,
-    // &MainWindow::DisConnect, this, &MainWindow::on_stopButton_clicked);
-    // connect(this, &MainWindow::ReConnect, this,
-    // &MainWindow::on_reconnectButton_clicked);
+    connect(this, &MainWindow::Connect, [&] { ConnectionManager->StartConnection(lastConnectedId); });
+    connect(this, &MainWindow::DisConnect, ConnectionManager, &QvConnectionHandler::StopConnection);
+    connect(this, &MainWindow::ReConnect, ConnectionManager, &QvConnectionHandler::RestartConnection);
     //
     hTray.setContextMenu(tray_RootMenu);
     hTray.show();
@@ -170,7 +188,19 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) //, vinstance(), h
     connectionListMenu->addAction(action_RCM_EditJson);
     connectionListMenu->addAction(action_RCM_ConvToComplex);
     //
-    ReloadConnectionList();
+    LOG(MODULE_UI, "Loading data...")
+    auto groups = ConnectionManager->AllGroups();
+
+    for (auto group : groups)
+    {
+        MWAddGroupItem_p(group);
+        auto connections = ConnectionManager->Connections(group);
+
+        for (auto connection : connections)
+        {
+            MWAddConnectionItem_p(connection, group); //
+        }
+    }
     //
     // Find and start if there is an auto-connection
     auto needShowWindow = true;
@@ -182,12 +212,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) //, vinstance(), h
     }
 
     if (needShowWindow)
-    {
         this->show();
-    }
-
-    //// If we are not connected to anything, show the MainWindow.
-    if (needShowWindow) {}
 
 #ifndef DISABLE_AUTO_UPDATE
     requestHelper = new QvHttpRequestHelper();
@@ -204,35 +229,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) //, vinstance(), h
     CheckSubscriptionsUpdate();
     //
     splitter->setSizes(QList<int>() << 100 << 300);
-}
-
-void MainWindow::ReloadConnectionList()
-{
-    // Firstly, delete all items.
-    // for (auto _item_ : connectionListWidget->findItems(QString("*"), Qt::MatchWrap | Qt::MatchWildcard | Qt::MatchRecursive))
-    //{
-    //}
-    connectionListWidget->clear();
-    //
-    LOG(MODULE_UI, "Loading data...")
-    auto groups = ConnectionManager->AllGroups();
-
-    for (auto group : groups)
-    {
-        auto groupItem = new QTreeWidgetItem(QStringList() << "" << ConnectionManager->GetDisplayName(group));
-        connectionListWidget->addTopLevelItem(groupItem);
-        connectionListWidget->setItemWidget(groupItem, 0, new ConnectionItemWidget(group, connectionListWidget));
-        auto connections = ConnectionManager->Connections(group);
-
-        for (auto connection : connections)
-        {
-            auto connectionItem = new QTreeWidgetItem(QStringList() << "" << ConnectionManager->GetDisplayName(connection));
-            groupItem->addChild(connectionItem);
-            auto widget = new ConnectionItemWidget(connection, connectionListWidget);
-            connect(widget, &ConnectionItemWidget::RequestWidgetFocus, this, &MainWindow::onConnectionWidgetFocusRequested);
-            connectionListWidget->setItemWidget(connectionItem, 0, widget);
-        }
-    }
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *e)
@@ -658,7 +654,7 @@ void MainWindow::on_connectionListWidget_itemDoubleClicked(QTreeWidgetItem *item
     }
 }
 
-void MainWindow::OnDisConnected(const ConnectionId &id)
+void MainWindow::OnDisconnected(const ConnectionId &id)
 {
     Q_UNUSED(id)
     this->hTray.showMessage("Qv2ray", tr("Disonnected"), this->windowIcon());
@@ -753,7 +749,7 @@ void MainWindow::OnConnected(const ConnectionId &id)
     }
 }
 
-void MainWindow::onConnectionWidgetFocusRequested(const ConnectionItemWidget *_widget)
+void MainWindow::OnConnectionWidgetFocusRequested(const ConnectionItemWidget *_widget)
 {
     if (_widget == nullptr)
     {
@@ -790,6 +786,7 @@ void MainWindow::on_connectionFilterTxt_textEdited(const QString &arg1)
                 LOG(MODULE_UI, "Setting current item.")
                 // Show the child
                 _child_->setHidden(false);
+                // If any one of the children matches, the parent should not be hidden.
                 isTotallyHide = false;
             }
             else
@@ -813,18 +810,17 @@ void MainWindow::on_connectionListWidget_itemClicked(QTreeWidgetItem *item, int 
     infoWidget->ShowDetails(GetItemWidget(item)->Identifier());
 }
 
-void MainWindow::onConnectionStatsArrived(const ConnectionId &id, const quint64 upSpeed, const quint64 downSpeed, const quint64 totalUp,
-                                          const quint64 totalDown)
+void MainWindow::OnStatsAvailable(const ConnectionId &id, const quint64 upS, const quint64 downS, const quint64 upD, const quint64 downD)
 {
     Q_UNUSED(id);
-    // This may not be, or may not precisely be, speed per second if low-level
+    // This may not be, or may not precisely be, speed per second if the backend
     // has "any" latency. (Hope not...)
-    speedChartWidget->AddPointData(upSpeed, downSpeed);
+    speedChartWidget->AddPointData(upS, downS);
     //
-    auto totalSpeedUp = FormatBytes(upSpeed) + "/s";
-    auto totalSpeedDown = FormatBytes(downSpeed) + "/s";
-    auto totalDataUp = FormatBytes(totalUp);
-    auto totalDataDown = FormatBytes(totalDown);
+    auto totalSpeedUp = FormatBytes(upS) + "/s";
+    auto totalSpeedDown = FormatBytes(downS) + "/s";
+    auto totalDataUp = FormatBytes(upD);
+    auto totalDataDown = FormatBytes(downD);
     //
     netspeedLabel->setText(totalSpeedUp + NEWLINE + totalSpeedDown);
     dataamountLabel->setText(totalDataUp + NEWLINE + totalDataDown);
@@ -833,7 +829,7 @@ void MainWindow::onConnectionStatsArrived(const ConnectionId &id, const quint64 
                      " Down: " + totalSpeedDown);
 }
 
-void MainWindow::onVCoreLogArrived(const ConnectionId &id, const QString &log)
+void MainWindow::OnVCoreLogAvailable(const ConnectionId &id, const QString &log)
 {
     Q_UNUSED(id);
     auto bar = masterLogBrowser->verticalScrollBar();
@@ -853,11 +849,10 @@ void MainWindow::onVCoreLogArrived(const ConnectionId &id, const QString &log)
             cursor.select(QTextCursor::BlockUnderCursor);
             cursor.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor);
             cursor.removeSelectedText();
+            continue;
         }
-        else
-        {
-            break;
-        }
+
+        break;
     }
 
     if (val >= max * 0.8 || val >= max - 20)
@@ -891,19 +886,7 @@ void MainWindow::OnEditRequested(const ConnectionId &id)
 
     if (isChanged)
     {
-        // if (CheckConfigType(firstSelected, SUBSCRIPTION)) {
-        //    auto name = connections[_identifier].connectionName;
-        //    // Assume name will not change.
-        //    SaveSubscriptionConfig(root,
-        //    connections[_identifier].subscriptionName, &name);
-        //} else {
-        //    connections[_identifier].config = root;
-        //    // true indicates the alias will NOT change
-        //    SaveConnectionConfig(root, &alias, true);
-        //}
         ConnectionManager->UpdateConnection(id, root);
-        // OnConfigListChanged(alias ==
-        // CurrentConnectionIdentifier.connectionName);
     }
 }
 void MainWindow::OnJsonEditRequested(const ConnectionId &id)
@@ -915,4 +898,33 @@ void MainWindow::OnJsonEditRequested(const ConnectionId &id)
     {
         ConnectionManager->UpdateConnection(id, root);
     }
+}
+
+void MainWindow::OnConnectionCreated(const ConnectionId &id, const QString &displayName)
+{
+    Q_UNUSED(displayName)
+    MWAddConnectionItem_p(id, ConnectionManager->GetConnectionGroupId(id));
+}
+void MainWindow::OnConnectionDeleted(const ConnectionId &id, const GroupId &groupId)
+{
+    auto &child = connectionNodes[id];
+    groupNodes[groupId]->removeChild(child.get());
+    connectionNodes.remove(id);
+}
+void MainWindow::OnConnectionGroupChanged(const ConnectionId &id, const GroupId &originalGroup, const GroupId &newGroup)
+{
+    delete GetItemWidget(connectionNodes[id].get());
+    groupNodes[originalGroup]->removeChild(connectionNodes[id].get());
+    connectionNodes.remove(id);
+    MWAddConnectionItem_p(id, newGroup);
+}
+void MainWindow::OnGroupCreated(const GroupId &id, const QString &displayName)
+{
+    Q_UNUSED(displayName)
+    MWAddGroupItem_p(id);
+}
+void MainWindow::OnGroupDeleted(const GroupId &id, const QList<ConnectionId> &connections)
+{
+    for (auto conn : connections) { groupNodes[id]->removeChild(connectionNodes[conn].get()); }
+    groupNodes.remove(id);
 }

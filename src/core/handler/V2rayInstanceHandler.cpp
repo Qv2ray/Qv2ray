@@ -25,7 +25,7 @@ void QvConnectionHandler::CHStopConnection_p()
         // Copy
         ConnectionId id = currentConnectionId;
         currentConnectionId = NullConnectionId;
-        emit OnDisConnected(id);
+        emit OnDisconnected(id);
     }
     else
     {
@@ -44,6 +44,6 @@ void QvConnectionHandler::OnVCoreCrashed(const ConnectionId &id)
 {
     LOG(MODULE_CORE_HANDLER, "V2ray core crashed!")
     currentConnectionId = NullConnectionId;
-    emit OnDisConnected(id);
+    emit OnDisconnected(id);
     emit OnCrashed();
 }

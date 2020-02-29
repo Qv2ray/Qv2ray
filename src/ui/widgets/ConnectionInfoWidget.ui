@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>378</width>
+    <width>403</width>
     <height>215</height>
    </rect>
   </property>
@@ -197,6 +197,9 @@
    </item>
    <item row="2" column="0">
     <layout class="QFormLayout" name="formLayout">
+     <property name="verticalSpacing">
+      <number>9</number>
+     </property>
      <property name="leftMargin">
       <number>6</number>
      </property>

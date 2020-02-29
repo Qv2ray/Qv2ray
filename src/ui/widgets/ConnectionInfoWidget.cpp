@@ -20,7 +20,7 @@ ConnectionInfoWidget::ConnectionInfoWidget(QWidget *parent) : QWidget(parent)
     shareLinkTxt->installEventFilter(this);
     //
     connect(ConnectionManager, &QvConnectionHandler::OnConnected, this, &ConnectionInfoWidget::OnConnected);
-    connect(ConnectionManager, &QvConnectionHandler::OnDisConnected, this, &ConnectionInfoWidget::OnDisConnected);
+    connect(ConnectionManager, &QvConnectionHandler::OnDisconnected, this, &ConnectionInfoWidget::OnDisConnected);
 }
 
 void ConnectionInfoWidget::ShowDetails(const tuple<GroupId, ConnectionId> &_identifier)
@@ -50,6 +50,7 @@ void ConnectionInfoWidget::ShowDetails(const tuple<GroupId, ConnectionId> &_iden
         conf.border = true;
         conf.imageSize = QSize(400, 400);
         auto img = QZXing().encodeData(shareLink, conf);
+        qrLabel->setScaledContents(true);
         qrLabel->setPixmap(QPixmap::fromImage(img));
         //
         connectBtn->setIcon(ConnectionManager->IsConnected(connectionId) ? QICON_R("stop.png") : QICON_R("connect.png"));

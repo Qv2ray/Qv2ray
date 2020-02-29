@@ -54,6 +54,11 @@ class ConnectionItemWidget
     void OnDisConnected(const ConnectionId &id);
     void OnLatencyTestStart(const ConnectionId &id);
     void OnLatencyTestFinished(const ConnectionId &id, const uint average);
+    void RecalculateConnectionsCount()
+    {
+        auto connectionCount = ConnectionManager->Connections(groupId).count();
+        latencyLabel->setText(QSTRN(connectionCount) + " " + (connectionCount < 2 ? tr("connection") : tr("connections")));
+    }
 
   private:
     QString originalConnectionName;

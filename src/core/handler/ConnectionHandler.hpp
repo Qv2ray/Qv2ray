@@ -32,26 +32,26 @@ namespace Qv2ray::core::handlers
         const ConnectionId GetConnectionIdByDisplayName(const QString &displayName) const;
         //
         // Connectivity Operationss
-        bool IsConnected(const ConnectionId &id) const;
         const optional<QString> StartConnection(const ConnectionId &identifier);
         void StopConnection(); // const ConnectionId &id
+        void RestartConnection();
+        bool IsConnected(const ConnectionId &id) const;
         //
         // Connection Operations.
-        const GroupId GetConnectionGroupId(const ConnectionId &id) const;
-        double GetConnectionLatency(const ConnectionId &id) const;
-        const ConnectionId &CreateConnection(const QString &displayName, const GroupId &groupId, const CONFIGROOT &root);
-        const optional<QString> DeleteConnection(const ConnectionId &id);
         bool UpdateConnection(const ConnectionId &id, const CONFIGROOT &root);
+        const optional<QString> DeleteConnection(const ConnectionId &id);
         const optional<QString> RenameConnection(const ConnectionId &id, const QString &newName);
+        const optional<QString> MoveConnectionGroup(const ConnectionId &id, const GroupId &newGroupId);
+        const ConnectionId &CreateConnection(const QString &displayName, const GroupId &groupId, const CONFIGROOT &root);
         const ConnectionId DuplicateConnection(const ConnectionId &id);
-        const optional<QString> MoveConnectionGroup(const ConnectionId &id, const GroupId &newGroupId, bool emitSignal = true);
-        //
-        const CONFIGROOT GetConnectionRoot(const ConnectionId &id) const;
-        const CONFIGROOT GetConnectionRoot(const GroupId &group, const ConnectionId &id) const;
         //
         // Get Conncetion Property
-        const QString GetConnectionProtocolString(const ConnectionId &id) const;
         const tuple<QString, QString, int> GetConnectionData(const ConnectionId &connectionId) const;
+        const GroupId GetConnectionGroupId(const ConnectionId &id) const;
+        const QString GetConnectionProtocolString(const ConnectionId &id) const;
+        const CONFIGROOT GetConnectionRoot(const ConnectionId &id) const;
+        const CONFIGROOT GetConnectionRoot(const GroupId &group, const ConnectionId &id) const;
+        double GetConnectionLatency(const ConnectionId &id) const;
         const tuple<quint64, quint64> GetConnectionUsageAmount(const ConnectionId &id) const;
         //
         // Misc Connection Operations
@@ -74,14 +74,13 @@ namespace Qv2ray::core::handlers
       signals:
         void OnCrashed();
         void OnConnected(const ConnectionId &id);
-        void OnDisConnected(const ConnectionId &id);
+        void OnDisconnected(const ConnectionId &id);
         void OnVCoreLogAvailable(const ConnectionId &id, const QString &log);
-        void OnStatsAvailable(const ConnectionId &id, const quint64 uploadSpeed, const quint64 downloadSpeed, const quint64 totalUpload,
-                              const quint64 totalDownload);
+        void OnStatsAvailable(const ConnectionId &id, const quint64 upS, const quint64 downS, const quint64 upD, const quint64 downD);
         //
         void OnConnectionCreated(const ConnectionId &id, const QString &displayName);
         void OnConnectionRenamed(const ConnectionId &id, const QString &originalName, const QString &newName);
-        void OnConnectionRemoved(const ConnectionId &id);
+        void OnConnectionDeleted(const ConnectionId &id, const GroupId &originalGroupId);
         void OnConnectionChanged(const ConnectionId &id);
         void OnConnectionGroupChanged(const ConnectionId &id, const GroupId &originalGroup, const GroupId &newGroup);
         //
@@ -90,10 +89,8 @@ namespace Qv2ray::core::handlers
         //
         void OnGroupCreated(const GroupId &id, const QString &displayName);
         void OnGroupRenamed(const GroupId &id, const QString &oldName, const QString &newName);
-        void OnGroupDeleted(const GroupId &id, const QString &displayName);
+        void OnGroupDeleted(const GroupId &id, const QList<ConnectionId> &connections);
         //
-        // void OnSubscriptionCreated(const GroupId &id, const QString &displayName, const QString &address);
-        // void OnSubscriptionDeleted(const GroupId &id, const QString &oldName, const QString &newName);
         void OnSubscriptionUpdateFinished(const GroupId &id);
 
       private slots:

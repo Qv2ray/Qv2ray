@@ -6,7 +6,7 @@ ConnectionItemWidget::ConnectionItemWidget(QWidget *parent) : QWidget(parent), c
 {
     setupUi(this);
     connect(ConnectionManager, &QvConnectionHandler::OnConnected, this, &ConnectionItemWidget::OnConnected);
-    connect(ConnectionManager, &QvConnectionHandler::OnDisConnected, this, &ConnectionItemWidget::OnDisConnected);
+    connect(ConnectionManager, &QvConnectionHandler::OnDisconnected, this, &ConnectionItemWidget::OnDisConnected);
     connect(ConnectionManager, &QvConnectionHandler::OnStatsAvailable, this, &ConnectionItemWidget::OnConnectionStatsArrived);
     connect(ConnectionManager, &QvConnectionHandler::OnLatencyTestStarted, this, &ConnectionItemWidget::OnLatencyTestStart);
     connect(ConnectionManager, &QvConnectionHandler::OnLatencyTestFinished, this, &ConnectionItemWidget::OnLatencyTestFinished);
@@ -48,14 +48,19 @@ ConnectionItemWidget::ConnectionItemWidget(const GroupId &id, QWidget *parent) :
     groupId = id;
     itemType = GROUP_HEADER_ITEM;
     originalConnectionName = ConnectionManager->GetDisplayName(id);
-    auto connectionCount = ConnectionManager->Connections(id).count();
     connNameLabel->setText(originalConnectionName);
-    latencyLabel->setText(QSTRN(connectionCount) + " " + (connectionCount < 2 ? tr("connection") : tr("connections")));
+    RecalculateConnectionsCount();
     //
     layout()->removeWidget(connTypeLabel);
     layout()->removeWidget(dataLabel);
     delete connTypeLabel;
     delete dataLabel;
+    //
+    connect(ConnectionManager, &QvConnectionHandler::OnConnectionCreated, this, &ConnectionItemWidget::RecalculateConnectionsCount);
+    connect(ConnectionManager, &QvConnectionHandler::OnConnectionDeleted, this, &ConnectionItemWidget::RecalculateConnectionsCount);
+    connect(ConnectionManager, &QvConnectionHandler::OnConnectionChanged, this, &ConnectionItemWidget::RecalculateConnectionsCount);
+    connect(ConnectionManager, &QvConnectionHandler::OnConnectionGroupChanged, this, &ConnectionItemWidget::RecalculateConnectionsCount);
+    connect(ConnectionManager, &QvConnectionHandler::OnSubscriptionUpdateFinished, this, &ConnectionItemWidget::RecalculateConnectionsCount);
 }
 
 void ConnectionItemWidget::BeginConnection()
