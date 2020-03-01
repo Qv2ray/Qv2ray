@@ -43,7 +43,10 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     languageComboBox->clear();
     QDirIterator it(":/translations");
 
-    while (it.hasNext()) { languageComboBox->addItem(it.next().split("/").last().split(".").first()); }
+    while (it.hasNext())
+    {
+        languageComboBox->addItem(it.next().split("/").last().split(".").first());
+    }
 
     // Set auto start button state
     SetAutoStartButtonsState(GetLaunchAtLoginStatus());
@@ -162,11 +165,17 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     auto autoStartConnId = ConnectionId(CurrentConfig.autoStartId);
     auto autoStartGroupId = ConnectionManager->GetConnectionGroupId(autoStartConnId);
 
-    for (auto group : ConnectionManager->AllGroups()) { autoStartSubsCombo->addItem(ConnectionManager->GetDisplayName(group)); }
+    for (auto group : ConnectionManager->AllGroups())
+    {
+        autoStartSubsCombo->addItem(ConnectionManager->GetDisplayName(group));
+    }
 
     autoStartSubsCombo->setCurrentText(ConnectionManager->GetDisplayName(autoStartGroupId));
 
-    for (auto conn : ConnectionManager->Connections(autoStartGroupId)) { autoStartConnCombo->addItem(ConnectionManager->GetDisplayName(conn)); }
+    for (auto conn : ConnectionManager->Connections(autoStartGroupId))
+    {
+        autoStartConnCombo->addItem(ConnectionManager->GetDisplayName(conn));
+    }
 
     autoStartConnCombo->setCurrentText(ConnectionManager->GetDisplayName(autoStartConnId));
 
@@ -1011,7 +1020,10 @@ void PreferencesWindow::on_autoStartSubsCombo_currentIndexChanged(const QString 
     auto list = ConnectionManager->Connections(groupId);
     autoStartConnCombo->clear();
 
-    for (auto id : list) { autoStartConnCombo->addItem(ConnectionManager->GetDisplayName(id)); }
+    for (auto id : list)
+    {
+        autoStartConnCombo->addItem(ConnectionManager->GetDisplayName(id));
+    }
 }
 
 void PreferencesWindow::on_autoStartConnCombo_currentIndexChanged(const QString &arg1)

@@ -446,7 +446,10 @@ void RouteEditor::ShowCurrentRuleDetail()
     balancerSelectionCombo->clear();
 
     // BUG added the wrong items, should be outbound list.
-    for (auto out : outbounds) { balancerSelectionCombo->addItem((out)["tag"].toString()); }
+    for (auto out : outbounds)
+    {
+        balancerSelectionCombo->addItem((out)["tag"].toString());
+    }
 
     //
     // Balancers combo and balancer list.
@@ -726,7 +729,10 @@ void RouteEditor::on_addOutboundBtn_clicked()
         // conf is rootObject, needs to unwrap it.
         auto confList = conf["outbounds"].toArray();
 
-        for (int i = 0; i < confList.count(); i++) { AddOutbound(OUTBOUND(confList[i].toObject())); }
+        for (int i = 0; i < confList.count(); i++)
+        {
+            AddOutbound(OUTBOUND(confList[i].toObject()));
+        }
     }
 
     CHECKEMPTYRULES

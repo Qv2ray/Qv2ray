@@ -118,7 +118,10 @@ namespace Qv2ray::common
     {
         list<string> list;
 
-        for (auto line : _string.split(QRegExp("[\r\n]"), QString::SkipEmptyParts)) { list.push_back(line.toStdString()); }
+        for (auto line : _string.split(QRegExp("[\r\n]"), QString::SkipEmptyParts))
+        {
+            list.push_back(line.toStdString());
+        }
 
         return list;
     }

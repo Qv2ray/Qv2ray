@@ -29,7 +29,10 @@ namespace Qv2ray::core::handlers
             auto val = GlobalConfig.subscriptions[key];
             groups[gkey] = val;
 
-            for (auto conn : val.connections) { connections[ConnectionId(conn)].groupId = GroupId(key); }
+            for (auto conn : val.connections)
+            {
+                connections[ConnectionId(conn)].groupId = GroupId(key);
+            }
         }
 
         for (auto key : GlobalConfig.groups.keys())
@@ -43,7 +46,10 @@ namespace Qv2ray::core::handlers
             auto val = GlobalConfig.groups[key];
             groups[gkey] = val;
 
-            for (auto conn : val.connections) { connections[ConnectionId(conn)].groupId = GroupId(key); }
+            for (auto conn : val.connections)
+            {
+                connections[ConnectionId(conn)].groupId = GroupId(key);
+            }
         }
 
         //
@@ -78,7 +84,9 @@ namespace Qv2ray::core::handlers
         newGlobalConfig.subscriptions.clear();
 
         for (auto i = 0; i < connections.count(); i++)
-        { newGlobalConfig.connections[connections.keys()[i].toString()] = connections.values()[i]; }
+        {
+            newGlobalConfig.connections[connections.keys()[i].toString()] = connections.values()[i];
+        }
 
         for (auto i = 0; i < groups.count(); i++)
         {
@@ -122,12 +130,18 @@ namespace Qv2ray::core::handlers
 
     void QvConnectionHandler::StartLatencyTest()
     {
-        for (auto connection : connections.keys()) { StartLatencyTest(connection); }
+        for (auto connection : connections.keys())
+        {
+            StartLatencyTest(connection);
+        }
     }
 
     void QvConnectionHandler::StartLatencyTest(const GroupId &id)
     {
-        for (auto connection : groups[id].connections) { StartLatencyTest(connection); }
+        for (auto connection : groups[id].connections)
+        {
+            StartLatencyTest(connection);
+        }
     }
 
     void QvConnectionHandler::StartLatencyTest(const ConnectionId &id)
@@ -302,7 +316,10 @@ namespace Qv2ray::core::handlers
 
         // Copy construct
         auto list = groups[id].connections;
-        for (auto conn : list) { MoveConnectionGroup(conn, DefaultGroupId); }
+        for (auto conn : list)
+        {
+            MoveConnectionGroup(conn, DefaultGroupId);
+        }
         //
         if (groups[id].isSubscription)
         {

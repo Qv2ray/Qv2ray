@@ -50,7 +50,10 @@ namespace Qv2ray::components::pac
             if (originLine[startPosition] == '\n')
                 startPosition += 1;
 
-            for (size_t i = startPosition; i < endPosition; ++i) { returnBuffer += originLine[i]; }
+            for (size_t i = startPosition; i < endPosition; ++i)
+            {
+                returnBuffer += originLine[i];
+            }
         }
 
         return returnBuffer;

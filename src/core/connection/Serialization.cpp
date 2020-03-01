@@ -420,7 +420,10 @@ namespace Qv2ray::core::connection
             else if (net == "http" || net == "h2")
             {
                 // Fill hosts for HTTP
-                for (auto _host : host.split(',')) { streaming.httpSettings.host.push_back(_host.trimmed()); }
+                for (auto _host : host.split(','))
+                {
+                    streaming.httpSettings.host.push_back(_host.trimmed());
+                }
 
                 streaming.httpSettings.path = path;
             }

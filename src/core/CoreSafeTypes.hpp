@@ -53,7 +53,10 @@ namespace Qv2ray::core
     {
         QList<IDType> list;
 
-        for (auto str : strings) { list << IDType(str); }
+        for (auto str : strings)
+        {
+            list << IDType(str);
+        }
 
         return list;
     }
@@ -63,7 +66,10 @@ namespace Qv2ray::core
     {
         QList<QString> list;
 
-        for (auto id : ids) { list << id.toString(); }
+        for (auto id : ids)
+        {
+            list << id.toString();
+        }
 
         return list;
     }

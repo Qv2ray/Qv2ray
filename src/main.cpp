@@ -361,7 +361,10 @@ int main(int argc, char *argv[])
     }
     else
     {
-        for (auto lang : langs) { LOG(MODULE_INIT, "Found Translator: " + lang) }
+        for (auto lang : langs)
+        {
+            LOG(MODULE_INIT, "Found Translator: " + lang)
+        }
     }
 
     // Qv2ray Initialize, find possible config paths and verify them.

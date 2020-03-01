@@ -144,7 +144,9 @@ void InboundEditor::LoadUIData()
     httpAccountListBox->clear();
 
     for (auto user : httpSettings["accounts"].toArray())
-    { httpAccountListBox->addItem(user.toObject()["user"].toString() + ":" + user.toObject()["pass"].toString()); }
+    {
+        httpAccountListBox->addItem(user.toObject()["user"].toString() + ":" + user.toObject()["pass"].toString());
+    }
 
     // SOCKS
     socksAuthCombo->setCurrentText(socksSettings["auth"].toString());
@@ -153,7 +155,9 @@ void InboundEditor::LoadUIData()
     socksUserLevelSB->setValue(socksSettings["userLevel"].toInt());
 
     for (auto user : socksSettings["accounts"].toArray())
-    { socksAccountListBox->addItem(user.toObject()["user"].toString() + ":" + user.toObject()["pass"].toString()); }
+    {
+        socksAccountListBox->addItem(user.toObject()["user"].toString() + ":" + user.toObject()["pass"].toString());
+    }
 
     // Dokodemo-Door
     dokoFollowRedirectCB->setChecked(dokoSettings["followRedirect"].toBool());

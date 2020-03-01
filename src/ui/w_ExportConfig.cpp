@@ -1,4 +1,5 @@
 ﻿#include "w_ExportConfig.hpp"
+
 #include "common/QvHelpers.hpp"
 #include "core/connection/Serialization.hpp"
 

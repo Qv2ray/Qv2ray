@@ -13,9 +13,7 @@ SubscribeEditor::SubscribeEditor(QWidget *parent) : QDialog(parent)
 
     for (auto subs : ConnectionManager->Subscriptions())
     {
-        subscriptionList->addTopLevelItem(new QTreeWidgetItem(QStringList()                              //
-                                                              << ConnectionManager->GetDisplayName(subs) //
-                                                              << subs.toString()));                      //
+        subscriptionList->addTopLevelItem(new QTreeWidgetItem(QStringList{ ConnectionManager->GetDisplayName(subs), subs.toString() })); //
     }
 }
 

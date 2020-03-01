@@ -924,6 +924,9 @@ void MainWindow::OnGroupCreated(const GroupId &id, const QString &displayName)
 }
 void MainWindow::OnGroupDeleted(const GroupId &id, const QList<ConnectionId> &connections)
 {
-    for (auto conn : connections) { groupNodes[id]->removeChild(connectionNodes[conn].get()); }
+    for (auto conn : connections)
+    {
+        groupNodes[id]->removeChild(connectionNodes[conn].get());
+    }
     groupNodes.remove(id);
 }

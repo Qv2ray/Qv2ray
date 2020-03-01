@@ -266,7 +266,10 @@ namespace Qv2ray
     {
         LOG(MODULE_SETTINGS, "Migrating config from version " + QSTRN(fromVersion) + " to " + QSTRN(toVersion))
 
-        for (int i = fromVersion; i < toVersion; i++) { root = UpgradeConfig_Inc(i, root); }
+        for (int i = fromVersion; i < toVersion; i++)
+        {
+            root = UpgradeConfig_Inc(i, root);
+        }
 
         return root;
     }

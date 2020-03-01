@@ -191,7 +191,10 @@ void SpeedPlotView::pushPoint(const SpeedPlotView::PointData &point)
 {
     m_datahalfMin.push_back(point);
 
-    while (m_datahalfMin.length() > VIEWABLE) { m_datahalfMin.removeFirst(); }
+    while (m_datahalfMin.length() > VIEWABLE)
+    {
+        m_datahalfMin.removeFirst();
+    }
 }
 
 void SpeedPlotView::replot()

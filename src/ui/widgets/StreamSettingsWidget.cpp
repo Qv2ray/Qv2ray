@@ -35,7 +35,9 @@ void StreamSettingsWidget::SetStreamObject(StreamSettingsObject sso)
     QString wsHeaders;
 
     for (auto item = stream.wsSettings.headers.begin(); item != stream.wsSettings.headers.end(); item++)
-    { wsHeaders += item.key() + "|" + item.value() + NEWLINE; }
+    {
+        wsHeaders += item.key() + "|" + item.value() + NEWLINE;
+    }
 
     wsHeadersTxt->setPlainText(wsHeaders);
     // mKCP
