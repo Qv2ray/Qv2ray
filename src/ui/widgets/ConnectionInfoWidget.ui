@@ -111,7 +111,7 @@
        <item>
         <widget class="QToolButton" name="duplicateBtn">
          <property name="toolTip">
-          <string>Delete Connection</string>
+          <string>Duplicate Connection</string>
          </property>
          <property name="text">
           <string/>

@@ -27,10 +27,9 @@ QvMessageBusSlotImpl(SubscribeEditor)
     }
 }
 
-QPair<QString, CONFIGROOT> SubscribeEditor::GetSelectedConfig()
+tuple<QString, CONFIGROOT> SubscribeEditor::GetSelectedConfig()
 {
-    return QPair<QString, CONFIGROOT>(ConnectionManager->GetDisplayName(currentConnectionId),
-                                      ConnectionManager->GetConnectionRoot(currentConnectionId));
+    return make_tuple(ConnectionManager->GetDisplayName(currentConnectionId), ConnectionManager->GetConnectionRoot(currentConnectionId));
 }
 
 SubscribeEditor::~SubscribeEditor()

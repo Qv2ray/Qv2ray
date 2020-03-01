@@ -46,7 +46,6 @@ namespace Qv2ray::core::handlers
         const optional<QString> RenameConnection(const ConnectionId &id, const QString &newName);
         const optional<QString> MoveConnectionGroup(const ConnectionId &id, const GroupId &newGroupId);
         const ConnectionId CreateConnection(const QString &displayName, const GroupId &groupId, const CONFIGROOT &root);
-        // const ConnectionId DuplicateConnection(const ConnectionId &id);
         //
         // Get Conncetion Property
         const tuple<QString, QString, int> GetConnectionData(const ConnectionId &connectionId) const;

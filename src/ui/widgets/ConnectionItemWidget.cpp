@@ -18,7 +18,6 @@ ConnectionItemWidget::ConnectionItemWidget(const ConnectionId &id, QWidget *pare
     groupId = ConnectionManager->GetConnectionGroupId(id);
     originalConnectionName = ConnectionManager->GetDisplayName(id);
     itemType = NODE_ITEM;
-    connNameLabel->setText((ConnectionManager->IsConnected(id) ? "• " : "") + originalConnectionName);
     auto latency = ConnectionManager->GetConnectionLatency(id);
 
     if (latency == 0)
@@ -40,12 +39,9 @@ ConnectionItemWidget::ConnectionItemWidget(const ConnectionId &id, QWidget *pare
     {
         emit RequestWidgetFocus(this);
     }
-    connect(ConnectionManager, &QvConnectionHandler::OnConnectionRenamed, [&](const ConnectionId &id, const QString &, const QString &newName) {
-        if (id == connectionId)
-        {
-            connNameLabel->setText(newName);
-        }
-    });
+    OnConnectionItemRenamed(id, "", originalConnectionName);
+    this->setToolTip(originalConnectionName);
+    connect(ConnectionManager, &QvConnectionHandler::OnConnectionRenamed, this, &ConnectionItemWidget::OnConnectionItemRenamed);
 }
 
 // ======================================= Initialisation for root nodes.
@@ -54,7 +50,6 @@ ConnectionItemWidget::ConnectionItemWidget(const GroupId &id, QWidget *parent) :
     groupId = id;
     itemType = GROUP_HEADER_ITEM;
     originalConnectionName = ConnectionManager->GetDisplayName(id);
-    connNameLabel->setText(originalConnectionName);
     RecalculateConnectionsCount();
     //
     layout()->removeWidget(connTypeLabel);
@@ -62,18 +57,14 @@ ConnectionItemWidget::ConnectionItemWidget(const GroupId &id, QWidget *parent) :
     delete connTypeLabel;
     delete dataLabel;
     //
+    OnGroupItemRenamed(id, "", originalConnectionName);
     connect(ConnectionManager, &QvConnectionHandler::OnConnectionCreated, this, &ConnectionItemWidget::RecalculateConnectionsCount);
     connect(ConnectionManager, &QvConnectionHandler::OnConnectionDeleted, this, &ConnectionItemWidget::RecalculateConnectionsCount);
     connect(ConnectionManager, &QvConnectionHandler::OnConnectionChanged, this, &ConnectionItemWidget::RecalculateConnectionsCount);
     connect(ConnectionManager, &QvConnectionHandler::OnConnectionGroupChanged, this, &ConnectionItemWidget::RecalculateConnectionsCount);
     connect(ConnectionManager, &QvConnectionHandler::OnSubscriptionUpdateFinished, this, &ConnectionItemWidget::RecalculateConnectionsCount);
     //
-    connect(ConnectionManager, &QvConnectionHandler::OnGroupRenamed, [&](const GroupId &id, const QString &, const QString &newName) {
-        if (id == groupId)
-        {
-            connNameLabel->setText(newName);
-        }
-    });
+    connect(ConnectionManager, &QvConnectionHandler::OnGroupRenamed, this, &ConnectionItemWidget::OnGroupItemRenamed);
 }
 
 void ConnectionItemWidget::BeginConnection()

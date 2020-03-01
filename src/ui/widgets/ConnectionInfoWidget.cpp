@@ -140,36 +140,15 @@ void ConnectionInfoWidget::OnDisConnected(const ConnectionId &id)
         connectBtn->setIcon(QICON_R("connect.png"));
     }
 }
-// MWTryPingConnection(CurrentConnectionIdentifier);
+
 void ConnectionInfoWidget::on_duplicateBtn_clicked()
 {
-    // QvMessageBoxInfo(this, "NOT SUPPORTED", "WIP");
-    // if (!IsSelectionConnectable) {
-    //    return;
-    //}
-    //
-    // auto selectedFirst = connectionListWidget->currentItem();
-    // auto _identifier = ItemConnectionIdentifier(selectedFirst);
-    // SUBSCRIPTION_CONFIG_MODIFY_ASK(selectedFirst)
-    // CONFIGROOT conf;
-    //// Alias may change.
-    // QString alias = _identifier.connectionName;
-    // bool isComplex = IsComplexConfig(connections[_identifier].config);
-    //
-    // if (connections[_identifier].configType == CONNECTION_REGULAR) {
-    //    conf = ConvertConfigFromFile(QV2RAY_CONFIG_DIR +
-    //    _identifier.connectionName + QV2RAY_CONFIG_FILE_EXTENSION, isComplex);
-    //} else {
-    //    conf = ConvertConfigFromFile(QV2RAY_SUBSCRIPTION_DIR +
-    //    _identifier.subscriptionName + "/" + _identifier.connectionName  +
-    //    QV2RAY_CONFIG_FILE_EXTENSION, isComplex); alias =
-    //    _identifier.subscriptionName + "_" + _identifier.connectionName;
-    //}
-    //
-    // SaveConnectionConfig(conf, &alias, false);
-    // GlobalConfig.configs.push_back(alias);
-    // SaveGlobalConfig(GlobalConfig);
-    // this->OnConfigListChanged(false);}
+    if (connectionId != NullConnectionId)
+    {
+        ConnectionManager->CreateConnection(ConnectionManager->GetDisplayName(connectionId) + tr(" (Copy)"),
+                                            ConnectionManager->GetConnectionGroupId(connectionId),
+                                            ConnectionManager->GetConnectionRoot(connectionId));
+    }
 }
 
 void ConnectionInfoWidget::on_latencyBtn_clicked()

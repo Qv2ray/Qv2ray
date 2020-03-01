@@ -33,6 +33,11 @@ namespace Qv2ray::core::connection
         {
             auto server = ConnectionManager->GetConnectionRoot(id);
             auto alias = ConnectionManager->GetDisplayName(id);
+            return ConvertConfigToString(alias, server, isSip002);
+        }
+
+        const QString ConvertConfigToString(const QString &alias, const CONFIGROOT &server, bool isSip002)
+        {
             OUTBOUND outbound = OUTBOUND(server["outbounds"].toArray().first().toObject());
             auto type = outbound["protocol"].toString();
             QString sharelink = "";

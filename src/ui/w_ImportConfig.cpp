@@ -39,7 +39,7 @@ ImportConfigWindow::~ImportConfigWindow()
 {
 }
 
-QMap<QString, CONFIGROOT> ImportConfigWindow::OpenImport(bool partialImport)
+QMultiMap<QString, CONFIGROOT> ImportConfigWindow::OpenImport(bool partialImport)
 {
     // partial import means only import as an outbound, will set keepImported to
     // false and disable the checkbox
@@ -47,7 +47,7 @@ QMap<QString, CONFIGROOT> ImportConfigWindow::OpenImport(bool partialImport)
     keepImportedInboundCheckBox->setEnabled(!partialImport);
     routeEditBtn->setEnabled(!partialImport);
     this->exec();
-    return this->result() == QDialog::Accepted ? connections : QMap<QString, CONFIGROOT>();
+    return this->result() == QDialog::Accepted ? connections : QMultiMap<QString, CONFIGROOT>();
 }
 
 void ImportConfigWindow::on_selectFileBtn_clicked()
@@ -120,7 +120,7 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
 
             aliasPrefix += "_" + QFileInfo(path).fileName();
             CONFIGROOT config = ConvertConfigFromFile(path, ImportAsComplex);
-            connections[aliasPrefix] = config;
+            connections.insert(aliasPrefix, config);
             break;
         }
 
@@ -151,7 +151,7 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
                 }
                 else
                 {
-                    connections[aliasPrefix] = config;
+                    connections.insert(aliasPrefix, config);
                 }
             }
 
@@ -288,7 +288,7 @@ void ImportConfigWindow::on_connectionEditBtn_clicked()
         CONFIGROOT root;
         root.insert("outbounds", outboundsList);
         //
-        connections[alias] = root;
+        connections.insert(alias, root);
         accept();
     }
     else
@@ -312,8 +312,8 @@ void ImportConfigWindow::on_subscriptionButton_clicked()
 
     if (importToComplex)
     {
-        auto _result = w.GetSelectedConfig();
-        connections[_result.first] = _result.second;
+        auto [alias, conf] = w.GetSelectedConfig();
+        connections.insert(alias, conf);
     }
 
     accept();
@@ -328,7 +328,7 @@ void ImportConfigWindow::on_routeEditBtn_clicked()
 
     if (isChanged)
     {
-        connections[alias] = result;
+        connections.insert(alias, result);
         accept();
     }
     else

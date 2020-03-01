@@ -16,7 +16,7 @@ class SubscribeEditor
   public:
     explicit SubscribeEditor(QWidget *parent = nullptr);
     ~SubscribeEditor();
-    QPair<QString, CONFIGROOT> GetSelectedConfig();
+    tuple<QString, CONFIGROOT> GetSelectedConfig();
 
   public slots:
     QvMessageBusSlotDecl;

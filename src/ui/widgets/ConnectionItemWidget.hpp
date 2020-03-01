@@ -59,6 +59,31 @@ class ConnectionItemWidget
         auto connectionCount = ConnectionManager->Connections(groupId).count();
         latencyLabel->setText(QSTRN(connectionCount) + " " + (connectionCount < 2 ? tr("connection") : tr("connections")));
     }
+    void OnConnectionItemRenamed(const ConnectionId &id, const QString &, const QString &newName)
+    {
+        if (id == connectionId)
+        {
+            if (ConnectionManager->IsConnected(id))
+            {
+                connNameLabel->setText("• " + originalConnectionName);
+            }
+            else
+            {
+                connNameLabel->setText(newName);
+            }
+            originalConnectionName = newName;
+            this->setToolTip(newName);
+        }
+    }
+    void OnGroupItemRenamed(const GroupId &id, const QString &, const QString &newName)
+    {
+        if (id == groupId)
+        {
+            originalConnectionName = newName;
+            connNameLabel->setText(newName);
+            this->setToolTip(newName);
+        }
+    }
 
   private:
     QString originalConnectionName;

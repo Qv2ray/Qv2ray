@@ -17,7 +17,7 @@ class ImportConfigWindow
   public:
     explicit ImportConfigWindow(QWidget *parent = nullptr);
     ~ImportConfigWindow();
-    QMap<QString, CONFIGROOT> OpenImport(bool outboundsOnly = false);
+    QMultiMap<QString, CONFIGROOT> OpenImport(bool outboundsOnly = false);
   public slots:
     QvMessageBusSlotDecl;
   private slots:
@@ -42,6 +42,6 @@ class ImportConfigWindow
     void on_hideQv2rayCB_stateChanged(int arg1);
 
   private:
-    QMap<QString, CONFIGROOT> connections;
+    QMultiMap<QString, CONFIGROOT> connections;
     QMap<QString, QString> linkErrors;
 };
