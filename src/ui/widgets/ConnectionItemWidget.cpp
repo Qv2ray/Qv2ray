@@ -48,15 +48,15 @@ ConnectionItemWidget::ConnectionItemWidget(const ConnectionId &id, QWidget *pare
 // ======================================= Initialisation for root nodes.
 ConnectionItemWidget::ConnectionItemWidget(const GroupId &id, QWidget *parent) : ConnectionItemWidget(parent)
 {
-    groupId = id;
-    itemType = GROUP_HEADER_ITEM;
-    originalItemName = ConnectionManager->GetDisplayName(id);
-    RecalculateConnectionsCount();
-    //
     layout()->removeWidget(connTypeLabel);
     layout()->removeWidget(dataLabel);
     delete connTypeLabel;
     delete dataLabel;
+    //
+    groupId = id;
+    itemType = GROUP_HEADER_ITEM;
+    originalItemName = ConnectionManager->GetDisplayName(id);
+    RecalculateConnectionsCount();
     //
     auto font = connNameLabel->font();
     font.setBold(true);

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>203</width>
-    <height>58</height>
+    <height>60</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -49,6 +49,9 @@
      </property>
      <widget class="QWidget" name="page">
       <layout class="QGridLayout" name="gridLayout">
+       <property name="sizeConstraint">
+        <enum>QLayout::SetNoConstraint</enum>
+       </property>
        <property name="leftMargin">
         <number>0</number>
        </property>
@@ -61,6 +64,9 @@
        <property name="bottomMargin">
         <number>0</number>
        </property>
+       <property name="spacing">
+        <number>0</number>
+       </property>
        <item row="0" column="0">
         <layout class="QVBoxLayout" name="verticalLayout">
          <property name="spacing">
@@ -70,13 +76,13 @@
           <number>6</number>
          </property>
          <property name="topMargin">
-          <number>6</number>
+          <number>7</number>
          </property>
          <property name="rightMargin">
           <number>6</number>
          </property>
          <property name="bottomMargin">
-          <number>6</number>
+          <number>7</number>
          </property>
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,0">
