@@ -27,11 +27,13 @@ void ConnectionInfoWidget::ShowDetails(const tuple<GroupId, ConnectionId> &_iden
 {
     auto [groupId, connectionId] = _identifier;
     bool isConnection = connectionId != NullConnectionId;
+    //
+    editBtn->setEnabled(isConnection);
     editJsonBtn->setEnabled(isConnection);
     connectBtn->setEnabled(isConnection);
     duplicateBtn->setEnabled(isConnection);
-    editBtn->setEnabled(isConnection);
 
+    stackedWidget->setCurrentIndex(isConnection ? 0 : 1);
     if (isConnection)
     {
         groupLabel->setText(ConnectionManager->GetDisplayName(groupId, 175));
@@ -57,13 +59,15 @@ void ConnectionInfoWidget::ShowDetails(const tuple<GroupId, ConnectionId> &_iden
     else
     {
         connectBtn->setIcon(QICON_R("connect.png"));
-        groupLabel->setText(tr("N/A"));
-        protocolLabel->setText(tr("N/A"));
-        addressLabel->setText(tr("N/A"));
-        portLabel->setText(tr("N/A"));
-        //
-        shareLinkTxt->clear();
-        qrLabel->clear();
+        groupNameLabel->setText(ConnectionManager->GetDisplayName(groupId));
+        QStringList shareLinks;
+        for (auto connection : ConnectionManager->Connections(groupId))
+        {
+            shareLinks << ConvertConfigToString(connection, false);
+        }
+        groupShareTxt->setPlainText(shareLinks.join(NEWLINE));
+        groupSubsLinkLabel->setText(ConnectionManager->IsSubscription(groupId) ? get<0>(ConnectionManager->GetSubscriptionData(groupId)) :
+                                                                                 tr("Not a subscription"));
     }
 }
 

@@ -1,5 +1,3 @@
-#pragma once
-
 #include "w_MainWindow.hpp"
 
 #include "components/pac/QvPACHandler.hpp"
@@ -202,6 +200,16 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) //, vinstance(), h
     {
         auto id = ConnectionId(GlobalConfig.autoStartId);
         needShowWindow = ConnectionManager->StartConnection(id).has_value();
+    }
+    else
+    {
+        if (connectionListWidget->topLevelItemCount() > 0 && connectionListWidget->topLevelItem(0)->childCount() > 0)
+        {
+            // Select the first connection.
+            auto item = connectionListWidget->topLevelItem(0)->child(0);
+            on_connectionListWidget_itemClicked(item, 0);
+            connectionListWidget->setCurrentItem(item);
+        }
     }
 
     if (needShowWindow)

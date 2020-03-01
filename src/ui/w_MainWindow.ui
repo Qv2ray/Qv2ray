@@ -225,7 +225,7 @@
           <x>0</x>
           <y>0</y>
           <width>480</width>
-          <height>743</height>
+          <height>768</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -240,7 +240,13 @@
            <property name="minimumSize">
             <size>
              <width>0</width>
-             <height>205</height>
+             <height>230</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>230</height>
             </size>
            </property>
            <layout class="QGridLayout" name="connectionInfoLayout">
