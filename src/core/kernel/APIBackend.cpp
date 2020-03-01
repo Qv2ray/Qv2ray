@@ -57,12 +57,7 @@ namespace Qv2ray::core::kernel
         // Set started signal to false and wait for API thread to stop.
         started = false;
         thread->wait();
-
-        // Although thread shouldnot be null, we'll add this check to be safe.
-        if (thread)
-        {
-            delete thread;
-        }
+        delete thread;
     }
 
     // API Core Operations
