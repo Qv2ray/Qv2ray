@@ -28,5 +28,7 @@
         <file>assets/icons/ui_light/connect.png</file>
         <file>assets/icons/ui_dark/stop.png</file>
         <file>assets/icons/ui_light/stop.png</file>
+        <file>assets/icons/ui_dark/locate.png</file>
+        <file>assets/icons/ui_light/locate.png</file>
     </qresource>
 </RCC>

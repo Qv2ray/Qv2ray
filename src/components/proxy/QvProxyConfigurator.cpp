@@ -191,6 +191,7 @@ namespace Qv2ray::components::proxy
 
     void SetSystemProxy(const QString &address, int httpPort, int socksPort, bool usePAC)
     {
+        LOG(MODULE_PROXY, "Setting up System Proxy")
         bool hasHTTP = (httpPort != 0);
         bool hasSOCKS = (socksPort != 0);
 
@@ -354,6 +355,7 @@ namespace Qv2ray::components::proxy
 
     void ClearSystemProxy()
     {
+        LOG(MODULE_PROXY, "Clearing System Proxy")
 #ifdef Q_OS_WIN
         LOG(MODULE_PROXY, "Cleaning system proxy settings.")
         INTERNET_PER_CONN_OPTION_LIST list;

@@ -150,16 +150,6 @@ namespace Qv2ray::core::handlers
         tcpingHelper->TestLatency(id);
     }
 
-    const QList<ConnectionId> QvConnectionHandler::Connections() const
-    {
-        return connections.keys();
-    }
-
-    const QList<GroupId> QvConnectionHandler::AllGroups() const
-    {
-        return groups.keys();
-    }
-
     const QList<GroupId> QvConnectionHandler::Subscriptions() const
     {
         QList<GroupId> subsList;

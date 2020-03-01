@@ -85,8 +85,8 @@
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
-       <layout class="QVBoxLayout" name="verticalLayout">
-        <item>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="0">
          <widget class="QLineEdit" name="connectionFilterTxt">
           <property name="placeholderText">
            <string>Search</string>
@@ -96,7 +96,24 @@
           </property>
          </widget>
         </item>
-        <item>
+        <item row="0" column="1">
+         <widget class="QToolButton" name="locateBtn">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="toolTip">
+           <string>Locate Current Connection</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset resource="../../resources.qrc">
+            <normaloff>:/assets/icons/ui_light/locate.png</normaloff>:/assets/icons/ui_light/locate.png</iconset>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0" colspan="2">
          <widget class="QTreeWidget" name="connectionListWidget">
           <property name="contextMenuPolicy">
            <enum>Qt::CustomContextMenu</enum>
@@ -135,7 +152,7 @@
           </column>
          </widget>
         </item>
-        <item>
+        <item row="2" column="0" colspan="2">
          <layout class="QHBoxLayout" name="horizontalLayout_3">
           <item>
            <spacer name="horizontalSpacer_3">
@@ -354,7 +371,7 @@
          </size>
         </property>
         <property name="text">
-         <string>Connection Status</string>
+         <string>Not Connected</string>
         </property>
        </widget>
       </item>
@@ -705,6 +722,8 @@
   <tabstop>connectionListWidget</tabstop>
   <tabstop>importConfigButton</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="../../resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

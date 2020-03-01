@@ -57,6 +57,9 @@
        </item>
        <item>
         <widget class="QToolButton" name="latencyBtn">
+         <property name="toolTip">
+          <string>Latency Test</string>
+         </property>
          <property name="text">
           <string/>
          </property>
@@ -83,7 +86,7 @@
        <item>
         <widget class="QToolButton" name="editJsonBtn">
          <property name="toolTip">
-          <string>Edit Connection Config as JSON</string>
+          <string>Edit Connection as JSON</string>
          </property>
          <property name="text">
           <string/>
@@ -125,7 +128,7 @@
        <item>
         <widget class="QToolButton" name="connectBtn">
          <property name="toolTip">
-          <string>Connect To This Connection</string>
+          <string>Connect/Disconnect</string>
          </property>
          <property name="text">
           <string/>

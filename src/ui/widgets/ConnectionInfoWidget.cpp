@@ -25,8 +25,7 @@ ConnectionInfoWidget::ConnectionInfoWidget(QWidget *parent) : QWidget(parent)
 
 void ConnectionInfoWidget::ShowDetails(const tuple<GroupId, ConnectionId> &_identifier)
 {
-    groupId = get<0>(_identifier);
-    connectionId = get<1>(_identifier);
+    auto [groupId, connectionId] = _identifier;
     bool isConnection = connectionId != NullConnectionId;
     editJsonBtn->setEnabled(isConnection);
     connectBtn->setEnabled(isConnection);

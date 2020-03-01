@@ -40,7 +40,6 @@ ConnectionItemWidget::ConnectionItemWidget(const ConnectionId &id, QWidget *pare
         emit RequestWidgetFocus(this);
     }
     OnConnectionItemRenamed(id, "", originalConnectionName);
-    this->setToolTip(originalConnectionName);
     connect(ConnectionManager, &QvConnectionHandler::OnConnectionRenamed, this, &ConnectionItemWidget::OnConnectionItemRenamed);
 }
 
@@ -56,6 +55,10 @@ ConnectionItemWidget::ConnectionItemWidget(const GroupId &id, QWidget *parent) :
     layout()->removeWidget(dataLabel);
     delete connTypeLabel;
     delete dataLabel;
+    //
+    auto font = connNameLabel->font();
+    font.setBold(true);
+    connNameLabel->setFont(font);
     //
     OnGroupItemRenamed(id, "", originalConnectionName);
     connect(ConnectionManager, &QvConnectionHandler::OnConnectionCreated, this, &ConnectionItemWidget::RecalculateConnectionsCount);

@@ -1,48 +1,6 @@
-// Supplementary file for MainWindow -- Basically the handler for connectivity
-// management and components interactions. We NEED to include the cpp file to
-// define the macros.
+#include "common/QvHelpers.hpp"
 #include "components/proxy/QvProxyConfigurator.hpp"
-#include "w_MainWindow.cpp"
-
-// QTreeWidgetItem *MainWindow::FindItemByIdentifier(QvConnectionObject
-// identifier)
-//{
-//    //// First filter out all items with our config name.
-//    //auto items = connectionListWidget->findItems(identifier.connectionName,
-//    Qt::MatchExactly | Qt::MatchRecursive);
-//    //
-//    //for (auto item : items) {
-//    //    // This connectable prevents the an item with (which is the parent
-//    node of a subscription, having the same
-//    //    // -- name as our current connected name)
-//    //    if (!IsConnectableItem(item)) {
-//    //        LOG(UI, "Invalid Item found: " + item->text(0))
-//    //        continue;
-//    //    }
-//    //
-//    //    auto thisIdentifier = ItemConnectionIdentifier(item);
-//    //    DEBUG(UI, "Item Identifier: " + thisIdentifier.IdentifierString())
-//    //
-//    //    if (identifier == thisIdentifier) {
-//    //        return item;
-//    //    }
-//    //}
-//    //
-//    //LOG(UI, "Warning: Failed to find an item named: " +
-//    identifier.IdentifierString()) return nullptr;
-//}
-
-void MainWindow::MWClearSystemProxy(bool showMessage)
-{
-    ClearSystemProxy();
-    LOG(MODULE_UI, "Clearing System Proxy")
-    systemProxyEnabled = false;
-
-    if (showMessage)
-    {
-        hTray.showMessage("Qv2ray", tr("System proxy cleared."), windowIcon());
-    }
-}
+#include "w_MainWindow.hpp"
 
 void MainWindow::MWSetSystemProxy()
 {
@@ -51,10 +9,7 @@ void MainWindow::MWSetSystemProxy()
     bool httpEnabled = GlobalConfig.inboundConfig.useHTTP;
     bool socksEnabled = GlobalConfig.inboundConfig.useSocks;
     //
-    // Set system proxy if necessary
-    // bool isComplex =
-    // IsComplexConfig(connections[CurrentConnectionIdentifier].config);
-    bool isComplex = false;
+    bool isComplex = IsComplexConfig(ConnectionManager->GetConnectionRoot(ConnectionManager->CurrentConnection()));
 
     if (!isComplex)
     {
@@ -108,15 +63,12 @@ void MainWindow::MWSetSystemProxy()
             auto httpPort = GlobalConfig.inboundConfig.useHTTP ? GlobalConfig.inboundConfig.http_port : 0;
             auto socksPort = GlobalConfig.inboundConfig.useSocks ? GlobalConfig.inboundConfig.socks_port : 0;
             //
-            // If usePAC is set
             SetSystemProxy(proxyAddress, httpPort, socksPort, usePAC);
-            systemProxyEnabled = true;
-            hTray.showMessage("Qv2ray", tr("System proxy settings applied."), windowIcon());
         }
     }
     else
     {
-        hTray.showMessage("Qv2ray", tr("Cannot set proxy for complex config."), windowIcon());
+        hTray.showMessage("Qv2ray", tr("Didn't set proxy for complex config."), windowIcon());
     }
 }
 

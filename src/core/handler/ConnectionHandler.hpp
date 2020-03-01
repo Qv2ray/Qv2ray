@@ -21,9 +21,20 @@ namespace Qv2ray::core::handlers
 
       public:
         //
-        const QList<ConnectionId> Connections() const;
+        inline const ConnectionId CurrentConnection() const
+        {
+            return currentConnectionId;
+        }
+        inline const QList<ConnectionId> Connections() const
+        {
+            return connections.keys();
+        }
+        inline const QList<GroupId> AllGroups() const
+        {
+            return groups.keys();
+        }
         //
-        const QList<GroupId> AllGroups() const;
+        //
         const QList<GroupId> Subscriptions() const;
         const QList<ConnectionId> Connections(const GroupId &groupId) const;
         //

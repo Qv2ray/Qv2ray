@@ -2,6 +2,7 @@
 
 #include "common/HTTPRequestHelper.hpp"
 #include "common/LogHighlighter.hpp"
+#include "components/pac/QvPACHandler.hpp"
 #include "components/speedchart/speedwidget.hpp"
 #include "core/handler/ConnectionHandler.hpp"
 #include "ui/messaging/QvMessageBus.hpp"
@@ -31,17 +32,14 @@ class MainWindow
   public slots:
     QvMessageBusSlotDecl;
   private slots:
-    void on_action_RCM_ShareQR_triggered();
     void on_activatedTray(QSystemTrayIcon::ActivationReason reason);
     void on_actionExit_triggered();
     void on_preferencesBtn_clicked();
     void on_clearlogButton_clicked();
-    void on_connectionListWidget_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous);
     void on_connectionListWidget_customContextMenuRequested(const QPoint &pos);
     void on_connectionListWidget_itemChanged(QTreeWidgetItem *item, int column);
     void on_removeConfigButton_clicked();
     void on_importConfigButton_clicked();
-    void on_editConfigButton_clicked();
     void on_subsButton_clicked();
     //
     void ToggleVisibility();
@@ -55,6 +53,7 @@ class MainWindow
 
   protected:
     void keyPressEvent(QKeyEvent *e) override;
+    void keyReleaseEvent(QKeyEvent *e) override;
     void closeEvent(QCloseEvent *) override;
 
   private slots:
@@ -77,12 +76,12 @@ class MainWindow
     void OnGroupDeleted(const GroupId &id, const QList<ConnectionId> &connections);
     //
     void on_action_StartThis_triggered();
-    void on_action_RCM_EditJson_triggered();
     void on_action_RCM_ConvToComplex_triggered();
-    void on_action_RCM_RenameConnection_triggered();
+    //
     void on_connectionListWidget_itemDoubleClicked(QTreeWidgetItem *item, int column);
     void on_connectionFilterTxt_textEdited(const QString &arg1);
     void on_connectionListWidget_itemClicked(QTreeWidgetItem *item, int column);
+    void on_locateBtn_clicked();
 
   private:
     QHash<GroupId, shared_ptr<QTreeWidgetItem>> groupNodes;
@@ -96,7 +95,7 @@ class MainWindow
     QvHttpRequestHelper *requestHelper;
 #endif
     QSystemTrayIcon hTray;
-    // PACServer pacServer;
+    PACServer pacServer;
     // QvTCPingModel tcpingHelper;
     SyntaxHighlighter *vCoreLogHighlighter;
     ConnectionInfoWidget *infoWidget;
@@ -117,10 +116,8 @@ class MainWindow
     QAction *action_Tray_ClearSystemProxy;
     //
     // Extra Headers For w_MainWindow_extra.cpp Handling V2ray Connectivities.
-    bool systemProxyEnabled;
     ConnectionId lastConnectedId;
     void MWSetSystemProxy();
-    void MWClearSystemProxy(bool);
     void CheckSubscriptionsUpdate();
     //
     void MWAddConnectionItem_p(const ConnectionId &connection, const GroupId &groupId);
