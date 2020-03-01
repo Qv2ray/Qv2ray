@@ -13,7 +13,7 @@ SubscribeEditor::SubscribeEditor(QWidget *parent) : QDialog(parent)
 
     for (auto subs : ConnectionManager->Subscriptions())
     {
-        subscriptionList->addTopLevelItem(new QTreeWidgetItem(QStringList{ ConnectionManager->GetDisplayName(subs), subs.toString() })); //
+        subscriptionList->addTopLevelItem(new QTreeWidgetItem(QStringList{ ConnectionManager->GetDisplayName(subs), subs.toString() }));
     }
 }
 
@@ -39,9 +39,7 @@ void SubscribeEditor::on_addSubsButton_clicked()
     auto const key = QSTRN(QTime::currentTime().msecsSinceStartOfDay());
     auto id = ConnectionManager->CreateGroup(key, true);
     //
-    subscriptionList->addTopLevelItem(new QTreeWidgetItem(QStringList()       //
-                                                          << key              //
-                                                          << id.toString())); //
+    subscriptionList->addTopLevelItem(new QTreeWidgetItem(QStringList{ key, id.toString() }));
 }
 
 void SubscribeEditor::on_updateButton_clicked()

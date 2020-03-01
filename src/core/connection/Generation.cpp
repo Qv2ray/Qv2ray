@@ -21,21 +21,26 @@ namespace Qv2ray::core::connection
             {
                 // This is added to disable all proxies, as a alternative
                 // influence of #64
-                rulesList.append(GenerateSingleRouteRule(QStringList() << "regexp:.*", true, OUTBOUND_TAG_DIRECT));
+                rulesList.append(GenerateSingleRouteRule("regexp:.*", true, OUTBOUND_TAG_DIRECT));
             }
 
             // Private IPs should always NOT TO PROXY!
-            rulesList.append(GenerateSingleRouteRule(QStringList() << "geoip:private", false, OUTBOUND_TAG_DIRECT));
+            rulesList.append(GenerateSingleRouteRule("geoip:private", false, OUTBOUND_TAG_DIRECT));
             //
             // Check if CN needs proxy, or direct.
-            rulesList.append(GenerateSingleRouteRule(QStringList() << "geoip:cn", false, proxyCN ? OUTBOUND_TAG_DIRECT : OUTBOUND_TAG_PROXY));
-            rulesList.append(GenerateSingleRouteRule(QStringList() << "geosite:cn", true, proxyCN ? OUTBOUND_TAG_DIRECT : OUTBOUND_TAG_PROXY));
+            rulesList.append(GenerateSingleRouteRule("geoip:cn", false, proxyCN ? OUTBOUND_TAG_DIRECT : OUTBOUND_TAG_PROXY));
+            rulesList.append(GenerateSingleRouteRule("geosite:cn", true, proxyCN ? OUTBOUND_TAG_DIRECT : OUTBOUND_TAG_PROXY));
             //
             // As a bug fix of #64, this default rule has been disabled.
             // rulesList.append(GenerateSingleRouteRule(QStringList({"regexp:.*"}),
             // true, globalProxy ? OUTBOUND_TAG_PROXY :  OUTBOUND_TAG_DIRECT));
             root.insert("rules", rulesList);
             RROOT
+        }
+
+        ROUTERULE GenerateSingleRouteRule(QString str, bool isDomain, QString outboundTag, QString type)
+        {
+            return GenerateSingleRouteRule(QStringList{ str }, isDomain, outboundTag, type);
         }
 
         ROUTERULE GenerateSingleRouteRule(QStringList list, bool isDomain, QString outboundTag, QString type)

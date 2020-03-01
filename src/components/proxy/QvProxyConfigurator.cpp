@@ -15,7 +15,7 @@ namespace Qv2ray::components::proxy
     {
         QProcess p;
         p.setProgram("/usr/sbin/networksetup");
-        p.setArguments(QStringList() << "-listallnetworkservices");
+        p.setArguments(QStringList{ "-listallnetworkservices" });
         p.start();
         p.waitForStarted();
         p.waitForFinished();

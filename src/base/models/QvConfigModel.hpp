@@ -118,9 +118,7 @@ namespace Qv2ray::base::config
         bool withLocalDNS;
         QList<QString> dnsList;
         Qv2rayForwardProxyConfig forwardProxyConfig;
-        Qv2rayConnectionConfig()
-            : bypassCN(true), enableProxy(true), withLocalDNS(false), dnsList(QStringList() << "8.8.4.4"
-                                                                                            << "1.1.1.1")
+        Qv2rayConnectionConfig() : bypassCN(true), enableProxy(true), withLocalDNS(false), dnsList(QStringList{ "8.8.4.4", "1.1.1.1" })
         {
         }
         XTOSTRUCT(O(bypassCN, enableProxy, withLocalDNS, dnsList, forwardProxyConfig))

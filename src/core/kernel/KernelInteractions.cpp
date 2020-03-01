@@ -109,10 +109,7 @@ namespace Qv2ray::core::kernel
             QProcess process;
             process.setProcessEnvironment(env);
             DEBUG(MODULE_VCORE, "Starting V2ray core with test options")
-            process.start(GlobalConfig.v2CorePath,
-                          QStringList() << "-test"
-                                        << "-config" << path,
-                          QIODevice::ReadWrite | QIODevice::Text);
+            process.start(GlobalConfig.v2CorePath, QStringList{ "-test", "-config", path }, QIODevice::ReadWrite | QIODevice::Text);
             process.waitForFinished();
 
             if (process.exitCode() != 0)
@@ -175,7 +172,7 @@ namespace Qv2ray::core::kernel
             QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
             env.insert("V2RAY_LOCATION_ASSET", GlobalConfig.v2AssetsPath);
             vProcess->setProcessEnvironment(env);
-            vProcess->start(GlobalConfig.v2CorePath, QStringList() << "-config" << filePath, QIODevice::ReadWrite | QIODevice::Text);
+            vProcess->start(GlobalConfig.v2CorePath, QStringList{ "-config", filePath }, QIODevice::ReadWrite | QIODevice::Text);
             vProcess->waitForStarted();
             DEBUG(MODULE_VCORE, "V2ray core started.")
             KernelStarted = true;

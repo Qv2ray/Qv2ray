@@ -128,9 +128,7 @@ namespace Qv2ray::common
 
     QStringList GetFileList(QDir dir)
     {
-        return dir.entryList(QStringList() << "*"
-                                           << "*.*",
-                             QDir::Hidden | QDir::Files);
+        return dir.entryList(QStringList{ "*", "*.*" }, QDir::Hidden | QDir::Files);
     }
 
     bool FileExistsIn(QDir dir, QString fileName)

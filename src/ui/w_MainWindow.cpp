@@ -51,7 +51,7 @@ void MainWindow::MWAddConnectionItem_p(const ConnectionId &connection, const Gro
         MWAddGroupItem_p(groupId);
     }
     auto groupItem = groupNodes[groupId];
-    auto connectionItem = make_shared<QTreeWidgetItem>(QStringList() << "" << ConnectionManager->GetDisplayName(connection));
+    auto connectionItem = make_shared<QTreeWidgetItem>(QStringList{ "", ConnectionManager->GetDisplayName(connection) });
     connectionNodes[connection] = connectionItem;
     groupItem->addChild(connectionItem.get());
     auto widget = new ConnectionItemWidget(connection, connectionListWidget);
@@ -61,7 +61,7 @@ void MainWindow::MWAddConnectionItem_p(const ConnectionId &connection, const Gro
 
 void MainWindow::MWAddGroupItem_p(const GroupId &groupId)
 {
-    auto groupItem = make_shared<QTreeWidgetItem>(QStringList() << "" << ConnectionManager->GetDisplayName(groupId));
+    auto groupItem = make_shared<QTreeWidgetItem>(QStringList{ "", ConnectionManager->GetDisplayName(groupId) });
     groupNodes[groupId] = groupItem;
     connectionListWidget->addTopLevelItem(groupItem.get());
     connectionListWidget->setItemWidget(groupItem.get(), 0, new ConnectionItemWidget(groupId, connectionListWidget));
