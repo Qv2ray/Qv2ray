@@ -411,10 +411,10 @@ namespace Qv2ray::core::handlers
     {
         if (!connections.contains(id))
         {
-            return make_tuple(0, 0);
+            return { 0, 0 };
         }
 
-        return make_tuple(connections[id].upLinkData, connections[id].downLinkData);
+        return { connections[id].upLinkData, connections[id].downLinkData };
     }
 
     QvConnectionHandler::~QvConnectionHandler()
@@ -468,14 +468,14 @@ namespace Qv2ray::core::handlers
             if (GetOutboundData(outBoundRoot, &host, &port, &outboundType))
             {
                 *ok = true;
-                return make_tuple(outboundType, host, port);
+                return { outboundType, host, port };
             }
             else
             {
                 LOG(MODULE_CORE_HANDLER, "Unknown outbound type: " + outboundType + ", cannot deduce host and port.")
             }
         }
-        return make_tuple(tr("N/A"), tr("N/A"), 0);
+        return { tr("N/A"), tr("N/A"), 0 };
     }
 
     void QvConnectionHandler::OnLatencyDataArrived(const QvTCPingResultObject &result)
@@ -531,7 +531,7 @@ namespace Qv2ray::core::handlers
             return result;
         }
 
-        return make_tuple(groups[id].address, groups[id].lastUpdated, groups[id].updateInterval);
+        return { groups[id].address, groups[id].lastUpdated, groups[id].updateInterval };
     }
 
     bool QvConnectionHandler::SetSubscriptionData(const GroupId &id, const QString &address, float updateInterval)
@@ -581,7 +581,7 @@ namespace Qv2ray::core::handlers
             auto [protocol, host, port] = GetConnectionData(conn);
             if (port != 0)
             {
-                typeMap[make_tuple(protocol, host, port)] = conn;
+                typeMap[{ protocol, host, port }] = conn;
             }
         }
         //

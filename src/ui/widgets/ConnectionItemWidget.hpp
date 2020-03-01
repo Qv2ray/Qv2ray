@@ -39,7 +39,7 @@ class ConnectionItemWidget
     }
     inline const tuple<GroupId, ConnectionId> Identifier() const
     {
-        return make_tuple(groupId, connectionId);
+        return { groupId, connectionId };
     }
     inline bool IsConnection() const
     {
