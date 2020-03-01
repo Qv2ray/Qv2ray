@@ -162,10 +162,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) //, vinstance(), h
     // Actions for right click the connection list
     //
     QAction *action_RCM_StartThis = new QAction(tr("Connect to this"), this);
+    QAction *action_RCM_RenameThis = new QAction(tr("Rename"), this);
     QAction *action_RCM_ConvToComplex = new QAction(QICON_R("edit.png"), tr("Edit as Complex Config"), this);
     //
     connect(action_RCM_StartThis, &QAction::triggered, this, &MainWindow::on_action_StartThis_triggered);
     connect(action_RCM_ConvToComplex, &QAction::triggered, this, &MainWindow::on_action_RCM_ConvToComplex_triggered);
+    connect(action_RCM_RenameThis, &QAction::triggered, this, &MainWindow::on_action_RCM_RenameThis_triggered);
     //
     // Globally invokable signals.
     connect(this, &MainWindow::Connect, [&] { ConnectionManager->StartConnection(lastConnectedId); });
@@ -177,6 +179,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) //, vinstance(), h
     //
     connectionListMenu = new QMenu(this);
     connectionListMenu->addAction(action_RCM_StartThis);
+    connectionListMenu->addAction(action_RCM_RenameThis);
     connectionListMenu->addAction(action_RCM_ConvToComplex);
     //
     LOG(MODULE_UI, "Loading data...")
@@ -189,7 +192,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) //, vinstance(), h
 
         for (auto connection : connections)
         {
-            MWAddConnectionItem_p(connection, group); //
+            MWAddConnectionItem_p(connection, group);
         }
     }
     //
@@ -368,6 +371,7 @@ void MainWindow::ToggleVisibility()
 
 void MainWindow::on_actionExit_triggered()
 {
+    ConnectionManager->StopConnection();
     if (StartupOption.enableToolbarPlguin)
     {
         StopProcessingPlugins();
@@ -396,85 +400,6 @@ void MainWindow::on_connectionListWidget_customContextMenuRequested(const QPoint
     }
 }
 
-void MainWindow::on_connectionListWidget_itemChanged(QTreeWidgetItem *item, int)
-{
-    // DEBUG(UI, "A connection ListViewItem is changed. This should ONLY occur
-    // when renaming an connection.")
-    //
-    // if (!isRenamingInProgress) {
-    //    return;
-    //}
-    //
-    // isRenamingInProgress = false;
-    //// In this case it's after we entered the name.
-    //// and tell user you should not rename a config from subscription.
-    // auto newIdentifier = renameOriginalIdentifier;
-    // newIdentifier.connectionName = item->text(0);
-    // LOG(CONNECTION, "RENAME: " + renameOriginalIdentifier.IdentifierString()
-    // + " -> " + newIdentifier.IdentifierString())
-    //
-    //// If I really did some changes.
-    // if (renameOriginalIdentifier != newIdentifier) {
-    //    bool canContinueRename = true;
-    //
-    //    if (newIdentifier.connectionName.trimmed().isEmpty()) {
-    //        QvMessageBoxWarn(this, tr("Rename a Connection"), tr("The name
-    //        cannot be empty")); canContinueRename = false;
-    //    }
-    //
-    //    QvMessageBoxInfo(this, "NOT SUPPORTED", "WIP");
-    //    //if (GlobalConfig.configs.contains(newIdentifier.connectionName)) {
-    //    //    QvMessageBoxWarn(this, tr("Rename a Connection"), tr("The name
-    //    has been used already, Please choose another."));
-    //    //    canContinueRename = false;
-    //    //}
-    //
-    //    if (!IsValidFileName(newIdentifier.connectionName +
-    //    QV2RAY_CONFIG_FILE_EXTENSION)) {
-    //        QvMessageBoxWarn(this, tr("Rename a Connection"), tr("The name you
-    //        suggested is not valid, please try another.")); canContinueRename
-    //        = false;
-    //    }
-    //
-    //    if (!canContinueRename) {
-    //        // Set the item text back
-    //        assert(item != nullptr); // Let's say the item should not be null
-    //        item->setText(0, renameOriginalIdentifier.connectionName);
-    //        return;
-    //    }
-    //
-    //    // Change auto start config.
-    //    //  |--------------=== In case it's not in a subscription --|
-    //    if (GlobalConfig.autoStartConfig == renameOriginalIdentifier) {
-    //        GlobalConfig.autoStartConfig = newIdentifier;
-    //    }
-    //
-    //    QvMessageBoxInfo(this, "NOT SUPPORTED", "WIP");
-    //    //// Replace the items in the current loaded config list and settings.
-    //    //// Note: This original name should only be a reguular.
-    //    //GlobalConfig.configs.removeOne(renameOriginalIdentifier.connectionName);
-    //    //GlobalConfig.configs.push_back(newIdentifier.connectionName);
-    //    //
-    //    //connections[newIdentifier] =
-    //    connections.take(renameOriginalIdentifier);
-    //    //RenameConnection(renameOriginalIdentifier.connectionName,
-    //    newIdentifier.connectionName);
-    //    //LOG(UI, "Saving a global config")
-    //    //SaveGlobalConfig(GlobalConfig);
-    //    ////
-    //    //item->setData(0, Qt::UserRole, QVariant::fromValue(newIdentifier));
-    //    //
-    //    //if (CurrentConnectionIdentifier == renameOriginalIdentifier) {
-    //    //    CurrentConnectionIdentifier = newIdentifier;
-    //    //
-    //    //    if (vinstance->KernelStarted) {
-    //    //        on_reconnectButton_clicked();
-    //    //    }
-    //    //}
-    //    //OnConfigListChanged(CurrentConnectionIdentifier.connectionName ==
-    //    renameOriginalName);
-    //}
-}
 void MainWindow::on_removeConfigButton_clicked()
 {
     QvMessageBoxInfo(this, "NOT SUPPORTED", "WIP");
@@ -622,6 +547,10 @@ void MainWindow::on_connectionListWidget_itemDoubleClicked(QTreeWidgetItem *item
 void MainWindow::OnDisconnected(const ConnectionId &id)
 {
     Q_UNUSED(id)
+    action_Tray_Start->setEnabled(true);
+    action_Tray_Stop->setEnabled(false);
+    action_Tray_Reconnect->setEnabled(false);
+    tray_SystemProxyMenu->setEnabled(false);
     lastConnectedId = id;
     locateBtn->setEnabled(false);
     this->hTray.showMessage("Qv2ray", tr("Disconnected from: ") + ConnectionManager->GetDisplayName(id), this->windowIcon());
@@ -642,6 +571,10 @@ void MainWindow::OnDisconnected(const ConnectionId &id)
 void MainWindow::OnConnected(const ConnectionId &id)
 {
     Q_UNUSED(id)
+    action_Tray_Start->setEnabled(false);
+    action_Tray_Stop->setEnabled(true);
+    action_Tray_Reconnect->setEnabled(true);
+    tray_SystemProxyMenu->setEnabled(true);
     lastConnectedId = id;
     locateBtn->setEnabled(true);
     on_clearlogButton_clicked();
@@ -907,5 +840,13 @@ void MainWindow::on_locateBtn_clicked()
     if (id != NullConnectionId)
     {
         connectionListWidget->setCurrentItem(connectionNodes[id].get());
+        connectionListWidget->scrollToItem(connectionNodes[id].get());
+        on_connectionListWidget_itemClicked(connectionNodes[id].get(), 0);
     }
+}
+
+void MainWindow::on_action_RCM_RenameThis_triggered()
+{
+    CheckCurrentWidget;
+    widget->BeginRename();
 }

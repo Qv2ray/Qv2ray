@@ -23,6 +23,7 @@ class ConnectionItemWidget
     void BeginConnection();
     ~ConnectionItemWidget();
     //
+    void BeginRename();
     inline bool NameMatched(const QString &arg)
     {
         auto searchString = arg.toLower();
@@ -65,13 +66,13 @@ class ConnectionItemWidget
         {
             if (ConnectionManager->IsConnected(id))
             {
-                connNameLabel->setText("• " + originalConnectionName);
+                connNameLabel->setText("• " + newName);
             }
             else
             {
                 connNameLabel->setText(newName);
             }
-            originalConnectionName = newName;
+            originalItemName = newName;
             this->setToolTip(newName);
         }
     }
@@ -79,14 +80,16 @@ class ConnectionItemWidget
     {
         if (id == groupId)
         {
-            originalConnectionName = newName;
+            originalItemName = newName;
             connNameLabel->setText(newName);
             this->setToolTip(newName);
         }
     }
 
+    void on_doRenameBtn_clicked();
+
   private:
-    QString originalConnectionName;
+    QString originalItemName;
     explicit ConnectionItemWidget(QWidget *parent = nullptr);
     ITEM_TYPE itemType;
     ConnectionId connectionId;

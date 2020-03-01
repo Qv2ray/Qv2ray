@@ -1,4 +1,5 @@
 ﻿#include "w_PreferencesWindow.hpp"
+
 #include "common/HTTPRequestHelper.hpp"
 #include "common/QvHelpers.hpp"
 #include "common/QvTranslator.hpp"
@@ -1029,7 +1030,11 @@ void PreferencesWindow::on_autoStartSubsCombo_currentIndexChanged(const QString 
 void PreferencesWindow::on_autoStartConnCombo_currentIndexChanged(const QString &arg1)
 {
     LOADINGCHECK
-    CurrentConfig.autoStartId = ConnectionManager->GetConnectionIdByDisplayName(arg1).toString();
+    // Fully qualify the connection item.
+    // Will not work when duplicated names are in the same group.
+    CurrentConfig.autoStartId =
+        ConnectionManager->GetConnectionIdByDisplayName(arg1, ConnectionManager->GetGroupIdByDisplayName(autoStartSubsCombo->currentText()))
+            .toString();
 }
 
 void PreferencesWindow::on_startWithLoginCB_stateChanged(int arg1)

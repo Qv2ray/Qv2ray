@@ -15,6 +15,10 @@ SubscribeEditor::SubscribeEditor(QWidget *parent) : QDialog(parent)
     {
         subscriptionList->addTopLevelItem(new QTreeWidgetItem(QStringList{ ConnectionManager->GetDisplayName(subs), subs.toString() }));
     }
+    if (subscriptionList->topLevelItemCount() > 0)
+    {
+        subscriptionList->setCurrentItem(subscriptionList->topLevelItem(0));
+    }
 }
 
 QvMessageBusSlotImpl(SubscribeEditor)

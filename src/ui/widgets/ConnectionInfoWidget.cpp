@@ -14,8 +14,6 @@ ConnectionInfoWidget::ConnectionInfoWidget(QWidget *parent) : QWidget(parent)
     editJsonBtn->setIcon(QICON_R("json.png"));
     //
     shareLinkTxt->setAutoFillBackground(true);
-    shareLinkTxt->setStyleSheet("border-bottom: 1px solid gray; border-radius: 0px; padding: 2px; background-color: " +
-                                this->palette().color(this->backgroundRole()).name(QColor::HexRgb));
     shareLinkTxt->setCursor(QCursor(Qt::CursorShape::IBeamCursor));
     shareLinkTxt->installEventFilter(this);
     //
@@ -25,7 +23,10 @@ ConnectionInfoWidget::ConnectionInfoWidget(QWidget *parent) : QWidget(parent)
 
 void ConnectionInfoWidget::ShowDetails(const tuple<GroupId, ConnectionId> &_identifier)
 {
-    auto [groupId, connectionId] = _identifier;
+    shareLinkTxt->setStyleSheet("border-bottom: 1px solid gray; border-radius: 0px; padding: 2px; background-color: " +
+                                this->palette().color(this->backgroundRole()).name(QColor::HexRgb));
+    this->groupId = get<0>(_identifier);
+    this->connectionId = get<1>(_identifier);
     bool isConnection = connectionId != NullConnectionId;
     //
     editBtn->setEnabled(isConnection);

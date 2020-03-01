@@ -2,6 +2,8 @@
 
 #include "common/QvHelpers.hpp"
 
+#include <QStyleFactory>
+
 ConnectionItemWidget::ConnectionItemWidget(QWidget *parent) : QWidget(parent), connectionId("null"), groupId("null")
 {
     setupUi(this);
@@ -16,7 +18,7 @@ ConnectionItemWidget::ConnectionItemWidget(const ConnectionId &id, QWidget *pare
 {
     connectionId = id;
     groupId = ConnectionManager->GetConnectionGroupId(id);
-    originalConnectionName = ConnectionManager->GetDisplayName(id);
+    originalItemName = ConnectionManager->GetDisplayName(id);
     itemType = NODE_ITEM;
     auto latency = ConnectionManager->GetConnectionLatency(id);
 
@@ -39,7 +41,7 @@ ConnectionItemWidget::ConnectionItemWidget(const ConnectionId &id, QWidget *pare
     {
         emit RequestWidgetFocus(this);
     }
-    OnConnectionItemRenamed(id, "", originalConnectionName);
+    OnConnectionItemRenamed(id, "", originalItemName);
     connect(ConnectionManager, &QvConnectionHandler::OnConnectionRenamed, this, &ConnectionItemWidget::OnConnectionItemRenamed);
 }
 
@@ -48,7 +50,7 @@ ConnectionItemWidget::ConnectionItemWidget(const GroupId &id, QWidget *parent) :
 {
     groupId = id;
     itemType = GROUP_HEADER_ITEM;
-    originalConnectionName = ConnectionManager->GetDisplayName(id);
+    originalItemName = ConnectionManager->GetDisplayName(id);
     RecalculateConnectionsCount();
     //
     layout()->removeWidget(connTypeLabel);
@@ -60,7 +62,7 @@ ConnectionItemWidget::ConnectionItemWidget(const GroupId &id, QWidget *parent) :
     font.setBold(true);
     connNameLabel->setFont(font);
     //
-    OnGroupItemRenamed(id, "", originalConnectionName);
+    OnGroupItemRenamed(id, "", originalItemName);
     connect(ConnectionManager, &QvConnectionHandler::OnConnectionCreated, this, &ConnectionItemWidget::RecalculateConnectionsCount);
     connect(ConnectionManager, &QvConnectionHandler::OnConnectionDeleted, this, &ConnectionItemWidget::RecalculateConnectionsCount);
     connect(ConnectionManager, &QvConnectionHandler::OnConnectionChanged, this, &ConnectionItemWidget::RecalculateConnectionsCount);
@@ -86,7 +88,7 @@ void ConnectionItemWidget::OnConnected(const ConnectionId &id)
 {
     if (id == connectionId)
     {
-        connNameLabel->setText("• " + originalConnectionName);
+        connNameLabel->setText("• " + originalItemName);
         LOG(MODULE_UI, "OnConnected signal received for: " + id.toString())
         emit RequestWidgetFocus(this);
     }
@@ -96,7 +98,7 @@ void ConnectionItemWidget::OnDisConnected(const ConnectionId &id)
 {
     if (id == connectionId)
     {
-        connNameLabel->setText(originalConnectionName);
+        connNameLabel->setText(originalItemName);
     }
 }
 
@@ -126,17 +128,37 @@ void ConnectionItemWidget::OnLatencyTestFinished(const ConnectionId &id, const u
         if (average == 0)
         {
             latencyLabel->setText(tr("Error"));
-            RED(latencyLabel)
         }
         else
         {
             latencyLabel->setText(QSTRN(average) + tr("ms"));
-            BLACK(latencyLabel)
         }
     }
 }
 
+void ConnectionItemWidget::BeginRename()
+{
+    stackedWidget->setCurrentIndex(1);
+    renameTxt->setStyle(QStyleFactory::create("Fusion"));
+    renameTxt->setStyleSheet("background-color: " + this->palette().color(this->backgroundRole()).name(QColor::HexRgb));
+    renameTxt->setText(originalItemName);
+}
+
 ConnectionItemWidget::~ConnectionItemWidget()
 {
-    //
+}
+
+void ConnectionItemWidget::on_doRenameBtn_clicked()
+{
+    if (renameTxt->text().isEmpty())
+        return;
+    if (connectionId == NullConnectionId)
+    {
+        ConnectionManager->RenameGroup(groupId, renameTxt->text());
+    }
+    else
+    {
+        ConnectionManager->RenameConnection(connectionId, renameTxt->text());
+    }
+    stackedWidget->setCurrentIndex(0);
 }

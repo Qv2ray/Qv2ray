@@ -13,6 +13,15 @@ namespace Qv2ray::core::kernel
 {
     // To all contributors:
     //
+    // You may feel it difficult to understand this part of API backend.
+    // It's been expected that you will take hours to fully understand the tricks and hacks lying deeply in this class.
+    //
+    // The API Worker runs as a daemon together with Qv2ray, on a single thread.
+    // They use a flag, running, to indicate if the API worker should go and fetch the statistics from V2ray Core.
+    //
+    // The flag, running, will be set to true, immediately after the V2ray core reported that it's been started.
+    // and will be set to false right before we stopping V2ray Core.
+    //
 
     // --- CONSTRUCTOR ---
     APIWorker::APIWorker()
@@ -20,9 +29,9 @@ namespace Qv2ray::core::kernel
         thread = new QThread();
         this->moveToThread(thread);
         DEBUG(MODULE_VCORE, "API Worker initialised.")
-        connect(this, SIGNAL(error(QString)), this, SLOT(errorString(QString)));
+        // connect(this, SIGNAL(error(QString)), this, SLOT(errorString(QString)));
         connect(thread, SIGNAL(started()), this, SLOT(process()));
-        connect(thread, &QThread::finished, []() { LOG(MODULE_VCORE, "API thread stopped") });
+        connect(thread, &QThread::finished, [] { LOG(MODULE_VCORE, "API thread stopped") });
         started = true;
         thread->start();
         DEBUG(MODULE_VCORE, "API Worker started.")
