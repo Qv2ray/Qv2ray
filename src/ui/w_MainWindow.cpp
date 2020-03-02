@@ -163,11 +163,13 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) //, vinstance(), h
     //
     QAction *action_RCM_StartThis = new QAction(tr("Connect to this"), this);
     QAction *action_RCM_RenameThis = new QAction(tr("Rename"), this);
+    QAction *action_RCM_DeleteThese = new QAction(tr("Delete Connection"), this);
     QAction *action_RCM_ConvToComplex = new QAction(QICON_R("edit.png"), tr("Edit as Complex Config"), this);
     //
     connect(action_RCM_StartThis, &QAction::triggered, this, &MainWindow::on_action_StartThis_triggered);
     connect(action_RCM_ConvToComplex, &QAction::triggered, this, &MainWindow::on_action_RCM_ConvToComplex_triggered);
     connect(action_RCM_RenameThis, &QAction::triggered, this, &MainWindow::on_action_RCM_RenameThis_triggered);
+    connect(action_RCM_DeleteThese, &QAction::triggered, this, &MainWindow::on_action_RCM_DeleteThese_triggered);
     //
     // Globally invokable signals.
     connect(this, &MainWindow::Connect, [&] { ConnectionManager->StartConnection(lastConnectedId); });
@@ -180,6 +182,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) //, vinstance(), h
     connectionListMenu = new QMenu(this);
     connectionListMenu->addAction(action_RCM_StartThis);
     connectionListMenu->addAction(action_RCM_RenameThis);
+    connectionListMenu->addAction(action_RCM_DeleteThese);
     connectionListMenu->addAction(action_RCM_ConvToComplex);
     //
     LOG(MODULE_UI, "Loading data...")
@@ -400,94 +403,42 @@ void MainWindow::on_connectionListWidget_customContextMenuRequested(const QPoint
     }
 }
 
-void MainWindow::on_removeConfigButton_clicked()
+void MainWindow::on_action_RCM_DeleteThese_triggered()
 {
     QvMessageBoxInfo(this, "NOT SUPPORTED", "WIP");
-    // QList<ConnectionIdentifier> connlist;
-    //
-    // for (auto item : connectionListWidget->selectedItems()) {
-    //    if (IsConnectableItem(item)) {
-    //        connlist.append(ItemConnectionIdentifier(item));
-    //    }
-    //}
-    //
-    // LOG(UI, "Selected " + QSTRN(connlist.count()) + " items")
-    //
-    // if (connlist.isEmpty()) {
-    //    // Remove nothing means doing nothing.
-    //    return;
-    //}
-    //
-    // if (QvMessageBoxAsk(this, tr("Removing Connection(s)"), tr("Are you sure
-    // to remove selected connection(s)?")) != QMessageBox::Yes) {
-    //    return;
-    //}
-    //
-    //// A triple-state flag which indicates if the user wants to remove the
-    /// configs loaded from a subscription.
-    // int subscriptionRemovalCheckStatus = -1;
-    //
-    // for (auto conn : connlist) {
-    //    if (conn == CurrentConnectionIdentifier) {
-    //        on_stopButton_clicked();
-    //        CurrentConnectionIdentifier = ConnectionIdentifier();
-    //    }
-    //
-    //    auto connData = connections[conn];
-    //
-    //    // Remove auto start config.
-    //    if (GlobalConfig.autoStartConfig.subscriptionName ==
-    //    connData.subscriptionName &&
-    //        GlobalConfig.autoStartConfig.connectionName ==
-    //        connData.connectionName)
-    //        // If all those settings match.
-    //    {
-    //        GlobalConfig.autoStartConfig.subscriptionName.clear();
-    //        GlobalConfig.autoStartConfig.connectionName.clear();
-    //    }
-    //
-    //    if (connData.configType == CONNECTION_REGULAR) {
-    //        // Just remove the regular configs.
-    //        if (!connData.subscriptionName.isEmpty()) {
-    //            LOG(UI, "Unexpected subscription name in a single regular
-    //            config.") connData.subscriptionName.clear();
-    //        }
-    //
-    //        GlobalConfig.configs.removeOne(conn.connectionName);
-    //
-    //        if (!RemoveConnection(conn.connectionName)) {
-    //            QvMessageBoxWarn(this, tr("Removing this Connection"),
-    //            tr("Failed to delete connection file, please delete
-    //            manually."));
-    //        }
-    //    } else if (connData.configType == CONNECTION_SUBSCRIPTION) {
-    //        if (subscriptionRemovalCheckStatus == -1) {
-    //            subscriptionRemovalCheckStatus = (QvMessageBoxAsk(this,
-    //            tr("Removing a subscription config"), tr("Do you want to
-    //            remove the config loaded from a subscription?")) ==
-    //            QMessageBox::Yes)
-    //                                             ? 1 // Yes i want
-    //                                             : 0; // No please keep
-    //        }
-    //
-    //        if (subscriptionRemovalCheckStatus == 1) {
-    //            if (!RemoveSubscriptionConnection(connData.subscriptionName,
-    //            connData.connectionName)) {
-    //                QvMessageBoxWarn(this, tr("Removing this Connection"),
-    //                tr("Failed to delete connection file, please delete
-    //                manually."));
-    //            }
-    //        }
-    //    } else {
-    //        LOG(SETTINGS, "Unknown config type -> Not regular nor
-    //        subscription...")
-    //    }
-    //}
-    //
-    // LOG(UI, "Saving GlobalConfig")
-    // SaveGlobalConfig(GlobalConfig);
-    // OnConfigListChanged(false);
-    // ShowAndSetConnection(CurrentConnectionIdentifier, false, false);
+    QList<ConnectionId> connlist;
+
+    for (auto item : connectionListWidget->selectedItems())
+    {
+        auto widget = GetItemWidget(item);
+        if (widget->IsConnection())
+        {
+            connlist.append(get<1>(widget->Identifier()));
+        }
+    }
+
+    LOG(MODULE_UI, "Selected " + QSTRN(connlist.count()) + " items")
+
+    if (connlist.isEmpty())
+    {
+        // Remove nothing means doing nothing.
+        return;
+    }
+
+    if (QvMessageBoxAsk(this, tr("Removing Connection(s)"), tr("Are you sure to remove selected connection(s)?")) != QMessageBox::Yes)
+    {
+        return;
+    }
+
+    for (auto conn : connlist)
+    {
+        if (ConnectionManager->IsConnected(conn))
+            ConnectionManager->StopConnection();
+        if (GlobalConfig.autoStartId == conn.toString())
+            GlobalConfig.autoStartId.clear();
+
+        ConnectionManager->DeleteConnection(conn);
+    }
 }
 
 void MainWindow::on_importConfigButton_clicked()

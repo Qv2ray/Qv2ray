@@ -37,7 +37,6 @@ class MainWindow
     void on_preferencesBtn_clicked();
     void on_clearlogButton_clicked();
     void on_connectionListWidget_customContextMenuRequested(const QPoint &pos);
-    void on_removeConfigButton_clicked();
     void on_importConfigButton_clicked();
     void on_subsButton_clicked();
     //
@@ -77,6 +76,7 @@ class MainWindow
     void on_action_StartThis_triggered();
     void on_action_RCM_ConvToComplex_triggered();
     void on_action_RCM_RenameThis_triggered();
+    void on_action_RCM_DeleteThese_triggered();
     //
     void on_connectionListWidget_itemDoubleClicked(QTreeWidgetItem *item, int column);
     void on_connectionFilterTxt_textEdited(const QString &arg1);
