@@ -1016,25 +1016,39 @@ void PreferencesWindow::on_pacProxyTxt_textEdited(const QString &arg1)
 
 void PreferencesWindow::on_autoStartSubsCombo_currentIndexChanged(const QString &arg1)
 {
-    LOADINGCHECK
-    auto groupId = ConnectionManager->GetGroupIdByDisplayName(arg1);
-    auto list = ConnectionManager->Connections(groupId);
-    autoStartConnCombo->clear();
-
-    for (auto id : list)
+    LOADINGCHECK if (arg1.isEmpty())
     {
-        autoStartConnCombo->addItem(ConnectionManager->GetDisplayName(id));
+        CurrentConfig.autoStartId.clear();
+        autoStartConnCombo->clear();
+    }
+    else
+    {
+        auto groupId = ConnectionManager->GetGroupIdByDisplayName(arg1);
+        auto list = ConnectionManager->Connections(groupId);
+        autoStartConnCombo->clear();
+
+        for (auto id : list)
+        {
+            autoStartConnCombo->addItem(ConnectionManager->GetDisplayName(id));
+        }
     }
 }
 
 void PreferencesWindow::on_autoStartConnCombo_currentIndexChanged(const QString &arg1)
 {
     LOADINGCHECK
-    // Fully qualify the connection item.
-    // Will not work when duplicated names are in the same group.
-    CurrentConfig.autoStartId =
-        ConnectionManager->GetConnectionIdByDisplayName(arg1, ConnectionManager->GetGroupIdByDisplayName(autoStartSubsCombo->currentText()))
-            .toString();
+    if (arg1.isEmpty())
+    {
+        CurrentConfig.autoStartId.clear();
+    }
+    else
+    {
+        // Fully qualify the connection item.
+        // Will not work when duplicated names are in the same group.
+        CurrentConfig.autoStartId =
+            ConnectionManager->GetConnectionIdByDisplayName(arg1, ConnectionManager->GetGroupIdByDisplayName(autoStartSubsCombo->currentText()))
+                .toString();
+    }
 }
 
 void PreferencesWindow::on_startWithLoginCB_stateChanged(int arg1)
