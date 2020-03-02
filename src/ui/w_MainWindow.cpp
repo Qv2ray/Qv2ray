@@ -213,10 +213,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) //, vinstance(), h
     sortMenu = new QMenu(this);
     sortAction_SortByName_Asc = new QAction(tr("By connection name, A-Z"));
     sortAction_SortByName_Dsc = new QAction(tr("By connection name, Z-A"));
-    sortAction_SortByData_Asc = new QAction(tr("By data, Less to more"));
-    sortAction_SortByData_Dsc = new QAction(tr("By data, More to less"));
-    sortAction_SortByLatency_Asc = new QAction(tr("By latency, Short to long"));
-    sortAction_SortByLatency_Dsc = new QAction(tr("By latency, Long to short"));
+    sortAction_SortByData_Asc = new QAction(tr("By data, Ascending"));
+    sortAction_SortByData_Dsc = new QAction(tr("By data, Descending"));
+    sortAction_SortByLatency_Asc = new QAction(tr("By latency, Ascending"));
+    sortAction_SortByLatency_Dsc = new QAction(tr("By latency, Descending"));
     //
     connect(sortAction_SortByName_Asc, &QAction::triggered, [&] { SortConnectionList(MW_ITEM_COL_DISPLAYNAME, true); });
     connect(sortAction_SortByName_Dsc, &QAction::triggered, [&] { SortConnectionList(MW_ITEM_COL_DISPLAYNAME, false); });
