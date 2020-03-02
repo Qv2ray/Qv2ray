@@ -86,16 +86,6 @@
         </sizepolicy>
        </property>
        <layout class="QGridLayout" name="gridLayout">
-        <item row="0" column="0">
-         <widget class="QLineEdit" name="connectionFilterTxt">
-          <property name="placeholderText">
-           <string>Search</string>
-          </property>
-          <property name="clearButtonEnabled">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="1">
          <widget class="QToolButton" name="locateBtn">
           <property name="enabled">
@@ -113,43 +103,14 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="0" colspan="2">
-         <widget class="QTreeWidget" name="connectionListWidget">
-          <property name="contextMenuPolicy">
-           <enum>Qt::CustomContextMenu</enum>
+        <item row="0" column="0">
+         <widget class="QLineEdit" name="connectionFilterTxt">
+          <property name="placeholderText">
+           <string>Search</string>
           </property>
-          <property name="editTriggers">
-           <set>QAbstractItemView::NoEditTriggers</set>
-          </property>
-          <property name="selectionMode">
-           <enum>QAbstractItemView::ExtendedSelection</enum>
-          </property>
-          <property name="verticalScrollMode">
-           <enum>QAbstractItemView::ScrollPerPixel</enum>
-          </property>
-          <property name="indentation">
-           <number>0</number>
-          </property>
-          <property name="sortingEnabled">
+          <property name="clearButtonEnabled">
            <bool>true</bool>
           </property>
-          <property name="animated">
-           <bool>true</bool>
-          </property>
-          <property name="allColumnsShowFocus">
-           <bool>true</bool>
-          </property>
-          <property name="headerHidden">
-           <bool>true</bool>
-          </property>
-          <property name="expandsOnDoubleClick">
-           <bool>true</bool>
-          </property>
-          <column>
-           <property name="text">
-            <string notr="true">1</string>
-           </property>
-          </column>
          </widget>
         </item>
         <item row="2" column="0" colspan="2">
@@ -203,6 +164,62 @@
            </spacer>
           </item>
          </layout>
+        </item>
+        <item row="0" column="2">
+         <widget class="QToolButton" name="sortBtn">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset resource="../../resources.qrc">
+            <normaloff>:/assets/icons/ui_light/sort.png</normaloff>:/assets/icons/ui_light/sort.png</iconset>
+          </property>
+          <property name="popupMode">
+           <enum>QToolButton::InstantPopup</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0" colspan="3">
+         <widget class="QTreeWidget" name="connectionListWidget">
+          <property name="contextMenuPolicy">
+           <enum>Qt::CustomContextMenu</enum>
+          </property>
+          <property name="editTriggers">
+           <set>QAbstractItemView::NoEditTriggers</set>
+          </property>
+          <property name="selectionMode">
+           <enum>QAbstractItemView::ExtendedSelection</enum>
+          </property>
+          <property name="verticalScrollMode">
+           <enum>QAbstractItemView::ScrollPerPixel</enum>
+          </property>
+          <property name="indentation">
+           <number>0</number>
+          </property>
+          <property name="sortingEnabled">
+           <bool>true</bool>
+          </property>
+          <property name="animated">
+           <bool>true</bool>
+          </property>
+          <property name="allColumnsShowFocus">
+           <bool>true</bool>
+          </property>
+          <property name="headerHidden">
+           <bool>true</bool>
+          </property>
+          <property name="expandsOnDoubleClick">
+           <bool>true</bool>
+          </property>
+          <attribute name="headerShowSortIndicator" stdset="0">
+           <bool>false</bool>
+          </attribute>
+          <column>
+           <property name="text">
+            <string notr="true">1</string>
+           </property>
+          </column>
+         </widget>
         </item>
        </layout>
       </widget>

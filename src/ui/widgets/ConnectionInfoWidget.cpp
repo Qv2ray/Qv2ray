@@ -8,7 +8,6 @@
 ConnectionInfoWidget::ConnectionInfoWidget(QWidget *parent) : QWidget(parent)
 {
     setupUi(this);
-    duplicateBtn->setIcon(QICON_R("duplicate.png"));
     deleteBtn->setIcon(QICON_R("delete.png"));
     editBtn->setIcon(QICON_R("edit.png"));
     editJsonBtn->setIcon(QICON_R("json.png"));
@@ -32,20 +31,24 @@ void ConnectionInfoWidget::ShowDetails(const tuple<GroupId, ConnectionId> &_iden
     editBtn->setEnabled(isConnection);
     editJsonBtn->setEnabled(isConnection);
     connectBtn->setEnabled(isConnection);
-    duplicateBtn->setEnabled(isConnection);
 
     stackedWidget->setCurrentIndex(isConnection ? 0 : 1);
     if (isConnection)
     {
+        bool isComplexConfig = IsComplexConfig(ConnectionManager->GetConnectionRoot(connectionId));
+        qrLabel->setVisible(!isComplexConfig);
+        //
+        auto shareLink = ConvertConfigToString(connectionId);
+        //
+        shareLinkTxt->setText(isComplexConfig ? tr("(Complex Connection Config)") : shareLink);
+        protocolLabel->setText(isComplexConfig ? tr("N/A") : ConnectionManager->GetConnectionProtocolString(connectionId));
+        //
         groupLabel->setText(ConnectionManager->GetDisplayName(groupId, 175));
-        protocolLabel->setText(ConnectionManager->GetConnectionProtocolString(connectionId));
         auto [protocol, host, port] = ConnectionManager->GetConnectionData(connectionId);
         Q_UNUSED(protocol)
         addressLabel->setText(host);
         portLabel->setNum(port);
         //
-        auto shareLink = ConvertConfigToString(connectionId);
-        shareLinkTxt->setText(shareLink);
         shareLinkTxt->setCursorPosition(0);
         //
         QZXingEncoderConfig conf;
@@ -142,16 +145,6 @@ void ConnectionInfoWidget::OnDisConnected(const ConnectionId &id)
     if (connectionId == id)
     {
         connectBtn->setIcon(QICON_R("connect.png"));
-    }
-}
-
-void ConnectionInfoWidget::on_duplicateBtn_clicked()
-{
-    if (connectionId != NullConnectionId)
-    {
-        ConnectionManager->CreateConnection(ConnectionManager->GetDisplayName(connectionId) + tr(" (Copy)"),
-                                            ConnectionManager->GetConnectionGroupId(connectionId),
-                                            ConnectionManager->GetConnectionRoot(connectionId));
     }
 }
 

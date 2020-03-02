@@ -26,15 +26,14 @@
 #include <QUrl>
 #include <QVersionNumber>
 
-// MainWindow.cpp --> Main MainWindow source file, handles mostly UI-related
-// operations.
-
 #define TRAY_TOOLTIP_PREFIX "Qv2ray " QV2RAY_VERSION_STRING
 #define CheckCurrentWidget                                                                                                                      \
     auto widget = GetItemWidget(connectionListWidget->currentItem());                                                                           \
     if (widget == nullptr)                                                                                                                      \
         return;
+
 #define GetItemWidget(item) (qobject_cast<ConnectionItemWidget *>(connectionListWidget->itemWidget(item, 0)))
+#define NumericString(i) (QString("%1").arg(i, 15, 10, QLatin1Char('0')))
 
 MainWindow *MainWindow::mwInstance = nullptr;
 
@@ -53,7 +52,14 @@ void MainWindow::MWAddConnectionItem_p(const ConnectionId &connection, const Gro
         MWAddGroupItem_p(groupId);
     }
     auto groupItem = groupNodes[groupId];
-    auto connectionItem = make_shared<QTreeWidgetItem>(QStringList{ "", ConnectionManager->GetDisplayName(connection) });
+    auto connectionItem = make_shared<QTreeWidgetItem>(QStringList{
+        "",                                                                  //
+        ConnectionManager->GetDisplayName(connection),                       //
+        NumericString(ConnectionManager->GetConnectionLatency(connection)),  //
+        "IMPORTTIME_NOT_SUPPORTED",                                          //
+        "LAST_CONNECTED_NOT_SUPPORTED",                                      //
+        NumericString(ConnectionManager->GetConnectionTotalData(connection)) //
+    });
     connectionNodes[connection] = connectionItem;
     groupItem->addChild(connectionItem.get());
     auto widget = new ConnectionItemWidget(connection, connectionListWidget);
@@ -69,6 +75,16 @@ void MainWindow::MWAddGroupItem_p(const GroupId &groupId)
     connectionListWidget->setItemWidget(groupItem.get(), 0, new ConnectionItemWidget(groupId, connectionListWidget));
 }
 
+void MainWindow::SortConnectionList(MW_ITEM_COL byCol, bool asending)
+{
+
+    connectionListWidget->sortByColumn(MW_ITEM_COL_DISPLAYNAME, Qt::AscendingOrder);
+    for (auto i = 0; i < connectionListWidget->topLevelItemCount(); i++)
+    {
+        connectionListWidget->topLevelItem(i)->sortChildren(byCol, asending ? Qt::AscendingOrder : Qt::DescendingOrder);
+    }
+}
+
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) //, vinstance(), hTray(this), tcpingHelper(3, this)
 {
     setupUi(this);
@@ -82,11 +98,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) //, vinstance(), h
     // For charts
     speedChartWidget = new SpeedWidget(this);
     speedChart->addWidget(speedChartWidget);
+    //
     this->setWindowIcon(QIcon(":/assets/icons/qv2ray.png"));
     hTray.setIcon(QIcon(GlobalConfig.uiConfig.useDarkTrayIcon ? ":/assets/icons/ui_dark/tray.png" : ":/assets/icons/ui_light/tray.png"));
+    //
     importConfigButton->setIcon(QICON_R("import.png"));
-    // pingTestBtn->setIcon(QICON_R("ping_gauge.png"));
-    // shareBtn->setIcon(QICON_R("share.png"));
     updownImageBox->setStyleSheet("image: url(" + QV2RAY_UI_RESOURCES_ROOT + "netspeed_arrow.png)");
     updownImageBox_2->setStyleSheet("image: url(" + QV2RAY_UI_RESOURCES_ROOT + "netspeed_arrow.png)");
     //
@@ -109,7 +125,13 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) //, vinstance(), h
     //
     connect(ConnectionManager, &QvConnectionHandler::OnGroupCreated, this, &MainWindow::OnGroupCreated);
     connect(ConnectionManager, &QvConnectionHandler::OnGroupDeleted, this, &MainWindow::OnGroupDeleted);
-
+    //
+    connect(ConnectionManager, &QvConnectionHandler::OnConnectionRenamed, [&](const ConnectionId &id, const QString &, const QString &newName) {
+        connectionNodes[id]->setText(MW_ITEM_COL_DISPLAYNAME, newName); //
+    });
+    connect(ConnectionManager, &QvConnectionHandler::OnLatencyTestFinished, [&](const ConnectionId &id, const uint avg) {
+        connectionNodes[id]->setText(MW_ITEM_COL_LATENCY, NumericString(avg)); //
+    });
     //
     connect(infoWidget, &ConnectionInfoWidget::OnEditRequested, this, &MainWindow::OnEditRequested);
     connect(infoWidget, &ConnectionInfoWidget::OnJsonEditRequested, this, &MainWindow::OnJsonEditRequested);
@@ -164,12 +186,14 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) //, vinstance(), h
     QAction *action_RCM_StartThis = new QAction(tr("Connect to this"), this);
     QAction *action_RCM_RenameThis = new QAction(tr("Rename"), this);
     QAction *action_RCM_DeleteThese = new QAction(tr("Delete Connection"), this);
+    QAction *action_RCM_DuplicateThese = new QAction(QICON_R("duplicate.png"), tr("Duplicate to the Same Group"), this);
     QAction *action_RCM_ConvToComplex = new QAction(QICON_R("edit.png"), tr("Edit as Complex Config"), this);
     //
     connect(action_RCM_StartThis, &QAction::triggered, this, &MainWindow::on_action_StartThis_triggered);
     connect(action_RCM_ConvToComplex, &QAction::triggered, this, &MainWindow::on_action_RCM_ConvToComplex_triggered);
     connect(action_RCM_RenameThis, &QAction::triggered, this, &MainWindow::on_action_RCM_RenameThis_triggered);
     connect(action_RCM_DeleteThese, &QAction::triggered, this, &MainWindow::on_action_RCM_DeleteThese_triggered);
+    connect(action_RCM_DuplicateThese, &QAction::triggered, this, &MainWindow::on_action_RCM_DuplicateThese_triggered);
     //
     // Globally invokable signals.
     connect(this, &MainWindow::Connect, [&] { ConnectionManager->StartConnection(lastConnectedId); });
@@ -182,11 +206,35 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) //, vinstance(), h
     connectionListMenu = new QMenu(this);
     connectionListMenu->addAction(action_RCM_StartThis);
     connectionListMenu->addAction(action_RCM_RenameThis);
+    connectionListMenu->addAction(action_RCM_DuplicateThese);
     connectionListMenu->addAction(action_RCM_DeleteThese);
     connectionListMenu->addAction(action_RCM_ConvToComplex);
     //
-    LOG(MODULE_UI, "Loading data...")
-    auto groups = ConnectionManager->AllGroups();
+    sortMenu = new QMenu(this);
+    sortAction_SortByName_Asc = new QAction(tr("By connection name, A-Z"));
+    sortAction_SortByName_Dsc = new QAction(tr("By connection name, Z-A"));
+    sortAction_SortByData_Asc = new QAction(tr("By data, Less to more"));
+    sortAction_SortByData_Dsc = new QAction(tr("By data, More to less"));
+    sortAction_SortByLatency_Asc = new QAction(tr("By latency, Short to long"));
+    sortAction_SortByLatency_Dsc = new QAction(tr("By latency, Long to short"));
+    //
+    connect(sortAction_SortByName_Asc, &QAction::triggered, [&] { SortConnectionList(MW_ITEM_COL_DISPLAYNAME, true); });
+    connect(sortAction_SortByName_Dsc, &QAction::triggered, [&] { SortConnectionList(MW_ITEM_COL_DISPLAYNAME, false); });
+    connect(sortAction_SortByData_Asc, &QAction::triggered, [&] { SortConnectionList(MW_ITEM_COL_DATAUSAGE, true); });
+    connect(sortAction_SortByData_Dsc, &QAction::triggered, [&] { SortConnectionList(MW_ITEM_COL_DATAUSAGE, false); });
+    connect(sortAction_SortByLatency_Asc, &QAction::triggered, [&] { SortConnectionList(MW_ITEM_COL_LATENCY, true); });
+    connect(sortAction_SortByLatency_Dsc, &QAction::triggered, [&] { SortConnectionList(MW_ITEM_COL_LATENCY, false); });
+    //
+    sortMenu->addAction(sortAction_SortByName_Asc);
+    sortMenu->addAction(sortAction_SortByName_Dsc);
+    sortMenu->addAction(sortAction_SortByData_Asc);
+    sortMenu->addAction(sortAction_SortByData_Dsc);
+    sortMenu->addAction(sortAction_SortByLatency_Asc);
+    sortMenu->addAction(sortAction_SortByLatency_Dsc);
+    //
+    sortBtn->setMenu(sortMenu);
+    //
+    LOG(MODULE_UI, "Loading data...") auto groups = ConnectionManager->AllGroups();
 
     for (auto group : groups)
     {
@@ -405,7 +453,6 @@ void MainWindow::on_connectionListWidget_customContextMenuRequested(const QPoint
 
 void MainWindow::on_action_RCM_DeleteThese_triggered()
 {
-    QvMessageBoxInfo(this, "NOT SUPPORTED", "WIP");
     QList<ConnectionId> connlist;
 
     for (auto item : connectionListWidget->selectedItems())
@@ -678,8 +725,11 @@ void MainWindow::OnStatsAvailable(const ConnectionId &id, const quint64 upS, con
     netspeedLabel->setText(totalSpeedUp + NEWLINE + totalSpeedDown);
     dataamountLabel->setText(totalDataUp + NEWLINE + totalDataDown);
     //
-    hTray.setToolTip(TRAY_TOOLTIP_PREFIX NEWLINE + tr("Connected: ") + ConnectionManager->GetDisplayName(id) + NEWLINE "Up: " + totalSpeedUp +
-                     " Down: " + totalSpeedDown);
+    hTray.setToolTip(TRAY_TOOLTIP_PREFIX NEWLINE + tr("Connected: ") + //
+                     ConnectionManager->GetDisplayName(id) + NEWLINE "Up: " + totalSpeedUp + " Down: " + totalSpeedDown);
+    //
+    // Set data accordingly
+    connectionNodes[id]->setText(MW_ITEM_COL_DATAUSAGE, NumericString(ConnectionManager->GetConnectionTotalData(id)));
 }
 
 void MainWindow::OnVCoreLogAvailable(const ConnectionId &id, const QString &log)
@@ -800,4 +850,38 @@ void MainWindow::on_action_RCM_RenameThis_triggered()
 {
     CheckCurrentWidget;
     widget->BeginRename();
+}
+
+void MainWindow::on_action_RCM_DuplicateThese_triggered()
+{
+    QList<ConnectionId> connlist;
+
+    for (auto item : connectionListWidget->selectedItems())
+    {
+        auto widget = GetItemWidget(item);
+        if (widget->IsConnection())
+        {
+            connlist.append(get<1>(widget->Identifier()));
+        }
+    }
+
+    LOG(MODULE_UI, "Selected " + QSTRN(connlist.count()) + " items")
+
+    if (connlist.isEmpty())
+    {
+        return;
+    }
+
+    if (connlist.count() > 1 &&
+        QvMessageBoxAsk(this, tr("Duplicating Connection(s)"), tr("Are you sure to duplicate these connection(s)?")) != QMessageBox::Yes)
+    {
+        return;
+    }
+
+    for (auto conn : connlist)
+    {
+        ConnectionManager->CreateConnection(ConnectionManager->GetDisplayName(conn) + tr(" (Copy)"), //
+                                            ConnectionManager->GetConnectionGroupId(conn),           //
+                                            ConnectionManager->GetConnectionRoot(conn));
+    }
 }

@@ -64,7 +64,8 @@ namespace Qv2ray::core::handlers
         const QString GetConnectionProtocolString(const ConnectionId &id) const;
         const CONFIGROOT GetConnectionRoot(const ConnectionId &id) const;
         const CONFIGROOT GetConnectionRoot(const GroupId &group, const ConnectionId &id) const;
-        double GetConnectionLatency(const ConnectionId &id) const;
+        int64_t GetConnectionLatency(const ConnectionId &id) const;
+        uint64_t GetConnectionTotalData(const ConnectionId &id) const;
         const tuple<quint64, quint64> GetConnectionUsageAmount(const ConnectionId &id) const;
         //
         // Misc Connection Operations

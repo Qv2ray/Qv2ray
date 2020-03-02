@@ -17,6 +17,15 @@
 #include "ui/widgets/ConnectionInfoWidget.hpp"
 #include "ui/widgets/ConnectionItemWidget.hpp"
 
+enum MW_ITEM_COL
+{
+    MW_ITEM_COL_DISPLAYNAME = 1,
+    MW_ITEM_COL_LATENCY = 2,
+    MW_ITEM_COL_IMPORTTIME = 3,
+    MW_ITEM_COL_LASTCONNETED = 4,
+    MW_ITEM_COL_DATAUSAGE = 5
+};
+
 class MainWindow
     : public QMainWindow
     , Ui::MainWindow
@@ -77,11 +86,14 @@ class MainWindow
     void on_action_RCM_ConvToComplex_triggered();
     void on_action_RCM_RenameThis_triggered();
     void on_action_RCM_DeleteThese_triggered();
+    void on_action_RCM_DuplicateThese_triggered();
     //
     void on_connectionListWidget_itemDoubleClicked(QTreeWidgetItem *item, int column);
     void on_connectionFilterTxt_textEdited(const QString &arg1);
     void on_connectionListWidget_itemClicked(QTreeWidgetItem *item, int column);
     void on_locateBtn_clicked();
+    //
+    void SortConnectionList(MW_ITEM_COL byCol, bool asending);
 
   private:
     QHash<GroupId, shared_ptr<QTreeWidgetItem>> groupNodes;
@@ -114,6 +126,14 @@ class MainWindow
     QMenu *tray_SystemProxyMenu = new QMenu(this);
     QAction *action_Tray_SetSystemProxy;
     QAction *action_Tray_ClearSystemProxy;
+    //
+    QMenu *sortMenu;
+    QAction *sortAction_SortByName_Asc;
+    QAction *sortAction_SortByName_Dsc;
+    QAction *sortAction_SortByLatency_Asc;
+    QAction *sortAction_SortByLatency_Dsc;
+    QAction *sortAction_SortByData_Asc;
+    QAction *sortAction_SortByData_Dsc;
     //
     // Extra Headers For w_MainWindow_extra.cpp Handling V2ray Connectivities.
     ConnectionId lastConnectedId;

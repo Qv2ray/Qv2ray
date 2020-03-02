@@ -227,14 +227,24 @@ namespace Qv2ray::core::handlers
         return connections[id].groupId;
     }
 
-    double QvConnectionHandler::GetConnectionLatency(const ConnectionId &id) const
+    uint64_t QvConnectionHandler::GetConnectionTotalData(const ConnectionId &id) const
     {
         if (!connections.contains(id))
         {
             LOG(MODULE_CORE_HANDLER, "Cannot find id: " + id.toString());
         }
 
-        return connections[id].latency;
+        return connections[id].upLinkData + connections[id].downLinkData;
+    }
+
+    int64_t QvConnectionHandler::GetConnectionLatency(const ConnectionId &id) const
+    {
+        if (!connections.contains(id))
+        {
+            LOG(MODULE_CORE_HANDLER, "Cannot find id: " + id.toString());
+        }
+
+        return max(connections[id].latency, 0L);
     }
     const optional<QString> QvConnectionHandler::RenameConnection(const ConnectionId &id, const QString &newName)
     {

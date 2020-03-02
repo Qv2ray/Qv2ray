@@ -30,5 +30,7 @@
         <file>assets/icons/ui_light/stop.png</file>
         <file>assets/icons/ui_dark/locate.png</file>
         <file>assets/icons/ui_light/locate.png</file>
+        <file>assets/icons/ui_dark/sort.png</file>
+        <file>assets/icons/ui_light/sort.png</file>
     </qresource>
 </RCC>

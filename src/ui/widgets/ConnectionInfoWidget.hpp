@@ -20,19 +20,17 @@ class ConnectionInfoWidget
     void OnEditRequested(const ConnectionId &id);
     void OnJsonEditRequested(const ConnectionId &id);
 
+  protected:
+    bool eventFilter(QObject *object, QEvent *event) override;
+
   private slots:
     void on_connectBtn_clicked();
     void on_editBtn_clicked();
     void on_editJsonBtn_clicked();
     void on_deleteBtn_clicked();
 
-  protected:
-    bool eventFilter(QObject *object, QEvent *event) override;
-
-  private slots:
     void OnConnected(const ConnectionId &id);
     void OnDisConnected(const ConnectionId &id);
-    void on_duplicateBtn_clicked();
     void on_latencyBtn_clicked();
 
   private:

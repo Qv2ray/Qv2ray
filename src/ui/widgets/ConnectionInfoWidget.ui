@@ -59,6 +59,48 @@
         </spacer>
        </item>
        <item>
+        <widget class="QToolButton" name="connectBtn">
+         <property name="toolTip">
+          <string>Connect/Disconnect</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../../../resources.qrc">
+           <normaloff>:/assets/icons/ui_light/connect.png</normaloff>:/assets/icons/ui_light/connect.png</iconset>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QToolButton" name="editBtn">
+         <property name="toolTip">
+          <string>Edit Connection</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../../../resources.qrc">
+           <normaloff>:/assets/icons/ui_light/edit.png</normaloff>:/assets/icons/ui_light/edit.png</iconset>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QToolButton" name="editJsonBtn">
+         <property name="toolTip">
+          <string>Edit Connection as JSON</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../../../resources.qrc">
+           <normaloff>:/assets/icons/ui_light/json.png</normaloff>:/assets/icons/ui_light/json.png</iconset>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QToolButton" name="latencyBtn">
          <property name="toolTip">
           <string>Latency Test</string>
@@ -83,62 +125,6 @@
          <property name="icon">
           <iconset resource="../../../resources.qrc">
            <normaloff>:/assets/icons/ui_light/delete.png</normaloff>:/assets/icons/ui_light/delete.png</iconset>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QToolButton" name="editJsonBtn">
-         <property name="toolTip">
-          <string>Edit Connection as JSON</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset resource="../../../resources.qrc">
-           <normaloff>:/assets/icons/ui_light/json.png</normaloff>:/assets/icons/ui_light/json.png</iconset>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QToolButton" name="editBtn">
-         <property name="toolTip">
-          <string>Edit Connection</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset resource="../../../resources.qrc">
-           <normaloff>:/assets/icons/ui_light/edit.png</normaloff>:/assets/icons/ui_light/edit.png</iconset>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QToolButton" name="duplicateBtn">
-         <property name="toolTip">
-          <string>Duplicate Connection</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset resource="../../../resources.qrc">
-           <normaloff>:/assets/icons/ui_light/duplicate.png</normaloff>:/assets/icons/ui_light/duplicate.png</iconset>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QToolButton" name="connectBtn">
-         <property name="toolTip">
-          <string>Connect/Disconnect</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset resource="../../../resources.qrc">
-           <normaloff>:/assets/icons/ui_light/connect.png</normaloff>:/assets/icons/ui_light/connect.png</iconset>
          </property>
         </widget>
        </item>
@@ -264,7 +250,7 @@
           </widget>
          </item>
          <item row="4" column="0">
-          <widget class="QLabel" name="label_5">
+          <widget class="QLabel" name="shareLinkLabel">
            <property name="text">
             <string>Link</string>
            </property>
@@ -322,6 +308,9 @@
             </property>
             <property name="toolTip">
              <string>QR Code</string>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::Box</enum>
             </property>
             <property name="text">
              <string/>
