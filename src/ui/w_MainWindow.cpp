@@ -444,10 +444,12 @@ void MainWindow::on_connectionListWidget_customContextMenuRequested(const QPoint
     Q_UNUSED(pos)
     auto _pos = QCursor::pos();
     auto item = connectionListWidget->itemAt(connectionListWidget->mapFromGlobal(_pos));
-
-    if (GetItemWidget(item)->IsConnection())
+    if (item != nullptr)
     {
-        connectionListMenu->popup(_pos);
+        if (GetItemWidget(item)->IsConnection())
+        {
+            connectionListMenu->popup(_pos);
+        }
     }
 }
 
