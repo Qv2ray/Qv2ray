@@ -244,7 +244,7 @@ namespace Qv2ray::core::handlers
             LOG(MODULE_CORE_HANDLER, "Cannot find id: " + id.toString());
         }
 
-        return max(connections[id].latency, 0L);
+        return max(connections[id].latency, (int64_t) 0);
     }
     const optional<QString> QvConnectionHandler::RenameConnection(const ConnectionId &id, const QString &newName)
     {
