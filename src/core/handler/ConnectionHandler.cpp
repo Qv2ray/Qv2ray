@@ -389,6 +389,10 @@ namespace Qv2ray::core::handlers
         }
 
         CONFIGROOT root = GetConnectionRoot(connections[id].groupId, id);
+        if (IsComplexConfig(root))
+        {
+            return tr("Complex config");
+        }
         QStringList protocols;
         QStringList streamProtocols;
         auto outbound = root["outbounds"].toArray().first().toObject();
@@ -648,10 +652,10 @@ namespace Qv2ray::core::handlers
             LOG(MODULE_CORE_HANDLER, "Removing: " + conn.toString())
             DeleteConnection(conn);
         }
-        
+
         // Update the time
         groups[id].lastUpdated = system_clock::to_time_t(system_clock::now());
-        
+
         return hasErrorOccured;
     }
 
