@@ -388,7 +388,7 @@ int main(int argc, char *argv[])
     if (confVersion < QV2RAY_CONFIG_VERSION)
     {
         // That is, config file needs to be upgraded.
-        conf = Qv2ray::UpgradeConfig(confVersion, QV2RAY_CONFIG_VERSION, conf);
+        conf = Qv2ray::UpgradeSettingsVersion(confVersion, QV2RAY_CONFIG_VERSION, conf);
     }
 
     // Load config object from upgraded config QJsonObject

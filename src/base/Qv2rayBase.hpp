@@ -126,7 +126,7 @@ using namespace Qv2ray::base::objects::transfer;
 namespace Qv2ray
 {
     // Extra header for QvConfigUpgrade.cpp
-    QJsonObject UpgradeConfig(int fromVersion, int toVersion, QJsonObject root);
+    QJsonObject UpgradeSettingsVersion(int fromVersion, int toVersion, QJsonObject root);
 
     inline void ExitQv2ray()
     {

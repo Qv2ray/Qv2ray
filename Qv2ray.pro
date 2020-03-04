@@ -82,9 +82,12 @@ Qv2rayAddSource(core, settings, SettingsBackend, cpp, hpp)
 Qv2rayAddSource(core, settings, SettingsUpgrade, cpp)
 Qv2rayAddSource(core, connection, ConnectionIO, cpp, hpp)
 Qv2rayAddSource(core, connection, Generation, cpp, hpp)
+# Some serializations
 Qv2rayAddSource(core, connection, Serialization, cpp, hpp)
 Qv2rayAddSource(core, connection, Serialization_vmess, cpp)
 Qv2rayAddSource(core, connection, Serialization_ss, cpp)
+Qv2rayAddSource(core, connection, Serialization_ssd, cpp)
+#
 Qv2rayAddSource(core, kernel, KernelInteractions, cpp, hpp)
 Qv2rayAddSource(core, kernel, APIBackend, cpp, hpp)
 Qv2rayAddSource(core, tcping, QvTCPing, cpp, hpp)

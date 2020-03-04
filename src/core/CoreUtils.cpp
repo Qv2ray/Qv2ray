@@ -73,6 +73,8 @@ namespace Qv2ray::core
     {
         if (status != nullptr)
             *status = false;
+        //
+        //
         for (auto item : out["outbounds"].toArray())
         {
             OUTBOUND outBoundRoot = OUTBOUND(item.toObject());
@@ -84,6 +86,11 @@ namespace Qv2ray::core
             {
                 if (status != nullptr)
                     *status = true;
+                if (IsComplexConfig(out))
+                {
+                    outboundType += " " + QObject::tr("(Guessed)");
+                    host += " " + QObject::tr("(Guessed)");
+                }
                 return { outboundType, host, port };
             }
             else
@@ -102,8 +109,8 @@ namespace Qv2ray::core
 
     uint64_t GetConnectionTotalData(const ConnectionId &id)
     {
-        auto connection = ConnectionManager->GetConnectionMetaObject(id);
-        return connection.upLinkData + connection.downLinkData;
+        auto result = GetConnectionUsageAmount(id);
+        return get<0>(result) + get<1>(result);
     }
 
     int64_t GetConnectionLatency(const ConnectionId &id)
@@ -114,14 +121,18 @@ namespace Qv2ray::core
 
     const QString GetConnectionProtocolString(const ConnectionId &id)
     {
+        // Don't bother with the complex connection configs.
+        if (IsComplexConfig(id))
+        {
+            return QV2RAY_SERIALIZATION_COMPLEX_CONFIG_PLACEHOLDER;
+        }
         CONFIGROOT root = ConnectionManager->GetConnectionRoot(id);
         QString result;
-        QStringList protocols;
         QStringList streamProtocols;
         auto outbound = root["outbounds"].toArray().first().toObject();
         result.append(outbound["protocol"].toString());
 
-        if (outbound.contains("streamSettings"))
+        if (outbound.contains("streamSettings") && outbound["streamSettings"].toObject().contains("network"))
         {
             result.append(" / " + outbound["streamSettings"].toObject()["network"].toString());
             if (outbound["streamSettings"].toObject().contains("tls"))

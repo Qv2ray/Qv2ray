@@ -8,8 +8,9 @@
 
 namespace Qv2ray::core
 {
+    static const inline auto QV2RAY_SERIALIZATION_COMPLEX_CONFIG_PLACEHOLDER = QObject::tr("(Complex config)");
     template<typename T>
-    class IDType
+    class IDType final
     {
       public:
         explicit IDType() : m_id("null")
@@ -45,8 +46,8 @@ namespace Qv2ray::core
     typedef IDType<__QvGroup> GroupId;
     typedef IDType<__QvConnection> ConnectionId;
 
-    inline const static ConnectionId NullConnectionId = ConnectionId("null");
-    inline const static GroupId NullGroupId = GroupId("null");
+    inline const static auto NullConnectionId = ConnectionId("null");
+    inline const static auto NullGroupId = GroupId("null");
 
     template<typename IDType>
     QList<IDType> StringsToIdList(const QList<QString> &strings)
@@ -80,7 +81,7 @@ namespace Qv2ray::core
     }
     //
     /// Metadata object representing a connection.
-    struct ConnectionMetaObject : ConnectionObject_Config
+    struct ConnectionMetaObject final : ConnectionObject_Config
     {
         GroupId groupId = NullGroupId;
         ConnectionMetaObject() : ConnectionObject_Config()
@@ -99,7 +100,7 @@ namespace Qv2ray::core
     };
 
     /// Metadata object representing a group.
-    struct GroupMetaObject : SubscriptionObject_Config
+    struct GroupMetaObject final : SubscriptionObject_Config
     {
         // Implicit base of two types, since group object is actually the group base object.
         bool isSubscription = false;

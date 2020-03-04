@@ -262,7 +262,7 @@ namespace Qv2ray
     }
 
     // Exported function
-    QJsonObject UpgradeConfig(int fromVersion, int toVersion, QJsonObject root)
+    QJsonObject UpgradeSettingsVersion(int fromVersion, int toVersion, QJsonObject root)
     {
         LOG(MODULE_SETTINGS, "Migrating config from version " + QSTRN(fromVersion) + " to " + QSTRN(toVersion))
 
