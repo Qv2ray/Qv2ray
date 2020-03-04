@@ -8,18 +8,29 @@
 #include "core/kernel/KernelInteractions.hpp"
 #include "core/tcping/QvTCPing.hpp"
 
+#define CheckIdExistance(type, id, val)                                                                                                         \
+    if (!type.contains(id))                                                                                                                     \
+    {                                                                                                                                           \
+        return val;                                                                                                                             \
+    }
+
+#define CheckGroupExistanceEx(id, val) CheckIdExistance(groups, id, val)
+#define CheckGroupExistance(id) CheckGroupExistanceEx(id, {})
+
+#define CheckConnectionExistanceEx(id, val) CheckIdExistance(connections, id, val)
+#define CheckConnectionExistance(id) CheckConnectionExistanceEx(id, {})
+
 namespace Qv2ray::core::handlers
 {
-    const inline GroupId DefaultGroupId = GroupId("000000000000");
     //
-    class QvConnectionHandler : public QObject
+    class QvConfigHandler : public QObject
     {
         Q_OBJECT
       public:
-        explicit QvConnectionHandler();
-        ~QvConnectionHandler();
+        explicit QvConfigHandler();
+        ~QvConfigHandler();
 
-      public:
+      public slots:
         //
         inline const ConnectionId CurrentConnection() const
         {
@@ -29,20 +40,39 @@ namespace Qv2ray::core::handlers
         {
             return connections.keys();
         }
+        inline const QList<ConnectionId> Connections(const GroupId &groupId) const
+        {
+            CheckGroupExistance(groupId);
+            return groups[groupId].connections;
+        }
         inline const QList<GroupId> AllGroups() const
         {
             return groups.keys();
         }
+        inline const ConnectionMetaObject GetConnectionMetaObject(const ConnectionId &id) const
+        {
+            CheckConnectionExistance(id);
+            return connections[id];
+        }
+        inline const GroupMetaObject GetGroupMetaObject(const GroupId &id) const
+        {
+            CheckGroupExistance(id);
+            return groups[id];
+        }
+        inline bool IsSubscription(const GroupId &id) const
+        {
+            CheckGroupExistance(id);
+            return groups[id].isSubscription;
+        }
         //
         //
         const QList<GroupId> Subscriptions() const;
-        const QList<ConnectionId> Connections(const GroupId &groupId) const;
         //
         // Generic Get Options
         const QString GetDisplayName(const GroupId &id, int limit = -1) const;
         const QString GetDisplayName(const ConnectionId &id, int limit = -1) const;
         const GroupId GetGroupIdByDisplayName(const QString &displayName) const;
-        const ConnectionId GetConnectionIdByDisplayName(const QString &displayName) const;
+        // const ConnectionId GetConnectionIdByDisplayName(const QString &displayName) const;
         const ConnectionId GetConnectionIdByDisplayName(const QString &displayName, const GroupId &group) const;
         //
         // Connectivity Operationss
@@ -59,14 +89,9 @@ namespace Qv2ray::core::handlers
         const ConnectionId CreateConnection(const QString &displayName, const GroupId &groupId, const CONFIGROOT &root);
         //
         // Get Conncetion Property
-        const tuple<QString, QString, int> GetConnectionData(const ConnectionId &connectionId) const;
         const GroupId GetConnectionGroupId(const ConnectionId &id) const;
-        const QString GetConnectionProtocolString(const ConnectionId &id) const;
         const CONFIGROOT GetConnectionRoot(const ConnectionId &id) const;
         const CONFIGROOT GetConnectionRoot(const GroupId &group, const ConnectionId &id) const;
-        int64_t GetConnectionLatency(const ConnectionId &id) const;
-        uint64_t GetConnectionTotalData(const ConnectionId &id) const;
-        const tuple<quint64, quint64> GetConnectionUsageAmount(const ConnectionId &id) const;
         //
         // Misc Connection Operations
         void StartLatencyTest();
@@ -80,14 +105,10 @@ namespace Qv2ray::core::handlers
         // const optional<QString> DuplicateGroup(const GroupId &id);
         //
         // Subscriptions
-        bool IsSubscription(const GroupId &id) const
-        {
-            return groups[id].isSubscription;
-        }
         bool SetSubscriptionData(const GroupId &id, const QString &address = "", float updateInterval = -1);
         bool UpdateSubscription(const GroupId &id, bool useSystemProxy);
         // bool UpdateSubscriptionASync(const GroupId &id, bool useSystemProxy);
-        const tuple<QString, int64_t, float> GetSubscriptionData(const GroupId &id);
+        const tuple<QString, int64_t, float> GetSubscriptionData(const GroupId &id) const;
 
       signals:
         void OnCrashed();
@@ -125,8 +146,6 @@ namespace Qv2ray::core::handlers
         optional<QString> CHStartConnection_p(const ConnectionId &id, const CONFIGROOT &root);
         void CHStopConnection_p();
         bool CHUpdateSubscription_p(const GroupId &id, const QByteArray &subscriptionData);
-        // bool CHSaveConnectionConfig_p(CONFIGROOT obj, const ConnectionId &id, bool override);
-        const tuple<QString, QString, int> CHGetOutboundData_p(const CONFIGROOT &obj, bool *succeed) const;
 
       private:
         int saveTimerId;
@@ -149,7 +168,7 @@ namespace Qv2ray::core::handlers
 #endif
     };
 
-    inline ::Qv2ray::core::handlers::QvConnectionHandler *ConnectionManager = nullptr;
+    inline ::Qv2ray::core::handlers::QvConfigHandler *ConnectionManager = nullptr;
 } // namespace Qv2ray::core::handlers
 
 using namespace Qv2ray::core::handlers;

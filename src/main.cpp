@@ -1,12 +1,12 @@
-﻿#include <QFileInfo>
-#include "common/CommandArgs.hpp"
+﻿#include "common/CommandArgs.hpp"
 #include "common/QvHelpers.hpp"
 #include "common/QvTranslator.hpp"
-#include "core/config/ConfigBackend.hpp"
-#include "core/handler/ConnectionHandler.hpp"
+#include "core/handler/ConfigHandler.hpp"
+#include "core/settings/SettingsBackend.hpp"
 #include "ui/w_MainWindow.hpp"
 
 #include <QApplication>
+#include <QFileInfo>
 #include <QLocale>
 #include <QObject>
 #include <QStandardPaths>
@@ -23,11 +23,7 @@
 
 void signalHandler(int signum)
 {
-    cout << "Interrupt signal (" << signum << ") received." << endl;
-    // if (MainWindow::mwInstance && MainWindow::mwInstance->vinstance) {
-    //    cout << "Trying to stop connection..." << endl;
-    //    MainWindow::mwInstance->vinstance->StopConnection();
-    //}
+    cout << "Qv2ray: Interrupt signal (" << signum << ") received." << endl;
     qApp->exit(-99);
 }
 
@@ -504,7 +500,7 @@ int main(int argc, char *argv[])
 #endif
         //_qApp.setAttribute(Qt::AA_DontUseNativeMenuBar);
         // Initialise Connection Handler
-        ConnectionManager = new QvConnectionHandler();
+        ConnectionManager = new QvConfigHandler();
         // Show MainWindow
         MainWindow w;
         QObject::connect(&_qApp, &SingleApplication::instanceStarted, [&]() {

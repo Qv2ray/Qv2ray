@@ -5,6 +5,9 @@
 #include "core/CoreUtils.hpp"
 #include "core/connection/Serialization.hpp"
 
+#define INDEX_CONNECTION 0
+#define INDEX_GROUP 1
+
 ConnectionInfoWidget::ConnectionInfoWidget(QWidget *parent) : QWidget(parent)
 {
     setupUi(this);
@@ -16,8 +19,8 @@ ConnectionInfoWidget::ConnectionInfoWidget(QWidget *parent) : QWidget(parent)
     shareLinkTxt->setCursor(QCursor(Qt::CursorShape::IBeamCursor));
     shareLinkTxt->installEventFilter(this);
     //
-    connect(ConnectionManager, &QvConnectionHandler::OnConnected, this, &ConnectionInfoWidget::OnConnected);
-    connect(ConnectionManager, &QvConnectionHandler::OnDisconnected, this, &ConnectionInfoWidget::OnDisConnected);
+    connect(ConnectionManager, &QvConfigHandler::OnConnected, this, &ConnectionInfoWidget::OnConnected);
+    connect(ConnectionManager, &QvConfigHandler::OnDisconnected, this, &ConnectionInfoWidget::OnDisConnected);
 }
 
 void ConnectionInfoWidget::ShowDetails(const tuple<GroupId, ConnectionId> &_identifier)
@@ -31,20 +34,19 @@ void ConnectionInfoWidget::ShowDetails(const tuple<GroupId, ConnectionId> &_iden
     editBtn->setEnabled(isConnection);
     editJsonBtn->setEnabled(isConnection);
     connectBtn->setEnabled(isConnection);
-
-    stackedWidget->setCurrentIndex(isConnection ? 0 : 1);
+    stackedWidget->setCurrentIndex(isConnection ? INDEX_CONNECTION : INDEX_GROUP);
     if (isConnection)
     {
-        bool isComplexConfig = IsComplexConfig(ConnectionManager->GetConnectionRoot(connectionId));
+        bool isComplexConfig = IsComplexConfig(connectionId);
         qrLabel->setVisible(!isComplexConfig);
         //
         auto shareLink = ConvertConfigToString(connectionId);
         //
-        shareLinkTxt->setText(isComplexConfig ? tr("(Complex Connection Config)") : shareLink);
-        protocolLabel->setText(isComplexConfig ? tr("N/A") : ConnectionManager->GetConnectionProtocolString(connectionId));
+        shareLinkTxt->setText(shareLink);
+        protocolLabel->setText(GetConnectionProtocolString(connectionId));
         //
         groupLabel->setText(ConnectionManager->GetDisplayName(groupId, 175));
-        auto [protocol, host, port] = ConnectionManager->GetConnectionData(connectionId);
+        auto [protocol, host, port] = GetConnectionInfo(connectionId);
         Q_UNUSED(protocol)
         addressLabel->setText(host);
         portLabel->setNum(port);

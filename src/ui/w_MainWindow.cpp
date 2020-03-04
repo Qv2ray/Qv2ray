@@ -53,12 +53,12 @@ void MainWindow::MWAddConnectionItem_p(const ConnectionId &connection, const Gro
     }
     auto groupItem = groupNodes[groupId];
     auto connectionItem = make_shared<QTreeWidgetItem>(QStringList{
-        "",                                                                  //
-        ConnectionManager->GetDisplayName(connection),                       //
-        NumericString(ConnectionManager->GetConnectionLatency(connection)),  //
-        "IMPORTTIME_NOT_SUPPORTED",                                          //
-        "LAST_CONNECTED_NOT_SUPPORTED",                                      //
-        NumericString(ConnectionManager->GetConnectionTotalData(connection)) //
+        "",                                               //
+        ConnectionManager->GetDisplayName(connection),    //
+        NumericString(GetConnectionLatency(connection)),  //
+        "IMPORTTIME_NOT_SUPPORTED",                       //
+        "LAST_CONNECTED_NOT_SUPPORTED",                   //
+        NumericString(GetConnectionTotalData(connection)) //
     });
     connectionNodes[connection] = connectionItem;
     groupItem->addChild(connectionItem.get());
@@ -107,29 +107,29 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) //, vinstance(), h
     updownImageBox_2->setStyleSheet("image: url(" + QV2RAY_UI_RESOURCES_ROOT + "netspeed_arrow.png)");
     //
     //
-    connect(ConnectionManager, &QvConnectionHandler::OnCrashed, [&] {
+    connect(ConnectionManager, &QvConfigHandler::OnCrashed, [&] {
         this->show();
         QvMessageBoxWarn(this, tr("V2ray vcore terminated."),
                          tr("V2ray vcore terminated unexpectedly.") + NEWLINE + NEWLINE +
                              tr("To solve the problem, read the V2ray log in the log text browser."));
     });
     //
-    connect(ConnectionManager, &QvConnectionHandler::OnConnected, this, &MainWindow::OnConnected);
-    connect(ConnectionManager, &QvConnectionHandler::OnDisconnected, this, &MainWindow::OnDisconnected);
-    connect(ConnectionManager, &QvConnectionHandler::OnStatsAvailable, this, &MainWindow::OnStatsAvailable);
-    connect(ConnectionManager, &QvConnectionHandler::OnVCoreLogAvailable, this, &MainWindow::OnVCoreLogAvailable);
+    connect(ConnectionManager, &QvConfigHandler::OnConnected, this, &MainWindow::OnConnected);
+    connect(ConnectionManager, &QvConfigHandler::OnDisconnected, this, &MainWindow::OnDisconnected);
+    connect(ConnectionManager, &QvConfigHandler::OnStatsAvailable, this, &MainWindow::OnStatsAvailable);
+    connect(ConnectionManager, &QvConfigHandler::OnVCoreLogAvailable, this, &MainWindow::OnVCoreLogAvailable);
     //
-    connect(ConnectionManager, &QvConnectionHandler::OnConnectionDeleted, this, &MainWindow::OnConnectionDeleted);
-    connect(ConnectionManager, &QvConnectionHandler::OnConnectionCreated, this, &MainWindow::OnConnectionCreated);
-    connect(ConnectionManager, &QvConnectionHandler::OnConnectionGroupChanged, this, &MainWindow::OnConnectionGroupChanged);
+    connect(ConnectionManager, &QvConfigHandler::OnConnectionDeleted, this, &MainWindow::OnConnectionDeleted);
+    connect(ConnectionManager, &QvConfigHandler::OnConnectionCreated, this, &MainWindow::OnConnectionCreated);
+    connect(ConnectionManager, &QvConfigHandler::OnConnectionGroupChanged, this, &MainWindow::OnConnectionGroupChanged);
     //
-    connect(ConnectionManager, &QvConnectionHandler::OnGroupCreated, this, &MainWindow::OnGroupCreated);
-    connect(ConnectionManager, &QvConnectionHandler::OnGroupDeleted, this, &MainWindow::OnGroupDeleted);
+    connect(ConnectionManager, &QvConfigHandler::OnGroupCreated, this, &MainWindow::OnGroupCreated);
+    connect(ConnectionManager, &QvConfigHandler::OnGroupDeleted, this, &MainWindow::OnGroupDeleted);
     //
-    connect(ConnectionManager, &QvConnectionHandler::OnConnectionRenamed, [&](const ConnectionId &id, const QString &, const QString &newName) {
+    connect(ConnectionManager, &QvConfigHandler::OnConnectionRenamed, [&](const ConnectionId &id, const QString &, const QString &newName) {
         connectionNodes[id]->setText(MW_ITEM_COL_DISPLAYNAME, newName); //
     });
-    connect(ConnectionManager, &QvConnectionHandler::OnLatencyTestFinished, [&](const ConnectionId &id, const uint avg) {
+    connect(ConnectionManager, &QvConfigHandler::OnLatencyTestFinished, [&](const ConnectionId &id, const uint avg) {
         connectionNodes[id]->setText(MW_ITEM_COL_LATENCY, NumericString(avg)); //
     });
     //
@@ -173,8 +173,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) //, vinstance(), h
     connect(action_Tray_ShowPreferencesWindow, &QAction::triggered, this, &MainWindow::on_preferencesBtn_clicked);
     //
     connect(action_Tray_Start, &QAction::triggered, [&] { ConnectionManager->StartConnection(lastConnectedId); });
-    connect(action_Tray_Stop, &QAction::triggered, ConnectionManager, &QvConnectionHandler::StopConnection);
-    connect(action_Tray_Reconnect, &QAction::triggered, ConnectionManager, &QvConnectionHandler::RestartConnection);
+    connect(action_Tray_Stop, &QAction::triggered, ConnectionManager, &QvConfigHandler::StopConnection);
+    connect(action_Tray_Reconnect, &QAction::triggered, ConnectionManager, &QvConfigHandler::RestartConnection);
     //
     connect(action_Tray_Quit, &QAction::triggered, this, &MainWindow::on_actionExit_triggered);
     connect(action_Tray_SetSystemProxy, &QAction::triggered, this, &MainWindow::MWSetSystemProxy);
@@ -197,8 +197,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) //, vinstance(), h
     //
     // Globally invokable signals.
     connect(this, &MainWindow::Connect, [&] { ConnectionManager->StartConnection(lastConnectedId); });
-    connect(this, &MainWindow::DisConnect, ConnectionManager, &QvConnectionHandler::StopConnection);
-    connect(this, &MainWindow::ReConnect, ConnectionManager, &QvConnectionHandler::RestartConnection);
+    connect(this, &MainWindow::DisConnect, ConnectionManager, &QvConfigHandler::StopConnection);
+    connect(this, &MainWindow::ReConnect, ConnectionManager, &QvConfigHandler::RestartConnection);
     //
     hTray.setContextMenu(tray_RootMenu);
     hTray.show();
@@ -731,7 +731,7 @@ void MainWindow::OnStatsAvailable(const ConnectionId &id, const quint64 upS, con
                      ConnectionManager->GetDisplayName(id) + NEWLINE "Up: " + totalSpeedUp + " Down: " + totalSpeedDown);
     //
     // Set data accordingly
-    connectionNodes[id]->setText(MW_ITEM_COL_DATAUSAGE, NumericString(ConnectionManager->GetConnectionTotalData(id)));
+    connectionNodes[id]->setText(MW_ITEM_COL_DATAUSAGE, NumericString(GetConnectionTotalData(id)));
 }
 
 void MainWindow::OnVCoreLogAvailable(const ConnectionId &id, const QString &log)

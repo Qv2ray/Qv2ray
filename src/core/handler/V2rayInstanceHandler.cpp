@@ -1,7 +1,7 @@
-#include "ConnectionHandler.hpp"
+#include "ConfigHandler.hpp"
 #include "core/connection/Generation.hpp"
 
-optional<QString> QvConnectionHandler::CHStartConnection_p(const ConnectionId &id, const CONFIGROOT &root)
+optional<QString> QvConfigHandler::CHStartConnection_p(const ConnectionId &id, const CONFIGROOT &root)
 {
     connections[id].lastConnected = system_clock::to_time_t(system_clock::now());
     //
@@ -17,7 +17,7 @@ optional<QString> QvConnectionHandler::CHStartConnection_p(const ConnectionId &i
     return result;
 }
 
-void QvConnectionHandler::CHStopConnection_p()
+void QvConfigHandler::CHStopConnection_p()
 {
     if (vCoreInstance->KernelStarted)
     {
@@ -33,14 +33,14 @@ void QvConnectionHandler::CHStopConnection_p()
     }
 }
 
-void QvConnectionHandler::OnStatsDataArrived(const ConnectionId &id, const quint64 uploadSpeed, const quint64 downloadSpeed)
+void QvConfigHandler::OnStatsDataArrived(const ConnectionId &id, const quint64 uploadSpeed, const quint64 downloadSpeed)
 {
     connections[id].upLinkData += uploadSpeed;
     connections[id].downLinkData += downloadSpeed;
     emit OnStatsAvailable(id, uploadSpeed, downloadSpeed, connections[id].upLinkData, connections[id].downLinkData);
 }
 
-void QvConnectionHandler::OnVCoreCrashed(const ConnectionId &id)
+void QvConfigHandler::OnVCoreCrashed(const ConnectionId &id)
 {
     LOG(MODULE_CORE_HANDLER, "V2ray core crashed!")
     currentConnectionId = NullConnectionId;

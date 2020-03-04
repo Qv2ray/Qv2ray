@@ -1,6 +1,6 @@
 #pragma once
 
-#include "core/handler/ConnectionHandler.hpp"
+#include "core/handler/ConfigHandler.hpp"
 #include "ui_ConnectionInfoWidget.h"
 
 #include <QWidget>

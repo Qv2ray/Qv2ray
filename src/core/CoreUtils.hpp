@@ -1,10 +1,13 @@
 ﻿#pragma once
+#include "base/models/CoreObjectModels.hpp"
+#include "base/models/QvSafeType.hpp"
+#include "core/CoreSafeTypes.hpp"
+
 #include <QString>
-#include <base/models/CoreObjectModels.hpp>
-#include <base/models/QvSafeType.hpp>
 
 namespace Qv2ray::core
 {
+    const inline GroupId DefaultGroupId = GroupId("000000000000");
     using namespace Qv2ray::base;
     using namespace Qv2ray::base::safetype;
     using namespace Qv2ray::base::objects;
@@ -23,9 +26,20 @@ namespace Qv2ray::core
     {
         return in.QV2RAY_RULE_TAG;
     }
-
-    bool GetOutboundData(const OUTBOUND &out, QString *host, int *port, QString *protocol);
+    //
+    int64_t GetConnectionLatency(const ConnectionId &id);
+    uint64_t GetConnectionTotalData(const ConnectionId &id);
+    const tuple<quint64, quint64> GetConnectionUsageAmount(const ConnectionId &id);
+    //
+    const tuple<QString, QString, int> GetConnectionInfo(const ConnectionId &id, bool *status = nullptr);
+    const tuple<QString, QString, int> GetConnectionInfo(const CONFIGROOT &out, bool *status = nullptr);
+    //
+    bool GetOutboundInfo(const OUTBOUND &out, QString *host, int *port, QString *protocol);
     bool IsComplexConfig(const CONFIGROOT &root);
+    bool IsComplexConfig(const ConnectionId &id);
+    //
+    const QString GetConnectionProtocolString(const ConnectionId &id);
+
 } // namespace Qv2ray::core
 
 using namespace Qv2ray::core;

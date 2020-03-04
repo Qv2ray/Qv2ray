@@ -9,7 +9,7 @@
 #endif
 #include "QtConcurrent/QtConcurrent"
 #include "QvTCPing.hpp"
-#include "core/handler/ConnectionHandler.hpp"
+#include "core/handler/ConfigHandler.hpp"
 
 namespace Qv2ray::core::tcping
 {
@@ -57,7 +57,7 @@ namespace Qv2ray::core::tcping
         if (isExiting)
             return data;
 
-        auto [protocol, host, port] = ConnectionManager->GetConnectionData(id);
+        auto [protocol, host, port] = GetConnectionInfo(id);
         Q_UNUSED(protocol)
         double successCount = 0, errorCount = 0;
         addrinfo *resolved;

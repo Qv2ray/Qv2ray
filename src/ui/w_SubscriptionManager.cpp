@@ -1,8 +1,8 @@
 ﻿#include "w_SubscriptionManager.hpp"
 
 #include "common/QvHelpers.hpp"
-#include "core/config/ConfigBackend.hpp"
-#include "core/handler/ConnectionHandler.hpp"
+#include "core/handler/ConfigHandler.hpp"
+#include "core/settings/SettingsBackend.hpp"
 
 SubscribeEditor::SubscribeEditor(QWidget *parent) : QDialog(parent)
 {
@@ -102,7 +102,7 @@ void SubscribeEditor::on_subscriptionList_itemClicked(QTreeWidgetItem *item, int
     currentSubId = GroupId(item->text(1));
     //
     subNameTxt->setText(ConnectionManager->GetDisplayName(currentSubId));
-    auto [addr, lastUpdated, updateInterval] = ConnectionManager->GetSubscriptionData(currentSubId);
+    auto const [addr, lastUpdated, updateInterval] = ConnectionManager->GetSubscriptionData(currentSubId);
     subAddrTxt->setText(addr);
     lastUpdatedLabel->setText(timeToString(lastUpdated));
     updateIntervalSB->setValue(updateInterval);

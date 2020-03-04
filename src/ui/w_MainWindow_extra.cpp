@@ -9,7 +9,7 @@ void MainWindow::MWSetSystemProxy()
     bool httpEnabled = GlobalConfig.inboundConfig.useHTTP;
     bool socksEnabled = GlobalConfig.inboundConfig.useSocks;
     //
-    bool isComplex = IsComplexConfig(ConnectionManager->GetConnectionRoot(ConnectionManager->CurrentConnection()));
+    bool isComplex = IsComplexConfig(ConnectionManager->CurrentConnection());
 
     if (!isComplex)
     {

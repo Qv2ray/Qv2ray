@@ -177,7 +177,7 @@ void RouteEditor::onNodeClicked(Node &n)
         {
             alias = GetFirstNodeData(n, QvOutboundNodeModel, OutboundNodeData)->GetOutbound();
             QJsonObject _root = outbounds[alias].raw();
-            GetOutboundData(OUTBOUND(_root), &host, &port, &protocol);
+            GetOutboundInfo(OUTBOUND(_root), &host, &port, &protocol);
         }
         else
         {

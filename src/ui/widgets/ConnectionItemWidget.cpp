@@ -7,11 +7,11 @@
 ConnectionItemWidget::ConnectionItemWidget(QWidget *parent) : QWidget(parent), connectionId("null"), groupId("null")
 {
     setupUi(this);
-    connect(ConnectionManager, &QvConnectionHandler::OnConnected, this, &ConnectionItemWidget::OnConnected);
-    connect(ConnectionManager, &QvConnectionHandler::OnDisconnected, this, &ConnectionItemWidget::OnDisConnected);
-    connect(ConnectionManager, &QvConnectionHandler::OnStatsAvailable, this, &ConnectionItemWidget::OnConnectionStatsArrived);
-    connect(ConnectionManager, &QvConnectionHandler::OnLatencyTestStarted, this, &ConnectionItemWidget::OnLatencyTestStart);
-    connect(ConnectionManager, &QvConnectionHandler::OnLatencyTestFinished, this, &ConnectionItemWidget::OnLatencyTestFinished);
+    connect(ConnectionManager, &QvConfigHandler::OnConnected, this, &ConnectionItemWidget::OnConnected);
+    connect(ConnectionManager, &QvConfigHandler::OnDisconnected, this, &ConnectionItemWidget::OnDisConnected);
+    connect(ConnectionManager, &QvConfigHandler::OnStatsAvailable, this, &ConnectionItemWidget::OnConnectionStatsArrived);
+    connect(ConnectionManager, &QvConfigHandler::OnLatencyTestStarted, this, &ConnectionItemWidget::OnLatencyTestStart);
+    connect(ConnectionManager, &QvConfigHandler::OnLatencyTestFinished, this, &ConnectionItemWidget::OnLatencyTestFinished);
 }
 
 ConnectionItemWidget::ConnectionItemWidget(const ConnectionId &id, QWidget *parent) : ConnectionItemWidget(parent)
@@ -20,7 +20,7 @@ ConnectionItemWidget::ConnectionItemWidget(const ConnectionId &id, QWidget *pare
     groupId = ConnectionManager->GetConnectionGroupId(id);
     originalItemName = ConnectionManager->GetDisplayName(id);
     itemType = NODE_ITEM;
-    auto latency = ConnectionManager->GetConnectionLatency(id);
+    auto latency = GetConnectionLatency(id);
 
     if (latency == 0)
     {
@@ -31,8 +31,8 @@ ConnectionItemWidget::ConnectionItemWidget(const ConnectionId &id, QWidget *pare
         latencyLabel->setText(QSTRN(latency) + " " + tr("ms"));
     }
 
-    connTypeLabel->setText(tr("Type: ") + ConnectionManager->GetConnectionProtocolString(id));
-    auto [uplink, downlink] = ConnectionManager->GetConnectionUsageAmount(connectionId);
+    connTypeLabel->setText(tr("Type: ") + GetConnectionProtocolString(id));
+    auto [uplink, downlink] = GetConnectionUsageAmount(connectionId);
     dataLabel->setText(FormatBytes(uplink) + " / " + FormatBytes(downlink));
     //
     indentSpacer->changeSize(10, indentSpacer->sizeHint().height());
@@ -42,7 +42,7 @@ ConnectionItemWidget::ConnectionItemWidget(const ConnectionId &id, QWidget *pare
         emit RequestWidgetFocus(this);
     }
     OnConnectionItemRenamed(id, "", originalItemName);
-    connect(ConnectionManager, &QvConnectionHandler::OnConnectionRenamed, this, &ConnectionItemWidget::OnConnectionItemRenamed);
+    connect(ConnectionManager, &QvConfigHandler::OnConnectionRenamed, this, &ConnectionItemWidget::OnConnectionItemRenamed);
 }
 
 // ======================================= Initialisation for root nodes.
@@ -63,13 +63,13 @@ ConnectionItemWidget::ConnectionItemWidget(const GroupId &id, QWidget *parent) :
     connNameLabel->setFont(font);
     //
     OnGroupItemRenamed(id, "", originalItemName);
-    connect(ConnectionManager, &QvConnectionHandler::OnConnectionCreated, this, &ConnectionItemWidget::RecalculateConnectionsCount);
-    connect(ConnectionManager, &QvConnectionHandler::OnConnectionDeleted, this, &ConnectionItemWidget::RecalculateConnectionsCount);
-    connect(ConnectionManager, &QvConnectionHandler::OnConnectionChanged, this, &ConnectionItemWidget::RecalculateConnectionsCount);
-    connect(ConnectionManager, &QvConnectionHandler::OnConnectionGroupChanged, this, &ConnectionItemWidget::RecalculateConnectionsCount);
-    connect(ConnectionManager, &QvConnectionHandler::OnSubscriptionUpdateFinished, this, &ConnectionItemWidget::RecalculateConnectionsCount);
+    connect(ConnectionManager, &QvConfigHandler::OnConnectionCreated, this, &ConnectionItemWidget::RecalculateConnectionsCount);
+    connect(ConnectionManager, &QvConfigHandler::OnConnectionDeleted, this, &ConnectionItemWidget::RecalculateConnectionsCount);
+    connect(ConnectionManager, &QvConfigHandler::OnConnectionChanged, this, &ConnectionItemWidget::RecalculateConnectionsCount);
+    connect(ConnectionManager, &QvConfigHandler::OnConnectionGroupChanged, this, &ConnectionItemWidget::RecalculateConnectionsCount);
+    connect(ConnectionManager, &QvConfigHandler::OnSubscriptionUpdateFinished, this, &ConnectionItemWidget::RecalculateConnectionsCount);
     //
-    connect(ConnectionManager, &QvConnectionHandler::OnGroupRenamed, this, &ConnectionItemWidget::OnGroupItemRenamed);
+    connect(ConnectionManager, &QvConfigHandler::OnGroupRenamed, this, &ConnectionItemWidget::OnGroupItemRenamed);
 }
 
 void ConnectionItemWidget::BeginConnection()

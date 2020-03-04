@@ -4,7 +4,7 @@
 #include "common/LogHighlighter.hpp"
 #include "components/pac/QvPACHandler.hpp"
 #include "components/speedchart/speedwidget.hpp"
-#include "core/handler/ConnectionHandler.hpp"
+#include "core/handler/ConfigHandler.hpp"
 #include "ui/messaging/QvMessageBus.hpp"
 #include "ui_w_MainWindow.h"
 

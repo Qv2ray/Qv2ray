@@ -5,10 +5,10 @@
 #include "common/QvTranslator.hpp"
 #include "components/autolaunch/QvAutoLaunch.hpp"
 #include "components/plugins/toolbar/QvToolbar.hpp"
-#include "core/config/ConfigBackend.hpp"
 #include "core/connection/ConnectionIO.hpp"
-#include "core/handler/ConnectionHandler.hpp"
+#include "core/handler/ConfigHandler.hpp"
 #include "core/kernel/KernelInteractions.hpp"
+#include "core/settings/SettingsBackend.hpp"
 
 #include <QColorDialog>
 #include <QDesktopServices>
