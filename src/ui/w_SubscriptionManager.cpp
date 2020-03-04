@@ -13,7 +13,7 @@ SubscribeEditor::SubscribeEditor(QWidget *parent) : QDialog(parent)
 
     for (auto subs : ConnectionManager->Subscriptions())
     {
-        subscriptionList->addTopLevelItem(new QTreeWidgetItem(QStringList{ ConnectionManager->GetDisplayName(subs), subs.toString() }));
+        subscriptionList->addTopLevelItem(new QTreeWidgetItem(QStringList{ GetDisplayName(subs), subs.toString() }));
     }
     if (subscriptionList->topLevelItemCount() > 0)
     {
@@ -31,7 +31,7 @@ QvMessageBusSlotImpl(SubscribeEditor)
 
 tuple<QString, CONFIGROOT> SubscribeEditor::GetSelectedConfig()
 {
-    return { ConnectionManager->GetDisplayName(currentConnectionId), ConnectionManager->GetConnectionRoot(currentConnectionId) };
+    return { GetDisplayName(currentConnectionId), ConnectionManager->GetConnectionRoot(currentConnectionId) };
 }
 
 SubscribeEditor::~SubscribeEditor()
@@ -101,7 +101,7 @@ void SubscribeEditor::on_subscriptionList_itemClicked(QTreeWidgetItem *item, int
     groupBox_2->setEnabled(true);
     currentSubId = GroupId(item->text(1));
     //
-    subNameTxt->setText(ConnectionManager->GetDisplayName(currentSubId));
+    subNameTxt->setText(GetDisplayName(currentSubId));
     auto const [addr, lastUpdated, updateInterval] = ConnectionManager->GetSubscriptionData(currentSubId);
     subAddrTxt->setText(addr);
     lastUpdatedLabel->setText(timeToString(lastUpdated));
@@ -111,7 +111,7 @@ void SubscribeEditor::on_subscriptionList_itemClicked(QTreeWidgetItem *item, int
 
     for (auto conn : ConnectionManager->Connections(currentSubId))
     {
-        connectionsList->addItem(ConnectionManager->GetDisplayName(conn)); //
+        connectionsList->addItem(GetDisplayName(conn)); //
     }
 }
 

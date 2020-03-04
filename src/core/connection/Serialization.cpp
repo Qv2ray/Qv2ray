@@ -9,6 +9,7 @@ namespace Qv2ray::core::connection
 {
     namespace Serialization
     {
+        const QString ConvertConfigToString(const QString &alias, const CONFIGROOT &server, bool isSip002);
         CONFIGROOT ConvertConfigFromString(const QString &link, QString *alias, QString *errMessage)
         {
             CONFIGROOT config;
@@ -31,8 +32,13 @@ namespace Qv2ray::core::connection
 
         const QString ConvertConfigToString(const ConnectionId &id, bool isSip002)
         {
+            auto alias = GetDisplayName(id);
+            if (IsComplexConfig(id))
+            {
+                DEBUG(MODULE_CONNECTION, "Ignored an complex config: " + alias)
+                return QV2RAY_SERIALIZATION_COMPLEX_CONFIG_PLACEHOLDER;
+            }
             auto server = ConnectionManager->GetConnectionRoot(id);
-            auto alias = ConnectionManager->GetDisplayName(id);
             return ConvertConfigToString(alias, server, isSip002);
         }
 
@@ -65,16 +71,16 @@ namespace Qv2ray::core::connection
 
         // From
         // https://github.com/2dust/v2rayN/wiki/%E5%88%86%E4%BA%AB%E9%93%BE%E6%8E%A5%E6%A0%BC%E5%BC%8F%E8%AF%B4%E6%98%8E(ver-2)
-        QString ConvertConfigToVMessString(const StreamSettingsObject &transfer, const VMessServerObject &serverConfig, const QString &alias)
+        const QString ConvertConfigToVMessString(const StreamSettingsObject &transfer, const VMessServerObject &server, const QString &alias)
         {
             QJsonObject vmessUriRoot;
             // Constant
             vmessUriRoot["v"] = 2;
             vmessUriRoot["ps"] = alias;
-            vmessUriRoot["add"] = serverConfig.address;
-            vmessUriRoot["port"] = serverConfig.port;
-            vmessUriRoot["id"] = serverConfig.users.front().id;
-            vmessUriRoot["aid"] = serverConfig.users.front().alterId;
+            vmessUriRoot["add"] = server.address;
+            vmessUriRoot["port"] = server.port;
+            vmessUriRoot["id"] = server.users.front().id;
+            vmessUriRoot["aid"] = server.users.front().alterId;
             vmessUriRoot["net"] = transfer.network;
             vmessUriRoot["tls"] = transfer.security;
 
@@ -216,14 +222,14 @@ namespace Qv2ray::core::connection
             CONFIGROOT root;
             OUTBOUNDS outbounds;
             outbounds.append(
-                GenerateOutboundEntry("shadowsocks", GenerateShadowSocksOUT(QList<ShadowSocksServerObject>() << server), QJsonObject()));
+                GenerateOutboundEntry("shadowsocks", GenerateShadowSocksOUT(QList<ShadowSocksServerObject>{ server }), QJsonObject()));
             JADD(outbounds)
             *alias = alias->isEmpty() ? d_name : *alias + "_" + d_name;
             LOG(MODULE_CONNECTION, "Deduced alias: " + *alias)
             return root;
         }
 
-        QString ConvertConfigToSSString(const ShadowSocksServerObject &server, const QString &alias, bool isSip002)
+        const QString ConvertConfigToSSString(const ShadowSocksServerObject &server, const QString &alias, bool isSip002)
         {
             auto myAlias = QUrl::toPercentEncoding(alias);
 
@@ -333,13 +339,17 @@ namespace Qv2ray::core::connection
             // used as default.
             //          [[val.size() <= 1]] is used when only the default value
             //          exists.
+            ///
             //          - It can be empty, if so,           if the key is not in
-            //          the JSON, or the value is empty,  it'll report an error.
+            //            the JSON, or the value is empty,  it'll report an error.
+            //
             //          - Else if it contains one thing.    if the key is not in
-            //          the JSON, or the value is empty,  it'll use that one.
+            //            the JSON, or the value is empty,  it'll use that one.
+            //
             //          - Else if it contains many things,  when the key IS in
-            //          the JSON but not in those THINGS,   it'll use the first
-            //          one in the THINGS
+            //            the JSON but not in those THINGS,   it'll use the first
+            //            one in the THINGS
+            //
             //          - Else, it'll use the value found from the JSON object.
             //
 #define empty_arg
@@ -464,11 +474,10 @@ namespace Qv2ray::core::connection
             auto outbound = GenerateOutboundEntry("vmess", vConf, GetRootObject(streaming), QJsonObject(), "0.0.0.0", OUTBOUND_TAG_PROXY);
             //
             root["outbounds"] = QJsonArray() << outbound;
-            // If previous alias is empty, just the PS is needed, else, append a
-            // "_"
+            // If previous alias is empty, just the PS is needed, else, append a "_"
             *alias = alias->trimmed().isEmpty() ? ps : *alias + "_" + ps;
-#undef default
             return root;
+#undef default
         }
     } // namespace Serialization
 } // namespace Qv2ray::core::connection

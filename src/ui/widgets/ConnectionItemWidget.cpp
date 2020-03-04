@@ -17,8 +17,8 @@ ConnectionItemWidget::ConnectionItemWidget(QWidget *parent) : QWidget(parent), c
 ConnectionItemWidget::ConnectionItemWidget(const ConnectionId &id, QWidget *parent) : ConnectionItemWidget(parent)
 {
     connectionId = id;
-    groupId = ConnectionManager->GetConnectionGroupId(id);
-    originalItemName = ConnectionManager->GetDisplayName(id);
+    groupId = GetConnectionGroupId(id);
+    originalItemName = GetDisplayName(id);
     itemType = NODE_ITEM;
     auto latency = GetConnectionLatency(id);
 
@@ -55,7 +55,7 @@ ConnectionItemWidget::ConnectionItemWidget(const GroupId &id, QWidget *parent) :
     //
     groupId = id;
     itemType = GROUP_HEADER_ITEM;
-    originalItemName = ConnectionManager->GetDisplayName(id);
+    originalItemName = GetDisplayName(id);
     RecalculateConnectionsCount();
     //
     auto font = connNameLabel->font();

@@ -27,7 +27,7 @@ class ConnectionItemWidget
     inline bool NameMatched(const QString &arg)
     {
         auto searchString = arg.toLower();
-        auto headerMatched = ConnectionManager->GetDisplayName(groupId).toLower().contains(arg);
+        auto headerMatched = GetDisplayName(groupId).toLower().contains(arg);
 
         if (itemType != NODE_ITEM)
         {
@@ -35,7 +35,7 @@ class ConnectionItemWidget
         }
         else
         {
-            return headerMatched || ConnectionManager->GetDisplayName(connectionId).toLower().contains(searchString);
+            return headerMatched || GetDisplayName(connectionId).toLower().contains(searchString);
         }
     }
     inline const tuple<GroupId, ConnectionId> Identifier() const

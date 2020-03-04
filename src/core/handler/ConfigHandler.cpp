@@ -165,18 +165,6 @@ namespace Qv2ray::core::handlers
         return subsList;
     }
 
-    const QString QvConfigHandler::GetDisplayName(const ConnectionId &id, int limit) const
-    {
-        CheckConnectionExistance(id);
-        return TruncateString(connections[id].displayName, limit);
-    }
-
-    const QString QvConfigHandler::GetDisplayName(const GroupId &id, int limit) const
-    {
-        CheckGroupExistance(id);
-        return TruncateString(groups[id].displayName, limit);
-    }
-
     // Obsolated, Please use:
     // ConnectionId QvConnectionHandler::GetConnectionIdByDisplayName(const QString &displayName, const GroupId &group) const
     //
@@ -216,17 +204,6 @@ namespace Qv2ray::core::handlers
         }
 
         return NullGroupId;
-    }
-
-    const GroupId QvConfigHandler::GetConnectionGroupId(const ConnectionId &id) const
-    {
-        CheckConnectionExistanceEx(id, NullGroupId);
-        if (!connections.contains(id))
-        {
-            LOG(MODULE_CORE_HANDLER, "Cannot find id: " + id.toString());
-        }
-
-        return connections[id].groupId;
     }
 
     const optional<QString> QvConfigHandler::RenameConnection(const ConnectionId &id, const QString &newName)

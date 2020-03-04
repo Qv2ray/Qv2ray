@@ -39,7 +39,13 @@ namespace Qv2ray::core
     bool IsComplexConfig(const ConnectionId &id);
     //
     const QString GetConnectionProtocolString(const ConnectionId &id);
+    //
+    const QString GetDisplayName(const ConnectionId &id, int limit = -1);
+    const QString GetDisplayName(const GroupId &id, int limit = -1);
+    //
 
+    const GroupId GetConnectionGroupId(const ConnectionId &id);
+    //
 } // namespace Qv2ray::core
 
 using namespace Qv2ray::core;

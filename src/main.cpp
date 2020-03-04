@@ -514,8 +514,8 @@ int main(int argc, char *argv[])
         QGuiApplication::setFallbackSessionManagementEnabled(false);
         QObject::connect(&_qApp, &QGuiApplication::commitDataRequest, []() { LOG(MODULE_INIT, "Quit triggered by session manager.") });
 #ifndef Q_OS_WIN
-        signal(SIGUSR1, [](int) { emit MainWindow::mwInstance->Connect(); });
-        signal(SIGUSR2, [](int) { emit MainWindow::mwInstance->DisConnect(); });
+        signal(SIGUSR1, [](int) { emit MainWindow::mwInstance->StartConnection(); });
+        signal(SIGUSR2, [](int) { emit MainWindow::mwInstance->StopConnection(); });
 #endif
         auto rcode = _qApp.exec();
         delete ConnectionManager;

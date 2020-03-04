@@ -54,7 +54,7 @@ void MainWindow::MWAddConnectionItem_p(const ConnectionId &connection, const Gro
     auto groupItem = groupNodes[groupId];
     auto connectionItem = make_shared<QTreeWidgetItem>(QStringList{
         "",                                               //
-        ConnectionManager->GetDisplayName(connection),    //
+        GetDisplayName(connection),                       //
         NumericString(GetConnectionLatency(connection)),  //
         "IMPORTTIME_NOT_SUPPORTED",                       //
         "LAST_CONNECTED_NOT_SUPPORTED",                   //
@@ -69,7 +69,7 @@ void MainWindow::MWAddConnectionItem_p(const ConnectionId &connection, const Gro
 
 void MainWindow::MWAddGroupItem_p(const GroupId &groupId)
 {
-    auto groupItem = make_shared<QTreeWidgetItem>(QStringList{ "", ConnectionManager->GetDisplayName(groupId) });
+    auto groupItem = make_shared<QTreeWidgetItem>(QStringList{ "", GetDisplayName(groupId) });
     groupNodes[groupId] = groupItem;
     connectionListWidget->addTopLevelItem(groupItem.get());
     connectionListWidget->setItemWidget(groupItem.get(), 0, new ConnectionItemWidget(groupId, connectionListWidget));
@@ -77,7 +77,6 @@ void MainWindow::MWAddGroupItem_p(const GroupId &groupId)
 
 void MainWindow::SortConnectionList(MW_ITEM_COL byCol, bool asending)
 {
-
     connectionListWidget->sortByColumn(MW_ITEM_COL_DISPLAYNAME, Qt::AscendingOrder);
     for (auto i = 0; i < connectionListWidget->topLevelItemCount(); i++)
     {
@@ -85,7 +84,7 @@ void MainWindow::SortConnectionList(MW_ITEM_COL byCol, bool asending)
     }
 }
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) //, vinstance(), hTray(this), tcpingHelper(3, this)
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     setupUi(this);
     MainWindow::mwInstance = this;
@@ -138,25 +137,16 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) //, vinstance(), h
     //
     // Setup System tray icons and menus
     hTray.setToolTip(TRAY_TOOLTIP_PREFIX);
+    //
     // Basic actions
-    action_Tray_ShowHide = new QAction(this->windowIcon(), tr("Hide"), this);
-    action_Tray_ShowPreferencesWindow = new QAction(tr("Preferences"), this);
-    action_Tray_Quit = new QAction(tr("Quit"), this);
-    action_Tray_Start = new QAction(tr("Connect"), this);
-    action_Tray_Reconnect = new QAction(tr("Reconnect"), this);
-    action_Tray_Stop = new QAction(tr("Disconnect"), this);
-    //
-    action_Tray_SetSystemProxy = new QAction(tr("Enable System Proxy"), this);
-    action_Tray_ClearSystemProxy = new QAction(tr("Disable System Proxy"), this);
-    //
     action_Tray_Start->setEnabled(true);
     action_Tray_Stop->setEnabled(false);
-    action_Tray_Reconnect->setEnabled(false);
+    action_Tray_Restart->setEnabled(false);
     //
-    tray_SystemProxyMenu->addAction(action_Tray_SetSystemProxy);
-    tray_SystemProxyMenu->addAction(action_Tray_ClearSystemProxy);
     tray_SystemProxyMenu->setTitle(tr("System Proxy"));
     tray_SystemProxyMenu->setEnabled(false);
+    tray_SystemProxyMenu->addAction(action_Tray_SetSystemProxy);
+    tray_SystemProxyMenu->addAction(action_Tray_ClearSystemProxy);
     //
     tray_RootMenu->addAction(action_Tray_ShowHide);
     tray_RootMenu->addSeparator();
@@ -165,7 +155,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) //, vinstance(), h
     tray_RootMenu->addSeparator();
     tray_RootMenu->addAction(action_Tray_Start);
     tray_RootMenu->addAction(action_Tray_Stop);
-    tray_RootMenu->addAction(action_Tray_Reconnect);
+    tray_RootMenu->addAction(action_Tray_Restart);
     tray_RootMenu->addSeparator();
     tray_RootMenu->addAction(action_Tray_Quit);
     //
@@ -174,7 +164,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) //, vinstance(), h
     //
     connect(action_Tray_Start, &QAction::triggered, [&] { ConnectionManager->StartConnection(lastConnectedId); });
     connect(action_Tray_Stop, &QAction::triggered, ConnectionManager, &QvConfigHandler::StopConnection);
-    connect(action_Tray_Reconnect, &QAction::triggered, ConnectionManager, &QvConfigHandler::RestartConnection);
+    connect(action_Tray_Restart, &QAction::triggered, ConnectionManager, &QvConfigHandler::RestartConnection);
     //
     connect(action_Tray_Quit, &QAction::triggered, this, &MainWindow::on_actionExit_triggered);
     connect(action_Tray_SetSystemProxy, &QAction::triggered, this, &MainWindow::MWSetSystemProxy);
@@ -196,9 +186,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) //, vinstance(), h
     connect(action_RCM_DuplicateThese, &QAction::triggered, this, &MainWindow::on_action_RCM_DuplicateThese_triggered);
     //
     // Globally invokable signals.
-    connect(this, &MainWindow::Connect, [&] { ConnectionManager->StartConnection(lastConnectedId); });
-    connect(this, &MainWindow::DisConnect, ConnectionManager, &QvConfigHandler::StopConnection);
-    connect(this, &MainWindow::ReConnect, ConnectionManager, &QvConfigHandler::RestartConnection);
+    connect(this, &MainWindow::StartConnection, ConnectionManager, &QvConfigHandler::RestartConnection);
+    connect(this, &MainWindow::StopConnection, ConnectionManager, &QvConfigHandler::StopConnection);
+    connect(this, &MainWindow::RestartConnection, ConnectionManager, &QvConfigHandler::RestartConnection);
     //
     hTray.setContextMenu(tray_RootMenu);
     hTray.show();
@@ -210,13 +200,13 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) //, vinstance(), h
     connectionListMenu->addAction(action_RCM_DeleteThese);
     connectionListMenu->addAction(action_RCM_ConvToComplex);
     //
-    sortMenu = new QMenu(this);
-    sortAction_SortByName_Asc = new QAction(tr("By connection name, A-Z"));
-    sortAction_SortByName_Dsc = new QAction(tr("By connection name, Z-A"));
-    sortAction_SortByData_Asc = new QAction(tr("By data, Ascending"));
-    sortAction_SortByData_Dsc = new QAction(tr("By data, Descending"));
-    sortAction_SortByLatency_Asc = new QAction(tr("By latency, Ascending"));
-    sortAction_SortByLatency_Dsc = new QAction(tr("By latency, Descending"));
+    QMenu *sortMenu = new QMenu(tr("Sort connection list."), this);
+    QAction *sortAction_SortByName_Asc = new QAction(tr("By connection name, A-Z"));
+    QAction *sortAction_SortByName_Dsc = new QAction(tr("By connection name, Z-A"));
+    QAction *sortAction_SortByLatency_Asc = new QAction(tr("By data, Ascending"));
+    QAction *sortAction_SortByLatency_Dsc = new QAction(tr("By data, Descending"));
+    QAction *sortAction_SortByData_Asc = new QAction(tr("By latency, Ascending"));
+    QAction *sortAction_SortByData_Dsc = new QAction(tr("By latency, Descending"));
     //
     connect(sortAction_SortByName_Asc, &QAction::triggered, [&] { SortConnectionList(MW_ITEM_COL_DISPLAYNAME, true); });
     connect(sortAction_SortByName_Dsc, &QAction::triggered, [&] { SortConnectionList(MW_ITEM_COL_DISPLAYNAME, false); });
@@ -411,12 +401,12 @@ void MainWindow::ToggleVisibility()
         QThread::msleep(20);
         SetWindowPos(HWND(this->winId()), HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW);
 #endif
-        tray_RootMenu->actions()[0]->setText(tr("Hide"));
+        action_Tray_ShowHide->setText(tr("Hide"));
     }
     else
     {
         this->hide();
-        tray_RootMenu->actions()[0]->setText(tr("Show"));
+        action_Tray_ShowHide->setText(tr("Show"));
     }
 }
 
@@ -549,11 +539,11 @@ void MainWindow::OnDisconnected(const ConnectionId &id)
     Q_UNUSED(id)
     action_Tray_Start->setEnabled(true);
     action_Tray_Stop->setEnabled(false);
-    action_Tray_Reconnect->setEnabled(false);
+    action_Tray_Restart->setEnabled(false);
     tray_SystemProxyMenu->setEnabled(false);
     lastConnectedId = id;
     locateBtn->setEnabled(false);
-    this->hTray.showMessage("Qv2ray", tr("Disconnected from: ") + ConnectionManager->GetDisplayName(id), this->windowIcon());
+    this->hTray.showMessage("Qv2ray", tr("Disconnected from: ") + GetDisplayName(id), this->windowIcon());
     hTray.setToolTip(TRAY_TOOLTIP_PREFIX NEWLINE);
     connetionStatusLabel->setText(tr("Not Connected"));
     if (GlobalConfig.inboundConfig.setSystemProxy)
@@ -573,12 +563,12 @@ void MainWindow::OnConnected(const ConnectionId &id)
     Q_UNUSED(id)
     action_Tray_Start->setEnabled(false);
     action_Tray_Stop->setEnabled(true);
-    action_Tray_Reconnect->setEnabled(true);
+    action_Tray_Restart->setEnabled(true);
     tray_SystemProxyMenu->setEnabled(true);
     lastConnectedId = id;
     locateBtn->setEnabled(true);
     on_clearlogButton_clicked();
-    auto name = ConnectionManager->GetDisplayName(id);
+    auto name = GetDisplayName(id);
     this->hTray.showMessage("Qv2ray", tr("Connected: ") + name, this->windowIcon());
     hTray.setToolTip(TRAY_TOOLTIP_PREFIX NEWLINE + tr("Connected: ") + name);
     connetionStatusLabel->setText(tr("Connected: ") + name);
@@ -727,8 +717,8 @@ void MainWindow::OnStatsAvailable(const ConnectionId &id, const quint64 upS, con
     netspeedLabel->setText(totalSpeedUp + NEWLINE + totalSpeedDown);
     dataamountLabel->setText(totalDataUp + NEWLINE + totalDataDown);
     //
-    hTray.setToolTip(TRAY_TOOLTIP_PREFIX NEWLINE + tr("Connected: ") + //
-                     ConnectionManager->GetDisplayName(id) + NEWLINE "Up: " + totalSpeedUp + " Down: " + totalSpeedDown);
+    hTray.setToolTip(TRAY_TOOLTIP_PREFIX NEWLINE + tr("Connected: ") + GetDisplayName(id) + //
+                     NEWLINE "Up: " + totalSpeedUp + " Down: " + totalSpeedDown);
     //
     // Set data accordingly
     connectionNodes[id]->setText(MW_ITEM_COL_DATAUSAGE, NumericString(GetConnectionTotalData(id)));
@@ -808,7 +798,7 @@ void MainWindow::OnJsonEditRequested(const ConnectionId &id)
 void MainWindow::OnConnectionCreated(const ConnectionId &id, const QString &displayName)
 {
     Q_UNUSED(displayName)
-    MWAddConnectionItem_p(id, ConnectionManager->GetConnectionGroupId(id));
+    MWAddConnectionItem_p(id, GetConnectionGroupId(id));
 }
 void MainWindow::OnConnectionDeleted(const ConnectionId &id, const GroupId &groupId)
 {
@@ -869,21 +859,16 @@ void MainWindow::on_action_RCM_DuplicateThese_triggered()
 
     LOG(MODULE_UI, "Selected " + QSTRN(connlist.count()) + " items")
 
-    if (connlist.isEmpty())
-    {
-        return;
-    }
-
-    if (connlist.count() > 1 &&
-        QvMessageBoxAsk(this, tr("Duplicating Connection(s)"), tr("Are you sure to duplicate these connection(s)?")) != QMessageBox::Yes)
+    if (connlist.count() > 1 && QvMessageBoxAsk(this, tr("Duplicating Connection(s)"), //
+                                                tr("Are you sure to duplicate these connection(s)?")) != QMessageBox::Yes)
     {
         return;
     }
 
     for (auto conn : connlist)
     {
-        ConnectionManager->CreateConnection(ConnectionManager->GetDisplayName(conn) + tr(" (Copy)"), //
-                                            ConnectionManager->GetConnectionGroupId(conn),           //
+        ConnectionManager->CreateConnection(GetDisplayName(conn) + tr(" (Copy)"), //
+                                            GetConnectionGroupId(conn),           //
                                             ConnectionManager->GetConnectionRoot(conn));
     }
 }

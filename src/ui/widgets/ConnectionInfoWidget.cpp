@@ -45,7 +45,7 @@ void ConnectionInfoWidget::ShowDetails(const tuple<GroupId, ConnectionId> &_iden
         shareLinkTxt->setText(shareLink);
         protocolLabel->setText(GetConnectionProtocolString(connectionId));
         //
-        groupLabel->setText(ConnectionManager->GetDisplayName(groupId, 175));
+        groupLabel->setText(GetDisplayName(groupId, 175));
         auto [protocol, host, port] = GetConnectionInfo(connectionId);
         Q_UNUSED(protocol)
         addressLabel->setText(host);
@@ -65,12 +65,19 @@ void ConnectionInfoWidget::ShowDetails(const tuple<GroupId, ConnectionId> &_iden
     else
     {
         connectBtn->setIcon(QICON_R("connect.png"));
-        groupNameLabel->setText(ConnectionManager->GetDisplayName(groupId));
+        groupNameLabel->setText(GetDisplayName(groupId));
         QStringList shareLinks;
         for (auto connection : ConnectionManager->Connections(groupId))
         {
             shareLinks << ConvertConfigToString(connection, false);
         }
+        //
+        auto complexCount = shareLinks.removeAll(QV2RAY_SERIALIZATION_COMPLEX_CONFIG_PLACEHOLDER);
+        if (complexCount > 0)
+        {
+            shareLinks << tr("(Ignored %1 complex config(s))").arg(complexCount);
+        }
+        //
         groupShareTxt->setPlainText(shareLinks.join(NEWLINE));
         groupSubsLinkLabel->setText(ConnectionManager->IsSubscription(groupId) ? get<0>(ConnectionManager->GetSubscriptionData(groupId)) :
                                                                                  tr("Not a subscription"));

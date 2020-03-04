@@ -44,15 +44,15 @@ namespace Qv2ray::components::plugins
 
             if (req == "START")
             {
-                emit instance->Connect();
+                emit instance->StartConnection();
             }
             else if (req == "STOP")
             {
-                emit instance->DisConnect();
+                emit instance->StopConnection();
             }
             else if (req == "RESTART")
             {
-                emit instance->ReConnect();
+                emit instance->RestartConnection();
             }
 
             auto BarConfig = GlobalConfig.toolBarConfig;

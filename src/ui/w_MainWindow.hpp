@@ -35,9 +35,9 @@ class MainWindow
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow() override;
   signals:
-    void Connect() const;
-    void DisConnect() const;
-    void ReConnect() const;
+    void StartConnection() const;
+    void StopConnection() const;
+    void RestartConnection() const;
   public slots:
     QvMessageBusSlotDecl;
   private slots:
@@ -113,29 +113,19 @@ class MainWindow
     ConnectionInfoWidget *infoWidget;
     //
     // Actions in the system tray menu
-    //
     QMenu *tray_RootMenu = new QMenu(this);
-    QAction *action_Tray_ShowHide;
-    QAction *action_Tray_ShowPreferencesWindow;
-    QAction *action_Tray_Quit;
+    QAction *action_Tray_ShowHide = new QAction(this->windowIcon(), tr("Hide"), this);
+    QAction *action_Tray_ShowPreferencesWindow = new QAction(tr("Preferences"), this);
+    QAction *action_Tray_Quit = new QAction(tr("Quit"), this);
     // --> Connectivities
-    QAction *action_Tray_Start;
-    QAction *action_Tray_Reconnect;
-    QAction *action_Tray_Stop;
+    QAction *action_Tray_Start = new QAction(tr("Connect"), this);
+    QAction *action_Tray_Restart = new QAction(tr("Reconnect"), this);
+    QAction *action_Tray_Stop = new QAction(tr("Disconnect"), this);
     // --> System proxy settings
     QMenu *tray_SystemProxyMenu = new QMenu(this);
-    QAction *action_Tray_SetSystemProxy;
-    QAction *action_Tray_ClearSystemProxy;
+    QAction *action_Tray_SetSystemProxy = new QAction(tr("Enable System Proxy"), this);
+    QAction *action_Tray_ClearSystemProxy = new QAction(tr("Disable System Proxy"), this);
     //
-    QMenu *sortMenu;
-    QAction *sortAction_SortByName_Asc;
-    QAction *sortAction_SortByName_Dsc;
-    QAction *sortAction_SortByLatency_Asc;
-    QAction *sortAction_SortByLatency_Dsc;
-    QAction *sortAction_SortByData_Asc;
-    QAction *sortAction_SortByData_Dsc;
-    //
-    // Extra Headers For w_MainWindow_extra.cpp Handling V2ray Connectivities.
     ConnectionId lastConnectedId;
     void MWSetSystemProxy();
     void CheckSubscriptionsUpdate();

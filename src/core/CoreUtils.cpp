@@ -132,4 +132,20 @@ namespace Qv2ray::core
 
         return result;
     }
+
+    const QString GetDisplayName(const ConnectionId &id, int limit)
+    {
+        return TruncateString(ConnectionManager->GetConnectionMetaObject(id).displayName, limit);
+    }
+
+    const QString GetDisplayName(const GroupId &id, int limit)
+    {
+        return TruncateString(ConnectionManager->GetGroupMetaObject(id).displayName, limit);
+    }
+
+    const GroupId GetConnectionGroupId(const ConnectionId &id)
+    {
+        return ConnectionManager->GetConnectionMetaObject(id).groupId;
+    }
+
 } // namespace Qv2ray::core

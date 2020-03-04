@@ -164,21 +164,21 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     //
     // Empty for global config.
     auto autoStartConnId = ConnectionId(CurrentConfig.autoStartId);
-    auto autoStartGroupId = ConnectionManager->GetConnectionGroupId(autoStartConnId);
+    auto autoStartGroupId = GetConnectionGroupId(autoStartConnId);
 
     for (auto group : ConnectionManager->AllGroups())
     {
-        autoStartSubsCombo->addItem(ConnectionManager->GetDisplayName(group));
+        autoStartSubsCombo->addItem(GetDisplayName(group));
     }
 
-    autoStartSubsCombo->setCurrentText(ConnectionManager->GetDisplayName(autoStartGroupId));
+    autoStartSubsCombo->setCurrentText(GetDisplayName(autoStartGroupId));
 
     for (auto conn : ConnectionManager->Connections(autoStartGroupId))
     {
-        autoStartConnCombo->addItem(ConnectionManager->GetDisplayName(conn));
+        autoStartConnCombo->addItem(GetDisplayName(conn));
     }
 
-    autoStartConnCombo->setCurrentText(ConnectionManager->GetDisplayName(autoStartConnId));
+    autoStartConnCombo->setCurrentText(GetDisplayName(autoStartConnId));
 
     // FP Settings
     if (CurrentConfig.connectionConfig.forwardProxyConfig.type.trimmed().isEmpty())
@@ -1029,7 +1029,7 @@ void PreferencesWindow::on_autoStartSubsCombo_currentIndexChanged(const QString 
 
         for (auto id : list)
         {
-            autoStartConnCombo->addItem(ConnectionManager->GetDisplayName(id));
+            autoStartConnCombo->addItem(GetDisplayName(id));
         }
     }
 }

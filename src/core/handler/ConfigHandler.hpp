@@ -68,11 +68,8 @@ namespace Qv2ray::core::handlers
         //
         const QList<GroupId> Subscriptions() const;
         //
-        // Generic Get Options
-        const QString GetDisplayName(const GroupId &id, int limit = -1) const;
-        const QString GetDisplayName(const ConnectionId &id, int limit = -1) const;
+        // Get Options
         const GroupId GetGroupIdByDisplayName(const QString &displayName) const;
-        // const ConnectionId GetConnectionIdByDisplayName(const QString &displayName) const;
         const ConnectionId GetConnectionIdByDisplayName(const QString &displayName, const GroupId &group) const;
         //
         // Connectivity Operationss
@@ -89,7 +86,6 @@ namespace Qv2ray::core::handlers
         const ConnectionId CreateConnection(const QString &displayName, const GroupId &groupId, const CONFIGROOT &root);
         //
         // Get Conncetion Property
-        const GroupId GetConnectionGroupId(const ConnectionId &id) const;
         const CONFIGROOT GetConnectionRoot(const ConnectionId &id) const;
         const CONFIGROOT GetConnectionRoot(const GroupId &group, const ConnectionId &id) const;
         //
