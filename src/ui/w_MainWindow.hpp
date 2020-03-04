@@ -65,7 +65,7 @@ class MainWindow
 
   private slots:
     void OnEditRequested(const ConnectionId &id);
-    void OnJsonEditRequested(const ConnectionId &id);
+    void OnEditJsonRequested(const ConnectionId &id);
     //
     void OnConnectionWidgetFocusRequested(const ConnectionItemWidget *widget);
     //
@@ -83,7 +83,9 @@ class MainWindow
     void OnGroupDeleted(const GroupId &id, const QList<ConnectionId> &connections);
     //
     void on_action_StartThis_triggered();
-    void on_action_RCM_ConvToComplex_triggered();
+    void on_action_RCM_EditThis_triggered();
+    void on_action_RCM_EditAsJson_triggered();
+    void on_action_RCM_EditAsComplex_triggered();
     void on_action_RCM_RenameThis_triggered();
     void on_action_RCM_DeleteThese_triggered();
     void on_action_RCM_DuplicateThese_triggered();

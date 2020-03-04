@@ -133,7 +133,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     });
     //
     connect(infoWidget, &ConnectionInfoWidget::OnEditRequested, this, &MainWindow::OnEditRequested);
-    connect(infoWidget, &ConnectionInfoWidget::OnJsonEditRequested, this, &MainWindow::OnJsonEditRequested);
+    connect(infoWidget, &ConnectionInfoWidget::OnJsonEditRequested, this, &MainWindow::OnEditJsonRequested);
     //
     // Setup System tray icons and menus
     hTray.setToolTip(TRAY_TOOLTIP_PREFIX);
@@ -168,22 +168,30 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     //
     connect(action_Tray_Quit, &QAction::triggered, this, &MainWindow::on_actionExit_triggered);
     connect(action_Tray_SetSystemProxy, &QAction::triggered, this, &MainWindow::MWSetSystemProxy);
-    connect(action_Tray_ClearSystemProxy, &QAction::triggered, [&] { ClearSystemProxy(); });
+    connect(action_Tray_ClearSystemProxy, &QAction::triggered, &ClearSystemProxy);
     connect(&hTray, &QSystemTrayIcon::activated, this, &MainWindow::on_activatedTray);
     //
     // Actions for right click the connection list
     //
-    QAction *action_RCM_StartThis = new QAction(tr("Connect to this"), this);
+    QAction *action_RCM_StartThis = new QAction(QICON_R("connect.png"), tr("Connect to this"), this);
+    //
+    QAction *action_RCM_EditThis = new QAction(QICON_R("edit.png"), tr("Edit"), this);
+    QAction *action_RCM_EditAsJson = new QAction(QICON_R("json.png"), tr("Edit as JSON"), this);
+    QAction *action_RCM_EditAsComplex = new QAction(QICON_R("edit.png"), tr("Edit as Complex Config"), this);
+    //
     QAction *action_RCM_RenameThis = new QAction(tr("Rename"), this);
-    QAction *action_RCM_DeleteThese = new QAction(tr("Delete Connection"), this);
     QAction *action_RCM_DuplicateThese = new QAction(QICON_R("duplicate.png"), tr("Duplicate to the Same Group"), this);
-    QAction *action_RCM_ConvToComplex = new QAction(QICON_R("edit.png"), tr("Edit as Complex Config"), this);
+    QAction *action_RCM_DeleteThese = new QAction(QICON_R("delete.png"), tr("Delete Connection"), this);
     //
     connect(action_RCM_StartThis, &QAction::triggered, this, &MainWindow::on_action_StartThis_triggered);
-    connect(action_RCM_ConvToComplex, &QAction::triggered, this, &MainWindow::on_action_RCM_ConvToComplex_triggered);
+    //
+    connect(action_RCM_EditThis, &QAction::triggered, this, &MainWindow::on_action_RCM_EditThis_triggered);
+    connect(action_RCM_EditAsJson, &QAction::triggered, this, &MainWindow::on_action_RCM_EditAsJson_triggered);
+    connect(action_RCM_EditAsComplex, &QAction::triggered, this, &MainWindow::on_action_RCM_EditAsComplex_triggered);
+    //
     connect(action_RCM_RenameThis, &QAction::triggered, this, &MainWindow::on_action_RCM_RenameThis_triggered);
-    connect(action_RCM_DeleteThese, &QAction::triggered, this, &MainWindow::on_action_RCM_DeleteThese_triggered);
     connect(action_RCM_DuplicateThese, &QAction::triggered, this, &MainWindow::on_action_RCM_DuplicateThese_triggered);
+    connect(action_RCM_DeleteThese, &QAction::triggered, this, &MainWindow::on_action_RCM_DeleteThese_triggered);
     //
     // Globally invokable signals.
     connect(this, &MainWindow::StartConnection, ConnectionManager, &QvConfigHandler::RestartConnection);
@@ -195,10 +203,15 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     //
     connectionListMenu = new QMenu(this);
     connectionListMenu->addAction(action_RCM_StartThis);
+    connectionListMenu->addSeparator();
+    connectionListMenu->addAction(action_RCM_EditThis);
+    connectionListMenu->addAction(action_RCM_EditAsJson);
+    connectionListMenu->addAction(action_RCM_EditAsComplex);
+    connectionListMenu->addSeparator();
     connectionListMenu->addAction(action_RCM_RenameThis);
     connectionListMenu->addAction(action_RCM_DuplicateThese);
+    connectionListMenu->addSeparator();
     connectionListMenu->addAction(action_RCM_DeleteThese);
-    connectionListMenu->addAction(action_RCM_ConvToComplex);
     //
     QMenu *sortMenu = new QMenu(tr("Sort connection list."), this);
     QAction *sortAction_SortByName_Asc = new QAction(tr("By connection name, A-Z"));
@@ -217,14 +230,17 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     //
     sortMenu->addAction(sortAction_SortByName_Asc);
     sortMenu->addAction(sortAction_SortByName_Dsc);
+    tray_RootMenu->addSeparator();
     sortMenu->addAction(sortAction_SortByData_Asc);
     sortMenu->addAction(sortAction_SortByData_Dsc);
+    tray_RootMenu->addSeparator();
     sortMenu->addAction(sortAction_SortByLatency_Asc);
     sortMenu->addAction(sortAction_SortByLatency_Dsc);
     //
     sortBtn->setMenu(sortMenu);
     //
-    LOG(MODULE_UI, "Loading data...") auto groups = ConnectionManager->AllGroups();
+    LOG(MODULE_UI, "Loading data...") //
+    auto groups = ConnectionManager->AllGroups();
 
     for (auto group : groups)
     {
@@ -497,7 +513,7 @@ void MainWindow::on_importConfigButton_clicked()
     }
 }
 
-void MainWindow::on_action_RCM_ConvToComplex_triggered()
+void MainWindow::on_action_RCM_EditAsComplex_triggered()
 {
     CheckCurrentWidget;
     if (widget->IsConnection())
@@ -784,7 +800,7 @@ void MainWindow::OnEditRequested(const ConnectionId &id)
         ConnectionManager->UpdateConnection(id, root);
     }
 }
-void MainWindow::OnJsonEditRequested(const ConnectionId &id)
+void MainWindow::OnEditJsonRequested(const ConnectionId &id)
 {
     JsonEditor w(ConnectionManager->GetConnectionRoot(id), this);
     auto root = CONFIGROOT(w.OpenEditor());
@@ -871,4 +887,16 @@ void MainWindow::on_action_RCM_DuplicateThese_triggered()
                                             GetConnectionGroupId(conn),           //
                                             ConnectionManager->GetConnectionRoot(conn));
     }
+}
+
+void MainWindow::on_action_RCM_EditThis_triggered()
+{
+    CheckCurrentWidget;
+    OnEditRequested(get<1>(widget->Identifier()));
+}
+
+void MainWindow::on_action_RCM_EditAsJson_triggered()
+{
+    CheckCurrentWidget;
+    OnEditJsonRequested(get<1>(widget->Identifier()));
 }
