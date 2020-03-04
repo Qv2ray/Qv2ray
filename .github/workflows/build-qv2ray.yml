@@ -50,12 +50,19 @@ jobs:
           # 14.1 is for vs2017, 14.2 is vs2019, following the upstream vcpkg build from Qv2ray-deps repo
           toolset: 14.2
           arch: ${{ matrix.arch }}
-          mirror: 'http://mirrors.ocf.berkeley.edu/qt/'
+      - name: Cache Qt
+        id: cache-qt
+        uses: actions/cache@v1
+        with:
+          path: ../Qt
+          key: QtCache
       - name: Installing Qt - ${{ matrix.arch }}
         uses: jurplel/install-qt-action@v2.5.0
         with:
           version: ${{ matrix.qt_version }}
           arch: ${{ matrix.qtarch }}
+          mirror: 'http://mirrors.ocf.berkeley.edu/qt/'
+          cached: ${{ steps.cache-qt.outputs.cache-hit }}
 # --------------------------------------------------------
       - name: Linux - Install Packages 
         if: matrix.platform == 'ubuntu-16.04'
