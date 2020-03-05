@@ -43,6 +43,9 @@ ConnectionItemWidget::ConnectionItemWidget(const ConnectionId &id, QWidget *pare
     }
     OnConnectionItemRenamed(id, "", originalItemName);
     connect(ConnectionManager, &QvConfigHandler::OnConnectionRenamed, this, &ConnectionItemWidget::OnConnectionItemRenamed);
+    //
+    // Rename events
+    connect(renameTxt, &QLineEdit::returnPressed, this, &ConnectionItemWidget::on_doRenameBtn_clicked);
 }
 
 // ======================================= Initialisation for root nodes.
@@ -52,6 +55,9 @@ ConnectionItemWidget::ConnectionItemWidget(const GroupId &id, QWidget *parent) :
     layout()->removeWidget(dataLabel);
     delete connTypeLabel;
     delete dataLabel;
+    //
+    delete doRenameBtn;
+    delete renameTxt;
     //
     groupId = id;
     itemType = GROUP_HEADER_ITEM;
@@ -70,6 +76,23 @@ ConnectionItemWidget::ConnectionItemWidget(const GroupId &id, QWidget *parent) :
     connect(ConnectionManager, &QvConfigHandler::OnSubscriptionUpdateFinished, this, &ConnectionItemWidget::RecalculateConnectionsCount);
     //
     connect(ConnectionManager, &QvConfigHandler::OnGroupRenamed, this, &ConnectionItemWidget::OnGroupItemRenamed);
+}
+
+void ConnectionItemWidget::keyPressEvent(QKeyEvent *e)
+{
+    if (e->key() == Qt::Key_Escape)
+    {
+        QLineEdit *focus = qobject_cast<QLineEdit *>(focusWidget());
+        if (focus != nullptr)
+        {
+            stackedWidget->setCurrentIndex(0);
+        }
+    }
+    else if (e->key() == Qt::Key_F2)
+    {
+        BeginRename();
+    }
+    QWidget::keyPressEvent(e);
 }
 
 void ConnectionItemWidget::BeginConnection()
@@ -142,6 +165,7 @@ void ConnectionItemWidget::BeginRename()
     renameTxt->setStyle(QStyleFactory::create("Fusion"));
     renameTxt->setStyleSheet("background-color: " + this->palette().color(this->backgroundRole()).name(QColor::HexRgb));
     renameTxt->setText(originalItemName);
+    renameTxt->setFocus();
 }
 
 ConnectionItemWidget::~ConnectionItemWidget()
@@ -161,4 +185,29 @@ void ConnectionItemWidget::on_doRenameBtn_clicked()
         ConnectionManager->RenameConnection(connectionId, renameTxt->text());
     }
     stackedWidget->setCurrentIndex(0);
+}
+void ConnectionItemWidget::OnConnectionItemRenamed(const ConnectionId &id, const QString &, const QString &newName)
+{
+    if (id == connectionId)
+    {
+        if (ConnectionManager->IsConnected(id))
+        {
+            connNameLabel->setText("• " + newName);
+        }
+        else
+        {
+            connNameLabel->setText(newName);
+        }
+        originalItemName = newName;
+        this->setToolTip(newName);
+    }
+}
+void ConnectionItemWidget::OnGroupItemRenamed(const GroupId &id, const QString &, const QString &newName)
+{
+    if (id == groupId)
+    {
+        originalItemName = newName;
+        connNameLabel->setText(newName);
+        this->setToolTip(newName);
+    }
 }

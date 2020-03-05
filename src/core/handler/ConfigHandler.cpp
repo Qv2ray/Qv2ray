@@ -304,7 +304,8 @@ namespace Qv2ray::core::handlers
 
     void QvConfigHandler::RestartConnection() // const ConnectionId &id
     {
-        if (currentConnectionId != NullConnectionId)
+        auto conn = currentConnectionId;
+        if (conn != NullConnectionId)
         {
             StopConnection();
             StartConnection(conn);

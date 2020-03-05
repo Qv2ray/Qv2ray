@@ -97,6 +97,8 @@ class MainWindow
     //
     void SortConnectionList(MW_ITEM_COL byCol, bool asending);
 
+    void on_connectionListWidget_itemSelectionChanged();
+
   private:
     QHash<GroupId, shared_ptr<QTreeWidgetItem>> groupNodes;
     QHash<ConnectionId, shared_ptr<QTreeWidgetItem>> connectionNodes;

@@ -294,11 +294,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
 void MainWindow::keyPressEvent(QKeyEvent *e)
 {
-    if (e->key() == Qt::Key_Enter || e->key() == Qt::Key_Return)
+    if (focusWidget() == connectionListWidget)
     {
-        if (focusWidget() == connectionListWidget)
+        CheckCurrentWidget;
+        if (e->key() == Qt::Key_Enter || e->key() == Qt::Key_Return)
         {
-            CheckCurrentWidget;
             // If pressed enter or return on connectionListWidget. Try to connect to the selected connection.
             if (widget->IsConnection())
             {
@@ -309,6 +309,7 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
                 connectionListWidget->expandItem(connectionListWidget->currentItem());
             }
         }
+        widget->keyPressEvent(e);
     }
 }
 
@@ -899,4 +900,13 @@ void MainWindow::on_action_RCM_EditAsJson_triggered()
 {
     CheckCurrentWidget;
     OnEditJsonRequested(get<1>(widget->Identifier()));
+}
+
+void MainWindow::on_connectionListWidget_itemSelectionChanged()
+{
+    if (connectionListWidget->selectedItems().count() > 0)
+    {
+        connectionListWidget->setCurrentItem(connectionListWidget->selectedItems().first());
+        connectionListWidget->setFocus();
+    }
 }
