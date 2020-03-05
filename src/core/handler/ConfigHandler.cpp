@@ -69,7 +69,8 @@ namespace Qv2ray::core::handlers
         httpHelper = new QvHttpRequestHelper(this);
         connect(tcpingHelper, &QvTCPingHelper::OnLatencyTestCompleted, this, &QvConfigHandler::OnLatencyDataArrived);
         //
-        saveTimerId = startTimer(10 * 1000);
+        // Save per 2 minutes.
+        saveTimerId = startTimer(2 * 60 * 1000);
         // Do not ping all...
         // pingAllTimerId = startTimer(5 * 60 * 1000);
         pingConnectionTimerId = startTimer(60 * 1000);
@@ -77,8 +78,8 @@ namespace Qv2ray::core::handlers
 
     void QvConfigHandler::CHSaveConfigData_p()
     {
-        // Copy
-        auto newGlobalConfig = GlobalConfig;
+        // Do not copy construct.
+        auto &newGlobalConfig = GlobalConfig;
         newGlobalConfig.connections.clear();
         newGlobalConfig.groups.clear();
         newGlobalConfig.subscriptions.clear();
@@ -165,21 +166,6 @@ namespace Qv2ray::core::handlers
         return subsList;
     }
 
-    // Obsolated, Please use:
-    // ConnectionId QvConnectionHandler::GetConnectionIdByDisplayName(const QString &displayName, const GroupId &group) const
-    //
-    // const ConnectionId QvConnectionHandler::GetConnectionIdByDisplayName(const QString &displayName) const
-    //{
-    //    for (auto conn : connections.keys())
-    //    {
-    //        if (connections[conn].displayName == displayName)
-    //        {
-    //            return conn;
-    //        }
-    //    }
-    //
-    //    return NullConnectionId;
-    //}
     const ConnectionId QvConfigHandler::GetConnectionIdByDisplayName(const QString &displayName, const GroupId &group) const
     {
         CheckGroupExistanceEx(group, NullConnectionId);
@@ -318,8 +304,7 @@ namespace Qv2ray::core::handlers
 
     void QvConfigHandler::RestartConnection() // const ConnectionId &id
     {
-        auto conn = currentConnectionId;
-        if (conn != NullConnectionId)
+        if (currentConnectionId != NullConnectionId)
         {
             StopConnection();
             StartConnection(conn);
@@ -333,6 +318,7 @@ namespace Qv2ray::core::handlers
         // if (currentConnectionId == id) {
         //}
         CHStopConnection_p();
+        CHSaveConfigData_p();
     }
 
     bool QvConfigHandler::IsConnected(const ConnectionId &id) const
