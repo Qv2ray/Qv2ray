@@ -116,7 +116,7 @@ namespace Qv2ray::core::handlers
         void OnConnectionCreated(const ConnectionId &id, const QString &displayName);
         void OnConnectionRenamed(const ConnectionId &id, const QString &originalName, const QString &newName);
         void OnConnectionDeleted(const ConnectionId &id, const GroupId &originalGroupId);
-        void OnConnectionChanged(const ConnectionId &id);
+        void OnConnectionModified(const ConnectionId &id);
         void OnConnectionGroupChanged(const ConnectionId &id, const GroupId &originalGroup, const GroupId &newGroup);
         //
         void OnLatencyTestStarted(const ConnectionId &id);

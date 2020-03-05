@@ -21,8 +21,16 @@ ConnectionInfoWidget::ConnectionInfoWidget(QWidget *parent) : QWidget(parent)
     //
     connect(ConnectionManager, &QvConfigHandler::OnConnected, this, &ConnectionInfoWidget::OnConnected);
     connect(ConnectionManager, &QvConfigHandler::OnDisconnected, this, &ConnectionInfoWidget::OnDisConnected);
+    //
+    connect(ConnectionManager, &QvConfigHandler::OnConnectionModified, [&](const ConnectionId &id) {
+        if (id == connectionId)
+            ShowDetails({ GetConnectionGroupId(id), id });
+    });
+    connect(ConnectionManager, &QvConfigHandler::OnConnectionGroupChanged, [&](const ConnectionId &id) {
+        if (id == connectionId)
+            ShowDetails({ GetConnectionGroupId(id), id });
+    });
 }
-
 void ConnectionInfoWidget::ShowDetails(const tuple<GroupId, ConnectionId> &_identifier)
 {
     shareLinkTxt->setStyleSheet("border-bottom: 1px solid gray; border-radius: 0px; padding: 2px; background-color: " +

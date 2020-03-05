@@ -374,12 +374,13 @@ namespace Qv2ray::core::handlers
         auto path = (groups[groupId].isSubscription ? QV2RAY_SUBSCRIPTION_DIR : QV2RAY_CONNECTIONS_DIR) + groupId.toString() + "/" +
                     id.toString() + QV2RAY_CONFIG_FILE_EXTENSION;
         auto content = JsonToString(root);
-        emit OnConnectionChanged(id);
+        bool result = StringToFile(content, path);
+        emit OnConnectionModified(id);
         if (!skipRestart && id == currentConnectionId)
         {
             emit RestartConnection();
         }
-        return StringToFile(content, path);
+        return result;
     }
 
     const GroupId QvConfigHandler::CreateGroup(const QString displayName, bool isSubscription)

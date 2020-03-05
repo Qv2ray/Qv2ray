@@ -20,22 +20,15 @@ ConnectionItemWidget::ConnectionItemWidget(const ConnectionId &id, QWidget *pare
     groupId = GetConnectionGroupId(id);
     originalItemName = GetDisplayName(id);
     itemType = NODE_ITEM;
+    //
+    indentSpacer->changeSize(10, indentSpacer->sizeHint().height());
+    //
     auto latency = GetConnectionLatency(id);
-
-    if (latency == 0)
-    {
-        latencyLabel->setText(tr("Not Tested"));
-    }
-    else
-    {
-        latencyLabel->setText(QSTRN(latency) + " " + tr("ms"));
-    }
-
+    latencyLabel->setText(latency == 0 ? tr("Not Tested") : (QSTRN(latency) + " " + tr("ms")));
+    //
     connTypeLabel->setText(tr("Type: ") + GetConnectionProtocolString(id));
     auto [uplink, downlink] = GetConnectionUsageAmount(connectionId);
     dataLabel->setText(FormatBytes(uplink) + " / " + FormatBytes(downlink));
-    //
-    indentSpacer->changeSize(10, indentSpacer->sizeHint().height());
     //
     if (ConnectionManager->IsConnected(id))
     {
@@ -46,6 +39,10 @@ ConnectionItemWidget::ConnectionItemWidget(const ConnectionId &id, QWidget *pare
     //
     // Rename events
     connect(renameTxt, &QLineEdit::returnPressed, this, &ConnectionItemWidget::on_doRenameBtn_clicked);
+    connect(ConnectionManager, &QvConfigHandler::OnConnectionModified, [&](const ConnectionId &id) {
+        if (id == connectionId)
+            connTypeLabel->setText(tr("Type: ") + GetConnectionProtocolString(id)); //
+    });
 }
 
 // ======================================= Initialisation for root nodes.
@@ -71,7 +68,7 @@ ConnectionItemWidget::ConnectionItemWidget(const GroupId &id, QWidget *parent) :
     OnGroupItemRenamed(id, "", originalItemName);
     connect(ConnectionManager, &QvConfigHandler::OnConnectionCreated, this, &ConnectionItemWidget::RecalculateConnectionsCount);
     connect(ConnectionManager, &QvConfigHandler::OnConnectionDeleted, this, &ConnectionItemWidget::RecalculateConnectionsCount);
-    connect(ConnectionManager, &QvConfigHandler::OnConnectionChanged, this, &ConnectionItemWidget::RecalculateConnectionsCount);
+    connect(ConnectionManager, &QvConfigHandler::OnConnectionModified, this, &ConnectionItemWidget::RecalculateConnectionsCount);
     connect(ConnectionManager, &QvConfigHandler::OnConnectionGroupChanged, this, &ConnectionItemWidget::RecalculateConnectionsCount);
     connect(ConnectionManager, &QvConfigHandler::OnSubscriptionUpdateFinished, this, &ConnectionItemWidget::RecalculateConnectionsCount);
     //
@@ -148,14 +145,7 @@ void ConnectionItemWidget::OnLatencyTestFinished(const ConnectionId &id, const u
 {
     if (id == connectionId)
     {
-        if (average == 0)
-        {
-            latencyLabel->setText(tr("Error"));
-        }
-        else
-        {
-            latencyLabel->setText(QSTRN(average) + tr("ms"));
-        }
+        latencyLabel->setText(average == 0 ? tr("Error") : QSTRN(average) + tr("ms"));
     }
 }
 
@@ -186,22 +176,17 @@ void ConnectionItemWidget::on_doRenameBtn_clicked()
     }
     stackedWidget->setCurrentIndex(0);
 }
+
 void ConnectionItemWidget::OnConnectionItemRenamed(const ConnectionId &id, const QString &, const QString &newName)
 {
     if (id == connectionId)
     {
-        if (ConnectionManager->IsConnected(id))
-        {
-            connNameLabel->setText("• " + newName);
-        }
-        else
-        {
-            connNameLabel->setText(newName);
-        }
+        connNameLabel->setText((ConnectionManager->IsConnected(id) ? "• " : "") + newName);
         originalItemName = newName;
         this->setToolTip(newName);
     }
 }
+
 void ConnectionItemWidget::OnGroupItemRenamed(const GroupId &id, const QString &, const QString &newName)
 {
     if (id == groupId)
