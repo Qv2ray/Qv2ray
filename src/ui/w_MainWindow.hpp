@@ -99,6 +99,12 @@ class MainWindow
 
     void on_connectionListWidget_itemSelectionChanged();
 
+    void on_chartVisibilityBtn_clicked();
+
+    void on_logVisibilityBtn_clicked();
+
+    void on_clearChartBtn_clicked();
+
   private:
     QHash<GroupId, shared_ptr<QTreeWidgetItem>> groupNodes;
     QHash<ConnectionId, shared_ptr<QTreeWidgetItem>> connectionNodes;

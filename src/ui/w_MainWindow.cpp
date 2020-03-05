@@ -910,3 +910,18 @@ void MainWindow::on_connectionListWidget_itemSelectionChanged()
         connectionListWidget->setFocus();
     }
 }
+
+void MainWindow::on_chartVisibilityBtn_clicked()
+{
+    speedChartHolderWidget->setVisible(!speedChartWidget->isVisible());
+}
+
+void MainWindow::on_logVisibilityBtn_clicked()
+{
+    masterLogBrowser->setVisible(!masterLogBrowser->isVisible());
+}
+
+void MainWindow::on_clearChartBtn_clicked()
+{
+    speedChartWidget->Clear();
+}

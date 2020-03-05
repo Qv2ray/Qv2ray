@@ -19,6 +19,9 @@
   <property name="windowTitle">
    <string>Qv2ray</string>
   </property>
+  <property name="toolTip">
+   <string>Click to toggle show/hide</string>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <property name="sizePolicy">
     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -137,7 +140,7 @@
              </sizepolicy>
             </property>
             <property name="toolTip">
-             <string>Import connection</string>
+             <string>Import Connection</string>
             </property>
             <property name="text">
              <string>Add</string>
@@ -167,6 +170,9 @@
         </item>
         <item row="0" column="2">
          <widget class="QToolButton" name="sortBtn">
+          <property name="toolTip">
+           <string>Sort</string>
+          </property>
           <property name="text">
            <string/>
           </property>
@@ -240,9 +246,9 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-19</y>
+          <y>-194</y>
           <width>480</width>
-          <height>743</height>
+          <height>752</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -279,33 +285,53 @@
             <property name="bottomMargin">
              <number>0</number>
             </property>
-            <property name="spacing">
-             <number>0</number>
-            </property>
            </layout>
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_9">
-           <property name="font">
-            <font>
-             <pointsize>13</pointsize>
-            </font>
-           </property>
-           <property name="text">
-            <string>Speed Graph</string>
-           </property>
-          </widget>
+          <layout class="QHBoxLayout" name="horizontalLayout_5">
+           <item>
+            <widget class="QPushButton" name="chartVisibilityBtn">
+             <property name="font">
+              <font>
+               <pointsize>13</pointsize>
+              </font>
+             </property>
+             <property name="focusPolicy">
+              <enum>Qt::NoFocus</enum>
+             </property>
+             <property name="toolTip">
+              <string>Click to toggle show/hide</string>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">Text-align:left;</string>
+             </property>
+             <property name="text">
+              <string>  Speed Graph</string>
+             </property>
+             <property name="flat">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QToolButton" name="clearChartBtn">
+             <property name="toolTip">
+              <string>Clear chart data</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset resource="../../resources.qrc">
+               <normaloff>:/assets/icons/ui_light/delete.png</normaloff>:/assets/icons/ui_light/delete.png</iconset>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </item>
          <item>
-          <widget class="Line" name="line">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QWidget" name="widget" native="true">
+          <widget class="QWidget" name="speedChartHolderWidget" native="true">
            <property name="minimumSize">
             <size>
              <width>0</width>
@@ -313,9 +339,6 @@
             </size>
            </property>
            <layout class="QGridLayout" name="speedChart">
-            <property name="leftMargin">
-             <number>0</number>
-            </property>
             <property name="topMargin">
              <number>0</number>
             </property>
@@ -329,52 +352,84 @@
           </widget>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="1,0">
+          <layout class="QHBoxLayout" name="horizontalLayout_4">
            <item>
-            <widget class="QLabel" name="label_10">
+            <widget class="QPushButton" name="logVisibilityBtn">
              <property name="font">
               <font>
                <pointsize>13</pointsize>
               </font>
              </property>
+             <property name="focusPolicy">
+              <enum>Qt::NoFocus</enum>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">Text-align:left;</string>
+             </property>
              <property name="text">
-              <string>Log</string>
+              <string>  Log</string>
+             </property>
+             <property name="flat">
+              <bool>true</bool>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="clearlogButton">
+            <widget class="QToolButton" name="clearlogButton">
+             <property name="toolTip">
+              <string>Clear log</string>
+             </property>
              <property name="text">
-              <string>Clear Log</string>
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset resource="../../resources.qrc">
+               <normaloff>:/assets/icons/ui_light/delete.png</normaloff>:/assets/icons/ui_light/delete.png</iconset>
              </property>
             </widget>
            </item>
           </layout>
          </item>
          <item>
-          <widget class="Line" name="line_2">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
+          <layout class="QGridLayout" name="gridLayout_2">
+           <property name="leftMargin">
+            <number>6</number>
            </property>
-          </widget>
+           <item row="0" column="0">
+            <widget class="QTextBrowser" name="masterLogBrowser">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>200</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>9</pointsize>
+              </font>
+             </property>
+             <property name="lineWrapMode">
+              <enum>QTextEdit::NoWrap</enum>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </item>
          <item>
-          <widget class="QTextBrowser" name="masterLogBrowser">
-           <property name="minimumSize">
+          <spacer name="verticalSpacer">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::MinimumExpanding</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
             <size>
-             <width>0</width>
-             <height>200</height>
+             <width>20</width>
+             <height>0</height>
             </size>
            </property>
-           <property name="font">
-            <font>
-             <pointsize>9</pointsize>
-            </font>
-           </property>
-           <property name="lineWrapMode">
-            <enum>QTextEdit::NoWrap</enum>
-           </property>
-          </widget>
+          </spacer>
          </item>
         </layout>
        </widget>
@@ -384,10 +439,7 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <property name="topMargin">
-       <number>4</number>
-      </property>
-      <property name="bottomMargin">
-       <number>6</number>
+       <number>2</number>
       </property>
       <item>
        <widget class="QLabel" name="connetionStatusLabel">
@@ -451,6 +503,9 @@
           <pointsize>8</pointsize>
          </font>
         </property>
+        <property name="toolTip">
+         <string>Upload/Download speed</string>
+        </property>
         <property name="text">
          <string>0.00 B/s
 0.00 B/s</string>
@@ -504,6 +559,9 @@
          <font>
           <pointsize>8</pointsize>
          </font>
+        </property>
+        <property name="toolTip">
+         <string>Upload/Download Data</string>
         </property>
         <property name="text">
          <string>0.00 B
