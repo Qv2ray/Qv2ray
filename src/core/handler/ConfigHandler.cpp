@@ -195,10 +195,6 @@ namespace Qv2ray::core::handlers
     const optional<QString> QvConfigHandler::RenameConnection(const ConnectionId &id, const QString &newName)
     {
         CheckConnectionExistance(id);
-        if (!connections.contains(id))
-        {
-            return tr("Connection doesn't exist");
-        }
         OnConnectionRenamed(id, connections[id].displayName, newName);
         connections[id].displayName = newName;
         return {};
@@ -371,7 +367,7 @@ namespace Qv2ray::core::handlers
         }
     }
 
-    bool QvConfigHandler::UpdateConnection(const ConnectionId &id, const CONFIGROOT &root)
+    bool QvConfigHandler::UpdateConnection(const ConnectionId &id, const CONFIGROOT &root, bool skipRestart)
     {
         CheckConnectionExistanceEx(id, false);
         auto groupId = connections[id].groupId;
@@ -379,6 +375,10 @@ namespace Qv2ray::core::handlers
                     id.toString() + QV2RAY_CONFIG_FILE_EXTENSION;
         auto content = JsonToString(root);
         emit OnConnectionChanged(id);
+        if (!skipRestart && id == currentConnectionId)
+        {
+            emit RestartConnection();
+        }
         return StringToFile(content, path);
     }
 
@@ -496,6 +496,7 @@ namespace Qv2ray::core::handlers
                 continue;
             }
             bool canGetOutboundData = false;
+            // Should not have complex connection we assume.
             auto outboundData = GetConnectionInfo(config, &canGetOutboundData);
             //
             // Begin guessing new ConnectionId
@@ -512,9 +513,9 @@ namespace Qv2ray::core::handlers
             {
                 LOG(MODULE_CORE_HANDLER, "Reused connection id from protocol/host/port pair for connection: " + _alias)
                 groups[id].connections << typeMap[outboundData];
+                // Update Connection Properties
                 UpdateConnection(typeMap[outboundData], config);
-                // Update displayName
-                connections[typeMap[outboundData]].displayName = _alias;
+                RenameConnection(typeMap[outboundData], _alias);
                 // Remove Connection Id from the list.
                 connectionsOrig.removeAll(typeMap[outboundData]);
             }

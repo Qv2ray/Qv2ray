@@ -62,7 +62,6 @@ namespace Qv2ray::core
 
     const tuple<QString, QString, int> GetConnectionInfo(const ConnectionId &id, bool *status)
     {
-        // TODO, what if is complex?
         if (status != nullptr)
             *status = false;
         auto root = ConnectionManager->GetConnectionRoot(id);
@@ -86,11 +85,12 @@ namespace Qv2ray::core
             {
                 if (status != nullptr)
                     *status = true;
-                if (IsComplexConfig(out))
-                {
-                    outboundType += " " + QObject::tr("(Guessed)");
-                    host += " " + QObject::tr("(Guessed)");
-                }
+                // These lines will mess up the detection of protocols in subscription update.
+                // if (IsComplexConfig(out))
+                //{
+                //    outboundType += " " + QObject::tr("(Guessed)");
+                //    host += " " + QObject::tr("(Guessed)");
+                //}
                 return { outboundType, host, port };
             }
             else

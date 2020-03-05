@@ -79,7 +79,7 @@ namespace Qv2ray::core::handlers
         bool IsConnected(const ConnectionId &id) const;
         //
         // Connection Operations.
-        bool UpdateConnection(const ConnectionId &id, const CONFIGROOT &root);
+        bool UpdateConnection(const ConnectionId &id, const CONFIGROOT &root, bool skipRestart = false);
         const optional<QString> DeleteConnection(const ConnectionId &id);
         const optional<QString> RenameConnection(const ConnectionId &id, const QString &newName);
         const optional<QString> MoveConnectionGroup(const ConnectionId &id, const GroupId &newGroupId);
