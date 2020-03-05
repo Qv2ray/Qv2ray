@@ -29,7 +29,8 @@ namespace Qv2ray::common
     QString StringFromFile(QFile *source)
     {
         source->open(QFile::ReadOnly);
-        QString str = QString::fromUtf8(source->readAll());
+        QTextStream stream(source);
+        QString str = stream.readAll();
         source->close();
         return str;
     }
@@ -47,9 +48,7 @@ namespace Qv2ray::common
         }
         bool override = targetFile.exists();
         targetFile.open(QFile::WriteOnly);
-        QTextStream stream(&targetFile);
-        stream << text << endl;
-        stream.flush();
+        targetFile.write(text.toUtf8());
         targetFile.close();
         return override;
     }
