@@ -31,7 +31,7 @@ defineTest(Qv2rayAddSource) {
     filename = $$take_first(ARGS)
     extlist = $$ARGS
     FILEPATH = "$$PWD/src/$${module}"
-    qmake_debug: message(Qv2rayAddSource: Adding \"$${filename}\" of module \"$${module}\", component \"$${component}\" to the project)
+    qmake_debug: message("Qv2rayAddSource: Adding \"$${filename}\" of module \"$${module}\", component \"$${component}\" to the project")
     equals(component, "_") {
         qmake_debug: message("Qv2rayAddSource: Component is empty, ignore")
         FILEPATH += "/$${filename}"

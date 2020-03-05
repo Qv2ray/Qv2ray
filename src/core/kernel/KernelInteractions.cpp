@@ -98,18 +98,19 @@ namespace Qv2ray::core::kernel
     bool V2rayKernelInstance::ValidateConfig(const QString &path)
     {
         QString v2rayCheckResult;
-
-        if (ValidateKernel(GlobalConfig.v2CorePath, GlobalConfig.v2AssetsPath, &v2rayCheckResult))
+        auto kernelPath = GlobalConfig.kernelConfig.KernelPath();
+        auto assetsPath = GlobalConfig.kernelConfig.AssetsPath();
+        if (ValidateKernel(kernelPath, assetsPath, &v2rayCheckResult))
         {
             DEBUG(MODULE_VCORE, "V2ray version: " + v2rayCheckResult)
             // Append assets location env.
             QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
-            env.insert("V2RAY_LOCATION_ASSET", GlobalConfig.v2AssetsPath);
+            env.insert("V2RAY_LOCATION_ASSET", assetsPath);
             //
             QProcess process;
             process.setProcessEnvironment(env);
             DEBUG(MODULE_VCORE, "Starting V2ray core with test options")
-            process.start(GlobalConfig.v2CorePath, QStringList{ "-test", "-config", path }, QIODevice::ReadWrite | QIODevice::Text);
+            process.start(kernelPath, QStringList{ "-test", "-config", path }, QIODevice::ReadWrite | QIODevice::Text);
             process.waitForFinished();
 
             if (process.exitCode() != 0)
@@ -170,9 +171,9 @@ namespace Qv2ray::core::kernel
         if (ValidateConfig(filePath))
         {
             QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
-            env.insert("V2RAY_LOCATION_ASSET", GlobalConfig.v2AssetsPath);
+            env.insert("V2RAY_LOCATION_ASSET", GlobalConfig.kernelConfig.AssetsPath());
             vProcess->setProcessEnvironment(env);
-            vProcess->start(GlobalConfig.v2CorePath, QStringList{ "-config", filePath }, QIODevice::ReadWrite | QIODevice::Text);
+            vProcess->start(GlobalConfig.kernelConfig.KernelPath(), QStringList{ "-config", filePath }, QIODevice::ReadWrite | QIODevice::Text);
             vProcess->waitForStarted();
             DEBUG(MODULE_VCORE, "V2ray core started.")
             KernelStarted = true;

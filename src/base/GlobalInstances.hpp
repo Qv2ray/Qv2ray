@@ -1,6 +1,6 @@
 #pragma once
 
-#include "base/models/QvConfigModel.hpp"
+#include "base/models/QvSettingsObject.hpp"
 #include "base/models/QvRuntimeConfig.hpp"
 #include "base/models/QvStartupConfig.hpp"
 

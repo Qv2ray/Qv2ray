@@ -15,8 +15,9 @@ namespace Qv2ray
     {
         switch (fromVersion)
         {
-            // --------------------------------------------------------------------------------------
-            // Below is for Qv2ray version 2
+                // Cases 1, 2, and 3 are not supported anymore.
+                // --------------------------------------------------------------------------------------
+                // Below is for Qv2ray version 2
             case 4:
             {
                 // We changed the "proxyCN" to "bypassCN" as it's easier to
@@ -243,6 +244,31 @@ namespace Qv2ray
                 break;
             }
 
+                // Added cross-platform vCore and vAssets path support;
+            case 9:
+            {
+                QJsonObject kernelConfig;
+#ifdef Q_OS_LINUX
+    #define _VARNAME_VCOREPATH_ kernelConfig["v2CorePath_linux"]
+    #define _VARNAME_VASSETSPATH_ kernelConfig["v2AssetsPath_linux"]
+                UPGRADELOG("Update kernel and assets paths for linux")
+#elif defined(Q_OS_MACOS)
+    #define _VARNAME_VCOREPATH_ kernelConfig["v2CorePath_macx"]
+    #define _VARNAME_VASSETSPATH_ kernelConfig["v2AssetsPath_macx"]
+                UPGRADELOG("Update kernel and assets paths for macOS")
+#elif defined(Q_OS_WIN)
+    #define _VARNAME_VCOREPATH_ kernelConfig["v2CorePath_win"]
+    #define _VARNAME_VASSETSPATH_ kernelConfig["v2AssetsPath_win"]
+                UPGRADELOG("Update kernel and assets paths for Windows")
+#endif
+                _VARNAME_VCOREPATH_ = root["v2CorePath"].toString();
+                _VARNAME_VASSETSPATH_ = root["v2AssetsPath"].toString();
+                //
+                root["kernelConfig"] = kernelConfig;
+#undef _VARNAME_VCOREPATH_
+#undef _VARNAME_VASSETSPATH_
+                break;
+            }
             default:
             {
                 // Due to technical issue, we cannot maintain all of those

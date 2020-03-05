@@ -5,7 +5,7 @@
 
 #include <chrono>
 
-const int QV2RAY_CONFIG_VERSION = 9;
+const int QV2RAY_CONFIG_VERSION = 10;
 
 namespace Qv2ray::base::config
 {
@@ -134,18 +134,57 @@ namespace Qv2ray::base::config
         XTOSTRUCT(O(enableAPI, statsPort))
     };
 
+    struct Qv2rayKernelConfig
+    {
+        QString v2CorePath_linux;
+        QString v2AssetsPath_linux;
+        QString v2CorePath_macx;
+        QString v2AssetsPath_macx;
+        QString v2CorePath_win;
+        QString v2AssetsPath_win; //
+        Qv2rayKernelConfig()
+            : v2CorePath_linux(), v2AssetsPath_linux(), //
+              v2CorePath_macx(), v2AssetsPath_macx(),   //
+              v2CorePath_win(), v2AssetsPath_win()      //
+        {
+        }
+        //
+#ifdef Q_OS_LINUX
+    #define _VARNAME_VCOREPATH_ v2CorePath_linux
+    #define _VARNAME_VASSETSPATH_ v2AssetsPath_linux
+#elif defined(Q_OS_MACOS)
+    #define _VARNAME_VCOREPATH_ v2CorePath_macx
+    #define _VARNAME_VASSETSPATH_ v2AssetsPath_macx
+#elif defined(Q_OS_WIN)
+    #define _VARNAME_VCOREPATH_ v2CorePath_win
+    #define _VARNAME_VASSETSPATH_ v2AssetsPath_win
+#endif
+
+        inline const QString KernelPath(const QString &path = "")
+        {
+            return path.isEmpty() ? _VARNAME_VCOREPATH_ : _VARNAME_VCOREPATH_ = path;
+        }
+        inline const QString AssetsPath(const QString &path = "")
+        {
+            return path.isEmpty() ? _VARNAME_VASSETSPATH_ : _VARNAME_VASSETSPATH_ = path;
+        }
+
+#undef _VARNAME_VCOREPATH_
+#undef _VARNAME_VASSETSPATH_
+
+        XTOSTRUCT(O(v2CorePath_linux, v2AssetsPath_linux, v2CorePath_macx, v2CorePath_macx, v2CorePath_win, v2AssetsPath_win))
+    };
+
     struct Qv2rayConfig
     {
         int config_version;
         bool tProxySupport;
         int logLevel;
         //
-        QString v2CorePath;
-        QString v2AssetsPath;
         QString ignoredVersion;
         QString autoStartId;
         //
-        // Key = groupId, connectionId, subscriptionId
+        // Key = groupId, connectionId
         QMap<QString, GroupObject_Config> groups;
         QMap<QString, SubscriptionObject_Config> subscriptions;
         /// Connections are used privately.
@@ -153,17 +192,18 @@ namespace Qv2ray::base::config
         //
         Qv2rayUIConfig uiConfig;
         Qv2rayAPIConfig apiConfig;
+        Qv2rayKernelConfig kernelConfig;
         Qv2rayToolBarConfig toolBarConfig;
         Qv2rayInboundsConfig inboundConfig;
         Qv2rayConnectionConfig connectionConfig;
 
         Qv2rayConfig()
-            : config_version(QV2RAY_CONFIG_VERSION), tProxySupport(false), logLevel(), v2CorePath(), v2AssetsPath(), ignoredVersion(), groups(),
-              subscriptions(), connections(), uiConfig(), apiConfig(), toolBarConfig(), inboundConfig(), connectionConfig()
+            : config_version(QV2RAY_CONFIG_VERSION), tProxySupport(false), logLevel(), ignoredVersion(), autoStartId("null"), groups(),
+              subscriptions(), connections(), uiConfig(), apiConfig(), kernelConfig(), toolBarConfig(), inboundConfig(), connectionConfig()
         {
         }
 
-        XTOSTRUCT(O(config_version, ignoredVersion, tProxySupport, logLevel, uiConfig, v2CorePath, v2AssetsPath, groups, connections,
-                    subscriptions, autoStartId, inboundConfig, connectionConfig, toolBarConfig, apiConfig))
+        XTOSTRUCT(O(config_version, ignoredVersion, tProxySupport, logLevel, uiConfig, kernelConfig, groups, connections, subscriptions,
+                    autoStartId, inboundConfig, connectionConfig, toolBarConfig, apiConfig))
     };
 } // namespace Qv2ray::base::config

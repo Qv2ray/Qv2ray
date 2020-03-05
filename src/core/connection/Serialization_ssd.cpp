@@ -5,8 +5,6 @@
  * @copyright Licensed under GPLv3.
  */
 
-#pragma once
-
 #include "base/Qv2rayBase.hpp"
 #include "common/QvHelpers.hpp"
 #include "core/connection/Serialization.hpp"

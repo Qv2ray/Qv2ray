@@ -21,7 +21,7 @@
 // Code Models
 #include "base/models/CoreObjectModels.hpp"
 #include "base/models/QvConfigIdentifier.hpp"
-#include "base/models/QvConfigModel.hpp"
+#include "base/models/QvSettingsObject.hpp"
 #include "base/models/QvRuntimeConfig.hpp"
 #include "base/models/QvSafeType.hpp"
 #include "base/models/QvStartupConfig.hpp"

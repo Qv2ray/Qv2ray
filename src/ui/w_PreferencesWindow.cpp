@@ -113,8 +113,8 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     socksUDPIP->setText(CurrentConfig.inboundConfig.socksLocalIP);
     //
     //
-    vCorePathTxt->setText(CurrentConfig.v2CorePath);
-    vCoreAssetsPathTxt->setText(CurrentConfig.v2AssetsPath);
+    vCorePathTxt->setText(CurrentConfig.kernelConfig.KernelPath());
+    vCoreAssetsPathTxt->setText(CurrentConfig.kernelConfig.AssetsPath());
     enableAPI->setChecked(CurrentConfig.apiConfig.enableAPI);
     statsPortBox->setValue(CurrentConfig.apiConfig.statsPort);
     //
@@ -317,7 +317,7 @@ void PreferencesWindow::on_logLevelComboBox_currentIndexChanged(int index)
 void PreferencesWindow::on_vCoreAssetsPathTxt_textEdited(const QString &arg1)
 {
     NEEDRESTART
-    CurrentConfig.v2AssetsPath = arg1;
+    CurrentConfig.kernelConfig.AssetsPath(arg1);
 }
 
 void PreferencesWindow::on_listenIPTxt_textEdited(const QString &arg1)
@@ -400,7 +400,7 @@ void PreferencesWindow::on_selectVCoreBtn_clicked()
 void PreferencesWindow::on_vCorePathTxt_textEdited(const QString &arg1)
 {
     NEEDRESTART
-    CurrentConfig.v2CorePath = arg1;
+    CurrentConfig.kernelConfig.KernelPath(arg1);
 }
 
 void PreferencesWindow::on_DNSListTxt_textChanged()
@@ -454,6 +454,7 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
     // --> 2. Change GlobalConfig.v2CorePath.
     // --> 3. Call `pkexec setcap
     // CAP_NET_ADMIN,CAP_NET_RAW,CAP_NET_BIND_SERVICE=eip` on the V2ray core.
+    auto const kernelPath = CurrentConfig.kernelConfig.KernelPath();
     if (arg1 == Qt::Checked)
     {
         // We enable it!
@@ -468,9 +469,10 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
         }
         else
         {
+
             LOG(MODULE_VCORE, "ENABLING tProxy Support")
-            LOG(MODULE_FILEIO, " --> Origin V2ray core file is at: " + CurrentConfig.v2CorePath)
-            auto v2ctlPath = QFileInfo(CurrentConfig.v2CorePath).absolutePath() + "/v2ctl";
+            LOG(MODULE_FILEIO, " --> Origin V2ray core file is at: " + kernelPath)
+            auto v2ctlPath = QFileInfo(kernelPath).absolutePath() + "/v2ctl";
             auto newPath = QFileInfo(QV2RAY_TPROXY_VCORE_PATH).absolutePath();
             QString mkPathResult = QDir().mkpath(newPath) ? "OK" : "FAILED";
             LOG(MODULE_FILEIO, " --> mkPath result: " + mkPathResult)
@@ -480,7 +482,7 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
             //
             LOG(MODULE_FILEIO, " --> Copying files....")
 
-            if (QFileInfo(CurrentConfig.v2CorePath).absoluteFilePath() != QFileInfo(QV2RAY_TPROXY_VCORE_PATH).absoluteFilePath())
+            if (QFileInfo(kernelPath).absoluteFilePath() != QFileInfo(QV2RAY_TPROXY_VCORE_PATH).absoluteFilePath())
             {
                 // Only trying to remove file when they are not in the default
                 // dir. (In other words...) Keep using the current files.
@@ -501,7 +503,7 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
                     QFile(QV2RAY_TPROXY_VCTL_PATH).remove();
                 }
 
-                QString vCoreresult = QFile(CurrentConfig.v2CorePath).copy(QV2RAY_TPROXY_VCORE_PATH) ? "OK" : "FAILED";
+                QString vCoreresult = QFile(kernelPath).copy(QV2RAY_TPROXY_VCORE_PATH) ? "OK" : "FAILED";
                 LOG(MODULE_FILEIO, " --> V2ray Core: " + vCoreresult)
                 //
                 QString vCtlresult = QFile(v2ctlPath).copy(QV2RAY_TPROXY_VCTL_PATH) ? "OK" : "FAILED";
@@ -517,8 +519,8 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
                 {
                     LOG(MODULE_VCORE, "FAILED to copy V2ray files. Aborting.")
                     QvMessageBoxWarn(this, tr("Enable tProxy Support"),
-                                     tr("Qv2ray cannot copy one or both V2ray files from: ") + NEWLINE + NEWLINE + CurrentConfig.v2CorePath +
-                                         NEWLINE + v2ctlPath + NEWLINE + NEWLINE + tr("to this path: ") + NEWLINE + newPath);
+                                     tr("Qv2ray cannot copy one or both V2ray files from: ") + NEWLINE + NEWLINE + kernelPath + NEWLINE +
+                                         v2ctlPath + NEWLINE + NEWLINE + tr("to this path: ") + NEWLINE + newPath);
                     return;
                 }
             }
@@ -529,7 +531,7 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
             }
 
             LOG(MODULE_UI, "Calling pkexec and setcap...")
-            int ret = QProcess::execute("pkexec setcap CAP_NET_ADMIN,CAP_NET_RAW,CAP_NET_BIND_SERVICE=eip " + CurrentConfig.v2CorePath);
+            int ret = QProcess::execute("pkexec setcap CAP_NET_ADMIN,CAP_NET_RAW,CAP_NET_BIND_SERVICE=eip " + kernelPath);
 
             if (ret != 0)
             {
@@ -543,7 +545,7 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
     }
     else
     {
-        int ret = QProcess::execute("pkexec setcap -r " + CurrentConfig.v2CorePath);
+        int ret = QProcess::execute("pkexec setcap -r " + kernelPath);
 
         if (ret != 0)
         {
