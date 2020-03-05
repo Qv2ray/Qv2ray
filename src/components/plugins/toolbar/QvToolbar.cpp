@@ -1,8 +1,9 @@
-﻿#include <QThread>
-#include "components/plugins/toolbar/QvToolbar.hpp"
+﻿#include "components/plugins/toolbar/QvToolbar.hpp"
 
 #include "common/QvHelpers.hpp"
-#include "ui/w_MainWindow.hpp"
+#include "core/handler/ConfigHandler.hpp"
+
+#include <QThread>
 
 namespace Qv2ray::components::plugins
 {
@@ -31,28 +32,20 @@ namespace Qv2ray::components::plugins
         }
         QString GetAnswerToRequest(const QString &pchRequest)
         {
-            auto instance = MainWindow::mwInstance;
-            // if (instance == nullptr || instance->vinstance == nullptr) {
-            //    LOG(PLUGIN, "MainWindow != nullptr Assertion failed!")
-            //    return "{}";
-            //}
-            //
-            // auto vinstance = instance->vinstance;
-            //
             auto req = pchRequest.trimmed();
             QString reply = "{}";
 
             if (req == "START")
             {
-                emit instance->StartConnection();
+                emit ConnectionManager->RestartConnection();
             }
             else if (req == "STOP")
             {
-                emit instance->StopConnection();
+                emit ConnectionManager->StopConnection();
             }
             else if (req == "RESTART")
             {
-                emit instance->RestartConnection();
+                emit ConnectionManager->RestartConnection();
             }
 
             auto BarConfig = GlobalConfig.toolBarConfig;
@@ -93,86 +86,92 @@ namespace Qv2ray::components::plugins
                             break;
                         }
 
-                            // case 104: {
-                            //    // Current Connection Name
-                            //    CL.Message =
-                            //    instance->GetCurrentConnectedConfigName();
-                            //    break;
-                            //}
-                            //
-                            // case 105: {
-                            //    // Current Connection Status
-                            //    CL.Message =
-                            //    instance->vinstance->KernelStarted
-                            //                 ? QObject::tr("Connected")
-                            //                 : QObject::tr("Disconnected");
-                            //    break;
-                            //}
-                            //
-                            // case 201: {
+                        case 104:
+                        {
+                            // Current Connection Name
+                            CL.Message = GetDisplayName(ConnectionManager->CurrentConnection());
+                            break;
+                        }
+
+                        case 105:
+                        {
+                            // Current Connection Status
+                            CL.Message = ConnectionManager->CurrentConnection() == NullConnectionId ? QObject::tr("Not connected") :
+                                                                                                      QObject::tr("Connected");
+                            break;
+                        }
+
+                            // case 201:
+                            //{
                             //    // Total upload speed;
-                            //    CL.Message =
-                            //    FormatBytes(vinstance->getAllSpeedUp()) +
-                            //    "/s"; break;
+                            //    CL.Message = FormatBytes(get<0>(GetConnectionUsageAmount())) + "/s";
+                            //    break;
                             //}
                             //
-                            // case 202: {
+                            // case 202:
+                            //{
                             //    // Total download speed;
-                            //    CL.Message =
-                            //    FormatBytes(vinstance->getAllSpeedDown()) +
-                            //    "/s"; break;
+                            //    CL.Message = FormatBytes(vinstance->getAllSpeedDown()) + "/s";
+                            //    break;
                             //}
                             //
-                            // case 203: {
+                            // case 203:
+                            //{
                             //    // Upload speed for tag
-                            //    CL.Message =
-                            //    FormatBytes(vinstance->getTagSpeedUp(CL.Message))
-                            //    + "/s"; break;
+                            //    CL.Message = FormatBytes(vinstance->getTagSpeedUp(CL.Message)) + "/s";
+                            //    break;
                             //}
                             //
-                            // case 204: {
+                            // case 204:
+                            //{
                             //    // Download speed for tag
-                            //    CL.Message =
-                            //    FormatBytes(vinstance->getTagSpeedDown(CL.Message))
-                            //    + "/s"; break;
-                            //}
-                            //
-                            // case 301: {
-                            //    // Total Upload
-                            //    CL.Message =
-                            //    FormatBytes(vinstance->getAllDataUp()); break;
-                            //}
-                            //
-                            // case 302: {
-                            //    // Total download
-                            //    CL.Message =
-                            //    FormatBytes(vinstance->getAllDataDown());
-                            //    break;
-                            //}
-                            //
-                            // case 303: {
-                            //    // Upload for tag
-                            //    CL.Message =
-                            //    FormatBytes(vinstance->getTagDataUp(CL.Message));
-                            //    break;
-                            //}
-                            //
-                            // case 304: {
-                            //    // Download for tag
-                            //    CL.Message =
-                            //    FormatBytes(vinstance->getTagDataDown(CL.Message));
+                            //    CL.Message = FormatBytes(vinstance->getTagSpeedDown(CL.Message)) + "/s";
                             //    break;
                             //}
 
+                        case 301:
+                        {
+                            // Total Upload
+                            CL.Message = FormatBytes(get<0>(GetConnectionUsageAmount(ConnectionManager->CurrentConnection())));
+                            break;
+                        }
+
+                        case 302:
+                        {
+                            // Total download
+                            CL.Message = FormatBytes(get<1>(GetConnectionUsageAmount(ConnectionManager->CurrentConnection())));
+                            break;
+                        }
+
+                            // case 303:
+                            //{
+                            //    // Upload for tag
+                            //    CL.Message = FormatBytes(vinstance->getTagDataUp(CL.Message));
+                            //    break;
+                            //}
+                            //
+                            // case 304:
+                            //{
+                            //    // Download for tag
+                            //    CL.Message = FormatBytes(vinstance->getTagDataDown(CL.Message));
+                            //    break;
+                            //}
+
+                        case 305:
+                        {
+                            // Connection latency
+                            CL.Message = QSTRN(GetConnectionLatency(ConnectionManager->CurrentConnection())) + " ms";
+                            break;
+                        }
                         default:
                         {
-                            CL.Message = "Not Supported?";
+                            CL.Message = "Not Implemented";
                             break;
                         }
                     }
                 }
             }
-
+#undef CL
             reply = StructToJsonString(BarConfig);
             return reply;
         }
