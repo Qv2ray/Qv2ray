@@ -36,4 +36,8 @@ class ConnectionInfoWidget
   private:
     ConnectionId connectionId = NullConnectionId;
     GroupId groupId = NullGroupId;
+    //
+    bool isRealPixmapShown;
+    QPixmap qrPixmap;
+    QPixmap qrPixmapBlured;
 };

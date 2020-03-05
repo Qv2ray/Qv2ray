@@ -1,5 +1,9 @@
 #include "common/QvHelpers.hpp"
 
+#include <QGraphicsEffect>
+#include <QGraphicsProxyWidget>
+#include <QGraphicsScene>
+#include <QGraphicsView>
 #include <QQueue>
 
 namespace Qv2ray::common
@@ -150,14 +154,15 @@ namespace Qv2ray::common
         return QMessageBox::question(parent, title, text, QMessageBox::Yes | QMessageBox::No | extraButtons);
     }
 
-    QString FormatBytes(long long bytes)
+    QString FormatBytes(const int64_t b)
     {
+        auto _bytes = b;
         char str[64];
         const char *sizes[5] = { "B", "KB", "MB", "GB", "TB" };
         int i;
-        double dblByte = bytes;
+        double dblByte = _bytes;
 
-        for (i = 0; i < 5 && bytes >= 1024; i++, bytes /= 1024) dblByte = bytes / 1024.0;
+        for (i = 0; i < 5 && _bytes >= 1024; i++, _bytes /= 1024) dblByte = _bytes / 1024.0;
 
         sprintf(str, "%.2f", dblByte);
         return QString(str) + " " + QString(sizes[i]);
@@ -202,5 +207,34 @@ namespace Qv2ray::common
 
             i++;
         }
+    }
+
+    QPixmap BlurImage(const QPixmap &pixmap, const double rad)
+    {
+        QGraphicsView view;
+        QGraphicsScene scene;
+        QGraphicsBlurEffect pBlur;
+        //
+        view.setScene(&scene);
+        scene.setSceneRect(pixmap.rect());
+        pBlur.setBlurRadius(rad);
+        QGraphicsPixmapItem *p = view.scene()->addPixmap(pixmap);
+        p->setGraphicsEffect(&pBlur);
+        return view.grab();
+    }
+
+    QPixmap LightenImage(const QPixmap &pixmap, const qreal factor)
+    {
+        QGraphicsView view;
+        QGraphicsScene scene;
+        QGraphicsColorizeEffect pColor;
+        pColor.setColor(QColor(Qt::white));
+        pColor.setStrength(factor);
+        //
+        view.setScene(&scene);
+        scene.setSceneRect(pixmap.rect());
+        QGraphicsPixmapItem *p = view.scene()->addPixmap(pixmap);
+        p->setGraphicsEffect(&pColor);
+        return view.grab();
     }
 } // namespace Qv2ray::common

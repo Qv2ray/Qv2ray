@@ -33,7 +33,7 @@
         return;
 
 #define GetItemWidget(item) (qobject_cast<ConnectionItemWidget *>(connectionListWidget->itemWidget(item, 0)))
-#define NumericString(i) (QString("%1").arg(i, 15, 10, QLatin1Char('0')))
+#define NumericString(i) (QString("%1").arg(i, 30, 10, QLatin1Char('0')))
 
 MainWindow *MainWindow::mwInstance = nullptr;
 
@@ -77,7 +77,7 @@ void MainWindow::MWAddGroupItem_p(const GroupId &groupId)
 
 void MainWindow::SortConnectionList(MW_ITEM_COL byCol, bool asending)
 {
-    connectionListWidget->sortByColumn(MW_ITEM_COL_DISPLAYNAME, Qt::AscendingOrder);
+    connectionListWidget->sortByColumn(MW_ITEM_COL_NAME, Qt::AscendingOrder);
     for (auto i = 0; i < connectionListWidget->topLevelItemCount(); i++)
     {
         connectionListWidget->topLevelItem(i)->sortChildren(byCol, asending ? Qt::AscendingOrder : Qt::DescendingOrder);
@@ -126,10 +126,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(ConnectionManager, &QvConfigHandler::OnGroupDeleted, this, &MainWindow::OnGroupDeleted);
     //
     connect(ConnectionManager, &QvConfigHandler::OnConnectionRenamed, [&](const ConnectionId &id, const QString &, const QString &newName) {
-        connectionNodes[id]->setText(MW_ITEM_COL_DISPLAYNAME, newName); //
+        connectionNodes[id]->setText(MW_ITEM_COL_NAME, newName); //
     });
     connect(ConnectionManager, &QvConfigHandler::OnLatencyTestFinished, [&](const ConnectionId &id, const uint avg) {
-        connectionNodes[id]->setText(MW_ITEM_COL_LATENCY, NumericString(avg)); //
+        connectionNodes[id]->setText(MW_ITEM_COL_PING, NumericString(avg)); //
     });
     //
     connect(infoWidget, &ConnectionInfoWidget::OnEditRequested, this, &MainWindow::OnEditRequested);
@@ -173,25 +173,25 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     //
     // Actions for right click the connection list
     //
-    QAction *action_RCM_StartThis = new QAction(QICON_R("connect.png"), tr("Connect to this"), this);
+    QAction *action_RCM_Start = new QAction(QICON_R("connect.png"), tr("Connect to this"), this);
     //
-    QAction *action_RCM_EditThis = new QAction(QICON_R("edit.png"), tr("Edit"), this);
-    QAction *action_RCM_EditAsJson = new QAction(QICON_R("json.png"), tr("Edit as JSON"), this);
-    QAction *action_RCM_EditAsComplex = new QAction(QICON_R("edit.png"), tr("Edit as Complex Config"), this);
+    QAction *action_RCM_Edit = new QAction(QICON_R("edit.png"), tr("Edit"), this);
+    QAction *action_RCM_EditJson = new QAction(QICON_R("json.png"), tr("Edit as JSON"), this);
+    QAction *action_RCM_EditComplex = new QAction(QICON_R("edit.png"), tr("Edit as Complex Config"), this);
     //
-    QAction *action_RCM_RenameThis = new QAction(tr("Rename"), this);
-    QAction *action_RCM_DuplicateThese = new QAction(QICON_R("duplicate.png"), tr("Duplicate to the Same Group"), this);
-    QAction *action_RCM_DeleteThese = new QAction(QICON_R("delete.png"), tr("Delete Connection"), this);
+    QAction *action_RCM_Rename = new QAction(tr("Rename"), this);
+    QAction *action_RCM_Duplicate = new QAction(QICON_R("duplicate.png"), tr("Duplicate to the Same Group"), this);
+    QAction *action_RCM_Delete = new QAction(QICON_R("delete.png"), tr("Delete Connection"), this);
     //
-    connect(action_RCM_StartThis, &QAction::triggered, this, &MainWindow::on_action_StartThis_triggered);
+    connect(action_RCM_Start, &QAction::triggered, this, &MainWindow::on_action_StartThis_triggered);
     //
-    connect(action_RCM_EditThis, &QAction::triggered, this, &MainWindow::on_action_RCM_EditThis_triggered);
-    connect(action_RCM_EditAsJson, &QAction::triggered, this, &MainWindow::on_action_RCM_EditAsJson_triggered);
-    connect(action_RCM_EditAsComplex, &QAction::triggered, this, &MainWindow::on_action_RCM_EditAsComplex_triggered);
+    connect(action_RCM_Edit, &QAction::triggered, this, &MainWindow::on_action_RCM_EditThis_triggered);
+    connect(action_RCM_EditJson, &QAction::triggered, this, &MainWindow::on_action_RCM_EditAsJson_triggered);
+    connect(action_RCM_EditComplex, &QAction::triggered, this, &MainWindow::on_action_RCM_EditAsComplex_triggered);
     //
-    connect(action_RCM_RenameThis, &QAction::triggered, this, &MainWindow::on_action_RCM_RenameThis_triggered);
-    connect(action_RCM_DuplicateThese, &QAction::triggered, this, &MainWindow::on_action_RCM_DuplicateThese_triggered);
-    connect(action_RCM_DeleteThese, &QAction::triggered, this, &MainWindow::on_action_RCM_DeleteThese_triggered);
+    connect(action_RCM_Rename, &QAction::triggered, this, &MainWindow::on_action_RCM_RenameThis_triggered);
+    connect(action_RCM_Duplicate, &QAction::triggered, this, &MainWindow::on_action_RCM_DuplicateThese_triggered);
+    connect(action_RCM_Delete, &QAction::triggered, this, &MainWindow::on_action_RCM_DeleteThese_triggered);
     //
     // Globally invokable signals.
     connect(this, &MainWindow::StartConnection, ConnectionManager, &QvConfigHandler::RestartConnection);
@@ -202,31 +202,31 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     hTray.show();
     //
     connectionListMenu = new QMenu(this);
-    connectionListMenu->addAction(action_RCM_StartThis);
+    connectionListMenu->addAction(action_RCM_Start);
     connectionListMenu->addSeparator();
-    connectionListMenu->addAction(action_RCM_EditThis);
-    connectionListMenu->addAction(action_RCM_EditAsJson);
-    connectionListMenu->addAction(action_RCM_EditAsComplex);
+    connectionListMenu->addAction(action_RCM_Edit);
+    connectionListMenu->addAction(action_RCM_EditJson);
+    connectionListMenu->addAction(action_RCM_EditComplex);
     connectionListMenu->addSeparator();
-    connectionListMenu->addAction(action_RCM_RenameThis);
-    connectionListMenu->addAction(action_RCM_DuplicateThese);
+    connectionListMenu->addAction(action_RCM_Rename);
+    connectionListMenu->addAction(action_RCM_Duplicate);
     connectionListMenu->addSeparator();
-    connectionListMenu->addAction(action_RCM_DeleteThese);
+    connectionListMenu->addAction(action_RCM_Delete);
     //
     QMenu *sortMenu = new QMenu(tr("Sort connection list."), this);
     QAction *sortAction_SortByName_Asc = new QAction(tr("By connection name, A-Z"));
     QAction *sortAction_SortByName_Dsc = new QAction(tr("By connection name, Z-A"));
-    QAction *sortAction_SortByLatency_Asc = new QAction(tr("By data, Ascending"));
-    QAction *sortAction_SortByLatency_Dsc = new QAction(tr("By data, Descending"));
-    QAction *sortAction_SortByData_Asc = new QAction(tr("By latency, Ascending"));
-    QAction *sortAction_SortByData_Dsc = new QAction(tr("By latency, Descending"));
+    QAction *sortAction_SortByPing_Asc = new QAction(tr("By latency, Ascending"));
+    QAction *sortAction_SortByPing_Dsc = new QAction(tr("By latency, Descending"));
+    QAction *sortAction_SortByData_Asc = new QAction(tr("By data, Ascending"));
+    QAction *sortAction_SortByData_Dsc = new QAction(tr("By data, Descending"));
     //
-    connect(sortAction_SortByName_Asc, &QAction::triggered, [&] { SortConnectionList(MW_ITEM_COL_DISPLAYNAME, true); });
-    connect(sortAction_SortByName_Dsc, &QAction::triggered, [&] { SortConnectionList(MW_ITEM_COL_DISPLAYNAME, false); });
-    connect(sortAction_SortByData_Asc, &QAction::triggered, [&] { SortConnectionList(MW_ITEM_COL_DATAUSAGE, true); });
-    connect(sortAction_SortByData_Dsc, &QAction::triggered, [&] { SortConnectionList(MW_ITEM_COL_DATAUSAGE, false); });
-    connect(sortAction_SortByLatency_Asc, &QAction::triggered, [&] { SortConnectionList(MW_ITEM_COL_LATENCY, true); });
-    connect(sortAction_SortByLatency_Dsc, &QAction::triggered, [&] { SortConnectionList(MW_ITEM_COL_LATENCY, false); });
+    connect(sortAction_SortByName_Asc, &QAction::triggered, [&] { SortConnectionList(MW_ITEM_COL_NAME, true); });
+    connect(sortAction_SortByName_Dsc, &QAction::triggered, [&] { SortConnectionList(MW_ITEM_COL_NAME, false); });
+    connect(sortAction_SortByData_Asc, &QAction::triggered, [&] { SortConnectionList(MW_ITEM_COL_DATA, true); });
+    connect(sortAction_SortByData_Dsc, &QAction::triggered, [&] { SortConnectionList(MW_ITEM_COL_DATA, false); });
+    connect(sortAction_SortByPing_Asc, &QAction::triggered, [&] { SortConnectionList(MW_ITEM_COL_PING, true); });
+    connect(sortAction_SortByPing_Dsc, &QAction::triggered, [&] { SortConnectionList(MW_ITEM_COL_PING, false); });
     //
     sortMenu->addAction(sortAction_SortByName_Asc);
     sortMenu->addAction(sortAction_SortByName_Dsc);
@@ -234,8 +234,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     sortMenu->addAction(sortAction_SortByData_Asc);
     sortMenu->addAction(sortAction_SortByData_Dsc);
     tray_RootMenu->addSeparator();
-    sortMenu->addAction(sortAction_SortByLatency_Asc);
-    sortMenu->addAction(sortAction_SortByLatency_Dsc);
+    sortMenu->addAction(sortAction_SortByPing_Asc);
+    sortMenu->addAction(sortAction_SortByPing_Dsc);
     //
     sortBtn->setMenu(sortMenu);
     //
@@ -738,7 +738,7 @@ void MainWindow::OnStatsAvailable(const ConnectionId &id, const quint64 upS, con
                      NEWLINE "Up: " + totalSpeedUp + " Down: " + totalSpeedDown);
     //
     // Set data accordingly
-    connectionNodes[id]->setText(MW_ITEM_COL_DATAUSAGE, NumericString(GetConnectionTotalData(id)));
+    connectionNodes[id]->setText(MW_ITEM_COL_DATA, NumericString(GetConnectionTotalData(id)));
 }
 
 void MainWindow::OnVCoreLogAvailable(const ConnectionId &id, const QString &log)

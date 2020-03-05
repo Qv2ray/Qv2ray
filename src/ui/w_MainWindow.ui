@@ -240,9 +240,9 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>0</y>
+          <y>-19</y>
           <width>480</width>
-          <height>768</height>
+          <height>743</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -329,16 +329,27 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_10">
-           <property name="font">
-            <font>
-             <pointsize>13</pointsize>
-            </font>
-           </property>
-           <property name="text">
-            <string>Log</string>
-           </property>
-          </widget>
+          <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="1,0">
+           <item>
+            <widget class="QLabel" name="label_10">
+             <property name="font">
+              <font>
+               <pointsize>13</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>Log</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="clearlogButton">
+             <property name="text">
+              <string>Clear Log</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </item>
          <item>
           <widget class="Line" name="line_2">
@@ -362,13 +373,6 @@
            </property>
            <property name="lineWrapMode">
             <enum>QTextEdit::NoWrap</enum>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="clearlogButton">
-           <property name="text">
-            <string>Clear Log</string>
            </property>
           </widget>
          </item>

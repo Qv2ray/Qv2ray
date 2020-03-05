@@ -35,9 +35,11 @@ namespace Qv2ray::common
     QString JsonToString(QJsonArray array, QJsonDocument::JsonFormat format = QJsonDocument::JsonFormat::Indented);
     QString VerifyJsonString(const QString &source);
     //
-    QString FormatBytes(long long bytes);
+    QString FormatBytes(const int64_t bytes);
     void DeducePossibleFileName(const QString &baseDir, QString *fileName, const QString &extension);
-
+    //
+    QPixmap BlurImage(const QPixmap &pixmap, const double rad = 50);
+    QPixmap LightenImage(const QPixmap &pixmap, const qreal factor);
     // This function cannot be marked as inline.
     QString RemoveInvalidFileName(const QString &fileName);
     bool IsValidFileName(const QString &fileName);
@@ -100,6 +102,7 @@ namespace Qv2ray::common
     {
         auto _tm = std::localtime(&t);
         char MY_TIME[128];
+        setlocale(1, "3");
         // using strftime to display time
         strftime(MY_TIME, sizeof(MY_TIME), "%x - %I:%M%p", _tm);
         return QString(MY_TIME);

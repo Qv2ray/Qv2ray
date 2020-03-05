@@ -18,6 +18,7 @@ ConnectionInfoWidget::ConnectionInfoWidget(QWidget *parent) : QWidget(parent)
     shareLinkTxt->setAutoFillBackground(true);
     shareLinkTxt->setCursor(QCursor(Qt::CursorShape::IBeamCursor));
     shareLinkTxt->installEventFilter(this);
+    qrLabel->installEventFilter(this);
     //
     connect(ConnectionManager, &QvConfigHandler::OnConnected, this, &ConnectionInfoWidget::OnConnected);
     connect(ConnectionManager, &QvConfigHandler::OnDisconnected, this, &ConnectionInfoWidget::OnDisConnected);
@@ -64,9 +65,16 @@ void ConnectionInfoWidget::ShowDetails(const tuple<GroupId, ConnectionId> &_iden
         QZXingEncoderConfig conf;
         conf.border = true;
         conf.imageSize = QSize(400, 400);
-        auto img = QZXing().encodeData(shareLink, conf);
+        conf.errorCorrectionLevel = QZXing::EncodeErrorCorrectionLevel_M;
+        QZXing qzx;
+        auto img = qzx.encodeData(shareLink, conf);
+        //
+        qrPixmap = QPixmap::fromImage(img);
+        qrPixmapBlured = BlurImage(LightenImage(QPixmap::fromImage(img), 0.75), 20);
+        //
+        isRealPixmapShown = false;
+        qrLabel->setPixmap(qrPixmapBlured);
         qrLabel->setScaledContents(true);
-        qrLabel->setPixmap(QPixmap::fromImage(img));
         //
         connectBtn->setIcon(ConnectionManager->IsConnected(connectionId) ? QICON_R("stop.png") : QICON_R("connect.png"));
     }
@@ -135,15 +143,15 @@ void ConnectionInfoWidget::on_deleteBtn_clicked()
 
 bool ConnectionInfoWidget::eventFilter(QObject *object, QEvent *event)
 {
-    if (event->type() == QEvent::MouseButtonRelease)
+    if (shareLinkTxt->underMouse() && event->type() == QEvent::MouseButtonRelease)
     {
-        if (shareLinkTxt->underMouse())
-        {
-            if (!shareLinkTxt->hasSelectedText())
-            {
-                shareLinkTxt->selectAll();
-            }
-        }
+        if (!shareLinkTxt->hasSelectedText())
+            shareLinkTxt->selectAll();
+    }
+    else if (qrLabel->underMouse() && event->type() == QEvent::MouseButtonRelease)
+    {
+        qrLabel->setPixmap(isRealPixmapShown ? qrPixmapBlured : qrPixmap);
+        isRealPixmapShown = !isRealPixmapShown;
     }
 
     return QWidget::eventFilter(object, event);
