@@ -61,7 +61,7 @@ namespace Qv2ray::components::pac
     void PACServer::onNewRequest(const httplib::Request &req, httplib::Response &rsp)
     {
 
-        rsp.set_header("Server", ("Qv2ray/" QV2RAY_VERSION_STRING " PAC_Handler").toss);
+        rsp.set_header("Server", "Qv2ray/" QV2RAY_VERSION_STRING " PAC_Handler");
 
         if (req.method == "GET")
         {
