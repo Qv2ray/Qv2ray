@@ -29,4 +29,4 @@ set(QNODEEDITOR_INCLUDE_PATH
     ${QNODEEDITOR_DIR}/include/nodes/
     ${QNODEEDITOR_DIR}/include/nodes/internal
 )
-set(QNODEEDITOR_QRC_RESOURCES ${QNODEEDITOR_DIR})resources/QNodeEditor_resources.qrc)
+set(QNODEEDITOR_QRC_RESOURCES ${QNODEEDITOR_DIR}/resources/QNodeEditor_resources.qrc)
