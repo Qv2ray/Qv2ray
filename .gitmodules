@@ -16,3 +16,6 @@
 [submodule "libs/libqvb"]
 	path = libs/libqvb
 	url = https://github.com/Qv2ray/QvRPCBridge
+[submodule "3rdparty/cpp-httplib"]
+	path = 3rdparty/cpp-httplib
+	url = https://github.com/yhirose/cpp-httplib

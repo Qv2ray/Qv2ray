@@ -1,6 +1,7 @@
 # Some files 
 .DS_Store
 *.pro.user
+*.user
 *.qm
 ./.vscode
 

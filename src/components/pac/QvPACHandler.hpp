@@ -1,8 +1,14 @@
 #pragma once
-#include "qhttpserver.h"
 
 #include <QObject>
 #include <memory>
+
+namespace httplib
+{
+    class Server;
+    class Request;
+    class Response;
+} // namespace httplib
 
 namespace Qv2ray::components::pac
 {
@@ -19,12 +25,10 @@ namespace Qv2ray::components::pac
 
         QString gfwFilePath;
 
-      public slots:
-        void onNewRequest(QHttpRequest *request, QHttpResponse *response);
-
       private:
+        void onNewRequest(const httplib::Request &req, httplib::Response &rsp);
         bool isStarted;
-        QHttpServer pacServer;
+        httplib::Server *pacServer;
         QString pacContent;
         QString proxyString;
     };

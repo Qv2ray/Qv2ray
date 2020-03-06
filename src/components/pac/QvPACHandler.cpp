@@ -1,22 +1,21 @@
 #include "QvPACHandler.hpp"
 
+#include "3rdparty/cpp-httplib/httplib.h"
 #include "common/QvHelpers.hpp"
 #include "core/CoreUtils.hpp"
-#include "qhttprequest.h"
-#include "qhttpresponse.h"
 
 namespace Qv2ray::components::pac
 {
 
-    PACServer::PACServer() : QObject(), pacServer(this)
+    PACServer::PACServer() : QObject()
     {
-        connect(&pacServer, &QHttpServer::newRequest, this, &PACServer::onNewRequest);
+        pacServer = new httplib::Server();
     }
     PACServer::~PACServer()
     {
         if (isStarted)
         {
-            pacServer.close();
+            delete pacServer;
         }
     }
     void PACServer::SetProxyString(const QString &proxyString)
@@ -36,8 +35,7 @@ namespace Qv2ray::components::pac
         QString gfwContent = StringFromFile(QV2RAY_RULES_GFWLIST_PATH);
         pacContent = ConvertGFWToPAC(gfwContent, proxyString);
         //
-        auto result = pacServer.listen(QHostAddress(address), static_cast<ushort>(port));
-
+        auto result = pacServer->listen(address.toStdString().c_str(), static_cast<ushort>(port));
         if (result)
         {
             isStarted = true;
@@ -54,38 +52,38 @@ namespace Qv2ray::components::pac
     {
         if (isStarted)
         {
-            pacServer.close();
+            pacServer->stop();
             DEBUG(MODULE_PROXY, "PAC Handler stopped.")
             isStarted = false;
         }
     }
 
-    void PACServer::onNewRequest(QHttpRequest *req, QHttpResponse *rsp)
+    void PACServer::onNewRequest(const httplib::Request &req, httplib::Response &rsp)
     {
-        rsp->setHeader("Server", "Qv2ray/" QV2RAY_VERSION_STRING " PAC_Handler");
 
-        if (req->method() == QHttpRequest::HTTP_GET)
+        rsp.set_header("Server", ("Qv2ray/" QV2RAY_VERSION_STRING " PAC_Handler").toss);
+
+        if (req.method == "GET")
         {
             //
-            if (req->path() == "/pac")
+            if (req.path == "/pac")
             {
                 DEBUG(MODULE_PROXY, "Serving PAC file request.")
                 //
-                rsp->setHeader("Content-Type", "application/javascript; charset=utf-8");
-                rsp->writeHead(QHttpResponse::StatusCode::STATUS_OK);
-                rsp->end(pacContent.toUtf8());
+                rsp.status = 200;
+                rsp.set_content(pacContent.toStdString(), "application/javascript; charset=utf-8");
                 DEBUG(MODULE_PROXY, "Serving a pac file...")
             }
             else
             {
-                rsp->writeHead(QHttpResponse::StatusCode::STATUS_NOT_FOUND);
-                rsp->end("NOT FOUND");
+                rsp.status = 404;
+                rsp.set_content("NOT FOUND", "text/plain; charset=utf-8");
             }
         }
         else
         {
-            rsp->writeHead(QHttpResponse::StatusCode::STATUS_METHOD_NOT_ALLOWED);
-            rsp->end("PAC ONLY SUPPORT GET");
+            rsp.status = 405;
+            rsp.set_content("PAC ONLY SUPPORT GET", "text/plain; charset=utf-8");
         }
     }
 } // namespace Qv2ray::components::pac
