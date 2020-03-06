@@ -1,4 +1,4 @@
-set(QNODEEDITOR_DIR ${CMAKE_SOURCE_DIR}3rdparty/QNodeEditor)
+set(QNODEEDITOR_DIR ${CMAKE_SOURCE_DIR}/3rdparty/QNodeEditor)
 add_definitions(-DNODE_EDITOR_SHARED -DNODE_EDITOR_EXPORTS)
 set(QNODEEDITOR_SOURCES
     ${QNODEEDITOR_DIR}/src/Connection.cpp
@@ -29,3 +29,4 @@ set(QNODEEDITOR_INCLUDE_PATH
     ${QNODEEDITOR_DIR}/include/nodes/
     ${QNODEEDITOR_DIR}/include/nodes/internal
 )
+set(QNODEEDITOR_QRC_RESOURCES ${QNODEEDITOR_DIR})resources/QNodeEditor_resources.qrc)
