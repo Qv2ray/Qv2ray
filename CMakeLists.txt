@@ -20,6 +20,7 @@ endif()
 
 include(cmake/qhttpserver.cmake)
 include(cmake/translations.cmake)
+include(cmake/qnodeeditor.cmake)
 
 set(QV2RAY_SOURCES
   src/base/Qv2rayLog.cpp
@@ -81,6 +82,7 @@ set(QRC_RESOURCES ${CMAKE_SOURCE_DIR}/resources.qrc)
 add_executable(qv2ray
   ${QV2RAY_SOURCES}
   ${QHTTPSERVER_SOURCES}
+  ${QNODEEDITOR_SOURCES}
   ${QRC_RESOURCES}
 )
 
@@ -95,6 +97,7 @@ target_include_directories(qv2ray PRIVATE
   ${CMAKE_CURRENT_SOURCE_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}/src
   ${QHTTPSERVER_DIR}
+  ${QNODEEDITOR_INCLUDE_PATH}
 )
 
 install(TARGETS qv2ray
@@ -117,7 +120,6 @@ if(UNIX AND NOT APPLE)
 endif()
 
 if(UNIX AND NOT WIN32)
-  
   install(FILES ${QM_FILES}
           DESTINATION share
   )
