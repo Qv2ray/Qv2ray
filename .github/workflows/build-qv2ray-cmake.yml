@@ -67,11 +67,10 @@ jobs:
       - name: Linux - Install Packages 
         if: matrix.platform == 'ubuntu-16.04'
         run: |
-          sudo add-apt-repository ppa:ubuntu-toolchain-r/test
           sudo add-apt-repository ppa:webispy/grpc
           sudo add-apt-repository ppa:carsten-uppenbrink-net/openssl
           sudo apt update
-          sudo apt install -y gcc-7 libgl-dev openssl libx11-dev libxkbcommon-x11-dev libprotobuf-dev protobuf-compiler protobuf-c-compiler
+          sudo apt install -y libssl-dev libprotobuf-dev protobuf-compiler protobuf-c-compiler
 
       - name: macOS - Install Packages
         if: matrix.platform == 'macos-latest'
@@ -94,13 +93,26 @@ jobs:
 # -------------------------------------------------------- Generate MakeFile
       - name: Cross-platform - ${{ matrix.qt_version }} - Generate Dependencies and Makefile
         shell: bash
+        if: matrix.platform != 'ubuntu-16.04'
         run: |
           mkdir build
           cd build
           export _QV2RAY_BUILD_INFO_="Qv2ray built from Github Action"  
           export _QV2RAY_BUILD_EXTRA_INFO_="qt${{ matrix.qt_version }}-${{ github.sha }}"
           cmake ..
-          
+
+      - name: Linux - ${{ matrix.qt_version }} - Generate Dependencies and Makefile
+        if: matrix.platform == 'ubuntu-16.04'
+        shell: bash
+        env:
+          CC: /usr/bin/gcc-9
+          CXX: /usr/bin/g++-9
+        run: |
+          mkdir build
+          cd build
+          export _QV2RAY_BUILD_INFO_="Qv2ray built from Github Action"  
+          export _QV2RAY_BUILD_EXTRA_INFO_="qt${{ matrix.qt_version }}-${{ github.sha }}"
+          cmake ..
 #qmake .. CONFIG+="debug_and_release no_increase_build_number" PREFIX=/usr
 # -------------------------------------------------------- Build
       - name: Build Qv2ray
