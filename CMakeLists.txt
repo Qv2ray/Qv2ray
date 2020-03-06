@@ -19,6 +19,7 @@ if(CMAKE_VERSION VERSION_LESS "3.7.0")
 endif()
 
 include(cmake/qhttpserver.cmake)
+include(cmake/translations.cmake)
 
 set(QV2RAY_SOURCES
   src/base/Qv2rayLog.cpp
@@ -75,9 +76,12 @@ set(QV2RAY_SOURCES
   src/ui/w_SubscriptionManager.cpp
 )
 
+set(QRC_RESOURCES ${CMAKE_SOURCE_DIR}/resources.qrc)
+
 add_executable(qv2ray
   ${QV2RAY_SOURCES}
   ${QHTTPSERVER_SOURCES}
+  ${QRC_RESOURCES}
 )
 
 target_link_libraries(qv2ray
@@ -92,3 +96,29 @@ target_include_directories(qv2ray PRIVATE
   ${CMAKE_CURRENT_SOURCE_DIR}/src
   ${QHTTPSERVER_DIR}
 )
+
+install(TARGETS qv2ray
+        RUNTIME
+        DESTINATION bin
+)
+
+if(UNIX AND NOT APPLE)
+  install(FILES assets/qv2ray.metainfo.xml
+          DESTINATION share/metainfo
+  )
+
+  install(FILES assets/qv2ray.desktop
+          DESTINATION share/applications
+  )
+
+  install(FILES assets/icons/qv2ray.png
+          DESTINATION share/icons/hicolor/256x256/apps/
+  )
+endif()
+
+if(UNIX AND NOT WIN32)
+  
+  install(FILES ${QM_FILES}
+          DESTINATION share
+  )
+endif()
