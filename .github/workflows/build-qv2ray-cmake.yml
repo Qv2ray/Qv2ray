@@ -67,11 +67,10 @@ jobs:
       - name: Linux - Install Packages 
         if: matrix.platform == 'ubuntu-16.04'
         run: |
-          sudo add-apt-repository ppa:ubuntu-toolchain-r/test
           sudo add-apt-repository ppa:webispy/grpc
           sudo add-apt-repository ppa:carsten-uppenbrink-net/openssl
           sudo apt update
-          sudo apt install -y gcc-7 libgl-dev openssl libx11-dev libxkbcommon-x11-dev libprotobuf-dev protobuf-compiler protobuf-c-compiler
+          sudo apt install -y libssl-dev libprotobuf-dev protobuf-compiler protobuf-c-compiler
 
       - name: macOS - Install Packages
         if: matrix.platform == 'macos-latest'
@@ -91,6 +90,12 @@ jobs:
         with:
           pathSource: ./libs/Qv2ray-deps-${{ matrix.arch }}-windows.7z
           pathTarget: ./libs
+# -------------------------------------------------------- Set gcc version for xenial
+      - name: Linux - Set gcc version
+        shell: bash
+        run: |
+          export CC=gcc-9
+          export CXX=g++-9
 # -------------------------------------------------------- Generate MakeFile
       - name: Cross-platform - ${{ matrix.qt_version }} - Generate Dependencies and Makefile
         shell: bash
