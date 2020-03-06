@@ -27,6 +27,23 @@ include(cmake/singleapplication.cmake)
 add_definitions(-DQAPPLICATION_CLASS=QApplication)
 add_subdirectory(3rdparty/cpp-httplib)
 
+if(DEFINED ENV{_QV2RAY_BUILD_INFO_})
+    set(_QV2RAY_BUILD_INFO_STR_ "$ENV{_QV2RAY_BUILD_INFO_}")
+else()
+    set(_QV2RAY_BUILD_INFO_STR_ "Qv2ray from manual build")
+endif()
+
+if(DEFINED ENV{_QV2RAY_BUILD_EXTRA_INFO_})
+    set(_QV2RAY_BUILD_EXTRA_INFO_STR_ "$ENV{_QV2RAY_BUILD_EXTRA_INFO_}")
+else()
+    set(_QV2RAY_BUILD_EXTRA_INFO_STR_ "Qv2ray v${PACKAGE_VERSION}")
+endif()
+
+add_definitions(-D_QV2RAY_BUILD_INFO_STR_="\\\"${_QV2RAY_BUILD_INFO_STR_}\\\"")
+add_definitions(-D_QV2RAY_BUILD_EXTRA_INFO_STR_="\\\"${_QV2RAY_BUILD_EXTRA_INFO_STR_}\\\"")
+message("Qv2ray build info: ${_QV2RAY_BUILD_INFO_STR_}")
+message("Qv2ray build info ex: ${_QV2RAY_BUILD_EXTRA_INFO_STR_}")
+
 set(QV2RAY_SOURCES
   src/base/Qv2rayLog.cpp
   src/common/CommandArgs.cpp

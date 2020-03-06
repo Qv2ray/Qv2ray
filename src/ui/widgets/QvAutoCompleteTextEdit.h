@@ -58,13 +58,13 @@ class QCompleter;
 QT_END_NAMESPACE
 
 //! [0]
-class TextEdit : public QTextEdit
+class AutoCompleteTextEdit : public QTextEdit
 {
     Q_OBJECT
 
   public:
-    TextEdit(QWidget *parent = nullptr);
-    ~TextEdit();
+    AutoCompleteTextEdit(QWidget *parent = nullptr);
+    ~AutoCompleteTextEdit();
 
     void setCompleter(QCompleter *c);
     QCompleter *completer() const;

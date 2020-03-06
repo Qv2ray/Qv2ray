@@ -48,7 +48,7 @@
 **
 ****************************************************************************/
 
-#include "textedit.h"
+#include "QvAutoCompleteTextEdit.h"
 
 #include <QAbstractItemModel>
 #include <QAbstractItemView>
@@ -59,18 +59,18 @@
 #include <QScrollBar>
 #include <QtDebug>
 
-TextEdit::TextEdit(QWidget *parent) : QTextEdit(parent)
+AutoCompleteTextEdit::AutoCompleteTextEdit(QWidget *parent) : QTextEdit(parent)
 {
     setPlainText(tr("This TextEdit provides autocompletions for words that have more than"
                     " 3 characters. You can trigger autocompletion using ") +
                  QKeySequence("Ctrl+E").toString(QKeySequence::NativeText));
 }
 
-TextEdit::~TextEdit()
+AutoCompleteTextEdit::~AutoCompleteTextEdit()
 {
 }
 
-void TextEdit::setCompleter(QCompleter *completer)
+void AutoCompleteTextEdit::setCompleter(QCompleter *completer)
 {
     if (c)
         c->disconnect(this);
@@ -85,15 +85,15 @@ void TextEdit::setCompleter(QCompleter *completer)
     c->setWidget(this);
     c->setCompletionMode(QCompleter::PopupCompletion);
     c->setCaseSensitivity(Qt::CaseInsensitive);
-    QObject::connect(c, QOverload<const QString &>::of(&QCompleter::activated), this, &TextEdit::insertCompletion);
+    QObject::connect(c, QOverload<const QString &>::of(&QCompleter::activated), this, &AutoCompleteTextEdit::insertCompletion);
 }
 
-QCompleter *TextEdit::completer() const
+QCompleter *AutoCompleteTextEdit::completer() const
 {
     return c;
 }
 
-void TextEdit::insertCompletion(const QString &completion)
+void AutoCompleteTextEdit::insertCompletion(const QString &completion)
 {
     if (c->widget() != this)
         return;
@@ -106,14 +106,14 @@ void TextEdit::insertCompletion(const QString &completion)
     setTextCursor(tc);
 }
 
-QString TextEdit::textUnderCursor() const
+QString AutoCompleteTextEdit::textUnderCursor() const
 {
     QTextCursor tc = textCursor();
     tc.select(QTextCursor::WordUnderCursor);
     return tc.selectedText();
 }
 
-void TextEdit::focusInEvent(QFocusEvent *e)
+void AutoCompleteTextEdit::focusInEvent(QFocusEvent *e)
 {
     if (c)
         c->setWidget(this);
@@ -121,7 +121,7 @@ void TextEdit::focusInEvent(QFocusEvent *e)
     QTextEdit::focusInEvent(e);
 }
 
-void TextEdit::keyPressEvent(QKeyEvent *e)
+void AutoCompleteTextEdit::keyPressEvent(QKeyEvent *e)
 {
     if (c && c->popup()->isVisible())
     {
