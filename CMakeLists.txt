@@ -18,6 +18,8 @@ if(CMAKE_VERSION VERSION_LESS "3.7.0")
     set(CMAKE_INCLUDE_CURRENT_DIR ON)
 endif()
 
+include(cmake/qhttpserver.cmake)
+
 set(QV2RAY_SOURCES
   src/base/Qv2rayLog.cpp
   src/common/CommandArgs.cpp
@@ -75,6 +77,7 @@ set(QV2RAY_SOURCES
 
 add_executable(qv2ray
   ${QV2RAY_SOURCES}
+  ${QHTTPSERVER_SOURCES}
 )
 
 target_link_libraries(qv2ray
@@ -87,4 +90,5 @@ target_link_libraries(qv2ray
 target_include_directories(qv2ray PRIVATE
   ${CMAKE_CURRENT_SOURCE_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}/src
+  ${QHTTPSERVER_DIR}
 )
