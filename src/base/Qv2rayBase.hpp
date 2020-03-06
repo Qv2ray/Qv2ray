@@ -1,9 +1,5 @@
 #pragma once
 //
-#ifndef XTOSTRUCT_QT
-    #define XTOSTRUCT_QT
-#endif
-//
 #include <QApplication>
 #include <QMap>
 #include <QtCore>
@@ -21,9 +17,9 @@
 // Code Models
 #include "base/models/CoreObjectModels.hpp"
 #include "base/models/QvConfigIdentifier.hpp"
-#include "base/models/QvSettingsObject.hpp"
 #include "base/models/QvRuntimeConfig.hpp"
 #include "base/models/QvSafeType.hpp"
+#include "base/models/QvSettingsObject.hpp"
 #include "base/models/QvStartupConfig.hpp"
 
 using namespace std;
