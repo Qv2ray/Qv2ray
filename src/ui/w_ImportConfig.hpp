@@ -18,7 +18,8 @@ class ImportConfigWindow
     explicit ImportConfigWindow(QWidget *parent = nullptr);
     ~ImportConfigWindow();
     QMultiMap<QString, CONFIGROOT> OpenImport(bool outboundsOnly = false);
-  public slots:
+
+  private:
     QvMessageBusSlotDecl;
   private slots:
 

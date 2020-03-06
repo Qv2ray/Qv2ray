@@ -15,7 +15,8 @@ class ConfigExporter
     explicit ConfigExporter(QWidget *parent = nullptr);
     ~ConfigExporter();
     void OpenExport();
-  public slots:
+
+  private:
     QvMessageBusSlotDecl;
 
   protected:

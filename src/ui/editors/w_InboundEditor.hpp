@@ -18,7 +18,8 @@ class InboundEditor
     explicit InboundEditor(INBOUND root, QWidget *parent = nullptr);
     ~InboundEditor();
     INBOUND OpenEditor();
-  public slots:
+
+  private:
     QvMessageBusSlotDecl;
 
   private slots:

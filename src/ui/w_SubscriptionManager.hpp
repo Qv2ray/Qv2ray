@@ -18,7 +18,7 @@ class SubscribeEditor
     ~SubscribeEditor();
     tuple<QString, CONFIGROOT> GetSelectedConfig();
 
-  public slots:
+  private:
     QvMessageBusSlotDecl;
 
   private slots:

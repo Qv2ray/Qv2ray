@@ -36,7 +36,8 @@ class RouteEditor
     explicit RouteEditor(QJsonObject connection, QWidget *parent = nullptr);
     ~RouteEditor();
     CONFIGROOT OpenEditor();
-  public slots:
+
+  private:
     QvMessageBusSlotDecl;
 
   private slots:

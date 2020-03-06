@@ -18,7 +18,8 @@ class JsonEditor
     explicit JsonEditor(QJsonObject rootObject, QWidget *parent = nullptr);
     ~JsonEditor();
     QJsonObject OpenEditor();
-  public slots:
+
+  private:
     QvMessageBusSlotDecl;
 
   private slots:
