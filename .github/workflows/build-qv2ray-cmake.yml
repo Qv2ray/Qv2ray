@@ -78,10 +78,6 @@ jobs:
         run: |
           brew install protobuf
           brew install grpc
-      
-      - name: Windows - Install Packages
-        if: matrix.platform == 'windows-latest'
-        run: choco install jom -y
 # --------------------------------------------------------
       - name: Cross-platform - Download libraries
         shell: bash
@@ -107,16 +103,10 @@ jobs:
           
 #qmake .. CONFIG+="debug_and_release no_increase_build_number" PREFIX=/usr
 # -------------------------------------------------------- Build
-      - name: Unix - ${{ matrix.qt_version }} - Build Qv2ray
-        if: matrix.platform != 'windows-latest'
+      - name: Build Qv2ray
         run: |
           cd build
-          make -j2 release $([ "${{ matrix.platform }}" == "ubuntu-16.04" ] && echo "CC=gcc-7 CXX=g++-7" LINK="g++-7" || echo "")
-      - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - Build Qv2ray
-        if: matrix.platform == 'windows-latest'
-        run: |
-          cd build
-          jom
+          cmake --build .
 # -------------------------------------------------------- Deployments
       - name: Linux - ${{ matrix.qt_version }} - Generating AppImage
         if: matrix.platform == 'ubuntu-16.04'
