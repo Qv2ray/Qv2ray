@@ -82,6 +82,7 @@ void MainWindow::SortConnectionList(MW_ITEM_COL byCol, bool asending)
     {
         connectionListWidget->topLevelItem(i)->sortChildren(byCol, asending ? Qt::AscendingOrder : Qt::DescendingOrder);
     }
+    on_locateBtn_clicked();
 }
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
