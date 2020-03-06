@@ -8,6 +8,8 @@ project(Qv2ray)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+find_package(Qt5 COMPONENTS Core Gui Widgets Network REQUIRED)
+
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
@@ -75,4 +77,9 @@ add_executable(qv2ray
   ${QV2RAY_SOURCES}
 )
 
-find_package(Qt5 COMPONENTS Core Gui Widgets Network REQUIRED)
+target_link_libraries(qv2ray
+  Qt5::Core
+  Qt5::Gui
+  Qt5::Widgets
+  Qt5::Network
+)
