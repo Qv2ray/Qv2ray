@@ -24,6 +24,7 @@ endif()
 include(cmake/translations.cmake)
 include(cmake/qnodeeditor.cmake)
 include(cmake/singleapplication.cmake)
+add_definitions(-DQAPPLICATION_CLASS=QApplication)
 add_subdirectory(3rdparty/cpp-httplib)
 
 set(QV2RAY_SOURCES
