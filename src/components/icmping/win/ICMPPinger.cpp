@@ -1,5 +1,7 @@
 #include "ICMPPinger.hpp"
 
+#ifdef Q_OS_WIN
+
 ICMPPinger::ICMPPinger(UINT64 timeout = DEFAULT_TIMEOUT)
 {
     // create icmp handle
@@ -47,3 +49,5 @@ std::pair<std::optional<UINT64>, std::optional<std::string>> ICMPPinger::ping(co
     PICMP_ECHO_REPLY pReply = (PICMP_ECHO_REPLY) bufRecv.get();
     return std::pair(pReply->RoundTripTime, std::nullopt);
 }
+
+#endif
