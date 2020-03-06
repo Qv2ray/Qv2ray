@@ -1,4 +1,5 @@
-﻿#include "common/CommandArgs.hpp"
+﻿#include "3rdparty/SingleApplication/singleapplication.h"
+#include "common/CommandArgs.hpp"
 #include "common/QvHelpers.hpp"
 #include "common/QvTranslator.hpp"
 #include "core/handler/ConfigHandler.hpp"
@@ -14,7 +15,6 @@
 #include <QStyleFactory>
 #include <QTranslator>
 #include <csignal>
-#include <singleapplication.h>
 
 #ifdef Q_OS_UNIX
     // For unix root user check
