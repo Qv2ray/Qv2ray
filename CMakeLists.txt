@@ -23,6 +23,7 @@ endif()
 
 include(cmake/translations.cmake)
 include(cmake/qnodeeditor.cmake)
+include(cmake/singleapplication.cmake)
 add_subdirectory(3rdparty/cpp-httplib)
 
 set(QV2RAY_SOURCES
@@ -86,6 +87,7 @@ add_executable(qv2ray
   ${QV2RAY_SOURCES}
   ${QNODEEDITOR_SOURCES}
   ${QNODEEDITOR_QRC_RESOURCES}
+  ${SINGLEAPPLICATION_SOURCES}
   ${QRC_RESOURCES}
 )
 
@@ -101,6 +103,7 @@ target_include_directories(qv2ray PRIVATE
   ${CMAKE_CURRENT_SOURCE_DIR}/src
   ${QHTTPSERVER_DIR}
   ${QNODEEDITOR_INCLUDE_PATH}
+  ${SINGLEAPPLICATION_DIR}
 )
 
 install(TARGETS qv2ray
@@ -124,8 +127,6 @@ endif()
 
 if(UNIX AND NOT WIN32)
   install(FILES ${QM_FILES}
-          DESTINATION share
+          DESTINATION share/qv2ray/translations
   )
 endif()
-
-message(${QM_FILES})
