@@ -405,5 +405,20 @@ namespace Qv2ray::base::objects
             }
             XTOSTRUCT(O(email, address, port, method, password, ota, level))
         };
-    } // namespace protocol
-} // namespace Qv2ray::base::objects
+        //Shadowsocksr server
+        struct ShadowSocksRServerObject {
+            QString address;
+            QString method;
+            QString password;
+            QString protocol;
+            QString protocol_param;
+            QString obfs;
+            QString obfs_param;
+            QString remarks;
+            QString group;
+            int port;
+            ShadowSocksRServerObject():  address("0.0.0.0"), method("aes-256-cfb"), password(""),  protocol(""),protocol_param(""),obfs(""),obfs_param(""),remarks(""),group(""),port(0) {}
+            XTOSTRUCT(O( address, method, password,  protocol,protocol_param,obfs,obfs_param,remarks,group,port))
+        };
+    }
+}

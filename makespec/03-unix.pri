@@ -1,6 +1,6 @@
 message(" ")
 win32: Qv2rayQMakeError("Do not include this file in Windows platform.")
-
+CONFIG += object_parallel_to_source
 # For Linux and macOS
 message("Configuring for unix-like environment")
 
@@ -28,3 +28,8 @@ use_grpc {
         system("$$PWD/../tools/unix-generate-api.sh $$PWD")
     }
 }
+
+message("  --> ssr-libev")
+DEFINES += LIB_ONLY
+DEFINES += MODULE_LOCAL
+include($$PWD/../3rdparty/ssr-libev/ssr-libev.pri)

@@ -1,0 +1,6 @@
+INCLUDEPATH += $$PWD
+DEFINES +=HAVE_CONFIG_H
+DEFINES +=USE_CRYPTO_OPENSSL
+HEADERS += $$PWD/config.h
+include(src/ssr.pri)
+

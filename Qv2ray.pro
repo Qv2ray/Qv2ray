@@ -118,8 +118,18 @@ Qv2rayAddSource(ui, widgets, StreamSettingsWidget, cpp, hpp, ui)
 Qv2rayAddSource(ui, widgets, ConnectionItemWidget, cpp, hpp, ui)
 Qv2rayAddSource(ui, widgets, ConnectionInfoWidget, cpp, hpp, ui)
 
-SOURCES += $$PWD/src/main.cpp
-HEADERS +=
+SOURCES += $$PWD/src/main.cpp \
+    src/core/kernel/SSRThread.cpp \
+    src/core/kernel/ShadowsocksrInstance.cpp \
+    src/core/kernel/httpproxy.cpp \
+    src/core/kernel/socketstream.cpp
+HEADERS += \
+    src/core/kernel/QtUILog.hpp \
+    src/core/kernel/SSRThread.hpp \
+    src/core/kernel/ShadowsocksrInstance.hpp \
+    src/core/kernel/httpproxy.hpp \
+    src/core/kernel/socketstream.hpp \
+    src/core/kernel/ssr_start_helper.hpp
 FORMS +=
 INCLUDEPATH += $$PWD/src
 RESOURCES += $$PWD/resources.qrc
@@ -129,6 +139,7 @@ RC_ICONS += $$PWD/assets/icons/qv2ray.ico
 include($$PWD/makespec/02-translations.pri)
 
 unix {
+    LIBS += -lssl -lcrypto -lpcre
     include($$PWD/makespec/03-unix.pri)
     # Sub-process of Qv2ray per-OS build
     !macx: include($$PWD/makespec/04-unix-linux.pri)

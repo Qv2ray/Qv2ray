@@ -16,8 +16,8 @@ namespace Qv2ray::core::connection
         OUTBOUNDSETTING GenerateFreedomOUT(QString domainStrategy, QString redirect, int userLevel);
         OUTBOUNDSETTING GenerateBlackHoleOUT(bool useHTTP);
         OUTBOUNDSETTING GenerateShadowSocksOUT(QList<ShadowSocksServerObject> servers);
-        OUTBOUNDSETTING GenerateShadowSocksServerOUT(QString email, QString address, int port, QString method, QString password, bool ota,
-                                                     int level);
+        OUTBOUNDSETTING GenerateShadowSocksServerOUT(QString email, QString address, int port, QString method, QString password, bool ota, int level);
+        OUTBOUNDSETTING GenerateShadowSocksROUT(QList<ShadowSocksRServerObject> servers);
         OUTBOUNDSETTING GenerateHTTPSOCKSOut(QString address, int port, bool useAuth, QString username, QString password);
         //
         // Inbounds Protocols

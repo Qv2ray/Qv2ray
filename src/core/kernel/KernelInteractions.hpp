@@ -1,7 +1,8 @@
 ﻿#pragma once
 #include "base/Qv2rayBase.hpp"
 #include "core/CoreSafeTypes.hpp"
-
+#include "core/kernel/ShadowsocksrInstance.hpp"
+#include "core/kernel/SSRThread.hpp"
 #include <QProcess>
 
 namespace Qv2ray::core::kernel
@@ -39,6 +40,7 @@ namespace Qv2ray::core::kernel
         APIWorker *apiWorker;
         QProcess *vProcess;
         bool apiEnabled;
+        ShadowsocksrInstance shadowsocksrInstance;
         //
         ConnectionId id = NullConnectionId;
     };
