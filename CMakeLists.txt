@@ -116,7 +116,7 @@ add_executable(qv2ray
   ${QRC_RESOURCES}
 )
 
-if(UNIX AND WIN32 AND NOT APPLE)
+if(UNIX OR WIN32 AND NOT APPLE)
   target_link_libraries(qv2ray
     Qt5::Core
     Qt5::Gui
@@ -131,9 +131,9 @@ elseif(APPLE)
     Qt5::Widgets
     Qt5::Network
     protobuf::libprotobuf
-    -framework Carbon
-    -framework Cocoa
-    -framework Security
+    "-framework Carbon"
+    "-framework Cocoa"
+    "-framework Security"
   )
 endif()
 
