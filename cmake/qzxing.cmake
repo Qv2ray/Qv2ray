@@ -83,4 +83,7 @@ set(QZXING_SOURCES
     ${QZXING_DIR}/zxing/zxing/UnsupportedEncodingException.cpp
     ${QZXING_DIR}/zxing/zxing/common/reedsolomon/ReedSolomonEncoder.cpp
 )
-set(QZXING_INCLUDE_PATH ${QZXING_DIR})
+set(QZXING_INCLUDE_PATH 
+    ${QZXING_DIR}
+    ${QZXING_DIR}/zxing
+)
