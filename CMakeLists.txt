@@ -5,7 +5,7 @@ file(STRINGS "${CMAKE_SOURCE_DIR}/makespec/BUILDVERSION" QV2RAY_BUILD_VERSION)
 set(PACKAGE_VERSION "${QV2RAY_VERSION}.${QV2RAY_BUILD_VERSION}")
 
 project(Qv2ray)
-add_definitions(-DQV2RAY_VERSION_STRING="\\\"v${PACKAGE_VERSION}\\\"")
+add_definitions(-DQV2RAY_VERSION_STRING="v${PACKAGE_VERSION}")
 add_definitions(-DXTOSTRUCT_QT)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -43,8 +43,8 @@ else()
     set(_QV2RAY_BUILD_EXTRA_INFO_STR_ "Qv2ray v${PACKAGE_VERSION}")
 endif()
 
-add_definitions(-D_QV2RAY_BUILD_INFO_STR_="\\\"${_QV2RAY_BUILD_INFO_STR_}\\\"")
-add_definitions(-D_QV2RAY_BUILD_EXTRA_INFO_STR_="\\\"${_QV2RAY_BUILD_EXTRA_INFO_STR_}\\\"")
+add_definitions(-D_QV2RAY_BUILD_INFO_STR_="${_QV2RAY_BUILD_INFO_STR_}")
+add_definitions(-D_QV2RAY_BUILD_EXTRA_INFO_STR_="${_QV2RAY_BUILD_EXTRA_INFO_STR_}")
 message("Qv2ray build info: ${_QV2RAY_BUILD_INFO_STR_}")
 message("Qv2ray build info ex: ${_QV2RAY_BUILD_EXTRA_INFO_STR_}")
 
