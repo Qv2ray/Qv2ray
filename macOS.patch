@@ -1,0 +1,163 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 5fad4af..c727c28 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -4,7 +4,7 @@ file(STRINGS "${CMAKE_SOURCE_DIR}/makespec/VERSION" QV2RAY_VERSION)
+ file(STRINGS "${CMAKE_SOURCE_DIR}/makespec/BUILDVERSION" QV2RAY_BUILD_VERSION)
+ set(PACKAGE_VERSION "${QV2RAY_VERSION}.${QV2RAY_BUILD_VERSION}")
+ 
+-project(Qv2ray)
++project(qv2ray)
+ add_definitions(-DQV2RAY_VERSION_STRING="v${PACKAGE_VERSION}")
+ add_definitions(-DXTOSTRUCT_QT)
+ 
+@@ -30,6 +30,21 @@ include(cmake/qzxing.cmake)
+ include(cmake/protobuf.cmake)
+ include(cmake/cpp-httplib.cmake)
+ include(cmake/backend.cmake)
++if(APPLE)
++    find_package(Iconv REQUIRED)
++    set(MACOSX_FRAMEWORK
++      "-framework Carbon"
++      "-framework Cocoa"
++      "-framework Security"
++    )
++    set(MACOSX_ICONV_LIBRARY
++      Iconv::Iconv
++    )
++
++    set(MACOSX_ICONV_INCLUDE_PATH
++      ${Iconv_INCLUDE_DIR}
++    )
++endif()
+ 
+ if(DEFINED ENV{_QV2RAY_BUILD_INFO_})
+     set(_QV2RAY_BUILD_INFO_STR_ "$ENV{_QV2RAY_BUILD_INFO_}")
+@@ -112,22 +127,7 @@ set(QT_LIBRARY
+     Qt5::Network
+ )
+ 
+-if(APPLE)
+-  find_package(Iconv REQUIRED)
+-  set(MACOSX_FRAMEWORK 
+-    "-framework Carbon"
+-    "-framework Cocoa"
+-    "-framework Security"
+-  )
+-  set(MACOSX_ICONV_LIBRARY
+-    Iconv::Iconv
+-  )
+-  set(MACOSX_ICONV_INCLUDE_PATH
+-    ${Iconv_INCLUDE_DIR}
+-  )
+-endif()
+-
+-add_executable(qv2ray
++add_executable(${PROJECT_NAME}
+   ${QV2RAY_SOURCES}
+   ${QNODEEDITOR_SOURCES}
+   ${QNODEEDITOR_QRC_RESOURCES}
+@@ -141,7 +141,7 @@ add_executable(qv2ray
+   ${QM_FILES}
+ )
+ 
+-target_link_libraries(qv2ray
++target_link_libraries(${PROJECT_NAME}
+   ${QT_LIBRARY}
+   ${MACOSX_FRAMEWORK}
+   ${MACOSX_ICONV_LIBRARY}
+@@ -150,7 +150,7 @@ target_link_libraries(qv2ray
+ )
+ 
+ 
+-target_include_directories(qv2ray PRIVATE
++target_include_directories(${PROJECT_NAME} PRIVATE
+   ${CMAKE_CURRENT_SOURCE_DIR}
+   ${CMAKE_CURRENT_SOURCE_DIR}/src
+   ${CMAKE_BINARY_DIR}
+@@ -163,12 +163,16 @@ target_include_directories(qv2ray PRIVATE
+   ${cpp-httplib_INCLUDE_DIRS}
+ )
+ 
+-install(TARGETS qv2ray
+-        RUNTIME
+-        DESTINATION bin
+-)
++if(APPLE)
++    set(CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR})
++    include(cmake/macdeploy.cmake)
++endif()
+ 
+ if(UNIX AND NOT APPLE)
++  install(TARGETS ${PROJECT_NAME}
++          RUNTIME
++          DESTINATION bin
++  )
+   install(FILES assets/qv2ray.metainfo.xml
+           DESTINATION share/metainfo
+   )
+diff --git a/cmake/macdeploy.cmake b/cmake/macdeploy.cmake
+new file mode 100644
+index 0000000..605215d
+--- /dev/null
++++ b/cmake/macdeploy.cmake
+@@ -0,0 +1,59 @@
++set(prefix "${PROJECT_NAME}.app/Contents")
++set(INSTALL_RUNTIME_DIR "${prefix}/MacOS")
++set(INSTALL_CMAKE_DIR "${prefix}/Resources")
++
++# based on code from CMake's QtDialog/CMakeLists.txt
++macro(install_qt5_plugin _qt_plugin_name _qt_plugins_var _prefix)
++    get_target_property(_qt_plugin_path "${_qt_plugin_name}" LOCATION)
++    if(EXISTS "${_qt_plugin_path}")
++        get_filename_component(_qt_plugin_file "${_qt_plugin_path}" NAME)
++        get_filename_component(_qt_plugin_type "${_qt_plugin_path}" PATH)
++        get_filename_component(_qt_plugin_type "${_qt_plugin_type}" NAME)
++        set(_qt_plugin_dest "${_prefix}/PlugIns/${_qt_plugin_type}")
++        install(FILES "${_qt_plugin_path}"
++            DESTINATION "${_qt_plugin_dest}")
++        set(${_qt_plugins_var}
++            "${${_qt_plugins_var}};\$ENV{DEST_DIR}\${CMAKE_INSTALL_PREFIX}/${_qt_plugin_dest}/${_qt_plugin_file}")
++    else()
++        message(FATAL_ERROR "QT plugin ${_qt_plugin_name} not found")
++    endif()
++endmacro()
++
++install_qt5_plugin("Qt5::QCocoaIntegrationPlugin" QT_PLUGINS ${prefix})
++file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/qt.conf"
++    "[Paths]\nPlugins = ${_qt_plugin_dir}\n")
++install(FILES "${CMAKE_CURRENT_BINARY_DIR}/qt.conf"
++    DESTINATION "${INSTALL_CMAKE_DIR}")
++
++# Destination paths below are relative to ${CMAKE_INSTALL_PREFIX}
++install(TARGETS ${PROJECT_NAME}
++    BUNDLE DESTINATION . COMPONENT Runtime
++    RUNTIME DESTINATION ${INSTALL_RUNTIME_DIR} COMPONENT Runtime
++    )
++
++# Note Mac specific extension .app
++set(APPS "\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app")
++
++# Directories to look for dependencies
++set(DIRS "${CMAKE_BINARY_DIR}")
++
++# Path used for searching by FIND_XXX(), with appropriate suffixes added
++if(CMAKE_PREFIX_PATH)
++    foreach(dir ${CMAKE_PREFIX_PATH})
++        list(APPEND DIRS "${dir}/bin" "${dir}/lib")
++    endforeach()
++endif()
++
++# Append Qt's lib folder which is two levels above Qt5Widgets_DIR
++list(APPEND DIRS "${Qt5Widgets_DIR}/../..")
++list(APPEND DIRS "/usr/local/lib")
++list(APPEND DIRS "/usr/lib")
++
++include(InstallRequiredSystemLibraries)
++
++message(STATUS "APPS: ${APPS}")
++message(STATUS "QT_PLUGINS: ${QT_PLUGINS}")
++message(STATUS "DIRS: ${DIRS}")
++
++install(CODE "include(BundleUtilities)
++    fixup_bundle(\"${APPS}\" \"${QT_PLUGINS}\" \"${DIRS}\")")
