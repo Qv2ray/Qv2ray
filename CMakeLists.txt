@@ -25,6 +25,7 @@ include(cmake/translations.cmake)
 include(cmake/qnodeeditor.cmake)
 include(cmake/singleapplication.cmake)
 include(cmake/qzxing.cmake)
+include(cmake/protobuf.cmake)
 add_definitions(-DQAPPLICATION_CLASS=QApplication)
 add_subdirectory(3rdparty/cpp-httplib)
 
