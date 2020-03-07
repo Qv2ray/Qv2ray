@@ -1,4 +1,4 @@
-if(USE_GRPC)
+if(NOT USE_LIBQVB)
     find_program(GRPC_CPP_PLUGIN grpc_cpp_plugin)
     
     find_library(GRPC_LIBRARY NAMES grpc)
@@ -31,6 +31,7 @@ if(USE_GRPC)
         DEPENDS "${API_PROTO}"
     )
 else()
+    add_definitions(-DBACKEND_LIBQVB)
     if(UNIX AND NOT APPLE)
         set(QV2RAY_BACKEND_LIBRARIES ${CMAKE_SOURCE_DIR}/libs/libqvb-linux64.a)
     elseif(APPLE)
