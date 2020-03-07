@@ -26,7 +26,7 @@ if(USE_GRPC)
             --cpp_out "${CMAKE_CURRENT_BINARY_DIR}"
             --plugin=protoc-gen-grpc="${GRPC_CPP_PLUGIN}"
             "${API_PROTO}"
-        DEPENDS "${API_PROTO}")
+        DEPENDS "${API_PROTO}"
     )
 else()
     if(UNIX AND NOT APPLE)
