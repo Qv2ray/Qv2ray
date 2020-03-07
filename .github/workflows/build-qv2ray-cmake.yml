@@ -118,7 +118,8 @@ jobs:
         shell: bash
         run: |
           cd build
-          cmake --install . --parallel $(nproc)
+          cmake --build . --parallel $(nproc)
+          cmake --install .
 # -------------------------------------------------------- Deployments
       - name: Linux - ${{ matrix.qt_version }} - Generating AppImage
         if: matrix.platform == 'ubuntu-16.04'
