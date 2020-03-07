@@ -129,7 +129,7 @@ add_executable(qv2ray
   ${PROTO_SRCS}
   ${PROTO_HDRS}
   ${API_GRPC_SRCS}
-  ${API_GRPC_HDRS}
+  ${API_PROTO_SRCS}
   ${QRC_RESOURCES}
 )
 
