@@ -30,7 +30,7 @@ set(QNODEEDITOR_INCLUDE_PATH
     ${QNODEEDITOR_DIR}/include/nodes/internal
 )
 
-file(GLOB_RECURSE HEADERS_TO_MOC ${QNODEEDITOR_DIR}/include/nodes/internal/*.hpp)
+file(GLOB_RECURSE HEADERS_TO_MOC include/nodes/internal/*.hpp)
 
 qt5_wrap_cpp(QNODEEDITOR_SOURCES
     ${HEADERS_TO_MOC}
