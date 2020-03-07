@@ -257,7 +257,9 @@ int main(int argc, char *argv[])
         std::unique_ptr<QCoreApplication> consoleApp(new QCoreApplication(argc, argv));
         //
         // Install a default translater. From the OS/DE
-        consoleApp->installTranslator(QvTranslator(QLocale::system().name()).pTranslator.get());
+        Qv2rayTranslator.reset(std::move(new QvTranslator()));
+        Qv2rayTranslator->reloadTranslation(QLocale::system().name());
+        consoleApp->installTranslator(Qv2rayTranslator->pTranslator.get());
         QvCommandArgParser parser;
         QString errorMessage;
 
@@ -318,10 +320,10 @@ int main(int argc, char *argv[])
     // Not duplicated.
     // Install a default translater. From the OS/DE
     auto _lang = QLocale::system().name();
-    Qv2rayTranslator = std::move(QvTranslator(_lang).pTranslator);
-    //
+    Qv2rayTranslator.reset(std::move(new QvTranslator()));
+    Qv2rayTranslator->reloadTranslation(_lang);
     // Do not install en-US as it's the default language.
-    bool _result_ = _qApp.installTranslator(Qv2rayTranslator.get());
+    bool _result_ = _qApp.installTranslator(Qv2rayTranslator->pTranslator.get());
     LOG(MODULE_UI, "Installing a tranlator from OS: " + _lang + " -- " + (_result_ ? "OK" : "Failed"))
     //
     LOG("LICENCE", NEWLINE
@@ -347,21 +349,15 @@ int main(int argc, char *argv[])
 #endif
     //
     // Load the language translation list.
-    auto langs = GetFileList(QDir(":/translations"));
+    //    auto translationDir = Qv
 
-    if (langs.empty())
-    {
-        LOG(MODULE_INIT, "FAILED to find any translations. THIS IS A BUILD ERROR.")
-        QvMessageBoxWarn(nullptr, QObject::tr("Cannot load languages"),
-                         QObject::tr("Qv2ray will continue running, but you cannot change the UI language."));
-    }
-    else
-    {
-        for (auto lang : langs)
-        {
-            LOG(MODULE_INIT, "Found Translator: " + lang)
-        }
-    }
+    //    auto translationDir = QvTranslator::deduceTranslationDir();
+    //    if (!translationDir)
+    //    {
+    //        LOG(MODULE_INIT, "FAILED to find any translations. THIS IS A BUILD ERROR.")
+    //        QvMessageBoxWarn(nullptr, QObject::tr("Cannot load languages"),
+    //                         QObject::tr("Qv2ray will continue running, but you cannot change the UI language."));
+    //    }
 
     // Qv2ray Initialize, find possible config paths and verify them.
     if (!initialiseQv2ray())
@@ -394,7 +390,7 @@ int main(int argc, char *argv[])
     // Load config object from upgraded config QJsonObject
     auto confObject = StructFromJsonString<Qv2rayConfig>(JsonToString(conf));
     // Remove system translator, for loading custom translations.
-    qApp->removeTranslator(Qv2rayTranslator.get());
+    qApp->removeTranslator(Qv2rayTranslator->pTranslator.get());
     LOG(MODULE_INIT, "Removed system translations")
 
     if (confObject.uiConfig.language.isEmpty())
@@ -404,16 +400,13 @@ int main(int argc, char *argv[])
         confObject.uiConfig.language = "en-US";
     }
 
-    Qv2rayTranslator = std::move(QvTranslator(confObject.uiConfig.language).pTranslator);
-
-    if (qApp->installTranslator(Qv2rayTranslator.get()))
+    Qv2rayTranslator->reloadTranslation(confObject.uiConfig.language);
+    if (qApp->installTranslator(Qv2rayTranslator->pTranslator.get()))
     {
-        LOG(MODULE_INIT, "Successfully installed a translator for " + confObject.uiConfig.language)
+        LOG(MODULE_INIT, "Successfully installed a translator for " + confObject.uiConfig.language);
     }
     else
     {
-        // Do not translate these.....
-        // If a translator fails to load, pop up a message.
         QvMessageBoxWarn(nullptr, "Translation Failed",
                          "Cannot load translation for " + confObject.uiConfig.language + ", English is now used." + NEWLINE + NEWLINE +
                              "Please go to Preferences Window to change language or open an Issue");

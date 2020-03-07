@@ -1,10 +1,9 @@
 #pragma once
 
-#include "base/models/QvSettingsObject.hpp"
 #include "base/models/QvRuntimeConfig.hpp"
+#include "base/models/QvSettingsObject.hpp"
 #include "base/models/QvStartupConfig.hpp"
-
-#include <QTranslator>
+#include "common/QvTranslator.hpp"
 
 // Instantiation for Qv2ray global objects.
 
@@ -17,5 +16,5 @@ namespace Qv2ray
     inline base::config::Qv2rayConfig GlobalConfig = base::config::Qv2rayConfig();
     inline base::QvStartupOptions StartupOption = base::QvStartupOptions();
     //
-    inline std::unique_ptr<QTranslator> Qv2rayTranslator;
+    inline std::unique_ptr<common::QvTranslator> Qv2rayTranslator;
 } // namespace Qv2ray
