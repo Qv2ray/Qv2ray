@@ -90,47 +90,48 @@ jobs:
         with:
           pathSource: ./libs/Qv2ray-deps-grpc-${{ matrix.arch }}-windows.7z
           pathTarget: ./libs
-# -------------------------------------------------------- Generate MakeFile
-      - name: macOS - ${{ matrix.qt_version }} - Generate Dependencies and Makefile
+# -------------------------------------------------------- Generate MakeFile and Build
+      - name: macOS - ${{ matrix.qt_version }} - Generate Dependencies and Build
         shell: bash
         if: matrix.platform == 'macos-latest'
         run: |
+          export _QV2RAY_BUILD_INFO_="Qv2ray built from Github Action"  
+          export _QV2RAY_BUILD_EXTRA_INFO_="qt${{ matrix.qt_version }}-${{ github.sha }}-ci.${{ matrix.platform }}"
           mkdir build
           cd build
-          export _QV2RAY_BUILD_INFO_="Qv2ray built from Github Action"  
-          export _QV2RAY_BUILD_EXTRA_INFO_="qt${{ matrix.qt_version }}-${{ github.sha }}"
-          cmake ..
+          cmake --build . --parallel $(nproc)
+          sudo cmake --install .
+          sudo chmod -Rv a+rw ./
         
-      - name: Windows - ${{ matrix.qt_version }} - Generate Dependencies and Makefile
+      - name: Windows - ${{ matrix.qt_version }} - Generate Dependencies and Build
         shell: bash
         if: matrix.platform == 'windows-latest'
         run: |
+          export _QV2RAY_BUILD_INFO_="Qv2ray built from Github Action"  
+          export _QV2RAY_BUILD_EXTRA_INFO_="qt${{ matrix.qt_version }}-${{ github.sha }}-ci.${{ matrix.platform }}"
           mkdir build
           cd build
-          export _QV2RAY_BUILD_INFO_="Qv2ray built from Github Action"  
-          export _QV2RAY_BUILD_EXTRA_INFO_="qt${{ matrix.qt_version }}-${{ github.sha }}"
           cmake .. -DCMAKE_TOOLCHAIN_FILE=../libs/${{ matrix.arch }}-windows/scripts/buildsystems/vcpkg.cmake
 
-      - name: Linux - ${{ matrix.qt_version }} - Generate Dependencies and Makefile
+      - name: Linux - ${{ matrix.qt_version }} - Generate Dependencies and Build
         if: matrix.platform == 'ubuntu-16.04'
         shell: bash
         env:
           CC: /usr/bin/gcc-9
           CXX: /usr/bin/g++-9
         run: |
+          export _QV2RAY_BUILD_INFO_="Qv2ray built from Github Action"  
+          export _QV2RAY_BUILD_EXTRA_INFO_="qt${{ matrix.qt_version }}-${{ github.sha }}-ci.${{ matrix.platform }}"
           mkdir build
           cd build
-          export _QV2RAY_BUILD_INFO_="Qv2ray built from Github Action"  
-          export _QV2RAY_BUILD_EXTRA_INFO_="qt${{ matrix.qt_version }}-${{ github.sha }}"
           cmake .. -DCMAKE_INSTALL_PREFIX=./AppDir/usr
+          cmake --install .
 # -------------------------------------------------------- Build
-      - name: Build Qv2ray
+      - name: Inspect Build Output
         shell: bash
         run: |
           cd build
-          cmake --build . --parallel $(nproc)
-          sudo cmake --install .
-          sudo chmod -Rv a+rw ./
+          ls -lah --recursive --color=always || true
 # -------------------------------------------------------- Deployments
       - name: Linux - ${{ matrix.qt_version }} - Generating AppImage
         if: matrix.platform == 'ubuntu-16.04'
