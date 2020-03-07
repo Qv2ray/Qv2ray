@@ -116,13 +116,27 @@ add_executable(qv2ray
   ${QRC_RESOURCES}
 )
 
-target_link_libraries(qv2ray
-  Qt5::Core
-  Qt5::Gui
-  Qt5::Widgets
-  Qt5::Network
-  protobuf::libprotobuf
-)
+if(UNIX AND WIN32 AND NOT APPLE)
+  target_link_libraries(qv2ray
+    Qt5::Core
+    Qt5::Gui
+    Qt5::Widgets
+    Qt5::Network
+    protobuf::libprotobuf
+  )
+elseif(APPLE)
+  target_link_libraries(qv2ray
+    Qt5::Core
+    Qt5::Gui
+    Qt5::Widgets
+    Qt5::Network
+    protobuf::libprotobuf
+    -framework Carbon
+    -framework Cocoa
+    -framework Security
+  )
+endif()
+
 
 target_include_directories(qv2ray PRIVATE
   ${CMAKE_CURRENT_SOURCE_DIR}
