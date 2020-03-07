@@ -99,7 +99,7 @@ jobs:
           cd build
           export _QV2RAY_BUILD_INFO_="Qv2ray built from Github Action"  
           export _QV2RAY_BUILD_EXTRA_INFO_="qt${{ matrix.qt_version }}-${{ github.sha }}"
-          cmake .. -DUSE_GRPC
+          cmake .. -DUSE_GRPC=ON
 
       - name: Linux - ${{ matrix.qt_version }} - Generate Dependencies and Makefile
         if: matrix.platform == 'ubuntu-16.04'
@@ -112,7 +112,7 @@ jobs:
           cd build
           export _QV2RAY_BUILD_INFO_="Qv2ray built from Github Action"  
           export _QV2RAY_BUILD_EXTRA_INFO_="qt${{ matrix.qt_version }}-${{ github.sha }}"
-          cmake .. -DUSE_GRPC
+          cmake .. -DUSE_GRPC=ON
 #qmake .. CONFIG+="debug_and_release no_increase_build_number" PREFIX=/usr
 # -------------------------------------------------------- Build
       - name: Build Qv2ray

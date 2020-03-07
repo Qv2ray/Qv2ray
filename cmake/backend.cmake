@@ -1,5 +1,4 @@
-if(DEFINED USE_GRPC)
-    add_definitions(-DWITH_LIB_GRPCPP)
+if(USE_GRPC)
     find_program(GRPC_CPP_PLUGIN grpc_cpp_plugin)
     
     find_library(GRPC_LIBRARY NAMES grpc)
