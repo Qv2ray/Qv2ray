@@ -151,6 +151,7 @@ target_include_directories(qv2ray PRIVATE
   ${QZXING_INCLUDE_PATH}
   ${SINGLEAPPLICATION_DIR}
   ${Protobuf_INCLUDE_DIRS}
+  ${cpp-httplib_INCLUDE_DIRS}
 )
 
 install(TARGETS qv2ray
