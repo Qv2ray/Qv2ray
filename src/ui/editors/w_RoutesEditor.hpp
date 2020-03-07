@@ -1,7 +1,6 @@
 #pragma once
 
 #include "ConnectionStyle.hpp"
-#include "FlowScene.hpp"
 #include "Node.hpp"
 #include "NodeData.hpp"
 #include "common/QvHelpers.hpp"

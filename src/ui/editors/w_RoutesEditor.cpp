@@ -1,5 +1,6 @@
 #include "w_RoutesEditor.hpp"
 
+#include "FlowScene.hpp"
 #include "FlowView.hpp"
 #include "FlowViewStyle.hpp"
 #include "NodeStyle.hpp"

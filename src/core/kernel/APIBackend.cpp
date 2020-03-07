@@ -1,6 +1,6 @@
 #include "APIBackend.hpp"
 
-#ifdef WITH_LIB_GRPCPP
+#ifndef BACKEND_LIBQVB
 using namespace v2ray::core::app::stats::command;
 using grpc::Channel;
 using grpc::ClientContext;
@@ -74,7 +74,7 @@ namespace Qv2ray::core::kernel
                 if (!dialed)
                 {
                     auto channelAddress = "127.0.0.1:" + QString::number(GlobalConfig.apiConfig.statsPort);
-#ifdef WITH_LIB_GRPCPP
+#ifndef BACKEND_LIBQVB
                     Channel = grpc::CreateChannel(channelAddress.toStdString(), grpc::InsecureChannelCredentials());
                     StatsService service;
                     Stub = service.NewStub(Channel);

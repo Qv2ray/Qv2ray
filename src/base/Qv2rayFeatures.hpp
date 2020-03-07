@@ -2,8 +2,8 @@
 // Qv2ray build features.
 //
 // Always use libgRPC++ on windows platform.
-#ifndef WITH_LIB_GRPCPP
+#ifdef BACKEND_LIBQVB
     #ifdef _WIN32
-        #define WITH_LIB_GRPCPP
+        #error "libQvb is not supported on Windows Platform"
     #endif
 #endif

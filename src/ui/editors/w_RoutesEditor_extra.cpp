@@ -1,3 +1,4 @@
+#include "FlowScene.hpp"
 #include "core/CoreUtils.hpp"
 #include "ui/models/InboundNodeModel.hpp"
 #include "ui/models/OutboundNodeModel.hpp"

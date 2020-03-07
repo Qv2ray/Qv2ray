@@ -1,6 +1,6 @@
 #include "QvGeositeReader.hpp"
 
-#include <v2ray_geosite.pb.h>
+#include "v2ray_geosite.pb.h"
 
 namespace Qv2ray::components::geosite
 {

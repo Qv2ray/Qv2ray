@@ -29,4 +29,13 @@ set(QNODEEDITOR_INCLUDE_PATH
     ${QNODEEDITOR_DIR}/include/nodes/
     ${QNODEEDITOR_DIR}/include/nodes/internal
 )
+
+file(GLOB_RECURSE HEADERS_TO_MOC ${QNODEEDITOR_DIR}/include/nodes/internal/*.hpp)
+
+qt5_wrap_cpp(QNODEEDITOR_SOURCES
+    ${HEADERS_TO_MOC}
+    TARGET qv2ray
+    OPTIONS --no-notes # Don't display a note for the headers which don't produce a moc_*.cpp
+)
+
 set(QNODEEDITOR_QRC_RESOURCES ${QNODEEDITOR_DIR}/resources/QNodeEditor_resources.qrc)
