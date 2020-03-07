@@ -29,6 +29,7 @@ include(cmake/singleapplication.cmake)
 include(cmake/qzxing.cmake)
 include(cmake/protobuf.cmake)
 include(cmake/cpp-httplib.cmake)
+include(cmake/backend.cmake)
 
 if(DEFINED ENV{_QV2RAY_BUILD_INFO_})
     set(_QV2RAY_BUILD_INFO_STR_ "$ENV{_QV2RAY_BUILD_INFO_}")
@@ -127,6 +128,8 @@ add_executable(qv2ray
   ${QZXING_SOURCES}
   ${PROTO_SRCS}
   ${PROTO_HDRS}
+  ${API_GRPC_SRCS}
+  ${API_GRPC_HDRS}
   ${QRC_RESOURCES}
 )
 
@@ -134,6 +137,7 @@ target_link_libraries(qv2ray
   ${QT_LIBRARY}
   ${MACOSX_FRAMEWORK}
   ${QV2RAY_PROTOBUF_LIBRARY}
+  ${QV2RAY_BACKEND_LIBRARIES}
 )
 
 
