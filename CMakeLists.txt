@@ -28,8 +28,7 @@ include(cmake/qnodeeditor.cmake)
 include(cmake/singleapplication.cmake)
 include(cmake/qzxing.cmake)
 include(cmake/protobuf.cmake)
-add_definitions(-DQAPPLICATION_CLASS=QApplication)
-add_subdirectory(3rdparty/cpp-httplib)
+include(cmake/cpp-httplib.cmake)
 
 if(DEFINED ENV{_QV2RAY_BUILD_INFO_})
     set(_QV2RAY_BUILD_INFO_STR_ "$ENV{_QV2RAY_BUILD_INFO_}")
@@ -105,6 +104,21 @@ set(QV2RAY_SOURCES
 
 set(QRC_RESOURCES ${CMAKE_SOURCE_DIR}/resources.qrc)
 
+set(QT_LIBRARY
+    Qt5::Core
+    Qt5::Gui
+    Qt5::Widgets
+    Qt5::Network
+)
+
+if(APPLE)
+  set(MACOSX_FRAMEWORK 
+    "-framework Carbon"
+    "-framework Cocoa"
+    "-framework Security"
+  )
+endif()
+
 add_executable(qv2ray
   ${QV2RAY_SOURCES}
   ${QNODEEDITOR_SOURCES}
@@ -116,26 +130,11 @@ add_executable(qv2ray
   ${QRC_RESOURCES}
 )
 
-if(UNIX OR WIN32 AND NOT APPLE)
-  target_link_libraries(qv2ray
-    Qt5::Core
-    Qt5::Gui
-    Qt5::Widgets
-    Qt5::Network
-    protobuf::libprotobuf
-  )
-elseif(APPLE)
-  target_link_libraries(qv2ray
-    Qt5::Core
-    Qt5::Gui
-    Qt5::Widgets
-    Qt5::Network
-    protobuf::libprotobuf
-    "-framework Carbon"
-    "-framework Cocoa"
-    "-framework Security"
-  )
-endif()
+target_link_libraries(qv2ray
+  ${QT_LIBRARY}
+  ${MACOSX_FRAMEWORK}
+  ${QV2RAY_PROTOBUF_LIBRARY}
+)
 
 
 target_include_directories(qv2ray PRIVATE
