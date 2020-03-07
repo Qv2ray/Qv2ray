@@ -30,6 +30,8 @@ install(TARGETS ${PROJECT_NAME}
     BUNDLE DESTINATION . COMPONENT Runtime
     RUNTIME DESTINATION ${INSTALL_RUNTIME_DIR} COMPONENT Runtime
     )
+install(FILES ${CMAKE_SOURCE_DIR}/assets/info.plist DESTINATION "${prefix}" )
+install(FILES ${CMAKE_SOURCE_DIR}/assets/icons/qv2ray.icns DESTINATION "${INSTALL_CMAKE_DIR}" )
 
 # Note Mac specific extension .app
 set(APPS "\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app")

@@ -129,9 +129,6 @@ jobs:
         run: |
           cd build
           cmake --build . --parallel $(nproc)
-          mkdir ./qv2ray.app
-          mkdir ./qv2ray.app/Contents
-          cp ../assets/info.plist ./qv2ray.app/Contents
           sudo cmake --install .
           sudo chmod -Rv a+rw ./
 # -------------------------------------------------------- Deployments
