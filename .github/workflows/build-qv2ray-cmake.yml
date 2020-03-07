@@ -83,7 +83,7 @@ jobs:
         run: |
          curl -o ./libs/libqvb-linux64.a -L https://github.com/Qv2ray/QvRPCBridge/releases/download/v1.1/libqvb-linux64.a
          curl -o ./libs/libqvb-darwin.a -L https://github.com/Qv2ray/QvRPCBridge/releases/download/v1.1/libqvb-darwin.a
-         curl -o ./libs/Qv2ray-deps-${{ matrix.arch }}-windows.7z -L https://github.com/Qv2ray/Qv2ray-deps/releases/download/release/Qv2ray-deps-${{ matrix.arch }}-windows.7z
+         curl -o ./libs/Qv2ray-deps-grpc-${{ matrix.arch }}-windows.7z -L https://github.com/Qv2ray/Qv2ray-deps/releases/download/release/Qv2ray-deps-grpc-${{ matrix.arch }}-windows.7z
       - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - Extract Windows Dependencies
         if: matrix.platform == 'windows-latest'
         uses: DuckSoft/extract-7z-action@v1.0
@@ -91,15 +91,25 @@ jobs:
           pathSource: ./libs/Qv2ray-deps-${{ matrix.arch }}-windows.7z
           pathTarget: ./libs
 # -------------------------------------------------------- Generate MakeFile
-      - name: Cross-platform - ${{ matrix.qt_version }} - Generate Dependencies and Makefile
+      - name: macOS - ${{ matrix.qt_version }} - Generate Dependencies and Makefile
         shell: bash
-        if: matrix.platform != 'ubuntu-16.04'
+        if: matrix.platform == 'macos-latest'
         run: |
           mkdir build
           cd build
           export _QV2RAY_BUILD_INFO_="Qv2ray built from Github Action"  
           export _QV2RAY_BUILD_EXTRA_INFO_="qt${{ matrix.qt_version }}-${{ github.sha }}"
           cmake ..
+        
+      - name: Windows - ${{ matrix.qt_version }} - Generate Dependencies and Makefile
+        shell: bash
+        if: matrix.platform == 'windows-latest'
+        run: |
+          mkdir build
+          cd build
+          export _QV2RAY_BUILD_INFO_="Qv2ray built from Github Action"  
+          export _QV2RAY_BUILD_EXTRA_INFO_="qt${{ matrix.qt_version }}-${{ github.sha }}"
+          cmake .. -DCMAKE_TOOLCHAIN_FILE=../libs/${{ matrix.arch }}-windows/scripts/buildsystems/vcpkg.cmake
 
       - name: Linux - ${{ matrix.qt_version }} - Generate Dependencies and Makefile
         if: matrix.platform == 'ubuntu-16.04'
