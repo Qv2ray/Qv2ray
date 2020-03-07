@@ -70,7 +70,7 @@ jobs:
           sudo add-apt-repository ppa:webispy/grpc
           sudo add-apt-repository ppa:carsten-uppenbrink-net/openssl
           sudo apt update
-          sudo apt install -y libssl-dev libprotobuf-dev protobuf-compiler protobuf-c-compiler
+          sudo apt install -y libssl-dev libprotobuf-dev protobuf-compiler protobuf-c-compiler libgrpc++-dev
 
       - name: macOS - Install Packages
         if: matrix.platform == 'macos-latest'
