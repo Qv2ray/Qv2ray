@@ -108,7 +108,10 @@ add_executable(qv2ray
   ${QNODEEDITOR_QRC_RESOURCES}
   ${SINGLEAPPLICATION_SOURCES}
   ${QZXING_SOURCES}
+  ${PROTO_SRCS}
+  ${PROTO_HDRS}
   ${QRC_RESOURCES}
+  protobuf::libprotobuf
 )
 
 target_link_libraries(qv2ray
@@ -119,12 +122,13 @@ target_link_libraries(qv2ray
 )
 
 target_include_directories(qv2ray PRIVATE
-  ${CMAKE_CURRENT_SOURCE_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}/src
+  ${CMAKE_BINARY_DIR}
   ${QHTTPSERVER_DIR}
   ${QNODEEDITOR_INCLUDE_PATH}
   ${QZXING_INCLUDE_PATH}
   ${SINGLEAPPLICATION_DIR}
+  ${Protobuf_INCLUDE_DIRS}
 )
 
 install(TARGETS qv2ray
