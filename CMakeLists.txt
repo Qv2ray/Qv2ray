@@ -113,10 +113,17 @@ set(QT_LIBRARY
 )
 
 if(APPLE)
+  find_package(Iconv REQUIRED)
   set(MACOSX_FRAMEWORK 
     "-framework Carbon"
     "-framework Cocoa"
     "-framework Security"
+  )
+  set(MACOSX_ICONV_LIBRARY
+    Iconv::Iconv
+  )
+  set(MACOSX_ICONV_INCLUDE_PATH
+    ${Iconv_INCLUDE_DIR}
   )
 endif()
 
@@ -137,6 +144,7 @@ add_executable(qv2ray
 target_link_libraries(qv2ray
   ${QT_LIBRARY}
   ${MACOSX_FRAMEWORK}
+  ${MACOSX_ICONV_LIBRARY}
   ${QV2RAY_PROTOBUF_LIBRARY}
   ${QV2RAY_BACKEND_LIBRARIES}
 )
@@ -151,6 +159,7 @@ target_include_directories(qv2ray PRIVATE
   ${QZXING_INCLUDE_PATH}
   ${SINGLEAPPLICATION_DIR}
   ${Protobuf_INCLUDE_DIRS}
+  ${MACOSX_ICONV_INCLUDE_PATH}
   ${cpp-httplib_INCLUDE_DIRS}
 )
 
