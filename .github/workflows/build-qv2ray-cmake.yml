@@ -122,7 +122,7 @@ jobs:
           mkdir ./qv2ray.app
           mkdir ./qv2ray.app/Contents
           cp ../assets/info.plist ./qv2ray.app/Contents
-          cmake --install .
+          sudo cmake --install .
 # -------------------------------------------------------- Deployments
       - name: Linux - ${{ matrix.qt_version }} - Generating AppImage
         if: matrix.platform == 'ubuntu-16.04'
