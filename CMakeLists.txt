@@ -111,7 +111,6 @@ add_executable(qv2ray
   ${PROTO_SRCS}
   ${PROTO_HDRS}
   ${QRC_RESOURCES}
-  protobuf::libprotobuf
 )
 
 target_link_libraries(qv2ray
@@ -119,6 +118,7 @@ target_link_libraries(qv2ray
   Qt5::Gui
   Qt5::Widgets
   Qt5::Network
+  protobuf::libprotobuf
 )
 
 target_include_directories(qv2ray PRIVATE
