@@ -112,7 +112,7 @@ jobs:
           cd build
           export _QV2RAY_BUILD_INFO_="Qv2ray built from Github Action"  
           export _QV2RAY_BUILD_EXTRA_INFO_="qt${{ matrix.qt_version }}-${{ github.sha }}"
-          cmake .. -DCMAKE_INSTALL_PREFIX=./AppDir
+          cmake .. -DCMAKE_INSTALL_PREFIX=./AppDir/usr
 # -------------------------------------------------------- Build
       - name: Build Qv2ray
         shell: bash
