@@ -24,6 +24,7 @@ endif()
 include(cmake/translations.cmake)
 include(cmake/qnodeeditor.cmake)
 include(cmake/singleapplication.cmake)
+include(cmake/qzxing.cmake)
 add_definitions(-DQAPPLICATION_CLASS=QApplication)
 add_subdirectory(3rdparty/cpp-httplib)
 
@@ -106,6 +107,7 @@ add_executable(qv2ray
   ${QNODEEDITOR_SOURCES}
   ${QNODEEDITOR_QRC_RESOURCES}
   ${SINGLEAPPLICATION_SOURCES}
+  ${QZXING_SOURCES}
   ${QRC_RESOURCES}
 )
 
@@ -121,6 +123,7 @@ target_include_directories(qv2ray PRIVATE
   ${CMAKE_CURRENT_SOURCE_DIR}/src
   ${QHTTPSERVER_DIR}
   ${QNODEEDITOR_INCLUDE_PATH}
+  ${QZXING_INCLUDE_PATH}
   ${SINGLEAPPLICATION_DIR}
 )
 
