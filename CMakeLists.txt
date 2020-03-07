@@ -123,6 +123,7 @@ target_link_libraries(qv2ray
 )
 
 target_include_directories(qv2ray PRIVATE
+  ${CMAKE_CURRENT_SOURCE_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}/src
   ${CMAKE_BINARY_DIR}
   ${QHTTPSERVER_DIR}
