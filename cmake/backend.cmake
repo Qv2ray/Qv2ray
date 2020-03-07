@@ -17,6 +17,7 @@ if(USE_GRPC)
     endif()
 
     set(API_PROTO "${CMAKE_SOURCE_DIR}/tools/v2ray_api.proto")
+    set(API_PROTO_PATH "${CMAKE_SOURCE_DIR}/tools")
     set(API_GRPC_SRCS "${CMAKE_CURRENT_BINARY_DIR}/v2ray_api.pb.cc")
     set(API_GRPC_HDRS "${CMAKE_CURRENT_BINARY_DIR}/v2ray_api.pb.h")
     add_custom_command(
@@ -24,6 +25,7 @@ if(USE_GRPC)
         COMMAND ${Protobuf_PROTOC_EXECUTABLE}
         ARGS --grpc_out "${CMAKE_CURRENT_BINARY_DIR}"
             --cpp_out "${CMAKE_CURRENT_BINARY_DIR}"
+            -I "${API_PROTO_PATH}"
             --plugin=protoc-gen-grpc="${GRPC_CPP_PLUGIN}"
             "${API_PROTO}"
         DEPENDS "${API_PROTO}"
