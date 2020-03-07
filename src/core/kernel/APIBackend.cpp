@@ -156,7 +156,7 @@ namespace Qv2ray::core::kernel
             return 0;
         }
 
-#ifdef WITH_LIB_GRPCPP
+#ifndef BACKEND_LIBQVB
         GetStatsRequest request;
         request.set_name(name.toStdString());
         request.set_reset(true);

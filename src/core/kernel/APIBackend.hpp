@@ -1,6 +1,7 @@
 #pragma once
 #include "base/Qv2rayBase.hpp"
 #ifndef BACKEND_LIBQVB
+    #include "v2ray_api.grpc.pb.h"
     #include "v2ray_api.pb.h"
     #include "v2ray_geosite.pb.h"
 
