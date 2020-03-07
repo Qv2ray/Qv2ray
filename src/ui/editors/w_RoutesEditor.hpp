@@ -5,6 +5,8 @@
 #include "Node.hpp"
 #include "NodeData.hpp"
 #include "common/QvHelpers.hpp"
+#include "ui/messaging/QvMessageBus.hpp"
+#include "ui_w_RoutesEditor.h"
 
 #include <QDialog>
 #include <QJsonArray>
@@ -16,9 +18,8 @@ using QtNodes::ConnectionStyle;
 using QtNodes::FlowScene;
 using QtNodes::Node;
 
-#include "ui/messaging/QvMessageBus.hpp"
-#include "ui_w_RoutesEditor.h"
-
+#define GRAPH_GLOBAL_OFFSET_X -80
+#define GRAPH_GLOBAL_OFFSET_Y -10
 enum ROUTE_EDIT_MODE
 {
     RENAME_INBOUND,

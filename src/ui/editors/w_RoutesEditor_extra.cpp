@@ -1,8 +1,8 @@
-// WARNING
-// Since it's required for this file to know the content of the macros defined
-// in another CPP file. We included an CPP file instead of the proper HPP file.
-#include "w_RoutesEditor.cpp"
-
+#include "core/CoreUtils.hpp"
+#include "ui/models/InboundNodeModel.hpp"
+#include "ui/models/OutboundNodeModel.hpp"
+#include "ui/models/RuleNodeModel.hpp"
+#include "w_RoutesEditor.hpp"
 // Supplementary source file for Routes editor, basically providing
 // routes-related operations.
 
