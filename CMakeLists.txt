@@ -131,6 +131,7 @@ add_executable(qv2ray
   ${API_GRPC_SRCS}
   ${API_PROTO_SRCS}
   ${QRC_RESOURCES}
+  ${QM_FILES}
 )
 
 target_link_libraries(qv2ray
