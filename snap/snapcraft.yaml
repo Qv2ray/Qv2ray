@@ -40,7 +40,6 @@ apps:
         - gsettings
         - network-control
         - network-manager
-        - system-observe
       common-id: com.github.Qv2ray
       desktop: "usr/share/applications/qv2ray.desktop"
 
