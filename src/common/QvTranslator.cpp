@@ -50,6 +50,10 @@ namespace Qv2ray::common
             // 2nd: platform-specific dir
             QString(QV2RAY_TRANSLATION_PATH),
 #endif
+#ifdef Q_OS_LINUX
+            // 2.5: hard-coded path for Linux systems
+            QString("/usr/share/qv2ray/lang"),
+#endif
         };
         // 3rd: standard path dirs
         searchPaths << QStandardPaths::locateAll(QStandardPaths::DataLocation, "lang", QStandardPaths::LocateDirectory);
