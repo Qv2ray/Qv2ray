@@ -1,11 +1,6 @@
-// WARNING
-// Since it's required for *extra.cpp to know the content of those macros
-// defined below. We include this CPP file instead of the proper HPP file.
-// Adding #pragma once to prevent duplicate function instances
-#pragma once
-
 #include "w_RoutesEditor.hpp"
 
+#include "FlowScene.hpp"
 #include "FlowView.hpp"
 #include "FlowViewStyle.hpp"
 #include "NodeStyle.hpp"
@@ -37,9 +32,6 @@ static bool isLoading = false;
         LOG(MODULE_UI, "No rules currently, we add one.")                                                                                       \
         AddNewRule();                                                                                                                           \
     }
-
-#define GRAPH_GLOBAL_OFFSET_X -80
-#define GRAPH_GLOBAL_OFFSET_Y -10
 
 #define LOAD_FLAG_BEGIN isLoading = true;
 #define LOAD_FLAG_END isLoading = false;

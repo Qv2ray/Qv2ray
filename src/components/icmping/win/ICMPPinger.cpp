@@ -1,4 +1,5 @@
 #include "ICMPPinger.hpp"
+#if 0
 
 ICMPPinger::ICMPPinger(UINT64 timeout = DEFAULT_TIMEOUT)
 {
@@ -47,3 +48,5 @@ std::pair<std::optional<UINT64>, std::optional<std::string>> ICMPPinger::ping(co
     PICMP_ECHO_REPLY pReply = (PICMP_ECHO_REPLY) bufRecv.get();
     return std::pair(pReply->RoundTripTime, std::nullopt);
 }
+
+#endif

@@ -18,7 +18,8 @@ class OutboundEditor
     ~OutboundEditor();
     OUTBOUND OpenEditor();
     QString GetFriendlyName();
-  public slots:
+
+  private:
     QvMessageBusSlotDecl;
   signals:
     void s_reload_config(bool need_restart);

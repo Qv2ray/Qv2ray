@@ -38,7 +38,8 @@ class MainWindow
     void StartConnection() const;
     void StopConnection() const;
     void RestartConnection() const;
-  public slots:
+
+  private:
     QvMessageBusSlotDecl;
   private slots:
     void on_activatedTray(QSystemTrayIcon::ActivationReason reason);

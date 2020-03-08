@@ -18,7 +18,7 @@ class PreferencesWindow
   signals:
     void s_reload_config(bool need_restart);
 
-  public slots:
+  private:
     QvMessageBusSlotDecl;
 
   private slots:

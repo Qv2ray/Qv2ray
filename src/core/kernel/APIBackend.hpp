@@ -1,8 +1,9 @@
 #pragma once
 #include "base/Qv2rayBase.hpp"
-#ifdef WITH_LIB_GRPCPP
-    #include "libs/gen/v2ray_api.grpc.pb.h"
-    #include "libs/gen/v2ray_api.pb.h"
+#ifndef BACKEND_LIBQVB
+    #include "v2ray_api.grpc.pb.h"
+    #include "v2ray_api.pb.h"
+    #include "v2ray_geosite.pb.h"
 
     #include <grpc++/grpc++.h>
 #endif
@@ -37,7 +38,7 @@ namespace Qv2ray::core::kernel
         bool started = false;
         bool running = false;
         uint apiFailedCounter = 0;
-#ifdef WITH_LIB_GRPCPP
+#ifndef BACKEND_LIBQVB
         std::shared_ptr<::grpc::Channel> Channel;
         std::unique_ptr<::v2ray::core::app::stats::command::StatsService::Stub> Stub;
 #endif

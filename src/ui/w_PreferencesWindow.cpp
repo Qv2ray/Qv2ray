@@ -41,12 +41,14 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     }
 
     // We add locales
-    languageComboBox->clear();
-    QDirIterator it(":/translations");
-
-    while (it.hasNext())
+    if (auto langs = Qv2rayTranslator->getAvailableLanguages(); langs)
     {
-        languageComboBox->addItem(it.next().split("/").last().split(".").first());
+        languageComboBox->clear();
+        languageComboBox->addItems(langs.value());
+    }
+    else
+    {
+        languageComboBox->setDisabled(true);
     }
 
     // Set auto start button state
@@ -166,17 +168,11 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     auto autoStartConnId = ConnectionId(CurrentConfig.autoStartId);
     auto autoStartGroupId = GetConnectionGroupId(autoStartConnId);
 
-    for (auto group : ConnectionManager->AllGroups())
-    {
-        autoStartSubsCombo->addItem(GetDisplayName(group));
-    }
+    for (auto group : ConnectionManager->AllGroups()) { autoStartSubsCombo->addItem(GetDisplayName(group)); }
 
     autoStartSubsCombo->setCurrentText(GetDisplayName(autoStartGroupId));
 
-    for (auto conn : ConnectionManager->Connections(autoStartGroupId))
-    {
-        autoStartConnCombo->addItem(GetDisplayName(conn));
-    }
+    for (auto conn : ConnectionManager->Connections(autoStartGroupId)) { autoStartConnCombo->addItem(GetDisplayName(conn)); }
 
     autoStartConnCombo->setCurrentText(GetDisplayName(autoStartConnId));
 
@@ -262,11 +258,11 @@ void PreferencesWindow::on_buttonBox_accepted()
     {
         if (CurrentConfig.uiConfig.language != GlobalConfig.uiConfig.language)
         {
-            qApp->removeTranslator(Qv2rayTranslator.get());
-            Qv2rayTranslator = std::move(QvTranslator(CurrentConfig.uiConfig.language).pTranslator);
+            qApp->removeTranslator(Qv2rayTranslator->pTranslator.get());
+            Qv2rayTranslator->reloadTranslation(CurrentConfig.uiConfig.language);
 
             // Install translator
-            if (!qApp->installTranslator(Qv2rayTranslator.get()))
+            if (!qApp->installTranslator(Qv2rayTranslator->pTranslator.get()))
             {
                 LOG(MODULE_UI, "Failed to translate UI to: " + CurrentConfig.uiConfig.language)
             }
@@ -1029,10 +1025,7 @@ void PreferencesWindow::on_autoStartSubsCombo_currentIndexChanged(const QString 
         auto list = ConnectionManager->Connections(groupId);
         autoStartConnCombo->clear();
 
-        for (auto id : list)
-        {
-            autoStartConnCombo->addItem(GetDisplayName(id));
-        }
+        for (auto id : list) { autoStartConnCombo->addItem(GetDisplayName(id)); }
     }
 }
 
