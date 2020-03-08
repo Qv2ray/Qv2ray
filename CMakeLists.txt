@@ -240,7 +240,7 @@ if(WIN32)
   find_package(OpenSSL REQUIRED)
   install(FILES ${OPENSSL_LIBRARIES} DESTINATION .)
 
-  install(CODE "execute_process(COMMAND windeployqt ${PROJECT_NAME}.exe --compiler-runtime --verbose 2)")
+  install(CODE "execute_process(COMMAND windeployqt ${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.exe --compiler-runtime --verbose 2)")
   set(APPS "\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.exe")
   include(deployment.cmake)
 endif()
