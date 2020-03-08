@@ -92,6 +92,18 @@ add_definitions(-D_QV2RAY_BUILD_EXTRA_INFO_STR_="${_QV2RAY_BUILD_EXTRA_INFO_STR_
 message("Qv2ray build info: ${_QV2RAY_BUILD_INFO_STR_}")
 message("Qv2ray build info ex: ${_QV2RAY_BUILD_EXTRA_INFO_STR_}")
 
+if(DEFINED QV2RAY_DEFAULT_VASSETS_PATH)
+  add_definitions(-DQV2RAY_DEFAULT_VASSETS_PATH=${QV2RAY_DEFAULT_VASSETS_PATH})
+endif()
+
+if(DEFINED QV2RAY_DEFAULT_VCORE_PATH)
+  add_definitions(-DQV2RAY_DEFAULT_VCORE_PATH=${QV2RAY_DEFAULT_VCORE_PATH})
+endif()
+
+if(DEFINED QV2RAY_TRANSLATION_PATH)
+  add_definitions(-DQV2RAY_TRANSLATION_PATH=${QV2RAY_TRANSLATION_PATH})
+endif()
+
 set(QV2RAY_SOURCES
   src/base/Qv2rayLog.cpp
   src/common/CommandArgs.cpp
