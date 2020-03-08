@@ -252,8 +252,8 @@ if(WIN32)
                 bin
   )
 
-  install(FILES ${OPENSSL_SSL_LIBRARY})
-  install(FILES ${OPENSSL_CRYPTO_LIBRARY})
+  install(FILES ${OPENSSL_SSL_LIBRARY} DESTINATION .)
+  install(FILES ${OPENSSL_CRYPTO_LIBRARY} DESTINATION .)
 
   install(CODE "execute_process(COMMAND windeployqt ${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.exe --compiler-runtime --verbose 2)")
   set(APPS "\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.exe")
