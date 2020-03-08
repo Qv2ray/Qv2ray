@@ -46,7 +46,7 @@ apps:
 
 parts:
   qv2ray:
-    plugin: x-qmake
+    plugin: x-cmake
     source-type: git
     source: .
     parse-info: [usr/share/metainfo/qv2ray.metainfo.xml]
@@ -57,6 +57,8 @@ parts:
       - libgrpc++-dev
       - libprotobuf-dev
       - protobuf-compiler-grpc
+    build-snaps:
+      - cmake/stable
     stage-packages:
       - libgcc1
       - libstdc++6
@@ -68,10 +70,11 @@ parts:
       - libqt5network5
       - libqt5widgets5
       - libglib2.0-bin
-    options:
-      - PREFIX=/usr
-      - CONFIG+=with_metainfo
-      - CONFIG+=use_grpc
+    configflags:
+      - -DCMAKE_INSTALL_PREFIX=/usr
+      - -DQV2RAY_TRANSLATION_PATH="/usr/share/qv2ray/lang"
+      - -DCMAKE_BUILD_TYPE=Release
+      - -GNinja
     override-pull: |
       snapcraftctl pull
       build_number=$(cat makespec/BUILDVERSION)
