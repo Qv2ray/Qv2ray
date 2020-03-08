@@ -87,3 +87,10 @@ set(QZXING_INCLUDE_PATH
     ${QZXING_DIR}
     ${QZXING_DIR}/zxing
 )
+if(MSVC)
+    list(APPEND QZXING_SOURCES ${QZXING_DIR}/zxing/win32/zxing/win_iconv.c)
+    list(APPEND QZXING_INCLUDE_PATH
+        ${QZXING_DIR}/win32/zxing
+        ${QZXING_DIR}/zxing/win32/zxing/msvc
+    )
+endif()
