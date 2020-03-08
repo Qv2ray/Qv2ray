@@ -101,7 +101,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake --build . --parallel $(nproc)
+          cmake --build . --parallel $(sysctl -n hw.logicalcpu)
           sudo cmake --install .
           sudo chmod -Rv a+rw ./
 # --------------------------------------------------------        
