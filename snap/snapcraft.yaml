@@ -53,6 +53,7 @@ parts:
     build-packages:
       - build-essential
       - qttools5-dev-tools
+      - qttools5-dev
       - qt5-default
       - libgrpc++-dev
       - libprotobuf-dev
