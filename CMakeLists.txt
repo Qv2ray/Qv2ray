@@ -236,9 +236,24 @@ if(WIN32)
   install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION .)
   install(FILES ${QM_FILES} DESTINATION lang)
 
-  set(CMAKE_FIND_LIBRARY_SUFFIXES ".dll")
-  find_package(OpenSSL REQUIRED)
-  install(FILES ${OPENSSL_LIBRARIES} DESTINATION .)
+  find_library(OPENSSL_SSL_LIBRARY
+              NAMES
+                ssl-1_1-x64
+                ssl-1_1
+              PATH_SUFFIXES
+                bin
+  )
+
+  find_library(OPENSSL_CRYPTO_LIBRARY
+              NAMES
+                crypto-1_1-x64
+                crypto-1_1
+              PATH_SUFFIXES
+                bin
+  )
+
+  install(FILES ${OPENSSL_SSL_LIBRARY})
+  install(FILES ${OPENSSL_CRYPTO_LIBRARY})
 
   install(CODE "execute_process(COMMAND windeployqt ${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.exe --compiler-runtime --verbose 2)")
   set(APPS "\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.exe")
