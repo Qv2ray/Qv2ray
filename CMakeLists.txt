@@ -39,6 +39,16 @@ message("| Welcome to contribute!                          |")
 message("|-------------------------------------------------|")
 message(" ")
 
+if(WIN32)
+  if(NOT CMAKE_TOOLCHAIN_FILE)
+      if(CMAKE_CL_64)
+        set(CMAKE_TOOLCHAIN_FILE ${CMAKE_SOURCE_DIR}/libs/x64-windows/scripts/buildsystems/vcpkg.cmake)
+      else()
+        set(CMAKE_TOOLCHAIN_FILE ${CMAKE_SOURCE_DIR}/libs/x86-windows/scripts/buildsystems/vcpkg.cmake)
+      endif()
+  endif()
+endif()
+
 include(cmake/translations.cmake)
 include(cmake/qnodeeditor.cmake)
 include(cmake/singleapplication.cmake)
@@ -60,16 +70,6 @@ if(APPLE)
     set(MACOSX_ICONV_INCLUDE_PATH
       ${Iconv_INCLUDE_DIR}
     )
-endif()
-
-if(WIN32)
-  if(NOT CMAKE_TOOLCHAIN_FILE)
-      if(CMAKE_CL_64)
-        set(CMAKE_TOOLCHAIN_FILE ${CMAKE_SOURCE_DIR}/libs/x64-windows/scripts/buildsystems/vcpkg.cmake)
-      else()
-        set(CMAKE_TOOLCHAIN_FILE ${CMAKE_SOURCE_DIR}/libs/x86-windows/scripts/buildsystems/vcpkg.cmake)
-      endif()
-  endif()
 endif()
 
 if(DEFINED ENV{_QV2RAY_BUILD_INFO_})
