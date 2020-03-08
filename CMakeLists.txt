@@ -231,7 +231,7 @@ if(WIN32)
   )
 
   find_package(OpenSSL REQUIRED)
-  install(FILES OpenSSL::SSL OpenSSL::Crypto
+  install(FILES ${OPENSSL_LIBRARIES}
           DESTINATION .
   )
 
