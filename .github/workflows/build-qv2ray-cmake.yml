@@ -29,6 +29,9 @@ jobs:
       fail-fast: false
         
     runs-on: ${{ matrix.platform }}
+    env:
+      _QV2RAY_BUILD_INFO_: "Qv2ray built from Github Action"
+      _QV2RAY_BUILD_EXTRA_INFO_: "qt${{ matrix.qt_version }}-${{ github.sha }}-ci.${{ matrix.platform }}"
     
     steps:
       - name: Get the version
@@ -44,7 +47,7 @@ jobs:
           architecture: ${{ matrix.arch }}
       - name: Restoring submodules
         run: git submodule update --init
-# --------------------------------------------------------
+# =========================================================================================================
       - name: Install MSVC compiler
         if: matrix.platform == 'windows-latest'
         uses: ilammy/msvc-dev-cmd@v1
@@ -65,56 +68,52 @@ jobs:
           arch: ${{ matrix.qtarch }}
           mirror: 'http://mirrors.ocf.berkeley.edu/qt/'
           cached: ${{ steps.cache-qt.outputs.cache-hit }}
-# --------------------------------------------------------
-      - name: Linux - Install Packages 
+# =========================================================================================================
+      - name: Linux - ${{ matrix.qt_version }} - Build preparation - Install Packages 
         if: matrix.platform == 'ubuntu-16.04'
         run: |
           sudo add-apt-repository ppa:webispy/grpc
           sudo add-apt-repository ppa:carsten-uppenbrink-net/openssl
           sudo apt update
           sudo apt install -y libgl-dev libx11-dev libxkbcommon-x11-dev libssl-dev libprotobuf-dev protobuf-compiler protobuf-c-compiler libgrpc++-dev protobuf-compiler-grpc
-
-      - name: macOS - Install Packages
+# --------------------------------------------------------
+      - name: macOS - ${{ matrix.qt_version }} - Build preparation - Install Packages 
         if: matrix.platform == 'macos-latest'
         run: |
           brew install protobuf
           brew install grpc
 # --------------------------------------------------------
-      - name: Cross-platform - Download libraries
+      - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - Build preparation - Download Dependencies
         shell: bash
+        if: matrix.platform == 'windows-latest'
         run: |
-         curl -o ./libs/libqvb-linux64.a -L https://github.com/Qv2ray/QvRPCBridge/releases/download/v1.1/libqvb-linux64.a
-         curl -o ./libs/libqvb-darwin.a -L https://github.com/Qv2ray/QvRPCBridge/releases/download/v1.1/libqvb-darwin.a
          curl -o ./libs/Qv2ray-deps-grpc-${{ matrix.arch }}-windows.7z -L https://github.com/Qv2ray/Qv2ray-deps/releases/download/release/Qv2ray-deps-grpc-${{ matrix.arch }}-windows.7z
-      - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - Extract Windows Dependencies
+      - name: Win-${{ matrix.arch }} - Build preparation - Extract Dependencies
         if: matrix.platform == 'windows-latest'
         uses: DuckSoft/extract-7z-action@v1.0
         with:
           pathSource: ./libs/Qv2ray-deps-grpc-${{ matrix.arch }}-windows.7z
           pathTarget: ./libs
-# -------------------------------------------------------- Generate MakeFile and Build
+# ========================================================================================================= Generate MakeFile and Build
       - name: macOS - ${{ matrix.qt_version }} - Generate Dependencies and Build
         shell: bash
         if: matrix.platform == 'macos-latest'
         run: |
-          export _QV2RAY_BUILD_INFO_="Qv2ray built from Github Action"  
-          export _QV2RAY_BUILD_EXTRA_INFO_="qt${{ matrix.qt_version }}-${{ github.sha }}-ci.${{ matrix.platform }}"
           mkdir build
           cd build
           cmake --build . --parallel $(nproc)
           sudo cmake --install .
           sudo chmod -Rv a+rw ./
-        
+# --------------------------------------------------------        
       - name: Windows - ${{ matrix.qt_version }} - Generate Dependencies and Build
         shell: bash
         if: matrix.platform == 'windows-latest'
         run: |
-          export _QV2RAY_BUILD_INFO_="Qv2ray built from Github Action"  
-          export _QV2RAY_BUILD_EXTRA_INFO_="qt${{ matrix.qt_version }}-${{ github.sha }}-ci.${{ matrix.platform }}"
           mkdir build
           cd build
           cmake .. -DCMAKE_TOOLCHAIN_FILE=../libs/${{ matrix.arch }}-windows/scripts/buildsystems/vcpkg.cmake -A ${{ matrix.buildarch }}
-
+          cmake --build . --parallel $(nproc)
+# --------------------------------------------------------
       - name: Linux - ${{ matrix.qt_version }} - Generate Dependencies and Build
         if: matrix.platform == 'ubuntu-16.04'
         shell: bash
@@ -122,19 +121,18 @@ jobs:
           CC: /usr/bin/gcc-9
           CXX: /usr/bin/g++-9
         run: |
-          export _QV2RAY_BUILD_INFO_="Qv2ray built from Github Action"  
-          export _QV2RAY_BUILD_EXTRA_INFO_="qt${{ matrix.qt_version }}-${{ github.sha }}-ci.${{ matrix.platform }}"
           mkdir build
           cd build
           cmake .. -DCMAKE_INSTALL_PREFIX=./AppDir/usr
+          cmake --build . --parallel $(nproc)
           cmake --install .
-# -------------------------------------------------------- Build
+# ========================================================================================================= Build
       - name: Inspect Build Output
         shell: bash
         run: |
           cd build
           ls -lah --recursive --color=always || true
-# -------------------------------------------------------- Deployments
+# ========================================================================================================= Deployments
       - name: Linux - ${{ matrix.qt_version }} - Generating AppImage
         if: matrix.platform == 'ubuntu-16.04'
         run: | 
@@ -169,7 +167,7 @@ jobs:
           asset_name: Qv2ray.${{ steps.get_version.outputs.VERSION }}.linux-${{ matrix.arch }}.AppImage
           tag: ${{ github.ref }}
           overwrite: true
-# ==
+# --------------------------------------------------------
       - name: macOS - ${{ matrix.qt_version }} - Making release tarball
         if: matrix.platform == 'macos-latest'
         run: |
@@ -190,7 +188,7 @@ jobs:
           asset_name: Qv2ray.${{ steps.get_version.outputs.VERSION }}.macOS-${{ matrix.arch }}.tar.gz
           tag: ${{ github.ref }}
           overwrite: true
-# ==
+# --------------------------------------------------------
       - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - Copying DLLs to build output folders
         if: matrix.platform == 'windows-latest'
         run: .\.github\workflows\copy_DLLs.bat
@@ -198,10 +196,10 @@ jobs:
         if: matrix.platform == 'windows-latest'
         shell: cmd
         run: |
+          set VCINSTALLDIR=C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\
           cd build
           cd release
           del *.cpp *.h *.o *.qrc *.qm *.hpp *.obj
-          set VCINSTALLDIR=C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\
           windeployqt ./qv2ray.exe --compiler-runtime --verbose 2
       - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - Create 7z Release
         if: matrix.platform == 'windows-latest'
