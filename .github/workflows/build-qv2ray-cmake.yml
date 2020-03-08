@@ -112,7 +112,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake .. -DCMAKE_TOOLCHAIN_FILE=../libs/${{ matrix.arch }}-windows/scripts/buildsystems/vcpkg.cmake -A ${{ matrix.buildarch }}
+          cmake .. -A ${{ matrix.buildarch }}
           cmake --build . --parallel $(nproc)
 # --------------------------------------------------------
       - name: Linux - ${{ matrix.qt_version }} - Generate Dependencies and Build
