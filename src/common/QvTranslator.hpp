@@ -2,6 +2,7 @@
 #include <QString>
 #include <QTranslator>
 #include <memory>
+#include <optional>
 
 namespace Qv2ray::common
 {

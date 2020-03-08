@@ -1,7 +1,7 @@
 #pragma once
 #include <QtGlobal>
-
-#ifdef Q_OS_WIN
+#include <optional>
+#if 0
 /**
  * ICMPPinger - An Implementation of ICMPPing on Windows Platform
  * Required Windows Version: 2000 / XP / 7 / Vista+

@@ -1,6 +1,5 @@
 #include "ICMPPinger.hpp"
-
-#ifdef Q_OS_WIN
+#if 0
 
 ICMPPinger::ICMPPinger(UINT64 timeout = DEFAULT_TIMEOUT)
 {
