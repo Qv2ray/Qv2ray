@@ -71,7 +71,7 @@ parts:
       - libglib2.0-bin
     configflags:
       - -DCMAKE_INSTALL_PREFIX=/usr
-      - -DQV2RAY_TRANSLATION_PATH="/usr/share/qv2ray/lang"
+      - -DQV2RAY_TRANSLATION_PATH=/usr/share/qv2ray/lang
       - -DCMAKE_BUILD_TYPE=Release
       - -GNinja
     override-pull: |
