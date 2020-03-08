@@ -244,18 +244,12 @@ if(WIN32)
               NAMES
                 "libssl-1_1-x64.dll"
                 "libssl-1_1.dll"
-              PATHS
-                "${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin"
-              NO_DEFAULT_PATH
   )
 
   find_library(OPENSSL_CRYPTO_LIBRARY
               NAMES
                 "libcrypto-1_1-x64.dll"
                 "libcrypto-1_1.dll"
-              PATHS
-                "${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin"
-              NO_DEFAULT_PATH
   )
   message(${OPENSSL_SSL_LIBRARY})
   install(FILES ${OPENSSL_SSL_LIBRARY} DESTINATION .)
