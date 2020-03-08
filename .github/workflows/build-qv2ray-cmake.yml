@@ -16,9 +16,11 @@ jobs:
           - platform: windows-latest
             arch: x86
             qtarch: win32_msvc2017
+            buildarch: Win32
           - platform: windows-latest
             arch: x64
             qtarch: win64_msvc2017_64
+            buildarch: x64
         exclude:
           - platform: ubuntu-16.04
             arch: x86
@@ -111,7 +113,7 @@ jobs:
           export _QV2RAY_BUILD_EXTRA_INFO_="qt${{ matrix.qt_version }}-${{ github.sha }}-ci.${{ matrix.platform }}"
           mkdir build
           cd build
-          cmake .. -DCMAKE_TOOLCHAIN_FILE=../libs/${{ matrix.arch }}-windows/scripts/buildsystems/vcpkg.cmake
+          cmake .. -DCMAKE_TOOLCHAIN_FILE=../libs/${{ matrix.arch }}-windows/scripts/buildsystems/vcpkg.cmake -A ${{ matrix.buildarch }}
 
       - name: Linux - ${{ matrix.qt_version }} - Generate Dependencies and Build
         if: matrix.platform == 'ubuntu-16.04'
