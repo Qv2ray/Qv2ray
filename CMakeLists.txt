@@ -221,3 +221,7 @@ if(UNIX AND NOT WIN32)
           DESTINATION share/qv2ray/translations
   )
 endif()
+
+if(WIN32)
+  target_link_libraries(${PROJECT_NAME} wininet wsock32 ws2_32 user32)
+endif()

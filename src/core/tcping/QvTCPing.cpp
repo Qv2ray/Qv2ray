@@ -199,7 +199,7 @@ namespace Qv2ray::core::tcping
             if (::connect(fd, addr->ai_addr, addr->ai_addrlen) == 0)
             {
                 *end = system_clock::now();
-#ifdef _WIN32
+#ifdef Q_OS_WIN
                 closesocket(fd);
 #else
                 close(fd);
