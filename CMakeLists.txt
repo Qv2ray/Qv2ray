@@ -195,7 +195,18 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 
 if(APPLE)
     set(CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR})
-    include(cmake/macdeploy.cmake)
+    set(prefix "${PROJECT_NAME}.app/Contents")
+    set(INSTALL_RUNTIME_DIR "${prefix}/MacOS")
+    set(INSTALL_CMAKE_DIR "${prefix}/Resources")
+
+    # Destination paths below are relative to ${CMAKE_INSTALL_PREFIX}
+    install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION ${INSTALL_RUNTIME_DIR} )
+    install(FILES ${CMAKE_SOURCE_DIR}/assets/info.plist DESTINATION "${prefix}" )
+    install(FILES ${CMAKE_SOURCE_DIR}/assets/icons/qv2ray.icns DESTINATION "${INSTALL_CMAKE_DIR}" )
+    install(FILES ${QM_FILES} DESTINATION ${INSTALL_CMAKE_DIR}/lang)
+
+    # Note Mac specific extension .app
+    set(APPS "\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app")
     include(deployment.cmake)
 endif()
 

@@ -179,7 +179,8 @@ jobs:
         if: matrix.platform == 'macos-latest'
         run: |
           cd build
-          tar czf Qv2ray.app.tar.gz qv2ray.app
+          macdeployqt ./qv2ray.app
+          tar czvf Qv2ray.app.tar.gz qv2ray.app
       - name: macOS - ${{ matrix.qt_version }} - Uploading Artifact
         if: matrix.platform == 'macos-latest'
         uses: actions/upload-artifact@master
