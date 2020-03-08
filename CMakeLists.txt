@@ -242,18 +242,20 @@ if(WIN32)
 
   find_library(OPENSSL_SSL_LIBRARY
               NAMES
-                ssl-1_1-x64
-                ssl-1_1
-              HINTS
+                "libssl-1_1-x64.dll"
+                "libssl-1_1.dll"
+              PATHS
                 ${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin
+              NO_DEFAULT_PATH
   )
 
   find_library(OPENSSL_CRYPTO_LIBRARY
               NAMES
-                crypto-1_1-x64
-                crypto-1_1
-              HINTS
+                "libcrypto-1_1-x64.dll"
+                "libcrypto-1_1.dll"
+              PATHS
                 ${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin
+              NO_DEFAULT_PATH
   )
   message(${OPENSSL_SSL_LIBRARY})
   install(FILES ${OPENSSL_SSL_LIBRARY} DESTINATION .)
