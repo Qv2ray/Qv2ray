@@ -57,8 +57,6 @@ parts:
       - libgrpc++-dev
       - libprotobuf-dev
       - protobuf-compiler-grpc
-    build-snaps:
-      - cmake/stable
     stage-packages:
       - libgcc1
       - libstdc++6

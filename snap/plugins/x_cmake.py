@@ -93,7 +93,8 @@ class CMakePlugin(snapcraft.BasePlugin):
 
     def __init__(self, name, options, project):
         super().__init__(name, options, project)
-        # self.build_packages.append("cmake")
+        self.build_packages.append("cmake")
+        self.build_packages.append("ninja-build")
         self.out_of_source_build = True
 
         cmd = '''
