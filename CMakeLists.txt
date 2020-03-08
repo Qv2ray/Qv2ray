@@ -245,7 +245,7 @@ if(WIN32)
                 "libssl-1_1-x64.dll"
                 "libssl-1_1.dll"
               PATHS
-                ${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin
+                "${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin"
               NO_DEFAULT_PATH
   )
 
@@ -254,7 +254,7 @@ if(WIN32)
                 "libcrypto-1_1-x64.dll"
                 "libcrypto-1_1.dll"
               PATHS
-                ${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin
+                "${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin"
               NO_DEFAULT_PATH
   )
   message(${OPENSSL_SSL_LIBRARY})
