@@ -244,6 +244,9 @@ if(WIN32)
               NAMES
                 ssl-1_1-x64
                 ssl-1_1
+              PATHS
+                ${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}
+                ${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/debug
               PATH_SUFFIXES
                 bin
   )
@@ -252,10 +255,13 @@ if(WIN32)
               NAMES
                 crypto-1_1-x64
                 crypto-1_1
+              PATHS
+                ${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}
+                ${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/debug
               PATH_SUFFIXES
                 bin
   )
-
+  message(${OPENSSL_SSL_LIBRARY})
   install(FILES ${OPENSSL_SSL_LIBRARY} DESTINATION .)
   install(FILES ${OPENSSL_CRYPTO_LIBRARY} DESTINATION .)
 
