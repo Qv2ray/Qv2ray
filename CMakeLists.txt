@@ -213,53 +213,34 @@ if(APPLE)
 
     # Destination paths below are relative to ${CMAKE_INSTALL_PREFIX}
     install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION ${INSTALL_RUNTIME_DIR} )
-    install(FILES ${CMAKE_SOURCE_DIR}/assets/info.plist DESTINATION "${prefix}" )
+    install(FILES ${CMAKE_SOURCE_DIR}/assets/Info.plist DESTINATION "${prefix}" )
     install(FILES ${CMAKE_SOURCE_DIR}/assets/icons/qv2ray.icns DESTINATION "${INSTALL_CMAKE_DIR}" )
     install(FILES ${QM_FILES} DESTINATION ${INSTALL_CMAKE_DIR}/lang)
 
-    # Note Mac specific extension .app
+    # Call macdeployqt
+    install(CODE "execute_process(COMMAND macdeployqt ${PROJECT_NAME}.app)")
     set(APPS "\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app")
     include(deployment.cmake)
 endif()
 
 if(UNIX AND NOT APPLE AND NOT WIN32)
-  install(TARGETS ${PROJECT_NAME}
-          RUNTIME
-          DESTINATION bin
-  )
-  install(FILES assets/qv2ray.metainfo.xml
-          DESTINATION share/metainfo
-  )
-
-  install(FILES assets/qv2ray.desktop
-          DESTINATION share/applications
-  )
-
-  install(FILES assets/icons/qv2ray.png
-          DESTINATION share/icons/hicolor/256x256/apps/
-  )
-
-  install(FILES ${QM_FILES}
-          DESTINATION share/qv2ray/lang
-  )
+  install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin)
+  install(FILES assets/qv2ray.metainfo.xml DESTINATION share/metainfo)
+  install(FILES assets/qv2ray.desktop DESTINATION share/applications)
+  install(FILES assets/icons/qv2ray.png DESTINATION share/icons/hicolor/256x256/apps/)
+  install(FILES ${QM_FILES} DESTINATION share/qv2ray/lang)
 endif()
 
 if(WIN32)
   target_link_libraries(${PROJECT_NAME} wininet wsock32 ws2_32 user32)
-  install(TARGETS ${PROJECT_NAME}
-          RUNTIME
-          DESTINATION .
-  )
-  install(FILES ${QM_FILES}
-          DESTINATION lang
-  )
+  install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION .)
+  install(FILES ${QM_FILES} DESTINATION lang)
 
   set(CMAKE_FIND_LIBRARY_SUFFIXES ".dll")
   find_package(OpenSSL REQUIRED)
-  install(FILES ${OPENSSL_LIBRARIES}
-          DESTINATION .
-  )
+  install(FILES ${OPENSSL_LIBRARIES} DESTINATION .)
 
+  install(CODE "execute_process(COMMAND windeployqt ${PROJECT_NAME}.exe --compiler-runtime --verbose 2)")
   set(APPS "\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.exe")
   include(deployment.cmake)
 endif()

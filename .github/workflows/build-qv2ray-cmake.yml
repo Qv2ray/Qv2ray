@@ -179,7 +179,6 @@ jobs:
         if: matrix.platform == 'macos-latest'
         run: |
           cd build
-          macdeployqt ./qv2ray.app
           tar czvf Qv2ray.app.tar.gz qv2ray.app
       - name: macOS - ${{ matrix.qt_version }} - Uploading Artifact
         if: matrix.platform == 'macos-latest'
@@ -197,17 +196,6 @@ jobs:
           tag: ${{ github.ref }}
           overwrite: true
 # --------------------------------------------------------
-      - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - Copying DLLs to build output folders
-        if: matrix.platform == 'windows-latest'
-        run: .\.github\workflows\copy_DLLs.bat
-      - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - Running windeployqt
-        if: matrix.platform == 'windows-latest'
-        shell: cmd
-        run: |
-          set VCINSTALLDIR=C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\
-          cd build
-          cd deployment
-          windeployqt ./qv2ray.exe --compiler-runtime --verbose 2
       - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - Create 7z Release
         if: matrix.platform == 'windows-latest'
         uses: DuckSoft/create-7z-action@v1.0
