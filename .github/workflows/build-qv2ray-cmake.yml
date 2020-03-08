@@ -204,7 +204,11 @@ jobs:
         run: |
           set VCINSTALLDIR=C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\
           cd build
+          mkdir release
           cd release
+          mkdir lang
+          copy ..\qv2ray.exe .\
+          copy ..\*.qm .\lang
           del *.cpp *.h *.o *.qrc *.qm *.hpp *.obj
           windeployqt ./qv2ray.exe --compiler-runtime --verbose 2
       - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - Create 7z Release
