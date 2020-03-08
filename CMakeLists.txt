@@ -242,21 +242,8 @@ if(WIN32)
           DESTINATION lang
   )
 
-  find_library(SSL_LIBRARY
-              NAMES "libssl-1_1.dll" "libssl-1_1-x64.dll"
-              PATH_SUFFIXES bin
-  )
-
-  find_library(CRYPTO_LIBRARY
-              NAMES "libcrypto-1_1.dll" "libcrypto-1_1-x64.dll"
-              PATH_SUFFIXES bin
-  )
-
-  install(FILES ${SSL_LIBRARY}
-          DESTINATION .
-  )
-
-  install(FILES ${CRYPTO_LIBRARY}
+  find_package(OpenSSL REQUIRED)
+  install(FILES ${OPENSSL_LIBRARIES}
           DESTINATION .
   )
 
