@@ -2,9 +2,9 @@
 
 #include "common/QvHelpers.hpp"
 #ifdef Q_OS_WIN
-    #include "wininet.h"
+    #include <WinInet.h>
 
-    #include <windows.h>
+    #include <Windows.h>
 #endif
 
 namespace Qv2ray::components::proxy

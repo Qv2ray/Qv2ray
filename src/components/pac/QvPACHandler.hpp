@@ -6,8 +6,8 @@
 namespace httplib
 {
     class Server;
-    class Request;
-    class Response;
+    struct Request;
+    struct Response;
 } // namespace httplib
 
 namespace Qv2ray::components::pac

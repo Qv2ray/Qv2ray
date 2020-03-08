@@ -41,6 +41,7 @@ message(" ")
 
 if(WIN32)
   add_compile_options("/std:c++17")
+  add_definitions(-DUNICODE -D_UNICODE)
   add_definitions(-D_HAS_STD_BYTE=0 -D_WIN32_WINNT=0x600 -D_SCL_SECURE_NO_WARNINGS -D_CRT_SECURE_NO_WARNINGS)
   if(NOT DEFINED CMAKE_TOOLCHAIN_FILE)
       if(CMAKE_CL_64)
