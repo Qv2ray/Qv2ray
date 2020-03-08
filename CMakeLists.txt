@@ -5,6 +5,21 @@ file(STRINGS "${CMAKE_SOURCE_DIR}/makespec/BUILDVERSION" QV2RAY_BUILD_VERSION)
 set(PACKAGE_VERSION "${QV2RAY_VERSION}.${QV2RAY_BUILD_VERSION}")
 
 project(qv2ray)
+
+set(VERSION_LIST ${PACKAGE_VERSION})
+string(REPLACE "." ";" VERSION_LIST ${VERSION_LIST})
+separate_arguments(VERSION_LIST)
+
+list(GET VERSION_LIST 0 QV2RAY_VERSION_MAJOR)
+list(GET VERSION_LIST 1 QV2RAY_VERSION_MINOR)
+list(GET VERSION_LIST 2 QV2RAY_VERSION_BUGFIX)
+list(GET VERSION_LIST 3 QV2RAY_VERSION_BUILD)
+
+add_definitions(-DQV2RAY_VERSION_MAJOR=${QV2RAY_VERSION_MAJOR})
+add_definitions(-DQV2RAY_VERSION_MINOR=${QV2RAY_VERSION_MINOR})
+add_definitions(-DQV2RAY_VERSION_BUGFIX=${QV2RAY_VERSION_BUGFIX})
+add_definitions(-DQV2RAY_VERSION_BUILD=${QV2RAY_VERSION_BUILD})
+
 add_definitions(-DQV2RAY_VERSION_STRING="v${PACKAGE_VERSION}")
 add_definitions(-DXTOSTRUCT_QT)
 
@@ -43,6 +58,7 @@ if(WIN32)
   add_compile_options("/std:c++17")
   add_definitions(-DUNICODE -D_UNICODE)
   add_definitions(-D_HAS_STD_BYTE=0 -D_WIN32_WINNT=0x600 -D_SCL_SECURE_NO_WARNINGS -D_CRT_SECURE_NO_WARNINGS)
+  set(GUI_TYPE WIN32)
   if(NOT DEFINED CMAKE_TOOLCHAIN_FILE)
       if(CMAKE_CL_64)
         include(${CMAKE_SOURCE_DIR}/libs/x64-windows/scripts/buildsystems/vcpkg.cmake)
@@ -63,20 +79,22 @@ include(cmake/qzxing.cmake)
 include(cmake/protobuf.cmake)
 include(cmake/cpp-httplib.cmake)
 include(cmake/backend.cmake)
-if(APPLE)
-    find_package(Iconv REQUIRED)
-    set(MACOSX_FRAMEWORK
-      "-framework Carbon"
-      "-framework Cocoa"
-      "-framework Security"
-    )
-    set(MACOSX_ICONV_LIBRARY
-      Iconv::Iconv
-    )
 
-    set(MACOSX_ICONV_INCLUDE_PATH
-      ${Iconv_INCLUDE_DIR}
-    )
+if(APPLE)
+  set(GUI_TYPE MACOSX_BUNDLE)
+  find_package(Iconv REQUIRED)
+  set(MACOSX_FRAMEWORK
+    "-framework Carbon"
+    "-framework Cocoa"
+    "-framework Security"
+  )
+  set(MACOSX_ICONV_LIBRARY
+    Iconv::Iconv
+  )
+
+  set(MACOSX_ICONV_INCLUDE_PATH
+    ${Iconv_INCLUDE_DIR}
+  )
 endif()
 
 if(DEFINED ENV{_QV2RAY_BUILD_INFO_})
@@ -162,6 +180,7 @@ set(QV2RAY_SOURCES
   src/ui/w_PreferencesWindow.cpp
   src/ui/w_ScreenShot_Core.cpp
   src/ui/w_SubscriptionManager.cpp
+  assets/qv2ray.rc
 )
 
 set(QRC_RESOURCES ${CMAKE_SOURCE_DIR}/resources.qrc)
@@ -174,6 +193,7 @@ set(QT_LIBRARY
 )
 
 add_executable(${PROJECT_NAME}
+  ${GUI_TYPE}
   ${QV2RAY_SOURCES}
   ${QNODEEDITOR_SOURCES}
   ${QNODEEDITOR_QRC_RESOURCES}
