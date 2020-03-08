@@ -198,7 +198,7 @@ if(APPLE)
     include(cmake/macdeploy.cmake)
 endif()
 
-if(UNIX AND NOT APPLE)
+if(UNIX AND NOT APPLE AND NOT WIN32)
   install(TARGETS ${PROJECT_NAME}
           RUNTIME
           DESTINATION bin
@@ -214,9 +214,7 @@ if(UNIX AND NOT APPLE)
   install(FILES assets/icons/qv2ray.png
           DESTINATION share/icons/hicolor/256x256/apps/
   )
-endif()
 
-if(UNIX AND NOT WIN32)
   install(FILES ${QM_FILES}
           DESTINATION share/qv2ray/lang
   )
@@ -224,4 +222,36 @@ endif()
 
 if(WIN32)
   target_link_libraries(${PROJECT_NAME} wininet wsock32 ws2_32 user32)
+  install(TARGETS ${PROJECT_NAME}
+          RUNTIME
+          DESTINATION .
+  )
+  install(FILES ${QM_FILES}
+          DESTINATION lang
+  )
+
+  set(prefix "${PROJECT_NAME}.exe")
+  set(APPS "\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${prefix}")
+
+  # Directories to look for dependencies
+  set(DIRS "${CMAKE_BINARY_DIR}")
+  # Path used for searching by FIND_XXX(), with appropriate suffixes added
+  if(CMAKE_PREFIX_PATH)
+      foreach(dir ${CMAKE_PREFIX_PATH})
+          list(APPEND DIRS "${dir}/bin" "${dir}/lib")
+      endforeach()
+  endif()
+
+  # Append Qt's lib folder which is two levels above Qt5Widgets_DIR
+  list(APPEND DIRS "${Qt5Widgets_DIR}/../..")
+
+  include(InstallRequiredSystemLibraries)
+
+  message(STATUS "APPS: ${APPS}")
+  message(STATUS "QT_PLUGINS: ${QT_PLUGINS}")
+  message(STATUS "DIRS: ${DIRS}")
+
+  install(CODE "include(BundleUtilities)
+      fixup_bundle(\"${APPS}\" \"${QT_PLUGINS}\" \"${DIRS}\")")
+
 endif()
