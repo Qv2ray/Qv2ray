@@ -103,7 +103,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake .. -GNinja
+          cmake .. -GNinja -DCMAKE_BUILD_TYPE=Release
           cmake --build . --parallel $(sysctl -n hw.logicalcpu)
           sudo cmake --install .
           sudo chmod -Rv a+rw ./
@@ -117,7 +117,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake .. -GNinja -DCMAKE_INSTALL_PREFIX=./deployment
+          cmake .. -GNinja -DCMAKE_INSTALL_PREFIX=./deployment -DCMAKE_BUILD_TYPE=Release
           cmake --build . --parallel $(nproc)
           cmake --install .
 # --------------------------------------------------------
@@ -130,7 +130,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake .. -GNinja -DCMAKE_INSTALL_PREFIX=./AppDir/usr
+          cmake .. -GNinja -DCMAKE_INSTALL_PREFIX=./AppDir/usr -DCMAKE_BUILD_TYPE=Release
           cmake --build . --parallel $(nproc)
           cmake --install .
 # ========================================================================================================= Build
