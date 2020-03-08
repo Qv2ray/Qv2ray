@@ -130,7 +130,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake .. -GNinja -DCMAKE_INSTALL_PREFIX=./AppDir/usr -DCMAKE_BUILD_TYPE=Release
+          cmake .. -GNinja -DCMAKE_INSTALL_PREFIX=./AppDir/usr -DCMAKE_BUILD_TYPE=Release -DQV2RAY_TRANSLATION_PATH="/usr/share/qv2ray/lang"
           cmake --build . --parallel $(nproc)
           cmake --install .
 # ========================================================================================================= Deployments
