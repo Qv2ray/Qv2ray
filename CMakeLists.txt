@@ -81,7 +81,6 @@ include(cmake/cpp-httplib.cmake)
 include(cmake/backend.cmake)
 
 if(APPLE)
-  set(GUI_TYPE MACOSX_BUNDLE)
   find_package(Iconv REQUIRED)
   set(MACOSX_FRAMEWORK
     "-framework Carbon"
