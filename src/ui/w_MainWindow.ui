@@ -20,7 +20,7 @@
    <string>Qv2ray</string>
   </property>
   <property name="toolTip">
-   <string>Click to toggle show/hide</string>
+   <string/>
   </property>
   <widget class="QWidget" name="centralWidget">
    <property name="sizePolicy">
@@ -246,9 +246,9 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-194</y>
-          <width>480</width>
-          <height>752</height>
+          <y>0</y>
+          <width>459</width>
+          <height>784</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -362,6 +362,9 @@
              </property>
              <property name="focusPolicy">
               <enum>Qt::NoFocus</enum>
+             </property>
+             <property name="toolTip">
+              <string>Click to toggle show/hide</string>
              </property>
              <property name="styleSheet">
               <string notr="true">Text-align:left;</string>
