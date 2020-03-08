@@ -4,7 +4,7 @@ file(STRINGS "${CMAKE_SOURCE_DIR}/makespec/VERSION" QV2RAY_VERSION)
 file(STRINGS "${CMAKE_SOURCE_DIR}/makespec/BUILDVERSION" QV2RAY_BUILD_VERSION)
 set(PACKAGE_VERSION "${QV2RAY_VERSION}.${QV2RAY_BUILD_VERSION}")
 
-project(Qv2ray)
+project(qv2ray)
 add_definitions(-DQV2RAY_VERSION_STRING="v${PACKAGE_VERSION}")
 add_definitions(-DXTOSTRUCT_QT)
 
@@ -23,6 +23,22 @@ if(CMAKE_VERSION VERSION_LESS "3.7.0")
     set(CMAKE_INCLUDE_CURRENT_DIR ON)
 endif()
 
+message(" ")
+message("Qv2ray Version: v${PACKAGE_VERSION}")
+message("|-------------------------------------------------|")
+message("| Qv2ray, A Cross Platform v2ray Qt GUI Client.   |")
+message("| Licenced under GPLv3                            |")
+message("|                                                 |")
+message("| You may only use this program to the extent     |")
+message("| permitted by local law.                         |")
+message("|                                                 |")
+message("| See: https://www.gnu.org/licenses/gpl-3.0.html  |")
+message("|-------------------------------------------------|")
+message("| Project Homepage: https://github.com/Qv2ray     |")
+message("| Welcome to contribute!                          |")
+message("|-------------------------------------------------|")
+message(" ")
+
 include(cmake/translations.cmake)
 include(cmake/qnodeeditor.cmake)
 include(cmake/singleapplication.cmake)
@@ -30,6 +46,21 @@ include(cmake/qzxing.cmake)
 include(cmake/protobuf.cmake)
 include(cmake/cpp-httplib.cmake)
 include(cmake/backend.cmake)
+if(APPLE)
+    find_package(Iconv REQUIRED)
+    set(MACOSX_FRAMEWORK
+      "-framework Carbon"
+      "-framework Cocoa"
+      "-framework Security"
+    )
+    set(MACOSX_ICONV_LIBRARY
+      Iconv::Iconv
+    )
+
+    set(MACOSX_ICONV_INCLUDE_PATH
+      ${Iconv_INCLUDE_DIR}
+    )
+endif()
 
 if(DEFINED ENV{_QV2RAY_BUILD_INFO_})
     set(_QV2RAY_BUILD_INFO_STR_ "$ENV{_QV2RAY_BUILD_INFO_}")
@@ -55,6 +86,7 @@ set(QV2RAY_SOURCES
   src/common/LogHighlighter.cpp
   src/common/QJsonModel.cpp
   src/common/QvHelpers.cpp
+  src/common/QvTranslator.cpp
   src/components/autolaunch/QvAutoLaunch.cpp
   src/components/geosite/QvGeositeReader.cpp
   src/components/icmping/win/ICMPPinger.cpp
@@ -112,22 +144,7 @@ set(QT_LIBRARY
     Qt5::Network
 )
 
-if(APPLE)
-  find_package(Iconv REQUIRED)
-  set(MACOSX_FRAMEWORK 
-    "-framework Carbon"
-    "-framework Cocoa"
-    "-framework Security"
-  )
-  set(MACOSX_ICONV_LIBRARY
-    Iconv::Iconv
-  )
-  set(MACOSX_ICONV_INCLUDE_PATH
-    ${Iconv_INCLUDE_DIR}
-  )
-endif()
-
-add_executable(qv2ray
+add_executable(${PROJECT_NAME}
   ${QV2RAY_SOURCES}
   ${QNODEEDITOR_SOURCES}
   ${QNODEEDITOR_QRC_RESOURCES}
@@ -141,7 +158,7 @@ add_executable(qv2ray
   ${QM_FILES}
 )
 
-target_link_libraries(qv2ray
+target_link_libraries(${PROJECT_NAME}
   ${QT_LIBRARY}
   ${MACOSX_FRAMEWORK}
   ${MACOSX_ICONV_LIBRARY}
@@ -150,7 +167,7 @@ target_link_libraries(qv2ray
 )
 
 
-target_include_directories(qv2ray PRIVATE
+target_include_directories(${PROJECT_NAME} PRIVATE
   ${CMAKE_CURRENT_SOURCE_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}/src
   ${CMAKE_BINARY_DIR}
@@ -163,12 +180,16 @@ target_include_directories(qv2ray PRIVATE
   ${cpp-httplib_INCLUDE_DIRS}
 )
 
-install(TARGETS qv2ray
-        RUNTIME
-        DESTINATION bin
-)
+if(APPLE)
+    set(CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR})
+    include(cmake/macdeploy.cmake)
+endif()
 
 if(UNIX AND NOT APPLE)
+  install(TARGETS ${PROJECT_NAME}
+          RUNTIME
+          DESTINATION bin
+  )
   install(FILES assets/qv2ray.metainfo.xml
           DESTINATION share/metainfo
   )
