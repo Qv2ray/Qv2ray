@@ -42,6 +42,7 @@ message(" ")
 if(WIN32)
   add_compile_options("/std:c++17")
   add_definitions(-D_HAS_STD_BYTE=0 -D_WIN32_WINNT=0x600 -D_SCL_SECURE_NO_WARNINGS -D_CRT_SECURE_NO_WARNINGS)
+  include(cmake/iconv.cmake)
   if(NOT DEFINED CMAKE_TOOLCHAIN_FILE)
       if(CMAKE_CL_64)
         include(${CMAKE_SOURCE_DIR}/libs/x64-windows/scripts/buildsystems/vcpkg.cmake)
@@ -58,19 +59,13 @@ include(cmake/qzxing.cmake)
 include(cmake/protobuf.cmake)
 include(cmake/cpp-httplib.cmake)
 include(cmake/backend.cmake)
+
 if(APPLE)
-    find_package(Iconv REQUIRED)
+    include(cmake/iconv.cmake)
     set(MACOSX_FRAMEWORK
       "-framework Carbon"
       "-framework Cocoa"
       "-framework Security"
-    )
-    set(MACOSX_ICONV_LIBRARY
-      Iconv::Iconv
-    )
-
-    set(MACOSX_ICONV_INCLUDE_PATH
-      ${Iconv_INCLUDE_DIR}
     )
 endif()
 
@@ -173,7 +168,7 @@ add_executable(${PROJECT_NAME}
 target_link_libraries(${PROJECT_NAME}
   ${QT_LIBRARY}
   ${MACOSX_FRAMEWORK}
-  ${MACOSX_ICONV_LIBRARY}
+  ${ICONV_LIBRARY}
   ${QV2RAY_PROTOBUF_LIBRARY}
   ${QV2RAY_BACKEND_LIBRARIES}
 )
@@ -188,7 +183,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE
   ${QZXING_INCLUDE_PATH}
   ${SINGLEAPPLICATION_DIR}
   ${Protobuf_INCLUDE_DIRS}
-  ${MACOSX_ICONV_INCLUDE_PATH}
+  ${ICONV_INCLUDE_PATH}
   ${cpp-httplib_INCLUDE_DIRS}
 )
 

@@ -88,11 +88,18 @@ jobs:
         if: matrix.platform == 'windows-latest'
         run: |
          curl -o ./libs/Qv2ray-deps-grpc-${{ matrix.arch }}-windows.7z -L https://github.com/Qv2ray/Qv2ray-deps/releases/download/release/Qv2ray-deps-grpc-${{ matrix.arch }}-windows.7z
-      - name: Win-${{ matrix.arch }} - Build preparation - Extract Dependencies
+         curl -o ./libs/Qv2ray-deps-libiconv-${{ matrix.arch }}-windows.7z -L https://github.com/Qv2ray/Qv2ray-deps/releases/download/release/Qv2ray-deps-libiconv-${{ matrix.arch }}-windows.7z
+      - name: Win-${{ matrix.arch }} - gRPC- Build preparation - Extract Dependencies
         if: matrix.platform == 'windows-latest'
         uses: DuckSoft/extract-7z-action@v1.0
         with:
           pathSource: ./libs/Qv2ray-deps-grpc-${{ matrix.arch }}-windows.7z
+          pathTarget: ./libs
+      - name: Win-${{ matrix.arch }} - Iconv- Build preparation - Extract Dependencies
+        if: matrix.platform == 'windows-latest'
+        uses: DuckSoft/extract-7z-action@v1.0
+        with:
+          pathSource: ./libs/Qv2ray-deps-libiconv-${{ matrix.arch }}-windows.7z
           pathTarget: ./libs
 # ========================================================================================================= Generate MakeFile and Build
       - name: macOS - ${{ matrix.qt_version }} - Generate Dependencies and Build
