@@ -75,13 +75,14 @@ jobs:
           sudo add-apt-repository ppa:webispy/grpc
           sudo add-apt-repository ppa:carsten-uppenbrink-net/openssl
           sudo apt update
-          sudo apt install -y libgl-dev libx11-dev libxkbcommon-x11-dev libssl-dev libprotobuf-dev protobuf-compiler protobuf-c-compiler libgrpc++-dev protobuf-compiler-grpc tree
+          sudo apt install -y libgl-dev libx11-dev libxkbcommon-x11-dev libssl-dev libprotobuf-dev protobuf-compiler protobuf-c-compiler libgrpc++-dev protobuf-compiler-grpc tree ninja-build
 # --------------------------------------------------------
       - name: macOS - ${{ matrix.qt_version }} - Build preparation - Install Packages 
         if: matrix.platform == 'macos-latest'
         run: |
           brew install protobuf
           brew install grpc
+          brew install ninja
 # --------------------------------------------------------
       - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - Build preparation - Download Dependencies
         shell: bash
@@ -102,7 +103,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake ..
+          cmake .. -GNinja
           cmake --build . --parallel $(sysctl -n hw.logicalcpu)
           sudo cmake --install .
           sudo chmod -Rv a+rw ./
@@ -113,7 +114,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake .. -GNinja -A ${{ matrix.buildarch }}
+          cmake .. -GNinja
           cmake --build . --parallel $(nproc)
 # --------------------------------------------------------
       - name: Linux - ${{ matrix.qt_version }} - Generate Dependencies and Build
@@ -125,7 +126,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake .. -DCMAKE_INSTALL_PREFIX=./AppDir/usr
+          cmake .. -GNinja -DCMAKE_INSTALL_PREFIX=./AppDir/usr
           cmake --build . --parallel $(nproc)
           cmake --install .
 # ========================================================================================================= Build
