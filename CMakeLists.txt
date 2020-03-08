@@ -242,6 +242,7 @@ if(WIN32)
           DESTINATION lang
   )
 
+  set(CMAKE_FIND_LIBRARY_SUFFIXES ".dll")
   find_package(OpenSSL REQUIRED)
   install(FILES ${OPENSSL_LIBRARIES}
           DESTINATION .
