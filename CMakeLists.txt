@@ -196,6 +196,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 if(APPLE)
     set(CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR})
     include(cmake/macdeploy.cmake)
+    include(deployment.cmake)
 endif()
 
 if(UNIX AND NOT APPLE AND NOT WIN32)
@@ -235,28 +236,6 @@ if(WIN32)
           DESTINATION .
   )
 
-  set(prefix "${PROJECT_NAME}.exe")
-  set(APPS "\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${prefix}")
-
-  # Directories to look for dependencies
-  set(DIRS "${CMAKE_BINARY_DIR}")
-  # Path used for searching by FIND_XXX(), with appropriate suffixes added
-  if(CMAKE_PREFIX_PATH)
-      foreach(dir ${CMAKE_PREFIX_PATH})
-          list(APPEND DIRS "${dir}/bin" "${dir}/lib")
-      endforeach()
-  endif()
-
-  # Append Qt's lib folder which is two levels above Qt5Widgets_DIR
-  list(APPEND DIRS "${Qt5Widgets_DIR}/../..")
-
-  include(InstallRequiredSystemLibraries)
-
-  message(STATUS "APPS: ${APPS}")
-  message(STATUS "QT_PLUGINS: ${QT_PLUGINS}")
-  message(STATUS "DIRS: ${DIRS}")
-
-  install(CODE "include(BundleUtilities)
-      fixup_bundle(\"${APPS}\" \"${QT_PLUGINS}\" \"${DIRS}\")")
-
+  set(APPS "\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.exe")
+  include(deployment.cmake)
 endif()
