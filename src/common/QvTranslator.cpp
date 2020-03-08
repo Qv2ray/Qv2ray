@@ -45,14 +45,14 @@ namespace Qv2ray::common
         // path searching list.
         QStringList searchPaths = {
             // 1st: application dir
-            QApplication::applicationDirPath() + "/translations",
+            QApplication::applicationDirPath() + "/lang",
 #ifdef QV2RAY_TRANSLATION_PATH
             // 2nd: platform-specific dir
             QString(QV2RAY_TRANSLATION_PATH),
 #endif
         };
         // 3rd: standard path dirs
-        searchPaths << QStandardPaths::locateAll(QStandardPaths::DataLocation, "translations", QStandardPaths::LocateDirectory);
+        searchPaths << QStandardPaths::locateAll(QStandardPaths::DataLocation, "lang", QStandardPaths::LocateDirectory);
         //
         // iterate through the paths
         for (auto path : searchPaths)
