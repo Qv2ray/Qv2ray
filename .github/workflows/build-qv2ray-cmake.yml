@@ -133,12 +133,6 @@ jobs:
           cmake .. -GNinja -DCMAKE_INSTALL_PREFIX=./AppDir/usr -DCMAKE_BUILD_TYPE=Release
           cmake --build . --parallel $(nproc)
           cmake --install .
-# ========================================================================================================= Build
-      - name: Inspect Build Output
-        shell: bash
-        run: |
-          cd build
-          tree || true
 # ========================================================================================================= Deployments
       - name: Linux - ${{ matrix.qt_version }} - Generating AppImage
         if: matrix.platform == 'ubuntu-16.04'
