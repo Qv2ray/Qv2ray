@@ -239,21 +239,14 @@ if(WIN32)
   target_link_libraries(${PROJECT_NAME} wininet wsock32 ws2_32 user32)
   install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION .)
   install(FILES ${QM_FILES} DESTINATION lang)
-
-  find_library(OPENSSL_SSL_LIBRARY
-              NAMES
-                "libssl-1_1-x64.dll"
-                "libssl-1_1.dll"
-  )
-
-  find_library(OPENSSL_CRYPTO_LIBRARY
-              NAMES
-                "libcrypto-1_1-x64.dll"
-                "libcrypto-1_1.dll"
-  )
-  message(${OPENSSL_SSL_LIBRARY})
-  install(FILES ${OPENSSL_SSL_LIBRARY} DESTINATION .)
-  install(FILES ${OPENSSL_CRYPTO_LIBRARY} DESTINATION .)
+  
+  if(CMAKE_CL_64)
+    install(FILES ${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin/libssl-1_1-x64.dll DESTINATION .)
+    install(FILES ${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin/libcrypto-1_1-x64.dll DESTINATION .)
+  else()
+    install(FILES ${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin/libssl-1_1.dll DESTINATION .)
+    install(FILES ${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin/libcrypto-1_1.dll DESTINATION .)
+  endif()
 
   install(CODE "execute_process(COMMAND windeployqt ${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.exe --compiler-runtime --verbose 2)")
   set(APPS "\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.exe")
