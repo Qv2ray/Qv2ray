@@ -230,6 +230,11 @@ if(WIN32)
           DESTINATION lang
   )
 
+  find_package(OpenSSL REQUIRED)
+  install(FILES OpenSSL::SSL OpenSSL::Crypto
+          DESTINATION .
+  )
+
   set(prefix "${PROJECT_NAME}.exe")
   set(APPS "\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${prefix}")
 
