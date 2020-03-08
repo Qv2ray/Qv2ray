@@ -218,7 +218,7 @@ endif()
 
 if(UNIX AND NOT WIN32)
   install(FILES ${QM_FILES}
-          DESTINATION share/qv2ray/translations
+          DESTINATION share/qv2ray/lang
   )
 endif()
 
