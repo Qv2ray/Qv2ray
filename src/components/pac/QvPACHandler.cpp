@@ -13,10 +13,7 @@ namespace Qv2ray::components::pac
     }
     PACServer::~PACServer()
     {
-        if (isStarted)
-        {
-            delete pacServer;
-        }
+        delete pacServer;
     }
     void PACServer::SetProxyString(const QString &proxyString)
     {
@@ -35,7 +32,7 @@ namespace Qv2ray::components::pac
         QString gfwContent = StringFromFile(QV2RAY_RULES_GFWLIST_PATH);
         pacContent = ConvertGFWToPAC(gfwContent, proxyString);
         //
-        pacServer->Get("", onNewRequest);
+        pacServer->Get("/pac", onNewRequest);
         auto result = pacServer->listen(address.toStdString().c_str(), static_cast<ushort>(port));
         if (result)
         {

@@ -31,7 +31,6 @@ namespace Qv2ray::components::pac
 
       private:
         void run() override;
-        bool isStarted;
         httplib::Server *pacServer;
         QString proxyString;
 
