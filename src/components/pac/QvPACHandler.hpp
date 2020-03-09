@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QObject>
+#include <QThread>
 #include <memory>
 
 namespace httplib
@@ -13,24 +14,30 @@ namespace httplib
 namespace Qv2ray::components::pac
 {
     QString ConvertGFWToPAC(const QString &rawContent, const QString &customProxyString);
-    class PACServer : public QObject
+    class PACServer : public QThread
     {
         Q_OBJECT
       public:
         explicit PACServer();
         ~PACServer();
         void SetProxyString(const QString &proxyString);
-        void StartListen();
+        void StartListen()
+        {
+            start();
+        }
         void StopServer();
 
         QString gfwFilePath;
 
       private:
-        void onNewRequest(const httplib::Request &req, httplib::Response &rsp);
+        void run() override;
         bool isStarted;
         httplib::Server *pacServer;
-        QString pacContent;
         QString proxyString;
+
+      private:
+        static void onNewRequest(const httplib::Request &req, httplib::Response &rsp);
+        static inline QString pacContent;
     };
 } // namespace Qv2ray::components::pac
 

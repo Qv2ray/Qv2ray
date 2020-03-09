@@ -7,7 +7,7 @@
 namespace Qv2ray::components::pac
 {
 
-    PACServer::PACServer() : QObject()
+    PACServer::PACServer() : QThread()
     {
         pacServer = new httplib::Server();
     }
@@ -23,7 +23,7 @@ namespace Qv2ray::components::pac
         DEBUG(MODULE_PROXY, "Setting new PAC proxy string: " + proxyString)
         this->proxyString = proxyString;
     }
-    void PACServer::StartListen()
+    void PACServer::run()
     {
         LOG(MODULE_PROXY, "Starting PAC listener")
         //
@@ -35,11 +35,11 @@ namespace Qv2ray::components::pac
         QString gfwContent = StringFromFile(QV2RAY_RULES_GFWLIST_PATH);
         pacContent = ConvertGFWToPAC(gfwContent, proxyString);
         //
+        pacServer->Get("", onNewRequest);
         auto result = pacServer->listen(address.toStdString().c_str(), static_cast<ushort>(port));
         if (result)
         {
-            isStarted = true;
-            DEBUG(MODULE_PROXY, "Started PAC handler")
+            DEBUG(MODULE_PROXY, "PAC handler stopped.")
         }
         else
         {
@@ -50,22 +50,14 @@ namespace Qv2ray::components::pac
 
     void PACServer::StopServer()
     {
-        if (isStarted)
-        {
-            pacServer->stop();
-            DEBUG(MODULE_PROXY, "PAC Handler stopped.")
-            isStarted = false;
-        }
+        pacServer->stop();
     }
 
     void PACServer::onNewRequest(const httplib::Request &req, httplib::Response &rsp)
     {
-
         rsp.set_header("Server", "Qv2ray/" QV2RAY_VERSION_STRING " PAC_Handler");
-
         if (req.method == "GET")
         {
-            //
             if (req.path == "/pac")
             {
                 DEBUG(MODULE_PROXY, "Serving PAC file request.")
