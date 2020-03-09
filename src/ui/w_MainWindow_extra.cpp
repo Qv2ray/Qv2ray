@@ -78,8 +78,8 @@ void MainWindow::CheckSubscriptionsUpdate()
 
     for (auto index = 0; index < GlobalConfig.subscriptions.count(); index++)
     {
-        auto subs = GlobalConfig.subscriptions.values()[index];
-        auto key = GlobalConfig.subscriptions.keys()[index];
+        auto subs = GlobalConfig.subscriptions.values().at(index);
+        auto key = GlobalConfig.subscriptions.keys().at(index);
         //
         auto lastRenewDate = QDateTime::fromTime_t(subs.lastUpdated);
         auto renewTime = lastRenewDate.addSecs(subs.updateInterval * 86400);

@@ -87,7 +87,6 @@ namespace Qv2ray::core::handlers
         //
         // Get Conncetion Property
         const CONFIGROOT GetConnectionRoot(const ConnectionId &id) const;
-        const CONFIGROOT GetConnectionRoot(const GroupId &group, const ConnectionId &id) const;
         //
         // Misc Connection Operations
         void StartLatencyTest();
@@ -149,7 +148,7 @@ namespace Qv2ray::core::handlers
         int pingConnectionTimerId;
         QHash<GroupId, GroupMetaObject> groups;
         QHash<ConnectionId, ConnectionMetaObject> connections;
-        // QHash<ConnectionId, CONFIGROOT> connectionRootCache;
+        QHash<ConnectionId, CONFIGROOT> connectionRootCache;
 
       private:
         QvHttpRequestHelper *httpHelper;
