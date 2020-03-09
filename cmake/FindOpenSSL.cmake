@@ -1,4 +1,6 @@
 set(CMAKE_FIND_LIBRARY_SUFFIXES .dll ${CMAKE_FIND_LIBRARY_SUFFIXES})
+file(TO_CMAKE_PATH "$ENV{PROGRAMFILES}" _programfiles)
+list(APPEND CMAKE_SYSTEM_IGNORE_PATH "${_programfiles}/Git/mingw64")
 find_library(SSL_LIBRARY
             NAMES
               libssl-1_1-x64
