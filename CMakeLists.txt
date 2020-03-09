@@ -132,6 +132,7 @@ set(QV2RAY_SOURCES
   src/common/LogHighlighter.cpp
   src/common/QJsonModel.cpp
   src/common/QvHelpers.cpp
+  src/common/QvTranslator.cpp
   src/components/autolaunch/QvAutoLaunch.cpp
   src/components/geosite/QvGeositeReader.cpp
   src/components/icmping/win/ICMPPinger.cpp
@@ -196,9 +197,7 @@ set(QV2RAY_SOURCES
   assets/qv2ray.rc
 )
 
-if(NOT EMBED_TRANSLATIONS)
-  list(APPEND QV2RAY_SOURCES src/common/QvTranslator.cpp)
-else()
+if(EMBED_TRANSLATIONS)
   add_definitions(-DEMBED_TRANSLATIONS)
   configure_file(translations/translations.qrc ${CMAKE_BINARY_DIR} COPYONLY)
   list(APPEND QV2RAY_SOURCES ${CMAKE_BINARY_DIR}/translations.qrc)
