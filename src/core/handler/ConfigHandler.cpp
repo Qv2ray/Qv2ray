@@ -57,10 +57,18 @@ namespace Qv2ray::core::handlers
         {
             DEBUG(MODULE_CORE_HANDLER, "Loading connection: " + connections.value(id).displayName + " to cache.")
             auto const &group = connections.value(id).groupId;
-            auto path = group.toString() + "/" + id.toString() + QV2RAY_CONFIG_FILE_EXTENSION;
-            path.prepend(groups[group].isSubscription ? QV2RAY_SUBSCRIPTION_DIR : QV2RAY_CONNECTIONS_DIR);
-            //
-            connectionRootCache[id] = CONFIGROOT(JsonFromString(StringFromFile(path)));
+            if (group != NullGroupId)
+            {
+                auto path = group.toString() + "/" + id.toString() + QV2RAY_CONFIG_FILE_EXTENSION;
+                path.prepend(groups[group].isSubscription ? QV2RAY_SUBSCRIPTION_DIR : QV2RAY_CONNECTIONS_DIR);
+                //
+                connectionRootCache[id] = CONFIGROOT(JsonFromString(StringFromFile(path)));
+            }
+            else
+            {
+                connections.remove(id);
+                LOG(MODULE_CORE_HANDLER, "Dropped connection id: " + id.toString() + " since it's not in a group")
+            }
         }
         //
         // Force default group name.
@@ -82,7 +90,7 @@ namespace Qv2ray::core::handlers
         // Do not ping all...
         // pingAllTimerId = startTimer(5 * 60 * 1000);
         pingConnectionTimerId = startTimer(60 * 1000);
-    }
+    } // namespace Qv2ray::core::handlers
 
     void QvConfigHandler::CHSaveConfigData_p()
     {
