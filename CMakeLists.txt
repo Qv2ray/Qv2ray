@@ -266,7 +266,7 @@ if(APPLE)
     # Call macdeployqt
     install(CODE "execute_process(COMMAND macdeployqt ${PROJECT_NAME}.app)")
     set(APPS "\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app")
-    include(deployment.cmake)
+    include(cmake/deployment.cmake)
 endif()
 
 if(UNIX AND NOT APPLE AND NOT WIN32)
@@ -296,5 +296,5 @@ if(WIN32)
 
   install(CODE "execute_process(COMMAND windeployqt ${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.exe --compiler-runtime --verbose 2)")
   set(APPS "\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.exe")
-  include(deployment.cmake)
+  include(cmake/deployment.cmake)
 endif()
