@@ -90,7 +90,7 @@ namespace Qv2ray::core::handlers
         // Do not ping all...
         // pingAllTimerId = startTimer(5 * 60 * 1000);
         pingConnectionTimerId = startTimer(60 * 1000);
-    } // namespace Qv2ray::core::handlers
+    }
 
     void QvConfigHandler::CHSaveConfigData_p()
     {
