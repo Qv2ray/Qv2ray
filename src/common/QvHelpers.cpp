@@ -32,12 +32,26 @@ namespace Qv2ray::common
 
     QString StringFromFile(QFile *source)
     {
-        source->open(QFile::ReadOnly);
-        QTextStream stream(source);
-        QString str = stream.readAll();
-        source->close();
-        return str;
+        bool wasOpened = source->isOpen();
+        if (!wasOpened)
+            source->open(QFile::ReadOnly);
+        auto byteArray = source->readAll();
+        if (!wasOpened)
+            source->close();
+        //
+        QTextCodec::ConverterState state;
+        QTextCodec *codec = QTextCodec::codecForName("UTF-8");
+        const QString text = codec->toUnicode(byteArray.constData(), byteArray.size(), &state);
+        if (state.invalidChars > 0) {
+            LOG(MODULE_FILEIO, "Not a valid UTF-8 sequence: " + source->fileName())
+            return source->readAll();
+        }
+        else
+        {
+            return text;
+        }
     }
+
     bool StringToFile(const QString &text, const QString &targetpath)
     {
         auto file = QFile(targetpath);
