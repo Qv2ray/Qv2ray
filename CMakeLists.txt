@@ -132,7 +132,6 @@ set(QV2RAY_SOURCES
   src/common/LogHighlighter.cpp
   src/common/QJsonModel.cpp
   src/common/QvHelpers.cpp
-  src/common/QvTranslator.cpp
   src/components/autolaunch/QvAutoLaunch.cpp
   src/components/geosite/QvGeositeReader.cpp
   src/components/icmping/win/ICMPPinger.cpp
@@ -197,6 +196,14 @@ set(QV2RAY_SOURCES
   assets/qv2ray.rc
 )
 
+if(NOT EMBED_TRANSLATIONS)
+  list(APPEND QV2RAY_SOURCES src/common/QvTranslator.cpp)
+else()
+  add_definitions(-DEMBED_TRANSLATIONS)
+  configure_file(translations/translations.qrc ${CMAKE_BINARY_DIR} COPYONLY)
+  list(APPEND QV2RAY_SOURCES ${CMAKE_BINARY_DIR}/translations.qrc)
+endif()
+
 set(QRC_RESOURCES ${CMAKE_SOURCE_DIR}/resources.qrc)
 
 set(QT_LIBRARY
@@ -253,7 +260,9 @@ if(APPLE)
     install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION ${INSTALL_RUNTIME_DIR} )
     install(FILES ${CMAKE_SOURCE_DIR}/assets/Info.plist DESTINATION "${prefix}" )
     install(FILES ${CMAKE_SOURCE_DIR}/assets/icons/qv2ray.icns DESTINATION "${INSTALL_CMAKE_DIR}" )
-    install(FILES ${QM_FILES} DESTINATION ${INSTALL_CMAKE_DIR}/lang)
+    if(NOT EMBED_TRANSLATIONS)
+      install(FILES ${QM_FILES} DESTINATION ${INSTALL_CMAKE_DIR}/lang)
+    endif()
 
     # Call macdeployqt
     install(CODE "execute_process(COMMAND macdeployqt ${PROJECT_NAME}.app)")
@@ -266,13 +275,17 @@ if(UNIX AND NOT APPLE AND NOT WIN32)
   install(FILES assets/qv2ray.metainfo.xml DESTINATION share/metainfo)
   install(FILES assets/qv2ray.desktop DESTINATION share/applications)
   install(FILES assets/icons/qv2ray.png DESTINATION share/icons/hicolor/256x256/apps/)
-  install(FILES ${QM_FILES} DESTINATION share/qv2ray/lang)
+  if(NOT EMBED_TRANSLATIONS)
+    install(FILES ${QM_FILES} DESTINATION share/qv2ray/lang)
+  endif()
 endif()
 
 if(WIN32)
   target_link_libraries(${PROJECT_NAME} wininet wsock32 ws2_32 user32)
   install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION .)
-  install(FILES ${QM_FILES} DESTINATION lang)
+  if(NOT EMBED_TRANSLATIONS)
+    install(FILES ${QM_FILES} DESTINATION lang)
+  endif()
   
   if(CMAKE_CL_64)
     install(FILES ${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin/libssl-1_1-x64.dll DESTINATION .)

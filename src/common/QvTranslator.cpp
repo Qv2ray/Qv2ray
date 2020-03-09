@@ -46,6 +46,9 @@ namespace Qv2ray::common
         QStringList searchPaths = {
             // 1st: application dir
             QApplication::applicationDirPath() + "/lang",
+#ifdef EMBED_TRANSLATIONS
+            QString(":/translations/"),
+#endif
 #ifdef QV2RAY_TRANSLATION_PATH
             // 2nd: platform-specific dir
             QString(QV2RAY_TRANSLATION_PATH),
