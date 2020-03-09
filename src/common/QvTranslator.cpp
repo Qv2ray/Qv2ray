@@ -1,6 +1,7 @@
 #include "QvTranslator.hpp"
 
 #include "base/Qv2rayLog.hpp"
+#include "common/QvHelpers.hpp"
 
 #include <QApplication>
 #include <QDir>
@@ -12,72 +13,75 @@
 
 using namespace Qv2ray::base;
 
+// path searching list.
+QStringList getLanguageSearchPaths()
+{
+    return {
+        // Configuration Path
+        QV2RAY_CONFIG_DIR + "lang",
+//
+#ifdef EMBED_TRANSLATIONS
+        // If the translations have been embedded.
+        QString(":/translations/"),
+#endif
+#ifdef QV2RAY_TRANSLATION_PATH
+        // Platform-specific dir, if specified.
+        QString(QV2RAY_TRANSLATION_PATH),
+#endif
+#ifdef Q_OS_LINUX
+        // Linux platform directories.
+        QString("/usr/local/share/qv2ray/lang"),
+        QString("/usr/share/qv2ray/lang"),
+#elif defined(Q_OS_MAC)
+        // macOS platform directories.
+        QDir(QApplication::applicationDirPath() + "/../Resources/lang").absolutePath(),
+#else
+        // This is the default behavior on Windows
+        QApplication::applicationDirPath() + "/lang",
+#endif
+    };
+};
+
 namespace Qv2ray::common
 {
-    std::optional<QStringList> QvTranslator::getAvailableLanguages()
+    QvTranslator::QvTranslator()
     {
-        if (!this->translationDir)
-            return std::nullopt;
+        LOG(MODULE_UI, "QvTranslator constructor.")
+        GetAvailableLanguages();
+    }
 
-        auto languages = QDir(this->translationDir.value()).entryList(QStringList{ "*.qm" }, QDir::Hidden | QDir::Files);
-
-        if (languages.empty())
-            return std::nullopt;
-
+    QStringList QvTranslator::GetAvailableLanguages()
+    {
+        languages.clear();
+        for (auto path : getLanguageSearchPaths())
+        {
+            languages << QDir(path).entryList(QStringList{ "*.qm" }, QDir::Hidden | QDir::Files);
+        }
         std::transform(languages.begin(), languages.end(), languages.begin(), [](QString &fileName) { return fileName.replace(".qm", ""); });
+        languages.removeDuplicates();
         LOG(MODULE_UI, "Found translations: " + languages.join(" "))
         return languages;
     }
 
-    void QvTranslator::reloadTranslation(const QString &code)
+    bool QvTranslator::InstallTranslation(const QString &code)
     {
-        if (!translationDir)
-            return;
-
-        QTranslator *translatorNew = new QTranslator();
-        translatorNew->load(code + ".qm", this->translationDir.value());
-
-        this->pTranslator.reset(translatorNew);
-    }
-
-    std::optional<QString> QvTranslator::deduceTranslationDir()
-    {
-        // path searching list.
-        QStringList searchPaths = {
-            // 1st: application dir
-            QApplication::applicationDirPath() + "/lang",
-#ifdef QV2RAY_TRANSLATION_PATH
-            // 2nd: platform-specific dir
-            QString(QV2RAY_TRANSLATION_PATH),
-#endif
-#ifdef Q_OS_LINUX
-            // 2.5: hard-coded path for Linux systems
-            QString("/usr/share/qv2ray/lang"),
-#endif
-        };
-        // 3rd: standard path dirs
-        searchPaths << QStandardPaths::locateAll(QStandardPaths::DataLocation, "lang", QStandardPaths::LocateDirectory);
-        //
-        // iterate through the paths
-        for (auto path : searchPaths)
+        for (auto path : getLanguageSearchPaths())
         {
-            DEBUG(MODULE_UI, "Testing for translation path: " + path)
-            if (QvTranslator::testTranslationDir(path))
+            if (FileExistsIn(QDir(path), code + ".qm"))
             {
-                return path;
+                LOG(MODULE_UI, "Found " + code + " in folder: " + path)
+                QTranslator *translatorNew = new QTranslator();
+                translatorNew->load(code + ".qm", path);
+                if (pTranslator)
+                {
+                    LOG(MODULE_INIT, "Removed translations")
+                    qApp->removeTranslator(pTranslator.get());
+                }
+                this->pTranslator.reset(translatorNew);
+                qApp->installTranslator(pTranslator.get());
+                return true;
             }
         }
-
-        // sadly, none match
-        return std::nullopt;
-    }
-
-    bool QvTranslator::testTranslationDir(const QString &targetDir)
-    {
-        const auto translations = QDir(targetDir).entryList(QStringList{ "*.qm" }, QDir::Hidden | QDir::Files);
-
-        /// @todo: add some debug traces
-
-        return !translations.empty();
+        return false;
     }
 } // namespace Qv2ray::common
