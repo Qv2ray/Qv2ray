@@ -70,6 +70,4 @@ class ConnectionItemWidget
     ITEM_TYPE itemType;
     ConnectionId connectionId;
     GroupId groupId;
-
-    Q_DISABLE_COPY_MOVE(ConnectionItemWidget)
 };
