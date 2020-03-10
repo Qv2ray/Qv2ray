@@ -40,7 +40,7 @@ bool verifyConfigAvailability(const QString& path, bool checkExistingConfig)
     if (!opened)
     {
         LOG(MODULE_SETTINGS, "Directory at: " + path + " cannot be used as a valid config file path.")
-        LOG(MODULE_INIT, "---> Cannot create a new file or openwrite a file.")
+        LOG(MODULE_INIT, "---> Cannot create a new file or open a file for writing.")
         return false;
     }
     else
