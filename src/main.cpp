@@ -15,6 +15,7 @@
 #include <QStyleFactory>
 #include <QTranslator>
 #include <csignal>
+#include <memory>
 
 #ifdef Q_OS_UNIX
     // For unix root user check
@@ -257,7 +258,7 @@ int main(int argc, char *argv[])
         std::unique_ptr<QCoreApplication> consoleApp(new QCoreApplication(argc, argv));
         //
         // Install a default translator. From the OS/DE
-        Qv2rayTranslator.reset(std::move(new QvTranslator()));
+        Qv2rayTranslator = std::make_unique<QvTranslator>();
         Qv2rayTranslator->InstallTranslation(QLocale::system().name());
         QvCommandArgParser parser;
         QString errorMessage;
@@ -328,7 +329,7 @@ int main(int argc, char *argv[])
     // Not duplicated.
     // Install a default translater. From the OS/DE
     auto _lang = QLocale::system().name();
-    Qv2rayTranslator.reset(std::move(new QvTranslator()));
+    Qv2rayTranslator = std::make_unique<QvTranslator>();
     bool _result_ = Qv2rayTranslator->InstallTranslation(_lang);
     LOG(MODULE_UI, "Installing a tranlator from OS: " + _lang + " -- " + (_result_ ? "OK" : "Failed"))
     //
