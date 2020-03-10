@@ -863,7 +863,8 @@ void RouteEditor::on_editBtn_clicked()
 
             if (isTagChanged)
             {
-                RenameItemTag(RENAME_INBOUND, getTag(_in), getTag(_result));
+                auto newTag = getTag(_result);
+                RenameItemTag(RENAME_INBOUND, getTag(_in), &newTag);
             }
 
             DEBUG(MODULE_UI, "Removed old tag: " + getTag(_in))
@@ -912,9 +913,8 @@ void RouteEditor::on_editBtn_clicked()
             if (isTagChanged)
             {
                 DEBUG(MODULE_UI, "Outbound tag is changed: " + QString(isTagChanged))
-                RenameItemTag(RENAME_OUTBOUND, getTag(_out), getTag(_result));
-                DEBUG(MODULE_UI, "Removed old tag: " + getTag(_out))
-                outbounds.remove(getTag(_out));
+                auto newTag = getTag(_result);
+                RenameItemTag(RENAME_OUTBOUND, getTag(_out), &newTag);
             }
 
             DEBUG(MODULE_UI, "Adding new tag: " + getTag(_result))
@@ -961,6 +961,6 @@ void RouteEditor::on_ruleRenameBtn_clicked()
     }
     else
     {
-        RenameItemTag(RENAME_RULE, CurrentRule.QV2RAY_RULE_TAG, newTag);
+        RenameItemTag(RENAME_RULE, CurrentRule.QV2RAY_RULE_TAG, &newTag);
     }
 }

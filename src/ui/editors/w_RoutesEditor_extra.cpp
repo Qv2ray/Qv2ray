@@ -116,17 +116,17 @@ void RouteEditor::AddRule(RuleObject rule)
 }
 
 // Do not use reference here, we need deep
-void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString originalTag, QString newTag)
+void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString &originalTag, QString *newTag)
 {
     switch (mode)
     {
         case RENAME_RULE:
             if (rules.contains(originalTag) && ruleNodes.contains(originalTag))
             {
-                if (rules.contains(newTag) && ruleNodes.contains(newTag))
+                if (rules.contains(*newTag) && ruleNodes.contains(*newTag))
                 {
                     QvMessageBoxWarn(this, tr("Rename tags"), tr("The new tag has been used, we appended a postfix."));
-                    newTag += "_" + GenerateRandomString(5);
+                    *newTag += "_" + GenerateRandomString(5);
                 }
 
                 auto node = static_cast<QvRuleNodeDataModel *>(ruleNodes.value(originalTag)->nodeDataModel());
@@ -136,11 +136,11 @@ void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString originalTag,
                     LOG(MODULE_GRAPH, "EMPTY NODE WARN")
                 }
 
-                node->setData(newTag);
+                node->setData(*newTag);
                 //
-                rules.insert(newTag, rules.take(originalTag));
-                rules[newTag].QV2RAY_RULE_TAG = newTag;
-                ruleNodes[newTag] = ruleNodes.take(originalTag);
+                rules.insert(*newTag, rules.take(originalTag));
+                rules[*newTag].QV2RAY_RULE_TAG = *newTag;
+                ruleNodes[*newTag] = ruleNodes.take(originalTag);
                 //
                 // No other operation needed, but need to rename the one in the
                 // ruleOrder list widget.
@@ -152,12 +152,12 @@ void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString originalTag,
                 }
                 else
                 {
-                    items.first()->setText(newTag);
+                    items.first()->setText(*newTag);
                 }
 
                 if (currentRuleTag == originalTag)
                 {
-                    currentRuleTag = newTag;
+                    currentRuleTag = *newTag;
                 }
             }
             else
@@ -170,22 +170,24 @@ void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString originalTag,
         case RENAME_OUTBOUND:
             if (outbounds.contains(originalTag) && outboundNodes.contains(originalTag))
             {
-                if (outbounds.contains(newTag) && outboundNodes.contains(newTag))
+                if (outbounds.contains(*newTag) && outboundNodes.contains(*newTag))
                 {
                     QvMessageBoxWarn(this, tr("Rename tags"), tr("The new tag has been used, we appended a random string to the tag."));
-                    newTag += "_" + GenerateRandomString(5);
+                    *newTag += "_" + GenerateRandomString(5);
                 }
 
-                outbounds.insert(newTag, outbounds.take(originalTag));
-                outboundNodes.insert(newTag, outboundNodes.take(originalTag));
-                auto node = static_cast<QvOutboundNodeModel *>(outboundNodes.value(newTag)->nodeDataModel());
+                auto out = outbounds.take(originalTag);
+                out["tag"] = *newTag;
+                outbounds.insert(*newTag, out);
+                outboundNodes.insert(*newTag, outboundNodes.take(originalTag));
+                auto node = static_cast<QvOutboundNodeModel *>(outboundNodes.value(*newTag)->nodeDataModel());
 
                 if (node == nullptr)
                 {
                     LOG(MODULE_GRAPH, "EMPTY NODE WARN")
                 }
 
-                node->setData(newTag);
+                node->setData(*newTag);
 
                 // Change outbound tag in rules accordingly.
                 for (auto k : rules.keys())
@@ -194,7 +196,7 @@ void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString originalTag,
 
                     if (v.outboundTag == originalTag)
                     {
-                        v.outboundTag = newTag;
+                        v.outboundTag = *newTag;
                         // Put this inside the if block since no need an extra
                         // operation if the condition is false.
                         rules.insert(k, v);
@@ -202,7 +204,7 @@ void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString originalTag,
                 }
 
                 // Resolve default outbound.
-                ResolveDefaultOutboundTag(originalTag, newTag);
+                ResolveDefaultOutboundTag(originalTag, *newTag);
             }
             else
             {
@@ -214,22 +216,23 @@ void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString originalTag,
         case RENAME_INBOUND:
             if (inbounds.contains(originalTag) && inboundNodes.contains(originalTag))
             {
-                if (inbounds.contains(newTag) && inboundNodes.contains(newTag))
+                if (inbounds.contains(*newTag) && inboundNodes.contains(*newTag))
                 {
                     QvMessageBoxWarn(this, tr("Rename tags"), tr("The new tag has been used, we appended a postfix."));
-                    newTag += "_" + GenerateRandomString(5);
+                    *newTag += "_" + GenerateRandomString(5);
                 }
-
-                inbounds.insert(newTag, inbounds.take(originalTag));
-                inboundNodes.insert(newTag, inboundNodes.take(originalTag));
-                auto node = static_cast<QvInboundNodeModel *>(inboundNodes.value(newTag)->nodeDataModel());
+                auto in = inbounds.take(originalTag);
+                in["tag"] = *newTag;
+                inbounds.insert(*newTag, in);
+                inboundNodes.insert(*newTag, inboundNodes.take(originalTag));
+                auto node = static_cast<QvInboundNodeModel *>(inboundNodes.value(*newTag)->nodeDataModel());
 
                 if (node == nullptr)
                 {
                     LOG(MODULE_GRAPH, "EMPTY NODE WARN")
                 }
 
-                node->setData(newTag);
+                node->setData(*newTag);
 
                 // Change inbound tag in rules accordingly.
                 // k -> rule tag
@@ -240,7 +243,7 @@ void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString originalTag,
 
                     if (v.inboundTag.contains(originalTag))
                     {
-                        v.inboundTag.append(newTag);
+                        v.inboundTag.append(*newTag);
                         v.inboundTag.removeAll(originalTag);
                         // Put this inside the if block since no need an extra
                         // operation if the condition is false.

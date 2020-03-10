@@ -103,7 +103,7 @@ class RouteEditor
     void onConnectionDeleted(QtNodes::Connection const &c);
 
   private:
-    void RenameItemTag(ROUTE_EDIT_MODE mode, const QString originalTag, const QString newTag);
+    void RenameItemTag(ROUTE_EDIT_MODE mode, const QString &originalTag, QString *newTag);
     void ShowCurrentRuleDetail();
     //
     QString currentRuleTag;
