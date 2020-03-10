@@ -47,11 +47,11 @@ namespace Qv2ray::base
         }
     } // namespace Qv2ray::base
 
-    const QString readLastLog()
+    QString readLastLog()
     {
         QMutexLocker _(&__purgerMutex);
         {
-            QMutexLocker _(&__loggerMutex);
+            QMutexLocker locker(&__loggerMutex);
             __loggerBuffer.swap(__purgerBuffer);
         }
         auto result = __purgerBuffer->join("");

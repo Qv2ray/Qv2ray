@@ -10,7 +10,7 @@ using namespace std;
 namespace Qv2ray::base
 {
     void __QV2RAY_LOG_FUNC__(int type, const std::string &func, int line, const QString &module, const QString &log);
-    const QString readLastLog();
+    QString readLastLog();
 } // namespace Qv2ray::base
 
 #define NEWLINE "\r\n"
