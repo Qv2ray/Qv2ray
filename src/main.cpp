@@ -256,7 +256,7 @@ int main(int argc, char *argv[])
     {
         std::unique_ptr<QCoreApplication> consoleApp(new QCoreApplication(argc, argv));
         //
-        // Install a default translater. From the OS/DE
+        // Install a default translator. From the OS/DE
         Qv2rayTranslator.reset(std::move(new QvTranslator()));
         Qv2rayTranslator->InstallTranslation(QLocale::system().name());
         QvCommandArgParser parser;
