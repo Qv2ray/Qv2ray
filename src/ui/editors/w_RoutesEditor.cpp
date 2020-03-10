@@ -818,6 +818,7 @@ void RouteEditor::on_editBtn_clicked()
     if (nodeScene->selectedNodes().empty())
     {
         QvMessageBoxWarn(this, tr("Edit Inbound/Outbound"), tr("Please select a node from the graph to continue."));
+        return;
     }
 
     auto firstNode = nodeScene->selectedNodes().at(0);
