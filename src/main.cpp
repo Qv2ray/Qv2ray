@@ -27,7 +27,7 @@ void signalHandler(int signum)
     qApp->exit(-99);
 }
 
-bool verifyConfigAvaliability(QString path, bool checkExistingConfig)
+bool verifyConfigAvailability(const QString& path, bool checkExistingConfig)
 {
     // Does not exist.
     if (!QDir(path).exists())
@@ -147,7 +147,7 @@ bool initialiseQv2ray()
         // Verify the config path, check if the config file exists and in the
         // correct JSON format. True means we check for config existance as
         // well. --|HERE |
-        bool isValidConfigPath = verifyConfigAvaliability(path, true);
+        bool isValidConfigPath = verifyConfigAvailability(path, true);
 
         // If we already found a valid config file. just simply load it...
         if (hasExistingConfig)
@@ -185,7 +185,7 @@ bool initialiseQv2ray()
         bool mkpathResult = QDir().mkpath(configPath);
 
         // Check if the dirs are write-able
-        if (mkpathResult && verifyConfigAvaliability(configPath, false))
+        if (mkpathResult && verifyConfigAvailability(configPath, false))
         {
             // Found a valid config dir, with write permission, but assume no
             // config is located in it.
