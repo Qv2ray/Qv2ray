@@ -295,10 +295,10 @@ int main(int argc, char *argv[])
 #endif
     //
     // finished: command line parsing
+    //
     LOG("QV2RAY_BUILD_INFO", QV2RAY_BUILD_INFO)
     LOG("QV2RAY_BUILD_EXTRA_INFO", QV2RAY_BUILD_EXTRA_INFO)
-    LOG(MODULE_INIT,
-        "Qv2ray " QV2RAY_VERSION_STRING " running on " + QSysInfo::prettyProductName() + " " + QSysInfo::currentCpuArchitecture() + NEWLINE)
+    LOG(MODULE_INIT, "Qv2ray " QV2RAY_VERSION_STRING " running on " + QSysInfo::prettyProductName() + " " + QSysInfo::currentCpuArchitecture())
     //
     // This line must be called before any other ones, since we are using these
     // values to identify instances.
@@ -311,8 +311,17 @@ int main(int argc, char *argv[])
     // ----------------------------> For debug build...
     SingleApplication::setApplicationName("Qv2ray - DEBUG");
 #endif
-    SingleApplication _qApp(
-        argc, argv, false, SingleApplication::Mode::User | SingleApplication::Mode::ExcludeAppPath | SingleApplication::Mode::ExcludeAppVersion);
+
+    if (!qEnvironmentVariableIsSet("QT_DEVICE_PIXEL_RATIO") &&       //
+        !qEnvironmentVariableIsSet("QT_AUTO_SCREEN_SCALE_FACTOR") && //
+        !qEnvironmentVariableIsSet("QT_SCALE_FACTOR") &&             //
+        !qEnvironmentVariableIsSet("QT_SCREEN_SCALE_FACTORS"))
+    {
+        DEBUG(MODULE_INIT, "High DPI scaling is enabled.")
+        QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    }
+    SingleApplication _qApp(argc, argv, false,
+                            SingleApplication::User | SingleApplication::ExcludeAppPath | SingleApplication::ExcludeAppVersion);
     _qApp.setQuitOnLastWindowClosed(false);
     // Early initialisation
     //
