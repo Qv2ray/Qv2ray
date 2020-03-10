@@ -303,9 +303,6 @@
             <property name="toolTip">
              <string>QR Code</string>
             </property>
-            <property name="frameShape">
-             <enum>QFrame::Box</enum>
-            </property>
             <property name="text">
              <string/>
             </property>

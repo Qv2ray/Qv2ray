@@ -12,17 +12,17 @@ namespace Qv2ray::core
     using namespace Qv2ray::base::safetype;
     using namespace Qv2ray::base::objects;
     //
-    inline QString getTag(const INBOUND &in)
+    inline const QString getTag(const INBOUND &in)
     {
         return in["tag"].toString();
     }
 
-    inline QString getTag(const OUTBOUND &in)
+    inline const QString getTag(const OUTBOUND &in)
     {
         return in["tag"].toString();
     }
 
-    inline QString getTag(const RuleObject &in)
+    inline const QString getTag(const RuleObject &in)
     {
         return in.QV2RAY_RULE_TAG;
     }

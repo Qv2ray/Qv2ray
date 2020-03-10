@@ -97,24 +97,22 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QDialog(pare
     // Show connections in the node graph
     for (auto in : root["inbounds"].toArray())
     {
-        INBOUND _in = INBOUND(in.toObject());
-        AddInbound(_in);
+        AddInbound(INBOUND(in.toObject()));
     }
 
     for (auto out : root["outbounds"].toArray())
     {
-        OUTBOUND _out = OUTBOUND(out.toObject());
-        AddOutbound(_out);
+        AddOutbound(OUTBOUND(out.toObject()));
     }
 
     for (auto item : root["routing"].toObject()["rules"].toArray())
     {
-        auto _rule = StructFromJsonString<RuleObject>(JsonToString(item.toObject()));
-        AddRule(_rule);
+        AddRule(StructFromJsonString<RuleObject>(JsonToString(item.toObject())));
     }
 
     // Set default outboung combo text AFTER adding all outbounds.
-    defaultOutboundCombo->setCurrentText(root["outbounds"].toArray().first().toObject()["tag"].toString());
+    defaultOutbound = getTag(OUTBOUND(root["outbounds"].toArray().first().toObject()));
+    defaultOutboundCombo->setCurrentText(defaultOutbound);
 
     // Find and add balancers.
     for (auto _balancer : root["routing"].toObject()["balancers"].toArray())
@@ -123,7 +121,7 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QDialog(pare
 
         if (!_balancerObject["tag"].toString().isEmpty())
         {
-            balancers[_balancerObject["tag"].toString()] = _balancerObject["selector"].toVariant().toStringList();
+            balancers.insert(_balancerObject["tag"].toString(), _balancerObject["selector"].toVariant().toStringList());
         }
     }
 
@@ -437,10 +435,9 @@ void RouteEditor::ShowCurrentRuleDetail()
     ruleTagLineEdit->setText(CurrentRule.QV2RAY_RULE_TAG);
     balancerSelectionCombo->clear();
 
-    // BUG added the wrong items, should be outbound list.
     for (auto out : outbounds)
     {
-        balancerSelectionCombo->addItem((out)["tag"].toString());
+        balancerSelectionCombo->addItem(getTag(OUTBOUND(out)));
     }
 
     //
@@ -821,7 +818,7 @@ void RouteEditor::on_editBtn_clicked()
         return;
     }
 
-    auto firstNode = nodeScene->selectedNodes().at(0);
+    auto firstNode = nodeScene->selectedNodes().front();
     auto isInbound = inboundNodes.values().contains(firstNode);
     auto isOutbound = outboundNodes.values().contains(firstNode);
 
@@ -872,7 +869,7 @@ void RouteEditor::on_editBtn_clicked()
             DEBUG(MODULE_UI, "Removed old tag: " + getTag(_in))
             inbounds.remove(getTag(_in));
             DEBUG(MODULE_UI, "Adding new tag: " + getTag(_result))
-            inbounds[getTag(_result)] = _result;
+            inbounds.insert(getTag(_result), _result);
         }
     }
     else if (isOutbound)
@@ -886,7 +883,7 @@ void RouteEditor::on_editBtn_clicked()
         }
 
         OUTBOUND _result;
-        auto _out = outbounds[currentInboundOutboundTag];
+        auto _out = outbounds.value(currentInboundOutboundTag);
         auto protocol = _out["protocol"].toString().toLower();
         int _code;
 
@@ -921,7 +918,7 @@ void RouteEditor::on_editBtn_clicked()
             }
 
             DEBUG(MODULE_UI, "Adding new tag: " + getTag(_result))
-            outbounds[getTag(_result)] = _result;
+            outbounds.insert(getTag(_result), _result);
             statusLabel->setText(tr("OK"));
         }
     }

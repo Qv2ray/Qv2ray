@@ -413,7 +413,14 @@ namespace Qv2ray::core::connection
                         }
                         else
                         {
-                            LOG(MODULE_CONNECTION, "WARNING: Unsupported outbound type: " + fpConf.type)
+                            if (!fpConf.type.isEmpty())
+                            {
+                                DEBUG(MODULE_CONNECTION, "WARNING: Unsupported outbound type: " + fpConf.type)
+                            }
+                            else
+                            {
+                                DEBUG(MODULE_CONNECTION, "WARNING: Empty outbound type.")
+                            }
                         }
                     }
                     else

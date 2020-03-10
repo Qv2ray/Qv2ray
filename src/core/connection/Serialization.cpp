@@ -63,7 +63,14 @@ namespace Qv2ray::core::connection
             }
             else
             {
-                LOG(MODULE_CONNECTION, "Unsupported outbound type: " + type)
+                if (!type.isEmpty())
+                {
+                    // DEBUG(MODULE_CONNECTION, "WARNING: Unsupported outbound type: " + type)
+                }
+                else
+                {
+                    DEBUG(MODULE_CONNECTION, "WARNING: Empty outbound type.")
+                }
             }
 
             return sharelink;

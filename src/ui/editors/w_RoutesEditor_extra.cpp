@@ -23,8 +23,8 @@ void RouteEditor::AddInbound(INBOUND in)
     pos.setX(0 + GRAPH_GLOBAL_OFFSET_X);
     pos.setY(inboundNodes.count() * 130 + GRAPH_GLOBAL_OFFSET_Y);
     nodeScene->setNodePosition(node, pos);
-    inboundNodes[tag] = &node;
-    inbounds[getTag(in)] = in;
+    inboundNodes.insert(tag, &node);
+    inbounds.insert(getTag(in), in);
 }
 
 void RouteEditor::AddOutbound(OUTBOUND out)
@@ -43,8 +43,8 @@ void RouteEditor::AddOutbound(OUTBOUND out)
     pos.setY(pos.y() + outboundNodes.count() * 120 + GRAPH_GLOBAL_OFFSET_Y);
     auto &node = nodeScene->createNode(std::move(_nodeData));
     nodeScene->setNodePosition(node, pos);
-    outboundNodes[tag] = &node;
-    outbounds[tag] = out;
+    outboundNodes.insert(tag, &node);
+    outbounds.insert(tag, out);
     defaultOutboundCombo->addItem(tag);
 }
 
@@ -72,7 +72,7 @@ void RouteEditor::AddRule(RuleObject rule)
         rule.QV2RAY_RULE_TAG += "-" + GenerateRandomString(5);
     }
 
-    rules[rule.QV2RAY_RULE_TAG] = rule;
+    rules.insert(rule.QV2RAY_RULE_TAG, rule);
     auto pos = nodeGraphWidget->pos();
     pos.setX(pos.x() + 350 + GRAPH_GLOBAL_OFFSET_X);
     pos.setY(pos.y() + ruleNodes.count() * 120 + GRAPH_GLOBAL_OFFSET_Y);
@@ -90,7 +90,7 @@ void RouteEditor::AddRule(RuleObject rule)
         }
         else
         {
-            auto inboundNode = inboundNodes[inTag];
+            auto inboundNode = inboundNodes.value(inTag);
             nodeScene->createConnection(node, 0, *inboundNode, 0);
         }
     }
@@ -101,7 +101,7 @@ void RouteEditor::AddRule(RuleObject rule)
         if (outboundNodes.contains(rule.outboundTag))
         {
             DEBUG(MODULE_GRAPH, "Found outbound tag: " + rule.outboundTag + ", for rule: " + rule.QV2RAY_RULE_TAG)
-            nodeScene->createConnection(*outboundNodes[rule.outboundTag], 0, node, 0);
+            nodeScene->createConnection(*outboundNodes.value(rule.outboundTag), 0, node, 0);
         }
         else
         {
@@ -111,7 +111,7 @@ void RouteEditor::AddRule(RuleObject rule)
         }
     }
 
-    this->ruleNodes[rule.QV2RAY_RULE_TAG] = &node;
+    this->ruleNodes.insert(rule.QV2RAY_RULE_TAG, &node);
     ruleListWidget->addItem(rule.QV2RAY_RULE_TAG);
 }
 
@@ -123,13 +123,13 @@ void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString originalTag,
         case RENAME_RULE:
             if (rules.contains(originalTag) && ruleNodes.contains(originalTag))
             {
-                if (rules.contains(newTag) && rules.contains(newTag))
+                if (rules.contains(newTag) && ruleNodes.contains(newTag))
                 {
                     QvMessageBoxWarn(this, tr("Rename tags"), tr("The new tag has been used, we appended a postfix."));
                     newTag += "_" + GenerateRandomString(5);
                 }
 
-                auto node = static_cast<QvRuleNodeDataModel *>(ruleNodes[originalTag]->nodeDataModel());
+                auto node = static_cast<QvRuleNodeDataModel *>(ruleNodes.value(originalTag)->nodeDataModel());
 
                 if (node == nullptr)
                 {
@@ -138,7 +138,7 @@ void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString originalTag,
 
                 node->setData(newTag);
                 //
-                rules[newTag] = rules.take(originalTag);
+                rules.insert(newTag, rules.take(originalTag));
                 rules[newTag].QV2RAY_RULE_TAG = newTag;
                 ruleNodes[newTag] = ruleNodes.take(originalTag);
                 //
@@ -172,13 +172,13 @@ void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString originalTag,
             {
                 if (outbounds.contains(newTag) && outboundNodes.contains(newTag))
                 {
-                    QvMessageBoxWarn(this, tr("Rename tags"), tr("The new tag has been used, we appended a postfix."));
+                    QvMessageBoxWarn(this, tr("Rename tags"), tr("The new tag has been used, we appended a random string to the tag."));
                     newTag += "_" + GenerateRandomString(5);
                 }
 
-                outbounds[newTag] = outbounds.take(originalTag);
-                outboundNodes[newTag] = outboundNodes.take(originalTag);
-                auto node = static_cast<QvOutboundNodeModel *>(outboundNodes[newTag]->nodeDataModel());
+                outbounds.insert(newTag, outbounds.take(originalTag));
+                outboundNodes.insert(newTag, outboundNodes.take(originalTag));
+                auto node = static_cast<QvOutboundNodeModel *>(outboundNodes.value(newTag)->nodeDataModel());
 
                 if (node == nullptr)
                 {
@@ -190,14 +190,14 @@ void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString originalTag,
                 // Change outbound tag in rules accordingly.
                 for (auto k : rules.keys())
                 {
-                    auto v = rules[k];
+                    auto v = rules.value(k);
 
                     if (v.outboundTag == originalTag)
                     {
                         v.outboundTag = newTag;
                         // Put this inside the if block since no need an extra
                         // operation if the condition is false.
-                        rules[k] = v;
+                        rules.insert(k, v);
                     }
                 }
 
@@ -220,9 +220,9 @@ void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString originalTag,
                     newTag += "_" + GenerateRandomString(5);
                 }
 
-                inbounds[newTag] = inbounds.take(originalTag);
-                inboundNodes[newTag] = inboundNodes.take(originalTag);
-                auto node = static_cast<QvInboundNodeModel *>(inboundNodes[newTag]->nodeDataModel());
+                inbounds.insert(newTag, inbounds.take(originalTag));
+                inboundNodes.insert(newTag, inboundNodes.take(originalTag));
+                auto node = static_cast<QvInboundNodeModel *>(inboundNodes.value(newTag)->nodeDataModel());
 
                 if (node == nullptr)
                 {
@@ -236,7 +236,7 @@ void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString originalTag,
                 // v -> rule object
                 for (auto k : rules.keys())
                 {
-                    auto v = rules[k];
+                    auto v = rules.value(k);
 
                     if (v.inboundTag.contains(originalTag))
                     {
@@ -244,7 +244,7 @@ void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString originalTag,
                         v.inboundTag.removeAll(originalTag);
                         // Put this inside the if block since no need an extra
                         // operation if the condition is false.
-                        rules[k] = v;
+                        rules.insert(k, v);
                     }
                 }
             }

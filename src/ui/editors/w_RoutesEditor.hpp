@@ -121,9 +121,9 @@ class RouteEditor
     //
     // ---------------------------- Node Graph Impl --------------------------
     void SetupNodeWidget();
-    QMap<QString, Node *> inboundNodes;
-    QMap<QString, Node *> outboundNodes;
-    QMap<QString, Node *> ruleNodes;
+    QHash<QString, Node *> inboundNodes;
+    QHash<QString, Node *> outboundNodes;
+    QHash<QString, Node *> ruleNodes;
     //
     FlowScene *nodeScene;
     // ---------------------------- Extra Source File Headers ----------------
