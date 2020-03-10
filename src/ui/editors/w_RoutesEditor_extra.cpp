@@ -91,7 +91,8 @@ void RouteEditor::AddRule(RuleObject rule)
         else
         {
             auto inboundNode = inboundNodes.value(inTag);
-            nodeScene->createConnection(node, 0, *inboundNode, 0);
+            auto conn = nodeScene->createConnection(node, 0, *inboundNode, 0);
+            connect(conn.get(), &QtNodes::Connection::connectionCompleted, this, &RouteEditor::onConnectionCreated);
         }
     }
 
@@ -101,7 +102,8 @@ void RouteEditor::AddRule(RuleObject rule)
         if (outboundNodes.contains(rule.outboundTag))
         {
             DEBUG(MODULE_GRAPH, "Found outbound tag: " + rule.outboundTag + ", for rule: " + rule.QV2RAY_RULE_TAG)
-            nodeScene->createConnection(*outboundNodes.value(rule.outboundTag), 0, node, 0);
+            auto conn = nodeScene->createConnection(*outboundNodes.value(rule.outboundTag), 0, node, 0);
+            connect(conn.get(), &QtNodes::Connection::connectionCompleted, this, &RouteEditor::onConnectionCreated);
         }
         else
         {

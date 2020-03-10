@@ -13,6 +13,7 @@ namespace Qv2ray::components::pac
     }
     PACServer::~PACServer()
     {
+        StopServer();
         delete pacServer;
     }
     void PACServer::SetProxyString(const QString &proxyString)
@@ -47,7 +48,10 @@ namespace Qv2ray::components::pac
 
     void PACServer::StopServer()
     {
-        pacServer->stop();
+        if (pacServer->is_running())
+        {
+            pacServer->stop();
+        }
     }
 
     void PACServer::onNewRequest(const httplib::Request &req, httplib::Response &rsp)

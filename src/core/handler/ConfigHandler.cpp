@@ -563,8 +563,8 @@ namespace Qv2ray::core::handlers
         connections[newId].groupId = groupId;
         connections[newId].importDate = system_clock::to_time_t(system_clock::now());
         connections[newId].displayName = displayName;
-        UpdateConnection(newId, root);
         emit OnConnectionCreated(newId, displayName);
+        UpdateConnection(newId, root);
         return newId;
     }
 

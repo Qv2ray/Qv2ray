@@ -54,6 +54,7 @@ class ConnectionItemWidget
     void OnConnected(const ConnectionId &id);
     void OnDisConnected(const ConnectionId &id);
     void OnLatencyTestStart(const ConnectionId &id);
+    void OnConnectionModified(const ConnectionId &id);
     void OnLatencyTestFinished(const ConnectionId &id, const uint average);
     inline void RecalculateConnectionsCount()
     {

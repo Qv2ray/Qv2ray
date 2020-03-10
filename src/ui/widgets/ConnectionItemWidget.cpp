@@ -4,7 +4,7 @@
 
 #include <QStyleFactory>
 
-ConnectionItemWidget::ConnectionItemWidget(QWidget *parent) : QWidget(parent), connectionId("null"), groupId("null")
+ConnectionItemWidget::ConnectionItemWidget(QWidget *parent) : QWidget(parent), connectionId(NullConnectionId), groupId(NullGroupId)
 {
     setupUi(this);
     connect(ConnectionManager, &QvConfigHandler::OnConnected, this, &ConnectionItemWidget::OnConnected);
@@ -39,10 +39,7 @@ ConnectionItemWidget::ConnectionItemWidget(const ConnectionId &id, QWidget *pare
     //
     // Rename events
     connect(renameTxt, &QLineEdit::returnPressed, this, &ConnectionItemWidget::on_doRenameBtn_clicked);
-    connect(ConnectionManager, &QvConfigHandler::OnConnectionModified, [&](const ConnectionId &id) {
-        if (id == connectionId)
-            connTypeLabel->setText(tr("Type: ") + GetConnectionProtocolString(id)); //
-    });
+    connect(ConnectionManager, &QvConfigHandler::OnConnectionModified, this, &ConnectionItemWidget::OnConnectionModified);
 }
 
 // ======================================= Initialisation for root nodes.
@@ -132,6 +129,11 @@ void ConnectionItemWidget::OnConnectionStatsArrived(const ConnectionId &id, cons
     {
         dataLabel->setText(FormatBytes(totalUp) + " / " + FormatBytes(totalDown));
     }
+}
+void ConnectionItemWidget::OnConnectionModified(const ConnectionId &id)
+{
+    if (connectionId == id)
+        connTypeLabel->setText(tr("Type: ") + GetConnectionProtocolString(id));
 }
 
 void ConnectionItemWidget::OnLatencyTestStart(const ConnectionId &id)
