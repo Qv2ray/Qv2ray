@@ -15,6 +15,7 @@
 #include <QStyleFactory>
 #include <QTranslator>
 #include <csignal>
+#include <memory>
 
 #ifdef Q_OS_UNIX
     // For unix root user check
@@ -27,7 +28,7 @@ void signalHandler(int signum)
     qApp->exit(-99);
 }
 
-bool verifyConfigAvaliability(QString path, bool checkExistingConfig)
+bool verifyConfigAvailability(const QString& path, bool checkExistingConfig)
 {
     // Does not exist.
     if (!QDir(path).exists())
@@ -40,7 +41,7 @@ bool verifyConfigAvaliability(QString path, bool checkExistingConfig)
     if (!opened)
     {
         LOG(MODULE_SETTINGS, "Directory at: " + path + " cannot be used as a valid config file path.")
-        LOG(MODULE_INIT, "---> Cannot create a new file or openwrite a file.")
+        LOG(MODULE_INIT, "---> Cannot create a new file or open a file for writing.")
         return false;
     }
     else
@@ -142,12 +143,12 @@ bool initialiseQv2ray()
     QString configPath = "";
     bool hasExistingConfig = false;
 
-    for (auto path : configFilePaths)
+    for (const auto& path : configFilePaths)
     {
         // Verify the config path, check if the config file exists and in the
-        // correct JSON format. True means we check for config existance as
+        // correct JSON format. True means we check for config existence as
         // well. --|HERE |
-        bool isValidConfigPath = verifyConfigAvaliability(path, true);
+        bool isValidConfigPath = verifyConfigAvailability(path, true);
 
         // If we already found a valid config file. just simply load it...
         if (hasExistingConfig)
@@ -185,7 +186,7 @@ bool initialiseQv2ray()
         bool mkpathResult = QDir().mkpath(configPath);
 
         // Check if the dirs are write-able
-        if (mkpathResult && verifyConfigAvaliability(configPath, false))
+        if (mkpathResult && verifyConfigAvailability(configPath, false))
         {
             // Found a valid config dir, with write permission, but assume no
             // config is located in it.
@@ -256,8 +257,8 @@ int main(int argc, char *argv[])
     {
         std::unique_ptr<QCoreApplication> consoleApp(new QCoreApplication(argc, argv));
         //
-        // Install a default translater. From the OS/DE
-        Qv2rayTranslator.reset(std::move(new QvTranslator()));
+        // Install a default translator. From the OS/DE
+        Qv2rayTranslator = std::make_unique<QvTranslator>();
         Qv2rayTranslator->InstallTranslation(QLocale::system().name());
         QvCommandArgParser parser;
         QString errorMessage;
@@ -328,7 +329,7 @@ int main(int argc, char *argv[])
     // Not duplicated.
     // Install a default translater. From the OS/DE
     auto _lang = QLocale::system().name();
-    Qv2rayTranslator.reset(std::move(new QvTranslator()));
+    Qv2rayTranslator = std::make_unique<QvTranslator>();
     bool _result_ = Qv2rayTranslator->InstallTranslation(_lang);
     LOG(MODULE_UI, "Installing a tranlator from OS: " + _lang + " -- " + (_result_ ? "OK" : "Failed"))
     //
