@@ -41,7 +41,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     }
 
     // We add locales
-    auto langs = Qv2rayTranslator->GetAvailableLanguages();
+    auto langs = Qv2rayTranslator.GetAvailableLanguages();
     if (!langs.empty())
     {
         languageComboBox->clear();
@@ -266,7 +266,7 @@ void PreferencesWindow::on_buttonBox_accepted()
         if (CurrentConfig.uiConfig.language != GlobalConfig.uiConfig.language)
         {
             // Install translator
-            if (Qv2rayTranslator->InstallTranslation(CurrentConfig.uiConfig.language))
+            if (Qv2rayTranslator.InstallTranslation(CurrentConfig.uiConfig.language))
             {
                 messageBus.EmitGlobalSignal(QvMBMessage::RETRANSLATE);
                 QApplication::processEvents();

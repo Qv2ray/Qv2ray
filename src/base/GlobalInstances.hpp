@@ -16,5 +16,5 @@ namespace Qv2ray
     inline base::config::Qv2rayConfig GlobalConfig = base::config::Qv2rayConfig();
     inline base::QvStartupOptions StartupOption = base::QvStartupOptions();
     //
-    inline std::unique_ptr<common::QvTranslator> Qv2rayTranslator;
+    inline common::QvTranslator Qv2rayTranslator;
 } // namespace Qv2ray
