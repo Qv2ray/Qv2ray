@@ -142,10 +142,10 @@ bool initialiseQv2ray()
     QString configPath = "";
     bool hasExistingConfig = false;
 
-    for (auto path : configFilePaths)
+    for (const auto& path : configFilePaths)
     {
         // Verify the config path, check if the config file exists and in the
-        // correct JSON format. True means we check for config existance as
+        // correct JSON format. True means we check for config existence as
         // well. --|HERE |
         bool isValidConfigPath = verifyConfigAvailability(path, true);
 
