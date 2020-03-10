@@ -89,7 +89,7 @@ namespace Qv2ray::base::config
         objects::AccountObject httpAccount;
 
         Qv2rayInboundsConfig()
-            : listenip("127.0.0.1"), setSystemProxy(false), pacConfig(), useSocks(true), socks_port(1088), socks_useAuth(false), socksUDP(true),
+            : listenip("127.0.0.1"), setSystemProxy(true), pacConfig(), useSocks(true), socks_port(1088), socks_useAuth(false), socksUDP(true),
               socksLocalIP("127.0.0.1"), socksAccount(), useHTTP(true), http_port(8888), http_useAuth(false), httpAccount()
         {
         }
