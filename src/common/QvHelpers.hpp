@@ -12,17 +12,17 @@
 
 namespace Qv2ray::common
 {
-    QStringList GetFileList(QDir dir);
-    QString Base64Encode(QString string);
-    QString Base64Decode(QString string);
+    QStringList GetFileList(const QDir &dir);
+    QString Base64Encode(const QString &string);
+    QString Base64Decode(const QString &string);
     QStringList SplitLines(const QString &str);
     list<string> SplitLines_std(const QString &_string);
-    bool FileExistsIn(QDir dir, QString fileName);
+    bool FileExistsIn(const QDir &dir, const QString &fileName);
     const QString GenerateRandomString(int len = 12);
     //
-    void QvMessageBoxWarn(QWidget *parent, QString title, QString text);
-    void QvMessageBoxInfo(QWidget *parent, QString title, QString text);
-    QMessageBox::StandardButton QvMessageBoxAsk(QWidget *parent, QString title, QString text,
+    void QvMessageBoxWarn(QWidget *parent, const QString &title, const QString &text);
+    void QvMessageBoxInfo(QWidget *parent, const QString &title, const QString &text);
+    QMessageBox::StandardButton QvMessageBoxAsk(QWidget *parent, const QString &title, const QString &text,
                                                 QMessageBox::StandardButton extraButtons = QMessageBox::NoButton);
     //
     QString StringFromFile(const QString &filePath);
@@ -30,9 +30,9 @@ namespace Qv2ray::common
     bool StringToFile(const QString &text, QFile &target);
     bool StringToFile(const QString &text, const QString &targetpath);
     //
-    QJsonObject JsonFromString(QString string);
-    QString JsonToString(QJsonObject json, QJsonDocument::JsonFormat format = QJsonDocument::JsonFormat::Indented);
-    QString JsonToString(QJsonArray array, QJsonDocument::JsonFormat format = QJsonDocument::JsonFormat::Indented);
+    QJsonObject JsonFromString(const QString &string);
+    QString JsonToString(const QJsonObject &json, QJsonDocument::JsonFormat format = QJsonDocument::JsonFormat::Indented);
+    QString JsonToString(const QJsonArray &array, QJsonDocument::JsonFormat format = QJsonDocument::JsonFormat::Indented);
     QString VerifyJsonString(const QString &source);
     //
     QString FormatBytes(const int64_t bytes);

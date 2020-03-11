@@ -1,5 +1,7 @@
 #include "common/QvHelpers.hpp"
 
+#include "libs/puresource/src/PureJson.hpp"
+
 #include <QGraphicsEffect>
 #include <QGraphicsProxyWidget>
 #include <QGraphicsScene>
@@ -42,7 +44,8 @@ namespace Qv2ray::common
         QTextCodec::ConverterState state;
         QTextCodec *codec = QTextCodec::codecForName("UTF-8");
         const QString text = codec->toUnicode(byteArray.constData(), byteArray.size(), &state);
-        if (state.invalidChars > 0) {
+        if (state.invalidChars > 0)
+        {
             LOG(MODULE_FILEIO, "Not a valid UTF-8 sequence: " + source->fileName())
             return source->readAll();
         }
@@ -77,14 +80,14 @@ namespace Qv2ray::common
         return JsonFromString(json);
     }
 
-    QString JsonToString(QJsonObject json, QJsonDocument::JsonFormat format)
+    QString JsonToString(const QJsonObject &json, QJsonDocument::JsonFormat format)
     {
         QJsonDocument doc;
         doc.setObject(json);
         return doc.toJson(format);
     }
 
-    QString JsonToString(QJsonArray array, QJsonDocument::JsonFormat format)
+    QString JsonToString(const QJsonArray &array, QJsonDocument::JsonFormat format)
     {
         QJsonDocument doc;
         doc.setArray(array);
@@ -108,19 +111,24 @@ namespace Qv2ray::common
         }
     }
 
-    QJsonObject JsonFromString(QString string)
+    QJsonObject JsonFromString(const QString &string)
     {
-        QJsonDocument doc = QJsonDocument::fromJson(string.toUtf8());
+        auto removeComment = RemoveComment(string);
+        if (removeComment != string)
+        {
+            LOG(MODULE_FILEIO, "Some comments have been removed from the json.")
+        }
+        QJsonDocument doc = QJsonDocument::fromJson(removeComment.toUtf8());
         return doc.object();
     }
 
-    QString Base64Encode(QString string)
+    QString Base64Encode(const QString &string)
     {
         QByteArray ba = string.toUtf8();
         return ba.toBase64();
     }
 
-    QString Base64Decode(QString string)
+    QString Base64Decode(const QString &string)
     {
         QByteArray ba = string.toUtf8();
         return QString(QByteArray::fromBase64(ba));
@@ -143,27 +151,28 @@ namespace Qv2ray::common
         return list;
     }
 
-    QStringList GetFileList(QDir dir)
+    QStringList GetFileList(const QDir &dir)
     {
         return dir.entryList(QStringList{ "*", "*.*" }, QDir::Hidden | QDir::Files);
     }
 
-    bool FileExistsIn(QDir dir, QString fileName)
+    bool FileExistsIn(const QDir &dir, const QString &fileName)
     {
         return GetFileList(dir).contains(fileName);
     }
 
-    void QvMessageBoxWarn(QWidget *parent, QString title, QString text)
+    void QvMessageBoxWarn(QWidget *parent, const QString &title, const QString &text)
     {
         QMessageBox::warning(parent, title, text, QMessageBox::Ok | QMessageBox::Default, 0);
     }
 
-    void QvMessageBoxInfo(QWidget *parent, QString title, QString text)
+    void QvMessageBoxInfo(QWidget *parent, const QString &title, const QString &text)
     {
         QMessageBox::information(parent, title, text, QMessageBox::Ok | QMessageBox::Default, 0);
     }
 
-    QMessageBox::StandardButton QvMessageBoxAsk(QWidget *parent, QString title, QString text, QMessageBox::StandardButton extraButtons)
+    QMessageBox::StandardButton QvMessageBoxAsk(QWidget *parent, const QString &title, const QString &text,
+                                                QMessageBox::StandardButton extraButtons)
     {
         return QMessageBox::question(parent, title, text, QMessageBox::Yes | QMessageBox::No | extraButtons);
     }
