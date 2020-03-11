@@ -16,3 +16,6 @@
 [submodule "3rdparty/cpp-httplib"]
 	path = 3rdparty/cpp-httplib
 	url = https://github.com/yhirose/cpp-httplib
+[submodule "libs/puresource"]
+	path = libs/puresource
+	url = https://github.com/Qv2ray/PureSource/
