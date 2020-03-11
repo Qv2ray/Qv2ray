@@ -28,10 +28,6 @@ jobs:
             qt_version: 5.11.3
           - platform: windows-latest
             qt_version: 5.12.7
-          - platform: macos-latest
-            qt_version: 5.11.3
-          - platform: macos-latest
-            qt_version: 5.12.7
       fail-fast: false
         
     runs-on: ${{ matrix.platform }}
