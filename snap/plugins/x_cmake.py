@@ -125,7 +125,7 @@ class CMakePlugin(snapcraft.BasePlugin):
         env = self._build_environment()
         configflags = self._get_processed_flags()
 
-        self.run(["cmake", sourcedir, "-DCMAKE_INSTALL_PREFIX="] + configflags, env=env)
+        self.run(["cmake", sourcedir] + configflags, env=env)
 
         # TODO: there is a better way to specify the job count on newer versions of cmake
         # https://github.com/Kitware/CMake/commit/1ab3881ec9e809ac5f6cad5cd84048310b8683e2
