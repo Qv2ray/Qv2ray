@@ -1,5 +1,7 @@
 #include "common/QvHelpers.hpp"
 
+#include "libs/puresource/src/PureJson.hpp"
+
 #include <QGraphicsEffect>
 #include <QGraphicsProxyWidget>
 #include <QGraphicsScene>
@@ -42,7 +44,8 @@ namespace Qv2ray::common
         QTextCodec::ConverterState state;
         QTextCodec *codec = QTextCodec::codecForName("UTF-8");
         const QString text = codec->toUnicode(byteArray.constData(), byteArray.size(), &state);
-        if (state.invalidChars > 0) {
+        if (state.invalidChars > 0)
+        {
             LOG(MODULE_FILEIO, "Not a valid UTF-8 sequence: " + source->fileName())
             return source->readAll();
         }
@@ -73,7 +76,7 @@ namespace Qv2ray::common
 
     QJsonObject JSONFromFile(QFile *sourceFile)
     {
-        QString json = StringFromFile(sourceFile);
+        QString json = RemoveComment(StringFromFile(sourceFile));
         return JsonFromString(json);
     }
 
