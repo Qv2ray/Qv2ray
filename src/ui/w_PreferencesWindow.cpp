@@ -268,7 +268,7 @@ void PreferencesWindow::on_buttonBox_accepted()
             // Install translator
             if (Qv2rayTranslator->InstallTranslation(CurrentConfig.uiConfig.language))
             {
-                messageBus.EmitGlobalSignal(QvMBMessage::RETRANSLATE);
+                UIMessageBus.EmitGlobalSignal(QvMBMessage::RETRANSLATE);
                 QApplication::processEvents();
             }
             else
@@ -279,7 +279,7 @@ void PreferencesWindow::on_buttonBox_accepted()
 
         qApp->setStyle(QStyleFactory::create(CurrentConfig.uiConfig.theme));
         SaveGlobalConfig(CurrentConfig);
-        emit s_reload_config(IsConnectionPropertyChanged);
+        UIMessageBus.EmitGlobalSignal(QvMBMessage::UPDATE_COLORSCHEME);
         emit accept();
     }
 }

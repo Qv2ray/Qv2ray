@@ -109,37 +109,43 @@ class MainWindow
   private:
     QHash<GroupId, shared_ptr<QTreeWidgetItem>> groupNodes;
     QHash<ConnectionId, shared_ptr<QTreeWidgetItem>> connectionNodes;
-    //
-    QTreeWidgetItem *CurrentItem;
     // Charts
     SpeedWidget *speedChartWidget;
-    QMenu *connectionListMenu;
 #ifndef DISABLE_AUTO_UPDATE
     QvHttpRequestHelper *requestHelper;
 #endif
     QSystemTrayIcon hTray;
     PACServer pacServer;
-    // QvTCPingModel tcpingHelper;
     SyntaxHighlighter *vCoreLogHighlighter;
     ConnectionInfoWidget *infoWidget;
     //
     // Actions in the system tray menu
     QMenu *tray_RootMenu = new QMenu(this);
-    QAction *action_Tray_ShowHide = new QAction(this->windowIcon(), tr("Hide"), this);
-    QAction *action_Tray_ShowPreferencesWindow = new QAction(tr("Preferences"), this);
-    QAction *action_Tray_Quit = new QAction(tr("Quit"), this);
-    // --> Connectivities
-    QAction *action_Tray_Start = new QAction(tr("Connect"), this);
-    QAction *action_Tray_Restart = new QAction(tr("Reconnect"), this);
-    QAction *action_Tray_Stop = new QAction(tr("Disconnect"), this);
-    // --> System proxy settings
     QMenu *tray_SystemProxyMenu = new QMenu(this);
-    QAction *action_Tray_SetSystemProxy = new QAction(tr("Enable System Proxy"), this);
-    QAction *action_Tray_ClearSystemProxy = new QAction(tr("Disable System Proxy"), this);
+    //
+    QAction *tray_action_ShowHide = new QAction(tr("Hide"), this);
+    QAction *tray_action_ShowPreferencesWindow = new QAction(tr("Preferences"), this);
+    QAction *tray_action_Quit = new QAction(tr("Quit"), this);
+    QAction *tray_action_Start = new QAction(tr("Connect"), this);
+    QAction *tray_action_Restart = new QAction(tr("Reconnect"), this);
+    QAction *tray_action_Stop = new QAction(tr("Disconnect"), this);
+    QAction *tray_action_SetSystemProxy = new QAction(tr("Enable System Proxy"), this);
+    QAction *tray_action_ClearSystemProxy = new QAction(tr("Disable System Proxy"), this);
+    //
+    QMenu *RCM_Menu = new QMenu(this);
+    QAction *action_RCM_Start = new QAction(tr("Connect to this"), this);
+    QAction *action_RCM_Edit = new QAction(tr("Edit"), this);
+    QAction *action_RCM_EditJson = new QAction(tr("Edit as JSON"), this);
+    QAction *action_RCM_EditComplex = new QAction(tr("Edit as Complex Config"), this);
+    QAction *action_RCM_Rename = new QAction(tr("Rename"), this);
+    QAction *action_RCM_Duplicate = new QAction(tr("Duplicate to the Same Group"), this);
+    QAction *action_RCM_Delete = new QAction(tr("Delete Connection"), this);
     //
     ConnectionId lastConnectedId;
     void MWSetSystemProxy();
     void CheckSubscriptionsUpdate();
+    //
+    void UpdateColorScheme();
     //
     void MWAddConnectionItem_p(const ConnectionId &connection, const GroupId &groupId);
     void MWAddGroupItem_p(const GroupId &groupId);

@@ -2,6 +2,7 @@
 
 #include "QWidget"
 #include "base/Qv2rayBase.hpp"
+#include "ui/messaging/QvMessageBus.hpp"
 #include "ui_StreamSettingsWidget.h"
 
 class StreamSettingsWidget
@@ -12,7 +13,7 @@ class StreamSettingsWidget
 
   public:
     explicit StreamSettingsWidget(QWidget *parent = nullptr);
-    void SetStreamObject(StreamSettingsObject sso);
+    void SetStreamObject(const StreamSettingsObject &sso);
     StreamSettingsObject GetStreamSettings();
 
   private slots:
@@ -77,5 +78,6 @@ class StreamSettingsWidget
     void on_alpnTxt_textChanged();
 
   private:
+    QvMessageBusSlotDecl;
     StreamSettingsObject stream;
 };

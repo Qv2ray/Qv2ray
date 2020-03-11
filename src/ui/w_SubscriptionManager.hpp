@@ -45,6 +45,7 @@ class SubscribeEditor
     void on_connectionsList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
 
   private:
+    void UpdateColorScheme();
     bool isUpdateInProgress = false;
     GroupId currentSubId = NullGroupId;
     ConnectionId currentConnectionId = NullConnectionId;

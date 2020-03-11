@@ -1,7 +1,7 @@
 #pragma once
 #include <QObject>
 
-#define QvMessageBusConnect(CLASSNAME) connect(&messageBus, &QvMessageBusObject::QvSendMessage, this, &CLASSNAME::on_QvMessageReceived)
+#define QvMessageBusConnect(CLASSNAME) connect(&UIMessageBus, &QvMessageBusObject::QvSendMessage, this, &CLASSNAME::on_QvMessageReceived)
 
 #define QvMessageBusSlotSig const QvMBMessage &msg
 #define QvMessageBusSlotIdentifier on_QvMessageReceived
@@ -20,7 +20,12 @@
         break;
 
 #define MBRetranslateDefaultImpl                                                                                                                \
-    case RETRANSLATE: this->retranslateUi(this); break;
+    case RETRANSLATE:                                                                                                                           \
+        this->retranslateUi(this);                                                                                                              \
+        break;
+
+#define MBUpdateColorSchemeDefaultImpl                                                                                                          \
+    case UPDATE_COLORSCHEME: this->UpdateColorScheme(); break;
 
 namespace Qv2ray::ui::messaging
 {
@@ -32,11 +37,9 @@ namespace Qv2ray::ui::messaging
         /// Hide all windows.
         HIDE_WINDOWS,
         /// Retranslate User Interface.
-        RETRANSLATE
-        /*,
+        RETRANSLATE,
         /// Change Color Scheme
-        CHANGE_COLORSCHEME
-        */
+        UPDATE_COLORSCHEME
     };
     Q_ENUM_NS(QvMBMessage);
     //
@@ -54,8 +57,7 @@ namespace Qv2ray::ui::messaging
         //    void on_QvMessageReceived(QvMessage msg);
     };
 
-    // Danger, new is used here. Possible memory leak (hope not so much leak)
-    inline QvMessageBusObject messageBus = QvMessageBusObject();
+    inline QvMessageBusObject UIMessageBus = QvMessageBusObject();
 } // namespace Qv2ray::ui::messaging
 
 using namespace Qv2ray::ui::messaging;

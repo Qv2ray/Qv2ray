@@ -8,7 +8,6 @@
 #include "ui/editors/w_OutboundEditor.hpp"
 #include "ui/editors/w_RoutesEditor.hpp"
 #include "ui/widgets/ConnectionInfoWidget.hpp"
-#include "w_ExportConfig.hpp"
 #include "w_ImportConfig.hpp"
 #include "w_PreferencesWindow.hpp"
 #include "w_SubscriptionManager.hpp"
@@ -41,8 +40,25 @@ QvMessageBusSlotImpl(MainWindow)
 {
     switch (msg)
     {
-        MBShowDefaultImpl MBHideDefaultImpl MBRetranslateDefaultImpl
+        MBShowDefaultImpl MBHideDefaultImpl MBRetranslateDefaultImpl MBUpdateColorSchemeDefaultImpl
     }
+}
+
+void MainWindow::UpdateColorScheme()
+{
+    hTray.setIcon(QIcon(GlobalConfig.uiConfig.useDarkTrayIcon ? ":/assets/icons/ui_dark/tray.png" : ":/assets/icons/ui_light/tray.png"));
+    //
+    importConfigButton->setIcon(QICON_R("import.png"));
+    updownImageBox->setStyleSheet("image: url(" + QV2RAY_UI_RESOURCES_ROOT + "netspeed_arrow.png)");
+    updownImageBox_2->setStyleSheet("image: url(" + QV2RAY_UI_RESOURCES_ROOT + "netspeed_arrow.png)");
+    //
+    tray_action_ShowHide->setIcon(this->windowIcon());
+    action_RCM_Start->setIcon(QICON_R("connect.png"));
+    action_RCM_Edit->setIcon(QICON_R("edit.png"));
+    action_RCM_EditJson->setIcon(QICON_R("json.png"));
+    action_RCM_EditComplex->setIcon(QICON_R("edit.png"));
+    action_RCM_Duplicate->setIcon(QICON_R("duplicate.png"));
+    action_RCM_Delete->setIcon(QICON_R("delete.png"));
 }
 
 void MainWindow::MWAddConnectionItem_p(const ConnectionId &connection, const GroupId &groupId)
@@ -100,11 +116,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     speedChart->addWidget(speedChartWidget);
     //
     this->setWindowIcon(QIcon(":/assets/icons/qv2ray.png"));
-    hTray.setIcon(QIcon(GlobalConfig.uiConfig.useDarkTrayIcon ? ":/assets/icons/ui_dark/tray.png" : ":/assets/icons/ui_light/tray.png"));
-    //
-    importConfigButton->setIcon(QICON_R("import.png"));
-    updownImageBox->setStyleSheet("image: url(" + QV2RAY_UI_RESOURCES_ROOT + "netspeed_arrow.png)");
-    updownImageBox_2->setStyleSheet("image: url(" + QV2RAY_UI_RESOURCES_ROOT + "netspeed_arrow.png)");
+    UpdateColorScheme();
     //
     //
     connect(ConnectionManager, &QvConfigHandler::OnCrashed, [&] {
@@ -140,49 +152,39 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     hTray.setToolTip(TRAY_TOOLTIP_PREFIX);
     //
     // Basic actions
-    action_Tray_Start->setEnabled(true);
-    action_Tray_Stop->setEnabled(false);
-    action_Tray_Restart->setEnabled(false);
+    tray_action_Start->setEnabled(true);
+    tray_action_Stop->setEnabled(false);
+    tray_action_Restart->setEnabled(false);
     //
     tray_SystemProxyMenu->setTitle(tr("System Proxy"));
     tray_SystemProxyMenu->setEnabled(false);
-    tray_SystemProxyMenu->addAction(action_Tray_SetSystemProxy);
-    tray_SystemProxyMenu->addAction(action_Tray_ClearSystemProxy);
+    tray_SystemProxyMenu->addAction(tray_action_SetSystemProxy);
+    tray_SystemProxyMenu->addAction(tray_action_ClearSystemProxy);
     //
-    tray_RootMenu->addAction(action_Tray_ShowHide);
+    tray_RootMenu->addAction(tray_action_ShowHide);
     tray_RootMenu->addSeparator();
-    tray_RootMenu->addAction(action_Tray_ShowPreferencesWindow);
+    tray_RootMenu->addAction(tray_action_ShowPreferencesWindow);
     tray_RootMenu->addMenu(tray_SystemProxyMenu);
     tray_RootMenu->addSeparator();
-    tray_RootMenu->addAction(action_Tray_Start);
-    tray_RootMenu->addAction(action_Tray_Stop);
-    tray_RootMenu->addAction(action_Tray_Restart);
+    tray_RootMenu->addAction(tray_action_Start);
+    tray_RootMenu->addAction(tray_action_Stop);
+    tray_RootMenu->addAction(tray_action_Restart);
     tray_RootMenu->addSeparator();
-    tray_RootMenu->addAction(action_Tray_Quit);
+    tray_RootMenu->addAction(tray_action_Quit);
     //
-    connect(action_Tray_ShowHide, &QAction::triggered, this, &MainWindow::ToggleVisibility);
-    connect(action_Tray_ShowPreferencesWindow, &QAction::triggered, this, &MainWindow::on_preferencesBtn_clicked);
+    connect(tray_action_ShowHide, &QAction::triggered, this, &MainWindow::ToggleVisibility);
+    connect(tray_action_ShowPreferencesWindow, &QAction::triggered, this, &MainWindow::on_preferencesBtn_clicked);
     //
-    connect(action_Tray_Start, &QAction::triggered, [&] { ConnectionManager->StartConnection(lastConnectedId); });
-    connect(action_Tray_Stop, &QAction::triggered, ConnectionManager, &QvConfigHandler::StopConnection);
-    connect(action_Tray_Restart, &QAction::triggered, ConnectionManager, &QvConfigHandler::RestartConnection);
+    connect(tray_action_Start, &QAction::triggered, [&] { ConnectionManager->StartConnection(lastConnectedId); });
+    connect(tray_action_Stop, &QAction::triggered, ConnectionManager, &QvConfigHandler::StopConnection);
+    connect(tray_action_Restart, &QAction::triggered, ConnectionManager, &QvConfigHandler::RestartConnection);
     //
-    connect(action_Tray_Quit, &QAction::triggered, this, &MainWindow::on_actionExit_triggered);
-    connect(action_Tray_SetSystemProxy, &QAction::triggered, this, &MainWindow::MWSetSystemProxy);
-    connect(action_Tray_ClearSystemProxy, &QAction::triggered, &ClearSystemProxy);
+    connect(tray_action_Quit, &QAction::triggered, this, &MainWindow::on_actionExit_triggered);
+    connect(tray_action_SetSystemProxy, &QAction::triggered, this, &MainWindow::MWSetSystemProxy);
+    connect(tray_action_ClearSystemProxy, &QAction::triggered, &ClearSystemProxy);
     connect(&hTray, &QSystemTrayIcon::activated, this, &MainWindow::on_activatedTray);
     //
     // Actions for right click the connection list
-    //
-    QAction *action_RCM_Start = new QAction(QICON_R("connect.png"), tr("Connect to this"), this);
-    //
-    QAction *action_RCM_Edit = new QAction(QICON_R("edit.png"), tr("Edit"), this);
-    QAction *action_RCM_EditJson = new QAction(QICON_R("json.png"), tr("Edit as JSON"), this);
-    QAction *action_RCM_EditComplex = new QAction(QICON_R("edit.png"), tr("Edit as Complex Config"), this);
-    //
-    QAction *action_RCM_Rename = new QAction(tr("Rename"), this);
-    QAction *action_RCM_Duplicate = new QAction(QICON_R("duplicate.png"), tr("Duplicate to the Same Group"), this);
-    QAction *action_RCM_Delete = new QAction(QICON_R("delete.png"), tr("Delete Connection"), this);
     //
     connect(action_RCM_Start, &QAction::triggered, this, &MainWindow::on_action_StartThis_triggered);
     //
@@ -202,17 +204,16 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     hTray.setContextMenu(tray_RootMenu);
     hTray.show();
     //
-    connectionListMenu = new QMenu(this);
-    connectionListMenu->addAction(action_RCM_Start);
-    connectionListMenu->addSeparator();
-    connectionListMenu->addAction(action_RCM_Edit);
-    connectionListMenu->addAction(action_RCM_EditJson);
-    connectionListMenu->addAction(action_RCM_EditComplex);
-    connectionListMenu->addSeparator();
-    connectionListMenu->addAction(action_RCM_Rename);
-    connectionListMenu->addAction(action_RCM_Duplicate);
-    connectionListMenu->addSeparator();
-    connectionListMenu->addAction(action_RCM_Delete);
+    RCM_Menu->addAction(action_RCM_Start);
+    RCM_Menu->addSeparator();
+    RCM_Menu->addAction(action_RCM_Edit);
+    RCM_Menu->addAction(action_RCM_EditJson);
+    RCM_Menu->addAction(action_RCM_EditComplex);
+    RCM_Menu->addSeparator();
+    RCM_Menu->addAction(action_RCM_Rename);
+    RCM_Menu->addAction(action_RCM_Duplicate);
+    RCM_Menu->addSeparator();
+    RCM_Menu->addAction(action_RCM_Delete);
     //
     QMenu *sortMenu = new QMenu(tr("Sort connection list."), this);
     QAction *sortAction_SortByName_Asc = new QAction(tr("By connection name, A-Z"));
@@ -382,7 +383,7 @@ MainWindow::~MainWindow()
 void MainWindow::closeEvent(QCloseEvent *event)
 {
     this->hide();
-    action_Tray_ShowHide->setText(tr("Show"));
+    tray_action_ShowHide->setText(tr("Show"));
     event->ignore();
 }
 void MainWindow::on_activatedTray(QSystemTrayIcon::ActivationReason reason)
@@ -419,12 +420,12 @@ void MainWindow::ToggleVisibility()
         QThread::msleep(20);
         SetWindowPos(HWND(this->winId()), HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW);
 #endif
-        action_Tray_ShowHide->setText(tr("Hide"));
+        tray_action_ShowHide->setText(tr("Hide"));
     }
     else
     {
         this->hide();
-        action_Tray_ShowHide->setText(tr("Show"));
+        tray_action_ShowHide->setText(tr("Show"));
     }
 }
 
@@ -456,7 +457,7 @@ void MainWindow::on_connectionListWidget_customContextMenuRequested(const QPoint
     {
         if (GetItemWidget(item)->IsConnection())
         {
-            connectionListMenu->popup(_pos);
+            RCM_Menu->popup(_pos);
         }
     }
 }
@@ -555,9 +556,9 @@ void MainWindow::on_connectionListWidget_itemDoubleClicked(QTreeWidgetItem *item
 void MainWindow::OnDisconnected(const ConnectionId &id)
 {
     Q_UNUSED(id)
-    action_Tray_Start->setEnabled(true);
-    action_Tray_Stop->setEnabled(false);
-    action_Tray_Restart->setEnabled(false);
+    tray_action_Start->setEnabled(true);
+    tray_action_Stop->setEnabled(false);
+    tray_action_Restart->setEnabled(false);
     tray_SystemProxyMenu->setEnabled(false);
     lastConnectedId = id;
     locateBtn->setEnabled(false);
@@ -579,9 +580,9 @@ void MainWindow::OnDisconnected(const ConnectionId &id)
 void MainWindow::OnConnected(const ConnectionId &id)
 {
     Q_UNUSED(id)
-    action_Tray_Start->setEnabled(false);
-    action_Tray_Stop->setEnabled(true);
-    action_Tray_Restart->setEnabled(true);
+    tray_action_Start->setEnabled(false);
+    tray_action_Stop->setEnabled(true);
+    tray_action_Restart->setEnabled(true);
     tray_SystemProxyMenu->setEnabled(true);
     lastConnectedId = id;
     locateBtn->setEnabled(true);

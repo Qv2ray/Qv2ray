@@ -1,6 +1,7 @@
 #pragma once
 
 #include "core/handler/ConfigHandler.hpp"
+#include "ui/messaging/QvMessageBus.hpp"
 #include "ui_ConnectionInfoWidget.h"
 
 #include <QWidget>
@@ -29,11 +30,14 @@ class ConnectionInfoWidget
     void on_editJsonBtn_clicked();
     void on_deleteBtn_clicked();
 
+    void OnConnectionModified(const ConnectionId &id);
     void OnConnected(const ConnectionId &id);
     void OnDisConnected(const ConnectionId &id);
     void on_latencyBtn_clicked();
 
   private:
+    void UpdateColorScheme();
+    QvMessageBusSlotDecl;
     ConnectionId connectionId = NullConnectionId;
     GroupId groupId = NullGroupId;
     //

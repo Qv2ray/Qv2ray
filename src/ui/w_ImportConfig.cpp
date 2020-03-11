@@ -27,11 +27,16 @@ ImportConfigWindow::ImportConfigWindow(QWidget *parent) : QDialog(parent)
     RESTORE_RUNTIME_CONFIG(screenShotHideQv2ray, hideQv2rayCB->setChecked)
 }
 
+void ImportConfigWindow::UpdateColorScheme()
+{
+    // Stub
+}
+
 QvMessageBusSlotImpl(ImportConfigWindow)
 {
     switch (msg)
     {
-        MBShowDefaultImpl MBHideDefaultImpl MBRetranslateDefaultImpl
+        MBShowDefaultImpl MBHideDefaultImpl MBRetranslateDefaultImpl MBUpdateColorSchemeDefaultImpl
     }
 }
 
@@ -62,7 +67,7 @@ void ImportConfigWindow::on_qrFromScreenBtn_clicked()
 
     if (hideQv2ray)
     {
-        messageBus.EmitGlobalSignal(QvMBMessage::HIDE_WINDOWS);
+        UIMessageBus.EmitGlobalSignal(QvMBMessage::HIDE_WINDOWS);
     }
 
     QApplication::processEvents();
@@ -74,7 +79,7 @@ void ImportConfigWindow::on_qrFromScreenBtn_clicked()
 
     if (hideQv2ray)
     {
-        messageBus.EmitGlobalSignal(QvMBMessage::SHOW_WINDOWS);
+        UIMessageBus.EmitGlobalSignal(QvMBMessage::SHOW_WINDOWS);
         // ShowAllGlobalWindow();
     }
 

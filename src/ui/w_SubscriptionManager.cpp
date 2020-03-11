@@ -8,9 +8,7 @@ SubscribeEditor::SubscribeEditor(QWidget *parent) : QDialog(parent)
 {
     setupUi(this);
     QvMessageBusConnect(SubscribeEditor);
-    addSubsButton->setIcon(QICON_R("add.png"));
-    removeSubsButton->setIcon(QICON_R("delete.png"));
-
+    UpdateColorScheme();
     for (auto subs : ConnectionManager->Subscriptions())
     {
         subscriptionList->addTopLevelItem(new QTreeWidgetItem(QStringList{ GetDisplayName(subs), subs.toString() }));
@@ -21,11 +19,17 @@ SubscribeEditor::SubscribeEditor(QWidget *parent) : QDialog(parent)
     }
 }
 
+void SubscribeEditor::UpdateColorScheme()
+{
+    addSubsButton->setIcon(QICON_R("add.png"));
+    removeSubsButton->setIcon(QICON_R("delete.png"));
+}
+
 QvMessageBusSlotImpl(SubscribeEditor)
 {
     switch (msg)
     {
-        MBShowDefaultImpl MBHideDefaultImpl MBRetranslateDefaultImpl
+        MBShowDefaultImpl MBHideDefaultImpl MBRetranslateDefaultImpl MBUpdateColorSchemeDefaultImpl
     }
 }
 

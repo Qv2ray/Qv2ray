@@ -43,6 +43,7 @@ class ImportConfigWindow
     void on_hideQv2rayCB_stateChanged(int arg1);
 
   private:
+    void UpdateColorScheme();
     QMultiMap<QString, CONFIGROOT> connections;
     QMap<QString, QString> linkErrors;
 };

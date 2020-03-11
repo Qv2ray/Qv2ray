@@ -15,8 +15,6 @@ class PreferencesWindow
   public:
     explicit PreferencesWindow(QWidget *parent = nullptr);
     ~PreferencesWindow();
-  signals:
-    void s_reload_config(bool need_restart);
 
   private:
     QvMessageBusSlotDecl;

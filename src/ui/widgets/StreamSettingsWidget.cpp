@@ -6,6 +6,20 @@
 StreamSettingsWidget::StreamSettingsWidget(QWidget *parent) : QWidget(parent)
 {
     setupUi(this);
+    QvMessageBusConnect(StreamSettingsWidget);
+}
+
+QvMessageBusSlotImpl(StreamSettingsWidget)
+{
+    switch (msg)
+    {
+        case UPDATE_COLORSCHEME:
+        case HIDE_WINDOWS:
+        case SHOW_WINDOWS:
+            break;
+            //
+            MBRetranslateDefaultImpl
+    }
 }
 
 StreamSettingsObject StreamSettingsWidget::GetStreamSettings()
@@ -13,7 +27,7 @@ StreamSettingsObject StreamSettingsWidget::GetStreamSettings()
     return stream;
 }
 
-void StreamSettingsWidget::SetStreamObject(StreamSettingsObject sso)
+void StreamSettingsWidget::SetStreamObject(const StreamSettingsObject &sso)
 {
     stream = sso;
     //
@@ -34,9 +48,9 @@ void StreamSettingsWidget::SetStreamObject(StreamSettingsObject sso)
     wsPathTxt->setText(stream.wsSettings.path);
     QString wsHeaders;
 
-    for (auto item = stream.wsSettings.headers.begin(); item != stream.wsSettings.headers.end(); item++)
+    for (int index = 0; stream.wsSettings.headers.count(); index++)
     {
-        wsHeaders += item.key() + "|" + item.value() + NEWLINE;
+        wsHeaders % stream.wsSettings.headers.keys().at(index) % "|" % stream.wsSettings.headers.values().at(index) % NEWLINE;
     }
 
     wsHeadersTxt->setPlainText(wsHeaders);
