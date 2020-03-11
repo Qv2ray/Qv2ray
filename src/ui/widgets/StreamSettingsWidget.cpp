@@ -49,7 +49,7 @@ void StreamSettingsWidget::SetStreamObject(const StreamSettingsObject &sso)
     QString wsHeaders;
     for (auto index = 0; index < stream.wsSettings.headers.count(); index++)
     {
-        wsHeaders % stream.wsSettings.headers.keys().at(index) % "|" % stream.wsSettings.headers.values().at(index) % NEWLINE;
+        wsHeaders = wsHeaders % stream.wsSettings.headers.keys().at(index) % "|" % stream.wsSettings.headers.values().at(index) % NEWLINE;
     }
 
     wsHeadersTxt->setPlainText(wsHeaders);
