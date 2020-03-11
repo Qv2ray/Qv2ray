@@ -101,9 +101,10 @@ void ConnectionInfoWidget::ShowDetails(const tuple<GroupId, ConnectionId> &_iden
         }
         //
         auto complexCount = shareLinks.removeAll(QV2RAY_SERIALIZATION_COMPLEX_CONFIG_PLACEHOLDER);
+        complexCount += shareLinks.removeAll("");
         if (complexCount > 0)
         {
-            shareLinks << tr("(Ignored %1 complex config(s))").arg(complexCount);
+            shareLinks << "# " + tr("(Ignored %1 complex config(s))").arg(complexCount);
         }
         //
         groupShareTxt->setPlainText(shareLinks.join(NEWLINE));

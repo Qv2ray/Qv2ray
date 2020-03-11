@@ -75,20 +75,17 @@ void ImportConfigWindow::on_qrFromScreenBtn_clicked()
     ScreenShotWindow w;
     auto pix = w.DoScreenShot();
     auto _r = w.result();
-    // Explicitly delete w to call UNREGISTER_WINDOW
 
     if (hideQv2ray)
     {
         UIMessageBus.EmitGlobalSignal(QvMBMessage::SHOW_WINDOWS);
-        // ShowAllGlobalWindow();
     }
 
     if (_r == QDialog::Accepted)
     {
-        QZXing decoder;
-        decoder.setDecoder(QZXing::DecoderFormat_QR_CODE | QZXing::DecoderFormat_EAN_13);
-        auto str = decoder.decodeImage(pix);
-        // auto str = QZXing().decodeImage(pix);
+        QZXing qzxing;
+        qzxing.setDecoder(QZXing::DecoderFormat_QR_CODE | QZXing::DecoderFormat_EAN_13);
+        auto str = qzxing.decodeImage(pix);
 
         if (str.trimmed().isEmpty())
         {
@@ -98,8 +95,6 @@ void ImportConfigWindow::on_qrFromScreenBtn_clicked()
         else
         {
             vmessConnectionStringTxt->appendPlainText(str.trimmed() + NEWLINE);
-            // QvMessageBoxWarn(this, tr("Capture QRCode"), tr("Successfully
-            // imported a QR code form the screen.")); this->show();
         }
     }
 }
@@ -107,7 +102,6 @@ void ImportConfigWindow::on_qrFromScreenBtn_clicked()
 void ImportConfigWindow::on_beginImportBtn_clicked()
 {
     QString aliasPrefix = nameTxt->text();
-    // auto conf = GetGlobalConfig();
 
     switch (tabWidget->currentIndex())
     {
@@ -144,8 +138,12 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
             {
                 aliasPrefix = nameTxt->text();
                 auto link = linkList.takeFirst();
+                if (link.trimmed().isEmpty() || link.startsWith("#") || link.startsWith("//"))
+                {
+                    continue;
+                }
                 QString errMessage;
-                CONFIGROOT config = ConvertConfigFromString(link, &aliasPrefix, &errMessage);
+                const CONFIGROOT config = ConvertConfigFromString(link, &aliasPrefix, &errMessage);
 
                 // If the config is empty or we have any err messages.
                 if (config.isEmpty() || !errMessage.isEmpty())
