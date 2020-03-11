@@ -129,7 +129,6 @@ message("Qv2ray build info ex: ${_QV2RAY_BUILD_EXTRA_INFO_STR_}")
 set(QV2RAY_DEFAULT_VASSETS_PATH "unset" CACHE STRING "v2ray assets path")
 set(QV2RAY_DEFAULT_VCORE_PATH "unset" CACHE STRING "v2ray core path")
 set(QV2RAY_TRANSLATION_PATH "unset" CACHE STRING "Qv2ray translations path")
-set(QV2RAY_LUPDATE OFF CACHE BOOL "Run lupdate for qv2ray")
 set(EMBED_TRANSLATIONS OFF CACHE BOOL "Embed translations")
 
 if(QV2RAY_DEFAULT_VASSETS_PATH AND NOT STREQUAL "unset")
@@ -220,12 +219,11 @@ if(EMBED_TRANSLATIONS)
   list(APPEND QV2RAY_SOURCES ${CMAKE_BINARY_DIR}/translations.qrc)
 endif()
 
-if(QV2RAY_LUPDATE)
-    qt5_create_translation(QM_FILES ${TRANSLATIONS_TS} ${QV2RAY_SOURCES})
-    add_custom_target(lupdate
-        DEPENDS ${QM_FILES}
-    )
-endif()
+add_custom_target(lupdate
+    lupdate ${QV2RAY_SOURCES} -ts ${TRANSLATIONS_TS}
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+
+set_target_properties(lupdate PROPERTIES EXCLUDE_FROM_ALL TRUE)
 
 set(QRC_RESOURCES ${CMAKE_SOURCE_DIR}/resources.qrc)
 
