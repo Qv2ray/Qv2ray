@@ -28,7 +28,7 @@ void signalHandler(int signum)
     qApp->exit(-99);
 }
 
-bool verifyConfigAvailability(const QString& path, bool checkExistingConfig)
+bool verifyConfigAvailability(const QString &path, bool checkExistingConfig)
 {
     // Does not exist.
     if (!QDir(path).exists())
@@ -143,7 +143,7 @@ bool initialiseQv2ray()
     QString configPath = "";
     bool hasExistingConfig = false;
 
-    for (const auto& path : configFilePaths)
+    for (const auto &path : configFilePaths)
     {
         // Verify the config path, check if the config file exists and in the
         // correct JSON format. True means we check for config existence as
@@ -210,8 +210,8 @@ bool initialiseQv2ray()
             }
 
             Qv2rayConfig conf;
-            conf.kernelConfig.KernelPath(QString(QV2RAY_DEFAULT_VASSETS_PATH));
-            conf.kernelConfig.AssetsPath(QString(QV2RAY_DEFAULT_VCORE_PATH));
+            conf.kernelConfig.KernelPath(QString(QV2RAY_DEFAULT_VCORE_PATH));
+            conf.kernelConfig.AssetsPath(QString(QV2RAY_DEFAULT_VASSETS_PATH));
             conf.logLevel = 3;
             //
             // Save initial config.
