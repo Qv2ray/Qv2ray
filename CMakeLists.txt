@@ -4,7 +4,7 @@ file(STRINGS "${CMAKE_SOURCE_DIR}/makespec/VERSION" QV2RAY_VERSION)
 file(STRINGS "${CMAKE_SOURCE_DIR}/makespec/BUILDVERSION" QV2RAY_BUILD_VERSION)
 
 if(NOT ${CMAKE_BUILD_TYPE} STREQUAL "Release")
-    math(EXPR QV2RAY_BUILD_VERSION "1 + ${QV2RAY_BUILD_VERSION}" OUTPUT_FORMAT DECIMAL)
+    math(EXPR QV2RAY_BUILD_VERSION "1 + ${QV2RAY_BUILD_VERSION}")
     message("Increasing BUILDVERSION")
     file(WRITE "${CMAKE_SOURCE_DIR}/makespec/BUILDVERSION" ${QV2RAY_BUILD_VERSION})
 endif()
@@ -85,22 +85,6 @@ include(cmake/qzxing.cmake)
 include(cmake/protobuf.cmake)
 include(cmake/cpp-httplib.cmake)
 include(cmake/backend.cmake)
-
-if(APPLE)
-  find_package(Iconv REQUIRED)
-  set(MACOSX_FRAMEWORK
-    "-framework Carbon"
-    "-framework Cocoa"
-    "-framework Security"
-  )
-  set(MACOSX_ICONV_LIBRARY
-    Iconv::Iconv
-  )
-
-  set(MACOSX_ICONV_INCLUDE_PATH
-    ${Iconv_INCLUDE_DIR}
-  )
-endif()
 
 if(QV2RAY_BUILD_INFO)
     set(_QV2RAY_BUILD_INFO_STR_ "${QV2RAY_BUILD_INFO}")
@@ -251,8 +235,6 @@ add_executable(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME}
   ${QT_LIBRARY}
-  ${MACOSX_FRAMEWORK}
-  ${MACOSX_ICONV_LIBRARY}
   ${QV2RAY_PROTOBUF_LIBRARY}
   ${QV2RAY_BACKEND_LIBRARIES}
 )
@@ -267,11 +249,20 @@ target_include_directories(${PROJECT_NAME} PRIVATE
   ${QZXING_INCLUDE_PATH}
   ${SINGLEAPPLICATION_DIR}
   ${Protobuf_INCLUDE_DIRS}
-  ${MACOSX_ICONV_INCLUDE_PATH}
   ${cpp-httplib_INCLUDE_DIRS}
 )
 
 if(APPLE)
+    find_package(Iconv REQUIRED)
+    target_link_libraries(${PROJECT_NAME}
+      Iconv::Iconv
+      "-framework Carbon"
+      "-framework Cocoa"
+      "-framework Security"
+    )
+    target_include_directories(${PROJECT_NAME} PRIVATE
+      ${Iconv_INCLUDE_DIR}
+    )
     set(CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR})
     set(prefix "${PROJECT_NAME}.app/Contents")
     set(INSTALL_RUNTIME_DIR "${prefix}/MacOS")
@@ -295,7 +286,7 @@ if(UNIX AND NOT APPLE AND NOT WIN32)
   install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin)
   install(FILES assets/qv2ray.metainfo.xml DESTINATION share/metainfo)
   install(FILES assets/qv2ray.desktop DESTINATION share/applications)
-  install(FILES assets/icons/qv2ray.png DESTINATION share/icons/hicolor/256x256/apps/)
+  install(FILES assets/icons/qv2ray.png DESTINATION share/icons/hicolor/256x256/apps)
   if(NOT EMBED_TRANSLATIONS)
     install(FILES ${QM_FILES} DESTINATION share/qv2ray/lang)
   endif()
