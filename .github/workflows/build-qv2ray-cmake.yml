@@ -16,16 +16,22 @@ jobs:
           - platform: windows-latest
             arch: x86
             qtarch: win32_msvc2017
-            buildarch: Win32
           - platform: windows-latest
             arch: x64
             qtarch: win64_msvc2017_64
-            buildarch: x64
         exclude:
           - platform: ubuntu-16.04
             arch: x86
           - platform: macos-latest
             arch: x86
+          - platform: windows-latest
+            qt_version: 5.11.3
+          - platform: windows-latest
+            qt_version: 5.12.7
+          - platform: windows-latest
+            qt_version: 5.11.3
+          - platform: macos-latest
+            qt_version: 5.12.7
       fail-fast: false
         
     runs-on: ${{ matrix.platform }}
