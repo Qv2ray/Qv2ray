@@ -114,6 +114,7 @@ set(QV2RAY_DEFAULT_VASSETS_PATH "unset" CACHE STRING "v2ray assets path")
 set(QV2RAY_DEFAULT_VCORE_PATH "unset" CACHE STRING "v2ray core path")
 set(QV2RAY_TRANSLATION_PATH "unset" CACHE STRING "Qv2ray translations path")
 set(QV2RAY_DISABLE_AUTO_UPDATE OFF CACHE BOOL "Disable update checker")
+set(QV2RAY_USE_BUILTIN_DARKTHEME OFF CACHE BOOL "Use built-in dark theme instead of followed by the system settings")
 set(EMBED_TRANSLATIONS OFF CACHE BOOL "Embed translations")
 
 if(QV2RAY_DEFAULT_VASSETS_PATH AND NOT STREQUAL "unset")
@@ -126,6 +127,14 @@ endif()
 
 if(QV2RAY_TRANSLATION_PATH AND NOT STREQUAL "unset")
   add_definitions(-DQV2RAY_TRANSLATION_PATH="${QV2RAY_TRANSLATION_PATH}")
+endif()
+
+if(APPLE OR WIN32)
+  set(QV2RAY_USE_BUILTIN_DARKTHEME ON)
+endif()
+
+if(QV2RAY_USE_BUILTIN_DARKTHEME)
+  add_definitions(-DQV2RAY_USE_BUILTIN_DARKTHEME=true)
 endif()
 
 if(QV2RAY_DISABLE_AUTO_UPDATE)
