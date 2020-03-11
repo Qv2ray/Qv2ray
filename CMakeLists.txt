@@ -204,7 +204,7 @@ if(EMBED_TRANSLATIONS)
 endif()
 
 add_custom_target(lupdate
-    lupdate ${QV2RAY_SOURCES} -ts ${TRANSLATIONS_TS}
+    COMMAND lupdate ${QV2RAY_SOURCES} -ts ${TRANSLATIONS_TS}
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 
 set_target_properties(lupdate PROPERTIES EXCLUDE_FROM_ALL TRUE)

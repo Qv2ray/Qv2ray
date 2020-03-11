@@ -16,37 +16,43 @@ using namespace Qv2ray::base;
 // path searching list.
 QStringList getLanguageSearchPaths()
 {
-    return {
-        // Configuration Path
-        QV2RAY_CONFIG_DIR + "lang",
+    // Configuration Path
+    QStringList list;
+    list << QV2RAY_CONFIG_DIR + "lang";
 //
 #ifdef EMBED_TRANSLATIONS
-        // If the translations have been embedded.
-        QString(":/translations/"),
+    // If the translations have been embedded.
+    list << QString(":/translations/");
 #endif
+    //
+    //
 #ifdef QV2RAY_TRANSLATION_PATH
-        // Platform-specific dir, if specified.
-        QString(QV2RAY_TRANSLATION_PATH),
+    // Platform-specific dir, if specified.
+    list << QString(QV2RAY_TRANSLATION_PATH);
 #endif
+    //
+    //
 #ifdef Q_OS_LINUX
-        // Linux platform directories.
-        QString("/usr/local/share/qv2ray/lang"),
-        QString("/usr/share/qv2ray/lang"),
+    // Linux platform directories.
+    list << QString("/usr/share/qv2ray/lang/");
+    list << QString("/usr/local/share/qv2ray/lang/");
+    list << QStandardPaths::locateAll(QStandardPaths::AppDataLocation, "lang", QStandardPaths::LocateDirectory);
+    list << QStandardPaths::locateAll(QStandardPaths::AppConfigLocation, "lang", QStandardPaths::LocateDirectory);
 #elif defined(Q_OS_MAC)
-        // macOS platform directories.
-        QDir(QApplication::applicationDirPath() + "/../Resources/lang").absolutePath(),
+    // macOS platform directories.
+    list << QDir(QApplication::applicationDirPath() + "/../Resources/lang").absolutePath();
 #else
-        // This is the default behavior on Windows
-        QApplication::applicationDirPath() + "/lang",
+    // This is the default behavior on Windows
+    list << QApplication::applicationDirPath() + "/lang";
 #endif
-    };
+    return list;
 };
 
 namespace Qv2ray::common
 {
     QvTranslator::QvTranslator()
     {
-        LOG(MODULE_UI, "QvTranslator constructor.")
+        DEBUG(MODULE_UI, "QvTranslator constructor.")
         GetAvailableLanguages();
     }
 
@@ -59,7 +65,7 @@ namespace Qv2ray::common
         }
         std::transform(languages.begin(), languages.end(), languages.begin(), [](QString &fileName) { return fileName.replace(".qm", ""); });
         languages.removeDuplicates();
-        LOG(MODULE_UI, "Found translations: " + languages.join(" "))
+        DEBUG(MODULE_UI, "Found translations: " + languages.join(" "))
         return languages;
     }
 

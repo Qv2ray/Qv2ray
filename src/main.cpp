@@ -28,8 +28,13 @@ void signalHandler(int signum)
     qApp->exit(-99);
 }
 
-bool verifyConfigAvailability(const QString &path, bool checkExistingConfig)
+bool verifyConfigAvailability(const QString &_path, bool checkExistingConfig)
 {
+    auto path = _path;
+    if (!path.endsWith("/"))
+    {
+        path.append("/");
+    }
     // Does not exist.
     if (!QDir(path).exists())
         return false;
@@ -123,7 +128,8 @@ bool initialiseQv2ray()
 {
     LOG(MODULE_INIT, "Application exec path: " + QApplication::applicationDirPath())
     const QString currentPathConfig = QApplication::applicationDirPath() + "/config" QV2RAY_CONFIG_DIR_SUFFIX;
-    const QString configQv2ray = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/qv2ray" QV2RAY_CONFIG_DIR_SUFFIX;
+    // Standard paths already handles the _debug suffix for us.
+    const QString configQv2ray = QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation);
     const QString homeQv2ray = QDir::homePath() + "/.qv2ray" QV2RAY_CONFIG_DIR_SUFFIX;
     //
     //
@@ -132,11 +138,11 @@ bool initialiseQv2ray()
     //
     QStringList configFilePaths;
     configFilePaths << currentPathConfig;
-#ifdef WITH_FLATHUB_CONFIG_PATH
-    // AppConfigLocation uses 'Q'v2ray instead of `q`v2ray. Keep here as
-    // backward compatibility.
-    configFilePaths << QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + QV2RAY_CONFIG_DIR_SUFFIX;
-#endif
+    // Application name changed to `qv2ray`, so these code are now becoming unnecessary.
+    //#ifdef WITH_FLATHUB_CONFIG_PATH
+    //    // AppConfigLocation uses 'Q'v2ray instead of `q`v2ray. Keep here as backward compatibility.
+    //    configFilePaths << QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + QV2RAY_CONFIG_DIR_SUFFIX;
+    //#endif
     configFilePaths << configQv2ray;
     configFilePaths << homeQv2ray;
     //
@@ -303,14 +309,14 @@ int main(int argc, char *argv[])
     //
     // This line must be called before any other ones, since we are using these
     // values to identify instances.
-    SingleApplication::setApplicationName("Qv2ray");
+    SingleApplication::setApplicationName("qv2ray");
     SingleApplication::setApplicationVersion(QV2RAY_VERSION_STRING);
     SingleApplication::setApplicationDisplayName("Qv2ray");
     //
     //
 #ifdef QT_DEBUG
     // ----------------------------> For debug build...
-    SingleApplication::setApplicationName("Qv2ray - DEBUG");
+    SingleApplication::setApplicationName("qv2ray_debug");
 #endif
 
     if (!qEnvironmentVariableIsSet("QT_DEVICE_PIXEL_RATIO") &&       //
