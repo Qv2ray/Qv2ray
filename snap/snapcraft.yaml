@@ -69,7 +69,6 @@ parts:
       - libqt5widgets5
       - libglib2.0-bin
     configflags:
-      - -DCMAKE_INSTALL_PREFIX=/usr
       - -DCMAKE_BUILD_TYPE=Release
       - -GNinja
       - -DEMBED_TRANSLATIONS=ON
