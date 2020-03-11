@@ -28,6 +28,10 @@ using Qv2ray::common::validation::IsValidIPAddress;
 PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), CurrentConfig()
 {
     setupUi(this);
+    //
+    // We currently don't support this feature.
+    tProxyGroupBox->setVisible(false);
+    //
     QvMessageBusConnect(PreferencesWindow);
     textBrowser->setHtml(StringFromFile(":/assets/credit.html"));
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
@@ -211,7 +215,9 @@ QvMessageBusSlotImpl(PreferencesWindow)
 {
     switch (msg)
     {
-        MBShowDefaultImpl MBHideDefaultImpl MBRetranslateDefaultImpl
+        case UPDATE_COLORSCHEME:
+            break; //
+            MBShowDefaultImpl MBHideDefaultImpl MBRetranslateDefaultImpl
     }
 }
 
@@ -890,7 +896,6 @@ void PreferencesWindow::on_darkThemeCB_stateChanged(int arg1)
 {
     LOADINGCHECK
     CurrentConfig.uiConfig.useDarkTheme = arg1 == Qt::Checked;
-    QvMessageBoxWarn(this, tr("Dark Mode"), tr("Please restart Qv2ray to fully apply this feature."));
 #ifdef QV2RAY_USE_BUILTIN_DARKTHEME
     themeCombo->setEnabled(arg1 != Qt::Checked);
 
@@ -1199,8 +1204,4 @@ void PreferencesWindow::on_enableAPI_stateChanged(int arg1)
     LOADINGCHECK
     NEEDRESTART
     CurrentConfig.apiConfig.enableAPI = arg1 == Qt::Checked;
-}
-
-void PreferencesWindow::on_tProxyGroupBox_clicked(bool checked)
-{
 }

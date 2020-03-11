@@ -43,8 +43,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>1060</width>
-            <height>574</height>
+            <width>1054</width>
+            <height>556</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout_13" rowstretch="0,0,0,0,1">
@@ -405,8 +405,8 @@
               <widget class="QSpinBox" name="statsPortBox">
                <property name="minimumSize">
                 <size>
-                 <width>100</width>
-                 <height>0</height>
+                 <width>116</width>
+                 <height>30</height>
                 </size>
                </property>
                <property name="minimum">
@@ -490,8 +490,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>1060</width>
-            <height>574</height>
+            <width>1054</width>
+            <height>604</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_2">
