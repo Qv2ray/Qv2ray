@@ -31,13 +31,6 @@ using namespace Qv2ray::base::objects;
 using namespace Qv2ray::base::objects::protocol;
 using namespace Qv2ray::base::objects::transfer;
 
-// Linux users and DEs should handle the darkMode UI themselves.
-#ifndef QV2RAY_USE_BUILTIN_DARKTHEME
-    #ifndef Q_OS_LINUX
-        #define QV2RAY_USE_BUILTIN_DARKTHEME
-    #endif
-#endif
-
 #define QV2RAY_BUILD_INFO QString(_QV2RAY_BUILD_INFO_STR_)
 #define QV2RAY_BUILD_EXTRA_INFO QString(_QV2RAY_BUILD_EXTRA_INFO_STR_)
 

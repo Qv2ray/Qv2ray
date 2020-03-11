@@ -449,7 +449,7 @@ int main(int argc, char *argv[])
     font.setFamily("Microsoft YaHei");
     _qApp.setFont(font);
 #endif
-#ifdef QV2RAY_USE_BUILTIN_DARKTHEME
+#if (QV2RAY_USE_BUILTIN_DARKTHEME)
     LOG(MODULE_UI, "Using built-in theme.")
 
     if (confObject.uiConfig.useDarkTheme)
