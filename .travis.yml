@@ -19,12 +19,14 @@ addons:
     - name: snapcraft
       channel: stable
       confinement: classic
-    - name: multipass
+    - name: lxd
       channel: stable
-      confinement: classic
 
 script:
-  - sudo snapcraft
+  - sudo apt autoremove lxd --purge
+  - sudo /snap/bin/lxd waitready
+  - sudo /snap/bin/lxd init --auto
+  - sudo snapcraft --use-lxd
 
 after_failure:
   - sudo journalctl -u snapd
