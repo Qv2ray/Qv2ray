@@ -113,6 +113,7 @@ message("Qv2ray build info ex: ${_QV2RAY_BUILD_EXTRA_INFO_STR_}")
 set(QV2RAY_DEFAULT_VASSETS_PATH "unset" CACHE STRING "v2ray assets path")
 set(QV2RAY_DEFAULT_VCORE_PATH "unset" CACHE STRING "v2ray core path")
 set(QV2RAY_TRANSLATION_PATH "unset" CACHE STRING "Qv2ray translations path")
+set(QV2RAY_DISABLE_AUTO_UPDATE OFF CACHE BOOL "Disable update checker")
 set(EMBED_TRANSLATIONS OFF CACHE BOOL "Embed translations")
 
 if(QV2RAY_DEFAULT_VASSETS_PATH AND NOT STREQUAL "unset")
@@ -125,6 +126,10 @@ endif()
 
 if(QV2RAY_TRANSLATION_PATH AND NOT STREQUAL "unset")
   add_definitions(-DQV2RAY_TRANSLATION_PATH="${QV2RAY_TRANSLATION_PATH}")
+endif()
+
+if(QV2RAY_DISABLE_AUTO_UPDATE)
+  add_definitions(-DDISABLE_AUTO_UPDATE)
 endif()
 
 set(QV2RAY_SOURCES
