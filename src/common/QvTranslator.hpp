@@ -27,4 +27,5 @@ namespace Qv2ray::common
         QStringList languages;
         std::unique_ptr<QTranslator> pTranslator;
     };
+    inline std::unique_ptr<common::QvTranslator> Qv2rayTranslator;
 } // namespace Qv2ray::common

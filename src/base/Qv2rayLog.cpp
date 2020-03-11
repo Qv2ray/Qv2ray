@@ -1,6 +1,6 @@
 #include "Qv2rayLog.hpp"
 
-#include "base/GlobalInstances.hpp"
+#include "Qv2rayBase.hpp"
 
 #include <iostream>
 

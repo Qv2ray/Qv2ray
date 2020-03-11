@@ -508,7 +508,7 @@ int main(int argc, char *argv[])
         // Handler for session logout, shutdown, etc.
         // Will not block.
         QGuiApplication::setFallbackSessionManagementEnabled(false);
-        QObject::connect(&_qApp, &QGuiApplication::commitDataRequest, []() { LOG(MODULE_INIT, "Quit triggered by session manager.") });
+        QObject::connect(&_qApp, &QGuiApplication::commitDataRequest, [] { LOG(MODULE_INIT, "Quit triggered by session manager.") });
 #ifndef Q_OS_WIN
         signal(SIGUSR1, [](int) { emit MainWindow::mwInstance->StartConnection(); });
         signal(SIGUSR2, [](int) { emit MainWindow::mwInstance->StopConnection(); });

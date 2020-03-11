@@ -49,8 +49,8 @@ void MainWindow::UpdateColorScheme()
     hTray.setIcon(QIcon(GlobalConfig.uiConfig.useDarkTrayIcon ? ":/assets/icons/ui_dark/tray.png" : ":/assets/icons/ui_light/tray.png"));
     //
     importConfigButton->setIcon(QICON_R("import.png"));
-    updownImageBox->setStyleSheet("image: url(" + QV2RAY_UI_RESOURCES_ROOT + "netspeed_arrow.png)");
-    updownImageBox_2->setStyleSheet("image: url(" + QV2RAY_UI_RESOURCES_ROOT + "netspeed_arrow.png)");
+    updownImageBox->setStyleSheet("image: url(" + QV2RAY_UI_COLORSCHEME_ROOT + "netspeed_arrow.png)");
+    updownImageBox_2->setStyleSheet("image: url(" + QV2RAY_UI_COLORSCHEME_ROOT + "netspeed_arrow.png)");
     //
     tray_action_ShowHide->setIcon(this->windowIcon());
     action_RCM_Start->setIcon(QICON_R("connect.png"));
@@ -59,6 +59,9 @@ void MainWindow::UpdateColorScheme()
     action_RCM_EditComplex->setIcon(QICON_R("edit.png"));
     action_RCM_Duplicate->setIcon(QICON_R("duplicate.png"));
     action_RCM_Delete->setIcon(QICON_R("delete.png"));
+    //
+    locateBtn->setIcon(QICON_R("locate.png"));
+    sortBtn->setIcon(QICON_R("sort.png"));
 }
 
 void MainWindow::MWAddConnectionItem_p(const ConnectionId &connection, const GroupId &groupId)

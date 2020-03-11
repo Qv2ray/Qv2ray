@@ -27,14 +27,8 @@ void ConnectionInfoWidget::UpdateColorScheme()
     editJsonBtn->setIcon(QICON_R("json.png"));
     shareLinkTxt->setStyleSheet("border-bottom: 1px solid gray; border-radius: 0px; padding: 2px; background-color: " +
                                 this->palette().color(this->backgroundRole()).name(QColor::HexRgb));
-    if (ConnectionManager->IsConnected(connectionId))
-    {
-        connectBtn->setIcon(QICON_R("stop.png"));
-    }
-    else
-    {
-        connectBtn->setIcon(QICON_R("connect.png"));
-    }
+
+    connectBtn->setIcon(ConnectionManager->IsConnected(connectionId) ? QICON_R("stop.png") : QICON_R("connect.png"));
 }
 
 ConnectionInfoWidget::ConnectionInfoWidget(QWidget *parent) : QWidget(parent)
@@ -67,9 +61,6 @@ void ConnectionInfoWidget::ShowDetails(const tuple<GroupId, ConnectionId> &_iden
     stackedWidget->setCurrentIndex(isConnection ? INDEX_CONNECTION : INDEX_GROUP);
     if (isConnection)
     {
-        bool isComplexConfig = IsComplexConfig(connectionId);
-        qrLabel->setVisible(!isComplexConfig);
-        //
         auto shareLink = ConvertConfigToString(connectionId);
         //
         shareLinkTxt->setText(shareLink);
@@ -94,7 +85,7 @@ void ConnectionInfoWidget::ShowDetails(const tuple<GroupId, ConnectionId> &_iden
         qrPixmapBlured = BlurImage(LightenImage(QPixmap::fromImage(img), 0.75), 20);
         //
         isRealPixmapShown = false;
-        qrLabel->setPixmap(qrPixmapBlured);
+        qrLabel->setPixmap(IsComplexConfig(connectionId) ? QPixmap(":/assets/icons/qv2ray.ico") : qrPixmapBlured);
         qrLabel->setScaledContents(true);
         //
         connectBtn->setIcon(ConnectionManager->IsConnected(connectionId) ? QICON_R("stop.png") : QICON_R("connect.png"));
@@ -177,7 +168,8 @@ bool ConnectionInfoWidget::eventFilter(QObject *object, QEvent *event)
     }
     else if (qrLabel->underMouse() && event->type() == QEvent::MouseButtonRelease)
     {
-        qrLabel->setPixmap(isRealPixmapShown ? qrPixmapBlured : qrPixmap);
+        qrLabel->setPixmap(IsComplexConfig(connectionId) ? QPixmap(":/assets/icons/qv2ray.ico") :
+                                                           (isRealPixmapShown ? qrPixmapBlured : qrPixmap));
         isRealPixmapShown = !isRealPixmapShown;
     }
 

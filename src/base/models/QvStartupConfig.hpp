@@ -16,4 +16,5 @@ namespace Qv2ray
             bool enableToolbarPlguin;
         };
     } // namespace base
+    inline base::QvStartupOptions StartupOption = base::QvStartupOptions();
 } // namespace Qv2ray

@@ -47,8 +47,7 @@ void StreamSettingsWidget::SetStreamObject(const StreamSettingsObject &sso)
     // WS
     wsPathTxt->setText(stream.wsSettings.path);
     QString wsHeaders;
-
-    for (int index = 0; stream.wsSettings.headers.count(); index++)
+    for (auto index = 0; index < stream.wsSettings.headers.count(); index++)
     {
         wsHeaders % stream.wsSettings.headers.keys().at(index) % "|" % stream.wsSettings.headers.values().at(index) % NEWLINE;
     }

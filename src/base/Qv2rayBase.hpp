@@ -10,7 +10,6 @@
 #include <optional>
 #include <vector>
 // Base support.
-#include "base/GlobalInstances.hpp"
 #include "base/JsonHelpers.hpp"
 #include "base/Qv2rayFeatures.hpp"
 #include "base/Qv2rayLog.hpp"
@@ -98,9 +97,9 @@ using namespace Qv2ray::base::objects::transfer;
 
 #define BLACK(obj) obj->setPalette(QWidget::palette());
 
-#define QV2RAY_UI_RESOURCES_ROOT                                                                                                                \
+#define QV2RAY_UI_COLORSCHEME_ROOT                                                                                                              \
     ((GlobalConfig.uiConfig.useDarkTheme) ? QStringLiteral(":/assets/icons/ui_dark/") : QStringLiteral(":/assets/icons/ui_light/"))
-#define QICON_R(file) QIcon(QV2RAY_UI_RESOURCES_ROOT + file)
+#define QICON_R(file) QIcon(QV2RAY_UI_COLORSCHEME_ROOT + file)
 
 #define QSTRN(num) QString::number(num)
 
@@ -124,6 +123,11 @@ namespace Qv2ray
     // Extra header for QvConfigUpgrade.cpp
     QJsonObject UpgradeSettingsVersion(int fromVersion, int toVersion, QJsonObject root);
 
+    // Qv2ray runtime config
+    inline bool isExiting = false;
+    inline QString Qv2rayConfigPath = "";
+    inline base::config::Qv2rayConfig GlobalConfig = base::config::Qv2rayConfig();
+    //
     inline void ExitQv2ray()
     {
         isExiting = true;
