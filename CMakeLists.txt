@@ -146,6 +146,7 @@ set(QV2RAY_SOURCES
   src/common/CommandArgs.cpp
   src/common/HTTPRequestHelper.cpp
   src/common/LogHighlighter.cpp
+  src/common/JsonHighlighter.cpp
   src/common/QJsonModel.cpp
   src/common/QvHelpers.cpp
   src/common/QvTranslator.cpp
