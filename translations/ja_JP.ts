@@ -291,7 +291,7 @@
     <message>
         <location filename="../src/ui/w_ImportConfig.ui" line="263"/>
         <source>Share Link</source>
-        <translation>リンクを共有</translation>
+        <translation type="unfinished">共有されたリンク</translation>
     </message>
     <message>
         <location filename="../src/ui/w_ImportConfig.ui" line="327"/>
@@ -1418,33 +1418,33 @@
     <message>
         <location filename="../src/ui/editors/w_OutboundEditor.ui" line="54"/>
         <source>Tag</source>
-        <translation>Tag</translation>
+        <translation>タグ</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_OutboundEditor.ui" line="61"/>
         <source>Tag of this outbound setting</source>
-        <translation>Tag of this outbound setting</translation>
+        <translation>このアウトバウンド設定のタグ</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_OutboundEditor.ui" line="102"/>
         <source>Host</source>
-        <translation>Host</translation>
+        <translation>ホスト</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_OutboundEditor.ui" line="109"/>
         <source>Hostname or IP/IPv6 Address</source>
-        <translation>Hostname or IP/IPv6 Address</translation>
+        <translation>ホスト名またはIPv4 / IPv6アドレス</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_OutboundEditor.ui" line="116"/>
         <location filename="../src/ui/editors/w_OutboundEditor.ui" line="126"/>
         <source>Port</source>
-        <translation>Port</translation>
+        <translation>ポート</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_OutboundEditor.ui" line="68"/>
         <source>Type</source>
-        <translation>Type</translation>
+        <translation>種類</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_OutboundEditor.ui" line="92"/>
@@ -1454,44 +1454,44 @@
     <message>
         <location filename="../src/ui/editors/w_OutboundEditor.ui" line="143"/>
         <source>Use Mux</source>
-        <translation>Use Mux</translation>
+        <translation>Muxを使う</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_OutboundEditor.ui" line="150"/>
         <location filename="../src/ui/editors/w_OutboundEditor.ui" line="177"/>
         <location filename="../src/ui/editors/w_OutboundEditor.ui" line="383"/>
         <source>Enabled</source>
-        <translation>Enabled</translation>
+        <translation>有効</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_OutboundEditor.ui" line="26"/>
         <source>Edit Connection Settings</source>
-        <translation>Edit Connection Settings</translation>
+        <translation>接続設定の編集</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_OutboundEditor.ui" line="35"/>
         <source>Stream Settings</source>
-        <translation>Stream Settings</translation>
+        <translation>ストリーム設定</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_OutboundEditor.ui" line="137"/>
         <source>Misc Settings</source>
-        <translation>Misc Settings</translation>
+        <translation>その他の設定</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_OutboundEditor.ui" line="157"/>
         <source>Mux Concurrency</source>
-        <translation>Mux Concurrency</translation>
+        <translation>Muxの同時実行</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_OutboundEditor.ui" line="184"/>
         <source>Use Forward Proxy</source>
-        <translation>Use Forward Proxy</translation>
+        <translation>フォワードプロキシを使う</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_OutboundEditor.ui" line="196"/>
         <source>Outbound Settings</source>
-        <translation>Outbound Settings</translation>
+        <translation>アウトバウンド設定</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_OutboundEditor.ui" line="217"/>
@@ -1501,28 +1501,28 @@
     <message>
         <location filename="../src/ui/editors/w_OutboundEditor.ui" line="237"/>
         <source>Alter ID</source>
-        <translation>Alter ID</translation>
+        <translation>アルターID</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_OutboundEditor.ui" line="254"/>
         <source>Security</source>
-        <translation>Security</translation>
+        <translation>セキュリティ</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_OutboundEditor.ui" line="295"/>
         <source>Email</source>
-        <translation>Email</translation>
+        <translation>電子メール</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_OutboundEditor.ui" line="302"/>
         <location filename="../src/ui/editors/w_OutboundEditor.ui" line="422"/>
         <source>Password</source>
-        <translation>Password</translation>
+        <translation>暗号</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_OutboundEditor.ui" line="309"/>
         <source>Encryption Method</source>
-        <translation>Encryption Method</translation>
+        <translation>暗号化方法</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_OutboundEditor.ui" line="358"/>
@@ -1532,7 +1532,7 @@
     <message>
         <location filename="../src/ui/editors/w_OutboundEditor.ui" line="366"/>
         <source>Level</source>
-        <translation>Level</translation>
+        <translation>レベル</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_OutboundEditor.ui" line="376"/>
@@ -1542,7 +1542,7 @@
     <message>
         <location filename="../src/ui/editors/w_OutboundEditor.ui" line="408"/>
         <source>Username</source>
-        <translation>Username</translation>
+        <translation>ユーザー名</translation>
     </message>
 </context>
 <context>
@@ -1577,7 +1577,7 @@
         <location filename="../src/ui/w_PreferencesWindow.ui" line="1137"/>
         <location filename="../src/ui/w_PreferencesWindow.ui" line="1231"/>
         <source>Enabled</source>
-        <translation>有効化</translation>
+        <translation>有効</translation>
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui" line="99"/>
@@ -1866,7 +1866,7 @@
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui" line="1848"/>
         <source>Build Info</source>
-        <translation>Build Info</translation>
+        <translation>ビルド情報</translation>
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui" line="1855"/>
@@ -2126,7 +2126,7 @@
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui" line="1655"/>
         <source>About</source>
-        <translation>About</translation>
+        <translation>このソフトについて</translation>
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui" line="1705"/>
@@ -2151,7 +2151,7 @@
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui" line="1831"/>
         <source>Built Time:</source>
-        <translation>構築時間：</translation>
+        <translation>ビルド時間:</translation>
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui" line="1893"/>
@@ -2166,7 +2166,7 @@
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui" line="1941"/>
         <source>About Qt</source>
-        <translation>About Qt</translation>
+        <translation>Qtについて</translation>
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.cpp" line="79"/>
@@ -2844,89 +2844,89 @@ p, li { white-space: pre-wrap; }
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="440"/>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="661"/>
         <source>Route Editor</source>
-        <translation>Route Editor</translation>
+        <translation>ルートエディター</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="590"/>
         <source>Route Detail Settings</source>
-        <translation>Route Detail Settings</translation>
+        <translation>ルート詳細設定</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="603"/>
         <source>Source IP Matches</source>
-        <translation>Source IP Matches</translation>
+        <translation>ソースIPマッチング</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="651"/>
         <source>Status</source>
-        <translation>Status</translation>
+        <translation>状態</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="47"/>
         <source>Add default inbound from global config</source>
-        <translation>Add default inbound from global config</translation>
+        <translation>グローバル設定からデフォルトのインバウンドを追加</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="160"/>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="513"/>
         <source>Port</source>
-        <translation>Port</translation>
+        <translation>ポート</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="132"/>
         <source>Tag</source>
-        <translation>Tag</translation>
+        <translation>タグ</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="37"/>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="66"/>
         <source>Add outbound</source>
-        <translation>Add outbound</translation>
+        <translation>アウトバウンドを追加</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="237"/>
         <source>Delete outbound</source>
-        <translation>Delete outbound</translation>
+        <translation>アウトバウンドを削除</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="217"/>
         <source>Edit outbound</source>
-        <translation>Edit outbound</translation>
+        <translation>アウトバウンドを編集</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="86"/>
         <source>Add Freedom outbound</source>
-        <translation>Add Freedom outbound</translation>
+        <translation>自由アウトバウンドを追加</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="76"/>
         <source>Add blackhole outbound</source>
-        <translation>Add blackhole outbound</translation>
+        <translation>ブラックホールアウトバウンドを追加</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="179"/>
         <source>Routes</source>
-        <translation>Routes</translation>
+        <translation>ルート</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="400"/>
         <source>Enabled</source>
-        <translation>Enabled</translation>
+        <translation>有効</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="60"/>
         <source>Outbound</source>
-        <translation>Outbound</translation>
+        <translation>アウトバウンド</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="227"/>
         <source>Add new route</source>
-        <translation>Add new route</translation>
+        <translation>新しいルートを追加</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="534"/>
         <source>Use Balancers</source>
-        <translation>Use Balancers</translation>
+        <translation>バランサーを使用する</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="554"/>
@@ -2937,17 +2937,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="623"/>
         <source>Target IP List</source>
-        <translation>Target IP List</translation>
+        <translation>ターゲットIPリスト</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="616"/>
         <source>Target Domain List</source>
-        <translation>Target Domain List</translation>
+        <translation>ターゲットドメインリスト</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="449"/>
         <source>Network</source>
-        <translation>Network</translation>
+        <translation>ネットワーク</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="458"/>
@@ -2962,98 +2962,98 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="472"/>
         <source>Both</source>
-        <translation>Both</translation>
+        <translation>どちらも</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="118"/>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="481"/>
         <source>Protocol</source>
-        <translation>Protocol</translation>
+        <translation>プロトコル</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="31"/>
         <source>Inbound</source>
-        <translation>Inbound</translation>
+        <translation>インバウンド</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="50"/>
         <source>Add From Global Settings</source>
-        <translation>Add From Global Settings</translation>
+        <translation>グローバル設定から追加</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="79"/>
         <source>Add Black Hole</source>
-        <translation>Add Black Hole</translation>
+        <translation>ブラックホールを追加</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="89"/>
         <source>Add Direct</source>
-        <translation>Add Direct</translation>
+        <translation>直接接続を追加</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="112"/>
         <source>Selected Inbound/Outbound Info</source>
-        <translation>Selected Inbound/Outbound Info</translation>
+        <translation>選択したインバウンド/アウトバウンドの情報</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="139"/>
         <source>Host</source>
-        <translation>Host</translation>
+        <translation>ホスト</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="185"/>
         <source>A rule with no inbound connected means there&apos;s no inbound restriction.</source>
-        <translation>A rule with no inbound connected means there&apos;s no inbound restriction.</translation>
+        <translation>インバウンドが接続されていないルールは、インバウンドの制限がないことを意味します。</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="220"/>
         <source>Edit Selection</source>
-        <translation>Edit Selection</translation>
+        <translation>選択を編集</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="240"/>
         <source>Delete Selection</source>
-        <translation>Delete Selection</translation>
+        <translation>選択を削除</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="277"/>
         <source>General Settings</source>
-        <translation>General Settings</translation>
+        <translation>一般設定</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="289"/>
         <source>Domain Strategy</source>
-        <translation>Domain Strategy</translation>
+        <translation>ドメイン名戦略</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="315"/>
         <source>Default Outbound</source>
-        <translation>Default Outbound</translation>
+        <translation>デフォルトのアウトバウンド</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="335"/>
         <source>Rule Order Settings</source>
-        <translation>Rule Order Settings</translation>
+        <translation>ルールの順序設定</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="341"/>
         <source>Drag and drop to re-order the rules.</source>
-        <translation>Drag and drop to re-order the rules.</translation>
+        <translation>ルールを並べ替えるには、ドラッグアンドドロップします。</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="379"/>
         <source>Rule Settings</source>
-        <translation>Rule Settings</translation>
+        <translation>ルール設定</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="390"/>
         <source>Rule Status</source>
-        <translation>Rule Status</translation>
+        <translation>ルールステータス</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="407"/>
         <source>Rule Tag</source>
-        <translation>Rule Tag</translation>
+        <translation>ルールタグ</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="490"/>
@@ -3073,88 +3073,88 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="520"/>
         <source>e.g. 80, 443, 8000-8080</source>
-        <translation>e.g. 80, 443, 8000-8080</translation>
+        <translation>例えば 80, 443, 8000-8080</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="527"/>
         <source>Balancers</source>
-        <translation>Balancers</translation>
+        <translation>バランサー</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="596"/>
         <source>Users List</source>
-        <translation>Users List</translation>
+        <translation>ユーザーリスト</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="560"/>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="858"/>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="922"/>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation>よし</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="842"/>
         <source>Cannot Edit</source>
-        <translation>Cannot Edit</translation>
+        <translation>編集できません</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="894"/>
         <source>This outbound entry is not supported by the GUI editor.</source>
-        <translation>This outbound entry is not supported by the GUI editor.</translation>
+        <translation>このアウトバウンドエントリは、GUIエディタでサポートされていません。</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="844"/>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="895"/>
         <source>We will launch Json Editor instead.</source>
-        <translation>We will launch Json Editor instead.</translation>
+        <translation>代わりにJson Editorを起動します。</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="422"/>
         <source>Show rule details</source>
-        <translation>Show rule details</translation>
+        <translation>ルールの詳細を表示</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="422"/>
         <source>A rule cannot be found: </source>
-        <translation>A rule cannot be found: </translation>
+        <translation>ルールが見つかりません: </translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="514"/>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="531"/>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="548"/>
         <source>Protocol list changed: </source>
-        <translation>Protocol list changed: </translation>
+        <translation>変更されたプロトコルリスト: </translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="564"/>
         <source>Balancer is empty, not processing.</source>
-        <translation>Balancer is empty, not processing.</translation>
+        <translation>バランサーは空であり、処理されていません。</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="60"/>
         <source>Default rule</source>
-        <translation>Default rule</translation>
+        <translation>デフォルトルール</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="60"/>
         <source>rule</source>
-        <translation>rule</translation>
+        <translation>ルール</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="88"/>
         <source>No Inbound</source>
-        <translation>No Inbound</translation>
+        <translation>インバウンドなし</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="88"/>
         <source>No inbound item found: </source>
-        <translation>No inbound item found: </translation>
+        <translation>インバウンドアイテムが見つかりませんでした: </translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="130"/>
         <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="223"/>
         <source>The new tag has been used, we appended a postfix.</source>
-        <translation>The new tag has been used, we appended a postfix.</translation>
+        <translation>新しいタグが使用されているため、後置記号を追加します。</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="177"/>
@@ -3164,135 +3164,135 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="661"/>
         <source>To make this rule ready to use, you need to connect it to an outbound node.</source>
-        <translation>To make this rule ready to use, you need to connect it to an outbound node.</translation>
+        <translation>このルールを使用できるようにするには、アウトバウンドノードに接続する必要があります。</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="740"/>
         <source>Remove Items</source>
-        <translation>Remove Items</translation>
+        <translation>アイテムを削除する</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="740"/>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="817"/>
         <source>Please select a node from the graph to continue.</source>
-        <translation>Please select a node from the graph to continue.</translation>
+        <translation>続行するには、グラフからノードを選択してください。</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="810"/>
         <source>Error</source>
-        <translation>Error</translation>
+        <translation>エラー</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="810"/>
         <source>Qv2ray entered an unknown state.</source>
-        <translation>Qv2ray entered an unknown state.</translation>
+        <translation>Qv2rayが不明な状態になりました。</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="817"/>
         <source>Edit Inbound/Outbound</source>
-        <translation>Edit Inbound/Outbound</translation>
+        <translation>インバウンド/アウトバウンドの編集</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="831"/>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="882"/>
         <source>Edit Inbound</source>
-        <translation>Edit Inbound</translation>
+        <translation>インバウンドを編集</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="831"/>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="882"/>
         <source>No inbound tag found: </source>
-        <translation>No inbound tag found: </translation>
+        <translation>受信タグが見つかりません: </translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="845"/>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="897"/>
         <source>Opening JSON editor</source>
-        <translation>Opening JSON editor</translation>
+        <translation>JSONエディターを開く</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="893"/>
         <source>Unsupported Outbound Type</source>
-        <translation>Unsupported Outbound Type</translation>
+        <translation>サポートされていないアウトバウンドタイプ</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="904"/>
         <source>Opening default outbound editor.</source>
-        <translation>Opening default outbound editor.</translation>
+        <translation>デフォルトのアウトバウンドエディターを開きます。</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="950"/>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="955"/>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="960"/>
         <source>Renaming a tag</source>
-        <translation>Renaming a tag</translation>
+        <translation>タグの名前を変更する</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="950"/>
         <source>New tag is empty, please try another.</source>
-        <translation>New tag is empty, please try another.</translation>
+        <translation>新しいタグが空です。別のタグを試してください。</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="955"/>
         <source>New tag is the same as the original one.</source>
-        <translation>New tag is the same as the original one.</translation>
+        <translation>新しいタグは元のタグと同じです。</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="960"/>
         <source>Duplicate rule tag detected, please try another.</source>
-        <translation>Duplicate rule tag detected, please try another.</translation>
+        <translation>重複したルールタグが検出されました。別のタグを試してください。</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="496"/>
         <source>Added DIRECT outbound</source>
-        <translation>Added DIRECT outbound</translation>
+        <translation>DIRECTアウトバウンドを追加しました</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="843"/>
         <source>Currently, this type of outbound is not supported by the editor.</source>
-        <translation>Currently, this type of outbound is not supported by the editor.</translation>
+        <translation>現在、このタイプのアウトバウンドはエディターでサポートされていません。</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="853"/>
         <source>Opening default inbound editor</source>
-        <translation>Opening default inbound editor</translation>
+        <translation>デフォルトのインバウンドエディターを開く</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="578"/>
         <source>Removed a balancer entry.</source>
-        <translation>Removed a balancer entry.</translation>
+        <translation>バランサーエントリを削除しました。</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="130"/>
         <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="177"/>
         <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="223"/>
         <source>Rename tags</source>
-        <translation>Rename tags</translation>
+        <translation>タグの名前を変更する</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="230"/>
         <source>Add Rule</source>
-        <translation>Add Rule</translation>
+        <translation>ルールを追加</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="40"/>
         <source>Add an Inbound</source>
-        <translation>Add an Inbound</translation>
+        <translation>インバウンドを追加する</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="69"/>
         <source>Add an Outbound</source>
-        <translation>Add an Outbound</translation>
+        <translation>アウトバウンドを追加する</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="283"/>
         <source>Misc Settings</source>
-        <translation>Misc Settings</translation>
+        <translation>その他の設定</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui" line="426"/>
         <source>Rename</source>
-        <translation>Rename</translation>
+        <translation>改称する</translation>
     </message>
 </context>
 <context>
@@ -3300,12 +3300,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/ui/w_ScreenShot_Core.ui" line="20"/>
         <source>ScreenShot</source>
-        <translation>ScreenShot</translation>
+        <translation>スクリーンショット</translation>
     </message>
     <message>
         <location filename="../src/ui/w_ScreenShot_Core.ui" line="35"/>
         <source>Size</source>
-        <translation>Size</translation>
+        <translation>サイズ</translation>
     </message>
     <message>
         <location filename="../src/ui/w_ScreenShot_Core.ui" line="61"/>
@@ -3315,7 +3315,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/ui/w_ScreenShot_Core.ui" line="48"/>
         <source>Screen Shot</source>
-        <translation>Screen Shot</translation>
+        <translation>スクリーンショット</translation>
     </message>
 </context>
 <context>
@@ -3323,12 +3323,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/components/speedchart/speedplotview.cpp" line="180"/>
         <source>Total Upload</source>
-        <translation>Total Upload</translation>
+        <translation>合計アップロード</translation>
     </message>
     <message>
         <location filename="../src/components/speedchart/speedplotview.cpp" line="181"/>
         <source>Total Download</source>
-        <translation>Total Download</translation>
+        <translation>合計ダウンロード</translation>
     </message>
 </context>
 <context>
@@ -3336,12 +3336,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/ui/widgets/StreamSettingsWidget.ui" line="14"/>
         <source>Stream Settings Widget</source>
-        <translation>Stream Settings Widget</translation>
+        <translation>ストリーム設定ウィジェット</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/StreamSettingsWidget.ui" line="578"/>
         <source>Transport Protocol</source>
-        <translation>Transport Protocol</translation>
+        <translation>転送プロトコル</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/StreamSettingsWidget.ui" line="655"/>
@@ -3353,17 +3353,17 @@ p, li { white-space: pre-wrap; }
         <location filename="../src/ui/widgets/StreamSettingsWidget.ui" line="662"/>
         <location filename="../src/ui/widgets/StreamSettingsWidget.ui" line="693"/>
         <source>Enabled</source>
-        <translation>Enabled</translation>
+        <translation>有効</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/StreamSettingsWidget.ui" line="622"/>
         <source>TLS Settings</source>
-        <translation>TLS Settings</translation>
+        <translation>TLS設定</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/StreamSettingsWidget.ui" line="635"/>
         <source>Server</source>
-        <translation>Server</translation>
+        <translation>サーバ</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/StreamSettingsWidget.ui" line="645"/>
@@ -3373,12 +3373,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/ui/widgets/StreamSettingsWidget.ui" line="670"/>
         <source>SOCK Options</source>
-        <translation>SOCK Options</translation>
+        <translation>SOCKオプション</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/StreamSettingsWidget.ui" line="676"/>
         <source>Mark</source>
-        <translation>Mark</translation>
+        <translation>マーク</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/StreamSettingsWidget.ui" line="686"/>
@@ -3388,35 +3388,35 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/ui/widgets/StreamSettingsWidget.ui" line="24"/>
         <source>Protocol Settings</source>
-        <translation>Protocol Settings</translation>
+        <translation>プロトコル設定</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/StreamSettingsWidget.ui" line="150"/>
         <source>Request</source>
-        <translation>Request</translation>
+        <translation>リクエスト</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/StreamSettingsWidget.ui" line="51"/>
         <location filename="../src/ui/widgets/StreamSettingsWidget.ui" line="390"/>
         <source>Type</source>
-        <translation>Type</translation>
+        <translation>種類</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/StreamSettingsWidget.ui" line="143"/>
         <source>Response</source>
-        <translation>Response</translation>
+        <translation>レスポンス</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/StreamSettingsWidget.ui" line="161"/>
         <location filename="../src/ui/widgets/StreamSettingsWidget.ui" line="195"/>
         <location filename="../src/ui/widgets/StreamSettingsWidget.ui" line="454"/>
         <source>Path</source>
-        <translation>Path</translation>
+        <translation>パス</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/StreamSettingsWidget.ui" line="175"/>
         <source>Host</source>
-        <translation>Host</translation>
+        <translation>ホスト</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/StreamSettingsWidget.ui" line="205"/>
@@ -3427,7 +3427,7 @@ p, li { white-space: pre-wrap; }
         <location filename="../src/ui/widgets/StreamSettingsWidget.ui" line="221"/>
         <location filename="../src/ui/widgets/StreamSettingsWidget.ui" line="518"/>
         <source>Headers</source>
-        <translation>Headers</translation>
+        <translation>ヘッダー</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/StreamSettingsWidget.ui" line="232"/>
@@ -3442,37 +3442,37 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/ui/widgets/StreamSettingsWidget.ui" line="284"/>
         <source>Uplink Capacity (MB/s)</source>
-        <translation>Uplink Capacity (MB/s)</translation>
+        <translation>アップリンク容量 (MB/s)</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/StreamSettingsWidget.ui" line="307"/>
         <source>Congestion</source>
-        <translation>Congestion</translation>
+        <translation>輻輳制御</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/StreamSettingsWidget.ui" line="321"/>
         <source>Downlink Capacity (MB/s)</source>
-        <translation>Downlink Capacity (MB/s)</translation>
+        <translation>ダウンリンク容量 (MB/s)</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/StreamSettingsWidget.ui" line="344"/>
         <source>Read Buffer Size (MB)</source>
-        <translation>Read Buffer Size (MB)</translation>
+        <translation>読み取りバッファサイズ (MB)</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/StreamSettingsWidget.ui" line="367"/>
         <source>Write Buffer Size (MB)</source>
-        <translation>Write Buffer Size (MB)</translation>
+        <translation>書き込みバッファサイズ (MB)</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/StreamSettingsWidget.ui" line="475"/>
         <source>Security</source>
-        <translation>Security</translation>
+        <translation>セキュリティ</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/StreamSettingsWidget.ui" line="501"/>
         <source>Key</source>
-        <translation>Key</translation>
+        <translation>キー</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/StreamSettingsWidget.ui" line="511"/>
@@ -3483,23 +3483,23 @@ p, li { white-space: pre-wrap; }
         <location filename="../src/ui/widgets/StreamSettingsWidget.ui" line="115"/>
         <location filename="../src/ui/widgets/StreamSettingsWidget.ui" line="129"/>
         <source>Edit</source>
-        <translation>Edit</translation>
+        <translation>編集</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/StreamSettingsWidget.ui" line="122"/>
         <location filename="../src/ui/widgets/StreamSettingsWidget.ui" line="136"/>
         <source>Reset</source>
-        <translation>Reset</translation>
+        <translation>リセット</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/StreamSettingsWidget.ui" line="628"/>
         <source>Allow Insecure Certificates</source>
-        <translation>Allow Insecure Certificates</translation>
+        <translation>安全でない証明書を許可する</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/StreamSettingsWidget.ui" line="700"/>
         <source>tProxy Mode</source>
-        <translation>tProxy Mode</translation>
+        <translation>tProxy モード</translation>
     </message>
 </context>
 <context>
@@ -3622,7 +3622,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/ui/w_SubscriptionManager.ui" line="42"/>
         <source>Subscription List</source>
-        <translation>Subscription List</translation>
+        <translation>サブスクリプションの一覧</translation>
     </message>
     <message>
         <source>A</source>
@@ -3631,12 +3631,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/ui/w_SubscriptionManager.ui" line="93"/>
         <source>Add Subscription</source>
-        <translation>Add Subscription</translation>
+        <translation>サブスクリプションを追加</translation>
     </message>
     <message>
         <location filename="../src/ui/w_SubscriptionManager.ui" line="113"/>
         <source>Remove Subscription</source>
-        <translation>Remove Subscription</translation>
+        <translation>サブスクリプションを削除</translation>
     </message>
     <message>
         <source>D</source>
@@ -3645,47 +3645,47 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/ui/w_SubscriptionManager.ui" line="148"/>
         <source>Subscription Details</source>
-        <translation>Subscription Details</translation>
+        <translation>サブスクリプションの詳細</translation>
     </message>
     <message>
         <location filename="../src/ui/w_SubscriptionManager.ui" line="156"/>
         <source>Subscription Name</source>
-        <translation>Subscription Name</translation>
+        <translation>名称</translation>
     </message>
     <message>
         <location filename="../src/ui/w_SubscriptionManager.ui" line="166"/>
         <source>Subscription Address</source>
-        <translation>Subscription Address</translation>
+        <translation>アドレス</translation>
     </message>
     <message>
         <location filename="../src/ui/w_SubscriptionManager.ui" line="176"/>
         <source>Update Interval</source>
-        <translation>Update Interval</translation>
+        <translation>更新間隔</translation>
     </message>
     <message>
         <location filename="../src/ui/w_SubscriptionManager.ui" line="201"/>
         <source>Days</source>
-        <translation>Days</translation>
+        <translation>日ごと</translation>
     </message>
     <message>
         <location filename="../src/ui/w_SubscriptionManager.ui" line="223"/>
         <source>Last Updated</source>
-        <translation>Last Updated</translation>
+        <translation>最終更新</translation>
     </message>
     <message>
         <location filename="../src/ui/w_SubscriptionManager.ui" line="239"/>
         <source>Connection List</source>
-        <translation>Connection List</translation>
+        <translation>接続リスト</translation>
     </message>
     <message>
         <location filename="../src/ui/w_SubscriptionManager.ui" line="258"/>
         <source>Update Subscription With System Proxy</source>
-        <translation>Update Subscription With System Proxy</translation>
+        <translation>システムプロキシを使用したサブスクリプションの更新</translation>
     </message>
     <message>
         <location filename="../src/ui/w_SubscriptionManager.ui" line="265"/>
         <source>Update Subscription Data</source>
-        <translation>Update Subscription Data</translation>
+        <translation>サブスクリプションデータの更新</translation>
     </message>
 </context>
 </TS>
