@@ -317,6 +317,7 @@ int main(int argc, char *argv[])
 #ifdef QT_DEBUG
     // ----------------------------> For debug build...
     SingleApplication::setApplicationName("qv2ray_debug");
+    SingleApplication::setApplicationDisplayName("Qv2ray - " + QObject::tr("Debug version"));
 #endif
 
     if (!qEnvironmentVariableIsSet("QT_DEVICE_PIXEL_RATIO") &&       //
