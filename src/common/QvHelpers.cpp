@@ -246,12 +246,12 @@ namespace Qv2ray::common
         return view.grab();
     }
 
-    QPixmap LightenImage(const QPixmap &pixmap, const qreal factor)
+    QPixmap ColorizeImage(const QPixmap &pixmap, const QColor &color, const qreal factor)
     {
         QGraphicsView view;
         QGraphicsScene scene;
         QGraphicsColorizeEffect pColor;
-        pColor.setColor(QColor(Qt::white));
+        pColor.setColor(color);
         pColor.setStrength(factor);
         //
         view.setScene(&scene);

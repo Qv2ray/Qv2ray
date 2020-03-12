@@ -39,7 +39,7 @@ namespace Qv2ray::common
     void DeducePossibleFileName(const QString &baseDir, QString *fileName, const QString &extension);
     //
     QPixmap BlurImage(const QPixmap &pixmap, const double rad = 50);
-    QPixmap LightenImage(const QPixmap &pixmap, const qreal factor);
+    QPixmap ColorizeImage(const QPixmap &pixmap, const QColor &color, const qreal factor);
     // This function cannot be marked as inline.
     QString RemoveInvalidFileName(const QString &fileName);
     bool IsValidFileName(const QString &fileName);
