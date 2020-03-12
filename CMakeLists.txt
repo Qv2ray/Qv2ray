@@ -161,9 +161,7 @@ set(QV2RAY_SOURCES
   src/components/proxy/QvProxyConfigurator.cpp
   src/components/speedchart/speedplotview.cpp
   src/components/speedchart/speedwidget.cpp
-  src/components/darkmode/DarkmodeDetector_linux.cpp
-  src/components/darkmode/DarkmodeDetector_win.cpp
-  src/components/darkmode/DarkmodeDetector_mac.cpp
+  src/components/darkmode/DarkmodeDetector.cpp
   src/core/connection/ConnectionIO.cpp
   src/core/connection/Generation.cpp
   src/core/connection/Serialization.cpp
