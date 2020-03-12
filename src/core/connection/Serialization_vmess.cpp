@@ -9,8 +9,7 @@ namespace Qv2ray::core::connection
     namespace Serialization::vmess
     {
 
-        // From
-        // https://github.com/2dust/v2rayN/wiki/%E5%88%86%E4%BA%AB%E9%93%BE%E6%8E%A5%E6%A0%BC%E5%BC%8F%E8%AF%B4%E6%98%8E(ver-2)
+        // From https://github.com/2dust/v2rayN/wiki/分享链接格式说明(ver-2)
         const QString ConvertConfigToVMessString(const StreamSettingsObject &transfer, const VMessServerObject &server, const QString &alias)
         {
             QJsonObject vmessUriRoot;
@@ -80,88 +79,72 @@ namespace Qv2ray::core::connection
                 return default;
             }
 
-            try
+            QStringRef vmessJsonB64(&vmess, 8, vmess.length() - 8);
+            auto b64Str = vmessJsonB64.toString();
+
+            if (b64Str.isEmpty())
             {
-                QStringRef vmessJsonB64(&vmess, 8, vmess.length() - 8);
-                auto b64Str = vmessJsonB64.toString();
-
-                if (b64Str.isEmpty())
-                {
-                    *errMessage = QObject::tr("VMess string should be a valid base64 string");
-                    return default;
-                }
-
-                auto vmessString = Base64Decode(b64Str);
-                auto jsonErr = VerifyJsonString(vmessString);
-
-                if (!jsonErr.isEmpty())
-                {
-                    *errMessage = jsonErr;
-                    return default;
-                }
-
-                auto vmessConf = JsonFromString(vmessString);
-
-                if (vmessConf.isEmpty())
-                {
-                    *errMessage = QObject::tr("JSON should not be empty");
-                    return default;
-                }
-
-                bool flag = true;
-                // C is a quick hack...
-#define C(k) vmessConf.contains(k)
-                // id, aid, port and add are mandatory fields of a vmess://
-                // link.
-                flag = flag && C("id") && C("aid") && C("port") && C("add");
-                // Stream Settings
-                auto net = C("net") ? vmessConf["net"].toString() : "tcp";
-
-                if (net == "http" || net == "ws")
-                    flag = flag && C("host") && C("path");
-                else if (net == "domainsocket")
-                    flag = flag && C("path");
-                else if (net == "quic")
-                    flag = flag && C("host") && C("type") && C("path");
-
-#undef C
-                // return flag ? 0 : 1;
-            }
-            catch (exception *e)
-            {
-                *errMessage = e->what();
-                LOG(MODULE_IMPORT, "Failed to decode vmess string: " + *errMessage)
-                delete e;
+                *errMessage = QObject::tr("VMess string should be a valid base64 string");
                 return default;
             }
 
+            auto vmessString = Base64Decode(b64Str);
+            auto jsonErr = VerifyJsonString(vmessString);
+
+            if (!jsonErr.isEmpty())
+            {
+                *errMessage = jsonErr;
+                return default;
+            }
+
+            auto vmessConf = JsonFromString(vmessString);
+
+            if (vmessConf.isEmpty())
+            {
+                *errMessage = QObject::tr("JSON should not be empty");
+                return default;
+            }
+
+            bool flag = true;
+            // C is a quick hack...
+#define C(k) (flag = (vmessConf.contains(k) ? true : (*errMessage += (k " does not exist"), false)))
+            // id, aid, port and add are mandatory fields of a vmess://
+            // link.
+            flag = flag && C("id") && C("aid") && C("port") && C("add");
+            // Stream Settings
+            auto net = vmessConf["net"].toString();
+
+            if (net == "http" || net == "ws")
+                flag = flag && C("host") && C("path");
+            else if (net == "domainsocket")
+                flag = flag && C("path");
+            else if (net == "quic")
+                flag = flag && C("host") && C("type") && C("path");
+            else
+            {
+                LOG(MODULE_CONNECTION, "VMess protocol has an empty `net` option, we'll try to deduce it from the obfs type.")
+            }
+
+#undef C
+            // return flag ? 0 : 1;
+
             // --------------------------------------------------------------------------------------
             CONFIGROOT root;
-            auto b64String = QStringRef(&vmess, 8, vmess.length() - 8).toString();
-            auto vmessConf = JsonFromString(Base64Decode(b64String));
-            //
-            QString ps, add, id, net, type, host, path, tls;
+            QString ps, add, id, /*net,*/ type, host, path, tls;
             int port, aid;
             //
-            // key = key in JSON and the variable name.
-            // values = Candidate variable list, if not match, the first one is
-            // used as default.
-            //          [[val.size() <= 1]] is used when only the default value
-            //          exists.
-            ///
-            //          - It can be empty, if so,           if the key is not in
-            //            the JSON, or the value is empty,  it'll report an error.
+            // __vmess_checker__func(key, values)
             //
-            //          - Else if it contains one thing.    if the key is not in
-            //            the JSON, or the value is empty,  it'll use that one.
+            //   - Key     =    Key in JSON and the variable name.
+            //   - Values  =    Candidate variable list, if not match, the first one is used as default.
             //
-            //          - Else if it contains many things,  when the key IS in
-            //            the JSON but not in those THINGS,   it'll use the first
-            //            one in the THINGS
+            //   - [[val.size() <= 1]] is used when only the default value exists.
             //
-            //          - Else, it'll use the value found from the JSON object.
+            //   - It can be empty, if so,           if the key is not in the JSON, or the value is empty,  report an error.
+            //   - Else if it contains one thing.    if the key is not in the JSON, or the value is empty,  use that one.
+            //   - Else if it contains many things,  when the key IS in the JSON but not within the THINGS, use the first in the THINGS
+            //   - Else,                                                                                    use the JSON value
             //
-#define empty_arg
 #define __vmess_checker__func(key, values)                                                                                                      \
     {                                                                                                                                           \
         auto val = QStringList() values;                                                                                                        \
@@ -188,30 +171,40 @@ namespace Qv2ray::core::connection
             //
             // Get Alias (AKA ps) from address and port.
             {
-                __vmess_checker__func(ps, << vmessConf["add"].toVariant().toString() + ":" + vmessConf["port"].toVariant().toString()) //
-                __vmess_checker__func(add, empty_arg)                                                                                  //
-                __vmess_checker__func(id, empty_arg)                                                                                   //
-                __vmess_checker__func(net, << "tcp"                                                                                    //
-                                           << "http"                                                                                   //
-                                           << "h2"                                                                                     //
-                                           << "ws"                                                                                     //
-                                           << "kcp"                                                                                    //
-                                           << "domainsocket"                                                                           //
-                                           << "quic")                                                                                  //
-                __vmess_checker__func(type, << "none"                                                                                  //
-                                            << "http"                                                                                  //
-                                            << "srtp"                                                                                  //
-                                            << "utp"                                                                                   //
-                                            << "wechat-video")                                                                         //
-                __vmess_checker__func(path, << "")                                                                                     //
-                __vmess_checker__func(host, << "")                                                                                     //
-                __vmess_checker__func(tls, << "")                                                                                      //
+                __vmess_checker__func(ps, << vmessConf["add"].toVariant().toString() + ":" + vmessConf["port"].toVariant().toString()); //
+                __vmess_checker__func(add, nothing);                                                                                    //
+                __vmess_checker__func(id, nothing);                                                                                     //
+                __vmess_checker__func(type, << "none"                                                                                   //
+                                            << "http"                                                                                   //
+                                            << "srtp"                                                                                   //
+                                            << "utp"                                                                                    //
+                                            << "wechat-video");                                                                         //
+                                                                                                                                        //
+                /*Deduce net type from obfs type*/                                                                                      //
+                if (QStringList{ "srtp", "utp", "wechat-video" }.contains(type))                                                        //
+                {                                                                                                                       //
+                    if (net != "quic")                                                                                                  //
+                    {                                                                                                                   //
+                        LOG(MODULE_CONNECTION, "Reset net settings from " + net + " to quic")                                           //
+                        net = "quic";                                                                                                   //
+                    }                                                                                                                   //
+                }                                                                                                                       //
+                __vmess_checker__func(net, << "tcp"                                                                                     //
+                                           << "http"                                                                                    //
+                                           << "h2"                                                                                      //
+                                           << "ws"                                                                                      //
+                                           << "kcp"                                                                                     //
+                                           << "domainsocket"                                                                            //
+                                           << "quic");                                                                                  //
+                __vmess_checker__func(path, << "");                                                                                     //
+                __vmess_checker__func(host, << "");                                                                                     //
+                __vmess_checker__func(tls, << "");                                                                                      //
 
             } //
             port = vmessConf["port"].toVariant().toInt();
             aid = vmessConf["aid"].toVariant().toInt();
-            // Apply the settings.
             //
+            // Apply the settings.
             // User
             VMessServerObject::UserObject user;
             user.id = id;

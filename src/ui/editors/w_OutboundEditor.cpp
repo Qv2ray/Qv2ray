@@ -1,5 +1,4 @@
-﻿#include <QDebug>
-#include "w_OutboundEditor.hpp"
+﻿#include "w_OutboundEditor.hpp"
 
 #include "core/connection/Generation.hpp"
 #include "ui/editors/w_JsonEditor.hpp"
