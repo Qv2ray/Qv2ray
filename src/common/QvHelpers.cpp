@@ -113,8 +113,8 @@ namespace Qv2ray::common
 
     QJsonObject JsonFromString(const QString &string)
     {
-        auto removeComment = RemoveComment(string);
-        if (removeComment != string)
+        auto removeComment = RemoveComment(string.trimmed()).trimmed();
+        if (removeComment != string.trimmed())
         {
             LOG(MODULE_FILEIO, "Some comments have been removed from the json.")
         }
