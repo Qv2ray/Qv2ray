@@ -9,7 +9,7 @@ namespace Qv2ray::core::connection
     {
         // -------------------------- BEGIN CONFIG GENERATIONS
         // ----------------------------------------------------------------------------
-        ROUTING GenerateRoutes(bool enableProxy, bool proxyCN, const QString &proxyTag, const QString &directTag)
+        ROUTING GenerateRoutes(bool enableProxy, bool bypassCN)
         {
             ROUTING root;
             root.insert("domainStrategy", "IPIfNonMatch");
@@ -21,16 +21,19 @@ namespace Qv2ray::core::connection
             {
                 // This is added to disable all proxies, as a alternative
                 // influence of #64
-                rulesList.append(GenerateSingleRouteRule("regexp:.*", true, directTag));
+                rulesList.append(GenerateSingleRouteRule("regexp:.*", true, OUTBOUND_TAG_DIRECT));
             }
 
             // Private IPs should always NOT TO PROXY!
-            rulesList.append(GenerateSingleRouteRule("geoip:private", false, directTag));
+            rulesList.append(GenerateSingleRouteRule("geoip:private", false, OUTBOUND_TAG_DIRECT));
             //
             // Check if CN needs proxy, or direct.
-            rulesList.append(GenerateSingleRouteRule("geoip:cn", false, proxyCN ? directTag : proxyTag));
-            rulesList.append(GenerateSingleRouteRule("geosite:cn", true, proxyCN ? directTag : proxyTag));
-            //
+            if (bypassCN)
+            {
+                // No proxy agains CN addresses.
+                rulesList.append(GenerateSingleRouteRule("geoip:cn", false, OUTBOUND_TAG_DIRECT));
+                rulesList.append(GenerateSingleRouteRule("geosite:cn", true, OUTBOUND_TAG_DIRECT));
+            }
             // As a bug fix of #64, this default rule has been disabled.
             // rulesList.append(GenerateSingleRouteRule(QStringList({"regexp:.*"}),
             // true, globalProxy ? OUTBOUND_TAG_PROXY :  OUTBOUND_TAG_DIRECT));
@@ -386,8 +389,7 @@ namespace Qv2ray::core::connection
                 }
                 auto outboundTag = getTag(OUTBOUND(root["outbounds"].toArray().first().toObject()));
 
-                auto routeObject =
-                    GenerateRoutes(GlobalConfig.connectionConfig.enableProxy, GlobalConfig.connectionConfig.bypassCN, outboundTag);
+                auto routeObject = GenerateRoutes(GlobalConfig.connectionConfig.enableProxy, GlobalConfig.connectionConfig.bypassCN);
                 root.insert("routing", routeObject);
                 //
                 // Process forward proxy
