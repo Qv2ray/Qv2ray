@@ -1,79 +1,269 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="zh_CN" version="2.1">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="zh_CN">
 <context>
-    <name>ConfigExporter</name>
+    <name>AutoCompleteTextEdit</name>
     <message>
-        <location filename="../src/ui/w_ExportConfig.cpp" line="73"/>
-        <source>Save Image</source>
-        <translation>保存图片</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_ExportConfig.cpp" line="82"/>
-        <location filename="../src/ui/w_ExportConfig.cpp" line="88"/>
-        <source>Share Connection</source>
-        <translation>分享连接</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_ExportConfig.cpp" line="82"/>
-        <source>Image has been copied to the clipboard.</source>
-        <translation>图像已复制到剪贴板。</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_ExportConfig.cpp" line="88"/>
-        <source>VMess string has been copied to the clipboard.</source>
-        <translation>VMess 链接已复制到剪贴板。</translation>
+        <location filename="../src/ui/widgets/QvAutoCompleteTextEdit.cpp" line="64"/>
+        <source>This TextEdit provides autocompletions for words that have more than 3 characters. You can trigger autocompletion using </source>
+        <translation>This TextEdit provides autocompletions for words that have more than 3 characters. You can trigger autocompletion using </translation>
     </message>
 </context>
 <context>
-    <name>ExportConfigWindow</name>
+    <name>ConfigExporter</name>
     <message>
-        <location filename="../src/ui/w_ExportConfig.ui"/>
-        <source>Export Config</source>
-        <translation>导出配置</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_ExportConfig.ui"/>
-        <source>Share Options</source>
-        <translation>分享选项</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_ExportConfig.ui"/>
-        <source>Connection String</source>
-        <translation>连接字符串</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_ExportConfig.ui"/>
-        <source>Copy Link</source>
-        <translation>复制链接</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_ExportConfig.ui"/>
         <source>Save Image</source>
-        <translation>保存图片</translation>
+        <translation type="vanished">保存图片</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ExportConfig.ui"/>
-        <source>Copy Image</source>
-        <translation>复制图像</translation>
+        <source>Share Connection</source>
+        <translation type="vanished">分享连接</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ExportConfig.ui"/>
+        <source>Image has been copied to the clipboard.</source>
+        <translation type="vanished">图像已复制到剪贴板。</translation>
+    </message>
+    <message>
+        <source>VMess string has been copied to the clipboard.</source>
+        <translation type="vanished">VMess 链接已复制到剪贴板。</translation>
+    </message>
+</context>
+<context>
+    <name>ConnectionInfoWidget</name>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.ui"/>
+        <source>Form</source>
+        <translation>窗体</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.ui"/>
+        <source>Configuration Details</source>
+        <translation>配置详情</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.ui"/>
+        <source>Connect/Disconnect</source>
+        <translation>连接/断开</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.ui"/>
+        <source>Edit Connection</source>
+        <translation>编辑连接</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.ui"/>
+        <source>Edit Connection as JSON</source>
+        <translation>将连接编辑为 JSON</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.ui"/>
+        <source>Latency Test</source>
+        <translation>测试延迟</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.ui"/>
+        <source>Delete Connection</source>
+        <translation>删除连接</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.ui"/>
+        <source>Group</source>
+        <translation>分组</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.ui"/>
+        <source>type</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.ui"/>
+        <source>Protocol</source>
+        <translation>协议</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.ui"/>
+        <source>proto</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.ui"/>
+        <source>Address</source>
+        <translation>地址</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.ui"/>
+        <source>addr</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.ui"/>
+        <source>Port</source>
+        <translation>端口</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.ui"/>
+        <source>port</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.ui"/>
+        <source>Link</source>
+        <translation>链接</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.ui"/>
+        <source>QR Code</source>
+        <translation>二维码</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.ui"/>
+        <source>Group Name</source>
+        <translation>分组名称</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.ui"/>
+        <source>Subscription Link</source>
+        <translation>订阅链接</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.ui"/>
+        <source>Share Link</source>
+        <translation>分享链接</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.cpp" line="112"/>
+        <source>(Ignored %1 complex config(s))</source>
+        <translation>(已忽略 %1 个复杂配置)</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.cpp" line="117"/>
+        <source>Not a subscription</source>
+        <translation>不是订阅</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.cpp" line="155"/>
+        <source>Delete an item</source>
+        <translation>删除项目</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.cpp" line="155"/>
+        <source>Are you sure to delete the current item?</source>
+        <translation>您确定要删除当前项目吗？</translation>
+    </message>
+</context>
+<context>
+    <name>ConnectionItemWidget</name>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionItemWidget.cpp" line="27"/>
+        <source>Not Tested</source>
+        <translation>未测试</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionItemWidget.cpp" line="27"/>
+        <location filename="../src/ui/widgets/ConnectionItemWidget.cpp" line="150"/>
+        <source>ms</source>
+        <translation>ms</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionItemWidget.cpp" line="29"/>
+        <location filename="../src/ui/widgets/ConnectionItemWidget.cpp" line="136"/>
+        <source>Type: </source>
+        <translation>类型: </translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionItemWidget.cpp" line="143"/>
+        <source>Testing...</source>
+        <translation>正在测试…</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionItemWidget.cpp" line="150"/>
+        <source>Error</source>
+        <translation>错误</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionItemWidget.hpp" line="62"/>
+        <source>connection</source>
+        <translation>个</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionItemWidget.hpp" line="62"/>
+        <source>connections</source>
+        <translation>个</translation>
+    </message>
+</context>
+<context>
+    <name>ConnectionWidget</name>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionItemWidget.ui"/>
+        <source>Form</source>
+        <translation>窗体</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionItemWidget.ui"/>
+        <source>Connection Name</source>
+        <translation>连接名称</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionItemWidget.ui"/>
+        <source>500ms</source>
+        <translation>500ms</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionItemWidget.ui"/>
+        <source>Type: vmess + tls + ws</source>
+        <translation>类型: vmess + tls + ws</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionItemWidget.ui"/>
+        <source>0KB / 0KB</source>
+        <translation>0KB / 0KB</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionItemWidget.ui"/>
         <source>OK</source>
         <translation>好</translation>
     </message>
 </context>
 <context>
-    <name>FlowScene</name>
+    <name>ExportConfigWindow</name>
     <message>
-        <location filename="../3rdparty/QNodeEditor/src/FlowScene.cpp" line="432"/>
-        <location filename="../3rdparty/QNodeEditor/src/FlowScene.cpp" line="457"/>
-        <source>Open Flow Scene</source>
-        <translation>打开流场景</translation>
+        <source>Export Config</source>
+        <translation type="vanished">导出配置</translation>
     </message>
     <message>
-        <location filename="../3rdparty/QNodeEditor/src/FlowScene.cpp" line="434"/>
-        <location filename="../3rdparty/QNodeEditor/src/FlowScene.cpp" line="459"/>
+        <source>Share Options</source>
+        <translation type="vanished">分享选项</translation>
+    </message>
+    <message>
+        <source>Connection String</source>
+        <translation type="vanished">连接字符串</translation>
+    </message>
+    <message>
+        <source>Copy Link</source>
+        <translation type="vanished">复制链接</translation>
+    </message>
+    <message>
+        <source>Save Image</source>
+        <translation type="vanished">保存图片</translation>
+    </message>
+    <message>
+        <source>Copy Image</source>
+        <translation type="vanished">复制图像</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="vanished">好</translation>
+    </message>
+</context>
+<context>
+    <name>FlowScene</name>
+    <message>
+        <source>Open Flow Scene</source>
+        <translation type="vanished">打开流场景</translation>
+    </message>
+    <message>
         <source>Flow Scene Files (*.flow)</source>
-        <translation>流场景文件 (*.flow)</translation>
+        <translation type="vanished">流场景文件 (*.flow)</translation>
     </message>
 </context>
 <context>
@@ -101,7 +291,7 @@
     <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
         <source> secs</source>
-        <translation>秒</translation>
+        <translation> 秒</translation>
     </message>
     <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
@@ -134,14 +324,12 @@
         <translation>选择</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.ui"/>
         <source>Inbound</source>
-        <translation>入站</translation>
+        <translation type="vanished">入站</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.ui"/>
         <source>Keep imported inbound settings</source>
-        <translation>保留导入的入站设置</translation>
+        <translation type="vanished">保留导入的入站设置</translation>
     </message>
     <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
@@ -152,6 +340,11 @@
         <location filename="../src/ui/w_ImportConfig.ui"/>
         <source>Open in JSON Editor</source>
         <translation>在 JSON 编辑器中打开</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_ImportConfig.ui"/>
+        <source>Import as Complex Config (Manually edit route rules and inbounds)</source>
+        <translation>作为复杂配置导入（手动编辑路由规则与入站）</translation>
     </message>
     <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
@@ -239,66 +432,66 @@
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="56"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="60"/>
         <source>Select file to import</source>
         <translation>选择要导入的文件</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="88"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="93"/>
         <source>Capture QRCode</source>
         <translation>抓取二维码</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="88"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="93"/>
         <source>Cannot find a valid QRCode from this region.</source>
         <translation>无法从这个区域找到有效的二维码。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="109"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="116"/>
         <source>Import config file</source>
         <translation>导入配置文件</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="109"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="116"/>
         <source>Failed to check the validity of the config file.</source>
         <translation>检查配置文件有效性时失败。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="164"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="182"/>
         <source>Select an image to import</source>
         <translation>选择要导入的图像</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="177"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="196"/>
         <source>QRCode scanning failed</source>
         <translation>二维码扫描失败</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="177"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="196"/>
         <source>Cannot find any QRCode from the image.</source>
         <translation>无法从图像中找到任何二维码。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="212"/>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="222"/>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="238"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="236"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="248"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="271"/>
         <source>Edit file as JSON</source>
         <translation>以 JSON 格式编辑文件</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="212"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="236"/>
         <source>Provided file not found: </source>
         <translation>找不到提供的文件： </translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="222"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="249"/>
         <source>The file you selected has json syntax error. Continue editing may make you lose data. Would you like to continue?</source>
         <translation>您选择的文件有 json 语法错误。继续编辑可能会使您丢失数据。您想要继续吗？</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="238"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="271"/>
         <source>Failed to save file, please check if you have proper permissions</source>
-        <translation>保存文件失败，请检查您是否拥有所需的权限。</translation>
+        <translation>保存文件失败，请检查您是否拥有所需的权限</translation>
     </message>
 </context>
 <context>
@@ -529,41 +722,41 @@
         <translation>SECRET</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_InboundEditor.cpp" line="31"/>
+        <location filename="../src/ui/editors/w_InboundEditor.cpp" line="41"/>
         <source>Inbound type not supported</source>
         <translation>不支持入站类型</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_InboundEditor.cpp" line="31"/>
+        <location filename="../src/ui/editors/w_InboundEditor.cpp" line="42"/>
         <source>The inbound type is not supported by Qv2ray (yet). Please use JsonEditor to change the settings</source>
         <translation>Qv2ray （暂时）不支持这个入站类型。请使用 JsonEditor 更改设置</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_InboundEditor.cpp" line="32"/>
+        <location filename="../src/ui/editors/w_InboundEditor.cpp" line="43"/>
         <source>Inbound: </source>
         <translation>入站： </translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_InboundEditor.cpp" line="211"/>
-        <location filename="../src/ui/editors/w_InboundEditor.cpp" line="263"/>
+        <location filename="../src/ui/editors/w_InboundEditor.cpp" line="244"/>
+        <location filename="../src/ui/editors/w_InboundEditor.cpp" line="303"/>
         <source>Removing a user</source>
         <translation>移除用户</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_InboundEditor.cpp" line="211"/>
-        <location filename="../src/ui/editors/w_InboundEditor.cpp" line="263"/>
+        <location filename="../src/ui/editors/w_InboundEditor.cpp" line="244"/>
+        <location filename="../src/ui/editors/w_InboundEditor.cpp" line="303"/>
         <source>You haven&apos;t selected a user yet.</source>
         <translation>你尚未选择一个用户。</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_InboundEditor.cpp" line="227"/>
-        <location filename="../src/ui/editors/w_InboundEditor.cpp" line="279"/>
+        <location filename="../src/ui/editors/w_InboundEditor.cpp" line="262"/>
+        <location filename="../src/ui/editors/w_InboundEditor.cpp" line="321"/>
         <source>Add a user</source>
         <translation>添加用户</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_InboundEditor.cpp" line="227"/>
-        <location filename="../src/ui/editors/w_InboundEditor.cpp" line="279"/>
+        <location filename="../src/ui/editors/w_InboundEditor.cpp" line="262"/>
+        <location filename="../src/ui/editors/w_InboundEditor.cpp" line="321"/>
         <source>This user exists already.</source>
         <translation>此用户已存在。</translation>
     </message>
@@ -571,9 +764,8 @@
 <context>
     <name>JsonEditor</name>
     <message>
-        <location filename="../src/ui/editors/w_JsonEditor.ui"/>
         <source>Dialog</source>
-        <translation>对话框</translation>
+        <translation type="vanished">对话框</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_JsonEditor.ui"/>
@@ -596,30 +788,44 @@
         <translation>Json 编辑器</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_JsonEditor.cpp" line="19"/>
-        <location filename="../src/ui/editors/w_JsonEditor.cpp" line="42"/>
+        <location filename="../src/ui/editors/w_JsonEditor.cpp" line="23"/>
+        <location filename="../src/ui/editors/w_JsonEditor.cpp" line="50"/>
         <source>Json Contains Syntax Errors</source>
         <translation>JSON 包含语法错误</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_JsonEditor.cpp" line="19"/>
+        <location filename="../src/ui/editors/w_JsonEditor.cpp" line="23"/>
         <source>Original Json may contain syntax errors. Json tree is disabled.</source>
         <translation>原 JSON 可能包含语法错误，JSON 树被禁用。</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_JsonEditor.cpp" line="42"/>
+        <location filename="../src/ui/editors/w_JsonEditor.cpp" line="50"/>
         <source>You must correct these errors before continue.</source>
         <translation>您必须先更正这些错误才能继续。</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_JsonEditor.cpp" line="82"/>
+        <location filename="../src/ui/editors/w_JsonEditor.cpp" line="101"/>
         <source>Syntax Errors</source>
         <translation>语法错误</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_JsonEditor.cpp" line="82"/>
+        <location filename="../src/ui/editors/w_JsonEditor.cpp" line="101"/>
+        <source>Please fix the JSON errors or remove the comments before continue</source>
+        <translation>请先修复 JSON 错误或移除其中的注释再继续</translation>
+    </message>
+    <message>
         <source>Please fix the JSON errors before continue</source>
-        <translation>请先修复 JSON 错误，然后继续。</translation>
+        <translation type="vanished">请先修复 JSON 错误，然后继续。</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/editors/w_JsonEditor.ui"/>
+        <source>JSON Editor</source>
+        <translation>JSON 编辑器</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/editors/w_JsonEditor.ui"/>
+        <source>Remove All Comments</source>
+        <translation>移除所有注释</translation>
     </message>
 </context>
 <context>
@@ -630,27 +836,23 @@
         <translation>Qv2ray</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="150"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="129"/>
         <source>Connect</source>
         <translation>连接</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="152"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="131"/>
         <source>Disconnect</source>
         <translation>断开连接</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="151"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="130"/>
         <source>Reconnect</source>
         <translation>重新连接</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Clear Log</source>
-        <translation>清除日志</translation>
+        <translation type="vanished">清除日志</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.ui"/>
@@ -658,79 +860,64 @@
         <translation>订阅</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Stopped</source>
-        <translation>已停止</translation>
+        <translation type="vanished">已停止</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Host List</source>
-        <translation>主机列表</translation>
+        <translation type="vanished">主机列表</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Import connection</source>
-        <translation>导入连接</translation>
+        <translation type="vanished">导入连接</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Duplicate connection</source>
-        <translation>复制连接</translation>
+        <translation type="vanished">复制连接</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Delete a connection</source>
-        <translation>删除连接</translation>
+        <translation type="vanished">删除连接</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Edit connection</source>
-        <translation>编辑连接</translation>
+        <translation type="vanished">编辑连接</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Config Details</source>
-        <translation>配置详细信息</translation>
+        <translation type="vanished">配置详细信息</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Config Type</source>
-        <translation>配置类型</translation>
+        <translation type="vanished">配置类型</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Protocol</source>
-        <translation>协议</translation>
+        <translation type="vanished">协议</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Address</source>
-        <translation>地址</translation>
+        <translation type="vanished">地址</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Port Number</source>
-        <translation>端口号</translation>
+        <translation type="vanished">端口号</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Latency</source>
-        <translation>延迟</translation>
+        <translation type="vanished">延迟</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Operations</source>
-        <translation>操作</translation>
+        <translation type="vanished">操作</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Edit connection as JSON</source>
-        <translation>将连接编辑为 JSON</translation>
+        <translation type="vanished">将连接编辑为 JSON</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Log (click to switch log source)</source>
-        <translation>日志 (点击切换日志源)</translation>
+        <translation type="vanished">日志 (点击切换日志源)</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.ui"/>
@@ -739,49 +926,99 @@
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.ui"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="148"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="127"/>
         <source>Preferences</source>
         <translation>首选项</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Duplicate</source>
-        <translation>复制</translation>
+        <translation type="vanished">复制</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Delete</source>
-        <translation>删除</translation>
+        <translation type="vanished">删除</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="137"/>
         <source>Edit</source>
         <translation>编辑</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Edit JSON</source>
-        <translation>编辑 JSON</translation>
+        <translation type="vanished">编辑 JSON</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Ping Test</source>
-        <translation>Ping 测试</translation>
+        <translation type="vanished">Ping 测试</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Share</source>
-        <translation>分享</translation>
+        <translation type="vanished">分享</translation>
+    </message>
+    <message>
+        <source>Speed Graph</source>
+        <translation type="vanished">速度图像</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.ui"/>
-        <source>Speed Graph</source>
-        <translation>速度图像</translation>
+        <source>Locate Current Connection</source>
+        <translation>定位到当前连接</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.ui"/>
+        <source>Search</source>
+        <translation>搜索</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.ui"/>
+        <source>Import Connection</source>
+        <translation>导入连接</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.ui"/>
+        <source>Sort</source>
+        <translation>排序</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.ui"/>
+        <source>Click to toggle show/hide</source>
+        <translation>点击切换显示/隐藏</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.ui"/>
+        <source>  Speed Graph</source>
+        <translation>  速度图像</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.ui"/>
+        <source>Clear chart data</source>
+        <translation>清除图表数据</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.ui"/>
+        <source>  Log</source>
+        <translation>  日志</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.ui"/>
+        <source>Clear log</source>
+        <translation>清除日志</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.ui"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="572"/>
+        <source>Not Connected</source>
+        <translation>未连接</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Speed</source>
         <translation>速度</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.ui"/>
+        <source>Upload/Download speed</source>
+        <translation>上传/下载速度</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.ui"/>
@@ -797,404 +1034,417 @@
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.ui"/>
+        <source>Upload/Download Data</source>
+        <translation>上传/下载流量</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>0.00 B
 0.00 B</source>
         <translation>0.00 B
 0.00 B</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>#ManuallyCreateConnection</source>
-        <translation>手动添加连接配置</translation>
+        <translation type="vanished">手动添加连接配置</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>#ImportConnection</source>
-        <translation>导入连接</translation>
+        <translation type="vanished">导入连接</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>#Exit</source>
-        <translation>退出</translation>
+        <translation type="vanished">退出</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>#Preferences</source>
-        <translation>首选项</translation>
+        <translation type="vanished">首选项</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>#Start</source>
-        <translation>开始</translation>
+        <translation type="vanished">开始</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>#Stop</source>
-        <translation>停止</translation>
+        <translation type="vanished">停止</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>#Restart</source>
-        <translation>重启</translation>
+        <translation type="vanished">重启</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="147"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="543"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="428"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="126"/>
         <source>Hide</source>
         <translation>隐藏</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="149"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="128"/>
         <source>Quit</source>
         <translation>退出</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="189"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="138"/>
+        <source>Edit as JSON</source>
+        <translation>编辑为 JSON</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="140"/>
         <source>Rename</source>
         <translation>重命名</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="190"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="141"/>
+        <source>Duplicate to the Same Group</source>
+        <translation>复制到同组</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="142"/>
+        <source>Delete Connection</source>
+        <translation>删除连接</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="136"/>
         <source>Connect to this</source>
         <translation>连接到此服务器</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="191"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="139"/>
         <source>Edit as Complex Config</source>
         <translation>编辑为复杂配置</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="192"/>
         <source>Edit as Json</source>
-        <translation>编辑为 Json</translation>
+        <translation type="vanished">编辑为 Json</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="193"/>
         <source>Share as QRCode/VMess URL</source>
-        <translation>以二维码或 VMess 链接分享</translation>
+        <translation type="vanished">以二维码或 VMess 链接分享</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="39"/>
         <source>Subscription:</source>
-        <translation>订阅:</translation>
+        <translation type="vanished">订阅:</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="499"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="546"/>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="49"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="391"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="433"/>
         <source>Show</source>
         <translation>显示</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="52"/>
         <source>Autostarting a config</source>
-        <translation>自动启动配置</translation>
+        <translation type="vanished">自动启动配置</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="52"/>
         <source>Could not find a specified config named: </source>
-        <translation>找不到指定的配置： </translation>
+        <translation type="vanished">找不到指定的配置： </translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="291"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="438"/>
         <source>No connection selected!</source>
-        <translation>没有选择连接！</translation>
+        <translation type="vanished">没有选择连接！</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="291"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="438"/>
         <source>Please select a config from the list.</source>
-        <translation>请从列表中选择一个配置。</translation>
+        <translation type="vanished">请从列表中选择一个配置。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="314"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="223"/>
+        <source>Sort connection list.</source>
+        <translation>排序连接列表。</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.cpp" line="224"/>
+        <source>By connection name, A-Z</source>
+        <translation>按名称，顺序</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.cpp" line="225"/>
+        <source>By connection name, Z-A</source>
+        <translation>按名称，逆序</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.cpp" line="226"/>
+        <source>By latency, Ascending</source>
+        <translation>低延迟优先</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.cpp" line="227"/>
+        <source>By latency, Descending</source>
+        <translation>高延迟优先</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.cpp" line="228"/>
+        <source>By data, Ascending</source>
+        <translation>低数据使用量优先</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.cpp" line="229"/>
+        <source>By data, Descending</source>
+        <translation>高数据使用量优先</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.cpp" line="364"/>
         <source>Update</source>
         <translation>更新</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="315"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="365"/>
         <source>Found a new version: </source>
         <translation>找到新的版本： </translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="321"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="366"/>
         <source>Download Link: </source>
         <translation>下载链接： </translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="451"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="452"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="453"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="1009"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="596"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="597"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="598"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="744"/>
         <source>Connected: </source>
         <translation>已连接: </translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="161"/>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="169"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="628"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="642"/>
         <source>Configuring PAC</source>
         <translation>配置 PAC</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="161"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="629"/>
         <source>Could not start PAC server as it is configured to use SOCKS, but it is not enabled</source>
         <translation>无法启动 PAC 服务器，因为它被配置为使用 SOCKS，但它没有启用</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="169"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="643"/>
         <source>Could not start PAC server as it is configured to use HTTP, but it is not enabled</source>
         <translation>无法启动 PAC 服务器，因为它被配置为使用 HTTP ，但它尚未启用</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="101"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="889"/>
+        <source>Duplicating Connection(s)</source>
+        <translation>复制连接</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.cpp" line="890"/>
+        <source>Are you sure to duplicate these connection(s)?</source>
+        <translation>您确定要复制这（些）连接吗？</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.cpp" line="897"/>
+        <source> (Copy)</source>
+        <translation> （副本）</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow_extra.cpp" line="36"/>
         <source>PAC Processing Failed</source>
         <translation>PAC 处理失败</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="54"/>
         <source>Please reset the settings in Preference Window</source>
-        <translation>请重置首选项窗口的设置</translation>
+        <translation type="vanished">请重置首选项窗口的设置</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="70"/>
         <source>System proxy cleared.</source>
-        <translation>系统代理已清除。</translation>
+        <translation type="vanished">系统代理已清除。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="101"/>
+        <location filename="../src/ui/w_MainWindow_extra.cpp" line="37"/>
         <source>HTTP or SOCKS inbound is not properly configured for PAC</source>
         <translation>HTTP 或 SOCKS 入站配置不正确</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="102"/>
+        <location filename="../src/ui/w_MainWindow_extra.cpp" line="38"/>
         <source>Qv2ray will continue, but will not set system proxy.</source>
         <translation>Qv2ray 将继续，但不会设置系统代理。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="114"/>
+        <location filename="../src/ui/w_MainWindow_extra.cpp" line="55"/>
         <source>Cannot set system proxy</source>
         <translation>无法设置系统代理</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="114"/>
+        <location filename="../src/ui/w_MainWindow_extra.cpp" line="55"/>
         <source>Both HTTP and SOCKS inbounds are not enabled</source>
         <translation>HTTP 和 SOCKS 都没有启用</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="127"/>
+        <location filename="../src/ui/w_MainWindow_extra.cpp" line="71"/>
+        <source>Didn&apos;t set proxy for complex config.</source>
+        <translation>未对复杂配置设置代理。</translation>
+    </message>
+    <message>
         <source>System proxy settings applied.</source>
-        <translation>系统代理设置已应用。</translation>
+        <translation type="vanished">系统代理设置已应用。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="130"/>
         <source>Cannot set proxy for complex config.</source>
-        <translation>无法设置复杂配置的代理。</translation>
+        <translation type="vanished">无法设置复杂配置的代理。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="247"/>
+        <location filename="../src/ui/w_MainWindow_extra.cpp" line="99"/>
         <source>Update Subscriptions</source>
         <translation>更新订阅</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="248"/>
+        <location filename="../src/ui/w_MainWindow_extra.cpp" line="100"/>
         <source>There are subscriptions need to be updated, please go to subscriptions window to update them.</source>
         <translation>有订阅需要更新，请转到订阅窗口进行更新。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="249"/>
+        <location filename="../src/ui/w_MainWindow_extra.cpp" line="101"/>
         <source>These subscriptions are out-of-date: </source>
         <translation>这些订阅已过期： </translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="481"/>
         <source>Disconnected</source>
-        <translation>已断开</translation>
+        <translation type="vanished">已断开</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="576"/>
         <source>Complex</source>
-        <translation>复杂</translation>
+        <translation type="vanished">复杂</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="576"/>
         <source>Simple</source>
-        <translation>简单</translation>
+        <translation type="vanished">简单</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="579"/>
         <source>No data</source>
-        <translation>没有数据</translation>
+        <translation type="vanished">没有数据</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="581"/>
         <source>ms</source>
-        <translation>ms</translation>
+        <translation type="vanished">ms</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="981"/>
         <source>There&apos;re no support of sharing configs other than vmess and shadowsocks</source>
-        <translation>不支持分享除 Vmess 和 Shadowsocks 之外的链接</translation>
+        <translation type="vanished">不支持分享除 Vmess 和 Shadowsocks 之外的链接</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="1062"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="1063"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="1064"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="1065"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="1066"/>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="220"/>
         <source>N/A</source>
-        <translation>不适用</translation>
+        <translation type="vanished">不适用</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="674"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="679"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="684"/>
         <source>Rename a Connection</source>
-        <translation>重命名连接</translation>
+        <translation type="vanished">重命名连接</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="99"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="127"/>
         <source>V2ray vcore terminated.</source>
         <translation>V2ray 核心已终止。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="100"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="128"/>
         <source>V2ray vcore terminated unexpectedly.</source>
         <translation>V2ray 核心意外终止。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="101"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="129"/>
         <source>To solve the problem, read the V2ray log in the log text browser.</source>
         <translation>要解决问题，请阅读日志文本浏览器中的 V2ray 日志。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="154"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="132"/>
         <source>Enable System Proxy</source>
         <translation>启用系统代理</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="155"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="133"/>
         <source>Disable System Proxy</source>
         <translation>禁用系统代理</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="163"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="164"/>
         <source>System Proxy</source>
         <translation>系统代理</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="252"/>
         <source>Ping</source>
-        <translation>Ping 测试</translation>
+        <translation type="vanished">Ping 测试</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="252"/>
         <source>Ping All</source>
-        <translation>Ping 测试所有连接</translation>
+        <translation type="vanished">Ping 测试所有连接</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="369"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="585"/>
         <source>Subscription</source>
-        <translation>订阅</translation>
+        <translation type="vanished">订阅</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="468"/>
         <source>Already connected to: </source>
-        <translation>已经连接到：</translation>
+        <translation type="vanished">已经连接到：</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="493"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="570"/>
         <source>Disconnected from: </source>
-        <translation>已断开连接：</translation>
+        <translation>已断开连接: </translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="674"/>
         <source>The name cannot be empty</source>
-        <translation>名称不能为空</translation>
+        <translation type="vanished">名称不能为空</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="679"/>
         <source>The name has been used already, Please choose another.</source>
-        <translation>名称已被使用，请选择其他名称。</translation>
+        <translation type="vanished">名称已被使用，请选择其他名称。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="684"/>
         <source>The name you suggested is not valid, please try another.</source>
-        <translation>您建议的名称无效，请尝试其他名称。</translation>
+        <translation type="vanished">您建议的名称无效，请尝试其他名称。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="741"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="491"/>
         <source>Removing Connection(s)</source>
         <translation>删除连接</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="741"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="491"/>
         <source>Are you sure to remove selected connection(s)?</source>
         <translation>您确定要删除这（些）连接吗？</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="775"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="786"/>
         <source>Removing this Connection</source>
-        <translation>正在删除此连接</translation>
+        <translation type="vanished">正在删除此连接</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="775"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="786"/>
         <source>Failed to delete connection file, please delete manually.</source>
-        <translation>删除连接文件失败，请手动删除。</translation>
+        <translation type="vanished">删除连接文件失败，请手动删除。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="779"/>
         <source>Removing a subscription config</source>
-        <translation>删除订阅配置</translation>
+        <translation type="vanished">删除订阅配置</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="779"/>
         <source>Do you want to remove the config loaded from a subscription?</source>
-        <translation>您是否要删除从订阅中加载的配置？</translation>
+        <translation type="vanished">您是否要删除从订阅中加载的配置？</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="824"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="877"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="908"/>
         <source>No Config Selected</source>
-        <translation>未选择配置</translation>
+        <translation type="vanished">未选择配置</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="824"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="877"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="908"/>
         <source>Please Select a Config</source>
-        <translation>请选择一个配置</translation>
+        <translation type="vanished">请选择一个配置</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="940"/>
         <source>You are about to run latency test on all servers, do you want to continue?</source>
-        <translation>您将在所有服务器上运行延迟测试，是否继续？</translation>
+        <translation type="vanished">您将在所有服务器上运行延迟测试，是否继续？</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="960"/>
         <source>Testing...</source>
-        <translation>正在测试…</translation>
+        <translation type="vanished">正在测试…</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="940"/>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="213"/>
         <source>Latency Test</source>
-        <translation>测试延迟</translation>
+        <translation type="vanished">测试延迟</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="213"/>
         <source>Failed to test latency for this connection.</source>
-        <translation>无法测试此连接的延迟。</translation>
+        <translation type="vanished">无法测试此连接的延迟。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="981"/>
         <source>Share Connection</source>
-        <translation>分享连接</translation>
+        <translation type="vanished">分享连接</translation>
     </message>
 </context>
 <context>
@@ -1329,11 +1579,11 @@
     <name>PreferencesWindow</name>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="235"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="237"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="480"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="491"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="501"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="263"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="267"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="545"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="559"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="569"/>
         <source>Preferences</source>
         <translation>首选项</translation>
     </message>
@@ -1699,6 +1949,71 @@
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
+        <source>Transparent Proxy Settings</source>
+        <translation>透明代理设置</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PreferencesWindow.ui"/>
+        <source>All settings below will only be applied onto simple connection.</source>
+        <translation>下面的所有设置仅会在简单配置中生效。</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PreferencesWindow.ui"/>
+        <source>Add Docodemo-door inbound</source>
+        <translation>添加任意门入站</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PreferencesWindow.ui"/>
+        <source>Address</source>
+        <translation>地址</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PreferencesWindow.ui"/>
+        <source>TCP</source>
+        <translation>TCP</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PreferencesWindow.ui"/>
+        <source>UDP</source>
+        <translation>UDP</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PreferencesWindow.ui"/>
+        <source>Follow Redirect</source>
+        <translation>跟随重定向</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PreferencesWindow.ui"/>
+        <source>Override Connection SockOpt Settings</source>
+        <translation>覆盖连接 SockOpt 选项</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PreferencesWindow.ui"/>
+        <source>TCP Fast Open</source>
+        <translation>TCP 快速打开</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PreferencesWindow.ui"/>
+        <source>Mark</source>
+        <translation>标记</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PreferencesWindow.ui"/>
+        <source>Match Contains</source>
+        <translation>标记包含</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PreferencesWindow.ui"/>
+        <source>TProxy Mode</source>
+        <translation>tProxy 工作模式</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PreferencesWindow.ui"/>
+        <source>Settings will be added to the StreamSettings for matched connections.</source>
+        <translation>本设置将会添加到对应连接中的流设定。</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PreferencesWindow.ui"/>
         <source>-</source>
         <translation>-</translation>
     </message>
@@ -1739,13 +2054,13 @@
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="732"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="815"/>
         <source>Bold</source>
         <translation>粗体</translation>
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="733"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="816"/>
         <source>Italic</source>
         <translation>斜体</translation>
     </message>
@@ -1855,156 +2170,154 @@
         <translation>关于 Qt</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="63"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="79"/>
         <source>Use Darkmode Theme</source>
         <translation>使用暗色模式主题</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="133"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="152"/>
         <source>Page</source>
         <translation>页</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="133"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="153"/>
         <source>Item(s)</source>
         <translation>项目</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="416"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="464"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="467"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="527"/>
         <source>Enable tProxy Support</source>
         <translation>启用 tProxy 支持</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="467"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="529"/>
         <source>to this path: </source>
         <translation>到此路径：</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="32"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="44"/>
         <source>Qv2ray Network Toolbar is disabled and still under test. Add --withToolbarPlugin to enable.</source>
         <translation>Qv2ray 的网络工具栏已被禁用，请使用 --withToolbarPlugin 来启用</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="235"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="263"/>
         <source>Duplicated port numbers detected, please check the port number settings.</source>
         <translation>检测到重复的端口号，请检查端口号设置。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="237"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="267"/>
         <source>Invalid inbound listening address.</source>
         <translation>入站监听地址不可用</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="347"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="386"/>
         <source>Open V2ray assets folder</source>
         <translation>打开 V2ray 资源文件夹</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="357"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="397"/>
         <source>Open V2ray core file</source>
         <translation>打开 V2ray 核心文件</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="417"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="468"/>
         <source>This will append capabilities to the V2ray executable.</source>
         <translation>这会将功能附加到 V2ray 可执行文件。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="418"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="469"/>
         <source>Qv2ray will copy your V2ray core to this path: </source>
         <translation>Qv2ray 会将您的 V2ray 核心复制到以下路径： </translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="419"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="470"/>
         <source>If anything goes wrong after enabling this, please check issue #57 or the link below:</source>
         <translation>如果有出现任何问题，请参阅 issue #57 或以下链接</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="465"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="528"/>
         <source>Qv2ray cannot copy one or both V2ray files from: </source>
         <translation>Qv2ray 无法从以下位置复制一个或两个 V2ray 文件： </translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="480"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="491"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="545"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="559"/>
         <source>Failed to setcap onto V2ray executable. You may need to run `setcap` manually.</source>
         <translation>无法将 Capcap 设置到 V2ray 可执行文件上。 您可能需要手动运行“ setcap”。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="501"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="569"/>
         <source>tProxy is not supported on macOS and Windows</source>
         <translation>在 macOS 和 Windows 上不支持 tProxy</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="795"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="879"/>
         <source>Apply network toolbar settings</source>
         <translation>应用网络工具栏设置</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="795"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="880"/>
         <source>All other modified settings will be applied as well after this object.</source>
         <translation>已经编辑的其它设置也会被同时应用</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="797"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="881"/>
         <source>Do you want to continue?</source>
         <translation>你想继续吗？</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="814"/>
         <source>Dark Mode</source>
-        <translation>深色模式</translation>
+        <translation type="vanished">深色模式</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="814"/>
         <source>Please restart Qv2ray to fully apply this feature.</source>
-        <translation>请重启 Qv2ray 以充分应用此功能。</translation>
+        <translation type="vanished">请重启 Qv2ray 以充分应用此功能。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="875"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="961"/>
         <source>Select GFWList in base64</source>
         <translation>选择 base64 格式的 GFWList</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="878"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="887"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="965"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="974"/>
         <source>Download GFWList</source>
         <translation>下载 GFWList</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="878"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="965"/>
         <source>Operation is cancelled.</source>
         <translation>操作已经取消</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="887"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="974"/>
         <source>Successfully downloaded GFWList.</source>
         <translation>下载 GFWList 成功。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="963"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1068"/>
         <source>Start with boot</source>
         <translation>开机启动</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="963"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1068"/>
         <source>Failed to set auto start option.</source>
         <translation>无法设置自动启动选项。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1044"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1046"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1157"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1161"/>
         <source>V2ray Core Settings</source>
         <translation>V2ray 核心设置</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1046"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1162"/>
         <source>V2ray path configuration check passed.</source>
         <translation>V2ray 路径配置检查通过。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1047"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1162"/>
         <source>Current version of V2ray is: </source>
         <translation>V2ray 当前版本是： </translation>
     </message>
@@ -2023,7 +2336,7 @@
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'WenQuanYi Micro Hei'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;WenQuanYi Micro Hei&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt; &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt; p, li { white-space: pre-wrap; } &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;WenQuanYi Micro Hei&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt; &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt; </translation>
     </message>
@@ -2031,167 +2344,193 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/core/connection/Serialization.cpp" line="19"/>
+        <location filename="../src/core/connection/Serialization.cpp" line="27"/>
         <source>Unsupported share link format.</source>
         <translation>不支持的分享链接格式</translation>
     </message>
     <message>
-        <location filename="../src/core/connection/Serialization.cpp" line="105"/>
+        <location filename="../src/core/connection/Serialization_ss.cpp" line="20"/>
         <source>SS URI is too short</source>
         <translation>SS URI 太短了</translation>
     </message>
     <message>
-        <location filename="../src/core/connection/Serialization.cpp" line="135"/>
-        <location filename="../src/core/connection/Serialization.cpp" line="169"/>
+        <location filename="../src/core/connection/Serialization_ss.cpp" line="53"/>
+        <location filename="../src/core/connection/Serialization_ss.cpp" line="92"/>
         <source>Can&apos;t find the colon separator between method and password</source>
         <translation>无法找到 method 和 password 之间的冒号分隔符</translation>
     </message>
     <message>
-        <location filename="../src/core/connection/Serialization.cpp" line="144"/>
+        <location filename="../src/core/connection/Serialization_ss.cpp" line="63"/>
         <source>Can&apos;t find the at separator between password and hostname</source>
         <translation>无法找到 password 和 hostname 之间的分隔符</translation>
     </message>
     <message>
-        <location filename="../src/core/connection/Serialization.cpp" line="153"/>
+        <location filename="../src/core/connection/Serialization_ss.cpp" line="73"/>
         <source>Can&apos;t find the colon separator between hostname and port</source>
         <translation>无法找到 host 和 port 之间的冒号分隔符</translation>
     </message>
     <message>
-        <location filename="../src/core/connection/Serialization.cpp" line="220"/>
+        <location filename="../src/core/connection/Serialization_vmess.cpp" line="78"/>
         <source>VMess string should start with &apos;vmess://&apos;</source>
         <translation>VMess 链接应以 &apos;vmess://&apos; 开始</translation>
     </message>
     <message>
-        <location filename="../src/core/connection/Serialization.cpp" line="229"/>
+        <location filename="../src/core/connection/Serialization_vmess.cpp" line="87"/>
         <source>VMess string should be a valid base64 string</source>
         <translation>VMess 链接应该是一个有效的 base64 字符串</translation>
     </message>
     <message>
-        <location filename="../src/core/connection/Serialization.cpp" line="244"/>
+        <location filename="../src/core/connection/Serialization_vmess.cpp" line="104"/>
         <source>JSON should not be empty</source>
         <translation>JSON 不应该为空</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="97"/>
+        <location filename="../src/core/settings/SettingsBackend.cpp" line="111"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="97"/>
+        <location filename="../src/core/settings/SettingsBackend.cpp" line="112"/>
         <source>Qv2ray cannot load the config file from here:</source>
         <translation>Qv2ray 无法从这里加载配置文件：</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="192"/>
+        <location filename="../src/main.cpp" line="106"/>
         <source>Cannot Start Qv2ray</source>
         <translation>无法启动 Qv2ray</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="193"/>
+        <location filename="../src/main.cpp" line="107"/>
         <source>Cannot find a place to store config files.</source>
         <translation>找不到保存配置文件的地方。</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="194"/>
+        <location filename="../src/main.cpp" line="108"/>
         <source>Qv2ray has searched these paths below:</source>
         <translation>Qv2ray 搜索了以下路径：</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="173"/>
-        <location filename="../src/main.cpp" line="196"/>
-        <location filename="../src/main.cpp" line="342"/>
+        <location filename="../src/main.cpp" line="110"/>
+        <source>It usually means you don&apos;t have the write permission to all of those locations.</source>
+        <translation>这通常意味着您没有所有这些位置的文件写入权限。</translation>
+    </message>
+    <message>
+        <location filename="../src/main.cpp" line="111"/>
+        <location filename="../src/main.cpp" line="134"/>
+        <location filename="../src/main.cpp" line="300"/>
         <source>Qv2ray will now exit.</source>
         <translation>Qv2ray 现在将退出。</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="171"/>
+        <location filename="../src/main.cpp" line="130"/>
         <source>Failed to initialise Qv2ray</source>
         <translation>初始化 Qv2ray 失败</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="172"/>
         <source>Failed to determine the location of config file.</source>
-        <translation>无法确定配置文件的位置。</translation>
+        <translation type="vanished">无法确定配置文件的位置。</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="174"/>
+        <location filename="../src/main.cpp" line="134"/>
         <source>Please report if you think it&apos;s a bug.</source>
         <translation>如果您认为它是一个bug，请&apos;报告。</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="255"/>
+        <location filename="../src/main.cpp" line="203"/>
         <source>You cannot run Qv2ray as root, please use --I-just-wanna-run-with-root if you REALLY want to do so.</source>
         <translation>您不能以root用户身份运行Qv2ray，如果您确实想这样做，请使用 --I-just-wanna-run-with-root。</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="256"/>
+        <location filename="../src/main.cpp" line="204"/>
         <source> --&gt; USE IT AT YOUR OWN RISK!</source>
         <translation> --&gt; 请自负风险！</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="319"/>
         <source>Cannot load languages</source>
-        <translation>无法加载语言</translation>
+        <translation type="vanished">无法加载语言</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="319"/>
         <source>Qv2ray will continue running, but you cannot change the UI language.</source>
-        <translation>Qv2ray 将继续运行，但您不能更改界面语言。</translation>
+        <translation type="vanished">Qv2ray 将继续运行，但您不能更改界面语言。</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="338"/>
+        <location filename="../src/main.cpp" line="296"/>
         <source>Qv2ray Cannot Continue</source>
         <translation>Qv2ray 无法继续</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="339"/>
+        <location filename="../src/main.cpp" line="297"/>
         <source>You are running a lower version of Qv2ray compared to the current config file.</source>
         <translation>与当前配置文件相比，您正在运行一个较低版本的 Qv2ray</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="340"/>
+        <location filename="../src/main.cpp" line="298"/>
         <source>Please check if there&apos;s an issue explaining about it.</source>
         <translation>请检查是否存在&apos;有关此问题的说明。</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="341"/>
+        <location filename="../src/main.cpp" line="299"/>
         <source>Or submit a new issue if you think this is an error.</source>
         <translation>或者如果你认为这是一个错误，请提交一个新问题。</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="387"/>
+        <location filename="../src/main.cpp" line="343"/>
         <source>Dependency Missing</source>
         <translation>缺少依赖关系</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="389"/>
+        <location filename="../src/main.cpp" line="345"/>
         <source>This could be caused by a missing of `openssl` package in your system.</source>
         <translation>这可能是系统中缺少`openssl`软件包造成的。</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="390"/>
+        <location filename="../src/main.cpp" line="346"/>
         <source>If you are using an AppImage from Github Action, please report a bug.</source>
         <translation>如果您使用的是来自 Github Action 的 AppImage，请报告错误。</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="388"/>
+        <location filename="../src/main.cpp" line="344"/>
         <source>Cannot find openssl libs</source>
         <translation>找不到 OpenSSL 库</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="391"/>
+        <location filename="../src/main.cpp" line="131"/>
+        <source>Failed to determine the location of config file:</source>
+        <translation>无法确定配置文件的位置：</translation>
+    </message>
+    <message>
+        <location filename="../src/main.cpp" line="132"/>
+        <source>Qv2ray has found a config file, but it failed to be loaded due to some errors.</source>
+        <translation>Qv2ray已找到配置文件，但由于某些错误而无法加载。</translation>
+    </message>
+    <message>
+        <location filename="../src/main.cpp" line="133"/>
+        <source>A workaround is to remove the this file and restart Qv2ray:</source>
+        <translation>一种解决方法是删除此文件并重新启动Qv2ray：</translation>
+    </message>
+    <message>
+        <location filename="../src/main.cpp" line="226"/>
+        <source>Debug version</source>
+        <translation>调试版</translation>
+    </message>
+    <message>
+        <location filename="../src/main.cpp" line="347"/>
         <source>Technical Details</source>
         <translation>技术细节</translation>
     </message>
     <message>
-        <location filename="../src/components/plugins/toolbar/QvToolbar.cpp" line="93"/>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.cpp" line="99"/>
+        <source>Not connected</source>
+        <translation>未连接</translation>
+    </message>
+    <message>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.cpp" line="100"/>
         <source>Connected</source>
         <translation>已连接</translation>
     </message>
     <message>
-        <location filename="../src/components/plugins/toolbar/QvToolbar.cpp" line="94"/>
         <source>Disconnected</source>
-        <translation>未连接</translation>
+        <translation type="vanished">未连接</translation>
     </message>
     <message>
         <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="13"/>
@@ -2234,14 +2573,17 @@ p, li { white-space: pre-wrap; }
         <translation>总下载速度</translation>
     </message>
     <message>
-        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="23"/>
-        <source>Upload Speed for Specific Tag</source>
-        <translation>上传特定标签的速度</translation>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="30"/>
+        <source>Current Connection Latency</source>
+        <translation>当前连接延迟</translation>
     </message>
     <message>
-        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="24"/>
+        <source>Upload Speed for Specific Tag</source>
+        <translation type="vanished">上传特定标签的速度</translation>
+    </message>
+    <message>
         <source>Download Speed for Specific Tag</source>
-        <translation>下载特定标签的速度</translation>
+        <translation type="vanished">下载特定标签的速度</translation>
     </message>
     <message>
         <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="26"/>
@@ -2254,149 +2596,276 @@ p, li { white-space: pre-wrap; }
         <translation>总下载数据</translation>
     </message>
     <message>
-        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="28"/>
         <source>Uploaded Data for Specific Tag</source>
-        <translation>上传特定标签的数据</translation>
+        <translation type="vanished">上传特定标签的数据</translation>
     </message>
     <message>
-        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="29"/>
         <source>Downloaded Data for Specific Tag</source>
-        <translation>下载特定标签的数据</translation>
+        <translation type="vanished">下载特定标签的数据</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="45"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="55"/>
         <source>Editing a subscription config</source>
-        <translation>编辑订阅配置</translation>
+        <translation type="vanished">编辑订阅配置</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="45"/>
         <source>You are trying to edit a config loaded from subscription.</source>
-        <translation>您正在尝试编辑从订阅中加载的配置。</translation>
+        <translation type="vanished">您正在尝试编辑从订阅中加载的配置。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="46"/>
         <source>All changes will be overwritten when the subscriptions are updated next time.</source>
-        <translation>下次更新订阅时，所有更改都会覆盖。</translation>
+        <translation type="vanished">下次更新订阅时，所有更改都会覆盖。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="47"/>
         <source>Are you still going to do so?</source>
-        <translation>你还要这样做吗？</translation>
+        <translation type="vanished">你还要这样做吗？</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="55"/>
         <source>You should not modity this property of a config from a subscription</source>
-        <translation>您不应从订阅中修改配置的此属性</translation>
+        <translation type="vanished">您不应从订阅中修改配置的此属性</translation>
     </message>
     <message>
-        <location filename="../src/core/CoreUtils.cpp" line="25"/>
+        <location filename="../src/core/CoreUtils.cpp" line="29"/>
         <location filename="../src/core/CoreUtils.cpp" line="31"/>
-        <location filename="../src/core/CoreUtils.cpp" line="33"/>
+        <location filename="../src/core/CoreUtils.cpp" line="101"/>
         <source>N/A</source>
         <translation>不适用</translation>
     </message>
     <message>
-        <location filename="../src/common/CommandArgs.cpp" line="14"/>
+        <location filename="../src/common/CommandArgs.cpp" line="15"/>
         <source>Qv2ray - A cross-platform Qt frontend for V2ray.</source>
         <translation>Qv2ray - V2ray的跨平台Qt前端。</translation>
     </message>
     <message>
-        <location filename="../src/common/CommandArgs.cpp" line="7"/>
+        <location filename="../src/common/CommandArgs.cpp" line="8"/>
         <source>Disable gRPC API subsystems.</source>
         <translation>禁用 gRPC API 子系统。</translation>
     </message>
     <message>
-        <location filename="../src/common/CommandArgs.cpp" line="8"/>
+        <location filename="../src/common/CommandArgs.cpp" line="9"/>
         <source>Explicitly run Qv2ray as root.</source>
         <translation>以 root 身份运行 Qv2ray。</translation>
     </message>
     <message>
-        <location filename="../src/common/CommandArgs.cpp" line="9"/>
+        <location filename="../src/common/CommandArgs.cpp" line="10"/>
         <source>Enable Debug Output</source>
         <translation>启用调试输出</translation>
     </message>
     <message>
-        <location filename="../src/common/CommandArgs.cpp" line="10"/>
+        <location filename="../src/common/CommandArgs.cpp" line="11"/>
         <source>Enable Qv2ray network toolbar plugin</source>
         <translation>启用 Qv2ray 网络工具栏插件</translation>
+    </message>
+    <message>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="26"/>
+        <source>invalid ssd link: json: field %1 must exist</source>
+        <translation>SSD 链接无效: json: 必选字段 %1 不存在</translation>
+    </message>
+    <message>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="33"/>
+        <source>invalid ssd link: json: field %1 must be valid port number</source>
+        <translation>SSD 链接无效: json: 字段 %1 应为有效的端口号</translation>
+    </message>
+    <message>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="40"/>
+        <source>invalid ssd link: json: field %1 must be of type &apos;string&apos;</source>
+        <translation>SSD 链接无效: json: 字段 %1 必须为字符串类型</translation>
+    </message>
+    <message>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="47"/>
+        <source>invalid ssd link: json: field %1 must be an array</source>
+        <translation>SSD 链接无效: json: 字段 %1 必须为数组类型</translation>
+    </message>
+    <message>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="54"/>
+        <source>skipping invalid ssd server: server must be an object</source>
+        <translation>跳过无效的 ssd 服务器: 服务器必须是一个对象</translation>
+    </message>
+    <message>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="60"/>
+        <source>skipping invalid ssd server: missing required field %1</source>
+        <translation>跳过无效的 ssd 服务器: 必选字段 %1 缺失</translation>
+    </message>
+    <message>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="67"/>
+        <source>skipping invalid ssd server: field %1 should be of type &apos;string&apos;</source>
+        <translation>跳过无效的 ssd 服务器: 字段 %1 须为字符串类型</translation>
+    </message>
+    <message>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="89"/>
+        <source>Invalid ssd link: should begin with ssd://</source>
+        <translation>SSD 链接无效: 必须以 ssd:// 开头</translation>
+    </message>
+    <message>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="99"/>
+        <source>Invalid ssd link: base64 parse failed</source>
+        <translation>SSD 链接无效: 无法作为 Base64 解析</translation>
+    </message>
+    <message>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="109"/>
+        <source>Invalid ssd link: json parse failed: </source>
+        <translation>SSD 链接无效: JSON 语法分析失败: </translation>
+    </message>
+    <message>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="116"/>
+        <source>Invalid ssd link: found non-object json, aborting</source>
+        <translation>SSD 链接无效: 解析到非对象的 JSON，已终止</translation>
+    </message>
+    <message>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="137"/>
+        <source>Invalid ssd link: rc4-md5 encryption is not supported by v2ray-core</source>
+        <translation>SSD 链接无效: v2ray-core 不支持 rc4-md5 加密方式</translation>
+    </message>
+    <message>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="178"/>
+        <source>Invalid port encountered. using fallback value.</source>
+        <translation>遇到无效端口。已使用默认值。</translation>
+    </message>
+    <message>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="197"/>
+        <source>Invalid name encountered. using fallback value.</source>
+        <translation>遇到无效名称。已使用默认值。</translation>
+    </message>
+    <message>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="212"/>
+        <source>Invalid ratio encountered. using fallback value.</source>
+        <translation>遇到无效流量比率。已使用默认值。</translation>
+    </message>
+    <message>
+        <location filename="../src/core/settings/SettingsUpgrade.cpp" line="124"/>
+        <source>Default Group</source>
+        <translation>默认分组</translation>
+    </message>
+    <message>
+        <location filename="../src/core/settings/SettingsUpgrade.cpp" line="278"/>
+        <source>Configuration Upgrade Failed</source>
+        <translation>配置升级失败</translation>
+    </message>
+    <message>
+        <location filename="../src/core/settings/SettingsUpgrade.cpp" line="279"/>
+        <source>Unsupported config version number: </source>
+        <translation>不支持的配置文件版本: </translation>
+    </message>
+    <message>
+        <location filename="../src/core/settings/SettingsUpgrade.cpp" line="280"/>
+        <source>Please upgrade firstly up to Qv2ray v2.0/v2.1 and try again.</source>
+        <translation>请先升级到 Qv2ray v2.0/v2.1 再重试。</translation>
+    </message>
+    <message>
+        <location filename="../src/core/connection/Serialization.hpp" line="14"/>
+        <source>%1 - %2 (rate %3)</source>
+        <translation>%1 - %2 (%3倍)</translation>
+    </message>
+    <message>
+        <location filename="../src/core/CoreSafeTypes.hpp" line="11"/>
+        <source>(Complex config)</source>
+        <translation>（复杂配置）</translation>
     </message>
 </context>
 <context>
     <name>Qv2ray::components::pac::PACServer</name>
     <message>
-        <location filename="../src/components/pac/QvPACHandler.cpp" line="44"/>
+        <location filename="../src/components/pac/QvPACHandler.cpp" line="45"/>
         <source>PAC Handler</source>
         <translation>PAC 处理器</translation>
     </message>
     <message>
-        <location filename="../src/components/pac/QvPACHandler.cpp" line="44"/>
+        <location filename="../src/components/pac/QvPACHandler.cpp" line="45"/>
         <source>Failed to listen PAC request on this port, please verify the permissions</source>
         <translation>无法在此端口监听 PAC 请求，请检查是否具有足够的权限</translation>
     </message>
 </context>
 <context>
+    <name>Qv2ray::core::handlers::QvConfigHandler</name>
+    <message>
+        <location filename="../src/core/handler/ConfigHandler.cpp" line="75"/>
+        <location filename="../src/core/handler/ConfigHandler.cpp" line="299"/>
+        <source>Default Group</source>
+        <translation>默认分组</translation>
+    </message>
+    <message>
+        <location filename="../src/core/handler/ConfigHandler.cpp" line="239"/>
+        <source>File does not exist.</source>
+        <translation>文件不存在。</translation>
+    </message>
+    <message>
+        <location filename="../src/core/handler/ConfigHandler.cpp" line="276"/>
+        <location filename="../src/core/handler/ConfigHandler.cpp" line="413"/>
+        <source>Group does not exist</source>
+        <translation>分组不存在</translation>
+    </message>
+</context>
+<context>
     <name>Qv2ray::core::kernel::V2rayKernelInstance</name>
     <message>
-        <location filename="../src/core/kernel/KernelInteractions.cpp" line="16"/>
+        <location filename="../src/core/kernel/KernelInteractions.cpp" line="20"/>
         <source>V2ray core executable not found.</source>
-        <translation>V2ray 核心可执行文件未找到</translation>
+        <translation>V2ray 核心可执行文件未找到。</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/KernelInteractions.cpp" line="23"/>
+        <location filename="../src/core/kernel/KernelInteractions.cpp" line="29"/>
         <source>V2ray core file cannot be opened, please ensure there&apos;s a file instead of a folder.</source>
-        <translation>无法打开 V2ray 核心文件，请检查对应的文件存在而不是文件夹</translation>
+        <translation>无法打开 V2ray 核心文件，请检查对应的文件存在而不是文件夹。</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/KernelInteractions.cpp" line="37"/>
+        <location filename="../src/core/kernel/KernelInteractions.cpp" line="44"/>
         <source>V2ray assets path is not valid.</source>
-        <translation>V2ray Assets 路径不可用</translation>
+        <translation>V2ray Assets 路径不可用。</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/KernelInteractions.cpp" line="43"/>
+        <location filename="../src/core/kernel/KernelInteractions.cpp" line="51"/>
         <source>No geoip.dat in assets path.</source>
-        <translation>没有在 Assets 路径找到 geoip.dat</translation>
+        <translation>没有在 Assets 路径找到 geoip.dat。</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/KernelInteractions.cpp" line="49"/>
+        <location filename="../src/core/kernel/KernelInteractions.cpp" line="58"/>
         <source>No geosite.dat in assets path.</source>
-        <translation>没有在 Assets 路径找到 geosite.dat</translation>
+        <translation>没有在 Assets 路径找到 geosite.dat。</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/KernelInteractions.cpp" line="70"/>
+        <location filename="../src/core/kernel/KernelInteractions.cpp" line="81"/>
         <source>V2ray core failed with an exit code: </source>
-        <translation>V2ray 核心退出代码：</translation>
+        <translation>V2ray 核心退出代码： </translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/KernelInteractions.cpp" line="78"/>
+        <location filename="../src/core/kernel/KernelInteractions.cpp" line="90"/>
         <source>V2ray core returns empty string.</source>
-        <translation>V2ray 核心返回空字符串</translation>
+        <translation>V2ray 核心返回空字符串。</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/KernelInteractions.cpp" line="105"/>
+        <location filename="../src/core/kernel/KernelInteractions.cpp" line="119"/>
         <source>Configuration Error</source>
         <translation>配置错误</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/KernelInteractions.cpp" line="112"/>
+        <location filename="../src/core/kernel/KernelInteractions.cpp" line="130"/>
         <source>Cannot start V2ray</source>
         <translation>无法启动 V2ray</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/KernelInteractions.cpp" line="113"/>
+        <location filename="../src/core/kernel/KernelInteractions.cpp" line="131"/>
         <source>V2ray core settings is incorrect.</source>
-        <translation>V2ray 核心设置不正确</translation>
+        <translation>V2ray 核心设置不正确。</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/KernelInteractions.cpp" line="114"/>
+        <location filename="../src/core/kernel/KernelInteractions.cpp" line="131"/>
         <source>The error is: </source>
-        <translation>错误是：</translation>
+        <translation>错误是： </translation>
+    </message>
+    <message>
+        <location filename="../src/core/kernel/KernelInteractions.cpp" line="162"/>
+        <source>Invalid V2ray Instance Status.</source>
+        <translation>V2ray 实例状态无效。</translation>
+    </message>
+    <message>
+        <location filename="../src/core/kernel/KernelInteractions.cpp" line="225"/>
+        <source>V2ray kernel failed to start.</source>
+        <translation>V2ray 核心启动失败。</translation>
     </message>
 </context>
 <context>
     <name>QvInboundNodeModel</name>
     <message>
-        <location filename="../src/ui/nodemodels/InboundNodeModel.hpp" line="64"/>
+        <location filename="../src/ui/models/InboundNodeModel.hpp" line="68"/>
         <source>Missing or incorrect inputs</source>
         <translation>输入丢失或不正确</translation>
     </message>
@@ -2404,7 +2873,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>QvOutboundNodeModel</name>
     <message>
-        <location filename="../src/ui/nodemodels/OutboundNodeModel.hpp" line="70"/>
+        <location filename="../src/ui/models/OutboundNodeModel.hpp" line="76"/>
         <source>Missing or incorrect inputs</source>
         <translation>输入丢失或不正确</translation>
     </message>
@@ -2412,7 +2881,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>QvRuleNodeDataModel</name>
     <message>
-        <location filename="../src/ui/nodemodels/RuleNodeModel.hpp" line="94"/>
+        <location filename="../src/ui/models/RuleNodeModel.hpp" line="102"/>
         <source>Missing or incorrect inputs</source>
         <translation>输入丢失或不正确</translation>
     </message>
@@ -2421,7 +2890,7 @@ p, li { white-space: pre-wrap; }
     <name>RouteEditor</name>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui"/>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="590"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="661"/>
         <source>Route Editor</source>
         <translation>路由编辑器</translation>
     </message>
@@ -2661,182 +3130,186 @@ p, li { white-space: pre-wrap; }
         <translation>用户列表</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="498"/>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="767"/>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="821"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="560"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="858"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="922"/>
         <source>OK</source>
         <translation>好</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="754"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="842"/>
         <source>Cannot Edit</source>
         <translation>无法编辑</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="796"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="894"/>
         <source>This outbound entry is not supported by the GUI editor.</source>
         <translation>此出站条目不支持GUI编辑。</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="755"/>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="797"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="844"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="895"/>
         <source>We will launch Json Editor instead.</source>
         <translation>我们将启动 Json 编辑器。</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="371"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="422"/>
         <source>Show rule details</source>
         <translation>查看规则细节</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="371"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="422"/>
         <source>A rule cannot be found: </source>
-        <translation>规则未找到：</translation>
+        <translation>规则未找到: </translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="459"/>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="473"/>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="487"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="514"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="531"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="548"/>
         <source>Protocol list changed: </source>
         <translation>协议列表已更改： </translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="500"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="564"/>
         <source>Balancer is empty, not processing.</source>
         <translation>负载均衡器列表是空的，不处理。</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="57"/>
+        <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="60"/>
         <source>Default rule</source>
         <translation>默认规则</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="57"/>
+        <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="60"/>
         <source>rule</source>
         <translation>规则</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="82"/>
+        <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="88"/>
         <source>No Inbound</source>
         <translation>无入站</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="82"/>
+        <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="88"/>
         <source>No inbound item found: </source>
-        <translation>入站项目未找到：</translation>
+        <translation>入站项目未找到: </translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="112"/>
-        <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="149"/>
-        <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="185"/>
+        <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="130"/>
+        <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="224"/>
         <source>The new tag has been used, we appended a postfix.</source>
         <translation>原标签被占用，自动添加后缀。</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="590"/>
+        <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="178"/>
+        <source>The new tag has been used, we appended a random string to the tag.</source>
+        <translation>原标签被占用，自动添加随机字符串以避免重复。</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="661"/>
         <source>To make this rule ready to use, you need to connect it to an outbound node.</source>
         <translation>要使这条规则可以使用，您需要将它连接到一个出站节点。</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="666"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="740"/>
         <source>Remove Items</source>
         <translation>移除项目</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="666"/>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="733"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="740"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="817"/>
         <source>Please select a node from the graph to continue.</source>
         <translation>请从图表中选择要继续的节点。</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="727"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="810"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="727"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="810"/>
         <source>Qv2ray entered an unknown state.</source>
-        <translation>Qv2ray 进入了未知状态</translation>
+        <translation>Qv2ray 进入了未知状态。</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="733"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="817"/>
         <source>Edit Inbound/Outbound</source>
         <translation>编辑入站/出站</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="744"/>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="785"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="831"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="882"/>
         <source>Edit Inbound</source>
         <translation>编辑入站</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="744"/>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="785"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="831"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="882"/>
         <source>No inbound tag found: </source>
-        <translation>入站标签未找到：</translation>
+        <translation>入站标签未找到: </translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="756"/>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="799"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="845"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="897"/>
         <source>Opening JSON editor</source>
         <translation>正在打开 JSON 编辑器</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="795"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="893"/>
         <source>Unsupported Outbound Type</source>
         <translation>不支持的出站类型</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="804"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="904"/>
         <source>Opening default outbound editor.</source>
         <translation>打开默认出站编辑器。</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="846"/>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="849"/>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="852"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="950"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="955"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="960"/>
         <source>Renaming a tag</source>
         <translation>重命名标签</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="846"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="950"/>
         <source>New tag is empty, please try another.</source>
-        <translation>新的标签是空的，请尝试另外一个</translation>
+        <translation>新的标签是空的，请尝试另外一个。</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="849"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="955"/>
         <source>New tag is the same as the original one.</source>
-        <translation>新的标签与旧标签相同</translation>
+        <translation>新的标签与旧标签相同。</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="852"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="960"/>
         <source>Duplicate rule tag detected, please try another.</source>
-        <translation>检测到重复的标签，请重试</translation>
+        <translation>检测到重复的标签，请重试。</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="444"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="496"/>
         <source>Added DIRECT outbound</source>
         <translation>已添加直连出站</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="754"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="843"/>
         <source>Currently, this type of outbound is not supported by the editor.</source>
-        <translation>目前不支持此类型的出站</translation>
+        <translation>目前不支持此类型的出站。</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="762"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="853"/>
         <source>Opening default inbound editor</source>
         <translation>打开默认的入站编辑器</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="513"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="578"/>
         <source>Removed a balancer entry.</source>
         <translation>删除了一个平衡条目。</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="112"/>
-        <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="149"/>
-        <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="185"/>
+        <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="130"/>
+        <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="178"/>
+        <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="224"/>
         <source>Rename tags</source>
         <translation>重命名标签</translation>
     </message>
@@ -2892,12 +3365,12 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>SpeedPlotView</name>
     <message>
-        <location filename="../src/components/speedchart/speedplotview.cpp" line="199"/>
+        <location filename="../src/components/speedchart/speedplotview.cpp" line="180"/>
         <source>Total Upload</source>
         <translation>总上传量</translation>
     </message>
     <message>
-        <location filename="../src/components/speedchart/speedplotview.cpp" line="200"/>
+        <location filename="../src/components/speedchart/speedplotview.cpp" line="181"/>
         <source>Total Download</source>
         <translation>总下载量</translation>
     </message>
@@ -3068,94 +3541,102 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>SubscribeEditor</name>
     <message>
-        <location filename="../src/ui/w_SubscriptionManager.cpp" line="76"/>
-        <location filename="../src/ui/w_SubscriptionManager.cpp" line="81"/>
-        <location filename="../src/ui/w_SubscriptionManager.cpp" line="93"/>
-        <location filename="../src/ui/w_SubscriptionManager.cpp" line="111"/>
         <source>Renaming a subscription</source>
-        <translation>重命名订阅</translation>
+        <translation type="vanished">重命名订阅</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_SubscriptionManager.cpp" line="76"/>
         <source>The subscription name is invalid, please try another.</source>
-        <translation>订阅名称无效，请重试。</translation>
+        <translation type="vanished">订阅名称无效，请重试。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_SubscriptionManager.cpp" line="81"/>
         <source>New name of this subscription has been used already, please suggest another one</source>
-        <translation>此订阅的新名称已被使用，请尝试另一个</translation>
+        <translation type="vanished">此订阅的新名称已被使用，请尝试另一个</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_SubscriptionManager.cpp" line="93"/>
         <source>Failed to rename a subscription, this is an unknown error.</source>
-        <translation>无法重命名订阅，这是一个未知错误。</translation>
+        <translation type="vanished">无法重命名订阅，这是一个未知错误。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_SubscriptionManager.cpp" line="111"/>
         <source>Successfully renamed a subscription</source>
-        <translation>成功重命名订阅</translation>
+        <translation type="vanished">成功重命名订阅</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_SubscriptionManager.cpp" line="123"/>
         <source>Update Subscription</source>
-        <translation>更新订阅</translation>
+        <translation type="vanished">更新订阅</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_SubscriptionManager.cpp" line="123"/>
         <source>Would you like to reload this subscription from the Url?</source>
-        <translation>您要从 Url 重新加载此订阅吗？</translation>
+        <translation type="vanished">您要从 Url 重新加载此订阅吗？</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_SubscriptionManager.cpp" line="158"/>
         <source>Updating subscriptions</source>
+        <translation type="vanished">更新订阅</translation>
+    </message>
+    <message>
+        <source>Failed to process the result from the upstream, please check your Url.</source>
+        <translation type="vanished">无法处理源自上游的结果，请检查您的URL。</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_SubscriptionManager.cpp" line="55"/>
+        <source>Reload Subscription</source>
         <translation>更新订阅</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_SubscriptionManager.cpp" line="158"/>
-        <source>Failed to process the result from the upstream, please check your Url.</source>
-        <translation>无法处理源自上游的结果，请检查您的URL。</translation>
+        <location filename="../src/ui/w_SubscriptionManager.cpp" line="55"/>
+        <source>Would you like to reload the subscription?</source>
+        <translation>您要更新此订阅吗？</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_SubscriptionManager.cpp" line="66"/>
+        <source>Deleting a subscription</source>
+        <translation>删除订阅</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_SubscriptionManager.cpp" line="66"/>
+        <source>All connections will be moved to default group, do you want to continue?</source>
+        <translation>本订阅中的所有连接都将移动到默认分组，您确定要继续吗？</translation>
     </message>
 </context>
 <context>
     <name>misc</name>
     <message>
-        <location filename="../src/components/speedchart/speedplotview.cpp" line="61"/>
+        <location filename="../src/components/speedchart/speedplotview.cpp" line="62"/>
         <source>B</source>
         <comment>bytes</comment>
         <translation>B</translation>
     </message>
     <message>
-        <location filename="../src/components/speedchart/speedplotview.cpp" line="62"/>
+        <location filename="../src/components/speedchart/speedplotview.cpp" line="63"/>
         <source>KiB</source>
         <comment>kibibytes (1024 bytes)</comment>
         <translation>KiB</translation>
     </message>
     <message>
-        <location filename="../src/components/speedchart/speedplotview.cpp" line="63"/>
+        <location filename="../src/components/speedchart/speedplotview.cpp" line="64"/>
         <source>MiB</source>
         <comment>mebibytes (1024 kibibytes)</comment>
         <translation>MiB</translation>
     </message>
     <message>
-        <location filename="../src/components/speedchart/speedplotview.cpp" line="64"/>
+        <location filename="../src/components/speedchart/speedplotview.cpp" line="65"/>
         <source>GiB</source>
         <comment>gibibytes (1024 mibibytes)</comment>
         <translation>GiB</translation>
     </message>
     <message>
-        <location filename="../src/components/speedchart/speedplotview.cpp" line="65"/>
+        <location filename="../src/components/speedchart/speedplotview.cpp" line="66"/>
         <source>TiB</source>
         <comment>tebibytes (1024 gibibytes)</comment>
         <translation>TiB</translation>
     </message>
     <message>
-        <location filename="../src/components/speedchart/speedplotview.cpp" line="66"/>
+        <location filename="../src/components/speedchart/speedplotview.cpp" line="67"/>
         <source>PiB</source>
         <comment>pebibytes (1024 tebibytes)</comment>
         <translation>PiB</translation>
     </message>
     <message>
-        <location filename="../src/components/speedchart/speedplotview.cpp" line="67"/>
+        <location filename="../src/components/speedchart/speedplotview.cpp" line="68"/>
         <source>EiB</source>
         <comment>exbibytes (1024 pebibytes)</comment>
         <translation>EiB</translation>
@@ -3180,9 +3661,8 @@ p, li { white-space: pre-wrap; }
         <translation>订阅列表</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_SubscriptionManager.ui"/>
         <source>A</source>
-        <translation>A</translation>
+        <translation type="vanished">A</translation>
     </message>
     <message>
         <location filename="../src/ui/w_SubscriptionManager.ui"/>
@@ -3195,9 +3675,8 @@ p, li { white-space: pre-wrap; }
         <translation>删除订阅</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_SubscriptionManager.ui"/>
         <source>D</source>
-        <translation>D</translation>
+        <translation type="vanished">D</translation>
     </message>
     <message>
         <location filename="../src/ui/w_SubscriptionManager.ui"/>

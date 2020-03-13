@@ -209,6 +209,60 @@ set(QV2RAY_SOURCES
   src/ui/w_MainWindow.ui
   src/ui/w_PreferencesWindow.ui
   src/ui/w_ScreenShot_Core.ui
+  # headers
+  src/base/JsonHelpers.hpp
+  src/base/models/CoreObjectModels.hpp
+  src/base/models/QvConfigIdentifier.hpp
+  src/base/models/QvRuntimeConfig.hpp
+  src/base/models/QvSafeType.hpp
+  src/base/models/QvSettingsObject.hpp
+  src/base/models/QvStartupConfig.hpp
+  src/base/Qv2rayBase.hpp
+  src/base/Qv2rayFeatures.hpp
+  src/base/Qv2rayLog.hpp
+  src/common/CommandArgs.hpp
+  src/common/HTTPRequestHelper.hpp
+  src/common/JsonHighlighter.hpp
+  src/common/LogHighlighter.hpp
+  src/common/QJsonModel.hpp
+  src/common/QvHelpers.hpp
+  src/common/QvTranslator.hpp
+  src/components/autolaunch/QvAutoLaunch.hpp
+  src/components/darkmode/DarkmodeDetector.hpp
+  src/components/geosite/QvGeositeReader.hpp
+  src/components/icmping/win/ICMPPinger.hpp
+  src/components/pac/QvPACHandler.hpp
+  src/components/plugins/toolbar/QvToolbar.hpp
+  src/components/proxy/QvProxyConfigurator.hpp
+  src/components/speedchart/speedplotview.hpp
+  src/components/speedchart/speedwidget.hpp
+  src/core/connection/ConnectionIO.hpp
+  src/core/connection/Generation.hpp
+  src/core/connection/Serialization.hpp
+  src/core/CoreSafeTypes.hpp
+  src/core/CoreUtils.hpp
+  src/core/handler/ConfigHandler.hpp
+  src/core/kernel/APIBackend.hpp
+  src/core/kernel/KernelInteractions.hpp
+  src/core/settings/SettingsBackend.hpp
+  src/core/tcping/QvTCPing.hpp
+  src/ui/editors/w_InboundEditor.hpp
+  src/ui/editors/w_JsonEditor.hpp
+  src/ui/editors/w_OutboundEditor.hpp
+  src/ui/editors/w_RoutesEditor.hpp
+  src/ui/messaging/QvMessageBus.hpp
+  src/ui/models/InboundNodeModel.hpp
+  src/ui/models/NodeModelsBase.hpp
+  src/ui/models/OutboundNodeModel.hpp
+  src/ui/models/RuleNodeModel.hpp
+  src/ui/widgets/ConnectionInfoWidget.hpp
+  src/ui/widgets/ConnectionItemWidget.hpp
+  src/ui/widgets/StreamSettingsWidget.hpp
+  src/ui/w_ImportConfig.hpp
+  src/ui/w_MainWindow.hpp
+  src/ui/w_PreferencesWindow.hpp
+  src/ui/w_ScreenShot_Core.hpp
+  src/ui/w_SubscriptionManager.hpp
   assets/qv2ray.rc
 )
 
@@ -219,7 +273,7 @@ if(EMBED_TRANSLATIONS)
 endif()
 
 add_custom_target(lupdate
-    COMMAND lupdate ${QV2RAY_SOURCES} -ts ${TRANSLATIONS_TS}
+    COMMAND lupdate ${QV2RAY_SOURCES} -ts ${TRANSLATIONS_TS} -no-ui-lines
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 
 set_target_properties(lupdate PROPERTIES EXCLUDE_FROM_ALL TRUE)
