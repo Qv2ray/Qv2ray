@@ -234,7 +234,7 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>0</y>
+          <y>-168</y>
           <width>480</width>
           <height>736</height>
          </rect>
@@ -398,6 +398,9 @@
               <font>
                <pointsize>9</pointsize>
               </font>
+             </property>
+             <property name="contextMenuPolicy">
+              <enum>Qt::CustomContextMenu</enum>
              </property>
              <property name="lineWrapMode">
               <enum>QTextEdit::NoWrap</enum>
