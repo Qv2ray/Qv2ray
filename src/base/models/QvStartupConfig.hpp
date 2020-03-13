@@ -4,7 +4,8 @@ namespace Qv2ray
 {
     namespace base
     {
-        struct QvStartupOptions {
+        struct QvStartupOptions
+        {
             /// No API subsystem
             bool noAPI;
             /// Explicitly run as root user.
@@ -14,5 +15,6 @@ namespace Qv2ray
             /// Enable Network toolbar plugin.
             bool enableToolbarPlguin;
         };
-    }
-}
+    } // namespace base
+    inline base::QvStartupOptions StartupOption = base::QvStartupOptions();
+} // namespace Qv2ray

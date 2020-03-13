@@ -1,15 +1,18 @@
 #include "w_ScreenShot_Core.hpp"
+
 #include "common/QvHelpers.hpp"
+
 #include <QMessageBox>
-#include <QThread>
 #include <QStyleFactory>
+#include <QThread>
 
 #define QV2RAY_SCREENSHOT_DIM_RATIO 0.6f
 
 ScreenShotWindow::ScreenShotWindow() : QDialog(), rubber(new QRubberBand(QRubberBand::Rectangle, this))
 {
     setupUi(this);
-    // Fusion prevents the KDE Plasma Breeze's "Move window when dragging in the empty area" issue
+    // Fusion prevents the KDE Plasma Breeze's "Move window when dragging in the
+    // empty area" issue
     this->setStyle(QStyleFactory::create("Fusion"));
     //
     label->setAttribute(Qt::WA_TranslucentBackground);
@@ -29,9 +32,10 @@ ScreenShotWindow::ScreenShotWindow() : QDialog(), rubber(new QRubberBand(QRubber
 
 QImage ScreenShotWindow::DoScreenShot()
 {
-    LOG(IMPORT, "We currently only support the current screen.")
-    // The msleep is the only solution which prevent capturing our windows again.
-    // It works on KDE, https://www.qtcentre.org/threads/55708-Get-Desktop-Screenshot-Without-Application-Window-Being-Shown?p=248993#post248993
+    LOG(MODULE_IMPORT, "We currently only support the current screen.")
+    // The msleep is the only solution which prevent capturing our windows
+    // again. It works on KDE,
+    // https://www.qtcentre.org/threads/55708-Get-Desktop-Screenshot-Without-Application-Window-Being-Shown?p=248993#post248993
     QThread::msleep(100);
     QApplication::processEvents();
     //
@@ -45,8 +49,10 @@ QImage ScreenShotWindow::DoScreenShot()
     int r, g, b;
     auto _xdesktopImg = desktopImage.toImage();
 
-    for (int i = 0; i < w; i++) {
-        for (int j = 0; j < h; j++) {
+    for (int i = 0; i < w; i++)
+    {
+        for (int j = 0; j < h; j++)
+        {
             r = static_cast<int>(qRed(_xdesktopImg.pixel(i, j)) * QV2RAY_SCREENSHOT_DIM_RATIO);
             g = static_cast<int>(qGreen(_xdesktopImg.pixel(i, j)) * QV2RAY_SCREENSHOT_DIM_RATIO);
             b = static_cast<int>(qBlue(_xdesktopImg.pixel(i, j)) * QV2RAY_SCREENSHOT_DIM_RATIO);
@@ -72,16 +78,18 @@ void ScreenShotWindow::pSize()
     imgH = abs(end.y() - origin.y());
     imgX = origin.x() < end.x() ? origin.x() : end.x();
     imgY = origin.y() < end.y() ? origin.y() : end.y();
-    DEBUG("Capture Mouse Position", QSTRN(imgW)  + " " + QSTRN(imgH)  + " " + QSTRN(imgX) + " " + QSTRN(imgY))
+    DEBUG("Capture Mouse Position", QSTRN(imgW) + " " + QSTRN(imgH) + " " + QSTRN(imgX) + " " + QSTRN(imgY))
     rubber->setGeometry(imgX, imgY, imgW, imgH);
     fg->setGeometry(rubber->geometry());
-    auto copied = desktopImage.copy(fg->x() * devicePixelRatio(), fg->y() * devicePixelRatio(), fg->width() * devicePixelRatio(), fg->height() * devicePixelRatio());
+    auto copied = desktopImage.copy(fg->x() * devicePixelRatio(), fg->y() * devicePixelRatio(), fg->width() * devicePixelRatio(),
+                                    fg->height() * devicePixelRatio());
     fg->setPixmap(copied);
 }
 
 bool ScreenShotWindow::event(QEvent *e)
 {
-    if (e->type() ==  QEvent::Move) {
+    if (e->type() == QEvent::Move)
+    {
         //
     }
 
@@ -90,9 +98,12 @@ bool ScreenShotWindow::event(QEvent *e)
 
 void ScreenShotWindow::keyPressEvent(QKeyEvent *e)
 {
-    if (e->key() == Qt::Key_Escape) {
+    if (e->key() == Qt::Key_Escape)
+    {
         reject();
-    } else if (e->key() == Qt::Key_Enter || e->key() == Qt::Key_Return) {
+    }
+    else if (e->key() == Qt::Key_Enter || e->key() == Qt::Key_Return)
+    {
         on_startBtn_clicked();
     }
 }
@@ -103,13 +114,14 @@ void ScreenShotWindow::mousePressEvent(QMouseEvent *e)
     rubber->setGeometry(origin.x(), origin.y(), 0, 0);
     rubber->show();
     rubber->raise();
-    //label->hide();
-    //startBtn->hide();
+    // label->hide();
+    // startBtn->hide();
 }
 
 void ScreenShotWindow::mouseMoveEvent(QMouseEvent *e)
 {
-    if (e->buttons() & Qt::LeftButton) {
+    if (e->buttons() & Qt::LeftButton)
+    {
         end = e->pos();
         pSize();
         //
@@ -120,15 +132,21 @@ void ScreenShotWindow::mouseMoveEvent(QMouseEvent *e)
         QRect labelRect(label->contentsRect());
         QRect btnRect(startBtn->contentsRect());
 
-        if (imgY > labelRect.height()) {
+        if (imgY > labelRect.height())
+        {
             label->move(imgX, imgY - labelRect.height());
-        } else {
+        }
+        else
+        {
             label->move(imgX, imgY);
         }
 
-        if (height() - imgY - imgH > btnRect.height()) {
+        if (height() - imgY - imgH > btnRect.height())
+        {
             startBtn->move(imgX + imgW - btnRect.width(), imgY + imgH);
-        } else {
+        }
+        else
+        {
             startBtn->move(imgX + imgW - btnRect.width(), imgY + imgH - btnRect.height());
         }
 
@@ -137,10 +155,10 @@ void ScreenShotWindow::mouseMoveEvent(QMouseEvent *e)
     }
 }
 
-
 void ScreenShotWindow::mouseReleaseEvent(QMouseEvent *e)
 {
-    if (e->button() == Qt::RightButton) {
+    if (e->button() == Qt::RightButton)
+    {
         reject();
     }
 }

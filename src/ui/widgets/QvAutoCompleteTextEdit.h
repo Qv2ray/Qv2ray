@@ -58,31 +58,30 @@ class QCompleter;
 QT_END_NAMESPACE
 
 //! [0]
-class TextEdit : public QTextEdit
+class AutoCompleteTextEdit : public QTextEdit
 {
     Q_OBJECT
 
-public:
-    TextEdit(QWidget *parent = nullptr);
-    ~TextEdit();
+  public:
+    AutoCompleteTextEdit(QWidget *parent = nullptr);
+    ~AutoCompleteTextEdit();
 
     void setCompleter(QCompleter *c);
     QCompleter *completer() const;
 
-protected:
+  protected:
     void keyPressEvent(QKeyEvent *e) override;
     void focusInEvent(QFocusEvent *e) override;
 
-private slots:
+  private slots:
     void insertCompletion(const QString &completion);
 
-private:
+  private:
     QString textUnderCursor() const;
 
-private:
+  private:
     QCompleter *c = nullptr;
 };
 //! [0]
 
 #endif // TEXTEDIT_H
-

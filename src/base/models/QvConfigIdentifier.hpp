@@ -1,56 +1,50 @@
 #pragma once
+#include "3rdparty/x2struct/x2struct.hpp"
+
 #include <QString>
 #include <QtCore>
-#include "3rdparty/x2struct/x2struct.hpp"
 namespace Qv2ray::base
 {
-    struct ConnectionIdentifier {
-        QString subscriptionName;
-        QString connectionName;
-        ConnectionIdentifier() { };
-        bool isEmpty()
+    using namespace std::chrono;
+    // Common struct for Groups and Subscriptions
+    struct GroupObject_Config
+    {
+        QString displayName;
+        QList<QString> connections;
+        int64_t importDate;
+        GroupObject_Config() : displayName(), connections(), importDate()
         {
-            return connectionName.isEmpty();
         }
-        ConnectionIdentifier(QString connectionName)
-        {
-            this->connectionName = connectionName;
-        }
-        ConnectionIdentifier(QString connectionName, QString subscriptionName)
-        {
-            this->connectionName = connectionName;
-            this->subscriptionName = subscriptionName;
-        }
-        const QString IdentifierString() const
-        {
-            return connectionName + (subscriptionName.isEmpty() ? "" : " (" + subscriptionName + ")");
-        }
-        friend bool operator==(ConnectionIdentifier &left, ConnectionIdentifier &right)
-        {
-            return left.subscriptionName == right.subscriptionName && left.connectionName == right.connectionName;
-        }
-        friend bool operator!=(ConnectionIdentifier &left, ConnectionIdentifier &right)
-        {
-            return !(left == right);
-        }
-        friend bool operator==(ConnectionIdentifier &left, QString &right)
-        {
-            return left.IdentifierString() == right;
-        }
-        friend bool operator!=(ConnectionIdentifier &left, QString &right)
-        {
-            return !(left.IdentifierString() == right);
-        }
-        // To make QMap happy
-        friend bool operator<(const ConnectionIdentifier left, const ConnectionIdentifier right)
-        {
-            return left.IdentifierString() < right.IdentifierString();
-        }
-        friend bool operator>(const ConnectionIdentifier left, const ConnectionIdentifier right)
-        {
-            return left.IdentifierString() > right.IdentifierString();
-        }
-        XTOSTRUCT(O(subscriptionName, connectionName))
+        XTOSTRUCT(O(displayName, connections, importDate))
     };
-}
-Q_DECLARE_METATYPE(Qv2ray::base::ConnectionIdentifier);
+
+    struct SubscriptionObject_Config : GroupObject_Config
+    {
+        //
+        QString address;
+        int64_t lastUpdated;
+        float updateInterval;
+        SubscriptionObject_Config() : address(""), lastUpdated(system_clock::to_time_t(system_clock::now())), updateInterval(10)
+        {
+        }
+        XTOSTRUCT(O(lastUpdated, updateInterval, address, connections, displayName, importDate))
+    };
+
+    struct ConnectionObject_Config
+    {
+        QString displayName;
+        int64_t importDate;
+        int64_t lastConnected;
+        int64_t latency;
+        int64_t upLinkData;
+        int64_t downLinkData;
+        ConnectionObject_Config()
+            : displayName(), importDate(system_clock::to_time_t(system_clock::now())), lastConnected(), latency(0), upLinkData(0),
+              downLinkData(0)
+        {
+        }
+        XTOSTRUCT(O(displayName, importDate, lastConnected, latency, upLinkData, downLinkData))
+    };
+} // namespace Qv2ray::base
+
+using namespace Qv2ray::base;

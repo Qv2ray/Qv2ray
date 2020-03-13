@@ -1,37 +1,50 @@
 ﻿#include "w_InboundEditor.hpp"
-#include "core/CoreUtils.hpp"
 #include "common/QvHelpers.hpp"
+#include "core/CoreUtils.hpp"
 #include "core/connection/ConnectionIO.hpp"
 
 static bool isLoading = false;
-#define CHECKLOADING if(isLoading) return;
+#define CHECKLOADING                                                                                                                            \
+    if (isLoading)                                                                                                                              \
+        return;
 
-InboundEditor::InboundEditor(INBOUND root, QWidget *parent) :
-    QDialog(parent),
-    original(root)
+InboundEditor::InboundEditor(INBOUND root, QWidget *parent) : QDialog(parent), original(root)
 {
     QvMessageBusConnect(InboundEditor);
     setupUi(this);
     this->root = root;
     auto inboundType = root["protocol"].toString();
     allocate = root["allocate"].toObject();
-    sniffing  = root["sniffing"].toObject();
+    sniffing = root["sniffing"].toObject();
 
-    if (inboundType == "http") {
+    if (inboundType == "http")
+    {
         httpSettings = root["settings"].toObject();
-    } else if (inboundType == "socks") {
+    }
+    else if (inboundType == "socks")
+    {
         socksSettings = root["settings"].toObject();
-    } else if (inboundType == "dokodemo-door") {
+    }
+    else if (inboundType == "dokodemo-door")
+    {
         dokoSettings = root["settings"].toObject();
-    } else if (inboundType == "mtproto") {
+    }
+    else if (inboundType == "mtproto")
+    {
         mtSettings = root["settings"].toObject();
-    } else {
-        if (!root["protocol"].toString().isEmpty()) {
-            LOG(UI, "Unsupported inbound type: " + inboundType)
-            QvMessageBoxWarn(this, tr("Inbound type not supported"), tr("The inbound type is not supported by Qv2ray (yet). Please use JsonEditor to change the settings") + "\r\n" +
-                             tr("Inbound: ") + inboundType);
-        } else {
-            LOG(UI, "Creating new inbound config")
+    }
+    else
+    {
+        if (!root["protocol"].toString().isEmpty())
+        {
+            LOG(MODULE_UI, "Unsupported inbound type: " + inboundType)
+            QvMessageBoxWarn(this, tr("Inbound type not supported"),
+                             tr("The inbound type is not supported by Qv2ray (yet). Please use JsonEditor to change the settings") + "\r\n" +
+                                 tr("Inbound: ") + inboundType);
+        }
+        else
+        {
+            LOG(MODULE_UI, "Creating new inbound config")
             root["protocol"] = inboundType = "http";
         }
     }
@@ -41,10 +54,9 @@ InboundEditor::InboundEditor(INBOUND root, QWidget *parent) :
 
 QvMessageBusSlotImpl(InboundEditor)
 {
-    switch (msg) {
-            QvMessageBusShowDefault\
-            QvMessageBusHideDefault\
-            QvMessageBusRetranslateDefault\
+    switch (msg)
+    {
+        MBShowDefaultImpl MBHideDefaultImpl MBRetranslateDefaultImpl
     }
 }
 
@@ -59,27 +71,37 @@ INBOUND InboundEditor::GenerateNewRoot()
     INBOUND _newRoot = root;
     auto inboundType = root["protocol"].toString();
 
-    if (inboundType.isNull() || inboundType.isEmpty()) {
+    if (inboundType.isNull() || inboundType.isEmpty())
+    {
         inboundType = "http";
     }
 
-    if (inboundType == "http") {
+    if (inboundType == "http")
+    {
         // Remove useless, misleading 'accounts' array.
-        if (httpAccountListBox->count() == 0) {
+        if (httpAccountListBox->count() == 0)
+        {
             httpSettings.remove("accounts");
         }
 
         _newRoot["settings"] = httpSettings;
-    } else if (inboundType == "socks") {
+    }
+    else if (inboundType == "socks")
+    {
         // See above
-        if (socksAccountListBox->count() == 0) {
+        if (socksAccountListBox->count() == 0)
+        {
             socksSettings.remove("accounts");
         }
 
         _newRoot["settings"] = socksSettings;
-    } else if (inboundType == "dokodemo-door") {
+    }
+    else if (inboundType == "dokodemo-door")
+    {
         _newRoot["settings"] = dokoSettings;
-    } else if (inboundType == "mtproto") {
+    }
+    else if (inboundType == "mtproto")
+    {
         _newRoot["settings"] = mtSettings;
     }
 
@@ -102,10 +124,13 @@ void InboundEditor::LoadUIData()
     //
     destOverrideList->setEnabled(sniffing["enabled"].toBool());
 
-    for (auto item : sniffing["destOverride"].toArray()) {
-        if (item.toString().toLower() == "http") destOverrideList->item(0)->setCheckState(Qt::Checked);
+    for (auto item : sniffing["destOverride"].toArray())
+    {
+        if (item.toString().toLower() == "http")
+            destOverrideList->item(0)->setCheckState(Qt::Checked);
 
-        if (item.toString().toLower() == "tls") destOverrideList->item(1)->setCheckState(Qt::Checked);
+        if (item.toString().toLower() == "tls")
+            destOverrideList->item(1)->setCheckState(Qt::Checked);
     }
 
     inboundTagTxt->setText(root["tag"].toString());
@@ -118,8 +143,9 @@ void InboundEditor::LoadUIData()
     httpUserLevelSB->setValue(httpSettings["userLevel"].toInt());
     httpAccountListBox->clear();
 
-    for (auto user : httpSettings["accounts"].toArray()) {
-        httpAccountListBox->addItem(user.toObject()["user"].toString() +  ":" + user.toObject()["pass"].toString());
+    for (auto user : httpSettings["accounts"].toArray())
+    {
+        httpAccountListBox->addItem(user.toObject()["user"].toString() + ":" + user.toObject()["pass"].toString());
     }
 
     // SOCKS
@@ -128,8 +154,9 @@ void InboundEditor::LoadUIData()
     socksUDPIPAddrTxt->setText(socksSettings["ip"].toString());
     socksUserLevelSB->setValue(socksSettings["userLevel"].toInt());
 
-    for (auto user : socksSettings["accounts"].toArray()) {
-        socksAccountListBox->addItem(user.toObject()["user"].toString() +  ":" + user.toObject()["pass"].toString());
+    for (auto user : socksSettings["accounts"].toArray())
+    {
+        socksAccountListBox->addItem(user.toObject()["user"].toString() + ":" + user.toObject()["pass"].toString());
     }
 
     // Dokodemo-Door
@@ -190,24 +217,30 @@ void InboundEditor::on_httpRemoveUserBtn_clicked()
 {
     CHECKLOADING
 
-    if (httpAccountListBox->currentRow() != -1) {
+    if (httpAccountListBox->currentRow() != -1)
+    {
         auto item = httpAccountListBox->currentItem();
         auto list = httpSettings["accounts"].toArray();
 
-        for (int i = 0 ; i < list.count(); i++) {
+        for (int i = 0; i < list.count(); i++)
+        {
             auto user = list[i].toObject();
             auto entry = user["user"].toString() + ":" + user["pass"].toString();
 
-            if (entry == item->text().trimmed()) {
+            if (entry == item->text().trimmed())
+            {
                 list.removeAt(i);
                 httpSettings["accounts"] = list;
-                LOG(UI, "Removed http inbound user " + entry)
+                LOG(MODULE_UI, "Removed http inbound user " + entry)
                 httpAccountListBox->takeItem(httpAccountListBox->currentRow());
             }
         }
 
-        //QvMessageBox(this, tr("Removing a user"), tr("No user has been removed. Why?"));
-    } else {
+        // QvMessageBox(this, tr("Removing a user"), tr("No user has been
+        // removed. Why?"));
+    }
+    else
+    {
         QvMessageBoxWarn(this, tr("Removing a user"), tr("You haven't selected a user yet."));
     }
 }
@@ -220,10 +253,12 @@ void InboundEditor::on_httpAddUserBtn_clicked()
     //
     auto list = httpSettings["accounts"].toArray();
 
-    for (int i = 0 ; i < list.count(); i++) {
+    for (int i = 0; i < list.count(); i++)
+    {
         auto _user = list[i].toObject();
 
-        if (_user["user"].toString() == user) {
+        if (_user["user"].toString() == user)
+        {
             QvMessageBoxWarn(this, tr("Add a user"), tr("This user exists already."));
             return;
         }
@@ -243,23 +278,28 @@ void InboundEditor::on_socksRemoveUserBtn_clicked()
 {
     CHECKLOADING
 
-    if (socksAccountListBox->currentRow() != -1) {
+    if (socksAccountListBox->currentRow() != -1)
+    {
         auto item = socksAccountListBox->currentItem();
         auto list = socksSettings["accounts"].toArray();
 
-        for (int i = 0 ; i < list.count(); i++) {
+        for (int i = 0; i < list.count(); i++)
+        {
             auto user = list[i].toObject();
             auto entry = user["user"].toString() + ":" + user["pass"].toString();
 
-            if (entry == item->text().trimmed()) {
+            if (entry == item->text().trimmed())
+            {
                 list.removeAt(i);
                 socksSettings["accounts"] = list;
-                LOG(UI, "Removed http inbound user " + entry)
+                LOG(MODULE_UI, "Removed http inbound user " + entry)
                 socksAccountListBox->takeItem(socksAccountListBox->currentRow());
                 return;
             }
         }
-    } else {
+    }
+    else
+    {
         QvMessageBoxWarn(this, tr("Removing a user"), tr("You haven't selected a user yet."));
     }
 }
@@ -272,10 +312,12 @@ void InboundEditor::on_socksAddUserBtn_clicked()
     //
     auto list = socksSettings["accounts"].toArray();
 
-    for (int i = 0 ; i < list.count(); i++) {
+    for (int i = 0; i < list.count(); i++)
+    {
         auto _user = list[i].toObject();
 
-        if (_user["user"].toString() == user) {
+        if (_user["user"].toString() == user)
+        {
             QvMessageBoxWarn(this, tr("Add a user"), tr("This user exists already."));
             return;
         }
@@ -322,10 +364,12 @@ void InboundEditor::on_destOverrideList_itemChanged(QListWidgetItem *item)
     Q_UNUSED(item)
     QJsonArray list;
 
-    for (int i = 0; i < destOverrideList->count(); i++) {
+    for (int i = 0; i < destOverrideList->count(); i++)
+    {
         auto _item = destOverrideList->item(i);
 
-        if (_item->checkState() == Qt::Checked) {
+        if (_item->checkState() == Qt::Checked)
+        {
             list.append(_item->text().toLower());
         }
     }
@@ -360,7 +404,7 @@ void InboundEditor::on_dokoIPAddrTxt_textEdited(const QString &arg1)
 void InboundEditor::on_dokoPortSB_valueChanged(int arg1)
 {
     CHECKLOADING
-    dokoSettings["port"]  = arg1;
+    dokoSettings["port"] = arg1;
 }
 
 void InboundEditor::on_dokoTCPCB_stateChanged(int arg1)
@@ -411,7 +455,8 @@ void InboundEditor::on_mtEMailTxt_textEdited(const QString &arg1)
 {
     CHECKLOADING
 
-    if (!mtSettings.contains("users")) mtSettings["users"] = QJsonArray();
+    if (!mtSettings.contains("users"))
+        mtSettings["users"] = QJsonArray();
 
     QJsonObject user = mtSettings["users"].toArray().empty() ? QJsonObject() : mtSettings["users"].toArray().first().toObject();
     user["email"] = arg1;
@@ -424,7 +469,8 @@ void InboundEditor::on_mtSecretTxt_textEdited(const QString &arg1)
 {
     CHECKLOADING
 
-    if (!mtSettings.contains("users")) mtSettings["users"] = QJsonArray();
+    if (!mtSettings.contains("users"))
+        mtSettings["users"] = QJsonArray();
 
     QJsonObject user = mtSettings["users"].toArray().empty() ? QJsonObject() : mtSettings["users"].toArray().first().toObject();
     user["secret"] = arg1;
@@ -437,7 +483,8 @@ void InboundEditor::on_mtUserLevelSB_valueChanged(int arg1)
 {
     CHECKLOADING
 
-    if (!mtSettings.contains("users")) mtSettings["users"] = QJsonArray();
+    if (!mtSettings.contains("users"))
+        mtSettings["users"] = QJsonArray();
 
     QJsonObject user = mtSettings["users"].toArray().empty() ? QJsonObject() : mtSettings["users"].toArray().first().toObject();
     user["userLevel"] = arg1;
@@ -461,5 +508,5 @@ void InboundEditor::on_inboundPortTxt_textEdited(const QString &arg1)
 void InboundEditor::on_socksAuthCombo_currentIndexChanged(const QString &arg1)
 {
     CHECKLOADING
-    socksSettings["auth"] =  arg1.toLower();
+    socksSettings["auth"] = arg1.toLower();
 }

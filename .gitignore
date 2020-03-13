@@ -1,6 +1,8 @@
 # Some files 
 .DS_Store
 *.pro.user
+*.user
+.vs/
 *.qm
 ./.vscode
 
@@ -11,4 +13,4 @@ libs/x64-windows/
 libs/x86-windows/
 libs/libqvb-*
 
-build/
+build**/

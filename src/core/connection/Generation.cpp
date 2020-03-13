@@ -1,13 +1,15 @@
 #include "Generation.hpp"
-#include "core/CoreUtils.hpp"
+
 #include "common/QvHelpers.hpp"
+#include "core/CoreUtils.hpp"
 
 namespace Qv2ray::core::connection
 {
     namespace Generation
     {
-        // -------------------------- BEGIN CONFIG GENERATIONS ----------------------------------------------------------------------------
-        ROUTING GenerateRoutes(bool enableProxy, bool proxyCN)
+        // -------------------------- BEGIN CONFIG GENERATIONS
+        // ----------------------------------------------------------------------------
+        ROUTING GenerateRoutes(bool enableProxy, bool bypassCN)
         {
             ROUTING root;
             root.insert("domainStrategy", "IPIfNonMatch");
@@ -15,22 +17,33 @@ namespace Qv2ray::core::connection
             // For Rules list
             ROUTERULELIST rulesList;
 
-            if (!enableProxy) {
-                // This is added to disable all proxies, as a alternative influence of #64
-                rulesList.append(GenerateSingleRouteRule(QStringList() << "regexp:.*", true, OUTBOUND_TAG_DIRECT));
+            if (!enableProxy)
+            {
+                // This is added to disable all proxies, as a alternative
+                // influence of #64
+                rulesList.append(GenerateSingleRouteRule("regexp:.*", true, OUTBOUND_TAG_DIRECT));
             }
 
             // Private IPs should always NOT TO PROXY!
-            rulesList.append(GenerateSingleRouteRule(QStringList() << "geoip:private", false, OUTBOUND_TAG_DIRECT));
+            rulesList.append(GenerateSingleRouteRule("geoip:private", false, OUTBOUND_TAG_DIRECT));
             //
             // Check if CN needs proxy, or direct.
-            rulesList.append(GenerateSingleRouteRule(QStringList() << "geoip:cn", false, proxyCN ? OUTBOUND_TAG_DIRECT : OUTBOUND_TAG_PROXY));
-            rulesList.append(GenerateSingleRouteRule(QStringList() << "geosite:cn", true, proxyCN ? OUTBOUND_TAG_DIRECT : OUTBOUND_TAG_PROXY));
-            //
+            if (bypassCN)
+            {
+                // No proxy agains CN addresses.
+                rulesList.append(GenerateSingleRouteRule("geoip:cn", false, OUTBOUND_TAG_DIRECT));
+                rulesList.append(GenerateSingleRouteRule("geosite:cn", true, OUTBOUND_TAG_DIRECT));
+            }
             // As a bug fix of #64, this default rule has been disabled.
-            //rulesList.append(GenerateSingleRouteRule(QStringList({"regexp:.*"}), true, globalProxy ? OUTBOUND_TAG_PROXY :  OUTBOUND_TAG_DIRECT));
+            // rulesList.append(GenerateSingleRouteRule(QStringList({"regexp:.*"}),
+            // true, globalProxy ? OUTBOUND_TAG_PROXY :  OUTBOUND_TAG_DIRECT));
             root.insert("rules", rulesList);
             RROOT
+        }
+
+        ROUTERULE GenerateSingleRouteRule(QString str, bool isDomain, QString outboundTag, QString type)
+        {
+            return GenerateSingleRouteRule(QStringList{ str }, isDomain, outboundTag, type);
         }
 
         ROUTERULE GenerateSingleRouteRule(QStringList list, bool isDomain, QString outboundTag, QString type)
@@ -56,20 +69,24 @@ namespace Qv2ray::core::connection
             RROOT
         }
 
-        OUTBOUNDSETTING GenerateShadowSocksOUT(QList<ShadowSocksServerObject> servers)
+        OUTBOUNDSETTING
+        GenerateShadowSocksOUT(QList<ShadowSocksServerObject> servers)
         {
             OUTBOUNDSETTING root;
             QJsonArray x;
 
-            foreach (auto server, servers) {
-                x.append(GenerateShadowSocksServerOUT(server.email, server.address, server.port, server.method, server.password, server.ota, server.level));
+            foreach (auto server, servers)
+            {
+                x.append(GenerateShadowSocksServerOUT(server.email, server.address, server.port, server.method, server.password, server.ota,
+                                                      server.level));
             }
 
             root.insert("servers", x);
             RROOT
         }
 
-        OUTBOUNDSETTING GenerateShadowSocksServerOUT(QString email, QString address, int port, QString method, QString password, bool ota, int level)
+        OUTBOUNDSETTING GenerateShadowSocksServerOUT(QString email, QString address, int port, QString method, QString password, bool ota,
+                                                     int level)
         {
             OUTBOUNDSETTING root;
             JADD(email, address, port, method, password, level, ota)
@@ -81,7 +98,8 @@ namespace Qv2ray::core::connection
             QJsonObject root;
             QJsonArray servers(QJsonArray::fromStringList(dnsServers));
 
-            if (withLocalhost) {
+            if (withLocalhost)
+            {
                 // https://github.com/lhy0403/Qv2ray/issues/64
                 // The fix patch didn't touch this line below.
                 //
@@ -93,7 +111,7 @@ namespace Qv2ray::core::connection
             RROOT
         }
 
-        INBOUNDSETTING GenerateDokodemoIN(QString address, int port, QString  network, int timeout, bool followRedirect, int userLevel)
+        INBOUNDSETTING GenerateDokodemoIN(QString address, int port, QString network, int timeout, bool followRedirect, int userLevel)
         {
             INBOUNDSETTING root;
             JADD(address, port, network, timeout, followRedirect, userLevel)
@@ -105,15 +123,18 @@ namespace Qv2ray::core::connection
             INBOUNDSETTING root;
             QJsonArray accounts;
 
-            foreach (auto account, _accounts) {
-                if (account.user.isEmpty() && account.pass.isEmpty()) {
+            for (auto account : _accounts)
+            {
+                if (account.user.isEmpty() && account.pass.isEmpty())
+                {
                     continue;
                 }
 
                 accounts.append(GetRootObject(account));
             }
 
-            if (!accounts.isEmpty()) {
+            if (!accounts.isEmpty())
+            {
                 JADD(accounts)
             }
 
@@ -130,7 +151,8 @@ namespace Qv2ray::core::connection
                 oneServer["address"] = address;
                 oneServer["port"] = port;
 
-                if (useAuth) {
+                if (useAuth)
+                {
                     QJsonArray users;
                     QJsonObject oneUser;
                     oneUser["user"] = username;
@@ -150,38 +172,46 @@ namespace Qv2ray::core::connection
             INBOUNDSETTING root;
             QJsonArray accounts;
 
-            foreach (auto acc, _accounts) {
-                if (acc.user.isEmpty() && acc.pass.isEmpty()) {
+            foreach (auto acc, _accounts)
+            {
+                if (acc.user.isEmpty() && acc.pass.isEmpty())
+                {
                     continue;
                 }
 
                 accounts.append(GetRootObject(acc));
             }
 
-            if (!accounts.isEmpty()) {
+            if (!accounts.isEmpty())
+            {
                 JADD(accounts)
             }
 
-            if (udp) {
+            if (udp)
+            {
                 JADD(auth, udp, ip, userLevel)
-            } else {
+            }
+            else
+            {
                 JADD(auth, userLevel)
             }
 
             RROOT
         }
 
-        OUTBOUND GenerateOutboundEntry(QString protocol, OUTBOUNDSETTING settings, QJsonObject streamSettings, QJsonObject mux, QString sendThrough, QString tag)
+        OUTBOUND GenerateOutboundEntry(QString protocol, OUTBOUNDSETTING settings, QJsonObject streamSettings, QJsonObject mux,
+                                       QString sendThrough, QString tag)
         {
             OUTBOUND root;
             JADD(sendThrough, protocol, settings, tag, streamSettings, mux)
             RROOT
         }
 
-        INBOUND GenerateInboundEntry(QString listen, int port, QString protocol, INBOUNDSETTING settings, QString tag, QJsonObject sniffing, QJsonObject allocate)
+        INBOUND GenerateInboundEntry(QString listen, int port, QString protocol, INBOUNDSETTING settings, QString tag, QJsonObject sniffing,
+                                     QJsonObject allocate)
         {
             INBOUND root;
-            LOG(CONNECTION, "allocation is not used here.")
+            DEBUG(MODULE_CONNECTION, "Allocation is not used here, Not Implemented")
             Q_UNUSED(allocate)
             JADD(listen, port, protocol, settings, tag, sniffing)
             RROOT
@@ -205,16 +235,19 @@ namespace Qv2ray::core::connection
             RROOT
         }
 
-        // -------------------------- END CONFIG GENERATIONS ------------------------------------------------------------------------------
+        // -------------------------- END CONFIG GENERATIONS
+        // ------------------------------------------------------------------------------
         // BEGIN RUNTIME CONFIG GENERATION
 
         CONFIGROOT GenerateRuntimeConfig(CONFIGROOT root)
         {
+            // Check if is complex BEFORE adding anything.
             bool isComplex = IsComplexConfig(root);
+            //
             QJsonObject logObject;
             //
-            //logObject.insert("access", QV2RAY_CONFIG_PATH + QV2RAY_VCORE_LOG_DIRNAME + QV2RAY_VCORE_ACCESS_LOG_FILENAME);
-            //logObject.insert("error", QV2RAY_CONFIG_PATH + QV2RAY_VCORE_LOG_DIRNAME + QV2RAY_VCORE_ERROR_LOG_FILENAME);
+            // logObject.insert("access", QV2RAY_CONFIG_PATH + QV2RAY_VCORE_LOG_DIRNAME + QV2RAY_VCORE_ACCESS_LOG_FILENAME);
+            // logObject.insert("error", QV2RAY_CONFIG_PATH + QV2RAY_VCORE_LOG_DIRNAME + QV2RAY_VCORE_ERROR_LOG_FILENAME);
             //
             logObject.insert("loglevel", vLogLevels[GlobalConfig.logLevel]);
             root.insert("log", logObject);
@@ -225,20 +258,24 @@ namespace Qv2ray::core::connection
             //
             //
 
-            // If inbounds list is empty we append our global configured inbounds to the config.
-            if (!root.contains("inbounds") || root["inbounds"].toArray().empty()) {
+            // If inbounds list is empty we append our global configured
+            // inbounds to the config.
+            if (!root.contains("inbounds") || root.value("inbounds").toArray().empty())
+            {
                 INBOUNDS inboundsList;
 
                 // HTTP Inbound
-                if (GlobalConfig.inboundConfig.useHTTP) {
+                if (GlobalConfig.inboundConfig.useHTTP)
+                {
                     INBOUND httpInBoundObject;
                     httpInBoundObject.insert("listen", GlobalConfig.inboundConfig.listenip);
                     httpInBoundObject.insert("port", GlobalConfig.inboundConfig.http_port);
                     httpInBoundObject.insert("protocol", "http");
                     httpInBoundObject.insert("tag", "http_IN");
 
-                    if (GlobalConfig.inboundConfig.http_useAuth) {
-                        auto httpInSettings =  GenerateHTTPIN(QList<AccountObject>() << GlobalConfig.inboundConfig.httpAccount);
+                    if (GlobalConfig.inboundConfig.http_useAuth)
+                    {
+                        auto httpInSettings = GenerateHTTPIN(QList<AccountObject>() << GlobalConfig.inboundConfig.httpAccount);
                         httpInBoundObject.insert("settings", httpInSettings);
                     }
 
@@ -246,7 +283,8 @@ namespace Qv2ray::core::connection
                 }
 
                 // SOCKS Inbound
-                if (GlobalConfig.inboundConfig.useSocks) {
+                if (GlobalConfig.inboundConfig.useSocks)
+                {
                     INBOUND socksInBoundObject;
                     socksInBoundObject.insert("listen", GlobalConfig.inboundConfig.listenip);
                     socksInBoundObject.insert("port", GlobalConfig.inboundConfig.socks_port);
@@ -254,25 +292,26 @@ namespace Qv2ray::core::connection
                     socksInBoundObject.insert("tag", "socks_IN");
                     auto socksInSettings = GenerateSocksIN(GlobalConfig.inboundConfig.socks_useAuth ? "password" : "noauth",
                                                            QList<AccountObject>() << GlobalConfig.inboundConfig.socksAccount,
-                                                           GlobalConfig.inboundConfig.socksUDP,
-                                                           GlobalConfig.inboundConfig.socksLocalIP);
+                                                           GlobalConfig.inboundConfig.socksUDP, GlobalConfig.inboundConfig.socksLocalIP);
                     socksInBoundObject.insert("settings", socksInSettings);
                     inboundsList.append(socksInBoundObject);
                 }
 
                 root["inbounds"] = inboundsList;
-                DEBUG(CONNECTION, "Added global config inbounds to the config")
+                DEBUG(MODULE_CONNECTION, "Added global config inbounds to the config")
             }
 
-            // Process every inbounds to make sure a tag is configured, fixed API 0 speed
-            // issue when no tag is configured.
+            // Process every inbounds to make sure a tag is configured, fixed
+            // API 0 speed issue when no tag is configured.
             INBOUNDS newTaggedInbounds = INBOUNDS(root["inbounds"].toArray());
 
-            for (auto i = 0; i < newTaggedInbounds.count(); i++) {
+            for (auto i = 0; i < newTaggedInbounds.count(); i++)
+            {
                 auto _inboundItem = newTaggedInbounds[i].toObject();
 
-                if (!_inboundItem.contains("tag") || _inboundItem["tag"].toString().isEmpty()) {
-                    LOG(SETTINGS, "Adding a tag to an inbound.")
+                if (!_inboundItem.contains("tag") || _inboundItem["tag"].toString().isEmpty())
+                {
+                    LOG(MODULE_SETTINGS, "Adding a tag to an inbound.")
                     _inboundItem["tag"] = GenerateRandomString(8);
                     newTaggedInbounds[i] = _inboundItem;
                 }
@@ -281,55 +320,74 @@ namespace Qv2ray::core::connection
             root["inbounds"] = newTaggedInbounds;
             //
             //
-            // Note: The part below always makes the whole functionality in trouble......
-            // BE EXTREME CAREFUL when changing these code below...
-            // See: https://github.com/lhy0403/Qv2ray/issues/129
-            // routeCountLabel in Mainwindow makes here failed to ENOUGH-ly check the routing tables
+            // Note: The part below always makes the whole functionality in
+            // trouble...... BE EXTREME CAREFUL when changing these code
+            // below...
+            //
+            // See: https://github.com/Qv2ray/Qv2ray/issues/129
+            // routeCountLabel in Mainwindow makes here failed to ENOUGH-ly
+            // check the routing tables
 
-            if (isComplex) {
+            if (isComplex)
+            {
                 // For some config files that has routing entries already.
                 // We DO NOT add extra routings.
                 //
                 // HOWEVER, we need to verify the QV2RAY_RULE_ENABLED entry.
-                // And what's more, process (by removing unused items) from a rule object.
-                ROUTING routing = ROUTING(root["routing"].toObject());
+                // And what's more, process (by removing unused items) from a
+                // rule object.
+                ROUTING routing(root["routing"].toObject());
                 ROUTERULELIST rules;
-                LOG(CONNECTION, "Processing an existing routing table.")
+                LOG(MODULE_CONNECTION, "Processing an existing routing table.")
 
-                for (auto _rule : routing["rules"].toArray()) {
+                for (auto _rule : routing["rules"].toArray())
+                {
                     auto _b = _rule.toObject();
 
-                    if (_b.contains("QV2RAY_RULE_USE_BALANCER")) {
-                        if (_b["QV2RAY_RULE_USE_BALANCER"].toBool()) {
+                    if (_b.contains("QV2RAY_RULE_USE_BALANCER"))
+                    {
+                        if (_b["QV2RAY_RULE_USE_BALANCER"].toBool())
+                        {
                             // We use balancer
                             _b.remove("outboundTag");
-                        } else {
+                        }
+                        else
+                        {
                             // We only use the normal outbound
                             _b.remove("balancerTag");
                         }
-                    } else {
-                        LOG(SETTINGS, "We found a rule without QV2RAY_RULE_USE_BALANCER, so don't process it.")
+                    }
+                    else
+                    {
+                        LOG(MODULE_SETTINGS, "We found a rule without QV2RAY_RULE_USE_BALANCER, so didn't process it.")
                     }
 
                     // If this entry has been disabled.
-                    if (_b.contains("QV2RAY_RULE_ENABLED") && _b["QV2RAY_RULE_ENABLED"].toBool() == true) {
+                    if (_b.contains("QV2RAY_RULE_ENABLED") && _b["QV2RAY_RULE_ENABLED"].toBool() == true)
+                    {
                         rules.append(_b);
-                    } else {
-                        LOG(SETTINGS, "Discarded a rule as it's been set DISABLED")
+                    }
+                    else
+                    {
+                        LOG(MODULE_SETTINGS, "Discarded a rule as it's been set DISABLED")
                     }
                 }
 
                 routing["rules"] = rules;
                 root["routing"] = routing;
-            } else {
-                //
-                LOG(CONNECTION, "Inserting default values to simple config")
+            }
+            else
+            {
+                LOG(MODULE_CONNECTION, "Inserting default values to simple config")
 
-                if (root["outbounds"].toArray().count() != 1) {
-                    // There are no ROUTING but 2 or more outbounds.... This is rare, but possible.
-                    LOG(CONNECTION, "WARN: This message usually indicates the config file has logic errors:")
-                    LOG(CONNECTION, "WARN: --> The config file has NO routing section, however more than 1 outbounds are detected.")
+                if (root["outbounds"].toArray().count() != 1)
+                {
+                    // There are no ROUTING but 2 or more outbounds.... This is
+                    // rare, but possible.
+                    LOG(MODULE_CONNECTION, "WARN: This message usually indicates the config file has logic errors:")
+                    LOG(MODULE_CONNECTION, "WARN: --> The config file has NO routing section, however more than 1 outbounds are detected.")
                 }
+                auto outboundTag = getTag(OUTBOUND(root["outbounds"].toArray().first().toObject()));
 
                 auto routeObject = GenerateRoutes(GlobalConfig.connectionConfig.enableProxy, GlobalConfig.connectionConfig.bypassCN);
                 root.insert("routing", routeObject);
@@ -337,25 +395,41 @@ namespace Qv2ray::core::connection
                 // Process forward proxy
 #define fpConf GlobalConfig.connectionConfig.forwardProxyConfig
 
-                if (fpConf.enableForwardProxy) {
+                if (fpConf.enableForwardProxy)
+                {
                     auto outboundArray = root["outbounds"].toArray();
                     auto firstOutbound = outboundArray.first().toObject();
 
-                    if (firstOutbound[QV2RAY_USE_FPROXY_KEY].toBool(false)) {
-                        LOG(CONNECTION, "Applying forward proxy to current connection.")
+                    if (firstOutbound[QV2RAY_USE_FPROXY_KEY].toBool(false))
+                    {
+                        LOG(MODULE_CONNECTION, "Applying forward proxy to current connection.")
                         auto proxy = PROXYSETTING();
                         proxy["tag"] = OUTBOUND_TAG_FORWARD_PROXY;
                         firstOutbound["proxySettings"] = proxy;
                         // FP Outbound.
                         OUTBOUNDSETTING fpOutbound;
 
-                        if (fpConf.type.toLower() == "http" || fpConf.type.toLower() == "socks") {
-                            fpOutbound = GenerateHTTPSOCKSOut(fpConf.serverAddress, fpConf.port, fpConf.useAuth, fpConf.username, fpConf.password);
-                            outboundArray.push_back(GenerateOutboundEntry(fpConf.type.toLower(), fpOutbound, QJsonObject(), QJsonObject(), "0.0.0.0", OUTBOUND_TAG_FORWARD_PROXY));
-                        } else {
-                            LOG(CONNECTION, "WARNING: Unsupported outbound type: " + fpConf.type)
+                        if (fpConf.type.toLower() == "http" || fpConf.type.toLower() == "socks")
+                        {
+                            fpOutbound =
+                                GenerateHTTPSOCKSOut(fpConf.serverAddress, fpConf.port, fpConf.useAuth, fpConf.username, fpConf.password);
+                            outboundArray.push_back(
+                                GenerateOutboundEntry(fpConf.type.toLower(), fpOutbound, {}, {}, "0.0.0.0", OUTBOUND_TAG_FORWARD_PROXY));
                         }
-                    } else {
+                        else
+                        {
+                            if (!fpConf.type.isEmpty())
+                            {
+                                DEBUG(MODULE_CONNECTION, "WARNING: Unsupported outbound type: " + fpConf.type)
+                            }
+                            else
+                            {
+                                DEBUG(MODULE_CONNECTION, "WARNING: Empty outbound type.")
+                            }
+                        }
+                    }
+                    else
+                    {
                         // Remove proxySettings from firstOutbound
                         firstOutbound.remove("proxySettings");
                     }
@@ -366,7 +440,7 @@ namespace Qv2ray::core::connection
 
 #undef fpConf
                 OUTBOUNDS outbounds = OUTBOUNDS(root["outbounds"].toArray());
-                outbounds.append(GenerateOutboundEntry("freedom", GenerateFreedomOUT("AsIs", ":0", 0), QJsonObject(), QJsonObject(), "0.0.0.0", OUTBOUND_TAG_DIRECT));
+                outbounds.append(GenerateOutboundEntry("freedom", GenerateFreedomOUT("AsIs", ":0", 0), {}, {}, "0.0.0.0", OUTBOUND_TAG_DIRECT));
                 root["outbounds"] = outbounds;
             }
 
@@ -404,10 +478,11 @@ namespace Qv2ray::core::connection
                 //
                 // Inbounds
                 //
-                INBOUNDS inbounds = INBOUNDS(root["inbounds"].toArray());
+                INBOUNDS inbounds(root["inbounds"].toArray());
                 INBOUNDSETTING fakeDocodemoDoor;
                 fakeDocodemoDoor["address"] = "127.0.0.1";
-                QJsonObject apiInboundsRoot = GenerateInboundEntry("127.0.0.1", GlobalConfig.apiConfig.statsPort, "dokodemo-door", fakeDocodemoDoor, API_TAG_INBOUND);
+                QJsonObject apiInboundsRoot =
+                    GenerateInboundEntry("127.0.0.1", GlobalConfig.apiConfig.statsPort, "dokodemo-door", fakeDocodemoDoor, API_TAG_INBOUND);
                 inbounds.push_front(apiInboundsRoot);
                 root["inbounds"] = inbounds;
                 //
@@ -417,5 +492,5 @@ namespace Qv2ray::core::connection
             }
             return root;
         }
-    }
-}
+    } // namespace Generation
+} // namespace Qv2ray::core::connection

@@ -1,30 +1,32 @@
 #include "LogHighlighter.hpp"
+
 #include "common/QvHelpers.hpp"
 
 #define TO_EOL "(([\\s\\S]*)|([\\d\\D]*)|([\\w\\W]*))$"
 
 namespace Qv2ray::common
 {
-    SyntaxHighlighter::SyntaxHighlighter(bool darkMode, QTextDocument *parent)
-        : QSyntaxHighlighter(parent)
+    SyntaxHighlighter::SyntaxHighlighter(bool darkMode, QTextDocument *parent) : QSyntaxHighlighter(parent)
     {
         HighlightingRule rule;
         keywordFormat.setForeground(darkMode ? Qt::darkMagenta : Qt::magenta);
         keywordFormat.setFontWeight(QFont::Bold);
-        const QString keywordPatterns[] = {
-            "tcp", "udp"
-        };
+        const QString keywordPatterns[] = { "tcp", "udp" };
 
-        for (const QString &pattern : keywordPatterns) {
+        for (const QString &pattern : keywordPatterns)
+        {
             rule.pattern = QRegularExpression(pattern);
             rule.format = keywordFormat;
             highlightingRules.append(rule);
         }
 
-        if (darkMode) {
+        if (darkMode)
+        {
             ipHostFormat.setForeground(Qt::yellow);
             warningFormat.setForeground(QColor(230, 180, 0));
-        } else {
+        }
+        else
+        {
             ipHostFormat.setForeground(Qt::black);
             ipHostFormat.setFontWeight(QFont::Bold);
             warningFormat.setForeground(Qt::white);
@@ -49,7 +51,7 @@ namespace Qv2ray::common
         rule.format = debugFormat;
         highlightingRules.append(rule);
         //
-        infoFormat.setForeground(darkMode ? Qt::lightGray :  Qt::darkCyan);
+        infoFormat.setForeground(darkMode ? Qt::lightGray : Qt::darkCyan);
         rule.pattern = QRegularExpression("\\[[Ii]nfo\\]" TO_EOL);
         rule.format = infoFormat;
         highlightingRules.append(rule);
@@ -119,10 +121,12 @@ namespace Qv2ray::common
 
     void SyntaxHighlighter::highlightBlock(const QString &text)
     {
-        for (const HighlightingRule &rule : qAsConst(highlightingRules)) {
+        for (const HighlightingRule &rule : qAsConst(highlightingRules))
+        {
             QRegularExpressionMatchIterator matchIterator = rule.pattern.globalMatch(text);
 
-            while (matchIterator.hasNext()) {
+            while (matchIterator.hasNext())
+            {
                 QRegularExpressionMatch match = matchIterator.next();
                 setFormat(match.capturedStart(), match.capturedLength(), rule.format);
             }
@@ -130,4 +134,4 @@ namespace Qv2ray::common
 
         setCurrentBlockState(0);
     }
-}
+} // namespace Qv2ray::common

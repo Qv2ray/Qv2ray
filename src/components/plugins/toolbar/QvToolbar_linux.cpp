@@ -1,9 +1,10 @@
 #include <QtCore>
 #ifdef Q_OS_LINUX
-#include "components/plugins/toolbar/QvToolbar.hpp"
-#include "common/QvHelpers.hpp"
-#include <QLocalSocket>
-#include <QLocalServer>
+    #include "common/QvHelpers.hpp"
+    #include "components/plugins/toolbar/QvToolbar.hpp"
+
+    #include <QLocalServer>
+    #include <QLocalSocket>
 namespace Qv2ray::components::plugins::Toolbar
 {
     namespace _linux
@@ -19,32 +20,41 @@ namespace Qv2ray::components::plugins::Toolbar
             if (!socket->waitForConnected() || !socket->waitForReadyRead())
                 return;
 
-            try {
-                while (!isExiting && socket->isOpen() && socket->isValid() && socket->waitForReadyRead()) {
+            try
+            {
+                while (!isExiting && socket->isOpen() && socket->isValid() && socket->waitForReadyRead())
+                {
                     // CANNOT PROPERLY READ...
                     // Temp-ly fixed (but why and how?)
                     auto in = QString(socket->readAll());
 
-                    if (!isExiting && !in.isEmpty()) {
+                    if (!isExiting && !in.isEmpty())
+                    {
                         auto out = GetAnswerToRequest(in);
                         //
                         socket->write(out.toUtf8());
                         socket->flush();
-                    } else {
+                    }
+                    else
+                    {
                         QThread::msleep(200);
                     }
                 }
-            }  catch (...) {
-                LOG(PLUGIN, "Closing a broken socket.")
+            }
+            catch (...)
+            {
+                LOG(MODULE_PLUGIN, "Closing a broken socket.")
             }
         }
         void DataMessageQThread()
         {
             server = new QLocalServer();
-            // BUG Sometimes failed to listen due to improper close of last session.
+            // BUG Sometimes failed to listen due to improper close of last
+            // session.
             bool listening = server->listen(QV2RAY_NETSPEED_PLUGIN_PIPE_NAME_LINUX);
 
-            while (!isExiting && !listening) {
+            while (!isExiting && !listening)
+            {
                 QThread::msleep(500);
                 listening = server->listen(QV2RAY_NETSPEED_PLUGIN_PIPE_NAME_LINUX);
             }
@@ -53,10 +63,11 @@ namespace Qv2ray::components::plugins::Toolbar
             server->setSocketOptions(QLocalServer::WorldAccessOption);
             QObject::connect(server, &QLocalServer::newConnection, &qobject_proxy);
 
-            while (!isExiting) {
+            while (!isExiting)
+            {
                 bool result = server->waitForNewConnection(5000, &timeOut);
-                DEBUG(PLUGIN, "Plugin thread listening failed: " + server->errorString())
-                DEBUG(PLUGIN, "waitForNewConnection: " + QString(result ? "true" : "false") + ", " + QString(timeOut ? "true" : "false"))
+                DEBUG(MODULE_PLUGIN, "Plugin thread listening failed: " + server->errorString())
+                DEBUG(MODULE_PLUGIN, "waitForNewConnection: " + QString(result ? "true" : "false") + ", " + QString(timeOut ? "true" : "false"))
             }
 
             server->close();
@@ -72,13 +83,14 @@ namespace Qv2ray::components::plugins::Toolbar
         {
             isExiting = true;
 
-            if (linuxWorkerThread->isRunning()) {
-                LOG(PLUGIN, "Waiting for linuxWorkerThread to stop.")
+            if (linuxWorkerThread->isRunning())
+            {
+                LOG(MODULE_PLUGIN, "Waiting for linuxWorkerThread to stop.")
                 linuxWorkerThread->wait();
             }
 
             delete _linux::linuxWorkerThread;
         }
-    }
-}
+    } // namespace _linux
+} // namespace Qv2ray::components::plugins::Toolbar
 #endif

@@ -1,4 +1,5 @@
-language: bash
+language: shell
+os: linux
 dist: bionic
 
 git:
@@ -15,14 +16,15 @@ env:
 
 addons:
   snaps:
-   - name: snapcraft
-     channel: stable
-     confinement: classic
-   - name: lxd
-     channel: stable
+    - name: snapcraft
+      channel: stable
+      confinement: classic
+    - name: lxd
+      channel: stable
 
 script:
   - sudo apt autoremove lxd --purge
+  - sudo /snap/bin/lxd waitready
   - sudo /snap/bin/lxd init --auto
   - sudo snapcraft --use-lxd
 

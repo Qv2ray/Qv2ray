@@ -1,37 +1,46 @@
 #pragma once
-#include <QString>
+#include "3rdparty/x2struct/x2struct.hpp"
+
 #include <QList>
 #include <QMap>
-#include "3rdparty/x2struct/x2struct.hpp"
+#include <QString>
 
 namespace Qv2ray::base::objects
 {
     //
     // Used in config generation
-    struct AccountObject {
+    struct AccountObject
+    {
         QString user;
         QString pass;
         XTOSTRUCT(O(user, pass))
     };
     //
     //
-    struct ApiObject {
+    struct ApiObject
+    {
         QString tag;
         QList<QString> services;
-        ApiObject() : tag("api"), services() {}
+        ApiObject() : tag("api"), services()
+        {
+        }
         XTOSTRUCT(O(tag, services))
     };
     //
     //
-    struct SystemPolicyObject {
+    struct SystemPolicyObject
+    {
         bool statsInboundUplink;
         bool statsInboundDownlink;
-        SystemPolicyObject() : statsInboundUplink(), statsInboundDownlink() {}
+        SystemPolicyObject() : statsInboundUplink(), statsInboundDownlink()
+        {
+        }
         XTOSTRUCT(O(statsInboundUplink, statsInboundDownlink))
     };
     //
     //
-    struct LevelPolicyObject {
+    struct LevelPolicyObject
+    {
         int handshake;
         int connIdle;
         int uplinkOnly;
@@ -39,20 +48,26 @@ namespace Qv2ray::base::objects
         bool statsUserUplink;
         bool statsUserDownlink;
         int bufferSize;
-        LevelPolicyObject(): handshake(), connIdle(), uplinkOnly(), downlinkOnly(), statsUserUplink(), statsUserDownlink(), bufferSize() {}
+        LevelPolicyObject() : handshake(), connIdle(), uplinkOnly(), downlinkOnly(), statsUserUplink(), statsUserDownlink(), bufferSize()
+        {
+        }
         XTOSTRUCT(O(handshake, connIdle, uplinkOnly, downlinkOnly, statsUserUplink, statsUserDownlink, bufferSize))
     };
     //
     //
-    struct PolicyObject {
+    struct PolicyObject
+    {
         QMap<QString, LevelPolicyObject> level;
         QList<SystemPolicyObject> system;
-        PolicyObject(): level(), system() {}
+        PolicyObject() : level(), system()
+        {
+        }
         XTOSTRUCT(O(level, system))
     };
     //
     //
-    struct RuleObject {
+    struct RuleObject
+    {
         // Added due to the request of @aliyuchang33
         bool QV2RAY_RULE_ENABLED;
         bool QV2RAY_RULE_USE_BALANCER;
@@ -70,65 +85,89 @@ namespace Qv2ray::base::objects
         QString attrs;
         QString outboundTag;
         QString balancerTag;
-        RuleObject() : QV2RAY_RULE_ENABLED(true), QV2RAY_RULE_USE_BALANCER(false), QV2RAY_RULE_TAG("new rule"), type("field"), domain(), ip(), port("1-65535"), network(""), source(), user(), inboundTag(), protocol(), attrs(), outboundTag(""), balancerTag("") {}
-        XTOSTRUCT(O(QV2RAY_RULE_ENABLED, QV2RAY_RULE_USE_BALANCER, QV2RAY_RULE_TAG, type, domain, ip, port, network, source, user, inboundTag, protocol, attrs, outboundTag, balancerTag))
+        RuleObject()
+            : QV2RAY_RULE_ENABLED(true), QV2RAY_RULE_USE_BALANCER(false), QV2RAY_RULE_TAG("new rule"), type("field"), domain(), ip(),
+              port("1-65535"), network(""), source(), user(), inboundTag(), protocol(), attrs(), outboundTag(""), balancerTag("")
+        {
+        }
+        XTOSTRUCT(O(QV2RAY_RULE_ENABLED, QV2RAY_RULE_USE_BALANCER, QV2RAY_RULE_TAG, type, domain, ip, port, network, source, user, inboundTag,
+                    protocol, attrs, outboundTag, balancerTag))
     };
     //
     //
-    struct BalancerObject {
-        QString tag ;
+    struct BalancerObject
+    {
+        QString tag;
         QList<QString> selector;
-        BalancerObject() : tag(), selector() {}
+        BalancerObject() : tag(), selector()
+        {
+        }
         XTOSTRUCT(O(tag, selector))
     };
     //
     //
     namespace transfer
     {
-        struct HTTPRequestObject {
+        struct HTTPRequestObject
+        {
             QString version;
             QString method;
             QList<QString> path;
             QMap<QString, QList<QString>> headers;
-            HTTPRequestObject(): version("1.1"), method("GET"), path(), headers() {}
+            HTTPRequestObject() : version("1.1"), method("GET"), path(), headers()
+            {
+            }
             XTOSTRUCT(O(version, method, path, headers))
         };
         //
         //
-        struct HTTPResponseObject {
+        struct HTTPResponseObject
+        {
             QString version;
             QString status;
             QString reason;
             QMap<QString, QList<QString>> headers;
-            HTTPResponseObject(): version("1.1"), status("200"), reason("OK"), headers() {}
+            HTTPResponseObject() : version("1.1"), status("200"), reason("OK"), headers()
+            {
+            }
             XTOSTRUCT(O(version, status, reason, headers))
         };
         //
         //
-        struct TCPHeader_M_Object {
+        struct TCPHeader_M_Object
+        {
             QString type;
             HTTPRequestObject request;
             HTTPResponseObject response;
-            TCPHeader_M_Object(): type("none"), request(), response() {}
+            TCPHeader_M_Object() : type("none"), request(), response()
+            {
+            }
             XTOSTRUCT(O(type, request, response))
         };
         //
         //
-        struct HeaderObject {
+        struct HeaderObject
+        {
             QString type;
-            HeaderObject(): type("none") {}
+            HeaderObject() : type("none")
+            {
+            }
             XTOSTRUCT(O(type))
         };
         //
         //
-        struct TCPObject {
+        struct TCPObject
+        {
             TCPHeader_M_Object header;
-            TCPObject(): header() {}
+            TCPObject() : header()
+            {
+            }
             XTOSTRUCT(O(header))
         };
         //
         //
-        struct KCPObject {
+        struct KCPObject
+        {
             int mtu = 1350;
             int tti = 20;
             int uplinkCapacity = 5;
@@ -137,84 +176,111 @@ namespace Qv2ray::base::objects
             int readBufferSize = 1;
             int writeBufferSize = 1;
             HeaderObject header;
-            KCPObject(): header() {}
+            KCPObject() : header()
+            {
+            }
             XTOSTRUCT(O(mtu, tti, uplinkCapacity, downlinkCapacity, congestion, readBufferSize, writeBufferSize, header))
         };
         //
         //
-        struct WebSocketObject {
+        struct WebSocketObject
+        {
             QString path;
             QMap<QString, QString> headers;
-            WebSocketObject(): path("/"), headers() {}
+            WebSocketObject() : path("/"), headers()
+            {
+            }
             XTOSTRUCT(O(path, headers))
         };
         //
         //
-        struct HttpObject {
+        struct HttpObject
+        {
             QList<QString> host;
             QString path;
-            HttpObject() : host(), path("/") {}
+            HttpObject() : host(), path("/")
+            {
+            }
             XTOSTRUCT(O(host, path))
         };
         //
         //
-        struct DomainSocketObject {
+        struct DomainSocketObject
+        {
             QString path;
-            DomainSocketObject(): path("/") {}
+            DomainSocketObject() : path("/")
+            {
+            }
             XTOSTRUCT(O(path))
         };
         //
         //
-        struct QuicObject {
+        struct QuicObject
+        {
             QString security;
             QString key;
             HeaderObject header;
-            QuicObject(): security(""), key(""), header() {}
+            QuicObject() : security(""), key(""), header()
+            {
+            }
             XTOSTRUCT(O(security, key, header))
         };
         //
         //
-        struct SockoptObject {
+        struct SockoptObject
+        {
             int mark;
             bool tcpFastOpen;
             QString tproxy;
-            SockoptObject(): mark(0), tcpFastOpen(false), tproxy("off") {}
+            SockoptObject() : mark(0), tcpFastOpen(false), tproxy("off")
+            {
+            }
             XTOSTRUCT(O(mark, tcpFastOpen, tproxy))
         };
         //
         //
-        struct CertificateObject {
+        struct CertificateObject
+        {
             QString usage;
             QString certificateFile;
             QString keyFile;
             QList<QString> certificate;
             QList<QString> key;
-            CertificateObject(): usage(), certificateFile(), keyFile(), certificate(), key() {}
+            CertificateObject() : usage(), certificateFile(), keyFile(), certificate(), key()
+            {
+            }
             XTOSTRUCT(O(usage, certificateFile, keyFile, certificate, key))
         };
         //
         //
-        struct TLSObject {
+        struct TLSObject
+        {
             QString serverName;
             bool allowInsecure;
             QList<QString> alpn;
             QList<CertificateObject> certificates;
             bool disableSystemRoot;
-            TLSObject(): serverName(), allowInsecure(), certificates(), disableSystemRoot() {}
+            TLSObject() : serverName(), allowInsecure(), certificates(), disableSystemRoot()
+            {
+            }
             XTOSTRUCT(O(serverName, allowInsecure, alpn, certificates, disableSystemRoot))
         };
-    }
+    } // namespace transfer
     //
     //
-    struct SniffingObject {
+    struct SniffingObject
+    {
         bool enabled = false;
         QList<QString> destOverride;
-        SniffingObject(): enabled(), destOverride() {}
+        SniffingObject() : enabled(), destOverride()
+        {
+        }
         XTOSTRUCT(O(enabled, destOverride))
     };
     //
     //
-    struct StreamSettingsObject  {
+    struct StreamSettingsObject
+    {
         QString network;
         QString security;
         transfer::SockoptObject sockopt;
@@ -225,15 +291,22 @@ namespace Qv2ray::base::objects
         transfer::HttpObject httpSettings;
         transfer::DomainSocketObject dsSettings;
         transfer::QuicObject quicSettings;
-        StreamSettingsObject(): network("tcp"), security("none"), sockopt(),  tlsSettings(), tcpSettings(), kcpSettings(), wsSettings(), httpSettings(), dsSettings(), quicSettings() {}
+        StreamSettingsObject()
+            : network("tcp"), security("none"), sockopt(), tlsSettings(), tcpSettings(), kcpSettings(), wsSettings(), httpSettings(),
+              dsSettings(), quicSettings()
+        {
+        }
         XTOSTRUCT(O(network, security, sockopt, tcpSettings, tlsSettings, kcpSettings, wsSettings, httpSettings, dsSettings, quicSettings))
     };
     //
     //
-    struct MuxObject {
+    struct MuxObject
+    {
         bool enabled;
         int concurrency;
-        MuxObject(): enabled(), concurrency() {}
+        MuxObject() : enabled(), concurrency()
+        {
+        }
         XTOSTRUCT(O(enabled, concurrency))
     };
     //
@@ -241,21 +314,28 @@ namespace Qv2ray::base::objects
     namespace protocol
     {
         // DNS, OutBound
-        struct DNSOut {
+        struct DNSOut
+        {
             QString network;
             QString address;
             int port;
-            DNSOut(): network(""), address("0.0.0.0"), port(0) {}
+            DNSOut() : network(""), address("0.0.0.0"), port(0)
+            {
+            }
             XTOSTRUCT(O(network, address, port))
         };
         //
         // MTProto, InBound || OutBound
-        struct MTProtoIn {
-            struct UserObject {
+        struct MTProtoIn
+        {
+            struct UserObject
+            {
                 QString email;
                 int level;
                 QString secret;
-                UserObject() : email("user@domain.com"), level(0), secret("") {}
+                UserObject() : email("user@domain.com"), level(0), secret("")
+                {
+                }
                 XTOSTRUCT(O(email, level, secret))
             };
             QList<UserObject> users;
@@ -263,42 +343,55 @@ namespace Qv2ray::base::objects
         };
         //
         // Socks, OutBound
-        struct SocksServerObject {
-            struct UserObject {
+        struct SocksServerObject
+        {
+            struct UserObject
+            {
                 QString user;
                 QString pass;
                 int level;
-                UserObject(): user("username"), pass("password"), level(0) {}
+                UserObject() : user("username"), pass("password"), level(0)
+                {
+                }
                 XTOSTRUCT(O(user, pass, level))
             };
 
             QString address;
             int port;
             QList<UserObject> users;
-            SocksServerObject(): address("0.0.0.0"), port(0), users() {}
+            SocksServerObject() : address("0.0.0.0"), port(0), users()
+            {
+            }
             XTOSTRUCT(O(address, port, users))
         };
         //
         // VMess Server
-        struct VMessServerObject {
-            struct UserObject {
+        struct VMessServerObject
+        {
+            struct UserObject
+            {
                 QString id;
                 int alterId;
                 QString security;
                 int level;
-                UserObject() : id(""), alterId(64), security("auto"), level(0) {}
+                UserObject() : id(""), alterId(64), security("auto"), level(0)
+                {
+                }
                 XTOSTRUCT(O(id, alterId, security, level))
             };
 
             QString address;
             int port;
             QList<UserObject> users;
-            VMessServerObject(): address(""), port(0), users() {}
+            VMessServerObject() : address(""), port(0), users()
+            {
+            }
             XTOSTRUCT(O(address, port, users))
         };
         //
         // ShadowSocks Server
-        struct ShadowSocksServerObject {
+        struct ShadowSocksServerObject
+        {
             QString email;
             QString address;
             QString method;
@@ -306,8 +399,11 @@ namespace Qv2ray::base::objects
             bool ota;
             int level;
             int port;
-            ShadowSocksServerObject(): email("user@domain.com"), address("0.0.0.0"), method("aes-256-cfb"), password(""), ota(false), level(0), port(0) {}
+            ShadowSocksServerObject()
+                : email("user@domain.com"), address("0.0.0.0"), method("aes-256-cfb"), password(""), ota(false), level(0), port(0)
+            {
+            }
             XTOSTRUCT(O(email, address, port, method, password, ota, level))
         };
-    }
-}
+    } // namespace protocol
+} // namespace Qv2ray::base::objects
