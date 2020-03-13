@@ -284,22 +284,7 @@
     </message>
     <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
-        <source>From QRCode File</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_ImportConfig.ui"/>
-        <source>From Screenshot</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_ImportConfig.ui"/>
         <source>Go</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_ImportConfig.ui"/>
-        <source>After</source>
         <translation></translation>
     </message>
     <message>
@@ -356,6 +341,11 @@
         <location filename="../src/ui/w_ImportConfig.ui"/>
         <source>Cancel</source>
         <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="25"/>
+        <source>My Connection Imported at: </source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ui/w_ImportConfig.cpp" line="60"/>
@@ -422,6 +412,31 @@
     <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
         <source>Import as Complex Config (Manually edit route rules and inbounds)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_ImportConfig.ui"/>
+        <source>QRCode File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_ImportConfig.ui"/>
+        <source>Screenshot</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_ImportConfig.ui"/>
+        <source>Delay</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_ImportConfig.ui"/>
+        <source>Json Editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_ImportConfig.ui"/>
+        <source>Open JSON Editor</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -770,7 +785,7 @@
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.ui"/>
-        <location filename="../src/ui/w_MainWindow.hpp" line="127"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="131"/>
         <source>Preferences</source>
         <translation type="unfinished"></translation>
     </message>
@@ -842,103 +857,103 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="428"/>
-        <location filename="../src/ui/w_MainWindow.hpp" line="126"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="439"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="130"/>
         <source>Hide</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="391"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="433"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="402"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="444"/>
         <source>Show</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="223"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="148"/>
         <source>Sort connection list.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="224"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="149"/>
         <source>By connection name, A-Z</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="225"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="150"/>
         <source>By connection name, Z-A</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="228"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="153"/>
         <source>By data, Ascending</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="229"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="154"/>
         <source>By data, Descending</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="226"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="151"/>
         <source>By latency, Ascending</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="227"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="152"/>
         <source>By latency, Descending</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="364"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="375"/>
         <source>Update</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="365"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="376"/>
         <source>Found a new version: </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="366"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="377"/>
         <source>Download Link: </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="596"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="597"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="598"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="744"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="607"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="608"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="609"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="755"/>
         <source>Connected: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="628"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="642"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="639"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="653"/>
         <source>Configuring PAC</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="629"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="640"/>
         <source>Could not start PAC server as it is configured to use SOCKS, but it is not enabled</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="643"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="654"/>
         <source>Could not start PAC server as it is configured to use HTTP, but it is not enabled</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="889"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="894"/>
         <source>Duplicating Connection(s)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="890"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="895"/>
         <source>Are you sure to duplicate these connection(s)?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="897"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="902"/>
         <source> (Copy)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -988,37 +1003,37 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="127"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="128"/>
         <source>V2ray vcore terminated.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="128"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="129"/>
         <source>V2ray vcore terminated unexpectedly.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="129"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="130"/>
         <source>To solve the problem, read the V2ray log in the log text browser.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="164"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="128"/>
         <source>System Proxy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="570"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="581"/>
         <source>Disconnected from: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="491"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="502"/>
         <source>Removing Connection(s)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="491"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="502"/>
         <source>Are you sure to remove selected connection(s)?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1034,73 +1049,83 @@
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.ui"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="572"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="583"/>
         <source>Not Connected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="128"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="132"/>
         <source>Quit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="129"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="133"/>
         <source>Connect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="130"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="134"/>
         <source>Reconnect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="131"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="135"/>
         <source>Disconnect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="132"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="136"/>
         <source>Enable System Proxy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="133"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="137"/>
         <source>Disable System Proxy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="136"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="140"/>
         <source>Connect to this</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="137"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="141"/>
         <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="138"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="142"/>
         <source>Edit as JSON</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="139"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="143"/>
         <source>Edit as Complex Config</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="140"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="144"/>
         <source>Rename</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="141"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="145"/>
         <source>Duplicate to the Same Group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="142"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="146"/>
         <source>Delete Connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="161"/>
+        <source>Switch to vCore log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="162"/>
+        <source>Switch to Qv2ray log</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

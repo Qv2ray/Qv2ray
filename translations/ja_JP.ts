@@ -357,14 +357,12 @@
         <translation>VMess接続文字列</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.ui"/>
         <source>From QRCode File</source>
-        <translation>QRCodeファイルから</translation>
+        <translation type="vanished">QRCodeファイルから</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.ui"/>
         <source>From Screenshot</source>
-        <translation>スクリーンショットから</translation>
+        <translation type="vanished">スクリーンショットから</translation>
     </message>
     <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
@@ -372,9 +370,8 @@
         <translation>実行</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.ui"/>
         <source>After</source>
-        <translation>後</translation>
+        <translation type="vanished">後</translation>
     </message>
     <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
@@ -430,6 +427,11 @@
         <location filename="../src/ui/w_ImportConfig.ui"/>
         <source>Cancel</source>
         <translation>取り消し</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="25"/>
+        <source>My Connection Imported at: </source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ui/w_ImportConfig.cpp" line="60"/>
@@ -492,6 +494,31 @@
         <location filename="../src/ui/w_ImportConfig.cpp" line="271"/>
         <source>Failed to save file, please check if you have proper permissions</source>
         <translation>ファイルを保存できませんでした。適切な権限があるかどうかを確認してください</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_ImportConfig.ui"/>
+        <source>QRCode File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_ImportConfig.ui"/>
+        <source>Screenshot</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_ImportConfig.ui"/>
+        <source>Delay</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_ImportConfig.ui"/>
+        <source>Json Editor</source>
+        <translation type="unfinished">JSONエディター</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_ImportConfig.ui"/>
+        <source>Open JSON Editor</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -836,17 +863,17 @@
         <translation>Qv2ray</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="129"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="133"/>
         <source>Connect</source>
         <translation>接続</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="131"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="135"/>
         <source>Disconnect</source>
         <translation>切断</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="130"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="134"/>
         <source>Reconnect</source>
         <translation>再接</translation>
     </message>
@@ -926,7 +953,7 @@
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.ui"/>
-        <location filename="../src/ui/w_MainWindow.hpp" line="127"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="131"/>
         <source>Preferences</source>
         <translation>設定</translation>
     </message>
@@ -939,7 +966,7 @@
         <translation type="vanished">削除</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="137"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="141"/>
         <source>Edit</source>
         <translation>編集</translation>
     </message>
@@ -1006,7 +1033,7 @@
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.ui"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="572"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="583"/>
         <source>Not Connected</source>
         <translation>接続されていません</translation>
     </message>
@@ -1073,43 +1100,43 @@
         <translation type="vanished">#Restart</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="428"/>
-        <location filename="../src/ui/w_MainWindow.hpp" line="126"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="439"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="130"/>
         <source>Hide</source>
         <translation>非表示</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="128"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="132"/>
         <source>Quit</source>
         <translation>終了</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="138"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="142"/>
         <source>Edit as JSON</source>
         <translation>JSONとして編集</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="140"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="144"/>
         <source>Rename</source>
         <translation>Rename</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="141"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="145"/>
         <source>Duplicate to the Same Group</source>
         <translation>同じグループに複製</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="142"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="146"/>
         <source>Delete Connection</source>
         <translation>接続を削除</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="136"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="140"/>
         <source>Connect to this</source>
         <translation>Connect to this</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="139"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="143"/>
         <source>Edit as Complex Config</source>
         <translation>Edit as Complex Config</translation>
     </message>
@@ -1126,8 +1153,8 @@
         <translation type="vanished">Subscription:</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="391"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="433"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="402"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="444"/>
         <source>Show</source>
         <translation>表示</translation>
     </message>
@@ -1148,91 +1175,101 @@
         <translation type="vanished">Please select a config from the list.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="223"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="148"/>
         <source>Sort connection list.</source>
         <translation>接続リストを並べ替えます。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="224"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="149"/>
         <source>By connection name, A-Z</source>
         <translation>接続名で、A-Z</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="225"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="150"/>
         <source>By connection name, Z-A</source>
         <translation>接続名で、Z-A</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="226"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="151"/>
         <source>By latency, Ascending</source>
         <translation>レイテンシー、昇順</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="227"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="152"/>
         <source>By latency, Descending</source>
         <translation>レイテンシー、降順</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="228"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="153"/>
         <source>By data, Ascending</source>
         <translation>データ別、昇順</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="229"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="154"/>
         <source>By data, Descending</source>
         <translation>データ別、降順</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="364"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="161"/>
+        <source>Switch to vCore log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="162"/>
+        <source>Switch to Qv2ray log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.cpp" line="375"/>
         <source>Update</source>
         <translation>更新</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="365"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="376"/>
         <source>Found a new version: </source>
         <translation>新しいバージョンが見つかりました: </translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="366"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="377"/>
         <source>Download Link: </source>
         <translation>ダウンロードリンク: </translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="596"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="597"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="598"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="744"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="607"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="608"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="609"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="755"/>
         <source>Connected: </source>
         <translation>接続済み: </translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="628"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="642"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="639"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="653"/>
         <source>Configuring PAC</source>
         <translation>PACの構成</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="629"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="640"/>
         <source>Could not start PAC server as it is configured to use SOCKS, but it is not enabled</source>
         <translation>SOCKSを使用するように構成されているため、PACサーバーを起動できませんでしたが、有効になっていません</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="643"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="654"/>
         <source>Could not start PAC server as it is configured to use HTTP, but it is not enabled</source>
         <translation>HTTPを使用するように設定されているため、PACサーバーを起動できませんでしたが、有効になっていません</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="889"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="894"/>
         <source>Duplicating Connection(s)</source>
         <translation>接続を重複</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="890"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="895"/>
         <source>Are you sure to duplicate these connection(s)?</source>
         <translation>これらの接続を複製してもよろしいですか？</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="897"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="902"/>
         <source> (Copy)</source>
         <translation> （コピー）</translation>
     </message>
@@ -1330,32 +1367,32 @@
         <translation type="vanished">Rename a Connection</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="127"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="128"/>
         <source>V2ray vcore terminated.</source>
         <translation>V2ray コアが終了しました。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="128"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="129"/>
         <source>V2ray vcore terminated unexpectedly.</source>
         <translation>V2rayコアが予期せず終了しました。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="129"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="130"/>
         <source>To solve the problem, read the V2ray log in the log text browser.</source>
         <translation>問題を解決するには、ログテキストブラウザーでV2rayログを読みます。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="132"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="136"/>
         <source>Enable System Proxy</source>
         <translation>Enable System Proxy</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="133"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="137"/>
         <source>Disable System Proxy</source>
         <translation>Disable System Proxy</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="164"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="128"/>
         <source>System Proxy</source>
         <translation>システムプロキシ</translation>
     </message>
@@ -1376,7 +1413,7 @@
         <translation type="vanished">Already connected to: </translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="570"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="581"/>
         <source>Disconnected from: </source>
         <translation>次から切断: </translation>
     </message>
@@ -1393,12 +1430,12 @@
         <translation type="vanished">The name you suggested is not valid, please try another.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="491"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="502"/>
         <source>Removing Connection(s)</source>
         <translation>接続の削除</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="491"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="502"/>
         <source>Are you sure to remove selected connection(s)?</source>
         <translation>選択した接続を削除してもよろしいですか？</translation>
     </message>

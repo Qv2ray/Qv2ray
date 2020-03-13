@@ -22,7 +22,7 @@
 ImportConfigWindow::ImportConfigWindow(QWidget *parent) : QDialog(parent)
 {
     setupUi(this);
-    nameTxt->setText(QDateTime::currentDateTime().toString("MMdd_hhmm"));
+    nameTxt->setText(tr("My Connection Imported at: ") + QDateTime::currentDateTime().toString("MM-dd hh:mm"));
     QvMessageBusConnect(ImportConfigWindow);
     RESTORE_RUNTIME_CONFIG(screenShotHideQv2ray, hideQv2rayCB->setChecked)
 }
@@ -294,10 +294,6 @@ void ImportConfigWindow::on_connectionEditBtn_clicked()
         connections.insert(alias, root);
         accept();
     }
-    else
-    {
-        return;
-    }
 }
 
 void ImportConfigWindow::on_cancelImportBtn_clicked()
@@ -334,14 +330,24 @@ void ImportConfigWindow::on_routeEditBtn_clicked()
         connections.insert(alias, result);
         accept();
     }
-    else
-    {
-        return;
-    }
 }
 
 void ImportConfigWindow::on_hideQv2rayCB_stateChanged(int arg1)
 {
     Q_UNUSED(arg1)
     SET_RUNTIME_CONFIG(screenShotHideQv2ray, hideQv2rayCB->isChecked)
+}
+
+void ImportConfigWindow::on_jsonEditBtn_clicked()
+{
+    JsonEditor w(QJsonObject(), this);
+    auto result = w.OpenEditor();
+    bool isChanged = w.result() == QDialog::Accepted;
+    QString alias = nameTxt->text();
+
+    if (isChanged)
+    {
+        connections.insert(alias, CONFIGROOT(result));
+        accept();
+    }
 }

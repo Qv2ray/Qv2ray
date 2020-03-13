@@ -42,6 +42,8 @@ class ImportConfigWindow
 
     void on_hideQv2rayCB_stateChanged(int arg1);
 
+    void on_jsonEditBtn_clicked();
+
   private:
     void UpdateColorScheme();
     QMultiMap<QString, CONFIGROOT> connections;

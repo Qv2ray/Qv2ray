@@ -357,14 +357,12 @@
         <translation>VMess 链接</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.ui"/>
         <source>From QRCode File</source>
-        <translation>从二维码的文件</translation>
+        <translation type="vanished">从二维码的文件</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.ui"/>
         <source>From Screenshot</source>
-        <translation>从屏幕截图</translation>
+        <translation type="vanished">从屏幕截图</translation>
     </message>
     <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
@@ -372,9 +370,8 @@
         <translation>开始</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.ui"/>
         <source>After</source>
-        <translation>在</translation>
+        <translation type="vanished">在</translation>
     </message>
     <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
@@ -430,6 +427,11 @@
         <location filename="../src/ui/w_ImportConfig.ui"/>
         <source>Cancel</source>
         <translation>取消</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="25"/>
+        <source>My Connection Imported at: </source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ui/w_ImportConfig.cpp" line="60"/>
@@ -492,6 +494,31 @@
         <location filename="../src/ui/w_ImportConfig.cpp" line="271"/>
         <source>Failed to save file, please check if you have proper permissions</source>
         <translation>保存文件失败，请检查您是否拥有所需的权限</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_ImportConfig.ui"/>
+        <source>QRCode File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_ImportConfig.ui"/>
+        <source>Screenshot</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_ImportConfig.ui"/>
+        <source>Delay</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_ImportConfig.ui"/>
+        <source>Json Editor</source>
+        <translation type="unfinished">Json 编辑器</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_ImportConfig.ui"/>
+        <source>Open JSON Editor</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -836,17 +863,17 @@
         <translation>Qv2ray</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="129"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="133"/>
         <source>Connect</source>
         <translation>连接</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="131"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="135"/>
         <source>Disconnect</source>
         <translation>断开连接</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="130"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="134"/>
         <source>Reconnect</source>
         <translation>重新连接</translation>
     </message>
@@ -926,7 +953,7 @@
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.ui"/>
-        <location filename="../src/ui/w_MainWindow.hpp" line="127"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="131"/>
         <source>Preferences</source>
         <translation>首选项</translation>
     </message>
@@ -939,7 +966,7 @@
         <translation type="vanished">删除</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="137"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="141"/>
         <source>Edit</source>
         <translation>编辑</translation>
     </message>
@@ -1006,7 +1033,7 @@
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.ui"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="572"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="583"/>
         <source>Not Connected</source>
         <translation>未连接</translation>
     </message>
@@ -1073,43 +1100,43 @@
         <translation type="vanished">重启</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="428"/>
-        <location filename="../src/ui/w_MainWindow.hpp" line="126"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="439"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="130"/>
         <source>Hide</source>
         <translation>隐藏</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="128"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="132"/>
         <source>Quit</source>
         <translation>退出</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="138"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="142"/>
         <source>Edit as JSON</source>
         <translation>编辑为 JSON</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="140"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="144"/>
         <source>Rename</source>
         <translation>重命名</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="141"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="145"/>
         <source>Duplicate to the Same Group</source>
         <translation>复制到同组</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="142"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="146"/>
         <source>Delete Connection</source>
         <translation>删除连接</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="136"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="140"/>
         <source>Connect to this</source>
         <translation>连接到此服务器</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="139"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="143"/>
         <source>Edit as Complex Config</source>
         <translation>编辑为复杂配置</translation>
     </message>
@@ -1126,8 +1153,8 @@
         <translation type="vanished">订阅:</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="391"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="433"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="402"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="444"/>
         <source>Show</source>
         <translation>显示</translation>
     </message>
@@ -1148,91 +1175,101 @@
         <translation type="vanished">请从列表中选择一个配置。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="223"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="148"/>
         <source>Sort connection list.</source>
         <translation>排序连接列表。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="224"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="149"/>
         <source>By connection name, A-Z</source>
         <translation>按名称，顺序</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="225"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="150"/>
         <source>By connection name, Z-A</source>
         <translation>按名称，逆序</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="226"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="151"/>
         <source>By latency, Ascending</source>
         <translation>低延迟优先</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="227"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="152"/>
         <source>By latency, Descending</source>
         <translation>高延迟优先</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="228"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="153"/>
         <source>By data, Ascending</source>
         <translation>低数据使用量优先</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="229"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="154"/>
         <source>By data, Descending</source>
         <translation>高数据使用量优先</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="364"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="161"/>
+        <source>Switch to vCore log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="162"/>
+        <source>Switch to Qv2ray log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.cpp" line="375"/>
         <source>Update</source>
         <translation>更新</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="365"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="376"/>
         <source>Found a new version: </source>
         <translation>找到新的版本： </translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="366"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="377"/>
         <source>Download Link: </source>
         <translation>下载链接： </translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="596"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="597"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="598"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="744"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="607"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="608"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="609"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="755"/>
         <source>Connected: </source>
         <translation>已连接: </translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="628"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="642"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="639"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="653"/>
         <source>Configuring PAC</source>
         <translation>配置 PAC</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="629"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="640"/>
         <source>Could not start PAC server as it is configured to use SOCKS, but it is not enabled</source>
         <translation>无法启动 PAC 服务器，因为它被配置为使用 SOCKS，但它没有启用</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="643"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="654"/>
         <source>Could not start PAC server as it is configured to use HTTP, but it is not enabled</source>
         <translation>无法启动 PAC 服务器，因为它被配置为使用 HTTP ，但它尚未启用</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="889"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="894"/>
         <source>Duplicating Connection(s)</source>
         <translation>复制连接</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="890"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="895"/>
         <source>Are you sure to duplicate these connection(s)?</source>
         <translation>您确定要复制这（些）连接吗？</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="897"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="902"/>
         <source> (Copy)</source>
         <translation> （副本）</translation>
     </message>
@@ -1330,32 +1367,32 @@
         <translation type="vanished">重命名连接</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="127"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="128"/>
         <source>V2ray vcore terminated.</source>
         <translation>V2ray 核心已终止。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="128"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="129"/>
         <source>V2ray vcore terminated unexpectedly.</source>
         <translation>V2ray 核心意外终止。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="129"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="130"/>
         <source>To solve the problem, read the V2ray log in the log text browser.</source>
         <translation>要解决问题，请阅读日志文本浏览器中的 V2ray 日志。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="132"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="136"/>
         <source>Enable System Proxy</source>
         <translation>启用系统代理</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="133"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="137"/>
         <source>Disable System Proxy</source>
         <translation>禁用系统代理</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="164"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="128"/>
         <source>System Proxy</source>
         <translation>系统代理</translation>
     </message>
@@ -1376,7 +1413,7 @@
         <translation type="vanished">已经连接到：</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="570"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="581"/>
         <source>Disconnected from: </source>
         <translation>已断开连接: </translation>
     </message>
@@ -1393,12 +1430,12 @@
         <translation type="vanished">您建议的名称无效，请尝试其他名称。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="491"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="502"/>
         <source>Removing Connection(s)</source>
         <translation>删除连接</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="491"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="502"/>
         <source>Are you sure to remove selected connection(s)?</source>
         <translation>您确定要删除这（些）连接吗？</translation>
     </message>
