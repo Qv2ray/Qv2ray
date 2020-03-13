@@ -98,13 +98,13 @@ class MainWindow
     //
     void SortConnectionList(MW_ITEM_COL byCol, bool asending);
 
-    void on_connectionListWidget_itemSelectionChanged();
-
     void on_chartVisibilityBtn_clicked();
 
     void on_logVisibilityBtn_clicked();
 
     void on_clearChartBtn_clicked();
+
+    void on_connectionListWidget_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous);
 
   private:
     QHash<GroupId, shared_ptr<QTreeWidgetItem>> groupNodes;

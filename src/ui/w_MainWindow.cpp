@@ -912,15 +912,6 @@ void MainWindow::on_action_RCM_EditAsJson_triggered()
     OnEditJsonRequested(get<1>(widget->Identifier()));
 }
 
-void MainWindow::on_connectionListWidget_itemSelectionChanged()
-{
-    if (connectionListWidget->selectedItems().count() > 0)
-    {
-        connectionListWidget->setCurrentItem(connectionListWidget->selectedItems().first());
-        connectionListWidget->setFocus();
-    }
-}
-
 void MainWindow::on_chartVisibilityBtn_clicked()
 {
     speedChartHolderWidget->setVisible(!speedChartWidget->isVisible());
@@ -934,4 +925,13 @@ void MainWindow::on_logVisibilityBtn_clicked()
 void MainWindow::on_clearChartBtn_clicked()
 {
     speedChartWidget->Clear();
+}
+
+void MainWindow::on_connectionListWidget_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous)
+{
+    Q_UNUSED(previous)
+    if (current != nullptr && !isExiting)
+    {
+        on_connectionListWidget_itemClicked(current, 0);
+    }
 }
