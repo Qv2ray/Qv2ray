@@ -107,10 +107,10 @@ namespace Qv2ray::core::connection
 
             bool flag = true;
             // C is a quick hack...
-#define C(k) (flag = (vmessConf.contains(k) ? true : (*errMessage += (k " does not exist"), false)))
+#define C(k) (flag = (vmessConf.contains(k) ? (errMessage->clear(), true) : (*errMessage += (k " does not exist"), false)))
             // id, aid, port and add are mandatory fields of a vmess://
             // link.
-            flag = flag && C("id") && C("aid") && C("port") && C("add");
+            flag = flag && C("id") && (C("aid") || C("alterId")) && C("port") && C("add");
             // Stream Settings
             auto net = vmessConf["net"].toString();
 
@@ -171,6 +171,10 @@ namespace Qv2ray::core::connection
             //
             // Get Alias (AKA ps) from address and port.
             {
+                // Some idiot vmess:// links are using alterId...
+                aid = vmessConf.contains("aid") ? vmessConf.value("aid").toInt() : vmessConf.value("alterId").toInt();
+                //
+                //
                 __vmess_checker__func(ps, << vmessConf["add"].toVariant().toString() + ":" + vmessConf["port"].toVariant().toString()); //
                 __vmess_checker__func(add, nothing);                                                                                    //
                 __vmess_checker__func(id, nothing);                                                                                     //
