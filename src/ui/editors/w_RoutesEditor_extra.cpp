@@ -117,8 +117,8 @@ void RouteEditor::AddRule(RuleObject rule)
     ruleListWidget->addItem(rule.QV2RAY_RULE_TAG);
 }
 
-// Do not use reference here, we need deep
-void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString &originalTag, QString *newTag)
+// Do not use reference here, we need deep copy of EVERY QString.
+void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString originalTag, QString *newTag)
 {
     switch (mode)
     {
@@ -140,9 +140,10 @@ void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString &originalTag
 
                 node->setData(*newTag);
                 //
-                rules.insert(*newTag, rules.take(originalTag));
-                rules[*newTag].QV2RAY_RULE_TAG = *newTag;
-                ruleNodes[*newTag] = ruleNodes.take(originalTag);
+                auto rule = rules.take(originalTag);
+                rule.QV2RAY_RULE_TAG = *newTag;
+                rules.insert(*newTag, rule);
+                ruleNodes.insert(*newTag, ruleNodes.take(originalTag));
                 //
                 // No other operation needed, but need to rename the one in the
                 // ruleOrder list widget.

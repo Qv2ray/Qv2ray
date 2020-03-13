@@ -155,8 +155,11 @@ namespace Qv2ray::components::autolaunch
     }
 
 #elif defined Q_OS_LINUX
-        // From
-        // https://github.com/nextcloud/desktop/blob/master/src/common/utility_unix.cpp
+        //
+        // For AppImage packaging.
+        auto binPath = qEnvironmentVariableIsSet("APPIMAGE") ? qEnvironmentVariable("APPIMAGE") : QCoreApplication::applicationFilePath();
+        //
+        // From https://github.com/nextcloud/desktop/blob/master/src/common/utility_unix.cpp
         QString appName = QApplication::applicationName();
         QString userAutoStartPath = getUserAutostartDir_private();
         QString desktopFileLocation = userAutoStartPath + appName + QLatin1String(".desktop");
@@ -184,7 +187,7 @@ namespace Qv2ray::components::autolaunch
             ts << QLatin1String("[Desktop Entry]") << endl
                << QLatin1String("Name=") << QApplication::applicationName() << endl
                << QLatin1String("GenericName=") << QLatin1String("V2ray Frontend") << endl
-               << QLatin1String("Exec=") << QCoreApplication::applicationFilePath() << endl
+               << QLatin1String("Exec=") << binPath << endl
                << QLatin1String("Terminal=") << "false" << endl
                << QLatin1String("Icon=") << "qv2ray" << endl // always use lowercase for icons
                << QLatin1String("Categories=") << "Network" << endl

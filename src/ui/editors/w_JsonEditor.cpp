@@ -4,8 +4,10 @@
 
 JsonEditor::JsonEditor(QJsonObject rootObject, QWidget *parent) : QDialog(parent)
 {
-    QvMessageBusConnect(JsonEditor);
     setupUi(this);
+    QvMessageBusConnect(JsonEditor);
+    highlighter = make_unique<vCoreConfigJsonHighlighter>(jsonEditor->document());
+    //
     original = rootObject;
     final = rootObject;
     QString jsonString = JsonToString(rootObject);
@@ -30,7 +32,11 @@ QvMessageBusSlotImpl(JsonEditor)
 {
     switch (msg)
     {
-        MBShowDefaultImpl MBHideDefaultImpl MBRetranslateDefaultImpl
+        MBShowDefaultImpl MBHideDefaultImpl MBRetranslateDefaultImpl //
+            case UPDATE_COLORSCHEME:
+        {
+            highlighter.reset(new vCoreConfigJsonHighlighter(jsonEditor->document()));
+        }
     }
 }
 
@@ -83,10 +89,20 @@ void JsonEditor::on_formatJsonBtn_clicked()
     {
         BLACK(jsonEditor)
         jsonEditor->setPlainText(JsonToString(JsonFromString(string)));
+        LOG(MODULE_UI, "Reloading JSON model")
+        model.loadJson(QJsonDocument(JsonFromString(string)).toJson());
+        jsonTree->setModel(&model);
+        jsonTree->expandAll();
+        jsonTree->resizeColumnToContents(0);
     }
     else
     {
         RED(jsonEditor)
-        QvMessageBoxWarn(this, tr("Syntax Errors"), tr("Please fix the JSON errors before continue"));
+        QvMessageBoxWarn(this, tr("Syntax Errors"), tr("Please fix the JSON errors or remove the comments before continue"));
     }
+}
+
+void JsonEditor::on_removeCommentsBtn_clicked()
+{
+    jsonEditor->setPlainText(JsonToString(JsonFromString(jsonEditor->toPlainText())));
 }

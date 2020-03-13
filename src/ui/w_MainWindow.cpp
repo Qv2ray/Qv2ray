@@ -70,7 +70,7 @@ void MainWindow::MWAddConnectionItem_p(const ConnectionId &connection, const Gro
     {
         MWAddGroupItem_p(groupId);
     }
-    auto groupItem = groupNodes[groupId];
+    auto groupItem = groupNodes.value(groupId);
     auto connectionItem = make_shared<QTreeWidgetItem>(QStringList{
         "",                                               //
         GetDisplayName(connection),                       //
@@ -79,7 +79,7 @@ void MainWindow::MWAddConnectionItem_p(const ConnectionId &connection, const Gro
         "LAST_CONNECTED_NOT_SUPPORTED",                   //
         NumericString(GetConnectionTotalData(connection)) //
     });
-    connectionNodes[connection] = connectionItem;
+    connectionNodes.insert(connection, connectionItem);
     groupItem->addChild(connectionItem.get());
     auto widget = new ConnectionItemWidget(connection, connectionListWidget);
     connect(widget, &ConnectionItemWidget::RequestWidgetFocus, this, &MainWindow::OnConnectionWidgetFocusRequested);
@@ -89,7 +89,7 @@ void MainWindow::MWAddConnectionItem_p(const ConnectionId &connection, const Gro
 void MainWindow::MWAddGroupItem_p(const GroupId &groupId)
 {
     auto groupItem = make_shared<QTreeWidgetItem>(QStringList{ "", GetDisplayName(groupId) });
-    groupNodes[groupId] = groupItem;
+    groupNodes.insert(groupId, groupItem);
     connectionListWidget->addTopLevelItem(groupItem.get());
     connectionListWidget->setItemWidget(groupItem.get(), 0, new ConnectionItemWidget(groupId, connectionListWidget));
 }
@@ -142,10 +142,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(ConnectionManager, &QvConfigHandler::OnGroupDeleted, this, &MainWindow::OnGroupDeleted);
     //
     connect(ConnectionManager, &QvConfigHandler::OnConnectionRenamed, [&](const ConnectionId &id, const QString &, const QString &newName) {
-        connectionNodes[id]->setText(MW_ITEM_COL_NAME, newName); //
+        if (connectionNodes.contains(id))
+            connectionNodes.value(id)->setText(MW_ITEM_COL_NAME, newName); //
     });
     connect(ConnectionManager, &QvConfigHandler::OnLatencyTestFinished, [&](const ConnectionId &id, const uint avg) {
-        connectionNodes[id]->setText(MW_ITEM_COL_PING, NumericString(avg)); //
+        if (connectionNodes.contains(id))
+            connectionNodes.value(id)->setText(MW_ITEM_COL_PING, NumericString(avg)); //
     });
     //
     connect(infoWidget, &ConnectionInfoWidget::OnEditRequested, this, &MainWindow::OnEditRequested);
@@ -743,7 +745,10 @@ void MainWindow::OnStatsAvailable(const ConnectionId &id, const quint64 upS, con
                      NEWLINE "Up: " + totalSpeedUp + " Down: " + totalSpeedDown);
     //
     // Set data accordingly
-    connectionNodes[id]->setText(MW_ITEM_COL_DATA, NumericString(GetConnectionTotalData(id)));
+    if (connectionNodes.contains(id))
+    {
+        connectionNodes.value(id)->setText(MW_ITEM_COL_DATA, NumericString(GetConnectionTotalData(id)));
+    }
 }
 
 void MainWindow::OnVCoreLogAvailable(const ConnectionId &id, const QString &log)
@@ -824,14 +829,14 @@ void MainWindow::OnConnectionCreated(const ConnectionId &id, const QString &disp
 }
 void MainWindow::OnConnectionDeleted(const ConnectionId &id, const GroupId &groupId)
 {
-    auto &child = connectionNodes[id];
-    groupNodes[groupId]->removeChild(child.get());
+    auto &child = connectionNodes.value(id);
+    groupNodes.value(groupId)->removeChild(child.get());
     connectionNodes.remove(id);
 }
 void MainWindow::OnConnectionGroupChanged(const ConnectionId &id, const GroupId &originalGroup, const GroupId &newGroup)
 {
-    delete GetItemWidget(connectionNodes[id].get());
-    groupNodes[originalGroup]->removeChild(connectionNodes[id].get());
+    delete GetItemWidget(connectionNodes.value(id).get());
+    groupNodes.value(originalGroup)->removeChild(connectionNodes.value(id).get());
     connectionNodes.remove(id);
     MWAddConnectionItem_p(id, newGroup);
 }
@@ -844,7 +849,7 @@ void MainWindow::OnGroupDeleted(const GroupId &id, const QList<ConnectionId> &co
 {
     for (auto conn : connections)
     {
-        groupNodes[id]->removeChild(connectionNodes[conn].get());
+        groupNodes.value(id)->removeChild(connectionNodes.value(conn).get());
     }
     groupNodes.remove(id);
 }
@@ -854,9 +859,9 @@ void MainWindow::on_locateBtn_clicked()
     auto id = ConnectionManager->CurrentConnection();
     if (id != NullConnectionId)
     {
-        connectionListWidget->setCurrentItem(connectionNodes[id].get());
-        connectionListWidget->scrollToItem(connectionNodes[id].get());
-        on_connectionListWidget_itemClicked(connectionNodes[id].get(), 0);
+        connectionListWidget->setCurrentItem(connectionNodes.value(id).get());
+        connectionListWidget->scrollToItem(connectionNodes.value(id).get());
+        on_connectionListWidget_itemClicked(connectionNodes.value(id).get(), 0);
     }
 }
 

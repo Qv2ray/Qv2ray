@@ -27,7 +27,12 @@ void ConnectionInfoWidget::UpdateColorScheme()
     editJsonBtn->setIcon(QICON_R("json.png"));
     shareLinkTxt->setStyleSheet("border-bottom: 1px solid gray; border-radius: 0px; padding: 2px; background-color: " +
                                 this->palette().color(this->backgroundRole()).name(QColor::HexRgb));
-
+    //
+    auto isDarkTheme = GlobalConfig.uiConfig.useDarkTheme;
+    qrPixmapBlured = BlurImage(ColorizeImage(qrPixmap, isDarkTheme ? QColor(Qt::black) : QColor(Qt::white), 0.7), 35);
+    //
+    qrLabel->setPixmap(IsComplexConfig(connectionId) ? QPixmap(":/assets/icons/qv2ray.ico") : (isRealPixmapShown ? qrPixmap : qrPixmapBlured));
+    //
     connectBtn->setIcon(ConnectionManager->IsConnected(connectionId) ? QICON_R("stop.png") : QICON_R("connect.png"));
 }
 
@@ -79,10 +84,10 @@ void ConnectionInfoWidget::ShowDetails(const tuple<GroupId, ConnectionId> &_iden
         conf.imageSize = QSize(400, 400);
         conf.errorCorrectionLevel = QZXing::EncodeErrorCorrectionLevel_M;
         QZXing qzx;
-        auto img = qzx.encodeData(shareLink, conf);
+        qrPixmap = QPixmap::fromImage(qzx.encodeData(shareLink, conf));
         //
-        qrPixmap = QPixmap::fromImage(img);
-        qrPixmapBlured = BlurImage(LightenImage(QPixmap::fromImage(img), 0.75), 20);
+        auto isDarkTheme = GlobalConfig.uiConfig.useDarkTheme;
+        qrPixmapBlured = BlurImage(ColorizeImage(qrPixmap, isDarkTheme ? QColor(Qt::black) : QColor(Qt::white), 0.7), 35);
         //
         isRealPixmapShown = false;
         qrLabel->setPixmap(IsComplexConfig(connectionId) ? QPixmap(":/assets/icons/qv2ray.ico") : qrPixmapBlured);

@@ -113,6 +113,12 @@ message("Qv2ray build info ex: ${_QV2RAY_BUILD_EXTRA_INFO_STR_}")
 set(QV2RAY_DEFAULT_VASSETS_PATH "unset" CACHE STRING "v2ray assets path")
 set(QV2RAY_DEFAULT_VCORE_PATH "unset" CACHE STRING "v2ray core path")
 set(QV2RAY_TRANSLATION_PATH "unset" CACHE STRING "Qv2ray translations path")
+set(QV2RAY_DISABLE_AUTO_UPDATE OFF CACHE BOOL "Disable update checker")
+if(UNIX AND NOT APPLE)
+  set(QV2RAY_USE_BUILTIN_DARKTHEME OFF CACHE BOOL "Use built-in dark theme instead of followed by the system settings")
+else()
+  set(QV2RAY_USE_BUILTIN_DARKTHEME ON CACHE BOOL "Use built-in dark theme instead of followed by the system settings")
+endif()
 set(EMBED_TRANSLATIONS OFF CACHE BOOL "Embed translations")
 
 if(QV2RAY_DEFAULT_VASSETS_PATH AND NOT STREQUAL "unset")
@@ -127,11 +133,20 @@ if(QV2RAY_TRANSLATION_PATH AND NOT STREQUAL "unset")
   add_definitions(-DQV2RAY_TRANSLATION_PATH="${QV2RAY_TRANSLATION_PATH}")
 endif()
 
+if(QV2RAY_USE_BUILTIN_DARKTHEME)
+  add_definitions(-DQV2RAY_USE_BUILTIN_DARKTHEME=true)
+endif()
+
+if(QV2RAY_DISABLE_AUTO_UPDATE)
+  add_definitions(-DDISABLE_AUTO_UPDATE)
+endif()
+
 set(QV2RAY_SOURCES
   src/base/Qv2rayLog.cpp
   src/common/CommandArgs.cpp
   src/common/HTTPRequestHelper.cpp
   src/common/LogHighlighter.cpp
+  src/common/JsonHighlighter.cpp
   src/common/QJsonModel.cpp
   src/common/QvHelpers.cpp
   src/common/QvTranslator.cpp
@@ -146,6 +161,7 @@ set(QV2RAY_SOURCES
   src/components/proxy/QvProxyConfigurator.cpp
   src/components/speedchart/speedplotview.cpp
   src/components/speedchart/speedwidget.cpp
+  src/components/darkmode/DarkmodeDetector.cpp
   src/core/connection/ConnectionIO.cpp
   src/core/connection/Generation.cpp
   src/core/connection/Serialization.cpp
@@ -193,7 +209,6 @@ set(QV2RAY_SOURCES
   src/ui/w_MainWindow.ui
   src/ui/w_PreferencesWindow.ui
   src/ui/w_ScreenShot_Core.ui
-
   assets/qv2ray.rc
 )
 
@@ -204,7 +219,7 @@ if(EMBED_TRANSLATIONS)
 endif()
 
 add_custom_target(lupdate
-    lupdate ${QV2RAY_SOURCES} -ts ${TRANSLATIONS_TS}
+    COMMAND lupdate ${QV2RAY_SOURCES} -ts ${TRANSLATIONS_TS}
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 
 set_target_properties(lupdate PROPERTIES EXCLUDE_FROM_ALL TRUE)

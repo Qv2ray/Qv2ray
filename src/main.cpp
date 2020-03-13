@@ -28,102 +28,12 @@ void signalHandler(int signum)
     qApp->exit(-99);
 }
 
-bool verifyConfigAvailability(const QString &path, bool checkExistingConfig)
-{
-    // Does not exist.
-    if (!QDir(path).exists())
-        return false;
-
-    // A temp file used to test file permissions in that folder.
-    QFile testFile(path + ".qv2ray_file_write_test_file" + QSTRN(QTime::currentTime().msecsSinceStartOfDay()));
-    bool opened = testFile.open(QFile::OpenModeFlag::ReadWrite);
-
-    if (!opened)
-    {
-        LOG(MODULE_SETTINGS, "Directory at: " + path + " cannot be used as a valid config file path.")
-        LOG(MODULE_INIT, "---> Cannot create a new file or open a file for writing.")
-        return false;
-    }
-    else
-    {
-        testFile.write("Qv2ray test file, feel free to remove.");
-        testFile.flush();
-        testFile.close();
-        bool removed = testFile.remove();
-
-        if (!removed)
-        {
-            // This is rare, as we can create a file but failed to remove it.
-            LOG(MODULE_SETTINGS, "Directory at: " + path + " cannot be used as a valid config file path.")
-            LOG(MODULE_INIT, "---> Cannot remove a file.")
-            return false;
-        }
-    }
-
-    if (checkExistingConfig)
-    {
-        // Check if an existing config is found.
-        QFile configFile(path + "Qv2ray.conf");
-
-        // No such config file.
-        if (!configFile.exists())
-            return false;
-
-        bool opened2 = configFile.open(QIODevice::ReadWrite);
-
-        try
-        {
-            if (opened2)
-            {
-                // Verify if the config can be loaded.
-                // Failed to parse if we changed the file structure...
-                // Original:
-                //  --  auto conf =
-                //  StructFromJsonString<Qv2rayConfig>(configFile.readAll());
-                //
-                // Verify JSON file format. (only) because this file version may
-                // not be upgraded and may contain unsupported structure.
-                auto err = VerifyJsonString(StringFromFile(&configFile));
-
-                if (!err.isEmpty())
-                {
-                    LOG(MODULE_INIT, "Json parse returns: " + err)
-                    return false;
-                }
-                else
-                {
-                    // If the file format is valid.
-                    auto conf = JsonFromString(StringFromFile(&configFile));
-                    LOG(MODULE_SETTINGS,
-                        "Path: " + path + " contains a config file, in version " + conf["config_version"].toVariant().toString())
-                    configFile.close();
-                    return true;
-                }
-            }
-            else
-            {
-                LOG(MODULE_SETTINGS, "File: " + configFile.fileName() + " cannot be opened!")
-                return false;
-            }
-        }
-        catch (...)
-        {
-            LOG(MODULE_SETTINGS, "Exception raised when checking config: " + configFile.fileName())
-            // LOG(INIT, e->what())
-            QvMessageBoxWarn(nullptr, QObject::tr("Warning"),
-                             QObject::tr("Qv2ray cannot load the config file from here:") + NEWLINE + configFile.fileName());
-            return false;
-        }
-    }
-    else
-        return true;
-}
-
 bool initialiseQv2ray()
 {
     LOG(MODULE_INIT, "Application exec path: " + QApplication::applicationDirPath())
     const QString currentPathConfig = QApplication::applicationDirPath() + "/config" QV2RAY_CONFIG_DIR_SUFFIX;
-    const QString configQv2ray = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/qv2ray" QV2RAY_CONFIG_DIR_SUFFIX;
+    // Standard paths already handles the _debug suffix for us.
+    const QString configQv2ray = QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation);
     const QString homeQv2ray = QDir::homePath() + "/.qv2ray" QV2RAY_CONFIG_DIR_SUFFIX;
     //
     //
@@ -132,11 +42,11 @@ bool initialiseQv2ray()
     //
     QStringList configFilePaths;
     configFilePaths << currentPathConfig;
-#ifdef WITH_FLATHUB_CONFIG_PATH
-    // AppConfigLocation uses 'Q'v2ray instead of `q`v2ray. Keep here as
-    // backward compatibility.
-    configFilePaths << QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + QV2RAY_CONFIG_DIR_SUFFIX;
-#endif
+    // Application name changed to `qv2ray`, so these code are now becoming unnecessary.
+    //#ifdef WITH_FLATHUB_CONFIG_PATH
+    //    // AppConfigLocation uses 'Q'v2ray instead of `q`v2ray. Keep here as backward compatibility.
+    //    configFilePaths << QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + QV2RAY_CONFIG_DIR_SUFFIX;
+    //#endif
     configFilePaths << configQv2ray;
     configFilePaths << homeQv2ray;
     //
@@ -147,8 +57,8 @@ bool initialiseQv2ray()
     {
         // Verify the config path, check if the config file exists and in the
         // correct JSON format. True means we check for config existence as
-        // well. --|HERE |
-        bool isValidConfigPath = verifyConfigAvailability(path, true);
+        // well. ----------------------------------------------|HERE|
+        bool isValidConfigPath = CheckSettingsPathAvailability(path, true);
 
         // If we already found a valid config file. just simply load it...
         if (hasExistingConfig)
@@ -166,7 +76,6 @@ bool initialiseQv2ray()
         }
     }
 
-    // If there's no existing config.
     if (hasExistingConfig)
     {
         // Use the config path found by the checks above
@@ -175,6 +84,7 @@ bool initialiseQv2ray()
     }
     else
     {
+        // If there's no existing config.
         //
         // Create new config at these dirs, these are default values for each
         // platform.
@@ -184,53 +94,55 @@ bool initialiseQv2ray()
         configPath = configQv2ray;
 #endif
         bool mkpathResult = QDir().mkpath(configPath);
-
+        bool hasPossibleNewLocation = mkpathResult && CheckSettingsPathAvailability(configPath, false);
         // Check if the dirs are write-able
-        if (mkpathResult && verifyConfigAvailability(configPath, false))
+        if (!hasPossibleNewLocation)
         {
-            // Found a valid config dir, with write permission, but assume no
-            // config is located in it.
-            LOG(MODULE_INIT, "Set " + configPath + " as the config path.")
-            SetConfigDirPath(configPath);
-
-            if (QFile::exists(QV2RAY_CONFIG_FILE))
-            {
-                // As we already tried to load config from every possible dir.
-                // This condition branch (!hasExistingConfig check) holds the
-                // fact that current config dir, should NOT contain any valid
-                // file (at least in the same name) It usually means that
-                // QV2RAY_CONFIG_FILE here is corrupted, in JSON format.
-                // Otherwise Qv2ray would have loaded this config already
-                // instead of notifying to create a new config in this folder.
-                LOG(MODULE_INIT, "This should not occur: Qv2ray config exists but failed to load.")
-                QvMessageBoxWarn(nullptr, QObject::tr("Failed to initialise Qv2ray"),
-                                 QObject::tr("Failed to determine the location of config file.") + NEWLINE +
-                                     QObject::tr("Qv2ray will now exit.") + NEWLINE + QObject::tr("Please report if you think it's a bug."));
-                return false;
-            }
-
-            Qv2rayConfig conf;
-            conf.kernelConfig.KernelPath(QString(QV2RAY_DEFAULT_VCORE_PATH));
-            conf.kernelConfig.AssetsPath(QString(QV2RAY_DEFAULT_VASSETS_PATH));
-            conf.logLevel = 3;
             //
-            // Save initial config.
-            SaveGlobalConfig(conf);
-            LOG(MODULE_INIT, "Created initial config file.")
-        }
-        else
-        {
             // None of the path above can be used as a dir for storing config.
             // Even the last folder failed to pass the check.
             LOG(MODULE_INIT, "FATAL")
             LOG(MODULE_INIT, " ---> CANNOT find a proper place to store Qv2ray config files.")
-            QString searchPath = configFilePaths.join(NEWLINE);
             QvMessageBoxWarn(nullptr, QObject::tr("Cannot Start Qv2ray"),
                              QObject::tr("Cannot find a place to store config files.") + NEWLINE +
-                                 QObject::tr("Qv2ray has searched these paths below:") + NEWLINE + NEWLINE + searchPath + NEWLINE +
+                                 QObject::tr("Qv2ray has searched these paths below:") + NEWLINE + NEWLINE + //
+                                 configFilePaths.join(NEWLINE) + NEWLINE +
+                                 QObject::tr("It usually means you don't have the write permission to all of those locations.") +
                                  QObject::tr("Qv2ray will now exit."));
             return false;
         }
+        // Found a valid config dir, with write permission, but assume no config is located in it.
+        LOG(MODULE_INIT, "Set " + configPath + " as the config path.")
+        SetConfigDirPath(configPath);
+
+        if (QFile::exists(QV2RAY_CONFIG_FILE))
+        {
+            // As we already tried to load config from every possible dir.
+            //
+            // This condition branch (!hasExistingConfig check) holds the fact that current config dir,
+            // should NOT contain any valid file (at least in the same name)
+            //
+            // It usually means that QV2RAY_CONFIG_FILE here has a corrupted JSON format.
+            //
+            // Otherwise Qv2ray would have loaded this config already instead of notifying to create a new config in this folder.
+            //
+            LOG(MODULE_INIT, "This should not occur: Qv2ray config exists but failed to load.")
+            QvMessageBoxWarn(nullptr, QObject::tr("Failed to initialise Qv2ray"),
+                             QObject::tr("Failed to determine the location of config file:") + NEWLINE +
+                                 QObject::tr("Qv2ray has found a config file, but it failed to be loaded due to some errors.") + NEWLINE +
+                                 QObject::tr("A workaround is to remove the this file and restart Qv2ray:") + NEWLINE + QV2RAY_CONFIG_FILE +
+                                 QObject::tr("Qv2ray will now exit.") + NEWLINE + QObject::tr("Please report if you think it's a bug."));
+            return false;
+        }
+
+        Qv2rayConfig conf;
+        conf.kernelConfig.KernelPath(QString(QV2RAY_DEFAULT_VCORE_PATH));
+        conf.kernelConfig.AssetsPath(QString(QV2RAY_DEFAULT_VASSETS_PATH));
+        conf.logLevel = 2;
+        //
+        // Save initial config.
+        SaveGlobalConfig(conf);
+        LOG(MODULE_INIT, "Created initial config file.")
     }
 
     if (!QDir(QV2RAY_GENERATED_DIR).exists())
@@ -303,14 +215,15 @@ int main(int argc, char *argv[])
     //
     // This line must be called before any other ones, since we are using these
     // values to identify instances.
-    SingleApplication::setApplicationName("Qv2ray");
+    SingleApplication::setApplicationName("qv2ray");
     SingleApplication::setApplicationVersion(QV2RAY_VERSION_STRING);
     SingleApplication::setApplicationDisplayName("Qv2ray");
     //
     //
 #ifdef QT_DEBUG
     // ----------------------------> For debug build...
-    SingleApplication::setApplicationName("Qv2ray - DEBUG");
+    SingleApplication::setApplicationName("qv2ray_debug");
+    SingleApplication::setApplicationDisplayName("Qv2ray - " + QObject::tr("Debug version"));
 #endif
 
     if (!qEnvironmentVariableIsSet("QT_DEVICE_PIXEL_RATIO") &&       //
@@ -443,7 +356,7 @@ int main(int argc, char *argv[])
     font.setFamily("Microsoft YaHei");
     _qApp.setFont(font);
 #endif
-#ifdef QV2RAY_USE_BUILTIN_DARKTHEME
+#if (QV2RAY_USE_BUILTIN_DARKTHEME)
     LOG(MODULE_UI, "Using built-in theme.")
 
     if (confObject.uiConfig.useDarkTheme)
@@ -473,8 +386,8 @@ int main(int argc, char *argv[])
         darkPalette.setColor(QPalette::Highlight, QColor(42, 130, 218));
         darkPalette.setColor(QPalette::HighlightedText, Qt::black);
         darkPalette.setColor(QPalette::Disabled, QPalette::HighlightedText, disabledColor);
-        qApp->setPalette(darkPalette);
-        qApp->setStyleSheet("QToolTip { color: #ffffff; background-color: #2a82da; border: 1px solid white; }");
+        _qApp.setPalette(darkPalette);
+        _qApp.setStyleSheet("QToolTip { color: #ffffff; background-color: #2a82da; border: 1px solid white; }");
     }
 
 #else
@@ -484,7 +397,7 @@ int main(int argc, char *argv[])
 
     if (themes.contains(confObject.uiConfig.theme))
     {
-        _qApp.setStyle(confObject.uiConfig.theme);
+        qApp->setStyle(confObject.uiConfig.theme);
         LOG(MODULE_INIT + " " + MODULE_UI, "Setting Qv2ray UI themes: " + confObject.uiConfig.theme)
     }
 
@@ -497,6 +410,10 @@ int main(int argc, char *argv[])
         //_qApp.setAttribute(Qt::AA_DontUseNativeMenuBar);
         // Initialise Connection Handler
         ConnectionManager = new QvConfigHandler();
+        // Handler for session logout, shutdown, etc.
+        // Will not block.
+        QGuiApplication::setFallbackSessionManagementEnabled(false);
+        QObject::connect(&_qApp, &QGuiApplication::commitDataRequest, [] { LOG(MODULE_INIT, "Quit triggered by session manager.") });
         // Show MainWindow
         MainWindow w;
         QObject::connect(&_qApp, &SingleApplication::instanceStarted, [&]() {
@@ -505,10 +422,6 @@ int main(int argc, char *argv[])
             w.raise();
             w.activateWindow();
         });
-        // Handler for session logout, shutdown, etc.
-        // Will not block.
-        QGuiApplication::setFallbackSessionManagementEnabled(false);
-        QObject::connect(&_qApp, &QGuiApplication::commitDataRequest, [] { LOG(MODULE_INIT, "Quit triggered by session manager.") });
 #ifndef Q_OS_WIN
         signal(SIGUSR1, [](int) { emit MainWindow::mwInstance->StartConnection(); });
         signal(SIGUSR2, [](int) { emit MainWindow::mwInstance->StopConnection(); });

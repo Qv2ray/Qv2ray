@@ -9,7 +9,7 @@ namespace Qv2ray::core::connection
     {
         // -------------------------- BEGIN CONFIG GENERATIONS
         // ----------------------------------------------------------------------------
-        ROUTING GenerateRoutes(bool enableProxy, bool proxyCN)
+        ROUTING GenerateRoutes(bool enableProxy, bool bypassCN)
         {
             ROUTING root;
             root.insert("domainStrategy", "IPIfNonMatch");
@@ -28,9 +28,12 @@ namespace Qv2ray::core::connection
             rulesList.append(GenerateSingleRouteRule("geoip:private", false, OUTBOUND_TAG_DIRECT));
             //
             // Check if CN needs proxy, or direct.
-            rulesList.append(GenerateSingleRouteRule("geoip:cn", false, proxyCN ? OUTBOUND_TAG_DIRECT : OUTBOUND_TAG_PROXY));
-            rulesList.append(GenerateSingleRouteRule("geosite:cn", true, proxyCN ? OUTBOUND_TAG_DIRECT : OUTBOUND_TAG_PROXY));
-            //
+            if (bypassCN)
+            {
+                // No proxy agains CN addresses.
+                rulesList.append(GenerateSingleRouteRule("geoip:cn", false, OUTBOUND_TAG_DIRECT));
+                rulesList.append(GenerateSingleRouteRule("geosite:cn", true, OUTBOUND_TAG_DIRECT));
+            }
             // As a bug fix of #64, this default rule has been disabled.
             // rulesList.append(GenerateSingleRouteRule(QStringList({"regexp:.*"}),
             // true, globalProxy ? OUTBOUND_TAG_PROXY :  OUTBOUND_TAG_DIRECT));
@@ -120,7 +123,7 @@ namespace Qv2ray::core::connection
             INBOUNDSETTING root;
             QJsonArray accounts;
 
-            foreach (auto account, _accounts)
+            for (auto account : _accounts)
             {
                 if (account.user.isEmpty() && account.pass.isEmpty())
                 {
@@ -208,7 +211,7 @@ namespace Qv2ray::core::connection
                                      QJsonObject allocate)
         {
             INBOUND root;
-            LOG(MODULE_CONNECTION, "allocation is not used here.")
+            DEBUG(MODULE_CONNECTION, "Allocation is not used here, Not Implemented")
             Q_UNUSED(allocate)
             JADD(listen, port, protocol, settings, tag, sniffing)
             RROOT
@@ -238,13 +241,13 @@ namespace Qv2ray::core::connection
 
         CONFIGROOT GenerateRuntimeConfig(CONFIGROOT root)
         {
+            // Check if is complex BEFORE adding anything.
             bool isComplex = IsComplexConfig(root);
+            //
             QJsonObject logObject;
             //
-            // logObject.insert("access", QV2RAY_CONFIG_PATH +
-            // QV2RAY_VCORE_LOG_DIRNAME + QV2RAY_VCORE_ACCESS_LOG_FILENAME);
-            // logObject.insert("error", QV2RAY_CONFIG_PATH +
-            // QV2RAY_VCORE_LOG_DIRNAME + QV2RAY_VCORE_ERROR_LOG_FILENAME);
+            // logObject.insert("access", QV2RAY_CONFIG_PATH + QV2RAY_VCORE_LOG_DIRNAME + QV2RAY_VCORE_ACCESS_LOG_FILENAME);
+            // logObject.insert("error", QV2RAY_CONFIG_PATH + QV2RAY_VCORE_LOG_DIRNAME + QV2RAY_VCORE_ERROR_LOG_FILENAME);
             //
             logObject.insert("loglevel", vLogLevels[GlobalConfig.logLevel]);
             root.insert("log", logObject);
@@ -257,7 +260,7 @@ namespace Qv2ray::core::connection
 
             // If inbounds list is empty we append our global configured
             // inbounds to the config.
-            if (!root.contains("inbounds") || root["inbounds"].toArray().empty())
+            if (!root.contains("inbounds") || root.value("inbounds").toArray().empty())
             {
                 INBOUNDS inboundsList;
 
@@ -319,7 +322,9 @@ namespace Qv2ray::core::connection
             //
             // Note: The part below always makes the whole functionality in
             // trouble...... BE EXTREME CAREFUL when changing these code
-            // below... See: https://github.com/lhy0403/Qv2ray/issues/129
+            // below...
+            //
+            // See: https://github.com/Qv2ray/Qv2ray/issues/129
             // routeCountLabel in Mainwindow makes here failed to ENOUGH-ly
             // check the routing tables
 
@@ -331,7 +336,7 @@ namespace Qv2ray::core::connection
                 // HOWEVER, we need to verify the QV2RAY_RULE_ENABLED entry.
                 // And what's more, process (by removing unused items) from a
                 // rule object.
-                ROUTING routing = ROUTING(root["routing"].toObject());
+                ROUTING routing(root["routing"].toObject());
                 ROUTERULELIST rules;
                 LOG(MODULE_CONNECTION, "Processing an existing routing table.")
 
@@ -354,7 +359,7 @@ namespace Qv2ray::core::connection
                     }
                     else
                     {
-                        LOG(MODULE_SETTINGS, "We found a rule without QV2RAY_RULE_USE_BALANCER, so don't process it.")
+                        LOG(MODULE_SETTINGS, "We found a rule without QV2RAY_RULE_USE_BALANCER, so didn't process it.")
                     }
 
                     // If this entry has been disabled.
@@ -373,7 +378,6 @@ namespace Qv2ray::core::connection
             }
             else
             {
-                //
                 LOG(MODULE_CONNECTION, "Inserting default values to simple config")
 
                 if (root["outbounds"].toArray().count() != 1)
@@ -383,6 +387,7 @@ namespace Qv2ray::core::connection
                     LOG(MODULE_CONNECTION, "WARN: This message usually indicates the config file has logic errors:")
                     LOG(MODULE_CONNECTION, "WARN: --> The config file has NO routing section, however more than 1 outbounds are detected.")
                 }
+                auto outboundTag = getTag(OUTBOUND(root["outbounds"].toArray().first().toObject()));
 
                 auto routeObject = GenerateRoutes(GlobalConfig.connectionConfig.enableProxy, GlobalConfig.connectionConfig.bypassCN);
                 root.insert("routing", routeObject);
@@ -408,8 +413,8 @@ namespace Qv2ray::core::connection
                         {
                             fpOutbound =
                                 GenerateHTTPSOCKSOut(fpConf.serverAddress, fpConf.port, fpConf.useAuth, fpConf.username, fpConf.password);
-                            outboundArray.push_back(GenerateOutboundEntry(fpConf.type.toLower(), fpOutbound, QJsonObject(), QJsonObject(),
-                                                                          "0.0.0.0", OUTBOUND_TAG_FORWARD_PROXY));
+                            outboundArray.push_back(
+                                GenerateOutboundEntry(fpConf.type.toLower(), fpOutbound, {}, {}, "0.0.0.0", OUTBOUND_TAG_FORWARD_PROXY));
                         }
                         else
                         {
@@ -435,8 +440,7 @@ namespace Qv2ray::core::connection
 
 #undef fpConf
                 OUTBOUNDS outbounds = OUTBOUNDS(root["outbounds"].toArray());
-                outbounds.append(GenerateOutboundEntry("freedom", GenerateFreedomOUT("AsIs", ":0", 0), QJsonObject(), QJsonObject(), "0.0.0.0",
-                                                       OUTBOUND_TAG_DIRECT));
+                outbounds.append(GenerateOutboundEntry("freedom", GenerateFreedomOUT("AsIs", ":0", 0), {}, {}, "0.0.0.0", OUTBOUND_TAG_DIRECT));
                 root["outbounds"] = outbounds;
             }
 
@@ -474,7 +478,7 @@ namespace Qv2ray::core::connection
                 //
                 // Inbounds
                 //
-                INBOUNDS inbounds = INBOUNDS(root["inbounds"].toArray());
+                INBOUNDS inbounds(root["inbounds"].toArray());
                 INBOUNDSETTING fakeDocodemoDoor;
                 fakeDocodemoDoor["address"] = "127.0.0.1";
                 QJsonObject apiInboundsRoot =
