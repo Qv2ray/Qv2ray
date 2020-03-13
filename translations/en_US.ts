@@ -161,6 +161,16 @@
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionItemWidget.hpp" line="62"/>
+        <source>connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionItemWidget.hpp" line="62"/>
+        <source>connections</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ConnectionWidget</name>
@@ -760,6 +770,7 @@
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.ui"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="127"/>
         <source>Preferences</source>
         <translation type="unfinished"></translation>
     </message>
@@ -832,6 +843,7 @@
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.cpp" line="428"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="126"/>
         <source>Hide</source>
         <translation></translation>
     </message>
@@ -1024,6 +1036,71 @@
         <location filename="../src/ui/w_MainWindow.ui"/>
         <location filename="../src/ui/w_MainWindow.cpp" line="572"/>
         <source>Not Connected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="128"/>
+        <source>Quit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="129"/>
+        <source>Connect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="130"/>
+        <source>Reconnect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="131"/>
+        <source>Disconnect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="132"/>
+        <source>Enable System Proxy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="133"/>
+        <source>Disable System Proxy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="136"/>
+        <source>Connect to this</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="137"/>
+        <source>Edit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="138"/>
+        <source>Edit as JSON</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="139"/>
+        <source>Edit as Complex Config</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="140"/>
+        <source>Rename</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="141"/>
+        <source>Duplicate to the Same Group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="142"/>
+        <source>Delete Connection</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2215,6 +2292,71 @@ p, li { white-space: pre-wrap; }
         <source>Connected</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="13"/>
+        <source>Custom Text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="15"/>
+        <source>Current Time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="16"/>
+        <source>Current Date</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="17"/>
+        <source>Current Qv2ray Version</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="18"/>
+        <source>Current Connection Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="19"/>
+        <source>Current Connection Status</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="21"/>
+        <source>Total Upload Speed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="22"/>
+        <source>Total Download Speed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="26"/>
+        <source>Total Uploaded Data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="27"/>
+        <source>Total Downloaded Data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="30"/>
+        <source>Current Connection Latency</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/connection/Serialization.hpp" line="14"/>
+        <source>%1 - %2 (rate %3)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/CoreSafeTypes.hpp" line="11"/>
+        <source>(Complex config)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Qv2ray::components::pac::PACServer</name>
@@ -2314,6 +2456,30 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/core/kernel/KernelInteractions.cpp" line="225"/>
         <source>V2ray kernel failed to start.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QvInboundNodeModel</name>
+    <message>
+        <location filename="../src/ui/models/InboundNodeModel.hpp" line="68"/>
+        <source>Missing or incorrect inputs</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QvOutboundNodeModel</name>
+    <message>
+        <location filename="../src/ui/models/OutboundNodeModel.hpp" line="76"/>
+        <source>Missing or incorrect inputs</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QvRuleNodeDataModel</name>
+    <message>
+        <location filename="../src/ui/models/RuleNodeModel.hpp" line="102"/>
+        <source>Missing or incorrect inputs</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

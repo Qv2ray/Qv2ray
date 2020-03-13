@@ -180,6 +180,16 @@
         <source>Error</source>
         <translation type="unfinished">ошибка</translation>
     </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionItemWidget.hpp" line="62"/>
+        <source>connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionItemWidget.hpp" line="62"/>
+        <source>connections</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ConnectionWidget</name>
@@ -826,16 +836,19 @@
         <translation>Qv2ray</translation>
     </message>
     <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="129"/>
         <source>Connect</source>
-        <translation type="vanished">Подключение</translation>
+        <translation>Подключение</translation>
     </message>
     <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="131"/>
         <source>Disconnect</source>
-        <translation type="vanished">Отключен</translation>
+        <translation>Отключен</translation>
     </message>
     <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="130"/>
         <source>Reconnect</source>
-        <translation type="vanished">Переподключить</translation>
+        <translation>Переподключить</translation>
     </message>
     <message>
         <source>Clear Log</source>
@@ -913,6 +926,7 @@
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.ui"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="127"/>
         <source>Preferences</source>
         <translation>Настройки</translation>
     </message>
@@ -925,8 +939,9 @@
         <translation type="vanished">Удалить</translation>
     </message>
     <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="137"/>
         <source>Edit</source>
-        <translation type="vanished">Изменить</translation>
+        <translation>Изменить</translation>
     </message>
     <message>
         <source>Edit JSON</source>
@@ -1059,24 +1074,44 @@
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.cpp" line="428"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="126"/>
         <source>Hide</source>
         <translation>Скрыть</translation>
     </message>
     <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="128"/>
         <source>Quit</source>
-        <translation type="vanished">Выход</translation>
+        <translation>Выход</translation>
     </message>
     <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="138"/>
+        <source>Edit as JSON</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="140"/>
         <source>Rename</source>
-        <translation type="vanished">Переименование</translation>
+        <translation>Переименование</translation>
     </message>
     <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="141"/>
+        <source>Duplicate to the Same Group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="142"/>
+        <source>Delete Connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="136"/>
         <source>Connect to this</source>
-        <translation type="vanished">Подключиться к этому</translation>
+        <translation>Подключиться к этому</translation>
     </message>
     <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="139"/>
         <source>Edit as Complex Config</source>
-        <translation type="vanished">Изменить как Complex Config</translation>
+        <translation>Изменить как Complex Config</translation>
     </message>
     <message>
         <source>Edit as Json</source>
@@ -1310,12 +1345,14 @@
         <translation>Чтобы решить эту проблему, прочитайте журнал V2ray в текстовом браузере журнала.</translation>
     </message>
     <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="132"/>
         <source>Enable System Proxy</source>
-        <translation type="vanished">Включить системный прокси</translation>
+        <translation>Включить системный прокси</translation>
     </message>
     <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="133"/>
         <source>Disable System Proxy</source>
-        <translation type="vanished">Отключить системный прокси</translation>
+        <translation>Отключить системный прокси</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.cpp" line="164"/>
@@ -2500,36 +2537,49 @@ p, li { white-space: pre-wrap; }
         <translation type="vanished">Отключен</translation>
     </message>
     <message>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="13"/>
         <source>Custom Text</source>
-        <translation type="vanished">Собственный текст</translation>
+        <translation>Собственный текст</translation>
     </message>
     <message>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="15"/>
         <source>Current Time</source>
-        <translation type="vanished">Текущее время</translation>
+        <translation>Текущее время</translation>
     </message>
     <message>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="16"/>
         <source>Current Date</source>
-        <translation type="vanished">Текущая дата</translation>
+        <translation>Текущая дата</translation>
     </message>
     <message>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="17"/>
         <source>Current Qv2ray Version</source>
-        <translation type="vanished">Текущая версия Qv2ray</translation>
+        <translation>Текущая версия Qv2ray</translation>
     </message>
     <message>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="18"/>
         <source>Current Connection Name</source>
-        <translation type="vanished">Текущее имя соединения</translation>
+        <translation>Текущее имя соединения</translation>
     </message>
     <message>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="19"/>
         <source>Current Connection Status</source>
-        <translation type="vanished">Текущий статус подключения</translation>
+        <translation>Текущий статус подключения</translation>
     </message>
     <message>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="21"/>
         <source>Total Upload Speed</source>
-        <translation type="vanished">Общая скорость отдачи</translation>
+        <translation>Общая скорость отдачи</translation>
     </message>
     <message>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="22"/>
         <source>Total Download Speed</source>
-        <translation type="vanished">Общая скорость загрузки</translation>
+        <translation>Общая скорость загрузки</translation>
+    </message>
+    <message>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="30"/>
+        <source>Current Connection Latency</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Upload Speed for Specific Tag</source>
@@ -2540,12 +2590,14 @@ p, li { white-space: pre-wrap; }
         <translation type="vanished">Скорость отдачи для конкретного тега</translation>
     </message>
     <message>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="26"/>
         <source>Total Uploaded Data</source>
-        <translation type="vanished">Всего загруженных данных</translation>
+        <translation>Всего загруженных данных</translation>
     </message>
     <message>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="27"/>
         <source>Total Downloaded Data</source>
-        <translation type="vanished">Всего загружено данных</translation>
+        <translation>Всего загружено данных</translation>
     </message>
     <message>
         <source>Uploaded Data for Specific Tag</source>
@@ -2702,6 +2754,16 @@ p, li { white-space: pre-wrap; }
         <source>Please upgrade firstly up to Qv2ray v2.0/v2.1 and try again.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../src/core/connection/Serialization.hpp" line="14"/>
+        <source>%1 - %2 (rate %3)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/CoreSafeTypes.hpp" line="11"/>
+        <source>(Complex config)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Qv2ray::components::pac::PACServer</name>
@@ -2807,22 +2869,25 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>QvInboundNodeModel</name>
     <message>
+        <location filename="../src/ui/models/InboundNodeModel.hpp" line="68"/>
         <source>Missing or incorrect inputs</source>
-        <translation type="vanished">Отсутствующие или неправильные входы</translation>
+        <translation>Отсутствующие или неправильные входы</translation>
     </message>
 </context>
 <context>
     <name>QvOutboundNodeModel</name>
     <message>
+        <location filename="../src/ui/models/OutboundNodeModel.hpp" line="76"/>
         <source>Missing or incorrect inputs</source>
-        <translation type="vanished">Отсутствующие или неправильные входы</translation>
+        <translation>Отсутствующие или неправильные входы</translation>
     </message>
 </context>
 <context>
     <name>QvRuleNodeDataModel</name>
     <message>
+        <location filename="../src/ui/models/RuleNodeModel.hpp" line="102"/>
         <source>Missing or incorrect inputs</source>
-        <translation type="vanished">Отсутствующие или неправильные входы</translation>
+        <translation>Отсутствующие или неправильные входы</translation>
     </message>
 </context>
 <context>

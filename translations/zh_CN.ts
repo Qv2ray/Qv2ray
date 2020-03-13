@@ -6,7 +6,7 @@
     <message>
         <location filename="../src/ui/widgets/QvAutoCompleteTextEdit.cpp" line="64"/>
         <source>This TextEdit provides autocompletions for words that have more than 3 characters. You can trigger autocompletion using </source>
-        <translation type="unfinished"></translation>
+        <translation>This TextEdit provides autocompletions for words that have more than 3 characters. You can trigger autocompletion using </translation>
     </message>
 </context>
 <context>
@@ -33,7 +33,7 @@
     <message>
         <location filename="../src/ui/widgets/ConnectionInfoWidget.ui"/>
         <source>Form</source>
-        <translation type="unfinished">窗体</translation>
+        <translation>窗体</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/ConnectionInfoWidget.ui"/>
@@ -73,7 +73,7 @@
     <message>
         <location filename="../src/ui/widgets/ConnectionInfoWidget.ui"/>
         <source>type</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/ConnectionInfoWidget.ui"/>
@@ -83,7 +83,7 @@
     <message>
         <location filename="../src/ui/widgets/ConnectionInfoWidget.ui"/>
         <source>proto</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/ConnectionInfoWidget.ui"/>
@@ -93,7 +93,7 @@
     <message>
         <location filename="../src/ui/widgets/ConnectionInfoWidget.ui"/>
         <source>addr</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/ConnectionInfoWidget.ui"/>
@@ -103,7 +103,7 @@
     <message>
         <location filename="../src/ui/widgets/ConnectionInfoWidget.ui"/>
         <source>port</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/ConnectionInfoWidget.ui"/>
@@ -179,6 +179,16 @@
         <location filename="../src/ui/widgets/ConnectionItemWidget.cpp" line="150"/>
         <source>Error</source>
         <translation>错误</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionItemWidget.hpp" line="62"/>
+        <source>connection</source>
+        <translation>个</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionItemWidget.hpp" line="62"/>
+        <source>connections</source>
+        <translation>个</translation>
     </message>
 </context>
 <context>
@@ -281,7 +291,7 @@
     <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
         <source> secs</source>
-        <translation>秒</translation>
+        <translation> 秒</translation>
     </message>
     <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
@@ -481,7 +491,7 @@
     <message>
         <location filename="../src/ui/w_ImportConfig.cpp" line="271"/>
         <source>Failed to save file, please check if you have proper permissions</source>
-        <translation>保存文件失败，请检查您是否拥有所需的权限。</translation>
+        <translation>保存文件失败，请检查您是否拥有所需的权限</translation>
     </message>
 </context>
 <context>
@@ -801,7 +811,7 @@
     <message>
         <location filename="../src/ui/editors/w_JsonEditor.cpp" line="101"/>
         <source>Please fix the JSON errors or remove the comments before continue</source>
-        <translation type="unfinished"></translation>
+        <translation>请先修复 JSON 错误或移除其中的注释再继续</translation>
     </message>
     <message>
         <source>Please fix the JSON errors before continue</source>
@@ -810,12 +820,12 @@
     <message>
         <location filename="../src/ui/editors/w_JsonEditor.ui"/>
         <source>JSON Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>JSON 编辑器</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_JsonEditor.ui"/>
         <source>Remove All Comments</source>
-        <translation type="unfinished"></translation>
+        <translation>移除所有注释</translation>
     </message>
 </context>
 <context>
@@ -826,16 +836,19 @@
         <translation>Qv2ray</translation>
     </message>
     <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="129"/>
         <source>Connect</source>
-        <translation type="vanished">连接</translation>
+        <translation>连接</translation>
     </message>
     <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="131"/>
         <source>Disconnect</source>
-        <translation type="vanished">断开连接</translation>
+        <translation>断开连接</translation>
     </message>
     <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="130"/>
         <source>Reconnect</source>
-        <translation type="vanished">重新连接</translation>
+        <translation>重新连接</translation>
     </message>
     <message>
         <source>Clear Log</source>
@@ -913,6 +926,7 @@
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.ui"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="127"/>
         <source>Preferences</source>
         <translation>首选项</translation>
     </message>
@@ -925,8 +939,9 @@
         <translation type="vanished">删除</translation>
     </message>
     <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="137"/>
         <source>Edit</source>
-        <translation type="vanished">编辑</translation>
+        <translation>编辑</translation>
     </message>
     <message>
         <source>Edit JSON</source>
@@ -1059,24 +1074,44 @@
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.cpp" line="428"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="126"/>
         <source>Hide</source>
         <translation>隐藏</translation>
     </message>
     <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="128"/>
         <source>Quit</source>
-        <translation type="vanished">退出</translation>
+        <translation>退出</translation>
     </message>
     <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="138"/>
+        <source>Edit as JSON</source>
+        <translation>编辑为 JSON</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="140"/>
         <source>Rename</source>
-        <translation type="vanished">重命名</translation>
+        <translation>重命名</translation>
     </message>
     <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="141"/>
+        <source>Duplicate to the Same Group</source>
+        <translation>复制到同组</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="142"/>
+        <source>Delete Connection</source>
+        <translation>删除连接</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="136"/>
         <source>Connect to this</source>
-        <translation type="vanished">连接到此服务器</translation>
+        <translation>连接到此服务器</translation>
     </message>
     <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="139"/>
         <source>Edit as Complex Config</source>
-        <translation type="vanished">编辑为复杂配置</translation>
+        <translation>编辑为复杂配置</translation>
     </message>
     <message>
         <source>Edit as Json</source>
@@ -1310,12 +1345,14 @@
         <translation>要解决问题，请阅读日志文本浏览器中的 V2ray 日志。</translation>
     </message>
     <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="132"/>
         <source>Enable System Proxy</source>
-        <translation type="vanished">启用系统代理</translation>
+        <translation>启用系统代理</translation>
     </message>
     <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="133"/>
         <source>Disable System Proxy</source>
-        <translation type="vanished">禁用系统代理</translation>
+        <translation>禁用系统代理</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.cpp" line="164"/>
@@ -1341,7 +1378,7 @@
     <message>
         <location filename="../src/ui/w_MainWindow.cpp" line="570"/>
         <source>Disconnected from: </source>
-        <translation>已断开连接：</translation>
+        <translation>已断开连接: </translation>
     </message>
     <message>
         <source>The name cannot be empty</source>
@@ -2375,7 +2412,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/main.cpp" line="110"/>
         <source>It usually means you don&apos;t have the write permission to all of those locations.</source>
-        <translation type="unfinished"></translation>
+        <translation>这通常意味着您没有所有这些位置的文件写入权限。</translation>
     </message>
     <message>
         <location filename="../src/main.cpp" line="111"/>
@@ -2459,22 +2496,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/main.cpp" line="131"/>
         <source>Failed to determine the location of config file:</source>
-        <translation type="unfinished"></translation>
+        <translation>无法确定配置文件的位置：</translation>
     </message>
     <message>
         <location filename="../src/main.cpp" line="132"/>
         <source>Qv2ray has found a config file, but it failed to be loaded due to some errors.</source>
-        <translation type="unfinished"></translation>
+        <translation>Qv2ray已找到配置文件，但由于某些错误而无法加载。</translation>
     </message>
     <message>
         <location filename="../src/main.cpp" line="133"/>
         <source>A workaround is to remove the this file and restart Qv2ray:</source>
-        <translation type="unfinished"></translation>
+        <translation>一种解决方法是删除此文件并重新启动Qv2ray：</translation>
     </message>
     <message>
         <location filename="../src/main.cpp" line="226"/>
         <source>Debug version</source>
-        <translation type="unfinished"></translation>
+        <translation>调试版</translation>
     </message>
     <message>
         <location filename="../src/main.cpp" line="347"/>
@@ -2496,36 +2533,49 @@ p, li { white-space: pre-wrap; }
         <translation type="vanished">未连接</translation>
     </message>
     <message>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="13"/>
         <source>Custom Text</source>
-        <translation type="vanished">自定义文本</translation>
+        <translation>自定义文本</translation>
     </message>
     <message>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="15"/>
         <source>Current Time</source>
-        <translation type="vanished">当前时间</translation>
+        <translation>当前时间</translation>
     </message>
     <message>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="16"/>
         <source>Current Date</source>
-        <translation type="vanished">当前日期</translation>
+        <translation>当前日期</translation>
     </message>
     <message>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="17"/>
         <source>Current Qv2ray Version</source>
-        <translation type="vanished">当前 Qv2ray 版本</translation>
+        <translation>当前 Qv2ray 版本</translation>
     </message>
     <message>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="18"/>
         <source>Current Connection Name</source>
-        <translation type="vanished">当前连接名称</translation>
+        <translation>当前连接名称</translation>
     </message>
     <message>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="19"/>
         <source>Current Connection Status</source>
-        <translation type="vanished">当前连接状态</translation>
+        <translation>当前连接状态</translation>
     </message>
     <message>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="21"/>
         <source>Total Upload Speed</source>
-        <translation type="vanished">总上传速度</translation>
+        <translation>总上传速度</translation>
     </message>
     <message>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="22"/>
         <source>Total Download Speed</source>
-        <translation type="vanished">总下载速度</translation>
+        <translation>总下载速度</translation>
+    </message>
+    <message>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="30"/>
+        <source>Current Connection Latency</source>
+        <translation>当前连接延迟</translation>
     </message>
     <message>
         <source>Upload Speed for Specific Tag</source>
@@ -2536,12 +2586,14 @@ p, li { white-space: pre-wrap; }
         <translation type="vanished">下载特定标签的速度</translation>
     </message>
     <message>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="26"/>
         <source>Total Uploaded Data</source>
-        <translation type="vanished">总上传数据</translation>
+        <translation>总上传数据</translation>
     </message>
     <message>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="27"/>
         <source>Total Downloaded Data</source>
-        <translation type="vanished">总下载数据</translation>
+        <translation>总下载数据</translation>
     </message>
     <message>
         <source>Uploaded Data for Specific Tag</source>
@@ -2698,6 +2750,16 @@ p, li { white-space: pre-wrap; }
         <source>Please upgrade firstly up to Qv2ray v2.0/v2.1 and try again.</source>
         <translation>请先升级到 Qv2ray v2.0/v2.1 再重试。</translation>
     </message>
+    <message>
+        <location filename="../src/core/connection/Serialization.hpp" line="14"/>
+        <source>%1 - %2 (rate %3)</source>
+        <translation>%1 - %2 (%3倍)</translation>
+    </message>
+    <message>
+        <location filename="../src/core/CoreSafeTypes.hpp" line="11"/>
+        <source>(Complex config)</source>
+        <translation>（复杂配置）</translation>
+    </message>
 </context>
 <context>
     <name>Qv2ray::components::pac::PACServer</name>
@@ -2737,37 +2799,37 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/core/kernel/KernelInteractions.cpp" line="20"/>
         <source>V2ray core executable not found.</source>
-        <translation>V2ray 核心可执行文件未找到</translation>
+        <translation>V2ray 核心可执行文件未找到。</translation>
     </message>
     <message>
         <location filename="../src/core/kernel/KernelInteractions.cpp" line="29"/>
         <source>V2ray core file cannot be opened, please ensure there&apos;s a file instead of a folder.</source>
-        <translation>无法打开 V2ray 核心文件，请检查对应的文件存在而不是文件夹</translation>
+        <translation>无法打开 V2ray 核心文件，请检查对应的文件存在而不是文件夹。</translation>
     </message>
     <message>
         <location filename="../src/core/kernel/KernelInteractions.cpp" line="44"/>
         <source>V2ray assets path is not valid.</source>
-        <translation>V2ray Assets 路径不可用</translation>
+        <translation>V2ray Assets 路径不可用。</translation>
     </message>
     <message>
         <location filename="../src/core/kernel/KernelInteractions.cpp" line="51"/>
         <source>No geoip.dat in assets path.</source>
-        <translation>没有在 Assets 路径找到 geoip.dat</translation>
+        <translation>没有在 Assets 路径找到 geoip.dat。</translation>
     </message>
     <message>
         <location filename="../src/core/kernel/KernelInteractions.cpp" line="58"/>
         <source>No geosite.dat in assets path.</source>
-        <translation>没有在 Assets 路径找到 geosite.dat</translation>
+        <translation>没有在 Assets 路径找到 geosite.dat。</translation>
     </message>
     <message>
         <location filename="../src/core/kernel/KernelInteractions.cpp" line="81"/>
         <source>V2ray core failed with an exit code: </source>
-        <translation>V2ray 核心退出代码：</translation>
+        <translation>V2ray 核心退出代码： </translation>
     </message>
     <message>
         <location filename="../src/core/kernel/KernelInteractions.cpp" line="90"/>
         <source>V2ray core returns empty string.</source>
-        <translation>V2ray 核心返回空字符串</translation>
+        <translation>V2ray 核心返回空字符串。</translation>
     </message>
     <message>
         <location filename="../src/core/kernel/KernelInteractions.cpp" line="119"/>
@@ -2782,12 +2844,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/core/kernel/KernelInteractions.cpp" line="131"/>
         <source>V2ray core settings is incorrect.</source>
-        <translation>V2ray 核心设置不正确</translation>
+        <translation>V2ray 核心设置不正确。</translation>
     </message>
     <message>
         <location filename="../src/core/kernel/KernelInteractions.cpp" line="131"/>
         <source>The error is: </source>
-        <translation>错误是：</translation>
+        <translation>错误是： </translation>
     </message>
     <message>
         <location filename="../src/core/kernel/KernelInteractions.cpp" line="162"/>
@@ -2803,22 +2865,25 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>QvInboundNodeModel</name>
     <message>
+        <location filename="../src/ui/models/InboundNodeModel.hpp" line="68"/>
         <source>Missing or incorrect inputs</source>
-        <translation type="vanished">输入丢失或不正确</translation>
+        <translation>输入丢失或不正确</translation>
     </message>
 </context>
 <context>
     <name>QvOutboundNodeModel</name>
     <message>
+        <location filename="../src/ui/models/OutboundNodeModel.hpp" line="76"/>
         <source>Missing or incorrect inputs</source>
-        <translation type="vanished">输入丢失或不正确</translation>
+        <translation>输入丢失或不正确</translation>
     </message>
 </context>
 <context>
     <name>QvRuleNodeDataModel</name>
     <message>
+        <location filename="../src/ui/models/RuleNodeModel.hpp" line="102"/>
         <source>Missing or incorrect inputs</source>
-        <translation type="vanished">输入丢失或不正确</translation>
+        <translation>输入丢失或不正确</translation>
     </message>
 </context>
 <context>
@@ -3095,7 +3160,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="422"/>
         <source>A rule cannot be found: </source>
-        <translation>规则未找到：</translation>
+        <translation>规则未找到: </translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="514"/>
@@ -3127,7 +3192,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="88"/>
         <source>No inbound item found: </source>
-        <translation>入站项目未找到：</translation>
+        <translation>入站项目未找到: </translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="130"/>
@@ -3164,7 +3229,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="810"/>
         <source>Qv2ray entered an unknown state.</source>
-        <translation>Qv2ray 进入了未知状态</translation>
+        <translation>Qv2ray 进入了未知状态。</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="817"/>
@@ -3181,7 +3246,7 @@ p, li { white-space: pre-wrap; }
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="831"/>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="882"/>
         <source>No inbound tag found: </source>
-        <translation>入站标签未找到：</translation>
+        <translation>入站标签未找到: </translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="845"/>
@@ -3209,17 +3274,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="950"/>
         <source>New tag is empty, please try another.</source>
-        <translation>新的标签是空的，请尝试另外一个</translation>
+        <translation>新的标签是空的，请尝试另外一个。</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="955"/>
         <source>New tag is the same as the original one.</source>
-        <translation>新的标签与旧标签相同</translation>
+        <translation>新的标签与旧标签相同。</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="960"/>
         <source>Duplicate rule tag detected, please try another.</source>
-        <translation>检测到重复的标签，请重试</translation>
+        <translation>检测到重复的标签，请重试。</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="496"/>
@@ -3229,7 +3294,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="843"/>
         <source>Currently, this type of outbound is not supported by the editor.</source>
-        <translation>目前不支持此类型的出站</translation>
+        <translation>目前不支持此类型的出站。</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="853"/>

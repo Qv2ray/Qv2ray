@@ -180,6 +180,16 @@
         <source>Error</source>
         <translation>エラー</translation>
     </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionItemWidget.hpp" line="62"/>
+        <source>connection</source>
+        <translation>つ</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionItemWidget.hpp" line="62"/>
+        <source>connections</source>
+        <translation>つ</translation>
+    </message>
 </context>
 <context>
     <name>ConnectionWidget</name>
@@ -291,7 +301,7 @@
     <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
         <source>Share Link</source>
-        <translation type="unfinished">共有されたリンク</translation>
+        <translation>共有されたリンク</translation>
     </message>
     <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
@@ -770,7 +780,7 @@
     <message>
         <location filename="../src/ui/editors/w_JsonEditor.ui"/>
         <source>Format JSON</source>
-        <translation>JSONのフォーマット</translation>
+        <translation>JSONのプリティファイ</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_JsonEditor.ui"/>
@@ -801,7 +811,7 @@
     <message>
         <location filename="../src/ui/editors/w_JsonEditor.cpp" line="101"/>
         <source>Please fix the JSON errors or remove the comments before continue</source>
-        <translation type="unfinished"></translation>
+        <translation>JSONエラーを修正するか、コメントを削除してから続行してください</translation>
     </message>
     <message>
         <source>Please fix the JSON errors before continue</source>
@@ -810,12 +820,12 @@
     <message>
         <location filename="../src/ui/editors/w_JsonEditor.ui"/>
         <source>JSON Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>JSONエディター</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_JsonEditor.ui"/>
         <source>Remove All Comments</source>
-        <translation type="unfinished"></translation>
+        <translation>コメントを全削除</translation>
     </message>
 </context>
 <context>
@@ -826,16 +836,19 @@
         <translation>Qv2ray</translation>
     </message>
     <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="129"/>
         <source>Connect</source>
-        <translation type="vanished">接続</translation>
+        <translation>接続</translation>
     </message>
     <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="131"/>
         <source>Disconnect</source>
-        <translation type="vanished">切断</translation>
+        <translation>切断</translation>
     </message>
     <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="130"/>
         <source>Reconnect</source>
-        <translation type="vanished">再接</translation>
+        <translation>再接</translation>
     </message>
     <message>
         <source>Clear Log</source>
@@ -913,6 +926,7 @@
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.ui"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="127"/>
         <source>Preferences</source>
         <translation>設定</translation>
     </message>
@@ -925,8 +939,9 @@
         <translation type="vanished">削除</translation>
     </message>
     <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="137"/>
         <source>Edit</source>
-        <translation type="vanished">編集</translation>
+        <translation>編集</translation>
     </message>
     <message>
         <source>Edit JSON</source>
@@ -1059,24 +1074,44 @@
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.cpp" line="428"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="126"/>
         <source>Hide</source>
         <translation>非表示</translation>
     </message>
     <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="128"/>
         <source>Quit</source>
-        <translation type="vanished">Quit</translation>
+        <translation>終了</translation>
     </message>
     <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="138"/>
+        <source>Edit as JSON</source>
+        <translation>JSONとして編集</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="140"/>
         <source>Rename</source>
-        <translation type="vanished">Rename</translation>
+        <translation>Rename</translation>
     </message>
     <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="141"/>
+        <source>Duplicate to the Same Group</source>
+        <translation>同じグループに複製</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="142"/>
+        <source>Delete Connection</source>
+        <translation>接続を削除</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="136"/>
         <source>Connect to this</source>
-        <translation type="vanished">Connect to this</translation>
+        <translation>Connect to this</translation>
     </message>
     <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="139"/>
         <source>Edit as Complex Config</source>
-        <translation type="vanished">Edit as Complex Config</translation>
+        <translation>Edit as Complex Config</translation>
     </message>
     <message>
         <source>Edit as Json</source>
@@ -1310,12 +1345,14 @@
         <translation>問題を解決するには、ログテキストブラウザーでV2rayログを読みます。</translation>
     </message>
     <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="132"/>
         <source>Enable System Proxy</source>
-        <translation type="vanished">Enable System Proxy</translation>
+        <translation>Enable System Proxy</translation>
     </message>
     <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="133"/>
         <source>Disable System Proxy</source>
-        <translation type="vanished">Disable System Proxy</translation>
+        <translation>Disable System Proxy</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.cpp" line="164"/>
@@ -2379,7 +2416,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/main.cpp" line="110"/>
         <source>It usually means you don&apos;t have the write permission to all of those locations.</source>
-        <translation type="unfinished"></translation>
+        <translation>通常、これらの場所すべてに対する書き込み権限がないことを意味します。</translation>
     </message>
     <message>
         <location filename="../src/main.cpp" line="111"/>
@@ -2463,22 +2500,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/main.cpp" line="131"/>
         <source>Failed to determine the location of config file:</source>
-        <translation type="unfinished"></translation>
+        <translation>構成ファイルの場所を特定できませんでした：</translation>
     </message>
     <message>
         <location filename="../src/main.cpp" line="132"/>
         <source>Qv2ray has found a config file, but it failed to be loaded due to some errors.</source>
-        <translation type="unfinished"></translation>
+        <translation>Qv2rayは設定ファイルを見つけましたが、いくつかのエラーのためにロードに失敗しました。</translation>
     </message>
     <message>
         <location filename="../src/main.cpp" line="133"/>
         <source>A workaround is to remove the this file and restart Qv2ray:</source>
-        <translation type="unfinished"></translation>
+        <translation>回避策は、このファイルを削除してQv2rayを再起動することです：</translation>
     </message>
     <message>
         <location filename="../src/main.cpp" line="226"/>
         <source>Debug version</source>
-        <translation type="unfinished"></translation>
+        <translation>デバッグバージョン</translation>
     </message>
     <message>
         <location filename="../src/main.cpp" line="347"/>
@@ -2500,36 +2537,49 @@ p, li { white-space: pre-wrap; }
         <translation type="vanished">Disconnected</translation>
     </message>
     <message>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="13"/>
         <source>Custom Text</source>
-        <translation type="vanished">Custom Text</translation>
+        <translation>Custom Text</translation>
     </message>
     <message>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="15"/>
         <source>Current Time</source>
-        <translation type="vanished">Current Time</translation>
+        <translation>Current Time</translation>
     </message>
     <message>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="16"/>
         <source>Current Date</source>
-        <translation type="vanished">Current Date</translation>
+        <translation>Current Date</translation>
     </message>
     <message>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="17"/>
         <source>Current Qv2ray Version</source>
-        <translation type="vanished">Current Qv2ray Version</translation>
+        <translation>Current Qv2ray Version</translation>
     </message>
     <message>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="18"/>
         <source>Current Connection Name</source>
-        <translation type="vanished">Current Connection Name</translation>
+        <translation>Current Connection Name</translation>
     </message>
     <message>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="19"/>
         <source>Current Connection Status</source>
-        <translation type="vanished">Current Connection Status</translation>
+        <translation>Current Connection Status</translation>
     </message>
     <message>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="21"/>
         <source>Total Upload Speed</source>
-        <translation type="vanished">Total Upload Speed</translation>
+        <translation>Total Upload Speed</translation>
     </message>
     <message>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="22"/>
         <source>Total Download Speed</source>
-        <translation type="vanished">Total Download Speed</translation>
+        <translation>Total Download Speed</translation>
+    </message>
+    <message>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="30"/>
+        <source>Current Connection Latency</source>
+        <translation>現在の接続遅延</translation>
     </message>
     <message>
         <source>Upload Speed for Specific Tag</source>
@@ -2540,12 +2590,14 @@ p, li { white-space: pre-wrap; }
         <translation type="vanished">Download Speed for Specific Tag</translation>
     </message>
     <message>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="26"/>
         <source>Total Uploaded Data</source>
-        <translation type="vanished">Total Uploaded Data</translation>
+        <translation>Total Uploaded Data</translation>
     </message>
     <message>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="27"/>
         <source>Total Downloaded Data</source>
-        <translation type="vanished">Total Downloaded Data</translation>
+        <translation>Total Downloaded Data</translation>
     </message>
     <message>
         <source>Uploaded Data for Specific Tag</source>
@@ -2702,6 +2754,16 @@ p, li { white-space: pre-wrap; }
         <source>Please upgrade firstly up to Qv2ray v2.0/v2.1 and try again.</source>
         <translation>まずQv2ray v2.0 / v2.1にアップグレードしてから、もう一度試してください。</translation>
     </message>
+    <message>
+        <location filename="../src/core/connection/Serialization.hpp" line="14"/>
+        <source>%1 - %2 (rate %3)</source>
+        <translation>%1 - %2 (%3 倍数)</translation>
+    </message>
+    <message>
+        <location filename="../src/core/CoreSafeTypes.hpp" line="11"/>
+        <source>(Complex config)</source>
+        <translation>（複雑構成）</translation>
+    </message>
 </context>
 <context>
     <name>Qv2ray::components::pac::PACServer</name>
@@ -2807,22 +2869,25 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>QvInboundNodeModel</name>
     <message>
+        <location filename="../src/ui/models/InboundNodeModel.hpp" line="68"/>
         <source>Missing or incorrect inputs</source>
-        <translation type="vanished">Missing or incorrect inputs</translation>
+        <translation>Missing or incorrect inputs</translation>
     </message>
 </context>
 <context>
     <name>QvOutboundNodeModel</name>
     <message>
+        <location filename="../src/ui/models/OutboundNodeModel.hpp" line="76"/>
         <source>Missing or incorrect inputs</source>
-        <translation type="vanished">Missing or incorrect inputs</translation>
+        <translation>Missing or incorrect inputs</translation>
     </message>
 </context>
 <context>
     <name>QvRuleNodeDataModel</name>
     <message>
+        <location filename="../src/ui/models/RuleNodeModel.hpp" line="102"/>
         <source>Missing or incorrect inputs</source>
-        <translation type="vanished">Missing or incorrect inputs</translation>
+        <translation>Missing or incorrect inputs</translation>
     </message>
 </context>
 <context>
