@@ -1,31 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="zh_CN">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="zh_CN" version="2.1">
 <context>
     <name>AutoCompleteTextEdit</name>
     <message>
         <location filename="../src/ui/widgets/QvAutoCompleteTextEdit.cpp" line="64"/>
         <source>This TextEdit provides autocompletions for words that have more than 3 characters. You can trigger autocompletion using </source>
         <translation>This TextEdit provides autocompletions for words that have more than 3 characters. You can trigger autocompletion using </translation>
-    </message>
-</context>
-<context>
-    <name>ConfigExporter</name>
-    <message>
-        <source>Save Image</source>
-        <translation type="vanished">保存图片</translation>
-    </message>
-    <message>
-        <source>Share Connection</source>
-        <translation type="vanished">分享连接</translation>
-    </message>
-    <message>
-        <source>Image has been copied to the clipboard.</source>
-        <translation type="vanished">图像已复制到剪贴板。</translation>
-    </message>
-    <message>
-        <source>VMess string has been copied to the clipboard.</source>
-        <translation type="vanished">VMess 链接已复制到剪贴板。</translation>
     </message>
 </context>
 <context>
@@ -205,48 +184,6 @@
     </message>
 </context>
 <context>
-    <name>ExportConfigWindow</name>
-    <message>
-        <source>Export Config</source>
-        <translation type="vanished">导出配置</translation>
-    </message>
-    <message>
-        <source>Share Options</source>
-        <translation type="vanished">分享选项</translation>
-    </message>
-    <message>
-        <source>Connection String</source>
-        <translation type="vanished">连接字符串</translation>
-    </message>
-    <message>
-        <source>Copy Link</source>
-        <translation type="vanished">复制链接</translation>
-    </message>
-    <message>
-        <source>Save Image</source>
-        <translation type="vanished">保存图片</translation>
-    </message>
-    <message>
-        <source>Copy Image</source>
-        <translation type="vanished">复制图像</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="vanished">好</translation>
-    </message>
-</context>
-<context>
-    <name>FlowScene</name>
-    <message>
-        <source>Open Flow Scene</source>
-        <translation type="vanished">打开流场景</translation>
-    </message>
-    <message>
-        <source>Flow Scene Files (*.flow)</source>
-        <translation type="vanished">流场景文件 (*.flow)</translation>
-    </message>
-</context>
-<context>
     <name>ImportConfigWindow</name>
     <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
@@ -304,14 +241,6 @@
         <translation>选择</translation>
     </message>
     <message>
-        <source>Inbound</source>
-        <translation type="vanished">入站</translation>
-    </message>
-    <message>
-        <source>Keep imported inbound settings</source>
-        <translation type="vanished">保留导入的入站设置</translation>
-    </message>
-    <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
         <source>Edit Config</source>
         <translation>编辑配置</translation>
@@ -320,11 +249,6 @@
         <location filename="../src/ui/w_ImportConfig.ui"/>
         <source>Open in JSON Editor</source>
         <translation>在 JSON 编辑器中打开</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_ImportConfig.ui"/>
-        <source>Import as Complex Config (Manually edit route rules and inbounds)</source>
-        <translation>作为复杂配置导入（手动编辑路由规则与入站）</translation>
     </message>
     <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
@@ -337,21 +261,9 @@
         <translation>VMess 链接</translation>
     </message>
     <message>
-        <source>From QRCode File</source>
-        <translation type="vanished">从二维码的文件</translation>
-    </message>
-    <message>
-        <source>From Screenshot</source>
-        <translation type="vanished">从屏幕截图</translation>
-    </message>
-    <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
         <source>Go</source>
         <translation>开始</translation>
-    </message>
-    <message>
-        <source>After</source>
-        <translation type="vanished">在</translation>
     </message>
     <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
@@ -472,33 +384,38 @@
     </message>
     <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
+        <source>Import as Complex Config (Manually edit route rules and inbounds)</source>
+        <translation>作为复杂配置导入（手动编辑路由规则与入站）</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_ImportConfig.ui"/>
         <source>QRCode File</source>
-        <translation type="unfinished"></translation>
+        <translation>二维码文件</translation>
     </message>
     <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
         <source>Screenshot</source>
-        <translation type="unfinished"></translation>
+        <translation>截屏</translation>
     </message>
     <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
         <source>Delay</source>
-        <translation type="unfinished"></translation>
+        <translation>延迟</translation>
     </message>
     <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
         <source>Json Editor</source>
-        <translation type="unfinished">Json 编辑器</translation>
+        <translation>Json 编辑器</translation>
     </message>
     <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
         <source>Open JSON Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>打开 Json 编辑器</translation>
     </message>
     <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
         <source>A prefix to the imported connection</source>
-        <translation type="unfinished"></translation>
+        <translation>导入链接的名称前缀</translation>
     </message>
 </context>
 <context>
@@ -771,10 +688,6 @@
 <context>
     <name>JsonEditor</name>
     <message>
-        <source>Dialog</source>
-        <translation type="vanished">对话框</translation>
-    </message>
-    <message>
         <location filename="../src/ui/editors/w_JsonEditor.ui"/>
         <source>OK</source>
         <translation>好</translation>
@@ -821,10 +734,6 @@
         <translation>请先修复 JSON 错误或移除其中的注释再继续</translation>
     </message>
     <message>
-        <source>Please fix the JSON errors before continue</source>
-        <translation type="vanished">请先修复 JSON 错误，然后继续。</translation>
-    </message>
-    <message>
         <location filename="../src/ui/editors/w_JsonEditor.ui"/>
         <source>JSON Editor</source>
         <translation>JSON 编辑器</translation>
@@ -843,88 +752,9 @@
         <translation>Qv2ray</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="134"/>
-        <source>Connect</source>
-        <translation>连接</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="136"/>
-        <source>Disconnect</source>
-        <translation>断开连接</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="135"/>
-        <source>Reconnect</source>
-        <translation>重新连接</translation>
-    </message>
-    <message>
-        <source>Clear Log</source>
-        <translation type="vanished">清除日志</translation>
-    </message>
-    <message>
         <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Subscriptions</source>
         <translation>订阅</translation>
-    </message>
-    <message>
-        <source>Stopped</source>
-        <translation type="vanished">已停止</translation>
-    </message>
-    <message>
-        <source>Host List</source>
-        <translation type="vanished">主机列表</translation>
-    </message>
-    <message>
-        <source>Import connection</source>
-        <translation type="vanished">导入连接</translation>
-    </message>
-    <message>
-        <source>Duplicate connection</source>
-        <translation type="vanished">复制连接</translation>
-    </message>
-    <message>
-        <source>Delete a connection</source>
-        <translation type="vanished">删除连接</translation>
-    </message>
-    <message>
-        <source>Edit connection</source>
-        <translation type="vanished">编辑连接</translation>
-    </message>
-    <message>
-        <source>Config Details</source>
-        <translation type="vanished">配置详细信息</translation>
-    </message>
-    <message>
-        <source>Config Type</source>
-        <translation type="vanished">配置类型</translation>
-    </message>
-    <message>
-        <source>Protocol</source>
-        <translation type="vanished">协议</translation>
-    </message>
-    <message>
-        <source>Address</source>
-        <translation type="vanished">地址</translation>
-    </message>
-    <message>
-        <source>Port Number</source>
-        <translation type="vanished">端口号</translation>
-    </message>
-    <message>
-        <source>Latency</source>
-        <translation type="vanished">延迟</translation>
-    </message>
-    <message>
-        <source>Operations</source>
-        <translation type="vanished">操作</translation>
-    </message>
-    <message>
-        <source>Edit connection as JSON</source>
-        <translation type="vanished">将连接编辑为 JSON</translation>
-    </message>
-    <message>
-        <source>Log (click to switch log source)</source>
-        <translation type="vanished">日志 (点击切换日志源)</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.ui"/>
@@ -936,45 +766,6 @@
         <location filename="../src/ui/w_MainWindow.hpp" line="132"/>
         <source>Preferences</source>
         <translation>首选项</translation>
-    </message>
-    <message>
-        <source>Duplicate</source>
-        <translation type="vanished">复制</translation>
-    </message>
-    <message>
-        <source>Delete</source>
-        <translation type="vanished">删除</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="143"/>
-        <source>Edit</source>
-        <translation>编辑</translation>
-    </message>
-    <message>
-        <source>Edit JSON</source>
-        <translation type="vanished">编辑 JSON</translation>
-    </message>
-    <message>
-        <source>Ping Test</source>
-        <translation type="vanished">Ping 测试</translation>
-    </message>
-    <message>
-        <source>Share</source>
-        <translation type="vanished">分享</translation>
-    </message>
-    <message>
-        <source>Speed Graph</source>
-        <translation type="vanished">速度图像</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
-        <source>Locate Current Connection</source>
-        <translation>定位到当前连接</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
-        <source>Search</source>
-        <translation>搜索</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.ui"/>
@@ -1013,12 +804,6 @@
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.ui"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="587"/>
-        <source>Not Connected</source>
-        <translation>未连接</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Speed</source>
         <translation>速度</translation>
     </message>
@@ -1052,112 +837,16 @@
 0.00 B</translation>
     </message>
     <message>
-        <source>#ManuallyCreateConnection</source>
-        <translation type="vanished">手动添加连接配置</translation>
-    </message>
-    <message>
-        <source>#ImportConnection</source>
-        <translation type="vanished">导入连接</translation>
-    </message>
-    <message>
-        <source>#Exit</source>
-        <translation type="vanished">退出</translation>
-    </message>
-    <message>
-        <source>#Preferences</source>
-        <translation type="vanished">首选项</translation>
-    </message>
-    <message>
-        <source>#Start</source>
-        <translation type="vanished">开始</translation>
-    </message>
-    <message>
-        <source>#Stop</source>
-        <translation type="vanished">停止</translation>
-    </message>
-    <message>
-        <source>#Restart</source>
-        <translation type="vanished">重启</translation>
-    </message>
-    <message>
         <location filename="../src/ui/w_MainWindow.cpp" line="443"/>
         <location filename="../src/ui/w_MainWindow.hpp" line="131"/>
         <source>Hide</source>
         <translation>隐藏</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="133"/>
-        <source>Quit</source>
-        <translation>退出</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="142"/>
-        <source>Set as automatically connected</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="144"/>
-        <source>Edit as JSON</source>
-        <translation>编辑为 JSON</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="146"/>
-        <source>Rename</source>
-        <translation>重命名</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="147"/>
-        <source>Duplicate to the Same Group</source>
-        <translation>复制到同组</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="148"/>
-        <source>Delete Connection</source>
-        <translation>删除连接</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="141"/>
-        <source>Connect to this</source>
-        <translation>连接到此服务器</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="145"/>
-        <source>Edit as Complex Config</source>
-        <translation>编辑为复杂配置</translation>
-    </message>
-    <message>
-        <source>Edit as Json</source>
-        <translation type="vanished">编辑为 Json</translation>
-    </message>
-    <message>
-        <source>Share as QRCode/VMess URL</source>
-        <translation type="vanished">以二维码或 VMess 链接分享</translation>
-    </message>
-    <message>
-        <source>Subscription:</source>
-        <translation type="vanished">订阅:</translation>
-    </message>
-    <message>
         <location filename="../src/ui/w_MainWindow.cpp" line="406"/>
         <location filename="../src/ui/w_MainWindow.cpp" line="448"/>
         <source>Show</source>
         <translation>显示</translation>
-    </message>
-    <message>
-        <source>Autostarting a config</source>
-        <translation type="vanished">自动启动配置</translation>
-    </message>
-    <message>
-        <source>Could not find a specified config named: </source>
-        <translation type="vanished">找不到指定的配置： </translation>
-    </message>
-    <message>
-        <source>No connection selected!</source>
-        <translation type="vanished">没有选择连接！</translation>
-    </message>
-    <message>
-        <source>Please select a config from the list.</source>
-        <translation type="vanished">请从列表中选择一个配置。</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.hpp" line="150"/>
@@ -1175,16 +864,6 @@
         <translation>按名称，逆序</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="153"/>
-        <source>By latency, Ascending</source>
-        <translation>低延迟优先</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="154"/>
-        <source>By latency, Descending</source>
-        <translation>高延迟优先</translation>
-    </message>
-    <message>
         <location filename="../src/ui/w_MainWindow.hpp" line="155"/>
         <source>By data, Ascending</source>
         <translation>低数据使用量优先</translation>
@@ -1195,14 +874,14 @@
         <translation>高数据使用量优先</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="163"/>
-        <source>Switch to vCore log</source>
-        <translation type="unfinished"></translation>
+        <location filename="../src/ui/w_MainWindow.hpp" line="153"/>
+        <source>By latency, Ascending</source>
+        <translation>低延迟优先</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="164"/>
-        <source>Switch to Qv2ray log</source>
-        <translation type="unfinished"></translation>
+        <location filename="../src/ui/w_MainWindow.hpp" line="154"/>
+        <source>By latency, Descending</source>
+        <translation>高延迟优先</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.cpp" line="379"/>
@@ -1261,25 +940,17 @@
     <message>
         <location filename="../src/ui/w_MainWindow.cpp" line="972"/>
         <source>Set auto connection</source>
-        <translation type="unfinished"></translation>
+        <translation>设置自动链接</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.cpp" line="972"/>
         <source>Set %1 as auto connect.</source>
-        <translation type="unfinished"></translation>
+        <translation>已经将 %1 设置为自动链接</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow_extra.cpp" line="36"/>
         <source>PAC Processing Failed</source>
         <translation>PAC 处理失败</translation>
-    </message>
-    <message>
-        <source>Please reset the settings in Preference Window</source>
-        <translation type="vanished">请重置首选项窗口的设置</translation>
-    </message>
-    <message>
-        <source>System proxy cleared.</source>
-        <translation type="vanished">系统代理已清除。</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow_extra.cpp" line="37"/>
@@ -1307,14 +978,6 @@
         <translation>未对复杂配置设置代理。</translation>
     </message>
     <message>
-        <source>System proxy settings applied.</source>
-        <translation type="vanished">系统代理设置已应用。</translation>
-    </message>
-    <message>
-        <source>Cannot set proxy for complex config.</source>
-        <translation type="vanished">无法设置复杂配置的代理。</translation>
-    </message>
-    <message>
         <location filename="../src/ui/w_MainWindow_extra.cpp" line="99"/>
         <source>Update Subscriptions</source>
         <translation>更新订阅</translation>
@@ -1328,38 +991,6 @@
         <location filename="../src/ui/w_MainWindow_extra.cpp" line="101"/>
         <source>These subscriptions are out-of-date: </source>
         <translation>这些订阅已过期： </translation>
-    </message>
-    <message>
-        <source>Disconnected</source>
-        <translation type="vanished">已断开</translation>
-    </message>
-    <message>
-        <source>Complex</source>
-        <translation type="vanished">复杂</translation>
-    </message>
-    <message>
-        <source>Simple</source>
-        <translation type="vanished">简单</translation>
-    </message>
-    <message>
-        <source>No data</source>
-        <translation type="vanished">没有数据</translation>
-    </message>
-    <message>
-        <source>ms</source>
-        <translation type="vanished">ms</translation>
-    </message>
-    <message>
-        <source>There&apos;re no support of sharing configs other than vmess and shadowsocks</source>
-        <translation type="vanished">不支持分享除 Vmess 和 Shadowsocks 之外的链接</translation>
-    </message>
-    <message>
-        <source>N/A</source>
-        <translation type="vanished">不适用</translation>
-    </message>
-    <message>
-        <source>Rename a Connection</source>
-        <translation type="vanished">重命名连接</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.cpp" line="128"/>
@@ -1377,52 +1008,14 @@
         <translation>要解决问题，请阅读日志文本浏览器中的 V2ray 日志。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="137"/>
-        <source>Enable System Proxy</source>
-        <translation>启用系统代理</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="138"/>
-        <source>Disable System Proxy</source>
-        <translation>禁用系统代理</translation>
-    </message>
-    <message>
         <location filename="../src/ui/w_MainWindow.hpp" line="129"/>
         <source>System Proxy</source>
         <translation>系统代理</translation>
     </message>
     <message>
-        <source>Ping</source>
-        <translation type="vanished">Ping 测试</translation>
-    </message>
-    <message>
-        <source>Ping All</source>
-        <translation type="vanished">Ping 测试所有连接</translation>
-    </message>
-    <message>
-        <source>Subscription</source>
-        <translation type="vanished">订阅</translation>
-    </message>
-    <message>
-        <source>Already connected to: </source>
-        <translation type="vanished">已经连接到：</translation>
-    </message>
-    <message>
         <location filename="../src/ui/w_MainWindow.cpp" line="585"/>
         <source>Disconnected from: </source>
         <translation>已断开连接: </translation>
-    </message>
-    <message>
-        <source>The name cannot be empty</source>
-        <translation type="vanished">名称不能为空</translation>
-    </message>
-    <message>
-        <source>The name has been used already, Please choose another.</source>
-        <translation type="vanished">名称已被使用，请选择其他名称。</translation>
-    </message>
-    <message>
-        <source>The name you suggested is not valid, please try another.</source>
-        <translation type="vanished">您建议的名称无效，请尝试其他名称。</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.cpp" line="506"/>
@@ -1435,48 +1028,100 @@
         <translation>您确定要删除这（些）连接吗？</translation>
     </message>
     <message>
-        <source>Removing this Connection</source>
-        <translation type="vanished">正在删除此连接</translation>
+        <location filename="../src/ui/w_MainWindow.ui"/>
+        <source>Locate Current Connection</source>
+        <translation>定位到当前连接</translation>
     </message>
     <message>
-        <source>Failed to delete connection file, please delete manually.</source>
-        <translation type="vanished">删除连接文件失败，请手动删除。</translation>
+        <location filename="../src/ui/w_MainWindow.ui"/>
+        <source>Search</source>
+        <translation>搜索</translation>
     </message>
     <message>
-        <source>Removing a subscription config</source>
-        <translation type="vanished">删除订阅配置</translation>
+        <location filename="../src/ui/w_MainWindow.ui"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="587"/>
+        <source>Not Connected</source>
+        <translation>未连接</translation>
     </message>
     <message>
-        <source>Do you want to remove the config loaded from a subscription?</source>
-        <translation type="vanished">您是否要删除从订阅中加载的配置？</translation>
+        <location filename="../src/ui/w_MainWindow.hpp" line="133"/>
+        <source>Quit</source>
+        <translation>退出</translation>
     </message>
     <message>
-        <source>No Config Selected</source>
-        <translation type="vanished">未选择配置</translation>
+        <location filename="../src/ui/w_MainWindow.hpp" line="134"/>
+        <source>Connect</source>
+        <translation>连接</translation>
     </message>
     <message>
-        <source>Please Select a Config</source>
-        <translation type="vanished">请选择一个配置</translation>
+        <location filename="../src/ui/w_MainWindow.hpp" line="135"/>
+        <source>Reconnect</source>
+        <translation>重新连接</translation>
     </message>
     <message>
-        <source>You are about to run latency test on all servers, do you want to continue?</source>
-        <translation type="vanished">您将在所有服务器上运行延迟测试，是否继续？</translation>
+        <location filename="../src/ui/w_MainWindow.hpp" line="136"/>
+        <source>Disconnect</source>
+        <translation>断开连接</translation>
     </message>
     <message>
-        <source>Testing...</source>
-        <translation type="vanished">正在测试…</translation>
+        <location filename="../src/ui/w_MainWindow.hpp" line="137"/>
+        <source>Enable System Proxy</source>
+        <translation>启用系统代理</translation>
     </message>
     <message>
-        <source>Latency Test</source>
-        <translation type="vanished">测试延迟</translation>
+        <location filename="../src/ui/w_MainWindow.hpp" line="138"/>
+        <source>Disable System Proxy</source>
+        <translation>禁用系统代理</translation>
     </message>
     <message>
-        <source>Failed to test latency for this connection.</source>
-        <translation type="vanished">无法测试此连接的延迟。</translation>
+        <location filename="../src/ui/w_MainWindow.hpp" line="141"/>
+        <source>Connect to this</source>
+        <translation>连接到此服务器</translation>
     </message>
     <message>
-        <source>Share Connection</source>
-        <translation type="vanished">分享连接</translation>
+        <location filename="../src/ui/w_MainWindow.hpp" line="142"/>
+        <source>Set as automatically connected</source>
+        <translation>设置为自动链接</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="143"/>
+        <source>Edit</source>
+        <translation>编辑</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="144"/>
+        <source>Edit as JSON</source>
+        <translation>编辑为 JSON</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="145"/>
+        <source>Edit as Complex Config</source>
+        <translation>编辑为复杂配置</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="146"/>
+        <source>Rename</source>
+        <translation>重命名</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="147"/>
+        <source>Duplicate to the Same Group</source>
+        <translation>复制到同组</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="148"/>
+        <source>Delete Connection</source>
+        <translation>删除连接</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="163"/>
+        <source>Switch to vCore log</source>
+        <translation>切换到 vCore 日志</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="164"/>
+        <source>Switch to Qv2ray log</source>
+        <translation>切换到 Qv2ray 日志</translation>
     </message>
 </context>
 <context>
@@ -1675,21 +1320,9 @@
         <translation>错误</translation>
     </message>
     <message>
-        <source>Config</source>
-        <translation type="vanished">配置</translation>
-    </message>
-    <message>
-        <source>Subscription</source>
-        <translation type="vanished">订阅</translation>
-    </message>
-    <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
         <source>Select</source>
         <translation>选择</translation>
-    </message>
-    <message>
-        <source>Auto Connect</source>
-        <translation type="vanished">自动连接</translation>
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
@@ -1978,71 +1611,6 @@
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
-        <source>Transparent Proxy Settings</source>
-        <translation>透明代理设置</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PreferencesWindow.ui"/>
-        <source>All settings below will only be applied onto simple connection.</source>
-        <translation>下面的所有设置仅会在简单配置中生效。</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PreferencesWindow.ui"/>
-        <source>Add Docodemo-door inbound</source>
-        <translation>添加任意门入站</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PreferencesWindow.ui"/>
-        <source>Address</source>
-        <translation>地址</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PreferencesWindow.ui"/>
-        <source>TCP</source>
-        <translation>TCP</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PreferencesWindow.ui"/>
-        <source>UDP</source>
-        <translation>UDP</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PreferencesWindow.ui"/>
-        <source>Follow Redirect</source>
-        <translation>跟随重定向</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PreferencesWindow.ui"/>
-        <source>Override Connection SockOpt Settings</source>
-        <translation>覆盖连接 SockOpt 选项</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PreferencesWindow.ui"/>
-        <source>TCP Fast Open</source>
-        <translation>TCP 快速打开</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PreferencesWindow.ui"/>
-        <source>Mark</source>
-        <translation>标记</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PreferencesWindow.ui"/>
-        <source>Match Contains</source>
-        <translation>标记包含</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PreferencesWindow.ui"/>
-        <source>TProxy Mode</source>
-        <translation>tProxy 工作模式</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PreferencesWindow.ui"/>
-        <source>Settings will be added to the StreamSettings for matched connections.</source>
-        <translation>本设置将会添加到对应连接中的流设定。</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PreferencesWindow.ui"/>
         <source>-</source>
         <translation>-</translation>
     </message>
@@ -2296,14 +1864,6 @@
         <translation>你想继续吗？</translation>
     </message>
     <message>
-        <source>Dark Mode</source>
-        <translation type="vanished">深色模式</translation>
-    </message>
-    <message>
-        <source>Please restart Qv2ray to fully apply this feature.</source>
-        <translation type="vanished">请重启 Qv2ray 以充分应用此功能。</translation>
-    </message>
-    <message>
         <location filename="../src/ui/w_PreferencesWindow.cpp" line="943"/>
         <source>Select GFWList in base64</source>
         <translation>选择 base64 格式的 GFWList</translation>
@@ -2365,9 +1925,74 @@
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;WenQuanYi Micro Hei&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'WenQuanYi Micro Hei'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt; &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt; p, li { white-space: pre-wrap; } &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;WenQuanYi Micro Hei&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt; &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt; </translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PreferencesWindow.ui"/>
+        <source>Transparent Proxy Settings</source>
+        <translation>透明代理设置</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PreferencesWindow.ui"/>
+        <source>All settings below will only be applied onto simple connection.</source>
+        <translation>下面的所有设置仅会在简单配置中生效。</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PreferencesWindow.ui"/>
+        <source>Add Docodemo-door inbound</source>
+        <translation>添加任意门入站</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PreferencesWindow.ui"/>
+        <source>Address</source>
+        <translation>地址</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PreferencesWindow.ui"/>
+        <source>TCP</source>
+        <translation>TCP</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PreferencesWindow.ui"/>
+        <source>UDP</source>
+        <translation>UDP</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PreferencesWindow.ui"/>
+        <source>Follow Redirect</source>
+        <translation>跟随重定向</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PreferencesWindow.ui"/>
+        <source>Override Connection SockOpt Settings</source>
+        <translation>覆盖连接 SockOpt 选项</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PreferencesWindow.ui"/>
+        <source>TCP Fast Open</source>
+        <translation>TCP 快速打开</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PreferencesWindow.ui"/>
+        <source>Mark</source>
+        <translation>标记</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PreferencesWindow.ui"/>
+        <source>Match Contains</source>
+        <translation>标记包含</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PreferencesWindow.ui"/>
+        <source>TProxy Mode</source>
+        <translation>tProxy 工作模式</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PreferencesWindow.ui"/>
+        <source>Settings will be added to the StreamSettings for matched connections.</source>
+        <translation>本设置将会添加到对应连接中的流设定。</translation>
     </message>
 </context>
 <context>
@@ -2456,10 +2081,6 @@ p, li { white-space: pre-wrap; }
         <translation>初始化 Qv2ray 失败</translation>
     </message>
     <message>
-        <source>Failed to determine the location of config file.</source>
-        <translation type="vanished">无法确定配置文件的位置。</translation>
-    </message>
-    <message>
         <location filename="../src/main.cpp" line="134"/>
         <source>Please report if you think it&apos;s a bug.</source>
         <translation>如果您认为它是一个bug，请&apos;报告。</translation>
@@ -2475,12 +2096,9 @@ p, li { white-space: pre-wrap; }
         <translation> --&gt; 请自负风险！</translation>
     </message>
     <message>
-        <source>Cannot load languages</source>
-        <translation type="vanished">无法加载语言</translation>
-    </message>
-    <message>
-        <source>Qv2ray will continue running, but you cannot change the UI language.</source>
-        <translation type="vanished">Qv2ray 将继续运行，但您不能更改界面语言。</translation>
+        <location filename="../src/main.cpp" line="226"/>
+        <source>Debug version</source>
+        <translation>调试版</translation>
     </message>
     <message>
         <location filename="../src/main.cpp" line="296"/>
@@ -2538,119 +2156,9 @@ p, li { white-space: pre-wrap; }
         <translation>一种解决方法是删除此文件并重新启动Qv2ray：</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="226"/>
-        <source>Debug version</source>
-        <translation>调试版</translation>
-    </message>
-    <message>
         <location filename="../src/main.cpp" line="347"/>
         <source>Technical Details</source>
         <translation>技术细节</translation>
-    </message>
-    <message>
-        <location filename="../src/components/plugins/toolbar/QvToolbar.cpp" line="99"/>
-        <source>Not connected</source>
-        <translation>未连接</translation>
-    </message>
-    <message>
-        <location filename="../src/components/plugins/toolbar/QvToolbar.cpp" line="100"/>
-        <source>Connected</source>
-        <translation>已连接</translation>
-    </message>
-    <message>
-        <source>Disconnected</source>
-        <translation type="vanished">未连接</translation>
-    </message>
-    <message>
-        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="13"/>
-        <source>Custom Text</source>
-        <translation>自定义文本</translation>
-    </message>
-    <message>
-        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="15"/>
-        <source>Current Time</source>
-        <translation>当前时间</translation>
-    </message>
-    <message>
-        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="16"/>
-        <source>Current Date</source>
-        <translation>当前日期</translation>
-    </message>
-    <message>
-        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="17"/>
-        <source>Current Qv2ray Version</source>
-        <translation>当前 Qv2ray 版本</translation>
-    </message>
-    <message>
-        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="18"/>
-        <source>Current Connection Name</source>
-        <translation>当前连接名称</translation>
-    </message>
-    <message>
-        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="19"/>
-        <source>Current Connection Status</source>
-        <translation>当前连接状态</translation>
-    </message>
-    <message>
-        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="21"/>
-        <source>Total Upload Speed</source>
-        <translation>总上传速度</translation>
-    </message>
-    <message>
-        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="22"/>
-        <source>Total Download Speed</source>
-        <translation>总下载速度</translation>
-    </message>
-    <message>
-        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="30"/>
-        <source>Current Connection Latency</source>
-        <translation>当前连接延迟</translation>
-    </message>
-    <message>
-        <source>Upload Speed for Specific Tag</source>
-        <translation type="vanished">上传特定标签的速度</translation>
-    </message>
-    <message>
-        <source>Download Speed for Specific Tag</source>
-        <translation type="vanished">下载特定标签的速度</translation>
-    </message>
-    <message>
-        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="26"/>
-        <source>Total Uploaded Data</source>
-        <translation>总上传数据</translation>
-    </message>
-    <message>
-        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="27"/>
-        <source>Total Downloaded Data</source>
-        <translation>总下载数据</translation>
-    </message>
-    <message>
-        <source>Uploaded Data for Specific Tag</source>
-        <translation type="vanished">上传特定标签的数据</translation>
-    </message>
-    <message>
-        <source>Downloaded Data for Specific Tag</source>
-        <translation type="vanished">下载特定标签的数据</translation>
-    </message>
-    <message>
-        <source>Editing a subscription config</source>
-        <translation type="vanished">编辑订阅配置</translation>
-    </message>
-    <message>
-        <source>You are trying to edit a config loaded from subscription.</source>
-        <translation type="vanished">您正在尝试编辑从订阅中加载的配置。</translation>
-    </message>
-    <message>
-        <source>All changes will be overwritten when the subscriptions are updated next time.</source>
-        <translation type="vanished">下次更新订阅时，所有更改都会覆盖。</translation>
-    </message>
-    <message>
-        <source>Are you still going to do so?</source>
-        <translation type="vanished">你还要这样做吗？</translation>
-    </message>
-    <message>
-        <source>You should not modity this property of a config from a subscription</source>
-        <translation type="vanished">您不应从订阅中修改配置的此属性</translation>
     </message>
     <message>
         <location filename="../src/core/CoreUtils.cpp" line="29"/>
@@ -2683,6 +2191,50 @@ p, li { white-space: pre-wrap; }
         <location filename="../src/common/CommandArgs.cpp" line="11"/>
         <source>Enable Qv2ray network toolbar plugin</source>
         <translation>启用 Qv2ray 网络工具栏插件</translation>
+    </message>
+    <message>
+        <location filename="../src/core/settings/SettingsUpgrade.cpp" line="122"/>
+        <source>Default Group</source>
+        <translation>默认分组</translation>
+    </message>
+    <message>
+        <location filename="../src/core/settings/SettingsUpgrade.cpp" line="277"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1133"/>
+        <source>Deprecated</source>
+        <translation>已经过时</translation>
+    </message>
+    <message>
+        <location filename="../src/core/settings/SettingsUpgrade.cpp" line="278"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1134"/>
+        <source>PAC is now deprecated and is not encouraged to be used anymore.</source>
+        <translation>PAC 已经被标记为过时的功能，并且我们不建议您继续使用</translation>
+    </message>
+    <message>
+        <location filename="../src/core/settings/SettingsUpgrade.cpp" line="279"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1135"/>
+        <source>It will be removed or be provided as a plugin in the future.</source>
+        <translation>它可能会在将来某个版本被移除，或者作为单独的插件提供</translation>
+    </message>
+    <message>
+        <location filename="../src/core/settings/SettingsUpgrade.cpp" line="280"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1136"/>
+        <source>PAC will still work currently, but please switch to the V2ray built-in routing as soon as possible.</source>
+        <translation>PAC 目前将会继续工作，但是我们强烈建议您切换使用 V2ray 自带的路由功能。</translation>
+    </message>
+    <message>
+        <location filename="../src/core/settings/SettingsUpgrade.cpp" line="295"/>
+        <source>Configuration Upgrade Failed</source>
+        <translation>配置升级失败</translation>
+    </message>
+    <message>
+        <location filename="../src/core/settings/SettingsUpgrade.cpp" line="296"/>
+        <source>Unsupported config version number: </source>
+        <translation>不支持的配置文件版本: </translation>
+    </message>
+    <message>
+        <location filename="../src/core/settings/SettingsUpgrade.cpp" line="297"/>
+        <source>Please upgrade firstly up to Qv2ray v2.0/v2.1 and try again.</source>
+        <translation>请先升级到 Qv2ray v2.0/v2.1 再重试。</translation>
     </message>
     <message>
         <location filename="../src/core/connection/Serialization_ssd.cpp" line="26"/>
@@ -2760,48 +2312,69 @@ p, li { white-space: pre-wrap; }
         <translation>遇到无效流量比率。已使用默认值。</translation>
     </message>
     <message>
-        <location filename="../src/core/settings/SettingsUpgrade.cpp" line="122"/>
-        <source>Default Group</source>
-        <translation>默认分组</translation>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.cpp" line="99"/>
+        <source>Not connected</source>
+        <translation>未连接</translation>
     </message>
     <message>
-        <location filename="../src/core/settings/SettingsUpgrade.cpp" line="277"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1133"/>
-        <source>Deprecated</source>
-        <translation type="unfinished"></translation>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.cpp" line="100"/>
+        <source>Connected</source>
+        <translation>已连接</translation>
     </message>
     <message>
-        <location filename="../src/core/settings/SettingsUpgrade.cpp" line="278"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1134"/>
-        <source>PAC is now deprecated and is not encouraged to be used anymore.</source>
-        <translation type="unfinished"></translation>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="13"/>
+        <source>Custom Text</source>
+        <translation>自定义文本</translation>
     </message>
     <message>
-        <location filename="../src/core/settings/SettingsUpgrade.cpp" line="279"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1135"/>
-        <source>It will be removed or be provided as a plugin in the future.</source>
-        <translation type="unfinished"></translation>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="15"/>
+        <source>Current Time</source>
+        <translation>当前时间</translation>
     </message>
     <message>
-        <location filename="../src/core/settings/SettingsUpgrade.cpp" line="280"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1136"/>
-        <source>PAC will still work currently, but please switch to the V2ray built-in routing as soon as possible.</source>
-        <translation type="unfinished"></translation>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="16"/>
+        <source>Current Date</source>
+        <translation>当前日期</translation>
     </message>
     <message>
-        <location filename="../src/core/settings/SettingsUpgrade.cpp" line="295"/>
-        <source>Configuration Upgrade Failed</source>
-        <translation>配置升级失败</translation>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="17"/>
+        <source>Current Qv2ray Version</source>
+        <translation>当前 Qv2ray 版本</translation>
     </message>
     <message>
-        <location filename="../src/core/settings/SettingsUpgrade.cpp" line="296"/>
-        <source>Unsupported config version number: </source>
-        <translation>不支持的配置文件版本: </translation>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="18"/>
+        <source>Current Connection Name</source>
+        <translation>当前连接名称</translation>
     </message>
     <message>
-        <location filename="../src/core/settings/SettingsUpgrade.cpp" line="297"/>
-        <source>Please upgrade firstly up to Qv2ray v2.0/v2.1 and try again.</source>
-        <translation>请先升级到 Qv2ray v2.0/v2.1 再重试。</translation>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="19"/>
+        <source>Current Connection Status</source>
+        <translation>当前连接状态</translation>
+    </message>
+    <message>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="21"/>
+        <source>Total Upload Speed</source>
+        <translation>总上传速度</translation>
+    </message>
+    <message>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="22"/>
+        <source>Total Download Speed</source>
+        <translation>总下载速度</translation>
+    </message>
+    <message>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="26"/>
+        <source>Total Uploaded Data</source>
+        <translation>总上传数据</translation>
+    </message>
+    <message>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="27"/>
+        <source>Total Downloaded Data</source>
+        <translation>总下载数据</translation>
+    </message>
+    <message>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="30"/>
+        <source>Current Connection Latency</source>
+        <translation>当前连接延迟</translation>
     </message>
     <message>
         <location filename="../src/core/connection/Serialization.hpp" line="14"/>
@@ -3594,42 +3167,6 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>SubscribeEditor</name>
     <message>
-        <source>Renaming a subscription</source>
-        <translation type="vanished">重命名订阅</translation>
-    </message>
-    <message>
-        <source>The subscription name is invalid, please try another.</source>
-        <translation type="vanished">订阅名称无效，请重试。</translation>
-    </message>
-    <message>
-        <source>New name of this subscription has been used already, please suggest another one</source>
-        <translation type="vanished">此订阅的新名称已被使用，请尝试另一个</translation>
-    </message>
-    <message>
-        <source>Failed to rename a subscription, this is an unknown error.</source>
-        <translation type="vanished">无法重命名订阅，这是一个未知错误。</translation>
-    </message>
-    <message>
-        <source>Successfully renamed a subscription</source>
-        <translation type="vanished">成功重命名订阅</translation>
-    </message>
-    <message>
-        <source>Update Subscription</source>
-        <translation type="vanished">更新订阅</translation>
-    </message>
-    <message>
-        <source>Would you like to reload this subscription from the Url?</source>
-        <translation type="vanished">您要从 Url 重新加载此订阅吗？</translation>
-    </message>
-    <message>
-        <source>Updating subscriptions</source>
-        <translation type="vanished">更新订阅</translation>
-    </message>
-    <message>
-        <source>Failed to process the result from the upstream, please check your Url.</source>
-        <translation type="vanished">无法处理源自上游的结果，请检查您的URL。</translation>
-    </message>
-    <message>
         <location filename="../src/ui/w_SubscriptionManager.cpp" line="55"/>
         <source>Reload Subscription</source>
         <translation>更新订阅</translation>
@@ -3714,10 +3251,6 @@ p, li { white-space: pre-wrap; }
         <translation>订阅列表</translation>
     </message>
     <message>
-        <source>A</source>
-        <translation type="vanished">A</translation>
-    </message>
-    <message>
         <location filename="../src/ui/w_SubscriptionManager.ui"/>
         <source>Add Subscription</source>
         <translation>添加订阅</translation>
@@ -3726,10 +3259,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../src/ui/w_SubscriptionManager.ui"/>
         <source>Remove Subscription</source>
         <translation>删除订阅</translation>
-    </message>
-    <message>
-        <source>D</source>
-        <translation type="vanished">D</translation>
     </message>
     <message>
         <location filename="../src/ui/w_SubscriptionManager.ui"/>
