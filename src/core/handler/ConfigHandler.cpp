@@ -522,6 +522,7 @@ namespace Qv2ray::core::handlers
                 UpdateConnection(_conn, config);
                 // Remove Connection Id from the list.
                 connectionsOrig.removeAll(_conn);
+                typeMap.remove(typeMap.key(_conn));
             }
             else if (canGetOutboundData && typeMap.contains(outboundData))
             {
@@ -533,6 +534,7 @@ namespace Qv2ray::core::handlers
                 RenameConnection(_conn, _alias);
                 // Remove Connection Id from the list.
                 connectionsOrig.removeAll(_conn);
+                nameMap.remove(nameMap.key(_conn));
             }
             else
             {
