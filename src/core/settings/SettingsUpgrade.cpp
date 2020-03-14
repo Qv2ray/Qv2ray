@@ -3,7 +3,6 @@
 // from old to newer versions of Qv2ray.
 //
 
-#include "base/Qv2rayBase.hpp"
 #include "common/QvHelpers.hpp"
 
 #define UPGRADELOG(msg) LOG(MODULE_SETTINGS, "  [" + QSTRN(fromVersion) + "-" + QSTRN(fromVersion + 1) + "] --> " + msg)
@@ -114,8 +113,7 @@ namespace Qv2ray
                 break;
             }
 
-            // From version 8 to 9, we introduced a lot of new connection
-            // metainfo(s)
+            // From version 8 to 9, we introduced a lot of new connection metainfo(s)
             case 8:
             {
                 // Generate a default group
@@ -269,17 +267,37 @@ namespace Qv2ray
 #undef _VARNAME_VASSETSPATH_
                 break;
             }
+            case 10:
+            {
+                // It's worth that use a seperated config number to notify all users about the deprecation of PAC
+
+                if (root["inboundConfig"].toObject()["pacConfig"].toObject()["enablePAC"].toBool(false))
+                {
+                    QvMessageBoxWarn(
+                        nullptr, QObject::tr("Deprecated"),
+                        QObject::tr("PAC is now deprecated and is not encouraged to be used anymore.") + NEWLINE +
+                            QObject::tr("It will be removed or be provided as a plugin in the future.") + NEWLINE + NEWLINE +
+                            QObject::tr("PAC will still work currently, but please switch to the V2ray built-in routing as soon as possible."));
+                }
+                else
+                {
+                    UPGRADELOG("It's a wise choice not to use PAC.")
+                }
+                break;
+            }
             default:
             {
-                // Due to technical issue, we cannot maintain all of those
-                // upgrade processes anymore. Check
+                //
+                // Due to technical issue, we cannot maintain all of those upgrade processes anymore. Check
                 // https://github.com/Qv2ray/Qv2ray/issues/353#issuecomment-586117507
-                // for more information
+                // for more information, see commit 2f716a9a443b71ddb96aaab081de73c0095cb637
+                //
                 QvMessageBoxWarn(nullptr, QObject::tr("Configuration Upgrade Failed"),
                                  QObject::tr("Unsupported config version number: ") + QSTRN(fromVersion) + NEWLINE + NEWLINE +
                                      QObject::tr("Please upgrade firstly up to Qv2ray v2.0/v2.1 and try again."));
-                throw new runtime_error("The configuration version of your old Qv2ray installation is out-of-date and that"
-                                        " version is not supported anymore, please try to update to an intermediate version of Qv2ray first.");
+                LOG(MODULE_SETTINGS, "The configuration version of your old Qv2ray installation is out-of-date and that"
+                                     " version is not supported anymore, please try to update to an intermediate version of Qv2ray first.");
+                qApp->exit(1);
             }
         }
 

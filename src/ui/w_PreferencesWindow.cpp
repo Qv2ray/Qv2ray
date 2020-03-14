@@ -1183,6 +1183,13 @@ void PreferencesWindow::on_pacGroupBox_clicked(bool checked)
     LOADINGCHECK
     NEEDRESTART
     CurrentConfig.inboundConfig.pacConfig.enablePAC = checked;
+    if (checked)
+    {
+        QvMessageBoxWarn(this, QObject::tr("Deprecated"),
+                         QObject::tr("PAC is now deprecated and is not encouraged to be used anymore.") + NEWLINE +
+                             QObject::tr("It will be removed or be provided as a plugin in the future.") + NEWLINE + NEWLINE +
+                             QObject::tr("PAC will still work currently, but please switch to the V2ray built-in routing as soon as possible."));
+    }
 }
 
 void PreferencesWindow::on_fpGroupBox_clicked(bool checked)
