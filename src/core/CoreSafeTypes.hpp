@@ -50,9 +50,9 @@ namespace Qv2ray::core
     inline const static auto NullGroupId = GroupId("null");
 
     template<typename IDType>
-    QSet<IDType> StringsToIdSet(const QList<QString> &strings)
+    QList<IDType> StringsToIdList(const QList<QString> &strings)
     {
-        QSet<IDType> list;
+        QList<IDType> list;
 
         for (auto str : strings)
         {
@@ -63,7 +63,7 @@ namespace Qv2ray::core
     }
 
     template<typename IDType>
-    QList<QString> IdListToStrings(const QSet<IDType> &ids)
+    QList<QString> IdListToStrings(const QList<IDType> &ids)
     {
         QList<QString> list;
 
@@ -104,7 +104,7 @@ namespace Qv2ray::core
     {
         // Implicit base of two types, since group object is actually the group base object.
         bool isSubscription = false;
-        QSet<ConnectionId> connections;
+        QList<ConnectionId> connections;
         // Suger for down casting.
         GroupMetaObject() : connections()
         {
@@ -114,7 +114,7 @@ namespace Qv2ray::core
             this->isSubscription = false;
             this->displayName = base.displayName;
             this->importDate = base.importDate;
-            this->connections = StringsToIdSet<ConnectionId>(base.connections);
+            this->connections = StringsToIdList<ConnectionId>(base.connections);
         }
         // Suger for down casting.
         GroupMetaObject(const SubscriptionObject_Config &base) : GroupMetaObject((GroupObject_Config) base)
