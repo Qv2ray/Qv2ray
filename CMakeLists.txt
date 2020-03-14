@@ -85,6 +85,7 @@ include(cmake/qzxing.cmake)
 include(cmake/protobuf.cmake)
 include(cmake/cpp-httplib.cmake)
 include(cmake/backend.cmake)
+include(cmake/shadowsocksr-uvw.cmake)
 
 if(QV2RAY_BUILD_INFO)
     set(_QV2RAY_BUILD_INFO_STR_ "${QV2RAY_BUILD_INFO}")
@@ -173,6 +174,9 @@ set(QV2RAY_SOURCES
   src/core/handler/V2rayInstanceHandler.cpp
   src/core/kernel/APIBackend.cpp
   src/core/kernel/KernelInteractions.cpp
+  src/core/kernel/ShadowsocksrInstance.cpp
+  src/core/kernel/socketstream.cpp
+  src/core/kernel/httpproxy.cpp
   src/core/settings/SettingsBackend.cpp
   src/core/settings/SettingsUpgrade.cpp
   src/core/tcping/QvTCPing.cpp
@@ -306,6 +310,7 @@ target_link_libraries(${PROJECT_NAME}
   ${QT_LIBRARY}
   ${QV2RAY_PROTOBUF_LIBRARY}
   ${QV2RAY_BACKEND_LIBRARIES}
+  ${SHADOWSOCKSR_UVW_LIBRARY}
 )
 
 

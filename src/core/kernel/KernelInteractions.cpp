@@ -3,7 +3,7 @@
 #include "APIBackend.hpp"
 #include "common/QvHelpers.hpp"
 #include "core/connection/ConnectionIO.hpp"
-
+#include "core/CoreUtils.hpp"
 #include <QDesktopServices>
 #include <QObject>
 #include <QWidget>
@@ -162,13 +162,24 @@ namespace Qv2ray::core::kernel
             return tr("Invalid V2ray Instance Status.");
         }
 
+        auto info = Qv2ray::core::GetConnectionInfo(root);
+        auto type = get<0>(info);
+
         // Write the final configuration to the disk.
         QString json = JsonToString(root);
         StringToFile(json, QV2RAY_GENERATED_FILE_PATH);
         //
         auto filePath = QV2RAY_GENERATED_FILE_PATH;
-
-        if (ValidateConfig(filePath))
+        if(type.split(" ").first()=="shadowsocksr"){
+            if(!shadowsocksrInstance.restartShadowsocksRThread(this,root,id))
+            {
+                return tr("can't start Shadowsocksr due to socks settings is incorrect or not enabled");
+            }
+            this->id=id;
+            KernelStarted = true;
+            return {};
+        }
+        else if (ValidateConfig(filePath))
         {
             QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
             env.insert("V2RAY_LOCATION_ASSET", GlobalConfig.kernelConfig.AssetsPath());
@@ -233,7 +244,7 @@ namespace Qv2ray::core::kernel
             apiWorker->StopAPI();
             apiEnabled = false;
         }
-
+	    shadowsocksrInstance.stop();
         // Set this to false BEFORE close the Process, since we need this flag
         // to capture the real kernel CRASH
         KernelStarted = false;

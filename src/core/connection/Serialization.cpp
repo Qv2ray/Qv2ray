@@ -21,6 +21,8 @@ namespace Qv2ray::core::connection
             else if (link.startsWith("ss://"))
             {
                 config = ConvertConfigFromSSString(link, alias, errMessage);
+            } else if(link.startsWith("ssr://")){
+                config = ConvertConfigFromSSRString(link, alias, errMessage);
             }
             else
             {
@@ -60,6 +62,11 @@ namespace Qv2ray::core::connection
                 auto ssServer = StructFromJsonString<ShadowSocksServerObject>(
                     JsonToString(outbound["settings"].toObject()["servers"].toArray().first().toObject()));
                 sharelink = ss::ConvertConfigToSSString(ssServer, alias, isSip002);
+            }
+            else if (type == "shadowsocksr")
+            {
+                auto ssrServer = StructFromJsonString<ShadowSocksRServerObject>(JsonToString(outbound["settings"].toObject()["servers"].toArray().first().toObject()));
+                sharelink = ss::ConvertConfigToSSRString(ssrServer);
             }
             else
             {

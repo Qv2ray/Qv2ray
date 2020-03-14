@@ -15,6 +15,8 @@ namespace Qv2ray::common
     QStringList GetFileList(const QDir &dir);
     QString Base64Encode(const QString &string);
     QString Base64Decode(const QString &string);
+    QString SafeBase64Decode(QString string);
+    QString SafeBase64Encode(QString string,bool trim=true);
     QStringList SplitLines(const QString &str);
     list<string> SplitLines_std(const QString &_string);
     bool FileExistsIn(const QDir &dir, const QString &fileName);
