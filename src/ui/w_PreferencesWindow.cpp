@@ -168,6 +168,24 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     }
 
     CurrentBarPageId = 0;
+    //
+    // Empty for global config.
+    auto autoStartConnId = ConnectionId(CurrentConfig.autoStartId);
+    auto autoStartGroupId = GetConnectionGroupId(autoStartConnId);
+
+    for (auto group : ConnectionManager->AllGroups())
+    {
+        autoStartSubsCombo->addItem(GetDisplayName(group));
+    }
+
+    autoStartSubsCombo->setCurrentText(GetDisplayName(autoStartGroupId));
+
+    for (auto conn : ConnectionManager->Connections(autoStartGroupId))
+    {
+        autoStartConnCombo->addItem(GetDisplayName(conn));
+    }
+
+    autoStartConnCombo->setCurrentText(GetDisplayName(autoStartConnId));
 
     // FP Settings
     if (CurrentConfig.connectionConfig.forwardProxyConfig.type.trimmed().isEmpty())
@@ -1001,6 +1019,43 @@ void PreferencesWindow::on_pacProxyTxt_textEdited(const QString &arg1)
     LOADINGCHECK
     NEEDRESTART
     CurrentConfig.inboundConfig.pacConfig.localIP = arg1;
+}
+
+void PreferencesWindow::on_autoStartSubsCombo_currentIndexChanged(const QString &arg1)
+{
+    LOADINGCHECK if (arg1.isEmpty())
+    {
+        CurrentConfig.autoStartId.clear();
+        autoStartConnCombo->clear();
+    }
+    else
+    {
+        auto groupId = ConnectionManager->GetGroupIdByDisplayName(arg1);
+        auto list = ConnectionManager->Connections(groupId);
+        autoStartConnCombo->clear();
+
+        for (auto id : list)
+        {
+            autoStartConnCombo->addItem(GetDisplayName(id));
+        }
+    }
+}
+
+void PreferencesWindow::on_autoStartConnCombo_currentIndexChanged(const QString &arg1)
+{
+    LOADINGCHECK
+    if (arg1.isEmpty())
+    {
+        CurrentConfig.autoStartId.clear();
+    }
+    else
+    {
+        // Fully qualify the connection item.
+        // Will not work when duplicated names are in the same group.
+        CurrentConfig.autoStartId =
+            ConnectionManager->GetConnectionIdByDisplayName(arg1, ConnectionManager->GetGroupIdByDisplayName(autoStartSubsCombo->currentText()))
+                .toString();
+    }
 }
 
 void PreferencesWindow::on_startWithLoginCB_stateChanged(int arg1)

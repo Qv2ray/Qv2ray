@@ -128,6 +128,10 @@ class PreferencesWindow
 
     void on_pacProxyTxt_textEdited(const QString &arg1);
 
+    void on_autoStartSubsCombo_currentIndexChanged(const QString &arg1);
+
+    void on_autoStartConnCombo_currentIndexChanged(const QString &arg1);
+
     void on_fpTypeCombo_currentIndexChanged(const QString &arg1);
 
     void on_fpAddressTx_textEdited(const QString &arg1);
