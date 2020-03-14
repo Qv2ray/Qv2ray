@@ -309,7 +309,8 @@ void MainWindow::timerEvent(QTimerEvent *event)
         auto log = readLastLog().trimmed();
         if (!log.isEmpty())
         {
-            qvLogDocument->setPlainText(qvLogDocument->toPlainText() + NEWLINE + log);
+            FastAppendTextDocument(NEWLINE + log, qvLogDocument);
+            // qvLogDocument->setPlainText(qvLogDocument->toPlainText() + NEWLINE + log);
         }
     }
 }
@@ -397,6 +398,11 @@ void MainWindow::VersionUpdate(QByteArray &data)
 
 MainWindow::~MainWindow()
 {
+    if (GlobalConfig.inboundConfig.pacConfig.enablePAC && pacServer != nullptr && pacServer->isRunning())
+    {
+        // Wait for PAC server to finish.
+        pacServer->wait();
+    }
     hTray.hide();
 }
 
@@ -466,7 +472,7 @@ void MainWindow::on_preferencesBtn_clicked()
 }
 void MainWindow::on_clearlogButton_clicked()
 {
-    masterLogBrowser->clear();
+    vCoreLogDocument->clear();
 }
 void MainWindow::on_connectionListWidget_customContextMenuRequested(const QPoint &pos)
 {
@@ -592,8 +598,7 @@ void MainWindow::OnDisconnected(const ConnectionId &id)
 
     if (GlobalConfig.inboundConfig.pacConfig.enablePAC)
     {
-        pacServer.StopServer();
-        LOG(MODULE_UI, "Stopping PAC server")
+        pacServer->stopServer();
     }
 }
 
@@ -662,8 +667,9 @@ void MainWindow::OnConnected(const ConnectionId &id)
 
         if (canStartPAC)
         {
-            pacServer.SetProxyString(pacProxyString);
-            pacServer.StartListen();
+            pacServer = new PACServer(this);
+            pacServer->setPACProxyString(pacProxyString);
+            pacServer->start();
         }
         else
         {
@@ -769,7 +775,8 @@ void MainWindow::OnStatsAvailable(const ConnectionId &id, const quint64 upS, con
 void MainWindow::OnVCoreLogAvailable(const ConnectionId &id, const QString &log)
 {
     Q_UNUSED(id);
-    vCoreLogDocument->setPlainText(vCoreLogDocument->toPlainText() + log);
+    FastAppendTextDocument(log.trimmed(), vCoreLogDocument);
+    // vCoreLogDocument->setPlainText(vCoreLogDocument->toPlainText() + log);
     // From https://gist.github.com/jemyzhang/7130092
     auto maxLines = GlobalConfig.uiConfig.maximumLogLines;
     auto block = vCoreLogDocument->begin();

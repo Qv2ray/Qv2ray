@@ -120,7 +120,7 @@ class MainWindow
     QvHttpRequestHelper *requestHelper;
 #endif
     QSystemTrayIcon hTray;
-    PACServer pacServer;
+    PACServer *pacServer;
     SyntaxHighlighter *vCoreLogHighlighter;
     ConnectionInfoWidget *infoWidget;
     //

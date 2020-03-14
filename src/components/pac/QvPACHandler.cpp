@@ -6,20 +6,23 @@
 
 namespace Qv2ray::components::pac
 {
-
-    PACServer::PACServer() : QThread()
+    PACServer::PACServer(QObject *parent) : QThread(parent)
     {
-        pacServer = new httplib::Server();
+        server = new httplib::Server();
+        connect(this, &QThread::finished, this, &QThread::deleteLater);
     }
     PACServer::~PACServer()
     {
-        StopServer();
-        delete pacServer;
+        wait();
+        DEBUG(MODULE_PROXY, "~PACServer")
+        delete server;
     }
-    void PACServer::SetProxyString(const QString &proxyString)
+    void PACServer::stopServer()
     {
-        DEBUG(MODULE_PROXY, "Setting new PAC proxy string: " + proxyString)
-        this->proxyString = proxyString;
+        if (server->is_running())
+            server->stop();
+        quit();
+        LOG(MODULE_UI, "Stopping PAC server")
     }
     void PACServer::run()
     {
@@ -33,8 +36,8 @@ namespace Qv2ray::components::pac
         QString gfwContent = StringFromFile(QV2RAY_RULES_GFWLIST_PATH);
         pacContent = ConvertGFWToPAC(gfwContent, proxyString);
         //
-        pacServer->Get("/pac", onNewRequest);
-        auto result = pacServer->listen(address.toStdString().c_str(), static_cast<ushort>(port));
+        server->Get("/pac", pacRequestHandler);
+        auto result = server->listen(address.toStdString().c_str(), static_cast<ushort>(port));
         if (result)
         {
             DEBUG(MODULE_PROXY, "PAC handler stopped.")
@@ -46,15 +49,7 @@ namespace Qv2ray::components::pac
         }
     }
 
-    void PACServer::StopServer()
-    {
-        if (pacServer->is_running())
-        {
-            pacServer->stop();
-        }
-    }
-
-    void PACServer::onNewRequest(const httplib::Request &req, httplib::Response &rsp)
+    void PACServer::pacRequestHandler(const httplib::Request &req, httplib::Response &rsp)
     {
         rsp.set_header("Server", "Qv2ray/" QV2RAY_VERSION_STRING " PAC_Handler");
         if (req.method == "GET")

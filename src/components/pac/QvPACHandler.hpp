@@ -18,24 +18,21 @@ namespace Qv2ray::components::pac
     {
         Q_OBJECT
       public:
-        explicit PACServer();
+        explicit PACServer(QObject *parent = nullptr);
         ~PACServer();
-        void SetProxyString(const QString &proxyString);
-        void StartListen()
+        inline void setPACProxyString(const QString &proxyStr)
         {
-            start();
+            proxyString = proxyStr;
         }
-        void StopServer();
-
-        QString gfwFilePath;
+        void stopServer();
 
       private:
         void run() override;
-        httplib::Server *pacServer;
         QString proxyString;
 
       private:
-        static void onNewRequest(const httplib::Request &req, httplib::Response &rsp);
+        httplib::Server *server;
+        static void pacRequestHandler(const httplib::Request &req, httplib::Response &rsp);
         static inline QString pacContent;
     };
 } // namespace Qv2ray::components::pac

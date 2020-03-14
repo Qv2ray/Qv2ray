@@ -107,6 +107,16 @@ namespace Qv2ray::common
         strftime(MY_TIME, sizeof(MY_TIME), "%x - %I:%M%p", _tm);
         return QString(MY_TIME);
     }
+
+    inline void FastAppendTextDocument(const QString &message, QTextDocument *doc)
+    {
+        QTextCursor cursor(doc);
+        cursor.movePosition(QTextCursor::End);
+        cursor.beginEditBlock();
+        cursor.insertBlock();
+        cursor.insertText(message);
+        cursor.endEditBlock();
+    }
 } // namespace Qv2ray::common
 
 using namespace Qv2ray::common;
