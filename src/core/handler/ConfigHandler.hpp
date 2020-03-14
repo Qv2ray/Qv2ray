@@ -70,6 +70,7 @@ namespace Qv2ray::core::handlers
         //
         // Get Options
         const GroupId GetGroupIdByDisplayName(const QString &displayName) const;
+        /// TRY NOT TO USE THIS FUNCTION
         const ConnectionId GetConnectionIdByDisplayName(const QString &displayName, const GroupId &group) const;
         //
         // Connectivity Operationss

@@ -170,7 +170,7 @@
             <cursorShape>IBeamCursor</cursorShape>
            </property>
            <property name="text">
-            <string>type</string>
+            <string/>
            </property>
            <property name="wordWrap">
             <bool>true</bool>
@@ -193,7 +193,7 @@
             <cursorShape>IBeamCursor</cursorShape>
            </property>
            <property name="text">
-            <string>proto</string>
+            <string/>
            </property>
            <property name="textInteractionFlags">
             <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
@@ -213,7 +213,7 @@
             <cursorShape>IBeamCursor</cursorShape>
            </property>
            <property name="text">
-            <string>addr</string>
+            <string/>
            </property>
            <property name="textInteractionFlags">
             <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
@@ -233,7 +233,7 @@
             <cursorShape>IBeamCursor</cursorShape>
            </property>
            <property name="text">
-            <string>port</string>
+            <string/>
            </property>
            <property name="textInteractionFlags">
             <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>

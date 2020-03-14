@@ -36,7 +36,11 @@
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QLineEdit" name="nameTxt"/>
+      <widget class="QLineEdit" name="nameTxt">
+       <property name="placeholderText">
+        <string>A prefix to the imported connection</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>

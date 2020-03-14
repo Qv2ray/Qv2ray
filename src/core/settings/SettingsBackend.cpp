@@ -4,10 +4,15 @@
 
 namespace Qv2ray::core::config
 {
-    void SaveGlobalConfig(const Qv2rayConfig &conf)
+    void SaveGlobalSettings(const Qv2rayConfig &conf)
     {
         GlobalConfig = conf;
-        QString str = StructToJsonString(conf);
+        SaveGlobalSettings();
+    }
+
+    void SaveGlobalSettings()
+    {
+        QString str = StructToJsonString(GlobalConfig);
         StringToFile(str, QV2RAY_CONFIG_FILE);
     }
 

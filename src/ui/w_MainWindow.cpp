@@ -3,14 +3,14 @@
 #include "components/pac/QvPACHandler.hpp"
 #include "components/plugins/toolbar/QvToolbar.hpp"
 #include "components/proxy/QvProxyConfigurator.hpp"
-#include "core/connection/ConnectionIO.hpp"
+#include "core/settings/SettingsBackend.hpp"
 #include "ui/editors/w_JsonEditor.hpp"
 #include "ui/editors/w_OutboundEditor.hpp"
 #include "ui/editors/w_RoutesEditor.hpp"
+#include "ui/w_ImportConfig.hpp"
+#include "ui/w_PreferencesWindow.hpp"
+#include "ui/w_SubscriptionManager.hpp"
 #include "ui/widgets/ConnectionInfoWidget.hpp"
-#include "w_ImportConfig.hpp"
-#include "w_PreferencesWindow.hpp"
-#include "w_SubscriptionManager.hpp"
 
 #include <QCloseEvent>
 #include <QDebug>
@@ -212,11 +212,15 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connectionListRCM_Menu->addAction(action_RCM_EditJson);
     connectionListRCM_Menu->addAction(action_RCM_EditComplex);
     connectionListRCM_Menu->addSeparator();
+    connectionListRCM_Menu->addAction(action_RCM_SetAutoConnection);
+    connectionListRCM_Menu->addSeparator();
     connectionListRCM_Menu->addAction(action_RCM_Rename);
     connectionListRCM_Menu->addAction(action_RCM_Duplicate);
     connectionListRCM_Menu->addSeparator();
     connectionListRCM_Menu->addAction(action_RCM_Delete);
     connect(action_RCM_Start, &QAction::triggered, this, &MainWindow::on_action_StartThis_triggered);
+    connect(action_RCM_SetAutoConnection, &QAction::triggered, this, &MainWindow::on_action_RCM_SetAutoConnection_triggered);
+
     connect(action_RCM_Edit, &QAction::triggered, this, &MainWindow::on_action_RCM_EditThis_triggered);
     connect(action_RCM_EditJson, &QAction::triggered, this, &MainWindow::on_action_RCM_EditAsJson_triggered);
     connect(action_RCM_EditComplex, &QAction::triggered, this, &MainWindow::on_action_RCM_EditAsComplex_triggered);
@@ -955,4 +959,17 @@ void MainWindow::on_masterLogBrowser_textChanged()
 {
     auto bar = masterLogBrowser->verticalScrollBar();
     bar->setValue(bar->maximum());
+}
+
+void MainWindow::on_action_RCM_SetAutoConnection_triggered()
+{
+    auto current = connectionListWidget->currentItem();
+    if (current != nullptr)
+    {
+        auto widget = GetItemWidget(current);
+        auto &conn = get<1>(widget->Identifier());
+        GlobalConfig.autoStartId = conn.toString();
+        hTray.showMessage(tr("Set auto connection"), tr("Set %1 as auto connect.").arg(GetDisplayName(conn)));
+        SaveGlobalSettings();
+    }
 }

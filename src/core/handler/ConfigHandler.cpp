@@ -123,7 +123,7 @@ namespace Qv2ray::core::handlers
             }
         }
 
-        SaveGlobalConfig(newGlobalConfig);
+        SaveGlobalSettings(newGlobalConfig);
     }
 
     void QvConfigHandler::timerEvent(QTimerEvent *event)

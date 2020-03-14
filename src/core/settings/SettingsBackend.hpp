@@ -2,7 +2,8 @@
 
 namespace Qv2ray::core::config
 {
-    void SaveGlobalConfig(const Qv2rayConfig &conf);
+    void SaveGlobalSettings();
+    void SaveGlobalSettings(const Qv2rayConfig &conf);
     void SetConfigDirPath(const QString &path);
     bool CheckSettingsPathAvailability(const QString &_path, bool checkExistingConfig);
 } // namespace Qv2ray::core::config

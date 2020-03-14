@@ -22,7 +22,7 @@
 ImportConfigWindow::ImportConfigWindow(QWidget *parent) : QDialog(parent)
 {
     setupUi(this);
-    nameTxt->setText(tr("My Connection Imported at: ") + QDateTime::currentDateTime().toString("MM-dd hh:mm"));
+    // nameTxt->setText(tr("My Connection Imported at: ") + QDateTime::currentDateTime().toString("MM-dd hh:mm"));
     QvMessageBusConnect(ImportConfigWindow);
     RESTORE_RUNTIME_CONFIG(screenShotHideQv2ray, hideQv2rayCB->setChecked)
 }
@@ -107,24 +107,6 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
     {
         case 0:
         {
-            // From File...
-            bool ImportAsComplex = keepImportedInboundCheckBox->isChecked();
-            QString path = fileLineTxt->text();
-
-            if (!V2rayKernelInstance::ValidateConfig(path))
-            {
-                QvMessageBoxWarn(this, tr("Import config file"), tr("Failed to check the validity of the config file."));
-                return;
-            }
-
-            aliasPrefix += "_" + QFileInfo(path).fileName();
-            CONFIGROOT config = ConvertConfigFromFile(path, ImportAsComplex);
-            connections.insert(aliasPrefix, config);
-            break;
-        }
-
-        case 1:
-        {
             QStringList linkList = SplitLines(vmessConnectionStringTxt->toPlainText());
             //
             // Clear UI and error lists
@@ -171,6 +153,23 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
                 return;
             }
 
+            break;
+        }
+        case 2:
+        {
+            // From File...
+            bool ImportAsComplex = keepImportedInboundCheckBox->isChecked();
+            QString path = fileLineTxt->text();
+
+            if (!V2rayKernelInstance::ValidateConfig(path))
+            {
+                QvMessageBoxWarn(this, tr("Import config file"), tr("Failed to check the validity of the config file."));
+                return;
+            }
+
+            aliasPrefix += "_" + QFileInfo(path).fileName();
+            CONFIGROOT config = ConvertConfigFromFile(path, ImportAsComplex);
+            connections.insert(aliasPrefix, config);
             break;
         }
     }

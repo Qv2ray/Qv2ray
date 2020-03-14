@@ -84,6 +84,7 @@ class MainWindow
     void OnGroupDeleted(const GroupId &id, const QSet<ConnectionId> &connections);
     //
     void on_action_StartThis_triggered();
+    void on_action_RCM_SetAutoConnection_triggered();
     void on_action_RCM_EditThis_triggered();
     void on_action_RCM_EditAsJson_triggered();
     void on_action_RCM_EditAsComplex_triggered();
@@ -138,6 +139,7 @@ class MainWindow
     //
     QMenu *connectionListRCM_Menu = new QMenu(this);
     QAction *action_RCM_Start = new QAction(tr("Connect to this"), this);
+    QAction *action_RCM_SetAutoConnection = new QAction(tr("Set as automatically connected"), this);
     QAction *action_RCM_Edit = new QAction(tr("Edit"), this);
     QAction *action_RCM_EditJson = new QAction(tr("Edit as JSON"), this);
     QAction *action_RCM_EditComplex = new QAction(tr("Edit as Complex Config"), this);

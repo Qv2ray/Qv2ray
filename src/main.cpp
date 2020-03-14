@@ -141,7 +141,7 @@ bool initialiseQv2ray()
         conf.logLevel = 2;
         //
         // Save initial config.
-        SaveGlobalConfig(conf);
+        SaveGlobalSettings(conf);
         LOG(MODULE_INIT, "Created initial config file.")
     }
 
@@ -329,7 +329,7 @@ int main(int argc, char *argv[])
     }
 
     // Let's save the config.
-    SaveGlobalConfig(confObject);
+    SaveGlobalSettings(confObject);
     //
     // Check OpenSSL version for auto-update and subscriptions
     auto osslReqVersion = QSslSocket::sslLibraryBuildVersionString();
