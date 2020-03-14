@@ -850,7 +850,7 @@ void MainWindow::OnGroupCreated(const GroupId &id, const QString &displayName)
     Q_UNUSED(displayName)
     MWAddGroupItem_p(id);
 }
-void MainWindow::OnGroupDeleted(const GroupId &id, const QList<ConnectionId> &connections)
+void MainWindow::OnGroupDeleted(const GroupId &id, const QSet<ConnectionId> &connections)
 {
     for (auto conn : connections)
     {

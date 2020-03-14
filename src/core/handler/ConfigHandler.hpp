@@ -40,7 +40,7 @@ namespace Qv2ray::core::handlers
         {
             return connections.keys();
         }
-        inline const QList<ConnectionId> Connections(const GroupId &groupId) const
+        inline const QSet<ConnectionId> Connections(const GroupId &groupId) const
         {
             CheckGroupExistance(groupId);
             return groups[groupId].connections;
@@ -123,7 +123,7 @@ namespace Qv2ray::core::handlers
         //
         void OnGroupCreated(const GroupId &id, const QString &displayName);
         void OnGroupRenamed(const GroupId &id, const QString &oldName, const QString &newName);
-        void OnGroupDeleted(const GroupId &id, const QList<ConnectionId> &connections);
+        void OnGroupDeleted(const GroupId &id, const QSet<ConnectionId> &connections);
         //
         void OnSubscriptionUpdateFinished(const GroupId &id);
 

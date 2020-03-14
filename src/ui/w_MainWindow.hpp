@@ -81,7 +81,7 @@ class MainWindow
     void OnConnectionGroupChanged(const ConnectionId &id, const GroupId &originalGroup, const GroupId &newGroup);
     //
     void OnGroupCreated(const GroupId &id, const QString &displayName);
-    void OnGroupDeleted(const GroupId &id, const QList<ConnectionId> &connections);
+    void OnGroupDeleted(const GroupId &id, const QSet<ConnectionId> &connections);
     //
     void on_action_StartThis_triggered();
     void on_action_RCM_EditThis_triggered();

@@ -223,7 +223,7 @@ namespace Qv2ray::core::handlers
                              id.toString() + QV2RAY_CONFIG_FILE_EXTENSION);
         //
         connections.remove(id);
-        groups[groupId].connections.removeAll(id);
+        groups[groupId].connections.remove(id);
         emit OnConnectionDeleted(id, groupId);
         //
         bool exists = connectionFile.exists();
@@ -259,8 +259,8 @@ namespace Qv2ray::core::handlers
         {
             LOG(MODULE_FILEIO, "Cannot rename")
         }
-        groups[oldgid].connections.removeAll(id);
-        groups[newGroupId].connections.append(id);
+        groups[oldgid].connections.remove(id);
+        groups[newGroupId].connections << id;
         connections[id].groupId = newGroupId;
         //
         emit OnConnectionGroupChanged(id, oldgid, newGroupId);
@@ -521,7 +521,8 @@ namespace Qv2ray::core::handlers
                 groups[id].connections << _conn;
                 UpdateConnection(_conn, config);
                 // Remove Connection Id from the list.
-                connectionsOrig.removeAll(_conn);
+                connectionsOrig.remove(_conn);
+                typeMap.remove(typeMap.key(_conn));
             }
             else if (canGetOutboundData && typeMap.contains(outboundData))
             {
@@ -532,7 +533,8 @@ namespace Qv2ray::core::handlers
                 UpdateConnection(_conn, config);
                 RenameConnection(_conn, _alias);
                 // Remove Connection Id from the list.
-                connectionsOrig.removeAll(_conn);
+                connectionsOrig.remove(_conn);
+                nameMap.remove(nameMap.key(_conn));
             }
             else
             {
@@ -550,7 +552,6 @@ namespace Qv2ray::core::handlers
             LOG(MODULE_CORE_HANDLER, "Removing: " + conn.toString())
             DeleteConnection(conn);
         }
-
         // Update the time
         groups[id].lastUpdated = system_clock::to_time_t(system_clock::now());
 
