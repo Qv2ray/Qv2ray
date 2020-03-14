@@ -429,7 +429,7 @@
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-6</y>
+            <y>0</y>
             <width>1127</width>
             <height>604</height>
            </rect>
@@ -1822,6 +1822,9 @@
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'WenQuanYi Micro Hei'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="placeholderText">
+             <string notr="true"/>
             </property>
            </widget>
           </item>

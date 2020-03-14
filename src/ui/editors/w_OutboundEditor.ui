@@ -355,7 +355,7 @@
               </item>
               <item>
                <property name="text">
-                <string>chacha20-ietf-poly1305</string>
+                <string notr="true">chacha20-ietf-poly1305</string>
                </property>
               </item>
              </widget>
