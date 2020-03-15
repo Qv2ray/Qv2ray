@@ -167,6 +167,7 @@ set(QV2RAY_SOURCES
   src/core/connection/Generation.cpp
   src/core/connection/Serialization.cpp
   src/core/connection/Serialization_ss.cpp
+  src/core/connection/Serialization_ssr.cpp
   src/core/connection/Serialization_ssd.cpp
   src/core/connection/Serialization_vmess.cpp
   src/core/CoreUtils.cpp

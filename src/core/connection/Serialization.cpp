@@ -16,13 +16,15 @@ namespace Qv2ray::core::connection
 
             if (link.startsWith("vmess://"))
             {
-                config = ConvertConfigFromVMessString(link, alias, errMessage);
+                config = vmess::ConvertConfigFromVMessString(link, alias, errMessage);
             }
             else if (link.startsWith("ss://"))
             {
-                config = ConvertConfigFromSSString(link, alias, errMessage);
-            } else if(link.startsWith("ssr://")){
-                config = ConvertConfigFromSSRString(link, alias, errMessage);
+                config = ss::ConvertConfigFromSSString(link, alias, errMessage);
+            }
+            else if (link.startsWith("ssr://"))
+            {
+                config = ssr::ConvertConfigFromSSRString(link, alias, errMessage);
             }
             else
             {
@@ -65,8 +67,9 @@ namespace Qv2ray::core::connection
             }
             else if (type == "shadowsocksr")
             {
-                auto ssrServer = StructFromJsonString<ShadowSocksRServerObject>(JsonToString(outbound["settings"].toObject()["servers"].toArray().first().toObject()));
-                sharelink = ss::ConvertConfigToSSRString(ssrServer);
+                auto ssrServer = StructFromJsonString<ShadowSocksRServerObject>(
+                    JsonToString(outbound["settings"].toObject()["servers"].toArray().first().toObject()));
+                sharelink = ssr::ConvertConfigToSSRString(ssrServer);
             }
             else
             {

@@ -31,9 +31,14 @@ namespace Qv2ray::core::connection
         {
             CONFIGROOT ConvertConfigFromSSString(const QString &ss, QString *alias, QString *errMessage);
             const QString ConvertConfigToSSString(const ShadowSocksServerObject &server, const QString &alias, bool isSip002);
-            CONFIGROOT ConvertConfigFromSSRString(const QString &ssr, QString *alias, QString *errMessage);
-            QString ConvertConfigToSSRString(const ShadowSocksRServerObject &server);
         } // namespace ss
+        //
+        // SSR URI Protocol
+        namespace ssr
+        {
+            CONFIGROOT ConvertConfigFromSSRString(const QString &ssr, QString *alias, QString *errMessage);
+            const QString ConvertConfigToSSRString(const ShadowSocksRServerObject &server);
+        } // namespace ssr
         //
         // SSD URI Protocol
         namespace ssd
