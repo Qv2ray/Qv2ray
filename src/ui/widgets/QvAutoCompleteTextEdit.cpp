@@ -48,51 +48,52 @@
 **
 ****************************************************************************/
 
-#include "textedit.h"
+#include "QvAutoCompleteTextEdit.h"
+
+#include <QAbstractItemModel>
+#include <QAbstractItemView>
+#include <QApplication>
 #include <QCompleter>
 #include <QKeyEvent>
-#include <QAbstractItemView>
-#include <QtDebug>
-#include <QApplication>
 #include <QModelIndex>
-#include <QAbstractItemModel>
 #include <QScrollBar>
+#include <QtDebug>
 
-TextEdit::TextEdit(QWidget *parent)
-    : QTextEdit(parent)
+AutoCompleteTextEdit::AutoCompleteTextEdit(QWidget *parent) : QTextEdit(parent)
 {
     setPlainText(tr("This TextEdit provides autocompletions for words that have more than"
                     " 3 characters. You can trigger autocompletion using ") +
                  QKeySequence("Ctrl+E").toString(QKeySequence::NativeText));
 }
 
-TextEdit::~TextEdit()
+AutoCompleteTextEdit::~AutoCompleteTextEdit()
 {
 }
 
-void TextEdit::setCompleter(QCompleter *completer)
+void AutoCompleteTextEdit::setCompleter(QCompleter *completer)
 {
     if (c)
         c->disconnect(this);
 
     c = completer;
 
-    if (!c) {
+    if (!c)
+    {
         return;
     }
 
     c->setWidget(this);
     c->setCompletionMode(QCompleter::PopupCompletion);
     c->setCaseSensitivity(Qt::CaseInsensitive);
-    QObject::connect(c, QOverload<const QString &>::of(&QCompleter::activated), this, &TextEdit::insertCompletion);
+    QObject::connect(c, QOverload<const QString &>::of(&QCompleter::activated), this, &AutoCompleteTextEdit::insertCompletion);
 }
 
-QCompleter *TextEdit::completer() const
+QCompleter *AutoCompleteTextEdit::completer() const
 {
     return c;
 }
 
-void TextEdit::insertCompletion(const QString &completion)
+void AutoCompleteTextEdit::insertCompletion(const QString &completion)
 {
     if (c->widget() != this)
         return;
@@ -105,45 +106,45 @@ void TextEdit::insertCompletion(const QString &completion)
     setTextCursor(tc);
 }
 
-QString TextEdit::textUnderCursor() const
+QString AutoCompleteTextEdit::textUnderCursor() const
 {
     QTextCursor tc = textCursor();
     tc.select(QTextCursor::WordUnderCursor);
     return tc.selectedText();
 }
 
-void TextEdit::focusInEvent(QFocusEvent *e)
+void AutoCompleteTextEdit::focusInEvent(QFocusEvent *e)
 {
-    if (c) c->setWidget(this);
+    if (c)
+        c->setWidget(this);
 
     QTextEdit::focusInEvent(e);
 }
 
-void TextEdit::keyPressEvent(QKeyEvent *e)
+void AutoCompleteTextEdit::keyPressEvent(QKeyEvent *e)
 {
-    if (c && c->popup()->isVisible()) {
+    if (c && c->popup()->isVisible())
+    {
         // The following keys are forwarded by the completer to the widget
-        switch (e->key()) {
+        switch (e->key())
+        {
             case Qt::Key_Enter:
             case Qt::Key_Return:
             case Qt::Key_Escape:
             case Qt::Key_Tab:
-            case Qt::Key_Backtab:
-                e->ignore();
-                return; // let the completer do default behavior
+            case Qt::Key_Backtab: e->ignore(); return; // let the completer do default behavior
 
-            default:
-                break;
+            default: break;
         }
     }
 
     const bool isShortcut = (e->modifiers().testFlag(Qt::ControlModifier) && e->key() == Qt::Key_Space); // CTRL+Space
 
-    if (!c || !isShortcut) // do not process the shortcut when we have a completer
+    if (!c || !isShortcut) // do not process the shortcut when we have a
+                           // completer
         QTextEdit::keyPressEvent(e);
 
-    const bool ctrlOrShift = e->modifiers().testFlag(Qt::ControlModifier) ||
-                             e->modifiers().testFlag(Qt::ShiftModifier);
+    const bool ctrlOrShift = e->modifiers().testFlag(Qt::ControlModifier) || e->modifiers().testFlag(Qt::ShiftModifier);
 
     if (!c || (ctrlOrShift && e->text().isEmpty()))
         return;
@@ -152,12 +153,14 @@ void TextEdit::keyPressEvent(QKeyEvent *e)
     const bool hasModifier = (e->modifiers() != Qt::NoModifier) && !ctrlOrShift;
     QString completionPrefix = textUnderCursor();
 
-    if (!isShortcut && (hasModifier || e->text().isEmpty() || completionPrefix.length() < 2 || eow.contains(e->text().right(1)))) {
+    if (!isShortcut && (hasModifier || e->text().isEmpty() || completionPrefix.length() < 2 || eow.contains(e->text().right(1))))
+    {
         c->popup()->hide();
         return;
     }
 
-    if (completionPrefix != c->completionPrefix()) {
+    if (completionPrefix != c->completionPrefix())
+    {
         c->setCompletionPrefix(completionPrefix);
         c->popup()->setCurrentIndex(c->completionModel()->index(0, 0));
     }

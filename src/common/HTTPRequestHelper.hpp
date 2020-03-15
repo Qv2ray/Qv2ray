@@ -18,45 +18,46 @@
 
 #pragma once
 
-#include <QObject>
-#include <QNetworkRequest>
-#include <QNetworkReply>
 #include <QNetworkAccessManager>
+#include <QNetworkReply>
+#include <QNetworkRequest>
+#include <QObject>
 
 namespace Qv2ray::common
 {
     class QvHttpRequestHelper : public QObject
     {
-            Q_OBJECT
-        public:
-            explicit QvHttpRequestHelper();
-            ~QvHttpRequestHelper();
-            bool setUrl(const QString &url);
-            void setHeader(const QByteArray &key, const QByteArray &value);
-            // get
-            QByteArray syncget(const QString &url, bool useProxy);
-            void get(const QString &url);
-            //// insert
-            //void post(const QString &url, const QByteArray &data);
-            //// update
-            //void put(const QString &url, const QByteArray &data);
-            //// delete
-            //void del(const QString &url);
-            //void login(const QString &url, const QByteArray &data);
-        signals:
-            void httpRequestFinished(QByteArray &data);
+        Q_OBJECT
+      public:
+        explicit QvHttpRequestHelper(QObject *parent = nullptr);
+        ~QvHttpRequestHelper();
+        bool setUrl(const QString &url);
+        void setHeader(const QByteArray &key, const QByteArray &value);
+        // get
+        QByteArray syncget(const QString &url, bool useProxy);
+        void get(const QString &url);
+        //// insert
+        // void post(const QString &url, const QByteArray &data);
+        //// update
+        // void put(const QString &url, const QByteArray &data);
+        //// delete
+        // void del(const QString &url);
+        // void login(const QString &url, const QByteArray &data);
+      signals:
+        void httpRequestFinished(QByteArray &data);
 
-        public slots:
-            void onRequestFinished();
-        private slots:
-            void onReadyRead();
-        private:
-            QByteArray data;
-            QUrl url;
-            QNetworkReply *reply;
-            QNetworkRequest request;
-            QNetworkAccessManager accessManager;
+      public slots:
+        void onRequestFinished_p();
+      private slots:
+        void onReadyRead();
+
+      private:
+        QByteArray data;
+        QUrl url;
+        QNetworkReply *reply;
+        QNetworkRequest request;
+        QNetworkAccessManager accessManager;
     };
-}
+} // namespace Qv2ray::common
 
 using namespace Qv2ray::common;

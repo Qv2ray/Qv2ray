@@ -1,30 +1,39 @@
 ﻿#pragma once
 
+#include "base/Qv2rayBase.hpp"
+#include "common/JsonHighlighter.hpp"
+#include "common/QJsonModel.hpp"
+#include "ui/messaging/QvMessageBus.hpp"
+#include "ui_w_JsonEditor.h"
+
 #include <QDialog>
 #include <QtCore>
-#include "common/QJsonModel.hpp"
-#include "base/Qv2rayBase.hpp"
-#include "ui_w_JsonEditor.h"
-#include "ui/messaging/QvMessageBus.hpp"
 
-class JsonEditor : public QDialog, private Ui::JsonEditor
+class JsonEditor
+    : public QDialog
+    , private Ui::JsonEditor
 {
-        Q_OBJECT
+    Q_OBJECT
 
-    public:
-        explicit JsonEditor(QJsonObject rootObject, QWidget *parent = nullptr);
-        ~JsonEditor();
-        QJsonObject OpenEditor();
-    public slots:
-        QvMessageBusSlotHeader
+  public:
+    explicit JsonEditor(QJsonObject rootObject, QWidget *parent = nullptr);
+    ~JsonEditor();
+    QJsonObject OpenEditor();
 
-    private slots:
-        void on_jsonEditor_textChanged();
+  private:
+    QvMessageBusSlotDecl;
 
-        void on_formatJsonBtn_clicked();
+  private slots:
+    void on_jsonEditor_textChanged();
 
-    private:
-        QJsonModel model;
-        QJsonObject original;
-        QJsonObject final;
+    void on_formatJsonBtn_clicked();
+
+    void on_removeCommentsBtn_clicked();
+
+  private:
+    QJsonModel model;
+    QJsonObject original;
+    QJsonObject final;
+    //
+    unique_ptr<vCoreConfigJsonHighlighter> highlighter;
 };

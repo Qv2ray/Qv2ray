@@ -1,79 +1,77 @@
 #include "QvPACHandler.hpp"
-#include "qhttprequest.h"
-#include "qhttpresponse.h"
-#include "core/CoreUtils.hpp"
+
+#include "3rdparty/cpp-httplib/httplib.h"
 #include "common/QvHelpers.hpp"
+#include "core/CoreUtils.hpp"
 
 namespace Qv2ray::components::pac
 {
-
-    PACServer::PACServer() : QObject(), pacServer(this)
+    PACServer::PACServer(QObject *parent) : QThread(parent)
     {
-        connect(&pacServer, &QHttpServer::newRequest, this, &PACServer::onNewRequest);
+        server = new httplib::Server();
+        connect(this, &QThread::finished, this, &QThread::deleteLater);
     }
     PACServer::~PACServer()
     {
-        if (isStarted) {
-            pacServer.close();
-        }
+        wait();
+        DEBUG(MODULE_PROXY, "~PACServer")
+        delete server;
     }
-    void PACServer::SetProxyString(const QString &proxyString)
+    void PACServer::stopServer()
     {
-        DEBUG(PROXY, "Setting new PAC proxy string: " + proxyString)
-        this->proxyString = proxyString;
+        if (server->is_running())
+            server->stop();
+        quit();
+        LOG(MODULE_UI, "Stopping PAC server")
     }
-    void PACServer::StartListen()
+    void PACServer::run()
     {
-        LOG(PROXY, "Starting PAC listener")
+        LOG(MODULE_PROXY, "Starting PAC listener")
         //
         auto address = GlobalConfig.inboundConfig.listenip;
         auto port = GlobalConfig.inboundConfig.pacConfig.port;
         //
-        DEBUG(PROXY, "PAC Listening local endpoint: " + address + ":" + QSTRN(port))
+        DEBUG(MODULE_PROXY, "PAC Listening local endpoint: " + address + ":" + QSTRN(port))
         //
         QString gfwContent = StringFromFile(QV2RAY_RULES_GFWLIST_PATH);
         pacContent = ConvertGFWToPAC(gfwContent, proxyString);
         //
-        auto result = pacServer.listen(QHostAddress(address), static_cast<ushort>(port));
-
-        if (result) {
-            isStarted = true;
-            DEBUG(PROXY, "Started PAC handler")
-        } else {
-            LOG(PROXY, "Failed to listen on port " + QSTRN(port) + ", possible permission denied.")
+        server->Get("/pac", pacRequestHandler);
+        auto result = server->listen(address.toStdString().c_str(), static_cast<ushort>(port));
+        if (result)
+        {
+            DEBUG(MODULE_PROXY, "PAC handler stopped.")
+        }
+        else
+        {
+            LOG(MODULE_PROXY, "Failed to listen on port " + QSTRN(port) + ", possible permission denied.")
             QvMessageBoxWarn(nullptr, tr("PAC Handler"), tr("Failed to listen PAC request on this port, please verify the permissions"));
         }
     }
 
-    void PACServer::StopServer()
+    void PACServer::pacRequestHandler(const httplib::Request &req, httplib::Response &rsp)
     {
-        if (isStarted) {
-            pacServer.close();
-            DEBUG(PROXY, "PAC Handler stopped.")
-            isStarted = false;
-        }
-    }
-
-    void PACServer::onNewRequest(QHttpRequest *req, QHttpResponse *rsp)
-    {
-        rsp->setHeader("Server", "Qv2ray/" QV2RAY_VERSION_STRING " PAC_Handler");
-
-        if (req->method() == QHttpRequest::HTTP_GET) {
-            //
-            if (req->path() == "/pac") {
-                DEBUG(PROXY, "Serving PAC file request.")
+        rsp.set_header("Server", "Qv2ray/" QV2RAY_VERSION_STRING " PAC_Handler");
+        if (req.method == "GET")
+        {
+            if (req.path == "/pac")
+            {
+                DEBUG(MODULE_PROXY, "Serving PAC file request.")
                 //
-                rsp->setHeader("Content-Type", "application/javascript; charset=utf-8");
-                rsp->writeHead(QHttpResponse::StatusCode::STATUS_OK);
-                rsp->end(pacContent.toUtf8());
-                DEBUG(PROXY, "Serving a pac file...")
-            } else {
-                rsp->writeHead(QHttpResponse::StatusCode::STATUS_NOT_FOUND);
-                rsp->end("NOT FOUND");
+                rsp.status = 200;
+                rsp.set_content(pacContent.toStdString(), "application/javascript; charset=utf-8");
+                DEBUG(MODULE_PROXY, "Serving a pac file...")
             }
-        } else {
-            rsp->writeHead(QHttpResponse::StatusCode::STATUS_METHOD_NOT_ALLOWED);
-            rsp->end("PAC ONLY SUPPORT GET");
+            else
+            {
+                rsp.status = 404;
+                rsp.set_content("NOT FOUND", "text/plain; charset=utf-8");
+            }
+        }
+        else
+        {
+            rsp.status = 405;
+            rsp.set_content("PAC ONLY SUPPORT GET", "text/plain; charset=utf-8");
         }
     }
-}
+} // namespace Qv2ray::components::pac

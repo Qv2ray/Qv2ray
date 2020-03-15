@@ -9,8 +9,8 @@ namespace Qv2ray::components::plugins
     namespace Toolbar
     {
         /// NO NOT CHANGE THE ORDER
-        static const QMap<int, QString> NetSpeedPluginMessages {
-            { 0, QObject::tr("Custom Text")},
+        static const QMap<int, QString> NetSpeedPluginMessages{
+            { 0, QObject::tr("Custom Text") },
             // Current Status
             { 101, QObject::tr("Current Time") },
             { 102, QObject::tr("Current Date") },
@@ -20,13 +20,14 @@ namespace Qv2ray::components::plugins
             // Speeds
             { 201, QObject::tr("Total Upload Speed") },
             { 202, QObject::tr("Total Download Speed") },
-            { 203, QObject::tr("Upload Speed for Specific Tag") },
-            { 204, QObject::tr("Download Speed for Specific Tag") },
+            //{ 203, QObject::tr("Upload Speed for Specific Tag") },
+            //{ 204, QObject::tr("Download Speed for Specific Tag") },
             // Datas
             { 301, QObject::tr("Total Uploaded Data") },
             { 302, QObject::tr("Total Downloaded Data") },
-            { 303, QObject::tr("Uploaded Data for Specific Tag") },
-            { 304, QObject::tr("Downloaded Data for Specific Tag") }
+            //{ 303, QObject::tr("Uploaded Data for Specific Tag") },
+            //{ 304, QObject::tr("Downloaded Data for Specific Tag") }
+            { 305, QObject::tr("Current Connection Latency") } //
         };
         void StartProcessingPlugins();
         void StopProcessingPlugins();
@@ -35,7 +36,7 @@ namespace Qv2ray::components::plugins
         {
             void StartNamedPipeThread();
             void KillNamedPipeThread();
-        }
+        } // namespace _win
 #endif
 #ifdef Q_OS_LINUX
         namespace _linux
@@ -45,13 +46,12 @@ namespace Qv2ray::components::plugins
             void StartMessageQThread();
             void StopMessageQThread();
 
-        }
+        } // namespace _linux
 #endif
 
         QString GetAnswerToRequest(const QString &pchRequest);
-    }
-}
+    } // namespace Toolbar
+} // namespace Qv2ray::components::plugins
 
 using namespace Qv2ray::components;
 using namespace Qv2ray::components::plugins::Toolbar;
-

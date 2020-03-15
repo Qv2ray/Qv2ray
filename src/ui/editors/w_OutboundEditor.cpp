@@ -1,20 +1,15 @@
-﻿#include <QDebug>
+﻿#include "w_OutboundEditor.hpp"
+
+#include "core/connection/Generation.hpp"
+#include "ui/editors/w_JsonEditor.hpp"
+#include "ui/editors/w_RoutesEditor.hpp"
+#include "ui/w_MainWindow.hpp"
+
 #include <QFile>
 #include <QIntValidator>
 #include <iostream>
 
-#include "w_OutboundEditor.hpp"
-#include "ui/w_MainWindow.hpp"
-#include "ui/editors/w_JsonEditor.hpp"
-#include "ui/editors/w_RoutesEditor.hpp"
-#include "core/connection/Generation.hpp"
-
-OutboundEditor::OutboundEditor(QWidget *parent)
-    : QDialog(parent),
-      Tag(""),
-      Mux(),
-      vmess(),
-      shadowsocks()
+OutboundEditor::OutboundEditor(QWidget *parent) : QDialog(parent), Tag(""), Mux(), vmess(), shadowsocks()
 {
     QvMessageBusConnect(OutboundEditor);
     setupUi(this);
@@ -40,10 +35,9 @@ OutboundEditor::OutboundEditor(QWidget *parent)
 
 QvMessageBusSlotImpl(OutboundEditor)
 {
-    switch (msg) {
-            QvMessageBusShowDefault
-            QvMessageBusHideDefault
-            QvMessageBusRetranslateDefault
+    switch (msg)
+    {
+        MBShowDefaultImpl MBHideDefaultImpl MBRetranslateDefaultImpl
     }
 }
 
@@ -57,20 +51,28 @@ OutboundEditor::OutboundEditor(OUTBOUND outboundEntry, QWidget *parent) : Outbou
     useFProxy = outboundEntry[QV2RAY_USE_FPROXY_KEY].toBool(false);
     ssWidget->SetStreamObject(StructFromJsonString<StreamSettingsObject>(JsonToString(outboundEntry["streamSettings"].toObject())));
 
-    if (OutboundType == "vmess") {
-        vmess = StructFromJsonString<VMessServerObject>(JsonToString(outboundEntry["settings"].toObject()["vnext"].toArray().first().toObject()));
+    if (OutboundType == "vmess")
+    {
+        vmess =
+            StructFromJsonString<VMessServerObject>(JsonToString(outboundEntry["settings"].toObject()["vnext"].toArray().first().toObject()));
         shadowsocks.port = vmess.port;
         shadowsocks.address = vmess.address;
         socks.address = vmess.address;
         socks.port = vmess.port;
-    } else if (OutboundType == "shadowsocks") {
-        shadowsocks = StructFromJsonString<ShadowSocksServerObject>(JsonToString(outboundEntry["settings"].toObject()["servers"].toArray().first().toObject()));
+    }
+    else if (OutboundType == "shadowsocks")
+    {
+        shadowsocks = StructFromJsonString<ShadowSocksServerObject>(
+            JsonToString(outboundEntry["settings"].toObject()["servers"].toArray().first().toObject()));
         vmess.address = shadowsocks.address;
         vmess.port = shadowsocks.port;
         socks.address = shadowsocks.address;
         socks.port = shadowsocks.port;
-    } else if (OutboundType == "socks") {
-        socks = StructFromJsonString<SocksServerObject>(JsonToString(outboundEntry["settings"].toObject()["servers"].toArray().first().toObject()));
+    }
+    else if (OutboundType == "socks")
+    {
+        socks =
+            StructFromJsonString<SocksServerObject>(JsonToString(outboundEntry["settings"].toObject()["servers"].toArray().first().toObject()));
         vmess.address = socks.address;
         vmess.port = socks.port;
         shadowsocks.address = socks.address;
@@ -80,7 +82,6 @@ OutboundEditor::OutboundEditor(OUTBOUND outboundEntry, QWidget *parent) : Outbou
     ReloadGUI();
     Result = GenerateConnectionJson();
 }
-
 
 OutboundEditor::~OutboundEditor()
 {
@@ -106,20 +107,25 @@ OUTBOUND OutboundEditor::GenerateConnectionJson()
     OUTBOUNDSETTING settings;
     auto streaming = GetRootObject(ssWidget->GetStreamSettings());
 
-    if (OutboundType == "vmess") {
+    if (OutboundType == "vmess")
+    {
         // VMess is only a ServerObject, and we need an array { "vnext": [] }
         QJsonArray vnext;
         vnext.append(GetRootObject(vmess));
         settings.insert("vnext", vnext);
-    } else if (OutboundType == "shadowsocks") {
+    }
+    else if (OutboundType == "shadowsocks")
+    {
         streaming = QJsonObject();
-        LOG(CONNECTION, "Shadowsocks outbound does not need StreamSettings.")
+        LOG(MODULE_CONNECTION, "Shadowsocks outbound does not need StreamSettings.")
         QJsonArray servers;
         servers.append(GetRootObject(shadowsocks));
         settings["servers"] = servers;
-    } else if (OutboundType == "socks") {
+    }
+    else if (OutboundType == "socks")
+    {
         streaming = QJsonObject();
-        LOG(CONNECTION, "Socks outbound does not need StreamSettings.")
+        LOG(MODULE_CONNECTION, "Socks outbound does not need StreamSettings.")
         QJsonArray servers;
         servers.append(GetRootObject(socks));
         settings["servers"] = servers;
@@ -132,14 +138,17 @@ OUTBOUND OutboundEditor::GenerateConnectionJson()
 
 void OutboundEditor::ReloadGUI()
 {
-    if (OutboundType == "vmess") {
+    if (OutboundType == "vmess")
+    {
         outBoundTypeCombo->setCurrentIndex(0);
         ipLineEdit->setText(vmess.address);
         portLineEdit->setText(QSTRN(vmess.port));
         idLineEdit->setText(vmess.users.front().id);
         alterLineEdit->setValue(vmess.users.front().alterId);
         securityCombo->setCurrentText(vmess.users.front().security);
-    } else if (OutboundType == "shadowsocks") {
+    }
+    else if (OutboundType == "shadowsocks")
+    {
         outBoundTypeCombo->setCurrentIndex(1);
         // ShadowSocks Configs
         ipLineEdit->setText(shadowsocks.address);
@@ -149,12 +158,15 @@ void OutboundEditor::ReloadGUI()
         ss_otaCheckBox->setChecked(shadowsocks.ota);
         ss_passwordTxt->setText(shadowsocks.password);
         ss_encryptionMethod->setCurrentText(shadowsocks.method);
-    } else if (OutboundType == "socks") {
+    }
+    else if (OutboundType == "socks")
+    {
         outBoundTypeCombo->setCurrentIndex(2);
         ipLineEdit->setText(socks.address);
         portLineEdit->setText(QSTRN(socks.port));
 
-        if (socks.users.empty()) socks.users.push_back(SocksServerObject::UserObject());
+        if (socks.users.empty())
+            socks.users.push_back(SocksServerObject::UserObject());
 
         socks_PasswordTxt->setText(socks.users.front().pass);
         socks_UserNameTxt->setText(socks.users.front().user);
@@ -164,7 +176,6 @@ void OutboundEditor::ReloadGUI()
     muxEnabledCB->setChecked(Mux["enabled"].toBool());
     muxConcurrencyTxt->setValue(Mux["concurrency"].toInt());
 }
-
 
 void OutboundEditor::on_buttonBox_accepted()
 {
@@ -180,7 +191,8 @@ void OutboundEditor::on_ipLineEdit_textEdited(const QString &arg1)
 
 void OutboundEditor::on_portLineEdit_textEdited(const QString &arg1)
 {
-    if (arg1 != "") {
+    if (arg1 != "")
+    {
         vmess.port = arg1.toInt();
         shadowsocks.port = arg1.toInt();
         socks.port = arg1.toInt();
@@ -189,14 +201,16 @@ void OutboundEditor::on_portLineEdit_textEdited(const QString &arg1)
 
 void OutboundEditor::on_idLineEdit_textEdited(const QString &arg1)
 {
-    if (vmess.users.empty()) vmess.users.push_back(VMessServerObject::UserObject());
+    if (vmess.users.empty())
+        vmess.users.push_back(VMessServerObject::UserObject());
 
     vmess.users.front().id = arg1;
 }
 
 void OutboundEditor::on_securityCombo_currentIndexChanged(const QString &arg1)
 {
-    if (vmess.users.empty()) vmess.users.push_back(VMessServerObject::UserObject());
+    if (vmess.users.empty())
+        vmess.users.push_back(VMessServerObject::UserObject());
 
     vmess.users.front().security = arg1;
 }
@@ -218,7 +232,8 @@ void OutboundEditor::on_muxConcurrencyTxt_valueChanged(int arg1)
 
 void OutboundEditor::on_alterLineEdit_valueChanged(int arg1)
 {
-    if (vmess.users.empty()) vmess.users.push_back(VMessServerObject::UserObject());
+    if (vmess.users.empty())
+        vmess.users.push_back(VMessServerObject::UserObject());
 
     vmess.users.front().alterId = arg1;
 }

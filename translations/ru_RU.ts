@@ -1,79 +1,249 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="ru_RU" version="2.1">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="ru_RU">
+<context>
+    <name>AutoCompleteTextEdit</name>
+    <message>
+        <location filename="../src/ui/widgets/QvAutoCompleteTextEdit.cpp" line="64"/>
+        <source>This TextEdit provides autocompletions for words that have more than 3 characters. You can trigger autocompletion using </source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
 <context>
     <name>ConfigExporter</name>
     <message>
-        <location filename="../src/ui/w_ExportConfig.cpp" line="73"/>
         <source>Save Image</source>
-        <translation>Сохранить изображение</translation>
+        <translation type="vanished">Сохранить изображение</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ExportConfig.cpp" line="82"/>
-        <location filename="../src/ui/w_ExportConfig.cpp" line="88"/>
         <source>Share Connection</source>
-        <translation>Поделиться подключением</translation>
+        <translation type="vanished">Поделиться подключением</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ExportConfig.cpp" line="82"/>
         <source>Image has been copied to the clipboard.</source>
-        <translation>Изображение было скопировано в буфер обмена.</translation>
+        <translation type="vanished">Изображение было скопировано в буфер обмена.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ExportConfig.cpp" line="88"/>
         <source>VMess string has been copied to the clipboard.</source>
-        <translation>Строка VMess была скопирована в буфер обмена.</translation>
+        <translation type="vanished">Строка VMess была скопирована в буфер обмена.</translation>
+    </message>
+</context>
+<context>
+    <name>ConnectionInfoWidget</name>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.ui"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.ui"/>
+        <source>Configuration Details</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.ui"/>
+        <source>Connect/Disconnect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.ui"/>
+        <source>Edit Connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.ui"/>
+        <source>Edit Connection as JSON</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.ui"/>
+        <source>Latency Test</source>
+        <translation type="unfinished">Тест задержки</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.ui"/>
+        <source>Delete Connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.ui"/>
+        <source>Group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.ui"/>
+        <source>Protocol</source>
+        <translation type="unfinished">Протокол</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.ui"/>
+        <source>Address</source>
+        <translation type="unfinished">Адрес</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.ui"/>
+        <source>Port</source>
+        <translation type="unfinished">Порт</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.ui"/>
+        <source>Link</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.ui"/>
+        <source>QR Code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.ui"/>
+        <source>Group Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.ui"/>
+        <source>Subscription Link</source>
+        <translation type="unfinished">Подписка</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.ui"/>
+        <source>Share Link</source>
+        <translation type="unfinished">Поделитесь ссылкой</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.cpp" line="112"/>
+        <source>(Ignored %1 complex config(s))</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.cpp" line="117"/>
+        <source>Not a subscription</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.cpp" line="155"/>
+        <source>Delete an item</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.cpp" line="155"/>
+        <source>Are you sure to delete the current item?</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ConnectionItemWidget</name>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionItemWidget.cpp" line="28"/>
+        <source>Not Tested</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionItemWidget.cpp" line="154"/>
+        <source>ms</source>
+        <translation type="unfinished">мс</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionItemWidget.cpp" line="33"/>
+        <location filename="../src/ui/widgets/ConnectionItemWidget.cpp" line="140"/>
+        <source>Type: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionItemWidget.cpp" line="147"/>
+        <source>Testing...</source>
+        <translation type="unfinished">Тестирование...</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionItemWidget.cpp" line="30"/>
+        <location filename="../src/ui/widgets/ConnectionItemWidget.cpp" line="154"/>
+        <source>Error</source>
+        <translation type="unfinished">ошибка</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionItemWidget.hpp" line="62"/>
+        <source>connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionItemWidget.hpp" line="62"/>
+        <source>connections</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ConnectionWidget</name>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionItemWidget.ui"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionItemWidget.ui"/>
+        <source>Connection Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionItemWidget.ui"/>
+        <source>500ms</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionItemWidget.ui"/>
+        <source>Type: vmess + tls + ws</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionItemWidget.ui"/>
+        <source>0KB / 0KB</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/ConnectionItemWidget.ui"/>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
     </message>
 </context>
 <context>
     <name>ExportConfigWindow</name>
     <message>
-        <location filename="../src/ui/w_ExportConfig.ui"/>
         <source>Export Config</source>
-        <translation>Экспорт конфигурации</translation>
+        <translation type="vanished">Экспорт конфигурации</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ExportConfig.ui"/>
         <source>Share Options</source>
-        <translation>Открыть совместный доступ к опциям</translation>
+        <translation type="vanished">Открыть совместный доступ к опциям</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ExportConfig.ui"/>
         <source>Connection String</source>
-        <translation>Строка подключения</translation>
+        <translation type="vanished">Строка подключения</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ExportConfig.ui"/>
         <source>Copy Link</source>
-        <translation>Скопируйте ссылку</translation>
+        <translation type="vanished">Скопируйте ссылку</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ExportConfig.ui"/>
         <source>Save Image</source>
-        <translation>Сохранить изображение</translation>
+        <translation type="vanished">Сохранить изображение</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ExportConfig.ui"/>
         <source>Copy Image</source>
-        <translation>Копировать изображение</translation>
+        <translation type="vanished">Копировать изображение</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ExportConfig.ui"/>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="vanished">OK</translation>
     </message>
 </context>
 <context>
     <name>FlowScene</name>
     <message>
-        <location filename="../3rdparty/QNodeEditor/src/FlowScene.cpp" line="432"/>
-        <location filename="../3rdparty/QNodeEditor/src/FlowScene.cpp" line="457"/>
         <source>Open Flow Scene</source>
-        <translation>Файл сцены открытого потока</translation>
+        <translation type="vanished">Файл сцены открытого потока</translation>
     </message>
     <message>
-        <location filename="../3rdparty/QNodeEditor/src/FlowScene.cpp" line="434"/>
-        <location filename="../3rdparty/QNodeEditor/src/FlowScene.cpp" line="459"/>
         <source>Flow Scene Files (*.flow)</source>
-        <translation>Файл сцены потока (*.flow)</translation>
+        <translation type="vanished">Файл сцены потока (*.flow)</translation>
     </message>
 </context>
 <context>
@@ -134,14 +304,12 @@
         <translation>Выбрать</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.ui"/>
         <source>Inbound</source>
-        <translation>Входящее</translation>
+        <translation type="vanished">Входящее</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.ui"/>
         <source>Keep imported inbound settings</source>
-        <translation>Сохранить импортированные параметры</translation>
+        <translation type="vanished">Сохранить импортированные параметры</translation>
     </message>
     <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
@@ -155,6 +323,11 @@
     </message>
     <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
+        <source>Import as Complex Config (Manually edit route rules and inbounds)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_ImportConfig.ui"/>
         <source>VMess / QRCode</source>
         <translation>VMess / QRCode</translation>
     </message>
@@ -164,14 +337,12 @@
         <translation>Строка подключения VMess</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.ui"/>
         <source>From QRCode File</source>
-        <translation>QRCode из файла</translation>
+        <translation type="vanished">QRCode из файла</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.ui"/>
         <source>From Screenshot</source>
-        <translation>Из скриншота</translation>
+        <translation type="vanished">Из скриншота</translation>
     </message>
     <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
@@ -179,9 +350,8 @@
         <translation>Далее</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.ui"/>
         <source>After</source>
-        <translation>После</translation>
+        <translation type="vanished">После</translation>
     </message>
     <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
@@ -239,66 +409,96 @@
         <translation>Отмена</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="56"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="60"/>
         <source>Select file to import</source>
         <translation>Выберите файл для Импорта</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="88"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="93"/>
         <source>Capture QRCode</source>
         <translation>Захват QRCode</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="88"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="93"/>
         <source>Cannot find a valid QRCode from this region.</source>
         <translation>Не удается найти QRCode из этой области.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="109"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="166"/>
         <source>Import config file</source>
         <translation>Выберите файл конфигурации</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="109"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="166"/>
         <source>Failed to check the validity of the config file.</source>
         <translation>Не удалось проверить правильность файла конфигурации.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="164"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="181"/>
         <source>Select an image to import</source>
         <translation>Выберите изображение для импорта</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="177"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="195"/>
         <source>QRCode scanning failed</source>
         <translation>Ошибка сканирования QRCode</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="177"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="195"/>
         <source>Cannot find any QRCode from the image.</source>
         <translation>Не удается найти QRCode в изображении.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="212"/>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="222"/>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="238"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="235"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="247"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="270"/>
         <source>Edit file as JSON</source>
         <translation>Изменить JSON файл</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="212"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="235"/>
         <source>Provided file not found: </source>
         <translation>Предоставленный файл не найден: </translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="222"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="248"/>
         <source>The file you selected has json syntax error. Continue editing may make you lose data. Would you like to continue?</source>
         <translation>Выбранный вами файл содержит синтаксическую ошибку json. Изменение может привести к потере данных. Вы хотите продолжить?</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="238"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="270"/>
         <source>Failed to save file, please check if you have proper permissions</source>
         <translation>Не удалось сохранить файл, пожалуйста, проверьте, есть ли у вас необходимые разрешения</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_ImportConfig.ui"/>
+        <source>QRCode File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_ImportConfig.ui"/>
+        <source>Screenshot</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_ImportConfig.ui"/>
+        <source>Delay</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_ImportConfig.ui"/>
+        <source>Json Editor</source>
+        <translation type="unfinished">Редактор Json</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_ImportConfig.ui"/>
+        <source>Open JSON Editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_ImportConfig.ui"/>
+        <source>A prefix to the imported connection</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -529,41 +729,41 @@
         <translation>СЕКРЕТ</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_InboundEditor.cpp" line="31"/>
+        <location filename="../src/ui/editors/w_InboundEditor.cpp" line="41"/>
         <source>Inbound type not supported</source>
         <translation>Тип файла не поддерживается</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_InboundEditor.cpp" line="31"/>
+        <location filename="../src/ui/editors/w_InboundEditor.cpp" line="42"/>
         <source>The inbound type is not supported by Qv2ray (yet). Please use JsonEditor to change the settings</source>
         <translation>Входящий тип не поддерживается Qv2ray (еще). Пожалуйста, используйте JsonEditor для изменения настроек</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_InboundEditor.cpp" line="32"/>
+        <location filename="../src/ui/editors/w_InboundEditor.cpp" line="43"/>
         <source>Inbound: </source>
         <translation>Входящий: </translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_InboundEditor.cpp" line="211"/>
-        <location filename="../src/ui/editors/w_InboundEditor.cpp" line="263"/>
+        <location filename="../src/ui/editors/w_InboundEditor.cpp" line="244"/>
+        <location filename="../src/ui/editors/w_InboundEditor.cpp" line="303"/>
         <source>Removing a user</source>
         <translation>Удаление пользователя</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_InboundEditor.cpp" line="211"/>
-        <location filename="../src/ui/editors/w_InboundEditor.cpp" line="263"/>
+        <location filename="../src/ui/editors/w_InboundEditor.cpp" line="244"/>
+        <location filename="../src/ui/editors/w_InboundEditor.cpp" line="303"/>
         <source>You haven&apos;t selected a user yet.</source>
         <translation>Вы еще выбрали пользователя&apos;т.</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_InboundEditor.cpp" line="227"/>
-        <location filename="../src/ui/editors/w_InboundEditor.cpp" line="279"/>
+        <location filename="../src/ui/editors/w_InboundEditor.cpp" line="262"/>
+        <location filename="../src/ui/editors/w_InboundEditor.cpp" line="321"/>
         <source>Add a user</source>
         <translation>Добавить пользователя</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_InboundEditor.cpp" line="227"/>
-        <location filename="../src/ui/editors/w_InboundEditor.cpp" line="279"/>
+        <location filename="../src/ui/editors/w_InboundEditor.cpp" line="262"/>
+        <location filename="../src/ui/editors/w_InboundEditor.cpp" line="321"/>
         <source>This user exists already.</source>
         <translation>Этот пользователь уже существует.</translation>
     </message>
@@ -571,9 +771,8 @@
 <context>
     <name>JsonEditor</name>
     <message>
-        <location filename="../src/ui/editors/w_JsonEditor.ui"/>
         <source>Dialog</source>
-        <translation>Диалог</translation>
+        <translation type="vanished">Диалог</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_JsonEditor.ui"/>
@@ -596,30 +795,48 @@
         <translation>Редактор Json</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_JsonEditor.cpp" line="19"/>
-        <location filename="../src/ui/editors/w_JsonEditor.cpp" line="42"/>
+        <location filename="../src/ui/editors/w_JsonEditor.cpp" line="23"/>
+        <location filename="../src/ui/editors/w_JsonEditor.cpp" line="50"/>
         <source>Json Contains Syntax Errors</source>
         <translation>Json содержит ошибки синтаксиса</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_JsonEditor.cpp" line="19"/>
+        <location filename="../src/ui/editors/w_JsonEditor.cpp" line="23"/>
         <source>Original Json may contain syntax errors. Json tree is disabled.</source>
         <translation>Оригинальный Json может содержать ошибки синтаксиса. Структура Json отключена.</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_JsonEditor.cpp" line="42"/>
-        <source>You must correct these errors before continue.</source>
-        <translation>Вы должны исправить эти ошибки перед продолжением.</translation>
+        <location filename="../src/ui/editors/w_JsonEditor.cpp" line="50"/>
+        <source>You must correct these errors before continuing.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_JsonEditor.cpp" line="82"/>
+        <source>You must correct these errors before continue.</source>
+        <translation type="vanished">Вы должны исправить эти ошибки перед продолжением.</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/editors/w_JsonEditor.cpp" line="101"/>
         <source>Syntax Errors</source>
         <translation>Синтаксические ошибки</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_JsonEditor.cpp" line="82"/>
+        <location filename="../src/ui/editors/w_JsonEditor.cpp" line="101"/>
+        <source>Please fix the JSON errors or remove the comments before continue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Please fix the JSON errors before continue</source>
-        <translation>Пожалуйста, исправьте JSON ошибки перед продолжением</translation>
+        <translation type="vanished">Пожалуйста, исправьте JSON ошибки перед продолжением</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/editors/w_JsonEditor.ui"/>
+        <source>JSON Editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/editors/w_JsonEditor.ui"/>
+        <source>Remove All Comments</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -630,27 +847,23 @@
         <translation>Qv2ray</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="150"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="134"/>
         <source>Connect</source>
         <translation>Подключение</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="152"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="136"/>
         <source>Disconnect</source>
         <translation>Отключен</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="151"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="135"/>
         <source>Reconnect</source>
         <translation>Переподключить</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Clear Log</source>
-        <translation>Очистить логи</translation>
+        <translation type="vanished">Очистить логи</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.ui"/>
@@ -658,79 +871,64 @@
         <translation>Подписки</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Stopped</source>
-        <translation>Остановлен</translation>
+        <translation type="vanished">Остановлен</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Host List</source>
-        <translation>Список Узлов</translation>
+        <translation type="vanished">Список Узлов</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Import connection</source>
-        <translation>Импорт соединения</translation>
+        <translation type="vanished">Импорт соединения</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Duplicate connection</source>
-        <translation>Дублировать подключение</translation>
+        <translation type="vanished">Дублировать подключение</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Delete a connection</source>
-        <translation>Удалить подключение</translation>
+        <translation type="vanished">Удалить подключение</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Edit connection</source>
-        <translation>Изменить подключение</translation>
+        <translation type="vanished">Изменить подключение</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Config Details</source>
-        <translation>Детали конфигурации</translation>
+        <translation type="vanished">Детали конфигурации</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Config Type</source>
-        <translation>Тип конфигурации</translation>
+        <translation type="vanished">Тип конфигурации</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Protocol</source>
-        <translation>Протокол</translation>
+        <translation type="vanished">Протокол</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Address</source>
-        <translation>Адрес</translation>
+        <translation type="vanished">Адрес</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Port Number</source>
-        <translation>Порт</translation>
+        <translation type="vanished">Порт</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Latency</source>
-        <translation>Задержка</translation>
+        <translation type="vanished">Задержка</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Operations</source>
-        <translation>Операции</translation>
+        <translation type="vanished">Операции</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Edit connection as JSON</source>
-        <translation>Изменить соединение как JSON</translation>
+        <translation type="vanished">Изменить соединение как JSON</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Log (click to switch log source)</source>
-        <translation>Журнал (нажмите, чтобы переключить источник журнала)</translation>
+        <translation type="vanished">Журнал (нажмите, чтобы переключить источник журнала)</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.ui"/>
@@ -739,49 +937,99 @@
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.ui"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="148"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="132"/>
         <source>Preferences</source>
         <translation>Настройки</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Duplicate</source>
-        <translation>Дублировать</translation>
+        <translation type="vanished">Дублировать</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Delete</source>
-        <translation>Удалить</translation>
+        <translation type="vanished">Удалить</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="143"/>
         <source>Edit</source>
         <translation>Изменить</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Edit JSON</source>
-        <translation>Изменить JSON</translation>
+        <translation type="vanished">Изменить JSON</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Ping Test</source>
-        <translation>Ping Тест</translation>
+        <translation type="vanished">Ping Тест</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Share</source>
-        <translation>Поделиться</translation>
+        <translation type="vanished">Поделиться</translation>
+    </message>
+    <message>
+        <source>Speed Graph</source>
+        <translation type="vanished">График скорости</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.ui"/>
-        <source>Speed Graph</source>
-        <translation>График скорости</translation>
+        <source>Locate Current Connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.ui"/>
+        <source>Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.ui"/>
+        <source>Import Connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.ui"/>
+        <source>Sort</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.ui"/>
+        <source>Click to toggle show/hide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.ui"/>
+        <source>  Speed Graph</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.ui"/>
+        <source>Clear chart data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.ui"/>
+        <source>  Log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.ui"/>
+        <source>Clear log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.ui"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="593"/>
+        <source>Not Connected</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Speed</source>
         <translation>Скорость</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.ui"/>
+        <source>Upload/Download speed</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.ui"/>
@@ -797,404 +1045,442 @@
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.ui"/>
+        <source>Upload/Download Data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>0.00 B
 0.00 B</source>
         <translation>0.00 B
 0.00 B</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>#ManuallyCreateConnection</source>
-        <translation>#ManuallyCreateConnection</translation>
+        <translation type="vanished">#ManuallyCreateConnection</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>#ImportConnection</source>
-        <translation>#ImportConnection</translation>
+        <translation type="vanished">#ImportConnection</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>#Exit</source>
-        <translation>#Выход</translation>
+        <translation type="vanished">#Выход</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>#Preferences</source>
-        <translation>#Параметры</translation>
+        <translation type="vanished">#Параметры</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>#Start</source>
-        <translation>#Запустить</translation>
+        <translation type="vanished">#Запустить</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>#Stop</source>
-        <translation>#Стоп</translation>
+        <translation type="vanished">#Стоп</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.ui"/>
         <source>#Restart</source>
-        <translation>#Перезапуск</translation>
+        <translation type="vanished">#Перезапуск</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="147"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="543"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="449"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="131"/>
         <source>Hide</source>
         <translation>Скрыть</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="149"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="133"/>
         <source>Quit</source>
         <translation>Выход</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="189"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="142"/>
+        <source>Set as automatically connected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="144"/>
+        <source>Edit as JSON</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="146"/>
         <source>Rename</source>
         <translation>Переименование</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="190"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="147"/>
+        <source>Duplicate to the Same Group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="148"/>
+        <source>Delete Connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="141"/>
         <source>Connect to this</source>
         <translation>Подключиться к этому</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="191"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="145"/>
         <source>Edit as Complex Config</source>
         <translation>Изменить как Complex Config</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="192"/>
         <source>Edit as Json</source>
-        <translation>Изменить как Json</translation>
+        <translation type="vanished">Изменить как Json</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="193"/>
         <source>Share as QRCode/VMess URL</source>
-        <translation>Поделиться QRCode/VMess URL</translation>
+        <translation type="vanished">Поделиться QRCode/VMess URL</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="39"/>
         <source>Subscription:</source>
-        <translation>Подписка:</translation>
+        <translation type="vanished">Подписка:</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="499"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="546"/>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="49"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="412"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="454"/>
         <source>Show</source>
         <translation>Показать</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="52"/>
         <source>Autostarting a config</source>
-        <translation>Автозапуск конфигурации</translation>
+        <translation type="vanished">Автозапуск конфигурации</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="52"/>
         <source>Could not find a specified config named: </source>
-        <translation>Не удалось найти указанное имя конфигурации: </translation>
+        <translation type="vanished">Не удалось найти указанное имя конфигурации: </translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="291"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="438"/>
         <source>No connection selected!</source>
-        <translation>Не выбрано соединение!</translation>
+        <translation type="vanished">Не выбрано соединение!</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="291"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="438"/>
         <source>Please select a config from the list.</source>
-        <translation>Пожалуйста, выберите конфигурацию из списка</translation>
+        <translation type="vanished">Пожалуйста, выберите конфигурацию из списка</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="314"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="150"/>
+        <source>Sort connection list.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="151"/>
+        <source>By connection name, A-Z</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="152"/>
+        <source>By connection name, Z-A</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="153"/>
+        <source>By latency, Ascending</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="154"/>
+        <source>By latency, Descending</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="155"/>
+        <source>By data, Ascending</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="156"/>
+        <source>By data, Descending</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="163"/>
+        <source>Switch to vCore log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.hpp" line="164"/>
+        <source>Switch to Qv2ray log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.cpp" line="380"/>
         <source>Update</source>
         <translation>Обновить</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="315"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="381"/>
         <source>Found a new version: </source>
         <translation>Найдена новая версия: </translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="321"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="382"/>
         <source>Download Link: </source>
         <translation>Ссылка для скачивания:</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="451"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="452"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="453"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="1009"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="616"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="617"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="618"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="765"/>
         <source>Connected: </source>
         <translation>Подключен: </translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="161"/>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="169"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="648"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="662"/>
         <source>Configuring PAC</source>
         <translation>Настройка PAC</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="161"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="649"/>
         <source>Could not start PAC server as it is configured to use SOCKS, but it is not enabled</source>
         <translation>Не удалось запустить PAC сервер, так как он настроен на использование SOCKS, но он не включен</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="169"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="663"/>
         <source>Could not start PAC server as it is configured to use HTTP, but it is not enabled</source>
         <translation>Не удалось запустить PAC сервер, так как он настроен на использование HTTP, но он не включен</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="101"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="905"/>
+        <source>Duplicating Connection(s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.cpp" line="906"/>
+        <source>Are you sure to duplicate these connection(s)?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.cpp" line="913"/>
+        <source> (Copy)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.cpp" line="979"/>
+        <source>Set auto connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.cpp" line="979"/>
+        <source>Set %1 as auto connect.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow_extra.cpp" line="36"/>
         <source>PAC Processing Failed</source>
         <translation>Ошибка обработки PAC</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="54"/>
         <source>Please reset the settings in Preference Window</source>
-        <translation>Пожалуйста, сбросьте настройки в окне Preference</translation>
+        <translation type="vanished">Пожалуйста, сбросьте настройки в окне Preference</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="70"/>
         <source>System proxy cleared.</source>
-        <translation>Системный прокси очищен.</translation>
+        <translation type="vanished">Системный прокси очищен.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="101"/>
+        <location filename="../src/ui/w_MainWindow_extra.cpp" line="37"/>
         <source>HTTP or SOCKS inbound is not properly configured for PAC</source>
         <translation>Входящие HTTP или SOCKS не настроены должным образом для PAC</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="102"/>
+        <location filename="../src/ui/w_MainWindow_extra.cpp" line="38"/>
         <source>Qv2ray will continue, but will not set system proxy.</source>
         <translation>Qv2ray будет работать, но не сможет изменить системный прокси.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="114"/>
+        <location filename="../src/ui/w_MainWindow_extra.cpp" line="55"/>
         <source>Cannot set system proxy</source>
         <translation>Не удается задать системный прокси</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="114"/>
+        <location filename="../src/ui/w_MainWindow_extra.cpp" line="55"/>
         <source>Both HTTP and SOCKS inbounds are not enabled</source>
         <translation>И HTTP, и SOCKS отключены</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="127"/>
+        <location filename="../src/ui/w_MainWindow_extra.cpp" line="71"/>
+        <source>Didn&apos;t set proxy for complex config.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>System proxy settings applied.</source>
-        <translation>Применены настройки системного прокси.</translation>
+        <translation type="vanished">Применены настройки системного прокси.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="130"/>
         <source>Cannot set proxy for complex config.</source>
-        <translation>Не удается установить прокси для комплексной конфигурации.</translation>
+        <translation type="vanished">Не удается установить прокси для комплексной конфигурации.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="247"/>
+        <location filename="../src/ui/w_MainWindow_extra.cpp" line="99"/>
         <source>Update Subscriptions</source>
         <translation>Обновить подписку</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="248"/>
+        <location filename="../src/ui/w_MainWindow_extra.cpp" line="100"/>
         <source>There are subscriptions need to be updated, please go to subscriptions window to update them.</source>
         <translation>Есть подписки, которые необходимо обновить, перейдите в окно подписок, чтобы обновить их.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="249"/>
+        <location filename="../src/ui/w_MainWindow_extra.cpp" line="101"/>
         <source>These subscriptions are out-of-date: </source>
         <translation>Эти подписки устарели: </translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="481"/>
         <source>Disconnected</source>
-        <translation>Отключен</translation>
+        <translation type="vanished">Отключен</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="576"/>
         <source>Complex</source>
-        <translation>Сложный</translation>
+        <translation type="vanished">Сложный</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="576"/>
         <source>Simple</source>
-        <translation>Простой</translation>
+        <translation type="vanished">Простой</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="579"/>
         <source>No data</source>
-        <translation>Нет данных</translation>
+        <translation type="vanished">Нет данных</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="581"/>
         <source>ms</source>
-        <translation>мс</translation>
+        <translation type="vanished">мс</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="981"/>
         <source>There&apos;re no support of sharing configs other than vmess and shadowsocks</source>
-        <translation>Нет поддержки обмена конфигами кроме VMess и Shadowsocks.</translation>
+        <translation type="vanished">Нет поддержки обмена конфигами кроме VMess и Shadowsocks.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="1062"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="1063"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="1064"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="1065"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="1066"/>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="220"/>
         <source>N/A</source>
-        <translation>N/A</translation>
+        <translation type="vanished">N/A</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="674"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="679"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="684"/>
         <source>Rename a Connection</source>
-        <translation>Переименовать соединение</translation>
+        <translation type="vanished">Переименовать соединение</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="99"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="128"/>
         <source>V2ray vcore terminated.</source>
         <translation>V2ray ядро прекращено.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="100"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="129"/>
         <source>V2ray vcore terminated unexpectedly.</source>
         <translation>Ядро V2ray неожиданно прервано.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="101"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="130"/>
         <source>To solve the problem, read the V2ray log in the log text browser.</source>
         <translation>Чтобы решить эту проблему, прочитайте журнал V2ray в текстовом браузере журнала.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="154"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="137"/>
         <source>Enable System Proxy</source>
         <translation>Включить системный прокси</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="155"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="138"/>
         <source>Disable System Proxy</source>
         <translation>Отключить системный прокси</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="163"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="129"/>
         <source>System Proxy</source>
         <translation>Системный прокси</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="252"/>
         <source>Ping</source>
-        <translation>Ping</translation>
+        <translation type="vanished">Ping</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="252"/>
         <source>Ping All</source>
-        <translation>Пингуть все</translation>
+        <translation type="vanished">Пингуть все</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="369"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="585"/>
         <source>Subscription</source>
-        <translation>Подписка</translation>
+        <translation type="vanished">Подписка</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="468"/>
         <source>Already connected to: </source>
-        <translation>Уже подключен к:</translation>
+        <translation type="vanished">Уже подключен к:</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="493"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="591"/>
         <source>Disconnected from: </source>
         <translation>Отключен от:</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="674"/>
         <source>The name cannot be empty</source>
-        <translation>Имя не может быть пустым</translation>
+        <translation type="vanished">Имя не может быть пустым</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="679"/>
         <source>The name has been used already, Please choose another.</source>
-        <translation>Имя уже используется, пожалуйста, выберите другое.</translation>
+        <translation type="vanished">Имя уже используется, пожалуйста, выберите другое.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="684"/>
         <source>The name you suggested is not valid, please try another.</source>
-        <translation>Предложенное вами имя неверно, пожалуйста, попробуйте другое.</translation>
+        <translation type="vanished">Предложенное вами имя неверно, пожалуйста, попробуйте другое.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="741"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="512"/>
         <source>Removing Connection(s)</source>
         <translation>Удаление подключения(й)</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="741"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="512"/>
         <source>Are you sure to remove selected connection(s)?</source>
         <translation>Вы уверены, что хотите удалить выбранные подключение(и)?</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="775"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="786"/>
         <source>Removing this Connection</source>
-        <translation>Удаление этого соединения</translation>
+        <translation type="vanished">Удаление этого соединения</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="775"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="786"/>
         <source>Failed to delete connection file, please delete manually.</source>
-        <translation>Не удалось удалить файл подключения, пожалуйста, удалите вручную.</translation>
+        <translation type="vanished">Не удалось удалить файл подключения, пожалуйста, удалите вручную.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="779"/>
         <source>Removing a subscription config</source>
-        <translation>Удаление конфигурации подписки</translation>
+        <translation type="vanished">Удаление конфигурации подписки</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="779"/>
         <source>Do you want to remove the config loaded from a subscription?</source>
-        <translation>Вы хотите удалить конфигурацию, загруженную из подписок?</translation>
+        <translation type="vanished">Вы хотите удалить конфигурацию, загруженную из подписок?</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="824"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="877"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="908"/>
         <source>No Config Selected</source>
-        <translation>Не выбрана конфигурация</translation>
+        <translation type="vanished">Не выбрана конфигурация</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="824"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="877"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="908"/>
         <source>Please Select a Config</source>
-        <translation>Пожалуйста, выберите конфигурацию</translation>
+        <translation type="vanished">Пожалуйста, выберите конфигурацию</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="940"/>
         <source>You are about to run latency test on all servers, do you want to continue?</source>
-        <translation>Вы собираетесь запустить тест задержки на всех серверах, вы хотите продолжить?</translation>
+        <translation type="vanished">Вы собираетесь запустить тест задержки на всех серверах, вы хотите продолжить?</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="960"/>
         <source>Testing...</source>
-        <translation>Тестирование...</translation>
+        <translation type="vanished">Тестирование...</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="940"/>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="213"/>
         <source>Latency Test</source>
-        <translation>Тест задержки</translation>
+        <translation type="vanished">Тест задержки</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="213"/>
         <source>Failed to test latency for this connection.</source>
-        <translation>Не удалось протестировать задержку для этого подключения.</translation>
+        <translation type="vanished">Не удалось протестировать задержку для этого подключения.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="981"/>
         <source>Share Connection</source>
-        <translation>Поделиться подключением</translation>
+        <translation type="vanished">Поделиться подключением</translation>
     </message>
 </context>
 <context>
@@ -1305,9 +1591,8 @@
         <translation>Метод шифрования</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_OutboundEditor.ui"/>
         <source>chacha20-ietf-poly1305</source>
-        <translation>chacha20-ietf-poly1305</translation>
+        <translation type="vanished">chacha20-ietf-poly1305</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_OutboundEditor.ui"/>
@@ -1329,11 +1614,11 @@
     <name>PreferencesWindow</name>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="235"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="237"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="480"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="491"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="501"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="263"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="267"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="545"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="559"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="569"/>
         <source>Preferences</source>
         <translation>Настройки</translation>
     </message>
@@ -1699,6 +1984,71 @@
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
+        <source>Transparent Proxy Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PreferencesWindow.ui"/>
+        <source>All settings below will only be applied onto simple connection.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PreferencesWindow.ui"/>
+        <source>Add Docodemo-door inbound</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PreferencesWindow.ui"/>
+        <source>Address</source>
+        <translation type="unfinished">Адрес</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PreferencesWindow.ui"/>
+        <source>TCP</source>
+        <translation type="unfinished">TCP</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PreferencesWindow.ui"/>
+        <source>UDP</source>
+        <translation type="unfinished">UDP</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PreferencesWindow.ui"/>
+        <source>Follow Redirect</source>
+        <translation type="unfinished">Использовать переадресацию</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PreferencesWindow.ui"/>
+        <source>Override Connection SockOpt Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PreferencesWindow.ui"/>
+        <source>TCP Fast Open</source>
+        <translation type="unfinished">TCP Fast Open</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PreferencesWindow.ui"/>
+        <source>Mark</source>
+        <translation type="unfinished">Mark</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PreferencesWindow.ui"/>
+        <source>Match Contains</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PreferencesWindow.ui"/>
+        <source>TProxy Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PreferencesWindow.ui"/>
+        <source>Settings will be added to the StreamSettings for matched connections.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PreferencesWindow.ui"/>
         <source>-</source>
         <translation>-</translation>
     </message>
@@ -1739,13 +2089,13 @@
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="732"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="815"/>
         <source>Bold</source>
         <translation>Жирный</translation>
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="733"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="816"/>
         <source>Italic</source>
         <translation>Курсив</translation>
     </message>
@@ -1855,156 +2205,154 @@
         <translation>Об инструментарии Qt</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="63"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="79"/>
         <source>Use Darkmode Theme</source>
         <translation>Использовать темную тему</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="133"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="152"/>
         <source>Page</source>
         <translation>Стр.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="133"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="153"/>
         <source>Item(s)</source>
         <translation>Объекты</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="416"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="464"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="467"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="527"/>
         <source>Enable tProxy Support</source>
         <translation>Включить tProxy поддержку</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="467"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="529"/>
         <source>to this path: </source>
         <translation>на этот путь: </translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="32"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="44"/>
         <source>Qv2ray Network Toolbar is disabled and still under test. Add --withToolbarPlugin to enable.</source>
         <translation>Панель инструментов сети Qv2ray отключена и все еще тестируется. Добавьте --withToolbarPlugin для включения.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="235"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="263"/>
         <source>Duplicated port numbers detected, please check the port number settings.</source>
         <translation>Обнаружены дублированные номера портов, проверьте настройки номера порта.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="237"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="267"/>
         <source>Invalid inbound listening address.</source>
         <translation>Неверный входящий адрес прослушивания.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="347"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="386"/>
         <source>Open V2ray assets folder</source>
         <translation>Откройте папку активов v2ray</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="357"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="397"/>
         <source>Open V2ray core file</source>
         <translation>Открыть основной файл V2ray</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="417"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="468"/>
         <source>This will append capabilities to the V2ray executable.</source>
         <translation>Это добавит возможности к исполняемому файлу V2ray.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="418"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="469"/>
         <source>Qv2ray will copy your V2ray core to this path: </source>
         <translation>Qv2ray скопирует ваше ядро V2ray по этому пути:</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="419"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="470"/>
         <source>If anything goes wrong after enabling this, please check issue #57 or the link below:</source>
         <translation>Если после включения этого параметра что-то пойдет не так, проверьте проблему № 57 или ссылку ниже:</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="465"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="528"/>
         <source>Qv2ray cannot copy one or both V2ray files from: </source>
         <translation>Qv2ray не может скопировать один или оба файла V2ray из:</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="480"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="491"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="545"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="559"/>
         <source>Failed to setcap onto V2ray executable. You may need to run `setcap` manually.</source>
         <translation>Не удалось установить setcap на исполняемый файл V2ray. Возможно, вам придется запустить `setcap` вручную.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="501"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="569"/>
         <source>tProxy is not supported on macOS and Windows</source>
         <translation>tProxy не поддерживается на macOS и Windows</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="795"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="879"/>
         <source>Apply network toolbar settings</source>
         <translation>Применить настройки панели инструментов сети</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="795"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="880"/>
         <source>All other modified settings will be applied as well after this object.</source>
         <translation>Все остальные измененные настройки будут применены и после этого объекта.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="797"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="881"/>
         <source>Do you want to continue?</source>
         <translation>Вы хотите продолжить?</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="814"/>
         <source>Dark Mode</source>
-        <translation>Тёмный режим</translation>
+        <translation type="vanished">Тёмный режим</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="814"/>
         <source>Please restart Qv2ray to fully apply this feature.</source>
-        <translation>Пожалуйста, перезапустите Qv2ray, чтобы полностью применить эту функцию.</translation>
+        <translation type="vanished">Пожалуйста, перезапустите Qv2ray, чтобы полностью применить эту функцию.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="875"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="961"/>
         <source>Select GFWList in base64</source>
         <translation>Выберите GFWList в base64</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="878"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="887"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="965"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="974"/>
         <source>Download GFWList</source>
         <translation>Скачать GFWList</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="878"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="965"/>
         <source>Operation is cancelled.</source>
         <translation>Операция отменена.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="887"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="974"/>
         <source>Successfully downloaded GFWList.</source>
         <translation>Успешно загружено %1$s.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="963"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1068"/>
         <source>Start with boot</source>
         <translation>Автозапуск</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="963"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1068"/>
         <source>Failed to set auto start option.</source>
         <translation>Не удалось установить опцию автозапуска.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1044"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1046"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1157"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1161"/>
         <source>V2ray Core Settings</source>
         <translation>Настройки ядра V2ray</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1046"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1162"/>
         <source>V2ray path configuration check passed.</source>
         <translation>Проверка конфигурации пути V2ray пройдена.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1047"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1162"/>
         <source>Current version of V2ray is: </source>
         <translation>Текущая версия V2ray:</translation>
     </message>
@@ -2023,7 +2371,7 @@
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'WenQuanYi Micro Hei'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;WenQuanYi Micro Hei&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -2035,167 +2383,193 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/core/connection/Serialization.cpp" line="19"/>
+        <location filename="../src/core/connection/Serialization.cpp" line="27"/>
         <source>Unsupported share link format.</source>
         <translation>Неподдерживаемый формат ссылки.</translation>
     </message>
     <message>
-        <location filename="../src/core/connection/Serialization.cpp" line="105"/>
+        <location filename="../src/core/connection/Serialization_ss.cpp" line="20"/>
         <source>SS URI is too short</source>
         <translation>URI Shadowsocks слишком короткий.</translation>
     </message>
     <message>
-        <location filename="../src/core/connection/Serialization.cpp" line="135"/>
-        <location filename="../src/core/connection/Serialization.cpp" line="169"/>
+        <location filename="../src/core/connection/Serialization_ss.cpp" line="53"/>
+        <location filename="../src/core/connection/Serialization_ss.cpp" line="92"/>
         <source>Can&apos;t find the colon separator between method and password</source>
         <translation>Не удается найти разделитель двоеточий между методом и паролем</translation>
     </message>
     <message>
-        <location filename="../src/core/connection/Serialization.cpp" line="144"/>
+        <location filename="../src/core/connection/Serialization_ss.cpp" line="63"/>
         <source>Can&apos;t find the at separator between password and hostname</source>
         <translation>Не удается найти разделитель между паролем и именем хоста</translation>
     </message>
     <message>
-        <location filename="../src/core/connection/Serialization.cpp" line="153"/>
+        <location filename="../src/core/connection/Serialization_ss.cpp" line="73"/>
         <source>Can&apos;t find the colon separator between hostname and port</source>
         <translation>Не удается найти разделитель двоеточий между именем хоста и портом</translation>
     </message>
     <message>
-        <location filename="../src/core/connection/Serialization.cpp" line="220"/>
+        <location filename="../src/core/connection/Serialization_vmess.cpp" line="78"/>
         <source>VMess string should start with &apos;vmess://&apos;</source>
         <translation>VMess строка должна начинаться с &apos;vmess://&apos;</translation>
     </message>
     <message>
-        <location filename="../src/core/connection/Serialization.cpp" line="229"/>
+        <location filename="../src/core/connection/Serialization_vmess.cpp" line="87"/>
         <source>VMess string should be a valid base64 string</source>
         <translation>VMess строка должна быть корректной строкой base64</translation>
     </message>
     <message>
-        <location filename="../src/core/connection/Serialization.cpp" line="244"/>
+        <location filename="../src/core/connection/Serialization_vmess.cpp" line="104"/>
         <source>JSON should not be empty</source>
         <translation>JSON не должен быть пустым</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="97"/>
+        <location filename="../src/core/settings/SettingsBackend.cpp" line="116"/>
         <source>Warning</source>
         <translation>Внимание</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="97"/>
+        <location filename="../src/core/settings/SettingsBackend.cpp" line="117"/>
         <source>Qv2ray cannot load the config file from here:</source>
         <translation>Qv2ray не может загрузить файл конфигурации отсюда:</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="192"/>
+        <location filename="../src/main.cpp" line="106"/>
         <source>Cannot Start Qv2ray</source>
         <translation>Невозможно запустить Qv2ray</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="193"/>
+        <location filename="../src/main.cpp" line="107"/>
         <source>Cannot find a place to store config files.</source>
         <translation>Не удается найти место для хранения конфигурационных файлов.</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="194"/>
+        <location filename="../src/main.cpp" line="108"/>
         <source>Qv2ray has searched these paths below:</source>
         <translation>Qv2ray искал эти пути ниже:</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="173"/>
-        <location filename="../src/main.cpp" line="196"/>
-        <location filename="../src/main.cpp" line="342"/>
+        <location filename="../src/main.cpp" line="110"/>
+        <source>It usually means you don&apos;t have the write permission to all of those locations.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/main.cpp" line="111"/>
+        <location filename="../src/main.cpp" line="134"/>
+        <location filename="../src/main.cpp" line="300"/>
         <source>Qv2ray will now exit.</source>
         <translation>Qv2ray теперь выйдет.</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="171"/>
+        <location filename="../src/main.cpp" line="130"/>
         <source>Failed to initialise Qv2ray</source>
         <translation>Не удалось инициализировать Qv2ray</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="172"/>
         <source>Failed to determine the location of config file.</source>
-        <translation>Не удалось определить местоположение конфигурационного файла.</translation>
+        <translation type="vanished">Не удалось определить местоположение конфигурационного файла.</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="174"/>
+        <location filename="../src/main.cpp" line="134"/>
         <source>Please report if you think it&apos;s a bug.</source>
         <translation>Пожалуйста, сообщите, если вы считаете об этом, если это ошибка.</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="255"/>
+        <location filename="../src/main.cpp" line="203"/>
         <source>You cannot run Qv2ray as root, please use --I-just-wanna-run-with-root if you REALLY want to do so.</source>
         <translation>Вы не можете запустить Qv2ray как root, пожалуйста, используйте --I-just-wanna-run-with-root, если вы хотите это сделать.</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="256"/>
+        <location filename="../src/main.cpp" line="204"/>
         <source> --&gt; USE IT AT YOUR OWN RISK!</source>
         <translation> --&gt; ИСПОЛЬЗУЙТЕ ЕГО НА СВОЙ СТРАХ И РИСК!</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="319"/>
         <source>Cannot load languages</source>
-        <translation>Не удается загрузить языки</translation>
+        <translation type="vanished">Не удается загрузить языки</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="319"/>
         <source>Qv2ray will continue running, but you cannot change the UI language.</source>
-        <translation>Qv2ray продолжит работу, но вы не сможете изменить язык интерфейса.</translation>
+        <translation type="vanished">Qv2ray продолжит работу, но вы не сможете изменить язык интерфейса.</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="338"/>
+        <location filename="../src/main.cpp" line="296"/>
         <source>Qv2ray Cannot Continue</source>
         <translation>Qv2ray не может продолжить</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="339"/>
+        <location filename="../src/main.cpp" line="297"/>
         <source>You are running a lower version of Qv2ray compared to the current config file.</source>
         <translation>Вы используете более низкую версию Qv2ray по сравнению с текущим файлом конфигурации.</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="340"/>
+        <location filename="../src/main.cpp" line="298"/>
         <source>Please check if there&apos;s an issue explaining about it.</source>
         <translation>Пожалуйста, проверьте, есть ли проблема с объяснением этого.</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="341"/>
+        <location filename="../src/main.cpp" line="299"/>
         <source>Or submit a new issue if you think this is an error.</source>
         <translation>Или отправьте новую проблему, если вы считаете, что это ошибка.</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="387"/>
+        <location filename="../src/main.cpp" line="343"/>
         <source>Dependency Missing</source>
         <translation>Зависимость отсутствует</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="389"/>
+        <location filename="../src/main.cpp" line="345"/>
         <source>This could be caused by a missing of `openssl` package in your system.</source>
         <translation>Это может быть вызвано отсутствием пакета `openssl` в вашей системе.</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="390"/>
+        <location filename="../src/main.cpp" line="346"/>
         <source>If you are using an AppImage from Github Action, please report a bug.</source>
         <translation>Если вы используете AppImage из Github Action, пожалуйста, сообщите об ошибке.</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="388"/>
+        <location filename="../src/main.cpp" line="344"/>
         <source>Cannot find openssl libs</source>
         <translation>Не удается найти openssl libs</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="391"/>
+        <location filename="../src/main.cpp" line="131"/>
+        <source>Failed to determine the location of config file:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/main.cpp" line="132"/>
+        <source>Qv2ray has found a config file, but it failed to be loaded due to some errors.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/main.cpp" line="133"/>
+        <source>A workaround is to remove the this file and restart Qv2ray:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/main.cpp" line="226"/>
+        <source>Debug version</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/main.cpp" line="347"/>
         <source>Technical Details</source>
         <translation>Технические детали</translation>
     </message>
     <message>
-        <location filename="../src/components/plugins/toolbar/QvToolbar.cpp" line="93"/>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.cpp" line="99"/>
+        <source>Not connected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.cpp" line="100"/>
         <source>Connected</source>
         <translation>Подключено</translation>
     </message>
     <message>
-        <location filename="../src/components/plugins/toolbar/QvToolbar.cpp" line="94"/>
         <source>Disconnected</source>
-        <translation>Отключен</translation>
+        <translation type="vanished">Отключен</translation>
     </message>
     <message>
         <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="13"/>
@@ -2238,14 +2612,17 @@ p, li { white-space: pre-wrap; }
         <translation>Общая скорость загрузки</translation>
     </message>
     <message>
-        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="23"/>
-        <source>Upload Speed for Specific Tag</source>
-        <translation>Скорость отдачи для конкретного тега</translation>
+        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="30"/>
+        <source>Current Connection Latency</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="24"/>
+        <source>Upload Speed for Specific Tag</source>
+        <translation type="vanished">Скорость отдачи для конкретного тега</translation>
+    </message>
+    <message>
         <source>Download Speed for Specific Tag</source>
-        <translation>Скорость отдачи для конкретного тега</translation>
+        <translation type="vanished">Скорость отдачи для конкретного тега</translation>
     </message>
     <message>
         <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="26"/>
@@ -2258,149 +2635,300 @@ p, li { white-space: pre-wrap; }
         <translation>Всего загружено данных</translation>
     </message>
     <message>
-        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="28"/>
         <source>Uploaded Data for Specific Tag</source>
-        <translation>Загруженные данные для конкретного тега</translation>
+        <translation type="vanished">Загруженные данные для конкретного тега</translation>
     </message>
     <message>
-        <location filename="../src/components/plugins/toolbar/QvToolbar.hpp" line="29"/>
         <source>Downloaded Data for Specific Tag</source>
-        <translation>Загруженные данные для конкретного тега</translation>
+        <translation type="vanished">Загруженные данные для конкретного тега</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="45"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="55"/>
         <source>Editing a subscription config</source>
-        <translation>Редактирование конфигурации подписки</translation>
+        <translation type="vanished">Редактирование конфигурации подписки</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="45"/>
         <source>You are trying to edit a config loaded from subscription.</source>
-        <translation>Вы пытаетесь изменить конфигурацию, загруженную из подписок.</translation>
+        <translation type="vanished">Вы пытаетесь изменить конфигурацию, загруженную из подписок.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="46"/>
         <source>All changes will be overwritten when the subscriptions are updated next time.</source>
-        <translation>Все изменения будут перезаписаны при следующем обновлении подписки.</translation>
+        <translation type="vanished">Все изменения будут перезаписаны при следующем обновлении подписки.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="47"/>
         <source>Are you still going to do so?</source>
-        <translation>Вы все еще собираетесь сделать это?</translation>
+        <translation type="vanished">Вы все еще собираетесь сделать это?</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="55"/>
         <source>You should not modity this property of a config from a subscription</source>
-        <translation>Вы не должны модифицировать это свойство конфигурации из подписки</translation>
+        <translation type="vanished">Вы не должны модифицировать это свойство конфигурации из подписки</translation>
     </message>
     <message>
-        <location filename="../src/core/CoreUtils.cpp" line="25"/>
+        <location filename="../src/core/CoreUtils.cpp" line="29"/>
         <location filename="../src/core/CoreUtils.cpp" line="31"/>
-        <location filename="../src/core/CoreUtils.cpp" line="33"/>
+        <location filename="../src/core/CoreUtils.cpp" line="101"/>
         <source>N/A</source>
         <translation>N/A</translation>
     </message>
     <message>
-        <location filename="../src/common/CommandArgs.cpp" line="14"/>
+        <location filename="../src/common/CommandArgs.cpp" line="15"/>
         <source>Qv2ray - A cross-platform Qt frontend for V2ray.</source>
         <translation>Qv2ray - кросс-платформенный Qt фронтенд для V2ray.</translation>
     </message>
     <message>
-        <location filename="../src/common/CommandArgs.cpp" line="7"/>
+        <location filename="../src/common/CommandArgs.cpp" line="8"/>
         <source>Disable gRPC API subsystems.</source>
         <translation>Отключить подсистемы gRPC API.</translation>
     </message>
     <message>
-        <location filename="../src/common/CommandArgs.cpp" line="8"/>
+        <location filename="../src/common/CommandArgs.cpp" line="9"/>
         <source>Explicitly run Qv2ray as root.</source>
         <translation>Явно запускайте Qv2ray как root.</translation>
     </message>
     <message>
-        <location filename="../src/common/CommandArgs.cpp" line="9"/>
+        <location filename="../src/common/CommandArgs.cpp" line="10"/>
         <source>Enable Debug Output</source>
         <translation>Включить отладочный вывод</translation>
     </message>
     <message>
-        <location filename="../src/common/CommandArgs.cpp" line="10"/>
+        <location filename="../src/common/CommandArgs.cpp" line="11"/>
         <source>Enable Qv2ray network toolbar plugin</source>
         <translation>Включить плагин панели инструментов сети Qv2ray</translation>
+    </message>
+    <message>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="26"/>
+        <source>invalid ssd link: json: field %1 must exist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="33"/>
+        <source>invalid ssd link: json: field %1 must be valid port number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="40"/>
+        <source>invalid ssd link: json: field %1 must be of type &apos;string&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="47"/>
+        <source>invalid ssd link: json: field %1 must be an array</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="54"/>
+        <source>skipping invalid ssd server: server must be an object</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="60"/>
+        <source>skipping invalid ssd server: missing required field %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="67"/>
+        <source>skipping invalid ssd server: field %1 should be of type &apos;string&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="89"/>
+        <source>Invalid ssd link: should begin with ssd://</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="99"/>
+        <source>Invalid ssd link: base64 parse failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="109"/>
+        <source>Invalid ssd link: json parse failed: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="116"/>
+        <source>Invalid ssd link: found non-object json, aborting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="137"/>
+        <source>Invalid ssd link: rc4-md5 encryption is not supported by v2ray-core</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="178"/>
+        <source>Invalid port encountered. using fallback value.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="197"/>
+        <source>Invalid name encountered. using fallback value.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="212"/>
+        <source>Invalid ratio encountered. using fallback value.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/settings/SettingsUpgrade.cpp" line="122"/>
+        <source>Default Group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/settings/SettingsUpgrade.cpp" line="277"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1188"/>
+        <source>Deprecated</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/settings/SettingsUpgrade.cpp" line="278"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1189"/>
+        <source>PAC is now deprecated and is not encouraged to be used anymore.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/settings/SettingsUpgrade.cpp" line="279"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1190"/>
+        <source>It will be removed or be provided as a plugin in the future.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/settings/SettingsUpgrade.cpp" line="280"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1191"/>
+        <source>PAC will still work currently, but please switch to the V2ray built-in routing as soon as possible.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/settings/SettingsUpgrade.cpp" line="295"/>
+        <source>Configuration Upgrade Failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/settings/SettingsUpgrade.cpp" line="296"/>
+        <source>Unsupported config version number: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/settings/SettingsUpgrade.cpp" line="297"/>
+        <source>Please upgrade firstly up to Qv2ray v2.0/v2.1 and try again.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/connection/Serialization.hpp" line="14"/>
+        <source>%1 - %2 (rate %3)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/CoreSafeTypes.hpp" line="11"/>
+        <source>(Complex config)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>Qv2ray::components::pac::PACServer</name>
     <message>
-        <location filename="../src/components/pac/QvPACHandler.cpp" line="44"/>
+        <location filename="../src/components/pac/QvPACHandler.cpp" line="48"/>
         <source>PAC Handler</source>
         <translation>PAC Handler</translation>
     </message>
     <message>
-        <location filename="../src/components/pac/QvPACHandler.cpp" line="44"/>
+        <location filename="../src/components/pac/QvPACHandler.cpp" line="48"/>
         <source>Failed to listen PAC request on this port, please verify the permissions</source>
         <translation>Не удалось прослушать PAC-запрос для этого порта, проверьте разрешения</translation>
     </message>
 </context>
 <context>
+    <name>Qv2ray::core::handlers::QvConfigHandler</name>
+    <message>
+        <location filename="../src/core/handler/ConfigHandler.cpp" line="75"/>
+        <location filename="../src/core/handler/ConfigHandler.cpp" line="299"/>
+        <source>Default Group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/handler/ConfigHandler.cpp" line="239"/>
+        <source>File does not exist.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/handler/ConfigHandler.cpp" line="276"/>
+        <location filename="../src/core/handler/ConfigHandler.cpp" line="407"/>
+        <source>Group does not exist</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Qv2ray::core::kernel::V2rayKernelInstance</name>
     <message>
-        <location filename="../src/core/kernel/KernelInteractions.cpp" line="16"/>
+        <location filename="../src/core/kernel/KernelInteractions.cpp" line="20"/>
         <source>V2ray core executable not found.</source>
         <translation>Исполняемый файл ядра V2ray не найден.</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/KernelInteractions.cpp" line="23"/>
+        <location filename="../src/core/kernel/KernelInteractions.cpp" line="29"/>
         <source>V2ray core file cannot be opened, please ensure there&apos;s a file instead of a folder.</source>
         <translation>Файл ядра V2ray не может быть открыт, убедитесь, что вместо папки есть файл.</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/KernelInteractions.cpp" line="37"/>
+        <location filename="../src/core/kernel/KernelInteractions.cpp" line="44"/>
         <source>V2ray assets path is not valid.</source>
         <translation>Недопустимый путь к ресурсам V2ray.</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/KernelInteractions.cpp" line="43"/>
+        <location filename="../src/core/kernel/KernelInteractions.cpp" line="51"/>
         <source>No geoip.dat in assets path.</source>
         <translation>Нет geoip.dat в пути активов.</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/KernelInteractions.cpp" line="49"/>
+        <location filename="../src/core/kernel/KernelInteractions.cpp" line="58"/>
         <source>No geosite.dat in assets path.</source>
         <translation>Нет geosite.dat в пути активов.</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/KernelInteractions.cpp" line="70"/>
+        <location filename="../src/core/kernel/KernelInteractions.cpp" line="81"/>
         <source>V2ray core failed with an exit code: </source>
         <translation>Ядро V2ray вышло из строя с кодом выхода:</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/KernelInteractions.cpp" line="78"/>
+        <location filename="../src/core/kernel/KernelInteractions.cpp" line="90"/>
         <source>V2ray core returns empty string.</source>
         <translation>Ядро V2ray возвращает пустую строку.</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/KernelInteractions.cpp" line="105"/>
+        <location filename="../src/core/kernel/KernelInteractions.cpp" line="119"/>
         <source>Configuration Error</source>
         <translation>Ошибка конфигурации</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/KernelInteractions.cpp" line="112"/>
+        <location filename="../src/core/kernel/KernelInteractions.cpp" line="130"/>
         <source>Cannot start V2ray</source>
         <translation>Невозможно запустить V2ray</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/KernelInteractions.cpp" line="113"/>
+        <location filename="../src/core/kernel/KernelInteractions.cpp" line="131"/>
         <source>V2ray core settings is incorrect.</source>
         <translation>Настройки ядра V2ray неверны.</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/KernelInteractions.cpp" line="114"/>
+        <location filename="../src/core/kernel/KernelInteractions.cpp" line="131"/>
         <source>The error is: </source>
         <translation>Ошибка:</translation>
+    </message>
+    <message>
+        <location filename="../src/core/kernel/KernelInteractions.cpp" line="162"/>
+        <source>Invalid V2ray Instance Status.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/kernel/KernelInteractions.cpp" line="225"/>
+        <source>V2ray kernel failed to start.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>QvInboundNodeModel</name>
     <message>
-        <location filename="../src/ui/nodemodels/InboundNodeModel.hpp" line="64"/>
+        <location filename="../src/ui/models/InboundNodeModel.hpp" line="68"/>
         <source>Missing or incorrect inputs</source>
         <translation>Отсутствующие или неправильные входы</translation>
     </message>
@@ -2408,7 +2936,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>QvOutboundNodeModel</name>
     <message>
-        <location filename="../src/ui/nodemodels/OutboundNodeModel.hpp" line="70"/>
+        <location filename="../src/ui/models/OutboundNodeModel.hpp" line="76"/>
         <source>Missing or incorrect inputs</source>
         <translation>Отсутствующие или неправильные входы</translation>
     </message>
@@ -2416,7 +2944,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>QvRuleNodeDataModel</name>
     <message>
-        <location filename="../src/ui/nodemodels/RuleNodeModel.hpp" line="94"/>
+        <location filename="../src/ui/models/RuleNodeModel.hpp" line="102"/>
         <source>Missing or incorrect inputs</source>
         <translation>Отсутствующие или неправильные входы</translation>
     </message>
@@ -2425,7 +2953,7 @@ p, li { white-space: pre-wrap; }
     <name>RouteEditor</name>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui"/>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="590"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="661"/>
         <source>Route Editor</source>
         <translation>Редактор маршрута</translation>
     </message>
@@ -2665,182 +3193,186 @@ p, li { white-space: pre-wrap; }
         <translation>Список пользователей</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="498"/>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="767"/>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="821"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="560"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="858"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="922"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="754"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="842"/>
         <source>Cannot Edit</source>
         <translation>Не удается изменить</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="796"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="894"/>
         <source>This outbound entry is not supported by the GUI editor.</source>
         <translation>Эта исходящая запись не поддерживается редактором GUI.</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="755"/>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="797"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="844"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="895"/>
         <source>We will launch Json Editor instead.</source>
         <translation>Запущен Json редактор.</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="371"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="422"/>
         <source>Show rule details</source>
         <translation>Показать подробности правила</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="371"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="422"/>
         <source>A rule cannot be found: </source>
         <translation>Правило не может быть найдено:</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="459"/>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="473"/>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="487"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="514"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="531"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="548"/>
         <source>Protocol list changed: </source>
         <translation>Список протоколов изменен: </translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="500"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="564"/>
         <source>Balancer is empty, not processing.</source>
         <translation>Балансер пуст и не обрабатывается.</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="57"/>
+        <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="60"/>
         <source>Default rule</source>
         <translation>Правило по умолчанию</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="57"/>
+        <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="60"/>
         <source>rule</source>
         <translation>равило</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="82"/>
+        <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="88"/>
         <source>No Inbound</source>
         <translation>Входящий не найден</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="82"/>
+        <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="88"/>
         <source>No inbound item found: </source>
         <translation>Входящий элемент не найден:</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="112"/>
-        <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="149"/>
-        <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="185"/>
+        <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="130"/>
+        <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="224"/>
         <source>The new tag has been used, we appended a postfix.</source>
         <translation>Новый тег был использован, поэтому мы добавили постфикс.</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="590"/>
+        <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="178"/>
+        <source>The new tag has been used, we appended a random string to the tag.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="661"/>
         <source>To make this rule ready to use, you need to connect it to an outbound node.</source>
         <translation>Чтобы это правило было готовым к использованию, необходимо подключить его к исходящему узлу.</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="666"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="740"/>
         <source>Remove Items</source>
         <translation>Удалить элементы</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="666"/>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="733"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="740"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="817"/>
         <source>Please select a node from the graph to continue.</source>
         <translation>Пожалуйста, выберите узел на графике для продолжения.</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="727"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="810"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="727"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="810"/>
         <source>Qv2ray entered an unknown state.</source>
         <translation>Qv2ray вошел в неизвестное состояние.</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="733"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="817"/>
         <source>Edit Inbound/Outbound</source>
         <translation>Тип: входящий / исходящий</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="744"/>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="785"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="831"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="882"/>
         <source>Edit Inbound</source>
         <translation>Изменить входящий</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="744"/>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="785"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="831"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="882"/>
         <source>No inbound tag found: </source>
         <translation>Входящий тег не найден:</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="756"/>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="799"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="845"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="897"/>
         <source>Opening JSON editor</source>
         <translation>Открыть в JSON редакторе</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="795"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="893"/>
         <source>Unsupported Outbound Type</source>
         <translation>Неподдерживаемый исходящий тип</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="804"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="904"/>
         <source>Opening default outbound editor.</source>
         <translation>Открытие стандартного редактора исходящих соединений.</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="846"/>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="849"/>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="852"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="950"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="955"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="960"/>
         <source>Renaming a tag</source>
         <translation>Переименовать тег</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="846"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="950"/>
         <source>New tag is empty, please try another.</source>
         <translation>Новый тег пуст, попробуйте другой.</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="849"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="955"/>
         <source>New tag is the same as the original one.</source>
         <translation>Новый тег такой же, как и оригинальный.</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="852"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="960"/>
         <source>Duplicate rule tag detected, please try another.</source>
         <translation>Обнаружен повторяющийся тег правила, попробуйте другой.</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="444"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="496"/>
         <source>Added DIRECT outbound</source>
         <translation>Добавлен исходящий DIRECT</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="754"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="843"/>
         <source>Currently, this type of outbound is not supported by the editor.</source>
         <translation>В настоящее время этот тип outbound не поддерживается в этой версии программы.</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="762"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="853"/>
         <source>Opening default inbound editor</source>
         <translation>Открытие стандартного входящего редактора</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="513"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="578"/>
         <source>Removed a balancer entry.</source>
         <translation>Удалена запись балансировщика.</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="112"/>
-        <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="149"/>
-        <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="185"/>
+        <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="130"/>
+        <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="178"/>
+        <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="224"/>
         <source>Rename tags</source>
         <translation>Переименовать теги</translation>
     </message>
@@ -2896,12 +3428,12 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>SpeedPlotView</name>
     <message>
-        <location filename="../src/components/speedchart/speedplotview.cpp" line="199"/>
+        <location filename="../src/components/speedchart/speedplotview.cpp" line="180"/>
         <source>Total Upload</source>
         <translation>Всего загружено</translation>
     </message>
     <message>
-        <location filename="../src/components/speedchart/speedplotview.cpp" line="200"/>
+        <location filename="../src/components/speedchart/speedplotview.cpp" line="181"/>
         <source>Total Download</source>
         <translation>Всего скачать</translation>
     </message>
@@ -2989,9 +3521,8 @@ p, li { white-space: pre-wrap; }
         <translation>Имя хоста</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/StreamSettingsWidget.ui"/>
         <source>/wsPath</source>
-        <translation>/wsPath</translation>
+        <translation type="vanished">/wsPath</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/StreamSettingsWidget.ui"/>
@@ -3072,94 +3603,102 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>SubscribeEditor</name>
     <message>
-        <location filename="../src/ui/w_SubscriptionManager.cpp" line="76"/>
-        <location filename="../src/ui/w_SubscriptionManager.cpp" line="81"/>
-        <location filename="../src/ui/w_SubscriptionManager.cpp" line="93"/>
-        <location filename="../src/ui/w_SubscriptionManager.cpp" line="111"/>
         <source>Renaming a subscription</source>
-        <translation>Переименование подписки</translation>
+        <translation type="vanished">Переименование подписки</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_SubscriptionManager.cpp" line="76"/>
         <source>The subscription name is invalid, please try another.</source>
-        <translation>Недопустимое имя подписки, пожалуйста, попробуйте другое.</translation>
+        <translation type="vanished">Недопустимое имя подписки, пожалуйста, попробуйте другое.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_SubscriptionManager.cpp" line="81"/>
         <source>New name of this subscription has been used already, please suggest another one</source>
-        <translation>Новое имя этой подписки уже используется, пожалуйста, выберите другое имя</translation>
+        <translation type="vanished">Новое имя этой подписки уже используется, пожалуйста, выберите другое имя</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_SubscriptionManager.cpp" line="93"/>
         <source>Failed to rename a subscription, this is an unknown error.</source>
-        <translation>Не удалось переименовать подписку, это неизвестная ошибка.</translation>
+        <translation type="vanished">Не удалось переименовать подписку, это неизвестная ошибка.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_SubscriptionManager.cpp" line="111"/>
         <source>Successfully renamed a subscription</source>
-        <translation>Подписка успешно переименована</translation>
+        <translation type="vanished">Подписка успешно переименована</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_SubscriptionManager.cpp" line="123"/>
         <source>Update Subscription</source>
-        <translation>Обновить подписку</translation>
+        <translation type="vanished">Обновить подписку</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_SubscriptionManager.cpp" line="123"/>
         <source>Would you like to reload this subscription from the Url?</source>
-        <translation>Вы хотите перезагрузить эту подписку с Url?</translation>
+        <translation type="vanished">Вы хотите перезагрузить эту подписку с Url?</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_SubscriptionManager.cpp" line="158"/>
         <source>Updating subscriptions</source>
-        <translation>Обновление подписок</translation>
+        <translation type="vanished">Обновление подписок</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_SubscriptionManager.cpp" line="158"/>
         <source>Failed to process the result from the upstream, please check your Url.</source>
-        <translation>Не удалось обработать результат из апстрима, проверьте ваш URL.</translation>
+        <translation type="vanished">Не удалось обработать результат из апстрима, проверьте ваш URL.</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_SubscriptionManager.cpp" line="55"/>
+        <source>Reload Subscription</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_SubscriptionManager.cpp" line="55"/>
+        <source>Would you like to reload the subscription?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_SubscriptionManager.cpp" line="66"/>
+        <source>Deleting a subscription</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_SubscriptionManager.cpp" line="66"/>
+        <source>All connections will be moved to default group, do you want to continue?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>misc</name>
     <message>
-        <location filename="../src/components/speedchart/speedplotview.cpp" line="61"/>
+        <location filename="../src/components/speedchart/speedplotview.cpp" line="62"/>
         <source>B</source>
         <comment>bytes</comment>
         <translation>B</translation>
     </message>
     <message>
-        <location filename="../src/components/speedchart/speedplotview.cpp" line="62"/>
+        <location filename="../src/components/speedchart/speedplotview.cpp" line="63"/>
         <source>KiB</source>
         <comment>kibibytes (1024 bytes)</comment>
         <translation>KiB</translation>
     </message>
     <message>
-        <location filename="../src/components/speedchart/speedplotview.cpp" line="63"/>
+        <location filename="../src/components/speedchart/speedplotview.cpp" line="64"/>
         <source>MiB</source>
         <comment>mebibytes (1024 kibibytes)</comment>
         <translation>MiB</translation>
     </message>
     <message>
-        <location filename="../src/components/speedchart/speedplotview.cpp" line="64"/>
+        <location filename="../src/components/speedchart/speedplotview.cpp" line="65"/>
         <source>GiB</source>
         <comment>gibibytes (1024 mibibytes)</comment>
         <translation>GiB</translation>
     </message>
     <message>
-        <location filename="../src/components/speedchart/speedplotview.cpp" line="65"/>
+        <location filename="../src/components/speedchart/speedplotview.cpp" line="66"/>
         <source>TiB</source>
         <comment>tebibytes (1024 gibibytes)</comment>
         <translation>TiB</translation>
     </message>
     <message>
-        <location filename="../src/components/speedchart/speedplotview.cpp" line="66"/>
+        <location filename="../src/components/speedchart/speedplotview.cpp" line="67"/>
         <source>PiB</source>
         <comment>pebibytes (1024 tebibytes)</comment>
         <translation>PiB</translation>
     </message>
     <message>
-        <location filename="../src/components/speedchart/speedplotview.cpp" line="67"/>
+        <location filename="../src/components/speedchart/speedplotview.cpp" line="68"/>
         <source>EiB</source>
         <comment>exbibytes (1024 pebibytes)</comment>
         <translation>EiB</translation>
@@ -3184,9 +3723,8 @@ p, li { white-space: pre-wrap; }
         <translation>Список подписок</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_SubscriptionManager.ui"/>
         <source>A</source>
-        <translation>A</translation>
+        <translation type="vanished">A</translation>
     </message>
     <message>
         <location filename="../src/ui/w_SubscriptionManager.ui"/>
@@ -3199,9 +3737,8 @@ p, li { white-space: pre-wrap; }
         <translation>Удалить подписку</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_SubscriptionManager.ui"/>
         <source>D</source>
-        <translation>D</translation>
+        <translation type="vanished">D</translation>
     </message>
     <message>
         <location filename="../src/ui/w_SubscriptionManager.ui"/>

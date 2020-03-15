@@ -36,43 +36,46 @@ class QPen;
 
 class SpeedPlotView : public QGraphicsView
 {
-        Q_OBJECT
+    Q_OBJECT
 
-    public:
-        enum GraphID {
-            UP = 0,
-            DOWN,
-            NB_GRAPHS
-        };
+  public:
+    enum GraphID
+    {
+        UP = 0,
+        DOWN,
+        NB_GRAPHS
+    };
 
-        struct PointData {
-            qint64 x;
-            quint64 y[NB_GRAPHS];
-        };
+    struct PointData
+    {
+        qint64 x;
+        quint64 y[NB_GRAPHS];
+    };
 
-        explicit SpeedPlotView(QWidget *parent = nullptr);
-        void pushPoint(const PointData &point);
-        void Clear();
-        void replot();
+    explicit SpeedPlotView(QWidget *parent = nullptr);
+    void pushPoint(const PointData &point);
+    void Clear();
+    void replot();
 
-    protected:
-        void paintEvent(QPaintEvent *event) override;
+  protected:
+    void paintEvent(QPaintEvent *event) override;
 
-    private:
-        struct GraphProperties {
-            GraphProperties();
-            GraphProperties(const QString &name, const QPen &pen);
+  private:
+    struct GraphProperties
+    {
+        GraphProperties();
+        GraphProperties(const QString &name, const QPen &pen);
 
-            QString name;
-            QPen pen;
-        };
+        QString name;
+        QPen pen;
+    };
 
-        quint64 maxYValue();
-        QList<PointData> &getCurrentData();
-        QList<PointData> m_datahalfMin;
-        QList<PointData> *m_currentData;
+    quint64 maxYValue();
+    QList<PointData> &getCurrentData();
+    QList<PointData> m_datahalfMin;
+    QList<PointData> *m_currentData;
 
-        QMap<GraphID, GraphProperties> m_properties;
+    QMap<GraphID, GraphProperties> m_properties;
 };
 
 #endif // SPEEDPLOTVIEW_H

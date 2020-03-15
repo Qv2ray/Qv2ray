@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>384</width>
-    <height>372</height>
+    <height>422</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -88,6 +88,9 @@
              <property name="backgroundVisible">
               <bool>false</bool>
              </property>
+             <property name="placeholderText">
+              <string notr="true"/>
+             </property>
             </widget>
            </item>
            <item row="2" column="2" colspan="2">
@@ -106,6 +109,9 @@
              </property>
              <property name="plainText">
               <string/>
+             </property>
+             <property name="placeholderText">
+              <string notr="true"/>
              </property>
             </widget>
            </item>
@@ -202,7 +208,7 @@
                 <string/>
                </property>
                <property name="placeholderText">
-                <string>/wsPath</string>
+                <string notr="true">/wsPath</string>
                </property>
               </widget>
              </item>
