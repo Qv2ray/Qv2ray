@@ -121,8 +121,8 @@ void SubscribeEditor::on_subscriptionList_itemClicked(QTreeWidgetItem *item, int
 
 void SubscribeEditor::on_subscriptionList_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous)
 {
-    on_subscriptionList_itemClicked(current, 0);
     Q_UNUSED(previous)
+    on_subscriptionList_itemClicked(current, 0);
 }
 
 void SubscribeEditor::on_subNameTxt_textEdited(const QString &arg1)
@@ -146,5 +146,8 @@ void SubscribeEditor::on_updateIntervalSB_valueChanged(double arg1)
 void SubscribeEditor::on_connectionsList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
 {
     Q_UNUSED(previous)
-    currentConnectionId = ConnectionManager->GetConnectionIdByDisplayName(current->text(), currentSubId);
+    if (current != nullptr)
+    {
+        currentConnectionId = ConnectionManager->GetConnectionIdByDisplayName(current->text(), currentSubId);
+    }
 }
