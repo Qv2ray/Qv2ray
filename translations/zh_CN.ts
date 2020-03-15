@@ -723,7 +723,7 @@
     <message>
         <location filename="../src/ui/editors/w_JsonEditor.cpp" line="50"/>
         <source>You must correct these errors before continuing.</source>
-        <translation type="unfinished"></translation>
+        <translation>您必须先更正这些错误才能继续。</translation>
     </message>
     <message>
         <source>You must correct these errors before continue.</source>
@@ -946,12 +946,12 @@
     <message>
         <location filename="../src/ui/w_MainWindow.cpp" line="979"/>
         <source>Set auto connection</source>
-        <translation>设置自动链接</translation>
+        <translation>设置自动连接</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.cpp" line="979"/>
         <source>Set %1 as auto connect.</source>
-        <translation>已经将 %1 设置为自动链接</translation>
+        <translation>已将 %1 设为自动连接。</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow_extra.cpp" line="36"/>
@@ -1795,12 +1795,12 @@
     <message>
         <location filename="../src/ui/w_PreferencesWindow.cpp" line="529"/>
         <source>to this path: </source>
-        <translation>到此路径：</translation>
+        <translation>到此路径: </translation>
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.cpp" line="44"/>
         <source>Qv2ray Network Toolbar is disabled and still under test. Add --withToolbarPlugin to enable.</source>
-        <translation>Qv2ray 的网络工具栏已被禁用，请使用 --withToolbarPlugin 来启用</translation>
+        <translation>Qv2ray 的网络工具栏已被禁用，请使用 --withToolbarPlugin 来启用。</translation>
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.cpp" line="263"/>
@@ -1810,7 +1810,7 @@
     <message>
         <location filename="../src/ui/w_PreferencesWindow.cpp" line="267"/>
         <source>Invalid inbound listening address.</source>
-        <translation>入站监听地址不可用</translation>
+        <translation>入站监听地址不可用。</translation>
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.cpp" line="386"/>
@@ -1835,7 +1835,7 @@
     <message>
         <location filename="../src/ui/w_PreferencesWindow.cpp" line="470"/>
         <source>If anything goes wrong after enabling this, please check issue #57 or the link below:</source>
-        <translation>如果有出现任何问题，请参阅 issue #57 或以下链接</translation>
+        <translation>如果有出现任何问题，请参阅 Issue #57 或以下链接：</translation>
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.cpp" line="528"/>
@@ -1861,7 +1861,7 @@
     <message>
         <location filename="../src/ui/w_PreferencesWindow.cpp" line="880"/>
         <source>All other modified settings will be applied as well after this object.</source>
-        <translation>已经编辑的其它设置也会被同时应用</translation>
+        <translation>已经编辑的其它设置也会被同时应用。</translation>
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.cpp" line="881"/>
@@ -2002,17 +2002,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
         <source>Config</source>
-        <translation type="unfinished"></translation>
+        <translation>配置</translation>
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
         <source>Subscription</source>
-        <translation type="unfinished"></translation>
+        <translation>订阅</translation>
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
         <source>Auto Connect</source>
-        <translation type="unfinished"></translation>
+        <translation>自动连接</translation>
     </message>
 </context>
 <context>
@@ -2020,7 +2020,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/core/connection/Serialization.cpp" line="27"/>
         <source>Unsupported share link format.</source>
-        <translation>不支持的分享链接格式</translation>
+        <translation>不支持的分享链接格式。</translation>
     </message>
     <message>
         <location filename="../src/core/connection/Serialization_ss.cpp" line="20"/>
@@ -2128,7 +2128,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/main.cpp" line="297"/>
         <source>You are running a lower version of Qv2ray compared to the current config file.</source>
-        <translation>与当前配置文件相比，您正在运行一个较低版本的 Qv2ray</translation>
+        <translation>与当前配置文件相比，您正在运行一个较低版本的 Qv2ray。</translation>
     </message>
     <message>
         <location filename="../src/main.cpp" line="298"/>
@@ -2227,13 +2227,13 @@ p, li { white-space: pre-wrap; }
         <location filename="../src/core/settings/SettingsUpgrade.cpp" line="278"/>
         <location filename="../src/ui/w_PreferencesWindow.cpp" line="1189"/>
         <source>PAC is now deprecated and is not encouraged to be used anymore.</source>
-        <translation>PAC 已经被标记为过时的功能，并且我们不建议您继续使用</translation>
+        <translation>PAC 已经被标记为过时的功能，并且我们不建议您继续使用。</translation>
     </message>
     <message>
         <location filename="../src/core/settings/SettingsUpgrade.cpp" line="279"/>
         <location filename="../src/ui/w_PreferencesWindow.cpp" line="1190"/>
         <source>It will be removed or be provided as a plugin in the future.</source>
-        <translation>它可能会在将来某个版本被移除，或者作为单独的插件提供</translation>
+        <translation>它可能会在将来某个版本被移除，或者作为单独的插件提供。</translation>
     </message>
     <message>
         <location filename="../src/core/settings/SettingsUpgrade.cpp" line="280"/>

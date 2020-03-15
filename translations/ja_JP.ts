@@ -489,32 +489,32 @@
     <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
         <source>QRCode File</source>
-        <translation type="unfinished"></translation>
+        <translation>QRコード画像ファイル</translation>
     </message>
     <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
         <source>Screenshot</source>
-        <translation type="unfinished"></translation>
+        <translation>スクリーンショット</translation>
     </message>
     <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
         <source>Delay</source>
-        <translation type="unfinished"></translation>
+        <translation>後</translation>
     </message>
     <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
         <source>Json Editor</source>
-        <translation type="unfinished">JSONエディター</translation>
+        <translation>JSONエディター</translation>
     </message>
     <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
         <source>Open JSON Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>JSONエディターを開く</translation>
     </message>
     <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
         <source>A prefix to the imported connection</source>
-        <translation type="unfinished"></translation>
+        <translation>インポート接続のプレフィックス</translation>
     </message>
 </context>
 <context>
@@ -824,7 +824,7 @@
     <message>
         <location filename="../src/ui/editors/w_JsonEditor.cpp" line="50"/>
         <source>You must correct these errors before continuing.</source>
-        <translation type="unfinished"></translation>
+        <translation>続行する前にこれらのエラーを修正する必要があります。</translation>
     </message>
     <message>
         <source>You must correct these errors before continue.</source>
@@ -1113,7 +1113,7 @@
     <message>
         <location filename="../src/ui/w_MainWindow.hpp" line="142"/>
         <source>Set as automatically connected</source>
-        <translation type="unfinished"></translation>
+        <translation>自動接続として設定</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.hpp" line="144"/>
@@ -1217,12 +1217,12 @@
     <message>
         <location filename="../src/ui/w_MainWindow.hpp" line="163"/>
         <source>Switch to vCore log</source>
-        <translation type="unfinished"></translation>
+        <translation>vCoreログに切り替える</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.hpp" line="164"/>
         <source>Switch to Qv2ray log</source>
-        <translation type="unfinished"></translation>
+        <translation>Qv2rayログに切り替える</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.cpp" line="380"/>
@@ -1281,12 +1281,12 @@
     <message>
         <location filename="../src/ui/w_MainWindow.cpp" line="979"/>
         <source>Set auto connection</source>
-        <translation type="unfinished"></translation>
+        <translation>自動接続設定</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.cpp" line="979"/>
         <source>Set %1 as auto connect.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 を自動接続として設定します。</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow_extra.cpp" line="36"/>
@@ -2794,25 +2794,25 @@ p, li { white-space: pre-wrap; }
         <location filename="../src/core/settings/SettingsUpgrade.cpp" line="277"/>
         <location filename="../src/ui/w_PreferencesWindow.cpp" line="1188"/>
         <source>Deprecated</source>
-        <translation type="unfinished"></translation>
+        <translation>非推奨</translation>
     </message>
     <message>
         <location filename="../src/core/settings/SettingsUpgrade.cpp" line="278"/>
         <location filename="../src/ui/w_PreferencesWindow.cpp" line="1189"/>
         <source>PAC is now deprecated and is not encouraged to be used anymore.</source>
-        <translation type="unfinished"></translation>
+        <translation>PACは非推奨になり、使用を推奨されなくなりました。</translation>
     </message>
     <message>
         <location filename="../src/core/settings/SettingsUpgrade.cpp" line="279"/>
         <location filename="../src/ui/w_PreferencesWindow.cpp" line="1190"/>
         <source>It will be removed or be provided as a plugin in the future.</source>
-        <translation type="unfinished"></translation>
+        <translation>今後削除されるか、プラグインとして提供されます。</translation>
     </message>
     <message>
         <location filename="../src/core/settings/SettingsUpgrade.cpp" line="280"/>
         <location filename="../src/ui/w_PreferencesWindow.cpp" line="1191"/>
         <source>PAC will still work currently, but please switch to the V2ray built-in routing as soon as possible.</source>
-        <translation type="unfinished"></translation>
+        <translation>PACは現在も機能しますが、できるだけ早くV2Rayの組み込みルーティングに切り替えてください。</translation>
     </message>
     <message>
         <location filename="../src/core/settings/SettingsUpgrade.cpp" line="295"/>
