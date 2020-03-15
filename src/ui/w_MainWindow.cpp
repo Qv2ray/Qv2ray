@@ -282,7 +282,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
         this->show();
 
 #ifndef DISABLE_AUTO_UPDATE
-    requestHelper = new QvHttpRequestHelper();
+    requestHelper = new QvHttpRequestHelper(this);
     connect(requestHelper, &QvHttpRequestHelper::httpRequestFinished, this, &MainWindow::VersionUpdate);
     requestHelper->get("https://api.github.com/repos/Qv2ray/Qv2ray/releases/latest");
 #endif
