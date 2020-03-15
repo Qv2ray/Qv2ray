@@ -120,10 +120,6 @@ namespace Qv2ray::core::connection
                 flag = flag && C("path");
             else if (net == "quic")
                 flag = flag && C("host") && C("type") && C("path");
-            else
-            {
-                LOG(MODULE_CONNECTION, "VMess protocol has an empty `net` option, we'll try to deduce it from the obfs type.")
-            }
 
 #undef C
             // return flag ? 0 : 1;
@@ -184,15 +180,6 @@ namespace Qv2ray::core::connection
                                             << "utp"                                                                                    //
                                             << "wechat-video");                                                                         //
                                                                                                                                         //
-                /*Deduce net type from obfs type*/                                                                                      //
-                if (QStringList{ "srtp", "utp", "wechat-video" }.contains(type))                                                        //
-                {                                                                                                                       //
-                    if (net != "quic")                                                                                                  //
-                    {                                                                                                                   //
-                        LOG(MODULE_CONNECTION, "Reset net settings from " + net + " to quic")                                           //
-                        net = "quic";                                                                                                   //
-                    }                                                                                                                   //
-                }                                                                                                                       //
                 __vmess_checker__func(net, << "tcp"                                                                                     //
                                            << "http"                                                                                    //
                                            << "h2"                                                                                      //
@@ -200,11 +187,20 @@ namespace Qv2ray::core::connection
                                            << "kcp"                                                                                     //
                                            << "domainsocket"                                                                            //
                                            << "quic");                                                                                  //
+                                                                                                                                        //
                 __vmess_checker__func(path, << "");                                                                                     //
                 __vmess_checker__func(host, << "");                                                                                     //
                 __vmess_checker__func(tls, << "");                                                                                      //
-
-            } //
+            }
+            // Repect connection type rather than obfs type //
+            if (QStringList{ "srtp", "utp", "wechat-video" }.contains(type))                //
+            {                                                                               //
+                if (net != "quic")                                                          //
+                {                                                                           //
+                    LOG(MODULE_CONNECTION, "Reset obfs settings from " + type + " to none") //
+                    type = "none";                                                          //
+                }                                                                           //
+            }
             port = vmessConf["port"].toVariant().toInt();
             aid = vmessConf["aid"].toVariant().toInt();
             //
