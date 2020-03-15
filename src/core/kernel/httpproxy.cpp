@@ -25,6 +25,9 @@
 #include <QDebug>
 #include <QTcpSocket>
 #include <QUrl>
+#if defined(__APPLE__) || defined(_MSC_VER)
+#define FD_SETSIZE 1024
+#endif
 
 namespace Qv2ray::core::kernel {
 
