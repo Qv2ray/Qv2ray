@@ -363,15 +363,9 @@ namespace Qv2ray::core::handlers
 
     void QvConfigHandler::OnLatencyDataArrived(const QvTCPingResultObject &result)
     {
-        if (connections.contains(result.connectionId))
-        {
-            connections[result.connectionId].latency = result.avg;
-            emit OnLatencyTestFinished(result.connectionId, result.avg);
-        }
-        else
-        {
-            LOG(MODULE_CORE_HANDLER, "Received a latecy result with non-exist connection id.")
-        }
+        CheckConnectionExistanceEx(result.connectionId, nothing);
+        connections[result.connectionId].latency = result.avg;
+        emit OnLatencyTestFinished(result.connectionId, result.avg);
     }
 
     bool QvConfigHandler::UpdateConnection(const ConnectionId &id, const CONFIGROOT &root, bool skipRestart)

@@ -5,6 +5,8 @@
 #include <QtCore>
 namespace Qv2ray::base
 {
+    constexpr unsigned int QVTCPING_VALUE_ERROR = 99999;
+    constexpr unsigned int QVTCPING_VALUE_NODATA = QVTCPING_VALUE_ERROR - 1;
     using namespace std::chrono;
     // Common struct for Groups and Subscriptions
     struct GroupObject_Config
@@ -39,8 +41,8 @@ namespace Qv2ray::base
         int64_t upLinkData;
         int64_t downLinkData;
         ConnectionObject_Config()
-            : displayName(), importDate(system_clock::to_time_t(system_clock::now())), lastConnected(), latency(0), upLinkData(0),
-              downLinkData(0)
+            : displayName(), importDate(system_clock::to_time_t(system_clock::now())), lastConnected(), latency(QVTCPING_VALUE_NODATA),
+              upLinkData(0), downLinkData(0)
         {
         }
         XTOSTRUCT(O(displayName, importDate, lastConnected, latency, upLinkData, downLinkData))

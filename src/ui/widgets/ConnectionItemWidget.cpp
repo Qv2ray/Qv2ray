@@ -24,7 +24,11 @@ ConnectionItemWidget::ConnectionItemWidget(const ConnectionId &id, QWidget *pare
     indentSpacer->changeSize(10, indentSpacer->sizeHint().height());
     //
     auto latency = GetConnectionLatency(id);
-    latencyLabel->setText(latency == 0 ? tr("Not Tested") : (QSTRN(latency) + " " + tr("ms")));
+    latencyLabel->setText(latency == QVTCPING_VALUE_NODATA ?     //
+                              tr("Not Tested") :                 //
+                              (latency == QVTCPING_VALUE_ERROR ? //
+                                   tr("Error") :                 //
+                                   (QSTRN(latency) + " ms")));   //
     //
     connTypeLabel->setText(tr("Type: ") + GetConnectionProtocolString(id));
     auto [uplink, downlink] = GetConnectionUsageAmount(connectionId);
@@ -147,7 +151,7 @@ void ConnectionItemWidget::OnLatencyTestFinished(const ConnectionId &id, const u
 {
     if (id == connectionId)
     {
-        latencyLabel->setText(average == 0 ? tr("Error") : QSTRN(average) + tr("ms"));
+        latencyLabel->setText(average == QVTCPING_VALUE_ERROR ? tr("Error") : QSTRN(average) + tr("ms"));
     }
 }
 

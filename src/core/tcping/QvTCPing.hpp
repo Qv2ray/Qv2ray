@@ -9,7 +9,7 @@ namespace Qv2ray::core::tcping
         ConnectionId connectionId = NullConnectionId;
         QString errorMessage;
         int total, succeed, failed;
-        uint worst = 0, best = 0, avg = 0;
+        uint worst = QVTCPING_VALUE_ERROR, best = QVTCPING_VALUE_ERROR, avg = QVTCPING_VALUE_ERROR;
     };
 
     class QvTCPingHelper : public QObject

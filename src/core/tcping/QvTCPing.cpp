@@ -43,6 +43,9 @@ namespace Qv2ray::core::tcping
             if (!result.errorMessage.isEmpty())
             {
                 LOG(MODULE_NETWORK, "Ping --> " + result.errorMessage)
+                result.avg = QVTCPING_VALUE_ERROR;
+                result.best = QVTCPING_VALUE_ERROR;
+                result.worst = QVTCPING_VALUE_ERROR;
             }
 
             emit this->OnLatencyTestCompleted(result);
@@ -76,11 +79,12 @@ namespace Qv2ray::core::tcping
         bool noAddress = false;
         int currentCount = 0;
 
+        data.avg = 0;
+        data.worst = 0;
+        data.best = 0;
+
         while (currentCount < count)
         {
-            if (isExiting)
-                return QvTCPingResultObject();
-
             system_clock::time_point start;
             system_clock::time_point end;
 
@@ -88,16 +92,14 @@ namespace Qv2ray::core::tcping
             {
                 if (errcode != -EADDRNOTAVAIL)
                 {
-                    // LOG(MODULE_NETWORK, "Error connecting to host: " +
-                    // data.hostName + ":" + QSTRN(data.port) + " " +
-                    // strerror(-errcode))
+                    LOG(MODULE_NETWORK, "error connecting to host: " + host + ":" + QSTRN(port) + " " + strerror(-errcode))
                     errorCount++;
                 }
                 else
                 {
                     if (noAddress)
                     {
-                        LOG(MODULE_NETWORK, ".")
+                        LOG(MODULE_NETWORK, "no address error")
                     }
                     else
                     {
@@ -130,6 +132,9 @@ namespace Qv2ray::core::tcping
 
         data.avg = data.avg / successCount;
         freeaddrinfo(resolved);
+        data.avg = min(data.avg, QVTCPING_VALUE_ERROR);
+        data.worst = min(data.worst, QVTCPING_VALUE_ERROR);
+        data.best = min(data.best, QVTCPING_VALUE_ERROR);
         return data;
     }
 
@@ -154,9 +159,6 @@ namespace Qv2ray::core::tcping
 
     int testLatency(struct addrinfo *addr, std::chrono::system_clock::time_point *start, std::chrono::system_clock::time_point *end)
     {
-        if (isExiting)
-            return 0;
-
 #ifdef _WIN32
         SOCKET fd;
 #else
