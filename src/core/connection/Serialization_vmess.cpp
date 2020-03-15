@@ -195,7 +195,7 @@ namespace Qv2ray::core::connection
             // Repect connection type rather than obfs type //
             if (QStringList{ "srtp", "utp", "wechat-video" }.contains(type))                //
             {                                                                               //
-                if (net != "quic")                                                          //
+                if (net != "quic" && net != "kcp")                                          //
                 {                                                                           //
                     LOG(MODULE_CONNECTION, "Reset obfs settings from " + type + " to none") //
                     type = "none";                                                          //
