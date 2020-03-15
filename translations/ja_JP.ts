@@ -150,29 +150,29 @@
 <context>
     <name>ConnectionItemWidget</name>
     <message>
-        <location filename="../src/ui/widgets/ConnectionItemWidget.cpp" line="27"/>
+        <location filename="../src/ui/widgets/ConnectionItemWidget.cpp" line="28"/>
         <source>Not Tested</source>
         <translation>未検証</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/ConnectionItemWidget.cpp" line="27"/>
-        <location filename="../src/ui/widgets/ConnectionItemWidget.cpp" line="150"/>
+        <location filename="../src/ui/widgets/ConnectionItemWidget.cpp" line="154"/>
         <source>ms</source>
         <translation>ms</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/ConnectionItemWidget.cpp" line="29"/>
-        <location filename="../src/ui/widgets/ConnectionItemWidget.cpp" line="136"/>
+        <location filename="../src/ui/widgets/ConnectionItemWidget.cpp" line="33"/>
+        <location filename="../src/ui/widgets/ConnectionItemWidget.cpp" line="140"/>
         <source>Type: </source>
         <translation>種類: </translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/ConnectionItemWidget.cpp" line="143"/>
+        <location filename="../src/ui/widgets/ConnectionItemWidget.cpp" line="147"/>
         <source>Testing...</source>
         <translation>テスト中...</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/ConnectionItemWidget.cpp" line="150"/>
+        <location filename="../src/ui/widgets/ConnectionItemWidget.cpp" line="30"/>
+        <location filename="../src/ui/widgets/ConnectionItemWidget.cpp" line="154"/>
         <source>Error</source>
         <translation>エラー</translation>
     </message>
@@ -2868,7 +2868,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../src/core/handler/ConfigHandler.cpp" line="276"/>
-        <location filename="../src/core/handler/ConfigHandler.cpp" line="413"/>
+        <location filename="../src/core/handler/ConfigHandler.cpp" line="407"/>
         <source>Group does not exist</source>
         <translation>グループが存在しません</translation>
     </message>
