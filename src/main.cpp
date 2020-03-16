@@ -225,14 +225,17 @@ int main(int argc, char *argv[])
     SingleApplication::setApplicationName("qv2ray_debug");
     SingleApplication::setApplicationDisplayName("Qv2ray - " + QObject::tr("Debug version"));
 #endif
-
-    if (!qEnvironmentVariableIsSet("QT_DEVICE_PIXEL_RATIO") &&       //
-        !qEnvironmentVariableIsSet("QT_AUTO_SCREEN_SCALE_FACTOR") && //
-        !qEnvironmentVariableIsSet("QT_SCALE_FACTOR") &&             //
-        !qEnvironmentVariableIsSet("QT_SCREEN_SCALE_FACTORS"))
+    if ((!qEnvironmentVariableIsSet("QT_DEVICE_PIXEL_RATIO") &&       //
+         !qEnvironmentVariableIsSet("QT_AUTO_SCREEN_SCALE_FACTOR") && //
+         !qEnvironmentVariableIsSet("QT_SCALE_FACTOR") &&             //
+         !qEnvironmentVariableIsSet("QT_SCREEN_SCALE_FACTORS")) ||    //
+        StartupOption.forceHiDPI)
     {
-        DEBUG(MODULE_INIT, "High DPI scaling is enabled.")
-        QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+        if (StartupOption.forceHiDPI || StartupOption.hiDPI)
+        {
+            DEBUG(MODULE_INIT, "High DPI scaling is enabled.")
+            QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+        }
     }
     SingleApplication _qApp(argc, argv, false,
                             SingleApplication::User | SingleApplication::ExcludeAppPath | SingleApplication::ExcludeAppVersion);

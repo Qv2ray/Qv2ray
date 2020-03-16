@@ -20,7 +20,7 @@ namespace Qv2ray::core::connection
             vmessUriRoot["port"] = server.port;
             vmessUriRoot["id"] = server.users.front().id;
             vmessUriRoot["aid"] = server.users.front().alterId;
-            vmessUriRoot["net"] = transfer.network;
+            vmessUriRoot["net"] = transfer.network == "http" ? "h2" : transfer.network;
             vmessUriRoot["tls"] = transfer.security;
 
             if (transfer.network == "tcp")
@@ -270,6 +270,8 @@ namespace Qv2ray::core::connection
             streaming.security = tls;
             //
             // Network type
+            // NOTE(DuckSoft): Damn vmess:// just don't write 'http' properly
+            if (net == "h2") net = "http";
             streaming.network = net;
             //
             // WARN Mux is missing here.
