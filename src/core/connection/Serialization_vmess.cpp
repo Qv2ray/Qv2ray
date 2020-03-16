@@ -20,7 +20,7 @@ namespace Qv2ray::core::connection
             vmessUriRoot["port"] = server.port;
             vmessUriRoot["id"] = server.users.front().id;
             vmessUriRoot["aid"] = server.users.front().alterId;
-            vmessUriRoot["net"] = transfer.network;
+            vmessUriRoot["net"] = transfer.network == "http" ? "h2" : transfer.network;
             vmessUriRoot["tls"] = transfer.security;
 
             if (transfer.network == "tcp")
