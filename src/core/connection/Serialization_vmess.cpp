@@ -270,6 +270,8 @@ namespace Qv2ray::core::connection
             streaming.security = tls;
             //
             // Network type
+            // NOTE(DuckSoft): Damn vmess:// just don't write 'http' properly
+            if (net == "h2") net = "http";
             streaming.network = net;
             //
             // WARN Mux is missing here.
