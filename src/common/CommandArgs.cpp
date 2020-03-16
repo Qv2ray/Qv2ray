@@ -5,12 +5,12 @@
 namespace Qv2ray::common
 {
     QvCommandArgParser::QvCommandArgParser()
-        : QObject(), noAPIOption("noAPI", QObject::tr("Disable gRPC API subsystems.")),                 //
-          runAsRootOption("I-just-wanna-run-with-root", QObject::tr("Explicitly run Qv2ray as root.")), //
-          debugOption("debug", QObject::tr("Enable Debug Output")),                                     //
-          hiDpiOption("hiDPI", QObject::tr("Enable HiDPI support for Qt")),                             //
-          forceHiDpiOption("hiDPI", QObject::tr("Force enable HiDPI support for Qt")),                  //
-          withToolbarOption("withToolbarPlugin", QObject::tr("Enable Qv2ray network toolbar plugin")),  //
+        : QObject(), noAPIOption("noAPI", tr("Disable gRPC API subsystems.")),                 //
+          runAsRootOption("I-just-wanna-run-with-root", tr("Explicitly run Qv2ray as root.")), //
+          debugOption("debug", tr("Enable Debug Output")),                                     //
+          hiDpiOption("hiDPI", tr("Enable HiDPI support for Qt")),                             //
+          forceHiDpiOption("force-hiDPI", tr("Force enable HiDPI support for Qt")),            //
+          withToolbarOption("withToolbarPlugin", tr("Enable Qv2ray network toolbar plugin")),  //
           //
           helpOption("FAKE"), versionOption("FAKE")
     {
