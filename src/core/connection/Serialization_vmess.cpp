@@ -234,7 +234,10 @@ namespace Qv2ray::core::connection
                 // Fill hosts for HTTP
                 for (auto _host : host.split(','))
                 {
-                    streaming.httpSettings.host.push_back(_host.trimmed());
+                    if (!_host.isEmpty())
+                    {
+                        streaming.httpSettings.host.push_back(_host.trimmed());
+                    }
                 }
 
                 streaming.httpSettings.path = path;
@@ -271,7 +274,8 @@ namespace Qv2ray::core::connection
             //
             // Network type
             // NOTE(DuckSoft): Damn vmess:// just don't write 'http' properly
-            if (net == "h2") net = "http";
+            if (net == "h2")
+                net = "http";
             streaming.network = net;
             //
             // WARN Mux is missing here.
