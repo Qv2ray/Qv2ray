@@ -14,7 +14,7 @@ on:
 jobs:
   aur:
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         repo: [qv2ray, qv2ray-dev-git]
     runs-on: [ubuntu-latest]
@@ -22,3 +22,8 @@ jobs:
       - uses: DuckSoft/build-aur-action@v1.0
         with:
           repo-name: ${{ matrix.repo }}
+      - uses: actions/upload-artifact
+        with:
+          name: ${{ matrix.repo }}.pkg.tar.xz
+          path: '*.xz'
+  
