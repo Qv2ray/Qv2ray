@@ -1,6 +1,6 @@
 name: Build Qv2ray AUR
 on: 
-  push:
+  push: {}
 #     paths-ignore:
 #     - '.github'
 #     branches:    
