@@ -1,13 +1,6 @@
 name: Build Qv2ray AUR
 on: 
-  push: {}
-#     paths-ignore:
-#     - '.github'
-#     branches:    
-#       - master
-#       - dev
-#     tags:
-#       - 'v**'
+  push:
   schedule:
     - cron: "0 19 * * *"
 
