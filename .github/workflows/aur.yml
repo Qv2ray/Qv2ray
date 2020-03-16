@@ -3,11 +3,11 @@ on:
   push:
 #     paths-ignore:
 #     - '.github'
-    branches:    
-      - master
-      - dev
-    tags:
-      - 'v**'
+#     branches:    
+#       - master
+#       - dev
+#     tags:
+#       - 'v**'
   schedule:
     - cron: "0 19 * * *"
 
