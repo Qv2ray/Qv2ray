@@ -16,15 +16,17 @@ jobs:
         with:
           repo-name: ${{ matrix.repo }}
 
-      - name: Post AUR Build Action
-        uses: DuckSoft/post-aur-build-action@0.0.4
-        id: post
-      
       - name: fucked
         shell: bash
         run: |
           find
           
+
+      - name: Post AUR Build Action
+        uses: DuckSoft/post-aur-build-action@0.0.5
+        id: post
+      
+
       - uses: actions/upload-artifact@master
         with:
           name: ${{ steps.post.pkgfile }}
