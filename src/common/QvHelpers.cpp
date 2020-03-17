@@ -185,7 +185,7 @@ namespace Qv2ray::common
         int i;
         double dblByte = _bytes;
 
-        for (i = 0; i < 5 && _bytes >= 1024; i++, _bytes /= 1024) dblByte = _bytes / 1024.0;
+        for (i = 0; i < 5 && _bytes >= 1000; i++, _bytes /= 1000) dblByte = _bytes / 1000.0;
 
         sprintf(str, "%.2f", dblByte);
         return QString(str) + " " + QString(sizes[i]);
