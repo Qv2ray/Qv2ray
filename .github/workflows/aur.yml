@@ -17,7 +17,7 @@ jobs:
           repo-name: ${{ matrix.repo }}
 
       - name: Post AUR Build Action
-        uses: DuckSoft/post-aur-build-action@0.0.8
+        uses: DuckSoft/post-aur-build-action@0.0.9
         id: post
 
       - uses: actions/upload-artifact@master
