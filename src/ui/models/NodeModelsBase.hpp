@@ -20,8 +20,8 @@ const int GRAPH_NODE_LABEL_FONTSIZE_INCREMENT = 3;
 
 namespace Qv2ray::ui::nodemodels
 {
-    const std::shared_ptr<NodeDataType> outboundType = std::make_shared<NodeDataType>("outbound", tr("Outbound"));
-    const std::shared_ptr<NodeDataType> inboundType = std::make_shared<NodeDataType>("inbound", tr("Inbound"));
+    const std::shared_ptr<NodeDataType> outboundType = std::make_shared<NodeDataType>("outbound", QObject::tr("Outbound"));
+    const std::shared_ptr<NodeDataType> inboundType = std::make_shared<NodeDataType>("inbound", QObject::tr("Inbound"));
     /// The class can potentially incapsulate any user data
     /// need to be transferred within the Node Editor graph
     class InboundNodeData : public NodeData
