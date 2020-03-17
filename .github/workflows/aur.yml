@@ -22,6 +22,6 @@ jobs:
 
       - uses: actions/upload-artifact@master
         with:
-          name: ${{ steps.post.pkgfile }}
-          path: ${{ steps.post.pkgpath }}
+          name: ${{ steps.post.outputs.pkgfile }}
+          path: ${{ steps.post.outputs.pkgpath }}
   
