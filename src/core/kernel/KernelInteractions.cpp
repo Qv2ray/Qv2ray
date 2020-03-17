@@ -176,6 +176,7 @@ namespace Qv2ray::core::kernel
                 return tr("can't start Shadowsocksr due to socks settings is incorrect or not enabled");
             }
             this->id=id;
+            apiEnabled = false;
             KernelStarted = true;
             return {};
         }
