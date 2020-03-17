@@ -15,11 +15,13 @@ jobs:
       - uses: DuckSoft/build-aur-action@v1.0
         with:
           repo-name: ${{ matrix.repo }}
+
       - name: Post AUR Build Action
-        id: post
         uses: DuckSoft/post-aur-build-action@0.0.1
+        id: post
+
       - uses: actions/upload-artifact@master
         with:
-          name: ${{ post.pkgfile }}
-          path: ${{ post.pkgpath }}
+          name: ${{ steps.post.pkgfile }}
+          path: ${{ steps.post.pkgpath }}
   
