@@ -50,7 +50,7 @@ namespace Qv2ray::core::kernel
         running = false;
     }
 
-    // --- DECONSTRUCTOR ---
+    // --- DESTRUCTOR ---
     APIWorker::~APIWorker()
     {
         StopAPI();

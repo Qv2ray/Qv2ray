@@ -3,7 +3,6 @@
 #include "common/QvHelpers.hpp"
 #ifdef Q_OS_WIN
     #include <WinInet.h>
-
     #include <Windows.h>
 #endif
 

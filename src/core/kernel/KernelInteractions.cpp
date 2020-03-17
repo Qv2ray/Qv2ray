@@ -254,8 +254,8 @@ namespace Qv2ray::core::kernel
         delete vProcess;
     }
 
-    void V2rayKernelInstance::onAPIDataReady(const quint64 _totalUp, const quint64 _totalDown)
+    void V2rayKernelInstance::onAPIDataReady(const quint64 speedUp, const quint64 speedDown)
     {
-        emit OnNewStatsDataArrived(id, _totalUp, _totalDown);
+        emit OnNewStatsDataArrived(id, speedUp, speedDown);
     }
 } // namespace Qv2ray::core::kernel
