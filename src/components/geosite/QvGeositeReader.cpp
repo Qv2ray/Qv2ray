@@ -4,7 +4,7 @@
 
 namespace Qv2ray::components::geosite
 {
-    QStringList ReadGeoSiteFromFile(QString filepath)
+    QStringList ReadGeoSiteFromFile(const QString &filepath)
     {
         QStringList list;
         LOG(MODULE_FILEIO, "Reading geosites from: " + filepath)
@@ -35,6 +35,7 @@ namespace Qv2ray::components::geosite
         LOG(MODULE_FILEIO, "Loaded " + QSTRN(list.count()) + " geosite entries from data file.")
         // Optional:  Delete all global objects allocated by libprotobuf.
         google::protobuf::ShutdownProtobufLibrary();
+        list.sort();
         return list;
     }
 } // namespace Qv2ray::components::geosite

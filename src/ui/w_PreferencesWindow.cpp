@@ -4,13 +4,16 @@
 #include "common/QvHelpers.hpp"
 #include "common/QvTranslator.hpp"
 #include "components/autolaunch/QvAutoLaunch.hpp"
+#include "components/geosite/QvGeositeReader.hpp"
 #include "components/plugins/toolbar/QvToolbar.hpp"
 #include "core/connection/ConnectionIO.hpp"
 #include "core/handler/ConfigHandler.hpp"
 #include "core/kernel/KernelInteractions.hpp"
 #include "core/settings/SettingsBackend.hpp"
+#include "ui/widgets/QvAutoCompleteTextEdit.h"
 
 #include <QColorDialog>
+#include <QCompleter>
 #include <QDesktopServices>
 #include <QFileDialog>
 #include <QStyle>
@@ -208,6 +211,18 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     pacListenAddrLabel->setText("http://" + (pacProxyTxt->text().isEmpty() ? "127.0.0.1" : pacProxyTxt->text()) + ":" +
                                 QSTRN(pacPortSB->value()) + "/pac");
     //
+    directDomainTxt = new AutoCompleteTextEdit("geosite", this);
+    proxyDomainTxt = new AutoCompleteTextEdit("geosite", this);
+    blockDomainTxt = new AutoCompleteTextEdit("geosite", this);
+    //
+    auto sourceStrings = ReadGeoSiteFromFile(CurrentConfig.kernelConfig.AssetsPath() + "/geosite.dat");
+    directDomainTxt->SetSourceStrings(sourceStrings);
+    proxyDomainTxt->SetSourceStrings(sourceStrings);
+    blockDomainTxt->SetSourceStrings(sourceStrings);
+    //
+    directTxtLayout->addWidget(directDomainTxt, 0, 0);
+    proxyTxtLayout->addWidget(proxyDomainTxt, 0, 0);
+    blockTxtLayout->addWidget(blockDomainTxt, 0, 0);
     finishedLoading = true;
 }
 
@@ -265,10 +280,12 @@ void PreferencesWindow::on_buttonBox_accepted()
     else if (CurrentConfig.inboundConfig.listenip.toLower() != "localhost" && !IsValidIPAddress(CurrentConfig.inboundConfig.listenip))
     {
         QvMessageBoxWarn(this, tr("Preferences"), tr("Invalid inbound listening address."));
-        ;
     }
     else
     {
+        CurrentConfig.connectionConfig.blockDomains = SplitLines(blockDomainTxt->toPlainText());
+        CurrentConfig.connectionConfig.directDomains = SplitLines(directDomainTxt->toPlainText());
+        CurrentConfig.connectionConfig.proxyDomains = SplitLines(proxyDomainTxt->toPlainText());
         if (CurrentConfig.uiConfig.language != GlobalConfig.uiConfig.language)
         {
             // Install translator

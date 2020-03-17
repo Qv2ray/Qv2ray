@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1100</width>
-    <height>672</height>
+    <width>1043</width>
+    <height>656</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -43,8 +43,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>1054</width>
-            <height>556</height>
+            <width>997</width>
+            <height>546</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout_13" rowstretch="0,0,0,0,1">
@@ -490,7 +490,7 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>1127</width>
+            <width>1054</width>
             <height>604</height>
            </rect>
           </property>
@@ -1113,7 +1113,7 @@
             <item row="1" column="0">
              <widget class="QLabel" name="label_17">
               <property name="text">
-               <string>Bypass Chinese Mainland</string>
+               <string>Bypass CN Mainland</string>
               </property>
              </widget>
             </item>
@@ -1138,15 +1138,49 @@
               </property>
              </widget>
             </item>
-            <item row="3" column="0">
-             <widget class="QLabel" name="label_21">
-              <property name="text">
-               <string>Custom DNS List</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="1">
-             <widget class="QPlainTextEdit" name="DNSListTxt"/>
+            <item row="4" column="0" colspan="2">
+             <layout class="QGridLayout" name="gridLayout_15" columnstretch="1,1" columnminimumwidth="1,1">
+              <item row="0" column="0">
+               <widget class="QLabel" name="label_21">
+                <property name="text">
+                 <string>Custom DNS List</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QPlainTextEdit" name="DNSListTxt"/>
+              </item>
+              <item row="2" column="1">
+               <widget class="QLabel" name="label_82">
+                <property name="text">
+                 <string>Blocked Domains</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QLabel" name="label_80">
+                <property name="text">
+                 <string>Direct Connect Domains</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="QLabel" name="label_81">
+                <property name="text">
+                 <string>Proxied Domains</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <layout class="QGridLayout" name="directTxtLayout"/>
+              </item>
+              <item row="3" column="0">
+               <layout class="QGridLayout" name="proxyTxtLayout"/>
+              </item>
+              <item row="3" column="1">
+               <layout class="QGridLayout" name="blockTxtLayout"/>
+              </item>
+             </layout>
             </item>
            </layout>
           </widget>
@@ -1263,19 +1297,6 @@
           </widget>
          </item>
         </layout>
-       </item>
-       <item row="1" column="0" colspan="2">
-        <spacer name="verticalSpacer_14">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
        </item>
       </layout>
      </widget>
@@ -2004,7 +2025,6 @@ p, li { white-space: pre-wrap; }
   <tabstop>proxyDefaultCb</tabstop>
   <tabstop>bypassCNCb</tabstop>
   <tabstop>localDNSCb</tabstop>
-  <tabstop>DNSListTxt</tabstop>
   <tabstop>fpGroupBox</tabstop>
   <tabstop>fpTypeCombo</tabstop>
   <tabstop>fpAddressTx</tabstop>
