@@ -35,7 +35,7 @@ class QvOutboundNodeModel : public NodeDataModel
         return "OutboundNode";
     }
 
-    NodeDataType dataType(PortType portType, PortIndex portIndex) const override
+    std::shared_ptr<NodeDataType> dataType(PortType portType, PortIndex portIndex) const override
     {
         Q_UNUSED(portType);
         Q_UNUSED(portIndex);
@@ -69,6 +69,10 @@ class QvOutboundNodeModel : public NodeDataModel
     ConnectionPolicy portInConnectionPolicy(PortIndex) const override
     {
         return ConnectionPolicy::Many;
+    }
+    std::unique_ptr<NodeDataModel> clone() const override
+    {
+        return std::make_unique<QvOutboundNodeModel>(_out);
     }
 
   private:

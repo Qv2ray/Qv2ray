@@ -650,7 +650,8 @@ void RouteEditor::on_enableBalancerCB_stateChanged(int arg1)
 
         for (auto &&[_, conn] : nodeScene->connections())
         {
-            if (conn.get()->getNode(PortType::Out) == ruleNode)
+            auto x = conn.get();
+            if (x != nullptr && x->getNode(PortType::Out) == ruleNode)
             {
                 nodeScene->deleteConnection(*conn);
             }

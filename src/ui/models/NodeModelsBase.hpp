@@ -20,8 +20,8 @@ const int GRAPH_NODE_LABEL_FONTSIZE_INCREMENT = 3;
 
 namespace Qv2ray::ui::nodemodels
 {
-    const NodeDataType outboundType = { "outbound", "Outbound Object" };
-    const NodeDataType inboundType = { "inbound", "Inbound Object" };
+    const std::shared_ptr<NodeDataType> outboundType = std::make_shared<NodeDataType>("outbound", "Outbound Object");
+    const std::shared_ptr<NodeDataType> inboundType = std::make_shared<NodeDataType>("inbound", "Inbound Object");
     /// The class can potentially incapsulate any user data
     /// need to be transferred within the Node Editor graph
     class InboundNodeData : public NodeData
@@ -32,7 +32,7 @@ namespace Qv2ray::ui::nodemodels
         {
         }
 
-        NodeDataType type() const override
+        std::shared_ptr<NodeDataType> type() const override
         {
             return inboundType;
         }
@@ -57,7 +57,7 @@ namespace Qv2ray::ui::nodemodels
         {
         }
 
-        NodeDataType type() const override
+        std::shared_ptr<NodeDataType> type() const override
         {
             return outboundType;
         }
@@ -81,7 +81,7 @@ namespace Qv2ray::ui::nodemodels
         {
         }
 
-        NodeDataType type() const override
+        std::shared_ptr<NodeDataType> type() const override
         {
             return outboundType;
         }

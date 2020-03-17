@@ -66,4 +66,4 @@ qt5_wrap_cpp(QNODEEDITOR_SOURCES
     OPTIONS --no-notes # Don't display a note for the headers which don't produce a moc_*.cpp
 )
 
-set(QNODEEDITOR_QRC_RESOURCES ${QNODEEDITOR_DIR}/resources/QNodeEditor_resources.qrc)
+set(QNODEEDITOR_QRC_RESOURCES ${QNODEEDITOR_DIR}/resources/resources.qrc)
