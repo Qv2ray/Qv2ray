@@ -215,6 +215,10 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     proxyDomainTxt = new AutoCompleteTextEdit("geosite", this);
     blockDomainTxt = new AutoCompleteTextEdit("geosite", this);
     //
+    directDomainTxt->setText(CurrentConfig.connectionConfig.directDomains.join(NEWLINE));
+    proxyDomainTxt->setText(CurrentConfig.connectionConfig.proxyDomains.join(NEWLINE));
+    blockDomainTxt->setText(CurrentConfig.connectionConfig.blockDomains.join(NEWLINE));
+    //
     auto sourceStrings = ReadGeoSiteFromFile(CurrentConfig.kernelConfig.AssetsPath() + "/geosite.dat");
     directDomainTxt->SetSourceStrings(sourceStrings);
     proxyDomainTxt->SetSourceStrings(sourceStrings);

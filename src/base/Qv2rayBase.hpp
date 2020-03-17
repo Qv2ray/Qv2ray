@@ -96,6 +96,7 @@ using namespace Qv2ray::base::objects::transfer;
 
 #define QSTRN(num) QString::number(num)
 
+#define OUTBOUND_TAG_BLACKHOLE "outBound_BLACKHOLE"
 #define OUTBOUND_TAG_DIRECT "outBound_DIRECT"
 #define OUTBOUND_TAG_PROXY "outBound_PROXY"
 #define OUTBOUND_TAG_FORWARD_PROXY "_QV2RAY_FORWARD_PROXY_"
