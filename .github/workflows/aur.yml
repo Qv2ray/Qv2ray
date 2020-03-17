@@ -15,8 +15,11 @@ jobs:
       - uses: DuckSoft/build-aur-action@v1.0
         with:
           repo-name: ${{ matrix.repo }}
+      - name: Post AUR Build Action
+        id: post
+        uses: DuckSoft/post-aur-build-action@0.0.1
       - uses: actions/upload-artifact@master
         with:
-          name: ${{ matrix.repo }}.pkg.tar.xz
-          path: '*.xz'
+          name: ${{ post.pkgfile }}
+          path: ${{ post.pkgpath }}
   
