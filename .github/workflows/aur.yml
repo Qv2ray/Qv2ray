@@ -9,7 +9,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        repo: [qv2ray, qv2ray-dev-git]
+        repo: [s3backer-git]
     runs-on: [ubuntu-latest]
     steps:
       - uses: DuckSoft/build-aur-action@v1.0
@@ -23,7 +23,7 @@ jobs:
           
 
       - name: Post AUR Build Action
-        uses: DuckSoft/post-aur-build-action@0.0.5
+        uses: DuckSoft/post-aur-build-action@0.0.6
         id: post
       
 
