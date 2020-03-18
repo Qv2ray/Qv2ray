@@ -47,7 +47,7 @@ class QvRuleNodeDataModel : public NodeDataModel
         return "RuleNode";
     }
 
-    NodeDataType dataType(PortType portType, PortIndex portIndex) const override
+    std::shared_ptr<NodeDataType> dataType(PortType portType, PortIndex portIndex) const override
     {
         Q_UNUSED(portIndex)
 
@@ -57,10 +57,8 @@ class QvRuleNodeDataModel : public NodeDataModel
 
             case PortType::Out: return outboundType;
 
-            case PortType::None: break;
+            default: return {};
         }
-
-        return NodeDataType();
     }
 
     std::shared_ptr<NodeData> outData(PortIndex port) override
@@ -95,6 +93,10 @@ class QvRuleNodeDataModel : public NodeDataModel
     ConnectionPolicy portOutConnectionPolicy(PortIndex) const override
     {
         return ConnectionPolicy::One;
+    }
+    std::unique_ptr<NodeDataModel> clone() const override
+    {
+        return std::make_unique<QvRuleNodeDataModel>(_ruleTag);
     }
 
   private:

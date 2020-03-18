@@ -647,12 +647,14 @@ void RouteEditor::on_enableBalancerCB_stateChanged(int arg1)
     {
         LOG(MODULE_UI, "A rule has been set to use balancer, disconnect it to any outbound.")
         auto ruleNode = ruleNodes[currentRuleTag];
-
         for (auto &&[_, conn] : nodeScene->connections())
         {
-            if (conn.get()->getNode(PortType::Out) == ruleNode)
+            auto x = conn.get();
+            if (x != nullptr && x->getNode(PortType::Out) == ruleNode)
             {
                 nodeScene->deleteConnection(*conn);
+                // Since there should be only one connection from this rule node.
+                break;
             }
         }
     }

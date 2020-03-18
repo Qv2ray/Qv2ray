@@ -117,11 +117,16 @@ namespace Qv2ray::base::config
         bool enableProxy;
         bool withLocalDNS;
         QList<QString> dnsList;
+        QList<QString> proxyDomains;
+        QList<QString> blockDomains;
+        QList<QString> directDomains;
         Qv2rayForwardProxyConfig forwardProxyConfig;
-        Qv2rayConnectionConfig() : bypassCN(true), enableProxy(true), withLocalDNS(false), dnsList(QStringList{ "8.8.4.4", "1.1.1.1" })
+        Qv2rayConnectionConfig()
+            : bypassCN(true), enableProxy(true), withLocalDNS(false), dnsList(QStringList{ "8.8.4.4", "1.1.1.1" }), proxyDomains(),
+              blockDomains(), directDomains()
         {
         }
-        XTOSTRUCT(O(bypassCN, enableProxy, withLocalDNS, dnsList, forwardProxyConfig))
+        XTOSTRUCT(O(bypassCN, enableProxy, withLocalDNS, dnsList, forwardProxyConfig, proxyDomains, directDomains, blockDomains))
     };
 
     struct Qv2rayAPIConfig

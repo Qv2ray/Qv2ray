@@ -48,40 +48,43 @@
 **
 ****************************************************************************/
 
-#ifndef TEXTEDIT_H
-#define TEXTEDIT_H
-
+#pragma once
+#include <QAbstractItemModel>
 #include <QTextEdit>
-
 QT_BEGIN_NAMESPACE
 class QCompleter;
 QT_END_NAMESPACE
 
-//! [0]
-class AutoCompleteTextEdit : public QTextEdit
+namespace Qv2ray::ui::widgets
 {
-    Q_OBJECT
+    class AutoCompleteTextEdit : public QTextEdit
+    {
+        Q_OBJECT
 
-  public:
-    AutoCompleteTextEdit(QWidget *parent = nullptr);
-    ~AutoCompleteTextEdit();
+      public:
+        AutoCompleteTextEdit(const QString &prefix, QWidget *parent = nullptr);
+        ~AutoCompleteTextEdit();
 
-    void setCompleter(QCompleter *c);
-    QCompleter *completer() const;
+        void SetPrefix(const QString &prefix);
+        void SetCompleter(QCompleter *c);
+        void SetSourceStrings(QStringList sourceStrings);
+        QCompleter *completer() const;
 
-  protected:
-    void keyPressEvent(QKeyEvent *e) override;
-    void focusInEvent(QFocusEvent *e) override;
+      protected:
+        void keyPressEvent(QKeyEvent *e) override;
+        void focusInEvent(QFocusEvent *e) override;
 
-  private slots:
-    void insertCompletion(const QString &completion);
+      private slots:
+        void insertCompletion(const QString &completion);
 
-  private:
-    QString textUnderCursor() const;
+      private:
+        QString lineUnderCursor() const;
+        QString wordUnderCursor() const;
 
-  private:
-    QCompleter *c = nullptr;
-};
-//! [0]
-
-#endif // TEXTEDIT_H
+      private:
+        QString prefix;
+        QAbstractItemModel *modelFromStringList(const QStringList &list);
+        QCompleter *c = nullptr;
+    };
+} // namespace Qv2ray::ui::widgets
+using namespace Qv2ray::ui::widgets;

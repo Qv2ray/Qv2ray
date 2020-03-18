@@ -36,7 +36,7 @@ class QvInboundNodeModel : public NodeDataModel
         return "InboundNode";
     }
 
-    NodeDataType dataType(PortType portType, PortIndex portIndex) const override
+    std::shared_ptr<NodeDataType> dataType(PortType portType, PortIndex portIndex) const override
     {
         Q_UNUSED(portType);
         Q_UNUSED(portIndex);
@@ -61,6 +61,10 @@ class QvInboundNodeModel : public NodeDataModel
     QWidget *embeddedWidget() override
     {
         return _label;
+    }
+    std::unique_ptr<NodeDataModel> clone() const override
+    {
+        return std::make_unique<QvInboundNodeModel>(_in);
     }
 
   private:

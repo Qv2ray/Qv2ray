@@ -6,6 +6,11 @@
 #include <QDialog>
 #include <ui_w_PreferencesWindow.h>
 
+namespace Qv2ray::ui::widgets
+{
+    class AutoCompleteTextEdit;
+}
+
 class PreferencesWindow
     : public QDialog
     , private Ui::PreferencesWindow
@@ -165,6 +170,11 @@ class PreferencesWindow
     void on_startWithLoginCB_stateChanged(int arg1);
 
   private:
+    //
+    Qv2ray::ui::widgets::AutoCompleteTextEdit *directDomainTxt;
+    Qv2ray::ui::widgets::AutoCompleteTextEdit *proxyDomainTxt;
+    Qv2ray::ui::widgets::AutoCompleteTextEdit *blockDomainTxt;
+    //
     void SetAutoStartButtonsState(bool isAutoStart);
     // Set ui parameters for a line;
     void ShowLineParameters(QvBarLine &line);
