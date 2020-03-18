@@ -23,15 +23,6 @@
 ## Copyright
 ### This is free software, and you are welcome to redistribute it under certain conditions
 - ALL Credit goes to **Qv2ray User Group** and **Qv2ray Development Group**
-- Contributors (sorted alphabetically):
-  - @aliyuchang33
-  - @axionl
-  - @DuckSoft
-  - @lhy0403
-  - @rikakomoe
-  - @SoneWinstone
-  - @thebadgateway
-
 
 ### Libraries that have been used in Qv2ray are listed below (Sorted by date added)
 - Copyright (c) 2019 dridk (@dridk): **X2Struct** (Apache)
@@ -44,6 +35,7 @@
 - Copyright (c) 2020 Ram Pani (@DuckSoft): **QvRPCBridge** (WTFPL)
 - Copyright (c) 2019 ShadowSocks (@shadowsocks): **libQtShadowsocks** (LGPLv3)
 - Copyright (c) 2015-2020 qBittorrent (Anton Lashkov) (@qBittorrent): **speedplotview** (GPLv2)
+- Copyright (c) 2020 DuckVador (@DuckVador): **shadowsocksr-uvw** (GPLv3)
 
 ## Licences
 
