@@ -14,7 +14,7 @@ class OutboundEditor
     Q_OBJECT
   public:
     explicit OutboundEditor(QWidget *parent = nullptr);
-    explicit OutboundEditor(OUTBOUND outboundEntry, QWidget *parent = nullptr);
+    explicit OutboundEditor(const OUTBOUND &outboundEntry, QWidget *parent = nullptr);
     ~OutboundEditor();
     OUTBOUND OpenEditor();
     QString GetFriendlyName();
@@ -60,21 +60,36 @@ class OutboundEditor
 
     void on_securityCombo_currentIndexChanged(const QString &arg1);
 
+    void on_ssrPasswordTxt_textEdited(const QString &arg1);
+
+    void on_ssrMethodCombo_currentTextChanged(const QString &arg1);
+
+    void on_ssrProtocolCombo_currentTextChanged(const QString &arg1);
+
+    void on_ssrObfsCombo_currentTextChanged(const QString &arg1);
+
+    void on_ssrProtocolParamsTxt_textEdited(const QString &arg1);
+
+    void on_ssrObfsParamsTxt_textEdited(const QString &arg1);
+
   private:
     QString Tag;
     void ReloadGUI();
     bool useFProxy;
     OUTBOUND GenerateConnectionJson();
-    OUTBOUND Original;
+    OUTBOUND original;
     OUTBOUND Result;
     QJsonObject Mux;
     //
     // Connection Configs
-    QString OutboundType;
+    QString outboundType;
+    QString address;
+    QString port;
     //
     VMessServerObject vmess;
     ShadowSocksServerObject shadowsocks;
     SocksServerObject socks;
+    ShadowSocksRServerObject shadowsocksR;
     //
-    StreamSettingsWidget *ssWidget;
+    StreamSettingsWidget *streamWidget;
 };

@@ -415,8 +415,8 @@ namespace Qv2ray::base::objects
             QString protocol_param;
             QString obfs;
             QString obfs_param;
-            QString remarks;
-            QString group;
+            QString remarks; // Unused
+            QString group;   // Unused
             int port;
             ShadowSocksRServerObject()
                 : address("0.0.0.0"), method("aes-256-cfb"), password(""), protocol(""), protocol_param(""), obfs(""), obfs_param(""),

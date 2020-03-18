@@ -30,12 +30,15 @@
   </property>
   <layout class="QGridLayout" name="gridLayout_4" columnstretch="2,4">
    <item row="1" column="1">
-    <widget class="QGroupBox" name="groupBox_2">
+    <widget class="QGroupBox" name="streamSettingsGroupBox">
      <property name="title">
       <string>Stream Settings</string>
      </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
      <property name="checked">
-      <bool>false</bool>
+      <bool>true</bool>
      </property>
      <layout class="QGridLayout" name="gridLayout_3">
       <item row="0" column="0">
@@ -90,6 +93,11 @@
          <item>
           <property name="text">
            <string>Socks</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>ShadowSocksR</string>
           </property>
          </item>
         </widget>
@@ -442,6 +450,238 @@
                </size>
               </property>
              </spacer>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="page_4">
+           <layout class="QFormLayout" name="formLayout_3">
+            <item row="1" column="0">
+             <widget class="QLabel" name="label">
+              <property name="text">
+               <string>Method</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QComboBox" name="ssrMethodCombo">
+              <item>
+               <property name="text">
+                <string notr="true">rc4</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string notr="true">rc4-md5-6</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string notr="true">rc4-md5</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string notr="true">aes-128-cfb</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string notr="true">aes-192-cfb</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string notr="true">aes-256-cfb</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string notr="true">aes-128-ctr</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string notr="true">aes-192-ctr</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string notr="true">aes-256-ctr</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string notr="true">camellia-128-cfb</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string notr="true">camellia-192-cfb</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string notr="true">camellia-256-cfb</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string notr="true">bf-cfb</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string notr="true">cast5-cfb</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string notr="true">des-cfb</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string notr="true">idea-cfb</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string notr="true">rc2-cfb</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string notr="true">seed-cfb</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string notr="true">salsa20</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string notr="true">chacha20</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string notr="true">chacha20-ietf</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_2">
+              <property name="text">
+               <string>Password</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_3">
+              <property name="text">
+               <string>Protocol</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QComboBox" name="ssrProtocolCombo">
+              <item>
+               <property name="text">
+                <string notr="true">origin</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string notr="true">auth_sha1</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string notr="true">auth_sha1_v2</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string notr="true">auth_sha1_v4</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string notr="true">auth_aes128_sha1</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string notr="true">auth_aes128_md5</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string notr="true">auth_chain_a</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string notr="true">auth_chain_b</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QLabel" name="label_4">
+              <property name="text">
+               <string>Obfuscator</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLineEdit" name="ssrPasswordTxt"/>
+            </item>
+            <item row="3" column="1">
+             <widget class="QComboBox" name="ssrObfsCombo">
+              <item>
+               <property name="text">
+                <string notr="true">plain</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string notr="true">http_simple</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string notr="true">http_post</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string notr="true">tls1.2_ticket_auth</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item row="4" column="1">
+             <widget class="QLineEdit" name="ssrProtocolParamsTxt"/>
+            </item>
+            <item row="5" column="1">
+             <widget class="QLineEdit" name="ssrObfsParamsTxt"/>
+            </item>
+            <item row="4" column="0">
+             <widget class="QLabel" name="label_5">
+              <property name="text">
+               <string>Protocol Params</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="0">
+             <widget class="QLabel" name="label_7">
+              <property name="text">
+               <string>Obfs Params</string>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>

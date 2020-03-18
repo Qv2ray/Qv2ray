@@ -28,7 +28,7 @@ void signalHandler(int signum)
     qApp->exit(-99);
 }
 
-bool initialiseQv2ray()
+bool bootstrap()
 {
     LOG(MODULE_INIT, "Application exec path: " + QApplication::applicationDirPath())
     const QString currentPathConfig = QApplication::applicationDirPath() + "/config" QV2RAY_CONFIG_DIR_SUFFIX;
@@ -262,7 +262,8 @@ int main(int argc, char *argv[])
         "Copyright (c) 2019 TheWanderingCoel (@TheWanderingCoel): ShadowClash (launchatlogin) (GPLv3)" NEWLINE
         "Copyright (c) 2020 Ram Pani (@DuckSoft): QvRPCBridge (WTFPL)" NEWLINE
         "Copyright (c) 2019 ShadowSocks (@shadowsocks): libQtShadowsocks (LGPLv3)" NEWLINE
-        "Copyright (c) 2015-2020 qBittorrent (Anton Lashkov) (@qBittorrent): speedplotview (GPLv2)" NEWLINE NEWLINE)
+        "Copyright (c) 2015-2020 qBittorrent (Anton Lashkov) (@qBittorrent): speedplotview (GPLv2)" NEWLINE
+        "Copyright (c) 2020 shadowsocksr-uvw (DuckVador) (@DuckVador): ShadowSocksR support (GPLv3)" NEWLINE NEWLINE)
     //
     LOG(MODULE_INIT, "Qv2ray Start Time: " + QSTRN(QTime::currentTime().msecsSinceStartOfDay()))
     //
@@ -283,7 +284,7 @@ int main(int argc, char *argv[])
     //    }
 
     // Qv2ray Initialize, find possible config paths and verify them.
-    if (!initialiseQv2ray())
+    if (!bootstrap())
     {
         return -1;
     }
