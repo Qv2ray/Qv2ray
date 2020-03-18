@@ -1,13 +1,13 @@
 name: Build Qv2ray AUR
 on: 
   push:
-    paths-ignore:
-      - '.github'
-    branches:
-      - master
-      - dev
-    tags:
-      - 'v**'
+#     paths-ignore:
+#       - '.github'
+#     branches:
+#       - master
+#       - dev
+#     tags:
+#       - 'v**'
   schedule:
     - cron: "0 19 * * *"
 
@@ -16,7 +16,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        repo: [qv2ray, qv2ray-dev-git]
+        repo: [s3backer-git]
     runs-on: [ubuntu-latest]
     steps:
       - uses: DuckSoft/build-aur-action@v1.0
@@ -24,11 +24,4 @@ jobs:
           repo-name: ${{ matrix.repo }}
 
       - name: Post AUR Build Action
-        uses: DuckSoft/post-aur-build-action@0.0.9
-        id: post
-
-      - uses: actions/upload-artifact@master
-        with:
-          name: ${{ steps.post.outputs.pkgfile }}
-          path: ${{ steps.post.outputs.pkgpath }}
-  
+        uses: DuckSoft/post-aur-build-action@0.1.0
