@@ -2,14 +2,6 @@
 <ui version="4.0">
  <class>ConnectionInfoWidget</class>
  <widget class="QWidget" name="ConnectionInfoWidget">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>418</width>
-    <height>215</height>
-   </rect>
-  </property>
   <property name="sizePolicy">
    <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
     <horstretch>0</horstretch>

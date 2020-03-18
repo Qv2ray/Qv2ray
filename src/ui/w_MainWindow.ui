@@ -6,15 +6,9 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>880</width>
-    <height>660</height>
+    <width>908</width>
+    <height>679</height>
    </rect>
-  </property>
-  <property name="minimumSize">
-   <size>
-    <width>780</width>
-    <height>530</height>
-   </size>
   </property>
   <property name="windowTitle">
    <string>Qv2ray</string>
@@ -48,12 +42,9 @@
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Maximum</enum>
-        </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>999999999</width>
+          <width>0</width>
           <height>0</height>
          </size>
         </property>
@@ -427,8 +418,8 @@
         </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>40</width>
-          <height>20</height>
+          <width>0</width>
+          <height>0</height>
          </size>
         </property>
        </spacer>

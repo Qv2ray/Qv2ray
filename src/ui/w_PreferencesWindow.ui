@@ -5,14 +5,6 @@
   <property name="windowModality">
    <enum>Qt::ApplicationModal</enum>
   </property>
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>1043</width>
-    <height>656</height>
-   </rect>
-  </property>
   <property name="windowTitle">
    <string>Preferences</string>
   </property>
@@ -43,7 +35,7 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>997</width>
+            <width>964</width>
             <height>546</height>
            </rect>
           </property>
@@ -490,7 +482,7 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>1054</width>
+            <width>1016</width>
             <height>604</height>
            </rect>
           </property>

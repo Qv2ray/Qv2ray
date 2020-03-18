@@ -2,14 +2,6 @@
 <ui version="4.0">
  <class>w_SubscribeEditor</class>
  <widget class="QDialog" name="w_SubscribeEditor">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>655</width>
-    <height>440</height>
-   </rect>
-  </property>
   <property name="minimumSize">
    <size>
     <width>655</width>

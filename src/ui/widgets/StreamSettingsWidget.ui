@@ -2,14 +2,6 @@
 <ui version="4.0">
  <class>StreamSettingsWidget</class>
  <widget class="QWidget" name="StreamSettingsWidget">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>384</width>
-    <height>422</height>
-   </rect>
-  </property>
   <property name="windowTitle">
    <string>Stream Settings Widget</string>
   </property>
