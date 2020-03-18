@@ -91,6 +91,7 @@ class MainWindow
     void on_action_RCM_RenameThis_triggered();
     void on_action_RCM_DeleteThese_triggered();
     void on_action_RCM_DuplicateThese_triggered();
+    void on_action_RCM_ClearUsage_triggered();
     //
     void on_action_RCM_tovCoreLog_triggered();
     void on_action_RCM_toQvLog_triggered();
@@ -145,6 +146,7 @@ class MainWindow
     QAction *action_RCM_EditComplex = new QAction(tr("Edit as Complex Config"), this);
     QAction *action_RCM_Rename = new QAction(tr("Rename"), this);
     QAction *action_RCM_Duplicate = new QAction(tr("Duplicate to the Same Group"), this);
+    QAction *action_RCM_ClearUsage = new QAction(tr("Clear Usage Data"), this);
     QAction *action_RCM_Delete = new QAction(tr("Delete Connection"), this);
     //
     QMenu *sortMenu = new QMenu(tr("Sort connection list."), this);

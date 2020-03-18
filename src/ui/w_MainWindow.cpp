@@ -59,6 +59,7 @@ void MainWindow::UpdateColorScheme()
     action_RCM_EditComplex->setIcon(QICON_R("edit.png"));
     action_RCM_Duplicate->setIcon(QICON_R("duplicate.png"));
     action_RCM_Delete->setIcon(QICON_R("delete.png"));
+    action_RCM_ClearUsage->setIcon(QICON_R("delete.png"));
     //
     locateBtn->setIcon(QICON_R("locate.png"));
     sortBtn->setIcon(QICON_R("sort.png"));
@@ -216,6 +217,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connectionListRCM_Menu->addSeparator();
     connectionListRCM_Menu->addAction(action_RCM_Rename);
     connectionListRCM_Menu->addAction(action_RCM_Duplicate);
+    connectionListRCM_Menu->addAction(action_RCM_ClearUsage);
     connectionListRCM_Menu->addSeparator();
     connectionListRCM_Menu->addAction(action_RCM_Delete);
     connect(action_RCM_Start, &QAction::triggered, this, &MainWindow::on_action_StartThis_triggered);
@@ -226,6 +228,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(action_RCM_EditComplex, &QAction::triggered, this, &MainWindow::on_action_RCM_EditAsComplex_triggered);
     connect(action_RCM_Rename, &QAction::triggered, this, &MainWindow::on_action_RCM_RenameThis_triggered);
     connect(action_RCM_Duplicate, &QAction::triggered, this, &MainWindow::on_action_RCM_DuplicateThese_triggered);
+    connect(action_RCM_ClearUsage, &QAction::triggered, this, &MainWindow::on_action_RCM_ClearUsage_triggered);
     connect(action_RCM_Delete, &QAction::triggered, this, &MainWindow::on_action_RCM_DeleteThese_triggered);
     //
     // Sort Menu
@@ -588,7 +591,9 @@ void MainWindow::OnDisconnected(const ConnectionId &id)
     lastConnectedId = id;
     locateBtn->setEnabled(false);
     this->hTray.showMessage("Qv2ray", tr("Disconnected from: ") + GetDisplayName(id), this->windowIcon());
-    hTray.setToolTip(TRAY_TOOLTIP_PREFIX NEWLINE);
+    hTray.setToolTip(TRAY_TOOLTIP_PREFIX);
+    netspeedLabel->setText("0.00 B/s" NEWLINE "0.00 B/s");
+    dataamountLabel->setText("0.00 B" NEWLINE "0.00 B");
     connetionStatusLabel->setText(tr("Not Connected"));
     if (GlobalConfig.inboundConfig.setSystemProxy)
     {
@@ -748,7 +753,8 @@ void MainWindow::on_connectionListWidget_itemClicked(QTreeWidgetItem *item, int 
 
 void MainWindow::OnStatsAvailable(const ConnectionId &id, const quint64 upS, const quint64 downS, const quint64 upD, const quint64 downD)
 {
-    Q_UNUSED(id);
+    if (!ConnectionManager->IsConnected(id))
+        return;
     // This may not be, or may not precisely be, speed per second if the backend
     // has "any" latency. (Hope not...)
     speedChartWidget->AddPointData(upS, downS);
@@ -977,5 +983,15 @@ void MainWindow::on_action_RCM_SetAutoConnection_triggered()
         GlobalConfig.autoStartId = conn.toString();
         hTray.showMessage(tr("Set auto connection"), tr("Set %1 as auto connect.").arg(GetDisplayName(conn)));
         SaveGlobalSettings();
+    }
+}
+
+void MainWindow::on_action_RCM_ClearUsage_triggered()
+{
+    auto current = connectionListWidget->currentItem();
+    if (current != nullptr)
+    {
+        auto widget = GetItemWidget(current);
+        ConnectionManager->ClearConnectionUsage(get<1>(widget->Identifier()));
     }
 }

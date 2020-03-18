@@ -208,6 +208,15 @@ namespace Qv2ray::core::handlers
         return NullGroupId;
     }
 
+    const optional<QString> QvConfigHandler::ClearConnectionUsage(const ConnectionId &id)
+    {
+        CheckConnectionExistance(id);
+        connections[id].upLinkData = 0;
+        connections[id].downLinkData = 0;
+        emit OnStatsAvailable(id, 0, 0, 0, 0);
+        return {};
+    }
+
     const optional<QString> QvConfigHandler::RenameConnection(const ConnectionId &id, const QString &newName)
     {
         CheckConnectionExistance(id);
