@@ -234,7 +234,7 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-168</y>
+          <y>0</y>
           <width>480</width>
           <height>736</height>
          </rect>
@@ -242,21 +242,9 @@
         <layout class="QVBoxLayout" name="verticalLayout_3">
          <item>
           <widget class="QFrame" name="connectionInfoFrame">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
            <property name="minimumSize">
             <size>
              <width>0</width>
-             <height>220</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
              <height>220</height>
             </size>
            </property>
