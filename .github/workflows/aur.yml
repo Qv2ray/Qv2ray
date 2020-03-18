@@ -1,13 +1,13 @@
 name: Build Qv2ray AUR
 on: 
   push:
-#     paths-ignore:
-#       - '.github'
-#     branches:
-#       - master
-#       - dev
-#     tags:
-#       - 'v**'
+    paths-ignore:
+      - '.github'
+    branches:
+      - master
+      - dev
+    tags:
+      - 'v**'
   schedule:
     - cron: "0 19 * * *"
 
@@ -16,7 +16,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        repo: [s3backer-git]
+        repo: [qv2ray, qv2ray-dev-git]
     runs-on: [ubuntu-latest]
     steps:
       - uses: DuckSoft/build-aur-action@v1.0
