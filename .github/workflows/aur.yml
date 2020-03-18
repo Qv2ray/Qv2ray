@@ -24,11 +24,4 @@ jobs:
           repo-name: ${{ matrix.repo }}
 
       - name: Post AUR Build Action
-        uses: DuckSoft/post-aur-build-action@0.0.9
-        id: post
-
-      - uses: actions/upload-artifact@master
-        with:
-          name: ${{ steps.post.outputs.pkgfile }}
-          path: ${{ steps.post.outputs.pkgpath }}
-  
+        uses: DuckSoft/post-aur-build-action@0.1.0
