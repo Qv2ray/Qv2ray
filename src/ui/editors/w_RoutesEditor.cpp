@@ -936,12 +936,6 @@ void RouteEditor::on_domainStrategyCombo_currentIndexChanged(const QString &arg1
     domainStrategy = arg1;
 }
 
-void RouteEditor::on_defaultOutboundCombo_currentIndexChanged(const QString &arg1)
-{
-    LOADINGCHECK
-    defaultOutbound = arg1;
-}
-
 void RouteEditor::on_ruleRenameBtn_clicked()
 {
     auto newTag = ruleTagLineEdit->text();
@@ -965,4 +959,10 @@ void RouteEditor::on_ruleRenameBtn_clicked()
     {
         RenameItemTag(RENAME_RULE, CurrentRule.QV2RAY_RULE_TAG, &newTag);
     }
+}
+
+void RouteEditor::on_defaultOutboundCombo_currentTextChanged(const QString &arg1)
+{
+    LOADINGCHECK
+    defaultOutbound = arg1;
 }
