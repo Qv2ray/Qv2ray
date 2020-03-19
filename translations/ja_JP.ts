@@ -119,22 +119,22 @@
         <translation>リンクを共有</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/ConnectionInfoWidget.cpp" line="112"/>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.cpp" line="115"/>
         <source>(Ignored %1 complex config(s))</source>
         <translation>（%1の複雑構成は無視されました）</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/ConnectionInfoWidget.cpp" line="117"/>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.cpp" line="120"/>
         <source>Not a subscription</source>
         <translation>サブスクリプションではありません</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/ConnectionInfoWidget.cpp" line="155"/>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.cpp" line="168"/>
         <source>Delete an item</source>
         <translation>アイテムを削除する</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/ConnectionInfoWidget.cpp" line="155"/>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.cpp" line="168"/>
         <source>Are you sure to delete the current item?</source>
         <translation>現在のアイテムを削除してもよろしいですか？</translation>
     </message>
@@ -320,14 +320,12 @@
         <translation type="vanished">インポートされたインバウンド設定を保持する</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.ui"/>
         <source>Edit Config</source>
-        <translation>構成の編集</translation>
+        <translation type="vanished">構成の編集</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.ui"/>
         <source>Open in JSON Editor</source>
-        <translation>JSONエディターで開く</translation>
+        <translation type="vanished">JSONエディターで開く</translation>
     </message>
     <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
@@ -457,26 +455,20 @@
         <translation>画像からQRコードが見つかりません。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="235"/>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="247"/>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="270"/>
         <source>Edit file as JSON</source>
-        <translation>ファイルをJSONとして編集</translation>
+        <translation type="vanished">ファイルをJSONとして編集</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="235"/>
         <source>Provided file not found: </source>
-        <translation>指定されたファイルが見つかりません: </translation>
+        <translation type="vanished">指定されたファイルが見つかりません: </translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="248"/>
         <source>The file you selected has json syntax error. Continue editing may make you lose data. Would you like to continue?</source>
-        <translation>選択したファイルにはJSON構文エラーがあります。編集を続けると、データが失われる可能性があります。続行しますか？</translation>
+        <translation type="vanished">選択したファイルにはJSON構文エラーがあります。編集を続けると、データが失われる可能性があります。続行しますか？</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="270"/>
         <source>Failed to save file, please check if you have proper permissions</source>
-        <translation>ファイルを保存できませんでした。適切な権限があるかどうかを確認してください</translation>
+        <translation type="vanished">ファイルを保存できませんでした。適切な権限があるかどうかを確認してください</translation>
     </message>
     <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
@@ -1261,27 +1253,27 @@
         <translation>HTTPを使用するように設定されているため、PACサーバーを起動できませんでしたが、有効になっていません</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="910"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="909"/>
         <source>Duplicating Connection(s)</source>
         <translation>接続を重複</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="911"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="910"/>
         <source>Are you sure to duplicate these connection(s)?</source>
         <translation>これらの接続を複製してもよろしいですか？</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="918"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="917"/>
         <source> (Copy)</source>
         <translation> （コピー）</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="984"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="983"/>
         <source>Set auto connection</source>
         <translation>自動接続設定</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="984"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="983"/>
         <source>Set %1 as auto connect.</source>
         <translation>%1 を自動接続として設定します。</translation>
     </message>
@@ -1627,11 +1619,11 @@
     <name>PreferencesWindow</name>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="282"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="286"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="566"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="580"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="590"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="268"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="272"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="549"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="563"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="573"/>
         <source>Preferences</source>
         <translation>設定</translation>
     </message>
@@ -2101,13 +2093,13 @@
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="836"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="819"/>
         <source>Bold</source>
         <translation>Bold</translation>
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="837"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="820"/>
         <source>Italic</source>
         <translation>斜体</translation>
     </message>
@@ -2217,99 +2209,99 @@
         <translation>Qtについて</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="82"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="81"/>
         <source>Use Darkmode Theme</source>
         <translation>ダークモードテーマを使用する</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="155"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="154"/>
         <source>Page</source>
         <translation>ページ</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="156"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="155"/>
         <source>Item(s)</source>
         <translation>アイテム</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="488"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="548"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="471"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="531"/>
         <source>Enable tProxy Support</source>
         <translation>tProxyサポートを有効にする</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="550"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="533"/>
         <source>to this path: </source>
         <translation>このパスへ: </translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="47"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="46"/>
         <source>Qv2ray Network Toolbar is disabled and still under test. Add --withToolbarPlugin to enable.</source>
         <translation>Qv2rayネットワークツールバーは無効になっており、まだテスト中です。 --withToolbarPluginを追加して有効にします。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="282"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="268"/>
         <source>Duplicated port numbers detected, please check the port number settings.</source>
         <translation>重複したポート番号が検出されました。ポート番号の設定を確認してください。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="286"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="272"/>
         <source>Invalid inbound listening address.</source>
         <translation>無効なインバウンドリスニングアドレス。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="407"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="390"/>
         <source>Open V2ray assets folder</source>
         <translation>V2rayアセットフォルダーを開く</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="418"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="401"/>
         <source>Open V2ray core file</source>
         <translation>V2rayコアファイルを開く</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="489"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="472"/>
         <source>This will append capabilities to the V2ray executable.</source>
         <translation>これにより、V2ray実行可能ファイルに機能が追加されます。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="490"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="473"/>
         <source>Qv2ray will copy your V2ray core to this path: </source>
         <translation>Qv2rayは、V2rayコアを次のパスにコピーします: </translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="491"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="474"/>
         <source>If anything goes wrong after enabling this, please check issue #57 or the link below:</source>
         <translation>これを有効にした後に何か問題が発生した場合は、問題#57または以下のリンクを確認してください:</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="549"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="532"/>
         <source>Qv2ray cannot copy one or both V2ray files from: </source>
         <translation>Qv2rayは、V2rayファイルの一方または両方を以下からコピーできません: </translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="566"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="580"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="549"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="563"/>
         <source>Failed to setcap onto V2ray executable. You may need to run `setcap` manually.</source>
         <translation>V2ray実行可能ファイルへのsetcapに失敗しました。`setcap`を手動で実行する必要がある場合があります。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="590"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="573"/>
         <source>tProxy is not supported on macOS and Windows</source>
         <translation>tProxyはmacOSおよびWindowsではサポートされていません</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="900"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="883"/>
         <source>Apply network toolbar settings</source>
         <translation>ネットワークツールバー設定を適用する</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="901"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="884"/>
         <source>All other modified settings will be applied as well after this object.</source>
         <translation>All other modified settings will be applied as well after this object.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="902"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="885"/>
         <source>Do you want to continue?</source>
         <translation>続けますか？</translation>
     </message>
@@ -2322,49 +2314,49 @@
         <translation type="vanished">Please restart Qv2ray to fully apply this feature.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="982"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="965"/>
         <source>Select GFWList in base64</source>
         <translation>Base64でGFWListを選択します</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="986"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="995"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="969"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="978"/>
         <source>Download GFWList</source>
         <translation>GFWListをダウンロードする</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="986"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="969"/>
         <source>Operation is cancelled.</source>
         <translation>操作はキャンセルされます。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="995"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="978"/>
         <source>Successfully downloaded GFWList.</source>
         <translation>GFWListを正常にダウンロードしました。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1089"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1072"/>
         <source>Start with boot</source>
         <translation>ブート時に起動します</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1089"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1072"/>
         <source>Failed to set auto start option.</source>
         <translation>自動開始オプションの設定に失敗しました。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1178"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1182"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1161"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1165"/>
         <source>V2ray Core Settings</source>
         <translation>V2ray Core設定</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1183"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1166"/>
         <source>V2ray path configuration check passed.</source>
         <translation>V2rayパス構成チェックに合格しました。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1183"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1166"/>
         <source>Current version of V2ray is: </source>
         <translation>V2rayの現在のバージョンは次のとおりです: </translation>
     </message>
@@ -2397,19 +2389,26 @@ p, li { white-space: pre-wrap; }
         <translation>中国本土をバイパス</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.ui"/>
         <source>Blocked Domains</source>
-        <translation>ブロックされたドメイン</translation>
+        <translation type="vanished">ブロックされたドメイン</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.ui"/>
         <source>Direct Connect Domains</source>
-        <translation>直接接続ドメイン</translation>
+        <translation type="vanished">直接接続ドメイン</translation>
+    </message>
+    <message>
+        <source>Proxied Domains</source>
+        <translation type="vanished">プロキシされたドメイン</translation>
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
-        <source>Proxied Domains</source>
-        <translation>プロキシされたドメイン</translation>
+        <source>Advanced Route Settings</source>
+        <translation>高度なルート設定</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PreferencesWindow.ui"/>
+        <source>You can configure route rules for all simple connection config here.</source>
+        <translation>ここで、すべての単純接続設定のルートルールを設定できます。</translation>
     </message>
 </context>
 <context>
@@ -2804,25 +2803,25 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../src/core/settings/SettingsUpgrade.cpp" line="277"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1209"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1192"/>
         <source>Deprecated</source>
         <translation>非推奨</translation>
     </message>
     <message>
         <location filename="../src/core/settings/SettingsUpgrade.cpp" line="278"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1210"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1193"/>
         <source>PAC is now deprecated and is not encouraged to be used anymore.</source>
         <translation>PACは非推奨になり、使用を推奨されなくなりました。</translation>
     </message>
     <message>
         <location filename="../src/core/settings/SettingsUpgrade.cpp" line="279"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1211"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1194"/>
         <source>It will be removed or be provided as a plugin in the future.</source>
         <translation>今後削除されるか、プラグインとして提供されます。</translation>
     </message>
     <message>
         <location filename="../src/core/settings/SettingsUpgrade.cpp" line="280"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1212"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1195"/>
         <source>PAC will still work currently, but please switch to the V2ray built-in routing as soon as possible.</source>
         <translation>PACは現在も機能しますが、できるだけ早くV2Rayの組み込みルーティングに切り替えてください。</translation>
     </message>
@@ -3024,7 +3023,7 @@ p, li { white-space: pre-wrap; }
     <name>RouteEditor</name>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui"/>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="663"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="662"/>
         <source>Route Editor</source>
         <translation>ルートエディター</translation>
     </message>
@@ -3264,47 +3263,47 @@ p, li { white-space: pre-wrap; }
         <translation>ユーザーリスト</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="560"/>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="860"/>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="924"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="559"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="859"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="923"/>
         <source>OK</source>
         <translation>よし</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="844"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="843"/>
         <source>Cannot Edit</source>
         <translation>編集できません</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="896"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="895"/>
         <source>This outbound entry is not supported by the GUI editor.</source>
         <translation>このアウトバウンドエントリは、GUIエディタでサポートされていません。</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="846"/>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="897"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="845"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="896"/>
         <source>We will launch Json Editor instead.</source>
         <translation>代わりにJson Editorを起動します。</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="422"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="421"/>
         <source>Show rule details</source>
         <translation>ルールの詳細を表示</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="422"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="421"/>
         <source>A rule cannot be found: </source>
         <translation>ルールが見つかりません: </translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="514"/>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="531"/>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="548"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="513"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="530"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="547"/>
         <source>Protocol list changed: </source>
         <translation>変更されたプロトコルリスト: </translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="564"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="563"/>
         <source>Balancer is empty, not processing.</source>
         <translation>バランサーは空であり、処理されていません。</translation>
     </message>
@@ -3340,103 +3339,103 @@ p, li { white-space: pre-wrap; }
         <translation>新しいタグが使用されたため、ランダムな文字列をタグに追加します。</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="663"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="662"/>
         <source>To make this rule ready to use, you need to connect it to an outbound node.</source>
         <translation>このルールを使用できるようにするには、アウトバウンドノードに接続する必要があります。</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="742"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="741"/>
         <source>Remove Items</source>
         <translation>アイテムを削除する</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="742"/>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="819"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="741"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="818"/>
         <source>Please select a node from the graph to continue.</source>
         <translation>続行するには、グラフからノードを選択してください。</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="812"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="811"/>
         <source>Error</source>
         <translation>エラー</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="812"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="811"/>
         <source>Qv2ray entered an unknown state.</source>
         <translation>Qv2rayが不明な状態になりました。</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="819"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="818"/>
         <source>Edit Inbound/Outbound</source>
         <translation>インバウンド/アウトバウンドの編集</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="833"/>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="884"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="832"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="883"/>
         <source>Edit Inbound</source>
         <translation>インバウンドを編集</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="833"/>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="884"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="832"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="883"/>
         <source>No inbound tag found: </source>
         <translation>受信タグが見つかりません: </translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="847"/>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="899"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="846"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="898"/>
         <source>Opening JSON editor</source>
         <translation>JSONエディターを開く</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="895"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="894"/>
         <source>Unsupported Outbound Type</source>
         <translation>サポートされていないアウトバウンドタイプ</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="906"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="905"/>
         <source>Opening default outbound editor.</source>
         <translation>デフォルトのアウトバウンドエディターを開きます。</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="952"/>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="957"/>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="962"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="945"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="950"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="955"/>
         <source>Renaming a tag</source>
         <translation>タグの名前を変更する</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="952"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="945"/>
         <source>New tag is empty, please try another.</source>
         <translation>新しいタグが空です。別のタグを試してください。</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="957"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="950"/>
         <source>New tag is the same as the original one.</source>
         <translation>新しいタグは元のタグと同じです。</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="962"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="955"/>
         <source>Duplicate rule tag detected, please try another.</source>
         <translation>重複したルールタグが検出されました。別のタグを試してください。</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="496"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="495"/>
         <source>Added DIRECT outbound</source>
         <translation>DIRECTアウトバウンドを追加しました</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="845"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="844"/>
         <source>Currently, this type of outbound is not supported by the editor.</source>
         <translation>現在、このタイプのアウトバウンドはエディターでサポートされていません。</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="855"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="854"/>
         <source>Opening default inbound editor</source>
         <translation>デフォルトのインバウンドエディターを開く</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="578"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="577"/>
         <source>Removed a balancer entry.</source>
         <translation>バランサーエントリを削除しました。</translation>
     </message>
@@ -3471,6 +3470,79 @@ p, li { white-space: pre-wrap; }
         <location filename="../src/ui/editors/w_RoutesEditor.ui"/>
         <source>Rename</source>
         <translation>改称する</translation>
+    </message>
+</context>
+<context>
+    <name>RouteSettingsMatrix</name>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.ui"/>
+        <source>Form</source>
+        <translation>Form</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.ui"/>
+        <source>Lines start with &quot;geoip:&quot; or &quot;geosite:&quot; will have its autocompletion from geoip.dat and geosite.dat</source>
+        <translation>「geoip:」または「geosite:」で始まる行は、geoip.datおよびgeosite.datから自動補完されます</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.ui"/>
+        <source>Direct</source>
+        <translation>直接接続</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.ui"/>
+        <source>Proxy</source>
+        <translation>プロキシ経由で接続</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.ui"/>
+        <source>Block</source>
+        <translation>ブロック</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.ui"/>
+        <source>Domain</source>
+        <translation>ドメイン</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.ui"/>
+        <source>IP</source>
+        <translation>IP</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.ui"/>
+        <source>Use built-in route schemes</source>
+        <translation>組み込みのルートスキームを使用する</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.ui"/>
+        <source>Built-in Schemes</source>
+        <translation>組み込みスキーム</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.ui"/>
+        <source>Import route scheme from file</source>
+        <translation>ファイルからルートスキームをインポートする</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.ui"/>
+        <source>Import Scheme</source>
+        <translation>スキームをインポート</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.ui"/>
+        <source>Export route scheme to file</source>
+        <translation>ルートスキームをファイルにエクスポート</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.ui"/>
+        <source>Export Scheme</source>
+        <translation>スキームをエクスポート</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.ui"/>
+        <source>Coming soon!</source>
+        <translation>近日公開！</translation>
     </message>
 </context>
 <context>

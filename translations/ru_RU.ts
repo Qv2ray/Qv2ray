@@ -103,22 +103,22 @@
         <translation type="unfinished">Поделитесь ссылкой</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/ConnectionInfoWidget.cpp" line="112"/>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.cpp" line="115"/>
         <source>(Ignored %1 complex config(s))</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/ConnectionInfoWidget.cpp" line="117"/>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.cpp" line="120"/>
         <source>Not a subscription</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/ConnectionInfoWidget.cpp" line="155"/>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.cpp" line="168"/>
         <source>Delete an item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/ConnectionInfoWidget.cpp" line="155"/>
+        <location filename="../src/ui/widgets/ConnectionInfoWidget.cpp" line="168"/>
         <source>Are you sure to delete the current item?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -304,14 +304,12 @@
         <translation type="vanished">Сохранить импортированные параметры</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.ui"/>
         <source>Edit Config</source>
-        <translation>Изменить настройки</translation>
+        <translation type="vanished">Изменить настройки</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.ui"/>
         <source>Open in JSON Editor</source>
-        <translation>Открыть в JSON редакторе</translation>
+        <translation type="vanished">Открыть в JSON редакторе</translation>
     </message>
     <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
@@ -441,26 +439,20 @@
         <translation>Не удается найти QRCode в изображении.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="235"/>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="247"/>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="270"/>
         <source>Edit file as JSON</source>
-        <translation>Изменить JSON файл</translation>
+        <translation type="vanished">Изменить JSON файл</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="235"/>
         <source>Provided file not found: </source>
-        <translation>Предоставленный файл не найден: </translation>
+        <translation type="vanished">Предоставленный файл не найден: </translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="248"/>
         <source>The file you selected has json syntax error. Continue editing may make you lose data. Would you like to continue?</source>
-        <translation>Выбранный вами файл содержит синтаксическую ошибку json. Изменение может привести к потере данных. Вы хотите продолжить?</translation>
+        <translation type="vanished">Выбранный вами файл содержит синтаксическую ошибку json. Изменение может привести к потере данных. Вы хотите продолжить?</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="270"/>
         <source>Failed to save file, please check if you have proper permissions</source>
-        <translation>Не удалось сохранить файл, пожалуйста, проверьте, есть ли у вас необходимые разрешения</translation>
+        <translation type="vanished">Не удалось сохранить файл, пожалуйста, проверьте, есть ли у вас необходимые разрешения</translation>
     </message>
     <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
@@ -1245,27 +1237,27 @@
         <translation>Не удалось запустить PAC сервер, так как он настроен на использование HTTP, но он не включен</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="910"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="909"/>
         <source>Duplicating Connection(s)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="911"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="910"/>
         <source>Are you sure to duplicate these connection(s)?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="918"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="917"/>
         <source> (Copy)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="984"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="983"/>
         <source>Set auto connection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="984"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="983"/>
         <source>Set %1 as auto connect.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1611,11 +1603,11 @@
     <name>PreferencesWindow</name>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="282"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="286"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="566"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="580"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="590"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="268"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="272"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="549"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="563"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="573"/>
         <source>Preferences</source>
         <translation>Настройки</translation>
     </message>
@@ -2085,13 +2077,13 @@
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="836"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="819"/>
         <source>Bold</source>
         <translation>Жирный</translation>
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="837"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="820"/>
         <source>Italic</source>
         <translation>Курсив</translation>
     </message>
@@ -2201,99 +2193,99 @@
         <translation>Об инструментарии Qt</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="82"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="81"/>
         <source>Use Darkmode Theme</source>
         <translation>Использовать темную тему</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="155"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="154"/>
         <source>Page</source>
         <translation>Стр.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="156"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="155"/>
         <source>Item(s)</source>
         <translation>Объекты</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="488"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="548"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="471"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="531"/>
         <source>Enable tProxy Support</source>
         <translation>Включить tProxy поддержку</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="550"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="533"/>
         <source>to this path: </source>
         <translation>на этот путь: </translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="47"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="46"/>
         <source>Qv2ray Network Toolbar is disabled and still under test. Add --withToolbarPlugin to enable.</source>
         <translation>Панель инструментов сети Qv2ray отключена и все еще тестируется. Добавьте --withToolbarPlugin для включения.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="282"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="268"/>
         <source>Duplicated port numbers detected, please check the port number settings.</source>
         <translation>Обнаружены дублированные номера портов, проверьте настройки номера порта.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="286"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="272"/>
         <source>Invalid inbound listening address.</source>
         <translation>Неверный входящий адрес прослушивания.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="407"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="390"/>
         <source>Open V2ray assets folder</source>
         <translation>Откройте папку активов v2ray</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="418"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="401"/>
         <source>Open V2ray core file</source>
         <translation>Открыть основной файл V2ray</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="489"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="472"/>
         <source>This will append capabilities to the V2ray executable.</source>
         <translation>Это добавит возможности к исполняемому файлу V2ray.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="490"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="473"/>
         <source>Qv2ray will copy your V2ray core to this path: </source>
         <translation>Qv2ray скопирует ваше ядро V2ray по этому пути:</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="491"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="474"/>
         <source>If anything goes wrong after enabling this, please check issue #57 or the link below:</source>
         <translation>Если после включения этого параметра что-то пойдет не так, проверьте проблему № 57 или ссылку ниже:</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="549"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="532"/>
         <source>Qv2ray cannot copy one or both V2ray files from: </source>
         <translation>Qv2ray не может скопировать один или оба файла V2ray из:</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="566"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="580"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="549"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="563"/>
         <source>Failed to setcap onto V2ray executable. You may need to run `setcap` manually.</source>
         <translation>Не удалось установить setcap на исполняемый файл V2ray. Возможно, вам придется запустить `setcap` вручную.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="590"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="573"/>
         <source>tProxy is not supported on macOS and Windows</source>
         <translation>tProxy не поддерживается на macOS и Windows</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="900"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="883"/>
         <source>Apply network toolbar settings</source>
         <translation>Применить настройки панели инструментов сети</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="901"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="884"/>
         <source>All other modified settings will be applied as well after this object.</source>
         <translation>Все остальные измененные настройки будут применены и после этого объекта.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="902"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="885"/>
         <source>Do you want to continue?</source>
         <translation>Вы хотите продолжить?</translation>
     </message>
@@ -2306,49 +2298,49 @@
         <translation type="vanished">Пожалуйста, перезапустите Qv2ray, чтобы полностью применить эту функцию.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="982"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="965"/>
         <source>Select GFWList in base64</source>
         <translation>Выберите GFWList в base64</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="986"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="995"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="969"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="978"/>
         <source>Download GFWList</source>
         <translation>Скачать GFWList</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="986"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="969"/>
         <source>Operation is cancelled.</source>
         <translation>Операция отменена.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="995"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="978"/>
         <source>Successfully downloaded GFWList.</source>
         <translation>Успешно загружено %1$s.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1089"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1072"/>
         <source>Start with boot</source>
         <translation>Автозапуск</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1089"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1072"/>
         <source>Failed to set auto start option.</source>
         <translation>Не удалось установить опцию автозапуска.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1178"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1182"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1161"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1165"/>
         <source>V2ray Core Settings</source>
         <translation>Настройки ядра V2ray</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1183"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1166"/>
         <source>V2ray path configuration check passed.</source>
         <translation>Проверка конфигурации пути V2ray пройдена.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1183"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1166"/>
         <source>Current version of V2ray is: </source>
         <translation>Текущая версия V2ray:</translation>
     </message>
@@ -2382,17 +2374,12 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
-        <source>Blocked Domains</source>
+        <source>Advanced Route Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
-        <source>Direct Connect Domains</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PreferencesWindow.ui"/>
-        <source>Proxied Domains</source>
+        <source>You can configure route rules for all simple connection config here.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2788,25 +2775,25 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../src/core/settings/SettingsUpgrade.cpp" line="277"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1209"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1192"/>
         <source>Deprecated</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/core/settings/SettingsUpgrade.cpp" line="278"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1210"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1193"/>
         <source>PAC is now deprecated and is not encouraged to be used anymore.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/core/settings/SettingsUpgrade.cpp" line="279"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1211"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1194"/>
         <source>It will be removed or be provided as a plugin in the future.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/core/settings/SettingsUpgrade.cpp" line="280"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1212"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1195"/>
         <source>PAC will still work currently, but please switch to the V2ray built-in routing as soon as possible.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3008,7 +2995,7 @@ p, li { white-space: pre-wrap; }
     <name>RouteEditor</name>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui"/>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="663"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="662"/>
         <source>Route Editor</source>
         <translation>Редактор маршрута</translation>
     </message>
@@ -3248,47 +3235,47 @@ p, li { white-space: pre-wrap; }
         <translation>Список пользователей</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="560"/>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="860"/>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="924"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="559"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="859"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="923"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="844"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="843"/>
         <source>Cannot Edit</source>
         <translation>Не удается изменить</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="896"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="895"/>
         <source>This outbound entry is not supported by the GUI editor.</source>
         <translation>Эта исходящая запись не поддерживается редактором GUI.</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="846"/>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="897"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="845"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="896"/>
         <source>We will launch Json Editor instead.</source>
         <translation>Запущен Json редактор.</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="422"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="421"/>
         <source>Show rule details</source>
         <translation>Показать подробности правила</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="422"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="421"/>
         <source>A rule cannot be found: </source>
         <translation>Правило не может быть найдено:</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="514"/>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="531"/>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="548"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="513"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="530"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="547"/>
         <source>Protocol list changed: </source>
         <translation>Список протоколов изменен: </translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="564"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="563"/>
         <source>Balancer is empty, not processing.</source>
         <translation>Балансер пуст и не обрабатывается.</translation>
     </message>
@@ -3324,103 +3311,103 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="663"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="662"/>
         <source>To make this rule ready to use, you need to connect it to an outbound node.</source>
         <translation>Чтобы это правило было готовым к использованию, необходимо подключить его к исходящему узлу.</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="742"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="741"/>
         <source>Remove Items</source>
         <translation>Удалить элементы</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="742"/>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="819"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="741"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="818"/>
         <source>Please select a node from the graph to continue.</source>
         <translation>Пожалуйста, выберите узел на графике для продолжения.</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="812"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="811"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="812"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="811"/>
         <source>Qv2ray entered an unknown state.</source>
         <translation>Qv2ray вошел в неизвестное состояние.</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="819"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="818"/>
         <source>Edit Inbound/Outbound</source>
         <translation>Тип: входящий / исходящий</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="833"/>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="884"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="832"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="883"/>
         <source>Edit Inbound</source>
         <translation>Изменить входящий</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="833"/>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="884"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="832"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="883"/>
         <source>No inbound tag found: </source>
         <translation>Входящий тег не найден:</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="847"/>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="899"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="846"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="898"/>
         <source>Opening JSON editor</source>
         <translation>Открыть в JSON редакторе</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="895"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="894"/>
         <source>Unsupported Outbound Type</source>
         <translation>Неподдерживаемый исходящий тип</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="906"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="905"/>
         <source>Opening default outbound editor.</source>
         <translation>Открытие стандартного редактора исходящих соединений.</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="952"/>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="957"/>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="962"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="945"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="950"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="955"/>
         <source>Renaming a tag</source>
         <translation>Переименовать тег</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="952"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="945"/>
         <source>New tag is empty, please try another.</source>
         <translation>Новый тег пуст, попробуйте другой.</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="957"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="950"/>
         <source>New tag is the same as the original one.</source>
         <translation>Новый тег такой же, как и оригинальный.</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="962"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="955"/>
         <source>Duplicate rule tag detected, please try another.</source>
         <translation>Обнаружен повторяющийся тег правила, попробуйте другой.</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="496"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="495"/>
         <source>Added DIRECT outbound</source>
         <translation>Добавлен исходящий DIRECT</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="845"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="844"/>
         <source>Currently, this type of outbound is not supported by the editor.</source>
         <translation>В настоящее время этот тип outbound не поддерживается в этой версии программы.</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="855"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="854"/>
         <source>Opening default inbound editor</source>
         <translation>Открытие стандартного входящего редактора</translation>
     </message>
     <message>
-        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="578"/>
+        <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="577"/>
         <source>Removed a balancer entry.</source>
         <translation>Удалена запись балансировщика.</translation>
     </message>
@@ -3455,6 +3442,79 @@ p, li { white-space: pre-wrap; }
         <location filename="../src/ui/editors/w_RoutesEditor.ui"/>
         <source>Rename</source>
         <translation>Переименование</translation>
+    </message>
+</context>
+<context>
+    <name>RouteSettingsMatrix</name>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.ui"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.ui"/>
+        <source>Lines start with &quot;geoip:&quot; or &quot;geosite:&quot; will have its autocompletion from geoip.dat and geosite.dat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.ui"/>
+        <source>Direct</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.ui"/>
+        <source>Proxy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.ui"/>
+        <source>Block</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.ui"/>
+        <source>Domain</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.ui"/>
+        <source>IP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.ui"/>
+        <source>Use built-in route schemes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.ui"/>
+        <source>Built-in Schemes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.ui"/>
+        <source>Import route scheme from file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.ui"/>
+        <source>Import Scheme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.ui"/>
+        <source>Export route scheme to file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.ui"/>
+        <source>Export Scheme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.ui"/>
+        <source>Coming soon!</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
