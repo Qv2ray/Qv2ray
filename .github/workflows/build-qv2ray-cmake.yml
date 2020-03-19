@@ -76,12 +76,14 @@ jobs:
         run: |
           sudo add-apt-repository ppa:webispy/grpc
           sudo add-apt-repository ppa:carsten-uppenbrink-net/openssl
+          sudo add-apt-repository ppa:savoury1/backports
           sudo apt update
-          sudo apt install -y libgl-dev libx11-dev libxkbcommon-x11-dev libssl-dev libsodium-dev libprotobuf-dev protobuf-compiler protobuf-c-compiler libgrpc++-dev protobuf-compiler-grpc tree ninja-build
+          sudo apt install -y libgl-dev libx11-dev libxkbcommon-x11-dev libssl-dev libsodium-dev libprotobuf-dev protobuf-compiler protobuf-c-compiler libgrpc++-dev protobuf-compiler-grpc tree ninja-build libuv1 libuv1-dev
 # --------------------------------------------------------
       - name: macOS - ${{ matrix.qt_version }} - Build preparation - Install Packages 
         if: matrix.platform == 'macos-latest'
         run: |
+          brew install libuv
           brew install openssl
           brew install libsodium
           brew install protobuf
@@ -97,6 +99,7 @@ jobs:
          curl -o ./libs/Qv2ray-deps-grpc-${{ matrix.arch }}-windows.7z -L https://github.com/Qv2ray/Qv2ray-deps/releases/download/release/Qv2ray-deps-grpc-${{ matrix.arch }}-windows.7z
          curl -o ./libs/Qv2ray-deps-libsodium-${{ matrix.arch }}-windows.7z -L https://github.com/Qv2ray/Qv2ray-deps/releases/download/release/Qv2ray-deps-libsodium-${{ matrix.arch }}-windows.7z
          curl -o ./libs/Qv2ray-deps-openssl-${{ matrix.arch }}-windows.7z -L https://github.com/Qv2ray/Qv2ray-deps/releases/download/release/Qv2ray-deps-openssl-${{ matrix.arch }}-windows.7z
+         curl -o ./libs/Qv2ray-deps-libuv-${{ matrix.arch }}-windows.7z -L https://github.com/DuckVador/Qv2ray-deps/releases/download/release/Qv2ray-deps-libuv-${{ matrix.arch }}-windows.7z
       - name: Win-${{ matrix.arch }} - Build preparation - Extract Dependencies
         if: matrix.platform == 'windows-latest'
         uses: DuckSoft/extract-7z-action@v1.0
@@ -108,6 +111,12 @@ jobs:
         uses: DuckSoft/extract-7z-action@v1.0
         with:
           pathSource: ./libs/Qv2ray-deps-libsodium-${{ matrix.arch }}-windows.7z
+          pathTarget: ./libs
+      - name: Win-${{ matrix.arch }} - Build preparation - Extract Dependencies
+        if: matrix.platform == 'windows-latest'
+        uses: DuckSoft/extract-7z-action@v1.0
+        with:
+          pathSource: ./libs/Qv2ray-deps-libuv-${{ matrix.arch }}-windows.7z
           pathTarget: ./libs
       - name: Win-${{ matrix.arch }} - Build preparation - Extract Dependencies
         if: matrix.platform == 'windows-latest'
@@ -134,11 +143,9 @@ jobs:
           CC: cl.exe
           CXX: cl.exe
         run: |
-          export libs_dir=`pwd`/libs/${{ matrix.arch }}-windows/installed/${{ matrix.arch }}-windows
-          export sodium_DIR=${libs_dir}
           mkdir build
           cd build
-          cmake .. -GNinja -DCMAKE_INSTALL_PREFIX=./deployment -DCMAKE_BUILD_TYPE=Release -DOPENSSL_ROOT_DIR=${libs_dir}  -D_GCC_COMPATIBLE=1
+          cmake .. -GNinja -DCMAKE_INSTALL_PREFIX=./deployment -DCMAKE_BUILD_TYPE=Release 
           cmake --build . --parallel $(nproc)
           cmake --install .
 # --------------------------------------------------------

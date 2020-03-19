@@ -10,7 +10,6 @@ endif()
 
 # Append Qt's lib folder which is two levels above Qt5Widgets_DIR
 list(APPEND DIRS "${Qt5Widgets_DIR}/../..")
-list(APPEND DIRS "$ENV{sodium_DIR}")
 list(APPEND DIRS "/usr/local/lib")
 list(APPEND DIRS "/usr/lib")
 
