@@ -263,7 +263,8 @@ void RouteEditor::RenameItemTag(ROUTE_EDIT_MODE mode, const QString originalTag,
     }
 }
 
-void RouteEditor::ResolveDefaultOutboundTag(QString original, QString newTag)
+// Do not use const reference here.
+void RouteEditor::ResolveDefaultOutboundTag(const QString original, const QString newTag)
 {
     LOG(MODULE_UI, "Resolving default outbound settings: default=" + defaultOutbound + " original=" + original + " new=" + newTag)
     auto isDefaultChanged = original == defaultOutbound;
