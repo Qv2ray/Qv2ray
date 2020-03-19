@@ -19,6 +19,6 @@
 [submodule "libs/puresource"]
 	path = libs/puresource
 	url = https://github.com/Qv2ray/PureSource/
-[submodule "src/components/plugins/host"]
-	path = src/components/plugins/host
+[submodule "src/components/plugins/interface"]
+	path = src/components/plugins/interface
 	url = https://github.com/Qv2ray/QvPlugin-Host/

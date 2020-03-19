@@ -158,6 +158,7 @@ set(QV2RAY_SOURCES
   src/components/plugins/toolbar/QvToolbar.cpp
   src/components/plugins/toolbar/QvToolbar_linux.cpp
   src/components/plugins/toolbar/QvToolbar_win.cpp
+  src/components/plugins/QvPluginHost.cpp
   src/components/proxy/QvProxyConfigurator.cpp
   src/components/speedchart/speedplotview.cpp
   src/components/speedchart/speedwidget.cpp
@@ -235,6 +236,8 @@ set(QV2RAY_SOURCES
   src/components/icmping/win/ICMPPinger.hpp
   src/components/pac/QvPACHandler.hpp
   src/components/plugins/toolbar/QvToolbar.hpp
+  src/components/plugins/interface/QvPluginInterface.hpp
+  src/components/plugins/QvPluginHost.hpp
   src/components/proxy/QvProxyConfigurator.hpp
   src/components/speedchart/speedplotview.hpp
   src/components/speedchart/speedwidget.hpp
