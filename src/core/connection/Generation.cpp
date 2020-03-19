@@ -27,35 +27,33 @@ namespace Qv2ray::core::connection
             // Private IPs should always NOT TO PROXY!
             rulesList.append(GenerateSingleRouteRule("geoip:private", false, OUTBOUND_TAG_DIRECT));
             //
-            //
-            // Append blockDomains; directDomains; proxyDomains;
             // To the route list.
             auto &routeConfig = GlobalConfig.connectionConfig.routeConfig;
-            if (!routeConfig.blockDomains.isEmpty())
+            if (!routeConfig.domains.block.isEmpty())
             {
-                rulesList.append(GenerateSingleRouteRule(routeConfig.blockDomains, true, OUTBOUND_TAG_BLACKHOLE));
+                rulesList.append(GenerateSingleRouteRule(routeConfig.domains.block, true, OUTBOUND_TAG_BLACKHOLE));
             }
-            if (!routeConfig.proxyDomains.isEmpty())
+            if (!routeConfig.domains.proxy.isEmpty())
             {
-                rulesList.append(GenerateSingleRouteRule(routeConfig.proxyDomains, true, defaultOutboundTag));
+                rulesList.append(GenerateSingleRouteRule(routeConfig.domains.proxy, true, defaultOutboundTag));
             }
-            if (!routeConfig.directDomains.isEmpty())
+            if (!routeConfig.domains.direct.isEmpty())
             {
-                rulesList.append(GenerateSingleRouteRule(routeConfig.directDomains, true, OUTBOUND_TAG_DIRECT));
+                rulesList.append(GenerateSingleRouteRule(routeConfig.domains.direct, true, OUTBOUND_TAG_DIRECT));
             }
-            // IP list
 
-            if (!routeConfig.blockDomains.isEmpty())
+            // IP list
+            if (!routeConfig.ips.block.isEmpty())
             {
-                rulesList.append(GenerateSingleRouteRule(routeConfig.blockIPs, false, OUTBOUND_TAG_BLACKHOLE));
+                rulesList.append(GenerateSingleRouteRule(routeConfig.ips.block, false, OUTBOUND_TAG_BLACKHOLE));
             }
-            if (!routeConfig.proxyDomains.isEmpty())
+            if (!routeConfig.ips.proxy.isEmpty())
             {
-                rulesList.append(GenerateSingleRouteRule(routeConfig.proxyIPs, false, defaultOutboundTag));
+                rulesList.append(GenerateSingleRouteRule(routeConfig.ips.proxy, false, defaultOutboundTag));
             }
-            if (!routeConfig.directDomains.isEmpty())
+            if (!routeConfig.ips.direct.isEmpty())
             {
-                rulesList.append(GenerateSingleRouteRule(routeConfig.directIPs, false, OUTBOUND_TAG_DIRECT));
+                rulesList.append(GenerateSingleRouteRule(routeConfig.ips.direct, false, OUTBOUND_TAG_DIRECT));
             }
             //
             // Check if CN needs proxy, or direct.

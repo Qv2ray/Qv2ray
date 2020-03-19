@@ -18,13 +18,13 @@ RouteSettingsMatrixWidget::RouteSettingsMatrixWidget(QWidget *parent) : QWidget(
 
 void RouteSettingsMatrixWidget::SetRouteConfig(const config::Qv2rayRouteConfig conf, const QString &assetsDirPath)
 {
-    directDomainTxt->setText(conf.directDomains.join(NEWLINE));
-    proxyDomainTxt->setText(conf.proxyDomains.join(NEWLINE));
-    blockDomainTxt->setText(conf.blockDomains.join(NEWLINE));
+    directDomainTxt->setText(conf.domains.direct.join(NEWLINE));
+    proxyDomainTxt->setText(conf.domains.proxy.join(NEWLINE));
+    blockDomainTxt->setText(conf.domains.block.join(NEWLINE));
     //
-    blockIPTxt->setText(conf.blockIPs.join(NEWLINE));
-    directIPTxt->setText(conf.directIPs.join(NEWLINE));
-    proxyIPTxt->setText(conf.proxyIPs.join(NEWLINE));
+    blockIPTxt->setText(conf.ips.block.join(NEWLINE));
+    directIPTxt->setText(conf.ips.direct.join(NEWLINE));
+    proxyIPTxt->setText(conf.ips.proxy.join(NEWLINE));
     //
     auto sourceStringsDomain = ReadGeoSiteFromFile(assetsDirPath + "/geosite.dat");
     directDomainTxt->SetSourceStrings(sourceStringsDomain);
@@ -48,13 +48,13 @@ void RouteSettingsMatrixWidget::SetRouteConfig(const config::Qv2rayRouteConfig c
 config::Qv2rayRouteConfig RouteSettingsMatrixWidget::GetRouteConfig() const
 {
     config::Qv2rayRouteConfig conf;
-    conf.blockDomains = SplitLines(blockDomainTxt->toPlainText().replace(" ", ""));
-    conf.directDomains = SplitLines(directDomainTxt->toPlainText().replace(" ", ""));
-    conf.proxyDomains = SplitLines(proxyDomainTxt->toPlainText().replace(" ", ""));
+    conf.domains.block = SplitLines(blockDomainTxt->toPlainText().replace(" ", ""));
+    conf.domains.direct = SplitLines(directDomainTxt->toPlainText().replace(" ", ""));
+    conf.domains.proxy = SplitLines(proxyDomainTxt->toPlainText().replace(" ", ""));
     //
-    conf.blockIPs = SplitLines(blockIPTxt->toPlainText().replace(" ", ""));
-    conf.directIPs = SplitLines(directIPTxt->toPlainText().replace(" ", ""));
-    conf.proxyIPs = SplitLines(proxyIPTxt->toPlainText().replace(" ", ""));
+    conf.ips.block = SplitLines(blockIPTxt->toPlainText().replace(" ", ""));
+    conf.ips.direct = SplitLines(directIPTxt->toPlainText().replace(" ", ""));
+    conf.ips.proxy = SplitLines(proxyIPTxt->toPlainText().replace(" ", ""));
     return conf;
 }
 

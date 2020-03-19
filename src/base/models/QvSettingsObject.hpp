@@ -111,15 +111,19 @@ namespace Qv2ray::base::config
         XTOSTRUCT(O(theme, language, useDarkTheme, useDarkTrayIcon, maximumLogLines))
     };
 
+    struct Qv2rayRouteConfig_Impl
+    {
+        QList<QString> proxy;
+        QList<QString> block;
+        QList<QString> direct;
+        XTOSTRUCT(O(proxy, block, direct))
+    };
+
     struct Qv2rayRouteConfig
     {
-        QList<QString> proxyDomains;
-        QList<QString> blockDomains;
-        QList<QString> directDomains;
-        QList<QString> proxyIPs;
-        QList<QString> blockIPs;
-        QList<QString> directIPs;
-        XTOSTRUCT(O(proxyDomains, directDomains, blockDomains, proxyIPs, directIPs, blockIPs))
+        Qv2rayRouteConfig_Impl domains;
+        Qv2rayRouteConfig_Impl ips;
+        XTOSTRUCT(O(domains, ips))
     };
 
     struct Qv2rayConnectionConfig
