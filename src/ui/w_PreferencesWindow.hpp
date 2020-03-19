@@ -6,10 +6,7 @@
 #include <QDialog>
 #include <ui_w_PreferencesWindow.h>
 
-namespace Qv2ray::ui::widgets
-{
-    class AutoCompleteTextEdit;
-}
+class RouteSettingsMatrixWidget;
 
 class PreferencesWindow
     : public QDialog
@@ -171,10 +168,7 @@ class PreferencesWindow
 
   private:
     //
-    Qv2ray::ui::widgets::AutoCompleteTextEdit *directDomainTxt;
-    Qv2ray::ui::widgets::AutoCompleteTextEdit *proxyDomainTxt;
-    Qv2ray::ui::widgets::AutoCompleteTextEdit *blockDomainTxt;
-    //
+    RouteSettingsMatrixWidget *routeSettingsWidget;
     void SetAutoStartButtonsState(bool isAutoStart);
     // Set ui parameters for a line;
     void ShowLineParameters(QvBarLine &line);

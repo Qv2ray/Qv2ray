@@ -5,14 +5,6 @@
   <property name="windowModality">
    <enum>Qt::ApplicationModal</enum>
   </property>
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>1043</width>
-    <height>656</height>
-   </rect>
-  </property>
   <property name="windowTitle">
    <string>Preferences</string>
   </property>
@@ -43,7 +35,7 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>997</width>
+            <width>964</width>
             <height>546</height>
            </rect>
           </property>
@@ -490,7 +482,7 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>1054</width>
+            <width>1016</width>
             <height>604</height>
            </rect>
           </property>
@@ -1138,49 +1130,15 @@
               </property>
              </widget>
             </item>
-            <item row="4" column="0" colspan="2">
-             <layout class="QGridLayout" name="gridLayout_15" columnstretch="1,1" columnminimumwidth="1,1">
-              <item row="0" column="0">
-               <widget class="QLabel" name="label_21">
-                <property name="text">
-                 <string>Custom DNS List</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="0">
-               <widget class="QPlainTextEdit" name="DNSListTxt"/>
-              </item>
-              <item row="2" column="1">
-               <widget class="QLabel" name="label_82">
-                <property name="text">
-                 <string>Blocked Domains</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="1">
-               <widget class="QLabel" name="label_80">
-                <property name="text">
-                 <string>Direct Connect Domains</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="0">
-               <widget class="QLabel" name="label_81">
-                <property name="text">
-                 <string>Proxied Domains</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="1">
-               <layout class="QGridLayout" name="directTxtLayout"/>
-              </item>
-              <item row="3" column="0">
-               <layout class="QGridLayout" name="proxyTxtLayout"/>
-              </item>
-              <item row="3" column="1">
-               <layout class="QGridLayout" name="blockTxtLayout"/>
-              </item>
-             </layout>
+            <item row="3" column="0">
+             <widget class="QLabel" name="label_21">
+              <property name="text">
+               <string>Custom DNS List</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QPlainTextEdit" name="DNSListTxt"/>
             </item>
            </layout>
           </widget>
@@ -1297,6 +1255,23 @@
           </widget>
          </item>
         </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
+       <string>Advanced Route Settings</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_16" rowstretch="0,1">
+       <item row="1" column="0">
+        <layout class="QGridLayout" name="advRouteSettingsLayout"/>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_80">
+         <property name="text">
+          <string>You can configure route rules for all simple connection config here.</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>

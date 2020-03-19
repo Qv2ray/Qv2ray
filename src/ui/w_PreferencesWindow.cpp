@@ -4,13 +4,12 @@
 #include "common/QvHelpers.hpp"
 #include "common/QvTranslator.hpp"
 #include "components/autolaunch/QvAutoLaunch.hpp"
-#include "components/geosite/QvGeositeReader.hpp"
 #include "components/plugins/toolbar/QvToolbar.hpp"
 #include "core/connection/ConnectionIO.hpp"
 #include "core/handler/ConfigHandler.hpp"
 #include "core/kernel/KernelInteractions.hpp"
 #include "core/settings/SettingsBackend.hpp"
-#include "ui/widgets/QvAutoCompleteTextEdit.h"
+#include "ui/widgets/RouteSettingsMatrix.hpp"
 
 #include <QColorDialog>
 #include <QCompleter>
@@ -211,23 +210,10 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     pacListenAddrLabel->setText("http://" + (pacProxyTxt->text().isEmpty() ? "127.0.0.1" : pacProxyTxt->text()) + ":" +
                                 QSTRN(pacPortSB->value()) + "/pac");
     //
-    directDomainTxt = new AutoCompleteTextEdit("geosite", this);
-    proxyDomainTxt = new AutoCompleteTextEdit("geosite", this);
-    blockDomainTxt = new AutoCompleteTextEdit("geosite", this);
-    //
-    directDomainTxt->setText(CurrentConfig.connectionConfig.directDomains.join(NEWLINE));
-    proxyDomainTxt->setText(CurrentConfig.connectionConfig.proxyDomains.join(NEWLINE));
-    blockDomainTxt->setText(CurrentConfig.connectionConfig.blockDomains.join(NEWLINE));
-    //
-    auto sourceStrings = ReadGeoSiteFromFile(CurrentConfig.kernelConfig.AssetsPath() + "/geosite.dat");
-    directDomainTxt->SetSourceStrings(sourceStrings);
-    proxyDomainTxt->SetSourceStrings(sourceStrings);
-    blockDomainTxt->SetSourceStrings(sourceStrings);
-    //
-    directTxtLayout->addWidget(directDomainTxt, 0, 0);
-    proxyTxtLayout->addWidget(proxyDomainTxt, 0, 0);
-    blockTxtLayout->addWidget(blockDomainTxt, 0, 0);
     finishedLoading = true;
+    routeSettingsWidget = new RouteSettingsMatrixWidget(this);
+    routeSettingsWidget->SetRouteConfig(CurrentConfig.connectionConfig.routeConfig, CurrentConfig.kernelConfig.AssetsPath());
+    advRouteSettingsLayout->addWidget(routeSettingsWidget);
 }
 
 QvMessageBusSlotImpl(PreferencesWindow)
@@ -287,9 +273,6 @@ void PreferencesWindow::on_buttonBox_accepted()
     }
     else
     {
-        CurrentConfig.connectionConfig.blockDomains = SplitLines(blockDomainTxt->toPlainText());
-        CurrentConfig.connectionConfig.directDomains = SplitLines(directDomainTxt->toPlainText());
-        CurrentConfig.connectionConfig.proxyDomains = SplitLines(proxyDomainTxt->toPlainText());
         if (CurrentConfig.uiConfig.language != GlobalConfig.uiConfig.language)
         {
             // Install translator
@@ -303,7 +286,7 @@ void PreferencesWindow::on_buttonBox_accepted()
                 LOG(MODULE_UI, "Failed to translate UI to: " + CurrentConfig.uiConfig.language)
             }
         }
-
+        CurrentConfig.connectionConfig.routeConfig = routeSettingsWidget->GetRouteConfig();
         qApp->setStyle(QStyleFactory::create(CurrentConfig.uiConfig.theme));
         SaveGlobalSettings(CurrentConfig);
         UIMessageBus.EmitGlobalSignal(QvMBMessage::UPDATE_COLORSCHEME);

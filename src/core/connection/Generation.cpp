@@ -30,17 +30,32 @@ namespace Qv2ray::core::connection
             //
             // Append blockDomains; directDomains; proxyDomains;
             // To the route list.
-            if (!GlobalConfig.connectionConfig.blockDomains.isEmpty())
+            auto &routeConfig = GlobalConfig.connectionConfig.routeConfig;
+            if (!routeConfig.blockDomains.isEmpty())
             {
-                rulesList.append(GenerateSingleRouteRule(GlobalConfig.connectionConfig.blockDomains, true, OUTBOUND_TAG_BLACKHOLE));
+                rulesList.append(GenerateSingleRouteRule(routeConfig.blockDomains, true, OUTBOUND_TAG_BLACKHOLE));
             }
-            if (!GlobalConfig.connectionConfig.proxyDomains.isEmpty())
+            if (!routeConfig.proxyDomains.isEmpty())
             {
-                rulesList.append(GenerateSingleRouteRule(GlobalConfig.connectionConfig.proxyDomains, true, defaultOutboundTag));
+                rulesList.append(GenerateSingleRouteRule(routeConfig.proxyDomains, true, defaultOutboundTag));
             }
-            if (!GlobalConfig.connectionConfig.directDomains.isEmpty())
+            if (!routeConfig.directDomains.isEmpty())
             {
-                rulesList.append(GenerateSingleRouteRule(GlobalConfig.connectionConfig.directDomains, true, OUTBOUND_TAG_DIRECT));
+                rulesList.append(GenerateSingleRouteRule(routeConfig.directDomains, true, OUTBOUND_TAG_DIRECT));
+            }
+            // IP list
+
+            if (!routeConfig.blockDomains.isEmpty())
+            {
+                rulesList.append(GenerateSingleRouteRule(routeConfig.blockIPs, false, OUTBOUND_TAG_BLACKHOLE));
+            }
+            if (!routeConfig.proxyDomains.isEmpty())
+            {
+                rulesList.append(GenerateSingleRouteRule(routeConfig.proxyIPs, false, defaultOutboundTag));
+            }
+            if (!routeConfig.directDomains.isEmpty())
+            {
+                rulesList.append(GenerateSingleRouteRule(routeConfig.directIPs, false, OUTBOUND_TAG_DIRECT));
             }
             //
             // Check if CN needs proxy, or direct.
@@ -67,6 +82,7 @@ namespace Qv2ray::core::connection
         ROUTERULE GenerateSingleRouteRule(QStringList list, bool isDomain, QString outboundTag, QString type)
         {
             ROUTERULE root;
+            list.removeAll("");
             root.insert(isDomain ? "domain" : "ip", QJsonArray::fromStringList(list));
             JADD(outboundTag, type)
             RROOT

@@ -111,22 +111,30 @@ namespace Qv2ray::base::config
         XTOSTRUCT(O(theme, language, useDarkTheme, useDarkTrayIcon, maximumLogLines))
     };
 
+    struct Qv2rayRouteConfig
+    {
+        QList<QString> proxyDomains;
+        QList<QString> blockDomains;
+        QList<QString> directDomains;
+        QList<QString> proxyIPs;
+        QList<QString> blockIPs;
+        QList<QString> directIPs;
+        XTOSTRUCT(O(proxyDomains, directDomains, blockDomains, proxyIPs, directIPs, blockIPs))
+    };
+
     struct Qv2rayConnectionConfig
     {
         bool bypassCN;
         bool enableProxy;
         bool withLocalDNS;
+        Qv2rayRouteConfig routeConfig;
         QList<QString> dnsList;
-        QList<QString> proxyDomains;
-        QList<QString> blockDomains;
-        QList<QString> directDomains;
         Qv2rayForwardProxyConfig forwardProxyConfig;
         Qv2rayConnectionConfig()
-            : bypassCN(true), enableProxy(true), withLocalDNS(false), dnsList(QStringList{ "8.8.4.4", "1.1.1.1" }), proxyDomains(),
-              blockDomains(), directDomains()
+            : bypassCN(true), enableProxy(true), withLocalDNS(false), routeConfig(), dnsList(QStringList{ "8.8.4.4", "1.1.1.1" })
         {
         }
-        XTOSTRUCT(O(bypassCN, enableProxy, withLocalDNS, dnsList, forwardProxyConfig, proxyDomains, directDomains, blockDomains))
+        XTOSTRUCT(O(bypassCN, enableProxy, withLocalDNS, dnsList, forwardProxyConfig, routeConfig))
     };
 
     struct Qv2rayAPIConfig
