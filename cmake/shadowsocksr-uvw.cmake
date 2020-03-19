@@ -1,2 +1,7 @@
 add_subdirectory(${CMAKE_SOURCE_DIR}/3rdparty/shadowsocksr-uvw)
+if(NOT WIN32)
 SET(SHADOWSOCKSR_UVW_LIBRARY shadowsocksr::uvw)
+else()
+find_package(unofficial-libuv CONFIG REQUIRED)
+SET(SHADOWSOCKSR_UVW_LIBRARY unofficial::libuv::libuv shadowsocksr::uvw)
+endif()
