@@ -14,3 +14,8 @@ libs/x86-windows/
 libs/libqvb-*
 
 build**/
+
+# IntelliJ-based IDE Trash
+/.idea/
+*.iml
+/cmake-build-debug

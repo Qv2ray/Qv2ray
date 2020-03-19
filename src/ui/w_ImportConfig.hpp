@@ -30,8 +30,6 @@ class ImportConfigWindow
     void on_selectImageBtn_clicked();
     void on_errorsList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
 
-    void on_editFileBtn_clicked();
-
     void on_connectionEditBtn_clicked();
 
     void on_cancelImportBtn_clicked();
