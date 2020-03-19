@@ -267,9 +267,12 @@ void RouteEditor::ResolveDefaultOutboundTag(QString original, QString newTag)
 {
     LOG(MODULE_UI, "Resolving default outbound settings: default=" + defaultOutbound + " original=" + original + " new=" + newTag)
     auto isDefaultChanged = original == defaultOutbound;
+    //
+    isLoading = true;
     defaultOutboundCombo->clear();
     defaultOutboundCombo->addItems(outbounds.keys());
-
+    isLoading = false;
+    //
     if (!isDefaultChanged)
     {
         LOG(MODULE_UI, "Default outbound is not changed: retaining: " + defaultOutbound)
@@ -293,7 +296,7 @@ void RouteEditor::ResolveDefaultOutboundTag(QString original, QString newTag)
     }
     else
     {
-        LOG(MODULE_UI, "Default outbound is renamed,    ")
+        LOG(MODULE_UI, "Default outbound is renamed, new tag is " + newTag)
         defaultOutboundCombo->setCurrentText(newTag);
         defaultOutbound = newTag;
     }

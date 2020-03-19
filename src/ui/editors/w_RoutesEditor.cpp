@@ -18,7 +18,6 @@
 using QtNodes::FlowView;
 using namespace Qv2ray::ui::nodemodels;
 
-static bool isLoading = false;
 #define CurrentRule this->rules[this->currentRuleTag]
 #define LOADINGCHECK                                                                                                                            \
     if (isLoading)                                                                                                                              \
@@ -914,8 +913,8 @@ void RouteEditor::on_editBtn_clicked()
 
             if (isTagChanged)
             {
-                DEBUG(MODULE_UI, "Outbound tag is changed: " + QString(isTagChanged))
                 auto newTag = getTag(_result);
+                DEBUG(MODULE_UI, "Outbound tag is changed: " + newTag)
                 RenameItemTag(RENAME_OUTBOUND, getTag(_out), &newTag);
             }
 

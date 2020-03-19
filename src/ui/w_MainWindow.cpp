@@ -850,9 +850,8 @@ void MainWindow::OnConnectionCreated(const ConnectionId &id, const QString &disp
 }
 void MainWindow::OnConnectionDeleted(const ConnectionId &id, const GroupId &groupId)
 {
-    auto &child = connectionNodes.value(id);
+    auto child = connectionNodes.take(id);
     groupNodes.value(groupId)->removeChild(child.get());
-    connectionNodes.remove(id);
 }
 void MainWindow::OnConnectionGroupChanged(const ConnectionId &id, const GroupId &originalGroup, const GroupId &newGroup)
 {
