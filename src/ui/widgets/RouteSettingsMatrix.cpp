@@ -3,7 +3,8 @@
 #include "common/QvHelpers.hpp"
 #include "components/geosite/QvGeositeReader.hpp"
 
-RouteSettingsMatrixWidget::RouteSettingsMatrixWidget(QWidget *parent) : QWidget(parent)
+RouteSettingsMatrixWidget::RouteSettingsMatrixWidget(const QString &assetsDirPath, QWidget *parent)
+    : QWidget(parent), assetsDirPath(assetsDirPath)
 {
     setupUi(this);
     //
@@ -14,17 +15,6 @@ RouteSettingsMatrixWidget::RouteSettingsMatrixWidget(QWidget *parent) : QWidget(
     directIPTxt = new AutoCompleteTextEdit("geoip", this);
     proxyIPTxt = new AutoCompleteTextEdit("geoip", this);
     blockIPTxt = new AutoCompleteTextEdit("geoip", this);
-}
-
-void RouteSettingsMatrixWidget::SetRouteConfig(const config::Qv2rayRouteConfig conf, const QString &assetsDirPath)
-{
-    directDomainTxt->setText(conf.domains.direct.join(NEWLINE));
-    proxyDomainTxt->setText(conf.domains.proxy.join(NEWLINE));
-    blockDomainTxt->setText(conf.domains.block.join(NEWLINE));
-    //
-    blockIPTxt->setText(conf.ips.block.join(NEWLINE));
-    directIPTxt->setText(conf.ips.direct.join(NEWLINE));
-    proxyIPTxt->setText(conf.ips.proxy.join(NEWLINE));
     //
     auto sourceStringsDomain = ReadGeoSiteFromFile(assetsDirPath + "/geosite.dat");
     directDomainTxt->SetSourceStrings(sourceStringsDomain);
@@ -43,6 +33,17 @@ void RouteSettingsMatrixWidget::SetRouteConfig(const config::Qv2rayRouteConfig c
     directIPLayout->addWidget(directIPTxt, 0, 0);
     proxyIPLayout->addWidget(proxyIPTxt, 0, 0);
     blockIPLayout->addWidget(blockIPTxt, 0, 0);
+}
+
+void RouteSettingsMatrixWidget::SetRouteConfig(const config::Qv2rayRouteConfig &conf)
+{
+    directDomainTxt->setText(conf.domains.direct.join(NEWLINE));
+    proxyDomainTxt->setText(conf.domains.proxy.join(NEWLINE));
+    blockDomainTxt->setText(conf.domains.block.join(NEWLINE));
+    //
+    blockIPTxt->setText(conf.ips.block.join(NEWLINE));
+    directIPTxt->setText(conf.ips.direct.join(NEWLINE));
+    proxyIPTxt->setText(conf.ips.proxy.join(NEWLINE));
 }
 
 config::Qv2rayRouteConfig RouteSettingsMatrixWidget::GetRouteConfig() const

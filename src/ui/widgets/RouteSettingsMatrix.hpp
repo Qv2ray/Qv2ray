@@ -12,10 +12,13 @@ class RouteSettingsMatrixWidget
     Q_OBJECT
 
   public:
-    explicit RouteSettingsMatrixWidget(QWidget *parent = nullptr);
-    void SetRouteConfig(const Qv2ray::base::config::Qv2rayRouteConfig conf, const QString &assetsDirPath);
+    RouteSettingsMatrixWidget(const QString &assetsDirPath, QWidget *parent = nullptr);
+    void SetRouteConfig(const Qv2ray::base::config::Qv2rayRouteConfig &conf);
     Qv2ray::base::config::Qv2rayRouteConfig GetRouteConfig() const;
     ~RouteSettingsMatrixWidget();
+
+  private:
+    const QString &assetsDirPath;
 
   private:
     Qv2ray::ui::widgets::AutoCompleteTextEdit *directDomainTxt;

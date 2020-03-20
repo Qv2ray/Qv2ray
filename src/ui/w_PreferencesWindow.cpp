@@ -175,17 +175,11 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     auto autoStartConnId = ConnectionId(CurrentConfig.autoStartId);
     auto autoStartGroupId = GetConnectionGroupId(autoStartConnId);
 
-    for (auto group : ConnectionManager->AllGroups())
-    {
-        autoStartSubsCombo->addItem(GetDisplayName(group));
-    }
+    for (auto group : ConnectionManager->AllGroups()) { autoStartSubsCombo->addItem(GetDisplayName(group)); }
 
     autoStartSubsCombo->setCurrentText(GetDisplayName(autoStartGroupId));
 
-    for (auto conn : ConnectionManager->Connections(autoStartGroupId))
-    {
-        autoStartConnCombo->addItem(GetDisplayName(conn));
-    }
+    for (auto conn : ConnectionManager->Connections(autoStartGroupId)) { autoStartConnCombo->addItem(GetDisplayName(conn)); }
 
     autoStartConnCombo->setCurrentText(GetDisplayName(autoStartConnId));
 
@@ -211,8 +205,8 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
                                 QSTRN(pacPortSB->value()) + "/pac");
     //
     finishedLoading = true;
-    routeSettingsWidget = new RouteSettingsMatrixWidget(this);
-    routeSettingsWidget->SetRouteConfig(CurrentConfig.connectionConfig.routeConfig, CurrentConfig.kernelConfig.AssetsPath());
+    routeSettingsWidget = new RouteSettingsMatrixWidget(CurrentConfig.kernelConfig.AssetsPath(), this);
+    routeSettingsWidget->SetRouteConfig(CurrentConfig.connectionConfig.routeConfig);
     advRouteSettingsLayout->addWidget(routeSettingsWidget);
 }
 
@@ -1038,10 +1032,7 @@ void PreferencesWindow::on_autoStartSubsCombo_currentIndexChanged(const QString 
         auto list = ConnectionManager->Connections(groupId);
         autoStartConnCombo->clear();
 
-        for (auto id : list)
-        {
-            autoStartConnCombo->addItem(GetDisplayName(id));
-        }
+        for (auto id : list) { autoStartConnCombo->addItem(GetDisplayName(id)); }
     }
 }
 
