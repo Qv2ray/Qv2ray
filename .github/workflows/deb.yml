@@ -14,9 +14,8 @@ jobs:
     steps:
       - name: Checking out sources
         uses: actions/checkout@v2
-      - name: Checkout submodules
-        run: |
-          git submodule update --init
+        with:
+          submodules: 'recursive'
       - name: Install build dependencies
         run: |
           sudo apt install build-essential devscripts equivs
