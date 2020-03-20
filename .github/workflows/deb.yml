@@ -12,6 +12,9 @@ jobs:
     container: debian:buster
 
     steps:
+      - name: Install git
+        run: |
+          sudo apt install git
       - name: Checking out sources
         uses: actions/checkout@v2
         with:
