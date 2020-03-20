@@ -136,7 +136,7 @@
      <item>
       <widget class="QPushButton" name="exportSchemeBtn">
        <property name="enabled">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
        <property name="toolTip">
         <string>Export route scheme to file</string>

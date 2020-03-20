@@ -20,9 +20,11 @@ class RouteSettingsMatrixWidget
 
   private:
     std::optional<QString> openFileDialog();
+    std::optional<QString> saveFileDialog();
 
   private slots:
     void on_importSchemeBtn_clicked();
+    void on_exportSchemeBtn_clicked();
 
   private:
     const QString &assetsDirPath;

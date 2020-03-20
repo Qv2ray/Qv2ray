@@ -4,7 +4,7 @@
 #include "components/geosite/QvGeositeReader.hpp"
 
 #include <QFileDialog>
-#include <optional>
+#include <QInputDialog>
 
 RouteSettingsMatrixWidget::RouteSettingsMatrixWidget(const QString &assetsDirPath, QWidget *parent)
     : QWidget(parent), assetsDirPath(assetsDirPath)
@@ -124,11 +124,89 @@ void RouteSettingsMatrixWidget::on_importSchemeBtn_clicked()
         this->SetRouteConfig(static_cast<Qv2rayRouteConfig>(scheme));
 
         // done
+        // TODO: Give some success as Notification
     }
     catch (exception)
     {
-        // TODO: Give some error
+        // TODO: Give some error as Notification
     }
+}
+
+/**
+ * @brief RouteSettingsMatrixWidget::on_exportSchemeBtn_clicked
+ * @author DuckSoft <realducksoft@gmail.com>
+ */
+void RouteSettingsMatrixWidget::on_exportSchemeBtn_clicked()
+{
+    try
+    {
+        // parse the config back from the window components
+        auto config = this->GetRouteConfig();
+
+        // init some constants
+        const auto dialogTitle = tr("Exporting Scheme");
+
+        // scheme name?
+        bool ok = false;
+        auto schemeName = QInputDialog::getText(this, dialogTitle, tr("Scheme name:"), QLineEdit::Normal, tr("Unnamed Scheme"), &ok);
+        if (!ok)
+            return;
+
+        // scheme author?
+        auto schemeAuthor = QInputDialog::getText(this, dialogTitle, tr("Author:"), QLineEdit::Normal, "Anonymous <mystery@example.com>", &ok);
+        if (!ok)
+            return;
+
+        // scheme description?
+        auto schemeDescription =
+            QInputDialog::getText(this, dialogTitle, tr("Description:"), QLineEdit::Normal, tr("The author is too lazy to leave a comment"));
+        if (!ok)
+            return;
+
+        // where to save?
+        auto savePath = this->saveFileDialog();
+        if (!savePath)
+            return;
+
+        // construct the data structure
+        Qv2rayRouteScheme scheme;
+        scheme.name = schemeName;
+        scheme.author = schemeAuthor;
+        scheme.description = schemeDescription;
+        scheme.ips = config.ips;
+        scheme.domains = config.domains;
+
+        // serialize and write out
+        auto content = StructToJsonString(scheme);
+        StringToFile(content, savePath.value());
+
+        // done
+        // TODO: Give some success as Notification
+    }
+    catch (exception)
+    {
+
+        // TODO: Give some error as Notification
+    }
+}
+
+/**
+ * @brief opens a save dialog and asks user to specify the save path.
+ * @return the selected file path, if any
+ * @author DuckSoft <realducksoft@gmail.com>
+ */
+std::optional<QString> RouteSettingsMatrixWidget::saveFileDialog()
+{
+    QFileDialog dialog;
+    dialog.setFileMode(QFileDialog::AnyFile);
+    dialog.setOption(QFileDialog::Option::DontConfirmOverwrite, !true);
+    dialog.setNameFilter(tr("QvRoute Schemes(*.json)"));
+    dialog.setAcceptMode(QFileDialog::AcceptMode::AcceptSave);
+    if (!dialog.exec() || dialog.selectedFiles().length() != 1)
+    {
+        return std::nullopt;
+    }
+    return dialog.selectedFiles().first();
 }
 
 /**
@@ -140,7 +218,7 @@ std::optional<QString> RouteSettingsMatrixWidget::openFileDialog()
 {
     QFileDialog dialog;
     dialog.setFileMode(QFileDialog::ExistingFile);
-    dialog.setNameFilter(tr("QvRoute Schemes (*.json)"));
+    dialog.setNameFilter(tr("QvRoute Schemes(*.json)"));
     if (!dialog.exec() || dialog.selectedFiles().length() != 1)
     {
         return std::nullopt;
