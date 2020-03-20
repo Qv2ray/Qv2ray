@@ -8,7 +8,7 @@
 [![flathub](https://img.shields.io/badge/flathub-available-success?style=flat-square)](https://flathub.org/apps/details/com.github.Qv2ray)
 ![Snap](https://snapcraft.io/qv2ray/badge.svg)
 [![AUR Stable](https://img.shields.io/aur/version/qv2ray?label=aur-stable&style=flat-square)](https://aur.archlinux.org/packages/qv2ray)
-[![AUR Development](https://img.shields.io/aur/version/qv2ray?label=aur-stable&style=flat-square)](https://aur.archlinux.org/packages/qv2ray)
+[![AUR Development](https://img.shields.io/aur/version/qv2ray-dev-git?label=aur-development&style=flat-square)](https://aur.archlinux.org/packages/qv2ray-dev-git)
 
 ![Qv2ray AUR Build](https://github.com/Qv2ray/Qv2ray/workflows/Build%20Qv2ray%20AUR/badge.svg)
 ![Qv2ray Debian Package](https://github.com/Qv2ray/Qv2ray/workflows/Qv2ray%20build%20debian%20package/badge.svg)
