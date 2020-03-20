@@ -33,7 +33,7 @@ jobs:
       - name: Copy binary
           cp ../qv2ray_*.deb ./
       - name: Upload artifact
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v2-preview
         with:
           name: qv2ray_${{ steps.get_version.outputs.VERSION }}.deb
           path: ./qv2ray_*.deb
