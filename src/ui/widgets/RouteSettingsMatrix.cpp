@@ -3,6 +3,8 @@
 #include "common/QvHelpers.hpp"
 #include "components/geosite/QvGeositeReader.hpp"
 
+#include <QFileDialog>
+
 RouteSettingsMatrixWidget::RouteSettingsMatrixWidget(const QString &assetsDirPath, QWidget *parent)
     : QWidget(parent), assetsDirPath(assetsDirPath)
 {
@@ -61,4 +63,86 @@ config::Qv2rayRouteConfig RouteSettingsMatrixWidget::GetRouteConfig() const
 
 RouteSettingsMatrixWidget::~RouteSettingsMatrixWidget()
 {
+}
+
+/**
+ * @brief The Qv2rayRouteScheme struct
+ * @author DuckSoft <realducksoft@gmail.com>
+ */
+struct Qv2rayRouteScheme : config::Qv2rayRouteConfig
+{
+    /**
+     * @brief the name of the scheme.
+     * @example "Untitled Scheme"
+     */
+    QString name;
+    /**
+     * @brief the author of the scheme.
+     * @example "DuckSoft <realducksoft@gmail.com>"
+     */
+    QString author;
+    /**
+     * @brief details of this scheme.
+     * @example "A scheme to bypass China mainland, while allowing bilibili to go through proxy."
+     */
+    QString description;
+
+    // M: all these fields are mandatory
+    XTOSTRUCT(M(name, author, description, domains, ips));
+};
+
+/**
+ * @brief RouteSettingsMatrixWidget::on_importSchemeBtn_clicked
+ * @author DuckSoft <realducksoft@gmail.com>
+ * @todo add some debug output
+ */
+void RouteSettingsMatrixWidget::on_importSchemeBtn_clicked()
+{
+    try
+    {
+        // open up the file dialog and choose a file.
+        auto filePath = this->openFileDialog();
+        if (!filePath)
+            return;
+
+        // read the file and parse back to struct.
+        // if error occurred on parsing, an exception will be thrown.
+        auto content = StringFromFile(filePath.value());
+        auto scheme = StructFromJsonString<Qv2rayRouteScheme>(content);
+
+        // show the information of this scheme to user,
+        // and ask user if he/she wants to import and apply this.
+        auto strPrompt = tr("Import scheme '%1' by '%2'?" NEWLINE "Description: %3").arg(scheme.name, scheme.author, scheme.description);
+        auto decision = QvMessageBoxAsk(this, tr("Importing Scheme"), strPrompt);
+
+        // if user don't want to import, just leave.
+        if (decision != QMessageBox::Yes)
+            return;
+
+        // write the scheme onto the window
+        this->SetRouteConfig(static_cast<Qv2rayRouteConfig>(scheme));
+
+        // done
+    }
+    catch (exception)
+    {
+        // TODO: Give some error
+    }
+}
+
+/**
+ * @brief opens up a dialog and asks user to choose a scheme file.
+ * @return the selected file path, if any
+ * @author DuckSoft <realducksoft@gmail.com>
+ */
+std::optional<QString> RouteSettingsMatrixWidget::openFileDialog()
+{
+    QFileDialog dialog;
+    dialog.setFileMode(QFileDialog::ExistingFile);
+    dialog.setNameFilter(tr("QvRoute Schemes (*.json)"));
+    if (!dialog.exec() || dialog.selectedFiles().length() != 1)
+    {
+        return std::nullopt;
+    }
+    return dialog.selectedFiles().first();
 }

@@ -2,6 +2,14 @@
 <ui version="4.0">
  <class>RouteSettingsMatrix</class>
  <widget class="QWidget" name="RouteSettingsMatrix">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>927</width>
+    <height>198</height>
+   </rect>
+  </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
@@ -115,7 +123,7 @@
      <item>
       <widget class="QPushButton" name="importSchemeBtn">
        <property name="enabled">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
        <property name="toolTip">
         <string>Import route scheme from file</string>
