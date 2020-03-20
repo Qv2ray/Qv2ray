@@ -21,6 +21,7 @@ namespace Qv2ray::common
         parser.addOption(runAsRootOption);
         parser.addOption(debugOption);
         parser.addOption(hiDpiOption);
+        parser.addOption(forceHiDpiOption);
         parser.addOption(withToolbarOption);
         helpOption = parser.addHelpOption();
         versionOption = parser.addVersionOption();

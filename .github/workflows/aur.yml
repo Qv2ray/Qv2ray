@@ -2,8 +2,8 @@ name: Build Qv2ray AUR
 on: 
   push:
     paths-ignore:
-    - '.github'
-    branches:    
+      - '.github'
+    branches:
       - master
       - dev
     tags:
@@ -14,7 +14,7 @@ on:
 jobs:
   aur:
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         repo: [qv2ray, qv2ray-dev-git]
     runs-on: [ubuntu-latest]
@@ -22,3 +22,6 @@ jobs:
       - uses: DuckSoft/build-aur-action@v1.0
         with:
           repo-name: ${{ matrix.repo }}
+
+      - name: Post AUR Build Action
+        uses: DuckSoft/post-aur-build-action@0.1.0

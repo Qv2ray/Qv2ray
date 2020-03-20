@@ -18,7 +18,6 @@
 using QtNodes::FlowView;
 using namespace Qv2ray::ui::nodemodels;
 
-static bool isLoading = false;
 #define CurrentRule this->rules[this->currentRuleTag]
 #define LOADINGCHECK                                                                                                                            \
     if (isLoading)                                                                                                                              \
@@ -647,12 +646,14 @@ void RouteEditor::on_enableBalancerCB_stateChanged(int arg1)
     {
         LOG(MODULE_UI, "A rule has been set to use balancer, disconnect it to any outbound.")
         auto ruleNode = ruleNodes[currentRuleTag];
-
         for (auto &&[_, conn] : nodeScene->connections())
         {
-            if (conn.get()->getNode(PortType::Out) == ruleNode)
+            auto x = conn.get();
+            if (x != nullptr && x->getNode(PortType::Out) == ruleNode)
             {
                 nodeScene->deleteConnection(*conn);
+                // Since there should be only one connection from this rule node.
+                break;
             }
         }
     }
@@ -912,8 +913,8 @@ void RouteEditor::on_editBtn_clicked()
 
             if (isTagChanged)
             {
-                DEBUG(MODULE_UI, "Outbound tag is changed: " + QString(isTagChanged))
                 auto newTag = getTag(_result);
+                DEBUG(MODULE_UI, "Outbound tag is changed: " + newTag)
                 RenameItemTag(RENAME_OUTBOUND, getTag(_out), &newTag);
             }
 
@@ -932,12 +933,6 @@ void RouteEditor::on_domainStrategyCombo_currentIndexChanged(const QString &arg1
 {
     LOADINGCHECK
     domainStrategy = arg1;
-}
-
-void RouteEditor::on_defaultOutboundCombo_currentIndexChanged(const QString &arg1)
-{
-    LOADINGCHECK
-    defaultOutbound = arg1;
 }
 
 void RouteEditor::on_ruleRenameBtn_clicked()
@@ -963,4 +958,10 @@ void RouteEditor::on_ruleRenameBtn_clicked()
     {
         RenameItemTag(RENAME_RULE, CurrentRule.QV2RAY_RULE_TAG, &newTag);
     }
+}
+
+void RouteEditor::on_defaultOutboundCombo_currentTextChanged(const QString &arg1)
+{
+    LOADINGCHECK
+    defaultOutbound = arg1;
 }

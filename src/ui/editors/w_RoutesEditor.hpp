@@ -93,9 +93,9 @@ class RouteEditor
 
     void on_domainStrategyCombo_currentIndexChanged(const QString &arg1);
 
-    void on_defaultOutboundCombo_currentIndexChanged(const QString &arg1);
-
     void on_ruleRenameBtn_clicked();
+
+    void on_defaultOutboundCombo_currentTextChanged(const QString &arg1);
 
   public slots:
     void onNodeClicked(QtNodes::Node &n);
@@ -103,6 +103,7 @@ class RouteEditor
     void onConnectionDeleted(QtNodes::Connection const &c);
 
   private:
+    bool isLoading = false;
     void RenameItemTag(ROUTE_EDIT_MODE mode, const QString originalTag, QString *newTag);
     void ShowCurrentRuleDetail();
     //

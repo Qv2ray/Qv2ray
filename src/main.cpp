@@ -139,6 +139,7 @@ bool initialiseQv2ray()
         conf.kernelConfig.KernelPath(QString(QV2RAY_DEFAULT_VCORE_PATH));
         conf.kernelConfig.AssetsPath(QString(QV2RAY_DEFAULT_VASSETS_PATH));
         conf.logLevel = 2;
+        conf.uiConfig.language = QLocale::system().name();
         //
         // Save initial config.
         SaveGlobalSettings(conf);
@@ -316,8 +317,8 @@ int main(int argc, char *argv[])
     if (confObject.uiConfig.language.isEmpty())
     {
         // Prevent empty.
-        LOG(MODULE_UI, "Setting default UI language to en_US")
-        confObject.uiConfig.language = "en_US";
+        LOG(MODULE_UI, "Setting default UI language to system locale.")
+        confObject.uiConfig.language = QLocale::system().name();
     }
 
     if (Qv2rayTranslator->InstallTranslation(confObject.uiConfig.language))

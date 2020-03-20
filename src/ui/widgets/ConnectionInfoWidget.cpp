@@ -27,12 +27,12 @@ void ConnectionInfoWidget::UpdateColorScheme()
     editJsonBtn->setIcon(QICON_R("json.png"));
     shareLinkTxt->setStyleSheet("border-bottom: 1px solid gray; border-radius: 0px; padding: 2px; background-color: " +
                                 this->palette().color(this->backgroundRole()).name(QColor::HexRgb));
+    groupSubsLinkTxt->setStyleSheet("border-bottom: 1px solid gray; border-radius: 0px; padding: 2px; background-color: " +
+                                    this->palette().color(this->backgroundRole()).name(QColor::HexRgb));
     //
     auto isDarkTheme = GlobalConfig.uiConfig.useDarkTheme;
     qrPixmapBlured = BlurImage(ColorizeImage(qrPixmap, isDarkTheme ? QColor(Qt::black) : QColor(Qt::white), 0.7), 35);
-    //
     qrLabel->setPixmap(IsComplexConfig(connectionId) ? QPixmap(":/assets/icons/qv2ray.ico") : (isRealPixmapShown ? qrPixmap : qrPixmapBlured));
-    //
     connectBtn->setIcon(ConnectionManager->IsConnected(connectionId) ? QICON_R("stop.png") : QICON_R("connect.png"));
 }
 
@@ -46,11 +46,14 @@ ConnectionInfoWidget::ConnectionInfoWidget(QWidget *parent) : QWidget(parent)
     shareLinkTxt->setAutoFillBackground(true);
     shareLinkTxt->setCursor(QCursor(Qt::CursorShape::IBeamCursor));
     shareLinkTxt->installEventFilter(this);
+    groupSubsLinkTxt->installEventFilter(this);
     qrLabel->installEventFilter(this);
     //
     connect(ConnectionManager, &QvConfigHandler::OnConnected, this, &ConnectionInfoWidget::OnConnected);
     connect(ConnectionManager, &QvConfigHandler::OnDisconnected, this, &ConnectionInfoWidget::OnDisConnected);
     connect(ConnectionManager, &QvConfigHandler::OnConnectionModified, this, &ConnectionInfoWidget::OnConnectionModified);
+    connect(ConnectionManager, &QvConfigHandler::OnConnectionGroupChanged, this, &ConnectionInfoWidget::OnConnectionModified);
+    connect(ConnectionManager, &QvConfigHandler::OnGroupRenamed, this, &ConnectionInfoWidget::OnGroupRenamed);
     connect(ConnectionManager, &QvConfigHandler::OnConnectionGroupChanged, this, &ConnectionInfoWidget::OnConnectionModified);
 }
 
@@ -113,8 +116,8 @@ void ConnectionInfoWidget::ShowDetails(const tuple<GroupId, ConnectionId> &_iden
         }
         //
         groupShareTxt->setPlainText(shareLinks.join(NEWLINE));
-        groupSubsLinkLabel->setText(ConnectionManager->IsSubscription(groupId) ? get<0>(ConnectionManager->GetSubscriptionData(groupId)) :
-                                                                                 tr("Not a subscription"));
+        groupSubsLinkTxt->setText(ConnectionManager->IsSubscription(groupId) ? get<0>(ConnectionManager->GetSubscriptionData(groupId)) :
+                                                                               tr("Not a subscription"));
     }
 }
 
@@ -126,6 +129,16 @@ void ConnectionInfoWidget::OnConnectionModified(const ConnectionId &id)
 {
     if (id == connectionId)
         ShowDetails({ GetConnectionGroupId(id), id });
+}
+
+void ConnectionInfoWidget::OnGroupRenamed(const GroupId &id, const QString &oldName, const QString &newName)
+{
+    Q_UNUSED(oldName)
+    if (this->groupId == id)
+    {
+        groupNameLabel->setText(newName);
+        groupLabel->setText(newName);
+    }
 }
 
 void ConnectionInfoWidget::on_connectBtn_clicked()
@@ -171,6 +184,11 @@ bool ConnectionInfoWidget::eventFilter(QObject *object, QEvent *event)
     {
         if (!shareLinkTxt->hasSelectedText())
             shareLinkTxt->selectAll();
+    }
+    else if (groupSubsLinkTxt->underMouse() && event->type() == QEvent::MouseButtonRelease)
+    {
+        if (!groupSubsLinkTxt->hasSelectedText())
+            groupSubsLinkTxt->selectAll();
     }
     else if (qrLabel->underMouse() && event->type() == QEvent::MouseButtonRelease)
     {

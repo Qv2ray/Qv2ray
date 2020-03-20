@@ -111,17 +111,34 @@ namespace Qv2ray::base::config
         XTOSTRUCT(O(theme, language, useDarkTheme, useDarkTrayIcon, maximumLogLines))
     };
 
+    struct Qv2rayRouteConfig_Impl
+    {
+        QList<QString> proxy;
+        QList<QString> block;
+        QList<QString> direct;
+        XTOSTRUCT(O(proxy, block, direct))
+    };
+
+    struct Qv2rayRouteConfig
+    {
+        Qv2rayRouteConfig_Impl domains;
+        Qv2rayRouteConfig_Impl ips;
+        XTOSTRUCT(O(domains, ips))
+    };
+
     struct Qv2rayConnectionConfig
     {
         bool bypassCN;
         bool enableProxy;
         bool withLocalDNS;
+        Qv2rayRouteConfig routeConfig;
         QList<QString> dnsList;
         Qv2rayForwardProxyConfig forwardProxyConfig;
-        Qv2rayConnectionConfig() : bypassCN(true), enableProxy(true), withLocalDNS(false), dnsList(QStringList{ "8.8.4.4", "1.1.1.1" })
+        Qv2rayConnectionConfig()
+            : bypassCN(true), enableProxy(true), withLocalDNS(false), routeConfig(), dnsList(QStringList{ "8.8.4.4", "1.1.1.1" })
         {
         }
-        XTOSTRUCT(O(bypassCN, enableProxy, withLocalDNS, dnsList, forwardProxyConfig))
+        XTOSTRUCT(O(bypassCN, enableProxy, withLocalDNS, dnsList, forwardProxyConfig, routeConfig))
     };
 
     struct Qv2rayAPIConfig
