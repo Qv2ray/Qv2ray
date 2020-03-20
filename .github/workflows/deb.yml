@@ -11,6 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     container: debian:buster
 
+    env:
+      USER: ymshenyu
+
     steps:
       - name: Install git
         run: |
