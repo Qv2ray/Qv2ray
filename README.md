@@ -1,18 +1,20 @@
 # Qv2ray - Make v2ray real cross-platform
 
 [![HitCount](http://hits.dwyl.io/Qv2ray/Qv2ray.svg)](http://hits.dwyl.io/Qv2ray/Qv2ray)
-![GitHub Releases](https://img.shields.io/github/downloads/Qv2ray/Qv2ray/latest/total?style=flat-square&logo=github)
-![GitHub All Releases](https://img.shields.io/github/downloads/Qv2ray/Qv2ray/total?label=downloads-total&logo=github&style=flat-square)
+[![GitHub Releases](https://img.shields.io/github/downloads/Qv2ray/Qv2ray/latest/total?style=flat-square&logo=github)](https://github.com/Qv2ray/Qv2ray/releases)
+[![GitHub All Releases](https://img.shields.io/github/downloads/Qv2ray/Qv2ray/total?label=downloads-total&logo=github&style=flat-square)](https://github.com/Qv2ray/Qv2ray/releases)
 
-[![archlinuxcn](https://img.shields.io/badge/archlinuxcn-available-success?style=flat-square)](https://build.archlinuxcn.org/packages/#/qv2ray)
 [![flathub](https://img.shields.io/badge/flathub-available-success?style=flat-square)](https://flathub.org/apps/details/com.github.Qv2ray)
-![Snap](https://snapcraft.io/qv2ray/badge.svg)
+[![Snap](https://snapcraft.io/qv2ray/badge.svg)](https://snapcraft.io/qv2ray/)
+
 [![AUR Stable](https://img.shields.io/aur/version/qv2ray?label=aur-stable&style=flat-square)](https://aur.archlinux.org/packages/qv2ray)
 [![AUR Development](https://img.shields.io/aur/version/qv2ray-dev-git?label=aur-development&style=flat-square)](https://aur.archlinux.org/packages/qv2ray-dev-git)
+[![ArchlinuxCN Stable](https://img.shields.io/badge/dynamic/json?label=archlinuxcn-stable&query=%24.latest.pkgver&url=https%3A%2F%2Fbuild.archlinuxcn.org%2Fapi%2Fpackages%2Fqv2ray)](https://build.archlinuxcn.org/packages/#/qv2ray)
+[![ArchlinuxCN Development](https://img.shields.io/badge/dynamic/json?label=archlinuxcn-dev-git&query=%24.latest.pkgver&url=https%3A%2F%2Fbuild.archlinuxcn.org%2Fapi%2Fpackages%2Fqv2ray-dev-git)](https://build.archlinuxcn.org/packages/#/qv2ray-dev-git)
 
-![Qv2ray AUR Build](https://github.com/Qv2ray/Qv2ray/workflows/Build%20Qv2ray%20AUR/badge.svg)
-![Qv2ray Debian Package](https://github.com/Qv2ray/Qv2ray/workflows/Qv2ray%20build%20debian%20package/badge.svg)
-![Qv2ray Build Matrix](https://github.com/Qv2ray/Qv2ray/workflows/Qv2ray%20build%20matrix%20-%20cmake/badge.svg)
+[![Qv2ray AUR Build](https://github.com/Qv2ray/Qv2ray/workflows/Build%20Qv2ray%20AUR/badge.svg)](https://github.com/Qv2ray/Qv2ray/actions?query=workflow%3A%22Build+Qv2ray+AUR%22)
+[![Qv2ray Debian Package](https://github.com/Qv2ray/Qv2ray/workflows/Qv2ray%20build%20debian%20package/badge.svg)](https://github.com/Qv2ray/Qv2ray/actions?query=workflow%3A%22Qv2ray+build+debian+package%22)
+[![Qv2ray Build Matrix](https://github.com/Qv2ray/Qv2ray/workflows/Qv2ray%20build%20matrix%20-%20cmake/badge.svg)](https://github.com/Qv2ray/Qv2ray/actions?query=workflow%3A%22Qv2ray+build+matrix+-+cmake%22)
 
 Snap Build Status: [![Snap Status](https://travis-ci.com/Qv2ray/Qv2ray.svg?branch=master)](https://travis-ci.com/Qv2ray/Qv2ray)
 
