@@ -30,17 +30,19 @@ jobs:
       - name: Build
         run: |
           dpkg-buildpackage -us -uc -i -b
+      - name: Copy binary
+          cp ../qv2ray_*.deb ./
       - name: Upload artifact
         uses: actions/upload-artifact@v1
         with:
           name: qv2ray_${{ steps.get_version.outputs.VERSION }}.deb
-          path: ../qv2ray_*.deb
+          path: ./qv2ray_*.deb
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release
         if: github.event_name == 'release'
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ../qv2ray_*.deb
+          file: ./qv2ray_*.deb
           asset_name: qv2ray_${{ steps.get_version.outputs.VERSION }}.deb
           tag: ${{ github.ref }}
           overwrite: true
