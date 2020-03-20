@@ -24,6 +24,7 @@ ImportConfigWindow::ImportConfigWindow(QWidget *parent) : QDialog(parent)
     setupUi(this);
     // nameTxt->setText(tr("My Connection Imported at: ") + QDateTime::currentDateTime().toString("MM-dd hh:mm"));
     QvMessageBusConnect(ImportConfigWindow);
+    adjustSize();
     RESTORE_RUNTIME_CONFIG(screenShotHideQv2ray, hideQv2rayCB->setChecked)
 }
 

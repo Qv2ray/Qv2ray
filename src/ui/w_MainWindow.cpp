@@ -99,9 +99,7 @@ void MainWindow::SortConnectionList(MW_ITEM_COL byCol, bool asending)
 {
     connectionListWidget->sortByColumn(MW_ITEM_COL_NAME, Qt::AscendingOrder);
     for (auto i = 0; i < connectionListWidget->topLevelItemCount(); i++)
-    {
-        connectionListWidget->topLevelItem(i)->sortChildren(byCol, asending ? Qt::AscendingOrder : Qt::DescendingOrder);
-    }
+    { connectionListWidget->topLevelItem(i)->sortChildren(byCol, asending ? Qt::AscendingOrder : Qt::DescendingOrder); }
     on_locateBtn_clicked();
 }
 
@@ -110,6 +108,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     setupUi(this);
     MainWindow::mwInstance = this;
     QvMessageBusConnect(MainWindow);
+    adjustSize();
     //
     infoWidget = new ConnectionInfoWidget(this);
     connectionInfoLayout->addWidget(infoWidget);
@@ -259,10 +258,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
         MWAddGroupItem_p(group);
         auto connections = ConnectionManager->Connections(group);
 
-        for (auto connection : connections)
-        {
-            MWAddConnectionItem_p(connection, group);
-        }
+        for (auto connection : connections) { MWAddConnectionItem_p(connection, group); }
     }
     //
     // Find and start if there is an auto-connection
@@ -867,10 +863,7 @@ void MainWindow::OnGroupCreated(const GroupId &id, const QString &displayName)
 }
 void MainWindow::OnGroupDeleted(const GroupId &id, const QList<ConnectionId> &connections)
 {
-    for (auto conn : connections)
-    {
-        groupNodes.value(id)->removeChild(connectionNodes.value(conn).get());
-    }
+    for (auto conn : connections) { groupNodes.value(id)->removeChild(connectionNodes.value(conn).get()); }
     groupNodes.remove(id);
 }
 
