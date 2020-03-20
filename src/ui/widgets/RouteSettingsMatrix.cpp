@@ -11,23 +11,15 @@ RouteSettingsMatrixWidget::RouteSettingsMatrixWidget(const QString &assetsDirPat
 {
     setupUi(this);
     //
-    directDomainTxt = new AutoCompleteTextEdit("geosite", this);
-    proxyDomainTxt = new AutoCompleteTextEdit("geosite", this);
-    blockDomainTxt = new AutoCompleteTextEdit("geosite", this);
-    //
-    directIPTxt = new AutoCompleteTextEdit("geoip", this);
-    proxyIPTxt = new AutoCompleteTextEdit("geoip", this);
-    blockIPTxt = new AutoCompleteTextEdit("geoip", this);
-    //
     auto sourceStringsDomain = ReadGeoSiteFromFile(assetsDirPath + "/geosite.dat");
-    directDomainTxt->SetSourceStrings(sourceStringsDomain);
-    proxyDomainTxt->SetSourceStrings(sourceStringsDomain);
-    blockDomainTxt->SetSourceStrings(sourceStringsDomain);
+    directDomainTxt = new AutoCompleteTextEdit("geosite", sourceStringsDomain, this);
+    proxyDomainTxt = new AutoCompleteTextEdit("geosite", sourceStringsDomain, this);
+    blockDomainTxt = new AutoCompleteTextEdit("geosite", sourceStringsDomain, this);
     //
     auto sourceStringsIP = ReadGeoSiteFromFile(assetsDirPath + "/geoip.dat");
-    directIPTxt->SetSourceStrings(sourceStringsIP);
-    proxyIPTxt->SetSourceStrings(sourceStringsIP);
-    blockIPTxt->SetSourceStrings(sourceStringsIP);
+    directIPTxt = new AutoCompleteTextEdit("geoip", sourceStringsIP, this);
+    proxyIPTxt = new AutoCompleteTextEdit("geoip", sourceStringsIP, this);
+    blockIPTxt = new AutoCompleteTextEdit("geoip", sourceStringsIP, this);
     //
     directTxtLayout->addWidget(directDomainTxt, 0, 0);
     proxyTxtLayout->addWidget(proxyDomainTxt, 0, 0);
@@ -124,10 +116,11 @@ void RouteSettingsMatrixWidget::on_importSchemeBtn_clicked()
         this->SetRouteConfig(static_cast<Qv2rayRouteConfig>(scheme));
 
         // done
-        // TODO: Give some success as Notification
+        LOG(MODULE_SETTINGS, "Imported route config: " + scheme.name + " by: " + scheme.author)
     }
-    catch (exception)
+    catch (exception &e)
     {
+        LOG(MODULE_UI, "Exception: " + QString(e.what()))
         // TODO: Give some error as Notification
     }
 }
