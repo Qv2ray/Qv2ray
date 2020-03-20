@@ -6,6 +6,8 @@
 #include <QDialog>
 #include <ui_w_PreferencesWindow.h>
 
+class RouteSettingsMatrixWidget;
+
 class PreferencesWindow
     : public QDialog
     , private Ui::PreferencesWindow
@@ -165,6 +167,8 @@ class PreferencesWindow
     void on_startWithLoginCB_stateChanged(int arg1);
 
   private:
+    //
+    RouteSettingsMatrixWidget *routeSettingsWidget;
     void SetAutoStartButtonsState(bool isAutoStart);
     // Set ui parameters for a line;
     void ShowLineParameters(QvBarLine &line);

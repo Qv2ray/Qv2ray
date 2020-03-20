@@ -9,7 +9,7 @@ namespace Qv2ray::core::connection
     {
         // -------------------------- BEGIN CONFIG GENERATIONS
         // ----------------------------------------------------------------------------
-        ROUTING GenerateRoutes(bool enableProxy, bool bypassCN)
+        ROUTING GenerateRoutes(bool enableProxy, bool bypassCN, const QString &defaultOutboundTag)
         {
             ROUTING root;
             root.insert("domainStrategy", "IPIfNonMatch");
@@ -27,6 +27,35 @@ namespace Qv2ray::core::connection
             // Private IPs should always NOT TO PROXY!
             rulesList.append(GenerateSingleRouteRule("geoip:private", false, OUTBOUND_TAG_DIRECT));
             //
+            // To the route list.
+            auto &routeConfig = GlobalConfig.connectionConfig.routeConfig;
+            if (!routeConfig.domains.block.isEmpty())
+            {
+                rulesList.append(GenerateSingleRouteRule(routeConfig.domains.block, true, OUTBOUND_TAG_BLACKHOLE));
+            }
+            if (!routeConfig.domains.proxy.isEmpty())
+            {
+                rulesList.append(GenerateSingleRouteRule(routeConfig.domains.proxy, true, defaultOutboundTag));
+            }
+            if (!routeConfig.domains.direct.isEmpty())
+            {
+                rulesList.append(GenerateSingleRouteRule(routeConfig.domains.direct, true, OUTBOUND_TAG_DIRECT));
+            }
+
+            // IP list
+            if (!routeConfig.ips.block.isEmpty())
+            {
+                rulesList.append(GenerateSingleRouteRule(routeConfig.ips.block, false, OUTBOUND_TAG_BLACKHOLE));
+            }
+            if (!routeConfig.ips.proxy.isEmpty())
+            {
+                rulesList.append(GenerateSingleRouteRule(routeConfig.ips.proxy, false, defaultOutboundTag));
+            }
+            if (!routeConfig.ips.direct.isEmpty())
+            {
+                rulesList.append(GenerateSingleRouteRule(routeConfig.ips.direct, false, OUTBOUND_TAG_DIRECT));
+            }
+            //
             // Check if CN needs proxy, or direct.
             if (bypassCN)
             {
@@ -34,6 +63,8 @@ namespace Qv2ray::core::connection
                 rulesList.append(GenerateSingleRouteRule("geoip:cn", false, OUTBOUND_TAG_DIRECT));
                 rulesList.append(GenerateSingleRouteRule("geosite:cn", true, OUTBOUND_TAG_DIRECT));
             }
+            //
+            //
             // As a bug fix of #64, this default rule has been disabled.
             // rulesList.append(GenerateSingleRouteRule(QStringList({"regexp:.*"}),
             // true, globalProxy ? OUTBOUND_TAG_PROXY :  OUTBOUND_TAG_DIRECT));
@@ -49,6 +80,7 @@ namespace Qv2ray::core::connection
         ROUTERULE GenerateSingleRouteRule(QStringList list, bool isDomain, QString outboundTag, QString type)
         {
             ROUTERULE root;
+            list.removeAll("");
             root.insert(isDomain ? "domain" : "ip", QJsonArray::fromStringList(list));
             JADD(outboundTag, type)
             RROOT
@@ -387,9 +419,9 @@ namespace Qv2ray::core::connection
                     LOG(MODULE_CONNECTION, "WARN: This message usually indicates the config file has logic errors:")
                     LOG(MODULE_CONNECTION, "WARN: --> The config file has NO routing section, however more than 1 outbounds are detected.")
                 }
-                auto outboundTag = getTag(OUTBOUND(root["outbounds"].toArray().first().toObject()));
-
-                auto routeObject = GenerateRoutes(GlobalConfig.connectionConfig.enableProxy, GlobalConfig.connectionConfig.bypassCN);
+                //
+                auto tag = getTag(OUTBOUND(root["outbounds"].toArray().first().toObject()));
+                auto routeObject = GenerateRoutes(GlobalConfig.connectionConfig.enableProxy, GlobalConfig.connectionConfig.bypassCN, tag);
                 root.insert("routing", routeObject);
                 //
                 // Process forward proxy
@@ -441,6 +473,7 @@ namespace Qv2ray::core::connection
 #undef fpConf
                 OUTBOUNDS outbounds = OUTBOUNDS(root["outbounds"].toArray());
                 outbounds.append(GenerateOutboundEntry("freedom", GenerateFreedomOUT("AsIs", ":0", 0), {}, {}, "0.0.0.0", OUTBOUND_TAG_DIRECT));
+                outbounds.append(GenerateOutboundEntry("blackhole", GenerateBlackHoleOUT(false), {}, {}, "0.0.0.0", OUTBOUND_TAG_BLACKHOLE));
                 root["outbounds"] = outbounds;
             }
 

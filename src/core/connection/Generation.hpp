@@ -6,7 +6,7 @@ namespace Qv2ray::core::connection
     {
         // Important config generation algorithms.
         const QStringList vLogLevels = { "none", "debug", "info", "warning", "error" };
-        ROUTING GenerateRoutes(bool enableProxy, bool bypassCN);
+        ROUTING GenerateRoutes(bool enableProxy, bool bypassCN, const QString &defaultOutboundTag);
         ROUTERULE GenerateSingleRouteRule(QString str, bool isDomain, QString outboundTag, QString type = "field");
         ROUTERULE GenerateSingleRouteRule(QStringList list, bool isDomain, QString outboundTag, QString type = "field");
         QJsonObject GenerateDNS(bool withLocalhost, QStringList dnsServers);

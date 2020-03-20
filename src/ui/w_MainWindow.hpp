@@ -34,6 +34,7 @@ class MainWindow
   public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow() override;
+    static MainWindow *mwInstance;
   signals:
     void StartConnection() const;
     void StopConnection() const;
@@ -42,34 +43,47 @@ class MainWindow
   private:
     QvMessageBusSlotDecl;
   private slots:
+#ifndef DISABLE_AUTO_UPDATE
+    void VersionUpdate(QByteArray &data);
+#endif
     void on_activatedTray(QSystemTrayIcon::ActivationReason reason);
-    void on_actionExit_triggered();
     void on_preferencesBtn_clicked();
     void on_clearlogButton_clicked();
     void on_connectionListWidget_customContextMenuRequested(const QPoint &pos);
     void on_importConfigButton_clicked();
     void on_subsButton_clicked();
     //
-    void ToggleVisibility();
-#ifndef DISABLE_AUTO_UPDATE
-    void VersionUpdate(QByteArray &data);
-#endif
+    void on_connectionListWidget_itemDoubleClicked(QTreeWidgetItem *item, int column);
+    void on_connectionFilterTxt_textEdited(const QString &arg1);
+    void on_connectionListWidget_itemClicked(QTreeWidgetItem *item, int column);
+    void on_locateBtn_clicked();
     //
+    void on_chartVisibilityBtn_clicked();
+    void on_logVisibilityBtn_clicked();
+    void on_clearChartBtn_clicked();
+    void on_connectionListWidget_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous);
+    void on_masterLogBrowser_textChanged();
 
-  public:
-    static MainWindow *mwInstance;
-
-  protected:
-    void keyPressEvent(QKeyEvent *e) override;
-    void keyReleaseEvent(QKeyEvent *e) override;
-    void closeEvent(QCloseEvent *) override;
-
-  private slots:
-    void OnEditRequested(const ConnectionId &id);
-    void OnEditJsonRequested(const ConnectionId &id);
+  private:
+    void on_actionExit_triggered();
+    void on_action_StartThis_triggered();
+    void on_action_RCM_SetAutoConnection_triggered();
+    void on_action_RCM_EditThis_triggered();
+    void on_action_RCM_EditAsJson_triggered();
+    void on_action_RCM_EditAsComplex_triggered();
+    void on_action_RCM_RenameThis_triggered();
+    void on_action_RCM_DeleteThese_triggered();
+    void on_action_RCM_DuplicateThese_triggered();
+    void on_action_RCM_ClearUsage_triggered();
+    //
+    void on_action_RCM_tovCoreLog_triggered();
+    void on_action_RCM_toQvLog_triggered();
     //
     void OnConnectionWidgetFocusRequested(const ConnectionItemWidget *widget);
     //
+    void ToggleVisibility();
+    void OnEditRequested(const ConnectionId &id);
+    void OnEditJsonRequested(const ConnectionId &id);
     void OnConnected(const ConnectionId &id);
     void OnDisconnected(const ConnectionId &id);
     //
@@ -83,33 +97,13 @@ class MainWindow
     void OnGroupCreated(const GroupId &id, const QString &displayName);
     void OnGroupDeleted(const GroupId &id, const QList<ConnectionId> &connections);
     //
-    void on_action_StartThis_triggered();
-    void on_action_RCM_SetAutoConnection_triggered();
-    void on_action_RCM_EditThis_triggered();
-    void on_action_RCM_EditAsJson_triggered();
-    void on_action_RCM_EditAsComplex_triggered();
-    void on_action_RCM_RenameThis_triggered();
-    void on_action_RCM_DeleteThese_triggered();
-    void on_action_RCM_DuplicateThese_triggered();
-    //
-    void on_action_RCM_tovCoreLog_triggered();
-    void on_action_RCM_toQvLog_triggered();
-    //
-    void on_connectionListWidget_itemDoubleClicked(QTreeWidgetItem *item, int column);
-    void on_connectionFilterTxt_textEdited(const QString &arg1);
-    void on_connectionListWidget_itemClicked(QTreeWidgetItem *item, int column);
-    void on_locateBtn_clicked();
-    //
     void SortConnectionList(MW_ITEM_COL byCol, bool asending);
-    void on_chartVisibilityBtn_clicked();
-    void on_logVisibilityBtn_clicked();
-    void on_clearChartBtn_clicked();
-    void on_connectionListWidget_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous);
-
-    void on_masterLogBrowser_textChanged();
 
   protected:
     void timerEvent(QTimerEvent *event) override;
+    void keyPressEvent(QKeyEvent *e) override;
+    void keyReleaseEvent(QKeyEvent *e) override;
+    void closeEvent(QCloseEvent *) override;
 
   private:
     QHash<GroupId, shared_ptr<QTreeWidgetItem>> groupNodes;
@@ -145,6 +139,7 @@ class MainWindow
     QAction *action_RCM_EditComplex = new QAction(tr("Edit as Complex Config"), this);
     QAction *action_RCM_Rename = new QAction(tr("Rename"), this);
     QAction *action_RCM_Duplicate = new QAction(tr("Duplicate to the Same Group"), this);
+    QAction *action_RCM_ClearUsage = new QAction(tr("Clear Usage Data"), this);
     QAction *action_RCM_Delete = new QAction(tr("Delete Connection"), this);
     //
     QMenu *sortMenu = new QMenu(tr("Sort connection list."), this);

@@ -20,19 +20,18 @@ const int GRAPH_NODE_LABEL_FONTSIZE_INCREMENT = 3;
 
 namespace Qv2ray::ui::nodemodels
 {
-    const NodeDataType outboundType = { "outbound", "Outbound Object" };
-    const NodeDataType inboundType = { "inbound", "Inbound Object" };
+    const std::shared_ptr<NodeDataType> outboundType = std::make_shared<NodeDataType>("outbound", QObject::tr("Outbound"));
+    const std::shared_ptr<NodeDataType> inboundType = std::make_shared<NodeDataType>("inbound", QObject::tr("Inbound"));
     /// The class can potentially incapsulate any user data
     /// need to be transferred within the Node Editor graph
     class InboundNodeData : public NodeData
     {
       public:
-        InboundNodeData(){ DEBUG(MODULE_GRAPH, "DANGER: Initialising a data model without value.") } InboundNodeData(QString in)
-            : _inboundTag(in)
+        explicit InboundNodeData(QString in) : _inboundTag(in)
         {
         }
 
-        NodeDataType type() const override
+        std::shared_ptr<NodeDataType> type() const override
         {
             return inboundType;
         }
@@ -51,13 +50,11 @@ namespace Qv2ray::ui::nodemodels
     class OutboundNodeData : public NodeData
     {
       public:
-        OutboundNodeData()
-            : _outboundTag(){ DEBUG(MODULE_GRAPH, "DANGER: Initialising a data model without value.") } OutboundNodeData(QString out)
-            : _outboundTag(out)
+        explicit OutboundNodeData(QString out) : _outboundTag(out)
         {
         }
 
-        NodeDataType type() const override
+        std::shared_ptr<NodeDataType> type() const override
         {
             return outboundType;
         }
@@ -76,12 +73,11 @@ namespace Qv2ray::ui::nodemodels
     class RuleNodeData : public NodeData
     {
       public:
-        RuleNodeData()
-            : _ruleTag(){ DEBUG(MODULE_GRAPH, "DANGER: Initialising a data model without value.") } RuleNodeData(QString out) : _ruleTag(out)
+        explicit RuleNodeData(QString out) : _ruleTag(out)
         {
         }
 
-        NodeDataType type() const override
+        std::shared_ptr<NodeDataType> type() const override
         {
             return outboundType;
         }

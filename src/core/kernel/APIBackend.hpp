@@ -27,7 +27,7 @@ namespace Qv2ray::core::kernel
         void process();
 
       signals:
-        void OnDataReady(const quint64 _totalUp, const quint64 _totalDown);
+        void OnDataReady(const quint64 speedUp, const quint64 speedDown);
         void error(const QString &err);
 
       private:

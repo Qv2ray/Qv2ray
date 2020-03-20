@@ -2,25 +2,11 @@
 <ui version="4.0">
  <class>ConnectionInfoWidget</class>
  <widget class="QWidget" name="ConnectionInfoWidget">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>380</width>
-    <height>220</height>
-   </rect>
-  </property>
   <property name="sizePolicy">
    <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
-  </property>
-  <property name="minimumSize">
-   <size>
-    <width>1</width>
-    <height>1</height>
-   </size>
   </property>
   <property name="mouseTracking">
    <bool>true</bool>
@@ -195,6 +181,9 @@
            <property name="text">
             <string/>
            </property>
+           <property name="wordWrap">
+            <bool>true</bool>
+           </property>
            <property name="textInteractionFlags">
             <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
            </property>
@@ -214,6 +203,9 @@
            </property>
            <property name="text">
             <string/>
+           </property>
+           <property name="wordWrap">
+            <bool>true</bool>
            </property>
            <property name="textInteractionFlags">
             <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
@@ -324,8 +316,8 @@
             </property>
             <property name="sizeHint" stdset="0">
              <size>
-              <width>20</width>
-              <height>40</height>
+              <width>0</width>
+              <height>0</height>
              </size>
             </property>
            </spacer>
@@ -361,6 +353,9 @@
          <property name="text">
           <string/>
          </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
          <property name="textInteractionFlags">
           <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
          </property>
@@ -370,19 +365,6 @@
         <widget class="QLabel" name="label_9">
          <property name="text">
           <string>Subscription Link</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QLabel" name="groupSubsLinkLabel">
-         <property name="cursor">
-          <cursorShape>IBeamCursor</cursorShape>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="textInteractionFlags">
-          <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
          </property>
         </widget>
        </item>
@@ -420,6 +402,9 @@
           <bool>true</bool>
          </property>
         </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="groupSubsLinkTxt"/>
        </item>
       </layout>
      </widget>

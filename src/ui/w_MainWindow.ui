@@ -2,14 +2,6 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>880</width>
-    <height>660</height>
-   </rect>
-  </property>
   <property name="minimumSize">
    <size>
     <width>780</width>
@@ -50,12 +42,6 @@
         </property>
         <property name="sizeType">
          <enum>QSizePolicy::Maximum</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>999999999</width>
-          <height>0</height>
-         </size>
         </property>
        </spacer>
       </item>
@@ -234,7 +220,7 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>-168</y>
+          <y>0</y>
           <width>480</width>
           <height>736</height>
          </rect>
@@ -242,21 +228,9 @@
         <layout class="QVBoxLayout" name="verticalLayout_3">
          <item>
           <widget class="QFrame" name="connectionInfoFrame">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
            <property name="minimumSize">
             <size>
              <width>0</width>
-             <height>220</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
              <height>220</height>
             </size>
            </property>

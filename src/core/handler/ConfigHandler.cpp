@@ -208,6 +208,15 @@ namespace Qv2ray::core::handlers
         return NullGroupId;
     }
 
+    const optional<QString> QvConfigHandler::ClearConnectionUsage(const ConnectionId &id)
+    {
+        CheckConnectionExistance(id);
+        connections[id].upLinkData = 0;
+        connections[id].downLinkData = 0;
+        emit OnStatsAvailable(id, 0, 0, 0, 0);
+        return {};
+    }
+
     const optional<QString> QvConfigHandler::RenameConnection(const ConnectionId &id, const QString &newName)
     {
         CheckConnectionExistance(id);
@@ -370,9 +379,9 @@ namespace Qv2ray::core::handlers
 
     bool QvConfigHandler::UpdateConnection(const ConnectionId &id, const CONFIGROOT &root, bool skipRestart)
     {
-        CheckConnectionExistance(id);
+        CheckConnectionExistanceEx(id, false);
         auto const &groupId = connections[id].groupId;
-        CheckGroupExistance(groupId);
+        CheckGroupExistanceEx(groupId, false);
         //
         auto path = (groups[groupId].isSubscription ? QV2RAY_SUBSCRIPTION_DIR : QV2RAY_CONNECTIONS_DIR) + groupId.toString() + "/" +
                     id.toString() + QV2RAY_CONFIG_FILE_EXTENSION;
@@ -413,7 +422,7 @@ namespace Qv2ray::core::handlers
 
     const tuple<QString, int64_t, float> QvConfigHandler::GetSubscriptionData(const GroupId &id) const
     {
-        CheckGroupExistance(id);
+        CheckGroupExistanceEx(id, {});
         tuple<QString, int64_t, float> result;
 
         if (!groups[id].isSubscription)

@@ -1,0 +1,49 @@
+name: Qv2ray build debian package
+
+on:
+  push:
+  release:
+    types: [prereleased]
+
+jobs:
+  linux:
+    name: Debian Buster
+    runs-on: ubuntu-latest
+    container: debian:buster
+
+    steps:
+      - name: Install git
+        run: |
+          apt-get update
+          apt-get install -y git
+      - name: Checking out sources
+        uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
+      - name: Install build dependencies
+        run: |
+          apt-get install -y build-essential devscripts equivs libgrpc++-dev libprotobuf-dev protobuf-compiler-grpc qtbase5-dev qttools5-dev cmake
+      - name: Build
+        run: |
+          dpkg-buildpackage -us -uc -i -b
+      - name: Copy binary
+        run: |
+          cp ../qv2ray_*.deb ./
+      - name: Get package name
+        id: get_package
+        run: echo ::set-output name=NAME::$(basename qv2ray_*.deb)
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2-preview
+        with:
+          name: qv2ray
+          path: ${{ steps.get_package.outputs.NAME }}
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v1-release
+        if: github.event_name == 'release'
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ${{ steps.get_package.outputs.NAME }}
+          asset_name: ${{ steps.get_package.outputs.NAME }}
+          tag: ${{ github.ref }}
+          overwrite: true
+      

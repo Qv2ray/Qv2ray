@@ -5,14 +5,6 @@
   <property name="windowModality">
    <enum>Qt::ApplicationModal</enum>
   </property>
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>1100</width>
-    <height>672</height>
-   </rect>
-  </property>
   <property name="windowTitle">
    <string>Preferences</string>
   </property>
@@ -43,8 +35,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>1054</width>
-            <height>556</height>
+            <width>964</width>
+            <height>546</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout_13" rowstretch="0,0,0,0,1">
@@ -490,7 +482,7 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>1127</width>
+            <width>1016</width>
             <height>604</height>
            </rect>
           </property>
@@ -1113,7 +1105,7 @@
             <item row="1" column="0">
              <widget class="QLabel" name="label_17">
               <property name="text">
-               <string>Bypass Chinese Mainland</string>
+               <string>Bypass CN Mainland</string>
               </property>
              </widget>
             </item>
@@ -1264,18 +1256,22 @@
          </item>
         </layout>
        </item>
-       <item row="1" column="0" colspan="2">
-        <spacer name="verticalSpacer_14">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
+       <string>Advanced Route Settings</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_16" rowstretch="0,1">
+       <item row="1" column="0">
+        <layout class="QGridLayout" name="advRouteSettingsLayout"/>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_80">
+         <property name="text">
+          <string>You can configure route rules for all simple connection config here.</string>
          </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -2004,7 +2000,6 @@ p, li { white-space: pre-wrap; }
   <tabstop>proxyDefaultCb</tabstop>
   <tabstop>bypassCNCb</tabstop>
   <tabstop>localDNSCb</tabstop>
-  <tabstop>DNSListTxt</tabstop>
   <tabstop>fpGroupBox</tabstop>
   <tabstop>fpTypeCombo</tabstop>
   <tabstop>fpAddressTx</tabstop>

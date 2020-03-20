@@ -3,7 +3,7 @@
 
 namespace Qv2ray::components::geosite
 {
-    QStringList ReadGeoSiteFromFile(QString filepath);
+    QStringList ReadGeoSiteFromFile(const QString &filepath);
 }
 
 using namespace Qv2ray::components;

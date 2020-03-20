@@ -15,11 +15,10 @@
     }
 
 #define CheckGroupExistanceEx(id, val) CheckIdExistance(groups, id, val)
-#define CheckGroupExistance(id) CheckGroupExistanceEx(id, {})
+#define CheckGroupExistance(id) CheckGroupExistanceEx(id, tr("Group does not exist"))
 
 #define CheckConnectionExistanceEx(id, val) CheckIdExistance(connections, id, val)
-#define CheckConnectionExistance(id) CheckConnectionExistanceEx(id, {})
-
+#define CheckConnectionExistance(id) CheckConnectionExistanceEx(id, tr("Connection does not exist"))
 namespace Qv2ray::core::handlers
 {
     //
@@ -42,7 +41,7 @@ namespace Qv2ray::core::handlers
         }
         inline const QList<ConnectionId> Connections(const GroupId &groupId) const
         {
-            CheckGroupExistance(groupId);
+            CheckGroupExistanceEx(groupId, {});
             return groups[groupId].connections;
         }
         inline const QList<GroupId> AllGroups() const
@@ -51,17 +50,17 @@ namespace Qv2ray::core::handlers
         }
         inline const ConnectionMetaObject GetConnectionMetaObject(const ConnectionId &id) const
         {
-            CheckConnectionExistance(id);
+            CheckConnectionExistanceEx(id, {});
             return connections[id];
         }
         inline const GroupMetaObject GetGroupMetaObject(const GroupId &id) const
         {
-            CheckGroupExistance(id);
+            CheckGroupExistanceEx(id, {});
             return groups[id];
         }
         inline bool IsSubscription(const GroupId &id) const
         {
-            CheckGroupExistance(id);
+            CheckGroupExistanceEx(id, {});
             return groups[id].isSubscription;
         }
         //
@@ -81,6 +80,7 @@ namespace Qv2ray::core::handlers
         //
         // Connection Operations.
         bool UpdateConnection(const ConnectionId &id, const CONFIGROOT &root, bool skipRestart = false);
+        const optional<QString> ClearConnectionUsage(const ConnectionId &id);
         const optional<QString> DeleteConnection(const ConnectionId &id);
         const optional<QString> RenameConnection(const ConnectionId &id, const QString &newName);
         const optional<QString> MoveConnectionGroup(const ConnectionId &id, const GroupId &newGroupId);

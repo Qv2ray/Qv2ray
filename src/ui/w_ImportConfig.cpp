@@ -24,6 +24,7 @@ ImportConfigWindow::ImportConfigWindow(QWidget *parent) : QDialog(parent)
     setupUi(this);
     // nameTxt->setText(tr("My Connection Imported at: ") + QDateTime::currentDateTime().toString("MM-dd hh:mm"));
     QvMessageBusConnect(ImportConfigWindow);
+    adjustSize();
     RESTORE_RUNTIME_CONFIG(screenShotHideQv2ray, hideQv2rayCB->setChecked)
 }
 
@@ -225,55 +226,6 @@ void ImportConfigWindow::on_errorsList_currentItemChanged(QListWidgetItem *curre
     c.setPosition(startPos);
     c.setPosition(endPos, QTextCursor::KeepAnchor);
     vmessConnectionStringTxt->setTextCursor(c);
-}
-void ImportConfigWindow::on_editFileBtn_clicked()
-{
-    QFile file(fileLineTxt->text());
-
-    if (!file.exists())
-    {
-        QvMessageBoxWarn(this, tr("Edit file as JSON"), tr("Provided file not found: ") + fileLineTxt->text());
-        return;
-    }
-
-    auto jsonString = StringFromFile(&file);
-    auto jsonCheckingError = VerifyJsonString(jsonString);
-
-    if (!jsonCheckingError.isEmpty())
-    {
-        LOG(MODULE_FILEIO, "Currupted JSON file detected")
-
-        if (QvMessageBoxAsk(
-                this, tr("Edit file as JSON"),
-                tr("The file you selected has json syntax error. Continue editing may make you lose data. Would you like to continue?") +
-                    NEWLINE + jsonCheckingError) != QMessageBox::Yes)
-        {
-            return;
-        }
-        else
-        {
-            LOG(MODULE_FILEIO, "Continue editing curruped json file, data loss is expected.")
-        }
-    }
-
-    auto json = JsonFromString(jsonString);
-    JsonEditor editor(json, this);
-    json = editor.OpenEditor();
-
-    if (editor.result() == QDialog::Accepted)
-    {
-        auto str = JsonToString(json);
-        bool result = StringToFile(str, file);
-
-        if (!result)
-        {
-            QvMessageBoxWarn(this, tr("Edit file as JSON"), tr("Failed to save file, please check if you have proper permissions"));
-        }
-    }
-    else
-    {
-        LOG(MODULE_FILEIO, "Canceled saving a file.")
-    }
 }
 
 void ImportConfigWindow::on_connectionEditBtn_clicked()

@@ -9,10 +9,9 @@ SubscribeEditor::SubscribeEditor(QWidget *parent) : QDialog(parent)
     setupUi(this);
     QvMessageBusConnect(SubscribeEditor);
     UpdateColorScheme();
+    adjustSize();
     for (auto subs : ConnectionManager->Subscriptions())
-    {
-        subscriptionList->addTopLevelItem(new QTreeWidgetItem(QStringList{ GetDisplayName(subs), subs.toString() }));
-    }
+    { subscriptionList->addTopLevelItem(new QTreeWidgetItem(QStringList{ GetDisplayName(subs), subs.toString() })); }
     if (subscriptionList->topLevelItemCount() > 0)
     {
         subscriptionList->setCurrentItem(subscriptionList->topLevelItem(0));
