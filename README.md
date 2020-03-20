@@ -1,11 +1,20 @@
 # Qv2ray - Make v2ray real cross-platform
 
-[![archlinuxcn](https://img.shields.io/badge/archlinuxcn-available-success?style=flat-square)](https://build.archlinuxcn.org/packages/#/qv2ray)
-[![flathub](https://img.shields.io/badge/flathub-available-success?style=flat-square)](https://flathub.org/apps/details/com.github.Qv2ray)
 [![HitCount](http://hits.dwyl.io/Qv2ray/Qv2ray.svg)](http://hits.dwyl.io/Qv2ray/Qv2ray)
 ![GitHub Releases](https://img.shields.io/github/downloads/Qv2ray/Qv2ray/latest/total?style=flat-square&logo=github)
 ![GitHub All Releases](https://img.shields.io/github/downloads/Qv2ray/Qv2ray/total?label=downloads-total&logo=github&style=flat-square)
+
+[![archlinuxcn](https://img.shields.io/badge/archlinuxcn-available-success?style=flat-square)](https://build.archlinuxcn.org/packages/#/qv2ray)
+[![flathub](https://img.shields.io/badge/flathub-available-success?style=flat-square)](https://flathub.org/apps/details/com.github.Qv2ray)
+![Snap](https://snapcraft.io/qv2ray/badge.svg)
 [![AUR Stable](https://img.shields.io/aur/version/qv2ray?label=aur-stable&style=flat-square)](https://aur.archlinux.org/packages/qv2ray)
+[![AUR Development](https://img.shields.io/aur/version/qv2ray?label=aur-stable&style=flat-square)](https://aur.archlinux.org/packages/qv2ray)
+
+![Qv2ray AUR Build](https://github.com/Qv2ray/Qv2ray/workflows/Build%20Qv2ray%20AUR/badge.svg)
+![Qv2ray Debian Package](https://github.com/Qv2ray/Qv2ray/workflows/Qv2ray%20build%20debian%20package/badge.svg)
+![Qv2ray Build Matrix](https://github.com/Qv2ray/Qv2ray/workflows/Qv2ray%20build%20matrix%20-%20cmake/badge.svg)
+
+Snap Build Status: [![Snap Status](https://travis-ci.com/Qv2ray/Qv2ray.svg?branch=master)](https://travis-ci.com/Qv2ray/Qv2ray)
 
 使用 Qt 框架的跨平台 v2ray 客户端。支持 Windows, Linux, macOS。
 
