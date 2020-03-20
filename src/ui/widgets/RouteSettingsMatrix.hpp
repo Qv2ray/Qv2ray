@@ -3,6 +3,7 @@
 #include "base/models/QvSettingsObject.hpp"
 #include "ui_RouteSettingsMatrix.h"
 
+#include <QMenu>
 #include <QWidget>
 #include <optional>
 
@@ -21,6 +22,11 @@ class RouteSettingsMatrixWidget
   private:
     std::optional<QString> openFileDialog();
     std::optional<QString> saveFileDialog();
+    QList<QAction *> getBuiltInSchemes();
+    QAction *schemeToAction(const QString &name, Qv2ray::base::config::Qv2rayRouteConfig scheme);
+
+  private:
+    QMenu *builtInSchemesMenu;
 
   private slots:
     void on_importSchemeBtn_clicked();
