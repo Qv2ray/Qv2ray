@@ -19,4 +19,5 @@ Vcs-Git: https://salsa.debian.org/debian/qv2ray.git
 Package: qv2ray
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
+Recommends: v2ray
 Description: Qv2ray, A Qt frontend for v2ray. Written in c++.
