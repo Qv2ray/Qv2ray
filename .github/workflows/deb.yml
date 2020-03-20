@@ -15,14 +15,14 @@ jobs:
       - name: Install git
         run: |
           apt update
-          apt install git
+          apt install -y git
       - name: Checking out sources
         uses: actions/checkout@v2
         with:
           submodules: 'recursive'
       - name: Install build dependencies
         run: |
-          apt install build-essential devscripts equivs
+          apt install -y build-essential devscripts equivs
           mk-build-deps -r -i
       - name: Build
         run: |
