@@ -4,6 +4,7 @@
 #include "ui_RouteSettingsMatrix.h"
 
 #include <QWidget>
+#include <optional>
 
 class RouteSettingsMatrixWidget
     : public QWidget
