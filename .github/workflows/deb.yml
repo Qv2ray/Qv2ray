@@ -11,9 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     container: debian:buster
 
-    env:
-      USER: ymshenyu
-
     steps:
       - name: Install git
         run: |
@@ -25,7 +22,7 @@ jobs:
           submodules: 'recursive'
       - name: Install build dependencies
         run: |
-          apt-get install -y build-essential devscripts equivs libgrpc++-dev libprotobuf-dev protobuf-compiler-grpc qt5-default qttools5-dev dh-make
+          apt-get install -y build-essential devscripts equivs libgrpc++-dev libprotobuf-dev protobuf-compiler-grpc qt5-default qttools5-dev dh-make cmake
       - name: Build
         run: |
           dpkg-buildpackage -us -uc -i -b
