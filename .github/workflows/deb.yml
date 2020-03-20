@@ -14,6 +14,7 @@ jobs:
     steps:
       - name: Install git
         run: |
+          apt update
           apt install git
       - name: Checking out sources
         uses: actions/checkout@v2
