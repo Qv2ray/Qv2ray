@@ -1,3 +1,11 @@
+qv2ray (2.3.0-1) unstable; urgency=medium
+
+  * misc ui tweaks
+  * fully support setting the block,proxy,direct geosite/plain domains
+  * fixed vmess:// 'h2' import issue
+
+ -- Guobang Bi <ymshenyu@gmail.com>  Fri, 20 Mar 2020 22:26:20 +0800
+
 qv2ray (2.2.3-1) unstable; urgency=medium
 
   * Initial release
