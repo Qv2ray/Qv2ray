@@ -2,14 +2,6 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>880</width>
-    <height>660</height>
-   </rect>
-  </property>
   <property name="minimumSize">
    <size>
     <width>780</width>
@@ -50,12 +42,6 @@
         </property>
         <property name="sizeType">
          <enum>QSizePolicy::Maximum</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>999999999</width>
-          <height>0</height>
-         </size>
         </property>
        </spacer>
       </item>

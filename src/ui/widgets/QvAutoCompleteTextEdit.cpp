@@ -62,56 +62,23 @@
 
 namespace Qv2ray::ui::widgets
 {
-    AutoCompleteTextEdit::AutoCompleteTextEdit(const QString &prefix, QWidget *parent) : QTextEdit(parent)
-    {
-        SetPrefix(prefix);
-    }
-
-    AutoCompleteTextEdit::~AutoCompleteTextEdit()
-    {
-    }
-
-    void AutoCompleteTextEdit::SetPrefix(const QString &prefix)
+    AutoCompleteTextEdit::AutoCompleteTextEdit(const QString &prefix, const QStringList &sourceStrings, QWidget *parent) : QTextEdit(parent)
     {
         this->prefix = prefix;
-    }
-
-    void AutoCompleteTextEdit::SetSourceStrings(QStringList sourceStrings)
-    {
-        auto x = new QCompleter(this);
-        auto model = new QStringListModel(sourceStrings);
-        x->setModel(model);
-        SetCompleter(x);
-    }
-
-    void AutoCompleteTextEdit::SetCompleter(QCompleter *completer)
-    {
-        if (c)
-            c->disconnect(this);
-
-        c = completer;
-
-        if (!c)
-        {
-            return;
-        }
-
+        c = new QCompleter(this);
+        c->setModel(new QStringListModel(sourceStrings, c));
         c->setWidget(this);
         c->setCompletionMode(QCompleter::PopupCompletion);
         c->setCaseSensitivity(Qt::CaseInsensitive);
         QObject::connect(c, QOverload<const QString &>::of(&QCompleter::activated), this, &AutoCompleteTextEdit::insertCompletion);
     }
 
-    QCompleter *AutoCompleteTextEdit::completer() const
+    AutoCompleteTextEdit::~AutoCompleteTextEdit()
     {
-        return c;
     }
 
     void AutoCompleteTextEdit::insertCompletion(const QString &completion)
     {
-        if (c->widget() != this)
-            return;
-
         QTextCursor tc = textCursor();
         int extra = completion.length() - c->completionPrefix().length();
         tc.movePosition(QTextCursor::Left);
