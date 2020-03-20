@@ -31,7 +31,6 @@ jobs:
         run: |
           dpkg-buildpackage -us -uc -i -b
       - name: Copy binary
-        run: |
           cp ../qv2ray_*.deb ./
       - name: Upload artifact
         uses: actions/upload-artifact@v1
