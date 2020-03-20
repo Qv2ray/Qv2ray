@@ -4,6 +4,7 @@
 #include "components/geosite/QvGeositeReader.hpp"
 
 #include <QFileDialog>
+#include <optional>
 
 RouteSettingsMatrixWidget::RouteSettingsMatrixWidget(const QString &assetsDirPath, QWidget *parent)
     : QWidget(parent), assetsDirPath(assetsDirPath)
