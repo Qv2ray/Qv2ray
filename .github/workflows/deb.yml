@@ -22,7 +22,8 @@ jobs:
           submodules: 'recursive'
       - name: Install build dependencies
         run: |
-          apt-get install -y build-essential devscripts equivs libgrpc++-dev libprotobuf-dev protobuf-compiler-grpc qt5-default qttools5-dev
+          apt-get install -y build-essential devscripts equivs libgrpc++-dev libprotobuf-dev protobuf-compiler-grpc qt5-default qttools5-dev dh-make
+          dh_make -s -p qv2ray_$(cat makespec/VERSION) -c gpl3 -y
       - name: Build
         run: |
           dpkg-buildpackage -us -uc
