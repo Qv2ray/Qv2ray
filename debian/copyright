@@ -1,5 +1,6 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: qv2ray
+Upstream-Name: QV2ray
+Upstream-Contact: https://github.com/Qv2ray/Qv2ray/issues
 Source: https://github.com/Qv2ray/Qv2ray
 
 Files: *

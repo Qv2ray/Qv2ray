@@ -9,7 +9,7 @@ Build-Depends:  debhelper (>= 11),
                 libprotobuf-dev (>= 3.6.1.3-1~),
                 protobuf-compiler (>= 3.6.1.3-1~),
                 protobuf-compiler-grpc (>= 1.16.1-1~),
-                qt5-default (>= 5.11.3-1~),
+                qtbase5-dev (>= 5.11.3-1~),
                 qttools5-dev (>= 5.11.3-1~)
 Standards-Version: 4.5.0
 Homepage: https://github.com/Qv2ray/Qv2ray
