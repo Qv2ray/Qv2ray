@@ -76,7 +76,7 @@ parts:
     override-pull: |
       snapcraftctl pull
       build_number=$(cat makespec/BUILDVERSION)
-      tag=$(git describe --abbrev=0 --tags)
+      tag=$(cat makespec/VERSION)
       version=$tag.$build_number
       snapcraftctl set-version "$version"
       sed -i 's|^Icon=.*|Icon=/usr/share/icons/hicolor/256x256/apps/qv2ray.png|g' assets/qv2ray.desktop
