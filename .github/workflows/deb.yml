@@ -26,7 +26,7 @@ jobs:
           submodules: 'recursive'
       - name: Install build dependencies
         run: |
-          apt-get install -y build-essential devscripts equivs libgrpc++-dev libprotobuf-dev protobuf-compiler-grpc qt5-default qttools5-dev dh-make cmake
+          apt-get install -y build-essential devscripts equivs libgrpc++-dev libprotobuf-dev protobuf-compiler-grpc qtbase5-dev qttools5-dev cmake
       - name: Build
         run: |
           dpkg-buildpackage -us -uc -i -b
