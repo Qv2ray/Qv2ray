@@ -1,0 +1,21 @@
+Source: qv2ray
+Section: net
+Priority: optional
+Maintainer: Guobang Bi <ymshenyu@gmail.com>
+Build-Depends:  debhelper (>= 11),
+                libgrpc++-dev (>= 1.16.1-1~),
+                libprotobuf-dev (>= 3.6.1.3-1~),
+                libqt5charts5-dev (>= 5.11.3-1~),
+                protobuf-compiler (>= 3.6.1.3-1~),
+                protobuf-compiler-grpc (>= 1.16.1-1~),
+                qt5-default (>= 5.11.3-1~),
+                qttools5-dev (>= 5.11.3-1~)
+Standards-Version: 4.4.0
+Homepage: https://github.com/Qv2ray/Qv2ray
+#Vcs-Browser: https://salsa.debian.org/debian/qv2ray
+#Vcs-Git: https://salsa.debian.org/debian/qv2ray.git
+
+Package: qv2ray
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Qv2ray, A Qt frontend for v2ray. Written in c++.
