@@ -6,7 +6,7 @@ namespace Qv2ray::core::connection
 {
     namespace ConnectionIO
     {
-        CONFIGROOT ConvertConfigFromFile(QString sourceFilePath, bool importComplex)
+        CONFIGROOT ConvertConfigFromFile(const QString &sourceFilePath, bool importComplex)
         {
             QFile source(sourceFilePath);
 
@@ -15,7 +15,7 @@ namespace Qv2ray::core::connection
                 LOG(MODULE_FILEIO, "Trying to import from an non-existing file.") return CONFIGROOT();
             }
 
-            auto root = CONFIGROOT(JsonFromString(StringFromFile(&source)));
+            auto root = CONFIGROOT(JsonFromString(StringFromFile(source)));
 
             if (!importComplex)
             {

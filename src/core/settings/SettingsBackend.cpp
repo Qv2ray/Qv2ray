@@ -86,7 +86,7 @@ namespace Qv2ray::core::config
                     //
                     // Verify JSON file format. (only) because this file version may
                     // not be upgraded and may contain unsupported structure.
-                    auto err = VerifyJsonString(StringFromFile(&configFile));
+                    auto err = VerifyJsonString(StringFromFile(configFile));
 
                     if (!err.isEmpty())
                     {
@@ -96,7 +96,7 @@ namespace Qv2ray::core::config
                     else
                     {
                         // If the file format is valid.
-                        auto conf = JsonFromString(StringFromFile(&configFile));
+                        auto conf = JsonFromString(StringFromFile(configFile));
                         LOG(MODULE_SETTINGS,
                             "Path: " + path + " contains a config file, in version " + conf["config_version"].toVariant().toString())
                         configFile.close();
