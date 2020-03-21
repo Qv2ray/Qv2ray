@@ -25,6 +25,7 @@
 void signalHandler(int signum)
 {
     cout << "Qv2ray: Interrupt signal (" << signum << ") received." << endl;
+    ExitQv2ray();
     qApp->exit(-99);
 }
 
