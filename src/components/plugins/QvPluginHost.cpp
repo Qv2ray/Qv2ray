@@ -5,6 +5,7 @@
 
 #include <QApplication>
 #include <QDir>
+#include <QMetaProperty>
 #include <QPluginLoader>
 #include <iostream>
 using namespace Qv2ray::base;
@@ -37,18 +38,18 @@ namespace Qv2ray::components::plugins
             if (plugin)
             {
                 auto echoInterface = qobject_cast<Qv2rayInterface *>(plugin);
-
-                //
                 if (echoInterface)
                 {
                     QString name = echoInterface->Name();
                     QString author = echoInterface->Author();
-                    //
-                    std::cout << name.toStdString() << std::endl;
-                    std::cout << author.toStdString() << std::endl;
+                    LOG(MODULE_PLUGIN, "Name: " + name)
                     return true;
                 }
                 pluginLoader.unload();
+            }
+            else
+            {
+                LOG(MODULE_PLUGIN, pluginLoader.errorString());
             }
         }
 

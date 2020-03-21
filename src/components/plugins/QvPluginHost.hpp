@@ -10,6 +10,4 @@ namespace Qv2ray::components::plugins
         explicit QvPluginHost(QObject *parent = nullptr);
         bool LoadPlugin();
     };
-
-    inline QvPluginHost pluginHost;
 } // namespace Qv2ray::components::plugins
