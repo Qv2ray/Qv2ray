@@ -47,7 +47,7 @@ namespace Qv2ray::common
         if (state.invalidChars > 0)
         {
             LOG(MODULE_FILEIO, "Not a valid UTF-8 sequence: " + source->fileName())
-            return source->readAll();
+            return byteArray;
         }
         else
         {
