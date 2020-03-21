@@ -1,3 +1,4 @@
+#pragma once
 #include "base/Qv2rayBase.hpp"
 #include "core/CoreSafeTypes.hpp"
 

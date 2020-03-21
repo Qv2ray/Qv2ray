@@ -806,7 +806,7 @@ void PreferencesWindow::on_nsBarFontSizeSB_valueChanged(double arg1)
     SET_LINE_LIST_TEXT
 }
 
-QString PreferencesWindow::GetBarLineDescription(QvBarLine barLine)
+QString PreferencesWindow::GetBarLineDescription(const QvBarLine &barLine)
 {
     QString result = "Empty";
     result = NetSpeedPluginMessages[barLine.ContentType];

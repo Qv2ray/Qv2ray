@@ -50,7 +50,7 @@ namespace Qv2ray::common
     }
     //
     template<typename TYPE>
-    QString StructToJsonString(const TYPE t)
+    QString StructToJsonString(const TYPE &t)
     {
         return QString::fromStdString(x2struct::X::tojson(t, "", 4, ' '));
     }

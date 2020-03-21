@@ -1,6 +1,6 @@
+#pragma once
 #include "base/Qv2rayBase.hpp"
 #include "core/CoreSafeTypes.hpp"
-
 namespace Qv2ray::core::connection
 {
     namespace ConnectionIO
