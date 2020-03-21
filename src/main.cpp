@@ -227,17 +227,18 @@ int main(int argc, char *argv[])
     SingleApplication::setApplicationName("qv2ray_debug");
     SingleApplication::setApplicationDisplayName("Qv2ray - " + QObject::tr("Debug version"));
 #endif
-    if ((!qEnvironmentVariableIsSet("QT_DEVICE_PIXEL_RATIO") &&       //
-         !qEnvironmentVariableIsSet("QT_AUTO_SCREEN_SCALE_FACTOR") && //
-         !qEnvironmentVariableIsSet("QT_SCALE_FACTOR") &&             //
-         !qEnvironmentVariableIsSet("QT_SCREEN_SCALE_FACTORS")) ||    //
+    if (!(qEnvironmentVariableIsSet("QT_DEVICE_PIXEL_RATIO") || qEnvironmentVariableIsSet("QT_AUTO_SCREEN_SCALE_FACTOR") || //
+          qEnvironmentVariableIsSet("QT_SCALE_FACTOR") || !qEnvironmentVariableIsSet("QT_SCREEN_SCALE_FACTORS")) ||         //
         StartupOption.forceHiDPI)
     {
-        if (StartupOption.forceHiDPI || StartupOption.hiDPI)
-        {
-            DEBUG(MODULE_INIT, "High DPI scaling is enabled.")
-            QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-        }
+        LOG(MODULE_INIT, "High DPI scaling is enabled.")
+        QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    }
+    else if (StartupOption.noScaleFactors)
+    {
+        LOG(MODULE_INIT, "Force set QT_SCALE_FACTOR to 0.")
+        LOG(MODULE_UI, "Original QT_SCALE_FACTOR was: " + qEnvironmentVariable("QT_SCALE_FACTOR"))
+        qputenv("QT_SCALE_FACTOR", "1");
     }
     SingleApplication _qApp(argc, argv, false,
                             SingleApplication::User | SingleApplication::ExcludeAppPath | SingleApplication::ExcludeAppVersion);
@@ -251,42 +252,36 @@ int main(int argc, char *argv[])
     bool _result_ = Qv2rayTranslator->InstallTranslation(_lang);
     LOG(MODULE_UI, "Installing a tranlator from OS: " + _lang + " -- " + (_result_ ? "OK" : "Failed"))
     //
-    LOG("LICENCE", NEWLINE
-        "This program comes with ABSOLUTELY NO WARRANTY." NEWLINE "This is free software, and you are welcome to redistribute it" NEWLINE
-        "under certain conditions." NEWLINE NEWLINE "Copyright (c) 2019-2020 Qv2ray Development Group." NEWLINE NEWLINE NEWLINE
-        "Libraries that have been used in Qv2ray are listed below (Sorted by date added):" NEWLINE
-        "Copyright (c) 2020 dridk (@dridk): X2Struct (Apache)" NEWLINE "Copyright (c) 2011 SCHUTZ Sacha (@dridk): QJsonModel (MIT)" NEWLINE
-        "Copyright (c) 2020 Nikolaos Ftylitakis (@ftylitak): QZXing (Apache2)" NEWLINE
-        "Copyright (c) 2016 Singein (@Singein): ScreenShot (MIT)" NEWLINE
-        "Copyright (c) 2016 Nikhil Marathe (@nikhilm): QHttpServer (MIT)" NEWLINE
-        "Copyright (c) 2020 Itay Grudev (@itay-grudev): SingleApplication (MIT)" NEWLINE
-        "Copyright (c) 2020 paceholder (@paceholder): nodeeditor (QNodeEditor modified by lhy0403) (BSD-3-Clause)" NEWLINE
-        "Copyright (c) 2019 TheWanderingCoel (@TheWanderingCoel): ShadowClash (launchatlogin) (GPLv3)" NEWLINE
-        "Copyright (c) 2020 Ram Pani (@DuckSoft): QvRPCBridge (WTFPL)" NEWLINE
-        "Copyright (c) 2019 ShadowSocks (@shadowsocks): libQtShadowsocks (LGPLv3)" NEWLINE
-        "Copyright (c) 2015-2020 qBittorrent (Anton Lashkov) (@qBittorrent): speedplotview (GPLv2)" NEWLINE NEWLINE)
+    LOG("LICENCE", NEWLINE                                                                                                 //
+        "This program comes with ABSOLUTELY NO WARRANTY." NEWLINE                                                          //
+        "This is free software, and you are welcome to redistribute it" NEWLINE                                            //
+        "under certain conditions." NEWLINE                                                                                //
+            NEWLINE                                                                                                        //
+        "Copyright (c) 2019-2020 Qv2ray Development Group." NEWLINE                                                        //
+            NEWLINE                                                                                                        //
+        "Libraries that have been used in Qv2ray are listed below (Sorted by date added):" NEWLINE                         //
+        "Copyright (c) 2020 dridk (@dridk): X2Struct (Apache)" NEWLINE                                                     //
+        "Copyright (c) 2011 SCHUTZ Sacha (@dridk): QJsonModel (MIT)" NEWLINE                                               //
+        "Copyright (c) 2020 Nikolaos Ftylitakis (@ftylitak): QZXing (Apache2)" NEWLINE                                     //
+        "Copyright (c) 2016 Singein (@Singein): ScreenShot (MIT)" NEWLINE                                                  //
+        "Copyright (c) 2016 Nikhil Marathe (@nikhilm): QHttpServer (MIT)" NEWLINE                                          //
+        "Copyright (c) 2020 Itay Grudev (@itay-grudev): SingleApplication (MIT)" NEWLINE                                   //
+        "Copyright (c) 2020 paceholder (@paceholder): nodeeditor (QNodeEditor modified by lhy0403) (BSD-3-Clause)" NEWLINE //
+        "Copyright (c) 2019 TheWanderingCoel (@TheWanderingCoel): ShadowClash (launchatlogin) (GPLv3)" NEWLINE             //
+        "Copyright (c) 2020 Ram Pani (@DuckSoft): QvRPCBridge (WTFPL)" NEWLINE                                             //
+        "Copyright (c) 2019 ShadowSocks (@shadowsocks): libQtShadowsocks (LGPLv3)" NEWLINE                                 //
+        "Copyright (c) 2015-2020 qBittorrent (Anton Lashkov) (@qBittorrent): speedplotview (GPLv2)" NEWLINE NEWLINE)       //
     //
     LOG(MODULE_INIT, "Qv2ray Start Time: " + QSTRN(QTime::currentTime().msecsSinceStartOfDay()))
     //
 #ifdef QT_DEBUG
-    cout << "WARNING: ============================== This is a debug build, many features are not stable enough. =============================="
-         << endl;
+    cout << "WARNING: ========================= This is a debug build, many features are not stable enough. =========================" << endl;
 #endif
     //
-    // Load the language translation list.
-    //    auto translationDir = Qv
-
-    //    auto translationDir = QvTranslator::deduceTranslationDir();
-    //    if (!translationDir)
-    //    {
-    //        LOG(MODULE_INIT, "FAILED to find any translations. THIS IS A BUILD ERROR.")
-    //        QvMessageBoxWarn(nullptr, QObject::tr("Cannot load languages"),
-    //                         QObject::tr("Qv2ray will continue running, but you cannot change the UI language."));
-    //    }
-
     // Qv2ray Initialize, find possible config paths and verify them.
     if (!initialiseQv2ray())
     {
+        LOG(MODULE_INIT, "Failed to initialise Qv2ray, exiting.")
         return -1;
     }
 

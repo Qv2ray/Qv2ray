@@ -175,11 +175,17 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     auto autoStartConnId = ConnectionId(CurrentConfig.autoStartId);
     auto autoStartGroupId = GetConnectionGroupId(autoStartConnId);
 
-    for (auto group : ConnectionManager->AllGroups()) { autoStartSubsCombo->addItem(GetDisplayName(group)); }
+    for (auto group : ConnectionManager->AllGroups())
+    {
+        autoStartSubsCombo->addItem(GetDisplayName(group));
+    }
 
     autoStartSubsCombo->setCurrentText(GetDisplayName(autoStartGroupId));
 
-    for (auto conn : ConnectionManager->Connections(autoStartGroupId)) { autoStartConnCombo->addItem(GetDisplayName(conn)); }
+    for (auto conn : ConnectionManager->Connections(autoStartGroupId))
+    {
+        autoStartConnCombo->addItem(GetDisplayName(conn));
+    }
 
     autoStartConnCombo->setCurrentText(GetDisplayName(autoStartConnId));
 
@@ -1032,7 +1038,10 @@ void PreferencesWindow::on_autoStartSubsCombo_currentIndexChanged(const QString 
         auto list = ConnectionManager->Connections(groupId);
         autoStartConnCombo->clear();
 
-        for (auto id : list) { autoStartConnCombo->addItem(GetDisplayName(id)); }
+        for (auto id : list)
+        {
+            autoStartConnCombo->addItem(GetDisplayName(id));
+        }
     }
 }
 

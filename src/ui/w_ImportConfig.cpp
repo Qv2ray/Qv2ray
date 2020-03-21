@@ -24,7 +24,6 @@ ImportConfigWindow::ImportConfigWindow(QWidget *parent) : QDialog(parent)
     setupUi(this);
     // nameTxt->setText(tr("My Connection Imported at: ") + QDateTime::currentDateTime().toString("MM-dd hh:mm"));
     QvMessageBusConnect(ImportConfigWindow);
-    adjustSize();
     RESTORE_RUNTIME_CONFIG(screenShotHideQv2ray, hideQv2rayCB->setChecked)
 }
 
@@ -255,7 +254,7 @@ void ImportConfigWindow::on_cancelImportBtn_clicked()
 void ImportConfigWindow::on_subscriptionButton_clicked()
 {
     hide();
-    SubscribeEditor w;
+    SubscriptionEditor w;
     w.exec();
     auto importToComplex = !keepImportedInboundCheckBox->isEnabled();
     connections.clear();

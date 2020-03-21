@@ -8,8 +8,8 @@ namespace Qv2ray::common
         : QObject(), noAPIOption("noAPI", tr("Disable gRPC API subsystems.")),                 //
           runAsRootOption("I-just-wanna-run-with-root", tr("Explicitly run Qv2ray as root.")), //
           debugOption("debug", tr("Enable Debug Output")),                                     //
-          hiDpiOption("hiDPI", tr("Enable HiDPI support for Qt")),                             //
-          forceHiDpiOption("force-hiDPI", tr("Force enable HiDPI support for Qt")),            //
+          noScaleFactorOption("noScaleFactor", tr("Disable manually set QT_SCALE_FACTOR")),    //
+          forceHiDpiOption("forceHiDPI", tr("Force enable HiDPI support for Qt")),             //
           withToolbarOption("withToolbarPlugin", tr("Enable Qv2ray network toolbar plugin")),  //
           //
           helpOption("FAKE"), versionOption("FAKE")
@@ -20,8 +20,8 @@ namespace Qv2ray::common
         parser.addOption(noAPIOption);
         parser.addOption(runAsRootOption);
         parser.addOption(debugOption);
-        parser.addOption(hiDpiOption);
         parser.addOption(forceHiDpiOption);
+        parser.addOption(noScaleFactorOption);
         parser.addOption(withToolbarOption);
         helpOption = parser.addHelpOption();
         versionOption = parser.addVersionOption();
@@ -59,16 +59,16 @@ namespace Qv2ray::common
             StartupOption.debugLog = true;
         }
 
-        if (parser.isSet(hiDpiOption))
-        {
-            DEBUG(MODULE_INIT, "hiDPI is set.")
-            StartupOption.hiDPI = true;
-        }
-
         if (parser.isSet(forceHiDpiOption))
         {
-            DEBUG(MODULE_INIT, "forceHiDPI is set.")
+            DEBUG(MODULE_INIT, "forceHiDpiOption is set.")
             StartupOption.forceHiDPI = true;
+        }
+
+        if (parser.isSet(noScaleFactorOption))
+        {
+            DEBUG(MODULE_INIT, "noScaleFactorOption is set.")
+            StartupOption.noScaleFactors = true;
         }
 
         if (parser.isSet(withToolbarOption))

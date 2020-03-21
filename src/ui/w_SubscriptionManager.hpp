@@ -7,15 +7,15 @@
 
 #include <QDialog>
 
-class SubscribeEditor
+class SubscriptionEditor
     : public QDialog
     , private Ui::w_SubscribeEditor
 {
     Q_OBJECT
 
   public:
-    explicit SubscribeEditor(QWidget *parent = nullptr);
-    ~SubscribeEditor();
+    explicit SubscriptionEditor(QWidget *parent = nullptr);
+    ~SubscriptionEditor();
     tuple<QString, CONFIGROOT> GetSelectedConfig();
 
   private:
