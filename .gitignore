@@ -5,6 +5,7 @@
 .vs/
 *.qm
 ./.vscode
+CMakeSettings.json
 
 SourceTrail/
 

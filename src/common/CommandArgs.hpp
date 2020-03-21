@@ -28,7 +28,6 @@ namespace Qv2ray::common
         QCommandLineOption runAsRootOption;
         QCommandLineOption debugOption;
         QCommandLineOption noScaleFactorOption;
-        QCommandLineOption forceHiDpiOption;
         QCommandLineOption withToolbarOption;
         QCommandLineOption helpOption;
         QCommandLineOption versionOption;

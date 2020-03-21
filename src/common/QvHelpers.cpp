@@ -239,10 +239,14 @@ namespace Qv2ray::common
         QGraphicsBlurEffect pBlur;
         //
         view.setScene(&scene);
+        view.resize(pixmap.size() / QWidget().devicePixelRatio());
+        view.setSceneRect(pixmap.rect());
         scene.setSceneRect(pixmap.rect());
         pBlur.setBlurRadius(rad);
         QGraphicsPixmapItem *p = view.scene()->addPixmap(pixmap);
         p->setGraphicsEffect(&pBlur);
+        view.setVerticalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAlwaysOff);
+        view.setHorizontalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAlwaysOff);
         return view.grab();
     }
 
@@ -255,9 +259,13 @@ namespace Qv2ray::common
         pColor.setStrength(factor);
         //
         view.setScene(&scene);
+        view.resize(pixmap.size() / QWidget().devicePixelRatio());
+        view.setSceneRect(pixmap.rect());
         scene.setSceneRect(pixmap.rect());
         QGraphicsPixmapItem *p = view.scene()->addPixmap(pixmap);
         p->setGraphicsEffect(&pColor);
+        view.setVerticalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAlwaysOff);
+        view.setHorizontalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAlwaysOff);
         return view.grab();
     }
 } // namespace Qv2ray::common

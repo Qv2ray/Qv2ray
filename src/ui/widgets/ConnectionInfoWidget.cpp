@@ -84,7 +84,7 @@ void ConnectionInfoWidget::ShowDetails(const tuple<GroupId, ConnectionId> &_iden
         //
         QZXingEncoderConfig conf;
         conf.border = true;
-        conf.imageSize = QSize(400, 400);
+        conf.imageSize = qrLabel->size() * devicePixelRatio();
         conf.errorCorrectionLevel = QZXing::EncodeErrorCorrectionLevel_M;
         QZXing qzx;
         qrPixmap = QPixmap::fromImage(qzx.encodeData(shareLink, conf));

@@ -14,8 +14,6 @@ namespace Qv2ray
             bool debugLog;
             /// Enable Network toolbar plugin.
             bool enableToolbarPlguin;
-            /// Force Enable HiDPI support.
-            bool forceHiDPI;
             /// Disable Qt scale factors support.
             bool noScaleFactors;
         };

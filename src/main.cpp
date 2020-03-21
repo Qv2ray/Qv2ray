@@ -227,18 +227,16 @@ int main(int argc, char *argv[])
     SingleApplication::setApplicationName("qv2ray_debug");
     SingleApplication::setApplicationDisplayName("Qv2ray - " + QObject::tr("Debug version"));
 #endif
-    if (!(qEnvironmentVariableIsSet("QT_DEVICE_PIXEL_RATIO") || qEnvironmentVariableIsSet("QT_AUTO_SCREEN_SCALE_FACTOR") || //
-          qEnvironmentVariableIsSet("QT_SCALE_FACTOR") || !qEnvironmentVariableIsSet("QT_SCREEN_SCALE_FACTORS")) ||         //
-        StartupOption.forceHiDPI)
-    {
-        LOG(MODULE_INIT, "High DPI scaling is enabled.")
-        QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-    }
-    else if (StartupOption.noScaleFactors)
+    if (StartupOption.noScaleFactors)
     {
         LOG(MODULE_INIT, "Force set QT_SCALE_FACTOR to 0.")
         LOG(MODULE_UI, "Original QT_SCALE_FACTOR was: " + qEnvironmentVariable("QT_SCALE_FACTOR"))
         qputenv("QT_SCALE_FACTOR", "1");
+    }
+    else
+    {
+        LOG(MODULE_INIT, "High DPI scaling is enabled.")
+        QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     }
     SingleApplication _qApp(argc, argv, false,
                             SingleApplication::User | SingleApplication::ExcludeAppPath | SingleApplication::ExcludeAppVersion);
@@ -319,7 +317,7 @@ int main(int argc, char *argv[])
 
     if (Qv2rayTranslator->InstallTranslation(confObject.uiConfig.language))
     {
-        LOG(MODULE_INIT, "Successfully installed a translator for " + confObject.uiConfig.language);
+        LOG(MODULE_INIT, "Successfully installed a translator for " + confObject.uiConfig.language)
     }
     else
     {

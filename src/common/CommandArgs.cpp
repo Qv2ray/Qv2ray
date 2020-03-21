@@ -9,7 +9,6 @@ namespace Qv2ray::common
           runAsRootOption("I-just-wanna-run-with-root", tr("Explicitly run Qv2ray as root.")), //
           debugOption("debug", tr("Enable Debug Output")),                                     //
           noScaleFactorOption("noScaleFactor", tr("Disable manually set QT_SCALE_FACTOR")),    //
-          forceHiDpiOption("forceHiDPI", tr("Force enable HiDPI support for Qt")),             //
           withToolbarOption("withToolbarPlugin", tr("Enable Qv2ray network toolbar plugin")),  //
           //
           helpOption("FAKE"), versionOption("FAKE")
@@ -20,7 +19,6 @@ namespace Qv2ray::common
         parser.addOption(noAPIOption);
         parser.addOption(runAsRootOption);
         parser.addOption(debugOption);
-        parser.addOption(forceHiDpiOption);
         parser.addOption(noScaleFactorOption);
         parser.addOption(withToolbarOption);
         helpOption = parser.addHelpOption();
@@ -57,12 +55,6 @@ namespace Qv2ray::common
         {
             DEBUG(MODULE_INIT, "debugOption is set.")
             StartupOption.debugLog = true;
-        }
-
-        if (parser.isSet(forceHiDpiOption))
-        {
-            DEBUG(MODULE_INIT, "forceHiDpiOption is set.")
-            StartupOption.forceHiDPI = true;
         }
 
         if (parser.isSet(noScaleFactorOption))
