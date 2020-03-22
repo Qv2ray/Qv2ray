@@ -4,21 +4,61 @@
 [![GitHub Releases](https://img.shields.io/github/downloads/Qv2ray/Qv2ray/latest/total?style=flat-square&logo=github)](https://github.com/Qv2ray/Qv2ray/releases)
 [![GitHub All Releases](https://img.shields.io/github/downloads/Qv2ray/Qv2ray/total?label=downloads-total&logo=github&style=flat-square)](https://github.com/Qv2ray/Qv2ray/releases)
 
-[![flathub](https://img.shields.io/badge/flathub-available-success?style=flat-square)](https://flathub.org/apps/details/com.github.Qv2ray)
-[![Snap](https://snapcraft.io/qv2ray/badge.svg)](https://snapcraft.io/qv2ray/)
+使用 Qt 框架的跨平台 v2ray 客户端。支持 Windows, Linux, macOS。
 
-[![AUR Stable](https://img.shields.io/aur/version/qv2ray?label=aur-stable&style=flat-square)](https://aur.archlinux.org/packages/qv2ray)
-[![AUR Development](https://img.shields.io/aur/version/qv2ray-dev-git?label=aur-development&style=flat-square)](https://aur.archlinux.org/packages/qv2ray-dev-git)
-[![ArchlinuxCN Stable](https://img.shields.io/badge/dynamic/json?label=archlinuxcn-stable&query=%24.latest.pkgver&url=https%3A%2F%2Fbuild.archlinuxcn.org%2Fapi%2Fpackages%2Fqv2ray)](https://build.archlinuxcn.org/packages/#/qv2ray)
-[![ArchlinuxCN Development](https://img.shields.io/badge/dynamic/json?label=archlinuxcn-dev-git&query=%24.latest.pkgver&url=https%3A%2F%2Fbuild.archlinuxcn.org%2Fapi%2Fpackages%2Fqv2ray-dev-git)](https://build.archlinuxcn.org/packages/#/qv2ray-dev-git)
+## Availability & Status
 
+[![Snap Status](https://img.shields.io/travis/com/Qv2ray/Qv2ray?label=snapcraft-travis&logo=github)](https://travis-ci.com/Qv2ray/Qv2ray)
 [![Qv2ray AUR Build](https://github.com/Qv2ray/Qv2ray/workflows/Build%20Qv2ray%20AUR/badge.svg)](https://github.com/Qv2ray/Qv2ray/actions?query=workflow%3A%22Build+Qv2ray+AUR%22)
 [![Qv2ray Debian Package](https://github.com/Qv2ray/Qv2ray/workflows/Qv2ray%20build%20debian%20package/badge.svg)](https://github.com/Qv2ray/Qv2ray/actions?query=workflow%3A%22Qv2ray+build+debian+package%22)
 [![Qv2ray Build Matrix](https://github.com/Qv2ray/Qv2ray/workflows/Qv2ray%20build%20matrix%20-%20cmake/badge.svg)](https://github.com/Qv2ray/Qv2ray/actions?query=workflow%3A%22Qv2ray+build+matrix+-+cmake%22)
 
-Snap Build Status: [![Snap Status](https://travis-ci.com/Qv2ray/Qv2ray.svg?branch=master)](https://travis-ci.com/Qv2ray/Qv2ray)
 
-使用 Qt 框架的跨平台 v2ray 客户端。支持 Windows, Linux, macOS。
+<table>
+ <tr>
+  <td>Arch Linux</td>
+  <td>
+   <a href="https://build.archlinuxcn.org/packages/#/qv2ray">
+    <img alt="ArchlinuxCN Stable" src="https://img.shields.io/badge/dynamic/json?label=archlinuxcn-stable&query=%24.latest.pkgver&url=https%3A%2F%2Fbuild.archlinuxcn.org%2Fapi%2Fpackages%2Fqv2ray" />
+   </a><br />
+   
+   <a href="https://build.archlinuxcn.org/packages/#/qv2ray-dev-git">
+    <img alt="ArchlinuxCN Development" src="https://img.shields.io/badge/dynamic/json?label=archlinuxcn-dev-git&query=%24.latest.pkgver&url=https%3A%2F%2Fbuild.archlinuxcn.org%2Fapi%2Fpackages%2Fqv2ray-dev-git" />
+   </a><br/>
+   
+   <a href="https://aur.archlinux.org/packages/qv2ray">
+    <img alt="AUR Stable" src="https://img.shields.io/aur/version/qv2ray?label=aur-stable&style=flat-square" />
+   </a><br/>
+   
+   <a href="https://aur.archlinux.org/packages/qv2ray-dev-git">
+    <img alt="AUR Development" src="https://img.shields.io/aur/version/qv2ray-dev-git?label=aur-development&style=flat-square" /></a>
+  </td>
+ </tr>
+ 
+ <tr>
+  <td>Flathub</td>
+  <td><a href="https://flathub.org/apps/details/com.github.Qv2ray"><img alt="flathub" src="https://img.shields.io/badge/flathub-available-success?style=flat-square" /></a></td>
+ </tr>
+ 
+ <tr>
+  <td>Snapcraft</td>
+  <td>
+   <a href="https://snapcraft.io/qv2ray/"><img alt="snap" src="https://snapcraft.io/qv2ray/badge.svg" /></a>
+  </td>
+ </tr>
+
+ <tr>
+  <td>openSUSE</td>
+  <td>
+   <a href="https://build.opensuse.org/package/show/home:zzndb/Qv2ray">
+    <img alt="OBS Stable" src="https://img.shields.io/badge/openSUSE--OBS-stable-blue" />
+   </a><br/>
+   <a href="https://build.opensuse.org/package/show/home:zzndb/Qv2ray-preview">
+    <img alt="OBS Stable" src="https://img.shields.io/badge/openSUSE--OBS-preview-blue" />
+   </a>
+  </td>
+ </tr>
+</table>
 
 ## Related Links
  - [Wiki](https://github.com/Qv2ray/Qv2ray/wiki) and [First Time Usage](https://github.com/Qv2ray/Qv2ray/wiki/Getting-Started-step0)
