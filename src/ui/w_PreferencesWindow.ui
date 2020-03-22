@@ -5,6 +5,14 @@
   <property name="windowModality">
    <enum>Qt::ApplicationModal</enum>
   </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1010</width>
+    <height>629</height>
+   </rect>
+  </property>
   <property name="windowTitle">
    <string>Preferences</string>
   </property>
@@ -201,14 +209,14 @@
              <item row="1" column="1">
               <widget class="QLabel" name="label_61">
                <property name="text">
-                <string>Config</string>
+                <string>Connection</string>
                </property>
               </widget>
              </item>
              <item row="0" column="1">
               <widget class="QLabel" name="label_60">
                <property name="text">
-                <string>Subscription</string>
+                <string>Group/Subscription</string>
                </property>
               </widget>
              </item>
