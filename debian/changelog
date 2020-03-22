@@ -1,3 +1,9 @@
+qv2ray (2.3.2-1) unstable; urgency=medium
+
+  * Fix Strange Button Length
+
+ -- Guobang Bi <ymshenyu@gmail.com>  Sun, 22 Mar 2020 20:33:31 +0800
+
 qv2ray (2.3.1-1) unstable; urgency=medium
 
   * fixed file loading if a source file was not in UTF-8

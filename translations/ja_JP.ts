@@ -415,42 +415,42 @@
         <translation>取り消し</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="61"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="60"/>
         <source>Select file to import</source>
         <translation>インポートするファイルを選択</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="94"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="93"/>
         <source>Capture QRCode</source>
         <translation>QRCodeをキャプチャ</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="94"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="93"/>
         <source>Cannot find a valid QRCode from this region.</source>
         <translation>この地域から有効なQRコードが見つかりません。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="167"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="166"/>
         <source>Import config file</source>
         <translation>設定ファイルをインポートする</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="167"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="166"/>
         <source>Failed to check the validity of the config file.</source>
         <translation>構成ファイルの有効性を確認できませんでした。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="182"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="181"/>
         <source>Select an image to import</source>
         <translation>インポートする画像を選択してください</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="196"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="195"/>
         <source>QRCode scanning failed</source>
         <translation>QRコードのスキャンに失敗しました</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="196"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="195"/>
         <source>Cannot find any QRCode from the image.</source>
         <translation>画像からQRコードが見つかりません。</translation>
     </message>
@@ -847,17 +847,17 @@
         <translation>Qv2ray</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="135"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="128"/>
         <source>Connect</source>
         <translation>接続</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="137"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="130"/>
         <source>Disconnect</source>
         <translation>切断</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="136"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="129"/>
         <source>Reconnect</source>
         <translation>再接</translation>
     </message>
@@ -937,7 +937,7 @@
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.ui"/>
-        <location filename="../src/ui/w_MainWindow.hpp" line="133"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="126"/>
         <source>Preferences</source>
         <translation>設定</translation>
     </message>
@@ -950,7 +950,7 @@
         <translation type="vanished">削除</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="144"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="137"/>
         <source>Edit</source>
         <translation>編集</translation>
     </message>
@@ -1017,7 +1017,7 @@
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.ui"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="597"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="601"/>
         <source>Not Connected</source>
         <translation>接続されていません</translation>
     </message>
@@ -1084,53 +1084,53 @@
         <translation type="vanished">#Restart</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="451"/>
-        <location filename="../src/ui/w_MainWindow.hpp" line="132"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="455"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="125"/>
         <source>Hide</source>
         <translation>非表示</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="134"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="127"/>
         <source>Quit</source>
         <translation>終了</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="143"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="136"/>
         <source>Set as automatically connected</source>
         <translation>自動接続として設定</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="145"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="138"/>
         <source>Edit as JSON</source>
         <translation>JSONとして編集</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="147"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="140"/>
         <source>Rename</source>
         <translation>Rename</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="148"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="141"/>
         <source>Duplicate to the Same Group</source>
         <translation>同じグループに複製</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="149"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="142"/>
         <source>Clear Usage Data</source>
         <translation>統計データを消去する</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="150"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="143"/>
         <source>Delete Connection</source>
         <translation>接続を削除</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="142"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="135"/>
         <source>Connect to this</source>
         <translation>Connect to this</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="146"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="139"/>
         <source>Edit as Complex Config</source>
         <translation>Edit as Complex Config</translation>
     </message>
@@ -1147,8 +1147,8 @@
         <translation type="vanished">Subscription:</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="414"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="456"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="418"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="460"/>
         <source>Show</source>
         <translation>表示</translation>
     </message>
@@ -1169,111 +1169,111 @@
         <translation type="vanished">Please select a config from the list.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="152"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="145"/>
         <source>Sort connection list.</source>
         <translation>接続リストを並べ替えます。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="153"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="146"/>
         <source>By connection name, A-Z</source>
         <translation>接続名で、A-Z</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="154"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="147"/>
         <source>By connection name, Z-A</source>
         <translation>接続名で、Z-A</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="155"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="148"/>
         <source>By latency, Ascending</source>
         <translation>レイテンシー、昇順</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="156"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="149"/>
         <source>By latency, Descending</source>
         <translation>レイテンシー、降順</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="157"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="150"/>
         <source>By data, Ascending</source>
         <translation>データ別、昇順</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="158"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="151"/>
         <source>By data, Descending</source>
         <translation>データ別、降順</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="165"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="158"/>
         <source>Switch to vCore log</source>
         <translation>vCoreログに切り替える</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="166"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="159"/>
         <source>Switch to Qv2ray log</source>
         <translation>Qv2rayログに切り替える</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="382"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="381"/>
         <source>Update</source>
         <translation>更新</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="383"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="382"/>
         <source>Found a new version: </source>
         <translation>新しいバージョンが見つかりました: </translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="384"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="388"/>
         <source>Download Link: </source>
         <translation>ダウンロードリンク: </translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="620"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="621"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="622"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="770"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="624"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="625"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="626"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="774"/>
         <source>Connected: </source>
         <translation>接続済み: </translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="652"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="666"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="656"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="670"/>
         <source>Configuring PAC</source>
         <translation>PACの構成</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="653"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="657"/>
         <source>Could not start PAC server as it is configured to use SOCKS, but it is not enabled</source>
         <translation>SOCKSを使用するように構成されているため、PACサーバーを起動できませんでしたが、有効になっていません</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="667"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="671"/>
         <source>Could not start PAC server as it is configured to use HTTP, but it is not enabled</source>
         <translation>HTTPを使用するように設定されているため、PACサーバーを起動できませんでしたが、有効になっていません</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="909"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="913"/>
         <source>Duplicating Connection(s)</source>
         <translation>接続を重複</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="910"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="914"/>
         <source>Are you sure to duplicate these connection(s)?</source>
         <translation>これらの接続を複製してもよろしいですか？</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="917"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="921"/>
         <source> (Copy)</source>
         <translation> （コピー）</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="983"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="987"/>
         <source>Set auto connection</source>
         <translation>自動接続設定</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="983"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="987"/>
         <source>Set %1 as auto connect.</source>
         <translation>%1 を自動接続として設定します。</translation>
     </message>
@@ -1386,17 +1386,17 @@
         <translation>問題を解決するには、ログテキストブラウザーでV2rayログを読みます。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="138"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="131"/>
         <source>Enable System Proxy</source>
         <translation>Enable System Proxy</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="139"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="132"/>
         <source>Disable System Proxy</source>
         <translation>Disable System Proxy</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.hpp" line="130"/>
+        <location filename="../src/ui/w_MainWindow.hpp" line="123"/>
         <source>System Proxy</source>
         <translation>システムプロキシ</translation>
     </message>
@@ -1417,7 +1417,7 @@
         <translation type="vanished">Already connected to: </translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="593"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="597"/>
         <source>Disconnected from: </source>
         <translation>次から切断: </translation>
     </message>
@@ -1434,12 +1434,12 @@
         <translation type="vanished">The name you suggested is not valid, please try another.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="514"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="518"/>
         <source>Removing Connection(s)</source>
         <translation>接続の削除</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="514"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="518"/>
         <source>Are you sure to remove selected connection(s)?</source>
         <translation>選択した接続を削除してもよろしいですか？</translation>
     </message>
@@ -1619,11 +1619,11 @@
     <name>PreferencesWindow</name>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="262"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="266"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="543"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="557"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="567"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="268"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="272"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="549"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="563"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="573"/>
         <source>Preferences</source>
         <translation>設定</translation>
     </message>
@@ -1770,7 +1770,7 @@
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
         <source>HTTP Settings</source>
-        <translation>HTTP Settings</translation>
+        <translation>HTTP設定</translation>
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
@@ -2093,13 +2093,13 @@
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="813"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="819"/>
         <source>Bold</source>
         <translation>Bold</translation>
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="814"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="820"/>
         <source>Italic</source>
         <translation>斜体</translation>
     </message>
@@ -2224,13 +2224,13 @@
         <translation>アイテム</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="465"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="525"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="471"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="531"/>
         <source>Enable tProxy Support</source>
         <translation>tProxyサポートを有効にする</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="527"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="533"/>
         <source>to this path: </source>
         <translation>このパスへ: </translation>
     </message>
@@ -2240,68 +2240,68 @@
         <translation>Qv2rayネットワークツールバーは無効になっており、まだテスト中です。 --withToolbarPluginを追加して有効にします。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="262"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="268"/>
         <source>Duplicated port numbers detected, please check the port number settings.</source>
         <translation>重複したポート番号が検出されました。ポート番号の設定を確認してください。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="266"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="272"/>
         <source>Invalid inbound listening address.</source>
         <translation>無効なインバウンドリスニングアドレス。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="384"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="390"/>
         <source>Open V2ray assets folder</source>
         <translation>V2rayアセットフォルダーを開く</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="395"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="401"/>
         <source>Open V2ray core file</source>
         <translation>V2rayコアファイルを開く</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="466"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="472"/>
         <source>This will append capabilities to the V2ray executable.</source>
         <translation>これにより、V2ray実行可能ファイルに機能が追加されます。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="467"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="473"/>
         <source>Qv2ray will copy your V2ray core to this path: </source>
         <translation>Qv2rayは、V2rayコアを次のパスにコピーします: </translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="468"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="474"/>
         <source>If anything goes wrong after enabling this, please check issue #57 or the link below:</source>
         <translation>これを有効にした後に何か問題が発生した場合は、問題#57または以下のリンクを確認してください:</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="526"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="532"/>
         <source>Qv2ray cannot copy one or both V2ray files from: </source>
         <translation>Qv2rayは、V2rayファイルの一方または両方を以下からコピーできません: </translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="543"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="557"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="549"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="563"/>
         <source>Failed to setcap onto V2ray executable. You may need to run `setcap` manually.</source>
         <translation>V2ray実行可能ファイルへのsetcapに失敗しました。`setcap`を手動で実行する必要がある場合があります。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="567"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="573"/>
         <source>tProxy is not supported on macOS and Windows</source>
         <translation>tProxyはmacOSおよびWindowsではサポートされていません</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="877"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="883"/>
         <source>Apply network toolbar settings</source>
         <translation>ネットワークツールバー設定を適用する</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="878"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="884"/>
         <source>All other modified settings will be applied as well after this object.</source>
         <translation>All other modified settings will be applied as well after this object.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="879"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="885"/>
         <source>Do you want to continue?</source>
         <translation>続けますか？</translation>
     </message>
@@ -2314,49 +2314,49 @@
         <translation type="vanished">Please restart Qv2ray to fully apply this feature.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="959"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="965"/>
         <source>Select GFWList in base64</source>
         <translation>Base64でGFWListを選択します</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="963"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="972"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="969"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="978"/>
         <source>Download GFWList</source>
         <translation>GFWListをダウンロードする</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="963"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="969"/>
         <source>Operation is cancelled.</source>
         <translation>操作はキャンセルされます。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="972"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="978"/>
         <source>Successfully downloaded GFWList.</source>
         <translation>GFWListを正常にダウンロードしました。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1063"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1072"/>
         <source>Start with boot</source>
         <translation>ブート時に起動します</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1063"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1072"/>
         <source>Failed to set auto start option.</source>
         <translation>自動開始オプションの設定に失敗しました。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1152"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1156"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1161"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1165"/>
         <source>V2ray Core Settings</source>
         <translation>V2ray Core設定</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1157"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1166"/>
         <source>V2ray path configuration check passed.</source>
         <translation>V2rayパス構成チェックに合格しました。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1157"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1166"/>
         <source>Current version of V2ray is: </source>
         <translation>V2rayの現在のバージョンは次のとおりです: </translation>
     </message>
@@ -2465,34 +2465,34 @@ p, li { white-space: pre-wrap; }
         <translation>Qv2rayはここから設定ファイルをロードできません：</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="106"/>
+        <location filename="../src/main.cpp" line="107"/>
         <source>Cannot Start Qv2ray</source>
         <translation>Qv2rayを起動できません</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="107"/>
+        <location filename="../src/main.cpp" line="108"/>
         <source>Cannot find a place to store config files.</source>
         <translation>設定ファイルを保存する場所が見つかりません。</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="108"/>
+        <location filename="../src/main.cpp" line="109"/>
         <source>Qv2ray has searched these paths below:</source>
         <translation>Qv2rayは以下のパスを検索しました：</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="110"/>
+        <location filename="../src/main.cpp" line="111"/>
         <source>It usually means you don&apos;t have the write permission to all of those locations.</source>
         <translation>通常、これらの場所すべてに対する書き込み権限がないことを意味します。</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="111"/>
-        <location filename="../src/main.cpp" line="134"/>
-        <location filename="../src/main.cpp" line="304"/>
+        <location filename="../src/main.cpp" line="112"/>
+        <location filename="../src/main.cpp" line="135"/>
+        <location filename="../src/main.cpp" line="298"/>
         <source>Qv2ray will now exit.</source>
         <translation>Qv2rayは終了します。</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="130"/>
+        <location filename="../src/main.cpp" line="131"/>
         <source>Failed to initialise Qv2ray</source>
         <translation>Qv2rayの初期化に失敗しました</translation>
     </message>
@@ -2501,17 +2501,17 @@ p, li { white-space: pre-wrap; }
         <translation type="vanished">構成ファイルの場所を特定できませんでした。</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="134"/>
+        <location filename="../src/main.cpp" line="135"/>
         <source>Please report if you think it&apos;s a bug.</source>
         <translation>バグだと思われる場合は報告してください。</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="204"/>
+        <location filename="../src/main.cpp" line="205"/>
         <source>You cannot run Qv2ray as root, please use --I-just-wanna-run-with-root if you REALLY want to do so.</source>
         <translation>Qv2rayをルートとして実行することはできません。本当に実行したい場合は、--I-just-wanna-run-with-rootを使用してください。</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="205"/>
+        <location filename="../src/main.cpp" line="206"/>
         <source> --&gt; USE IT AT YOUR OWN RISK!</source>
         <translation> --&gt; 自分の責任で使用してください！</translation>
     </message>
@@ -2524,67 +2524,67 @@ p, li { white-space: pre-wrap; }
         <translation type="vanished">Qv2ray will continue running, but you cannot change the UI language.</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="300"/>
+        <location filename="../src/main.cpp" line="294"/>
         <source>Qv2ray Cannot Continue</source>
         <translation>Qv2rayを続行できません</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="301"/>
+        <location filename="../src/main.cpp" line="295"/>
         <source>You are running a lower version of Qv2ray compared to the current config file.</source>
         <translation>現在の構成ファイルと比較して、より低いバージョンのQv2rayを実行しています。</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="302"/>
+        <location filename="../src/main.cpp" line="296"/>
         <source>Please check if there&apos;s an issue explaining about it.</source>
         <translation>それについて説明する問題があるかどうかを確認してください。</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="303"/>
+        <location filename="../src/main.cpp" line="297"/>
         <source>Or submit a new issue if you think this is an error.</source>
         <translation>または、これがエラーだと思われる場合は、新しい問題を送信してください。</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="347"/>
+        <location filename="../src/main.cpp" line="341"/>
         <source>Dependency Missing</source>
         <translation>依存関係がありません</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="349"/>
+        <location filename="../src/main.cpp" line="343"/>
         <source>This could be caused by a missing of `openssl` package in your system.</source>
         <translation>これは、システムに `openssl`パッケージが存在しないことが原因である可能性があります。</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="350"/>
+        <location filename="../src/main.cpp" line="344"/>
         <source>If you are using an AppImage from Github Action, please report a bug.</source>
         <translation>Github ActionsのAppImageを使用している場合は、バグを報告してください。</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="348"/>
+        <location filename="../src/main.cpp" line="342"/>
         <source>Cannot find openssl libs</source>
         <translation>OpenSSLライブラリが見つかりません</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="131"/>
+        <location filename="../src/main.cpp" line="132"/>
         <source>Failed to determine the location of config file:</source>
         <translation>構成ファイルの場所を特定できませんでした：</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="132"/>
+        <location filename="../src/main.cpp" line="133"/>
         <source>Qv2ray has found a config file, but it failed to be loaded due to some errors.</source>
         <translation>Qv2rayは設定ファイルを見つけましたが、いくつかのエラーのためにロードに失敗しました。</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="133"/>
+        <location filename="../src/main.cpp" line="134"/>
         <source>A workaround is to remove the this file and restart Qv2ray:</source>
         <translation>回避策は、このファイルを削除してQv2rayを再起動することです：</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="227"/>
+        <location filename="../src/main.cpp" line="228"/>
         <source>Debug version</source>
         <translation>デバッグバージョン</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="351"/>
+        <location filename="../src/main.cpp" line="345"/>
         <source>Technical Details</source>
         <translation>技術的な詳細</translation>
     </message>
@@ -2701,7 +2701,7 @@ p, li { white-space: pre-wrap; }
         <translation>なし</translation>
     </message>
     <message>
-        <location filename="../src/common/CommandArgs.cpp" line="17"/>
+        <location filename="../src/common/CommandArgs.cpp" line="16"/>
         <source>Qv2ray - A cross-platform Qt frontend for V2ray.</source>
         <translation>Qv2ray - V2ray用のクロスプラットフォームQtフロントエンド。</translation>
     </message>
@@ -2803,25 +2803,25 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../src/core/settings/SettingsUpgrade.cpp" line="277"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1183"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1192"/>
         <source>Deprecated</source>
         <translation>非推奨</translation>
     </message>
     <message>
         <location filename="../src/core/settings/SettingsUpgrade.cpp" line="278"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1184"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1193"/>
         <source>PAC is now deprecated and is not encouraged to be used anymore.</source>
         <translation>PACは非推奨になり、使用を推奨されなくなりました。</translation>
     </message>
     <message>
         <location filename="../src/core/settings/SettingsUpgrade.cpp" line="279"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1185"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1194"/>
         <source>It will be removed or be provided as a plugin in the future.</source>
         <translation>今後削除されるか、プラグインとして提供されます。</translation>
     </message>
     <message>
         <location filename="../src/core/settings/SettingsUpgrade.cpp" line="280"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1186"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1195"/>
         <source>PAC will still work currently, but please switch to the V2ray built-in routing as soon as possible.</source>
         <translation>PACは現在も機能しますが、できるだけ早くV2Rayの組み込みルーティングに切り替えてください。</translation>
     </message>
@@ -2841,7 +2841,7 @@ p, li { white-space: pre-wrap; }
         <translation>まずQv2ray v2.0 / v2.1にアップグレードしてから、もう一度試してください。</translation>
     </message>
     <message>
-        <location filename="../src/core/connection/Serialization.hpp" line="14"/>
+        <location filename="../src/core/connection/Serialization.hpp" line="15"/>
         <source>%1 - %2 (rate %3)</source>
         <translation>%1 - %2 (%3 倍数)</translation>
     </message>
@@ -2880,16 +2880,19 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../src/common/CommandArgs.cpp" line="11"/>
+        <source>Disable manually set QT_SCALE_FACTOR</source>
+        <translation>QT_SCALE_FACTORの手動設定を無効にする</translation>
+    </message>
+    <message>
         <source>Enable HiDPI support for Qt</source>
-        <translation>QtのHiDPIサポートを有効にする</translation>
+        <translation type="vanished">QtのHiDPIサポートを有効にする</translation>
+    </message>
+    <message>
+        <source>Force enable HiDPI support for Qt</source>
+        <translation type="vanished">QtのHiDPIサポートを強制的に有効にする</translation>
     </message>
     <message>
         <location filename="../src/common/CommandArgs.cpp" line="12"/>
-        <source>Force enable HiDPI support for Qt</source>
-        <translation>QtのHiDPIサポートを強制的に有効にする</translation>
-    </message>
-    <message>
-        <location filename="../src/common/CommandArgs.cpp" line="13"/>
         <source>Enable Qv2ray network toolbar plugin</source>
         <translation>Qv2rayネットワークツールバープラグインを有効にする</translation>
     </message>
@@ -3492,7 +3495,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/ui/widgets/RouteSettingsMatrix.ui"/>
         <source>Proxy</source>
-        <translation>プロキシ経由で接続</translation>
+        <translation>プロキシで接続</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/RouteSettingsMatrix.ui"/>
@@ -3852,22 +3855,41 @@ p, li { white-space: pre-wrap; }
         <translation type="vanished">Failed to process the result from the upstream, please check your Url.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_SubscriptionManager.cpp" line="54"/>
+        <source>Reload Subscription</source>
+        <translation type="vanished">サブスクリプションを更新</translation>
+    </message>
+    <message>
+        <source>Would you like to reload the subscription?</source>
+        <translation type="vanished">サブスクリプションを更新しますか？</translation>
+    </message>
+    <message>
+        <source>Deleting a subscription</source>
+        <translation type="vanished">サブスクリプションを削除する</translation>
+    </message>
+    <message>
+        <source>All connections will be moved to default group, do you want to continue?</source>
+        <translation type="vanished">すべての接続がデフォルトグループに移動します。続行しますか？</translation>
+    </message>
+</context>
+<context>
+    <name>SubscriptionEditor</name>
+    <message>
+        <location filename="../src/ui/w_SubscriptionManager.cpp" line="55"/>
         <source>Reload Subscription</source>
         <translation>サブスクリプションを更新</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_SubscriptionManager.cpp" line="54"/>
+        <location filename="../src/ui/w_SubscriptionManager.cpp" line="55"/>
         <source>Would you like to reload the subscription?</source>
         <translation>サブスクリプションを更新しますか？</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_SubscriptionManager.cpp" line="65"/>
+        <location filename="../src/ui/w_SubscriptionManager.cpp" line="66"/>
         <source>Deleting a subscription</source>
         <translation>サブスクリプションを削除する</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_SubscriptionManager.cpp" line="65"/>
+        <location filename="../src/ui/w_SubscriptionManager.cpp" line="66"/>
         <source>All connections will be moved to default group, do you want to continue?</source>
         <translation>すべての接続がデフォルトグループに移動します。続行しますか？</translation>
     </message>
