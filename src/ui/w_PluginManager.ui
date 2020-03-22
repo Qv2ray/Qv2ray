@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>687</width>
-    <height>492</height>
+    <width>684</width>
+    <height>493</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,11 +16,6 @@
   <layout class="QGridLayout" name="gridLayout" rowstretch="0,1,1,0" columnstretch="1,2">
    <item row="1" column="0" rowspan="2">
     <widget class="QListWidget" name="pluginListWidget"/>
-   </item>
-   <item row="2" column="1">
-    <widget class="QWidget" name="pluginUIWidget" native="true">
-     <layout class="QGridLayout" name="gridLayout_3"/>
-    </widget>
    </item>
    <item row="3" column="0" colspan="2">
     <widget class="QDialogButtonBox" name="buttonBox">
@@ -39,7 +34,7 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="1" rowspan="2">
+   <item row="0" column="1" rowspan="3">
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
       <string>Plugin Info</string>
@@ -123,18 +118,64 @@
          </widget>
         </item>
         <item row="3" column="0">
+         <widget class="QLabel" name="label_5">
+          <property name="text">
+           <string>State</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
          <widget class="QLabel" name="label_9">
           <property name="text">
            <string>Type</string>
           </property>
          </widget>
         </item>
-        <item row="3" column="1">
+        <item row="4" column="1">
          <widget class="QLabel" name="pluginTypeLabel">
           <property name="text">
            <string/>
           </property>
          </widget>
+        </item>
+        <item row="5" column="0">
+         <widget class="QLabel" name="label_2">
+          <property name="text">
+           <string>Message</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1">
+         <widget class="QPlainTextEdit" name="pluginStateTxt">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QLabel" name="pluginStateLabel">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="0" colspan="2">
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="QPushButton" name="pushButton_2">
+            <property name="text">
+             <string>Reload</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton">
+            <property name="text">
+             <string>Unload</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
        </layout>
       </item>

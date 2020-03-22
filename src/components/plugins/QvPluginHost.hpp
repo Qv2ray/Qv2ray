@@ -11,6 +11,7 @@ namespace Qv2ray::components::plugins
 {
     struct QvPluginInfo
     {
+        bool canLoadPlugin;
         QString libraryPath;
         QString errorMessage;
         QPluginLoader *pluginLoader;
@@ -25,10 +26,14 @@ namespace Qv2ray::components::plugins
         ~QvPluginHost();
         int RefreshPluginList();
         QStringList AvailablePlugins();
+        void InitializePluginHost();
         const inline QvPluginInfo GetPluginInfo(const QString &internalName)
         {
             return plugins.value(internalName);
         }
+
+      private slots:
+        void QvPluginLog(const QString &log);
 
       private:
         // Internal name, plugin info

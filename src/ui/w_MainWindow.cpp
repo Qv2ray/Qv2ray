@@ -1,6 +1,7 @@
 #include "w_MainWindow.hpp"
 
 #include "components/pac/QvPACHandler.hpp"
+#include "components/plugins/QvPluginHost.hpp"
 #include "components/plugins/toolbar/QvToolbar.hpp"
 #include "components/proxy/QvProxyConfigurator.hpp"
 #include "core/settings/SettingsBackend.hpp"
@@ -297,6 +298,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     {
         LOG(MODULE_UI, "Plugin daemon is enabled.")
         StartProcessingPlugins();
+    }
+
+    if (!StartupOption.noPlugins)
+    {
+        PluginHost->InitializePluginHost();
     }
 
     CheckSubscriptionsUpdate();

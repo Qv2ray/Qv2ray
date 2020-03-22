@@ -28,8 +28,9 @@ void w_PluginManager::on_pluginListWidget_currentItemChanged(QListWidgetItem *cu
         pluginNameLabel->setText(info.interface->Name());
         pluginAuthorLabel->setText(info.interface->Author());
         pluginDescriptionLabel->setText(info.interface->Description());
-        pluginIconLabel->setPixmap(info.interface->Icon().pixmap(pluginIconLabel->size() * devicePixelRatio()));
         pluginTypeLabel->setText("No impl");
+        pluginStateTxt->setPlainText(info.errorMessage.isEmpty() ? "OK" : info.errorMessage);
+        pluginIconLabel->setPixmap(info.interface->Icon().pixmap(pluginIconLabel->size() * devicePixelRatio()));
     }
 }
 
