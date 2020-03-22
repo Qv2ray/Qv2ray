@@ -126,6 +126,12 @@ namespace Qv2ray::base::config
         XTOSTRUCT(O(domains, ips))
     };
 
+    struct Qv2rayPluginConfig
+    {
+        QMap<QString, bool> pluginStates;
+        XTOSTRUCT(O(pluginStates))
+    };
+
     struct Qv2rayConnectionConfig
     {
         bool bypassCN;
@@ -209,6 +215,7 @@ namespace Qv2ray::base::config
         //
         Qv2rayUIConfig uiConfig;
         Qv2rayAPIConfig apiConfig;
+        Qv2rayPluginConfig pluginConfig;
         Qv2rayKernelConfig kernelConfig;
         Qv2rayToolBarConfig toolBarConfig;
         Qv2rayInboundsConfig inboundConfig;
@@ -216,11 +223,12 @@ namespace Qv2ray::base::config
 
         Qv2rayConfig()
             : config_version(QV2RAY_CONFIG_VERSION), tProxySupport(false), logLevel(), ignoredVersion(), autoStartId("null"), groups(),
-              subscriptions(), connections(), uiConfig(), apiConfig(), kernelConfig(), toolBarConfig(), inboundConfig(), connectionConfig()
+              subscriptions(), connections(), uiConfig(), apiConfig(), pluginConfig(), kernelConfig(), toolBarConfig(), inboundConfig(),
+              connectionConfig()
         {
         }
 
-        XTOSTRUCT(O(config_version, ignoredVersion, tProxySupport, logLevel, uiConfig, kernelConfig, groups, connections, subscriptions,
-                    autoStartId, inboundConfig, connectionConfig, toolBarConfig, apiConfig))
+        XTOSTRUCT(O(config_version, ignoredVersion, tProxySupport, logLevel, uiConfig, pluginConfig, kernelConfig, groups, connections,
+                    subscriptions, autoStartId, inboundConfig, connectionConfig, toolBarConfig, apiConfig))
     };
 } // namespace Qv2ray::base::config

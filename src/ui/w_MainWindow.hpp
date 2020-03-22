@@ -109,6 +109,8 @@ class MainWindow
 
     void on_masterLogBrowser_textChanged();
 
+    void on_pluginsBtn_clicked();
+
   protected:
     void timerEvent(QTimerEvent *event) override;
 

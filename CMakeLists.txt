@@ -196,6 +196,7 @@ set(QV2RAY_SOURCES
   src/ui/w_MainWindow.cpp
   src/ui/w_MainWindow_extra.cpp
   src/ui/w_PreferencesWindow.cpp
+  src/ui/w_PluginManager.cpp
   src/ui/w_ScreenShot_Core.cpp
   src/ui/w_SubscriptionManager.cpp
   # ui files
@@ -211,6 +212,7 @@ set(QV2RAY_SOURCES
   src/ui/widgets/RouteSettingsMatrix.ui
   src/ui/w_MainWindow.ui
   src/ui/w_PreferencesWindow.ui
+  src/ui/w_PluginManager.ui
   src/ui/w_ScreenShot_Core.ui
   # headers
   src/base/JsonHelpers.hpp
@@ -267,6 +269,7 @@ set(QV2RAY_SOURCES
   src/ui/w_ImportConfig.hpp
   src/ui/w_MainWindow.hpp
   src/ui/w_PreferencesWindow.hpp
+  src/ui/w_PluginManager.hpp
   src/ui/w_ScreenShot_Core.hpp
   src/ui/w_SubscriptionManager.hpp
   assets/qv2ray.rc

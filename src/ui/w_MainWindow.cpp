@@ -8,6 +8,7 @@
 #include "ui/editors/w_OutboundEditor.hpp"
 #include "ui/editors/w_RoutesEditor.hpp"
 #include "ui/w_ImportConfig.hpp"
+#include "ui/w_PluginManager.hpp"
 #include "ui/w_PreferencesWindow.hpp"
 #include "ui/w_SubscriptionManager.hpp"
 #include "ui/widgets/ConnectionInfoWidget.hpp"
@@ -993,4 +994,9 @@ void MainWindow::on_action_RCM_ClearUsage_triggered()
         auto widget = GetItemWidget(current);
         ConnectionManager->ClearConnectionUsage(get<1>(widget->Identifier()));
     }
+}
+
+void MainWindow::on_pluginsBtn_clicked()
+{
+    w_PluginManager(this).exec();
 }
