@@ -16,7 +16,7 @@
 
 <table>
  <tr>
-  <td>Arch Linux</td>
+  <td>ArchLinuxCN</td>
   <td>
    <a href="https://build.archlinuxcn.org/packages/#/qv2ray">
     <img alt="ArchlinuxCN Stable" src="https://img.shields.io/badge/dynamic/json?label=archlinuxcn-stable&query=%24.latest.pkgver&url=https%3A%2F%2Fbuild.archlinuxcn.org%2Fapi%2Fpackages%2Fqv2ray" />
@@ -24,20 +24,29 @@
    
    <a href="https://build.archlinuxcn.org/packages/#/qv2ray-dev-git">
     <img alt="ArchlinuxCN Development" src="https://img.shields.io/badge/dynamic/json?label=archlinuxcn-dev-git&query=%24.latest.pkgver&url=https%3A%2F%2Fbuild.archlinuxcn.org%2Fapi%2Fpackages%2Fqv2ray-dev-git" />
-   </a><br/>
-   
+   </a>
+  </td>
+ </tr>
+ 
+ <tr>
+ <td>AUR</td>
+ <td>
    <a href="https://aur.archlinux.org/packages/qv2ray">
     <img alt="AUR Stable" src="https://img.shields.io/aur/version/qv2ray?label=aur-stable&style=flat-square" />
    </a><br/>
    
    <a href="https://aur.archlinux.org/packages/qv2ray-dev-git">
     <img alt="AUR Development" src="https://img.shields.io/aur/version/qv2ray-dev-git?label=aur-development&style=flat-square" /></a>
-  </td>
+ </td>
  </tr>
- 
  <tr>
   <td>Flathub</td>
   <td><a href="https://flathub.org/apps/details/com.github.Qv2ray"><img alt="flathub" src="https://img.shields.io/badge/flathub-available-success?style=flat-square" /></a></td>
+ </tr>
+ 
+ <tr>
+  <td>Scoop</td>
+  <td><a href="https://scoop.sh/">(coming soon)</a></td>
  </tr>
  
  <tr>
