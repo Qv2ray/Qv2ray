@@ -254,7 +254,7 @@ void ImportConfigWindow::on_cancelImportBtn_clicked()
 void ImportConfigWindow::on_subscriptionButton_clicked()
 {
     hide();
-    SubscribeEditor w;
+    SubscriptionEditor w;
     w.exec();
     auto importToComplex = !keepImportedInboundCheckBox->isEnabled();
     connections.clear();

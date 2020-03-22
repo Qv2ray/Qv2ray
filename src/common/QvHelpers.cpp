@@ -29,25 +29,25 @@ namespace Qv2ray::common
     QString StringFromFile(const QString &filePath)
     {
         QFile f(filePath);
-        return StringFromFile(&f);
+        return StringFromFile(f);
     }
 
-    QString StringFromFile(QFile *source)
+    QString StringFromFile(QFile &source)
     {
-        bool wasOpened = source->isOpen();
+        bool wasOpened = source.isOpen();
         if (!wasOpened)
-            source->open(QFile::ReadOnly);
-        auto byteArray = source->readAll();
+            source.open(QFile::ReadOnly);
+        auto byteArray = source.readAll();
         if (!wasOpened)
-            source->close();
+            source.close();
         //
         QTextCodec::ConverterState state;
         QTextCodec *codec = QTextCodec::codecForName("UTF-8");
         const QString text = codec->toUnicode(byteArray.constData(), byteArray.size(), &state);
         if (state.invalidChars > 0)
         {
-            LOG(MODULE_FILEIO, "Not a valid UTF-8 sequence: " + source->fileName())
-            return source->readAll();
+            LOG(MODULE_FILEIO, "Not a valid UTF-8 sequence: " + source.fileName())
+            return byteArray;
         }
         else
         {
@@ -72,12 +72,6 @@ namespace Qv2ray::common
         targetFile.write(text.toUtf8());
         targetFile.close();
         return override;
-    }
-
-    QJsonObject JSONFromFile(QFile *sourceFile)
-    {
-        QString json = StringFromFile(sourceFile);
-        return JsonFromString(json);
     }
 
     QString JsonToString(const QJsonObject &json, QJsonDocument::JsonFormat format)
@@ -239,10 +233,14 @@ namespace Qv2ray::common
         QGraphicsBlurEffect pBlur;
         //
         view.setScene(&scene);
+        view.resize(pixmap.size() / QWidget().devicePixelRatio());
+        view.setSceneRect(pixmap.rect());
         scene.setSceneRect(pixmap.rect());
         pBlur.setBlurRadius(rad);
         QGraphicsPixmapItem *p = view.scene()->addPixmap(pixmap);
         p->setGraphicsEffect(&pBlur);
+        view.setVerticalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAlwaysOff);
+        view.setHorizontalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAlwaysOff);
         return view.grab();
     }
 
@@ -255,9 +253,13 @@ namespace Qv2ray::common
         pColor.setStrength(factor);
         //
         view.setScene(&scene);
+        view.resize(pixmap.size() / QWidget().devicePixelRatio());
+        view.setSceneRect(pixmap.rect());
         scene.setSceneRect(pixmap.rect());
         QGraphicsPixmapItem *p = view.scene()->addPixmap(pixmap);
         p->setGraphicsEffect(&pColor);
+        view.setVerticalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAlwaysOff);
+        view.setHorizontalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAlwaysOff);
         return view.grab();
     }
 } // namespace Qv2ray::common

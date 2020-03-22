@@ -172,7 +172,7 @@ class PreferencesWindow
     void SetAutoStartButtonsState(bool isAutoStart);
     // Set ui parameters for a line;
     void ShowLineParameters(QvBarLine &line);
-    QString GetBarLineDescription(QvBarLine line);
+    QString GetBarLineDescription(const QvBarLine &barLine);
     //
     int CurrentBarLineId;
     int CurrentBarPageId;

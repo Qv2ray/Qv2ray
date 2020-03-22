@@ -4,10 +4,10 @@
 #include "core/handler/ConfigHandler.hpp"
 #include "core/settings/SettingsBackend.hpp"
 
-SubscribeEditor::SubscribeEditor(QWidget *parent) : QDialog(parent)
+SubscriptionEditor::SubscriptionEditor(QWidget *parent) : QDialog(parent)
 {
     setupUi(this);
-    QvMessageBusConnect(SubscribeEditor);
+    QvMessageBusConnect(SubscriptionEditor);
     UpdateColorScheme();
     for (auto subs : ConnectionManager->Subscriptions())
     {
@@ -19,13 +19,13 @@ SubscribeEditor::SubscribeEditor(QWidget *parent) : QDialog(parent)
     }
 }
 
-void SubscribeEditor::UpdateColorScheme()
+void SubscriptionEditor::UpdateColorScheme()
 {
     addSubsButton->setIcon(QICON_R("add.png"));
     removeSubsButton->setIcon(QICON_R("delete.png"));
 }
 
-QvMessageBusSlotImpl(SubscribeEditor)
+QvMessageBusSlotImpl(SubscriptionEditor)
 {
     switch (msg)
     {
@@ -33,16 +33,16 @@ QvMessageBusSlotImpl(SubscribeEditor)
     }
 }
 
-tuple<QString, CONFIGROOT> SubscribeEditor::GetSelectedConfig()
+tuple<QString, CONFIGROOT> SubscriptionEditor::GetSelectedConfig()
 {
     return { GetDisplayName(currentConnectionId), ConnectionManager->GetConnectionRoot(currentConnectionId) };
 }
 
-SubscribeEditor::~SubscribeEditor()
+SubscriptionEditor::~SubscriptionEditor()
 {
 }
 
-void SubscribeEditor::on_addSubsButton_clicked()
+void SubscriptionEditor::on_addSubsButton_clicked()
 {
     auto const key = QSTRN(QTime::currentTime().msecsSinceStartOfDay());
     auto id = ConnectionManager->CreateGroup(key, true);
@@ -50,7 +50,7 @@ void SubscribeEditor::on_addSubsButton_clicked()
     subscriptionList->addTopLevelItem(new QTreeWidgetItem(QStringList{ key, id.toString() }));
 }
 
-void SubscribeEditor::on_updateButton_clicked()
+void SubscriptionEditor::on_updateButton_clicked()
 {
     if (QvMessageBoxAsk(this, tr("Reload Subscription"), tr("Would you like to reload the subscription?")) == QMessageBox::Yes)
     {
@@ -61,7 +61,7 @@ void SubscribeEditor::on_updateButton_clicked()
     }
 }
 
-void SubscribeEditor::on_removeSubsButton_clicked()
+void SubscriptionEditor::on_removeSubsButton_clicked()
 {
     if (QvMessageBoxAsk(this, tr("Deleting a subscription"), tr("All connections will be moved to default group, do you want to continue?")) ==
         QMessageBox::Yes)
@@ -82,17 +82,17 @@ void SubscribeEditor::on_removeSubsButton_clicked()
     }
 }
 
-void SubscribeEditor::on_buttonBox_accepted()
+void SubscriptionEditor::on_buttonBox_accepted()
 {
     // Nothing?
 }
 
-void SubscribeEditor::on_subscriptionList_itemSelectionChanged()
+void SubscriptionEditor::on_subscriptionList_itemSelectionChanged()
 {
     groupBox_2->setEnabled(subscriptionList->selectedItems().count() > 0);
 }
 
-void SubscribeEditor::on_subscriptionList_itemClicked(QTreeWidgetItem *item, int column)
+void SubscriptionEditor::on_subscriptionList_itemClicked(QTreeWidgetItem *item, int column)
 {
     Q_UNUSED(column)
 
@@ -119,31 +119,31 @@ void SubscribeEditor::on_subscriptionList_itemClicked(QTreeWidgetItem *item, int
     }
 }
 
-void SubscribeEditor::on_subscriptionList_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous)
+void SubscriptionEditor::on_subscriptionList_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous)
 {
     Q_UNUSED(previous)
     on_subscriptionList_itemClicked(current, 0);
 }
 
-void SubscribeEditor::on_subNameTxt_textEdited(const QString &arg1)
+void SubscriptionEditor::on_subNameTxt_textEdited(const QString &arg1)
 {
     subscriptionList->selectedItems().first()->setText(0, arg1);
     ConnectionManager->RenameGroup(currentSubId, arg1.trimmed());
 }
 
-void SubscribeEditor::on_subAddrTxt_textEdited(const QString &arg1)
+void SubscriptionEditor::on_subAddrTxt_textEdited(const QString &arg1)
 {
     auto newUpdateInterval = updateIntervalSB->value();
     ConnectionManager->SetSubscriptionData(currentSubId, arg1, newUpdateInterval);
 }
 
-void SubscribeEditor::on_updateIntervalSB_valueChanged(double arg1)
+void SubscriptionEditor::on_updateIntervalSB_valueChanged(double arg1)
 {
     auto newAddress = subAddrTxt->text().trimmed();
     ConnectionManager->SetSubscriptionData(currentSubId, newAddress, arg1);
 }
 
-void SubscribeEditor::on_connectionsList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
+void SubscriptionEditor::on_connectionsList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
 {
     Q_UNUSED(previous)
     if (current != nullptr)

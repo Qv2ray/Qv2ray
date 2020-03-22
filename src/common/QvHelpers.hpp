@@ -26,7 +26,7 @@ namespace Qv2ray::common
                                                 QMessageBox::StandardButton extraButtons = QMessageBox::NoButton);
     //
     QString StringFromFile(const QString &filePath);
-    QString StringFromFile(QFile *source);
+    QString StringFromFile(QFile &source);
     bool StringToFile(const QString &text, QFile &target);
     bool StringToFile(const QString &text, const QString &targetpath);
     //
@@ -50,7 +50,7 @@ namespace Qv2ray::common
     }
     //
     template<typename TYPE>
-    QString StructToJsonString(const TYPE t)
+    QString StructToJsonString(const TYPE &t)
     {
         return QString::fromStdString(x2struct::X::tojson(t, "", 4, ' '));
     }
@@ -100,12 +100,9 @@ namespace Qv2ray::common
 
     inline QString timeToString(const time_t &t)
     {
-        auto _tm = std::localtime(&t);
-        char MY_TIME[128];
-        setlocale(1, "3");
-        // using strftime to display time
-        strftime(MY_TIME, sizeof(MY_TIME), "%x - %I:%M%p", _tm);
-        return QString(MY_TIME);
+        QDateTime timestamp;
+        timestamp.setSecsSinceEpoch(t);
+        return timestamp.toString(Qt::SystemLocaleShortDate);
     }
 
     inline void FastAppendTextDocument(const QString &message, QTextDocument *doc)

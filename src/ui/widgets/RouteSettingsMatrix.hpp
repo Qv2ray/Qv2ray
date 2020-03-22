@@ -3,7 +3,9 @@
 #include "base/models/QvSettingsObject.hpp"
 #include "ui_RouteSettingsMatrix.h"
 
+#include <QMenu>
 #include <QWidget>
+#include <optional>
 
 class RouteSettingsMatrixWidget
     : public QWidget
@@ -12,10 +14,26 @@ class RouteSettingsMatrixWidget
     Q_OBJECT
 
   public:
-    explicit RouteSettingsMatrixWidget(QWidget *parent = nullptr);
-    void SetRouteConfig(const Qv2ray::base::config::Qv2rayRouteConfig conf, const QString &assetsDirPath);
+    RouteSettingsMatrixWidget(const QString &assetsDirPath, QWidget *parent = nullptr);
+    void SetRouteConfig(const Qv2ray::base::config::Qv2rayRouteConfig &conf);
     Qv2ray::base::config::Qv2rayRouteConfig GetRouteConfig() const;
     ~RouteSettingsMatrixWidget();
+
+  private:
+    std::optional<QString> openFileDialog();
+    std::optional<QString> saveFileDialog();
+    QList<QAction *> getBuiltInSchemes();
+    QAction *schemeToAction(const QString &name, Qv2ray::base::config::Qv2rayRouteConfig scheme);
+
+  private:
+    QMenu *builtInSchemesMenu;
+
+  private slots:
+    void on_importSchemeBtn_clicked();
+    void on_exportSchemeBtn_clicked();
+
+  private:
+    const QString &assetsDirPath;
 
   private:
     Qv2ray::ui::widgets::AutoCompleteTextEdit *directDomainTxt;

@@ -399,42 +399,42 @@
         <translation>Отмена</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="60"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="61"/>
         <source>Select file to import</source>
         <translation>Выберите файл для Импорта</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="93"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="94"/>
         <source>Capture QRCode</source>
         <translation>Захват QRCode</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="93"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="94"/>
         <source>Cannot find a valid QRCode from this region.</source>
         <translation>Не удается найти QRCode из этой области.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="166"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="167"/>
         <source>Import config file</source>
         <translation>Выберите файл конфигурации</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="166"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="167"/>
         <source>Failed to check the validity of the config file.</source>
         <translation>Не удалось проверить правильность файла конфигурации.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="181"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="182"/>
         <source>Select an image to import</source>
         <translation>Выберите изображение для импорта</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="195"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="196"/>
         <source>QRCode scanning failed</source>
         <translation>Ошибка сканирования QRCode</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="195"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="196"/>
         <source>Cannot find any QRCode from the image.</source>
         <translation>Не удается найти QRCode в изображении.</translation>
     </message>
@@ -1603,11 +1603,11 @@
     <name>PreferencesWindow</name>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="268"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="272"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="549"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="563"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="573"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="262"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="266"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="543"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="557"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="567"/>
         <source>Preferences</source>
         <translation>Настройки</translation>
     </message>
@@ -2077,13 +2077,13 @@
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="819"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="813"/>
         <source>Bold</source>
         <translation>Жирный</translation>
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="820"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="814"/>
         <source>Italic</source>
         <translation>Курсив</translation>
     </message>
@@ -2208,13 +2208,13 @@
         <translation>Объекты</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="471"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="531"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="465"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="525"/>
         <source>Enable tProxy Support</source>
         <translation>Включить tProxy поддержку</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="533"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="527"/>
         <source>to this path: </source>
         <translation>на этот путь: </translation>
     </message>
@@ -2224,68 +2224,68 @@
         <translation>Панель инструментов сети Qv2ray отключена и все еще тестируется. Добавьте --withToolbarPlugin для включения.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="268"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="262"/>
         <source>Duplicated port numbers detected, please check the port number settings.</source>
         <translation>Обнаружены дублированные номера портов, проверьте настройки номера порта.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="272"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="266"/>
         <source>Invalid inbound listening address.</source>
         <translation>Неверный входящий адрес прослушивания.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="390"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="384"/>
         <source>Open V2ray assets folder</source>
         <translation>Откройте папку активов v2ray</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="401"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="395"/>
         <source>Open V2ray core file</source>
         <translation>Открыть основной файл V2ray</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="472"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="466"/>
         <source>This will append capabilities to the V2ray executable.</source>
         <translation>Это добавит возможности к исполняемому файлу V2ray.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="473"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="467"/>
         <source>Qv2ray will copy your V2ray core to this path: </source>
         <translation>Qv2ray скопирует ваше ядро V2ray по этому пути:</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="474"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="468"/>
         <source>If anything goes wrong after enabling this, please check issue #57 or the link below:</source>
         <translation>Если после включения этого параметра что-то пойдет не так, проверьте проблему № 57 или ссылку ниже:</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="532"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="526"/>
         <source>Qv2ray cannot copy one or both V2ray files from: </source>
         <translation>Qv2ray не может скопировать один или оба файла V2ray из:</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="549"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="563"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="543"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="557"/>
         <source>Failed to setcap onto V2ray executable. You may need to run `setcap` manually.</source>
         <translation>Не удалось установить setcap на исполняемый файл V2ray. Возможно, вам придется запустить `setcap` вручную.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="573"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="567"/>
         <source>tProxy is not supported on macOS and Windows</source>
         <translation>tProxy не поддерживается на macOS и Windows</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="883"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="877"/>
         <source>Apply network toolbar settings</source>
         <translation>Применить настройки панели инструментов сети</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="884"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="878"/>
         <source>All other modified settings will be applied as well after this object.</source>
         <translation>Все остальные измененные настройки будут применены и после этого объекта.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="885"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="879"/>
         <source>Do you want to continue?</source>
         <translation>Вы хотите продолжить?</translation>
     </message>
@@ -2298,49 +2298,49 @@
         <translation type="vanished">Пожалуйста, перезапустите Qv2ray, чтобы полностью применить эту функцию.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="965"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="959"/>
         <source>Select GFWList in base64</source>
         <translation>Выберите GFWList в base64</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="969"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="978"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="963"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="972"/>
         <source>Download GFWList</source>
         <translation>Скачать GFWList</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="969"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="963"/>
         <source>Operation is cancelled.</source>
         <translation>Операция отменена.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="978"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="972"/>
         <source>Successfully downloaded GFWList.</source>
         <translation>Успешно загружено %1$s.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1072"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1063"/>
         <source>Start with boot</source>
         <translation>Автозапуск</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1072"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1063"/>
         <source>Failed to set auto start option.</source>
         <translation>Не удалось установить опцию автозапуска.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1161"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1165"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1152"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1156"/>
         <source>V2ray Core Settings</source>
         <translation>Настройки ядра V2ray</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1166"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1157"/>
         <source>V2ray path configuration check passed.</source>
         <translation>Проверка конфигурации пути V2ray пройдена.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1166"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1157"/>
         <source>Current version of V2ray is: </source>
         <translation>Текущая версия V2ray:</translation>
     </message>
@@ -2459,7 +2459,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/main.cpp" line="111"/>
         <location filename="../src/main.cpp" line="134"/>
-        <location filename="../src/main.cpp" line="303"/>
+        <location filename="../src/main.cpp" line="304"/>
         <source>Qv2ray will now exit.</source>
         <translation>Qv2ray теперь выйдет.</translation>
     </message>
@@ -2478,12 +2478,12 @@ p, li { white-space: pre-wrap; }
         <translation>Пожалуйста, сообщите, если вы считаете об этом, если это ошибка.</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="203"/>
+        <location filename="../src/main.cpp" line="204"/>
         <source>You cannot run Qv2ray as root, please use --I-just-wanna-run-with-root if you REALLY want to do so.</source>
         <translation>Вы не можете запустить Qv2ray как root, пожалуйста, используйте --I-just-wanna-run-with-root, если вы хотите это сделать.</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="204"/>
+        <location filename="../src/main.cpp" line="205"/>
         <source> --&gt; USE IT AT YOUR OWN RISK!</source>
         <translation> --&gt; ИСПОЛЬЗУЙТЕ ЕГО НА СВОЙ СТРАХ И РИСК!</translation>
     </message>
@@ -2496,42 +2496,42 @@ p, li { white-space: pre-wrap; }
         <translation type="vanished">Qv2ray продолжит работу, но вы не сможете изменить язык интерфейса.</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="299"/>
+        <location filename="../src/main.cpp" line="300"/>
         <source>Qv2ray Cannot Continue</source>
         <translation>Qv2ray не может продолжить</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="300"/>
+        <location filename="../src/main.cpp" line="301"/>
         <source>You are running a lower version of Qv2ray compared to the current config file.</source>
         <translation>Вы используете более низкую версию Qv2ray по сравнению с текущим файлом конфигурации.</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="301"/>
+        <location filename="../src/main.cpp" line="302"/>
         <source>Please check if there&apos;s an issue explaining about it.</source>
         <translation>Пожалуйста, проверьте, есть ли проблема с объяснением этого.</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="302"/>
+        <location filename="../src/main.cpp" line="303"/>
         <source>Or submit a new issue if you think this is an error.</source>
         <translation>Или отправьте новую проблему, если вы считаете, что это ошибка.</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="346"/>
+        <location filename="../src/main.cpp" line="347"/>
         <source>Dependency Missing</source>
         <translation>Зависимость отсутствует</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="348"/>
+        <location filename="../src/main.cpp" line="349"/>
         <source>This could be caused by a missing of `openssl` package in your system.</source>
         <translation>Это может быть вызвано отсутствием пакета `openssl` в вашей системе.</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="349"/>
+        <location filename="../src/main.cpp" line="350"/>
         <source>If you are using an AppImage from Github Action, please report a bug.</source>
         <translation>Если вы используете AppImage из Github Action, пожалуйста, сообщите об ошибке.</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="347"/>
+        <location filename="../src/main.cpp" line="348"/>
         <source>Cannot find openssl libs</source>
         <translation>Не удается найти openssl libs</translation>
     </message>
@@ -2551,12 +2551,12 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="226"/>
+        <location filename="../src/main.cpp" line="227"/>
         <source>Debug version</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="350"/>
+        <location filename="../src/main.cpp" line="351"/>
         <source>Technical Details</source>
         <translation>Технические детали</translation>
     </message>
@@ -2775,25 +2775,25 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../src/core/settings/SettingsUpgrade.cpp" line="277"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1192"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1183"/>
         <source>Deprecated</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/core/settings/SettingsUpgrade.cpp" line="278"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1193"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1184"/>
         <source>PAC is now deprecated and is not encouraged to be used anymore.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/core/settings/SettingsUpgrade.cpp" line="279"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1194"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1185"/>
         <source>It will be removed or be provided as a plugin in the future.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/core/settings/SettingsUpgrade.cpp" line="280"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1195"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1186"/>
         <source>PAC will still work currently, but please switch to the V2ray built-in routing as soon as possible.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3488,17 +3488,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../src/ui/widgets/RouteSettingsMatrix.ui"/>
-        <source>Built-in Schemes</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/widgets/RouteSettingsMatrix.ui"/>
         <source>Import route scheme from file</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/widgets/RouteSettingsMatrix.ui"/>
-        <source>Import Scheme</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3508,12 +3498,76 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../src/ui/widgets/RouteSettingsMatrix.ui"/>
-        <source>Export Scheme</source>
+        <source>Built-in Schemes...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/RouteSettingsMatrix.ui"/>
-        <source>Coming soon!</source>
+        <source>Import Scheme...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.ui"/>
+        <source>Export Scheme...</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>RouteSettingsMatrixWidget</name>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.cpp" line="47"/>
+        <source>empty scheme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.cpp" line="203"/>
+        <source>v2rayN preset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.cpp" line="290"/>
+        <source>Import scheme &apos;%1&apos; by &apos;%2&apos;?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.cpp" line="291"/>
+        <source>Importing Scheme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.cpp" line="322"/>
+        <source>Exporting Scheme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.cpp" line="326"/>
+        <source>Scheme name:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.cpp" line="326"/>
+        <source>Unnamed Scheme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.cpp" line="331"/>
+        <source>Author:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.cpp" line="337"/>
+        <source>Description:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.cpp" line="337"/>
+        <source>The author is too lazy to leave a comment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.cpp" line="378"/>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.cpp" line="396"/>
+        <source>QvRoute Schemes(*.json)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3754,22 +3808,22 @@ p, li { white-space: pre-wrap; }
         <translation type="vanished">Не удалось обработать результат из апстрима, проверьте ваш URL.</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_SubscriptionManager.cpp" line="55"/>
+        <location filename="../src/ui/w_SubscriptionManager.cpp" line="54"/>
         <source>Reload Subscription</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_SubscriptionManager.cpp" line="55"/>
+        <location filename="../src/ui/w_SubscriptionManager.cpp" line="54"/>
         <source>Would you like to reload the subscription?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_SubscriptionManager.cpp" line="66"/>
+        <location filename="../src/ui/w_SubscriptionManager.cpp" line="65"/>
         <source>Deleting a subscription</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_SubscriptionManager.cpp" line="66"/>
+        <location filename="../src/ui/w_SubscriptionManager.cpp" line="65"/>
         <source>All connections will be moved to default group, do you want to continue?</source>
         <translation type="unfinished"></translation>
     </message>

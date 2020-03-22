@@ -1,3 +1,4 @@
+#pragma once
 #include "base/Qv2rayBase.hpp"
 
 namespace Qv2ray::core::config

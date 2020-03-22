@@ -62,13 +62,8 @@ namespace Qv2ray::ui::widgets
         Q_OBJECT
 
       public:
-        AutoCompleteTextEdit(const QString &prefix, QWidget *parent = nullptr);
+        AutoCompleteTextEdit(const QString &prefix, const QStringList &sourceStrings, QWidget *parent = nullptr);
         ~AutoCompleteTextEdit();
-
-        void SetPrefix(const QString &prefix);
-        void SetCompleter(QCompleter *c);
-        void SetSourceStrings(QStringList sourceStrings);
-        QCompleter *completer() const;
 
       protected:
         void keyPressEvent(QKeyEvent *e) override;
@@ -81,9 +76,7 @@ namespace Qv2ray::ui::widgets
         QString lineUnderCursor() const;
         QString wordUnderCursor() const;
 
-      private:
         QString prefix;
-        QAbstractItemModel *modelFromStringList(const QStringList &list);
         QCompleter *c = nullptr;
     };
 } // namespace Qv2ray::ui::widgets

@@ -211,8 +211,8 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
                                 QSTRN(pacPortSB->value()) + "/pac");
     //
     finishedLoading = true;
-    routeSettingsWidget = new RouteSettingsMatrixWidget(this);
-    routeSettingsWidget->SetRouteConfig(CurrentConfig.connectionConfig.routeConfig, CurrentConfig.kernelConfig.AssetsPath());
+    routeSettingsWidget = new RouteSettingsMatrixWidget(CurrentConfig.kernelConfig.AssetsPath(), this);
+    routeSettingsWidget->SetRouteConfig(CurrentConfig.connectionConfig.routeConfig);
     advRouteSettingsLayout->addWidget(routeSettingsWidget);
 }
 
@@ -806,7 +806,7 @@ void PreferencesWindow::on_nsBarFontSizeSB_valueChanged(double arg1)
     SET_LINE_LIST_TEXT
 }
 
-QString PreferencesWindow::GetBarLineDescription(QvBarLine barLine)
+QString PreferencesWindow::GetBarLineDescription(const QvBarLine &barLine)
 {
     QString result = "Empty";
     result = NetSpeedPluginMessages[barLine.ContentType];

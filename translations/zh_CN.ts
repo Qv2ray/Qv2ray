@@ -320,42 +320,42 @@
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="60"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="61"/>
         <source>Select file to import</source>
         <translation>选择要导入的文件</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="93"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="94"/>
         <source>Capture QRCode</source>
         <translation>抓取二维码</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="93"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="94"/>
         <source>Cannot find a valid QRCode from this region.</source>
         <translation>无法从这个区域找到有效的二维码。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="166"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="167"/>
         <source>Import config file</source>
         <translation>导入配置文件</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="166"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="167"/>
         <source>Failed to check the validity of the config file.</source>
         <translation>检查配置文件有效性时失败。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="181"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="182"/>
         <source>Select an image to import</source>
         <translation>选择要导入的图像</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="195"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="196"/>
         <source>QRCode scanning failed</source>
         <translation>二维码扫描失败</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="195"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="196"/>
         <source>Cannot find any QRCode from the image.</source>
         <translation>无法从图像中找到任何二维码。</translation>
     </message>
@@ -1257,11 +1257,11 @@
     <name>PreferencesWindow</name>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="268"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="272"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="549"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="563"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="573"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="262"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="266"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="543"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="557"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="567"/>
         <source>Preferences</source>
         <translation>首选项</translation>
     </message>
@@ -1651,13 +1651,13 @@
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="819"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="813"/>
         <source>Bold</source>
         <translation>粗体</translation>
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="820"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="814"/>
         <source>Italic</source>
         <translation>斜体</translation>
     </message>
@@ -1782,13 +1782,13 @@
         <translation>项目</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="471"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="531"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="465"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="525"/>
         <source>Enable tProxy Support</source>
         <translation>启用 tProxy 支持</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="533"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="527"/>
         <source>to this path: </source>
         <translation>到此路径: </translation>
     </message>
@@ -1798,115 +1798,115 @@
         <translation>Qv2ray 的网络工具栏已被禁用，请使用 --withToolbarPlugin 来启用。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="268"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="262"/>
         <source>Duplicated port numbers detected, please check the port number settings.</source>
         <translation>检测到重复的端口号，请检查端口号设置。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="272"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="266"/>
         <source>Invalid inbound listening address.</source>
         <translation>入站监听地址不可用。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="390"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="384"/>
         <source>Open V2ray assets folder</source>
         <translation>打开 V2ray 资源文件夹</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="401"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="395"/>
         <source>Open V2ray core file</source>
         <translation>打开 V2ray 核心文件</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="472"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="466"/>
         <source>This will append capabilities to the V2ray executable.</source>
         <translation>这会将功能附加到 V2ray 可执行文件。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="473"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="467"/>
         <source>Qv2ray will copy your V2ray core to this path: </source>
         <translation>Qv2ray 会将您的 V2ray 核心复制到以下路径： </translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="474"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="468"/>
         <source>If anything goes wrong after enabling this, please check issue #57 or the link below:</source>
         <translation>如果有出现任何问题，请参阅 Issue #57 或以下链接：</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="532"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="526"/>
         <source>Qv2ray cannot copy one or both V2ray files from: </source>
         <translation>Qv2ray 无法从以下位置复制一个或两个 V2ray 文件： </translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="549"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="563"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="543"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="557"/>
         <source>Failed to setcap onto V2ray executable. You may need to run `setcap` manually.</source>
         <translation>无法将 Capcap 设置到 V2ray 可执行文件上。 您可能需要手动运行“ setcap”。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="573"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="567"/>
         <source>tProxy is not supported on macOS and Windows</source>
         <translation>在 macOS 和 Windows 上不支持 tProxy</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="883"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="877"/>
         <source>Apply network toolbar settings</source>
         <translation>应用网络工具栏设置</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="884"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="878"/>
         <source>All other modified settings will be applied as well after this object.</source>
         <translation>已经编辑的其它设置也会被同时应用。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="885"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="879"/>
         <source>Do you want to continue?</source>
         <translation>你想继续吗？</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="965"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="959"/>
         <source>Select GFWList in base64</source>
         <translation>选择 base64 格式的 GFWList</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="969"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="978"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="963"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="972"/>
         <source>Download GFWList</source>
         <translation>下载 GFWList</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="969"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="963"/>
         <source>Operation is cancelled.</source>
         <translation>操作已经取消</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="978"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="972"/>
         <source>Successfully downloaded GFWList.</source>
         <translation>下载 GFWList 成功。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1072"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1063"/>
         <source>Start with boot</source>
         <translation>开机启动</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1072"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1063"/>
         <source>Failed to set auto start option.</source>
         <translation>无法设置自动启动选项。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1161"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1165"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1152"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1156"/>
         <source>V2ray Core Settings</source>
         <translation>V2ray 核心设置</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1166"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1157"/>
         <source>V2ray path configuration check passed.</source>
         <translation>V2ray 路径配置检查通过。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1166"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1157"/>
         <source>Current version of V2ray is: </source>
         <translation>V2ray 当前版本是： </translation>
     </message>
@@ -2113,7 +2113,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/main.cpp" line="111"/>
         <location filename="../src/main.cpp" line="134"/>
-        <location filename="../src/main.cpp" line="303"/>
+        <location filename="../src/main.cpp" line="304"/>
         <source>Qv2ray will now exit.</source>
         <translation>Qv2ray 现在将退出。</translation>
     </message>
@@ -2128,57 +2128,57 @@ p, li { white-space: pre-wrap; }
         <translation>如果您认为它是一个bug，请&apos;报告。</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="203"/>
+        <location filename="../src/main.cpp" line="204"/>
         <source>You cannot run Qv2ray as root, please use --I-just-wanna-run-with-root if you REALLY want to do so.</source>
         <translation>您不能以root用户身份运行Qv2ray，如果您确实想这样做，请使用 --I-just-wanna-run-with-root。</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="204"/>
+        <location filename="../src/main.cpp" line="205"/>
         <source> --&gt; USE IT AT YOUR OWN RISK!</source>
         <translation> --&gt; 请自负风险！</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="226"/>
+        <location filename="../src/main.cpp" line="227"/>
         <source>Debug version</source>
         <translation>调试版</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="299"/>
+        <location filename="../src/main.cpp" line="300"/>
         <source>Qv2ray Cannot Continue</source>
         <translation>Qv2ray 无法继续</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="300"/>
+        <location filename="../src/main.cpp" line="301"/>
         <source>You are running a lower version of Qv2ray compared to the current config file.</source>
         <translation>与当前配置文件相比，您正在运行一个较低版本的 Qv2ray。</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="301"/>
+        <location filename="../src/main.cpp" line="302"/>
         <source>Please check if there&apos;s an issue explaining about it.</source>
         <translation>请检查是否存在&apos;有关此问题的说明。</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="302"/>
+        <location filename="../src/main.cpp" line="303"/>
         <source>Or submit a new issue if you think this is an error.</source>
         <translation>或者如果你认为这是一个错误，请提交一个新问题。</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="346"/>
+        <location filename="../src/main.cpp" line="347"/>
         <source>Dependency Missing</source>
         <translation>缺少依赖关系</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="348"/>
+        <location filename="../src/main.cpp" line="349"/>
         <source>This could be caused by a missing of `openssl` package in your system.</source>
         <translation>这可能是系统中缺少`openssl`软件包造成的。</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="349"/>
+        <location filename="../src/main.cpp" line="350"/>
         <source>If you are using an AppImage from Github Action, please report a bug.</source>
         <translation>如果您使用的是来自 Github Action 的 AppImage，请报告错误。</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="347"/>
+        <location filename="../src/main.cpp" line="348"/>
         <source>Cannot find openssl libs</source>
         <translation>找不到 OpenSSL 库</translation>
     </message>
@@ -2198,7 +2198,7 @@ p, li { white-space: pre-wrap; }
         <translation>一种解决方法是删除此文件并重新启动Qv2ray：</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="350"/>
+        <location filename="../src/main.cpp" line="351"/>
         <source>Technical Details</source>
         <translation>技术细节</translation>
     </message>
@@ -2237,25 +2237,25 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../src/core/settings/SettingsUpgrade.cpp" line="277"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1192"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1183"/>
         <source>Deprecated</source>
         <translation>已经过时</translation>
     </message>
     <message>
         <location filename="../src/core/settings/SettingsUpgrade.cpp" line="278"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1193"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1184"/>
         <source>PAC is now deprecated and is not encouraged to be used anymore.</source>
         <translation>PAC 已经被标记为过时的功能，并且我们不建议您继续使用。</translation>
     </message>
     <message>
         <location filename="../src/core/settings/SettingsUpgrade.cpp" line="279"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1194"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1185"/>
         <source>It will be removed or be provided as a plugin in the future.</source>
         <translation>它可能会在将来某个版本被移除，或者作为单独的插件提供。</translation>
     </message>
     <message>
         <location filename="../src/core/settings/SettingsUpgrade.cpp" line="280"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1195"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1186"/>
         <source>PAC will still work currently, but please switch to the V2ray built-in routing as soon as possible.</source>
         <translation>PAC 目前将会继续工作，但是我们强烈建议您切换使用 V2ray 自带的路由功能。</translation>
     </message>
@@ -3089,9 +3089,8 @@ p, li { white-space: pre-wrap; }
         <translation>使用预置路由方案</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/RouteSettingsMatrix.ui"/>
         <source>Built-in Schemes</source>
-        <translation>预置方案</translation>
+        <translation type="vanished">预置方案</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/RouteSettingsMatrix.ui"/>
@@ -3099,9 +3098,8 @@ p, li { white-space: pre-wrap; }
         <translation>从文件导入路由方案</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/RouteSettingsMatrix.ui"/>
         <source>Import Scheme</source>
-        <translation>导入方案</translation>
+        <translation type="vanished">导入方案</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/RouteSettingsMatrix.ui"/>
@@ -3109,14 +3107,86 @@ p, li { white-space: pre-wrap; }
         <translation>导出方案到文件</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/RouteSettingsMatrix.ui"/>
         <source>Export Scheme</source>
-        <translation>导出方案</translation>
+        <translation type="vanished">导出方案</translation>
+    </message>
+    <message>
+        <source>Coming soon!</source>
+        <translation type="vanished">即将推出！</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/RouteSettingsMatrix.ui"/>
-        <source>Coming soon!</source>
-        <translation>即将推出！</translation>
+        <source>Built-in Schemes...</source>
+        <translation>预置方案...</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.ui"/>
+        <source>Import Scheme...</source>
+        <translation>导入方案...</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.ui"/>
+        <source>Export Scheme...</source>
+        <translation>导出方案...</translation>
+    </message>
+</context>
+<context>
+    <name>RouteSettingsMatrixWidget</name>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.cpp" line="47"/>
+        <source>empty scheme</source>
+        <translation>空白方案</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.cpp" line="203"/>
+        <source>v2rayN preset</source>
+        <translation>v2rayN 方案</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.cpp" line="290"/>
+        <source>Import scheme &apos;%1&apos; by &apos;%2&apos;?</source>
+        <translation>要导入 &apos;%2&apos; 的方案 &apos;%1&apos; 吗？</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.cpp" line="291"/>
+        <source>Importing Scheme</source>
+        <translation>导入方案</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.cpp" line="322"/>
+        <source>Exporting Scheme</source>
+        <translation>导出方案</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.cpp" line="326"/>
+        <source>Scheme name:</source>
+        <translation>方案名称：</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.cpp" line="326"/>
+        <source>Unnamed Scheme</source>
+        <translation>无名方案</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.cpp" line="331"/>
+        <source>Author:</source>
+        <translation>作者：</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.cpp" line="337"/>
+        <source>Description:</source>
+        <translation>描述：</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.cpp" line="337"/>
+        <source>The author is too lazy to leave a comment</source>
+        <translation>作者太懒，没有写描述</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.cpp" line="378"/>
+        <location filename="../src/ui/widgets/RouteSettingsMatrix.cpp" line="396"/>
+        <source>QvRoute Schemes(*.json)</source>
+        <translation>QvRoute 方案(*.json)</translation>
     </message>
 </context>
 <context>
@@ -3320,22 +3390,22 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>SubscribeEditor</name>
     <message>
-        <location filename="../src/ui/w_SubscriptionManager.cpp" line="55"/>
+        <location filename="../src/ui/w_SubscriptionManager.cpp" line="54"/>
         <source>Reload Subscription</source>
         <translation>更新订阅</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_SubscriptionManager.cpp" line="55"/>
+        <location filename="../src/ui/w_SubscriptionManager.cpp" line="54"/>
         <source>Would you like to reload the subscription?</source>
         <translation>您要更新此订阅吗？</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_SubscriptionManager.cpp" line="66"/>
+        <location filename="../src/ui/w_SubscriptionManager.cpp" line="65"/>
         <source>Deleting a subscription</source>
         <translation>删除订阅</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_SubscriptionManager.cpp" line="66"/>
+        <location filename="../src/ui/w_SubscriptionManager.cpp" line="65"/>
         <source>All connections will be moved to default group, do you want to continue?</source>
         <translation>本订阅中的所有连接都将移动到默认分组，您确定要继续吗？</translation>
     </message>

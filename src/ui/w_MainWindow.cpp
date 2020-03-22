@@ -312,7 +312,7 @@ void MainWindow::timerEvent(QTimerEvent *event)
         auto log = readLastLog().trimmed();
         if (!log.isEmpty())
         {
-            FastAppendTextDocument(NEWLINE + log, qvLogDocument);
+            FastAppendTextDocument(NEWLINE + log, qvLogDocument); /*end*/
             // qvLogDocument->setPlainText(qvLogDocument->toPlainText() + NEWLINE + log);
         }
     }
@@ -379,11 +379,15 @@ void MainWindow::VersionUpdate(QByteArray &data)
     {
         LOG(MODULE_UPDATE, "New version detected.")
         auto link = root["html_url"].toString("");
-        auto result =
-            QvMessageBoxAsk(this, tr("Update"),
-                            tr("Found a new version: ") + root["tag_name"].toString("") + "\r\n" + root["name"].toString("") +
-                                "\r\n------------\r\n" + root["body"].toString("") + "\r\n------------\r\n" + tr("Download Link: ") + link,
-                            QMessageBox::Ignore);
+        auto result = QvMessageBoxAsk(this, tr("Update"),
+                                      tr("Found a new version: ") +                 //
+                                          root["tag_name"].toString("") + NEWLINE + //
+                                          root["name"].toString("") +               //
+                                          NEWLINE "------------" NEWLINE +          //
+                                          root["body"].toString("") +               //
+                                          NEWLINE "------------" NEWLINE +          //
+                                          tr("Download Link: ") + link,
+                                      QMessageBox::Ignore);
 
         if (result == QMessageBox::Yes)
         {
@@ -393,7 +397,7 @@ void MainWindow::VersionUpdate(QByteArray &data)
         {
             // Set and save ingored version.
             GlobalConfig.ignoredVersion = newVersion.toString();
-            // SaveGlobalConfig(GlobalConfig);
+            SaveGlobalSettings();
         }
     }
 }
@@ -567,7 +571,7 @@ void MainWindow::on_action_RCM_EditAsComplex_triggered()
 
 void MainWindow::on_subsButton_clicked()
 {
-    SubscribeEditor().exec();
+    SubscriptionEditor().exec();
 }
 
 void MainWindow::on_connectionListWidget_itemDoubleClicked(QTreeWidgetItem *item, int column)
