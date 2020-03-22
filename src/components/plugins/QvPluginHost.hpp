@@ -15,7 +15,7 @@ namespace Qv2ray::components::plugins
         QString libraryPath;
         QString errorMessage;
         QPluginLoader *pluginLoader;
-        Qv2rayInterface *interface;
+        Qv2rayInterface *pluginInterface;
     };
 
     class QvPluginHost : public QObject

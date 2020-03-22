@@ -9,8 +9,8 @@ PluginManageWindow::PluginManageWindow(QWidget *parent) : QDialog(parent)
     {
         auto item = new QListWidgetItem(pluginListWidget);
         item->setCheckState(Qt::CheckState::Unchecked);
-        item->setData(Qt::UserRole, PluginHost->GetPluginInfo(plugin).interface->InternalName());
-        item->setText(PluginHost->GetPluginInfo(plugin).interface->Name());
+        item->setData(Qt::UserRole, PluginHost->GetPluginInfo(plugin).pluginInterface->InternalName());
+        item->setText(PluginHost->GetPluginInfo(plugin).pluginInterface->Name());
         pluginListWidget->addItem(item);
     }
 }
@@ -23,13 +23,13 @@ void PluginManageWindow::on_pluginListWidget_currentItemChanged(QListWidgetItem 
 {
     Q_UNUSED(previous)
     auto &info = PluginHost->GetPluginInfo(current->data(Qt::UserRole).toString());
-    if (info.interface != nullptr)
+    if (info.pluginInterface != nullptr)
     {
-        pluginIconLabel->setPixmap(info.interface->Icon().pixmap(pluginIconLabel->size() * devicePixelRatio()));
+        pluginIconLabel->setPixmap(info.pluginInterface->Icon().pixmap(pluginIconLabel->size() * devicePixelRatio()));
         //
-        pluginNameLabel->setText(info.interface->Name());
-        pluginAuthorLabel->setText(info.interface->Author());
-        pluginDescriptionLabel->setText(info.interface->Description());
+        pluginNameLabel->setText(info.pluginInterface->Name());
+        pluginAuthorLabel->setText(info.pluginInterface->Author());
+        pluginDescriptionLabel->setText(info.pluginInterface->Description());
         pluginLibPathLabel->setText(info.libraryPath);
         pluginStateLabel->setText(info.isLoaded ? tr("Loaded") : tr("Not loaded"));
         pluginTypeLabel->setText("No impl");

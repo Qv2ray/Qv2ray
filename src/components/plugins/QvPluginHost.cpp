@@ -6,8 +6,6 @@
 #include <QPluginLoader>
 namespace Qv2ray::components::plugins
 {
-    const QString errorMessageSuffix = NEWLINE + QObject::tr("Please contact the plugin provider or report the issue to Qv2ray Workgroup.");
-
     QvPluginHost::QvPluginHost(QObject *parent) : QObject(parent)
     {
     }
@@ -35,32 +33,34 @@ namespace Qv2ray::components::plugins
                     LOG(MODULE_PLUGINHOST, info.pluginLoader->errorString());
                     continue;
                 }
-                info.interface = qobject_cast<Qv2rayInterface *>(plugin);
-                if (info.interface == nullptr)
+                info.pluginInterface = qobject_cast<Qv2rayInterface *>(plugin);
+                if (info.pluginInterface == nullptr)
                 {
                     // info.errorMessage = tr("Failed to cast from QObject to Qv2rayPluginInterface");
                     LOG(MODULE_PLUGINHOST, "Failed to cast from QObject to Qv2rayPluginInterface")
                     info.pluginLoader->unload();
                     continue;
                 }
-                if (plugins.contains(info.interface->InternalName()))
+                if (plugins.contains(info.pluginInterface->InternalName()))
                 {
-                    LOG(MODULE_PLUGINHOST, "Found another plugin with the same internal name: " + info.interface->InternalName() + ". Skipped")
+                    LOG(MODULE_PLUGINHOST,
+                        "Found another plugin with the same internal name: " + info.pluginInterface->InternalName() + ". Skipped")
                     continue;
                 }
 
-                if (info.interface->QvPluginInterfaceVersion != QV2RAY_PLUGIN_INTERFACE_VERSION)
+                if (info.pluginInterface->QvPluginInterfaceVersion != QV2RAY_PLUGIN_INTERFACE_VERSION)
                 {
                     // The plugin was built for a not-compactable version of Qv2ray. Don't load the plugin by default.
-                    LOG(MODULE_PLUGINHOST, "The plugin " + info.interface->InternalName() +
+                    LOG(MODULE_PLUGINHOST, "The plugin " + info.pluginInterface->InternalName() +
                                                " is not loaded since it was built against a different version of interface")
-                    info.errorMessage = tr("This plugin was built against an incompactable version of Qv2ray Plugin Interface.") //
-                                        + errorMessageSuffix;                                                                    //
+                    info.errorMessage = tr("This plugin was built against an incompactable version of Qv2ray Plugin Interface.") + NEWLINE +
+                                        QObject::tr("Please contact the plugin provider or report the issue to Qv2ray Workgroup.");
                 }
 
-                connect(info.interface->GetQObject(), SIGNAL(PluginLog(const QString &)), this, SLOT(QvPluginLog(const QString &)));
-                LOG(MODULE_PLUGINHOST, "Loaded plugin: \"" + info.interface->Name() + "\" made by: \"" + info.interface->Author() + "\"")
-                plugins.insert(info.interface->InternalName(), info);
+                connect(info.pluginInterface->GetQObject(), SIGNAL(PluginLog(const QString &)), this, SLOT(QvPluginLog(const QString &)));
+                LOG(MODULE_PLUGINHOST,
+                    "Loaded plugin: \"" + info.pluginInterface->Name() + "\" made by: \"" + info.pluginInterface->Author() + "\"")
+                plugins.insert(info.pluginInterface->InternalName(), info);
             }
         }
         return plugins.count();
@@ -87,7 +87,7 @@ namespace Qv2ray::components::plugins
     {
         for (auto &&plugin : plugins)
         {
-            DEBUG(MODULE_PLUGINHOST, "Unloading: \"" + plugin.interface->Name() + "\"")
+            DEBUG(MODULE_PLUGINHOST, "Unloading: \"" + plugin.pluginInterface->Name() + "\"")
             plugin.pluginLoader->unload();
             plugin.pluginLoader->deleteLater();
         }
