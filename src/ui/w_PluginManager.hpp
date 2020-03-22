@@ -4,15 +4,15 @@
 
 #include <QDialog>
 
-class w_PluginManager
+class PluginManageWindow
     : public QDialog
     , private Ui::w_PluginManager
 {
     Q_OBJECT
 
   public:
-    explicit w_PluginManager(QWidget *parent = nullptr);
-    ~w_PluginManager();
+    explicit PluginManageWindow(QWidget *parent = nullptr);
+    ~PluginManageWindow();
   private slots:
     void on_pluginListWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
     void on_pluginListWidget_itemClicked(QListWidgetItem *item);

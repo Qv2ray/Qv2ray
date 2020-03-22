@@ -11,7 +11,7 @@ namespace Qv2ray::components::plugins
 {
     struct QvPluginInfo
     {
-        bool canLoadPlugin;
+        bool isLoaded;
         QString libraryPath;
         QString errorMessage;
         QPluginLoader *pluginLoader;

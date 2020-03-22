@@ -1008,5 +1008,5 @@ void MainWindow::on_action_RCM_ClearUsage_triggered()
 
 void MainWindow::on_pluginsBtn_clicked()
 {
-    w_PluginManager(this).exec();
+    PluginManageWindow(this).exec();
 }

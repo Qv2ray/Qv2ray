@@ -64,6 +64,8 @@ class MainWindow
     void on_connectionListWidget_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous);
     void on_masterLogBrowser_textChanged();
 
+    void on_pluginsBtn_clicked();
+
   private:
     void on_actionExit_triggered();
     void on_action_StartThis_triggered();
@@ -98,8 +100,6 @@ class MainWindow
     void OnGroupDeleted(const GroupId &id, const QList<ConnectionId> &connections);
     //
     void SortConnectionList(MW_ITEM_COL byCol, bool asending);
-
-    void on_pluginsBtn_clicked();
 
   protected:
     void timerEvent(QTimerEvent *event) override;
