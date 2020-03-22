@@ -147,6 +147,7 @@ namespace Qv2ray
 #endif
         // This is the default behavior on Windows
         list << QApplication::applicationDirPath() + "/" + dirName;
+        list.removeDuplicates();
         return list;
     };
 
