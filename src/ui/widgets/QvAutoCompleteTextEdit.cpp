@@ -58,6 +58,7 @@
 #include <QModelIndex>
 #include <QScrollBar>
 #include <QStringListModel>
+#include <QToolTip>
 #include <QtDebug>
 
 namespace Qv2ray::ui::widgets
@@ -111,6 +112,20 @@ namespace Qv2ray::ui::widgets
 
     void AutoCompleteTextEdit::keyPressEvent(QKeyEvent *e)
     {
+        const bool hasCtrlOrShiftModifier = e->modifiers().testFlag(Qt::ControlModifier) || e->modifiers().testFlag(Qt::ShiftModifier);
+        const bool hasOtherModifiers = (e->modifiers() != Qt::NoModifier) && !hasCtrlOrShiftModifier; // has other modifiers
+        //
+        const bool isSpace = (e->modifiers().testFlag(Qt::ShiftModifier) || e->modifiers().testFlag(Qt::NoModifier)) //
+                             && e->key() == Qt::Key_Space;
+        const bool isTab = (e->modifiers().testFlag(Qt::NoModifier) && e->key() == Qt::Key_Tab);
+        const bool isOtherSpace = e->text() == "　";
+        //
+        if (isSpace || isTab || isOtherSpace)
+        {
+            QToolTip::showText(this->mapToGlobal(QPoint(0, 0)), tr("You can not input space characters here."), this, QRect{}, 2000);
+            return;
+        }
+        //
         if (c && c->popup()->isVisible())
         {
             // The following keys are forwarded by the completer to the widget
@@ -126,28 +141,19 @@ namespace Qv2ray::ui::widgets
             }
         }
 
-        const bool isShortcut = (e->modifiers().testFlag(Qt::ControlModifier) && e->key() == Qt::Key_Space); // CTRL+Space
+        QTextEdit::keyPressEvent(e);
 
-        if (!c || !isShortcut) // do not process the shortcut when we have a
-                               // completer
-            QTextEdit::keyPressEvent(e);
-
-        const bool ctrlOrShift = e->modifiers().testFlag(Qt::ControlModifier) || e->modifiers().testFlag(Qt::ShiftModifier);
-
-        if (!c || (ctrlOrShift && e->text().isEmpty()))
+        if (!c || (hasCtrlOrShiftModifier && e->text().isEmpty()))
             return;
 
-        static QString eow("~!@#$%^&*()_+{}|:\"<>?,./;'[]\\-="); // end of word
-        const bool hasModifier = (e->modifiers() != Qt::NoModifier) && !ctrlOrShift;
-        if (!isShortcut &&
-            (hasModifier || e->text().isEmpty() || !lineUnderCursor().startsWith(prefix) /* || eow.contains(e->text().right(1))*/))
+        // if we have other modifiers, or the text is empty, or the line does not start with our prefix.
+        if (hasOtherModifiers || e->text().isEmpty() || !lineUnderCursor().startsWith(prefix))
         {
             c->popup()->hide();
             return;
         }
 
-        auto word = wordUnderCursor();
-        if (word != c->completionPrefix())
+        if (auto word = wordUnderCursor(); word != c->completionPrefix())
         {
             c->setCompletionPrefix(word);
             c->popup()->setCurrentIndex(c->completionModel()->index(0, 0));
