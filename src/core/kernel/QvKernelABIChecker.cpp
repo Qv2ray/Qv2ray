@@ -7,14 +7,14 @@ namespace Qv2ray::core::kernel::abi
     [[nodiscard]] QvKernelABICompatibility inline checkCompatibility(QvKernelABIType hostType, QvKernelABIType targetType)
     {
         if (hostType == targetType)
-            return QvKernelABICompatibility::PERFECT;
-        if (hostType == QvKernelABIType::WIN32 || hostType == QvKernelABIType::ELF_X86)
-            return QvKernelABICompatibility::NOPE;
-        if (hostType == QvKernelABIType::ELF_X86_64 && targetType == QvKernelABIType::ELF_X86)
-            return QvKernelABICompatibility::MAYBE;
-        if (hostType == QvKernelABIType::ELF_OTHER)
-            return QvKernelABICompatibility::MAYBE;
-        return QvKernelABICompatibility::MAYBE;
+            return QvKernelABICompatibility::ABI_PERFECT;
+        if (hostType == QvKernelABIType::ABI_WIN32 || hostType == QvKernelABIType::ABI_ELF_X86)
+            return QvKernelABICompatibility::ABI_NOPE;
+        if (hostType == QvKernelABIType::ABI_ELF_X86_64 && targetType == QvKernelABIType::ABI_ELF_X86)
+            return QvKernelABICompatibility::ABI_MAYBE;
+        if (hostType == QvKernelABIType::ABI_ELF_OTHER)
+            return QvKernelABICompatibility::ABI_MAYBE;
+        return QvKernelABICompatibility::ABI_MAYBE;
     }
 
     [[nodiscard]] std::pair<std::optional<QvKernelABIType>, std::optional<QString>> deduceKernelABI(const QString &pathCoreExecutable)
@@ -37,16 +37,16 @@ namespace Qv2ray::core::kernel::abi
         {
             quint16 elfInstruction;
             if (QDataStream stream(arr); stream.skipRawData(0x12), stream >> elfInstruction, elfInstruction == 0x003Eu)
-                return { QvKernelABIType::ELF_X86_64, std::nullopt };
+                return { QvKernelABIType::ABI_ELF_X86_64, std::nullopt };
             else if (elfInstruction == 0x0003u)
-                return { QvKernelABIType::ELF_X86, std::nullopt };
+                return { QvKernelABIType::ABI_ELF_X86, std::nullopt };
             else
-                return { QvKernelABIType::ELF_OTHER, std::nullopt };
+                return { QvKernelABIType::ABI_ELF_OTHER, std::nullopt };
         }
         else if (quint16 dosMagicMaybe; QDataStream(arr) >> dosMagicMaybe, dosMagicMaybe == 0x4D5Au)
-            return { QvKernelABIType::WIN32, std::nullopt };
+            return { QvKernelABIType::ABI_WIN32, std::nullopt };
         else if (quint32 machOMagicMaybe; QDataStream(arr) >> machOMagicMaybe, machOMagicMaybe == 0xCAFEBABEu)
-            return { QvKernelABIType::MACH_O, std::nullopt };
+            return { QvKernelABIType::ABI_MACH_O, std::nullopt };
         else
             return { std::nullopt, QObject::tr("cannot deduce the type of core executable file %1").arg(pathCoreExecutable) };
     }
