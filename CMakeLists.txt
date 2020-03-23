@@ -173,6 +173,7 @@ set(QV2RAY_SOURCES
   src/core/handler/V2rayInstanceHandler.cpp
   src/core/kernel/APIBackend.cpp
   src/core/kernel/KernelInteractions.cpp
+  src/core/kernel/QvKernelABIChecker.cpp
   src/core/settings/SettingsBackend.cpp
   src/core/settings/SettingsUpgrade.cpp
   src/core/tcping/QvTCPing.cpp
@@ -246,6 +247,7 @@ set(QV2RAY_SOURCES
   src/core/handler/ConfigHandler.hpp
   src/core/kernel/APIBackend.hpp
   src/core/kernel/KernelInteractions.hpp
+  src/core/kernel/QvKernelABIChecker.hpp
   src/core/settings/SettingsBackend.hpp
   src/core/tcping/QvTCPing.hpp
   src/ui/editors/w_InboundEditor.hpp
