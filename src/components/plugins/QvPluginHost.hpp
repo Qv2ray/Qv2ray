@@ -11,7 +11,7 @@ namespace Qv2ray::components::plugins
 {
     struct QvPluginInfo
     {
-        bool isLoaded;
+        bool isLoaded = false;
         QString libraryPath;
         QString errorMessage;
         QPluginLoader *pluginLoader;
@@ -24,10 +24,16 @@ namespace Qv2ray::components::plugins
       public:
         explicit QvPluginHost(QObject *parent = nullptr);
         ~QvPluginHost();
-        int RefreshPluginList();
-        QStringList AvailablePlugins();
         void InitializePluginHost();
-        const inline QvPluginInfo GetPluginInfo(const QString &internalName)
+        bool GetPluginEnableState(const QString &internalName) const;
+        void SetPluginEnableState(const QString &internalName, bool isEnabled);
+        const QString GetPluginTypeString(const QString &internalName) const;
+        const QString GetPluginHookTypeString(const QString &internalName) const;
+        const QStringList AvailablePlugins() const
+        {
+            return plugins.keys();
+        }
+        const inline QvPluginInfo GetPluginInfo(const QString &internalName) const
         {
             return plugins.value(internalName);
         }
@@ -36,9 +42,11 @@ namespace Qv2ray::components::plugins
         void QvPluginLog(const QString &log);
 
       private:
+        int RefreshPluginList();
+        bool InitializePlugin(const QString &internalName);
+        void ClearPlugins();
         // Internal name, plugin info
         QMap<QString, QvPluginInfo> plugins;
-        void ClearPlugins();
     };
 
     inline ::Qv2ray::components::plugins::QvPluginHost *PluginHost = nullptr;

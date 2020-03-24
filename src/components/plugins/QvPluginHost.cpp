@@ -2,6 +2,7 @@
 
 #include "base/Qv2rayBase.hpp"
 #include "base/Qv2rayLog.hpp"
+#include "core/settings/SettingsBackend.hpp"
 
 #include <QPluginLoader>
 namespace Qv2ray::components::plugins
@@ -66,23 +67,65 @@ namespace Qv2ray::components::plugins
         return plugins.count();
     }
 
+    const QString QvPluginHost::GetPluginTypeString(const QString &internalName) const
+    {
+        switch (plugins.value(internalName).pluginInterface->SpecialPluginType())
+        {
+            case SPECIAL_TYPE_NONE: return tr("No Special Type");
+            case SPECIAL_TYPE_KERNEL: return tr("Connection Kernel");
+            case SPECIAL_TYPE_GENERATION: return tr("Final Configuration Parser");
+            case SPECIAL_TYPE_SERIALIZATION: return tr("Connection String Serializer/Deserializer");
+            default: return tr("Unknown/unsupported plugin type.");
+        }
+    }
+
+    const QString QvPluginHost::GetPluginHookTypeString(const QString &internalName) const
+    {
+        switch (plugins.value(internalName).pluginInterface->PluginHooks())
+        {
+            //
+        }
+        return "";
+    }
+
     void QvPluginHost::QvPluginLog(const QString &log)
     {
-        LOG(MODULE_PLUGINCLIENT, log)
+        auto _sender = sender();
+        if (auto _interface = qobject_cast<Qv2rayInterface *>(_sender); _interface)
+        {
+            LOG(MODULE_PLUGINCLIENT + "-" + _interface->InternalName(), log)
+        }
+        else
+        {
+            LOG(MODULE_PLUGINHOST, "UNKNOWN CLIENT: " + log)
+        }
+    }
+
+    bool QvPluginHost::GetPluginEnableState(const QString &internalName) const
+    {
+        return GlobalConfig.pluginConfig.pluginStates[internalName];
+    }
+
+    void QvPluginHost::SetPluginEnableState(const QString &internalName, bool isEnabled)
+    {
+        LOG(MODULE_PLUGINHOST, "Set plugin: \"" + internalName + "\" enable state: " + (isEnabled ? "true" : "false"))
+        GlobalConfig.pluginConfig.pluginStates[internalName] = isEnabled;
+        if (isEnabled && !plugins[internalName].isLoaded)
+        {
+            // Load plugin if it haven't been loaded.
+            InitializePlugin(internalName);
+        }
     }
 
     void QvPluginHost::InitializePluginHost()
     {
         RefreshPluginList();
+        for (auto &plugin : plugins.keys())
+        {
+            InitializePlugin(plugin);
+        }
     }
 
-    QStringList QvPluginHost::AvailablePlugins()
-    {
-        return plugins.keys();
-    }
-    QvPluginHost::~QvPluginHost()
-    {
-    }
     void QvPluginHost::ClearPlugins()
     {
         for (auto &&plugin : plugins)
@@ -92,6 +135,37 @@ namespace Qv2ray::components::plugins
             plugin.pluginLoader->deleteLater();
         }
         plugins.clear();
+    }
+
+    bool QvPluginHost::InitializePlugin(const QString &internalName)
+    {
+        auto &plugin = plugins[internalName];
+        if (plugin.isLoaded)
+        {
+            LOG(MODULE_PLUGINHOST, "The plugin: \"" + internalName + "\" has already been loaded.")
+            return true;
+        }
+        if (!GlobalConfig.pluginConfig.pluginStates.contains(internalName))
+        {
+            // If not contained, default to enable.
+            GlobalConfig.pluginConfig.pluginStates[internalName] = true;
+        }
+        // If the plugin is disabled
+        if (!GlobalConfig.pluginConfig.pluginStates[internalName])
+        {
+            LOG(MODULE_PLUGINHOST, "Cannot load a plugin that's been disabled.")
+            return false;
+        }
+
+        // TODO: Load plugin settings.
+        plugins[internalName].pluginInterface->InitializePlugin({});
+        plugins[internalName].isLoaded = true;
+        return true;
+    }
+
+    QvPluginHost::~QvPluginHost()
+    {
+        ClearPlugins();
     }
 
 } // namespace Qv2ray::components::plugins

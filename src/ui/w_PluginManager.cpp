@@ -1,18 +1,22 @@
 #include "w_PluginManager.hpp"
 
+#include "common/QvHelpers.hpp"
 #include "components/plugins/QvPluginHost.hpp"
+#include "core/settings/SettingsBackend.hpp"
 
 PluginManageWindow::PluginManageWindow(QWidget *parent) : QDialog(parent)
 {
     setupUi(this);
     for (auto &plugin : PluginHost->AvailablePlugins())
     {
+        const auto &info = PluginHost->GetPluginInfo(plugin);
         auto item = new QListWidgetItem(pluginListWidget);
-        item->setCheckState(Qt::CheckState::Unchecked);
-        item->setData(Qt::UserRole, PluginHost->GetPluginInfo(plugin).pluginInterface->InternalName());
-        item->setText(PluginHost->GetPluginInfo(plugin).pluginInterface->Name());
+        item->setCheckState(PluginHost->GetPluginEnableState(info.pluginInterface->InternalName()) ? Qt::Checked : Qt::Unchecked);
+        item->setData(Qt::UserRole, info.pluginInterface->InternalName());
+        item->setText(info.pluginInterface->Name() + " (" + (info.isLoaded ? tr("Loaded") : tr("Not loaded")) + ")");
         pluginListWidget->addItem(item);
     }
+    isLoading = false;
 }
 
 PluginManageWindow::~PluginManageWindow()
@@ -23,7 +27,7 @@ void PluginManageWindow::on_pluginListWidget_currentItemChanged(QListWidgetItem 
 {
     Q_UNUSED(previous)
     auto &info = PluginHost->GetPluginInfo(current->data(Qt::UserRole).toString());
-    if (info.pluginInterface != nullptr)
+    if (info.pluginInterface)
     {
         pluginIconLabel->setPixmap(info.pluginInterface->Icon().pixmap(pluginIconLabel->size() * devicePixelRatio()));
         //
@@ -32,7 +36,7 @@ void PluginManageWindow::on_pluginListWidget_currentItemChanged(QListWidgetItem 
         pluginDescriptionLabel->setText(info.pluginInterface->Description());
         pluginLibPathLabel->setText(info.libraryPath);
         pluginStateLabel->setText(info.isLoaded ? tr("Loaded") : tr("Not loaded"));
-        pluginTypeLabel->setText("No impl");
+        pluginTypeLabel->setText(PluginHost->GetPluginTypeString(info.pluginInterface->InternalName()));
         pluginHookTypeLabel->setText("No impl");
         pluginErrMessageTxt->setPlainText(info.errorMessage.isEmpty() ? "OK" : info.errorMessage);
     }
@@ -41,4 +45,41 @@ void PluginManageWindow::on_pluginListWidget_currentItemChanged(QListWidgetItem 
 void PluginManageWindow::on_pluginListWidget_itemClicked(QListWidgetItem *item)
 {
     on_pluginListWidget_currentItemChanged(item, nullptr);
+}
+
+void PluginManageWindow::on_pluginListWidget_itemChanged(QListWidgetItem *item)
+{
+    if (isLoading)
+        return;
+    bool isEnabled = item->checkState() == Qt::Checked;
+    auto pluginInternalName = item->data(Qt::UserRole).toString();
+    PluginHost->SetPluginEnableState(pluginInternalName, isEnabled);
+    auto &info = PluginHost->GetPluginInfo(pluginInternalName);
+    item->setText(info.pluginInterface->Name() + " (" + (info.isLoaded ? tr("Loaded") : tr("Not loaded")) + ")");
+    //
+    if (!isEnabled)
+    {
+        QvMessageBoxInfo(this, tr("Disabling a plugin"), tr("This plugin will keep loaded until the next time Qv2ray starts."));
+    }
+}
+
+void PluginManageWindow::on_pluginSettingsBtn_clicked()
+{
+    if (auto current = pluginListWidget->currentItem(); current != nullptr)
+    {
+        auto &info = PluginHost->GetPluginInfo(current->data(Qt::UserRole).toString());
+        if (!info.isLoaded)
+        {
+            QvMessageBoxWarn(this, tr("Plugin not loaded"),
+                             tr("This plugin has been unloaded or has been disabled, please enable or reload the plugin to continue."));
+            return;
+        }
+        if (auto widget = info.pluginInterface->GetUIWidgets(UI_TYPE_PREFERENCE_WINDOW); widget != nullptr)
+        {
+            QDialog d;
+            widget->setParent(&d);
+            d.exec();
+            widget->setParent(nullptr);
+        }
+    }
 }
