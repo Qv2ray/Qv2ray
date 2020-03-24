@@ -1,5 +1,6 @@
-set(QNODEEDITOR_DIR ${CMAKE_SOURCE_DIR}/3rdparty/QNodeEditor)
 add_definitions(-DNODE_EDITOR_SHARED -DNODE_EDITOR_EXPORTS)
+if(QV2RAY_QNODEEDITOR_PROVIDER STREQUAL "module")
+set(QNODEEDITOR_DIR ${CMAKE_SOURCE_DIR}/3rdparty/QNodeEditor)
 set(QNODEEDITOR_SOURCES
     ${QNODEEDITOR_DIR}/src/Connection.cpp
     ${QNODEEDITOR_DIR}/src/ConnectionBlurEffect.cpp
@@ -67,3 +68,7 @@ qt5_wrap_cpp(QNODEEDITOR_SOURCES
 )
 
 set(QNODEEDITOR_QRC_RESOURCES ${QNODEEDITOR_DIR}/resources/resources.qrc)
+elseif(QV2RAY_QNODEEDITOR_PROVIDER STREQUAL "package")
+    find_library(QNODEEDITOR_LIBRARY NAMES QNodeEditor)
+    find_path(QNODEEDITOR_INCLUDE_PATH Node.hpp PATH_SUFFIXES nodes/internal)
+endif()
