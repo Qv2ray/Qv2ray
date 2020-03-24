@@ -78,6 +78,8 @@ if(UNIX AND NOT APPLE)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 endif()
 
+set(QV2RAY_QNODEEDITOR_PROVIDER "module" CACHE STRING "qnodeeditor provider")
+
 include(cmake/translations.cmake)
 include(cmake/qnodeeditor.cmake)
 include(cmake/singleapplication.cmake)
@@ -309,6 +311,7 @@ target_link_libraries(${PROJECT_NAME}
   ${QT_LIBRARY}
   ${QV2RAY_PROTOBUF_LIBRARY}
   ${QV2RAY_BACKEND_LIBRARIES}
+  ${QNODEEDITOR_LIBRARY}
 )
 
 
