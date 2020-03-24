@@ -4,7 +4,7 @@
 
 namespace Qv2ray::core::kernel::abi
 {
-    [[nodiscard]] QvKernelABICompatibility inline checkCompatibility(QvKernelABIType hostType, QvKernelABIType targetType)
+    [[nodiscard]] QvKernelABICompatibility checkCompatibility(QvKernelABIType hostType, QvKernelABIType targetType)
     {
         switch (hostType)
         {
@@ -36,9 +36,9 @@ namespace Qv2ray::core::kernel::abi
         if (quint32 elfMagicMaybe; QDataStream(arr) >> elfMagicMaybe, 0x7F454C46u == elfMagicMaybe)
         {
             quint16 elfInstruction;
-            if (QDataStream stream(arr); stream.skipRawData(0x12), stream >> elfInstruction, elfInstruction == 0x003Eu)
+            if (QDataStream stream(arr); stream.skipRawData(0x12), stream >> elfInstruction, elfInstruction == 0x3E00u)
                 return { QvKernelABIType::ABI_ELF_X86_64, std::nullopt };
-            else if (elfInstruction == 0x0003u)
+            else if (elfInstruction == 0x0300u)
                 return { QvKernelABIType::ABI_ELF_X86, std::nullopt };
             else
                 return { QvKernelABIType::ABI_ELF_OTHER, std::nullopt };
@@ -51,4 +51,16 @@ namespace Qv2ray::core::kernel::abi
             return { std::nullopt, QObject::tr("cannot deduce the type of core executable file %1").arg(pathCoreExecutable) };
     }
 
+    [[nodiscard]] QString abiToString(QvKernelABIType abi)
+    {
+        switch (abi)
+        {
+            case ABI_WIN32: return QObject::tr("Windows PE executable");
+            case ABI_MACH_O: return QObject::tr("macOS Mach-O executable");
+            case ABI_ELF_X86: return QObject::tr("ELF x86 executable");
+            case ABI_ELF_X86_64: return QObject::tr("ELF amd64 executable");
+            case ABI_ELF_OTHER: return QObject::tr("other ELF executable");
+            default: return QObject::tr("unknown abi");
+        }
+    }
 } // namespace Qv2ray::core::kernel::abi

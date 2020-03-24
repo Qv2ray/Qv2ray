@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "base/Qv2rayBase.hpp"
 #include "core/CoreSafeTypes.hpp"
+#include "core/kernel/QvKernelABIChecker.hpp"
 
 #include <QProcess>
 
