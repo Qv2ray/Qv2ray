@@ -1683,14 +1683,12 @@
         <translation>エラー</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.ui"/>
         <source>Config</source>
-        <translation>項目</translation>
+        <translation type="vanished">項目</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.ui"/>
         <source>Subscription</source>
-        <translation>サブスクリプション</translation>
+        <translation type="vanished">サブスクリプション</translation>
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
@@ -2410,6 +2408,16 @@ p, li { white-space: pre-wrap; }
         <source>You can configure route rules for all simple connection config here.</source>
         <translation>ここで、すべての簡易接続設定のルーティングルールを設定できます。</translation>
     </message>
+    <message>
+        <location filename="../src/ui/w_PreferencesWindow.ui"/>
+        <source>Connection</source>
+        <translation>項目</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PreferencesWindow.ui"/>
+        <source>Group/Subscription</source>
+        <translation>グループ/サブスクリプション</translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
@@ -2860,6 +2868,61 @@ p, li { white-space: pre-wrap; }
         <source>Inbound</source>
         <translation>インバウンド</translation>
     </message>
+    <message>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="24"/>
+        <source>core executable file %1 does not exist</source>
+        <translation>コア実行可能ファイル%1は存在しません</translation>
+    </message>
+    <message>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="27"/>
+        <source>cannot open core executable file %1 in read-only mode</source>
+        <translation>コア実行可能ファイル%1を読み取り専用モードで開けません</translation>
+    </message>
+    <message>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="30"/>
+        <source>core executable file %1 is an empty file</source>
+        <translation>コア実行可能ファイル%1は空のファイルです</translation>
+    </message>
+    <message>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="34"/>
+        <source>core executable file %1 is too short to be executed</source>
+        <translation>コア実行可能ファイル%1は実行するには短すぎます</translation>
+    </message>
+    <message>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="51"/>
+        <source>cannot deduce the type of core executable file %1</source>
+        <translation>コア実行可能ファイル%1のタイプを推測できません</translation>
+    </message>
+    <message>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="58"/>
+        <source>Windows PE executable</source>
+        <translation>Windows PE実行可能ファイル</translation>
+    </message>
+    <message>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="59"/>
+        <source>macOS Mach-O executable</source>
+        <translation>macOS Mach-O実行可能ファイル</translation>
+    </message>
+    <message>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="60"/>
+        <source>ELF x86 executable</source>
+        <translation>ELF x86実行可能ファイル</translation>
+    </message>
+    <message>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="61"/>
+        <source>ELF amd64 executable</source>
+        <translation>ELF amd64実行可能ファイル</translation>
+    </message>
+    <message>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="62"/>
+        <source>other ELF executable</source>
+        <translation>他のELF実行可能ファイル</translation>
+    </message>
+    <message>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="63"/>
+        <source>unknown abi</source>
+        <translation>不明なABI</translation>
+    </message>
 </context>
 <context>
     <name>Qv2ray::common::QvCommandArgParser</name>
@@ -2943,59 +3006,76 @@ p, li { white-space: pre-wrap; }
         <translation>V2rayコアファイルを開けません。フォルダーの代わりにファイルがあることを確認してください。</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/KernelInteractions.cpp" line="44"/>
+        <location filename="../src/core/kernel/KernelInteractions.cpp" line="54"/>
+        <source>V2Ray core is incompatible with your platform.<byte value="xd"/>
+Expected core ABI is %1, but got actual %2.<byte value="xd"/>
+Maybe you have downloaded the wrong core?</source>
+        <translation>V2Rayコアはプラットフォームと互換性がありません。
+予想されるコアABIは%1ですが、実際の%2を取得しました。
+間違ったコアをダウンロードした可能性がありますか？</translation>
+    </message>
+    <message>
+        <location filename="../src/core/kernel/KernelInteractions.cpp" line="73"/>
         <source>V2ray assets path is not valid.</source>
         <translation>V2rayアセットのパスが無効です。</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/KernelInteractions.cpp" line="51"/>
+        <location filename="../src/core/kernel/KernelInteractions.cpp" line="80"/>
         <source>No geoip.dat in assets path.</source>
         <translation>アセットパスにgeoip.datはありません。</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/KernelInteractions.cpp" line="58"/>
+        <location filename="../src/core/kernel/KernelInteractions.cpp" line="87"/>
         <source>No geosite.dat in assets path.</source>
         <translation>アセットパスにgeosite.datはありません。</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/KernelInteractions.cpp" line="81"/>
+        <location filename="../src/core/kernel/KernelInteractions.cpp" line="110"/>
         <source>V2ray core failed with an exit code: </source>
         <translation>V2rayコアがエラー終了しました、終了コード: </translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/KernelInteractions.cpp" line="90"/>
+        <location filename="../src/core/kernel/KernelInteractions.cpp" line="119"/>
         <source>V2ray core returns empty string.</source>
         <translation>V2rayコアは空の文字列を返します。</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/KernelInteractions.cpp" line="119"/>
+        <location filename="../src/core/kernel/KernelInteractions.cpp" line="148"/>
         <source>Configuration Error</source>
         <translation>構成エラー</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/KernelInteractions.cpp" line="130"/>
+        <location filename="../src/core/kernel/KernelInteractions.cpp" line="159"/>
         <source>Cannot start V2ray</source>
         <translation>V2rayを起動できません</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/KernelInteractions.cpp" line="131"/>
+        <location filename="../src/core/kernel/KernelInteractions.cpp" line="160"/>
         <source>V2ray core settings is incorrect.</source>
         <translation>V2rayコアの設定が正しくありません。</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/KernelInteractions.cpp" line="131"/>
+        <location filename="../src/core/kernel/KernelInteractions.cpp" line="160"/>
         <source>The error is: </source>
         <translation>エラーは次のとおりです: </translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/KernelInteractions.cpp" line="162"/>
+        <location filename="../src/core/kernel/KernelInteractions.cpp" line="191"/>
         <source>Invalid V2ray Instance Status.</source>
         <translation>無効なV2rayインスタンスステータス。</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/KernelInteractions.cpp" line="225"/>
+        <location filename="../src/core/kernel/KernelInteractions.cpp" line="254"/>
         <source>V2ray kernel failed to start.</source>
         <translation>V2rayカーネルの起動に失敗しました。</translation>
+    </message>
+</context>
+<context>
+    <name>Qv2ray::ui::widgets::AutoCompleteTextEdit</name>
+    <message>
+        <location filename="../src/ui/widgets/QvAutoCompleteTextEdit.cpp" line="125"/>
+        <source>You can not input space characters here.</source>
+        <translation>ここではスペース文字を入力できません。</translation>
     </message>
 </context>
 <context>

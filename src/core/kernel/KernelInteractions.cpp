@@ -51,8 +51,8 @@ namespace Qv2ray::core::kernel
         {
             case kernel::abi::ABI_NOPE:
                 LOG(MODULE_VCORE, "Host is incompatible with core")
-                *message = tr("V2Ray core is incompatible with your platform." NEWLINE //
-                              "Expected core ABI is %1, but got actual %2." NEWLINE    //
+                *message = tr("V2Ray core is incompatible with your platform.\r\n" //
+                              "Expected core ABI is %1, but got actual %2.\r\n"    //
                               "Maybe you have downloaded the wrong core?")
                                .arg(kernel::abi::abiToString(compiledABI), kernel::abi::abiToString(abi.value()));
                 return false;
