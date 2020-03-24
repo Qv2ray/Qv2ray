@@ -1,6 +1,9 @@
 language: shell
 os: linux
-dist: xenial
+dist: bionic
+arch:
+  - amd64
+  - arm64
 
 git:
   depth: false
@@ -8,7 +11,6 @@ git:
 branches:
   only:
     - dev
-    - dev-destructive-mode
 
 env:
   global:
@@ -26,7 +28,7 @@ before_install:
   - echo "deb http://archive.neon.kde.org/unstable bionic main" | sudo tee -a /etc/apt/sources.list
   - sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 281F24E574404629AA3BDA1A4F10C386C55CDB04
   - sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E6D4736255751E5D
-  - sudo apt-get -qq update
+  - sudo apt-get update -qq
 
 script:
   - snapcraft --destructive-mode
