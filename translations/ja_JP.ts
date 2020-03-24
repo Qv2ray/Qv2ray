@@ -40,22 +40,22 @@
     <message>
         <location filename="../src/ui/widgets/ConnectionInfoWidget.ui"/>
         <source>Edit Connection</source>
-        <translation>接続を編集</translation>
+        <translation>項目を編集</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/ConnectionInfoWidget.ui"/>
         <source>Edit Connection as JSON</source>
-        <translation>接続をJSONとして編集</translation>
+        <translation>項目をJSONとして編集</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/ConnectionInfoWidget.ui"/>
         <source>Latency Test</source>
-        <translation>潜時テスト</translation>
+        <translation>遅延テスト</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/ConnectionInfoWidget.ui"/>
         <source>Delete Connection</source>
-        <translation>接続を削除</translation>
+        <translation>項目を削除</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/ConnectionInfoWidget.ui"/>
@@ -144,7 +144,7 @@
     <message>
         <location filename="../src/ui/widgets/ConnectionItemWidget.cpp" line="28"/>
         <source>Not Tested</source>
-        <translation>未検証</translation>
+        <translation>未テスト</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/ConnectionItemWidget.cpp" line="154"/>
@@ -155,7 +155,7 @@
         <location filename="../src/ui/widgets/ConnectionItemWidget.cpp" line="33"/>
         <location filename="../src/ui/widgets/ConnectionItemWidget.cpp" line="140"/>
         <source>Type: </source>
-        <translation>種類: </translation>
+        <translation>タイプ: </translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/ConnectionItemWidget.cpp" line="147"/>
@@ -199,7 +199,7 @@
     <message>
         <location filename="../src/ui/widgets/ConnectionItemWidget.ui"/>
         <source>Type: vmess + tls + ws</source>
-        <translation>種類: vmess + tls + ws</translation>
+        <translation>タイプ: vmess + tls + ws</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/ConnectionItemWidget.ui"/>
@@ -209,7 +209,7 @@
     <message>
         <location filename="../src/ui/widgets/ConnectionItemWidget.ui"/>
         <source>OK</source>
-        <translation>よし</translation>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
@@ -240,7 +240,7 @@
     </message>
     <message>
         <source>OK</source>
-        <translation type="vanished">よし</translation>
+        <translation type="vanished">OK</translation>
     </message>
 </context>
 <context>
@@ -289,7 +289,7 @@
     <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
         <source>Share Link</source>
-        <translation>共有されたリンク</translation>
+        <translation>リンク共有</translation>
     </message>
     <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
@@ -330,7 +330,7 @@
     <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
         <source>Import as Complex Config (Manually edit route rules and inbounds)</source>
-        <translation>複雑な構成としてインポート（ルートルールとインバウンドを手動で編集）</translation>
+        <translation>複雑構成としてインポート（ルーティングルールとインバウンドを手動で編集）</translation>
     </message>
     <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
@@ -382,12 +382,12 @@
     <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
         <source>Route Editor</source>
-        <translation>ルートエディター</translation>
+        <translation>ルーティングエディター</translation>
     </message>
     <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
         <source>Open Route Editor</source>
-        <translation>ルートエディターを開く</translation>
+        <translation>ルーティングエディターを開く</translation>
     </message>
     <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
@@ -412,7 +412,7 @@
     <message>
         <location filename="../src/ui/w_ImportConfig.ui"/>
         <source>Cancel</source>
-        <translation>取り消し</translation>
+        <translation>キャンセル</translation>
     </message>
     <message>
         <location filename="../src/ui/w_ImportConfig.cpp" line="60"/>
@@ -427,7 +427,7 @@
     <message>
         <location filename="../src/ui/w_ImportConfig.cpp" line="93"/>
         <source>Cannot find a valid QRCode from this region.</source>
-        <translation>この地域から有効なQRコードが見つかりません。</translation>
+        <translation>この領域から有効なQRコードが見つかりません。</translation>
     </message>
     <message>
         <location filename="../src/ui/w_ImportConfig.cpp" line="166"/>
@@ -511,7 +511,7 @@
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.ui"/>
         <source>Tag</source>
-        <translation>标签</translation>
+        <translation>タグ</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.ui"/>
@@ -551,7 +551,7 @@
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.ui"/>
         <source>Strategy</source>
-        <translation>戦略</translation>
+        <translation>ルール</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.ui"/>
@@ -571,17 +571,17 @@
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.ui"/>
         <source>Concurrency</source>
-        <translation>同時実行</translation>
+        <translation>同時接続数</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.ui"/>
         <source>Sniffing Settings</source>
-        <translation>スニッフィング設定</translation>
+        <translation>フィルター設定</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.ui"/>
         <source>Destination Override</source>
-        <translation>宛先オーバーライド</translation>
+        <translation>目標上書き</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.ui"/>
@@ -616,7 +616,7 @@
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.ui"/>
         <source>Password</source>
-        <translation>暗号</translation>
+        <translation>パスワード</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_InboundEditor.ui"/>
@@ -765,7 +765,7 @@
         <location filename="../src/ui/editors/w_InboundEditor.cpp" line="262"/>
         <location filename="../src/ui/editors/w_InboundEditor.cpp" line="321"/>
         <source>This user exists already.</source>
-        <translation>This user exists already.</translation>
+        <translation>このユーザーは既に存在します.</translation>
     </message>
 </context>
 <context>
@@ -777,7 +777,7 @@
     <message>
         <location filename="../src/ui/editors/w_JsonEditor.ui"/>
         <source>OK</source>
-        <translation>よし</translation>
+        <translation>OK</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_JsonEditor.ui"/>
@@ -787,7 +787,7 @@
     <message>
         <location filename="../src/ui/editors/w_JsonEditor.ui"/>
         <source>Format JSON</source>
-        <translation>JSONのプリティファイ</translation>
+        <translation>JSON初期化</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_JsonEditor.ui"/>
@@ -803,7 +803,7 @@
     <message>
         <location filename="../src/ui/editors/w_JsonEditor.cpp" line="23"/>
         <source>Original Json may contain syntax errors. Json tree is disabled.</source>
-        <translation>元のJSONには構文エラーが含まれる場合があります。 JSONツリーは無効です。</translation>
+        <translation>元のJSONには構文エラーが含まれる可能性があります。 JSONツリーは無効にする。</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_JsonEditor.cpp" line="50"/>
@@ -822,7 +822,7 @@
     <message>
         <location filename="../src/ui/editors/w_JsonEditor.cpp" line="101"/>
         <source>Please fix the JSON errors or remove the comments before continue</source>
-        <translation>JSONエラーを修正するか、コメントを削除してから続行してください</translation>
+        <translation>JSONエラーを修正する、もしくはコメントを削除してから続行してください</translation>
     </message>
     <message>
         <source>Please fix the JSON errors before continue</source>
@@ -859,7 +859,7 @@
     <message>
         <location filename="../src/ui/w_MainWindow.hpp" line="129"/>
         <source>Reconnect</source>
-        <translation>再接</translation>
+        <translation>再接続</translation>
     </message>
     <message>
         <source>Clear Log</source>
@@ -880,19 +880,19 @@
     </message>
     <message>
         <source>Import connection</source>
-        <translation type="vanished">接続をインポート</translation>
+        <translation type="vanished">項目をインポート</translation>
     </message>
     <message>
         <source>Duplicate connection</source>
-        <translation type="vanished">接続を重複</translation>
+        <translation type="vanished">項目をコピー</translation>
     </message>
     <message>
         <source>Delete a connection</source>
-        <translation type="vanished">接続を削除</translation>
+        <translation type="vanished">項目を削除</translation>
     </message>
     <message>
         <source>Edit connection</source>
-        <translation type="vanished">接続を編集</translation>
+        <translation type="vanished">項目を編集</translation>
     </message>
     <message>
         <source>Config Details</source>
@@ -900,7 +900,7 @@
     </message>
     <message>
         <source>Config Type</source>
-        <translation type="vanished">構成の種類</translation>
+        <translation type="vanished">構成のタイプ</translation>
     </message>
     <message>
         <source>Protocol</source>
@@ -916,7 +916,7 @@
     </message>
     <message>
         <source>Latency</source>
-        <translation type="vanished">潜時</translation>
+        <translation type="vanished">遅延</translation>
     </message>
     <message>
         <source>Operations</source>
@@ -924,7 +924,7 @@
     </message>
     <message>
         <source>Edit connection as JSON</source>
-        <translation type="vanished">接続をJSONとして編集</translation>
+        <translation type="vanished">項目をJSONとして編集</translation>
     </message>
     <message>
         <source>Log (click to switch log source)</source>
@@ -943,7 +943,7 @@
     </message>
     <message>
         <source>Duplicate</source>
-        <translation type="vanished">複写</translation>
+        <translation type="vanished">コピー</translation>
     </message>
     <message>
         <source>Delete</source>
@@ -968,27 +968,27 @@
     </message>
     <message>
         <source>Speed Graph</source>
-        <translation type="vanished">速度図</translation>
+        <translation type="vanished">転送量図</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Locate Current Connection</source>
-        <translation>現在の接続を見つける</translation>
+        <translation>現在の接続先を特定する</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Search</source>
-        <translation>捜索</translation>
+        <translation>検索</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Import Connection</source>
-        <translation>接続をインポート</translation>
+        <translation>項目をインポート</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Sort</source>
-        <translation>並べ替える</translation>
+        <translation>並べ替え</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.ui"/>
@@ -998,7 +998,7 @@
     <message>
         <location filename="../src/ui/w_MainWindow.ui"/>
         <source>  Speed Graph</source>
-        <translation>  速度図</translation>
+        <translation>  転送量図</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.ui"/>
@@ -1024,7 +1024,7 @@
     <message>
         <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Speed</source>
-        <translation>速度</translation>
+        <translation>回線速度</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.ui"/>
@@ -1041,12 +1041,12 @@
     <message>
         <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Data</source>
-        <translation>データ</translation>
+        <translation>転送量</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.ui"/>
         <source>Upload/Download Data</source>
-        <translation>アップロード/ダウンロードのデータ</translation>
+        <translation>アップロード/ダウンロード転送量</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.ui"/>
@@ -1097,7 +1097,7 @@
     <message>
         <location filename="../src/ui/w_MainWindow.hpp" line="136"/>
         <source>Set as automatically connected</source>
-        <translation>自動接続として設定</translation>
+        <translation>自動接続に設定</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.hpp" line="138"/>
@@ -1112,17 +1112,17 @@
     <message>
         <location filename="../src/ui/w_MainWindow.hpp" line="141"/>
         <source>Duplicate to the Same Group</source>
-        <translation>同じグループに複製</translation>
+        <translation>同じグループにコピー</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.hpp" line="142"/>
         <source>Clear Usage Data</source>
-        <translation>統計データを消去する</translation>
+        <translation>統計データをクリアする</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.hpp" line="143"/>
         <source>Delete Connection</source>
-        <translation>接続を削除</translation>
+        <translation>項目を削除</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.hpp" line="135"/>
@@ -1171,37 +1171,37 @@
     <message>
         <location filename="../src/ui/w_MainWindow.hpp" line="145"/>
         <source>Sort connection list.</source>
-        <translation>接続リストを並べ替えます。</translation>
+        <translation>項目リストを並べ替えます。</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.hpp" line="146"/>
         <source>By connection name, A-Z</source>
-        <translation>接続名で、A-Z</translation>
+        <translation>項目名昇順、A-Z</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.hpp" line="147"/>
         <source>By connection name, Z-A</source>
-        <translation>接続名で、Z-A</translation>
+        <translation>項目名降順、Z-A</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.hpp" line="148"/>
         <source>By latency, Ascending</source>
-        <translation>レイテンシー、昇順</translation>
+        <translation>遅延昇順</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.hpp" line="149"/>
         <source>By latency, Descending</source>
-        <translation>レイテンシー、降順</translation>
+        <translation>遅延降順</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.hpp" line="150"/>
         <source>By data, Ascending</source>
-        <translation>データ別、昇順</translation>
+        <translation>転送量昇順</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.hpp" line="151"/>
         <source>By data, Descending</source>
-        <translation>データ別、降順</translation>
+        <translation>転送量降順</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.hpp" line="158"/>
@@ -1216,7 +1216,7 @@
     <message>
         <location filename="../src/ui/w_MainWindow.cpp" line="381"/>
         <source>Update</source>
-        <translation>更新</translation>
+        <translation>アップデート</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.cpp" line="382"/>
@@ -1240,27 +1240,27 @@
         <location filename="../src/ui/w_MainWindow.cpp" line="656"/>
         <location filename="../src/ui/w_MainWindow.cpp" line="670"/>
         <source>Configuring PAC</source>
-        <translation>PACの構成</translation>
+        <translation>PAC設定</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.cpp" line="657"/>
         <source>Could not start PAC server as it is configured to use SOCKS, but it is not enabled</source>
-        <translation>SOCKSを使用するように構成されているため、PACサーバーを起動できませんでしたが、有効になっていません</translation>
+        <translation>SOCKSを使用するため、PACサーバーを起動できませんでした</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.cpp" line="671"/>
         <source>Could not start PAC server as it is configured to use HTTP, but it is not enabled</source>
-        <translation>HTTPを使用するように設定されているため、PACサーバーを起動できませんでしたが、有効になっていません</translation>
+        <translation>HTTPを使用するため、PACサーバーを起動できませんでした</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.cpp" line="913"/>
         <source>Duplicating Connection(s)</source>
-        <translation>接続を重複</translation>
+        <translation>項目をコピー</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.cpp" line="914"/>
         <source>Are you sure to duplicate these connection(s)?</source>
-        <translation>これらの接続を複製してもよろしいですか？</translation>
+        <translation>選択した項目をコピーしますか？</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.cpp" line="921"/>
@@ -1293,7 +1293,7 @@
     <message>
         <location filename="../src/ui/w_MainWindow_extra.cpp" line="37"/>
         <source>HTTP or SOCKS inbound is not properly configured for PAC</source>
-        <translation>HTTPまたはSOCKSインバウンドがPAC用に適切に構成されていません</translation>
+        <translation>HTTPまたはSOCKSインバウンドがPAC用に正しく設定されていません</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow_extra.cpp" line="38"/>
@@ -1308,12 +1308,12 @@
     <message>
         <location filename="../src/ui/w_MainWindow_extra.cpp" line="55"/>
         <source>Both HTTP and SOCKS inbounds are not enabled</source>
-        <translation>HTTPインバウンドとSOCKSインバウンドの両方が有効になっていません</translation>
+        <translation>HTTPインバウンドとSOCKSインバウンドの両方とも無効です</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow_extra.cpp" line="71"/>
         <source>Didn&apos;t set proxy for complex config.</source>
-        <translation>複雑な構成のプロキシを設定しませんでした。</translation>
+        <translation>複雑構成のプロキシ設定を行いませんでした。</translation>
     </message>
     <message>
         <source>System proxy settings applied.</source>
@@ -1383,7 +1383,7 @@
     <message>
         <location filename="../src/ui/w_MainWindow.cpp" line="131"/>
         <source>To solve the problem, read the V2ray log in the log text browser.</source>
-        <translation>問題を解決するには、ログテキストブラウザーでV2rayログを読みます。</translation>
+        <translation>問題を解決するには、ログテキストブラウザーでV2rayログを確認してください。</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.hpp" line="131"/>
@@ -1419,7 +1419,7 @@
     <message>
         <location filename="../src/ui/w_MainWindow.cpp" line="597"/>
         <source>Disconnected from: </source>
-        <translation>次から切断: </translation>
+        <translation>接続切断されました: </translation>
     </message>
     <message>
         <source>The name cannot be empty</source>
@@ -1436,12 +1436,12 @@
     <message>
         <location filename="../src/ui/w_MainWindow.cpp" line="518"/>
         <source>Removing Connection(s)</source>
-        <translation>接続の削除</translation>
+        <translation>項目を削除</translation>
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.cpp" line="518"/>
         <source>Are you sure to remove selected connection(s)?</source>
-        <translation>選択した接続を削除してもよろしいですか？</translation>
+        <translation>選択した項目を削除しますか？</translation>
     </message>
     <message>
         <source>Removing this Connection</source>
@@ -1518,7 +1518,7 @@
     <message>
         <location filename="../src/ui/editors/w_OutboundEditor.ui"/>
         <source>Type</source>
-        <translation>種類</translation>
+        <translation>タイプ</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_OutboundEditor.ui"/>
@@ -1553,7 +1553,7 @@
     <message>
         <location filename="../src/ui/editors/w_OutboundEditor.ui"/>
         <source>Mux Concurrency</source>
-        <translation>Muxの同時実行</translation>
+        <translation>Muxの同時接続数</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_OutboundEditor.ui"/>
@@ -1588,7 +1588,7 @@
     <message>
         <location filename="../src/ui/editors/w_OutboundEditor.ui"/>
         <source>Password</source>
-        <translation>暗号</translation>
+        <translation>パスワード</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_OutboundEditor.ui"/>
@@ -1685,7 +1685,7 @@
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
         <source>Config</source>
-        <translation>構成</translation>
+        <translation>項目</translation>
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
@@ -1725,7 +1725,7 @@
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
         <source>Set System Proxy</source>
-        <translation>システムプロキシを設定する</translation>
+        <translation>システムプロキシに設定する</translation>
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
@@ -1765,7 +1765,7 @@
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
         <source>Password</source>
-        <translation>暗号</translation>
+        <translation>パスワード</translation>
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
@@ -1780,7 +1780,7 @@
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
         <source>The system proxy will be configured to use the PAC instead of HTTP and SOCKS.</source>
-        <translation>システムプロキシは、HTTPおよびSOCKSの代わりにPACを使用するように構成されます。</translation>
+        <translation>システムプロキシは、HTTPもしくはSOCKSではなく、PACを使用するように設定されました。</translation>
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
@@ -1904,7 +1904,7 @@
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
         <source>Only simple config is supported.</source>
-        <translation>単純な構成のみがサポートされています。</translation>
+        <translation>単純接続のみがサポートされています。</translation>
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
@@ -1919,7 +1919,7 @@
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
         <source>Type</source>
-        <translation>種類</translation>
+        <translation>タイプ</translation>
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
@@ -1969,7 +1969,7 @@
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
         <source>Core Executable Path</source>
-        <translation>コア実行可能パス</translation>
+        <translation>コア実行可能ファイルパス</translation>
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
@@ -1994,7 +1994,7 @@
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
         <source>All settings below will only be applied onto simple connection.</source>
-        <translation>以下のすべての設定は、単純な接続にのみ適用されます。</translation>
+        <translation>以下のすべての設定は、単純接続にのみ適用されます。</translation>
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
@@ -2089,7 +2089,7 @@
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
         <source>Font</source>
-        <translation>字体</translation>
+        <translation>フォント</translation>
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
@@ -2201,7 +2201,7 @@
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
         <source>Cancel</source>
-        <translation>取り消し</translation>
+        <translation>キャンセル</translation>
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
@@ -2277,13 +2277,13 @@
     <message>
         <location filename="../src/ui/w_PreferencesWindow.cpp" line="532"/>
         <source>Qv2ray cannot copy one or both V2ray files from: </source>
-        <translation>Qv2rayは、V2rayファイルの一方または両方を以下からコピーできません: </translation>
+        <translation>Qv2rayは、V2rayファイルの一つまたは二つを以下からコピーできません: </translation>
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.cpp" line="549"/>
         <location filename="../src/ui/w_PreferencesWindow.cpp" line="563"/>
         <source>Failed to setcap onto V2ray executable. You may need to run `setcap` manually.</source>
-        <translation>V2ray実行可能ファイルへのsetcapに失敗しました。`setcap`を手動で実行する必要がある場合があります。</translation>
+        <translation>V2ray実行可能ファイルへのsetcapに失敗しました。`setcap`を手動で実行する必要がある可能性があります。</translation>
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.cpp" line="573"/>
@@ -2337,12 +2337,12 @@
     <message>
         <location filename="../src/ui/w_PreferencesWindow.cpp" line="1072"/>
         <source>Start with boot</source>
-        <translation>ブート時に起動します</translation>
+        <translation>システム起動時に起動します</translation>
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.cpp" line="1072"/>
         <source>Failed to set auto start option.</source>
-        <translation>自動開始オプションの設定に失敗しました。</translation>
+        <translation>自動起動オプションの設定に失敗しました。</translation>
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.cpp" line="1161"/>
@@ -2353,7 +2353,7 @@
     <message>
         <location filename="../src/ui/w_PreferencesWindow.cpp" line="1166"/>
         <source>V2ray path configuration check passed.</source>
-        <translation>V2rayパス構成チェックに合格しました。</translation>
+        <translation>V2rayパス構成チェックに通過しました。</translation>
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.cpp" line="1166"/>
@@ -2368,7 +2368,7 @@
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
         <source>Status</source>
-        <translation>状態</translation>
+        <translation>ステータス</translation>
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
@@ -2398,17 +2398,17 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Proxied Domains</source>
-        <translation type="vanished">プロキシされたドメイン</translation>
+        <translation type="vanished">プロキシを使用するドメイン</translation>
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
         <source>Advanced Route Settings</source>
-        <translation>高度なルート設定</translation>
+        <translation>ルート詳細設定</translation>
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
         <source>You can configure route rules for all simple connection config here.</source>
-        <translation>ここで、すべての単純接続設定のルートルールを設定できます。</translation>
+        <translation>ここで、すべての簡易接続設定のルーティングルールを設定できます。</translation>
     </message>
 </context>
 <context>
@@ -2427,7 +2427,7 @@ p, li { white-space: pre-wrap; }
         <location filename="../src/core/connection/Serialization_ss.cpp" line="53"/>
         <location filename="../src/core/connection/Serialization_ss.cpp" line="92"/>
         <source>Can&apos;t find the colon separator between method and password</source>
-        <translation>メソッドとパスワードの間にコロン区切り文字が見つかりません</translation>
+        <translation>メソッドとパスワードの間にコロンセパレーターが見つかりません</translation>
     </message>
     <message>
         <location filename="../src/core/connection/Serialization_ss.cpp" line="63"/>
@@ -2437,7 +2437,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/core/connection/Serialization_ss.cpp" line="73"/>
         <source>Can&apos;t find the colon separator between hostname and port</source>
-        <translation>ホスト名とポートの間にコロン区切り文字が見つかりません</translation>
+        <translation>ホスト名とポートの間にコロンセパレーターが見つかりません</translation>
     </message>
     <message>
         <location filename="../src/core/connection/Serialization_vmess.cpp" line="78"/>
@@ -2472,7 +2472,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/main.cpp" line="108"/>
         <source>Cannot find a place to store config files.</source>
-        <translation>設定ファイルを保存する場所が見つかりません。</translation>
+        <translation>設定ファイルの保存先が見つかりません。</translation>
     </message>
     <message>
         <location filename="../src/main.cpp" line="109"/>
@@ -2536,12 +2536,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/main.cpp" line="296"/>
         <source>Please check if there&apos;s an issue explaining about it.</source>
-        <translation>それについて説明する問題があるかどうかを確認してください。</translation>
+        <translation>関連説明があるかどうかを確認してください。</translation>
     </message>
     <message>
         <location filename="../src/main.cpp" line="297"/>
         <source>Or submit a new issue if you think this is an error.</source>
-        <translation>または、これがエラーだと思われる場合は、新しい問題を送信してください。</translation>
+        <translation>または、これがエラーだと思う場合は、新しい問題として送信してください。</translation>
     </message>
     <message>
         <location filename="../src/main.cpp" line="341"/>
@@ -2586,7 +2586,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/main.cpp" line="345"/>
         <source>Technical Details</source>
-        <translation>技術的な詳細</translation>
+        <translation>技術詳細</translation>
     </message>
     <message>
         <location filename="../src/components/plugins/toolbar/QvToolbar.cpp" line="99"/>
@@ -2960,7 +2960,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/core/kernel/KernelInteractions.cpp" line="81"/>
         <source>V2ray core failed with an exit code: </source>
-        <translation>V2rayコアは終了コードで失敗しました: </translation>
+        <translation>V2rayコアがエラー終了しました、終了コード: </translation>
     </message>
     <message>
         <location filename="../src/core/kernel/KernelInteractions.cpp" line="90"/>
@@ -3043,7 +3043,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui"/>
         <source>Status</source>
-        <translation>状態</translation>
+        <translation>ステータス</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui"/>
@@ -3078,7 +3078,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui"/>
         <source>Add Freedom outbound</source>
-        <translation>自由アウトバウンドを追加</translation>
+        <translation>フリーアウトバウンドを追加</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui"/>
@@ -3183,17 +3183,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui"/>
         <source>A rule with no inbound connected means there&apos;s no inbound restriction.</source>
-        <translation>インバウンドが接続されていないルールは、インバウンドの制限がないことを意味します。</translation>
+        <translation>接続ルールのないインバウンドは、接続制限のないインバウンドを意味します。</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui"/>
         <source>Edit Selection</source>
-        <translation>選択を編集</translation>
+        <translation>選択したものを編集</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui"/>
         <source>Delete Selection</source>
-        <translation>選択を削除</translation>
+        <translation>選択したものを削除</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui"/>
@@ -3203,7 +3203,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui"/>
         <source>Domain Strategy</source>
-        <translation>ドメイン名戦略</translation>
+        <translation>ドメイン名ルール</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui"/>
@@ -3213,7 +3213,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui"/>
         <source>Rule Order Settings</source>
-        <translation>ルールの順序設定</translation>
+        <translation>ルールの並び替え設定</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui"/>
@@ -3270,7 +3270,7 @@ p, li { white-space: pre-wrap; }
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="859"/>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="923"/>
         <source>OK</source>
-        <translation>よし</translation>
+        <translation>OK</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="843"/>
@@ -3334,7 +3334,7 @@ p, li { white-space: pre-wrap; }
         <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="130"/>
         <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="224"/>
         <source>The new tag has been used, we appended a postfix.</source>
-        <translation>新しいタグが使用されているため、後置記号を追加します。</translation>
+        <translation>新しいタグが使用されているため、サフィックスを追加します。</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor_extra.cpp" line="178"/>
@@ -3415,7 +3415,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="950"/>
         <source>New tag is the same as the original one.</source>
-        <translation>新しいタグは元のタグと同じです。</translation>
+        <translation>新しいタグと元のタグと同じです。</translation>
     </message>
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.cpp" line="955"/>
@@ -3472,7 +3472,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/ui/editors/w_RoutesEditor.ui"/>
         <source>Rename</source>
-        <translation>改称する</translation>
+        <translation>リネーム</translation>
     </message>
 </context>
 <context>
@@ -3515,16 +3515,16 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/ui/widgets/RouteSettingsMatrix.ui"/>
         <source>Use built-in route schemes</source>
-        <translation>組み込みのルートスキームを使用する</translation>
+        <translation>プリセットルーティングスキームを使用する</translation>
     </message>
     <message>
         <source>Built-in Schemes</source>
-        <translation type="vanished">組み込みスキーム</translation>
+        <translation type="vanished">プリセットスキーム</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/RouteSettingsMatrix.ui"/>
         <source>Import route scheme from file</source>
-        <translation>ファイルからルートスキームをインポートする</translation>
+        <translation>ファイルからスキームをインポートする</translation>
     </message>
     <message>
         <source>Import Scheme</source>
@@ -3533,7 +3533,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/ui/widgets/RouteSettingsMatrix.ui"/>
         <source>Export route scheme to file</source>
-        <translation>ルートスキームをファイルにエクスポート</translation>
+        <translation>スキームをファイルにエクスポート</translation>
     </message>
     <message>
         <source>Export Scheme</source>
@@ -3546,7 +3546,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/ui/widgets/RouteSettingsMatrix.ui"/>
         <source>Built-in Schemes...</source>
-        <translation>組み込みスキーム...</translation>
+        <translation>プリセットスキーム...</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/RouteSettingsMatrix.ui"/>
@@ -3564,17 +3564,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/ui/widgets/RouteSettingsMatrix.cpp" line="47"/>
         <source>empty scheme</source>
-        <translation>空策略</translation>
+        <translation>空スキーム</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/RouteSettingsMatrix.cpp" line="203"/>
         <source>v2rayN preset</source>
-        <translation>v2rayN 策略</translation>
+        <translation>v2rayN スキーム</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/RouteSettingsMatrix.cpp" line="290"/>
         <source>Import scheme &apos;%1&apos; by &apos;%2&apos;?</source>
-        <translation>「%2」によるスキーム「%1」をインポートしますか？</translation>
+        <translation>「%2」のスキーム「%1」をインポートしますか？</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/RouteSettingsMatrix.cpp" line="291"/>
@@ -3599,7 +3599,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/ui/widgets/RouteSettingsMatrix.cpp" line="331"/>
         <source>Author:</source>
-        <translation>著者：</translation>
+        <translation>作成者：</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/RouteSettingsMatrix.cpp" line="337"/>
@@ -3609,7 +3609,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/ui/widgets/RouteSettingsMatrix.cpp" line="337"/>
         <source>The author is too lazy to leave a comment</source>
-        <translation>著者はコメントを残すのが面倒です</translation>
+        <translation>作成者は何も書いてない</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/RouteSettingsMatrix.cpp" line="378"/>
@@ -3684,7 +3684,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/ui/widgets/StreamSettingsWidget.ui"/>
         <source>Server</source>
-        <translation>サーバ</translation>
+        <translation>サーバー</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/StreamSettingsWidget.ui"/>
@@ -3719,7 +3719,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/ui/widgets/StreamSettingsWidget.ui"/>
         <source>Type</source>
-        <translation>種類</translation>
+        <translation>タイプ</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/StreamSettingsWidget.ui"/>
@@ -3868,7 +3868,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>All connections will be moved to default group, do you want to continue?</source>
-        <translation type="vanished">すべての接続がデフォルトグループに移動します。続行しますか？</translation>
+        <translation type="vanished">すべての項目がデフォルトグループに移動します。続行しますか？</translation>
     </message>
 </context>
 <context>
@@ -3891,7 +3891,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/ui/w_SubscriptionManager.cpp" line="66"/>
         <source>All connections will be moved to default group, do you want to continue?</source>
-        <translation>すべての接続がデフォルトグループに移動します。続行しますか？</translation>
+        <translation>すべての項目がデフォルトグループに移動します。続行しますか？</translation>
     </message>
 </context>
 <context>
@@ -3955,7 +3955,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/ui/w_SubscriptionManager.ui"/>
         <source>Subscription List</source>
-        <translation>サブスクリプションの一覧</translation>
+        <translation>サブスクリプション一覧</translation>
     </message>
     <message>
         <source>A</source>
@@ -4008,7 +4008,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/ui/w_SubscriptionManager.ui"/>
         <source>Connection List</source>
-        <translation>接続リスト</translation>
+        <translation>項目リスト</translation>
     </message>
     <message>
         <location filename="../src/ui/w_SubscriptionManager.ui"/>
