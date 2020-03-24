@@ -1951,16 +1951,6 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
-        <source>Config</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PreferencesWindow.ui"/>
-        <source>Subscription</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/ui/w_PreferencesWindow.ui"/>
         <source>Auto Connect</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1977,6 +1967,16 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
         <source>You can configure route rules for all simple connection config here.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PreferencesWindow.ui"/>
+        <source>Connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PreferencesWindow.ui"/>
+        <source>Group/Subscription</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2361,6 +2361,61 @@ p, li { white-space: pre-wrap; }
         <source>Inbound</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="24"/>
+        <source>core executable file %1 does not exist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="27"/>
+        <source>cannot open core executable file %1 in read-only mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="30"/>
+        <source>core executable file %1 is an empty file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="34"/>
+        <source>core executable file %1 is too short to be executed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="51"/>
+        <source>cannot deduce the type of core executable file %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="58"/>
+        <source>Windows PE executable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="59"/>
+        <source>macOS Mach-O executable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="60"/>
+        <source>ELF x86 executable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="61"/>
+        <source>ELF amd64 executable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="62"/>
+        <source>other ELF executable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="63"/>
+        <source>unknown abi</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Qv2ray::common::QvCommandArgParser</name>
@@ -2436,58 +2491,73 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/KernelInteractions.cpp" line="44"/>
+        <location filename="../src/core/kernel/KernelInteractions.cpp" line="54"/>
+        <source>V2Ray core is incompatible with your platform.<byte value="xd"/>
+Expected core ABI is %1, but got actual %2.<byte value="xd"/>
+Maybe you have downloaded the wrong core?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/kernel/KernelInteractions.cpp" line="73"/>
         <source>V2ray assets path is not valid.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/KernelInteractions.cpp" line="51"/>
+        <location filename="../src/core/kernel/KernelInteractions.cpp" line="80"/>
         <source>No geoip.dat in assets path.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/KernelInteractions.cpp" line="58"/>
+        <location filename="../src/core/kernel/KernelInteractions.cpp" line="87"/>
         <source>No geosite.dat in assets path.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/KernelInteractions.cpp" line="81"/>
+        <location filename="../src/core/kernel/KernelInteractions.cpp" line="110"/>
         <source>V2ray core failed with an exit code: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/KernelInteractions.cpp" line="90"/>
+        <location filename="../src/core/kernel/KernelInteractions.cpp" line="119"/>
         <source>V2ray core returns empty string.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/KernelInteractions.cpp" line="119"/>
+        <location filename="../src/core/kernel/KernelInteractions.cpp" line="148"/>
         <source>Configuration Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/KernelInteractions.cpp" line="130"/>
+        <location filename="../src/core/kernel/KernelInteractions.cpp" line="159"/>
         <source>Cannot start V2ray</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/KernelInteractions.cpp" line="131"/>
+        <location filename="../src/core/kernel/KernelInteractions.cpp" line="160"/>
         <source>V2ray core settings is incorrect.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/KernelInteractions.cpp" line="131"/>
+        <location filename="../src/core/kernel/KernelInteractions.cpp" line="160"/>
         <source>The error is: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/KernelInteractions.cpp" line="162"/>
+        <location filename="../src/core/kernel/KernelInteractions.cpp" line="191"/>
         <source>Invalid V2ray Instance Status.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/KernelInteractions.cpp" line="225"/>
+        <location filename="../src/core/kernel/KernelInteractions.cpp" line="254"/>
         <source>V2ray kernel failed to start.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>Qv2ray::ui::widgets::AutoCompleteTextEdit</name>
+    <message>
+        <location filename="../src/ui/widgets/QvAutoCompleteTextEdit.cpp" line="125"/>
+        <source>You can not input space characters here.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
