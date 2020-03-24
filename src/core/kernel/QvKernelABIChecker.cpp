@@ -6,15 +6,15 @@ namespace Qv2ray::core::kernel::abi
 {
     [[nodiscard]] QvKernelABICompatibility inline checkCompatibility(QvKernelABIType hostType, QvKernelABIType targetType)
     {
-        if (hostType == targetType)
-            return QvKernelABICompatibility::ABI_PERFECT;
-        if (hostType == QvKernelABIType::ABI_WIN32 || hostType == QvKernelABIType::ABI_ELF_X86)
-            return QvKernelABICompatibility::ABI_NOPE;
-        if (hostType == QvKernelABIType::ABI_ELF_X86_64 && targetType == QvKernelABIType::ABI_ELF_X86)
-            return QvKernelABICompatibility::ABI_MAYBE;
-        if (hostType == QvKernelABIType::ABI_ELF_OTHER)
-            return QvKernelABICompatibility::ABI_MAYBE;
-        return QvKernelABICompatibility::ABI_MAYBE;
+        switch (hostType)
+        {
+            case ABI_WIN32: [[fallthrough]];
+            case ABI_MACH_O: [[fallthrough]];
+            case ABI_ELF_X86: return targetType == hostType ? ABI_PERFECT : ABI_NOPE;
+            case ABI_ELF_X86_64: return targetType == hostType ? ABI_PERFECT : targetType == ABI_ELF_X86 ? ABI_MAYBE : ABI_NOPE;
+            case ABI_ELF_OTHER: return targetType == hostType ? ABI_PERFECT : ABI_MAYBE;
+            default: return ABI_MAYBE;
+        }
     }
 
     [[nodiscard]] std::pair<std::optional<QvKernelABIType>, std::optional<QString>> deduceKernelABI(const QString &pathCoreExecutable)
