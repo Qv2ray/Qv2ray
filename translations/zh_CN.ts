@@ -2443,57 +2443,62 @@ p, li { white-space: pre-wrap; }
         <translation>入站</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="24"/>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="25"/>
         <source>core executable file %1 does not exist</source>
         <translation>核心可执行文件 %1 不存在</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="27"/>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="28"/>
         <source>cannot open core executable file %1 in read-only mode</source>
         <translation>无法以只读模式打开核心可执行文件 %1</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="30"/>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="31"/>
         <source>core executable file %1 is an empty file</source>
         <translation>核心可执行文件 %1 是空文件</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="34"/>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="35"/>
         <source>core executable file %1 is too short to be executed</source>
         <translation>核心可执行文件 %1 文件过小</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="51"/>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="54"/>
         <source>cannot deduce the type of core executable file %1</source>
         <translation>无法推测核心可执行文件 %1 的类型</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="58"/>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="61"/>
         <source>Windows PE executable</source>
         <translation>Windows PE 可执行文件</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="59"/>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="62"/>
         <source>macOS Mach-O executable</source>
         <translation>macOS Mach-O 可执行文件</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="60"/>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="63"/>
         <source>ELF x86 executable</source>
         <translation>ELF x86 可执行文件</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="61"/>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="64"/>
         <source>ELF amd64 executable</source>
         <translation>ELF amd64 可执行文件</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="62"/>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="65"/>
+        <source>ELF arm64 executable</source>
+        <translation>ELF arm64 可执行文件</translation>
+    </message>
+    <message>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="66"/>
         <source>other ELF executable</source>
         <translation>其他 ELF 可执行文件</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="63"/>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="67"/>
         <source>unknown abi</source>
         <translation>未知 ABI</translation>
     </message>

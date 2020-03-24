@@ -2869,57 +2869,62 @@ p, li { white-space: pre-wrap; }
         <translation>インバウンド</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="24"/>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="25"/>
         <source>core executable file %1 does not exist</source>
         <translation>コア実行可能ファイル%1は存在しません</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="27"/>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="28"/>
         <source>cannot open core executable file %1 in read-only mode</source>
         <translation>コア実行可能ファイル%1を読み取り専用モードで開けません</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="30"/>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="31"/>
         <source>core executable file %1 is an empty file</source>
         <translation>コア実行可能ファイル%1は空のファイルです</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="34"/>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="35"/>
         <source>core executable file %1 is too short to be executed</source>
         <translation>コア実行可能ファイル%1は実行するには短すぎます</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="51"/>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="54"/>
         <source>cannot deduce the type of core executable file %1</source>
         <translation>コア実行可能ファイル%1のタイプを推測できません</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="58"/>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="61"/>
         <source>Windows PE executable</source>
         <translation>Windows PE実行可能ファイル</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="59"/>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="62"/>
         <source>macOS Mach-O executable</source>
         <translation>macOS Mach-O実行可能ファイル</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="60"/>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="63"/>
         <source>ELF x86 executable</source>
         <translation>ELF x86実行可能ファイル</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="61"/>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="64"/>
         <source>ELF amd64 executable</source>
         <translation>ELF amd64実行可能ファイル</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="62"/>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="65"/>
+        <source>ELF arm64 executable</source>
+        <translation>ELF arm64実行可能ファイル</translation>
+    </message>
+    <message>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="66"/>
         <source>other ELF executable</source>
         <translation>他のELF実行可能ファイル</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="63"/>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="67"/>
         <source>unknown abi</source>
         <translation>不明なABI</translation>
     </message>

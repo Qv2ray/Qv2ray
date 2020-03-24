@@ -16,6 +16,7 @@ namespace Qv2ray::core::kernel
             ABI_MACH_O,
             ABI_ELF_X86,
             ABI_ELF_X86_64,
+            ABI_ELF_AARCH64,
             ABI_ELF_OTHER,
         };
 
@@ -35,6 +36,8 @@ namespace Qv2ray::core::kernel
             QvKernelABIType::ABI_MACH_O;
 #elif defined(Q_OS_WINDOWS)
             QvKernelABIType::ABI_WIN32;
+#elif defined(Q_OS_LINUX) && defined(Q_PROCESSOR_ARM_64)
+            QvKernelABIType::ABI_ELF_AARCH64;
 #endif
 
         [[nodiscard]] std::pair<std::optional<QvKernelABIType>, std::optional<QString>> deduceKernelABI(const QString &pathCoreExecutable);
