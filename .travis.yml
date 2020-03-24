@@ -1,6 +1,9 @@
 language: shell
 os: linux
 dist: bionic
+arch:
+  - amd64
+  - arm64
 
 git:
   depth: false
@@ -19,14 +22,16 @@ addons:
     - name: snapcraft
       channel: stable
       confinement: classic
-    - name: lxd
-      channel: stable
+
+before_install:
+  - echo "deb http://ppa.launchpad.net/ymshenyu/qv2ray-deps/ubuntu bionic main" | sudo tee -a /etc/apt/sources.list
+  - echo "deb http://archive.neon.kde.org/unstable bionic main" | sudo tee -a /etc/apt/sources.list
+  - sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 281F24E574404629AA3BDA1A4F10C386C55CDB04
+  - sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E6D4736255751E5D
+  - sudo apt-get update -qq
 
 script:
-  - sudo apt autoremove lxd --purge
-  - sudo /snap/bin/lxd waitready
-  - sudo /snap/bin/lxd init --auto
-  - sudo snapcraft --use-lxd
+  - snapcraft --destructive-mode
 
 after_failure:
   - sudo journalctl -u snapd
