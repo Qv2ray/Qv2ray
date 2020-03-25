@@ -211,20 +211,6 @@
           </property>
          </widget>
         </item>
-        <item row="8" column="0" colspan="2">
-         <layout class="QHBoxLayout" name="horizontalLayout">
-          <item>
-           <widget class="QPushButton" name="pluginSettingsBtn">
-            <property name="toolTip">
-             <string>Open settings page for current plugin</string>
-            </property>
-            <property name="text">
-             <string>Open plugin settings</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
        </layout>
       </item>
       <item row="0" column="1">
@@ -257,6 +243,27 @@
            </size>
           </property>
          </spacer>
+        </item>
+       </layout>
+      </item>
+      <item row="1" column="0" colspan="2">
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QPushButton" name="pluginSettingsBtn">
+          <property name="toolTip">
+           <string>Open settings page for current plugin</string>
+          </property>
+          <property name="text">
+           <string>Open plugin settings</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pluginEditSettingsJsonBtn">
+          <property name="text">
+           <string>Manually Edit Settings</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>

@@ -20,6 +20,8 @@ class PluginManageWindow
 
     void on_pluginSettingsBtn_clicked();
 
+    void on_pluginEditSettingsJsonBtn_clicked();
+
   private:
     bool isLoading = true;
 };

@@ -2,6 +2,7 @@
 
 #include "base/Qv2rayBase.hpp"
 #include "base/Qv2rayLog.hpp"
+#include "common/QvHelpers.hpp"
 #include "core/settings/SettingsBackend.hpp"
 
 #include <QPluginLoader>
@@ -9,6 +10,10 @@ namespace Qv2ray::components::plugins
 {
     QvPluginHost::QvPluginHost(QObject *parent) : QObject(parent)
     {
+        if (auto dir = QDir(QV2RAY_PLUGIN_SETTINGS_DIR); !dir.exists())
+        {
+            dir.mkpath(QV2RAY_PLUGIN_SETTINGS_DIR);
+        }
     }
 
     int QvPluginHost::RefreshPluginList()
@@ -157,14 +162,20 @@ namespace Qv2ray::components::plugins
             return false;
         }
 
-        // TODO: Load plugin settings.
-        plugins[internalName].pluginInterface->InitializePlugin({});
+        auto conf = JsonFromString(StringFromFile(QV2RAY_PLUGIN_SETTINGS_DIR + internalName + ".conf"));
+        plugins[internalName].pluginInterface->InitializePlugin(conf);
         plugins[internalName].isLoaded = true;
         return true;
     }
 
     QvPluginHost::~QvPluginHost()
     {
+        for (auto name : plugins.keys())
+        {
+            LOG(MODULE_PLUGINHOST, "Saving plugin settings for: \"" + name + "\"")
+            auto &conf = plugins[name].pluginInterface->GetPluginSettngs();
+            StringToFile(JsonToString(conf), QV2RAY_PLUGIN_SETTINGS_DIR + name + ".conf");
+        }
         ClearPlugins();
     }
 
