@@ -37,6 +37,7 @@ namespace Qv2ray::components::plugins
         {
             return plugins.value(internalName);
         }
+        void SendHook(QV2RAY_PLUGIN_HOOK_TYPE type, QV2RAY_PLUGIN_HOOK_SUBTYPE subtype, QVariant &data);
 
       private slots:
         void QvPluginLog(const QString &log);

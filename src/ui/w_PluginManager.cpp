@@ -38,7 +38,7 @@ void PluginManageWindow::on_pluginListWidget_currentItemChanged(QListWidgetItem 
         pluginLibPathLabel->setText(info.libraryPath);
         pluginStateLabel->setText(info.isLoaded ? tr("Loaded") : tr("Not loaded"));
         pluginTypeLabel->setText(PluginHost->GetPluginTypeString(info.pluginInterface->InternalName()));
-        pluginHookTypeLabel->setText("No impl");
+        pluginHookTypeLabel->setText(PluginHost->GetPluginHookTypeString(info.pluginInterface->InternalName()));
         pluginErrMessageTxt->setPlainText(info.errorMessage.isEmpty() ? "OK" : info.errorMessage);
     }
 }

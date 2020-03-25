@@ -74,23 +74,36 @@ namespace Qv2ray::components::plugins
 
     const QString QvPluginHost::GetPluginTypeString(const QString &internalName) const
     {
-        switch (plugins.value(internalName).pluginInterface->SpecialPluginType())
+        QStringList types;
+        for (auto type : plugins.value(internalName).pluginInterface->SpecialPluginType())
         {
-            case SPECIAL_TYPE_NONE: return tr("No Special Type");
-            case SPECIAL_TYPE_KERNEL: return tr("Connection Kernel");
-            case SPECIAL_TYPE_GENERATION: return tr("Final Configuration Parser");
-            case SPECIAL_TYPE_SERIALIZATION: return tr("Connection String Serializer/Deserializer");
-            default: return tr("Unknown/unsupported plugin type.");
+            switch (type)
+            {
+                case SPECIAL_TYPE_NONE: types << tr("No Special Type"); break;
+                case SPECIAL_TYPE_KERNEL: types << tr("Connection Kernel"); break;
+                case SPECIAL_TYPE_GENERATION: types << tr("Final Configuration Parser"); break;
+                case SPECIAL_TYPE_SERIALIZATION: types << tr("Connection String Serializer/Deserializer"); break;
+                default: types << tr("Unknown/unsupported plugin type."); break;
+            }
         }
+        return types.join("; ");
     }
 
     const QString QvPluginHost::GetPluginHookTypeString(const QString &internalName) const
     {
-        switch (plugins.value(internalName).pluginInterface->PluginHooks())
+        QStringList hooks;
+        for (auto hook : plugins.value(internalName).pluginInterface->PluginHooks())
         {
-            //
+            switch (hook)
+            {
+                case HOOK_TYPE_NONE: hooks << tr("No hook"); break;
+                case HOOK_TYPE_STATE_EVENTS: hooks << tr("Connection State Change"); break;
+                case HOOK_TYPE_CONFIG_EVENTS: hooks << tr("Connection Change"); break;
+                case HOOK_TYPE_STATS_EVENTS: hooks << tr("Statistics Event"); break;
+                default: hooks << tr("Unknown/unsupported hook type."); break;
+            }
         }
-        return "";
+        return hooks.join("; ");
     }
 
     void QvPluginHost::QvPluginLog(const QString &log)
@@ -140,6 +153,51 @@ namespace Qv2ray::components::plugins
             plugin.pluginLoader->deleteLater();
         }
         plugins.clear();
+    }
+
+    void QvPluginHost::SendHook(QV2RAY_PLUGIN_HOOK_TYPE type, QV2RAY_PLUGIN_HOOK_SUBTYPE subtype, QVariant &data)
+    {
+        for (auto name : plugins.keys())
+        {
+            const auto info = plugins[name];
+            if (!info.isLoaded)
+            {
+                DEBUG(MODULE_PLUGINHOST, "The plugin has not been loaded.")
+                continue;
+            }
+
+            auto types = info.pluginInterface->SpecialPluginType();
+            if (types.contains(SPECIAL_TYPE_KERNEL))
+            {
+                info.pluginInterface->PluginHooks();
+                // A kernel will only listens on pre-connection, post-connection, pre-disconnection, post-disconnection
+                if (type == HOOK_TYPE_STATE_EVENTS && (subtype == HOOK_STYPE_PRE_CONNECTING || subtype == HOOK_STYPE_PRE_DISCONNECTING))
+                {
+                    info.pluginInterface->ProcessHook(type, subtype, &data);
+                }
+            }
+            if (types.contains(SPECIAL_TYPE_GENERATION))
+            {
+                // TODO
+            }
+            if (types.contains(SPECIAL_TYPE_SERIALIZATION))
+            {
+                // TODO
+            }
+            if (types.contains(SPECIAL_TYPE_NONE))
+            {
+                // This plugin has no special type.
+                for (auto hook : info.pluginInterface->PluginHooks())
+                {
+                    if (hook == HOOK_TYPE_NONE)
+                        continue;
+                    if (hook == type)
+                    {
+                        info.pluginInterface->ProcessHook(type, subtype, &data);
+                    }
+                }
+            }
+        }
     }
 
     bool QvPluginHost::InitializePlugin(const QString &internalName)
