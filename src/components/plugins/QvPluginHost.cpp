@@ -64,6 +64,8 @@ namespace Qv2ray::components::plugins
                 }
 
                 connect(info.pluginInterface->GetQObject(), SIGNAL(PluginLog(const QString &)), this, SLOT(QvPluginLog(const QString &)));
+                connect(info.pluginInterface->GetQObject(), SIGNAL(PluginErrorMessageBox(const QString &)), this,
+                        SLOT(QvPluginMessageBox(const QString &)));
                 LOG(MODULE_PLUGINHOST,
                     "Loaded plugin: \"" + info.pluginInterface->Name() + "\" made by: \"" + info.pluginInterface->Author() + "\"")
                 plugins.insert(info.pluginInterface->InternalName(), info);
@@ -116,6 +118,19 @@ namespace Qv2ray::components::plugins
         else
         {
             LOG(MODULE_PLUGINHOST, "UNKNOWN CLIENT: " + log)
+        }
+    }
+
+    void QvPluginHost::QvPluginMessageBox(const QString &msg)
+    {
+        auto _sender = sender();
+        if (auto _interface = qobject_cast<Qv2rayInterface *>(_sender); _interface)
+        {
+            QvMessageBoxWarn(nullptr, _interface->InternalName(), msg);
+        }
+        else
+        {
+            QvMessageBoxWarn(nullptr, "Unknown Plugin", msg);
         }
     }
 
@@ -221,7 +236,7 @@ namespace Qv2ray::components::plugins
         }
 
         auto conf = JsonFromString(StringFromFile(QV2RAY_PLUGIN_SETTINGS_DIR + internalName + ".conf"));
-        plugins[internalName].pluginInterface->InitializePlugin(conf);
+        plugins[internalName].pluginInterface->InitializePlugin(QV2RAY_PLUGIN_SETTINGS_DIR + internalName + "/", conf);
         plugins[internalName].isLoaded = true;
         return true;
     }

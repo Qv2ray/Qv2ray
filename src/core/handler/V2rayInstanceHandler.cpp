@@ -19,8 +19,10 @@ optional<QString> QvConfigHandler::CHStartConnection_p(const ConnectionId &id, c
         emit OnConnected(currentConnectionId);
         PluginHost->SendHook(HOOK_TYPE_STATE_EVENTS, HOOK_STYPE_POST_CONNECTED, v);
     }
-    PluginHost->SendHook(HOOK_TYPE_STATE_EVENTS, HOOK_STYPE_POST_DISCONNECTED, v);
-
+    else
+    {
+        PluginHost->SendHook(HOOK_TYPE_STATE_EVENTS, HOOK_STYPE_POST_DISCONNECTED, v);
+    }
     return result;
 }
 

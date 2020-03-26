@@ -41,18 +41,6 @@ namespace Qv2ray::base::config
         XTOSTRUCT(O(Pages))
     };
 
-    struct Qv2rayPACConfig
-    {
-        bool enablePAC;
-        int port;
-        QString localIP;
-        bool useSocksProxy;
-        Qv2rayPACConfig() : enablePAC(false), port(8989), useSocksProxy(false)
-        {
-        }
-        XTOSTRUCT(O(enablePAC, port, localIP, useSocksProxy))
-    };
-
     struct Qv2rayForwardProxyConfig
     {
         bool enableForwardProxy;
@@ -73,7 +61,6 @@ namespace Qv2ray::base::config
     {
         QString listenip;
         bool setSystemProxy;
-        Qv2rayPACConfig pacConfig;
 
         // SOCKS
         bool useSocks;
@@ -89,13 +76,13 @@ namespace Qv2ray::base::config
         objects::AccountObject httpAccount;
 
         Qv2rayInboundsConfig()
-            : listenip("127.0.0.1"), setSystemProxy(true), pacConfig(), useSocks(true), socks_port(1088), socks_useAuth(false), socksUDP(true),
+            : listenip("127.0.0.1"), setSystemProxy(true), useSocks(true), socks_port(1088), socks_useAuth(false), socksUDP(true),
               socksLocalIP("127.0.0.1"), socksAccount(), useHTTP(true), http_port(8888), http_useAuth(false), httpAccount()
         {
         }
 
-        XTOSTRUCT(O(setSystemProxy, pacConfig, listenip, useSocks, useHTTP, socks_port, socks_useAuth, socksAccount, socksUDP, socksLocalIP,
-                    http_port, http_useAuth, httpAccount))
+        XTOSTRUCT(O(setSystemProxy, listenip, useSocks, useHTTP, socks_port, socks_useAuth, socksAccount, socksUDP, socksLocalIP, http_port,
+                    http_useAuth, httpAccount))
     };
 
     struct Qv2rayUIConfig

@@ -153,8 +153,6 @@ set(QV2RAY_SOURCES
   src/components/autolaunch/QvAutoLaunch.cpp
   src/components/geosite/QvGeositeReader.cpp
   src/components/icmping/win/ICMPPinger.cpp
-  src/components/pac/QvGFWPACConverter.cpp
-  src/components/pac/QvPACHandler.cpp
   src/components/plugins/toolbar/QvToolbar.cpp
   src/components/plugins/toolbar/QvToolbar_linux.cpp
   src/components/plugins/toolbar/QvToolbar_win.cpp
@@ -236,7 +234,6 @@ set(QV2RAY_SOURCES
   src/components/darkmode/DarkmodeDetector.hpp
   src/components/geosite/QvGeositeReader.hpp
   src/components/icmping/win/ICMPPinger.hpp
-  src/components/pac/QvPACHandler.hpp
   src/components/plugins/toolbar/QvToolbar.hpp
   src/components/plugins/interface/QvPluginInterface.hpp
   src/components/plugins/QvPluginHost.hpp

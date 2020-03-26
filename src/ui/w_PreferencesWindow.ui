@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>1010</width>
-    <height>629</height>
+    <height>622</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,7 +23,7 @@
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tabWidgetPage1">
       <attribute name="title">
@@ -490,8 +490,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>1016</width>
-            <height>604</height>
+            <width>964</width>
+            <height>603</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -529,83 +529,6 @@
            </item>
            <item>
             <layout class="QGridLayout" name="gridLayout_11">
-             <item row="0" column="1">
-              <widget class="QGroupBox" name="httpGroupBox">
-               <property name="title">
-                <string>HTTP Settings</string>
-               </property>
-               <property name="checkable">
-                <bool>true</bool>
-               </property>
-               <property name="checked">
-                <bool>false</bool>
-               </property>
-               <layout class="QFormLayout" name="formLayout_7">
-                <item row="0" column="0">
-                 <widget class="QLabel" name="label_3">
-                  <property name="text">
-                   <string>Port</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="1">
-                 <widget class="QSpinBox" name="httpPortLE">
-                  <property name="minimum">
-                   <number>1</number>
-                  </property>
-                  <property name="maximum">
-                   <number>65535</number>
-                  </property>
-                  <property name="value">
-                   <number>18001</number>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="0">
-                 <widget class="QLabel" name="label_9">
-                  <property name="text">
-                   <string>Authentication</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="1">
-                 <widget class="QCheckBox" name="httpAuthCB">
-                  <property name="text">
-                   <string>Enabled</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="0">
-                 <widget class="QLabel" name="label_2">
-                  <property name="text">
-                   <string>Username</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="1">
-                 <widget class="QLineEdit" name="httpAuthUsernameTxt">
-                  <property name="placeholderText">
-                   <string notr="true">user</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="0">
-                 <widget class="QLabel" name="label_13">
-                  <property name="text">
-                   <string>Password</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="1">
-                 <widget class="QLineEdit" name="httpAuthPasswordTxt">
-                  <property name="placeholderText">
-                   <string notr="true">pass</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </widget>
-             </item>
              <item row="0" column="0">
               <widget class="QGroupBox" name="socksGroupBox">
                <property name="title">
@@ -711,10 +634,10 @@
                </layout>
               </widget>
              </item>
-             <item row="1" column="1">
-              <widget class="QGroupBox" name="tProxyGroupBox">
+             <item row="0" column="1">
+              <widget class="QGroupBox" name="httpGroupBox">
                <property name="title">
-                <string>Transparent Proxy Settings</string>
+                <string>HTTP Settings</string>
                </property>
                <property name="checkable">
                 <bool>true</bool>
@@ -722,199 +645,16 @@
                <property name="checked">
                 <bool>false</bool>
                </property>
-               <layout class="QVBoxLayout" name="verticalLayout_11" stretch="0,0,0,1">
-                <item>
-                 <widget class="QLabel" name="label_72">
-                  <property name="font">
-                   <font>
-                    <weight>75</weight>
-                    <italic>true</italic>
-                    <bold>true</bold>
-                   </font>
-                  </property>
-                  <property name="text">
-                   <string>All settings below will only be applied onto simple connection.</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QCheckBox" name="checkBox">
-                  <property name="text">
-                   <string>Add Docodemo-door inbound</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout">
-                  <item>
-                   <widget class="QLabel" name="label_73">
-                    <property name="text">
-                     <string>Address</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLineEdit" name="lineEdit">
-                    <property name="placeholderText">
-                     <string>127.0.0.1</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLabel" name="label_77">
-                    <property name="text">
-                     <string>Port</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QSpinBox" name="spinBox">
-                    <property name="minimum">
-                     <number>1</number>
-                    </property>
-                    <property name="maximum">
-                     <number>65535</number>
-                    </property>
-                    <property name="value">
-                     <number>12345</number>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QCheckBox" name="checkBox_2">
-                    <property name="text">
-                     <string>TCP</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QCheckBox" name="checkBox_3">
-                    <property name="text">
-                     <string>UDP</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QCheckBox" name="checkBox_4">
-                    <property name="text">
-                     <string>Follow Redirect</string>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </item>
-                <item>
-                 <widget class="QGroupBox" name="groupBox_2">
-                  <property name="title">
-                   <string>Override Connection SockOpt Settings</string>
-                  </property>
-                  <property name="checkable">
-                   <bool>true</bool>
-                  </property>
-                  <property name="checked">
-                   <bool>false</bool>
-                  </property>
-                  <layout class="QGridLayout" name="gridLayout_12" columnstretch="0,1,0,1">
-                   <item row="2" column="1">
-                    <widget class="QCheckBox" name="checkBox_5">
-                     <property name="text">
-                      <string>Enabled</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="2" column="0">
-                    <widget class="QLabel" name="label_76">
-                     <property name="text">
-                      <string>TCP Fast Open</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="2" column="2">
-                    <widget class="QLabel" name="label_75">
-                     <property name="text">
-                      <string>Mark</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="0">
-                    <widget class="QLabel" name="label_71">
-                     <property name="text">
-                      <string>Match Contains</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="2" column="3">
-                    <widget class="QSpinBox" name="spinBox_2"/>
-                   </item>
-                   <item row="1" column="2">
-                    <widget class="QLabel" name="label_78">
-                     <property name="text">
-                      <string>TProxy Mode</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="3">
-                    <widget class="QComboBox" name="comboBox_2"/>
-                   </item>
-                   <item row="0" column="0" colspan="4">
-                    <widget class="QLabel" name="label_79">
-                     <property name="font">
-                      <font>
-                       <weight>75</weight>
-                       <italic>true</italic>
-                       <bold>true</bold>
-                      </font>
-                     </property>
-                     <property name="text">
-                      <string>Settings will be added to the StreamSettings for matched connections.</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="1">
-                    <widget class="QLineEdit" name="lineEdit_2"/>
-                   </item>
-                  </layout>
-                 </widget>
-                </item>
-               </layout>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QGroupBox" name="pacGroupBox">
-               <property name="contextMenuPolicy">
-                <enum>Qt::PreventContextMenu</enum>
-               </property>
-               <property name="title">
-                <string>PAC Settings</string>
-               </property>
-               <property name="checkable">
-                <bool>true</bool>
-               </property>
-               <property name="checked">
-                <bool>false</bool>
-               </property>
-               <layout class="QFormLayout" name="formLayout_11">
-                <item row="0" column="0" colspan="2">
-                 <widget class="QLabel" name="label_74">
-                  <property name="font">
-                   <font>
-                    <italic>true</italic>
-                   </font>
-                  </property>
-                  <property name="text">
-                   <string>The system proxy will be configured to use the PAC instead of HTTP and SOCKS.</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="0">
-                 <widget class="QLabel" name="label_57">
+               <layout class="QFormLayout" name="formLayout_7">
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_3">
                   <property name="text">
                    <string>Port</string>
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="1">
-                 <widget class="QSpinBox" name="pacPortSB">
+                <item row="0" column="1">
+                 <widget class="QSpinBox" name="httpPortLE">
                   <property name="minimum">
                    <number>1</number>
                   </property>
@@ -922,140 +662,49 @@
                    <number>65535</number>
                   </property>
                   <property name="value">
-                   <number>8088</number>
+                   <number>18001</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QLabel" name="label_9">
+                  <property name="text">
+                   <string>Authentication</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QCheckBox" name="httpAuthCB">
+                  <property name="text">
+                   <string>Enabled</string>
                   </property>
                  </widget>
                 </item>
                 <item row="2" column="0">
-                 <widget class="QLabel" name="label_56">
+                 <widget class="QLabel" name="label_2">
                   <property name="text">
-                   <string>Local IP for PAC</string>
+                   <string>Username</string>
                   </property>
                  </widget>
                 </item>
                 <item row="2" column="1">
-                 <widget class="QLineEdit" name="pacProxyTxt">
+                 <widget class="QLineEdit" name="httpAuthUsernameTxt">
                   <property name="placeholderText">
-                   <string>127.0.0.1</string>
+                   <string notr="true">user</string>
                   </property>
                  </widget>
                 </item>
                 <item row="3" column="0">
-                 <widget class="QLabel" name="label_63">
+                 <widget class="QLabel" name="label_13">
                   <property name="text">
-                   <string>Use Proxy</string>
+                   <string>Password</string>
                   </property>
                  </widget>
                 </item>
                 <item row="3" column="1">
-                 <widget class="QComboBox" name="pacProxyCB">
-                  <item>
-                   <property name="text">
-                    <string>HTTP</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>SOCKS</string>
-                   </property>
-                  </item>
-                 </widget>
-                </item>
-                <item row="4" column="0">
-                 <widget class="QLabel" name="label_58">
-                  <property name="text">
-                   <string>Import GFWList</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="4" column="1">
-                 <layout class="QHBoxLayout" name="horizontalLayout_2">
-                  <item>
-                   <widget class="QComboBox" name="gfwListCB">
-                    <item>
-                     <property name="text">
-                      <string>Mirror: Gitlab</string>
-                     </property>
-                    </item>
-                    <item>
-                     <property name="text">
-                      <string>Github</string>
-                     </property>
-                    </item>
-                    <item>
-                     <property name="text">
-                      <string>Mirror: Pagure</string>
-                     </property>
-                    </item>
-                    <item>
-                     <property name="text">
-                      <string>Mirror: Repo.or.cz</string>
-                     </property>
-                    </item>
-                    <item>
-                     <property name="text">
-                      <string>Mirror: Bitbucket</string>
-                     </property>
-                    </item>
-                    <item>
-                     <property name="text">
-                      <string>Mirror: TuxFamily</string>
-                     </property>
-                    </item>
-                    <item>
-                     <property name="text">
-                      <string>GFWList File</string>
-                     </property>
-                    </item>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QCheckBox" name="getGFWListWithProxyCB">
-                    <property name="text">
-                     <string>Download with System Proxy</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QToolButton" name="pacGoBtn">
-                    <property name="text">
-                     <string>Go</string>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </item>
-                <item row="5" column="0">
-                 <widget class="QLabel" name="label_62">
-                  <property name="text">
-                   <string>Edit PAC</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="5" column="1">
-                 <widget class="QPushButton" name="pushButton">
-                  <property name="text">
-                   <string>Open PAC Folder</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="6" column="0">
-                 <widget class="QLabel" name="label_66">
-                  <property name="text">
-                   <string>PAC Access Path</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="6" column="1">
-                 <widget class="QLabel" name="pacListenAddrLabel">
-                  <property name="cursor">
-                   <cursorShape>IBeamCursor</cursorShape>
-                  </property>
-                  <property name="text">
-                   <string/>
-                  </property>
-                  <property name="textInteractionFlags">
-                   <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+                 <widget class="QLineEdit" name="httpAuthPasswordTxt">
+                  <property name="placeholderText">
+                   <string notr="true">pass</string>
                   </property>
                  </widget>
                 </item>
@@ -1063,6 +712,174 @@
               </widget>
              </item>
             </layout>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="tProxyGroupBox">
+             <property name="title">
+              <string>Transparent Proxy Settings</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="checked">
+              <bool>false</bool>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_11" stretch="0,0,0,1">
+              <item>
+               <widget class="QLabel" name="label_72">
+                <property name="font">
+                 <font>
+                  <weight>75</weight>
+                  <italic>true</italic>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>All settings below will only be applied onto simple connection.</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="checkBox">
+                <property name="text">
+                 <string>Add Docodemo-door inbound</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout">
+                <item>
+                 <widget class="QLabel" name="label_73">
+                  <property name="text">
+                   <string>Address</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="lineEdit">
+                  <property name="placeholderText">
+                   <string>127.0.0.1</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_77">
+                  <property name="text">
+                   <string>Port</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSpinBox" name="spinBox">
+                  <property name="minimum">
+                   <number>1</number>
+                  </property>
+                  <property name="maximum">
+                   <number>65535</number>
+                  </property>
+                  <property name="value">
+                   <number>12345</number>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="checkBox_2">
+                  <property name="text">
+                   <string>TCP</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="checkBox_3">
+                  <property name="text">
+                   <string>UDP</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="checkBox_4">
+                  <property name="text">
+                   <string>Follow Redirect</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <widget class="QGroupBox" name="groupBox_2">
+                <property name="title">
+                 <string>Override Connection SockOpt Settings</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="checked">
+                 <bool>false</bool>
+                </property>
+                <layout class="QGridLayout" name="gridLayout_12" columnstretch="0,1,0,1">
+                 <item row="2" column="1">
+                  <widget class="QCheckBox" name="checkBox_5">
+                   <property name="text">
+                    <string>Enabled</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="0">
+                  <widget class="QLabel" name="label_76">
+                   <property name="text">
+                    <string>TCP Fast Open</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="2">
+                  <widget class="QLabel" name="label_75">
+                   <property name="text">
+                    <string>Mark</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="0">
+                  <widget class="QLabel" name="label_71">
+                   <property name="text">
+                    <string>Match Contains</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="3">
+                  <widget class="QSpinBox" name="spinBox_2"/>
+                 </item>
+                 <item row="1" column="2">
+                  <widget class="QLabel" name="label_78">
+                   <property name="text">
+                    <string>TProxy Mode</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="3">
+                  <widget class="QComboBox" name="comboBox_2"/>
+                 </item>
+                 <item row="0" column="0" colspan="4">
+                  <widget class="QLabel" name="label_79">
+                   <property name="font">
+                    <font>
+                     <weight>75</weight>
+                     <italic>true</italic>
+                     <bold>true</bold>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Settings will be added to the StreamSettings for matched connections.</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="1">
+                  <widget class="QLineEdit" name="lineEdit_2"/>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+             </layout>
+            </widget>
            </item>
            <item>
             <spacer name="verticalSpacer_10">
@@ -1999,12 +1816,6 @@ p, li { white-space: pre-wrap; }
   <tabstop>httpAuthCB</tabstop>
   <tabstop>httpAuthUsernameTxt</tabstop>
   <tabstop>httpAuthPasswordTxt</tabstop>
-  <tabstop>pacPortSB</tabstop>
-  <tabstop>pacProxyTxt</tabstop>
-  <tabstop>pacProxyCB</tabstop>
-  <tabstop>gfwListCB</tabstop>
-  <tabstop>pacGoBtn</tabstop>
-  <tabstop>pushButton</tabstop>
   <tabstop>proxyDefaultCb</tabstop>
   <tabstop>bypassCNCb</tabstop>
   <tabstop>localDNSCb</tabstop>
