@@ -158,7 +158,8 @@ set(QV2RAY_SOURCES
   src/common/QvTranslator.cpp
   src/components/autolaunch/QvAutoLaunch.cpp
   src/components/geosite/QvGeositeReader.cpp
-  src/components/icmping/win/ICMPPinger.cpp
+  src/components/latency/win/ICMPPinger.cpp
+  src/components/latency/QvTCPing.cpp
   src/components/pac/QvGFWPACConverter.cpp
   src/components/pac/QvPACHandler.cpp
   src/components/plugins/toolbar/QvToolbar.cpp
@@ -183,7 +184,6 @@ set(QV2RAY_SOURCES
   src/core/kernel/QvKernelABIChecker.cpp
   src/core/settings/SettingsBackend.cpp
   src/core/settings/SettingsUpgrade.cpp
-  src/core/tcping/QvTCPing.cpp
   src/main.cpp
   src/ui/editors/w_InboundEditor.cpp
   src/ui/editors/w_JsonEditor.cpp
@@ -240,7 +240,8 @@ set(QV2RAY_SOURCES
   src/components/autolaunch/QvAutoLaunch.hpp
   src/components/darkmode/DarkmodeDetector.hpp
   src/components/geosite/QvGeositeReader.hpp
-  src/components/icmping/win/ICMPPinger.hpp
+  src/components/latency/win/ICMPPinger.hpp
+  src/components/latency/QvTCPing.hpp
   src/components/pac/QvPACHandler.hpp
   src/components/plugins/toolbar/QvToolbar.hpp
   src/components/proxy/QvProxyConfigurator.hpp
@@ -258,7 +259,6 @@ set(QV2RAY_SOURCES
   src/core/kernel/KernelInteractions.hpp
   src/core/kernel/QvKernelABIChecker.hpp
   src/core/settings/SettingsBackend.hpp
-  src/core/tcping/QvTCPing.hpp
   src/ui/editors/w_InboundEditor.hpp
   src/ui/editors/w_JsonEditor.hpp
   src/ui/editors/w_OutboundEditor.hpp

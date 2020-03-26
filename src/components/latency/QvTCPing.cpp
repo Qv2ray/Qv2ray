@@ -11,7 +11,7 @@
 #include "QvTCPing.hpp"
 #include "core/handler/ConfigHandler.hpp"
 
-namespace Qv2ray::core::tcping
+namespace Qv2ray::components::tcping
 {
     static int resolveHost(const std::string &host, int portnr, struct addrinfo **res);
     static int testLatency(struct addrinfo *addr, std::chrono::system_clock::time_point *start, std::chrono::system_clock::time_point *end);
