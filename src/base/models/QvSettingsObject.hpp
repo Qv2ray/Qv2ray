@@ -113,17 +113,24 @@ namespace Qv2ray::base::config
 
     struct Qv2rayRouteConfig_Impl
     {
-        QList<QString> proxy;
-        QList<QString> block;
         QList<QString> direct;
+        QList<QString> block;
+        QList<QString> proxy;
+        Qv2rayRouteConfig_Impl(){};
+        Qv2rayRouteConfig_Impl(const QList<QString> &_direct, const QList<QString> &_block, const QList<QString> &_proxy)
+            : direct(_direct), block(_block), proxy(_proxy){};
         XTOSTRUCT(O(proxy, block, direct))
     };
 
     struct Qv2rayRouteConfig
     {
+        QString domainStrategy;
         Qv2rayRouteConfig_Impl domains;
         Qv2rayRouteConfig_Impl ips;
-        XTOSTRUCT(O(domains, ips))
+        Qv2rayRouteConfig(){};
+        Qv2rayRouteConfig(const Qv2rayRouteConfig_Impl &_domains, const Qv2rayRouteConfig_Impl &_ips, const QString &ds)
+            : domainStrategy(ds), domains(_domains), ips(_ips){};
+        XTOSTRUCT(O(domainStrategy, domains, ips))
     };
 
     struct Qv2rayConnectionConfig

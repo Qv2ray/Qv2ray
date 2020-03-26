@@ -8,15 +8,14 @@ namespace Qv2ray::core::connection
     namespace Generation
     {
         // -------------------------- BEGIN CONFIG GENERATIONS
-        // ----------------------------------------------------------------------------
         ROUTING GenerateRoutes(bool enableProxy, bool bypassCN, const QString &defaultOutboundTag)
         {
+            auto &routeConfig = GlobalConfig.connectionConfig.routeConfig;
             ROUTING root;
-            root.insert("domainStrategy", "IPIfNonMatch");
+            root.insert("domainStrategy", routeConfig.domainStrategy);
             //
             // For Rules list
             ROUTERULELIST rulesList;
-
             if (!enableProxy)
             {
                 // This is added to disable all proxies, as a alternative
@@ -28,7 +27,6 @@ namespace Qv2ray::core::connection
             rulesList.append(GenerateSingleRouteRule("geoip:private", false, OUTBOUND_TAG_DIRECT));
             //
             // To the route list.
-            auto &routeConfig = GlobalConfig.connectionConfig.routeConfig;
             if (!routeConfig.domains.block.isEmpty())
             {
                 rulesList.append(GenerateSingleRouteRule(routeConfig.domains.block, true, OUTBOUND_TAG_BLACKHOLE));
@@ -72,21 +70,22 @@ namespace Qv2ray::core::connection
             RROOT
         }
 
-        ROUTERULE GenerateSingleRouteRule(QString str, bool isDomain, QString outboundTag, QString type)
+        ROUTERULE GenerateSingleRouteRule(const QString &str, bool isDomain, const QString &outboundTag, const QString &type)
         {
             return GenerateSingleRouteRule(QStringList{ str }, isDomain, outboundTag, type);
         }
 
-        ROUTERULE GenerateSingleRouteRule(QStringList list, bool isDomain, QString outboundTag, QString type)
+        ROUTERULE GenerateSingleRouteRule(const QStringList &rules, bool isDomain, const QString &outboundTag, const QString &type)
         {
             ROUTERULE root;
+            auto list = rules;
             list.removeAll("");
-            root.insert(isDomain ? "domain" : "ip", QJsonArray::fromStringList(list));
+            root.insert(isDomain ? "domain" : "ip", QJsonArray::fromStringList(rules));
             JADD(outboundTag, type)
             RROOT
         }
 
-        OUTBOUNDSETTING GenerateFreedomOUT(QString domainStrategy, QString redirect, int userLevel)
+        OUTBOUNDSETTING GenerateFreedomOUT(const QString &domainStrategy, const QString &redirect, int userLevel)
         {
             OUTBOUNDSETTING root;
             JADD(domainStrategy, redirect, userLevel)
@@ -101,13 +100,12 @@ namespace Qv2ray::core::connection
             RROOT
         }
 
-        OUTBOUNDSETTING
-        GenerateShadowSocksOUT(QList<ShadowSocksServerObject> servers)
+        OUTBOUNDSETTING GenerateShadowSocksOUT(const QList<ShadowSocksServerObject> &servers)
         {
             OUTBOUNDSETTING root;
             QJsonArray x;
 
-            foreach (auto server, servers)
+            for (auto server : servers)
             {
                 x.append(GenerateShadowSocksServerOUT(server.email, server.address, server.port, server.method, server.password, server.ota,
                                                       server.level));
@@ -117,22 +115,22 @@ namespace Qv2ray::core::connection
             RROOT
         }
 
-        OUTBOUNDSETTING GenerateShadowSocksServerOUT(QString email, QString address, int port, QString method, QString password, bool ota,
-                                                     int level)
+        OUTBOUNDSETTING GenerateShadowSocksServerOUT(const QString &email, const QString &address, int port, const QString &method,
+                                                     const QString &password, bool ota, int level)
         {
             OUTBOUNDSETTING root;
             JADD(email, address, port, method, password, level, ota)
             RROOT
         }
 
-        QJsonObject GenerateDNS(bool withLocalhost, QStringList dnsServers)
+        QJsonObject GenerateDNS(bool withLocalhost, const QStringList &dnsServers)
         {
             QJsonObject root;
             QJsonArray servers(QJsonArray::fromStringList(dnsServers));
 
             if (withLocalhost)
             {
-                // https://github.com/lhy0403/Qv2ray/issues/64
+                // https://github.com/Qv2ray/Qv2ray/issues/64
                 // The fix patch didn't touch this line below.
                 //
                 // Should we APPEND localhost or PUSH_FRONT localhost?
@@ -143,14 +141,15 @@ namespace Qv2ray::core::connection
             RROOT
         }
 
-        INBOUNDSETTING GenerateDokodemoIN(QString address, int port, QString network, int timeout, bool followRedirect, int userLevel)
+        INBOUNDSETTING GenerateDokodemoIN(const QString &address, int port, const QString &network, int timeout, bool followRedirect,
+                                          int userLevel)
         {
             INBOUNDSETTING root;
             JADD(address, port, network, timeout, followRedirect, userLevel)
             RROOT
         }
 
-        INBOUNDSETTING GenerateHTTPIN(QList<AccountObject> _accounts, int timeout, bool allowTransparent, int userLevel)
+        INBOUNDSETTING GenerateHTTPIN(const QList<AccountObject> &_accounts, int timeout, bool allowTransparent, int userLevel)
         {
             INBOUNDSETTING root;
             QJsonArray accounts;
@@ -174,7 +173,7 @@ namespace Qv2ray::core::connection
             RROOT
         }
 
-        OUTBOUNDSETTING GenerateHTTPSOCKSOut(QString address, int port, bool useAuth, QString username, QString password)
+        OUTBOUNDSETTING GenerateHTTPSOCKSOut(const QString &address, int port, bool useAuth, const QString &username, const QString &password)
         {
             OUTBOUNDSETTING root;
             QJsonArray servers;
@@ -199,7 +198,7 @@ namespace Qv2ray::core::connection
             RROOT
         }
 
-        INBOUNDSETTING GenerateSocksIN(QString auth, QList<AccountObject> _accounts, bool udp, QString ip, int userLevel)
+        INBOUNDSETTING GenerateSocksIN(const QString &auth, const QList<AccountObject> &_accounts, bool udp, const QString &ip, int userLevel)
         {
             INBOUNDSETTING root;
             QJsonArray accounts;
@@ -231,16 +230,16 @@ namespace Qv2ray::core::connection
             RROOT
         }
 
-        OUTBOUND GenerateOutboundEntry(QString protocol, OUTBOUNDSETTING settings, QJsonObject streamSettings, QJsonObject mux,
-                                       QString sendThrough, QString tag)
+        OUTBOUND GenerateOutboundEntry(const QString &protocol, const OUTBOUNDSETTING &settings, const QJsonObject &streamSettings,
+                                       const QJsonObject &mux, const QString &sendThrough, const QString &tag)
         {
             OUTBOUND root;
             JADD(sendThrough, protocol, settings, tag, streamSettings, mux)
             RROOT
         }
 
-        INBOUND GenerateInboundEntry(QString listen, int port, QString protocol, INBOUNDSETTING settings, QString tag, QJsonObject sniffing,
-                                     QJsonObject allocate)
+        INBOUND GenerateInboundEntry(const QString &listen, int port, const QString &protocol, const INBOUNDSETTING &settings,
+                                     const QString &tag, const QJsonObject &sniffing, const QJsonObject &allocate)
         {
             INBOUND root;
             DEBUG(MODULE_CONNECTION, "Allocation is not used here, Not Implemented")
@@ -249,7 +248,7 @@ namespace Qv2ray::core::connection
             RROOT
         }
 
-        QJsonObject GenerateAPIEntry(QString tag, bool withHandler, bool withLogger, bool withStats)
+        QJsonObject GenerateAPIEntry(const QString &tag, bool withHandler, bool withLogger, bool withStats)
         {
             QJsonObject root;
             QJsonArray services;
@@ -268,9 +267,9 @@ namespace Qv2ray::core::connection
         }
 
         // -------------------------- END CONFIG GENERATIONS
-        // ------------------------------------------------------------------------------
+        //
         // BEGIN RUNTIME CONFIG GENERATION
-
+        // We need copy construct here
         CONFIGROOT GenerateRuntimeConfig(CONFIGROOT root)
         {
             // Check if is complex BEFORE adding anything.

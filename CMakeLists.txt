@@ -165,6 +165,7 @@ set(QV2RAY_SOURCES
   src/components/plugins/toolbar/QvToolbar_linux.cpp
   src/components/plugins/toolbar/QvToolbar_win.cpp
   src/components/proxy/QvProxyConfigurator.cpp
+  src/components/route/RouteSchemeIO.cpp
   src/components/speedchart/speedplotview.cpp
   src/components/speedchart/speedwidget.cpp
   src/components/darkmode/DarkmodeDetector.cpp
@@ -243,6 +244,8 @@ set(QV2RAY_SOURCES
   src/components/pac/QvPACHandler.hpp
   src/components/plugins/toolbar/QvToolbar.hpp
   src/components/proxy/QvProxyConfigurator.hpp
+  src/components/route/RouteSchemeIO.hpp
+  src/components/route/presets/RouteScheme_V2rayN.hpp
   src/components/speedchart/speedplotview.hpp
   src/components/speedchart/speedwidget.hpp
   src/core/connection/ConnectionIO.hpp
