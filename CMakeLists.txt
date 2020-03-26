@@ -270,6 +270,7 @@ set(QV2RAY_SOURCES
   src/ui/models/RuleNodeModel.hpp
   src/ui/widgets/ConnectionInfoWidget.hpp
   src/ui/widgets/ConnectionItemWidget.hpp
+  src/ui/widgets/QvAutoCompleteTextEdit.hpp
   src/ui/widgets/StreamSettingsWidget.hpp
   src/ui/widgets/RouteSettingsMatrix.hpp
   src/ui/w_ImportConfig.hpp

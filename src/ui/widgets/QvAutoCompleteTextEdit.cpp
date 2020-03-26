@@ -48,7 +48,7 @@
 **
 ****************************************************************************/
 
-#include "QvAutoCompleteTextEdit.h"
+#include "QvAutoCompleteTextEdit.hpp"
 
 #include <QAbstractItemModel>
 #include <QAbstractItemView>
@@ -66,6 +66,7 @@ namespace Qv2ray::ui::widgets
     AutoCompleteTextEdit::AutoCompleteTextEdit(const QString &prefix, const QStringList &sourceStrings, QWidget *parent) : QTextEdit(parent)
     {
         this->prefix = prefix;
+        this->setLineWrapMode(QTextEdit::NoWrap);
         c = new QCompleter(this);
         c->setModel(new QStringListModel(sourceStrings, c));
         c->setWidget(this);
