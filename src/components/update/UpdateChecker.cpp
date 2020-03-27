@@ -29,8 +29,6 @@ namespace Qv2ray::components
         auto updateChannel = GlobalConfig.updateConfig.updateChannel;
         LOG(MODULE_NETWORK, "Start checking update for channel ID: " + QSTRN(updateChannel))
         requestHelper->get(UpdateChannelLink[updateChannel]);
-#else
-        Q_UNUSED(updateChannel)
 #endif
     }
     void QvUpdateChecker::VersionUpdate(QByteArray &data)
