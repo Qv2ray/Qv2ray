@@ -61,6 +61,9 @@ void MainWindow::UpdateColorScheme()
     action_RCM_Delete->setIcon(QICON_R("delete.png"));
     action_RCM_ClearUsage->setIcon(QICON_R("delete.png"));
     //
+    clearChartBtn->setIcon(QICON_R("delete.png"));
+    clearlogButton->setIcon(QICON_R("delete.png"));
+    //
     locateBtn->setIcon(QICON_R("locate.png"));
     sortBtn->setIcon(QICON_R("sort.png"));
 }

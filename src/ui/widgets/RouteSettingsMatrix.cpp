@@ -169,6 +169,7 @@ void RouteSettingsMatrixWidget::on_exportSchemeBtn_clicked()
         scheme.name = schemeName;
         scheme.author = schemeAuthor;
         scheme.description = schemeDescription;
+        scheme.domainStrategy = config.domainStrategy;
         scheme.ips = config.ips;
         scheme.domains = config.domains;
 
