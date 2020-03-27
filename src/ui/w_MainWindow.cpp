@@ -3,6 +3,7 @@
 #include "components/pac/QvPACHandler.hpp"
 #include "components/plugins/toolbar/QvToolbar.hpp"
 #include "components/proxy/QvProxyConfigurator.hpp"
+#include "components/update/UpdateChecker.hpp"
 #include "core/settings/SettingsBackend.hpp"
 #include "ui/editors/w_JsonEditor.hpp"
 #include "ui/editors/w_OutboundEditor.hpp"
@@ -23,7 +24,6 @@
 #include <QMenu>
 #include <QStandardItemModel>
 #include <QUrl>
-#include <QVersionNumber>
 
 #define TRAY_TOOLTIP_PREFIX "Qv2ray " QV2RAY_VERSION_STRING
 #define CheckCurrentWidget                                                                                                                      \
@@ -286,12 +286,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     if (needShowWindow)
         this->show();
 
-#ifndef DISABLE_AUTO_UPDATE
-    requestHelper = new QvHttpRequestHelper(this);
-    connect(requestHelper, &QvHttpRequestHelper::httpRequestFinished, this, &MainWindow::VersionUpdate);
-    requestHelper->get("https://api.github.com/repos/Qv2ray/Qv2ray/releases/latest");
-#endif
-
     if (StartupOption.enableToolbarPlguin)
     {
         LOG(MODULE_UI, "Plugin daemon is enabled.")
@@ -302,6 +296,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     //
     splitter->setSizes(QList<int>() << 100 << 300);
     qvLogTimerId = startTimer(1000);
+    //
+    UpdateChecker.CheckUpdate();
 }
 
 void MainWindow::timerEvent(QTimerEvent *event)
@@ -359,48 +355,6 @@ void MainWindow::on_action_StartThis_triggered()
         widget->BeginConnection();
     }
 }
-
-#ifndef DISABLE_AUTO_UPDATE
-void MainWindow::VersionUpdate(QByteArray &data)
-{
-    // Version update handler.
-    QJsonObject root = JsonFromString(QString(data));
-    //
-    QVersionNumber newVersion = QVersionNumber::fromString(root["tag_name"].toString("v").remove(0, 1));
-    QVersionNumber currentVersion = QVersionNumber::fromString(QString(QV2RAY_VERSION_STRING).remove(0, 1));
-    QVersionNumber ignoredVersion = QVersionNumber::fromString(GlobalConfig.ignoredVersion);
-    LOG(MODULE_UPDATE, "Received update info, Latest: " + newVersion.toString() + " Current: " + currentVersion.toString() +
-                           " Ignored: " + ignoredVersion.toString())
-
-    // If the version is newer than us.
-    // And new version is newer than the ignored version.
-    if (newVersion > currentVersion && newVersion > ignoredVersion)
-    {
-        LOG(MODULE_UPDATE, "New version detected.")
-        auto link = root["html_url"].toString("");
-        auto result = QvMessageBoxAsk(this, tr("Update"),
-                                      tr("Found a new version: ") +                 //
-                                          root["tag_name"].toString("") + NEWLINE + //
-                                          root["name"].toString("") +               //
-                                          NEWLINE "------------" NEWLINE +          //
-                                          root["body"].toString("") +               //
-                                          NEWLINE "------------" NEWLINE +          //
-                                          tr("Download Link: ") + link,
-                                      QMessageBox::Ignore);
-
-        if (result == QMessageBox::Yes)
-        {
-            QDesktopServices::openUrl(QUrl::fromUserInput(link));
-        }
-        else if (result == QMessageBox::Ignore)
-        {
-            // Set and save ingored version.
-            GlobalConfig.ignoredVersion = newVersion.toString();
-            SaveGlobalSettings();
-        }
-    }
-}
-#endif
 
 MainWindow::~MainWindow()
 {

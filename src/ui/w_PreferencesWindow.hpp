@@ -166,6 +166,8 @@ class PreferencesWindow
 
     void on_startWithLoginCB_stateChanged(int arg1);
 
+    void on_updateChannelCombo_currentIndexChanged(int index);
+
   private:
     //
     RouteSettingsMatrixWidget *routeSettingsWidget;
@@ -177,7 +179,7 @@ class PreferencesWindow
     int CurrentBarLineId;
     int CurrentBarPageId;
     //
-    bool IsConnectionPropertyChanged = false;
+    bool NeedRestart = false;
     bool finishedLoading = false;
     Qv2rayConfig CurrentConfig;
 };

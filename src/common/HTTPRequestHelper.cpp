@@ -136,8 +136,10 @@ namespace Qv2ray::common
             QByteArray empty;
             emit httpRequestFinished(empty);
         }
-
-        emit httpRequestFinished(this->data);
+        else
+        {
+            emit httpRequestFinished(this->data);
+        }
     }
 
     void QvHttpRequestHelper::onReadyRead()
