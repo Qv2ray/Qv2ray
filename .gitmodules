@@ -7,9 +7,6 @@
 [submodule "3rdparty/QNodeEditor"]
 	path = 3rdparty/QNodeEditor
 	url = https://github.com/Qv2ray/QNodeEditor
-[submodule "3rdparty/qzxing"]
-	path = 3rdparty/qzxing
-	url = https://github.com/ftylitak/qzxing
 [submodule "libs/libqvb"]
 	path = libs/libqvb
 	url = https://github.com/Qv2ray/QvRPCBridge
