@@ -157,6 +157,7 @@ set(QV2RAY_SOURCES
   src/common/QJsonModel.cpp
   src/common/QvHelpers.cpp
   src/common/QvTranslator.cpp
+  src/common/QRCodeHelper.cpp
   src/components/autolaunch/QvAutoLaunch.cpp
   src/components/geosite/QvGeositeReader.cpp
   src/components/latency/win/ICMPPinger.cpp
@@ -238,6 +239,7 @@ set(QV2RAY_SOURCES
   src/common/QJsonModel.hpp
   src/common/QvHelpers.hpp
   src/common/QvTranslator.hpp
+  src/common/QRCodeHelper.hpp
   src/components/autolaunch/QvAutoLaunch.hpp
   src/components/darkmode/DarkmodeDetector.hpp
   src/components/geosite/QvGeositeReader.hpp
