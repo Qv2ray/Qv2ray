@@ -9,8 +9,8 @@
 
 const inline QMap<int, QString> UpdateChannelLink //
     {
-        { 0, "https://api.github.com/repos/Qv2ray-dev/Qv2ray/releases/latest" },    //
-        { 1, "https://api.github.com/repos/Qv2ray-dev/Qv2ray/releases?per_page=1" } //
+        { 0, "https://api.github.com/repos/Qv2ray/Qv2ray/releases/latest" },    //
+        { 1, "https://api.github.com/repos/Qv2ray/Qv2ray/releases?per_page=1" } //
     };
 
 namespace Qv2ray::components
