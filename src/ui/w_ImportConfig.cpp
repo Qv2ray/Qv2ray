@@ -1,6 +1,6 @@
 ﻿#include "w_ImportConfig.hpp"
 
-#include "3rdparty/qzxing/src/QZXing.h"
+#include "common/QRCodeHelper.hpp"
 #include "core/CoreUtils.hpp"
 #include "core/connection/ConnectionIO.hpp"
 #include "core/connection/Serialization.hpp"
@@ -83,9 +83,7 @@ void ImportConfigWindow::on_qrFromScreenBtn_clicked()
 
     if (_r == QDialog::Accepted)
     {
-        QZXing qzxing;
-        qzxing.setDecoder(QZXing::DecoderFormat_QR_CODE | QZXing::DecoderFormat_EAN_13);
-        auto str = qzxing.decodeImage(pix);
+        auto str = DecodeQRCode(pix);
 
         if (str.trimmed().isEmpty())
         {
@@ -186,9 +184,7 @@ void ImportConfigWindow::on_selectImageBtn_clicked()
     auto buf = file.readAll();
     file.close();
     //
-    QZXing decoder;
-    decoder.setDecoder(QZXing::DecoderFormat_QR_CODE | QZXing::DecoderFormat_EAN_13);
-    auto str = decoder.decodeImage(QImage::fromData(buf));
+    auto str = DecodeQRCode(QImage::fromData(buf));
 
     if (str.isEmpty())
     {
