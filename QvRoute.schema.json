@@ -2,6 +2,10 @@
     "$schema": "http://json-schema.org/draft-07/schema",
     "description": "路由规则方案",
     "definitions": {
+        "DomainStrategyEntry": {
+            "enum": ["AsIs", "IPIfNonMatch", "IPOnDemand"],
+            "type": "string"
+        },
         "DomainRuleEntry": {
             "examples": [
                 "baidu.com",
@@ -102,8 +106,11 @@
         },
         "ips": {
             "$ref": "#/definitions/IPRule"
+        },
+        "domainStrategy": {
+            "$ref": "#/definitions/DomainStrategyEntry"
         }
     },
-    "required": ["name", "author", "description", "domains", "ips"],
+    "required": ["name", "author", "description", "domains", "ips", "domainStrategy"],
     "type": "object"
 }
