@@ -83,14 +83,15 @@ if(UNIX AND NOT APPLE)
 endif()
 
 set(QV2RAY_QNODEEDITOR_PROVIDER "module" CACHE STRING "qnodeeditor provider")
+set(QV2RAY_ZXING_PROVIDER "module" CACHE STRING "zxing-cpp provider")
 
 include(cmake/translations.cmake)
 include(cmake/qnodeeditor.cmake)
 include(cmake/singleapplication.cmake)
-include(cmake/qzxing.cmake)
 include(cmake/protobuf.cmake)
 include(cmake/cpp-httplib.cmake)
 include(cmake/backend.cmake)
+include(cmake/zxing-cpp.cmake)
 
 if(QV2RAY_BUILD_INFO)
     set(_QV2RAY_BUILD_INFO_STR_ "${QV2RAY_BUILD_INFO}")
@@ -308,7 +309,7 @@ add_executable(${PROJECT_NAME}
   ${QNODEEDITOR_SOURCES}
   ${QNODEEDITOR_QRC_RESOURCES}
   ${SINGLEAPPLICATION_SOURCES}
-  ${QZXING_SOURCES}
+  ${ZXING_SOURCES}
   ${PROTO_SRCS}
   ${PROTO_HDRS}
   ${API_GRPC_SRCS}
@@ -322,6 +323,7 @@ target_link_libraries(${PROJECT_NAME}
   ${QV2RAY_PROTOBUF_LIBRARY}
   ${QV2RAY_BACKEND_LIBRARIES}
   ${QNODEEDITOR_LIBRARY}
+  ${ZXING_LIBRARY}
 )
 
 
@@ -331,7 +333,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE
   ${CMAKE_BINARY_DIR}
   ${QHTTPSERVER_DIR}
   ${QNODEEDITOR_INCLUDE_PATH}
-  ${QZXING_INCLUDE_PATH}
+  ${ZXING_INCLUDE_PATH}
   ${SINGLEAPPLICATION_DIR}
   ${Protobuf_INCLUDE_DIRS}
   ${cpp-httplib_INCLUDE_DIRS}
