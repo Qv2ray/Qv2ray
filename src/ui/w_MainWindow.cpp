@@ -333,7 +333,25 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
                 connectionListWidget->expandItem(connectionListWidget->currentItem());
             }
         }
-        widget->keyPressEvent(e);
+        else if (e->key() == Qt::Key_F2)
+        {
+            widget->BeginRename();
+        }
+    }
+
+    if (e->key() == Qt::Key_Escape)
+    {
+        auto widget = GetItemWidget(connectionListWidget->currentItem());
+        // Check if this key was accpted by the ConnectionItemWidget
+        if (widget && widget->IsRenaming())
+        {
+            widget->CancelRename();
+            return;
+        }
+        else if (this->isActiveWindow())
+        {
+            this->close();
+        }
     }
 }
 
