@@ -1,4 +1,4 @@
-qv2ray (2.3.3~rc1-1) unstable; urgency=medium
+qv2ray (2.4.0~pre1-1) unstable; urgency=medium
 
   * change: ported to zxing-cpp
   * fixed: fixed #else condition in DISABLE_AUTO_UPDATE
