@@ -233,6 +233,12 @@ namespace Qv2ray::core::handlers
         //
         connections.remove(id);
         groups[groupId].connections.removeAll(id);
+        //
+        if (GlobalConfig.autoStartId == id.toString())
+        {
+            GlobalConfig.autoStartId.clear();
+        }
+        //
         emit OnConnectionDeleted(id, groupId);
         //
         bool exists = connectionFile.exists();
@@ -471,13 +477,24 @@ namespace Qv2ray::core::handlers
         {
             return false;
         }
-        bool isAutoConnectionContainedWithin = groups[id].connections.contains(ConnectionId(GlobalConfig.autoStartId));
-        Q_UNUSED(isAutoConnectionContainedWithin)
+        // List that is holding connection IDs to be updated.
+        auto subsList = SplitLines(DecodeSubscriptionString(subscriptionData));
         //
+        if (subsList.count() < 5)
+        {
+            auto yes = QvMessageBoxAsk(
+                           nullptr, tr("Update Subscription"),
+                           tr("%1 entrie(s) have been found from the subscription source, do you want to continue?").arg(subsList.count())) ==
+                       QMessageBox::Yes;
+            if (!yes)
+            {
+                return false;
+            }
+        }
         // Anyway, we try our best to preserve the connection id.
         QMultiMap<QString, ConnectionId> nameMap;
         QMultiMap<tuple<QString, QString, int>, ConnectionId> typeMap;
-        for (auto conn : groups[id].connections)
+        for (const auto conn : groups[id].connections)
         {
             nameMap.insertMulti(GetDisplayName(conn), conn);
             auto [protocol, host, port] = GetConnectionInfo(conn);
@@ -486,19 +503,12 @@ namespace Qv2ray::core::handlers
                 typeMap.insertMulti({ protocol, host, port }, conn);
             }
         }
-        //
-        // List that is holding connection IDs to be updated.
+        QDir().mkpath(QV2RAY_SUBSCRIPTION_DIR + id.toString());
+        bool hasErrorOccured = false;
         // Copy construct here.
         auto connectionsOrig = groups[id].connections;
         groups[id].connections.clear();
-        auto str = DecodeSubscriptionString(subscriptionData);
-        if (str.isEmpty())
-            return false;
         //
-        auto subsList = SplitLines(str);
-        QDir().mkpath(QV2RAY_SUBSCRIPTION_DIR + id.toString());
-
-        bool hasErrorOccured = false;
         for (auto vmess : subsList)
         {
             QString errMessage;
