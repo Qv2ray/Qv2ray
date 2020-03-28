@@ -972,17 +972,17 @@
         <translation>未对复杂配置设置代理。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="99"/>
+        <location filename="../src/ui/w_MainWindow_extra.cpp" line="101"/>
         <source>Update Subscriptions</source>
         <translation>更新订阅</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="100"/>
+        <location filename="../src/ui/w_MainWindow_extra.cpp" line="102"/>
         <source>There are subscriptions need to be updated, please go to subscriptions window to update them.</source>
         <translation>有订阅需要更新，请转到订阅窗口进行更新。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="101"/>
+        <location filename="../src/ui/w_MainWindow_extra.cpp" line="103"/>
         <source>These subscriptions are out-of-date: </source>
         <translation>这些订阅已过期： </translation>
     </message>
@@ -2571,12 +2571,12 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>Qv2ray::components::QvUpdateChecker</name>
     <message>
-        <location filename="../src/components/update/UpdateChecker.cpp" line="65"/>
+        <location filename="../src/components/update/UpdateChecker.cpp" line="64"/>
         <source>Qv2ray Update</source>
         <translation>升级 Qv2ray</translation>
     </message>
     <message>
-        <location filename="../src/components/update/UpdateChecker.cpp" line="66"/>
+        <location filename="../src/components/update/UpdateChecker.cpp" line="65"/>
         <source>A new version of Qv2ray has been found:</source>
         <translation>找到新的版本：</translation>
     </message>
@@ -2598,20 +2598,30 @@ p, li { white-space: pre-wrap; }
     <name>Qv2ray::core::handlers::QvConfigHandler</name>
     <message>
         <location filename="../src/core/handler/ConfigHandler.cpp" line="75"/>
-        <location filename="../src/core/handler/ConfigHandler.cpp" line="308"/>
+        <location filename="../src/core/handler/ConfigHandler.cpp" line="314"/>
         <source>Default Group</source>
         <translation>默认分组</translation>
     </message>
     <message>
-        <location filename="../src/core/handler/ConfigHandler.cpp" line="248"/>
+        <location filename="../src/core/handler/ConfigHandler.cpp" line="254"/>
         <source>File does not exist.</source>
         <translation>文件不存在。</translation>
     </message>
     <message>
-        <location filename="../src/core/handler/ConfigHandler.cpp" line="285"/>
-        <location filename="../src/core/handler/ConfigHandler.cpp" line="416"/>
+        <location filename="../src/core/handler/ConfigHandler.cpp" line="291"/>
+        <location filename="../src/core/handler/ConfigHandler.cpp" line="422"/>
         <source>Group does not exist</source>
         <translation>分组不存在</translation>
+    </message>
+    <message>
+        <location filename="../src/core/handler/ConfigHandler.cpp" line="486"/>
+        <source>Update Subscription</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/handler/ConfigHandler.cpp" line="487"/>
+        <source>%1 entrie(s) have been found from the subscription source, do you want to continue?</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
