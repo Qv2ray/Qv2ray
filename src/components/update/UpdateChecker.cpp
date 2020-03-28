@@ -39,8 +39,7 @@ namespace Qv2ray::components
         if (root.isEmpty())
             return;
         //
-        const auto tagName = root["tag_name"].toString("");
-        const auto newVersionTag = root["tag_name"].toString("v").replace("v", "").replace("-pre", "");
+        const auto newVersionTag = root["tag_name"].toString("v").mid(1);
         //
         auto newVersion = QVersionNumber::fromString(newVersionTag);
         auto currentVersion = QVersionNumber::fromString(QString(QV2RAY_VERSION_STRING).remove(0, 1));
@@ -64,7 +63,7 @@ namespace Qv2ray::components
             auto result = QvMessageBoxAsk(nullptr, //
                                           tr("Qv2ray Update"),
                                           tr("A new version of Qv2ray has been found:") + //
-                                              tagName + NEWLINE +                         //
+                                              "v" + newVersionTag + NEWLINE +             //
                                               name + NEWLINE "------------" NEWLINE +     //
                                               root["body"].toString(""),
                                           QMessageBox::Ignore);
