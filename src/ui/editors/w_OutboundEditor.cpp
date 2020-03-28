@@ -124,6 +124,11 @@ OUTBOUND OutboundEditor::GenerateConnectionJson()
     }
     else if (OutboundType == "socks")
     {
+        if (socks.users.first().user.isEmpty() && socks.users.first().pass.isEmpty())
+        {
+            LOG(MODULE_UI, "Removed empty user form SOCKS settings")
+            socks.users.clear();
+        }
         streaming = QJsonObject();
         LOG(MODULE_CONNECTION, "Socks outbound does not need StreamSettings.")
         QJsonArray servers;
@@ -276,10 +281,14 @@ void OutboundEditor::on_ss_otaCheckBox_stateChanged(int arg1)
 
 void OutboundEditor::on_socks_UserNameTxt_textEdited(const QString &arg1)
 {
+    if (socks.users.isEmpty())
+        socks.users.push_back(SocksServerObject::UserObject());
     socks.users.front().user = arg1;
 }
 
 void OutboundEditor::on_socks_PasswordTxt_textEdited(const QString &arg1)
 {
+    if (socks.users.isEmpty())
+        socks.users.push_back(SocksServerObject::UserObject());
     socks.users.front().pass = arg1;
 }

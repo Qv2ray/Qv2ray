@@ -32,13 +32,17 @@ add_definitions(-DXTOSTRUCT_QT)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt5 COMPONENTS Core Gui Widgets Network REQUIRED)
+find_package(Qt5 5.11 COMPONENTS Core Gui Widgets Network REQUIRED)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
 cmake_policy(SET CMP0071 NEW)
+
+if(CMAKE_VERSION VERSION_GREATER_EQUAL "3.17.0")
+  cmake_policy(SET CMP0100 NEW)
+endif()
 
 if(CMAKE_VERSION VERSION_LESS "3.7.0")
     set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -78,13 +82,16 @@ if(UNIX AND NOT APPLE)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 endif()
 
+set(QV2RAY_QNODEEDITOR_PROVIDER "module" CACHE STRING "qnodeeditor provider")
+set(QV2RAY_ZXING_PROVIDER "module" CACHE STRING "zxing-cpp provider")
+
 include(cmake/translations.cmake)
 include(cmake/qnodeeditor.cmake)
 include(cmake/singleapplication.cmake)
-include(cmake/qzxing.cmake)
 include(cmake/protobuf.cmake)
 include(cmake/cpp-httplib.cmake)
 include(cmake/backend.cmake)
+include(cmake/zxing-cpp.cmake)
 
 if(QV2RAY_BUILD_INFO)
     set(_QV2RAY_BUILD_INFO_STR_ "${QV2RAY_BUILD_INFO}")
@@ -121,15 +128,15 @@ else()
 endif()
 set(EMBED_TRANSLATIONS OFF CACHE BOOL "Embed translations")
 
-if(QV2RAY_DEFAULT_VASSETS_PATH AND NOT STREQUAL "unset")
+if(QV2RAY_DEFAULT_VASSETS_PATH AND NOT QV2RAY_DEFAULT_VASSETS_PATH STREQUAL "unset")
   add_definitions(-DQV2RAY_DEFAULT_VASSETS_PATH="${QV2RAY_DEFAULT_VASSETS_PATH}")
 endif()
 
-if(QV2RAY_DEFAULT_VCORE_PATH AND NOT STREQUAL "unset")
+if(QV2RAY_DEFAULT_VCORE_PATH AND NOT QV2RAY_DEFAULT_VCORE_PATH STREQUAL "unset")
   add_definitions(-DQV2RAY_DEFAULT_VCORE_PATH="${QV2RAY_DEFAULT_VCORE_PATH}")
 endif()
 
-if(QV2RAY_TRANSLATION_PATH AND NOT STREQUAL "unset")
+if(QV2RAY_TRANSLATION_PATH AND NOT QV2RAY_TRANSLATION_PATH STREQUAL "unset")
   add_definitions(-DQV2RAY_TRANSLATION_PATH="${QV2RAY_TRANSLATION_PATH}")
 endif()
 
@@ -150,18 +157,22 @@ set(QV2RAY_SOURCES
   src/common/QJsonModel.cpp
   src/common/QvHelpers.cpp
   src/common/QvTranslator.cpp
+  src/common/QRCodeHelper.cpp
   src/components/autolaunch/QvAutoLaunch.cpp
   src/components/geosite/QvGeositeReader.cpp
-  src/components/icmping/win/ICMPPinger.cpp
+  src/components/latency/win/ICMPPinger.cpp
+  src/components/latency/QvTCPing.cpp
   src/components/pac/QvGFWPACConverter.cpp
   src/components/pac/QvPACHandler.cpp
   src/components/plugins/toolbar/QvToolbar.cpp
   src/components/plugins/toolbar/QvToolbar_linux.cpp
   src/components/plugins/toolbar/QvToolbar_win.cpp
   src/components/proxy/QvProxyConfigurator.cpp
+  src/components/route/RouteSchemeIO.cpp
   src/components/speedchart/speedplotview.cpp
   src/components/speedchart/speedwidget.cpp
   src/components/darkmode/DarkmodeDetector.cpp
+  src/components/update/UpdateChecker.cpp
   src/core/connection/ConnectionIO.cpp
   src/core/connection/Generation.cpp
   src/core/connection/Serialization.cpp
@@ -173,9 +184,9 @@ set(QV2RAY_SOURCES
   src/core/handler/V2rayInstanceHandler.cpp
   src/core/kernel/APIBackend.cpp
   src/core/kernel/KernelInteractions.cpp
+  src/core/kernel/QvKernelABIChecker.cpp
   src/core/settings/SettingsBackend.cpp
   src/core/settings/SettingsUpgrade.cpp
-  src/core/tcping/QvTCPing.cpp
   src/main.cpp
   src/ui/editors/w_InboundEditor.cpp
   src/ui/editors/w_JsonEditor.cpp
@@ -229,15 +240,20 @@ set(QV2RAY_SOURCES
   src/common/QJsonModel.hpp
   src/common/QvHelpers.hpp
   src/common/QvTranslator.hpp
+  src/common/QRCodeHelper.hpp
   src/components/autolaunch/QvAutoLaunch.hpp
   src/components/darkmode/DarkmodeDetector.hpp
   src/components/geosite/QvGeositeReader.hpp
-  src/components/icmping/win/ICMPPinger.hpp
+  src/components/latency/win/ICMPPinger.hpp
+  src/components/latency/QvTCPing.hpp
   src/components/pac/QvPACHandler.hpp
   src/components/plugins/toolbar/QvToolbar.hpp
   src/components/proxy/QvProxyConfigurator.hpp
+  src/components/route/RouteSchemeIO.hpp
+  src/components/route/presets/RouteScheme_V2rayN.hpp
   src/components/speedchart/speedplotview.hpp
   src/components/speedchart/speedwidget.hpp
+  src/components/update/UpdateChecker.hpp
   src/core/connection/ConnectionIO.hpp
   src/core/connection/Generation.hpp
   src/core/connection/Serialization.hpp
@@ -246,8 +262,8 @@ set(QV2RAY_SOURCES
   src/core/handler/ConfigHandler.hpp
   src/core/kernel/APIBackend.hpp
   src/core/kernel/KernelInteractions.hpp
+  src/core/kernel/QvKernelABIChecker.hpp
   src/core/settings/SettingsBackend.hpp
-  src/core/tcping/QvTCPing.hpp
   src/ui/editors/w_InboundEditor.hpp
   src/ui/editors/w_JsonEditor.hpp
   src/ui/editors/w_OutboundEditor.hpp
@@ -259,6 +275,7 @@ set(QV2RAY_SOURCES
   src/ui/models/RuleNodeModel.hpp
   src/ui/widgets/ConnectionInfoWidget.hpp
   src/ui/widgets/ConnectionItemWidget.hpp
+  src/ui/widgets/QvAutoCompleteTextEdit.hpp
   src/ui/widgets/StreamSettingsWidget.hpp
   src/ui/widgets/RouteSettingsMatrix.hpp
   src/ui/w_ImportConfig.hpp
@@ -296,7 +313,7 @@ add_executable(${PROJECT_NAME}
   ${QNODEEDITOR_SOURCES}
   ${QNODEEDITOR_QRC_RESOURCES}
   ${SINGLEAPPLICATION_SOURCES}
-  ${QZXING_SOURCES}
+  ${ZXING_SOURCES}
   ${PROTO_SRCS}
   ${PROTO_HDRS}
   ${API_GRPC_SRCS}
@@ -309,6 +326,8 @@ target_link_libraries(${PROJECT_NAME}
   ${QT_LIBRARY}
   ${QV2RAY_PROTOBUF_LIBRARY}
   ${QV2RAY_BACKEND_LIBRARIES}
+  ${QNODEEDITOR_LIBRARY}
+  ${ZXING_LIBRARY}
 )
 
 
@@ -318,7 +337,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE
   ${CMAKE_BINARY_DIR}
   ${QHTTPSERVER_DIR}
   ${QNODEEDITOR_INCLUDE_PATH}
-  ${QZXING_INCLUDE_PATH}
+  ${ZXING_INCLUDE_PATH}
   ${SINGLEAPPLICATION_DIR}
   ${Protobuf_INCLUDE_DIRS}
   ${cpp-httplib_INCLUDE_DIRS}

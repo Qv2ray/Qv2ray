@@ -24,8 +24,9 @@ using Qv2ray::common::validation::IsValidIPAddress;
     if (!finishedLoading)                                                                                                                       \
         return;
 #define NEEDRESTART                                                                                                                             \
+    LOADINGCHECK                                                                                                                                \
     if (finishedLoading)                                                                                                                        \
-        IsConnectionPropertyChanged = true;
+        NeedRestart = true;
 
 PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), CurrentConfig()
 {
@@ -145,9 +146,14 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
         }
     }
 
-    //
-    cancelIgnoreVersionBtn->setEnabled(CurrentConfig.ignoredVersion != "");
-    ignoredNextVersion->setText(CurrentConfig.ignoredVersion);
+#ifdef DISABLE_AUTO_UPDATE
+    updateSettingsGroupBox->setEnabled(false);
+    updateSettingsGroupBox->setToolTip(tr("Update is disabled by your vendor."));
+#endif
+
+    updateChannelCombo->setCurrentIndex(CurrentConfig.updateConfig.updateChannel);
+    cancelIgnoreVersionBtn->setEnabled(!CurrentConfig.updateConfig.ignoredVersion.isEmpty());
+    ignoredNextVersion->setText(CurrentConfig.updateConfig.ignoredVersion);
 
     for (auto i = 0; i < CurrentConfig.toolBarConfig.Pages.size(); i++)
     {
@@ -287,9 +293,19 @@ void PreferencesWindow::on_buttonBox_accepted()
             }
         }
         CurrentConfig.connectionConfig.routeConfig = routeSettingsWidget->GetRouteConfig();
+        if (!(CurrentConfig.connectionConfig.routeConfig == GlobalConfig.connectionConfig.routeConfig))
+        {
+            NEEDRESTART
+        }
         qApp->setStyle(QStyleFactory::create(CurrentConfig.uiConfig.theme));
         SaveGlobalSettings(CurrentConfig);
         UIMessageBus.EmitGlobalSignal(QvMBMessage::UPDATE_COLORSCHEME);
+        if (NeedRestart)
+        {
+            this->setEnabled(false);
+            qApp->processEvents();
+            ConnectionManager->RestartConnection();
+        }
         emit accept();
     }
 }
@@ -415,29 +431,27 @@ void PreferencesWindow::on_vCorePathTxt_textEdited(const QString &arg1)
 
 void PreferencesWindow::on_DNSListTxt_textChanged()
 {
-    if (finishedLoading)
+    LOADINGCHECK
+    try
     {
-        try
-        {
-            QStringList hosts = DNSListTxt->toPlainText().replace("\r", "").split("\n");
-            CurrentConfig.connectionConfig.dnsList.clear();
+        QStringList hosts = DNSListTxt->toPlainText().replace("\r", "").split("\n");
+        CurrentConfig.connectionConfig.dnsList.clear();
 
-            foreach (auto host, hosts)
+        for (auto host : hosts)
+        {
+            if (host != "" && host != "\r")
             {
-                if (host != "" && host != "\r")
-                {
-                    // Not empty, so we save.
-                    CurrentConfig.connectionConfig.dnsList.push_back(host);
-                    NEEDRESTART
-                }
+                // Not empty, so we save.
+                CurrentConfig.connectionConfig.dnsList.push_back(host);
+                NEEDRESTART
             }
+        }
 
-            BLACK(DNSListTxt)
-        }
-        catch (...)
-        {
-            RED(DNSListTxt)
-        }
+        BLACK(DNSListTxt)
+    }
+    catch (...)
+    {
+        RED(DNSListTxt)
     }
 }
 
@@ -448,7 +462,7 @@ void PreferencesWindow::on_aboutQt_clicked()
 
 void PreferencesWindow::on_cancelIgnoreVersionBtn_clicked()
 {
-    CurrentConfig.ignoredVersion.clear();
+    CurrentConfig.updateConfig.ignoredVersion.clear();
     cancelIgnoreVersionBtn->setEnabled(false);
 }
 
@@ -1215,4 +1229,11 @@ void PreferencesWindow::on_enableAPI_stateChanged(int arg1)
     LOADINGCHECK
     NEEDRESTART
     CurrentConfig.apiConfig.enableAPI = arg1 == Qt::Checked;
+}
+
+void PreferencesWindow::on_updateChannelCombo_currentIndexChanged(int index)
+{
+    LOADINGCHECK
+    CurrentConfig.updateConfig.updateChannel = index;
+    CurrentConfig.updateConfig.ignoredVersion.clear();
 }

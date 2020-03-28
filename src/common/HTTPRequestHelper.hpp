@@ -46,9 +46,8 @@ namespace Qv2ray::common
       signals:
         void httpRequestFinished(QByteArray &data);
 
-      public slots:
-        void onRequestFinished_p();
       private slots:
+        void onRequestFinished_p();
         void onReadyRead();
 
       private:

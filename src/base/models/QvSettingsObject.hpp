@@ -113,17 +113,32 @@ namespace Qv2ray::base::config
 
     struct Qv2rayRouteConfig_Impl
     {
-        QList<QString> proxy;
-        QList<QString> block;
         QList<QString> direct;
+        QList<QString> block;
+        QList<QString> proxy;
+        Qv2rayRouteConfig_Impl(){};
+        friend bool operator==(const Qv2rayRouteConfig_Impl &left, const Qv2rayRouteConfig_Impl &right)
+        {
+            return left.direct == right.direct && left.block == right.block && left.proxy == left.proxy;
+        }
+        Qv2rayRouteConfig_Impl(const QList<QString> &_direct, const QList<QString> &_block, const QList<QString> &_proxy)
+            : direct(_direct), block(_block), proxy(_proxy){};
         XTOSTRUCT(O(proxy, block, direct))
     };
 
     struct Qv2rayRouteConfig
     {
+        QString domainStrategy;
         Qv2rayRouteConfig_Impl domains;
         Qv2rayRouteConfig_Impl ips;
-        XTOSTRUCT(O(domains, ips))
+        friend bool operator==(const Qv2rayRouteConfig &left, const Qv2rayRouteConfig &right)
+        {
+            return left.domainStrategy == right.domainStrategy && left.domains == right.domains && left.ips == right.ips;
+        }
+        Qv2rayRouteConfig(){};
+        Qv2rayRouteConfig(const Qv2rayRouteConfig_Impl &_domains, const Qv2rayRouteConfig_Impl &_ips, const QString &ds)
+            : domainStrategy(ds), domains(_domains), ips(_ips){};
+        XTOSTRUCT(O(domainStrategy, domains, ips))
     };
 
     struct Qv2rayConnectionConfig
@@ -192,13 +207,23 @@ namespace Qv2ray::base::config
         XTOSTRUCT(O(v2CorePath_linux, v2AssetsPath_linux, v2CorePath_macx, v2AssetsPath_macx, v2CorePath_win, v2AssetsPath_win))
     };
 
+    struct Qv2rayUpdateConfig
+    {
+        QString ignoredVersion;
+        ///
+        /// \brief updateChannel
+        /// 0: Stable
+        /// 1: Testing
+        int updateChannel;
+        XTOSTRUCT(O(ignoredVersion, updateChannel))
+    };
+
     struct Qv2rayConfig
     {
         int config_version;
         bool tProxySupport;
         int logLevel;
         //
-        QString ignoredVersion;
         QString autoStartId;
         //
         // Key = groupId, connectionId
@@ -210,17 +235,18 @@ namespace Qv2ray::base::config
         Qv2rayUIConfig uiConfig;
         Qv2rayAPIConfig apiConfig;
         Qv2rayKernelConfig kernelConfig;
+        Qv2rayUpdateConfig updateConfig;
         Qv2rayToolBarConfig toolBarConfig;
         Qv2rayInboundsConfig inboundConfig;
         Qv2rayConnectionConfig connectionConfig;
 
         Qv2rayConfig()
-            : config_version(QV2RAY_CONFIG_VERSION), tProxySupport(false), logLevel(), ignoredVersion(), autoStartId("null"), groups(),
-              subscriptions(), connections(), uiConfig(), apiConfig(), kernelConfig(), toolBarConfig(), inboundConfig(), connectionConfig()
+            : config_version(QV2RAY_CONFIG_VERSION), tProxySupport(false), logLevel(), autoStartId("null"), groups(), subscriptions(),
+              connections(), uiConfig(), apiConfig(), kernelConfig(), updateConfig(), toolBarConfig(), inboundConfig(), connectionConfig()
         {
         }
 
-        XTOSTRUCT(O(config_version, ignoredVersion, tProxySupport, logLevel, uiConfig, kernelConfig, groups, connections, subscriptions,
+        XTOSTRUCT(O(config_version, tProxySupport, logLevel, uiConfig, kernelConfig, updateConfig, groups, connections, subscriptions,
                     autoStartId, inboundConfig, connectionConfig, toolBarConfig, apiConfig))
     };
 } // namespace Qv2ray::base::config

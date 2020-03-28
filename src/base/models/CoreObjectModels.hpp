@@ -350,7 +350,7 @@ namespace Qv2ray::base::objects
                 QString user;
                 QString pass;
                 int level;
-                UserObject() : user("username"), pass("password"), level(0)
+                UserObject() : user(), pass(), level(0)
                 {
                 }
                 XTOSTRUCT(O(user, pass, level))

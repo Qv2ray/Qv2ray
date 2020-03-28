@@ -43,9 +43,6 @@ class MainWindow
   private:
     QvMessageBusSlotDecl;
   private slots:
-#ifndef DISABLE_AUTO_UPDATE
-    void VersionUpdate(QByteArray &data);
-#endif
     void on_activatedTray(QSystemTrayIcon::ActivationReason reason);
     void on_preferencesBtn_clicked();
     void on_clearlogButton_clicked();
@@ -110,9 +107,6 @@ class MainWindow
     QHash<ConnectionId, shared_ptr<QTreeWidgetItem>> connectionNodes;
     // Charts
     SpeedWidget *speedChartWidget;
-#ifndef DISABLE_AUTO_UPDATE
-    QvHttpRequestHelper *requestHelper;
-#endif
     QSystemTrayIcon hTray;
     PACServer *pacServer;
     SyntaxHighlighter *vCoreLogHighlighter;

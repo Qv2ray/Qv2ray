@@ -2,7 +2,7 @@
 #include "base/Qv2rayBase.hpp"
 #include "core/CoreSafeTypes.hpp"
 
-namespace Qv2ray::core::tcping
+namespace Qv2ray::components::tcping
 {
     struct QvTCPingResultObject
     {
@@ -28,6 +28,6 @@ namespace Qv2ray::core::tcping
         int count;
         QQueue<QFutureWatcher<QvTCPingResultObject> *> pingWorkingThreads;
     };
-} // namespace Qv2ray::core::tcping
+} // namespace Qv2ray::components::tcping
 
-using namespace Qv2ray::core::tcping;
+using namespace Qv2ray::components::tcping;

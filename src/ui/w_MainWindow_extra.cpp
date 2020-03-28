@@ -76,21 +76,23 @@ void MainWindow::CheckSubscriptionsUpdate()
 {
     QStringList updateList;
 
-    for (auto index = 0; index < GlobalConfig.subscriptions.count(); index++)
+    auto subscriptions = ConnectionManager->Subscriptions();
+    for (auto entry : subscriptions)
     {
-        auto subs = GlobalConfig.subscriptions.values().at(index);
-        auto key = GlobalConfig.subscriptions.keys().at(index);
+        auto into = ConnectionManager->GetGroupMetaObject(entry);
         //
-        auto lastRenewDate = QDateTime::fromTime_t(subs.lastUpdated);
-        auto renewTime = lastRenewDate.addSecs(subs.updateInterval * 86400);
-        LOG(MODULE_SUBSCRIPTION, "Subscription \"" + key + "\": " + NEWLINE + " --> Last renewal time: " + lastRenewDate.toString() + NEWLINE +
-                                     " --> Renew interval: " + QSTRN(subs.updateInterval) + NEWLINE +
-                                     " --> Ideal renew time: " + renewTime.toString())
+        auto lastRenewDate = QDateTime::fromTime_t(into.lastUpdated);
+        auto renewTime = lastRenewDate.addSecs(into.updateInterval * 86400);
+        LOG(MODULE_SUBSCRIPTION,                                                  //
+            "Subscription \"" + entry.toString() + "\": " +                       //
+                NEWLINE + " --> Last renewal time: " + lastRenewDate.toString() + //
+                NEWLINE + " --> Renew interval: " + QSTRN(into.updateInterval) +  //
+                NEWLINE + " --> Ideal renew time: " + renewTime.toString())       //
 
         if (renewTime <= QDateTime::currentDateTime())
         {
-            LOG(MODULE_SUBSCRIPTION, "Subscription: " + key + " needs to be updated.")
-            updateList.append(key);
+            LOG(MODULE_SUBSCRIPTION, "Subscription: " + entry.toString() + " needs to be updated.")
+            updateList.append(entry.toString());
         }
     }
 

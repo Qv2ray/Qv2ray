@@ -1,5 +1,5 @@
 #pragma once
-#include "QvAutoCompleteTextEdit.h"
+#include "QvAutoCompleteTextEdit.hpp"
 #include "base/models/QvSettingsObject.hpp"
 #include "ui_RouteSettingsMatrix.h"
 
@@ -23,7 +23,7 @@ class RouteSettingsMatrixWidget
     std::optional<QString> openFileDialog();
     std::optional<QString> saveFileDialog();
     QList<QAction *> getBuiltInSchemes();
-    QAction *schemeToAction(const QString &name, Qv2ray::base::config::Qv2rayRouteConfig scheme);
+    QAction *schemeToAction(const QString &name, const Qv2ray::base::config::Qv2rayRouteConfig &scheme);
 
   private:
     QMenu *builtInSchemesMenu;

@@ -76,23 +76,6 @@ ConnectionItemWidget::ConnectionItemWidget(const GroupId &id, QWidget *parent) :
     connect(ConnectionManager, &QvConfigHandler::OnGroupRenamed, this, &ConnectionItemWidget::OnGroupItemRenamed);
 }
 
-void ConnectionItemWidget::keyPressEvent(QKeyEvent *e)
-{
-    if (e->key() == Qt::Key_Escape)
-    {
-        QLineEdit *focus = qobject_cast<QLineEdit *>(focusWidget());
-        if (focus != nullptr)
-        {
-            stackedWidget->setCurrentIndex(0);
-        }
-    }
-    else if (e->key() == Qt::Key_F2)
-    {
-        BeginRename();
-    }
-    QWidget::keyPressEvent(e);
-}
-
 void ConnectionItemWidget::BeginConnection()
 {
     if (itemType == NODE_ITEM)
@@ -153,6 +136,11 @@ void ConnectionItemWidget::OnLatencyTestFinished(const ConnectionId &id, const u
     {
         latencyLabel->setText(average == QVTCPING_VALUE_ERROR ? tr("Error") : QSTRN(average) + tr("ms"));
     }
+}
+
+void ConnectionItemWidget::CancelRename()
+{
+    stackedWidget->setCurrentIndex(0);
 }
 
 void ConnectionItemWidget::BeginRename()

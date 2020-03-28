@@ -31,6 +31,35 @@ namespace Qv2ray::core::kernel
         }
 
         coreFile.close();
+
+        // Get Core ABI.
+        auto [abi, err] = kernel::abi::deduceKernelABI(vCorePath);
+        if (err)
+        {
+            LOG(MODULE_VCORE, "Core ABI deduction failed: " + err.value())
+            *message = err.value();
+            return false;
+        }
+        LOG(MODULE_VCORE, "Core ABI: " + kernel::abi::abiToString(abi.value()))
+
+        // Get Compiled ABI
+        auto compiledABI = kernel::abi::COMPILED_ABI_TYPE;
+        LOG(MODULE_VCORE, "Host ABI: " + kernel::abi::abiToString(compiledABI))
+
+        // Check ABI Compatibility.
+        switch (kernel::abi::checkCompatibility(compiledABI, abi.value()))
+        {
+            case kernel::abi::ABI_NOPE:
+                LOG(MODULE_VCORE, "Host is incompatible with core")
+                *message = tr("V2Ray core is incompatible with your platform.\r\n" //
+                              "Expected core ABI is %1, but got actual %2.\r\n"    //
+                              "Maybe you have downloaded the wrong core?")
+                               .arg(kernel::abi::abiToString(compiledABI), kernel::abi::abiToString(abi.value()));
+                return false;
+            case kernel::abi::ABI_MAYBE: LOG(MODULE_VCORE, "WARNING: Host maybe incompatible with core"); [[fallthrough]];
+            case kernel::abi::ABI_PERFECT: LOG(MODULE_VCORE, "Host is compatible with core");
+        }
+
         //
         // Check file existance.
         // From: https://www.v2fly.org/chapter_02/env.html#asset-location
