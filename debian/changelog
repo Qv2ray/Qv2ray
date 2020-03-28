@@ -1,3 +1,11 @@
+qv2ray (2.4.0~pre1-1) unstable; urgency=medium
+
+  * change: ported to zxing-cpp
+  * fixed: fixed #else condition in DISABLE_AUTO_UPDATE
+  * fix: fixed domainStrategy export and MainWindow button icon color scheme change event
+
+ -- Guobang Bi <ymshenyu@gmail.com>  Fri, 27 Mar 2020 23:15:16 +0800
+
 qv2ray (2.3.2-1) unstable; urgency=medium
 
   * Fix Strange Button Length

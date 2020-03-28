@@ -2,11 +2,11 @@
 
 #include "base/Qv2rayBase.hpp"
 #include "common/HTTPRequestHelper.hpp"
+#include "components/latency/QvTCPing.hpp"
 #include "core/CoreSafeTypes.hpp"
 #include "core/CoreUtils.hpp"
 #include "core/connection/ConnectionIO.hpp"
 #include "core/kernel/KernelInteractions.hpp"
-#include "core/tcping/QvTCPing.hpp"
 
 #define CheckIdExistance(type, id, val)                                                                                                         \
     if (!type.contains(id))                                                                                                                     \

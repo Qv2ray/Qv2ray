@@ -1,6 +1,6 @@
 #include "ConnectionInfoWidget.hpp"
 
-#include "3rdparty/qzxing/src/QZXing.h"
+#include "common/QRCodeHelper.hpp"
 #include "common/QvHelpers.hpp"
 #include "core/CoreUtils.hpp"
 #include "core/connection/Serialization.hpp"
@@ -81,15 +81,9 @@ void ConnectionInfoWidget::ShowDetails(const tuple<GroupId, ConnectionId> &_iden
         portLabel->setNum(port);
         //
         shareLinkTxt->setCursorPosition(0);
-        //
-        QZXingEncoderConfig conf;
-        conf.border = true;
-        conf.imageSize = qrLabel->size() * devicePixelRatio();
-        conf.errorCorrectionLevel = QZXing::EncodeErrorCorrectionLevel_M;
-        QZXing qzx;
-        qrPixmap = QPixmap::fromImage(qzx.encodeData(shareLink, conf));
-        //
         auto isDarkTheme = GlobalConfig.uiConfig.useDarkTheme;
+        qrPixmap = QPixmap::fromImage(EncodeQRCode(shareLink, qrLabel->size() * devicePixelRatio()));
+        //
         qrPixmapBlured = BlurImage(ColorizeImage(qrPixmap, isDarkTheme ? QColor(Qt::black) : QColor(Qt::white), 0.7), 35);
         //
         isRealPixmapShown = false;

@@ -5,6 +5,14 @@
   <property name="windowModality">
    <enum>Qt::ApplicationModal</enum>
   </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1010</width>
+    <height>629</height>
+   </rect>
+  </property>
   <property name="windowTitle">
    <string>Preferences</string>
   </property>
@@ -201,14 +209,14 @@
              <item row="1" column="1">
               <widget class="QLabel" name="label_61">
                <property name="text">
-                <string>Config</string>
+                <string>Connection</string>
                </property>
               </widget>
              </item>
              <item row="0" column="1">
               <widget class="QLabel" name="label_60">
                <property name="text">
-                <string>Subscription</string>
+                <string>Group/Subscription</string>
                </property>
               </widget>
              </item>
@@ -1761,14 +1769,14 @@
             <item row="4" column="0">
              <widget class="QLabel" name="label_29">
               <property name="text">
-               <string>License:</string>
+               <string>License</string>
               </property>
              </widget>
             </item>
             <item row="3" column="0">
              <widget class="QLabel" name="label_27">
               <property name="text">
-               <string>Official Repo:</string>
+               <string>Official Repo</string>
               </property>
              </widget>
             </item>
@@ -1824,7 +1832,7 @@
             <item row="0" column="0">
              <widget class="QLabel" name="label_26">
               <property name="text">
-               <string>Built Time:</string>
+               <string>Built Time</string>
               </property>
              </widget>
             </item>
@@ -1885,48 +1893,65 @@ p, li { white-space: pre-wrap; }
            </widget>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_10">
-            <item>
-             <widget class="QLabel" name="label_23">
-              <property name="text">
-               <string>Ignore Next Version</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="cancelIgnoreVersionBtn">
-              <property name="text">
-               <string>Cancel</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="ignoredNextVersion">
-              <property name="cursor">
-               <cursorShape>IBeamCursor</cursorShape>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="textInteractionFlags">
-               <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="horizontalSpacer_4">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-           </layout>
+           <widget class="QGroupBox" name="updateSettingsGroupBox">
+            <property name="title">
+             <string>Update Settings</string>
+            </property>
+            <layout class="QFormLayout" name="formLayout_5">
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_81">
+               <property name="text">
+                <string>Update Channel</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="label_23">
+               <property name="text">
+                <string>Ignore Next Version</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <layout class="QHBoxLayout" name="horizontalLayout_10" stretch="0,1">
+               <item>
+                <widget class="QPushButton" name="cancelIgnoreVersionBtn">
+                 <property name="text">
+                  <string>Cancel</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="ignoredNextVersion">
+                 <property name="cursor">
+                  <cursorShape>IBeamCursor</cursorShape>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="textInteractionFlags">
+                  <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item row="0" column="1">
+              <widget class="QComboBox" name="updateChannelCombo">
+               <item>
+                <property name="text">
+                 <string>Stable Release</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Testing</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+            </layout>
+           </widget>
           </item>
           <item>
            <widget class="QPushButton" name="aboutQt">

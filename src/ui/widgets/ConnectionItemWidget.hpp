@@ -24,6 +24,7 @@ class ConnectionItemWidget
     ~ConnectionItemWidget();
     //
     void BeginRename();
+    void CancelRename();
     inline bool NameMatched(const QString &arg)
     {
         auto searchString = arg.toLower();
@@ -42,11 +43,14 @@ class ConnectionItemWidget
     {
         return { groupId, connectionId };
     }
+    inline bool IsRenaming() const
+    {
+        return stackedWidget->currentIndex() == 1;
+    }
     inline bool IsConnection() const
     {
         return itemType == NODE_ITEM;
     }
-    void keyPressEvent(QKeyEvent *e) override;
   signals:
     void RequestWidgetFocus(const ConnectionItemWidget *me);
   private slots:
