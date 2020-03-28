@@ -24,6 +24,7 @@ using Qv2ray::common::validation::IsValidIPAddress;
     if (!finishedLoading)                                                                                                                       \
         return;
 #define NEEDRESTART                                                                                                                             \
+    LOADINGCHECK                                                                                                                                \
     if (finishedLoading)                                                                                                                        \
         NeedRestart = true;
 
@@ -287,7 +288,7 @@ void PreferencesWindow::on_buttonBox_accepted()
             }
         }
         CurrentConfig.connectionConfig.routeConfig = routeSettingsWidget->GetRouteConfig();
-        if (CurrentConfig.connectionConfig.routeConfig == GlobalConfig.connectionConfig.routeConfig)
+        if (!(CurrentConfig.connectionConfig.routeConfig == GlobalConfig.connectionConfig.routeConfig))
         {
             NEEDRESTART
         }
@@ -296,6 +297,8 @@ void PreferencesWindow::on_buttonBox_accepted()
         UIMessageBus.EmitGlobalSignal(QvMBMessage::UPDATE_COLORSCHEME);
         if (NeedRestart)
         {
+            this->setEnabled(false);
+            qApp->processEvents();
             ConnectionManager->RestartConnection();
         }
         emit accept();
