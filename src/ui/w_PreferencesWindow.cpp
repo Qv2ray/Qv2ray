@@ -146,6 +146,11 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
         }
     }
 
+#ifdef DISABLE_AUTO_UPDATE
+    updateSettingsGroupBox->setEnabled(false);
+    updateSettingsGroupBox->setToolTip(tr("Update is disabled by your vendor."));
+#endif
+
     updateChannelCombo->setCurrentIndex(CurrentConfig.updateConfig.updateChannel);
     cancelIgnoreVersionBtn->setEnabled(!CurrentConfig.updateConfig.ignoredVersion.isEmpty());
     ignoredNextVersion->setText(CurrentConfig.updateConfig.ignoredVersion);
