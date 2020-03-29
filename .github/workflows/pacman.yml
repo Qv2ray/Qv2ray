@@ -22,7 +22,7 @@ jobs:
         with:
           path: 'Qv2ray'
       
-      - name: Write out PKGBUILD
+      - name: Build
         run: |
           cat <<PKGBUILD > PKGBUILD
           pkgname=qv2ray-dev-automation
@@ -78,7 +78,6 @@ jobs:
               ninja -C "build" install
           }
           PKGBUILD
-          cd Qv2ray && git status && cd ..
           makepkg -sf --noconfirm
 
       - name: Get package name
