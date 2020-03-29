@@ -25,10 +25,10 @@ jobs:
       - name: Build
         run: |
           cat <<PKGBUILD > PKGBUILD
-          pkgname=qv2ray-dev-automation
+          pkgname=qv2ray
           pkgver=2.3.2.4998
           pkgrel=1
-          pkgdesc="Cross-platform V2ray Client written in Qt (Development Release)"
+          pkgdesc="Cross-platform V2ray Client written in Qt (GitHub Release)"
           arch=('x86_64')
           url='https://github.com/Qv2ray/Qv2ray'
           license=('GPL3')
@@ -66,7 +66,6 @@ jobs:
                   -DQV2RAY_TRANSLATION_PATH="/usr/share/qv2ray/lang" \\
                   -DQV2RAY_DEFAULT_VASSETS_PATH="/usr/lib/v2ray" \\
                   -DQV2RAY_DEFAULT_VCORE_PATH="/usr/lib/v2ray/v2ray" \\
-                  -DQV2RAY_DISABLE_AUTO_UPDATE=on \\
                   -DCMAKE_BUILD_TYPE=Release \\
                   -DQV2RAY_ZXING_PROVIDER="package" \\
                   -GNinja
