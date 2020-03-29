@@ -40,7 +40,7 @@ jobs:
           provides=('qv2ray')
           conflicts=('qv2ray')
 
-          source=('Qv2ray::git+https://github.com/Qv2ray/Qv2ray')
+          source=('Qv2ray')
 
           sha512sums=('SKIP')
 
