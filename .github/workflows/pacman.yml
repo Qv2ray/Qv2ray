@@ -24,9 +24,6 @@ jobs:
       
       - name: Write out PKGBUILD
         run: |
-          ls --all
-          pwd
-          cd ..
           cat <<PKGBUILD > PKGBUILD
           pkgname=qv2ray-dev-automation
           pkgver=2.3.2.4998
@@ -81,9 +78,7 @@ jobs:
               ninja -C "build" install
           }
           PKGBUILD
-
-      - name: Build package
-        run: makepkg -sf --noconfirm
+          makepkg -sf --noconfirm
 
       - name: Get package name
         id: get_package
