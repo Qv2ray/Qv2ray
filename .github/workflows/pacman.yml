@@ -39,7 +39,7 @@ jobs:
           provides=('qv2ray')
           conflicts=('qv2ray')
 
-          source=('Qv2ray')
+          source=('Qv2ray::git+https://github.com/Qv2ray/Qv2ray')
 
           sha512sums=('SKIP')
 
@@ -78,6 +78,8 @@ jobs:
               ninja -C "build" install
           }
           PKGBUILD
+          pacman -S tree --noconfirm
+          tree
           makepkg -sf --noconfirm
 
       - name: Get package name
