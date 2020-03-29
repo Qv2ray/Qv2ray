@@ -71,8 +71,8 @@
 
 ## Related Links
  - [Wiki](https://github.com/Qv2ray/Qv2ray/wiki) and [First Time Usage](https://github.com/Qv2ray/Qv2ray/wiki/Getting-Started-step0)
- - Latest **[Release Version](https://github.com/Qv2ray/Qv2ray/releases/latest)**
- - Translation platform, translations are welcome at here: **[Public Translation Platform](https://www.transifex.com/qv2ray/qv2ray)**
+ - Latest **[Release](https://github.com/Qv2ray/Qv2ray/releases/latest)**
+ - Welcome to translate Qv2ray via: **[Transifex](https://www.transifex.com/qv2ray/qv2ray)**
 
 ## Special Thanks
 - **Quality Assurance & User Experience:** [@DuckSoft](https://github.com/DuckSoft/)
@@ -82,7 +82,7 @@
 
 ## Copyright
 ### This is free software, and you are welcome to redistribute it under certain conditions
-- ALL Credit goes to **Qv2ray User Group** and **Qv2ray Development Group**
+- ALL credit goes to **Qv2ray User Group** and **Qv2ray Development Group**
 
 ### Libraries that have been used in Qv2ray are listed below (Sorted by date added)
 - Please see: [assets/credit.html](assets/credit.html)
@@ -112,6 +112,6 @@ Qv2ray is licenced under [![License: GPL v3](https://img.shields.io/badge/Licens
 
 > Note: Qv2ray can **ONLY** be used for learning related technologies such as Qt/C++/Linux/CI/automation and use within the scope permitted by law. Any individual or group **MAY NOT** use Qv2ray for any violation of relevant laws and regulations.
 
-*任何尝试下载或下载 Qv2ray 任意分支或发行版即代表您同意本项目作者不承担任何由于您违反以上准则所带来的任何法律责任。*
+*任何尝试下载或下载 Qv2ray 任意分支或发行版即代表您同意本项目作者及贡献者不承担任何由于您违反以上准则所带来的任何法律责任。*
 
-> Any attempt to download of any branch or distribution of Qv2ray constitutes your agreement that the author of the project **will not be** liable for any legal liability arising from your breach of the above guidelines.
+> Any attempt to download of any branch or distribution of Qv2ray constitutes your agreement that the author and the contributor of the project **will not be** liable for any legal liability arising from your breach of the above guidelines.
