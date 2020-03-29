@@ -48,7 +48,7 @@ namespace Qv2ray::core::kernel::abi
         }
         else if (quint16 dosMagicMaybe; QDataStream(arr) >> dosMagicMaybe, dosMagicMaybe == 0x4D5Au)
             return { QvKernelABIType::ABI_WIN32, std::nullopt };
-        else if (quint32 machOMagicMaybe; QDataStream(arr) >> machOMagicMaybe, machOMagicMaybe == 0xCAFEBABEu)
+        else if (quint32 machOMagicMaybe; QDataStream(arr) >> machOMagicMaybe, machOMagicMaybe == 0xCFFAEDFEu)
             return { QvKernelABIType::ABI_MACH_O, std::nullopt };
         else
             return { std::nullopt, QObject::tr("cannot deduce the type of core executable file %1").arg(pathCoreExecutable) };
