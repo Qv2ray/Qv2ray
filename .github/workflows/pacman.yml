@@ -49,7 +49,7 @@ jobs:
           }
 
           prepare() {
-              cd "${srcdir}/Qv2ray"
+              cd "\${srcdir}/Qv2ray"
               git submodule init
               git config submodule."libs/libqvb".active false
               git config submodule."3rdparty/zxing-cpp".active false
