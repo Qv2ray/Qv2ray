@@ -46,7 +46,7 @@
 
  <tr>
   <td>Scoop</td>
-  <td><a href="https://scoop.sh/">(coming soon)</a></td>
+  <td><a href="https://github.com/skt041959/scoop-extras/blob/master/bucket/qv2ray.json"><img alt="scoop" src="https://img.shields.io/badge/scoop--extras-available-blue" /></a></td>
  </tr>
 
  <tr>
@@ -114,4 +114,4 @@ Qv2ray is licenced under [![License: GPL v3](https://img.shields.io/badge/Licens
 
 *任何尝试下载或下载 Qv2ray 任意分支或发行版即代表您同意本项目作者不承担任何由于您违反以上准则所带来的任何法律责任。*
 
-> Any attempt to download of any branch or distribution of Qv2ray constitutes your agreement that the author of the project **will not be** liable for any legal liability arising from your breach of the above guidelines.t
+> Any attempt to download of any branch or distribution of Qv2ray constitutes your agreement that the author of the project **will not be** liable for any legal liability arising from your breach of the above guidelines.
