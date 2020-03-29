@@ -39,7 +39,7 @@ jobs:
           provides=('qv2ray')
           conflicts=('qv2ray')
 
-          source=('Qv2ray::git+https://github.com/Qv2ray/Qv2ray')
+          source=('Qv2ray::git+https://example.com/this-url-is-useless')
 
           sha512sums=('SKIP')
 
@@ -78,8 +78,6 @@ jobs:
               ninja -C "build" install
           }
           PKGBUILD
-          pacman -S tree --noconfirm
-          tree
           makepkg -sf --noconfirm
 
       - name: Get package name
@@ -90,7 +88,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v2-preview
         with:
-          name: qv2ray
+          name: ${{ steps.get_package.outputs.NAME }}
           path: ${{ steps.get_package.outputs.NAME }}
 
       - name: Upload binaries to release
