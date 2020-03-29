@@ -70,7 +70,7 @@
 </table>
 
 ## Related Links
- - [Wiki](https://github.com/Qv2ray/Qv2ray/wiki) and [First Time Usage](https://github.com/Qv2ray/Qv2ray/wiki/Getting-Started-step0)
+ - [Website](https://qv2ray.github.io/en/) and [First Time Usage](https://qv2ray.github.io/en/getting-started/)
  - Latest **[Release](https://github.com/Qv2ray/Qv2ray/releases/latest)**
  - Welcome to translate Qv2ray via: **[Transifex](https://www.transifex.com/qv2ray/qv2ray)**
 
