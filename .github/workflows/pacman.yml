@@ -39,7 +39,7 @@ jobs:
           provides=('qv2ray')
           conflicts=('qv2ray')
 
-          source=('Qv2ray::git+https://example.com/this-url-is-useless')
+          source=('Qv2ray::git+https://github.com/Qv2ray/Qv2ray')
 
           sha512sums=('SKIP')
 
@@ -78,6 +78,7 @@ jobs:
               ninja -C "build" install
           }
           PKGBUILD
+          cd Qv2ray && git status && cd ..
           makepkg -sf --noconfirm
 
       - name: Get package name
