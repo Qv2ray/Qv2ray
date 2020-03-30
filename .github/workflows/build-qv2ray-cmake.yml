@@ -9,7 +9,7 @@ jobs:
   build:
     strategy:
       matrix:
-        qt_version: [5.11.3, 5.12.7, 5.13.2, 5.14.2]
+        qt_version: [5.14.2]
         platform: [ubuntu-16.04, macos-latest, windows-latest]
         arch: [x86, x64]
         include: 
@@ -19,15 +19,14 @@ jobs:
           - platform: windows-latest
             arch: x64
             qtarch: win64_msvc2017_64
+          - platform: ubuntu-16.04
+            arch: x64
+            qt_version: 5.11.3
         exclude:
           - platform: ubuntu-16.04
             arch: x86
           - platform: macos-latest
             arch: x86
-          - platform: windows-latest
-            qt_version: 5.11.3
-          - platform: windows-latest
-            qt_version: 5.12.7
       fail-fast: false
         
     runs-on: ${{ matrix.platform }}
