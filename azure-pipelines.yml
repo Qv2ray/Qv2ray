@@ -30,6 +30,6 @@ steps:
   displayName: Create Tarball
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)/build/Qv2ray.app.tar.gz'
+    PathtoPublish: 'build/Qv2ray.app.tar.gz'
     ArtifactName: 'Qv2ray-macOS'
     publishLocation: 'Container'
