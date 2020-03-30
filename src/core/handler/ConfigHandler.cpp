@@ -222,6 +222,7 @@ namespace Qv2ray::core::handlers
         CheckConnectionExistance(id);
         OnConnectionRenamed(id, connections[id].displayName, newName);
         connections[id].displayName = newName;
+        CHSaveConfigData_p();
         return {};
     }
     const optional<QString> QvConfigHandler::DeleteConnection(const ConnectionId &id)
@@ -308,6 +309,7 @@ namespace Qv2ray::core::handlers
         }
         //
         groups.remove(id);
+        CHSaveConfigData_p();
         emit OnGroupDeleted(id, list);
         if (id == DefaultGroupId)
         {
@@ -411,6 +413,7 @@ namespace Qv2ray::core::handlers
         groups[id].isSubscription = isSubscription;
         groups[id].importDate = system_clock::to_time_t(system_clock::now());
         emit OnGroupCreated(id, displayName);
+        CHSaveConfigData_p();
         return id;
     }
 
@@ -582,6 +585,7 @@ namespace Qv2ray::core::handlers
         connections[newId].displayName = displayName;
         emit OnConnectionCreated(newId, displayName);
         UpdateConnection(newId, root);
+        CHSaveConfigData_p();
         return newId;
     }
 
