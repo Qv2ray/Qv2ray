@@ -15,6 +15,9 @@ steps:
     brew install protobuf grpc ninja qt5
   displayName: Prepare dependencies
 - script: |
+    xcversion select 10.1 --symlink
+  displayName: Select Xcode 10.1 as active
+- script: |
     mkdir build
     cd build
     cmake .. -GNinja -DCMAKE_BUILD_TYPE=Release
@@ -33,3 +36,8 @@ steps:
     PathtoPublish: 'build/Qv2ray.app.tar.gz'
     ArtifactName: 'Qv2ray-macOS'
     publishLocation: 'Container'
+- task: GitHubRelease@0
+  inputs:
+    gitHubConnection: 
+    assets: 'build/Qv2ray.app.tar.gz'
+    isPreRelease: true
