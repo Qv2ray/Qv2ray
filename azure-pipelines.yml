@@ -37,7 +37,8 @@ steps:
     ArtifactName: 'Qv2ray-macOS'
     publishLocation: 'Container'
 - task: GitHubRelease@0
+  condition: startsWith(variables['Build.SourceBranch'], 'refs/tags/v')
   inputs:
-    gitHubConnection: 
+    gitHubConnection: 'github.com_DuckSoft'
     assets: 'build/Qv2ray.app.tar.gz'
-    isPreRelease: true
+    action: edit
