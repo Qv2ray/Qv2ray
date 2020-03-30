@@ -87,6 +87,7 @@ jobs:
         run: |
           xcversion install 10.1
           xcversion select 10.1 --symlink
+          sudo xcodebuild -license accept
 # --------------------------------------------------------
       - name: macOS - ${{ matrix.qt_version }} - Build preparation - Install Packages 
         if: matrix.platform == 'macos-latest'
