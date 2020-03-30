@@ -509,18 +509,7 @@ void MainWindow::on_action_RCM_DeleteThese_triggered()
 void MainWindow::on_importConfigButton_clicked()
 {
     ImportConfigWindow w(this);
-    auto configs = w.OpenImport();
-    if (!configs.isEmpty())
-    {
-        for (auto conf : configs)
-        {
-            auto name = configs.key(conf, "");
-
-            if (name.isEmpty())
-                continue;
-            ConnectionManager->CreateConnection(name, DefaultGroupId, conf);
-        }
-    }
+    w.ImportConnection();
 }
 
 void MainWindow::on_action_RCM_EditAsComplex_triggered()
