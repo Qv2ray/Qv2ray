@@ -124,7 +124,7 @@ OUTBOUND OutboundEditor::GenerateConnectionJson()
     }
     else if (OutboundType == "socks")
     {
-        if (socks.users.first().user.isEmpty() && socks.users.first().pass.isEmpty())
+        if (!socks.users.isEmpty() && socks.users.first().user.isEmpty() && socks.users.first().pass.isEmpty())
         {
             LOG(MODULE_UI, "Removed empty user form SOCKS settings")
             socks.users.clear();
