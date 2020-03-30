@@ -47,3 +47,4 @@ steps:
     gitHubConnection: 'github.com_DuckSoft'
     assets: 'build/Qv2ray.app.tar.gz'
     action: edit
+    tag: '$(Build.SourceBranch)'
