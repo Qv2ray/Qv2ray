@@ -79,6 +79,14 @@ jobs:
           sudo apt update
           sudo apt install -y libgl-dev libx11-dev libxkbcommon-x11-dev libssl-dev libprotobuf-dev protobuf-compiler protobuf-c-compiler libgrpc++-dev protobuf-compiler-grpc tree ninja-build
 # --------------------------------------------------------
+      - name: macOS - - Build preparation - Install Xcode
+        if: matrix.platform == 'macos-latest'
+        env:
+          XCODE_INSTALL_USER: ${{ secrets.APPLE_ID }}
+          XCODE_INSTALL_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
+        run: |
+          xcversion install 10.1
+# --------------------------------------------------------
       - name: macOS - ${{ matrix.qt_version }} - Build preparation - Install Packages 
         if: matrix.platform == 'macos-latest'
         run: |
