@@ -1,9 +1,14 @@
 # Starter pipeline
 
 trigger:
-- master
-- dev
-- dev-azure-pipelines
+  branches:
+    include:
+      - master
+      - dev
+      - dev-azure-pipelines
+  tags:
+    include:
+      - v*
 
 pool:
   vmImage: 'macOS-10.14'
