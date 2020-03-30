@@ -18,7 +18,7 @@ class ImportConfigWindow
     explicit ImportConfigWindow(QWidget *parent = nullptr);
     ~ImportConfigWindow();
     int ImportConnection();
-    QMultiMap<QString, CONFIGROOT> SelectConnection(bool outboundsOnly);
+    QMultiHash<QString, CONFIGROOT> SelectConnection(bool outboundsOnly);
 
   private:
     QvMessageBusSlotDecl;
@@ -45,6 +45,19 @@ class ImportConfigWindow
 
   private:
     void UpdateColorScheme();
-    QMultiMap<QString, CONFIGROOT> connections;
+    QMap<QString, QMultiHash<QString, CONFIGROOT>> connections;
     QMap<QString, QString> linkErrors;
+    void AddToGroup(const QString &groupName, const QString &alias, const CONFIGROOT &root)
+    {
+        if (connections.contains(groupName))
+        {
+            connections[groupName].insert(alias, root);
+        }
+        else
+        {
+            QMultiHash<QString, CONFIGROOT> temp;
+            temp.insert(alias, root);
+            connections.insert(groupName, temp);
+        }
+    }
 };
