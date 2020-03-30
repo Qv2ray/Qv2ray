@@ -1,0 +1,13 @@
+# Starter pipeline
+
+trigger:
+- master
+- dev
+- dev-azure-pipelines
+
+pool:
+  vmImage: 'macOS-10.14'
+
+steps:
+- script: echo Hello, world!
+  displayName: 'Run a one-line script'
