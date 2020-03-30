@@ -9,9 +9,8 @@ pool:
   vmImage: 'macOS-10.14'
 
 steps:
-- script: |
-    git submodule update --init
-  displayName: Checkout submodules
+- checkout: self
+  submodules: recursive
 - script: |
     brew install protobuf grpc ninja qt5
   displayName: Prepare dependencies
@@ -23,6 +22,8 @@ steps:
     sudo cmake --install .
     sudo chmod -Rv a+rw ./
   displayName: Build Qv2ray
+  env:
+    Qt5_DIR: /usr/local/opt/qt5/lib/cmake/Qt5
 - script: |
     cd build
     tar czvf Qv2ray.app.tar.gz qv2ray.app
