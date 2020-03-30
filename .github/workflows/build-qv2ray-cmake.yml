@@ -86,6 +86,7 @@ jobs:
           XCODE_INSTALL_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
         run: |
           xcversion install 10.1
+          xcversion select 10.1 --symlink
 # --------------------------------------------------------
       - name: macOS - ${{ matrix.qt_version }} - Build preparation - Install Packages 
         if: matrix.platform == 'macos-latest'
