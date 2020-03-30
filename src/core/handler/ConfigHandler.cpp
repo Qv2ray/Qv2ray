@@ -1,6 +1,7 @@
 #include "ConfigHandler.hpp"
 
 #include "common/QvHelpers.hpp"
+#include "components/plugins/QvPluginHost.hpp"
 #include "core/connection/Serialization.hpp"
 #include "core/settings/SettingsBackend.hpp"
 
@@ -214,6 +215,8 @@ namespace Qv2ray::core::handlers
         connections[id].upLinkData = 0;
         connections[id].downLinkData = 0;
         emit OnStatsAvailable(id, 0, 0, 0, 0);
+        auto v = QVariant::fromValue(QList<quint64>{ 0, 0, 0, 0 });
+        PluginHost->SendHook(HOOK_TYPE_STATS_EVENTS, HOOK_STYPE_STATS_CHANGED, v);
         return {};
     }
 
@@ -221,6 +224,8 @@ namespace Qv2ray::core::handlers
     {
         CheckConnectionExistance(id);
         OnConnectionRenamed(id, connections[id].displayName, newName);
+        auto v = QVariant::fromValue(QList<QString>{ connections[id].displayName, newName });
+        PluginHost->SendHook(HOOK_TYPE_CONFIG_EVENTS, HOOK_STYPE_RENAMED, v);
         connections[id].displayName = newName;
         return {};
     }
@@ -231,6 +236,8 @@ namespace Qv2ray::core::handlers
         QFile connectionFile((groups[groupId].isSubscription ? QV2RAY_SUBSCRIPTION_DIR : QV2RAY_CONNECTIONS_DIR) + groupId.toString() + "/" +
                              id.toString() + QV2RAY_CONFIG_FILE_EXTENSION);
         //
+        auto v = QVariant::fromValue(QList<QString>{ connections[id].displayName });
+        PluginHost->SendHook(HOOK_TYPE_CONFIG_EVENTS, HOOK_STYPE_REMOVED, v);
         connections.remove(id);
         groups[groupId].connections.removeAll(id);
         //
@@ -278,6 +285,9 @@ namespace Qv2ray::core::handlers
         groups[newGroupId].connections.append(id);
         connections[id].groupId = newGroupId;
         //
+        auto v = QVariant::fromValue(QList<QString>{ connections[id].displayName });
+        PluginHost->SendHook(HOOK_TYPE_CONFIG_EVENTS, HOOK_STYPE_UPDATED, v);
+        //
         emit OnConnectionGroupChanged(id, oldgid, newGroupId);
         //
         return {};
@@ -306,6 +316,9 @@ namespace Qv2ray::core::handlers
         {
             QDir(QV2RAY_CONNECTIONS_DIR + id.toString()).removeRecursively();
         }
+        //
+        auto v = QVariant::fromValue(QList<QString>{ groups[id].displayName });
+        PluginHost->SendHook(HOOK_TYPE_CONFIG_EVENTS, HOOK_STYPE_REMOVED, v);
         //
         groups.remove(id);
         emit OnGroupDeleted(id, list);
@@ -381,6 +394,9 @@ namespace Qv2ray::core::handlers
         CheckConnectionExistanceEx(result.connectionId, nothing);
         connections[result.connectionId].latency = result.avg;
         emit OnLatencyTestFinished(result.connectionId, result.avg);
+        //
+        auto v = QVariant::fromValue(QList<uint>{ result.avg, result.best, result.worst });
+        PluginHost->SendHook(HOOK_TYPE_STATS_EVENTS, HOOK_STYPE_LATENCY_UPDATED, v);
     }
 
     bool QvConfigHandler::UpdateConnection(const ConnectionId &id, const CONFIGROOT &root, bool skipRestart)
@@ -397,6 +413,8 @@ namespace Qv2ray::core::handlers
         connectionRootCache[id] = root;
         //
         emit OnConnectionModified(id);
+        auto v = QVariant::fromValue(QList<QString>{ connections[id].displayName });
+        PluginHost->SendHook(HOOK_TYPE_CONFIG_EVENTS, HOOK_STYPE_MODIFIED, v);
         if (!skipRestart && id == currentConnectionId)
         {
             emit RestartConnection();
@@ -410,6 +428,8 @@ namespace Qv2ray::core::handlers
         groups[id].displayName = displayName;
         groups[id].isSubscription = isSubscription;
         groups[id].importDate = system_clock::to_time_t(system_clock::now());
+        auto v = QVariant::fromValue(QList<QString>{ groups[id].displayName });
+        PluginHost->SendHook(HOOK_TYPE_CONFIG_EVENTS, HOOK_STYPE_CREATED, v);
         emit OnGroupCreated(id, displayName);
         return id;
     }
@@ -422,6 +442,8 @@ namespace Qv2ray::core::handlers
             return tr("Group does not exist");
         }
         OnGroupRenamed(id, groups[id].displayName, newName);
+        auto v = QVariant::fromValue(QList<QString>{ groups[id].displayName, newName });
+        PluginHost->SendHook(HOOK_TYPE_CONFIG_EVENTS, HOOK_STYPE_RENAMED, v);
         groups[id].displayName = newName;
         return {};
     }
@@ -589,6 +611,8 @@ namespace Qv2ray::core::handlers
         connections[newId].importDate = system_clock::to_time_t(system_clock::now());
         connections[newId].displayName = displayName;
         emit OnConnectionCreated(newId, displayName);
+        auto v = QVariant::fromValue(QList<QString>{ displayName });
+        PluginHost->SendHook(HOOK_TYPE_CONFIG_EVENTS, HOOK_STYPE_CREATED, v);
         UpdateConnection(newId, root);
         return newId;
     }

@@ -4,6 +4,7 @@
 #include "common/QvTranslator.hpp"
 #include "core/handler/ConfigHandler.hpp"
 #include "core/settings/SettingsBackend.hpp"
+#include "src/components/plugins/QvPluginHost.hpp"
 #include "ui/w_MainWindow.hpp"
 
 #include <QApplication>
@@ -399,8 +400,8 @@ int main(int argc, char *argv[])
 
     if (themes.contains(confObject.uiConfig.theme))
     {
-        qApp->setStyle(confObject.uiConfig.theme);
         LOG(MODULE_INIT + " " + MODULE_UI, "Setting Qv2ray UI themes: " + confObject.uiConfig.theme)
+        qApp->setStyle(confObject.uiConfig.theme);
     }
 
 #endif
@@ -412,6 +413,7 @@ int main(int argc, char *argv[])
         //_qApp.setAttribute(Qt::AA_DontUseNativeMenuBar);
         // Initialise Connection Handler
         ConnectionManager = new QvConfigHandler();
+        PluginHost = new QvPluginHost();
         // Handler for session logout, shutdown, etc.
         // Will not block.
         QGuiApplication::setFallbackSessionManagementEnabled(false);
@@ -429,6 +431,7 @@ int main(int argc, char *argv[])
         signal(SIGUSR2, [](int) { emit MainWindow::mwInstance->StopConnection(); });
 #endif
         auto rcode = _qApp.exec();
+        delete PluginHost;
         delete ConnectionManager;
         LOG(MODULE_INIT, "Quitting normally")
         return rcode;

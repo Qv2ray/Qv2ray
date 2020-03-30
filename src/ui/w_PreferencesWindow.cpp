@@ -87,14 +87,6 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     //
     //
     listenIPTxt->setText(CurrentConfig.inboundConfig.listenip);
-    bool pacEnabled = CurrentConfig.inboundConfig.pacConfig.enablePAC;
-    pacGroupBox->setChecked(pacEnabled);
-    setSysProxyCB->setChecked(CurrentConfig.inboundConfig.setSystemProxy);
-    //
-    // PAC
-    pacPortSB->setValue(CurrentConfig.inboundConfig.pacConfig.port);
-    pacProxyTxt->setText(CurrentConfig.inboundConfig.pacConfig.localIP);
-    pacProxyCB->setCurrentIndex(CurrentConfig.inboundConfig.pacConfig.useSocksProxy ? 1 : 0);
     //
     bool have_http = CurrentConfig.inboundConfig.useHTTP;
     httpGroupBox->setChecked(have_http);
@@ -213,8 +205,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     //
     maxLogLinesSB->setValue(CurrentConfig.uiConfig.maximumLogLines);
     //
-    pacListenAddrLabel->setText("http://" + (pacProxyTxt->text().isEmpty() ? "127.0.0.1" : pacProxyTxt->text()) + ":" +
-                                QSTRN(pacPortSB->value()) + "/pac");
+    setSysProxyCB->setChecked(CurrentConfig.inboundConfig.setSystemProxy);
     //
     finishedLoading = true;
     routeSettingsWidget = new RouteSettingsMatrixWidget(CurrentConfig.kernelConfig.AssetsPath(), this);
@@ -254,12 +245,6 @@ void PreferencesWindow::on_buttonBox_accepted()
     {
         size++;
         ports << CurrentConfig.inboundConfig.socks_port;
-    }
-
-    if (CurrentConfig.inboundConfig.pacConfig.enablePAC)
-    {
-        size++;
-        ports << CurrentConfig.inboundConfig.pacConfig.port;
     }
 
     if (!StartupOption.noAPI)
@@ -932,84 +917,6 @@ void PreferencesWindow::on_darkTrayCB_stateChanged(int arg1)
     CurrentConfig.uiConfig.useDarkTrayIcon = arg1 == Qt::Checked;
 }
 
-void PreferencesWindow::on_pacGoBtn_clicked()
-{
-    LOADINGCHECK
-    QString gfwLocation;
-    QString fileContent;
-    pacGoBtn->setEnabled(false);
-    gfwListCB->setEnabled(false);
-    QvHttpRequestHelper request;
-    LOG(MODULE_PROXY, "Downloading GFWList file.")
-    bool withProxy = getGFWListWithProxyCB->isChecked();
-
-    switch (gfwListCB->currentIndex())
-    {
-        case 0:
-            gfwLocation = "https://gitlab.com/gfwlist/gfwlist/raw/master/gfwlist.txt";
-            fileContent = QString::fromUtf8(request.syncget(gfwLocation, withProxy));
-            break;
-
-        case 1:
-            gfwLocation = "https://pagure.io/gfwlist/raw/master/f/gfwlist.txt";
-            fileContent = QString::fromUtf8(request.syncget(gfwLocation, withProxy));
-            break;
-
-        case 2:
-            gfwLocation = "http://repo.or.cz/gfwlist.git/blob_plain/HEAD:/gfwlist.txt";
-            fileContent = QString::fromUtf8(request.syncget(gfwLocation, withProxy));
-            break;
-
-        case 3:
-            gfwLocation = "https://bitbucket.org/gfwlist/gfwlist/raw/HEAD/gfwlist.txt";
-            fileContent = QString::fromUtf8(request.syncget(gfwLocation, withProxy));
-            break;
-
-        case 4:
-            gfwLocation = "https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt";
-            fileContent = QString::fromUtf8(request.syncget(gfwLocation, withProxy));
-            break;
-
-        case 5:
-            gfwLocation = "https://git.tuxfamily.org/gfwlist/gfwlist.git/plain/gfwlist.txt";
-            fileContent = QString::fromUtf8(request.syncget(gfwLocation, withProxy));
-            break;
-
-        case 6:
-            auto file = QFileDialog::getOpenFileName(this, tr("Select GFWList in base64"));
-
-            if (file.isEmpty())
-            {
-                QvMessageBoxWarn(this, tr("Download GFWList"), tr("Operation is cancelled."));
-                return;
-            }
-
-            fileContent = StringFromFile(file);
-            break;
-    }
-
-    LOG(MODULE_NETWORK, "Fetched: " + gfwLocation)
-    QvMessageBoxInfo(this, tr("Download GFWList"), tr("Successfully downloaded GFWList."));
-    pacGoBtn->setEnabled(true);
-    gfwListCB->setEnabled(true);
-
-    if (!QDir(QV2RAY_RULES_DIR).exists())
-    {
-        QDir(QV2RAY_RULES_DIR).mkpath(QV2RAY_RULES_DIR);
-    }
-
-    StringToFile(fileContent, QV2RAY_RULES_GFWLIST_PATH);
-}
-
-void PreferencesWindow::on_pacPortSB_valueChanged(int arg1)
-{
-    LOADINGCHECK
-    NEEDRESTART
-    CurrentConfig.inboundConfig.pacConfig.port = arg1;
-    pacListenAddrLabel->setText("http://" + (pacProxyTxt->text().isEmpty() ? "127.0.0.1" : pacProxyTxt->text()) + ":" +
-                                QSTRN(pacPortSB->value()) + "/pac");
-}
-
 void PreferencesWindow::on_setSysProxyCB_stateChanged(int arg1)
 {
     LOADINGCHECK
@@ -1017,26 +924,10 @@ void PreferencesWindow::on_setSysProxyCB_stateChanged(int arg1)
     CurrentConfig.inboundConfig.setSystemProxy = arg1 == Qt::Checked;
 }
 
-void PreferencesWindow::on_pacProxyCB_currentIndexChanged(int index)
-{
-    LOADINGCHECK
-    NEEDRESTART
-    // 0 -> http
-    // 1 -> socks
-    CurrentConfig.inboundConfig.pacConfig.useSocksProxy = index == 1;
-}
-
 void PreferencesWindow::on_pushButton_clicked()
 {
     LOADINGCHECK
     QDesktopServices::openUrl(QUrl::fromUserInput(QV2RAY_RULES_DIR));
-}
-
-void PreferencesWindow::on_pacProxyTxt_textEdited(const QString &arg1)
-{
-    LOADINGCHECK
-    NEEDRESTART
-    CurrentConfig.inboundConfig.pacConfig.localIP = arg1;
 }
 
 void PreferencesWindow::on_autoStartSubsCombo_currentIndexChanged(const QString &arg1)
@@ -1147,23 +1038,6 @@ void PreferencesWindow::on_fpPortSB_valueChanged(int arg1)
     CurrentConfig.connectionConfig.forwardProxyConfig.port = arg1;
 }
 
-void PreferencesWindow::on_pacProxyTxt_textChanged(const QString &arg1)
-{
-    Q_UNUSED(arg1)
-
-    if (IsValidIPAddress(arg1))
-    {
-        BLACK(pacProxyTxt)
-    }
-    else
-    {
-        RED(pacProxyTxt)
-    }
-
-    pacListenAddrLabel->setText("http://" + (pacProxyTxt->text().isEmpty() ? "127.0.0.1" : pacProxyTxt->text()) + ":" +
-                                QSTRN(pacPortSB->value()) + "/pac");
-}
-
 void PreferencesWindow::on_checkVCoreSettings_clicked()
 {
     auto vcorePath = vCorePathTxt->text();
@@ -1194,20 +1068,6 @@ void PreferencesWindow::on_socksGroupBox_clicked(bool checked)
     LOADINGCHECK
     NEEDRESTART
     CurrentConfig.inboundConfig.useSocks = checked;
-}
-
-void PreferencesWindow::on_pacGroupBox_clicked(bool checked)
-{
-    LOADINGCHECK
-    NEEDRESTART
-    CurrentConfig.inboundConfig.pacConfig.enablePAC = checked;
-    if (checked)
-    {
-        QvMessageBoxWarn(this, QObject::tr("Deprecated"),
-                         QObject::tr("PAC is now deprecated and is not encouraged to be used anymore.") + NEWLINE +
-                             QObject::tr("It will be removed or be provided as a plugin in the future.") + NEWLINE + NEWLINE +
-                             QObject::tr("PAC will still work currently, but please switch to the V2ray built-in routing as soon as possible."));
-    }
 }
 
 void PreferencesWindow::on_fpGroupBox_clicked(bool checked)

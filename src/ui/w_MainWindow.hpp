@@ -2,7 +2,6 @@
 
 #include "common/HTTPRequestHelper.hpp"
 #include "common/LogHighlighter.hpp"
-#include "components/pac/QvPACHandler.hpp"
 #include "components/speedchart/speedwidget.hpp"
 #include "core/handler/ConfigHandler.hpp"
 #include "ui/messaging/QvMessageBus.hpp"
@@ -61,6 +60,8 @@ class MainWindow
     void on_connectionListWidget_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous);
     void on_masterLogBrowser_textChanged();
 
+    void on_pluginsBtn_clicked();
+
   private:
     void on_actionExit_triggered();
     void on_action_StartThis_triggered();
@@ -108,7 +109,6 @@ class MainWindow
     // Charts
     SpeedWidget *speedChartWidget;
     QSystemTrayIcon hTray;
-    PACServer *pacServer;
     SyntaxHighlighter *vCoreLogHighlighter;
     ConnectionInfoWidget *infoWidget;
     //

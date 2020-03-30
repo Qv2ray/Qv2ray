@@ -22,7 +22,7 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,1,0">
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,0,0">
+     <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,0,0,0">
       <property name="spacing">
        <number>5</number>
       </property>
@@ -30,6 +30,13 @@
        <widget class="QPushButton" name="subsButton">
         <property name="text">
          <string>Subscriptions</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pluginsBtn">
+        <property name="text">
+         <string>Plugins</string>
         </property>
        </widget>
       </item>
@@ -553,7 +560,6 @@
  <layoutdefault spacing="6" margin="11"/>
  <tabstops>
   <tabstop>subsButton</tabstop>
-  <tabstop>preferencesBtn</tabstop>
   <tabstop>connectionListWidget</tabstop>
   <tabstop>importConfigButton</tabstop>
  </tabstops>

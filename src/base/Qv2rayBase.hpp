@@ -46,6 +46,7 @@ using namespace Qv2ray::base::objects::transfer;
 #define QV2RAY_CONFIG_FILE (QV2RAY_CONFIG_DIR + "Qv2ray.conf")
 #define QV2RAY_CONNECTIONS_DIR (QV2RAY_CONFIG_DIR + "connections/")
 #define QV2RAY_SUBSCRIPTION_DIR (QV2RAY_CONFIG_DIR + "subscriptions/")
+#define QV2RAY_PLUGIN_SETTINGS_DIR (QV2RAY_CONFIG_DIR + "plugin_settings/")
 
 // Get GFWList and PAC file path.
 #define QV2RAY_RULES_DIR (QV2RAY_CONFIG_DIR + "rules/")
@@ -127,4 +128,27 @@ namespace Qv2ray
         isExiting = true;
         QApplication::quit();
     }
+
+    inline QStringList Qv2rayAssetsPaths(const QString &dirName)
+    {
+        // Configuration Path
+        QStringList list;
+        list << QV2RAY_CONFIG_DIR + dirName;
+        //
+#ifdef Q_OS_LINUX
+        // Linux platform directories.
+        list << QString("/usr/share/qv2ray/" + dirName);
+        list << QString("/usr/local/share/qv2ray/" + dirName);
+        list << QStandardPaths::locateAll(QStandardPaths::AppDataLocation, dirName, QStandardPaths::LocateDirectory);
+        list << QStandardPaths::locateAll(QStandardPaths::AppConfigLocation, dirName, QStandardPaths::LocateDirectory);
+#elif defined(Q_OS_MAC)
+        // macOS platform directories.
+        list << QDir(QApplication::applicationDirPath() + "/../Resources/" + dirName).absolutePath();
+#endif
+        // This is the default behavior on Windows
+        list << QApplication::applicationDirPath() + "/" + dirName;
+        list.removeDuplicates();
+        return list;
+    };
+
 } // namespace Qv2ray
