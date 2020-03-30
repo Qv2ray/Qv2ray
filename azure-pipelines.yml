@@ -9,5 +9,26 @@ pool:
   vmImage: 'macOS-10.14'
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+- script: |
+    git submodule update --init
+  displayName: Checkout submodules
+- script: |
+    brew install protobuf grpc ninja qt5
+  displayName: Prepare dependencies
+- script: |
+    mkdir build
+    cd build
+    cmake .. -GNinja -DCMAKE_BUILD_TYPE=Release
+    cmake --build . --parallel $(sysctl -n hw.logicalcpu)
+    sudo cmake --install .
+    sudo chmod -Rv a+rw ./
+  displayName: Build Qv2ray
+- script: |
+    cd build
+    tar czvf Qv2ray.app.tar.gz qv2ray.app
+  displayName: Create Tarball
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/Qv2ray.app.tar.gz'
+    ArtifactName: 'Qv2ray-macOS'
+    publishLocation: 'Container'
