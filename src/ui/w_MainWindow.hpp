@@ -154,6 +154,7 @@ class MainWindow
     //
     ConnectionId lastConnectedId;
     void MWSetSystemProxy();
+    void MWClearSystemProxy();
     void CheckSubscriptionsUpdate();
     //
     void UpdateColorScheme();
