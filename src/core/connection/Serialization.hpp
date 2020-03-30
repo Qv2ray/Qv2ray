@@ -16,8 +16,10 @@ namespace Qv2ray::core::connection
         //
         // General
         QString DecodeSubscriptionString(QByteArray arr);
-        CONFIGROOT ConvertConfigFromString(const QString &link, QString *alias, QString *errMessage);
+        QMultiHash<QString, CONFIGROOT> ConvertConfigFromString(const QString &link, QString *aliasPrefix, QString *errMessage,
+                                                                QString *newGroupName = nullptr);
         const QString ConvertConfigToString(const ConnectionId &id, bool isSip002 = false);
+        const QString ConvertConfigToString(const QString &alias, const CONFIGROOT &server, bool isSip002);
         //
         // VMess URI Protocol
         namespace vmess
@@ -48,8 +50,7 @@ namespace Qv2ray::core::connection
              *          - log list
              *         in case of error, no objects will be returned.
              */
-            std::pair<std::optional<std::pair<QString, QList<std::pair<QString, ShadowSocksServerObject>>>>, QStringList> //
-            ConvertConfigFromSSDString(const QString &uri, const QString &pattern = QV2RAY_SSD_DEFAULT_NAME_PATTERN);
+            QMultiHash<QString, CONFIGROOT> ConvertConfigFromSSDString(const QString &uri, QString *groupName, QStringList *logList);
         } // namespace ssd
         //
     } // namespace Serialization

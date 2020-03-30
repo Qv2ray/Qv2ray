@@ -9,18 +9,24 @@ namespace Qv2ray::core::connection
 {
     namespace Serialization
     {
-        const QString ConvertConfigToString(const QString &alias, const CONFIGROOT &server, bool isSip002);
-        CONFIGROOT ConvertConfigFromString(const QString &link, QString *alias, QString *errMessage)
+        QMultiHash<QString, CONFIGROOT> ConvertConfigFromString(const QString &link, QString *prefix, QString *errMessage, QString *newGroupName)
         {
-            CONFIGROOT config;
-
+            QMultiHash<QString, CONFIGROOT> config;
             if (link.startsWith("vmess://"))
             {
-                config = ConvertConfigFromVMessString(link, alias, errMessage);
+                auto conf = ConvertConfigFromVMessString(link, prefix, errMessage);
+                config.insert(*prefix, conf);
             }
             else if (link.startsWith("ss://"))
             {
-                config = ConvertConfigFromSSString(link, alias, errMessage);
+                auto conf = ConvertConfigFromSSString(link, prefix, errMessage);
+                config.insert(*prefix, conf);
+            }
+            else if (link.startsWith("ssd://"))
+            {
+                QStringList errMessageList;
+                config = ConvertConfigFromSSDString(link, newGroupName, &errMessageList);
+                *errMessage = errMessageList.join(NEWLINE);
             }
             else
             {
