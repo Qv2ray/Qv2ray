@@ -63,13 +63,20 @@ void MainWindow::MWSetSystemProxy()
             auto httpPort = GlobalConfig.inboundConfig.useHTTP ? GlobalConfig.inboundConfig.http_port : 0;
             auto socksPort = GlobalConfig.inboundConfig.useSocks ? GlobalConfig.inboundConfig.socks_port : 0;
             //
-            SetSystemProxy(proxyAddress, httpPort, socksPort, usePAC);
+            SetSystemProxy(proxyAddress, httpPort, socksPort);
+            hTray.showMessage("Qv2ray", tr("System proxy configured."));
         }
     }
     else
     {
         hTray.showMessage("Qv2ray", tr("Didn't set proxy for complex config."), windowIcon());
     }
+}
+
+void MainWindow::MWClearSystemProxy()
+{
+    ClearSystemProxy();
+    hTray.showMessage("Qv2ray", tr("System proxy removed."));
 }
 
 void MainWindow::CheckSubscriptionsUpdate()
