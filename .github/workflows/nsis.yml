@@ -86,32 +86,14 @@ jobs:
           cd build
           cmake .. -GNinja -DCMAKE_BUILD_TYPE=Release -DBUILD_NSIS=ON
           cmake --build . --target package --parallel $(nproc)
-          cmake --install .
-      - name: Windows - ${{ matrix.qt_version }} - Build error uploading artifact
-        if: matrix.platform == 'windows-latest' && failure()
+      - name: Windows - Get package name
+        shell: bash
+        if: matrix.platform == 'windows-latest'
+        run: |
+          echo ::set-output name=NAME::$(basename qv2ray-*.exe)
+      - name: Windows - ${{ matrix.qt_version }} - uploading artifact
+        if: matrix.platform == 'windows-latest'
         uses: actions/upload-artifact@master
         with:
           name: qv2ray-build-dir
-          path: build
-# ========================================================================================================= Deployments
-      - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - Create 7z Release
-        if: matrix.platform == 'windows-latest'
-        uses: DuckSoft/create-7z-action@v1.0
-        with:
-          pathSource: ./build/deployment/
-          pathTarget: ./release.7z
-      - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - Uploading artifact
-        if: matrix.platform == 'windows-latest'
-        uses: actions/upload-artifact@master
-        with:
-          name: Qv2ray-${{ github.sha }}.Windows-${{ matrix.arch }}.qt${{ matrix.qt_version }}.7z
-          path: release.7z
-      - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - Upload binaries to release
-        uses: svenstaro/upload-release-action@v1-release
-        if: github.event_name == 'release' && matrix.platform == 'windows-latest' && matrix.qt_version == '5.14.2'
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: release.7z
-          asset_name: Qv2ray.${{ steps.get_version.outputs.VERSION }}.Windows-${{ matrix.arch }}.7z
-          tag: ${{ github.ref }}
-          overwrite: true
+          path: build/${{ steps.get_package.outputs.NAME }}
