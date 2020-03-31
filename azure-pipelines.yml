@@ -1,0 +1,52 @@
+# Starter pipeline
+
+trigger:
+  branches:
+    include:
+      - master
+      - dev
+      - dev-azure-pipelines
+  tags:
+    include:
+      - v*
+
+pool:
+  vmImage: 'macOS-10.14'
+
+steps:
+- checkout: self
+  submodules: recursive
+- script: |
+    brew install protobuf grpc ninja qt5
+  displayName: Prepare dependencies
+- script: |
+    xcversion select 10.1 --symlink
+  displayName: Select Xcode 10.1 as active
+- script: |
+    mkdir build
+    cd build
+    cmake .. -GNinja -DCMAKE_BUILD_TYPE=Release
+    cmake --build . --parallel $(sysctl -n hw.logicalcpu)
+    sudo cmake --install .
+    sudo chmod -Rv a+rw ./
+  displayName: Build Qv2ray
+  env:
+    Qt5_DIR: /usr/local/opt/qt5/lib/cmake/Qt5
+- script: |
+    cd build
+    tar czvf Qv2ray.macOS.tar.gz qv2ray.app
+  displayName: Create Tarball
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: 'build/Qv2ray.macOS.tar.gz'
+    ArtifactName: 'Qv2ray-macOS'
+    publishLocation: 'Container'
+- task: GitHubRelease@0
+  condition: startsWith(variables['Build.SourceBranch'], 'refs/tags/v')
+  inputs:
+    gitHubConnection: 'github.com_DuckSoft'
+    assets: 'build/Qv2ray.macOS.tar.gz'
+    action: edit
+    tag: '$(Build.SourceBranchName)'
+    isPreRelease: true
+    addChangeLog: false
