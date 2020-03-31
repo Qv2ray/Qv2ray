@@ -84,7 +84,7 @@ jobs:
         run: |
           brew install protobuf grpc ninja wget
           wget https://github.com/phracker/MacOSX-SDKs/releases/download/10.15/MacOSX10.14.sdk.tar.xz
-          tar -xvf MacOSX10.14.sdk.tar.xz
+          tar -xf MacOSX10.14.sdk.tar.xz
           sudo mv -v ./MacOSX10.14.sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk
 # --------------------------------------------------------
       - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - Build preparation - Download Dependencies
