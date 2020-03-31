@@ -17,7 +17,8 @@ class ImportConfigWindow
   public:
     explicit ImportConfigWindow(QWidget *parent = nullptr);
     ~ImportConfigWindow();
-    QMultiMap<QString, CONFIGROOT> OpenImport(bool outboundsOnly = false);
+    int ImportConnection();
+    QMultiMap<QString, CONFIGROOT> SelectConnection(bool outboundsOnly);
 
   private:
     QvMessageBusSlotDecl;

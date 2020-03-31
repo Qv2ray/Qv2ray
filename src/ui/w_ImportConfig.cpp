@@ -4,6 +4,7 @@
 #include "core/CoreUtils.hpp"
 #include "core/connection/ConnectionIO.hpp"
 #include "core/connection/Serialization.hpp"
+#include "core/handler/ConfigHandler.hpp"
 #include "core/kernel/KernelInteractions.hpp"
 #include "ui/editors/w_JsonEditor.hpp"
 #include "ui/editors/w_OutboundEditor.hpp"
@@ -44,15 +45,32 @@ ImportConfigWindow::~ImportConfigWindow()
 {
 }
 
-QMultiMap<QString, CONFIGROOT> ImportConfigWindow::OpenImport(bool partialImport)
+QMultiMap<QString, CONFIGROOT> ImportConfigWindow::SelectConnection(bool outboundsOnly)
+{
+    keepImportedInboundCheckBox->setEnabled(!outboundsOnly);
+    routeEditBtn->setEnabled(!outboundsOnly);
+    this->exec();
+    return result() == Accepted ? connections : QMultiMap<QString, CONFIGROOT>{};
+}
+
+int ImportConfigWindow::ImportConnection()
 {
     // partial import means only import as an outbound, will set keepImported to
     // false and disable the checkbox
-    // keepImportedInboundCheckBox->setChecked(!outboundsOnly);
-    keepImportedInboundCheckBox->setEnabled(!partialImport);
-    routeEditBtn->setEnabled(!partialImport);
     this->exec();
-    return this->result() == QDialog::Accepted ? connections : QMultiMap<QString, CONFIGROOT>();
+    for (auto conf : connections)
+    {
+        auto name = connections.key(conf, "");
+
+        auto [protocol, host, port] = GetConnectionInfo(conf);
+        if (name.isEmpty())
+        {
+            name = protocol + "/" + host + ":" + QSTRN(port) + "-" + GenerateRandomString(5);
+        }
+        ConnectionManager->CreateConnection(name, DefaultGroupId, conf);
+    }
+
+    return connections.count();
 }
 
 void ImportConfigWindow::on_selectFileBtn_clicked()
