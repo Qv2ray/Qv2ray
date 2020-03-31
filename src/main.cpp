@@ -354,6 +354,15 @@ int main(int argc, char *argv[])
     font.setFamily("Microsoft YaHei");
     _qApp.setFont(font);
 #endif
+    // Set custom themes.
+    QStringList themes = QStyleFactory::keys();
+    //_qApp.setDesktopFileName("qv2ray.desktop");
+
+    if (themes.contains(confObject.uiConfig.theme))
+    {
+        LOG(MODULE_INIT + " " + MODULE_UI, "Setting Qv2ray UI themes: " + confObject.uiConfig.theme)
+        qApp->setStyle(confObject.uiConfig.theme);
+    }
 #if (QV2RAY_USE_BUILTIN_DARKTHEME)
     LOG(MODULE_UI, "Using built-in theme.")
 
@@ -387,18 +396,6 @@ int main(int argc, char *argv[])
         _qApp.setPalette(darkPalette);
         _qApp.setStyleSheet("QToolTip { color: #ffffff; background-color: #2a82da; border: 1px solid white; }");
     }
-
-#else
-    // Set custom themes.
-    QStringList themes = QStyleFactory::keys();
-    //_qApp.setDesktopFileName("qv2ray.desktop");
-
-    if (themes.contains(confObject.uiConfig.theme))
-    {
-        qApp->setStyle(confObject.uiConfig.theme);
-        LOG(MODULE_INIT + " " + MODULE_UI, "Setting Qv2ray UI themes: " + confObject.uiConfig.theme)
-    }
-
 #endif
 #ifndef QT_DEBUG
 
