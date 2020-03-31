@@ -1,0 +1,102 @@
+name: Qv2ray build arch package
+
+on:
+  push:
+  release:
+    types: [prereleased]
+
+jobs:
+  linux:
+    name: Arch Linux
+    runs-on: ubuntu-latest
+    container: archlinux:latest
+    
+    steps:
+      - name: Setup Basic Environment
+        run: |
+          pacman -Sy base-devel git --noconfirm
+          sed -i '/E_ROOT/d' /usr/bin/makepkg
+
+      - name: Checking out sources
+        uses: actions/checkout@v2
+        with:
+          path: 'Qv2ray'
+      
+      - name: Build
+        run: |
+          cat <<PKGBUILD > PKGBUILD
+          pkgname=qv2ray-dev-automation
+          pkgver=2.3.2.4998
+          pkgrel=1
+          pkgdesc="Cross-platform V2ray Client written in Qt (Development Release)"
+          arch=('x86_64')
+          url='https://github.com/Qv2ray/Qv2ray'
+          license=('GPL3')
+          depends=('hicolor-icon-theme' 'qt5-base>5.11.0' 'grpc>=1.27.0' 'zxing-cpp')
+          optdepends=('v2ray: use system v2ray core.')
+          makedepends=('git' 'make' 'qt5-tools' 'which' 'gcc' 'qt5-declarative'
+                       'grpc-cli>=1.27.0' 'cmake' 'ninja')
+          provides=('qv2ray')
+          conflicts=('qv2ray')
+
+          source=('Qv2ray::git+https://github.com/Qv2ray/Qv2ray')
+
+          sha512sums=('SKIP')
+
+          pkgver() {
+              printf "%s.%s" \$(cat \${srcdir}/Qv2ray/makespec/VERSION) \$(cat \${srcdir}/Qv2ray/makespec/BUILDVERSION)
+          }
+
+          prepare() {
+              cd "\${srcdir}/Qv2ray"
+              git submodule init
+              git config submodule."libs/libqvb".active false
+              git config submodule."3rdparty/zxing-cpp".active false
+              git submodule update
+          }
+
+          build() {
+              export _QV2RAY_BUILD_INFO_="Qv2ray from GitHub Actions"
+              export _QV2RAY_BUILD_EXTRA_INFO_="(Actions Build) \$(uname -a | cut -d " " -f3,13)"
+
+              cd "\${srcdir}/Qv2ray"
+              mkdir -p build && cd build
+              cmake .. \\
+                  -DCMAKE_INSTALL_PREFIX=\${pkgdir}/usr \\
+                  -DQV2RAY_TRANSLATION_PATH="/usr/share/qv2ray/lang" \\
+                  -DQV2RAY_DEFAULT_VASSETS_PATH="/usr/lib/v2ray" \\
+                  -DQV2RAY_DEFAULT_VCORE_PATH="/usr/lib/v2ray/v2ray" \\
+                  -DQV2RAY_DISABLE_AUTO_UPDATE=on \\
+                  -DCMAKE_BUILD_TYPE=Release \\
+                  -DQV2RAY_ZXING_PROVIDER="package" \\
+                  -GNinja
+              ninja
+          }
+
+          package() {
+              cd "\${srcdir}/Qv2ray"
+              ninja -C "build" install
+          }
+          PKGBUILD
+          makepkg -sf --noconfirm
+
+      - name: Get package name
+        id: get_package
+        run:
+          echo ::set-output name=NAME::$(basename qv2ray*.xz)
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2-preview
+        with:
+          name: ${{ steps.get_package.outputs.NAME }}
+          path: ${{ steps.get_package.outputs.NAME }}
+
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v1-release
+        if: github.event_name == 'release'
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ${{ steps.get_package.outputs.NAME }}
+          asset_name: ${{ steps.get_package.outputs.NAME }}
+          tag: ${{ github.ref }}
+          overwrite: true
