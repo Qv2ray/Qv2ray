@@ -399,7 +399,7 @@ if(WIN32)
   endif()
 
   add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-                    COMMAND windeployqt ${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.exe --compiler-runtime --verbose 2 --dir ${CMAKE_BINARY_DIR}/winqt/
+                    COMMAND windeployqt ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.exe --compiler-runtime --verbose 2 --dir ${CMAKE_BINARY_DIR}/winqt/
   )
   install(DIRECTORY ${CMAKE_BINARY_DIR}/winqt/ DESTINATION .)
   set(APPS "\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.exe")
