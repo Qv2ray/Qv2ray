@@ -11,6 +11,7 @@ git:
 branches:
   only:
     - dev
+    - /^v\d+\.\d+(\.\d+)?(-\S*)?$/
 
 env:
   global:
