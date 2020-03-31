@@ -34,17 +34,19 @@ steps:
     Qt5_DIR: /usr/local/opt/qt5/lib/cmake/Qt5
 - script: |
     cd build
-    tar czvf Qv2ray.app.tar.gz qv2ray.app
+    tar czvf Qv2ray.macOS.tar.gz qv2ray.app
   displayName: Create Tarball
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: 'build/Qv2ray.app.tar.gz'
+    PathtoPublish: 'build/Qv2ray.macOS.tar.gz'
     ArtifactName: 'Qv2ray-macOS'
     publishLocation: 'Container'
 - task: GitHubRelease@0
   condition: startsWith(variables['Build.SourceBranch'], 'refs/tags/v')
   inputs:
     gitHubConnection: 'github.com_DuckSoft'
-    assets: 'build/Qv2ray.app.tar.gz'
+    assets: 'build/Qv2ray.macOS.tar.gz'
     action: edit
     tag: '$(Build.SourceBranchName)'
+    isPreRelease: true
+    addChangeLog: false
