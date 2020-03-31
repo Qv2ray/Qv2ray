@@ -45,8 +45,6 @@ if(CMAKE_VERSION VERSION_GREATER_EQUAL "3.17.0")
   cmake_policy(SET CMP0100 NEW)
 endif()
 
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
-
 message(" ")
 message("Qv2ray Version: ${QV2RAY_VERSION_STRING}")
 message("Qv2ray Build Version: ${QV2RAY_BUILD_VERSION}")
