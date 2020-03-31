@@ -149,6 +149,7 @@ if(QV2RAY_DISABLE_AUTO_UPDATE)
 endif()
 
 set(QV2RAY_SOURCES
+  3rdparty/libsemver/version.cpp
   src/base/Qv2rayLog.cpp
   src/common/CommandArgs.cpp
   src/common/HTTPRequestHelper.cpp
@@ -223,6 +224,7 @@ set(QV2RAY_SOURCES
   src/ui/w_PreferencesWindow.ui
   src/ui/w_ScreenShot_Core.ui
   # headers
+  3rdparty/libsemver/version.hpp
   src/base/JsonHelpers.hpp
   src/base/models/CoreObjectModels.hpp
   src/base/models/QvConfigIdentifier.hpp
