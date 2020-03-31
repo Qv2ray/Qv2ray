@@ -21,3 +21,22 @@ message(STATUS "DIRS: ${DIRS}")
 
 install(CODE "include(BundleUtilities)
       fixup_bundle(\"${APPS}\" \"${QT_PLUGINS}\" \"${DIRS}\")")
+
+# Packaging
+set(CPACK_PACKAGE_VENDOR "Qv2ray Development Group")
+set(CPACK_PACKAGE_VERSION ${QV2RAY_VERSION_STRING})
+set(CPACK_PACKAGE_DESCRIPTION "Cross-platform V2Ray Client written in Qt.")
+set(CPACK_PACKAGE_HOMEPAGE_URL "https://github.com/Qv2ray/Qv2ray")
+set(CPACK_PACKAGE_ICON ${CMAKE_SOURCE_DIR}/assets/icons/qv2ray.png)
+
+if(BUILD_NSIS)
+    if(MSVC)
+        set(CPACK_GENERATOR "NSIS")
+        set(CPACK_NSIS_MUI_ICON ${CMAKE_SOURCE_DIR}/assets/icons/qv2ray.ico)
+        set(CPACK_NSIS_MUI_UNIICON ${CMAKE_SOURCE_DIR}/assets/icons/qv2ray.ico)
+        set(CPACK_NSIS_DISPLAY_NAME "Qv2ray")
+        set(CPACK_NSIS_PACKAGE_NAME "qv2ray")
+    endif()
+endif()
+
+include(CPack)
