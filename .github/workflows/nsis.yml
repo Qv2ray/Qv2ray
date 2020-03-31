@@ -88,6 +88,7 @@ jobs:
           cmake --build . --target package --parallel $(nproc)
       - name: Windows - Get package name
         shell: bash
+        id: get_package
         if: matrix.platform == 'windows-latest'
         run: |
           echo ::set-output name=NAME::$(basename qv2ray-*.exe)
