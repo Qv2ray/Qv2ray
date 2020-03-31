@@ -466,10 +466,9 @@
  </widget>
  <tabstops>
   <tabstop>tagTxt</tabstop>
+  <tabstop>ipLineEdit</tabstop>
+  <tabstop>portLineEdit</tabstop>
   <tabstop>outBoundTypeCombo</tabstop>
-  <tabstop>muxEnabledCB</tabstop>
-  <tabstop>muxConcurrencyTxt</tabstop>
-  <tabstop>useFPCB</tabstop>
   <tabstop>idLineEdit</tabstop>
   <tabstop>alterLineEdit</tabstop>
   <tabstop>securityCombo</tabstop>
@@ -478,6 +477,11 @@
   <tabstop>ss_encryptionMethod</tabstop>
   <tabstop>ss_levelSpin</tabstop>
   <tabstop>ss_otaCheckBox</tabstop>
+  <tabstop>socks_UserNameTxt</tabstop>
+  <tabstop>socks_PasswordTxt</tabstop>
+  <tabstop>muxEnabledCB</tabstop>
+  <tabstop>muxConcurrencyTxt</tabstop>
+  <tabstop>useFPCB</tabstop>
  </tabstops>
  <resources/>
  <connections>

@@ -388,16 +388,20 @@
  <tabstops>
   <tabstop>nameTxt</tabstop>
   <tabstop>tabWidget</tabstop>
-  <tabstop>fileLineTxt</tabstop>
-  <tabstop>selectFileBtn</tabstop>
-  <tabstop>keepImportedInboundCheckBox</tabstop>
+  <tabstop>vmessConnectionStringTxt</tabstop>
+  <tabstop>errorsList</tabstop>
   <tabstop>imageFileEdit</tabstop>
   <tabstop>selectImageBtn</tabstop>
   <tabstop>doubleSpinBox</tabstop>
-  <tabstop>vmessConnectionStringTxt</tabstop>
-  <tabstop>errorsList</tabstop>
+  <tabstop>hideQv2rayCB</tabstop>
+  <tabstop>qrFromScreenBtn</tabstop>
+  <tabstop>subscriptionButton</tabstop>
   <tabstop>connectionEditBtn</tabstop>
   <tabstop>routeEditBtn</tabstop>
+  <tabstop>jsonEditBtn</tabstop>
+  <tabstop>fileLineTxt</tabstop>
+  <tabstop>selectFileBtn</tabstop>
+  <tabstop>keepImportedInboundCheckBox</tabstop>
   <tabstop>beginImportBtn</tabstop>
   <tabstop>cancelImportBtn</tabstop>
  </tabstops>

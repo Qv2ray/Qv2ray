@@ -215,6 +215,12 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>domainStrategyCombo</tabstop>
+  <tabstop>builtInSchemeBtn</tabstop>
+  <tabstop>importSchemeBtn</tabstop>
+  <tabstop>exportSchemeBtn</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

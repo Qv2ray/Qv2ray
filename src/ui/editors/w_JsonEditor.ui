@@ -125,6 +125,12 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>jsonEditor</tabstop>
+  <tabstop>formatJsonBtn</tabstop>
+  <tabstop>removeCommentsBtn</tabstop>
+  <tabstop>jsonTree</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

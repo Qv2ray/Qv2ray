@@ -732,6 +732,40 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>transportCombo</tabstop>
+  <tabstop>tcpHeaderTypeCB</tabstop>
+  <tabstop>tcpRequestTxt</tabstop>
+  <tabstop>tcpRespTxt</tabstop>
+  <tabstop>tcpRequestEditBtn</tabstop>
+  <tabstop>tcpRequestDefBtn</tabstop>
+  <tabstop>tcpResponseEditBtn</tabstop>
+  <tabstop>tcpRespDefBtn</tabstop>
+  <tabstop>httpPathTxt</tabstop>
+  <tabstop>httpHostTxt</tabstop>
+  <tabstop>wsPathTxt</tabstop>
+  <tabstop>wsHeadersTxt</tabstop>
+  <tabstop>kcpMTU</tabstop>
+  <tabstop>kcpTTI</tabstop>
+  <tabstop>kcpUploadCapacSB</tabstop>
+  <tabstop>kcpCongestionCB</tabstop>
+  <tabstop>kcpDownCapacitySB</tabstop>
+  <tabstop>kcpReadBufferSB</tabstop>
+  <tabstop>kcpWriteBufferSB</tabstop>
+  <tabstop>kcpHeaderType</tabstop>
+  <tabstop>dsPathTxt</tabstop>
+  <tabstop>quicSecurityCB</tabstop>
+  <tabstop>quicKeyTxt</tabstop>
+  <tabstop>quicHeaderTypeCB</tabstop>
+  <tabstop>tlsCB</tabstop>
+  <tabstop>allowInsecureCB</tabstop>
+  <tabstop>serverNameTxt</tabstop>
+  <tabstop>alpnTxt</tabstop>
+  <tabstop>soMarkSpinBox</tabstop>
+  <tabstop>tcpFastOpenCB</tabstop>
+  <tabstop>tProxyCB</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
