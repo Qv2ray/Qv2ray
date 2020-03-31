@@ -87,6 +87,12 @@ jobs:
           cmake .. -GNinja -DCMAKE_BUILD_TYPE=Release -DBUILD_NSIS=ON
           cmake --build . --target package --parallel $(nproc)
           cmake --install .
+      - name: Windows - ${{ matrix.qt_version }} - Build error uploading artifact
+        if: matrix.platform == 'windows-latest' && failure()
+        uses: actions/upload-artifact@master
+        with:
+          name: qv2ray-build-dir
+          path: build
 # ========================================================================================================= Deployments
       - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - Create 7z Release
         if: matrix.platform == 'windows-latest'
