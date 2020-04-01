@@ -38,9 +38,15 @@ after_failure:
   - sudo journalctl -u snapd
 
 deploy:
-  provider: snap
-  snap: qv2ray_*.snap
-  channel: edge
-  skip_cleanup: true
-  on:
-    branch: dev
+  - provider: snap
+    snap: qv2ray_*.snap
+    channel: edge
+    skip_cleanup: true
+    on:
+      branch: dev
+  - provider: snap
+    snap: qv2ray_*.snap
+    channel: edge
+    skip_cleanup: true
+    on:
+      branch: /^v\d+\.\d+(\.\d+)?(-\S*)?$/
