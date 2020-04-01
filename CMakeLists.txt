@@ -385,6 +385,12 @@ if(APPLE)
           BUNDLE DESTINATION . COMPONENT Runtime
           RUNTIME DESTINATION bin COMPONENT Runtime
     )
+    
+    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+                      COMMAND macdeployqt ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.app
+    )
+    set(APPS "\${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app")
+    include(cmake/deployment.cmake)
 endif()
 
 if(UNIX AND NOT APPLE AND NOT WIN32)

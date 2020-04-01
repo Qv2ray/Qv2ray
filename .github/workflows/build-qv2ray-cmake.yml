@@ -106,7 +106,7 @@ jobs:
           mkdir build
           cd build
           cmake .. -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_OSX_SYSROOT=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk -DCMAKE_OSX_DEPLOYMENT_TARGET=10.14
-          cmake --build . --parallel $(sysctl -n hw.logicalcpu)
+          cmake --build . --target package --parallel $(sysctl -n hw.logicalcpu)
           ls
 # --------------------------------------------------------        
       - name: Windows - ${{ matrix.qt_version }} - Generate Dependencies and Build
