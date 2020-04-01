@@ -354,23 +354,16 @@ if(APPLE)
     target_include_directories(${PROJECT_NAME} PRIVATE
       ${Iconv_INCLUDE_DIR}
     )
-    set(CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR})
-    set(prefix "${PROJECT_NAME}.app/Contents")
-    set(INSTALL_RUNTIME_DIR "${prefix}/MacOS")
-    set(INSTALL_CMAKE_DIR "${prefix}/Resources")
+
+    target_sources(${PROJECT_NAME} PRIVATE
+      MACOSX_BUNDLE
+    )
 
     # Destination paths below are relative to ${CMAKE_INSTALL_PREFIX}
-    install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION ${INSTALL_RUNTIME_DIR} )
-    install(FILES ${CMAKE_SOURCE_DIR}/assets/Info.plist DESTINATION "${prefix}" )
-    install(FILES ${CMAKE_SOURCE_DIR}/assets/icons/qv2ray.icns DESTINATION "${INSTALL_CMAKE_DIR}" )
-    if(NOT EMBED_TRANSLATIONS)
-      install(FILES ${QM_FILES} DESTINATION ${INSTALL_CMAKE_DIR}/lang)
-    endif()
-
-    # Call macdeployqt
-    install(CODE "execute_process(COMMAND macdeployqt ${PROJECT_NAME}.app)")
-    set(APPS "\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app")
-    include(cmake/deployment.cmake)
+    install(TARGETS ${PROJECT_NAME}
+          BUNDLE DESTINATION . COMPONENT Runtime
+          RUNTIME DESTINATION bin COMPONENT Runtime
+    )
 endif()
 
 if(UNIX AND NOT APPLE AND NOT WIN32)
