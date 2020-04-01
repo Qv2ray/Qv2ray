@@ -1,5 +1,6 @@
 #include "UpdateChecker.hpp"
 
+#include "3rdparty/libsemver/version.hpp"
 #include "base/Qv2rayBase.hpp"
 #include "common/HTTPRequestHelper.hpp"
 #include "common/QvHelpers.hpp"
@@ -39,15 +40,17 @@ namespace Qv2ray::components
         if (root.isEmpty())
             return;
         //
-        const auto newVersionTag = root["tag_name"].toString("v").mid(1);
+        const auto newVersionStr = root["tag_name"].toString("v").mid(1);
+        const auto currentVersionStr = QString(QV2RAY_VERSION_STRING);
+        const auto ignoredVersionStr = GlobalConfig.updateConfig.ignoredVersion.isEmpty() ? "0.0.0" : GlobalConfig.updateConfig.ignoredVersion;
         //
-        auto newVersion = QVersionNumber::fromString(newVersionTag);
-        auto currentVersion = QVersionNumber::fromString(QString(QV2RAY_VERSION_STRING).remove(0, 1));
-        auto ignoredVersion = QVersionNumber::fromString(GlobalConfig.updateConfig.ignoredVersion);
+        auto newVersion = semver::version::from_string(newVersionStr.toStdString());
+        auto currentVersion = semver::version::from_string(currentVersionStr.toStdString());
+        auto ignoredVersion = semver::version::from_string(ignoredVersionStr.toStdString());
         //
-        LOG(MODULE_UPDATE, "Received update info, Latest: " + newVersion.toString() + //
-                               " Current: " + currentVersion.toString() +             //
-                               " Ignored: " + ignoredVersion.toString())
+        LOG(MODULE_UPDATE, "Received update info, Latest: " + newVersionStr + //
+                               " Current: " + currentVersionStr +             //
+                               " Ignored: " + ignoredVersionStr)
         //
         const auto name = root["name"].toString("");
         if (name.contains("NO_RELEASE"))
@@ -63,7 +66,7 @@ namespace Qv2ray::components
             auto result = QvMessageBoxAsk(nullptr, //
                                           tr("Qv2ray Update"),
                                           tr("A new version of Qv2ray has been found:") + //
-                                              "v" + newVersionTag + NEWLINE +             //
+                                              "v" + newVersionStr + NEWLINE + NEWLINE +   //
                                               name + NEWLINE "------------" NEWLINE +     //
                                               root["body"].toString(""),
                                           QMessageBox::Ignore);
@@ -75,7 +78,7 @@ namespace Qv2ray::components
             else if (result == QMessageBox::Ignore)
             {
                 // Set and save ingored version.
-                GlobalConfig.updateConfig.ignoredVersion = newVersion.toString();
+                GlobalConfig.updateConfig.ignoredVersion = QString::fromStdString(newVersion.str());
                 SaveGlobalSettings();
             }
         }

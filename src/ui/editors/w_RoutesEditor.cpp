@@ -706,7 +706,7 @@ void RouteEditor::on_addOutboundBtn_clicked()
     LOADINGCHECK
     ImportConfigWindow w(this);
     // True here for not keep the inbounds.
-    auto configs = w.OpenImport(true);
+    auto configs = w.SelectConnection(true);
 
     for (auto i = 0; i < configs.count(); i++)
     {

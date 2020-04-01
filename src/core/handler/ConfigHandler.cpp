@@ -222,6 +222,7 @@ namespace Qv2ray::core::handlers
         CheckConnectionExistance(id);
         OnConnectionRenamed(id, connections[id].displayName, newName);
         connections[id].displayName = newName;
+        CHSaveConfigData_p();
         return {};
     }
     const optional<QString> QvConfigHandler::DeleteConnection(const ConnectionId &id)
@@ -308,6 +309,7 @@ namespace Qv2ray::core::handlers
         }
         //
         groups.remove(id);
+        CHSaveConfigData_p();
         emit OnGroupDeleted(id, list);
         if (id == DefaultGroupId)
         {
@@ -411,6 +413,7 @@ namespace Qv2ray::core::handlers
         groups[id].isSubscription = isSubscription;
         groups[id].importDate = system_clock::to_time_t(system_clock::now());
         emit OnGroupCreated(id, displayName);
+        CHSaveConfigData_p();
         return id;
     }
 
@@ -512,50 +515,58 @@ namespace Qv2ray::core::handlers
         for (auto vmess : subsList)
         {
             QString errMessage;
-            QString _alias;
-            auto config = ConvertConfigFromString(vmess.trimmed(), &_alias, &errMessage);
-
-            if (!errMessage.isEmpty())
+            auto ssdGroupName = GetDisplayName(id);
+            QString __alias;
+            auto conf = ConvertConfigFromString(vmess.trimmed(), &__alias, &errMessage, &ssdGroupName);
+            Q_UNUSED(ssdGroupName)
+            // Things may go wrong when updating a subscription with ssd:// link
+            for (auto _alias : conf.keys())
             {
-                LOG(MODULE_SUBSCRIPTION, "Processing a subscription with following error: " + errMessage)
-                hasErrorOccured = true;
-                continue;
+                for (const auto config : conf.values(_alias))
+                {
+                    if (!errMessage.isEmpty())
+                    {
+                        LOG(MODULE_SUBSCRIPTION, "Processing a subscription with following error: " + errMessage)
+                        hasErrorOccured = true;
+                        continue;
+                    }
+                    bool canGetOutboundData = false;
+                    // Should not have complex connection we assume.
+                    auto outboundData = GetConnectionInfo(config, &canGetOutboundData);
+                    //
+                    // Begin guessing new ConnectionId
+                    if (nameMap.contains(_alias))
+                    {
+                        // Just go and save the connection...
+                        LOG(MODULE_CORE_HANDLER, "Reused connection id from name: " + _alias)
+                        auto _conn = nameMap.take(_alias);
+                        groups[id].connections << _conn;
+                        UpdateConnection(_conn, config);
+                        // Remove Connection Id from the list.
+                        connectionsOrig.removeAll(_conn);
+                        typeMap.remove(typeMap.key(_conn));
+                    }
+                    else if (canGetOutboundData && typeMap.contains(outboundData))
+                    {
+                        LOG(MODULE_CORE_HANDLER, "Reused connection id from protocol/host/port pair for connection: " + _alias)
+                        auto _conn = typeMap.take(outboundData);
+                        groups[id].connections << _conn;
+                        // Update Connection Properties
+                        UpdateConnection(_conn, config);
+                        RenameConnection(_conn, _alias);
+                        // Remove Connection Id from the list.
+                        connectionsOrig.removeAll(_conn);
+                        nameMap.remove(nameMap.key(_conn));
+                    }
+                    else
+                    {
+                        // New connection id is required since nothing matched found...
+                        LOG(MODULE_CORE_HANDLER, "Generated new connection id for connection: " + _alias)
+                        CreateConnection(_alias, id, config);
+                    }
+                    // End guessing connectionId
+                }
             }
-            bool canGetOutboundData = false;
-            // Should not have complex connection we assume.
-            auto outboundData = GetConnectionInfo(config, &canGetOutboundData);
-            //
-            // Begin guessing new ConnectionId
-            if (nameMap.contains(_alias))
-            {
-                // Just go and save the connection...
-                LOG(MODULE_CORE_HANDLER, "Reused connection id from name: " + _alias)
-                auto _conn = nameMap.take(_alias);
-                groups[id].connections << _conn;
-                UpdateConnection(_conn, config);
-                // Remove Connection Id from the list.
-                connectionsOrig.removeAll(_conn);
-                typeMap.remove(typeMap.key(_conn));
-            }
-            else if (canGetOutboundData && typeMap.contains(outboundData))
-            {
-                LOG(MODULE_CORE_HANDLER, "Reused connection id from protocol/host/port pair for connection: " + _alias)
-                auto _conn = typeMap.take(outboundData);
-                groups[id].connections << _conn;
-                // Update Connection Properties
-                UpdateConnection(_conn, config);
-                RenameConnection(_conn, _alias);
-                // Remove Connection Id from the list.
-                connectionsOrig.removeAll(_conn);
-                nameMap.remove(nameMap.key(_conn));
-            }
-            else
-            {
-                // New connection id is required since nothing matched found...
-                LOG(MODULE_CORE_HANDLER, "Generated new connection id for connection: " + _alias)
-                CreateConnection(_alias, id, config);
-            }
-            // End guessing connectionId
         }
 
         // Check if anything left behind (not being updated or changed significantly)
@@ -582,6 +593,7 @@ namespace Qv2ray::core::handlers
         connections[newId].displayName = displayName;
         emit OnConnectionCreated(newId, displayName);
         UpdateConnection(newId, root);
+        CHSaveConfigData_p();
         return newId;
     }
 

@@ -273,6 +273,17 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>subscriptionList</tabstop>
+  <tabstop>addSubsButton</tabstop>
+  <tabstop>removeSubsButton</tabstop>
+  <tabstop>subAddrTxt</tabstop>
+  <tabstop>subNameTxt</tabstop>
+  <tabstop>updateIntervalSB</tabstop>
+  <tabstop>connectionsList</tabstop>
+  <tabstop>withProxyCB</tabstop>
+  <tabstop>updateButton</tabstop>
+ </tabstops>
  <resources>
   <include location="../../resources.qrc"/>
  </resources>

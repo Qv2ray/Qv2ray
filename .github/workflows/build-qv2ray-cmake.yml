@@ -9,7 +9,7 @@ jobs:
   build:
     strategy:
       matrix:
-        qt_version: [5.11.3, 5.12.7, 5.13.2, 5.14.2]
+        qt_version: [5.14.2]
         platform: [ubuntu-16.04, macos-latest, windows-latest]
         arch: [x86, x64]
         include: 
@@ -19,15 +19,14 @@ jobs:
           - platform: windows-latest
             arch: x64
             qtarch: win64_msvc2017_64
+          - platform: ubuntu-16.04
+            arch: x64
+            qt_version: 5.11.3
         exclude:
           - platform: ubuntu-16.04
             arch: x86
           - platform: macos-latest
             arch: x86
-          - platform: windows-latest
-            qt_version: 5.11.3
-          - platform: windows-latest
-            qt_version: 5.12.7
       fail-fast: false
         
     runs-on: ${{ matrix.platform }}
@@ -82,9 +81,10 @@ jobs:
       - name: macOS - ${{ matrix.qt_version }} - Build preparation - Install Packages 
         if: matrix.platform == 'macos-latest'
         run: |
-          brew install protobuf
-          brew install grpc
-          brew install ninja
+          brew install protobuf grpc ninja wget
+          wget https://github.com/phracker/MacOSX-SDKs/releases/download/10.15/MacOSX10.14.sdk.tar.xz
+          tar -xf MacOSX10.14.sdk.tar.xz
+          sudo mv -v ./MacOSX10.14.sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk
 # --------------------------------------------------------
       - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - Build preparation - Download Dependencies
         shell: bash
@@ -105,10 +105,12 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake .. -GNinja -DCMAKE_BUILD_TYPE=Release
-          cmake --build . --parallel $(sysctl -n hw.logicalcpu)
-          sudo cmake --install .
-          sudo chmod -Rv a+rw ./
+          cmake .. -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_OSX_SYSROOT=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk -DCMAKE_OSX_DEPLOYMENT_TARGET=10.14
+          sudo cmake --build . --target package --parallel $(sysctl -n hw.logicalcpu)
+          cp qv2ray-*.dmg ../
+      - name: macOS - Get package name
+        id: get_package
+        run: echo ::set-output name=NAME::$(basename qv2ray-*.dmg)
 # --------------------------------------------------------        
       - name: Windows - ${{ matrix.qt_version }} - Generate Dependencies and Build
         shell: bash
@@ -171,24 +173,19 @@ jobs:
           tag: ${{ github.ref }}
           overwrite: true
 # --------------------------------------------------------
-      - name: macOS - ${{ matrix.qt_version }} - Making release tarball
-        if: matrix.platform == 'macos-latest'
-        run: |
-          cd build
-          tar czvf Qv2ray.app.tar.gz qv2ray.app
       - name: macOS - ${{ matrix.qt_version }} - Uploading Artifact
         if: matrix.platform == 'macos-latest'
         uses: actions/upload-artifact@master
         with:
-          name: Qv2ray-${{ github.sha }}.macOS-${{ matrix.arch }}.qt${{ matrix.qt_version }}.zip
-          path: build/Qv2ray.app.tar.gz
+          name: ${{ steps.get_package.outputs.NAME }}
+          path: ${{ steps.get_package.outputs.NAME }}
       - name: macOS - ${{ matrix.qt_version }} - Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release
         if: github.event_name == 'release' && matrix.platform == 'macos-latest' && matrix.qt_version == '5.14.2'
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: build/Qv2ray.app.tar.gz
-          asset_name: Qv2ray.${{ steps.get_version.outputs.VERSION }}.macOS-${{ matrix.arch }}.tar.gz
+          file: ${{ steps.get_package.outputs.NAME }}
+          asset_name: ${{ steps.get_package.outputs.NAME }}
           tag: ${{ github.ref }}
           overwrite: true
 # --------------------------------------------------------

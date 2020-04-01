@@ -4,6 +4,7 @@
 #include "core/CoreUtils.hpp"
 #include "core/connection/ConnectionIO.hpp"
 #include "core/connection/Serialization.hpp"
+#include "core/handler/ConfigHandler.hpp"
 #include "core/kernel/KernelInteractions.hpp"
 #include "ui/editors/w_JsonEditor.hpp"
 #include "ui/editors/w_OutboundEditor.hpp"
@@ -44,15 +45,43 @@ ImportConfigWindow::~ImportConfigWindow()
 {
 }
 
-QMultiMap<QString, CONFIGROOT> ImportConfigWindow::OpenImport(bool partialImport)
+QMultiHash<QString, CONFIGROOT> ImportConfigWindow::SelectConnection(bool outboundsOnly)
 {
-    // partial import means only import as an outbound, will set keepImported to
+    // partial import means only import as an outbound, will set outboundsOnly to
     // false and disable the checkbox
-    // keepImportedInboundCheckBox->setChecked(!outboundsOnly);
-    keepImportedInboundCheckBox->setEnabled(!partialImport);
-    routeEditBtn->setEnabled(!partialImport);
+    keepImportedInboundCheckBox->setEnabled(!outboundsOnly);
+    routeEditBtn->setEnabled(!outboundsOnly);
     this->exec();
-    return this->result() == QDialog::Accepted ? connections : QMultiMap<QString, CONFIGROOT>();
+    QMultiHash<QString, CONFIGROOT> conn;
+    for (const auto connEntry : connections.values())
+    {
+        conn += connEntry;
+    }
+    return result() == Accepted ? conn : QMultiHash<QString, CONFIGROOT>{};
+}
+
+int ImportConfigWindow::ImportConnection()
+{
+    this->exec();
+    int count = 0;
+    for (const auto groupName : connections.keys())
+    {
+        GroupId groupId = groupName.isEmpty() ? DefaultGroupId : ConnectionManager->CreateGroup(groupName, false);
+        const auto groupObject = connections[groupName];
+        for (const auto connConf : groupObject)
+        {
+            auto connName = groupObject.key(connConf);
+
+            auto [protocol, host, port] = GetConnectionInfo(connConf);
+            if (connName.isEmpty())
+            {
+                connName = protocol + "/" + host + ":" + QSTRN(port) + "-" + GenerateRandomString(5);
+            }
+            ConnectionManager->CreateConnection(connName, groupId, connConf);
+        }
+    }
+
+    return count;
 }
 
 void ImportConfigWindow::on_selectFileBtn_clicked()
@@ -123,7 +152,8 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
                     continue;
                 }
                 QString errMessage;
-                const CONFIGROOT config = ConvertConfigFromString(link, &aliasPrefix, &errMessage);
+                QString newGroupName = "";
+                const auto config = ConvertConfigFromString(link, &aliasPrefix, &errMessage, &newGroupName);
 
                 // If the config is empty or we have any err messages.
                 if (config.isEmpty() || !errMessage.isEmpty())
@@ -134,7 +164,10 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
                 }
                 else
                 {
-                    connections.insert(aliasPrefix, config);
+                    for (auto conf : config)
+                    {
+                        AddToGroup(newGroupName, config.key(conf), conf);
+                    }
                 }
             }
 
@@ -167,7 +200,7 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
 
             aliasPrefix += "_" + QFileInfo(path).fileName();
             CONFIGROOT config = ConvertConfigFromFile(path, ImportAsComplex);
-            connections.insert(aliasPrefix, config);
+            AddToGroup("", aliasPrefix, config);
             break;
         }
     }
@@ -237,7 +270,7 @@ void ImportConfigWindow::on_connectionEditBtn_clicked()
         CONFIGROOT root;
         root.insert("outbounds", outboundsList);
         //
-        connections.insert(alias, root);
+        AddToGroup("", alias, root);
         accept();
     }
 }
@@ -258,7 +291,7 @@ void ImportConfigWindow::on_subscriptionButton_clicked()
     if (importToComplex)
     {
         auto [alias, conf] = w.GetSelectedConfig();
-        connections.insert(alias, conf);
+        AddToGroup("", alias, conf);
     }
 
     accept();
@@ -273,7 +306,7 @@ void ImportConfigWindow::on_routeEditBtn_clicked()
 
     if (isChanged)
     {
-        connections.insert(alias, result);
+        AddToGroup("", alias, result);
         accept();
     }
 }
@@ -293,7 +326,7 @@ void ImportConfigWindow::on_jsonEditBtn_clicked()
 
     if (isChanged)
     {
-        connections.insert(alias, CONFIGROOT(result));
+        AddToGroup("", alias, CONFIGROOT(result));
         accept();
     }
 }

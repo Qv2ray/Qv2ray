@@ -25,6 +25,10 @@
 #include <QStandardItemModel>
 #include <QUrl>
 
+#ifdef Q_OS_MAC
+    #include <ApplicationServices/ApplicationServices.h>
+#endif
+
 #define TRAY_TOOLTIP_PREFIX "Qv2ray " QV2RAY_VERSION_STRING
 #define CheckCurrentWidget                                                                                                                      \
     auto widget = GetItemWidget(connectionListWidget->currentItem());                                                                           \
@@ -191,7 +195,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(tray_action_Restart, &QAction::triggered, ConnectionManager, &QvConfigHandler::RestartConnection);
     connect(tray_action_Quit, &QAction::triggered, this, &MainWindow::on_actionExit_triggered);
     connect(tray_action_SetSystemProxy, &QAction::triggered, this, &MainWindow::MWSetSystemProxy);
-    connect(tray_action_ClearSystemProxy, &QAction::triggered, &ClearSystemProxy);
+    connect(tray_action_ClearSystemProxy, &QAction::triggered, this, &MainWindow::MWClearSystemProxy);
     connect(&hTray, &QSystemTrayIcon::activated, this, &MainWindow::on_activatedTray);
     //
     // Actions for right click the log text browser
@@ -389,6 +393,10 @@ MainWindow::~MainWindow()
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
+#ifdef Q_OS_MAC
+    ProcessSerialNumber psn = { 0, kCurrentProcess };
+    TransformProcessType(&psn, kProcessTransformToUIElementApplication);
+#endif
     this->hide();
     tray_action_ShowHide->setText(tr("Show"));
     event->ignore();
@@ -427,10 +435,18 @@ void MainWindow::ToggleVisibility()
         QThread::msleep(20);
         SetWindowPos(HWND(this->winId()), HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW);
 #endif
+#ifdef Q_OS_MAC
+        ProcessSerialNumber psn = { 0, kCurrentProcess };
+        TransformProcessType(&psn, kProcessTransformToForegroundApplication);
+#endif
         tray_action_ShowHide->setText(tr("Hide"));
     }
     else
     {
+#ifdef Q_OS_MAC
+        ProcessSerialNumber psn = { 0, kCurrentProcess };
+        TransformProcessType(&psn, kProcessTransformToUIElementApplication);
+#endif
         this->hide();
         tray_action_ShowHide->setText(tr("Show"));
     }
@@ -509,18 +525,7 @@ void MainWindow::on_action_RCM_DeleteThese_triggered()
 void MainWindow::on_importConfigButton_clicked()
 {
     ImportConfigWindow w(this);
-    auto configs = w.OpenImport();
-    if (!configs.isEmpty())
-    {
-        for (auto conf : configs)
-        {
-            auto name = configs.key(conf, "");
-
-            if (name.isEmpty())
-                continue;
-            ConnectionManager->CreateConnection(name, DefaultGroupId, conf);
-        }
-    }
+    w.ImportConnection();
 }
 
 void MainWindow::on_action_RCM_EditAsComplex_triggered()

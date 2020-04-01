@@ -1992,15 +1992,19 @@ p, li { white-space: pre-wrap; }
   <tabstop>darkTrayCB</tabstop>
   <tabstop>themeCombo</tabstop>
   <tabstop>languageComboBox</tabstop>
+  <tabstop>startWithLoginCB</tabstop>
+  <tabstop>tProxyCheckBox</tabstop>
   <tabstop>maxLogLinesSB</tabstop>
-  <tabstop>logLevelComboBox</tabstop>
   <tabstop>autoStartSubsCombo</tabstop>
   <tabstop>autoStartConnCombo</tabstop>
+  <tabstop>logLevelComboBox</tabstop>
   <tabstop>vCorePathTxt</tabstop>
   <tabstop>selectVCoreBtn</tabstop>
   <tabstop>vCoreAssetsPathTxt</tabstop>
   <tabstop>selectVAssetBtn</tabstop>
   <tabstop>checkVCoreSettings</tabstop>
+  <tabstop>enableAPI</tabstop>
+  <tabstop>statsPortBox</tabstop>
   <tabstop>scrollArea_2</tabstop>
   <tabstop>listenIPTxt</tabstop>
   <tabstop>setSysProxyCB</tabstop>
@@ -2016,15 +2020,22 @@ p, li { white-space: pre-wrap; }
   <tabstop>httpAuthCB</tabstop>
   <tabstop>httpAuthUsernameTxt</tabstop>
   <tabstop>httpAuthPasswordTxt</tabstop>
-  <tabstop>pacPortSB</tabstop>
-  <tabstop>pacProxyTxt</tabstop>
-  <tabstop>pacProxyCB</tabstop>
-  <tabstop>gfwListCB</tabstop>
-  <tabstop>pacGoBtn</tabstop>
-  <tabstop>pushButton</tabstop>
+  <tabstop>tProxyGroupBox</tabstop>
+  <tabstop>checkBox</tabstop>
+  <tabstop>lineEdit</tabstop>
+  <tabstop>spinBox</tabstop>
+  <tabstop>checkBox_2</tabstop>
+  <tabstop>checkBox_3</tabstop>
+  <tabstop>checkBox_4</tabstop>
+  <tabstop>groupBox_2</tabstop>
+  <tabstop>lineEdit_2</tabstop>
+  <tabstop>checkBox_5</tabstop>
+  <tabstop>comboBox_2</tabstop>
+  <tabstop>spinBox_2</tabstop>
   <tabstop>proxyDefaultCb</tabstop>
   <tabstop>bypassCNCb</tabstop>
   <tabstop>localDNSCb</tabstop>
+  <tabstop>DNSListTxt</tabstop>
   <tabstop>fpGroupBox</tabstop>
   <tabstop>fpTypeCombo</tabstop>
   <tabstop>fpAddressTx</tabstop>
@@ -2052,6 +2063,7 @@ p, li { white-space: pre-wrap; }
   <tabstop>chooseColorBtn</tabstop>
   <tabstop>applyNSBarSettingsBtn</tabstop>
   <tabstop>textBrowser</tabstop>
+  <tabstop>updateChannelCombo</tabstop>
   <tabstop>cancelIgnoreVersionBtn</tabstop>
   <tabstop>aboutQt</tabstop>
  </tabstops>

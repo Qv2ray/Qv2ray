@@ -1,3 +1,13 @@
+qv2ray (2.4.1-1) unstable; urgency=medium
+
+  * add: add new semver checker
+  * add: added support of ssd:// fixed #372
+  * fix: apply tabStop sequences by @DuckSoft
+  * fix: increase configuration save frequency
+  * fix: fixed SOCKS user removal issue
+
+ -- Guobang Bi <ymshenyu@gmail.com>  Wed, 01 Apr 2020 14:51:15 +0800
+
 qv2ray (2.4.0~pre1-1) unstable; urgency=medium
 
   * change: ported to zxing-cpp

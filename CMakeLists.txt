@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.10.1)
 
 file(STRINGS "${CMAKE_SOURCE_DIR}/makespec/VERSION" QV2RAY_VERSION)
 file(STRINGS "${CMAKE_SOURCE_DIR}/makespec/BUILDVERSION" QV2RAY_BUILD_VERSION)
+file(STRINGS "${CMAKE_SOURCE_DIR}/makespec/VERSIONSUFFIX" QV2RAY_VERSION_SUFFIX)
 
 if(NOT ${CMAKE_BUILD_TYPE} STREQUAL "Release")
     math(EXPR QV2RAY_BUILD_VERSION "1 + ${QV2RAY_BUILD_VERSION}")
@@ -9,24 +10,24 @@ if(NOT ${CMAKE_BUILD_TYPE} STREQUAL "Release")
     file(WRITE "${CMAKE_SOURCE_DIR}/makespec/BUILDVERSION" ${QV2RAY_BUILD_VERSION})
 endif()
 
-set(PACKAGE_VERSION "${QV2RAY_VERSION}.${QV2RAY_BUILD_VERSION}")
+set(QV2RAY_VERSION_STRING "${QV2RAY_VERSION}${QV2RAY_VERSION_SUFFIX}")
 project(qv2ray)
 
-set(VERSION_LIST ${PACKAGE_VERSION})
+set(VERSION_LIST ${QV2RAY_VERSION})
 string(REPLACE "." ";" VERSION_LIST ${VERSION_LIST})
 separate_arguments(VERSION_LIST)
 
-list(GET VERSION_LIST 0 QV2RAY_VERSION_MAJOR)
-list(GET VERSION_LIST 1 QV2RAY_VERSION_MINOR)
-list(GET VERSION_LIST 2 QV2RAY_VERSION_BUGFIX)
-list(GET VERSION_LIST 3 QV2RAY_VERSION_BUILD)
+list(GET VERSION_LIST 0 CMAKE_PROJECT_VERSION_MAJOR)
+list(GET VERSION_LIST 1 CMAKE_PROJECT_VERSION_MINOR)
+list(GET VERSION_LIST 2 CPACK_PACKAGE_VERSION_PATCH)
 
-add_definitions(-DQV2RAY_VERSION_MAJOR=${QV2RAY_VERSION_MAJOR})
-add_definitions(-DQV2RAY_VERSION_MINOR=${QV2RAY_VERSION_MINOR})
-add_definitions(-DQV2RAY_VERSION_BUGFIX=${QV2RAY_VERSION_BUGFIX})
-add_definitions(-DQV2RAY_VERSION_BUILD=${QV2RAY_VERSION_BUILD})
+# For Windows RC file.
+add_definitions(-DQV2RAY_VERSION_MAJOR=${CMAKE_PROJECT_VERSION_MAJOR})
+add_definitions(-DQV2RAY_VERSION_MINOR=${CMAKE_PROJECT_VERSION_MINOR})
+add_definitions(-DQV2RAY_VERSION_BUGFIX=${CPACK_PACKAGE_VERSION_PATCH})
+add_definitions(-DQV2RAY_VERSION_BUILD=${QV2RAY_BUILD_VERSION})
 
-add_definitions(-DQV2RAY_VERSION_STRING="v${PACKAGE_VERSION}")
+add_definitions(-DQV2RAY_VERSION_STRING="${QV2RAY_VERSION_STRING}")
 add_definitions(-DXTOSTRUCT_QT)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -44,12 +45,9 @@ if(CMAKE_VERSION VERSION_GREATER_EQUAL "3.17.0")
   cmake_policy(SET CMP0100 NEW)
 endif()
 
-if(CMAKE_VERSION VERSION_LESS "3.7.0")
-    set(CMAKE_INCLUDE_CURRENT_DIR ON)
-endif()
-
 message(" ")
-message("Qv2ray Version: v${PACKAGE_VERSION}")
+message("Qv2ray Version: ${QV2RAY_VERSION_STRING}")
+message("Qv2ray Build Version: ${QV2RAY_BUILD_VERSION}")
 message("|-------------------------------------------------|")
 message("| Qv2ray, A Cross Platform v2ray Qt GUI Client.   |")
 message("| Licenced under GPLv3                            |")
@@ -106,7 +104,7 @@ if(QV2RAY_BUILD_EXTRA_INFO)
 elseif(DEFINED ENV{_QV2RAY_BUILD_EXTRA_INFO_})
     set(_QV2RAY_BUILD_EXTRA_INFO_STR_ "$ENV{_QV2RAY_BUILD_EXTRA_INFO_}")
 else()
-    set(_QV2RAY_BUILD_EXTRA_INFO_STR_ "Qv2ray v${PACKAGE_VERSION}")
+    set(_QV2RAY_BUILD_EXTRA_INFO_STR_ "Qv2ray ${QV2RAY_VERSION_STRING}:${QV2RAY_BUILD_VERSION}")
 endif()
 
 set(QV2RAY_BUILD_INFO ${_QV2RAY_BUILD_INFO_STR_} CACHE STRING "Qv2ray build info")
@@ -149,6 +147,7 @@ if(QV2RAY_DISABLE_AUTO_UPDATE)
 endif()
 
 set(QV2RAY_SOURCES
+  3rdparty/libsemver/version.cpp
   src/base/Qv2rayLog.cpp
   src/common/CommandArgs.cpp
   src/common/HTTPRequestHelper.cpp
@@ -223,6 +222,7 @@ set(QV2RAY_SOURCES
   src/ui/w_PreferencesWindow.ui
   src/ui/w_ScreenShot_Core.ui
   # headers
+  3rdparty/libsemver/version.hpp
   src/base/JsonHelpers.hpp
   src/base/models/CoreObjectModels.hpp
   src/base/models/QvConfigIdentifier.hpp
@@ -354,22 +354,42 @@ if(APPLE)
     target_include_directories(${PROJECT_NAME} PRIVATE
       ${Iconv_INCLUDE_DIR}
     )
-    set(CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR})
-    set(prefix "${PROJECT_NAME}.app/Contents")
-    set(INSTALL_RUNTIME_DIR "${prefix}/MacOS")
-    set(INSTALL_CMAKE_DIR "${prefix}/Resources")
+
+    set(MACOSX_ICON "${CMAKE_SOURCE_DIR}/assets/icons/qv2ray.icns")
+    set_source_files_properties(${QM_FILES}
+                                PROPERTIES
+                                  MACOSX_PACKAGE_LOCATION Resources/lang
+    )
+
+    target_sources(${PROJECT_NAME} PRIVATE
+                  ${MACOSX_ICON}
+    )
+
+    set_target_properties(${PROJECT_NAME}
+                          PROPERTIES
+                            MACOSX_BUNDLE TRUE
+                            MACOSX_BUNDLE_BUNDLE_NAME "Qv2ray"
+                            MACOSX_BUNDLE_BUNDLE_VERSION ${QV2RAY_VERSION_STRING}
+                            MACOSX_BUNDLE_COPYRIGHT "Copyright (c) 2019-2020 Qv2ray Development Group"
+                            MACOSX_BUNDLE_GUI_IDENTIFIER "com.github.qv2ray"
+                            MACOSX_BUNDLE_ICON_FILE "qv2ray.icns"
+                            MACOSX_BUNDLE_INFO_STRING "Created by Qv2ray development team"
+                            MACOSX_BUNDLE_LONG_VERSION_STRING ${QV2RAY_VERSION_STRING}
+                            MACOSX_BUNDLE_SHORT_VERSION_STRING ${QV2RAY_VERSION_STRING}
+                          RESOURCE 
+                            ${MACOSX_ICON}
+    )
 
     # Destination paths below are relative to ${CMAKE_INSTALL_PREFIX}
-    install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION ${INSTALL_RUNTIME_DIR} )
-    install(FILES ${CMAKE_SOURCE_DIR}/assets/Info.plist DESTINATION "${prefix}" )
-    install(FILES ${CMAKE_SOURCE_DIR}/assets/icons/qv2ray.icns DESTINATION "${INSTALL_CMAKE_DIR}" )
-    if(NOT EMBED_TRANSLATIONS)
-      install(FILES ${QM_FILES} DESTINATION ${INSTALL_CMAKE_DIR}/lang)
-    endif()
-
-    # Call macdeployqt
-    install(CODE "execute_process(COMMAND macdeployqt ${PROJECT_NAME}.app)")
-    set(APPS "\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app")
+    install(TARGETS ${PROJECT_NAME}
+          BUNDLE DESTINATION . COMPONENT Runtime
+          RUNTIME DESTINATION bin COMPONENT Runtime
+    )
+    
+    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+                      COMMAND macdeployqt ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.app
+    )
+    set(APPS "\${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app")
     include(cmake/deployment.cmake)
 endif()
 
@@ -398,7 +418,10 @@ if(WIN32)
     install(FILES ${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin/libcrypto-1_1.dll DESTINATION .)
   endif()
 
-  install(CODE "execute_process(COMMAND windeployqt ${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.exe --compiler-runtime --verbose 2)")
+  add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+                    COMMAND windeployqt ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.exe --compiler-runtime --verbose 2 --dir ${CMAKE_BINARY_DIR}/winqt/
+  )
+  install(DIRECTORY ${CMAKE_BINARY_DIR}/winqt/ DESTINATION .)
   set(APPS "\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.exe")
   include(cmake/deployment.cmake)
 endif()
