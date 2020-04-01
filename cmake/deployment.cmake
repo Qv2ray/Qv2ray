@@ -61,6 +61,7 @@ endif()
 
 if(APPLE)
     set(CPACK_GENERATOR "DragNDrop")
+    set(BU_CHMOD_BUNDLE_ITEMS TRUE)
 endif()
 
 include(CPack)
