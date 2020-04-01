@@ -355,9 +355,29 @@ if(APPLE)
       ${Iconv_INCLUDE_DIR}
     )
 
+    set(MACOSX_ICON "${CMAKE_SOURCE_DIR}/assets/icons/qv2ray.icns")
+    set_source_files_properties(${QM_FILES}
+                                PROPERTIES
+                                  MACOSX_PACKAGE_LOCATION Resources/lang
+    )
+
+    target_sources(${PROJECT_NAME} PRIVATE
+                  ${MACOSX_ICON}
+    )
+
     set_target_properties(${PROJECT_NAME}
                           PROPERTIES
                             MACOSX_BUNDLE TRUE
+                            MACOSX_BUNDLE_BUNDLE_NAME "Qv2ray"
+                            MACOSX_BUNDLE_BUNDLE_VERSION ${QV2RAY_VERSION_STRING}
+                            MACOSX_BUNDLE_COPYRIGHT "Copyright (c) 2019-2020 Qv2ray Development Group"
+                            MACOSX_BUNDLE_GUI_IDENTIFIER "com.github.qv2ray"
+                            MACOSX_BUNDLE_ICON_FILE "qv2ray.icns"
+                            MACOSX_BUNDLE_INFO_STRING "Created by Qv2ray development team"
+                            MACOSX_BUNDLE_LONG_VERSION_STRING ${QV2RAY_VERSION_STRING}
+                            MACOSX_BUNDLE_SHORT_VERSION_STRING ${QV2RAY_VERSION_STRING}
+                          RESOURCE 
+                            ${MACOSX_ICON}
     )
 
     # Destination paths below are relative to ${CMAKE_INSTALL_PREFIX}
