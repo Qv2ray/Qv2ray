@@ -46,7 +46,7 @@ deploy:
       branch: dev
   - provider: snap
     snap: qv2ray_*.snap
-    channel: edge
+    channel: beta
     skip_cleanup: true
     on:
       branch: /^v\d+\.\d+(\.\d+)?(-\S*)?$/
