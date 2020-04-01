@@ -320,42 +320,42 @@
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="60"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="89"/>
         <source>Select file to import</source>
         <translation>选择要导入的文件</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="91"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="120"/>
         <source>Capture QRCode</source>
         <translation>抓取二维码</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="91"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="120"/>
         <source>Cannot find a valid QRCode from this region.</source>
         <translation>无法从这个区域找到有效的二维码。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="164"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="197"/>
         <source>Import config file</source>
         <translation>导入配置文件</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="164"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="197"/>
         <source>Failed to check the validity of the config file.</source>
         <translation>检查配置文件有效性时失败。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="179"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="212"/>
         <source>Select an image to import</source>
         <translation>选择要导入的图像</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="191"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="224"/>
         <source>QRCode scanning failed</source>
         <translation>二维码扫描失败</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="191"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="224"/>
         <source>Cannot find any QRCode from the image.</source>
         <translation>无法从图像中找到任何二维码。</translation>
     </message>
@@ -834,14 +834,14 @@
 0.00 B</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="430"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="442"/>
         <location filename="../src/ui/w_MainWindow.hpp" line="119"/>
         <source>Hide</source>
         <translation>隐藏</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="393"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="435"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="401"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="451"/>
         <source>Show</source>
         <translation>显示</translation>
     </message>
@@ -893,51 +893,51 @@
         <translation type="vanished">下载链接： </translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="599"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="600"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="601"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="749"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="604"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="605"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="606"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="754"/>
         <source>Connected: </source>
         <translation>已连接: </translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="631"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="645"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="636"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="650"/>
         <source>Configuring PAC</source>
         <translation>配置 PAC</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="632"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="637"/>
         <source>Could not start PAC server as it is configured to use SOCKS, but it is not enabled</source>
         <translation>无法启动 PAC 服务器，因为它被配置为使用 SOCKS，但它没有启用</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="646"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="651"/>
         <source>Could not start PAC server as it is configured to use HTTP, but it is not enabled</source>
         <translation>无法启动 PAC 服务器，因为它被配置为使用 HTTP ，但它尚未启用</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="888"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="893"/>
         <source>Duplicating Connection(s)</source>
         <translation>复制连接</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="889"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="894"/>
         <source>Are you sure to duplicate these connection(s)?</source>
         <translation>您确定要复制这（些）连接吗？</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="896"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="901"/>
         <source> (Copy)</source>
         <translation> （副本）</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="962"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="967"/>
         <source>Set auto connection</source>
         <translation>设置自动连接</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="962"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="967"/>
         <source>Set %1 as auto connect.</source>
         <translation>已将 %1 设为自动连接。</translation>
     </message>
@@ -967,37 +967,47 @@
         <translation>HTTP 和 SOCKS 都没有启用</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="71"/>
+        <location filename="../src/ui/w_MainWindow_extra.cpp" line="67"/>
+        <source>System proxy configured.</source>
+        <translation>系统代理已设置。</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow_extra.cpp" line="72"/>
         <source>Didn&apos;t set proxy for complex config.</source>
         <translation>未对复杂配置设置代理。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="101"/>
+        <location filename="../src/ui/w_MainWindow_extra.cpp" line="79"/>
+        <source>System proxy removed.</source>
+        <translation>系统代理已清除。</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow_extra.cpp" line="108"/>
         <source>Update Subscriptions</source>
         <translation>更新订阅</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="102"/>
+        <location filename="../src/ui/w_MainWindow_extra.cpp" line="109"/>
         <source>There are subscriptions need to be updated, please go to subscriptions window to update them.</source>
         <translation>有订阅需要更新，请转到订阅窗口进行更新。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="103"/>
+        <location filename="../src/ui/w_MainWindow_extra.cpp" line="110"/>
         <source>These subscriptions are out-of-date: </source>
         <translation>这些订阅已过期： </translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="132"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="136"/>
         <source>V2ray vcore terminated.</source>
         <translation>V2ray 核心已终止。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="133"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="137"/>
         <source>V2ray vcore terminated unexpectedly.</source>
         <translation>V2ray 核心意外终止。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="134"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="138"/>
         <source>To solve the problem, read the V2ray log in the log text browser.</source>
         <translation>要解决问题，请阅读日志文本浏览器中的 V2ray 日志。</translation>
     </message>
@@ -1007,17 +1017,17 @@
         <translation>系统代理</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="572"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="577"/>
         <source>Disconnected from: </source>
         <translation>已断开连接: </translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="493"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="509"/>
         <source>Removing Connection(s)</source>
         <translation>删除连接</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="493"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="509"/>
         <source>Are you sure to remove selected connection(s)?</source>
         <translation>您确定要删除这（些）连接吗？</translation>
     </message>
@@ -1033,7 +1043,7 @@
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.ui"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="576"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="581"/>
         <source>Not Connected</source>
         <translation>未连接</translation>
     </message>
@@ -2082,7 +2092,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/core/connection/Serialization.cpp" line="27"/>
+        <location filename="../src/core/connection/Serialization.cpp" line="33"/>
         <source>Unsupported share link format.</source>
         <translation>不支持的分享链接格式。</translation>
     </message>
@@ -2317,77 +2327,77 @@ p, li { white-space: pre-wrap; }
         <translation>请先升级到 Qv2ray v2.0/v2.1 再重试。</translation>
     </message>
     <message>
-        <location filename="../src/core/connection/Serialization_ssd.cpp" line="26"/>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="22"/>
         <source>invalid ssd link: json: field %1 must exist</source>
         <translation>SSD 链接无效: json: 必选字段 %1 不存在</translation>
     </message>
     <message>
-        <location filename="../src/core/connection/Serialization_ssd.cpp" line="33"/>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="29"/>
         <source>invalid ssd link: json: field %1 must be valid port number</source>
         <translation>SSD 链接无效: json: 字段 %1 应为有效的端口号</translation>
     </message>
     <message>
-        <location filename="../src/core/connection/Serialization_ssd.cpp" line="40"/>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="36"/>
         <source>invalid ssd link: json: field %1 must be of type &apos;string&apos;</source>
         <translation>SSD 链接无效: json: 字段 %1 必须为字符串类型</translation>
     </message>
     <message>
-        <location filename="../src/core/connection/Serialization_ssd.cpp" line="47"/>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="43"/>
         <source>invalid ssd link: json: field %1 must be an array</source>
         <translation>SSD 链接无效: json: 字段 %1 必须为数组类型</translation>
     </message>
     <message>
-        <location filename="../src/core/connection/Serialization_ssd.cpp" line="54"/>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="50"/>
         <source>skipping invalid ssd server: server must be an object</source>
         <translation>跳过无效的 ssd 服务器: 服务器必须是一个对象</translation>
     </message>
     <message>
-        <location filename="../src/core/connection/Serialization_ssd.cpp" line="60"/>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="56"/>
         <source>skipping invalid ssd server: missing required field %1</source>
         <translation>跳过无效的 ssd 服务器: 必选字段 %1 缺失</translation>
     </message>
     <message>
-        <location filename="../src/core/connection/Serialization_ssd.cpp" line="67"/>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="63"/>
         <source>skipping invalid ssd server: field %1 should be of type &apos;string&apos;</source>
         <translation>跳过无效的 ssd 服务器: 字段 %1 须为字符串类型</translation>
     </message>
     <message>
-        <location filename="../src/core/connection/Serialization_ssd.cpp" line="89"/>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="81"/>
         <source>Invalid ssd link: should begin with ssd://</source>
         <translation>SSD 链接无效: 必须以 ssd:// 开头</translation>
     </message>
     <message>
-        <location filename="../src/core/connection/Serialization_ssd.cpp" line="99"/>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="91"/>
         <source>Invalid ssd link: base64 parse failed</source>
         <translation>SSD 链接无效: 无法作为 Base64 解析</translation>
     </message>
     <message>
-        <location filename="../src/core/connection/Serialization_ssd.cpp" line="109"/>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="101"/>
         <source>Invalid ssd link: json parse failed: </source>
         <translation>SSD 链接无效: JSON 语法分析失败: </translation>
     </message>
     <message>
-        <location filename="../src/core/connection/Serialization_ssd.cpp" line="116"/>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="108"/>
         <source>Invalid ssd link: found non-object json, aborting</source>
         <translation>SSD 链接无效: 解析到非对象的 JSON，已终止</translation>
     </message>
     <message>
-        <location filename="../src/core/connection/Serialization_ssd.cpp" line="137"/>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="129"/>
         <source>Invalid ssd link: rc4-md5 encryption is not supported by v2ray-core</source>
         <translation>SSD 链接无效: v2ray-core 不支持 rc4-md5 加密方式</translation>
     </message>
     <message>
-        <location filename="../src/core/connection/Serialization_ssd.cpp" line="178"/>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="170"/>
         <source>Invalid port encountered. using fallback value.</source>
         <translation>遇到无效端口。已使用默认值。</translation>
     </message>
     <message>
-        <location filename="../src/core/connection/Serialization_ssd.cpp" line="197"/>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="189"/>
         <source>Invalid name encountered. using fallback value.</source>
         <translation>遇到无效名称。已使用默认值。</translation>
     </message>
     <message>
-        <location filename="../src/core/connection/Serialization_ssd.cpp" line="212"/>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="204"/>
         <source>Invalid ratio encountered. using fallback value.</source>
         <translation>遇到无效流量比率。已使用默认值。</translation>
     </message>
@@ -2576,12 +2586,12 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>Qv2ray::components::QvUpdateChecker</name>
     <message>
-        <location filename="../src/components/update/UpdateChecker.cpp" line="64"/>
+        <location filename="../src/components/update/UpdateChecker.cpp" line="67"/>
         <source>Qv2ray Update</source>
         <translation>升级 Qv2ray</translation>
     </message>
     <message>
-        <location filename="../src/components/update/UpdateChecker.cpp" line="65"/>
+        <location filename="../src/components/update/UpdateChecker.cpp" line="68"/>
         <source>A new version of Qv2ray has been found:</source>
         <translation>找到新的版本：</translation>
     </message>
@@ -2603,28 +2613,28 @@ p, li { white-space: pre-wrap; }
     <name>Qv2ray::core::handlers::QvConfigHandler</name>
     <message>
         <location filename="../src/core/handler/ConfigHandler.cpp" line="75"/>
-        <location filename="../src/core/handler/ConfigHandler.cpp" line="314"/>
+        <location filename="../src/core/handler/ConfigHandler.cpp" line="316"/>
         <source>Default Group</source>
         <translation>默认分组</translation>
     </message>
     <message>
-        <location filename="../src/core/handler/ConfigHandler.cpp" line="254"/>
+        <location filename="../src/core/handler/ConfigHandler.cpp" line="255"/>
         <source>File does not exist.</source>
         <translation>文件不存在。</translation>
     </message>
     <message>
-        <location filename="../src/core/handler/ConfigHandler.cpp" line="291"/>
-        <location filename="../src/core/handler/ConfigHandler.cpp" line="422"/>
+        <location filename="../src/core/handler/ConfigHandler.cpp" line="292"/>
+        <location filename="../src/core/handler/ConfigHandler.cpp" line="425"/>
         <source>Group does not exist</source>
         <translation>分组不存在</translation>
     </message>
     <message>
-        <location filename="../src/core/handler/ConfigHandler.cpp" line="486"/>
+        <location filename="../src/core/handler/ConfigHandler.cpp" line="489"/>
         <source>Update Subscription</source>
         <translation>更新订阅</translation>
     </message>
     <message>
-        <location filename="../src/core/handler/ConfigHandler.cpp" line="487"/>
+        <location filename="../src/core/handler/ConfigHandler.cpp" line="490"/>
         <source>%1 entrie(s) have been found from the subscription source, do you want to continue?</source>
         <translation>订阅源仅返回了 %1 个节点，确定要继续吗？</translation>
     </message>

@@ -305,42 +305,42 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="60"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="89"/>
         <source>Select file to import</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="91"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="120"/>
         <source>Capture QRCode</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="91"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="120"/>
         <source>Cannot find a valid QRCode from this region.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="164"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="197"/>
         <source>Import config file</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="164"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="197"/>
         <source>Failed to check the validity of the config file.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="179"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="212"/>
         <source>Select an image to import</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="191"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="224"/>
         <source>QRCode scanning failed</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="191"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="224"/>
         <source>Cannot find any QRCode from the image.</source>
         <translation></translation>
     </message>
@@ -797,14 +797,14 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="430"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="442"/>
         <location filename="../src/ui/w_MainWindow.hpp" line="119"/>
         <source>Hide</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="393"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="435"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="401"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="451"/>
         <source>Show</source>
         <translation></translation>
     </message>
@@ -844,51 +844,51 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="599"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="600"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="601"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="749"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="604"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="605"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="606"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="754"/>
         <source>Connected: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="631"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="645"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="636"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="650"/>
         <source>Configuring PAC</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="632"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="637"/>
         <source>Could not start PAC server as it is configured to use SOCKS, but it is not enabled</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="646"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="651"/>
         <source>Could not start PAC server as it is configured to use HTTP, but it is not enabled</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="888"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="893"/>
         <source>Duplicating Connection(s)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="889"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="894"/>
         <source>Are you sure to duplicate these connection(s)?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="896"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="901"/>
         <source> (Copy)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="962"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="967"/>
         <source>Set auto connection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="962"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="967"/>
         <source>Set %1 as auto connect.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -918,37 +918,47 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="71"/>
+        <location filename="../src/ui/w_MainWindow_extra.cpp" line="67"/>
+        <source>System proxy configured.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow_extra.cpp" line="72"/>
         <source>Didn&apos;t set proxy for complex config.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="101"/>
+        <location filename="../src/ui/w_MainWindow_extra.cpp" line="79"/>
+        <source>System proxy removed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow_extra.cpp" line="108"/>
         <source>Update Subscriptions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="102"/>
+        <location filename="../src/ui/w_MainWindow_extra.cpp" line="109"/>
         <source>There are subscriptions need to be updated, please go to subscriptions window to update them.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="103"/>
+        <location filename="../src/ui/w_MainWindow_extra.cpp" line="110"/>
         <source>These subscriptions are out-of-date: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="132"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="136"/>
         <source>V2ray vcore terminated.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="133"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="137"/>
         <source>V2ray vcore terminated unexpectedly.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="134"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="138"/>
         <source>To solve the problem, read the V2ray log in the log text browser.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -958,17 +968,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="572"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="577"/>
         <source>Disconnected from: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="493"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="509"/>
         <source>Removing Connection(s)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="493"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="509"/>
         <source>Are you sure to remove selected connection(s)?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -984,7 +994,7 @@
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.ui"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="576"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="581"/>
         <source>Not Connected</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1993,7 +2003,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/core/connection/Serialization.cpp" line="27"/>
+        <location filename="../src/core/connection/Serialization.cpp" line="33"/>
         <source>Unsupported share link format.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2212,77 +2222,77 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/core/connection/Serialization_ssd.cpp" line="26"/>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="22"/>
         <source>invalid ssd link: json: field %1 must exist</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/core/connection/Serialization_ssd.cpp" line="33"/>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="29"/>
         <source>invalid ssd link: json: field %1 must be valid port number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/core/connection/Serialization_ssd.cpp" line="40"/>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="36"/>
         <source>invalid ssd link: json: field %1 must be of type &apos;string&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/core/connection/Serialization_ssd.cpp" line="47"/>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="43"/>
         <source>invalid ssd link: json: field %1 must be an array</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/core/connection/Serialization_ssd.cpp" line="54"/>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="50"/>
         <source>skipping invalid ssd server: server must be an object</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/core/connection/Serialization_ssd.cpp" line="60"/>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="56"/>
         <source>skipping invalid ssd server: missing required field %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/core/connection/Serialization_ssd.cpp" line="67"/>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="63"/>
         <source>skipping invalid ssd server: field %1 should be of type &apos;string&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/core/connection/Serialization_ssd.cpp" line="89"/>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="81"/>
         <source>Invalid ssd link: should begin with ssd://</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/core/connection/Serialization_ssd.cpp" line="99"/>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="91"/>
         <source>Invalid ssd link: base64 parse failed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/core/connection/Serialization_ssd.cpp" line="109"/>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="101"/>
         <source>Invalid ssd link: json parse failed: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/core/connection/Serialization_ssd.cpp" line="116"/>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="108"/>
         <source>Invalid ssd link: found non-object json, aborting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/core/connection/Serialization_ssd.cpp" line="137"/>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="129"/>
         <source>Invalid ssd link: rc4-md5 encryption is not supported by v2ray-core</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/core/connection/Serialization_ssd.cpp" line="178"/>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="170"/>
         <source>Invalid port encountered. using fallback value.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/core/connection/Serialization_ssd.cpp" line="197"/>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="189"/>
         <source>Invalid name encountered. using fallback value.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/core/connection/Serialization_ssd.cpp" line="212"/>
+        <location filename="../src/core/connection/Serialization_ssd.cpp" line="204"/>
         <source>Invalid ratio encountered. using fallback value.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2463,12 +2473,12 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>Qv2ray::components::QvUpdateChecker</name>
     <message>
-        <location filename="../src/components/update/UpdateChecker.cpp" line="64"/>
+        <location filename="../src/components/update/UpdateChecker.cpp" line="67"/>
         <source>Qv2ray Update</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/components/update/UpdateChecker.cpp" line="65"/>
+        <location filename="../src/components/update/UpdateChecker.cpp" line="68"/>
         <source>A new version of Qv2ray has been found:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2490,28 +2500,28 @@ p, li { white-space: pre-wrap; }
     <name>Qv2ray::core::handlers::QvConfigHandler</name>
     <message>
         <location filename="../src/core/handler/ConfigHandler.cpp" line="75"/>
-        <location filename="../src/core/handler/ConfigHandler.cpp" line="314"/>
+        <location filename="../src/core/handler/ConfigHandler.cpp" line="316"/>
         <source>Default Group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/core/handler/ConfigHandler.cpp" line="254"/>
+        <location filename="../src/core/handler/ConfigHandler.cpp" line="255"/>
         <source>File does not exist.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/core/handler/ConfigHandler.cpp" line="291"/>
-        <location filename="../src/core/handler/ConfigHandler.cpp" line="422"/>
+        <location filename="../src/core/handler/ConfigHandler.cpp" line="292"/>
+        <location filename="../src/core/handler/ConfigHandler.cpp" line="425"/>
         <source>Group does not exist</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/core/handler/ConfigHandler.cpp" line="486"/>
+        <location filename="../src/core/handler/ConfigHandler.cpp" line="489"/>
         <source>Update Subscription</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/core/handler/ConfigHandler.cpp" line="487"/>
+        <location filename="../src/core/handler/ConfigHandler.cpp" line="490"/>
         <source>%1 entrie(s) have been found from the subscription source, do you want to continue?</source>
         <translation type="unfinished"></translation>
     </message>
