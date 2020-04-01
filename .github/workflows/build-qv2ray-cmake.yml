@@ -106,9 +106,11 @@ jobs:
           mkdir build
           cd build
           cmake .. -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_OSX_SYSROOT=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk -DCMAKE_OSX_DEPLOYMENT_TARGET=10.14
-          cmake --build . --parallel $(sysctl -n hw.logicalcpu)
-          sudo cmake --install .
-          sudo chmod -Rv a+rw ./
+          sudo cmake --build . --target package --parallel $(sysctl -n hw.logicalcpu)
+          cp qv2ray-*.dmg ../
+      - name: macOS - Get package name
+        id: get_package
+        run: echo ::set-output name=NAME::$(basename qv2ray-*.dmg)
 # --------------------------------------------------------        
       - name: Windows - ${{ matrix.qt_version }} - Generate Dependencies and Build
         shell: bash
@@ -171,24 +173,19 @@ jobs:
           tag: ${{ github.ref }}
           overwrite: true
 # --------------------------------------------------------
-      - name: macOS - ${{ matrix.qt_version }} - Making release tarball
-        if: matrix.platform == 'macos-latest'
-        run: |
-          cd build
-          tar czvf Qv2ray.app.tar.gz qv2ray.app
       - name: macOS - ${{ matrix.qt_version }} - Uploading Artifact
         if: matrix.platform == 'macos-latest'
         uses: actions/upload-artifact@master
         with:
-          name: Qv2ray-${{ github.sha }}.macOS-${{ matrix.arch }}.qt${{ matrix.qt_version }}.zip
-          path: build/Qv2ray.app.tar.gz
+          name: ${{ steps.get_package.outputs.NAME }}
+          path: ${{ steps.get_package.outputs.NAME }}
       - name: macOS - ${{ matrix.qt_version }} - Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release
         if: github.event_name == 'release' && matrix.platform == 'macos-latest' && matrix.qt_version == '5.14.2'
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: build/Qv2ray.app.tar.gz
-          asset_name: Qv2ray.${{ steps.get_version.outputs.VERSION }}.macOS-${{ matrix.arch }}.tar.gz
+          file: ${{ steps.get_package.outputs.NAME }}
+          asset_name: ${{ steps.get_package.outputs.NAME }}
           tag: ${{ github.ref }}
           overwrite: true
 # --------------------------------------------------------
