@@ -96,5 +96,5 @@ jobs:
         if: matrix.platform == 'windows-latest'
         uses: actions/upload-artifact@master
         with:
-          name: qv2ray-build-dir
+          name: ${{ steps.get_package.outputs.NAME }}
           path: build/${{ steps.get_package.outputs.NAME }}
