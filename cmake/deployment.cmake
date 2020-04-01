@@ -36,6 +36,12 @@ if(BUILD_NSIS)
         set(CPACK_NSIS_MUI_UNIICON "${CMAKE_SOURCE_DIR}/assets/icons\\\\qv2ray.ico")
         set(CPACK_NSIS_DISPLAY_NAME "Qv2ray")
         set(CPACK_NSIS_PACKAGE_NAME "qv2ray")
+        set(CPACK_NSIS_EXTRA_INSTALL_COMMANDS "
+            CreateShortCut \\\"$DESKTOP\\\\qv2ray.lnk\\\" \\\"$INSTDIR\\\\qv2ray.exe\\\"
+        ")
+        set(CPACK_NSIS_EXTRA_UNINSTALL_COMMANDS "
+            Delete \\\"$DESKTOP\\\\qv2ray.lnk\\\"
+        ")
     endif()
 endif()
 
