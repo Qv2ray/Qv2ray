@@ -355,8 +355,9 @@ if(APPLE)
       ${Iconv_INCLUDE_DIR}
     )
 
-    target_sources(${PROJECT_NAME} PRIVATE
-      MACOSX_BUNDLE
+    set_target_properties(${PROJECT_NAME}
+                          PROPERTIES
+                            MACOSX_BUNDLE TRUE
     )
 
     # Destination paths below are relative to ${CMAKE_INSTALL_PREFIX}
