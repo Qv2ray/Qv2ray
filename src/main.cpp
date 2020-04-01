@@ -229,7 +229,7 @@ int main(int argc, char *argv[])
 #endif
     if (StartupOption.noScaleFactors)
     {
-        LOG(MODULE_INIT, "Force set QT_SCALE_FACTOR to 0.")
+        LOG(MODULE_INIT, "Force set QT_SCALE_FACTOR to 1.")
         LOG(MODULE_UI, "Original QT_SCALE_FACTOR was: " + qEnvironmentVariable("QT_SCALE_FACTOR"))
         qputenv("QT_SCALE_FACTOR", "1");
     }
@@ -237,6 +237,9 @@ int main(int argc, char *argv[])
     {
         LOG(MODULE_INIT, "High DPI scaling is enabled.")
         QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+        QCoreApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::RoundPreferFloor);  
+#endif
     }
     SingleApplication _qApp(argc, argv, false,
                             SingleApplication::User | SingleApplication::ExcludeAppPath | SingleApplication::ExcludeAppVersion);
