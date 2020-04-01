@@ -61,6 +61,8 @@ endif()
 
 if(APPLE)
     set(CPACK_GENERATOR "DragNDrop")
+    set(CPACK_DMG_DS_STORE_SETUP_SCRIPT "${CMAKE_SOURCE_DIR}/cmake/CMakeDMGSetup.scpt")
+    set(CPACK_DMG_BACKGROUND_IMAGE "${CMAKE_SOURCE_DIR}/assets/CMakeDMGBackground.tif")
 endif()
 
 include(CPack)
