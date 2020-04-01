@@ -42,7 +42,6 @@ jobs:
         run: git submodule update --init
 # =========================================================================================================
       - name: Install MSVC compiler
-        if: matrix.platform == 'windows-latest'
         uses: ilammy/msvc-dev-cmd@v1
         with: 
           # 14.1 is for vs2017, 14.2 is vs2019, following the upstream vcpkg build from Qv2ray-deps repo
@@ -64,20 +63,17 @@ jobs:
 # =========================================================================================================
       - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - Build preparation - Download Dependencies
         shell: bash
-        if: matrix.platform == 'windows-latest'
         run: |
          choco install -y ninja
          curl -o ./libs/Qv2ray-deps-grpc-${{ matrix.arch }}-windows.7z -L https://github.com/Qv2ray/Qv2ray-deps/releases/download/release/Qv2ray-deps-grpc-${{ matrix.arch }}-windows.7z
       - name: Win-${{ matrix.arch }} - Build preparation - Extract Dependencies
-        if: matrix.platform == 'windows-latest'
         uses: DuckSoft/extract-7z-action@v1.0
         with:
           pathSource: ./libs/Qv2ray-deps-grpc-${{ matrix.arch }}-windows.7z
           pathTarget: ./libs
 # ========================================================================================================= Generate MakeFile and Build
-      - name: Windows - ${{ matrix.qt_version }} - Generate Dependencies and Build
+      - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - Generate Dependencies and Build
         shell: bash
-        if: matrix.platform == 'windows-latest'
         env:
           CC: cl.exe
           CXX: cl.exe
@@ -89,12 +85,19 @@ jobs:
       - name: Windows - Get package name
         shell: bash
         id: get_package
-        if: matrix.platform == 'windows-latest'
         run: |
           echo ::set-output name=NAME::$(basename build/qv2ray-*.exe)
-      - name: Windows - ${{ matrix.qt_version }} - uploading artifact
-        if: matrix.platform == 'windows-latest'
+      - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - uploading artifact
         uses: actions/upload-artifact@master
         with:
           name: ${{ steps.get_package.outputs.NAME }}
           path: build/${{ steps.get_package.outputs.NAME }}
+      - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - Upload binaries to release
+        uses: svenstaro/upload-release-action@v1-release
+        if: github.event_name == 'release'
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: build/${{ steps.get_package.outputs.NAME }}
+          asset_name: ${{ steps.get_package.outputs.NAME }}
+          tag: ${{ github.ref }}
+          overwrite: true
