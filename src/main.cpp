@@ -89,7 +89,7 @@ bool initialiseQv2ray()
         //
         // Create new config at these dirs, these are default values for each
         // platform.
-#if defined(Q_OS_WIN) && !defined(BUILD_NSIS)
+#if defined(Q_OS_WIN) && !defined(QV2RAY_NO_ASIDECONFIG)
         configPath = currentPathConfig;
 #else
         configPath = configQv2ray;
