@@ -31,19 +31,10 @@ steps:
     Qt5_DIR: /usr/local/opt/qt5/lib/cmake/Qt5
     PATH: /usr/local/opt/qt5/bin:$PATH
 - script: |
-    cp build/qv2ray-legacy.dmg ./
+    cp build/qv2ray-*.dmg ./qv2ray-legacy.dmg
   displayName: Copy binary
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: 'qv2ray-legacy.dmg'
     ArtifactName: 'qv2ray-legacy.dmg'
     publishLocation: 'Container'
-- task: GitHubRelease@0
-  condition: startsWith(variables['Build.SourceBranch'], 'refs/tags/v')
-  inputs:
-    gitHubConnection: 'github.com_DuckSoft'
-    assets: 'qv2ray-legacy.dmg'
-    action: edit
-    tag: '$(Build.SourceBranchName)'
-    isPreRelease: true
-    addChangeLog: false
