@@ -105,7 +105,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake .. -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_OSX_SYSROOT=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk -DCMAKE_OSX_DEPLOYMENT_TARGET=10.14
+          cmake .. -GNinja -DCMAKE_BUILD_TYPE=Release
           sudo cmake --build . --target package --parallel $(sysctl -n hw.logicalcpu)
           cp qv2ray-*.dmg ../
       - name: macOS - Get package name

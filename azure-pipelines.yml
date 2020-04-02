@@ -5,7 +5,6 @@ trigger:
     include:
       - master
       - dev
-      - dev-azure-pipelines
   tags:
     include:
       - v*
@@ -26,26 +25,24 @@ steps:
     mkdir build
     cd build
     cmake .. -GNinja -DCMAKE_BUILD_TYPE=Release
-    cmake --build . --parallel $(sysctl -n hw.logicalcpu)
-    sudo cmake --install .
-    sudo chmod -Rv a+rw ./
+    sudo cmake --build . --target package --parallel $(sysctl -n hw.logicalcpu)
   displayName: Build Qv2ray
   env:
     Qt5_DIR: /usr/local/opt/qt5/lib/cmake/Qt5
+    PATH: /usr/local/opt/qt5/bin:$PATH
 - script: |
-    cd build
-    tar czvf Qv2ray.macOS.tar.gz qv2ray.app
-  displayName: Create Tarball
+    cp build/qv2ray-legacy.dmg ./
+  displayName: Copy binary
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: 'build/Qv2ray.macOS.tar.gz'
-    ArtifactName: 'Qv2ray-macOS'
+    PathtoPublish: 'qv2ray-legacy.dmg'
+    ArtifactName: 'qv2ray-legacy.dmg'
     publishLocation: 'Container'
 - task: GitHubRelease@0
   condition: startsWith(variables['Build.SourceBranch'], 'refs/tags/v')
   inputs:
     gitHubConnection: 'github.com_DuckSoft'
-    assets: 'build/Qv2ray.macOS.tar.gz'
+    assets: 'qv2ray-legacy.dmg'
     action: edit
     tag: '$(Build.SourceBranchName)'
     isPreRelease: true
