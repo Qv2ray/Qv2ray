@@ -22,6 +22,7 @@ steps:
     xcversion select 10.1 --symlink
   displayName: Select Xcode 10.1 as active
 - script: |
+    PATH=/usr/local/opt/qt5/bin:$PATH
     mkdir build
     cd build
     cmake .. -GNinja -DCMAKE_BUILD_TYPE=Release
@@ -29,7 +30,6 @@ steps:
   displayName: Build Qv2ray
   env:
     Qt5_DIR: /usr/local/opt/qt5/lib/cmake/Qt5
-    PATH: /usr/local/opt/qt5/bin:$PATH
 - script: |
     cp build/qv2ray-*.dmg ./qv2ray-legacy.dmg
   displayName: Copy binary
