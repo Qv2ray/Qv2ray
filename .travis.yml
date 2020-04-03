@@ -49,4 +49,4 @@ deploy:
     channel: beta
     skip_cleanup: true
     on:
-      branch: /^v\d+\.\d+(\.\d+)?(-\S*)?$/
+      tags: true
