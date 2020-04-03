@@ -19,8 +19,8 @@ steps:
     brew install protobuf grpc ninja qt5
   displayName: Prepare dependencies
 - script: |
-    xcversion select 9.4.1 --symlink
-  displayName: Select Xcode 9.4.1 as active
+    xcversion select 10.3 --symlink
+  displayName: Select Xcode 10.3 as active
 - script: |
     PATH=/usr/local/opt/qt5/bin:$PATH
     mkdir build
