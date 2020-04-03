@@ -41,7 +41,7 @@ steps:
 - task: GitHubRelease@0
   condition: startsWith(variables['Build.SourceBranch'], 'refs/tags/v')
   inputs:
-    gitHubConnection: 'github.com_DuckSoft'
+    gitHubConnection: 'Qv2ray'
     assets: 'qv2ray-legacy.dmg'
     action: edit
     tag: '$(Build.SourceBranchName)'
