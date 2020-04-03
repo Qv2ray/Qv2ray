@@ -7,14 +7,16 @@
 #include "TextUtfEncoding.h"
 #include "base/Qv2rayBase.hpp"
 
-namespace Qv2ray::components
+namespace Qv2ray::common
 {
     using namespace ZXing;
     QString DecodeQRCode(const QImage &source)
     {
+        if (source.isNull())
+            return "";
         QImage img = source.copy();
-        auto result =
-            ReadBarcode(img.width(), img.height(), img.bits(), img.width() * 4, 4, 0, 1, 2, { BarcodeFormatFromString("") }, true, true);
+        const auto result =
+            ReadBarcode(img.width(), img.height(), img.bits(), img.width() * 4, 4, 0, 1, 2, { ZXing::BarcodeFormat::QR_CODE }, true, true);
 
         if (result.isValid())
         {
@@ -34,17 +36,15 @@ namespace Qv2ray::components
         int eccLevel = 1;
         try
         {
-            auto barcodeFormat = BarcodeFormatFromString("QR_CODE");
-
-            MultiFormatWriter writer(barcodeFormat);
+            MultiFormatWriter writer(ZXing::BarcodeFormat::QR_CODE);
             writer.setMargin(1);
             writer.setEccLevel(eccLevel);
 
-            auto bitmap = writer.encode(content.toStdWString(), size.width(), size.height());
-            auto BM = bitmap.toByteMatrix();
+            const auto bitmap = writer.encode(content.toStdWString(), size.width(), size.height());
+            const auto BM = bitmap.toByteMatrix();
             //
-            const QRgb black = qRgba(0, 0, 0, 255);
-            const QRgb white = qRgba(255, 255, 255, 255);
+            const auto black = qRgba(0, 0, 0, 255);
+            const auto white = qRgba(255, 255, 255, 255);
             //
             auto image = QImage(bitmap.width(), bitmap.width(), QImage::Format_ARGB32);
             image.fill(white);
@@ -67,4 +67,4 @@ namespace Qv2ray::components
             return {};
         }
     }
-} // namespace Qv2ray::components
+} // namespace Qv2ray::common

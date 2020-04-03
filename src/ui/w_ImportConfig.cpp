@@ -213,6 +213,8 @@ void ImportConfigWindow::on_selectImageBtn_clicked()
     imageFileEdit->setText(dir);
     //
     QFile file(dir);
+    if (!file.exists())
+        return;
     file.open(QFile::OpenModeFlag::ReadOnly);
     auto buf = file.readAll();
     file.close();
