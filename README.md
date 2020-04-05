@@ -46,7 +46,7 @@
 
  <tr>
   <td>Scoop</td>
-  <td><a href="https://github.com/skt041959/scoop-extras/blob/master/bucket/qv2ray.json"><img alt="scoop" src="https://img.shields.io/badge/scoop--extras-available-blue" /></a></td>
+  <td><a href="https://github.com/lukesampson/scoop-extras/blob/master/bucket/qv2ray.json"><img alt="scoop" src="https://img.shields.io/badge/scoop--extras-available-blue" /></a></td>
  </tr>
 
  <tr>
