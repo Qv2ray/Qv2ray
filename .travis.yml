@@ -1,17 +1,6 @@
 language: shell
 os: linux
 dist: bionic
-arch:
-  - amd64
-  - arm64
-
-git:
-  depth: false
-
-branches:
-  only:
-    - dev
-    - /^v\d+\.\d+(\.\d+)?(-\S*)?$/
 
 env:
   global:
@@ -23,16 +12,14 @@ addons:
     - name: snapcraft
       channel: stable
       confinement: classic
-
-before_install:
-  - echo "deb http://ppa.launchpad.net/ymshenyu/qv2ray-deps/ubuntu bionic main" | sudo tee -a /etc/apt/sources.list
-  - echo "deb http://archive.neon.kde.org/unstable bionic main" | sudo tee -a /etc/apt/sources.list
-  - sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 281F24E574404629AA3BDA1A4F10C386C55CDB04
-  - sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E6D4736255751E5D
-  - sudo apt-get update -qq
+    - name: lxd
+      channel: stable
 
 script:
-  - snapcraft --destructive-mode
+  - sudo apt-get autoremove lxd --purge
+  - sudo /snap/bin/lxd waitready
+  - sudo /snap/bin/lxd init --auto
+  - sudo snapcraft --use-lxd
 
 after_failure:
   - sudo journalctl -u snapd
@@ -44,9 +31,9 @@ deploy:
     skip_cleanup: true
     on:
       branch: dev
-  - provider: snap
-    snap: qv2ray_*.snap
-    channel: beta
-    skip_cleanup: true
+  - provider: launchpad
+    slug: "~ymshenyu/qv2ray/+git/trunk"
+    oauth_token: $LAUNCHPAD_OAUTH_TOKEN
+    oauth_token_secret: $LAUNCHPAD_OAUTH_TOKEN_SECRET
     on:
-      tags: true
+      all_branches: true
