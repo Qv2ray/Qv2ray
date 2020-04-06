@@ -124,6 +124,6 @@ parts:
     build-packages:
       - software-properties-common
       - dirmngr
-    override-build:
+    override-build: |
       sudo add-apt-repository -y ppa:ymshenyu/qv2ray-deps
       sudo apt-get dist-upgrade -y
