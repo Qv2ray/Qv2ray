@@ -9,6 +9,7 @@ namespace Qv2ray::common
           runAsRootOption("I-just-wanna-run-with-root", tr("Explicitly run Qv2ray as root.")), //
           debugOption("debug", tr("Enable Debug Output")),                                     //
           noScaleFactorOption("noScaleFactor", tr("Disable manually set QT_SCALE_FACTOR")),    //
+          noPluginsOption("noPlugin", tr("Disable plugin feature")),                           //
           withToolbarOption("withToolbarPlugin", tr("Enable Qv2ray network toolbar plugin")),  //
           //
           helpOption("FAKE"), versionOption("FAKE")
@@ -20,6 +21,7 @@ namespace Qv2ray::common
         parser.addOption(runAsRootOption);
         parser.addOption(debugOption);
         parser.addOption(noScaleFactorOption);
+        parser.addOption(noPluginsOption);
         parser.addOption(withToolbarOption);
         helpOption = parser.addHelpOption();
         versionOption = parser.addVersionOption();
@@ -61,6 +63,12 @@ namespace Qv2ray::common
         {
             DEBUG(MODULE_INIT, "noScaleFactorOption is set.")
             StartupOption.noScaleFactors = true;
+        }
+
+        if (parser.isSet(noPluginsOption))
+        {
+            DEBUG(MODULE_INIT, "noPluginOption is set.")
+            StartupOption.noPlugins = true;
         }
 
         if (parser.isSet(withToolbarOption))

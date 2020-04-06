@@ -161,11 +161,10 @@ set(QV2RAY_SOURCES
   src/components/geosite/QvGeositeReader.cpp
   src/components/latency/win/ICMPPinger.cpp
   src/components/latency/QvTCPing.cpp
-  src/components/pac/QvGFWPACConverter.cpp
-  src/components/pac/QvPACHandler.cpp
   src/components/plugins/toolbar/QvToolbar.cpp
   src/components/plugins/toolbar/QvToolbar_linux.cpp
   src/components/plugins/toolbar/QvToolbar_win.cpp
+  src/components/plugins/QvPluginHost.cpp
   src/components/proxy/QvProxyConfigurator.cpp
   src/components/route/RouteSchemeIO.cpp
   src/components/speedchart/speedplotview.cpp
@@ -205,6 +204,7 @@ set(QV2RAY_SOURCES
   src/ui/w_MainWindow.cpp
   src/ui/w_MainWindow_extra.cpp
   src/ui/w_PreferencesWindow.cpp
+  src/ui/w_PluginManager.cpp
   src/ui/w_ScreenShot_Core.cpp
   src/ui/w_SubscriptionManager.cpp
   # ui files
@@ -220,6 +220,7 @@ set(QV2RAY_SOURCES
   src/ui/widgets/RouteSettingsMatrix.ui
   src/ui/w_MainWindow.ui
   src/ui/w_PreferencesWindow.ui
+  src/ui/w_PluginManager.ui
   src/ui/w_ScreenShot_Core.ui
   # headers
   3rdparty/libsemver/version.hpp
@@ -246,8 +247,9 @@ set(QV2RAY_SOURCES
   src/components/geosite/QvGeositeReader.hpp
   src/components/latency/win/ICMPPinger.hpp
   src/components/latency/QvTCPing.hpp
-  src/components/pac/QvPACHandler.hpp
   src/components/plugins/toolbar/QvToolbar.hpp
+  src/components/plugins/interface/QvPluginInterface.hpp
+  src/components/plugins/QvPluginHost.hpp
   src/components/proxy/QvProxyConfigurator.hpp
   src/components/route/RouteSchemeIO.hpp
   src/components/route/presets/RouteScheme_V2rayN.hpp
@@ -281,6 +283,7 @@ set(QV2RAY_SOURCES
   src/ui/w_ImportConfig.hpp
   src/ui/w_MainWindow.hpp
   src/ui/w_PreferencesWindow.hpp
+  src/ui/w_PluginManager.hpp
   src/ui/w_ScreenShot_Core.hpp
   src/ui/w_SubscriptionManager.hpp
   assets/qv2ray.rc
