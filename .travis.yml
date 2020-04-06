@@ -25,12 +25,6 @@ after_failure:
   - sudo journalctl -u snapd
 
 deploy:
-  - provider: snap
-    snap: qv2ray_*.snap
-    channel: edge
-    skip_cleanup: true
-    on:
-      branch: dev
   - provider: launchpad
     slug: "~ymshenyu/qv2ray/+git/trunk"
     oauth_token: $LAUNCHPAD_OAUTH_TOKEN
