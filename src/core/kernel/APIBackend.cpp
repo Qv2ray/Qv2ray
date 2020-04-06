@@ -105,7 +105,6 @@ namespace Qv2ray::core::kernel
 
                 if (running)
                 {
-                    apiFailedCounter = 0;
                     emit OnDataReady(value_up, value_down);
                 }
 
@@ -168,6 +167,10 @@ namespace Qv2ray::core::kernel
         {
             LOG(MODULE_VCORE, "API call returns: " + QSTRN(status.error_code()) + " (" + QString::fromStdString(status.error_message()) + ")")
             apiFailedCounter++;
+        }
+        else
+        {
+            apiFailedCounter = 0;
         }
 
         qint64 data = response.stat().value();

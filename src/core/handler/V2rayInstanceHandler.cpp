@@ -9,19 +9,18 @@ optional<QString> QvConfigHandler::CHStartConnection_p(const ConnectionId &id, c
     auto fullConfig = GenerateRuntimeConfig(root);
 
     //
-    auto v = QVariant::fromValue(QList<QString>{ connections[id].displayName });
-    PluginHost->SendHook(HOOK_TYPE_STATE_EVENTS, HOOK_STYPE_PRE_CONNECTING, v);
+    PluginHost->Send_ConnectivityEvent({ GetDisplayName(id), QvConnecticity_Connecting });
     auto result = vCoreInstance->StartConnection(id, fullConfig);
 
     if (!result.has_value())
     {
         currentConnectionId = id;
         emit OnConnected(currentConnectionId);
-        PluginHost->SendHook(HOOK_TYPE_STATE_EVENTS, HOOK_STYPE_POST_CONNECTED, v);
+        PluginHost->Send_ConnectivityEvent({ GetDisplayName(id), QvConnecticity_Connected });
     }
     else
     {
-        PluginHost->SendHook(HOOK_TYPE_STATE_EVENTS, HOOK_STYPE_POST_DISCONNECTED, v);
+        PluginHost->Send_ConnectivityEvent({ GetDisplayName(id), QvConnecticity_Disconnected });
     }
     return result;
 }
@@ -30,14 +29,13 @@ void QvConfigHandler::CHStopConnection_p()
 {
     if (vCoreInstance->KernelStarted)
     {
-        auto v = QVariant::fromValue(QList<QString>{ connections[currentConnectionId].displayName });
-        PluginHost->SendHook(HOOK_TYPE_STATE_EVENTS, HOOK_STYPE_PRE_DISCONNECTING, v);
+        PluginHost->Send_ConnectivityEvent({ GetDisplayName(currentConnectionId), QvConnecticity_Disconnecting });
         vCoreInstance->StopConnection();
         // Copy
         ConnectionId id = currentConnectionId;
         currentConnectionId = NullConnectionId;
         emit OnDisconnected(id);
-        PluginHost->SendHook(HOOK_TYPE_STATE_EVENTS, HOOK_STYPE_POST_DISCONNECTED, v);
+        PluginHost->Send_ConnectivityEvent({ GetDisplayName(id), QvConnecticity_Disconnected });
     }
     else
     {
@@ -50,8 +48,8 @@ void QvConfigHandler::OnStatsDataArrived(const ConnectionId &id, const quint64 u
     connections[id].upLinkData += uploadSpeed;
     connections[id].downLinkData += downloadSpeed;
     emit OnStatsAvailable(id, uploadSpeed, downloadSpeed, connections[id].upLinkData, connections[id].downLinkData);
-    auto v = QVariant::fromValue(QList<quint64>() << uploadSpeed << downloadSpeed << connections[id].upLinkData << connections[id].downLinkData);
-    PluginHost->SendHook(HOOK_TYPE_STATS_EVENTS, HOOK_STYPE_STATS_CHANGED, v);
+    PluginHost->Send_ConnectionStatsEvent(
+        { GetDisplayName(currentConnectionId), uploadSpeed, downloadSpeed, connections[id].upLinkData, connections[id].downLinkData });
 }
 
 void QvConfigHandler::OnVCoreCrashed(const ConnectionId &id)

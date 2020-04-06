@@ -6,6 +6,7 @@
 #include "core/settings/SettingsBackend.hpp"
 
 #include <QPluginLoader>
+
 namespace Qv2ray::components::plugins
 {
     QvPluginHost::QvPluginHost(QObject *parent) : QObject(parent)
@@ -83,8 +84,7 @@ namespace Qv2ray::components::plugins
             {
                 case SPECIAL_TYPE_NONE: types << tr("No Special Type"); break;
                 case SPECIAL_TYPE_KERNEL: types << tr("Connection Kernel"); break;
-                case SPECIAL_TYPE_GENERATION: types << tr("Final Configuration Parser"); break;
-                case SPECIAL_TYPE_SERIALIZATION: types << tr("Connection String Serializer/Deserializer"); break;
+                case SPECIAL_TYPE_SERIALIZOR: types << tr("Connection String Serializer/Deserializer"); break;
                 default: types << tr("Unknown/unsupported plugin type."); break;
             }
         }
@@ -98,10 +98,11 @@ namespace Qv2ray::components::plugins
         {
             switch (hook)
             {
-                case HOOK_TYPE_NONE: hooks << tr("No hook"); break;
-                case HOOK_TYPE_STATE_EVENTS: hooks << tr("Connection State Change"); break;
-                case HOOK_TYPE_CONFIG_EVENTS: hooks << tr("Connection Change"); break;
-                case HOOK_TYPE_STATS_EVENTS: hooks << tr("Statistics Event"); break;
+                case PROCESSTYPE_NONE: hooks << tr("No hook"); break;
+                case PROCESSTYPE_CONNECTIVITY: hooks << tr("Connection State Change"); break;
+                case PROCESSTYPE_ITEM: hooks << tr("Connection Change"); break;
+                case PROCESSTYPE_STATS: hooks << tr("Statistics Event"); break;
+                case PROCESSTYPE_SYSTEMPROXY: hooks << tr("System Proxy"); break;
                 default: hooks << tr("Unknown/unsupported hook type."); break;
             }
         }
@@ -169,52 +170,6 @@ namespace Qv2ray::components::plugins
         }
         plugins.clear();
     }
-
-    void QvPluginHost::SendHook(QV2RAY_PLUGIN_HOOK_TYPE type, QV2RAY_PLUGIN_HOOK_SUBTYPE subtype, QVariant &data)
-    {
-        for (auto name : plugins.keys())
-        {
-            const auto info = plugins[name];
-            if (!info.isLoaded)
-            {
-                DEBUG(MODULE_PLUGINHOST, "The plugin has not been loaded.")
-                continue;
-            }
-
-            auto types = info.pluginInterface->SpecialPluginType();
-            if (types.contains(SPECIAL_TYPE_KERNEL))
-            {
-                info.pluginInterface->PluginHooks();
-                // A kernel will only listens on pre-connection, post-connection, pre-disconnection, post-disconnection
-                if (type == HOOK_TYPE_STATE_EVENTS && (subtype == HOOK_STYPE_PRE_CONNECTING || subtype == HOOK_STYPE_PRE_DISCONNECTING))
-                {
-                    info.pluginInterface->ProcessHook(type, subtype, &data);
-                }
-            }
-            if (types.contains(SPECIAL_TYPE_GENERATION))
-            {
-                // TODO
-            }
-            if (types.contains(SPECIAL_TYPE_SERIALIZATION))
-            {
-                // TODO
-            }
-            if (types.contains(SPECIAL_TYPE_NONE))
-            {
-                // This plugin has no special type.
-                for (auto hook : info.pluginInterface->PluginHooks())
-                {
-                    if (hook == HOOK_TYPE_NONE)
-                        continue;
-                    if (hook == type)
-                    {
-                        info.pluginInterface->ProcessHook(type, subtype, &data);
-                    }
-                }
-            }
-        }
-    }
-
     bool QvPluginHost::InitializePlugin(const QString &internalName)
     {
         auto &plugin = plugins[internalName];
@@ -252,4 +207,45 @@ namespace Qv2ray::components::plugins
         ClearPlugins();
     }
 
+    // ================== BEGIN SEND EVENTS ==================
+    void QvPluginHost::Send_ConnectionStatsEvent(const QvConnectionStatsEventObject &object)
+    {
+        for (auto &plugin : plugins)
+        {
+            if (plugin.pluginInterface->PluginHooks().contains(QV2RAY_PLUGIN_PROCESSTYPE::PROCESSTYPE_STATS))
+            {
+                plugin.pluginInterface->PluginProcessor()->ProcessEvent_ConnectionStats(object);
+            }
+        }
+    }
+    void QvPluginHost::Send_ConnectivityEvent(const QvConnectivityEventObject &object)
+    {
+        for (auto &plugin : plugins)
+        {
+            if (plugin.pluginInterface->PluginHooks().contains(QV2RAY_PLUGIN_PROCESSTYPE::PROCESSTYPE_CONNECTIVITY))
+            {
+                plugin.pluginInterface->PluginProcessor()->ProcessEvent_Connectivity(object);
+            }
+        }
+    }
+    void QvPluginHost::Send_ItemEvent(const QvItemEventObject &object)
+    {
+        for (auto &plugin : plugins)
+        {
+            if (plugin.pluginInterface->PluginHooks().contains(QV2RAY_PLUGIN_PROCESSTYPE::PROCESSTYPE_ITEM))
+            {
+                plugin.pluginInterface->PluginProcessor()->ProcessEvent_Item(object);
+            }
+        }
+    }
+    void QvPluginHost::Send_SystemProxyEvent(const QvSystemProxyEventObject &object)
+    {
+        for (auto &plugin : plugins)
+        {
+            if (plugin.pluginInterface->PluginHooks().contains(QV2RAY_PLUGIN_PROCESSTYPE::PROCESSTYPE_SYSTEMPROXY))
+            {
+                plugin.pluginInterface->PluginProcessor()->ProcessEvent_SystemProxy(object);
+            }
+        }
+    }
 } // namespace Qv2ray::components::plugins

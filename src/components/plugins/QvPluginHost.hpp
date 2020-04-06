@@ -7,6 +7,7 @@
 
 class QPluginLoader;
 
+using namespace Qv2rayPlugin;
 namespace Qv2ray::components::plugins
 {
     struct QvPluginInfo
@@ -37,8 +38,12 @@ namespace Qv2ray::components::plugins
         {
             return plugins.value(internalName);
         }
-        void SendHook(QV2RAY_PLUGIN_HOOK_TYPE type, QV2RAY_PLUGIN_HOOK_SUBTYPE subtype, QVariant &data);
-
+        //
+        void Send_ConnectionStatsEvent(const QvConnectionStatsEventObject &object);
+        void Send_ConnectivityEvent(const QvConnectivityEventObject &object);
+        void Send_ItemEvent(const QvItemEventObject &object);
+        void Send_SystemProxyEvent(const QvSystemProxyEventObject &object);
+        //
       private slots:
         void QvPluginLog(const QString &log);
         void QvPluginMessageBox(const QString &message);

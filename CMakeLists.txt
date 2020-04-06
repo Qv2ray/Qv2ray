@@ -249,6 +249,9 @@ set(QV2RAY_SOURCES
   src/components/latency/QvTCPing.hpp
   src/components/plugins/toolbar/QvToolbar.hpp
   src/components/plugins/interface/QvPluginInterface.hpp
+  src/components/plugins/interface/QvPluginInterfaceModels.hpp
+  src/components/plugins/interface/Qv2rayPluginObjects.hpp
+  src/components/plugins/interface/Qv2rayPluginProcessor.hpp
   src/components/plugins/QvPluginHost.hpp
   src/components/proxy/QvProxyConfigurator.hpp
   src/components/route/RouteSchemeIO.hpp
