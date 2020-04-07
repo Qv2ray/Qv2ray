@@ -362,6 +362,7 @@ if(APPLE)
     )
 
     set(MACOSX_ICON "${CMAKE_SOURCE_DIR}/assets/icons/qv2ray.icns")
+    set(MACOSX_PLIST "${CMAKE_SOURCE_DIR}/assets/MacOSXBundleInfo.plist.in")
     set_source_files_properties(${QM_FILES}
                                 PROPERTIES
                                   MACOSX_PACKAGE_LOCATION Resources/lang
@@ -374,6 +375,7 @@ if(APPLE)
     set_target_properties(${PROJECT_NAME}
                           PROPERTIES
                             MACOSX_BUNDLE TRUE
+                            MACOSX_BUNDLE_INFO_PLIST ${MACOSX_PLIST}
                             MACOSX_BUNDLE_BUNDLE_NAME "Qv2ray"
                             MACOSX_BUNDLE_BUNDLE_VERSION ${QV2RAY_VERSION_STRING}
                             MACOSX_BUNDLE_COPYRIGHT "Copyright (c) 2019-2020 Qv2ray Development Group"
