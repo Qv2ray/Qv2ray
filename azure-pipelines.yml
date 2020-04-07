@@ -19,13 +19,10 @@ steps:
     brew install protobuf grpc ninja qt5
   displayName: Prepare dependencies
 - script: |
-    xcversion select 10.3 --symlink
-  displayName: Select Xcode 10.3 as active
-- script: |
     PATH=/usr/local/opt/qt5/bin:$PATH
     mkdir build
     cd build
-    cmake .. -GNinja -DCMAKE_BUILD_TYPE=Release
+    cmake .. -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_OSX_DEPLOYMENT_TARGET=10.13
     sudo cmake --build . --target package --parallel $(sysctl -n hw.logicalcpu)
   displayName: Build Qv2ray
   env:
