@@ -22,7 +22,7 @@ steps:
     PATH=/usr/local/opt/qt5/bin:$PATH
     mkdir build
     cd build
-    cmake .. -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_OSX_DEPLOYMENT_TARGET=10.13
+    cmake .. -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_OSX_DEPLOYMENT_TARGET=10.14
     sudo cmake --build . --target package --parallel $(sysctl -n hw.logicalcpu)
   displayName: Build Qv2ray
   env:
