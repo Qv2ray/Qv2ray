@@ -12,9 +12,9 @@ PluginManageWindow::PluginManageWindow(QWidget *parent) : QDialog(parent)
     {
         const auto &info = PluginHost->GetPluginInfo(plugin);
         auto item = new QListWidgetItem(pluginListWidget);
-        item->setCheckState(PluginHost->GetPluginEnableState(info.pluginInterface->InternalName()) ? Qt::Checked : Qt::Unchecked);
-        item->setData(Qt::UserRole, info.pluginInterface->InternalName());
-        item->setText(info.pluginInterface->Name() + " (" + (info.isLoaded ? tr("Loaded") : tr("Not loaded")) + ")");
+        item->setCheckState(PluginHost->GetPluginEnableState(info.metadata.InternalName) ? Qt::Checked : Qt::Unchecked);
+        item->setData(Qt::UserRole, info.metadata.InternalName);
+        item->setText(info.metadata.Name + " (" + (info.isLoaded ? tr("Loaded") : tr("Not loaded")) + ")");
         pluginListWidget->addItem(item);
     }
     isLoading = false;
@@ -30,15 +30,15 @@ void PluginManageWindow::on_pluginListWidget_currentItemChanged(QListWidgetItem 
     auto &info = PluginHost->GetPluginInfo(current->data(Qt::UserRole).toString());
     if (info.pluginInterface)
     {
-        pluginIconLabel->setPixmap(info.pluginInterface->Icon().pixmap(pluginIconLabel->size() * devicePixelRatio()));
+        pluginIconLabel->setPixmap(info.metadata.Icon.pixmap(pluginIconLabel->size() * devicePixelRatio()));
         //
-        pluginNameLabel->setText(info.pluginInterface->Name());
-        pluginAuthorLabel->setText(info.pluginInterface->Author());
-        pluginDescriptionLabel->setText(info.pluginInterface->Description());
+        pluginNameLabel->setText(info.metadata.Name);
+        pluginAuthorLabel->setText(info.metadata.Author);
+        pluginDescriptionLabel->setText(info.metadata.Description);
         pluginLibPathLabel->setText(info.libraryPath);
         pluginStateLabel->setText(info.isLoaded ? tr("Loaded") : tr("Not loaded"));
-        pluginTypeLabel->setText(PluginHost->GetPluginTypeString(info.pluginInterface->InternalName()));
-        pluginHookTypeLabel->setText(PluginHost->GetPluginHookTypeString(info.pluginInterface->InternalName()));
+        pluginTypeLabel->setText(PluginHost->GetPluginTypeString(info.metadata.InternalName));
+        pluginHookTypeLabel->setText(PluginHost->GetPluginHookTypeString(info.metadata.InternalName));
         pluginErrMessageTxt->setPlainText(info.errorMessage.isEmpty() ? "OK" : info.errorMessage);
     }
 }
@@ -56,7 +56,7 @@ void PluginManageWindow::on_pluginListWidget_itemChanged(QListWidgetItem *item)
     auto pluginInternalName = item->data(Qt::UserRole).toString();
     PluginHost->SetPluginEnableState(pluginInternalName, isEnabled);
     auto &info = PluginHost->GetPluginInfo(pluginInternalName);
-    item->setText(info.pluginInterface->Name() + " (" + (info.isLoaded ? tr("Loaded") : tr("Not loaded")) + ")");
+    item->setText(info.metadata.Name + " (" + (info.isLoaded ? tr("Loaded") : tr("Not loaded")) + ")");
     //
     if (!isEnabled)
     {
@@ -96,11 +96,11 @@ void PluginManageWindow::on_pluginEditSettingsJsonBtn_clicked()
                              tr("This plugin has been unloaded or has been disabled, please enable or reload the plugin to continue."));
             return;
         }
-        JsonEditor w(info.pluginInterface->GetPluginSettngs());
+        JsonEditor w(info.pluginInterface->GetSettngs());
         auto newConf = w.OpenEditor();
         if (w.result() == QDialog::Accepted)
         {
-            info.pluginInterface->UpdatePluginSettings(newConf);
+            info.pluginInterface->UpdateSettings(newConf);
         }
     }
 }

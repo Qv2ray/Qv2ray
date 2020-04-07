@@ -15,6 +15,7 @@ namespace Qv2ray::components::plugins
         bool isLoaded = false;
         QString libraryPath;
         QString errorMessage;
+        QvPluginMetadata metadata;
         QPluginLoader *pluginLoader;
         Qv2rayInterface *pluginInterface;
     };
@@ -41,7 +42,7 @@ namespace Qv2ray::components::plugins
         //
         void Send_ConnectionStatsEvent(const QvConnectionStatsEventObject &object);
         void Send_ConnectivityEvent(const QvConnectivityEventObject &object);
-        void Send_ItemEvent(const QvItemEventObject &object);
+        void Send_ConnectionEvent(const QvConnectionEntryEventObject &object);
         void Send_SystemProxyEvent(const QvSystemProxyEventObject &object);
         //
       private slots:
