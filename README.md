@@ -39,6 +39,13 @@
     <img alt="AUR Development" src="https://img.shields.io/aur/version/qv2ray-dev-git?label=aur-development&style=flat-square" /></a>
  </td>
  </tr>
+
+ <tr>
+  <td>Fedora</td>
+  <td><a href="https://github.com/Qv2ray/Qv2ray/pull/503">(WIP)</a></td>
+ </tr>
+
+
  <tr>
   <td>Flathub</td>
   <td><a href="https://flathub.org/apps/details/com.github.Qv2ray"><img alt="flathub" src="https://img.shields.io/badge/flathub-available-success?style=flat-square" /></a></td>
