@@ -51,11 +51,17 @@
         </item>
         <item row="0" column="1">
          <widget class="QLabel" name="pluginNameLabel">
+          <property name="cursor">
+           <cursorShape>IBeamCursor</cursorShape>
+          </property>
           <property name="text">
            <string/>
           </property>
           <property name="wordWrap">
            <bool>true</bool>
+          </property>
+          <property name="textInteractionFlags">
+           <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
           </property>
          </widget>
         </item>
@@ -154,7 +160,7 @@
         <item row="5" column="0">
          <widget class="QLabel" name="label_6">
           <property name="text">
-           <string>Hook Type</string>
+           <string>Capability</string>
           </property>
          </widget>
         </item>
@@ -177,7 +183,7 @@
         <item row="6" column="0">
          <widget class="QLabel" name="label_9">
           <property name="text">
-           <string>Special Plugin Type</string>
+           <string>Special Type</string>
           </property>
          </widget>
         </item>
@@ -224,7 +230,7 @@
            </size>
           </property>
           <property name="text">
-           <string>ICON!</string>
+           <string/>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>

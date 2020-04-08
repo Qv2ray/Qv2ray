@@ -104,3 +104,10 @@ void PluginManageWindow::on_pluginEditSettingsJsonBtn_clicked()
         }
     }
 }
+
+void PluginManageWindow::on_pluginListWidget_itemSelectionChanged()
+{
+    auto needEnable = !pluginListWidget->selectedItems().isEmpty();
+    pluginSettingsBtn->setEnabled(needEnable);
+    pluginEditSettingsJsonBtn->setEnabled(needEnable);
+}

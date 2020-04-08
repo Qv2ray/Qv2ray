@@ -22,6 +22,8 @@ class PluginManageWindow
 
     void on_pluginEditSettingsJsonBtn_clicked();
 
+    void on_pluginListWidget_itemSelectionChanged();
+
   private:
     bool isLoading = true;
 };

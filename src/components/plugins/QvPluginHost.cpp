@@ -177,8 +177,8 @@ namespace Qv2ray::components::plugins
         }
         if (!GlobalConfig.pluginConfig.pluginStates.contains(internalName))
         {
-            // If not contained, default to enable.
-            GlobalConfig.pluginConfig.pluginStates[internalName] = true;
+            // If not contained, default to disable.
+            GlobalConfig.pluginConfig.pluginStates[internalName] = false;
         }
         // If the plugin is disabled
         if (!GlobalConfig.pluginConfig.pluginStates[internalName])
