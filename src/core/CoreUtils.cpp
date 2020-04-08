@@ -159,4 +159,23 @@ namespace Qv2ray::core
         return ConnectionManager->GetConnectionMetaObject(id).groupId;
     }
 
+    const QMap<QString, int> GetInboundPorts(const CONFIGROOT &root)
+    {
+        if (!root.contains("inbounds"))
+        {
+            return {};
+        }
+        QMap<QString, int> inboundPorts;
+        for (const auto &inboundVal : root["inbounds"].toArray())
+        {
+            const auto &inbound = inboundVal.toObject();
+            inboundPorts.insert(inbound["protocol"].toString(), inbound["port"].toInt());
+        }
+        return inboundPorts;
+    }
+
+    const QMap<QString, int> GetInboundPorts(const ConnectionId &id)
+    {
+        return GetInboundPorts(ConnectionManager->GetConnectionRoot(id));
+    }
 } // namespace Qv2ray::core
