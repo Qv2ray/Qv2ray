@@ -1,6 +1,7 @@
 #include "QvProxyConfigurator.hpp"
 
 #include "common/QvHelpers.hpp"
+#include "components/plugins/QvPluginHost.hpp"
 #ifdef Q_OS_WIN
     #include <WinInet.h>
     #include <Windows.h>
@@ -234,21 +235,6 @@ namespace Qv2ray::components::proxy
         {
             LOG(MODULE_PROXY, "KDE detected")
         }
-        //
-        //        if (usePAC)
-        //        {
-        //            actions << QString("gsettings set org.gnome.system.proxy autoconfig-url '%1'").arg(address);
-        //            if (isKDE)
-        //            {
-        //                actions << QString("kwriteconfig5  --file " + QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) +
-        //                                   "/kioslaverc --group \"Proxy Settings\" --key ProxyType 2");
-
-        //                actions << QString("kwriteconfig5  --file " + QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) +
-        //                                   "/kioslaverc --group \"Proxy Settings\" --key \"Proxy Config Script\" " + address);
-        //            }
-        //        }
-        //        else
-        //        {
         if (isKDE)
         {
             actions << QString("kwriteconfig5  --file " + QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) +
@@ -309,13 +295,6 @@ namespace Qv2ray::components::proxy
         {
             LOG(MODULE_PROXY, "Setting proxy for interface: " + service)
 
-            //            if (usePAC)
-            //            {
-            //                QProcess::execute("/usr/sbin/networksetup -setautoproxystate " + service + " on");
-            //                QProcess::execute("/usr/sbin/networksetup -setautoproxyurl " + service + " " + address);
-            //            }
-            //            else
-            //            {
             if (hasHTTP)
             {
                 QProcess::execute("/usr/sbin/networksetup -setwebproxystate " + service + " on");
@@ -329,10 +308,17 @@ namespace Qv2ray::components::proxy
                 QProcess::execute("/usr/sbin/networksetup -setsocksfirewallproxystate " + service + " on");
                 QProcess::execute("/usr/sbin/networksetup -setsocksfirewallproxy " + service + " " + address + " " + QSTRN(socksPort));
             }
-            //            }
         }
 
 #endif
+        //
+        // Trigger plugin events
+        QMap<QvSystemProxyType, int> portSettings;
+        if (hasHTTP)
+            portSettings.insert(QvSystemProxyType::SystemProxy_HTTP, httpPort);
+        if (hasSOCKS)
+            portSettings.insert(QvSystemProxyType::SystemProxy_SOCKS, socksPort);
+        PluginHost->Send_SystemProxyEvent(QvSystemProxyEventObject{ portSettings, QvSystemProxyStateType::SystemProxyState_SetProxy });
     }
 
     void ClearSystemProxy()
@@ -386,5 +372,8 @@ namespace Qv2ray::components::proxy
         }
 
 #endif
+        //
+        // Trigger plugin events
+        PluginHost->Send_SystemProxyEvent(QvSystemProxyEventObject{ {}, QvSystemProxyStateType::SystemProxyState_ClearProxy });
     }
 } // namespace Qv2ray::components::proxy

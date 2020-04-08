@@ -63,11 +63,8 @@ namespace Qv2ray::components::plugins
                     info.errorMessage = tr("This plugin was built against an incompactable version of Qv2ray Plugin Interface.") + NEWLINE +
                                         QObject::tr("Please contact the plugin provider or report the issue to Qv2ray Workgroup.");
                 }
-
-                connect(dynamic_cast<QObject *>(info.pluginInterface), SIGNAL(PluginLog(const QString &)), this,
-                        SLOT(QvPluginLog(const QString &)));
-                connect(dynamic_cast<QObject *>(info.pluginInterface), SIGNAL(PluginErrorMessageBox(const QString &)), this,
-                        SLOT(QvPluginMessageBox(const QString &)));
+                connect(plugin, SIGNAL(PluginLog(const QString &)), this, SLOT(QvPluginLog(const QString &)));
+                connect(plugin, SIGNAL(PluginErrorMessageBox(const QString &)), this, SLOT(QvPluginMessageBox(const QString &)));
                 LOG(MODULE_PLUGINHOST, "Loaded plugin: \"" + info.metadata.Name + "\" made by: \"" + info.metadata.Author + "\"")
                 plugins.insert(info.metadata.InternalName, info);
             }
