@@ -350,12 +350,12 @@
         <translation>选择要导入的图像</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="224"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="226"/>
         <source>QRCode scanning failed</source>
         <translation>二维码扫描失败</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_ImportConfig.cpp" line="224"/>
+        <location filename="../src/ui/w_ImportConfig.cpp" line="226"/>
         <source>Cannot find any QRCode from the image.</source>
         <translation>无法从图像中找到任何二维码。</translation>
     </message>
@@ -834,14 +834,14 @@
 0.00 B</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="442"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="443"/>
         <location filename="../src/ui/w_MainWindow.hpp" line="119"/>
         <source>Hide</source>
         <translation>隐藏</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="401"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="451"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="402"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="452"/>
         <source>Show</source>
         <translation>显示</translation>
     </message>
@@ -893,121 +893,114 @@
         <translation type="vanished">下载链接： </translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="604"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="605"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="606"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="754"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="600"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="601"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="602"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="691"/>
         <source>Connected: </source>
         <translation>已连接: </translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="636"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="650"/>
         <source>Configuring PAC</source>
-        <translation>配置 PAC</translation>
+        <translation type="vanished">配置 PAC</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="637"/>
         <source>Could not start PAC server as it is configured to use SOCKS, but it is not enabled</source>
-        <translation>无法启动 PAC 服务器，因为它被配置为使用 SOCKS，但它没有启用</translation>
+        <translation type="vanished">无法启动 PAC 服务器，因为它被配置为使用 SOCKS，但它没有启用</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="651"/>
         <source>Could not start PAC server as it is configured to use HTTP, but it is not enabled</source>
-        <translation>无法启动 PAC 服务器，因为它被配置为使用 HTTP ，但它尚未启用</translation>
+        <translation type="vanished">无法启动 PAC 服务器，因为它被配置为使用 HTTP ，但它尚未启用</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="893"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="830"/>
         <source>Duplicating Connection(s)</source>
         <translation>复制连接</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="894"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="831"/>
         <source>Are you sure to duplicate these connection(s)?</source>
         <translation>您确定要复制这（些）连接吗？</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="901"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="838"/>
         <source> (Copy)</source>
         <translation> （副本）</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="967"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="904"/>
         <source>Set auto connection</source>
         <translation>设置自动连接</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="967"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="904"/>
         <source>Set %1 as auto connect.</source>
         <translation>已将 %1 设为自动连接。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="36"/>
         <source>PAC Processing Failed</source>
-        <translation>PAC 处理失败</translation>
+        <translation type="vanished">PAC 处理失败</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="37"/>
         <source>HTTP or SOCKS inbound is not properly configured for PAC</source>
-        <translation>HTTP 或 SOCKS 入站配置不正确</translation>
+        <translation type="vanished">HTTP 或 SOCKS 入站配置不正确</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="38"/>
         <source>Qv2ray will continue, but will not set system proxy.</source>
-        <translation>Qv2ray 将继续，但不会设置系统代理。</translation>
+        <translation type="vanished">Qv2ray 将继续，但不会设置系统代理。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="55"/>
+        <location filename="../src/ui/w_MainWindow_extra.cpp" line="31"/>
         <source>Cannot set system proxy</source>
         <translation>无法设置系统代理</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="55"/>
+        <location filename="../src/ui/w_MainWindow_extra.cpp" line="31"/>
         <source>Both HTTP and SOCKS inbounds are not enabled</source>
         <translation>HTTP 和 SOCKS 都没有启用</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="67"/>
+        <location filename="../src/ui/w_MainWindow_extra.cpp" line="42"/>
         <source>System proxy configured.</source>
         <translation>系统代理已设置。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="72"/>
+        <location filename="../src/ui/w_MainWindow_extra.cpp" line="47"/>
         <source>Didn&apos;t set proxy for complex config.</source>
         <translation>未对复杂配置设置代理。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="79"/>
+        <location filename="../src/ui/w_MainWindow_extra.cpp" line="54"/>
         <source>System proxy removed.</source>
         <translation>系统代理已清除。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="108"/>
+        <location filename="../src/ui/w_MainWindow_extra.cpp" line="83"/>
         <source>Update Subscriptions</source>
         <translation>更新订阅</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="109"/>
+        <location filename="../src/ui/w_MainWindow_extra.cpp" line="84"/>
         <source>There are subscriptions need to be updated, please go to subscriptions window to update them.</source>
         <translation>有订阅需要更新，请转到订阅窗口进行更新。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow_extra.cpp" line="110"/>
+        <location filename="../src/ui/w_MainWindow_extra.cpp" line="85"/>
         <source>These subscriptions are out-of-date: </source>
         <translation>这些订阅已过期： </translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="136"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="137"/>
         <source>V2ray vcore terminated.</source>
         <translation>V2ray 核心已终止。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="137"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="138"/>
         <source>V2ray vcore terminated unexpectedly.</source>
         <translation>V2ray 核心意外终止。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="138"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="139"/>
         <source>To solve the problem, read the V2ray log in the log text browser.</source>
         <translation>要解决问题，请阅读日志文本浏览器中的 V2ray 日志。</translation>
     </message>
@@ -1017,17 +1010,17 @@
         <translation>系统代理</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="577"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="578"/>
         <source>Disconnected from: </source>
         <translation>已断开连接: </translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="509"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="510"/>
         <source>Removing Connection(s)</source>
         <translation>删除连接</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_MainWindow.cpp" line="509"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="510"/>
         <source>Are you sure to remove selected connection(s)?</source>
         <translation>您确定要删除这（些）连接吗？</translation>
     </message>
@@ -1043,7 +1036,7 @@
     </message>
     <message>
         <location filename="../src/ui/w_MainWindow.ui"/>
-        <location filename="../src/ui/w_MainWindow.cpp" line="581"/>
+        <location filename="../src/ui/w_MainWindow.cpp" line="582"/>
         <source>Not Connected</source>
         <translation>未连接</translation>
     </message>
@@ -1131,6 +1124,11 @@
         <location filename="../src/ui/w_MainWindow.hpp" line="153"/>
         <source>Switch to Qv2ray log</source>
         <translation>切换到 Qv2ray 日志</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_MainWindow.ui"/>
+        <source>Plugins</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1261,14 +1259,53 @@
     </message>
 </context>
 <context>
+    <name>PluginManageWindow</name>
+    <message>
+        <location filename="../src/ui/w_PluginManager.cpp" line="17"/>
+        <location filename="../src/ui/w_PluginManager.cpp" line="39"/>
+        <location filename="../src/ui/w_PluginManager.cpp" line="59"/>
+        <source>Loaded</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PluginManager.cpp" line="17"/>
+        <location filename="../src/ui/w_PluginManager.cpp" line="39"/>
+        <location filename="../src/ui/w_PluginManager.cpp" line="59"/>
+        <source>Not loaded</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PluginManager.cpp" line="63"/>
+        <source>Disabling a plugin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PluginManager.cpp" line="63"/>
+        <source>This plugin will keep loaded until the next time Qv2ray starts.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PluginManager.cpp" line="74"/>
+        <location filename="../src/ui/w_PluginManager.cpp" line="95"/>
+        <source>Plugin not loaded</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PluginManager.cpp" line="75"/>
+        <location filename="../src/ui/w_PluginManager.cpp" line="96"/>
+        <source>This plugin has been unloaded or has been disabled, please enable or reload the plugin to continue.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>PreferencesWindow</name>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="274"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="278"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="563"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="577"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="587"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="259"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="263"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="548"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="562"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="572"/>
         <source>Preferences</source>
         <translation>首选项</translation>
     </message>
@@ -1348,9 +1385,8 @@
         <translation>HTTP</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.ui"/>
         <source>SOCKS</source>
-        <translation>SOCKS</translation>
+        <translation type="vanished">SOCKS</translation>
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
@@ -1403,19 +1439,16 @@
         <translation>HTTP 设置</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.ui"/>
         <source>PAC Settings</source>
-        <translation>PAC 设置</translation>
+        <translation type="vanished">PAC 设置</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.ui"/>
         <source>The system proxy will be configured to use the PAC instead of HTTP and SOCKS.</source>
-        <translation>系统代理将被配置为使用 PAC 而不是 HTTP 和 SOCKS。</translation>
+        <translation type="vanished">系统代理将被配置为使用 PAC 而不是 HTTP 和 SOCKS。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.ui"/>
         <source>Local IP for PAC</source>
-        <translation>PAC 本地 IP 地址</translation>
+        <translation type="vanished">PAC 本地 IP 地址</translation>
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
@@ -1423,74 +1456,60 @@
         <translation>127.0.0.1</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.ui"/>
         <source>Use Proxy</source>
-        <translation>使用代理服务器</translation>
+        <translation type="vanished">使用代理服务器</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.ui"/>
         <source>Import GFWList</source>
-        <translation>导入 GFWList</translation>
+        <translation type="vanished">导入 GFWList</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.ui"/>
         <source>Mirror: Gitlab</source>
-        <translation>镜像源：Gitlab</translation>
+        <translation type="vanished">镜像源：Gitlab</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.ui"/>
         <source>Github</source>
-        <translation>GitHub</translation>
+        <translation type="vanished">GitHub</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.ui"/>
         <source>Mirror: Pagure</source>
-        <translation>镜像源：Pagure</translation>
+        <translation type="vanished">镜像源：Pagure</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.ui"/>
         <source>Mirror: Repo.or.cz</source>
-        <translation>镜像源：Repo.or.cz</translation>
+        <translation type="vanished">镜像源：Repo.or.cz</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.ui"/>
         <source>Mirror: Bitbucket</source>
-        <translation>镜像源：Bitbucket</translation>
+        <translation type="vanished">镜像源：Bitbucket</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.ui"/>
         <source>Mirror: TuxFamily</source>
-        <translation>镜像源：TuxFamily</translation>
+        <translation type="vanished">镜像源：TuxFamily</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.ui"/>
         <source>GFWList File</source>
-        <translation>GFWList 文件</translation>
+        <translation type="vanished">GFWList 文件</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.ui"/>
         <source>Download with System Proxy</source>
-        <translation>使用系统代理下载</translation>
+        <translation type="vanished">使用系统代理下载</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.ui"/>
         <source>Go</source>
-        <translation>开始</translation>
+        <translation type="vanished">开始</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.ui"/>
         <source>Edit PAC</source>
-        <translation>编辑 PAC</translation>
+        <translation type="vanished">编辑 PAC</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.ui"/>
         <source>Open PAC Folder</source>
-        <translation>打开 PAC 文件夹</translation>
+        <translation type="vanished">打开 PAC 文件夹</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.ui"/>
         <source>PAC Access Path</source>
-        <translation>PAC 访问路径</translation>
+        <translation type="vanished">PAC 访问路径</translation>
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
@@ -1658,13 +1677,13 @@
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="833"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="818"/>
         <source>Bold</source>
         <translation>粗体</translation>
     </message>
     <message>
         <location filename="../src/ui/w_PreferencesWindow.ui"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="834"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="819"/>
         <source>Italic</source>
         <translation>斜体</translation>
     </message>
@@ -1776,23 +1795,23 @@
         <translation>使用暗色模式主题</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="160"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="152"/>
         <source>Page</source>
         <translation>页</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="161"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="153"/>
         <source>Item(s)</source>
         <translation>项目</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="485"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="545"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="470"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="530"/>
         <source>Enable tProxy Support</source>
         <translation>启用 tProxy 支持</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="547"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="532"/>
         <source>to this path: </source>
         <translation>到此路径: </translation>
     </message>
@@ -1802,120 +1821,115 @@
         <translation>Qv2ray 的网络工具栏已被禁用，请使用 --withToolbarPlugin 来启用。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="151"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="143"/>
         <source>Update is disabled by your vendor.</source>
         <translation>自动更新已被供应者禁用。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="274"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="259"/>
         <source>Duplicated port numbers detected, please check the port number settings.</source>
         <translation>检测到重复的端口号，请检查端口号设置。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="278"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="263"/>
         <source>Invalid inbound listening address.</source>
         <translation>入站监听地址不可用。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="406"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="391"/>
         <source>Open V2ray assets folder</source>
         <translation>打开 V2ray 资源文件夹</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="417"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="402"/>
         <source>Open V2ray core file</source>
         <translation>打开 V2ray 核心文件</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="486"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="471"/>
         <source>This will append capabilities to the V2ray executable.</source>
         <translation>这会将功能附加到 V2ray 可执行文件。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="487"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="472"/>
         <source>Qv2ray will copy your V2ray core to this path: </source>
         <translation>Qv2ray 会将您的 V2ray 核心复制到以下路径： </translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="488"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="473"/>
         <source>If anything goes wrong after enabling this, please check issue #57 or the link below:</source>
         <translation>如果有出现任何问题，请参阅 Issue #57 或以下链接：</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="546"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="531"/>
         <source>Qv2ray cannot copy one or both V2ray files from: </source>
         <translation>Qv2ray 无法从以下位置复制一个或两个 V2ray 文件： </translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="563"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="577"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="548"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="562"/>
         <source>Failed to setcap onto V2ray executable. You may need to run `setcap` manually.</source>
         <translation>无法将 Capcap 设置到 V2ray 可执行文件上。 您可能需要手动运行“ setcap”。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="587"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="572"/>
         <source>tProxy is not supported on macOS and Windows</source>
         <translation>在 macOS 和 Windows 上不支持 tProxy</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="897"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="882"/>
         <source>Apply network toolbar settings</source>
         <translation>应用网络工具栏设置</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="898"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="883"/>
         <source>All other modified settings will be applied as well after this object.</source>
         <translation>已经编辑的其它设置也会被同时应用。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="899"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="884"/>
         <source>Do you want to continue?</source>
         <translation>你想继续吗？</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="979"/>
         <source>Select GFWList in base64</source>
-        <translation>选择 base64 格式的 GFWList</translation>
+        <translation type="vanished">选择 base64 格式的 GFWList</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="983"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="992"/>
         <source>Download GFWList</source>
-        <translation>下载 GFWList</translation>
+        <translation type="vanished">下载 GFWList</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="983"/>
         <source>Operation is cancelled.</source>
-        <translation>操作已取消。</translation>
+        <translation type="vanished">操作已取消。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="992"/>
         <source>Successfully downloaded GFWList.</source>
-        <translation>下载 GFWList 成功。</translation>
+        <translation type="vanished">下载 GFWList 成功。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1086"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="977"/>
         <source>Start with boot</source>
         <translation>开机启动</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1086"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="977"/>
         <source>Failed to set auto start option.</source>
         <translation>无法设置自动启动选项。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1175"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1179"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1049"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1053"/>
         <source>V2ray Core Settings</source>
         <translation>V2ray 核心设置</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1180"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1054"/>
         <source>V2ray path configuration check passed.</source>
         <translation>V2ray 路径配置检查通过。</translation>
     </message>
     <message>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1180"/>
+        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1054"/>
         <source>Current version of V2ray is: </source>
         <translation>V2ray 当前版本是： </translation>
     </message>
@@ -2143,114 +2157,114 @@ p, li { white-space: pre-wrap; }
         <translation>Qv2ray 无法从这里加载配置文件：</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="107"/>
+        <location filename="../src/main.cpp" line="108"/>
         <source>Cannot Start Qv2ray</source>
         <translation>无法启动 Qv2ray</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="108"/>
+        <location filename="../src/main.cpp" line="109"/>
         <source>Cannot find a place to store config files.</source>
         <translation>找不到保存配置文件的地方。</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="109"/>
+        <location filename="../src/main.cpp" line="110"/>
         <source>Qv2ray has searched these paths below:</source>
         <translation>Qv2ray 搜索了以下路径：</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="111"/>
+        <location filename="../src/main.cpp" line="112"/>
         <source>It usually means you don&apos;t have the write permission to all of those locations.</source>
         <translation>这通常意味着您没有所有这些位置的文件写入权限。</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="112"/>
-        <location filename="../src/main.cpp" line="135"/>
-        <location filename="../src/main.cpp" line="298"/>
+        <location filename="../src/main.cpp" line="113"/>
+        <location filename="../src/main.cpp" line="136"/>
+        <location filename="../src/main.cpp" line="302"/>
         <source>Qv2ray will now exit.</source>
         <translation>Qv2ray 现在将退出。</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="131"/>
+        <location filename="../src/main.cpp" line="132"/>
         <source>Failed to initialise Qv2ray</source>
         <translation>初始化 Qv2ray 失败</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="135"/>
+        <location filename="../src/main.cpp" line="136"/>
         <source>Please report if you think it&apos;s a bug.</source>
         <translation>如果您认为它是一个bug，请&apos;报告。</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="205"/>
+        <location filename="../src/main.cpp" line="206"/>
         <source>You cannot run Qv2ray as root, please use --I-just-wanna-run-with-root if you REALLY want to do so.</source>
         <translation>您不能以root用户身份运行Qv2ray，如果您确实想这样做，请使用 --I-just-wanna-run-with-root。</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="206"/>
+        <location filename="../src/main.cpp" line="207"/>
         <source> --&gt; USE IT AT YOUR OWN RISK!</source>
         <translation> --&gt; 请自负风险！</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="228"/>
+        <location filename="../src/main.cpp" line="229"/>
         <source>Debug version</source>
         <translation>调试版</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="294"/>
+        <location filename="../src/main.cpp" line="298"/>
         <source>Qv2ray Cannot Continue</source>
         <translation>Qv2ray 无法继续</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="295"/>
+        <location filename="../src/main.cpp" line="299"/>
         <source>You are running a lower version of Qv2ray compared to the current config file.</source>
         <translation>与当前配置文件相比，您正在运行一个较低版本的 Qv2ray。</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="296"/>
+        <location filename="../src/main.cpp" line="300"/>
         <source>Please check if there&apos;s an issue explaining about it.</source>
         <translation>请检查是否存在&apos;有关此问题的说明。</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="297"/>
+        <location filename="../src/main.cpp" line="301"/>
         <source>Or submit a new issue if you think this is an error.</source>
         <translation>或者如果你认为这是一个错误，请提交一个新问题。</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="341"/>
+        <location filename="../src/main.cpp" line="345"/>
         <source>Dependency Missing</source>
         <translation>缺少依赖关系</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="343"/>
+        <location filename="../src/main.cpp" line="347"/>
         <source>This could be caused by a missing of `openssl` package in your system.</source>
         <translation>这可能是系统中缺少`openssl`软件包造成的。</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="344"/>
+        <location filename="../src/main.cpp" line="348"/>
         <source>If you are using an AppImage from Github Action, please report a bug.</source>
         <translation>如果您使用的是来自 Github Action 的 AppImage，请报告错误。</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="342"/>
+        <location filename="../src/main.cpp" line="346"/>
         <source>Cannot find openssl libs</source>
         <translation>找不到 OpenSSL 库</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="132"/>
+        <location filename="../src/main.cpp" line="133"/>
         <source>Failed to determine the location of config file:</source>
         <translation>无法确定配置文件的位置：</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="133"/>
+        <location filename="../src/main.cpp" line="134"/>
         <source>Qv2ray has found a config file, but it failed to be loaded due to some errors.</source>
         <translation>Qv2ray已找到配置文件，但由于某些错误而无法加载。</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="134"/>
+        <location filename="../src/main.cpp" line="135"/>
         <source>A workaround is to remove the this file and restart Qv2ray:</source>
         <translation>一种解决方法是删除此文件并重新启动Qv2ray：</translation>
     </message>
     <message>
-        <location filename="../src/main.cpp" line="345"/>
+        <location filename="../src/main.cpp" line="349"/>
         <source>Technical Details</source>
         <translation>技术细节</translation>
     </message>
@@ -2262,7 +2276,7 @@ p, li { white-space: pre-wrap; }
         <translation>不适用</translation>
     </message>
     <message>
-        <location filename="../src/common/CommandArgs.cpp" line="16"/>
+        <location filename="../src/common/CommandArgs.cpp" line="17"/>
         <source>Qv2ray - A cross-platform Qt frontend for V2ray.</source>
         <translation>Qv2ray - V2ray的跨平台Qt前端。</translation>
     </message>
@@ -2289,25 +2303,21 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../src/core/settings/SettingsUpgrade.cpp" line="277"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1206"/>
         <source>Deprecated</source>
         <translation>已经过时</translation>
     </message>
     <message>
         <location filename="../src/core/settings/SettingsUpgrade.cpp" line="278"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1207"/>
         <source>PAC is now deprecated and is not encouraged to be used anymore.</source>
         <translation>PAC 已经被标记为过时的功能，并且我们不建议您继续使用。</translation>
     </message>
     <message>
         <location filename="../src/core/settings/SettingsUpgrade.cpp" line="279"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1208"/>
         <source>It will be removed or be provided as a plugin in the future.</source>
         <translation>它可能会在将来某个版本被移除，或者作为单独的插件提供。</translation>
     </message>
     <message>
         <location filename="../src/core/settings/SettingsUpgrade.cpp" line="280"/>
-        <location filename="../src/ui/w_PreferencesWindow.cpp" line="1209"/>
         <source>PAC will still work currently, but please switch to the V2ray built-in routing as soon as possible.</source>
         <translation>PAC 目前将会继续工作，但是我们强烈建议您切换使用 V2ray 自带的路由功能。</translation>
     </message>
@@ -2487,64 +2497,74 @@ p, li { white-space: pre-wrap; }
         <translation>入站</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="25"/>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="26"/>
         <source>core executable file %1 does not exist</source>
         <translation>核心可执行文件 %1 不存在</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="28"/>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="29"/>
         <source>cannot open core executable file %1 in read-only mode</source>
         <translation>无法以只读模式打开核心可执行文件 %1</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="31"/>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="32"/>
         <source>core executable file %1 is an empty file</source>
         <translation>核心可执行文件 %1 是空文件</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="35"/>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="36"/>
         <source>core executable file %1 is too short to be executed</source>
         <translation>核心可执行文件 %1 文件过小</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="54"/>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="57"/>
         <source>cannot deduce the type of core executable file %1</source>
         <translation>无法推测核心可执行文件 %1 的类型</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="61"/>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="64"/>
         <source>Windows PE executable</source>
         <translation>Windows PE 可执行文件</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="62"/>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="65"/>
         <source>macOS Mach-O executable</source>
         <translation>macOS Mach-O 可执行文件</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="63"/>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="66"/>
         <source>ELF x86 executable</source>
         <translation>ELF x86 可执行文件</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="64"/>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="67"/>
         <source>ELF amd64 executable</source>
         <translation>ELF amd64 可执行文件</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="65"/>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="68"/>
         <source>ELF arm64 executable</source>
         <translation>ELF arm64 可执行文件</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="66"/>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="69"/>
+        <source>ELF arm executable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="70"/>
         <source>other ELF executable</source>
         <translation>其他 ELF 可执行文件</translation>
     </message>
     <message>
-        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="67"/>
+        <location filename="../src/core/kernel/QvKernelABIChecker.cpp" line="71"/>
         <source>unknown abi</source>
         <translation>未知 ABI</translation>
+    </message>
+    <message>
+        <location filename="../src/components/plugins/QvPluginHost.cpp" line="64"/>
+        <source>Please contact the plugin provider or report the issue to Qv2ray Workgroup.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2570,6 +2590,11 @@ p, li { white-space: pre-wrap; }
         <translation>禁用 QT_SCALE_FACTOR</translation>
     </message>
     <message>
+        <location filename="../src/common/CommandArgs.cpp" line="12"/>
+        <source>Disable plugin feature</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Enable HiDPI support for Qt</source>
         <translation type="vanished">启用 Qt HiDPI 支持</translation>
     </message>
@@ -2578,7 +2603,7 @@ p, li { white-space: pre-wrap; }
         <translation type="vanished">强制启用 Qt HiDPI 支持</translation>
     </message>
     <message>
-        <location filename="../src/common/CommandArgs.cpp" line="12"/>
+        <location filename="../src/common/CommandArgs.cpp" line="13"/>
         <source>Enable Qv2ray network toolbar plugin</source>
         <translation>启用 Qv2ray 网络工具栏插件</translation>
     </message>
@@ -2599,42 +2624,98 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>Qv2ray::components::pac::PACServer</name>
     <message>
-        <location filename="../src/components/pac/QvPACHandler.cpp" line="48"/>
         <source>PAC Handler</source>
-        <translation>PAC 处理器</translation>
+        <translation type="vanished">PAC 处理器</translation>
     </message>
     <message>
-        <location filename="../src/components/pac/QvPACHandler.cpp" line="48"/>
         <source>Failed to listen PAC request on this port, please verify the permissions</source>
-        <translation>无法在此端口监听 PAC 请求，请检查是否具有足够的权限</translation>
+        <translation type="vanished">无法在此端口监听 PAC 请求，请检查是否具有足够的权限</translation>
+    </message>
+</context>
+<context>
+    <name>Qv2ray::components::plugins::QvPluginHost</name>
+    <message>
+        <location filename="../src/components/plugins/QvPluginHost.cpp" line="63"/>
+        <source>This plugin was built against an incompactable version of Qv2ray Plugin Interface.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/plugins/QvPluginHost.cpp" line="82"/>
+        <source>No Special Type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/plugins/QvPluginHost.cpp" line="83"/>
+        <source>Connection Kernel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/plugins/QvPluginHost.cpp" line="84"/>
+        <source>Connection String Serializer/Deserializer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/plugins/QvPluginHost.cpp" line="85"/>
+        <source>Unknown/unsupported plugin type.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/plugins/QvPluginHost.cpp" line="98"/>
+        <source>No hook</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/plugins/QvPluginHost.cpp" line="99"/>
+        <source>Connection State Change</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/plugins/QvPluginHost.cpp" line="100"/>
+        <source>Connection Change</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/plugins/QvPluginHost.cpp" line="101"/>
+        <source>Statistics Event</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/plugins/QvPluginHost.cpp" line="102"/>
+        <source>System Proxy</source>
+        <translation type="unfinished">系统代理</translation>
+    </message>
+    <message>
+        <location filename="../src/components/plugins/QvPluginHost.cpp" line="103"/>
+        <source>Unknown/unsupported hook type.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>Qv2ray::core::handlers::QvConfigHandler</name>
     <message>
-        <location filename="../src/core/handler/ConfigHandler.cpp" line="75"/>
-        <location filename="../src/core/handler/ConfigHandler.cpp" line="316"/>
+        <location filename="../src/core/handler/ConfigHandler.cpp" line="76"/>
+        <location filename="../src/core/handler/ConfigHandler.cpp" line="324"/>
         <source>Default Group</source>
         <translation>默认分组</translation>
     </message>
     <message>
-        <location filename="../src/core/handler/ConfigHandler.cpp" line="255"/>
+        <location filename="../src/core/handler/ConfigHandler.cpp" line="259"/>
         <source>File does not exist.</source>
         <translation>文件不存在。</translation>
     </message>
     <message>
-        <location filename="../src/core/handler/ConfigHandler.cpp" line="292"/>
-        <location filename="../src/core/handler/ConfigHandler.cpp" line="425"/>
+        <location filename="../src/core/handler/ConfigHandler.cpp" line="298"/>
+        <location filename="../src/core/handler/ConfigHandler.cpp" line="435"/>
         <source>Group does not exist</source>
         <translation>分组不存在</translation>
     </message>
     <message>
-        <location filename="../src/core/handler/ConfigHandler.cpp" line="489"/>
+        <location filename="../src/core/handler/ConfigHandler.cpp" line="500"/>
         <source>Update Subscription</source>
         <translation>更新订阅</translation>
     </message>
     <message>
-        <location filename="../src/core/handler/ConfigHandler.cpp" line="490"/>
+        <location filename="../src/core/handler/ConfigHandler.cpp" line="501"/>
         <source>%1 entrie(s) have been found from the subscription source, do you want to continue?</source>
         <translation>订阅源仅返回了 %1 个节点，确定要继续吗？</translation>
     </message>
@@ -3654,6 +3735,79 @@ Maybe you have downloaded the wrong core?</source>
         <source>/s</source>
         <comment>per second</comment>
         <translation>/s</translation>
+    </message>
+</context>
+<context>
+    <name>w_PluginManager</name>
+    <message>
+        <location filename="../src/ui/w_PluginManager.ui"/>
+        <source>Plugin Manager</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PluginManager.ui"/>
+        <source>Plugins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PluginManager.ui"/>
+        <source>Plugin Info</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PluginManager.ui"/>
+        <source>Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PluginManager.ui"/>
+        <source>Author</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PluginManager.ui"/>
+        <source>Description</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PluginManager.ui"/>
+        <source>Library Path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PluginManager.ui"/>
+        <source>State</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PluginManager.ui"/>
+        <source>Capability</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PluginManager.ui"/>
+        <source>Special Type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PluginManager.ui"/>
+        <source>Error Message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PluginManager.ui"/>
+        <source>Open settings page for current plugin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PluginManager.ui"/>
+        <source>Open plugin settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/w_PluginManager.ui"/>
+        <source>Manually Edit Settings</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
