@@ -45,8 +45,8 @@ namespace Qv2ray::core::kernel
     #error "unknown architecture"
 #endif
 
-        [[nodiscard]] std::pair<std::optional<QvKernelABIType>, std::optional<QString>> deduceKernelABI(const QString &pathCoreExecutable);
-        [[nodiscard]] QvKernelABICompatibility checkCompatibility(QvKernelABIType hostType, QvKernelABIType targetType);
-        [[nodiscard]] QString abiToString(QvKernelABIType abi);
+        std::pair<std::optional<QvKernelABIType>, std::optional<QString>> deduceKernelABI(const QString &pathCoreExecutable);
+        QvKernelABICompatibility checkCompatibility(QvKernelABIType hostType, QvKernelABIType targetType);
+        QString abiToString(QvKernelABIType abi);
     } // namespace abi
 } // namespace Qv2ray::core::kernel

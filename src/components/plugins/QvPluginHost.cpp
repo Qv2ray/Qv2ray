@@ -79,7 +79,6 @@ namespace Qv2ray::components::plugins
         {
             switch (type)
             {
-                case SPECIAL_TYPE_NONE: types << tr("No Special Type"); break;
                 case SPECIAL_TYPE_KERNEL: types << tr("Connection Kernel"); break;
                 case SPECIAL_TYPE_SERIALIZOR: types << tr("Connection String Serializer/Deserializer"); break;
                 default: types << tr("Unknown/unsupported plugin type."); break;
@@ -95,7 +94,6 @@ namespace Qv2ray::components::plugins
         {
             switch (hook)
             {
-                case CAPABILITY_NONE: hooks << tr("No hook"); break;
                 case CAPABILITY_CONNECTIVITY: hooks << tr("Connection State Change"); break;
                 case CAPABILITY_CONNECTION_ENTRY: hooks << tr("Connection Change"); break;
                 case CAPABILITY_STATS: hooks << tr("Statistics Event"); break;

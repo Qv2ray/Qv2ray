@@ -31,30 +31,29 @@ namespace Qv2ray::core::kernel
         }
 
         coreFile.close();
-
         // Get Core ABI.
         auto [abi, err] = kernel::abi::deduceKernelABI(vCorePath);
         if (err)
         {
-            LOG(MODULE_VCORE, "Core ABI deduction failed: " + err.value())
-            *message = err.value();
+            LOG(MODULE_VCORE, "Core ABI deduction failed: " + ACCESS_OPTIONAL_VALUE(err))
+            *message = ACCESS_OPTIONAL_VALUE(err);
             return false;
         }
-        LOG(MODULE_VCORE, "Core ABI: " + kernel::abi::abiToString(abi.value()))
+        LOG(MODULE_VCORE, "Core ABI: " + kernel::abi::abiToString(ACCESS_OPTIONAL_VALUE(abi)))
 
         // Get Compiled ABI
         auto compiledABI = kernel::abi::COMPILED_ABI_TYPE;
         LOG(MODULE_VCORE, "Host ABI: " + kernel::abi::abiToString(compiledABI))
 
         // Check ABI Compatibility.
-        switch (kernel::abi::checkCompatibility(compiledABI, abi.value()))
+        switch (kernel::abi::checkCompatibility(compiledABI, ACCESS_OPTIONAL_VALUE(abi)))
         {
             case kernel::abi::ABI_NOPE:
                 LOG(MODULE_VCORE, "Host is incompatible with core")
                 *message = tr("V2Ray core is incompatible with your platform.\r\n" //
                               "Expected core ABI is %1, but got actual %2.\r\n"    //
                               "Maybe you have downloaded the wrong core?")
-                               .arg(kernel::abi::abiToString(compiledABI), kernel::abi::abiToString(abi.value()));
+                               .arg(kernel::abi::abiToString(compiledABI), kernel::abi::abiToString(ACCESS_OPTIONAL_VALUE(abi)));
                 return false;
             case kernel::abi::ABI_MAYBE: LOG(MODULE_VCORE, "WARNING: Host maybe incompatible with core"); [[fallthrough]];
             case kernel::abi::ABI_PERFECT: LOG(MODULE_VCORE, "Host is compatible with core");

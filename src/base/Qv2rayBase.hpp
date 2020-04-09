@@ -91,6 +91,12 @@ using namespace Qv2ray::base::objects::transfer;
 
 #define BLACK(obj) obj->setPalette(QWidget::palette());
 
+#ifdef Q_OS_MACOS
+    #define ACCESS_OPTIONAL_VALUE(obj) (*obj)
+#else
+    #define ACCESS_OPTIONAL_VALUE(obj) (obj.value())
+#endif
+
 #define QV2RAY_UI_COLORSCHEME_ROOT                                                                                                              \
     ((GlobalConfig.uiConfig.useDarkTheme) ? QStringLiteral(":/assets/icons/ui_dark/") : QStringLiteral(":/assets/icons/ui_light/"))
 #define QICON_R(file) QIcon(QV2RAY_UI_COLORSCHEME_ROOT + file)

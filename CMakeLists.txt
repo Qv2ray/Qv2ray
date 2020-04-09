@@ -146,7 +146,11 @@ if(QV2RAY_DISABLE_AUTO_UPDATE)
   add_definitions(-DDISABLE_AUTO_UPDATE)
 endif()
 
+set(QVPLUGIN_INTERFACE_INCLUDE_DIR "src/components/plugins/interface")
+include(src/components/plugins/interface/QvPluginInterface.cmake)
+
 set(QV2RAY_SOURCES
+  ${QVPLUGIN_INTERFACE_HEADERS}
   3rdparty/libsemver/version.cpp
   src/base/Qv2rayLog.cpp
   src/common/CommandArgs.cpp
@@ -248,10 +252,6 @@ set(QV2RAY_SOURCES
   src/components/latency/win/ICMPPinger.hpp
   src/components/latency/QvTCPing.hpp
   src/components/plugins/toolbar/QvToolbar.hpp
-  src/components/plugins/interface/QvPluginInterface.hpp
-  src/components/plugins/interface/QvPluginInterfaceModels.hpp
-  src/components/plugins/interface/Qv2rayPluginObjects.hpp
-  src/components/plugins/interface/Qv2rayPluginProcessor.hpp
   src/components/plugins/QvPluginHost.hpp
   src/components/proxy/QvProxyConfigurator.hpp
   src/components/route/RouteSchemeIO.hpp
