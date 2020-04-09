@@ -43,7 +43,6 @@ namespace Qv2ray::components::plugins
                 info.pluginInterface = qobject_cast<Qv2rayInterface *>(plugin);
                 if (info.pluginInterface == nullptr)
                 {
-                    // info.errorMessage = tr("Failed to cast from QObject to Qv2rayPluginInterface");
                     LOG(MODULE_PLUGINHOST, "Failed to cast from QObject to Qv2rayPluginInterface")
                     info.pluginLoader->unload();
                     continue;
@@ -58,10 +57,12 @@ namespace Qv2ray::components::plugins
                 if (info.pluginInterface->QvPluginInterfaceVersion != QV2RAY_PLUGIN_INTERFACE_VERSION)
                 {
                     // The plugin was built for a not-compactable version of Qv2ray. Don't load the plugin by default.
-                    LOG(MODULE_PLUGINHOST, "The plugin " + info.metadata.InternalName +
-                                               " is not loaded since it was built against a different version of interface")
-                    info.errorMessage = tr("This plugin was built against an incompactable version of Qv2ray Plugin Interface.") + NEWLINE +
-                                        QObject::tr("Please contact the plugin provider or report the issue to Qv2ray Workgroup.");
+                    LOG(MODULE_PLUGINHOST, info.metadata.InternalName + " is built with an older Interface, ignoring")
+                    QvMessageBoxWarn(nullptr, tr("Cannot load plugin"),
+                                     info.metadata.Name + " " + tr("cannot be loaded.") + NEWLINE NEWLINE +
+                                         tr("This plugin was built against an older/newer version of the Plugin Interface.") + NEWLINE +
+                                         tr("Please contact the plugin provider or report the issue to Qv2ray Workgroup."));
+                    continue;
                 }
                 connect(plugin, SIGNAL(PluginLog(const QString &)), this, SLOT(QvPluginLog(const QString &)));
                 connect(plugin, SIGNAL(PluginErrorMessageBox(const QString &)), this, SLOT(QvPluginMessageBox(const QString &)));
@@ -70,38 +71,6 @@ namespace Qv2ray::components::plugins
             }
         }
         return plugins.count();
-    }
-
-    const QString QvPluginHost::GetPluginTypeString(const QString &internalName) const
-    {
-        QStringList types;
-        for (auto type : plugins.value(internalName).metadata.SpecialPluginType)
-        {
-            switch (type)
-            {
-                case SPECIAL_TYPE_KERNEL: types << tr("Connection Kernel"); break;
-                case SPECIAL_TYPE_SERIALIZOR: types << tr("Connection String Serializer/Deserializer"); break;
-                default: types << tr("Unknown/unsupported plugin type."); break;
-            }
-        }
-        return types.join("; ");
-    }
-
-    const QString QvPluginHost::GetPluginHookTypeString(const QString &internalName) const
-    {
-        QStringList hooks;
-        for (auto hook : plugins.value(internalName).metadata.Capabilities)
-        {
-            switch (hook)
-            {
-                case CAPABILITY_CONNECTIVITY: hooks << tr("Connection State Change"); break;
-                case CAPABILITY_CONNECTION_ENTRY: hooks << tr("Connection Change"); break;
-                case CAPABILITY_STATS: hooks << tr("Statistics Event"); break;
-                case CAPABILITY_SYSTEM_PROXY: hooks << tr("System Proxy"); break;
-                default: hooks << tr("Unknown/unsupported hook type."); break;
-            }
-        }
-        return hooks.join("; ");
     }
 
     void QvPluginHost::QvPluginLog(const QString &log)
@@ -195,9 +164,12 @@ namespace Qv2ray::components::plugins
     {
         for (auto name : plugins.keys())
         {
-            LOG(MODULE_PLUGINHOST, "Saving plugin settings for: \"" + name + "\"")
-            auto &conf = plugins[name].pluginInterface->GetSettngs();
-            StringToFile(JsonToString(conf), QV2RAY_PLUGIN_SETTINGS_DIR + name + ".conf");
+            if (plugins[name].isLoaded)
+            {
+                LOG(MODULE_PLUGINHOST, "Saving plugin settings for: \"" + name + "\"")
+                auto &conf = plugins[name].pluginInterface->GetSettngs();
+                StringToFile(JsonToString(conf), QV2RAY_PLUGIN_SETTINGS_DIR + name + ".conf");
+            }
         }
         ClearPlugins();
     }
@@ -242,5 +214,45 @@ namespace Qv2ray::components::plugins
                 plugin.pluginInterface->GetEventHandler()->ProcessEvent_SystemProxy(object);
             }
         }
+    }
+
+    const QString GetPluginTypeString(const SPECIAL_TYPE_FLAGS &types)
+    {
+        QStringList typesList;
+        if (types.isEmpty())
+        {
+            typesList << QObject::tr("Normal Plugin");
+        }
+        for (auto type : types)
+        {
+            switch (type)
+            {
+                case SPECIAL_TYPE_KERNEL: typesList << QObject::tr("Kernel"); break;
+                case SPECIAL_TYPE_SERIALIZOR: typesList << QObject::tr("Share Link Parser"); break;
+                default: typesList << QObject::tr("Unknown type."); break;
+            }
+        }
+        return typesList.join(NEWLINE);
+    }
+
+    const QString GetPluginCapabilityString(const CAPABILITY_FLAGS &caps)
+    {
+        QStringList capsString;
+        if (caps.isEmpty())
+        {
+            capsString << QObject::tr("No Capability");
+        }
+        for (auto cap : caps)
+        {
+            switch (cap)
+            {
+                case CAPABILITY_CONNECTIVITY: capsString << QObject::tr("Connection State Change"); break;
+                case CAPABILITY_CONNECTION_ENTRY: capsString << QObject::tr("Connection Change"); break;
+                case CAPABILITY_STATS: capsString << QObject::tr("Statistics Event"); break;
+                case CAPABILITY_SYSTEM_PROXY: capsString << QObject::tr("System Proxy Event"); break;
+                default: capsString << QObject::tr("Unknown"); break;
+            }
+        }
+        return capsString.join(NEWLINE);
     }
 } // namespace Qv2ray::components::plugins

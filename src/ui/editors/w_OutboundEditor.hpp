@@ -14,7 +14,7 @@ class OutboundEditor
     Q_OBJECT
   public:
     explicit OutboundEditor(QWidget *parent = nullptr);
-    explicit OutboundEditor(OUTBOUND outboundEntry, QWidget *parent = nullptr);
+    explicit OutboundEditor(const OUTBOUND &outboundEntry, QWidget *parent = nullptr);
     ~OutboundEditor();
     OUTBOUND OpenEditor();
     QString GetFriendlyName();
@@ -25,56 +25,39 @@ class OutboundEditor
     void s_reload_config(bool need_restart);
   private slots:
     void on_buttonBox_accepted();
-
     void on_ipLineEdit_textEdited(const QString &arg1);
-
     void on_portLineEdit_textEdited(const QString &arg1);
-
     void on_idLineEdit_textEdited(const QString &arg1);
-
     void on_tagTxt_textEdited(const QString &arg1);
-
     void on_muxEnabledCB_stateChanged(int arg1);
-
     void on_muxConcurrencyTxt_valueChanged(int arg1);
-
     void on_alterLineEdit_valueChanged(int arg1);
-
     void on_useFPCB_stateChanged(int arg1);
-
     void on_outBoundTypeCombo_currentIndexChanged(int index);
-
     void on_ss_emailTxt_textEdited(const QString &arg1);
-
     void on_ss_passwordTxt_textEdited(const QString &arg1);
-
     void on_ss_encryptionMethod_currentIndexChanged(const QString &arg1);
-
     void on_ss_levelSpin_valueChanged(int arg1);
-
     void on_ss_otaCheckBox_stateChanged(int arg1);
-
     void on_socks_UserNameTxt_textEdited(const QString &arg1);
-
     void on_socks_PasswordTxt_textEdited(const QString &arg1);
-
     void on_securityCombo_currentIndexChanged(const QString &arg1);
 
   private:
-    QString Tag;
+    QString tag;
     void ReloadGUI();
-    bool useFProxy;
+    bool useForwardProxy;
     OUTBOUND GenerateConnectionJson();
     OUTBOUND Original;
     OUTBOUND Result;
     QJsonObject Mux;
     //
     // Connection Configs
-    QString OutboundType;
+    QString outboundType;
     //
     VMessServerObject vmess;
     ShadowSocksServerObject shadowsocks;
     SocksServerObject socks;
     //
-    StreamSettingsWidget *ssWidget;
+    StreamSettingsWidget *streamSettingsWidget;
 };

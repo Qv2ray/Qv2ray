@@ -18,12 +18,11 @@ class PluginManageWindow
     void on_pluginListWidget_itemClicked(QListWidgetItem *item);
     void on_pluginListWidget_itemChanged(QListWidgetItem *item);
 
-    void on_pluginSettingsBtn_clicked();
-
     void on_pluginEditSettingsJsonBtn_clicked();
 
     void on_pluginListWidget_itemSelectionChanged();
 
   private:
+    std::unique_ptr<QWidget> settingsWidget;
     bool isLoading = true;
 };
