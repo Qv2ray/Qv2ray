@@ -3,6 +3,7 @@
 #include "ui_w_PluginManager.h"
 
 #include <QDialog>
+#include <memory>
 
 class PluginManageWindow
     : public QDialog
