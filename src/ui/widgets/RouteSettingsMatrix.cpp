@@ -175,7 +175,7 @@ void RouteSettingsMatrixWidget::on_exportSchemeBtn_clicked()
 
         // serialize and write out
         auto content = StructToJsonString(scheme);
-        StringToFile(content, savePath.value());
+        StringToFile(content, ACCESS_OPTIONAL_VALUE(savePath));
 
         // done
         // TODO: Give some success as Notification
