@@ -1,4 +1,4 @@
-#include "RouteSettingsMatrix.hpp"
+b#include "RouteSettingsMatrix.hpp"
 
 #include "common/QvHelpers.hpp"
 #include "components/geosite/QvGeositeReader.hpp"
@@ -103,7 +103,7 @@ void RouteSettingsMatrixWidget::on_importSchemeBtn_clicked()
 
         // read the file and parse back to struct.
         // if error occurred on parsing, an exception will be thrown.
-        auto content = StringFromFile(filePath.value());
+        auto content = StringFromFile(ACCESS_OPTIONAL_VALUE(filePath));
         auto scheme = StructFromJsonString<Qv2rayRouteScheme>(content);
 
         // show the information of this scheme to user,
