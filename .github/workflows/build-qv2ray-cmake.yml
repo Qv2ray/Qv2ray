@@ -175,7 +175,7 @@ jobs:
         uses: actions/upload-artifact@master
         with:
           name: ${{ steps.get_package.outputs.NAME }}
-          path: ${{ steps.get_package.outputs.NAME }}
+          path: Qv2ray-${{ github.sha }}.macOS-${{ matrix.arch }}.qt${{ matrix.qt_version }}.dmg
       - name: macOS - ${{ matrix.qt_version }} - Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release
         if: github.event_name == 'release' && matrix.platform == 'macos-latest' && matrix.qt_version == '5.14.2'
