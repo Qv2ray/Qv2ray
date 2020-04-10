@@ -266,6 +266,7 @@ set(QV2RAY_SOURCES
   src/core/CoreSafeTypes.hpp
   src/core/CoreUtils.hpp
   src/core/handler/ConfigHandler.hpp
+  src/core/handler/KernelInstanceHandler.hpp
   src/core/kernel/APIBackend.hpp
   src/core/kernel/V2rayKernelInteractions.hpp
   src/core/kernel/PluginKernelInteractions.hpp

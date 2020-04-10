@@ -1,62 +1,88 @@
-#include "ConfigHandler.hpp"
+#include "KernelInstanceHandler.hpp"
+
 #include "components/plugins/QvPluginHost.hpp"
+#include "core/CoreUtils.hpp"
 #include "core/connection/Generation.hpp"
-
-optional<QString> QvConfigHandler::CHStartConnection_p(const ConnectionId &id, const CONFIGROOT &root)
+namespace Qv2ray::core::handlers
 {
-    connections[id].lastConnected = system_clock::to_time_t(system_clock::now());
-    //
-    auto fullConfig = GenerateRuntimeConfig(root);
-    auto inboundPorts = GetInboundPorts(fullConfig);
-    //
-    PluginHost->Send_ConnectivityEvent(QvConnectivityEventObject{ GetDisplayName(id), inboundPorts, QvConnecticity_Connecting });
-    auto result = vCoreInstance->StartConnection(id, fullConfig);
-
-    if (!result.has_value())
+    KernelInstanceHandler::KernelInstanceHandler(QObject *parent) : QObject(parent)
     {
-        currentConnectionId = id;
-        emit OnConnected(currentConnectionId);
-        PluginHost->Send_ConnectivityEvent({ GetDisplayName(id), inboundPorts, QvConnecticity_Connected });
+        vCoreInstance = new V2rayKernelInstance(this);
+        connect(vCoreInstance, &V2rayKernelInstance::OnNewStatsDataArrived, this, &KernelInstanceHandler::OnStatsDataArrived_p);
+        connect(vCoreInstance, &V2rayKernelInstance::OnProcessOutputReadyRead, this, &KernelInstanceHandler::OnKernelLogAvailable_p);
+        connect(vCoreInstance, &V2rayKernelInstance::OnProcessErrored, this, &KernelInstanceHandler::OnKernelCrashed_p);
     }
-    else
-    {
-        PluginHost->Send_ConnectivityEvent({ GetDisplayName(id), {}, QvConnecticity_Disconnected });
-    }
-    return result;
-}
 
-void QvConfigHandler::CHStopConnection_p()
-{
-    if (vCoreInstance->KernelStarted)
+    KernelInstanceHandler::~KernelInstanceHandler()
     {
-        PluginHost->Send_ConnectivityEvent({ GetDisplayName(currentConnectionId), {}, QvConnecticity_Disconnecting });
-        vCoreInstance->StopConnection();
-        // Copy
-        ConnectionId id = currentConnectionId;
+    }
+
+    std::optional<QString> KernelInstanceHandler::StartConnection(const ConnectionId &id, const CONFIGROOT &root)
+    {
+        if (vCoreInstance->KernelStarted)
+        {
+            StopConnection();
+        }
+        this->root = root;
+        auto fullConfig = GenerateRuntimeConfig(root);
+        auto inboundPorts = GetInboundPorts(fullConfig);
+        //
+        PluginHost->Send_ConnectivityEvent(QvConnectivityEventObject{ GetDisplayName(id), inboundPorts, QvConnecticity_Connecting });
+        auto result = vCoreInstance->StartConnection(fullConfig);
+
+        if (!result.has_value())
+        {
+            currentConnectionId = id;
+            lastConnectionId = id;
+            emit OnConnected(currentConnectionId);
+            PluginHost->Send_ConnectivityEvent({ GetDisplayName(id), inboundPorts, QvConnecticity_Connected });
+        }
+        else
+        {
+            PluginHost->Send_ConnectivityEvent({ GetDisplayName(id), {}, QvConnecticity_Disconnected });
+        }
+        return result;
+    }
+
+    void KernelInstanceHandler::RestartConnection()
+    {
+        StopConnection();
+        StartConnection(lastConnectionId, root);
+    }
+
+    void KernelInstanceHandler::OnKernelCrashed_p()
+    {
+        emit OnCrashed(currentConnectionId);
+        emit OnDisconnected(currentConnectionId);
+        lastConnectionId = currentConnectionId;
         currentConnectionId = NullConnectionId;
-        emit OnDisconnected(id);
-        PluginHost->Send_ConnectivityEvent({ GetDisplayName(id), {}, QvConnecticity_Disconnected });
     }
-    else
+
+    void KernelInstanceHandler::OnKernelLogAvailable_p(const QString &log)
     {
-        LOG(MODULE_CORE_HANDLER, "VCore is not started, not disconnecting")
+        emit OnKernelLogAvailable(currentConnectionId, log);
     }
-}
 
-void QvConfigHandler::OnStatsDataArrived(const ConnectionId &id, const quint64 uploadSpeed, const quint64 downloadSpeed)
-{
-    connections[id].upLinkData += uploadSpeed;
-    connections[id].downLinkData += downloadSpeed;
-    emit OnStatsAvailable(id, uploadSpeed, downloadSpeed, connections[id].upLinkData, connections[id].downLinkData);
-    PluginHost->Send_ConnectionStatsEvent({ GetDisplayName(currentConnectionId), //
-                                            uploadSpeed, downloadSpeed, connections[id].upLinkData, connections[id].downLinkData });
-}
+    void KernelInstanceHandler::StopConnection()
+    {
+        if (vCoreInstance->KernelStarted)
+        {
+            PluginHost->Send_ConnectivityEvent({ GetDisplayName(currentConnectionId), {}, QvConnecticity_Disconnecting });
+            vCoreInstance->StopConnection();
+            // Copy
+            ConnectionId id = currentConnectionId;
+            currentConnectionId = NullConnectionId;
+            emit OnDisconnected(id);
+            PluginHost->Send_ConnectivityEvent({ GetDisplayName(id), {}, QvConnecticity_Disconnected });
+        }
+        else
+        {
+            LOG(MODULE_CORE_HANDLER, "VCore is not started, not disconnecting")
+        }
+    }
 
-void QvConfigHandler::OnVCoreCrashed(const ConnectionId &id)
-{
-    LOG(MODULE_CORE_HANDLER, "V2ray core crashed!")
-    currentConnectionId = NullConnectionId;
-    emit OnDisconnected(id);
-    PluginHost->Send_ConnectivityEvent({ GetDisplayName(id), {}, QvConnecticity_Disconnected });
-    emit OnCrashed();
-}
+    void KernelInstanceHandler::OnStatsDataArrived_p(const quint64 uploadSpeed, const quint64 downloadSpeed)
+    {
+        emit OnStatsDataAvailable(currentConnectionId, uploadSpeed, downloadSpeed);
+    }
+} // namespace Qv2ray::core::handlers

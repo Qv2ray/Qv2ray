@@ -37,7 +37,10 @@ QvMessageBusSlotImpl(ImportConfigWindow)
 {
     switch (msg)
     {
-        MBShowDefaultImpl MBHideDefaultImpl MBRetranslateDefaultImpl MBUpdateColorSchemeDefaultImpl
+        MBShowDefaultImpl;
+        MBHideDefaultImpl;
+        MBRetranslateDefaultImpl;
+        MBUpdateColorSchemeDefaultImpl;
     }
 }
 

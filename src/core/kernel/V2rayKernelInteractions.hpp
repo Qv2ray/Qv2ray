@@ -12,7 +12,7 @@ namespace Qv2ray::core::kernel
     {
         Q_OBJECT
       public:
-        explicit V2rayKernelInstance();
+        explicit V2rayKernelInstance(QObject *parent = nullptr);
         ~V2rayKernelInstance() override;
         //
         // Speed
@@ -21,7 +21,7 @@ namespace Qv2ray::core::kernel
         qulonglong getAllSpeedUp();
         qulonglong getAllSpeedDown();
         //
-        optional<QString> StartConnection(const ConnectionId &id, const CONFIGROOT &root);
+        optional<QString> StartConnection(const CONFIGROOT &root);
         void StopConnection();
         bool KernelStarted = false;
         //
@@ -29,19 +29,17 @@ namespace Qv2ray::core::kernel
         static bool ValidateKernel(const QString &vCorePath, const QString &vAssetsPath, QString *message);
 
       signals:
-        void OnProcessErrored(const ConnectionId &id);
-        void OnProcessOutputReadyRead(const ConnectionId &id, const QString &output);
-        void OnNewStatsDataArrived(const ConnectionId &id, const quint64 speedUp, const quint64 speedDown);
+        void OnProcessErrored();
+        void OnProcessOutputReadyRead(const QString &output);
+        void OnNewStatsDataArrived(const quint64 speedUp, const quint64 speedDown);
 
-      public slots:
+      private slots:
         void onAPIDataReady(const quint64 speedUp, const quint64 speedDown);
 
       private:
         APIWorker *apiWorker;
         QProcess *vProcess;
         bool apiEnabled;
-        //
-        ConnectionId id = NullConnectionId;
     };
 } // namespace Qv2ray::core::kernel
 

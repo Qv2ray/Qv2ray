@@ -76,15 +76,16 @@ namespace Qv2ray::core::handlers
         groups[DefaultGroupId].displayName = tr("Default Group");
         groups[DefaultGroupId].isSubscription = false;
         //
-        vCoreInstance = new V2rayKernelInstance();
-        connect(vCoreInstance, &V2rayKernelInstance::OnProcessErrored, this, &QvConfigHandler::OnVCoreCrashed);
-        connect(vCoreInstance, &V2rayKernelInstance::OnNewStatsDataArrived, this, &QvConfigHandler::OnStatsDataArrived);
-        // Directly connected to a signal.
-        connect(vCoreInstance, &V2rayKernelInstance::OnProcessOutputReadyRead, this, &QvConfigHandler::OnVCoreLogAvailable);
+        kernelHandler = new KernelInstanceHandler(this);
+        connect(kernelHandler, &KernelInstanceHandler::OnCrashed, this, &QvConfigHandler::OnKernelCrashed_p);
+        connect(kernelHandler, &KernelInstanceHandler::OnStatsDataAvailable, this, &QvConfigHandler::OnStatsDataArrived_p);
+        connect(kernelHandler, &KernelInstanceHandler::OnKernelLogAvailable, this, &QvConfigHandler::OnKernelLogAvailable);
+        connect(kernelHandler, &KernelInstanceHandler::OnConnected, this, &QvConfigHandler::OnConnected);
+        connect(kernelHandler, &KernelInstanceHandler::OnDisconnected, this, &QvConfigHandler::OnDisconnected);
         //
         tcpingHelper = new QvTCPingHelper(5, this);
         httpHelper = new QvHttpRequestHelper(this);
-        connect(tcpingHelper, &QvTCPingHelper::OnLatencyTestCompleted, this, &QvConfigHandler::OnLatencyDataArrived);
+        connect(tcpingHelper, &QvTCPingHelper::OnLatencyTestCompleted, this, &QvConfigHandler::OnLatencyDataArrived_p);
         //
         // Save per 2 minutes.
         saveTimerId = startTimer(2 * 60 * 1000);
@@ -139,9 +140,10 @@ namespace Qv2ray::core::handlers
         }
         else if (event->timerId() == pingConnectionTimerId)
         {
-            if (currentConnectionId != NullConnectionId)
+            auto id = kernelHandler->CurrentConnection();
+            if (id != NullConnectionId)
             {
-                StartLatencyTest(currentConnectionId);
+                StartLatencyTest(id);
             }
         }
     }
@@ -215,7 +217,7 @@ namespace Qv2ray::core::handlers
         connections[id].upLinkData = 0;
         connections[id].downLinkData = 0;
         emit OnStatsAvailable(id, 0, 0, 0, 0);
-        PluginHost->Send_ConnectionStatsEvent({ GetDisplayName(currentConnectionId), 0, 0, 0, 0 });
+        PluginHost->Send_ConnectionStatsEvent({ GetDisplayName(id), 0, 0, 0, 0 });
         return {};
     }
 
@@ -329,55 +331,41 @@ namespace Qv2ray::core::handlers
     const optional<QString> QvConfigHandler::StartConnection(const ConnectionId &id)
     {
         CheckConnectionExistance(id);
-
-        if (currentConnectionId != NullConnectionId)
-        {
-            StopConnection();
-        }
-
+        connections[id].lastConnected = system_clock::to_time_t(system_clock::now());
         CONFIGROOT root = GetConnectionRoot(id);
-        return CHStartConnection_p(id, root);
+        return kernelHandler->StartConnection(id, root);
     }
 
     void QvConfigHandler::RestartConnection() // const ConnectionId &id
     {
-        auto conn = currentConnectionId;
-        if (conn != NullConnectionId)
-        {
-            StopConnection();
-            StartConnection(conn);
-        }
+        kernelHandler->RestartConnection();
     }
 
     void QvConfigHandler::StopConnection() // const ConnectionId &id
     {
-        // Currently just simply stop it.
-        //_UNUSED(id)
-        // if (currentConnectionId == id) {
-        //}
-        CHStopConnection_p();
+        kernelHandler->StopConnection();
         CHSaveConfigData_p();
     }
 
     bool QvConfigHandler::IsConnected(const ConnectionId &id) const
     {
-        CheckConnectionExistanceEx(id, false);
-        return currentConnectionId == id;
+        return kernelHandler->isConnected(id);
+    }
+
+    void QvConfigHandler::OnKernelCrashed_p(const ConnectionId &id)
+    {
+        LOG(MODULE_CORE_HANDLER, "V2ray core crashed!")
+        emit OnDisconnected(id);
+        PluginHost->Send_ConnectivityEvent({ GetDisplayName(id), {}, QvConnecticity_Disconnected });
+        emit OnKernelCrashed(id);
     }
 
     QvConfigHandler::~QvConfigHandler()
     {
         LOG(MODULE_CORE_HANDLER, "Triggering save settings from destructor")
-        CHSaveConfigData_p();
-
-        if (vCoreInstance->KernelStarted)
-        {
-            vCoreInstance->StopConnection();
-            LOG(MODULE_CORE_HANDLER, "Stopped connection from destructor.")
-        }
-
-        delete vCoreInstance;
+        delete kernelHandler;
         delete httpHelper;
+        CHSaveConfigData_p();
     }
 
     const CONFIGROOT QvConfigHandler::GetConnectionRoot(const ConnectionId &id) const
@@ -386,7 +374,7 @@ namespace Qv2ray::core::handlers
         return connectionRootCache.value(id);
     }
 
-    void QvConfigHandler::OnLatencyDataArrived(const QvTCPingResultObject &result)
+    void QvConfigHandler::OnLatencyDataArrived_p(const QvTCPingResultObject &result)
     {
         CheckConnectionExistanceEx(result.connectionId, nothing);
         connections[result.connectionId].latency = result.avg;
@@ -408,7 +396,7 @@ namespace Qv2ray::core::handlers
         //
         emit OnConnectionModified(id);
         PluginHost->Send_ConnectionEvent({ connections[id].displayName, "", ConnectionEvent_Updated });
-        if (!skipRestart && id == currentConnectionId)
+        if (!skipRestart && kernelHandler->isConnected(id))
         {
             emit RestartConnection();
         }
@@ -592,6 +580,15 @@ namespace Qv2ray::core::handlers
         groups[id].lastUpdated = system_clock::to_time_t(system_clock::now());
 
         return hasErrorOccured;
+    }
+
+    void QvConfigHandler::OnStatsDataArrived_p(const ConnectionId &id, const quint64 uploadSpeed, const quint64 downloadSpeed)
+    {
+        connections[id].upLinkData += uploadSpeed;
+        connections[id].downLinkData += downloadSpeed;
+        emit OnStatsAvailable(id, uploadSpeed, downloadSpeed, connections[id].upLinkData, connections[id].downLinkData);
+        PluginHost->Send_ConnectionStatsEvent(
+            { GetDisplayName(id), uploadSpeed, downloadSpeed, connections[id].upLinkData, connections[id].downLinkData });
     }
 
     const ConnectionId QvConfigHandler::CreateConnection(const QString &displayName, const GroupId &groupId, const CONFIGROOT &root)

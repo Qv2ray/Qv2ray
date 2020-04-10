@@ -131,7 +131,8 @@ namespace Qv2ray::base::config
     struct Qv2rayPluginConfig
     {
         QMap<QString, bool> pluginStates;
-        XTOSTRUCT(O(pluginStates))
+        bool v2rayIntegration;
+        XTOSTRUCT(O(pluginStates, v2rayIntegration))
     };
 
     struct Qv2rayConnectionConfig

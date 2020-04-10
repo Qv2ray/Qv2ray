@@ -128,12 +128,13 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     //
     localDNSCb->setChecked(CurrentConfig.connectionConfig.withLocalDNS);
     //
+    pluginKernelV2rayIntegrationCB->setChecked(CurrentConfig.pluginConfig.v2rayIntegration);
+    //
+    //
     DNSListTxt->clear();
-
     for (auto dnsStr : CurrentConfig.connectionConfig.dnsList)
     {
         auto str = dnsStr.trimmed();
-
         if (!str.isEmpty())
         {
             DNSListTxt->appendPlainText(str);
@@ -144,11 +145,11 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     updateSettingsGroupBox->setEnabled(false);
     updateSettingsGroupBox->setToolTip(tr("Update is disabled by your vendor."));
 #endif
-
+    //
     updateChannelCombo->setCurrentIndex(CurrentConfig.updateConfig.updateChannel);
     cancelIgnoreVersionBtn->setEnabled(!CurrentConfig.updateConfig.ignoredVersion.isEmpty());
     ignoredNextVersion->setText(CurrentConfig.updateConfig.ignoredVersion);
-
+    //
     for (auto i = 0; i < CurrentConfig.toolBarConfig.Pages.size(); i++)
     {
         nsBarPagesList->addItem(tr("Page") + QSTRN(i + 1) + ": " + QSTRN(CurrentConfig.toolBarConfig.Pages[i].Lines.size()) + " " +
@@ -1098,4 +1099,10 @@ void PreferencesWindow::on_updateChannelCombo_currentIndexChanged(int index)
     LOADINGCHECK
     CurrentConfig.updateConfig.updateChannel = index;
     CurrentConfig.updateConfig.ignoredVersion.clear();
+}
+
+void PreferencesWindow::on_pluginKernelV2rayIntegrationCB_stateChanged(int arg1)
+{
+    LOADINGCHECK
+    CurrentConfig.pluginConfig.v2rayIntegration = arg1 == Qt::Checked;
 }

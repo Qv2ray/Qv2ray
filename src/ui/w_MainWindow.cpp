@@ -132,7 +132,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     UpdateColorScheme();
     //
     //
-    connect(ConnectionManager, &QvConfigHandler::OnCrashed, [&] {
+    connect(ConnectionManager, &QvConfigHandler::OnKernelCrashed, [&] {
         this->show();
         QvMessageBoxWarn(this, tr("V2ray vcore terminated."),
                          tr("V2ray vcore terminated unexpectedly.") + NEWLINE + NEWLINE +
@@ -142,7 +142,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(ConnectionManager, &QvConfigHandler::OnConnected, this, &MainWindow::OnConnected);
     connect(ConnectionManager, &QvConfigHandler::OnDisconnected, this, &MainWindow::OnDisconnected);
     connect(ConnectionManager, &QvConfigHandler::OnStatsAvailable, this, &MainWindow::OnStatsAvailable);
-    connect(ConnectionManager, &QvConfigHandler::OnVCoreLogAvailable, this, &MainWindow::OnVCoreLogAvailable);
+    connect(ConnectionManager, &QvConfigHandler::OnKernelLogAvailable, this, &MainWindow::OnVCoreLogAvailable);
     //
     connect(ConnectionManager, &QvConfigHandler::OnConnectionDeleted, this, &MainWindow::OnConnectionDeleted);
     connect(ConnectionManager, &QvConfigHandler::OnConnectionCreated, this, &MainWindow::OnConnectionCreated);

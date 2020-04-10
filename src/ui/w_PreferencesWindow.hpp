@@ -156,6 +156,8 @@ class PreferencesWindow
 
     void on_updateChannelCombo_currentIndexChanged(int index);
 
+    void on_pluginKernelV2rayIntegrationCB_stateChanged(int arg1);
+
   private:
     //
     RouteSettingsMatrixWidget *routeSettingsWidget;
