@@ -140,7 +140,7 @@ bool initialiseQv2ray()
         Qv2rayConfig conf;
         conf.kernelConfig.KernelPath(QString(QV2RAY_DEFAULT_VCORE_PATH));
         conf.kernelConfig.AssetsPath(QString(QV2RAY_DEFAULT_VASSETS_PATH));
-        conf.logLevel = 2;
+        conf.logLevel = 3;
         conf.uiConfig.language = QLocale::system().name();
         //
         // Save initial config.
