@@ -24,10 +24,12 @@ OutboundEditor::OutboundEditor(QWidget *parent) : QDialog(parent), tag(OUTBOUND_
     auto pluginEditorWidgetsInfo = PluginHost->GetOutboundEditorWidgets();
     for (const auto &plugin : pluginEditorWidgetsInfo)
     {
-        outBoundTypeCombo->addItem(plugin.first.displayName, plugin.first.protocol);
-        auto widget = PluginHost->GetPluginEditorWidget(plugin.second, UI_TYPE::UI_TYPE_OUTBOUND_EDITOR).release();
-        auto index = outboundTypeStackView->addWidget(widget);
-        pluginWidgets.insert(index, { plugin.first, plugin.second, widget });
+        for (const auto &_d : plugin->OutboundCapabilities())
+        {
+            outBoundTypeCombo->addItem(_d.displayName, _d.protocol);
+            auto index = outboundTypeStackView->addWidget(plugin);
+            pluginWidgets.insert(index, { _d, plugin });
+        }
     }
     //
     outboundType = "vmess";
@@ -117,10 +119,10 @@ OUTBOUND OutboundEditor::GenerateConnectionJson()
         bool processed = false;
         for (const auto &plugin : pluginWidgets)
         {
-            if (get<0>(plugin).protocol == outboundType)
+            if (plugin.first.protocol == outboundType)
             {
-                get<2>(plugin)->SetHostInfo(address, port);
-                settings = OUTBOUNDSETTING(get<2>(plugin)->GetContent());
+                plugin.second->SetHostInfo(address, port);
+                settings = OUTBOUNDSETTING(plugin.second->GetContent());
                 processed = true;
                 break;
             }
@@ -193,11 +195,11 @@ void OutboundEditor::ReloadGUI()
         for (const auto &index : pluginWidgets.keys())
         {
             const auto &plugin = pluginWidgets.value(index);
-            if (get<0>(plugin).protocol == outboundType)
+            if (plugin.first.protocol == outboundType)
             {
-                get<2>(plugin)->SetContent(settings);
+                plugin.second->SetContent(settings);
                 outBoundTypeCombo->setCurrentIndex(index);
-                auto [_address, _port] = get<2>(plugin)->GetHostInfo();
+                auto [_address, _port] = plugin.second->GetHostInfo();
                 address = _address;
                 port = _port;
                 processed = true;
@@ -284,7 +286,7 @@ void OutboundEditor::on_outBoundTypeCombo_currentIndexChanged(int index)
     }
     else
     {
-        outboundType = get<0>(pluginWidgets.value(index)).protocol;
+        outboundType = pluginWidgets.value(index).first.protocol;
     }
 }
 

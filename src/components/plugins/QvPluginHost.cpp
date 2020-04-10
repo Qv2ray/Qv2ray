@@ -216,6 +216,74 @@ namespace Qv2ray::components::plugins
         }
     }
 
+    const QList<QvPluginEditor *> QvPluginHost::GetOutboundEditorWidgets() const
+    {
+        QList<QvPluginEditor *> data;
+        for (const auto &plugin : plugins)
+        {
+            if (!plugin.isLoaded)
+                continue;
+            auto editor = plugin.pluginInterface->GetEditorWidget(UI_TYPE::UI_TYPE_OUTBOUND_EDITOR);
+            if (editor)
+            {
+                data.append(editor.release());
+            }
+        }
+        return data;
+    }
+
+    const QMultiHash<QString, QPair<QString, QJsonObject>> QvPluginHost::TryDeserializeShareLink(const QString &sharelink, //
+                                                                                                 QString *prefix,          //
+                                                                                                 QString *errMessage,      //
+                                                                                                 QString *newGroupName,    //
+                                                                                                 bool *status) const
+    {
+        Q_UNUSED(newGroupName)
+        QMultiHash<QString, QPair<QString, QJsonObject>> data;
+        *status = true;
+        for (const auto &plugin : plugins)
+        {
+            if (plugin.isLoaded && plugin.metadata.SpecialPluginType.contains(SPECIAL_TYPE_SERIALIZOR))
+            {
+                auto serializer = plugin.pluginInterface->GetSerializer();
+                bool thisPluginCanHandle = false;
+                for (const auto &prefix : serializer->ShareLinkPrefixes())
+                {
+                    thisPluginCanHandle = thisPluginCanHandle || sharelink.startsWith(prefix);
+                }
+                if (thisPluginCanHandle)
+                {
+                    auto [protocol, outboundSettings] = serializer->DeserializeOutbound(sharelink, prefix, errMessage);
+                    *status = *status && errMessage->isEmpty();
+                    data.insert(*prefix, { protocol, outboundSettings });
+                }
+            }
+        }
+        return data;
+    }
+    const QString QvPluginHost::TrySerializeShareLink(const QString &protocol,             //
+                                                      const QJsonObject &outboundSettings, //
+                                                      const QString &alias,                //
+                                                      const QString &groupName,            //
+                                                      bool *status) const
+    {
+        *status = false;
+        for (const auto &plugin : plugins)
+        {
+            if (plugin.isLoaded && plugin.metadata.SpecialPluginType.contains(SPECIAL_TYPE_SERIALIZOR))
+            {
+                auto serializer = plugin.pluginInterface->GetSerializer();
+                if (serializer->OutboundProtocols().contains(protocol))
+                {
+                    auto link = serializer->SerializeOutbound(protocol, alias, groupName, outboundSettings);
+                    *status = true;
+                    return link;
+                }
+            }
+        }
+        return "";
+    }
+
     const QString GetPluginTypeString(const SPECIAL_TYPE_FLAGS &types)
     {
         QStringList typesList;

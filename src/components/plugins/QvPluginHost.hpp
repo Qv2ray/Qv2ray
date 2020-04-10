@@ -46,10 +46,6 @@ namespace Qv2ray::components::plugins
         {
             return plugins.value(internalName).pluginInterface->GetSettingsWidget();
         }
-        inline std::unique_ptr<QvPluginEditor> GetPluginEditorWidget(const QString &internalName, UI_TYPE type) const
-        {
-            return plugins.value(internalName).pluginInterface->GetEditorWidget(type);
-        }
         const inline QJsonObject GetPluginSettings(const QString &internalName) const
         {
             return plugins.value(internalName).pluginInterface->GetSettngs();
@@ -62,23 +58,19 @@ namespace Qv2ray::components::plugins
         {
             return plugins.value(internalName).metadata;
         }
-        const QList<QPair<QvPluginOutboundObject, QString>> GetOutboundEditorWidgets() const
-        {
-            QList<QPair<QvPluginOutboundObject, QString>> data;
-            for (const auto &plugin : plugins)
-            {
-                if (!plugin.isLoaded)
-                    continue;
-                if (auto editor = plugin.pluginInterface->GetEditorWidget(UI_TYPE::UI_TYPE_OUTBOUND_EDITOR); editor)
-                {
-                    for (const auto &cap : editor->OutboundCapabilities())
-                    {
-                        data.append({ cap, plugin.metadata.InternalName });
-                    }
-                }
-            }
-            return data;
-        }
+        //
+        const QMultiHash<QString, QPair<QString, QJsonObject>> TryDeserializeShareLink(const QString &sharelink, //
+                                                                                       QString *prefix,          //
+                                                                                       QString *errMessage,      //
+                                                                                       QString *newGroupName,    //
+                                                                                       bool *status) const;
+        //
+        const QString TrySerializeShareLink(const QString &protocol,             //
+                                            const QJsonObject &outboundSettings, //
+                                            const QString &alias,                //
+                                            const QString &groupName,            //
+                                            bool *status) const;
+        const QList<QvPluginEditor *> GetOutboundEditorWidgets() const;
         //
         void Send_ConnectionStatsEvent(const QvConnectionStatsEventObject &object);
         void Send_ConnectivityEvent(const QvConnectivityEventObject &object);
