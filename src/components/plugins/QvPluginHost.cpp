@@ -179,7 +179,7 @@ namespace Qv2ray::components::plugins
     {
         for (auto &plugin : plugins)
         {
-            if (plugin.metadata.Capabilities.contains(CAPABILITY_STATS))
+            if (plugin.isLoaded && plugin.metadata.Capabilities.contains(CAPABILITY_STATS))
             {
                 plugin.pluginInterface->GetEventHandler()->ProcessEvent_ConnectionStats(object);
             }
@@ -189,7 +189,7 @@ namespace Qv2ray::components::plugins
     {
         for (auto &plugin : plugins)
         {
-            if (plugin.metadata.Capabilities.contains(CAPABILITY_CONNECTIVITY))
+            if (plugin.isLoaded && plugin.metadata.Capabilities.contains(CAPABILITY_CONNECTIVITY))
             {
                 plugin.pluginInterface->GetEventHandler()->ProcessEvent_Connectivity(object);
             }
@@ -199,7 +199,7 @@ namespace Qv2ray::components::plugins
     {
         for (auto &plugin : plugins)
         {
-            if (plugin.metadata.Capabilities.contains(CAPABILITY_CONNECTION_ENTRY))
+            if (plugin.isLoaded && plugin.metadata.Capabilities.contains(CAPABILITY_CONNECTION_ENTRY))
             {
                 plugin.pluginInterface->GetEventHandler()->ProcessEvent_ConnectionEntry(object);
             }
@@ -209,7 +209,7 @@ namespace Qv2ray::components::plugins
     {
         for (auto &plugin : plugins)
         {
-            if (plugin.metadata.Capabilities.contains(CAPABILITY_SYSTEM_PROXY))
+            if (plugin.isLoaded && plugin.metadata.Capabilities.contains(CAPABILITY_SYSTEM_PROXY))
             {
                 plugin.pluginInterface->GetEventHandler()->ProcessEvent_SystemProxy(object);
             }

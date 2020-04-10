@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "base/Qv2rayBase.hpp"
+#include "components/plugins/QvPluginHost.hpp"
 #include "ui/messaging/QvMessageBus.hpp"
 #include "ui/widgets/StreamSettingsWidget.hpp"
 #include "ui_w_OutboundEditor.h"
@@ -13,13 +14,13 @@ class OutboundEditor
 {
     Q_OBJECT
   public:
-    explicit OutboundEditor(QWidget *parent = nullptr);
     explicit OutboundEditor(const OUTBOUND &outboundEntry, QWidget *parent = nullptr);
     ~OutboundEditor();
     OUTBOUND OpenEditor();
     QString GetFriendlyName();
 
   private:
+    explicit OutboundEditor(QWidget *parent = nullptr);
     QvMessageBusSlotDecl;
   signals:
     void s_reload_config(bool need_restart);
@@ -48,16 +49,20 @@ class OutboundEditor
     void ReloadGUI();
     bool useForwardProxy;
     OUTBOUND GenerateConnectionJson();
-    OUTBOUND Original;
-    OUTBOUND Result;
-    QJsonObject Mux;
+    OUTBOUND originalConfig;
+    OUTBOUND resultConfig;
+    QJsonObject muxConfig;
     //
     // Connection Configs
     QString outboundType;
+    QString address;
+    int port;
     //
     VMessServerObject vmess;
     ShadowSocksServerObject shadowsocks;
     SocksServerObject socks;
     //
     StreamSettingsWidget *streamSettingsWidget;
+    //
+    QMap<int, std::tuple<QvPluginOutboundObject, QString, QvPluginEditor *>> pluginWidgets;
 };

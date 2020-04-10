@@ -46,7 +46,7 @@ namespace Qv2ray::components::plugins
         {
             return plugins.value(internalName).pluginInterface->GetSettingsWidget();
         }
-        const inline std::unique_ptr<QvPluginEditor> GetPluginEditorWidget(const QString &internalName, UI_TYPE type) const
+        inline std::unique_ptr<QvPluginEditor> GetPluginEditorWidget(const QString &internalName, UI_TYPE type) const
         {
             return plugins.value(internalName).pluginInterface->GetEditorWidget(type);
         }
@@ -62,7 +62,7 @@ namespace Qv2ray::components::plugins
         {
             return plugins.value(internalName).metadata;
         }
-        const QList<QPair<QvPluginOutboundObject, QString>> GetOutboundEditorWidgets()
+        const QList<QPair<QvPluginOutboundObject, QString>> GetOutboundEditorWidgets() const
         {
             QList<QPair<QvPluginOutboundObject, QString>> data;
             for (const auto &plugin : plugins)

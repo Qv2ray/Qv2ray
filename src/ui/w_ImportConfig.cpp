@@ -260,7 +260,7 @@ void ImportConfigWindow::on_errorsList_currentItemChanged(QListWidgetItem *curre
 
 void ImportConfigWindow::on_connectionEditBtn_clicked()
 {
-    OutboundEditor w(this);
+    OutboundEditor w(OUTBOUND(), this);
     auto outboundEntry = w.OpenEditor();
     bool isChanged = w.result() == QDialog::Accepted;
     QString alias = w.GetFriendlyName();
