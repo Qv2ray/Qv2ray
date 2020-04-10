@@ -183,9 +183,10 @@ set(QV2RAY_SOURCES
   src/core/connection/Serialization_vmess.cpp
   src/core/CoreUtils.cpp
   src/core/handler/ConfigHandler.cpp
-  src/core/handler/V2rayInstanceHandler.cpp
+  src/core/handler/KernelInstanceHandler.cpp
   src/core/kernel/APIBackend.cpp
-  src/core/kernel/KernelInteractions.cpp
+  src/core/kernel/V2rayKernelInteractions.cpp
+  src/core/kernel/PluginKernelInteractions.cpp
   src/core/kernel/QvKernelABIChecker.cpp
   src/core/settings/SettingsBackend.cpp
   src/core/settings/SettingsUpgrade.cpp
@@ -266,7 +267,8 @@ set(QV2RAY_SOURCES
   src/core/CoreUtils.hpp
   src/core/handler/ConfigHandler.hpp
   src/core/kernel/APIBackend.hpp
-  src/core/kernel/KernelInteractions.hpp
+  src/core/kernel/V2rayKernelInteractions.hpp
+  src/core/kernel/PluginKernelInteractions.hpp
   src/core/kernel/QvKernelABIChecker.hpp
   src/core/settings/SettingsBackend.hpp
   src/ui/editors/w_InboundEditor.hpp

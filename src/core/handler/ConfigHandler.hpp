@@ -6,7 +6,7 @@
 #include "core/CoreSafeTypes.hpp"
 #include "core/CoreUtils.hpp"
 #include "core/connection/ConnectionIO.hpp"
-#include "core/kernel/KernelInteractions.hpp"
+#include "core/kernel/V2rayKernelInteractions.hpp"
 
 #define CheckIdExistance(type, id, val)                                                                                                         \
     if (!type.contains(id))                                                                                                                     \

@@ -8,7 +8,7 @@
 #include "components/plugins/toolbar/QvToolbar.hpp"
 #include "core/connection/ConnectionIO.hpp"
 #include "core/handler/ConfigHandler.hpp"
-#include "core/kernel/KernelInteractions.hpp"
+#include "core/kernel/V2rayKernelInteractions.hpp"
 #include "core/settings/SettingsBackend.hpp"
 #include "ui/widgets/RouteSettingsMatrix.hpp"
 
