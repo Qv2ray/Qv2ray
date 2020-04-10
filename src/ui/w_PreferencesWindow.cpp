@@ -4,6 +4,7 @@
 #include "common/QvHelpers.hpp"
 #include "common/QvTranslator.hpp"
 #include "components/autolaunch/QvAutoLaunch.hpp"
+#include "components/plugins/interface/QvPluginInterface.hpp"
 #include "components/plugins/toolbar/QvToolbar.hpp"
 #include "core/connection/ConnectionIO.hpp"
 #include "core/handler/ConfigHandler.hpp"
@@ -69,6 +70,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     qvBuildInfo->setText(QV2RAY_BUILD_INFO);
     qvBuildExInfo->setText(QV2RAY_BUILD_EXTRA_INFO);
     qvBuildTime->setText(__DATE__ " " __TIME__);
+    qvPluginInterfaceVersionLabel->setText(tr("Version: %1").arg(QSTRN(QV2RAY_PLUGIN_INTERFACE_VERSION)));
     //
     // Deep copy
     CurrentConfig = GlobalConfig;

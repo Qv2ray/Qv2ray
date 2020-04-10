@@ -1573,31 +1573,14 @@
           </item>
           <item>
            <layout class="QGridLayout" name="gridLayout_5" columnstretch="0,0">
-            <item row="0" column="1">
-             <widget class="QLabel" name="qvBuildTime">
-              <property name="text">
-               <string/>
-              </property>
-              <property name="textInteractionFlags">
-               <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="0">
-             <widget class="QLabel" name="label_29">
-              <property name="text">
-               <string>License</string>
-              </property>
-             </widget>
-            </item>
             <item row="3" column="0">
-             <widget class="QLabel" name="label_27">
+             <widget class="QLabel" name="label_56">
               <property name="text">
-               <string>Official Repo</string>
+               <string>Plugin Interface</string>
               </property>
              </widget>
             </item>
-            <item row="3" column="1">
+            <item row="4" column="1">
              <widget class="QLabel" name="label_28">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
@@ -1619,7 +1602,41 @@
               </property>
              </widget>
             </item>
-            <item row="4" column="1">
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_70">
+              <property name="text">
+               <string>Extra Build Info</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QLabel" name="qvBuildExInfo">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="textInteractionFlags">
+               <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLabel" name="qvBuildInfo">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="textInteractionFlags">
+               <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QLabel" name="qvPluginInterfaceVersionLabel">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="1">
              <widget class="QLabel" name="label_30">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
@@ -1653,16 +1670,6 @@
               </property>
              </widget>
             </item>
-            <item row="1" column="1">
-             <widget class="QLabel" name="qvBuildInfo">
-              <property name="text">
-               <string/>
-              </property>
-              <property name="textInteractionFlags">
-               <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-              </property>
-             </widget>
-            </item>
             <item row="1" column="0">
              <widget class="QLabel" name="label_69">
               <property name="text">
@@ -1670,20 +1677,27 @@
               </property>
              </widget>
             </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="label_70">
+            <item row="4" column="0">
+             <widget class="QLabel" name="label_27">
               <property name="text">
-               <string>Extra Build Info</string>
+               <string>Official Repo</string>
               </property>
              </widget>
             </item>
-            <item row="2" column="1">
-             <widget class="QLabel" name="qvBuildExInfo">
+            <item row="0" column="1">
+             <widget class="QLabel" name="qvBuildTime">
               <property name="text">
                <string/>
               </property>
               <property name="textInteractionFlags">
                <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="0">
+             <widget class="QLabel" name="label_29">
+              <property name="text">
+               <string>License</string>
               </property>
              </widget>
             </item>
