@@ -1132,12 +1132,12 @@
               <item>
                <widget class="QLabel" name="label_62">
                 <property name="text">
-                 <string>Enabling V2ray Integration will allow the kernel benifit from the V2ray routing engine.
+                 <string>Enabling V2ray Integration will allow the kernel benefit from the V2ray routing engine.
 Otherwise, these features will be disabled:
 
-Advanced Route Settings
+Advanced Routing Settings
 Bypass CN websites and IPs
-Forcing direct connection of Local LAN addresses
+Direct connection of Local LAN addresses
 Custom DNS Settings</string>
                 </property>
                </widget>
@@ -1163,7 +1163,7 @@ Custom DNS Settings</string>
               <item>
                <widget class="QLabel" name="label_63">
                 <property name="text">
-                 <string>Qv2ray will allocate two ports, for HTTP and SOCKS respectively, if enabled, for each kernel plugin.</string>
+                 <string>Qv2ray will allocate ports, for HTTP and SOCKS respectively, if enabled, for each kernel plugin.</string>
                 </property>
                </widget>
               </item>
