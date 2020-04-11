@@ -181,9 +181,6 @@
          <layout class="QHBoxLayout" name="horizontalLayout_3">
           <item>
            <widget class="QDoubleSpinBox" name="updateIntervalSB">
-            <property name="minimum">
-             <double>0.500000000000000</double>
-            </property>
             <property name="maximum">
              <double>365.000000000000000</double>
             </property>
