@@ -1,3 +1,13 @@
+qv2ray (2.5.0~pre1-1) unstable; urgency=medium
+
+  * fix: skip saving config when importing multiple connection configs
+  * add: ignore updating subscription by setting interval to 0
+  * fix: fixed a missing signal emit
+  * update: updated label text, fixed a spelling misATke
+  * add: added kernel plugin support
+
+ -- Guobang Bi <ymshenyu@gmail.com>  Sat, 11 Apr 2020 23:12:20 +0800
+
 qv2ray (2.4.1-1) unstable; urgency=medium
 
   * add: add new semver checker
