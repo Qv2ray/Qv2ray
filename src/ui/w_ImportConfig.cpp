@@ -80,7 +80,7 @@ int ImportConfigWindow::ImportConnection()
             {
                 connName = protocol + "/" + host + ":" + QSTRN(port) + "-" + GenerateRandomString(5);
             }
-            ConnectionManager->CreateConnection(connName, groupId, connConf);
+            ConnectionManager->CreateConnection(connName, groupId, connConf, true);
         }
     }
 

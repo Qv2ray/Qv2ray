@@ -83,7 +83,8 @@ namespace Qv2ray::core::handlers
         const optional<QString> DeleteConnection(const ConnectionId &id);
         const optional<QString> RenameConnection(const ConnectionId &id, const QString &newName);
         const optional<QString> MoveConnectionGroup(const ConnectionId &id, const GroupId &newGroupId);
-        const ConnectionId CreateConnection(const QString &displayName, const GroupId &groupId, const CONFIGROOT &root);
+        const ConnectionId CreateConnection(const QString &displayName, const GroupId &groupId, const CONFIGROOT &root,
+                                            bool skipSaveConfig = false);
         //
         // Get Conncetion Property
         const CONFIGROOT GetConnectionRoot(const ConnectionId &id) const;

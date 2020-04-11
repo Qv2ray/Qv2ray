@@ -591,7 +591,8 @@ namespace Qv2ray::core::handlers
             { GetDisplayName(id), uploadSpeed, downloadSpeed, connections[id].upLinkData, connections[id].downLinkData });
     }
 
-    const ConnectionId QvConfigHandler::CreateConnection(const QString &displayName, const GroupId &groupId, const CONFIGROOT &root)
+    const ConnectionId QvConfigHandler::CreateConnection(const QString &displayName, const GroupId &groupId, const CONFIGROOT &root,
+                                                         bool skipSaveConfig)
     {
         LOG(MODULE_CORE_HANDLER, "Creating new connection: " + displayName)
         ConnectionId newId(GenerateUuid());
@@ -602,7 +603,10 @@ namespace Qv2ray::core::handlers
         emit OnConnectionCreated(newId, displayName);
         PluginHost->Send_ConnectionEvent({ displayName, "", ConnectionEvent_Created });
         UpdateConnection(newId, root);
-        CHSaveConfigData_p();
+        if (!skipSaveConfig)
+        {
+            CHSaveConfigData_p();
+        }
         return newId;
     }
 
