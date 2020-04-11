@@ -184,13 +184,14 @@ namespace Qv2ray::core::handlers
                 lastConnectionId = id;
                 kernel->SetConnectionSettings(GlobalConfig.inboundConfig.listenip, pluginInboundPort, firstOutbound["settings"].toObject());
                 bool result = kernel->StartKernel();
-                if (!result)
+                if (result)
                 {
-                    return tr("A plugin kernel failed to start. Please check the outbound settings.");
+                    emit OnConnected(currentConnectionId);
+                    return {};
                 }
                 else
                 {
-                    return {};
+                    return tr("A plugin kernel failed to start. Please check the outbound settings.");
                 }
             }
             else
