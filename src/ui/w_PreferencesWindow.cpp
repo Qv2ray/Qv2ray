@@ -129,6 +129,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     localDNSCb->setChecked(CurrentConfig.connectionConfig.withLocalDNS);
     //
     pluginKernelV2rayIntegrationCB->setChecked(CurrentConfig.pluginConfig.v2rayIntegration);
+    pluginKernelPortAllocateCB->setValue(CurrentConfig.pluginConfig.portAllocationStart);
     //
     //
     DNSListTxt->clear();
@@ -1105,4 +1106,10 @@ void PreferencesWindow::on_pluginKernelV2rayIntegrationCB_stateChanged(int arg1)
 {
     LOADINGCHECK
     CurrentConfig.pluginConfig.v2rayIntegration = arg1 == Qt::Checked;
+}
+
+void PreferencesWindow::on_pluginKernelPortAllocateCB_valueChanged(int arg1)
+{
+    LOADINGCHECK
+    CurrentConfig.pluginConfig.portAllocationStart = arg1;
 }

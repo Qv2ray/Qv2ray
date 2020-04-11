@@ -25,7 +25,6 @@ namespace Qv2ray::components::plugins
       public:
         explicit QvPluginHost(QObject *parent = nullptr);
         ~QvPluginHost();
-        void InitializePluginHost();
         //
         bool GetPluginEnableState(const QString &internalName) const;
         void SetPluginEnableState(const QString &internalName, bool isEnabled);
@@ -83,6 +82,7 @@ namespace Qv2ray::components::plugins
         void QvPluginMessageBox(const QString &message);
 
       private:
+        void InitializePluginHost();
         int RefreshPluginList();
         bool InitializePlugin(const QString &internalName);
         void ClearPlugins();

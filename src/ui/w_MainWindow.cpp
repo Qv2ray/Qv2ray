@@ -300,11 +300,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
         StartProcessingPlugins();
     }
 
-    if (!StartupOption.noPlugins)
-    {
-        PluginHost->InitializePluginHost();
-    }
-
     CheckSubscriptionsUpdate();
     //
     splitter->setSizes(QList<int>() << 100 << 300);

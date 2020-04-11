@@ -40,7 +40,8 @@ namespace Qv2ray::core::handlers
         void OnStatsDataArrived_p(const quint64 uploadSpeed, const quint64 downloadSpeed);
 
       private:
-        QMap<QString, QvPluginKernel *> pluginKernels;
+        QMap<QString, std::shared_ptr<QvPluginKernel>> kernels;
+        QMap<QString, QvPluginKernel *> activeKernels;
         CONFIGROOT root;
         V2rayKernelInstance *vCoreInstance = nullptr;
         ConnectionId currentConnectionId = NullConnectionId;

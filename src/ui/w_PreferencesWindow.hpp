@@ -158,6 +158,8 @@ class PreferencesWindow
 
     void on_pluginKernelV2rayIntegrationCB_stateChanged(int arg1);
 
+    void on_pluginKernelPortAllocateCB_valueChanged(int arg1);
+
   private:
     //
     RouteSettingsMatrixWidget *routeSettingsWidget;

@@ -132,6 +132,8 @@ namespace Qv2ray::base::config
     {
         QMap<QString, bool> pluginStates;
         bool v2rayIntegration;
+        int portAllocationStart;
+        Qv2rayPluginConfig() : pluginStates(), v2rayIntegration(true), portAllocationStart(15000){};
         XTOSTRUCT(O(pluginStates, v2rayIntegration))
     };
 

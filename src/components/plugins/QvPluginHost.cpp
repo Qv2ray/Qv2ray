@@ -11,9 +11,17 @@ namespace Qv2ray::components::plugins
 {
     QvPluginHost::QvPluginHost(QObject *parent) : QObject(parent)
     {
-        if (auto dir = QDir(QV2RAY_PLUGIN_SETTINGS_DIR); !dir.exists())
+        if (!StartupOption.noPlugins)
         {
-            dir.mkpath(QV2RAY_PLUGIN_SETTINGS_DIR);
+            if (auto dir = QDir(QV2RAY_PLUGIN_SETTINGS_DIR); !dir.exists())
+            {
+                dir.mkpath(QV2RAY_PLUGIN_SETTINGS_DIR);
+            }
+            InitializePluginHost();
+        }
+        else
+        {
+            LOG(MODULE_PLUGINHOST, "PluginHost initilization skipped by command line option.")
         }
     }
 
