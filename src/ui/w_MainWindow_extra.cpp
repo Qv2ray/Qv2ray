@@ -23,7 +23,7 @@ void MainWindow::MWSetSystemProxy()
             // Not use PAC, System proxy should use HTTP or SOCKS
             LOG(MODULE_PROXY, "Setting up system proxy.")
             // A 'proxy host' should be a host WITHOUT `http://` uri scheme
-            proxyAddress = "localhost";
+            proxyAddress = "127.0.0.1";
         }
         else
         {
