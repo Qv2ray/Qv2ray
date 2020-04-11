@@ -284,6 +284,23 @@ namespace Qv2ray::components::plugins
         return "";
     }
 
+    const QMap<QString, std::shared_ptr<QvPluginKernel>> QvPluginHost::GetPluginKernels() const
+    {
+        QMap<QString, std::shared_ptr<QvPluginKernel>> kernels;
+        for (const auto &plugin : plugins)
+        {
+            if (plugin.isLoaded && plugin.metadata.SpecialPluginType.contains(SPECIAL_TYPE_KERNEL))
+            {
+                auto kern = plugin.pluginInterface->GetKernel();
+                for (const auto &cap : kern->KernelOutboundCapabilities())
+                {
+                    kernels.insert(cap.protocol, kern);
+                }
+            }
+        }
+        return kernels;
+    }
+
     const QString GetPluginTypeString(const SPECIAL_TYPE_FLAGS &types)
     {
         QStringList typesList;

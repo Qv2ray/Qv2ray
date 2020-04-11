@@ -1,4 +1,5 @@
 #pragma once
+#include "components/plugins/QvPluginHost.hpp"
 #include "core/CoreSafeTypes.hpp"
 #include "core/kernel/V2rayKernelInteractions.hpp"
 
@@ -39,6 +40,7 @@ namespace Qv2ray::core::handlers
         void OnStatsDataArrived_p(const quint64 uploadSpeed, const quint64 downloadSpeed);
 
       private:
+        QMap<QString, QvPluginKernel *> pluginKernels;
         CONFIGROOT root;
         V2rayKernelInstance *vCoreInstance = nullptr;
         ConnectionId currentConnectionId = NullConnectionId;
