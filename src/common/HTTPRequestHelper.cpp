@@ -38,10 +38,14 @@ namespace Qv2ray::common
         }
         else
         {
-            LOG(MODULE_NETWORK, "Get without proxy.")
+            DEBUG(MODULE_NETWORK, "Get without proxy.")
             accessManager.setProxy(QNetworkProxy(QNetworkProxy::ProxyType::NoProxy));
         }
-
+        if (accessManager.proxy().type() == QNetworkProxy::Socks5Proxy)
+        {
+            DEBUG(MODULE_NETWORK, "Adding HostNameLookupCapability to proxy.")
+            accessManager.proxy().setCapabilities(accessManager.proxy().capabilities() | QNetworkProxy::HostNameLookupCapability);
+        }
         request.setAttribute(QNetworkRequest::RedirectPolicyAttribute, QNetworkRequest::NoLessSafeRedirectPolicy);
         request.setAttribute(QNetworkRequest::HTTP2AllowedAttribute, true);
         request.setHeader(QNetworkRequest::KnownHeaders::UserAgentHeader, GlobalConfig.networkConfig.userAgent);
@@ -70,8 +74,13 @@ namespace Qv2ray::common
         }
         else
         {
-            LOG(MODULE_NETWORK, "Get without proxy.")
+            DEBUG(MODULE_NETWORK, "Get without proxy.")
             accessManager.setProxy(QNetworkProxy(QNetworkProxy::ProxyType::NoProxy));
+        }
+        if (accessManager.proxy().type() == QNetworkProxy::Socks5Proxy)
+        {
+            DEBUG(MODULE_NETWORK, "Adding HostNameLookupCapability to proxy.")
+            accessManager.proxy().setCapabilities(accessManager.proxy().capabilities() | QNetworkProxy::HostNameLookupCapability);
         }
         request.setAttribute(QNetworkRequest::RedirectPolicyAttribute, QNetworkRequest::NoLessSafeRedirectPolicy);
         request.setAttribute(QNetworkRequest::HTTP2AllowedAttribute, true);
