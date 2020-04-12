@@ -137,6 +137,10 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     qvNetworkUATxt->setText(CurrentConfig.networkConfig.userAgent);
     qvUseProxyCB->setChecked(CurrentConfig.networkConfig.useCustomProxy);
     //
+    // Advanced config.
+    setAllowInsecureCB->setChecked(CurrentConfig.advancedConfig.setAllowInsecure);
+    setTestLatenctCB->setChecked(CurrentConfig.advancedConfig.testLatencyPeriodcally);
+    //
     DNSListTxt->clear();
     for (auto dnsStr : CurrentConfig.connectionConfig.dnsList)
     {
@@ -1145,7 +1149,20 @@ void PreferencesWindow::on_qvNetworkUATxt_textEdited(const QString &arg1)
 
 void PreferencesWindow::on_qvUseProxyCB_stateChanged(int arg1)
 {
-
     LOADINGCHECK
     CurrentConfig.networkConfig.useCustomProxy = arg1 == Qt::Checked;
+}
+
+void PreferencesWindow::on_setAllowInsecureCB_stateChanged(int arg1)
+{
+    LOADINGCHECK
+    QvMessageBoxWarn(this, tr("Dangerous Operation"), tr("You may under MITM attack, which is just what TLS is protective for."));
+    CurrentConfig.advancedConfig.setAllowInsecure = arg1 == Qt::Checked;
+}
+
+void PreferencesWindow::on_setTestLatenctCB_stateChanged(int arg1)
+{
+    LOADINGCHECK
+    QvMessageBoxWarn(this, tr("Dangerous Operation"), tr("This will (probably) makes it easy to fingerprint your connection."));
+    CurrentConfig.advancedConfig.testLatencyPeriodcally = arg1 == Qt::Checked;
 }

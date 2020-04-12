@@ -56,7 +56,7 @@ QMultiHash<QString, CONFIGROOT> ImportConfigWindow::SelectConnection(bool outbou
     routeEditBtn->setEnabled(!outboundsOnly);
     this->exec();
     QMultiHash<QString, CONFIGROOT> conn;
-    for (const auto connEntry : connections.values())
+    for (const auto &connEntry : connections.values())
     {
         conn += connEntry;
     }
@@ -67,11 +67,11 @@ int ImportConfigWindow::ImportConnection()
 {
     this->exec();
     int count = 0;
-    for (const auto groupName : connections.keys())
+    for (const auto &groupName : connections.keys())
     {
         GroupId groupId = groupName.isEmpty() ? DefaultGroupId : ConnectionManager->CreateGroup(groupName, false);
         const auto groupObject = connections[groupName];
-        for (const auto connConf : groupObject)
+        for (const auto &connConf : groupObject)
         {
             auto connName = groupObject.key(connConf);
 
@@ -167,7 +167,7 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
                 }
                 else
                 {
-                    for (auto conf : config)
+                    for (const auto &conf : config)
                     {
                         AddToGroup(newGroupName, config.key(conf), conf);
                     }
@@ -176,7 +176,7 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
 
             if (!linkErrors.isEmpty())
             {
-                for (auto item : linkErrors)
+                for (const auto &item : linkErrors)
                 {
                     vmessConnectionStringTxt->appendPlainText(linkErrors.key(item));
                     errorsList->addItem(item);
@@ -288,7 +288,7 @@ void ImportConfigWindow::on_cancelImportBtn_clicked()
 void ImportConfigWindow::on_subscriptionButton_clicked()
 {
     hide();
-    SubscriptionEditor w;
+    SubscriptionEditor w(this);
     w.exec();
     auto importToComplex = !keepImportedInboundCheckBox->isEnabled();
     connections.clear();

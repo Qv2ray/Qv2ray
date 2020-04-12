@@ -170,6 +170,10 @@ class PreferencesWindow
 
     void on_qvUseProxyCB_stateChanged(int arg1);
 
+    void on_setAllowInsecureCB_stateChanged(int arg1);
+
+    void on_setTestLatenctCB_stateChanged(int arg1);
+
   private:
     //
     RouteSettingsMatrixWidget *routeSettingsWidget;

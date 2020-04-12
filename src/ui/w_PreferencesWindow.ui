@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>890</width>
-    <height>617</height>
+    <width>840</width>
+    <height>566</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -316,7 +316,70 @@
             <item row="3" column="1">
              <widget class="QLineEdit" name="qvNetworkUATxt">
               <property name="text">
-               <string>Qv2ray/2 NetworkRequestHelper</string>
+               <string/>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QGroupBox" name="groupBox_8">
+           <property name="title">
+            <string>Advanced Behavior</string>
+           </property>
+           <layout class="QFormLayout" name="formLayout_5">
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_82">
+              <property name="text">
+               <string>AllowInsecure By Default</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QCheckBox" name="setAllowInsecureCB">
+              <property name="toolTip">
+               <string>Enable &quot;AllowInsecure&quot; settings for all connections when importing.
+This could resolve the certificate issues, but also could let one performing TLS MITM attack.</string>
+              </property>
+              <property name="text">
+               <string>Enabled</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_83">
+              <property name="text">
+               <string>Test Latency Periodcally</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QCheckBox" name="setTestLatenctCB">
+              <property name="toolTip">
+               <string>Run TCPing or ICMPing periodcally after connecting to a server.
+Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</string>
+              </property>
+              <property name="text">
+               <string>Enabled</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="0" colspan="2">
+             <widget class="QLabel" name="label_84">
+              <property name="font">
+               <font>
+                <weight>50</weight>
+                <italic>true</italic>
+                <bold>false</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">color: red;</string>
+              </property>
+              <property name="text">
+               <string>These settings may be useful.
+But could damage your server if improperly used.</string>
               </property>
              </widget>
             </item>
@@ -593,7 +656,7 @@ Custom DNS Settings</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>844</width>
+            <width>794</width>
             <height>603</height>
            </rect>
           </property>

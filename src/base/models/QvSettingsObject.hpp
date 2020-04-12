@@ -214,6 +214,13 @@ namespace Qv2ray::base::config
         XTOSTRUCT(O(ignoredVersion, updateChannel))
     };
 
+    struct Qv2rayAdvancedConfig
+    {
+        bool setAllowInsecure;
+        bool testLatencyPeriodcally;
+        XTOSTRUCT(O(setAllowInsecure, testLatencyPeriodcally))
+    };
+
     struct Qv2rayNetworkConfig
     {
         bool useCustomProxy;
@@ -247,6 +254,7 @@ namespace Qv2ray::base::config
         Qv2rayNetworkConfig networkConfig;
         Qv2rayToolBarConfig toolBarConfig;
         Qv2rayInboundsConfig inboundConfig;
+        Qv2rayAdvancedConfig advancedConfig;
         Qv2rayConnectionConfig connectionConfig;
 
         Qv2rayConfig()
@@ -265,6 +273,7 @@ namespace Qv2ray::base::config
               networkConfig(),                       //
               toolBarConfig(),                       //
               inboundConfig(),                       //
+              advancedConfig(),                      //
               connectionConfig()
         {
         }
@@ -284,6 +293,7 @@ namespace Qv2ray::base::config
                     inboundConfig,    //
                     connectionConfig, //
                     toolBarConfig,    //
+                    advancedConfig,   //
                     apiConfig         //
                     ))
     };
