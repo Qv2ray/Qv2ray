@@ -19,7 +19,7 @@ namespace Qv2ray::components
     QvUpdateChecker::QvUpdateChecker(QObject *parent) : QObject(parent)
     {
         requestHelper = new QvHttpRequestHelper(this);
-        connect(requestHelper, &QvHttpRequestHelper::httpRequestFinished, this, &QvUpdateChecker::VersionUpdate);
+        connect(requestHelper, &QvHttpRequestHelper::OnRequestFinished, this, &QvUpdateChecker::VersionUpdate);
     }
     QvUpdateChecker::~QvUpdateChecker()
     {
@@ -29,7 +29,7 @@ namespace Qv2ray::components
 #ifndef DISABLE_AUTO_UPDATE
         auto updateChannel = GlobalConfig.updateConfig.updateChannel;
         LOG(MODULE_NETWORK, "Start checking update for channel ID: " + QSTRN(updateChannel))
-        requestHelper->get(UpdateChannelLink[updateChannel]);
+        requestHelper->AsyncGet(UpdateChannelLink[updateChannel]);
 #endif
     }
     void QvUpdateChecker::VersionUpdate(QByteArray &data)

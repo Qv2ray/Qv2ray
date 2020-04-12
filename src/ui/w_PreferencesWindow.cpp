@@ -131,6 +131,11 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     pluginKernelV2rayIntegrationCB->setChecked(CurrentConfig.pluginConfig.v2rayIntegration);
     pluginKernelPortAllocateCB->setValue(CurrentConfig.pluginConfig.portAllocationStart);
     //
+    qvProxyPortCB->setValue(CurrentConfig.networkConfig.port);
+    qvProxyAddressTxt->setText(CurrentConfig.networkConfig.address);
+    qvProxyTypeCombo->setCurrentText(CurrentConfig.networkConfig.type);
+    qvNetworkUATxt->setText(CurrentConfig.networkConfig.userAgent);
+    qvUseProxyCB->setChecked(CurrentConfig.networkConfig.useCustomProxy);
     //
     DNSListTxt->clear();
     for (auto dnsStr : CurrentConfig.connectionConfig.dnsList)
@@ -1112,4 +1117,35 @@ void PreferencesWindow::on_pluginKernelPortAllocateCB_valueChanged(int arg1)
 {
     LOADINGCHECK
     CurrentConfig.pluginConfig.portAllocationStart = arg1;
+}
+
+void PreferencesWindow::on_qvProxyAddressTxt_textEdited(const QString &arg1)
+{
+    LOADINGCHECK
+    CurrentConfig.networkConfig.address = arg1;
+}
+
+void PreferencesWindow::on_qvProxyTypeCombo_currentTextChanged(const QString &arg1)
+{
+    LOADINGCHECK
+    CurrentConfig.networkConfig.type = arg1.toLower();
+}
+
+void PreferencesWindow::on_qvProxyPortCB_valueChanged(int arg1)
+{
+    LOADINGCHECK
+    CurrentConfig.networkConfig.port = arg1;
+}
+
+void PreferencesWindow::on_qvNetworkUATxt_textEdited(const QString &arg1)
+{
+    LOADINGCHECK
+    CurrentConfig.networkConfig.userAgent = arg1;
+}
+
+void PreferencesWindow::on_qvUseProxyCB_stateChanged(int arg1)
+{
+
+    LOADINGCHECK
+    CurrentConfig.networkConfig.useCustomProxy = arg1 == Qt::Checked;
 }

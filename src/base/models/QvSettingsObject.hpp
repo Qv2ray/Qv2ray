@@ -214,6 +214,17 @@ namespace Qv2ray::base::config
         XTOSTRUCT(O(ignoredVersion, updateChannel))
     };
 
+    struct Qv2rayNetworkConfig
+    {
+        bool useCustomProxy;
+        QString address;
+        QString type;
+        int port;
+        QString userAgent;
+        Qv2rayNetworkConfig() : address(""), type("http"), port(8000), userAgent("Qv2ray/" QV2RAY_VERSION_STRING " WebRequestHelper"){};
+        XTOSTRUCT(O(useCustomProxy, type, address, port, userAgent))
+    };
+
     struct Qv2rayConfig
     {
         int config_version;
@@ -233,18 +244,47 @@ namespace Qv2ray::base::config
         Qv2rayPluginConfig pluginConfig;
         Qv2rayKernelConfig kernelConfig;
         Qv2rayUpdateConfig updateConfig;
+        Qv2rayNetworkConfig networkConfig;
         Qv2rayToolBarConfig toolBarConfig;
         Qv2rayInboundsConfig inboundConfig;
         Qv2rayConnectionConfig connectionConfig;
 
         Qv2rayConfig()
-            : config_version(QV2RAY_CONFIG_VERSION), tProxySupport(false), logLevel(), autoStartId("null"), groups(), subscriptions(),
-              connections(), uiConfig(), apiConfig(), pluginConfig(), kernelConfig(), updateConfig(), toolBarConfig(), inboundConfig(),
+            : config_version(QV2RAY_CONFIG_VERSION), //
+              tProxySupport(false),                  //
+              logLevel(),                            //
+              autoStartId("null"),                   //
+              groups(),                              //
+              subscriptions(),                       //
+              connections(),                         //
+              uiConfig(),                            //
+              apiConfig(),                           //
+              pluginConfig(),                        //
+              kernelConfig(),                        //
+              updateConfig(),                        //
+              networkConfig(),                       //
+              toolBarConfig(),                       //
+              inboundConfig(),                       //
               connectionConfig()
         {
         }
 
-        XTOSTRUCT(O(config_version, tProxySupport, logLevel, uiConfig, pluginConfig, updateConfig, kernelConfig, groups, connections,
-                    subscriptions, autoStartId, inboundConfig, connectionConfig, toolBarConfig, apiConfig))
+        XTOSTRUCT(O(config_version,   //
+                    tProxySupport,    //
+                    logLevel,         //
+                    uiConfig,         //
+                    pluginConfig,     //
+                    updateConfig,     //
+                    kernelConfig,     //
+                    networkConfig,    //
+                    groups,           //
+                    connections,      //
+                    subscriptions,    //
+                    autoStartId,      //
+                    inboundConfig,    //
+                    connectionConfig, //
+                    toolBarConfig,    //
+                    apiConfig         //
+                    ))
     };
 } // namespace Qv2ray::base::config

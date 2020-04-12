@@ -467,7 +467,7 @@ namespace Qv2ray::core::handlers
             return false;
         }
         isHttpRequestInProgress = true;
-        auto data = httpHelper->syncget(groups[id].address, useSystemProxy);
+        auto data = httpHelper->Get(groups[id].address, useSystemProxy);
         isHttpRequestInProgress = false;
         return CHUpdateSubscription_p(id, data);
     }

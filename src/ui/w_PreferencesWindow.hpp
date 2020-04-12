@@ -160,6 +160,16 @@ class PreferencesWindow
 
     void on_pluginKernelPortAllocateCB_valueChanged(int arg1);
 
+    void on_qvProxyAddressTxt_textEdited(const QString &arg1);
+
+    void on_qvProxyTypeCombo_currentTextChanged(const QString &arg1);
+
+    void on_qvProxyPortCB_valueChanged(int arg1);
+
+    void on_qvNetworkUATxt_textEdited(const QString &arg1);
+
+    void on_qvUseProxyCB_stateChanged(int arg1);
+
   private:
     //
     RouteSettingsMatrixWidget *routeSettingsWidget;

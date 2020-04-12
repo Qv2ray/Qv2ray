@@ -16,111 +16,70 @@ namespace Qv2ray::common
         accessManager.disconnect();
     }
 
-    bool QvHttpRequestHelper::setUrl(const QString &url)
-    {
-        QUrl qUrl = QUrl(url);
-
-        if (!qUrl.isValid())
-        {
-            LOG(MODULE_NETWORK, "Provided URL is invalid: " + url)
-            return false;
-        }
-
-        request.setUrl(qUrl);
-        return true;
-    }
-
     void QvHttpRequestHelper::setHeader(const QByteArray &key, const QByteArray &value)
     {
         DEBUG(MODULE_NETWORK, "Adding HTTP request header: " + key + ":" + value)
         request.setRawHeader(key, value);
     }
 
-    QByteArray QvHttpRequestHelper::syncget(const QString &url, bool useProxy)
+    QByteArray QvHttpRequestHelper::Get(const QString &url, bool useProxy)
     {
-        this->setUrl(url);
-
+        request.setUrl({ url });
         if (useProxy)
         {
-            auto proxy = QNetworkProxyFactory::systemProxyForQuery();
-            accessManager.setProxy(proxy.first());
-            LOG(MODULE_NETWORK, "Sync get is using system proxy settings")
+            auto p = GlobalConfig.networkConfig.useCustomProxy ?
+                         QNetworkProxy{
+                             GlobalConfig.networkConfig.type == "http" ? QNetworkProxy::HttpProxy : QNetworkProxy::Socks5Proxy, //
+                             GlobalConfig.networkConfig.address,                                                                //
+                             quint16(GlobalConfig.networkConfig.port)                                                           //
+                         } :
+                         QNetworkProxyFactory::systemProxyForQuery().first();
+            accessManager.setProxy(p);
         }
         else
         {
+            LOG(MODULE_NETWORK, "Get without proxy.")
             accessManager.setProxy(QNetworkProxy(QNetworkProxy::ProxyType::NoProxy));
         }
 
         request.setAttribute(QNetworkRequest::RedirectPolicyAttribute, QNetworkRequest::NoLessSafeRedirectPolicy);
         request.setAttribute(QNetworkRequest::HTTP2AllowedAttribute, true);
-        request.setHeader(QNetworkRequest::KnownHeaders::UserAgentHeader, "Mozilla/5.0 (rv:71.0) Gecko/20100101 Firefox/71.0");
+        request.setHeader(QNetworkRequest::KnownHeaders::UserAgentHeader, GlobalConfig.networkConfig.userAgent);
         reply = accessManager.get(request);
-        connect(reply, &QNetworkReply::finished, this, &QvHttpRequestHelper::onRequestFinished_p);
         //
         QEventLoop loop;
         connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
         loop.exec();
+        //
         // Data or timeout?
         auto data = reply->readAll();
         return data;
     }
 
-    void QvHttpRequestHelper::get(const QString &url)
+    void QvHttpRequestHelper::AsyncGet(const QString &url)
     {
-        this->setUrl(url);
-        //    request.setRawHeader("Content-Type",
-        //    "application/x-www-form-urlencoded");
+        request.setUrl({ url });
+        if (GlobalConfig.networkConfig.useCustomProxy)
+        {
+            QNetworkProxy p{
+                GlobalConfig.networkConfig.type == "http" ? QNetworkProxy::HttpProxy : QNetworkProxy::Socks5Proxy, //
+                GlobalConfig.networkConfig.address,                                                                //
+                quint16(GlobalConfig.networkConfig.port)                                                           //
+            };
+            accessManager.setProxy(p);
+        }
+        else
+        {
+            LOG(MODULE_NETWORK, "Get without proxy.")
+            accessManager.setProxy(QNetworkProxy(QNetworkProxy::ProxyType::NoProxy));
+        }
+        request.setAttribute(QNetworkRequest::RedirectPolicyAttribute, QNetworkRequest::NoLessSafeRedirectPolicy);
+        request.setAttribute(QNetworkRequest::HTTP2AllowedAttribute, true);
+        request.setHeader(QNetworkRequest::KnownHeaders::UserAgentHeader, GlobalConfig.networkConfig.userAgent);
         reply = accessManager.get(request);
         connect(reply, &QNetworkReply::finished, this, &QvHttpRequestHelper::onRequestFinished_p);
-        connect(reply, &QNetworkReply::readyRead, this, &QvHttpRequestHelper::onReadyRead);
+        connect(reply, &QNetworkReply::readyRead, this, &QvHttpRequestHelper::onReadyRead_p);
     }
-
-    // void QvHttpRequestHelper::post(const QString &url, const QByteArray
-    // &data)
-    //{
-    //    this->setUrl(url);
-    //    request.setRawHeader("Content-Type", "application/json");
-    //    reply = accessManager.post(request, data);
-    //    connect(reply, &QNetworkReply::finished, this,
-    //    &QvHttpRequestHelper::onRequestFinished); connect(reply,
-    //    &QNetworkReply::readyRead, this, &QvHttpRequestHelper::onReadyRead);
-    //}
-
-    //    void QvHttpRequestHelper::put(const QString &url, const QByteArray
-    //    &data)
-    //    {
-    //        this->setUrl(url);
-    //        request.setRawHeader("Content-Type", "application/json");
-    //        reply = accessManager.put(request, data);
-    //        connect(reply, &QNetworkReply::finished, this,
-    //        &QvHttpRequestHelper::onRequestFinished); connect(reply,
-    //        &QNetworkReply::readyRead, this,
-    //        &QvHttpRequestHelper::onReadyRead);
-    //    }
-
-    //    void QvHttpRequestHelper::del(const QString &url)
-    //    {
-    //        this->setUrl(url);
-    //        request.setRawHeader("Content-Type", "application/json");
-    //        reply = accessManager.deleteResource(request);
-    //        connect(reply, &QNetworkReply::finished, this,
-    //        &QvHttpRequestHelper::onRequestFinished); connect(reply,
-    //        &QNetworkReply::readyRead, this,
-    //        &QvHttpRequestHelper::onReadyRead);
-    //    }
-
-    //    void QvHttpRequestHelper::login(const QString &url, const QByteArray
-    //    &data)
-    //    {
-    //        this->setUrl(url);
-    //        request.setRawHeader("Content-Type",
-    //        "application/x-www-form-urlencoded"); reply =
-    //        accessManager.post(request, data); connect(reply,
-    //        &QNetworkReply::finished, this,
-    //        &QvHttpRequestHelper::onRequestFinished); connect(reply,
-    //        &QNetworkReply::readyRead, this,
-    //        &QvHttpRequestHelper::onReadyRead);
-    //    }
 
     void QvHttpRequestHelper::onRequestFinished_p()
     {
@@ -134,15 +93,15 @@ namespace Qv2ray::common
             QString error = QMetaEnum::fromType<QNetworkReply::NetworkError>().key(reply->error());
             LOG(MODULE_NETWORK, "Network request error string: " + error)
             QByteArray empty;
-            emit httpRequestFinished(empty);
+            emit OnRequestFinished(empty);
         }
         else
         {
-            emit httpRequestFinished(this->data);
+            emit OnRequestFinished(this->data);
         }
     }
 
-    void QvHttpRequestHelper::onReadyRead()
+    void QvHttpRequestHelper::onReadyRead_p()
     {
         DEBUG(MODULE_NETWORK, "A request is now ready read")
         this->data += reply->readAll();
