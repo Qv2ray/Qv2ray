@@ -24,7 +24,7 @@ on run argv
     open
       set current view of container window to icon view
       set theViewOptions to the icon view options of container window
-      set background picture of theViewOptions to file ".background:background.tif"
+      set background picture of theViewOptions to file ".background:background.png"
       set arrangement of theViewOptions to not arranged
       set icon size of theViewOptions to 128
       delay 5
