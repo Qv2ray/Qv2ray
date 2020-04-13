@@ -100,9 +100,10 @@ jobs:
         shell: bash
         if: matrix.platform == 'macos-latest'
         run: |
+          sudo spctl --master-disable
           mkdir build
           cd build
-          cmake .. -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_OSX_DEPLOYMENT_TARGET=10.13
+          cmake .. -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_OSX_DEPLOYMENT_TARGET=10.13 -DDS_STORE_SCRIPT=ON
           sudo cmake --build . --target package --parallel $(sysctl -n hw.logicalcpu)
           cp qv2ray-*.dmg ../
       - name: macOS - Get package name
