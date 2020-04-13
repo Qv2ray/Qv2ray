@@ -174,6 +174,8 @@ class PreferencesWindow
 
     void on_setTestLatenctCB_stateChanged(int arg1);
 
+    void on_setAllowInsecureCiphersCB_stateChanged(int arg1);
+
   private:
     //
     RouteSettingsMatrixWidget *routeSettingsWidget;

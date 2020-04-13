@@ -16,6 +16,22 @@ namespace Qv2ray::core::connection
             if (link.startsWith("vmess://"))
             {
                 auto conf = ConvertConfigFromVMessString(link, prefix, errMessage);
+                //
+                if (GlobalConfig.advancedConfig.setAllowInsecureCiphers || GlobalConfig.advancedConfig.setAllowInsecure)
+                {
+                    auto outbound = conf["outbounds"].toArray().first().toObject();
+                    auto streamSettings = outbound["streamSettings"].toObject();
+                    auto tlsSettings = streamSettings["tlsSettings"].toObject();
+                    tlsSettings["allowInsecure"] = GlobalConfig.advancedConfig.setAllowInsecure;
+                    tlsSettings["allowInsecureCiphers"] = GlobalConfig.advancedConfig.setAllowInsecureCiphers;
+                    streamSettings["tlsSettings"] = tlsSettings;
+                    outbound["streamSettings"] = streamSettings;
+                    //
+                    auto outbounds = conf["outbounds"].toArray();
+                    outbounds[0] = outbound;
+                    conf["outbounds"] = outbounds;
+                }
+                //
                 connectionConf.insert(*prefix, conf);
             }
             else if (link.startsWith("ss://"))

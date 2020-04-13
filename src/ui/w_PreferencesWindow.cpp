@@ -139,6 +139,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     //
     // Advanced config.
     setAllowInsecureCB->setChecked(CurrentConfig.advancedConfig.setAllowInsecure);
+    setAllowInsecureCiphersCB->setChecked(CurrentConfig.advancedConfig.setAllowInsecureCiphers);
     setTestLatenctCB->setChecked(CurrentConfig.advancedConfig.testLatencyPeriodcally);
     //
     DNSListTxt->clear();
@@ -1156,13 +1157,29 @@ void PreferencesWindow::on_qvUseProxyCB_stateChanged(int arg1)
 void PreferencesWindow::on_setAllowInsecureCB_stateChanged(int arg1)
 {
     LOADINGCHECK
-    QvMessageBoxWarn(this, tr("Dangerous Operation"), tr("You may under MITM attack, which is just what TLS is protective for."));
+    if (arg1 == Qt::Checked)
+    {
+        QvMessageBoxWarn(this, tr("Dangerous Operation"), tr("You will lose the advantage of TLS and make your connection under MITM attack."));
+    }
     CurrentConfig.advancedConfig.setAllowInsecure = arg1 == Qt::Checked;
 }
 
 void PreferencesWindow::on_setTestLatenctCB_stateChanged(int arg1)
 {
     LOADINGCHECK
-    QvMessageBoxWarn(this, tr("Dangerous Operation"), tr("This will (probably) makes it easy to fingerprint your connection."));
+    if (arg1 == Qt::Checked)
+    {
+        QvMessageBoxWarn(this, tr("Dangerous Operation"), tr("This will (probably) makes it easy to fingerprint your connection."));
+    }
     CurrentConfig.advancedConfig.testLatencyPeriodcally = arg1 == Qt::Checked;
+}
+
+void PreferencesWindow::on_setAllowInsecureCiphersCB_stateChanged(int arg1)
+{
+    LOADINGCHECK
+    if (arg1 == Qt::Checked)
+    {
+        QvMessageBoxWarn(this, tr("Dangerous Operation"), tr("You will lose the advantage of TLS and make your connection under MITM attack."));
+    }
+    CurrentConfig.advancedConfig.setAllowInsecureCiphers = arg1 == Qt::Checked;
 }

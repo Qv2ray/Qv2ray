@@ -13,7 +13,7 @@ namespace Qv2ray::core::handlers
         DEBUG(MODULE_CORE_HANDLER, "ConnectionHandler Constructor.")
 
         // Do we need to check how many of them are loaded?
-        // Do not use: for (const auto &key : connections)
+        // Do not use: for (const auto &key : connections), why?
         for (auto i = 0; i < GlobalConfig.connections.count(); i++)
         {
             auto const &id = ConnectionId(GlobalConfig.connections.keys().at(i));
@@ -87,10 +87,9 @@ namespace Qv2ray::core::handlers
         httpHelper = new QvHttpRequestHelper(this);
         connect(tcpingHelper, &QvTCPingHelper::OnLatencyTestCompleted, this, &QvConfigHandler::OnLatencyDataArrived_p);
         //
-        // Save per 2 minutes.
-        saveTimerId = startTimer(2 * 60 * 1000);
+        // Save per 1 minutes.
+        saveTimerId = startTimer(1 * 60 * 1000);
         // Do not ping all...
-        // pingAllTimerId = startTimer(5 * 60 * 1000);
         pingConnectionTimerId = startTimer(60 * 1000);
     }
 
@@ -141,7 +140,7 @@ namespace Qv2ray::core::handlers
         else if (event->timerId() == pingConnectionTimerId)
         {
             auto id = kernelHandler->CurrentConnection();
-            if (id != NullConnectionId)
+            if (id != NullConnectionId && GlobalConfig.advancedConfig.testLatencyPeriodcally)
             {
                 StartLatencyTest(id);
             }

@@ -217,8 +217,9 @@ namespace Qv2ray::base::config
     struct Qv2rayAdvancedConfig
     {
         bool setAllowInsecure;
+        bool setAllowInsecureCiphers;
         bool testLatencyPeriodcally;
-        XTOSTRUCT(O(setAllowInsecure, testLatencyPeriodcally))
+        XTOSTRUCT(O(setAllowInsecure, setAllowInsecureCiphers, testLatencyPeriodcally))
     };
 
     struct Qv2rayNetworkConfig
