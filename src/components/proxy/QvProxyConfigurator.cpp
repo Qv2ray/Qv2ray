@@ -212,7 +212,7 @@ namespace Qv2ray::components::proxy
         }
 
 #ifdef Q_OS_WIN
-        QString __a = (hasHTTP ? "http://" : "socks5://") + address + ":" + QSTRN(httpPort);
+        QString __a = (hasHTTP ? "http://" : "socks5://") + address + ":" + QSTRN(hasHTTP ? httpPort : socksPort);
 
         LOG(MODULE_PROXY, "Windows proxy string: " + __a)
         auto proxyStrW = new WCHAR[__a.length() + 1];
