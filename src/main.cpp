@@ -410,10 +410,6 @@ int main(int argc, char *argv[])
         // Initialise Connection Handler
         PluginHost = new QvPluginHost();
         ConnectionManager = new QvConfigHandler();
-        // Handler for session logout, shutdown, etc.
-        // Will not block.
-        QGuiApplication::setFallbackSessionManagementEnabled(false);
-        QObject::connect(&_qApp, &QGuiApplication::commitDataRequest, [] { LOG(MODULE_INIT, "Quit triggered by session manager.") });
         // Show MainWindow
         MainWindow w;
         QObject::connect(&_qApp, &SingleApplication::instanceStarted, [&]() {
