@@ -1,10 +1,17 @@
 
 {
  "title": "Qv2ray @QV2RAY_VERSION_STRING@",
+ "icon": "@CMAKE_SOURCE_DIR@/assets/icons/qv2ray.icns",
  "background": "@CMAKE_SOURCE_DIR@/assets/CMakeDMGBackground.png",
  "icon-size": 128,
+ "window": {
+    "size": {
+        "width": 1000,
+        "height": 730
+    }
+ },
  "contents": [
-   { "x": 139, "y": 200, "type": "file", "path": "@CMAKE_BINARY_DIR@/qv2ray.app" },
-   { "x": 568, "y": 200, "type": "link", "path": "/Applications" }
+   { "x": 133, "y": 200, "type": "file", "path": "@CMAKE_BINARY_DIR@/qv2ray.app" },
+   { "x": 378, "y": 200, "type": "link", "path": "/Applications" }
  ]
 }
