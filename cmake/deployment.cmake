@@ -60,7 +60,7 @@ if(BUILD_NSIS)
 endif()
 
 if(APPLE)
-    configure_file("./assets/package_dmg.json.in" "./assets/package_dmg.json" @ONLY)
+    configure_file("${CMAKE_SOURCE_DIR}/assets/package_dmg.json.in" "${CMAKE_SOURCE_DIR}/assets/package_dmg.json" @ONLY)
 endif()
 
 include(CPack)
