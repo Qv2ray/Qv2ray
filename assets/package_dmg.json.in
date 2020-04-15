@@ -1,0 +1,10 @@
+
+{
+ "title": "Qv2ray @QV2RAY_VERSION_STRING@",
+ "background": "@CMAKE_SOURCE_DIR@/assets/CMakeDMGBackground.png",
+ "icon-size": 128,
+ "contents": [
+   { "x": 139, "y": 200, "type": "file", "path": "@CMAKE_BINARY_DIR@/qv2ray.app" },
+   { "x": 568, "y": 200, "type": "link", "path": "/Applications" }
+ ]
+}
