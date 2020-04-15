@@ -6,12 +6,12 @@
  "icon-size": 128,
  "window": {
     "size": {
-        "width": 1000,
-        "height": 730
+        "width": 500,
+        "height": 365
     }
  },
  "contents": [
-   { "x": 133, "y": 200, "type": "file", "path": "@CMAKE_BINARY_DIR@/qv2ray.app" },
-   { "x": 378, "y": 200, "type": "link", "path": "/Applications" }
+   { "x": 130, "y": 205, "type": "file", "path": "@CMAKE_BINARY_DIR@/qv2ray.app" },
+   { "x": 375, "y": 205, "type": "link", "path": "/Applications" }
  ]
 }
