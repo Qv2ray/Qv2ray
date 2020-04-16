@@ -72,10 +72,10 @@ namespace Qv2ray::components::plugins
                                             bool *status) const;
         const QList<QvPluginEditor *> GetOutboundEditorWidgets() const;
         //
-        void Send_ConnectionStatsEvent(const QvConnectionStatsEventObject &object);
-        void Send_ConnectivityEvent(const QvConnectivityEventObject &object);
-        void Send_ConnectionEvent(const QvConnectionEntryEventObject &object);
-        void Send_SystemProxyEvent(const QvSystemProxyEventObject &object);
+        void Send_ConnectionStatsEvent(const Events::ConnectionStats::EventObject &object);
+        void Send_ConnectivityEvent(const Events::Connectivity::EventObject &object);
+        void Send_ConnectionEvent(const Events::ConnectionEntry::EventObject &object);
+        void Send_SystemProxyEvent(const Events::SystemProxy::EventObject &object);
         //
       private slots:
         void QvPluginLog(const QString &log);

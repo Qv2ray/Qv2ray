@@ -64,5 +64,5 @@ class OutboundEditor
     //
     StreamSettingsWidget *streamSettingsWidget;
     //
-    QMap<int, QPair<QvPluginOutboundObject, QvPluginEditor *>> pluginWidgets;
+    QMap<int, QPair<QvPluginOutboundProtocolObject, QvPluginEditor *>> pluginWidgets;
 };

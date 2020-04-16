@@ -313,12 +313,13 @@ namespace Qv2ray::components::proxy
 #endif
         //
         // Trigger plugin events
-        QMap<QvSystemProxyType, int> portSettings;
+        QMap<Events::SystemProxy::SystemProxyType, int> portSettings;
         if (hasHTTP)
-            portSettings.insert(QvSystemProxyType::SystemProxy_HTTP, httpPort);
+            portSettings.insert(Events::SystemProxy::SystemProxyType::SystemProxy_HTTP, httpPort);
         if (hasSOCKS)
-            portSettings.insert(QvSystemProxyType::SystemProxy_SOCKS, socksPort);
-        PluginHost->Send_SystemProxyEvent(QvSystemProxyEventObject{ portSettings, QvSystemProxyStateType::SystemProxyState_SetProxy });
+            portSettings.insert(Events::SystemProxy::SystemProxyType::SystemProxy_SOCKS, socksPort);
+        PluginHost->Send_SystemProxyEvent(
+            Events::SystemProxy::EventObject{ portSettings, Events::SystemProxy::SystemProxyStateType::SystemProxyState_SetProxy });
     }
 
     void ClearSystemProxy()
@@ -374,6 +375,7 @@ namespace Qv2ray::components::proxy
 #endif
         //
         // Trigger plugin events
-        PluginHost->Send_SystemProxyEvent(QvSystemProxyEventObject{ {}, QvSystemProxyStateType::SystemProxyState_ClearProxy });
+        PluginHost->Send_SystemProxyEvent(
+            Events::SystemProxy::EventObject{ {}, Events::SystemProxy::SystemProxyStateType::SystemProxyState_ClearProxy });
     }
 } // namespace Qv2ray::components::proxy
