@@ -29,11 +29,6 @@ namespace Qv2ray::core::handlers
         ~QvConfigHandler();
 
       public slots:
-        //
-        inline const ConnectionId CurrentConnection() const
-        {
-            return kernelHandler->CurrentConnection();
-        }
         inline const QList<ConnectionId> Connections() const
         {
             return connections.keys();

@@ -4,8 +4,10 @@
 #include "core/connection/Generation.hpp"
 namespace Qv2ray::core::handlers
 {
+#define isConnected (vCoreInstance->KernelStarted || !activeKernels.isEmpty())
     KernelInstanceHandler::KernelInstanceHandler(QObject *parent) : QObject(parent)
     {
+        KernelInstance = this;
         vCoreInstance = new V2rayKernelInstance(this);
         connect(vCoreInstance, &V2rayKernelInstance::OnNewStatsDataArrived, this, &KernelInstanceHandler::OnStatsDataArrived_p);
         connect(vCoreInstance, &V2rayKernelInstance::OnProcessOutputReadyRead, this, &KernelInstanceHandler::OnKernelLogAvailable_p);
@@ -25,7 +27,7 @@ namespace Qv2ray::core::handlers
 
     std::optional<QString> KernelInstanceHandler::StartConnection(const ConnectionId &id, const CONFIGROOT &root)
     {
-        if (vCoreInstance->KernelStarted || !activeKernels.isEmpty())
+        if (isConnected)
         {
             StopConnection();
         }
@@ -240,7 +242,7 @@ namespace Qv2ray::core::handlers
 
     void KernelInstanceHandler::StopConnection()
     {
-        if (vCoreInstance->KernelStarted || !activeKernels.isEmpty())
+        if (isConnected)
         {
             PluginHost->Send_ConnectivityEvent({ GetDisplayName(currentConnectionId), {}, Events::Connectivity::QvConnecticity_Disconnecting });
             if (vCoreInstance->KernelStarted)
@@ -267,6 +269,9 @@ namespace Qv2ray::core::handlers
 
     void KernelInstanceHandler::OnStatsDataArrived_p(const quint64 uploadSpeed, const quint64 downloadSpeed)
     {
-        emit OnStatsDataAvailable(currentConnectionId, uploadSpeed, downloadSpeed);
+        if (isConnected)
+        {
+            emit OnStatsDataAvailable(currentConnectionId, uploadSpeed, downloadSpeed);
+        }
     }
 } // namespace Qv2ray::core::handlers

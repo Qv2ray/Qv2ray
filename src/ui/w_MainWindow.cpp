@@ -51,11 +51,11 @@ QvMessageBusSlotImpl(MainWindow)
 
 void MainWindow::UpdateColorScheme()
 {
-    hTray.setIcon(QIcon(GlobalConfig.uiConfig.useDarkTrayIcon ? ":/assets/icons/ui_dark/tray.png" : ":/assets/icons/ui_light/tray.png"));
+    hTray.setIcon(KernelInstance->CurrentConnection() == NullConnectionId ? Q_TRAYICON("tray.png") : Q_TRAYICON("tray-connected.png"));
     //
     importConfigButton->setIcon(QICON_R("import.png"));
-    updownImageBox->setStyleSheet("image: url(" + QV2RAY_UI_COLORSCHEME_ROOT + "netspeed_arrow.png)");
-    updownImageBox_2->setStyleSheet("image: url(" + QV2RAY_UI_COLORSCHEME_ROOT + "netspeed_arrow.png)");
+    updownImageBox->setStyleSheet("image: url(" + QV2RAY_COLORSCHEME_ROOT + "netspeed_arrow.png)");
+    updownImageBox_2->setStyleSheet("image: url(" + QV2RAY_COLORSCHEME_ROOT + "netspeed_arrow.png)");
     //
     tray_action_ShowHide->setIcon(this->windowIcon());
     action_RCM_Start->setIcon(QICON_R("connect.png"));
@@ -583,6 +583,7 @@ void MainWindow::on_connectionListWidget_itemDoubleClicked(QTreeWidgetItem *item
 void MainWindow::OnDisconnected(const ConnectionId &id)
 {
     Q_UNUSED(id)
+    hTray.setIcon(Q_TRAYICON("tray.png"));
     tray_action_Start->setEnabled(true);
     tray_action_Stop->setEnabled(false);
     tray_action_Restart->setEnabled(false);
@@ -606,6 +607,7 @@ void MainWindow::OnDisconnected(const ConnectionId &id)
 void MainWindow::OnConnected(const ConnectionId &id)
 {
     Q_UNUSED(id)
+    hTray.setIcon(Q_TRAYICON("tray-connected.png"));
     tray_action_Start->setEnabled(false);
     tray_action_Stop->setEnabled(true);
     tray_action_Restart->setEnabled(true);
@@ -817,7 +819,7 @@ void MainWindow::OnGroupDeleted(const GroupId &id, const QList<ConnectionId> &co
 
 void MainWindow::on_locateBtn_clicked()
 {
-    auto id = ConnectionManager->CurrentConnection();
+    auto id = KernelInstance->CurrentConnection();
     if (id != NullConnectionId)
     {
         connectionListWidget->setCurrentItem(connectionNodes.value(id).get());

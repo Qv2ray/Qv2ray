@@ -97,9 +97,11 @@ using namespace Qv2ray::base::objects::transfer;
     #define ACCESS_OPTIONAL_VALUE(obj) (obj.value())
 #endif
 
-#define QV2RAY_UI_COLORSCHEME_ROOT                                                                                                              \
+#define Q_TRAYICON(name) (QIcon(GlobalConfig.uiConfig.useDarkTrayIcon ? ":/assets/icons/ui_dark/" name : ":/assets/icons/ui_light/" name))
+
+#define QV2RAY_COLORSCHEME_ROOT                                                                                                                 \
     ((GlobalConfig.uiConfig.useDarkTheme) ? QStringLiteral(":/assets/icons/ui_dark/") : QStringLiteral(":/assets/icons/ui_light/"))
-#define QICON_R(file) QIcon(QV2RAY_UI_COLORSCHEME_ROOT + file)
+#define QICON_R(file) QIcon(QV2RAY_COLORSCHEME_ROOT + file)
 
 #define QSTRN(num) QString::number(num)
 

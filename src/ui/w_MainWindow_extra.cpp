@@ -16,6 +16,7 @@ void MainWindow::MWSetSystemProxy()
     {
         proxyAddress = "127.0.0.1";
         SetSystemProxy(proxyAddress, httpPort, socksPort);
+        hTray.setIcon(Q_TRAYICON("tray-systemproxy.png"));
         if (!GlobalConfig.uiConfig.quietMode)
         {
             hTray.showMessage("Qv2ray", tr("System proxy configured."));
@@ -31,6 +32,7 @@ void MainWindow::MWSetSystemProxy()
 void MainWindow::MWClearSystemProxy()
 {
     ClearSystemProxy();
+    hTray.setIcon(KernelInstance->CurrentConnection() == NullConnectionId ? Q_TRAYICON("tray.png") : Q_TRAYICON("tray-connected.png"));
     if (!GlobalConfig.uiConfig.quietMode)
     {
         hTray.showMessage("Qv2ray", tr("System proxy removed."));
