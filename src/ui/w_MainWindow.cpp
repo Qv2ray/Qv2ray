@@ -230,7 +230,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connectionListRCM_Menu->addAction(action_RCM_Delete);
     connect(action_RCM_Start, &QAction::triggered, this, &MainWindow::on_action_StartThis_triggered);
     connect(action_RCM_SetAutoConnection, &QAction::triggered, this, &MainWindow::on_action_RCM_SetAutoConnection_triggered);
-
     connect(action_RCM_Edit, &QAction::triggered, this, &MainWindow::on_action_RCM_EditThis_triggered);
     connect(action_RCM_EditJson, &QAction::triggered, this, &MainWindow::on_action_RCM_EditAsJson_triggered);
     connect(action_RCM_EditComplex, &QAction::triggered, this, &MainWindow::on_action_RCM_EditAsComplex_triggered);
@@ -481,10 +480,16 @@ void MainWindow::on_connectionListWidget_customContextMenuRequested(const QPoint
     auto item = connectionListWidget->itemAt(connectionListWidget->mapFromGlobal(_pos));
     if (item != nullptr)
     {
-        if (GetItemWidget(item)->IsConnection())
-        {
-            connectionListRCM_Menu->popup(_pos);
-        }
+        bool isConnection = GetItemWidget(item)->IsConnection();
+        // Disable connection-specific settings.
+        action_RCM_Start->setEnabled(isConnection);
+        action_RCM_SetAutoConnection->setEnabled(isConnection);
+        action_RCM_Edit->setEnabled(isConnection);
+        action_RCM_EditJson->setEnabled(isConnection);
+        action_RCM_EditComplex->setEnabled(isConnection);
+        action_RCM_Rename->setEnabled(isConnection);
+        action_RCM_Duplicate->setEnabled(isConnection);
+        connectionListRCM_Menu->popup(_pos);
     }
 }
 
@@ -495,9 +500,16 @@ void MainWindow::on_action_RCM_DeleteThese_triggered()
     for (auto item : connectionListWidget->selectedItems())
     {
         auto widget = GetItemWidget(item);
-        if (widget->IsConnection())
+        if (widget)
         {
-            connlist.append(get<1>(widget->Identifier()));
+            if (widget->IsConnection())
+            {
+                connlist.append(get<1>(widget->Identifier()));
+            }
+            else
+            {
+                connlist.append(ConnectionManager->GetGroupMetaObject(get<0>(widget->Identifier())).connections);
+            }
         }
     }
 
@@ -914,7 +926,13 @@ void MainWindow::on_action_RCM_ClearUsage_triggered()
     if (current != nullptr)
     {
         auto widget = GetItemWidget(current);
-        ConnectionManager->ClearConnectionUsage(get<1>(widget->Identifier()));
+        if (widget)
+        {
+            if (widget->IsConnection())
+                ConnectionManager->ClearConnectionUsage(get<1>(widget->Identifier()));
+            else
+                ConnectionManager->ClearGroupUsage(get<0>(widget->Identifier()));
+        }
     }
 }
 

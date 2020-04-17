@@ -145,11 +145,14 @@ void ConnectionItemWidget::CancelRename()
 
 void ConnectionItemWidget::BeginRename()
 {
-    stackedWidget->setCurrentIndex(1);
-    renameTxt->setStyle(QStyleFactory::create("Fusion"));
-    renameTxt->setStyleSheet("background-color: " + this->palette().color(this->backgroundRole()).name(QColor::HexRgb));
-    renameTxt->setText(originalItemName);
-    renameTxt->setFocus();
+    if (IsConnection())
+    {
+        stackedWidget->setCurrentIndex(1);
+        renameTxt->setStyle(QStyleFactory::create("Fusion"));
+        renameTxt->setStyleSheet("background-color: " + this->palette().color(this->backgroundRole()).name(QColor::HexRgb));
+        renameTxt->setText(originalItemName);
+        renameTxt->setFocus();
+    }
 }
 
 ConnectionItemWidget::~ConnectionItemWidget()

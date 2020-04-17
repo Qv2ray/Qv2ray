@@ -209,15 +209,21 @@ namespace Qv2ray::core::handlers
 
         return NullGroupId;
     }
-
-    const optional<QString> QvConfigHandler::ClearConnectionUsage(const ConnectionId &id)
+    void QvConfigHandler::ClearGroupUsage(const GroupId &id)
     {
-        CheckConnectionExistance(id);
+        for (const auto &conn : groups[id].connections)
+        {
+            ClearConnectionUsage(conn);
+        }
+    }
+    void QvConfigHandler::ClearConnectionUsage(const ConnectionId &id)
+    {
+        CheckConnectionExistanceEx(id, nothing);
         connections[id].upLinkData = 0;
         connections[id].downLinkData = 0;
         emit OnStatsAvailable(id, 0, 0, 0, 0);
         PluginHost->Send_ConnectionStatsEvent({ GetDisplayName(id), 0, 0, 0, 0 });
-        return {};
+        return;
     }
 
     const optional<QString> QvConfigHandler::RenameConnection(const ConnectionId &id, const QString &newName)
