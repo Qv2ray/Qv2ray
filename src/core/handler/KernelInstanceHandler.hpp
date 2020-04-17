@@ -26,9 +26,13 @@ namespace Qv2ray::core::handlers
         {
             return id == currentConnectionId;
         }
+        const QMap<QString, int> InboundPorts() const
+        {
+            return inboundPorts;
+        }
 
       signals:
-        void OnConnected(const ConnectionId &id, const QMap<QString, int> &inboundPorts);
+        void OnConnected(const ConnectionId &id);
         void OnDisconnected(const ConnectionId &id);
         void OnCrashed(const ConnectionId &id, const QString &errMessage);
         void OnStatsDataAvailable(const ConnectionId &id, const quint64 uploadSpeed, const quint64 downloadSpeed);
@@ -42,9 +46,11 @@ namespace Qv2ray::core::handlers
       private:
         QMap<QString, std::shared_ptr<QvPluginKernel>> kernels;
         QMap<QString, QvPluginKernel *> activeKernels;
+        QMap<QString, int> inboundPorts;
         CONFIGROOT root;
         V2rayKernelInstance *vCoreInstance = nullptr;
         ConnectionId currentConnectionId = NullConnectionId;
         ConnectionId lastConnectionId = NullConnectionId;
     };
+    inline const KernelInstanceHandler *KernelInstance;
 } // namespace Qv2ray::core::handlers

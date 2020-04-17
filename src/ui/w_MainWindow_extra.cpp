@@ -2,10 +2,13 @@
 #include "components/proxy/QvProxyConfigurator.hpp"
 #include "w_MainWindow.hpp"
 
-void MainWindow::MWSetSystemProxy(int httpPort, int socksPort)
+void MainWindow::MWSetSystemProxy()
 {
-    bool httpEnabled = httpPort != 0;
-    bool socksEnabled = socksPort != 0;
+    auto inboundPorts = KernelInstance->InboundPorts();
+    bool httpEnabled = inboundPorts.contains("http");
+    bool socksEnabled = inboundPorts.contains("socks");
+    auto httpPort = inboundPorts["http"];
+    auto socksPort = inboundPorts["socks"];
 
     QString proxyAddress;
 

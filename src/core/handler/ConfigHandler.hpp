@@ -125,7 +125,7 @@ namespace Qv2ray::core::handlers
         void OnGroupDeleted(const GroupId &id, const QList<ConnectionId> &connections);
         //
         void OnSubscriptionUpdateFinished(const GroupId &id);
-        void OnConnected(const ConnectionId &id, const QMap<QString, int> &inboundPorts);
+        void OnConnected(const ConnectionId &id);
         void OnDisconnected(const ConnectionId &id);
         void OnKernelCrashed(const ConnectionId &id, const QString &errMessage);
         //

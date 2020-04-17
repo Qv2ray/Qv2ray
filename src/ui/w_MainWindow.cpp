@@ -195,7 +195,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(tray_action_Stop, &QAction::triggered, ConnectionManager, &QvConfigHandler::StopConnection);
     connect(tray_action_Restart, &QAction::triggered, ConnectionManager, &QvConfigHandler::RestartConnection);
     connect(tray_action_Quit, &QAction::triggered, this, &MainWindow::on_actionExit_triggered);
-    // connect(tray_action_SetSystemProxy, &QAction::triggered, this, &MainWindow::MWSetSystemProxy);
+    connect(tray_action_SetSystemProxy, &QAction::triggered, this, &MainWindow::MWSetSystemProxy);
     connect(tray_action_ClearSystemProxy, &QAction::triggered, this, &MainWindow::MWClearSystemProxy);
     connect(&hTray, &QSystemTrayIcon::activated, this, &MainWindow::on_activatedTray);
     //
@@ -603,7 +603,7 @@ void MainWindow::OnDisconnected(const ConnectionId &id)
     }
 }
 
-void MainWindow::OnConnected(const ConnectionId &id, const QMap<QString, int> &inboundPorts)
+void MainWindow::OnConnected(const ConnectionId &id)
 {
     Q_UNUSED(id)
     tray_action_Start->setEnabled(false);
@@ -624,7 +624,7 @@ void MainWindow::OnConnected(const ConnectionId &id, const QMap<QString, int> &i
     ConnectionManager->StartLatencyTest(id);
     if (GlobalConfig.inboundConfig.setSystemProxy)
     {
-        MWSetSystemProxy(inboundPorts["http"], inboundPorts["socks"]);
+        MWSetSystemProxy();
     }
 }
 

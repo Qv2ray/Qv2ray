@@ -82,7 +82,7 @@ class MainWindow
     void ToggleVisibility();
     void OnEditRequested(const ConnectionId &id);
     void OnEditJsonRequested(const ConnectionId &id);
-    void OnConnected(const ConnectionId &id, const QMap<QString, int> &inboundPorts);
+    void OnConnected(const ConnectionId &id);
     void OnDisconnected(const ConnectionId &id);
     //
     void OnStatsAvailable(const ConnectionId &id, const quint64 upS, const quint64 downS, const quint64 upD, const quint64 downD);
@@ -153,7 +153,7 @@ class MainWindow
     QAction *action_RCM_toQvLog = new QAction(tr("Switch to Qv2ray log"), this);
     //
     ConnectionId lastConnectedId;
-    void MWSetSystemProxy(int httpPort, int socksPort);
+    void MWSetSystemProxy();
     void MWClearSystemProxy();
     void CheckSubscriptionsUpdate();
     //

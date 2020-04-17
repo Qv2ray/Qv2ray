@@ -31,8 +31,9 @@ namespace Qv2ray::core::handlers
         }
         activeKernels.clear();
         this->root = root;
+        bool isComplex = IsComplexConfig(root);
         auto fullConfig = GenerateRuntimeConfig(root);
-        auto inboundPorts = GetInboundPorts(fullConfig);
+        inboundPorts = GetConfigInboundPorts(fullConfig);
         PluginHost->Send_ConnectivityEvent({ GetDisplayName(id), inboundPorts, Events::Connectivity::QvConnecticity_Connecting });
         QList<std::tuple<QString, int, QString>> inboundInfo;
         for (const auto &inbound_v : fullConfig["inbounds"].toArray())
@@ -41,7 +42,6 @@ namespace Qv2ray::core::handlers
             inboundInfo.push_back({ inbound["protocol"].toString(), inbound["port"].toInt(), inbound["tag"].toString() });
         }
         //
-        bool isComplex = IsComplexConfig(root);
         if (GlobalConfig.pluginConfig.v2rayIntegration)
         {
             if (isComplex)
@@ -136,6 +136,7 @@ namespace Qv2ray::core::handlers
                 routing["rules"] = newRules;
                 fullConfig["routing"] = routing;
             }
+            // ================================================================================================
             //
             currentConnectionId = id;
             lastConnectionId = id;
@@ -147,19 +148,21 @@ namespace Qv2ray::core::handlers
                 if (!status)
                 {
                     LOG(MODULE_CONNECTION, "Plugin Kernel: " + kernel + " failed to start.")
+
                     break;
                 }
             }
             if (!success)
             {
+                StopConnection();
                 return tr("A plugin kernel failed to start. Please check the outbound settings.");
             }
             //
             auto result = vCoreInstance->StartConnection(fullConfig);
-
+            //
             if (!result.has_value())
             {
-                emit OnConnected(currentConnectionId, inboundPorts);
+                emit OnConnected(currentConnectionId);
                 PluginHost->Send_ConnectivityEvent({ GetDisplayName(id), inboundPorts, Events::Connectivity::QvConnecticity_Connected });
             }
             else
@@ -167,7 +170,7 @@ namespace Qv2ray::core::handlers
                 PluginHost->Send_ConnectivityEvent({ GetDisplayName(id), {}, Events::Connectivity::QvConnecticity_Disconnected });
             }
             return result;
-        } // namespace Qv2ray::core::handlers
+        }
         else
         {
             auto firstOutbound = fullConfig["outbounds"].toArray().first().toObject();
@@ -188,7 +191,7 @@ namespace Qv2ray::core::handlers
                 bool result = kernel->StartKernel();
                 if (result)
                 {
-                    emit OnConnected(currentConnectionId, inboundPorts);
+                    emit OnConnected(currentConnectionId);
                     return {};
                 }
                 else
@@ -201,14 +204,14 @@ namespace Qv2ray::core::handlers
                 currentConnectionId = id;
                 lastConnectionId = id;
                 auto result = vCoreInstance->StartConnection(fullConfig);
-                if (!result.has_value())
+                if (result.has_value())
                 {
-                    emit OnConnected(currentConnectionId, inboundPorts);
-                    PluginHost->Send_ConnectivityEvent({ GetDisplayName(id), inboundPorts, Events::Connectivity::QvConnecticity_Connected });
+                    PluginHost->Send_ConnectivityEvent({ GetDisplayName(id), {}, Events::Connectivity::QvConnecticity_Disconnected });
                 }
                 else
                 {
-                    PluginHost->Send_ConnectivityEvent({ GetDisplayName(id), {}, Events::Connectivity::QvConnecticity_Disconnected });
+                    emit OnConnected(currentConnectionId);
+                    PluginHost->Send_ConnectivityEvent({ GetDisplayName(id), inboundPorts, Events::Connectivity::QvConnecticity_Connected });
                 }
                 return result;
             }
