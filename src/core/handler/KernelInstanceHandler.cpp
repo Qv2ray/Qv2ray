@@ -223,6 +223,7 @@ namespace Qv2ray::core::handlers
 
     void KernelInstanceHandler::OnKernelCrashed_p(const QString &msg)
     {
+        StopConnection();
         emit OnCrashed(currentConnectionId, msg);
         emit OnDisconnected(currentConnectionId);
         lastConnectionId = currentConnectionId;
