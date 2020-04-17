@@ -25,7 +25,7 @@ namespace Qv2ray::core::handlers
 
     std::optional<QString> KernelInstanceHandler::StartConnection(const ConnectionId &id, const CONFIGROOT &root)
     {
-        if (vCoreInstance->KernelStarted)
+        if (vCoreInstance->KernelStarted || !activeKernels.isEmpty())
         {
             StopConnection();
         }
@@ -171,9 +171,11 @@ namespace Qv2ray::core::handlers
         else
         {
             auto firstOutbound = fullConfig["outbounds"].toArray().first().toObject();
-            if (kernels.contains(firstOutbound["protocol"].toString()))
+            const auto protocol = firstOutbound["protocol"].toString();
+            if (kernels.contains(protocol))
             {
                 auto kernel = kernels[firstOutbound["protocol"].toString()].get();
+                activeKernels[protocol] = kernel;
                 QMap<QString, int> pluginInboundPort;
                 for (const auto &[_protocol, _port, _tag] : inboundInfo)
                 {
@@ -219,9 +221,9 @@ namespace Qv2ray::core::handlers
         StartConnection(lastConnectionId, root);
     }
 
-    void KernelInstanceHandler::OnKernelCrashed_p()
+    void KernelInstanceHandler::OnKernelCrashed_p(const QString &msg)
     {
-        emit OnCrashed(currentConnectionId);
+        emit OnCrashed(currentConnectionId, msg);
         emit OnDisconnected(currentConnectionId);
         lastConnectionId = currentConnectionId;
         currentConnectionId = NullConnectionId;
@@ -234,12 +236,15 @@ namespace Qv2ray::core::handlers
 
     void KernelInstanceHandler::StopConnection()
     {
-        if (vCoreInstance->KernelStarted)
+        if (vCoreInstance->KernelStarted || !activeKernels.isEmpty())
         {
             PluginHost->Send_ConnectivityEvent({ GetDisplayName(currentConnectionId), {}, Events::Connectivity::QvConnecticity_Disconnecting });
-            vCoreInstance->StopConnection();
+            if (vCoreInstance->KernelStarted)
+            {
+                vCoreInstance->StopConnection();
+            }
             //
-            for (auto &kernel : activeKernels.keys())
+            for (const auto &kernel : activeKernels.keys())
             {
                 LOG(MODULE_CONNECTION, "Stopping plugin kernel: " + kernel)
                 activeKernels[kernel]->StopKernel();
@@ -252,7 +257,7 @@ namespace Qv2ray::core::handlers
         }
         else
         {
-            LOG(MODULE_CORE_HANDLER, "VCore is not started, not disconnecting")
+            LOG(MODULE_CORE_HANDLER, "Cannot disconnect when there's nothing connected.")
         }
     }
 

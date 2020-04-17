@@ -30,12 +30,12 @@ namespace Qv2ray::core::handlers
       signals:
         void OnConnected(const ConnectionId &id);
         void OnDisconnected(const ConnectionId &id);
-        void OnCrashed(const ConnectionId &id);
+        void OnCrashed(const ConnectionId &id, const QString &errMessage);
         void OnStatsDataAvailable(const ConnectionId &id, const quint64 uploadSpeed, const quint64 downloadSpeed);
         void OnKernelLogAvailable(const ConnectionId &id, const QString &log);
 
       private slots:
-        void OnKernelCrashed_p();
+        void OnKernelCrashed_p(const QString &msg);
         void OnKernelLogAvailable_p(const QString &log);
         void OnStatsDataArrived_p(const quint64 uploadSpeed, const quint64 downloadSpeed);
 

@@ -70,6 +70,7 @@ namespace Qv2ray::components::plugins
                                             const QString &alias,                //
                                             const QString &groupName,            //
                                             bool *status) const;
+        const QvPluginOutboundInfoObject TryGetOutboundInfo(const QString &protocol, const QJsonObject &o, bool *status) const;
         const QList<QvPluginEditor *> GetOutboundEditorWidgets() const;
         //
         void Send_ConnectionStatsEvent(const Events::ConnectionStats::EventObject &object);

@@ -351,12 +351,12 @@ namespace Qv2ray::core::handlers
         return kernelHandler->isConnected(id);
     }
 
-    void QvConfigHandler::OnKernelCrashed_p(const ConnectionId &id)
+    void QvConfigHandler::OnKernelCrashed_p(const ConnectionId &id, const QString &errMessage)
     {
-        LOG(MODULE_CORE_HANDLER, "V2ray core crashed!")
+        LOG(MODULE_CORE_HANDLER, "Kernel crashed: " + errMessage)
         emit OnDisconnected(id);
         PluginHost->Send_ConnectivityEvent({ GetDisplayName(id), {}, Events::Connectivity::QvConnecticity_Disconnected });
-        emit OnKernelCrashed(id);
+        emit OnKernelCrashed(id, errMessage);
     }
 
     QvConfigHandler::~QvConfigHandler()

@@ -270,6 +270,24 @@ namespace Qv2ray::components::plugins
         }
         return data;
     }
+    const QvPluginOutboundInfoObject QvPluginHost::TryGetOutboundInfo(const QString &protocol, const QJsonObject &o, bool *status) const
+    {
+        *status = false;
+        for (const auto &plugin : plugins)
+        {
+            if (plugin.isLoaded && plugin.metadata.SpecialPluginType.contains(SPECIAL_TYPE_SERIALIZOR))
+            {
+                auto serializer = plugin.pluginInterface->GetSerializer();
+                if (serializer->OutboundProtocols().contains(protocol))
+                {
+                    auto info = serializer->GetOutboundInfo(protocol, o);
+                    *status = true;
+                    return info;
+                }
+            }
+        }
+        return {};
+    }
     const QString QvPluginHost::TrySerializeShareLink(const QString &protocol,             //
                                                       const QJsonObject &outboundSettings, //
                                                       const QString &alias,                //

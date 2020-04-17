@@ -132,11 +132,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     UpdateColorScheme();
     //
     //
-    connect(ConnectionManager, &QvConfigHandler::OnKernelCrashed, [&] {
+    connect(ConnectionManager, &QvConfigHandler::OnKernelCrashed, [&](const ConnectionId &, const QString &reason) {
         this->show();
-        QvMessageBoxWarn(this, tr("V2ray vcore terminated."),
-                         tr("V2ray vcore terminated unexpectedly.") + NEWLINE + NEWLINE +
-                             tr("To solve the problem, read the V2ray log in the log text browser."));
+        QvMessageBoxWarn(this, tr("Kernel terminated."),
+                         tr("The kernel terminated unexpectedly:") + NEWLINE + reason + NEWLINE + NEWLINE +
+                             tr("To solve the problem, read the kernel log in the log text browser."));
     });
     //
     connect(ConnectionManager, &QvConfigHandler::OnConnected, this, &MainWindow::OnConnected);

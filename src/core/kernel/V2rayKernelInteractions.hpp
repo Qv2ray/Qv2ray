@@ -29,7 +29,7 @@ namespace Qv2ray::core::kernel
         static bool ValidateKernel(const QString &vCorePath, const QString &vAssetsPath, QString *message);
 
       signals:
-        void OnProcessErrored();
+        void OnProcessErrored(const QString &errMessage);
         void OnProcessOutputReadyRead(const QString &output);
         void OnNewStatsDataArrived(const quint64 speedUp, const quint64 speedDown);
 

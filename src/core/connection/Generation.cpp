@@ -308,7 +308,7 @@ namespace Qv2ray::core::connection
             if (!root.contains("inbounds") || root.value("inbounds").toArray().empty())
             {
                 INBOUNDS inboundsList;
-
+                QJsonObject sniffingObject{ { "enabled", false } };
                 // HTTP Inbound
                 if (GlobalConfig.inboundConfig.useHTTP)
                 {
@@ -317,6 +317,7 @@ namespace Qv2ray::core::connection
                     httpInBoundObject.insert("port", GlobalConfig.inboundConfig.http_port);
                     httpInBoundObject.insert("protocol", "http");
                     httpInBoundObject.insert("tag", "http_IN");
+                    httpInBoundObject.insert("sniffing", sniffingObject);
 
                     if (GlobalConfig.inboundConfig.http_useAuth)
                     {
@@ -335,6 +336,7 @@ namespace Qv2ray::core::connection
                     socksInBoundObject.insert("port", GlobalConfig.inboundConfig.socks_port);
                     socksInBoundObject.insert("protocol", "socks");
                     socksInBoundObject.insert("tag", "socks_IN");
+                    socksInBoundObject.insert("sniffing", sniffingObject);
                     auto socksInSettings = GenerateSocksIN(GlobalConfig.inboundConfig.socks_useAuth ? "password" : "noauth",
                                                            QList<AccountObject>() << GlobalConfig.inboundConfig.socksAccount,
                                                            GlobalConfig.inboundConfig.socksUDP, GlobalConfig.inboundConfig.socksLocalIP);

@@ -185,7 +185,7 @@ namespace Qv2ray::core::kernel
             {
                 LOG(MODULE_VCORE, "V2ray kernel crashed.")
                 StopConnection();
-                emit OnProcessErrored();
+                emit OnProcessErrored("V2ray kernel crashed.");
             }
         });
         apiWorker = new APIWorker();

@@ -14,6 +14,8 @@ OutboundEditor::OutboundEditor(QWidget *parent) : QDialog(parent), tag(OUTBOUND_
     QvMessageBusConnect(OutboundEditor);
     setupUi(this);
     //
+    outboundType = "vmess";
+    //
     streamSettingsWidget = new StreamSettingsWidget(this);
     streamSettingsWidget->SetStreamObject({});
     transportFrame->addWidget(streamSettingsWidget);
@@ -143,7 +145,7 @@ void OutboundEditor::ReloadGUI()
 {
     tag = originalConfig["tag"].toString();
     tagTxt->setText(tag);
-    outboundType = originalConfig["protocol"].toString();
+    outboundType = originalConfig["protocol"].toString("vmess");
     muxConfig = originalConfig["mux"].toObject();
     useForwardProxy = originalConfig[QV2RAY_USE_FPROXY_KEY].toBool(false);
     streamSettingsWidget->SetStreamObject(StructFromJsonString<StreamSettingsObject>(JsonToString(originalConfig["streamSettings"].toObject())));
@@ -158,6 +160,10 @@ void OutboundEditor::ReloadGUI()
     {
         outBoundTypeCombo->setCurrentIndex(0);
         vmess = StructFromJsonString<VMessServerObject>(JsonToString(settings["vnext"].toArray().first().toObject()));
+        if (vmess.users.empty())
+        {
+            vmess.users.push_back({});
+        }
         address = vmess.address;
         port = vmess.port;
         idLineEdit->setText(vmess.users.front().id);
@@ -184,8 +190,9 @@ void OutboundEditor::ReloadGUI()
         address = socks.address;
         port = socks.port;
         if (socks.users.empty())
-            socks.users.push_back(SocksServerObject::UserObject());
-
+        {
+            socks.users.push_back({});
+        }
         socks_PasswordTxt->setText(socks.users.front().pass);
         socks_UserNameTxt->setText(socks.users.front().user);
     }
@@ -208,8 +215,11 @@ void OutboundEditor::ReloadGUI()
         }
         if (!processed)
         {
+            LOG(MODULE_UI, "Outbound type: " + outboundType + " is not supported.")
             QvMessageBoxWarn(this, tr("Unknown outbound."),
-                             tr("The specified outbound type is invalid, this may be caused by a plugin failure."));
+                             tr("The specified outbound type is invalid, this may be caused by a plugin failure.") + NEWLINE +
+                                 tr("Please use the JsonEditor or reload the plugin."));
+            reject();
         }
     }
     //

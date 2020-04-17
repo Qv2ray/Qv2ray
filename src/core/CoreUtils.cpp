@@ -56,7 +56,11 @@ namespace Qv2ray::core
         }
         else
         {
-            return false;
+            bool status;
+            auto info = PluginHost->TryGetOutboundInfo(*protocol, out["settings"].toObject(), &status);
+            *host = info.hostName;
+            *port = info.port;
+            return status;
         }
     }
 
