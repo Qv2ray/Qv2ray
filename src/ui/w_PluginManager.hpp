@@ -23,6 +23,10 @@ class PluginManageWindow
 
     void on_pluginListWidget_itemSelectionChanged();
 
+    void on_openPluginFolder_clicked();
+
+    void on_toolButton_clicked();
+
   private:
     std::unique_ptr<QWidget> settingsWidget;
     bool isLoading = true;

@@ -70,6 +70,7 @@ void PluginManageWindow::on_pluginListWidget_currentItemChanged(QListWidgetItem 
 
 void PluginManageWindow::on_pluginListWidget_itemClicked(QListWidgetItem *item)
 {
+    Q_UNUSED(item)
     // on_pluginListWidget_currentItemChanged(item, nullptr);
 }
 
@@ -112,4 +113,20 @@ void PluginManageWindow::on_pluginListWidget_itemSelectionChanged()
 {
     auto needEnable = !pluginListWidget->selectedItems().isEmpty();
     pluginEditSettingsJsonBtn->setEnabled(needEnable);
+}
+
+void PluginManageWindow::on_openPluginFolder_clicked()
+{
+    QDir pluginPath(QV2RAY_CONFIG_DIR + "plugins/");
+    if (!pluginPath.exists())
+    {
+        pluginPath.mkpath(QV2RAY_CONFIG_DIR + "plugins/");
+    }
+    QDesktopServices::openUrl(QUrl(pluginPath.absolutePath()));
+}
+
+void PluginManageWindow::on_toolButton_clicked()
+{
+    auto address = GlobalConfig.uiConfig.language.contains("zh") ? "https://qv2ray.github.io/plugins/" : "https://qv2ray.github.io/en/plugins/";
+    QDesktopServices::openUrl(QUrl(address));
 }
