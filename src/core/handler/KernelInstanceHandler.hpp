@@ -28,7 +28,7 @@ namespace Qv2ray::core::handlers
         }
 
       signals:
-        void OnConnected(const ConnectionId &id);
+        void OnConnected(const ConnectionId &id, const QMap<QString, int> &inboundPorts);
         void OnDisconnected(const ConnectionId &id);
         void OnCrashed(const ConnectionId &id, const QString &errMessage);
         void OnStatsDataAvailable(const ConnectionId &id, const quint64 uploadSpeed, const quint64 downloadSpeed);

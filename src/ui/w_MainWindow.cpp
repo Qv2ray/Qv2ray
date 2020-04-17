@@ -195,7 +195,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(tray_action_Stop, &QAction::triggered, ConnectionManager, &QvConfigHandler::StopConnection);
     connect(tray_action_Restart, &QAction::triggered, ConnectionManager, &QvConfigHandler::RestartConnection);
     connect(tray_action_Quit, &QAction::triggered, this, &MainWindow::on_actionExit_triggered);
-    connect(tray_action_SetSystemProxy, &QAction::triggered, this, &MainWindow::MWSetSystemProxy);
+    // connect(tray_action_SetSystemProxy, &QAction::triggered, this, &MainWindow::MWSetSystemProxy);
     connect(tray_action_ClearSystemProxy, &QAction::triggered, this, &MainWindow::MWClearSystemProxy);
     connect(&hTray, &QSystemTrayIcon::activated, this, &MainWindow::on_activatedTray);
     //
@@ -589,7 +589,10 @@ void MainWindow::OnDisconnected(const ConnectionId &id)
     tray_SystemProxyMenu->setEnabled(false);
     lastConnectedId = id;
     locateBtn->setEnabled(false);
-    this->hTray.showMessage("Qv2ray", tr("Disconnected from: ") + GetDisplayName(id), this->windowIcon());
+    if (!GlobalConfig.uiConfig.quietMode)
+    {
+        this->hTray.showMessage("Qv2ray", tr("Disconnected from: ") + GetDisplayName(id), this->windowIcon());
+    }
     hTray.setToolTip(TRAY_TOOLTIP_PREFIX);
     netspeedLabel->setText("0.00 B/s" NEWLINE "0.00 B/s");
     dataamountLabel->setText("0.00 B" NEWLINE "0.00 B");
@@ -600,7 +603,7 @@ void MainWindow::OnDisconnected(const ConnectionId &id)
     }
 }
 
-void MainWindow::OnConnected(const ConnectionId &id)
+void MainWindow::OnConnected(const ConnectionId &id, const QMap<QString, int> &inboundPorts)
 {
     Q_UNUSED(id)
     tray_action_Start->setEnabled(false);
@@ -611,14 +614,17 @@ void MainWindow::OnConnected(const ConnectionId &id)
     locateBtn->setEnabled(true);
     on_clearlogButton_clicked();
     auto name = GetDisplayName(id);
-    this->hTray.showMessage("Qv2ray", tr("Connected: ") + name, this->windowIcon());
+    if (!GlobalConfig.uiConfig.quietMode)
+    {
+        this->hTray.showMessage("Qv2ray", tr("Connected: ") + name, this->windowIcon());
+    }
     hTray.setToolTip(TRAY_TOOLTIP_PREFIX NEWLINE + tr("Connected: ") + name);
     connetionStatusLabel->setText(tr("Connected: ") + name);
     //
     ConnectionManager->StartLatencyTest(id);
     if (GlobalConfig.inboundConfig.setSystemProxy)
     {
-        MWSetSystemProxy();
+        MWSetSystemProxy(inboundPorts["http"], inboundPorts["socks"]);
     }
 }
 
@@ -915,7 +921,10 @@ void MainWindow::on_action_RCM_SetAutoConnection_triggered()
         auto widget = GetItemWidget(current);
         auto &conn = get<1>(widget->Identifier());
         GlobalConfig.autoStartId = conn.toString();
-        hTray.showMessage(tr("Set auto connection"), tr("Set %1 as auto connect.").arg(GetDisplayName(conn)));
+        if (!GlobalConfig.uiConfig.quietMode)
+        {
+            hTray.showMessage(tr("Set auto connection"), tr("Set %1 as auto connect.").arg(GetDisplayName(conn)));
+        }
         SaveGlobalSettings();
     }
 }

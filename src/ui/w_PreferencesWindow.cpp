@@ -137,6 +137,8 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     qvNetworkUATxt->setText(CurrentConfig.networkConfig.userAgent);
     qvUseProxyCB->setChecked(CurrentConfig.networkConfig.useCustomProxy);
     //
+    quietModeCB->setChecked(CurrentConfig.uiConfig.quietMode);
+    //
     // Advanced config.
     setAllowInsecureCB->setChecked(CurrentConfig.advancedConfig.setAllowInsecure);
     setAllowInsecureCiphersCB->setChecked(CurrentConfig.advancedConfig.setAllowInsecureCiphers);
@@ -1182,4 +1184,10 @@ void PreferencesWindow::on_setAllowInsecureCiphersCB_stateChanged(int arg1)
         QvMessageBoxWarn(this, tr("Dangerous Operation"), tr("You will lose the advantage of TLS and make your connection under MITM attack."));
     }
     CurrentConfig.advancedConfig.setAllowInsecureCiphers = arg1 == Qt::Checked;
+}
+
+void PreferencesWindow::on_quietModeCB_stateChanged(int arg1)
+{
+    LOADINGCHECK
+    CurrentConfig.uiConfig.quietMode = arg1 == Qt::Checked;
 }

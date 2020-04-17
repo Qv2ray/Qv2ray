@@ -159,7 +159,7 @@ namespace Qv2ray::core::handlers
 
             if (!result.has_value())
             {
-                emit OnConnected(currentConnectionId);
+                emit OnConnected(currentConnectionId, inboundPorts);
                 PluginHost->Send_ConnectivityEvent({ GetDisplayName(id), inboundPorts, Events::Connectivity::QvConnecticity_Connected });
             }
             else
@@ -188,7 +188,7 @@ namespace Qv2ray::core::handlers
                 bool result = kernel->StartKernel();
                 if (result)
                 {
-                    emit OnConnected(currentConnectionId);
+                    emit OnConnected(currentConnectionId, inboundPorts);
                     return {};
                 }
                 else
@@ -203,7 +203,7 @@ namespace Qv2ray::core::handlers
                 auto result = vCoreInstance->StartConnection(fullConfig);
                 if (!result.has_value())
                 {
-                    emit OnConnected(currentConnectionId);
+                    emit OnConnected(currentConnectionId, inboundPorts);
                     PluginHost->Send_ConnectivityEvent({ GetDisplayName(id), inboundPorts, Events::Connectivity::QvConnecticity_Connected });
                 }
                 else

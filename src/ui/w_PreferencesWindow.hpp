@@ -176,6 +176,8 @@ class PreferencesWindow
 
     void on_setAllowInsecureCiphersCB_stateChanged(int arg1);
 
+    void on_quietModeCB_stateChanged(int arg1);
+
   private:
     //
     RouteSettingsMatrixWidget *routeSettingsWidget;

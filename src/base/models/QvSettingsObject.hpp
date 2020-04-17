@@ -89,13 +89,14 @@ namespace Qv2ray::base::config
     {
         QString theme;
         QString language;
+        bool quietMode;
         bool useDarkTheme;
         bool useDarkTrayIcon;
         int maximumLogLines;
         Qv2rayUIConfig() : theme("Fusion"), language("en_US"), useDarkTheme(false), useDarkTrayIcon(true), maximumLogLines(500)
         {
         }
-        XTOSTRUCT(O(theme, language, useDarkTheme, useDarkTrayIcon, maximumLogLines))
+        XTOSTRUCT(O(theme, language, quietMode, useDarkTheme, useDarkTrayIcon, maximumLogLines))
     };
 
     struct Qv2rayRouteConfig_Impl
