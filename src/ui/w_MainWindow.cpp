@@ -358,6 +358,13 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
             this->close();
         }
     }
+    else if (e->modifiers() & Qt::ControlModifier && e->key() == Qt::Key_Q)
+    {
+        if (QvMessageBoxAsk(this, tr("Quit Qv2ray"), tr("Are you sure to exit Qv2ray?"), QMessageBox::No) == QMessageBox::Yes)
+        {
+            ExitQv2ray();
+        }
+    }
 }
 
 void MainWindow::keyReleaseEvent(QKeyEvent *e)
