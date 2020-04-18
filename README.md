@@ -42,7 +42,14 @@
 
  <tr>
   <td>Fedora</td>
-  <td><a href="https://github.com/Qv2ray/Qv2ray/pull/503">(WIP)</a></td>
+  <td>
+   <a href="https://build.opensuse.org/package/show/home:zzndb:Qv2ray/Qv2ray">
+    <img alt="OBS Stable" src="https://img.shields.io/badge/Fedora--OBS-stable-blue" />
+   </a><br/>
+   <a href="https://build.opensuse.org/package/show/home:zzndb:Qv2ray/Qv2ray-preview">
+    <img alt="OBS Stable" src="https://img.shields.io/badge/Fedora--OBS-preview-blue" />
+   </a>
+  </td>
  </tr>
 
 
