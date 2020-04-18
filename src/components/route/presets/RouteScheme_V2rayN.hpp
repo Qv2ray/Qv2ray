@@ -142,9 +142,8 @@ namespace Qv2ray::components::route::presets::v2rayN
 
     const inline QList<QString> DomainsBlock{ "geosite:category-ads-all" };
     const inline QList<QString> DomainsProxy{ "geosite:google",   "geosite:github",     "geosite:netflix",   "geosite:steam",
-                                              "geosite:telegram", "geosite:tumblr",     "geosite:speedtest", "geosite:bbc",
-                                              "domain:gvt1.com",  "domain:textnow.com", "domain:twitch.tv",  "domain:wikileaks.org",
-                                              "domain:naver.com" };
+                                              "geosite:telegram", "geosite:tumblr",     "domain:naver.com",  "geosite:bbc",
+                                              "domain:gvt1.com",  "domain:textnow.com", "domain:twitch.tv",  "domain:wikileaks.org" };
 
     const inline QList<QString> IPsProxy{
         "91.108.4.0/22",  "91.108.8.0/22",  "91.108.12.0/22",   "91.108.20.0/22",   "91.108.36.0/23",

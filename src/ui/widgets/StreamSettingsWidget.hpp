@@ -14,7 +14,7 @@ class StreamSettingsWidget
   public:
     explicit StreamSettingsWidget(QWidget *parent = nullptr);
     void SetStreamObject(const StreamSettingsObject &sso);
-    StreamSettingsObject GetStreamSettings();
+    StreamSettingsObject GetStreamSettings() const;
 
   private slots:
     void on_httpPathTxt_textEdited(const QString &arg1);
@@ -76,6 +76,8 @@ class StreamSettingsWidget
     void on_allowInsecureCB_stateChanged(int arg1);
 
     void on_alpnTxt_textChanged();
+
+    void on_allowInsecureCiphersCB_stateChanged(int arg1);
 
   private:
     QvMessageBusSlotDecl;

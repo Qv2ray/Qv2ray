@@ -6,7 +6,7 @@
 #include "core/CoreSafeTypes.hpp"
 #include "core/CoreUtils.hpp"
 #include "core/connection/ConnectionIO.hpp"
-#include "core/kernel/KernelInteractions.hpp"
+#include "core/handler/KernelInstanceHandler.hpp"
 
 #define CheckIdExistance(type, id, val)                                                                                                         \
     if (!type.contains(id))                                                                                                                     \
@@ -21,7 +21,6 @@
 #define CheckConnectionExistance(id) CheckConnectionExistanceEx(id, tr("Connection does not exist"))
 namespace Qv2ray::core::handlers
 {
-    //
     class QvConfigHandler : public QObject
     {
         Q_OBJECT
@@ -30,11 +29,6 @@ namespace Qv2ray::core::handlers
         ~QvConfigHandler();
 
       public slots:
-        //
-        inline const ConnectionId CurrentConnection() const
-        {
-            return currentConnectionId;
-        }
         inline const QList<ConnectionId> Connections() const
         {
             return connections.keys();
@@ -80,11 +74,13 @@ namespace Qv2ray::core::handlers
         //
         // Connection Operations.
         bool UpdateConnection(const ConnectionId &id, const CONFIGROOT &root, bool skipRestart = false);
-        const optional<QString> ClearConnectionUsage(const ConnectionId &id);
+        void ClearGroupUsage(const GroupId &id);
+        void ClearConnectionUsage(const ConnectionId &id);
         const optional<QString> DeleteConnection(const ConnectionId &id);
         const optional<QString> RenameConnection(const ConnectionId &id, const QString &newName);
         const optional<QString> MoveConnectionGroup(const ConnectionId &id, const GroupId &newGroupId);
-        const ConnectionId CreateConnection(const QString &displayName, const GroupId &groupId, const CONFIGROOT &root);
+        const ConnectionId CreateConnection(const QString &displayName, const GroupId &groupId, const CONFIGROOT &root,
+                                            bool skipSaveConfig = false);
         //
         // Get Conncetion Property
         const CONFIGROOT GetConnectionRoot(const ConnectionId &id) const;
@@ -107,10 +103,7 @@ namespace Qv2ray::core::handlers
         const tuple<QString, int64_t, float> GetSubscriptionData(const GroupId &id) const;
 
       signals:
-        void OnCrashed();
-        void OnConnected(const ConnectionId &id);
-        void OnDisconnected(const ConnectionId &id);
-        void OnVCoreLogAvailable(const ConnectionId &id, const QString &log);
+        void OnKernelLogAvailable(const ConnectionId &id, const QString &log);
         void OnStatsAvailable(const ConnectionId &id, const quint64 upS, const quint64 downS, const quint64 upD, const quint64 downD);
         //
         void OnConnectionCreated(const ConnectionId &id, const QString &displayName);
@@ -127,20 +120,20 @@ namespace Qv2ray::core::handlers
         void OnGroupDeleted(const GroupId &id, const QList<ConnectionId> &connections);
         //
         void OnSubscriptionUpdateFinished(const GroupId &id);
-
+        void OnConnected(const ConnectionId &id);
+        void OnDisconnected(const ConnectionId &id);
+        void OnKernelCrashed(const ConnectionId &id, const QString &errMessage);
+        //
       private slots:
-        void OnStatsDataArrived(const ConnectionId &id, const quint64 uploadSpeed, const quint64 downloadSpeed);
-        void OnVCoreCrashed(const ConnectionId &id);
-        void OnLatencyDataArrived(const QvTCPingResultObject &data);
+        void OnKernelCrashed_p(const ConnectionId &id, const QString &errMessage);
+        void OnLatencyDataArrived_p(const QvTCPingResultObject &data);
+        void OnStatsDataArrived_p(const ConnectionId &id, const quint64 uploadSpeed, const quint64 downloadSpeed);
 
       protected:
         void timerEvent(QTimerEvent *event) override;
 
       private:
         void CHSaveConfigData_p();
-        //
-        optional<QString> CHStartConnection_p(const ConnectionId &id, const CONFIGROOT &root);
-        void CHStopConnection_p();
         bool CHUpdateSubscription_p(const GroupId &id, const QByteArray &subscriptionData);
 
       private:
@@ -155,13 +148,7 @@ namespace Qv2ray::core::handlers
         QvHttpRequestHelper *httpHelper;
         bool isHttpRequestInProgress = false;
         QvTCPingHelper *tcpingHelper;
-        // We only support one cuncurrent connection currently.
-#ifdef QV2RAY_MULTIPlE_ONNECTION
-        QHash<ConnectionId, *V2rayKernelInstance> kernelInstances;
-#else
-        ConnectionId currentConnectionId = NullConnectionId;
-        V2rayKernelInstance *vCoreInstance = nullptr;
-#endif
+        KernelInstanceHandler *kernelHandler;
     };
 
     inline ::Qv2ray::core::handlers::QvConfigHandler *ConnectionManager = nullptr;

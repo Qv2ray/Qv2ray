@@ -81,10 +81,7 @@ jobs:
       - name: macOS - ${{ matrix.qt_version }} - Build preparation - Install Packages 
         if: matrix.platform == 'macos-latest'
         run: |
-          brew install protobuf grpc ninja wget
-          wget https://github.com/phracker/MacOSX-SDKs/releases/download/10.15/MacOSX10.14.sdk.tar.xz
-          tar -xf MacOSX10.14.sdk.tar.xz
-          sudo mv -v ./MacOSX10.14.sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk
+          brew install protobuf grpc ninja
 # --------------------------------------------------------
       - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - Build preparation - Download Dependencies
         shell: bash
@@ -99,18 +96,23 @@ jobs:
           pathSource: ./libs/Qv2ray-deps-grpc-${{ matrix.arch }}-windows.7z
           pathTarget: ./libs
 # ========================================================================================================= Generate MakeFile and Build
+
+      - uses: actions/setup-node@v1
+        if: matrix.platform == 'macos-latest'
+        with:
+          node-version: '10.x'
+      - run: npm install -g appdmg
+        if: matrix.platform == 'macos-latest'
       - name: macOS - ${{ matrix.qt_version }} - Generate Dependencies and Build
         shell: bash
         if: matrix.platform == 'macos-latest'
         run: |
           mkdir build
           cd build
-          cmake .. -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_OSX_SYSROOT=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk -DCMAKE_OSX_DEPLOYMENT_TARGET=10.14
-          sudo cmake --build . --target package --parallel $(sysctl -n hw.logicalcpu)
-          cp qv2ray-*.dmg ../
-      - name: macOS - Get package name
-        id: get_package
-        run: echo ::set-output name=NAME::$(basename qv2ray-*.dmg)
+          cmake .. -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_OSX_DEPLOYMENT_TARGET=10.13 -DDS_STORE_SCRIPT=ON
+          sudo cmake --build . --parallel $(sysctl -n hw.logicalcpu)
+          sudo cmake --install .
+          sudo appdmg ../assets/package_dmg.json ../Qv2ray.dmg
 # --------------------------------------------------------        
       - name: Windows - ${{ matrix.qt_version }} - Generate Dependencies and Build
         shell: bash
@@ -177,15 +179,15 @@ jobs:
         if: matrix.platform == 'macos-latest'
         uses: actions/upload-artifact@master
         with:
-          name: ${{ steps.get_package.outputs.NAME }}
-          path: ${{ steps.get_package.outputs.NAME }}
+          name: Qv2ray-${{ github.sha }}.macOS-${{ matrix.arch }}.qt${{ matrix.qt_version }}.dmg
+          path: Qv2ray.dmg
       - name: macOS - ${{ matrix.qt_version }} - Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release
         if: github.event_name == 'release' && matrix.platform == 'macos-latest' && matrix.qt_version == '5.14.2'
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ${{ steps.get_package.outputs.NAME }}
-          asset_name: ${{ steps.get_package.outputs.NAME }}
+          file: Qv2ray.dmg
+          asset_name: Qv2ray-${{ steps.get_version.outputs.VERSION }}.macOS-${{ matrix.arch }}.dmg
           tag: ${{ github.ref }}
           overwrite: true
 # --------------------------------------------------------

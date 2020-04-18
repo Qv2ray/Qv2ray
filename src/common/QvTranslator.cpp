@@ -17,33 +17,14 @@ using namespace Qv2ray::base;
 QStringList getLanguageSearchPaths()
 {
     // Configuration Path
-    QStringList list;
-    list << QV2RAY_CONFIG_DIR + "lang";
-//
+    QStringList list = Qv2rayAssetsPaths("lang");
 #ifdef EMBED_TRANSLATIONS
     // If the translations have been embedded.
     list << QString(":/translations/");
 #endif
-    //
-    //
 #ifdef QV2RAY_TRANSLATION_PATH
     // Platform-specific dir, if specified.
     list << QString(QV2RAY_TRANSLATION_PATH);
-#endif
-    //
-    //
-#ifdef Q_OS_LINUX
-    // Linux platform directories.
-    list << QString("/usr/share/qv2ray/lang/");
-    list << QString("/usr/local/share/qv2ray/lang/");
-    list << QStandardPaths::locateAll(QStandardPaths::AppDataLocation, "lang", QStandardPaths::LocateDirectory);
-    list << QStandardPaths::locateAll(QStandardPaths::AppConfigLocation, "lang", QStandardPaths::LocateDirectory);
-#elif defined(Q_OS_MAC)
-    // macOS platform directories.
-    list << QDir(QApplication::applicationDirPath() + "/../Resources/lang").absolutePath();
-#else
-    // This is the default behavior on Windows
-    list << QApplication::applicationDirPath() + "/lang";
 #endif
     return list;
 };

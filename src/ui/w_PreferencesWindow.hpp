@@ -118,17 +118,9 @@ class PreferencesWindow
 
     void on_darkTrayCB_stateChanged(int arg1);
 
-    void on_pacGoBtn_clicked();
-
-    void on_pacPortSB_valueChanged(int arg1);
-
     void on_setSysProxyCB_stateChanged(int arg1);
 
-    void on_pacProxyCB_currentIndexChanged(int index);
-
     void on_pushButton_clicked();
-
-    void on_pacProxyTxt_textEdited(const QString &arg1);
 
     void on_autoStartSubsCombo_currentIndexChanged(const QString &arg1);
 
@@ -148,15 +140,11 @@ class PreferencesWindow
 
     void on_fpPortSB_valueChanged(int arg1);
 
-    void on_pacProxyTxt_textChanged(const QString &arg1);
-
     void on_checkVCoreSettings_clicked();
 
     void on_httpGroupBox_clicked(bool checked);
 
     void on_socksGroupBox_clicked(bool checked);
-
-    void on_pacGroupBox_clicked(bool checked);
 
     void on_fpGroupBox_clicked(bool checked);
 
@@ -167,6 +155,28 @@ class PreferencesWindow
     void on_startWithLoginCB_stateChanged(int arg1);
 
     void on_updateChannelCombo_currentIndexChanged(int index);
+
+    void on_pluginKernelV2rayIntegrationCB_stateChanged(int arg1);
+
+    void on_pluginKernelPortAllocateCB_valueChanged(int arg1);
+
+    void on_qvProxyAddressTxt_textEdited(const QString &arg1);
+
+    void on_qvProxyTypeCombo_currentTextChanged(const QString &arg1);
+
+    void on_qvProxyPortCB_valueChanged(int arg1);
+
+    void on_qvNetworkUATxt_textEdited(const QString &arg1);
+
+    void on_qvUseProxyCB_stateChanged(int arg1);
+
+    void on_setAllowInsecureCB_stateChanged(int arg1);
+
+    void on_setTestLatenctCB_stateChanged(int arg1);
+
+    void on_setAllowInsecureCiphersCB_stateChanged(int arg1);
+
+    void on_quietModeCB_stateChanged(int arg1);
 
   private:
     //

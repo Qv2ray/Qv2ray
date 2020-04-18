@@ -2,7 +2,6 @@
 #include "Serialization.hpp"
 #include "common/QvHelpers.hpp"
 #include "core/CoreUtils.hpp"
-#include "core/handler/ConfigHandler.hpp"
 
 namespace Qv2ray::core::connection
 {

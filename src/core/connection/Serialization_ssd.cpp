@@ -83,7 +83,7 @@ namespace Qv2ray::core::connection::Serialization
             }
 
             // decode base64
-            const auto ssdURIBody = QStringRef(&uri, 6, uri.length() - 7);
+            const auto ssdURIBody = QStringRef(&uri, 6, uri.length() - 6);
             const auto decodedJSON = QByteArray::fromBase64(ssdURIBody.toUtf8());
 
             if (decodedJSON.length() == 0)
@@ -161,13 +161,12 @@ namespace Qv2ray::core::connection::Serialization
                 {
                     ssObject.port = port;
                 }
-                else if (auto currPort = serverObject["port"].toInt(-1); port >= 0 && port <= 65535)
+                else if (auto currPort = serverObject["port"].toInt(-1); (currPort >= 0 && currPort <= 65535))
                 {
                     ssObject.port = currPort;
                 }
                 else
                 {
-                    *logList << QObject::tr("Invalid port encountered. using fallback value.");
                     ssObject.port = port;
                 }
 
@@ -186,7 +185,6 @@ namespace Qv2ray::core::connection::Serialization
                 }
                 else
                 {
-                    *logList << QObject::tr("Invalid name encountered. using fallback value.");
                     nodeName = QString("%1:%2").arg(ssObject.address).arg(ssObject.port);
                 }
 
@@ -201,7 +199,7 @@ namespace Qv2ray::core::connection::Serialization
                 }
                 else if (!serverObject["ratio"].isUndefined())
                 {
-                    *logList << QObject::tr("Invalid ratio encountered. using fallback value.");
+                    //*logList << QObject::tr("Invalid ratio encountered. using fallback value.");
                 }
 
                 // format the total name of the node.
@@ -209,10 +207,8 @@ namespace Qv2ray::core::connection::Serialization
                 // appending to the total list
                 CONFIGROOT root;
                 OUTBOUNDS outbounds;
-                outbounds.append(
-                    GenerateOutboundEntry("shadowsocks", GenerateShadowSocksOUT(QList<ShadowSocksServerObject>{ ssObject }), QJsonObject()));
+                outbounds.append(GenerateOutboundEntry("shadowsocks", GenerateShadowSocksOUT({ ssObject }), {}));
                 JADD(outbounds)
-
                 serverList.insertMulti(totalName, root);
             }
 

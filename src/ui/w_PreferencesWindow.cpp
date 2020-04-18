@@ -4,10 +4,11 @@
 #include "common/QvHelpers.hpp"
 #include "common/QvTranslator.hpp"
 #include "components/autolaunch/QvAutoLaunch.hpp"
+#include "components/plugins/interface/QvPluginInterface.hpp"
 #include "components/plugins/toolbar/QvToolbar.hpp"
 #include "core/connection/ConnectionIO.hpp"
 #include "core/handler/ConfigHandler.hpp"
-#include "core/kernel/KernelInteractions.hpp"
+#include "core/kernel/V2rayKernelInteractions.hpp"
 #include "core/settings/SettingsBackend.hpp"
 #include "ui/widgets/RouteSettingsMatrix.hpp"
 
@@ -69,6 +70,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     qvBuildInfo->setText(QV2RAY_BUILD_INFO);
     qvBuildExInfo->setText(QV2RAY_BUILD_EXTRA_INFO);
     qvBuildTime->setText(__DATE__ " " __TIME__);
+    qvPluginInterfaceVersionLabel->setText(tr("Version: %1").arg(QSTRN(QV2RAY_PLUGIN_INTERFACE_VERSION)));
     //
     // Deep copy
     CurrentConfig = GlobalConfig;
@@ -87,14 +89,6 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     //
     //
     listenIPTxt->setText(CurrentConfig.inboundConfig.listenip);
-    bool pacEnabled = CurrentConfig.inboundConfig.pacConfig.enablePAC;
-    pacGroupBox->setChecked(pacEnabled);
-    setSysProxyCB->setChecked(CurrentConfig.inboundConfig.setSystemProxy);
-    //
-    // PAC
-    pacPortSB->setValue(CurrentConfig.inboundConfig.pacConfig.port);
-    pacProxyTxt->setText(CurrentConfig.inboundConfig.pacConfig.localIP);
-    pacProxyCB->setCurrentIndex(CurrentConfig.inboundConfig.pacConfig.useSocksProxy ? 1 : 0);
     //
     bool have_http = CurrentConfig.inboundConfig.useHTTP;
     httpGroupBox->setChecked(have_http);
@@ -134,12 +128,26 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     //
     localDNSCb->setChecked(CurrentConfig.connectionConfig.withLocalDNS);
     //
+    pluginKernelV2rayIntegrationCB->setChecked(CurrentConfig.pluginConfig.v2rayIntegration);
+    pluginKernelPortAllocateCB->setValue(CurrentConfig.pluginConfig.portAllocationStart);
+    //
+    qvProxyPortCB->setValue(CurrentConfig.networkConfig.port);
+    qvProxyAddressTxt->setText(CurrentConfig.networkConfig.address);
+    qvProxyTypeCombo->setCurrentText(CurrentConfig.networkConfig.type);
+    qvNetworkUATxt->setText(CurrentConfig.networkConfig.userAgent);
+    qvUseProxyCB->setChecked(CurrentConfig.networkConfig.useCustomProxy);
+    //
+    quietModeCB->setChecked(CurrentConfig.uiConfig.quietMode);
+    //
+    // Advanced config.
+    setAllowInsecureCB->setChecked(CurrentConfig.advancedConfig.setAllowInsecure);
+    setAllowInsecureCiphersCB->setChecked(CurrentConfig.advancedConfig.setAllowInsecureCiphers);
+    setTestLatenctCB->setChecked(CurrentConfig.advancedConfig.testLatencyPeriodcally);
+    //
     DNSListTxt->clear();
-
     for (auto dnsStr : CurrentConfig.connectionConfig.dnsList)
     {
         auto str = dnsStr.trimmed();
-
         if (!str.isEmpty())
         {
             DNSListTxt->appendPlainText(str);
@@ -150,11 +158,11 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     updateSettingsGroupBox->setEnabled(false);
     updateSettingsGroupBox->setToolTip(tr("Update is disabled by your vendor."));
 #endif
-
+    //
     updateChannelCombo->setCurrentIndex(CurrentConfig.updateConfig.updateChannel);
     cancelIgnoreVersionBtn->setEnabled(!CurrentConfig.updateConfig.ignoredVersion.isEmpty());
     ignoredNextVersion->setText(CurrentConfig.updateConfig.ignoredVersion);
-
+    //
     for (auto i = 0; i < CurrentConfig.toolBarConfig.Pages.size(); i++)
     {
         nsBarPagesList->addItem(tr("Page") + QSTRN(i + 1) + ": " + QSTRN(CurrentConfig.toolBarConfig.Pages[i].Lines.size()) + " " +
@@ -213,8 +221,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     //
     maxLogLinesSB->setValue(CurrentConfig.uiConfig.maximumLogLines);
     //
-    pacListenAddrLabel->setText("http://" + (pacProxyTxt->text().isEmpty() ? "127.0.0.1" : pacProxyTxt->text()) + ":" +
-                                QSTRN(pacPortSB->value()) + "/pac");
+    setSysProxyCB->setChecked(CurrentConfig.inboundConfig.setSystemProxy);
     //
     finishedLoading = true;
     routeSettingsWidget = new RouteSettingsMatrixWidget(CurrentConfig.kernelConfig.AssetsPath(), this);
@@ -254,12 +261,6 @@ void PreferencesWindow::on_buttonBox_accepted()
     {
         size++;
         ports << CurrentConfig.inboundConfig.socks_port;
-    }
-
-    if (CurrentConfig.inboundConfig.pacConfig.enablePAC)
-    {
-        size++;
-        ports << CurrentConfig.inboundConfig.pacConfig.port;
     }
 
     if (!StartupOption.noAPI)
@@ -932,84 +933,6 @@ void PreferencesWindow::on_darkTrayCB_stateChanged(int arg1)
     CurrentConfig.uiConfig.useDarkTrayIcon = arg1 == Qt::Checked;
 }
 
-void PreferencesWindow::on_pacGoBtn_clicked()
-{
-    LOADINGCHECK
-    QString gfwLocation;
-    QString fileContent;
-    pacGoBtn->setEnabled(false);
-    gfwListCB->setEnabled(false);
-    QvHttpRequestHelper request;
-    LOG(MODULE_PROXY, "Downloading GFWList file.")
-    bool withProxy = getGFWListWithProxyCB->isChecked();
-
-    switch (gfwListCB->currentIndex())
-    {
-        case 0:
-            gfwLocation = "https://gitlab.com/gfwlist/gfwlist/raw/master/gfwlist.txt";
-            fileContent = QString::fromUtf8(request.syncget(gfwLocation, withProxy));
-            break;
-
-        case 1:
-            gfwLocation = "https://pagure.io/gfwlist/raw/master/f/gfwlist.txt";
-            fileContent = QString::fromUtf8(request.syncget(gfwLocation, withProxy));
-            break;
-
-        case 2:
-            gfwLocation = "http://repo.or.cz/gfwlist.git/blob_plain/HEAD:/gfwlist.txt";
-            fileContent = QString::fromUtf8(request.syncget(gfwLocation, withProxy));
-            break;
-
-        case 3:
-            gfwLocation = "https://bitbucket.org/gfwlist/gfwlist/raw/HEAD/gfwlist.txt";
-            fileContent = QString::fromUtf8(request.syncget(gfwLocation, withProxy));
-            break;
-
-        case 4:
-            gfwLocation = "https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt";
-            fileContent = QString::fromUtf8(request.syncget(gfwLocation, withProxy));
-            break;
-
-        case 5:
-            gfwLocation = "https://git.tuxfamily.org/gfwlist/gfwlist.git/plain/gfwlist.txt";
-            fileContent = QString::fromUtf8(request.syncget(gfwLocation, withProxy));
-            break;
-
-        case 6:
-            auto file = QFileDialog::getOpenFileName(this, tr("Select GFWList in base64"));
-
-            if (file.isEmpty())
-            {
-                QvMessageBoxWarn(this, tr("Download GFWList"), tr("Operation is cancelled."));
-                return;
-            }
-
-            fileContent = StringFromFile(file);
-            break;
-    }
-
-    LOG(MODULE_NETWORK, "Fetched: " + gfwLocation)
-    QvMessageBoxInfo(this, tr("Download GFWList"), tr("Successfully downloaded GFWList."));
-    pacGoBtn->setEnabled(true);
-    gfwListCB->setEnabled(true);
-
-    if (!QDir(QV2RAY_RULES_DIR).exists())
-    {
-        QDir(QV2RAY_RULES_DIR).mkpath(QV2RAY_RULES_DIR);
-    }
-
-    StringToFile(fileContent, QV2RAY_RULES_GFWLIST_PATH);
-}
-
-void PreferencesWindow::on_pacPortSB_valueChanged(int arg1)
-{
-    LOADINGCHECK
-    NEEDRESTART
-    CurrentConfig.inboundConfig.pacConfig.port = arg1;
-    pacListenAddrLabel->setText("http://" + (pacProxyTxt->text().isEmpty() ? "127.0.0.1" : pacProxyTxt->text()) + ":" +
-                                QSTRN(pacPortSB->value()) + "/pac");
-}
-
 void PreferencesWindow::on_setSysProxyCB_stateChanged(int arg1)
 {
     LOADINGCHECK
@@ -1017,26 +940,10 @@ void PreferencesWindow::on_setSysProxyCB_stateChanged(int arg1)
     CurrentConfig.inboundConfig.setSystemProxy = arg1 == Qt::Checked;
 }
 
-void PreferencesWindow::on_pacProxyCB_currentIndexChanged(int index)
-{
-    LOADINGCHECK
-    NEEDRESTART
-    // 0 -> http
-    // 1 -> socks
-    CurrentConfig.inboundConfig.pacConfig.useSocksProxy = index == 1;
-}
-
 void PreferencesWindow::on_pushButton_clicked()
 {
     LOADINGCHECK
     QDesktopServices::openUrl(QUrl::fromUserInput(QV2RAY_RULES_DIR));
-}
-
-void PreferencesWindow::on_pacProxyTxt_textEdited(const QString &arg1)
-{
-    LOADINGCHECK
-    NEEDRESTART
-    CurrentConfig.inboundConfig.pacConfig.localIP = arg1;
 }
 
 void PreferencesWindow::on_autoStartSubsCombo_currentIndexChanged(const QString &arg1)
@@ -1147,23 +1054,6 @@ void PreferencesWindow::on_fpPortSB_valueChanged(int arg1)
     CurrentConfig.connectionConfig.forwardProxyConfig.port = arg1;
 }
 
-void PreferencesWindow::on_pacProxyTxt_textChanged(const QString &arg1)
-{
-    Q_UNUSED(arg1)
-
-    if (IsValidIPAddress(arg1))
-    {
-        BLACK(pacProxyTxt)
-    }
-    else
-    {
-        RED(pacProxyTxt)
-    }
-
-    pacListenAddrLabel->setText("http://" + (pacProxyTxt->text().isEmpty() ? "127.0.0.1" : pacProxyTxt->text()) + ":" +
-                                QSTRN(pacPortSB->value()) + "/pac");
-}
-
 void PreferencesWindow::on_checkVCoreSettings_clicked()
 {
     auto vcorePath = vCorePathTxt->text();
@@ -1196,20 +1086,6 @@ void PreferencesWindow::on_socksGroupBox_clicked(bool checked)
     CurrentConfig.inboundConfig.useSocks = checked;
 }
 
-void PreferencesWindow::on_pacGroupBox_clicked(bool checked)
-{
-    LOADINGCHECK
-    NEEDRESTART
-    CurrentConfig.inboundConfig.pacConfig.enablePAC = checked;
-    if (checked)
-    {
-        QvMessageBoxWarn(this, QObject::tr("Deprecated"),
-                         QObject::tr("PAC is now deprecated and is not encouraged to be used anymore.") + NEWLINE +
-                             QObject::tr("It will be removed or be provided as a plugin in the future.") + NEWLINE + NEWLINE +
-                             QObject::tr("PAC will still work currently, but please switch to the V2ray built-in routing as soon as possible."));
-    }
-}
-
 void PreferencesWindow::on_fpGroupBox_clicked(bool checked)
 {
     LOADINGCHECK
@@ -1236,4 +1112,82 @@ void PreferencesWindow::on_updateChannelCombo_currentIndexChanged(int index)
     LOADINGCHECK
     CurrentConfig.updateConfig.updateChannel = index;
     CurrentConfig.updateConfig.ignoredVersion.clear();
+}
+
+void PreferencesWindow::on_pluginKernelV2rayIntegrationCB_stateChanged(int arg1)
+{
+    LOADINGCHECK
+    CurrentConfig.pluginConfig.v2rayIntegration = arg1 == Qt::Checked;
+}
+
+void PreferencesWindow::on_pluginKernelPortAllocateCB_valueChanged(int arg1)
+{
+    LOADINGCHECK
+    CurrentConfig.pluginConfig.portAllocationStart = arg1;
+}
+
+void PreferencesWindow::on_qvProxyAddressTxt_textEdited(const QString &arg1)
+{
+    LOADINGCHECK
+    CurrentConfig.networkConfig.address = arg1;
+}
+
+void PreferencesWindow::on_qvProxyTypeCombo_currentTextChanged(const QString &arg1)
+{
+    LOADINGCHECK
+    CurrentConfig.networkConfig.type = arg1.toLower();
+}
+
+void PreferencesWindow::on_qvProxyPortCB_valueChanged(int arg1)
+{
+    LOADINGCHECK
+    CurrentConfig.networkConfig.port = arg1;
+}
+
+void PreferencesWindow::on_qvNetworkUATxt_textEdited(const QString &arg1)
+{
+    LOADINGCHECK
+    CurrentConfig.networkConfig.userAgent = arg1;
+}
+
+void PreferencesWindow::on_qvUseProxyCB_stateChanged(int arg1)
+{
+    LOADINGCHECK
+    CurrentConfig.networkConfig.useCustomProxy = arg1 == Qt::Checked;
+}
+
+void PreferencesWindow::on_setAllowInsecureCB_stateChanged(int arg1)
+{
+    LOADINGCHECK
+    if (arg1 == Qt::Checked)
+    {
+        QvMessageBoxWarn(this, tr("Dangerous Operation"), tr("You will lose the advantage of TLS and make your connection under MITM attack."));
+    }
+    CurrentConfig.advancedConfig.setAllowInsecure = arg1 == Qt::Checked;
+}
+
+void PreferencesWindow::on_setTestLatenctCB_stateChanged(int arg1)
+{
+    LOADINGCHECK
+    if (arg1 == Qt::Checked)
+    {
+        QvMessageBoxWarn(this, tr("Dangerous Operation"), tr("This will (probably) makes it easy to fingerprint your connection."));
+    }
+    CurrentConfig.advancedConfig.testLatencyPeriodcally = arg1 == Qt::Checked;
+}
+
+void PreferencesWindow::on_setAllowInsecureCiphersCB_stateChanged(int arg1)
+{
+    LOADINGCHECK
+    if (arg1 == Qt::Checked)
+    {
+        QvMessageBoxWarn(this, tr("Dangerous Operation"), tr("You will lose the advantage of TLS and make your connection under MITM attack."));
+    }
+    CurrentConfig.advancedConfig.setAllowInsecureCiphers = arg1 == Qt::Checked;
+}
+
+void PreferencesWindow::on_quietModeCB_stateChanged(int arg1)
+{
+    LOADINGCHECK
+    CurrentConfig.uiConfig.quietMode = arg1 == Qt::Checked;
 }

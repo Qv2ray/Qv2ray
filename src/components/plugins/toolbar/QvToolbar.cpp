@@ -89,15 +89,15 @@ namespace Qv2ray::components::plugins
                         case 104:
                         {
                             // Current Connection Name
-                            CL.Message = GetDisplayName(ConnectionManager->CurrentConnection());
+                            CL.Message = GetDisplayName(KernelInstance->CurrentConnection());
                             break;
                         }
 
                         case 105:
                         {
                             // Current Connection Status
-                            CL.Message = ConnectionManager->CurrentConnection() == NullConnectionId ? QObject::tr("Not connected") :
-                                                                                                      QObject::tr("Connected");
+                            CL.Message = KernelInstance->CurrentConnection() == NullConnectionId ? QObject::tr("Not connected") :
+                                                                                                   QObject::tr("Connected");
                             break;
                         }
 
@@ -132,14 +132,14 @@ namespace Qv2ray::components::plugins
                         case 301:
                         {
                             // Total Upload
-                            CL.Message = FormatBytes(get<0>(GetConnectionUsageAmount(ConnectionManager->CurrentConnection())));
+                            CL.Message = FormatBytes(get<0>(GetConnectionUsageAmount(KernelInstance->CurrentConnection())));
                             break;
                         }
 
                         case 302:
                         {
                             // Total download
-                            CL.Message = FormatBytes(get<1>(GetConnectionUsageAmount(ConnectionManager->CurrentConnection())));
+                            CL.Message = FormatBytes(get<1>(GetConnectionUsageAmount(KernelInstance->CurrentConnection())));
                             break;
                         }
 
@@ -160,7 +160,7 @@ namespace Qv2ray::components::plugins
                         case 305:
                         {
                             // Connection latency
-                            CL.Message = QSTRN(GetConnectionLatency(ConnectionManager->CurrentConnection())) + " ms";
+                            CL.Message = QSTRN(GetConnectionLatency(KernelInstance->CurrentConnection())) + " ms";
                             break;
                         }
                         default:

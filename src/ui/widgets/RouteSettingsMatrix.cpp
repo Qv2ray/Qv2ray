@@ -103,7 +103,7 @@ void RouteSettingsMatrixWidget::on_importSchemeBtn_clicked()
 
         // read the file and parse back to struct.
         // if error occurred on parsing, an exception will be thrown.
-        auto content = StringFromFile(filePath.value());
+        auto content = StringFromFile(ACCESS_OPTIONAL_VALUE(filePath));
         auto scheme = StructFromJsonString<Qv2rayRouteScheme>(content);
 
         // show the information of this scheme to user,
@@ -175,7 +175,7 @@ void RouteSettingsMatrixWidget::on_exportSchemeBtn_clicked()
 
         // serialize and write out
         auto content = StructToJsonString(scheme);
-        StringToFile(content, savePath.value());
+        StringToFile(content, ACCESS_OPTIONAL_VALUE(savePath));
 
         // done
         // TODO: Give some success as Notification

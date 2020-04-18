@@ -42,7 +42,7 @@ set(CMAKE_AUTOUIC ON)
 cmake_policy(SET CMP0071 NEW)
 
 if(CMAKE_VERSION VERSION_GREATER_EQUAL "3.17.0")
-  cmake_policy(SET CMP0100 NEW)
+    cmake_policy(SET CMP0100 NEW)
 endif()
 
 message(" ")
@@ -63,21 +63,21 @@ message("|-------------------------------------------------|")
 message(" ")
 
 if(WIN32)
-  add_compile_options("/std:c++17")
-  add_definitions(-DUNICODE -D_UNICODE)
-  add_definitions(-D_HAS_STD_BYTE=0 -D_WIN32_WINNT=0x600 -D_SCL_SECURE_NO_WARNINGS -D_CRT_SECURE_NO_WARNINGS)
-  set(GUI_TYPE WIN32)
-  if(NOT DEFINED CMAKE_TOOLCHAIN_FILE)
-      if(CMAKE_CL_64)
-        include(${CMAKE_SOURCE_DIR}/libs/x64-windows/scripts/buildsystems/vcpkg.cmake)
-      else()
-        include(${CMAKE_SOURCE_DIR}/libs/x86-windows/scripts/buildsystems/vcpkg.cmake)
-      endif()
-  endif()
+    add_compile_options("/std:c++17")
+    add_definitions(-DUNICODE -D_UNICODE)
+    add_definitions(-D_HAS_STD_BYTE=0 -D_WIN32_WINNT=0x600 -D_SCL_SECURE_NO_WARNINGS -D_CRT_SECURE_NO_WARNINGS)
+    set(GUI_TYPE WIN32)
+    if(NOT DEFINED CMAKE_TOOLCHAIN_FILE)
+        if(CMAKE_CL_64)
+            include(${CMAKE_SOURCE_DIR}/libs/x64-windows/scripts/buildsystems/vcpkg.cmake)
+        else()
+            include(${CMAKE_SOURCE_DIR}/libs/x86-windows/scripts/buildsystems/vcpkg.cmake)
+        endif()
+    endif()
 endif()
 
 if(UNIX AND NOT APPLE)
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 endif()
 
 set(QV2RAY_QNODEEDITOR_PROVIDER "module" CACHE STRING "qnodeeditor provider")
@@ -120,176 +120,185 @@ set(QV2RAY_DEFAULT_VCORE_PATH "unset" CACHE STRING "v2ray core path")
 set(QV2RAY_TRANSLATION_PATH "unset" CACHE STRING "Qv2ray translations path")
 set(QV2RAY_DISABLE_AUTO_UPDATE OFF CACHE BOOL "Disable update checker")
 if(UNIX AND NOT APPLE)
-  set(QV2RAY_USE_BUILTIN_DARKTHEME OFF CACHE BOOL "Use built-in dark theme instead of followed by the system settings")
+    set(QV2RAY_USE_BUILTIN_DARKTHEME OFF CACHE BOOL "Use built-in dark theme instead of followed by the system settings")
 else()
-  set(QV2RAY_USE_BUILTIN_DARKTHEME ON CACHE BOOL "Use built-in dark theme instead of followed by the system settings")
+    set(QV2RAY_USE_BUILTIN_DARKTHEME ON CACHE BOOL "Use built-in dark theme instead of followed by the system settings")
 endif()
 set(EMBED_TRANSLATIONS OFF CACHE BOOL "Embed translations")
 
 if(QV2RAY_DEFAULT_VASSETS_PATH AND NOT QV2RAY_DEFAULT_VASSETS_PATH STREQUAL "unset")
-  add_definitions(-DQV2RAY_DEFAULT_VASSETS_PATH="${QV2RAY_DEFAULT_VASSETS_PATH}")
+    add_definitions(-DQV2RAY_DEFAULT_VASSETS_PATH="${QV2RAY_DEFAULT_VASSETS_PATH}")
 endif()
 
 if(QV2RAY_DEFAULT_VCORE_PATH AND NOT QV2RAY_DEFAULT_VCORE_PATH STREQUAL "unset")
-  add_definitions(-DQV2RAY_DEFAULT_VCORE_PATH="${QV2RAY_DEFAULT_VCORE_PATH}")
+    add_definitions(-DQV2RAY_DEFAULT_VCORE_PATH="${QV2RAY_DEFAULT_VCORE_PATH}")
 endif()
 
 if(QV2RAY_TRANSLATION_PATH AND NOT QV2RAY_TRANSLATION_PATH STREQUAL "unset")
-  add_definitions(-DQV2RAY_TRANSLATION_PATH="${QV2RAY_TRANSLATION_PATH}")
+    add_definitions(-DQV2RAY_TRANSLATION_PATH="${QV2RAY_TRANSLATION_PATH}")
 endif()
 
 if(QV2RAY_USE_BUILTIN_DARKTHEME)
-  add_definitions(-DQV2RAY_USE_BUILTIN_DARKTHEME=true)
+    add_definitions(-DQV2RAY_USE_BUILTIN_DARKTHEME=true)
 endif()
 
 if(QV2RAY_DISABLE_AUTO_UPDATE)
-  add_definitions(-DDISABLE_AUTO_UPDATE)
+    add_definitions(-DDISABLE_AUTO_UPDATE)
 endif()
 
+set(QVPLUGIN_INTERFACE_INCLUDE_DIR "src/components/plugins/interface")
+include(src/components/plugins/interface/QvPluginInterface.cmake)
+
 set(QV2RAY_SOURCES
-  3rdparty/libsemver/version.cpp
-  src/base/Qv2rayLog.cpp
-  src/common/CommandArgs.cpp
-  src/common/HTTPRequestHelper.cpp
-  src/common/LogHighlighter.cpp
-  src/common/JsonHighlighter.cpp
-  src/common/QJsonModel.cpp
-  src/common/QvHelpers.cpp
-  src/common/QvTranslator.cpp
-  src/common/QRCodeHelper.cpp
-  src/components/autolaunch/QvAutoLaunch.cpp
-  src/components/geosite/QvGeositeReader.cpp
-  src/components/latency/win/ICMPPinger.cpp
-  src/components/latency/QvTCPing.cpp
-  src/components/pac/QvGFWPACConverter.cpp
-  src/components/pac/QvPACHandler.cpp
-  src/components/plugins/toolbar/QvToolbar.cpp
-  src/components/plugins/toolbar/QvToolbar_linux.cpp
-  src/components/plugins/toolbar/QvToolbar_win.cpp
-  src/components/proxy/QvProxyConfigurator.cpp
-  src/components/route/RouteSchemeIO.cpp
-  src/components/speedchart/speedplotview.cpp
-  src/components/speedchart/speedwidget.cpp
-  src/components/darkmode/DarkmodeDetector.cpp
-  src/components/update/UpdateChecker.cpp
-  src/core/connection/ConnectionIO.cpp
-  src/core/connection/Generation.cpp
-  src/core/connection/Serialization.cpp
-  src/core/connection/Serialization_ss.cpp
-  src/core/connection/Serialization_ssd.cpp
-  src/core/connection/Serialization_vmess.cpp
-  src/core/CoreUtils.cpp
-  src/core/handler/ConfigHandler.cpp
-  src/core/handler/V2rayInstanceHandler.cpp
-  src/core/kernel/APIBackend.cpp
-  src/core/kernel/KernelInteractions.cpp
-  src/core/kernel/QvKernelABIChecker.cpp
-  src/core/settings/SettingsBackend.cpp
-  src/core/settings/SettingsUpgrade.cpp
-  src/main.cpp
-  src/ui/editors/w_InboundEditor.cpp
-  src/ui/editors/w_JsonEditor.cpp
-  src/ui/editors/w_OutboundEditor.cpp
-  src/ui/editors/w_RoutesEditor.cpp
-  src/ui/editors/w_RoutesEditor_extra.cpp
-  src/ui/messaging/QvMessageBus.cpp
-  src/ui/models/InboundNodeModel.cpp
-  src/ui/models/OutboundNodeModel.cpp
-  src/ui/models/RuleNodeModel.cpp
-  src/ui/widgets/ConnectionInfoWidget.cpp
-  src/ui/widgets/ConnectionItemWidget.cpp
-  src/ui/widgets/QvAutoCompleteTextEdit.cpp
-  src/ui/widgets/StreamSettingsWidget.cpp
-  src/ui/widgets/RouteSettingsMatrix.cpp
-  src/ui/w_ImportConfig.cpp
-  src/ui/w_MainWindow.cpp
-  src/ui/w_MainWindow_extra.cpp
-  src/ui/w_PreferencesWindow.cpp
-  src/ui/w_ScreenShot_Core.cpp
-  src/ui/w_SubscriptionManager.cpp
-  # ui files
-  src/ui/w_SubscriptionManager.ui
-  src/ui/editors/w_OutboundEditor.ui
-  src/ui/editors/w_InboundEditor.ui
-  src/ui/editors/w_JsonEditor.ui
-  src/ui/editors/w_RoutesEditor.ui
-  src/ui/w_ImportConfig.ui
-  src/ui/widgets/StreamSettingsWidget.ui
-  src/ui/widgets/ConnectionInfoWidget.ui
-  src/ui/widgets/ConnectionItemWidget.ui
-  src/ui/widgets/RouteSettingsMatrix.ui
-  src/ui/w_MainWindow.ui
-  src/ui/w_PreferencesWindow.ui
-  src/ui/w_ScreenShot_Core.ui
-  # headers
-  3rdparty/libsemver/version.hpp
-  src/base/JsonHelpers.hpp
-  src/base/models/CoreObjectModels.hpp
-  src/base/models/QvConfigIdentifier.hpp
-  src/base/models/QvRuntimeConfig.hpp
-  src/base/models/QvSafeType.hpp
-  src/base/models/QvSettingsObject.hpp
-  src/base/models/QvStartupConfig.hpp
-  src/base/Qv2rayBase.hpp
-  src/base/Qv2rayFeatures.hpp
-  src/base/Qv2rayLog.hpp
-  src/common/CommandArgs.hpp
-  src/common/HTTPRequestHelper.hpp
-  src/common/JsonHighlighter.hpp
-  src/common/LogHighlighter.hpp
-  src/common/QJsonModel.hpp
-  src/common/QvHelpers.hpp
-  src/common/QvTranslator.hpp
-  src/common/QRCodeHelper.hpp
-  src/components/autolaunch/QvAutoLaunch.hpp
-  src/components/darkmode/DarkmodeDetector.hpp
-  src/components/geosite/QvGeositeReader.hpp
-  src/components/latency/win/ICMPPinger.hpp
-  src/components/latency/QvTCPing.hpp
-  src/components/pac/QvPACHandler.hpp
-  src/components/plugins/toolbar/QvToolbar.hpp
-  src/components/proxy/QvProxyConfigurator.hpp
-  src/components/route/RouteSchemeIO.hpp
-  src/components/route/presets/RouteScheme_V2rayN.hpp
-  src/components/speedchart/speedplotview.hpp
-  src/components/speedchart/speedwidget.hpp
-  src/components/update/UpdateChecker.hpp
-  src/core/connection/ConnectionIO.hpp
-  src/core/connection/Generation.hpp
-  src/core/connection/Serialization.hpp
-  src/core/CoreSafeTypes.hpp
-  src/core/CoreUtils.hpp
-  src/core/handler/ConfigHandler.hpp
-  src/core/kernel/APIBackend.hpp
-  src/core/kernel/KernelInteractions.hpp
-  src/core/kernel/QvKernelABIChecker.hpp
-  src/core/settings/SettingsBackend.hpp
-  src/ui/editors/w_InboundEditor.hpp
-  src/ui/editors/w_JsonEditor.hpp
-  src/ui/editors/w_OutboundEditor.hpp
-  src/ui/editors/w_RoutesEditor.hpp
-  src/ui/messaging/QvMessageBus.hpp
-  src/ui/models/InboundNodeModel.hpp
-  src/ui/models/NodeModelsBase.hpp
-  src/ui/models/OutboundNodeModel.hpp
-  src/ui/models/RuleNodeModel.hpp
-  src/ui/widgets/ConnectionInfoWidget.hpp
-  src/ui/widgets/ConnectionItemWidget.hpp
-  src/ui/widgets/QvAutoCompleteTextEdit.hpp
-  src/ui/widgets/StreamSettingsWidget.hpp
-  src/ui/widgets/RouteSettingsMatrix.hpp
-  src/ui/w_ImportConfig.hpp
-  src/ui/w_MainWindow.hpp
-  src/ui/w_PreferencesWindow.hpp
-  src/ui/w_ScreenShot_Core.hpp
-  src/ui/w_SubscriptionManager.hpp
-  assets/qv2ray.rc
-)
+    ${QVPLUGIN_INTERFACE_HEADERS}
+    3rdparty/libsemver/version.cpp
+    src/base/Qv2rayLog.cpp
+    src/common/CommandArgs.cpp
+    src/common/HTTPRequestHelper.cpp
+    src/common/LogHighlighter.cpp
+    src/common/JsonHighlighter.cpp
+    src/common/QJsonModel.cpp
+    src/common/QvHelpers.cpp
+    src/common/QvTranslator.cpp
+    src/common/QRCodeHelper.cpp
+    src/components/autolaunch/QvAutoLaunch.cpp
+    src/components/geosite/QvGeositeReader.cpp
+    src/components/latency/win/ICMPPinger.cpp
+    src/components/latency/QvTCPing.cpp
+    src/components/plugins/toolbar/QvToolbar.cpp
+    src/components/plugins/toolbar/QvToolbar_linux.cpp
+    src/components/plugins/toolbar/QvToolbar_win.cpp
+    src/components/plugins/QvPluginHost.cpp
+    src/components/proxy/QvProxyConfigurator.cpp
+    src/components/route/RouteSchemeIO.cpp
+    src/components/speedchart/speedplotview.cpp
+    src/components/speedchart/speedwidget.cpp
+    src/components/darkmode/DarkmodeDetector.cpp
+    src/components/update/UpdateChecker.cpp
+    src/core/connection/ConnectionIO.cpp
+    src/core/connection/Generation.cpp
+    src/core/connection/Serialization.cpp
+    src/core/connection/Serialization_ss.cpp
+    src/core/connection/Serialization_ssd.cpp
+    src/core/connection/Serialization_vmess.cpp
+    src/core/CoreUtils.cpp
+    src/core/handler/ConfigHandler.cpp
+    src/core/handler/KernelInstanceHandler.cpp
+    src/core/kernel/APIBackend.cpp
+    src/core/kernel/V2rayKernelInteractions.cpp
+    src/core/kernel/PluginKernelInteractions.cpp
+    src/core/kernel/QvKernelABIChecker.cpp
+    src/core/settings/SettingsBackend.cpp
+    src/core/settings/SettingsUpgrade.cpp
+    src/main.cpp
+    src/ui/editors/w_InboundEditor.cpp
+    src/ui/editors/w_JsonEditor.cpp
+    src/ui/editors/w_OutboundEditor.cpp
+    src/ui/editors/w_RoutesEditor.cpp
+    src/ui/editors/w_RoutesEditor_extra.cpp
+    src/ui/messaging/QvMessageBus.cpp
+    src/ui/models/InboundNodeModel.cpp
+    src/ui/models/OutboundNodeModel.cpp
+    src/ui/models/RuleNodeModel.cpp
+    src/ui/widgets/ConnectionInfoWidget.cpp
+    src/ui/widgets/ConnectionItemWidget.cpp
+    src/ui/widgets/QvAutoCompleteTextEdit.cpp
+    src/ui/widgets/StreamSettingsWidget.cpp
+    src/ui/widgets/RouteSettingsMatrix.cpp
+    src/ui/w_ImportConfig.cpp
+    src/ui/w_MainWindow.cpp
+    src/ui/w_MainWindow_extra.cpp
+    src/ui/w_PreferencesWindow.cpp
+    src/ui/w_PluginManager.cpp
+    src/ui/w_ScreenShot_Core.cpp
+    src/ui/w_SubscriptionManager.cpp
+    # ui files
+    src/ui/w_SubscriptionManager.ui
+    src/ui/editors/w_OutboundEditor.ui
+    src/ui/editors/w_InboundEditor.ui
+    src/ui/editors/w_JsonEditor.ui
+    src/ui/editors/w_RoutesEditor.ui
+    src/ui/w_ImportConfig.ui
+    src/ui/widgets/StreamSettingsWidget.ui
+    src/ui/widgets/ConnectionInfoWidget.ui
+    src/ui/widgets/ConnectionItemWidget.ui
+    src/ui/widgets/RouteSettingsMatrix.ui
+    src/ui/w_MainWindow.ui
+    src/ui/w_PreferencesWindow.ui
+    src/ui/w_PluginManager.ui
+    src/ui/w_ScreenShot_Core.ui
+    # headers
+    3rdparty/libsemver/version.hpp
+    src/base/JsonHelpers.hpp
+    src/base/models/CoreObjectModels.hpp
+    src/base/models/QvConfigIdentifier.hpp
+    src/base/models/QvRuntimeConfig.hpp
+    src/base/models/QvSafeType.hpp
+    src/base/models/QvSettingsObject.hpp
+    src/base/models/QvStartupConfig.hpp
+    src/base/Qv2rayBase.hpp
+    src/base/Qv2rayFeatures.hpp
+    src/base/Qv2rayLog.hpp
+    src/common/CommandArgs.hpp
+    src/common/HTTPRequestHelper.hpp
+    src/common/JsonHighlighter.hpp
+    src/common/LogHighlighter.hpp
+    src/common/QJsonModel.hpp
+    src/common/QvHelpers.hpp
+    src/common/QvTranslator.hpp
+    src/common/QRCodeHelper.hpp
+    src/components/autolaunch/QvAutoLaunch.hpp
+    src/components/darkmode/DarkmodeDetector.hpp
+    src/components/geosite/QvGeositeReader.hpp
+    src/components/latency/win/ICMPPinger.hpp
+    src/components/latency/QvTCPing.hpp
+    src/components/plugins/toolbar/QvToolbar.hpp
+    src/components/plugins/QvPluginHost.hpp
+    src/components/proxy/QvProxyConfigurator.hpp
+    src/components/route/RouteSchemeIO.hpp
+    src/components/route/presets/RouteScheme_V2rayN.hpp
+    src/components/speedchart/speedplotview.hpp
+    src/components/speedchart/speedwidget.hpp
+    src/components/update/UpdateChecker.hpp
+    src/core/connection/ConnectionIO.hpp
+    src/core/connection/Generation.hpp
+    src/core/connection/Serialization.hpp
+    src/core/CoreSafeTypes.hpp
+    src/core/CoreUtils.hpp
+    src/core/handler/ConfigHandler.hpp
+    src/core/handler/KernelInstanceHandler.hpp
+    src/core/kernel/APIBackend.hpp
+    src/core/kernel/V2rayKernelInteractions.hpp
+    src/core/kernel/PluginKernelInteractions.hpp
+    src/core/kernel/QvKernelABIChecker.hpp
+    src/core/settings/SettingsBackend.hpp
+    src/ui/editors/w_InboundEditor.hpp
+    src/ui/editors/w_JsonEditor.hpp
+    src/ui/editors/w_OutboundEditor.hpp
+    src/ui/editors/w_RoutesEditor.hpp
+    src/ui/messaging/QvMessageBus.hpp
+    src/ui/models/InboundNodeModel.hpp
+    src/ui/models/NodeModelsBase.hpp
+    src/ui/models/OutboundNodeModel.hpp
+    src/ui/models/RuleNodeModel.hpp
+    src/ui/widgets/ConnectionInfoWidget.hpp
+    src/ui/widgets/ConnectionItemWidget.hpp
+    src/ui/widgets/QvAutoCompleteTextEdit.hpp
+    src/ui/widgets/StreamSettingsWidget.hpp
+    src/ui/widgets/RouteSettingsMatrix.hpp
+    src/ui/w_ImportConfig.hpp
+    src/ui/w_MainWindow.hpp
+    src/ui/w_PreferencesWindow.hpp
+    src/ui/w_PluginManager.hpp
+    src/ui/w_ScreenShot_Core.hpp
+    src/ui/w_SubscriptionManager.hpp
+    assets/qv2ray.rc
+    )
 
 if(EMBED_TRANSLATIONS)
-  add_definitions(-DEMBED_TRANSLATIONS)
-  configure_file(translations/translations.qrc ${CMAKE_BINARY_DIR} COPYONLY)
-  list(APPEND QV2RAY_SOURCES ${CMAKE_BINARY_DIR}/translations.qrc)
+    add_definitions(-DEMBED_TRANSLATIONS)
+    configure_file(translations/translations.qrc ${CMAKE_BINARY_DIR} COPYONLY)
+    list(APPEND QV2RAY_SOURCES ${CMAKE_BINARY_DIR}/translations.qrc)
 endif()
 
 add_custom_target(lupdate
@@ -305,123 +314,125 @@ set(QT_LIBRARY
     Qt5::Gui
     Qt5::Widgets
     Qt5::Network
-)
+    )
 
 add_executable(${PROJECT_NAME}
-  ${GUI_TYPE}
-  ${QV2RAY_SOURCES}
-  ${QNODEEDITOR_SOURCES}
-  ${QNODEEDITOR_QRC_RESOURCES}
-  ${SINGLEAPPLICATION_SOURCES}
-  ${ZXING_SOURCES}
-  ${PROTO_SRCS}
-  ${PROTO_HDRS}
-  ${API_GRPC_SRCS}
-  ${API_PROTO_SRCS}
-  ${QRC_RESOURCES}
-  ${QM_FILES}
-)
+    ${GUI_TYPE}
+    ${QV2RAY_SOURCES}
+    ${QNODEEDITOR_SOURCES}
+    ${QNODEEDITOR_QRC_RESOURCES}
+    ${SINGLEAPPLICATION_SOURCES}
+    ${ZXING_SOURCES}
+    ${PROTO_SRCS}
+    ${PROTO_HDRS}
+    ${API_GRPC_SRCS}
+    ${API_PROTO_SRCS}
+    ${QRC_RESOURCES}
+    ${QM_FILES}
+    )
 
 target_link_libraries(${PROJECT_NAME}
-  ${QT_LIBRARY}
-  ${QV2RAY_PROTOBUF_LIBRARY}
-  ${QV2RAY_BACKEND_LIBRARIES}
-  ${QNODEEDITOR_LIBRARY}
-  ${ZXING_LIBRARY}
-)
+    ${QT_LIBRARY}
+    ${QV2RAY_PROTOBUF_LIBRARY}
+    ${QV2RAY_BACKEND_LIBRARIES}
+    ${QNODEEDITOR_LIBRARY}
+    ${ZXING_LIBRARY}
+    )
 
 
 target_include_directories(${PROJECT_NAME} PRIVATE
-  ${CMAKE_CURRENT_SOURCE_DIR}
-  ${CMAKE_CURRENT_SOURCE_DIR}/src
-  ${CMAKE_BINARY_DIR}
-  ${QHTTPSERVER_DIR}
-  ${QNODEEDITOR_INCLUDE_PATH}
-  ${ZXING_INCLUDE_PATH}
-  ${SINGLEAPPLICATION_DIR}
-  ${Protobuf_INCLUDE_DIRS}
-  ${cpp-httplib_INCLUDE_DIRS}
-)
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
+    ${CMAKE_BINARY_DIR}
+    ${QHTTPSERVER_DIR}
+    ${QNODEEDITOR_INCLUDE_PATH}
+    ${ZXING_INCLUDE_PATH}
+    ${SINGLEAPPLICATION_DIR}
+    ${Protobuf_INCLUDE_DIRS}
+    ${cpp-httplib_INCLUDE_DIRS}
+    )
 
 if(APPLE)
     find_package(Iconv REQUIRED)
     target_link_libraries(${PROJECT_NAME}
-      Iconv::Iconv
-      "-framework Carbon"
-      "-framework Cocoa"
-      "-framework Security"
-    )
+        Iconv::Iconv
+        "-framework Carbon"
+        "-framework Cocoa"
+        "-framework Security"
+        )
     target_include_directories(${PROJECT_NAME} PRIVATE
-      ${Iconv_INCLUDE_DIR}
-    )
+        ${Iconv_INCLUDE_DIR}
+        )
 
     set(MACOSX_ICON "${CMAKE_SOURCE_DIR}/assets/icons/qv2ray.icns")
+    set(MACOSX_PLIST "${CMAKE_SOURCE_DIR}/assets/MacOSXBundleInfo.plist.in")
     set_source_files_properties(${QM_FILES}
-                                PROPERTIES
-                                  MACOSX_PACKAGE_LOCATION Resources/lang
-    )
+        PROPERTIES
+        MACOSX_PACKAGE_LOCATION Resources/lang
+        )
 
     target_sources(${PROJECT_NAME} PRIVATE
-                  ${MACOSX_ICON}
-    )
+        ${MACOSX_ICON}
+        )
 
     set_target_properties(${PROJECT_NAME}
-                          PROPERTIES
-                            MACOSX_BUNDLE TRUE
-                            MACOSX_BUNDLE_BUNDLE_NAME "Qv2ray"
-                            MACOSX_BUNDLE_BUNDLE_VERSION ${QV2RAY_VERSION_STRING}
-                            MACOSX_BUNDLE_COPYRIGHT "Copyright (c) 2019-2020 Qv2ray Development Group"
-                            MACOSX_BUNDLE_GUI_IDENTIFIER "com.github.qv2ray"
-                            MACOSX_BUNDLE_ICON_FILE "qv2ray.icns"
-                            MACOSX_BUNDLE_INFO_STRING "Created by Qv2ray development team"
-                            MACOSX_BUNDLE_LONG_VERSION_STRING ${QV2RAY_VERSION_STRING}
-                            MACOSX_BUNDLE_SHORT_VERSION_STRING ${QV2RAY_VERSION_STRING}
-                          RESOURCE 
-                            ${MACOSX_ICON}
-    )
+        PROPERTIES
+        MACOSX_BUNDLE TRUE
+        MACOSX_BUNDLE_INFO_PLIST ${MACOSX_PLIST}
+        MACOSX_BUNDLE_BUNDLE_NAME "Qv2ray"
+        MACOSX_BUNDLE_BUNDLE_VERSION ${QV2RAY_VERSION_STRING}
+        MACOSX_BUNDLE_COPYRIGHT "Copyright (c) 2019-2020 Qv2ray Development Group"
+        MACOSX_BUNDLE_GUI_IDENTIFIER "com.github.qv2ray"
+        MACOSX_BUNDLE_ICON_FILE "qv2ray.icns"
+        MACOSX_BUNDLE_INFO_STRING "Created by Qv2ray development team"
+        MACOSX_BUNDLE_LONG_VERSION_STRING ${QV2RAY_VERSION_STRING}
+        MACOSX_BUNDLE_SHORT_VERSION_STRING ${QV2RAY_VERSION_STRING}
+        RESOURCE
+        ${MACOSX_ICON}
+        )
 
     # Destination paths below are relative to ${CMAKE_INSTALL_PREFIX}
     install(TARGETS ${PROJECT_NAME}
-          BUNDLE DESTINATION . COMPONENT Runtime
-          RUNTIME DESTINATION bin COMPONENT Runtime
-    )
+        BUNDLE DESTINATION . COMPONENT Runtime
+        RUNTIME DESTINATION bin COMPONENT Runtime
+        )
     
     add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-                      COMMAND macdeployqt ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.app
-    )
+        COMMAND macdeployqt ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.app
+        )
     set(APPS "\${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app")
     include(cmake/deployment.cmake)
 endif()
 
 if(UNIX AND NOT APPLE AND NOT WIN32)
-  install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin)
-  install(FILES assets/qv2ray.metainfo.xml DESTINATION share/metainfo)
-  install(FILES assets/qv2ray.desktop DESTINATION share/applications)
-  install(FILES assets/icons/qv2ray.png DESTINATION share/icons/hicolor/256x256/apps)
-  if(NOT EMBED_TRANSLATIONS)
-    install(FILES ${QM_FILES} DESTINATION share/qv2ray/lang)
-  endif()
+    install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin)
+    install(FILES assets/qv2ray.metainfo.xml DESTINATION share/metainfo)
+    install(FILES assets/qv2ray.desktop DESTINATION share/applications)
+    install(FILES assets/icons/qv2ray.png DESTINATION share/icons/hicolor/256x256/apps)
+    if(NOT EMBED_TRANSLATIONS)
+        install(FILES ${QM_FILES} DESTINATION share/qv2ray/lang)
+    endif()
 endif()
 
 if(WIN32)
-  target_link_libraries(${PROJECT_NAME} wininet wsock32 ws2_32 user32)
-  install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION .)
-  if(NOT EMBED_TRANSLATIONS)
-    install(FILES ${QM_FILES} DESTINATION lang)
-  endif()
-  
-  if(CMAKE_CL_64)
-    install(FILES ${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin/libssl-1_1-x64.dll DESTINATION .)
-    install(FILES ${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin/libcrypto-1_1-x64.dll DESTINATION .)
-  else()
-    install(FILES ${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin/libssl-1_1.dll DESTINATION .)
-    install(FILES ${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin/libcrypto-1_1.dll DESTINATION .)
-  endif()
+    target_link_libraries(${PROJECT_NAME} wininet wsock32 ws2_32 user32)
+    install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION .)
+    if(NOT EMBED_TRANSLATIONS)
+        install(FILES ${QM_FILES} DESTINATION lang)
+    endif()
 
-  add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-                    COMMAND windeployqt ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.exe --compiler-runtime --verbose 2 --dir ${CMAKE_BINARY_DIR}/winqt/
-  )
-  install(DIRECTORY ${CMAKE_BINARY_DIR}/winqt/ DESTINATION .)
-  set(APPS "\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.exe")
-  include(cmake/deployment.cmake)
+    if(CMAKE_CL_64)
+        install(FILES ${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin/libssl-1_1-x64.dll DESTINATION .)
+        install(FILES ${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin/libcrypto-1_1-x64.dll DESTINATION .)
+    else()
+        install(FILES ${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin/libssl-1_1.dll DESTINATION .)
+        install(FILES ${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin/libcrypto-1_1.dll DESTINATION .)
+    endif()
+
+    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+        COMMAND windeployqt ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.exe --compiler-runtime --verbose 2 --dir ${CMAKE_BINARY_DIR}/winqt/
+        )
+    install(DIRECTORY ${CMAKE_BINARY_DIR}/winqt/ DESTINATION .)
+    set(APPS "\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.exe")
+    include(cmake/deployment.cmake)
 endif()
