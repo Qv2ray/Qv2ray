@@ -147,17 +147,16 @@ jobs:
           wget https://github.com/probonopd/linuxdeployqt/releases/download/6/linuxdeployqt-6-x86_64.AppImage
           chmod +x ./linuxdeployqt-6-x86_64.AppImage
           ./linuxdeployqt-6-x86_64.AppImage --appimage-extract
-          cd AppDir
-          wget -c https://github.com/darealshinji/AppImageKit-checkrt/releases/download/continuous/AppRun-patched-x86_64 -O AppRun
-          chmod a+x AppRun
-          mkdir -p ./usr/{lib,optional}/
-          wget -c https://github.com/darealshinji/AppImageKit-checkrt/releases/download/continuous/exec-x86_64.so -O ./usr/optional/exec.so
-          mkdir -p ./usr/optional/libstdc++/
-          cp -fv /usr/lib/x86_64-linux-gnu/libstdc++.so.6 ./usr/optional/libstdc++/
-          mkdir -p ./usr/optional/libgcc_s/
-          cp -fv /lib/x86_64-linux-gnu/libgcc_s.so.1 ./usr/optional/libgcc_s/
-          cp -fv /usr/lib/x86_64-linux-gnu/{libssl.so.1.1,libcrypto.so.1.1} ./usr/lib/
-          ../squashfs-root/AppRun usr/share/applications/qv2ray.desktop -appimage -no-strip -always-overwrite
+          wget -c https://github.com/darealshinji/AppImageKit-checkrt/releases/download/continuous/AppRun-patched-x86_64 -O AppDir/AppRun
+          chmod a+x AppDir/AppRun
+          mkdir -p AppDir/usr/{lib,optional}/
+          wget -c https://github.com/darealshinji/AppImageKit-checkrt/releases/download/continuous/exec-x86_64.so -O AppDir/usr/optional/exec.so
+          mkdir -p AppDir/usr/optional/libstdc++/
+          cp -fv /usr/lib/x86_64-linux-gnu/libstdc++.so.6 AppDir/usr/optional/libstdc++/
+          mkdir -p AppDir/usr/optional/libgcc_s/
+          cp -fv /lib/x86_64-linux-gnu/libgcc_s.so.1 AppDir/usr/optional/libgcc_s/
+          cp -fv /usr/lib/x86_64-linux-gnu/{libssl.so.1.1,libcrypto.so.1.1} AppDir/usr/lib/
+          squashfs-root/AppRun AppDir/usr/share/applications/qv2ray.desktop -appimage -no-strip -always-overwrite
           mv ./Qv2ray*.AppImage ./Qv2ray.AppImage
       - name: Linux - ${{ matrix.qt_version }} - Uploading artifact
         if: matrix.platform == 'ubuntu-16.04'
