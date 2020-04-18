@@ -51,17 +51,16 @@ namespace Qv2ray::components
         LOG(MODULE_UPDATE, "Received update info, Latest: " + newVersionStr + //
                                " Current: " + currentVersionStr +             //
                                " Ignored: " + ignoredVersionStr)
-        //
-        const auto name = root["name"].toString("");
-        if (name.contains("NO_RELEASE"))
-        {
-            LOG(MODULE_UPDATE, "Found the recent release title with NO_RELEASE tag. Ignoring")
-            return;
-        }
         // If the version is newer than us.
         // And new version is newer than the ignored version.
         if (newVersion > currentVersion && newVersion > ignoredVersion)
         {
+            const auto name = root["name"].toString("");
+            if (name.contains("NO_RELEASE"))
+            {
+                LOG(MODULE_UPDATE, "Found the recent release title with NO_RELEASE tag. Ignoring")
+                return;
+            }
             const auto link = root["html_url"].toString("");
             auto result = QvMessageBoxAsk(nullptr, //
                                           tr("Qv2ray Update"),
@@ -73,7 +72,7 @@ namespace Qv2ray::components
 
             if (result == QMessageBox::Yes)
             {
-                QDesktopServices::openUrl(QUrl::fromUserInput(link));
+                QDesktopServices::openUrl(link);
             }
             else if (result == QMessageBox::Ignore)
             {
@@ -81,6 +80,10 @@ namespace Qv2ray::components
                 GlobalConfig.updateConfig.ignoredVersion = QString::fromStdString(newVersion.str());
                 SaveGlobalSettings();
             }
+        }
+        else
+        {
+            LOG(MODULE_UPDATE, "No suitable updates found on channel " + QSTRN(GlobalConfig.updateConfig.updateChannel))
         }
     }
 } // namespace Qv2ray::components

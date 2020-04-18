@@ -589,6 +589,8 @@ namespace Qv2ray::core::handlers
 
     void QvConfigHandler::OnStatsDataArrived_p(const ConnectionId &id, const quint64 uploadSpeed, const quint64 downloadSpeed)
     {
+        if (id == NullConnectionId)
+            return;
         connections[id].upLinkData += uploadSpeed;
         connections[id].downLinkData += downloadSpeed;
         emit OnStatsAvailable(id, uploadSpeed, downloadSpeed, connections[id].upLinkData, connections[id].downLinkData);
