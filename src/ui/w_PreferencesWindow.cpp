@@ -34,7 +34,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     setupUi(this);
     //
     // We currently don't support this feature.
-//    tProxyGroupBox->setVisible(false);
+    //    tProxyGroupBox->setVisible(false);
     tProxyCheckBox->setVisible(false);
     label_7->setVisible(false);
     //
@@ -119,7 +119,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     socksUDPIP->setText(CurrentConfig.inboundConfig.socksLocalIP);
     //
     //
-    bool have_tproxy=CurrentConfig.inboundConfig.useTPROXY;
+    bool have_tproxy = CurrentConfig.inboundConfig.useTPROXY;
     tproxGroupBox->setChecked(have_tproxy);
     tproxyListenAddr->setText(CurrentConfig.inboundConfig.tproxy_ip);
     tproxyEnableTCP->setChecked(CurrentConfig.inboundConfig.tproxy_use_tcp);
@@ -1212,36 +1212,35 @@ void PreferencesWindow::on_quietModeCB_stateChanged(int arg1)
 void PreferencesWindow::on_tproxGroupBox_toggled(bool arg1)
 {
     NEEDRESTART
-    CurrentConfig.inboundConfig.useTPROXY=arg1;
+    CurrentConfig.inboundConfig.useTPROXY = arg1;
 }
 
 void PreferencesWindow::on_tProxyPort_valueChanged(int arg1)
 {
     NEEDRESTART
-    CurrentConfig.inboundConfig.tproxy_port=arg1;
+    CurrentConfig.inboundConfig.tproxy_port = arg1;
 }
 
 void PreferencesWindow::on_tproxyEnableTCP_toggled(bool checked)
 {
     NEEDRESTART
-    CurrentConfig.inboundConfig.tproxy_use_tcp=checked;
+    CurrentConfig.inboundConfig.tproxy_use_tcp = checked;
 }
-
 
 void PreferencesWindow::on_tproxyEnableUDP_toggled(bool checked)
 {
     NEEDRESTART
-    CurrentConfig.inboundConfig.tproxy_use_udp=checked;
+    CurrentConfig.inboundConfig.tproxy_use_udp = checked;
 }
 
 void PreferencesWindow::on_tproxyFollowRedirect_toggled(bool checked)
 {
     NEEDRESTART
-    CurrentConfig.inboundConfig.tproxy_followRedirect=checked;
+    CurrentConfig.inboundConfig.tproxy_followRedirect = checked;
 }
 
 void PreferencesWindow::on_tproxyMode_currentTextChanged(const QString &arg1)
 {
     NEEDRESTART
-    CurrentConfig.inboundConfig.tproxy_mode=arg1;
+    CurrentConfig.inboundConfig.tproxy_mode = arg1;
 }

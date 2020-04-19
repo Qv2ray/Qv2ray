@@ -190,7 +190,7 @@ class PreferencesWindow
 
     void on_tproxyMode_currentTextChanged(const QString &arg1);
 
-private:
+  private:
     //
     RouteSettingsMatrixWidget *routeSettingsWidget;
     void SetAutoStartButtonsState(bool isAutoStart);
