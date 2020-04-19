@@ -25,9 +25,6 @@ if(QV2RAY_QNODEEDITOR_PROVIDER STREQUAL "module")
         ${QNODEEDITOR_DIR}/src/StyleCollection.cpp
     )
     set(QNODEEDITOR_INCLUDE_PATH
-        ${QNODEEDITOR_DIR}/src/
-        ${QNODEEDITOR_DIR}/include/
-        ${QNODEEDITOR_DIR}/include/nodes/
         ${QNODEEDITOR_DIR}/include/nodes/internal
     )
 
@@ -71,5 +68,4 @@ if(QV2RAY_QNODEEDITOR_PROVIDER STREQUAL "module")
 elseif(QV2RAY_QNODEEDITOR_PROVIDER STREQUAL "package")
     find_package(NodeEditor REQUIRED CONFIG)
     set(QNODEEDITOR_LIBRARY NodeEditor::nodes)
-    find_path(QNODEEDITOR_INCLUDE_PATH Node.hpp PATH_SUFFIXES nodes/internal)
 endif()

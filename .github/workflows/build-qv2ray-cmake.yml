@@ -81,7 +81,7 @@ jobs:
       - name: macOS - ${{ matrix.qt_version }} - Build preparation - Install Packages 
         if: matrix.platform == 'macos-latest'
         run: |
-          brew install protobuf grpc ninja
+          brew install protobuf grpc ninja pkg-config
 # --------------------------------------------------------
       - name: Win-${{ matrix.arch }} - ${{ matrix.qt_version }} - Build preparation - Download Dependencies
         shell: bash
@@ -110,9 +110,9 @@ jobs:
           mkdir build
           cd build
           cmake .. -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_OSX_DEPLOYMENT_TARGET=10.13 -DDS_STORE_SCRIPT=ON
-          sudo cmake --build . --parallel $(sysctl -n hw.logicalcpu)
+          cmake --build . --parallel $(sysctl -n hw.logicalcpu)
           sudo cmake --install .
-          sudo appdmg ../assets/package_dmg.json ../Qv2ray.dmg
+          appdmg ../assets/package_dmg.json ../Qv2ray.dmg
 # --------------------------------------------------------        
       - name: Windows - ${{ matrix.qt_version }} - Generate Dependencies and Build
         shell: bash

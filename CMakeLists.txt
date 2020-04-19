@@ -76,9 +76,7 @@ if(WIN32)
     endif()
 endif()
 
-if(UNIX AND NOT APPLE)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
-endif()
+find_package(Threads REQUIRED)
 
 set(QV2RAY_QNODEEDITOR_PROVIDER "module" CACHE STRING "qnodeeditor provider")
 set(QV2RAY_ZXING_PROVIDER "module" CACHE STRING "zxing-cpp provider")
@@ -337,6 +335,7 @@ target_link_libraries(${PROJECT_NAME}
     ${QV2RAY_BACKEND_LIBRARIES}
     ${QNODEEDITOR_LIBRARY}
     ${ZXING_LIBRARY}
+    Threads::Threads
     )
 
 
