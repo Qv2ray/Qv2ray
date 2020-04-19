@@ -111,7 +111,7 @@ jobs:
           cd build
           cmake .. -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_OSX_DEPLOYMENT_TARGET=10.13 -DDS_STORE_SCRIPT=ON
           cmake --build . --parallel $(sysctl -n hw.logicalcpu)
-          cmake --install .
+          sudo cmake --install .
           appdmg ../assets/package_dmg.json ../Qv2ray.dmg
 # --------------------------------------------------------        
       - name: Windows - ${{ matrix.qt_version }} - Generate Dependencies and Build
