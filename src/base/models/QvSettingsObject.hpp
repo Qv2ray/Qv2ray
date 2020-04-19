@@ -75,14 +75,25 @@ namespace Qv2ray::base::config
         bool http_useAuth;
         objects::AccountObject httpAccount;
 
+        //dokodemo-door transparent proxy
+        bool useTPROXY;
+        QString tproxy_ip;
+        int tproxy_port;
+        bool tproxy_use_tcp;
+        bool tproxy_use_udp;
+        bool tproxy_followRedirect;
+        /*redirect or tproxy way, and tproxy need cap_net_admin*/
+        QString tproxy_mode;
+
         Qv2rayInboundsConfig()
             : listenip("127.0.0.1"), setSystemProxy(true), useSocks(true), socks_port(1088), socks_useAuth(false), socksUDP(true),
-              socksLocalIP("127.0.0.1"), socksAccount(), useHTTP(true), http_port(8888), http_useAuth(false), httpAccount()
+              socksLocalIP("127.0.0.1"), socksAccount(), useHTTP(true), http_port(8888), http_useAuth(false), httpAccount(),
+              useTPROXY(false),tproxy_ip("127.0.0.1"),tproxy_port(12345),tproxy_use_tcp(true),tproxy_use_udp(false),tproxy_followRedirect(true),tproxy_mode("tproxy")
         {
         }
 
         XTOSTRUCT(O(setSystemProxy, listenip, useSocks, useHTTP, socks_port, socks_useAuth, socksAccount, socksUDP, socksLocalIP, http_port,
-                    http_useAuth, httpAccount))
+                    http_useAuth, httpAccount,useTPROXY,tproxy_ip,tproxy_port,tproxy_use_tcp,tproxy_use_udp,tproxy_followRedirect,tproxy_mode))
     };
 
     struct Qv2rayUIConfig

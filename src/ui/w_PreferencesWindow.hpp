@@ -178,7 +178,19 @@ class PreferencesWindow
 
     void on_quietModeCB_stateChanged(int arg1);
 
-  private:
+    void on_tproxGroupBox_toggled(bool arg1);
+
+    void on_tProxyPort_valueChanged(int arg1);
+
+    void on_tproxyEnableTCP_toggled(bool checked);
+
+    void on_tproxyEnableUDP_toggled(bool checked);
+
+    void on_tproxyFollowRedirect_toggled(bool checked);
+
+    void on_tproxyMode_currentTextChanged(const QString &arg1);
+
+private:
     //
     RouteSettingsMatrixWidget *routeSettingsWidget;
     void SetAutoStartButtonsState(bool isAutoStart);

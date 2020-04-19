@@ -34,7 +34,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     setupUi(this);
     //
     // We currently don't support this feature.
-    tProxyGroupBox->setVisible(false);
+//    tProxyGroupBox->setVisible(false);
     //
     QvMessageBusConnect(PreferencesWindow);
     textBrowser->setHtml(StringFromFile(":/assets/credit.html"));
@@ -115,6 +115,15 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     socksUDPCB->setChecked(CurrentConfig.inboundConfig.socksUDP);
     socksUDPIP->setEnabled(CurrentConfig.inboundConfig.socksUDP);
     socksUDPIP->setText(CurrentConfig.inboundConfig.socksLocalIP);
+    //
+    //
+    bool have_tproxy=CurrentConfig.inboundConfig.useTPROXY;
+    tproxGroupBox->setChecked(have_tproxy);
+    tproxyListenAddr->setText(CurrentConfig.inboundConfig.tproxy_ip);
+    tproxyEnableTCP->setChecked(CurrentConfig.inboundConfig.tproxy_use_tcp);
+    tproxyEnableUDP->setChecked(CurrentConfig.inboundConfig.tproxy_use_udp);
+    tproxyFollowRedirect->setChecked(CurrentConfig.inboundConfig.tproxy_followRedirect);
+    tproxyMode->setCurrentText(CurrentConfig.inboundConfig.tproxy_mode);
     //
     //
     vCorePathTxt->setText(CurrentConfig.kernelConfig.KernelPath());
@@ -261,6 +270,12 @@ void PreferencesWindow::on_buttonBox_accepted()
     {
         size++;
         ports << CurrentConfig.inboundConfig.socks_port;
+    }
+
+    if (CurrentConfig.inboundConfig.useTPROXY)
+    {
+        size++;
+        ports << CurrentConfig.inboundConfig.tproxy_port;
     }
 
     if (!StartupOption.noAPI)
@@ -1190,4 +1205,41 @@ void PreferencesWindow::on_quietModeCB_stateChanged(int arg1)
 {
     LOADINGCHECK
     CurrentConfig.uiConfig.quietMode = arg1 == Qt::Checked;
+}
+
+void PreferencesWindow::on_tproxGroupBox_toggled(bool arg1)
+{
+    NEEDRESTART
+    CurrentConfig.inboundConfig.useTPROXY=arg1;
+}
+
+void PreferencesWindow::on_tProxyPort_valueChanged(int arg1)
+{
+    NEEDRESTART
+    CurrentConfig.inboundConfig.tproxy_port=arg1;
+}
+
+void PreferencesWindow::on_tproxyEnableTCP_toggled(bool checked)
+{
+    NEEDRESTART
+    CurrentConfig.inboundConfig.tproxy_use_tcp=checked;
+}
+
+
+void PreferencesWindow::on_tproxyEnableUDP_toggled(bool checked)
+{
+    NEEDRESTART
+    CurrentConfig.inboundConfig.tproxy_use_udp=checked;
+}
+
+void PreferencesWindow::on_tproxyFollowRedirect_toggled(bool checked)
+{
+    NEEDRESTART
+    CurrentConfig.inboundConfig.tproxy_followRedirect=checked;
+}
+
+void PreferencesWindow::on_tproxyMode_currentTextChanged(const QString &arg1)
+{
+    NEEDRESTART
+    CurrentConfig.inboundConfig.tproxy_mode=arg1;
 }
