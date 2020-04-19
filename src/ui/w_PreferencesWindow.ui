@@ -9,19 +9,28 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>840</width>
-    <height>572</height>
+    <width>773</width>
+    <height>632</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Preferences</string>
   </property>
+  <property name="layoutDirection">
+   <enum>Qt::LeftToRight</enum>
+  </property>
   <property name="modal">
    <bool>true</bool>
   </property>
-  <layout class="QFormLayout" name="formLayout_11">
+  <layout class="QGridLayout" name="gridLayout_4">
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="currentIndex">
       <number>2</number>
      </property>
@@ -37,110 +46,78 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
-        <layout class="QGridLayout" name="gridLayout_3" columnstretch="1,1">
-         <item row="0" column="0">
-          <widget class="QGroupBox" name="groupBox_4">
+        <layout class="QGridLayout" name="gridLayout_3" columnstretch="1,0">
+         <item row="1" column="1">
+          <widget class="QGroupBox" name="groupBox_8">
            <property name="title">
-            <string>Appearance</string>
+            <string>Advanced Behavior</string>
            </property>
-           <layout class="QFormLayout" name="formLayout_12">
-            <item row="0" column="0">
-             <widget class="QLabel" name="darkThemeLabel">
-              <property name="text">
-               <string>Darkmode UI Icons</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QCheckBox" name="darkThemeCB">
-              <property name="text">
-               <string>Enabled</string>
-              </property>
-             </widget>
-            </item>
+           <layout class="QFormLayout" name="formLayout_5">
             <item row="1" column="0">
-             <widget class="QLabel" name="label_36">
+             <widget class="QLabel" name="label_82">
               <property name="text">
-               <string>Darkmode Tray Icon</string>
+               <string>AllowInsecure By Default</string>
               </property>
              </widget>
             </item>
             <item row="1" column="1">
-             <widget class="QCheckBox" name="darkTrayCB">
+             <widget class="QCheckBox" name="setAllowInsecureCB">
+              <property name="toolTip">
+               <string>Enable &quot;AllowInsecure&quot; settings for all connections when importing.
+This could resolve the certificate issues, but also could let one performing TLS MITM attack.</string>
+              </property>
               <property name="text">
                <string>Enabled</string>
               </property>
              </widget>
             </item>
             <item row="2" column="0">
-             <widget class="QLabel" name="label_35">
+             <widget class="QLabel" name="label_85">
               <property name="text">
-               <string>UI Theme</string>
+               <string>AllowInsecureCiphers By Default</string>
               </property>
              </widget>
             </item>
             <item row="2" column="1">
-             <widget class="QComboBox" name="themeCombo">
-              <property name="minimumSize">
-               <size>
-                <width>200</width>
-                <height>0</height>
-               </size>
+             <widget class="QCheckBox" name="setAllowInsecureCiphersCB">
+              <property name="text">
+               <string>Enabled</string>
               </property>
              </widget>
             </item>
             <item row="3" column="0">
-             <widget class="QLabel" name="label_6">
+             <widget class="QLabel" name="label_83">
               <property name="text">
-               <string>Language</string>
+               <string>Test Latency Periodcally</string>
               </property>
              </widget>
             </item>
             <item row="3" column="1">
-             <widget class="QComboBox" name="languageComboBox">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
+             <widget class="QCheckBox" name="setTestLatenctCB">
+              <property name="toolTip">
+               <string>Run TCPing or ICMPing periodcally after connecting to a server.
+Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</string>
               </property>
-              <property name="minimumSize">
-               <size>
-                <width>100</width>
-                <height>0</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="0">
-             <widget class="QLabel" name="label_48">
               <property name="text">
-               <string>Maximum log lines</string>
+               <string>Enabled</string>
               </property>
              </widget>
             </item>
-            <item row="4" column="1">
-             <widget class="QSpinBox" name="maxLogLinesSB">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
+            <item row="0" column="0" colspan="2">
+             <widget class="QLabel" name="label_84">
+              <property name="font">
+               <font>
+                <weight>50</weight>
+                <italic>true</italic>
+                <bold>false</bold>
+               </font>
               </property>
-              <property name="accelerated">
-               <bool>true</bool>
+              <property name="styleSheet">
+               <string notr="true">color: red;</string>
               </property>
-              <property name="suffix">
-               <string> lines</string>
-              </property>
-              <property name="minimum">
-               <number>10</number>
-              </property>
-              <property name="maximum">
-               <number>2500</number>
-              </property>
-              <property name="value">
-               <number>200</number>
+              <property name="text">
+               <string>These settings may be useful.
+But could damage your server if improperly used.</string>
               </property>
              </widget>
             </item>
@@ -333,77 +310,118 @@
            </layout>
           </widget>
          </item>
-         <item row="1" column="1">
-          <widget class="QGroupBox" name="groupBox_8">
+         <item row="0" column="0">
+          <widget class="QGroupBox" name="groupBox_4">
            <property name="title">
-            <string>Advanced Behavior</string>
+            <string>Appearance</string>
            </property>
-           <layout class="QFormLayout" name="formLayout_5">
-            <item row="1" column="0">
-             <widget class="QLabel" name="label_82">
+           <layout class="QFormLayout" name="formLayout_12">
+            <item row="0" column="0">
+             <widget class="QLabel" name="darkThemeLabel">
               <property name="text">
-               <string>AllowInsecure By Default</string>
+               <string>Darkmode UI Icons</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QCheckBox" name="darkThemeCB">
+              <property name="text">
+               <string>Enabled</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_36">
+              <property name="text">
+               <string>Darkmode Tray Icon</string>
               </property>
              </widget>
             </item>
             <item row="1" column="1">
-             <widget class="QCheckBox" name="setAllowInsecureCB">
-              <property name="toolTip">
-               <string>Enable &quot;AllowInsecure&quot; settings for all connections when importing.
-This could resolve the certificate issues, but also could let one performing TLS MITM attack.</string>
-              </property>
+             <widget class="QCheckBox" name="darkTrayCB">
               <property name="text">
                <string>Enabled</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0">
+             <widget class="QLabel" name="label_6">
+              <property name="text">
+               <string>Language</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="1">
+             <widget class="QComboBox" name="languageComboBox">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>100</width>
+                <height>0</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="0">
+             <widget class="QLabel" name="label_48">
+              <property name="text">
+               <string>Maximum log lines</string>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="1">
+             <widget class="QSpinBox" name="maxLogLinesSB">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="accelerated">
+               <bool>true</bool>
+              </property>
+              <property name="suffix">
+               <string> lines</string>
+              </property>
+              <property name="minimum">
+               <number>10</number>
+              </property>
+              <property name="maximum">
+               <number>2500</number>
+              </property>
+              <property name="value">
+               <number>200</number>
               </property>
              </widget>
             </item>
             <item row="2" column="0">
-             <widget class="QLabel" name="label_85">
+             <widget class="QLabel" name="label_35">
+              <property name="layoutDirection">
+               <enum>Qt::LeftToRight</enum>
+              </property>
+              <property name="autoFillBackground">
+               <bool>false</bool>
+              </property>
               <property name="text">
-               <string>AllowInsecureCiphers By Default</string>
+               <string>UI Theme</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
               </property>
              </widget>
             </item>
             <item row="2" column="1">
-             <widget class="QCheckBox" name="setAllowInsecureCiphersCB">
-              <property name="text">
-               <string>Enabled</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="0">
-             <widget class="QLabel" name="label_83">
-              <property name="text">
-               <string>Test Latency Periodcally</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="1">
-             <widget class="QCheckBox" name="setTestLatenctCB">
-              <property name="toolTip">
-               <string>Run TCPing or ICMPing periodcally after connecting to a server.
-Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</string>
-              </property>
-              <property name="text">
-               <string>Enabled</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="0" colspan="2">
-             <widget class="QLabel" name="label_84">
-              <property name="font">
-               <font>
-                <weight>50</weight>
-                <italic>true</italic>
-                <bold>false</bold>
-               </font>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">color: red;</string>
-              </property>
-              <property name="text">
-               <string>These settings may be useful.
-But could damage your server if improperly used.</string>
+             <widget class="QComboBox" name="themeCombo">
+              <property name="minimumSize">
+               <size>
+                <width>200</width>
+                <height>0</height>
+               </size>
               </property>
              </widget>
             </item>
@@ -669,8 +687,17 @@ Custom DNS Settings</string>
       <layout class="QGridLayout" name="gridLayout_7">
        <item row="0" column="0">
         <widget class="QScrollArea" name="scrollArea_2">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="frameShape">
           <enum>QFrame::NoFrame</enum>
+         </property>
+         <property name="sizeAdjustPolicy">
+          <enum>QAbstractScrollArea::AdjustIgnored</enum>
          </property>
          <property name="widgetResizable">
           <bool>true</bool>
@@ -680,393 +707,385 @@ Custom DNS Settings</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>727</width>
-            <height>554</height>
+            <width>720</width>
+            <height>606</height>
            </rect>
           </property>
-          <layout class="QGridLayout" name="gridLayout_10">
-           <item row="1" column="0">
-            <layout class="QGridLayout" name="gridLayout_9">
-             <item row="0" column="0">
-              <widget class="QGroupBox" name="socksGroupBox">
-               <property name="title">
-                <string>SOCKS Settings</string>
-               </property>
-               <property name="checkable">
-                <bool>true</bool>
-               </property>
-               <property name="checked">
-                <bool>false</bool>
-               </property>
-               <layout class="QFormLayout" name="formLayout_2">
-                <item row="0" column="0">
-                 <widget class="QLabel" name="label_4">
-                  <property name="text">
-                   <string>Port</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="1">
-                 <widget class="QSpinBox" name="socksPortLE">
-                  <property name="minimum">
-                   <number>1</number>
-                  </property>
-                  <property name="maximum">
-                   <number>65535</number>
-                  </property>
-                  <property name="value">
-                   <number>1081</number>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="0">
-                 <widget class="QLabel" name="label_14">
-                  <property name="text">
-                   <string>UDP Support</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="1">
-                 <widget class="QCheckBox" name="socksUDPCB">
-                  <property name="text">
-                   <string>Enabled</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="0">
-                 <widget class="QLabel" name="label_25">
-                  <property name="text">
-                   <string>UDP Local IP</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="1">
-                 <widget class="QLineEdit" name="socksUDPIP">
-                  <property name="placeholderText">
-                   <string notr="true">127.0.0.1</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="0">
-                 <widget class="QLabel" name="label_10">
-                  <property name="text">
-                   <string>Authentication</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="1">
-                 <widget class="QCheckBox" name="socksAuthCB">
-                  <property name="text">
-                   <string>Enabled</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="4" column="0">
-                 <widget class="QLabel" name="label_11">
-                  <property name="text">
-                   <string>Username</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="4" column="1">
-                 <widget class="QLineEdit" name="socksAuthUsernameTxt">
-                  <property name="placeholderText">
-                   <string notr="true">user</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="5" column="0">
-                 <widget class="QLabel" name="label_12">
-                  <property name="text">
-                   <string>Password</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="5" column="1">
-                 <widget class="QLineEdit" name="socksAuthPasswordTxt">
-                  <property name="placeholderText">
-                   <string notr="true">pass</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </widget>
-             </item>
-             <item row="0" column="1">
-              <widget class="QGroupBox" name="httpGroupBox">
-               <property name="title">
-                <string>HTTP Settings</string>
-               </property>
-               <property name="checkable">
-                <bool>true</bool>
-               </property>
-               <property name="checked">
-                <bool>false</bool>
-               </property>
-               <layout class="QFormLayout" name="formLayout_7">
-                <item row="0" column="0">
-                 <widget class="QLabel" name="label_3">
-                  <property name="text">
-                   <string>Port</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="1">
-                 <widget class="QSpinBox" name="httpPortLE">
-                  <property name="minimum">
-                   <number>1</number>
-                  </property>
-                  <property name="maximum">
-                   <number>65535</number>
-                  </property>
-                  <property name="value">
-                   <number>18001</number>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="0">
-                 <widget class="QLabel" name="label_9">
-                  <property name="text">
-                   <string>Authentication</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="1">
-                 <widget class="QCheckBox" name="httpAuthCB">
-                  <property name="text">
-                   <string>Enabled</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="0">
-                 <widget class="QLabel" name="label_2">
-                  <property name="text">
-                   <string>Username</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="1">
-                 <widget class="QLineEdit" name="httpAuthUsernameTxt">
-                  <property name="placeholderText">
-                   <string notr="true">user</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="0">
-                 <widget class="QLabel" name="label_13">
-                  <property name="text">
-                   <string>Password</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="1">
-                 <widget class="QLineEdit" name="httpAuthPasswordTxt">
-                  <property name="placeholderText">
-                   <string notr="true">pass</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </widget>
-             </item>
-             <item row="1" column="0" colspan="2">
-              <widget class="QGroupBox" name="tproxGroupBox">
-               <property name="title">
-                <string>Transparent Proxy Settings</string>
-               </property>
-               <property name="checkable">
-                <bool>true</bool>
-               </property>
-               <property name="checked">
-                <bool>false</bool>
-               </property>
-               <widget class="QWidget" name="">
-                <property name="geometry">
-                 <rect>
-                  <x>8</x>
-                  <y>36</y>
-                  <width>367</width>
-                  <height>130</height>
-                 </rect>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_2">
+           <item>
+            <widget class="QGroupBox" name="groupBox_2">
+             <property name="title">
+              <string/>
+             </property>
+             <layout class="QFormLayout" name="formLayout_11">
+              <item row="0" column="0">
+               <widget class="QLabel" name="label_22">
+                <property name="text">
+                 <string>Listening Address</string>
                 </property>
-                <layout class="QVBoxLayout" name="verticalLayout_2">
-                 <item>
-                  <widget class="QLabel" name="label_72">
-                   <property name="font">
-                    <font>
-                     <weight>75</weight>
-                     <italic>true</italic>
-                     <bold>true</bold>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>All settings below will only be applied on simple connection.</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <layout class="QHBoxLayout" name="horizontalLayout">
-                   <item>
-                    <widget class="QLabel" name="label_73">
-                     <property name="text">
-                      <string>Address</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLineEdit" name="tproxyListenAddr">
-                     <property name="placeholderText">
-                      <string>127.0.0.1</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLabel" name="label_77">
-                     <property name="text">
-                      <string>Port</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QSpinBox" name="tProxyPort">
-                     <property name="minimum">
-                      <number>1</number>
-                     </property>
-                     <property name="maximum">
-                      <number>65535</number>
-                     </property>
-                     <property name="value">
-                      <number>12345</number>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </item>
-                 <item>
-                  <layout class="QHBoxLayout" name="horizontalLayout_9">
-                   <item>
-                    <widget class="QCheckBox" name="tproxyEnableTCP">
-                     <property name="text">
-                      <string>TCP</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QCheckBox" name="tproxyEnableUDP">
-                     <property name="text">
-                      <string>UDP</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QCheckBox" name="tproxyFollowRedirect">
-                     <property name="text">
-                      <string>Follow Redirect</string>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </item>
-                 <item>
-                  <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="0,0">
-                   <property name="sizeConstraint">
-                    <enum>QLayout::SetMinimumSize</enum>
-                   </property>
-                   <item>
-                    <widget class="QLabel" name="label_78">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="text">
-                      <string>TProxy Mode</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QComboBox" name="tproxyMode">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <item>
-                      <property name="text">
-                       <string>redirect</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>tproxy</string>
-                      </property>
-                     </item>
-                    </widget>
-                   </item>
-                  </layout>
-                 </item>
-                </layout>
                </widget>
-              </widget>
-             </item>
-            </layout>
+              </item>
+              <item row="0" column="1">
+               <widget class="QLineEdit" name="listenIPTxt">
+                <property name="placeholderText">
+                 <string notr="true">'localhost', or IPv4 address, e.g. '127.0.0.1' or IPv6 address with brackets, e.g. [::1]</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLabel" name="label_59">
+                <property name="text">
+                 <string>Set System Proxy</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QCheckBox" name="setSysProxyCB">
+                <property name="text">
+                 <string>Set System Proxy</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
            </item>
-           <item row="3" column="0">
-            <spacer name="verticalSpacer_10">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="2" column="0">
-            <widget class="QDialogButtonBox" name="buttonBox">
+           <item>
+            <widget class="QSplitter" name="splitter">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
              </property>
-             <property name="standardButtons">
-              <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-             </property>
+             <widget class="QGroupBox" name="socksGroupBox">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="title">
+               <string>SOCKS Settings</string>
+              </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
+              <property name="checked">
+               <bool>false</bool>
+              </property>
+              <layout class="QFormLayout" name="formLayout_4">
+               <item row="0" column="0">
+                <widget class="QLabel" name="label_4">
+                 <property name="text">
+                  <string>Port</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QSpinBox" name="socksPortLE">
+                 <property name="minimum">
+                  <number>1</number>
+                 </property>
+                 <property name="maximum">
+                  <number>65535</number>
+                 </property>
+                 <property name="value">
+                  <number>1081</number>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="label_14">
+                 <property name="text">
+                  <string>UDP Support</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QCheckBox" name="socksUDPCB">
+                 <property name="text">
+                  <string>Enabled</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="0">
+                <widget class="QLabel" name="label_25">
+                 <property name="text">
+                  <string>UDP Local IP</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="1">
+                <widget class="QLineEdit" name="socksUDPIP">
+                 <property name="placeholderText">
+                  <string notr="true">127.0.0.1</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="0">
+                <widget class="QLabel" name="label_10">
+                 <property name="text">
+                  <string>Authentication</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="1">
+                <widget class="QCheckBox" name="socksAuthCB">
+                 <property name="text">
+                  <string>Enabled</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="0">
+                <widget class="QLabel" name="label_11">
+                 <property name="text">
+                  <string>Username</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="1">
+                <widget class="QLineEdit" name="socksAuthUsernameTxt">
+                 <property name="placeholderText">
+                  <string notr="true">user</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="5" column="0">
+                <widget class="QLabel" name="label_12">
+                 <property name="text">
+                  <string>Password</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="5" column="1">
+                <widget class="QLineEdit" name="socksAuthPasswordTxt">
+                 <property name="placeholderText">
+                  <string notr="true">pass</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+             <widget class="QGroupBox" name="httpGroupBox">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="layoutDirection">
+               <enum>Qt::LeftToRight</enum>
+              </property>
+              <property name="title">
+               <string>HTTP Settings</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
+              <property name="checked">
+               <bool>false</bool>
+              </property>
+              <layout class="QFormLayout" name="formLayout_2">
+               <item row="0" column="0">
+                <widget class="QLabel" name="label_3">
+                 <property name="text">
+                  <string>Port</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QSpinBox" name="httpPortLE">
+                 <property name="minimum">
+                  <number>1</number>
+                 </property>
+                 <property name="maximum">
+                  <number>65535</number>
+                 </property>
+                 <property name="value">
+                  <number>18001</number>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="label_9">
+                 <property name="text">
+                  <string>Authentication</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QCheckBox" name="httpAuthCB">
+                 <property name="text">
+                  <string>Enabled</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="0">
+                <widget class="QLabel" name="label_2">
+                 <property name="text">
+                  <string>Username</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="1">
+                <widget class="QLineEdit" name="httpAuthUsernameTxt">
+                 <property name="placeholderText">
+                  <string notr="true">user</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="0">
+                <widget class="QLabel" name="label_13">
+                 <property name="text">
+                  <string>Password</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="1">
+                <widget class="QLineEdit" name="httpAuthPasswordTxt">
+                 <property name="placeholderText">
+                  <string notr="true">pass</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
             </widget>
            </item>
-           <item row="0" column="0">
-            <layout class="QFormLayout" name="formLayout_4">
-             <item row="0" column="0">
-              <widget class="QLabel" name="label_22">
-               <property name="text">
-                <string>Listening Address</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1">
-              <widget class="QLineEdit" name="listenIPTxt">
-               <property name="placeholderText">
-                <string notr="true">'localhost', or IPv4 address, e.g. '127.0.0.1' or IPv6 address with brackets, e.g. [::1]</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QLabel" name="label_59">
-               <property name="text">
-                <string>Set System Proxy</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="1">
-              <widget class="QCheckBox" name="setSysProxyCB">
-               <property name="text">
-                <string>Set System Proxy</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
+           <item>
+            <widget class="QGroupBox" name="tproxGroupBox">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="title">
+              <string>Transparent Proxy Settings</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="checked">
+              <bool>false</bool>
+             </property>
+             <layout class="QFormLayout" name="formLayout_7">
+              <item row="0" column="0" colspan="2">
+               <widget class="QLabel" name="label_72">
+                <property name="font">
+                 <font>
+                  <weight>75</weight>
+                  <italic>true</italic>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>All settings below will only be applied on simple connection.</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+                <property name="wordWrap">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLabel" name="label_73">
+                <property name="text">
+                 <string>Address</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QLineEdit" name="tproxyListenAddr">
+                <property name="placeholderText">
+                 <string>127.0.0.1</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="QLabel" name="label_77">
+                <property name="text">
+                 <string>Port</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <widget class="QSpinBox" name="tProxyPort">
+                <property name="minimum">
+                 <number>1</number>
+                </property>
+                <property name="maximum">
+                 <number>65535</number>
+                </property>
+                <property name="value">
+                 <number>12345</number>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="1">
+               <widget class="QCheckBox" name="tproxyEnableTCP">
+                <property name="text">
+                 <string>TCP</string>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="1">
+               <widget class="QCheckBox" name="tproxyEnableUDP">
+                <property name="text">
+                 <string>UDP</string>
+                </property>
+               </widget>
+              </item>
+              <item row="5" column="1">
+               <widget class="QCheckBox" name="tproxyFollowRedirect">
+                <property name="text">
+                 <string>Follow Redirect</string>
+                </property>
+               </widget>
+              </item>
+              <item row="6" column="0">
+               <widget class="QLabel" name="label_78">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>Tproxy Mode</string>
+                </property>
+               </widget>
+              </item>
+              <item row="6" column="1">
+               <widget class="QComboBox" name="tproxyMode">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <item>
+                 <property name="text">
+                  <string>redirect</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>tproxy</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+             </layout>
+            </widget>
            </item>
           </layout>
          </widget>
@@ -1975,6 +1994,16 @@ p, li { white-space: pre-wrap; }
      </widget>
     </widget>
    </item>
+   <item row="1" column="0">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <tabstops>
@@ -1987,25 +2016,20 @@ p, li { white-space: pre-wrap; }
   <tabstop>autoStartConnCombo</tabstop>
   <tabstop>logLevelComboBox</tabstop>
   <tabstop>checkVCoreSettings</tabstop>
-  <tabstop>scrollArea_2</tabstop>
   <tabstop>listenIPTxt</tabstop>
   <tabstop>setSysProxyCB</tabstop>
-  <tabstop>socksGroupBox</tabstop>
   <tabstop>socksPortLE</tabstop>
   <tabstop>socksUDPCB</tabstop>
   <tabstop>socksUDPIP</tabstop>
   <tabstop>socksAuthCB</tabstop>
   <tabstop>socksAuthUsernameTxt</tabstop>
   <tabstop>socksAuthPasswordTxt</tabstop>
-  <tabstop>httpGroupBox</tabstop>
   <tabstop>httpPortLE</tabstop>
   <tabstop>httpAuthCB</tabstop>
   <tabstop>httpAuthUsernameTxt</tabstop>
   <tabstop>httpAuthPasswordTxt</tabstop>
-  <tabstop>tproxyListenAddr</tabstop>
   <tabstop>tProxyPort</tabstop>
   <tabstop>tproxyEnableTCP</tabstop>
-  <tabstop>tproxyEnableUDP</tabstop>
   <tabstop>tproxyFollowRedirect</tabstop>
   <tabstop>proxyDefaultCb</tabstop>
   <tabstop>bypassCNCb</tabstop>
@@ -2043,8 +2067,8 @@ p, li { white-space: pre-wrap; }
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>338</x>
-     <y>552</y>
+     <x>16</x>
+     <y>786</y>
     </hint>
     <hint type="destinationlabel">
      <x>286</x>
