@@ -32,7 +32,7 @@
       </sizepolicy>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tabWidgetPage1">
       <property name="sizePolicy">
@@ -706,9 +706,9 @@ Custom DNS Settings</string>
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>0</y>
+            <y>-49</y>
             <width>720</width>
-            <height>606</height>
+            <height>582</height>
            </rect>
           </property>
           <property name="sizePolicy">
@@ -976,48 +976,28 @@ Custom DNS Settings</string>
               <bool>false</bool>
              </property>
              <layout class="QFormLayout" name="formLayout_7">
-              <item row="0" column="0" colspan="2">
-               <widget class="QLabel" name="label_72">
-                <property name="font">
-                 <font>
-                  <weight>75</weight>
-                  <italic>true</italic>
-                  <bold>true</bold>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>All settings below will only be applied on simple connection.</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
-                </property>
-                <property name="wordWrap">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="0">
+              <item row="0" column="0">
                <widget class="QLabel" name="label_73">
                 <property name="text">
-                 <string>Address</string>
+                 <string>Listening Address</string>
                 </property>
                </widget>
               </item>
-              <item row="1" column="1">
+              <item row="0" column="1">
                <widget class="QLineEdit" name="tproxyListenAddr">
                 <property name="placeholderText">
                  <string>127.0.0.1</string>
                 </property>
                </widget>
               </item>
-              <item row="2" column="0">
+              <item row="1" column="0">
                <widget class="QLabel" name="label_77">
                 <property name="text">
                  <string>Port</string>
                 </property>
                </widget>
               </item>
-              <item row="2" column="1">
+              <item row="1" column="1">
                <widget class="QSpinBox" name="tProxyPort">
                 <property name="minimum">
                  <number>1</number>
@@ -1030,28 +1010,28 @@ Custom DNS Settings</string>
                 </property>
                </widget>
               </item>
-              <item row="3" column="1">
+              <item row="2" column="1">
                <widget class="QCheckBox" name="tproxyEnableTCP">
                 <property name="text">
                  <string>TCP</string>
                 </property>
                </widget>
               </item>
-              <item row="4" column="1">
+              <item row="3" column="1">
                <widget class="QCheckBox" name="tproxyEnableUDP">
                 <property name="text">
                  <string>UDP</string>
                 </property>
                </widget>
               </item>
-              <item row="5" column="1">
+              <item row="4" column="1">
                <widget class="QCheckBox" name="tproxyFollowRedirect">
                 <property name="text">
                  <string>Follow Redirect</string>
                 </property>
                </widget>
               </item>
-              <item row="6" column="0">
+              <item row="5" column="0">
                <widget class="QLabel" name="label_78">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -1064,7 +1044,7 @@ Custom DNS Settings</string>
                 </property>
                </widget>
               </item>
-              <item row="6" column="1">
+              <item row="5" column="1">
                <widget class="QComboBox" name="tproxyMode">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">

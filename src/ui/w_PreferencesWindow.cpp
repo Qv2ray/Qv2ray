@@ -35,6 +35,8 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     //
     // We currently don't support this feature.
 //    tProxyGroupBox->setVisible(false);
+    tProxyCheckBox->setVisible(false);
+    label_7->setVisible(false);
     //
     QvMessageBusConnect(PreferencesWindow);
     textBrowser->setHtml(StringFromFile(":/assets/credit.html"));
