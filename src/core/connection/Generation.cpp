@@ -351,30 +351,26 @@ namespace Qv2ray::core::connection
                    tproxyInBoundObject.insert("listen", GlobalConfig.inboundConfig.tproxy_ip);
                    tproxyInBoundObject.insert("port", GlobalConfig.inboundConfig.tproxy_port);
                    tproxyInBoundObject.insert("protocol", "dokodemo-door");
-                   QString tproxy_network;
-                   if (GlobalConfig.inboundConfig.tproxy_use_tcp&&GlobalConfig.inboundConfig.tproxy_use_udp){
-                       tproxy_network="tcp,udp";
-                   } else if (GlobalConfig.inboundConfig.tproxy_use_tcp){
-                       tproxy_network="tcp";
-                   }else{
-                       tproxy_network="udp";
-                   }
+
+                   QList<QString> networks;
+                   if (GlobalConfig.inboundConfig.tproxy_use_tcp) networks << "tcp";
+                   if (GlobalConfig.inboundConfig.tproxy_use_udp) networks << "udp";
+                   const auto tproxy_network = networks.join(",");
+
                    auto tproxyInSettings=GenerateDokodemoIN("",0,tproxy_network,10,true,0);
                    tproxyInBoundObject.insert("settings", tproxyInSettings);
 
-                   QString sniffing_str=
-                           R"DOC(
-                                {
-                                "enabled": true,
-                                "destOverride": [
-                                  "http",
-                                  "tls"
-                                ]
-                              }
-                             )DOC";
-                   QString stream_str="{\"sockopt\": {\"tproxy\": \""+GlobalConfig.inboundConfig.tproxy_mode+"\"} }";
-                   tproxyInBoundObject.insert("sniffing",JsonFromString(sniffing_str));
-                   tproxyInBoundObject.insert("streamSettings",JsonFromString(stream_str));
+
+                   QJsonObject tproxy_sniff{
+                       {"enabled", true},
+                       {"destOverride", QJsonArray{"http", "tls"}}
+                   };
+                   tproxyInBoundObject.insert("sniffing",tproxy_sniff);
+
+                   QJsonObject tproxy_streamSettings{
+                       {"sockopt",QJsonObject{{"tproxy",GlobalConfig.inboundConfig.tproxy_mode}}}
+                   };
+                   tproxyInBoundObject.insert("streamSettings",tproxy_streamSettings);
 
                    inboundsList.append(tproxyInBoundObject);
                 }
