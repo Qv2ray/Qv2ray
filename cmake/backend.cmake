@@ -3,7 +3,7 @@ if(NOT USE_LIBQVB)
     
     if(MSVC)
         find_package(gRPC CONFIG REQUIRED)
-        find_package(modules CONFIG REQUIRED)
+        find_package(c-ares CONFIG REQUIRED)
         set(QV2RAY_BACKEND_LIBRARIES c-ares::cares gRPC::gpr gRPC::grpc gRPC::grpc++ gRPC::grpc++_alts)
     elseif(UNIX)
         find_package(PkgConfig REQUIRED)
