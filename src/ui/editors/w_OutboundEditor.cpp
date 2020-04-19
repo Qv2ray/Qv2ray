@@ -118,6 +118,7 @@ OUTBOUND OutboundEditor::GenerateConnectionJson()
     }
     else
     {
+        streaming = QJsonObject();
         bool processed = false;
         for (const auto &plugin : pluginWidgets)
         {
@@ -204,6 +205,8 @@ void OutboundEditor::ReloadGUI()
             const auto &plugin = pluginWidgets.value(index);
             if (plugin.first.protocol == outboundType)
             {
+                useFPCB->setEnabled(false);
+                useFPCB->setToolTip(tr("Forward proxy has been disabled when using plugin outbound"));
                 plugin.second->SetContent(settings);
                 outBoundTypeCombo->setCurrentIndex(index);
                 auto [_address, _port] = plugin.second->GetHostInfo();
@@ -284,12 +287,14 @@ void OutboundEditor::on_alterLineEdit_valueChanged(int arg1)
 void OutboundEditor::on_useFPCB_stateChanged(int arg1)
 {
     useForwardProxy = arg1 == Qt::Checked;
+    streamSettingsWidget->setEnabled(!useForwardProxy);
 }
 
 void OutboundEditor::on_outBoundTypeCombo_currentIndexChanged(int index)
 {
     // 0, 1, 2 as built-in vmess, ss, socks
     outboundTypeStackView->setCurrentIndex(index);
+    streamSettingsWidget->setEnabled(index < 3);
     if (index < 3)
     {
         outboundType = outBoundTypeCombo->currentText().toLower();
