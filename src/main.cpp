@@ -419,8 +419,8 @@ int main(int argc, char *argv[])
             w.activateWindow();
         });
 #ifndef Q_OS_WIN
-        signal(SIGUSR1, [](int) { emit MainWindow::mwInstance->StartConnection(); });
-        signal(SIGUSR2, [](int) { emit MainWindow::mwInstance->StopConnection(); });
+        signal(SIGUSR1, [](int) { emit MainWindow::MainWindowInstance->StartConnection(); });
+        signal(SIGUSR2, [](int) { emit MainWindow::MainWindowInstance->StopConnection(); });
 #endif
         auto rcode = _qApp.exec();
         delete ConnectionManager;

@@ -33,7 +33,7 @@ class MainWindow
   public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow() override;
-    static MainWindow *mwInstance;
+    static MainWindow *MainWindowInstance;
   signals:
     void StartConnection() const;
     void StopConnection() const;
@@ -115,6 +115,9 @@ class MainWindow
     // Actions in the system tray menu
     QMenu *tray_RootMenu = new QMenu(this);
     QMenu *tray_SystemProxyMenu = new QMenu(tr("System Proxy"), this);
+    QMenu *tray_RecentConnectionsMenu = new QMenu(tr("Recent Connections"), this);
+    //
+    QList<QAction> recentConnections;
     //
     QAction *tray_action_ShowHide = new QAction(tr("Hide"), this);
     QAction *tray_action_ShowPreferencesWindow = new QAction(tr("Preferences"), this);

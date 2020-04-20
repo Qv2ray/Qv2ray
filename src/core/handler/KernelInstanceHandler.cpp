@@ -13,11 +13,13 @@ namespace Qv2ray::core::handlers
         connect(vCoreInstance, &V2rayKernelInstance::OnProcessOutputReadyRead, this, &KernelInstanceHandler::OnKernelLogAvailable_p);
         connect(vCoreInstance, &V2rayKernelInstance::OnProcessErrored, this, &KernelInstanceHandler::OnKernelCrashed_p);
         //
-        kernels = PluginHost->GetPluginKernels();
-        for (const auto &kernel : kernels)
+        auto kernelList = PluginHost->GetPluginKernels();
+        for (const auto &kernelInfo : kernelList.keys())
         {
-            connect(kernel.get(), &QvPluginKernel::OnKernelCrashed, this, &KernelInstanceHandler::OnKernelCrashed_p);
-            connect(kernel.get(), &QvPluginKernel::OnKernelLogAvaliable, this, &KernelInstanceHandler::OnKernelLogAvailable_p);
+            auto kernel = kernelList.value(kernelInfo).get();
+            kernels[kernelInfo] = kernel;
+            connect(kernel, &QvPluginKernel::OnKernelCrashed, this, &KernelInstanceHandler::OnKernelCrashed_p);
+            connect(kernel, &QvPluginKernel::OnKernelLogAvaliable, this, &KernelInstanceHandler::OnKernelLogAvailable_p);
         }
     }
 
@@ -70,7 +72,7 @@ namespace Qv2ray::core::handlers
                         continue;
                     }
                     LOG(MODULE_CONNECTION, "Get kernel plugin: " + outProtocol)
-                    auto kernel = kernels[outProtocol].get();
+                    auto &kernel = kernels[outProtocol];
                     disconnect(kernel, &QvPluginKernel::OnKernelStatsAvailable, this, &KernelInstanceHandler::OnStatsDataArrived_p);
                     activeKernels.insert(outProtocol, kernel);
                     //
@@ -179,7 +181,7 @@ namespace Qv2ray::core::handlers
             const auto protocol = firstOutbound["protocol"].toString();
             if (kernels.contains(protocol))
             {
-                auto kernel = kernels[firstOutbound["protocol"].toString()].get();
+                auto &kernel = kernels[firstOutbound["protocol"].toString()];
                 activeKernels[protocol] = kernel;
                 QMap<QString, int> pluginInboundPort;
                 for (const auto &[_protocol, _port, _tag] : inboundInfo)
@@ -253,6 +255,7 @@ namespace Qv2ray::core::handlers
             for (const auto &kernel : activeKernels.keys())
             {
                 LOG(MODULE_CONNECTION, "Stopping plugin kernel: " + kernel)
+                disconnect(activeKernels[kernel], &QvPluginKernel::OnKernelStatsAvailable, this, &KernelInstanceHandler::OnStatsDataArrived_p);
                 activeKernels[kernel]->StopKernel();
             }
             // Copy

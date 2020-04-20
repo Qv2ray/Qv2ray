@@ -168,8 +168,6 @@ class PreferencesWindow
 
     void on_qvNetworkUATxt_textEdited(const QString &arg1);
 
-    void on_qvUseProxyCB_stateChanged(int arg1);
-
     void on_setAllowInsecureCB_stateChanged(int arg1);
 
     void on_setTestLatenctCB_stateChanged(int arg1);
@@ -191,6 +189,8 @@ class PreferencesWindow
     void on_tproxyMode_currentTextChanged(const QString &arg1);
 
     void on_tproxyListenAddr_textEdited(const QString &arg1);
+
+    void on_customProxySettingsGroupBox_clicked(bool checked);
 
   private:
     //

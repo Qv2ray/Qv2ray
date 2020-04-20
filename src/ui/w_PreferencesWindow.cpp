@@ -146,7 +146,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     qvProxyAddressTxt->setText(CurrentConfig.networkConfig.address);
     qvProxyTypeCombo->setCurrentText(CurrentConfig.networkConfig.type);
     qvNetworkUATxt->setText(CurrentConfig.networkConfig.userAgent);
-    qvUseProxyCB->setChecked(CurrentConfig.networkConfig.useCustomProxy);
+    customProxySettingsGroupBox->setChecked(CurrentConfig.networkConfig.useCustomProxy);
     //
     quietModeCB->setChecked(CurrentConfig.uiConfig.quietMode);
     //
@@ -1167,12 +1167,6 @@ void PreferencesWindow::on_qvNetworkUATxt_textEdited(const QString &arg1)
     CurrentConfig.networkConfig.userAgent = arg1;
 }
 
-void PreferencesWindow::on_qvUseProxyCB_stateChanged(int arg1)
-{
-    LOADINGCHECK
-    CurrentConfig.networkConfig.useCustomProxy = arg1 == Qt::Checked;
-}
-
 void PreferencesWindow::on_setAllowInsecureCB_stateChanged(int arg1)
 {
     LOADINGCHECK
@@ -1249,4 +1243,9 @@ void PreferencesWindow::on_tproxyListenAddr_textEdited(const QString &arg1)
 {
     NEEDRESTART
     CurrentConfig.inboundConfig.tproxy_ip = arg1;
+}
+
+void PreferencesWindow::on_customProxySettingsGroupBox_clicked(bool checked)
+{
+    CurrentConfig.networkConfig.useCustomProxy = checked;
 }

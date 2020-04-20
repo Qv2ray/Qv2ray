@@ -251,87 +251,85 @@
             <string>Network Settings</string>
            </property>
            <layout class="QFormLayout" name="formLayout_15">
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_55">
-              <property name="text">
-               <string>Use Custom Proxy</string>
+            <item row="0" column="0" colspan="2">
+             <widget class="QGroupBox" name="customProxySettingsGroupBox">
+              <property name="title">
+               <string>Use Custom Proxy Settings</string>
               </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QCheckBox" name="qvUseProxyCB">
-              <property name="text">
-               <string>Enabled</string>
+              <property name="checkable">
+               <bool>true</bool>
               </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="label_64">
-              <property name="text">
-               <string>Custom Proxy Server</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="1">
-             <layout class="QHBoxLayout" name="horizontalLayout_2">
-              <item>
-               <widget class="QLineEdit" name="qvProxyAddressTxt"/>
-              </item>
-              <item>
-               <widget class="QLabel" name="label_74">
-                <property name="text">
-                 <string>:</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QSpinBox" name="qvProxyPortCB">
-                <property name="minimum">
-                 <number>0</number>
-                </property>
-                <property name="maximum">
-                 <number>65535</number>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item row="1" column="1">
-             <widget class="QComboBox" name="qvProxyTypeCombo">
-              <item>
-               <property name="text">
-                <string notr="true">http</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string notr="true">socks</string>
-               </property>
-              </item>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="label_66">
-              <property name="text">
-               <string>Proxy Type</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="0">
-             <widget class="QLabel" name="label_67">
-              <property name="text">
-               <string>User-Agent</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="1">
-             <widget class="QLineEdit" name="qvNetworkUATxt">
-              <property name="text">
-               <string/>
-              </property>
+              <layout class="QFormLayout" name="formLayout_13">
+               <item row="0" column="0">
+                <widget class="QLabel" name="label_66">
+                 <property name="text">
+                  <string>Proxy Type</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QComboBox" name="qvProxyTypeCombo">
+                 <item>
+                  <property name="text">
+                   <string notr="true">http</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string notr="true">socks</string>
+                  </property>
+                 </item>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="label_64">
+                 <property name="text">
+                  <string>Custom Proxy Server</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <layout class="QHBoxLayout" name="horizontalLayout_2">
+                 <item>
+                  <widget class="QLineEdit" name="qvProxyAddressTxt"/>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="label_74">
+                   <property name="text">
+                    <string>:</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QSpinBox" name="qvProxyPortCB">
+                   <property name="minimum">
+                    <number>0</number>
+                   </property>
+                   <property name="maximum">
+                    <number>65535</number>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item row="2" column="0">
+                <widget class="QLabel" name="label_67">
+                 <property name="text">
+                  <string>User-Agent</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="1">
+                <widget class="QLineEdit" name="qvNetworkUATxt">
+                 <property name="text">
+                  <string/>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </widget>
             </item>
            </layout>

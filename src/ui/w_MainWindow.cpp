@@ -39,7 +39,7 @@
 #define GetItemWidget(item) (qobject_cast<ConnectionItemWidget *>(connectionListWidget->itemWidget(item, 0)))
 #define NumericString(i) (QString("%1").arg(i, 30, 10, QLatin1Char('0')))
 
-MainWindow *MainWindow::mwInstance = nullptr;
+MainWindow *MainWindow::MainWindowInstance = nullptr;
 
 QvMessageBusSlotImpl(MainWindow)
 {
@@ -116,7 +116,7 @@ void MainWindow::SortConnectionList(MW_ITEM_COL byCol, bool asending)
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     setupUi(this);
-    MainWindow::mwInstance = this;
+    MainWindow::MainWindowInstance = this;
     QvMessageBusConnect(MainWindow);
     //
     infoWidget = new ConnectionInfoWidget(this);
@@ -181,6 +181,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     tray_RootMenu->addSeparator();
     tray_RootMenu->addAction(tray_action_ShowPreferencesWindow);
     tray_RootMenu->addMenu(tray_SystemProxyMenu);
+    tray_RootMenu->addSeparator();
+    tray_RootMenu->addMenu(tray_RecentConnectionsMenu);
     tray_RootMenu->addSeparator();
     tray_RootMenu->addAction(tray_action_Start);
     tray_RootMenu->addAction(tray_action_Stop);
