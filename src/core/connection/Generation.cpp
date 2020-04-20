@@ -359,7 +359,7 @@ namespace Qv2ray::core::connection
                         networks << "udp";
                     const auto tproxy_network = networks.join(",");
 
-                    auto tproxyInSettings = GenerateDokodemoIN("", 0, tproxy_network, 10, true, 0);
+                    auto tproxyInSettings = GenerateDokodemoIN("", 0, tproxy_network, 0, true, 0);
                     tproxyInBoundObject.insert("settings", tproxyInSettings);
 
                     QJsonObject tproxy_sniff{ { "enabled", true }, { "destOverride", QJsonArray{ "http", "tls" } } };
