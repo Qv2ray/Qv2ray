@@ -91,16 +91,22 @@ namespace Qv2ray::core::handlers
                         //
                         // Add the integration outbound to the list.
                         new_outbounds.push_back(direct);
+
+                        LOG(MODULE_CONNECTION, "Appended originalOutboundTag, inTag, freedomTag into processedOutboundList")
                         pluginProcessedOutboundList.append({ originalOutboundTag, inTag, freedomTag });
                         pluginPort++;
                     }
+
+                    LOG(MODULE_CONNECTION, "Sending connection settings to kernel.")
                     kernel->SetConnectionSettings(GlobalConfig.inboundConfig.listenip, pluginInboundPort, outbound["settings"].toObject());
                 }
+                LOG(MODULE_CONNECTION, "Applying new outbound settings.")
                 fullConfig["outbounds"] = new_outbounds;
             }
             //
             // Process routing entries
             {
+                LOG(MODULE_CONNECTION, "Started processing route tables.")
                 QJsonArray newRules;
                 auto unprocessedOutbound = pluginProcessedOutboundList;
                 const auto rules = fullConfig["routing"].toObject()["rules"].toArray();
@@ -114,6 +120,7 @@ namespace Qv2ray::core::handlers
                         // Check if a rule corresponds to the plugin outbound.
                         if (rule["outboundTag"] == originalTag)
                         {
+                            LOG(MODULE_CONNECTION, "Replacing existed plugin outbound rule.")
                             auto newRule = rule;
                             newRule["outboundTag"] = newOutboundTag;
                             newRule["inboundTag"] = QJsonArray{ inboundTag };
@@ -130,6 +137,7 @@ namespace Qv2ray::core::handlers
 
                 for (const auto &[originalTag, inboundTag, newOutboundTag] : unprocessedOutbound)
                 {
+                    LOG(MODULE_CONNECTION, "Adding new plugin outbound rule.")
                     QJsonObject integrationRule;
                     integrationRule["type"] = "field";
                     integrationRule["outboundTag"] = newOutboundTag;
@@ -147,12 +155,12 @@ namespace Qv2ray::core::handlers
             bool success = true;
             for (auto &kernel : activeKernels.keys())
             {
+                LOG(MODULE_CONNECTION, "Starting kernel: " + kernel)
                 bool status = activeKernels[kernel]->StartKernel();
                 success = success && status;
                 if (!status)
                 {
                     LOG(MODULE_CONNECTION, "Plugin Kernel: " + kernel + " failed to start.")
-
                     break;
                 }
             }
@@ -177,10 +185,12 @@ namespace Qv2ray::core::handlers
         }
         else
         {
+            LOG(MODULE_CONNECTION, "Starting kernel without V2ray Integration")
             auto firstOutbound = fullConfig["outbounds"].toArray().first().toObject();
             const auto protocol = firstOutbound["protocol"].toString();
             if (kernels.contains(protocol))
             {
+                LOG(MODULE_CONNECTION, "Found existing kernel for: " + protocol)
                 auto &kernel = kernels[firstOutbound["protocol"].toString()];
                 activeKernels[protocol] = kernel;
                 QMap<QString, int> pluginInboundPort;
@@ -205,6 +215,7 @@ namespace Qv2ray::core::handlers
             }
             else
             {
+                LOG(MODULE_CONNECTION, "Starting V2ray without kernel")
                 currentConnectionId = id;
                 lastConnectionId = id;
                 auto result = vCoreInstance->StartConnection(fullConfig);
