@@ -1249,3 +1249,8 @@ void PreferencesWindow::on_customProxySettingsGroupBox_clicked(bool checked)
 {
     CurrentConfig.networkConfig.useCustomProxy = checked;
 }
+
+void PreferencesWindow::on_jumpListCountSB_valueChanged(int arg1)
+{
+    CurrentConfig.uiConfig.maxJumpListCount = arg1;
+}

@@ -192,6 +192,8 @@ class PreferencesWindow
 
     void on_customProxySettingsGroupBox_clicked(bool checked);
 
+    void on_jumpListCountSB_valueChanged(int arg1);
+
   private:
     //
     RouteSettingsMatrixWidget *routeSettingsWidget;

@@ -338,6 +338,29 @@ namespace Qv2ray::core::handlers
         CheckConnectionExistance(id);
         connections[id].lastConnected = system_clock::to_time_t(system_clock::now());
         CONFIGROOT root = GetConnectionRoot(id);
+        auto &list = GlobalConfig.uiConfig.recentConnections;
+
+        bool recentListChanged = false;
+        // If the 1st of the list is NOT the current connection.
+        if (!list.isEmpty() && list.first() != id.toString())
+        {
+            list.removeAll(id.toString());
+            // Make it the first.
+            list.push_front(id.toString());
+            recentListChanged = true;
+        }
+
+        while (list.count() > GlobalConfig.uiConfig.maxJumpListCount)
+        {
+            recentListChanged = true;
+            list.removeLast();
+        }
+
+        if (recentListChanged)
+        {
+            emit OnRecentConnectionsChanged(list);
+        }
+
         return kernelHandler->StartConnection(id, root);
     }
 
@@ -501,7 +524,7 @@ namespace Qv2ray::core::handlers
         // Anyway, we try our best to preserve the connection id.
         QMultiMap<QString, ConnectionId> nameMap;
         QMultiMap<tuple<QString, QString, int>, ConnectionId> typeMap;
-        for (const auto conn : groups[id].connections)
+        for (const auto &conn : groups[id].connections)
         {
             nameMap.insertMulti(GetDisplayName(conn), conn);
             auto [protocol, host, port] = GetConnectionInfo(conn);
@@ -526,7 +549,7 @@ namespace Qv2ray::core::handlers
             // Things may go wrong when updating a subscription with ssd:// link
             for (auto _alias : conf.keys())
             {
-                for (const auto config : conf.values(_alias))
+                for (const auto &config : conf.values(_alias))
                 {
                     if (!errMessage.isEmpty())
                     {

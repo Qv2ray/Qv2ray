@@ -113,6 +113,34 @@ void MainWindow::SortConnectionList(MW_ITEM_COL byCol, bool asending)
     on_locateBtn_clicked();
 }
 
+void MainWindow::ReloadRecentConnectionList(const QList<QString> &items)
+{
+    QList<QAction *> newActions;
+    for (const auto &item : items)
+    {
+        auto action = new QAction(tray_RecentConnectionsMenu);
+        action->setText(GetDisplayName(ConnectionId{ item }));
+        action->setData(item);
+        connect(ConnectionManager, &QvConfigHandler::OnConnectionRenamed,
+                [action](const ConnectionId &_t1, const QString &, const QString &_t3) {
+                    if (_t1.toString() == action->data().toString())
+                    {
+                        action->setText(_t3);
+                    }
+                });
+        connect(action, &QAction::triggered, [action]() { //
+            emit ConnectionManager->StartConnection(ConnectionId{ action->data().toString() });
+        });
+        newActions << action;
+    }
+    for (const auto action : tray_RecentConnectionsMenu->actions())
+    {
+        tray_RecentConnectionsMenu->removeAction(action);
+        action->deleteLater();
+    }
+    tray_RecentConnectionsMenu->addActions(newActions);
+}
+
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     setupUi(this);
@@ -159,6 +187,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
         if (connectionNodes.contains(id))
             connectionNodes.value(id)->setText(MW_ITEM_COL_PING, NumericString(avg)); //
     });
+    connect(ConnectionManager, &QvConfigHandler::OnRecentConnectionsChanged, this, &MainWindow::ReloadRecentConnectionList);
     //
     connect(infoWidget, &ConnectionInfoWidget::OnEditRequested, this, &MainWindow::OnEditRequested);
     connect(infoWidget, &ConnectionInfoWidget::OnJsonEditRequested, this, &MainWindow::OnEditJsonRequested);
@@ -292,6 +321,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
         connectionListWidget->setCurrentItem(item);
         on_connectionListWidget_itemClicked(item, 0);
     }
+    ReloadRecentConnectionList(GlobalConfig.uiConfig.recentConnections);
     if (needShowWindow)
         this->show();
 

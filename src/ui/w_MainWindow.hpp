@@ -96,6 +96,8 @@ class MainWindow
     void OnGroupDeleted(const GroupId &id, const QList<ConnectionId> &connections);
     //
     void SortConnectionList(MW_ITEM_COL byCol, bool asending);
+    //
+    void ReloadRecentConnectionList(const QList<QString> &items);
 
   protected:
     void timerEvent(QTimerEvent *event) override;

@@ -103,6 +103,7 @@ namespace Qv2ray::core::handlers
         const tuple<QString, int64_t, float> GetSubscriptionData(const GroupId &id) const;
 
       signals:
+        void OnRecentConnectionsChanged(const QList<QString> &connections);
         void OnKernelLogAvailable(const ConnectionId &id, const QString &log);
         void OnStatsAvailable(const ConnectionId &id, const quint64 upS, const quint64 downS, const quint64 upD, const quint64 downD);
         //
