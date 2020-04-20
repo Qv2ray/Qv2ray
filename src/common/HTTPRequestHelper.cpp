@@ -1,4 +1,4 @@
-﻿#include "HTTPRequestHelper.hpp"
+#include "HTTPRequestHelper.hpp"
 
 #include "base/Qv2rayBase.hpp"
 
@@ -27,24 +27,27 @@ namespace Qv2ray::common
         request.setUrl({ url });
         if (useProxy)
         {
-            auto p = GlobalConfig.networkConfig.useCustomProxy ?
-                         QNetworkProxy{
-                             GlobalConfig.networkConfig.type == "http" ? QNetworkProxy::HttpProxy : QNetworkProxy::Socks5Proxy, //
-                             GlobalConfig.networkConfig.address,                                                                //
-                             quint16(GlobalConfig.networkConfig.port)                                                           //
-                         } :
-                         QNetworkProxyFactory::systemProxyForQuery().first();
+            QNetworkProxy p;
+            if (GlobalConfig.networkConfig.useCustomProxy)
+            {
+                auto type = GlobalConfig.networkConfig.type == "http" ? QNetworkProxy::HttpProxy : QNetworkProxy::Socks5Proxy;
+                p = QNetworkProxy{ type, GlobalConfig.networkConfig.address, quint16(GlobalConfig.networkConfig.port) };
+            }
+            else
+            {
+                p = QNetworkProxyFactory::systemProxyForQuery().first();
+            }
+            if (p.type() == QNetworkProxy::Socks5Proxy)
+            {
+                DEBUG(MODULE_NETWORK, "Adding HostNameLookupCapability to proxy.")
+                p.setCapabilities(accessManager.proxy().capabilities() | QNetworkProxy::HostNameLookupCapability);
+            }
             accessManager.setProxy(p);
         }
         else
         {
             DEBUG(MODULE_NETWORK, "Get without proxy.")
             accessManager.setProxy(QNetworkProxy(QNetworkProxy::ProxyType::NoProxy));
-        }
-        if (accessManager.proxy().type() == QNetworkProxy::Socks5Proxy)
-        {
-            DEBUG(MODULE_NETWORK, "Adding HostNameLookupCapability to proxy.")
-            accessManager.proxy().setCapabilities(accessManager.proxy().capabilities() | QNetworkProxy::HostNameLookupCapability);
         }
         request.setAttribute(QNetworkRequest::RedirectPolicyAttribute, QNetworkRequest::NoLessSafeRedirectPolicy);
         request.setAttribute(QNetworkRequest::HTTP2AllowedAttribute, true);
