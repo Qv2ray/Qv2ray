@@ -190,6 +190,8 @@ class PreferencesWindow
 
     void on_tproxyMode_currentTextChanged(const QString &arg1);
 
+    void on_tproxyListenAddr_textEdited(const QString &arg1);
+
   private:
     //
     RouteSettingsMatrixWidget *routeSettingsWidget;

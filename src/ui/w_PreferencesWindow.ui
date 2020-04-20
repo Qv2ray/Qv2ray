@@ -20,6 +20,16 @@
    <bool>true</bool>
   </property>
   <layout class="QGridLayout" name="gridLayout_4">
+   <item row="2" column="0">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
@@ -674,8 +684,8 @@ Custom DNS Settings</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>808</width>
-            <height>473</height>
+            <width>794</width>
+            <height>484</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -895,78 +905,116 @@ Custom DNS Settings</string>
                </layout>
               </widget>
              </item>
-            </layout>
-           </item>
-           <item>
-            <widget class="QGroupBox" name="tproxGroupBox">
-             <property name="title">
-              <string>Transparent Proxy Settings</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="checked">
-              <bool>false</bool>
-             </property>
-             <layout class="QVBoxLayout" name="verticalLayout_11" stretch="0">
-              <item>
-               <layout class="QHBoxLayout" name="horizontalLayout">
-                <item>
+             <item row="1" column="0" colspan="2">
+              <widget class="QGroupBox" name="tproxGroupBox">
+               <property name="title">
+                <string>Transparent Proxy Settings</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+               <property name="checked">
+                <bool>false</bool>
+               </property>
+               <layout class="QFormLayout" name="formLayout_11">
+                <item row="0" column="0">
                  <widget class="QLabel" name="label_73">
                   <property name="text">
                    <string>Listening Address</string>
                   </property>
                  </widget>
                 </item>
-                <item>
-                 <widget class="QLineEdit" name="tproxyListenAddr">
-                  <property name="placeholderText">
-                   <string>127.0.0.1</string>
-                  </property>
-                 </widget>
+                <item row="0" column="1">
+                 <layout class="QHBoxLayout" name="horizontalLayout_8">
+                  <item>
+                   <widget class="QLineEdit" name="tproxyListenAddr">
+                    <property name="placeholderText">
+                     <string>127.0.0.1</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="label_77">
+                    <property name="text">
+                     <string>Port</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QSpinBox" name="tProxyPort">
+                    <property name="minimum">
+                     <number>1</number>
+                    </property>
+                    <property name="maximum">
+                     <number>65535</number>
+                    </property>
+                    <property name="value">
+                     <number>12345</number>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
                 </item>
-                <item>
-                 <widget class="QLabel" name="label_77">
+                <item row="1" column="0">
+                 <widget class="QLabel" name="label_72">
                   <property name="text">
-                   <string>Port</string>
+                   <string>Network Options</string>
                   </property>
                  </widget>
                 </item>
-                <item>
-                 <widget class="QSpinBox" name="tProxyPort">
-                  <property name="minimum">
-                   <number>1</number>
-                  </property>
-                  <property name="maximum">
-                   <number>65535</number>
-                  </property>
-                  <property name="value">
-                   <number>12345</number>
-                  </property>
-                 </widget>
+                <item row="1" column="1">
+                 <layout class="QHBoxLayout" name="horizontalLayout">
+                  <item>
+                   <widget class="QCheckBox" name="tproxyEnableTCP">
+                    <property name="text">
+                     <string>TCP</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="tproxyEnableUDP">
+                    <property name="text">
+                     <string>UDP</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="Line" name="line">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="tproxyFollowRedirect">
+                    <property name="text">
+                     <string>Follow Redirect</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_2">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
                 </item>
-                <item>
-                 <widget class="QCheckBox" name="tproxyEnableTCP">
+                <item row="2" column="0">
+                 <widget class="QLabel" name="label_78">
                   <property name="text">
-                   <string>TCP</string>
+                   <string>Mode</string>
                   </property>
                  </widget>
                 </item>
-                <item>
-                 <widget class="QCheckBox" name="tproxyEnableUDP">
-                  <property name="text">
-                   <string>UDP</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QCheckBox" name="tproxyFollowRedirect">
-                  <property name="text">
-                   <string>Follow Redirect</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
+                <item row="2" column="1">
                  <widget class="QComboBox" name="tproxyMode">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -986,23 +1034,10 @@ Custom DNS Settings</string>
                   </item>
                  </widget>
                 </item>
-                <item>
-                 <widget class="QLabel" name="label_78">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="text">
-                   <string>Mode</string>
-                  </property>
-                 </widget>
-                </item>
                </layout>
-              </item>
-             </layout>
-            </widget>
+              </widget>
+             </item>
+            </layout>
            </item>
            <item>
             <spacer name="verticalSpacer_10">
@@ -1893,9 +1928,6 @@ Custom DNS Settings</string>
            <property name="readOnly">
             <bool>true</bool>
            </property>
-           <property name="html">
-            <string notr="true"/>
-           </property>
            <property name="placeholderText">
             <string notr="true"/>
            </property>
@@ -1918,16 +1950,6 @@ Custom DNS Settings</string>
        </item>
       </layout>
      </widget>
-    </widget>
-   </item>
-   <item row="2" column="0">
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-     </property>
     </widget>
    </item>
   </layout>
@@ -1957,12 +1979,6 @@ Custom DNS Settings</string>
   <tabstop>httpAuthCB</tabstop>
   <tabstop>httpAuthUsernameTxt</tabstop>
   <tabstop>httpAuthPasswordTxt</tabstop>
-  <tabstop>tproxGroupBox</tabstop>
-  <tabstop>tproxyListenAddr</tabstop>
-  <tabstop>tProxyPort</tabstop>
-  <tabstop>tproxyEnableTCP</tabstop>
-  <tabstop>tproxyEnableUDP</tabstop>
-  <tabstop>tproxyFollowRedirect</tabstop>
   <tabstop>proxyDefaultCb</tabstop>
   <tabstop>bypassCNCb</tabstop>
   <tabstop>localDNSCb</tabstop>

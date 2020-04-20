@@ -1244,3 +1244,9 @@ void PreferencesWindow::on_tproxyMode_currentTextChanged(const QString &arg1)
     NEEDRESTART
     CurrentConfig.inboundConfig.tproxy_mode = arg1;
 }
+
+void PreferencesWindow::on_tproxyListenAddr_textEdited(const QString &arg1)
+{
+    NEEDRESTART
+    CurrentConfig.inboundConfig.tproxy_ip = arg1;
+}
