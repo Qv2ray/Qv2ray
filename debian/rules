@@ -13,8 +13,9 @@ export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
 export QT_SELECT := 5
 
 %:
-	dh $@
+	dh $@ --buildsystem=cmake+ninja
 
 override_dh_auto_configure:
 	dh_auto_configure -- -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -DEMBED_TRANSLATIONS=ON
 
+override_dh_auto_test:
