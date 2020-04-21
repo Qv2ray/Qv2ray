@@ -122,11 +122,11 @@ void PluginManageWindow::on_openPluginFolder_clicked()
     {
         pluginPath.mkpath(QV2RAY_CONFIG_DIR + "plugins/");
     }
-    auto f = QDesktopServices::openUrl(QUrl::fromLocalFile(pluginPath.absolutePath()));
-    if (!f)
-    {
-        LOG("open", "cannot open")
-    }
+#ifdef Q_OS_LINUX
+    QProcess::execute("xdg-open", { pluginPath.absolutePath() });
+#else
+    QDesktopServices::openUrl(QUrl::fromLocalFile(pluginPath.absolutePath()));
+#endif
 }
 
 void PluginManageWindow::on_toolButton_clicked()
