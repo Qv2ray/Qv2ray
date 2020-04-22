@@ -225,41 +225,38 @@ namespace Qv2ray::common
             i++;
         }
     }
-
+    QPixmap ApplyEffectToImage(QPixmap src, QGraphicsEffect *effect, int extent)
+    {
+        constexpr int extent2 = 0;
+        if (src.isNull())
+            return QPixmap(); // No need to do anything else!
+        if (!effect)
+            return src; // No need to do anything else!
+        QGraphicsScene scene;
+        auto p = scene.addPixmap(src);
+        p->setGraphicsEffect(effect);
+        //
+        QImage res(src.size() + QSize(extent2, extent2), QImage::Format_ARGB32);
+        res.fill(Qt::transparent);
+        QPainter ptr(&res);
+        //
+        scene.render(&ptr, QRectF(), QRectF(-extent, -extent, src.width() + extent2, src.height() + extent * 2));
+        //
+        scene.removeItem(p);
+        return QPixmap::fromImage(res);
+    }
     QPixmap BlurImage(const QPixmap &pixmap, const double rad)
     {
-        QGraphicsView view;
-        QGraphicsScene scene;
         QGraphicsBlurEffect pBlur;
-        //
-        view.setScene(&scene);
-        view.resize(pixmap.size() / QWidget().devicePixelRatio());
-        view.setSceneRect(pixmap.rect());
-        scene.setSceneRect(pixmap.rect());
         pBlur.setBlurRadius(rad);
-        QGraphicsPixmapItem *p = view.scene()->addPixmap(pixmap);
-        p->setGraphicsEffect(&pBlur);
-        view.setVerticalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAlwaysOff);
-        view.setHorizontalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAlwaysOff);
-        return view.grab();
+        return ApplyEffectToImage(pixmap, &pBlur, 0);
     }
 
     QPixmap ColorizeImage(const QPixmap &pixmap, const QColor &color, const qreal factor)
     {
-        QGraphicsView view;
-        QGraphicsScene scene;
         QGraphicsColorizeEffect pColor;
         pColor.setColor(color);
         pColor.setStrength(factor);
-        //
-        view.setScene(&scene);
-        view.resize(pixmap.size() / QWidget().devicePixelRatio());
-        view.setSceneRect(pixmap.rect());
-        scene.setSceneRect(pixmap.rect());
-        QGraphicsPixmapItem *p = view.scene()->addPixmap(pixmap);
-        p->setGraphicsEffect(&pColor);
-        view.setVerticalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAlwaysOff);
-        view.setHorizontalScrollBarPolicy(Qt::ScrollBarPolicy::ScrollBarAlwaysOff);
-        return view.grab();
+        return ApplyEffectToImage(pixmap, &pColor, 0);
     }
 } // namespace Qv2ray::common
