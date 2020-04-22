@@ -187,7 +187,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
         if (connectionNodes.contains(id))
             connectionNodes.value(id)->setText(MW_ITEM_COL_PING, NumericString(avg)); //
     });
-    connect(ConnectionManager, &QvConfigHandler::OnRecentConnectionsChanged, this, &MainWindow::ReloadRecentConnectionList);
     //
     connect(infoWidget, &ConnectionInfoWidget::OnEditRequested, this, &MainWindow::OnEditRequested);
     connect(infoWidget, &ConnectionInfoWidget::OnJsonEditRequested, this, &MainWindow::OnEditJsonRequested);
