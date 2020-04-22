@@ -353,11 +353,14 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 
 if(APPLE)
     find_package(Iconv REQUIRED)
+    find_library(CARBON NAMES Carbon)
+    find_library(COCOA NAMES Cocoa)
+    find_library(SECURITY NAMES Security)
     target_link_libraries(${PROJECT_NAME}
         Iconv::Iconv
-        "-framework Carbon"
-        "-framework Cocoa"
-        "-framework Security"
+        ${CARBON}
+        ${COCOA}
+        ${SECURITY}
         )
     target_include_directories(${PROJECT_NAME} PRIVATE
         ${Iconv_INCLUDE_DIR}
