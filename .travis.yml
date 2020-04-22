@@ -10,7 +10,7 @@ env:
 addons:
   snaps:
     - name: snapcraft
-      channel: edge
+      channel: stable
       confinement: classic
     - name: lxd
       channel: stable
