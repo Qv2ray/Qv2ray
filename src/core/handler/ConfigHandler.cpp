@@ -93,7 +93,7 @@ namespace Qv2ray::core::handlers
         pingConnectionTimerId = startTimer(60 * 1000);
     }
 
-    void QvConfigHandler::CHSaveConfigData_p()
+    void QvConfigHandler::CHSaveConfigData()
     {
         // Do not copy construct.
         auto &newGlobalConfig = GlobalConfig;
@@ -131,7 +131,7 @@ namespace Qv2ray::core::handlers
     {
         if (event->timerId() == saveTimerId)
         {
-            CHSaveConfigData_p();
+            CHSaveConfigData();
         }
         else if (event->timerId() == pingAllTimerId)
         {
@@ -232,7 +232,7 @@ namespace Qv2ray::core::handlers
         OnConnectionRenamed(id, connections[id].displayName, newName);
         PluginHost->Send_ConnectionEvent({ newName, connections[id].displayName, Events::ConnectionEntry::ConnectionEvent_Renamed });
         connections[id].displayName = newName;
-        CHSaveConfigData_p();
+        CHSaveConfigData();
         return {};
     }
     const optional<QString> QvConfigHandler::DeleteConnection(const ConnectionId &id)
@@ -324,7 +324,7 @@ namespace Qv2ray::core::handlers
         PluginHost->Send_ConnectionEvent({ groups[id].displayName, "", Events::ConnectionEntry::ConnectionEvent_Deleted });
         //
         groups.remove(id);
-        CHSaveConfigData_p();
+        CHSaveConfigData();
         emit OnGroupDeleted(id, list);
         if (id == DefaultGroupId)
         {
@@ -338,29 +338,6 @@ namespace Qv2ray::core::handlers
         CheckConnectionExistance(id);
         connections[id].lastConnected = system_clock::to_time_t(system_clock::now());
         CONFIGROOT root = GetConnectionRoot(id);
-        auto &list = GlobalConfig.uiConfig.recentConnections;
-
-        bool recentListChanged = false;
-        // If the 1st of the list is NOT the current connection.
-        if (!list.isEmpty() && list.first() != id.toString())
-        {
-            list.removeAll(id.toString());
-            // Make it the first.
-            list.push_front(id.toString());
-            recentListChanged = true;
-        }
-
-        while (list.count() > GlobalConfig.uiConfig.maxJumpListCount)
-        {
-            recentListChanged = true;
-            list.removeLast();
-        }
-
-        if (recentListChanged)
-        {
-            emit OnRecentConnectionsChanged(list);
-        }
-
         return kernelHandler->StartConnection(id, root);
     }
 
@@ -372,7 +349,7 @@ namespace Qv2ray::core::handlers
     void QvConfigHandler::StopConnection() // const ConnectionId &id
     {
         kernelHandler->StopConnection();
-        CHSaveConfigData_p();
+        CHSaveConfigData();
     }
 
     bool QvConfigHandler::IsConnected(const ConnectionId &id) const
@@ -393,7 +370,7 @@ namespace Qv2ray::core::handlers
         LOG(MODULE_CORE_HANDLER, "Triggering save settings from destructor")
         delete kernelHandler;
         delete httpHelper;
-        CHSaveConfigData_p();
+        CHSaveConfigData();
     }
 
     const CONFIGROOT QvConfigHandler::GetConnectionRoot(const ConnectionId &id) const
@@ -439,7 +416,7 @@ namespace Qv2ray::core::handlers
         groups[id].importDate = system_clock::to_time_t(system_clock::now());
         PluginHost->Send_ConnectionEvent({ displayName, "", Events::ConnectionEntry::ConnectionEvent_Created });
         emit OnGroupCreated(id, displayName);
-        CHSaveConfigData_p();
+        CHSaveConfigData();
         return id;
     }
 
@@ -635,7 +612,7 @@ namespace Qv2ray::core::handlers
         UpdateConnection(newId, root);
         if (!skipSaveConfig)
         {
-            CHSaveConfigData_p();
+            CHSaveConfigData();
         }
         return newId;
     }

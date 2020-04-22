@@ -407,6 +407,13 @@ int main(int argc, char *argv[])
     {
 #endif
         //_qApp.setAttribute(Qt::AA_DontUseNativeMenuBar);
+#ifdef Q_OS_LINUX
+        _qApp.setFallbackSessionManagementEnabled(false);
+        QObject::connect(&_qApp, &QGuiApplication::commitDataRequest, [] { //
+            ConnectionManager->CHSaveConfigData();
+            LOG(MODULE_INIT, "Quit triggered by session manager.")
+        });
+#endif
         // Initialise Connection Handler
         PluginHost = new QvPluginHost();
         ConnectionManager = new QvConfigHandler();

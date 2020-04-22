@@ -59,6 +59,7 @@ namespace Qv2ray::core::handlers
         }
         //
         //
+        void CHSaveConfigData();
         const QList<GroupId> Subscriptions() const;
         //
         // Get Options
@@ -103,7 +104,6 @@ namespace Qv2ray::core::handlers
         const tuple<QString, int64_t, float> GetSubscriptionData(const GroupId &id) const;
 
       signals:
-        void OnRecentConnectionsChanged(const QList<QString> &connections);
         void OnKernelLogAvailable(const ConnectionId &id, const QString &log);
         void OnStatsAvailable(const ConnectionId &id, const quint64 upS, const quint64 downS, const quint64 upD, const quint64 downD);
         //
@@ -134,7 +134,6 @@ namespace Qv2ray::core::handlers
         void timerEvent(QTimerEvent *event) override;
 
       private:
-        void CHSaveConfigData_p();
         bool CHUpdateSubscription_p(const GroupId &id, const QByteArray &subscriptionData);
 
       private:

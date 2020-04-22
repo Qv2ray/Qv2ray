@@ -1182,7 +1182,7 @@ void PreferencesWindow::on_setTestLatenctCB_stateChanged(int arg1)
     LOADINGCHECK
     if (arg1 == Qt::Checked)
     {
-        QvMessageBoxWarn(this, tr("Dangerous Operation"), tr("This will (probably) makes it easy to fingerprint your connection."));
+        QvMessageBoxWarn(this, tr("Dangerous Operation"), tr("This will (probably) make it easy to fingerprint your connection."));
     }
     CurrentConfig.advancedConfig.testLatencyPeriodcally = arg1 == Qt::Checked;
 }
