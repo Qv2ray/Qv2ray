@@ -431,13 +431,13 @@ namespace Qv2ray::core::connection
                     }
 
                     // If this entry has been disabled.
-                    if (_b.contains("QV2RAY_RULE_ENABLED") && _b["QV2RAY_RULE_ENABLED"].toBool() == true)
+                    if (_b.contains("QV2RAY_RULE_ENABLED") && _b["QV2RAY_RULE_ENABLED"].toBool() == false)
                     {
-                        rules.append(_b);
+                        LOG(MODULE_SETTINGS, "Discarded a rule as it's been set DISABLED")
                     }
                     else
                     {
-                        LOG(MODULE_SETTINGS, "Discarded a rule as it's been set DISABLED")
+                        rules.append(_b);
                     }
                 }
 
