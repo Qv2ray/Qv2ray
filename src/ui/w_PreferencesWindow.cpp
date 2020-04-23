@@ -122,10 +122,12 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     bool have_tproxy = CurrentConfig.inboundConfig.useTPROXY;
     tproxGroupBox->setChecked(have_tproxy);
     tproxyListenAddr->setText(CurrentConfig.inboundConfig.tproxy_ip);
+    tProxyPort->setValue(CurrentConfig.inboundConfig.tproxy_port);
     tproxyEnableTCP->setChecked(CurrentConfig.inboundConfig.tproxy_use_tcp);
     tproxyEnableUDP->setChecked(CurrentConfig.inboundConfig.tproxy_use_udp);
     tproxyFollowRedirect->setChecked(CurrentConfig.inboundConfig.tproxy_followRedirect);
     tproxyMode->setCurrentText(CurrentConfig.inboundConfig.tproxy_mode);
+    outboundMark->setValue(CurrentConfig.outboundConfig.mark);
     //
     //
     vCorePathTxt->setText(CurrentConfig.kernelConfig.KernelPath());
@@ -1253,4 +1255,10 @@ void PreferencesWindow::on_customProxySettingsGroupBox_clicked(bool checked)
 void PreferencesWindow::on_jumpListCountSB_valueChanged(int arg1)
 {
     CurrentConfig.uiConfig.maxJumpListCount = arg1;
+}
+
+void PreferencesWindow::on_outboundMark_valueChanged(int arg1)
+{
+    NEEDRESTART
+    CurrentConfig.outboundConfig.mark=arg1;
 }

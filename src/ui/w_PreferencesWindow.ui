@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>840</width>
+    <width>742</width>
     <height>572</height>
    </rect>
   </property>
@@ -704,9 +704,9 @@ Custom DNS Settings</string>
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>0</y>
-            <width>794</width>
-            <height>484</height>
+            <y>-28</y>
+            <width>689</width>
+            <height>524</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -1053,6 +1053,26 @@ Custom DNS Settings</string>
                     <string>tproxy</string>
                    </property>
                   </item>
+                 </widget>
+                </item>
+                <item row="3" column="0">
+                 <widget class="QLabel" name="label_79">
+                  <property name="text">
+                   <string>Outbound Mark</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="1">
+                 <widget class="QSpinBox" name="outboundMark">
+                  <property name="minimum">
+                   <number>0</number>
+                  </property>
+                  <property name="maximum">
+                   <number>65535</number>
+                  </property>
+                  <property name="value">
+                   <number>255</number>
+                  </property>
                  </widget>
                 </item>
                </layout>
