@@ -18,7 +18,7 @@ jobs:
       - name: Hash File
         shell: bash
         run: |
-          wget -O release.info https://api.github.com/repos/Qv2ray/Qv2ray/releases/tags/v2.5.0-pre1 #${{ steps.get_version.outputs.VERSION }}
+          wget -O release.info https://api.github.com/repos/Qv2ray/Qv2ray/releases/tags/${{ steps.get_version.outputs.VERSION }}
           cat ./release.info | jq -r ".assets | .[] | .browser_download_url" > download.list
           cat ./release.info | jq -r ".assets | .[] | { uploader_id: .uploader.login, asset_name: .name }" > assets.info.json
           mkdir files
