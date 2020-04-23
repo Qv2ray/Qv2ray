@@ -26,7 +26,7 @@ jobs:
 
   linux:
     needs: check_commit_msg
-    if: ${{ !contains( needs.check_commit_msg.commit_message, 'NO_DEB') }}
+    if: ${{ !contains( needs.check_commit_msg.outputs.commit_message, 'NO_DEB') }}
     name: Debian Buster
     runs-on: ubuntu-latest
     container: debian:buster
