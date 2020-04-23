@@ -255,7 +255,7 @@ namespace Qv2ray::base::config
         QString type;
         int port;
         QString userAgent;
-        Qv2rayNetworkConfig() : address(""), type("http"), port(8000), userAgent("Qv2ray/" QV2RAY_VERSION_STRING " WebRequestHelper"){};
+        Qv2rayNetworkConfig() : address(""), type("http"), port(8000), userAgent("Qv2ray/$VERSION WebRequestHelper"){};
         XTOSTRUCT(O(useCustomProxy, type, address, port, userAgent))
     };
 

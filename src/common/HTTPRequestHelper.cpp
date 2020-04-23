@@ -22,36 +22,32 @@ namespace Qv2ray::common
         request.setRawHeader(key, value);
     }
 
-    QByteArray QvHttpRequestHelper::Get(const QString &url, bool useProxy)
+    QByteArray QvHttpRequestHelper::Get(const QString &url)
     {
         request.setUrl({ url });
-        if (useProxy)
+
+        QNetworkProxy p;
+        if (GlobalConfig.networkConfig.useCustomProxy)
         {
-            QNetworkProxy p;
-            if (GlobalConfig.networkConfig.useCustomProxy)
-            {
-                auto type = GlobalConfig.networkConfig.type == "http" ? QNetworkProxy::HttpProxy : QNetworkProxy::Socks5Proxy;
-                p = QNetworkProxy{ type, GlobalConfig.networkConfig.address, quint16(GlobalConfig.networkConfig.port) };
-            }
-            else
-            {
-                p = QNetworkProxyFactory::systemProxyForQuery().first();
-            }
-            if (p.type() == QNetworkProxy::Socks5Proxy)
-            {
-                DEBUG(MODULE_NETWORK, "Adding HostNameLookupCapability to proxy.")
-                p.setCapabilities(accessManager.proxy().capabilities() | QNetworkProxy::HostNameLookupCapability);
-            }
-            accessManager.setProxy(p);
+            auto type = GlobalConfig.networkConfig.type == "http" ? QNetworkProxy::HttpProxy : QNetworkProxy::Socks5Proxy;
+            p = QNetworkProxy{ type, GlobalConfig.networkConfig.address, quint16(GlobalConfig.networkConfig.port) };
         }
         else
         {
-            DEBUG(MODULE_NETWORK, "Get without proxy.")
-            accessManager.setProxy(QNetworkProxy(QNetworkProxy::ProxyType::NoProxy));
+            p = QNetworkProxyFactory::systemProxyForQuery().first();
         }
+        if (p.type() == QNetworkProxy::Socks5Proxy)
+        {
+            DEBUG(MODULE_NETWORK, "Adding HostNameLookupCapability to proxy.")
+            p.setCapabilities(accessManager.proxy().capabilities() | QNetworkProxy::HostNameLookupCapability);
+        }
+        accessManager.setProxy(p);
+
         request.setAttribute(QNetworkRequest::RedirectPolicyAttribute, QNetworkRequest::NoLessSafeRedirectPolicy);
         request.setAttribute(QNetworkRequest::HTTP2AllowedAttribute, true);
-        request.setHeader(QNetworkRequest::KnownHeaders::UserAgentHeader, GlobalConfig.networkConfig.userAgent);
+        auto ua = GlobalConfig.networkConfig.userAgent;
+        ua.replace("$VERSION", QV2RAY_VERSION_STRING);
+        request.setHeader(QNetworkRequest::KnownHeaders::UserAgentHeader, ua);
         reply = accessManager.get(request);
         //
         QEventLoop loop;

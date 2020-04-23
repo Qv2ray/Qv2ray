@@ -464,7 +464,7 @@ namespace Qv2ray::core::handlers
         return true;
     }
 
-    bool QvConfigHandler::UpdateSubscription(const GroupId &id, bool useSystemProxy)
+    bool QvConfigHandler::UpdateSubscription(const GroupId &id)
     {
         CheckGroupExistanceEx(id, false);
         if (isHttpRequestInProgress)
@@ -472,7 +472,7 @@ namespace Qv2ray::core::handlers
             return false;
         }
         isHttpRequestInProgress = true;
-        auto data = httpHelper->Get(groups[id].address, useSystemProxy);
+        auto data = httpHelper->Get(groups[id].address);
         isHttpRequestInProgress = false;
         return CHUpdateSubscription_p(id, data);
     }
