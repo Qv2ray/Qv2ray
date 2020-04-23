@@ -24,11 +24,6 @@ jobs:
         run: |
           echo "::set-output name=message::$(git log --format=%B -n 1 ${{ github.event.after }})"
           echo "::set-env name=message::$(git log --format=%B -n 1 ${{ github.event.after }})"
-      - name: Commit message
-        run : echo $message
-      - name: step1
-        if: contains( env.message , 'NO_AUR' )
-        run: echo "This build has been disabled."
 
   aur:
     needs: check_commit_msg
