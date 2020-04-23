@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>742</width>
+    <width>756</width>
     <height>572</height>
    </rect>
   </property>
@@ -274,7 +274,21 @@
             <string>Network Settings</string>
            </property>
            <layout class="QFormLayout" name="formLayout_15">
-            <item row="0" column="0" colspan="2">
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_67">
+              <property name="text">
+               <string>User-Agent</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLineEdit" name="qvNetworkUATxt">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0" colspan="2">
              <widget class="QGroupBox" name="customProxySettingsGroupBox">
               <property name="title">
                <string>Use Custom Proxy Settings</string>
@@ -307,7 +321,7 @@
                <item row="1" column="0">
                 <widget class="QLabel" name="label_64">
                  <property name="text">
-                  <string>Custom Proxy Server</string>
+                  <string>Server</string>
                  </property>
                 </widget>
                </item>
@@ -337,20 +351,6 @@
                   </widget>
                  </item>
                 </layout>
-               </item>
-               <item row="2" column="0">
-                <widget class="QLabel" name="label_67">
-                 <property name="text">
-                  <string>User-Agent</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="1">
-                <widget class="QLineEdit" name="qvNetworkUATxt">
-                 <property name="text">
-                  <string/>
-                 </property>
-                </widget>
                </item>
               </layout>
              </widget>
@@ -704,9 +704,9 @@ Custom DNS Settings</string>
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-28</y>
-            <width>689</width>
-            <height>524</height>
+            <y>0</y>
+            <width>710</width>
+            <height>520</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_2">
