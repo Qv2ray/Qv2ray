@@ -99,7 +99,7 @@ namespace Qv2ray::core::handlers
         //
         // Subscriptions
         bool SetSubscriptionData(const GroupId &id, const QString &address = "", float updateInterval = -1);
-        bool UpdateSubscription(const GroupId &id, bool useSystemProxy);
+        bool UpdateSubscription(const GroupId &id);
         // bool UpdateSubscriptionASync(const GroupId &id, bool useSystemProxy);
         const tuple<QString, int64_t, float> GetSubscriptionData(const GroupId &id) const;
 

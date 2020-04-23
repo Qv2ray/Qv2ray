@@ -55,7 +55,7 @@ void SubscriptionEditor::on_updateButton_clicked()
     if (QvMessageBoxAsk(this, tr("Reload Subscription"), tr("Would you like to reload the subscription?")) == QMessageBox::Yes)
     {
         this->setEnabled(false);
-        ConnectionManager->UpdateSubscription(currentSubId, withProxyCB->isChecked()); //
+        ConnectionManager->UpdateSubscription(currentSubId); //
         this->setEnabled(true);
         on_subscriptionList_itemClicked(subscriptionList->currentItem(), 0);
     }

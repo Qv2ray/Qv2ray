@@ -33,7 +33,7 @@ namespace Qv2ray::common
         ~QvHttpRequestHelper();
         // get
         void AsyncGet(const QString &url);
-        QByteArray Get(const QString &url, bool useProxy);
+        QByteArray Get(const QString &url);
       signals:
         void OnRequestFinished(QByteArray &data);
 
