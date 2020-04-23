@@ -363,9 +363,9 @@ namespace Qv2ray::core::connection
                     auto tproxyInSettings = GenerateDokodemoIN("", 0, tproxy_network, 0, true, 0);
                     tproxyInBoundObject.insert("settings", tproxyInSettings);
 
-                    // QJsonObject tproxy_sniff{ { "enabled", true }, { "destOverride", QJsonArray{ "http", "tls" } } };
-                    // tproxyInBoundObject.insert("sniffing", tproxy_sniff);
-                    tproxyInBoundObject.insert("sniffing", sniffingObject);
+                     QJsonObject tproxy_sniff{ { "enabled", true }, { "destOverride", QJsonArray{ "http", "tls" } } };
+                     tproxyInBoundObject.insert("sniffing", tproxy_sniff);
+//                    tproxyInBoundObject.insert("sniffing", sniffingObject);
 
                     QJsonObject tproxy_streamSettings{ { "sockopt", QJsonObject{ { "tproxy", GlobalConfig.inboundConfig.tproxy_mode } } } };
                     tproxyInBoundObject.insert("streamSettings", tproxy_streamSettings);
@@ -558,7 +558,7 @@ namespace Qv2ray::core::connection
                 root["api"] = GenerateAPIEntry(API_TAG_DEFAULT);
             }
 
-            if (GlobalConfig.inboundConfig.useTPROXY && GlobalConfig.outboundConfig.mark > 0)
+            if (!isComplex && GlobalConfig.inboundConfig.useTPROXY && GlobalConfig.outboundConfig.mark > 0)
             {
                 OutboundMarkSettingFilter(GlobalConfig.outboundConfig.mark, root);
             }
