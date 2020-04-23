@@ -1,0 +1,38 @@
+name: Qv2ray Hash File
+
+on: 
+  push:
+  release:
+    types: [prereleased]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        qt_version: [5.14.2]
+        platform: [windows-latest]
+        arch: [x86, x64]
+        include: 
+          - platform: windows-latest
+            arch: x86
+            qtarch: win32_msvc2017
+          - platform: windows-latest
+            arch: x64
+            qtarch: win64_msvc2017_64
+      fail-fast: false
+        
+    runs-on: ${{ matrix.platform }}
+    
+    steps:
+      - name: Get the version
+        id: get_version
+        shell: bash
+        run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
+      - name: Checking out sources
+        uses: actions/checkout@master
+      - name: Hash File
+        shell: bash
+        env:
+          HASH: ${{ hashFiles(CMakeLists.txt) }}
+        run:
+          echo $HASH
