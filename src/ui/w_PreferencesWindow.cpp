@@ -128,6 +128,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     tproxyFollowRedirect->setChecked(CurrentConfig.inboundConfig.tproxy_followRedirect);
     tproxyMode->setCurrentText(CurrentConfig.inboundConfig.tproxy_mode);
     outboundMark->setValue(CurrentConfig.outboundConfig.mark);
+    dnsIntercept->setChecked(CurrentConfig.inboundConfig.dnsIntercept);
     //
     //
     vCorePathTxt->setText(CurrentConfig.kernelConfig.KernelPath());
@@ -1261,4 +1262,12 @@ void PreferencesWindow::on_outboundMark_valueChanged(int arg1)
 {
     NEEDRESTART
     CurrentConfig.outboundConfig.mark=arg1;
+}
+
+
+void PreferencesWindow::on_dnsIntercept_toggled(bool checked)
+{
+    NEEDRESTART
+    CurrentConfig.inboundConfig.dnsIntercept=checked;
+
 }

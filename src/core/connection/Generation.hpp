@@ -40,6 +40,8 @@ namespace Qv2ray::core::connection
         // mark all outbound
         void OutboundMarkSettingFilter(const int mark, CONFIGROOT &root);
 
+        void DNSInterceptFilter(CONFIGROOT &root);
+
     } // namespace Generation
 } // namespace Qv2ray::core::connection
 

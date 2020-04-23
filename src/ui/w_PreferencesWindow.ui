@@ -705,8 +705,8 @@ Custom DNS Settings</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>710</width>
-            <height>520</height>
+            <width>703</width>
+            <height>524</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -1010,6 +1010,13 @@ Custom DNS Settings</string>
                    <widget class="QCheckBox" name="tproxyFollowRedirect">
                     <property name="text">
                      <string>Follow Redirect</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="dnsIntercept">
+                    <property name="text">
+                     <string>DNS Intercept</string>
                     </property>
                    </widget>
                   </item>

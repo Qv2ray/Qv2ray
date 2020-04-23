@@ -84,18 +84,19 @@ namespace Qv2ray::base::config
         bool tproxy_followRedirect;
         /*redirect or tproxy way, and tproxy need cap_net_admin*/
         QString tproxy_mode;
+        bool dnsIntercept;
 
         Qv2rayInboundsConfig()
             : listenip("127.0.0.1"), setSystemProxy(true), useSocks(true), socks_port(1088), socks_useAuth(false), socksUDP(true),
               socksLocalIP("127.0.0.1"), socksAccount(), useHTTP(true), http_port(8888), http_useAuth(false), httpAccount(), useTPROXY(false),
               tproxy_ip("127.0.0.1"), tproxy_port(12345), tproxy_use_tcp(true), tproxy_use_udp(false), tproxy_followRedirect(true),
-              tproxy_mode("tproxy")
+              tproxy_mode("tproxy"),dnsIntercept(true)
         {
         }
 
         XTOSTRUCT(O(setSystemProxy, listenip, useSocks, useHTTP, socks_port, socks_useAuth, socksAccount, socksUDP, socksLocalIP, http_port,
                     http_useAuth, httpAccount, useTPROXY, tproxy_ip, tproxy_port, tproxy_use_tcp, tproxy_use_udp, tproxy_followRedirect,
-                    tproxy_mode))
+                    tproxy_mode,dnsIntercept))
     };
 
     struct Qv2rayOutboundsConfig
