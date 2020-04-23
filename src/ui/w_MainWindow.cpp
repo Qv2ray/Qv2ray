@@ -322,9 +322,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
         on_connectionListWidget_itemClicked(item, 0);
     }
     ReloadRecentConnectionList(GlobalConfig.uiConfig.recentConnections);
+    //
     if (needShowWindow)
         this->show();
-
+    //
+    tray_action_ShowHide->setText(needShowWindow ? tr("Hide") : tr("Show"));
+    //
     if (StartupOption.enableToolbarPlguin)
     {
         LOG(MODULE_UI, "Plugin daemon is enabled.")
