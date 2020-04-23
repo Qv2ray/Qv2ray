@@ -209,8 +209,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     tray_RootMenu->addSeparator();
     tray_RootMenu->addAction(tray_action_ShowPreferencesWindow);
     tray_RootMenu->addMenu(tray_SystemProxyMenu);
-    tray_RootMenu->addSeparator();
-    tray_RootMenu->addMenu(tray_RecentConnectionsMenu);
+    // This feature is not ready
+    // tray_RootMenu->addSeparator();
+    // tray_RootMenu->addMenu(tray_RecentConnectionsMenu);
     tray_RootMenu->addSeparator();
     tray_RootMenu->addAction(tray_action_Start);
     tray_RootMenu->addAction(tray_action_Stop);
