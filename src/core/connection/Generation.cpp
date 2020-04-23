@@ -558,7 +558,7 @@ namespace Qv2ray::core::connection
                 root["api"] = GenerateAPIEntry(API_TAG_DEFAULT);
             }
 
-            if (GlobalConfig.outboundConfig.mark > 0)
+            if (GlobalConfig.inboundConfig.useTPROXY && GlobalConfig.outboundConfig.mark > 0)
             {
                 OutboundMarkSettingFilter(GlobalConfig.outboundConfig.mark, root);
             }
