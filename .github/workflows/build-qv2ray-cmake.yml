@@ -18,11 +18,6 @@ jobs:
         run: |
           echo "::set-output name=message::$(git log --format=%B -n 1 ${{ github.event.after }})"
           echo "::set-env name=message::$(git log --format=%B -n 1 ${{ github.event.after }})"
-      - name: Commit message
-        run : echo $message
-      - name: step1
-        if: contains( env.message , 'NO_MAIN' )
-        run: echo "This build has been disabled."
   build:
     needs: check_commit_msg
     if: ${{ !contains( needs.check_commit_msg.outputs.commit_message, 'NO_MAIN') }}
@@ -38,9 +33,6 @@ jobs:
           - platform: windows-latest
             arch: x64
             qtarch: win64_msvc2017_64
-          - platform: ubuntu-16.04
-            arch: x64
-            qt_version: 5.11.3
         exclude:
           - platform: ubuntu-16.04
             arch: x86
