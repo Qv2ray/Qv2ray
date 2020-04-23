@@ -515,6 +515,9 @@ namespace Qv2ray::core::connection
                 {
                     OutboundMarkSettingFilter(GlobalConfig.outboundConfig.mark, root);
                 }
+                if (GlobalConfig.inboundConfig.useTPROXY && GlobalConfig.inboundConfig.dnsIntercept){
+                    DNSInterceptFilter(root);
+                }
             }
 
             // Let's process some api features.
@@ -598,6 +601,23 @@ namespace Qv2ray::core::connection
             }
             root["outbounds"] = outbounds;
         }
+
+        void DNSInterceptFilter(CONFIGROOT &root){
+            // dns outBound
+            QJsonObject dnsOutboundObj{{"protocol","dns"},{"tag","dns-out"}};
+            OUTBOUNDS outbounds(root["outbounds"].toArray());
+            outbounds.append(dnsOutboundObj);
+            root["outbounds"] = outbounds;
+
+            //dns route
+            QJsonObject dnsRoutingRuleObj{{"outboundTag", "dns-out"},{"port","53"},{"type", "field"}};
+            ROUTING routing(root["routing"].toObject());
+            QJsonArray _rules(routing["rules"].toArray());
+            _rules.insert(0,dnsRoutingRuleObj);
+            routing["rules"]=_rules;
+            root["routing"]=routing;
+        }
+
 
     } // namespace Generation
 } // namespace Qv2ray::core::connection

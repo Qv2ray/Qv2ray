@@ -196,7 +196,9 @@ class PreferencesWindow
 
     void on_outboundMark_valueChanged(int arg1);
 
-  private:
+    void on_dnsIntercept_toggled(bool checked);
+
+private:
     //
     RouteSettingsMatrixWidget *routeSettingsWidget;
     void SetAutoStartButtonsState(bool isAutoStart);
