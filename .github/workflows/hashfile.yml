@@ -1,7 +1,6 @@
 name: Update release files hash
 
-on: 
-  push:
+on:
   release:
     types: [edited]
 
