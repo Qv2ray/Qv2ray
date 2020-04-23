@@ -75,28 +75,53 @@ namespace Qv2ray::base::config
         bool http_useAuth;
         objects::AccountObject httpAccount;
 
+        // dokodemo-door transparent proxy
+        bool useTPROXY;
+        QString tproxy_ip;
+        int tproxy_port;
+        bool tproxy_use_tcp;
+        bool tproxy_use_udp;
+        bool tproxy_followRedirect;
+        /*redirect or tproxy way, and tproxy need cap_net_admin*/
+        QString tproxy_mode;
+
         Qv2rayInboundsConfig()
             : listenip("127.0.0.1"), setSystemProxy(true), useSocks(true), socks_port(1088), socks_useAuth(false), socksUDP(true),
-              socksLocalIP("127.0.0.1"), socksAccount(), useHTTP(true), http_port(8888), http_useAuth(false), httpAccount()
+              socksLocalIP("127.0.0.1"), socksAccount(), useHTTP(true), http_port(8888), http_useAuth(false), httpAccount(), useTPROXY(false),
+              tproxy_ip("127.0.0.1"), tproxy_port(12345), tproxy_use_tcp(true), tproxy_use_udp(false), tproxy_followRedirect(true),
+              tproxy_mode("tproxy")
         {
         }
 
         XTOSTRUCT(O(setSystemProxy, listenip, useSocks, useHTTP, socks_port, socks_useAuth, socksAccount, socksUDP, socksLocalIP, http_port,
-                    http_useAuth, httpAccount))
+                    http_useAuth, httpAccount, useTPROXY, tproxy_ip, tproxy_port, tproxy_use_tcp, tproxy_use_udp, tproxy_followRedirect,
+                    tproxy_mode))
+    };
+
+    struct Qv2rayOutboundsConfig
+    {
+        int mark;
+        Qv2rayOutboundsConfig() : mark(255)
+        {
+        }
+        XTOSTRUCT(O(mark))
     };
 
     struct Qv2rayUIConfig
     {
         QString theme;
         QString language;
+        QList<QString> recentConnections;
         bool quietMode;
         bool useDarkTheme;
         bool useDarkTrayIcon;
         int maximumLogLines;
-        Qv2rayUIConfig() : theme("Fusion"), language("en_US"), useDarkTheme(false), useDarkTrayIcon(true), maximumLogLines(500)
+        int maxJumpListCount;
+        Qv2rayUIConfig()
+            : theme("Fusion"), language("en_US"), useDarkTheme(false), useDarkTrayIcon(true), maximumLogLines(500), maxJumpListCount(20)
         {
         }
-        XTOSTRUCT(O(theme, language, quietMode, useDarkTheme, useDarkTrayIcon, maximumLogLines))
+        XTOSTRUCT(O(theme, language, quietMode, useDarkTheme, useDarkTrayIcon, maximumLogLines, maxJumpListCount, recentConnections))
     };
 
     struct Qv2rayRouteConfig_Impl
@@ -230,7 +255,7 @@ namespace Qv2ray::base::config
         QString type;
         int port;
         QString userAgent;
-        Qv2rayNetworkConfig() : address(""), type("http"), port(8000), userAgent("Qv2ray/" QV2RAY_VERSION_STRING " WebRequestHelper"){};
+        Qv2rayNetworkConfig() : address(""), type("http"), port(8000), userAgent("Qv2ray/$VERSION WebRequestHelper"){};
         XTOSTRUCT(O(useCustomProxy, type, address, port, userAgent))
     };
 
@@ -256,6 +281,7 @@ namespace Qv2ray::base::config
         Qv2rayNetworkConfig networkConfig;
         Qv2rayToolBarConfig toolBarConfig;
         Qv2rayInboundsConfig inboundConfig;
+        Qv2rayOutboundsConfig outboundConfig;
         Qv2rayAdvancedConfig advancedConfig;
         Qv2rayConnectionConfig connectionConfig;
 
@@ -275,6 +301,7 @@ namespace Qv2ray::base::config
               networkConfig(),                       //
               toolBarConfig(),                       //
               inboundConfig(),                       //
+              outboundConfig(),                      //
               advancedConfig(),                      //
               connectionConfig()
         {
@@ -293,6 +320,7 @@ namespace Qv2ray::base::config
                     subscriptions,    //
                     autoStartId,      //
                     inboundConfig,    //
+                    outboundConfig,   //
                     connectionConfig, //
                     toolBarConfig,    //
                     advancedConfig,   //

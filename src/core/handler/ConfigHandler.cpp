@@ -93,7 +93,7 @@ namespace Qv2ray::core::handlers
         pingConnectionTimerId = startTimer(60 * 1000);
     }
 
-    void QvConfigHandler::CHSaveConfigData_p()
+    void QvConfigHandler::CHSaveConfigData()
     {
         // Do not copy construct.
         auto &newGlobalConfig = GlobalConfig;
@@ -131,7 +131,7 @@ namespace Qv2ray::core::handlers
     {
         if (event->timerId() == saveTimerId)
         {
-            CHSaveConfigData_p();
+            CHSaveConfigData();
         }
         else if (event->timerId() == pingAllTimerId)
         {
@@ -232,7 +232,7 @@ namespace Qv2ray::core::handlers
         OnConnectionRenamed(id, connections[id].displayName, newName);
         PluginHost->Send_ConnectionEvent({ newName, connections[id].displayName, Events::ConnectionEntry::ConnectionEvent_Renamed });
         connections[id].displayName = newName;
-        CHSaveConfigData_p();
+        CHSaveConfigData();
         return {};
     }
     const optional<QString> QvConfigHandler::DeleteConnection(const ConnectionId &id)
@@ -324,7 +324,7 @@ namespace Qv2ray::core::handlers
         PluginHost->Send_ConnectionEvent({ groups[id].displayName, "", Events::ConnectionEntry::ConnectionEvent_Deleted });
         //
         groups.remove(id);
-        CHSaveConfigData_p();
+        CHSaveConfigData();
         emit OnGroupDeleted(id, list);
         if (id == DefaultGroupId)
         {
@@ -349,7 +349,7 @@ namespace Qv2ray::core::handlers
     void QvConfigHandler::StopConnection() // const ConnectionId &id
     {
         kernelHandler->StopConnection();
-        CHSaveConfigData_p();
+        CHSaveConfigData();
     }
 
     bool QvConfigHandler::IsConnected(const ConnectionId &id) const
@@ -370,7 +370,7 @@ namespace Qv2ray::core::handlers
         LOG(MODULE_CORE_HANDLER, "Triggering save settings from destructor")
         delete kernelHandler;
         delete httpHelper;
-        CHSaveConfigData_p();
+        CHSaveConfigData();
     }
 
     const CONFIGROOT QvConfigHandler::GetConnectionRoot(const ConnectionId &id) const
@@ -416,7 +416,7 @@ namespace Qv2ray::core::handlers
         groups[id].importDate = system_clock::to_time_t(system_clock::now());
         PluginHost->Send_ConnectionEvent({ displayName, "", Events::ConnectionEntry::ConnectionEvent_Created });
         emit OnGroupCreated(id, displayName);
-        CHSaveConfigData_p();
+        CHSaveConfigData();
         return id;
     }
 
@@ -464,7 +464,7 @@ namespace Qv2ray::core::handlers
         return true;
     }
 
-    bool QvConfigHandler::UpdateSubscription(const GroupId &id, bool useSystemProxy)
+    bool QvConfigHandler::UpdateSubscription(const GroupId &id)
     {
         CheckGroupExistanceEx(id, false);
         if (isHttpRequestInProgress)
@@ -472,7 +472,7 @@ namespace Qv2ray::core::handlers
             return false;
         }
         isHttpRequestInProgress = true;
-        auto data = httpHelper->Get(groups[id].address, useSystemProxy);
+        auto data = httpHelper->Get(groups[id].address);
         isHttpRequestInProgress = false;
         return CHUpdateSubscription_p(id, data);
     }
@@ -501,7 +501,7 @@ namespace Qv2ray::core::handlers
         // Anyway, we try our best to preserve the connection id.
         QMultiMap<QString, ConnectionId> nameMap;
         QMultiMap<tuple<QString, QString, int>, ConnectionId> typeMap;
-        for (const auto conn : groups[id].connections)
+        for (const auto &conn : groups[id].connections)
         {
             nameMap.insertMulti(GetDisplayName(conn), conn);
             auto [protocol, host, port] = GetConnectionInfo(conn);
@@ -526,7 +526,7 @@ namespace Qv2ray::core::handlers
             // Things may go wrong when updating a subscription with ssd:// link
             for (auto _alias : conf.keys())
             {
-                for (const auto config : conf.values(_alias))
+                for (const auto &config : conf.values(_alias))
                 {
                     if (!errMessage.isEmpty())
                     {
@@ -589,6 +589,8 @@ namespace Qv2ray::core::handlers
 
     void QvConfigHandler::OnStatsDataArrived_p(const ConnectionId &id, const quint64 uploadSpeed, const quint64 downloadSpeed)
     {
+        if (id == NullConnectionId)
+            return;
         connections[id].upLinkData += uploadSpeed;
         connections[id].downLinkData += downloadSpeed;
         emit OnStatsAvailable(id, uploadSpeed, downloadSpeed, connections[id].upLinkData, connections[id].downLinkData);
@@ -610,7 +612,7 @@ namespace Qv2ray::core::handlers
         UpdateConnection(newId, root);
         if (!skipSaveConfig)
         {
-            CHSaveConfigData_p();
+            CHSaveConfigData();
         }
         return newId;
     }

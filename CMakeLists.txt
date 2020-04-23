@@ -4,7 +4,7 @@ file(STRINGS "${CMAKE_SOURCE_DIR}/makespec/VERSION" QV2RAY_VERSION)
 file(STRINGS "${CMAKE_SOURCE_DIR}/makespec/BUILDVERSION" QV2RAY_BUILD_VERSION)
 file(STRINGS "${CMAKE_SOURCE_DIR}/makespec/VERSIONSUFFIX" QV2RAY_VERSION_SUFFIX)
 
-if(NOT ${CMAKE_BUILD_TYPE} STREQUAL "Release")
+if(NOT CMAKE_BUILD_TYPE STREQUAL "Release")
     math(EXPR QV2RAY_BUILD_VERSION "1 + ${QV2RAY_BUILD_VERSION}")
     message("Increasing BUILDVERSION")
     file(WRITE "${CMAKE_SOURCE_DIR}/makespec/BUILDVERSION" ${QV2RAY_BUILD_VERSION})
@@ -76,9 +76,7 @@ if(WIN32)
     endif()
 endif()
 
-if(UNIX AND NOT APPLE)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
-endif()
+find_package(Threads REQUIRED)
 
 set(QV2RAY_QNODEEDITOR_PROVIDER "module" CACHE STRING "qnodeeditor provider")
 set(QV2RAY_ZXING_PROVIDER "module" CACHE STRING "zxing-cpp provider")
@@ -337,6 +335,7 @@ target_link_libraries(${PROJECT_NAME}
     ${QV2RAY_BACKEND_LIBRARIES}
     ${QNODEEDITOR_LIBRARY}
     ${ZXING_LIBRARY}
+    Threads::Threads
     )
 
 
@@ -354,11 +353,14 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 
 if(APPLE)
     find_package(Iconv REQUIRED)
+    find_library(CARBON NAMES Carbon)
+    find_library(COCOA NAMES Cocoa)
+    find_library(SECURITY NAMES Security)
     target_link_libraries(${PROJECT_NAME}
         Iconv::Iconv
-        "-framework Carbon"
-        "-framework Cocoa"
-        "-framework Security"
+        ${CARBON}
+        ${COCOA}
+        ${SECURITY}
         )
     target_include_directories(${PROJECT_NAME} PRIVATE
         ${Iconv_INCLUDE_DIR}

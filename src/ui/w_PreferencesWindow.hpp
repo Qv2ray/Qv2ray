@@ -168,8 +168,6 @@ class PreferencesWindow
 
     void on_qvNetworkUATxt_textEdited(const QString &arg1);
 
-    void on_qvUseProxyCB_stateChanged(int arg1);
-
     void on_setAllowInsecureCB_stateChanged(int arg1);
 
     void on_setTestLatenctCB_stateChanged(int arg1);
@@ -177,6 +175,26 @@ class PreferencesWindow
     void on_setAllowInsecureCiphersCB_stateChanged(int arg1);
 
     void on_quietModeCB_stateChanged(int arg1);
+
+    void on_tproxGroupBox_toggled(bool arg1);
+
+    void on_tProxyPort_valueChanged(int arg1);
+
+    void on_tproxyEnableTCP_toggled(bool checked);
+
+    void on_tproxyEnableUDP_toggled(bool checked);
+
+    void on_tproxyFollowRedirect_toggled(bool checked);
+
+    void on_tproxyMode_currentTextChanged(const QString &arg1);
+
+    void on_tproxyListenAddr_textEdited(const QString &arg1);
+
+    void on_customProxySettingsGroupBox_clicked(bool checked);
+
+    void on_jumpListCountSB_valueChanged(int arg1);
+
+    void on_outboundMark_valueChanged(int arg1);
 
   private:
     //

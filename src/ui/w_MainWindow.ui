@@ -22,7 +22,7 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,1,0">
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,0,0,0">
+     <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,0,0">
       <property name="spacing">
        <number>5</number>
       </property>
@@ -34,13 +34,6 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pluginsBtn">
-        <property name="text">
-         <string>Plugins</string>
-        </property>
-       </widget>
-      </item>
-      <item>
        <widget class="QPushButton" name="preferencesBtn">
         <property name="text">
          <string>Preferences</string>
@@ -48,17 +41,11 @@
        </widget>
       </item>
       <item>
-       <spacer name="horizontalSpacer_4">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+       <widget class="QPushButton" name="pluginsBtn">
+        <property name="text">
+         <string>Plugins</string>
         </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
+       </widget>
       </item>
       <item>
        <spacer name="horizontalSpacer">

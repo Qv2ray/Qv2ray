@@ -59,6 +59,7 @@ namespace Qv2ray::core::handlers
         }
         //
         //
+        void CHSaveConfigData();
         const QList<GroupId> Subscriptions() const;
         //
         // Get Options
@@ -98,7 +99,7 @@ namespace Qv2ray::core::handlers
         //
         // Subscriptions
         bool SetSubscriptionData(const GroupId &id, const QString &address = "", float updateInterval = -1);
-        bool UpdateSubscription(const GroupId &id, bool useSystemProxy);
+        bool UpdateSubscription(const GroupId &id);
         // bool UpdateSubscriptionASync(const GroupId &id, bool useSystemProxy);
         const tuple<QString, int64_t, float> GetSubscriptionData(const GroupId &id) const;
 
@@ -133,7 +134,6 @@ namespace Qv2ray::core::handlers
         void timerEvent(QTimerEvent *event) override;
 
       private:
-        void CHSaveConfigData_p();
         bool CHUpdateSubscription_p(const GroupId &id, const QByteArray &subscriptionData);
 
       private:

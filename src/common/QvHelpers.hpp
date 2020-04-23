@@ -38,6 +38,7 @@ namespace Qv2ray::common
     QString FormatBytes(const int64_t bytes);
     void DeducePossibleFileName(const QString &baseDir, QString *fileName, const QString &extension);
     //
+    QPixmap ApplyEffectToImage(QPixmap src, QGraphicsEffect *effect, int extent);
     QPixmap BlurImage(const QPixmap &pixmap, const double rad = 50);
     QPixmap ColorizeImage(const QPixmap &pixmap, const QColor &color, const qreal factor);
     // This function cannot be marked as inline.

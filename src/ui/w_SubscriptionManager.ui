@@ -250,13 +250,6 @@
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
-         <widget class="QCheckBox" name="withProxyCB">
-          <property name="text">
-           <string>Update Subscription With System Proxy</string>
-          </property>
-         </widget>
-        </item>
-        <item>
          <widget class="QPushButton" name="updateButton">
           <property name="text">
            <string>Update Subscription Data</string>
@@ -278,7 +271,6 @@
   <tabstop>subNameTxt</tabstop>
   <tabstop>updateIntervalSB</tabstop>
   <tabstop>connectionsList</tabstop>
-  <tabstop>withProxyCB</tabstop>
   <tabstop>updateButton</tabstop>
  </tabstops>
  <resources>

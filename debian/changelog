@@ -1,4 +1,4 @@
-qv2ray (2.5.0~pre1-1) unstable; urgency=medium
+qv2ray (2.5.0~pre2-1) unstable; urgency=medium
 
   * fix: skip saving config when importing multiple connection configs
   * add: ignore updating subscription by setting interval to 0
