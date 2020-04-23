@@ -194,6 +194,8 @@ class PreferencesWindow
 
     void on_jumpListCountSB_valueChanged(int arg1);
 
+    void on_outboundMark_valueChanged(int arg1);
+
   private:
     //
     RouteSettingsMatrixWidget *routeSettingsWidget;

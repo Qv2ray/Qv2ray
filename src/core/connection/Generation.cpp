@@ -351,6 +351,7 @@ namespace Qv2ray::core::connection
                     tproxyInBoundObject.insert("listen", GlobalConfig.inboundConfig.tproxy_ip);
                     tproxyInBoundObject.insert("port", GlobalConfig.inboundConfig.tproxy_port);
                     tproxyInBoundObject.insert("protocol", "dokodemo-door");
+                    tproxyInBoundObject.insert("tag", "tproxy_IN");
 
                     QList<QString> networks;
                     if (GlobalConfig.inboundConfig.tproxy_use_tcp)
@@ -362,8 +363,9 @@ namespace Qv2ray::core::connection
                     auto tproxyInSettings = GenerateDokodemoIN("", 0, tproxy_network, 0, true, 0);
                     tproxyInBoundObject.insert("settings", tproxyInSettings);
 
-                    QJsonObject tproxy_sniff{ { "enabled", true }, { "destOverride", QJsonArray{ "http", "tls" } } };
-                    tproxyInBoundObject.insert("sniffing", tproxy_sniff);
+                    // QJsonObject tproxy_sniff{ { "enabled", true }, { "destOverride", QJsonArray{ "http", "tls" } } };
+                    // tproxyInBoundObject.insert("sniffing", tproxy_sniff);
+                    tproxyInBoundObject.insert("sniffing", sniffingObject);
 
                     QJsonObject tproxy_streamSettings{ { "sockopt", QJsonObject{ { "tproxy", GlobalConfig.inboundConfig.tproxy_mode } } } };
                     tproxyInBoundObject.insert("streamSettings", tproxy_streamSettings);
@@ -555,7 +557,46 @@ namespace Qv2ray::core::connection
                 //
                 root["api"] = GenerateAPIEntry(API_TAG_DEFAULT);
             }
+
+            if (GlobalConfig.outboundConfig.mark > 0)
+            {
+                OutboundMarkSettingFilter(GlobalConfig.outboundConfig.mark, root);
+            }
+
             return root;
         }
+
+        void OutboundMarkSettingFilter(const int mark, CONFIGROOT &root)
+        {
+            QJsonObject sockoptObj{ { "mark", mark } };
+            QJsonObject streamSettingsObj{ { "sockopt", sockoptObj } };
+            OUTBOUNDS outbounds(root["outbounds"].toArray());
+            for (auto i = 0; i < outbounds.count(); i++)
+            {
+                auto _outbound = outbounds[i].toObject();
+                if (_outbound.contains("streamSettings"))
+                {
+                    auto _streamSetting = _outbound["streamSettings"].toObject();
+                    if (_streamSetting.contains("sockopt"))
+                    {
+                        auto _sockopt = _streamSetting["sockopt"].toObject();
+                        _sockopt.insert("mark", mark);
+                        _streamSetting["sockopt"] = _sockopt;
+                    }
+                    else
+                    {
+                        _streamSetting.insert("sockopt", sockoptObj);
+                    }
+                    _outbound["streamSettings"] = _streamSetting;
+                }
+                else
+                {
+                    _outbound.insert("streamSettings", streamSettingsObj);
+                }
+                outbounds[i] = _outbound;
+            }
+            root["outbounds"] = outbounds;
+        }
+
     } // namespace Generation
 } // namespace Qv2ray::core::connection

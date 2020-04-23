@@ -98,6 +98,15 @@ namespace Qv2ray::base::config
                     tproxy_mode))
     };
 
+    struct Qv2rayOutboundsConfig
+    {
+        int mark;
+        Qv2rayOutboundsConfig() : mark(255)
+        {
+        }
+        XTOSTRUCT(O(mark))
+    };
+
     struct Qv2rayUIConfig
     {
         QString theme;
@@ -272,6 +281,7 @@ namespace Qv2ray::base::config
         Qv2rayNetworkConfig networkConfig;
         Qv2rayToolBarConfig toolBarConfig;
         Qv2rayInboundsConfig inboundConfig;
+        Qv2rayOutboundsConfig outboundConfig;
         Qv2rayAdvancedConfig advancedConfig;
         Qv2rayConnectionConfig connectionConfig;
 
@@ -291,6 +301,7 @@ namespace Qv2ray::base::config
               networkConfig(),                       //
               toolBarConfig(),                       //
               inboundConfig(),                       //
+              outboundConfig(),                      //
               advancedConfig(),                      //
               connectionConfig()
         {
@@ -309,6 +320,7 @@ namespace Qv2ray::base::config
                     subscriptions,    //
                     autoStartId,      //
                     inboundConfig,    //
+                    outboundConfig,   //
                     connectionConfig, //
                     toolBarConfig,    //
                     advancedConfig,   //
