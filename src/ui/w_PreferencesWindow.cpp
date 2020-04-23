@@ -1261,13 +1261,11 @@ void PreferencesWindow::on_jumpListCountSB_valueChanged(int arg1)
 void PreferencesWindow::on_outboundMark_valueChanged(int arg1)
 {
     NEEDRESTART
-    CurrentConfig.outboundConfig.mark=arg1;
+    CurrentConfig.outboundConfig.mark = arg1;
 }
-
 
 void PreferencesWindow::on_dnsIntercept_toggled(bool checked)
 {
     NEEDRESTART
-    CurrentConfig.inboundConfig.dnsIntercept=checked;
-
+    CurrentConfig.inboundConfig.dnsIntercept = checked;
 }

@@ -198,7 +198,7 @@ class PreferencesWindow
 
     void on_dnsIntercept_toggled(bool checked);
 
-private:
+  private:
     //
     RouteSettingsMatrixWidget *routeSettingsWidget;
     void SetAutoStartButtonsState(bool isAutoStart);
