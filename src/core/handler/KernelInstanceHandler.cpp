@@ -206,6 +206,7 @@ namespace Qv2ray::core::handlers
                 if (result)
                 {
                     emit OnConnected(currentConnectionId);
+                    PluginHost->Send_ConnectivityEvent({ GetDisplayName(id), inboundPorts, Events::Connectivity::QvConnecticity_Connected });
                     return {};
                 }
                 else
