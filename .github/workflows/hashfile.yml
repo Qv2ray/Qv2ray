@@ -33,6 +33,6 @@ jobs:
       - name: Hash File
         shell: bash
         env:
-          HASH: ${{ hashFiles("CMakeLists.txt") }}
+          HASH: ${{ hashFiles('CMakeLists.txt') }}
         run:
           echo $HASH
