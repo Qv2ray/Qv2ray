@@ -32,7 +32,7 @@ jobs:
 
   aur:
     needs: check_commit_msg
-    if: ${{ !contains( needs.check_commit_msg.commit_message, 'NO_AUR') }}
+    if: ${{ !contains( needs.check_commit_msg.outputs.commit_message, 'NO_AUR') }}
     strategy:
       fail-fast: false
       matrix:

@@ -19,4 +19,4 @@ jobs:
       - name: Hash File
         shell: bash
         run:
-          sha256sum ./CMakeLists.exe
+          sha256sum ./CMakeLists.txt
