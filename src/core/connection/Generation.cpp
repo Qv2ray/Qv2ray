@@ -510,15 +510,19 @@ namespace Qv2ray::core::connection
                 outbounds.append(GenerateOutboundEntry("blackhole", GenerateBlackHoleOUT(false), {}, {}, "0.0.0.0", OUTBOUND_TAG_BLACKHOLE));
                 //
                 root["outbounds"] = outbounds;
+
+                // intercepet dns if necessary
+                if (GlobalConfig.inboundConfig.useTPROXY && GlobalConfig.inboundConfig.dnsIntercept)
+                {
+                    DNSInterceptFilter(root);
+                }
+
                 // mark outbound if necessary
                 if (GlobalConfig.inboundConfig.useTPROXY && GlobalConfig.outboundConfig.mark > 0)
                 {
                     OutboundMarkSettingFilter(GlobalConfig.outboundConfig.mark, root);
                 }
-                if (GlobalConfig.inboundConfig.useTPROXY && GlobalConfig.inboundConfig.dnsIntercept)
-                {
-                    DNSInterceptFilter(root);
-                }
+
             }
 
             // Let's process some api features.
