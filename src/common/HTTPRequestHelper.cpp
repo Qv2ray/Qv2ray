@@ -22,68 +22,65 @@ namespace Qv2ray::common
         request.setRawHeader(key, value);
     }
 
-    QByteArray QvHttpRequestHelper::Get(const QString &url)
+    void QvHttpRequestHelper::setAccessManagerAttributes(QNetworkAccessManager &accessManager)
     {
-        request.setUrl({ url });
+        switch (GlobalConfig.networkConfig.proxyType)
+        {
+            case Qv2rayNetworkConfig::QVPROXY_NONE:
+            {
+                DEBUG(MODULE_NETWORK, "Get without proxy.")
+                accessManager.setProxy(QNetworkProxy(QNetworkProxy::ProxyType::NoProxy));
+                break;
+            }
+            case Qv2rayNetworkConfig::QVPROXY_SYSTEM:
+            {
+                accessManager.setProxy(QNetworkProxyFactory::systemProxyForQuery().first());
+                break;
+            }
+            case Qv2rayNetworkConfig::QVPROXY_CUSTOM:
+            {
+                QNetworkProxy p{
+                    GlobalConfig.networkConfig.type == "http" ? QNetworkProxy::HttpProxy : QNetworkProxy::Socks5Proxy, //
+                    GlobalConfig.networkConfig.address,                                                                //
+                    quint16(GlobalConfig.networkConfig.port)                                                           //
+                };
+                accessManager.setProxy(p);
+                break;
+            }
+        }
 
-        QNetworkProxy p;
-        if (GlobalConfig.networkConfig.useCustomProxy)
-        {
-            auto type = GlobalConfig.networkConfig.type == "http" ? QNetworkProxy::HttpProxy : QNetworkProxy::Socks5Proxy;
-            p = QNetworkProxy{ type, GlobalConfig.networkConfig.address, quint16(GlobalConfig.networkConfig.port) };
-        }
-        else
-        {
-            p = QNetworkProxyFactory::systemProxyForQuery().first();
-        }
-        if (p.type() == QNetworkProxy::Socks5Proxy)
+        if (accessManager.proxy().type() == QNetworkProxy::Socks5Proxy)
         {
             DEBUG(MODULE_NETWORK, "Adding HostNameLookupCapability to proxy.")
-            p.setCapabilities(accessManager.proxy().capabilities() | QNetworkProxy::HostNameLookupCapability);
+            accessManager.proxy().setCapabilities(accessManager.proxy().capabilities() | QNetworkProxy::HostNameLookupCapability);
         }
-        accessManager.setProxy(p);
 
         request.setAttribute(QNetworkRequest::RedirectPolicyAttribute, QNetworkRequest::NoLessSafeRedirectPolicy);
         request.setAttribute(QNetworkRequest::HTTP2AllowedAttribute, true);
         auto ua = GlobalConfig.networkConfig.userAgent;
         ua.replace("$VERSION", QV2RAY_VERSION_STRING);
         request.setHeader(QNetworkRequest::KnownHeaders::UserAgentHeader, ua);
-        reply = accessManager.get(request);
+    }
+
+    QByteArray QvHttpRequestHelper::Get(const QString &url)
+    {
+        request.setUrl({ url });
+        setAccessManagerAttributes(accessManager);
+        auto _reply = accessManager.get(request);
         //
         QEventLoop loop;
-        connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+        connect(_reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
         loop.exec();
         //
         // Data or timeout?
-        auto data = reply->readAll();
+        auto data = _reply->readAll();
         return data;
     }
 
     void QvHttpRequestHelper::AsyncGet(const QString &url)
     {
         request.setUrl({ url });
-        if (GlobalConfig.networkConfig.useCustomProxy)
-        {
-            QNetworkProxy p{
-                GlobalConfig.networkConfig.type == "http" ? QNetworkProxy::HttpProxy : QNetworkProxy::Socks5Proxy, //
-                GlobalConfig.networkConfig.address,                                                                //
-                quint16(GlobalConfig.networkConfig.port)                                                           //
-            };
-            accessManager.setProxy(p);
-        }
-        else
-        {
-            DEBUG(MODULE_NETWORK, "Get without proxy.")
-            accessManager.setProxy(QNetworkProxy(QNetworkProxy::ProxyType::NoProxy));
-        }
-        if (accessManager.proxy().type() == QNetworkProxy::Socks5Proxy)
-        {
-            DEBUG(MODULE_NETWORK, "Adding HostNameLookupCapability to proxy.")
-            accessManager.proxy().setCapabilities(accessManager.proxy().capabilities() | QNetworkProxy::HostNameLookupCapability);
-        }
-        request.setAttribute(QNetworkRequest::RedirectPolicyAttribute, QNetworkRequest::NoLessSafeRedirectPolicy);
-        request.setAttribute(QNetworkRequest::HTTP2AllowedAttribute, true);
-        request.setHeader(QNetworkRequest::KnownHeaders::UserAgentHeader, GlobalConfig.networkConfig.userAgent);
+        setAccessManagerAttributes(accessManager);
         reply = accessManager.get(request);
         connect(reply, &QNetworkReply::finished, this, &QvHttpRequestHelper::onRequestFinished_p);
         connect(reply, &QNetworkReply::readyRead, this, &QvHttpRequestHelper::onReadyRead_p);

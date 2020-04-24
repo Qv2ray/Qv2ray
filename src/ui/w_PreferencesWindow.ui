@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>756</width>
-    <height>572</height>
+    <width>864</width>
+    <height>614</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -273,7 +273,7 @@
            <property name="title">
             <string>Network Settings</string>
            </property>
-           <layout class="QFormLayout" name="formLayout_15">
+           <layout class="QFormLayout" name="formLayout_13">
             <item row="0" column="0">
              <widget class="QLabel" name="label_67">
               <property name="text">
@@ -288,72 +288,92 @@
               </property>
              </widget>
             </item>
-            <item row="1" column="0" colspan="2">
-             <widget class="QGroupBox" name="customProxySettingsGroupBox">
-              <property name="title">
-               <string>Use Custom Proxy Settings</string>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_71">
+              <property name="text">
+               <string>Qv2ray Proxy</string>
               </property>
-              <property name="checkable">
-               <bool>true</bool>
-              </property>
-              <layout class="QFormLayout" name="formLayout_13">
-               <item row="0" column="0">
-                <widget class="QLabel" name="label_66">
-                 <property name="text">
-                  <string>Proxy Type</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="1">
-                <widget class="QComboBox" name="qvProxyTypeCombo">
-                 <item>
-                  <property name="text">
-                   <string notr="true">http</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string notr="true">socks</string>
-                  </property>
-                 </item>
-                </widget>
-               </item>
-               <item row="1" column="0">
-                <widget class="QLabel" name="label_64">
-                 <property name="text">
-                  <string>Server</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="1">
-                <layout class="QHBoxLayout" name="horizontalLayout_2">
-                 <item>
-                  <widget class="QLineEdit" name="qvProxyAddressTxt"/>
-                 </item>
-                 <item>
-                  <widget class="QLabel" name="label_74">
-                   <property name="text">
-                    <string>:</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QSpinBox" name="qvProxyPortCB">
-                   <property name="minimum">
-                    <number>0</number>
-                   </property>
-                   <property name="maximum">
-                    <number>65535</number>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </item>
-              </layout>
              </widget>
+            </item>
+            <item row="1" column="1">
+             <layout class="QVBoxLayout" name="verticalLayout_8">
+              <item>
+               <widget class="QRadioButton" name="qvProxyNoProxy">
+                <property name="text">
+                 <string>No Proxy</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QRadioButton" name="qvProxySystemProxy">
+                <property name="text">
+                 <string>System Proxy</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QRadioButton" name="qvProxyCustomProxy">
+                <property name="text">
+                 <string>Custom Proxy</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_66">
+              <property name="text">
+               <string>Curtom Proxy Type</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QComboBox" name="qvProxyTypeCombo">
+              <item>
+               <property name="text">
+                <string notr="true">http</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string notr="true">socks</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QLabel" name="label_64">
+              <property name="text">
+               <string>Curtom Proxy Server</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <layout class="QHBoxLayout" name="horizontalLayout_2">
+              <item>
+               <widget class="QLineEdit" name="qvProxyAddressTxt"/>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_74">
+                <property name="text">
+                 <string>:</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QSpinBox" name="qvProxyPortCB">
+                <property name="minimum">
+                 <number>0</number>
+                </property>
+                <property name="maximum">
+                 <number>65535</number>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </item>
            </layout>
           </widget>
@@ -705,8 +725,8 @@ Custom DNS Settings</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>703</width>
-            <height>524</height>
+            <width>818</width>
+            <height>520</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_2">

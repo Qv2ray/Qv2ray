@@ -251,13 +251,24 @@ namespace Qv2ray::base::config
 
     struct Qv2rayNetworkConfig
     {
-        bool useCustomProxy;
+        enum Qv2rayProxyType
+        {
+            QVPROXY_NONE,
+            QVPROXY_SYSTEM,
+            QVPROXY_CUSTOM
+        } proxyType;
+
         QString address;
         QString type;
         int port;
         QString userAgent;
-        Qv2rayNetworkConfig() : address(""), type("http"), port(8000), userAgent("Qv2ray/$VERSION WebRequestHelper"){};
-        XTOSTRUCT(O(useCustomProxy, type, address, port, userAgent))
+        Qv2rayNetworkConfig()
+            : proxyType(QVPROXY_NONE), //
+              address("127.0.0.1"),    //
+              type("http"),            //
+              port(8000),              //
+              userAgent("Qv2ray/$VERSION WebRequestHelper"){};
+        XTOSTRUCT(O(proxyType, type, address, port, userAgent))
     };
 
     struct Qv2rayConfig

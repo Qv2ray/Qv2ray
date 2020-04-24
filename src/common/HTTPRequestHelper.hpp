@@ -42,6 +42,7 @@ namespace Qv2ray::common
         void onReadyRead_p();
 
       private:
+        void setAccessManagerAttributes(QNetworkAccessManager &accessManager);
         void setHeader(const QByteArray &key, const QByteArray &value);
         QByteArray data;
         QUrl url;

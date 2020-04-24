@@ -190,13 +190,17 @@ class PreferencesWindow
 
     void on_tproxyListenAddr_textEdited(const QString &arg1);
 
-    void on_customProxySettingsGroupBox_clicked(bool checked);
-
     void on_jumpListCountSB_valueChanged(int arg1);
 
     void on_outboundMark_valueChanged(int arg1);
 
     void on_dnsIntercept_toggled(bool checked);
+
+    void on_qvProxyCustomProxy_clicked();
+
+    void on_qvProxySystemProxy_clicked();
+
+    void on_qvProxyNoProxy_clicked();
 
   private:
     //

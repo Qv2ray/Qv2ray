@@ -149,7 +149,24 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     qvProxyAddressTxt->setText(CurrentConfig.networkConfig.address);
     qvProxyTypeCombo->setCurrentText(CurrentConfig.networkConfig.type);
     qvNetworkUATxt->setText(CurrentConfig.networkConfig.userAgent);
-    customProxySettingsGroupBox->setChecked(CurrentConfig.networkConfig.useCustomProxy);
+    switch (CurrentConfig.networkConfig.proxyType)
+    {
+        case Qv2rayNetworkConfig::QVPROXY_NONE:
+        {
+            qvProxyNoProxy->setChecked(true);
+            break;
+        }
+        case Qv2rayNetworkConfig::QVPROXY_SYSTEM:
+        {
+            qvProxySystemProxy->setChecked(true);
+            break;
+        }
+        case Qv2rayNetworkConfig::QVPROXY_CUSTOM:
+        {
+            qvProxyCustomProxy->setChecked(true);
+            break;
+        }
+    }
     //
     quietModeCB->setChecked(CurrentConfig.uiConfig.quietMode);
     //
@@ -1248,11 +1265,6 @@ void PreferencesWindow::on_tproxyListenAddr_textEdited(const QString &arg1)
     CurrentConfig.inboundConfig.tproxy_ip = arg1;
 }
 
-void PreferencesWindow::on_customProxySettingsGroupBox_clicked(bool checked)
-{
-    CurrentConfig.networkConfig.useCustomProxy = checked;
-}
-
 void PreferencesWindow::on_jumpListCountSB_valueChanged(int arg1)
 {
     CurrentConfig.uiConfig.maxJumpListCount = arg1;
@@ -1268,4 +1280,19 @@ void PreferencesWindow::on_dnsIntercept_toggled(bool checked)
 {
     NEEDRESTART
     CurrentConfig.inboundConfig.dnsIntercept = checked;
+}
+
+void PreferencesWindow::on_qvProxyCustomProxy_clicked()
+{
+    CurrentConfig.networkConfig.proxyType = Qv2rayNetworkConfig::QVPROXY_CUSTOM;
+}
+
+void PreferencesWindow::on_qvProxySystemProxy_clicked()
+{
+    CurrentConfig.networkConfig.proxyType = Qv2rayNetworkConfig::QVPROXY_SYSTEM;
+}
+
+void PreferencesWindow::on_qvProxyNoProxy_clicked()
+{
+    CurrentConfig.networkConfig.proxyType = Qv2rayNetworkConfig::QVPROXY_NONE;
 }
