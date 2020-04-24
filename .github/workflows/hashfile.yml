@@ -26,6 +26,8 @@ jobs:
           for x in $(cat ../download.list); do
              wget "$x";
           done;
+          rm assets.info.json || true
+          rm sha256.list || true
           sha256sum ./* > ../sha256.list
       - name: Upload metadata to release
         uses: svenstaro/upload-release-action@v1-release
