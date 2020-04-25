@@ -145,7 +145,7 @@ namespace Qv2ray::components::plugins
     }
     bool QvPluginHost::InitializePlugin(const QString &internalName)
     {
-        auto &plugin = plugins[internalName];
+        const auto &plugin = plugins[internalName];
         if (plugin.isLoaded)
         {
             LOG(MODULE_PLUGINHOST, "The plugin: \"" + internalName + "\" has already been loaded.")
@@ -171,7 +171,7 @@ namespace Qv2ray::components::plugins
 
     QvPluginHost::~QvPluginHost()
     {
-        for (auto name : plugins.keys())
+        for (const auto &name : plugins.keys())
         {
             if (plugins[name].isLoaded)
             {
@@ -186,7 +186,7 @@ namespace Qv2ray::components::plugins
     // ================== BEGIN SEND EVENTS ==================
     void QvPluginHost::Send_ConnectionStatsEvent(const Events::ConnectionStats::EventObject &object)
     {
-        for (auto &plugin : plugins)
+        for (const auto &plugin : plugins)
         {
             if (plugin.isLoaded && plugin.metadata.Capabilities.contains(CAPABILITY_STATS))
             {
@@ -196,7 +196,7 @@ namespace Qv2ray::components::plugins
     }
     void QvPluginHost::Send_ConnectivityEvent(const Events::Connectivity::EventObject &object)
     {
-        for (auto &plugin : plugins)
+        for (const auto &plugin : plugins)
         {
             if (plugin.isLoaded && plugin.metadata.Capabilities.contains(CAPABILITY_CONNECTIVITY))
             {
@@ -206,7 +206,7 @@ namespace Qv2ray::components::plugins
     }
     void QvPluginHost::Send_ConnectionEvent(const Events::ConnectionEntry::EventObject &object)
     {
-        for (auto &plugin : plugins)
+        for (const auto &plugin : plugins)
         {
             if (plugin.isLoaded && plugin.metadata.Capabilities.contains(CAPABILITY_CONNECTION_ENTRY))
             {
@@ -216,7 +216,7 @@ namespace Qv2ray::components::plugins
     }
     void QvPluginHost::Send_SystemProxyEvent(const Events::SystemProxy::EventObject &object)
     {
-        for (auto &plugin : plugins)
+        for (const auto &plugin : plugins)
         {
             if (plugin.isLoaded && plugin.metadata.Capabilities.contains(CAPABILITY_SYSTEM_PROXY))
             {

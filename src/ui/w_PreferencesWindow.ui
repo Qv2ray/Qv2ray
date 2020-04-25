@@ -321,9 +321,9 @@
              </layout>
             </item>
             <item row="2" column="0">
-             <widget class="QLabel" name="label_66">
+             <widget class="QLabel" name="label_64">
               <property name="text">
-               <string>Curtom Proxy Type</string>
+               <string>Curtom Proxy</string>
               </property>
              </widget>
             </item>
@@ -342,9 +342,9 @@
              </widget>
             </item>
             <item row="3" column="0">
-             <widget class="QLabel" name="label_64">
+             <widget class="QLabel" name="label_66">
               <property name="text">
-               <string>Curtom Proxy Server</string>
+               <string>Curtom Proxy</string>
               </property>
              </widget>
             </item>
@@ -365,6 +365,9 @@
               </item>
               <item>
                <widget class="QSpinBox" name="qvProxyPortCB">
+                <property name="buttonSymbols">
+                 <enum>QAbstractSpinBox::NoButtons</enum>
+                </property>
                 <property name="minimum">
                  <number>0</number>
                 </property>
