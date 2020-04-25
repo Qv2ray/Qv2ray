@@ -183,9 +183,10 @@ int main(int argc, char *argv[])
             case CommandLineOk: break;
 
             case CommandLineError:
+                cout << "Invalid command line arguments" << endl;
                 cout << errorMessage.toStdString() << endl;
                 cout << parser.Parser()->helpText().toStdString() << endl;
-                return 1;
+                break;
 
             case CommandLineVersionRequested:
                 LOG("Qv2ray", QV2RAY_VERSION_STRING)
@@ -214,6 +215,7 @@ int main(int argc, char *argv[])
     //
     LOG("QV2RAY_BUILD_INFO", QV2RAY_BUILD_INFO)
     LOG("QV2RAY_BUILD_EXTRA_INFO", QV2RAY_BUILD_EXTRA_INFO)
+    LOG("QV2RAY_BUILD_NUMBER", QSTRN(QV2RAY_VERSION_BUILD))
     LOG(MODULE_INIT, "Qv2ray " QV2RAY_VERSION_STRING " running on " + QSysInfo::prettyProductName() + " " + QSysInfo::currentCpuArchitecture())
     //
     // This line must be called before any other ones, since we are using these
