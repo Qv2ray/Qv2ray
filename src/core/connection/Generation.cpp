@@ -508,7 +508,10 @@ namespace Qv2ray::core::connection
                 }
 #undef fpConf
                 OUTBOUNDS outbounds(root["outbounds"].toArray());
-                outbounds.append(GenerateOutboundEntry("freedom", GenerateFreedomOUT("AsIs", ":0", 0), {}, {}, "0.0.0.0", OUTBOUND_TAG_DIRECT));
+                //
+                const auto freeDS = (GlobalConfig.inboundConfig.useTPROXY && GlobalConfig.inboundConfig.dnsIntercept) ? "UseIP" : "AsIs";
+                //
+                outbounds.append(GenerateOutboundEntry("freedom", GenerateFreedomOUT(freeDS, ":0", 0), {}, {}, "0.0.0.0", OUTBOUND_TAG_DIRECT));
                 outbounds.append(GenerateOutboundEntry("blackhole", GenerateBlackHoleOUT(false), {}, {}, "0.0.0.0", OUTBOUND_TAG_BLACKHOLE));
                 //
                 root["outbounds"] = outbounds;
