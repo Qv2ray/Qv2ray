@@ -1,3 +1,12 @@
+qv2ray (2.5.0~rc1-1) unstable; urgency=medium
+
+  * add dns intercept and route for tproxy
+  * prevent loopback
+  * fix: allow dns outbound have mark too
+  * fix: refactored Qv2ray Proxy settings
+
+ -- Guobang Bi <ymshenyu@gmail.com>  Sat, 25 Apr 2020 10:29:07 +0800
+
 qv2ray (2.5.0~pre2-1) unstable; urgency=medium
 
   * fix: skip saving config when importing multiple connection configs
