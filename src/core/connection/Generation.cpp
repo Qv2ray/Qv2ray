@@ -21,6 +21,7 @@ namespace Qv2ray::core::connection
                 // This is added to disable all proxies, as a alternative
                 // influence of #64
                 rulesList.append(GenerateSingleRouteRule("regexp:.*", true, OUTBOUND_TAG_DIRECT));
+                rulesList.append(GenerateSingleRouteRule("0.0.0.0/0", false, OUTBOUND_TAG_DIRECT));
             }
 
             // Private IPs should always NOT TO PROXY!
@@ -522,7 +523,6 @@ namespace Qv2ray::core::connection
                 {
                     OutboundMarkSettingFilter(GlobalConfig.outboundConfig.mark, root);
                 }
-
             }
 
             // Let's process some api features.
