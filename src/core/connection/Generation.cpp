@@ -22,6 +22,7 @@ namespace Qv2ray::core::connection
                 // influence of #64
                 rulesList.append(GenerateSingleRouteRule("regexp:.*", true, OUTBOUND_TAG_DIRECT));
                 rulesList.append(GenerateSingleRouteRule("0.0.0.0/0", false, OUTBOUND_TAG_DIRECT));
+                rulesList.append(GenerateSingleRouteRule("::/0", false, OUTBOUND_TAG_DIRECT));
             }
 
             // Private IPs should always NOT TO PROXY!
