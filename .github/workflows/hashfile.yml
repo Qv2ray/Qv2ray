@@ -9,16 +9,16 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Get the version
-        id: get_version
+      - run: echo ::set-env name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
         shell: bash
-        run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
+      - run: echo ::set-env name=REPOSITORY_NAME::$(echo "$GITHUB_REPOSITORY" | awk -F / '{print $2}')
+        shell: bash
       - name: Checking out sources
         uses: actions/checkout@master
       - name: Hash File
         shell: bash
         run: |
-          wget -O release.info https://api.github.com/repos/Qv2ray/Qv2ray/releases/tags/${{ steps.get_version.outputs.VERSION }}
+          wget -O release.info https://api.github.com/repos/Qv2ray/${REPOSITORY_NAME}/releases/tags/${VERSION}
           cat ./release.info | jq -r ".assets | .[] | .browser_download_url" > download.list
           cat ./release.info | jq -r ".assets | .[] | { uploader_id: .uploader.login, asset_name: .name }" > assets.info.json
           mkdir files
