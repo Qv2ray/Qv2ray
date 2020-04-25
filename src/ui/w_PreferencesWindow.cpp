@@ -555,7 +555,7 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
             }
 
             LOG(MODULE_UI, "Calling pkexec and setcap...")
-            int ret = QProcess::execute("pkexec setcap CAP_NET_ADMIN,CAP_NET_RAW,CAP_NET_BIND_SERVICE=eip " + kernelPath);
+            int ret = QProcess::execute("pkexec /usr/sbin/setcap CAP_NET_ADMIN,CAP_NET_RAW,CAP_NET_BIND_SERVICE=eip " + kernelPath);
 
             if (ret != 0)
             {
@@ -569,7 +569,7 @@ void PreferencesWindow::on_tProxyCheckBox_stateChanged(int arg1)
     }
     else
     {
-        int ret = QProcess::execute("pkexec setcap -r " + kernelPath);
+        int ret = QProcess::execute("pkexec /usr/sbin/setcap -r " + kernelPath);
 
         if (ret != 0)
         {
