@@ -134,7 +134,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake .. -GNinja -DCMAKE_INSTALL_PREFIX=./deployment -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_SYSTEM_RUNTIME_DESTINATION=
+          cmake .. -GNinja -DCMAKE_INSTALL_PREFIX=./deployment -DCMAKE_BUILD_TYPE=Release
           cmake --build . --parallel $(nproc)
           cmake --install .
 # --------------------------------------------------------
