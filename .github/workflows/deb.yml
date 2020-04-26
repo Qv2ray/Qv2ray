@@ -20,11 +20,14 @@ jobs:
           echo "::set-env name=message::$(git log --format=%B -n 1 ${{ github.event.after }})"
 
   linux:
+    strategy:
+        matrix:
+          distro: [buster, unstable]
     needs: check_commit_msg
     if: ${{ !contains( needs.check_commit_msg.outputs.commit_message, 'NO_DEB') }}
-    name: Debian Buster
+    name: Debian ${{ matrix.distro }}
     runs-on: ubuntu-latest
-    container: debian:buster
+    container: debian:${{ matrix.distro }}
 
     steps:
       - name: Install git
@@ -50,11 +53,11 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v2-preview
         with:
-          name: qv2ray
+          name: ${{ steps.get_package.outputs.NAME }}-${{ matrix.distro }}
           path: ${{ steps.get_package.outputs.NAME }}
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release
-        if: github.event_name == 'release'
+        if: github.event_name == 'release' && matrix.distro == 'debian:buster'
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: ${{ steps.get_package.outputs.NAME }}
