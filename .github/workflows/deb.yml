@@ -22,7 +22,7 @@ jobs:
   linux:
     strategy:
         matrix:
-          distro: [buster, unstable]
+          distro: [stable, unstable]
     needs: check_commit_msg
     if: ${{ !contains( needs.check_commit_msg.outputs.commit_message, 'NO_DEB') }}
     name: Debian ${{ matrix.distro }}
@@ -53,11 +53,11 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v2-preview
         with:
-          name: ${{ steps.get_package.outputs.NAME }}-${{ matrix.distro }}
+          name: qv2ray_${{ matrix.distro }}
           path: ${{ steps.get_package.outputs.NAME }}
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release
-        if: github.event_name == 'release' && matrix.distro == 'buster'
+        if: github.event_name == 'release' && matrix.distro == 'stable'
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: ${{ steps.get_package.outputs.NAME }}
