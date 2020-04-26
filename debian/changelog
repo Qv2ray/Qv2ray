@@ -1,3 +1,14 @@
+qv2ray (2.5.0-1) unstable; urgency=medium
+
+  * updating translations
+  * add: added Latency Test on the connection list RCM, fixed #539
+  * rejecting trash v2rayN vmess schema v1
+  * add: use UseIP when tProxy and DNSIntercept have been enabled
+  * fix: fixed a missing IPv6 CIDR address
+  * fix: fixed a missing IP rule when proxy is disabled
+
+ -- Guobang Bi <ymshenyu@gmail.com>  Sun, 26 Apr 2020 19:03:35 +0800
+
 qv2ray (2.5.0~rc1-1) unstable; urgency=medium
 
   * add dns intercept and route for tproxy
