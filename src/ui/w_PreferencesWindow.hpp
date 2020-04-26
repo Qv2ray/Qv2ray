@@ -202,6 +202,8 @@ class PreferencesWindow
 
     void on_qvProxyNoProxy_clicked();
 
+    void on_DnsFreedomCb_stateChanged(int arg1);
+
   private:
     //
     RouteSettingsMatrixWidget *routeSettingsWidget;

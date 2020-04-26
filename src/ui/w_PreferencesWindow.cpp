@@ -129,6 +129,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     tproxyMode->setCurrentText(CurrentConfig.inboundConfig.tproxy_mode);
     outboundMark->setValue(CurrentConfig.outboundConfig.mark);
     dnsIntercept->setChecked(CurrentConfig.inboundConfig.dnsIntercept);
+    DnsFreedomCb->setChecked(CurrentConfig.connectionConfig.v2rayFreedomDNS);
     //
     //
     vCorePathTxt->setText(CurrentConfig.kernelConfig.KernelPath());
@@ -1295,4 +1296,10 @@ void PreferencesWindow::on_qvProxySystemProxy_clicked()
 void PreferencesWindow::on_qvProxyNoProxy_clicked()
 {
     CurrentConfig.networkConfig.proxyType = Qv2rayNetworkConfig::QVPROXY_NONE;
+}
+
+void PreferencesWindow::on_DnsFreedomCb_stateChanged(int arg1)
+{
+    NEEDRESTART
+    CurrentConfig.connectionConfig.v2rayFreedomDNS = arg1 == Qt::Checked;
 }

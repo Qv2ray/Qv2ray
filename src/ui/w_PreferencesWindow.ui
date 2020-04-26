@@ -1171,28 +1171,42 @@ Custom DNS Settings</string>
              </widget>
             </item>
             <item row="2" column="0">
-             <widget class="QLabel" name="label_18">
+             <widget class="QLabel" name="label_75">
               <property name="text">
-               <string>Use Local DNS</string>
+               <string>Use V2ray Dns for Freedom Outbound</string>
               </property>
              </widget>
             </item>
             <item row="2" column="1">
-             <widget class="QCheckBox" name="localDNSCb">
+             <widget class="QCheckBox" name="DnsFreedomCb">
               <property name="text">
                <string>Enabled</string>
               </property>
              </widget>
             </item>
             <item row="3" column="0">
+             <widget class="QLabel" name="label_18">
+              <property name="text">
+               <string>Use Local DNS</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0">
              <widget class="QLabel" name="label_21">
               <property name="text">
                <string>Custom DNS List</string>
               </property>
              </widget>
             </item>
-            <item row="3" column="1">
+            <item row="4" column="1">
              <widget class="QPlainTextEdit" name="DNSListTxt"/>
+            </item>
+            <item row="3" column="1">
+             <widget class="QCheckBox" name="localDNSCb">
+              <property name="text">
+               <string>Enabled</string>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>
@@ -1213,6 +1227,13 @@ Custom DNS Settings</string>
             <bool>false</bool>
            </property>
            <layout class="QFormLayout" name="formLayout_8">
+            <item row="0" column="0" colspan="2">
+             <widget class="QLabel" name="label_65">
+              <property name="text">
+               <string>Only simple config is supported.</string>
+              </property>
+             </widget>
+            </item>
             <item row="1" column="0">
              <widget class="QLabel" name="label_49">
               <property name="text">
@@ -1297,13 +1318,6 @@ Custom DNS Settings</string>
             </item>
             <item row="6" column="1">
              <widget class="QLineEdit" name="fpPasswordTx"/>
-            </item>
-            <item row="0" column="0" colspan="2">
-             <widget class="QLabel" name="label_65">
-              <property name="text">
-               <string>Only simple config is supported.</string>
-              </property>
-             </widget>
             </item>
            </layout>
           </widget>
@@ -2052,7 +2066,6 @@ Custom DNS Settings</string>
   <tabstop>httpAuthPasswordTxt</tabstop>
   <tabstop>proxyDefaultCb</tabstop>
   <tabstop>bypassCNCb</tabstop>
-  <tabstop>localDNSCb</tabstop>
   <tabstop>DNSListTxt</tabstop>
   <tabstop>fpGroupBox</tabstop>
   <tabstop>fpTypeCombo</tabstop>

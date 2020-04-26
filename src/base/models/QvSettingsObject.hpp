@@ -168,15 +168,17 @@ namespace Qv2ray::base::config
     {
         bool bypassCN;
         bool enableProxy;
+        bool v2rayFreedomDNS;
         bool withLocalDNS;
         Qv2rayRouteConfig routeConfig;
         QList<QString> dnsList;
         Qv2rayForwardProxyConfig forwardProxyConfig;
         Qv2rayConnectionConfig()
-            : bypassCN(true), enableProxy(true), withLocalDNS(false), routeConfig(), dnsList(QStringList{ "8.8.4.4", "1.1.1.1" })
+            : bypassCN(true), enableProxy(true), v2rayFreedomDNS(false), withLocalDNS(false), routeConfig(),
+              dnsList(QStringList{ "8.8.4.4", "1.1.1.1" })
         {
         }
-        XTOSTRUCT(O(bypassCN, enableProxy, withLocalDNS, dnsList, forwardProxyConfig, routeConfig))
+        XTOSTRUCT(O(bypassCN, enableProxy, v2rayFreedomDNS, withLocalDNS, dnsList, forwardProxyConfig, routeConfig))
     };
 
     struct Qv2rayAPIConfig
