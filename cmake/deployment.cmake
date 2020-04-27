@@ -14,9 +14,7 @@ list(APPEND DIRS "/usr/local/lib")
 list(APPEND DIRS "/usr/lib")
 
 if(MSVC)
-   if(NOT BUILD_NSIS)
     set(CMAKE_INSTALL_SYSTEM_RUNTIME_DESTINATION .)
-   endif()
 endif()
 
 include(InstallRequiredSystemLibraries)
