@@ -39,8 +39,7 @@ bool initialiseQv2ray()
     const QString homeQv2ray = QDir::homePath() + "/.qv2ray" QV2RAY_CONFIG_DIR_SUFFIX;
     //
     //
-    // Some built-in search paths for Qv2ray to find configs. (load the first
-    // one if possible).
+    // Some built-in search paths for Qv2ray to find configs. (load the first one if possible).
     //
     QStringList configFilePaths;
     configFilePaths << currentPathConfig;
@@ -244,8 +243,8 @@ int main(int argc, char *argv[])
         QGuiApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
 #endif
     }
-    SingleApplication _qApp(argc, argv, false,
-                            SingleApplication::User | SingleApplication::ExcludeAppPath | SingleApplication::ExcludeAppVersion);
+    using _SA = SingleApplication;
+    SingleApplication _qApp(argc, argv, false, _SA::User | _SA::ExcludeAppPath | _SA::ExcludeAppVersion);
     _qApp.setQuitOnLastWindowClosed(false);
     // Early initialisation
     //
@@ -274,7 +273,8 @@ int main(int argc, char *argv[])
         "Copyright (c) 2020 Ram Pani (@DuckSoft): QvRPCBridge (WTFPL)" NEWLINE                                           //
         "Copyright (c) 2019 ShadowSocks (@shadowsocks): libQtShadowsocks (LGPLv3)" NEWLINE                               //
         "Copyright (c) 2015-2020 qBittorrent (Anton Lashkov) (@qBittorrent): speedplotview (GPLv2)" NEWLINE              //
-        "Copyright (c) 2020 yhirose (@yhirose): cpp-httplib (MIT)" NEWLINE NEWLINE)                                      //
+        "Copyright (c) 2020 Diffusions Nu-book Inc. (@nu-book): zxing-cpp (Apache)" NEWLINE                              //
+            NEWLINE)                                                                                                     //
     //
     LOG(MODULE_INIT, "Qv2ray Start Time: " + QSTRN(QTime::currentTime().msecsSinceStartOfDay()))
     //
