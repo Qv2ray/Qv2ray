@@ -17,6 +17,7 @@ namespace Qv2ray::core::kernel
             ABI_ELF_X86,
             ABI_ELF_X86_64,
             ABI_ELF_AARCH64,
+            ABI_ELF_ARM,
             ABI_ELF_OTHER,
         };
 
@@ -38,10 +39,14 @@ namespace Qv2ray::core::kernel
             QvKernelABIType::ABI_WIN32;
 #elif defined(Q_OS_LINUX) && defined(Q_PROCESSOR_ARM_64)
             QvKernelABIType::ABI_ELF_AARCH64;
+#elif defined(Q_OS_LINUX) && defined(Q_PROCESSOR_ARM_V7)
+            QvKernelABIType::ABI_ELF_ARM;
+#else
+    #error "unknown architecture"
 #endif
 
-        [[nodiscard]] std::pair<std::optional<QvKernelABIType>, std::optional<QString>> deduceKernelABI(const QString &pathCoreExecutable);
-        [[nodiscard]] QvKernelABICompatibility checkCompatibility(QvKernelABIType hostType, QvKernelABIType targetType);
-        [[nodiscard]] QString abiToString(QvKernelABIType abi);
+        std::pair<std::optional<QvKernelABIType>, std::optional<QString>> deduceKernelABI(const QString &pathCoreExecutable);
+        QvKernelABICompatibility checkCompatibility(QvKernelABIType hostType, QvKernelABIType targetType);
+        QString abiToString(QvKernelABIType abi);
     } // namespace abi
 } // namespace Qv2ray::core::kernel

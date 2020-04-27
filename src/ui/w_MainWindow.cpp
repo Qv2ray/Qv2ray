@@ -1,6 +1,6 @@
 #include "w_MainWindow.hpp"
 
-#include "components/pac/QvPACHandler.hpp"
+#include "components/plugins/QvPluginHost.hpp"
 #include "components/plugins/toolbar/QvToolbar.hpp"
 #include "components/proxy/QvProxyConfigurator.hpp"
 #include "components/update/UpdateChecker.hpp"
@@ -9,6 +9,7 @@
 #include "ui/editors/w_OutboundEditor.hpp"
 #include "ui/editors/w_RoutesEditor.hpp"
 #include "ui/w_ImportConfig.hpp"
+#include "ui/w_PluginManager.hpp"
 #include "ui/w_PreferencesWindow.hpp"
 #include "ui/w_SubscriptionManager.hpp"
 #include "ui/widgets/ConnectionInfoWidget.hpp"
@@ -38,7 +39,7 @@
 #define GetItemWidget(item) (qobject_cast<ConnectionItemWidget *>(connectionListWidget->itemWidget(item, 0)))
 #define NumericString(i) (QString("%1").arg(i, 30, 10, QLatin1Char('0')))
 
-MainWindow *MainWindow::mwInstance = nullptr;
+MainWindow *MainWindow::MainWindowInstance = nullptr;
 
 QvMessageBusSlotImpl(MainWindow)
 {
@@ -50,11 +51,11 @@ QvMessageBusSlotImpl(MainWindow)
 
 void MainWindow::UpdateColorScheme()
 {
-    hTray.setIcon(QIcon(GlobalConfig.uiConfig.useDarkTrayIcon ? ":/assets/icons/ui_dark/tray.png" : ":/assets/icons/ui_light/tray.png"));
+    hTray.setIcon(KernelInstance->CurrentConnection() == NullConnectionId ? Q_TRAYICON("tray.png") : Q_TRAYICON("tray-connected.png"));
     //
     importConfigButton->setIcon(QICON_R("import.png"));
-    updownImageBox->setStyleSheet("image: url(" + QV2RAY_UI_COLORSCHEME_ROOT + "netspeed_arrow.png)");
-    updownImageBox_2->setStyleSheet("image: url(" + QV2RAY_UI_COLORSCHEME_ROOT + "netspeed_arrow.png)");
+    updownImageBox->setStyleSheet("image: url(" + QV2RAY_COLORSCHEME_ROOT + "netspeed_arrow.png)");
+    updownImageBox_2->setStyleSheet("image: url(" + QV2RAY_COLORSCHEME_ROOT + "netspeed_arrow.png)");
     //
     tray_action_ShowHide->setIcon(this->windowIcon());
     action_RCM_Start->setIcon(QICON_R("connect.png"));
@@ -64,6 +65,7 @@ void MainWindow::UpdateColorScheme()
     action_RCM_Duplicate->setIcon(QICON_R("duplicate.png"));
     action_RCM_Delete->setIcon(QICON_R("delete.png"));
     action_RCM_ClearUsage->setIcon(QICON_R("delete.png"));
+    action_RCM_LatencyTest->setIcon(QICON_R("ping_gauge.png"));
     //
     clearChartBtn->setIcon(QICON_R("delete.png"));
     clearlogButton->setIcon(QICON_R("delete.png"));
@@ -112,10 +114,38 @@ void MainWindow::SortConnectionList(MW_ITEM_COL byCol, bool asending)
     on_locateBtn_clicked();
 }
 
+void MainWindow::ReloadRecentConnectionList(const QList<QString> &items)
+{
+    QList<QAction *> newActions;
+    for (const auto &item : items)
+    {
+        auto action = new QAction(tray_RecentConnectionsMenu);
+        action->setText(GetDisplayName(ConnectionId{ item }));
+        action->setData(item);
+        connect(ConnectionManager, &QvConfigHandler::OnConnectionRenamed,
+                [action](const ConnectionId &_t1, const QString &, const QString &_t3) {
+                    if (_t1.toString() == action->data().toString())
+                    {
+                        action->setText(_t3);
+                    }
+                });
+        connect(action, &QAction::triggered, [action]() { //
+            emit ConnectionManager->StartConnection(ConnectionId{ action->data().toString() });
+        });
+        newActions << action;
+    }
+    for (const auto action : tray_RecentConnectionsMenu->actions())
+    {
+        tray_RecentConnectionsMenu->removeAction(action);
+        action->deleteLater();
+    }
+    tray_RecentConnectionsMenu->addActions(newActions);
+}
+
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     setupUi(this);
-    MainWindow::mwInstance = this;
+    MainWindow::MainWindowInstance = this;
     QvMessageBusConnect(MainWindow);
     //
     infoWidget = new ConnectionInfoWidget(this);
@@ -131,17 +161,17 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     UpdateColorScheme();
     //
     //
-    connect(ConnectionManager, &QvConfigHandler::OnCrashed, [&] {
+    connect(ConnectionManager, &QvConfigHandler::OnKernelCrashed, [&](const ConnectionId &, const QString &reason) {
         this->show();
-        QvMessageBoxWarn(this, tr("V2ray vcore terminated."),
-                         tr("V2ray vcore terminated unexpectedly.") + NEWLINE + NEWLINE +
-                             tr("To solve the problem, read the V2ray log in the log text browser."));
+        QvMessageBoxWarn(this, tr("Kernel terminated."),
+                         tr("The kernel terminated unexpectedly:") + NEWLINE + reason + NEWLINE + NEWLINE +
+                             tr("To solve the problem, read the kernel log in the log text browser."));
     });
     //
     connect(ConnectionManager, &QvConfigHandler::OnConnected, this, &MainWindow::OnConnected);
     connect(ConnectionManager, &QvConfigHandler::OnDisconnected, this, &MainWindow::OnDisconnected);
     connect(ConnectionManager, &QvConfigHandler::OnStatsAvailable, this, &MainWindow::OnStatsAvailable);
-    connect(ConnectionManager, &QvConfigHandler::OnVCoreLogAvailable, this, &MainWindow::OnVCoreLogAvailable);
+    connect(ConnectionManager, &QvConfigHandler::OnKernelLogAvailable, this, &MainWindow::OnVCoreLogAvailable);
     //
     connect(ConnectionManager, &QvConfigHandler::OnConnectionDeleted, this, &MainWindow::OnConnectionDeleted);
     connect(ConnectionManager, &QvConfigHandler::OnConnectionCreated, this, &MainWindow::OnConnectionCreated);
@@ -180,6 +210,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     tray_RootMenu->addSeparator();
     tray_RootMenu->addAction(tray_action_ShowPreferencesWindow);
     tray_RootMenu->addMenu(tray_SystemProxyMenu);
+    // This feature is not ready
+    // tray_RootMenu->addSeparator();
+    // tray_RootMenu->addMenu(tray_RecentConnectionsMenu);
     tray_RootMenu->addSeparator();
     tray_RootMenu->addAction(tray_action_Start);
     tray_RootMenu->addAction(tray_action_Stop);
@@ -220,6 +253,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connectionListRCM_Menu->addAction(action_RCM_EditJson);
     connectionListRCM_Menu->addAction(action_RCM_EditComplex);
     connectionListRCM_Menu->addSeparator();
+    connectionListRCM_Menu->addAction(action_RCM_LatencyTest);
+    connectionListRCM_Menu->addSeparator();
     connectionListRCM_Menu->addAction(action_RCM_SetAutoConnection);
     connectionListRCM_Menu->addSeparator();
     connectionListRCM_Menu->addAction(action_RCM_Rename);
@@ -229,10 +264,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connectionListRCM_Menu->addAction(action_RCM_Delete);
     connect(action_RCM_Start, &QAction::triggered, this, &MainWindow::on_action_StartThis_triggered);
     connect(action_RCM_SetAutoConnection, &QAction::triggered, this, &MainWindow::on_action_RCM_SetAutoConnection_triggered);
-
     connect(action_RCM_Edit, &QAction::triggered, this, &MainWindow::on_action_RCM_EditThis_triggered);
     connect(action_RCM_EditJson, &QAction::triggered, this, &MainWindow::on_action_RCM_EditAsJson_triggered);
     connect(action_RCM_EditComplex, &QAction::triggered, this, &MainWindow::on_action_RCM_EditAsComplex_triggered);
+    connect(action_RCM_LatencyTest, &QAction::triggered, this, &MainWindow::on_action_RCM_LatencyTest_triggered);
     connect(action_RCM_Rename, &QAction::triggered, this, &MainWindow::on_action_RCM_RenameThis_triggered);
     connect(action_RCM_Duplicate, &QAction::triggered, this, &MainWindow::on_action_RCM_DuplicateThese_triggered);
     connect(action_RCM_ClearUsage, &QAction::triggered, this, &MainWindow::on_action_RCM_ClearUsage_triggered);
@@ -290,9 +325,13 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
         connectionListWidget->setCurrentItem(item);
         on_connectionListWidget_itemClicked(item, 0);
     }
+    ReloadRecentConnectionList(GlobalConfig.uiConfig.recentConnections);
+    //
     if (needShowWindow)
         this->show();
-
+    //
+    tray_action_ShowHide->setText(needShowWindow ? tr("Hide") : tr("Show"));
+    //
     if (StartupOption.enableToolbarPlguin)
     {
         LOG(MODULE_UI, "Plugin daemon is enabled.")
@@ -357,6 +396,13 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
             this->close();
         }
     }
+    else if (e->modifiers() & Qt::ControlModifier && e->key() == Qt::Key_Q)
+    {
+        if (QvMessageBoxAsk(this, tr("Quit Qv2ray"), tr("Are you sure to exit Qv2ray?"), QMessageBox::No) == QMessageBox::Yes)
+        {
+            ExitQv2ray();
+        }
+    }
 }
 
 void MainWindow::keyReleaseEvent(QKeyEvent *e)
@@ -383,11 +429,6 @@ void MainWindow::on_action_StartThis_triggered()
 
 MainWindow::~MainWindow()
 {
-    if (GlobalConfig.inboundConfig.pacConfig.enablePAC && pacServer != nullptr && pacServer->isRunning())
-    {
-        // Wait for PAC server to finish.
-        pacServer->wait();
-    }
     hTray.hide();
 }
 
@@ -478,10 +519,16 @@ void MainWindow::on_connectionListWidget_customContextMenuRequested(const QPoint
     auto item = connectionListWidget->itemAt(connectionListWidget->mapFromGlobal(_pos));
     if (item != nullptr)
     {
-        if (GetItemWidget(item)->IsConnection())
-        {
-            connectionListRCM_Menu->popup(_pos);
-        }
+        bool isConnection = GetItemWidget(item)->IsConnection();
+        // Disable connection-specific settings.
+        action_RCM_Start->setEnabled(isConnection);
+        action_RCM_SetAutoConnection->setEnabled(isConnection);
+        action_RCM_Edit->setEnabled(isConnection);
+        action_RCM_EditJson->setEnabled(isConnection);
+        action_RCM_EditComplex->setEnabled(isConnection);
+        action_RCM_Rename->setEnabled(isConnection);
+        action_RCM_Duplicate->setEnabled(isConnection);
+        connectionListRCM_Menu->popup(_pos);
     }
 }
 
@@ -492,9 +539,16 @@ void MainWindow::on_action_RCM_DeleteThese_triggered()
     for (auto item : connectionListWidget->selectedItems())
     {
         auto widget = GetItemWidget(item);
-        if (widget->IsConnection())
+        if (widget)
         {
-            connlist.append(get<1>(widget->Identifier()));
+            if (widget->IsConnection())
+            {
+                connlist.append(get<1>(widget->Identifier()));
+            }
+            else
+            {
+                connlist.append(ConnectionManager->GetGroupMetaObject(get<0>(widget->Identifier())).connections);
+            }
         }
     }
 
@@ -568,13 +622,17 @@ void MainWindow::on_connectionListWidget_itemDoubleClicked(QTreeWidgetItem *item
 void MainWindow::OnDisconnected(const ConnectionId &id)
 {
     Q_UNUSED(id)
+    hTray.setIcon(Q_TRAYICON("tray.png"));
     tray_action_Start->setEnabled(true);
     tray_action_Stop->setEnabled(false);
     tray_action_Restart->setEnabled(false);
     tray_SystemProxyMenu->setEnabled(false);
     lastConnectedId = id;
     locateBtn->setEnabled(false);
-    this->hTray.showMessage("Qv2ray", tr("Disconnected from: ") + GetDisplayName(id), this->windowIcon());
+    if (!GlobalConfig.uiConfig.quietMode)
+    {
+        this->hTray.showMessage("Qv2ray", tr("Disconnected from: ") + GetDisplayName(id), this->windowIcon());
+    }
     hTray.setToolTip(TRAY_TOOLTIP_PREFIX);
     netspeedLabel->setText("0.00 B/s" NEWLINE "0.00 B/s");
     dataamountLabel->setText("0.00 B" NEWLINE "0.00 B");
@@ -583,16 +641,12 @@ void MainWindow::OnDisconnected(const ConnectionId &id)
     {
         ClearSystemProxy();
     }
-
-    if (GlobalConfig.inboundConfig.pacConfig.enablePAC)
-    {
-        pacServer->stopServer();
-    }
 }
 
 void MainWindow::OnConnected(const ConnectionId &id)
 {
     Q_UNUSED(id)
+    hTray.setIcon(Q_TRAYICON("tray-connected.png"));
     tray_action_Start->setEnabled(false);
     tray_action_Stop->setEnabled(true);
     tray_action_Restart->setEnabled(true);
@@ -601,70 +655,14 @@ void MainWindow::OnConnected(const ConnectionId &id)
     locateBtn->setEnabled(true);
     on_clearlogButton_clicked();
     auto name = GetDisplayName(id);
-    this->hTray.showMessage("Qv2ray", tr("Connected: ") + name, this->windowIcon());
+    if (!GlobalConfig.uiConfig.quietMode)
+    {
+        this->hTray.showMessage("Qv2ray", tr("Connected: ") + name, this->windowIcon());
+    }
     hTray.setToolTip(TRAY_TOOLTIP_PREFIX NEWLINE + tr("Connected: ") + name);
     connetionStatusLabel->setText(tr("Connected: ") + name);
     //
     ConnectionManager->StartLatencyTest(id);
-    bool usePAC = GlobalConfig.inboundConfig.pacConfig.enablePAC;
-    bool pacUseSocks = GlobalConfig.inboundConfig.pacConfig.useSocksProxy;
-    bool httpEnabled = GlobalConfig.inboundConfig.useHTTP;
-    bool socksEnabled = GlobalConfig.inboundConfig.useSocks;
-
-    if (usePAC)
-    {
-        bool canStartPAC = true;
-        QString pacProxyString; // Something like this --> SOCKS5 127.0.0.1:1080; SOCKS
-                                // 127.0.0.1:1080; DIRECT; http://proxy:8080
-        auto pacIP = GlobalConfig.inboundConfig.pacConfig.localIP;
-
-        if (pacIP.isEmpty())
-        {
-            LOG(MODULE_PROXY, "PAC Local IP is empty, default to 127.0.0.1")
-            pacIP = "127.0.0.1";
-        }
-
-        if (pacUseSocks)
-        {
-            if (socksEnabled)
-            {
-                pacProxyString = "SOCKS5 " + pacIP + ":" + QSTRN(GlobalConfig.inboundConfig.socks_port);
-            }
-            else
-            {
-                LOG(MODULE_UI, "PAC is using SOCKS, but it is not enabled")
-                QvMessageBoxWarn(this, tr("Configuring PAC"),
-                                 tr("Could not start PAC server as it is configured to use SOCKS, but it is not enabled"));
-                canStartPAC = false;
-            }
-        }
-        else
-        {
-            if (httpEnabled)
-            {
-                pacProxyString = "PROXY " + pacIP + ":" + QSTRN(GlobalConfig.inboundConfig.http_port);
-            }
-            else
-            {
-                LOG(MODULE_UI, "PAC is using HTTP, but it is not enabled")
-                QvMessageBoxWarn(this, tr("Configuring PAC"),
-                                 tr("Could not start PAC server as it is configured to use HTTP, but it is not enabled"));
-                canStartPAC = false;
-            }
-        }
-
-        if (canStartPAC)
-        {
-            pacServer = new PACServer(this);
-            pacServer->setPACProxyString(pacProxyString);
-            pacServer->start();
-        }
-        else
-        {
-            LOG(MODULE_PROXY, "Not starting PAC due to previous error.")
-        }
-    }
-
     if (GlobalConfig.inboundConfig.setSystemProxy)
     {
         MWSetSystemProxy();
@@ -860,7 +858,7 @@ void MainWindow::OnGroupDeleted(const GroupId &id, const QList<ConnectionId> &co
 
 void MainWindow::on_locateBtn_clicked()
 {
-    auto id = ConnectionManager->CurrentConnection();
+    auto id = KernelInstance->CurrentConnection();
     if (id != NullConnectionId)
     {
         connectionListWidget->setCurrentItem(connectionNodes.value(id).get());
@@ -964,7 +962,10 @@ void MainWindow::on_action_RCM_SetAutoConnection_triggered()
         auto widget = GetItemWidget(current);
         auto &conn = get<1>(widget->Identifier());
         GlobalConfig.autoStartId = conn.toString();
-        hTray.showMessage(tr("Set auto connection"), tr("Set %1 as auto connect.").arg(GetDisplayName(conn)));
+        if (!GlobalConfig.uiConfig.quietMode)
+        {
+            hTray.showMessage(tr("Set auto connection"), tr("Set %1 as auto connect.").arg(GetDisplayName(conn)));
+        }
         SaveGlobalSettings();
     }
 }
@@ -975,6 +976,33 @@ void MainWindow::on_action_RCM_ClearUsage_triggered()
     if (current != nullptr)
     {
         auto widget = GetItemWidget(current);
-        ConnectionManager->ClearConnectionUsage(get<1>(widget->Identifier()));
+        if (widget)
+        {
+            if (widget->IsConnection())
+                ConnectionManager->ClearConnectionUsage(get<1>(widget->Identifier()));
+            else
+                ConnectionManager->ClearGroupUsage(get<0>(widget->Identifier()));
+        }
     }
+}
+
+void MainWindow::on_action_RCM_LatencyTest_triggered()
+{
+    auto current = connectionListWidget->currentItem();
+    if (current != nullptr)
+    {
+        auto widget = GetItemWidget(current);
+        if (widget)
+        {
+            if (widget->IsConnection())
+                ConnectionManager->StartLatencyTest(get<1>(widget->Identifier()));
+            else
+                ConnectionManager->StartLatencyTest(get<0>(widget->Identifier()));
+        }
+    }
+}
+
+void MainWindow::on_pluginsBtn_clicked()
+{
+    PluginManageWindow(this).exec();
 }

@@ -1,6 +1,7 @@
 #include "QvProxyConfigurator.hpp"
 
 #include "common/QvHelpers.hpp"
+#include "components/plugins/QvPluginHost.hpp"
 #ifdef Q_OS_WIN
     #include <WinInet.h>
     #include <Windows.h>
@@ -188,46 +189,30 @@ namespace Qv2ray::components::proxy
     }
 #endif
 
-    void SetSystemProxy(const QString &address, int httpPort, int socksPort, bool usePAC)
+    void SetSystemProxy(const QString &address, int httpPort, int socksPort)
     {
         LOG(MODULE_PROXY, "Setting up System Proxy")
         bool hasHTTP = (httpPort != 0);
         bool hasSOCKS = (socksPort != 0);
 
-        if (!(hasHTTP || hasSOCKS || usePAC))
+        if (!(hasHTTP || hasSOCKS))
         {
             LOG(MODULE_PROXY, "Nothing?")
             return;
         }
 
-        if (usePAC)
+        if (hasHTTP)
         {
-            LOG(MODULE_PROXY, "Qv2ray will set system proxy to use PAC file")
+            LOG(MODULE_PROXY, "Qv2ray will set system proxy to use HTTP")
         }
-        else
-        {
-            if (hasHTTP)
-            {
-                LOG(MODULE_PROXY, "Qv2ray will set system proxy to use HTTP")
-            }
 
-            if (hasSOCKS)
-            {
-                LOG(MODULE_PROXY, "Qv2ray will set system proxy to use SOCKS")
-            }
+        if (hasSOCKS)
+        {
+            LOG(MODULE_PROXY, "Qv2ray will set system proxy to use SOCKS")
         }
 
 #ifdef Q_OS_WIN
-        QString __a;
-
-        if (usePAC)
-        {
-            __a = address;
-        }
-        else
-        {
-            __a = (hasHTTP ? "http://" : "socks5://") + address + ":" + QSTRN(httpPort);
-        }
+        QString __a = (hasHTTP ? "http://" : "socks5://") + address + ":" + QSTRN(hasHTTP ? httpPort : socksPort);
 
         LOG(MODULE_PROXY, "Windows proxy string: " + __a)
         auto proxyStrW = new WCHAR[__a.length() + 1];
@@ -235,7 +220,7 @@ namespace Qv2ray::components::proxy
         //
         __QueryProxyOptions();
 
-        if (!__SetProxyOptions(proxyStrW, usePAC))
+        if (!__SetProxyOptions(proxyStrW, false))
         {
             LOG(MODULE_PROXY, "Failed to set proxy.")
         }
@@ -243,66 +228,46 @@ namespace Qv2ray::components::proxy
         __QueryProxyOptions();
 #elif defined(Q_OS_LINUX)
         QStringList actions;
-        auto proxyMode = usePAC ? "auto" : "manual";
-        actions << QString("gsettings set org.gnome.system.proxy mode '%1'").arg(proxyMode);
+        actions << QString("gsettings set org.gnome.system.proxy mode '%1'").arg("manual");
         bool isKDE = qEnvironmentVariable("XDG_SESSION_DESKTOP") == "KDE";
+        const auto configPath = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
         if (isKDE)
         {
             LOG(MODULE_PROXY, "KDE detected")
+            actions << QString("kwriteconfig5  --file " + configPath + "/kioslaverc --group \"Proxy Settings\" --key ProxyType 1");
         }
-        //
-        if (usePAC)
+        if (hasHTTP)
         {
-            actions << QString("gsettings set org.gnome.system.proxy autoconfig-url '%1'").arg(address);
+            actions << QString("gsettings set org.gnome.system.proxy.http host '%1'").arg(address);
+            actions << QString("gsettings set org.gnome.system.proxy.http port %1").arg(httpPort);
+            //
+            actions << QString("gsettings set org.gnome.system.proxy.https host '%1'").arg(address);
+            actions << QString("gsettings set org.gnome.system.proxy.https port %1").arg(httpPort);
             if (isKDE)
             {
-                actions << QString("kwriteconfig5  --file " + QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) +
-                                   "/kioslaverc --group \"Proxy Settings\" --key ProxyType 2");
-
-                actions << QString("kwriteconfig5  --file " + QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) +
-                                   "/kioslaverc --group \"Proxy Settings\" --key \"Proxy Config Script\" " + address);
+                // FTP here should be scheme: ftp://
+                for (auto protocol : { "http", "ftp", "https" })
+                {
+                    auto str =
+                        QString("kwriteconfig5  --file " + configPath + "/kioslaverc --group \"Proxy Settings\" --key %1Proxy \"http://%2 %3\"")
+                            .arg(protocol)
+                            .arg(address)
+                            .arg(QSTRN(httpPort));
+                    actions << str;
+                }
             }
         }
-        else
+
+        if (hasSOCKS)
         {
+            actions << QString("gsettings set org.gnome.system.proxy.socks host '%1'").arg(address);
+            actions << QString("gsettings set org.gnome.system.proxy.socks port %1").arg(socksPort);
             if (isKDE)
             {
-                actions << QString("kwriteconfig5  --file " + QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) +
-                                   "/kioslaverc --group \"Proxy Settings\" --key ProxyType 1");
-            }
-            if (hasHTTP)
-            {
-                actions << QString("gsettings set org.gnome.system.proxy.http host '%1'").arg(address);
-                actions << QString("gsettings set org.gnome.system.proxy.http port %1").arg(httpPort);
-                //
-                actions << QString("gsettings set org.gnome.system.proxy.https host '%1'").arg(address);
-                actions << QString("gsettings set org.gnome.system.proxy.https port %1").arg(httpPort);
-                if (isKDE)
-                {
-                    // FTP here should be scheme: ftp://
-                    for (auto protocol : { "http", "ftp", "https" })
-                    {
-                        auto str = QString("kwriteconfig5  --file " + QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) +
-                                           "/kioslaverc --group \"Proxy Settings\" --key %1Proxy \"http://%2 %3\"")
-                                       .arg(protocol)
-                                       .arg(address)
-                                       .arg(QSTRN(httpPort));
-                        actions << str;
-                    }
-                }
-            }
-
-            if (hasSOCKS)
-            {
-                actions << QString("gsettings set org.gnome.system.proxy.socks host '%1'").arg(address);
-                actions << QString("gsettings set org.gnome.system.proxy.socks port %1").arg(socksPort);
-                if (isKDE)
-                {
-                    actions << QString("kwriteconfig5 --file " + QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) +
-                                       "/kioslaverc --group \"Proxy Settings\" --key socksProxy \"socks://%1 %2\"")
-                                   .arg(address)
-                                   .arg(QSTRN(socksPort));
-                }
+                actions << QString("kwriteconfig5 --file " + configPath +
+                                   "/kioslaverc --group \"Proxy Settings\" --key socksProxy \"socks://%1 %2\"")
+                               .arg(address)
+                               .arg(QSTRN(socksPort));
             }
         }
 
@@ -326,30 +291,31 @@ namespace Qv2ray::components::proxy
         {
             LOG(MODULE_PROXY, "Setting proxy for interface: " + service)
 
-            if (usePAC)
+            if (hasHTTP)
             {
-                QProcess::execute("/usr/sbin/networksetup -setautoproxystate " + service + " on");
-                QProcess::execute("/usr/sbin/networksetup -setautoproxyurl " + service + " " + address);
+                QProcess::execute("/usr/sbin/networksetup -setwebproxystate " + service + " on");
+                QProcess::execute("/usr/sbin/networksetup -setsecurewebproxystate " + service + " on");
+                QProcess::execute("/usr/sbin/networksetup -setwebproxy " + service + " " + address + " " + QSTRN(httpPort));
+                QProcess::execute("/usr/sbin/networksetup -setsecurewebproxy " + service + " " + address + " " + QSTRN(httpPort));
             }
-            else
-            {
-                if (hasHTTP)
-                {
-                    QProcess::execute("/usr/sbin/networksetup -setwebproxystate " + service + " on");
-                    QProcess::execute("/usr/sbin/networksetup -setsecurewebproxystate " + service + " on");
-                    QProcess::execute("/usr/sbin/networksetup -setwebproxy " + service + " " + address + " " + QSTRN(httpPort));
-                    QProcess::execute("/usr/sbin/networksetup -setsecurewebproxy " + service + " " + address + " " + QSTRN(httpPort));
-                }
 
-                if (hasSOCKS)
-                {
-                    QProcess::execute("/usr/sbin/networksetup -setsocksfirewallproxystate " + service + " on");
-                    QProcess::execute("/usr/sbin/networksetup -setsocksfirewallproxy " + service + " " + address + " " + QSTRN(socksPort));
-                }
+            if (hasSOCKS)
+            {
+                QProcess::execute("/usr/sbin/networksetup -setsocksfirewallproxystate " + service + " on");
+                QProcess::execute("/usr/sbin/networksetup -setsocksfirewallproxy " + service + " " + address + " " + QSTRN(socksPort));
             }
         }
 
 #endif
+        //
+        // Trigger plugin events
+        QMap<Events::SystemProxy::SystemProxyType, int> portSettings;
+        if (hasHTTP)
+            portSettings.insert(Events::SystemProxy::SystemProxyType::SystemProxy_HTTP, httpPort);
+        if (hasSOCKS)
+            portSettings.insert(Events::SystemProxy::SystemProxyType::SystemProxy_SOCKS, socksPort);
+        PluginHost->Send_SystemProxyEvent(
+            Events::SystemProxy::EventObject{ portSettings, Events::SystemProxy::SystemProxyStateType::SystemProxyState_SetProxy });
     }
 
     void ClearSystemProxy()
@@ -389,10 +355,18 @@ namespace Qv2ray::components::proxy
         {
             QProcess::execute("kwriteconfig5 --file " + QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) +
                               "/kioslaverc --group \"Proxy Settings\" --key ProxyType 0");
+            for (auto protocol : { "http", "ftp", "https" })
+            {
+                auto str = QString("kwriteconfig5  --file " + QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) +
+                                   "/kioslaverc --group \"Proxy Settings\" --key %1Proxy ''")
+                               .arg(protocol);
+                QProcess::execute(str);
+            }
+            QProcess::execute("kwriteconfig5 --file " + QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) +
+                              "/kioslaverc --group \"Proxy Settings\" --key socksProxy ''");
         }
         QProcess::execute("gsettings set org.gnome.system.proxy mode 'none'");
 #else
-
         for (auto service : macOSgetNetworkServices())
         {
             LOG(MODULE_PROXY, "Clearing proxy for interface: " + service)
@@ -403,5 +377,9 @@ namespace Qv2ray::components::proxy
         }
 
 #endif
+        //
+        // Trigger plugin events
+        PluginHost->Send_SystemProxyEvent(
+            Events::SystemProxy::EventObject{ {}, Events::SystemProxy::SystemProxyStateType::SystemProxyState_ClearProxy });
     }
 } // namespace Qv2ray::components::proxy

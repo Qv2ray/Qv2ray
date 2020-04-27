@@ -43,8 +43,10 @@ namespace Qv2ray::core
     const QString GetDisplayName(const ConnectionId &id, int limit = -1);
     const QString GetDisplayName(const GroupId &id, int limit = -1);
     //
-
     const GroupId GetConnectionGroupId(const ConnectionId &id);
+    //
+    const QMap<QString, int> GetConfigInboundPorts(const CONFIGROOT &root);
+    const QMap<QString, int> GetConfigInboundPorts(const ConnectionId &id);
     //
 } // namespace Qv2ray::core
 

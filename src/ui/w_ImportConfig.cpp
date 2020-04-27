@@ -5,7 +5,7 @@
 #include "core/connection/ConnectionIO.hpp"
 #include "core/connection/Serialization.hpp"
 #include "core/handler/ConfigHandler.hpp"
-#include "core/kernel/KernelInteractions.hpp"
+#include "core/kernel/V2rayKernelInteractions.hpp"
 #include "ui/editors/w_JsonEditor.hpp"
 #include "ui/editors/w_OutboundEditor.hpp"
 #include "ui/editors/w_RoutesEditor.hpp"
@@ -37,7 +37,10 @@ QvMessageBusSlotImpl(ImportConfigWindow)
 {
     switch (msg)
     {
-        MBShowDefaultImpl MBHideDefaultImpl MBRetranslateDefaultImpl MBUpdateColorSchemeDefaultImpl
+        MBShowDefaultImpl;
+        MBHideDefaultImpl;
+        MBRetranslateDefaultImpl;
+        MBUpdateColorSchemeDefaultImpl;
     }
 }
 
@@ -53,7 +56,7 @@ QMultiHash<QString, CONFIGROOT> ImportConfigWindow::SelectConnection(bool outbou
     routeEditBtn->setEnabled(!outboundsOnly);
     this->exec();
     QMultiHash<QString, CONFIGROOT> conn;
-    for (const auto connEntry : connections.values())
+    for (const auto &connEntry : connections.values())
     {
         conn += connEntry;
     }
@@ -64,11 +67,11 @@ int ImportConfigWindow::ImportConnection()
 {
     this->exec();
     int count = 0;
-    for (const auto groupName : connections.keys())
+    for (const auto &groupName : connections.keys())
     {
         GroupId groupId = groupName.isEmpty() ? DefaultGroupId : ConnectionManager->CreateGroup(groupName, false);
         const auto groupObject = connections[groupName];
-        for (const auto connConf : groupObject)
+        for (const auto &connConf : groupObject)
         {
             auto connName = groupObject.key(connConf);
 
@@ -77,7 +80,7 @@ int ImportConfigWindow::ImportConnection()
             {
                 connName = protocol + "/" + host + ":" + QSTRN(port) + "-" + GenerateRandomString(5);
             }
-            ConnectionManager->CreateConnection(connName, groupId, connConf);
+            ConnectionManager->CreateConnection(connName, groupId, connConf, true);
         }
     }
 
@@ -164,7 +167,7 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
                 }
                 else
                 {
-                    for (auto conf : config)
+                    for (const auto &conf : config)
                     {
                         AddToGroup(newGroupName, config.key(conf), conf);
                     }
@@ -173,7 +176,7 @@ void ImportConfigWindow::on_beginImportBtn_clicked()
 
             if (!linkErrors.isEmpty())
             {
-                for (auto item : linkErrors)
+                for (const auto &item : linkErrors)
                 {
                     vmessConnectionStringTxt->appendPlainText(linkErrors.key(item));
                     errorsList->addItem(item);
@@ -213,6 +216,8 @@ void ImportConfigWindow::on_selectImageBtn_clicked()
     imageFileEdit->setText(dir);
     //
     QFile file(dir);
+    if (!file.exists())
+        return;
     file.open(QFile::OpenModeFlag::ReadOnly);
     auto buf = file.readAll();
     file.close();
@@ -258,7 +263,7 @@ void ImportConfigWindow::on_errorsList_currentItemChanged(QListWidgetItem *curre
 
 void ImportConfigWindow::on_connectionEditBtn_clicked()
 {
-    OutboundEditor w(this);
+    OutboundEditor w(OUTBOUND(), this);
     auto outboundEntry = w.OpenEditor();
     bool isChanged = w.result() == QDialog::Accepted;
     QString alias = w.GetFriendlyName();
@@ -283,7 +288,7 @@ void ImportConfigWindow::on_cancelImportBtn_clicked()
 void ImportConfigWindow::on_subscriptionButton_clicked()
 {
     hide();
-    SubscriptionEditor w;
+    SubscriptionEditor w(this);
     w.exec();
     auto importToComplex = !keepImportedInboundCheckBox->isEnabled();
     connections.clear();

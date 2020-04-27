@@ -257,13 +257,14 @@ namespace Qv2ray::base::objects
         {
             QString serverName;
             bool allowInsecure;
+            bool allowInsecureCiphers;
             QList<QString> alpn;
             QList<CertificateObject> certificates;
             bool disableSystemRoot;
-            TLSObject() : serverName(), allowInsecure(), certificates(), disableSystemRoot()
+            TLSObject() : serverName(), allowInsecure(), allowInsecureCiphers(), certificates(), disableSystemRoot()
             {
             }
-            XTOSTRUCT(O(serverName, allowInsecure, alpn, certificates, disableSystemRoot))
+            XTOSTRUCT(O(serverName, allowInsecure, allowInsecureCiphers, alpn, certificates, disableSystemRoot))
         };
     } // namespace transfer
     //

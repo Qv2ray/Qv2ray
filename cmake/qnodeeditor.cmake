@@ -25,9 +25,6 @@ if(QV2RAY_QNODEEDITOR_PROVIDER STREQUAL "module")
         ${QNODEEDITOR_DIR}/src/StyleCollection.cpp
     )
     set(QNODEEDITOR_INCLUDE_PATH
-        ${QNODEEDITOR_DIR}/src/
-        ${QNODEEDITOR_DIR}/include/
-        ${QNODEEDITOR_DIR}/include/nodes/
         ${QNODEEDITOR_DIR}/include/nodes/internal
     )
 

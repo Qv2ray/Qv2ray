@@ -4,6 +4,7 @@
 #include "common/QvTranslator.hpp"
 #include "core/handler/ConfigHandler.hpp"
 #include "core/settings/SettingsBackend.hpp"
+#include "src/components/plugins/QvPluginHost.hpp"
 #include "ui/w_MainWindow.hpp"
 
 #include <QApplication>
@@ -139,7 +140,7 @@ bool initialiseQv2ray()
         Qv2rayConfig conf;
         conf.kernelConfig.KernelPath(QString(QV2RAY_DEFAULT_VCORE_PATH));
         conf.kernelConfig.AssetsPath(QString(QV2RAY_DEFAULT_VASSETS_PATH));
-        conf.logLevel = 2;
+        conf.logLevel = 3;
         conf.uiConfig.language = QLocale::system().name();
         //
         // Save initial config.
@@ -182,9 +183,10 @@ int main(int argc, char *argv[])
             case CommandLineOk: break;
 
             case CommandLineError:
+                cout << "Invalid command line arguments" << endl;
                 cout << errorMessage.toStdString() << endl;
                 cout << parser.Parser()->helpText().toStdString() << endl;
-                return 1;
+                break;
 
             case CommandLineVersionRequested:
                 LOG("Qv2ray", QV2RAY_VERSION_STRING)
@@ -213,6 +215,7 @@ int main(int argc, char *argv[])
     //
     LOG("QV2RAY_BUILD_INFO", QV2RAY_BUILD_INFO)
     LOG("QV2RAY_BUILD_EXTRA_INFO", QV2RAY_BUILD_EXTRA_INFO)
+    LOG("QV2RAY_BUILD_NUMBER", QSTRN(QV2RAY_VERSION_BUILD))
     LOG(MODULE_INIT, "Qv2ray " QV2RAY_VERSION_STRING " running on " + QSysInfo::prettyProductName() + " " + QSysInfo::currentCpuArchitecture())
     //
     // This line must be called before any other ones, since we are using these
@@ -229,7 +232,7 @@ int main(int argc, char *argv[])
 #endif
     if (StartupOption.noScaleFactors)
     {
-        LOG(MODULE_INIT, "Force set QT_SCALE_FACTOR to 0.")
+        LOG(MODULE_INIT, "Force set QT_SCALE_FACTOR to 1.")
         LOG(MODULE_UI, "Original QT_SCALE_FACTOR was: " + qEnvironmentVariable("QT_SCALE_FACTOR"))
         qputenv("QT_SCALE_FACTOR", "1");
     }
@@ -237,6 +240,9 @@ int main(int argc, char *argv[])
     {
         LOG(MODULE_INIT, "High DPI scaling is enabled.")
         QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+        QGuiApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
+#endif
     }
     SingleApplication _qApp(argc, argv, false,
                             SingleApplication::User | SingleApplication::ExcludeAppPath | SingleApplication::ExcludeAppVersion);
@@ -250,25 +256,25 @@ int main(int argc, char *argv[])
     bool _result_ = Qv2rayTranslator->InstallTranslation(_lang);
     LOG(MODULE_UI, "Installing a tranlator from OS: " + _lang + " -- " + (_result_ ? "OK" : "Failed"))
     //
-    LOG("LICENCE", NEWLINE                                                                                                 //
-        "This program comes with ABSOLUTELY NO WARRANTY." NEWLINE                                                          //
-        "This is free software, and you are welcome to redistribute it" NEWLINE                                            //
-        "under certain conditions." NEWLINE                                                                                //
-            NEWLINE                                                                                                        //
-        "Copyright (c) 2019-2020 Qv2ray Development Group." NEWLINE                                                        //
-            NEWLINE                                                                                                        //
-        "Libraries that have been used in Qv2ray are listed below (Sorted by date added):" NEWLINE                         //
-        "Copyright (c) 2020 xyz347 (@xyz347): X2Struct (Apache)" NEWLINE                                                   //
-        "Copyright (c) 2011 SCHUTZ Sacha (@dridk): QJsonModel (MIT)" NEWLINE                                               //
-        "Copyright (c) 2020 Nikolaos Ftylitakis (@ftylitak): QZXing (Apache2)" NEWLINE                                     //
-        "Copyright (c) 2016 Singein (@Singein): ScreenShot (MIT)" NEWLINE                                                  //
-        "Copyright (c) 2020 Itay Grudev (@itay-grudev): SingleApplication (MIT)" NEWLINE                                   //
-        "Copyright (c) 2020 paceholder (@paceholder): nodeeditor (Qv2ray group modified version) (BSD-3-Clause)" NEWLINE   //
-        "Copyright (c) 2019 TheWanderingCoel (@TheWanderingCoel): ShadowClash (launchatlogin) (GPLv3)" NEWLINE             //
-        "Copyright (c) 2020 Ram Pani (@DuckSoft): QvRPCBridge (WTFPL)" NEWLINE                                             //
-        "Copyright (c) 2019 ShadowSocks (@shadowsocks): libQtShadowsocks (LGPLv3)" NEWLINE                                 //
-        "Copyright (c) 2015-2020 qBittorrent (Anton Lashkov) (@qBittorrent): speedplotview (GPLv2)" NEWLINE                //
-        "Copyright (c) 2020 yhirose (@yhirose): cpp-httplib (MIT)" NEWLINE NEWLINE)       //
+    LOG("LICENCE", NEWLINE                                                                                               //
+        "This program comes with ABSOLUTELY NO WARRANTY." NEWLINE                                                        //
+        "This is free software, and you are welcome to redistribute it" NEWLINE                                          //
+        "under certain conditions." NEWLINE                                                                              //
+            NEWLINE                                                                                                      //
+        "Copyright (c) 2019-2020 Qv2ray Development Group." NEWLINE                                                      //
+            NEWLINE                                                                                                      //
+        "Libraries that have been used in Qv2ray are listed below (Sorted by date added):" NEWLINE                       //
+        "Copyright (c) 2020 xyz347 (@xyz347): X2Struct (Apache)" NEWLINE                                                 //
+        "Copyright (c) 2011 SCHUTZ Sacha (@dridk): QJsonModel (MIT)" NEWLINE                                             //
+        "Copyright (c) 2020 Nikolaos Ftylitakis (@ftylitak): QZXing (Apache2)" NEWLINE                                   //
+        "Copyright (c) 2016 Singein (@Singein): ScreenShot (MIT)" NEWLINE                                                //
+        "Copyright (c) 2020 Itay Grudev (@itay-grudev): SingleApplication (MIT)" NEWLINE                                 //
+        "Copyright (c) 2020 paceholder (@paceholder): nodeeditor (Qv2ray group modified version) (BSD-3-Clause)" NEWLINE //
+        "Copyright (c) 2019 TheWanderingCoel (@TheWanderingCoel): ShadowClash (launchatlogin) (GPLv3)" NEWLINE           //
+        "Copyright (c) 2020 Ram Pani (@DuckSoft): QvRPCBridge (WTFPL)" NEWLINE                                           //
+        "Copyright (c) 2019 ShadowSocks (@shadowsocks): libQtShadowsocks (LGPLv3)" NEWLINE                               //
+        "Copyright (c) 2015-2020 qBittorrent (Anton Lashkov) (@qBittorrent): speedplotview (GPLv2)" NEWLINE              //
+        "Copyright (c) 2020 yhirose (@yhirose): cpp-httplib (MIT)" NEWLINE NEWLINE)                                      //
     //
     LOG(MODULE_INIT, "Qv2ray Start Time: " + QSTRN(QTime::currentTime().msecsSinceStartOfDay()))
     //
@@ -403,12 +409,16 @@ int main(int argc, char *argv[])
     {
 #endif
         //_qApp.setAttribute(Qt::AA_DontUseNativeMenuBar);
+#ifdef Q_OS_LINUX
+        _qApp.setFallbackSessionManagementEnabled(false);
+        QObject::connect(&_qApp, &QGuiApplication::commitDataRequest, [] { //
+            ConnectionManager->CHSaveConfigData();
+            LOG(MODULE_INIT, "Quit triggered by session manager.")
+        });
+#endif
         // Initialise Connection Handler
+        PluginHost = new QvPluginHost();
         ConnectionManager = new QvConfigHandler();
-        // Handler for session logout, shutdown, etc.
-        // Will not block.
-        QGuiApplication::setFallbackSessionManagementEnabled(false);
-        QObject::connect(&_qApp, &QGuiApplication::commitDataRequest, [] { LOG(MODULE_INIT, "Quit triggered by session manager.") });
         // Show MainWindow
         MainWindow w;
         QObject::connect(&_qApp, &SingleApplication::instanceStarted, [&]() {
@@ -418,11 +428,12 @@ int main(int argc, char *argv[])
             w.activateWindow();
         });
 #ifndef Q_OS_WIN
-        signal(SIGUSR1, [](int) { emit MainWindow::mwInstance->StartConnection(); });
-        signal(SIGUSR2, [](int) { emit MainWindow::mwInstance->StopConnection(); });
+        signal(SIGUSR1, [](int) { emit MainWindow::MainWindowInstance->StartConnection(); });
+        signal(SIGUSR2, [](int) { emit MainWindow::MainWindowInstance->StopConnection(); });
 #endif
         auto rcode = _qApp.exec();
         delete ConnectionManager;
+        delete PluginHost;
         LOG(MODULE_INIT, "Quitting normally")
         return rcode;
 #ifndef QT_DEBUG

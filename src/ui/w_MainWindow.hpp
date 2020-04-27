@@ -2,7 +2,6 @@
 
 #include "common/HTTPRequestHelper.hpp"
 #include "common/LogHighlighter.hpp"
-#include "components/pac/QvPACHandler.hpp"
 #include "components/speedchart/speedwidget.hpp"
 #include "core/handler/ConfigHandler.hpp"
 #include "ui/messaging/QvMessageBus.hpp"
@@ -34,7 +33,7 @@ class MainWindow
   public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow() override;
-    static MainWindow *mwInstance;
+    static MainWindow *MainWindowInstance;
   signals:
     void StartConnection() const;
     void StopConnection() const;
@@ -61,6 +60,8 @@ class MainWindow
     void on_connectionListWidget_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous);
     void on_masterLogBrowser_textChanged();
 
+    void on_pluginsBtn_clicked();
+
   private:
     void on_actionExit_triggered();
     void on_action_StartThis_triggered();
@@ -68,6 +69,7 @@ class MainWindow
     void on_action_RCM_EditThis_triggered();
     void on_action_RCM_EditAsJson_triggered();
     void on_action_RCM_EditAsComplex_triggered();
+    void on_action_RCM_LatencyTest_triggered();
     void on_action_RCM_RenameThis_triggered();
     void on_action_RCM_DeleteThese_triggered();
     void on_action_RCM_DuplicateThese_triggered();
@@ -95,6 +97,8 @@ class MainWindow
     void OnGroupDeleted(const GroupId &id, const QList<ConnectionId> &connections);
     //
     void SortConnectionList(MW_ITEM_COL byCol, bool asending);
+    //
+    void ReloadRecentConnectionList(const QList<QString> &items);
 
   protected:
     void timerEvent(QTimerEvent *event) override;
@@ -108,13 +112,15 @@ class MainWindow
     // Charts
     SpeedWidget *speedChartWidget;
     QSystemTrayIcon hTray;
-    PACServer *pacServer;
     SyntaxHighlighter *vCoreLogHighlighter;
     ConnectionInfoWidget *infoWidget;
     //
     // Actions in the system tray menu
     QMenu *tray_RootMenu = new QMenu(this);
     QMenu *tray_SystemProxyMenu = new QMenu(tr("System Proxy"), this);
+    QMenu *tray_RecentConnectionsMenu = new QMenu(tr("Recent Connections"), this);
+    //
+    QList<QAction> recentConnections;
     //
     QAction *tray_action_ShowHide = new QAction(tr("Hide"), this);
     QAction *tray_action_ShowPreferencesWindow = new QAction(tr("Preferences"), this);
@@ -133,6 +139,7 @@ class MainWindow
     QAction *action_RCM_EditComplex = new QAction(tr("Edit as Complex Config"), this);
     QAction *action_RCM_Rename = new QAction(tr("Rename"), this);
     QAction *action_RCM_Duplicate = new QAction(tr("Duplicate to the Same Group"), this);
+    QAction *action_RCM_LatencyTest = new QAction(tr("Test Latency"), this);
     QAction *action_RCM_ClearUsage = new QAction(tr("Clear Usage Data"), this);
     QAction *action_RCM_Delete = new QAction(tr("Delete Connection"), this);
     //

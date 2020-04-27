@@ -1,4 +1,4 @@
-#include "KernelInteractions.hpp"
+#include "V2rayKernelInteractions.hpp"
 
 #include "APIBackend.hpp"
 #include "common/QvHelpers.hpp"
@@ -31,33 +31,42 @@ namespace Qv2ray::core::kernel
         }
 
         coreFile.close();
-
         // Get Core ABI.
         auto [abi, err] = kernel::abi::deduceKernelABI(vCorePath);
         if (err)
         {
-            LOG(MODULE_VCORE, "Core ABI deduction failed: " + err.value())
-            *message = err.value();
+            LOG(MODULE_VCORE, "Core ABI deduction failed: " + ACCESS_OPTIONAL_VALUE(err))
+            *message = ACCESS_OPTIONAL_VALUE(err);
             return false;
         }
-        LOG(MODULE_VCORE, "Core ABI: " + kernel::abi::abiToString(abi.value()))
+        LOG(MODULE_VCORE, "Core ABI: " + kernel::abi::abiToString(ACCESS_OPTIONAL_VALUE(abi)))
 
         // Get Compiled ABI
         auto compiledABI = kernel::abi::COMPILED_ABI_TYPE;
         LOG(MODULE_VCORE, "Host ABI: " + kernel::abi::abiToString(compiledABI))
 
         // Check ABI Compatibility.
-        switch (kernel::abi::checkCompatibility(compiledABI, abi.value()))
+        switch (kernel::abi::checkCompatibility(compiledABI, ACCESS_OPTIONAL_VALUE(abi)))
         {
             case kernel::abi::ABI_NOPE:
+            {
                 LOG(MODULE_VCORE, "Host is incompatible with core")
                 *message = tr("V2Ray core is incompatible with your platform.\r\n" //
                               "Expected core ABI is %1, but got actual %2.\r\n"    //
                               "Maybe you have downloaded the wrong core?")
-                               .arg(kernel::abi::abiToString(compiledABI), kernel::abi::abiToString(abi.value()));
+                               .arg(kernel::abi::abiToString(compiledABI), kernel::abi::abiToString(ACCESS_OPTIONAL_VALUE(abi)));
                 return false;
-            case kernel::abi::ABI_MAYBE: LOG(MODULE_VCORE, "WARNING: Host maybe incompatible with core"); [[fallthrough]];
-            case kernel::abi::ABI_PERFECT: LOG(MODULE_VCORE, "Host is compatible with core");
+            }
+            case kernel::abi::ABI_MAYBE:
+            {
+                LOG(MODULE_VCORE, "WARNING: Host maybe incompatible with core");
+                break;
+            }
+            case kernel::abi::ABI_PERFECT:
+            {
+                LOG(MODULE_VCORE, "Host is compatible with core");
+                break;
+            }
         }
 
         //
@@ -156,17 +165,18 @@ namespace Qv2ray::core::kernel
         }
         else
         {
-            QvMessageBoxWarn(nullptr, tr("Cannot start V2ray"),
-                             tr("V2ray core settings is incorrect.") + NEWLINE + NEWLINE + tr("The error is: ") + NEWLINE + v2rayCheckResult);
+            QvMessageBoxWarn(nullptr, tr("Cannot start V2ray"),                            //
+                             tr("V2ray core settings is incorrect.") + NEWLINE + NEWLINE + //
+                                 tr("The error is: ") + NEWLINE + v2rayCheckResult);
             return false;
         }
     }
 
-    V2rayKernelInstance::V2rayKernelInstance()
+    V2rayKernelInstance::V2rayKernelInstance(QObject *parent) : QObject(parent)
     {
         vProcess = new QProcess();
         connect(vProcess, &QProcess::readyReadStandardOutput, this,
-                [&]() { emit OnProcessOutputReadyRead(id, vProcess->readAllStandardOutput().trimmed()); });
+                [&]() { emit OnProcessOutputReadyRead(vProcess->readAllStandardOutput().trimmed()); });
         connect(vProcess, &QProcess::stateChanged, [&](QProcess::ProcessState state) {
             DEBUG(MODULE_VCORE, "V2ray kernel process status changed: " + QVariant::fromValue(state).toString())
 
@@ -175,7 +185,7 @@ namespace Qv2ray::core::kernel
             {
                 LOG(MODULE_VCORE, "V2ray kernel crashed.")
                 StopConnection();
-                emit OnProcessErrored(id);
+                emit OnProcessErrored("V2ray kernel crashed.");
             }
         });
         apiWorker = new APIWorker();
@@ -183,7 +193,7 @@ namespace Qv2ray::core::kernel
         KernelStarted = false;
     }
 
-    optional<QString> V2rayKernelInstance::StartConnection(const ConnectionId &id, const CONFIGROOT &root)
+    optional<QString> V2rayKernelInstance::StartConnection(const CONFIGROOT &root)
     {
         if (KernelStarted)
         {
@@ -206,8 +216,6 @@ namespace Qv2ray::core::kernel
             vProcess->waitForStarted();
             DEBUG(MODULE_VCORE, "V2ray core started.")
             KernelStarted = true;
-            // Set Connection ID
-            this->id = id;
             QStringList inboundTags;
 
             for (auto item : root["inbounds"].toArray())
@@ -285,6 +293,6 @@ namespace Qv2ray::core::kernel
 
     void V2rayKernelInstance::onAPIDataReady(const quint64 speedUp, const quint64 speedDown)
     {
-        emit OnNewStatsDataArrived(id, speedUp, speedDown);
+        emit OnNewStatsDataArrived(speedUp, speedDown);
     }
 } // namespace Qv2ray::core::kernel

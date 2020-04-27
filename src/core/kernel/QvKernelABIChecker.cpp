@@ -4,13 +4,14 @@
 
 namespace Qv2ray::core::kernel::abi
 {
-    [[nodiscard]] QvKernelABICompatibility checkCompatibility(QvKernelABIType hostType, QvKernelABIType targetType)
+    QvKernelABICompatibility checkCompatibility(QvKernelABIType hostType, QvKernelABIType targetType)
     {
         switch (hostType)
         {
-            case ABI_WIN32: [[fallthrough]];
-            case ABI_MACH_O: [[fallthrough]];
-            case ABI_ELF_AARCH64: [[fallthrough]];
+            case ABI_WIN32:
+            case ABI_MACH_O:
+            case ABI_ELF_AARCH64:
+            case ABI_ELF_ARM:
             case ABI_ELF_X86: return targetType == hostType ? ABI_PERFECT : ABI_NOPE;
             case ABI_ELF_X86_64: return targetType == hostType ? ABI_PERFECT : targetType == ABI_ELF_X86 ? ABI_MAYBE : ABI_NOPE;
             case ABI_ELF_OTHER: return targetType == hostType ? ABI_PERFECT : ABI_MAYBE;
@@ -18,7 +19,7 @@ namespace Qv2ray::core::kernel::abi
         }
     }
 
-    [[nodiscard]] std::pair<std::optional<QvKernelABIType>, std::optional<QString>> deduceKernelABI(const QString &pathCoreExecutable)
+    std::pair<std::optional<QvKernelABIType>, std::optional<QString>> deduceKernelABI(const QString &pathCoreExecutable)
     {
         QFile file(pathCoreExecutable);
         if (!file.exists())
@@ -43,6 +44,8 @@ namespace Qv2ray::core::kernel::abi
                 return { QvKernelABIType::ABI_ELF_X86, std::nullopt };
             else if (elfInstruction == 0xB700u)
                 return { QvKernelABIType::ABI_ELF_AARCH64, std::nullopt };
+            else if (elfInstruction == 0x2800u)
+                return { QvKernelABIType::ABI_ELF_ARM, std::nullopt };
             else
                 return { QvKernelABIType::ABI_ELF_OTHER, std::nullopt };
         }
@@ -54,7 +57,7 @@ namespace Qv2ray::core::kernel::abi
             return { std::nullopt, QObject::tr("cannot deduce the type of core executable file %1").arg(pathCoreExecutable) };
     }
 
-    [[nodiscard]] QString abiToString(QvKernelABIType abi)
+    QString abiToString(QvKernelABIType abi)
     {
         switch (abi)
         {
@@ -63,6 +66,7 @@ namespace Qv2ray::core::kernel::abi
             case ABI_ELF_X86: return QObject::tr("ELF x86 executable");
             case ABI_ELF_X86_64: return QObject::tr("ELF amd64 executable");
             case ABI_ELF_AARCH64: return QObject::tr("ELF arm64 executable");
+            case ABI_ELF_ARM: return QObject::tr("ELF arm executable");
             case ABI_ELF_OTHER: return QObject::tr("other ELF executable");
             default: return QObject::tr("unknown abi");
         }

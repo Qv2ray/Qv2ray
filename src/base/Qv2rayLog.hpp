@@ -41,6 +41,7 @@ const inline QString MODULE_FILEIO = "COMMON-FILEIO";
 //
 const inline QString MODULE_PROXY = "COMPONENT-PROXY";
 const inline QString MODULE_UPDATE = "COMPONENT-UPDATE";
-const inline QString MODULE_PLUGIN = "COMPONENT-PLUGIN";
+const inline QString MODULE_PLUGINHOST = "COMPONENT-PLUGINHOST";
+const inline QString MODULE_PLUGINCLIENT = "PLUGIN-CLIENT";
 // ================================================================
 const inline QString MODULE_CORE_HANDLER = "QV2RAY-CORE";

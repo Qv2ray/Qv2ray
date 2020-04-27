@@ -41,17 +41,11 @@
        </widget>
       </item>
       <item>
-       <spacer name="horizontalSpacer_4">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+       <widget class="QPushButton" name="pluginsBtn">
+        <property name="text">
+         <string>Plugins</string>
         </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
+       </widget>
       </item>
       <item>
        <spacer name="horizontalSpacer">
@@ -553,7 +547,6 @@
  <layoutdefault spacing="6" margin="11"/>
  <tabstops>
   <tabstop>subsButton</tabstop>
-  <tabstop>preferencesBtn</tabstop>
   <tabstop>connectionListWidget</tabstop>
   <tabstop>importConfigButton</tabstop>
  </tabstops>

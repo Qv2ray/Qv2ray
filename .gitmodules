@@ -10,12 +10,12 @@
 [submodule "libs/libqvb"]
 	path = libs/libqvb
 	url = https://github.com/Qv2ray/QvRPCBridge
-[submodule "3rdparty/cpp-httplib"]
-	path = 3rdparty/cpp-httplib
-	url = https://github.com/yhirose/cpp-httplib
 [submodule "libs/puresource"]
 	path = libs/puresource
 	url = https://github.com/Qv2ray/PureSource/
 [submodule "3rdparty/zxing-cpp"]
 	path = 3rdparty/zxing-cpp
 	url = https://github.com/nu-book/zxing-cpp
+[submodule "src/components/plugins/interface"]
+	path = src/components/plugins/interface
+	url = https://github.com/Qv2ray/QvPlugin-Interface/

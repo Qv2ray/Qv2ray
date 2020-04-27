@@ -28,7 +28,7 @@ namespace Qv2ray::components::plugins::Toolbar
 
             if (hThread == nullptr)
             {
-                LOG(MODULE_PLUGIN, "CreateThread failed, GLE=" + QSTRN(GetLastError()))
+                LOG(MODULE_PLUGINHOST, "CreateThread failed, GLE=" + QSTRN(GetLastError()))
                 return;
             }
             else
@@ -52,7 +52,7 @@ namespace Qv2ray::components::plugins::Toolbar
 
                 if (hPipe == INVALID_HANDLE_VALUE)
                 {
-                    LOG(MODULE_PLUGIN, "CreateNamedPipe failed, GLE=" + QSTRN(GetLastError()))
+                    LOG(MODULE_PLUGINHOST, "CreateNamedPipe failed, GLE=" + QSTRN(GetLastError()))
                     return static_cast<DWORD>(-1);
                 }
 
@@ -60,12 +60,12 @@ namespace Qv2ray::components::plugins::Toolbar
 
                 if (fConnected)
                 {
-                    LOG(MODULE_PLUGIN, "Client connected, creating a processing thread")
+                    LOG(MODULE_PLUGINHOST, "Client connected, creating a processing thread")
                     ThreadHandle = CreateThread(nullptr, 0, InstanceThread, hPipe, 0, &dwThreadId);
 
                     if (ThreadHandle == nullptr)
                     {
-                        LOG(MODULE_PLUGIN, "CreateThread failed, GLE=" + QSTRN(GetLastError()))
+                        LOG(MODULE_PLUGINHOST, "CreateThread failed, GLE=" + QSTRN(GetLastError()))
                         return static_cast<DWORD>(-1);
                     }
                     else
@@ -93,11 +93,11 @@ namespace Qv2ray::components::plugins::Toolbar
                 {
                     if (GetLastError() == ERROR_BROKEN_PIPE)
                     {
-                        LOG(MODULE_PLUGIN, "InstanceThread: client disconnected, GLE=" + QSTRN(GetLastError()))
+                        LOG(MODULE_PLUGINHOST, "InstanceThread: client disconnected, GLE=" + QSTRN(GetLastError()))
                     }
                     else
                     {
-                        LOG(MODULE_PLUGIN, "InstanceThread ReadFile failed, GLE=" + QSTRN(GetLastError()))
+                        LOG(MODULE_PLUGINHOST, "InstanceThread ReadFile failed, GLE=" + QSTRN(GetLastError()))
                     }
 
                     break;
@@ -120,7 +120,7 @@ namespace Qv2ray::components::plugins::Toolbar
 
                     if (!fSuccess || cbReplyBytes != cbWritten)
                     {
-                        LOG(MODULE_PLUGIN, "InstanceThread WriteFile failed, GLE=" + QSTRN(GetLastError()))
+                        LOG(MODULE_PLUGINHOST, "InstanceThread WriteFile failed, GLE=" + QSTRN(GetLastError()))
                         break;
                     }
                 }

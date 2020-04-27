@@ -31,26 +31,19 @@ namespace Qv2ray::common
       public:
         explicit QvHttpRequestHelper(QObject *parent = nullptr);
         ~QvHttpRequestHelper();
-        bool setUrl(const QString &url);
-        void setHeader(const QByteArray &key, const QByteArray &value);
         // get
-        QByteArray syncget(const QString &url, bool useProxy);
-        void get(const QString &url);
-        //// insert
-        // void post(const QString &url, const QByteArray &data);
-        //// update
-        // void put(const QString &url, const QByteArray &data);
-        //// delete
-        // void del(const QString &url);
-        // void login(const QString &url, const QByteArray &data);
+        void AsyncGet(const QString &url);
+        QByteArray Get(const QString &url);
       signals:
-        void httpRequestFinished(QByteArray &data);
+        void OnRequestFinished(QByteArray &data);
 
       private slots:
         void onRequestFinished_p();
-        void onReadyRead();
+        void onReadyRead_p();
 
       private:
+        void setAccessManagerAttributes(QNetworkAccessManager &accessManager);
+        void setHeader(const QByteArray &key, const QByteArray &value);
         QByteArray data;
         QUrl url;
         QNetworkReply *reply;

@@ -56,7 +56,11 @@ namespace Qv2ray::core
         }
         else
         {
-            return false;
+            bool status;
+            auto info = PluginHost->TryGetOutboundInfo(*protocol, out["settings"].toObject(), &status);
+            *host = info.hostName;
+            *port = info.port;
+            return status;
         }
     }
 
@@ -159,4 +163,23 @@ namespace Qv2ray::core
         return ConnectionManager->GetConnectionMetaObject(id).groupId;
     }
 
+    const QMap<QString, int> GetConfigInboundPorts(const CONFIGROOT &root)
+    {
+        if (!root.contains("inbounds"))
+        {
+            return {};
+        }
+        QMap<QString, int> inboundPorts;
+        for (const auto &inboundVal : root["inbounds"].toArray())
+        {
+            const auto &inbound = inboundVal.toObject();
+            inboundPorts.insert(inbound["protocol"].toString(), inbound["port"].toInt());
+        }
+        return inboundPorts;
+    }
+
+    const QMap<QString, int> GetConfigInboundPorts(const ConnectionId &id)
+    {
+        return GetConfigInboundPorts(ConnectionManager->GetConnectionRoot(id));
+    }
 } // namespace Qv2ray::core

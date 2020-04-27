@@ -15,11 +15,11 @@ namespace Qv2ray::core::connection
         inline auto QV2RAY_SSD_DEFAULT_NAME_PATTERN = QObject::tr("%1 - %2 (rate %3)");
         //
         // General
-        QString DecodeSubscriptionString(QByteArray arr);
+        QString DecodeSubscriptionString(const QByteArray &arr);
         QMultiHash<QString, CONFIGROOT> ConvertConfigFromString(const QString &link, QString *aliasPrefix, QString *errMessage,
                                                                 QString *newGroupName = nullptr);
         const QString ConvertConfigToString(const ConnectionId &id, bool isSip002 = false);
-        const QString ConvertConfigToString(const QString &alias, const CONFIGROOT &server, bool isSip002);
+        const QString ConvertConfigToString(const QString &alias, const QString &groupName, const CONFIGROOT &server, bool isSip002);
         //
         // VMess URI Protocol
         namespace vmess

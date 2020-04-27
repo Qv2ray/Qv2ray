@@ -36,6 +36,12 @@ namespace Qv2ray::core::connection
         INBOUND GenerateInboundEntry(const QString &listen, int port, const QString &protocol, const INBOUNDSETTING &settings,
                                      const QString &tag, const QJsonObject &sniffing = QJsonObject(),
                                      const QJsonObject &allocate = QJsonObject());
+
+        // mark all outbound
+        void OutboundMarkSettingFilter(const int mark, CONFIGROOT &root);
+
+        void DNSInterceptFilter(CONFIGROOT &root);
+
     } // namespace Generation
 } // namespace Qv2ray::core::connection
 

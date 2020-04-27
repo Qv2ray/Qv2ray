@@ -16,6 +16,8 @@ namespace Qv2ray
             bool enableToolbarPlguin;
             /// Disable Qt scale factors support.
             bool noScaleFactors;
+            /// Disable all plugin features.
+            bool noPlugins;
         };
     } // namespace base
     inline base::QvStartupOptions StartupOption = base::QvStartupOptions();

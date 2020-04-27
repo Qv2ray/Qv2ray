@@ -22,7 +22,7 @@ QvMessageBusSlotImpl(StreamSettingsWidget)
     }
 }
 
-StreamSettingsObject StreamSettingsWidget::GetStreamSettings()
+StreamSettingsObject StreamSettingsWidget::GetStreamSettings() const
 {
     return stream;
 }
@@ -36,6 +36,7 @@ void StreamSettingsWidget::SetStreamObject(const StreamSettingsObject &sso)
     tlsCB->setChecked(stream.security == "tls");
     serverNameTxt->setText(stream.tlsSettings.serverName);
     allowInsecureCB->setChecked(stream.tlsSettings.allowInsecure);
+    allowInsecureCiphersCB->setChecked(stream.tlsSettings.allowInsecureCiphers);
     alpnTxt->setPlainText(stream.tlsSettings.alpn.join(NEWLINE));
     // TCP
     tcpHeaderTypeCB->setCurrentText(stream.tcpSettings.header.type);
@@ -47,9 +48,9 @@ void StreamSettingsWidget::SetStreamObject(const StreamSettingsObject &sso)
     // WS
     wsPathTxt->setText(stream.wsSettings.path);
     QString wsHeaders;
-    for (auto index = 0; index < stream.wsSettings.headers.count(); index++)
+    for (auto i = 0; i < stream.wsSettings.headers.count(); i++)
     {
-        wsHeaders = wsHeaders % stream.wsSettings.headers.keys().at(index) % "|" % stream.wsSettings.headers.values().at(index) % NEWLINE;
+        wsHeaders = wsHeaders % stream.wsSettings.headers.keys().at(i) % "|" % stream.wsSettings.headers.values().at(i) % NEWLINE;
     }
 
     wsHeadersTxt->setPlainText(wsHeaders);
@@ -283,4 +284,9 @@ void StreamSettingsWidget::on_allowInsecureCB_stateChanged(int arg1)
 void StreamSettingsWidget::on_alpnTxt_textChanged()
 {
     stream.tlsSettings.alpn = SplitLines(alpnTxt->toPlainText());
+}
+
+void StreamSettingsWidget::on_allowInsecureCiphersCB_stateChanged(int arg1)
+{
+    stream.tlsSettings.allowInsecureCiphers = arg1 == Qt::Checked;
 }
