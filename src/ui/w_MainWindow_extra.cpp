@@ -14,7 +14,7 @@ void MainWindow::MWSetSystemProxy()
 
     if (httpEnabled || socksEnabled)
     {
-        proxyAddress = "127.0.0.1";
+        proxyAddress = "localhost";
         SetSystemProxy(proxyAddress, httpPort, socksPort);
         hTray.setIcon(Q_TRAYICON("tray-systemproxy.png"));
         if (!GlobalConfig.uiConfig.quietMode)
