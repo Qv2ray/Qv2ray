@@ -312,7 +312,7 @@ int main(int argc, char *argv[])
     }
 
     // Load config object from upgraded config QJsonObject
-    auto confObject = StructFromJsonString<Qv2rayConfig>(JsonToString(conf));
+    auto confObject = Qv2rayConfig::fromJson(conf);
 
     if (confObject.uiConfig.language.isEmpty())
     {

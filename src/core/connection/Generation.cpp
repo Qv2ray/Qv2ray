@@ -163,7 +163,7 @@ namespace Qv2ray::core::connection
                     continue;
                 }
 
-                accounts.append(GetRootObject(account));
+                accounts.append(account.toJson());
             }
 
             if (!accounts.isEmpty())
@@ -212,7 +212,7 @@ namespace Qv2ray::core::connection
                     continue;
                 }
 
-                accounts.append(GetRootObject(acc));
+                accounts.append(acc.toJson());
             }
 
             if (!accounts.isEmpty())

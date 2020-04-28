@@ -12,7 +12,7 @@ namespace Qv2ray::core::config
 
     void SaveGlobalSettings()
     {
-        QString str = StructToJsonString(GlobalConfig);
+        QString str = JsonToString(GlobalConfig.toJson());
         StringToFile(str, QV2RAY_CONFIG_FILE);
     }
 

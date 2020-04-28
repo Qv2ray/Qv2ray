@@ -1,5 +1,5 @@
 #pragma once
-#include "3rdparty/x2struct/x2struct.hpp"
+#include "libs/QJsonStruct/QJsonStruct.hpp"
 
 #include <QString>
 #include <QtCore>
@@ -13,39 +13,39 @@ namespace Qv2ray::base
     {
         QString displayName;
         QList<QString> connections;
-        int64_t importDate;
+        qint64 importDate;
         GroupObject_Config() : displayName(), connections(), importDate()
         {
         }
-        XTOSTRUCT(O(displayName, connections, importDate))
+        JSONSTRUCT_REGISTER(GroupObject_Config, F(displayName, connections, importDate))
     };
 
     struct SubscriptionObject_Config : GroupObject_Config
     {
         //
         QString address;
-        int64_t lastUpdated;
+        qint64 lastUpdated;
         float updateInterval;
         SubscriptionObject_Config() : address(""), lastUpdated(system_clock::to_time_t(system_clock::now())), updateInterval(10)
         {
         }
-        XTOSTRUCT(O(lastUpdated, updateInterval, address, connections, displayName, importDate))
+        JSONSTRUCT_REGISTER(SubscriptionObject_Config, F(lastUpdated, updateInterval, address), B(GroupObject_Config))
     };
 
     struct ConnectionObject_Config
     {
         QString displayName;
-        int64_t importDate;
-        int64_t lastConnected;
-        int64_t latency;
-        int64_t upLinkData;
-        int64_t downLinkData;
+        qint64 importDate;
+        qint64 lastConnected;
+        qint64 latency;
+        qint64 upLinkData;
+        qint64 downLinkData;
         ConnectionObject_Config()
             : displayName(), importDate(system_clock::to_time_t(system_clock::now())), lastConnected(), latency(QVTCPING_VALUE_NODATA),
               upLinkData(0), downLinkData(0)
         {
         }
-        XTOSTRUCT(O(displayName, importDate, lastConnected, latency, upLinkData, downLinkData))
+        JSONSTRUCT_REGISTER(ConnectionObject_Config, F(displayName, importDate, lastConnected, latency, upLinkData, downLinkData))
     };
 } // namespace Qv2ray::base
 

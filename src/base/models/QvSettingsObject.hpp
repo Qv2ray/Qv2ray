@@ -1,7 +1,7 @@
 #pragma once
-#include "3rdparty/x2struct/x2struct.hpp"
 #include "base/models/CoreObjectModels.hpp"
 #include "base/models/QvConfigIdentifier.hpp"
+#include "libs/QJsonStruct/QJsonStruct.hpp"
 
 #include <chrono>
 
@@ -22,7 +22,7 @@ namespace Qv2ray::base::config
               Message("")
         {
         }
-        XTOSTRUCT(O(Bold, Italic, ColorA, ColorR, ColorG, ColorB, Size, Family, Message, ContentType))
+        JSONSTRUCT_REGISTER(QvBarLine, F(Bold, Italic, ColorA, ColorR, ColorG, ColorB, Size, Family, Message, ContentType))
     };
 
     struct QvBarPage
@@ -32,13 +32,13 @@ namespace Qv2ray::base::config
         QvBarPage() : OffsetYpx(5)
         {
         }
-        XTOSTRUCT(O(OffsetYpx, Lines))
+        JSONSTRUCT_REGISTER(QvBarPage, F(OffsetYpx, Lines))
     };
 
     struct Qv2rayToolBarConfig
     {
         QList<QvBarPage> Pages;
-        XTOSTRUCT(O(Pages))
+        JSONSTRUCT_REGISTER(Qv2rayToolBarConfig, F(Pages))
     };
 
     struct Qv2rayForwardProxyConfig
@@ -54,7 +54,7 @@ namespace Qv2ray::base::config
             : enableForwardProxy(false), type("http"), serverAddress("127.0.0.1"), port(8008), useAuth(false), username(), password()
         {
         }
-        XTOSTRUCT(O(enableForwardProxy, type, serverAddress, port, useAuth, username, password))
+        JSONSTRUCT_REGISTER(Qv2rayForwardProxyConfig, F(enableForwardProxy, type, serverAddress, port, useAuth, username, password))
     };
 
     struct Qv2rayInboundsConfig
@@ -96,9 +96,10 @@ namespace Qv2ray::base::config
         {
         }
 
-        XTOSTRUCT(O(setSystemProxy, listenip, useSocks, useHTTP, socks_port, socks_useAuth, socksAccount, socksSniffing, socksUDP, socksLocalIP,
-                    http_port, http_useAuth, httpAccount, httpSniffing, useTPROXY, tproxy_ip, tproxy_port, tproxy_use_tcp, tproxy_use_udp,
-                    tproxy_followRedirect, tproxy_mode, dnsIntercept))
+        JSONSTRUCT_REGISTER(Qv2rayInboundsConfig,
+                            F(setSystemProxy, listenip, useSocks, useHTTP, socks_port, socks_useAuth, socksAccount, socksSniffing, socksUDP,
+                              socksLocalIP, http_port, http_useAuth, httpAccount, httpSniffing, useTPROXY),
+                            F(tproxy_ip, tproxy_port, tproxy_use_tcp, tproxy_use_udp, tproxy_followRedirect, tproxy_mode, dnsIntercept))
     };
 
     struct Qv2rayOutboundsConfig
@@ -107,7 +108,7 @@ namespace Qv2ray::base::config
         Qv2rayOutboundsConfig() : mark(255)
         {
         }
-        XTOSTRUCT(O(mark))
+        JSONSTRUCT_REGISTER(Qv2rayOutboundsConfig, F(mark))
     };
 
     struct Qv2rayUIConfig
@@ -124,7 +125,8 @@ namespace Qv2ray::base::config
             : theme("Fusion"), language("en_US"), useDarkTheme(false), useDarkTrayIcon(true), maximumLogLines(500), maxJumpListCount(20)
         {
         }
-        XTOSTRUCT(O(theme, language, quietMode, useDarkTheme, useDarkTrayIcon, maximumLogLines, maxJumpListCount, recentConnections))
+        JSONSTRUCT_REGISTER(Qv2rayUIConfig,
+                            F(theme, language, quietMode, useDarkTheme, useDarkTrayIcon, maximumLogLines, maxJumpListCount, recentConnections))
     };
 
     struct Qv2rayRouteConfig_Impl
@@ -139,7 +141,7 @@ namespace Qv2ray::base::config
         }
         Qv2rayRouteConfig_Impl(const QList<QString> &_direct, const QList<QString> &_block, const QList<QString> &_proxy)
             : direct(_direct), block(_block), proxy(_proxy){};
-        XTOSTRUCT(O(proxy, block, direct))
+        JSONSTRUCT_REGISTER(Qv2rayRouteConfig_Impl, F(proxy, block, direct))
     };
 
     struct Qv2rayRouteConfig
@@ -154,7 +156,7 @@ namespace Qv2ray::base::config
         Qv2rayRouteConfig(){};
         Qv2rayRouteConfig(const Qv2rayRouteConfig_Impl &_domains, const Qv2rayRouteConfig_Impl &_ips, const QString &ds)
             : domainStrategy(ds), domains(_domains), ips(_ips){};
-        XTOSTRUCT(O(domainStrategy, domains, ips))
+        JSONSTRUCT_REGISTER(Qv2rayRouteConfig, F(domainStrategy, domains, ips))
     };
 
     struct Qv2rayPluginConfig
@@ -163,7 +165,7 @@ namespace Qv2ray::base::config
         bool v2rayIntegration;
         int portAllocationStart;
         Qv2rayPluginConfig() : pluginStates(), v2rayIntegration(true), portAllocationStart(15000){};
-        XTOSTRUCT(O(pluginStates, v2rayIntegration))
+        JSONSTRUCT_REGISTER(Qv2rayPluginConfig, F(pluginStates, v2rayIntegration, portAllocationStart))
     };
 
     struct Qv2rayConnectionConfig
@@ -181,7 +183,8 @@ namespace Qv2ray::base::config
               dnsList(QStringList{ "8.8.4.4", "1.1.1.1" })
         {
         }
-        XTOSTRUCT(O(bypassCN, bypassBT, enableProxy, v2rayFreedomDNS, withLocalDNS, dnsList, forwardProxyConfig, routeConfig))
+        JSONSTRUCT_REGISTER(Qv2rayConnectionConfig,
+                            F(bypassCN, bypassBT, enableProxy, v2rayFreedomDNS, withLocalDNS, dnsList, forwardProxyConfig, routeConfig))
     };
 
     struct Qv2rayAPIConfig
@@ -191,7 +194,7 @@ namespace Qv2ray::base::config
         Qv2rayAPIConfig() : enableAPI(true), statsPort(15490)
         {
         }
-        XTOSTRUCT(O(enableAPI, statsPort))
+        JSONSTRUCT_REGISTER(Qv2rayAPIConfig, F(enableAPI, statsPort))
     };
 
     struct Qv2rayKernelConfig
@@ -232,7 +235,8 @@ namespace Qv2ray::base::config
 #undef _VARNAME_VCOREPATH_
 #undef _VARNAME_VASSETSPATH_
 
-        XTOSTRUCT(O(v2CorePath_linux, v2AssetsPath_linux, v2CorePath_macx, v2AssetsPath_macx, v2CorePath_win, v2AssetsPath_win))
+        JSONSTRUCT_REGISTER(Qv2rayKernelConfig,
+                            F(v2CorePath_linux, v2AssetsPath_linux, v2CorePath_macx, v2AssetsPath_macx, v2CorePath_win, v2AssetsPath_win))
     };
 
     struct Qv2rayUpdateConfig
@@ -243,7 +247,7 @@ namespace Qv2ray::base::config
         /// 0: Stable
         /// 1: Testing
         int updateChannel;
-        XTOSTRUCT(O(ignoredVersion, updateChannel))
+        JSONSTRUCT_REGISTER(Qv2rayUpdateConfig, F(ignoredVersion, updateChannel))
     };
 
     struct Qv2rayAdvancedConfig
@@ -251,16 +255,16 @@ namespace Qv2ray::base::config
         bool setAllowInsecure;
         bool setAllowInsecureCiphers;
         bool testLatencyPeriodcally;
-        XTOSTRUCT(O(setAllowInsecure, setAllowInsecureCiphers, testLatencyPeriodcally))
+        JSONSTRUCT_REGISTER(Qv2rayAdvancedConfig, F(setAllowInsecure, setAllowInsecureCiphers, testLatencyPeriodcally))
     };
 
     struct Qv2rayNetworkConfig
     {
-        enum Qv2rayProxyType
+        enum Qv2rayProxyType : int
         {
-            QVPROXY_NONE,
-            QVPROXY_SYSTEM,
-            QVPROXY_CUSTOM
+            QVPROXY_NONE = 0,
+            QVPROXY_SYSTEM = 1,
+            QVPROXY_CUSTOM = 2
         } proxyType;
 
         QString address;
@@ -273,7 +277,7 @@ namespace Qv2ray::base::config
               type("http"),            //
               port(8000),              //
               userAgent("Qv2ray/$VERSION WebRequestHelper"){};
-        XTOSTRUCT(O(proxyType, type, address, port, userAgent))
+        JSONSTRUCT_REGISTER(Qv2rayNetworkConfig, F(proxyType, type, address, port, userAgent))
     };
 
     struct Qv2rayConfig
@@ -324,24 +328,25 @@ namespace Qv2ray::base::config
         {
         }
 
-        XTOSTRUCT(O(config_version,   //
-                    tProxySupport,    //
-                    logLevel,         //
-                    uiConfig,         //
-                    pluginConfig,     //
-                    updateConfig,     //
-                    kernelConfig,     //
-                    networkConfig,    //
-                    groups,           //
-                    connections,      //
-                    subscriptions,    //
-                    autoStartId,      //
-                    inboundConfig,    //
-                    outboundConfig,   //
-                    connectionConfig, //
-                    toolBarConfig,    //
-                    advancedConfig,   //
-                    apiConfig         //
-                    ))
+        JSONSTRUCT_REGISTER(Qv2rayConfig,
+                            F(config_version, //
+                              tProxySupport,  //
+                              logLevel,       //
+                              uiConfig,       //
+                              pluginConfig,   //
+                              updateConfig,   //
+                              kernelConfig,   //
+                              networkConfig,  //
+                              groups,         //
+                              connections,    //
+                              subscriptions,  //
+                              autoStartId,    //
+                              inboundConfig,  //
+                              outboundConfig, //
+                              connectionConfig),
+                            F(toolBarConfig,  //
+                              advancedConfig, //
+                              apiConfig       //
+                              ))
     };
 } // namespace Qv2ray::base::config

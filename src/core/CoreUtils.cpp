@@ -32,24 +32,21 @@ namespace Qv2ray::core
 
         if (*protocol == "vmess")
         {
-            auto Server =
-                StructFromJsonString<VMessServerObject>(JsonToString(out["settings"].toObject()["vnext"].toArray().first().toObject()));
+            auto Server = VMessServerObject::fromJson(out["settings"].toObject()["vnext"].toArray().first().toObject());
             *host = Server.address;
             *port = Server.port;
             return true;
         }
         else if (*protocol == "shadowsocks")
         {
-            auto x = JsonToString(out["settings"].toObject()["servers"].toArray().first().toObject());
-            auto Server = StructFromJsonString<ShadowSocksServerObject>(x);
+            auto Server = ShadowSocksServerObject::fromJson(out["settings"].toObject()["servers"].toArray().first().toObject());
             *host = Server.address;
             *port = Server.port;
             return true;
         }
         else if (*protocol == "socks")
         {
-            auto x = JsonToString(out["settings"].toObject()["servers"].toArray().first().toObject());
-            auto Server = StructFromJsonString<SocksServerObject>(x);
+            auto Server = SocksServerObject::fromJson(out["settings"].toObject()["servers"].toArray().first().toObject());
             *host = Server.address;
             *port = Server.port;
             return true;
@@ -120,7 +117,7 @@ namespace Qv2ray::core
     int64_t GetConnectionLatency(const ConnectionId &id)
     {
         auto connection = ConnectionManager->GetConnectionMetaObject(id);
-        return max(connection.latency, (int64_t) 0);
+        return max(connection.latency, {});
     }
 
     const QString GetConnectionProtocolString(const ConnectionId &id)
