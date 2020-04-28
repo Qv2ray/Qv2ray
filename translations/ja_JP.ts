@@ -311,7 +311,7 @@
     </message>
     <message>
         <source>Place your vmess:// here, one line for each.</source>
-        <translation type="vanished">ここに vmess:// を1行ずつ配置します。</translation>
+        <translation type="vanished">ここに vmess:// を1行ずつ貼り付けます。</translation>
     </message>
     <message>
         <source>Error List</source>
@@ -431,7 +431,7 @@
     </message>
     <message>
         <source>Paste share link here, one line for each.</source>
-        <translation>ここに vmess:// を1行ずつ配置します。</translation>
+        <translation>ここに vmess:// を1行ずつ貼り付けます。</translation>
     </message>
 </context>
 <context>
@@ -1072,11 +1072,11 @@
     </message>
     <message>
         <source>The kernel terminated unexpectedly:</source>
-        <translation>カーネルが異常終了しました：</translation>
+        <translation>カーネルがエラー終了しました：</translation>
     </message>
     <message>
         <source>To solve the problem, read the kernel log in the log text browser.</source>
-        <translation>問題を解決するには、ログテキストブラウザでカーネルログを読み込んでください。</translation>
+        <translation>問題を解決するには、ログテキストブラウザでカーネルログを確認しでください。</translation>
     </message>
     <message>
         <source>Quit Qv2ray</source>
@@ -1084,7 +1084,7 @@
     </message>
     <message>
         <source>Are you sure to exit Qv2ray?</source>
-        <translation>Qv2rayは確実に終了していますか？</translation>
+        <translation>Qv2rayを終了してよろしいでしょうか？</translation>
     </message>
     <message>
         <source>Duplicating Connection(s)</source>
@@ -1419,7 +1419,7 @@
     </message>
     <message>
         <source>The specified outbound type is not supported, this may happen due to a plugin failure.</source>
-        <translation>指定されたアウトバウンドがサポートされていない場合、プラグインの障害により発生する可能性があります。</translation>
+        <translation>指定されたアウトバウンドがサポートされていないです、プラグインの問題の可能性があります。</translation>
     </message>
     <message>
         <source>Forward proxy has been disabled when using plugin outbound</source>
@@ -1431,7 +1431,7 @@
     </message>
     <message>
         <source>The specified outbound type is invalid, this may be caused by a plugin failure.</source>
-        <translation>指定された送信アウトバウンドタイプが無効な場合、プラグインの障害が原因である可能性があります。</translation>
+        <translation>指定された送信アウトバウンドタイプが無効です、プラグインの問題の可能性があります。</translation>
     </message>
     <message>
         <source>Please use the JsonEditor or reload the plugin.</source>
@@ -1466,11 +1466,11 @@
     </message>
     <message>
         <source>Plugin not loaded</source>
-        <translation>プラグインが読み込まれていない</translation>
+        <translation>プラグインがロードされていない</translation>
     </message>
     <message>
         <source>This plugin is not loaded, please enable or reload the plugin to continue.</source>
-        <translation>このプラグインが読み込まれていません, プラグインを有効にするか、プラグインをリロードして続行してください.</translation>
+        <translation>このプラグインがロードされていません, プラグインを有効にするか、プラグインをリロードしてください.</translation>
     </message>
 </context>
 <context>
@@ -1701,7 +1701,7 @@
     </message>
     <message>
         <source>Only simple config is supported.</source>
-        <translation>単純接続のみがサポートされています。</translation>
+        <translation>簡易構成のみがサポートされています。</translation>
     </message>
     <message>
         <source>Build Info</source>
@@ -1757,7 +1757,7 @@
     </message>
     <message>
         <source>V2ray Assets Directory</source>
-        <translation>V2rayアセットディレクトリ</translation>
+        <translation>V2rayアセットフォルダー</translation>
     </message>
     <message>
         <source>Check V2ray Core Settings</source>
@@ -1773,7 +1773,7 @@
     </message>
     <message>
         <source>All settings below will only be applied onto simple connection.</source>
-        <translation type="vanished">以下のすべての設定は、単純接続にのみ適用されます。</translation>
+        <translation type="vanished">以下のすべての設定は、簡易構成にのみ適用されます。</translation>
     </message>
     <message>
         <source>Add Docodemo-door inbound</source>
@@ -1841,7 +1841,7 @@
     </message>
     <message>
         <source>This feature is not stable and no documentation is provided, please use it at your own risk!</source>
-        <translation>この機能は安定しておらず、ドキュメントも提供されていません。ご自身の責任で使用してください！</translation>
+        <translation>この機能は安定しておらず、ドキュメントも提供されていません。自己責任で使用してください！</translation>
     </message>
     <message>
         <source>Text Style</source>
@@ -2033,15 +2033,15 @@
     </message>
     <message>
         <source>You will lose the advantage of TLS and make your connection under MITM attack.</source>
-        <translation>TLSの優位性を失い、MITMの攻撃を受けて接続を行うことになります。</translation>
+        <translation>TLSの保護を失い、MITMの攻撃を受ける可能性が高くなります。</translation>
     </message>
     <message>
         <source>This will (probably) make it easy to fingerprint your connection.</source>
-        <translation>これはおそらくあなたの接続を指紋化するのが簡単になります。</translation>
+        <translation>そのため、(おそらく)あなたの接続が特定しやすくなります。</translation>
     </message>
     <message>
         <source>This will (probably) makes it easy to fingerprint your connection.</source>
-        <translation type="vanished">これは（おそらく）あなたの接続を指紋化するのが簡単になります。</translation>
+        <translation type="vanished">そのため、(おそらく)あなたの接続が特定しやすくなります。</translation>
     </message>
     <message>
         <source>Dark Mode</source>
@@ -2061,7 +2061,7 @@
     </message>
     <message>
         <source>Operation is cancelled.</source>
-        <translation type="vanished">操作はキャンセルされます。</translation>
+        <translation type="vanished">操作はキャンセルされました。</translation>
     </message>
     <message>
         <source>Successfully downloaded GFWList.</source>
@@ -2129,7 +2129,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>You can configure route rules for all simple connection config here.</source>
-        <translation>ここで、すべての簡易接続設定のルーティングルールを設定できます。</translation>
+        <translation>ここで、すべての簡易構成のルーティングルールを設定できます。</translation>
     </message>
     <message>
         <source>Connection</source>
@@ -2161,11 +2161,11 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Stable Release</source>
-        <translation>安定版リリース</translation>
+        <translation>安定版</translation>
     </message>
     <message>
         <source>Testing</source>
-        <translation>テストリリース</translation>
+        <translation>テスト版</translation>
     </message>
     <message>
         <source>Appearance</source>
@@ -2173,7 +2173,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Behavior</source>
-        <translation>行為</translation>
+        <translation>動作</translation>
     </message>
     <message>
         <source>Transparent Proxy</source>
@@ -2243,7 +2243,7 @@ Custom DNS Settings</source>
     </message>
     <message>
         <source>Qv2ray will allocate ports, for HTTP and SOCKS respectively, if enabled, for each kernel plugin.</source>
-        <translation>Qv2ray は、有効になっている場合、各カーネルプラグインにそれぞれ HTTP と SOCKS 用のポートを割り当てます。</translation>
+        <translation>有効な場合、Qv2ray は各カーネルプラグインにそれぞれ HTTP と SOCKS 用のポートを割り当てます。</translation>
     </message>
     <message>
         <source>Port Allocation Start</source>
@@ -2251,7 +2251,7 @@ Custom DNS Settings</source>
     </message>
     <message>
         <source>All settings below will only be applied on simple connection.</source>
-        <translation type="vanished">以下の設定はすべて簡易接続時のみ適用されます。</translation>
+        <translation type="vanished">以下の設定はすべて簡易構成時のみ適用されます。</translation>
     </message>
     <message>
         <source>Page Y Axis Offset</source>
@@ -2271,7 +2271,7 @@ Custom DNS Settings</source>
     </message>
     <message>
         <source>Advanced Behavior</source>
-        <translation>高度的な行為</translation>
+        <translation>高度的な動作</translation>
     </message>
     <message>
         <source>AllowInsecure By Default</source>
@@ -2280,24 +2280,24 @@ Custom DNS Settings</source>
     <message>
         <source>Enable &quot;AllowInsecure&quot; settings for all connections when importing.
 This could resolve the certificate issues, but also could let one performing TLS MITM attack.</source>
-        <translation>インポート時にすべての接続に対して「AllowInsecure」の設定を有効にします。
-これは証明書の問題を解決することができますが、TLS MITM 攻撃を実行させることもできます。</translation>
+        <translation>インポート時にすべての項目に対して「AllowInsecure」の設定を有効にします。
+これは証明書の問題を緩和することができますが、TLS MITM 攻撃を受けるリスクが高くなります。</translation>
     </message>
     <message>
         <source>Test Latency Periodcally</source>
-        <translation>周期的にテスト遅延</translation>
+        <translation>周期的の遅延テスト</translation>
     </message>
     <message>
         <source>Run TCPing or ICMPing periodcally after connecting to a server.
 Qv2ray will give a more accurate latency value if Enabled, but makes it easy to fingerprint the connection.</source>
         <translation>サーバーに接続した後、定期的にTCPingまたはICMPingを実行します。
-Qv2ray を有効にすると、より正確なレイテンシ値が得られますが、接続のフィンガープリントを簡単に行うことができます。</translation>
+有効にすると、Qv2ray はより正確なレイテンシ値が得られますが、サーバーは制限される可能性が高くなります。</translation>
     </message>
     <message>
         <source>These settings may be useful.
 But could damage your server if improperly used.</source>
-        <translation>これらの設定は役に立つかもしれません。
-しかし、不適切な使い方をするとサーバーにダメージを与える可能性があります。</translation>
+        <translation>以下の設定は特定の効果があります。
+しかし、不適切な使用の場合、不都合が生じる可能性があります。</translation>
     </message>
     <message>
         <source>AllowInsecureCiphers By Default</source>
@@ -2305,7 +2305,7 @@ But could damage your server if improperly used.</source>
     </message>
     <message>
         <source>Quiet Mode</source>
-        <translation>静音モード</translation>
+        <translation>サイレントモード</translation>
     </message>
     <message>
         <source>Recent Jumplist</source>
@@ -2321,7 +2321,7 @@ But could damage your server if improperly used.</source>
     </message>
     <message>
         <source>No Proxy</source>
-        <translation>使わない</translation>
+        <translation>使用しない</translation>
     </message>
     <message>
         <source>System Proxy</source>
@@ -2341,7 +2341,7 @@ But could damage your server if improperly used.</source>
     </message>
     <message>
         <source>DNS Intercept</source>
-        <translation>DNS傍受</translation>
+        <translation>DNSインターセプト</translation>
     </message>
     <message>
         <source>Mode</source>
@@ -2392,11 +2392,11 @@ But could damage your server if improperly used.</source>
     </message>
     <message>
         <source>JSON should not be empty</source>
-        <translation>JSONは空にしないでください</translation>
+        <translation>JSONを空にしないでください</translation>
     </message>
     <message>
         <source>seems like a v1 vmess, we don&apos;t support it</source>
-        <translation>バージョン1のリンクのように見えますで、それをサポートしていません</translation>
+        <translation>V1のVMessリンクの可能性があります，現在非対応です。</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -2444,7 +2444,7 @@ But could damage your server if improperly used.</source>
     </message>
     <message>
         <source> --&gt; USE IT AT YOUR OWN RISK!</source>
-        <translation> --&gt; 自分の責任で使用してください！</translation>
+        <translation> --&gt; 自己責任で使用してください！</translation>
     </message>
     <message>
         <source>Cannot load languages</source>
@@ -2716,7 +2716,7 @@ But could damage your server if improperly used.</source>
     </message>
     <message>
         <source>%1 - %2 (rate %3)</source>
-        <translation>%1 - %2 (%3 倍数)</translation>
+        <translation>%1 - %2 (%3 倍)</translation>
     </message>
     <message>
         <source>(Complex config)</source>
@@ -2900,7 +2900,7 @@ But could damage your server if improperly used.</source>
     </message>
     <message>
         <source>Please contact the plugin provider or report the issue to Qv2ray Workgroup.</source>
-        <translation>プラグインの提供者に連絡するか、Qv2ray ワークグループに問題を報告してください。</translation>
+        <translation>プラグインの提供者に連絡するか、Qv2ray 制作チームに問題を報告してください。</translation>
     </message>
     <message>
         <source>Enabling a plugin</source>
@@ -2908,7 +2908,7 @@ But could damage your server if improperly used.</source>
     </message>
     <message>
         <source>The plugin will become fully functional after restarting Qv2ray.</source>
-        <translation>Qv2rayを再起動すると、プラグインが完全に機能するようになります。</translation>
+        <translation>プラグインを正しく動作するには、Qv2rayを再起動する必要があります。</translation>
     </message>
 </context>
 <context>
@@ -2956,8 +2956,8 @@ But could damage your server if improperly used.</source>
 Expected core ABI is %1, but got actual %2.<byte value="xd"/>
 Maybe you have downloaded the wrong core?</source>
         <translation>V2Rayコアはプラットフォームと互換性がありません。
-予想されるコアABIは%1ですが、実際の%2を取得しました。
-間違ったコアをダウンロードした可能性がありますか？</translation>
+予想されるコアABIは%1ですが、実際は%2でした。
+間違ったコアをダウンロードした可能性がありませんか？</translation>
     </message>
     <message>
         <source>V2ray assets path is not valid.</source>
@@ -3128,7 +3128,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Both</source>
-        <translation>どちらも</translation>
+        <translation>両方</translation>
     </message>
     <message>
         <source>Protocol</source>
@@ -3176,7 +3176,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Domain Strategy</source>
-        <translation>ドメイン名ルール</translation>
+        <translation>ドメインポリシー</translation>
     </message>
     <message>
         <source>Default Outbound</source>
@@ -3184,11 +3184,11 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Rule Order Settings</source>
-        <translation>ルールの並び替え設定</translation>
+        <translation>ルールの順番設定</translation>
     </message>
     <message>
         <source>Drag and drop to re-order the rules.</source>
-        <translation>ルールを並べ替えるには、ドラッグアンドドロップします。</translation>
+        <translation>ルール順番を変更するには、ドラッグアンドドロップします。</translation>
     </message>
     <message>
         <source>Rule Settings</source>
@@ -3256,7 +3256,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Balancer is empty, not processing.</source>
-        <translation>バランサーは空であり、処理されていません。</translation>
+        <translation>バランサーがないため、処理をスキップする。</translation>
     </message>
     <message>
         <source>Default rule</source>
@@ -3276,11 +3276,11 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>The new tag has been used, we appended a postfix.</source>
-        <translation>新しいタグが使用されているため、サフィックスを追加します。</translation>
+        <translation>新しいタグ名は既に使用されているため、サフィックスを追加します。</translation>
     </message>
     <message>
         <source>The new tag has been used, we appended a random string to the tag.</source>
-        <translation>新しいタグが使用されたため、ランダムな文字列をタグに追加します。</translation>
+        <translation>新しいタグ名は既に使用されているため、ランダムな文字列をタグ名に追加します。</translation>
     </message>
     <message>
         <source>To make this rule ready to use, you need to connect it to an outbound node.</source>
@@ -3332,15 +3332,15 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>New tag is empty, please try another.</source>
-        <translation>新しいタグが空です。別のタグを試してください。</translation>
+        <translation>新しいタグ名が空です。別のタグ名を試してください。</translation>
     </message>
     <message>
         <source>New tag is the same as the original one.</source>
-        <translation>新しいタグと元のタグと同じです。</translation>
+        <translation>新しいタグ名と元のタグ名と同じです。</translation>
     </message>
     <message>
         <source>Duplicate rule tag detected, please try another.</source>
-        <translation>重複したルールタグが検出されました。別のタグを試してください。</translation>
+        <translation>重複したルールタグ名が検出されました。別のタグ名を試してください。</translation>
     </message>
     <message>
         <source>Added DIRECT outbound</source>
@@ -3455,7 +3455,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Domain Strategy</source>
-        <translation>ドメイン戦略</translation>
+        <translation>ドメインポリシー</translation>
     </message>
     <message>
         <source>Route Settings</source>
