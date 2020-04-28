@@ -102,6 +102,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     httpAuthPasswordTxt->setEnabled(CurrentConfig.inboundConfig.http_useAuth);
     httpAuthUsernameTxt->setText(CurrentConfig.inboundConfig.httpAccount.user);
     httpAuthPasswordTxt->setText(CurrentConfig.inboundConfig.httpAccount.pass);
+    httpSniffingCB->setChecked(CurrentConfig.inboundConfig.httpSniffing);
     //
     //
     bool have_socks = CurrentConfig.inboundConfig.useSocks;
@@ -117,6 +118,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     socksUDPCB->setChecked(CurrentConfig.inboundConfig.socksUDP);
     socksUDPIP->setEnabled(CurrentConfig.inboundConfig.socksUDP);
     socksUDPIP->setText(CurrentConfig.inboundConfig.socksLocalIP);
+    socksSniffingCB->setChecked(CurrentConfig.inboundConfig.socksSniffing);
     //
     //
     bool have_tproxy = CurrentConfig.inboundConfig.useTPROXY;
@@ -139,6 +141,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     //
     //
     bypassCNCb->setChecked(CurrentConfig.connectionConfig.bypassCN);
+    bypassBTCb->setChecked(CurrentConfig.connectionConfig.bypassBT);
     proxyDefaultCb->setChecked(CurrentConfig.connectionConfig.enableProxy);
     //
     localDNSCb->setChecked(CurrentConfig.connectionConfig.withLocalDNS);
@@ -633,6 +636,16 @@ void PreferencesWindow::on_bypassCNCb_stateChanged(int arg1)
 {
     NEEDRESTART
     CurrentConfig.connectionConfig.bypassCN = arg1 == Qt::Checked;
+}
+
+void PreferencesWindow::on_bypassBTCb_stateChanged(int arg1)
+{
+    NEEDRESTART
+    if (arg1 == Qt::Checked)
+    {
+        QvMessageBoxInfo(this, tr("Note"), tr("To recognize the protocol of a connection, one must enable sniffing option in inbound proxy.") + NEWLINE+tr("tproxy inbound's sniffing is enabled by default."));
+    }
+    CurrentConfig.connectionConfig.bypassBT = arg1 == Qt::Checked;
 }
 
 void PreferencesWindow::on_statsPortBox_valueChanged(int arg1)
@@ -1302,4 +1315,16 @@ void PreferencesWindow::on_DnsFreedomCb_stateChanged(int arg1)
 {
     NEEDRESTART
     CurrentConfig.connectionConfig.v2rayFreedomDNS = arg1 == Qt::Checked;
+}
+
+void PreferencesWindow::on_httpSniffingCB_stateChanged(int arg1)
+{
+    NEEDRESTART
+    CurrentConfig.inboundConfig.httpSniffing = arg1 == Qt::Checked;
+}
+
+void PreferencesWindow::on_socksSniffingCB_stateChanged(int arg1)
+{
+    NEEDRESTART
+    CurrentConfig.inboundConfig.socksSniffing = arg1 == Qt::Checked;
 }

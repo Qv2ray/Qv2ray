@@ -365,9 +365,6 @@
               </item>
               <item>
                <widget class="QSpinBox" name="qvProxyPortCB">
-                <property name="buttonSymbols">
-                 <enum>QAbstractSpinBox::NoButtons</enum>
-                </property>
                 <property name="minimum">
                  <number>0</number>
                 </property>
@@ -729,7 +726,7 @@ Custom DNS Settings</string>
             <x>0</x>
             <y>0</y>
             <width>818</width>
-            <height>520</height>
+            <height>558</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -841,31 +838,45 @@ Custom DNS Settings</string>
                   </property>
                  </widget>
                 </item>
-                <item row="4" column="0">
+                <item row="5" column="0">
                  <widget class="QLabel" name="label_11">
                   <property name="text">
                    <string>Username</string>
                   </property>
                  </widget>
                 </item>
-                <item row="4" column="1">
+                <item row="5" column="1">
                  <widget class="QLineEdit" name="socksAuthUsernameTxt">
                   <property name="placeholderText">
                    <string notr="true">user</string>
                   </property>
                  </widget>
                 </item>
-                <item row="5" column="0">
+                <item row="6" column="0">
                  <widget class="QLabel" name="label_12">
                   <property name="text">
                    <string>Password</string>
                   </property>
                  </widget>
                 </item>
-                <item row="5" column="1">
+                <item row="6" column="1">
                  <widget class="QLineEdit" name="socksAuthPasswordTxt">
                   <property name="placeholderText">
                    <string notr="true">pass</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="7" column="1">
+                 <widget class="QCheckBox" name="socksSniffingCB">
+                  <property name="text">
+                   <string>Enabled</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="7" column="0">
+                 <widget class="QLabel" name="label_87">
+                  <property name="text">
+                   <string>Sniffing</string>
                   </property>
                  </widget>
                 </item>
@@ -943,6 +954,20 @@ Custom DNS Settings</string>
                  <widget class="QLineEdit" name="httpAuthPasswordTxt">
                   <property name="placeholderText">
                    <string notr="true">pass</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="1">
+                 <widget class="QCheckBox" name="httpSniffingCB">
+                  <property name="text">
+                   <string>Enabled</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="0">
+                 <widget class="QLabel" name="label_88">
+                  <property name="text">
+                   <string>Sniffing</string>
                   </property>
                  </widget>
                 </item>
@@ -1170,41 +1195,55 @@ Custom DNS Settings</string>
               </property>
              </widget>
             </item>
-            <item row="2" column="0">
+            <item row="3" column="0">
              <widget class="QLabel" name="label_75">
               <property name="text">
-               <string>Use V2ray Dns for Freedom Outbound</string>
+               <string>Use V2ray DNS for Freedom Outbound</string>
               </property>
              </widget>
             </item>
-            <item row="2" column="1">
+            <item row="3" column="1">
              <widget class="QCheckBox" name="DnsFreedomCb">
               <property name="text">
                <string>Enabled</string>
               </property>
              </widget>
             </item>
-            <item row="3" column="0">
+            <item row="4" column="0">
              <widget class="QLabel" name="label_18">
               <property name="text">
                <string>Use Local DNS</string>
               </property>
              </widget>
             </item>
-            <item row="4" column="0">
+            <item row="4" column="1">
+             <widget class="QCheckBox" name="localDNSCb">
+              <property name="text">
+               <string>Enabled</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="0">
              <widget class="QLabel" name="label_21">
               <property name="text">
                <string>Custom DNS List</string>
               </property>
              </widget>
             </item>
-            <item row="4" column="1">
+            <item row="5" column="1">
              <widget class="QPlainTextEdit" name="DNSListTxt"/>
             </item>
-            <item row="3" column="1">
-             <widget class="QCheckBox" name="localDNSCb">
+            <item row="2" column="1">
+             <widget class="QCheckBox" name="bypassBTCb">
               <property name="text">
                <string>Enabled</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_76">
+              <property name="text">
+               <string>Bypass Bittorrent Protocol</string>
               </property>
              </widget>
             </item>

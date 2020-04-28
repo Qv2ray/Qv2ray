@@ -42,6 +42,8 @@ namespace Qv2ray::core::connection
 
         void DNSInterceptFilter(CONFIGROOT &root);
 
+        void bypassBTFilter(CONFIGROOT &root);
+
     } // namespace Generation
 } // namespace Qv2ray::core::connection
 

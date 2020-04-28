@@ -69,11 +69,13 @@ namespace Qv2ray::base::config
         bool socksUDP;
         QString socksLocalIP;
         objects::AccountObject socksAccount;
+        bool socksSniffing;
         // HTTP
         bool useHTTP;
         int http_port;
         bool http_useAuth;
         objects::AccountObject httpAccount;
+        bool httpSniffing;
 
         // dokodemo-door transparent proxy
         bool useTPROXY;
@@ -88,15 +90,15 @@ namespace Qv2ray::base::config
 
         Qv2rayInboundsConfig()
             : listenip("127.0.0.1"), setSystemProxy(true), useSocks(true), socks_port(1088), socks_useAuth(false), socksUDP(true),
-              socksLocalIP("127.0.0.1"), socksAccount(), useHTTP(true), http_port(8888), http_useAuth(false), httpAccount(), useTPROXY(false),
-              tproxy_ip("127.0.0.1"), tproxy_port(12345), tproxy_use_tcp(true), tproxy_use_udp(false), tproxy_followRedirect(true),
-              tproxy_mode("tproxy"), dnsIntercept(true)
+              socksLocalIP("127.0.0.1"), socksAccount(), socksSniffing(false), useHTTP(true), http_port(8888), http_useAuth(false),
+              httpAccount(), httpSniffing(false), useTPROXY(false), tproxy_ip("127.0.0.1"), tproxy_port(12345), tproxy_use_tcp(true),
+              tproxy_use_udp(false), tproxy_followRedirect(true), tproxy_mode("tproxy"), dnsIntercept(true)
         {
         }
 
-        XTOSTRUCT(O(setSystemProxy, listenip, useSocks, useHTTP, socks_port, socks_useAuth, socksAccount, socksUDP, socksLocalIP, http_port,
-                    http_useAuth, httpAccount, useTPROXY, tproxy_ip, tproxy_port, tproxy_use_tcp, tproxy_use_udp, tproxy_followRedirect,
-                    tproxy_mode, dnsIntercept))
+        XTOSTRUCT(O(setSystemProxy, listenip, useSocks, useHTTP, socks_port, socks_useAuth, socksAccount, socksSniffing, socksUDP, socksLocalIP,
+                    http_port, http_useAuth, httpAccount, httpSniffing, useTPROXY, tproxy_ip, tproxy_port, tproxy_use_tcp, tproxy_use_udp,
+                    tproxy_followRedirect, tproxy_mode, dnsIntercept))
     };
 
     struct Qv2rayOutboundsConfig
@@ -167,6 +169,7 @@ namespace Qv2ray::base::config
     struct Qv2rayConnectionConfig
     {
         bool bypassCN;
+        bool bypassBT;
         bool enableProxy;
         bool v2rayFreedomDNS;
         bool withLocalDNS;
@@ -174,11 +177,11 @@ namespace Qv2ray::base::config
         QList<QString> dnsList;
         Qv2rayForwardProxyConfig forwardProxyConfig;
         Qv2rayConnectionConfig()
-            : bypassCN(true), enableProxy(true), v2rayFreedomDNS(false), withLocalDNS(false), routeConfig(),
+            : bypassCN(true), bypassBT(false), enableProxy(true), v2rayFreedomDNS(false), withLocalDNS(false), routeConfig(),
               dnsList(QStringList{ "8.8.4.4", "1.1.1.1" })
         {
         }
-        XTOSTRUCT(O(bypassCN, enableProxy, v2rayFreedomDNS, withLocalDNS, dnsList, forwardProxyConfig, routeConfig))
+        XTOSTRUCT(O(bypassCN, bypassBT, enableProxy, v2rayFreedomDNS, withLocalDNS, dnsList, forwardProxyConfig, routeConfig))
     };
 
     struct Qv2rayAPIConfig

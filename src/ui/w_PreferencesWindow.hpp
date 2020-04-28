@@ -64,6 +64,8 @@ class PreferencesWindow
 
     void on_bypassCNCb_stateChanged(int arg1);
 
+    void on_bypassBTCb_stateChanged(int arg1);
+
     void on_statsPortBox_valueChanged(int arg1);
 
     void on_socksUDPCB_stateChanged(int arg1);
@@ -203,6 +205,10 @@ class PreferencesWindow
     void on_qvProxyNoProxy_clicked();
 
     void on_DnsFreedomCb_stateChanged(int arg1);
+
+    void on_httpSniffingCB_stateChanged(int arg1);
+
+    void on_socksSniffingCB_stateChanged(int arg1);
 
   private:
     //

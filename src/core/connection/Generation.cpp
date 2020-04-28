@@ -319,7 +319,10 @@ namespace Qv2ray::core::connection
                     httpInBoundObject.insert("port", GlobalConfig.inboundConfig.http_port);
                     httpInBoundObject.insert("protocol", "http");
                     httpInBoundObject.insert("tag", "http_IN");
-                    httpInBoundObject.insert("sniffing", sniffingObject);
+                    if (!GlobalConfig.inboundConfig.httpSniffing)
+                    {
+                        httpInBoundObject.insert("sniffing", sniffingObject);
+                    }
 
                     if (GlobalConfig.inboundConfig.http_useAuth)
                     {
@@ -338,7 +341,11 @@ namespace Qv2ray::core::connection
                     socksInBoundObject.insert("port", GlobalConfig.inboundConfig.socks_port);
                     socksInBoundObject.insert("protocol", "socks");
                     socksInBoundObject.insert("tag", "socks_IN");
-                    socksInBoundObject.insert("sniffing", sniffingObject);
+                    if (!GlobalConfig.inboundConfig.socksSniffing)
+                    {
+                        socksInBoundObject.insert("sniffing", sniffingObject);
+                    }
+
                     auto socksInSettings = GenerateSocksIN(GlobalConfig.inboundConfig.socks_useAuth ? "password" : "noauth",
                                                            QList<AccountObject>() << GlobalConfig.inboundConfig.socksAccount,
                                                            GlobalConfig.inboundConfig.socksUDP, GlobalConfig.inboundConfig.socksLocalIP);
@@ -527,6 +534,12 @@ namespace Qv2ray::core::connection
                 {
                     OutboundMarkSettingFilter(GlobalConfig.outboundConfig.mark, root);
                 }
+
+                if (GlobalConfig.connectionConfig.bypassBT)
+                {
+                    bypassBTFilter(root);
+                }
+
             }
 
             // Let's process some api features.
@@ -626,6 +639,16 @@ namespace Qv2ray::core::connection
             _rules.insert(0, dnsRoutingRuleObj);
             routing["rules"] = _rules;
             root["routing"] = routing;
+        }
+
+        void bypassBTFilter(CONFIGROOT &root)
+        {
+            QJsonObject bypassBTRuleObj{  { "protocol", QJsonArray::fromStringList(QStringList{ "bittorrent" }) },{ "outboundTag", OUTBOUND_TAG_DIRECT }, { "type", "field" } };
+            ROUTING routing(root["routing"].toObject());
+            QJsonArray _rules(routing["rules"].toArray());
+            _rules.insert(0, bypassBTRuleObj);
+            routing["rules"] = _rules;
+            root["routing"] = routing;       
         }
 
     } // namespace Generation
