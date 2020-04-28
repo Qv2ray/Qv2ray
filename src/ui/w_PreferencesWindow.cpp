@@ -643,7 +643,9 @@ void PreferencesWindow::on_bypassBTCb_stateChanged(int arg1)
     NEEDRESTART
     if (arg1 == Qt::Checked)
     {
-        QvMessageBoxInfo(this, tr("Note"), tr("To recognize the protocol of a connection, one must enable sniffing option in inbound proxy.") + NEWLINE+tr("tproxy inbound's sniffing is enabled by default."));
+        QvMessageBoxInfo(this, tr("Note"),
+                         tr("To recognize the protocol of a connection, one must enable sniffing option in inbound proxy.") + NEWLINE +
+                             tr("tproxy inbound's sniffing is enabled by default."));
     }
     CurrentConfig.connectionConfig.bypassBT = arg1 == Qt::Checked;
 }

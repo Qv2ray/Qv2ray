@@ -222,4 +222,4 @@ namespace Qv2ray::components::tcping
         rv = rv ? rv : -errno;
         return rv;
     }
-} // namespace Qv2ray::core::tcping
+} // namespace Qv2ray::components::tcping

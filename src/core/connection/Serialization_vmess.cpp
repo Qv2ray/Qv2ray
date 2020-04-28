@@ -106,7 +106,8 @@ namespace Qv2ray::core::connection
             }
 
             // Explicitly don't support v1 vmess links.
-            if (!vmessConf.contains("v")) {
+            if (!vmessConf.contains("v"))
+            {
                 *errMessage = QObject::tr("seems like a v1 vmess, we don't support it");
                 return default;
             }

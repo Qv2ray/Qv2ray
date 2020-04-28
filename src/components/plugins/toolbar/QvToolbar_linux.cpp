@@ -67,7 +67,8 @@ namespace Qv2ray::components::plugins::Toolbar
             {
                 bool result = server->waitForNewConnection(5000, &timeOut);
                 DEBUG(MODULE_PLUGINHOST, "Plugin thread listening failed: " + server->errorString())
-                DEBUG(MODULE_PLUGINHOST, "waitForNewConnection: " + QString(result ? "true" : "false") + ", " + QString(timeOut ? "true" : "false"))
+                DEBUG(MODULE_PLUGINHOST,
+                      "waitForNewConnection: " + QString(result ? "true" : "false") + ", " + QString(timeOut ? "true" : "false"))
             }
 
             server->close();

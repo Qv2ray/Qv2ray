@@ -539,7 +539,6 @@ namespace Qv2ray::core::connection
                 {
                     bypassBTFilter(root);
                 }
-
             }
 
             // Let's process some api features.
@@ -643,12 +642,14 @@ namespace Qv2ray::core::connection
 
         void bypassBTFilter(CONFIGROOT &root)
         {
-            QJsonObject bypassBTRuleObj{  { "protocol", QJsonArray::fromStringList(QStringList{ "bittorrent" }) },{ "outboundTag", OUTBOUND_TAG_DIRECT }, { "type", "field" } };
+            QJsonObject bypassBTRuleObj{ { "protocol", QJsonArray::fromStringList(QStringList{ "bittorrent" }) },
+                                         { "outboundTag", OUTBOUND_TAG_DIRECT },
+                                         { "type", "field" } };
             ROUTING routing(root["routing"].toObject());
             QJsonArray _rules(routing["rules"].toArray());
             _rules.insert(0, bypassBTRuleObj);
             routing["rules"] = _rules;
-            root["routing"] = routing;       
+            root["routing"] = routing;
         }
 
     } // namespace Generation
