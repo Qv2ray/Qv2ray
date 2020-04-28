@@ -19,3 +19,6 @@
 [submodule "src/components/plugins/interface"]
 	path = src/components/plugins/interface
 	url = https://github.com/Qv2ray/QvPlugin-Interface/
+[submodule "libs/QJsonStruct"]
+	path = libs/QJsonStruct
+	url = https://github.com/Qv2ray/QJsonStruct
