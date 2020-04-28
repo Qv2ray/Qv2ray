@@ -89,13 +89,13 @@ namespace Qv2ray::core::connection
             QString sharelink = "";
             if (type == "vmess")
             {
-                auto vmessServer = StructFromJsonString<VMessServerObject>(JsonToString(settings["vnext"].toArray().first().toObject()));
-                auto transport = StructFromJsonString<StreamSettingsObject>(JsonToString(outbound["streamSettings"].toObject()));
+                auto vmessServer = VMessServerObject::fromJson(settings["vnext"].toArray().first().toObject());
+                auto transport = StreamSettingsObject::fromJson(outbound["streamSettings"].toObject());
                 sharelink = vmess::ConvertConfigToVMessString(transport, vmessServer, alias);
             }
             else if (type == "shadowsocks")
             {
-                auto ssServer = StructFromJsonString<ShadowSocksServerObject>(JsonToString(settings["servers"].toArray().first().toObject()));
+                auto ssServer = ShadowSocksServerObject::fromJson(settings["servers"].toArray().first().toObject());
                 sharelink = ss::ConvertConfigToSSString(ssServer, alias, isSip002);
             }
             else

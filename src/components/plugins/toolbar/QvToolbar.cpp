@@ -172,7 +172,7 @@ namespace Qv2ray::components::plugins
                 }
             }
 #undef CL
-            reply = StructToJsonString(BarConfig);
+            reply = JsonToString(BarConfig.toJson());
             return reply;
         }
     } // namespace Toolbar

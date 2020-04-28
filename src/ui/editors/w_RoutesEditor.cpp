@@ -106,7 +106,7 @@ RouteEditor::RouteEditor(QJsonObject connection, QWidget *parent) : QDialog(pare
 
     for (auto item : root["routing"].toObject()["rules"].toArray())
     {
-        AddRule(StructFromJsonString<RuleObject>(JsonToString(item.toObject())));
+        AddRule(RuleObject::fromJson(item.toObject()));
     }
 
     // Set default outboung combo text AFTER adding all outbounds.
@@ -312,7 +312,7 @@ CONFIGROOT RouteEditor::OpenEditor()
         for (auto i = 0; i < ruleListWidget->count(); i++)
         {
             auto _rule = rules[ruleListWidget->item(i)->text()];
-            auto ruleJsonObject = GetRootObject(_rule);
+            auto ruleJsonObject = _rule.toJson();
 
             // Process balancer for a rule
             if (_rule.QV2RAY_RULE_USE_BALANCER)

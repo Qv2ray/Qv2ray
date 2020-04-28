@@ -26,7 +26,7 @@ namespace Qv2ray::components::route
         QString description;
 
         // M: all these fields are mandatory
-        XTOSTRUCT(M(name, author, description, domainStrategy, domains, ips));
+        JSONSTRUCT_REGISTER(Qv2rayRouteScheme, F(name, author, description, domainStrategy, domains, ips));
     };
 } // namespace Qv2ray::components::route
 

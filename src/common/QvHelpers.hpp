@@ -49,27 +49,6 @@ namespace Qv2ray::common
         return GenerateRandomString().toLower();
         // return QUuid::createUuid().toString(QUuid::WithoutBraces);
     }
-    //
-    template<typename TYPE>
-    QString StructToJsonString(const TYPE &t)
-    {
-        return QString::fromStdString(x2struct::X::tojson(t, "", 4, ' '));
-    }
-    //
-    template<typename TYPE>
-    TYPE StructFromJsonString(const QString &str)
-    {
-        TYPE v;
-        x2struct::X::loadjson(str.toStdString(), v, false);
-        return v;
-    }
-    // Misc
-    template<typename T>
-    QJsonObject GetRootObject(const T &t)
-    {
-        auto json = StructToJsonString(t);
-        return JsonFromString(json);
-    }
 
     inline QString TruncateString(const QString &str, int limit = -1, const QString &suffix = "...")
     {
