@@ -209,9 +209,9 @@ set(QV2RAY_SOURCES
     src/ui/w_PreferencesWindow.cpp
     src/ui/w_PluginManager.cpp
     src/ui/w_ScreenShot_Core.cpp
-    src/ui/w_SubscriptionManager.cpp
+    src/ui/w_GroupManager.cpp
     # ui files
-    src/ui/w_SubscriptionManager.ui
+    src/ui/w_GroupManager.ui
     src/ui/editors/w_OutboundEditor.ui
     src/ui/editors/w_InboundEditor.ui
     src/ui/editors/w_JsonEditor.ui
@@ -289,7 +289,7 @@ set(QV2RAY_SOURCES
     src/ui/w_PreferencesWindow.hpp
     src/ui/w_PluginManager.hpp
     src/ui/w_ScreenShot_Core.hpp
-    src/ui/w_SubscriptionManager.hpp
+    src/ui/w_GroupManager.hpp
     assets/qv2ray.rc
     )
 

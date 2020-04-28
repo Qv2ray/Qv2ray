@@ -1,4 +1,4 @@
-﻿#include "w_SubscriptionManager.hpp"
+﻿#include "w_GroupManager.hpp"
 
 #include "common/QvHelpers.hpp"
 #include "core/handler/ConfigHandler.hpp"
@@ -11,11 +11,11 @@ SubscriptionEditor::SubscriptionEditor(QWidget *parent) : QDialog(parent)
     UpdateColorScheme();
     for (auto subs : ConnectionManager->Subscriptions())
     {
-        subscriptionList->addTopLevelItem(new QTreeWidgetItem(QStringList{ GetDisplayName(subs), subs.toString() }));
+        groupList->addTopLevelItem(new QTreeWidgetItem(QStringList{ GetDisplayName(subs), subs.toString() }));
     }
-    if (subscriptionList->topLevelItemCount() > 0)
+    if (groupList->topLevelItemCount() > 0)
     {
-        subscriptionList->setCurrentItem(subscriptionList->topLevelItem(0));
+        groupList->setCurrentItem(groupList->topLevelItem(0));
     }
 }
 
@@ -47,7 +47,7 @@ void SubscriptionEditor::on_addSubsButton_clicked()
     auto const key = QSTRN(QTime::currentTime().msecsSinceStartOfDay());
     auto id = ConnectionManager->CreateGroup(key, true);
     //
-    subscriptionList->addTopLevelItem(new QTreeWidgetItem(QStringList{ key, id.toString() }));
+    groupList->addTopLevelItem(new QTreeWidgetItem(QStringList{ key, id.toString() }));
 }
 
 void SubscriptionEditor::on_updateButton_clicked()
@@ -57,7 +57,7 @@ void SubscriptionEditor::on_updateButton_clicked()
         this->setEnabled(false);
         ConnectionManager->UpdateSubscription(currentSubId); //
         this->setEnabled(true);
-        on_subscriptionList_itemClicked(subscriptionList->currentItem(), 0);
+        on_groupList_itemClicked(groupList->currentItem(), 0);
     }
 }
 
@@ -67,13 +67,13 @@ void SubscriptionEditor::on_removeSubsButton_clicked()
         QMessageBox::Yes)
     {
         ConnectionManager->DeleteGroup(currentSubId); //
-        auto item = subscriptionList->currentItem();
-        subscriptionList->removeItemWidget(item, 0);
+        auto item = groupList->currentItem();
+        groupList->removeItemWidget(item, 0);
         delete item;
-        if (subscriptionList->topLevelItemCount() > 0)
+        if (groupList->topLevelItemCount() > 0)
         {
-            subscriptionList->setCurrentItem(subscriptionList->topLevelItem(0));
-            on_subscriptionList_itemClicked(subscriptionList->topLevelItem(0), 0);
+            groupList->setCurrentItem(groupList->topLevelItem(0));
+            on_groupList_itemClicked(groupList->topLevelItem(0), 0);
         }
         else
         {
@@ -87,12 +87,12 @@ void SubscriptionEditor::on_buttonBox_accepted()
     // Nothing?
 }
 
-void SubscriptionEditor::on_subscriptionList_itemSelectionChanged()
+void SubscriptionEditor::on_groupList_itemSelectionChanged()
 {
-    groupBox_2->setEnabled(subscriptionList->selectedItems().count() > 0);
+    groupBox_2->setEnabled(groupList->selectedItems().count() > 0);
 }
 
-void SubscriptionEditor::on_subscriptionList_itemClicked(QTreeWidgetItem *item, int column)
+void SubscriptionEditor::on_groupList_itemClicked(QTreeWidgetItem *item, int column)
 {
     Q_UNUSED(column)
 
@@ -105,7 +105,7 @@ void SubscriptionEditor::on_subscriptionList_itemClicked(QTreeWidgetItem *item, 
     groupBox_2->setEnabled(true);
     currentSubId = GroupId(item->text(1));
     //
-    subNameTxt->setText(GetDisplayName(currentSubId));
+    groupNameTxt->setText(GetDisplayName(currentSubId));
     auto const [addr, lastUpdated, updateInterval] = ConnectionManager->GetSubscriptionData(currentSubId);
     subAddrTxt->setText(addr);
     lastUpdatedLabel->setText(timeToString(lastUpdated));
@@ -119,15 +119,15 @@ void SubscriptionEditor::on_subscriptionList_itemClicked(QTreeWidgetItem *item, 
     }
 }
 
-void SubscriptionEditor::on_subscriptionList_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous)
+void SubscriptionEditor::on_groupList_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous)
 {
     Q_UNUSED(previous)
-    on_subscriptionList_itemClicked(current, 0);
+    on_groupList_itemClicked(current, 0);
 }
 
 void SubscriptionEditor::on_subNameTxt_textEdited(const QString &arg1)
 {
-    subscriptionList->selectedItems().first()->setText(0, arg1);
+    groupList->selectedItems().first()->setText(0, arg1);
     ConnectionManager->RenameGroup(currentSubId, arg1.trimmed());
 }
 

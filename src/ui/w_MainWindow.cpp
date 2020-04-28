@@ -8,10 +8,10 @@
 #include "ui/editors/w_JsonEditor.hpp"
 #include "ui/editors/w_OutboundEditor.hpp"
 #include "ui/editors/w_RoutesEditor.hpp"
+#include "ui/w_GroupManager.hpp"
 #include "ui/w_ImportConfig.hpp"
 #include "ui/w_PluginManager.hpp"
 #include "ui/w_PreferencesWindow.hpp"
-#include "ui/w_SubscriptionManager.hpp"
 #include "ui/widgets/ConnectionInfoWidget.hpp"
 
 #include <QCloseEvent>

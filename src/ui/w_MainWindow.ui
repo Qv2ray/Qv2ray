@@ -29,7 +29,7 @@
       <item>
        <widget class="QPushButton" name="subsButton">
         <property name="text">
-         <string>Subscriptions</string>
+         <string>Groups</string>
         </property>
        </widget>
       </item>

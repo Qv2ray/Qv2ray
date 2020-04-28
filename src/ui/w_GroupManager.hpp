@@ -3,13 +3,13 @@
 #include "base/Qv2rayBase.hpp"
 #include "core/CoreSafeTypes.hpp"
 #include "ui/messaging/QvMessageBus.hpp"
-#include "ui_w_SubscriptionManager.h"
+#include "ui_w_GroupManager.h"
 
 #include <QDialog>
 
 class SubscriptionEditor
     : public QDialog
-    , private Ui::w_SubscribeEditor
+    , private Ui::w_GroupManager
 {
     Q_OBJECT
 
@@ -30,11 +30,11 @@ class SubscriptionEditor
 
     void on_buttonBox_accepted();
 
-    void on_subscriptionList_itemSelectionChanged();
+    void on_groupList_itemSelectionChanged();
 
-    void on_subscriptionList_itemClicked(QTreeWidgetItem *item, int column);
+    void on_groupList_itemClicked(QTreeWidgetItem *item, int column);
 
-    void on_subscriptionList_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous);
+    void on_groupList_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous);
 
     void on_subNameTxt_textEdited(const QString &arg1);
 

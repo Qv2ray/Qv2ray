@@ -9,7 +9,7 @@
 #include "ui/editors/w_JsonEditor.hpp"
 #include "ui/editors/w_OutboundEditor.hpp"
 #include "ui/editors/w_RoutesEditor.hpp"
-#include "ui/w_SubscriptionManager.hpp"
+#include "ui/w_GroupManager.hpp"
 #include "w_ScreenShot_Core.hpp"
 
 #include <QDebug>
