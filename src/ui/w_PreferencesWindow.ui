@@ -1075,12 +1075,12 @@ Custom DNS Settings</string>
                   </property>
                   <item>
                    <property name="text">
-                    <string>redirect</string>
+                    <string notr="true">redirect</string>
                    </property>
                   </item>
                   <item>
                    <property name="text">
-                    <string>tproxy</string>
+                    <string notr="true">tproxy</string>
                    </property>
                   </item>
                  </widget>
