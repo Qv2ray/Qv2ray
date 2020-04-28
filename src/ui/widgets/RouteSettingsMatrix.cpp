@@ -121,7 +121,7 @@ void RouteSettingsMatrixWidget::on_importSchemeBtn_clicked()
         // done
         LOG(MODULE_SETTINGS, "Imported route config: " + scheme.name + " by: " + scheme.author)
     }
-    catch (exception e)
+    catch (exception &e)
     {
         LOG(MODULE_UI, "Exception: " + QString(e.what()))
         // TODO: Give some error as Notification
@@ -181,7 +181,7 @@ void RouteSettingsMatrixWidget::on_exportSchemeBtn_clicked()
         // TODO: Give some success as Notification
         QvMessageBoxInfo(this, dialogTitle, tr("Your route scheme has been successfully exported!"));
     }
-    catch (exception)
+    catch (exception &)
     {
 
         // TODO: Give some error as Notification
