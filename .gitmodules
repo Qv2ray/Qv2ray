@@ -1,6 +1,3 @@
-[submodule "3rdparty/x2struct"]
-	path = 3rdparty/x2struct
-	url = https://github.com/xyz347/x2struct
 [submodule "3rdparty/SingleApplication"]
 	path = 3rdparty/SingleApplication
 	url = https://github.com/itay-grudev/SingleApplication
