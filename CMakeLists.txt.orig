@@ -33,8 +33,12 @@ if(MSVC)
     set(CMAKE_CXX_EXTENSIONS OFF)
 endif()
 
+<<<<<<< HEAD
 find_package(Qt5 5.11 COMPONENTS Core Gui Widgets Network Quick REQUIRED)
 find_package(Threads REQUIRED)
+=======
+find_package(Qt5 5.11 COMPONENTS Core Gui Widgets Network Qml Quick REQUIRED)
+>>>>>>> 90a54f7... oops
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)

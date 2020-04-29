@@ -33,7 +33,7 @@ if(MSVC)
     set(CMAKE_CXX_EXTENSIONS OFF)
 endif()
 
-find_package(Qt5 5.11 COMPONENTS Core Gui Widgets Network Quick REQUIRED)
+find_package(Qt5 5.11 COMPONENTS Core Gui Widgets Network Qml Quick REQUIRED)
 find_package(Threads REQUIRED)
 
 set(CMAKE_AUTOMOC ON)
