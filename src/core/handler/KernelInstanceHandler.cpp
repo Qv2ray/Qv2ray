@@ -96,7 +96,7 @@ namespace Qv2ray::core::handlers
                         pluginProcessedOutboundList.append({ originalOutboundTag, inTag, freedomTag });
                         pluginPort++;
                     }
-
+                    pluginInboundPort.insert("enable_udp",GlobalConfig.inboundConfig.socksUDP?1:0);
                     LOG(MODULE_CONNECTION, "Sending connection settings to kernel.")
                     kernel->SetConnectionSettings(GlobalConfig.inboundConfig.listenip, pluginInboundPort, outbound["settings"].toObject());
                 }
@@ -201,6 +201,7 @@ namespace Qv2ray::core::handlers
                 connect(kernel, &QvPluginKernel::OnKernelStatsAvailable, this, &KernelInstanceHandler::OnStatsDataArrived_p);
                 currentConnectionId = id;
                 lastConnectionId = id;
+                pluginInboundPort.insert("enable_udp",GlobalConfig.inboundConfig.socksUDP?1:0);
                 kernel->SetConnectionSettings(GlobalConfig.inboundConfig.listenip, pluginInboundPort, firstOutbound["settings"].toObject());
                 bool result = kernel->StartKernel();
                 if (result)
