@@ -43,6 +43,9 @@ if(MSVC)
         set(CPACK_NSIS_MUI_UNIICON "${CMAKE_SOURCE_DIR}/assets/icons/qv2ray.ico")
         set(CPACK_NSIS_DISPLAY_NAME "Qv2ray")
         set(CPACK_NSIS_PACKAGE_NAME "Qv2ray")
+        set(CPACK_NSIS_EXTRA_PREINSTALL_COMMANDS "
+            ExecWait \\\"taskkill /f /im qv2ray.exe\\\"
+        ")
         set(CPACK_NSIS_EXTRA_INSTALL_COMMANDS "
             CreateShortCut \\\"$DESKTOP\\\\Qv2ray.lnk\\\" \\\"$INSTDIR\\\\qv2ray.exe\\\"
             CreateDirectory \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\Qv2ray\\\"
@@ -54,6 +57,7 @@ if(MSVC)
             WriteRegStr HKLM \\\"Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Uninstall\\\\qv2ray\\\" \\\"URLInfoAbout\\\" \\\"https://github.com/Qv2ray/Qv2ray\\\"
         ")
         set(CPACK_NSIS_EXTRA_UNINSTALL_COMMANDS "
+            ExecWait \\\"taskkill /f /im qv2ray.exe\\\"
             Delete \\\"$DESKTOP\\\\Qv2ray.lnk\\\"
             Delete \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\Qv2ray\\\\Qv2ray.lnk\\\"
             RMDir \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\Qv2ray\\\"
