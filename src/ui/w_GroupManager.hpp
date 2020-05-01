@@ -48,11 +48,15 @@ class GroupManager
     void on_connectionsList_customContextMenuRequested(const QPoint &pos);
 
   private:
+    void loadConnectionList(const GroupId &group);
+    void onRCMActionTriggered_Move();
+    void onRCMActionTriggered_Copy();
+    void ReloadGroupAction();
     QMenu *connectionListRCMenu = new QMenu(this);
     QMenu *connectionListRCMenu_CopyToMenu = new QMenu(tr("Copy to..."));
     QMenu *connectionListRCMenu_MoveToMenu = new QMenu(tr("Move to..."));
     void UpdateColorScheme();
     bool isUpdateInProgress = false;
-    GroupId currentSubId = NullGroupId;
+    GroupId currentGroupId = NullGroupId;
     ConnectionId currentConnectionId = NullConnectionId;
 };

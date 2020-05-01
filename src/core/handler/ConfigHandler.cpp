@@ -282,7 +282,7 @@ namespace Qv2ray::core::handlers
             QDir().mkpath(newDir);
         }
         //
-        if (!QFile(oldPath).rename(newPath))
+        if (!QFile::rename(oldPath, newPath))
         {
             LOG(MODULE_FILEIO, "Cannot rename")
         }
