@@ -22,17 +22,10 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,1,0">
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,0,0">
+     <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,0">
       <property name="spacing">
        <number>5</number>
       </property>
-      <item>
-       <widget class="QPushButton" name="subsButton">
-        <property name="text">
-         <string>Groups</string>
-        </property>
-       </widget>
-      </item>
       <item>
        <widget class="QPushButton" name="preferencesBtn">
         <property name="text">
@@ -194,13 +187,20 @@
              <string>Import Connection</string>
             </property>
             <property name="text">
-             <string>Add</string>
+             <string>Add Connection</string>
             </property>
             <property name="iconSize">
              <size>
               <width>22</width>
               <height>22</height>
              </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="subsButton">
+            <property name="text">
+             <string>Groups</string>
             </property>
            </widget>
           </item>
@@ -546,7 +546,6 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <tabstops>
-  <tabstop>subsButton</tabstop>
   <tabstop>connectionListWidget</tabstop>
   <tabstop>importConfigButton</tabstop>
  </tabstops>
