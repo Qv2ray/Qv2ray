@@ -728,7 +728,7 @@
     </message>
     <message>
         <source>Subscriptions</source>
-        <translation>サブスクリプション</translation>
+        <translation type="vanished">サブスクリプション</translation>
     </message>
     <message>
         <source>Stopped</source>
@@ -1309,6 +1309,10 @@
     <message>
         <source>Plugins</source>
         <translation>プラグイン</translation>
+    </message>
+    <message>
+        <source>Groups</source>
+        <translation>グループ</translation>
     </message>
 </context>
 <context>
@@ -2359,6 +2363,30 @@ But could damage your server if improperly used.</source>
         <source>Outbound Mark</source>
         <translation>アウトバウンドマーク</translation>
     </message>
+    <message>
+        <source>Sniffing</source>
+        <translation>フィルター</translation>
+    </message>
+    <message>
+        <source>Use V2ray DNS for Freedom Outbound</source>
+        <translation>フリーダムアウトバウンドにはV2Ray DNSを使用</translation>
+    </message>
+    <message>
+        <source>Bypass Bittorrent Protocol</source>
+        <translation>ビットトレントプロトコルをバイパス</translation>
+    </message>
+    <message>
+        <source>Note</source>
+        <translation>ご注意</translation>
+    </message>
+    <message>
+        <source>To recognize the protocol of a connection, one must enable sniffing option in inbound proxy.</source>
+        <translation>プロトコルを認識するためには、受信側のプロキシでスニッフィングオプションを有効にする必要があります。</translation>
+    </message>
+    <message>
+        <source>tproxy inbound&apos;s sniffing is enabled by default.</source>
+        <translation>tProxyインバウンドのスニッフィングはデフォルトで有効になっています。</translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
@@ -2396,7 +2424,7 @@ But could damage your server if improperly used.</source>
     </message>
     <message>
         <source>seems like a v1 vmess, we don&apos;t support it</source>
-        <translation>V1のVMessリンクの可能性があります，現在非対応です。</translation>
+        <translation>V1のVMessリンクの可能性があります，現在非対応です</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -3806,6 +3834,57 @@ Maybe you have downloaded the wrong core?</source>
     </message>
 </context>
 <context>
+    <name>w_GroupManager</name>
+    <message>
+        <source>Group Editor</source>
+        <translation>グループ編集</translation>
+    </message>
+    <message>
+        <source>Group List</source>
+        <translation>グループ一覧</translation>
+    </message>
+    <message>
+        <source>Add Subscription</source>
+        <translation>サブスクリプションを追加</translation>
+    </message>
+    <message>
+        <source>Remove Subscription</source>
+        <translation>サブスクリプションを削除</translation>
+    </message>
+    <message>
+        <source>Group Details</source>
+        <translation>詳細</translation>
+    </message>
+    <message>
+        <source>Group Name</source>
+        <translation>グループ名</translation>
+    </message>
+    <message>
+        <source>Subscription Address</source>
+        <translation>アドレス</translation>
+    </message>
+    <message>
+        <source>Update Interval</source>
+        <translation>更新間隔</translation>
+    </message>
+    <message>
+        <source>Days</source>
+        <translation>日ごと</translation>
+    </message>
+    <message>
+        <source>Last Updated</source>
+        <translation>最終更新</translation>
+    </message>
+    <message>
+        <source>Connection List</source>
+        <translation>項目リスト</translation>
+    </message>
+    <message>
+        <source>Update Subscription Data</source>
+        <translation>サブスクリプションデータの更新</translation>
+    </message>
+</context>
+<context>
     <name>w_PluginManager</name>
     <message>
         <source>Plugin Manager</source>
@@ -3876,11 +3955,11 @@ Maybe you have downloaded the wrong core?</source>
     <name>w_SubscribeEditor</name>
     <message>
         <source>SubscribeEditor</source>
-        <translation>SubscribeEditor</translation>
+        <translation type="vanished">SubscribeEditor</translation>
     </message>
     <message>
         <source>Subscription List</source>
-        <translation>サブスクリプション一覧</translation>
+        <translation type="vanished">サブスクリプション一覧</translation>
     </message>
     <message>
         <source>A</source>
@@ -3888,11 +3967,11 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Add Subscription</source>
-        <translation>サブスクリプションを追加</translation>
+        <translation type="vanished">サブスクリプションを追加</translation>
     </message>
     <message>
         <source>Remove Subscription</source>
-        <translation>サブスクリプションを削除</translation>
+        <translation type="vanished">サブスクリプションを削除</translation>
     </message>
     <message>
         <source>D</source>
@@ -3900,31 +3979,31 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Subscription Details</source>
-        <translation>サブスクリプションの詳細</translation>
+        <translation type="vanished">サブスクリプションの詳細</translation>
     </message>
     <message>
         <source>Subscription Name</source>
-        <translation>名称</translation>
+        <translation type="vanished">名称</translation>
     </message>
     <message>
         <source>Subscription Address</source>
-        <translation>アドレス</translation>
+        <translation type="vanished">アドレス</translation>
     </message>
     <message>
         <source>Update Interval</source>
-        <translation>更新間隔</translation>
+        <translation type="vanished">更新間隔</translation>
     </message>
     <message>
         <source>Days</source>
-        <translation>日ごと</translation>
+        <translation type="vanished">日ごと</translation>
     </message>
     <message>
         <source>Last Updated</source>
-        <translation>最終更新</translation>
+        <translation type="vanished">最終更新</translation>
     </message>
     <message>
         <source>Connection List</source>
-        <translation>項目リスト</translation>
+        <translation type="vanished">項目リスト</translation>
     </message>
     <message>
         <source>Update Subscription With System Proxy</source>
@@ -3932,7 +4011,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Update Subscription Data</source>
-        <translation>サブスクリプションデータの更新</translation>
+        <translation type="vanished">サブスクリプションデータの更新</translation>
     </message>
 </context>
 </TS>

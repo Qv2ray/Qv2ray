@@ -712,7 +712,7 @@
     </message>
     <message>
         <source>Subscriptions</source>
-        <translation>Подписки</translation>
+        <translation type="vanished">Подписки</translation>
     </message>
     <message>
         <source>Stopped</source>
@@ -1288,6 +1288,10 @@
     </message>
     <message>
         <source>Plugins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Groups</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2261,6 +2265,30 @@ But could damage your server if improperly used.</source>
     </message>
     <message>
         <source>Outbound Mark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sniffing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use V2ray DNS for Freedom Outbound</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bypass Bittorrent Protocol</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Note</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To recognize the protocol of a connection, one must enable sniffing option in inbound proxy.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>tproxy inbound&apos;s sniffing is enabled by default.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3647,6 +3675,57 @@ Maybe you have downloaded the wrong core?</source>
     </message>
 </context>
 <context>
+    <name>w_GroupManager</name>
+    <message>
+        <source>Group Editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Group List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add Subscription</source>
+        <translation type="unfinished">Добавить подписку</translation>
+    </message>
+    <message>
+        <source>Remove Subscription</source>
+        <translation type="unfinished">Удалить подписку</translation>
+    </message>
+    <message>
+        <source>Group Details</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Group Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Subscription Address</source>
+        <translation type="unfinished">Адрес подписки</translation>
+    </message>
+    <message>
+        <source>Update Interval</source>
+        <translation type="unfinished">Интервалы обновления</translation>
+    </message>
+    <message>
+        <source>Days</source>
+        <translation type="unfinished">Дней</translation>
+    </message>
+    <message>
+        <source>Last Updated</source>
+        <translation type="unfinished">Последнее обновление</translation>
+    </message>
+    <message>
+        <source>Connection List</source>
+        <translation type="unfinished">Список подключений</translation>
+    </message>
+    <message>
+        <source>Update Subscription Data</source>
+        <translation type="unfinished">Обновить данные подписки</translation>
+    </message>
+</context>
+<context>
     <name>w_PluginManager</name>
     <message>
         <source>Plugin Manager</source>
@@ -3717,11 +3796,11 @@ Maybe you have downloaded the wrong core?</source>
     <name>w_SubscribeEditor</name>
     <message>
         <source>SubscribeEditor</source>
-        <translation>Редактор подписки</translation>
+        <translation type="vanished">Редактор подписки</translation>
     </message>
     <message>
         <source>Subscription List</source>
-        <translation>Список подписок</translation>
+        <translation type="vanished">Список подписок</translation>
     </message>
     <message>
         <source>A</source>
@@ -3729,11 +3808,11 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Add Subscription</source>
-        <translation>Добавить подписку</translation>
+        <translation type="vanished">Добавить подписку</translation>
     </message>
     <message>
         <source>Remove Subscription</source>
-        <translation>Удалить подписку</translation>
+        <translation type="vanished">Удалить подписку</translation>
     </message>
     <message>
         <source>D</source>
@@ -3741,31 +3820,31 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Subscription Details</source>
-        <translation>Детали подписки</translation>
+        <translation type="vanished">Детали подписки</translation>
     </message>
     <message>
         <source>Subscription Name</source>
-        <translation>Название подписки</translation>
+        <translation type="vanished">Название подписки</translation>
     </message>
     <message>
         <source>Subscription Address</source>
-        <translation>Адрес подписки</translation>
+        <translation type="vanished">Адрес подписки</translation>
     </message>
     <message>
         <source>Update Interval</source>
-        <translation>Интервалы обновления</translation>
+        <translation type="vanished">Интервалы обновления</translation>
     </message>
     <message>
         <source>Days</source>
-        <translation>Дней</translation>
+        <translation type="vanished">Дней</translation>
     </message>
     <message>
         <source>Last Updated</source>
-        <translation>Последнее обновление</translation>
+        <translation type="vanished">Последнее обновление</translation>
     </message>
     <message>
         <source>Connection List</source>
-        <translation>Список подключений</translation>
+        <translation type="vanished">Список подключений</translation>
     </message>
     <message>
         <source>Update Subscription With System Proxy</source>
@@ -3773,7 +3852,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Update Subscription Data</source>
-        <translation>Обновить данные подписки</translation>
+        <translation type="vanished">Обновить данные подписки</translation>
     </message>
 </context>
 </TS>

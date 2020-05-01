@@ -614,7 +614,7 @@
     </message>
     <message>
         <source>Subscriptions</source>
-        <translation>订阅</translation>
+        <translation type="vanished">订阅</translation>
     </message>
     <message>
         <source>Add</source>
@@ -947,6 +947,10 @@
     <message>
         <source>Plugins</source>
         <translation>插件</translation>
+    </message>
+    <message>
+        <source>Groups</source>
+        <translation>分组</translation>
     </message>
 </context>
 <context>
@@ -1988,6 +1992,30 @@ But could damage your server if improperly used.</source>
     <message>
         <source>Outbound Mark</source>
         <translation>出站 Mark</translation>
+    </message>
+    <message>
+        <source>Sniffing</source>
+        <translation>嗅探</translation>
+    </message>
+    <message>
+        <source>Use V2ray DNS for Freedom Outbound</source>
+        <translation>为自由出站使用 V2Ray DNS</translation>
+    </message>
+    <message>
+        <source>Bypass Bittorrent Protocol</source>
+        <translation>绕过 BitTorrent 协议</translation>
+    </message>
+    <message>
+        <source>Note</source>
+        <translation>注意</translation>
+    </message>
+    <message>
+        <source>To recognize the protocol of a connection, one must enable sniffing option in inbound proxy.</source>
+        <translation>要识别网络连接的协议，必须要启用入站代理中的嗅探选项。</translation>
+    </message>
+    <message>
+        <source>tproxy inbound&apos;s sniffing is enabled by default.</source>
+        <translation>tProxy 入站的嗅探选项默认开启。</translation>
     </message>
 </context>
 <context>
@@ -3348,6 +3376,57 @@ Maybe you have downloaded the wrong core?</source>
     </message>
 </context>
 <context>
+    <name>w_GroupManager</name>
+    <message>
+        <source>Group Editor</source>
+        <translation>组编辑器</translation>
+    </message>
+    <message>
+        <source>Group List</source>
+        <translation>组列表</translation>
+    </message>
+    <message>
+        <source>Add Subscription</source>
+        <translation>添加订阅</translation>
+    </message>
+    <message>
+        <source>Remove Subscription</source>
+        <translation>删除订阅</translation>
+    </message>
+    <message>
+        <source>Group Details</source>
+        <translation>分组细节</translation>
+    </message>
+    <message>
+        <source>Group Name</source>
+        <translation>分组名称</translation>
+    </message>
+    <message>
+        <source>Subscription Address</source>
+        <translation>订阅地址</translation>
+    </message>
+    <message>
+        <source>Update Interval</source>
+        <translation>更新间隔</translation>
+    </message>
+    <message>
+        <source>Days</source>
+        <translation>天</translation>
+    </message>
+    <message>
+        <source>Last Updated</source>
+        <translation>最后更新</translation>
+    </message>
+    <message>
+        <source>Connection List</source>
+        <translation>连接列表</translation>
+    </message>
+    <message>
+        <source>Update Subscription Data</source>
+        <translation>更新订阅数据</translation>
+    </message>
+</context>
+<context>
     <name>w_PluginManager</name>
     <message>
         <source>Plugin Manager</source>
@@ -3418,47 +3497,47 @@ Maybe you have downloaded the wrong core?</source>
     <name>w_SubscribeEditor</name>
     <message>
         <source>SubscribeEditor</source>
-        <translation>订阅编辑器</translation>
+        <translation type="vanished">订阅编辑器</translation>
     </message>
     <message>
         <source>Subscription List</source>
-        <translation>订阅列表</translation>
+        <translation type="vanished">订阅列表</translation>
     </message>
     <message>
         <source>Add Subscription</source>
-        <translation>添加订阅</translation>
+        <translation type="vanished">添加订阅</translation>
     </message>
     <message>
         <source>Remove Subscription</source>
-        <translation>删除订阅</translation>
+        <translation type="vanished">删除订阅</translation>
     </message>
     <message>
         <source>Subscription Details</source>
-        <translation>订阅详情</translation>
+        <translation type="vanished">订阅详情</translation>
     </message>
     <message>
         <source>Subscription Name</source>
-        <translation>订阅名称</translation>
+        <translation type="vanished">订阅名称</translation>
     </message>
     <message>
         <source>Subscription Address</source>
-        <translation>订阅地址</translation>
+        <translation type="vanished">订阅地址</translation>
     </message>
     <message>
         <source>Update Interval</source>
-        <translation>更新间隔</translation>
+        <translation type="vanished">更新间隔</translation>
     </message>
     <message>
         <source>Days</source>
-        <translation>天</translation>
+        <translation type="vanished">天</translation>
     </message>
     <message>
         <source>Last Updated</source>
-        <translation>最后更新</translation>
+        <translation type="vanished">最后更新</translation>
     </message>
     <message>
         <source>Connection List</source>
-        <translation>连接列表</translation>
+        <translation type="vanished">连接列表</translation>
     </message>
     <message>
         <source>Update Subscription With System Proxy</source>
@@ -3466,7 +3545,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Update Subscription Data</source>
-        <translation>更新订阅数据</translation>
+        <translation type="vanished">更新订阅数据</translation>
     </message>
 </context>
 </TS>
