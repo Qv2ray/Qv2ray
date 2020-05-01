@@ -27,7 +27,7 @@
   </property>
   <layout class="QGridLayout" name="gridLayout" columnstretch="2,5">
    <item row="0" column="1">
-    <widget class="QGroupBox" name="groupBox_2">
+    <widget class="QGroupBox" name="groupInfoGroupBox">
      <property name="title">
       <string>Group Info</string>
      </property>
@@ -66,27 +66,13 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_3">
       <item>
-       <widget class="QTreeWidget" name="groupList">
+       <widget class="QListWidget" name="groupList">
         <property name="selectionMode">
          <enum>QAbstractItemView::SingleSelection</enum>
         </property>
         <property name="selectionBehavior">
          <enum>QAbstractItemView::SelectRows</enum>
         </property>
-        <property name="rootIsDecorated">
-         <bool>false</bool>
-        </property>
-        <property name="uniformRowHeights">
-         <bool>false</bool>
-        </property>
-        <property name="headerHidden">
-         <bool>true</bool>
-        </property>
-        <column>
-         <property name="text">
-          <string notr="true">1</string>
-         </property>
-        </column>
        </widget>
       </item>
       <item>
@@ -105,7 +91,7 @@
          </spacer>
         </item>
         <item>
-         <widget class="QToolButton" name="addSubsButton">
+         <widget class="QToolButton" name="addGroupButton">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -125,7 +111,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QToolButton" name="removeSubsButton">
+         <widget class="QToolButton" name="removeGroupButton">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -198,8 +184,14 @@
        </item>
        <item row="0" column="0" colspan="2">
         <widget class="QListWidget" name="connectionsList">
+         <property name="contextMenuPolicy">
+          <enum>Qt::CustomContextMenu</enum>
+         </property>
          <property name="editTriggers">
           <set>QAbstractItemView::NoEditTriggers</set>
+         </property>
+         <property name="selectionMode">
+          <enum>QAbstractItemView::MultiSelection</enum>
          </property>
          <property name="resizeMode">
           <enum>QListView::Adjust</enum>
@@ -210,41 +202,41 @@
      </widget>
      <widget class="QWidget" name="tab_2">
       <attribute name="title">
-       <string>Subscription</string>
+       <string>Subscription Settings</string>
       </attribute>
       <layout class="QFormLayout" name="formLayout">
-       <item row="0" column="0">
+       <item row="1" column="0">
         <widget class="QLabel" name="label_2">
          <property name="text">
           <string>Subscription Address</string>
          </property>
         </widget>
        </item>
-       <item row="0" column="1">
+       <item row="1" column="1">
         <widget class="QLineEdit" name="subAddrTxt"/>
        </item>
-       <item row="1" column="0">
+       <item row="2" column="0">
         <widget class="QLabel" name="label_3">
          <property name="text">
           <string>Update Interval</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="1">
+       <item row="2" column="1">
         <widget class="QLabel" name="lastUpdatedLabel">
          <property name="text">
           <string/>
          </property>
         </widget>
        </item>
-       <item row="2" column="0">
+       <item row="3" column="0">
         <widget class="QLabel" name="label_6">
          <property name="text">
           <string>Last Updated</string>
          </property>
         </widget>
        </item>
-       <item row="2" column="1">
+       <item row="3" column="1">
         <layout class="QHBoxLayout" name="horizontalLayout_3">
          <item>
           <widget class="QDoubleSpinBox" name="updateIntervalSB">
@@ -281,14 +273,14 @@
          </item>
         </layout>
        </item>
-       <item row="4" column="0" colspan="2">
+       <item row="5" column="0" colspan="2">
         <widget class="QPushButton" name="updateButton">
          <property name="text">
           <string>Update Subscription Data</string>
          </property>
         </widget>
        </item>
-       <item row="3" column="0" colspan="2">
+       <item row="4" column="0" colspan="2">
         <spacer name="verticalSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -301,27 +293,14 @@
          </property>
         </spacer>
        </item>
+       <item row="0" column="0" colspan="2">
+        <widget class="QCheckBox" name="groupIsSubscriptionCB">
+         <property name="text">
+          <string>This group is a subscription</string>
+         </property>
+        </widget>
+       </item>
       </layout>
-     </widget>
-     <widget class="QWidget" name="tab_5">
-      <attribute name="title">
-       <string>General Settings</string>
-      </attribute>
-     </widget>
-     <widget class="QWidget" name="tab_3">
-      <attribute name="title">
-       <string>Inbound Settings</string>
-      </attribute>
-     </widget>
-     <widget class="QWidget" name="tab_6">
-      <attribute name="title">
-       <string>Routing</string>
-      </attribute>
-     </widget>
-     <widget class="QWidget" name="tab_4">
-      <attribute name="title">
-       <string>Connection Settings</string>
-      </attribute>
      </widget>
     </widget>
    </item>
@@ -329,8 +308,8 @@
  </widget>
  <tabstops>
   <tabstop>groupList</tabstop>
-  <tabstop>addSubsButton</tabstop>
-  <tabstop>removeSubsButton</tabstop>
+  <tabstop>addGroupButton</tabstop>
+  <tabstop>removeGroupButton</tabstop>
   <tabstop>subAddrTxt</tabstop>
   <tabstop>updateIntervalSB</tabstop>
  </tabstops>

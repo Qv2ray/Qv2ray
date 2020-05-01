@@ -604,7 +604,7 @@ void MainWindow::on_action_RCM_EditAsComplex_triggered()
 
 void MainWindow::on_subsButton_clicked()
 {
-    SubscriptionEditor().exec();
+    GroupManager().exec();
 }
 
 void MainWindow::on_connectionListWidget_itemDoubleClicked(QTreeWidgetItem *item, int column)

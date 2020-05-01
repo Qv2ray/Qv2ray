@@ -204,6 +204,8 @@ set(QV2RAY_SOURCES
     src/ui/widgets/QvAutoCompleteTextEdit.cpp
     src/ui/widgets/StreamSettingsWidget.cpp
     src/ui/widgets/RouteSettingsMatrix.cpp
+    src/ui/widgets/InboundSettingsWidget.cpp
+    src/ui/widgets/ConnectionSettingsWidget.cpp
     src/ui/w_ImportConfig.cpp
     src/ui/w_MainWindow.cpp
     src/ui/w_MainWindow_extra.cpp
@@ -222,6 +224,8 @@ set(QV2RAY_SOURCES
     src/ui/widgets/ConnectionInfoWidget.ui
     src/ui/widgets/ConnectionItemWidget.ui
     src/ui/widgets/RouteSettingsMatrix.ui
+    src/ui/widgets/InboundSettingsWidget.ui
+    src/ui/widgets/ConnectionSettingsWidget.ui
     src/ui/w_MainWindow.ui
     src/ui/w_PreferencesWindow.ui
     src/ui/w_PluginManager.ui
@@ -285,6 +289,8 @@ set(QV2RAY_SOURCES
     src/ui/widgets/QvAutoCompleteTextEdit.hpp
     src/ui/widgets/StreamSettingsWidget.hpp
     src/ui/widgets/RouteSettingsMatrix.hpp
+    src/ui/widgets/InboundSettingsWidget.hpp
+    src/ui/widgets/ConnectionSettingsWidget.hpp
     src/ui/w_ImportConfig.hpp
     src/ui/w_MainWindow.hpp
     src/ui/w_PreferencesWindow.hpp

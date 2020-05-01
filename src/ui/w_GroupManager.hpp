@@ -6,35 +6,36 @@
 #include "ui_w_GroupManager.h"
 
 #include <QDialog>
+#include <QMenu>
 
-class SubscriptionEditor
+class GroupManager
     : public QDialog
     , private Ui::w_GroupManager
 {
     Q_OBJECT
 
   public:
-    explicit SubscriptionEditor(QWidget *parent = nullptr);
-    ~SubscriptionEditor();
+    explicit GroupManager(QWidget *parent = nullptr);
+    ~GroupManager();
     tuple<QString, CONFIGROOT> GetSelectedConfig();
 
   private:
     QvMessageBusSlotDecl;
 
   private slots:
-    void on_addSubsButton_clicked();
+    void on_addGroupButton_clicked();
 
     void on_updateButton_clicked();
 
-    void on_removeSubsButton_clicked();
+    void on_removeGroupButton_clicked();
 
     void on_buttonBox_accepted();
 
     void on_groupList_itemSelectionChanged();
 
-    void on_groupList_itemClicked(QTreeWidgetItem *item, int column);
+    void on_groupList_itemClicked(QListWidgetItem *item);
 
-    void on_groupList_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous);
+    void on_groupList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
 
     void on_subNameTxt_textEdited(const QString &arg1);
 
@@ -44,7 +45,12 @@ class SubscriptionEditor
 
     void on_connectionsList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
 
+    void on_connectionsList_customContextMenuRequested(const QPoint &pos);
+
   private:
+    QMenu *connectionListRCMenu = new QMenu(this);
+    QMenu *connectionListRCMenu_CopyToMenu = new QMenu(tr("Copy to..."));
+    QMenu *connectionListRCMenu_MoveToMenu = new QMenu(tr("Move to..."));
     void UpdateColorScheme();
     bool isUpdateInProgress = false;
     GroupId currentSubId = NullGroupId;

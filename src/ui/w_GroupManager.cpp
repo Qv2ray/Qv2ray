@@ -4,106 +4,113 @@
 #include "core/handler/ConfigHandler.hpp"
 #include "core/settings/SettingsBackend.hpp"
 
-SubscriptionEditor::SubscriptionEditor(QWidget *parent) : QDialog(parent)
+GroupManager::GroupManager(QWidget *parent) : QDialog(parent)
 {
     setupUi(this);
-    QvMessageBusConnect(SubscriptionEditor);
+    QvMessageBusConnect(GroupManager);
     UpdateColorScheme();
-    for (auto subs : ConnectionManager->Subscriptions())
+    connectionListRCMenu->addMenu(connectionListRCMenu_CopyToMenu);
+    connectionListRCMenu->addMenu(connectionListRCMenu_MoveToMenu);
+    for (auto group : ConnectionManager->AllGroups())
     {
-        groupList->addTopLevelItem(new QTreeWidgetItem(QStringList{ GetDisplayName(subs), subs.toString() }));
+        auto item = new QListWidgetItem(GetDisplayName(group));
+        item->setData(Qt::UserRole, group.toString());
+        groupList->addItem(item);
     }
-    if (groupList->topLevelItemCount() > 0)
+    if (groupList->count() > 0)
     {
-        groupList->setCurrentItem(groupList->topLevelItem(0));
+        groupList->setCurrentItem(groupList->item(0));
     }
 }
 
-void SubscriptionEditor::UpdateColorScheme()
+void GroupManager::UpdateColorScheme()
 {
-    addSubsButton->setIcon(QICON_R("add.png"));
-    removeSubsButton->setIcon(QICON_R("delete.png"));
+    addGroupButton->setIcon(QICON_R("add.png"));
+    removeGroupButton->setIcon(QICON_R("delete.png"));
 }
 
-QvMessageBusSlotImpl(SubscriptionEditor)
+QvMessageBusSlotImpl(GroupManager)
 {
     switch (msg)
     {
-        MBShowDefaultImpl MBHideDefaultImpl MBRetranslateDefaultImpl MBUpdateColorSchemeDefaultImpl
+        MBShowDefaultImpl;
+        MBHideDefaultImpl;
+        MBRetranslateDefaultImpl;
+        MBUpdateColorSchemeDefaultImpl
     }
 }
 
-tuple<QString, CONFIGROOT> SubscriptionEditor::GetSelectedConfig()
+tuple<QString, CONFIGROOT> GroupManager::GetSelectedConfig()
 {
     return { GetDisplayName(currentConnectionId), ConnectionManager->GetConnectionRoot(currentConnectionId) };
 }
 
-SubscriptionEditor::~SubscriptionEditor()
+GroupManager::~GroupManager()
 {
 }
 
-void SubscriptionEditor::on_addSubsButton_clicked()
+void GroupManager::on_addGroupButton_clicked()
 {
     auto const key = QSTRN(QTime::currentTime().msecsSinceStartOfDay());
     auto id = ConnectionManager->CreateGroup(key, true);
     //
-    groupList->addTopLevelItem(new QTreeWidgetItem(QStringList{ key, id.toString() }));
+    auto item = new QListWidgetItem(key);
+    item->setData(Qt::UserRole, id.toString());
+    groupList->addItem(item);
 }
 
-void SubscriptionEditor::on_updateButton_clicked()
+void GroupManager::on_updateButton_clicked()
 {
     if (QvMessageBoxAsk(this, tr("Reload Subscription"), tr("Would you like to reload the subscription?")) == QMessageBox::Yes)
     {
         this->setEnabled(false);
         ConnectionManager->UpdateSubscription(currentSubId); //
         this->setEnabled(true);
-        on_groupList_itemClicked(groupList->currentItem(), 0);
+        on_groupList_itemClicked(groupList->currentItem());
     }
 }
 
-void SubscriptionEditor::on_removeSubsButton_clicked()
+void GroupManager::on_removeGroupButton_clicked()
 {
     if (QvMessageBoxAsk(this, tr("Deleting a subscription"), tr("All connections will be moved to default group, do you want to continue?")) ==
         QMessageBox::Yes)
     {
         ConnectionManager->DeleteGroup(currentSubId); //
         auto item = groupList->currentItem();
-        groupList->removeItemWidget(item, 0);
+        groupList->removeItemWidget(item);
         delete item;
-        if (groupList->topLevelItemCount() > 0)
+        if (groupList->count() > 0)
         {
-            groupList->setCurrentItem(groupList->topLevelItem(0));
-            on_groupList_itemClicked(groupList->topLevelItem(0), 0);
+            groupList->setCurrentItem(groupList->item(0));
+            on_groupList_itemClicked(groupList->item(0));
         }
         else
         {
-            groupBox_2->setEnabled(false);
+            groupInfoGroupBox->setEnabled(false);
         }
     }
 }
 
-void SubscriptionEditor::on_buttonBox_accepted()
+void GroupManager::on_buttonBox_accepted()
 {
     // Nothing?
 }
 
-void SubscriptionEditor::on_groupList_itemSelectionChanged()
+void GroupManager::on_groupList_itemSelectionChanged()
 {
-    groupBox_2->setEnabled(groupList->selectedItems().count() > 0);
+    groupInfoGroupBox->setEnabled(groupList->selectedItems().count() > 0);
 }
 
-void SubscriptionEditor::on_groupList_itemClicked(QTreeWidgetItem *item, int column)
+void GroupManager::on_groupList_itemClicked(QListWidgetItem *item)
 {
-    Q_UNUSED(column)
 
     if (item == nullptr)
     {
         return;
     }
 
-    //
-    groupBox_2->setEnabled(true);
-    currentSubId = GroupId(item->text(1));
+    groupInfoGroupBox->setEnabled(true);
+    currentSubId = GroupId(item->data(Qt::UserRole).toString());
     //
     groupNameTxt->setText(GetDisplayName(currentSubId));
     auto const [addr, lastUpdated, updateInterval] = ConnectionManager->GetSubscriptionData(currentSubId);
@@ -119,35 +126,41 @@ void SubscriptionEditor::on_groupList_itemClicked(QTreeWidgetItem *item, int col
     }
 }
 
-void SubscriptionEditor::on_groupList_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous)
+void GroupManager::on_groupList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
 {
     Q_UNUSED(previous)
-    on_groupList_itemClicked(current, 0);
+    on_groupList_itemClicked(current);
 }
 
-void SubscriptionEditor::on_subNameTxt_textEdited(const QString &arg1)
+void GroupManager::on_subNameTxt_textEdited(const QString &arg1)
 {
-    groupList->selectedItems().first()->setText(0, arg1);
+    groupList->selectedItems().first()->setText(arg1);
     ConnectionManager->RenameGroup(currentSubId, arg1.trimmed());
 }
 
-void SubscriptionEditor::on_subAddrTxt_textEdited(const QString &arg1)
+void GroupManager::on_subAddrTxt_textEdited(const QString &arg1)
 {
     auto newUpdateInterval = updateIntervalSB->value();
     ConnectionManager->SetSubscriptionData(currentSubId, arg1, newUpdateInterval);
 }
 
-void SubscriptionEditor::on_updateIntervalSB_valueChanged(double arg1)
+void GroupManager::on_updateIntervalSB_valueChanged(double arg1)
 {
     auto newAddress = subAddrTxt->text().trimmed();
     ConnectionManager->SetSubscriptionData(currentSubId, newAddress, arg1);
 }
 
-void SubscriptionEditor::on_connectionsList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
+void GroupManager::on_connectionsList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
 {
     Q_UNUSED(previous)
     if (current != nullptr)
     {
         currentConnectionId = ConnectionManager->GetConnectionIdByDisplayName(current->text(), currentSubId);
     }
+}
+
+void GroupManager::on_connectionsList_customContextMenuRequested(const QPoint &pos)
+{
+    Q_UNUSED(pos)
+    connectionListRCMenu->popup(QCursor::pos());
 }
