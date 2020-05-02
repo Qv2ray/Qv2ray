@@ -98,7 +98,7 @@ namespace Qv2ray::core::handlers
         // const optional<QString> DuplicateGroup(const GroupId &id);
         //
         // Subscriptions
-        bool SetSubscriptionData(const GroupId &id, const QString &address = "", float updateInterval = -1);
+        bool SetSubscriptionData(const GroupId &id, bool isSubscription, const QString &address = "", float updateInterval = -1);
         bool UpdateSubscription(const GroupId &id);
         // bool UpdateSubscriptionASync(const GroupId &id, bool useSystemProxy);
         const tuple<QString, int64_t, float> GetSubscriptionData(const GroupId &id) const;

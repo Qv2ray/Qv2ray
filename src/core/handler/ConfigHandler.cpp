@@ -446,13 +446,14 @@ namespace Qv2ray::core::handlers
         return { groups[id].address, groups[id].lastUpdated, groups[id].updateInterval };
     }
 
-    bool QvConfigHandler::SetSubscriptionData(const GroupId &id, const QString &address, float updateInterval)
+    bool QvConfigHandler::SetSubscriptionData(const GroupId &id, bool isSubscription, const QString &address, float updateInterval)
     {
         CheckGroupExistanceEx(id, false);
         if (!groups.contains(id))
         {
             return false;
         }
+        groups[id].isSubscription = isSubscription;
         if (!address.isEmpty())
         {
             groups[id].address = address;
@@ -618,3 +619,9 @@ namespace Qv2ray::core::handlers
     }
 
 } // namespace Qv2ray::core::handlers
+
+#undef CheckIdExistance
+#undef CheckGroupExistanceEx
+#undef CheckGroupExistance
+#undef CheckConnectionExistanceEx
+#undef CheckConnectionExistance

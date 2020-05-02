@@ -12,7 +12,7 @@ namespace Qv2ray::common
 {
     const QString GenerateRandomString(int len)
     {
-        const QString possibleCharacters("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789");
+        const QString possibleCharacters("abcdefghijklmnopqrstuvwxyz");
         QString randomString;
 
         for (int i = 0; i < len; ++i)
@@ -41,18 +41,14 @@ namespace Qv2ray::common
         if (!wasOpened)
             source.close();
         //
-        QTextCodec::ConverterState state;
         QTextCodec *codec = QTextCodec::codecForName("UTF-8");
+        QTextCodec::ConverterState state;
         const QString text = codec->toUnicode(byteArray.constData(), byteArray.size(), &state);
         if (state.invalidChars > 0)
         {
             LOG(MODULE_FILEIO, "Not a valid UTF-8 sequence: " + source.fileName())
-            return byteArray;
         }
-        else
-        {
-            return text;
-        }
+        return state.invalidChars > 0 ? byteArray : text;
     }
 
     bool StringToFile(const QString &text, const QString &targetpath)
