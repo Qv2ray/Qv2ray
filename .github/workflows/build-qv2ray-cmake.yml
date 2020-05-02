@@ -142,8 +142,8 @@ jobs:
         if: matrix.platform == 'ubuntu-16.04'
         shell: bash
         env:
-          CC: /usr/bin/gcc-9
-          CXX: /usr/bin/g++-9
+          CC: /usr/bin/gcc-7
+          CXX: /usr/bin/g++-7
         run: |
           mkdir build
           cd build
