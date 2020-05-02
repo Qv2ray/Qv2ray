@@ -177,23 +177,11 @@
           </item>
           <item>
            <widget class="QPushButton" name="importConfigButton">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
             <property name="toolTip">
              <string>Import Connection</string>
             </property>
             <property name="text">
              <string>Add Connection</string>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>22</width>
-              <height>22</height>
-             </size>
             </property>
            </widget>
           </item>
