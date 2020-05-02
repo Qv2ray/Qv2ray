@@ -15,7 +15,7 @@ Categories=Network;Qt;
 Terminal=false
 Icon=qv2ray
 Exec=qv2ray
-Actions=debug;noPlugin;noAPI;withToolbarPlugin;
+Actions=debug;noPlugin;noScaleFactor;noAPI;withToolbarPlugin;
 
 [Desktop Action debug]
 Name=Start with Debug Mode
