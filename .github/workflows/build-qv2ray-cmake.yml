@@ -85,6 +85,7 @@ jobs:
         if: matrix.platform == 'ubuntu-18.04'
         run: |
           sudo add-apt-repository ppa:webispy/grpc
+          sudo add-apt-repository ppa:carsten-uppenbrink-net/openssl
           sudo apt update
           sudo apt install -y libgl-dev libx11-dev libxkbcommon-x11-dev libssl-dev libprotobuf-dev protobuf-compiler protobuf-c-compiler libgrpc++-dev protobuf-compiler-grpc tree ninja-build
 # --------------------------------------------------------
