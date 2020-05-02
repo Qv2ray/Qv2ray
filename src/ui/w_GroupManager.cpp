@@ -5,7 +5,15 @@
 #include "core/settings/SettingsBackend.hpp"
 
 #include <QListWidgetItem>
-
+#define GET_DATA(type, typeConv)                                                                                                                \
+    [&](const QList<QListWidgetItem *> list) {                                                                                                  \
+        QList<type> _list;                                                                                                                      \
+        for (const auto &item : list)                                                                                                           \
+        {                                                                                                                                       \
+            _list.push_back(item->data(Qt::UserRole).to##typeConv());                                                                           \
+        }                                                                                                                                       \
+        return _list;                                                                                                                           \
+    }
 GroupManager::GroupManager(QWidget *parent) : QDialog(parent)
 {
     setupUi(this);
@@ -75,28 +83,23 @@ void GroupManager::onRCMActionTriggered_Copy()
     const auto _sender = qobject_cast<QAction *>(sender());
     const GroupId groupId{ _sender->data().toString() };
     //
-    const auto &connectionList = connectionsList->selectedItems();
-    for (const auto &connItem : connectionList)
+    const auto list = GET_DATA(QString, String)(connectionsList->selectedItems());
+    for (const auto &connId : list)
     {
-        const auto &connectionId = ConnectionId(connItem->data(Qt::UserRole).toString());
+        const auto &connectionId = ConnectionId(connId);
         ConnectionManager->CreateConnection(GetDisplayName(connectionId), groupId, ConnectionManager->GetConnectionRoot(connectionId), true);
     }
 }
+
 void GroupManager::onRCMActionTriggered_Move()
 {
     const auto _sender = qobject_cast<QAction *>(sender());
     const GroupId groupId{ _sender->data().toString() };
     //
-    const auto &connectionList = connectionsList->selectedItems();
-    for (const auto &connItem : connectionList)
+    const auto list = GET_DATA(QString, String)(connectionsList->selectedItems());
+    for (const auto &connId : list)
     {
-        if (!connItem)
-        {
-            LOG(MODULE_UI, "Invalid?")
-            continue;
-        }
-        const auto &id = connItem->data(Qt::UserRole);
-        ConnectionManager->MoveConnectionGroup(ConnectionId(id.toString()), groupId);
+        ConnectionManager->MoveConnectionGroup(ConnectionId(connId), groupId);
     }
 }
 
@@ -237,3 +240,4 @@ void GroupManager::on_connectionsList_customContextMenuRequested(const QPoint &p
     Q_UNUSED(pos)
     connectionListRCMenu->popup(QCursor::pos());
 }
+#undef GET_DATA
