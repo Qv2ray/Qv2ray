@@ -24,7 +24,7 @@ jobs:
     strategy:
       matrix:
         qt_version: [5.14.2]
-        platform: [ubuntu-18.04, macos-latest, windows-latest]
+        platform: [ubuntu-16.04, macos-latest, windows-latest]
         arch: [x86, x64]
         include: 
           - platform: windows-latest
@@ -34,7 +34,7 @@ jobs:
             arch: x64
             qtarch: win64_msvc2017_64
         exclude:
-          - platform: ubuntu-18.04
+          - platform: ubuntu-16.04
             arch: x86
           - platform: macos-latest
             arch: x86
@@ -82,7 +82,7 @@ jobs:
           cached: ${{ steps.cache-qt.outputs.cache-hit }}
 # =========================================================================================================
       - name: Linux - ${{ matrix.qt_version }} - Build preparation - Install Packages 
-        if: matrix.platform == 'ubuntu-18.04'
+        if: matrix.platform == 'ubuntu-16.04'
         run: |
           sudo add-apt-repository ppa:webispy/grpc
           sudo add-apt-repository ppa:carsten-uppenbrink-net/openssl
@@ -139,8 +139,11 @@ jobs:
           cmake --install .
 # --------------------------------------------------------
       - name: Linux - ${{ matrix.qt_version }} - Generate Dependencies and Build
-        if: matrix.platform == 'ubuntu-18.04'
+        if: matrix.platform == 'ubuntu-16.04'
         shell: bash
+        env:
+          CC: /usr/bin/gcc-7
+          CXX: /usr/bin/g++-7
         run: |
           mkdir build
           cd build
@@ -149,11 +152,12 @@ jobs:
           cmake --install .
 # ========================================================================================================= Deployments
       - name: Linux - ${{ matrix.qt_version }} - Generating AppImage
-        if: matrix.platform == 'ubuntu-18.04'
+        if: matrix.platform == 'ubuntu-16.04'
         run: | 
           cd build
           wget https://github.com/probonopd/linuxdeployqt/releases/download/6/linuxdeployqt-6-x86_64.AppImage
           chmod +x ./linuxdeployqt-6-x86_64.AppImage
+          ./linuxdeployqt-6-x86_64.AppImage --appimage-extract
           cd AppDir
           wget -c https://github.com/darealshinji/AppImageKit-checkrt/releases/download/continuous/AppRun-patched-x86_64 -O AppRun
           chmod a+x AppRun
@@ -165,17 +169,17 @@ jobs:
           cp -fv /lib/x86_64-linux-gnu/libgcc_s.so.1 ./usr/optional/libgcc_s/
           cp -fv /usr/lib/x86_64-linux-gnu/{libssl.so.1.1,libcrypto.so.1.1} ./usr/lib/
           cd ..
-          ./linuxdeployqt-6-x86_64.AppImage AppDir/usr/share/applications/qv2ray.desktop -appimage -no-strip -always-overwrite -unsupported-allow-new-glibc
+          squashfs-root/AppRun AppDir/usr/share/applications/qv2ray.desktop -appimage -no-strip -always-overwrite
           mv ./Qv2ray*.AppImage ./Qv2ray.AppImage
       - name: Linux - ${{ matrix.qt_version }} - Uploading artifact
-        if: matrix.platform == 'ubuntu-18.04'
+        if: matrix.platform == 'ubuntu-16.04'
         uses: actions/upload-artifact@master
         with:
           name: Qv2ray-${{ github.sha }}.linux-${{ matrix.arch }}.qt${{ matrix.qt_version }}.AppImage
           path: build/Qv2ray.AppImage
       - name: Linux - ${{ matrix.qt_version }} - Upload binaries to release
         uses: svenstaro/upload-release-action@v1-release
-        if: github.event_name == 'release' && matrix.platform == 'ubuntu-18.04' && matrix.qt_version == '5.14.2'
+        if: github.event_name == 'release' && matrix.platform == 'ubuntu-16.04' && matrix.qt_version == '5.14.2'
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: build/Qv2ray.AppImage
