@@ -1,5 +1,5 @@
 name: qv2ray
-base: core18
+base: core20
 adopt-info: qv2ray
 icon: assets/icons/qv2ray.png
 
