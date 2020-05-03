@@ -2394,7 +2394,7 @@ But could damage your server if improperly used.</source>
     </message>
     <message>
         <source>Curtom Proxy</source>
-        <translation>カスタムプロキシ</translation>
+        <translation type="vanished">カスタムプロキシ</translation>
     </message>
     <message>
         <source>Network Options</source>
@@ -2443,6 +2443,12 @@ But could damage your server if improperly used.</source>
     <message>
         <source>tproxy inbound&apos;s sniffing is enabled by default.</source>
         <translation>tProxyインバウンドのスニッフィングはデフォルトで有効になっています。</translation>
+    </message>
+    <message>
+        <source>These settings are for Qv2ray itself.
+For example, for updating subscriptions.</source>
+        <translation>これらの設定はQv2ray自体のためのものです。
+例えば、サブスクリプションの更新などです。</translation>
     </message>
 </context>
 <context>

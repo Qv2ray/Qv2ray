@@ -2024,7 +2024,7 @@ But could damage your server if improperly used.</source>
     </message>
     <message>
         <source>Curtom Proxy</source>
-        <translation>自定义代理</translation>
+        <translation type="vanished">自定义代理</translation>
     </message>
     <message>
         <source>Network Options</source>
@@ -2073,6 +2073,12 @@ But could damage your server if improperly used.</source>
     <message>
         <source>tproxy inbound&apos;s sniffing is enabled by default.</source>
         <translation>tProxy 入站的嗅探选项默认开启。</translation>
+    </message>
+    <message>
+        <source>These settings are for Qv2ray itself.
+For example, for updating subscriptions.</source>
+        <translation>这些设定是针对 Qv2ray 本身的。
+例如，用在更新订阅时。</translation>
     </message>
 </context>
 <context>
