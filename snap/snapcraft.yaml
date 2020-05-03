@@ -73,6 +73,7 @@ parts:
       - -DCMAKE_INSTALL_PREFIX=/usr
       - -DCMAKE_BUILD_TYPE=Release
       - -DEMBED_TRANSLATIONS=ON
+      - -DFALL_BACK_TO_XDG_OPEN=ON
     override-pull: |
       snapcraftctl pull
       build_number=$(cat makespec/BUILDVERSION)

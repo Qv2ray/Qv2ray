@@ -145,6 +145,10 @@ if(QV2RAY_DISABLE_AUTO_UPDATE)
     add_definitions(-DDISABLE_AUTO_UPDATE)
 endif()
 
+if(FALL_BACK_TO_XDG_OPEN)
+    add_definitions(-DFALL_BACK_TO_XDG_OPEN)
+endif()
+
 set(QVPLUGIN_INTERFACE_INCLUDE_DIR "src/components/plugins/interface")
 include(src/components/plugins/interface/QvPluginInterface.cmake)
 
