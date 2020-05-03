@@ -114,7 +114,3 @@ parts:
     plugin: nil
     stage-packages:
       - qt5-gtk-platformtheme
-
-package-repositories:
-  - type: apt
-    ppa: ymshenyu/qv2ray-deps
