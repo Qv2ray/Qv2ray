@@ -112,7 +112,7 @@ namespace Qv2ray::common
     }
 
     // backported from QvPlugin-SSR.
-    QString SafeBase64Encode(QString string) {
+    QString SafeBase64Decode(QString string) {
         QByteArray ba = string.replace(QChar('-'), QChar('+')).replace(QChar('_'), QChar('/')).toUtf8();
         return QByteArray::fromBase64(ba, QByteArray::Base64Option::OmitTrailingEquals);
     }
