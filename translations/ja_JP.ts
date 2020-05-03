@@ -151,6 +151,13 @@
     </message>
 </context>
 <context>
+    <name>ConnectionSettingsWidget</name>
+    <message>
+        <source>Form</source>
+        <translation>Form</translation>
+    </message>
+</context>
+<context>
     <name>ConnectionWidget</name>
     <message>
         <source>Form</source>
@@ -217,6 +224,45 @@
     <message>
         <source>Flow Scene Files (*.flow)</source>
         <translation type="vanished">フローシーンファイル (*.flow)</translation>
+    </message>
+</context>
+<context>
+    <name>GroupManager</name>
+    <message>
+        <source>Connection Management</source>
+        <translation>項目管理</translation>
+    </message>
+    <message>
+        <source>Reload Subscription</source>
+        <translation>サブスクリプションを更新</translation>
+    </message>
+    <message>
+        <source>Would you like to reload the subscription?</source>
+        <translation>サブスクリプションを更新しますか？</translation>
+    </message>
+    <message>
+        <source>Deleting a subscription</source>
+        <translation>サブスクリプションを削除する</translation>
+    </message>
+    <message>
+        <source>All connections will be moved to default group, do you want to continue?</source>
+        <translation>すべての項目がデフォルトグループに移動します。続行しますか？</translation>
+    </message>
+    <message>
+        <source>Export Connection(s)</source>
+        <translation>項目をエクスポート</translation>
+    </message>
+    <message>
+        <source>Delete Connection(s)</source>
+        <translation>項目を削除</translation>
+    </message>
+    <message>
+        <source>Copy to...</source>
+        <translation>コピーして...</translation>
+    </message>
+    <message>
+        <source>Move to...</source>
+        <translation>移動して...</translation>
     </message>
 </context>
 <context>
@@ -646,6 +692,13 @@
     </message>
 </context>
 <context>
+    <name>InboundSettingsWidget</name>
+    <message>
+        <source>Form</source>
+        <translation>Form</translation>
+    </message>
+</context>
+<context>
     <name>JsonEditor</name>
     <message>
         <source>Dialog</source>
@@ -792,7 +845,7 @@
     </message>
     <message>
         <source>Add</source>
-        <translation>追加</translation>
+        <translation type="vanished">追加</translation>
     </message>
     <message>
         <source>Preferences</source>
@@ -1313,6 +1366,10 @@
     <message>
         <source>Groups</source>
         <translation>グループ</translation>
+    </message>
+    <message>
+        <source>Add Connection</source>
+        <translation>項目を作成</translation>
     </message>
 </context>
 <context>
@@ -2536,11 +2593,11 @@ But could damage your server if improperly used.</source>
     </message>
     <message>
         <source>Not connected</source>
-        <translation>接続されていません</translation>
+        <translation type="vanished">接続されていません</translation>
     </message>
     <message>
         <source>Connected</source>
-        <translation>接続済み</translation>
+        <translation type="vanished">接続済み</translation>
     </message>
     <message>
         <source>Disconnected</source>
@@ -3775,19 +3832,19 @@ Maybe you have downloaded the wrong core?</source>
     <name>SubscriptionEditor</name>
     <message>
         <source>Reload Subscription</source>
-        <translation>サブスクリプションを更新</translation>
+        <translation type="vanished">サブスクリプションを更新</translation>
     </message>
     <message>
         <source>Would you like to reload the subscription?</source>
-        <translation>サブスクリプションを更新しますか？</translation>
+        <translation type="vanished">サブスクリプションを更新しますか？</translation>
     </message>
     <message>
         <source>Deleting a subscription</source>
-        <translation>サブスクリプションを削除する</translation>
+        <translation type="vanished">サブスクリプションを削除する</translation>
     </message>
     <message>
         <source>All connections will be moved to default group, do you want to continue?</source>
-        <translation>すべての項目がデフォルトグループに移動します。続行しますか？</translation>
+        <translation type="vanished">すべての項目がデフォルトグループに移動します。続行しますか？</translation>
     </message>
 </context>
 <context>
@@ -3853,7 +3910,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Group Details</source>
-        <translation>詳細</translation>
+        <translation type="vanished">詳細</translation>
     </message>
     <message>
         <source>Group Name</source>
@@ -3877,11 +3934,47 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Connection List</source>
-        <translation>項目リスト</translation>
+        <translation type="vanished">項目リスト</translation>
     </message>
     <message>
         <source>Update Subscription Data</source>
         <translation>サブスクリプションデータの更新</translation>
+    </message>
+    <message>
+        <source>Group Info</source>
+        <translation>グループ情報</translation>
+    </message>
+    <message>
+        <source>Created At</source>
+        <translation>作成日</translation>
+    </message>
+    <message>
+        <source>Connections</source>
+        <translation>項目</translation>
+    </message>
+    <message>
+        <source>Delete Selection</source>
+        <translation>選択したものを削除</translation>
+    </message>
+    <message>
+        <source>Export Selection</source>
+        <translation>選択したものをエクスポート</translation>
+    </message>
+    <message>
+        <source>Subscription Settings</source>
+        <translation>サブスクリプション設定</translation>
+    </message>
+    <message>
+        <source>This group is a subscription</source>
+        <translation>このグループはサブスクリプションです。</translation>
+    </message>
+    <message>
+        <source>Connection Settings</source>
+        <translation>接続設定</translation>
+    </message>
+    <message>
+        <source>Route Settings</source>
+        <translation>ルート設定</translation>
     </message>
 </context>
 <context>

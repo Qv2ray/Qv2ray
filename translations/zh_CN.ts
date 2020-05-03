@@ -123,6 +123,13 @@
     </message>
 </context>
 <context>
+    <name>ConnectionSettingsWidget</name>
+    <message>
+        <source>Form</source>
+        <translation>窗体</translation>
+    </message>
+</context>
+<context>
     <name>ConnectionWidget</name>
     <message>
         <source>Form</source>
@@ -147,6 +154,45 @@
     <message>
         <source>OK</source>
         <translation>好</translation>
+    </message>
+</context>
+<context>
+    <name>GroupManager</name>
+    <message>
+        <source>Connection Management</source>
+        <translation>连接管理</translation>
+    </message>
+    <message>
+        <source>Reload Subscription</source>
+        <translation>更新订阅</translation>
+    </message>
+    <message>
+        <source>Would you like to reload the subscription?</source>
+        <translation>您要更新此订阅吗？</translation>
+    </message>
+    <message>
+        <source>Deleting a subscription</source>
+        <translation>删除订阅</translation>
+    </message>
+    <message>
+        <source>All connections will be moved to default group, do you want to continue?</source>
+        <translation>本订阅中的所有连接都将移动到默认分组，您确定要继续吗？</translation>
+    </message>
+    <message>
+        <source>Export Connection(s)</source>
+        <translation>导出连接</translation>
+    </message>
+    <message>
+        <source>Delete Connection(s)</source>
+        <translation>删除连接</translation>
+    </message>
+    <message>
+        <source>Copy to...</source>
+        <translation>复制到...</translation>
+    </message>
+    <message>
+        <source>Move to...</source>
+        <translation>移动到...</translation>
     </message>
 </context>
 <context>
@@ -556,6 +602,13 @@
     </message>
 </context>
 <context>
+    <name>InboundSettingsWidget</name>
+    <message>
+        <source>Form</source>
+        <translation>窗体</translation>
+    </message>
+</context>
+<context>
     <name>JsonEditor</name>
     <message>
         <source>OK</source>
@@ -618,7 +671,7 @@
     </message>
     <message>
         <source>Add</source>
-        <translation>添加</translation>
+        <translation type="vanished">添加</translation>
     </message>
     <message>
         <source>Preferences</source>
@@ -951,6 +1004,10 @@
     <message>
         <source>Groups</source>
         <translation>分组</translation>
+    </message>
+    <message>
+        <source>Add Connection</source>
+        <translation>添加连接</translation>
     </message>
 </context>
 <context>
@@ -2270,11 +2327,11 @@ But could damage your server if improperly used.</source>
     </message>
     <message>
         <source>Not connected</source>
-        <translation>未连接</translation>
+        <translation type="vanished">未连接</translation>
     </message>
     <message>
         <source>Connected</source>
-        <translation>已连接</translation>
+        <translation type="vanished">已连接</translation>
     </message>
     <message>
         <source>Custom Text</source>
@@ -3317,19 +3374,19 @@ Maybe you have downloaded the wrong core?</source>
     <name>SubscriptionEditor</name>
     <message>
         <source>Reload Subscription</source>
-        <translation>更新订阅</translation>
+        <translation type="vanished">更新订阅</translation>
     </message>
     <message>
         <source>Would you like to reload the subscription?</source>
-        <translation>您要更新此订阅吗？</translation>
+        <translation type="vanished">您要更新此订阅吗？</translation>
     </message>
     <message>
         <source>Deleting a subscription</source>
-        <translation>删除订阅</translation>
+        <translation type="vanished">删除订阅</translation>
     </message>
     <message>
         <source>All connections will be moved to default group, do you want to continue?</source>
-        <translation>本订阅中的所有连接都将移动到默认分组，您确定要继续吗？</translation>
+        <translation type="vanished">本订阅中的所有连接都将移动到默认分组，您确定要继续吗？</translation>
     </message>
 </context>
 <context>
@@ -3395,7 +3452,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Group Details</source>
-        <translation>分组细节</translation>
+        <translation type="vanished">分组细节</translation>
     </message>
     <message>
         <source>Group Name</source>
@@ -3419,11 +3476,47 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>Connection List</source>
-        <translation>连接列表</translation>
+        <translation type="vanished">连接列表</translation>
     </message>
     <message>
         <source>Update Subscription Data</source>
         <translation>更新订阅数据</translation>
+    </message>
+    <message>
+        <source>Group Info</source>
+        <translation>分组信息</translation>
+    </message>
+    <message>
+        <source>Created At</source>
+        <translation>创建于</translation>
+    </message>
+    <message>
+        <source>Connections</source>
+        <translation>连接</translation>
+    </message>
+    <message>
+        <source>Delete Selection</source>
+        <translation>删除所选项</translation>
+    </message>
+    <message>
+        <source>Export Selection</source>
+        <translation>导出所选项</translation>
+    </message>
+    <message>
+        <source>Subscription Settings</source>
+        <translation>订阅设置</translation>
+    </message>
+    <message>
+        <source>This group is a subscription</source>
+        <translation>此分组是是一个订阅</translation>
+    </message>
+    <message>
+        <source>Connection Settings</source>
+        <translation>连接设置</translation>
+    </message>
+    <message>
+        <source>Route Settings</source>
+        <translation>路由设定</translation>
     </message>
 </context>
 <context>
