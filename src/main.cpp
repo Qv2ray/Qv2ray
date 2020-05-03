@@ -136,7 +136,7 @@ bool initialiseQv2ray()
             return false;
         }
 
-        Qv2rayConfig conf;
+        Qv2rayConfigObject conf;
         conf.kernelConfig.KernelPath(QString(QV2RAY_DEFAULT_VCORE_PATH));
         conf.kernelConfig.AssetsPath(QString(QV2RAY_DEFAULT_VASSETS_PATH));
         conf.logLevel = 3;
@@ -312,7 +312,7 @@ int main(int argc, char *argv[])
     }
 
     // Load config object from upgraded config QJsonObject
-    auto confObject = Qv2rayConfig::fromJson(conf);
+    auto confObject = Qv2rayConfigObject::fromJson(conf);
 
     if (confObject.uiConfig.language.isEmpty())
     {

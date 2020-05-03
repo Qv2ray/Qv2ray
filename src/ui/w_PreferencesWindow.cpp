@@ -155,17 +155,17 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     qvNetworkUATxt->setText(CurrentConfig.networkConfig.userAgent);
     switch (CurrentConfig.networkConfig.proxyType)
     {
-        case Qv2rayNetworkConfig::QVPROXY_NONE:
+        case Qv2rayConfig_Network::QVPROXY_NONE:
         {
             qvProxyNoProxy->setChecked(true);
             break;
         }
-        case Qv2rayNetworkConfig::QVPROXY_SYSTEM:
+        case Qv2rayConfig_Network::QVPROXY_SYSTEM:
         {
             qvProxySystemProxy->setChecked(true);
             break;
         }
-        case Qv2rayNetworkConfig::QVPROXY_CUSTOM:
+        case Qv2rayConfig_Network::QVPROXY_CUSTOM:
         {
             qvProxyCustomProxy->setChecked(true);
             break;
@@ -1300,17 +1300,17 @@ void PreferencesWindow::on_dnsIntercept_toggled(bool checked)
 
 void PreferencesWindow::on_qvProxyCustomProxy_clicked()
 {
-    CurrentConfig.networkConfig.proxyType = Qv2rayNetworkConfig::QVPROXY_CUSTOM;
+    CurrentConfig.networkConfig.proxyType = Qv2rayConfig_Network::QVPROXY_CUSTOM;
 }
 
 void PreferencesWindow::on_qvProxySystemProxy_clicked()
 {
-    CurrentConfig.networkConfig.proxyType = Qv2rayNetworkConfig::QVPROXY_SYSTEM;
+    CurrentConfig.networkConfig.proxyType = Qv2rayConfig_Network::QVPROXY_SYSTEM;
 }
 
 void PreferencesWindow::on_qvProxyNoProxy_clicked()
 {
-    CurrentConfig.networkConfig.proxyType = Qv2rayNetworkConfig::QVPROXY_NONE;
+    CurrentConfig.networkConfig.proxyType = Qv2rayConfig_Network::QVPROXY_NONE;
 }
 
 void PreferencesWindow::on_DnsFreedomCb_stateChanged(int arg1)

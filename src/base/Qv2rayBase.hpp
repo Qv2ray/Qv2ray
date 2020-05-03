@@ -118,7 +118,7 @@ namespace Qv2ray
     // Qv2ray runtime config
     inline bool isExiting = false;
     inline QString Qv2rayConfigPath = "";
-    inline base::config::Qv2rayConfig GlobalConfig = base::config::Qv2rayConfig();
+    inline base::config::Qv2rayConfigObject GlobalConfig = base::config::Qv2rayConfigObject();
     //
     inline void ExitQv2ray()
     {

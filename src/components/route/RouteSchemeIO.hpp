@@ -2,12 +2,12 @@
 #include "base/models/QvSettingsObject.hpp"
 namespace Qv2ray::components::route
 {
-    const inline Qv2ray::base::config::Qv2rayRouteConfig emptyScheme;
+    const inline Qv2ray::base::config::Qv2rayConfig_Routing emptyScheme;
     /**
      * @brief The Qv2rayRouteScheme struct
      * @author DuckSoft <realducksoft@gmail.com>
      */
-    struct Qv2rayRouteScheme : config::Qv2rayRouteConfig
+    struct Qv2rayRouteScheme : config::Qv2rayConfig_Routing
     {
         /**
          * @brief the name of the scheme.

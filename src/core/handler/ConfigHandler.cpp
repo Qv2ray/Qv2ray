@@ -12,65 +12,65 @@ namespace Qv2ray::core::handlers
     {
         DEBUG(MODULE_CORE_HANDLER, "ConnectionHandler Constructor.")
 
-        // Do we need to check how many of them are loaded?
-        // Do not use: for (const auto &key : connections), why?
-        for (auto i = 0; i < GlobalConfig.connections.count(); i++)
-        {
-            auto const &id = ConnectionId(GlobalConfig.connections.keys().at(i));
-            connections[id] = GlobalConfig.connections.values().at(i);
-        }
-
-        for (const auto &key : GlobalConfig.subscriptions.keys())
-        {
-            GroupId gkey(key);
-            if (gkey == NullGroupId)
-            {
-                LOG(MODULE_CORE_HANDLER, "Removed a null subscription id")
-                continue;
-            }
-            auto const &val = GlobalConfig.subscriptions[key];
-            groups[gkey] = val;
-
-            for (auto conn : val.connections)
-            {
-                connections[ConnectionId(conn)].groupId = GroupId(key);
-            }
-        }
-
-        for (const auto &key : GlobalConfig.groups.keys())
-        {
-            GroupId gkey(key);
-            if (gkey == NullGroupId)
-            {
-                LOG(MODULE_CORE_HANDLER, "Removed a null group id")
-                continue;
-            }
-            auto const &val = GlobalConfig.groups.value(key);
-            groups[gkey] = val;
-
-            for (auto conn : val.connections)
-            {
-                connections[ConnectionId(conn)].groupId = GroupId(key);
-            }
-        }
-
-        for (const auto &id : connections.keys())
-        {
-            DEBUG(MODULE_CORE_HANDLER, "Loading connection: " + connections.value(id).displayName + " to cache.")
-            auto const &group = connections.value(id).groupId;
-            if (group != NullGroupId)
-            {
-                auto path = group.toString() + "/" + id.toString() + QV2RAY_CONFIG_FILE_EXTENSION;
-                path.prepend(groups[group].isSubscription ? QV2RAY_SUBSCRIPTION_DIR : QV2RAY_CONNECTIONS_DIR);
-                //
-                connectionRootCache[id] = CONFIGROOT(JsonFromString(StringFromFile(path)));
-            }
-            else
-            {
-                connections.remove(id);
-                LOG(MODULE_CORE_HANDLER, "Dropped connection id: " + id.toString() + " since it's not in a group")
-            }
-        }
+        // // Do we need to check how many of them are loaded?
+        // // Do not use: for (const auto &key : connections), why?
+        // for (auto i = 0; i < GlobalConfig.connectionConfig.count(); i++)
+        // {
+        //     auto const &id = ConnectionId(GlobalConfig.connections.keys().at(i));
+        //     connections[id] = GlobalConfig.connections.values().at(i);
+        // }
+        //
+        // for (const auto &key : GlobalConfig.subscriptions.keys())
+        // {
+        //     GroupId gkey(key);
+        //     if (gkey == NullGroupId)
+        //     {
+        //         LOG(MODULE_CORE_HANDLER, "Removed a null subscription id")
+        //         continue;
+        //     }
+        //     auto const &val = GlobalConfig.subscriptions[key];
+        //     groups[gkey] = val;
+        //
+        //     for (auto conn : val.connections)
+        //     {
+        //         connections[ConnectionId(conn)].groupId = GroupId(key);
+        //     }
+        // }
+        //
+        // for (const auto &key : GlobalConfig.groups )
+        // {
+        //     GroupId gkey(key);
+        //     if (gkey == NullGroupId)
+        //     {
+        //         LOG(MODULE_CORE_HANDLER, "Removed a null group id")
+        //         continue;
+        //     }
+        //     auto const &val = GlobalConfig.groups.value(key);
+        //     groups[gkey] = val;
+        //
+        //     for (auto conn : val.connections)
+        //     {
+        //         connections[ConnectionId(conn)].groupId = GroupId(key);
+        //     }
+        // }
+        //
+        // for (const auto &id : connections.keys())
+        // {
+        //     DEBUG(MODULE_CORE_HANDLER, "Loading connection: " + connections.value(id).displayName + " to cache.")
+        //     auto const &group = connections.value(id).groupId;
+        //     if (group != NullGroupId)
+        //     {
+        //         auto path = group.toString() + "/" + id.toString() + QV2RAY_CONFIG_FILE_EXTENSION;
+        //         path.prepend(groups[group].isSubscription ? QV2RAY_SUBSCRIPTION_DIR : QV2RAY_CONNECTIONS_DIR);
+        //         //
+        //         connectionRootCache[id] = CONFIGROOT(JsonFromString(StringFromFile(path)));
+        //     }
+        //     else
+        //     {
+        //         connections.remove(id);
+        //         LOG(MODULE_CORE_HANDLER, "Dropped connection id: " + id.toString() + " since it's not in a group")
+        //     }
+        // }
         //
         // Force default group name.
         groups[DefaultGroupId].displayName = tr("Default Group");
@@ -99,7 +99,6 @@ namespace Qv2ray::core::handlers
         auto &newGlobalConfig = GlobalConfig;
         newGlobalConfig.connections.clear();
         newGlobalConfig.groups.clear();
-        newGlobalConfig.subscriptions.clear();
 
         for (auto i = 0; i < connections.count(); i++)
         {
@@ -118,7 +117,7 @@ namespace Qv2ray::core::handlers
             }
             else
             {
-                GroupObject_Config o = groups.values()[i];
+                Qv2rayGroupConfigObject o = groups.values()[i];
                 o.connections = connections;
                 newGlobalConfig.groups[groups.keys()[i].toString()] = o;
             }
@@ -413,7 +412,7 @@ namespace Qv2ray::core::handlers
         GroupId id(GenerateRandomString());
         groups[id].displayName = displayName;
         groups[id].isSubscription = isSubscription;
-        groups[id].importDate = system_clock::to_time_t(system_clock::now());
+        groups[id].creationDate = system_clock::to_time_t(system_clock::now());
         PluginHost->Send_ConnectionEvent({ displayName, "", Events::ConnectionEntry::ConnectionEvent_Created });
         emit OnGroupCreated(id, displayName);
         CHSaveConfigData();
@@ -443,7 +442,7 @@ namespace Qv2ray::core::handlers
             return result;
         }
 
-        return { groups[id].address, groups[id].lastUpdated, groups[id].updateInterval };
+        return { groups[id].address, groups[id].lastUpdatedDate, groups[id].updateInterval };
     }
 
     bool QvConfigHandler::SetSubscriptionData(const GroupId &id, bool isSubscription, const QString &address, float updateInterval)
@@ -583,7 +582,7 @@ namespace Qv2ray::core::handlers
         }
 
         // Update the time
-        groups[id].lastUpdated = system_clock::to_time_t(system_clock::now());
+        groups[id].lastUpdatedDate = system_clock::to_time_t(system_clock::now());
 
         return hasErrorOccured;
     }

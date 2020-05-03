@@ -10,7 +10,7 @@ namespace Qv2ray::core::connection
     {
 
         // From https://github.com/2dust/v2rayN/wiki/分享链接格式说明(ver-2)
-        const QString ConvertConfigToVMessString(const StreamSettingsObject &transfer, const VMessServerObject &server, const QString &alias)
+        const QString Serialize(const StreamSettingsObject &transfer, const VMessServerObject &server, const QString &alias)
         {
             QJsonObject vmessUriRoot;
             // Constant
@@ -58,7 +58,7 @@ namespace Qv2ray::core::connection
             return "vmess://" + vmessPart;
         }
         // This generates global config containing only one outbound....
-        CONFIGROOT ConvertConfigFromVMessString(const QString &vmessStr, QString *alias, QString *errMessage)
+        CONFIGROOT Deserialize(const QString &vmessStr, QString *alias, QString *errMessage)
         {
 #define default CONFIGROOT()
             LOG(MODULE_SETTINGS, "Trying to convert from a vmess string.")

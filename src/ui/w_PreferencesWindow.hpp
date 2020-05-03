@@ -223,5 +223,5 @@ class PreferencesWindow
     //
     bool NeedRestart = false;
     bool finishedLoading = false;
-    Qv2rayConfig CurrentConfig;
+    Qv2rayConfigObject CurrentConfig;
 };

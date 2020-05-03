@@ -4,7 +4,7 @@
 
 namespace Qv2ray::core::config
 {
-    void SaveGlobalSettings(const Qv2rayConfig &conf)
+    void SaveGlobalSettings(const Qv2rayConfigObject &conf)
     {
         GlobalConfig = conf;
         SaveGlobalSettings();

@@ -48,7 +48,7 @@ QList<QAction *> RouteSettingsMatrixWidget::getBuiltInSchemes()
     return list;
 }
 
-QAction *RouteSettingsMatrixWidget::schemeToAction(const QString &name, const Qv2ray::base::config::Qv2rayRouteConfig &scheme)
+QAction *RouteSettingsMatrixWidget::schemeToAction(const QString &name, const Qv2ray::base::config::Qv2rayConfig_Routing &scheme)
 {
     QAction *action = new QAction(this);
     action->setText(name);
@@ -56,7 +56,7 @@ QAction *RouteSettingsMatrixWidget::schemeToAction(const QString &name, const Qv
     return action;
 }
 
-void RouteSettingsMatrixWidget::SetRouteConfig(const Qv2rayRouteConfig &conf)
+void RouteSettingsMatrixWidget::SetRouteConfig(const Qv2rayConfig_Routing &conf)
 {
     domainStrategyCombo->setCurrentText(conf.domainStrategy);
     //
@@ -69,9 +69,9 @@ void RouteSettingsMatrixWidget::SetRouteConfig(const Qv2rayRouteConfig &conf)
     proxyIPTxt->setText(conf.ips.proxy.join(NEWLINE));
 }
 
-Qv2rayRouteConfig RouteSettingsMatrixWidget::GetRouteConfig() const
+Qv2rayConfig_Routing RouteSettingsMatrixWidget::GetRouteConfig() const
 {
-    config::Qv2rayRouteConfig conf;
+    config::Qv2rayConfig_Routing conf;
     conf.domainStrategy = this->domainStrategyCombo->currentText();
     conf.domains.block = SplitLines(blockDomainTxt->toPlainText().replace(" ", ""));
     conf.domains.direct = SplitLines(directDomainTxt->toPlainText().replace(" ", ""));
@@ -116,7 +116,7 @@ void RouteSettingsMatrixWidget::on_importSchemeBtn_clicked()
             return;
 
         // write the scheme onto the window
-        this->SetRouteConfig(static_cast<Qv2rayRouteConfig>(scheme));
+        this->SetRouteConfig(static_cast<Qv2rayConfig_Routing>(scheme));
 
         // done
         LOG(MODULE_SETTINGS, "Imported route config: " + scheme.name + " by: " + scheme.author)

@@ -52,7 +52,7 @@ void MainWindow::CheckSubscriptionsUpdate()
         if (info.updateInterval == 0)
             continue;
         //
-        const auto &lastRenewDate = QDateTime::fromTime_t(info.lastUpdated);
+        const auto &lastRenewDate = QDateTime::fromTime_t(info.lastUpdatedDate);
         const auto &renewTime = lastRenewDate.addSecs(info.updateInterval * 86400);
         LOG(MODULE_SUBSCRIPTION,                                                  //
             "Subscription \"" + info.displayName + "\": " +                       //

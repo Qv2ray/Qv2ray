@@ -19,79 +19,79 @@ namespace Qv2ray
                 // Cases 1, 2, and 3 are not supported anymore.
                 // --------------------------------------------------------------------------------------
                 // Below is for Qv2ray version 2
-            case 4:
-            {
-                // We changed the "proxyCN" to "bypassCN" as it's easier to
-                // understand....
-                auto v2_oldProxyCN = root["proxyCN"].toBool();
-                //
-                // From 3 to 4, we changed 'runAsRoot' to 'tProxySupport'
-                auto v3_oldrunAsRoot = root["runAsRoot"].toBool();
-                root.insert("tProxySupport", v3_oldrunAsRoot);
-                UPGRADELOG("Upgrading runAsRoot to tProxySupport, the value is not changed: " + QSTRN(v3_oldrunAsRoot))
-                //
-                QString path;
-                path = QV2RAY_DEFAULT_VCORE_PATH;
-                root["v2CorePath"] = path;
-                UPGRADELOG("Added v2CorePath to the config file.")
-                //
-                QJsonObject uiSettings;
-                uiSettings["language"] = root["language"].toString("en-US").replace("-", "_");
-                root["uiConfig"] = uiSettings;
-                //
-                root["inboundConfig"] = root["inBoundSettings"];
-                root.remove("inBoundSettings");
-                UPGRADELOG("Renamed inBoundSettings to inboundConfig.")
-                //
-                // connectionConfig
-                QJsonObject o;
-                o["dnsList"] = root["dnsList"];
-                o["withLocalDNS"] = root["withLocalDNS"];
-                o["enableProxy"] = root["enableProxy"];
-                o["bypassCN"] = !v2_oldProxyCN;
-                o["enableStats"] = true;
-                o["statsPort"] = 13459;
-                UPGRADELOG("Default statistics enabled.")
-                root["connectionConfig"] = o;
-                UPGRADELOG("Renamed some connection configs to connectionConfig.")
-                //
-                // Do we need renaming here?
-                // //auto inbound = root["inboundConfig"].toObject();
-                // //auto pacConfig = inbound["pacConfig"].toObject();
-                // //pacConfig["enablePAC"] = pacConfig["usePAC"].toBool();
-                // //inbound["pacConfig"] = pacConfig;
-                // //root["inboundConfig"] = inbound;
-                // //UPDATELOG("Renamed usePAC to enablePAC.")
-                //
-                QJsonObject i;
-                i["connectionName"] = root["autoStartConfig"].toString();
-                root["autoStartConfig"] = i;
-                UPGRADELOG("Added subscription feature to autoStartConfig.")
-                break;
-            }
+                //            case 4:
+                //            {
+                //                // We changed the "proxyCN" to "bypassCN" as it's easier to
+                //                // understand....
+                //                auto v2_oldProxyCN = root["proxyCN"].toBool();
+                //                //
+                //                // From 3 to 4, we changed 'runAsRoot' to 'tProxySupport'
+                //                auto v3_oldrunAsRoot = root["runAsRoot"].toBool();
+                //                root.insert("tProxySupport", v3_oldrunAsRoot);
+                //                UPGRADELOG("Upgrading runAsRoot to tProxySupport, the value is not changed: " + QSTRN(v3_oldrunAsRoot))
+                //                //
+                //                QString path;
+                //                path = QV2RAY_DEFAULT_VCORE_PATH;
+                //                root["v2CorePath"] = path;
+                //                UPGRADELOG("Added v2CorePath to the config file.")
+                //                //
+                //                QJsonObject uiSettings;
+                //                uiSettings["language"] = root["language"].toString("en-US").replace("-", "_");
+                //                root["uiConfig"] = uiSettings;
+                //                //
+                //                root["inboundConfig"] = root["inBoundSettings"];
+                //                root.remove("inBoundSettings");
+                //                UPGRADELOG("Renamed inBoundSettings to inboundConfig.")
+                //                //
+                //                // connectionConfig
+                //                QJsonObject o;
+                //                o["dnsList"] = root["dnsList"];
+                //                o["withLocalDNS"] = root["withLocalDNS"];
+                //                o["enableProxy"] = root["enableProxy"];
+                //                o["bypassCN"] = !v2_oldProxyCN;
+                //                o["enableStats"] = true;
+                //                o["statsPort"] = 13459;
+                //                UPGRADELOG("Default statistics enabled.")
+                //                root["connectionConfig"] = o;
+                //                UPGRADELOG("Renamed some connection configs to connectionConfig.")
+                //                //
+                //                // Do we need renaming here?
+                //                // //auto inbound = root["inboundConfig"].toObject();
+                //                // //auto pacConfig = inbound["pacConfig"].toObject();
+                //                // //pacConfig["enablePAC"] = pacConfig["usePAC"].toBool();
+                //                // //inbound["pacConfig"] = pacConfig;
+                //                // //root["inboundConfig"] = inbound;
+                //                // //UPDATELOG("Renamed usePAC to enablePAC.")
+                //                //
+                //                QJsonObject i;
+                //                i["connectionName"] = root["autoStartConfig"].toString();
+                //                root["autoStartConfig"] = i;
+                //                UPGRADELOG("Added subscription feature to autoStartConfig.")
+                //                break;
+                //            }
 
-            // Qv2ray version 2, RC 2
-            case 5:
-            {
-                // Added subscription auto update
-                auto subs = root["subscribes"].toObject();
-                root.remove("subscribes");
-                QJsonObject newSubscriptions;
+                //            // Qv2ray version 2, RC 2
+                //            case 5:
+                //            {
+                //                // Added subscription auto update
+                //                auto subs = root["subscribes"].toObject();
+                //                root.remove("subscribes");
+                //                QJsonObject newSubscriptions;
 
-                for (auto item = subs.begin(); item != subs.end(); item++)
-                {
-                    auto key = item.key();
-                    SubscriptionObject_Config _conf;
-                    _conf.address = item.value().toString();
-                    _conf.lastUpdated = system_clock::to_time_t(system_clock::now());
-                    _conf.updateInterval = 5;
-                    newSubscriptions[key] = _conf.toJson();
-                }
+                //                for (auto item = subs.begin(); item != subs.end(); item++)
+                //                {
+                //                    auto key = item.key();
+                //                    Qv2rayGroupConfigObject _conf;
+                //                    _conf..address = item.value().toString();
+                //                    _conf.lastUpdated = system_clock::to_time_t(system_clock::now());
+                //                    _conf.updateInterval = 5;
+                //                    newSubscriptions[key] = _conf.toJson();
+                //                }
 
-                root["subscriptions"] = newSubscriptions;
-                UPGRADELOG("Added subscription renewal options.")
-                break;
-            }
+                //                root["subscriptions"] = newSubscriptions;
+                //                UPGRADELOG("Added subscription renewal options.")
+                //                break;
+                //            }
 
             // Qv2ray version 2, RC 4
             case 6:
@@ -286,6 +286,12 @@ namespace Qv2ray
                 }
                 break;
             }
+
+            // Splitted Qv2ray.conf,
+            case 11:
+            {
+                //
+            }
             default:
             {
                 //
@@ -301,7 +307,7 @@ namespace Qv2ray
                 qApp->exit(1);
             }
         }
-
+        abort();
         root["config_version"] = root["config_version"].toInt() + 1;
         return root;
     }

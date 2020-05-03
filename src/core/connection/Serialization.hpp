@@ -6,13 +6,14 @@ namespace Qv2ray::core::connection
 {
     namespace Serialization
     {
+        const inline auto QV2RAY_SERIALIZATION_COMPLEX_CONFIG_PLACEHOLDER = QObject::tr("(Complex config)");
         /**
          * pattern for the nodes in ssd links.
          * %1: airport name
          * %2: node name
          * %3: rate
          */
-        inline auto QV2RAY_SSD_DEFAULT_NAME_PATTERN = QObject::tr("%1 - %2 (rate %3)");
+        const inline auto QV2RAY_SSD_DEFAULT_NAME_PATTERN = QObject::tr("%1 - %2 (rate %3)");
         //
         // General
         QString DecodeSubscriptionString(const QByteArray &arr);
@@ -24,16 +25,15 @@ namespace Qv2ray::core::connection
         // VMess URI Protocol
         namespace vmess
         {
-            CONFIGROOT ConvertConfigFromVMessString(const QString &vmess, QString *alias, QString *errMessage);
-            const QString ConvertConfigToVMessString(const StreamSettingsObject &transfer, const VMessServerObject &server,
-                                                     const QString &alias);
+            CONFIGROOT Deserialize(const QString &vmess, QString *alias, QString *errMessage);
+            const QString Serialize(const StreamSettingsObject &transfer, const VMessServerObject &server, const QString &alias);
         } // namespace vmess
         //
         // SS URI Protocol
         namespace ss
         {
-            CONFIGROOT ConvertConfigFromSSString(const QString &ss, QString *alias, QString *errMessage);
-            const QString ConvertConfigToSSString(const ShadowSocksServerObject &server, const QString &alias, bool isSip002);
+            CONFIGROOT Deserialize(const QString &ss, QString *alias, QString *errMessage);
+            const QString Serialize(const ShadowSocksServerObject &server, const QString &alias, bool isSip002);
         } // namespace ss
         //
         // SSD URI Protocol
@@ -50,7 +50,7 @@ namespace Qv2ray::core::connection
              *          - log list
              *         in case of error, no objects will be returned.
              */
-            QMultiHash<QString, CONFIGROOT> ConvertConfigFromSSDString(const QString &uri, QString *groupName, QStringList *logList);
+            QMultiHash<QString, CONFIGROOT> Deserialize(const QString &uri, QString *groupName, QStringList *logList);
         } // namespace ssd
         //
     } // namespace Serialization
@@ -59,6 +59,3 @@ namespace Qv2ray::core::connection
 using namespace Qv2ray::core;
 using namespace Qv2ray::core::connection;
 using namespace Qv2ray::core::connection::Serialization;
-using namespace Qv2ray::core::connection::Serialization::ss;
-using namespace Qv2ray::core::connection::Serialization::ssd;
-using namespace Qv2ray::core::connection::Serialization::vmess;

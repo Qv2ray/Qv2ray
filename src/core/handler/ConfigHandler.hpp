@@ -38,16 +38,16 @@ namespace Qv2ray::core::handlers
             CheckGroupExistanceEx(groupId, {});
             return groups[groupId].connections;
         }
-        inline const QList<GroupId> AllGroups() const
+        inline QList<GroupId> AllGroups() const
         {
             return groups.keys();
         }
-        inline const ConnectionMetaObject GetConnectionMetaObject(const ConnectionId &id) const
+        inline const Qv2rayConnectionObject GetConnectionMetaObject(const ConnectionId &id) const
         {
             CheckConnectionExistanceEx(id, {});
             return connections[id];
         }
-        inline const GroupMetaObject GetGroupMetaObject(const GroupId &id) const
+        inline Qv2rayGroupConfigObject GetGroupMetaObject(const GroupId &id) const
         {
             CheckGroupExistanceEx(id, {});
             return groups[id];
@@ -140,8 +140,8 @@ namespace Qv2ray::core::handlers
         int saveTimerId;
         int pingAllTimerId;
         int pingConnectionTimerId;
-        QHash<GroupId, GroupMetaObject> groups;
-        QHash<ConnectionId, ConnectionMetaObject> connections;
+        QHash<GroupId, Qv2rayGroupConfigObject> groups;
+        QHash<ConnectionId, Qv2rayConnectionObject> connections;
         QHash<ConnectionId, CONFIGROOT> connectionRootCache;
 
       private:

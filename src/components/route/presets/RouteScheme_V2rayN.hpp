@@ -153,6 +153,6 @@ namespace Qv2ray::components::route::presets::v2rayN
     };
     const inline QList<QString> IPsBlock{};
     const inline QList<QString> IPsDirect{};
-    const inline Qv2ray::base::config::Qv2rayRouteConfig v2rayNScheme({ DomainsDirect, DomainsBlock, DomainsProxy },
+    const inline Qv2ray::base::config::Qv2rayConfig_Routing v2rayNScheme({ DomainsDirect, DomainsBlock, DomainsProxy },
                                                                       { IPsDirect, IPsBlock, IPsProxy }, "AsIs");
 } // namespace Qv2ray::components::route::presets::v2rayN

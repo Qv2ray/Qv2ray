@@ -15,7 +15,7 @@ namespace Qv2ray::core::connection
             QMultiHash<QString, CONFIGROOT> connectionConf;
             if (link.startsWith("vmess://"))
             {
-                auto conf = ConvertConfigFromVMessString(link, prefix, errMessage);
+                auto conf = vmess::Deserialize(link, prefix, errMessage);
                 //
                 if (GlobalConfig.advancedConfig.setAllowInsecureCiphers || GlobalConfig.advancedConfig.setAllowInsecure)
                 {
@@ -36,13 +36,13 @@ namespace Qv2ray::core::connection
             }
             else if (link.startsWith("ss://"))
             {
-                auto conf = ConvertConfigFromSSString(link, prefix, errMessage);
+                auto conf = ss::Deserialize(link, prefix, errMessage);
                 connectionConf.insert(*prefix, conf);
             }
             else if (link.startsWith("ssd://"))
             {
                 QStringList errMessageList;
-                connectionConf = ConvertConfigFromSSDString(link, newGroupName, &errMessageList);
+                connectionConf = ssd::Deserialize(link, newGroupName, &errMessageList);
                 *errMessage = errMessageList.join(NEWLINE);
             }
             else
@@ -91,12 +91,12 @@ namespace Qv2ray::core::connection
             {
                 auto vmessServer = VMessServerObject::fromJson(settings["vnext"].toArray().first().toObject());
                 auto transport = StreamSettingsObject::fromJson(outbound["streamSettings"].toObject());
-                sharelink = vmess::ConvertConfigToVMessString(transport, vmessServer, alias);
+                sharelink = vmess::Serialize(transport, vmessServer, alias);
             }
             else if (type == "shadowsocks")
             {
                 auto ssServer = ShadowSocksServerObject::fromJson(settings["servers"].toArray().first().toObject());
-                sharelink = ss::ConvertConfigToSSString(ssServer, alias, isSip002);
+                sharelink = ss::Serialize(ssServer, alias, isSip002);
             }
             else
             {

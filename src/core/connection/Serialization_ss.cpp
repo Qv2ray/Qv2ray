@@ -7,7 +7,7 @@ namespace Qv2ray::core::connection
 {
     namespace Serialization::ss
     {
-        CONFIGROOT ConvertConfigFromSSString(const QString &ssUri, QString *alias, QString *errMessage)
+        CONFIGROOT Deserialize(const QString &ssUri, QString *alias, QString *errMessage)
         {
             ShadowSocksServerObject server;
             QString d_name;
@@ -107,7 +107,7 @@ namespace Qv2ray::core::connection
             return root;
         }
 
-        const QString ConvertConfigToSSString(const ShadowSocksServerObject &server, const QString &alias, bool isSip002)
+        const QString Serialize(const ShadowSocksServerObject &server, const QString &alias, bool isSip002)
         {
             auto myAlias = QUrl::toPercentEncoding(alias);
 
