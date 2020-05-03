@@ -97,11 +97,11 @@ using namespace Qv2ray::base::objects::transfer;
     #define ACCESS_OPTIONAL_VALUE(obj) (obj.value())
 #endif
 
-#define Q_TRAYICON(name) (QIcon(GlobalConfig.uiConfig.useDarkTrayIcon ? ":/assets/icons/ui_dark/" name : ":/assets/icons/ui_light/" name))
+#define QV2RAY_COLORSCHEME_ROOT_X(flag) ((flag) ? QStringLiteral(":/assets/icons/ui_dark/") : QStringLiteral(":/assets/icons/ui_light/"))
+#define QV2RAY_COLORSCHEME_ROOT QV2RAY_COLORSCHEME_ROOT_X(GlobalConfig.uiConfig.useDarkTheme)
 
-#define QV2RAY_COLORSCHEME_ROOT                                                                                                                 \
-    ((GlobalConfig.uiConfig.useDarkTheme) ? QStringLiteral(":/assets/icons/ui_dark/") : QStringLiteral(":/assets/icons/ui_light/"))
 #define QICON_R(file) QIcon(QV2RAY_COLORSCHEME_ROOT + file)
+#define Q_TRAYICON(name) (QIcon(QV2RAY_COLORSCHEME_ROOT_X(GlobalConfig.uiConfig.useDarkTrayIcon) + name))
 
 #define QSTRN(num) QString::number(num)
 
@@ -123,9 +123,6 @@ using namespace Qv2ray::base::objects::transfer;
 
 namespace Qv2ray
 {
-    // Extra header for QvConfigUpgrade.cpp
-    QJsonObject UpgradeSettingsVersion(int fromVersion, int toVersion, QJsonObject root);
-
     // Qv2ray runtime config
     inline bool isExiting = false;
     inline QString Qv2rayConfigPath = "";
