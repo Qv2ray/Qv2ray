@@ -21,7 +21,7 @@ namespace Qv2ray::core::kernel
         qulonglong getAllSpeedUp();
         qulonglong getAllSpeedDown();
         //
-        optional<QString> StartConnection(const CONFIGROOT &root);
+        std::optional<QString> StartConnection(const CONFIGROOT &root);
         void StopConnection();
         bool KernelStarted = false;
         //

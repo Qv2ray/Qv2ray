@@ -35,5 +35,5 @@ class JsonEditor
     QJsonObject original;
     QJsonObject final;
     //
-    unique_ptr<vCoreConfigJsonHighlighter> highlighter;
+    std::unique_ptr<vCoreConfigJsonHighlighter> highlighter;
 };

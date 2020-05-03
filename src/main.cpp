@@ -25,7 +25,7 @@
 
 void signalHandler(int signum)
 {
-    cout << "Qv2ray: Interrupt signal (" << signum << ") received." << endl;
+    std::cout << "Qv2ray: Interrupt signal (" << signum << ") received." << std::endl;
     ExitQv2ray();
     qApp->exit(-99);
 }
@@ -182,9 +182,9 @@ int main(int argc, char *argv[])
             case CommandLineOk: break;
 
             case CommandLineError:
-                cout << "Invalid command line arguments" << endl;
-                cout << errorMessage.toStdString() << endl;
-                cout << parser.Parser()->helpText().toStdString() << endl;
+                std::cout << "Invalid command line arguments" << std::endl;
+                std::cout << errorMessage.toStdString() << std::endl;
+                std::cout << parser.Parser()->helpText().toStdString() << std::endl;
                 break;
 
             case CommandLineVersionRequested:
@@ -193,7 +193,7 @@ int main(int argc, char *argv[])
                 LOG("QV2RAY_BUILD_EXTRA_INFO", QV2RAY_BUILD_EXTRA_INFO)
                 return 0;
 
-            case CommandLineHelpRequested: cout << parser.Parser()->helpText().toStdString() << endl; return 0;
+            case CommandLineHelpRequested: std::cout << parser.Parser()->helpText().toStdString() << std::endl; return 0;
         }
     }
 #ifdef Q_OS_UNIX
@@ -279,7 +279,7 @@ int main(int argc, char *argv[])
     LOG(MODULE_INIT, "Qv2ray Start Time: " + QSTRN(QTime::currentTime().msecsSinceStartOfDay()))
     //
 #ifdef QT_DEBUG
-    cout << "WARNING: ========================= This is a debug build, many features are not stable enough. =========================" << endl;
+    std::cout << "WARNING: =================== This is a debug build, many features are not stable enough. ===================" << std::endl;
 #endif
     //
     // Qv2ray Initialize, find possible config paths and verify them.

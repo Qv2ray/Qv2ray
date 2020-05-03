@@ -29,10 +29,10 @@ namespace Qv2ray::core
     //
     int64_t GetConnectionLatency(const ConnectionId &id);
     uint64_t GetConnectionTotalData(const ConnectionId &id);
-    const tuple<quint64, quint64> GetConnectionUsageAmount(const ConnectionId &id);
+    const std::tuple<quint64, quint64> GetConnectionUsageAmount(const ConnectionId &id);
     //
-    const tuple<QString, QString, int> GetConnectionInfo(const ConnectionId &id, bool *status = nullptr);
-    const tuple<QString, QString, int> GetConnectionInfo(const CONFIGROOT &out, bool *status = nullptr);
+    const std::tuple<QString, QString, int> GetConnectionInfo(const ConnectionId &id, bool *status = nullptr);
+    const std::tuple<QString, QString, int> GetConnectionInfo(const CONFIGROOT &out, bool *status = nullptr);
     //
     bool GetOutboundInfo(const OUTBOUND &out, QString *host, int *port, QString *protocol);
     bool IsComplexConfig(const CONFIGROOT &root);

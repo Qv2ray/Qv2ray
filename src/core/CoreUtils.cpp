@@ -61,7 +61,7 @@ namespace Qv2ray::core
         }
     }
 
-    const tuple<QString, QString, int> GetConnectionInfo(const ConnectionId &id, bool *status)
+    const std::tuple<QString, QString, int> GetConnectionInfo(const ConnectionId &id, bool *status)
     {
         if (status != nullptr)
             *status = false;
@@ -69,7 +69,7 @@ namespace Qv2ray::core
         return GetConnectionInfo(root, status);
     }
 
-    const tuple<QString, QString, int> GetConnectionInfo(const CONFIGROOT &out, bool *status)
+    const std::tuple<QString, QString, int> GetConnectionInfo(const CONFIGROOT &out, bool *status)
     {
         if (status != nullptr)
             *status = false;
@@ -102,7 +102,7 @@ namespace Qv2ray::core
         return { QObject::tr("N/A"), QObject::tr("N/A"), 0 };
     }
 
-    const tuple<quint64, quint64> GetConnectionUsageAmount(const ConnectionId &id)
+    const std::tuple<quint64, quint64> GetConnectionUsageAmount(const ConnectionId &id)
     {
         auto connection = ConnectionManager->GetConnectionMetaObject(id);
         return { connection.upLinkData, connection.downLinkData };
@@ -111,13 +111,13 @@ namespace Qv2ray::core
     uint64_t GetConnectionTotalData(const ConnectionId &id)
     {
         auto result = GetConnectionUsageAmount(id);
-        return get<0>(result) + get<1>(result);
+        return std::get<0>(result) + std::get<1>(result);
     }
 
     int64_t GetConnectionLatency(const ConnectionId &id)
     {
         auto connection = ConnectionManager->GetConnectionMetaObject(id);
-        return max(connection.latency, {});
+        return std::max(connection.latency, {});
     }
 
     const QString GetConnectionProtocolString(const ConnectionId &id)

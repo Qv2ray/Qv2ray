@@ -70,12 +70,12 @@ class QvRuleNodeDataModel : public NodeDataModel
     void setInData(std::shared_ptr<NodeData>, int) override
     {
     }
-    void setInData(vector<shared_ptr<NodeData>>, int) override
+    void setInData(std::vector<std::shared_ptr<NodeData>>, int) override
     {
     }
     void setData(const QString &data)
     {
-        _ruleTag = make_shared<RuleNodeData>(data);
+        _ruleTag = std::make_shared<RuleNodeData>(data);
         _label->setText(_ruleTag->GetRuleTag());
         _label->adjustSize();
     }
@@ -103,6 +103,6 @@ class QvRuleNodeDataModel : public NodeDataModel
     NodeValidationState modelValidationState = NodeValidationState::Warning;
     QString modelValidationError = tr("Missing or incorrect inputs");
     //
-    shared_ptr<RuleNodeData> _ruleTag;
+    std::shared_ptr<RuleNodeData> _ruleTag;
     QLabel *_label;
 };

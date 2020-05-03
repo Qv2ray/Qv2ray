@@ -39,7 +39,7 @@ class ConnectionItemWidget
             return headerMatched || GetDisplayName(connectionId).toLower().contains(searchString);
         }
     }
-    inline const tuple<GroupId, ConnectionId> Identifier() const
+    inline const std::tuple<GroupId, ConnectionId> Identifier() const
     {
         return { groupId, connectionId };
     }

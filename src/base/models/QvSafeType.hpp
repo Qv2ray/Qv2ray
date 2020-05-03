@@ -21,7 +21,6 @@
 #define nothing
 #define SAFE_TYPEDEF(Base, name) SAFE_TYPEDEF_EXTRA(Base, name, nothing)
 
-using namespace std;
 namespace Qv2ray::base::safetype
 {
     // To prevent anonying QJsonObject misuse

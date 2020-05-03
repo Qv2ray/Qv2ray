@@ -68,7 +68,7 @@ namespace Qv2ray::core::handlers
         const ConnectionId GetConnectionIdByDisplayName(const QString &displayName, const GroupId &group) const;
         //
         // Connectivity Operationss
-        const optional<QString> StartConnection(const ConnectionId &identifier);
+        const std::optional<QString> StartConnection(const ConnectionId &identifier);
         void StopConnection(); // const ConnectionId &id
         void RestartConnection();
         bool IsConnected(const ConnectionId &id) const;
@@ -77,9 +77,9 @@ namespace Qv2ray::core::handlers
         bool UpdateConnection(const ConnectionId &id, const CONFIGROOT &root, bool skipRestart = false);
         void ClearGroupUsage(const GroupId &id);
         void ClearConnectionUsage(const ConnectionId &id);
-        const optional<QString> DeleteConnection(const ConnectionId &id);
-        const optional<QString> RenameConnection(const ConnectionId &id, const QString &newName);
-        const optional<QString> MoveConnectionGroup(const ConnectionId &id, const GroupId &newGroupId);
+        const std::optional<QString> DeleteConnection(const ConnectionId &id);
+        const std::optional<QString> RenameConnection(const ConnectionId &id, const QString &newName);
+        const std::optional<QString> MoveConnectionGroup(const ConnectionId &id, const GroupId &newGroupId);
         const ConnectionId CreateConnection(const QString &displayName, const GroupId &groupId, const CONFIGROOT &root,
                                             bool skipSaveConfig = false);
         //
@@ -93,15 +93,15 @@ namespace Qv2ray::core::handlers
         //
         // Group Operations
         const GroupId CreateGroup(const QString displayName, bool isSubscription);
-        const optional<QString> DeleteGroup(const GroupId &id);
-        const optional<QString> RenameGroup(const GroupId &id, const QString &newName);
+        const std::optional<QString> DeleteGroup(const GroupId &id);
+        const std::optional<QString> RenameGroup(const GroupId &id, const QString &newName);
         // const optional<QString> DuplicateGroup(const GroupId &id);
         //
         // Subscriptions
         bool SetSubscriptionData(const GroupId &id, bool isSubscription, const QString &address = "", float updateInterval = -1);
         bool UpdateSubscription(const GroupId &id);
         // bool UpdateSubscriptionASync(const GroupId &id, bool useSystemProxy);
-        const tuple<QString, int64_t, float> GetSubscriptionData(const GroupId &id) const;
+        const std::tuple<QString, int64_t, float> GetSubscriptionData(const GroupId &id) const;
 
       signals:
         void OnKernelLogAvailable(const ConnectionId &id, const QString &log);

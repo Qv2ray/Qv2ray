@@ -107,8 +107,8 @@ class MainWindow
     void closeEvent(QCloseEvent *) override;
 
   private:
-    QHash<GroupId, shared_ptr<QTreeWidgetItem>> groupNodes;
-    QHash<ConnectionId, shared_ptr<QTreeWidgetItem>> connectionNodes;
+    QHash<GroupId, std::shared_ptr<QTreeWidgetItem>> groupNodes;
+    QHash<ConnectionId, std::shared_ptr<QTreeWidgetItem>> connectionNodes;
     // Charts
     SpeedWidget *speedChartWidget;
     QSystemTrayIcon hTray;

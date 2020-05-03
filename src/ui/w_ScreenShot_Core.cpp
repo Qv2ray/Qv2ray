@@ -1,5 +1,6 @@
 #include "w_ScreenShot_Core.hpp"
 
+#include "base/Qv2rayBase.hpp"
 #include "common/QvHelpers.hpp"
 
 #include <QMessageBox>

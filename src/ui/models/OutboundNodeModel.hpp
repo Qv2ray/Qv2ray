@@ -47,16 +47,16 @@ class QvOutboundNodeModel : public NodeDataModel
         return _out;
     }
 
-    void setInData(shared_ptr<NodeData>, int) override
+    void setInData(std::shared_ptr<NodeData>, int) override
     {
     }
 
-    void setInData(vector<shared_ptr<NodeData>>, int) override
+    void setInData(std::vector<std::shared_ptr<NodeData>>, int) override
     {
     }
     void setData(const QString &data)
     {
-        _out = make_shared<OutboundNodeData>(data);
+        _out = std::make_shared<OutboundNodeData>(data);
         _label->setText(_out->GetOutbound());
         _label->adjustSize();
     }

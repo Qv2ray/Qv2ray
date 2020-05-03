@@ -193,7 +193,7 @@ namespace Qv2ray::core::kernel
         KernelStarted = false;
     }
 
-    optional<QString> V2rayKernelInstance::StartConnection(const CONFIGROOT &root)
+    std::optional<QString> V2rayKernelInstance::StartConnection(const CONFIGROOT &root)
     {
         if (KernelStarted)
         {

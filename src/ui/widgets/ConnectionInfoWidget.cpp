@@ -57,10 +57,10 @@ ConnectionInfoWidget::ConnectionInfoWidget(QWidget *parent) : QWidget(parent)
     connect(ConnectionManager, &QvConfigHandler::OnConnectionGroupChanged, this, &ConnectionInfoWidget::OnConnectionModified);
 }
 
-void ConnectionInfoWidget::ShowDetails(const tuple<GroupId, ConnectionId> &_identifier)
+void ConnectionInfoWidget::ShowDetails(const std::tuple<GroupId, ConnectionId> &_identifier)
 {
-    this->groupId = get<0>(_identifier);
-    this->connectionId = get<1>(_identifier);
+    this->groupId = std::get<0>(_identifier);
+    this->connectionId = std::get<1>(_identifier);
     bool isConnection = connectionId != NullConnectionId;
     //
     editBtn->setEnabled(isConnection);
@@ -110,7 +110,7 @@ void ConnectionInfoWidget::ShowDetails(const tuple<GroupId, ConnectionId> &_iden
         }
         //
         groupShareTxt->setPlainText(shareLinks.join(NEWLINE));
-        groupSubsLinkTxt->setText(ConnectionManager->IsSubscription(groupId) ? get<0>(ConnectionManager->GetSubscriptionData(groupId)) :
+        groupSubsLinkTxt->setText(ConnectionManager->IsSubscription(groupId) ? std::get<0>(ConnectionManager->GetSubscriptionData(groupId)) :
                                                                                tr("Not a subscription"));
     }
 }

@@ -14,7 +14,7 @@ class ConnectionInfoWidget
 
   public:
     explicit ConnectionInfoWidget(QWidget *parent = nullptr);
-    void ShowDetails(const tuple<GroupId, ConnectionId> &_identifier);
+    void ShowDetails(const std::tuple<GroupId, ConnectionId> &_identifier);
     ~ConnectionInfoWidget();
 
   signals:

@@ -1,12 +1,11 @@
 #include "common/QvHelpers.hpp"
 
+#include "base/Qv2rayBase.hpp"
 #include "libs/puresource/src/PureJson.hpp"
 
 #include <QGraphicsEffect>
-#include <QGraphicsProxyWidget>
+#include <QGraphicsPixmapItem>
 #include <QGraphicsScene>
-#include <QGraphicsView>
-#include <QQueue>
 
 namespace Qv2ray::common
 {
@@ -129,17 +128,17 @@ namespace Qv2ray::common
         return _string.split(QRegExp("[\r\n]"), QString::SkipEmptyParts);
     }
 
-    list<string> SplitLines_std(const QString &_string)
-    {
-        list<string> list;
+    //    list<string> SplitLines_std(const QString &_string)
+    //    {
+    //        list<string> list;
 
-        for (auto line : _string.split(QRegExp("[\r\n]"), QString::SkipEmptyParts))
-        {
-            list.push_back(line.toStdString());
-        }
+    //        for (auto line : _string.split(QRegExp("[\r\n]"), QString::SkipEmptyParts))
+    //        {
+    //            list.push_back(line.toStdString());
+    //        }
 
-        return list;
-    }
+    //        return list;
+    //    }
 
     QStringList GetFileList(const QDir &dir)
     {
@@ -191,7 +190,7 @@ namespace Qv2ray::common
     {
         std::string _name = fileName.toStdString();
         std::replace_if(
-            _name.begin(), _name.end(), [](char c) { return std::string::npos != string(R"("/\?%&^*;:|><)").find(c); }, '_');
+            _name.begin(), _name.end(), [](char c) { return std::string::npos != std::string(R"("/\?%&^*;:|><)").find(c); }, '_');
         return QString::fromStdString(_name);
     }
 

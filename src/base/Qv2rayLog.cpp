@@ -15,7 +15,7 @@ namespace Qv2ray::base
     void __QV2RAY_LOG_FUNC__(int type, const std::string &func, int line, const QString &module, const QString &log)
     {
         auto logString = QString("[" % module % "]: " % log);
-        auto funcPrepend = QString::fromStdString(func + ":" + to_string(line) + " ");
+        auto funcPrepend = QString::fromStdString(func + ":" + std::to_string(line) + " ");
 
 #ifdef QT_DEBUG
         // Debug build version, we only print info for DEBUG logs and print
@@ -40,7 +40,7 @@ namespace Qv2ray::base
             }
         }
 #endif
-        cout << logString.toStdString() << endl;
+        std::cout << logString.toStdString() << std::endl;
         {
             QMutexLocker _(&__loggerMutex);
             __loggerBuffer->append(logString + NEWLINE);

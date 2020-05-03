@@ -1,15 +1,7 @@
 #include "QvTranslator.hpp"
 
-#include "base/Qv2rayLog.hpp"
+#include "base/Qv2rayBase.hpp"
 #include "common/QvHelpers.hpp"
-
-#include <QApplication>
-#include <QDir>
-#include <QStandardPaths>
-#include <QString>
-#include <QStringBuilder>
-#include <QTranslator>
-#include <memory>
 
 using namespace Qv2ray::base;
 

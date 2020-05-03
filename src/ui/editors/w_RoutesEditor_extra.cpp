@@ -17,7 +17,7 @@ void RouteEditor::AddInbound(INBOUND in)
     }
 
     in["tag"] = tag;
-    auto _nodeData = make_unique<QvInboundNodeModel>(make_shared<InboundNodeData>(tag));
+    auto _nodeData = std::make_unique<QvInboundNodeModel>(std::make_shared<InboundNodeData>(tag));
     auto &node = nodeScene->createNode(std::move(_nodeData));
     auto pos = QPointF();
     pos.setX(0 + GRAPH_GLOBAL_OFFSET_X);
@@ -37,7 +37,7 @@ void RouteEditor::AddOutbound(OUTBOUND out)
     }
 
     out["tag"] = tag;
-    auto _nodeData = make_unique<QvOutboundNodeModel>(make_shared<OutboundNodeData>(tag));
+    auto _nodeData = std::make_unique<QvOutboundNodeModel>(std::make_shared<OutboundNodeData>(tag));
     auto pos = nodeGraphWidget->pos();
     pos.setX(pos.x() + 850 + GRAPH_GLOBAL_OFFSET_X);
     pos.setY(pos.y() + outboundNodes.count() * 120 + GRAPH_GLOBAL_OFFSET_Y);
@@ -76,7 +76,7 @@ void RouteEditor::AddRule(RuleObject rule)
     auto pos = nodeGraphWidget->pos();
     pos.setX(pos.x() + 350 + GRAPH_GLOBAL_OFFSET_X);
     pos.setY(pos.y() + ruleNodes.count() * 120 + GRAPH_GLOBAL_OFFSET_Y);
-    auto _nodeData = make_unique<QvRuleNodeDataModel>(make_shared<RuleNodeData>(rule.QV2RAY_RULE_TAG));
+    auto _nodeData = std::make_unique<QvRuleNodeDataModel>(std::make_shared<RuleNodeData>(rule.QV2RAY_RULE_TAG));
     auto &node = nodeScene->createNode(std::move(_nodeData));
     nodeScene->setNodePosition(node, pos);
 

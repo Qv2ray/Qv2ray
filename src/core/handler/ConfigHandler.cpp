@@ -226,7 +226,7 @@ namespace Qv2ray::core::handlers
         return;
     }
 
-    const optional<QString> QvConfigHandler::RenameConnection(const ConnectionId &id, const QString &newName)
+    const std::optional<QString> QvConfigHandler::RenameConnection(const ConnectionId &id, const QString &newName)
     {
         CheckConnectionExistance(id);
         OnConnectionRenamed(id, connections[id].displayName, newName);
@@ -235,7 +235,7 @@ namespace Qv2ray::core::handlers
         CHSaveConfigData();
         return {};
     }
-    const optional<QString> QvConfigHandler::DeleteConnection(const ConnectionId &id)
+    const std::optional<QString> QvConfigHandler::DeleteConnection(const ConnectionId &id)
     {
         CheckConnectionExistance(id);
         auto groupId = connections[id].groupId;
@@ -266,7 +266,7 @@ namespace Qv2ray::core::handlers
         return tr("File does not exist.");
     }
 
-    const optional<QString> QvConfigHandler::MoveConnectionGroup(const ConnectionId &id, const GroupId &newGroupId)
+    const std::optional<QString> QvConfigHandler::MoveConnectionGroup(const ConnectionId &id, const GroupId &newGroupId)
     {
         CheckConnectionExistance(id);
         auto const oldgid = connections[id].groupId;
@@ -297,7 +297,7 @@ namespace Qv2ray::core::handlers
         return {};
     }
 
-    const optional<QString> QvConfigHandler::DeleteGroup(const GroupId &id)
+    const std::optional<QString> QvConfigHandler::DeleteGroup(const GroupId &id)
     {
         CheckGroupExistance(id);
         if (!groups.contains(id) || id == NullGroupId)
@@ -333,7 +333,7 @@ namespace Qv2ray::core::handlers
         return {};
     }
 
-    const optional<QString> QvConfigHandler::StartConnection(const ConnectionId &id)
+    const std::optional<QString> QvConfigHandler::StartConnection(const ConnectionId &id)
     {
         CheckConnectionExistance(id);
         connections[id].lastConnected = system_clock::to_time_t(system_clock::now());
@@ -420,7 +420,7 @@ namespace Qv2ray::core::handlers
         return id;
     }
 
-    const optional<QString> QvConfigHandler::RenameGroup(const GroupId &id, const QString &newName)
+    const std::optional<QString> QvConfigHandler::RenameGroup(const GroupId &id, const QString &newName)
     {
         CheckGroupExistance(id);
         if (!groups.contains(id))
@@ -433,10 +433,10 @@ namespace Qv2ray::core::handlers
         return {};
     }
 
-    const tuple<QString, int64_t, float> QvConfigHandler::GetSubscriptionData(const GroupId &id) const
+    const std::tuple<QString, int64_t, float> QvConfigHandler::GetSubscriptionData(const GroupId &id) const
     {
         CheckGroupExistanceEx(id, {});
-        tuple<QString, int64_t, float> result;
+        std::tuple<QString, int64_t, float> result;
 
         if (!groups[id].isSubscription)
         {
@@ -501,7 +501,7 @@ namespace Qv2ray::core::handlers
         }
         // Anyway, we try our best to preserve the connection id.
         QMultiMap<QString, ConnectionId> nameMap;
-        QMultiMap<tuple<QString, QString, int>, ConnectionId> typeMap;
+        QMultiMap<std::tuple<QString, QString, int>, ConnectionId> typeMap;
         for (const auto &conn : groups[id].connections)
         {
             nameMap.insertMulti(GetDisplayName(conn), conn);

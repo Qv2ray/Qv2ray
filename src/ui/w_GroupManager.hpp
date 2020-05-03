@@ -17,7 +17,7 @@ class GroupManager
   public:
     explicit GroupManager(QWidget *parent = nullptr);
     ~GroupManager();
-    tuple<QString, CONFIGROOT> GetSelectedConfig();
+    std::tuple<QString, CONFIGROOT> GetSelectedConfig();
 
   private:
     QvMessageBusSlotDecl;

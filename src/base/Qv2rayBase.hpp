@@ -21,8 +21,6 @@
 #include "base/models/QvSettingsObject.hpp"
 #include "base/models/QvStartupConfig.hpp"
 
-using namespace std;
-using namespace std::chrono;
 using namespace Qv2ray;
 using namespace Qv2ray::base;
 using namespace Qv2ray::base::safetype;
@@ -144,12 +142,14 @@ namespace Qv2ray
         // Linux platform directories.
         list << QString("/usr/share/qv2ray/" + dirName);
         list << QString("/usr/local/share/qv2ray/" + dirName);
-        list << QStandardPaths::locateAll(QStandardPaths::AppDataLocation, dirName, QStandardPaths::LocateDirectory);
-        list << QStandardPaths::locateAll(QStandardPaths::AppConfigLocation, dirName, QStandardPaths::LocateDirectory);
+        // For AppImage?
+        list << QString(QDir(QApplication::applicationDirPath() + "/../share/qv2ray/" + dirName).absolutePath());
 #elif defined(Q_OS_MAC)
         // macOS platform directories.
         list << QDir(QApplication::applicationDirPath() + "/../Resources/" + dirName).absolutePath();
 #endif
+        list << QStandardPaths::locateAll(QStandardPaths::AppDataLocation, dirName, QStandardPaths::LocateDirectory);
+        list << QStandardPaths::locateAll(QStandardPaths::AppConfigLocation, dirName, QStandardPaths::LocateDirectory);
         // This is the default behavior on Windows
         list << QApplication::applicationDirPath() + "/" + dirName;
         list.removeDuplicates();

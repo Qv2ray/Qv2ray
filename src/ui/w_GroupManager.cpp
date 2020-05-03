@@ -192,7 +192,7 @@ QvMessageBusSlotImpl(GroupManager)
     }
 }
 
-tuple<QString, CONFIGROOT> GroupManager::GetSelectedConfig()
+std::tuple<QString, CONFIGROOT> GroupManager::GetSelectedConfig()
 {
     return { GetDisplayName(currentConnectionId), ConnectionManager->GetConnectionRoot(currentConnectionId) };
 }

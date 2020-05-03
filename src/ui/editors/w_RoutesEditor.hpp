@@ -3,6 +3,7 @@
 #include "ConnectionStyle.hpp"
 #include "Node.hpp"
 #include "NodeData.hpp"
+#include "base/Qv2rayBase.hpp"
 #include "common/QvHelpers.hpp"
 #include "ui/messaging/QvMessageBus.hpp"
 #include "ui_w_RoutesEditor.h"

@@ -5,6 +5,7 @@
 #include "common/QvHelpers.hpp"
 
 #include <QLabel>
+#include <memory>
 
 using QtNodes::NodeData;
 using QtNodes::NodeDataModel;

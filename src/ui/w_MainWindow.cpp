@@ -81,7 +81,7 @@ void MainWindow::MWAddConnectionItem_p(const ConnectionId &connection, const Gro
         MWAddGroupItem_p(groupId);
     }
     auto groupItem = groupNodes.value(groupId);
-    auto connectionItem = make_shared<QTreeWidgetItem>(QStringList{
+    auto connectionItem = std::make_shared<QTreeWidgetItem>(QStringList{
         "",                                               //
         GetDisplayName(connection),                       //
         NumericString(GetConnectionLatency(connection)),  //
@@ -98,7 +98,7 @@ void MainWindow::MWAddConnectionItem_p(const ConnectionId &connection, const Gro
 
 void MainWindow::MWAddGroupItem_p(const GroupId &groupId)
 {
-    auto groupItem = make_shared<QTreeWidgetItem>(QStringList{ "", GetDisplayName(groupId) });
+    auto groupItem = std::make_shared<QTreeWidgetItem>(QStringList{ "", GetDisplayName(groupId) });
     groupNodes.insert(groupId, groupItem);
     connectionListWidget->addTopLevelItem(groupItem.get());
     connectionListWidget->setItemWidget(groupItem.get(), 0, new ConnectionItemWidget(groupId, connectionListWidget));
@@ -543,11 +543,11 @@ void MainWindow::on_action_RCM_DeleteThese_triggered()
         {
             if (widget->IsConnection())
             {
-                connlist.append(get<1>(widget->Identifier()));
+                connlist.append(std::get<1>(widget->Identifier()));
             }
             else
             {
-                connlist.append(ConnectionManager->GetGroupMetaObject(get<0>(widget->Identifier())).connections);
+                connlist.append(ConnectionManager->GetGroupMetaObject(std::get<0>(widget->Identifier())).connections);
             }
         }
     }
@@ -587,7 +587,7 @@ void MainWindow::on_action_RCM_EditAsComplex_triggered()
     CheckCurrentWidget;
     if (widget->IsConnection())
     {
-        auto id = get<1>(widget->Identifier());
+        auto id = std::get<1>(widget->Identifier());
         CONFIGROOT root = ConnectionManager->GetConnectionRoot(id);
         bool isChanged = false;
         //
@@ -882,7 +882,7 @@ void MainWindow::on_action_RCM_DuplicateThese_triggered()
         auto widget = GetItemWidget(item);
         if (widget->IsConnection())
         {
-            connlist.append(get<1>(widget->Identifier()));
+            connlist.append(std::get<1>(widget->Identifier()));
         }
     }
 
@@ -905,13 +905,13 @@ void MainWindow::on_action_RCM_DuplicateThese_triggered()
 void MainWindow::on_action_RCM_EditThis_triggered()
 {
     CheckCurrentWidget;
-    OnEditRequested(get<1>(widget->Identifier()));
+    OnEditRequested(std::get<1>(widget->Identifier()));
 }
 
 void MainWindow::on_action_RCM_EditAsJson_triggered()
 {
     CheckCurrentWidget;
-    OnEditJsonRequested(get<1>(widget->Identifier()));
+    OnEditJsonRequested(std::get<1>(widget->Identifier()));
 }
 
 void MainWindow::on_chartVisibilityBtn_clicked()
@@ -960,7 +960,7 @@ void MainWindow::on_action_RCM_SetAutoConnection_triggered()
     if (current != nullptr)
     {
         auto widget = GetItemWidget(current);
-        auto &conn = get<1>(widget->Identifier());
+        auto &conn = std::get<1>(widget->Identifier());
         GlobalConfig.autoStartId = conn.toString();
         if (!GlobalConfig.uiConfig.quietMode)
         {
@@ -979,9 +979,9 @@ void MainWindow::on_action_RCM_ClearUsage_triggered()
         if (widget)
         {
             if (widget->IsConnection())
-                ConnectionManager->ClearConnectionUsage(get<1>(widget->Identifier()));
+                ConnectionManager->ClearConnectionUsage(std::get<1>(widget->Identifier()));
             else
-                ConnectionManager->ClearGroupUsage(get<0>(widget->Identifier()));
+                ConnectionManager->ClearGroupUsage(std::get<0>(widget->Identifier()));
         }
     }
 }
@@ -995,9 +995,9 @@ void MainWindow::on_action_RCM_LatencyTest_triggered()
         if (widget)
         {
             if (widget->IsConnection())
-                ConnectionManager->StartLatencyTest(get<1>(widget->Identifier()));
+                ConnectionManager->StartLatencyTest(std::get<1>(widget->Identifier()));
             else
-                ConnectionManager->StartLatencyTest(get<0>(widget->Identifier()));
+                ConnectionManager->StartLatencyTest(std::get<0>(widget->Identifier()));
         }
     }
 }

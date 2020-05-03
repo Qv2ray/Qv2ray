@@ -116,8 +116,8 @@ namespace Qv2ray::components::tcping
                 auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
                 uint ms = milliseconds.count();
                 data.avg += ms;
-                data.worst = min(data.worst, ms);
-                data.best = max(data.best, ms);
+                data.worst = std::min(data.worst, ms);
+                data.best = std::max(data.best, ms);
 
                 if (ms > 1000)
                 {
@@ -132,13 +132,13 @@ namespace Qv2ray::components::tcping
 
         data.avg = data.avg / successCount;
         freeaddrinfo(resolved);
-        data.avg = min(data.avg, QVTCPING_VALUE_ERROR);
-        data.worst = min(data.worst, QVTCPING_VALUE_ERROR);
-        data.best = min(data.best, QVTCPING_VALUE_ERROR);
+        data.avg = std::min(data.avg, QVTCPING_VALUE_ERROR);
+        data.worst = std::min(data.worst, QVTCPING_VALUE_ERROR);
+        data.best = std::min(data.best, QVTCPING_VALUE_ERROR);
         return data;
     }
 
-    int resolveHost(const string &host, int port, addrinfo **res)
+    int resolveHost(const std::string &host, int port, addrinfo **res)
     {
         if (isExiting)
             return 0;
@@ -154,7 +154,7 @@ namespace Qv2ray::components::tcping
         hints.ai_family = AF_UNSPEC;
         hints.ai_socktype = SOCK_STREAM;
         hints.ai_protocol = 0;
-        return getaddrinfo(host.c_str(), to_string(port).c_str(), &hints, res);
+        return getaddrinfo(host.c_str(), std::to_string(port).c_str(), &hints, res);
     }
 
     int testLatency(struct addrinfo *addr, std::chrono::system_clock::time_point *start, std::chrono::system_clock::time_point *end)

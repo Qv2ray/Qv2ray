@@ -1,5 +1,6 @@
 #include "QvProxyConfigurator.hpp"
 
+#include "base/Qv2rayBase.hpp"
 #include "common/QvHelpers.hpp"
 #include "components/plugins/QvPluginHost.hpp"
 #ifdef Q_OS_WIN

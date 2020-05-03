@@ -3,6 +3,7 @@
 // from old to newer versions of Qv2ray.
 //
 
+#include "base/Qv2rayBase.hpp"
 #include "common/QvHelpers.hpp"
 
 #define UPGRADELOG(msg) LOG(MODULE_SETTINGS, "  [" + QSTRN(fromVersion) + "-" + QSTRN(fromVersion + 1) + "] --> " + msg)
