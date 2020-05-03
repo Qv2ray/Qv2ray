@@ -14,9 +14,7 @@ namespace Qv2ray::base
         QString displayName;
         QList<QString> connections;
         qint64 importDate;
-        GroupObject_Config() : displayName(), connections(), importDate()
-        {
-        }
+        GroupObject_Config() : displayName(), connections(), importDate(){};
         JSONSTRUCT_REGISTER(GroupObject_Config, F(displayName, connections, importDate))
     };
 
@@ -26,9 +24,7 @@ namespace Qv2ray::base
         QString address;
         qint64 lastUpdated;
         float updateInterval;
-        SubscriptionObject_Config() : address(""), lastUpdated(system_clock::to_time_t(system_clock::now())), updateInterval(10)
-        {
-        }
+        SubscriptionObject_Config() : address(""), lastUpdated(system_clock::to_time_t(system_clock::now())), updateInterval(10){};
         JSONSTRUCT_REGISTER(SubscriptionObject_Config, F(lastUpdated, updateInterval, address), B(GroupObject_Config))
     };
 
@@ -42,9 +38,7 @@ namespace Qv2ray::base
         qint64 downLinkData;
         ConnectionObject_Config()
             : displayName(), importDate(system_clock::to_time_t(system_clock::now())), lastConnected(), latency(QVTCPING_VALUE_NODATA),
-              upLinkData(0), downLinkData(0)
-        {
-        }
+              upLinkData(0), downLinkData(0){};
         JSONSTRUCT_REGISTER(ConnectionObject_Config, F(displayName, importDate, lastConnected, latency, upLinkData, downLinkData))
     };
 } // namespace Qv2ray::base

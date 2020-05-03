@@ -19,14 +19,14 @@ namespace Qv2ray::core::connection
 
             if (!importComplex)
             {
-                JSON_ROOT_TRY_REMOVE("inbounds")
-                JSON_ROOT_TRY_REMOVE("routing")
+                root.remove("inbounds");
+                root.remove("routing");
             }
 
-            JSON_ROOT_TRY_REMOVE("log")
-            JSON_ROOT_TRY_REMOVE("api")
-            JSON_ROOT_TRY_REMOVE("stats")
-            JSON_ROOT_TRY_REMOVE("dns")
+            root.remove("log");
+            root.remove("api");
+            root.remove("stats");
+            root.remove("dns");
             return root;
         }
     } // namespace ConnectionIO
