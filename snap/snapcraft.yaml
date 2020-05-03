@@ -70,7 +70,7 @@ parts:
       - libqt5network5
       - libqt5widgets5
       - libglib2.0-bin
-    configflags:
+    cmake-parameters:
       - -DCMAKE_INSTALL_PREFIX=/usr
       - -DCMAKE_BUILD_TYPE=Release
       - -GNinja
