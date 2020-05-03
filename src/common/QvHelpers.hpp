@@ -18,6 +18,10 @@
 namespace Qv2ray::common
 {
     QStringList GetFileList(const QDir &dir);
+
+    QString SafeBase64Decode(QString string);
+    QString SafeBase64Encode(const QString &string, bool trim);
+
     QString Base64Encode(const QString &string);
     QString Base64Decode(const QString &string);
     QStringList SplitLines(const QString &str);

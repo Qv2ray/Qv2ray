@@ -88,7 +88,7 @@ namespace Qv2ray::core::connection
                 return default;
             }
 
-            auto vmessString = Base64Decode(b64Str);
+            auto vmessString = SafeBase64Decode(b64Str);
             auto jsonErr = VerifyJsonString(vmessString);
 
             if (!jsonErr.isEmpty())

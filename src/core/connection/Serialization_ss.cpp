@@ -81,7 +81,7 @@ namespace Qv2ray::core::connection
                 auto x = QUrl::fromUserInput(uri);
                 server.address = x.host();
                 server.port = x.port();
-                QString userInfo = Base64Decode(x.userName());
+                QString userInfo = SafeBase64Decode(x.userName());
                 auto userInfoSp = userInfo.indexOf(':');
                 //
                 DEBUG(MODULE_CONNECTION, "Userinfo splitter position: " + QSTRN(userInfoSp))

@@ -122,7 +122,7 @@ namespace Qv2ray::core::connection
             // Some subscription providers may use plain vmess:// saperated by
             // lines But others may use base64 of above.
             auto result = QString::fromUtf8(arr).trimmed();
-            return result.contains("://") ? result : Base64Decode(result);
+            return result.contains("://") ? result : SafeBase64Decode(result);
         }
     } // namespace Serialization
 } // namespace Qv2ray::core::connection
