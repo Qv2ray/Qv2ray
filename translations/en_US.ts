@@ -1682,10 +1682,6 @@ But could damage your server if improperly used.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Curtom Proxy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Network Options</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1731,6 +1727,11 @@ But could damage your server if improperly used.</source>
     </message>
     <message>
         <source>tproxy inbound&apos;s sniffing is enabled by default.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>These settings are for Qv2ray itself.
+For example, for updating subscriptions.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
