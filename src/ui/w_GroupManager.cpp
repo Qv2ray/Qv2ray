@@ -36,9 +36,9 @@ GroupManager::GroupManager(QWidget *parent) : QDialog(parent)
                 this->loadConnectionList(currentGroupId);                  //
             });
     //
-    const auto reloadGroupLambda = [&](const ConnectionId &, const GroupId &groupId) {
-        if (groupId == currentGroupId)
-            this->loadConnectionList(groupId);
+    const auto reloadGroupLambda = [&](const ConnectionGroupPair &id) {
+        if (id.groupId == currentGroupId)
+            this->loadConnectionList(id.groupId);
     };
     connect(ConnectionManager, &QvConfigHandler::OnConnectionCreated, reloadGroupLambda);
     connect(ConnectionManager, &QvConfigHandler::OnConnectionDeleted, reloadGroupLambda);

@@ -74,24 +74,24 @@ void MainWindow::UpdateColorScheme()
     sortBtn->setIcon(QICON_R("sort.png"));
 }
 
-void MainWindow::MWAddConnectionItem_p(const ConnectionId &connection, const GroupId &groupId)
+void MainWindow::MWAddConnectionItem_p(const ConnectionGroupPair &id)
 {
-    if (!groupNodes.contains(groupId))
+    if (!groupNodes.contains(id.groupId))
     {
-        MWAddGroupItem_p(groupId);
+        MWAddGroupItem_p(id.groupId);
     }
-    auto groupItem = groupNodes.value(groupId);
+    auto groupItem = groupNodes.value(id.groupId);
     auto connectionItem = std::make_shared<QTreeWidgetItem>(QStringList{
-        "",                                               //
-        GetDisplayName(connection),                       //
-        NumericString(GetConnectionLatency(connection)),  //
-        "IMPORTTIME_NOT_SUPPORTED",                       //
-        "LAST_CONNECTED_NOT_SUPPORTED",                   //
-        NumericString(GetConnectionTotalData(connection)) //
+        "",                                                    //
+        GetDisplayName(id.connectionId),                       //
+        NumericString(GetConnectionLatency(id.connectionId)),  //
+        "IMPORTTIME_NOT_SUPPORTED",                            //
+        "LAST_CONNECTED_NOT_SUPPORTED",                        //
+        NumericString(GetConnectionTotalData(id.connectionId)) //
     });
-    connectionNodes.insert({ connection, groupId }, connectionItem);
+    connectionNodes.insert(id, connectionItem);
     groupItem->addChild(connectionItem.get());
-    auto widget = new ConnectionItemWidget(connection, groupId, connectionListWidget);
+    auto widget = new ConnectionItemWidget(id, connectionListWidget);
     connect(widget, &ConnectionItemWidget::RequestWidgetFocus, this, &MainWindow::OnConnectionWidgetFocusRequested);
     connectionListWidget->setItemWidget(connectionItem.get(), 0, widget);
 }
@@ -303,9 +303,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
         MWAddGroupItem_p(group);
         auto connections = ConnectionManager->Connections(group);
 
-        for (auto connection : connections)
+        for (const auto &connection : connections)
         {
-            MWAddConnectionItem_p(connection, group);
+            MWAddConnectionItem_p({ connection, group });
         }
     }
     //
@@ -741,7 +741,7 @@ void MainWindow::on_connectionListWidget_itemClicked(QTreeWidgetItem *item, int 
     infoWidget->ShowDetails(widget->Identifier());
 }
 
-void MainWindow::OnStatsAvailable(const ConnectionId &id, const quint64 upS, const quint64 downS, const quint64 upD, const quint64 downD)
+void MainWindow::OnStatsAvailable(const ConnectionGroupPair &id, const quint64 upS, const quint64 downS, const quint64 upD, const quint64 downD)
 {
     if (!ConnectionManager->IsConnected(id))
         return;
@@ -757,259 +757,260 @@ void MainWindow::OnStatsAvailable(const ConnectionId &id, const quint64 upS, con
     netspeedLabel->setText(totalSpeedUp + NEWLINE + totalSpeedDown);
     dataamountLabel->setText(totalDataUp + NEWLINE + totalDataDown);
     //
-    hTray.setToolTip(TRAY_TOOLTIP_PREFIX NEWLINE + tr("Connected: ") + GetDisplayName(id) + //
+    hTray.setToolTip(TRAY_TOOLTIP_PREFIX NEWLINE + tr("Connected: ") + GetDisplayName(id.connectionId) + //
                      NEWLINE "Up: " + totalSpeedUp + " Down: " + totalSpeedDown);
     //
     // Set data accordingly
-    if (connectionNodes.contains({id, ))
-        {
-            connectionNodes.value(id)->setText(MW_ITEM_COL_DATA, NumericString(GetConnectionTotalData(id)));
-        }
+    if (connectionNodes.contains(id))
+    {
+        connectionNodes.value(id)->setText(MW_ITEM_COL_DATA, NumericString(GetConnectionTotalData(id.connectionId)));
+    }
 }
 
-void MainWindow::OnVCoreLogAvailable(const ConnectionId &id, const QString &log)
+void MainWindow::OnVCoreLogAvailable(const ConnectionGroupPair &id, const QString &log)
 {
-        Q_UNUSED(id);
-        FastAppendTextDocument(log.trimmed(), vCoreLogDocument);
-        // vCoreLogDocument->setPlainText(vCoreLogDocument->toPlainText() + log);
-        // From https://gist.github.com/jemyzhang/7130092
-        auto maxLines = GlobalConfig.uiConfig.maximumLogLines;
-        auto block = vCoreLogDocument->begin();
+    Q_UNUSED(id);
+    FastAppendTextDocument(log.trimmed(), vCoreLogDocument);
+    // vCoreLogDocument->setPlainText(vCoreLogDocument->toPlainText() + log);
+    // From https://gist.github.com/jemyzhang/7130092
+    auto maxLines = GlobalConfig.uiConfig.maximumLogLines;
+    auto block = vCoreLogDocument->begin();
 
-        while (block.isValid())
+    while (block.isValid())
+    {
+        if (vCoreLogDocument->blockCount() > maxLines)
         {
-            if (vCoreLogDocument->blockCount() > maxLines)
-            {
-                QTextCursor cursor(block);
-                block = block.next();
-                cursor.select(QTextCursor::BlockUnderCursor);
-                cursor.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor);
-                cursor.removeSelectedText();
-                continue;
-            }
-
-            break;
+            QTextCursor cursor(block);
+            block = block.next();
+            cursor.select(QTextCursor::BlockUnderCursor);
+            cursor.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor);
+            cursor.removeSelectedText();
+            continue;
         }
+
+        break;
+    }
 }
 
 void MainWindow::OnEditRequested(const ConnectionId &id)
 {
-        auto outBoundRoot = ConnectionManager->GetConnectionRoot(id);
-        CONFIGROOT root;
-        bool isChanged = false;
+    auto outBoundRoot = ConnectionManager->GetConnectionRoot(id);
+    CONFIGROOT root;
+    bool isChanged = false;
 
-        if (IsComplexConfig(outBoundRoot))
-        {
-            LOG(MODULE_UI, "INFO: Opening route editor.")
-            RouteEditor routeWindow(outBoundRoot, this);
-            root = routeWindow.OpenEditor();
-            isChanged = routeWindow.result() == QDialog::Accepted;
-        }
-        else
-        {
-            LOG(MODULE_UI, "INFO: Opening single connection edit window.")
-            auto out = OUTBOUND(outBoundRoot["outbounds"].toArray().first().toObject());
-            OutboundEditor w(out, this);
-            auto outboundEntry = w.OpenEditor();
-            isChanged = w.result() == QDialog::Accepted;
-            QJsonArray outboundsList;
-            outboundsList.push_back(outboundEntry);
-            root.insert("outbounds", outboundsList);
-        }
+    if (IsComplexConfig(outBoundRoot))
+    {
+        LOG(MODULE_UI, "INFO: Opening route editor.")
+        RouteEditor routeWindow(outBoundRoot, this);
+        root = routeWindow.OpenEditor();
+        isChanged = routeWindow.result() == QDialog::Accepted;
+    }
+    else
+    {
+        LOG(MODULE_UI, "INFO: Opening single connection edit window.")
+        auto out = OUTBOUND(outBoundRoot["outbounds"].toArray().first().toObject());
+        OutboundEditor w(out, this);
+        auto outboundEntry = w.OpenEditor();
+        isChanged = w.result() == QDialog::Accepted;
+        QJsonArray outboundsList;
+        outboundsList.push_back(outboundEntry);
+        root.insert("outbounds", outboundsList);
+    }
 
-        if (isChanged)
-        {
-            ConnectionManager->UpdateConnection(id, root);
-        }
+    if (isChanged)
+    {
+        ConnectionManager->UpdateConnection(id, root);
+    }
 }
 void MainWindow::OnEditJsonRequested(const ConnectionId &id)
 {
-        JsonEditor w(ConnectionManager->GetConnectionRoot(id), this);
-        auto root = CONFIGROOT(w.OpenEditor());
+    JsonEditor w(ConnectionManager->GetConnectionRoot(id), this);
+    auto root = CONFIGROOT(w.OpenEditor());
 
-        if (w.result() == QDialog::Accepted)
-        {
-            ConnectionManager->UpdateConnection(id, root);
-        }
+    if (w.result() == QDialog::Accepted)
+    {
+        ConnectionManager->UpdateConnection(id, root);
+    }
 }
 
-void MainWindow::OnConnectionCreated(const ConnectionId &id, const GroupId &groupId, const QString &displayName)
+void MainWindow::OnConnectionCreated(const ConnectionGroupPair &id, const QString &displayName)
 {
-        Q_UNUSED(displayName)
-        MWAddConnectionItem_p(id, groupId);
+    Q_UNUSED(displayName)
+    MWAddConnectionItem_p(id);
 }
-void MainWindow::OnConnectionDeleted(const ConnectionId &id, const GroupId &groupId)
+void MainWindow::OnConnectionDeleted(const ConnectionGroupPair &id)
 {
-        auto child = connectionNodes.take(id);
-        groupNodes.value(groupId)->removeChild(child.get());
+    auto child = connectionNodes.take(id);
+    groupNodes.value(id.groupId)->removeChild(child.get());
 }
 void MainWindow::OnConnectionGroupChanged(const ConnectionId &id, const GroupId &originalGroup, const GroupId &newGroup)
 {
-        delete GetItemWidget(connectionNodes.value(id).get());
-        groupNodes.value(originalGroup)->removeChild(connectionNodes.value(id).get());
-        connectionNodes.remove(id);
-        MWAddConnectionItem_p(id, newGroup);
+    const ConnectionGroupPair pair{ id, originalGroup };
+    delete GetItemWidget(connectionNodes.value(pair).get());
+    groupNodes.value(originalGroup)->removeChild(connectionNodes.value(pair).get());
+    connectionNodes.remove(pair);
+    MWAddConnectionItem_p({ id, newGroup });
 }
 void MainWindow::OnGroupCreated(const GroupId &id, const QString &displayName)
 {
-        Q_UNUSED(displayName)
-        MWAddGroupItem_p(id);
+    Q_UNUSED(displayName)
+    MWAddGroupItem_p(id);
 }
 void MainWindow::OnGroupDeleted(const GroupId &id, const QList<ConnectionId> &connections)
 {
-        for (const auto &conn : connections)
-        {
-            groupNodes.value(id)->removeChild(connectionNodes.value(conn).get());
-        }
-        groupNodes.remove(id);
+    for (const auto &conn : connections)
+    {
+        groupNodes.value(id)->removeChild(connectionNodes.value({ conn, id }).get());
+    }
+    groupNodes.remove(id);
 }
 
 void MainWindow::on_locateBtn_clicked()
 {
-        auto id = KernelInstance->CurrentConnection();
-        if (!id.isEmpty())
-        {
-            connectionListWidget->setCurrentItem(connectionNodes.value(id).get());
-            connectionListWidget->scrollToItem(connectionNodes.value(id).get());
-            on_connectionListWidget_itemClicked(connectionNodes.value(id).get(), 0);
-        }
+    auto id = KernelInstance->CurrentConnection();
+    if (!id.isEmpty())
+    {
+        connectionListWidget->setCurrentItem(connectionNodes.value(id).get());
+        connectionListWidget->scrollToItem(connectionNodes.value(id).get());
+        on_connectionListWidget_itemClicked(connectionNodes.value(id).get(), 0);
+    }
 }
 
 void MainWindow::on_action_RCM_RenameThis_triggered()
 {
-        CheckCurrentWidget;
-        widget->BeginRename();
+    CheckCurrentWidget;
+    widget->BeginRename();
 }
 
 void MainWindow::on_action_RCM_DuplicateThese_triggered()
 {
-        QList<ConnectionGroupPair> connlist;
+    QList<ConnectionGroupPair> connlist;
 
-        for (auto item : connectionListWidget->selectedItems())
+    for (auto item : connectionListWidget->selectedItems())
+    {
+        auto widget = GetItemWidget(item);
+        if (widget->IsConnection())
         {
-            auto widget = GetItemWidget(item);
-            if (widget->IsConnection())
-            {
-                connlist.append(widget->Identifier());
-            }
+            connlist.append(widget->Identifier());
         }
+    }
 
-        LOG(MODULE_UI, "Selected " + QSTRN(connlist.count()) + " items")
+    LOG(MODULE_UI, "Selected " + QSTRN(connlist.count()) + " items")
 
-        if (connlist.count() > 1 && QvMessageBoxAsk(this, tr("Duplicating Connection(s)"), //
-                                                    tr("Are you sure to duplicate these connection(s)?")) != QMessageBox::Yes)
-        {
-            return;
-        }
+    if (connlist.count() > 1 && QvMessageBoxAsk(this, tr("Duplicating Connection(s)"), //
+                                                tr("Are you sure to duplicate these connection(s)?")) != QMessageBox::Yes)
+    {
+        return;
+    }
 
-        for (const auto &conn : connlist)
-        {
-            ConnectionManager->CreateConnection(GetDisplayName(conn.connectionId) + tr(" (Copy)"), conn.groupId,
-                                                ConnectionManager->GetConnectionRoot(conn.connectionId));
-        }
+    for (const auto &conn : connlist)
+    {
+        ConnectionManager->CreateConnection(GetDisplayName(conn.connectionId) + tr(" (Copy)"), conn.groupId,
+                                            ConnectionManager->GetConnectionRoot(conn.connectionId));
+    }
 }
 
 void MainWindow::on_action_RCM_EditThis_triggered()
 {
-        CheckCurrentWidget;
-        OnEditRequested(widget->Identifier().connectionId);
+    CheckCurrentWidget;
+    OnEditRequested(widget->Identifier().connectionId);
 }
 
 void MainWindow::on_action_RCM_EditAsJson_triggered()
 {
-        CheckCurrentWidget;
-        OnEditJsonRequested(widget->Identifier().connectionId);
+    CheckCurrentWidget;
+    OnEditJsonRequested(widget->Identifier().connectionId);
 }
 
 void MainWindow::on_chartVisibilityBtn_clicked()
 {
-        speedChartHolderWidget->setVisible(!speedChartWidget->isVisible());
+    speedChartHolderWidget->setVisible(!speedChartWidget->isVisible());
 }
 
 void MainWindow::on_logVisibilityBtn_clicked()
 {
-        masterLogBrowser->setVisible(!masterLogBrowser->isVisible());
+    masterLogBrowser->setVisible(!masterLogBrowser->isVisible());
 }
 
 void MainWindow::on_clearChartBtn_clicked()
 {
-        speedChartWidget->Clear();
+    speedChartWidget->Clear();
 }
 
 void MainWindow::on_connectionListWidget_currentItemChanged(QTreeWidgetItem *current, QTreeWidgetItem *previous)
 {
-        Q_UNUSED(previous)
-        if (current != nullptr && !isExiting)
-        {
-            on_connectionListWidget_itemClicked(current, 0);
-        }
+    Q_UNUSED(previous)
+    if (current != nullptr && !isExiting)
+    {
+        on_connectionListWidget_itemClicked(current, 0);
+    }
 }
 
 void MainWindow::on_action_RCM_tovCoreLog_triggered()
 {
-        masterLogBrowser->setDocument(vCoreLogDocument);
+    masterLogBrowser->setDocument(vCoreLogDocument);
 }
 
 void MainWindow::on_action_RCM_toQvLog_triggered()
 {
-        masterLogBrowser->setDocument(qvLogDocument);
+    masterLogBrowser->setDocument(qvLogDocument);
 }
 
 void MainWindow::on_masterLogBrowser_textChanged()
 {
-        auto bar = masterLogBrowser->verticalScrollBar();
-        bar->setValue(bar->maximum());
+    auto bar = masterLogBrowser->verticalScrollBar();
+    bar->setValue(bar->maximum());
 }
 
 void MainWindow::on_action_RCM_SetAutoConnection_triggered()
 {
-        auto current = connectionListWidget->currentItem();
-        if (current != nullptr)
+    auto current = connectionListWidget->currentItem();
+    if (current != nullptr)
+    {
+        auto widget = GetItemWidget(current);
+        const auto identifier = widget->Identifier();
+        GlobalConfig.autoStartId = identifier;
+        if (!GlobalConfig.uiConfig.quietMode)
         {
-            auto widget = GetItemWidget(current);
-            const auto identifier = widget->Identifier();
-            GlobalConfig.autoStartId = identifier;
-            if (!GlobalConfig.uiConfig.quietMode)
-            {
-                hTray.showMessage(tr("Set auto connection"), tr("Set %1 as auto connect.").arg(GetDisplayName(identifier.connectionId)));
-            }
-            SaveGlobalSettings();
+            hTray.showMessage(tr("Set auto connection"), tr("Set %1 as auto connect.").arg(GetDisplayName(identifier.connectionId)));
         }
+        SaveGlobalSettings();
+    }
 }
 
 void MainWindow::on_action_RCM_ClearUsage_triggered()
 {
-        auto current = connectionListWidget->currentItem();
-        if (current != nullptr)
+    auto current = connectionListWidget->currentItem();
+    if (current != nullptr)
+    {
+        auto widget = GetItemWidget(current);
+        if (widget)
         {
-            auto widget = GetItemWidget(current);
-            if (widget)
-            {
-                if (widget->IsConnection())
-                    ConnectionManager->ClearConnectionUsage(widget->Identifier().connectionId);
-                else
-                    ConnectionManager->ClearGroupUsage(widget->Identifier().groupId);
-            }
+            if (widget->IsConnection())
+                ConnectionManager->ClearConnectionUsage(widget->Identifier());
+            else
+                ConnectionManager->ClearGroupUsage(widget->Identifier().groupId);
         }
+    }
 }
 
 void MainWindow::on_action_RCM_LatencyTest_triggered()
 {
-        auto current = connectionListWidget->currentItem();
-        if (current != nullptr)
+    auto current = connectionListWidget->currentItem();
+    if (current != nullptr)
+    {
+        auto widget = GetItemWidget(current);
+        if (widget)
         {
-            auto widget = GetItemWidget(current);
-            if (widget)
-            {
-                if (widget->IsConnection())
-                    ConnectionManager->StartLatencyTest(widget->Identifier().connectionId);
-                else
-                    ConnectionManager->StartLatencyTest(widget->Identifier().groupId);
-            }
+            if (widget->IsConnection())
+                ConnectionManager->StartLatencyTest(widget->Identifier().connectionId);
+            else
+                ConnectionManager->StartLatencyTest(widget->Identifier().groupId);
         }
+    }
 }
 
 void MainWindow::on_pluginsBtn_clicked()
 {
-        PluginManageWindow(this).exec();
+    PluginManageWindow(this).exec();
 }

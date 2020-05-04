@@ -187,16 +187,16 @@ namespace Qv2ray::core::handlers
     {
         for (const auto &conn : groups[id].connections)
         {
-            ClearConnectionUsage(conn);
+            ClearConnectionUsage({ conn, id });
         }
     }
-    void QvConfigHandler::ClearConnectionUsage(const ConnectionId &id)
+    void QvConfigHandler::ClearConnectionUsage(const ConnectionGroupPair &id)
     {
-        CheckConnectionExistanceEx(id, nothing);
-        connections[id].upLinkData = 0;
-        connections[id].downLinkData = 0;
+        CheckConnectionExistanceEx(id.connectionId, nothing);
+        connections[id.connectionId].upLinkData = 0;
+        connections[id.connectionId].downLinkData = 0;
         emit OnStatsAvailable(id, 0, 0, 0, 0);
-        PluginHost->Send_ConnectionStatsEvent({ GetDisplayName(id), 0, 0, 0, 0 });
+        PluginHost->Send_ConnectionStatsEvent({ GetDisplayName(id.connectionId), 0, 0, 0, 0 });
         return;
     }
 
@@ -573,15 +573,20 @@ namespace Qv2ray::core::handlers
         return hasErrorOccured;
     }
 
-    void QvConfigHandler::OnStatsDataArrived_p(const ConnectionId &id, const quint64 uploadSpeed, const quint64 downloadSpeed)
+    void QvConfigHandler::OnStatsDataArrived_p(const ConnectionGroupPair &id, const quint64 uploadSpeed, const quint64 downloadSpeed)
     {
-        if (id == NullConnectionId)
+        if (id.isEmpty())
             return;
-        connections[id].upLinkData += uploadSpeed;
-        connections[id].downLinkData += downloadSpeed;
-        emit OnStatsAvailable(id, uploadSpeed, downloadSpeed, connections[id].upLinkData, connections[id].downLinkData);
-        PluginHost->Send_ConnectionStatsEvent(
-            { GetDisplayName(id), uploadSpeed, downloadSpeed, connections[id].upLinkData, connections[id].downLinkData });
+        const auto &connectionId = id.connectionId;
+        connections[connectionId].upLinkData += uploadSpeed;
+        connections[connectionId].downLinkData += downloadSpeed;
+        emit OnStatsAvailable(id, uploadSpeed, downloadSpeed,       //
+                              connections[connectionId].upLinkData, //
+                              connections[connectionId].downLinkData);
+        PluginHost->Send_ConnectionStatsEvent({ GetDisplayName(connectionId),         //
+                                                uploadSpeed, downloadSpeed,           //
+                                                connections[connectionId].upLinkData, //
+                                                connections[connectionId].downLinkData });
     }
 
     const ConnectionId QvConfigHandler::CreateConnection(const QString &displayName, const GroupId &groupId, const CONFIGROOT &root,
@@ -592,7 +597,7 @@ namespace Qv2ray::core::handlers
         groups[groupId].connections << newId;
         connections[newId].creationDate = system_clock::to_time_t(system_clock::now());
         connections[newId].displayName = displayName;
-        emit OnConnectionCreated(newId, groupId, displayName);
+        emit OnConnectionCreated({ newId, groupId }, displayName);
         PluginHost->Send_ConnectionEvent({ displayName, "", Events::ConnectionEntry::ConnectionEvent_Created });
         UpdateConnection(newId, root);
         if (!skipSaveConfig)

@@ -26,10 +26,10 @@ namespace Qv2ray::base
         {
             return m_id;
         }
-        uint qHash(uint seed = 0) const
-        {
-            return ::qHash(m_id, seed);
-        }
+        //        uint qHash(uint seed = 0) const
+        //        {
+        //            return ::qHash(m_id, seed);
+        //        }
         void loadJson(const QJsonValue &d)
         {
             m_id = d.toString("null");
@@ -119,19 +119,17 @@ namespace Qv2ray::base
         Qv2rayConnectionObject() : lastConnected(), latency(QVTCPING_VALUE_NODATA), upLinkData(0), downLinkData(0){};
         JSONSTRUCT_REGISTER(Qv2rayConnectionObject, F(lastConnected, latency, upLinkData, downLinkData), B(__Qv2rayConfigObjectBase))
     };
+
+    template<typename T>
+    inline uint qHash(IDType<T> key)
+    {
+        return ::qHash(key.toString());
+    }
+    inline uint qHash(const Qv2ray::base::ConnectionGroupPair &pair)
+    {
+        return ::qHash(pair.connectionId.toString() + pair.groupId.toString());
+    }
 } // namespace Qv2ray::base
 
 using namespace Qv2ray::base;
 Q_DECLARE_METATYPE(ConnectionGroupPair);
-inline uint qHash(const ConnectionId &key, uint seed = 0)
-{
-    return qHash(key.toString(), seed);
-}
-inline uint qHash(const GroupId &key, uint seed = 0)
-{
-    return qHash(key.toString(), seed);
-}
-uint qHash(const Qv2ray::base::ConnectionGroupPair &pair)
-{
-    return qHash(pair.connectionId.toString() + pair.groupId.toString());
-}

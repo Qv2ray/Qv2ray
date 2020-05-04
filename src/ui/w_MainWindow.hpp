@@ -86,11 +86,11 @@ class MainWindow
     void OnConnected(const ConnectionGroupPair &id);
     void OnDisconnected(const ConnectionGroupPair &id);
     //
-    void OnStatsAvailable(const ConnectionId &id, const quint64 upS, const quint64 downS, const quint64 upD, const quint64 downD);
-    void OnVCoreLogAvailable(const ConnectionId &id, const QString &log);
+    void OnStatsAvailable(const ConnectionGroupPair &id, const quint64 upS, const quint64 downS, const quint64 upD, const quint64 downD);
+    void OnVCoreLogAvailable(const ConnectionGroupPair &id, const QString &log);
     //
-    void OnConnectionCreated(const ConnectionId &id, const GroupId &groupId, const QString &displayName);
-    void OnConnectionDeleted(const ConnectionId &id, const GroupId &groupId);
+    void OnConnectionCreated(const ConnectionGroupPair &Id, const QString &displayName);
+    void OnConnectionDeleted(const ConnectionGroupPair &Id);
     void OnConnectionGroupChanged(const ConnectionId &id, const GroupId &originalGroup, const GroupId &newGroup);
     //
     void OnGroupCreated(const GroupId &id, const QString &displayName);
@@ -166,6 +166,6 @@ class MainWindow
     //
     void UpdateColorScheme();
     //
-    void MWAddConnectionItem_p(const ConnectionId &connection, const GroupId &groupId);
+    void MWAddConnectionItem_p(const ConnectionGroupPair &id);
     void MWAddGroupItem_p(const GroupId &groupId);
 };

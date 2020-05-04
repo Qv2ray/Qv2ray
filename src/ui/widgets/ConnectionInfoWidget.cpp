@@ -69,7 +69,7 @@ void ConnectionInfoWidget::ShowDetails(const ConnectionGroupPair &_identifier)
     stackedWidget->setCurrentIndex(isConnection ? INDEX_CONNECTION : INDEX_GROUP);
     if (isConnection)
     {
-        auto shareLink = ConvertConfigToString(connectionId);
+        auto shareLink = ConvertConfigToString(_identifier);
         //
         shareLinkTxt->setText(shareLink);
         protocolLabel->setText(GetConnectionProtocolString(connectionId));
@@ -97,9 +97,9 @@ void ConnectionInfoWidget::ShowDetails(const ConnectionGroupPair &_identifier)
         connectBtn->setIcon(QICON_R("connect.png"));
         groupNameLabel->setText(GetDisplayName(groupId));
         QStringList shareLinks;
-        for (auto connection : ConnectionManager->Connections(groupId))
+        for (const auto &connection : ConnectionManager->Connections(groupId))
         {
-            shareLinks << ConvertConfigToString(connection, false);
+            shareLinks << ConvertConfigToString({ connection, groupId }, false);
         }
         //
         auto complexCount = shareLinks.removeAll(QV2RAY_SERIALIZATION_COMPLEX_CONFIG_PLACEHOLDER);

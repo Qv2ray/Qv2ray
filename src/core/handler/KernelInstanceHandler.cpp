@@ -257,7 +257,7 @@ namespace Qv2ray::core::handlers
 
     void KernelInstanceHandler::OnKernelLogAvailable_p(const QString &log)
     {
-        emit OnKernelLogAvailable(currentId.connectionId, log);
+        emit OnKernelLogAvailable(currentId, log);
     }
 
     void KernelInstanceHandler::StopConnection()
@@ -293,7 +293,7 @@ namespace Qv2ray::core::handlers
     {
         if (isConnected)
         {
-            emit OnStatsDataAvailable(currentId.connectionId, uploadSpeed, downloadSpeed);
+            emit OnStatsDataAvailable(currentId, uploadSpeed, downloadSpeed);
         }
     }
 } // namespace Qv2ray::core::handlers

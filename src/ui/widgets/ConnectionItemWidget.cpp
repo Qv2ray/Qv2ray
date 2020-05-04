@@ -14,31 +14,32 @@ ConnectionItemWidget::ConnectionItemWidget(QWidget *parent) : QWidget(parent), c
     connect(ConnectionManager, &QvConfigHandler::OnLatencyTestFinished, this, &ConnectionItemWidget::OnLatencyTestFinished);
 }
 
-ConnectionItemWidget::ConnectionItemWidget(const ConnectionId &id, const GroupId &gid, QWidget *parent) : ConnectionItemWidget(parent)
+ConnectionItemWidget::ConnectionItemWidget(const ConnectionGroupPair &id, QWidget *parent) : ConnectionItemWidget(parent)
 {
-    connectionId = id;
-    groupId = gid;
-    originalItemName = GetDisplayName(id);
+    connectionId = id.connectionId;
+    groupId = id.groupId;
+    originalItemName = GetDisplayName(id.connectionId);
     itemType = NODE_ITEM;
     //
     indentSpacer->changeSize(10, indentSpacer->sizeHint().height());
     //
-    auto latency = GetConnectionLatency(id);
+    auto latency = GetConnectionLatency(id.connectionId);
     latencyLabel->setText(latency == QVTCPING_VALUE_NODATA ?     //
                               tr("Not Tested") :                 //
                               (latency == QVTCPING_VALUE_ERROR ? //
                                    tr("Error") :                 //
                                    (QSTRN(latency) + " ms")));   //
     //
-    connTypeLabel->setText(tr("Type: ") + GetConnectionProtocolString(id));
+    connTypeLabel->setText(tr("Type: ") + GetConnectionProtocolString(id.connectionId));
     auto [uplink, downlink] = GetConnectionUsageAmount(connectionId);
     dataLabel->setText(FormatBytes(uplink) + " / " + FormatBytes(downlink));
     //
-    if (ConnectionManager->IsConnected({ id, gid }))
+    if (ConnectionManager->IsConnected(id))
     {
         emit RequestWidgetFocus(this);
     }
-    OnConnectionItemRenamed(id, "", originalItemName);
+    // Fake trigger
+    OnConnectionItemRenamed(id.connectionId, "", originalItemName);
     connect(ConnectionManager, &QvConfigHandler::OnConnectionRenamed, this, &ConnectionItemWidget::OnConnectionItemRenamed);
     //
     // Rename events
@@ -106,13 +107,13 @@ void ConnectionItemWidget::OnDisConnected(const ConnectionGroupPair &id)
     }
 }
 
-void ConnectionItemWidget::OnConnectionStatsArrived(const ConnectionId &id, const quint64 upSpeed, const quint64 downSpeed,
+void ConnectionItemWidget::OnConnectionStatsArrived(const ConnectionGroupPair &id, const quint64 upSpeed, const quint64 downSpeed,
                                                     const quint64 totalUp, const quint64 totalDown)
 {
     Q_UNUSED(upSpeed)
     Q_UNUSED(downSpeed)
 
-    if (id == connectionId)
+    if (id.connectionId == connectionId)
     {
         dataLabel->setText(FormatBytes(totalUp) + " / " + FormatBytes(totalDown));
     }

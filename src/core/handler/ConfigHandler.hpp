@@ -90,7 +90,7 @@ namespace Qv2ray::core::handlers
         // Connection Operations.
         bool UpdateConnection(const ConnectionId &id, const CONFIGROOT &root, bool skipRestart = false);
         void ClearGroupUsage(const GroupId &id);
-        void ClearConnectionUsage(const ConnectionId &id);
+        void ClearConnectionUsage(const ConnectionGroupPair &id);
         const std::optional<QString> RemoveConnectionFromGroup(const ConnectionId &id, const GroupId &gid);
         const std::optional<QString> RenameConnection(const ConnectionId &id, const QString &newName);
         const std::optional<QString> MoveConnectionGroup(const ConnectionId &id, const GroupId &newGroupId);
@@ -118,13 +118,13 @@ namespace Qv2ray::core::handlers
         // const std::tuple<QString, int64_t, float> GetSubscriptionData(const GroupId &id) const;
 
       signals:
-        void OnKernelLogAvailable(const ConnectionId &id, const QString &log);
-        void OnStatsAvailable(const ConnectionId &id, const quint64 upS, const quint64 downS, const quint64 upD, const quint64 downD);
+        void OnKernelLogAvailable(const ConnectionGroupPair &id, const QString &log);
+        void OnStatsAvailable(const ConnectionGroupPair &id, const quint64 upS, const quint64 downS, const quint64 upD, const quint64 downD);
         //
-        void OnConnectionRenamed(const ConnectionId &id, const QString &originalName, const QString &newName);
-        void OnConnectionCreated(const ConnectionId &id, const GroupId &groupId, const QString &displayName);
-        void OnConnectionDeleted(const ConnectionId &id, const GroupId &groupId);
-        void OnConnectionRemovedFromGroup(const ConnectionId &id, const GroupId &groupId);
+        void OnConnectionRenamed(const ConnectionId &Id, const QString &originalName, const QString &newName);
+        void OnConnectionCreated(const ConnectionGroupPair &Id, const QString &displayName);
+        void OnConnectionDeleted(const ConnectionGroupPair &Id);
+        void OnConnectionRemovedFromGroup(const ConnectionGroupPair &groupId);
         void OnConnectionModified(const ConnectionId &id);
         void OnConnectionGroupChanged(const ConnectionId &id, const GroupId &originalGroup, const GroupId &newGroup);
         //
@@ -143,7 +143,7 @@ namespace Qv2ray::core::handlers
       private slots:
         void OnKernelCrashed_p(const ConnectionGroupPair &id, const QString &errMessage);
         void OnLatencyDataArrived_p(const QvTCPingResultObject &data);
-        void OnStatsDataArrived_p(const ConnectionId &id, const quint64 uploadSpeed, const quint64 downloadSpeed);
+        void OnStatsDataArrived_p(const ConnectionGroupPair &id, const quint64 uploadSpeed, const quint64 downloadSpeed);
 
       protected:
         void timerEvent(QTimerEvent *event) override;
