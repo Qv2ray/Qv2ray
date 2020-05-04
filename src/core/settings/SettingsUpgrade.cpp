@@ -213,7 +213,50 @@ namespace Qv2ray
             // Splitted Qv2ray.conf,
             case 11:
             {
+                // Moved root["connections"] into separated file: $QV2RAY_CONFIG_PATH/connections.json
+                ///
+                /// Connection.json
+                /// {
+                ///     "connections" : [
+                ///         {connectionObject 1},
+                ///         {connectionObject 2},
+                ///         {connectionObject 3},
+                ///         {connectionObject 4},
+                ///      ]
+                /// }
+                ///
+                // Merged groups and subscriptions. $QV2RAY_GROUPS_PATH/+ groupId.json
+                ///
+                /// Group.json
+                /// {
+                ///     GROUP_OBJECT
+                /// }
+                ///
+                // Config file migrations:
+                // Connection Object:
+                //      importDate --> creationDate
+                //      lastUpdatedDate --> now
                 //
+                // Susbcription Object
+                //      Doesn't exist anymore, convert into normal group Object.
+                //
+                // Group Object
+                //      connections ---> ConnectionID
+                //      idSubscription ---> if the group is a subscription
+                //      subscriptionSettings ---> Originally SubscriptionObject
+                //      creationDate ---> Now
+                //      lastUpdateDate ---> Now
+                //
+                // Main Object
+                //      Drop recentConnections since it's ill-formed and not supported yet.
+                //      convert autoStartId into ConnectionGroupPair / instead of QString
+                //      Remove subscriptions item.
+                //
+                // FileSystem Migrations
+                //      Move all files in GROUPS / SUBSCRIPTION subfolders into CONNECTIONS.
+                //      Only Store (connections.json in CONFIG_PATH) and ($groupID.json in GROUP_PATH)
+                //
+                abort();
             }
             default:
             {
@@ -230,7 +273,6 @@ namespace Qv2ray
                 qApp->exit(1);
             }
         }
-        abort();
         root["config_version"] = root["config_version"].toInt() + 1;
         return root;
     }
