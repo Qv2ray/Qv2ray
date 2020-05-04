@@ -14,10 +14,10 @@ ConnectionItemWidget::ConnectionItemWidget(QWidget *parent) : QWidget(parent), c
     connect(ConnectionManager, &QvConfigHandler::OnLatencyTestFinished, this, &ConnectionItemWidget::OnLatencyTestFinished);
 }
 
-ConnectionItemWidget::ConnectionItemWidget(const ConnectionId &id, QWidget *parent) : ConnectionItemWidget(parent)
+ConnectionItemWidget::ConnectionItemWidget(const ConnectionId &id, const GroupId &gid, QWidget *parent) : ConnectionItemWidget(parent)
 {
     connectionId = id;
-    groupId = GetConnectionGroupId(id);
+    groupId = gid;
     originalItemName = GetDisplayName(id);
     itemType = NODE_ITEM;
     //
@@ -34,7 +34,7 @@ ConnectionItemWidget::ConnectionItemWidget(const ConnectionId &id, QWidget *pare
     auto [uplink, downlink] = GetConnectionUsageAmount(connectionId);
     dataLabel->setText(FormatBytes(uplink) + " / " + FormatBytes(downlink));
     //
-    if (ConnectionManager->IsConnected(id))
+    if (ConnectionManager->IsConnected({ id, gid }))
     {
         emit RequestWidgetFocus(this);
     }
@@ -80,7 +80,7 @@ void ConnectionItemWidget::BeginConnection()
 {
     if (itemType == NODE_ITEM)
     {
-        ConnectionManager->StartConnection(connectionId);
+        ConnectionManager->StartConnection(connectionId, groupId);
     }
     else
     {
@@ -88,19 +88,19 @@ void ConnectionItemWidget::BeginConnection()
     }
 }
 
-void ConnectionItemWidget::OnConnected(const ConnectionId &id)
+void ConnectionItemWidget::OnConnected(const ConnectionGroupPair &id)
 {
-    if (id == connectionId)
+    if (id == ConnectionGroupPair{ connectionId, groupId })
     {
         connNameLabel->setText("• " + originalItemName);
-        LOG(MODULE_UI, "OnConnected signal received for: " + id.toString())
+        LOG(MODULE_UI, "OnConnected signal received for: " + id.connectionId.toString())
         emit RequestWidgetFocus(this);
     }
 }
 
-void ConnectionItemWidget::OnDisConnected(const ConnectionId &id)
+void ConnectionItemWidget::OnDisConnected(const ConnectionGroupPair &id)
 {
-    if (id == connectionId)
+    if (id == ConnectionGroupPair{ connectionId, groupId })
     {
         connNameLabel->setText(originalItemName);
     }
@@ -178,7 +178,7 @@ void ConnectionItemWidget::OnConnectionItemRenamed(const ConnectionId &id, const
 {
     if (id == connectionId)
     {
-        connNameLabel->setText((ConnectionManager->IsConnected(id) ? "• " : "") + newName);
+        connNameLabel->setText((ConnectionManager->IsConnected({ connectionId, groupId }) ? "• " : "") + newName);
         originalItemName = newName;
         this->setToolTip(newName);
     }

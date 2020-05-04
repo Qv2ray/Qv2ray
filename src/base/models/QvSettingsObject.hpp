@@ -105,7 +105,7 @@ namespace Qv2ray::base::config
     {
         QString theme;
         QString language;
-        QList<QString> recentConnections;
+        QList<ConnectionGroupPair> recentConnections;
         bool quietMode;
         bool useDarkTheme;
         bool useDarkTrayIcon;
@@ -268,7 +268,7 @@ namespace Qv2ray::base::config
         bool tProxySupport;
         int logLevel;
         //
-        QString autoStartId;
+        ConnectionGroupPair autoStartId;
         //
         // Key = groupId, connectionId
         QList<GroupId> groups;
@@ -290,7 +290,7 @@ namespace Qv2ray::base::config
             : config_version(QV2RAY_CONFIG_VERSION), //
               tProxySupport(false),                  //
               logLevel(),                            //
-              autoStartId("null"),                   //
+              autoStartId(),                         //
               groups(),                              //
               uiConfig(),                            //
               apiConfig(),                           //

@@ -17,7 +17,7 @@ class ConnectionItemWidget
 {
     Q_OBJECT
   public:
-    explicit ConnectionItemWidget(const ConnectionId &connecionId, QWidget *parent = nullptr);
+    explicit ConnectionItemWidget(const ConnectionId &id, const GroupId &gid, QWidget *parent = nullptr);
     explicit ConnectionItemWidget(const GroupId &groupId, QWidget *parent = nullptr);
     //
     void BeginConnection();
@@ -39,9 +39,12 @@ class ConnectionItemWidget
             return headerMatched || GetDisplayName(connectionId).toLower().contains(searchString);
         }
     }
-    inline const std::tuple<GroupId, ConnectionId> Identifier() const
+    inline const ConnectionGroupPair Identifier() const
     {
-        return { groupId, connectionId };
+        ConnectionGroupPair i;
+        i.connectionId = this->connectionId;
+        i.groupId = this->groupId;
+        return i;
     }
     inline bool IsRenaming() const
     {
@@ -55,8 +58,8 @@ class ConnectionItemWidget
     void RequestWidgetFocus(const ConnectionItemWidget *me);
   private slots:
     void OnConnectionStatsArrived(const ConnectionId &id, const quint64 upS, const quint64 downS, const quint64 upD, const quint64 downD);
-    void OnConnected(const ConnectionId &id);
-    void OnDisConnected(const ConnectionId &id);
+    void OnConnected(const ConnectionGroupPair &id);
+    void OnDisConnected(const ConnectionGroupPair &id);
     void OnLatencyTestStart(const ConnectionId &id);
     void OnConnectionModified(const ConnectionId &id);
     void OnLatencyTestFinished(const ConnectionId &id, const uint average);

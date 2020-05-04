@@ -180,7 +180,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     setTestLatenctCB->setChecked(CurrentConfig.advancedConfig.testLatencyPeriodcally);
     //
     DNSListTxt->clear();
-    for (auto dnsStr : CurrentConfig.connectionConfig.dnsList)
+    for (const auto &dnsStr : CurrentConfig.connectionConfig.dnsList)
     {
         auto str = dnsStr.trimmed();
         if (!str.isEmpty())
@@ -221,19 +221,19 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     CurrentBarPageId = 0;
     //
     // Empty for global config.
-    auto autoStartConnId = ConnectionId(CurrentConfig.autoStartId);
-    auto autoStartGroupId = GetConnectionGroupId(autoStartConnId);
+    auto autoStartConnId = CurrentConfig.autoStartId.connectionId;
+    auto autoStartGroupId = CurrentConfig.autoStartId.groupId;
 
-    for (auto group : ConnectionManager->AllGroups())
+    for (const auto &group : ConnectionManager->AllGroups())
     {
-        autoStartSubsCombo->addItem(GetDisplayName(group));
+        autoStartSubsCombo->addItem(GetDisplayName(group), group.toString());
     }
 
     autoStartSubsCombo->setCurrentText(GetDisplayName(autoStartGroupId));
 
-    for (auto conn : ConnectionManager->Connections(autoStartGroupId))
+    for (const auto &conn : ConnectionManager->Connections(autoStartGroupId))
     {
-        autoStartConnCombo->addItem(GetDisplayName(conn));
+        autoStartConnCombo->addItem(GetDisplayName(conn), conn.toString());
     }
 
     autoStartConnCombo->setCurrentText(GetDisplayName(autoStartConnId));
@@ -479,7 +479,7 @@ void PreferencesWindow::on_DNSListTxt_textChanged()
         QStringList hosts = DNSListTxt->toPlainText().replace("\r", "").split("\n");
         CurrentConfig.connectionConfig.dnsList.clear();
 
-        for (auto host : hosts)
+        for (const auto &host : hosts)
         {
             if (host != "" && host != "\r")
             {
@@ -790,7 +790,7 @@ void PreferencesWindow::on_nsBarPagesList_currentRowChanged(int currentRow)
 
     if (!CurrentBarPage.Lines.empty())
     {
-        for (auto line : CurrentBarPage.Lines)
+        for (const auto &line : CurrentBarPage.Lines)
         {
             auto description = GetBarLineDescription(line);
             nsBarLinesList->addItem(description);
@@ -993,12 +993,6 @@ void PreferencesWindow::on_setSysProxyCB_stateChanged(int arg1)
     CurrentConfig.inboundConfig.setSystemProxy = arg1 == Qt::Checked;
 }
 
-void PreferencesWindow::on_pushButton_clicked()
-{
-    LOADINGCHECK
-    QDesktopServices::openUrl(QUrl::fromUserInput(QV2RAY_RULES_DIR));
-}
-
 void PreferencesWindow::on_autoStartSubsCombo_currentIndexChanged(const QString &arg1)
 {
     LOADINGCHECK if (arg1.isEmpty())
@@ -1008,13 +1002,12 @@ void PreferencesWindow::on_autoStartSubsCombo_currentIndexChanged(const QString 
     }
     else
     {
-        auto groupId = ConnectionManager->GetGroupIdByDisplayName(arg1);
-        auto list = ConnectionManager->Connections(groupId);
+        auto list = ConnectionManager->Connections(GroupId(autoStartSubsCombo->currentData().toString()));
         autoStartConnCombo->clear();
 
-        for (auto id : list)
+        for (const auto &id : list)
         {
-            autoStartConnCombo->addItem(GetDisplayName(id));
+            autoStartConnCombo->addItem(GetDisplayName(id), id.toString());
         }
     }
 }
@@ -1030,9 +1023,12 @@ void PreferencesWindow::on_autoStartConnCombo_currentIndexChanged(const QString 
     {
         // Fully qualify the connection item.
         // Will not work when duplicated names are in the same group.
-        CurrentConfig.autoStartId =
-            ConnectionManager->GetConnectionIdByDisplayName(arg1, ConnectionManager->GetGroupIdByDisplayName(autoStartSubsCombo->currentText()))
-                .toString();
+        CurrentConfig.autoStartId.groupId = GroupId(autoStartSubsCombo->currentData().toString());
+        CurrentConfig.autoStartId.connectionId = ConnectionId(autoStartConnCombo->currentData().toString());
+        //= autoStartConnCombo->currentData().toString();
+        //            ConnectionManager->GetConnectionIdByDisplayName(arg1,
+        //            ConnectionManager->GetGroupIdByDisplayName(autoStartSubsCombo->currentText()))
+        //              .toString();
     }
 }
 

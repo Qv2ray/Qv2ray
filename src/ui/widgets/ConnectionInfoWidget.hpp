@@ -14,7 +14,7 @@ class ConnectionInfoWidget
 
   public:
     explicit ConnectionInfoWidget(QWidget *parent = nullptr);
-    void ShowDetails(const std::tuple<GroupId, ConnectionId> &_identifier);
+    void ShowDetails(const ConnectionGroupPair &_identifier);
     ~ConnectionInfoWidget();
 
   signals:
@@ -32,8 +32,8 @@ class ConnectionInfoWidget
 
     void OnConnectionModified(const ConnectionId &id);
     void OnGroupRenamed(const GroupId &id, const QString &oldName, const QString &newName);
-    void OnConnected(const ConnectionId &id);
-    void OnDisConnected(const ConnectionId &id);
+    void OnConnected(const ConnectionGroupPair &id);
+    void OnDisConnected(const ConnectionGroupPair &id);
     void on_latencyBtn_clicked();
 
   private:

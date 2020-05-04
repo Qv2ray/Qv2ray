@@ -122,8 +122,6 @@ class PreferencesWindow
 
     void on_setSysProxyCB_stateChanged(int arg1);
 
-    void on_pushButton_clicked();
-
     void on_autoStartSubsCombo_currentIndexChanged(const QString &arg1);
 
     void on_autoStartConnCombo_currentIndexChanged(const QString &arg1);

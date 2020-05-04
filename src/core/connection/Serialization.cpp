@@ -69,16 +69,16 @@ namespace Qv2ray::core::connection
             return connectionConf;
         }
 
-        const QString ConvertConfigToString(const ConnectionId &id, bool isSip002)
+        const QString ConvertConfigToString(const ConnectionGroupPair &identifier, bool isSip002)
         {
-            auto alias = GetDisplayName(id);
-            if (IsComplexConfig(id))
+            auto alias = GetDisplayName(identifier.connectionId);
+            if (IsComplexConfig(identifier.connectionId))
             {
                 DEBUG(MODULE_CONNECTION, "Ignored an complex config: " + alias)
                 return QV2RAY_SERIALIZATION_COMPLEX_CONFIG_PLACEHOLDER;
             }
-            auto server = ConnectionManager->GetConnectionRoot(id);
-            return ConvertConfigToString(alias, GetDisplayName(GetConnectionGroupId(id)), server, isSip002);
+            auto server = ConnectionManager->GetConnectionRoot(identifier.connectionId);
+            return ConvertConfigToString(alias, GetDisplayName(identifier.groupId), server, isSip002);
         }
 
         const QString ConvertConfigToString(const QString &alias, const QString &groupName, const CONFIGROOT &server, bool isSip002)

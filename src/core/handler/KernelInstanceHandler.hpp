@@ -15,16 +15,16 @@ namespace Qv2ray::core::handlers
         explicit KernelInstanceHandler(QObject *parent = nullptr);
         ~KernelInstanceHandler();
 
-        std::optional<QString> StartConnection(const ConnectionId &id, const CONFIGROOT &root);
+        std::optional<QString> StartConnection(const ConnectionGroupPair &id, const CONFIGROOT &root);
         void RestartConnection();
         void StopConnection();
-        const ConnectionId CurrentConnection() const
+        const ConnectionGroupPair CurrentConnection() const
         {
-            return currentConnectionId;
+            return currentId;
         }
-        bool isConnected(const ConnectionId &id) const
+        bool isConnected(const ConnectionGroupPair &id) const
         {
-            return id == currentConnectionId;
+            return id == currentId;
         }
         const QMap<QString, int> InboundPorts() const
         {
@@ -32,9 +32,9 @@ namespace Qv2ray::core::handlers
         }
 
       signals:
-        void OnConnected(const ConnectionId &id);
-        void OnDisconnected(const ConnectionId &id);
-        void OnCrashed(const ConnectionId &id, const QString &errMessage);
+        void OnConnected(const ConnectionGroupPair &id);
+        void OnDisconnected(const ConnectionGroupPair &id);
+        void OnCrashed(const ConnectionGroupPair &id, const QString &errMessage);
         void OnStatsDataAvailable(const ConnectionId &id, const quint64 uploadSpeed, const quint64 downloadSpeed);
         void OnKernelLogAvailable(const ConnectionId &id, const QString &log);
 
@@ -49,8 +49,8 @@ namespace Qv2ray::core::handlers
         QMap<QString, int> inboundPorts;
         CONFIGROOT root;
         V2rayKernelInstance *vCoreInstance = nullptr;
-        ConnectionId currentConnectionId = NullConnectionId;
-        ConnectionId lastConnectionId = NullConnectionId;
+        ConnectionGroupPair currentId = {};
+        ConnectionGroupPair lastConnectionId = {};
     };
     inline const KernelInstanceHandler *KernelInstance;
 } // namespace Qv2ray::core::handlers

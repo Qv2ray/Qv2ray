@@ -83,13 +83,13 @@ class MainWindow
     void ToggleVisibility();
     void OnEditRequested(const ConnectionId &id);
     void OnEditJsonRequested(const ConnectionId &id);
-    void OnConnected(const ConnectionId &id);
-    void OnDisconnected(const ConnectionId &id);
+    void OnConnected(const ConnectionGroupPair &id);
+    void OnDisconnected(const ConnectionGroupPair &id);
     //
     void OnStatsAvailable(const ConnectionId &id, const quint64 upS, const quint64 downS, const quint64 upD, const quint64 downD);
     void OnVCoreLogAvailable(const ConnectionId &id, const QString &log);
     //
-    void OnConnectionCreated(const ConnectionId &id, const QString &displayName);
+    void OnConnectionCreated(const ConnectionId &id, const GroupId &groupId, const QString &displayName);
     void OnConnectionDeleted(const ConnectionId &id, const GroupId &groupId);
     void OnConnectionGroupChanged(const ConnectionId &id, const GroupId &originalGroup, const GroupId &newGroup);
     //
@@ -98,7 +98,7 @@ class MainWindow
     //
     void SortConnectionList(MW_ITEM_COL byCol, bool asending);
     //
-    void ReloadRecentConnectionList(const QList<QString> &items);
+    void ReloadRecentConnectionList(const QList<ConnectionGroupPair> &items);
 
   protected:
     void timerEvent(QTimerEvent *event) override;
@@ -108,7 +108,7 @@ class MainWindow
 
   private:
     QHash<GroupId, std::shared_ptr<QTreeWidgetItem>> groupNodes;
-    QHash<ConnectionId, std::shared_ptr<QTreeWidgetItem>> connectionNodes;
+    QHash<ConnectionGroupPair, std::shared_ptr<QTreeWidgetItem>> connectionNodes;
     // Charts
     SpeedWidget *speedChartWidget;
     QSystemTrayIcon hTray;
@@ -159,7 +159,7 @@ class MainWindow
     QAction *action_RCM_tovCoreLog = new QAction(tr("Switch to vCore log"), this);
     QAction *action_RCM_toQvLog = new QAction(tr("Switch to Qv2ray log"), this);
     //
-    ConnectionId lastConnectedId;
+    ConnectionGroupPair lastConnectedIdentifier;
     void MWSetSystemProxy();
     void MWClearSystemProxy();
     void CheckSubscriptionsUpdate();

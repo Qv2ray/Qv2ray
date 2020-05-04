@@ -189,8 +189,8 @@ namespace Qv2ray
                     subs["updateInterval"] = value["updateInterval"];
                     subs["displayName"] = key;
                     //
-                    auto baseDirPath = QV2RAY_SUBSCRIPTION_DIR + key;
-                    auto newDirPath = QV2RAY_SUBSCRIPTION_DIR + subsUuid;
+                    auto baseDirPath = QV2RAY_CONFIG_DIR + "/subscriptions/" + key;
+                    auto newDirPath = QV2RAY_CONFIG_DIR + "/subscriptions/" + subsUuid;
                     QDir newDir(newDirPath);
 
                     if (!newDir.exists())

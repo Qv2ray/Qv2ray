@@ -42,15 +42,12 @@ using namespace Qv2ray::base::objects::transfer;
 // Get Configured Config Dir Path
 #define QV2RAY_CONFIG_DIR (Qv2ray::Qv2rayConfigPath)
 #define QV2RAY_CONFIG_FILE (QV2RAY_CONFIG_DIR + "Qv2ray.conf")
+//
+#define QV2RAY_GROUP_DIR (QV2RAY_CONFIG_DIR + "groups/")
 #define QV2RAY_CONNECTIONS_DIR (QV2RAY_CONFIG_DIR + "connections/")
-#define QV2RAY_SUBSCRIPTION_DIR (QV2RAY_CONFIG_DIR + "subscriptions/")
+//
 #define QV2RAY_PLUGIN_SETTINGS_DIR (QV2RAY_CONFIG_DIR + "plugin_settings/")
-
-// Get GFWList and PAC file path.
-#define QV2RAY_RULES_DIR (QV2RAY_CONFIG_DIR + "rules/")
-#define QV2RAY_RULES_GFWLIST_PATH (QV2RAY_RULES_DIR + "gfwList.txt")
-#define QV2RAY_RULES_PAC_PATH (QV2RAY_RULES_DIR + "pac.txt")
-
+//
 #define QV2RAY_CONFIG_FILE_EXTENSION ".qv2ray.json"
 #define QV2RAY_GENERATED_DIR (QV2RAY_CONFIG_DIR + "generated/")
 #define QV2RAY_GENERATED_FILE_PATH (QV2RAY_GENERATED_DIR + "config.gen.json")

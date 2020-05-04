@@ -1,12 +1,15 @@
 #pragma once
 #include "libs/QJsonStruct/QJsonStruct.hpp"
 
+#include <QHash>
+#include <QHashFunctions>
 #include <QString>
 #include <QtCore>
+
 namespace Qv2ray::base
 {
     template<typename T>
-    class IDType final
+    class IDType
     {
       public:
         explicit IDType() : m_id("null"){};
@@ -17,22 +20,20 @@ namespace Qv2ray::base
         }
         friend bool operator!=(const IDType<T> &lhs, const IDType<T> &rhs)
         {
-            return lhs.toString() != rhs.toString();
+            return lhs.m_id != rhs.m_id;
         }
         const QString &toString() const
         {
             return m_id;
         }
-        uint qHash(uint seed) const
+        uint qHash(uint seed = 0) const
         {
             return ::qHash(m_id, seed);
         }
-
         void loadJson(const QJsonValue &d)
         {
             m_id = d.toString("null");
         }
-
         QJsonValue toJson() const
         {
             return m_id;
@@ -42,16 +43,37 @@ namespace Qv2ray::base
         QString m_id;
     };
 
-    template<typename T>
-    uint qHash(const IDType<T> &key, uint seed = 0)
-    {
-        return key.qHash(seed);
-    }
     // Define several safetypes to prevent misuse of QString.
     class __QvGroup;
     class __QvConnection;
     typedef IDType<__QvGroup> GroupId;
     typedef IDType<__QvConnection> ConnectionId;
+    //
+    inline const static auto NullConnectionId = ConnectionId("null");
+    inline const static auto NullGroupId = GroupId("null");
+    //
+    class ConnectionGroupPair
+    {
+      public:
+        ConnectionId connectionId = NullConnectionId;
+        GroupId groupId = NullGroupId;
+        ConnectionGroupPair() : connectionId(NullConnectionId), groupId(NullGroupId){};
+        ConnectionGroupPair(const ConnectionId &conn, const GroupId &group) : connectionId(conn), groupId(group){};
+        void clear()
+        {
+            connectionId = NullConnectionId;
+            groupId = NullGroupId;
+        }
+        bool isEmpty() const
+        {
+            return connectionId == NullConnectionId;
+        }
+        friend bool operator==(const ConnectionGroupPair &lhs, const ConnectionGroupPair &rhs)
+        {
+            return lhs.groupId == rhs.groupId && lhs.connectionId == rhs.connectionId;
+        }
+        JSONSTRUCT_REGISTER(ConnectionGroupPair, F(connectionId, groupId))
+    };
     //
     constexpr unsigned int QVTCPING_VALUE_ERROR = 99999;
     constexpr unsigned int QVTCPING_VALUE_NODATA = QVTCPING_VALUE_ERROR - 1;
@@ -64,8 +86,7 @@ namespace Qv2ray::base
         qint64 lastUpdatedDate;
         __Qv2rayConfigObjectBase()
             : displayName(), creationDate(system_clock::to_time_t(system_clock::now())), //
-              lastUpdatedDate(system_clock::to_time_t(system_clock::now()))              //
-              {};
+              lastUpdatedDate(system_clock::to_time_t(system_clock::now())){};           //
         JSONSTRUCT_REGISTER(__Qv2rayConfigObjectBase, F(displayName, creationDate, lastUpdatedDate))
     };
 
@@ -92,9 +113,25 @@ namespace Qv2ray::base
         qint64 latency;
         qint64 upLinkData;
         qint64 downLinkData;
+        //
+        int __qvConnectionRefCount;
+        //
         Qv2rayConnectionObject() : lastConnected(), latency(QVTCPING_VALUE_NODATA), upLinkData(0), downLinkData(0){};
         JSONSTRUCT_REGISTER(Qv2rayConnectionObject, F(lastConnected, latency, upLinkData, downLinkData), B(__Qv2rayConfigObjectBase))
     };
 } // namespace Qv2ray::base
 
 using namespace Qv2ray::base;
+Q_DECLARE_METATYPE(ConnectionGroupPair);
+inline uint qHash(const ConnectionId &key, uint seed = 0)
+{
+    return qHash(key.toString(), seed);
+}
+inline uint qHash(const GroupId &key, uint seed = 0)
+{
+    return qHash(key.toString(), seed);
+}
+uint qHash(const Qv2ray::base::ConnectionGroupPair &pair)
+{
+    return qHash(pair.connectionId.toString() + pair.groupId.toString());
+}

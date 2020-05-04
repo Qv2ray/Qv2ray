@@ -32,7 +32,7 @@ void MainWindow::MWSetSystemProxy()
 void MainWindow::MWClearSystemProxy()
 {
     ClearSystemProxy();
-    hTray.setIcon(KernelInstance->CurrentConnection() == NullConnectionId ? Q_TRAYICON("tray.png") : Q_TRAYICON("tray-connected.png"));
+    hTray.setIcon(KernelInstance->CurrentConnection().isEmpty() ? Q_TRAYICON("tray.png") : Q_TRAYICON("tray-connected.png"));
     if (!GlobalConfig.uiConfig.quietMode)
     {
         hTray.showMessage("Qv2ray", tr("System proxy removed."));
@@ -49,16 +49,16 @@ void MainWindow::CheckSubscriptionsUpdate()
         const auto info = ConnectionManager->GetGroupMetaObject(entry);
         //
         // The update is ignored.
-        if (info.updateInterval == 0)
+        if (info.subscriptionSettings.updateInterval == 0)
             continue;
         //
         const auto &lastRenewDate = QDateTime::fromTime_t(info.lastUpdatedDate);
-        const auto &renewTime = lastRenewDate.addSecs(info.updateInterval * 86400);
-        LOG(MODULE_SUBSCRIPTION,                                                  //
-            "Subscription \"" + info.displayName + "\": " +                       //
-                NEWLINE + " --> Last renewal time: " + lastRenewDate.toString() + //
-                NEWLINE + " --> Renew interval: " + QSTRN(info.updateInterval) +  //
-                NEWLINE + " --> Ideal renew time: " + renewTime.toString())       //
+        const auto &renewTime = lastRenewDate.addSecs(info.subscriptionSettings.updateInterval * 86400);
+        LOG(MODULE_SUBSCRIPTION,                                                                      //
+            "Subscription \"" + info.displayName + "\": " +                                           //
+                NEWLINE + " --> Last renewal time: " + lastRenewDate.toString() +                     //
+                NEWLINE + " --> Renew interval: " + QSTRN(info.subscriptionSettings.updateInterval) + //
+                NEWLINE + " --> Ideal renew time: " + renewTime.toString())                           //
 
         if (renewTime <= QDateTime::currentDateTime())
         {

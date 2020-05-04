@@ -36,15 +36,13 @@ GroupManager::GroupManager(QWidget *parent) : QDialog(parent)
                 this->loadConnectionList(currentGroupId);                  //
             });
     //
-    connect(ConnectionManager, &QvConfigHandler::OnConnectionCreated, [&](const ConnectionId &id) { //
-        const auto groupId = GetConnectionGroupId(id);                                              //
-        if (groupId == currentGroupId)                                                              //
-            this->loadConnectionList(groupId);                                                      //
-    });                                                                                             //
-    connect(ConnectionManager, &QvConfigHandler::OnConnectionDeleted, [&](const ConnectionId &, const GroupId &group) {
-        if (group == currentGroupId)         //
-            this->loadConnectionList(group); //
-    });                                      //
+    const auto reloadGroupLambda = [&](const ConnectionId &, const GroupId &groupId) {
+        if (groupId == currentGroupId)
+            this->loadConnectionList(groupId);
+    };
+    connect(ConnectionManager, &QvConfigHandler::OnConnectionCreated, reloadGroupLambda);
+    connect(ConnectionManager, &QvConfigHandler::OnConnectionDeleted, reloadGroupLambda);
+    connect(ConnectionManager, &QvConfigHandler::OnConnectionRemovedFromGroup, reloadGroupLambda);
     //
     for (auto group : ConnectionManager->AllGroups())
     {
@@ -64,7 +62,7 @@ void GroupManager::onRCMDeleteConnectionTriggered()
     const auto list = GET_DATA(QString, String)(connectionsList->selectedItems());
     for (const auto &item : list)
     {
-        ConnectionManager->DeleteConnection(ConnectionId(item));
+        ConnectionManager->RemoveConnectionFromGroup(ConnectionId(item), currentGroupId);
     }
 }
 
@@ -265,10 +263,10 @@ void GroupManager::on_groupList_itemClicked(QListWidgetItem *item)
     groupNameTxt->setText(GetDisplayName(currentGroupId));
     const auto &groupMetaObject = ConnectionManager->GetGroupMetaObject(currentGroupId);
     groupIsSubscriptionGroup->setChecked(groupMetaObject.isSubscription);
-    subAddrTxt->setText(groupMetaObject.address);
+    subAddrTxt->setText(groupMetaObject.subscriptionSettings.address);
     lastUpdatedLabel->setText(timeToString(groupMetaObject.lastUpdatedDate));
     createdAtLabel->setText(timeToString(groupMetaObject.creationDate));
-    updateIntervalSB->setValue(groupMetaObject.updateInterval);
+    updateIntervalSB->setValue(groupMetaObject.subscriptionSettings.updateInterval);
     //
     connectionsList->clear();
     loadConnectionList(currentGroupId);

@@ -1,6 +1,7 @@
 ﻿#include "CoreUtils.hpp"
 
 #include "common/QvHelpers.hpp"
+#include "core/connection/Serialization.hpp"
 #include "core/handler/ConfigHandler.hpp"
 
 namespace Qv2ray::core
@@ -155,10 +156,10 @@ namespace Qv2ray::core
         return TruncateString(ConnectionManager->GetGroupMetaObject(id).displayName, limit);
     }
 
-    const GroupId GetConnectionGroupId(const ConnectionId &id)
-    {
-        return ConnectionManager->GetConnectionMetaObject(id).groupId;
-    }
+    //    const GroupId GetConnectionGroupId(const ConnectionId &id)
+    //    {
+    //        return ConnectionManager->GetConnectionMetaObject(id).groupId;
+    //    }
 
     const QMap<QString, int> GetConfigInboundPorts(const CONFIGROOT &root)
     {
