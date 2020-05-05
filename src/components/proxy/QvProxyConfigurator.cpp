@@ -242,9 +242,9 @@ namespace Qv2ray::components::proxy
         {
             actions << QString("gsettings set org.gnome.system.proxy.http host '%1'").arg(address);
             actions << QString("gsettings set org.gnome.system.proxy.http port %1").arg(httpPort);
-            // GNOME HTTPS is problematic. disabling.
-            // actions << QString("gsettings set org.gnome.system.proxy.https host '%1'").arg(address);
-            // actions << QString("gsettings set org.gnome.system.proxy.https port %1").arg(httpPort);
+            //
+            actions << QString("gsettings set org.gnome.system.proxy.https host '%1'").arg(address);
+            actions << QString("gsettings set org.gnome.system.proxy.https port %1").arg(httpPort);
             if (isKDE)
             {
                 // FTP here should be scheme: ftp://
