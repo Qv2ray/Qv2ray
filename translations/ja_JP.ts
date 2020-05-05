@@ -3972,7 +3972,7 @@ Maybe you have downloaded the wrong core?</source>
     </message>
     <message>
         <source>This group is a subscription</source>
-        <translation>このグループはサブスクリプションです。</translation>
+        <translation>このグループはサブスクリプションです</translation>
     </message>
     <message>
         <source>Connection Settings</source>
