@@ -179,7 +179,7 @@ namespace Qv2ray::core::connection
                 __vmess_checker__func(tls, << "none"                                                                                    //
                                            << "tls");                                                                                   //
                 path = vmessConf.contains("path") ? vmessConf["path"].toVariant().toString() : (net == "quic" ? "" : "/");
-                host = vmessConf.contains("host") ? vmessConf["host"].toVariant().toString() : (net == "quic" ? "none" : "/");
+                host = vmessConf.contains("host") ? vmessConf["host"].toVariant().toString() : (net == "quic" ? "none" : "");
             }
             // Repect connection type rather than obfs type //
             if (QStringList{ "srtp", "utp", "wechat-video" }.contains(type))                //
