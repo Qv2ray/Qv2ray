@@ -111,28 +111,10 @@ namespace Qv2ray::core::connection
                 *errMessage = QObject::tr("seems like a v1 vmess, we don't support it");
                 return default;
             }
-            bool flag = true;
-            // C is a quick hack...
-#define C(k) (flag = (vmessConf.contains(k) ? (errMessage->clear(), true) : (*errMessage += (k " does not exist"), false)))
-            // id, aid, port and add are mandatory fields of a vmess://
-            // link.
-            flag = flag && C("id") && (C("aid") || C("alterId")) && C("port") && C("add");
-            // Stream Settings
-            auto net = vmessConf["net"].toString();
-
-            if (net == "http" || net == "ws")
-                flag = flag && C("host") && C("path");
-            else if (net == "domainsocket")
-                flag = flag && C("path");
-            else if (net == "quic")
-                flag = flag && C("host") && C("type") && C("path");
-
-#undef C
-            // return flag ? 0 : 1;
 
             // --------------------------------------------------------------------------------------
             CONFIGROOT root;
-            QString ps, add, id, /*net,*/ type, host, path, tls;
+            QString ps, add, id, net, type, host, path, tls;
             int port, aid;
             //
             // __vmess_checker__func(key, values)
@@ -194,9 +176,10 @@ namespace Qv2ray::core::connection
                                            << "domainsocket"                                                                            //
                                            << "quic");                                                                                  //
                                                                                                                                         //
-                __vmess_checker__func(path, << "");                                                                                     //
-                __vmess_checker__func(host, << "");                                                                                     //
-                __vmess_checker__func(tls, << "");                                                                                      //
+                __vmess_checker__func(tls, << "none"                                                                                    //
+                                           << "tls");                                                                                   //
+                path = vmessConf.contains("path") ? vmessConf["path"].toVariant().toString() : (net == "quic" ? "" : "/");
+                host = vmessConf.contains("host") ? vmessConf["host"].toVariant().toString() : (net == "quic" ? "none" : "");
             }
             // Repect connection type rather than obfs type //
             if (QStringList{ "srtp", "utp", "wechat-video" }.contains(type))                //
@@ -250,7 +233,8 @@ namespace Qv2ray::core::connection
             }
             else if (net == "ws")
             {
-                streaming.wsSettings.headers["Host"] = host;
+                if (!host.isEmpty())
+                    streaming.wsSettings.headers["Host"] = host;
                 streaming.wsSettings.path = path;
             }
             else if (net == "kcp")
