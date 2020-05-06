@@ -233,46 +233,62 @@ namespace Qv2ray::components::proxy
         actions << QString("gsettings set org.gnome.system.proxy mode '%1'").arg("manual");
         bool isKDE = qEnvironmentVariable("XDG_SESSION_DESKTOP") == "KDE";
         const auto configPath = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
-        if (isKDE)
+
+        // Setting Proxy Mode to Manual
         {
-            LOG(MODULE_PROXY, "KDE detected")
-            actions << QString("kwriteconfig5  --file " + configPath + "/kioslaverc --group \"Proxy Settings\" --key ProxyType 1");
-        }
-        if (hasHTTP)
-        {
-            actions << QString("gsettings set org.gnome.system.proxy.http host '%1'").arg(address);
-            actions << QString("gsettings set org.gnome.system.proxy.http port %1").arg(httpPort);
-            //
-            actions << QString("gsettings set org.gnome.system.proxy.https host '%1'").arg(address);
-            actions << QString("gsettings set org.gnome.system.proxy.https port %1").arg(httpPort);
+            // for GNOME:
+            {
+                actions << "gsettings set org.gnome.system.proxy mode 'manual'";
+            }
+
+            // for KDE:
             if (isKDE)
             {
-                // FTP here should be scheme: ftp://
-                for (auto protocol : { "http", "ftp", "https" })
+                LOG(MODULE_PROXY, "KDE detected")
+                actions << QString("kwriteconfig5 --file %1/kioslaverc --group 'Proxy Settings' --key ProxyType 1").arg(configPath);
+            }
+        }
+
+        // Configure HTTP Proxies for HTTP, FTP and HTTPS
+        if (hasHTTP)
+        {
+            // iterate over protocols...
+            for (const auto protocol : { "http", "ftp", "https" })
+            {
+                // for GNOME:
                 {
-                    auto str =
-                        QString("kwriteconfig5  --file " + configPath + "/kioslaverc --group \"Proxy Settings\" --key %1Proxy \"http://%2 %3\"")
-                            .arg(protocol)
-                            .arg(address)
-                            .arg(QSTRN(httpPort));
-                    actions << str;
+                    actions << QString("gsettings set org.gnome.system.proxy.%1 host '%2'").arg(protocol, address);
+                    actions << QString("gsettings set org.gnome.system.proxy.%1 port %2").arg(protocol, QSTRN(httpPort));
+                }
+
+                // for KDE:
+                if (isKDE)
+                {
+                    actions << QString("kwriteconfig5 --file %1/kioslaverc --group 'Proxy Settings' --key %2Proxy 'http://%3 %4'")
+                                   .arg(configPath, protocol, address, QSTRN(httpPort));
                 }
             }
         }
 
+        // Configure SOCKS5 Proxies
         if (hasSOCKS)
         {
-            actions << QString("gsettings set org.gnome.system.proxy.socks host '%1'").arg(address);
-            actions << QString("gsettings set org.gnome.system.proxy.socks port %1").arg(socksPort);
+            // for GNOME:
+            {
+                actions << QString("gsettings set org.gnome.system.proxy.socks host '%1'").arg(address);
+                actions << QString("gsettings set org.gnome.system.proxy.socks port %1").arg(socksPort);
+            }
+
+            // for KDE:
             if (isKDE)
             {
-                actions << QString("kwriteconfig5 --file " + configPath +
-                                   "/kioslaverc --group \"Proxy Settings\" --key socksProxy \"socks://%1 %2\"")
-                               .arg(address)
-                               .arg(QSTRN(socksPort));
+                actions << QString("kwriteconfig5 --file %1/kioslaverc --group 'Proxy Settings' --key socksProxy 'socks://%2 %3'")
+                               .arg(configPath, address, QSTRN(socksPort));
             }
         }
 
+        // Execute them all!
+        //
         // note: do not use std::all_of / any_of / none_of,
         // because those are short-circuit and cannot guarantee atomicity.
         auto result = std::count_if(actions.cbegin(), actions.cend(), [](const QString &action) {
@@ -286,7 +302,8 @@ namespace Qv2ray::components::proxy
             LOG(MODULE_PROXY, "It may happen if you are using KDE with no gsettings support.")
         }
 
-        Q_UNUSED(result);
+        // TODO: Post-settings for DDE
+
 #else
 
         for (auto service : macOSgetNetworkServices())
