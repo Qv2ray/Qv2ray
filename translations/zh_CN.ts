@@ -2491,6 +2491,22 @@ For example, for updating subscriptions.</source>
         <source>Unknown</source>
         <translation>未知</translation>
     </message>
+    <message>
+        <source>Deepin Detected</source>
+        <translation>检测到 Deepin</translation>
+    </message>
+    <message>
+        <source>Deepin plays smart and sets you the wrong HTTPS_PROXY environment variable. </source>
+        <translation>默认情况下，Deepin 自作聪明，会给你设置错误的 HTTPS_PROXY 环境变量。</translation>
+    </message>
+    <message>
+        <source>The original scheme should be http://, but he will replace with https://, causing the problem. </source>
+        <translation>原 scheme 应为 http://，但 Deepin 将其替换成了 https://，导致 HTTPS 代理无法正常使用。</translation>
+    </message>
+    <message>
+        <source>Qv2ray will help you change it back and make things work again. </source>
+        <translation>Qv2ray 会尝试帮你改回去，以期解决此问题。</translation>
+    </message>
 </context>
 <context>
     <name>Qv2ray::common::QvCommandArgParser</name>

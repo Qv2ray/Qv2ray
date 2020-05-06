@@ -2109,6 +2109,22 @@ For example, for updating subscriptions.</source>
         <source>Unknown</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Deepin Detected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Deepin plays smart and sets you the wrong HTTPS_PROXY environment variable. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The original scheme should be http://, but he will replace with https://, causing the problem. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Qv2ray will help you change it back and make things work again. </source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Qv2ray::common::QvCommandArgParser</name>
