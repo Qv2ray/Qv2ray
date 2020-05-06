@@ -232,6 +232,7 @@ namespace Qv2ray::components::proxy
         QStringList actions;
         actions << QString("gsettings set org.gnome.system.proxy mode '%1'").arg("manual");
         bool isKDE = qEnvironmentVariable("XDG_SESSION_DESKTOP") == "KDE";
+        bool isDDE = isKDE ? false : qEnvironmentVariable("XDG_SESSION_DESKTOP") == "DDE";
         const auto configPath = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
 
         // Configure HTTP Proxies for HTTP, FTP and HTTPS
@@ -305,7 +306,26 @@ namespace Qv2ray::components::proxy
             LOG(MODULE_PROXY, "Something wrong when setting proxies.")
         }
 
-        // TODO: Post-settings for DDE
+        // Post-Actions for HTTP on Deepin Desktop Environment.
+        if (isDDE && hasHTTP)
+        {
+            if (!RuntimeConfig.deepinHorribleProxyHint)
+            {
+                RuntimeConfig.deepinHorribleProxyHint = true;
+
+                const auto deepinWarnTitle = QObject::tr("Deepin Detected");
+                const auto deepinWarnMessage =
+                    QObject::tr("Deepin plays smart and sets you the wrong HTTPS_PROXY environment variable. ") + NEWLINE +                    //
+                    QObject::tr("The original scheme should be http://, but he will replace with https://, causing the problem. ") + NEWLINE + //
+                    QObject::tr("Qv2ray will help you change it back and make things work again. ");
+                QvMessageBoxWarn(nullptr, deepinWarnTitle, deepinWarnMessage);
+            }
+
+            // set them back!
+            const auto httpProxyURL = QString("http://%1:%2").arg(address, QSTRN(httpPort)).toStdString();
+            setenv("https_proxy", httpProxyURL.c_str(), true);
+            setenv("ftp_proxy", httpProxyURL.c_str(), true);
+        }
 
 #else
 
