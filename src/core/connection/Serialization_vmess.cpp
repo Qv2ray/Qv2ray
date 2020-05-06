@@ -52,6 +52,11 @@ namespace Qv2ray::core::connection
                 vmessUriRoot["host"] = transfer.httpSettings.host.join(",");
                 vmessUriRoot["path"] = transfer.httpSettings.path;
             }
+            
+            if(!vmessUriRoot.contains("type") || vmessUriRoot["type"].toString().isEmpty())
+            {
+                vmessUriRoot["type"] = "none";
+            }
 
             //
             auto vmessPart = Base64Encode(JsonToString(vmessUriRoot, QJsonDocument::JsonFormat::Compact));
