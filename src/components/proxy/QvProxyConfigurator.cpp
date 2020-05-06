@@ -234,21 +234,6 @@ namespace Qv2ray::components::proxy
         bool isKDE = qEnvironmentVariable("XDG_SESSION_DESKTOP") == "KDE";
         const auto configPath = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
 
-        // Setting Proxy Mode to Manual
-        {
-            // for GNOME:
-            {
-                actions << "gsettings set org.gnome.system.proxy mode 'manual'";
-            }
-
-            // for KDE:
-            if (isKDE)
-            {
-                LOG(MODULE_PROXY, "KDE detected")
-                actions << QString("kwriteconfig5 --file %1/kioslaverc --group 'Proxy Settings' --key ProxyType 1").arg(configPath);
-            }
-        }
-
         // Configure HTTP Proxies for HTTP, FTP and HTTPS
         if (hasHTTP)
         {
@@ -287,19 +272,37 @@ namespace Qv2ray::components::proxy
             }
         }
 
+        // Setting Proxy Mode to Manual
+        {
+            // for GNOME:
+            {
+                actions << "gsettings set org.gnome.system.proxy mode 'manual'";
+            }
+
+            // for KDE:
+            if (isKDE)
+            {
+                LOG(MODULE_PROXY, "KDE detected")
+                actions << QString("kwriteconfig5 --file %1/kioslaverc --group 'Proxy Settings' --key ProxyType 1").arg(configPath);
+            }
+        }
+
         // Execute them all!
         //
         // note: do not use std::all_of / any_of / none_of,
         // because those are short-circuit and cannot guarantee atomicity.
         auto result = std::count_if(actions.cbegin(), actions.cend(), [](const QString &action) {
-                          DEBUG(MODULE_PROXY, action)
-                          return QProcess::execute(action) == QProcess::NormalExit;
+                          // execute and get the code
+                          const auto returnCode = QProcess::execute(action);
+                          // print out the commands and result codes
+                          DEBUG(MODULE_PROXY, QString("[%1] %2").arg(QSTRN(returnCode), action))
+                          // give the code back
+                          return returnCode == QProcess::NormalExit;
                       }) == actions.size();
 
         if (!result)
         {
-            LOG(MODULE_PROXY, "There was something wrong when setting proxies.")
-            LOG(MODULE_PROXY, "It may happen if you are using KDE with no gsettings support.")
+            LOG(MODULE_PROXY, "Something wrong when setting proxies.")
         }
 
         // TODO: Post-settings for DDE
@@ -340,6 +343,7 @@ namespace Qv2ray::components::proxy
     void ClearSystemProxy()
     {
         LOG(MODULE_PROXY, "Clearing System Proxy")
+
 #ifdef Q_OS_WIN
         LOG(MODULE_PROXY, "Cleaning system proxy settings.")
         INTERNET_PER_CONN_OPTION_LIST list;
@@ -370,21 +374,33 @@ namespace Qv2ray::components::proxy
         InternetSetOption(nullptr, INTERNET_OPTION_SETTINGS_CHANGED, nullptr, 0);
         InternetSetOption(nullptr, INTERNET_OPTION_REFRESH, nullptr, 0);
 #elif defined(Q_OS_LINUX)
-        if (qEnvironmentVariable("XDG_SESSION_DESKTOP") == "KDE")
+        QStringList actions;
+        const bool isKDE = qEnvironmentVariable("XDG_SESSION_DESKTOP") == "KDE";
+        const auto configRoot = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
+
+        // Setting System Proxy Mode to: None
         {
-            QProcess::execute("kwriteconfig5 --file " + QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) +
-                              "/kioslaverc --group \"Proxy Settings\" --key ProxyType 0");
-            for (auto protocol : { "http", "ftp", "https" })
+            // for GNOME:
             {
-                auto str = QString("kwriteconfig5  --file " + QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) +
-                                   "/kioslaverc --group \"Proxy Settings\" --key %1Proxy ''")
-                               .arg(protocol);
-                QProcess::execute(str);
+                actions << QString("gsettings set org.gnome.system.proxy mode 'none'");
             }
-            QProcess::execute("kwriteconfig5 --file " + QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) +
-                              "/kioslaverc --group \"Proxy Settings\" --key socksProxy ''");
+
+            // for KDE:
+            if (isKDE)
+            {
+                actions << QString("kwriteconfig5 --file %1/kioslaverc --group 'Proxy Settings' --key ProxyType 0").arg(configRoot);
+            }
         }
-        QProcess::execute("gsettings set org.gnome.system.proxy mode 'none'");
+
+        // Execute the Actions
+        for (const auto &action : actions)
+        {
+            // execute and get the code
+            const auto returnCode = QProcess::execute(action);
+            // print out the commands and result codes
+            DEBUG(MODULE_PROXY, QString("[%1] %2").arg(QSTRN(returnCode), action))
+        }
+
 #else
         for (auto service : macOSgetNetworkServices())
         {
