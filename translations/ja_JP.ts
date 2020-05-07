@@ -2913,6 +2913,22 @@ For example, for updating subscriptions.</source>
         <source>Unknown</source>
         <translation>不明</translation>
     </message>
+    <message>
+        <source>Deepin Detected</source>
+        <translation>Deepin検出</translation>
+    </message>
+    <message>
+        <source>Deepin plays smart and sets you the wrong HTTPS_PROXY environment variable. </source>
+        <translation>Deepinのバカ、間違ったHTTPS_PROXY環境変数を設定します。</translation>
+    </message>
+    <message>
+        <source>The original scheme should be http://, but he will replace with https://, causing the problem. </source>
+        <translation>本来のスキームは http:// であるべきなのですが、彼は https:// に置き換えて問題を引き起こします。</translation>
+    </message>
+    <message>
+        <source>Qv2ray will help you change it back and make things work again. </source>
+        <translation>Qv2rayはそれを元に戻して、またうまくいくようにしてくれます。</translation>
+    </message>
 </context>
 <context>
     <name>Qv2ray::common::QvCommandArgParser</name>
