@@ -232,7 +232,7 @@ namespace Qv2ray::components::proxy
         QStringList actions;
         actions << QString("gsettings set org.gnome.system.proxy mode '%1'").arg("manual");
         bool isKDE = qEnvironmentVariable("XDG_SESSION_DESKTOP") == "KDE";
-        bool isDDE = isKDE ? false : qEnvironmentVariable("XDG_SESSION_DESKTOP") == "DDE";
+        bool isDDE = isKDE ? false : qEnvironmentVariable("XDG_SESSION_DESKTOP") == "deepin";
         const auto configPath = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
 
         // Configure HTTP Proxies for HTTP, FTP and HTTPS
