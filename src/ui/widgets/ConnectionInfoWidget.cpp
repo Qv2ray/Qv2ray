@@ -111,7 +111,7 @@ void ConnectionInfoWidget::ShowDetails(const ConnectionGroupPair &_identifier)
         //
         groupShareTxt->setPlainText(shareLinks.join(NEWLINE));
         const auto &groupMetaData = ConnectionManager->GetGroupMetaObject(groupId);
-        groupSubsLinkTxt->setText(groupMetaData.isSubscription ? groupMetaData.subscriptionSettings.address : tr("Not a subscription"));
+        groupSubsLinkTxt->setText(groupMetaData.isSubscription ? groupMetaData.subscriptionOption.address : tr("Not a subscription"));
     }
 }
 

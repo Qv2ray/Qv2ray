@@ -239,7 +239,7 @@ namespace Qv2ray::core::kernel
             {
                 LOG(MODULE_VCORE, "API has been disabled by the command line argument \"-noAPI\"")
             }
-            else if (!GlobalConfig.apiConfig.enableAPI)
+            else if (!GlobalConfig.kernelConfig.enableAPI)
             {
                 LOG(MODULE_VCORE, "API has been disabled by the global config option")
             }

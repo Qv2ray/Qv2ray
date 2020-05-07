@@ -49,16 +49,16 @@ void MainWindow::CheckSubscriptionsUpdate()
         const auto info = ConnectionManager->GetGroupMetaObject(entry);
         //
         // The update is ignored.
-        if (info.subscriptionSettings.updateInterval == 0)
+        if (info.subscriptionOption.updateInterval == 0)
             continue;
         //
         const auto &lastRenewDate = QDateTime::fromTime_t(info.lastUpdatedDate);
-        const auto &renewTime = lastRenewDate.addSecs(info.subscriptionSettings.updateInterval * 86400);
-        LOG(MODULE_SUBSCRIPTION,                                                                      //
-            "Subscription \"" + info.displayName + "\": " +                                           //
-                NEWLINE + " --> Last renewal time: " + lastRenewDate.toString() +                     //
-                NEWLINE + " --> Renew interval: " + QSTRN(info.subscriptionSettings.updateInterval) + //
-                NEWLINE + " --> Ideal renew time: " + renewTime.toString())                           //
+        const auto &renewTime = lastRenewDate.addSecs(info.subscriptionOption.updateInterval * 86400);
+        LOG(MODULE_SUBSCRIPTION,                                                                    //
+            "Subscription \"" + info.displayName + "\": " +                                         //
+                NEWLINE + " --> Last renewal time: " + lastRenewDate.toString() +                   //
+                NEWLINE + " --> Renew interval: " + QSTRN(info.subscriptionOption.updateInterval) + //
+                NEWLINE + " --> Ideal renew time: " + renewTime.toString())                         //
 
         if (renewTime <= QDateTime::currentDateTime())
         {

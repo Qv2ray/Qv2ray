@@ -7,74 +7,51 @@
 
 namespace Qv2ray::core::handlers
 {
-
     QvConfigHandler::QvConfigHandler()
     {
         DEBUG(MODULE_CORE_HANDLER, "ConnectionHandler Constructor.")
+        const auto connectionJson = JsonFromString(StringFromFile(QV2RAY_CONFIG_DIR + "connections.json"));
+        const auto groupJson = JsonFromString(StringFromFile(QV2RAY_CONFIG_DIR + "groups.json"));
+        //
+        for (const auto &connectionId : connectionJson.keys())
+        {
+            connections.insert(ConnectionId{ connectionId }, ConnectionObject::fromJson(connectionJson.value(connectionId).toObject()));
+        }
+        //
+        for (const auto &groupId : groupJson.keys())
+        {
+            const auto groupObject = GroupObject::fromJson(groupJson.value(groupId).toObject());
+            groups.insert(GroupId{ groupId }, groupObject);
+            //
+            for (const auto &connId : groupObject.connections)
+            {
+                connections[connId].__qvConnectionRefCount++;
+            }
+        }
+        //
+        for (const auto &id : connections.keys())
+        {
+            auto const &connectionObject = connections.value(id);
+            if (connectionObject.__qvConnectionRefCount == 0)
+            {
+                connections.remove(id);
+                LOG(MODULE_CORE_HANDLER, "Dropped connection id: " + id.toString() + " since it's not in a group")
+            }
+            else
+            {
+                const auto connectionFilePath = QV2RAY_CONNECTIONS_DIR + id.toString() + QV2RAY_CONFIG_FILE_EXTENSION;
+                connectionRootCache[id] = CONFIGROOT(JsonFromString(StringFromFile(connectionFilePath)));
+                DEBUG(MODULE_CORE_HANDLER, "Loaded connection id: " + id.toString() + " into cache.")
+            }
+        }
 
-        // // Do we need to check how many of them are loaded?
-        // // Do not use: for (const auto &key : connections), why?
-        // for (auto i = 0; i < GlobalConfig.connectionConfig.count(); i++)
-        // {
-        //     auto const &id = ConnectionId(GlobalConfig.connections.keys().at(i));
-        //     connections[id] = GlobalConfig.connections.values().at(i);
-        // }
-        //
-        // for (const auto &key : GlobalConfig.subscriptions.keys())
-        // {
-        //     GroupId gkey(key);
-        //     if (gkey == NullGroupId)
-        //     {
-        //         LOG(MODULE_CORE_HANDLER, "Removed a null subscription id")
-        //         continue;
-        //     }
-        //     auto const &val = GlobalConfig.subscriptions[key];
-        //     groups[gkey] = val;
-        //
-        //     for (auto conn : val.connections)
-        //     {
-        //         connections[ConnectionId(conn)].groupId = GroupId(key);
-        //     }
-        // }
-        //
-        // for (const auto &key : GlobalConfig.groups )
-        // {
-        //     GroupId gkey(key);
-        //     if (gkey == NullGroupId)
-        //     {
-        //         LOG(MODULE_CORE_HANDLER, "Removed a null group id")
-        //         continue;
-        //     }
-        //     auto const &val = GlobalConfig.groups.value(key);
-        //     groups[gkey] = val;
-        //
-        //     for (auto conn : val.connections)
-        //     {
-        //         connections[ConnectionId(conn)].groupId = GroupId(key);
-        //     }
-        // }
-        //
-        // for (const auto &id : connections.keys())
-        // {
-        //     DEBUG(MODULE_CORE_HANDLER, "Loading connection: " + connections.value(id).displayName + " to cache.")
-        //     auto const &group = connections.value(id).groupId;
-        //     if (group != NullGroupId)
-        //     {
-        //         auto path = group.toString() + "/" + id.toString() + QV2RAY_CONFIG_FILE_EXTENSION;
-        //         path.prepend(groups[group].isSubscription ? QV2RAY_SUBSCRIPTION_DIR : QV2RAY_CONNECTIONS_DIR);
-        //         //
-        //         connectionRootCache[id] = CONFIGROOT(JsonFromString(StringFromFile(path)));
-        //     }
-        //     else
-        //     {
-        //         connections.remove(id);
-        //         LOG(MODULE_CORE_HANDLER, "Dropped connection id: " + id.toString() + " since it's not in a group")
-        //     }
-        // }
-        //
         // Force default group name.
-        groups[DefaultGroupId].displayName = tr("Default Group");
-        groups[DefaultGroupId].isSubscription = false;
+        if (!groups.contains(DefaultGroupId))
+        {
+            groups.insert(DefaultGroupId, {});
+            groups[DefaultGroupId].displayName = tr("Default Group");
+            groups[DefaultGroupId].isSubscription = false;
+        }
         //
         kernelHandler = new KernelInstanceHandler(this);
         connect(kernelHandler, &KernelInstanceHandler::OnCrashed, this, &QvConfigHandler::OnKernelCrashed_p);
@@ -96,8 +73,10 @@ namespace Qv2ray::core::handlers
     void QvConfigHandler::CHSaveConfigData()
     {
         // Do not copy construct.
-        GlobalConfig.connections = connections.keys();
-        GlobalConfig.groups = groups.keys();
+        // GlobalConfig.connections = connections.keys();
+        // GlobalConfig.groups = groups.keys();
+        //
+#error I haven't implement the Connections Saving Feature!!
         SaveGlobalSettings();
     }
 
@@ -440,11 +419,11 @@ namespace Qv2ray::core::handlers
         groups[id].isSubscription = isSubscription;
         if (!address.isEmpty())
         {
-            groups[id].subscriptionSettings.address = address;
+            groups[id].subscriptionOption.address = address;
         }
         if (updateInterval != -1)
         {
-            groups[id].subscriptionSettings.updateInterval = updateInterval;
+            groups[id].subscriptionOption.updateInterval = updateInterval;
         }
         return true;
     }
@@ -457,7 +436,7 @@ namespace Qv2ray::core::handlers
             return false;
         }
         isHttpRequestInProgress = true;
-        auto data = httpHelper->Get(groups[id].subscriptionSettings.address);
+        auto data = httpHelper->Get(groups[id].subscriptionOption.address);
         isHttpRequestInProgress = false;
         return CHUpdateSubscription_p(id, data);
     }

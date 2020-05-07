@@ -171,17 +171,11 @@ namespace Qv2ray::base::config
         JSONSTRUCT_REGISTER(Qv2rayConfig_Connection,
                             F(bypassCN, bypassBT, enableProxy, v2rayFreedomDNS, withLocalDNS, dnsList, forwardProxyConfig, routeConfig))
     };
-
-    struct Qv2rayConfig_API
+    struct Qv2rayConfig_Kernel
     {
         bool enableAPI;
         int statsPort;
-        Qv2rayConfig_API() : enableAPI(true), statsPort(15490){};
-        JSONSTRUCT_REGISTER(Qv2rayConfig_API, F(enableAPI, statsPort))
-    };
-
-    struct Qv2rayConfig_Kernel
-    {
+        //
         QString v2CorePath_linux;
         QString v2AssetsPath_linux;
         QString v2CorePath_macx;
@@ -217,8 +211,11 @@ namespace Qv2ray::base::config
 #undef _VARNAME_VCOREPATH_
 #undef _VARNAME_VASSETSPATH_
 
-        JSONSTRUCT_REGISTER(Qv2rayConfig_Kernel,
-                            F(v2CorePath_linux, v2AssetsPath_linux, v2CorePath_macx, v2AssetsPath_macx, v2CorePath_win, v2AssetsPath_win))
+        JSONSTRUCT_REGISTER(Qv2rayConfig_Kernel,                     //
+                            F(enableAPI, statsPort),                 //
+                            F(v2CorePath_linux, v2AssetsPath_linux), //
+                            F(v2CorePath_macx, v2AssetsPath_macx),   //
+                            F(v2CorePath_win, v2AssetsPath_win))
     };
 
     struct Qv2rayConfig_Update
@@ -262,6 +259,13 @@ namespace Qv2ray::base::config
         JSONSTRUCT_REGISTER(Qv2rayConfig_Network, F(proxyType, type, address, port, userAgent))
     };
 
+    enum Qv2rayAutoConnectionBehavior
+    {
+        AUTO_CONNECTION_NONE = 0,
+        AUTO_CONNECTION_FIXED = 1,
+        AUTO_CONNECTION_LAST_CONNECTED = 2
+    };
+
     struct Qv2rayConfigObject
     {
         int config_version;
@@ -269,13 +273,13 @@ namespace Qv2ray::base::config
         int logLevel;
         //
         ConnectionGroupPair autoStartId;
+        Qv2rayAutoConnectionBehavior autoStartBehavior;
         //
         // Key = groupId, connectionId
-        QList<GroupId> groups;
-        QList<ConnectionId> connections;
+        //        QList<GroupId> groups;
+        //        QList<ConnectionId> connections;
         //
         Qv2rayConfig_UI uiConfig;
-        Qv2rayConfig_API apiConfig;
         Qv2rayConfig_Plugin pluginConfig;
         Qv2rayConfig_Kernel kernelConfig;
         Qv2rayConfig_Update updateConfig;
@@ -291,9 +295,8 @@ namespace Qv2ray::base::config
               tProxySupport(false),                  //
               logLevel(),                            //
               autoStartId(),                         //
-              groups(),                              //
+              autoStartBehavior(),                   //
               uiConfig(),                            //
-              apiConfig(),                           //
               pluginConfig(),                        //
               kernelConfig(),                        //
               updateConfig(),                        //
@@ -304,23 +307,10 @@ namespace Qv2ray::base::config
               advancedConfig(),                      //
               connectionConfig(){};
 
-        JSONSTRUCT_REGISTER(Qv2rayConfigObject,
-                            F(config_version,   //
-                              tProxySupport,    //
-                              logLevel,         //
-                              uiConfig,         //
-                              pluginConfig,     //
-                              updateConfig,     //
-                              kernelConfig,     //
-                              networkConfig,    //
-                              groups,           //
-                              autoStartId,      //
-                              inboundConfig,    //
-                              outboundConfig,   //
-                              connectionConfig, //
-                              toolBarConfig,    //
-                              advancedConfig,   //
-                              apiConfig         //
-                              ))
+        JSONSTRUCT_REGISTER(Qv2rayConfigObject,                                                                   //
+                            F(config_version, tProxySupport, autoStartId, autoStartBehavior, logLevel),           //
+                            F(uiConfig, advancedConfig, pluginConfig, updateConfig, kernelConfig, networkConfig), //
+                            F(inboundConfig, outboundConfig, connectionConfig),                                   //
+                            F(toolBarConfig))
     };
 } // namespace Qv2ray::base::config

@@ -136,8 +136,8 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     //
     vCorePathTxt->setText(CurrentConfig.kernelConfig.KernelPath());
     vCoreAssetsPathTxt->setText(CurrentConfig.kernelConfig.AssetsPath());
-    enableAPI->setChecked(CurrentConfig.apiConfig.enableAPI);
-    statsPortBox->setValue(CurrentConfig.apiConfig.statsPort);
+    enableAPI->setChecked(CurrentConfig.kernelConfig.enableAPI);
+    statsPortBox->setValue(CurrentConfig.kernelConfig.statsPort);
     //
     //
     bypassCNCb->setChecked(CurrentConfig.connectionConfig.bypassCN);
@@ -307,7 +307,7 @@ void PreferencesWindow::on_buttonBox_accepted()
     if (!StartupOption.noAPI)
     {
         size++;
-        ports << CurrentConfig.apiConfig.statsPort;
+        ports << CurrentConfig.kernelConfig.statsPort;
     }
 
     if (ports.size() != size)
@@ -653,7 +653,7 @@ void PreferencesWindow::on_bypassBTCb_stateChanged(int arg1)
 void PreferencesWindow::on_statsPortBox_valueChanged(int arg1)
 {
     NEEDRESTART
-    CurrentConfig.apiConfig.statsPort = arg1;
+    CurrentConfig.kernelConfig.statsPort = arg1;
 }
 
 void PreferencesWindow::on_socksPortLE_valueChanged(int arg1)
@@ -1153,7 +1153,7 @@ void PreferencesWindow::on_enableAPI_stateChanged(int arg1)
 {
     LOADINGCHECK
     NEEDRESTART
-    CurrentConfig.apiConfig.enableAPI = arg1 == Qt::Checked;
+    CurrentConfig.kernelConfig.enableAPI = arg1 == Qt::Checked;
 }
 
 void PreferencesWindow::on_updateChannelCombo_currentIndexChanged(int index)

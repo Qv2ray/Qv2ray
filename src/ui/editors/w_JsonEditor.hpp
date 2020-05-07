@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "base/Qv2rayBase.hpp"
 #include "common/JsonHighlighter.hpp"

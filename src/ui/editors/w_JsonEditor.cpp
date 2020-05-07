@@ -1,4 +1,4 @@
-﻿#include "w_JsonEditor.hpp"
+#include "w_JsonEditor.hpp"
 
 #include "common/QvHelpers.hpp"
 

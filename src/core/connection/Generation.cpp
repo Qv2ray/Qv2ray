@@ -579,7 +579,7 @@ namespace Qv2ray::core::connection
                 INBOUNDSETTING fakeDocodemoDoor;
                 fakeDocodemoDoor["address"] = "127.0.0.1";
                 QJsonObject apiInboundsRoot =
-                    GenerateInboundEntry("127.0.0.1", GlobalConfig.apiConfig.statsPort, "dokodemo-door", fakeDocodemoDoor, API_TAG_INBOUND);
+                    GenerateInboundEntry("127.0.0.1", GlobalConfig.kernelConfig.statsPort, "dokodemo-door", fakeDocodemoDoor, API_TAG_INBOUND);
                 inbounds.push_front(apiInboundsRoot);
                 root["inbounds"] = inbounds;
                 //

@@ -263,10 +263,10 @@ void GroupManager::on_groupList_itemClicked(QListWidgetItem *item)
     groupNameTxt->setText(GetDisplayName(currentGroupId));
     const auto &groupMetaObject = ConnectionManager->GetGroupMetaObject(currentGroupId);
     groupIsSubscriptionGroup->setChecked(groupMetaObject.isSubscription);
-    subAddrTxt->setText(groupMetaObject.subscriptionSettings.address);
+    subAddrTxt->setText(groupMetaObject.subscriptionOption.address);
     lastUpdatedLabel->setText(timeToString(groupMetaObject.lastUpdatedDate));
     createdAtLabel->setText(timeToString(groupMetaObject.creationDate));
-    updateIntervalSB->setValue(groupMetaObject.subscriptionSettings.updateInterval);
+    updateIntervalSB->setValue(groupMetaObject.subscriptionOption.updateInterval);
     //
     connectionsList->clear();
     loadConnectionList(currentGroupId);

@@ -26,10 +26,6 @@ namespace Qv2ray::base
         {
             return m_id;
         }
-        //        uint qHash(uint seed = 0) const
-        //        {
-        //            return ::qHash(m_id, seed);
-        //        }
         void loadJson(const QJsonValue &d)
         {
             m_id = d.toString("null");
@@ -98,16 +94,16 @@ namespace Qv2ray::base
         JSONSTRUCT_REGISTER(SubscriptionConfigObject, F(updateInterval, address))
     };
 
-    struct Qv2rayGroupConfigObject : __Qv2rayConfigObjectBase
+    struct GroupObject : __Qv2rayConfigObjectBase
     {
         QList<ConnectionId> connections;
         bool isSubscription;
-        SubscriptionConfigObject subscriptionSettings;
-        Qv2rayGroupConfigObject() : __Qv2rayConfigObjectBase(), connections(), isSubscription(false), subscriptionSettings(){};
-        JSONSTRUCT_REGISTER(Qv2rayGroupConfigObject, F(connections, isSubscription, subscriptionSettings), B(__Qv2rayConfigObjectBase))
+        SubscriptionConfigObject subscriptionOption;
+        GroupObject() : __Qv2rayConfigObjectBase(), connections(), isSubscription(false), subscriptionOption(){};
+        JSONSTRUCT_REGISTER(GroupObject, F(connections, isSubscription, subscriptionOption), B(__Qv2rayConfigObjectBase))
     };
 
-    struct Qv2rayConnectionObject : __Qv2rayConfigObjectBase
+    struct ConnectionObject : __Qv2rayConfigObjectBase
     {
         qint64 lastConnected;
         qint64 latency;
@@ -116,8 +112,8 @@ namespace Qv2ray::base
         //
         int __qvConnectionRefCount;
         //
-        Qv2rayConnectionObject() : lastConnected(), latency(QVTCPING_VALUE_NODATA), upLinkData(0), downLinkData(0){};
-        JSONSTRUCT_REGISTER(Qv2rayConnectionObject, F(lastConnected, latency, upLinkData, downLinkData), B(__Qv2rayConfigObjectBase))
+        ConnectionObject() : lastConnected(), latency(QVTCPING_VALUE_NODATA), upLinkData(0), downLinkData(0){};
+        JSONSTRUCT_REGISTER(ConnectionObject, F(lastConnected, latency, upLinkData, downLinkData), B(__Qv2rayConfigObjectBase))
     };
 
     template<typename T>

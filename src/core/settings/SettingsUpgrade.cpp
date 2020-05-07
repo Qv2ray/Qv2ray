@@ -1,4 +1,4 @@
-﻿//
+//
 // This file handles some important migration
 // from old to newer versions of Qv2ray.
 //
@@ -100,7 +100,7 @@ namespace Qv2ray
 
                 for (auto i = 0; i < rootSubscriptions.count(); i++)
                 {
-                    auto key = rootSubscriptions.keys()[i];
+                    auto key = rootSubscriptions.keys().at(i);
                     auto value = rootSubscriptions.value(key);
                     //
                     UPGRADELOG("Upgrading subscription: " + key)
@@ -125,7 +125,7 @@ namespace Qv2ray
                     auto fileList = GetFileList(baseDirPath);
 
                     // Copy every file within a subscription.
-                    for (auto fileName : fileList)
+                    for (const auto &fileName : fileList)
                     {
                         auto subsConnectionId = GenerateUuid();
                         auto baseFilePath = baseDirPath + "/" + fileName;
@@ -213,50 +213,152 @@ namespace Qv2ray
             // Splitted Qv2ray.conf,
             case 11:
             {
-                // Moved root["connections"] into separated file: $QV2RAY_CONFIG_PATH/connections.json
-                ///
-                /// Connection.json
-                /// {
-                ///     "connections" : [
-                ///         {connectionObject 1},
-                ///         {connectionObject 2},
-                ///         {connectionObject 3},
-                ///         {connectionObject 4},
-                ///      ]
-                /// }
-                ///
-                // Merged groups and subscriptions. $QV2RAY_GROUPS_PATH/+ groupId.json
-                ///
-                /// Group.json
-                /// {
-                ///     GROUP_OBJECT
-                /// }
-                ///
-                // Config file migrations:
-                // Connection Object:
-                //      importDate --> creationDate
-                //      lastUpdatedDate --> now
+                // Process AutoStartSettings
+                ConnectionGroupPair autoStartIdPair{ ConnectionId{ root["autoStartId"].toString() }, NullGroupId };
+
+                // Process connection entries.
                 //
-                // Susbcription Object
-                //      Doesn't exist anymore, convert into normal group Object.
-                //
-                // Group Object
-                //      connections ---> ConnectionID
-                //      idSubscription ---> if the group is a subscription
-                //      subscriptionSettings ---> Originally SubscriptionObject
-                //      creationDate ---> Now
-                //      lastUpdateDate ---> Now
+                {
+                    // Moved root["connections"] into separated file: $QV2RAY_CONFIG_PATH/connections.json
+                    QDir connectionsDir(QV2RAY_CONNECTIONS_DIR);
+                    if (!connectionsDir.exists())
+                    {
+                        connectionsDir.mkpath(QV2RAY_CONNECTIONS_DIR);
+                    }
+                    const auto connectionsArray = root["connections"].toObject().keys();
+                    QJsonObject newConnectionsArray;
+                    ///
+                    /// Connection.json
+                    /// {
+                    ///     "connections" : [
+                    ///         {ID1, connectionObject 1},
+                    ///         {ID2, connectionObject 2},
+                    ///         {ID3, connectionObject 3},
+                    ///         {ID4, connectionObject 4},
+                    ///      ]
+                    /// }
+                    ///
+                    for (const auto &connectionVal : connectionsArray)
+                    {
+                        // Config file migrations:
+                        // Connection Object:
+                        //      importDate --> creationDate
+                        //      lastUpdatedDate --> now
+                        //
+                        auto connection = root["connections"].toObject()[connectionVal].toObject();
+                        connection["creationDate"] = connection.take("importDate");
+                        connection["lastUpdatedDate"] = (qint64) system_clock::to_time_t(system_clock::now());
+                        UPGRADELOG("Migrating connection: " + connectionVal + " -- " + connection["displayName"].toString())
+                        newConnectionsArray[connectionVal] = connection;
+                    }
+                    QJsonObject ConnectionJsonObject;
+                    root["connections"] = QJsonArray::fromStringList(connectionsArray);
+                    //
+                    // Store Connection.json
+                    StringToFile(JsonToString(newConnectionsArray), QV2RAY_CONFIG_DIR + "connections.json");
+                }
+                // Merged groups and subscriptions. $QV2RAY_GROUPS_PATH + groupId.json
+                {
+                    // Susbcription Object
+                    //      Doesn't exist anymore, convert into normal group Object.
+                    //
+                    QMap<QString, QJsonObject> ConnectionsCache;
+                    QJsonObject allGroupsObject;
+                    const auto subscriptionKeys = root["subscriptions"].toObject().keys();
+                    for (const auto &key : subscriptionKeys)
+                    {
+                        auto aSubscription = root["subscriptions"].toObject()[key].toObject();
+                        QJsonObject subscriptionSettings;
+                        subscriptionSettings["address"] = aSubscription.take("address");
+                        subscriptionSettings["updateInterval"] = aSubscription.take("updateInterval");
+                        aSubscription["lastUpdatedDate"] = (qint64) system_clock::to_time_t(system_clock::now());
+                        aSubscription["creationDate"] = (qint64) system_clock::to_time_t(system_clock::now());
+                        aSubscription["subscriptionOption"] = subscriptionSettings;
+                        UPGRADELOG("Migrating subscription: " + key + " -- " + aSubscription["displayName"].toString())
+                        //
+                        if (autoStartIdPair.groupId != NullGroupId &&
+                            aSubscription["connections"].toArray().contains(autoStartIdPair.connectionId.toString()))
+                        {
+                            autoStartIdPair.groupId = GroupId{ key };
+                        }
+                        //
+                        for (const auto &cid : aSubscription["connections"].toArray())
+                        {
+                            ConnectionsCache[cid.toString()] = JsonFromString(StringFromFile(QV2RAY_CONFIG_DIR + "subscriptions/" + key + "/" +
+                                                                                             cid.toString() + QV2RAY_CONFIG_FILE_EXTENSION));
+                        }
+                        //
+                        allGroupsObject[key] = aSubscription;
+                    }
+                    //
+                    root.remove("subscriptions");
+                    //
+                    const auto groupKeys = root["groups"].toObject().keys();
+                    for (const auto &key : groupKeys)
+                    {
+                        // Group Object
+                        //      connections ---> ConnectionID
+                        //      idSubscription ---> if the group is a subscription
+                        //      subscriptionSettings ---> Originally SubscriptionObject
+                        //      creationDate ---> Now
+                        //      lastUpdateDate ---> Now
+                        auto aGroup = root["groups"].toObject()[key].toObject();
+                        aGroup["lastUpdatedDate"] = (qint64) system_clock::to_time_t(system_clock::now());
+                        aGroup["creationDate"] = (qint64) system_clock::to_time_t(system_clock::now());
+                        UPGRADELOG("Migrating group: " + key + " -- " + aGroup["displayName"].toString())
+                        //
+                        if (autoStartIdPair.groupId != NullGroupId &&
+                            aGroup["connections"].toArray().contains(autoStartIdPair.connectionId.toString()))
+                        {
+                            autoStartIdPair.groupId = GroupId{ key };
+                        }
+                        for (const auto &cid : aGroup["connections"].toArray())
+                        {
+                            ConnectionsCache[cid.toString()] = JsonFromString(
+                                StringFromFile(QV2RAY_CONFIG_DIR + "connections/" + key + "/" + cid.toString() + QV2RAY_CONFIG_FILE_EXTENSION));
+                        }
+                        //
+                        allGroupsObject[key] = aGroup;
+                    }
+                    //
+                    StringToFile(JsonToString(allGroupsObject), QV2RAY_CONFIG_DIR + "groups.json");
+                    //
+                    root.remove("groups"); //
+                    UPGRADELOG("Removing unused directory")
+                    QDir(QV2RAY_CONFIG_DIR + "subscriptions/").removeRecursively();
+                    QDir(QV2RAY_CONFIG_DIR + "connections/").removeRecursively();
+                    //
+                    QDir().mkpath(QV2RAY_CONFIG_DIR + "connections/");
+                    //
+                    //
+                    // FileSystem Migrations
+                    //      Move all files in GROUPS / SUBSCRIPTION subfolders into CONNECTIONS.
+                    //      Only Store (connections.json in CONFIG_PATH) and ($groupID.json in GROUP_PATH)
+                    for (const auto &cid : ConnectionsCache.keys())
+                    {
+                        StringToFile(JsonToString(ConnectionsCache[cid]),
+                                     QV2RAY_CONFIG_DIR + "connections/" + cid + QV2RAY_CONFIG_FILE_EXTENSION);
+                    }
+                    //
+                }
+
                 //
                 // Main Object
                 //      Drop recentConnections since it's ill-formed and not supported yet.
                 //      convert autoStartId into ConnectionGroupPair / instead of QString
                 //      Remove subscriptions item.
-                //
-                // FileSystem Migrations
-                //      Move all files in GROUPS / SUBSCRIPTION subfolders into CONNECTIONS.
-                //      Only Store (connections.json in CONFIG_PATH) and ($groupID.json in GROUP_PATH)
-                //
-                abort();
+                root.remove("recentConnections");
+                root["autoStartId"] = autoStartIdPair.toJson();
+                // 1 here means FIXED
+                root["autoStartBehavior"] = 1;
+
+                // Moved apiConfig into kernelConfig
+                auto kernelConfig = root["kernelConfig"].toObject();
+                kernelConfig["enableAPI"] = root["enableAPI"];
+                kernelConfig["statsPort"] = root["statsPort"];
+                UPGRADELOG("Finished upgrading config file for Qv2ray Group Routing update.")
+
+                break;
             }
             default:
             {
