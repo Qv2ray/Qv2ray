@@ -232,7 +232,7 @@ namespace Qv2ray::components::proxy
         QStringList actions;
         actions << QString("gsettings set org.gnome.system.proxy mode '%1'").arg("manual");
         bool isKDE = qEnvironmentVariable("XDG_SESSION_DESKTOP") == "KDE";
-        bool isDDE = isKDE ? false : qEnvironmentVariable("XDG_SESSION_DESKTOP") == "deepin";
+        bool isDDE = isKDE ? false : qEnvironmentVariable("XDG_CURRENT_DESKTOP").toLower() == "deepin";
         const auto configPath = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
 
         // Configure HTTP Proxies for HTTP, FTP and HTTPS
@@ -315,16 +315,16 @@ namespace Qv2ray::components::proxy
 
                 const auto deepinWarnTitle = QObject::tr("Deepin Detected");
                 const auto deepinWarnMessage =
-                    QObject::tr("Deepin plays smart and sets you the wrong HTTPS_PROXY environment variable. ") + NEWLINE +                    //
-                    QObject::tr("The original scheme should be http://, but he will replace with https://, causing the problem. ") + NEWLINE + //
-                    QObject::tr("Qv2ray will help you change it back and make things work again. ");
+                    QObject::tr("Deepin plays smart and sets you the wrong HTTPS_PROXY, FTP_PROXY environment variable.") + NEWLINE + //
+                    QObject::tr("The origin scheme http is wrongly replaced by https and ftp, causing the problem.") + NEWLINE +      //
+                    QObject::tr("Qv2ray cannot help you change them back. Please don't blame us if things go wrong.");                //
                 QvMessageBoxWarn(nullptr, deepinWarnTitle, deepinWarnMessage);
             }
 
-            // set them back!
-            const auto httpProxyURL = QString("http://%1:%2").arg(address, QSTRN(httpPort)).toStdString();
-            setenv("https_proxy", httpProxyURL.c_str(), true);
-            setenv("ftp_proxy", httpProxyURL.c_str(), true);
+            // set them back! - NOPE. setenv only works within your little program.
+            // const auto httpProxyURL = QString("http://%1:%2").arg(address, QSTRN(httpPort)).toStdString();
+            // setenv("https_proxy", httpProxyURL.c_str(), true);
+            // setenv("ftp_proxy", httpProxyURL.c_str(), true);
         }
 
 #else

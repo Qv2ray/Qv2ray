@@ -2919,15 +2919,27 @@ For example, for updating subscriptions.</source>
     </message>
     <message>
         <source>Deepin plays smart and sets you the wrong HTTPS_PROXY environment variable. </source>
-        <translation>Deepinのバカ、間違ったHTTPS_PROXY環境変数を設定します。</translation>
+        <translation type="vanished">Deepinのバカ、間違ったHTTPS_PROXY環境変数を設定します。</translation>
     </message>
     <message>
         <source>The original scheme should be http://, but he will replace with https://, causing the problem. </source>
-        <translation>本来のスキームは http:// であるべきなのですが、彼は https:// に置き換えて問題を引き起こします。</translation>
+        <translation type="vanished">本来のスキームは http:// であるべきなのですが、彼は https:// に置き換えて問題を引き起こします。</translation>
     </message>
     <message>
         <source>Qv2ray will help you change it back and make things work again. </source>
-        <translation>Qv2rayはそれを元に戻して、またうまくいくようにしてくれます。</translation>
+        <translation type="vanished">Qv2rayはそれを元に戻して、またうまくいくようにしてくれます。</translation>
+    </message>
+    <message>
+        <source>Deepin plays smart and sets you the wrong HTTPS_PROXY, FTP_PROXY environment variable.</source>
+        <translation>Deepinのバカ、間違ったHTTPS_PROXYとFTP_PROXYの環境変数を設定します。</translation>
+    </message>
+    <message>
+        <source>The origin scheme http is wrongly replaced by https and ftp, causing the problem.</source>
+        <translation>元のスキームのhttpがhttpsとftpに間違って置き換えられてしまい、問題が発生しています。</translation>
+    </message>
+    <message>
+        <source>Qv2ray cannot help you change them back. Please don&apos;t blame us if things go wrong.</source>
+        <translation>Qv2rayでは元に戻すことはできません。何かあっても私たちのせいにしないでください。</translation>
     </message>
 </context>
 <context>
