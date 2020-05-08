@@ -76,7 +76,19 @@ namespace Qv2ray::core::handlers
         // GlobalConfig.connections = connections.keys();
         // GlobalConfig.groups = groups.keys();
         //
-#error I haven't implement the Connections Saving Feature!!
+        QJsonObject connectionsObject;
+        for (const auto &key : connections.keys())
+        {
+            connectionsObject[key.toString()] = connections[key].toJson();
+        }
+        StringToFile(JsonToString(connectionsObject), QV2RAY_CONFIG_DIR + "connections.json");
+        //
+        QJsonObject groupObject;
+        for (const auto &key : groups.keys())
+        {
+            groupObject[key.toString()] = groups[key].toJson();
+        }
+        StringToFile(JsonToString(groupObject), QV2RAY_CONFIG_DIR + "groups.json");
         SaveGlobalSettings();
     }
 
