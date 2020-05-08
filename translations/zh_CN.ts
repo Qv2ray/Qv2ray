@@ -2497,15 +2497,27 @@ For example, for updating subscriptions.</source>
     </message>
     <message>
         <source>Deepin plays smart and sets you the wrong HTTPS_PROXY environment variable. </source>
-        <translation>默认情况下，Deepin 自作聪明，会给你设置错误的 HTTPS_PROXY 环境变量。</translation>
+        <translation type="vanished">默认情况下，Deepin 自作聪明，会给你设置错误的 HTTPS_PROXY 环境变量。</translation>
     </message>
     <message>
         <source>The original scheme should be http://, but he will replace with https://, causing the problem. </source>
-        <translation>原 scheme 应为 http://，但 Deepin 将其替换成了 https://，导致 HTTPS 代理无法正常使用。</translation>
+        <translation type="vanished">原 scheme 应为 http://，但 Deepin 将其替换成了 https://，导致 HTTPS 代理无法正常使用。</translation>
     </message>
     <message>
         <source>Qv2ray will help you change it back and make things work again. </source>
-        <translation>Qv2ray 会尝试帮你改回去，以期解决此问题。</translation>
+        <translation type="vanished">Qv2ray 会尝试帮你改回去，以期解决此问题。</translation>
+    </message>
+    <message>
+        <source>Deepin plays smart and sets you the wrong HTTPS_PROXY, FTP_PROXY environment variable.</source>
+        <translation>Deepin可能自作聪明，为你设置了错误的 HTTPS_PROXY 和 FTP_PROXY 环境变量。</translation>
+    </message>
+    <message>
+        <source>The origin scheme http is wrongly replaced by https and ftp, causing the problem.</source>
+        <translation>原来正确的 http:// 可能被错误地替换为 https:// 和 ftp://，导致这个问题。</translation>
+    </message>
+    <message>
+        <source>Qv2ray cannot help you change them back. Please don&apos;t blame us if things go wrong.</source>
+        <translation>Qv2ray 很遗憾无法帮你改回来。若因此遇到问题，请勿指责吾等。</translation>
     </message>
 </context>
 <context>

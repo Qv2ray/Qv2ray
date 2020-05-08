@@ -2801,15 +2801,15 @@ For example, for updating subscriptions.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Deepin plays smart and sets you the wrong HTTPS_PROXY environment variable. </source>
+        <source>Deepin plays smart and sets you the wrong HTTPS_PROXY, FTP_PROXY environment variable.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The original scheme should be http://, but he will replace with https://, causing the problem. </source>
+        <source>The origin scheme http is wrongly replaced by https and ftp, causing the problem.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Qv2ray will help you change it back and make things work again. </source>
+        <source>Qv2ray cannot help you change them back. Please don&apos;t blame us if things go wrong.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
