@@ -250,7 +250,7 @@ namespace Qv2ray::components::proxy
                 // for KDE:
                 if (isKDE)
                 {
-                    actions << QString("kwriteconfig5 --file %1/kioslaverc --group 'Proxy Settings' --key %2Proxy 'http://%3 %4'")
+                    actions << QString(R"(kwriteconfig5 --file "%1/kioslaverc" --group "Proxy Settings" --key %2Proxy "http://%3 %4")")
                                    .arg(configPath, protocol, address, QSTRN(httpPort));
                 }
             }
@@ -268,7 +268,7 @@ namespace Qv2ray::components::proxy
             // for KDE:
             if (isKDE)
             {
-                actions << QString("kwriteconfig5 --file %1/kioslaverc --group 'Proxy Settings' --key socksProxy 'socks://%2 %3'")
+                actions << QString(R"(kwriteconfig5 --file "%1/kioslaverc" --group "Proxy Settings" --key socksProxy "socks://%2 %3")")
                                .arg(configPath, address, QSTRN(socksPort));
             }
         }
@@ -284,7 +284,7 @@ namespace Qv2ray::components::proxy
             if (isKDE)
             {
                 LOG(MODULE_PROXY, "KDE detected")
-                actions << QString("kwriteconfig5 --file %1/kioslaverc --group 'Proxy Settings' --key ProxyType 1").arg(configPath);
+                actions << QString(R"(kwriteconfig5 --file "%1/kioslaverc" --group "Proxy Settings" --key ProxyType 1)").arg(configPath);
             }
         }
 
@@ -408,7 +408,7 @@ namespace Qv2ray::components::proxy
             // for KDE:
             if (isKDE)
             {
-                actions << QString("kwriteconfig5 --file %1/kioslaverc --group 'Proxy Settings' --key ProxyType 0").arg(configRoot);
+                actions << QString(R"(kwriteconfig5 --file "%1/kioslaverc" --group "Proxy Settings" --key ProxyType 0)").arg(configRoot);
             }
         }
 
