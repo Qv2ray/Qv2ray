@@ -38,7 +38,7 @@ namespace Qv2ray::core::handlers
         bool isComplex = IsComplexConfig(root);
         auto fullConfig = GenerateRuntimeConfig(root);
         inboundPorts = GetConfigInboundPorts(fullConfig);
-        PluginHost->Send_ConnectivityEvent({ GetDisplayName(id.connectionId), inboundPorts, Events::Connectivity::QvConnecticity_Connecting });
+        PluginHost->Send_ConnectivityEvent({ GetDisplayName(id.connectionId), inboundPorts, Events::Connectivity::Connecting });
         QList<std::tuple<QString, int, QString>> inboundInfo;
         for (const auto &inbound_v : fullConfig["inbounds"].toArray())
         {
@@ -176,12 +176,12 @@ namespace Qv2ray::core::handlers
             {
                 emit OnConnected(id);
                 PluginHost->Send_ConnectivityEvent(
-                    { GetDisplayName(id.connectionId), inboundPorts, Events::Connectivity::QvConnecticity_Connected });
+                    { GetDisplayName(id.connectionId), inboundPorts, Events::Connectivity::Connected });
             }
             else
             {
                 PluginHost->Send_ConnectivityEvent(
-                    { GetDisplayName(id.connectionId), inboundPorts, Events::Connectivity::QvConnecticity_Disconnected });
+                    { GetDisplayName(id.connectionId), inboundPorts, Events::Connectivity::Disconnected });
             }
             return result;
         }
@@ -210,7 +210,7 @@ namespace Qv2ray::core::handlers
                 {
                     emit OnConnected(id);
                     PluginHost->Send_ConnectivityEvent(
-                        { GetDisplayName(id.connectionId), inboundPorts, Events::Connectivity::QvConnecticity_Connected });
+                        { GetDisplayName(id.connectionId), inboundPorts, Events::Connectivity::Connected });
                     return {};
                 }
                 else
@@ -227,13 +227,13 @@ namespace Qv2ray::core::handlers
                 if (result.has_value())
                 {
                     PluginHost->Send_ConnectivityEvent(
-                        { GetDisplayName(id.connectionId), inboundPorts, Events::Connectivity::QvConnecticity_Disconnected });
+                        { GetDisplayName(id.connectionId), inboundPorts, Events::Connectivity::Disconnected });
                 }
                 else
                 {
                     emit OnConnected(id);
                     PluginHost->Send_ConnectivityEvent(
-                        { GetDisplayName(id.connectionId), inboundPorts, Events::Connectivity::QvConnecticity_Connected });
+                        { GetDisplayName(id.connectionId), inboundPorts, Events::Connectivity::Connected });
                 }
                 return result;
             }
@@ -265,7 +265,7 @@ namespace Qv2ray::core::handlers
         if (isConnected)
         {
             PluginHost->Send_ConnectivityEvent(
-                { GetDisplayName(currentId.connectionId), inboundPorts, Events::Connectivity::QvConnecticity_Disconnecting });
+                { GetDisplayName(currentId.connectionId), inboundPorts, Events::Connectivity::Disconnecting });
             if (vCoreInstance->KernelStarted)
             {
                 vCoreInstance->StopConnection();
@@ -280,7 +280,7 @@ namespace Qv2ray::core::handlers
             // Copy
             emit OnDisconnected(currentId);
             PluginHost->Send_ConnectivityEvent(
-                { GetDisplayName(currentId.connectionId), inboundPorts, Events::Connectivity::QvConnecticity_Disconnected });
+                { GetDisplayName(currentId.connectionId), inboundPorts, Events::Connectivity::Disconnected });
             currentId.clear();
         }
         else

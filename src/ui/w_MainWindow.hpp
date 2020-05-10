@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "common/HTTPRequestHelper.hpp"
 #include "common/LogHighlighter.hpp"
@@ -91,7 +91,7 @@ class MainWindow
     //
     void OnConnectionCreated(const ConnectionGroupPair &Id, const QString &displayName);
     void OnConnectionDeleted(const ConnectionGroupPair &Id);
-    void OnConnectionGroupChanged(const ConnectionId &id, const GroupId &originalGroup, const GroupId &newGroup);
+    void OnConnectionLinkedWithGroup(const ConnectionId &id, const GroupId &newGroup);
     //
     void OnGroupCreated(const GroupId &id, const QString &displayName);
     void OnGroupDeleted(const GroupId &id, const QList<ConnectionId> &connections);

@@ -91,9 +91,9 @@ namespace Qv2ray::core::handlers
         bool UpdateConnection(const ConnectionId &id, const CONFIGROOT &root, bool skipRestart = false);
         void ClearGroupUsage(const GroupId &id);
         void ClearConnectionUsage(const ConnectionGroupPair &id);
-        const std::optional<QString> RemoveConnectionFromGroup(const ConnectionId &id, const GroupId &gid);
+        const std::optional<QString> DeleteConnectionFromGroup(const ConnectionId &id, const GroupId &gid);
         const std::optional<QString> RenameConnection(const ConnectionId &id, const QString &newName);
-        const std::optional<QString> MoveConnectionGroup(const ConnectionId &id, const GroupId &newGroupId);
+        const std::optional<QString> LinkConnectionWithGroup(const ConnectionId &id, const GroupId &newGroupId);
         const ConnectionId CreateConnection(const QString &displayName, const GroupId &groupId, const CONFIGROOT &root,
                                             bool skipSaveConfig = false);
         //
@@ -126,7 +126,7 @@ namespace Qv2ray::core::handlers
         void OnConnectionDeleted(const ConnectionGroupPair &Id);
         void OnConnectionRemovedFromGroup(const ConnectionGroupPair &groupId);
         void OnConnectionModified(const ConnectionId &id);
-        void OnConnectionGroupChanged(const ConnectionId &id, const GroupId &originalGroup, const GroupId &newGroup);
+        void OnConnectionLinkedWithGroup(const ConnectionId &id, const GroupId &newGroup);
         //
         void OnLatencyTestStarted(const ConnectionId &id);
         void OnLatencyTestFinished(const ConnectionId &id, const uint average);

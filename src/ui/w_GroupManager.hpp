@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "base/Qv2rayBase.hpp"
 #include "core/CoreSafeTypes.hpp"
@@ -43,19 +43,15 @@ class GroupManager
 
     void on_connectionsList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
 
-    void on_connectionsList_customContextMenuRequested(const QPoint &pos);
-
     void on_groupIsSubscriptionGroup_clicked(bool checked);
 
     void on_groupNameTxt_textEdited(const QString &arg1);
-
-  private slots:
     void onRCMDeleteConnectionTriggered();
     void onRCMExportConnectionTriggered();
-
     void on_deleteSelectedConnBtn_clicked();
-
     void on_exportSelectedConnBtn_clicked();
+
+    void on_connectionsTable_customContextMenuRequested(const QPoint &pos);
 
   private:
     void loadConnectionList(const GroupId &group);
@@ -70,6 +66,7 @@ class GroupManager
     QAction *deleteConnectionAction = new QAction(tr("Delete Connection(s)"), connectionListRCMenu);
     QMenu *connectionListRCMenu_CopyToMenu = new QMenu(tr("Copy to..."));
     QMenu *connectionListRCMenu_MoveToMenu = new QMenu(tr("Move to..."));
+    QMenu *connectionListRCMenu_LinkToMenu = new QMenu(tr("Link to..."));
     void UpdateColorScheme();
     bool isUpdateInProgress = false;
     GroupId currentGroupId = NullGroupId;

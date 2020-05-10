@@ -125,7 +125,7 @@ namespace Qv2ray::common
 
     QStringList SplitLines(const QString &_string)
     {
-        return _string.split(QRegExp("[\r\n]"), QString::SkipEmptyParts);
+        return _string.split(QRegExp("[\r\n]"), Qt::SkipEmptyParts);
     }
 
     //    list<string> SplitLines_std(const QString &_string)

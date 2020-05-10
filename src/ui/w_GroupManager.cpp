@@ -1,4 +1,4 @@
-﻿#include "w_GroupManager.hpp"
+#include "w_GroupManager.hpp"
 
 #include "common/QvHelpers.hpp"
 #include "core/connection/Generation.hpp"
@@ -7,20 +7,33 @@
 
 #include <QFileDialog>
 #include <QListWidgetItem>
-#define GET_DATA(type, typeConv)                                                                                                                \
-    [&](const QList<QListWidgetItem *> list) {                                                                                                  \
-        QList<type> _list;                                                                                                                      \
-        for (const auto &item : list)                                                                                                           \
+
+#define SELECTED_ROWS_INDEX                                                                                                                     \
+    ([&]() {                                                                                                                                    \
+        const auto &__selection = connectionsTable->selectedItems();                                                                            \
+        QSet<int> rows;                                                                                                                         \
+        for (const auto &selection : __selection)                                                                                               \
         {                                                                                                                                       \
-            _list.push_back(item->data(Qt::UserRole).to##typeConv());                                                                           \
+            rows.insert(connectionsTable->row(selection));                                                                                      \
+        }                                                                                                                                       \
+        return rows;                                                                                                                            \
+    }())
+
+#define GET_SELECTED_CONNECTION_IDS(connectionIdList)                                                                                           \
+    ([&]() {                                                                                                                                    \
+        QList<ConnectionId> _list;                                                                                                              \
+        for (const auto &i : connectionIdList)                                                                                                  \
+        {                                                                                                                                       \
+            _list.push_back(ConnectionId(connectionsTable->item(i, 0)->data(Qt::UserRole).toString()));                                         \
         }                                                                                                                                       \
         return _list;                                                                                                                           \
-    }
+    }())
 GroupManager::GroupManager(QWidget *parent) : QDialog(parent)
 {
     setupUi(this);
     QvMessageBusConnect(GroupManager);
     UpdateColorScheme();
+
     connectionListRCMenu->addSection(tr("Connection Management"));
     connectionListRCMenu->addAction(exportConnectionAction);
     connectionListRCMenu->addAction(deleteConnectionAction);
@@ -31,9 +44,9 @@ GroupManager::GroupManager(QWidget *parent) : QDialog(parent)
     connect(exportConnectionAction, &QAction::triggered, this, &GroupManager::onRCMExportConnectionTriggered);
     connect(deleteConnectionAction, &QAction::triggered, this, &GroupManager::onRCMDeleteConnectionTriggered);
     //
-    connect(ConnectionManager, &QvConfigHandler::OnConnectionGroupChanged, //
-            [&](const ConnectionId &, const GroupId &, const GroupId &) {  //
-                this->loadConnectionList(currentGroupId);                  //
+    connect(ConnectionManager, &QvConfigHandler::OnConnectionLinkedWithGroup, //
+            [&](const ConnectionId &, const GroupId &) {                      //
+                this->loadConnectionList(currentGroupId);                     //
             });
     //
     const auto reloadGroupLambda = [&](const ConnectionGroupPair &id) {
@@ -59,16 +72,16 @@ GroupManager::GroupManager(QWidget *parent) : QDialog(parent)
 
 void GroupManager::onRCMDeleteConnectionTriggered()
 {
-    const auto list = GET_DATA(QString, String)(connectionsList->selectedItems());
+    const auto list = GET_SELECTED_CONNECTION_IDS(SELECTED_ROWS_INDEX);
     for (const auto &item : list)
     {
-        ConnectionManager->RemoveConnectionFromGroup(ConnectionId(item), currentGroupId);
+        ConnectionManager->DeleteConnectionFromGroup(ConnectionId(item), currentGroupId);
     }
 }
 
 void GroupManager::onRCMExportConnectionTriggered()
 {
-    const auto list = GET_DATA(QString, String)(connectionsList->selectedItems());
+    const auto &list = GET_SELECTED_CONNECTION_IDS(SELECTED_ROWS_INDEX);
     QFileDialog d;
     switch (list.count())
     {
@@ -139,12 +152,31 @@ void GroupManager::ReloadGroupAction()
 
 void GroupManager::loadConnectionList(const GroupId &group)
 {
-    connectionsList->clear();
-    for (auto conn : ConnectionManager->Connections(group))
+    connectionsTable->clearContents();
+    connectionsTable->model()->removeRows(0, connectionsTable->rowCount());
+    const auto &connections = ConnectionManager->Connections(group);
+    for (auto i = 0; i < connections.count(); i++)
     {
-        auto item = new QListWidgetItem(GetDisplayName(conn), connectionsList);
-        item->setData(Qt::UserRole, conn.toString());
-        connectionsList->addItem(item);
+        const auto &conn = connections.at(i);
+        connectionsTable->insertRow(i);
+        auto displayNameItem = new QTableWidgetItem(GetDisplayName(conn));
+        displayNameItem->setData(Qt::UserRole, conn.toString());
+        auto typeItem = new QTableWidgetItem(GetConnectionProtocolString(conn));
+        const auto [type, host, port] = GetConnectionInfo(conn);
+        auto hostPortItem = new QTableWidgetItem(host + ":" + QSTRN(port));
+        //
+        QStringList groupsNamesString;
+        for (const auto &group : ConnectionManager->GetGroupId(conn))
+        {
+            groupsNamesString.append(GetDisplayName(group));
+        }
+        auto groupsItem = new QTableWidgetItem(groupsNamesString.join(";"));
+        connectionsTable->setItem(i, 0, displayNameItem);
+        connectionsTable->setItem(i, 1, typeItem);
+        connectionsTable->setItem(i, 2, hostPortItem);
+        connectionsTable->setItem(i, 3, groupsItem);
+        //
+        connectionsTable->resizeColumnsToContents();
     }
 }
 
@@ -153,7 +185,7 @@ void GroupManager::onRCMActionTriggered_Copy()
     const auto _sender = qobject_cast<QAction *>(sender());
     const GroupId groupId{ _sender->data().toString() };
     //
-    const auto list = GET_DATA(QString, String)(connectionsList->selectedItems());
+    const auto list = GET_SELECTED_CONNECTION_IDS(SELECTED_ROWS_INDEX);
     for (const auto &connId : list)
     {
         const auto &connectionId = ConnectionId(connId);
@@ -166,10 +198,10 @@ void GroupManager::onRCMActionTriggered_Move()
     const auto _sender = qobject_cast<QAction *>(sender());
     const GroupId groupId{ _sender->data().toString() };
     //
-    const auto list = GET_DATA(QString, String)(connectionsList->selectedItems());
+    const auto list = GET_SELECTED_CONNECTION_IDS(SELECTED_ROWS_INDEX);
     for (const auto &connId : list)
     {
-        ConnectionManager->MoveConnectionGroup(ConnectionId(connId), groupId);
+        ConnectionManager->LinkConnectionWithGroup(ConnectionId(connId), groupId);
     }
 }
 
@@ -268,7 +300,6 @@ void GroupManager::on_groupList_itemClicked(QListWidgetItem *item)
     createdAtLabel->setText(timeToString(groupMetaObject.creationDate));
     updateIntervalSB->setValue(groupMetaObject.subscriptionOption.updateInterval);
     //
-    connectionsList->clear();
     loadConnectionList(currentGroupId);
 }
 
@@ -299,12 +330,6 @@ void GroupManager::on_connectionsList_currentItemChanged(QListWidgetItem *curren
     }
 }
 
-void GroupManager::on_connectionsList_customContextMenuRequested(const QPoint &pos)
-{
-    Q_UNUSED(pos)
-    connectionListRCMenu->popup(QCursor::pos());
-}
-
 void GroupManager::on_groupIsSubscriptionGroup_clicked(bool checked)
 {
     ConnectionManager->SetSubscriptionData(currentGroupId, checked);
@@ -323,9 +348,9 @@ void GroupManager::on_deleteSelectedConnBtn_clicked()
 
 void GroupManager::on_exportSelectedConnBtn_clicked()
 {
-    if (connectionsList->selectedItems().isEmpty())
+    if (connectionsTable->selectedItems().isEmpty())
     {
-        connectionsList->selectAll();
+        connectionsTable->selectAll();
     }
     onRCMExportConnectionTriggered();
 }
@@ -345,4 +370,10 @@ void GroupManager::ExportConnectionFilter(CONFIGROOT &root)
     root["inbounds"] = inbounds;
 }
 
-#undef GET_DATA
+#undef GET_SELECTED_CONNECTION_IDS
+
+void GroupManager::on_connectionsTable_customContextMenuRequested(const QPoint &pos)
+{
+    Q_UNUSED(pos)
+    connectionListRCMenu->popup(QCursor::pos());
+}

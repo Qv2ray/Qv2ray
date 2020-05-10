@@ -175,7 +175,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     //
     connect(ConnectionManager, &QvConfigHandler::OnConnectionDeleted, this, &MainWindow::OnConnectionDeleted);
     connect(ConnectionManager, &QvConfigHandler::OnConnectionCreated, this, &MainWindow::OnConnectionCreated);
-    connect(ConnectionManager, &QvConfigHandler::OnConnectionGroupChanged, this, &MainWindow::OnConnectionGroupChanged);
+    connect(ConnectionManager, &QvConfigHandler::OnConnectionLinkedWithGroup, this, &MainWindow::OnConnectionLinkedWithGroup);
     //
     connect(ConnectionManager, &QvConfigHandler::OnGroupCreated, this, &MainWindow::OnGroupCreated);
     connect(ConnectionManager, &QvConfigHandler::OnGroupDeleted, this, &MainWindow::OnGroupDeleted);
@@ -580,7 +580,7 @@ void MainWindow::on_action_RCM_DeleteThese_triggered()
         if (GlobalConfig.autoStartId == conn)
             GlobalConfig.autoStartId.clear();
 
-        ConnectionManager->RemoveConnectionFromGroup(conn.connectionId, conn.groupId);
+        ConnectionManager->DeleteConnectionFromGroup(conn.connectionId, conn.groupId);
     }
 }
 
@@ -843,12 +843,8 @@ void MainWindow::OnConnectionDeleted(const ConnectionGroupPair &id)
     auto child = connectionNodes.take(id);
     groupNodes.value(id.groupId)->removeChild(child.get());
 }
-void MainWindow::OnConnectionGroupChanged(const ConnectionId &id, const GroupId &originalGroup, const GroupId &newGroup)
+void MainWindow::OnConnectionLinkedWithGroup(const ConnectionId &id, const GroupId &newGroup)
 {
-    const ConnectionGroupPair pair{ id, originalGroup };
-    delete GetItemWidget(connectionNodes.value(pair).get());
-    groupNodes.value(originalGroup)->removeChild(connectionNodes.value(pair).get());
-    connectionNodes.remove(pair);
     MWAddConnectionItem_p({ id, newGroup });
 }
 void MainWindow::OnGroupCreated(const GroupId &id, const QString &displayName)

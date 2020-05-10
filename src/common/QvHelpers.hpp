@@ -87,7 +87,7 @@ namespace Qv2ray::common
     {
         QDateTime timestamp;
         timestamp.setSecsSinceEpoch(t);
-        return timestamp.toString(Qt::SystemLocaleShortDate);
+        return timestamp.toString();
     }
 
     inline void FastAppendTextDocument(const QString &message, QTextDocument *doc)

@@ -210,20 +210,20 @@ namespace Qv2ray::core::handlers
     {
         CheckConnectionExistance(id);
         OnConnectionRenamed(id, connections[id].displayName, newName);
-        PluginHost->Send_ConnectionEvent({ newName, connections[id].displayName, Events::ConnectionEntry::ConnectionEvent_Renamed });
+        PluginHost->Send_ConnectionEvent({ Events::ConnectionEntry::Renamed, newName, connections[id].displayName });
         connections[id].displayName = newName;
         CHSaveConfigData();
         return {};
     }
 
-    const std::optional<QString> QvConfigHandler::RemoveConnectionFromGroup(const ConnectionId &id, const GroupId &gid)
+    const std::optional<QString> QvConfigHandler::DeleteConnectionFromGroup(const ConnectionId &id, const GroupId &gid)
     {
         CheckConnectionExistance(id);
         // auto groupId = connections[id].groupId;
         // QFile connectionFile((groups[groupId].isSubscription ? QV2RAY_SUBSCRIPTION_DIR : QV2RAY_CONNECTIONS_DIR) + groupId.toString() + "/" +
         //                     id.toString() + QV2RAY_CONFIG_FILE_EXTENSION);
         ////
-        // PluginHost->Send_ConnectionEvent({ connections[id].displayName, "", Events::ConnectionEntry::ConnectionEvent_Deleted });
+        // PluginHost->Send_ConnectionEvent({ connections[id].displayName, "", Events::ConnectionEntry::Deleted });
         // connections.remove(id);
         // groups[groupId].connections.removeAll(id);
         ////
@@ -247,34 +247,15 @@ namespace Qv2ray::core::handlers
         return tr("File does not exist.");
     }
 
-    const std::optional<QString> QvConfigHandler::MoveConnectionGroup(const ConnectionId &id, const GroupId &newGroupId)
+    const std::optional<QString> QvConfigHandler::LinkConnectionWithGroup(const ConnectionId &id, const GroupId &newGroupId)
     {
         CheckConnectionExistance(id);
-        // auto const oldgid = connections[id].groupId;
-        ////
-        // QString oldPath = (groups[oldgid].isSubscription ? QV2RAY_SUBSCRIPTION_DIR : QV2RAY_CONNECTIONS_DIR) + oldgid.toString() + "/" +
-        //                  id.toString() + QV2RAY_CONFIG_FILE_EXTENSION;
-        ////
-        // auto newDir = (groups[newGroupId].isSubscription ? QV2RAY_SUBSCRIPTION_DIR : QV2RAY_CONNECTIONS_DIR) + newGroupId.toString() + "/";
-        // QString newPath = newDir + id.toString() + QV2RAY_CONFIG_FILE_EXTENSION;
-        ////
-        // if (!QDir(newDir).exists())
-        //{
-        //    QDir().mkpath(newDir);
-        //}
-        ////
-        // if (!QFile::rename(oldPath, newPath))
-        //{
-        //    LOG(MODULE_FILEIO, "Cannot rename")
-        //}
-        // groups[oldgid].connections.removeAll(id);
-        // groups[newGroupId].connections.append(id);
-        // connections[id].groupId = newGroupId;
-        ////
-        // PluginHost->Send_ConnectionEvent({ connections[id].displayName, "", Events::ConnectionEntry::ConnectionEvent_Updated });
-        ////
-        // emit OnConnectionGroupChanged(id, oldgid, newGroupId);
-        //
+        if (!groups[newGroupId].connections.contains(id))
+        {
+            groups[newGroupId].connections.append(id);
+        }
+        PluginHost->Send_ConnectionEvent({ Events::ConnectionEntry::LinkedWithGroup, connections[id].displayName, "" });
+        emit OnConnectionLinkedWithGroup(id, newGroupId);
         return {};
     }
 
@@ -290,7 +271,7 @@ namespace Qv2ray::core::handlers
         auto list = groups[id].connections;
         for (const auto &conn : list)
         {
-            MoveConnectionGroup(conn, DefaultGroupId);
+            LinkConnectionWithGroup(conn, DefaultGroupId);
         }
         //
         // TODO
@@ -303,7 +284,7 @@ namespace Qv2ray::core::handlers
             QDir(QV2RAY_CONNECTIONS_DIR + id.toString()).removeRecursively();
         }
         //
-        PluginHost->Send_ConnectionEvent({ groups[id].displayName, "", Events::ConnectionEntry::ConnectionEvent_Deleted });
+        PluginHost->Send_ConnectionEvent({ Events::ConnectionEntry::FullyRemoved, groups[id].displayName, "" });
         //
         groups.remove(id);
         CHSaveConfigData();
@@ -339,7 +320,7 @@ namespace Qv2ray::core::handlers
     {
         LOG(MODULE_CORE_HANDLER, "Kernel crashed: " + errMessage)
         emit OnDisconnected(id);
-        PluginHost->Send_ConnectivityEvent({ GetDisplayName(id.connectionId), {}, Events::Connectivity::QvConnecticity_Disconnected });
+        PluginHost->Send_ConnectivityEvent({ GetDisplayName(id.connectionId), {}, Events::Connectivity::Disconnected });
         emit OnKernelCrashed(id, errMessage);
     }
 
@@ -375,7 +356,7 @@ namespace Qv2ray::core::handlers
         connectionRootCache[id] = root;
         //
         emit OnConnectionModified(id);
-        PluginHost->Send_ConnectionEvent({ connections[id].displayName, "", Events::ConnectionEntry::ConnectionEvent_Updated });
+        PluginHost->Send_ConnectionEvent({ Events::ConnectionEntry::Edited, connections[id].displayName, "" });
         if (!skipRestart && kernelHandler->CurrentConnection().connectionId == id)
         {
             emit RestartConnection();
@@ -389,7 +370,7 @@ namespace Qv2ray::core::handlers
         groups[id].displayName = displayName;
         groups[id].isSubscription = isSubscription;
         groups[id].creationDate = system_clock::to_time_t(system_clock::now());
-        PluginHost->Send_ConnectionEvent({ displayName, "", Events::ConnectionEntry::ConnectionEvent_Created });
+        PluginHost->Send_ConnectionEvent({ Events::ConnectionEntry::Created, displayName, "" });
         emit OnGroupCreated(id, displayName);
         CHSaveConfigData();
         return id;
@@ -403,7 +384,7 @@ namespace Qv2ray::core::handlers
             return tr("Group does not exist");
         }
         OnGroupRenamed(id, groups[id].displayName, newName);
-        PluginHost->Send_ConnectionEvent({ newName, groups[id].displayName, Events::ConnectionEntry::ConnectionEvent_Renamed });
+        PluginHost->Send_ConnectionEvent({ Events::ConnectionEntry::Renamed, newName, groups[id].displayName });
         groups[id].displayName = newName;
         return {};
     }
@@ -479,11 +460,11 @@ namespace Qv2ray::core::handlers
         QMultiMap<std::tuple<QString, QString, int>, ConnectionId> typeMap;
         for (const auto &conn : groups[id].connections)
         {
-            nameMap.insertMulti(GetDisplayName(conn), conn);
+            nameMap.insert(GetDisplayName(conn), conn);
             auto [protocol, host, port] = GetConnectionInfo(conn);
             if (port != 0)
             {
-                typeMap.insertMulti({ protocol, host, port }, conn);
+                typeMap.insert({ protocol, host, port }, conn);
             }
         }
         QDir().mkpath(QV2RAY_CONNECTIONS_DIR);
@@ -589,7 +570,7 @@ namespace Qv2ray::core::handlers
         connections[newId].creationDate = system_clock::to_time_t(system_clock::now());
         connections[newId].displayName = displayName;
         emit OnConnectionCreated({ newId, groupId }, displayName);
-        PluginHost->Send_ConnectionEvent({ displayName, "", Events::ConnectionEntry::ConnectionEvent_Created });
+        PluginHost->Send_ConnectionEvent({ Events::ConnectionEntry::Created, displayName, "" });
         UpdateConnection(newId, root);
         if (!skipSaveConfig)
         {
