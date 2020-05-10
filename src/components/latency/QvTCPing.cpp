@@ -4,12 +4,112 @@
 #else
     #include <netdb.h>
     #include <sys/socket.h>
+    #include <sys/select.h>
     #include <sys/time.h>
+    #include <fcntl.h>
     #include <unistd.h>
 #endif
 #include "QtConcurrent/QtConcurrent"
 #include "QvTCPing.hpp"
 #include "core/handler/ConfigHandler.hpp"
+
+
+#ifdef _WIN32
+    using qv_socket_t=SOCKET;
+#else
+    using qv_socket_t=int;
+#endif
+namespace
+{
+    inline int setnonblocking(qv_socket_t sockno,int &opt)
+    {
+#ifdef _WIN32
+        ULONG block = 1;
+        if (ioctlsocket(sockno, FIONBIO, &block) == SOCKET_ERROR)
+        {
+            return -1;
+        }
+#else
+        if ((opt = fcntl (sockno, F_GETFL, NULL)) < 0) {
+            //get socket flags
+            return -1;
+        }
+        if (fcntl (sockno, F_SETFL, opt | O_NONBLOCK) < 0) {
+            //set socket non-blocking
+            return -1;
+        }
+#endif
+        return 0;
+    }
+
+    inline int setblocking(qv_socket_t sockno,int &opt)
+    {
+#ifdef _WIN32
+        ULONG block = 0;
+        if (ioctlsocket(sockno, FIONBIO, &block) == SOCKET_ERROR)
+        {
+            return -1;
+        }
+#else
+        if (fcntl (sockno, F_SETFL, opt) < 0) {
+            //reset socket flags
+            return -1;
+        }
+#endif
+        return 0;
+    }
+
+
+    int connect_wait (
+            qv_socket_t sockno,
+            struct sockaddr * addr,
+            size_t addrlen,
+            int timeout_sec=5)
+    {
+        int res;
+        int opt;
+        timeval tv = {0};
+        tv.tv_sec = timeout_sec;
+        tv.tv_usec = 0;
+        if ((res = setnonblocking(sockno,opt))!=0)
+            return -1;
+        if ((res = ::connect (sockno, addr, addrlen)) < 0) {
+#ifdef _WIN32
+            if (WSAGetLastError() != WSAEWOULDBLOCK) {
+#else
+            if (errno == EINPROGRESS) {
+#endif
+                //connecting
+                fd_set wait_set;
+                FD_ZERO (&wait_set);
+                FD_SET (sockno, &wait_set);
+                res = select (sockno + 1, NULL, &wait_set, NULL, &tv);
+            }
+        }
+        else {
+            //connect immediately
+            res = 1;
+        }
+        if (setblocking(sockno,opt)!=0){
+            return -1;
+        }
+        if (res < 0) {
+            //an error occured
+            return -1;
+        }
+        else if (res == 0) {
+            //timeout
+            return 1;
+        }
+        else {
+            socklen_t len = sizeof (opt);
+            if (getsockopt (sockno, SOL_SOCKET, SO_ERROR, reinterpret_cast<char*>(&opt), &len) < 0) {
+                return -1;
+            }
+        }
+        return 0;
+    }
+}
 
 namespace Qv2ray::components::tcping
 {
@@ -159,11 +259,8 @@ namespace Qv2ray::components::tcping
 
     int testLatency(struct addrinfo *addr, std::chrono::system_clock::time_point *start, std::chrono::system_clock::time_point *end)
     {
-#ifdef _WIN32
-        SOCKET fd;
-#else
-        int fd;
-#endif
+        qv_socket_t fd;
+
         const int on = 1;
         /* int flags; */
         int rv = 0;
@@ -198,7 +295,7 @@ namespace Qv2ray::components::tcping
             /* connect to peer */
             // Qt has its own connect() function in QObject....
             // So we add "::" here
-            if (::connect(fd, addr->ai_addr, addr->ai_addrlen) == 0)
+            if (connect_wait(fd, addr->ai_addr, addr->ai_addrlen)==0)
             {
                 *end = system_clock::now();
 #ifdef Q_OS_WIN
