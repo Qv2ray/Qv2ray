@@ -174,6 +174,7 @@ set(QV2RAY_SOURCES
     src/components/plugins/toolbar/QvToolbar_linux.cpp
     src/components/plugins/toolbar/QvToolbar_win.cpp
     src/components/plugins/QvPluginHost.cpp
+    src/components/port/QvPortDetector.cpp
     src/components/proxy/QvProxyConfigurator.cpp
     src/components/route/RouteSchemeIO.cpp
     src/components/speedchart/speedplotview.cpp
@@ -269,6 +270,7 @@ set(QV2RAY_SOURCES
     src/components/speedchart/speedplotview.hpp
     src/components/speedchart/speedwidget.hpp
     src/components/update/UpdateChecker.hpp
+    src/components/port/QvPortDetector.hpp
     src/core/connection/ConnectionIO.hpp
     src/core/connection/Generation.hpp
     src/core/connection/Serialization.hpp
