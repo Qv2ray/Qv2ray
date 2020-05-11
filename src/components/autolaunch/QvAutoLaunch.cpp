@@ -184,16 +184,16 @@ namespace Qv2ray::components::autolaunch
 
             QTextStream ts(&iniFile);
             ts.setCodec("UTF-8");
-            ts << QLatin1String("[Desktop Entry]") << endl
-               << QLatin1String("Name=") << QApplication::applicationName() << endl
-               << QLatin1String("GenericName=") << QLatin1String("V2ray Frontend") << endl
-               << QLatin1String("Exec=") << binPath << endl
-               << QLatin1String("Terminal=") << "false" << endl
-               << QLatin1String("Icon=") << "qv2ray" << endl // always use lowercase for icons
-               << QLatin1String("Categories=") << "Network" << endl
-               << QLatin1String("Type=") << "Application" << endl
-               << QLatin1String("StartupNotify=") << "false" << endl
-               << QLatin1String("X-GNOME-Autostart-enabled=") << "true" << endl;
+            ts << QLatin1String("[Desktop Entry]") << Qt::endl
+               << QLatin1String("Name=") << QApplication::applicationName() + QApplication::arguments().join(" ") << Qt::endl
+               << QLatin1String("GenericName=") << QLatin1String("V2ray Frontend") << Qt::endl
+               << QLatin1String("Exec=") << binPath << Qt::endl
+               << QLatin1String("Terminal=") << "false" << Qt::endl
+               << QLatin1String("Icon=") << "qv2ray" << Qt::endl // always use lowercase for icons
+               << QLatin1String("Categories=") << "Network" << Qt::endl
+               << QLatin1String("Type=") << "Application" << Qt::endl
+               << QLatin1String("StartupNotify=") << "false" << Qt::endl
+               << QLatin1String("X-GNOME-Autostart-enabled=") << "true" << Qt::endl;
         }
         else
         {

@@ -56,7 +56,7 @@ namespace Qv2ray::common
         }
 
         request.setAttribute(QNetworkRequest::RedirectPolicyAttribute, QNetworkRequest::NoLessSafeRedirectPolicy);
-        request.setAttribute(QNetworkRequest::HTTP2AllowedAttribute, true);
+        request.setAttribute(QNetworkRequest::Http2AllowedAttribute, true);
         auto ua = GlobalConfig.networkConfig.userAgent;
         ua.replace("$VERSION", QV2RAY_VERSION_STRING);
         request.setHeader(QNetworkRequest::KnownHeaders::UserAgentHeader, ua);
@@ -88,7 +88,7 @@ namespace Qv2ray::common
 
     void QvHttpRequestHelper::onRequestFinished_p()
     {
-        if (reply->attribute(QNetworkRequest::HTTP2WasUsedAttribute).toBool())
+        if (reply->attribute(QNetworkRequest::Http2WasUsedAttribute).toBool())
         {
             DEBUG(MODULE_NETWORK, "HTTP/2 was used.")
         }

@@ -209,7 +209,7 @@ namespace Qv2ray::core::connection::Serialization
                 OUTBOUNDS outbounds;
                 outbounds.append(GenerateOutboundEntry("shadowsocks", GenerateShadowSocksOUT({ ssObject }), {}));
                 JADD(outbounds)
-                serverList.insertMulti(totalName, root);
+                serverList.insert(totalName, root);
             }
 
             // returns the current result
