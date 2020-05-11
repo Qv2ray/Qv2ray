@@ -125,20 +125,12 @@ namespace Qv2ray::common
 
     QStringList SplitLines(const QString &_string)
     {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
         return _string.split(QRegExp("[\r\n]"), Qt::SkipEmptyParts);
+#else
+        return _string.split(QRegExp("[\r\n]"), QString::SkipEmptyParts);
+#endif
     }
-
-    //    list<string> SplitLines_std(const QString &_string)
-    //    {
-    //        list<string> list;
-
-    //        for (auto line : _string.split(QRegExp("[\r\n]"), QString::SkipEmptyParts))
-    //        {
-    //            list.push_back(line.toStdString());
-    //        }
-
-    //        return list;
-    //    }
 
     QStringList GetFileList(const QDir &dir)
     {
