@@ -2824,6 +2824,10 @@ For example, for updating subscriptions.</source>
         <source>Qv2ray cannot help you change them back. Please don&apos;t blame us if things go wrong.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>trusted abi</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Qv2ray::common::QvCommandArgParser</name>
