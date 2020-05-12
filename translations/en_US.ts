@@ -1734,6 +1734,18 @@ But could damage your server if improperly used.</source>
 For example, for updating subscriptions.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Disabling API Subsystem</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disabling API subsystem will also disable the statistics function of Qv2ray.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Speed chart and traffic statistics will be disabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
@@ -2123,6 +2135,10 @@ For example, for updating subscriptions.</source>
     </message>
     <message>
         <source>Qv2ray cannot help you change them back. Please don&apos;t blame us if things go wrong.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>trusted abi</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
