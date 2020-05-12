@@ -4,7 +4,6 @@
 #include "common/QvTranslator.hpp"
 #include "core/handler/ConfigHandler.hpp"
 #include "core/settings/SettingsBackend.hpp"
-#include "src/components/ntp/QvNTPClient.hpp"
 #include "src/components/plugins/QvPluginHost.hpp"
 #include "ui/w_MainWindow.hpp"
 
@@ -421,13 +420,6 @@ int main(int argc, char *argv[])
         // Initialise Connection Handler
         PluginHost = new QvPluginHost();
         ConnectionManager = new QvConfigHandler();
-
-        using namespace Qv2ray::components::ntp;
-        NtpClient *client = new NtpClient();
-        QObject::connect(client, &NtpClient::replyReceived, [](const QHostAddress &, quint16, const NtpReply &reply) {
-            QvMessageBoxInfo(nullptr, "offset", QString("%1").arg(reply.localClockOffset()));
-        });
-        std::cout << client->sendRequest(QHostAddress("84.16.67.12"), 123);
 
         // Show MainWindow
         MainWindow w;
