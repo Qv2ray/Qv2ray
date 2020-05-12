@@ -2080,6 +2080,18 @@ For example, for updating subscriptions.</source>
         <translation>这些设定是针对 Qv2ray 本身的。
 例如，用在更新订阅时。</translation>
     </message>
+    <message>
+        <source>Disabling API Subsystem</source>
+        <translation>禁用 API 子系统</translation>
+    </message>
+    <message>
+        <source>Disabling API subsystem will also disable the statistics function of Qv2ray.</source>
+        <translation>如果禁用 API 子系统，Qv2ray 的统计功能也会被一同禁用。</translation>
+    </message>
+    <message>
+        <source>Speed chart and traffic statistics will be disabled.</source>
+        <translation>速度图表和流量统计功能将不再可用。</translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>

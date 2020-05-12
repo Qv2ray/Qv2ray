@@ -2450,6 +2450,18 @@ For example, for updating subscriptions.</source>
         <translation>これらの設定はQv2ray自体のためのものです。
 例えば、サブスクリプションの更新などです。</translation>
     </message>
+    <message>
+        <source>Disabling API Subsystem</source>
+        <translation>APIサブシステムを無効</translation>
+    </message>
+    <message>
+        <source>Disabling API subsystem will also disable the statistics function of Qv2ray.</source>
+        <translation>APIサブシステムを無効にすると、Qv2rayの統計機能も無効になります。</translation>
+    </message>
+    <message>
+        <source>Speed chart and traffic statistics will be disabled.</source>
+        <translation>スピードチャートや交通統計は無効になります。</translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
