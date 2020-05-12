@@ -51,10 +51,10 @@ ConnectionInfoWidget::ConnectionInfoWidget(QWidget *parent) : QWidget(parent)
     //
     connect(ConnectionManager, &QvConfigHandler::OnConnected, this, &ConnectionInfoWidget::OnConnected);
     connect(ConnectionManager, &QvConfigHandler::OnDisconnected, this, &ConnectionInfoWidget::OnDisConnected);
-    connect(ConnectionManager, &QvConfigHandler::OnConnectionModified, this, &ConnectionInfoWidget::OnConnectionModified);
-    connect(ConnectionManager, &QvConfigHandler::OnConnectionLinkedWithGroup, this, &ConnectionInfoWidget::OnConnectionModified);
     connect(ConnectionManager, &QvConfigHandler::OnGroupRenamed, this, &ConnectionInfoWidget::OnGroupRenamed);
-    connect(ConnectionManager, &QvConfigHandler::OnConnectionLinkedWithGroup, this, &ConnectionInfoWidget::OnConnectionModified);
+    connect(ConnectionManager, &QvConfigHandler::OnConnectionModified, this, &ConnectionInfoWidget::OnConnectionModified);
+    connect(ConnectionManager, &QvConfigHandler::OnConnectionLinkedWithGroup, this, &ConnectionInfoWidget::OnConnectionModified_Pair);
+    connect(ConnectionManager, &QvConfigHandler::OnConnectionRemovedFromGroup, this, &ConnectionInfoWidget::OnConnectionModified_Pair);
 }
 
 void ConnectionInfoWidget::ShowDetails(const ConnectionGroupPair &_identifier)
@@ -121,10 +121,15 @@ ConnectionInfoWidget::~ConnectionInfoWidget()
 
 void ConnectionInfoWidget::OnConnectionModified(const ConnectionId &id)
 {
-    if (id == connectionId)
+    if (id == this->connectionId)
         ShowDetails({ id, groupId });
 }
 
+void ConnectionInfoWidget::OnConnectionModified_Pair(const ConnectionGroupPair &id)
+{
+    if (id.connectionId == this->connectionId && id.groupId == this->groupId)
+        ShowDetails(id);
+}
 void ConnectionInfoWidget::OnGroupRenamed(const GroupId &id, const QString &oldName, const QString &newName)
 {
     Q_UNUSED(oldName)

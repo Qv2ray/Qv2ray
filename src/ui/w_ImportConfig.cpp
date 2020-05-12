@@ -1,4 +1,4 @@
-﻿#include "w_ImportConfig.hpp"
+#include "w_ImportConfig.hpp"
 
 #include "common/QRCodeHelper.hpp"
 #include "core/CoreUtils.hpp"
@@ -80,7 +80,7 @@ int ImportConfigWindow::ImportConnection()
             {
                 connName = protocol + "/" + host + ":" + QSTRN(port) + "-" + GenerateRandomString(5);
             }
-            ConnectionManager->CreateConnection(connName, groupId, connConf, true);
+            ConnectionManager->CreateConnection(connConf, connName, groupId, true);
         }
     }
 

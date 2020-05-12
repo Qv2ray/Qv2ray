@@ -255,7 +255,7 @@ namespace Qv2ray::core::handlers
             groups[newGroupId].connections.append(id);
         }
         PluginHost->Send_ConnectionEvent({ Events::ConnectionEntry::LinkedWithGroup, connections[id].displayName, "" });
-        emit OnConnectionLinkedWithGroup(id, newGroupId);
+        emit OnConnectionLinkedWithGroup({ id, newGroupId });
         return {};
     }
 
@@ -523,7 +523,7 @@ namespace Qv2ray::core::handlers
                     {
                         // New connection id is required since nothing matched found...
                         LOG(MODULE_CORE_HANDLER, "Generated new connection id for connection: " + _alias)
-                        CreateConnection(_alias, id, config);
+                        CreateConnection(config, _alias, id);
                     }
                     // End guessing connectionId
                 }
@@ -561,8 +561,8 @@ namespace Qv2ray::core::handlers
                                                 connections[connectionId].downLinkData });
     }
 
-    const ConnectionId QvConfigHandler::CreateConnection(const QString &displayName, const GroupId &groupId, const CONFIGROOT &root,
-                                                         bool skipSaveConfig)
+    const ConnectionGroupPair QvConfigHandler::CreateConnection(const CONFIGROOT &root, const QString &displayName, const GroupId &groupId,
+                                                                bool skipSaveConfig)
     {
         LOG(MODULE_CORE_HANDLER, "Creating new connection: " + displayName)
         ConnectionId newId(GenerateUuid());
@@ -576,7 +576,7 @@ namespace Qv2ray::core::handlers
         {
             CHSaveConfigData();
         }
-        return newId;
+        return { newId, groupId };
     }
 
 } // namespace Qv2ray::core::handlers

@@ -33,7 +33,6 @@ GroupManager::GroupManager(QWidget *parent) : QDialog(parent)
     setupUi(this);
     QvMessageBusConnect(GroupManager);
     UpdateColorScheme();
-
     connectionListRCMenu->addSection(tr("Connection Management"));
     connectionListRCMenu->addAction(exportConnectionAction);
     connectionListRCMenu->addAction(deleteConnectionAction);
@@ -45,10 +44,11 @@ GroupManager::GroupManager(QWidget *parent) : QDialog(parent)
     connect(deleteConnectionAction, &QAction::triggered, this, &GroupManager::onRCMDeleteConnectionTriggered);
     //
     connect(ConnectionManager, &QvConfigHandler::OnConnectionLinkedWithGroup, //
-            [&](const ConnectionId &, const GroupId &) {                      //
+            [&]() {                                                           //
                 this->loadConnectionList(currentGroupId);                     //
             });
     //
+    // Anyway just reload it.
     const auto reloadGroupLambda = [&](const ConnectionGroupPair &id) {
         if (id.groupId == currentGroupId)
             this->loadConnectionList(id.groupId);
@@ -57,7 +57,7 @@ GroupManager::GroupManager(QWidget *parent) : QDialog(parent)
     connect(ConnectionManager, &QvConfigHandler::OnConnectionDeleted, reloadGroupLambda);
     connect(ConnectionManager, &QvConfigHandler::OnConnectionRemovedFromGroup, reloadGroupLambda);
     //
-    for (auto group : ConnectionManager->AllGroups())
+    for (const auto &group : ConnectionManager->AllGroups())
     {
         auto item = new QListWidgetItem(GetDisplayName(group));
         item->setData(Qt::UserRole, group.toString());
@@ -189,7 +189,7 @@ void GroupManager::onRCMActionTriggered_Copy()
     for (const auto &connId : list)
     {
         const auto &connectionId = ConnectionId(connId);
-        ConnectionManager->CreateConnection(GetDisplayName(connectionId), groupId, ConnectionManager->GetConnectionRoot(connectionId), true);
+        ConnectionManager->CreateConnection(ConnectionManager->GetConnectionRoot(connectionId), GetDisplayName(connectionId), groupId, true);
     }
 }
 

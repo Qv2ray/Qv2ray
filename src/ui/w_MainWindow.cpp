@@ -176,6 +176,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(ConnectionManager, &QvConfigHandler::OnConnectionDeleted, this, &MainWindow::OnConnectionDeleted);
     connect(ConnectionManager, &QvConfigHandler::OnConnectionCreated, this, &MainWindow::OnConnectionCreated);
     connect(ConnectionManager, &QvConfigHandler::OnConnectionLinkedWithGroup, this, &MainWindow::OnConnectionLinkedWithGroup);
+    connect(ConnectionManager, &QvConfigHandler::OnConnectionRemovedFromGroup, this, &MainWindow::OnConnectionLinkedWithGroup);
     //
     connect(ConnectionManager, &QvConfigHandler::OnGroupCreated, this, &MainWindow::OnGroupCreated);
     connect(ConnectionManager, &QvConfigHandler::OnGroupDeleted, this, &MainWindow::OnGroupDeleted);
@@ -843,9 +844,9 @@ void MainWindow::OnConnectionDeleted(const ConnectionGroupPair &id)
     auto child = connectionNodes.take(id);
     groupNodes.value(id.groupId)->removeChild(child.get());
 }
-void MainWindow::OnConnectionLinkedWithGroup(const ConnectionId &id, const GroupId &newGroup)
+void MainWindow::OnConnectionLinkedWithGroup(const ConnectionGroupPair &pairId)
 {
-    MWAddConnectionItem_p({ id, newGroup });
+    MWAddConnectionItem_p(pairId);
 }
 void MainWindow::OnGroupCreated(const GroupId &id, const QString &displayName)
 {
@@ -901,8 +902,8 @@ void MainWindow::on_action_RCM_DuplicateThese_triggered()
 
     for (const auto &conn : connlist)
     {
-        ConnectionManager->CreateConnection(GetDisplayName(conn.connectionId) + tr(" (Copy)"), conn.groupId,
-                                            ConnectionManager->GetConnectionRoot(conn.connectionId));
+        ConnectionManager->CreateConnection(ConnectionManager->GetConnectionRoot(conn.connectionId),
+                                            GetDisplayName(conn.connectionId) + tr(" (Copy)"), conn.groupId);
     }
 }
 

@@ -88,14 +88,17 @@ namespace Qv2ray::core::handlers
         void RestartConnection();
         //
         // Connection Operations.
-        bool UpdateConnection(const ConnectionId &id, const CONFIGROOT &root, bool skipRestart = false);
         void ClearGroupUsage(const GroupId &id);
         void ClearConnectionUsage(const ConnectionGroupPair &id);
-        const std::optional<QString> DeleteConnectionFromGroup(const ConnectionId &id, const GroupId &gid);
+        //
+        const ConnectionGroupPair CreateConnection(const CONFIGROOT &root, const QString &displayName, const GroupId &groupId = DefaultGroupId,
+                                                   bool skipSaveConfig = false);
+        bool UpdateConnection(const ConnectionId &id, const CONFIGROOT &root, bool skipRestart = false);
         const std::optional<QString> RenameConnection(const ConnectionId &id, const QString &newName);
+        //
+        // Connection - Group binding
+        const std::optional<QString> DeleteConnectionFromGroup(const ConnectionId &id, const GroupId &gid);
         const std::optional<QString> LinkConnectionWithGroup(const ConnectionId &id, const GroupId &newGroupId);
-        const ConnectionId CreateConnection(const QString &displayName, const GroupId &groupId, const CONFIGROOT &root,
-                                            bool skipSaveConfig = false);
         //
         // Get Conncetion Property
         const CONFIGROOT GetConnectionRoot(const ConnectionId &id) const;
@@ -124,9 +127,9 @@ namespace Qv2ray::core::handlers
         void OnConnectionRenamed(const ConnectionId &Id, const QString &originalName, const QString &newName);
         void OnConnectionCreated(const ConnectionGroupPair &Id, const QString &displayName);
         void OnConnectionDeleted(const ConnectionGroupPair &Id);
-        void OnConnectionRemovedFromGroup(const ConnectionGroupPair &groupId);
         void OnConnectionModified(const ConnectionId &id);
-        void OnConnectionLinkedWithGroup(const ConnectionId &id, const GroupId &newGroup);
+        void OnConnectionRemovedFromGroup(const ConnectionGroupPair &pairId);
+        void OnConnectionLinkedWithGroup(const ConnectionGroupPair &newPair);
         //
         void OnLatencyTestStarted(const ConnectionId &id);
         void OnLatencyTestFinished(const ConnectionId &id, const uint average);

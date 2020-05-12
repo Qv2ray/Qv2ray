@@ -30,10 +30,11 @@ class ConnectionInfoWidget
     void on_editJsonBtn_clicked();
     void on_deleteBtn_clicked();
 
-    void OnConnectionModified(const ConnectionId &id);
     void OnGroupRenamed(const GroupId &id, const QString &oldName, const QString &newName);
     void OnConnected(const ConnectionGroupPair &id);
     void OnDisConnected(const ConnectionGroupPair &id);
+    void OnConnectionModified(const ConnectionId &id);
+    void OnConnectionModified_Pair(const ConnectionGroupPair &id);
     void on_latencyBtn_clicked();
 
   private:
