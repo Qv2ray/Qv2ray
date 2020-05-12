@@ -19,6 +19,7 @@ namespace Qv2ray::core::kernel
             ABI_ELF_AARCH64,
             ABI_ELF_ARM,
             ABI_ELF_OTHER,
+            ABI_TRUSTED,
         };
 
         enum QvKernelABICompatibility
@@ -42,7 +43,8 @@ namespace Qv2ray::core::kernel
 #elif defined(Q_OS_LINUX) && defined(Q_PROCESSOR_ARM_V7)
             QvKernelABIType::ABI_ELF_ARM;
 #else
-    #error "unknown architecture"
+            QvKernelABIType::ABI_TRUSTED;
+    #define QV2RAY_TRUSTED_ABI
 #endif
 
         std::pair<std::optional<QvKernelABIType>, std::optional<QString>> deduceKernelABI(const QString &pathCoreExecutable);
