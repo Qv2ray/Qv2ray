@@ -2531,6 +2531,10 @@ For example, for updating subscriptions.</source>
         <source>Qv2ray cannot help you change them back. Please don&apos;t blame us if things go wrong.</source>
         <translation>Qv2ray 很遗憾无法帮你改回来。若因此遇到问题，请勿指责吾等。</translation>
     </message>
+    <message>
+        <source>trusted abi</source>
+        <translation>受信 ABI</translation>
+    </message>
 </context>
 <context>
     <name>Qv2ray::common::QvCommandArgParser</name>
