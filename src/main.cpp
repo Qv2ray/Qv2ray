@@ -196,6 +196,7 @@ int main(int argc, char *argv[])
             case CommandLineHelpRequested: std::cout << parser.Parser()->helpText().toStdString() << std::endl; return 0;
         }
     }
+
 #ifdef Q_OS_UNIX
 
     // Unix OS root user check.
@@ -419,6 +420,7 @@ int main(int argc, char *argv[])
         // Initialise Connection Handler
         PluginHost = new QvPluginHost();
         ConnectionManager = new QvConfigHandler();
+
         // Show MainWindow
         MainWindow w;
         QObject::connect(&_qApp, &SingleApplication::instanceStarted, [&]() {

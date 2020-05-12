@@ -180,6 +180,7 @@ set(QV2RAY_SOURCES
     src/components/speedchart/speedplotview.cpp
     src/components/speedchart/speedwidget.cpp
     src/components/darkmode/DarkmodeDetector.cpp
+    src/components/ntp/QvNTPClient.cpp
     src/components/update/UpdateChecker.cpp
     src/core/connection/ConnectionIO.cpp
     src/core/connection/Generation.cpp
@@ -264,13 +265,14 @@ set(QV2RAY_SOURCES
     src/components/latency/QvTCPing.hpp
     src/components/plugins/toolbar/QvToolbar.hpp
     src/components/plugins/QvPluginHost.hpp
+    src/components/port/QvPortDetector.hpp
     src/components/proxy/QvProxyConfigurator.hpp
+    src/components/ntp/QvNTPClient.hpp
     src/components/route/RouteSchemeIO.hpp
     src/components/route/presets/RouteScheme_V2rayN.hpp
     src/components/speedchart/speedplotview.hpp
     src/components/speedchart/speedwidget.hpp
     src/components/update/UpdateChecker.hpp
-    src/components/port/QvPortDetector.hpp
     src/core/connection/ConnectionIO.hpp
     src/core/connection/Generation.hpp
     src/core/connection/Serialization.hpp
