@@ -330,7 +330,7 @@ namespace Qv2ray::core::handlers
         }
         else
         {
-            QDir(QV2RAY_CONNECTIONS_DIR + id.toString()).removeRecursively();
+            QFile(QV2RAY_CONNECTIONS_DIR + id.toString()).remove();
         }
         //
         PluginHost->Send_ConnectionEvent({ Events::ConnectionEntry::FullyRemoved, groups[id].displayName, "" });
@@ -347,11 +347,10 @@ namespace Qv2ray::core::handlers
 
     const std::optional<QString> QvConfigHandler::StartConnection(const ConnectionId &id, const GroupId &group)
     {
-        return {};
-        // CheckConnectionExistance(id);
-        // connections[id].lastConnected = system_clock::to_time_t(system_clock::now());
-        // CONFIGROOT root = GetConnectionRoot(id);
-        // return kernelHandler->StartConnection(id, root);
+        CheckConnectionExistance(id);
+        connections[id].lastConnected = system_clock::to_time_t(system_clock::now());
+        CONFIGROOT root = GetConnectionRoot(id);
+        return kernelHandler->StartConnection({ id, group }, root);
     }
 
     void QvConfigHandler::RestartConnection() // const ConnectionId &id
