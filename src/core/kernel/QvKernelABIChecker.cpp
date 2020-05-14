@@ -27,7 +27,7 @@ namespace Qv2ray::core::kernel::abi
     std::pair<std::optional<QvKernelABIType>, std::optional<QString>> deduceKernelABI(const QString &pathCoreExecutable)
     {
 #ifdef QV2RAY_TRUSTED_ABI
-        return QvKernelABIType::ABI_TRUSTED;
+        return { QvKernelABIType::ABI_TRUSTED, std::nullopt };
 #else
         QFile file(pathCoreExecutable);
         if (!file.exists())
