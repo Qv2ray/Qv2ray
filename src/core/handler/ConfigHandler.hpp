@@ -97,8 +97,9 @@ namespace Qv2ray::core::handlers
         const std::optional<QString> RenameConnection(const ConnectionId &id, const QString &newName);
         //
         // Connection - Group binding
-        const std::optional<QString> RemoveConnectionFromGroup(const ConnectionId &id, const GroupId &gid);
-        const std::optional<QString> LinkConnectionWithGroup(const ConnectionId &id, const GroupId &newGroupId);
+        bool RemoveConnectionFromGroup(const ConnectionId &id, const GroupId &gid, bool blockSignal = false);
+        bool MoveConnectionFromToGroup(const ConnectionId &id, const GroupId &sourceGid, const GroupId &targetGid, bool blockSignal = false);
+        bool LinkConnectionWithGroup(const ConnectionId &id, const GroupId &newGroupId, bool blockSignal = false);
         //
         // Get Conncetion Property
         const CONFIGROOT GetConnectionRoot(const ConnectionId &id) const;
@@ -124,10 +125,11 @@ namespace Qv2ray::core::handlers
         void OnKernelLogAvailable(const ConnectionGroupPair &id, const QString &log);
         void OnStatsAvailable(const ConnectionGroupPair &id, const quint64 upS, const quint64 downS, const quint64 upD, const quint64 downD);
         //
-        void OnConnectionRenamed(const ConnectionId &Id, const QString &originalName, const QString &newName);
         void OnConnectionCreated(const ConnectionGroupPair &Id, const QString &displayName);
-        void OnConnectionDeleted(const ConnectionGroupPair &Id);
         void OnConnectionModified(const ConnectionId &id);
+        void OnConnectionRenamed(const ConnectionId &Id, const QString &originalName, const QString &newName);
+        //
+        void OnConnectionMovedToGroup(const ConnectionGroupPair &newPair, const GroupId &originalGroup);
         void OnConnectionRemovedFromGroup(const ConnectionGroupPair &pairId);
         void OnConnectionLinkedWithGroup(const ConnectionGroupPair &newPair);
         //

@@ -69,10 +69,10 @@ ConnectionItemWidget::ConnectionItemWidget(const GroupId &id, QWidget *parent) :
     //
     OnGroupItemRenamed(id, "", originalItemName);
     connect(ConnectionManager, &QvConfigHandler::OnConnectionCreated, this, &ConnectionItemWidget::RecalculateConnectionsCount);
-    connect(ConnectionManager, &QvConfigHandler::OnConnectionDeleted, this, &ConnectionItemWidget::RecalculateConnectionsCount);
     connect(ConnectionManager, &QvConfigHandler::OnConnectionModified, this, &ConnectionItemWidget::RecalculateConnectionsCount);
     connect(ConnectionManager, &QvConfigHandler::OnConnectionLinkedWithGroup, this, &ConnectionItemWidget::RecalculateConnectionsCount);
     connect(ConnectionManager, &QvConfigHandler::OnSubscriptionUpdateFinished, this, &ConnectionItemWidget::RecalculateConnectionsCount);
+    connect(ConnectionManager, &QvConfigHandler::OnConnectionRemovedFromGroup, this, &ConnectionItemWidget::RecalculateConnectionsCount);
     //
     connect(ConnectionManager, &QvConfigHandler::OnGroupRenamed, this, &ConnectionItemWidget::OnGroupItemRenamed);
 }

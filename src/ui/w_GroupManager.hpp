@@ -54,10 +54,11 @@ class GroupManager
     void on_connectionsTable_customContextMenuRequested(const QPoint &pos);
 
   private:
-    void loadConnectionList(const GroupId &group);
+    void reloadConnectionsList(const GroupId &group);
     void onRCMActionTriggered_Move();
     void onRCMActionTriggered_Copy();
-    void ReloadGroupAction();
+    void onRCMActionTriggered_Link();
+    void reloadGroupRCMActions();
     //
     void ExportConnectionFilter(CONFIGROOT &root);
     //

@@ -173,10 +173,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(ConnectionManager, &QvConfigHandler::OnStatsAvailable, this, &MainWindow::OnStatsAvailable);
     connect(ConnectionManager, &QvConfigHandler::OnKernelLogAvailable, this, &MainWindow::OnVCoreLogAvailable);
     //
-    connect(ConnectionManager, &QvConfigHandler::OnConnectionDeleted, this, &MainWindow::OnConnectionDeleted);
+    connect(ConnectionManager, &QvConfigHandler::OnConnectionRemovedFromGroup, this, &MainWindow::OnConnectionDeleted);
     connect(ConnectionManager, &QvConfigHandler::OnConnectionCreated, this, &MainWindow::OnConnectionCreated);
     connect(ConnectionManager, &QvConfigHandler::OnConnectionLinkedWithGroup, this, &MainWindow::OnConnectionLinkedWithGroup);
-    connect(ConnectionManager, &QvConfigHandler::OnConnectionRemovedFromGroup, this, &MainWindow::OnConnectionLinkedWithGroup);
     //
     connect(ConnectionManager, &QvConfigHandler::OnGroupCreated, this, &MainWindow::OnGroupCreated);
     connect(ConnectionManager, &QvConfigHandler::OnGroupDeleted, this, &MainWindow::OnGroupDeleted);

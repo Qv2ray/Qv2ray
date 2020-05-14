@@ -115,7 +115,7 @@ namespace Qv2ray::base
         //
         int __qvConnectionRefCount;
         //
-        ConnectionObject() : lastConnected(), latency(QVTCPING_VALUE_NODATA), upLinkData(0), downLinkData(0){};
+        ConnectionObject() : lastConnected(), latency(QVTCPING_VALUE_NODATA), upLinkData(0), downLinkData(0), __qvConnectionRefCount(0){};
         JSONSTRUCT_REGISTER(ConnectionObject, F(lastConnected, latency, upLinkData, downLinkData), B(__Qv2rayConfigObjectBase))
     };
 

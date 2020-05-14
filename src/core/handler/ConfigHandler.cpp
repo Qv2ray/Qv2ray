@@ -33,6 +33,12 @@ namespace Qv2ray::core::handlers
             auto const &connectionObject = connections.value(id);
             if (connectionObject.__qvConnectionRefCount == 0)
             {
+                QFile connectionFile(QV2RAY_CONNECTIONS_DIR + id.toString() + QV2RAY_CONFIG_FILE_EXTENSION);
+                if (connectionFile.exists())
+                {
+                    if (!connectionFile.remove())
+                        LOG(MODULE_CONNECTION, "Failed to remove connection config file")
+                }
                 connections.remove(id);
                 LOG(MODULE_CORE_HANDLER, "Dropped connection id: " + id.toString() + " since it's not in a group")
             }
@@ -215,71 +221,91 @@ namespace Qv2ray::core::handlers
         return {};
     }
 
-    const std::optional<QString> QvConfigHandler::RemoveConnectionFromGroup(const ConnectionId &id, const GroupId &gid)
+    bool QvConfigHandler::RemoveConnectionFromGroup(const ConnectionId &id, const GroupId &gid, bool blockSignal)
     {
-        CheckConnectionExistance(id);
+        CheckConnectionExistanceEx(id, false);
+        LOG(MODULE_CONNECTION, "Removing connection : " + id.toString())
         if (groups[gid].connections.contains(id))
         {
             auto removedEntries = groups[gid].connections.removeAll(id);
-            if (removedEntries > 0)
+            if (removedEntries > 1)
             {
                 LOG(MODULE_CONNECTION, "Found same connection occured multiple times in a group.")
             }
             // Decrease reference count.
-            connections[id].__qvConnectionRefCount--;
-        }
-        //
-        if (connections[id].__qvConnectionRefCount == 0)
-        {
-            LOG(MODULE_CONNECTION, "Removing a connection")
-            connectionRootCache.remove(id);
+            connections[id].__qvConnectionRefCount -= removedEntries;
         }
 
         if (GlobalConfig.autoStartId == ConnectionGroupPair{ id, gid })
         {
+            GlobalConfig.autoStartId.clear();
         }
-
+        //
+        // Emit everything first then clear the connection map.
         PluginHost->Send_ConnectionEvent({ Events::ConnectionEntry::RemovedFromGroup, GetDisplayName(id), "" });
+
         emit OnConnectionRemovedFromGroup({ id, gid });
 
-        // auto groupId = connections[id].groupId;
-        // QFile connectionFile((groups[groupId].isSubscription ? QV2RAY_SUBSCRIPTION_DIR : QV2RAY_CONNECTIONS_DIR) + groupId.toString() + "/" +
-        //                     id.toString() + QV2RAY_CONFIG_FILE_EXTENSION);
-        ////
-        // PluginHost->Send_ConnectionEvent({ connections[id].displayName, "", Events::ConnectionEntry::Deleted });
-        // connections.remove(id);
-        // groups[groupId].connections.removeAll(id);
-        ////
-        // if (GlobalConfig.autoStartId == id.toString())
-        //{
-        //    GlobalConfig.autoStartId.clear();
-        //}
-        ////
-        // emit OnConnectionDeleted(id, groupId);
-        ////
-        // bool exists = connectionFile.exists();
-        // if (exists)
-        //{
-        //    bool removed = connectionFile.remove();
-        //    if (removed)
-        //    {
-        //        return {};
-        //    }
-        //    return "Failed to remove file";
-        //}
-        return tr("File does not exist.");
+        //
+        if (connections[id].__qvConnectionRefCount <= 0)
+        {
+            LOG(MODULE_CONNECTION, "Fully removing a connection from cache.")
+            connectionRootCache.remove(id);
+            //
+            QFile connectionFile(QV2RAY_CONNECTIONS_DIR + id.toString() + QV2RAY_CONFIG_FILE_EXTENSION);
+            if (connectionFile.exists())
+            {
+                if (!connectionFile.remove())
+                    LOG(MODULE_CONNECTION, "Failed to remove connection config file")
+            }
+        }
+        return true;
     }
 
-    const std::optional<QString> QvConfigHandler::LinkConnectionWithGroup(const ConnectionId &id, const GroupId &newGroupId)
+    bool QvConfigHandler::LinkConnectionWithGroup(const ConnectionId &id, const GroupId &newGroupId, bool blockSignal)
     {
-        CheckConnectionExistance(id);
+        CheckConnectionExistanceEx(id, false);
         if (!groups[newGroupId].connections.contains(id))
         {
             groups[newGroupId].connections.append(id);
         }
         PluginHost->Send_ConnectionEvent({ Events::ConnectionEntry::LinkedWithGroup, connections[id].displayName, "" });
+
         emit OnConnectionLinkedWithGroup({ id, newGroupId });
+
         return {};
+    }
+
+    bool QvConfigHandler::MoveConnectionFromToGroup(const ConnectionId &id, const GroupId &sourceGid, const GroupId &targetGid, bool blockSignal)
+    {
+        CheckConnectionExistanceEx(id, false);
+        CheckGroupExistanceEx(targetGid, false);
+        CheckGroupExistanceEx(sourceGid, false);
+        //
+        if (!groups[sourceGid].connections.contains(id))
+        {
+            LOG(MODULE_CONNECTION, "Trying to move a connection away from a group it does not belong to.")
+            return false;
+        }
+        if (groups[targetGid].connections.contains(id))
+        {
+            LOG(MODULE_CONNECTION, "The connection: " + id.toString() + " has already been in the target group: " + targetGid.toString())
+            auto removedCount = groups[sourceGid].connections.removeAll(id);
+            connections[id].__qvConnectionRefCount -= removedCount;
+        }
+        else
+        {
+            // If the target group does not contain this connection.
+            auto removedCount = groups[sourceGid].connections.removeAll(id);
+            connections[id].__qvConnectionRefCount -= removedCount;
+            //
+            groups[targetGid].connections.append(id);
+            connections[id].__qvConnectionRefCount++;
+        }
+
+        emit OnConnectionMovedToGroup({ id, targetGid }, sourceGid);
+
+        return true;
     }
 
     const std::optional<QString> QvConfigHandler::DeleteGroup(const GroupId &id)

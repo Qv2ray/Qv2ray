@@ -39,23 +39,23 @@ GroupManager::GroupManager(QWidget *parent) : QDialog(parent)
     connectionListRCMenu->addSeparator();
     connectionListRCMenu->addMenu(connectionListRCMenu_CopyToMenu);
     connectionListRCMenu->addMenu(connectionListRCMenu_MoveToMenu);
+    connectionListRCMenu->addMenu(connectionListRCMenu_LinkToMenu);
     //
     connect(exportConnectionAction, &QAction::triggered, this, &GroupManager::onRCMExportConnectionTriggered);
     connect(deleteConnectionAction, &QAction::triggered, this, &GroupManager::onRCMDeleteConnectionTriggered);
     //
     connect(ConnectionManager, &QvConfigHandler::OnConnectionLinkedWithGroup, //
             [&]() {                                                           //
-                this->loadConnectionList(currentGroupId);                     //
+                this->reloadConnectionsList(currentGroupId);                  //
             });
     //
     // Anyway just reload it.
     const auto reloadGroupLambda = [&](const ConnectionGroupPair &id) {
         if (id.groupId == currentGroupId)
-            this->loadConnectionList(id.groupId);
+            this->reloadConnectionsList(id.groupId);
     };
-    connect(ConnectionManager, &QvConfigHandler::OnConnectionCreated, reloadGroupLambda);
-    connect(ConnectionManager, &QvConfigHandler::OnConnectionDeleted, reloadGroupLambda);
-    connect(ConnectionManager, &QvConfigHandler::OnConnectionRemovedFromGroup, reloadGroupLambda);
+    // connect(ConnectionManager, &QvConfigHandler::OnConnectionCreated, reloadGroupLambda);
+    // connect(ConnectionManager, &QvConfigHandler::OnConnectionDeleted, reloadGroupLambda);
     //
     for (const auto &group : ConnectionManager->AllGroups())
     {
@@ -67,7 +67,7 @@ GroupManager::GroupManager(QWidget *parent) : QDialog(parent)
     {
         groupList->setCurrentItem(groupList->item(0));
     }
-    ReloadGroupAction();
+    reloadGroupRCMActions();
 }
 
 void GroupManager::onRCMDeleteConnectionTriggered()
@@ -75,8 +75,9 @@ void GroupManager::onRCMDeleteConnectionTriggered()
     const auto list = GET_SELECTED_CONNECTION_IDS(SELECTED_ROWS_INDEX);
     for (const auto &item : list)
     {
-        ConnectionManager->RemoveConnectionFromGroup(ConnectionId(item), currentGroupId);
+        ConnectionManager->RemoveConnectionFromGroup(ConnectionId(item), currentGroupId, true);
     }
+    reloadConnectionsList(currentGroupId);
 }
 
 void GroupManager::onRCMExportConnectionTriggered()
@@ -130,7 +131,7 @@ void GroupManager::onRCMExportConnectionTriggered()
     }
 }
 
-void GroupManager::ReloadGroupAction()
+void GroupManager::reloadGroupRCMActions()
 {
     connectionListRCMenu_CopyToMenu->clear();
     connectionListRCMenu_MoveToMenu->clear();
@@ -138,19 +139,23 @@ void GroupManager::ReloadGroupAction()
     {
         auto cpAction = new QAction(GetDisplayName(group), connectionListRCMenu_CopyToMenu);
         auto mvAction = new QAction(GetDisplayName(group), connectionListRCMenu_MoveToMenu);
+        auto lnAction = new QAction(GetDisplayName(group), connectionListRCMenu_LinkToMenu);
         //
         cpAction->setData(group.toString());
         mvAction->setData(group.toString());
+        lnAction->setData(group.toString());
         //
         connectionListRCMenu_CopyToMenu->addAction(cpAction);
         connectionListRCMenu_MoveToMenu->addAction(mvAction);
+        connectionListRCMenu_LinkToMenu->addAction(lnAction);
         //
         connect(cpAction, &QAction::triggered, this, &GroupManager::onRCMActionTriggered_Copy);
         connect(mvAction, &QAction::triggered, this, &GroupManager::onRCMActionTriggered_Move);
+        connect(lnAction, &QAction::triggered, this, &GroupManager::onRCMActionTriggered_Link);
     }
 }
 
-void GroupManager::loadConnectionList(const GroupId &group)
+void GroupManager::reloadConnectionsList(const GroupId &group)
 {
     connectionsTable->clearContents();
     connectionsTable->model()->removeRows(0, connectionsTable->rowCount());
@@ -191,6 +196,20 @@ void GroupManager::onRCMActionTriggered_Copy()
         const auto &connectionId = ConnectionId(connId);
         ConnectionManager->CreateConnection(ConnectionManager->GetConnectionRoot(connectionId), GetDisplayName(connectionId), groupId, true);
     }
+    reloadConnectionsList(currentGroupId);
+}
+
+void GroupManager::onRCMActionTriggered_Link()
+{
+    const auto _sender = qobject_cast<QAction *>(sender());
+    const GroupId groupId{ _sender->data().toString() };
+    //
+    const auto list = GET_SELECTED_CONNECTION_IDS(SELECTED_ROWS_INDEX);
+    for (const auto &connId : list)
+    {
+        ConnectionManager->LinkConnectionWithGroup(ConnectionId(connId), groupId, false);
+    }
+    reloadConnectionsList(currentGroupId);
 }
 
 void GroupManager::onRCMActionTriggered_Move()
@@ -201,8 +220,9 @@ void GroupManager::onRCMActionTriggered_Move()
     const auto list = GET_SELECTED_CONNECTION_IDS(SELECTED_ROWS_INDEX);
     for (const auto &connId : list)
     {
-        ConnectionManager->LinkConnectionWithGroup(ConnectionId(connId), groupId);
+        ConnectionManager->MoveConnectionFromToGroup(ConnectionId(connId), currentGroupId, groupId, false);
     }
+    reloadConnectionsList(currentGroupId);
 }
 
 void GroupManager::UpdateColorScheme()
@@ -300,7 +320,7 @@ void GroupManager::on_groupList_itemClicked(QListWidgetItem *item)
     createdAtLabel->setText(timeToString(groupMetaObject.creationDate));
     updateIntervalSB->setValue(groupMetaObject.subscriptionOption.updateInterval);
     //
-    loadConnectionList(currentGroupId);
+    reloadConnectionsList(currentGroupId);
 }
 
 void GroupManager::on_groupList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
