@@ -22,7 +22,6 @@ namespace Qv2ray::core::handlers
         {
             const auto groupObject = GroupObject::fromJson(groupJson.value(groupId).toObject());
             groups.insert(GroupId{ groupId }, groupObject);
-            //
             for (const auto &connId : groupObject.connections)
             {
                 connections[connId].__qvConnectionRefCount++;
@@ -216,9 +215,33 @@ namespace Qv2ray::core::handlers
         return {};
     }
 
-    const std::optional<QString> QvConfigHandler::DeleteConnectionFromGroup(const ConnectionId &id, const GroupId &gid)
+    const std::optional<QString> QvConfigHandler::RemoveConnectionFromGroup(const ConnectionId &id, const GroupId &gid)
     {
         CheckConnectionExistance(id);
+        if (groups[gid].connections.contains(id))
+        {
+            auto removedEntries = groups[gid].connections.removeAll(id);
+            if (removedEntries > 0)
+            {
+                LOG(MODULE_CONNECTION, "Found same connection occured multiple times in a group.")
+            }
+            // Decrease reference count.
+            connections[id].__qvConnectionRefCount--;
+        }
+        //
+        if (connections[id].__qvConnectionRefCount == 0)
+        {
+            LOG(MODULE_CONNECTION, "Removing a connection")
+            connectionRootCache.remove(id);
+        }
+
+        if (GlobalConfig.autoStartId == ConnectionGroupPair{ id, gid })
+        {
+        }
+
+        PluginHost->Send_ConnectionEvent({ Events::ConnectionEntry::RemovedFromGroup, GetDisplayName(id), "" });
+        emit OnConnectionRemovedFromGroup({ id, gid });
+
         // auto groupId = connections[id].groupId;
         // QFile connectionFile((groups[groupId].isSubscription ? QV2RAY_SUBSCRIPTION_DIR : QV2RAY_CONNECTIONS_DIR) + groupId.toString() + "/" +
         //                     id.toString() + QV2RAY_CONFIG_FILE_EXTENSION);

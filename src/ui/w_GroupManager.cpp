@@ -75,7 +75,7 @@ void GroupManager::onRCMDeleteConnectionTriggered()
     const auto list = GET_SELECTED_CONNECTION_IDS(SELECTED_ROWS_INDEX);
     for (const auto &item : list)
     {
-        ConnectionManager->DeleteConnectionFromGroup(ConnectionId(item), currentGroupId);
+        ConnectionManager->RemoveConnectionFromGroup(ConnectionId(item), currentGroupId);
     }
 }
 

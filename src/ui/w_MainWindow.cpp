@@ -581,7 +581,7 @@ void MainWindow::on_action_RCM_DeleteThese_triggered()
         if (GlobalConfig.autoStartId == conn)
             GlobalConfig.autoStartId.clear();
 
-        ConnectionManager->DeleteConnectionFromGroup(conn.connectionId, conn.groupId);
+        ConnectionManager->RemoveConnectionFromGroup(conn.connectionId, conn.groupId);
     }
 }
 

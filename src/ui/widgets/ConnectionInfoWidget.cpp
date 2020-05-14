@@ -168,7 +168,7 @@ void ConnectionInfoWidget::on_deleteBtn_clicked()
     {
         if (connectionId != NullConnectionId)
         {
-            ConnectionManager->DeleteConnectionFromGroup(connectionId, groupId);
+            ConnectionManager->RemoveConnectionFromGroup(connectionId, groupId);
         }
         else
         {

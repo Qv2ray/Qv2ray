@@ -43,7 +43,7 @@ using namespace Qv2ray::base::objects::transfer;
 #define QV2RAY_CONFIG_DIR (Qv2ray::Qv2rayConfigPath)
 #define QV2RAY_CONFIG_FILE (QV2RAY_CONFIG_DIR + "Qv2ray.conf")
 //
-#define QV2RAY_GROUP_DIR (QV2RAY_CONFIG_DIR + "groups/")
+#define QV2RAY_ROUTING_DIR (QV2RAY_CONFIG_DIR + "rounting/")
 #define QV2RAY_CONNECTIONS_DIR (QV2RAY_CONFIG_DIR + "connections/")
 //
 #define QV2RAY_PLUGIN_SETTINGS_DIR (QV2RAY_CONFIG_DIR + "plugin_settings/")

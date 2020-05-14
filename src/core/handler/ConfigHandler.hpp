@@ -97,7 +97,7 @@ namespace Qv2ray::core::handlers
         const std::optional<QString> RenameConnection(const ConnectionId &id, const QString &newName);
         //
         // Connection - Group binding
-        const std::optional<QString> DeleteConnectionFromGroup(const ConnectionId &id, const GroupId &gid);
+        const std::optional<QString> RemoveConnectionFromGroup(const ConnectionId &id, const GroupId &gid);
         const std::optional<QString> LinkConnectionWithGroup(const ConnectionId &id, const GroupId &newGroupId);
         //
         // Get Conncetion Property

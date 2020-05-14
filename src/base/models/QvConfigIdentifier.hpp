@@ -42,11 +42,14 @@ namespace Qv2ray::base
     // Define several safetypes to prevent misuse of QString.
     class __QvGroup;
     class __QvConnection;
+    class __QvRoute;
     typedef IDType<__QvGroup> GroupId;
     typedef IDType<__QvConnection> ConnectionId;
+    typedef IDType<__QvRoute> RoutingId;
     //
     inline const static auto NullConnectionId = ConnectionId("null");
     inline const static auto NullGroupId = GroupId("null");
+    inline const static auto NullRoutingId = RoutingId("null");
     //
     class ConnectionGroupPair
     {
