@@ -1,5 +1,7 @@
 #include "QvAutoLaunch.hpp"
 
+#include "base/Qv2rayBase.hpp"
+
 #include <QApplication>
 #include <QDir>
 #include <QSettings>
@@ -184,16 +186,18 @@ namespace Qv2ray::components::autolaunch
 
             QTextStream ts(&iniFile);
             ts.setCodec("UTF-8");
-            ts << QLatin1String("[Desktop Entry]") << Qt::endl
-               << QLatin1String("Name=") << QApplication::applicationName() + QApplication::arguments().join(" ") << Qt::endl
-               << QLatin1String("GenericName=") << QLatin1String("V2ray Frontend") << Qt::endl
-               << QLatin1String("Exec=") << binPath << Qt::endl
-               << QLatin1String("Terminal=") << "false" << Qt::endl
-               << QLatin1String("Icon=") << "qv2ray" << Qt::endl // always use lowercase for icons
-               << QLatin1String("Categories=") << "Network" << Qt::endl
-               << QLatin1String("Type=") << "Application" << Qt::endl
-               << QLatin1String("StartupNotify=") << "false" << Qt::endl
-               << QLatin1String("X-GNOME-Autostart-enabled=") << "true" << Qt::endl;
+            ts << QLatin1String("[Desktop Entry]") << NEWLINE                                                                //
+               << QLatin1String("Name=") << QApplication::applicationName() + QApplication::arguments().join(" ") << NEWLINE //
+               << QLatin1String("GenericName=") << QLatin1String("V2ray Frontend") << NEWLINE                                //
+               << QLatin1String("Exec=") << binPath << NEWLINE                                                               //
+               << QLatin1String("Terminal=") << "false" << NEWLINE                                                           //
+               << QLatin1String("Icon=") << "qv2ray" << NEWLINE                                                              //
+               << QLatin1String("Categories=") << "Network" << NEWLINE                                                       //
+               << QLatin1String("Type=") << "Application" << NEWLINE                                                         //
+               << QLatin1String("StartupNotify=") << "false" << NEWLINE                                                      //
+               << QLatin1String("X-GNOME-Autostart-enabled=") << "true" << NEWLINE;
+            ts.flush();
+            iniFile.close();
         }
         else
         {
