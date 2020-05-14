@@ -320,17 +320,7 @@ namespace Qv2ray::core::handlers
         auto list = groups[id].connections;
         for (const auto &conn : list)
         {
-            LinkConnectionWithGroup(conn, DefaultGroupId);
-        }
-        //
-        // TODO
-        if (groups[id].isSubscription)
-        {
-            // QDir(QV2RAY_SUBSCRIPTION_DIR + id.toString()).removeRecursively();
-        }
-        else
-        {
-            QFile(QV2RAY_CONNECTIONS_DIR + id.toString()).remove();
+            MoveConnectionFromToGroup(conn, id, DefaultGroupId);
         }
         //
         PluginHost->Send_ConnectionEvent({ Events::ConnectionEntry::FullyRemoved, groups[id].displayName, "" });
