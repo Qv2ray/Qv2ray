@@ -127,7 +127,7 @@ namespace Qv2ray::base::config
             Qv2rayRouteConfig_Impl(){};
             friend bool operator==(const Qv2rayRouteConfig_Impl &left, const Qv2rayRouteConfig_Impl &right)
             {
-                return left.direct == right.direct && left.block == right.block && left.proxy == left.proxy;
+                return left.direct == right.direct && left.block == right.block && left.proxy == right.proxy;
             }
             Qv2rayRouteConfig_Impl(const QList<QString> &_direct, const QList<QString> &_block, const QList<QString> &_proxy)
                 : direct(_direct), block(_block), proxy(_proxy){};

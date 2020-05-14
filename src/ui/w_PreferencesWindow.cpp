@@ -1153,7 +1153,15 @@ void PreferencesWindow::on_enableAPI_stateChanged(int arg1)
 {
     LOADINGCHECK
     NEEDRESTART
-    CurrentConfig.kernelConfig.enableAPI = arg1 == Qt::Checked;
+ 
+    CurrentConfig.apiConfig.enableAPI = arg1 == Qt::Checked;
+    if (arg1 == Qt::Unchecked)
+    {
+        const auto msgAPIDisableTitle = tr("Disabling API Subsystem");
+        const auto msgAPIDisableMsg = tr("Disabling API subsystem will also disable the statistics function of Qv2ray.") + NEWLINE + //
+                                      tr("Speed chart and traffic statistics will be disabled.");
+        QvMessageBoxWarn(this, msgAPIDisableTitle, msgAPIDisableMsg);
+    }
 }
 
 void PreferencesWindow::on_updateChannelCombo_currentIndexChanged(int index)

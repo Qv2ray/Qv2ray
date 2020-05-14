@@ -84,7 +84,7 @@ namespace Qv2ray::core::connection::Serialization
 
             // decode base64
             const auto ssdURIBody = QStringRef(&uri, 6, uri.length() - 6);
-            const auto decodedJSON = QByteArray::fromBase64(ssdURIBody.toUtf8());
+            const auto decodedJSON = SafeBase64Decode(ssdURIBody.toString()).toUtf8();
 
             if (decodedJSON.length() == 0)
             {

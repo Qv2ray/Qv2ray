@@ -116,6 +116,13 @@
     </message>
 </context>
 <context>
+    <name>ConnectionSettingsWidget</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ConnectionWidget</name>
     <message>
         <source>Form</source>
@@ -139,6 +146,45 @@
     </message>
     <message>
         <source>OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>GroupManager</name>
+    <message>
+        <source>Connection Management</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reload Subscription</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Would you like to reload the subscription?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Deleting a subscription</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All connections will be moved to default group, do you want to continue?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Export Connection(s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete Connection(s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy to...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Move to...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -517,6 +563,13 @@
     </message>
 </context>
 <context>
+    <name>InboundSettingsWidget</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>JsonEditor</name>
     <message>
         <source>OK</source>
@@ -567,10 +620,6 @@
     <name>MainWindow</name>
     <message>
         <source>Qv2ray</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Add</source>
         <translation></translation>
     </message>
     <message>
@@ -849,6 +898,10 @@
     </message>
     <message>
         <source>Groups</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add Connection</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1629,10 +1682,6 @@ But could damage your server if improperly used.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Curtom Proxy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Network Options</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1678,6 +1727,23 @@ But could damage your server if improperly used.</source>
     </message>
     <message>
         <source>tproxy inbound&apos;s sniffing is enabled by default.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>These settings are for Qv2ray itself.
+For example, for updating subscriptions.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disabling API Subsystem</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disabling API subsystem will also disable the statistics function of Qv2ray.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Speed chart and traffic statistics will be disabled.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1904,14 +1970,6 @@ But could damage your server if improperly used.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Not connected</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Connected</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Custom Text</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2061,6 +2119,26 @@ But could damage your server if improperly used.</source>
     </message>
     <message>
         <source>Unknown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Deepin Detected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Deepin plays smart and sets you the wrong HTTPS_PROXY, FTP_PROXY environment variable.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The origin scheme http is wrongly replaced by https and ftp, causing the problem.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Qv2ray cannot help you change them back. Please don&apos;t blame us if things go wrong.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>trusted abi</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2872,25 +2950,6 @@ Maybe you have downloaded the wrong core?</source>
     </message>
 </context>
 <context>
-    <name>SubscriptionEditor</name>
-    <message>
-        <source>Reload Subscription</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Would you like to reload the subscription?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Deleting a subscription</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>All connections will be moved to default group, do you want to continue?</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>misc</name>
     <message>
         <source>B</source>
@@ -2952,10 +3011,6 @@ Maybe you have downloaded the wrong core?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Group Details</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Group Name</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2976,11 +3031,43 @@ Maybe you have downloaded the wrong core?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Connection List</source>
+        <source>Update Subscription Data</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Update Subscription Data</source>
+        <source>Group Info</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Created At</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Connections</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete Selection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Export Selection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Subscription Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This group is a subscription</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Connection Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Route Settings</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

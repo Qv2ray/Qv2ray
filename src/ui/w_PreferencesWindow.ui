@@ -33,7 +33,7 @@
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>3</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tabWidgetPage1">
       <attribute name="title">
@@ -274,28 +274,28 @@
             <string>Network Settings</string>
            </property>
            <layout class="QFormLayout" name="formLayout_13">
-            <item row="0" column="0">
+            <item row="1" column="0">
              <widget class="QLabel" name="label_67">
               <property name="text">
                <string>User-Agent</string>
               </property>
              </widget>
             </item>
-            <item row="0" column="1">
+            <item row="1" column="1">
              <widget class="QLineEdit" name="qvNetworkUATxt">
               <property name="text">
                <string/>
               </property>
              </widget>
             </item>
-            <item row="1" column="0">
+            <item row="2" column="0">
              <widget class="QLabel" name="label_71">
               <property name="text">
                <string>Qv2ray Proxy</string>
               </property>
              </widget>
             </item>
-            <item row="1" column="1">
+            <item row="2" column="1">
              <layout class="QVBoxLayout" name="verticalLayout_8">
               <item>
                <widget class="QRadioButton" name="qvProxyNoProxy">
@@ -320,14 +320,14 @@
               </item>
              </layout>
             </item>
-            <item row="2" column="0">
+            <item row="3" column="0">
              <widget class="QLabel" name="label_64">
               <property name="text">
-               <string>Curtom Proxy</string>
+               <string>Custom Proxy</string>
               </property>
              </widget>
             </item>
-            <item row="2" column="1">
+            <item row="3" column="1">
              <widget class="QComboBox" name="qvProxyTypeCombo">
               <item>
                <property name="text">
@@ -341,14 +341,7 @@
               </item>
              </widget>
             </item>
-            <item row="3" column="0">
-             <widget class="QLabel" name="label_66">
-              <property name="text">
-               <string>Curtom Proxy</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="1">
+            <item row="4" column="1">
              <layout class="QHBoxLayout" name="horizontalLayout_2">
               <item>
                <widget class="QLineEdit" name="qvProxyAddressTxt"/>
@@ -374,6 +367,22 @@
                </widget>
               </item>
              </layout>
+            </item>
+            <item row="0" column="0" colspan="2">
+             <widget class="QLabel" name="label_89">
+              <property name="font">
+               <font>
+                <italic>true</italic>
+               </font>
+              </property>
+              <property name="text">
+               <string>These settings are for Qv2ray itself.
+For example, for updating subscriptions.</string>
+              </property>
+              <property name="textFormat">
+               <enum>Qt::PlainText</enum>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>
@@ -725,8 +734,8 @@ Custom DNS Settings</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>818</width>
-            <height>558</height>
+            <width>824</width>
+            <height>516</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_2">

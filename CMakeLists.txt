@@ -29,10 +29,12 @@ add_definitions(-DQV2RAY_VERSION_BUGFIX=${CPACK_PACKAGE_VERSION_PATCH})
 add_definitions(-DQV2RAY_VERSION_BUILD=${QV2RAY_BUILD_VERSION})
 
 add_definitions(-DQV2RAY_VERSION_STRING="${QV2RAY_VERSION_STRING}")
-add_definitions(-DXTOSTRUCT_QT)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+if(MSVC)
+    set(CMAKE_CXX_EXTENSIONS OFF)
+endif()
 
 find_package(Qt5 5.11 COMPONENTS Core Gui Widgets Network REQUIRED)
 
@@ -145,6 +147,10 @@ if(QV2RAY_DISABLE_AUTO_UPDATE)
     add_definitions(-DDISABLE_AUTO_UPDATE)
 endif()
 
+if(FALL_BACK_TO_XDG_OPEN)
+    add_definitions(-DFALL_BACK_TO_XDG_OPEN)
+endif()
+
 set(QVPLUGIN_INTERFACE_INCLUDE_DIR "src/components/plugins/interface")
 include(src/components/plugins/interface/QvPluginInterface.cmake)
 
@@ -168,11 +174,13 @@ set(QV2RAY_SOURCES
     src/components/plugins/toolbar/QvToolbar_linux.cpp
     src/components/plugins/toolbar/QvToolbar_win.cpp
     src/components/plugins/QvPluginHost.cpp
+    src/components/port/QvPortDetector.cpp
     src/components/proxy/QvProxyConfigurator.cpp
     src/components/route/RouteSchemeIO.cpp
     src/components/speedchart/speedplotview.cpp
     src/components/speedchart/speedwidget.cpp
     src/components/darkmode/DarkmodeDetector.cpp
+    src/components/ntp/QvNTPClient.cpp
     src/components/update/UpdateChecker.cpp
     src/core/connection/ConnectionIO.cpp
     src/core/connection/Generation.cpp
@@ -257,7 +265,9 @@ set(QV2RAY_SOURCES
     src/components/latency/QvTCPing.hpp
     src/components/plugins/toolbar/QvToolbar.hpp
     src/components/plugins/QvPluginHost.hpp
+    src/components/port/QvPortDetector.hpp
     src/components/proxy/QvProxyConfigurator.hpp
+    src/components/ntp/QvNTPClient.hpp
     src/components/route/RouteSchemeIO.hpp
     src/components/route/presets/RouteScheme_V2rayN.hpp
     src/components/speedchart/speedplotview.hpp
