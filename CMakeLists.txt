@@ -172,9 +172,6 @@ set(QV2RAY_SOURCES
     src/components/geosite/QvGeositeReader.cpp
     src/components/latency/win/ICMPPinger.cpp
     src/components/latency/QvTCPing.cpp
-    src/components/plugins/toolbar/QvToolbar.cpp
-    src/components/plugins/toolbar/QvToolbar_linux.cpp
-    src/components/plugins/toolbar/QvToolbar_win.cpp
     src/components/plugins/QvPluginHost.cpp
     src/components/port/QvPortDetector.cpp
     src/components/proxy/QvProxyConfigurator.cpp
@@ -266,7 +263,6 @@ set(QV2RAY_SOURCES
     src/components/geosite/QvGeositeReader.hpp
     src/components/latency/win/ICMPPinger.hpp
     src/components/latency/QvTCPing.hpp
-    src/components/plugins/toolbar/QvToolbar.hpp
     src/components/plugins/QvPluginHost.hpp
     src/components/port/QvPortDetector.hpp
     src/components/proxy/QvProxyConfigurator.hpp

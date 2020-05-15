@@ -12,8 +12,6 @@ namespace Qv2ray
             bool forceRunAsRootUser;
             /// Enable Debug Log.
             bool debugLog;
-            /// Enable Network toolbar plugin.
-            bool enableToolbarPlguin;
             /// Disable Qt scale factors support.
             bool noScaleFactors;
             /// Disable all plugin features.

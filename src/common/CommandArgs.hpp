@@ -29,7 +29,6 @@ namespace Qv2ray::common
         QCommandLineOption debugOption;
         QCommandLineOption noScaleFactorOption;
         QCommandLineOption noPluginsOption;
-        QCommandLineOption withToolbarOption;
         QCommandLineOption helpOption;
         QCommandLineOption versionOption;
     };

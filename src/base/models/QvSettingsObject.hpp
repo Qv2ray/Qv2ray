@@ -9,34 +9,6 @@ const int QV2RAY_CONFIG_VERSION = 12;
 
 namespace Qv2ray::base::config
 {
-    struct QvBarLine
-    {
-        QString Family;
-        bool Bold, Italic;
-        int ColorA, ColorR, ColorG, ColorB;
-        int ContentType;
-        double Size;
-        QString Message;
-        QvBarLine()
-            : Family("Consolas"), Bold(true), Italic(false), ColorA(255), ColorR(255), ColorG(255), ColorB(255), ContentType(0), Size(9),
-              Message(""){};
-        JSONSTRUCT_REGISTER(QvBarLine, F(Bold, Italic, ColorA, ColorR, ColorG, ColorB, Size, Family, Message, ContentType))
-    };
-
-    struct QvBarPage
-    {
-        int OffsetYpx;
-        QList<QvBarLine> Lines;
-        QvBarPage() : OffsetYpx(5){};
-        JSONSTRUCT_REGISTER(QvBarPage, F(OffsetYpx, Lines))
-    };
-
-    struct Qv2rayConfig_ToolBar
-    {
-        QList<QvBarPage> Pages;
-        JSONSTRUCT_REGISTER(Qv2rayConfig_ToolBar, F(Pages))
-    };
-
     struct Qv2rayConfig_ForwardProxy
     {
         bool enableForwardProxy;

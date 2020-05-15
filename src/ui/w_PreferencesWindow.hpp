@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "base/Qv2rayBase.hpp"
 #include "ui/messaging/QvMessageBus.hpp"
@@ -71,44 +71,6 @@ class PreferencesWindow
     void on_socksUDPCB_stateChanged(int arg1);
 
     void on_socksUDPIP_textEdited(const QString &arg1);
-
-    void on_nsBarPageAddBTN_clicked();
-
-    void on_nsBarPageDelBTN_clicked();
-
-    void on_nsBarPageYOffset_valueChanged(int arg1);
-
-    void on_nsBarLineAddBTN_clicked();
-
-    void on_nsBarLineDelBTN_clicked();
-
-    void on_nsBarPagesList_currentRowChanged(int currentRow);
-
-    void on_nsBarLinesList_currentRowChanged(int currentRow);
-
-    void on_fontComboBox_currentFontChanged(const QFont &f);
-
-    void on_nsBarFontBoldCB_stateChanged(int arg1);
-
-    void on_nsBarFontItalicCB_stateChanged(int arg1);
-
-    void on_nsBarFontASB_valueChanged(int arg1);
-
-    void on_nsBarFontRSB_valueChanged(int arg1);
-
-    void on_nsBarFontGSB_valueChanged(int arg1);
-
-    void on_nsBarFontBSB_valueChanged(int arg1);
-
-    void on_nsBarFontSizeSB_valueChanged(double arg1);
-
-    void on_chooseColorBtn_clicked();
-
-    void on_nsBarTagTxt_textEdited(const QString &arg1);
-
-    void on_nsBarContentCombo_currentIndexChanged(const QString &arg1);
-
-    void on_applyNSBarSettingsBtn_clicked();
 
     void on_selectVCoreBtn_clicked();
 
@@ -212,12 +174,6 @@ class PreferencesWindow
     //
     RouteSettingsMatrixWidget *routeSettingsWidget;
     void SetAutoStartButtonsState(bool isAutoStart);
-    // Set ui parameters for a line;
-    void ShowLineParameters(QvBarLine &line);
-    QString GetBarLineDescription(const QvBarLine &barLine);
-    //
-    int CurrentBarLineId;
-    int CurrentBarPageId;
     //
     bool NeedRestart = false;
     bool finishedLoading = false;
