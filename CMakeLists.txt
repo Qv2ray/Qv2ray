@@ -154,6 +154,8 @@ endif()
 set(QVPLUGIN_INTERFACE_INCLUDE_DIR "src/components/plugins/interface")
 include(src/components/plugins/interface/QvPluginInterface.cmake)
 
+include(3rdparty/uistyles/uistyles.cmake)
+
 set(QV2RAY_SOURCES
     ${QVPLUGIN_INTERFACE_HEADERS}
     3rdparty/libsemver/version.cpp
@@ -207,6 +209,7 @@ set(QV2RAY_SOURCES
     src/ui/models/InboundNodeModel.cpp
     src/ui/models/OutboundNodeModel.cpp
     src/ui/models/RuleNodeModel.cpp
+    src/ui/styles/StyleManager.cpp
     src/ui/widgets/ConnectionInfoWidget.cpp
     src/ui/widgets/ConnectionItemWidget.cpp
     src/ui/widgets/QvAutoCompleteTextEdit.cpp
@@ -294,6 +297,7 @@ set(QV2RAY_SOURCES
     src/ui/models/NodeModelsBase.hpp
     src/ui/models/OutboundNodeModel.hpp
     src/ui/models/RuleNodeModel.hpp
+    src/ui/styles/StyleManager.hpp
     src/ui/widgets/ConnectionInfoWidget.hpp
     src/ui/widgets/ConnectionItemWidget.hpp
     src/ui/widgets/QvAutoCompleteTextEdit.hpp
@@ -322,7 +326,9 @@ add_custom_target(lupdate
 
 set_target_properties(lupdate PROPERTIES EXCLUDE_FROM_ALL TRUE)
 
-set(QRC_RESOURCES ${CMAKE_SOURCE_DIR}/resources.qrc)
+set(QRC_RESOURCES
+    ${UISTYLE_QRCS}
+    ${CMAKE_SOURCE_DIR}/resources.qrc)
 
 set(QT_LIBRARY
     Qt5::Core

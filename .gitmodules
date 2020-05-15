@@ -19,3 +19,6 @@
 [submodule "libs/QJsonStruct"]
 	path = libs/QJsonStruct
 	url = https://github.com/Qv2ray/QJsonStruct
+[submodule "3rdparty/uistyles"]
+	path = 3rdparty/uistyles
+	url = https://github.com/Qv2ray/QvUIStyles

@@ -10,6 +10,7 @@
 #include "core/handler/ConfigHandler.hpp"
 #include "core/kernel/V2rayKernelInteractions.hpp"
 #include "core/settings/SettingsBackend.hpp"
+#include "ui/styles/StyleManager.hpp"
 #include "ui/widgets/RouteSettingsMatrix.hpp"
 
 #include <QColorDialog>
@@ -66,7 +67,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     SetAutoStartButtonsState(GetLaunchAtLoginStatus());
     //
     nsBarContentCombo->addItems(NetSpeedPluginMessages.values());
-    themeCombo->addItems(QStyleFactory::keys());
+    themeCombo->addItems(StyleManager->AllStyles());
     //
     qvVersion->setText(QV2RAY_VERSION_STRING);
     qvBuildInfo->setText(QV2RAY_BUILD_INFO);
@@ -83,7 +84,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
 #if (QV2RAY_USE_BUILTIN_DARKTHEME)
     // If we use built in theme, it should always be fusion.
     themeCombo->setEnabled(!CurrentConfig.uiConfig.useDarkTheme);
-    darkThemeLabel->setText(tr("Use Darkmode Theme"));
+    darkThemeLabel->setText(tr("Use built-in darkmode Theme"));
 #endif
     languageComboBox->setCurrentText(CurrentConfig.uiConfig.language);
     logLevelComboBox->setCurrentIndex(CurrentConfig.logLevel);
@@ -339,7 +340,7 @@ void PreferencesWindow::on_buttonBox_accepted()
         {
             NEEDRESTART
         }
-        qApp->setStyle(QStyleFactory::create(CurrentConfig.uiConfig.theme));
+        StyleManager->ApplyStyle(CurrentConfig.uiConfig.theme);
         SaveGlobalSettings(CurrentConfig);
         UIMessageBus.EmitGlobalSignal(QvMBMessage::UPDATE_COLORSCHEME);
         if (NeedRestart)
