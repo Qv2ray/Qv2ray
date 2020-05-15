@@ -479,100 +479,117 @@ namespace Qv2ray::core::handlers
         {
             return false;
         }
-        // List that is holding connection IDs to be updated.
-        auto subsList = SplitLines(DecodeSubscriptionString(subscriptionData));
+        QMultiHash<QString, CONFIGROOT> allSubscriptionConnections;
         //
-        if (subsList.count() < 5)
+        //
+        //
+        // ====================================================================================== Begin reading subscription
         {
-            auto yes = QvMessageBoxAsk(
-                           nullptr, tr("Update Subscription"),
-                           tr("%1 entrie(s) have been found from the subscription source, do you want to continue?").arg(subsList.count())) ==
-                       QMessageBox::Yes;
-            if (!yes)
+            auto subscriptionLines = SplitLines(DecodeSubscriptionString(subscriptionData));
+            for (const auto &line : subscriptionLines)
             {
-                return false;
+                QString __alias;
+                QString __errMessage;
+                // Assign a group name, to pass the name check.
+                QString __groupName = GetDisplayName(id);
+                auto connectionConfigMap = ConvertConfigFromString(line.trimmed(), &__alias, &__errMessage, &__groupName);
+                if (!__errMessage.isEmpty())
+                    LOG(MODULE_SUBSCRIPTION, "Error: " + __errMessage)
+                for (const auto &val : connectionConfigMap)
+                {
+                    allSubscriptionConnections.insert(connectionConfigMap.key(val), val);
+                }
+            }
+            if (allSubscriptionConnections.count() < 5)
+            {
+                LOG(MODULE_SUBSCRIPTION, "Find a subscription with less than 5 connections.")
+                if (QvMessageBoxAsk(nullptr, tr("Update Subscription"),
+                                    tr("%1 entrie(s) have been found from the subscription source, do you want to continue?")
+                                        .arg(allSubscriptionConnections.count())) != QMessageBox::Yes)
+
+                    return false;
             }
         }
+        // ====================================================================================== End reading subscription
+        //
+        //
+        //
+        // ====================================================================================== Begin Connection Data Storage
         // Anyway, we try our best to preserve the connection id.
         QMultiMap<QString, ConnectionId> nameMap;
         QMultiMap<std::tuple<QString, QString, int>, ConnectionId> typeMap;
-        for (const auto &conn : groups[id].connections)
         {
-            nameMap.insert(GetDisplayName(conn), conn);
-            auto [protocol, host, port] = GetConnectionInfo(conn);
-            if (port != 0)
+            // Store connection type metadata into map.
+            for (const auto &conn : groups[id].connections)
             {
-                typeMap.insert({ protocol, host, port }, conn);
-            }
-        }
-        QDir().mkpath(QV2RAY_CONNECTIONS_DIR);
-        bool hasErrorOccured = false;
-        // Copy construct here.
-        auto connectionsOrig = groups[id].connections;
-        groups[id].connections.clear();
-        //
-        for (auto vmess : subsList)
-        {
-            QString errMessage;
-            auto ssdGroupName = GetDisplayName(id);
-            QString __alias;
-            auto conf = ConvertConfigFromString(vmess.trimmed(), &__alias, &errMessage, &ssdGroupName);
-            Q_UNUSED(ssdGroupName)
-            // Things may go wrong when updating a subscription with ssd:// link
-            for (auto _alias : conf.keys())
-            {
-                for (const auto &config : conf.values(_alias))
+                nameMap.insert(GetDisplayName(conn), conn);
+                const auto [protocol, host, port] = GetConnectionInfo(conn);
+                if (port != 0)
                 {
-                    if (!errMessage.isEmpty())
-                    {
-                        LOG(MODULE_SUBSCRIPTION, "Processing a subscription with following error: " + errMessage)
-                        hasErrorOccured = true;
-                        continue;
-                    }
-                    bool canGetOutboundData = false;
-                    // Should not have complex connection we assume.
-                    auto outboundData = GetConnectionInfo(config, &canGetOutboundData);
-                    //
-                    // Begin guessing new ConnectionId
-                    if (nameMap.contains(_alias))
-                    {
-                        // Just go and save the connection...
-                        LOG(MODULE_CORE_HANDLER, "Reused connection id from name: " + _alias)
-                        auto _conn = nameMap.take(_alias);
-                        groups[id].connections << _conn;
-                        UpdateConnection(_conn, config);
-                        // Remove Connection Id from the list.
-                        connectionsOrig.removeAll(_conn);
-                        typeMap.remove(typeMap.key(_conn));
-                    }
-                    else if (canGetOutboundData && typeMap.contains(outboundData))
-                    {
-                        LOG(MODULE_CORE_HANDLER, "Reused connection id from protocol/host/port pair for connection: " + _alias)
-                        auto _conn = typeMap.take(outboundData);
-                        groups[id].connections << _conn;
-                        // Update Connection Properties
-                        UpdateConnection(_conn, config);
-                        RenameConnection(_conn, _alias);
-                        // Remove Connection Id from the list.
-                        connectionsOrig.removeAll(_conn);
-                        nameMap.remove(nameMap.key(_conn));
-                    }
-                    else
-                    {
-                        // New connection id is required since nothing matched found...
-                        LOG(MODULE_CORE_HANDLER, "Generated new connection id for connection: " + _alias)
-                        CreateConnection(config, _alias, id);
-                    }
-                    // End guessing connectionId
+                    typeMap.insert({ protocol, host, port }, conn);
                 }
             }
+        }
+        // ====================================================================================== End Connection Data Storage
+        //
+        bool hasErrorOccured = false;
+        // Copy construct here.
+        auto originalConnectionIdList = groups[id].connections;
+        groups[id].connections.clear();
+        //
+        for (const auto &config : allSubscriptionConnections)
+        {
+            const auto _alias = allSubscriptionConnections.key(config);
+            QString errMessage;
+
+            if (!errMessage.isEmpty())
+            {
+                LOG(MODULE_SUBSCRIPTION, "Processing a subscription with following error: " + errMessage)
+                hasErrorOccured = true;
+                continue;
+            }
+            bool canGetOutboundData = false;
+            // Should not have complex connection we assume.
+            auto outboundData = GetConnectionInfo(config, &canGetOutboundData);
+            //
+            // ====================================================================================== Begin guessing new ConnectionId
+            if (nameMap.contains(_alias))
+            {
+                // Just go and save the connection...
+                LOG(MODULE_CORE_HANDLER, "Reused connection id from name: " + _alias)
+                auto _conn = nameMap.take(_alias);
+                groups[id].connections << _conn;
+                UpdateConnection(_conn, config);
+                // Remove Connection Id from the list.
+                originalConnectionIdList.removeAll(_conn);
+                typeMap.remove(typeMap.key(_conn));
+            }
+            else if (canGetOutboundData && typeMap.contains(outboundData))
+            {
+                LOG(MODULE_CORE_HANDLER, "Reused connection id from protocol/host/port pair for connection: " + _alias)
+                auto _conn = typeMap.take(outboundData);
+                groups[id].connections << _conn;
+                // Update Connection Properties
+                UpdateConnection(_conn, config);
+                RenameConnection(_conn, _alias);
+                // Remove Connection Id from the list.
+                originalConnectionIdList.removeAll(_conn);
+                nameMap.remove(nameMap.key(_conn));
+            }
+            else
+            {
+                // New connection id is required since nothing matched found...
+                LOG(MODULE_CORE_HANDLER, "Generated new connection id for connection: " + _alias)
+                CreateConnection(config, _alias, id);
+            }
+            // ====================================================================================== End guessing new ConnectionId
         }
 
         // Check if anything left behind (not being updated or changed significantly)
         LOG(MODULE_CORE_HANDLER, "Removed old connections not have been matched.")
-        for (const auto &conn : originalConnections)
+        for (const auto &conn : originalConnectionIdList)
         {
-            LOG(MODULE_CORE_HANDLER, "Removing: " + conn.toString())
+            LOG(MODULE_CORE_HANDLER, "Removing connections not in the new subscription: " + conn.toString())
             RemoveConnectionFromGroup(conn, id);
         }
 
