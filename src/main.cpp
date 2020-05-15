@@ -1,10 +1,11 @@
-﻿#include "3rdparty/SingleApplication/singleapplication.h"
+#include "3rdparty/SingleApplication/singleapplication.h"
 #include "common/CommandArgs.hpp"
 #include "common/QvHelpers.hpp"
 #include "common/QvTranslator.hpp"
 #include "core/handler/ConfigHandler.hpp"
 #include "core/settings/SettingsBackend.hpp"
 #include "src/components/plugins/QvPluginHost.hpp"
+#include "ui/styles/StyleManager.hpp"
 #include "ui/w_MainWindow.hpp"
 
 #include <QApplication>
@@ -275,6 +276,7 @@ int main(int argc, char *argv[])
         "Copyright (c) 2019 ShadowSocks (@shadowsocks): libQtShadowsocks (LGPLv3)" NEWLINE                               //
         "Copyright (c) 2015-2020 qBittorrent (Anton Lashkov) (@qBittorrent): speedplotview (GPLv2)" NEWLINE              //
         "Copyright (c) 2020 Diffusions Nu-book Inc. (@nu-book): zxing-cpp (Apache)" NEWLINE                              //
+        "Copyright (c) 2020 feiyangqingyun: QWidgetDemo (Mulan PSL v1)" NEWLINE                                          //
             NEWLINE)                                                                                                     //
     //
     LOG(MODULE_INIT, "Qv2ray Start Time: " + QSTRN(QTime::currentTime().msecsSinceStartOfDay()))
@@ -361,15 +363,9 @@ int main(int argc, char *argv[])
     font.setFamily("Microsoft YaHei");
     _qApp.setFont(font);
 #endif
-    // Set custom themes.
-    QStringList themes = QStyleFactory::keys();
-    //_qApp.setDesktopFileName("qv2ray.desktop");
+    StyleManager = new QvStyleManager();
+    StyleManager->ApplyStyle(confObject.uiConfig.theme);
 
-    if (themes.contains(confObject.uiConfig.theme))
-    {
-        LOG(MODULE_INIT + " " + MODULE_UI, "Setting Qv2ray UI themes: " + confObject.uiConfig.theme)
-        qApp->setStyle(confObject.uiConfig.theme);
-    }
 #if (QV2RAY_USE_BUILTIN_DARKTHEME)
     LOG(MODULE_UI, "Using built-in theme.")
 
@@ -436,6 +432,7 @@ int main(int argc, char *argv[])
         auto rcode = _qApp.exec();
         delete ConnectionManager;
         delete PluginHost;
+        delete StyleManager;
         LOG(MODULE_INIT, "Quitting normally")
         return rcode;
 #ifndef QT_DEBUG

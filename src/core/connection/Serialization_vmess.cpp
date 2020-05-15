@@ -52,8 +52,8 @@ namespace Qv2ray::core::connection
                 vmessUriRoot["host"] = transfer.httpSettings.host.join(",");
                 vmessUriRoot["path"] = transfer.httpSettings.path;
             }
-            
-            if(!vmessUriRoot.contains("type") || vmessUriRoot["type"].toString().isEmpty())
+
+            if (!vmessUriRoot.contains("type") || vmessUriRoot["type"].toString().isEmpty())
             {
                 vmessUriRoot["type"] = "none";
             }
@@ -110,13 +110,6 @@ namespace Qv2ray::core::connection
                 return default;
             }
 
-            // Explicitly don't support v1 vmess links.
-            if (!vmessConf.contains("v"))
-            {
-                *errMessage = QObject::tr("seems like a v1 vmess, we don't support it");
-                return default;
-            }
-
             // --------------------------------------------------------------------------------------
             CONFIGROOT root;
             QString ps, add, id, net, type, host, path, tls;
@@ -155,6 +148,23 @@ namespace Qv2ray::core::connection
             LOG(MODULE_IMPORT, " --> PS: " + ps)                                                                                                \
         }                                                                                                                                       \
     }
+
+            // vmess v1 upgrader
+            if (!vmessConf.contains("v"))
+            {
+                LOG(MODULE_IMPORT, "Detected deprecated vmess v1. Trying to upgrade...")
+                if (const auto network = vmessConf["net"].toString(); network == "ws" || network == "h2")
+                {
+                    const QStringList hostComponents = vmessConf["host"].toString().replace(" ", "").split(";");
+                    if (const auto nParts = hostComponents.length(); nParts == 1)
+                        vmessConf["path"] = hostComponents[0], vmessConf["host"] = "";
+                    else if (nParts == 2)
+                        vmessConf["path"] = hostComponents[0], vmessConf["host"] = hostComponents[1];
+                    else
+                        vmessConf["path"] = "/", vmessConf["host"] = "";
+                }
+            }
+
             // Strict check of VMess protocol, to check if the specified value
             // is in the correct range.
             //

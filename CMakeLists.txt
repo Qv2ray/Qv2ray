@@ -153,6 +153,9 @@ endif()
 
 set(QVPLUGIN_INTERFACE_INCLUDE_DIR "src/components/plugins/interface")
 include(src/components/plugins/interface/QvPluginInterface.cmake)
+
+include(3rdparty/uistyles/uistyles.cmake)
+
 set(QV2RAY_SOURCES_NO_MAIN
     src/core/connection/ConnectionIO.cpp
     src/core/connection/Generation.cpp
@@ -195,9 +198,6 @@ set(QV2RAY_SOURCES_NO_MAIN
     src/components/geosite/QvGeositeReader.cpp
     src/components/latency/win/ICMPPinger.cpp
     src/components/latency/QvTCPing.cpp
-    src/components/plugins/toolbar/QvToolbar.cpp
-    src/components/plugins/toolbar/QvToolbar_linux.cpp
-    src/components/plugins/toolbar/QvToolbar_win.cpp
     src/components/plugins/QvPluginHost.cpp
     src/components/port/QvPortDetector.cpp
     src/components/proxy/QvProxyConfigurator.cpp
@@ -216,6 +216,7 @@ set(QV2RAY_SOURCES_NO_MAIN
     src/ui/models/InboundNodeModel.cpp
     src/ui/models/OutboundNodeModel.cpp
     src/ui/models/RuleNodeModel.cpp
+    src/ui/styles/StyleManager.cpp
     src/ui/widgets/ConnectionInfoWidget.cpp
     src/ui/widgets/ConnectionItemWidget.cpp
     src/ui/widgets/QvAutoCompleteTextEdit.cpp
@@ -272,7 +273,6 @@ set(QV2RAY_SOURCES_NO_MAIN
     src/components/geosite/QvGeositeReader.hpp
     src/components/latency/win/ICMPPinger.hpp
     src/components/latency/QvTCPing.hpp
-    src/components/plugins/toolbar/QvToolbar.hpp
     src/components/plugins/QvPluginHost.hpp
     src/components/port/QvPortDetector.hpp
     src/components/proxy/QvProxyConfigurator.hpp
@@ -291,6 +291,7 @@ set(QV2RAY_SOURCES_NO_MAIN
     src/ui/models/NodeModelsBase.hpp
     src/ui/models/OutboundNodeModel.hpp
     src/ui/models/RuleNodeModel.hpp
+    src/ui/styles/StyleManager.hpp
     src/ui/widgets/ConnectionInfoWidget.hpp
     src/ui/widgets/ConnectionItemWidget.hpp
     src/ui/widgets/QvAutoCompleteTextEdit.hpp
@@ -307,6 +308,7 @@ set(QV2RAY_SOURCES_NO_MAIN
     ${QVPLUGIN_INTERFACE_HEADERS}
     assets/qv2ray.rc
     )
+
 set(QV2RAY_SOURCES
     ${QV2RAY_SOURCES_NO_MAIN}
     src/main.cpp
@@ -324,7 +326,9 @@ add_custom_target(lupdate
 
 set_target_properties(lupdate PROPERTIES EXCLUDE_FROM_ALL TRUE)
 
-set(QRC_RESOURCES ${CMAKE_SOURCE_DIR}/resources.qrc)
+set(QRC_RESOURCES
+    ${UISTYLE_QRCS}
+    ${CMAKE_SOURCE_DIR}/resources.qrc)
 
 set(QT_LIBRARY
     Qt5::Core

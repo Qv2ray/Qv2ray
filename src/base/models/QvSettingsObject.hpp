@@ -9,34 +9,6 @@ const int QV2RAY_CONFIG_VERSION = 12;
 
 namespace Qv2ray::base::config
 {
-    struct QvBarLine
-    {
-        QString Family;
-        bool Bold, Italic;
-        int ColorA, ColorR, ColorG, ColorB;
-        int ContentType;
-        double Size;
-        QString Message;
-        QvBarLine()
-            : Family("Consolas"), Bold(true), Italic(false), ColorA(255), ColorR(255), ColorG(255), ColorB(255), ContentType(0), Size(9),
-              Message(""){};
-        JSONSTRUCT_REGISTER(QvBarLine, F(Bold, Italic, ColorA, ColorR, ColorG, ColorB, Size, Family, Message, ContentType))
-    };
-
-    struct QvBarPage
-    {
-        int OffsetYpx;
-        QList<QvBarLine> Lines;
-        QvBarPage() : OffsetYpx(5){};
-        JSONSTRUCT_REGISTER(QvBarPage, F(OffsetYpx, Lines))
-    };
-
-    struct Qv2rayConfig_ToolBar
-    {
-        QList<QvBarPage> Pages;
-        JSONSTRUCT_REGISTER(Qv2rayConfig_ToolBar, F(Pages))
-    };
-
     struct Qv2rayConfig_ForwardProxy
     {
         bool enableForwardProxy;
@@ -183,7 +155,8 @@ namespace Qv2ray::base::config
         QString v2CorePath_win;
         QString v2AssetsPath_win;
         Qv2rayConfig_Kernel()
-            : v2CorePath_linux(), v2AssetsPath_linux(), //
+            : enableAPI(true), statsPort(15490),        //
+              v2CorePath_linux(), v2AssetsPath_linux(), //
               v2CorePath_macx(), v2AssetsPath_macx(),   //
               v2CorePath_win(), v2AssetsPath_win()      //
               {};
@@ -284,7 +257,6 @@ namespace Qv2ray::base::config
         Qv2rayConfig_Kernel kernelConfig;
         Qv2rayConfig_Update updateConfig;
         Qv2rayConfig_Network networkConfig;
-        Qv2rayConfig_ToolBar toolBarConfig;
         Qv2rayConfig_Inbounds inboundConfig;
         Qv2rayConfig_Outbounds outboundConfig;
         Qv2rayConfig_Advanced advancedConfig;
@@ -301,7 +273,6 @@ namespace Qv2ray::base::config
               kernelConfig(),                        //
               updateConfig(),                        //
               networkConfig(),                       //
-              toolBarConfig(),                       //
               inboundConfig(),                       //
               outboundConfig(),                      //
               advancedConfig(),                      //
@@ -310,7 +281,6 @@ namespace Qv2ray::base::config
         JSONSTRUCT_REGISTER(Qv2rayConfigObject,                                                                   //
                             F(config_version, tProxySupport, autoStartId, autoStartBehavior, logLevel),           //
                             F(uiConfig, advancedConfig, pluginConfig, updateConfig, kernelConfig, networkConfig), //
-                            F(inboundConfig, outboundConfig, connectionConfig),                                   //
-                            F(toolBarConfig))
+                            F(inboundConfig, outboundConfig, connectionConfig))
     };
 } // namespace Qv2ray::base::config

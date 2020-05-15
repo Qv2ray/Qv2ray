@@ -5,6 +5,7 @@
 #include "components/plugins/QvPluginHost.hpp"
 #include "core/CoreUtils.hpp"
 #include "core/handler/ConfigHandler.hpp"
+#include "libs/QJsonStruct/QJsonIO.hpp"
 
 namespace Qv2ray::core::connection
 {
@@ -17,21 +18,13 @@ namespace Qv2ray::core::connection
             {
                 auto conf = vmess::Deserialize(link, prefix, errMessage);
                 //
-                if (GlobalConfig.advancedConfig.setAllowInsecureCiphers || GlobalConfig.advancedConfig.setAllowInsecure)
+                auto allowIC = GlobalConfig.advancedConfig.setAllowInsecureCiphers;
+                auto allowI = GlobalConfig.advancedConfig.setAllowInsecure;
+                if (allowI || allowIC)
                 {
-                    auto outbound = conf["outbounds"].toArray().first().toObject();
-                    auto streamSettings = outbound["streamSettings"].toObject();
-                    auto tlsSettings = streamSettings["tlsSettings"].toObject();
-                    tlsSettings["allowInsecure"] = GlobalConfig.advancedConfig.setAllowInsecure;
-                    tlsSettings["allowInsecureCiphers"] = GlobalConfig.advancedConfig.setAllowInsecureCiphers;
-                    streamSettings["tlsSettings"] = tlsSettings;
-                    outbound["streamSettings"] = streamSettings;
-                    //
-                    auto outbounds = conf["outbounds"].toArray();
-                    outbounds[0] = outbound;
-                    conf["outbounds"] = outbounds;
+                    QJsonIO::SetValue(conf, allowI, "outbounds", 0, "streamSettings", "tlsSettings", "allowInsecure");
+                    QJsonIO::SetValue(conf, allowIC, "outbounds", 0, "streamSettings", "tlsSettings", "allowInsecureCiphers");
                 }
-                //
                 connectionConf.insert(*prefix, conf);
             }
             else if (link.startsWith("ss://"))

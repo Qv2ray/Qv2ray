@@ -128,6 +128,7 @@ namespace Qv2ray
         // Configuration Path
         QStringList list;
         list << QV2RAY_CONFIG_DIR + dirName;
+        list << ":/" + dirName;
         //
 #ifdef Q_OS_LINUX
         // Linux platform directories.

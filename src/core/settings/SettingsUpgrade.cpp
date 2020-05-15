@@ -354,10 +354,10 @@ namespace Qv2ray
 
                 // Moved apiConfig into kernelConfig
                 auto kernelConfig = root["kernelConfig"].toObject();
-                kernelConfig["enableAPI"] = root["enableAPI"];
-                kernelConfig["statsPort"] = root["statsPort"];
+                kernelConfig["enableAPI"] = root["apiConfig"].toObject()["enableAPI"];
+                kernelConfig["statsPort"] = root["apiConfig"].toObject()["statsPort"];
+                root["kernelConfig"] = kernelConfig;
                 UPGRADELOG("Finished upgrading config file for Qv2ray Group Routing update.")
-
                 break;
             }
             default:

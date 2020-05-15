@@ -5,11 +5,11 @@
 #include "common/QvTranslator.hpp"
 #include "components/autolaunch/QvAutoLaunch.hpp"
 #include "components/plugins/interface/QvPluginInterface.hpp"
-#include "components/plugins/toolbar/QvToolbar.hpp"
 #include "core/connection/ConnectionIO.hpp"
 #include "core/handler/ConfigHandler.hpp"
 #include "core/kernel/V2rayKernelInteractions.hpp"
 #include "core/settings/SettingsBackend.hpp"
+#include "ui/styles/StyleManager.hpp"
 #include "ui/widgets/RouteSettingsMatrix.hpp"
 
 #include <QColorDialog>
@@ -41,14 +41,6 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     QvMessageBusConnect(PreferencesWindow);
     textBrowser->setHtml(StringFromFile(":/assets/credit.html"));
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
-    //
-    // Set network Toolbar page state.
-    networkToolbarPage->setEnabled(StartupOption.enableToolbarPlguin);
-
-    if (!StartupOption.enableToolbarPlguin)
-    {
-        networkToolbarInfoLabel->setText(tr("Qv2ray Network Toolbar is disabled and still under test. Add --withToolbarPlugin to enable."));
-    }
 
     // We add locales
     auto langs = Qv2rayTranslator->GetAvailableLanguages();
@@ -64,9 +56,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
 
     // Set auto start button state
     SetAutoStartButtonsState(GetLaunchAtLoginStatus());
-    //
-    nsBarContentCombo->addItems(NetSpeedPluginMessages.values());
-    themeCombo->addItems(QStyleFactory::keys());
+    themeCombo->addItems(StyleManager->AllStyles());
     //
     qvVersion->setText(QV2RAY_VERSION_STRING);
     qvBuildInfo->setText(QV2RAY_BUILD_INFO);
@@ -83,7 +73,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
 #if (QV2RAY_USE_BUILTIN_DARKTHEME)
     // If we use built in theme, it should always be fusion.
     themeCombo->setEnabled(!CurrentConfig.uiConfig.useDarkTheme);
-    darkThemeLabel->setText(tr("Use Darkmode Theme"));
+    darkThemeLabel->setText(tr("Use built-in darkmode Theme"));
 #endif
     languageComboBox->setCurrentText(CurrentConfig.uiConfig.language);
     logLevelComboBox->setCurrentIndex(CurrentConfig.logLevel);
@@ -197,28 +187,6 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     updateChannelCombo->setCurrentIndex(CurrentConfig.updateConfig.updateChannel);
     cancelIgnoreVersionBtn->setEnabled(!CurrentConfig.updateConfig.ignoredVersion.isEmpty());
     ignoredNextVersion->setText(CurrentConfig.updateConfig.ignoredVersion);
-    //
-    for (auto i = 0; i < CurrentConfig.toolBarConfig.Pages.size(); i++)
-    {
-        nsBarPagesList->addItem(tr("Page") + QSTRN(i + 1) + ": " + QSTRN(CurrentConfig.toolBarConfig.Pages[i].Lines.size()) + " " +
-                                tr("Item(s)"));
-    }
-
-    if (CurrentConfig.toolBarConfig.Pages.size() > 0)
-    {
-        nsBarPagesList->setCurrentRow(0);
-        on_nsBarPagesList_currentRowChanged(0);
-    }
-    else
-    {
-        networkToolbarSettingsFrame->setEnabled(false);
-        nsBarLinesList->setEnabled(false);
-        nsBarLineDelBTN->setEnabled(false);
-        nsBarLineAddBTN->setEnabled(false);
-        nsBarPageYOffset->setEnabled(false);
-    }
-
-    CurrentBarPageId = 0;
     //
     // Empty for global config.
     auto autoStartConnId = CurrentConfig.autoStartId.connectionId;
@@ -339,7 +307,7 @@ void PreferencesWindow::on_buttonBox_accepted()
         {
             NEEDRESTART
         }
-        qApp->setStyle(QStyleFactory::create(CurrentConfig.uiConfig.theme));
+        StyleManager->ApplyStyle(CurrentConfig.uiConfig.theme);
         SaveGlobalSettings(CurrentConfig);
         UIMessageBus.EmitGlobalSignal(QvMBMessage::UPDATE_COLORSCHEME);
         if (NeedRestart)
@@ -687,274 +655,6 @@ void PreferencesWindow::on_socksUDPIP_textEdited(const QString &arg1)
     else
     {
         RED(socksUDPIP)
-    }
-}
-
-// ------------------- NET SPEED PLUGIN OPERATIONS
-// -----------------------------------------------------------------
-
-#define CurrentBarPage CurrentConfig.toolBarConfig.Pages[this->CurrentBarPageId]
-#define CurrentBarLine CurrentBarPage.Lines[this->CurrentBarLineId]
-#define SET_LINE_LIST_TEXT nsBarLinesList->currentItem()->setText(GetBarLineDescription(CurrentBarLine));
-
-void PreferencesWindow::on_nsBarPageAddBTN_clicked()
-{
-    QvBarPage page;
-    CurrentConfig.toolBarConfig.Pages.push_back(page);
-    CurrentBarPageId = CurrentConfig.toolBarConfig.Pages.size() - 1;
-    // Add default line.
-    QvBarLine line;
-    CurrentBarPage.Lines.push_back(line);
-    CurrentBarLineId = 0;
-    nsBarPagesList->addItem(QSTRN(CurrentBarPageId));
-    ShowLineParameters(CurrentBarLine);
-    LOG(MODULE_UI, "Adding new page Id: " + QSTRN(CurrentBarPageId))
-    nsBarPageDelBTN->setEnabled(true);
-    nsBarLineAddBTN->setEnabled(true);
-    nsBarLineDelBTN->setEnabled(true);
-    nsBarLinesList->setEnabled(true);
-    nsBarPageYOffset->setEnabled(true);
-    on_nsBarPagesList_currentRowChanged(static_cast<int>(CurrentBarPageId));
-    nsBarPagesList->setCurrentRow(static_cast<int>(CurrentBarPageId));
-}
-
-void PreferencesWindow::on_nsBarPageDelBTN_clicked()
-{
-    if (nsBarPagesList->currentRow() >= 0)
-    {
-        CurrentConfig.toolBarConfig.Pages.removeAt(nsBarPagesList->currentRow());
-        nsBarPagesList->takeItem(nsBarPagesList->currentRow());
-
-        if (nsBarPagesList->count() <= 0)
-        {
-            nsBarPageDelBTN->setEnabled(false);
-            nsBarLineAddBTN->setEnabled(false);
-            nsBarLineDelBTN->setEnabled(false);
-            nsBarLinesList->setEnabled(false);
-            networkToolbarSettingsFrame->setEnabled(false);
-            nsBarPageYOffset->setEnabled(false);
-            nsBarLinesList->clear();
-        }
-    }
-}
-
-void PreferencesWindow::on_nsBarPageYOffset_valueChanged(int arg1)
-{
-    LOADINGCHECK
-    CurrentBarPage.OffsetYpx = arg1;
-}
-
-void PreferencesWindow::on_nsBarLineAddBTN_clicked()
-{
-    // WARNING Is it really just this simple?
-    QvBarLine line;
-    CurrentBarPage.Lines.push_back(line);
-    CurrentBarLineId = CurrentBarPage.Lines.size() - 1;
-    nsBarLinesList->addItem(QSTRN(CurrentBarLineId));
-    ShowLineParameters(CurrentBarLine);
-    nsBarLineDelBTN->setEnabled(true);
-    LOG(MODULE_UI, "Adding new line Id: " + QSTRN(CurrentBarLineId))
-    nsBarLinesList->setCurrentRow(static_cast<int>(CurrentBarPage.Lines.size() - 1));
-}
-
-void PreferencesWindow::on_nsBarLineDelBTN_clicked()
-{
-    if (nsBarLinesList->currentRow() >= 0)
-    {
-        CurrentBarPage.Lines.removeAt(nsBarLinesList->currentRow());
-        nsBarLinesList->takeItem(nsBarLinesList->currentRow());
-        CurrentBarLineId = 0;
-
-        if (nsBarLinesList->count() <= 0)
-        {
-            networkToolbarSettingsFrame->setEnabled(false);
-            nsBarLineDelBTN->setEnabled(false);
-        }
-
-        // TODO Disabling some UI;
-    }
-}
-
-void PreferencesWindow::on_nsBarPagesList_currentRowChanged(int currentRow)
-{
-    if (currentRow < 0)
-        return;
-
-    // Change page.
-    // We reload the lines
-    // Set all parameters item to the property of the first line.
-    CurrentBarPageId = currentRow;
-    CurrentBarLineId = 0;
-    nsBarPageYOffset->setValue(CurrentBarPage.OffsetYpx);
-    nsBarLinesList->clear();
-
-    if (!CurrentBarPage.Lines.empty())
-    {
-        for (const auto &line : CurrentBarPage.Lines)
-        {
-            auto description = GetBarLineDescription(line);
-            nsBarLinesList->addItem(description);
-        }
-
-        nsBarLinesList->setCurrentRow(0);
-        ShowLineParameters(CurrentBarLine);
-    }
-    else
-    {
-        networkToolbarSettingsFrame->setEnabled(false);
-    }
-}
-
-void PreferencesWindow::on_nsBarLinesList_currentRowChanged(int currentRow)
-{
-    if (currentRow < 0)
-        return;
-
-    CurrentBarLineId = currentRow;
-    ShowLineParameters(CurrentBarLine);
-}
-
-void PreferencesWindow::on_fontComboBox_currentFontChanged(const QFont &f)
-{
-    LOADINGCHECK
-    CurrentBarLine.Family = f.family();
-    SET_LINE_LIST_TEXT
-}
-
-void PreferencesWindow::on_nsBarFontBoldCB_stateChanged(int arg1)
-{
-    LOADINGCHECK
-    CurrentBarLine.Bold = arg1 == Qt::Checked;
-    SET_LINE_LIST_TEXT
-}
-
-void PreferencesWindow::on_nsBarFontItalicCB_stateChanged(int arg1)
-{
-    LOADINGCHECK
-    CurrentBarLine.Italic = arg1 == Qt::Checked;
-    SET_LINE_LIST_TEXT
-}
-
-void PreferencesWindow::on_nsBarFontASB_valueChanged(int arg1)
-{
-    LOADINGCHECK
-    CurrentBarLine.ColorA = arg1;
-    ShowLineParameters(CurrentBarLine);
-    SET_LINE_LIST_TEXT
-}
-
-void PreferencesWindow::on_nsBarFontRSB_valueChanged(int arg1)
-{
-    LOADINGCHECK
-    CurrentBarLine.ColorR = arg1;
-    ShowLineParameters(CurrentBarLine);
-    SET_LINE_LIST_TEXT
-}
-
-void PreferencesWindow::on_nsBarFontGSB_valueChanged(int arg1)
-{
-    LOADINGCHECK
-    CurrentBarLine.ColorG = arg1;
-    ShowLineParameters(CurrentBarLine);
-    SET_LINE_LIST_TEXT
-}
-
-void PreferencesWindow::on_nsBarFontBSB_valueChanged(int arg1)
-{
-    LOADINGCHECK
-    CurrentBarLine.ColorB = arg1;
-    ShowLineParameters(CurrentBarLine);
-    SET_LINE_LIST_TEXT
-}
-
-void PreferencesWindow::on_nsBarFontSizeSB_valueChanged(double arg1)
-{
-    LOADINGCHECK
-    CurrentBarLine.Size = arg1;
-    SET_LINE_LIST_TEXT
-}
-
-QString PreferencesWindow::GetBarLineDescription(const QvBarLine &barLine)
-{
-    QString result = "Empty";
-    result = NetSpeedPluginMessages[barLine.ContentType];
-
-    if (barLine.ContentType == 0)
-    {
-        result += " (" + barLine.Message + ")";
-    }
-
-    result = result.append(barLine.Bold ? ", " + tr("Bold") : "");
-    result = result.append(barLine.Italic ? ", " + tr("Italic") : "");
-    return result;
-}
-
-void PreferencesWindow::ShowLineParameters(QvBarLine &barLine)
-{
-    finishedLoading = false;
-
-    if (!barLine.Family.isEmpty())
-    {
-        fontComboBox->setCurrentFont(QFont(barLine.Family));
-    }
-
-    // Colors
-    nsBarFontASB->setValue(barLine.ColorA);
-    nsBarFontBSB->setValue(barLine.ColorB);
-    nsBarFontGSB->setValue(barLine.ColorG);
-    nsBarFontRSB->setValue(barLine.ColorR);
-    //
-    QColor color = QColor::fromRgb(barLine.ColorR, barLine.ColorG, barLine.ColorB, barLine.ColorA);
-    QString s(QStringLiteral("background: #") + ((color.red() < 16) ? "0" : "") + QString::number(color.red(), 16) +
-              ((color.green() < 16) ? "0" : "") + QString::number(color.green(), 16) + ((color.blue() < 16) ? "0" : "") +
-              QString::number(color.blue(), 16) + ";");
-    chooseColorBtn->setStyleSheet(s);
-    nsBarFontSizeSB->setValue(barLine.Size);
-    nsBarFontBoldCB->setChecked(barLine.Bold);
-    nsBarFontItalicCB->setChecked(barLine.Italic);
-    nsBarContentCombo->setCurrentText(NetSpeedPluginMessages[barLine.ContentType]);
-    nsBarTagTxt->setText(barLine.Message);
-    finishedLoading = true;
-    networkToolbarSettingsFrame->setEnabled(true);
-}
-
-void PreferencesWindow::on_chooseColorBtn_clicked()
-{
-    LOADINGCHECK
-    QColorDialog d(QColor::fromRgb(CurrentBarLine.ColorR, CurrentBarLine.ColorG, CurrentBarLine.ColorB, CurrentBarLine.ColorA), this);
-    d.exec();
-
-    if (d.result() == QDialog::DialogCode::Accepted)
-    {
-        d.selectedColor().getRgb(&CurrentBarLine.ColorR, &CurrentBarLine.ColorG, &CurrentBarLine.ColorB, &CurrentBarLine.ColorA);
-        ShowLineParameters(CurrentBarLine);
-        SET_LINE_LIST_TEXT
-    }
-}
-
-void PreferencesWindow::on_nsBarTagTxt_textEdited(const QString &arg1)
-{
-    LOADINGCHECK
-    CurrentBarLine.Message = arg1;
-    SET_LINE_LIST_TEXT
-}
-
-void PreferencesWindow::on_nsBarContentCombo_currentIndexChanged(const QString &arg1)
-{
-    LOADINGCHECK
-    CurrentBarLine.ContentType = NetSpeedPluginMessages.key(arg1);
-    SET_LINE_LIST_TEXT
-}
-
-void PreferencesWindow::on_applyNSBarSettingsBtn_clicked()
-{
-    if (QvMessageBoxAsk(this, tr("Apply network toolbar settings"),
-                        tr("All other modified settings will be applied as well after this object.") + NEWLINE +
-                            tr("Do you want to continue?")) == QMessageBox::Yes)
-    {
-        auto conf = GlobalConfig;
-        conf.toolBarConfig = CurrentConfig.toolBarConfig;
-        SaveGlobalSettings(conf);
     }
 }
 

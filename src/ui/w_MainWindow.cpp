@@ -1,7 +1,6 @@
 #include "w_MainWindow.hpp"
 
 #include "components/plugins/QvPluginHost.hpp"
-#include "components/plugins/toolbar/QvToolbar.hpp"
 #include "components/proxy/QvProxyConfigurator.hpp"
 #include "components/update/UpdateChecker.hpp"
 #include "core/settings/SettingsBackend.hpp"
@@ -332,13 +331,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
         this->show();
     //
     tray_action_ShowHide->setText(needShowWindow ? tr("Hide") : tr("Show"));
-    //
-    if (StartupOption.enableToolbarPlguin)
-    {
-        LOG(MODULE_UI, "Plugin daemon is enabled.")
-        StartProcessingPlugins();
-    }
-
     CheckSubscriptionsUpdate();
     //
     splitter->setSizes(QList<int>() << 100 << 300);
@@ -497,11 +489,6 @@ void MainWindow::ToggleVisibility()
 void MainWindow::on_actionExit_triggered()
 {
     ConnectionManager->StopConnection();
-    if (StartupOption.enableToolbarPlguin)
-    {
-        StopProcessingPlugins();
-    }
-
     ExitQv2ray();
 }
 

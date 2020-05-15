@@ -110,7 +110,7 @@ namespace Qv2ray::core::handlers
         void StartLatencyTest(const ConnectionId &id);
         //
         // Group Operations
-        const GroupId CreateGroup(const QString displayName, bool isSubscription);
+        const GroupId CreateGroup(const QString &displayName, bool isSubscription);
         const std::optional<QString> DeleteGroup(const GroupId &id);
         const std::optional<QString> RenameGroup(const GroupId &id, const QString &newName);
         // const optional<QString> DuplicateGroup(const GroupId &id);
