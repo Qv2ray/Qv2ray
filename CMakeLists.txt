@@ -5,9 +5,6 @@ file(STRINGS "${CMAKE_SOURCE_DIR}/makespec/BUILDVERSION" QV2RAY_BUILD_VERSION)
 file(STRINGS "${CMAKE_SOURCE_DIR}/makespec/VERSIONSUFFIX" QV2RAY_VERSION_SUFFIX)
 
 if(NOT CMAKE_BUILD_TYPE STREQUAL "Release")
-    math(EXPR QV2RAY_BUILD_VERSION "1 + ${QV2RAY_BUILD_VERSION}")
-    message("Increasing BUILDVERSION")
-    file(WRITE "${CMAKE_SOURCE_DIR}/makespec/BUILDVERSION" ${QV2RAY_BUILD_VERSION})
     add_definitions(-DNODE_DEBUG_DRAWING)
 endif()
 
@@ -207,6 +204,69 @@ set(QV2RAY_SOURCES_NO_MAIN
     src/components/darkmode/DarkmodeDetector.cpp
     src/components/ntp/QvNTPClient.cpp
     src/components/update/UpdateChecker.cpp
+    # headers
+    3rdparty/libsemver/version.hpp
+    src/base/JsonHelpers.hpp
+    src/base/models/CoreObjectModels.hpp
+    src/base/models/QvConfigIdentifier.hpp
+    src/base/models/QvRuntimeConfig.hpp
+    src/base/models/QvSafeType.hpp
+    src/base/models/QvSettingsObject.hpp
+    src/base/models/QvStartupConfig.hpp
+    src/base/Qv2rayBase.hpp
+    src/base/Qv2rayFeatures.hpp
+    src/base/Qv2rayLog.hpp
+    src/common/CommandArgs.hpp
+    src/common/HTTPRequestHelper.hpp
+    src/common/JsonHighlighter.hpp
+    src/common/LogHighlighter.hpp
+    src/common/QJsonModel.hpp
+    src/common/QvHelpers.hpp
+    src/common/QvTranslator.hpp
+    src/common/QRCodeHelper.hpp
+    src/components/autolaunch/QvAutoLaunch.hpp
+    src/components/darkmode/DarkmodeDetector.hpp
+    src/components/geosite/QvGeositeReader.hpp
+    src/components/latency/win/ICMPPinger.hpp
+    src/components/latency/QvTCPing.hpp
+    src/components/plugins/QvPluginHost.hpp
+    src/components/port/QvPortDetector.hpp
+    src/components/proxy/QvProxyConfigurator.hpp
+    src/components/ntp/QvNTPClient.hpp
+    src/components/route/RouteSchemeIO.hpp
+    src/components/route/presets/RouteScheme_V2rayN.hpp
+    src/components/speedchart/speedplotview.hpp
+    src/components/speedchart/speedwidget.hpp
+    src/components/update/UpdateChecker.hpp
+    ${QVPLUGIN_INTERFACE_HEADERS}
+    assets/qv2ray.rc
+    )
+
+set(QV2RAY_UI_SOURCES
+    src/main.cpp
+    src/ui/editors/w_InboundEditor.hpp
+    src/ui/editors/w_JsonEditor.hpp
+    src/ui/editors/w_OutboundEditor.hpp
+    src/ui/editors/w_RoutesEditor.hpp
+    src/ui/messaging/QvMessageBus.hpp
+    src/ui/models/InboundNodeModel.hpp
+    src/ui/models/NodeModelsBase.hpp
+    src/ui/models/OutboundNodeModel.hpp
+    src/ui/models/RuleNodeModel.hpp
+    src/ui/styles/StyleManager.hpp
+    src/ui/widgets/ConnectionInfoWidget.hpp
+    src/ui/widgets/ConnectionItemWidget.hpp
+    src/ui/widgets/QvAutoCompleteTextEdit.hpp
+    src/ui/widgets/StreamSettingsWidget.hpp
+    src/ui/widgets/RouteSettingsMatrix.hpp
+    src/ui/widgets/InboundSettingsWidget.hpp
+    src/ui/widgets/ConnectionSettingsWidget.hpp
+    src/ui/w_ImportConfig.hpp
+    src/ui/w_MainWindow.hpp
+    src/ui/w_PreferencesWindow.hpp
+    src/ui/w_PluginManager.hpp
+    src/ui/w_ScreenShot_Core.hpp
+    src/ui/w_GroupManager.hpp
     src/ui/editors/w_InboundEditor.cpp
     src/ui/editors/w_JsonEditor.cpp
     src/ui/editors/w_OutboundEditor.cpp
@@ -248,80 +308,16 @@ set(QV2RAY_SOURCES_NO_MAIN
     src/ui/w_PreferencesWindow.ui
     src/ui/w_PluginManager.ui
     src/ui/w_ScreenShot_Core.ui
-    # headers
-    3rdparty/libsemver/version.hpp
-    src/base/JsonHelpers.hpp
-    src/base/models/CoreObjectModels.hpp
-    src/base/models/QvConfigIdentifier.hpp
-    src/base/models/QvRuntimeConfig.hpp
-    src/base/models/QvSafeType.hpp
-    src/base/models/QvSettingsObject.hpp
-    src/base/models/QvStartupConfig.hpp
-    src/base/Qv2rayBase.hpp
-    src/base/Qv2rayFeatures.hpp
-    src/base/Qv2rayLog.hpp
-    src/common/CommandArgs.hpp
-    src/common/HTTPRequestHelper.hpp
-    src/common/JsonHighlighter.hpp
-    src/common/LogHighlighter.hpp
-    src/common/QJsonModel.hpp
-    src/common/QvHelpers.hpp
-    src/common/QvTranslator.hpp
-    src/common/QRCodeHelper.hpp
-    src/components/autolaunch/QvAutoLaunch.hpp
-    src/components/darkmode/DarkmodeDetector.hpp
-    src/components/geosite/QvGeositeReader.hpp
-    src/components/latency/win/ICMPPinger.hpp
-    src/components/latency/QvTCPing.hpp
-    src/components/plugins/QvPluginHost.hpp
-    src/components/port/QvPortDetector.hpp
-    src/components/proxy/QvProxyConfigurator.hpp
-    src/components/ntp/QvNTPClient.hpp
-    src/components/route/RouteSchemeIO.hpp
-    src/components/route/presets/RouteScheme_V2rayN.hpp
-    src/components/speedchart/speedplotview.hpp
-    src/components/speedchart/speedwidget.hpp
-    src/components/update/UpdateChecker.hpp
-    src/ui/editors/w_InboundEditor.hpp
-    src/ui/editors/w_JsonEditor.hpp
-    src/ui/editors/w_OutboundEditor.hpp
-    src/ui/editors/w_RoutesEditor.hpp
-    src/ui/messaging/QvMessageBus.hpp
-    src/ui/models/InboundNodeModel.hpp
-    src/ui/models/NodeModelsBase.hpp
-    src/ui/models/OutboundNodeModel.hpp
-    src/ui/models/RuleNodeModel.hpp
-    src/ui/styles/StyleManager.hpp
-    src/ui/widgets/ConnectionInfoWidget.hpp
-    src/ui/widgets/ConnectionItemWidget.hpp
-    src/ui/widgets/QvAutoCompleteTextEdit.hpp
-    src/ui/widgets/StreamSettingsWidget.hpp
-    src/ui/widgets/RouteSettingsMatrix.hpp
-    src/ui/widgets/InboundSettingsWidget.hpp
-    src/ui/widgets/ConnectionSettingsWidget.hpp
-    src/ui/w_ImportConfig.hpp
-    src/ui/w_MainWindow.hpp
-    src/ui/w_PreferencesWindow.hpp
-    src/ui/w_PluginManager.hpp
-    src/ui/w_ScreenShot_Core.hpp
-    src/ui/w_GroupManager.hpp
-    ${QVPLUGIN_INTERFACE_HEADERS}
-    assets/qv2ray.rc
-    )
-
-set(QV2RAY_SOURCES
-    ${QV2RAY_SOURCES_NO_MAIN}
-    src/main.cpp
     )
 
 if(EMBED_TRANSLATIONS)
     add_definitions(-DEMBED_TRANSLATIONS)
     configure_file(translations/translations.qrc ${CMAKE_BINARY_DIR} COPYONLY)
-    list(APPEND QV2RAY_SOURCES ${CMAKE_BINARY_DIR}/translations.qrc)
+    list(APPEND QV2RAY_UI_SOURCES ${CMAKE_BINARY_DIR}/translations.qrc)
 endif()
 
 add_custom_target(lupdate
-    COMMAND lupdate ${QV2RAY_SOURCES} -ts ${TRANSLATIONS_TS} -locations none
+    COMMAND lupdate ${QV2RAY_UI_SOURCES} ${QV2RAY_SOURCES_NO_MAIN} -ts ${TRANSLATIONS_TS} -locations none
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 
 set_target_properties(lupdate PROPERTIES EXCLUDE_FROM_ALL TRUE)
@@ -338,7 +334,6 @@ set(QT_LIBRARY
     )
 
 add_library(${PROJECT_NAME}-lib STATIC
-    ${GUI_TYPE}
     ${QV2RAY_SOURCES_NO_MAIN}
     ${QNODEEDITOR_SOURCES}
     ${QNODEEDITOR_QRC_RESOURCES}
@@ -353,10 +348,9 @@ add_library(${PROJECT_NAME}-lib STATIC
     )
 
 add_executable(${PROJECT_NAME}
-    src/main.cpp
+    ${GUI_TYPE}
+    ${QV2RAY_UI_SOURCES}
     )
-
-
 
 target_link_libraries(${PROJECT_NAME}
     ${PROJECT_NAME}-lib
@@ -396,7 +390,7 @@ target_include_directories(${PROJECT_NAME}-lib PUBLIC
     )
 
 if (BUILD_TESTING)
-    add_subdirectory(test) 
+    add_subdirectory(test)
 endif()
 
 if(APPLE)
