@@ -1,6 +1,6 @@
 #pragma once
 
-#include "core/handler/ConfigHandler.hpp"
+#include "base/models/QvConfigIdentifier.hpp"
 #include "ui_ConnectionItemWidget.h"
 
 #include <QWidget>
@@ -25,26 +25,10 @@ class ConnectionItemWidget
     //
     void BeginRename();
     void CancelRename();
-    inline bool NameMatched(const QString &arg)
-    {
-        auto searchString = arg.toLower();
-        auto headerMatched = GetDisplayName(groupId).toLower().contains(arg);
-
-        if (itemType != NODE_ITEM)
-        {
-            return headerMatched;
-        }
-        else
-        {
-            return headerMatched || GetDisplayName(connectionId).toLower().contains(searchString);
-        }
-    }
+    bool NameMatched(const QString &arg) const;
     inline const ConnectionGroupPair Identifier() const
     {
-        ConnectionGroupPair i;
-        i.connectionId = this->connectionId;
-        i.groupId = this->groupId;
-        return i;
+        return { this->connectionId, this->groupId };
     }
     inline bool IsRenaming() const
     {
@@ -63,11 +47,7 @@ class ConnectionItemWidget
     void OnLatencyTestStart(const ConnectionId &id);
     void OnConnectionModified(const ConnectionId &id);
     void OnLatencyTestFinished(const ConnectionId &id, const uint average);
-    inline void RecalculateConnectionsCount()
-    {
-        auto connectionCount = ConnectionManager->Connections(groupId).count();
-        latencyLabel->setText(QSTRN(connectionCount) + " " + (connectionCount < 2 ? tr("connection") : tr("connections")));
-    }
+    void RecalculateConnectionsCount();
     void OnConnectionItemRenamed(const ConnectionId &id, const QString &, const QString &newName);
     void OnGroupItemRenamed(const GroupId &id, const QString &, const QString &newName);
     void on_doRenameBtn_clicked();

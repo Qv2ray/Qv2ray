@@ -1,6 +1,5 @@
 #pragma once
 #include "components/plugins/QvPluginHost.hpp"
-#include "core/CoreSafeTypes.hpp"
 #include "core/kernel/V2rayKernelInteractions.hpp"
 
 #include <QObject>

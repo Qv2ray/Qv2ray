@@ -2,9 +2,9 @@
 
 #include "base/Qv2rayBase.hpp"
 #include "ui/messaging/QvMessageBus.hpp"
+#include "ui_w_PreferencesWindow.h"
 
 #include <QDialog>
-#include <ui_w_PreferencesWindow.h>
 
 class RouteSettingsMatrixWidget;
 

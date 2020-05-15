@@ -1,6 +1,7 @@
 #include "ConnectionItemWidget.hpp"
 
 #include "common/QvHelpers.hpp"
+#include "core/handler/ConfigHandler.hpp"
 
 #include <QStyleFactory>
 
@@ -87,6 +88,27 @@ void ConnectionItemWidget::BeginConnection()
     {
         LOG(MODULE_UI, "Trying to start a non-connection entry, this call is illegal.")
     }
+}
+
+bool ConnectionItemWidget::NameMatched(const QString &arg) const
+{
+    auto searchString = arg.toLower();
+    auto headerMatched = GetDisplayName(groupId).toLower().contains(arg);
+
+    if (itemType != NODE_ITEM)
+    {
+        return headerMatched;
+    }
+    else
+    {
+        return headerMatched || GetDisplayName(connectionId).toLower().contains(searchString);
+    }
+}
+
+void ConnectionItemWidget::RecalculateConnectionsCount()
+{
+    auto connectionCount = ConnectionManager->Connections(groupId).count();
+    latencyLabel->setText(QSTRN(connectionCount) + " " + (connectionCount < 2 ? tr("connection") : tr("connections")));
 }
 
 void ConnectionItemWidget::OnConnected(const ConnectionGroupPair &id)

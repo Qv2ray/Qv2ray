@@ -1,11 +1,10 @@
-﻿#pragma once
+#pragma once
 
 #include "base/Qv2rayBase.hpp"
 #include "ui/messaging/QvMessageBus.hpp"
 #include "ui_w_InboundEditor.h"
 
 #include <QDialog>
-#include <QJsonObject>
 #include <QListWidgetItem>
 
 class InboundEditor

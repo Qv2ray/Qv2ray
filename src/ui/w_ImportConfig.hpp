@@ -1,12 +1,10 @@
-﻿#pragma once
+#pragma once
 
 #include "base/Qv2rayBase.hpp"
 #include "ui/messaging/QvMessageBus.hpp"
 #include "ui_w_ImportConfig.h"
 
 #include <QDialog>
-#include <QJsonObject>
-#include <QString>
 
 class ImportConfigWindow
     : public QDialog

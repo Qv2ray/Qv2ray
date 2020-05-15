@@ -172,7 +172,6 @@ set(QV2RAY_SOURCES_NO_MAIN
     src/core/connection/ConnectionIO.hpp
     src/core/connection/Generation.hpp
     src/core/connection/Serialization.hpp
-    src/core/CoreSafeTypes.hpp
     src/core/CoreUtils.hpp
     src/core/handler/ConfigHandler.hpp
     src/core/handler/KernelInstanceHandler.hpp

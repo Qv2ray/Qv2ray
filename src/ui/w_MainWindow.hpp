@@ -3,7 +3,6 @@
 #include "common/HTTPRequestHelper.hpp"
 #include "common/LogHighlighter.hpp"
 #include "components/speedchart/speedwidget.hpp"
-#include "core/handler/ConfigHandler.hpp"
 #include "ui/messaging/QvMessageBus.hpp"
 #include "ui_w_MainWindow.h"
 

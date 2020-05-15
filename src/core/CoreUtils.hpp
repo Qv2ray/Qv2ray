@@ -1,10 +1,7 @@
-﻿#pragma once
+#pragma once
 #include "base/models/CoreObjectModels.hpp"
 #include "base/models/QvConfigIdentifier.hpp"
 #include "base/models/QvSafeType.hpp"
-#include "core/CoreSafeTypes.hpp"
-
-#include <QString>
 
 namespace Qv2ray::core
 {

@@ -3,6 +3,7 @@
 #include "components/plugins/QvPluginHost.hpp"
 #include "components/proxy/QvProxyConfigurator.hpp"
 #include "components/update/UpdateChecker.hpp"
+#include "core/handler/ConfigHandler.hpp"
 #include "core/settings/SettingsBackend.hpp"
 #include "ui/editors/w_JsonEditor.hpp"
 #include "ui/editors/w_OutboundEditor.hpp"

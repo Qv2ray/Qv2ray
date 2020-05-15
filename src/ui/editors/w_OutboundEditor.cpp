@@ -1,9 +1,8 @@
-﻿#include "w_OutboundEditor.hpp"
+#include "w_OutboundEditor.hpp"
 
 #include "core/connection/Generation.hpp"
 #include "ui/editors/w_JsonEditor.hpp"
 #include "ui/editors/w_RoutesEditor.hpp"
-#include "ui/w_MainWindow.hpp"
 
 #include <QFile>
 #include <QIntValidator>

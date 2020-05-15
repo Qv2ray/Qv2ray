@@ -1,9 +1,10 @@
 #pragma once
 
-#include "QWidget"
 #include "base/Qv2rayBase.hpp"
 #include "ui/messaging/QvMessageBus.hpp"
 #include "ui_StreamSettingsWidget.h"
+
+#include <QWidget>
 
 class StreamSettingsWidget
     : public QWidget

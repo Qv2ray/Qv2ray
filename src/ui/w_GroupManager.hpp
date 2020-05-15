@@ -1,7 +1,6 @@
 #pragma once
 
 #include "base/Qv2rayBase.hpp"
-#include "core/CoreSafeTypes.hpp"
 #include "ui/messaging/QvMessageBus.hpp"
 #include "ui_w_GroupManager.h"
 

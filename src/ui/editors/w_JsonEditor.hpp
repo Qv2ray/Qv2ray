@@ -7,7 +7,6 @@
 #include "ui_w_JsonEditor.h"
 
 #include <QDialog>
-#include <QtCore>
 
 class JsonEditor
     : public QDialog
