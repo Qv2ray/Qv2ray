@@ -49,13 +49,9 @@ GroupManager::GroupManager(QWidget *parent) : QDialog(parent)
                 this->reloadConnectionsList(currentGroupId);                  //
             });
     //
-    // Anyway just reload it.
-    const auto reloadGroupLambda = [&](const ConnectionGroupPair &id) {
-        if (id.groupId == currentGroupId)
-            this->reloadConnectionsList(id.groupId);
-    };
-    // connect(ConnectionManager, &QvConfigHandler::OnConnectionCreated, reloadGroupLambda);
-    // connect(ConnectionManager, &QvConfigHandler::OnConnectionDeleted, reloadGroupLambda);
+    connect(ConnectionManager, &QvConfigHandler::OnGroupCreated, this, &GroupManager::reloadGroupRCMActions);
+    connect(ConnectionManager, &QvConfigHandler::OnGroupDeleted, this, &GroupManager::reloadGroupRCMActions);
+    connect(ConnectionManager, &QvConfigHandler::OnGroupRenamed, this, &GroupManager::reloadGroupRCMActions);
     //
     for (const auto &group : ConnectionManager->AllGroups())
     {
@@ -66,6 +62,12 @@ GroupManager::GroupManager(QWidget *parent) : QDialog(parent)
     if (groupList->count() > 0)
     {
         groupList->setCurrentItem(groupList->item(0));
+        on_groupList_itemClicked(groupList->item(0));
+    }
+    else
+    {
+        groupInfoGroupBox->setEnabled(false);
+        tabWidget->setEnabled(false);
     }
     reloadGroupRCMActions();
 }
@@ -253,7 +255,7 @@ GroupManager::~GroupManager()
 
 void GroupManager::on_addGroupButton_clicked()
 {
-    auto const key = QSTRN(QTime::currentTime().msecsSinceStartOfDay());
+    auto const key = tr("New Group") + " - " + GenerateRandomString(5);
     auto id = ConnectionManager->CreateGroup(key, true);
     //
     auto item = new QListWidgetItem(key);
@@ -289,6 +291,7 @@ void GroupManager::on_removeGroupButton_clicked()
         else
         {
             groupInfoGroupBox->setEnabled(false);
+            tabWidget->setEnabled(false);
         }
     }
 }
@@ -323,9 +326,8 @@ void GroupManager::on_groupList_itemClicked(QListWidgetItem *item)
     reloadConnectionsList(currentGroupId);
 }
 
-void GroupManager::on_groupList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
+void GroupManager::on_groupList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *)
 {
-    Q_UNUSED(previous)
     on_groupList_itemClicked(current);
 }
 

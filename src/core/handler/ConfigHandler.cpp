@@ -402,7 +402,7 @@ namespace Qv2ray::core::handlers
         return result;
     }
 
-    const GroupId QvConfigHandler::CreateGroup(const QString displayName, bool isSubscription)
+    const GroupId QvConfigHandler::CreateGroup(const QString &displayName, bool isSubscription)
     {
         GroupId id(GenerateRandomString());
         groups[id].displayName = displayName;
