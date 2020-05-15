@@ -153,9 +153,34 @@ endif()
 
 set(QVPLUGIN_INTERFACE_INCLUDE_DIR "src/components/plugins/interface")
 include(src/components/plugins/interface/QvPluginInterface.cmake)
-
-set(QV2RAY_SOURCES
-    ${QVPLUGIN_INTERFACE_HEADERS}
+set(QV2RAY_SOURCES_NO_MAIN
+    src/core/connection/ConnectionIO.cpp
+    src/core/connection/Generation.cpp
+    src/core/connection/Serialization.cpp
+    src/core/connection/Serialization_ss.cpp
+    src/core/connection/Serialization_ssd.cpp
+    src/core/connection/Serialization_vmess.cpp
+    src/core/CoreUtils.cpp
+    src/core/handler/ConfigHandler.cpp
+    src/core/handler/KernelInstanceHandler.cpp
+    src/core/kernel/APIBackend.cpp
+    src/core/kernel/V2rayKernelInteractions.cpp
+    src/core/kernel/PluginKernelInteractions.cpp
+    src/core/kernel/QvKernelABIChecker.cpp
+    src/core/settings/SettingsBackend.cpp
+    src/core/settings/SettingsUpgrade.cpp
+    src/core/connection/ConnectionIO.hpp
+    src/core/connection/Generation.hpp
+    src/core/connection/Serialization.hpp
+    src/core/CoreSafeTypes.hpp
+    src/core/CoreUtils.hpp
+    src/core/handler/ConfigHandler.hpp
+    src/core/handler/KernelInstanceHandler.hpp
+    src/core/kernel/APIBackend.hpp
+    src/core/kernel/V2rayKernelInteractions.hpp
+    src/core/kernel/PluginKernelInteractions.hpp
+    src/core/kernel/QvKernelABIChecker.hpp
+    src/core/settings/SettingsBackend.hpp
     3rdparty/libsemver/version.cpp
     src/base/Qv2rayLog.cpp
     src/common/CommandArgs.cpp
@@ -182,22 +207,6 @@ set(QV2RAY_SOURCES
     src/components/darkmode/DarkmodeDetector.cpp
     src/components/ntp/QvNTPClient.cpp
     src/components/update/UpdateChecker.cpp
-    src/core/connection/ConnectionIO.cpp
-    src/core/connection/Generation.cpp
-    src/core/connection/Serialization.cpp
-    src/core/connection/Serialization_ss.cpp
-    src/core/connection/Serialization_ssd.cpp
-    src/core/connection/Serialization_vmess.cpp
-    src/core/CoreUtils.cpp
-    src/core/handler/ConfigHandler.cpp
-    src/core/handler/KernelInstanceHandler.cpp
-    src/core/kernel/APIBackend.cpp
-    src/core/kernel/V2rayKernelInteractions.cpp
-    src/core/kernel/PluginKernelInteractions.cpp
-    src/core/kernel/QvKernelABIChecker.cpp
-    src/core/settings/SettingsBackend.cpp
-    src/core/settings/SettingsUpgrade.cpp
-    src/main.cpp
     src/ui/editors/w_InboundEditor.cpp
     src/ui/editors/w_JsonEditor.cpp
     src/ui/editors/w_OutboundEditor.cpp
@@ -273,18 +282,6 @@ set(QV2RAY_SOURCES
     src/components/speedchart/speedplotview.hpp
     src/components/speedchart/speedwidget.hpp
     src/components/update/UpdateChecker.hpp
-    src/core/connection/ConnectionIO.hpp
-    src/core/connection/Generation.hpp
-    src/core/connection/Serialization.hpp
-    src/core/CoreSafeTypes.hpp
-    src/core/CoreUtils.hpp
-    src/core/handler/ConfigHandler.hpp
-    src/core/handler/KernelInstanceHandler.hpp
-    src/core/kernel/APIBackend.hpp
-    src/core/kernel/V2rayKernelInteractions.hpp
-    src/core/kernel/PluginKernelInteractions.hpp
-    src/core/kernel/QvKernelABIChecker.hpp
-    src/core/settings/SettingsBackend.hpp
     src/ui/editors/w_InboundEditor.hpp
     src/ui/editors/w_JsonEditor.hpp
     src/ui/editors/w_OutboundEditor.hpp
@@ -307,7 +304,12 @@ set(QV2RAY_SOURCES
     src/ui/w_PluginManager.hpp
     src/ui/w_ScreenShot_Core.hpp
     src/ui/w_GroupManager.hpp
+    ${QVPLUGIN_INTERFACE_HEADERS}
     assets/qv2ray.rc
+    )
+set(QV2RAY_SOURCES
+    ${QV2RAY_SOURCES_NO_MAIN}
+    src/main.cpp
     )
 
 if(EMBED_TRANSLATIONS)
@@ -331,9 +333,9 @@ set(QT_LIBRARY
     Qt5::Network
     )
 
-add_executable(${PROJECT_NAME}
+add_library(${PROJECT_NAME}-lib STATIC
     ${GUI_TYPE}
-    ${QV2RAY_SOURCES}
+    ${QV2RAY_SOURCES_NO_MAIN}
     ${QNODEEDITOR_SOURCES}
     ${QNODEEDITOR_QRC_RESOURCES}
     ${SINGLEAPPLICATION_SOURCES}
@@ -346,7 +348,17 @@ add_executable(${PROJECT_NAME}
     ${QM_FILES}
     )
 
+add_executable(${PROJECT_NAME}
+    src/main.cpp
+    )
+
+
+
 target_link_libraries(${PROJECT_NAME}
+    ${PROJECT_NAME}-lib
+    )
+
+target_link_libraries(${PROJECT_NAME}-lib
     ${QT_LIBRARY}
     ${QV2RAY_PROTOBUF_LIBRARY}
     ${QV2RAY_BACKEND_LIBRARIES}
@@ -354,7 +366,6 @@ target_link_libraries(${PROJECT_NAME}
     ${ZXING_LIBRARY}
     Threads::Threads
     )
-
 
 target_include_directories(${PROJECT_NAME} PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
@@ -367,6 +378,22 @@ target_include_directories(${PROJECT_NAME} PRIVATE
     ${Protobuf_INCLUDE_DIRS}
     ${cpp-httplib_INCLUDE_DIRS}
     )
+
+target_include_directories(${PROJECT_NAME}-lib PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
+    ${CMAKE_BINARY_DIR}
+    ${QHTTPSERVER_DIR}
+    ${QNODEEDITOR_INCLUDE_PATH}
+    ${ZXING_INCLUDE_PATH}
+    ${SINGLEAPPLICATION_DIR}
+    ${Protobuf_INCLUDE_DIRS}
+    ${cpp-httplib_INCLUDE_DIRS}
+    )
+
+if (BUILD_TESTING)
+    add_subdirectory(test) 
+endif()
 
 if(APPLE)
     find_package(Iconv REQUIRED)
