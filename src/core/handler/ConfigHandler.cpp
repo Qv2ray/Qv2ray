@@ -570,11 +570,10 @@ namespace Qv2ray::core::handlers
 
         // Check if anything left behind (not being updated or changed significantly)
         LOG(MODULE_CORE_HANDLER, "Removed old connections not have been matched.")
-        for (auto conn : connectionsOrig)
+        for (const auto &conn : originalConnections)
         {
             LOG(MODULE_CORE_HANDLER, "Removing: " + conn.toString())
-            abort();
-            // DeleteConnection(conn);
+            RemoveConnectionFromGroup(conn, id);
         }
 
         // Update the time
