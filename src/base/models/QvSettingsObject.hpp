@@ -285,7 +285,6 @@ namespace Qv2ray::base::config
         Qv2rayConfig_Kernel kernelConfig;
         Qv2rayConfig_Update updateConfig;
         Qv2rayConfig_Network networkConfig;
-        Qv2rayConfig_ToolBar toolBarConfig;
         Qv2rayConfig_Inbounds inboundConfig;
         Qv2rayConfig_Outbounds outboundConfig;
         Qv2rayConfig_Advanced advancedConfig;
@@ -302,7 +301,6 @@ namespace Qv2ray::base::config
               kernelConfig(),                        //
               updateConfig(),                        //
               networkConfig(),                       //
-              toolBarConfig(),                       //
               inboundConfig(),                       //
               outboundConfig(),                      //
               advancedConfig(),                      //
@@ -311,7 +309,6 @@ namespace Qv2ray::base::config
         JSONSTRUCT_REGISTER(Qv2rayConfigObject,                                                                   //
                             F(config_version, tProxySupport, autoStartId, autoStartBehavior, logLevel),           //
                             F(uiConfig, advancedConfig, pluginConfig, updateConfig, kernelConfig, networkConfig), //
-                            F(inboundConfig, outboundConfig, connectionConfig),                                   //
-                            F(toolBarConfig))
+                            F(inboundConfig, outboundConfig, connectionConfig))
     };
 } // namespace Qv2ray::base::config
