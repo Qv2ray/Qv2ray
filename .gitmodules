@@ -13,7 +13,7 @@
 [submodule "3rdparty/zxing-cpp"]
 	path = 3rdparty/zxing-cpp
 	url = https://github.com/nu-book/zxing-cpp
-[submodule "src/components/plugins/interface"]
+[submodule "src/plugin-interface"]
 	path = src/plugins/interface
 	url = https://github.com/Qv2ray/QvPlugin-Interface/
 [submodule "libs/QJsonStruct"]
