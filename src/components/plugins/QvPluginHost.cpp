@@ -120,6 +120,7 @@ namespace Qv2ray::components::plugins
         {
             // Load plugin if it haven't been loaded.
             InitializePlugin(internalName);
+
             QvMessageBoxInfo(nullptr, tr("Enabling a plugin"), tr("The plugin will become fully functional after restarting Qv2ray."));
         }
     }

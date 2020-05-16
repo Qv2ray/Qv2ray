@@ -4,7 +4,6 @@
 #include <QGraphicsEffect>
 #include <QGraphicsPixmapItem>
 #include <QGraphicsScene>
-#include <QMessageBox>
 #include <QTextCursor>
 #include <QTextDocument>
 #include <QtGui>
@@ -45,21 +44,6 @@ namespace Qv2ray::ui
         pColor.setStrength(factor);
         return ApplyEffectToImage(pixmap, &pColor, 0);
     }
-    inline void QvMessageBoxWarn(QWidget *parent, const QString &title, const QString &text)
-    {
-        QMessageBox::warning(parent, title, text, QMessageBox::Ok | QMessageBox::Default, 0);
-    }
-
-    inline void QvMessageBoxInfo(QWidget *parent, const QString &title, const QString &text)
-    {
-        QMessageBox::information(parent, title, text, QMessageBox::Ok | QMessageBox::Default, 0);
-    }
-
-    inline QMessageBox::StandardButton QvMessageBoxAsk(QWidget *parent, const QString &title, const QString &text,
-                                                       QMessageBox::StandardButton extraButtons)
-    {
-        return QMessageBox::question(parent, title, text, QMessageBox::Yes | QMessageBox::No | extraButtons);
-    }
     inline void FastAppendTextDocument(const QString &message, QTextDocument *doc)
     {
         QTextCursor cursor(doc);
@@ -70,3 +54,5 @@ namespace Qv2ray::ui
         cursor.endEditBlock();
     }
 } // namespace Qv2ray::ui
+
+using namespace Qv2ray::ui;

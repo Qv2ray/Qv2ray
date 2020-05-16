@@ -1,5 +1,6 @@
 #include "FlowScene.hpp"
 #include "core/CoreUtils.hpp"
+#include "ui/common/UIBase.hpp"
 #include "ui/models/InboundNodeModel.hpp"
 #include "ui/models/OutboundNodeModel.hpp"
 #include "ui/models/RuleNodeModel.hpp"

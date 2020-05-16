@@ -4,6 +4,7 @@
 #include "components/geosite/QvGeositeReader.hpp"
 #include "components/route/RouteSchemeIO.hpp"
 #include "components/route/presets/RouteScheme_V2rayN.hpp"
+#include "ui/common/UIBase.hpp"
 
 #include <QFileDialog>
 #include <QInputDialog>

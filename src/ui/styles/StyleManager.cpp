@@ -4,6 +4,8 @@
 #include "common/QvHelpers.hpp"
 
 #include <QApplication>
+#include <QColor>
+#include <QPalette>
 #include <QStyleFactory>
 
 namespace Qv2ray::ui::styles

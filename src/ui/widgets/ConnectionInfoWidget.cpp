@@ -1,9 +1,10 @@
 #include "ConnectionInfoWidget.hpp"
 
-#include "common/QRCodeHelper.hpp"
 #include "common/QvHelpers.hpp"
 #include "core/CoreUtils.hpp"
 #include "core/connection/Serialization.hpp"
+#include "ui/common/QRCodeHelper.hpp"
+#include "ui/common/UIBase.hpp"
 
 constexpr auto INDEX_CONNECTION = 0;
 constexpr auto INDEX_GROUP = 1;

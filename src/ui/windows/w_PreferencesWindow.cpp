@@ -4,11 +4,11 @@
 #include "common/QvHelpers.hpp"
 #include "common/QvTranslator.hpp"
 #include "components/autolaunch/QvAutoLaunch.hpp"
-#include "components/plugins/interface/QvPluginInterface.hpp"
 #include "core/connection/ConnectionIO.hpp"
 #include "core/handler/ConfigHandler.hpp"
 #include "core/kernel/V2rayKernelInteractions.hpp"
 #include "core/settings/SettingsBackend.hpp"
+#include "src/plugin-interface/QvPluginInterface.hpp"
 #include "ui/styles/StyleManager.hpp"
 #include "ui/widgets/RouteSettingsMatrix.hpp"
 

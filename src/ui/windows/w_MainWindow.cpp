@@ -5,14 +5,15 @@
 #include "components/update/UpdateChecker.hpp"
 #include "core/handler/ConfigHandler.hpp"
 #include "core/settings/SettingsBackend.hpp"
+#include "ui/common/UIBase.hpp"
 #include "ui/editors/w_JsonEditor.hpp"
 #include "ui/editors/w_OutboundEditor.hpp"
 #include "ui/editors/w_RoutesEditor.hpp"
-#include "ui/w_GroupManager.hpp"
-#include "ui/w_ImportConfig.hpp"
-#include "ui/w_PluginManager.hpp"
-#include "ui/w_PreferencesWindow.hpp"
 #include "ui/widgets/ConnectionInfoWidget.hpp"
+#include "ui/windows/w_GroupManager.hpp"
+#include "ui/windows/w_ImportConfig.hpp"
+#include "ui/windows/w_PluginManager.hpp"
+#include "ui/windows/w_PreferencesWindow.hpp"
 
 #include <QCloseEvent>
 #include <QDebug>

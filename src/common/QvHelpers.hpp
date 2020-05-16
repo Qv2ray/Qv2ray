@@ -4,6 +4,7 @@
 #include <QDir>
 #include <QFile>
 #include <QJsonDocument>
+#include <QMessageBox>
 #include <QRegularExpression>
 
 #define REGEX_IPV6_ADDR                                                                                                                         \
@@ -26,9 +27,6 @@ namespace Qv2ray::common
     bool FileExistsIn(const QDir &dir, const QString &fileName);
     const QString GenerateRandomString(int len = 12);
     //
-    void QvMessageBoxWarn(QWidget *parent, const QString &title, const QString &text);
-    void QvMessageBoxInfo(QWidget *parent, const QString &title, const QString &text);
-    //
     QString StringFromFile(const QString &filePath);
     QString StringFromFile(QFile &source);
     bool StringToFile(const QString &text, QFile &target);
@@ -42,8 +40,6 @@ namespace Qv2ray::common
     QString FormatBytes(const int64_t bytes);
     void DeducePossibleFileName(const QString &baseDir, QString *fileName, const QString &extension);
     //
-    QPixmap BlurImage(const QPixmap &pixmap, const double rad = 50);
-    QPixmap ColorizeImage(const QPixmap &pixmap, const QColor &color, const qreal factor);
     // This function cannot be marked as inline.
     QString RemoveInvalidFileName(const QString &fileName);
     bool IsValidFileName(const QString &fileName);
@@ -86,6 +82,21 @@ namespace Qv2ray::common
         QDateTime timestamp;
         timestamp.setSecsSinceEpoch(t);
         return timestamp.toString();
+    }
+    inline void QvMessageBoxWarn(QWidget *parent, const QString &title, const QString &text)
+    {
+        QMessageBox::warning(parent, title, text, QMessageBox::Ok | QMessageBox::Default, 0);
+    }
+
+    inline void QvMessageBoxInfo(QWidget *parent, const QString &title, const QString &text)
+    {
+        QMessageBox::information(parent, title, text, QMessageBox::Ok | QMessageBox::Default, 0);
+    }
+
+    inline QMessageBox::StandardButton QvMessageBoxAsk(QWidget *parent, const QString &title, const QString &text,
+                                                       QMessageBox::StandardButton extraButtons = QMessageBox::StandardButton::NoButton)
+    {
+        return QMessageBox::question(parent, title, text, QMessageBox::Yes | QMessageBox::No | extraButtons);
     }
 
 } // namespace Qv2ray::common

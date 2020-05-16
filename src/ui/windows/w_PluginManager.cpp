@@ -3,6 +3,7 @@
 #include "common/QvHelpers.hpp"
 #include "components/plugins/QvPluginHost.hpp"
 #include "core/settings/SettingsBackend.hpp"
+#include "ui/common/UIBase.hpp"
 #include "ui/editors/w_JsonEditor.hpp"
 
 PluginManageWindow::PluginManageWindow(QWidget *parent) : QDialog(parent)

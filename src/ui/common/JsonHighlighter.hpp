@@ -26,4 +26,4 @@ namespace Qv2ray::ui
         void highlightBlock(const QString &text) override;
     };
 } // namespace Qv2ray::ui
-using namespace Qv2ray::common;
+using namespace Qv2ray::ui;

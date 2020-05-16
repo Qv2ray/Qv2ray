@@ -1,4 +1,4 @@
-﻿/*
+/*
     Copyright (C) 2019 SoneWinstone (jianwenzhen@qq.com)
     Copyright (C) 2019 Leroy.H.Y
 

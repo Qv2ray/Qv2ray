@@ -6,6 +6,7 @@
 #include "common/QvHelpers.hpp"
 #include "core/settings/SettingsBackend.hpp"
 
+#include <QDesktopServices>
 #include <QVersionNumber>
 
 const inline QMap<int, QString> UpdateChannelLink //

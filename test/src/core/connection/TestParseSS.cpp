@@ -50,7 +50,8 @@ SCENARIO("Test Parse Shadowsocks url", "[ParseSSUrl]")
         }
         WHEN("the url with sip003 plugin")
         {
-            auto c = ss::Deserialize("ss://YmYtY2ZiOnRlc3Q@192.168.100.1:8888/?plugin=obfs-local%3bobfs%3dhttp%3bobfs-host%3dgoogle.com", &alias, &err);
+            auto c = ss::Deserialize("ss://YmYtY2ZiOnRlc3Q@192.168.100.1:8888/?plugin=obfs-local%3bobfs%3dhttp%3bobfs-host%3dgoogle.com", &alias,
+                                     &err);
             s = ShadowSocksServerObject::fromJson(QJsonIO::GetValue(c, "outbounds", 0, "settings", "servers", 0));
             REQUIRE(s.address.toStdString() == "192.168.100.1");
             REQUIRE(s.port == 8888);
@@ -59,7 +60,8 @@ SCENARIO("Test Parse Shadowsocks url", "[ParseSSUrl]")
         }
         WHEN("another url with sip003 plugin")
         {
-            auto c = ss::Deserialize("ss://YmYtY2ZiOnRlc3Q@192.168.1.1:8388/?plugin=obfs-local%3bobfs%3dhttp%3bobfs-host%3dgoogle.com", &alias, &err);
+            auto c =
+                ss::Deserialize("ss://YmYtY2ZiOnRlc3Q@192.168.1.1:8388/?plugin=obfs-local%3bobfs%3dhttp%3bobfs-host%3dgoogle.com", &alias, &err);
             s = ShadowSocksServerObject::fromJson(QJsonIO::GetValue(c, "outbounds", 0, "settings", "servers", 0));
             REQUIRE(s.address.toStdString() == "192.168.1.1");
             REQUIRE(s.port == 8388);
@@ -68,7 +70,9 @@ SCENARIO("Test Parse Shadowsocks url", "[ParseSSUrl]")
         }
         WHEN("the url with sip003 plugin and remarks")
         {
-            auto c = ss::Deserialize("ss://YmYtY2ZiOnRlc3Q@192.168.100.1:8888/?plugin=obfs-local%3bobfs%3dhttp%3bobfs-host%3dgoogle.com#example-server", &alias, &err);
+            auto c = ss::Deserialize(
+                "ss://YmYtY2ZiOnRlc3Q@192.168.100.1:8888/?plugin=obfs-local%3bobfs%3dhttp%3bobfs-host%3dgoogle.com#example-server", &alias,
+                &err);
             s = ShadowSocksServerObject::fromJson(QJsonIO::GetValue(c, "outbounds", 0, "settings", "servers", 0));
             REQUIRE(s.address.toStdString() == "192.168.100.1");
             REQUIRE(s.port == 8888);
@@ -77,7 +81,8 @@ SCENARIO("Test Parse Shadowsocks url", "[ParseSSUrl]")
         }
         WHEN("another url with sip003 plugin and remarks")
         {
-            auto c = ss::Deserialize("ss://YmYtY2ZiOnRlc3Q@192.168.1.1:8388/?plugin=obfs-local%3bobfs%3dhttp%3bobfs-host%3dgoogle.com#example-server", &alias, &err);
+            auto c = ss::Deserialize(
+                "ss://YmYtY2ZiOnRlc3Q@192.168.1.1:8388/?plugin=obfs-local%3bobfs%3dhttp%3bobfs-host%3dgoogle.com#example-server", &alias, &err);
             s = ShadowSocksServerObject::fromJson(QJsonIO::GetValue(c, "outbounds", 0, "settings", "servers", 0));
             REQUIRE(s.address.toStdString() == "192.168.1.1");
             REQUIRE(s.port == 8388);

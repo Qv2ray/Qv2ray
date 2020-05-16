@@ -1,8 +1,8 @@
 #pragma once
 
 #include "common/HTTPRequestHelper.hpp"
-#include "common/LogHighlighter.hpp"
-#include "components/speedchart/speedwidget.hpp"
+#include "src/components/speedchart/speedwidget.hpp"
+#include "ui/common/LogHighlighter.hpp"
 #include "ui/messaging/QvMessageBus.hpp"
 #include "ui_w_MainWindow.h"
 
