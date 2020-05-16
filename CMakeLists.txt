@@ -11,6 +11,8 @@ endif()
 set(QV2RAY_VERSION_STRING "${QV2RAY_VERSION}${QV2RAY_VERSION_SUFFIX}")
 project(qv2ray)
 
+include(CTest)
+
 set(VERSION_LIST ${QV2RAY_VERSION})
 string(REPLACE "." ";" VERSION_LIST ${VERSION_LIST})
 separate_arguments(VERSION_LIST)
