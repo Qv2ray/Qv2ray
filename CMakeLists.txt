@@ -191,7 +191,6 @@ add_library(qv2ray-baselib STATIC
     ${QV2RAY_LIB_SOURCES}
     ${QVPLUGIN_INTERFACE_HEADERS}
     ${LIBSEMVER_SOURCES}
-    ${ZXING_SOURCES}
     ${PROTO_SRCS}
     ${PROTO_HDRS}
     ${API_GRPC_SRCS}
