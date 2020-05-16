@@ -6,7 +6,7 @@
 #include <QSyntaxHighlighter>
 #include <QVector>
 
-namespace Qv2ray::common
+namespace Qv2ray::ui
 {
     struct JsonHighlightingRule
     {
@@ -25,5 +25,5 @@ namespace Qv2ray::common
         void SetRule(const QString &kind, const QString &pattern, QTextCharFormat format);
         void highlightBlock(const QString &text) override;
     };
-} // namespace Qv2ray::common
+} // namespace Qv2ray::ui
 using namespace Qv2ray::common;

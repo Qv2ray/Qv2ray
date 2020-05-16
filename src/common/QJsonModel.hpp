@@ -25,7 +25,6 @@
 #pragma once
 
 #include <QAbstractItemModel>
-#include <QIcon>
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>

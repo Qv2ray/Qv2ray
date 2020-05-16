@@ -87,7 +87,6 @@ include(cmake/translations.cmake)
 include(cmake/qnodeeditor.cmake)
 include(cmake/singleapplication.cmake)
 include(cmake/protobuf.cmake)
-include(cmake/cpp-httplib.cmake)
 include(cmake/backend.cmake)
 include(cmake/zxing-cpp.cmake)
 
@@ -151,8 +150,8 @@ if(FALL_BACK_TO_XDG_OPEN)
     add_definitions(-DFALL_BACK_TO_XDG_OPEN)
 endif()
 
-set(QVPLUGIN_INTERFACE_INCLUDE_DIR "src/components/plugins/interface")
-include(src/components/plugins/interface/QvPluginInterface.cmake)
+set(QVPLUGIN_INTERFACE_INCLUDE_DIR "src/plugin-interface")
+include(src/plugin-interface/QvPluginInterface.cmake)
 
 include(3rdparty/uistyles/uistyles.cmake)
 
@@ -187,8 +186,6 @@ set(QV2RAY_SOURCES_NO_MAIN
     src/base/Qv2rayLog.cpp
     src/common/CommandArgs.cpp
     src/common/HTTPRequestHelper.cpp
-    src/common/LogHighlighter.cpp
-    src/common/JsonHighlighter.cpp
     src/common/QJsonModel.cpp
     src/common/QvHelpers.cpp
     src/common/QvTranslator.cpp
@@ -220,8 +217,6 @@ set(QV2RAY_SOURCES_NO_MAIN
     src/base/Qv2rayLog.hpp
     src/common/CommandArgs.hpp
     src/common/HTTPRequestHelper.hpp
-    src/common/JsonHighlighter.hpp
-    src/common/LogHighlighter.hpp
     src/common/QJsonModel.hpp
     src/common/QvHelpers.hpp
     src/common/QvTranslator.hpp
@@ -246,6 +241,11 @@ set(QV2RAY_SOURCES_NO_MAIN
 
 set(QV2RAY_UI_SOURCES
     src/main.cpp
+    src/ui/common/LogHighlighter.cpp
+    src/ui/common/JsonHighlighter.cpp
+    src/ui/common/JsonHighlighter.hpp
+    src/ui/common/LogHighlighter.hpp
+    src/ui/UIBase.hpp
     src/ui/editors/w_InboundEditor.hpp
     src/ui/editors/w_JsonEditor.hpp
     src/ui/editors/w_OutboundEditor.hpp
@@ -328,17 +328,8 @@ set(QRC_RESOURCES
     ${UISTYLE_QRCS}
     ${CMAKE_SOURCE_DIR}/resources.qrc)
 
-set(QT_LIBRARY
-    Qt5::Core
-    Qt5::Gui
-    Qt5::Widgets
-    Qt5::Network
-    )
-
-add_library(${PROJECT_NAME}-lib STATIC
+add_library(qv2ray-lib STATIC
     ${QV2RAY_SOURCES_NO_MAIN}
-    ${QNODEEDITOR_SOURCES}
-    ${SINGLEAPPLICATION_SOURCES}
     ${ZXING_SOURCES}
     ${PROTO_SRCS}
     ${PROTO_HDRS}
@@ -347,48 +338,49 @@ add_library(${PROJECT_NAME}-lib STATIC
     ${QM_FILES}
     )
 
-add_executable(${PROJECT_NAME}
+add_executable(qv2ray
     ${GUI_TYPE}
+    ${QNODEEDITOR_SOURCES}
+    ${SINGLEAPPLICATION_SOURCES}
     ${QV2RAY_UI_SOURCES}
     ${QRC_RESOURCES}
     ${QNODEEDITOR_QRC_RESOURCES}
     )
 
-target_link_libraries(${PROJECT_NAME}
-    ${PROJECT_NAME}-lib
-    )
-
-target_link_libraries(${PROJECT_NAME}-lib
+target_link_libraries(qv2ray-lib
     ${QT_LIBRARY}
     ${QV2RAY_PROTOBUF_LIBRARY}
     ${QV2RAY_BACKEND_LIBRARIES}
-    ${QNODEEDITOR_LIBRARY}
     ${ZXING_LIBRARY}
     Threads::Threads
+    Qt5::Core
+    Qt5::Network
     )
 
-target_include_directories(${PROJECT_NAME} PRIVATE
+target_link_libraries(qv2ray
+    qv2ray-lib
+    ${QNODEEDITOR_LIBRARY}
+    Qt5::Widgets
+    Qt5::Gui
+    )
+
+
+target_include_directories(qv2ray PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/src
     ${CMAKE_BINARY_DIR}
-    ${QHTTPSERVER_DIR}
     ${QNODEEDITOR_INCLUDE_PATH}
     ${ZXING_INCLUDE_PATH}
     ${SINGLEAPPLICATION_DIR}
     ${Protobuf_INCLUDE_DIRS}
-    ${cpp-httplib_INCLUDE_DIRS}
     )
 
-target_include_directories(${PROJECT_NAME}-lib PUBLIC
+target_include_directories(qv2ray-lib PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/src
     ${CMAKE_BINARY_DIR}
-    ${QHTTPSERVER_DIR}
-    ${QNODEEDITOR_INCLUDE_PATH}
     ${ZXING_INCLUDE_PATH}
-    ${SINGLEAPPLICATION_DIR}
     ${Protobuf_INCLUDE_DIRS}
-    ${cpp-httplib_INCLUDE_DIRS}
     )
 
 if (BUILD_TESTING)
@@ -400,13 +392,13 @@ if(APPLE)
     find_library(CARBON NAMES Carbon)
     find_library(COCOA NAMES Cocoa)
     find_library(SECURITY NAMES Security)
-    target_link_libraries(${PROJECT_NAME}
+    target_link_libraries(qv2ray
         Iconv::Iconv
         ${CARBON}
         ${COCOA}
         ${SECURITY}
         )
-    target_include_directories(${PROJECT_NAME} PRIVATE
+    target_include_directories(qv2ray PRIVATE
         ${Iconv_INCLUDE_DIR}
         )
 
@@ -417,11 +409,11 @@ if(APPLE)
         MACOSX_PACKAGE_LOCATION Resources/lang
         )
 
-    target_sources(${PROJECT_NAME} PRIVATE
+    target_sources(qv2ray PRIVATE
         ${MACOSX_ICON}
         )
 
-    set_target_properties(${PROJECT_NAME}
+    set_target_properties(qv2ray
         PROPERTIES
         MACOSX_BUNDLE TRUE
         MACOSX_BUNDLE_INFO_PLIST ${MACOSX_PLIST}
@@ -438,20 +430,20 @@ if(APPLE)
         )
 
     # Destination paths below are relative to ${CMAKE_INSTALL_PREFIX}
-    install(TARGETS ${PROJECT_NAME}
+    install(TARGETS qv2ray
         BUNDLE DESTINATION . COMPONENT Runtime
         RUNTIME DESTINATION bin COMPONENT Runtime
         )
     
-    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-        COMMAND macdeployqt ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.app
+    add_custom_command(TARGET qv2ray POST_BUILD
+        COMMAND macdeployqt ${CMAKE_BINARY_DIR}/qv2ray.app
         )
-    set(APPS "\${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app")
+    set(APPS "\${CMAKE_INSTALL_PREFIX}/qv2ray.app")
     include(cmake/deployment.cmake)
 endif()
 
 if(UNIX AND NOT APPLE AND NOT WIN32)
-    install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin)
+    install(TARGETS qv2ray RUNTIME DESTINATION bin)
     install(FILES assets/qv2ray.metainfo.xml DESTINATION share/metainfo)
     install(FILES assets/qv2ray.desktop DESTINATION share/applications)
     install(FILES assets/icons/qv2ray.png DESTINATION share/icons/hicolor/256x256/apps)
@@ -461,8 +453,8 @@ if(UNIX AND NOT APPLE AND NOT WIN32)
 endif()
 
 if(WIN32)
-    target_link_libraries(${PROJECT_NAME} wininet wsock32 ws2_32 user32)
-    install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION .)
+    target_link_libraries(qv2ray wininet wsock32 ws2_32 user32)
+    install(TARGETS qv2ray RUNTIME DESTINATION .)
     if(NOT EMBED_TRANSLATIONS)
         install(FILES ${QM_FILES} DESTINATION lang)
     endif()
@@ -475,10 +467,10 @@ if(WIN32)
         install(FILES ${_VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/bin/libcrypto-1_1.dll DESTINATION .)
     endif()
 
-    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-        COMMAND windeployqt ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.exe --compiler-runtime --verbose 2 --dir ${CMAKE_BINARY_DIR}/winqt/
+    add_custom_command(TARGET qv2ray POST_BUILD
+        COMMAND windeployqt ${CMAKE_BINARY_DIR}/qv2ray.exe --compiler-runtime --verbose 2 --dir ${CMAKE_BINARY_DIR}/winqt/
         )
     install(DIRECTORY ${CMAKE_BINARY_DIR}/winqt/ DESTINATION .)
-    set(APPS "\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.exe")
+    set(APPS "\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/qv2ray.exe")
     include(cmake/deployment.cmake)
 endif()

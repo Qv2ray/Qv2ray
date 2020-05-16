@@ -4,9 +4,7 @@
 #include "common/QvHelpers.hpp"
 #include "core/connection/ConnectionIO.hpp"
 
-#include <QDesktopServices>
 #include <QObject>
-#include <QWidget>
 
 namespace Qv2ray::core::kernel
 {
