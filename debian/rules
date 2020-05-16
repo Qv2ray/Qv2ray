@@ -17,5 +17,3 @@ export QT_SELECT := 5
 
 override_dh_auto_configure:
 	dh_auto_configure -- -DEMBED_TRANSLATIONS=ON
-
-override_dh_auto_test:
