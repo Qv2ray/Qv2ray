@@ -141,7 +141,7 @@ if(QV2RAY_ZXING_PROVIDER STREQUAL "module")
     add_library(${ZXING_LIBRARY} STATIC
         ${ZXING_SOURCES}
         )
-    target_include_directories(${ZXING_LIBRARY}
+    target_include_directories(${ZXING_LIBRARY} PUBLIC
         ${ZXING_INCLUDE_PATH}
         )
 elseif(QV2RAY_ZXING_PROVIDER STREQUAL "package")
