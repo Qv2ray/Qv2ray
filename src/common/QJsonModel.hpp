@@ -25,11 +25,12 @@
 #pragma once
 
 #include <QAbstractItemModel>
+#include <QByteArray>
+#include <QIODevice>
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonValue>
-
 class QJsonModel;
 class QJsonItem;
 
