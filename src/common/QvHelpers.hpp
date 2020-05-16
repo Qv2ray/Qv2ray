@@ -6,8 +6,6 @@
 #include <QJsonDocument>
 #include <QMessageBox>
 #include <QRegularExpression>
-#include <QTextCursor>
-#include <QTextDocument>
 
 #define REGEX_IPV6_ADDR                                                                                                                         \
     R"(\[\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*\])"
@@ -29,11 +27,6 @@ namespace Qv2ray::common
     bool FileExistsIn(const QDir &dir, const QString &fileName);
     const QString GenerateRandomString(int len = 12);
     //
-    void QvMessageBoxWarn(QWidget *parent, const QString &title, const QString &text);
-    void QvMessageBoxInfo(QWidget *parent, const QString &title, const QString &text);
-    QMessageBox::StandardButton QvMessageBoxAsk(QWidget *parent, const QString &title, const QString &text,
-                                                QMessageBox::StandardButton extraButtons = QMessageBox::NoButton);
-    //
     QString StringFromFile(const QString &filePath);
     QString StringFromFile(QFile &source);
     bool StringToFile(const QString &text, QFile &target);
@@ -47,9 +40,6 @@ namespace Qv2ray::common
     QString FormatBytes(const int64_t bytes);
     void DeducePossibleFileName(const QString &baseDir, QString *fileName, const QString &extension);
     //
-    QPixmap ApplyEffectToImage(QPixmap src, QGraphicsEffect *effect, int extent);
-    QPixmap BlurImage(const QPixmap &pixmap, const double rad = 50);
-    QPixmap ColorizeImage(const QPixmap &pixmap, const QColor &color, const qreal factor);
     // This function cannot be marked as inline.
     QString RemoveInvalidFileName(const QString &fileName);
     bool IsValidFileName(const QString &fileName);
@@ -93,16 +83,22 @@ namespace Qv2ray::common
         timestamp.setSecsSinceEpoch(t);
         return timestamp.toString();
     }
-
-    inline void FastAppendTextDocument(const QString &message, QTextDocument *doc)
+    inline void QvMessageBoxWarn(QWidget *parent, const QString &title, const QString &text)
     {
-        QTextCursor cursor(doc);
-        cursor.movePosition(QTextCursor::End);
-        cursor.beginEditBlock();
-        cursor.insertBlock();
-        cursor.insertText(message);
-        cursor.endEditBlock();
+        QMessageBox::warning(parent, title, text, QMessageBox::Ok | QMessageBox::Default, 0);
     }
+
+    inline void QvMessageBoxInfo(QWidget *parent, const QString &title, const QString &text)
+    {
+        QMessageBox::information(parent, title, text, QMessageBox::Ok | QMessageBox::Default, 0);
+    }
+
+    inline QMessageBox::StandardButton QvMessageBoxAsk(QWidget *parent, const QString &title, const QString &text,
+                                                       QMessageBox::StandardButton extraButtons = QMessageBox::StandardButton::NoButton)
+    {
+        return QMessageBox::question(parent, title, text, QMessageBox::Yes | QMessageBox::No | extraButtons);
+    }
+
 } // namespace Qv2ray::common
 
 using namespace Qv2ray::common;

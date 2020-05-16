@@ -125,7 +125,7 @@ if(QV2RAY_ZXING_PROVIDER STREQUAL "module")
         ${ZXING_DIR}/src/pdf417/PDFScanningDecoder.cpp
         ${ZXING_DIR}/src/pdf417/PDFHighLevelEncoder.cpp
         ${ZXING_DIR}/src/pdf417/PDFModulusPoly.cpp
-    )
+        )
     set(ZXING_INCLUDE_PATH
         ${ZXING_DIR}/src
         ${ZXING_DIR}/src/aztec
@@ -136,7 +136,14 @@ if(QV2RAY_ZXING_PROVIDER STREQUAL "module")
         ${ZXING_DIR}/src/pdf417
         ${ZXING_DIR}/src/qrcode
         ${ZXING_DIR}/src/textcodec
-    )
+        )
+    set(ZXING_LIBRARY qv2ray-zxing)
+    add_library(${ZXING_LIBRARY} STATIC
+        ${ZXING_SOURCES}
+        )
+    target_include_directories(${ZXING_LIBRARY} PUBLIC
+        ${ZXING_INCLUDE_PATH}
+        )
 elseif(QV2RAY_ZXING_PROVIDER STREQUAL "package")
     find_package(PkgConfig REQUIRED)
     pkg_check_modules(ZXING REQUIRED zxing)

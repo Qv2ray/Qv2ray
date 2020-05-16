@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ui/models/NodeModelsBase.hpp"
+#include "NodeModelsBase.hpp"
 
 #include <QtCore/qglobal.h>
 

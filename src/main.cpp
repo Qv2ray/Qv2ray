@@ -6,7 +6,7 @@
 #include "core/settings/SettingsBackend.hpp"
 #include "src/components/plugins/QvPluginHost.hpp"
 #include "ui/styles/StyleManager.hpp"
-#include "ui/w_MainWindow.hpp"
+#include "ui/windows/w_MainWindow.hpp"
 
 #include <QApplication>
 #include <QFileInfo>

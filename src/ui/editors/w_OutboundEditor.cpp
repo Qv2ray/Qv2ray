@@ -1,6 +1,7 @@
 #include "w_OutboundEditor.hpp"
 
 #include "core/connection/Generation.hpp"
+#include "ui/common/UIBase.hpp"
 #include "ui/editors/w_JsonEditor.hpp"
 #include "ui/editors/w_RoutesEditor.hpp"
 

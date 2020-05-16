@@ -3,10 +3,6 @@
 #include "base/Qv2rayBase.hpp"
 #include "libs/puresource/src/PureJson.hpp"
 
-#include <QGraphicsEffect>
-#include <QGraphicsPixmapItem>
-#include <QGraphicsScene>
-
 namespace Qv2ray::common
 {
     const QString GenerateRandomString(int len)
@@ -112,7 +108,8 @@ namespace Qv2ray::common
     }
 
     // backported from QvPlugin-SSR.
-    QString SafeBase64Decode(QString string) {
+    QString SafeBase64Decode(QString string)
+    {
         QByteArray ba = string.replace(QChar('-'), QChar('+')).replace(QChar('_'), QChar('/')).toUtf8();
         return QByteArray::fromBase64(ba, QByteArray::Base64Option::OmitTrailingEquals);
     }
@@ -134,7 +131,6 @@ namespace Qv2ray::common
             return base64.replace(QChar('+'), QChar('-')).replace(QChar('/'), QChar('_'));
         }
     }
-
 
     QString Base64Encode(const QString &string)
     {
@@ -165,22 +161,6 @@ namespace Qv2ray::common
     bool FileExistsIn(const QDir &dir, const QString &fileName)
     {
         return GetFileList(dir).contains(fileName);
-    }
-
-    void QvMessageBoxWarn(QWidget *parent, const QString &title, const QString &text)
-    {
-        QMessageBox::warning(parent, title, text, QMessageBox::Ok | QMessageBox::Default, 0);
-    }
-
-    void QvMessageBoxInfo(QWidget *parent, const QString &title, const QString &text)
-    {
-        QMessageBox::information(parent, title, text, QMessageBox::Ok | QMessageBox::Default, 0);
-    }
-
-    QMessageBox::StandardButton QvMessageBoxAsk(QWidget *parent, const QString &title, const QString &text,
-                                                QMessageBox::StandardButton extraButtons)
-    {
-        return QMessageBox::question(parent, title, text, QMessageBox::Yes | QMessageBox::No | extraButtons);
     }
 
     QString FormatBytes(const int64_t b)
@@ -237,38 +217,5 @@ namespace Qv2ray::common
             i++;
         }
     }
-    QPixmap ApplyEffectToImage(QPixmap src, QGraphicsEffect *effect, int extent)
-    {
-        constexpr int extent2 = 0;
-        if (src.isNull())
-            return QPixmap(); // No need to do anything else!
-        if (!effect)
-            return src; // No need to do anything else!
-        QGraphicsScene scene;
-        auto p = scene.addPixmap(src);
-        p->setGraphicsEffect(effect);
-        //
-        QImage res(src.size() + QSize(extent2, extent2), QImage::Format_ARGB32);
-        res.fill(Qt::transparent);
-        QPainter ptr(&res);
-        //
-        scene.render(&ptr, QRectF(), QRectF(-extent, -extent, src.width() + extent2, src.height() + extent * 2));
-        //
-        scene.removeItem(p);
-        return QPixmap::fromImage(res);
-    }
-    QPixmap BlurImage(const QPixmap &pixmap, const double rad)
-    {
-        QGraphicsBlurEffect pBlur;
-        pBlur.setBlurRadius(rad);
-        return ApplyEffectToImage(pixmap, &pBlur, 0);
-    }
 
-    QPixmap ColorizeImage(const QPixmap &pixmap, const QColor &color, const qreal factor)
-    {
-        QGraphicsColorizeEffect pColor;
-        pColor.setColor(color);
-        pColor.setStrength(factor);
-        return ApplyEffectToImage(pixmap, &pColor, 0);
-    }
 } // namespace Qv2ray::common

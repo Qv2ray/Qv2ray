@@ -2,7 +2,7 @@
 
 #include "core/settings/SettingsBackend.hpp"
 
-namespace Qv2ray::common
+namespace Qv2ray::ui
 {
     vCoreConfigJsonHighlighter::vCoreConfigJsonHighlighter(QTextDocument *parent) : QSyntaxHighlighter(parent)
     {
@@ -108,4 +108,4 @@ namespace Qv2ray::common
         setCurrentBlockState(0);
     }
 
-} // namespace Qv2ray::common
+} // namespace Qv2ray::ui

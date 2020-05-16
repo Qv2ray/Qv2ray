@@ -1,9 +1,7 @@
 #pragma once
 //
-#include <QApplication>
 #include <QMap>
 #include <QtCore>
-#include <QtGui>
 #include <algorithm>
 #include <ctime>
 #include <iostream>
@@ -120,7 +118,7 @@ namespace Qv2ray
     inline void ExitQv2ray()
     {
         isExiting = true;
-        QApplication::quit();
+        QCoreApplication::quit();
     }
 
     inline QStringList Qv2rayAssetsPaths(const QString &dirName)
@@ -135,15 +133,15 @@ namespace Qv2ray
         list << QString("/usr/share/qv2ray/" + dirName);
         list << QString("/usr/local/share/qv2ray/" + dirName);
         // For AppImage?
-        list << QString(QDir(QApplication::applicationDirPath() + "/../share/qv2ray/" + dirName).absolutePath());
+        list << QString(QDir(QCoreApplication::applicationDirPath() + "/../share/qv2ray/" + dirName).absolutePath());
 #elif defined(Q_OS_MAC)
         // macOS platform directories.
-        list << QDir(QApplication::applicationDirPath() + "/../Resources/" + dirName).absolutePath();
+        list << QDir(QCoreApplication::applicationDirPath() + "/../Resources/" + dirName).absolutePath();
 #endif
         list << QStandardPaths::locateAll(QStandardPaths::AppDataLocation, dirName, QStandardPaths::LocateDirectory);
         list << QStandardPaths::locateAll(QStandardPaths::AppConfigLocation, dirName, QStandardPaths::LocateDirectory);
         // This is the default behavior on Windows
-        list << QApplication::applicationDirPath() + "/" + dirName;
+        list << QCoreApplication::applicationDirPath() + "/" + dirName;
         list.removeDuplicates();
         return list;
     };
