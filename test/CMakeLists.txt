@@ -21,3 +21,4 @@ add_test(NAME QV2RAY_TEST_${TEST_NAME} COMMAND $<TARGET_FILE:${TEST_NAME}>)
 endfunction()
 
 ADD_QV2RAY_TEST(parse_ss_url src/core/connection/TestParseSS.cpp)
+ADD_QV2RAY_TEST(parse_vmess_url src/core/connection/TestParseVmess.cpp)
