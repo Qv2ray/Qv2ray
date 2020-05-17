@@ -1,7 +1,9 @@
 #include "KernelInstanceHandler.hpp"
 
+#include "components/port/QvPortDetector.hpp"
 #include "core/CoreUtils.hpp"
 #include "core/connection/Generation.hpp"
+
 namespace Qv2ray::core::handlers
 {
 #define isConnected (vCoreInstance->KernelStarted || !activeKernels.empty())
@@ -44,6 +46,24 @@ namespace Qv2ray::core::handlers
         bool isComplex = IsComplexConfig(root);
         auto fullConfig = GenerateRuntimeConfig(root);
         inboundPorts = GetConfigInboundPorts(fullConfig);
+        //
+        // Check inbound port allocation issue.
+        QStringList portDetectionErrorMessage;
+        auto portDetectionMsg = tr("Another process is using the port required to start the connection:") + NEWLINE + NEWLINE;
+        for (const auto &key : inboundPorts.keys())
+        {
+            auto result = components::port::detectPortTCP(inboundPorts[key]);
+            if (!result)
+            {
+                portDetectionErrorMessage << tr("Port %1 for inbound tag: \"%2\"").arg(inboundPorts[key]).arg(key);
+            }
+        }
+        if (!portDetectionErrorMessage.isEmpty())
+        {
+            portDetectionMsg += portDetectionErrorMessage.join(NEWLINE);
+            return portDetectionMsg;
+        }
+        //
         PluginHost->Send_ConnectivityEvent({ GetDisplayName(id.connectionId), inboundPorts, Events::Connectivity::Connecting });
         QList<std::tuple<QString, int, QString>> inboundInfo;
         for (const auto &inbound_v : fullConfig["inbounds"].toArray())

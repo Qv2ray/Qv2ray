@@ -337,12 +337,17 @@ namespace Qv2ray::core::handlers
         return {};
     }
 
-    const std::optional<QString> QvConfigHandler::StartConnection(const ConnectionId &id, const GroupId &group)
+    bool QvConfigHandler::StartConnection(const ConnectionId &id, const GroupId &group)
     {
-        CheckConnectionExistance(id);
+        CheckConnectionExistanceEx(id, false);
         connections[id].lastConnected = system_clock::to_time_t(system_clock::now());
         CONFIGROOT root = GetConnectionRoot(id);
-        return kernelHandler->StartConnection({ id, group }, root);
+        auto errMsg = kernelHandler->StartConnection({ id, group }, root);
+        if (errMsg)
+        {
+            QvMessageBoxWarn(nullptr, tr("Failed to start connection"), errMsg.value());
+        }
+        return !errMsg.has_value();
     }
 
     void QvConfigHandler::RestartConnection() // const ConnectionId &id

@@ -315,9 +315,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     if (GlobalConfig.autoStartId.connectionId != NullConnectionId)
     {
-        // Empty means we are connected, so has_value is false.
-        // So no need to show is false.
-        needShowWindow = ConnectionManager->StartConnection(GlobalConfig.autoStartId.connectionId, GlobalConfig.autoStartId.groupId).has_value();
+        // If true means connected. So inverse.
+        needShowWindow = !ConnectionManager->StartConnection(GlobalConfig.autoStartId.connectionId, GlobalConfig.autoStartId.groupId);
     }
     if (needShowWindow && connectionListWidget->topLevelItemCount() > 0)
     {

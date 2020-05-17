@@ -29,7 +29,7 @@ namespace Qv2ray::core::handlers
       public slots:
         //
         //
-        inline std::optional<QString> StartConnection(const ConnectionGroupPair &identifier)
+        inline bool StartConnection(const ConnectionGroupPair &identifier)
         {
             return StartConnection(identifier.connectionId, identifier.groupId);
         }
@@ -81,7 +81,7 @@ namespace Qv2ray::core::handlers
         const QList<GroupId> GetGroupId(const ConnectionId &connId) const;
         //
         // Connectivity Operationss
-        const std::optional<QString> StartConnection(const ConnectionId &identifier, const GroupId &group);
+        bool StartConnection(const ConnectionId &identifier, const GroupId &group);
         void StopConnection(); // const ConnectionId &id
         void RestartConnection();
         //
