@@ -670,12 +670,14 @@ void RouteEditor::on_addDefaultBtn_clicked()
     //
     auto _Inconfig = GlobalConfig.inboundConfig;
     //
-    auto _in_httpConf = GenerateHTTPIN(QList<AccountObject>() << _Inconfig.httpAccount);
-    auto _in_socksConf = GenerateSocksIN((_Inconfig.socks_useAuth ? "password" : "noauth"), QList<AccountObject>() << _Inconfig.socksAccount,
-                                         _Inconfig.socksUDP, _Inconfig.socksLocalIP);
+    auto _in_httpConf = GenerateHTTPIN(QList<AccountObject>() << _Inconfig.httpSettings.account);
+    auto _in_socksConf = GenerateSocksIN((_Inconfig.socksSettings.useAuth ? "password" : "noauth"), //
+                                         QList<AccountObject>() << _Inconfig.socksSettings.account, //
+                                         _Inconfig.socksSettings.enableUDP,                         //
+                                         _Inconfig.socksSettings.localIP);
     //
-    auto _in_HTTP = GenerateInboundEntry(_Inconfig.listenip, _Inconfig.http_port, "http", _in_httpConf, "HTTP_gConf");
-    auto _in_SOCKS = GenerateInboundEntry(_Inconfig.listenip, _Inconfig.socks_port, "socks", _in_socksConf, "SOCKS_gConf");
+    auto _in_HTTP = GenerateInboundEntry(_Inconfig.listenip, _Inconfig.httpSettings.port, "http", _in_httpConf, "HTTP_gConf");
+    auto _in_SOCKS = GenerateInboundEntry(_Inconfig.listenip, _Inconfig.socksSettings.port, "socks", _in_socksConf, "SOCKS_gConf");
     //
     AddInbound(_in_HTTP);
     AddInbound(_in_SOCKS);

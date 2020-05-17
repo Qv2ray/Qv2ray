@@ -634,7 +634,7 @@ void MainWindow::OnDisconnected(const ConnectionGroupPair &id)
     netspeedLabel->setText("0.00 B/s" NEWLINE "0.00 B/s");
     dataamountLabel->setText("0.00 B" NEWLINE "0.00 B");
     connetionStatusLabel->setText(tr("Not Connected"));
-    if (GlobalConfig.inboundConfig.setSystemProxy)
+    if (GlobalConfig.inboundConfig.systemProxySettings.setSystemProxy)
     {
         ClearSystemProxy();
     }
@@ -660,7 +660,7 @@ void MainWindow::OnConnected(const ConnectionGroupPair &id)
     connetionStatusLabel->setText(tr("Connected: ") + name);
     //
     ConnectionManager->StartLatencyTest(id.connectionId);
-    if (GlobalConfig.inboundConfig.setSystemProxy)
+    if (GlobalConfig.inboundConfig.systemProxySettings.setSystemProxy)
     {
         MWSetSystemProxy();
     }

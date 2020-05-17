@@ -360,6 +360,44 @@ namespace Qv2ray
                 UPGRADELOG("Finished upgrading config file for Qv2ray Group Routing update.")
                 break;
             }
+            case 12:
+            {
+                auto inboundConfig = root["inboundConfig"].toObject();
+                //
+                QJsonObject socksSettings;
+                QJsonObject httpSettings;
+                QJsonObject tProxySettings;
+                QJsonObject systemProxySettings;
+                systemProxySettings["setSystemProxy"] = inboundConfig["setSystemProxy"];
+                //
+                socksSettings["port"] = inboundConfig["socks_port"];
+                socksSettings["useAuth"] = inboundConfig["socks_useAuth"];
+                socksSettings["enableUDP"] = inboundConfig["socksUDP"];
+                socksSettings["localIP"] = inboundConfig["socksLocalIP"];
+                socksSettings["account"] = inboundConfig["socksAccount"];
+                socksSettings["sniffing"] = inboundConfig["socksSniffing"];
+                //
+                httpSettings["port"] = inboundConfig["http_port"];
+                httpSettings["useAuth"] = inboundConfig["http_useAuth"];
+                httpSettings["account"] = inboundConfig["httpAccount"];
+                httpSettings["sniffing"] = inboundConfig["httpSniffing"];
+                //
+                tProxySettings["tProxyIP"] = inboundConfig["tproxy_ip"];
+                tProxySettings["port"] = inboundConfig["tproxy_port"];
+                tProxySettings["hasTCP"] = inboundConfig["tproxy_use_tcp"];
+                tProxySettings["hasUDP"] = inboundConfig["tproxy_use_udp"];
+                tProxySettings["followRedirect"] = inboundConfig["tproxy_followRedirect"];
+                tProxySettings["mode"] = inboundConfig["tproxy_mode"];
+                tProxySettings["dnsIntercept"] = inboundConfig["dnsIntercept"];
+                //
+                inboundConfig["systemProxySettings"] = systemProxySettings;
+                inboundConfig["socksSettings"] = socksSettings;
+                inboundConfig["httpSettings"] = httpSettings;
+                inboundConfig["tProxySettings"] = tProxySettings;
+                //
+                root["inboundConfig"] = inboundConfig;
+                break;
+            }
             default:
             {
                 //

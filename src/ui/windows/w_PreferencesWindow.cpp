@@ -84,43 +84,42 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     //
     bool have_http = CurrentConfig.inboundConfig.useHTTP;
     httpGroupBox->setChecked(have_http);
-    httpPortLE->setValue(CurrentConfig.inboundConfig.http_port);
-    httpAuthCB->setChecked(CurrentConfig.inboundConfig.http_useAuth);
+    httpPortLE->setValue(CurrentConfig.inboundConfig.httpSettings.port);
+    httpAuthCB->setChecked(CurrentConfig.inboundConfig.httpSettings.useAuth);
     //
-    httpAuthCB->setChecked(CurrentConfig.inboundConfig.http_useAuth);
-    httpAuthUsernameTxt->setEnabled(CurrentConfig.inboundConfig.http_useAuth);
-    httpAuthPasswordTxt->setEnabled(CurrentConfig.inboundConfig.http_useAuth);
-    httpAuthUsernameTxt->setText(CurrentConfig.inboundConfig.httpAccount.user);
-    httpAuthPasswordTxt->setText(CurrentConfig.inboundConfig.httpAccount.pass);
-    httpSniffingCB->setChecked(CurrentConfig.inboundConfig.httpSniffing);
+    httpAuthUsernameTxt->setEnabled(CurrentConfig.inboundConfig.httpSettings.useAuth);
+    httpAuthPasswordTxt->setEnabled(CurrentConfig.inboundConfig.httpSettings.useAuth);
+    httpAuthUsernameTxt->setText(CurrentConfig.inboundConfig.httpSettings.account.user);
+    httpAuthPasswordTxt->setText(CurrentConfig.inboundConfig.httpSettings.account.pass);
+    httpSniffingCB->setChecked(CurrentConfig.inboundConfig.httpSettings.sniffing);
     //
     //
     bool have_socks = CurrentConfig.inboundConfig.useSocks;
     socksGroupBox->setChecked(have_socks);
-    socksPortLE->setValue(CurrentConfig.inboundConfig.socks_port);
+    socksPortLE->setValue(CurrentConfig.inboundConfig.socksSettings.port);
     //
-    socksAuthCB->setChecked(CurrentConfig.inboundConfig.socks_useAuth);
-    socksAuthUsernameTxt->setEnabled(CurrentConfig.inboundConfig.socks_useAuth);
-    socksAuthPasswordTxt->setEnabled(CurrentConfig.inboundConfig.socks_useAuth);
-    socksAuthUsernameTxt->setText(CurrentConfig.inboundConfig.socksAccount.user);
-    socksAuthPasswordTxt->setText(CurrentConfig.inboundConfig.socksAccount.pass);
+    socksAuthCB->setChecked(CurrentConfig.inboundConfig.socksSettings.useAuth);
+    socksAuthUsernameTxt->setEnabled(CurrentConfig.inboundConfig.socksSettings.useAuth);
+    socksAuthPasswordTxt->setEnabled(CurrentConfig.inboundConfig.socksSettings.useAuth);
+    socksAuthUsernameTxt->setText(CurrentConfig.inboundConfig.socksSettings.account.user);
+    socksAuthPasswordTxt->setText(CurrentConfig.inboundConfig.socksSettings.account.pass);
     // Socks UDP Options
-    socksUDPCB->setChecked(CurrentConfig.inboundConfig.socksUDP);
-    socksUDPIP->setEnabled(CurrentConfig.inboundConfig.socksUDP);
-    socksUDPIP->setText(CurrentConfig.inboundConfig.socksLocalIP);
-    socksSniffingCB->setChecked(CurrentConfig.inboundConfig.socksSniffing);
+    socksUDPCB->setChecked(CurrentConfig.inboundConfig.socksSettings.enableUDP);
+    socksUDPIP->setEnabled(CurrentConfig.inboundConfig.socksSettings.enableUDP);
+    socksUDPIP->setText(CurrentConfig.inboundConfig.socksSettings.localIP);
+    socksSniffingCB->setChecked(CurrentConfig.inboundConfig.socksSettings.sniffing);
     //
     //
     bool have_tproxy = CurrentConfig.inboundConfig.useTPROXY;
     tproxGroupBox->setChecked(have_tproxy);
-    tproxyListenAddr->setText(CurrentConfig.inboundConfig.tproxy_ip);
-    tProxyPort->setValue(CurrentConfig.inboundConfig.tproxy_port);
-    tproxyEnableTCP->setChecked(CurrentConfig.inboundConfig.tproxy_use_tcp);
-    tproxyEnableUDP->setChecked(CurrentConfig.inboundConfig.tproxy_use_udp);
-    tproxyFollowRedirect->setChecked(CurrentConfig.inboundConfig.tproxy_followRedirect);
-    tproxyMode->setCurrentText(CurrentConfig.inboundConfig.tproxy_mode);
+    tproxyListenAddr->setText(CurrentConfig.inboundConfig.tProxySettings.tProxyIP);
+    tProxyPort->setValue(CurrentConfig.inboundConfig.tProxySettings.port);
+    tproxyEnableTCP->setChecked(CurrentConfig.inboundConfig.tProxySettings.hasTCP);
+    tproxyEnableUDP->setChecked(CurrentConfig.inboundConfig.tProxySettings.hasUDP);
+    tproxyFollowRedirect->setChecked(CurrentConfig.inboundConfig.tProxySettings.followRedirect);
+    tproxyMode->setCurrentText(CurrentConfig.inboundConfig.tProxySettings.mode);
     outboundMark->setValue(CurrentConfig.outboundConfig.mark);
-    dnsIntercept->setChecked(CurrentConfig.inboundConfig.dnsIntercept);
+    dnsIntercept->setChecked(CurrentConfig.inboundConfig.tProxySettings.dnsIntercept);
     DnsFreedomCb->setChecked(CurrentConfig.connectionConfig.v2rayFreedomDNS);
     //
     //
@@ -224,7 +223,7 @@ PreferencesWindow::PreferencesWindow(QWidget *parent) : QDialog(parent), Current
     //
     maxLogLinesSB->setValue(CurrentConfig.uiConfig.maximumLogLines);
     //
-    setSysProxyCB->setChecked(CurrentConfig.inboundConfig.setSystemProxy);
+    setSysProxyCB->setChecked(CurrentConfig.inboundConfig.systemProxySettings.setSystemProxy);
     //
     finishedLoading = true;
     routeSettingsWidget = new RouteSettingsMatrixWidget(CurrentConfig.kernelConfig.AssetsPath(), this);
@@ -257,19 +256,19 @@ void PreferencesWindow::on_buttonBox_accepted()
     if (CurrentConfig.inboundConfig.useHTTP)
     {
         size++;
-        ports << CurrentConfig.inboundConfig.http_port;
+        ports << CurrentConfig.inboundConfig.httpSettings.port;
     }
 
     if (CurrentConfig.inboundConfig.useSocks)
     {
         size++;
-        ports << CurrentConfig.inboundConfig.socks_port;
+        ports << CurrentConfig.inboundConfig.socksSettings.port;
     }
 
     if (CurrentConfig.inboundConfig.useTPROXY)
     {
         size++;
-        ports << CurrentConfig.inboundConfig.tproxy_port;
+        ports << CurrentConfig.inboundConfig.tProxySettings.port;
     }
 
     if (!StartupOption.noAPI)
@@ -326,7 +325,7 @@ void PreferencesWindow::on_httpAuthCB_stateChanged(int checked)
     bool enabled = checked == Qt::Checked;
     httpAuthUsernameTxt->setEnabled(enabled);
     httpAuthPasswordTxt->setEnabled(enabled);
-    CurrentConfig.inboundConfig.http_useAuth = enabled;
+    CurrentConfig.inboundConfig.httpSettings.useAuth = enabled;
 }
 
 void PreferencesWindow::on_socksAuthCB_stateChanged(int checked)
@@ -335,7 +334,7 @@ void PreferencesWindow::on_socksAuthCB_stateChanged(int checked)
     bool enabled = checked == Qt::Checked;
     socksAuthUsernameTxt->setEnabled(enabled);
     socksAuthPasswordTxt->setEnabled(enabled);
-    CurrentConfig.inboundConfig.socks_useAuth = enabled;
+    CurrentConfig.inboundConfig.socksSettings.useAuth = enabled;
 }
 
 void PreferencesWindow::on_languageComboBox_currentTextChanged(const QString &arg1)
@@ -377,25 +376,25 @@ void PreferencesWindow::on_listenIPTxt_textEdited(const QString &arg1)
 void PreferencesWindow::on_httpAuthUsernameTxt_textEdited(const QString &arg1)
 {
     NEEDRESTART
-    CurrentConfig.inboundConfig.httpAccount.user = arg1;
+    CurrentConfig.inboundConfig.httpSettings.account.user = arg1;
 }
 
 void PreferencesWindow::on_httpAuthPasswordTxt_textEdited(const QString &arg1)
 {
     NEEDRESTART
-    CurrentConfig.inboundConfig.httpAccount.pass = arg1;
+    CurrentConfig.inboundConfig.httpSettings.account.pass = arg1;
 }
 
 void PreferencesWindow::on_socksAuthUsernameTxt_textEdited(const QString &arg1)
 {
     NEEDRESTART
-    CurrentConfig.inboundConfig.socksAccount.user = arg1;
+    CurrentConfig.inboundConfig.socksSettings.account.user = arg1;
 }
 
 void PreferencesWindow::on_socksAuthPasswordTxt_textEdited(const QString &arg1)
 {
     NEEDRESTART
-    CurrentConfig.inboundConfig.socksAccount.pass = arg1;
+    CurrentConfig.inboundConfig.socksSettings.account.pass = arg1;
 }
 
 void PreferencesWindow::on_proxyDefaultCb_stateChanged(int arg1)
@@ -627,26 +626,26 @@ void PreferencesWindow::on_statsPortBox_valueChanged(int arg1)
 void PreferencesWindow::on_socksPortLE_valueChanged(int arg1)
 {
     NEEDRESTART
-    CurrentConfig.inboundConfig.socks_port = arg1;
+    CurrentConfig.inboundConfig.socksSettings.port = arg1;
 }
 
 void PreferencesWindow::on_httpPortLE_valueChanged(int arg1)
 {
     NEEDRESTART
-    CurrentConfig.inboundConfig.http_port = arg1;
+    CurrentConfig.inboundConfig.httpSettings.port = arg1;
 }
 
 void PreferencesWindow::on_socksUDPCB_stateChanged(int arg1)
 {
     NEEDRESTART
-    CurrentConfig.inboundConfig.socksUDP = arg1 == Qt::Checked;
+    CurrentConfig.inboundConfig.socksSettings.enableUDP = arg1 == Qt::Checked;
     socksUDPIP->setEnabled(arg1 == Qt::Checked);
 }
 
 void PreferencesWindow::on_socksUDPIP_textEdited(const QString &arg1)
 {
     NEEDRESTART
-    CurrentConfig.inboundConfig.socksLocalIP = arg1;
+    CurrentConfig.inboundConfig.socksSettings.localIP = arg1;
 
     if (IsValidIPAddress(arg1))
     {
@@ -690,7 +689,7 @@ void PreferencesWindow::on_setSysProxyCB_stateChanged(int arg1)
 {
     LOADINGCHECK
     NEEDRESTART
-    CurrentConfig.inboundConfig.setSystemProxy = arg1 == Qt::Checked;
+    CurrentConfig.inboundConfig.systemProxySettings.setSystemProxy = arg1 == Qt::Checked;
 }
 
 void PreferencesWindow::on_autoStartSubsCombo_currentIndexChanged(const QString &arg1)
@@ -952,37 +951,37 @@ void PreferencesWindow::on_tproxGroupBox_toggled(bool arg1)
 void PreferencesWindow::on_tProxyPort_valueChanged(int arg1)
 {
     NEEDRESTART
-    CurrentConfig.inboundConfig.tproxy_port = arg1;
+    CurrentConfig.inboundConfig.tProxySettings.port = arg1;
 }
 
 void PreferencesWindow::on_tproxyEnableTCP_toggled(bool checked)
 {
     NEEDRESTART
-    CurrentConfig.inboundConfig.tproxy_use_tcp = checked;
+    CurrentConfig.inboundConfig.tProxySettings.hasTCP = checked;
 }
 
 void PreferencesWindow::on_tproxyEnableUDP_toggled(bool checked)
 {
     NEEDRESTART
-    CurrentConfig.inboundConfig.tproxy_use_udp = checked;
+    CurrentConfig.inboundConfig.tProxySettings.hasUDP = checked;
 }
 
 void PreferencesWindow::on_tproxyFollowRedirect_toggled(bool checked)
 {
     NEEDRESTART
-    CurrentConfig.inboundConfig.tproxy_followRedirect = checked;
+    CurrentConfig.inboundConfig.tProxySettings.followRedirect = checked;
 }
 
 void PreferencesWindow::on_tproxyMode_currentTextChanged(const QString &arg1)
 {
     NEEDRESTART
-    CurrentConfig.inboundConfig.tproxy_mode = arg1;
+    CurrentConfig.inboundConfig.tProxySettings.mode = arg1;
 }
 
 void PreferencesWindow::on_tproxyListenAddr_textEdited(const QString &arg1)
 {
     NEEDRESTART
-    CurrentConfig.inboundConfig.tproxy_ip = arg1;
+    CurrentConfig.inboundConfig.tProxySettings.tProxyIP = arg1;
 }
 
 void PreferencesWindow::on_jumpListCountSB_valueChanged(int arg1)
@@ -999,7 +998,7 @@ void PreferencesWindow::on_outboundMark_valueChanged(int arg1)
 void PreferencesWindow::on_dnsIntercept_toggled(bool checked)
 {
     NEEDRESTART
-    CurrentConfig.inboundConfig.dnsIntercept = checked;
+    CurrentConfig.inboundConfig.tProxySettings.dnsIntercept = checked;
 }
 
 void PreferencesWindow::on_qvProxyCustomProxy_clicked()
@@ -1026,11 +1025,11 @@ void PreferencesWindow::on_DnsFreedomCb_stateChanged(int arg1)
 void PreferencesWindow::on_httpSniffingCB_stateChanged(int arg1)
 {
     NEEDRESTART
-    CurrentConfig.inboundConfig.httpSniffing = arg1 == Qt::Checked;
+    CurrentConfig.inboundConfig.httpSettings.sniffing = arg1 == Qt::Checked;
 }
 
 void PreferencesWindow::on_socksSniffingCB_stateChanged(int arg1)
 {
     NEEDRESTART
-    CurrentConfig.inboundConfig.socksSniffing = arg1 == Qt::Checked;
+    CurrentConfig.inboundConfig.socksSettings.sniffing = arg1 == Qt::Checked;
 }

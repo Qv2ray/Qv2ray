@@ -5,7 +5,7 @@
 
 #include <chrono>
 
-const int QV2RAY_CONFIG_VERSION = 12;
+const int QV2RAY_CONFIG_VERSION = 13;
 
 namespace Qv2ray::base::config
 {
@@ -22,48 +22,65 @@ namespace Qv2ray::base::config
             : enableForwardProxy(false), type("http"), serverAddress("127.0.0.1"), port(8008), useAuth(false), username(), password(){};
         JSONSTRUCT_REGISTER(Qv2rayConfig_ForwardProxy, F(enableForwardProxy, type, serverAddress, port, useAuth, username, password))
     };
+    struct Qv2rayConfig_SystemProxy
+    {
+        bool setSystemProxy;
+        Qv2rayConfig_SystemProxy() : setSystemProxy(true){};
+        JSONSTRUCT_REGISTER(Qv2rayConfig_SystemProxy, F(setSystemProxy))
+    };
+
+    struct Qv2rayConfig_SocksInbound
+    {
+        int port;
+        bool useAuth;
+        bool enableUDP;
+        QString localIP;
+        objects::AccountObject account;
+        bool sniffing;
+        Qv2rayConfig_SocksInbound() : port(1089), useAuth(false), enableUDP(true), localIP("127.0.0.1"), account(), sniffing(false){};
+        JSONSTRUCT_REGISTER(Qv2rayConfig_SocksInbound, F(port, useAuth, enableUDP, localIP, account, sniffing))
+    };
+
+    struct Qv2rayConfig_HttpInbound
+    {
+        int port;
+        bool useAuth;
+        objects::AccountObject account;
+        bool sniffing;
+        Qv2rayConfig_HttpInbound() : port(8889), useAuth(false), account(), sniffing(false){};
+        JSONSTRUCT_REGISTER(Qv2rayConfig_HttpInbound, F(port, useAuth, account, sniffing))
+    };
+
+    struct Qv2rayConfig_tProxy
+    {
+        QString tProxyIP;
+        int port;
+        bool hasTCP;
+        bool hasUDP;
+        bool followRedirect;
+        QString mode;
+        bool dnsIntercept;
+        Qv2rayConfig_tProxy()
+            : tProxyIP("127.0.0.1"), port(12345), hasTCP(true), hasUDP(false), followRedirect(true), mode("tproxy"), dnsIntercept(true){};
+        JSONSTRUCT_REGISTER(Qv2rayConfig_tProxy, F(tProxyIP, port, hasTCP, hasUDP, followRedirect, mode, dnsIntercept))
+    };
 
     struct Qv2rayConfig_Inbounds
     {
         QString listenip;
-        bool setSystemProxy;
-
-        // SOCKS
         bool useSocks;
-        int socks_port;
-        bool socks_useAuth;
-        bool socksUDP;
-        QString socksLocalIP;
-        objects::AccountObject socksAccount;
-        bool socksSniffing;
-        // HTTP
         bool useHTTP;
-        int http_port;
-        bool http_useAuth;
-        objects::AccountObject httpAccount;
-        bool httpSniffing;
-
-        // dokodemo-door transparent proxy
         bool useTPROXY;
-        QString tproxy_ip;
-        int tproxy_port;
-        bool tproxy_use_tcp;
-        bool tproxy_use_udp;
-        bool tproxy_followRedirect;
-        /*redirect or tproxy way, and tproxy need cap_net_admin*/
-        QString tproxy_mode;
-        bool dnsIntercept;
+        //
+        Qv2rayConfig_tProxy tProxySettings;
+        Qv2rayConfig_HttpInbound httpSettings;
+        Qv2rayConfig_SocksInbound socksSettings;
+        Qv2rayConfig_SystemProxy systemProxySettings;
+        Qv2rayConfig_Inbounds() : listenip("127.0.0.1"), useSocks(true), useHTTP(true), useTPROXY(false){};
 
-        Qv2rayConfig_Inbounds()
-            : listenip("127.0.0.1"), setSystemProxy(true), useSocks(true), socks_port(1089), socks_useAuth(false), socksUDP(true),
-              socksLocalIP("127.0.0.1"), socksAccount(), socksSniffing(false), useHTTP(true), http_port(8889), http_useAuth(false),
-              httpAccount(), httpSniffing(false), useTPROXY(false), tproxy_ip("127.0.0.1"), tproxy_port(12345), tproxy_use_tcp(true),
-              tproxy_use_udp(false), tproxy_followRedirect(true), tproxy_mode("tproxy"), dnsIntercept(true){};
-
-        JSONSTRUCT_REGISTER(Qv2rayConfig_Inbounds,
-                            F(setSystemProxy, listenip, useSocks, useHTTP, socks_port, socks_useAuth, socksAccount, socksSniffing, socksUDP,
-                              socksLocalIP, http_port, http_useAuth, httpAccount, httpSniffing, useTPROXY),
-                            F(tproxy_ip, tproxy_port, tproxy_use_tcp, tproxy_use_udp, tproxy_followRedirect, tproxy_mode, dnsIntercept))
+        JSONSTRUCT_REGISTER(Qv2rayConfig_Inbounds,                     //
+                            F(listenip, useSocks, useHTTP, useTPROXY), //
+                            F(tProxySettings, httpSettings, socksSettings, systemProxySettings))
     };
 
     struct Qv2rayConfig_Outbounds

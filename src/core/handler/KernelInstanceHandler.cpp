@@ -115,8 +115,8 @@ namespace Qv2ray::core::handlers
                         pluginProcessedOutboundList.append({ originalOutboundTag, inTag, freedomTag });
                         _PluginPortAlloc++;
                     }
-                    _inboundSettings[k::KERNEL_SOCKS_UDP_ENABLED] = GlobalConfig.inboundConfig.socksUDP;
-                    _inboundSettings[k::KERNEL_SOCKS_LOCAL_ADDRESS] = GlobalConfig.inboundConfig.socksLocalIP;
+                    _inboundSettings[k::KERNEL_SOCKS_UDP_ENABLED] = GlobalConfig.inboundConfig.socksSettings.enableUDP;
+                    _inboundSettings[k::KERNEL_SOCKS_LOCAL_ADDRESS] = GlobalConfig.inboundConfig.socksSettings.localIP;
                     _inboundSettings[k::KERNEL_LISTEN_ADDRESS] = GlobalConfig.inboundConfig.listenip;
                     LOG(MODULE_CONNECTION, "Sending connection settings to kernel.")
                     activeKernels[outProtocol]->SetConnectionSettings(_inboundSettings, outbound["settings"].toObject());
@@ -232,8 +232,8 @@ namespace Qv2ray::core::handlers
                 currentId = id;
                 lastConnectionId = id;
                 //
-                pluginInboundPort[k::KERNEL_SOCKS_UDP_ENABLED] = GlobalConfig.inboundConfig.socksUDP;
-                pluginInboundPort[k::KERNEL_SOCKS_LOCAL_ADDRESS] = GlobalConfig.inboundConfig.socksLocalIP;
+                pluginInboundPort[k::KERNEL_SOCKS_UDP_ENABLED] = GlobalConfig.inboundConfig.socksSettings.enableUDP;
+                pluginInboundPort[k::KERNEL_SOCKS_LOCAL_ADDRESS] = GlobalConfig.inboundConfig.socksSettings.localIP;
                 pluginInboundPort[k::KERNEL_LISTEN_ADDRESS] = GlobalConfig.inboundConfig.listenip;
                 //
                 activeKernels[protocol]->SetConnectionSettings(pluginInboundPort, firstOutbound["settings"].toObject());

@@ -316,17 +316,17 @@ namespace Qv2ray::core::connection
                 {
                     INBOUND httpInBoundObject;
                     httpInBoundObject.insert("listen", GlobalConfig.inboundConfig.listenip);
-                    httpInBoundObject.insert("port", GlobalConfig.inboundConfig.http_port);
+                    httpInBoundObject.insert("port", GlobalConfig.inboundConfig.httpSettings.port);
                     httpInBoundObject.insert("protocol", "http");
                     httpInBoundObject.insert("tag", "http_IN");
-                    if (!GlobalConfig.inboundConfig.httpSniffing)
+                    if (!GlobalConfig.inboundConfig.httpSettings.sniffing)
                     {
                         httpInBoundObject.insert("sniffing", sniffingObject);
                     }
 
-                    if (GlobalConfig.inboundConfig.http_useAuth)
+                    if (GlobalConfig.inboundConfig.httpSettings.useAuth)
                     {
-                        auto httpInSettings = GenerateHTTPIN(QList<AccountObject>() << GlobalConfig.inboundConfig.httpAccount);
+                        auto httpInSettings = GenerateHTTPIN(QList<AccountObject>() << GlobalConfig.inboundConfig.httpSettings.account);
                         httpInBoundObject.insert("settings", httpInSettings);
                     }
 
@@ -338,17 +338,18 @@ namespace Qv2ray::core::connection
                 {
                     INBOUND socksInBoundObject;
                     socksInBoundObject.insert("listen", GlobalConfig.inboundConfig.listenip);
-                    socksInBoundObject.insert("port", GlobalConfig.inboundConfig.socks_port);
+                    socksInBoundObject.insert("port", GlobalConfig.inboundConfig.socksSettings.port);
                     socksInBoundObject.insert("protocol", "socks");
                     socksInBoundObject.insert("tag", "socks_IN");
-                    if (!GlobalConfig.inboundConfig.socksSniffing)
+                    if (!GlobalConfig.inboundConfig.socksSettings.sniffing)
                     {
                         socksInBoundObject.insert("sniffing", sniffingObject);
                     }
 
-                    auto socksInSettings = GenerateSocksIN(GlobalConfig.inboundConfig.socks_useAuth ? "password" : "noauth",
-                                                           QList<AccountObject>() << GlobalConfig.inboundConfig.socksAccount,
-                                                           GlobalConfig.inboundConfig.socksUDP, GlobalConfig.inboundConfig.socksLocalIP);
+                    auto socksInSettings =
+                        GenerateSocksIN(GlobalConfig.inboundConfig.socksSettings.useAuth ? "password" : "noauth",
+                                        QList<AccountObject>() << GlobalConfig.inboundConfig.socksSettings.account,
+                                        GlobalConfig.inboundConfig.socksSettings.enableUDP, GlobalConfig.inboundConfig.socksSettings.localIP);
                     socksInBoundObject.insert("settings", socksInSettings);
                     inboundsList.append(socksInBoundObject);
                 }
@@ -357,15 +358,15 @@ namespace Qv2ray::core::connection
                 if (GlobalConfig.inboundConfig.useTPROXY)
                 {
                     INBOUND tproxyInBoundObject;
-                    tproxyInBoundObject.insert("listen", GlobalConfig.inboundConfig.tproxy_ip);
-                    tproxyInBoundObject.insert("port", GlobalConfig.inboundConfig.tproxy_port);
+                    tproxyInBoundObject.insert("listen", GlobalConfig.inboundConfig.tProxySettings.tProxyIP);
+                    tproxyInBoundObject.insert("port", GlobalConfig.inboundConfig.tProxySettings.port);
                     tproxyInBoundObject.insert("protocol", "dokodemo-door");
                     tproxyInBoundObject.insert("tag", "tproxy_IN");
 
                     QList<QString> networks;
-                    if (GlobalConfig.inboundConfig.tproxy_use_tcp)
+                    if (GlobalConfig.inboundConfig.tProxySettings.hasTCP)
                         networks << "tcp";
-                    if (GlobalConfig.inboundConfig.tproxy_use_udp)
+                    if (GlobalConfig.inboundConfig.tProxySettings.hasUDP)
                         networks << "udp";
                     const auto tproxy_network = networks.join(",");
 
@@ -376,7 +377,8 @@ namespace Qv2ray::core::connection
                     tproxyInBoundObject.insert("sniffing", tproxy_sniff);
                     //                    tproxyInBoundObject.insert("sniffing", sniffingObject);
 
-                    QJsonObject tproxy_streamSettings{ { "sockopt", QJsonObject{ { "tproxy", GlobalConfig.inboundConfig.tproxy_mode } } } };
+                    QJsonObject tproxy_streamSettings{ { "sockopt",
+                                                         QJsonObject{ { "tproxy", GlobalConfig.inboundConfig.tProxySettings.mode } } } };
                     tproxyInBoundObject.insert("streamSettings", tproxy_streamSettings);
 
                     inboundsList.append(tproxyInBoundObject);
@@ -524,7 +526,7 @@ namespace Qv2ray::core::connection
                 root["outbounds"] = outbounds;
 
                 // intercepet dns if necessary
-                if (GlobalConfig.inboundConfig.useTPROXY && GlobalConfig.inboundConfig.dnsIntercept)
+                if (GlobalConfig.inboundConfig.useTPROXY && GlobalConfig.inboundConfig.tProxySettings.dnsIntercept)
                 {
                     DNSInterceptFilter(root);
                 }
